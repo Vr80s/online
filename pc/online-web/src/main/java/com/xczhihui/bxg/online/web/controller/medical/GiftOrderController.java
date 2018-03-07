@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.medical.anchor.service.IGiftOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/medical/order/gift")
-public class GiftOrderController {
+public class GiftOrderController extends AbstractController{
 
     @Autowired
     private IGiftOrderService giftOrderService;
@@ -69,10 +70,7 @@ public class GiftOrderController {
      * 获取用户id
      */
     private String getCurrentUserId(HttpServletRequest request){
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            throw new RuntimeException("用户未登录");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         return loginUser.getId();
     }
 

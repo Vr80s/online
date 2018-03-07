@@ -2,25 +2,27 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.enums.DoctorType;
-import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/medical/doctor")
-public class DoctorController {
+public class DoctorController extends AbstractController{
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
@@ -225,10 +227,7 @@ public class DoctorController {
     @RequestMapping(value = "joinHospital", method = RequestMethod.POST)
     public ResponseObject joinHospital(MedicalDoctor medicalDoctor,HttpServletRequest request){
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctor.setUserId(currentUser.getUid());
         medicalDoctorBusinessService.joinHospital(medicalDoctor);
@@ -242,10 +241,7 @@ public class DoctorController {
     @RequestMapping(value = "getWorkTime", method = RequestMethod.GET)
     public ResponseObject getWorkTime(Integer type, HttpServletRequest request){
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         String workTime = medicalDoctorBusinessService.getWorkTimeById(currentUser.getUid(), type);
         return ResponseObject.newSuccessResponseObject(workTime);
@@ -259,10 +255,7 @@ public class DoctorController {
     public ResponseObject update(MedicalDoctor doctor, HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctorBusinessService.update(currentUser.getUid(), doctor);
         return ResponseObject.newSuccessResponseObject("修改成功");
@@ -282,10 +275,7 @@ public class DoctorController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request){
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctor.setUserId(currentUser.getUid());
         medicalDoctorBusinessService.add(medicalDoctor);
@@ -298,10 +288,7 @@ public class DoctorController {
     @RequestMapping(value = "getHospital", method = RequestMethod.GET)
     public ResponseObject getHospital(HttpServletRequest request){
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHospital(currentUser.getUid()));
     }

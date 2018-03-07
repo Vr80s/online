@@ -7,6 +7,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.medical.common.service.ICommonService;
@@ -20,11 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.List;
 
 @RestController
 @RequestMapping("/medical/common")
-public class CommonController {
+public class CommonController extends AbstractController{
 
     @Autowired
     private ICommonService commonService;
@@ -68,18 +68,11 @@ public class CommonController {
      */
     @RequestMapping(value = "/isDoctorOrHospital", method = RequestMethod.GET)
     public ResponseObject isDoctorOrHospital(HttpServletRequest request) throws ServletRequestBindingException, IOException {
-
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
-
         Integer result = commonService.isDoctorOrHospital(currentUser.getUid());
-
         return ResponseObject.newSuccessResponseObject(result);
-
     }
 
 

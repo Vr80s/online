@@ -2,10 +2,9 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.MedicalDepartment;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
@@ -27,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping(value = "/medical/doctor/apply")
-public class DoctorApplyController {
+public class DoctorApplyController extends AbstractController{
 
     @Autowired
     private IMedicalDoctorApplyService applyService;
@@ -54,10 +53,7 @@ public class DoctorApplyController {
         }
 
         // 获取发起申请的医师的id
-        OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
 
         target.setUserId(currentUser.getUid());
@@ -75,10 +71,7 @@ public class DoctorApplyController {
     public ResponseObject getLastOne(HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(applyService.getLastOne(userService.getUserData(loginUser).getUid()));
     }
 
