@@ -41,7 +41,7 @@
 			<p class="speak_title">{{gradeName}}</p>
 			<p class="speak-text">{{subtitle}}</p>
 			<div class="wrap_grade" onclick="btn_allComment()">
-				<ul class="grade_pic z">
+				<ul class="grade_pic">
 					<li>
 						{{if startLevel == 0 || startLevel == null}}
 						<img src="../images/xing0.png"/>
@@ -64,14 +64,11 @@
 						{{else if startLevel == 4.5}}
 						<img src="../images/xing4_5.png"/>
 						{{else if startLevel == 5}}
-						<img src="../images/xing5.png"/>
-					
+						<img src="../images/xing5.png"/>					
 						{{/if}}
+						<a href="javascript:;">{{criticizeCount}}评论</a>
+						<img class="jiantou" src="../images/video_review.png"/>
 					</li>
-				</ul>
-				<ul class="grade_num y">
-					<li><a href="javascript:;">{{criticizeCount}}评论</a></li>
-					<li><img src="../images/video_review.png"/></li>
 				</ul>
 			</div>
 		</script>
@@ -90,7 +87,7 @@
 				<ul class="playTime z" style="border-bottom: 0;">
 					<li style="float: left;">
 						<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
-						<span>直播时间：{{startTime}}&nbsp;&nbsp;</span>
+						<span>直播时间：{{startTime.slice(0,16)}}&nbsp;&nbsp;</span>
 						{{if lineState == 1}}
 						<p>直播中</p>
 						{{/if}}

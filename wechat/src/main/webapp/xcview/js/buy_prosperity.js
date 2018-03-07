@@ -75,6 +75,8 @@ $(".check_one span").click(function(){
 //	location.href="/xcview/html/home_page.html";
 //})
 $(".check_two span").click(function(){
+	
+	  sessionStorage.setItem("school_index",1);	
 	location.href="/xcview/html/home_page.html";
 })
 
