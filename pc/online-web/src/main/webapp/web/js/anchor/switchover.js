@@ -29,12 +29,12 @@ $(function(){
 	    $(".curriculum_one").hide();
 	    $(".curriculum_two").show();
 	    
-	    $(".courseP").addClass("activeP");
-	    $(".specialP").removeClass("activeP");
-	    $(".liveP").removeClass("activeP");
-	    $(".schedulingP").removeClass("activeP");
-	    $(".resourceP").removeClass("activeP");
-	    
+//	    $(".courseP").addClass("activeP");
+//	    $(".specialP").removeClass("activeP");
+//	    $(".liveP").removeClass("activeP");
+//	    $(".schedulingP").removeClass("activeP");
+//	    $(".resourceP").removeClass("activeP");
+	    $('.courseP ').click()
 	    
 	    
 //	    alert(135214);
