@@ -49,6 +49,7 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  oc.courseType AS courseType,\n" +
 				 "  COUNT(og.id) AS countGradeNum,\n" +
 				 "  oc.is_recommend,\n" +
+				 "  oc.start_time as startTime,\n" +
 				 "  oc.course_type AS serviceType,\n" +
 				 "  oc.user_lecturer_id AS userLecturerId,\n" +
 				 "  ou.`name` lecturerName,\n" +

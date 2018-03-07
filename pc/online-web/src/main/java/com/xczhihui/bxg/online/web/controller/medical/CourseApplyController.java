@@ -4,14 +4,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
-import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -30,12 +28,10 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @RequestMapping(value = "/anchor/course")
-public class CourseApplyController {
+public class CourseApplyController extends AbstractController {
 
     @Autowired
     private ICourseApplyService courseApplyService;
-    @Autowired
-    private RedissonUtil redissonUtil;
 
     /**
      * Description：分页获取课程申请列表
@@ -66,7 +62,7 @@ public class CourseApplyController {
         Page<CourseApplyInfoVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectCollectionApplyPage(page,user.getId(),multimediaType,title));
     }
 
@@ -81,7 +77,7 @@ public class CourseApplyController {
         Page<CourseApplyInfoVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectLiveApplyPage(page,user.getId(),title));
     }
 
@@ -93,19 +89,19 @@ public class CourseApplyController {
      **/
     @RequestMapping(value = "/getAllCourseResources",method= RequestMethod.GET)
     public ResponseObject getAllCourseResources(HttpServletRequest request,Integer multimediaType){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourseResources(user.getId(),multimediaType));
     }
 
     @RequestMapping(value = "/getAllCourses",method= RequestMethod.GET)
     public ResponseObject getAllCourses(HttpServletRequest request,Integer multimediaType){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourses(user.getId(),multimediaType));
     }
 
     @RequestMapping(value = "/getCourseApplyById",method= RequestMethod.GET)
     public ResponseObject getCourseApplyById(HttpServletRequest request,Integer caiId){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseApplyById(user.getId(),caiId));
     }
 
@@ -120,7 +116,7 @@ public class CourseApplyController {
         Page<CourseApplyResourceVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseResourcePage(page,user.getId()));
     }
 
@@ -132,7 +128,7 @@ public class CourseApplyController {
      **/
     @RequestMapping(value = "/getCourseResourcePlayer",method= RequestMethod.GET)
     public ResponseObject getCourseResource(HttpServletRequest request,Integer resourceId){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseResourcePlayerById(user.getId(),resourceId));
     }
 
@@ -144,7 +140,7 @@ public class CourseApplyController {
      **/
     @RequestMapping(value = "/saveCourseApply",method= RequestMethod.POST)
     public ResponseObject saveCourseApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.saveCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
@@ -158,7 +154,7 @@ public class CourseApplyController {
      **/
     @RequestMapping(value = "/updateCourseApply",method= RequestMethod.POST)
     public ResponseObject updateCourseApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.updateCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
@@ -166,7 +162,7 @@ public class CourseApplyController {
 
     @RequestMapping(value = "/updateCollectionApply",method= RequestMethod.POST)
     public ResponseObject updateCollectionApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.updateCollectionApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
@@ -180,7 +176,7 @@ public class CourseApplyController {
      **/
     @RequestMapping(value = "/saveCollectionApply",method= RequestMethod.POST)
     public ResponseObject saveCollectionApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.saveCollectionApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
@@ -194,7 +190,7 @@ public class CourseApplyController {
      **/
     @RequestMapping(value = "/saveCourseResource",method= RequestMethod.POST)
     public ResponseObject saveCourseResource(HttpServletRequest request, @RequestBody CourseApplyResource courseApplyResource){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         courseApplyResource.setUserId(user.getId());
         courseApplyService.saveCourseApplyResource(courseApplyResource);
         return ResponseObject.newSuccessResponseObject("保存成功");
@@ -208,7 +204,7 @@ public class CourseApplyController {
      **/
     @RequestMapping(value = "/deleteCourseResource",method= RequestMethod.POST)
     public ResponseObject deleteCourseResource(HttpServletRequest request, String resourceId){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         courseApplyService.deleteCourseApplyResource(user.getId(),resourceId);
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
@@ -221,7 +217,7 @@ public class CourseApplyController {
      **/
     @RequestMapping(value = "/deleteCourseApplyById")
     public ResponseObject deleteCourseApplyById(HttpServletRequest request, Integer caiId){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         courseApplyService.deleteCourseApplyById(user.getId(),caiId);
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
@@ -248,10 +244,10 @@ public class CourseApplyController {
      * @Date: 下午 9:45 2018/2/1 0001
      **/
     @RequestMapping(value = "getVhallInfo")
-    public ResponseObject getVhallInfo(HttpServletRequest request,String webinarId) {
+    public ResponseObject getVhallInfo(HttpServletRequest request) {
         ResponseObject responseObj = new ResponseObject();
         Map vhallInfo = new HashMap();
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         vhallInfo.put("vhallAccount","v"+user.getVhallId());
         vhallInfo.put("password",user.getVhallPass());
         responseObj.setSuccess(true);
@@ -268,7 +264,7 @@ public class CourseApplyController {
     @RequestMapping(value = "changeSaleState", method = RequestMethod.POST)
     public ResponseObject changeSaleState(HttpServletRequest request,String courseApplyId,Integer state) {
         ResponseObject responseObj = new ResponseObject();
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getOnlineUser(request);
         courseApplyService.updateSaleState(user.getId(),courseApplyId,state);
         responseObj.setSuccess(true);
         if(state==1){

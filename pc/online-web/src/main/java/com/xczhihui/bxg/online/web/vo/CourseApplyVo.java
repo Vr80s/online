@@ -66,6 +66,8 @@ public class CourseApplyVo {
     private int onlineCourse;
 
     private String directId;
+    //主播id
+    private  String userLecturerId;
 
     public Boolean getCollection() {
         return collection;
@@ -186,5 +188,13 @@ public class CourseApplyVo {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserLecturerId() {
+        return userLecturerId;
+    }
+
+    public void setUserLecturerId(String userLecturerId) {
+        this.userLecturerId = userLecturerId;
     }
 }

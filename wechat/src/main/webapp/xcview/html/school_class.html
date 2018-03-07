@@ -38,7 +38,7 @@
 			<p class="speak_title">{{gradeName}}</p>
 			<p class="speak-text">{{subtitle}}</p>
 			<div class="wrap_grade" onclick="btn_allComment()">
-				<ul class="grade_pic z">
+				<ul class="grade_pic">
 					<li>
 						{{if startLevel == 0 || startLevel == null}}
 						<img src="../images/xing0.png"/>
@@ -64,11 +64,9 @@
 						<img src="../images/xing5.png"/>
 					
 						{{/if}}
+						<a href="javascript:;">{{criticizeCount}}评论</a>
+						<img class="jiantou" src="../images/video_review.png"/>
 					</li>
-				</ul>
-				<ul class="grade_num y">
-					<li><a href="javascript:;">{{criticizeCount}}评论</a></li>
-					<li><img src="../images/video_review.png"/></li>
 				</ul>
 			</div>
 		</script>

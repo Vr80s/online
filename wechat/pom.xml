@@ -9,9 +9,9 @@
 	</parent>
 
 	<artifactId>wechat</artifactId>
-	<name>wechat_new</name>
+	<name>wechat</name>
 	<packaging>war</packaging>
-	<url>http://viedo.ixincheng.com</url>
+	<url>http://www.ipandatcm.com</url>
 
 	<properties>
 		<encoding>UTF-8</encoding>
