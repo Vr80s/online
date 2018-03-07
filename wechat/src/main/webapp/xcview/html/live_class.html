@@ -40,8 +40,8 @@
 		<script type="text/html" id="data_people">	
 			<p class="speak_title">{{gradeName}}</p>
 			<p class="speak-text">{{subtitle}}</p>
-			<div class="wrap_grade">
-				<ul class="grade_pic z">
+			<div class="wrap_grade" onclick="btn_allComment()">
+				<ul class="grade_pic">
 					<li>
 						{{if startLevel == 0 || startLevel == null}}
 						<img src="../images/xing0.png"/>
@@ -67,12 +67,11 @@
 						<img src="../images/xing5.png"/>
 					
 						{{/if}}
+						<a href="javascript:;">{{criticizeCount}}评论</a>
+						<img class="jiantou" src="../images/video_review.png"/>
 					</li>
 				</ul>
-				<ul class="grade_num y" onclick="btn_allComment()">
-					<li><a href="javascript:;">{{criticizeCount}}评论</a></li>
-					<li><img src="../images/video_review.png"/></li>
-				</ul>
+			
 			</div>
 		</script>
 	</div>
@@ -90,7 +89,7 @@
 		<ul class="playTime z">
 			<li style="float: left;">
 				<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
-				<span class="">开课时间：{{startTime}} - {{endTime}}</span>
+				<span class="">开课时间：{{startTime.slice(0,16)}} - {{endTime.slice(0,16)}}</span>
 
 			</li>
 		</ul>
