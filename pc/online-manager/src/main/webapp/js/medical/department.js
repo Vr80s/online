@@ -238,7 +238,7 @@ function openShow(obj){
 	var row = scoreTypeTable.fnGetData(oo); // get datarow
 	$("#show_menuName").text(row.name);
 	$("#show_createPerson").text(row.createPerson);
-	$("#show_createTime").text(row.createTime);
+	$("#show_createTime").text(getLocalTime(row.createTime));
 	$("#show_status").text(row.status=="1"?"已启用":"已禁用");
 	$("#show_remark").text(row.remark);
 	var dialog = openDialogNoBtnName("previewCloudClasMenuDialog","previewCloudClasMenuDialogDiv","查看科室",555,350,false,"确定",null);

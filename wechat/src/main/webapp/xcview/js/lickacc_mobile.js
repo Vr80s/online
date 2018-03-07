@@ -85,7 +85,7 @@ function check_login(obj){
 		
 		if(data_title == "mobile"){
 			location.href ='phone_number.html';
-		}else if(data-title == "password"){
+		}else if(data_title == "password"){
 			location.href ='amend.html';
 		}
 	} 

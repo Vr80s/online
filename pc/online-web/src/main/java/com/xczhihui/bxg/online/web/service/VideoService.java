@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 
 /**
@@ -38,7 +39,7 @@ public interface VideoService {
      * @param videoId 视频ID
      * @return
      */
-    public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize);
+    public Page<Criticize> getVideoCriticize(String videoId, Integer name, Integer pageNumber, Integer pageSize, String userId);
     /**
      * 提交评论
      */

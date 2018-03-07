@@ -515,6 +515,16 @@
 			        <div class="profile-info-row" >
 			            <table frame=void >
 			                <tr>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_isRecommend" id="search_isRecommend" value="" class="propertyValue1" >
+											<option value="">是否已推荐</option>
+											<option value="1">已推荐</option>
+											<option value="0">未推荐</option>
+										</select>
+										<input type="hidden" value="search_isRecommend" class="propertyName"/>
+									</div>
+								</td>
 			                	<td>
 			                		<div class="profile-info-value searchTr">
 										<select name="search_city" id="search_city" value="" class="propertyValue1" >
