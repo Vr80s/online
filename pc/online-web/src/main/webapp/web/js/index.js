@@ -520,6 +520,8 @@ function fenye(currentPage,numberOfPages,totalPages){
 				numberOfPages = 5;
 			}else if(numberOfPages <= 1){
 				$('.zhongyi').addClass('hide');
+			}else{
+				$('.zhongyi').removeClass('hide');
 			}
 			//分页结构结合数据渲染部分
 			$('.zhongyi .pagination').bootstrapPaginator({
