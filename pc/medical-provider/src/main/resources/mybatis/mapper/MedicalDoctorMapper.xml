@@ -69,11 +69,11 @@
 		ON md.`authentication_information_id` = mdai.`id`
 		LEFT JOIN `medical_hospital_doctor` mhd
 		ON mhd.`doctor_id` = md.`id`
+		AND mhd.`deleted`=0
 		LEFT JOIN `medical_hospital` mh
 		ON mhd.`hospital_id` = mh.`id`
 		WHERE md.deleted = 0
 		AND md.status = 1
-		AND mhd.`deleted`=0
 		AND md.id = #{id}
 	</select>
 
