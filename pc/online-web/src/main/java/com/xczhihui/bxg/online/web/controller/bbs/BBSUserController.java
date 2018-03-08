@@ -110,7 +110,7 @@ public class BBSUserController extends OnlineBaseController {
 					boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", username);
 					boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",username);
 					if (!ism && !ise) {
-						return ResponseObject.newErrorResponseObject("请用手机或邮箱登陆");
+						return ResponseObject.newErrorResponseObject("请用手机或邮箱登录");
 					}
 
 					ItcastUser u = this.userCenterAPI.getUser(username);
@@ -305,7 +305,7 @@ public class BBSUserController extends OnlineBaseController {
 
 
 	/**
-	 * 是否登陆
+	 * 是否登录
 	 * @return
 	 */
 	@RequestMapping(value = "isAlive")
@@ -316,7 +316,7 @@ public class BBSUserController extends OnlineBaseController {
 	}
 
 	/**
-	 * 登陆状态
+	 * 登录状态
 	 * @return
 	 */
 	@RequestMapping(value = "loginStatus")
@@ -629,7 +629,7 @@ public class BBSUserController extends OnlineBaseController {
 	@RequestMapping(value = "updateHeadPhoto")
 	@ResponseBody
 	public ResponseObject updateHeadPhoto(HttpServletRequest request) throws ServletRequestBindingException, IOException {
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
 
 		String content = ServletRequestUtils.getRequiredStringParameter(request, "image");
@@ -821,7 +821,7 @@ public class BBSUserController extends OnlineBaseController {
 	@RequestMapping(value = "bindcount",method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject bindCount(HttpServletRequest request,HttpServletResponse response,String username){
-		//获取当前登陆用户信息(三方登录用户)
+		//获取当前登录用户信息(三方登录用户)
 		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		if(onlineUser!=null) {
 			ResponseObject obj = service.saveBindCount(username, onlineUser.getUnionId());

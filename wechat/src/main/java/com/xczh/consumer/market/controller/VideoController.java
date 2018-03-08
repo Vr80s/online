@@ -65,7 +65,7 @@ public class VideoController {
 		}
 		Integer courseId = Integer.parseInt((req.getParameter("courseId")));
 //		String userId = req.getParameter("userId");
-//		//获取当前登陆用户信息
+//		//获取当前登录用户信息
 //        OnlineUser user = cacheService.get(userId);
 //        if(user ==null){
 //        	return ResponseObject.newErrorResponseObject("登录失效");

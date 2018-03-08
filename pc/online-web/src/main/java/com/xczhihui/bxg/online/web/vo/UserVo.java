@@ -22,7 +22,7 @@ public class UserVo {
      */
     private String autograph;
     /**
-     *e登陆账号
+     *e登录账号
      */
     private String loginName;
     /**

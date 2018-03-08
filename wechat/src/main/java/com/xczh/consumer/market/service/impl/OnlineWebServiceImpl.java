@@ -75,7 +75,7 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	   }
 	
 	   /**
-	     * 查看当前登陆用户是否购买过当前课程 (音频和视频)
+	     * 查看当前登录用户是否购买过当前课程 (音频和视频)
 	     * @param courseId 课程id
 	     * @param userId
 	     * @return
@@ -92,7 +92,7 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	    }
 	    
 	    /**
-	     * 查看当前登陆用户是否购买过当前直播(直播)
+	     * 查看当前登录用户是否购买过当前直播(直播)
 	     * @param courseId 课程id
 	     * @param userId
 	     * @return

@@ -115,7 +115,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
     {
 
         String loginName="0";
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(loginUser !=null){
             loginName=loginUser.getLoginName();
@@ -166,7 +166,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      */
     @Override
     public void  saveAppraise(AppraiseVo appraiseVo, HttpServletRequest request){
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         appraiseVo.setUser_id(loginUser.getId());
         appraiseVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
@@ -193,7 +193,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("articleId",articleId);
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String user_id="-1";
         if(loginUser!= null ){
@@ -214,7 +214,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      */
     @Override
     public  Map<String,Object>   updatePraiseSum(Integer articleId, Integer praiseSum, HttpServletRequest request){
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
 
         Map<String,Object> resultMap = new HashMap<String,Object>();
@@ -248,7 +248,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      */
     @Override
     public  void   deleteAppraiseId(String appraiseId, HttpServletRequest request){
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("appraiseId",appraiseId);

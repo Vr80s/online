@@ -5,7 +5,7 @@ $(function(){
 	$('.forum').css('color','#000');
 	$('.path .doctor').addClass('select');
 	
-		//已有账号登陆之后进行的页面跳转
+		//已有账号登录之后进行的页面跳转
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true && $('.login').css('display') == 'block'){
 	       	if(data.resultObject == 1 ){

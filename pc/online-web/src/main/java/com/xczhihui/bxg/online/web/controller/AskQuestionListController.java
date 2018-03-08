@@ -135,7 +135,7 @@ public class AskQuestionListController {
     @RequestMapping(value = "/deleteQuestionById",method= RequestMethod.POST)
     public ResponseObject deleteQuestionById(String  questionId,HttpServletRequest request) {
 
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return    ResponseObject.newSuccessResponseObject(questionListService.deleteQuestionById(request,u,questionId));
     }

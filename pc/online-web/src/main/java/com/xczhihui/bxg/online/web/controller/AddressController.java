@@ -39,7 +39,7 @@ public class AddressController {
 	@ResponseBody
 	public ResponseObject getAddressAll(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(req);
 		if(u==null) {
             throw new RuntimeException("未登录");
@@ -58,7 +58,7 @@ public class AddressController {
 	public ResponseObject saveAddress(HttpServletRequest req,
 			HttpServletResponse res,@ModelAttribute UserAddressManagerVo udm)
 			throws Exception {
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser(req);
 		if(ou==null) {
             throw new RuntimeException("未登录");
@@ -84,7 +84,7 @@ public class AddressController {
 	@ResponseBody
 	public ResponseObject updateIsAcquies(HttpServletRequest req, HttpServletResponse res) throws SQLException {
 		String newId = req.getParameter("newId");
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser(req);
 		cityService.updateIsAcquies(newId, ou.getId());
 		return ResponseObject.newSuccessResponseObject("修改成功");
@@ -97,7 +97,7 @@ public class AddressController {
 	@ResponseBody
 	public ResponseObject deleteAddressById(HttpServletRequest req, HttpServletResponse res) throws SQLException {
 		String id = req.getParameter("id");
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser(req);
 		cityService.deleteAddressById(id, ou.getId());
 		return ResponseObject.newSuccessResponseObject("删除成功");

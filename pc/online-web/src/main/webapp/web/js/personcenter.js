@@ -247,7 +247,7 @@ $(function() {
 				})
 				$(".feedback-icon .btn").click(function(evt) {
 					RequestService("/online/user/isAlive", "get", null, function(data) {
-						if(!data.success) { //登陆判断
+						if(!data.success) { //登录判断
 							$('#login').modal('show');$('#login').css("display", "block");
 							localStorage.username = null;
 							localStorage.password = null;

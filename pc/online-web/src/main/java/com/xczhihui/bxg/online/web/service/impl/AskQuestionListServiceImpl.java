@@ -137,7 +137,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
             questionVo.setStrTime(TimeUtil.comparisonDate(questionVo.getCreate_time()));
             //未登录情况下： 控制此问题下回答信息是否显示 true 显示   false 未显示
             questionVo.setIsShowAnswer(questionVo.getAsk_limit() == 1 ? true : false);
-            //获取当前登陆用户信息
+            //获取当前登录用户信息
             OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
             if (loginUser != null) {
                 //查找用户收藏状态
@@ -147,7 +147,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
                 questionVo.setIsMyself(loginUser.getId().equals(questionVo.getUserId()) ? true : false);
                 /**
                  * 登录情况下： 控制此问题下回答信息是否显示 true 显示   false 未显示
-                 * 首先，当登陆用户针对当前学科有权限，那么他可以看到回答信息
+                 * 首先，当登录用户针对当前学科有权限，那么他可以看到回答信息
                  * 其次，当前登录用户没有当前学科的权限，用户购买此学科下的课程，他也可以看到回答信息
                  */
                 if (!questionVo.isShowAnswer()) {
@@ -214,7 +214,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      */
     @Override
     public String saveQuestion(AskQuestionVo qu, HttpServletRequest request) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         loginUser =  userDao.get(loginUser.getId(),OnlineUser.class);
         if (loginUser != null) {
@@ -226,7 +226,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
             questionListDao.saveQuestion(qu);
             return "提问成功!";
         }
-        return "请先登陆!";
+        return "请先登录!";
     }
 
 
@@ -306,7 +306,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      */
     @Override
     public Page<AskQuestionVo> findVideoQuestion(String videoId, Integer type, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
-         //获取当前登陆用户信息
+         //获取当前登录用户信息
          OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
          if(u != null){
              return  questionListDao.findVideoQuestion(videoId,type,pageNumber,pageSize,u);

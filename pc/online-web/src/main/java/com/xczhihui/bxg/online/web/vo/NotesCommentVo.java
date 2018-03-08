@@ -47,7 +47,7 @@ public class NotesCommentVo {
 	 */
 	private String target_user_id;
 	/**
-	 * 当前登陆用户的id
+	 * 当前登录用户的id
 	 */
 	private String user_id;
 	/**

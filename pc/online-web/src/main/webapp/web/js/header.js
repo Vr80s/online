@@ -755,7 +755,7 @@ if (myBrowser() == "IE55") {
         });
 
         function login(data, autoLogin) {
-            RequestService("/online/user/login", "POST", data, function (result) { //登陆/index.html   /online/user/login
+            RequestService("/online/user/login", "POST", data, function (result) { //登录/index.html   /online/user/login
                 if (result.success === true || result.success == undefined) {
                 
                 	
@@ -777,7 +777,7 @@ if (myBrowser() == "IE55") {
                     	window.location.href="/index.html";
                     }
                     
-                } else { //登陆错误提示
+                } else { //登录错误提示
                     $(".loginGroup .logout").css("display", "block");
                     errorMessage(result.errorMessage);
                     if (!flag) {
