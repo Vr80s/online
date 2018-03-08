@@ -431,11 +431,6 @@ function jump_play(id){
 	requestService("/xczh/course/details?courseId="+id,null,function(data) {
 		var userPlay=data.resultObject;
 		var falg =authenticationCooKie();
-		if (falg==1002){
-			location.href ="/xcview/html/cn_login.html";		
-		}else if (falg==1005) {
-			location.href ="/xcview/html/evpi.html";
-		}else{
 //收费的直播和即将直播未购买跳购买页	
 			if(userPlay.watchState==0 && userPlay.lineState==1){
 				location.href="school_play.html?course_id="+id	
@@ -506,7 +501,7 @@ function jump_play(id){
 			else{
 				location.href="school_play.html?course_id="+id				
 			}		
-		}
+		
 
 		
 	})
