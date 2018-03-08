@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.wechat.course.vo.OnlineUserVO;
 
 
@@ -27,7 +28,7 @@ public interface IMyInfoService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	List<Map<String,Object>> selectSettlementList(String id);
+	List<Map<String,Object>> selectSettlementList(Integer pageNumber,Integer pageSize,String id);
 
 	/**
 	 * 提现页面记录信息
@@ -38,7 +39,7 @@ public interface IMyInfoService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	List<Map<String,Object>> selectWithdrawalList(String id);
+	List<Map<String,Object>> selectWithdrawalList(Integer pageNumber,Integer pageSize,String id);
 
     /**
      * 更改用户信息
@@ -70,4 +71,6 @@ public interface IMyInfoService {
 	 *
 	 */
 	List<Map<String,Object>> hostInfoRec();
+
+	List<Map<String,Object>> findUserWallet(Integer pageNumber,Integer pageSize, String id);
 }

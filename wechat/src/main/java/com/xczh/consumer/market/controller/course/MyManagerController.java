@@ -5,14 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import org.apache.commons.lang.StringUtils;
-import org.redisson.api.RLock;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,6 +30,7 @@ import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
@@ -256,7 +254,11 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		return ResponseObject.newSuccessResponseObject(onlineOrderService.findUserWallet(pageNumber, pageSize, user.getId()));
+		
+		int num = (pageNumber - 1) * pageSize;
+		num = num < 0 ? 0 : num;
+		
+		return ResponseObject.newSuccessResponseObject(myInfoService.findUserWallet(num,pageSize, user.getId()));
 	}
 
 	/**
@@ -446,13 +448,10 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		/**
-		 * 查找出这个主播被购买的课程 --
-		 */
-		/**
-		 * 通过课程id查找这个课程送的礼物总额 --
-		 */
-		return ResponseObject.newSuccessResponseObject(myInfoService.selectSettlementList(user.getId()));
+		int num = (pageNumber - 1) * pageSize;
+		num = num < 0 ? 0 : num;
+		
+		return ResponseObject.newSuccessResponseObject(myInfoService.selectSettlementList(num,pageSize,user.getId()));
 	}
 
 	/**
@@ -475,7 +474,9 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		return ResponseObject.newSuccessResponseObject(myInfoService.selectWithdrawalList(user.getId()));
+		int num = (pageNumber - 1) * pageSize;
+		num = num < 0 ? 0 : num;
+		return ResponseObject.newSuccessResponseObject(myInfoService.selectWithdrawalList(num,pageSize,user.getId()));
 	}
 	
 	
