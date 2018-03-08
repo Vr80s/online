@@ -64,8 +64,16 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
 			
 			mui("#refreshContainer").on('tap', '.div5', function (event) {
 				var itemId5=$(this).attr("data-jump");
-	
-				location.href = "live_play.html?my_study="+itemId5;
+				location.href = "details.html?courseId="+itemId5;
+			});
+			mui("#refreshContainer").on('tap', '.div5_1', function (event) {
+				var itemId5_1=$(this).attr("data-jump");
+				location.href = "details.html?courseId="+itemId5_1;
+			});
+			mui("#refreshContainer").on('tap', '.div5_2', function (event) {
+				var itemId5_2=$(this).attr("data-jump");
+				location.href = "live_play.html?my_study="+itemId5_2;
+
 			});
 			mui("#refreshContainer").on('tap', '.div6', function (event) {
 				var itemId6=$(this).attr("data-jump");

@@ -1362,7 +1362,7 @@ footer{
 }
 .coze_cen_bg{
 	position: relative;
-	max-width: 10rem;
+	/*max-width: 10rem;*/
 	background: #fff;
 	/*border: 0.01rem solid #ccc;*/
 	float: left;
@@ -1385,6 +1385,9 @@ footer{
     height: 0.4rem;*/
 	vertical-align: middle;
 }
+.coze_cen_bg img{
+	vertical-align: middle;
+}
 
 .coze_cen_ri{
 	margin-bottom: 0.4rem;
@@ -1399,7 +1402,7 @@ footer{
 }
 .coze_cen_bg_ri{
 	position: relative;
-	max-width: 10rem;
+	/*max-width: 10rem;*/
 	background: #d1e3cd;
 	/*border: 0.01rem solid #ccc;*/
 	float: right;

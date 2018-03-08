@@ -259,7 +259,8 @@ function liveSchool(){
 					//点击课程跳转
                     mui("#refreshContainer").on('tap', '.liveCourseList', function (event) {
                         var data_jump=$(this).attr("data-jump");
-                        window.location.href="school_play.html?course_id="+data_jump+"";
+                        jump_play(data_jump)
+//                      window.location.href="school_play.html?course_id="+data_jump+"";
                     })
 				}else{
 					alert("网络异常");
@@ -426,19 +427,91 @@ function listenSchool(){
 //	})
 //}
 //学堂/直播课程跳转
-//function jump_play(id){
-//	requestService("/xczh/course/details?courseId="+id,null,function(data) {
-//			var userPlay=data.resultObject;
-//		if(userPlay.watchState==0 || userPlay.watchState==1){
-//			location.href="school_play.html?course_id="+id
-//		}else if(userPlay.watchState==2 || userPlay.watchState==3){
-//			location.href="live_play.html?my_study="+id									
-//			
-//		}
-//		
-//	})
-//}
-//学堂/直播课程跳转
+function jump_play(id){
+	requestService("/xczh/course/details?courseId="+id,null,function(data) {
+		var userPlay=data.resultObject;
+		var falg =authenticationCooKie();
+		if (falg==1002){
+			location.href ="/xcview/html/cn_login.html";		
+		}else if (falg==1005) {
+			location.href ="/xcview/html/evpi.html";
+		}else{
+//收费的直播和即将直播未购买跳购买页	
+			if(userPlay.watchState==0 && userPlay.lineState==1){
+				location.href="school_play.html?course_id="+id	
+			}else if(userPlay.watchState==0 && userPlay.lineState==2){
+				location.href="school_play.html?course_id="+id				
+			}
+//免费的直播和即将直播跳直播间		
+			else if(userPlay.watchState==1 && userPlay.lineState==1){
+				if (falg==1002){
+				location.href ="/xcview/html/cn_login.html";		
+				}else if (falg==1005) {
+					location.href ="/xcview/html/evpi.html";
+				}else{
+				requestService("/xczh/history/add",
+					{courseId:id}
+					,function(data) {
+		
+					})	
+				location.href="details.html?courseId="+id
+				}
+			}else if(userPlay.watchState==1 && userPlay.lineState==2){
+				if (falg==1002){
+						location.href ="/xcview/html/cn_login.html";		
+					}else if (falg==1005) {
+						location.href ="/xcview/html/evpi.html";
+					}else{
+						requestService("/xczh/history/add",
+							{courseId:id}
+							,function(data) {
+				
+							})	
+						location.href="details.html?courseId="+id	
+					}
+			}
+//购买后的直播和即将直播跳直播间
+			else if(userPlay.watchState==2 && userPlay.lineState==1){
+				requestService("/xczh/history/add",
+					{courseId:id}
+					,function(data) {
+		
+					})	
+				location.href="details.html?courseId="+id				
+			}else if(userPlay.watchState==2 && userPlay.lineState==2){
+				requestService("/xczh/history/add",
+					{courseId:id}
+					,function(data) {
+		
+					})	
+				location.href="details.html?courseId="+id				
+			}
+//主播本人自己的直播和即将直播跳直播间			
+			else if(userPlay.watchState==3 && userPlay.lineState==1){
+				requestService("/xczh/history/add",
+					{courseId:id}
+					,function(data) {
+		
+					})	
+				location.href="details.html?courseId="+id				
+			}else if(userPlay.watchState==3 && userPlay.lineState==2){
+				requestService("/xczh/history/add",
+					{courseId:id}
+					,function(data) {
+		
+					})	
+				location.href="details.html?courseId="+id				
+			}
+//跳到播放详情页			
+			else{
+				location.href="school_play.html?course_id="+id				
+			}		
+		}
+
+		
+	})
+}
+//学堂/直播听课跳转
 //function jump_listen(id){
 //	requestService("/xczh/course/details?courseId="+id,null,function(data) {
 //			var userListen=data.resultObject;

@@ -66,7 +66,7 @@ $(function () {
         if (ways == "register") {
             $(".register-button").trigger("click");
         }
-        /*登陆右边的叉*/
+        /*登录右边的叉*/
         var logUserInput = $(".login-content .userName"),
             logPassInput = $(".login-content .password");
         logUserInput.on("input", function () {
@@ -193,10 +193,10 @@ $(function () {
             login(data);
         });
         function login(data, autoLogin) {
-            RequestService("/online/user/login", "POST", data, function (result) { //登陆/index.html   /online/user/login
+            RequestService("/online/user/login", "POST", data, function (result) { //登录/index.html   /online/user/login
                 if (result.success === true || result.success == undefined) {
                     location.href = "/index.html";
-                } else { //登陆错误提示
+                } else { //登录错误提示
                     errorMessage(result.errorMessage);
                     if (!flag) {
                         if (result.errorMessage == "用户名密码错误！") {
@@ -631,7 +631,7 @@ $(function () {
             }
         });
         //登录框输入内容清空按钮出现，点击清空按钮内容清空自身消失 格式正确则显示绿色对勾
-        /*登陆右边的叉*/
+        /*登录右边的叉*/
         cymregInput.on("input", function () {
             var val = $(this).val();
             if (val == "") {

@@ -150,7 +150,7 @@ public class AskAnswerController {
 	 */
 	@RequestMapping(value = "/deleteAnswerById",method= RequestMethod.GET)
 	public ResponseObject deleteAnswerById(String  answerId,HttpServletRequest request) {
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		return ResponseObject.newSuccessResponseObject(service.deleteAnswerById(request, u, answerId));
 	}

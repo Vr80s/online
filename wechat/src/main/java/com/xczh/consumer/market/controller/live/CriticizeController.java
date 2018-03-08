@@ -105,7 +105,7 @@ public class CriticizeController {
     public ResponseObject updatePraise(HttpServletRequest request,
     		@RequestParam("criticizeId")String criticizeId,
     		@RequestParam("praise")Boolean praise) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if(user!=null) {
             Map<String, Object> returnMap = criticizeService.updatePraise(praise, criticizeId, user.getLoginName());
@@ -127,7 +127,7 @@ public class CriticizeController {
 	@ResponseBody
     public ResponseObject saveReply(HttpServletRequest request,String content, 
     		String criticizeId) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if(user!=null) {
         	

@@ -161,7 +161,7 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 	 */
 	@Override
     public List<Map> getQuestionMenuTags(HttpServletRequest request) throws InvocationTargetException, IllegalAccessException {
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		List<Map> resultList = new ArrayList<Map>();
 		//获取全部学科信息

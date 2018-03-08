@@ -62,7 +62,7 @@ public class AppealCourseController {
 		//查找所有的讲师
 		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
-			String str = "昵称:"+map.get("name").toString() + ",账号:"+map.get("logo").toString();
+			String str = "昵称:"+map.get("name").toString() + ",帐号:"+map.get("logo").toString();
 			map.put("name", str);
 		}
 		request.setAttribute("mapList", mapList);

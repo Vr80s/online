@@ -44,7 +44,7 @@ public class VideoController {
      */
     @RequestMapping(value = "/getVideos")
     public ResponseObject getVideos(HttpServletRequest request,String sectionId,String courseId,Boolean isTryLearn) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return ResponseObject.newSuccessResponseObject(videoService.getVideos(sectionId, courseId,user,isTryLearn));
     }
@@ -57,7 +57,7 @@ public class VideoController {
      */
     @RequestMapping(value = "/getvideos")
     public ResponseObject getvideos(HttpServletRequest request,Integer courseId,Boolean isTryLearn) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String userId = "";
         if(user!=null){
@@ -73,7 +73,7 @@ public class VideoController {
      */
     @RequestMapping(value = "/getVideoCriticize")
     public ResponseObject getVideoCriticize(HttpServletRequest request,Integer videoId,Integer pageNumber,Integer pageSize) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String userName = user==null? "" : user.getLoginName();
         CourseApplyVo cv = courseService.getCourseApplyByCourseId(videoId);
@@ -89,7 +89,7 @@ public class VideoController {
     @RequestMapping(value = "/saveCriticize",method = RequestMethod.POST)
     public ResponseObject saveCriticize(HttpServletRequest request,CriticizeVo criticizeVo){
         try {
-            //获取当前登陆用户信息
+            //获取当前登录用户信息
             OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
             if(user!=null) {
                 CourseApplyVo cv = courseService.getCourseApplyByCourseId(criticizeVo.getCourseId());
@@ -125,7 +125,7 @@ public class VideoController {
      */
     @RequestMapping(value = "/updatePraise",method = RequestMethod.POST)
     public ResponseObject updatePraise(HttpServletRequest request,Boolean isPraise, String criticizeId) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(user!=null) {
             Map<String, Object> returnMap = videoService.updatePraise(isPraise, criticizeId, user.getLoginName());
@@ -143,7 +143,7 @@ public class VideoController {
     @RequestMapping(value = "/updateStudyStatus",method = RequestMethod.POST)
     public ResponseObject updateStudyStatus(HttpServletRequest request,String studyStatus,String videoId) {
         try {
-            //获取当前登陆用户信息
+            //获取当前登录用户信息
             OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
             if(user!=null) {
                 videoService.updateStudyStatus(studyStatus, videoId, user.getId());

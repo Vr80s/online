@@ -9,7 +9,7 @@ public interface VerificationCodeService {
 	 *
 	 * 业务逻辑：
 	 * 1、动态码有效期XX分钟，XX分钟之内发送的动态码都一样
-	 * 2、同一账号两次发送间隔至少XX秒
+	 * 2、同一帐号两次发送间隔至少XX秒
 	 * 
 	 * @param username 用户名
 	 * @param vtype 动态码类型，1新注册，2找回密码

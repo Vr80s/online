@@ -12,7 +12,7 @@ import com.xczhihui.bxg.common.util.bean.TableVo;
 public interface ExceptionCenterService {
 	/**
 	 * 记录异常信息
-	 * @param createUserLoginName 当前操作用户的登陆名
+	 * @param createUserLoginName 当前操作用户的登录名
 	 * @param projectName 业务系统，dual/univ/online……
 	 * @param message 异常信息
 	 * @param content 异常堆栈信息

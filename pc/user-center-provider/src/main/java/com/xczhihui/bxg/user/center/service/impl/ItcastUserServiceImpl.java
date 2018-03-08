@@ -232,7 +232,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				throw new RuntimeException("手机号暂未注册");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("账号被禁用");
+				throw new RuntimeException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -259,7 +259,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				throw new RuntimeException("手机号暂未注册");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("账号被禁用");
+				throw new RuntimeException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -385,7 +385,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			throw new RuntimeException("用户名或密码错误");
 		}
 		if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-			throw new RuntimeException("账号被禁用");
+			throw new RuntimeException("帐号被禁用");
 		}
 		String salt = user.getSalt();
 		if (salt == null) {
@@ -418,7 +418,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				throw new RuntimeException("用户名或密码错误");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("账号被禁用");
+				throw new RuntimeException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {

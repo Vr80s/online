@@ -40,6 +40,7 @@
 			ON md.`authentication_information_id` = mdai.`id`
 		  LEFT JOIN `medical_hospital_doctor` mhd
 			ON mhd.`doctor_id` = md.`id`
+			AND mhd.`deleted`=0
 		  LEFT JOIN `medical_hospital` mh
 			ON mhd.`hospital_id` = mh.`id`
 		WHERE md.deleted = 0
@@ -92,12 +93,15 @@
 	<select id="getHotDepartment" resultType="com.xczhihui.medical.department.vo.MedicalDepartmentVO">
 		SELECT
 		  md.id,
-		  md.name
+		  md.name,
+		  COUNT(mdd.`department_id`)
 		FROM
 		  `medical_department` md
 		  JOIN `medical_doctor_department` mdd
 			ON md.`id` = mdd.`department_id`
-		WHERE md.`status`=1
+			AND mdd.`deleted`=0
+		WHERE md.`status` = 1
+		AND md.`deleted`=0
 		GROUP BY mdd.`department_id`
 		ORDER BY COUNT(mdd.`department_id`) DESC
 		LIMIT 0, 8
@@ -106,12 +110,9 @@
 	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
 		select
 		md.*,
-		mdai.head_portrait headPortrait,
-		mda.account_id as userId
+		mdai.head_portrait headPortrait
 		from
 		medical_doctor md
-		inner join medical_doctor_account as mda
-		    on md.id =  mda.doctor_id 
 		LEFT JOIN `medical_doctor_authentication_information` mdai
 			ON md.`authentication_information_id` = mdai.`id`
 		where md.deleted = 0
@@ -377,4 +378,43 @@
 		</set>
 	</update>
 
+	<select id="selectDoctorListCount" resultType="java.lang.Integer">
+		SELECT
+		count(md.id)
+		FROM
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+		ON md.`authentication_information_id` = mdai.`id`
+		LEFT JOIN `medical_hospital_doctor` mhd
+		ON mhd.`doctor_id` = md.`id`
+		AND mhd.`deleted`=0
+		LEFT JOIN `medical_hospital` mh
+		ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		AND md.status = 1
+		and md.type = #{type}
+	</select>
+	<select id="selectDoctorList4Random" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+		SELECT
+		md.*,
+		md.`work_time` workTime,
+		mdai.head_portrait headPortrait,
+		mh.`name` hospitalName
+		FROM
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+		ON md.`authentication_information_id` = mdai.`id`
+		LEFT JOIN `medical_hospital_doctor` mhd
+		ON mhd.`doctor_id` = md.`id`
+		AND mhd.`deleted`=0
+		LEFT JOIN `medical_hospital` mh
+		ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		AND md.status = 1
+		<if test="type != null and type != ''">
+			and md.type = #{type}
+		</if>
+		ORDER BY CONVERT(md.`name` USING gbk) ASC
+		LIMIT #{offset},#{rows}
+	</select>
 </mapper>

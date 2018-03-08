@@ -13,7 +13,7 @@ $(function() {
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_type","propertyValue1":"DESC","tempType":"String"}');
     var objData = [
-        {"title": "主播账号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
+        {"title": "主播帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "主播昵称", "class": "center", "width": "6%", "sortable": false, "data": 'name'},
         {"title": "总收入", "class": "center", "width": "8%", "sortable": false, "data": 'total'},
         {"title": "点播课收入", "class": "center", "width": "8%", "sortable": false, "data": 'vod'},

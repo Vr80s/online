@@ -9,24 +9,20 @@ import com.xczhihui.bxg.online.api.service.GiftService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.web.exception.NotSufficientFundsException;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
-import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 /** 
@@ -41,8 +37,6 @@ public class GiftController {
 
 	@Autowired
 	private GiftService giftService;
-	@Autowired
-	private RedissonUtil redissonUtil;
 
 	/**
 	 * Description：赠送礼物接口（做礼物赠送余额扣减和检验）

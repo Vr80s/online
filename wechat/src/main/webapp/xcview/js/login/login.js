@@ -13,7 +13,7 @@ if(stringnull(opendId)){
 //
 //var error = getQueryString("error");
 //if(stringnull(error)){
-//	alert("账号信息有误,重试或联系客户!");
+//	alert("帐号信息有误,重试或联系客户!");
 //}
 
 /**
@@ -155,7 +155,7 @@ function login(){
 //				}
 			}
 		} else {
-//			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>账号或密码错误</div></div></div>";
+//			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>帐号或密码错误</div></div></div>";
 //			setTimeout(function(){$(".vanish").hide();},1500);
 			webToast(data.errorMessage,"middle",1500);
 		}

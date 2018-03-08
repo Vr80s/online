@@ -30,7 +30,7 @@ public class BarrierServiceImpl  extends OnlineBaseServiceImpl implements Barrie
      */
     @Override
     public BarrierVo getBarrierBasicInfo(String id, Integer examStatu, HttpServletRequest request){
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return   dao.getBarrierBasicInfo(id, examStatu, u);
     }
@@ -292,7 +292,7 @@ public class BarrierServiceImpl  extends OnlineBaseServiceImpl implements Barrie
 	 */
 	@Override
     public BarrierVo  getNewBarrierBasicInfo(String id, HttpServletRequest request){
-		 //获取当前登陆用户信息
+		 //获取当前登录用户信息
 		 OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		 return  dao.getNewBarrierBasicInfo(id,u);
 	}

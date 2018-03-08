@@ -51,7 +51,7 @@ public class AskCommentVo  extends AskVo  {
 	 */
 	private boolean delete_button;
 	/**
-	 * 当前登陆用户的id
+	 * 当前登录用户的id
 	 */
 	private String user_id;
 

@@ -29,7 +29,7 @@ public class NotesServiceImpl implements NotesService{
     @Override
     public void saveOrUpdateNotes(HttpServletRequest request, NotesVo notes) {
         if(notes.getId()==null){
-            //获取当前登陆用户信息
+            //获取当前登录用户信息
             OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("id",user.getId());
@@ -49,7 +49,7 @@ public class NotesServiceImpl implements NotesService{
 
     @Override
     public Page<NotesVo> findNotes(HttpServletRequest request, String videoId,Integer type, Integer pageNumber, Integer pageSize) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String userId = "";
         if(user!=null){
@@ -60,28 +60,28 @@ public class NotesServiceImpl implements NotesService{
 
     @Override
     public void deleteNotes(HttpServletRequest request, String notes_id) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         notesDao.deleteNotes(request,user,notes_id);
     }
 
     @Override
     public Map<String,Object> updatePraise(HttpServletRequest request,String notes_id) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return notesDao.praise(notes_id,user);
     }
 
     @Override
     public boolean updateCollect(HttpServletRequest request,String notes_id) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return notesDao.updateCollect(notes_id,user);
     }
 
     @Override
     public Page<NotesCommentVo> findComments(HttpServletRequest request,String notes_id, Integer pageNumber, Integer pageSize) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String userId = "";
         if(user!=null){
@@ -92,7 +92,7 @@ public class NotesServiceImpl implements NotesService{
 
     @Override
     public void saveComment(HttpServletRequest request,NotesCommentVo nv) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         nv.setCreate_person(u.getLoginName());
         nv.setCreate_head_img(u.getSmallHeadPhoto());
@@ -103,7 +103,7 @@ public class NotesServiceImpl implements NotesService{
 
     @Override
     public void deleteComment(HttpServletRequest request, String comment_id) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         notesDao.deleteComment(request,user,comment_id);
     }

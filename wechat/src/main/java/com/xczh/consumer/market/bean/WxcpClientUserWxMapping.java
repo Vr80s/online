@@ -16,7 +16,7 @@ public class WxcpClientUserWxMapping implements Serializable {
 	/**会员id;**/
 	 private String client_id;
 
-	/**用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息，只有openid和UnionID（在该公众号绑定到了微信开放平台账号时才有）。**/
+	/**用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息，只有openid和UnionID（在该公众号绑定到了微信开放平台帐号时才有）。**/
 	 private String subscribe;
 
 	/**用户的标识，对当前公众号唯一**/

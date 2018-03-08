@@ -144,7 +144,7 @@
 				return false;
 			}
 			
-			//支付宝账号验证
+			//支付宝帐号验证
 			if($.trim(zfb_pay) == ""){
 				$(".eaccount").addClass('red')
 				$(".eaccount-warn").text('支付宝账号不能为空')

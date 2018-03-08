@@ -71,12 +71,12 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
             List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page, gradeName, start, end, courseForm, multimediaType);
 
             // 根据课程id获取：苹果扣除的总数，分成比例，课程获得总熊猫币
-            Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional = Optional.ofNullable(userCoinIncreaseVOList);
-            userCoinIncreaseVOListOptional.ifPresent(userCoinIncreaseVOs ->
-                    userCoinIncreaseVOs.stream()
-                            .filter(vo -> StringUtils.isNotBlank(vo.getCourseId()))
-                            .forEach(vo -> this.processUserCoinIncreaseVOList(vo, target))
-            );
+//            Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional = Optional.ofNullable(userCoinIncreaseVOList);
+//            userCoinIncreaseVOListOptional.ifPresent(userCoinIncreaseVOs ->
+//                    userCoinIncreaseVOs.stream()
+//                            .filter(vo -> StringUtils.isNotBlank(vo.getCourseId()))
+//                            .forEach(vo -> this.processUserCoinIncreaseVOList(vo, target))
+//            );
 
             page.setRecords(userCoinIncreaseVOList);
 
@@ -95,18 +95,19 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
         vo.setIosBrokerageValue(userCoinIncreaseMapper.sumIosBrokerageValueByCourseId(vo.getCourseId()));
 
         // 课程获得总熊猫币
+//        vo.setValue(userCoinIncreaseMapper.sumValueByCourseByUciId(vo.getId()));
         vo.setValue(userCoinIncreaseMapper.sumValueByCourse(vo.getCourseId()));
 
         // 根据课程类型获取分成比例
-        if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
-            vo.setPercent(target.getLiveDivide().toString().substring(0,2) + "%");
-        }
-        if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
-            vo.setPercent(target.getVodDivide().toString().substring(0,2) + "%");
-        }
-        if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
-            vo.setPercent(target.getOfflineDivide().toString().substring(0,2) + "%");
-        }
+//        if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
+//            vo.setPercent(target.getLiveDivide().toString().substring(0,2) + "%");
+//        }
+//        if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
+//            vo.setPercent(target.getVodDivide().toString().substring(0,2) + "%");
+//        }
+//        if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
+//            vo.setPercent(target.getOfflineDivide().toString().substring(0,2) + "%");
+//        }
     }
 
 }

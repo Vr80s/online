@@ -114,7 +114,7 @@ public class AskQuestionVo  extends AskVo  {
     private  Integer handleStatus;
 
 	/**
-	 * 登陆用户id
+	 * 登录用户id
 	 */
 	private String  userId;
 

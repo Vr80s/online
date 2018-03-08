@@ -13,7 +13,7 @@
 		loginInfo.account = loginInfo.account || '';
 		loginInfo.password = loginInfo.password || '';
 		if (loginInfo.account.length < 5) {
-			return callback('账号最短为 5 个字符');
+			return callback('帐号最短为 5 个字符');
 		}
 		if (loginInfo.password.length < 6) {
 			return callback('密码最短为 6 个字符');

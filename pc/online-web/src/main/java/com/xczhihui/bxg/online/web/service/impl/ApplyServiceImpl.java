@@ -48,7 +48,7 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
 	private String weburl;
     
     /**
-     *  判断当前登陆用户是否已经报名了
+     *  判断当前登录用户是否已经报名了
      *  报名成功，不向学员表添加数据(apply表),只要学员班级课程中间表添加数据
      *  未报名,向学员表添加数据,并向学员班级课程表中添加一条数据
      *

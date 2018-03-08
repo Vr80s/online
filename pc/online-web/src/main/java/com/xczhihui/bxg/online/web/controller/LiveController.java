@@ -58,7 +58,7 @@ public class LiveController {
 		
 		BxgUser u = UserLoginUtil.getLoginUser(request);
 		if (u == null) {
-			return ResponseObject.newErrorResponseObject("请登陆！");
+			return ResponseObject.newErrorResponseObject("请登录！");
 		}
 		
 		// 获得文件
