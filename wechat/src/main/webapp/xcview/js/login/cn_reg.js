@@ -70,9 +70,9 @@ document.getElementById("btn").addEventListener("tap", function() {
  * 点击注册
  */
 
-//mui(".last_cn").on('tap', '#enter_btn', function (event) {
+mui(".last_cn").on('tap', '#enter_btn', function (event) {
 	
-	$("#enter_btn").click(function(){
+//	$("#enter_btn").click(function(){
 	//这块是需要搞下用户协议的同意
 	
 	var agreementchecked = document.getElementById("checkbox1").checked;
