@@ -52,7 +52,7 @@ function getCoinTransactionList (current){
         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
         	$('.pandaTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无熊猫币交易记录</p></div>');
         }
-        debugger
+//      debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
@@ -103,7 +103,7 @@ function getRmbTransactionList (current){
         		$('.bankCard').eq(i).text($('.bankCard').eq(i).text().trim().replace(/^\d{15}/, '***** ***** **** ')) ;
         	}
         }
-        debugger
+//      debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
