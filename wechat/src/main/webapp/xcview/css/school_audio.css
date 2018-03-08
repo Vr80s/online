@@ -173,7 +173,7 @@ padding-bottom: 0.17rem;
 	
 	padding-right: 0.26rem;
     box-sizing: border-box;
-    width: 6.4rem;
+    /*width: 6.4rem;*/
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

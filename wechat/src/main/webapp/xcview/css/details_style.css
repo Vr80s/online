@@ -457,8 +457,8 @@ div.pinch-zoom,
 	line-height: 2.45rem;
 }
 .send_gifts .gifts_div{
-	width: 1.426rem;
-    height: 1.34rem;
+	width: 1.7rem;
+    height: 1.7rem;
 }
 
 .coze_cen_ri .span_name{
@@ -673,6 +673,8 @@ div.pinch-zoom,
     height: 0.9rem;
     background: url(../images/backicon.png) no-repeat;
     background-size: 100% 100%;
+    margin-left: 0.56rem;
+    margin-top: 0.52rem;
 }
 .fx_bg{
 	width: 0.894rem;
