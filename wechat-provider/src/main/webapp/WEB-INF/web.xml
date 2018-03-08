@@ -4,6 +4,13 @@
 
     <display-name>mybatisplus-spring-mvc</display-name>
 
+    <context-param>
+        <param-name>logbackConfigLocation</param-name>
+        <param-value>/WEB-INF/conf/logback.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>com.xczhihui.bxg.common.web.listener.LogbackConfigListener</listener-class>
+    </listener>
     <!-- 加载Spring配置文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
