@@ -184,7 +184,7 @@ $(function(){
     });
     
     	//右侧热门作者
-	    RequestService("/bxs/article/getHotArticle","GET",null,function(data){
+	    RequestService("/medical/doctor/getRecentlyNewsReports","GET",null,function(data){
 	        if(data.success==false || data.resultObject.length == 0){
 	           $('.report_right_read').addClass('hide')
 	        }else{

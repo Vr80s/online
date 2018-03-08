@@ -41,7 +41,8 @@ requestService(
 				videoId = result.directId;
 				watchState = result.watchState;
 				teacherId = result.userLecturerId; // 讲师Id
-				teacherName = result.name; // 讲师名
+//				teacherName = result.name; // 讲师名
+				teacherName = result.heir; // 上传人
 
 				$("#userId").val(result.userId);
 				$("#teacherId").val(result.userId);
