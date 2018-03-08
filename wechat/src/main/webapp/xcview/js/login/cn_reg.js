@@ -72,7 +72,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 
 mui(".last_cn").on('tap', '#enter_btn', function (event) {
 	
-	
+//	$("#enter_btn").click(function(){
 	//这块是需要搞下用户协议的同意
 	
 	var agreementchecked = document.getElementById("checkbox1").checked;
@@ -80,14 +80,9 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 //		reminderror.innerHTML = "";
 //		$(".web_toast").addClass("hide");
 		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
-//		$(".web_toast").addClass("hide");
 		
 		return false;
-	} /*else {
-		
-		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
-		return false;
-	}*/
+	} 
 	
 	
 	
@@ -95,13 +90,13 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 	var yanzhengma = document.getElementById("vcode").value;
 	var userpassword = document.getElementById("password").value; // 密码
 	
-	if(number != '' && yanzhengma != '' && userpassword != ''){
-//				$(".enter_btn").css("opacity","1");
-				$(".enter_btn").addClass("enter_btns");
-		}else{
-//				$(".enter_btn").css("opacity","0.3");
-				$(".enter_btn").removeClass("enter_btns");
-	}
+//	if(number != '' && yanzhengma != '' && userpassword != ''){
+////				$(".enter_btn").css("opacity","1");
+//				$(".enter_btn").addClass("enter_btns");
+//		}else{
+////				$(".enter_btn").css("opacity","0.3");
+//				$(".enter_btn").removeClass("enter_btns");
+//	}
 	
 	
 	

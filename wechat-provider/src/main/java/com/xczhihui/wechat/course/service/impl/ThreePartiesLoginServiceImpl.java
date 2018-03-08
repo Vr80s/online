@@ -56,13 +56,13 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 	}
 
 	@Override
-	public WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId,String uid) {
-		return weiboClientUserMappingMapper.selectWeiboClientUserMappingByUserId(userId, uid);
+	public WeiboClientUserMapping selectWeiboClientUserMappingByUserIdAndUid(String userId,String uid) {
+		return weiboClientUserMappingMapper.selectWeiboClientUserMappingByUserIdAndUid(userId, uid);
 	}
 
 	@Override
-	public QQClientUserMapping selectQQClientUserMappingByUserId(String userId,String unionId) {
-		return qqClientUserMappingMapper.selectQQClientUserMappingByUserId(userId, unionId);
+	public QQClientUserMapping selectQQClientUserMappingByUserIdAndUniondId(String userId,String unionId) {
+		return qqClientUserMappingMapper.selectQQClientUserMappingByUserIdAndUniondId(userId, unionId);
 	}
 
 	@Override
@@ -84,7 +84,6 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 	}
 	
 	
-	
 	@Override
 	public Map<String,Object> selectUserBindingInfo(String userId) {
 		
@@ -103,6 +102,17 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 	@Override
 	public QQClientUserMapping selectQQClientUserMappingByUserIdAndOpenId(String userId,String openId) {
 		return qqClientUserMappingMapper.selectQQClientUserMappingByUserIdAndOpenId(userId, openId);
+	}
+	
+	
+	@Override
+	public WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId) {
+		return weiboClientUserMappingMapper.selectWeiboClientUserMappingByUserId(userId);
+	}
+
+	@Override
+	public QQClientUserMapping selectQQClientUserMappingByUserId(String userId) {
+		return qqClientUserMappingMapper.selectQQClientUserMappingByUserId(userId);
 	}
 
 }

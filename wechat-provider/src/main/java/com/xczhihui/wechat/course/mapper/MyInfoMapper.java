@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.vo.OnlineUserVO;
 
@@ -38,7 +39,9 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 	 * @return List<Map<String,Object>>
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	List<Map<String, Object>> selectSettlementList(String userId);
+	List<Map<String, Object>> selectSettlementList(	@Param("pageNumber")Integer pageNumber,
+			@Param("pageSize")Integer pageSize,
+			@Param("userId")String userId);
 	
 	/**
 	 * 
@@ -49,7 +52,10 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	List<Map<String, Object>> selectWithdrawalList(String userId);
+	List<Map<String, Object>> selectWithdrawalList(
+			@Param("pageNumber")Integer pageNumber,
+			@Param("pageSize")Integer pageSize,
+			@Param("userId")String userId);
 	/**
 	 * 
 	 * Description：更改用户信息
@@ -79,4 +85,9 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 	 *
 	 */
 	List<Map<String, Object>> hostInfoRec();
+
+	List<Map<String, Object>> findUserWallet(
+			@Param("pageNumber")Integer pageNumber,
+			@Param("pageSize")Integer pageSize,
+			@Param("userId")String userId);
 }

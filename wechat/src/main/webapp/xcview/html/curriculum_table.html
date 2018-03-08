@@ -8,6 +8,8 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<!-- 网页自适应JS代码引入 -->
+<link rel="stylesheet" href="/xcviews/css/mui.min.css">
 <link rel="stylesheet" href="../css/curriculum_table.css?v=wechat_1.1.1" />
 </head>
 <body style="background: #F8F8F8;">
@@ -49,6 +51,10 @@
 	<div class="hint">
 		筛选：<span id="sxtj"></span>
 	</div>
+	
+	
+	
+	
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
 		<ul class="box01_list" style="position: relative; transition: left 0ms ease-out; width: 19200px; left: 0px;">
 			
@@ -79,8 +85,6 @@
 		</ul>
 
 	</div>
-	
-	
 	<!--点击筛选内容开始-->
 	<div class="btn_show">
 		<div class="btn_show_bg btn_show_main_close" style="display: block1;"></div>
@@ -201,6 +205,8 @@
 <script src="../js/table/jquery.min.js"></script>
 <script type="text/javascript" src="../js/table/touchslider.js"></script>
 <script type="text/javascript" src="/xcview/js/curriculum_table.js?v=wechat_1.1.1"></script>
+
+
 <script type="text/javascript">
 
 // 给li定义高度，配合css使li独立滚动
@@ -524,27 +530,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 // 		}
 //		console.log(historyTip[0])
 	</script>
-	
-	
-	
-	<script>
-		/**
-	 * 监听浏览器---》回退事件
-	 */
-		var counter = 0;
-		if (window.history && window.history.pushState) {
-		     $(window).on('popstate', function () {
-		                    window.history.pushState('forward', null, '#');
-		                    window.history.forward(1);
-		
-		                    location.href ='/xcview/html/search.html'
-		   });
-		}
-		window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
-		window.history.forward(1);
-	</script>
-	
-	
 	
 </html>
 

@@ -47,7 +47,7 @@ $(".success .three .three_btn1").click(function(){
 function removeBind(){
 	
 	var unionId = $("#weixin_bind").attr("data-title");
-	if(stringnull(type)){
+	if(stringnull(type) && type == 1){
 		$(".success").hide();
 	}else{
 		var unionId = $("#weixin_bind").attr("data-title");

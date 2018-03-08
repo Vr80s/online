@@ -10,10 +10,13 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/school_play.css" />
 <link rel="stylesheet" href="../css/share/share.css" />
-
-
-
-	
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}	
+	document.documentElement.style.fontSize=kk/7.5+"px"	
+</script>
 </head>
     
 <body style="background:#F8F8F8;">
@@ -413,11 +416,7 @@
 <script type="text/javascript" src="../js/school_play.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="../js/share/share.js?v=wechat_1.1.1"></script>
 <script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	document.documentElement.style.fontSize=kk/7.5+"px";	
+
 		//分享的信息
 var gradeName = "";
 var smallImgPath ="";

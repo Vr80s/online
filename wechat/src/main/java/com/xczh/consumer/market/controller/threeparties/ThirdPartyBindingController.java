@@ -144,30 +144,30 @@ public class ThirdPartyBindingController {
 				wxcpClientUserWxMappingService.update(m);
 				
 				
-				ItcastUser user = userCenterAPI.getUser(ou.getLoginName());
-				/**
+			/*	ItcastUser user = userCenterAPI.getUser(ou.getLoginName());
+				*//**
 				 * 更换过来这个微信号
-				 */
+				 *//*
 			    userCenterAPI.updatePasswordAndLoginName(user.getId(),unionId,WeihouInterfacesListUtil.MOREN_USER_PASSWORD);
 				ou.setLoginName(unionId);
-				onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
+				onlineUserService.updateOnlineUserAddPwdAndUserName(ou);*/
 				/**
 				 * 写入这个cookie
 				 */
-				ThridFalg tf = new ThridFalg(); 
-				tf.setOpenId(m.getOpenid());
+//				ThridFalg tf = new ThridFalg(); 
+/*				tf.setOpenId(m.getOpenid());
 				tf.setUnionId(m.getUnionid());
 				tf.setNickName(m.getNickname());
 				tf.setHeadImg(m.getHeadimgurl());
-				UCCookieUtil.writeThirdPartyCookie(res,tf);
+				UCCookieUtil.writeThirdPartyCookie(res,tf);*/
 				
 				
 			}else if(type==ThirdPartyType.QQ.getCode()){
-				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(), unionId);
+				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserIdAndOpenId(ou.getId(), unionId);
 		    	qq.setUserId("");
 		    	threePartiesLoginService.updateQQInfoAddUserId(qq);
 			}else if(type==ThirdPartyType.WEIBO.getCode()){
-				WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(), unionId);
+				WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserIdAndUid(ou.getId(), unionId);
 		    	weibo.setUserId("");
 		    	threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
 			}
@@ -205,11 +205,11 @@ public class ThirdPartyBindingController {
 				m.setClient_id("");
 				wxcpClientUserWxMappingService.update(m);
 			}else if(type==ThirdPartyType.QQ.getCode()){
-				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(), unionId);
+				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserIdAndOpenId(ou.getId(), unionId);
 		    	qq.setUserId("");
 		    	threePartiesLoginService.updateQQInfoAddUserId(qq);
 			}else if(type==ThirdPartyType.WEIBO.getCode()){
-				WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(), unionId);
+				WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserIdAndUid(ou.getId(), unionId);
 		    	weibo.setUserId("");
 		    	threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
 			}

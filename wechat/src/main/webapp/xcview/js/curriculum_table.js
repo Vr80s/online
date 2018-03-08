@@ -180,11 +180,9 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		paramsObj.city = city;
 		
 		if("全国课程"!=city){
-		
 			for (var int = 0; int < cityTypeArray.length; int++) {
 				var array_element = cityTypeArray[int];
 				if(city == array_element.name){
-					
 					$(".all_right_type_twos").find(".all_right_type_one").each(function(){
 						 var sx_city = $(this).text();
 						 if(city == sx_city){
@@ -196,7 +194,14 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 					break;
 				}
 			}
-			
+		}else{
+			$(".all_right_type_twos").find(".all_right_type_one").each(function(){
+				 var sx_city = $(this).text();
+				 if("其他" == sx_city){
+					 $(this).addClass("all_right_type_one_add");
+					 return;
+				 }
+			})
 		}
 	}
 	if(stringnull(lineState)){
@@ -272,6 +277,13 @@ function submit(){
 	var city = $(".all_mold3  .all_right_type_one_add").text();
 	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
 	
+	
+	
+	
+/*	paramsObj.pageNumber = num;
+	paramsObj.pageSize = 10;
+	paramsObj.downUp = "down";*/
+	
 	if(stringnull(menuType)){
 		paramsObj.menuType =menuType;
 	}else{
@@ -338,6 +350,7 @@ function submit(){
 		queryDataByParams(paramsObj,menuType);
 	}
 }
+
 
 
 
@@ -460,13 +473,17 @@ function queryDataByParams(params,data_type){
 	},false)
 }
 
+
 /**
  * 这里先请求出所有的
  */
-
 function typeQuery(){
 
     var menuType = $("[class='find_nav_cur'] a").attr("title");
+    
+//	paramsObj.pageNumber = 1;
+//	paramsObj.pageSize = 10;
+//	paramsObj.downUp = "down";
     
     if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
     	paramsObj.menuType= matching;
@@ -489,13 +506,96 @@ function getQueryString(key){
         var result = window.location.search.substr(1).match(reg);
         return result?decodeURIComponent(result[2]):null;
     }
-    var urlAttribute=getQueryString('queryKey')
-    if (urlAttribute=='' || urlAttribute== null) {
-    	
-    } else{
-   	$('.header_seek').append('<span>' + urlAttribute + '</span>');
-    	
-    }
+var urlAttribute=getQueryString('queryKey')
+if (urlAttribute=='' || urlAttribute== null) {
+	
+} else{
+$('.header_seek').append('<span>' + urlAttribute + '</span>');
+	
+}
+
+
+/**
+ * ************************************ 页面刷新下刷新事件
+ * **************************************************
+ */
+//mui.init();
+//mui.init({
+//	pullRefresh: {
+//		container: '#refreshContainer',
+//		down: {
+//			callback: pulldownRefresh
+//		},
+//		up: {
+//			contentrefresh: '正在加载...',
+//			callback: pullupRefresh
+//		}
+//	}
+//});
+//
+///**
+// * 下拉刷新
+// */
+//function pulldownRefresh() {
+//    num = 1;
+//    
+//    
+//  
+//    
+//    setTimeout(function() {
+//        //refresh(num,10,'down');
+//    	
+//    	    var menuType = $("[class='find_nav_cur'] a").attr("title");
+//    	    
+//    	    
+//    		paramsObj.pageNumber = num;
+//	    	paramsObj.pageSize = 10;
+//	    	paramsObj.downUp = "down";
+//    	    
+//    	    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
+//    	    	paramsObj.menuType= matching;
+//    	    	queryDataByParams(paramsObj);
+//    	    }else if(menuType!=0){
+//    	    	paramsObj.menuType= menuType;
+//    	        queryDataByParams(paramsObj,menuType);
+//    	    }else{
+//    	    	//删除这个条件
+//    	    	delete paramsObj.menuType;
+//    	    	queryDataByParams(paramsObj);
+//    	    }
+//    	
+//    }, 500);
+//};
+//var count = 0;
+///**
+// * 上拉加载具体业务实现
+// */
+//function pullupRefresh() {
+//    num++;
+//    setTimeout(function() {
+//    	
+//	    var menuType = $("[class='find_nav_cur'] a").attr("title");
+//	    paramsObj.pageNumber = num;
+//    	paramsObj.pageSize = 10;
+//    	paramsObj.downUp = "up";
+//   	    
+//   	    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
+//   	    	paramsObj.menuType= matching;
+//   	    	queryDataByParams(paramsObj);
+//   	    }else if(menuType!=0){
+//   	    	paramsObj.menuType= menuType;
+//   	        queryDataByParams(paramsObj,menuType);
+//   	    }else{
+//   	    	//删除这个条件
+//   	    	delete paramsObj.menuType;
+//   	    	queryDataByParams(paramsObj);
+//   	    }
+//    	
+//    	//queryDataByParams(num,10,'up');
+//    }, 500);
+//}
+
+
 
     
 //从分类跳转过来并在搜索框获取文字显示
