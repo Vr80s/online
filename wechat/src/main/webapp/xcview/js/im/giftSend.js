@@ -391,7 +391,7 @@ $(document).ready(function() {
                 autoLogin();
             }
         }else{
-            alert("余额不足");
+//          alert("余额不足");
             
 //          recharges.html?recharges_blck=2'
             location.href ='/xcview/html/recharges.html?recharges_blck=3'
