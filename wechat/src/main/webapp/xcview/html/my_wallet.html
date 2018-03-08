@@ -136,13 +136,10 @@
 										<span class="span0">{{item.subject}}</span>
 									</div>
 									<div class="record_course_right y">
-										{{if item.totalAmount > 0}}
-										<span class="span0"><span>+{{item.totalAmount}}</span></span>
-										<span class="span1">人民币</span>
-										{{else}}
+
 										<span class="span0"><span>{{item.totalAmount}}</span></span>
-										<span class="span1">熊猫币</span>
-										{{/if}}
+										<span class="span1">{{item.unit}}</span>
+
 									</div>
 									<div class="both"></div>
 									<div class="time">{{item.gmtCreate}}</div>
