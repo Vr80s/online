@@ -140,25 +140,74 @@ requestService("/xczh/host/hostPageInfo",{
 			$(".user_mywrite").html(data.resultObject.lecturerInfo.detail);
 		}
 //坐诊医馆及时间
+
 		if(data.resultObject.hospital==null){
 			data.resultObject.hospital={};
+			data.resultObject.hospital.has=false;
+		}else{
+			data.resultObject.hospital.has=true;
 		}
-		if(data.resultObject.hospital.name==null){
-			data.resultObject.hospital.name="暂无";
-		}
-		if(data.resultObject.hospital.tel==null){
-			data.resultObject.hospital.tel="暂无";
-		}
-		if(data.resultObject.hospital.detailedAddress==null){
-			data.resultObject.hospital.detailedAddress="暂无";
-		}
+//		if(data.resultObject.hospital.name==null){
+//			data.resultObject.hospital.name="";
+//		}
+//		if(data.resultObject.hospital.tel==null){
+//			data.resultObject.hospital.tel="";
+//		}
+//		if(data.resultObject.hospital.detailedAddress==null){
+//			data.resultObject.hospital.detailedAddress="";
+//		}
 		if(data.resultObject.lecturerInfo==null){
 			data.resultObject.lecturerInfo={};
 		}
 		if(data.resultObject.lecturerInfo.workTime==null){
-			data.resultObject.lecturerInfo.workTime="暂无";
+			data.resultObject.lecturerInfo.workTime="";
 		}
 		$("#sure_address").html(template('data_address',data.resultObject));
+		
+		if(!data.resultObject.hospital.has){
+			return;
+		}
+		$(".hid").removeClass("hide");
+		if(data.resultObject.hospital.name!=null){
+			$(".hid_name").removeClass("hide");
+		}
+		if(data.resultObject.hospital.tel!=null){
+			$(".hid_tel").removeClass("hide");
+		}
+		if(data.resultObject.hospital.detailedAddress!=null){
+			$(".hid_address").removeClass("hide");
+		}
+		if(data.resultObject.lecturerInfo!=null && data.resultObject.lecturerInfo.workTime!=null){
+			$(".hid_wtime").removeClass("hide");
+		}
+		
+		
+		
+		
+//		if ($(".address_all li:nth-child(3)").text("医馆地址："+"")&&$(".address_all li:nth-child(2)").text("联系电话："+"")&&$(".address_all li:nth-child(1)").text("医馆名称："+"")) {
+//			$(".wrap_vedio").hide()
+//		}
+//		if ($(".address_all li:nth-child(4)").text("医馆地址："+"")&&$(".address_all li:nth-child(3)").text("预约电话："+"")&&$(".address_all li:nth-child(2)").text("坐诊时间："+"")&&$(".address_all li:nth-child(1)").text("坐诊医馆："+"")) {
+//			$(".wrap_vedio").hide()
+//		}
+
+
+
+
+//
+//		if (data.resultObject.lecturerInfo.type == 2) {
+//			var noData=$(".address_all li").attr("data-show");
+//			if (noData== 1 && $(".address_all li:nth-child(1)").text("医馆名称："+"")) {
+//				$(".address_all li:nth-child(1)").hide()
+//			}if(noData== 3 && $(".address_all li:nth-child(2)").text("联系电话："+"")){
+//				$(".address_all li:nth-child(2)").hide()
+//				
+//			}
+//		}
+
+			
+
+
 });
 
 //主播课程

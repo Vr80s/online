@@ -1,7 +1,10 @@
 package com.xczh.consumer.market.dao;
 
 import com.xczh.consumer.market.bean.AlipayPaymentRecordH5;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.utils.JdbcUtil;
+
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
@@ -14,6 +17,23 @@ import java.sql.SQLException;
 public class AlipayPaymentRecordH5Mapper  extends BasicSimpleDao {
 
 
+	/**
+	 * Description：根据商户id查询支付宝交易记录
+	 * @param outTradeNo
+	 * @return
+	 * @throws SQLException
+	 * @return AlipayPaymentRecordH5
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public AlipayPaymentRecordH5 queryAlipayPaymentRecordH5ByOutTradeNo(String outTradeNo) throws SQLException {
+		 
+		String sql = "select *  from alipay_payment_record_h5 where out_trade_no = ? ";
+		Object params[] = {outTradeNo};
+		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
+				new BeanHandler<>(AlipayPaymentRecordH5.class),params);
+	}
+	
 
     public int insert(AlipayPaymentRecordH5 record) throws SQLException {
 

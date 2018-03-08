@@ -83,7 +83,7 @@
 				</div>
 				<span class="personal_title">{{gradeName}}</span>
 				<div class="personal_time cl">
-					<span>直播时间&nbsp;{{startTime}}</span>
+					<span>直播时间&nbsp;{{startTime.slice(0,16)}}</span>
 					{{if lineState == 1}}
 					<p>直播中</p>
 					{{else if lineState == 2}}
@@ -113,22 +113,22 @@
 		<div class="user_mywrite"></div>	
 	</div>
 	<!--认证医师/医馆地址-->
-	<div class="wrap_vedio" id="sure_address">
+	<div class="wrap_vedio hospital_info hid hide" id="sure_address">
 		<script type="text/html" id="data_address">
 			{{if lecturerInfo.type == 1}}
 				<span style="font-size: 0.32rem;">坐诊医馆及时间</span>
 					<ul class="address_all">
-						<li>坐诊医馆：{{hospital.name}}</li>
-						<li>坐诊时间：{{lecturerInfo.workTime}}</li>
-						<li>预约电话：{{hospital.tel}}</li>
-						<li>医馆地址：{{hospital.detailedAddress}}</li>
+						<li class="hid_name hide" >坐诊医馆：{{hospital.name}}</li>
+						<li class="hid_wtime hide">坐诊时间：{{lecturerInfo.workTime}}</li>
+						<li class="hid_tel hide">预约电话：{{hospital.tel}}</li>
+						<li class="hid_address hide">医馆地址：{{hospital.detailedAddress}}</li>
 					</ul>
 				{{else if lecturerInfo.type == 2}}
 				<span style="font-size: 0.32rem;">医馆</span>
 				<ul class="address_all">
-					<li>医馆名称：{{hospital.name}}</li>
-					<li>联系电话：{{hospital.tel}}</li>
-					<li>医馆地址：{{hospital.detailedAddress}}</li>
+					<li class="hid_name hide" >医馆名称：{{hospital.name}}</li>
+					<li class="hid_tel hide">联系电话：{{hospital.tel}}</li>
+					<li class="hid_address hide">医馆地址：{{hospital.detailedAddress}}</li>
 				</ul>
 			{{/if}}
 				

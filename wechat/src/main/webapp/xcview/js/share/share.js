@@ -239,10 +239,11 @@ if(is_weixn()){
 //    pics : smallImgPath  /*分享图片(可选)*/
 	
 	wx.ready(function () {
+		var d1 = description.replace(/&nbsp;/g,"");
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 		    title: '中医好课程' + '《' + gradeName + '》', // 分享标题
-		    desc: description, // 分享描述
+		    desc: d1, // 分享描述
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
 		    type: '', // 分享类型,music、video或link，不填默认为link
@@ -279,7 +280,7 @@ if(is_weixn()){
 	    //发送到qq  
 		wx.onMenuShareQQ({
 		    title: '中医好课程' + '《' + gradeName + '》', // 分享标题
-		    desc: description, // 分享描述
+		    desc: d1, // 分享描述
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
 		    success: function () {
