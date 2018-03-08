@@ -135,6 +135,7 @@ $('.select-udss .classResive').click(function(event){
 	$('#gift_Resive').addClass('hide');
 	$('#kecheng_Resive').removeClass('hide');
 	event.stopPropagation(); // 阻止事件冒泡
+	localStorage.AnchorsTbl_myResive = 'classResive';
 	
 })
 
@@ -149,6 +150,7 @@ $('.select-udss .giftResive').click(function(event){
 	$('#kecheng_Resive').addClass('hide');
 	$('#gift_Resive').removeClass('hide');
 	event.stopPropagation(); // 阻止事件冒泡
+	localStorage.AnchorsTbl_myResive = 'giftResive';
 })
 	
 	
@@ -186,6 +188,7 @@ $(".name_news").click(function() {
 //	隐藏个人信息内容
     $(".message_return").hide();
     $(".personal_details").hide();
+//  localStorage.AnchorsTbl_accountInf = 'name_news ';	
 });
 
 //点击个人信息  
