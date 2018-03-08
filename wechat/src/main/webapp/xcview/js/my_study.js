@@ -50,6 +50,7 @@ var all_history="";
 			$(template("data_my_class",{items:data.resultObject[0]})).appendTo("#my_class_box");
 			$(template("data_my_class",{items:data.resultObject[1]})).appendTo("#my_class_box");
 //点击播放视频后才开始记录播放历史	
+//直播中
 	$(".paly_ing_all").click(function(){
 			var courseId=$(this).attr("data-ppd");
 			requestService("/xczh/history/add",
@@ -59,7 +60,16 @@ var all_history="";
 			})	
 			location.href="details.html?courseId="+courseId
 		})
+//即将直播
+	$(".paly_ing_all_now").click(function(){
+			var courseId_now=$(this).attr("data-ppdnow");
+			requestService("/xczh/history/add",
+			{courseId:courseId_now}
+			,function(data) {
 
+			})	
+			location.href="details.html?courseId="+courseId_now
+		})
 	})	
 	
 //我关注的主播
