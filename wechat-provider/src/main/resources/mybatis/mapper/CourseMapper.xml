@@ -454,6 +454,7 @@
    				 DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
     		 AS lineState,
 			if(cai.`status`=1,(SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as  learndCount,
+			oc.direct_id as directId,
 			if(oc.start_time > DATE_SUB(NOW(),INTERVAL 1 HOUR),1,0) as isLive
 		 from 
 		    course_apply_info cai  
@@ -478,11 +479,12 @@
 		oc.city as city,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		'2' as courseType,
+		oc.release_time,
 		oc.is_recommend,oc.start_time,oc.create_time,
 		if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort
-		from oe_course oc
-		where oc.is_delete=0 and oc.status = 1 and oc.multimedia_type = 2
-		order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc LIMIT 0,12
+		from oe_course oc ,oe_user ou
+		where oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status = 1 and oc.multimedia_type = 2
+		order by  oc.is_recommend desc,recommend_sort desc,oc.release_time desc LIMIT 0,12
 	</select>
 	<!--  查看直播课程列表  -->
 	<select id="findLiveListInfo" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
@@ -500,8 +502,8 @@
 		if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,
 		if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,
 		'正在直播' as note
-		from oe_course c
-		where  c.is_delete=0 and c.status = 1 and c.type=1
+		from oe_course c ,oe_user ou
+		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
 		and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY)
 		order by  c.is_recommend DESC,recommend_sort DESC,c.start_time DESC LIMIT 0,12)
 
@@ -520,8 +522,8 @@
 		if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,
 		if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,
 		'即将直播' as note
-		from oe_course c
-		where  c.is_delete=0 and c.status = 1 and c.type=1
+		from oe_course c,oe_user ou
+		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
 		and c.live_status = 2 and c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now()
 		order by  c.is_recommend DESC,recommend_sort DESC,c.start_time asc LIMIT 0,4)
 
@@ -540,8 +542,8 @@
 		if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,
 		if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,
 		'直播课程' as note
-		from oe_course c
-		where  c.is_delete=0 and c.status = 1 and c.type=1
+		from oe_course c ,oe_user ou
+		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
 		and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY)
 		order by  c.is_recommend DESC,recommend_sort DESC,c.start_time asc LIMIT 0,4)
 
@@ -560,8 +562,8 @@
 		if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,
 		if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,
 		'精彩直播回放' as note
-		from oe_course c
-		where  c.is_delete=0 and c.status = 1 and c.type=1
+		from oe_course c,oe_user ou
+		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
 		and c.live_status = 3
 		order by  c.is_recommend DESC,recommend_sort DESC,c.start_time desc LIMIT 0,4)
 		]]>

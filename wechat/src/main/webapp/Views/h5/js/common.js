@@ -149,10 +149,11 @@ function isLoginJump(){
 	   */
 	  var before_address = document.referrer;
 	  if(before_address.indexOf("page/index")!=-1 || 
-			  before_address.indexOf("frequency.html")!=-1 || 
-			  	before_address.indexOf("personage.html")!=-1 || 
-			  		before_address.indexOf("index.html")!=-1 || 
-			  		before_address.indexOf("queryResult")!=-1){
+			  before_address.indexOf("bought.html")!=-1 ||   //购买
+			  	before_address.indexOf("home_page.html")!=-1 ||   //学堂
+			  		before_address.indexOf("my_study.html")!=-1 ||   //学习
+			  		before_address.indexOf("live_play.html")!=-1 ||   //直播展示页后面播放页
+			  		before_address.indexOf("live_personal.html")!=-1){  //主播页
 		  
 		  history.back(-1);
 	  }else{
@@ -160,7 +161,7 @@ function isLoginJump(){
 	  }
   }else{
 	  //登录页面
-	  location.href = "/bxg/page/login/1";
+	  location.href = "home_page.html";
   }
 }
 /**

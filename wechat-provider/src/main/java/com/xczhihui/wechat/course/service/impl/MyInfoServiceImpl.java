@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.user.center.bean.UserSex;
 import com.xczhihui.wechat.course.mapper.MyInfoMapper;
@@ -36,15 +37,14 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 	}
 
 	@Override
-	public List<Map<String, Object>> selectSettlementList(String userId) {
-		// TODO Auto-generated method stub
-		return myInfoMapper.selectSettlementList(userId);
+	public List<Map<String, Object>> selectSettlementList(Integer pageNumber,Integer pageSize,String userId) {
+		return myInfoMapper.selectSettlementList(pageNumber,pageSize,userId);
 	}
 
 	@Override
-	public List<Map<String, Object>> selectWithdrawalList(String userId) {
+	public List<Map<String, Object>> selectWithdrawalList(Integer pageNumber,Integer pageSize,String userId) {
 		// TODO Auto-generated method stub
-		return myInfoMapper.selectWithdrawalList(userId);
+		return myInfoMapper.selectWithdrawalList(pageNumber,pageSize,userId);
 	}
 
 	@Override
@@ -83,5 +83,12 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 	public List<Map<String, Object>> hostInfoRec() {
 		
 		return myInfoMapper.hostInfoRec();
+	}
+
+	@Override
+	public List<Map<String, Object>> findUserWallet(
+			Integer pageNumber,Integer pageSize, String id) {
+		List<Map<String, Object>>  page1 = 	myInfoMapper.findUserWallet(pageNumber,pageSize,id);
+		return page1;
 	}
 }

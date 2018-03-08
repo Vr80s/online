@@ -86,8 +86,8 @@ public class PayRecordMapper extends BasicSimpleDao {
 			+ "UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.time_end gmtCreate,truncate((apr.total_fee/100),2)*"+rate+" totalAmount "
     		+ " FROM wxcp_pay_flow apr WHERE user_id =?"
 			
-			// 所有熊猫币购买课程的记录    -- 单位就是熊猫币
-			+ " union select ucc.order_no_course as outTradeNo,'购买' as `subject`,ucc.create_time gmtCreate,ucc.value totalAmount "
+			// 所有熊猫币--》购买课程的记录    -- 单位就是熊猫币
+			+ " union select ucc.order_no_course as outTradeNo,'购买课程' as `subject`,ucc.create_time gmtCreate,ucc.value totalAmount "
 			+ "from user_coin_consumption ucc where ucc.user_id=? "
 			
 			//用户送礼产生的的记录   这就就全部都是礼物了    -- 单位也是熊猫币
@@ -95,6 +95,11 @@ public class PayRecordMapper extends BasicSimpleDao {
 			+ "from oe_gift_statement ogs where ogs.giver=? "
 			
 			+ ") r ORDER BY r.gmtCreate DESC";
+			
+			
+			
+			
+			
 			
 			Object[] params = new Object[]{userId,userId,userId,userId,userId};
 			List<PayRecordVo> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,PayRecordVo.class, params);

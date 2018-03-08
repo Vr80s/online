@@ -102,7 +102,7 @@ function whileSelectOrderStatus(){
 	}else{
 		requestService("/xczh/alipay/queryAlipayByOutTradeNo",{outTradeNo:getQueryString("outTradeNo")}, function(data) {
 			 if (data.success) {
-	            location.href=""+getQueryString("redirectUrl")+"";
+	            location.href=""+getQueryString("redirectUrl")+"&xmbCount="+getQueryString("xmbCount")+"";
 	         }
 		},false)
 	}

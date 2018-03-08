@@ -46,6 +46,15 @@ header{
 	color: #999999;
 	pointer-events: none;
 }
+.header_seek .span{
+    width: 1.6rem;
+    height: 1.276rem;
+    display: inherit;
+    background: #f0f0f0;
+    position: absolute;
+    z-index: 9;
+    border-radius: 25px 0px 0px 25px;
+}
 .header_seek_main img{
 	width: 0.766rem;
 	height: 0.766rem;

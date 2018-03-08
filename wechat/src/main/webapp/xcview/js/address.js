@@ -372,8 +372,10 @@ function deleteAddress(obj){
 				 $(obj).attr("title","");
 				 
 //				 alert("删除数据成功！");
-				$(".vanish").show();
-				setTimeout(function(){$(".vanish").hide();},1500);
+//				$(".vanish").show();
+//				setTimeout(function(){$(".vanish").hide();},1500);
+				webToast("删除成功","middle",1500);
+
 				 addressList();
 			} else {
 //			    alert("获取数据有误！");

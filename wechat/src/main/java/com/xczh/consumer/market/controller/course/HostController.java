@@ -24,6 +24,8 @@ import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import com.xczhihui.wechat.course.service.ICourseService;
@@ -62,7 +64,6 @@ public class HostController {
 	
 	@Autowired
 	private IMedicalHospitalApplyService medicalHospitalApplyService;
-	
 	
 	@Autowired
 	private ICourseService courseService;
@@ -105,6 +106,7 @@ public class HostController {
 		if(lecturerInfo == null){
 			return ResponseObject.newErrorResponseObject("获取医师信息有误");
 		}
+		
 		
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		MedicalHospital mha = null;
