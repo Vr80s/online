@@ -66,7 +66,7 @@ function removeBind(){
 
 
 
-//点击账号和绑定设置
+//点击帐号和绑定设置
 function check_login(obj){
 	var data_title =  $(obj).attr("data-title");
 	if(data_title == "mobile"){

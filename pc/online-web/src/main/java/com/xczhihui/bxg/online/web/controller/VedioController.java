@@ -43,7 +43,7 @@ public class VedioController {
 
 		BxgUser loginUser = UserLoginUtil.getLoginUser(req);
 		if (loginUser == null) {
-			return ResponseObject.newErrorResponseObject("请登陆！");
+			return ResponseObject.newErrorResponseObject("请登录！");
 		}
 
 		Map<String, String> mp = new HashMap<String, String>();

@@ -30,7 +30,7 @@ function balance() {
         }
     });
 }
-    //判断是否为游客并跳转登陆界面
+    //判断是否为游客并跳转登录界面
     var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 				'<div class="both"></div>'+
 				'<img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" />'+
@@ -85,7 +85,7 @@ function balance() {
 	function go_evpi_wxxx(){
 		 window.location.href="evpi.html";    
 	}
-////判断是否为游客并跳转登陆界面
+////判断是否为游客并跳转登录界面
 //var falg =authenticationCooKie();
 //已购
 function go_enter(){

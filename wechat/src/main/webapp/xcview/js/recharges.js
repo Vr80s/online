@@ -23,8 +23,9 @@ if(stringnull(recharges_blck) && recharges_blck ==1){
 }else if(stringnull(recharges_blck) && recharges_blck ==2){
 	sessionStorage.setItem("recharges_blck","2");
 }else if(stringnull(recharges_blck) && recharges_blck ==3){
+	var courseId = getQueryString("courseId");
+	sessionStorage.setItem("recharges_blck_param",courseId);
 	sessionStorage.setItem("recharges_blck","3");
-	sessionStorage.setItem("recharges_blck_param",orderId);
 }
 	
 /**
@@ -34,12 +35,12 @@ $(".header_return").click(function(){
 	var rechargesBlck = sessionStorage.getItem("recharges_blck");
 	if(rechargesBlck == 1){
 		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
-		location.href = "/xcview/html/purchase.html?courseId"+recharges_blck_param;
+		location.href = "/xcview/html/purchase.html?courseId="+recharges_blck_param;
 	}else if(rechargesBlck == 2){
 		location.href = "/xcview/html/my_wallet.html";
 	}else if(rechargesBlck == 3){
 		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
-		location.href = "/xcview/html/details.html?courseId"+recharges_blck_param;
+		location.href = "/xcview/html/details.html?courseId="+recharges_blck_param;
 	}
 })
 
@@ -133,7 +134,7 @@ function  goPay() {
               "&redirectUrl="+getRedirectUrl(actualPay)+"&outTradeNo="+outTradeNo;
               return;
           }
-          jmpPayPage("/xczh/alipay/rechargePay",payType,"userId="+localStorage.userId+"&actualPay="+actualPay,null);
+          jmpPayPage("/xczh/alipay/rechargePay",payType,"actualPay="+actualPay,null);
     }else if(payType==3){ //微信支付
         var btype=   localStorage.getItem("access");
         var openId=   localStorage.getItem("openid");
@@ -162,7 +163,7 @@ function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-   return "/xcview/html/recharges.html?type=1&xmbCount="+actualPay;
+   return "/xcview/html/recharges.html?type1=1&type=1&xmbCount="+actualPay;
 }
 
 

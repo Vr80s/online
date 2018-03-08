@@ -11,7 +11,7 @@ import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
 /**
- * 用户登陆退出相关
+ * 用户登录退出相关
  * 
  * @author Haicheng Jiang
  *

@@ -314,4 +314,10 @@ header{
 	color: #00BC12;
 	border-left: 1px solid  #D8DDE6;
 }
+
+
+		
+.record_main_div .record_course:last-child{
+	border-bottom: none;
+}
 /*添加银行卡弹框结束*/

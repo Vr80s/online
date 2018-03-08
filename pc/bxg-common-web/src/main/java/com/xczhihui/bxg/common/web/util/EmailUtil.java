@@ -32,14 +32,23 @@ public class EmailUtil {
     public static final String USERNAME = getValue("email.user");
     public static final String PASSWORD = getValue("email.password");
     public static final String ENV = getValue("ENV_FLAG");
-    public static final String TOUSER = "yuruixin@ixincheng.com";
+    public static final String TOUSER = "system@ixincheng.com";
 
     public static void sendExceptionMailBySSL(String server,String subject,String content) throws MessagingException {
-        if(ENV.equals("test")||ENV.equals("test")){
+        if((ENV.equals("test")||ENV.equals("prod"))&&containFilter(content)){
             sendMailBySSL(SMTP,USERNAME,PASSWORD,TOUSER,server+":"+ENV+"环境异常:"+subject,content);
         }
     }
 
+    public static boolean containFilter(String content){
+        if(content.contains("未登录")){
+            return false;
+        }
+        if(content.contains("密码")){
+            return false;
+        }
+        return true;
+    }
     public static boolean sendMailBySSL(String smtp,String username,String password,String tousername,String subject,String content) throws MessagingException {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";

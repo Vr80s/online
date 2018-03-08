@@ -418,7 +418,7 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 	     return unionid;
   }
    /**
-	 * 登陆成功处理
+	 * 登录成功处理
 	 * @param req
 	 * @param res
 	 * @param token

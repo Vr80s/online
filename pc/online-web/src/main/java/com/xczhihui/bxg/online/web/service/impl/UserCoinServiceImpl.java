@@ -67,7 +67,7 @@ public class UserCoinServiceImpl implements UserCoinService {
             throw new RuntimeException(userId + "--用户账户不存在！");
         }
         BigDecimal balanceTotal = uc.getBalance().add(uc.getBalanceGive());
-        return balanceTotal.setScale(2, BigDecimal.ROUND_DOWN).toString();
+        return balanceTotal.setScale(0, BigDecimal.ROUND_DOWN).toString();
     }
 
     @Override
@@ -266,7 +266,8 @@ public class UserCoinServiceImpl implements UserCoinService {
         CourseAnchor courseAnchor = cacheService.get(anchorCache+giftStatement.getReceiver());
         if(courseAnchor == null){
             courseAnchor = userCoinDao.getCourseAnchor(giftStatement.getReceiver());
-            cacheService.set(anchorCache+giftStatement.getReceiver(),courseAnchor,60*3);
+            //缓存60s
+            cacheService.set(anchorCache+giftStatement.getReceiver(),courseAnchor,60);
         }else{
             logger.info("取到缓存主播分成数据");
         }

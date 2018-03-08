@@ -9,6 +9,8 @@ import java.util.Date;
 @Data
 public class UserCoinIncreaseVO implements Serializable {
 
+    private Integer id;
+
     /**
      * 订单号
      */

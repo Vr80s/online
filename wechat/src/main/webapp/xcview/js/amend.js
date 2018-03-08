@@ -18,6 +18,7 @@ function submit() {
     if($.trim($("#newPassword").val())!=$.trim($("#confirmPassword").val())){
         webToast("两次密码不一致","middle",1500);
         return false;
+    
     }
     //提交
     requestService("/xczh/set/editPassword",{
@@ -27,7 +28,10 @@ function submit() {
     },function(data) {
         if(data.success==true){
             webToast("修改成功","middle",1500);
-            window.location.href='lickacc_mobile.html';
+            setTimeout(function(){
+           		window.location.href='enter.html';
+        	},2000)
+
         }else{
             webToast(data.errorMessage,"middle",1500);
         }

@@ -7,7 +7,7 @@ body {
   -ms-overflow-style: scrollbar;
   /*浏览器提示*/
   /*管理提示*/
-  /*登陆和注册*/
+  /*登录和注册*/
 }
 html input:-webkit-autofill,
 body input:-webkit-autofill {

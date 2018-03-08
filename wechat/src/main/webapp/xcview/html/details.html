@@ -44,6 +44,9 @@ $(function(){
 <link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css"/>
 <style>
 
+.leaderboard .leaderboard_list:last-child{
+	border-bottom: none;
+}
 </style>
 
 <script>
@@ -106,7 +109,7 @@ $(function(){
 		<div class="grabble">
 			<div class="grabble_top">
 				
-				<div class="grabble_left" onclick="window.history.go(-1);">  <!--onclick="isLoginJump()" ---这是上一版的返回点击事件   -->
+				<div class="grabble_left" onclick="isLoginJump()">  <!--onclick="isLoginJump()" ---这是上一版的返回点击事件   --> <!-- onclick="window.history.go(-1);" 这版 -->   
 					<div class="grabble_img"></div>
 				</div>
 
@@ -256,6 +259,12 @@ $(function(){
 							<p>微信</p>
 						</div>
 					</li>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/Friends.png" />
+							<p>朋友圈</p>
+						</div>
+					</li>
 					<li>
 						<div class="" id="qqShare">
 							<img src="../images/Qzone_share.png" />
@@ -345,7 +354,7 @@ $(function(){
 
 		<div class="both"></div>
 		<div class="balance">
-			<div class="balance_size" onClick="window.location='recharges.html?recharges_blck=3'">
+			<div class="balance_size">   <!--onClick="window.location='recharges.html?recharges_blck=3'"  这是跳转到充值页面的-->
 				熊猫币<span id="xmbShowSpan" style="color: #f8c600;font-size: 0.6rem;">加载中...</span><img src="/xcview/images/rightj.png" alt="" />
 			</div>
 			<!--<div class="balance_size">
@@ -548,7 +557,7 @@ $(function(){
 		
 //		点击关注关闭
 		$(".attention .close").click(function(){
-			$(".attention").hide();
+			$("#attention").hide();
 		});
 
 //		关注几秒后隐藏

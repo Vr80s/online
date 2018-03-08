@@ -8,7 +8,7 @@ package com.xczhihui.bxg.online.web.vo;
 public class WechatVo {
 
     /**
-     * 注册账号(手机号)
+     * 注册帐号(手机号)
      */
       private  String   mobile;
     /**

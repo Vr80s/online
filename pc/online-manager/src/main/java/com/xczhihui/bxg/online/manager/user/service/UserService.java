@@ -34,7 +34,7 @@ public interface UserService {
 	public User getUserById(String id);
 
 	/**
-	 * 根据登陆名获取用户
+	 * 根据登录名获取用户
 	 * 
 	 * @param loginName
 	 * @return

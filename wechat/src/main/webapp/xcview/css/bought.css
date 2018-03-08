@@ -123,6 +123,8 @@ header {
 .bought_list_title .span{
 	font-size: 0.22rem;
 	color: #999;
+	display: inline-block;
+	padding: 0.08rem 0;
 }
 .bought_list_size{
 	font-size: 0.22rem;

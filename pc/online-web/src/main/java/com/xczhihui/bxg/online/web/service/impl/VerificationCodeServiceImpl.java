@@ -201,7 +201,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 	public String checkCode(String phone, String code) {
 		initSystemVariate();
 
-		//在用户重新获取登陆对象
+		//在用户重新获取登录对象
 		ItcastUser iu = userCenterAPI.getUser(phone);
 		if(iu == null){
 			throw new RuntimeException("用户不存在！");

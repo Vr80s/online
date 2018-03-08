@@ -26,7 +26,11 @@
 			<div class="header_seek"> 
 				<input type="text" name="" value="" id="header_input" />
 				
-				<img src="/xcview/images/sousuo0.png" alt="" class="sousuo" /><!--针灸疗法-->
+				<span class="span">
+					
+					<img src="/xcview/images/sousuo0.png" alt="" class="sousuo" /><!--针灸疗法-->
+					
+				</span>
 				<div class="header_seek_main">
 					<span class="div_span_input">
 						<!--给inpiu默认值-->
@@ -112,7 +116,7 @@
 
 		//点击关键字查询
 		function queryKeyToList(obj){
-			
+//			event.stopPropagation(); 
 			var queryKey = $(obj).find(".div0").text();
 			
 			location.href="../html/curriculum_table.html?queryKey="+queryKey+"&curriculum_blck=2";
@@ -120,6 +124,7 @@
 
 		//历史记录删除事件
 		function del(i){
+			event.stopPropagation(); 
 			var arrList = localStorage.hisArr.split(',');
 			arrList.splice(i,1); 
 			localStorage.setItem("hisArr", arrList);

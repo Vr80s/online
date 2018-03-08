@@ -230,7 +230,7 @@ $(function(){
         courseArr=[];
     });
     $(".select_time").change(function(){
-        debugger
+//      debugger
         $(this).val($(this).val());
     });
     
@@ -277,7 +277,7 @@ function courseList(current){
     if(courseName!=null){
         url += "&title="+courseName;
     }
-    debugger
+//  debugger
     RequestService(url, "get", null, function(data) {
 
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
@@ -289,7 +289,7 @@ function courseList(current){
         	$('#kecheng_list').removeClass('hide')
         }
         $("#course_list").html(template('course_list_tpl', data.resultObject));
-        debugger
+//      debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
@@ -318,7 +318,7 @@ function courseList(current){
  **/
 function saveCourse(){
     var course = getCourseData();
-    debugger
+//  debugger
     if(verifyCourse(course)) {
         if(course.id==null||course.id=='') {
             addCourse(course);
@@ -600,7 +600,7 @@ function verifyCourse(course){
         $('.warning_course_end_time').addClass('hide');
     }
     if(course.startTime != ''&&course.endTime != ''&&course.endTime != null){
-        debugger
+//      debugger
         var startTime =  new Date(course.startTime.replace(/-/g,"/"));
         var endTime =  new Date(course.endTime.replace(/-/g,"/"));
         if(startTime>endTime){
@@ -680,7 +680,7 @@ function confirmCourseSale(state,courseId){
                 closefn();
                 console.log(data);
                 if(data.success === true) {
-                    debugger
+//                  debugger
                     courseList(1);
                     showTip(data.resultObject);
                 } else {
@@ -725,7 +725,7 @@ function confirmCollection(state,courseId){
  **/
 function courseLiveList(current){
     var url ="/anchor/course/getLiveApplyList?size=10&current="+current;
-    debugger
+//  debugger
     RequestService(url, "get", null, function(data) {
         $("#course_live_list").html(template('course_live_tpl', data.resultObject));
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
@@ -734,7 +734,7 @@ function courseLiveList(current){
         }else{
         	$('.live_streaming_table').removeClass('hide')
         }
-        debugger
+//      debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
@@ -786,7 +786,7 @@ function courseCollectionList(current){
     if(courseName!=null && courseName!=""){
         url += "&title="+courseName;
     }
-    debugger
+//  debugger
     RequestService(url, "get", null, function(data) {
 
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
@@ -799,7 +799,7 @@ function courseCollectionList(current){
         }
         $("#collection_list").html(template('course_collection_list_tpl', data.resultObject));
         
-        debugger
+//      debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) {
             //分页判断
@@ -916,7 +916,7 @@ function downCourse2Collection(collectionCourseSort){
 }
 function saveCollection(){
     var collection = getCollectionData();
-    debugger
+    // debugger
     if(verifyCollection(collection)){
         if($("#collectionId").val()==null||$("#collectionId").val()==''){
             addCollection(collection);
@@ -993,7 +993,7 @@ function echoCollection(collectionId){
         UE.getEditor('editor_collection_outline').setContent(collection.courseOutline);
         $('.course_number').val(collection.courseNumber);
         $("input:radio[name=collection_multimedia_type][value="+collection.multimediaType+"]").prop("checked",true);
-        debugger
+        // debugger
         initCourse(collection.multimediaType);
         courseArr = collection.courseApplyInfos;
         courseArr = upDownShowInit(courseArr);
@@ -1174,7 +1174,7 @@ function initCourseSelect(){
  **/
 function courseResourceList(current){
     var url ="/anchor/course/getCourseResourceList?size=10&current="+current;
-    debugger
+    // debugger
     RequestService(url, "get", null, function(data) {
         $("#resource_list").html(template('course_resource_list_tpl', data.resultObject));
         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
@@ -1184,7 +1184,7 @@ function courseResourceList(current){
         	 $('#ziyuan_bottom2').removeClass('hide')
         }
 
-        debugger
+        // debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) {
             //分页判断
@@ -1246,7 +1246,7 @@ $(function () {
 
 function saveResource(){
     if(validateResource()){
-        debugger
+        // debugger
         var data = {};
         data.title = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
         data.resource = $.trim($('#ccId').val());
@@ -1375,7 +1375,7 @@ $(function(){
      * @Date: 2018/2/2 0002 下午 9:12
      **/
     $('#courseImgPath').on('change',function(){
-        debugger
+        // debugger
     	if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
@@ -1387,7 +1387,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#collectionImgPath').on('change',function(){
-        debugger
+        // debugger
         if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
@@ -1399,7 +1399,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#cardPositiveImgPath').on('change',function(){
-        debugger
+        // debugger
         if(this.files[0].size > 2097152){
 	showTip('上传图片不能大于2M')
 			return false;
@@ -1411,7 +1411,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#cardNegativeImgPath').on('change',function(){
-        debugger
+        // debugger
         if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
@@ -1423,7 +1423,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#qualificationCertificateImgPath').on('change',function(){
-        debugger
+        // debugger
         if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
@@ -1435,7 +1435,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#professionalCertificateImgPath').on('change',function(){
-        debugger
+        // debugger
         if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
@@ -1447,7 +1447,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#businessLicensePictureImgPath').on('change',function(){
-        debugger
+        // debugger
         if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
@@ -1459,7 +1459,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#licenseForPharmaceuticalTradingPictureImgPath').on('change',function(){
-        debugger
+        // debugger
         if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
@@ -1471,7 +1471,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#profilePhotoImgPath').on('change',function(){
-        debugger
+        // debugger
         if(this.files[0].size > 2097152){
         	showTip('上传图片不能大于2M')
 			return false;

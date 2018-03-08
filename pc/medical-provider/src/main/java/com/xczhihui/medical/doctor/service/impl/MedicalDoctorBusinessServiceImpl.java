@@ -80,13 +80,24 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field, String departmentId) {
-        List<MedicalDoctorVO> records = medicalDoctorMapper.selectDoctorList(page, type, hospitalId, name, field,departmentId);
-//        if(field!=null){
-//            for (int i = 0; i < records.size(); i++) {
-//                List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(records.get(i).getId());
-//                records.get(i).setFields(medicalFields);
-//            }
-//        }
+        List<MedicalDoctorVO> records = null;
+        if(page.getSize()==4){
+            int count = medicalDoctorMapper.selectDoctorListCount(type);
+            int rows = 4;
+            int offset =0;
+            Random random = new Random();
+            if(count>rows){
+                count=random.nextInt(count);
+                offset = count-rows;
+                if (offset < 0) {
+                    offset=0;
+                }
+            }
+            records = medicalDoctorMapper.selectDoctorList4Random(type,offset,rows);
+        }else{
+            records = medicalDoctorMapper.selectDoctorList(page, type, hospitalId, name, field,departmentId);
+        }
+
         StringBuilder departments=new StringBuilder();
         for (int i = 0; i < records.size(); i++) {
             List<MedicalDepartmentVO> medicalDepartments = medicalDoctorMapper.selectMedicalDepartmentsByDoctorId(records.get(i).getId());
@@ -592,6 +603,23 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                     throw new RuntimeException("医师介绍字数应在500字以内");
                 }
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            int count = 78;
+            int rows = 4;
+            int offset =0;
+            if(count>rows){
+                count=random.nextInt(count);
+                offset = count-rows;
+                if (offset < 0) {
+                    offset=0;
+                }
+            }
+            System.out.println(offset+","+rows);
         }
     }
 }

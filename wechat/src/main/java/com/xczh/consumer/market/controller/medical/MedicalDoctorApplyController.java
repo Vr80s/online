@@ -56,8 +56,7 @@ public class MedicalDoctorApplyController {
 	public ResponseObject addDoctorApply(HttpServletRequest req,
 									 HttpServletResponse res,MedicalDoctorApply medicalDoctorApply, @RequestParam("cardPositiveFile")MultipartFile cardPositiveFile
 			, @RequestParam("cardNegativeFile")MultipartFile cardNegativeFile, @RequestParam("qualificationCertificateFile")MultipartFile qualificationCertificateFile
-			, @RequestParam("professionalCertificateFile")MultipartFile professionalCertificateFile)
-			throws Exception {
+			, @RequestParam("professionalCertificateFile")MultipartFile professionalCertificateFile){
 
 
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
@@ -65,7 +64,7 @@ public class MedicalDoctorApplyController {
 				return ResponseObject.newErrorResponseObject("登录失效");
 			}
 			medicalDoctorApply.setUserId(user.getId());
-
+			try {
 				//循环获取file数组中得文件
 				String projectName="other";
 				String fileType="1"; //图片类型了
@@ -90,8 +89,12 @@ public class MedicalDoctorApplyController {
 				JSONObject professionalCertificateJson = JSONObject.parseObject(professionalCertificate);
 				medicalDoctorApply.setProfessionalCertificate(professionalCertificateJson.get("url").toString());
 
+
 			medicalDoctorApplyService.add(medicalDoctorApply);
-			return  ResponseObject.newSuccessResponseObject("创建成功");
+		} catch (Exception e) {
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+		return  ResponseObject.newSuccessResponseObject("创建成功");
 	}
 
 	/**

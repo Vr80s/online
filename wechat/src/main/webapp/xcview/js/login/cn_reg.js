@@ -69,15 +69,18 @@ document.getElementById("btn").addEventListener("tap", function() {
 /**
  * 点击注册
  */
-document.getElementById("enter_btn").addEventListener("tap", function() {
+
+mui(".last_cn").on('tap', '#enter_btn', function (event) {
+	
 	
 	//这块是需要搞下用户协议的同意
 	
 	var agreementchecked = document.getElementById("checkbox1").checked;
 	if (!agreementchecked) {
 //		reminderror.innerHTML = "";
-		
+//		$(".web_toast").addClass("hide");
 		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
+//		$(".web_toast").addClass("hide");
 		
 		return false;
 	} /*else {
@@ -85,6 +88,7 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
 		return false;
 	}*/
+	
 	
 	
 	var number = document.getElementById("mobile").value; // 手机号
@@ -157,7 +161,17 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 			webToast(data.errorMessage,"middle",1500);				
 		}
 	});
-})
+	
+});
+
+
+
+/*document.getElementById("enter_btn").addEventListener("tap", function() {
+	
+	
+	
+	
+})*/
 
 
 /*

@@ -74,6 +74,7 @@ function transactionRecord(pageNumber,pageSize,downOrUp) {
                 if(data.resultObject.length=='' || data.resultObject.length==0){
                     $(".no_deal").show()
                 }
+              
                 $(".record_main_div").html(template('record_main_div',{items:data.resultObject}));
                /* mescroll.endSuccess();
                 mescroll.lockUpScroll( false );

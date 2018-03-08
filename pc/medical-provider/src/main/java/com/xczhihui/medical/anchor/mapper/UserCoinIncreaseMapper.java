@@ -61,5 +61,7 @@ public interface UserCoinIncreaseMapper extends BaseMapper<UserCoinIncrease> {
 	/**
 	 * 礼物排行榜:获取用户对应的‘获得熊猫币’
 	 */
-	BigDecimal sumValue(@Param("giver") String giver, @Param("receiver") String receiver);
+	BigDecimal sumValue(@Param("giver") String giver, @Param("liveId") String liveId);
+
+	BigDecimal sumValueByCourseByUciId(Integer id);
 }

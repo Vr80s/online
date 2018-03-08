@@ -457,8 +457,8 @@ div.pinch-zoom,
 	line-height: 2.45rem;
 }
 .send_gifts .gifts_div{
-	width: 1.426rem;
-    height: 1.34rem;
+	width: 1.7rem;
+    height: 1.7rem;
 }
 
 .coze_cen_ri .span_name{
@@ -469,7 +469,7 @@ div.pinch-zoom,
 }
 .coze_cen_bg_ri{
 	position: relative;
-    width: 12rem;
+    /*width: 12rem;*/
     background: none;
     /* border: 0.01rem solid #ccc; */
     float: left;
@@ -489,13 +489,13 @@ div.pinch-zoom,
 /*左侧信息聊天*/
 .coze_cen_bg {
     position: relative;
-    width: 10rem;
+    /*width: 10rem;*/
     background: none;
     /* border: 0.01rem solid #ccc; */
     float: left;
     padding: 0;
     font-size: 0.6rem;
-    color: #000;
+    color: #333;
     min-width: 0;
     border-radius: 0;
     /* font-family: "微软雅黑"; */
@@ -673,6 +673,8 @@ div.pinch-zoom,
     height: 0.9rem;
     background: url(../images/backicon.png) no-repeat;
     background-size: 100% 100%;
+    margin-left: 0.56rem;
+    margin-top: 0.52rem;
 }
 .fx_bg{
 	width: 0.894rem;
@@ -736,7 +738,7 @@ div.pinch-zoom,
 }
 .share_main_bg ul li{
 	float: left;
-	margin-left: 1.78rem;
+	margin-left: 0.9rem;
 }
 .share_main_bg ul li img{
 	width: 2.553rem;

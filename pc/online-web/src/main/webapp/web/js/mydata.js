@@ -513,7 +513,7 @@ function addgetdata() { //回填数据
 		$('.zhiYe').val(data.resultObject.occupationOther);
 		
 		
-		//判断用户登录账号类型，并以此回填
+		//判断用户登录帐号类型，并以此回填
 		if(data.resultObject.loginName.indexOf("@") == -1) {
 			$(".emailname").val(data.resultObject.email);
 			$(".phonenumber").val(data.resultObject.loginName).attr("disabled", "disabled").css("background", "#fafafa");

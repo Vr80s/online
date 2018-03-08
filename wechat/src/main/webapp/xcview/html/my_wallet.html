@@ -80,7 +80,6 @@
 			display: none !important;
 		}
 		
-		
 		.record_main_div .record_course:last-child{
 			border-bottom: none;
 		}
@@ -137,14 +136,15 @@
 										<span class="span0">{{item.subject}}</span>
 									</div>
 									<div class="record_course_right y">
+
 										<span class="span0"><span>{{item.totalAmount}}</span></span>
-										<span class="span1">熊猫币</span>
+										<span class="span1">{{item.unit}}</span>
+
 									</div>
 									<div class="both"></div>
 									<div class="time">{{item.gmtCreate}}</div>
 									<div class="both"></div>
 								</div>
-								<div class="both"></div>
 									{{/each}}
 								</script>
 								<div class="both"></div>

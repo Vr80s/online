@@ -52,7 +52,7 @@ $(function(){
        //跳转
        $('.to_hospital_detail').attr('href','/web/html/clinicDetails.html?id='+data.resultObject.medicalHospital.id+'');
        //医馆图片
-       if(data.resultObject.medicalHospital.medicalHospitalPictures){
+       if(data.resultObject.medicalHospital.medicalHospitalPictures&&data.resultObject.medicalHospital.medicalHospitalPictures.length>0){
        	 $('.hospital_pic>img').attr('src',data.resultObject.medicalHospital.medicalHospitalPictures[0].picture)
        }     
        //名称

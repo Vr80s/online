@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 医馆账号关系对应表
+ * 医馆帐号关系对应表
  * @author zhuwenbao
  */
 @Entity(name = "medical_hospital_account")
@@ -16,7 +16,7 @@ public class MedicalHospitalAccount implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 医师账号关系表
+     * 医师帐号关系表
      */
     @Id
 	private String id;
@@ -28,7 +28,7 @@ public class MedicalHospitalAccount implements Serializable {
 	private String doctorId;
 
     /**
-     * 账号id
+     * 帐号id
      */
 	@Column(name = "account_id")
 	private String accountId;

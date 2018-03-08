@@ -119,7 +119,7 @@ public class AttachmentCenterController extends AbstractController{
 		} 
 		
 		String userId = projectName;
-		//获得登陆成功的token
+		//获得登录成功的token
 		Token token = UCCookieUtil.readTokenCookie(request);
 		if (token != null) {
 			userId = String.valueOf(token.getUserId());
@@ -129,7 +129,7 @@ public class AttachmentCenterController extends AbstractController{
 				userId, //用户中心的用户ID
 				projectName, attachmentFile.getOriginalFilename(), attachmentFile.getContentType(), 
 				attachmentFile.getBytes(),fileType,
-				null//用户中心，登陆成功的票
+				null//用户中心，登录成功的票
 			)
 		);
 	}

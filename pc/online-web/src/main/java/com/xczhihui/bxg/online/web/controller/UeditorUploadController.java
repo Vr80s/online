@@ -53,7 +53,7 @@ public class UeditorUploadController {
 		}
 
 		String userId = "onlineWeb";
-		// 获得登陆成功的token
+		// 获得登录成功的token
 		Token token = UCCookieUtil.readTokenCookie(request);
 		if (token != null) {
 			userId = String.valueOf(token.getUserId());
@@ -61,7 +61,7 @@ public class UeditorUploadController {
 
 		String upload = service.upload(userId, // 用户中心的用户ID
 				"online", attachmentFile.getOriginalFilename(), attachmentFile.getContentType(),
-				attachmentFile.getBytes(), "2", null// 用户中心，登陆成功的票
+				attachmentFile.getBytes(), "2", null// 用户中心，登录成功的票
 		);
 		
 		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

@@ -68,7 +68,7 @@ $(function(){
     $(".bindOldAccountPassword .bindOldAccountClose").click(function(){
         $(".oldAccountPassword").val("");
     });
-    //绑定新账号失去焦点验证
+    //绑定新帐号失去焦点验证
     var newAccNameInput=$(".newAccountUsername"),
         newAccNameInfo=$(".bindNewAccountHit .HitWord"),
         newAccNameBox=$(".bindNewAccountHit"),
@@ -280,7 +280,7 @@ $(function(){
             })
         }
     });
-    //绑定已有账号
+    //绑定已有帐号
    var oldAccnameInput=$(".oldAccountUsername"),
        oldAccnameInfo=$(".bindOldAccountUsername .HitWord"),
        oldAccnameBox=$(".bindOldAccountUsername .bindOldAccountHit"),

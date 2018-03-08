@@ -34,7 +34,7 @@ function loadFcodeDetailList(){
 	                  {title: '兑换课程', "class": "center", "width": "5%","height":"68px","data": 'courseName', "sortable": false},
 	                  {title: '兑换课程ID', "class": "center", "width": "5%","height":"68px","data": 'usedCourseId', "visible": false},
 	                  {title: '使用人(用户名)', "class": "center", "width": "5%","height":"68px","data": 'name', "sortable": false},
-	                  {title: '使用人(账号)', "class": "center", "width": "5%","height":"68px","data": 'loginName', "sortable": false},
+	                  {title: '使用人(帐号)', "class": "center", "width": "5%","height":"68px","data": 'loginName', "sortable": false},
 	                  ];
 	fcodeDetailTable = initTables("fcodeTable", basePath + "/factivity/fcode/findFcodeDetailList", dataFields, true, true, 0,null,searchJson,function(data){
     });                  

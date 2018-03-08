@@ -2,15 +2,15 @@ $(function(){
     showCourseAttribute(1);
     
      //			默认点击学堂
-        $(".courseP").click();
-        if(!localStorage.AnchorsTbl){
-        	 $(".school").click();
-        }else{
-        	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
+//      $(".courseP").click();
+//      if(!localStorage.AnchorsTbl){
+//      	 $(".school").click();
+//      }else{
+//      	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
 //      	 if(localStorage.AnchorsTbl_School){
-//      	 	$('.littleBox .specialP').click();
+//      	 	$('.littleBox .liveP').click();
 //      	 }
-        }
+//      }
        
     
     
@@ -31,22 +31,42 @@ $(function(){
 	
 	//点击出现下拉栏  学堂
 	$(".select_list .select-ud").bind('click',function(event){
+		//判断之前定位
+		 if(localStorage.AnchorsTbl_School == 'kecheng'){
+		 	$('.littleBox .courseP ').click();
+		 }else if(localStorage.AnchorsTbl_School == 'zhuanji'){
+		 	$('.littleBox .specialP ').click();
+		 }else if(localStorage.AnchorsTbl_School == 'zhibo'){
+		 	$('.littleBox .liveP ').click();
+		 }else if(localStorage.AnchorsTbl_School == 'ziyuan'){
+		 	$('.littleBox .resourceP ').click();
+		 }else{
+		 	$('.littleBox .courseP ').click();
+		 }
+		
 		event.stopPropagation();
 		$(".select_list .littleBox").stop().slideToggle();
 		$('.myResive').css('display','none');
 		$('#mymoney').addClass('hide');
-		
-		
+//		$(".curriculum_two").show();
+//	    $(".curriculum_one").hide();
 		//另两个上啦
 		$(".littleBoxs").slideUp("slow");
+		
 		$(".littleBoxss").slideUp("slow");
+		localStorage.AnchorsTbl_accountInf = 'name_news';
+		localStorage.AnchorsTbl_myResive  = 'classResive ';
 		
 		//小箭头调整
 		$(".select_list .account_number .arrow_jt").removeClass("glyphicon-triangle-bottom");
 		$(".select_list .account_number .arrow_jt").addClass("glyphicon-triangle-left")	;
 		$(".select_list #myResive_tbl .arrow_jt").removeClass("glyphicon-triangle-bottom");
 		$(".select_list #myResive_tbl .arrow_jt").addClass("glyphicon-triangle-left")	;
+		
 
+		
+
+		localStorage.AnchorsTbl_School = '';
 	})
 	
 	//点击出现下拉栏        收益
@@ -67,7 +87,9 @@ $(function(){
 		
 		//另两个上啦
 		$(".littleBox").slideUp("slow");
+		localStorage.AnchorsTbl_School = 'kecheng';
 		$(".littleBoxs").slideUp("slow");
+		localStorage.AnchorsTbl_accountInf = 'name_news';
 		//小箭头调整
 		$(".select_list .school .arrow_jt").removeClass("glyphicon-triangle-bottom");
 		$(".select_list .school .arrow_jt").addClass("glyphicon-triangle-left")	;
@@ -94,6 +116,8 @@ $(function(){
 		//另两个上啦
 		$(".littleBox").slideUp("slow");
 		$(".littleBoxss").slideUp("slow");
+		localStorage.AnchorsTbl_School = 'kecheng';
+		localStorage.AnchorsTbl_myResive  = 'classResive ';
 		
 		//小箭头调整
 		$(".select_list .school .arrow_jt").removeClass("glyphicon-triangle-bottom");
@@ -101,6 +125,10 @@ $(function(){
 		$(".select_list #myResive_tbl .arrow_jt").removeClass("glyphicon-triangle-bottom");
 		$(".select_list #myResive_tbl .arrow_jt").addClass("glyphicon-triangle-left")	;
 		
+//	    if(localStorage.AnchorsTbl_accountInf == 'name_news ') $('.littleBoxs .name_news  ').click();
+//	    if(localStorage.AnchorsTbl_accountInf == 'name_personage') $('.littleBoxs .name_personage ').click();
+//		$('.littleBoxs .name_news  ').click();
+//		localStorage.AnchorsTbl_accountInf ='';
 	})
 	
 	//点击我的资产 下拉栏上去

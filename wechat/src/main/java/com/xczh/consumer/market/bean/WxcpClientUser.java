@@ -13,7 +13,7 @@ public class WxcpClientUser implements Serializable {
 	/**用户ID（关键字ID）**/
 	 private String user_id;
 
-	/**用户姓名（用户账号，唯一的）**/
+	/**用户姓名（用户帐号，唯一的）**/
 	 private String user_name;
 
 	/**用户昵称**/
