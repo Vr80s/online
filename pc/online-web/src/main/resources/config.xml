@@ -139,6 +139,7 @@
 	<dubbo:application name="${dubbo.app.name}"/>
 	<dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
 	<dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}" />
+
 	<dubbo:reference id="exceptionService" interface="com.xczhihui.bxg.common.support.service.ExceptionCenterService" timeout="${dubbo.consumer.timeout}" />
 	<dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="${dubbo.consumer.timeout}" />
 	<!-- 医馆 -->
