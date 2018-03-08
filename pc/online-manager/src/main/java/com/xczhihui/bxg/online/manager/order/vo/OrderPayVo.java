@@ -66,7 +66,7 @@ public class OrderPayVo implements Serializable {
     private String smallimg_path;
 
     /**
-     * 支付账号
+     * 支付帐号
      */
     private  String   pay_account;
 

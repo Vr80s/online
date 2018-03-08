@@ -12,8 +12,8 @@ import com.xczhihui.bxg.online.common.domain.User;
  */
 public interface ManagerUserService {
     /**
-     * 查看当前登录账号是否存在于manager端
-     * @param loginName  当前登录用户的登陆账号
+     * 查看当前登录帐号是否存在于manager端
+     * @param loginName  当前登录用户的登录帐号
      * @return
      */
     public User findUserByLoginName(String loginName);

@@ -73,7 +73,7 @@
 <div id="orderInputDialog" class="hide">
 <form action="" method="post" class="form-horizontal" role="form" id="orderinputForm">
 	<div class="form-group" style="margin-top: 20px;">
-		<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="login_name"><font color="red">*</font>账号</label>
+		<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="login_name"><font color="red">*</font>帐号</label>
 		<div class="col-xs-12 col-sm-9">
 			<div class="clearfix">
 				<input class="form-control {required:true,maxlength:60}" name="login_name"

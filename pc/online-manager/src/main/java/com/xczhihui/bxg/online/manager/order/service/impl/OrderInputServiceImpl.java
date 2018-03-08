@@ -97,7 +97,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", loginName);
 		boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",loginName);
 		if (!ism && !ise) {
-			throw new RuntimeException("账号请输入手机号或邮箱！");
+			throw new RuntimeException("帐号请输入手机号或邮箱！");
 		}
 
 		String name = "ixincheng_"+ (int)(Math.random()*90000+10000);
@@ -183,7 +183,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		if (Boolean.valueOf(cmap.get("is_free").toString())
 				|| (Double.valueOf(cmap.get("original_cost").toString()) == 0
 				&& Double.valueOf(cmap.get("current_price").toString()) == 0)) {
-			throw new RuntimeException("id“"+vo.getCourse_id()+"”为免费课程，请直接登陆学习！");
+			throw new RuntimeException("id“"+vo.getCourse_id()+"”为免费课程，请直接登录学习！");
 		}
 
 		//查询用户信息
@@ -265,7 +265,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		if (Boolean.valueOf(cmap.get("is_free").toString())
 				|| (Double.valueOf(cmap.get("original_cost").toString()) == 0
 				&& Double.valueOf(cmap.get("current_price").toString()) == 0)) {
-			throw new RuntimeException("id“"+vo.getCourse_id()+"”为免费课程，请直接登陆学习！");
+			throw new RuntimeException("id“"+vo.getCourse_id()+"”为免费课程，请直接登录学习！");
 		}
 		if (cmap.get("type")==null){
 			//查询班级信息

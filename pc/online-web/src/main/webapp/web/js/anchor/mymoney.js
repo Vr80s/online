@@ -216,7 +216,7 @@ $(function(){
             }
         }
         $("#myRanking_list").html(template('myRanking_list_Tpl', data.resultObject));
-        debugger
+        // debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
@@ -295,7 +295,7 @@ $(function(){
         	$('.kecheng_Resive_bottom').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>');
         }
         
-        debugger
+        // debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
@@ -352,7 +352,7 @@ $(function(){
         if(!data.resultObject || data.resultObject.records.length == 0 || !data.resultObject.records ){
         	$('.gift_Resive_bottom').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>');
         }
-        debugger
+        // debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();

@@ -73,7 +73,7 @@
 		<if test="name != null and name!=''">
 			and mh.name like concat('%',#{name},'%')
 		</if>
-		ORDER BY mh.authentication DESC, mh.score DESC,convert(name using gbk) ASC
+		ORDER BY mh.authentication DESC, mh.score DESC,mh.`create_time` DESC
 	</select>
 
 	<select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">

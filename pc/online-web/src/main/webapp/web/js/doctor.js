@@ -546,7 +546,7 @@ $(function () {
     	 		//请求数据成功进行判断 
     	 		if($('.login').css('display') == 'block' && data.resultObject == 2 ){
     	 			//登录并且入驻了医馆了
-    	 			$('#tip').text('您已完成了医馆注册，不能进行医师注册！');
+    	 			$('#tip').text('您已完成了医馆认证，不能进行医师认证！');
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
@@ -557,10 +557,17 @@ $(function () {
     	 		}else if($('.login').css('display') == 'block' && data.resultObject == 7 ){
     	 			//登录了并且都没有注册过
     	 			window.location.href = "/web/html/ResidentDoctor.html";
-    	 		}else if($('.login').css('display') == 'block' && data.resultObject == 3  || data.resultObject == 4  || data.resultObject == 5 || data.resultObject == 6){
+    	 		}else if($('.login').css('display') == 'block' && data.resultObject == 3  || data.resultObject == 5 || data.resultObject == 6){
     	 			//登录了 并且注册了没有通过的
     	 			window.location.href = "/web/html/ResidentDoctor.html";
-    	 		}
+    	 		}else if(data.resultObject == 4 ){
+                    //登录并且入驻了医馆了
+                    $('#tip').text('您已提交医馆认证，暂时不能进行医师认证！');
+                    $('#tip').toggle();
+                    setTimeout(function(){
+                        $('#tip').toggle();
+                    },2000)
+                }
     	 	}else if(data.success == false && data.errorMessage == "请登录！"){
     	 		window.location.href = "/web/html/practitionerRegister.html";
     	 	}else{

@@ -39,7 +39,7 @@ public class OnlineLoginoutCallback implements LoginoutCallback {
 		OnlineUser ou = (OnlineUser)UserLoginUtil.getLoginUser(request);
 		OnlineUser u = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName",ou.getLoginName());
 		Date last = u.getLastLoginDate();
-		//如果是第一次登陆，写一个cookie给前端
+		//如果是第一次登录，写一个cookie给前端
 		if (last == null) {
 			CookieUtil.setCookie(response, "first_login", "1", "ixincheng.com", "/", 5);
 		}
@@ -49,7 +49,7 @@ public class OnlineLoginoutCallback implements LoginoutCallback {
 		dao.update(u);
 		
 		/**
-		 * 单用户登陆
+		 * 单用户登录
 		 */
 //		if (logins.containsKey(ou.getId())) {
 //			try {

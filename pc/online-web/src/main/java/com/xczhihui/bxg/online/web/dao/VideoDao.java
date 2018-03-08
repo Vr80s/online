@@ -265,7 +265,7 @@ public class VideoDao extends SimpleHibernateDao {
     }
 
     /**
-     * 查看当前登陆用户是否购买过当前课程
+     * 查看当前登录用户是否购买过当前课程
      * @param courseId 课程id
      * @param userId
      * @return

@@ -38,7 +38,7 @@ $(function(){
         {title: '提现金额(元)', "class": "center", "width": "97px","data": 'enchashmentSum', "sortable": false,"mRender":function(data,display,row){
             return "<span style='color:red'>"+data+"</span>";
         }},
-        {title: '提现人（账号）', "class": "center", "width": "8%","data": 'loginName', "sortable": false},
+        {title: '提现人（帐号）', "class": "center", "width": "8%","data": 'loginName', "sortable": false},
         // {title: '订单状态', "class": "center", "width": "6%","data": 'status', "sortable": false,"mRender":function(data,display,row){
         //     if(data==2){
         //         return "未处理";

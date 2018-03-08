@@ -3,7 +3,17 @@
 <mapper namespace="com.xczhihui.medical.department.mapper.MedicalDepartmentMapper">
 
 	<select id="page" resultType="com.xczhihui.medical.department.model.MedicalDepartment">
-		SELECT id, name
-		FROM medical_department
+		SELECT
+		  md.id,
+		  md.name ,
+		  COUNT(mdd.id) mc
+		FROM
+		  medical_department md
+		  JOIN `medical_doctor_department` mdd
+		  ON md.id=mdd.`department_id`
+		  JOIN `medical_doctor` mdo
+		  ON mdo.id=mdd.`doctor_id`
+		  GROUP BY md.`id`
+		  ORDER BY mc DESC
 	</select>
 </mapper>

@@ -85,7 +85,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		 * 如果短信验证类型是忘记密码的话，通过手机号查询是否存在此用户
 		 */
 		if(vtype!=null && SMSCode.FORGOT_PASSWORD.getCode() == vtype){
-			//在用户重新获取登陆对象
+			//在用户重新获取登录对象
 			ItcastUser iu = userCenterAPI.getUser(mobile);
 			if(iu == null){
 				return ResponseObject.newErrorResponseObject("用户不存在！");
@@ -405,7 +405,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		//已经存在的手机号需要验证时候有效
 		if(vtype!=null && SMSCode.OLD_PHONE.getCode() ==vtype &&  SMSCode.WITHDRAWAL.getCode() == vtype){
 			
-			//在用户重新获取登陆对象
+			//在用户重新获取登录对象
 			ItcastUser iu = userCenterAPI.getUser(mobile);
 			if(iu == null){
 				return ResponseObject.newErrorResponseObject("用户不存在！");
@@ -446,7 +446,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			throw new RuntimeException ("动态码类型错误！3为本手机，4为要更换的手机");
 		}
 		if(vtype!=null && SMSCode.OLD_PHONE.getCode()==vtype){
-			//在用户重新获取登陆对象
+			//在用户重新获取登录对象
 			ItcastUser iu = userCenterAPI.getUser(username);
 			if(iu == null){
 				return "用户不存在！";
@@ -458,7 +458,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				}
 			}	
 		}else if(vtype!=null && SMSCode.NEW_PHONE.getCode()==vtype){
-			//在用户重新获取登陆对象
+			//在用户重新获取登录对象
 			ItcastUser iu = userCenterAPI.getUser(username);
 			if(iu!=null){
 				return "此手机号已被绑定";

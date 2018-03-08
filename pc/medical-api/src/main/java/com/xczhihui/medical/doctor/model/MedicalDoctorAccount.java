@@ -21,7 +21,7 @@ public class MedicalDoctorAccount extends Model<MedicalDoctorAccount> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 医师账号关系表
+     * 医师帐号关系表
      */
 	private String id;
     /**
@@ -30,7 +30,7 @@ public class MedicalDoctorAccount extends Model<MedicalDoctorAccount> {
 	@TableField("doctor_id")
 	private String doctorId;
     /**
-     * 账号id
+     * 帐号id
      */
 	@TableField("account_id")
 	private String accountId;

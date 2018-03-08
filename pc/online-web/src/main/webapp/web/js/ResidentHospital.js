@@ -274,6 +274,9 @@ $(".btn-upload").click(function(evt) {
 //医馆管理下拉列表功能
 $('.luntan').click(function(){
 	$('.luntan_list').slideToggle();
+//	$('#hos_renzhneg_inf').click();
+//	if(localStorage.hos_Administration == "hos_base_inf") alert(1);
+//	if(localStorage.hos_Administration == "hos_renzhneg_inf") alert(2);
 })
 
 //左侧鼠标移动上去变色效果
@@ -290,6 +293,8 @@ $('#doctor_in_inf .news_nav > ul > li > a').click(function(){
 	$('#doctor_in_inf .news_nav ul li a > span').removeClass('color');
 	$(this).addClass('color');
 	$(this).children('span').addClass('color');
+	if(localStorage.hos_Administration == "hos_base_inf" ) $('#hos_base_inf').addClass('color');
+	if(localStorage.hos_Administration == "hos_renzhneg_inf" ) $('#hos_renzhneg_inf').addClass('color')
 	
 })
 
@@ -316,6 +321,8 @@ $('.hos_left_list > li:nth-child(n+3)').click(function(){
 $('#hos_base_inf').click(function(){
 	$('.hos_renzheng_inf').addClass('hide');
 	$('.hos_base_inf ').removeClass('hide');
+	
+	localStorage.hos_Administration = 'hos_base_inf';
 	var ue = UE.getEditor('editor2', {
 		toolbars: [
 			[
@@ -474,6 +481,7 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 $('#hos_renzhneg_inf').click(function(){
 	$('.hos_base_inf ').addClass('hide');
 	$('.hos_renzheng_inf').removeClass('hide');
+	localStorage.hos_Administration = 'hos_renzhneg_inf';
 	
 })
 //内部医疗领域选择功能
@@ -814,4 +822,10 @@ function hosAgainAut(){
 	
 }
 
+$(function(){
+	$('#hos_renzhneg_inf').addClass('color');
+	if(localStorage.hos_Administration == "hos_base_inf" ){
+		$('#hos_base_inf').click();
+	}
+})
 

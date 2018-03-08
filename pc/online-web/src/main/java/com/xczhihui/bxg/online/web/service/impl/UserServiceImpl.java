@@ -819,7 +819,7 @@ public class UserServiceImpl implements UserService {
 				return ResponseObject.newErrorResponseObject("绑定失败！");
 			}
 		}else{
-			return ResponseObject.newErrorResponseObject("要绑定的账号未注册！");
+			return ResponseObject.newErrorResponseObject("要绑定的帐号未注册！");
 		}
 	}
 	

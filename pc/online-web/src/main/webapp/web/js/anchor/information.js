@@ -636,6 +636,7 @@ function showAnchorInfo() {
             }
         }
     })
+    localStorage.AnchorsTbl_accountInf = 'name_personage';
 }
 
 

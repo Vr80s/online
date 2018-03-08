@@ -54,7 +54,7 @@ public class CourseApplyVo {
     private  String  courseType;
 
     /**
-     * 用户登陆账号
+     * 用户登录账号
      */
     private  String  userId;
 

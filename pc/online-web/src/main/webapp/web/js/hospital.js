@@ -209,9 +209,8 @@ $(function () {
      //医馆坐诊医生招募
     RequestService("/medical/hospitalRecruit/getRecHospitalRecruits","GET",null,function(data){
         if(data.resultObject.length == 0){ 
-            $('#doctor_recruit_list').addClass('hide');
+            $('.forum-hot-course ').addClass('hide');
         }else{
-        	console.log(data);
           $('#doctor_recruit_list').html(template('doctor_recruit',{doctor:data.resultObject}));
         }
     });
@@ -481,7 +480,7 @@ $(function () {
     	 		//请求数据成功进行判断 
     	 		if($('.login').css('display') == 'block' && data.resultObject == 1 ){
     	 			//登录并且入驻了医师了
-    	 			$('#tip').text('您已完成了医师注册，不能进行医馆注册！');
+    	 			$('#tip').text('您已完成了医师认证，不能进行医馆认证！');
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
@@ -495,7 +494,14 @@ $(function () {
     	 		}else if($('.login').css('display') == 'block' && data.resultObject == 3 || data.resultObject == 4  || data.resultObject == 5  || data.resultObject == 6 ){
     	 			//登录了 并且注册了没有通过的
     	 			window.location.href = "/web/html/ResidentHospital.html";
-    	 		}
+    	 		}else if(data.resultObject == 3 ){
+                    //登录并且入驻了医馆了
+                    $('#tip').text('您已提交医师认证，暂时不能进行医馆认证！');
+                    $('#tip').toggle();
+                    setTimeout(function(){
+                        $('#tip').toggle();
+                    },2000)
+                }
     	 	}else if(data.success == false && data.errorMessage == "请登录！"){
     	 		window.location.href = "/web/html/hospitalRegister.html";
     	 	}else{

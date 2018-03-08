@@ -34,9 +34,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
     @Override
     public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page,
                                          String gradeName, String startTime, String endTime) {
-
         try {
-
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime start = null, end = null;
 
@@ -100,26 +98,26 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
                 vo.setRanking(ranking++);
 
                 // 获取平台扣除
-                vo.setIosBrokerageValue(userCoinIncreaseMapper.sumGiverIosBrokerageValueByLiveId(vo.getGiver(), userId));
+                vo.setIosBrokerageValue(userCoinIncreaseMapper.sumGiverIosBrokerageValueByLiveId(liveId,vo.getGiver()));
 
                 // 获取熊猫币
-                vo.setValue(userCoinIncreaseMapper.sumValue(vo.getGiver(), userId));
+                vo.setValue(userCoinIncreaseMapper.sumValue(vo.getGiver(), liveId));
 
-                // 获取主播的信息
-                CourseAnchor courseAnchor = new CourseAnchor();
-                courseAnchor.setUserId(userId);
-                CourseAnchor anchor = anchorMapper.selectOne(courseAnchor);
-
-                // 根据课程类型获取分成比例
-                if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
-                    vo.setPercent(anchor.getLiveDivide().toString().substring(0,2) + "%");
-                }
-                if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
-                    vo.setPercent(anchor.getVodDivide().toString().substring(0,2) + "%");
-                }
-                if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
-                    vo.setPercent(anchor.getOfflineDivide().toString().substring(0,2) + "%");
-                }
+//                // 获取主播的信息
+//                CourseAnchor courseAnchor = new CourseAnchor();
+//                courseAnchor.setUserId(userId);
+//                CourseAnchor anchor = anchorMapper.selectOne(courseAnchor);
+//
+//                // 根据课程类型获取分成比例
+//                if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
+//                    vo.setPercent(anchor.getLiveDivide().toString().substring(0,2) + "%");
+//                }
+//                if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
+//                    vo.setPercent(anchor.getVodDivide().toString().substring(0,2) + "%");
+//                }
+//                if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
+//                    vo.setPercent(anchor.getOfflineDivide().toString().substring(0,2) + "%");
+//                }
             }
         }
 

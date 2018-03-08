@@ -59,7 +59,7 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements An
 		CourseAnchor ca = dao.findOneEntitiyByProperty(CourseAnchor.class, "id", id);
 		OnlineUser u = dao.findOneEntitiyByProperty(OnlineUser.class, "id", ca.getUserId());
 		if(!ca.getStatus()){
-			//设置微吼子账号权限
+			//设置微吼子帐号权限
 			VhallUtil.changeUserPower(u.getVhallId(), "1", "0");
 		}else{
 			VhallUtil.changeUserPower(u.getVhallId(), "0", "0");

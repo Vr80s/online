@@ -10,7 +10,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class WxcpShopUser implements Serializable {
 
-	/**登录ID   用户账号**/
+	/**登录ID   用户帐号**/
 	 private String user_id;
 
 	/**昵称**/

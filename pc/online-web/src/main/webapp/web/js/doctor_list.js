@@ -55,7 +55,7 @@ $(function(){
 	    	size:size,
 	    	name:name,
 	    	type:type,
-	    	departmentId:departmentId,
+	    	department:departmentId,
 	    	hospitalId:hospitalId
 	    },function(data){
 	    	$('.search_more').css('display','block')

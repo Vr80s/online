@@ -125,7 +125,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-right">用户名: </label>
 	        <div class="col-sm-4"><p id="account_look" class="paddingtop7px padding7"></p></div>
-			<label class="col-sm-2 control-label no-padding-right">微吼账号: </label>
+			<label class="col-sm-2 control-label no-padding-right">微吼帐号: </label>
 			<div class="col-sm-4"><p id="vhallId_look" class="paddingtop7px padding7"></p></div>
 		</div>
 		

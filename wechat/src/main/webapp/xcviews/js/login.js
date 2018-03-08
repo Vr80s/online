@@ -13,7 +13,7 @@ if(stringnull(param_page)){
 
 var error = getQueryString("error");
 if(stringnull(error)){
-	alert("账号信息有误,重试或联系客户!");
+	alert("帐号信息有误,重试或联系客户!");
 }
 /**
  * 是否显示第三方登录啦
@@ -56,7 +56,7 @@ function login(){
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入正确格式的账号</div></div></div>";
+		tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入正确格式的帐号</div></div></div>";
 		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
@@ -142,7 +142,7 @@ function login(){
 				}
 			}
 		} else {
-			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>账号或密码错误</div></div></div>";
+			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>帐号或密码错误</div></div></div>";
 			setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});

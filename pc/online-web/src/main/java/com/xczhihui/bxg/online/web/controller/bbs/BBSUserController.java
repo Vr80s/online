@@ -110,7 +110,7 @@ public class BBSUserController extends OnlineBaseController {
 					boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", username);
 					boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",username);
 					if (!ism && !ise) {
-						return ResponseObject.newErrorResponseObject("请用手机或邮箱登陆");
+						return ResponseObject.newErrorResponseObject("请用手机或邮箱登录");
 					}
 
 					ItcastUser u = this.userCenterAPI.getUser(username);
@@ -305,7 +305,7 @@ public class BBSUserController extends OnlineBaseController {
 
 
 	/**
-	 * 是否登陆
+	 * 是否登录
 	 * @return
 	 */
 	@RequestMapping(value = "isAlive")
@@ -316,7 +316,7 @@ public class BBSUserController extends OnlineBaseController {
 	}
 
 	/**
-	 * 登陆状态
+	 * 登录状态
 	 * @return
 	 */
 	@RequestMapping(value = "loginStatus")
@@ -502,7 +502,7 @@ public class BBSUserController extends OnlineBaseController {
 		UserDataVo vo = new UserDataVo();
 		vo.setUid(userId);
 		if(nickName==null||StringUtils.isEmpty(nickName.trim())){
-			vo.setNickName(loginName); //如果什么都不填的话 昵称默认为账号
+			vo.setNickName(loginName); //如果什么都不填的话 昵称默认为帐号
 		}else {
 			vo.setNickName(nickName);
 		}
@@ -629,7 +629,7 @@ public class BBSUserController extends OnlineBaseController {
 	@RequestMapping(value = "updateHeadPhoto")
 	@ResponseBody
 	public ResponseObject updateHeadPhoto(HttpServletRequest request) throws ServletRequestBindingException, IOException {
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
 
 		String content = ServletRequestUtils.getRequiredStringParameter(request, "image");
@@ -813,15 +813,15 @@ public class BBSUserController extends OnlineBaseController {
 		}
 	}
 	/**
-	 * 三方登录账号绑定手机或邮箱账号
+	 * 三方登录帐号绑定手机或邮箱帐号
 	 * @param request
-	 * @param username    绑定账号
+	 * @param username    绑定帐号
 	 * @return
 	 */
 	@RequestMapping(value = "bindcount",method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject bindCount(HttpServletRequest request,HttpServletResponse response,String username){
-		//获取当前登陆用户信息(三方登录用户)
+		//获取当前登录用户信息(三方登录用户)
 		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		if(onlineUser!=null) {
 			ResponseObject obj = service.saveBindCount(username, onlineUser.getUnionId());

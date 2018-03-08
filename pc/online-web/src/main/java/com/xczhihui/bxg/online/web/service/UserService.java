@@ -150,7 +150,7 @@ public interface UserService {
 	public Map<String,String> saveWechatUserInfo(String code);
 
 	/**
-	 * 三方登录账号绑定手机或邮箱账号
+	 * 三方登录账号绑定手机或邮箱帐号
 	 * @param username
 	 * @param unionid
 	 */
@@ -159,7 +159,7 @@ public interface UserService {
 	public String update(String username,OnlineUser u);
 	
 	/** 
-	 * Description：若用户登录时，没有微吼账号则创建并更新用户信息中微吼相关信息
+	 * Description：若用户登录时，没有微吼帐号则创建并更新用户信息中微吼相关信息
 	 * @param u
 	 * @return
 	 * @return String

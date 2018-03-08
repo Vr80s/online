@@ -22,6 +22,10 @@ if(stringnull(recharges_blck) && recharges_blck ==1){
 	sessionStorage.setItem("recharges_blck_param",orderId);
 }else if(stringnull(recharges_blck) && recharges_blck ==2){
 	sessionStorage.setItem("recharges_blck","2");
+}else if(stringnull(recharges_blck) && recharges_blck ==3){
+	var courseId = getQueryString("courseId");
+	sessionStorage.setItem("recharges_blck_param",courseId);
+	sessionStorage.setItem("recharges_blck","3");
 }
 	
 /**
@@ -31,12 +35,12 @@ $(".header_return").click(function(){
 	var rechargesBlck = sessionStorage.getItem("recharges_blck");
 	if(rechargesBlck == 1){
 		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
-		location.href = "/xcview/html/purchase.html?courseId"+recharges_blck_param;
+		location.href = "/xcview/html/purchase.html?courseId="+recharges_blck_param;
 	}else if(rechargesBlck == 2){
 		location.href = "/xcview/html/my_wallet.html";
 	}else if(rechargesBlck == 3){
 		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
-		location.href = "/xcview/html/details.html?courseId"+recharges_blck_param;
+		location.href = "/xcview/html/details.html?courseId="+recharges_blck_param;
 	}
 })
 

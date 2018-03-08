@@ -622,7 +622,7 @@
 				</li>
 
 				<li data-name="AccountNumber" class="select-uds">
-					<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
+					<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">帐号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 					<div class="littleBoxs">
 						<p class="activeP name_news">认证信息</p>
 						<p class="name_personage" onclick="showAnchorInfo()">主播信息</p>
@@ -636,7 +636,7 @@
 	<div class="contentWrap y">
 	</div>
 
-	<!--账号开始  账户有单独的css -->
+	<!--帐号开始  账户有单独的css -->
 	<div class="account">   <!--account_mains  这是点击选择右侧div-->
 		<!--医师认证开始-->
 		<div class="begin_approve account_main account_mains account_main_message">
@@ -1218,7 +1218,7 @@
 
 
 	</div>
-	<!--账号结束-->
+	<!--帐号结束-->
 	
 	<!--我的资产部分-->
 	<div id="mymoney" class="hide">
@@ -2545,15 +2545,37 @@
 
 
         //			默认点击学堂
-        $(".courseP").click();
+//      $(".courseP").click();
         if(!localStorage.AnchorsTbl){
         	 $(".school").click();
         }else{
         	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
-        	 if(localStorage.AnchorsTbl == 'AccountNumber' && localStorage.AccountNumber == 'name_personage'){
-        	 	$('.name_personage').click();
+        	 //课程
+        	 if(localStorage.AnchorsTbl == 'School'){
+        	 	  if(localStorage.AnchorsTbl_School == 'kecheng') $('.littleBox .courseP ').click();
+	        	 //专辑
+	        	  if(localStorage.AnchorsTbl_School == 'zhuanji') $('.littleBox .specialP ').click();
+	        	  //直播
+	        	  if(localStorage.AnchorsTbl_School == 'zhibo') $('.littleBox .liveP ').click();
+	        	  //资源
+	        	  if(localStorage.AnchorsTbl_School == 'ziyuan') $('.littleBox .resourceP ').click();
+        	 }else if(localStorage.AnchorsTbl == 'myEarnings'){
+        	 	//礼物收益
+        	  if(localStorage.AnchorsTbl_myResive == 'giftResive') $('.littleBoxss .giftResive ').click();
+        	 }else if(localStorage.AnchorsTbl == 'AccountNumber'){
+        	 	//认证信息
+//	        	  if(localStorage.AnchorsTbl_accountInf == 'name_news') $('.littleBoxs .name_news ').click();
+        	 	 //主播信息
+	        	  if(localStorage.AnchorsTbl_accountInf == 'name_personage') $('.littleBoxs .name_personage ').click();
         	 }
+        	  
+        	  
+        	  
+    	 			
+    	 		
+
         }
+   
        
     };
 </script>

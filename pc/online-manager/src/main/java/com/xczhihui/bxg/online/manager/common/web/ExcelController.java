@@ -84,7 +84,7 @@ public class ExcelController {
 	        HttpServletResponse response) throws IOException {
 		KindeditorVo kindeditorVo = new KindeditorVo();
 		Gson gson = new Gson();
-		// 获得登陆成功的token
+		// 获得登录成功的token
 		Token token = UCCookieUtil.readTokenCookie(request);
 		if (token == null) {
 			kindeditorVo.setError(1);
