@@ -116,8 +116,11 @@
 						{{/if}}
 				</div>
 				<div class="bought_list_right">
-					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span></div>
+					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span>
 					<div class="bought_list_size">共<span>{{item.courseNumber}}</span>集</div>
+						
+					</div>
+
 				</div>
 			</div>
 				{{else}}
@@ -144,9 +147,10 @@
 		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />
 				</div>
 				<div class="bought_list_right">
+					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span>
+						<div class="bought_list_size">直播已结束</div>
+					</div>
 					
-					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span></div>
-					<div class="bought_list_size">直播已结束</div>
 				</div>
 			</div>
 			<!--直播，，预告-->
@@ -157,8 +161,10 @@
 		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />					
 				</div>
 				<div class="bought_list_right">
-					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</div>
-					<div class="bought_list_size">直播时间：<span>{{item.startTime}} </span></div>
+					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span>
+						<div class="bought_list_size">直播时间：<span>{{item.startTime.slice(0,16)}}</span></div>
+					</div>
+					
 				</div>
 			</div>
 				<!--直播，，直播中-->
@@ -169,8 +175,35 @@
 		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
 					</div>
 					<div class="bought_list_right">
-						<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</div>
-						<div class="bought_list_size">直播中</div>
+						<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span>
+							<div class="bought_list_size">直播时间：<span>{{item.startTime.slice(0,16)}}</span><img style="width: 0.8rem; height: 0.26rem;margin-top: 0.03rem; margin-left: 0.1rem;" src="../images/streaming_fie.png"/></div>							
+						</div>
+					</div>
+				</div>
+				<!--直播，，即将直播-->
+				{{else if item.type==3 && item.lineState==4}}
+				<div class="bought_main_list div5_1" data-jump="{{item.id}}">
+					<div class="bought_list_left">
+						<img src="{{item.smallImgPath}}" class="img0" />
+		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
+					</div>
+					<div class="bought_list_right">
+						<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span>
+							<div class="bought_list_size">直播时间：<span>{{item.startTime.slice(0,16)}}</span></div>							
+						</div>
+					</div>
+				</div>
+				<!--直播，，准备直播-->
+				{{else if item.type==3 && item.lineState==5}}
+				<div class="bought_main_list div5_2" data-jump="{{item.id}}">
+					<div class="bought_list_left">
+						<img src="{{item.smallImgPath}}" class="img0" />
+		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
+					</div>
+					<div class="bought_list_right">
+						<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span>
+							<div class="bought_list_size">直播时间：<span>{{item.startTime.slice(0,16)}}</span></div>							
+						</div>
 					</div>
 				</div>
 				<!--线下-->
@@ -182,8 +215,13 @@
 
 					</div>
 					<div class="bought_list_right">
-						<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</div>
-						<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>
+						<div class="bought_list_title">
+							{{item.gradeName}}<br />
+							<span class="span">{{item.name}}</span>
+						<div class="bought_list_size">上课时间：<span>{{item.startTime.slice(0,16)}}</span></div>
+							
+						</div>
+
 					</div>
 				</div>
 				<!--<div class="both"></div>-->
