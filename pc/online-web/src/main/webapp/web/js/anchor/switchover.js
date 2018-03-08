@@ -158,7 +158,7 @@ $('.select-udss .giftResive').click(function(event){
 
 
 
-//点击账号列表    
+//点击帐号列表
 $(".account_number").click(function() {
     $("#curriculum").hide();
     $(".begin_approve").show();

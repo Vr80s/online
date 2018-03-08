@@ -61,7 +61,7 @@ public class VerificationCodeController extends OnlineBaseController {
 	 * 
 	 * 业务逻辑： 
 	 * 1、动态码有效期XX分钟，XX分钟之内发送的验证信息都一样
-	 * 2、同一账号两次发送间隔至少XX秒
+	 * 2、同一帐号两次发送间隔至少XX秒
 	 * 
 	 * @param email  邮箱地址
 	 * @param vtype 类型，1注册，2重置密码

@@ -43,7 +43,7 @@ public class NotesCommentVo {
 	 */
 	private String target_nike_name;
 	/**
-	 * 被评论/回复者账号id
+	 * 被评论/回复者帐号id
 	 */
 	private String target_user_id;
 	/**

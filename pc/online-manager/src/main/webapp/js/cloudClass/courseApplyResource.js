@@ -6,7 +6,7 @@ $(function() {
     var searchCase_P = new Array();
     var objData = [
         {"title": "名称", "class": "center", "width": "6%", "sortable": false, "data": 'title'},
-        {"title": "作者账号", "class": "center", "width": "8%", "sortable": false, "data": 'loginName'},
+        {"title": "作者帐号", "class": "center", "width": "8%", "sortable": false, "data": 'loginName'},
         {"title": "作者昵称", "class": "center", "width": "8%", "sortable": false, "data": 'userName'},
         {"title": "时长", "class": "center", "width": "8%", "sortable": false, "data": 'length'},
         {"title": "媒体类型", "class": "center", "width": "8%", "sortable": false, "data": 'multimediaType',

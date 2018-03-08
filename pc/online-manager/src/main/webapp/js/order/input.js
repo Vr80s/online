@@ -18,7 +18,7 @@ $(function() {
 		"sortable" : false,
 		"data" : 'course_name'
 	},{
-		"title" : "购买者(登录账号)",
+		"title" : "购买者(登录帐号)",
 		"width" : "12%",
 		"class" : "center",
 		"sortable" : false,

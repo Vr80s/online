@@ -97,7 +97,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", loginName);
 		boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",loginName);
 		if (!ism && !ise) {
-			throw new RuntimeException("账号请输入手机号或邮箱！");
+			throw new RuntimeException("帐号请输入手机号或邮箱！");
 		}
 
 		String name = "ixincheng_"+ (int)(Math.random()*90000+10000);

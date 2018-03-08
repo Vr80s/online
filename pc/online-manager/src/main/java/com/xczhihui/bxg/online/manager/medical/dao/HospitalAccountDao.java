@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  医馆-账号对应关系Dao
+ *  医馆-帐号对应关系Dao
  *  @author zhuwenbao
  */
 @Repository

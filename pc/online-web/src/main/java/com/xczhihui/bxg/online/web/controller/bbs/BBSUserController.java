@@ -502,7 +502,7 @@ public class BBSUserController extends OnlineBaseController {
 		UserDataVo vo = new UserDataVo();
 		vo.setUid(userId);
 		if(nickName==null||StringUtils.isEmpty(nickName.trim())){
-			vo.setNickName(loginName); //如果什么都不填的话 昵称默认为账号
+			vo.setNickName(loginName); //如果什么都不填的话 昵称默认为帐号
 		}else {
 			vo.setNickName(nickName);
 		}
@@ -813,9 +813,9 @@ public class BBSUserController extends OnlineBaseController {
 		}
 	}
 	/**
-	 * 三方登录账号绑定手机或邮箱账号
+	 * 三方登录帐号绑定手机或邮箱帐号
 	 * @param request
-	 * @param username    绑定账号
+	 * @param username    绑定帐号
 	 * @return
 	 */
 	@RequestMapping(value = "bindcount",method = RequestMethod.POST)

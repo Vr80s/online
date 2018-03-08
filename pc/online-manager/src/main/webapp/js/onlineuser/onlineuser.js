@@ -122,7 +122,7 @@ $(function() {
             "sortable" : false,
             "data" : 'balanceGive'
         },{
-            "title" : "微吼账号",
+            "title" : "微吼帐号",
             "class" : "center",
             "width" : "8%",
             "sortable" : false,

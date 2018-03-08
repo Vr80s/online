@@ -269,7 +269,7 @@
 							   <option value="${ed.code}">${ed.text}</option>
 						   </c:forEach>
 		               		<%--<option value="0">未能与提现人取得联系</option>--%>
-		               		<%--<option value="1">支付宝账号有误</option>--%>
+		               		<%--<option value="1">支付宝帐号有误</option>--%>
 		               		<%--<option value="2">微信账号有误</option>--%>
 		               		<%--<option value="3">手机号有误</option>--%>
 		               		<%--<option value="4">姓名有误</option>--%>
