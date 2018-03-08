@@ -2,13 +2,13 @@
 /**
  * 倒计时
  */
-var wait = 90;
+var wait = 60;
 function time(o) {
 	if (wait == 0) {
 		//o.removeAttribute("disabled");
 		$(o).css("background","#00bc12");
         $(o).val("获取验证码");
-		wait = 90;
+		wait = 60;
 	} else {
 		//o.setAttribute("disabled", true);
 		$(o).css("background","#ccc");
@@ -126,12 +126,12 @@ $(".enter_btn").click(function(){
 	var userpassword = document.getElementById("password").value; // 密码
 	
 	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",1500);
+//		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	
 	if (!stringnull(yanzhengma)) {
-		webToast("验证码不能为空","middle",1500);
+//		webToast("验证码不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
@@ -150,7 +150,7 @@ $(".enter_btn").click(function(){
 	if(vtype==1){
 		
 		if (!stringnull(userpassword)) {
-			webToast("密码不能为空","middle",1500);
+//			webToast("密码不能为空","middle",1500);
 			return false;
 		}
 		url = "/xczh/third/thirdPartyBindMobile";
