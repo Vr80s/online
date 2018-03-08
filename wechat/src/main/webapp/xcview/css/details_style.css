@@ -469,7 +469,7 @@ div.pinch-zoom,
 }
 .coze_cen_bg_ri{
 	position: relative;
-    width: 12rem;
+    /*width: 12rem;*/
     background: none;
     /* border: 0.01rem solid #ccc; */
     float: left;
@@ -489,13 +489,13 @@ div.pinch-zoom,
 /*左侧信息聊天*/
 .coze_cen_bg {
     position: relative;
-    width: 10rem;
+    /*width: 10rem;*/
     background: none;
     /* border: 0.01rem solid #ccc; */
     float: left;
     padding: 0;
     font-size: 0.6rem;
-    color: #000;
+    color: #333;
     min-width: 0;
     border-radius: 0;
     /* font-family: "微软雅黑"; */

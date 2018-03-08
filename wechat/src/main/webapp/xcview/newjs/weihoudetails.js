@@ -223,16 +223,24 @@ $(document).ready(function() {
             for (var i = res.data.length - 1; i >= 0; i--) {
             	if(userInfo.userid == res.data[i].user_id){
             		 str += "<div class='coze_cen_ri'> "+
-        			 "<span class='span_name'>："+res.data[i].user_name+"</span>"+
+        			 
         			"  <div class='coze_cen_bg_ri'> "+
-        			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+res.data[i].content+"  "+
+        			
+        			"<span class='span_name'>"+res.data[i].user_name+"：</span>"+   //用户名
+        			
+//      			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+res.data[i].content+"  "+
+        			"	"+res.data[i].content+"  "+
         			" </div> "+
         			" <div class='both'></div></div>";
             	}else{
             		str += "<div class='coze_cen'>";
-                    str+="<span class='span_name'>："+res.data[i].user_name+"</span>";
+                    
                     str+="<div class='coze_cen_bg'>";
-                    str+="<img src='/xcview/images/sanjiao.png' alt='' />"+res.data[i].content+"</div>" +
+                    
+                    str+="<span class='span_name'>"+res.data[i].user_name+"：</span>";   //用户名
+                    
+//                  str+="<img src='/xcview/images/sanjiao.png' alt='' />"+res.data[i].content+"</div>" +
+                    str+=""+res.data[i].content+"</div>" +
                     		"<div class='both'></div></div>";
             	}
             }
@@ -260,15 +268,21 @@ $(document).ready(function() {
             for (var i = res.data.length - 1; i >= 0; i--) {
             	 if(userInfo.userid == res.data[i].user_id){
             	    str += "<div class='coze_cen_ri'> "+
-        			 "<span class='span_name'>"+res.data[i].user_name+"：</span>"+   /*用户名*/
+        			 
         			"  <div class='coze_cen_bg_ri'> "+
+        			
+        			"<span class='span_name'>"+res.data[i].user_name+"：</span>"+   /*用户名*/
+        			
         			"	"+res.data[i].content+"  "+
         			" </div> "+
         			" <div class='both'></div></div>";
                  }else{
                 	 str += "<div class='coze_cen'>";
-                     str+="<span class='span_name'>"+res.data[i].user_name+"：</span>";  //用户名
+                    
                      str+="<div class='coze_cen_bg'>";
+                     
+                      str+="<span class='span_name'>"+res.data[i].user_name+"：</span>";  //用户名
+                     
                      str+=""+res.data[i].content+"</div>" +
                      		"<div class='both'></div></div>";
                  }
