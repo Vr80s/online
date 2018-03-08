@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczh.consumer.market.utils.SLEmojiFilter;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,13 @@ public class CriticizeController {
 		OnlineUser  ou = appBrowserService.getOnlineUserByReq(req);
 		if(ou == null){
 			return ResponseObject.newSuccessResponseObject("登录失效");
+		}
+		//过滤字符串中的Emoji表情
+		String content = SLEmojiFilter.filterEmoji(criticize.getContent());
+		if("".equals(content)){
+			return ResponseObject.newErrorResponseObject("暂不支持添加表情");
+		}else{
+			criticize.setContent(content);
 		}
 		criticize.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 		criticize.setCreatePerson(ou.getId());  //创建人id

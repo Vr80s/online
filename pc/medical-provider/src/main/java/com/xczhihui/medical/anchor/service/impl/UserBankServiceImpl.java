@@ -99,15 +99,24 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		querys.put("cert_type", "01");
 		querys.put("needBelongArea", "true");
 		String Telephone="";
+		String bankInfo="";
 		try {
 			HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
 
-			String bankInfo = EntityUtils.toString(response.getEntity());
+			bankInfo = EntityUtils.toString(response.getEntity());
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("添加失败");
+			}
 			logger.info("银行卡校验返回信息：{}",bankInfo);
 			JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
-			String code = bankInfoJson.get("showapi_res_code").toString();
+
+			String showapi_res_body = bankInfoJson.get("showapi_res_body").toString();
+			JSONObject showapi_res_bodyJson = JSONObject.parseObject(showapi_res_body);
+			String code = showapi_res_bodyJson.get("code").toString();
+			String msg = showapi_res_bodyJson.get("msg").toString();
 			if(!"0".equals(code)){
-				throw new RuntimeException("银行卡信息有误");
+				throw new RuntimeException(msg);
 			}
 			String srb = bankInfoJson.get("showapi_res_body").toString();
 			JSONObject srbJson = JSONObject.parseObject(srb);
@@ -115,10 +124,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			String cardType = belong.get("cardType").toString();
 			userBank.setCardType(cardType);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("添加失败");
-		}
+
 		List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId());
 		if(userBankList!=null&&userBankList.size()>0){
 			userBank.setDefault(false);

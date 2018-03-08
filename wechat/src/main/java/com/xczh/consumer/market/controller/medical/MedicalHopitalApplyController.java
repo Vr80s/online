@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,31 +56,34 @@ public class MedicalHopitalApplyController {
 	public ResponseObject addDoctorApply(HttpServletRequest req,
 										 HttpServletResponse res, MedicalHospitalApply medicalHospitalApply,
 										 @RequestParam("businessLicensePictureFile")MultipartFile businessLicensePictureFile
-										 , @RequestParam("licenseForPharmaceuticalTradingPictureFile")MultipartFile licenseForPharmaceuticalTradingPictureFile)
-			throws Exception {
+										 , @RequestParam("licenseForPharmaceuticalTradingPictureFile")MultipartFile licenseForPharmaceuticalTradingPictureFile){
 
 
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 			if(user==null){
 				return ResponseObject.newErrorResponseObject("登录失效");
 			}
+		try {
 			medicalHospitalApply.setUserId(user.getId());
-				//循环获取file数组中得文件
-				String projectName="other";
-				String fileType="1"; //图片类型了
-				//营业执照
-				String businessLicensePicture = service.upload(null,
-						projectName, businessLicensePictureFile.getOriginalFilename(),businessLicensePictureFile.getContentType(), businessLicensePictureFile.getBytes(),fileType,null);
-				JSONObject businessLicensePictureJson = JSONObject.parseObject(businessLicensePicture);
-				medicalHospitalApply.setBusinessLicensePicture(businessLicensePictureJson.get("url").toString());
-				//药品经营许可证
-				String licenseForPharmaceuticalTradingPicture = service.upload(null,
-						projectName, licenseForPharmaceuticalTradingPictureFile.getOriginalFilename(),licenseForPharmaceuticalTradingPictureFile.getContentType(), licenseForPharmaceuticalTradingPictureFile.getBytes(),fileType,null);
-				JSONObject licenseForPharmaceuticalTradingPictureJson = JSONObject.parseObject(licenseForPharmaceuticalTradingPicture);
-				medicalHospitalApply.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPictureJson.get("url").toString());
+			//循环获取file数组中得文件
+			String projectName="other";
+			String fileType="1"; //图片类型了
+			//营业执照
+			String businessLicensePicture = service.upload(null,
+                    projectName, businessLicensePictureFile.getOriginalFilename(),businessLicensePictureFile.getContentType(), businessLicensePictureFile.getBytes(),fileType,null);
+			JSONObject businessLicensePictureJson = JSONObject.parseObject(businessLicensePicture);
+			medicalHospitalApply.setBusinessLicensePicture(businessLicensePictureJson.get("url").toString());
+			//药品经营许可证
+			String licenseForPharmaceuticalTradingPicture = service.upload(null,
+                    projectName, licenseForPharmaceuticalTradingPictureFile.getOriginalFilename(),licenseForPharmaceuticalTradingPictureFile.getContentType(), licenseForPharmaceuticalTradingPictureFile.getBytes(),fileType,null);
+			JSONObject licenseForPharmaceuticalTradingPictureJson = JSONObject.parseObject(licenseForPharmaceuticalTradingPicture);
+			medicalHospitalApply.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPictureJson.get("url").toString());
 
 			medicalHospitalApplyService.add(medicalHospitalApply);
-			return ResponseObject.newSuccessResponseObject("创建成功");
+		} catch (IOException e) {
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+		return ResponseObject.newSuccessResponseObject("创建成功");
 
 	}
 
