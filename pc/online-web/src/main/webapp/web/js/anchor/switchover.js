@@ -34,7 +34,7 @@ $(function(){
 //	    $(".liveP").removeClass("activeP");
 //	    $(".schedulingP").removeClass("activeP");
 //	    $(".resourceP").removeClass("activeP");
-	    $('.courseP ').click()
+//	    $('.courseP ').click()
 	    
 	    
 //	    alert(135214);

@@ -9,6 +9,15 @@ $("#toResultIpt").keyup(function () {
     $("#toResultIptRmb").html(resultIpt/10);
 });
     getPhoneNumber();
+    
+//if(!localStorage.AnchorsTbl){
+//  	 	$(".school").click();
+//  }else{
+////  	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
+//  	 if(localStorage.AnchorsTbl_School){
+//  	 	$('.littleBox .liveP').click();
+//  	 }
+//  }
 });
 var bankList;
 var baseAssetInfo;

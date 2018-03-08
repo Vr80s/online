@@ -2,15 +2,15 @@ $(function(){
     showCourseAttribute(1);
     
      //			默认点击学堂
-        $(".courseP").click();
-        if(!localStorage.AnchorsTbl){
-        	 $(".school").click();
-        }else{
-        	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
+//      $(".courseP").click();
+//      if(!localStorage.AnchorsTbl){
+//      	 $(".school").click();
+//      }else{
+//      	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
 //      	 if(localStorage.AnchorsTbl_School){
-//      	 	$('.littleBox .specialP').click();
+//      	 	$('.littleBox .liveP').click();
 //      	 }
-        }
+//      }
        
     
     
