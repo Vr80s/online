@@ -84,6 +84,8 @@ header{
 	text-align: center;
 	color: #fff;
 	border-radius: 60px;
+	
+	display: none;
 }
 /*右侧系统消息结束*/
 
