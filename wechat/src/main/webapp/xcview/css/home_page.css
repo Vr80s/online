@@ -84,6 +84,8 @@ header{
 	text-align: center;
 	color: #fff;
 	border-radius: 60px;
+	
+	display: none;
 }
 /*右侧系统消息结束*/
 
@@ -2004,6 +2006,9 @@ to {-webkit-transform: rotate(360deg);}
 	-moz-animation: rotation 3s linear infinite;
 	-webkit-animation: rotation 3s linear infinite;
 	-o-animation: rotation 3s linear infinite;
+
+	display: none;
+	
 }
 .rotation_bottom img{
 	width: 100%;
