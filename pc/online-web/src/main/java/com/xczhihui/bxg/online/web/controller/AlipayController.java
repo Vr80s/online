@@ -155,13 +155,11 @@ public class AlipayController {
                 + "\"passback_params\":\"" + passbackParams + "\","
                 + "\"timeout_express\":\"" + timeoutExpress + "\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-        System.out.println("aliBizContent"+alipayRequest.getBizContent());
         try {
             //请求
             String result = alipayClient.pageExecute(alipayRequest).getBody();
 
             //输出html
-            System.out.println(result);
             response.getWriter().println(result);
 
         }catch (Exception ex){
@@ -238,13 +236,11 @@ public class AlipayController {
                 + "\"passback_params\":\"" + passbackParams + "\","
                 + "\"timeout_express\":\"" + timeoutExpress + "\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-        System.out.println("aliBizContent"+alipayRequest.getBizContent());
         try {
             //请求
             String result = alipayClient.pageExecute(alipayRequest).getBody();
 
             //输出html
-            System.out.println(result);
             response.getWriter().println(result);
 
         }catch (Exception ex){
@@ -310,12 +306,10 @@ public class AlipayController {
     			+ "\"passback_params\":\"" + passbackParams + "\","
     			+ "\"timeout_express\":\"" + timeoutExpress + "\","
     			+ "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-    	System.out.println("aliBizContent"+alipayRequest.getBizContent());
     	try {
     		//请求
     		String result = alipayClient.pageExecute(alipayRequest).getBody();
     		//输出html
-    		System.out.println(result);
     		response.getWriter().println(result);
     		
     	}catch (Exception ex){
@@ -443,7 +437,7 @@ public class AlipayController {
                 }
 
             }catch (Exception ex){
-                System.out.println("支付宝返回参数解析失败，参数为【"+alipayPaymentRecord.getPassbackParams()+"】");
+                logger.info("支付宝返回参数解析失败，参数为【"+alipayPaymentRecord.getPassbackParams()+"】");
             }
 
             aliPayPaymentRecordService.save(alipayPaymentRecord);
@@ -480,7 +474,6 @@ public class AlipayController {
                     }
 
                 }else if("reward".equals(notifyType)){
-                	System.out.println("即将插入数据");
                     RewardParamVo rpv = JSONObject.parseObject(alipayPaymentRecord.getPassbackParams().split("&")[1].replace("|", "\""),RewardParamVo.class);
                     RewardStatement rs=new RewardStatement();
                     BeanUtils.copyProperties(rs,rpv);
@@ -489,18 +482,10 @@ public class AlipayController {
                     rs.setChannel(OrderFrom.PC.getCode());
                     rs.setOrderNo(out_trade_no);
                     rs.setStatus(1);
-                    System.out.println("channel"+rs.toString());
                     userCoinService.updateBalanceForReward(rs);
 
                 }else if("recharge".equals(notifyType)){
-                	System.out.println("即将插入数据recharge");
                     UserCoinIncrease uci = JSONObject.parseObject(alipayPaymentRecord.getPassbackParams().split("&")[1].replace("|", "\""),UserCoinIncrease.class);
-//                    uci.setCreateTime(new Date());
-//                    uci.setOrderNoRecharge(out_trade_no);
-//                    uci.setPayType(Payment.ALIPAY.getCode());
-//                    uci.setOrderFrom(OrderFrom.PC.getCode());
-//                    uci.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-//                    uci.setBalanceType(BalanceType.BALANCE.getCode());
                     userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.ALIPAY,uci.getValue(), OrderFrom.PC,out_trade_no);
                 }
 

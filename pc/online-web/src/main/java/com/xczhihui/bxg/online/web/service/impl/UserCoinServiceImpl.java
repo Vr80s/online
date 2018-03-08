@@ -412,7 +412,6 @@ public class UserCoinServiceImpl implements UserCoinService {
         sql.append(", uc.`update_time`=now()");
         //乐观锁机制 ，version判断用于防止并发数据出错
         sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.rmb >=" + ucc.getValue().negate() + " and uc.version =\"" + uc.getVersion() + "\"");
-        System.out.println(sql.toString());
         int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
         if (updateCount < 1) {
             throw new RuntimeException("网络异常,请稍后再试！");

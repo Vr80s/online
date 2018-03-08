@@ -343,7 +343,6 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         }else{
             mv = new ModelAndView("redirect:/");
         }
-//		mv.addObject("cc_live_user_id",OnlineConfig.CC_LIVE_USER_ID);
 
         return mv;
     }
@@ -352,8 +351,5 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 	public List<OpenCourseVo> getOpenCourse(Integer num, String id) {
 		return  dao.getOpenCourse(num,id);
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(new Date().getTime());
-	}
+
 }
