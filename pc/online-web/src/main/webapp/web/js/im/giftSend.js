@@ -185,13 +185,13 @@ $(document).ready(function() {
         			sendMsg(data.resultObject);
         			refreshBalance();
 				}else{
-					if("余额不足"==data.errorMessage){
-                        $('.mask3').text('余额不足').fadeIn(400,function(){
+					// if("余额不足"==data.errorMessage){
+                        $('.mask3').text(data.errorMessage).fadeIn(400,function(){
                             setTimeout(function(){
                                 $('.mask3').fadeOut()
                             },1000)
                         });
-					}
+					// }
 				}
 			});
 //			$("#chat-content").val('');
