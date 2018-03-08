@@ -355,6 +355,7 @@ public class ThirdPartyCertificationController {
 			@RequestParam("type")Integer type ){
 		
 		try {
+			
 			ItcastUser user = userCenterAPI.getUser(userName);
 			OnlineUser ou = onlineUserService.findUserByLoginName(userName);
 			int code = UserUnitedStateType.PNHONE_NOT_THERE_ARE.getCode();
@@ -365,13 +366,26 @@ public class ThirdPartyCertificationController {
 				/*
 				 * 已注册手机号,判断手机号是否已经绑定了。
 				 */
+				
+				LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：userName  "+userName+"unionId"+unionId+",type"+type);
+				
 				if(type == ThirdPartyType.WECHAT.getCode()){ //微信
-					obj = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(),unionId);
-				}else if(type == ThirdPartyType.WEIBO.getCode()){//微博
-					obj = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(),unionId);
+					
+					
+					
+					obj = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserId(ou.getId());
+					
 				}else if(type == ThirdPartyType.QQ.getCode()){//QQ
-					obj = threePartiesLoginService.selectQQClientUserMappingByUserIdAndOpenId(ou.getId(),unionId);
+					
+					
+					obj = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId());
+					
+				}else if(type == ThirdPartyType.WEIBO.getCode()){//微博
+					
+					obj = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId());
+				
 				}
+				LOGGER.info("obj    " + obj);
 				if(obj == null){ //已注册手机号,但是未绑定,可进行判断操作
 					code = UserUnitedStateType.PNHONE_IS_WRONG.getCode();
 				}else{

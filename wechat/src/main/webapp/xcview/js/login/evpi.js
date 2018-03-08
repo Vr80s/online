@@ -28,12 +28,9 @@ var openId ="";var unionId ="";
 var third_party_uc_t_ = cookie.get("third_party_uc_t_");
 if(stringnull(third_party_uc_t_)){
 	
-	//alert(third_party_uc_t_);
-	//alert(decodeURI(third_party_uc_t_));
 	third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
 	openId = third_party_uc_t_.split(";")[0];
 	unionId = third_party_uc_t_.split(";")[1];
-	//alert(openId+"=====third_party_uc_t_====="+unionId);
 }else{
 	openId = getQueryString("openId");
 	if(!stringnull(openId)){
@@ -93,7 +90,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 		if (data.code == 400) { //显示密码框
 			vtype =1;
 			$("#password_div").show();
-		} else if(data.code == 401){ //隐藏密码框
+		}else if(data.code == 401){ //隐藏密码框
 			vtype =2;
 			$("#password_div").hide();
 		}else if(data.code == 402){

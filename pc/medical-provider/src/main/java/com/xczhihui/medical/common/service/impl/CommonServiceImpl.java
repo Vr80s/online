@@ -99,7 +99,6 @@ public class CommonServiceImpl implements ICommonService {
 
             // 判断是否是认证医师
             Future<Integer> authDoctorFuture = commonThreadPoolTaskExecutor.submit(() -> {
-                log.info("-----------------auth doctor start");
                 Integer result = null;
                 if(this.isDoctor(userId)){
                     result = CommonEnum.AUTH_DOCTOR.getCode();
@@ -122,7 +121,6 @@ public class CommonServiceImpl implements ICommonService {
 
             // 判断是否是已认证医馆
             Future<Integer> authHospitalFuture = commonThreadPoolTaskExecutor.submit(() -> {
-                log.info("-----------------auth hospital start");
                 Integer result = null;
                 if(this.isHospital(userId)){
                     result = CommonEnum.AUTH_HOSPITAL.getCode();
@@ -138,7 +136,6 @@ public class CommonServiceImpl implements ICommonService {
                         }
                     }
                 }
-                log.info("-----------------auth hospital stop");
                 countDownLatch.countDown();
                 return result;
             });
@@ -146,9 +143,6 @@ public class CommonServiceImpl implements ICommonService {
             countDownLatch.await(5, TimeUnit.SECONDS);
             Integer authDoctorResult = authDoctorFuture.get();
             Integer authHospitalResult = authHospitalFuture.get();
-
-            log.info("-----------------auth doctor result = " + authDoctorResult);
-            log.info("-----------------auth hospital result = " + authHospitalResult);
 
             if(authDoctorResult != null && authHospitalResult == null){
                 return authDoctorResult;

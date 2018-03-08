@@ -36,7 +36,7 @@ public interface QQClientUserMappingMapper extends BaseMapper<QQClientUserMappin
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	QQClientUserMapping selectQQClientUserMappingByUserId(@Param("userId")String userId,@Param("unionId")String unionId);
+	QQClientUserMapping selectQQClientUserMappingByUserIdAndUniondId(@Param("userId")String userId,@Param("unionId")String unionId);
 
 	void updateByIdByMapper(String id);
 
@@ -49,4 +49,6 @@ public interface QQClientUserMappingMapper extends BaseMapper<QQClientUserMappin
 
 	QQClientUserMapping selectQQClientUserMappingByUserIdAndOpenId(
 			@Param("userId")String userId, @Param("openId")String openId);
+
+	QQClientUserMapping selectQQClientUserMappingByUserId(@Param("userId")String userId);
 }
