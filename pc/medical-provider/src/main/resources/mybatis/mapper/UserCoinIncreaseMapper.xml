@@ -18,15 +18,19 @@
 
 	<select id="listCourseOrder" parameterType="string" resultMap="UserCoinIncreaseVOResult">
 		SELECT
+		  uci.id,
 		  oo.`order_no`,
 		  oc.`grade_name`,
 		  oc.type,
 		  oo.`pay_time`,
 		  ou.`name`,
-		  ood.`actual_pay`,
+		  ood.`actual_pay`*10 actual_pay,
 		  ood.`course_id`,
 		  oo.`user_id`,
-		  oo.`create_time`
+		  oo.`create_time` ,
+		  CONCAT(TRUNCATE(uci.`ratio`,2),'%')  percent,
+			uci.ios_brokerage_value,
+			uci.value
 		FROM
 		  `user_coin_increase` uci
 		  JOIN `oe_order_detail` ood
@@ -55,6 +59,7 @@
 		  JOIN `course_apply_info` cai
 			ON cai.id = oc.`apply_id`
 		WHERE cai.`user_id` = #{userId}
+		ORDER BY oo.`pay_time` DESC
 	</select>
 
 	<select id="listGiftOrder" parameterType="string" resultMap="UserCoinIncreaseVOResult">
@@ -80,7 +85,7 @@
 			</if>
 		WHERE uci.user_id = #{userId}
 		GROUP BY ogs.`live_id`
-		ORDER BY oc.`start_time`
+		ORDER BY oc.`start_time` desc
 	</select>
 
 	<select id="sumIosBrokerageValueByCourseId" parameterType="string" resultType="java.math.BigDecimal">
@@ -148,13 +153,16 @@
 		  oc.type,
 		  ou.`name`,
 		  ogs.giver,
-		  SUM(ogs.`price`) total
+		  SUM(ogs.`price`) total,
+  			CONCAT(TRUNCATE(uci.`ratio`,2),'%')  percent
 		FROM
 		  `oe_gift_statement` ogs
 		  JOIN `oe_user` ou
 			ON ogs.`giver` = ou.id
 		  JOIN `oe_course` oc
 			ON ogs.`live_id` = oc.`id`
+		  JOIN `user_coin_increase` uci
+			ON uci.`order_no_gift` = ogs.id
 		WHERE ogs.`live_id` = #{liveId}
 		GROUP BY ou.id
 		ORDER BY total desc
@@ -170,8 +178,18 @@
 		   join `user_coin_increase` uci
 		   on uci.`order_no_gift` = ogs.id
 		where ogs.`giver`= #{giver}
-		and ogs.`receiver` = #{receiver}
+		and ogs.`live_id` = #{liveId}
 	</select>
 
+	<select id="sumValueByCourseByUciId" parameterType="string" resultType="decimal">
+		SELECT
+		uci.value
+		FROM
+		`user_coin_increase` uci
+		JOIN `oe_order_detail` ood
+		ON uci.`order_no_course` = ood.`id`
+		AND uci.`id` = #{id}
+		WHERE uci.`change_type`=7
+	</select>
 
 </mapper>
