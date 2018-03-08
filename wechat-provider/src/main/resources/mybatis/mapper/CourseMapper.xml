@@ -454,6 +454,7 @@
    				 DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
     		 AS lineState,
 			if(cai.`status`=1,(SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as  learndCount,
+			oc.direct_id as directId,
 			if(oc.start_time > DATE_SUB(NOW(),INTERVAL 1 HOUR),1,0) as isLive
 		 from 
 		    course_apply_info cai  
