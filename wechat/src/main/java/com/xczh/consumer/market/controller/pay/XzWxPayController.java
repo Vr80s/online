@@ -151,7 +151,7 @@ public class XzWxPayController {
 		// TODO
 		OrderParamVo orderParamVo=new OrderParamVo();
 		orderParamVo.setUserId(userId);
-		orderParamVo.setSubject(onlineOrderService.getCourseNames(newOrderNo));
+		orderParamVo.setSubject(""+onlineOrderService.getCourseNames(newOrderNo));
 
 		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
 		String extDatas ="order&"+cacheKey;

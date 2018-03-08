@@ -12,12 +12,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczh.consumer.market.utils.*;
-import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -53,10 +47,20 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.RewardService;
+import com.xczh.consumer.market.utils.AlipayConfig;
+import com.xczh.consumer.market.utils.HttpUtil;
+import com.xczh.consumer.market.utils.RandomUtil;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.TimeUtil;
+import com.xczh.consumer.market.utils.WebUtil;
 import com.xczh.consumer.market.vo.CodeUtil;
 import com.xczh.consumer.market.vo.OrderParamVo;
 import com.xczh.consumer.market.vo.RechargeParamVo;
 import com.xczh.consumer.market.vo.RewardParamVo;
+import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.enums.Payment;
 
 
 @Controller
@@ -160,11 +164,12 @@ public class XzAlipayController {
 		
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
 		String out_trade_no = new String(orderNo.getBytes("ISO-8859-1"),"UTF-8");
-		// 订单名称，必填
+		// 订单名称，必填   -->购买了哪个课程
 		String subject = onlineOrderService.getCourseNames(orderNo);// new// String("订单支付".getBytes("ISO-8859-1"),// "UTF-8");
+		
 		// 付款金额，必填
 		String total_amount = String.valueOf(ap);
-		// 商品描述，可空
+		// 商品描述，可空    -->购买课程
 		String body = "";
 		// 超时时间 可空
 		String timeout_express = "24h";
@@ -404,10 +409,11 @@ public class XzAlipayController {
 		AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
 		// SDK已经封装掉了公共参数，这里只需要传入业务参数。以下方法为sdk的model入参方式(model和biz_content同时存在的情况下取biz_content)。
 		AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
-		// model.setBody("");
-		//String orderNo = new String("nlineOrder.getOrderNo().getBytes("ISO-8859-1"), "UTF-8");
 		
-		model.setSubject("购买课程");
+		String subject = new String(onlineOrder.getOrderNo().getBytes("ISO-8859-1"), "UTF-8");
+		
+		model.setBody("");
+		model.setSubject(onlineOrderService.getCourseNames(onlineOrder.getOrderNo()));
 		model.setOutTradeNo(onlineOrder.getOrderNo());
 		model.setTimeoutExpress("24h");
 		model.setTotalAmount(String.valueOf(actualPay));
@@ -488,8 +494,8 @@ public class XzAlipayController {
 		LOG.info("充值参数数据包，客户端回调时会用到：" + passbackParams);
 
 		AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
-		// model.setBody("");
-		model.setSubject("充值");
+		model.setBody("");
+		model.setSubject("充值"+count+"熊猫币");
 		model.setOutTradeNo(TimeUtil.getSystemTime()+ RandomUtil.getCharAndNumr(12));
 		model.setTimeoutExpress("24h");
 		model.setTotalAmount(String.valueOf(ap));
@@ -782,21 +788,19 @@ public class XzAlipayController {
 					} else if ("2".equals(ppbt)) { // 普通订单
 						
 						LOG.info("普通订单{}{}{}{}回调数据包=="+alipayPaymentRecordH5.getPassbackParams());
+						
 						alipayPaymentRecordH5.setUserId((JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams()).get("userId").toString()));
+						//交易类型
+						//alipayPaymentRecordH5.setTransactionType(TransactionKeyword.BUY.getCode());
 						/**
 						 * 记录支付宝购买课程的消费记录
 						 */
 						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
-						// 普通订单
-						//alipayPaymentRecordH5.getTradeNo() 支付宝交易号
-						
+						/*
+						 * 普通订单 回调成功服务
+						 */
 						orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, alipayPaymentRecordH5.getTradeNo());		
 						
-//						boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no);
-//						if (onlinePaySuccess) {
-//							// 请不要修改或删除
-//							response.getWriter().println("success");
-//						}
 						response.getWriter().println("success");
 						
 					} else if ("3".equals(ppbt)) {
@@ -808,12 +812,11 @@ public class XzAlipayController {
 						 */
 						RechargeParamVo rechargeParamVo  = JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams(),RechargeParamVo.class);
 						alipayPaymentRecordH5.setUserId(rechargeParamVo.getUserId());
-						alipayPaymentRecordH5.setSubject("充值");
+						//交易类型
 						/**
 						 * 存入这个阿里消费记录表中，查找消费记录
 						 */
 						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
-						
 						/**
 						 * 充值后记录增加，代币系统的余额执行代币充值工作
 						 * 
@@ -835,8 +838,6 @@ public class XzAlipayController {
 						
 						// 请不要修改或删除
 						response.getWriter().println("success");
-						
-					
 					}
 				}
 			}
