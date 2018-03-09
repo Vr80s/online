@@ -301,6 +301,7 @@ input,button{
 }
 #forum .forum-content {
   margin-top: 20px;
+  position: relative;
 }
 #forum .forum-content .forum-content-left {
   width: 860px;
@@ -423,10 +424,20 @@ margin-top:0;
 	font-weight: 400;
 	color: #333;
 }
-#forum .forum-content .forum-content-right {
+/*#forum .forum-content .forum-content-right {
   width: 320px;
   float: right;
+}*/
+
+/*改版之前修改的样式 添加医师预约之后去掉就可以了 start*/
+#forum .forum-content .forum-content-right {
+	width: 320px;
+  float: right;
+  position: absolute;
+	left: 880px;
 }
+
+/*改版之前修改的样式 添加医师预约之后去掉就可以了 end*/
 #forum .forum-content .forum-content-right .forum-hosJoin{
 	background-color: #fff;
     margin-bottom: 20px;
@@ -525,10 +536,10 @@ margin-top:0;
 }
 #forum .forum-content .forum-content-right .forum-hot-tag {
   background-color: #fff;
-  position: absolute;
+  /*position: absolute;*/
   width: 320px;
-  top: 130px;
-  height: 326px;
+  /*top: 130px;*/
+  /*height: 326px;*/
 }
 #forum .forum-content .forum-content-right .forum-hot-tag > p{
 	padding-left:20px;

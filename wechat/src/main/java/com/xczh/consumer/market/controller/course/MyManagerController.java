@@ -26,11 +26,13 @@ import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
 import com.xczhihui.bxg.online.common.utils.RedissonUtil;
+import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
@@ -85,6 +87,9 @@ public class MyManagerController {
 	private IMedicalDoctorApplyService medicalDoctorApplyService;
 	@Autowired
 	private RedissonUtil redissonUtil;
+	@Autowired
+	private UserCenterAPI userCenterAPI;
+	
 
 	@Value("${rate}")
 	private int rate;
@@ -118,7 +123,13 @@ public class MyManagerController {
 			// 熊猫币-- 普通用户的平台
 			map.put("xmbCount",userCoinService.getBalanceByUserId(user.getId()));
 			// 更新下用户信息
-			map.put("user", onlineUserService.findUserById(user.getId()));
+			
+			OnlineUser ou = onlineUserService.findUserById(user.getId());
+			ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+			ou.setUserCenterId(iu.getId());
+			ou.setPassword(iu.getPassword());
+			
+			map.put("user", ou);
 			// 查找购买的课程数
 			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
 			Integer hostPermissions = myInfoService.getUserHostPermissions(user.getId());

@@ -673,10 +673,8 @@
 		<plugins>
 			<!-- 设置源文件编码方 -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<source>1.8</source>
 					<target>1.8</target>
 					<encoding>UTF-8</encoding>
@@ -684,7 +682,6 @@
 			</plugin>
 			<!-- 解决资源文件的编码问 -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
@@ -724,7 +721,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.1.0</version>
 				<configuration>
@@ -744,9 +740,6 @@
 				<includes>
 					<include>*.*</include>
 				</includes>
-				<!-- <excludes>
-					<exclude>*.js</exclude>
-				</excludes> -->
 				<filtering>true</filtering>
 			</resource>
 			<resource>

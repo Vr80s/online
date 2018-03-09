@@ -9,7 +9,7 @@
      </select>
      
      
-     <!-- 通过用户id   查找得到医师id    根据医师id查找医馆信息  -->
+     <!-- 通过用户id     查找得到医师id    根据医师id查找医馆信息  -->
      <select id="getMedicalHospitalByMiddleUserId" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
        select mh.*,(select picture from medical_hospital_picture where hospital_id = mh.id order by version limit 0,1 ) as versionPictures
         from  medical_hospital mh where mh.deleted =0 and mh.status = 1 and  mh.id =

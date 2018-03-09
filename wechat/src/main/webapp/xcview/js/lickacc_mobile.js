@@ -7,6 +7,9 @@ $("#mobileShow").html(mobile);
 var type = getUrlParam("type");
 if(type == 1){ //type=1 此微信号已经绑定了啊
 	$(".success_main").find(".one").html("亲,此微信号已经被绑定了!");
+	$(".three_btn0").css("width","100%");
+	$(".three_btn1").css("display","none");
+	$(".three_btn0").css("color","#00bc12");
 	$(".success").show();
 }
 /*

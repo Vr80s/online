@@ -136,7 +136,7 @@
 		   left join wxcp_client_user_wx_mapping wc on ou.id = wc.client_id 
 		   left join weibo_client_user_mapping weibo on ou.id = weibo.user_id 
 		   left join qq_client_user_mapping qq on ou.id = qq.user_id 
-		where ou.id = #{userId}
+		where ou.id = #{userId}  limit 1
 	</select>
 	
 	<delete id="deleteAccount">

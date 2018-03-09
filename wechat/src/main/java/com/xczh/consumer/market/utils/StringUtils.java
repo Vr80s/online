@@ -54,7 +54,7 @@ public class StringUtils {
 	        boolean flag = false;
 	        try{
                 //String check = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0-9]))\\d{8}$";
-	        	String check = "^(1[34578]\\d{9})$";
+	        	String check = "^(1[345678]\\d{9})$";
 	        	Pattern regex = Pattern.compile(check);
                 Matcher matcher = regex.matcher(phone);
                 flag = matcher.matches();

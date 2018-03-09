@@ -45,7 +45,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 //		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[345678]\d{9}$/.test(number))) {
 		webToast("手机号格式不正确","middle",1500);
 		return false;
 	}
@@ -72,18 +72,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 
 mui(".last_cn").on('tap', '#enter_btn', function (event) {
 	
-//	$("#enter_btn").click(function(){
-	//这块是需要搞下用户协议的同意
-	
-	var agreementchecked = document.getElementById("checkbox1").checked;
-	if (!agreementchecked) {
-//		reminderror.innerHTML = "";
-//		$(".web_toast").addClass("hide");
-		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
-		
-		return false;
-	} 
-	
+
 	
 	
 	var number = document.getElementById("mobile").value; // 手机号
@@ -114,7 +103,7 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 		return false;
 	}
 	
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[345678]\d{9}$/.test(number))) {
 		webToast("手机号格式不正确","middle",1500);
 		return false;
 	}
@@ -132,7 +121,18 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
           return false;
     }
     
-    
+    //	$("#enter_btn").click(function(){
+	//这块是需要搞下用户协议的同意
+	
+	var agreementchecked = document.getElementById("checkbox1").checked;
+	if (!agreementchecked) {
+//		reminderror.innerHTML = "";
+//		$(".web_toast").addClass("hide");
+		webToast("请同意协议内容","middle",1500);
+		
+		return false;
+	} 
+	
     
     
     var urlparm = {
