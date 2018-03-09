@@ -9,8 +9,8 @@
   } catch (e) {
   }
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
+<script src="/js/layer/layer.js"></script>
+<link href="/js/layer/skin/layer.css" type="text/css" />
 
 <div class="page-header">
   当前位置：医师医馆<small> <i class="ace-icon fa fa-angle-double-right"></i>
@@ -157,4 +157,4 @@
 -->
 
 
-<script type="text/javascript" src="${base}/js/medical/department.js?ver=1.2"></script>
+<script type="text/javascript" src="/js/medical/department.js?ver=1.2"></script>

@@ -12,7 +12,13 @@
 <link rel="stylesheet" href="../css/live_class.css" />
 <link rel="stylesheet" href="../css/share/share.css" />
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}	
+	document.documentElement.style.fontSize=kk/7.5+"px"	
+</script>
 	
 </head>
     
@@ -395,14 +401,7 @@
 
 <script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
 <script type="text/javascript" src="../js/share/share.js"></script>
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px";
-		
+<script>		
 	//分享的信息
 var gradeName = "";
 var smallImgPath ="";

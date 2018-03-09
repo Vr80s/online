@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
 
-<link href="${base}/css/medical/doctorApplyDetail.css" type="text/css" />
+<link href="/css/medical/doctorApplyDetail.css" type="text/css" />
 
 <script type="text/javascript">
 
@@ -86,5 +86,5 @@
 	</c:choose>
 </div>
 
-<script src="${base}/js/layer/layer.js"></script>
-<script type="text/javascript" src="${base}/js/medical/hospitalApplyDetail.js?v=ipandatcm_1.3"></script>
+<script src="/js/layer/layer.js"></script>
+<script type="text/javascript" src="/js/medical/hospitalApplyDetail.js?v=ipandatcm_1.3"></script>

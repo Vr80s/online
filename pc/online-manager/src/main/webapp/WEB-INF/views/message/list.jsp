@@ -4,7 +4,7 @@
 <script type="text/javascript" src="bootstrap/assets/js/bootstrap-select.js"></script>
 <script type="text/javascript" src="bootstrap/assets/js/defaults-zh_CN.js"></script>
 <link rel="stylesheet" type="text/css" href="bootstrap/assets/css/bootstrap-select.css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <style type="text/css">
 .wysiwyg-style3{
 	text-align: right !important;
@@ -45,7 +45,7 @@
 
 </style>
 
-<script src="${base}/js/layer/layer.js"></script>
+<script src="/js/layer/layer.js"></script>
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];

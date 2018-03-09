@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />
 <script type="text/javascript">
   try {
     var scripts = [ null, null ];
@@ -11,8 +11,8 @@
   } catch (e) {
   }
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header row">
 	<div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
   		当前位置：作业管理
@@ -203,4 +203,4 @@
     </div>
     <table id="paperListTable" class="table table-striped table-bordered table-hover"></table>
 </div>
-<script type="text/javascript" src="${base}/js/homework/papers.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/homework/papers.js?v=ipandatcm_1.3"></script>

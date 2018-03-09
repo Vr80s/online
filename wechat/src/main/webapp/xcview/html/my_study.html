@@ -18,7 +18,13 @@
 
 <script type="text/javascript" src="../js/my_study.js"></script>
 
-
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}	
+	document.documentElement.style.fontSize=kk/7.5+"px"	
+</script>
 
 	
 </head>
@@ -200,12 +206,12 @@
 
 </body>
 <script>
-			var kk=document.documentElement.clientWidth;
-			if(kk>750){
-				kk=750
-			}
-			
-			document.documentElement.style.fontSize=kk/7.5+"px";
+//			var kk=document.documentElement.clientWidth;
+//			if(kk>750){
+//				kk=750
+//			}
+//			
+//			document.documentElement.style.fontSize=kk/7.5+"px";
 			
 //$(".paly_ing").click(function(event){
 //alert("我是小div");

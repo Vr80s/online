@@ -72,14 +72,6 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         this.validate(target);
         // 判断用户是否是认证医师或者认证医馆
         Integer result = commonService.isDoctorOrHospital(target.getUserId());
-        try {
-            System.out.println("kaishi");
-            Thread.sleep(1000);
-            System.out.println(result);
-            System.out.println("jieshu");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         // 如果用户是认证医馆或者医馆认证中 不让其认证医师
         if(result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) ||
                 result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){

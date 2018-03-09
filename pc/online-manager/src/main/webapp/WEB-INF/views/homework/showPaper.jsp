@@ -9,11 +9,11 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" href="${base}/css/npyPaper.css"/>
+	<link rel="stylesheet" href="/css/npyPaper.css"/>
   </head>
   <body>
 	<div class="container-all">
-	<a class="f-r" href="javascript:window.close();"><img src="${base}/images/cancel-off-big.png" alt=""></a>
+	<a class="f-r" href="javascript:window.close();"><img src="/images/cancel-off-big.png" alt=""></a>
 	<h1 class="big-title">${paperName}</h1>
 	<c:if test="${0==fn:length(questionType_3.questionInfoVos) && 0==fn:length(questionType_4.questionInfoVos) && 0==fn:length(questionType_5.questionInfoVos) && 0==fn:length(questionType_6.questionInfoVos)
 			&& 0==fn:length(questionType_6.questionInfoVos) && 0==fn:length(questionType_0.questionInfoVos) && 0==fn:length(questionType_1.questionInfoVos) && 0==fn:length(questionType_2.questionInfoVos)}">
@@ -155,7 +155,7 @@
 		</div>
 	</c:if>
 	</div>
-	<script type="text/javascript" src="${base}/bootstrap/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="/bootstrap/assets/js/jquery.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$(".topic").on("click","img",function () {

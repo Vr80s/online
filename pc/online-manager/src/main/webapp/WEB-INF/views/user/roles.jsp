@@ -113,4 +113,4 @@
 	</table>
 </div>
     
-<script type="text/javascript" src="${base}/js/user/role.js?ver=1.2"></script>
+<script type="text/javascript" src="/js/user/role.js?ver=1.2"></script>

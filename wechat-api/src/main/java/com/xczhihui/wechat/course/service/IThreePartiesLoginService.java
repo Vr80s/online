@@ -69,7 +69,7 @@ public interface IThreePartiesLoginService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      *
      */
-	WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId,String uid);
+	WeiboClientUserMapping selectWeiboClientUserMappingByUserIdAndUid(String userId,String uid);
 	
 	/**
      * 
@@ -80,7 +80,7 @@ public interface IThreePartiesLoginService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      *
      */
-	QQClientUserMapping  selectQQClientUserMappingByUserId(String userId,String openId);
+	QQClientUserMapping  selectQQClientUserMappingByUserIdAndUniondId(String userId,String unionId);
 
 	/**
 	 * 
@@ -131,8 +131,13 @@ public interface IThreePartiesLoginService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 * 
 	 */
-	QQClientUserMapping selectQQClientUserMappingByUserIdAndOpenId(
-			String userId, String openId);
+	QQClientUserMapping selectQQClientUserMappingByUserIdAndOpenId(String userId, String openId);
+
+
+	WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId);
+
+
+	QQClientUserMapping selectQQClientUserMappingByUserId(String userId);
 	
 	
 }

@@ -34,7 +34,7 @@ public interface WeiboClientUserMappingMapper extends BaseMapper<WeiboClientUser
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	WeiboClientUserMapping selectWeiboClientUserMappingByUserId(@Param("userId")String userId,@Param("uid")String uid);
+	WeiboClientUserMapping selectWeiboClientUserMappingByUserIdAndUid(@Param("userId")String userId,@Param("uid")String uid);
 	
 	/**
 	 * 
@@ -47,5 +47,7 @@ public interface WeiboClientUserMappingMapper extends BaseMapper<WeiboClientUser
 	void updateByIdByMapper(String id);
 
 	void deleteAccount(String userId);
+
+	WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId);
 
 }

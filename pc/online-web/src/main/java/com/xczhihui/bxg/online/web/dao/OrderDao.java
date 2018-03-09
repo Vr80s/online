@@ -219,7 +219,6 @@ public class OrderDao extends SimpleHibernateDao {
     public void updateOrderStatus(String orderNo,Integer payType,String transaction_id) {
         Map<String,Object> paramMap = new HashMap<>();
         String sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+transaction_id+"' where order_no = '"+orderNo+"' ";
-        System.out.println(sql);
         this.getNamedParameterJdbcTemplate().update(sql.toString(), paramMap);
     }
     /**

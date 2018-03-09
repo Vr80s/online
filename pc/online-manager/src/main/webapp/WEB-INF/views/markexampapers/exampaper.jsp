@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />
 <style>
     .tiContent p{
         display: inline-block;
@@ -45,7 +45,7 @@
 		width:18px;
 		height:10px;
 		display:inline-block;
-		background:url("${base}/images/bottom.png");
+		background:url("/images/bottom.png");
 		margin:0 10px 0 5px;
 		vertical-align: middle;
 	}
@@ -53,7 +53,7 @@
 		width:18px;
 		height:10px;
 		display:inline-block;
-		background:url("${base}/images/top.png");
+		background:url("/images/top.png");
 		margin:0 10px 0 5px;
 		vertical-align: middle;
 	}
@@ -104,8 +104,8 @@
   } catch (e) {
   }
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	<div class="row">
 		<div style="margin-left:10px">
@@ -160,4 +160,4 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="${base}/js/markexampapers/exampaper.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/markexampapers/exampaper.js?v=ipandatcm_1.3"></script>

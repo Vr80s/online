@@ -157,7 +157,7 @@ function isLoginJump(){
 		  
 		  history.back(-1);
 	  }else{
-		  location.href = "/bxg/page/index/"+localStorage.openid+"/null";
+		   location.href = "home_page.html";
 	  }
   }else{
 	  //登录页面

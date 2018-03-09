@@ -129,13 +129,18 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             CourseAnchor courseAnchor = new CourseAnchor();
             BeanUtils.copyProperties(target, courseAnchor);
             courseAnchor.setId(anchor.getId());
+
 //            EntityWrapper<CourseAnchor> ew = new EntityWrapper();
 //            ew.where("user_id={0}",target.getUserId());
 //            courseAnchorMapper.update(courseAnchor, ew);
 
             // 如果不选择精彩致辞，则表示取消之前的精彩致辞(这是不是删除用户的精彩致辞)
             if (target.getResourceId() == null){
-                courseAnchor.setResourceId(0);
+                courseAnchor.setResourceId(null);
+                courseAnchor.setVideo(null);
+            }else{
+                CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectById(target.getResourceId());
+                courseAnchor.setVideo(courseApplyResource.getResource());
             }
 
             courseAnchorMapper.updateById(courseAnchor);
