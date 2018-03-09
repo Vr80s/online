@@ -145,7 +145,11 @@ public class RealCourseController extends AbstractController{
           if (courseName != null) {
         	  searchVo.setCourseName(courseName.getPropertyValue1().toString());
           }
-          
+		Group menuId = groups.findByName("search_menu");
+		if (menuId != null) {
+			searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1()
+					.toString()));
+		}
           
           Group city = groups.findByName("search_city");
           if (city != null) {

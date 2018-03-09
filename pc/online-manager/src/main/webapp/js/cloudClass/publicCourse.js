@@ -303,6 +303,13 @@ $(function(){
     { "title": "现价格", "class":"center","width":"9%","sortable":false,"mRender":function(data,display,row){
     	return data = row.currentPrice;
     }},
+	{ "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
+			if(data==1){
+				return data="<span name='zt'>已启用</span>";
+			}else{
+				return data="<span name='zt'>已禁用</span>";
+			}
+		} },
     { "title": "推荐值", "class":"center","width":"10%","sortable":false,"data": 'recommendSort' },
     { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
