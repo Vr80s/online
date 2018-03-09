@@ -1613,6 +1613,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		Course course= dao.findByHQLOne(hqlPre,new Object[] {id});
 		if (course!=null){
 			course.setRecommendSort(recommendSort);
+			course.setSortUpdateTime(new Date());
 			dao.update(course);
 		}
 	}

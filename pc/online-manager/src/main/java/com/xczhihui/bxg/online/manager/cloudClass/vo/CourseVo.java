@@ -340,6 +340,11 @@ public class CourseVo extends OnlineBaseVo{
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date releaseTime;
+
+    //排序更新时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date sortUpdateTime;
 	
 
 	public String getSubtitle() {
@@ -1056,5 +1061,13 @@ public class CourseVo extends OnlineBaseVo{
 	public void setReleaseTime(Date releaseTime) {
 		this.releaseTime = releaseTime;
 	}
+
+    public Date getSortUpdateTime() {
+        return sortUpdateTime;
+    }
+
+    public void setSortUpdateTime(Date sortUpdateTime) {
+        this.sortUpdateTime = sortUpdateTime;
+    }
 }
 

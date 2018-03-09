@@ -323,8 +323,12 @@ public class Course extends BasicEntity2 implements Serializable {
 	
 	@Column(name = "is_type_recommend")
 	private Integer isTypeRecommend;
-	
-	
+
+	/**
+	 * 排序更新时间
+	 */
+	@Column(name = "sort_update_time")
+	private Date sortUpdateTime;
 	
 	
 	
@@ -945,7 +949,12 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setIsTypeRecommend(Integer isTypeRecommend) {
 		this.isTypeRecommend = isTypeRecommend;
 	}
-	
-	
-	
+
+	public Date getSortUpdateTime() {
+		return sortUpdateTime;
+	}
+
+	public void setSortUpdateTime(Date sortUpdateTime) {
+		this.sortUpdateTime = sortUpdateTime;
+	}
 }
