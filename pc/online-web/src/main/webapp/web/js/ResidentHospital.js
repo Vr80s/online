@@ -46,8 +46,10 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 
 
 //获取医馆认证状态控制左侧tab栏
+var userStatus;
  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
+	       	userStatus = data.resultObject;
 	       	if(data.resultObject != 2 ){
 	       		//医馆认证未成功显示出来认证失败的页面
 	       		
@@ -565,6 +567,11 @@ function picUpdown2(baseurl,imgname){
 	$('#hos_pic').on('click','.hospic_del',function(){
 		$(this).parent().remove()
 		$('#upHosPic').removeClass('hide')
+		if($('#hos_pic').children().length < 3){
+		$('#hos_Administration .zhicheng_picUpdata .zhicheng_pic').css('padding-left','0px')
+			
+		}
+
 	})
 
 
@@ -824,7 +831,7 @@ function hosAgainAut(){
 
 $(function(){
 	$('#hos_renzhneg_inf').addClass('color');
-	if(localStorage.hos_Administration == "hos_base_inf" ){
+	if(localStorage.hos_Administration == "hos_base_inf" || userStatus == 2){
 		$('#hos_base_inf').click();
 	}
 })

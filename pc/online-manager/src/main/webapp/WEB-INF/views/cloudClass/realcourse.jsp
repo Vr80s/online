@@ -503,9 +503,9 @@
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-					 <button class="btn btn-sm btn-success rec_P" title="设为推荐">
+					 <%--<button class="btn btn-sm btn-success rec_P" title="设为推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
-					</button>
+					</button>--%>
 					<!-- <button class="btn btn-sm btn-success rec_jp" title="设为精品推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为精品推荐 
 					</button> -->
@@ -515,7 +515,7 @@
 			        <div class="profile-info-row" >
 			            <table frame=void >
 			                <tr>
-								<td>
+								<%--<td>
 									<div class="profile-info-value searchTr">
 										<select name="search_isRecommend" id="search_isRecommend" value="" class="propertyValue1" >
 											<option value="">是否已推荐</option>
@@ -523,6 +523,17 @@
 											<option value="0">未推荐</option>
 										</select>
 										<input type="hidden" value="search_isRecommend" class="propertyName"/>
+									</div>
+								</td>--%>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="menuName" id="search_menu" value="" class="propertyValue1"  >
+											<option value="">学科</option>
+											<c:forEach var="menus" items="${menuVo}">
+												<option value="${menus.id}">${menus.name}</option>
+											</c:forEach>
+										</select>
+										<input type="hidden" value="search_menu" class="propertyName"/>
 									</div>
 								</td>
 			                	<td>

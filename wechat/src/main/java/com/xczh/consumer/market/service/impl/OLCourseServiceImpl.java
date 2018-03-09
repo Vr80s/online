@@ -851,7 +851,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			}
 			commonSql.append(")) ooc");
 
-			commonSql.append("  order by  ooc.querySort asc,ooc.recommend_sort desc,ooc.release_time desc ");
+			commonSql.append("  order by  ooc.querySort asc,recommendSort desc,ooc.release_time desc ");
 
 		}
 

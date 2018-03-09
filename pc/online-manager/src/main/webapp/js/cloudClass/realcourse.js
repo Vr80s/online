@@ -25,6 +25,7 @@ $(function(){
     }},
     { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
+    { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
     { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "讲师", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
     { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
@@ -38,7 +39,7 @@ $(function(){
     	data = row.currentPrice;
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
-    { "title": "开课时间", "class":"center","width":"12%", "sortable":false,"data": 'startTime'},
+    { "title": "开课时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime'},
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
     // { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
     // { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
