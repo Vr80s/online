@@ -1252,5 +1252,18 @@
 		</div>
 	</form>
 </div>
+<!-- 修改推荐值form -->
+<div id="dialogUpdateRecommendSortDiv"></div>
+<div id="UpdateRecommendSortDialog" class="hide">
+	<form class="form-horizontal" id="UpdateRecommendSortFrom" method="post" action="" style="margin-top: 15px;">
+		<input type="hidden" name="id" id="UpdateRecommendSort_id">
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>推荐值: </label>
+			<div class="col-sm-6">
+				<input type="text" name="recommendSort"  id="recommendSort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
+			</div>
+		</div>
+	</form>
+</div>
 <script type="text/javascript" src="/js/cloudClass/provinces.js?v=ipandatcm_1.3"></script>
 <script type="text/javascript" src="/js/cloudClass/realcourse.js?v=ipandatcm_1.3.1"></script>

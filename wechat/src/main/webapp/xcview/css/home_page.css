@@ -1177,6 +1177,7 @@ margin-top: 0.05rem;
     display: inline-block;
     max-width: 2rem;
     float: left;
+    margin-top: 0.02rem;
 }
 .boutique_main_one_size .p3{
 	/*float: right;*/
@@ -1200,9 +1201,10 @@ overflow: hidden;
     float: left;
 }
 .boutique_main_one_size .p4{
-	margin-top: 0.01rem;
+	margin-top: 0.03rem;
     height1: 0.52rem;
     line-height1: 0.51rem;
+    float: left;
 }
 .boutique_main_one_size .p4 img{
 	width: 0.5rem;
@@ -1687,6 +1689,7 @@ overflow: hidden;
 	width: 0.468rem;
 	height: 0.468rem;
 	margin-right: 0.15rem;
+	float: left;
 }
 .newest_main_two_size .p3 span{
 	font-size: 0.511rem;

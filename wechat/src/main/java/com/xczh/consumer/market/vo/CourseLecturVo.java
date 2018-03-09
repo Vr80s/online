@@ -166,6 +166,11 @@ public class CourseLecturVo implements Serializable {
 
 	private String  link;
 
+	/**
+	 * 推荐排序
+	 */
+	private Integer recommendSort;
+
 	public String getStartDateStr() {
 		return startDateStr;
 	}
@@ -454,7 +459,11 @@ public class CourseLecturVo implements Serializable {
 		this.collection = collection;
 	}
 
+	public Integer getRecommendSort() {
+		return recommendSort;
+	}
 
-	
-	
+	public void setRecommendSort(Integer recommendSort) {
+		this.recommendSort = recommendSort;
+	}
 }

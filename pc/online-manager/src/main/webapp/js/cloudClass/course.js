@@ -14,7 +14,7 @@ $(function(){
         }
 	}
 	//debugger;
-	/** 职业课列表begin */
+	/** 点播管理列表begin */
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
     searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"'+$("#type").val()+'","tempType":undefined}');
@@ -38,35 +38,13 @@ $(function(){
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":true,"mRender":function (data, display, row) {
         return data;
     }},
-    { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
     // { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
     { "title": "价格", "class":"center","width":"8%","sortable":false,"mRender":function(data,display,row){
     	data = row.currentPrice;
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
-    { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
-//    { "title": "是否加密", "class":"center","width":"8%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
-//    	if(data == 1)
-//    		return "是";
-//    	return "否";
-//    }},
-
-    { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
-    { "title": "默认报名人数", "class":"center","sortable":false,"data": 'learndCount',"visible":false},
-    { "title": "实际报名人数", "class":"center","sortable":false,"data": 'actCount',"visible":false},
-    { "title": "是否推荐", "class":"center","width":"6%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
-    	if(data==1){
-    		return "<span name='sftj'>已推荐</span>";
-    	}else{
-    		return "<span name='sftj'>未推荐</span>";
-    	}
-    } },/*{ "title": "视频同步", "class":"center","width":"6%","sortable":false,"data": 'directId',"mRender":function (data, display, row) {
-    	if(data!=null && data!=''){
-    		return '<span style="color: #13da08;" name="sftj">已同步</span>';
-    	}else{
-    		return '<span style="color: #da0823;" name="sftj">未同步</span>';
-    	}
-    } },*/
+    { "title": "发布时间", "class":"center","width":"10%","sortable":false,"data": 'releaseTime'},
+    { "title": "推荐值", "class":"center","width":"8%","sortable":false,"data": 'recommendSort'},
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return "<span name='zt'>已上架</span>";
@@ -80,7 +58,7 @@ $(function(){
 	    		/*'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
 	        	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a>'+*/
 			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				// '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="下架" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
 				// '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
 				// '<a class="blue" href="javascript:void(-1);" title="同步视频" onclick="updateCourseVideo('+row.id+');"><i class="ace-icon glyphicon glyphicon-cloud-download bigger-130"></i></a>'
@@ -118,13 +96,6 @@ $(function(){
     { "title": "课程名称", "class":"center","width":"20%","sortable":false,"data": 'courseName' },
 	{ "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
 	{ "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
-    // { "title": "课程展示图", "class":"center","width":"13%","sortable":false,"data": 'recImgPath' ,"mRender":function (data, display, row) {
-    	// if(data != "" && data != null){
-    	// 	return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;' onclick='showImg(\""+row.id+"\",\""+row.courseName+"\",\""+row.recImgPath+"\")'/>";
-    	// }else{
-    	// 	return "暂无图片";
-    	// }
-	// }},
 	{ "title": "资源类型", "class":"center","width":"6%","sortable":false,"data": 'multimediaType' ,"mRender":function (data, display, row) {
     	if(data == 1){
     		return "视频";
@@ -138,14 +109,10 @@ $(function(){
     { "title": "现价格", "class":"center","width":"9%","sortable":false,"mRender":function(data,display,row){
     	return data = row.currentPrice;
     }},
-    {"sortable": false,"class": "center","width":"10%","title":"排序","data": 'sort',"mRender":function (data, display, row) {
-    	return '<div class="hidden-sm hidden-xs action-buttons">'+
-		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upaa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-    	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downaa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-	}},
-    { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+    { "title": "推荐值", "class":"center","width":"8%","sortable":false,"data": 'recommendSort' },
+    { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ' +
+			'<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,2);">设置推荐值</a> ' +
     		'<a class="blue" href="javascript:void(-1);" title="设置图片" onclick="updateRecImg(this);">设置图片</a> </div>';
   		}
 	}];
@@ -181,7 +148,7 @@ $(function(){
 	/** 课程推荐列表end */
 
 	/** 课程排序列表begin */
-	var objData_PX = [
+	/*var objData_PX = [
 		{ "title": "序号", "class": "center","width":"5%","sortable": false,"data":"id" },
 		{ "title": "课程名称", "class":"center","width":"20%","sortable":false,"data": 'courseName' },
         { "title": "资源类型", "class":"center","width":"6%","sortable":false,"data": 'multimediaType' ,"mRender":function (data, display, row) {
@@ -266,7 +233,7 @@ $(function(){
 				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 			}
 		});
-	});
+	});*/
 	/** 课程排序列表end */
 
 	/** 表单验证START */
@@ -1225,20 +1192,45 @@ function updateStatus(obj,status){
 };
 
 /**
- * 状态修改
- * @param obj
- */
-function updateRec(obj){
-	var oo = $(obj).parent().parent().parent();
-	var row = _courseRecTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/cloudclass/course/updateRec",{"ids":row.id,"isRec":0},function(data){
-		if(data.success){
-			layer.msg("取消成功！");
-			freshTable(_courseRecTable);
-		}else{
-			layer.msg("取消失败！");
-		}
-	});
+ * Description：设置推荐值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateRecommendSort(obj,key){
+    var row ="";
+    var oo = $(obj).parent().parent().parent();
+    if(key==1){
+        row = P_courseTable.fnGetData(oo);
+    }else{
+        row = _courseRecTable.fnGetData(oo);// get datarow
+    }
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updateRecommendSort");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                unmask();
+                if(data.success){
+                    $("#recommendSort").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    if(key==1){
+                        freshTable(P_courseTable);
+                    }else{
+                        freshTable(_courseRecTable);
+                    }
+                    freshTable(_courseRecTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
 };
 
 /**

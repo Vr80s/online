@@ -1607,6 +1607,17 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		return course;
 	}
 
+	@Override
+	public void updateRecommendSort(Integer id,Integer recommendSort) {
+		String hqlPre="from Course where  isDelete = 0 and id = ?";
+		Course course= dao.findByHQLOne(hqlPre,new Object[] {id});
+		if (course!=null){
+			course.setRecommendSort(recommendSort);
+			course.setSortUpdateTime(new Date());
+			dao.update(course);
+		}
+	}
+
 	public String createWebinar(Course entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getGradeName());
