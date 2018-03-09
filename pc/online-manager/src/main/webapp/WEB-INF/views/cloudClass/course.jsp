@@ -511,9 +511,9 @@
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-					<button class="btn btn-sm btn-success rec_P" title="设为推荐">
+					<%--<button class="btn btn-sm btn-success rec_P" title="设为推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
-					</button>
+					</button>--%>
 					<!-- <button class="btn btn-sm btn-success rec_jp" title="设为精品推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为精品推荐 
 					</button> -->
@@ -729,6 +729,7 @@
 								<col width='8%'></col>
 							    <col width='15%'></col>
 							    <col width='7%'></col>
+								<col width='7%'></col>
 							    <col width='9%'></col>
 							    <col width='8%'></col>
 							    <col width='11%'></col>
