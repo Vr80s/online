@@ -13,6 +13,7 @@ $(function(){
         saveCourse();
     });
     $(".courseP").click(function(){
+    	$('#course_name').val('')
     	$("#course_type option:first").prop("selected", 'selected');
         courseList(1);
         initResource(1);
@@ -97,6 +98,7 @@ $(function(){
     });
     $(".specialP").click(function(){
 //  	$('#course_collection_type option:first-child').attr('selected','selected')
+		$('#course_collection_name').val('');
     	$("#course_collection_type option:first").prop("selected", 'selected');
         courseCollectionList(1);
         initCourse(1);
