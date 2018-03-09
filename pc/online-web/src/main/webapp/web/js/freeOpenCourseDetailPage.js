@@ -151,7 +151,7 @@ window.onload=function(){
         '<span class="bigpic-body-title">' +
         '<span class="bigpic-body-title-nav">{{item.courseName}}</span>' +
         '{{if item.recommend == true}}' +
-        '<i class="iconfont icon-jingpin jingpingCourse"><span>精</span></i>'+
+//      '<i class="iconfont icon-jingpin jingpingCourse"><span>精</span></i>'+
         '{{/if}}'+
         '</span>' +
         '<p class="bigpic-body-text dot-ellipsis" title="{{item.description}}">{{item.description}}</p>' +
