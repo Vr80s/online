@@ -494,10 +494,10 @@
             <a href="#inbox" aria-controls="inbox" title="2" class="kctj_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">音频推荐</a>
         </li>
-		<li role="presentation">
+		<%--<li role="presentation">
 			<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程排序</a>
-		</li>
+		</li>--%>
     </ul>
  
     <!-- Tab panes -->
@@ -731,9 +731,7 @@
 							    <col width='7%'></col>
 							    <col width='9%'></col>
 							    <col width='8%'></col>
-							    <col width='8%'></col>
 							    <col width='11%'></col>
-							    <col width='8%'></col>
 							    <col width='13%'></col>
 							</colgroup>
 						</table>
@@ -1349,6 +1347,19 @@
 						<div class="allTeacher"></div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- 修改推荐值form -->
+<div id="dialogUpdateRecommendSortDiv"></div>
+<div id="UpdateRecommendSortDialog" class="hide">
+	<form class="form-horizontal" id="UpdateRecommendSortFrom" method="post" action="" style="margin-top: 15px;">
+		<input type="hidden" name="id" id="UpdateRecommendSort_id">
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>推荐值: </label>
+			<div class="col-sm-6">
+				<input type="text" name="recommendSort"  id="recommendSort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
 			</div>
 		</div>
 	</form>

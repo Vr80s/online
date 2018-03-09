@@ -459,16 +459,15 @@
                 						</div>
                 						<div class="boutique_main_one_size">
                 							{{if item.watchState == 1}}
-                							<p style="margin-top: -0.12rem;"><span>免费</span></p>
+                							<p style="margin-top: -0.1rem;"><span>免费</span></p>
                 							{{else}}
-                							<p><span>{{item.currentPrice}}</span>熊猫币</p>
+                							<p style="margin-top: -0.07rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
                 							{{/if}}
-                							
                 							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
                 							{{if item.type == 3}}
                 							<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" /><span style="float: left;">{{item.startDateStr}}</span></p>
                 							{{else if item.type == 4}}
-                							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
+                							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span style="margin-top: -0.1rem;">{{item.city}}</span></p>
                 							{{/if}}
                 						</div>
                 					</div>

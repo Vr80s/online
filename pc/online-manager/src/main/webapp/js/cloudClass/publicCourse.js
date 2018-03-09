@@ -35,6 +35,7 @@ $(function(){
     { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer' },
     { "title": "课程时长", "class":"center","width":"7%", "sortable":false,"data": 'courseLength' },
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
+    { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
     //	private  int liveSource;  //直播来源  1、后台新增  2、app申请
     { "title": "直播来源", "class":"center","width":"10%","data":"liveSource","sortable":false,"mRender":function(data,display,row){
     	if(data!=null && data== 2){
@@ -48,19 +49,6 @@ $(function(){
     	data = row.currentPrice;
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
-    { "title": "是否推荐", "class":"center","width":"7%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
-		if(data==1){
-			return "<span name='sftj'>已推荐</span>";
-		}else{
-			return "<span name='sftj'>未推荐</span>";
-		}
-	} },
-//    { "title": "是否加密", "class":"center","width":"7%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
-//    	if(data != null)
-//    		return "是";
-//    	return "否";
-//    }},
-	
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
@@ -68,23 +56,14 @@ $(function(){
     		return data="<span name='zt'>已禁用</span>";
     	}
     } },
-    {"sortable": false,"class": "center","width":"6%","title":"排序","mRender":function (data, display, row) {
-    	if(row.status ==1){//如果是禁用
-    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-    		'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-        	'<a class="blue" name="downa" href="javascript:void(-1);" title="下移"  onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-    	}else{
-    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-    		'<a class="gray" href="javascript:void(-1);" title="上移"  ><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-        	'<a class="gray" href="javascript:void(-1);" title="下移"  ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-    	}
-    }},
+    { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
+
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		var str = '<div class="hidden-sm hidden-xs action-buttons">'+
 				'<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
                 // '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-				// '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
 				if(row.directId == null || row.directId == ""){
 					str+='<a class="blue" href="javascript:void(-1);" title="生成直播间" onclick="createWebinar(this);"><i class="ace-icon fa fa-retweet bigger-130"></i></a> '
@@ -264,7 +243,7 @@ $(function(){
 
 	
 	/** 直播课统计 begin */
-	var objRecData = [
+	/*var objRecData = [
 	{title: '序号', "class": "center","data-width":"13px" ,"data": 'id',datafield: 'xuhao', "sortable": false},
 	{ "title": "公开课名称", "width":"16%","class":"center","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
     		return "<span name='courseNameList'>"+data+"</span>";
@@ -294,7 +273,7 @@ $(function(){
 	    for (var i = 0; i < texts.length; i++) {
 	    	texts1.eq(i).parent().attr("title",texts1.eq(i).text());
 	    }
-	});
+	});*/
 
 	/** 直播课统计 end */
 	
@@ -324,23 +303,10 @@ $(function(){
     { "title": "现价格", "class":"center","width":"9%","sortable":false,"mRender":function(data,display,row){
     	return data = row.currentPrice;
     }},
-    {"sortable": false,"class": "center","width":"10%","title":"排序","mRender":function (data, display, row) {
-    	return '<div class="hidden-sm hidden-xs action-buttons">'+
-		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="liveUpa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-    	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="liveDowna"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-	}},
-	
-/*	'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-	'<a class="blue" name="downa" href="javascript:void(-1);" title="下移"  onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-	
-	  {"sortable": false,"class": "center","width":"8%","title":"排序","mRender":function (data, display, row) {
-	    	if(row.status ==1){//如果是禁用
-	    		return '<div class="hidden-sm hidden-xs action-buttons">'+*/
-	
-	
+    { "title": "推荐值", "class":"center","width":"10%","sortable":false,"data": 'recommendSort' },
     { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ';
+			'<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this);">设置推荐值</a> ';
   		}
 	}];
 
@@ -930,38 +896,8 @@ function downMove(obj){
 	});
 };
 
-/**
- * 课程推荐列表上移
- * @param obj
- */
-function upMoveRec(obj){
-	debugger;
-	var oo = $(obj).parent().parent().parent();
-	var aData = zb_courseRecTable.fnGetData(oo);
-	ajaxRequest(basePath+'/cloudclass/course/upMoveRec',{"id":aData.id},function(res){
-		if(res.success){
-			freshTable(zb_courseRecTable);
-		}else{
-			layer.msg(res.errorMessage);
-		}
-	});
-};
 
-/**
- * 课程推荐列表下移
- * @param obj
- */
-function downMoveRec(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = zb_courseRecTable.fnGetData(oo);
-	ajaxRequest(basePath+'/cloudclass/course/downMoveRec',{"id":aData.id},function(res){
-		if(res.success){
-			freshTable(zb_courseRecTable);
-		}else{
-			layer.msg(res.errorMessage);
-		}
-	});
-};
+
 
 
 /**
@@ -969,17 +905,60 @@ function downMoveRec(obj){
  * @param obj
  */
 function updateRec(obj){
-	var oo = $(obj).parent().parent().parent();
-	var row = zb_courseRecTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/cloudclass/course/updateRec",{"ids":row.id,"isRec":0},function(data){
-		if(data.success){
-			layer.msg("取消成功！");
-			freshTable(zb_courseRecTable);
-		}else{
-			layer.msg("取消失败！");
-		}
-	});
+    var oo = $(obj).parent().parent().parent();
+    var row = zb_courseRecTable.fnGetData(oo); // get datarow
+    ajaxRequest(basePath+"/cloudclass/course/updateRec",{"ids":row.id,"isRec":0},function(data){
+        if(data.success){
+            layer.msg("取消成功！");
+            freshTable(zb_courseRecTable);
+        }else{
+            layer.msg("取消失败！");
+        }
+    });
 };
+
+/**
+ * Description：设置推荐值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateRecommendSort(obj,key){
+	var row ="";
+    var oo = $(obj).parent().parent().parent();
+    if(key==1){
+        row = _courseTable.fnGetData(oo);
+    }else{
+        row = zb_courseRecTable.fnGetData(oo); // get datarow
+    }
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updateRecommendSort");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                unmask();
+                if(data.success){
+                    $("#recommendSort").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    if(key==1){
+                        freshTable(_courseTable);
+                    }else{
+                        freshTable(zb_courseRecTable);
+                    }
+                    freshTable(zb_courseRecTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
+};
+
 /**
  * 职业课批量推荐
  * 
