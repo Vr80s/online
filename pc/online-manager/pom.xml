@@ -7,7 +7,7 @@
 		<artifactId>bxg-root-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	
+
   <artifactId>online-manager</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
@@ -34,13 +34,13 @@
 			<groupId>com.xczhihui</groupId>
 			<artifactId>bxg-common-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.xczhihui</groupId>
 			<artifactId>online-api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
@@ -72,7 +72,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -125,7 +125,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
@@ -169,7 +169,7 @@
 			<artifactId>poi</artifactId>
 			<version>3.12</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
@@ -207,8 +207,8 @@
 		  <version>1.2.6</version>
 	  </dependency>
 	</dependencies>
-	
-	
+
+
   <profiles>
 		<profile>
 			<id>dev</id>
@@ -244,7 +244,6 @@
 		<plugins>
 			<!-- 设置源文件编码方 -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>1.8</source>
@@ -254,7 +253,6 @@
 			</plugin>
 			<!-- 解决资源文件的编码问 -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
@@ -283,7 +281,7 @@
 						<param>jsp</param>
 					</suffixs>
 					<!-- 清理html 页面注释-->
-					<clearPageComment>true</clearPageComment>
+					<clearPageComment>false</clearPageComment>
 					<globaJsMethod>MD5_METHOD</globaJsMethod>
 					<globaCssMethod>MD5_METHOD</globaCssMethod>
 					<versionValLenth>20</versionValLenth>
@@ -294,7 +292,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.1.0</version>
 				<configuration>
@@ -314,9 +311,6 @@
 				<includes>
 					<include>*.*</include>
 				</includes>
-				<excludes>
-					<exclude>*.js</exclude>
-				</excludes>
 				<filtering>false</filtering>
 			</resource>
 			<resource>
