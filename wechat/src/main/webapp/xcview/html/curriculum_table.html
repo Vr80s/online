@@ -532,22 +532,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 	</script>
 	
 		
-	<script>
-		/**
-	 * 监听浏览器---》回退事件
-	 */
-		var counter = 0;
-		if (window.history && window.history.pushState) {
-		     $(window).on('popstate', function () {
-		                    window.history.pushState('forward', null, '#');
-		                    window.history.forward(1);
-		
-		                    location.href ='/xcview/html/search.html'
-		   });
-		}
-		window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
-		window.history.forward(1);
-	</script>
+	
 	
 	
 </html>
