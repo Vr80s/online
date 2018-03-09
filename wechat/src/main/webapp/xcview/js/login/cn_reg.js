@@ -79,7 +79,7 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 	if (!agreementchecked) {
 //		reminderror.innerHTML = "";
 //		$(".web_toast").addClass("hide");
-		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
+		webToast("请同意协议内容","middle",1500);
 		
 		return false;
 	} 
