@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
-<link rel="stylesheet" type="text/css" href="${base}/bootstrap/assets/css/bootstrap-select.css" />
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />	
+<link rel="stylesheet" type="text/css" href="/bootstrap/assets/css/bootstrap-select.css" />
 <style type="text/css">
 .bs-select-all.btn, .bs-deselect-all.btn, .dropdown-toggle.btn {
     display: inline-block;
@@ -47,10 +47,10 @@
   } catch (e) {
   }
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
-<script type="text/javascript" src="${base}/bootstrap/assets/js/bootstrap-select.js"></script>
-<script type="text/javascript" src="${base}/bootstrap/assets/js/defaults-zh_CN.js"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script type="text/javascript" src="/bootstrap/assets/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="/bootstrap/assets/js/defaults-zh_CN.js"></script>
 <div class="page-header">
   当前位置：销售策略管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
@@ -333,4 +333,4 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/activity/activityRule.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/activity/activityRule.js?v=ipandatcm_1.3"></script>

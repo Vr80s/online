@@ -9,8 +9,8 @@
   } catch (e) {
   }
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<script src="/js/layer/layer.js"></script>
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <div class="page-header">
   当前位置：学科管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
@@ -242,4 +242,4 @@
   </table>
 </div>
 
-<script type="text/javascript" src="${base}/js/menumanager/menu.js?ver=1.2"></script>
+<script type="text/javascript" src="/js/menumanager/menu.js?ver=1.2"></script>

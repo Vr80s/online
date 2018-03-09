@@ -489,7 +489,6 @@ public class VideoDao extends SimpleHibernateDao {
 	    	  //查找这个课程是不是专辑、如果是专辑就 用in来查找啦
 	    	  List<Integer> list =  getCoursesIdListByCollectionId(courseId);
 	    	  
-	    	  System.out.println("list.size()---"+list.size());
 	    	  if(list.size()>0){
 	    		  list.add(courseId);
 	    		  String str = "";

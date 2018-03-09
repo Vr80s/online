@@ -54,13 +54,9 @@ public class CommonServiceImpl implements ICommonService {
         MedicalDoctorAccount medicalDoctorAccount = doctorAccountMapper.getByUserId(userId);
 
         if(medicalDoctorAccount != null){
-
             return true;
-
         }else{
-
             return false;
-
         }
     }
 
@@ -72,16 +68,11 @@ public class CommonServiceImpl implements ICommonService {
     public boolean isHospital(String userId) {
 
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(userId);
-
         if(hospitalAccount != null){
-
             if(hospitalMapper.getAuthenticationById(hospitalAccount.getDoctorId())){
-
                 return true;
             }
-
         }
-
         return false;
     }
 
@@ -96,7 +87,6 @@ public class CommonServiceImpl implements ICommonService {
         CountDownLatch countDownLatch = new CountDownLatch(2);
 
         try {
-
             // 判断是否是认证医师
             Future<Integer> authDoctorFuture = commonThreadPoolTaskExecutor.submit(() -> {
                 Integer result = null;
@@ -114,7 +104,6 @@ public class CommonServiceImpl implements ICommonService {
                         }
                     }
                 }
-                log.info("-----------------auth doctor stop");
                 countDownLatch.countDown();
                 return result;
             });
@@ -199,7 +188,6 @@ public class CommonServiceImpl implements ICommonService {
 
                 // 如果用户认证医馆被拒
                 if(authHospitalResult.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())){
-
                     // 同时用户认证医师也被拒
                     if(authDoctorResult.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode())){
                         return CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode();
@@ -207,7 +195,6 @@ public class CommonServiceImpl implements ICommonService {
                         return authDoctorResult;
                     }
                 }
-
             }
 
             return null;

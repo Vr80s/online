@@ -111,16 +111,14 @@ requestService("/xczh/host/hostPageInfo",{
             my_follow(lecturerId,2);
         }
     });		
-//直播时间截取
-//		data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,10); //截取日期
-			$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
-	
-	if(data.resultObject.recentCourse="" || data.resultObject.recentCourse== null){
-			$("#personal_status").hide();
-		}else{
-			is_watchState=data.resultObject.recentCourse.watchState;
+//直播时间截取	
 
-			
+	if(data.resultObject.recentCourse=="" || data.resultObject.recentCourse== null){
+			$("#personal_status").hide();
+	}else{
+		    data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,16) //截取日期	
+			$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
+			is_watchState=data.resultObject.recentCourse.watchState;	
 		}
 
 

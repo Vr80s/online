@@ -1113,7 +1113,7 @@ header{
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 0.34rem;
+    margin-bottom: 0.14rem;
 }
 .boutique_main_one_title .span0{
 	color: #999999;
@@ -1410,7 +1410,7 @@ overflow: hidden;
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 0.34rem;
+    margin-bottom: 0.14rem;
 }
 .boutique_main_four_title .span{
 	margin-right: 0.2rem;
@@ -1620,7 +1620,7 @@ overflow: hidden;
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 0.34rem;
+    margin-bottom: 0.14rem;
 }
 .newest_main_two_title .span{
 	margin-right: 0.2rem;
@@ -1923,7 +1923,7 @@ overflow: hidden;
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 0.34rem;
+
 }
 .lectures_main_one_title .span{
 	margin-right: 0.2rem;
@@ -1942,6 +1942,7 @@ overflow: hidden;
 .lectures_main_one_size P{
 	font-size: 0.468rem;
 	color: #999999;
+	/*margin-top: -0.16rem;*/
 }
 .lectures_main_one_size P span{
 	font-size: 0.511rem;
@@ -1959,17 +1960,18 @@ overflow: hidden;
     min-width: 1rem;
     max-width: 3.4rem;
     /*height: 0.51rem;*/
-    line-height: 0.51rem;
+    /*line-height: 0.51rem;*/
 	
 }
 .lectures_main_one_size .p2{
-	/*height: 0.51rem;*/
-    line-height: 0.51rem;
+	    overflow: hidden;
+    margin-top: 0.12rem;
 }
 .lectures_main_one_size .p2 img{
 	width: 0.404rem;
 	height: 0.468rem;
 	margin-right: 0.15rem;
+	float: left;
 }
 .lectures_main_one_size .p2 span{
 	font-size: 0.511rem;
@@ -1979,6 +1981,8 @@ overflow: hidden;
     white-space: nowrap;
     display: inline-block;
     max-width: 2rem;
+    float: left;
+    margin-top: -0.04rem;
 }
 
 /*听课结束*/

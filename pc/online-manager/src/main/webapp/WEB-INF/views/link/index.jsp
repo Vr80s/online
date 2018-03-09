@@ -1,12 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="../common/jstl_taglib.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
-<script src="${base}/js/layer/layer.js?v=4"></script>
-<script type="text/javascript" src="${base}/js/link/list.js?v=ipandatcm_1.3"></script>
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />	
+<script src="/js/layer/layer.js?v=4"></script>
+<script type="text/javascript" src="/js/link/list.js?v=ipandatcm_1.3"></script>
 
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];

@@ -301,9 +301,4 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
         return "购买";
     }
 
-    public static void main(String[] args) {
-    	int sum =1;
-    	++sum;
-    	System.out.println(sum);
-	}
 }
