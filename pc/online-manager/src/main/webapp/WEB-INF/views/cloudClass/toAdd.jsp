@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet" href="js/chosen/chosen.css" />
-<script src="${base}/js/layer/layer.js"></script>
+<script src="/js/layer/layer.js"></script>
 <script type="text/javascript" src="js/chosen/chosen.jquery.js"></script>
 <script type="text/javascript" src="js/cloudClass/map.min.js"></script>
 <script type="text/javascript" src="js/cloudClass/question_type_normal.js"></script>

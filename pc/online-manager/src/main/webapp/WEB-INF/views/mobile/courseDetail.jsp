@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];
@@ -11,8 +11,8 @@
 	}
 	var weburl = '${weburl}';
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js"
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js"
 	type="text/javascript"></script>
 <div class="page-header row">
 		<div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
@@ -70,10 +70,10 @@
 		</div>
 	</div>
  </div>
- <script type="text/javascript" charset="utf-8" src="${base}/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="${base}/ueditor/ueditor.all.min.js"> </script>
+ <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-<script type="text/javascript" charset="utf-8" src="${base}/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 
-<script type="text/javascript" src="${base}/js/mobile/courseDetail.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/mobile/courseDetail.js?v=ipandatcm_1.3"></script>

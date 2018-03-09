@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-     <link rel="shortcut icon" href="${base}/images/logo.ico">
+     <link rel="shortcut icon" href="/images/logo.ico">
     <title>熊猫中医直播教育管理系统</title>
     <style>
     body{
@@ -123,7 +123,7 @@
 <body>
 <div class="login">
     <!--<p class="logheader">
-    	<img  src="${base}/images/logo_1.png" style="height: 75;">
+    	<img  src="/images/logo_1.png" style="height: 75;">
     </p>-->
     <div class="logban">
         <div class="logbanner" >
@@ -143,12 +143,12 @@
     </div>
     <p class="foot" >熊猫中医(海口)健康科技有限公司   主办</p>
 </div>
-<script type="text/javascript" src="${base}/js/jquery-1.5.2.js"></script>
-<script src="${base}/js/jquery.validate.min.js"></script>
-<script src="${base}/js/jquery.metadata.js"></script>
-<script src="${base}/js/jquery.form.js"></script>
-<script src="${base}/js/messages_cn.js"></script>
-<script src="${base}/js/mask.js" type="text/javascript" ></script>
+<script type="text/javascript" src="/js/jquery-1.5.2.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.metadata.js"></script>
+<script src="/js/jquery.form.js"></script>
+<script src="/js/messages_cn.js"></script>
+<script src="/js/mask.js" type="text/javascript" ></script>
 <script>
     $(function(){
     $(".usename").click(function(){

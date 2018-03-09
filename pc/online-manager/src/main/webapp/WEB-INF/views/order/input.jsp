@@ -7,9 +7,9 @@
 		$('.page-content-area').ace_ajax('loadScripts', scripts,function(){});
 	} catch (e) {}
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js"
+<script src="/js/layer/layer.js"></script>
+<link href="/js/layer/skin/layer.css" type="text/css" />
+<script src="/js/jquery-ui-timepicker-zh-CN.js"
 	type="text/javascript"></script>
 <div class="page-header">
 		当前位置：销售管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
@@ -129,4 +129,4 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/order/input.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/order/input.js?v=ipandatcm_1.3"></script>

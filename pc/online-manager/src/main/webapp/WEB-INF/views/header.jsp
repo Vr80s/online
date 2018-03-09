@@ -39,7 +39,7 @@
 						<!-- #section:basics/navbar.user_menu -->
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="${base}/bootstrap/assets/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="/bootstrap/assets/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
 									${_user_.loginName}
@@ -66,7 +66,7 @@
 								<li class="divider"></li> -->
 
 								<li>
-									<a href="${base}/logout">
+									<a href="/logout">
 										<i class="ace-icon fa fa-power-off"></i>
 										注销
 									</a>

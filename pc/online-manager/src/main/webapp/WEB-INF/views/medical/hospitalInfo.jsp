@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
 
-<link href="${base}/css/medical/doctorInfo.css" type="text/css" />
+<link href="/css/medical/doctorInfo.css" type="text/css" />
 
 <script type="text/javascript">
 

@@ -1479,7 +1479,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		 Map<String,Object> params=new HashMap<String,Object>();
 		 List<Integer>  list = dao.getNamedParameterJdbcTemplate().
 				 queryForList("select count(*) as c from oe_offline_city o where  o.city_name = '"+city+"'",params,Integer.class);
-		 System.out.println("cityList"+list.size());
 		 if(list!=null && null!= list.get(0) && list.get(0)>0){
 			 return true;
 		 }

@@ -4,7 +4,7 @@
 <!DOCTYPE>
 <html>
   <head>
-  <link rel="shortcut icon" href="${base}/images/logo.ico">
+  <link rel="shortcut icon" href="/images/logo.ico">
     <title>熊猫中医直播教育管理系统</title>
     
 	<meta http-equiv="pragma" content="no-cache">
@@ -13,45 +13,45 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/bootstrap.css" />
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/font-awesome.css" />
-		<link rel="stylesheet" href="${base}/css/jquery-ui-timepicker-addon.css" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/bootstrap.css" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/font-awesome.css" />
+		<link rel="stylesheet" href="/css/jquery-ui-timepicker-addon.css" />
 
 		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/jquery-ui.custom.css" />
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/jquery.gritter.css" />
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/select2.css" />
-		<%-- <link rel="stylesheet" href="${base}/bootstrap/assets/css/datepicker.css" /> --%>
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/bootstrap-editable.css" />
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/select2.css" />
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/jquery-ui.css" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/jquery-ui.custom.css" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/jquery.gritter.css" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/select2.css" />
+		<%-- <link rel="stylesheet" href="/bootstrap/assets/css/datepicker.css" /> --%>
+		<link rel="stylesheet" href="/bootstrap/assets/css/bootstrap-editable.css" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/select2.css" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/jquery-ui.css" />
 
 		<!-- text fonts -->
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/ace-fonts.css" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/ace-fonts.css" />
 
 		<!-- ace styles -->
-		<link rel="stylesheet" href="${base}/bootstrap/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+		<link rel="stylesheet" href="/bootstrap/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
 
 		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="${base}/bootstrap/assets/css/ace-part2.css" class="ace-main-stylesheet" />
+			<link rel="stylesheet" href="/bootstrap/assets/css/ace-part2.css" class="ace-main-stylesheet" />
 		<![endif]-->
 
 		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="${base}/bootstrap/assets/css/ace-ie.css" />
+		  <link rel="stylesheet" href="/bootstrap/assets/css/ace-ie.css" />
 		<![endif]-->
-		<link rel="stylesheet" href="${base}/css/style.css" type="text/css" />
-		<link rel="stylesheet" href="${base}/css/zTreeStyle/zTreeStyle.css" type="text/css" />
-		<link rel="stylesheet" href="${base}/css/index.css" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="${base}/js/xcConfirm/css/xcConfirm.css"/>
+		<link rel="stylesheet" href="/css/style.css" type="text/css" />
+		<link rel="stylesheet" href="/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+		<link rel="stylesheet" href="/css/index.css" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="/js/xcConfirm/css/xcConfirm.css"/>
 
 		<!-- inline styles related to this page -->
 		<!-- ace settings handler -->
-		<script src="${base}/bootstrap/assets/js/ace-extra.js"></script>
+		<script src="/bootstrap/assets/js/ace-extra.js"></script>
 
 		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 		<!--[if lte IE 8]>
-		<script src="${base}/bootstrap/assets/js/html5shiv.js"></script>
-		<script src="${base}/bootstrap/assets/js/respond.js"></script>
+		<script src="/bootstrap/assets/js/html5shiv.js"></script>
+		<script src="/bootstrap/assets/js/respond.js"></script>
 		<![endif]-->
 		
 		
@@ -110,7 +110,7 @@
 						<li class="light-blue lightb">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<c:if test="${not empty _user_.smallHeadPhoto}">
-									<c:set var="headPhoto" value="${base}/attachmentCenter/download?aid=${_user_.smallHeadPhoto}"/>
+									<c:set var="headPhoto" value="/attachmentCenter/download?aid=${_user_.smallHeadPhoto}"/>
 								</c:if>
 								<c:if test="${empty _user_.smallHeadPhoto}">
 									<c:set var="headPhoto" value="images/defaultavatar.png"/>
@@ -126,7 +126,7 @@
 
 							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 								<li>
-									<a href="${base}/logout">
+									<a href="/logout">
 										<i class="ace-icon fa fa-power-off"></i>
 										注销
 									</a>
@@ -181,25 +181,25 @@
     
     
 <!--[if !IE]> -->
-	<script type="text/javascript" src="${base}/bootstrap/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="/bootstrap/assets/js/jquery.js"></script>
 <!-- <![endif]-->
 
 		<!--[if IE]>
 <script type="text/javascript">
- window.jQuery || document.write("<script src='${base}/bootstrap/assets/js/jquery1x.js'>"+"<"+"/script>");
+ window.jQuery || document.write("<script src='/bootstrap/assets/js/jquery1x.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
 		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='${base}/bootstrap/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+			if('ontouchstart' in document.documentElement) document.write("<script src='/bootstrap/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
 			
 		</script>
-		<script src="${base}/bootstrap/assets/js/bootstrap.js"></script>
+		<script src="/bootstrap/assets/js/bootstrap.js"></script>
 		<!--[if lte IE 8]>
-		  <script src="${base}/bootstrap/assets/js/excanvas.js"></script>
+		  <script src="/bootstrap/assets/js/excanvas.js"></script>
 		<![endif]-->
 <!-- 兼容高版本jquery下过时的api -->
 <script type="text/javascript">
-var basePath = "${base}";
+var basePath = "";
 	jQuery.browser = {};
 	(function() {
 		jQuery.browser.msie = false;
@@ -211,73 +211,73 @@ var basePath = "${base}";
 	})();
 	
 	//文件上传的服务器地址
-	var editorUploadUrl = '${base}/attachmentCenter/upload?projectName=kcenter&fileType=1';
+	var editorUploadUrl = '/attachmentCenter/upload?projectName=kcenter&fileType=1';
 	
 </script>
 		
-		<script src="${base}/bootstrap/assets/js/jquery-ui.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery-ui.custom.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery.ui.touch-punch.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery.gritter.js"></script>
-		<script src="${base}/bootstrap/assets/js/bootbox.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery.easypiechart.js"></script>
-		<%-- <script src="${base}/bootstrap/assets/js/date-time/moment.js"></script> --%>
-		<script src="${base}/js/jquery-ui-timepicker-addon.js"></script>
-		<script src="${base}/js/jquery-ui-timepicker-zh-CN.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery.hotkeys.js"></script>
-		<script src="${base}/bootstrap/assets/js/bootstrap-wysiwyg.js"></script>
-		<script src="${base}/bootstrap/assets/js/select2.js"></script>
-		<script src="${base}/bootstrap/assets/js/fuelux/fuelux.spinner.js"></script>
-		<script src="${base}/bootstrap/assets/js/x-editable/bootstrap-editable.js"></script>
-		<script src="${base}/bootstrap/assets/js/x-editable/ace-editable.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery.maskedinput.js"></script>
-		<script src="${base}/bootstrap/assets/js/fuelux/fuelux.wizard.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery.validate.js"></script>
+		<script src="/bootstrap/assets/js/jquery-ui.js"></script>
+		<script src="/bootstrap/assets/js/jquery-ui.custom.js"></script>
+		<script src="/bootstrap/assets/js/jquery.ui.touch-punch.js"></script>
+		<script src="/bootstrap/assets/js/jquery.gritter.js"></script>
+		<script src="/bootstrap/assets/js/bootbox.js"></script>
+		<script src="/bootstrap/assets/js/jquery.easypiechart.js"></script>
+		<%-- <script src="/bootstrap/assets/js/date-time/moment.js"></script> --%>
+		<script src="/js/jquery-ui-timepicker-addon.js"></script>
+		<script src="/js/jquery-ui-timepicker-zh-CN.js"></script>
+		<script src="/bootstrap/assets/js/jquery.hotkeys.js"></script>
+		<script src="/bootstrap/assets/js/bootstrap-wysiwyg.js"></script>
+		<script src="/bootstrap/assets/js/select2.js"></script>
+		<script src="/bootstrap/assets/js/fuelux/fuelux.spinner.js"></script>
+		<script src="/bootstrap/assets/js/x-editable/bootstrap-editable.js"></script>
+		<script src="/bootstrap/assets/js/x-editable/ace-editable.js"></script>
+		<script src="/bootstrap/assets/js/jquery.maskedinput.js"></script>
+		<script src="/bootstrap/assets/js/fuelux/fuelux.wizard.js"></script>
+		<script src="/bootstrap/assets/js/jquery.validate.js"></script>
     <!-- ace scripts -->
-		<script src="${base}/bootstrap/assets/js/ace/elements.scroller.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/elements.colorpicker.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/elements.fileinput.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/elements.typeahead.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/elements.wysiwyg.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/elements.spinner.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/elements.treeview.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/elements.wizard.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/elements.aside.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.ajax-content.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.touch-drag.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.sidebar.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.sidebar-scroll-1.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.submenu-hover.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.widget-box.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.settings.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.settings-rtl.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.settings-skin.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.widget-on-reload.js"></script>
-		<script src="${base}/bootstrap/assets/js/ace/ace.searchbox-autocomplete.js"></script>
-		<script src="${base}/js/jquery.ztree.core-3.5.js"></script>
-		<script src="${base}/js/jquery.ztree.excheck-3.5.js"></script>
-		<script src="${base}/js/jquery.ztree.exedit-3.5.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery.dataTables.js"></script>
-		<script src="${base}/bootstrap/assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.scroller.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.colorpicker.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.fileinput.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.typeahead.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.wysiwyg.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.spinner.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.treeview.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.wizard.js"></script>
+		<script src="/bootstrap/assets/js/ace/elements.aside.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.ajax-content.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.touch-drag.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.sidebar.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.sidebar-scroll-1.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.submenu-hover.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.widget-box.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.settings.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.settings-rtl.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.settings-skin.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.widget-on-reload.js"></script>
+		<script src="/bootstrap/assets/js/ace/ace.searchbox-autocomplete.js"></script>
+		<script src="/js/jquery.ztree.core-3.5.js"></script>
+		<script src="/js/jquery.ztree.excheck-3.5.js"></script>
+		<script src="/js/jquery.ztree.exedit-3.5.js"></script>
+		<script src="/bootstrap/assets/js/jquery.dataTables.js"></script>
+		<script src="/bootstrap/assets/js/jquery.dataTables.bootstrap.js"></script>
 
-		<script src="${base}/js/jquery.validate.min.js"></script>
-        <script src="${base}/js/jquery.metadata.js"></script>
+		<script src="/js/jquery.validate.min.js"></script>
+        <script src="/js/jquery.metadata.js"></script>
         
-        <script src="${base}/js/jquery.cookie.js"></script>
+        <script src="/js/jquery.cookie.js"></script>
 
-        <script src="${base}/bootstrap/assets/js/jquery.form.js"></script>
-        <script src="${base}/js/ajaxfileupload.js"></script>
+        <script src="/bootstrap/assets/js/jquery.form.js"></script>
+        <script src="/js/ajaxfileupload.js"></script>
        
-        <script src="${base}/js/messages_cn.js"></script>
-        <script src="${base}/js/mask.js" type="text/javascript" ></script>
-        <script src="${base}/js/xcConfirm/xcConfirm.js" type="text/javascript"></script>
+        <script src="/js/messages_cn.js"></script>
+        <script src="/js/mask.js" type="text/javascript" ></script>
+        <script src="/js/xcConfirm/xcConfirm.js" type="text/javascript"></script>
         
-        <script type="text/javascript" src="${base}/js/kindeditor/kindeditor.js"></script>
-		<script type="text/javascript" src="${base}/js/kindeditor/lang/zh_CN.js"></script>
+        <script type="text/javascript" src="/js/kindeditor/kindeditor.js"></script>
+		<script type="text/javascript" src="/js/kindeditor/lang/zh_CN.js"></script>
 		
-		<script src="${base}/js/global.js"></script>
-		<script src="${base}/js/ztree.js"></script>
+		<script src="/js/global.js"></script>
+		<script src="/js/ztree.js"></script>
 		
 		<script type="text/javascript">
 		$(function(){
@@ -294,13 +294,13 @@ var basePath = "${base}";
 						}
 					});
 					location.href = "#";
-					location.href = "${base}/home#"+$(this).attr("role");
-					/* if(location.href == "${base}/home#"+$(this).attr("role"))
+					location.href = "/home#"+$(this).attr("role");
+					/* if(location.href == "/home#"+$(this).attr("role"))
 					{
 						location.href = "#";
-						location.href = "${base}/home#"+$(this).attr("role");
+						location.href = "/home#"+$(this).attr("role");
 					}else{
-						location.href = "${base}/home#"+$(this).attr("role");
+						location.href = "/home#"+$(this).attr("role");
 					} */
 				}
 			});

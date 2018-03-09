@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />
 
 <style type="text/css">
 	.vertical-tab {
@@ -472,8 +472,8 @@
         });
     });
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：医师医馆<small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small> <span> 招聘管理 </span>
@@ -698,4 +698,4 @@
 	</form>
 </div>
 
-<script type="text/javascript" src="${base}/js/medical/recruit.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/medical/recruit.js?v=ipandatcm_1.3"></script>
