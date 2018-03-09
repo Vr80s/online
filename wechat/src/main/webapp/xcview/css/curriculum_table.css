@@ -173,6 +173,10 @@ header{
 	display: inherit;
 	margin-left: 0.35rem;
 	color: #999;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 6rem;
 }
 .header_seek_main {
     position: absolute;
@@ -277,12 +281,15 @@ header{
     font-size: 0.28rem;
     color: #333;
     overflow: hidden;
-    margin-bottom: 0.16rem;
+    /*margin-bottom: 0.16rem;*/
     width: 4.7rem;
+    
 }
 .li_list_one_right .p00 .span{
 	font-size: 0.22rem;
 	color: #999999;
+    padding: 0.08rem 0;
+    display: inline-block;
 }
 .li_list_one_right .div .p0{
 	font-size: 0.24rem;
@@ -333,9 +340,10 @@ header{
 .li_list_one_right .p1 span {
     color: #999;
     overflow: hidden;
-    display: inline-block;
+    /*display: inline-block;*/
     max-width: 1.5rem;
     margin-left: 0.05rem;
+    font-size: 0.22rem;
 }
 
 .li_list_one_right .div .p2 {
@@ -381,6 +389,10 @@ header{
     height: 0.8rem;
     line-height: 0.8rem;
     z-index: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 .hint span{
 	font-size: 0.24rem;
