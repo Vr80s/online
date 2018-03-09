@@ -407,8 +407,7 @@ header{
     line-height: 0.51rem;
 }
 .acupuncture_main_one_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .acupuncture_main_one_size .p2 span{
@@ -484,8 +483,7 @@ header{
     float: left;
 }
 .acupuncture_main_two_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .acupuncture_main_two_size .p2 span{
@@ -578,8 +576,7 @@ header{
     line-height: 0.51rem;
 }
 .acupuncture_main_three_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .acupuncture_main_three_size .p2 span{
@@ -654,8 +651,7 @@ header{
     float: left;
 }
 .acupuncture_main_four_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .acupuncture_main_four_size .p2 span{
@@ -766,16 +762,14 @@ header{
 	
 }
 /*.ancient_main_one_size .p1 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 }*/
 .ancient_main_one_size .p2{
 	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .ancient_main_one_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .ancient_main_one_size .p2 span{
@@ -849,8 +843,7 @@ header{
     float: left;
 }
 .ancient_main_two_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .ancient_main_two_size .p2 span{
@@ -943,8 +936,7 @@ header{
     line-height: 0.51rem;
 }
 .ancient_main_three_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .ancient_main_three_size .p2 span{
@@ -1019,8 +1011,7 @@ header{
     float: left;
 }
 .ancient_main_four_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .ancient_main_four_size .p2 span{
@@ -1161,8 +1152,8 @@ background1: red;
     margin-right: 0.25rem;
 }
 .boutique_main_one_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
+	/*height: 0.468rem;*/
 	margin-right: 0.15rem;
     display: block;
     float: left;
@@ -1197,13 +1188,13 @@ overflow: hidden;
 .boutique_main_one_size .p3 span{
     /*float: right;*/
 	color: #999999;
-    margin-top1: 0.03rem;
+/*    margin-top1: 0.03rem;*/
     float: left;
 }
 .boutique_main_one_size .p4{
 	margin-top: 0.03rem;
-    height1: 0.52rem;
-    line-height1: 0.51rem;
+    /*height1: 0.52rem;
+    line-height1: 0.51rem;*/
     float: left;
 }
 .boutique_main_one_size .p4 img{
@@ -1273,8 +1264,7 @@ overflow: hidden;
     float: left;
 }
 .boutique_main_two_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .boutique_main_two_size .p2 span{
@@ -1367,8 +1357,7 @@ overflow: hidden;
     line-height: 0.51rem;
 }
 .boutique_main_three_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .boutique_main_three_size .p2 span{
@@ -1457,8 +1446,8 @@ overflow: hidden;
     margin-right: 0.25rem;
 }
 .boutique_main_four_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
+	/*height: 0.468rem;*/
 	margin-right: 0.15rem;
 }
 .boutique_main_four_size .p2 span{
@@ -1576,8 +1565,7 @@ overflow: hidden;
     line-height: 0.51rem;
 }
 .newest_main_one_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .newest_main_one_size .p2 span{
@@ -1666,8 +1654,8 @@ overflow: hidden;
     margin-right: 0.2rem;
 }
 .newest_main_two_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
+	/*height: 0.468rem;*/
 	margin-right: 0.15rem;
 }
 .newest_main_two_size .p2 span{
@@ -1761,8 +1749,7 @@ overflow: hidden;
     line-height: 0.51rem;
 }
 .newest_main_three_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .newest_main_three_size .p2 span{
@@ -1837,8 +1824,7 @@ overflow: hidden;
     float: left;
 }
 .newest_main_four_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
 	margin-right: 0.15rem;
 }
 .newest_main_four_size .p2 span{
@@ -1971,8 +1957,8 @@ overflow: hidden;
     margin-top: 0.12rem;
 }
 .lectures_main_one_size .p2 img{
-	width: 0.404rem;
-	height: 0.468rem;
+	width: 0.51rem;
+	/*height: 0.468rem;*/
 	margin-right: 0.15rem;
 	float: left;
 }
