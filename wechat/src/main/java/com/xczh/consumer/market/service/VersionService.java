@@ -16,6 +16,8 @@ public interface VersionService {
 	void insertTipOff(String content, String courseId, String label,
 			String teacherId, String userId, String imgStrs) throws SQLException;
 
+	VersionInfoVo getNewVersion();
+
 
 
 
