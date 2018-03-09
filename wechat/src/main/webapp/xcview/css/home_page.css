@@ -1197,13 +1197,13 @@ overflow: hidden;
 .boutique_main_one_size .p3 span{
     /*float: right;*/
 	color: #999999;
-    margin-top1: 0.03rem;
+/*    margin-top1: 0.03rem;*/
     float: left;
 }
 .boutique_main_one_size .p4{
 	margin-top: 0.03rem;
-    height1: 0.52rem;
-    line-height1: 0.51rem;
+    /*height1: 0.52rem;
+    line-height1: 0.51rem;*/
     float: left;
 }
 .boutique_main_one_size .p4 img{
