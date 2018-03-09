@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
@@ -38,6 +37,7 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
@@ -105,7 +105,7 @@ public class XzUserController {
 		vtype = vtype == null ? SMSCode.RETISTERED.getCode() : vtype;
 		try {
 			
-			if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			if(!XzStringUtils.checkPhone(username)){
 				return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 			}
 			LOGGER.info("vtype"+vtype);
@@ -138,8 +138,11 @@ public class XzUserController {
 			@RequestParam("username")String username,
 			@RequestParam("code")String code) throws Exception {
 		
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		if(!XzStringUtils.checkEmail(password)){
+			return ResponseObject.newErrorResponseObject("请输入密码格式");
 		}
 		/*
 		 * 验证短信验证码
@@ -149,22 +152,17 @@ public class XzUserController {
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
+		
 		/**
 		 * 注册后默认登录啦
 		 */
 		OnlineUser ou =  onlineUserService.addPhoneRegistByAppH5(req, password,username,vtype);
 		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
+		ou.setUserCenterId(t.getUserId());
+		ou.setPassword(t.getPassWord());
 		this.onlogin(req, res, t, ou,t.getTicket());
-//		String openId1 = req.getParameter("openId");
-/*		if(StringUtils.isNotBlank(openId)){
-			//进行绑定
-			WxcpClientUserWxMapping wx = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
-			if(wx!=null){
-				wx.setClient_id(ou.getId());
-				wxcpClientUserWxMappingService.update(wx);
-			}
-		}*/
+		
 		/**
 		 * 清除这个cookie
 		 */
@@ -189,7 +187,7 @@ public class XzUserController {
 			@RequestParam("code")String code,
 			@RequestParam("openId")String openId) throws Exception {
 		
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/*
@@ -234,7 +232,7 @@ public class XzUserController {
 			@RequestParam("username") String username,
 			@RequestParam("password") String password) throws Exception {
 		
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		Token t = null;
@@ -328,7 +326,7 @@ public class XzUserController {
 		/**
 		 * 验证手机号
 		 */
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		

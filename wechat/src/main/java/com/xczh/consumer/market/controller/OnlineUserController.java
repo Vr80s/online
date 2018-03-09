@@ -553,7 +553,7 @@ public class OnlineUserController {
           if(email!=null && email.length()>32){
         	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
           }
-          if(email!=null && !com.xczh.consumer.market.utils.StringUtils.checkEmail(email)){
+          if(email!=null && !com.xczh.consumer.market.utils.XzStringUtils.checkEmail(email)){
         	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
           }
           

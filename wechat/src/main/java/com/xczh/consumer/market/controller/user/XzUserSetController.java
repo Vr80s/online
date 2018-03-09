@@ -33,6 +33,7 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
@@ -93,6 +94,15 @@ public class XzUserSetController {
 			) throws Exception {
 
 		try {
+			if (!XzStringUtils.checkPassword(oldPassword)) {
+				return ResponseObject.newErrorResponseObject("原密码格式有误");
+			}
+			if (!XzStringUtils.checkPassword(newPassword)) {
+				return ResponseObject.newErrorResponseObject("新密码格式有误");
+			}
+			if (!XzStringUtils.checkPhone(username)) {
+				return ResponseObject.newErrorResponseObject("手机号格式有误");
+			}
 			//更新用户密码
 			userCenterAPI.updatePassword(username, oldPassword, newPassword);
 			return ResponseObject.newSuccessResponseObject("修改密码成功");
@@ -115,12 +125,13 @@ public class XzUserSetController {
 	@RequestMapping(value="phoneCheck")
 	@ResponseBody
 	public ResponseObject phoneCheck(HttpServletRequest req,
-			@RequestParam("username")String username,@RequestParam("vtype")Integer vtype)throws Exception {
+			@RequestParam("username")String username,
+			@RequestParam("vtype")Integer vtype)throws Exception {
 	
 		/**
 		 * 验证手机号
 		 */
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		
@@ -158,7 +169,7 @@ public class XzUserSetController {
 		/**
 		 * 验证手机号
 		 */
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		
@@ -188,8 +199,8 @@ public class XzUserSetController {
 		/**
 		 * 验证手机号
 		 */
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(oldUsername)
-				|| !com.xczh.consumer.market.utils.StringUtils.checkPhone(newUsername)){
+		if(!XzStringUtils.checkPhone(oldUsername)
+				|| !XzStringUtils.checkPhone(newUsername)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		
@@ -541,6 +552,9 @@ public class XzUserSetController {
 			throws Exception {
 		
 		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+		if(ou ==null ){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
 		/**
 		 * 获取所有的省份
 		 */
@@ -553,11 +567,15 @@ public class XzUserSetController {
 	@RequestMapping("saveAddress")
 	@ResponseBody
 	public ResponseObject saveAddress(HttpServletRequest req,
-			HttpServletResponse res,@ModelAttribute UserAddressManagerVo udm)
+			HttpServletResponse res,
+			@ModelAttribute UserAddressManagerVo udm)
 			throws Exception {
 		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-		
 		udm.setUserId(ou.getId());
+
+		if(!XzStringUtils.checkPhone(udm.getPhone())){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
 		try {
 			cityService.saveAddress(udm);
 			return ResponseObject.newSuccessResponseObject("保存成功");
@@ -574,6 +592,9 @@ public class XzUserSetController {
 	public ResponseObject updateAddress(HttpServletRequest req,
 			HttpServletResponse res,@ModelAttribute UserAddressManagerVo udm){
 		 try {
+			if(!XzStringUtils.checkPhone(udm.getPhone())){
+			   return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+			}
 			cityService.updateAddress(udm);
 			return ResponseObject.newSuccessResponseObject("修改成功");
 		} catch (SQLException e) {

@@ -607,31 +607,26 @@ public class VideoDao extends SimpleHibernateDao {
         paramMap.put("courseId", courseId);
         paramMap.put("createPerson", userId);
         List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
-        //List<Map<String, Object>> list =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql.toString(),paramMap);
         Integer isViewStars = 0;
         boolean isComment=false;
         if(list.size()>0){
-            for(int i=0;i<list.size();i++){
+            for(int i=0;i<list.size();i++){  //购买过且评论过
                 if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
                     isComment=true;
                     isViewStars=2;
                     break;
                 }
             }
-            if(!isComment){
+            if(!isComment){ //购买过没有评论
                 isViewStars=1;
             }
         }
-        /*if(list.get(0).get("isBuy")!=null && list.get(0).get("isStats")!=null){
-        	Long isBuy =  (Long) list.get(0).get("isBuy");
-        	Long isStats = (Long) list.get(0).get("isStats");
-             if(isBuy!=null && isBuy>0){ //表示购买过了
-            	 isViewStars = 1;
-             }
-             if(isBuy!=null && isStats!=null && isBuy>0 && isStats>0){
-            	 isViewStars = 2;
-             }
-        }*/
+        
+        
+        
+        
+        
+        
         return isViewStars;
     }
     

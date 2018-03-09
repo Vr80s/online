@@ -484,6 +484,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				
 			VerificationCode code = codes.get(0);
 			
+			//时间差
+			Long  t_difference = new Date().getTime() - code.getCreateTime().getTime() ;
+			
+			//时间间隔
+			
 			if (new Date().getTime() - code.getCreateTime().getTime() < 1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
 				//发送，判断邮箱还是手机
 				if (username.contains("@")){
@@ -491,8 +496,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				}else{
 					return "同一手机号两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！";
 				}
-			} else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60
-					* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
+			} else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 				code.setVcode(vcode);
 			} else {
 				vcode = code.getVcode();

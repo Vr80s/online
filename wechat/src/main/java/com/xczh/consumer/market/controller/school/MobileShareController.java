@@ -83,7 +83,7 @@ public class MobileShareController {
 				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
 				if(courseLectur.getDescription()!=null){
 					String description = courseLectur.getDescription();
-					description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
+					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
 					courseLectur.setDescription(description);
 				}
 				courseLectur.setLink(returnOpenidUri+"/wx_share.html?shareType=1&shareId="+Integer.parseInt(shareId));
@@ -92,7 +92,7 @@ public class MobileShareController {
 				LecturVo lectur = onlineCourseService.lectureShare(shareId);
 				if(lectur.getDescription()!=null){
 					String description = lectur.getDescription();
-					description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
+					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
 					lectur.setDescription(description);
 				}
 				lectur.setLink(returnOpenidUri+"/wx_share.html?shareType=2&shareId="+shareId);
