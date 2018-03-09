@@ -39,17 +39,11 @@ $(function(){
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "开课时间", "class":"center","width":"12%", "sortable":false,"data": 'startTime'},
+    { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
     // { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
     // { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
     // { "title": "默认报名人数", "class":"center","sortable":false,"data": 'learndCount',"visible":false},
     // { "title": "实际报名人数", "class":"center","sortable":false,"data": 'actCount',"visible":false},
-    { "title": "是否推荐", "class":"center","width":"8%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
-		if(data==1){
-			return "<span name='sftj'>已推荐</span>";
-		}else{
-			return "<span name='sftj'>未推荐</span>";
-		}
-	} },
 	
 	
 	
@@ -60,11 +54,12 @@ $(function(){
     		return data="<span name='zt'>已禁用</span>";
     	}
     } },
-    {"sortable": false,"class": "center","width":"5%","title":"排序","mRender":function (data, display, row) {
+    { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
+    /*{"sortable": false,"class": "center","width":"5%","title":"排序","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
     		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)" name="up_PX"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
     		'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)" name="down_PX"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-	}},
+	}},*/
     { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
@@ -73,7 +68,7 @@ $(function(){
 	    		/*'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
 	        	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a>'+*/
 			    // '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-                // '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                '<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '
 				// '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
 //				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,1)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
@@ -151,7 +146,7 @@ debugger;
     		return data="<span name='zt'>已禁用</span>";
     	}
     } },
-    {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
+    /*{title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
     	var str;
     	if(row.status ==1){//如果是禁用
     		str='<a class="blue" name="upa_a" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
@@ -161,10 +156,11 @@ debugger;
         	'<a class="gray" href="javascript:void(-1);" title="下移" ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
     	}
     	return '<div class="hidden-sm hidden-xs action-buttons">'+str;
-    }},
+    }},*/
+    { "title": "推荐值", "class":"center","width":"10%","sortable":false,"data": 'recommendSort' },
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 		return '<div class="hidden-sm hidden-xs action-buttons">'+
-		'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ';
+		'<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,2);">设置推荐值</a> ';
 		}
     }];
      debugger;
@@ -1301,6 +1297,48 @@ function updateRec(obj){
 			layer.msg("取消失败！");
 		}
 	});
+};
+
+/**
+ * Description：设置推荐值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateRecommendSort(obj,key){
+    var row="";
+    var oo = $(obj).parent().parent().parent();
+    if(key==1){
+        row = P_courseTable.fnGetData(oo);
+	}else{
+        row = _courseRecTable.fnGetData(oo); // get datarow
+	}
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updateRecommendSort");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                unmask();
+                if(data.success){
+                	$("#recommendSort").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    if(key==1){
+                        freshTable(P_courseTable);
+                    }else{
+                        freshTable(_courseRecTable);
+                    }
+                    freshTable(_courseRecTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
 };
 
 /**

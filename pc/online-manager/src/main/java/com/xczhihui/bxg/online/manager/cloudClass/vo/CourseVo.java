@@ -336,7 +336,10 @@ public class CourseVo extends OnlineBaseVo{
 	
 	// 分类排序
 	private Integer typeSort; 
-	
+	//发布时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date releaseTime;
 	
 
 	public String getSubtitle() {
@@ -1044,6 +1047,14 @@ public class CourseVo extends OnlineBaseVo{
 
 	public void setTypeSort(Integer typeSort) {
 		this.typeSort = typeSort;
+	}
+
+	public Date getReleaseTime() {
+		return releaseTime;
+	}
+
+	public void setReleaseTime(Date releaseTime) {
+		this.releaseTime = releaseTime;
 	}
 }
 

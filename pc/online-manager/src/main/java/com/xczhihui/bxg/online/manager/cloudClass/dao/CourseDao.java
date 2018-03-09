@@ -49,6 +49,8 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  oc.courseType AS courseType,\n" +
 				 "  COUNT(og.id) AS countGradeNum,\n" +
 				 "  oc.is_recommend,\n" +
+				 "  oc.recommend_sort,\n" +
+				 "  oc.release_time as releaseTime,\n" +
 				 "  oc.start_time as startTime,\n" +
 				 "  oc.course_type AS serviceType,\n" +
 				 "  oc.user_lecturer_id AS userLecturerId,\n" +
@@ -88,10 +90,10 @@ public class CourseDao extends HibernateDao<Course>{
 			 paramMap.put("serviceType", courseVo.getServiceType());
 			 sql.append("and oc.course_type = :serviceType ");
 		 }
-		 if (courseVo.getIsRecommend() != null) {
+		 /*if (courseVo.getIsRecommend() != null) {
 			 paramMap.put("isRecommend", courseVo.getIsRecommend());
 			 sql.append("and oc.is_recommend = :isRecommend ");
-		 }
+		 }*/
 		 if (courseVo.getStatus() != null) {
 			 paramMap.put("status", courseVo.getStatus());
 			 sql.append("and oc.status = :status ");
@@ -115,7 +117,7 @@ public class CourseDao extends HibernateDao<Course>{
 			 sql.append(" AND oc.`type` = 3");
 		 }
 
-		 sql.append(" group by oc.id  order by oc.status desc,oc.is_recommend desc,oc.create_time desc");
+		 sql.append(" group by oc.id  order by oc.status desc,oc.release_time desc");
 
 		 Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 for (CourseVo entityVo : courseVos.getItems()) {
@@ -128,7 +130,7 @@ public class CourseDao extends HibernateDao<Course>{
 	 public Page<CourseVo> findCloudClassCourseRecPage(CourseVo courseVo, int pageNumber, int pageSize){
 		 Map<String,Object> paramMap=new HashMap<String,Object>();
 		 StringBuilder sql =new StringBuilder( "SELECT oc.id as id ,oc.grade_name as courseName, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName,"
-				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.multimedia_type as multimediaType,"
+				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.multimedia_type as multimediaType,oc.recommend_sort as recommendSort,"
 				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,ou.name  as lecturerName,oc.city as realCitys,"
 				 + "oc.current_price as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"
 				 + "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.rec_img_path,oc.course_type as serviceType FROM oe_course oc "
@@ -167,9 +169,9 @@ public class CourseDao extends HibernateDao<Course>{
 		 }else if(multimediaType !=null && !"".equals(multimediaType) && !multimediaType.equals(0)){
 			 sql.append(" and oc.multimedia_type = "+multimediaType);
 		 }
-		 
-		 paramMap.put("isRecommend","1");//只查询已推荐的课程
-		 sql.append(" and oc.is_recommend = :isRecommend ");
+		 //20180309 取消推荐功能，添加设置推荐值功能 wys
+		 /*paramMap.put("isRecommend","1");//只查询已推荐的课程
+		 sql.append(" and oc.is_recommend = :isRecommend ");*/
 		 
 		 sql.append(" group by oc.id  order by oc.recommend_sort desc");
 		 System.out.println(sql.toString());

@@ -328,4 +328,11 @@ public interface CourseService {
 	public void updateCourseCity(OffLineCity offLineCity);
 
 	Course findCourseInfoById(Integer id);
+	/**
+	 * Description：设置推荐值
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/9 14:19
+	 **/
+	public void updateRecommendSort(Integer id,Integer recommendSort);
 }

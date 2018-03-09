@@ -691,6 +691,22 @@ public class CourseController extends AbstractController{
 		request.setAttribute("courseForm", course.getType());
 		return CLOUD_CLASS_PATH_PREFIX + "/courseInfoDetail";
 	}
+
+	/**
+	 * Description：设置推荐值
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/9 14:13
+	 **/
+	@RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateRecommendSort(Integer id,Integer recommendSort) {
+		ResponseObject responseObject=new ResponseObject();
+		courseService.updateRecommendSort(id,recommendSort);
+		responseObject.setSuccess(true);
+		responseObject.setResultObject("修改成功!");
+		return responseObject;
+	}
 	
 	
 }
