@@ -292,7 +292,7 @@ color: #999999;
 	overflow: hidden;
 	margin-bottom: 0.4rem;
 	width: 3.39rem;
-	height: 2.85rem;
+
 }
 .wrap_vedio_btn li .wrap_img_pic{
 	width: 3.39rem;
@@ -315,7 +315,16 @@ color: #999999;
     text-overflow: ellipsis;
     white-space: nowrap;
         padding: 0.16rem 0 0 0;
-    display: inline-block;
+
+}
+.wrap_vedio_btn li .speak_name{
+	    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+        padding: 0.05rem 0;
+        color: #999;
+        font-size: 0.22rem;
+
 }
 .on_line_status{
 	font-size: 0.22rem;
@@ -342,7 +351,7 @@ overflow: hidden;
 .more_people span{
 	font-size: 0.24rem;
 	/*float: left;*/
-	    vertical-align: text-top;
+	    /*vertical-align: text-top;*/
 }
 .wrap_vedio_btn li:nth-child(odd){
 	float: left;

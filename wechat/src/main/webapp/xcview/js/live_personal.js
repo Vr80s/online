@@ -112,8 +112,6 @@ requestService("/xczh/host/hostPageInfo",{
         }
     });		
 //直播时间截取	
-//		    data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,10) //截取日期	
-
 
 	if(data.resultObject.recentCourse=="" || data.resultObject.recentCourse== null){
 			$("#personal_status").hide();
