@@ -11,7 +11,7 @@ import com.xczh.consumer.market.vo.VersionInfoVo;
 public interface VersionService {
 
 
-    VersionInfoVo getNewVersion();
+    VersionInfoVo getNewVersion(Integer type);
 
 	void insertTipOff(String content, String courseId, String label,
 			String teacherId, String userId, String imgStrs) throws SQLException;

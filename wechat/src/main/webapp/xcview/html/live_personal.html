@@ -127,14 +127,14 @@
 						<li class="hid_name hide" >坐诊医馆：{{hospital.name}}</li>
 						<li class="hid_wtime hide">坐诊时间：{{lecturerInfo.workTime}}</li>
 						<li class="hid_tel hide">预约电话：{{hospital.tel}}</li>
-						<li class="hid_address hide">医馆地址：{{hospital.detailedAddress}}</li>
+						<li class="hid_address hide">医馆地址：{{hospital.province}}{{hospital.city}}{{hospital.detailedAddress}}</li>
 					</ul>
 				{{else if lecturerInfo.type == 2}}
 				<span style="font-size: 0.32rem;">医馆</span>
 				<ul class="address_all">
 					<li class="hid_name hide" >医馆名称：{{hospital.name}}</li>
 					<li class="hid_tel hide">联系电话：{{hospital.tel}}</li>
-					<li class="hid_address hide">医馆地址：{{hospital.detailedAddress}}</li>
+					<li class="hid_address hide">医馆地址：{{hospital.province}}{{hospital.city}}{{hospital.detailedAddress}}</li>
 				</ul>
 			{{/if}}
 				

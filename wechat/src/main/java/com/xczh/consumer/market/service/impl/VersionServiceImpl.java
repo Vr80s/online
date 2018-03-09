@@ -27,10 +27,11 @@ public class VersionServiceImpl implements VersionService {
 
 
     @Override
-    public VersionInfoVo getNewVersion() {
-    	
+    public VersionInfoVo getNewVersion(Integer type) {
         try {
-            List<VersionInfoVo> list=basicSimpleDao.queryPage(JdbcUtil.getCurrentConnection(),"select *,version,down_url as  downUrl,is_must_update as isMustUpdate,filename from app_version_info where `status`=1 and is_delete=0 ORDER BY sort desc",1,1,VersionInfoVo.class,null);
+            List<VersionInfoVo> list=basicSimpleDao.queryPage(JdbcUtil.getCurrentConnection(),
+            		"select *,version,down_url as  downUrl,is_must_update as isMustUpdate,filename "
+            		+ " from app_version_info where `status`=1 and is_delete=0 and type = ?  ORDER BY sort desc ",1,1,VersionInfoVo.class,type);
             if(list.size()==1){
                 return list.get(0);
             }

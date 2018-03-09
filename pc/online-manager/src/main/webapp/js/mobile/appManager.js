@@ -1,5 +1,6 @@
 var mobileBannerTable;
 var mobileBannerForm;
+var iosForm;
 var mobileBannerFormEdit;
 var nowTime;
 var searchJson = new Array();
@@ -17,10 +18,28 @@ function loadMobileBannerList(){
 		    return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
 		}},
         {title: '序号', "class": "center", "width": "5%","height":"68px","data": 'id',datafield: 'xuhao', "sortable": false},
-        {title: 'app名称', "class": "center","width": "10%","data": 'filename', "sortable": false},
+        {title: 'apk名称', "class": "center","width": "10%","data": 'filename', "sortable": false,"mRender":function(data,display,row){
+        	if(data !=null && "" != data){
+        		return data;
+        	}else{
+        		return "无";
+        	}
+        }},
         {title: '版本', "class": "center","width": "10%","data": 'version', "sortable": false},
+        {title: 'app类型', "class": "center","width": "10%","data": 'type', "sortable": false,"mRender":function(data,display,row){
+        	debugger;
+        	if(data == 1){
+        		return "ios";
+        	}else if(data == 2){
+        		return "安卓";
+        	}
+        }},
         {title: '下载地址', "class": "center","height":"20%","data": 'downUrl', "sortable": false,"mRender":function(data,display,row){
-        	return "<div style='white-space:normal;'><a href='"+data+"' target='blank'>"+data+"</a></div>";
+        	if(data !=null && "" != data){
+        		return "<div style='white-space:normal;'><a href='"+data+"' target='blank'>"+data+"</a></div>";
+        	}else{
+        		return "无";
+        	}
         }},
         {title: '强制更新', "class": "center", "width": "6%","height":"68px", "data": 'mustUpdate', "sortable": false,"mRender":function(data,display,row){
         	debugger;
@@ -104,6 +123,19 @@ function loadMobileBannerList(){
 			}
         }
     });
+    
+    
+    iosForm = $("#dialogAddIosDiv-form").validate({
+        messages: {
+        	version: {
+				required:"请输入版本号！",
+            },
+			describe: {
+				required:"请输入更新介绍！",
+			}
+        }
+    });
+    
 
     mobileBannerFormEdit = $("#updateMobileBanner-form").validate({
         messages: {
@@ -123,9 +155,28 @@ function loadMobileBannerList(){
 
  //条件搜索
  function search(){
+	 
+	/* var status = $("#search_status").val();
+	 var type = $("#search_type").val();
+	 searchJson.push('{"tempMatchType":"1","propertyName":"search_status","propertyValue1":'+status+',"tempType":Integer}');
+	 searchJson.push('{"tempMatchType":"1","propertyName":"app_type","propertyValue1":'+type+',"tempType":Integer}');*/
+	 
      searchButton(mobileBannerTable,searchJson);
 }
 
+ /**
+  * app类型 改变事件
+  * @param obj
+  */
+///* function addViewVersionType(obj){
+//	 var apptype = $(obj).val();
+//	 if(apptype == 2){
+//		 $("#ad_apk").show();
+//	 }else if(apptype == 1){
+//		 $("#ad_apk").hide();
+//	 }
+// }*/
+ 
 //新增框
  $(".add_bx").click(function(){
  	mobileBannerForm.resetForm();
@@ -134,7 +185,8 @@ function loadMobileBannerList(){
  	$("#kewudeie").hide();
  	$("#add_imgPath").val("");
  	
- 	var dialog = openDialog("addMobileBannerDialog","dialogAddMobileBannerDiv","新增",580,500,true,"确定",function(){
+ 	var dialog = openDialog("addMobileBannerDialog","dialogAddMobileBannerDiv","新增安卓版本",580,500,true,"确定",function(){
+ 		
  		if($("#addMobileBanner-form").valid()){
  			 mask();
  			 $("#addMobileBanner-form").attr("action", basePath+"/operate/appManager/addAppManager");
@@ -156,6 +208,43 @@ function loadMobileBannerList(){
  		}
  	});
 });
+ 
+ 
+ 
+ 
+//新增   --> ios 版本框
+ $(".add_ios_bx").click(function(){
+ 	iosForm.resetForm();
+ 	$(".clearfixAdd").remove();
+ 	var dialog = openDialog("dialogAddIosDivDialog","dialogAddIosDiv","新增ios版本",580,500,true,"确定",function(){
+ 		if($("#dialogAddIosDiv-form").valid()){
+ 			 mask();
+ 			 $("#dialogAddIosDiv-form").attr("action", basePath+"/operate/appManager/addAppManager");
+ 	            $("#dialogAddIosDiv-form").ajaxSubmit(function(data){
+ 	            	try{
+                 		data = jQuery.parseJSON(jQuery(data).text());
+                 	}catch(e) {
+                 		data = data;
+                 	}
+ 	                unmask();
+ 	                if(data.success){
+ 	                    $("#dialogAddIosDivDialog").dialog("close");
+ 	                    layer.msg(data.resultObject);
+ 	                    freshTable(mobileBannerTable);
+ 	                }else{
+ 	                	alertInfo(data.errorMessage);
+ 	               }
+ 	         });
+ 		}
+ 	});
+});
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 function updateMobileBanner(obj){
 	var oo = $(obj).parent().parent().parent();

@@ -175,14 +175,27 @@ public class XzCommonController {
          return ResponseObject.newSuccessResponseObject(null);
    }
 	
-	
+	/**
+	 * 
+	 * Description：检查更新
+	 * @param req
+	 * @param res
+	 * @param userVersion
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@RequestMapping("checkUpdate")
 	@ResponseBody
 	public ResponseObject checkUpdate(HttpServletRequest req,
-			HttpServletResponse res,@RequestParam("version") String userVersion)
+			HttpServletResponse res,
+			@RequestParam("type") Integer type,
+			@RequestParam("version") String userVersion)
 			throws Exception {
 
-		VersionInfoVo newVer = versionService.getNewVersion();
+		VersionInfoVo newVer = versionService.getNewVersion(type);
 		VersionInfoVo defaultNoUpdateResult = new VersionInfoVo();
 		defaultNoUpdateResult.setIsUpdate(false);
 		if (newVer == null) {
