@@ -257,6 +257,7 @@ padding-bottom: 0.17rem;
 }
 .wrap p img{
 	/*width: 100%;*/
+	max-width: 7rem;
 }
 .zhezhao{
 	width: 100%;
@@ -349,6 +350,7 @@ padding-bottom: 0.17rem;
 }
 .wrap1 p img{
 	/*width: 100%;*/
+	max-width: 7rem;
 }
 .zhezhao1{
 	width: 100%;
