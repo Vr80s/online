@@ -306,7 +306,7 @@ public class WeChatThirdPartyController {
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setUnionid(unionid_);
 
-				if (userId != null) { // 绑定成功
+				if (StringUtils.isNotBlank(userId)) { // 绑定成功
 					wxcpClientUserWxMapping.setClient_id(userId);
 					mapRequest.put("code",
 							UserUnitedStateType.MOBILE_BINDING.getCode() + "");
@@ -321,7 +321,7 @@ public class WeChatThirdPartyController {
 						Integer.parseInt(mapRequest.get("code").toString()));
 			} else if (StringUtils.isNotBlank(m.getClient_id())) { // 绑定了用户信息
 
-				if (userId != null) { // 这里说明人家这个已经绑定过其他信息了。我的天
+				if (StringUtils.isNotBlank(userId)) { // 这里说明人家这个已经绑定过其他信息了。我的天
 					mapRequest
 							.put("code",
 									UserUnitedStateType.MOBILE_UNBOUNDED
@@ -348,7 +348,7 @@ public class WeChatThirdPartyController {
 
 			} else if (!StringUtils.isNotBlank(m.getClient_id())) {
 
-				if (userId != null) { // 绑定成功
+				if (StringUtils.isNotBlank(userId)) { // 绑定成功
 					mapRequest.put("code",
 							UserUnitedStateType.MOBILE_BINDING.getCode() + "");
 					/**

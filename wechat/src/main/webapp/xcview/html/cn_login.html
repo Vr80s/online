@@ -14,6 +14,14 @@
 
 <link rel="stylesheet" href="/xcview/css/cn_login.css">
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
 
 <style type="text/css">
 	.enter_btns{
@@ -208,14 +216,6 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
-</script>
 
 
 <!--获取验证码-->

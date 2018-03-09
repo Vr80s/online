@@ -126,6 +126,10 @@ public class ThirdPartyCertificationController {
 		LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
 		
 		OnlineUser ou = onlineUserService.findUserByLoginName(userName);
+        if(ou==null){
+        	return ResponseObject.newErrorResponseObject("该手机号暂未注册,请输入密码");
+        }
+		
 		/*
 		 * 一个人可能有多个qq号，获取多个微博号。
 		 *  所以要改下了
@@ -226,6 +230,8 @@ public class ThirdPartyCertificationController {
         if(ou==null){
         	ou = new OnlineUser();
         	ou.setId(UUID.randomUUID().toString().replace("-", ""));
+        }else{
+        	return ResponseObject.newErrorResponseObject("该手机号已经注册不用重新输入密码");
         }	
 		/**
 		 * 判断
