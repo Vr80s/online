@@ -369,6 +369,7 @@ function go_play(t){
  */
 function common_share_back(){
 	var back = document.referrer;
+
 	if(stringnull(back)){
 		window.location.href = back;
 	}else{
