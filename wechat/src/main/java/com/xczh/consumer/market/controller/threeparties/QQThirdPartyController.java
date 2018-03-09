@@ -228,6 +228,7 @@ public class QQThirdPartyController {
 	             
 	        // LOGGER.info("qq用户unionId   ============"+unionId);
 	             
+			 
  				 QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByOpenId(openId);
 	            	             
 	             if(qqUser==null){   //保存qq用户

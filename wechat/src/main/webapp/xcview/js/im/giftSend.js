@@ -391,10 +391,11 @@ $(document).ready(function() {
                 autoLogin();
             }
         }else{
-            alert("余额不足");
+//          alert("余额不足");
             
 //          recharges.html?recharges_blck=2'
-            location.href ='/xcview/html/recharges.html?recharges_blck=3'
+			var courseId = getQueryString("courseId");
+            location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
             
 //											$(".vanish02").show();
 //											setTimeout(function(){$(".vanish02").hide();},1500);

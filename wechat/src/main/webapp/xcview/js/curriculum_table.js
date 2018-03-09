@@ -280,9 +280,9 @@ function submit(){
 	
 	
 	
-	paramsObj.pageNumber = num;
+/*	paramsObj.pageNumber = num;
 	paramsObj.pageSize = 10;
-	paramsObj.downUp = "down";
+	paramsObj.downUp = "down";*/
 	
 	if(stringnull(menuType)){
 		paramsObj.menuType =menuType;
@@ -354,9 +354,9 @@ function submit(){
 
 
 
+
 function queryDataByParams(params,data_type){
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
-		
 		if(data.success==true){
 			if(stringnull(data_type)){
 				var id = "#query_list"+data_type;
@@ -366,133 +366,105 @@ function queryDataByParams(params,data_type){
 			}
 			var data1 ="";
 			
-//			if(data.resultObject.length<=0){
-//				$(".li_list_main").css("background","#f8f8f8");
-//				$(".no_class").show();
-//			}else{
-//				$(".li_list_main").css("background","#fff");
-//				$(".no_class").hide();
-//			}
-			
-			
-	        if(data.resultObject.length >0){
-	            
-	        	if(data.resultObject.length<=0){
-					$(".li_list_main").css("background","#f8f8f8");
-					$(".no_class").show();
-				}else{
-					$(".li_list_main").css("background","#fff");
-					$(".no_class").hide();
+			if(data.resultObject.length<=0){
+				$(".li_list_main").css("background","#f8f8f8");
+				$(".no_class").show();
+			}else{
+				$(".li_list_main").css("background","#fff");
+				$(".no_class").hide();
+			}
+			for (var int = 0; int < data.resultObject.length; int++) {
+				var item = data.resultObject[int];
+				var statusImg="";  //视频、音频不同的图片
+				if(item.type == 1){
+					statusImg+="/xcview/images/tv_auto.png";
+				}else if(item.type == 2){
+					statusImg+="/xcview/images/frequency.png";
+				}else if(item.type == 3){
+					statusImg+="/xcview/images/Sinatv_auto.png";
+				}else if(item.type == 4){
+					statusImg+="/xcview/images/offline.png";
 				}
-	        	//渲染数据
-	            //$(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-	           
-	        	for (var int = 0; int < data.resultObject.length; int++) {
-					var item = data.resultObject[int];
-					var statusImg="";  //视频、音频不同的图片
-					if(item.type == 1){
-						statusImg+="/xcview/images/tv_auto.png";
-					}else if(item.type == 2){
-						statusImg+="/xcview/images/frequency.png";
-					}else if(item.type == 3){
-						statusImg+="/xcview/images/Sinatv_auto.png";
-					}else if(item.type == 4){
-						statusImg+="/xcview/images/offline.png";
-					}
-					
-					var statusImg1="<img src="+statusImg+"  class='two'  />";
-					
-					var isFreeStr ="";
-					if(item.watchState == 1){
-						isFreeStr+="<p class='p0'><span>免费</span></p>";
-					}else if(item.watchState == 0){
-						isFreeStr+="<p class='p0'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
-					}
-					var typeStr="";
-					if(item.type ==3){
-						typeStr +="<p class='p2'><img src='/xcview/images/learn.png'><span>" +item.startDateStr+"</span></p>";
-					}else if(item.type ==4){
-						typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>" +item.city+"</span></p>";
-					}
-					data1+="<div class='li_list_div' aaa() >"+
-						       "<div class='li_list_one' data-title="+item.id+" >"+
-							     "<div class='li_list_one_left'>" +
-							          "<img src='"+item.smallImgPath+"' class='one' />" +
-							       statusImg1 +
-							      "</div>" +
-						           "<div class='li_list_one_right'>" +
-							           "<p class='p00'>" +
-							           "<span>"+item.gradeName+"</span><br />" +
-							           "<span class='span'>"+item.name+"</span></p>" +
-							           "<div class='div'>" +
-							              isFreeStr +
-							             "<p class='p1'><img src='/xcview/images/population.png' alt=''><span>"+item.learndCount+"</span></p>" +
-							               typeStr+
-							            "</div>" +
+				
+				var statusImg1="<img src="+statusImg+"  class='two'  />";
+				
+				var isFreeStr ="";
+				if(item.watchState == 1){
+					isFreeStr+="<p class='p0'><span>免费</span></p>";
+				}else if(item.watchState == 0){
+					isFreeStr+="<p class='p0'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
+				}
+				var typeStr="";
+				if(item.type ==3){
+					typeStr +="<p class='p2'><img src='/xcview/images/learn.png'><span>" +item.startDateStr+"</span></p>";
+				}else if(item.type ==4){
+					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>" +item.city+"</span></p>";
+				}
+				data1+="<div class='li_list_div' aaa() >"+
+					       "<div class='li_list_one' data-title="+item.id+" >"+
+						     "<div class='li_list_one_left'>" +
+						          "<img src='"+item.smallImgPath+"' class='one' />" +
+						       statusImg1 +
+						      "</div>" +
+					           "<div class='li_list_one_right'>" +
+						           "<p class='p00'>" +
+						           "<span>"+item.gradeName+"</span><br />" +
+						           "<span class='span'>"+item.name+"</span></p>" +
+						           "<div class='div'>" +
+						              isFreeStr +
+						             "<p class='p1'><img src='/xcview/images/population.png' alt=''><span>"+item.learndCount+"</span></p>" +
+						               typeStr+
 						            "</div>" +
-						         "</div>" +
-						     "</div>";
-				}
-	        	
-	        	
-	        	if(params.downUp=='down'){
-	        		$(id).html(data1);
-	        		 mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
-	                 mui('#refreshContainer').pullRefresh().refresh(true);
-	                 mui("#refreshContainer").off();
-	        	}else if(params.downUp=='up'){
-	        		$(id).append(data1);
-	        		mui("#refreshContainer").off();
-	 	            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
-	        	}
-	        	
-	        	
-				/*
-				 * 点击跳转到单个课程
-				 */
-				 $(".li_list_div .li_list_one").click(function(){
-					 
-					var id =$(this).attr("data-title");
-					if(stringnull(id)){
-						
-						requestService("/xczh/course/details?courseId="+id,null,function(data) {
-							var course = data.resultObject;
-							if(course.watchState == 0||course.watchState == 1){
-								if(course.type==1||course.type==2){
-//										视频音频购买
-									location.href="school_audio.html?course_id="+id
-								}else if(course.type==3){
-//										直播购买
-									location.href="school_play.html?course_id="+id
-								}else{
-//										线下课购买
-									location.href="school_class.html?course_id="+id
-								}			
-							}else if(course.watchState == 2||course.watchState == 3){
-								if(course.type==1||course.type==2){
-									if(course.collection){
-//											专辑视频音频播放页
-									location.href="live_select_album.html?course_id="+id					
-									}else{
-//											单个视频音频播放
-									location.href="live_audio.html?my_study="+id					
-									}
-								}else if(course.type==3){
-//											播放页面
-									location.href="live_play.html?my_study="+id									
-								}else{
-//											线下课页面
-									location.href="live_class.html?my_study="+id									
-								}		
-							}
-						})
-					}
-				})
-
+					            "</div>" +
+					         "</div>" +
+					     "</div>";
+			}
+			$(id).html(data1);
+			
+			
+			
+			/*
+			 * 点击跳转到单个课程
+			 */
+			 $(".li_list_div .li_list_one").click(function(){
 				 
-	        }else if(data.resultObject.length<=0){
-	        	mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-	        }
+				var id =$(this).attr("data-title");
+				if(stringnull(id)){
+					requestService("/xczh/course/details?courseId="+id,null,function(data) {
+
+						var course = data.resultObject;
+						if(course.watchState == 0||course.watchState == 1){
+							if(course.type==1||course.type==2){
+//									视频音频购买
+								location.href="school_audio.html?course_id="+id
+							}else if(course.type==3){
+//									直播购买
+								location.href="school_play.html?course_id="+id
+							}else{
+//									线下课购买
+								location.href="school_class.html?course_id="+id
+							}			
+						}else if(course.watchState == 2||course.watchState == 3){
+							if(course.type==1||course.type==2){
+								if(course.collection){
+//										专辑视频音频播放页
+								location.href="live_select_album.html?course_id="+id					
+								}else{
+//										单个视频音频播放
+								location.href="live_audio.html?my_study="+id					
+								}
+							}else if(course.type==3){
+//										播放页面
+								location.href="live_audio.html?my_study="+id									
+							}else{
+//										线下课页面
+								location.href="live_class.html?my_study="+id									
+							}		
+						}
+					})
+				}
+			})
+			
 		}else{
 			$(".no_class").show();
 			$(".li_list_main").css("background","#f8f8f8");
@@ -509,9 +481,9 @@ function typeQuery(){
 
     var menuType = $("[class='find_nav_cur'] a").attr("title");
     
-	paramsObj.pageNumber = 1;
-	paramsObj.pageSize = 10;
-	paramsObj.downUp = "down";
+//	paramsObj.pageNumber = 1;
+//	paramsObj.pageSize = 10;
+//	paramsObj.downUp = "down";
     
     if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
     	paramsObj.menuType= matching;
@@ -547,81 +519,81 @@ $('.header_seek').append('<span>' + urlAttribute + '</span>');
  * ************************************ 页面刷新下刷新事件
  * **************************************************
  */
-mui.init();
-mui.init({
-	pullRefresh: {
-		container: '#refreshContainer',
-		down: {
-			callback: pulldownRefresh
-		},
-		up: {
-			contentrefresh: '正在加载...',
-			callback: pullupRefresh
-		}
-	}
-});
-
-/**
- * 下拉刷新
- */
-function pulldownRefresh() {
-    num = 1;
-    
-    
-  
-    
-    setTimeout(function() {
-        //refresh(num,10,'down');
-    	
-    	    var menuType = $("[class='find_nav_cur'] a").attr("title");
-    	    
-    	    
-    		paramsObj.pageNumber = num;
-	    	paramsObj.pageSize = 10;
-	    	paramsObj.downUp = "down";
-    	    
-    	    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
-    	    	paramsObj.menuType= matching;
-    	    	queryDataByParams(paramsObj);
-    	    }else if(menuType!=0){
-    	    	paramsObj.menuType= menuType;
-    	        queryDataByParams(paramsObj,menuType);
-    	    }else{
-    	    	//删除这个条件
-    	    	delete paramsObj.menuType;
-    	    	queryDataByParams(paramsObj);
-    	    }
-    	
-    }, 500);
-};
-var count = 0;
-/**
- * 上拉加载具体业务实现
- */
-function pullupRefresh() {
-    num++;
-    setTimeout(function() {
-    	
-	    var menuType = $("[class='find_nav_cur'] a").attr("title");
-	    paramsObj.pageNumber = num;
-    	paramsObj.pageSize = 10;
-    	paramsObj.downUp = "up";
-   	    
-   	    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
-   	    	paramsObj.menuType= matching;
-   	    	queryDataByParams(paramsObj);
-   	    }else if(menuType!=0){
-   	    	paramsObj.menuType= menuType;
-   	        queryDataByParams(paramsObj,menuType);
-   	    }else{
-   	    	//删除这个条件
-   	    	delete paramsObj.menuType;
-   	    	queryDataByParams(paramsObj);
-   	    }
-    	
-    	//queryDataByParams(num,10,'up');
-    }, 500);
-}
+//mui.init();
+//mui.init({
+//	pullRefresh: {
+//		container: '#refreshContainer',
+//		down: {
+//			callback: pulldownRefresh
+//		},
+//		up: {
+//			contentrefresh: '正在加载...',
+//			callback: pullupRefresh
+//		}
+//	}
+//});
+//
+///**
+// * 下拉刷新
+// */
+//function pulldownRefresh() {
+//    num = 1;
+//    
+//    
+//  
+//    
+//    setTimeout(function() {
+//        //refresh(num,10,'down');
+//    	
+//    	    var menuType = $("[class='find_nav_cur'] a").attr("title");
+//    	    
+//    	    
+//    		paramsObj.pageNumber = num;
+//	    	paramsObj.pageSize = 10;
+//	    	paramsObj.downUp = "down";
+//    	    
+//    	    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
+//    	    	paramsObj.menuType= matching;
+//    	    	queryDataByParams(paramsObj);
+//    	    }else if(menuType!=0){
+//    	    	paramsObj.menuType= menuType;
+//    	        queryDataByParams(paramsObj,menuType);
+//    	    }else{
+//    	    	//删除这个条件
+//    	    	delete paramsObj.menuType;
+//    	    	queryDataByParams(paramsObj);
+//    	    }
+//    	
+//    }, 500);
+//};
+//var count = 0;
+///**
+// * 上拉加载具体业务实现
+// */
+//function pullupRefresh() {
+//    num++;
+//    setTimeout(function() {
+//    	
+//	    var menuType = $("[class='find_nav_cur'] a").attr("title");
+//	    paramsObj.pageNumber = num;
+//    	paramsObj.pageSize = 10;
+//    	paramsObj.downUp = "up";
+//   	    
+//   	    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
+//   	    	paramsObj.menuType= matching;
+//   	    	queryDataByParams(paramsObj);
+//   	    }else if(menuType!=0){
+//   	    	paramsObj.menuType= menuType;
+//   	        queryDataByParams(paramsObj,menuType);
+//   	    }else{
+//   	    	//删除这个条件
+//   	    	delete paramsObj.menuType;
+//   	    	queryDataByParams(paramsObj);
+//   	    }
+//    	
+//    	//queryDataByParams(num,10,'up');
+//    }, 500);
+//}
 
 
 

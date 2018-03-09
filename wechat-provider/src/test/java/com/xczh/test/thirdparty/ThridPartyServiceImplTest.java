@@ -70,12 +70,12 @@ public class ThridPartyServiceImplTest extends BaseJunit4Test {
     	System.out.println("----------------------------" + qq2.toString());
     	
     	
-    	QQClientUserMapping qq3 = threePartiesLoginService.selectQQClientUserMappingByUserId("123456", "111");
+    	/*QQClientUserMapping qq3 = threePartiesLoginService.selectQQClientUserMappingByUserId("123456", "111");
     	if(qq3!=null){
     		System.out.println("----------------------------" + qq2.toString());
     	}else{
     		System.out.println("----------------------------没有查找出数据");
-    	}
+    	}*/
     	
     }
 
@@ -122,12 +122,12 @@ public class ThridPartyServiceImplTest extends BaseJunit4Test {
     public void testSelectWeiboInfo(){
     	WeiboClientUserMapping weibo1 =threePartiesLoginService.selectWeiboClientUserMappingByUid("123456");
     	System.out.println("----------------------------" + weibo1.toString());
-    	WeiboClientUserMapping weibo2 =threePartiesLoginService.selectWeiboClientUserMappingByUserId("123", "123456");
+    /*	WeiboClientUserMapping weibo2 =threePartiesLoginService.selectWeiboClientUserMappingByUserId("123", "123456");
     	if(weibo2!=null){
     		System.out.println("----------------------------" + weibo2.toString());
     	}else{
     		System.out.println("----------------------------没有查找出数据");
-    	}
+    	}*/
     	
     }
     @Test
