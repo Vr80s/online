@@ -87,8 +87,13 @@
 	}
 	//退出登录
 	$(".btn").click(function(){
+		
 		if(close_falg == 1005){
-			 window.location.href="enter.html";
+		
+			//删除  第三方登录时用到的cookie
+		    cookie.delete1("third_party_uc_t_");
+			
+			window.location.href="my_homepage.html";
 
 		}else{
 			 requestService("/xczh/set/logout",{

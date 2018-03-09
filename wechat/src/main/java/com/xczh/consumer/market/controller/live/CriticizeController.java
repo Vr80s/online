@@ -65,8 +65,8 @@ public class CriticizeController {
 			/**
 			 * 这里判断下此用户有没有购买过此视频
 			 */
-			Boolean isBuy = onlineWebService.getLiveUserCourse(criticize.getCourseId(), ou.getId());
-			criticize.setIsBuy(isBuy);
+//			Boolean isBuy = onlineWebService.getLiveUserCourse(criticize.getCourseId(), ou.getId());
+//			criticize.setIsBuy(isBuy);
 			criticizeService.saveNewCriticize(criticize);
 			return ResponseObject.newSuccessResponseObject("评论成功");
 		}

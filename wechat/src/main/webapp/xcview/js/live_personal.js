@@ -361,5 +361,30 @@ function go_play(t){
 			else{
 				location.href ="school_play.html?course_id="+data_id;		
 			}
-		}		
+	}		
+}
+
+/**
+ * 公共的分享页面后的跳转
+ */
+function common_share_back(){
+	var back = document.referrer;
+	if(stringnull(back)){
+		window.location.href = back;
+	}else{
+		window.location.href = "home_page.html";
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

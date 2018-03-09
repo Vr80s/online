@@ -368,12 +368,14 @@ var date = new Date();
  * 控制cookie
  */
 var cookie = {
-	    set:function(key,val,time){//设置cookie方法
+	    
+		set:function(key,val,time){//设置cookie方法
 	        var date=new Date(); //获取当前时间
 	        var expiresDays=time;  //将date设置为n天以后的时间
 	        date.setTime(date.getTime()+expiresDays*24*3600*1000); //格式化为cookie识别的时间
-	        document.cookie=key + "=" + val +";expires="+date.toGMTString();  //设置cookie
+	        document.cookie=key + "=" + val +";expires="+date.toGMTString()+";path=/";  //设置cookie
 	    },
+	    
 	    get:function(key){//获取cookie方法
 	        /*获取cookie参数*/
 	        var getCookie = document.cookie.replace(/[ ]/g,"");  //获取cookie，并且将获得的cookie格式化，去掉空格字符
@@ -391,8 +393,7 @@ var cookie = {
 	    delete1:function(key){ //删除cookie方法
 	         var date = new Date(); //获取当前时间
 	         date.setTime(date.getTime()-10000); //将date设置为过去的时间
-	         document.cookie = key + "=v; expires =" +date.toGMTString();//设置cookie
-	         //return tips;
+	         document.cookie =key+"=;expires =" +date.toGMTString()+";path=/";//设置cookie
 	    }
 }
 
