@@ -41,16 +41,16 @@ requestService("/xczh/bunch/hotSearch",null,
 		var btn_write=$(this).text()
 //		arr.unshift(btn_write);
 		 //判断该记录是否已存在
-//						if($.inArray(btn_write, arr)!=-1){
-//                          removeByValue(arr, btn_write);
-//                          arr.unshift(btn_write);
-//                          localStorage.hisArr = arr;
-//
-//						}else{
-//                          arr.unshift(btn_write)
-//                          localStorage.hisArr = arr;
-//
-//						}
+						if($.inArray(btn_write, arr)!=-1){
+                            removeByValue(arr, btn_write);
+                            arr.unshift(btn_write);
+                            localStorage.hisArr = arr;
+
+						}else{
+                            arr.unshift(btn_write)
+                            localStorage.hisArr = arr;
+
+						}
 //		localStorage.hisArr = arr;
 		window.location.href="curriculum_table.html?queryKey="+btn_write+""
 	})
