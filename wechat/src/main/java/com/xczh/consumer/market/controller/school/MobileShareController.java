@@ -83,7 +83,7 @@ public class MobileShareController {
 				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
 				if(courseLectur.getDescription()!=null){
 					String description = courseLectur.getDescription();
-					description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
+					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
 					courseLectur.setDescription(description);
 				}
 				courseLectur.setLink(returnOpenidUri+"/wx_share.html?shareType=1&shareId="+Integer.parseInt(shareId));
@@ -92,7 +92,7 @@ public class MobileShareController {
 				LecturVo lectur = onlineCourseService.lectureShare(shareId);
 				if(lectur.getDescription()!=null){
 					String description = lectur.getDescription();
-					description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
+					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
 					lectur.setDescription(description);
 				}
 				lectur.setLink(returnOpenidUri+"/wx_share.html?shareType=2&shareId="+shareId);
@@ -136,7 +136,9 @@ public class MobileShareController {
 			res.sendRedirect(returnOpenidUri +"/xczh/share/viewUser?shareId="+shareId+"&wxOrbrower=brower"+"&shareType="+shareType);//
 		}
 	}
-	
+	public static void main(String[] args) {
+		System.out.println("============");
+	}
 	/**
 	 * 
 	 * Description：真正的分享后，响应给用户的页面
@@ -187,26 +189,20 @@ public class MobileShareController {
 						ou.setTicket(t.getTicket());
 						onlogin(req,res,t,ou,t.getTicket());
 					}	
-					/**
-					 * 写入这个cookie
-					 */
-					ThridFalg tf = new ThridFalg(); 
-					tf.setOpenId(wxw.getOpenid());
-					tf.setUnionId(wxw.getUnionid());
-					tf.setNickName(wxw.getNickname());
-					tf.setHeadImg(wxw.getHeadimgurl());
 					
-					UCCookieUtil.writeThirdPartyCookie(res,tf);
-				}else{
-					/**
-					 * 删除这个cookie
-					 */
-					UCCookieUtil.clearThirdPartyCookie(res);
 				}
+				/**
+				 * 写入这个cookie
+				 */
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(wxw.getOpenid());
+				tf.setUnionId(wxw.getUnionid());
+				tf.setNickName(wxw.getNickname());
+				tf.setHeadImg(wxw.getHeadimgurl());
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
 			}else{
 				ou =  appBrowserService.getOnlineUserByReq(req);
 			}
-	
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
@@ -231,7 +227,6 @@ public class MobileShareController {
 						}
 					}
 				}
-				
 				
 				if(cv.getWatchState() == 0 || cv.getWatchState()==1){
 					if(cv.getType()==1||cv.getType()==2){

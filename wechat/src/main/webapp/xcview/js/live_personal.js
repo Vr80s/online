@@ -369,5 +369,19 @@ function go_play(t){
 			else{
 				location.href ="school_play.html?course_id="+data_id;		
 			}
-		}		
-	}
+	}		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

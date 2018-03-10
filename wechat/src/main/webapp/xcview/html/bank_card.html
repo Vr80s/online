@@ -8,6 +8,16 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
@@ -83,48 +93,12 @@
 	<!--是否放弃添加银行卡结束-->
 </body>
 
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
-</script>
+
 
 <!--点击可提现金额-->
 <script type="text/javascript">
 	window.onload = function(){
-//		input有值时改变按钮透明度
-//		$('.input0').keyup(function(){
-//			
-//			if($('.input0').val().length<=0){
-//	           	$(".next_step").css("opacity","0.3");
-//	           	
-//	       }else{
-//	        	$(".next_step").css("opacity","1");
-//	        }
-//		});
-//		
-//		$('.input1').keyup(function(){
-//			
-//			if($('.input1').val().length<=0){
-//	           	$(".next_step").css("opacity","0.3");
-//	           	
-//	       }else{
-//	        	$(".next_step").css("opacity","1");
-//	        }
-//		});
-//		
-//		$('.input2').keyup(function(){
-//			
-//			if($('.input2').val().length<=0){
-//	           	$(".next_step").css("opacity","0.3");
-//	           	
-//	       }else{
-//	        	$(".next_step").css("opacity","1");
-//	        }
-//		});
+
 		var Ipt0,Ipt1,Ipt2;
 		 
 		
@@ -166,29 +140,6 @@
 		})
 		
 		
-		
-		
-		/*$('.cardholder').keyup('input propertychange', function(){
-			
-			if($('.cardholder input').val().length<=0){
-	           	$(".next_step").css("opacity","0.3");
-	           	
-	       }else{
-	        	$(".next_step").css("opacity","1");
-	        }
-	
-		});
-		
-		$('.cardholders').keyup('input propertychange', function(){
-			
-			if($('.cardholders input').val().length<=0){
-	           	$(".next_step").css("opacity","0.3");
-	           	
-	       	}else{
-	        	$(".next_step").css("opacity","1");
-	       	}
-	
-		});*/
 		
 		
 //		点击头部返回按钮

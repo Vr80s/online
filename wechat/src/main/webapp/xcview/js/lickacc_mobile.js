@@ -67,8 +67,6 @@ function removeBind(){
 }
 
 
-
-
 //点击帐号和绑定设置
 function check_login(obj){
 	var data_title =  $(obj).attr("data-title");
@@ -78,14 +76,3 @@ function check_login(obj){
 		location.href ='amend.html';
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

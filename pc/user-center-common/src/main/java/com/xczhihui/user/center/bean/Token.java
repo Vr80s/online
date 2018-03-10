@@ -52,10 +52,17 @@ public class Token implements Serializable {
 
 	private String uuid;
 
+	private String passWord;
+
+	
 	@Override
 	public String toString() {
-		return "userId:" + userId + " loginName:" + loginName + " origin:" + origin + " ticket:" + ticket + " expires:" + expires + " mobile:"
-				+ mobile + " type:" + type + " email:" + email +" nickName:" +nickName;
+		return "Token [userId=" + userId + ", loginName=" + loginName
+				+ ", origin=" + origin + ", ticket=" + ticket + ", expires="
+				+ expires + ", mobile=" + mobile + ", type=" + type
+				+ ", email=" + email + ", nickName=" + nickName
+				+ ", headPhoto=" + headPhoto + ", uuid=" + uuid + ", passWord="
+				+ passWord + "]";
 	}
 
 	public String getUuid() {
@@ -147,6 +154,14 @@ public class Token implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 	
 	
