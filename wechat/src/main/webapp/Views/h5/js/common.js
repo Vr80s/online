@@ -441,10 +441,10 @@ if(!stringnull(userId)){
  * 公共的分享页面后的跳转
  */
 function common_share_back(){
-	
 	var back = document.referrer;
 	if(stringnull(back)){
-		window.location.href = back;
+		//window.location.href = back;
+		window.history.back();
 	}else{
 		window.location.href = "home_page.html";
 	}

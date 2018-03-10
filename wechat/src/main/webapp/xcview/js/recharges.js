@@ -50,8 +50,9 @@ $(".header_return").click(function(){
 var counter = 0;
 if (window.history && window.history.pushState) {
      $(window).on('popstate', function () {
-                    window.history.pushState('forward', null, '#');
-                    window.history.forward(1);
+    	 
+        window.history.pushState('forward', null, '#');
+        window.history.forward(1);
                     
         var rechargesBlck = sessionStorage.getItem("recharges_blck");
     	if(rechargesBlck == 1){
