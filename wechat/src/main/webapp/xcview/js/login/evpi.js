@@ -57,7 +57,7 @@ var jump_type = getQueryString("jump_type");
  * 点击获取验证码   --  验证手机号是否是否
  */
 
-var vtype =1;
+var vtype =0;
 
 document.getElementById("btn").addEventListener("tap", function() {
 	var number = document.getElementById("mobile").value; // 手机号
@@ -121,12 +121,12 @@ $(".enter_btn").click(function(){
 	var userpassword = document.getElementById("password").value; // 密码
 	
 	if (!stringnull(number)) {
-//		webToast("手机号不能为空","middle",1500);
+		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	
 	if (!stringnull(yanzhengma)) {
-//		webToast("验证码不能为空","middle",1500);
+		webToast("验证码不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
@@ -140,10 +140,8 @@ $(".enter_btn").click(function(){
 			unionId:unionId,
 			type:1
 	};
-	
 	var url = "/xczh/third/thirdPartyBindIsNoMobile";
 	if(vtype==1){
-		
 		if (!stringnull(userpassword)) {
 //			webToast("密码不能为空","middle",1500);
 			return false;

@@ -97,6 +97,6 @@ public interface CriticizeService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      *
      */
-	public Integer findUserFirstStars(Integer courseId, String userId);
+	public Integer findUserFirstStars(Integer courseId,String createPerson);
 	
 }

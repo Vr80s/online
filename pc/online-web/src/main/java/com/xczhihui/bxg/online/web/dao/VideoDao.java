@@ -599,17 +599,14 @@ public class VideoDao extends SimpleHibernateDao {
      * @author name：yangxuan <br>email: 15936216273@163.com
      *
      */
-    public Integer findUserFirstStars(Integer courseId,String userId) {
+    public Integer findUserFirstStars(Integer courseId,String createPerson) {
         
     	
     	StringBuffer sql = new StringBuffer();
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId", courseId);
-        paramMap.put("createPerson", userId);
-        
+        paramMap.put("createPerson", createPerson);
         Course c =  courseDao.getCourse(courseId);
-       
-        
         Integer is_buy = 1;
         if(c.isFree()){ //免费
         	is_buy = 0;

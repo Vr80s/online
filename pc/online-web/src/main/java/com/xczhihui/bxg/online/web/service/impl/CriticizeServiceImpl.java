@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 
+
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
@@ -104,8 +105,8 @@ public class CriticizeServiceImpl implements CriticizeService {
 
 
 	@Override
-	public Integer findUserFirstStars(Integer courseId, String userId) {
+	public Integer findUserFirstStars(Integer courseId,String createPerson) {
 		// TODO Auto-generated method stub
-		return videoDao.findUserFirstStars(courseId,userId);
+		return videoDao.findUserFirstStars(courseId,createPerson);
 	}
 }
