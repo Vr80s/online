@@ -31,6 +31,7 @@ import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
@@ -211,6 +212,14 @@ public class ThirdPartyCertificationController {
 		LOGGER.info("三方绑定未注册手机认证参数信息："
 				+ "username:"+userName+",unionId:"+unionId+",code:"+code+",type:"+type
 				+ "password:"+passWord);
+		
+		
+		if(!XzStringUtils.checkPhone(userName)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		if(!XzStringUtils.checkPassword(passWord)){
+			return ResponseObject.newErrorResponseObject("请输入密码格式");
+		}
 		
 		/*
 		 * 验证短信验证码

@@ -41,6 +41,7 @@ import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
@@ -553,7 +554,7 @@ public class OnlineUserController {
           if(email!=null && email.length()>32){
         	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
           }
-          if(email!=null && !com.xczh.consumer.market.utils.XzStringUtils.checkEmail(email)){
+          if(email!=null && !XzStringUtils.checkEmail(email)){
         	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
           }
           

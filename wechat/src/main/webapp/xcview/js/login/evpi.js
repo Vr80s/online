@@ -60,8 +60,6 @@ var jump_type = getQueryString("jump_type");
 var vtype =1;
 
 document.getElementById("btn").addEventListener("tap", function() {
-	
-	
 	var number = document.getElementById("mobile").value; // 手机号
 	
 	var o = $(this);

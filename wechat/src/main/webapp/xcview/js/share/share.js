@@ -253,8 +253,6 @@ if(is_weixn()){
 	wx.ready(function () {
 		var d1 = description.replace(/&nbsp;/g,"");
 		
-		
-		
 		 if (typeof window.addEventListener != "undefined") {
 			
 			  window.addEventListener("popstate", function(e) {
@@ -265,8 +263,6 @@ if(is_weixn()){
 			         wx.closeWindow();
 			  });
 		 }
-		
-		
 		
 		//发送到朋友
 		wx.onMenuShareAppMessage({

@@ -141,7 +141,7 @@ public class XzUserController {
 		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
-		if(!XzStringUtils.checkEmail(password)){
+		if(!XzStringUtils.checkPassword(password)){
 			return ResponseObject.newErrorResponseObject("请输入密码格式");
 		}
 		/*
@@ -326,12 +326,15 @@ public class XzUserController {
 		/**
 		 * 验证手机号
 		 */
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(username)){
+		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		
-		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();
+		if (!XzStringUtils.checkPassword(password)) {
+			return ResponseObject.newErrorResponseObject("新密码格式有误");
+		}
 		
+		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();
 		//短信验证码
 		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
 		if (!checkCode.isSuccess()) {
