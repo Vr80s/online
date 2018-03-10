@@ -1434,14 +1434,14 @@ overflow: hidden;
     min-width: 1rem;
     max-width: 3.4rem;
     /*height: 0.51rem;*/
-    line-height: 0.51rem;
+    line-height1: 0.51rem;
 	
 }
 .boutique_main_four_size .p2{
     max-width: 2.5rem;
     min-width: 0.8rem;
 	/*height: 0.51rem;*/
-    line-height: 0.51rem;
+    line-height1: 0.51rem;
     float: left;
     margin-right: 0.25rem;
 }
@@ -1460,10 +1460,10 @@ overflow: hidden;
     max-width: 1.5rem;
 }
 .boutique_main_four_size .p3{
-	height: 0.52rem;
+	height1: 0.52rem;
 	min-width: 1.9rem;
     float: left;
-    line-height: 0.52rem;
+    line-height1: 0.52rem;
 }
 .boutique_main_four_size .p3 img{
 	width: 0.404rem;
@@ -1643,13 +1643,13 @@ overflow: hidden;
     min-width: 1rem;
     max-width: 3.4rem;
     /*height: 0.51rem;*/
-    line-height: 0.51rem;
+    line-height1: 0.51rem;
 	
 }
 .newest_main_two_size .p2{
     max-width: 2.5rem;
 	/*height: 0.51rem;*/
-    line-height: 0.51rem;
+    line-height1: 0.51rem;
     float: left;
     margin-right: 0.2rem;
 }

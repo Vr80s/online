@@ -1,23 +1,22 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.web.dao.CourseDao;
-import com.xczhihui.bxg.online.web.dao.MessageDao;
-import com.xczhihui.bxg.online.web.dao.OrderDao;
-import com.xczhihui.bxg.online.web.service.OrderService;
-import com.xczhihui.bxg.online.web.utils.*;
-import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.MessageShortVo;
-import com.xczhihui.bxg.online.web.vo.OrderVo;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.UUID;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,15 +25,26 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.online.web.dao.CourseDao;
+import com.xczhihui.bxg.online.web.dao.MessageDao;
+import com.xczhihui.bxg.online.web.dao.OrderDao;
+import com.xczhihui.bxg.online.web.service.OrderService;
+import com.xczhihui.bxg.online.web.utils.HttpUtil;
+import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
+import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
+import com.xczhihui.bxg.online.web.utils.PayConfigUtil;
+import com.xczhihui.bxg.online.web.utils.XMLUtil;
+import com.xczhihui.bxg.online.web.vo.MessageShortVo;
+import com.xczhihui.bxg.online.web.vo.OrderVo;
 
 /**
  * 订单业务层接口实现类
@@ -274,7 +284,13 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 		return  orderDao.findOrderByOrderId(orderId);
 	}
 
-
+	
+	@Override
+    public OrderVo findOrderByOrderNoAndStatus(String orderId,Integer status){
+		return  orderDao.findOrderByOrderNoAndStatus(orderId,status);
+	}
+	
+	
     @Override
     public Map<String,Object>  findOrderByCourseId(String ids, String userId, String orderNo){
         return orderDao.findOrderByCourseId(ids, userId,orderNo);

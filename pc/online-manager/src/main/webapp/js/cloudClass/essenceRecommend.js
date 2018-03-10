@@ -50,37 +50,31 @@ $(function(){
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
         
         
-        { "title": "是否精品推荐", "class":"center","width":"6%","sortable":false,"data": 'isEssence',"mRender":function (data, display, row) {
+        /*{ "title": "是否精品推荐", "class":"center","width":"6%","sortable":false,"data": 'isEssence',"mRender":function (data, display, row) {
         	if(data==1){
         		return "<span name='jptj'>已推荐</span>";
         	}else{
         		return "<span name='sftj'>未推荐</span>";
         	}
-        } },
-        
-        { "title": "是否分类推荐", "class":"center","width":"6%","sortable":false,"data": 'isTypeRecommend',"mRender":function (data, display, row) {
+        } },*/
+        { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
+        /*{ "title": "是否分类推荐", "class":"center","width":"6%","sortable":false,"data": 'isTypeRecommend',"mRender":function (data, display, row) {
         	if(data==1){
         		return "<span name='fltj'>已推荐</span>";
         	}else{
         		return "<span name='sftj'>未推荐</span>";
         	}
-        } },
-        
+        } },*/
+        { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
         
         { "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			return row.status=="1"?"已启用":"已禁用";
 			}
 		},
-		{ "sortable": false,"data":"id","class": "center","width":"10%","title":"排序","mRender":function (data, display, row) {
-			if(row.status ==1){//如果是禁用
+        { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
 				return '<div class="hidden-sm hidden-xs action-buttons">'+
-				'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-				'<a class="blue" name="downa" href="javascript:void(-1);" title="下移"  onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-			}else{
-				return '<div class="hidden-sm hidden-xs action-buttons">'+
-				'<a class="gray" href="javascript:void(-1);" title="上移"  ><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-				'<a class="gray" href="javascript:void(-1);" title="下移"  ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-			}
+                    '<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+
 			}
 		}
 		      		];
@@ -148,7 +142,8 @@ $(".all_bx").click(function(){
     
     // 媒体类型
     json.push('{"tempMatchType":"6","propertyName":"course_multimediaType","propertyValue1":"'+$("#search_multimediaType").val()+'","tempType":"String"}');
-    
+    // 学科
+    json.push('{"tempMatchType":"5","propertyName":"menu_id","propertyValue1":"'+$("#search_menu").val()+'","tempType":"Integer"}');
     searchButton(scoreTypeTable,json);
 });
 
@@ -191,7 +186,7 @@ $(".flkc_bx").click(function(){
     //分类推荐
     json.push('{"tempMatchType":"5","propertyName":"is_type_recommend","propertyValue1":"1","tempType":"Integer"}');
     json.push('{"tempMatchType":"5","propertyName":"menu_id","propertyValue1":"'+menuId+'","tempType":"Integer"}');
-	searchButton(scoreTypeTable,json);
+    searchButton(scoreTypeTable,json);
 });
 
 
@@ -361,6 +356,37 @@ function updateStatus(obj){
 		freshTable(scoreTypeTable);
 	});
 }
+/**
+ * Description：设置推荐值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateRecommendSort(obj){
+    var oo = $(obj).parent().parent().parent();
+    var row = scoreTypeTable.fnGetData(oo);
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updateRecommendSort");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                unmask();
+                if(data.success){
+                    $("#recommendSort").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                        freshTable(scoreTypeTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
+};
 
 // 原来 义帅的排序
 

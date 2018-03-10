@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @Service
 public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebService {
+	
 	   /**
 	    * 免费课程 
 	    *   用户报名时，将课程下所有视频插入用户视频中间表中
@@ -35,15 +36,16 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        paramMap.put("userId",u.getId());
 	        paramMap.put("loginName",u.getLoginName());
 
-	       if(this.getLiveUserCourse(courseId,u.getId())){
-	           return;
-	       };
+    	   if(this.getLiveUserCourse(courseId,u.getId())){
+  	           return;
+  	       };
 	       String sql="";
 	       //写用户报名信息表，如果有就不写了
 	       String apply_id = UUID.randomUUID().toString().replace("-", "");
 	       sql = "select id from oe_apply where user_id=? ";
 	       Object [] params ={u.getId()};
 	       List<Map<String, Object>> applies = this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	       
 	       if (applies.size() > 0) {
 	           apply_id = applies.get(0).get("id").toString();
 	       } else {
@@ -55,15 +57,14 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	       }
 	       //写用户报名中间表
 	       String id = UUID.randomUUID().toString().replace("-", "");
-	       sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 as allCount from apply_r_grade_course where grade_id=-1";
 	       
+	       sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 as allCount from apply_r_grade_course where grade_id=-1";
 	       Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql,new MapHandler());
 	       
 	       //报名此班级的学生人数
 		   Double no = 0d;
 			if(map!=null && map.size()>0){
 				Object allCount = map.get("allCount");
-				System.out.println(allCount.toString());
 				no = Double.valueOf(allCount.toString());
 			}
 	       String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
