@@ -15,9 +15,17 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
-
-
 
 </head>
 <body style="background:#efefef;">
@@ -106,19 +114,10 @@
 	</footer> -->
 	<!-- 底部结束 -->
 	<!-- 刷新引入js -->
-	<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
     <script type="text/javascript" src="/Views/h5/js/common.js"></script>
-	<script src="/xcviews/js/index.js" type="text/javascript"></script>
+	<script src="/xcview/js/index.js" type="text/javascript"></script>
 </body>
-
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
-</script>
 </html>
