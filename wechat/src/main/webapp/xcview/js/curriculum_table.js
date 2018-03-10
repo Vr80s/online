@@ -198,8 +198,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	    	
 	    	if("全国课程" != city){
 	    	    saisuanstr +="其他-";
-	    	}else{
-	    		$(".all_right_type_twos").find(".all_right_type_one").each(function(){
+	    	    $(".all_right_type_twos").find(".all_right_type_one").each(function(){
 				     var sx_city = $(this).text();
 					 if("其他" == sx_city){
 						 $(this).addClass("all_right_type_one_add");
@@ -207,7 +206,6 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 					 }
 			    })
 	    	}
-			
 	    }
 	}
 	if(stringnull(lineState)){
