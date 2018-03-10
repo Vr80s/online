@@ -12,6 +12,13 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 
+<script type="text/javascript">
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	document.documentElement.style.fontSize=kk/7.5+"px";
+</script>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
@@ -53,13 +60,7 @@
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
     <script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
 </body>
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	document.documentElement.style.fontSize=kk/7.5+"px";
-	
+<script>	
 	/*
 	 * 判断是否为游客，如果登录游客
 	 */
