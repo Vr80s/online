@@ -400,8 +400,8 @@ function queryDataByParams(params,data_type){
 				}else if(item.type ==4){
 					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>" +item.city+"</span></p>";
 				}
-				data1+="<div class='li_list_div' aaa() >"+
-					       "<div class='li_list_one' data-title="+item.id+" >"+
+				data1+="<div class='li_list_div' >"+
+					       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" >"+
 						     "<div class='li_list_one_left'>" +
 						          "<img src='"+item.smallImgPath+"' class='one' />" +
 						       statusImg1 +
@@ -427,42 +427,21 @@ function queryDataByParams(params,data_type){
 			 * 点击跳转到单个课程
 			 */
 			 $(".li_list_div .li_list_one").click(function(){
+				
+				 var type =$(this).attr("data-title");
+				
+				 var id =$(this).attr("data-courseId");
 				 
-				var id =$(this).attr("data-title");
-				if(stringnull(id)){
-					requestService("/xczh/course/details?courseId="+id,null,function(data) {
-
-						var course = data.resultObject;
-						if(course.watchState == 0||course.watchState == 1){
-							if(course.type==1||course.type==2){
-//									视频音频购买
-								location.href="school_audio.html?course_id="+id
-							}else if(course.type==3){
-//									直播购买
-								location.href="school_play.html?course_id="+id
-							}else{
-//									线下课购买
-								location.href="school_class.html?course_id="+id
-							}			
-						}else if(course.watchState == 2||course.watchState == 3){
-							if(course.type==1||course.type==2){
-								if(course.collection){
-//										专辑视频音频播放页
-								location.href="live_select_album.html?course_id="+id					
-								}else{
-//										单个视频音频播放
-								location.href="live_audio.html?my_study="+id					
-								}
-							}else if(course.type==3){
-//										播放页面
-								location.href="live_audio.html?my_study="+id									
-							}else{
-//										线下课页面
-								location.href="live_class.html?my_study="+id									
-							}		
-						}
-					})
-				}
+				if(type==1||type==2){
+	//					视频音频购买
+					location.href="school_audio.html?course_id="+id
+				}else if(type==3){
+	//					直播购买
+					location.href="school_play.html?course_id="+id
+				}else{
+	//					线下课购买
+					location.href="school_class.html?course_id="+id
+				}	
 			})
 			
 		}else{
