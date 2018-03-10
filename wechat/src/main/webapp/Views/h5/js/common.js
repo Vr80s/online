@@ -435,6 +435,22 @@ if(!stringnull(userId)){
 	
 }
 
+
+
+/**
+ * 公共的分享页面后的跳转
+ */
+function common_share_back(){
+	var back = document.referrer;
+
+	if(stringnull(back)){
+		window.location.href = back;
+	}else{
+		window.location.href = "home_page.html";
+	}
+}
+
+
 /*
 ** randomWord 产生任意长度随机字母数字组合
 ** randomFlag-是否任意长度 min-任意长度最小位[固定位数] max-任意长度最大位
