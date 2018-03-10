@@ -203,6 +203,18 @@ document.getElementById('qqShare0').onclick = function(e){
  * 如果是微信浏览器的话在进行加载这部分函数
  */
 if(is_weixn()){
+	
+	pushHistory();
+
+	function pushHistory() {
+	    var state = {
+	        title: "title",
+	        url: "#"
+	    };
+	    window.history.pushState(state, "title", "#");
+	}
+	
+	
 	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
 	var urlparm = {
 		url: window.location.href
@@ -229,10 +241,10 @@ if(is_weixn()){
 			'onMenuShareWeibo',
 			'onMenuShareQZone',
 			'hideMenuItems',
-			'showMenuItems'
+			'showMenuItems',
+			'closeWindow'
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
-	
 	
 //    title : gradeName,/*分享标题(可选)*/
 //    summary : description,/*分享描述(可选)*/
@@ -240,6 +252,22 @@ if(is_weixn()){
 	
 	wx.ready(function () {
 		var d1 = description.replace(/&nbsp;/g,"");
+		
+		
+		
+		 if (typeof window.addEventListener != "undefined") {
+			
+			  window.addEventListener("popstate", function(e) {
+			  	     wx.closeWindow();
+			  }, false);
+		 } else {
+			  window.attachEvent("popstate", function(e) {
+			         wx.closeWindow();
+			  });
+		 }
+		
+		
+		
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 		    title: '中医好课程' + '《' + gradeName + '》', // 分享标题

@@ -84,7 +84,15 @@ requestService("/xczh/host/hostPageInfo",{
 		var lecturerInfo = data.resultObject.lecturerInfo;
 		gradeName = lecturerInfo.name;
 		smallImgPath = lecturerInfo.small_head_photo;
-		description= lecturerInfo.detail;
+		
+		
+		if(lecturerInfo.detail =="" ||lecturerInfo.detail == null ){
+
+		}else{
+			description= lecturerInfo.detail.stripHTML();
+			
+		}
+
 	}
 	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
 //	直播头像/主播名字
@@ -361,5 +369,19 @@ function go_play(t){
 			else{
 				location.href ="school_play.html?course_id="+data_id;		
 			}
-		}		
-	}
+	}		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -600,38 +600,47 @@ public class VideoDao extends SimpleHibernateDao {
      *
      */
     public Integer findUserFirstStars(Integer courseId,String userId) {
-        StringBuffer sql = new StringBuffer();
-        sql.append("select criticize_lable ");
-        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and is_buy=1");
+        
+    	
+    	StringBuffer sql = new StringBuffer();
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId", courseId);
         paramMap.put("createPerson", userId);
+        
+        Course c =  courseDao.getCourse(courseId);
+       
+        
+        Integer is_buy = 1;
+        if(c.isFree()){ //免费
+        	is_buy = 0;
+        }
+        sql.append("select criticize_lable ");
+        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and is_buy ="+is_buy);
         List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
-        //List<Map<String, Object>> list =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql.toString(),paramMap);
         Integer isViewStars = 0;
-        boolean isComment=false;
-        if(list.size()>0){
-            for(int i=0;i<list.size();i++){
-                if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
-                    isComment=true;
-                    isViewStars=2;
-                    break;
+        
+        //如果这个课程是收费的
+        if(c.isFree()){ //免费
+        	 if(list!=null && list.size()>0){
+        		 isViewStars =2;
+        	 }else{
+        		 isViewStars =1;
+        	 }
+        }else{   //如果这个课程是免费的
+            boolean isComment=false;
+            if(list.size()>0){
+                for(int i=0;i<list.size();i++){  //购买过且评论过
+                    if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
+                        isComment=true;
+                        isViewStars=2;
+                        break;
+                    }
+                }
+                if(!isComment){ //购买过没有评论
+                    isViewStars=1;
                 }
             }
-            if(!isComment){
-                isViewStars=1;
-            }
         }
-        /*if(list.get(0).get("isBuy")!=null && list.get(0).get("isStats")!=null){
-        	Long isBuy =  (Long) list.get(0).get("isBuy");
-        	Long isStats = (Long) list.get(0).get("isStats");
-             if(isBuy!=null && isBuy>0){ //表示购买过了
-            	 isViewStars = 1;
-             }
-             if(isBuy!=null && isStats!=null && isBuy>0 && isStats>0){
-            	 isViewStars = 2;
-             }
-        }*/
         return isViewStars;
     }
     

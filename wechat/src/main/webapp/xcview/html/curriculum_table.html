@@ -9,7 +9,17 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!-- 网页自适应JS代码引入 -->
-<link rel="stylesheet" href="/xcviews/css/mui.min.css">
+
+<script type="text/javascript">
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px";
+	
+</script>
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
 <link rel="stylesheet" href="../css/curriculum_table.css?v=wechat_1.1.1" />
 </head>
 <body style="background: #F8F8F8;">
@@ -186,14 +196,7 @@
 	</div>
 	
 </body>
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
-</script>
+
 
 
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>

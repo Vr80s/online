@@ -501,7 +501,7 @@ public class CommonController {
 			Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 			if(mapCourseInfo.get("description")!=null){
 				String description = mapCourseInfo.get("description").toString();
-				description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
+				description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
 				mapCourseInfo.put("description", description);
 			}else{
 				mapCourseInfo.put("description", "");

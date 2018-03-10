@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringUtils {
+public class XzStringUtils {
 
 	
 	 public static String delHTMLTag(String htmlStr){ 
@@ -64,6 +64,52 @@ public class StringUtils {
 	        return flag;
 	    }
 	    
+	  
+		/**
+	     * 验证密码  英文大小写字母数字
+	     * @param phone 手机号
+	     * @return
+	     */
+	    public static boolean checkPassword(String passWord){
+	        boolean flag = false;
+	        try{
+	        	String check = "^([A-Za-z0-9]{6,18})$";
+	        	Pattern regex = Pattern.compile(check);
+                Matcher matcher = regex.matcher(passWord);
+                flag = matcher.matches();
+            }catch(Exception e){
+                flag = false;
+            }
+	        return flag;
+	    }
+	    
+	    /**
+	     * Description：验证呢城
+	     * @param passWord
+	     * @return
+	     * @return boolean
+	     * @author name：yangxuan <br>email: 15936216273@163.com
+	     *
+	     */
+	    public static boolean checkNickName(String passWord){
+	        boolean flag = false;
+	        try{
+	        	String check = "^([_A-Za-z0-9-\u4e00-\u9fa5]{4,20})$";
+	        	Pattern regex = Pattern.compile(check);
+                Matcher matcher = regex.matcher(passWord);
+                flag = matcher.matches();
+            }catch(Exception e){
+                flag = false;
+            }
+	        return flag;
+	    }
+	    
+	    
+	    public static void main(String[] args) {
+			
+	    	System.out.println(checkNickName("1aaabbbAzZ中国7-_"));
+	    	
+		}
 	    
 	 
 	    
@@ -94,21 +140,5 @@ public class StringUtils {
 	    	return b1.divide(b2,scale,BigDecimal.ROUND_HALF_UP).doubleValue();   
 	    }  
 	    
-		public static void main(String[] args) {
-	//	    	String str = "<div style='text-align:center;'> 整治“四风”   清弊除垢<br/><span style='font-size:14px;'> </span><span style='font-size:18px;'>公司召开党的群众路线教育实践活动动员大会</span><br/></div>";  
-	//	    	String str1 = delHTMLTag(str);
-	//	    	System.out.println(str1);
-	//		 System.out.println(checkEmail("453999075@qq.com"));
-	//		 System.out.println(checkEmail("45。3@qq.com"));
-	//		 System.out.println(checkEmail("45。3@qq.com"));
-			
-//			double   f   =   111231.5585;  
-//			BigDecimal   b   =   new   BigDecimal(f);  
-//			double   f1   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  
-			 //System.out.println(div(500000d,3600000d,6));
-		 
-		   System.out.println(checkPhone("18723160793"));
-		
-		}
 	
 }

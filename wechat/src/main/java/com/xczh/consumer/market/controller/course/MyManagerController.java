@@ -573,7 +573,7 @@ public class MyManagerController {
 		if(!StringUtils.isNotBlank(userName)){
 			userName = user.getLoginName();
 		}
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(userName)){
+		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(userName)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/**
@@ -630,7 +630,7 @@ public class MyManagerController {
 		if(!StringUtils.isNotBlank(userName)){
 			userName = user.getLoginName();
 		}
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(userName)){
+		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(userName)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/**

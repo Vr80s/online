@@ -108,14 +108,14 @@ public class XzGiftController {
 	 **/
 	@ResponseBody
 	@RequestMapping(value = "/sendGift")
-	public ResponseObject sendGift(HttpServletRequest req,HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
+	public ResponseObject sendGift(HttpServletRequest req,
+			HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
 
 		OnlineUser user =appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		LOGGER.info("====================="+user.getId());
-		
 		String giftId = req.getParameter("giftId");
 		String liveId = req.getParameter("liveId");
 		Integer clientType = Integer.valueOf(req.getParameter("clientType"));
