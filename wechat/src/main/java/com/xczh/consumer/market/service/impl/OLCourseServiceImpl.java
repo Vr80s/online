@@ -452,7 +452,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" '精品课程' as note ");
 
 		all.append(" from oe_course oc ,oe_user ou ");
-		all.append(" where  oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status=1 and oc.is_essence=1 order by oc.essence_sort desc  limit 0,6)");
+		all.append(" where  oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status=1 order by oc.recommend_sort desc  limit 0,6)");
 
 
 		all.append("  union all ");
@@ -493,9 +493,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			
 			all.append(" om.name as note ");
 			all.append(" from oe_course oc, oe_menu om  ,oe_user ou ");
-			all.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id	and oc.is_delete=0 and oc.status=1 and oc.is_type_recommend=1 ");
+			all.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id	and oc.is_delete=0 and oc.status=1 ");
 			all.append(" and om.id  = "+menuVo.getId());
-			all.append("  order by oc.type_sort desc limit 0,4 ) ");
+			all.append("  order by oc.recommend_sort desc limit 0,4 ) ");
 			
 			if(i < listmv.size()){
 				all.append("  union all ");

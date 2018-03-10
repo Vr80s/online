@@ -957,7 +957,6 @@ function updateRecommendSort(obj,key){
                     }else{
                         freshTable(zb_courseRecTable);
                     }
-                    freshTable(zb_courseRecTable);
                 }else{
                     alertInfo(data.errorMessage);
                 }

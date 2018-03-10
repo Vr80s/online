@@ -472,7 +472,7 @@
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small><span> 精品推荐、课程分类管理 </span>
+	</small><span> 课程推荐管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -484,7 +484,7 @@
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程推荐管理</a>
         </li>
         
-        <li role="presentation">
+        <%--<li role="presentation">
             <a href="#home" aria-controls="home" class="jpktj_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">精品推荐管理</a>
         </li>
@@ -492,7 +492,7 @@
 		<li role="presentation">
 			<a href="#home" aria-controls="home" class="flkc_bx" role="tab"
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程分类推荐管理</a>
-		</li>
+		</li>--%>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
@@ -500,20 +500,20 @@
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
         	
         	
-        		<p class="col-xs-1 all_recommend_course" style="padding: 0;">
+        		<%--<p class="col-xs-1 all_recommend_course" style="padding: 0;">
 					<button class="btn btn-sm btn-success rec_jp" title="设为精品推荐" data-type="set">
 						<i class="glyphicon glyphicon-cog"></i>设为精品推荐
 					</button>
-				</p>
+				</p>--%>
 				
-				<p class="col-xs-1 all_recommend_course" style="padding: 0;" >
+				<%--<p class="col-xs-1 all_recommend_course" style="padding: 0;" >
 					<button class="btn btn-sm btn-success rec_fl" title="设为分类推荐" data-type="set">
 						<i class="glyphicon glyphicon-cog"></i> 设为分类推荐
 					</button>
-				</p>
+				</p>--%>
         	
         	
-				<p class="col-xs-1 jp_course" style="padding: 0;">
+			<%--	<p class="col-xs-1 jp_course" style="padding: 0;">
 					<button class="btn btn-sm btn-success rec_jp" title="取消精品推荐" >
 						<i class="glyphicon glyphicon-trash"></i> 取消精品推荐
 					</button>
@@ -523,7 +523,7 @@
 					<button class="btn btn-sm btn-success rec_fl" title="取消推荐">
 						<i class="glyphicon glyphicon-trash"></i> 取消分类推荐
 					</button>
-				</p>
+				</p>--%>
 				
 				
 				
@@ -531,6 +531,18 @@
 					<div class="profile-info-row" >
 						<table frame=void >
 							<tr>
+								<!-- 学科 -->
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="menuName" id="search_menu" value="" class="propertyValue1"  >
+											<option value="">学科</option>
+											<c:forEach var="menus" items="${menuVo}">
+												<option value="${menus.id}">${menus.name}</option>
+											</c:forEach>
+										</select>
+										<input type="hidden" value="search_menu" class="propertyName"/>
+									</div>
+								</td>
 								<!-- 课程名 -->
 								<td>
 			                        <div class="profile-info-value searchTr">
@@ -584,33 +596,8 @@
 					</div>
 				</div>
 				
-				
-				<!-- 分类时显示啦 -->
-				<div class="searchDivClass course_menu_id" id="search_P">
-					<div class="profile-info-row" >
-						<table frame=void >
-							<tr>
-								<td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="menuName" id="search_menu" value="" class="propertyValue1"  >
-						               		<option value="">学科</option>
-						               		<c:forEach var="menus" items="${menuVo}">
-						                        <option value="${menus.id}">${menus.name}</option>
-						                    </c:forEach>
-						               </select>
-			                            <input type="hidden" value="search_menu" class="propertyName"/>
-			                        </div>
-								</td>
-								<td>
-									<button id="searchBtn_rec" type="button" class="btn btn-sm  btn-primary "
-											onclick="search_menu();">
-										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
-									</button>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
+
+
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="scoreTypeTable"
@@ -621,6 +608,20 @@
 			</div>
         </div>
     </div>
+</div>
+
+<!-- 修改推荐值form -->
+<div id="dialogUpdateRecommendSortDiv"></div>
+<div id="UpdateRecommendSortDialog" class="hide">
+	<form class="form-horizontal" id="UpdateRecommendSortFrom" method="post" action="" style="margin-top: 15px;">
+		<input type="hidden" name="id" id="UpdateRecommendSort_id">
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>推荐值: </label>
+			<div class="col-sm-6">
+				<input type="text" name="recommendSort"  id="recommendSort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
+			</div>
+		</div>
+	</form>
 </div>
 
  <input type="hidden" id="moveType" />

@@ -1333,7 +1333,6 @@ function updateRecommendSort(obj,key){
                     }else{
                         freshTable(_courseRecTable);
                     }
-                    freshTable(_courseRecTable);
                 }else{
                     alertInfo(data.errorMessage);
                 }

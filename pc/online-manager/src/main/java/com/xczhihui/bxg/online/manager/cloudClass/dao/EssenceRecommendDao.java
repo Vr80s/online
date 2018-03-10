@@ -38,6 +38,8 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 				 "  oc.course_type_id AS courseTypeId,\n" +
 				 "  oc.courseType AS courseType,\n" +
 				 "  oc.is_recommend,\n" +
+				 "  oc.recommend_sort,\n" +
+				 "  oc.release_time,\n" +
 				 "  oc.course_type AS serviceType,\n" +
 				 "  oc.user_lecturer_id AS userLecturerId,\n" +
 				 "  ou.`name` lecturerName,\n" +
@@ -54,45 +56,37 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 				 "    ON om.id = oc.menu_id \n" +
 				 "  LEFT JOIN oe_user ou\n" +
 				 "    ON ou.id=oc.user_lecturer_id where oc.is_delete = 0 ");
-	
-		 if(courseVo.getIsEssence()!=null){ //精品推荐排序
-			 
-			 paramMap.put("isEssence", 1);
-			 sql.append("and oc.is_essence = :isEssence ");
-			 
-			 sql.append(" order by oc.status desc,oc.essence_sort desc");
-			 
-		 }else if(courseVo.getIsTypeRecommend()!=null){ //分类推荐排序
-			 //学科分类
-			 if (courseVo.getMenuId() != null && courseVo.getMenuId()!=-1) {
-				 paramMap.put("menuId", courseVo.getMenuId());
-				 sql.append("and oc.menu_id = :menuId ");
-				 
-			 }
-			 paramMap.put("isTypeRecommend",1);
-			 sql.append("and oc.is_type_recommend = :isTypeRecommend ");
-			 
-			 sql.append(" order by oc.status desc,oc.type_sort desc");
-		 }else{
-			 
-			 if (courseVo.getCourseName() != null) {
-				 paramMap.put("courseName", "%" + courseVo.getCourseName() + "%");
-				 sql.append("and oc.grade_name like :courseName ");
-			 }
-			 if (courseVo.getType() != null) {
-				 paramMap.put("type", courseVo.getType());
-				 sql.append("and oc.type = :type ");
-			 }
-			 if (courseVo.getLiveStatus() != null) {
-				 paramMap.put("liveStatus", courseVo.getLiveStatus());
-				 sql.append("and oc.live_status = :liveStatus ");
-			 }
-			 if (courseVo.getMultimediaType() != null) {
-				 paramMap.put("multimediaType", courseVo.getMultimediaType());
-				 sql.append("and oc.multimedia_type = :multimediaType ");
-			 }
-			 sql.append(" order by oc.status desc,oc.release_time desc");
-		 }
+
+		//学科分类
+		if (courseVo.getMenuId() != null && courseVo.getMenuId()!=-1) {
+			paramMap.put("menuId", courseVo.getMenuId());
+			sql.append("and oc.menu_id = :menuId ");
+
+		}
+		//课程名称
+		if (courseVo.getCourseName() != null) {
+			paramMap.put("courseName", "%" + courseVo.getCourseName() + "%");
+			sql.append("and oc.grade_name like :courseName ");
+		}
+		//直播类型
+		if (courseVo.getType() != null) {
+			paramMap.put("type", courseVo.getType());
+			sql.append("and oc.type = :type ");
+		}
+		//直播状态
+		if (courseVo.getLiveStatus() != null) {
+			paramMap.put("liveStatus", courseVo.getLiveStatus());
+			sql.append("and oc.live_status = :liveStatus ");
+		}
+		//媒体类型
+		if (courseVo.getMultimediaType() != null) {
+			paramMap.put("multimediaType", courseVo.getMultimediaType());
+			sql.append("and oc.multimedia_type = :multimediaType ");
+		}
+
+		sql.append(" order by oc.recommend_sort desc,oc.release_time desc ");
+
+
 		 System.out.println(sql);
 		 Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 return courseVos;
