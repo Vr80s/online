@@ -8,6 +8,16 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+
+<script type="text/javascript">
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px";
+	
+</script>
 <link rel="stylesheet" href="../css/my_wallet.css" />
 <link href="/xcview/css/slide.css" rel="stylesheet"> <!--滑动引入-->
 <!--公用弹框 -->
@@ -284,20 +294,13 @@
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1"></script>
-<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/template.js"></script>
 <script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
-<script type="text/javascript" src="../js/my_wallet.js?v=wechat_1.1"></script>
+<script type="text/javascript" src="/xcview/js/my_wallet.js?v=wechat_1.1"></script>
 
 
 
 <script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px";
-	
 	
 	//		处理充值高度
 		var school_height=$(window).height()-$(".balance_div").height()-$(".header_class").height();
