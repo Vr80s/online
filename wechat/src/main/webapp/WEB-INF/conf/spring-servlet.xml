@@ -168,5 +168,8 @@
 	
 	<!-- 微博、qq第三方登录数据存储接口 -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService" id="threePartiesLoginServiceImpl" timeout="5000"  />	
+    
+     <!-- 熊猫币购买接口 -->
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl" timeout="5000"  />	
 	
 </beans>

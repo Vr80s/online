@@ -83,9 +83,7 @@ public class CourseController {
 		if (cv == null) {
 			return ResponseObject.newErrorResponseObject("课程信息有误");
 		}
-
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
-
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -98,22 +96,14 @@ public class CourseController {
 				cv.setWatchState(3);
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
-
-			// 客户端主动增加播放历史--》注释掉这里的
-			// WatchHistory target1 = new WatchHistory();
-			// target.setCourseId(courseId);
-			// target.setUserId(user.getId());
-
 			if (cv.getWatchState() == 1) { // 免费的课程啦
+				
 				onlineWebService.saveEntryVideo(courseId, user);
 
-				// watchHistoryServiceImpl.addOrUpdate(target);
 			} else if (cv.getWatchState() == 0) { // 收费课程
 
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
-
-					// watchHistoryServiceImpl.addOrUpdate(target);
 				}
 			}
 			// 是否关注
@@ -123,21 +113,6 @@ public class CourseController {
 				cv.setIsFocus(1);
 			}
 		}
-		/*
-		 * 如果开始前的一个时间段 小于等于 当前直播开始时间,就是即将直播状态
-		 */
-		// if(null!=cv.getType() && cv.getType()==3 && cv.getLineState() ==2 ){
-		// long currentTime = System.currentTimeMillis();
-		// currentTime += 1*livePreheating*60*60*1000;
-		// long startTimeLong = cv.getStartTime().getTime();
-		//
-		// LOGGER.info("========currentTime："+startTimeLong);
-		// LOGGER.info("========startTimeLong："+startTimeLong);
-		// LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
-		// if(currentTime>=startTimeLong){
-		// cv.setLineState(4);
-		// }
-		// }
 		return ResponseObject.newSuccessResponseObject(cv);
 	}
 
@@ -177,7 +152,9 @@ public class CourseController {
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
 			if (cv.getWatchState() == 1) { // 免费的课程啦
-				onlineWebService.saveEntryVideo(courseId, user);
+				//synchronized (lock) {
+					onlineWebService.saveEntryVideo(courseId, user);
+				//}
 			} else if (cv.getWatchState() == 0) { // 收费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
@@ -190,22 +167,6 @@ public class CourseController {
 				cv.setIsFocus(1);
 			}
 		}
-		/*
-		 * 如果开始前的一个时间段 小于等于 当前直播开始时间,就是即将直播状态
-		 */
-		// if(cv.getType()!=null && cv.getType()==3 && cv.getLineState() ==2 ){
-		// LOGGER.info("========修改状态");
-		// long currentTime = System.currentTimeMillis();
-		// currentTime += 1*livePreheating*60*60*1000;
-		// long startTimeLong = cv.getStartTime().getTime();
-		// // 30 +1 > 30.5
-		// LOGGER.info("========currentTime："+startTimeLong);
-		// LOGGER.info("========startTimeLong："+startTimeLong);
-		// LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
-		// if(currentTime>=startTimeLong){
-		// cv.setLineState(4);
-		// }
-		// }
 		return ResponseObject.newSuccessResponseObject(cv);
 	}
 
@@ -288,19 +249,30 @@ public class CourseController {
 
 	public static void main(String[] args) {
 		// 计算星级
-		Double a = 4.1;
-		if (a != 0) { // 不等于0
-			String b = a.toString();
-			if (b.length() > 1) { // 不等于整数
-				String[] arr = b.split("\\.");
-				Integer tmp = Integer.parseInt(arr[1]);
-				if (tmp >= 5) {
-					System.out.println(Integer.parseInt(arr[0]) + 1);
-				} else {
-					System.out.println(arr[0] + "." + 5);
-				}
-			}
-		}
+//		Double a = 4.1;
+//		if (a != 0) { // 不等于0
+//			String b = a.toString();
+//			if (b.length() > 1) { // 不等于整数
+//				String[] arr = b.split("\\.");
+//				Integer tmp = Integer.parseInt(arr[1]);
+//				if (tmp >= 5) {
+//					System.out.println(Integer.parseInt(arr[0]) + 1);
+//				} else {
+//					System.out.println(arr[0] + "." + 5);
+//				}
+//			}
+//		}
+		
+		
+		
+		
 	}
+	
+	
+	public static void nihao (){
+		
+	}
+	
+	
 
 }

@@ -122,7 +122,9 @@ public class XzGiftController {
 		Integer count = Integer.valueOf(req.getParameter("count"));
 		String receiverId = req.getParameter("receiverId");
 		Map<String,Object> map=null;
-		map= remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
+		map= remoteGiftService.addGiftStatement(user.getId(),
+				receiverId,giftId, 
+				OrderFrom.getOrderFrom(clientType),count,liveId);
 
 		return ResponseObject.newSuccessResponseObject(map);
 	}

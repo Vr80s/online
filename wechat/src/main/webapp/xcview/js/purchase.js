@@ -109,7 +109,6 @@ $(aBtn[0]).click();
  * 点击去支付
  */
 
-var falg = true;
 
 function  goPay() {
     /**
@@ -127,21 +126,16 @@ function  goPay() {
 	}
 	
     if(payType==1){ //熊猫币支付
-    	
-    	if(falg){
-    		falg = false;
-    		requestService("/xczh/iap/appleIapPayOrder", {order_no:orderNo}, function(data) {
-       		    var params = data.resultObject;
-       		    
-       		    falg = data.success;
-       		    
-                if(data.success){
-                	location.href="/xcview/html/buy_prosperity.html?courseId="+allCourse[0].id;
-                }else{
-                  alert(data.errorMessage);
-                }
-    		},false)
-    	}
+		requestService("/xczh/iap/appleIapPayOrder", {order_no:orderNo}, function(data) {
+   		    var params = data.resultObject;
+   		    
+   		    
+            if(data.success){
+            	location.href="/xcview/html/buy_prosperity.html?courseId="+allCourse[0].id;
+            }else{
+              alert(data.errorMessage);
+            }
+		},false)
     }else if(payType==2){ //支付宝支付
     	/**
     	 * 支付宝在字符前判断此订单中的课程用户是否已经购买过了
