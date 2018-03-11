@@ -155,7 +155,7 @@ public class MobileClassifyController {
 		OfflineCityPage.setCurrent(1);
 		OfflineCityPage.setSize(5);
 		List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
-		if(oclist.size()==5){
+		if(oclist.size() == 5){
 			OfflineCity oc =new OfflineCity();
 			oc.setCityName("其他");
 			oclist.add(oc);

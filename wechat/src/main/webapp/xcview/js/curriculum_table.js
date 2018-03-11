@@ -178,31 +178,35 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 			$(".all_mold3").show();
 		}	
 		paramsObj.city = city;
-		
-		if("全国课程"!=city){
-			for (var int = 0; int < cityTypeArray.length; int++) {
-				var array_element = cityTypeArray[int];
-				if(city == array_element.name){
-					$(".all_right_type_twos").find(".all_right_type_one").each(function(){
-						 var sx_city = $(this).text();
-						 if(city == sx_city){
-							 $(this).addClass("all_right_type_one_add");
-							 return;
-						 }
-					})
-					saisuanstr += array_element.name+"-";
-					break;
-				}
+	    var falg = false
+		for (var int = 0; int < cityTypeArray.length; int++) {
+			var array_element = cityTypeArray[int];
+			if(city == array_element.name){
+				falg = true;
+				$(".all_right_type_twos").find(".all_right_type_one").each(function(){
+					 var sx_city = $(this).text();
+					 if(city == sx_city){
+						 $(this).addClass("all_right_type_one_add");
+						 return;
+					 }
+				})
+				saisuanstr += array_element.name+"-";
+				break;
 			}
-		}else{
-			$(".all_right_type_twos").find(".all_right_type_one").each(function(){
-				 var sx_city = $(this).text();
-				 if("其他" == sx_city){
-					 $(this).addClass("all_right_type_one_add");
-					 return;
-				 }
-			})
 		}
+	    if(!falg){
+	    	
+	    	if("全国课程" != city){
+	    	    saisuanstr +="其他-";
+	    	    $(".all_right_type_twos").find(".all_right_type_one").each(function(){
+				     var sx_city = $(this).text();
+					 if("其他" == sx_city){
+						 $(this).addClass("all_right_type_one_add");
+						 return;
+					 }
+			    })
+	    	}
+	    }
 	}
 	if(stringnull(lineState)){
 		paramsObj.lineState = lineState;

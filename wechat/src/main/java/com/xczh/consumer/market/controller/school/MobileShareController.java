@@ -231,37 +231,36 @@ public class MobileShareController {
 				if(cv.getWatchState() == 0 || cv.getWatchState()==1){
 					if(cv.getType()==1||cv.getType()==2){
 						//视频音频购买
-						res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?course_id="+shareId);
+						res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?shareBack=1&course_id="+shareId);
 					}else if(cv.getType()==3){
 						//直播购买
-						res.sendRedirect(returnOpenidUri + "/xcview/html/school_play.html?course_id="+shareId);
+						res.sendRedirect(returnOpenidUri + "/xcview/html/school_play.html?shareBack=1&course_id="+shareId);
 					}else{
 						//线下课购买
-						res.sendRedirect(returnOpenidUri + "/xcview/html/school_class.html?course_id="+shareId);
+						res.sendRedirect(returnOpenidUri + "/xcview/html/school_class.html?shareBack=1&course_id="+shareId);
 					}	
 				}else if(cv.getWatchState() == 2 || cv.getWatchState()==3){
 					if(cv.getType()==1||cv.getType()==2){
 						if(cv.getCollection()){
 							//专辑视频音频播放页
-							res.sendRedirect(returnOpenidUri + "/xcview/html/live_select_album.html?course_id="+shareId);
+							res.sendRedirect(returnOpenidUri + "/xcview/html/live_select_album.html?shareBack=1&course_id="+shareId);
 						}else{
 							//单个视频音频播放
-							res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?my_study="+shareId);
+							res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?shareBack=1&my_study="+shareId);
 						}
 					}else if(cv.getType()==3){
 						//播放页面
-						res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?my_study="+shareId);
+						res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?shareBack=1&my_study="+shareId);
 					}else{
 						//线下课页面
-						res.sendRedirect(returnOpenidUri + "/xcview/html/live_class.html?my_study="+shareId);
+						res.sendRedirect(returnOpenidUri + "/xcview/html/live_class.html?shareBack=1&my_study="+shareId);
 					}
 				}
 			}else if("2".equals(shareType)){ //主播分享  -->设置下cookie
-				res.sendRedirect(returnOpenidUri + "/xcview/html/live_personal.html?userLecturerId="+shareId);
+				res.sendRedirect(returnOpenidUri + "/xcview/html/live_personal.html?shareBack=1&userLecturerId="+shareId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//res.getWriter().write(e.getMessage());
 		}
 	}
 	

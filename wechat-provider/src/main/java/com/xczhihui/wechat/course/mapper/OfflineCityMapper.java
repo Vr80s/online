@@ -19,4 +19,9 @@ public interface OfflineCityMapper extends BaseMapper<OfflineCity> {
 
 
 	 List<OfflineCity> selectOfflineCityPage(@Param("page") Page<OfflineCity> page);
+	 
+	 
+	 
+	 List<OfflineCity> selectOfflineRecommendedCityPage(@Param("page") Page<OfflineCity> page);
+	 
 }

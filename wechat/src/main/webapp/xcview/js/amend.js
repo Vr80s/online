@@ -18,7 +18,6 @@ function submit() {
     if($.trim($("#newPassword").val())!=$.trim($("#confirmPassword").val())){
         webToast("两次密码不一致","middle",1500);
         return false;
-    
     }
     //提交
     requestService("/xczh/set/editPassword",{
@@ -29,9 +28,30 @@ function submit() {
         if(data.success==true){
             webToast("修改成功","middle",1500);
             setTimeout(function(){
-           		window.location.href='enter.html';
+            	 requestService("/xczh/set/logout",{},function(data) {
+ 	                if (data.success) {
+ 	                	//删除所有的信息
+ 	                	localStorage.removeItem("token");
+ 					    localStorage.removeItem("userId")
+ 						localStorage.removeItem("name");
+ 					    localStorage.removeItem("smallHeadPhoto");
+ 					    localStorage.removeItem("sex");
+ 					    localStorage.removeItem("provinceName");
+ 					    localStorage.removeItem("cityName");
+ 					    localStorage.removeItem("province");
+ 					    localStorage.removeItem("city");
+ 					    localStorage.removeItem("email");
+ 					    localStorage.removeItem("info");
+ 					    localStorage.removeItem("username");
+ 					    localStorage.removeItem("ticket");
+ 					    //删除  登录时用到的cookie
+ 					    cookie.delete1("_uc_t_");
+ 					    //删除  第三方登录时用到的cookie
+ 					    cookie.delete1("third_party_uc_t_");
+ 	                    window.location.href="my_homepage.html";
+ 	                }
+ 	            });
         	},2000)
-
         }else{
             webToast(data.errorMessage,"middle",1500);
         }
