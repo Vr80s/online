@@ -1503,6 +1503,7 @@ overflow: hidden;
 	float: left;
 	margin-left: 0.456rem;
 	margin-bottom: 0.851rem;
+	height: 7rem;
 }
 
 /*视频*/
@@ -1879,6 +1880,7 @@ overflow: hidden;
 	margin-left: 0.456rem;
 	margin-bottom: 0.851rem;
 	position: relative;
+	height: 7rem;
 }
 
 /*视频*/

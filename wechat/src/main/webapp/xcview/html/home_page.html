@@ -587,23 +587,23 @@
 											<span>{{item.gradeName}}</span><br />
 											<span class="span">{{item.name}}</span>
 										</div>
-										<div class="newest_main_two_size">
-											{{if item.watchState == 1}}
-											<p><span>免费</span></p>
-											{{else}}
-											<p><span>{{item.currentPrice}}</span>熊猫币</p>
-											{{/if}}
-											<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
-											<!--<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
-
-											{{if itemls.lineState == 3 || itemls.lineState == 4}}
-											<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
+											<div class="newest_main_two_size">
+	            							{{if item.watchState == 1}}
+	            								<p><span>免费</span></p>
+	            							{{else}}
+	            								<p><span>{{item.currentPrice}}</span>熊猫币</p>
+	            							{{/if}}
+	            							<p class="p2"><img src="/xcview/images/population.png" alt="" style='margin-top: 0.05rem;display: block;float: left;' /><span>{{item.learndCount}}</span></p>
+	            							
+	            							
+	            							{{if itemls.lineState == 3 || itemls.lineState == 4}}
+												<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
 											{{else if itemls.lineState == 2}}
-											<p class="p3"><img src="/xcview/images/Sinatv_time.png" alt="" /><span>{{item.startDateStr}}</span></p>
+												<p class="p3"><img src="/xcview/images/Sinatv_time.png" alt="" /><span>{{item.startDateStr}}</span></p>
 											{{else if itemls.lineState == 1}}
-											<!--<p class="p3" style="display: none1;"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
-											{{/if}}
-										</div>
+												
+	            							{{/if}}
+	            						</div>
 									</div>
 								</li>
 								{{/each}}
