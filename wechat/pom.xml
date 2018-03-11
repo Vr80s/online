@@ -710,7 +710,7 @@
 						<param>jsp</param>
 					</suffixs>
 					<!-- 清理html 页面注释-->
-					<clearPageComment>true</clearPageComment>
+					<clearPageComment>false</clearPageComment>
 					<globaJsMethod>MD5_METHOD</globaJsMethod>
 					<globaCssMethod>MD5_METHOD</globaCssMethod>
 					<versionValLenth>20</versionValLenth>
