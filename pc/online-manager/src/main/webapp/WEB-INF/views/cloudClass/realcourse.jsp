@@ -618,13 +618,14 @@
 							   class="table table-striped table-bordered table-hover">
 							<colgroup>
 								<col width='5%'></col>
-								<col width='12%'></col>
-								<col width='10%'></col>
-								<col width='12%'></col>
-								<col width='8%'></col>
-								<col width='8%'></col>
 								<col width='8%'></col>
 								<col width='10%'></col>
+								<col width='12%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='10%'></col>
+								<col width='14%'></col>
 								<col width='8%'></col>
 								<col width='10%'></col>
 							</colgroup>

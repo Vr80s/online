@@ -727,12 +727,13 @@
 							    <col width='5%'></col>
 							    <col width='12%'></col>
 								<col width='8%'></col>
-							    <col width='15%'></col>
+							    <col width='10%'></col>
 							    <col width='7%'></col>
 								<col width='7%'></col>
 							    <col width='9%'></col>
 							    <col width='8%'></col>
 							    <col width='11%'></col>
+								<col width='11%'></col>
 							    <col width='13%'></col>
 							</colgroup>
 						</table>

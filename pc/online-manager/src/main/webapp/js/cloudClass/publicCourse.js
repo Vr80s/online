@@ -303,6 +303,7 @@ $(function(){
     { "title": "现价格", "class":"center","width":"9%","sortable":false,"mRender":function(data,display,row){
     	return data = row.currentPrice;
     }},
+    { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
 	{ "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			if(data==1){
 				return data="<span name='zt'>已启用</span>";
