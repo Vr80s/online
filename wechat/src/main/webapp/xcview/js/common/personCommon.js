@@ -60,8 +60,8 @@ function  sendCode(obj){
 	//
 	if(vtype == 4 && currentName.trim() == number.trim()){
 		webToast("当前绑定的手机号和原来的一样,换个吧","middle",1500);
-		$(".web_toast").css("left","50%");
-		$(".web_toast").css("margin-left","-113.5px");
+		/*$(".web_toast").css("left","50%");
+		$(".web_toast").css("margin-left","-113.5px");*/
 		return false;
 	}
 	var urlparm = {
