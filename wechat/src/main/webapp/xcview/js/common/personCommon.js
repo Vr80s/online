@@ -52,7 +52,7 @@ function  sendCode(obj){
 	if (!stringnull(number)) {
 		return false;
 	}
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[345678]\d{9}$/.test(number))) {
 		webToast("手机号格式不正确","middle",1500);
 		return false;
 	}
@@ -83,9 +83,9 @@ function  sendCode(obj){
 
 
 /*
- * 用户修昵称、邮件、地址信息
+ * 新的微信端修改用户基本信息
  */
-function checkUser1(saveFalg){
+function setuserInfoWechat(saveFalg){
 
 	  var falg = true;
 	
@@ -160,12 +160,9 @@ function checkUser1(saveFalg){
 			}
 		} else {
 			falg = false;
-//			webToast(data.errorMessage,"middle",1500);	
-			/*$(".web_toast").css("left","50%");
-			$(".web_toast").css("margin-left","-106.5px");*/
+			webToast(data.errorMessage,"middle",1500);	
 		}
 	},false);
-	
 	return falg;
 }
 
@@ -179,14 +176,14 @@ function updateMobile(){
     if(!stringnull(newMobile)){
         return false;
     }
-    if (!stringnull(currentName) || !(/^1[34578]\d{9}$/.test(currentName))) {
+    if (!stringnull(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
         $("#errorMsg").html("获取用户手机号有误");
         $("#errorMsg").show();
         return false;
     }
 
     var number = $("#new_mobile").val();
-    if (!(/^1[34578]\d{9}$/.test(number))) {
+    if (!(/^1[345678]\d{9}$/.test(number))) {
        	webToast("手机号格式不正确","middle",1500);
         return false;
     }

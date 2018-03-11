@@ -232,16 +232,12 @@ requestService(
 
 				// 点击直播回放时的input mywords
 				$("#mywords").click(function() {
-					/*
-					 * $(".send_img").css('background','url(/xcview/images/jiantou01.jpg)
-					 * no-repeat');
-					 */
-					// $("#sendChat").css("background-size","100% 100%");
 				});
 
-				// 视频id不等于null的时候
+				
+				var vhallId =  result.vhallId;
 				if (stringnull(videoId)) {
-					chZJ(videoId, watchState);
+					chZJ(videoId, vhallId);
 				}
 			}
 		}, false)

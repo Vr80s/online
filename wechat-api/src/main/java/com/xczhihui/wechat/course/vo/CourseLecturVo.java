@@ -181,7 +181,10 @@ public class CourseLecturVo implements Serializable {
 	private Integer applyStatus; //审核状态  0未审核 1 审核通过 2 审核未通过
 	
 	private String startDateStr; //截取的时间
-	private Integer courseType;
+	
+	private Integer courseType; 
+	
+	private String vhallId; //进入直播间后需要用这个id来判断是否是主播发布的消息
 	
 	public String getUdescription() {
 		return udescription;
@@ -553,5 +556,13 @@ public class CourseLecturVo implements Serializable {
 
 	public void setCourseType(Integer courseType) {
 		this.courseType = courseType;
+	}
+
+	public String getVhallId() {
+		return vhallId;
+	}
+
+	public void setVhallId(String vhallId) {
+		this.vhallId = vhallId;
 	}
 }

@@ -76,25 +76,23 @@
 <script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
 <script>
 	
-	  	var  cymYonghuInfo =$("#errorMsg");
 			//保存个性签名
   		$(".pet_sign_right").click(function(){
   		    //验证名称的合法性
   		    
   			var nikeName = $("#info").val().trim();
-  			if(!stringnull(nikeName) || nikeName.length>20 || nikeName.length<4){
-  			   cymYonghuInfo.show();
-   			   /*cymYonghuInfo.html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>个性签名不能为空，长度只能在4-20个字符之间</div></div></div>");
-   		      setTimeout(function(){$(".vanish2").hide();},1500); */
-   		     webToast("个性签名不能为空，长度只能在4-20个字符之间","middle",1500);
+  			if(!stringnull(nikeName) || nikeName.length>20 || nikeName.length<1){
+   		     webToast("个性签名不能为空，长度只能在1-20个字符之间","middle",1500);
    		      return false;
   			}
   			//隐藏错误，
-  			cymYonghuInfo.hide();
   			//保存信息
-  			checkUser1("info");
+  			 var falg =setuserInfoWechat("info");
+  	        //验证名称的合法性
+  	      	if(falg){
+  	      		location.href ='persons.html';
+  	      	}
   			
-  			location.href ='persons.html';
   		});
 	
 			 /*点击返回按钮*/

@@ -137,7 +137,7 @@ $(".call_cen").text("当前绑定的手机号："+localStorage.username);
  */
 $("#update_mobile_next").click(function(){
 	
-	if (!stringnull(currentName) || !(/^1[34578]\d{9}$/.test(currentName))) {
+	if (!stringnull(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
 		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取用户手机号有误</div></div></div>");
 		$("#errorMsg").show();
 		

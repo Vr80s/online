@@ -232,13 +232,13 @@ public class XzCommonController {
 		params.put("token", req.getParameter("token"));
 		String roomNumber = req.getParameter("video"); // 视频id
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		String gvhallId = user.getVhallId();
-		LOGGER.info("微吼gvhallId:" + gvhallId);
-
+		
+//		String gvhallId1 = user.getVhallId();
+//		LOGGER.info("微吼gvhallId:" + gvhallId);
 		// JSONObject json =
 		// WeihouInterfacesListUtil.getUserinfo(gvhallId,"name,head,id");
 		// String vh_app_key = "71a22e5b4a41483d41d96474511f58f3";
-
+		
 		String vhName = user.getName();
 		String email = user.getLoginName();
 		if (email != null && email.indexOf("@") == -1) {
@@ -257,6 +257,7 @@ public class XzCommonController {
 		map.put("username", vhName); // 用户名
 		map.put("sign", getSign(map));
 
+		
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 

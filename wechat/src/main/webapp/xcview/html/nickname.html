@@ -187,8 +187,6 @@ pre:after {
         return yonghuNameLength;
     }
     
-    var  cymYonghuInfo =$("#errorMsg");
-    
     /*点击返回按钮*/
     $(".return").click(function(){
         
@@ -210,24 +208,17 @@ pre:after {
                 yonghuNameLength=0;
             }
          if(nikeName == ""){
-	           /*cymYonghuInfo.show();
-	           $(".common0").show();*/
              webToast("昵称不能为空","middle",1500);
-	           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
-	                  + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
 	           return false;          
-	      }else if (yonghuNameLength > 15 || yonghuNameLength < 2){
-	          /*cymYonghuInfo.show();
-	          $(".common0").show();*/
-             webToast("长度只能在4-20个字符之间","middle",1500);
-	           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
-	                      + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
-	                return false;
+	      }else if (yonghuNameLength > 20 || yonghuNameLength < 2){
+             webToast("长度只能在1-20个字符之间","middle",1500);
+	           return false;
 	        } 
-        cymYonghuInfo.hide();
-        checkUser1("nickname");
+        var falg =setuserInfoWechat("nickname");
         //验证名称的合法性
-      	location.href ='persons.html';
+      	if(falg){
+      	  location.href ='persons.html';	
+      	}
       });
     // 点击昵称结束
       

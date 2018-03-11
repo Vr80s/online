@@ -111,16 +111,17 @@
     		$(".sex_pet_name").hide();
   		});
   		
-  		//$(".sex_div0_li1_label").click();
-	
 		/*
 		 * 保存性别
 		 */
-		  $("#sex_save").click(function(){
-			  $("#errorMsg").hide();
-			
-	  		checkUser1("sex");
-	  		location.href ='persons.html';
+		$("#sex_save").click(function(){
+			$("#errorMsg").hide();
+	  		
+	  	    var falg =setuserInfoWechat("sex");
+	        //验证名称的合法性
+	      	if(falg){
+	      	  location.href ='persons.html';	
+	      	}
   		}); 
 	
 			 /*点击返回按钮*/

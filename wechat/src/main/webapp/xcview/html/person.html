@@ -277,7 +277,7 @@ pre:after {
   			//隐藏错误，
   			cymYonghuInfo.hide();
   			//保存信息
-  			checkUser1("info");
+  			userInfoWechat("info");
   			
   			$(".person_body").removeClass('person_body1');
     		$(".attention").show();
@@ -325,7 +325,7 @@ pre:after {
                 return false;
             }
   			cymYonghuInfo.hide();
-  			checkUser1("nickname");
+  			userInfoWechat("nickname");
   			
   			//验证名称的合法性
   			$(".person_body").removeClass('person_body1');
@@ -391,7 +391,7 @@ pre:after {
 	  			cymYonghuInfo.text("邮箱格式不正确!");
                 return false;
             }
-  			checkUser1("email");
+  			userInfoWechat("email");
   			$(".person_body").removeClass('person_body1');
     		$(".attention").show();
     		$(".mailbox").hide();
@@ -881,7 +881,7 @@ pre:after {
             "callBack": function (val) {
                 //回调函数（val为选择的值）
 				$("#szd_cityP").html(val);
-				checkUser1("provinceCityName");
+				userInfoWechat("provinceCityName");
             }
         });
     };
@@ -902,7 +902,7 @@ pre:after {
             "callBack": function (val) {
                 //回调函数（val为选择的值）
 				$("#cityP").html(val);
-				//checkUser1();
+				//userInfoWechat();
             }
         });
     };

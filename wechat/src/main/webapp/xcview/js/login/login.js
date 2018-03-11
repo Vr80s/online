@@ -78,7 +78,7 @@ function login(){
 //		webToast("手机号或密码不能为空","middle",1500);
 		return false;
 	}
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[346578]\d{9}$/.test(number))) {
 		
 		webToast("请输入正确的手机号","middle",1500);
 		return false;
