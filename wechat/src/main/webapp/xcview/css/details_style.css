@@ -804,3 +804,100 @@ div.pinch-zoom,
 	width: 97%;
 	margin-left: 0.5rem;
 }
+
+
+/*即将开始提示*/
+.video_end_top0{
+	position: absolute;
+    text-align: center;
+    width: 100%;
+     height: 7.6rem;
+    top: 0;
+    margin-top: 1.9rem;
+    z-index: 1;
+    background: rgba(0,0,0,0.80);
+    /*display: none;*/
+}
+.video_end_top0 p{
+	color: #fff;
+	font-size: 0.68rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.video_end_top0 .div{
+	background: #00BC12;
+	border-radius: 8px;
+	width: 3.063rem;
+	height: 1.191rem;
+	line-height: 1.191rem;
+	margin: 0 auto;
+	font-size: 0.595rem;
+	color: #fff;
+}
+
+
+.time-item strong{background:#00BC12;color:#fff;font-size:0.8rem;margin-right:10px;border-radius:5px;padding: 0 0.1rem;}
+#day_show{float:left;color:#c71c60;font-size:32px;margin:0 10px;;}
+.item-title .unit{background:none;line-height:49px;font-size:24px;padding:0 10px;float:left;}
+/*即将开始提示*/
+
+/*直播已结束提示*/
+.video_end_top{
+	position: absolute;
+    text-align: center;
+    width: 100%;
+     height: 7.6rem;
+    top: 0;
+    margin-top: 1.9rem;
+    z-index: 1;
+    background: rgba(0,0,0,0.80);
+    display: none;
+}
+.video_end_top p{
+	color: #fff;
+	font-size: 0.68rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.video_end_top .div{
+	background: #00BC12;
+	border-radius: 8px;
+	width: 3.063rem;
+	height: 1.191rem;
+	line-height: 1.191rem;
+	margin: 0 auto;
+	font-size: 0.595rem;
+	color: #fff;
+}
+/*直播已结束提示*/
+
+/*直播结束查看回放*/
+.video_end_top1{
+	position: absolute;
+    text-align: center;
+    width: 100%;
+     height: 7.6rem;
+    top: 0;
+    margin-top: 1.9rem;
+    z-index: 1;
+    background: rgba(0,0,0,0.80);
+    /*display: none;*/
+}
+.video_end_top1 p{
+	color: #fff;
+	font-size: 0.68rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.video_end_top1 .div{
+	background: rgba(255,255,255,0.20);
+	border-radius: 8px;
+	width: 3.489rem;
+	height: 1.191rem;
+	line-height: 1.191rem;
+	margin: 0 auto;
+	font-size: 0.595rem;
+	color: #fff;
+}
+/*直播结束查看回放*/
+
