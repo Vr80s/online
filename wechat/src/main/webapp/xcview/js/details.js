@@ -326,7 +326,7 @@ requestService(
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
 								+ "</p><p class='jiage' style='font-size:0.6rem;color:#666;'>"
-								+ "" + result[i].price + "</p></div></a></li>";
+								+ "" + result[i].price + "熊猫币</p></div></a></li>";
 					} else {
 						html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"
 								+ result[i].smallimgPath
@@ -334,7 +334,7 @@ requestService(
 								+ result[i].id
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
-								+ "</p><p class='jiage' style='font-size:0.6rem;color:#666;'>0</p></div></a></li>";
+								+ "</p><p class='jiage' style='font-size:0.6rem;color:#666;'>0熊猫币</p></div></a></li>";
 					}
 				}
 				$(".gift_ul_li").html(html);
