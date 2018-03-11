@@ -596,7 +596,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
 				//精品课程排序
 				if(menuType.equals("goodCourse")){
-					commonSql.append(" AND oc.is_essence=1 order by  oc.essence_sort desc ");
+					commonSql.append("  order by  oc.recommend_sort desc ");
 					//最新课程排序
 				}else if(menuType.equals("newCourse")){
 					commonSql.append(" order by  oc.release_time desc ");

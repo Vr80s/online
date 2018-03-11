@@ -84,7 +84,7 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 			sql.append("and oc.multimedia_type = :multimediaType ");
 		}
 
-		sql.append(" order by oc.recommend_sort desc,oc.release_time desc ");
+		sql.append(" order by oc.status desc,oc.recommend_sort desc,oc.release_time desc ");
 
 
 		 System.out.println(sql);

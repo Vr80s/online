@@ -116,6 +116,7 @@ $(function(){
 				return "<span name='zt'>未上架</span>";
 			}
 		} },
+    { "title": "发布时间", "class":"center","width":"10%","sortable":false,"data": 'releaseTime'},
     { "title": "推荐值", "class":"center","width":"8%","sortable":false,"data": 'recommendSort' },
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
