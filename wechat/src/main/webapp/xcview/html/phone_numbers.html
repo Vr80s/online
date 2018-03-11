@@ -25,7 +25,11 @@
 <link rel="stylesheet" href="/xcview/css/personCommon.css">
 <link rel="stylesheet" href="/xcview/css/vanish.css">
 <script type="text/javascript"  src="/xcview/js/common/jquery-1.8.3.min.js"></script>
-
+<style type="text/css">
+	.web_toast{
+		/*font-size: 0.4rem;*/   /*浮动层提示语*/
+	}
+</style>
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
@@ -47,7 +51,8 @@
 	    top: 8rem;
 	    width: 95%;
 	    height: 1.7rem;
-	    background: #ccc;
+	    background: #00bc12;
+	    opacity: 0.5;
 	    line-height: 1.7rem;
 	    text-align: center;
 	    border-radius: 6px;
@@ -64,7 +69,7 @@
       <div class="pet_name_top">
         <div class="return_updatemobile" onclick="location.href ='phone_number.html'"></div>
         <div class="dl"
-          style="width: 70%;float: left;margin-left: 1.5rem;">更换手机号</div>
+          style="width: 70%;float: left;margin-left: 1.5rem;">修改手机号</div>
         
         <div class="both"></div>
       </div>
@@ -75,7 +80,7 @@
         <input type="tel" name="new_code" id="new_code" placeholder="请输入验证码" maxlength="4" />
         <div class="call_code" id="call_code_update"  onclick="sendCode(this)">获取验证码</div>
       </div>
-      <div class="pet_name_right" id="pet_name_right_bind" onclick="updateMobile()">绑定</div>
+      <div class="pet_name_right" id="pet_name_right_bind" onclick="updateMobile()">确认</div>
       <div style="text-align: center;color: red;margin-top: 8px;font-size: 14px;" id="errorMsg"></div>
     </div> 
     <div class="call_popup">
@@ -100,28 +105,43 @@
 <script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
 <script>
 
-$('#new_mobile').keyup(function(){
+/*$('#new_mobile').keyup(function(){
     var phone = $("#new_mobile").val();
     var code = $("#new_code").val();
     if(phone==""||phone==undefined||code==""||code==undefined){
-        //$("#update_mobile_next").css("opacity","0.3");
-        $("#pet_name_right_bind").css("background","#ccc");
+          $("#update_mobile_next").css("opacity","0.5");
+        $("#pet_name_right_bind").css("background","#00bc12");
     }else{
-        //$("#update_mobile_next").css("opacity","1");
+          $("#update_mobile_next").css("opacity","1");
         $("#pet_name_right_bind").css("background","#00bc12");
     }
-})
+})*/
 $('#new_code').keyup(function(){
     var phone = $("#new_mobile").val();
     var code = $("#new_code").val();
     if(phone==""||phone==undefined||code==""||code==undefined){
-        //$("#update_mobile_next").css("opacity","0.3");
-        $("#pet_name_right_bind").css("background","#ccc");
+          
+        	$("#pet_name_right_bind").css("background","#00bc12");
+        	$("#pet_name_right_bind").css("opacity","0.5");
     }else{
-        //$("#update_mobile_next").css("opacity","1");
+          
         $("#pet_name_right_bind").css("background","#00bc12");
+        $("#pet_name_right_bind").css("opacity","1");
     }
 })
+
+
+
+/*$('#new_code').keyup(function(){
+    var phone = $("#pet_name_right_bind").val();
+    if(phone==""||phone==undefined){
+          $("#update_mobile_next").css("opacity","0.5");
+        $("#update_mobile_next").css("background","#00bc12");
+    }else{
+          $("#update_mobile_next").css("opacity","1");
+        $("#update_mobile_next").css("background","#00bc12");
+    }
+})*/
 
 </script>
 </html>
