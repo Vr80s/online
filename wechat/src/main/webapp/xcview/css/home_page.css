@@ -1124,7 +1124,7 @@ header{
 	color: #999999;
 }
 .boutique_main_one_size P span{
-	font-size: 0.511rem;
+	font-size: 0.468rem;
     color: #F97B49;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1160,7 +1160,7 @@ background1: red;
 margin-top: 0.05rem;
 }
 .boutique_main_one_size .p2 span{
-	font-size: 0.511rem;
+	font-size: 0.468rem;
     color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1449,15 +1449,19 @@ overflow: hidden;
 	width: 0.51rem;
 	/*height: 0.468rem;*/
 	margin-right: 0.15rem;
+    display: block;
+    float: left;
+	margin-top: 0.1rem;
 }
 .boutique_main_four_size .p2 span{
-	font-size: 0.511rem;
+	font-size: 0.468rem;
     color: #999;
     overflow: hidden;
     /* text-overflow: ellipsis; */
     /* white-space: nowrap; */
     display: inline-block;
     max-width: 1.5rem;
+margin-top: 0.05rem;
 }
 .boutique_main_four_size .p3{
 	height1: 0.52rem;
@@ -1469,9 +1473,12 @@ overflow: hidden;
 	width: 0.404rem;
 	height: 0.511rem;
 	margin-right: 0.15rem;
+display: block;
+float: left;
+margin-top: 0.05rem;
 }
 .boutique_main_four_size .p3 span{
-	font-size: 0.511rem;
+	font-size: 0.468rem;
     color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1653,11 +1660,17 @@ overflow: hidden;
     line-height1: 0.51rem;
     float: left;
     margin-right: 0.2rem;
+	margin-right: 0.2rem;
+    margin-top: 0.01rem;
+
 }
 .newest_main_two_size .p2 img{
 	width: 0.51rem;
 	/*height: 0.468rem;*/
 	margin-right: 0.15rem;
+display: block;
+    float: left;
+    margin-top: 0.1rem;
 }
 .newest_main_two_size .p2 span{
 	font-size: 0.511rem;
@@ -1678,7 +1691,9 @@ overflow: hidden;
 	width: 0.468rem;
 	height: 0.468rem;
 	margin-right: 0.15rem;
+	display: block;
 	float: left;
+	margin-top: 0.1rem;
 }
 .newest_main_two_size .p3 span{
 	font-size: 0.511rem;
@@ -1688,6 +1703,7 @@ overflow: hidden;
     white-space: nowrap;
     display: inline-block;
     max-width: 1.5rem;
+margin-top: 0.1rem;
 }
 
 /*音频*/
