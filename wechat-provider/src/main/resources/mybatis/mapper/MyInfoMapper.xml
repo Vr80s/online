@@ -167,7 +167,7 @@
 	   <select id="hostInfoRec" resultType="java.util.Map">
 			select 
 		    	ou.small_head_photo as headPortrait,
-		    	ca.name,
+		    	ou.name,
 				ou.id as userId
 		    from 
 		    course_anchor ca 

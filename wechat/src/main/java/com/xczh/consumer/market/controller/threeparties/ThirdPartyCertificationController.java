@@ -218,7 +218,7 @@ public class ThirdPartyCertificationController {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		if(!XzStringUtils.checkPassword(passWord)){
-			return ResponseObject.newErrorResponseObject("请输入密码格式");
+			return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
 		}
 		
 		/*

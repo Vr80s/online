@@ -210,8 +210,8 @@ pre:after {
          if(nikeName == ""){
              webToast("昵称不能为空","middle",1500);
 	           return false;          
-	      }else if (yonghuNameLength > 20 || yonghuNameLength < 2){
-             webToast("长度只能在1-20个字符之间","middle",1500);
+	      }else if (yonghuNameLength > 15 || yonghuNameLength < 2){
+             webToast("长度只能在2-15个字符之间","middle",1500);
 	           return false;
 	        } 
         var falg =setuserInfoWechat("nickname");

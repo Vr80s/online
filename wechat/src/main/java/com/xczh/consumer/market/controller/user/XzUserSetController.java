@@ -95,13 +95,13 @@ public class XzUserSetController {
 
 		try {
 			if (!XzStringUtils.checkPassword(oldPassword)) {
-				return ResponseObject.newErrorResponseObject("原密码格式有误");
+				return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
 			}
 			if (!XzStringUtils.checkPassword(newPassword)) {
-				return ResponseObject.newErrorResponseObject("新密码格式有误");
+				return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
 			}
 			if (!XzStringUtils.checkPhone(username)) {
-				return ResponseObject.newErrorResponseObject("手机号格式有误");
+				return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 			}
 			//更新用户密码
 			userCenterAPI.updatePassword(username, oldPassword, newPassword);
@@ -431,8 +431,6 @@ public class XzUserSetController {
 			 * 更新信息
 			 */
 			myInfoService.updateUserSetInfo(user);
-	
-
 			/**
 			 *  如果用户信息发生改变。
 			 *  更改缓存中的数据

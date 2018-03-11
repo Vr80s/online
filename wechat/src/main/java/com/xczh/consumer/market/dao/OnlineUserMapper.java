@@ -661,9 +661,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				+ "    where mda.account_id = ?) )  as workTime  "
 				+ "  from  oe_user ou inner join course_anchor ca on  ou.id = ca.user_id where ou.id = ?");
 		
-		//course_anchor
-		
-		
 		Object params[] = { lecturerId,lecturerId };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new MapHandler(), params);
 	}
