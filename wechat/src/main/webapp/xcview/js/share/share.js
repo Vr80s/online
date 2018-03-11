@@ -8,7 +8,6 @@ function is_weixn(){
     }
 }
 
-
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     //获取?号后边的值
@@ -204,14 +203,19 @@ document.getElementById('qqShare0').onclick = function(e){
  */
 if(is_weixn()){
 	
-	pushHistory();
-
+	
+	var shareBack = getQueryString("shareBack");
+	
 	function pushHistory() {
 	    var state = {
 	        title: "title",
 	        url: "#"
 	    };
 	    window.history.pushState(state, "title", "#");
+	}
+	
+	if(shareBack == 1){
+		pushHistory();
 	}
 	
 	
@@ -251,23 +255,20 @@ if(is_weixn()){
 //    pics : smallImgPath  /*分享图片(可选)*/
 	
 	wx.ready(function () {
-		var d1 = description.replace(/&nbsp;/g,"");
+		 var d1 = description.replace(/&nbsp;/g,"");
 		
-		
-		
-		 if (typeof window.addEventListener != "undefined") {
-			
-			  window.addEventListener("popstate", function(e) {
-			  	     wx.closeWindow();
-			  }, false);
-		 } else {
-			  window.attachEvent("popstate", function(e) {
-			         wx.closeWindow();
-			  });
+		 if(shareBack == 1){
+			 
+			 if (typeof window.addEventListener != "undefined") {
+				  window.addEventListener("popstate", function(e) {
+				  	     wx.closeWindow();
+				  }, false);
+			 } else {
+				  window.attachEvent("popstate", function(e) {
+				         wx.closeWindow();
+				  });
+			 }
 		 }
-		
-		
-		
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 		    title: '中医好课程' + '《' + gradeName + '》', // 分享标题

@@ -38,6 +38,7 @@ import com.xczh.consumer.market.vo.CodeUtil;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.api.service.XmbBuyCouserService;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 
@@ -53,7 +54,6 @@ public class XzIapController {
     @Value("${iphone.version}")
     private  String iphoneVersion;
     
-    //购买凭证验证地址
     @Value("${rate}")
     private  Integer rate;
     
@@ -82,6 +82,9 @@ public class XzIapController {
 	@Autowired
 	private UserCoinService userCoinService;
 	
+	@Autowired
+	private XmbBuyCouserService xmbBuyCouserService;
+	
 	
     
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzIapController.class);
@@ -99,15 +102,13 @@ public class XzIapController {
     		@RequestParam("version")String version) throws SQLException {
     	
         LOGGER.info("苹果充值   封装的数据  receipt:"+receipt);
-        
         String url = certificateUrl;
         String newVersion = iphoneVersion;
-        
         LOGGER.info("certificateUrl:"+url);
         LOGGER.info("newVersion:"+iphoneVersion);
         LOGGER.info("version:"+version);
-        
         int diff = VersionCompareUtil.compareVersion(newVersion, version);
+        
         /*
          * 非最新版本
          */
@@ -149,66 +150,19 @@ public class XzIapController {
 	@Transactional
 	public ResponseObject appleInternalPurchaseOrder(HttpServletRequest req,
 			HttpServletResponse res,
-			@RequestParam("order_no") String order_no)
+			@RequestParam("order_no")String order_no)
 			throws Exception {
 		try {
-		
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     		if(user == null) {
     	         return ResponseObject.newErrorResponseObject("登录失效");
     	    }
-			/*
-			 * 传递过来一个订单号
-			 */
-			ResponseObject orderDetails = onlineOrderService.getNewOrderAndCourseInfoByOrderNo(order_no);
-    		if(null == orderDetails.getResultObject()){
-    			return ResponseObject.newErrorResponseObject("未找到订单信息");
-    		}
-    		OnlineOrder order = (OnlineOrder)orderDetails.getResultObject();
-    		/**
-    		 * 根据订单id得到这个订单中已经存在的课程。
-    		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
-    		 */
-    		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(order.getId(),user.getId(),1);
-    		if(!ro.isSuccess()){//存在此订单哈，
-    			return ro;
-    		}
-		
-    		Double actualPrice = order.getActualPay();
-    		
-    		BigDecimal  xmb = BigDecimal.valueOf(actualPrice * rate);
-    		String userYE = userCoinService.getBalanceByUserId(user.getId());
-    		BigDecimal ye = new BigDecimal(userYE);
-
-    		LOGGER.info("要消费余额:"+xmb);
-    		LOGGER.info("当前用户余额:"+ye);
-
-    		//比较大小
-    		if(ye.compareTo(xmb)==-1){
-    			return ResponseObject.newErrorResponseObject("余额不足,请到个人账户充值！");
-			}
-			/**
-			 * 然后你那边加下密
-			 */
-    		String transactionId = CodeUtil.getRandomUUID();
-    		/**
-    		 * 记录下ios支付成功后的记录
-    		 */
-    		int orderFrom = order.getOrderFrom();
-    		
-    		/*
-    		 * 更改订单状态，增加课程学习人数
-    		 */
-    		orderPayService.addPaySuccess(order_no,Payment.COINPAY,transactionId);
-    		
-    		userCoinService.updateBalanceForBuyCourse(order.getUserId(),OrderFrom.valueOf(orderFrom),xmb, order_no);
-    		
-    		
+    		xmbBuyCouserService.xmbBuyCourseLock(order_no);
     		return ResponseObject.newSuccessResponseObject("购买成功");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("服务器有误");
+			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}
 	}
     

@@ -78,14 +78,14 @@ public class MobileOffLineController {
 		Page<OfflineCity> OfflineCityPage = new Page<>();
 		OfflineCityPage.setCurrent(current);
 		OfflineCityPage.setSize(size);
-		Page<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage);
+		Page<OfflineCity> oclist = offlineCityService.selectOfflineRecommendedCityPage(OfflineCityPage);
 		mapAll.put("cityList",oclist);
 
 
 		Page<OfflineCity> OfflineCity = new Page<>();
 		OfflineCity.setCurrent(1);
 		OfflineCity.setSize(4);
-		Page<OfflineCity> ocl = offlineCityService.selectOfflineCityPage(OfflineCityPage);
+		Page<OfflineCity> ocl = offlineCityService.selectOfflineRecommendedCityPage(OfflineCityPage);
 		//城市  城市中的课程
 
 		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());

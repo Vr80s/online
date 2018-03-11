@@ -18,9 +18,20 @@
 		  ooc.*
 		FROM
 		  oe_offline_city ooc
-		WHERE ooc.status = 1
+		WHERE  ooc.status = 1
 		AND ooc.is_delete = 0
 		ORDER BY ooc.sort desc
-
+	</select>	
+	
+	
+	<select id="selectOfflineRecommendedCityPage" resultMap="OfflineCityBaseResult">
+		SELECT
+		  ooc.*
+		FROM
+		  oe_offline_city ooc
+		WHERE  ooc.status = 1
+		AND ooc.is_delete = 0
+		and ooc.is_recommend = 1
+		ORDER BY ooc.sort desc
 	</select>		  
 </mapper>

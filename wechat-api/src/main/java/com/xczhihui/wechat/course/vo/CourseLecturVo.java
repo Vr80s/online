@@ -180,7 +180,7 @@ public class CourseLecturVo implements Serializable {
 	
 	private Integer applyStatus; //审核状态  0未审核 1 审核通过 2 审核未通过
 	
-	private String startDateStr;
+	private String startDateStr; //截取的时间
 	private Integer courseType;
 	
 	public String getUdescription() {

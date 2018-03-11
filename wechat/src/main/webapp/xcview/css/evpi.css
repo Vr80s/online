@@ -109,7 +109,7 @@ header {
     /* border-bottom: 1px solid red; */
     display: -webkit-box;
 	font-size: 0.28rem;
-	color: #CCCCCC !important;
+	color: #333 !important;
 	background: none !important;
 	outline: none;
 	float: left;
@@ -154,4 +154,19 @@ header {
 	color: #fff;
 }
 /*中间内容结束*/
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #ccc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ccc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #ccc;
+}
+
 

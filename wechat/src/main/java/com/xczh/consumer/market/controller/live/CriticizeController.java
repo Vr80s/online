@@ -83,23 +83,30 @@ public class CriticizeController {
 			@RequestParam(required=false)Integer pageNumber
 			)throws Exception {
 	
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		try {
+			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+			Page<Criticize> pageList  = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, 
+					pageSize,user!= null ? user.getUserId() :null);
+			/**
+			 * 这里判断用户发表的评论中是否包含发表心心了，什么的如果包含的话就不返回了
+			 * 		并且判断这个用户有没有购买过这个课程
+			 */
+			Map<String,Object> map = new HashMap<String,Object>();
+			if(user!=null && courseId!=null){
+				Integer cv = criticizeService.findUserFirstStars(courseId,user.getId());
+				map.put("commentCode", cv);
+			}else{
+				map.put("commentCode", 0);
+			}
+			map.put("items", pageList.getItems());
+			return ResponseObject.newSuccessResponseObject(map);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		} 
 		
-		Page<Criticize> pageList  = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, 
-				pageSize,user!= null ? user.getUserId() :null);
-		/**
-		 * 这里判断用户发表的评论中是否包含发表心心了，什么的如果包含的话就不返回了
-		 * 		并且判断这个用户有没有购买过这个课程
-		 */
-		Map<String,Object> map = new HashMap<String,Object>();
-		if(user!=null){
-			Integer cv = criticizeService.findUserFirstStars(courseId,user.getId());
-			map.put("commentCode", cv);
-		}else{
-			map.put("commentCode", 0);
-		}
-		map.put("items", pageList.getItems());
-		return ResponseObject.newSuccessResponseObject(map);
 	}
     /**
      * 点赞、取消点赞

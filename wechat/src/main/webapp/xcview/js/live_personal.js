@@ -212,6 +212,12 @@ requestService("/xczh/host/hostPageInfo",{
 //		}
 
 			
+			
+			if(is_weixin()){
+		    	$(".share_to_one").show()
+		    }else{
+		    	$(".share_to_one").hide()
+		    }
 
 
 });

@@ -184,10 +184,11 @@
 	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoService" timeout="${dubbo.consumer.timeout}" />
 
 	<!--主播控制台：订单-->
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IGiftOrderService"
-					 id="giftOrderService" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseOrderService"
-					 id="CourseOrderService" timeout="${dubbo.consumer.timeout}" />
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IGiftOrderService"  id="giftOrderService" timeout="${dubbo.consumer.timeout}" />
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseOrderService"  id="CourseOrderService" timeout="${dubbo.consumer.timeout}" />
+
+	<!-- 熊猫币购买服务 -->
+	<dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
 
 </beans>

@@ -286,11 +286,14 @@
 		oc.grade_name as gradeName,
 		oc.smallimg_path as smallImgPath,
 		oc.start_time as startTime,
+		DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		oc.end_time as endTime,
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		 oc.collection as collection,
+		 
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
     		DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
      	AS lineState,
@@ -483,7 +486,7 @@
 		oc.is_recommend,oc.start_time,oc.create_time
 		from oe_course oc ,oe_user ou
 		where oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status = 1 and oc.multimedia_type = 2
-		order by  c.recommend_sort desc,oc.release_time desc LIMIT 0,12
+		order by oc.recommend_sort desc,oc.release_time desc LIMIT 0,12
 	</select>
 	<!--  查看直播课程列表  -->
 	<select id="findLiveListInfo" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">

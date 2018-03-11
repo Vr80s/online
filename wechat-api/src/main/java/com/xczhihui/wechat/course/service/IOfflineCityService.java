@@ -7,4 +7,7 @@ import com.xczhihui.wechat.course.model.OfflineCity;
 public interface IOfflineCityService {
 	
 	  public Page<OfflineCity> selectOfflineCityPage(Page<OfflineCity> page);
+	  
+	  
+	  public Page<OfflineCity> selectOfflineRecommendedCityPage(Page<OfflineCity> page);
 }

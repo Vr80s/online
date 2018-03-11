@@ -71,7 +71,7 @@ textarea::-webkit-input-placeholder {
 }
 .header_news img{
 	width: 0.42rem;
-	height:0.43rem;
+    height: 0.38rem;
 }
 .personal_bg{
 	width: 100%;
@@ -292,7 +292,7 @@ color: #999999;
 	overflow: hidden;
 	margin-bottom: 0.4rem;
 	width: 3.39rem;
-
+	height: 3.2rem;
 }
 .wrap_vedio_btn li .wrap_img_pic{
 	width: 3.39rem;

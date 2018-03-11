@@ -442,9 +442,9 @@ if(!stringnull(userId)){
  */
 function common_share_back(){
 	var back = document.referrer;
-
 	if(stringnull(back)){
-		window.location.href = back;
+		//window.location.href = back;
+		window.history.back();
 	}else{
 		window.location.href = "home_page.html";
 	}

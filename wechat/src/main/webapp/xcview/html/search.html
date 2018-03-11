@@ -118,7 +118,7 @@
 
 <script type="text/javascript">
 
-
+	var arr=[];
 		//点击关键字查询
 		function queryKeyToList(obj){
 //			event.stopPropagation(); 
@@ -133,6 +133,7 @@
 			var arrList = localStorage.hisArr.split(',');
 			arrList.splice(i,1); 
 			localStorage.setItem("hisArr", arrList);
+			arr=localStorage.hisArr.split(',');
 			if(arrList.length==0 || arrList.length=='' || arrList.length==null){
 				$(".search_history").hide()
 			}
@@ -219,8 +220,11 @@
 			var historyInf = '';
 			if(localStorage.hisArr!=undefined){
                 localStorage.hisArr.split(',').forEach(function(v,i){
-                    if(v.split($("#header_input").val()).length>1){
+                    if(v.split($("#header_input").val()).length>1||$("#header_input").val()==''){
+                    	$(".search_history_title").show();
                         historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+                    }else{
+                    	$(".search_history_title").hide();
                     }
                 })
                 $('.search_history_list').html(historyInf);
