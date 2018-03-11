@@ -577,7 +577,28 @@
 								{{each itemls.courseList as item i}}
 								<!--即将直播-->
 								<li style="position: relative;">
+									
+									<!--<script type="text/html" id="data_video">
+										{{if watchState == 1}}
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" data-memory="{{id}}" href="details.html?courseId={{id}}"></a>
+										
+										{{else if watchState == 3}}
+										
+										
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
+										
+										
+										{{/if}}
+									</script>-->
+									
+									
+									
+									
+								
 									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
+
+									
+									
 									<div class="newest_main_two">
 										<div class="newest_two_img">
 											<img src="{{item.smallImgPath}}" alt="" />
@@ -590,6 +611,7 @@
 										<div class="newest_main_two_size">
 											{{if item.watchState == 1}}
 											<p><span>免费</span></p>
+											
 											{{else}}
 											<p><span>{{item.currentPrice}}</span>熊猫币</p>
 											{{/if}}
