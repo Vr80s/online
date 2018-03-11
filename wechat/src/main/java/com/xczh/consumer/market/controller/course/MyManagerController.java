@@ -269,6 +269,8 @@ public class MyManagerController {
 		int num = (pageNumber - 1) * pageSize;
 		num = num < 0 ? 0 : num;
 		
+		
+		
 		return ResponseObject.newSuccessResponseObject(myInfoService.findUserWallet(num,pageSize, user.getId()));
 	}
 

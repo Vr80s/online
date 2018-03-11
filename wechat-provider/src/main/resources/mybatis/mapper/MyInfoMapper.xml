@@ -87,9 +87,12 @@
 		  
 		  	UNION ALL
 		  
-		  ( select  '4' as type,'购买课程' as subject,CONCAT('-',argc.cost) as totalAmount,argc.create_time as gmtCreate,"人民币" as unit 
 		  
-		  from apply_r_grade_course as argc  where argc.is_payment =2 and user_id=#{userId}  )
+		  ( select  '4' as type,'购买课程' as subject,CONCAT('-',argc.cost) as totalAmount,argc.create_time as gmtCreate,"人民币" as unit 
+			  from  oe_order_detail ood 
+				INNER  JOIN apply_r_grade_course as argc on  ood.id =argc.order_no
+				INNER  JOIN oe_order as oo on ood.order_id =oo.id
+      			WHERE  oo.pay_type in (0,1) and argc.user_id =#{userId}  )
 		  
 		 ) as tixian  order by tixian.gmtCreate desc  limit #{pageNumber},#{pageSize}
 	 
