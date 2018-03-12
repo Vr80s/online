@@ -75,7 +75,7 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 5:04 2018/1/29 0029
 	 **/
-	public void updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
+	public UserCoinConsumption updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
 
 	/**
 	 * Description：添加用户熊猫

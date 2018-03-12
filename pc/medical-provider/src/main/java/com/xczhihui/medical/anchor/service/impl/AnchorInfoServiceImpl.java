@@ -194,7 +194,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             if(ca == null) {
                 throw new RuntimeException("不具备主播权限或主播权限被禁用");
             }else{
-                //缓存礼物数据10分钟
+                //缓存数据1分钟
                 cacheService.set(key,ca,60);
             }
         }else{
