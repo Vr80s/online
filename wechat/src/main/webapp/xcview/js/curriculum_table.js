@@ -44,7 +44,9 @@ var cityTypeArray = new Array();
  */
 var defaultKey = localStorage.getItem("defaultKey");
 if(stringnull(defaultKey)){
-	$(".header_seek_main img").html(defaultKey);
+//	$(".header_seek_main img").html(defaultKey);
+	$(".header_seek_main span").html(defaultKey);
+//	$(".span_hide").hide();
 }
 /*
  * 点击进入搜索页面
@@ -52,6 +54,8 @@ if(stringnull(defaultKey)){
 $(".header_seek").click(function(){
 	
 	location.href='/xcview/html/search.html?search_back=2';
+	
+//	$(".span_hide").show();
 })
 
 
@@ -493,7 +497,9 @@ var urlAttribute=getQueryString('queryKey')
 if (urlAttribute=='' || urlAttribute== null) {
 	
 } else{
-$('.header_seek').append('<span>' + urlAttribute + '</span>');
+	$('.header_seek_main .span_hide').hide();
+//	$('.header_seek_main').append('<span style='margin-left: 0.38rem;margin-top: -0.6rem;'>' + urlAttribute + '</span>');
+	$('.header_seek_main').append('<span>' + urlAttribute + '</span>');
 	
 }
 
