@@ -253,7 +253,6 @@ function timer(startTime,currentTime){
 	
 	var strDiff = (startTime.getTime()-currentTime.getTime())/1000; 
 	
-	
 	var intDiff = parseInt(strDiff);//倒计时总秒数量
 	
 	window.setInterval(function(){
@@ -367,8 +366,8 @@ requestService(
 								+ result[i].id
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
-								+ "</p><p class='jiage' style='font-size:0.6rem;color:#666;'>"
-								+ "" + result[i].price + "熊猫币</p></div></a></li>";
+								+ "</p><p  style='font-size:0.6rem;color:#666;'><span class='jiage'>"
+								+ "" + result[i].price + "</span><span style='font-size:0.6rem;color:#666;'>熊猫币</span></p></div></a></li>";
 					} else {
 						html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"
 								+ result[i].smallimgPath
@@ -376,7 +375,7 @@ requestService(
 								+ result[i].id
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
-								+ "</p><p class='jiage' style='font-size:0.6rem;color:#666;'>0熊猫币</p></div></a></li>";
+								+ "</p><p style='font-size:0.6rem;color:#666;'><span class='jiage'>0</span><span style='font-size:0.6rem;color:#666;'>熊猫币</span></p></div></a></li>";
 					}
 				}
 				$(".gift_ul_li").html(html);

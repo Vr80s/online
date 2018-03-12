@@ -111,6 +111,15 @@ header {
 	top: 0.14rem;
 	left: 0.13rem;
 }
+.zhibo_play{
+	    border: 1px solid #F97B49;
+
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+    display: inline-block;
+    margin-left: 0.1rem;
+}
 .bought_list_title{
 	/*width: 7rem;*/
 	/*max-height: 0.8rem;*/
