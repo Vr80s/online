@@ -151,6 +151,14 @@ header {
     min-width: 0.5rem;
     margin-right: 0.1rem;
 }
+.zhibo_play{
+	    border: 1px solid #F97B49;
+    float: left;
+    font-size: 0.22rem !important;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+    margin-left: 0.1rem;
+}
 .course_list_main_cen_one .p1 img{
 	width: 0.404rem;
     height: 0.468rem;

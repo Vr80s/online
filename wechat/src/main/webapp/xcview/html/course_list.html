@@ -52,7 +52,7 @@
 				   	    			{{if item.type == 1 || item.type == 2}}
 		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
 	                    				{{else if item.type == 3}}
-		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
+		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jump_play({{item.id}})"></a>
 		                    			{{else if item.type == 4}}
 		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
 									{{/if}}
@@ -84,9 +84,14 @@
 				   	    				<!--<p class="p0"><span>9000</span>熊猫币</p>-->
 				   	    					<p class="p1"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
 				   	    				{{if item.type == 3 }}
+					   	    				{{if item.lineState==1 || item.lineState==4}}
+					   	    				<p class="zhibo_play">直播中</p>
+					   	    				{{else}}
 				   	    					<p class="p2"><img src="/xcview/images/learn.png" alt="" /><span>12.21</span></p>
-				   	    				{{else if item.type == 3 && item.lineState==1}}
-		   	    							<div class="div0"><img src="/xcview/images/streaming_fie.png" alt="" /></div>
+					   	    				
+					   	    				{{/if}}
+
+				   	    	
 		   	    						{{else if item.type == 4}}
 		   	    							<p class="p2"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
 				   	    				{{/if}}
@@ -165,7 +170,7 @@
 		   	    <!--列表内容结束-->
 			    <div class=""></div>
 		  </div>
-		</div>
+		<!--</div>-->
 	<!--</div>-->
 	<!-- 中间内容结束 -->
 	<!-- 底部结束 -->
@@ -189,7 +194,7 @@
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
     <script type="text/javascript" src="/Views/h5/js/common.js"></script>
 	<script type="text/javascript" src="../js/template.js"></script>   <!--模板引入-->
-	<script src="/xcview/js/index.js" type="text/javascript"></script>
+	<!--<script src="/xcview/js/index.js" type="text/javascript"></script>-->
 	<script src="/xcview/js/course_list.js" type="text/javascript"></script>
 	
 </body>

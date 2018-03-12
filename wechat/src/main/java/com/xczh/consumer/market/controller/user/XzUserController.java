@@ -504,8 +504,7 @@ public class XzUserController {
 			req.getSession().invalidate();
 			// 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
 			// 获得到ServletCOntext中存的Map集合.
-			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext()
-					.getAttribute("userMap");
+			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext().getAttribute("userMap");
 			// 判断用户是否已经在map集合中'
 			HttpSession session = userMap.get(user);
 			if(session!=null && userMap.containsKey(user)){

@@ -1170,6 +1170,13 @@ margin-top: 0.05rem;
     float: left;
     margin-top: 0.02rem;
 }
+.zhibo_play{
+	border: 1px solid #F97B49;
+	float:  left;
+	font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+}
 .boutique_main_one_size .p3{
 	/*float: right;*/
     margin-right: 0.4rem;
@@ -1680,6 +1687,7 @@ display: block;
     /* white-space: nowrap; */
     display: inline-block;
     max-width: 1.5rem;
+    margin-top: 0.1rem;
 }
 .newest_main_two_size .p3{
 	height: 0.52rem;

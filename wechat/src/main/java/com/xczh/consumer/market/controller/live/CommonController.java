@@ -447,7 +447,7 @@ public class CommonController {
 		map.put("email", email);         //email 自己写的
 		map.put("roomid", roomNumber);   //视频id
 		map.put("account",user.getId());       //用户帐号
-		map.put("username","222");      //用户名
+		map.put("username",user.getName());      //用户名
 		map.put("sign", getSign(map));
 		
 		return ResponseObject.newSuccessResponseObject(map);
