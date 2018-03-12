@@ -386,7 +386,7 @@ function jump_play(id){
 //收费的直播和即将直播未购买跳购买页    
          if(userPlay.watchState==0 && userPlay.lineState==1){
             location.href="school_play.html?course_id="+id 
-         }else if(userPlay.watchState==0 && userPlay.lineState==2){
+         }else if(userPlay.watchState==0 && userPlay.lineState==4){
             location.href="school_play.html?course_id="+id          
          }
 //免费的直播和即将直播跳直播间      
@@ -403,7 +403,7 @@ function jump_play(id){
                }) 
             location.href="details.html?courseId="+id
             }
-         }else if(userPlay.watchState==1 && userPlay.lineState==2){
+         }else if(userPlay.watchState==1 && userPlay.lineState==4){
             if (falg==1002){
                   location.href ="/xcview/html/cn_login.html";      
                }else if (falg==1005) {
@@ -425,7 +425,7 @@ function jump_play(id){
       
                }) 
             location.href="details.html?courseId="+id           
-         }else if(userPlay.watchState==2 && userPlay.lineState==2){
+         }else if(userPlay.watchState==2 && userPlay.lineState==4){
             requestService("/xczh/history/add",
                {courseId:id}
                ,function(data) {
@@ -441,7 +441,7 @@ function jump_play(id){
 		
 					})	
 				location.href="details.html?courseId="+id				
-			}else if(userPlay.watchState==3 && userPlay.lineState==2){
+			}else if(userPlay.watchState==3 && userPlay.lineState==4){
 				requestService("/xczh/history/add",
 					{courseId:id}
 					,function(data) {
