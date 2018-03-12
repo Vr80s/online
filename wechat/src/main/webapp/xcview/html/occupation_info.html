@@ -183,7 +183,6 @@ pre:after {
         location.href ='persons.html';
     });
 
-      var cymYonghuInfo =$("#errorMsg");
       $("#pet_name_right").click(function(){
           var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
           var numberReg=/^\d{4,20}$/;//纯数字验证
@@ -196,16 +195,15 @@ pre:after {
                 yonghuNameLength=0;
             }
 	      if(yonghuNameLength > 20 || yonghuNameLength < 4){
-	          cymYonghuInfo.show();
-	          /*cymYonghuInfo.html("<div class='vanish4'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>不能为空，长度只能在4-20个字符之间</div></div></div>");
-	          setTimeout(function(){$(".vanish4").hide();},1500);*/
 	         webToast("不能为空，长度只能在4-20个字符之间","middle",1500);
 	          return false;
 	      }
-	      cymYonghuInfo.hide();
-	      checkUser1("occupationOther");
-	      //验证名称的合法性
-	      location.href ='persons.html';
+	      
+	        var falg =setuserInfoWechat("occupationOther");
+	        //验证名称的合法性
+	      	if(falg){
+	      	  location.href ='persons.html';	
+	      	}
       });
     // 点击昵称结束
       

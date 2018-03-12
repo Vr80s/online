@@ -29,9 +29,7 @@ var roomNumber = "";
 var lineState = 1;
 var result = "";
 // 统一提交的方法
-requestService(
-		"/xczh/course/liveDetails",
-		{
+requestService("/xczh/course/liveDetails",{
 			courseId : course_id
 		},
 		function(data) {
@@ -89,7 +87,7 @@ requestService(
 				/**
 				 * 直播状态1.直播中，2预告，3直播结束 4 即将直播
 				 */
-				if (lineState == 3) { // 隐藏送礼 //直播回放
+				if (lineState == 3 || lineState == 4) { // 隐藏送礼
 
 					$("title").text("熊猫中医");
 					$(".history_span").text("直播回放");
@@ -143,9 +141,6 @@ requestService(
 						$(".give_a1").hide(); /* 礼物隐藏 */
 						$(".give_a1").css("display", "none"); /* 礼物隐藏 */
 						$(".coze_bottom").css("bottom", "0"); /* 最底部区域到最下方 */
-						/*$(".face_img01").css("background","url('/xcview/images/face.png) no-repeat')";
-						$(".face_img01").css("background-size","100% 100%");*/
-						
 						$(".face_img01").css('background','url(/xcview/images/face.png) no-repeat');
 					 
 						$(".face_img01").css("background-size","100% 100%");
@@ -158,8 +153,6 @@ requestService(
 						$(".div_input").css("width", "12rem");
 						$("#mywords").css("width", "12rem");
 						$(".coze_bottom input").css("width", "12rem");
-						/*$("#face").css("top", "1.45rem");
-						$("#face").css('left', '0.06rem');*/
 					});
 
 				} else {
@@ -232,20 +225,69 @@ requestService(
 
 				// 点击直播回放时的input mywords
 				$("#mywords").click(function() {
-					/*
-					 * $(".send_img").css('background','url(/xcview/images/jiantou01.jpg)
-					 * no-repeat');
-					 */
-					// $("#sendChat").css("background-size","100% 100%");
 				});
 
-				// 视频id不等于null的时候
+				var jjzb =  result.lineState;
+				var startTime = result.startTime;
+				if(jjzb == 4){
+					$(".video_end_top0").show();
+					
+					timer(new Date(startTime),new Date());
+				}
+				var vhallId =  result.vhallId;
 				if (stringnull(videoId)) {
-					chZJ(videoId, watchState);
+					chZJ(videoId, vhallId);
 				}
 			}
 		}, false)
 
+		
+
+/**
+ * 倒计时的  分钟和秒数
+ * @param 开始时间
+ * @param 当前时间
+ */
+function timer(startTime,currentTime){
+	
+	
+	var strDiff = (startTime.getTime()-currentTime.getTime())/1000; 
+	
+	
+	var intDiff = parseInt(strDiff);//倒计时总秒数量
+	
+	window.setInterval(function(){
+		var day=0,
+			hour=0,
+			minute=0,
+			second=0;//时间默认值
+		if(intDiff > 0){
+			// day = Math.floor(intDiff / (60 * 60 * 24));
+			// hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+			minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+			second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+		}
+		
+		if(minute == 0 && second == 0){
+			
+			$('#minute_show').html('请稍等,');
+			$('#second_show').html('即将开始!');
+		}else{
+			
+			if (minute <= 9) minute = '0' + minute;
+			if (second <= 9) second = '0' + second;
+			// $('#day_show').html(day+"天");
+			// $('#hour_show').html('<s id="h"></s>'+hour+'时');
+			$('#minute_show').html('<s></s>'+minute+'分');
+			$('#second_show').html('<s></s>'+second+'秒');
+			
+		    intDiff--;
+		}
+	
+	}, 1000);
+}		
+		
+		
 // 聊天--关注开始
 
 $(".add_follow").click(

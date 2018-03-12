@@ -91,7 +91,7 @@
 			webToast("请填写手机号","middle",1500);
 			return false;
 		}
-		if (!(/^1[34578]\d{9}$/.test(phone))) {
+		if (!(/^1[345678]\d{9}$/.test(phone))) {
 			/*$("#errorMsg").html("<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>手机号格式不正确</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish1").hide();},1500);*/

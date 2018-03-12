@@ -31,7 +31,11 @@ requestService("/xczh/bunch/hotSearch",null,
 // 	    	<!--给inpiu默认值-->
  	    	$(".div_span_input").html(template('shipin',{items:data.resultObject.defaultSearch}))
 			
- 	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch);
+   	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch[0].name);
+ 	    	
+ 	    	
+// 	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch);
+ 	    	
 		}
 },false) 
 //搜索历史结束

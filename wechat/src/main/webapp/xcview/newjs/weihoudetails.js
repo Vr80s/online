@@ -1,16 +1,24 @@
 
 
+var vhallId = "";
+
+var falg = 1;
+
 /**
  * 初始化视频啦
  * @param videoId
  */
-function chZJ(videoId,watchState){
+function chZJ(videoId,vhallId){
+	
+	//主播的用户id
+	vhallId = vhallId;
+	
+	//获取开播时间和
+	
     var map;
-    
     requestService("/bxg/common/getWeihouSign", {video:videoId}, function(data) {
     	map  = data.resultObject;
     },false)
-    
     $("#video").html("");
     
     var weihouSignInfo ={
@@ -28,6 +36,36 @@ function chZJ(videoId,watchState){
     weihouSignInfo.videoContent="#video";
     VHALL_SDK.init(weihouSignInfo);
 }
+
+/**
+ * 在聊天区域增加自定义的信息
+ * @param content  内容
+ * @param type 1 进入房间提示
+ */
+function liaoTianArea(content,type){
+	 	var msg = null;
+	    msg = VHALL_SDK.sendChat({
+		      text: content
+		});
+	    var content ="";
+	    if(type == 1){
+	    	content = "进入直播间";
+	    }
+	    var room = VHALL_SDK.getRoominfo();
+		if (msg && room.type == 1){
+			var str = "<div class='coze_cen_ri'> "+
+					"<div class='coze_cen_bg_ri'>"+
+						"<span class='span_name'>"+msg.user_name+"</span>"+content+""+
+					" </div> "+
+				" <div class='both'></div></div>";
+        $("#chatmsg").append(str);  
+		}
+		$("#mywords").val('');
+	    setTimeout(function(){
+	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+     },50);
+}
+
 
 /**
  * 加载请求视频
@@ -77,13 +115,18 @@ $(document).ready(function() {
 	 * @return {[type]} [description]
 	 */
     VHALL_SDK.on('chatMsg', function(msg) {
-		var str = "<div class='coze_cen'> "+
-		 "<img src="+msg.user_name+" alt='' "+
-		"	class='coze_cen_left_img' /> "+
-		"  <div class='coze_cen_bg'> "+
-		"	<img src='/xcview/images/sanjiao2.png' alt='' />"+msg.content+"  "+
+    	
+    	var userName = msg.user_name;
+    	if(msg.role =="host"){ //说明是主播
+    		userName = "主播    "+userName;
+    	}
+    	var str = "<div class='coze_cen_ri'> "+
+		"  <div class='coze_cen_bg_ri'> "+
+		"<span class='span_name'>"+userName+"：</span>"+   //用户名
+		"	"+item.content+"  "+
 		" </div> "+
 		" <div class='both'></div></div>";
+    	
         $("#chatmsg").append(str);
         $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
     });
@@ -101,7 +144,6 @@ $(document).ready(function() {
             // 当前不在直播
             VHALL_SDK.vhall_get_record_history_chat_msg();
         }
-        
         /*
 		 * 房间信息
 		 */
@@ -110,6 +152,57 @@ $(document).ready(function() {
 		 * 用户信息
 		 */
         console.log(VHALL_SDK.getRoominfo());
+        
+        
+        var room  = VHALL_SDK.getRoominfo();
+        if(room.type  == 3 ){
+            $(".chatmsg-box").mCustomScrollbar({
+                scrollInertia: 200,
+            	theme:"dark",
+                axis:"y",
+                onTotalScroll:"50px",
+                alwaysTriggerOffsets:false,
+                onTotalScrollBackOffse:"100px",
+                onTotalScrollOffset:"100px",
+                callbacks: {
+                    onTotalScrollBack: function() {
+                        //if (VHALL_SDK.room.type != '1') {
+                            var curr_page = parseInt($('#chatmsg').data('curr_page'));
+                            if(falg==1){
+                            	curr_page++;
+                            	falg++;
+                            }
+                            VHALL_SDK.vhall_get_record_history_chat_msg(curr_page + 1);
+                        //}
+                    }
+                }
+            });
+            $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+        }else if(room.type == 1){
+        	$(".chatmsg-box").mCustomScrollbar({
+                scrollInertia: 200,
+            	theme:"dark",
+                axis:"y",
+                onTotalScroll:"50px",
+                alwaysTriggerOffsets:false,
+                onTotalScrollBackOffse:"100px",
+                onTotalScrollOffset:"100px",
+                callbacks: {
+                    onTotalScrollBack: function() {
+                        //if (VHALL_SDK.room.type != '1') {
+                            var curr_page = parseInt($('#chatmsg').data('curr_page'));
+                            if(falg==1){
+                            	curr_page++;
+                            	falg++;
+                            }
+                            VHALL_SDK.vhall_get_live_history_chat_msg(curr_page + 1);
+                        //}
+                    }
+                }
+            });
+        	$(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+        } 
+        
     });
     /**
 	 * [用户上线]
@@ -119,6 +212,26 @@ $(document).ready(function() {
 	 * @return {[type]} [description]
 	 */
     VHALL_SDK.on('userOnline', function(msg) {
+    	
+    	//alert("userOnline:"+msg);
+    	
+/*        msg = VHALL_SDK.sendChat({
+		      text: content
+		});*/
+    	
+    	var userName = msg.user_name;
+    	var content = "进入直播间";
+
+    	var str = "<div class='coze_cen_ri'> "+
+		"  <div class='coze_cen_bg_ri'> "+
+		"<span class='span_name'>"+userName+"：</span>"+   //用户名
+		"	"+content+"  "+
+		" </div> "+
+		" <div class='both'></div></div>";
+    	
+        $("#chatmsg").append(str);
+        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+    	
         console.log(msg);
     });
     /**
@@ -129,12 +242,33 @@ $(document).ready(function() {
 	 * @return {[type]} [description]
 	 */
     VHALL_SDK.on('userOffline', function(msg) {
+    	
+    	//alert("userOffline:"+msg);
+    	
+/*        msg = VHALL_SDK.sendChat({
+		      text: content
+		});*/
+  	
+	  	var userName = msg.user_name;
+	  	var content = "退出直播间";
+	
+	  	var str = "<div class='coze_cen_ri'> "+
+			"  <div class='coze_cen_bg_ri'> "+
+			"<span class='span_name'>"+userName+"：</span>"+   //用户名
+			"	"+content+"  "+
+			" </div> "+
+			" <div class='both'></div></div>";
+  	
+        $("#chatmsg").append(str);
+        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+    	
+    	
         console.log(msg);
     });
     
     /**
 	 * [onSendChatSuccess 消息发送回调事件]
-	 * 
+	 * class="span_name"
 	 * @return {[type]} [description]
 	 */
     VHALL_SDK.on('sendChat', function(msg) {
@@ -206,10 +340,20 @@ $(document).ready(function() {
         
     });
     VHALL_SDK.on('streamOver', function(msg) {
-        //alert('活动已结束');            
+        
+    	alert('活动已结束'+msg);   
+
+    	$("#video").html("");
+    	
+		$(".video_end_top").show(); 
+    	
     });
     VHALL_SDK.on('publishStart', function(msg) {
-        //alert('活动开始推流');            
+        alert('活动开始推流'+msg);
+        alert("==========================")
+        //如果活动开始了
+        $(".video_end_top").hide();
+        
     });
     
     var userInfo = "";
@@ -220,33 +364,23 @@ $(document).ready(function() {
         if (res.code == 200 ) {
         	var Name = localStorage.name;
             var str = '';
+            
             for (var i = res.data.length - 1; i >= 0; i--) {
-            	if(userInfo.userid == res.data[i].user_id){
-            		 str += "<div class='coze_cen_ri'> "+
-        			 
-        			"  <div class='coze_cen_bg_ri'> "+
-        			
-        			"<span class='span_name'>"+res.data[i].user_name+"：</span>"+   //用户名
-        			
-//      			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+res.data[i].content+"  "+
-        			"	"+res.data[i].content+"  "+
-        			" </div> "+
-        			" <div class='both'></div></div>";
-            	}else{
-            		str += "<div class='coze_cen'>";
-                    
-                    str+="<div class='coze_cen_bg'>";
-                    
-                    str+="<span class='span_name'>"+res.data[i].user_name+"：</span>";   //用户名
-                    
-//                  str+="<img src='/xcview/images/sanjiao.png' alt='' />"+res.data[i].content+"</div>" +
-                    str+=""+res.data[i].content+"</div>" +
-                    		"<div class='both'></div></div>";
+            	var item = res.data[i];
+            	
+            	var userName = item.user_name;
+            	if(vhallId == item.account_id){ //说明是主播
+            		userName = "主播    "+userName;
             	}
+        		 str += "<div class='coze_cen_ri'> "+
+    			"  <div class='coze_cen_bg_ri'> "+
+    			"<span class='span_name'>"+userName+"：</span>"+   //用户名
+    			"	"+item.content+"  "+
+    			" </div> "+
+    			" <div class='both'></div></div>";
             }
             $("#chatmsg").append(str);
             setTimeout(function(){
-                //$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar('scrollTo', '999999');
             	$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom","0");
             },50);
         }
@@ -266,26 +400,18 @@ $(document).ready(function() {
             
             $("#chatmsg").data('curr_page', res.curr_page);
             for (var i = res.data.length - 1; i >= 0; i--) {
-            	 if(userInfo.userid == res.data[i].user_id){
-            	    str += "<div class='coze_cen_ri'> "+
-        			 
-        			"  <div class='coze_cen_bg_ri'> "+
-        			
-        			"<span class='span_name'>"+res.data[i].user_name+"：</span>"+   /*用户名*/
-        			
-        			"	"+res.data[i].content+"  "+
-        			" </div> "+
-        			" <div class='both'></div></div>";
-                 }else{
-                	 str += "<div class='coze_cen'>";
-                    
-                     str+="<div class='coze_cen_bg'>";
-                     
-                      str+="<span class='span_name'>"+res.data[i].user_name+"：</span>";  //用户名
-                     
-                     str+=""+res.data[i].content+"</div>" +
-                     		"<div class='both'></div></div>";
-                 }
+            	
+            	var item = res.data[i];
+            	var userName = item.user_name;
+            	if(vhallId == item.account_id){ //说明是主播
+            		userName = "主播    "+userName;
+            	}
+        		 str += "<div class='coze_cen_ri'> "+
+    			"  <div class='coze_cen_bg_ri'> "+
+    			"<span class='span_name'>"+userName+"：</span>"+   //用户名
+    			"	"+item.content+"  "+
+    			" </div> "+
+    			" <div class='both'></div></div>";
             }
             if (res.curr_page == 0){
             	$("#chatmsg").html(str);
@@ -323,69 +449,10 @@ $(document).ready(function() {
         }
     });
    
-    var falg = 1;
-   
-    if(lineState !=1 ){
-        $(".chatmsg-box").mCustomScrollbar({
-            scrollInertia: 200,
-        	theme:"dark",
-            axis:"y",
-            onTotalScroll:"50px",
-            alwaysTriggerOffsets:false,
-            onTotalScrollBackOffse:"100px",
-            onTotalScrollOffset:"100px",
-            callbacks: {
-                onTotalScrollBack: function() {
-                    //if (VHALL_SDK.room.type != '1') {
-                        var curr_page = parseInt($('#chatmsg').data('curr_page'));
-                        if(falg==1){
-                        	curr_page++;
-                        	falg++;
-                        }
-                        VHALL_SDK.vhall_get_record_history_chat_msg(curr_page + 1);
-                    //}
-                }
-            }
-        });
-        $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
-    }else{
-    	$(".chatmsg-box").mCustomScrollbar({
-            scrollInertia: 200,
-        	theme:"dark",
-            axis:"y",
-            onTotalScroll:"50px",
-            alwaysTriggerOffsets:false,
-            onTotalScrollBackOffse:"100px",
-            onTotalScrollOffset:"100px"
-        });
-    } 
     
     $("#sendChat").click(function() {
-    	
-//    	var userInfo  = VHALL_SDK.getUserinfo();
-//        var text = $("#mywords").val();
-//        var msg = null;
-//	    msg = VHALL_SDK.sendChat({
-//		      text: text
-//		  });
-//		if (msg)
-//		var str = "<div class='coze_cen_ri'> "+
-//			 "<img src="+msg.avatar+" alt='' "+
-//			"	class='coze_cen_ri_img' /> "+
-//			"  <div class='coze_cen_bg_ri'> "+
-//			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+msg.content+"  "+
-//			" </div> "+
-//			" <div class='both'></div></div>";
-//	    $("#chatmsg").append(str);  
-//	    $("#mywords").val('');
-//	    
-//	    setTimeout(function(){
-//	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
-//        },50);
-	  
 	    var text = $("#mywords").val();
 	    giftDsPuTong(text);
-	    
     });
     
     /**
@@ -398,18 +465,16 @@ $(document).ready(function() {
  	    msg = VHALL_SDK.sendChat({
  		      text: content
  		  });
- 		if (msg){
+ 	    var room = VHALL_SDK.getRoominfo();
+ 		if (msg && room.type == 1){
  			var str = "<div class='coze_cen_ri'> "+
-			 /*"<img src="+msg.avatar+" alt='' "+
-			"	class='coze_cen_ri_img' /> "+*/
-			"  <div class='coze_cen_bg_ri'> "+
-//			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+msg.content+"  "+
-			" </div> "+
-			" <div class='both'></div></div>";
- 			
+						"<div class='coze_cen_bg_ri'>"+
+							"<span class='span_name'>"+msg.user_name+"</span>"+msg.content+""+
+						" </div> "+
+					" <div class='both'></div></div>";
 	        $("#chatmsg").append(str);  
-	        $("#mywords").val('');
  		}
+ 		$("#mywords").val('');
  	    setTimeout(function(){
  	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
          },50);

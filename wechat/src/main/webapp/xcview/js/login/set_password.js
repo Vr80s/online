@@ -40,7 +40,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 	}
 	
 	//获取上一个电话号
-	if (!(/^1[34578]\d{9}$/.test(mobile))) {
+	if (!(/^1[345678]\d{9}$/.test(mobile))) {
 		webToast("未获取到正确的手机号","middle",1500);
 		return false;
 	}
@@ -78,7 +78,7 @@ document.getElementById("forget_btn").addEventListener("tap", function() {
 		webToast("密码不能为空","middle",1500);
 		return false;
 	}
-	if (!(/^1[34578]\d{9}$/.test(mobile))) {
+	if (!(/^1[345678]\d{9}$/.test(mobile))) {
 		webToast("手机号格式不正确","middle",1500);
 		return false;
 	}

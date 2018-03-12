@@ -161,7 +161,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 		
 		$(".my_bg_cen").css("height","18.2rem");
 	}*/
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[345678]\d{9}$/.test(number))) {
 		$("#reminderror").show();
 		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>";
 		setTimeout(function(){$(".vanish").hide();},1500);
@@ -245,7 +245,7 @@ reg.addEventListener("tap", function() {
 		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[345678]\d{9}$/.test(number))) {
 		$("#reminderror").show();
 		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>";
 		setTimeout(function(){$(".vanish").hide();},1500);

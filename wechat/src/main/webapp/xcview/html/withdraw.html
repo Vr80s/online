@@ -189,7 +189,7 @@ $("#tqje").val($("#ktban").html());
 			setTimeout(function(){$(".vanish3").hide();},1500);
             return;
         }
-        if(!(/^1[34578]\d{9}$/.test(phone))) {
+        if(!(/^1[345678]\d{9}$/.test(phone))) {
 			tishi.innerHTML = "<div class='vanish5'><div class='vanish5_bg'></div><div class='vanish5_cen'><div class='vanish5_size'>请输入正确格式的手机号</div></div></div>";
 			setTimeout(function(){$(".vanish5").hide();},1500);
 			return false;
@@ -217,7 +217,7 @@ $("#tqje").val($("#ktban").html());
 	
 	    	var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
 	
-	        var a =  /^1[34578]\d{9}$/.test(email)
+	        var a =  /^1[345678]\d{9}$/.test(email)
 	
 	     	var b= reg.test(email);
 	
@@ -238,7 +238,7 @@ $("#tqje").val($("#ktban").html());
 	
 	            return false;
 	
-	        }else if(!(/^1[34578]\d{9}$/.test(email))){
+	        }else if(!(/^1[345678]\d{9}$/.test(email))){
 	            alipay0.innerHTML = ("支付宝号不能为空0000!");
 	            return false;
 	        }*/

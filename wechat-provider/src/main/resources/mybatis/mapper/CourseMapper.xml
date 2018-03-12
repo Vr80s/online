@@ -75,6 +75,7 @@
 		ou.small_head_photo as headImg,
 		ou.id as userId,
 		ou.name as heir,
+		ou.vhall_id as vhallId,
 		oc.live_source_type as liveSourceType
 			FROM
 		oe_course as oc
@@ -126,6 +127,7 @@
 		oc.lecturer_description as lecturerDescription,
 		ou.small_head_photo as headImg,
 		ou.name as heir,
+		ou.vhall_id as vhallId,
 		oc.live_source_type as liveSourceType
 			FROM
 		oe_course as oc

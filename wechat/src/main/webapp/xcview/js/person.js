@@ -45,7 +45,7 @@ function  sendCode(obj){
 		$("#errorMsg").show();
 		return false;
 	}
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[345678]\d{9}$/.test(number))) {
 		$("#errorMsg").text("手机号格式不正确");
 		$("#errorMsg").show();
 		return false;
@@ -111,14 +111,14 @@ $("#update_mobile_next").click(function(){
  */
 function updateMobile(){
 	
-	if (!stringnull(currentName) || !(/^1[34578]\d{9}$/.test(currentName))) {
+	if (!stringnull(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
 		$("#errorMsg").html("获取用户手机号有误");
 		$("#errorMsg").show();
 		return false;
 	}
 	
 	var number = $("#new_mobile").val();
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[345678]\d{9}$/.test(number))) {
 		$("#errorMsg").text("手机号格式不正确");
 		$("#errorMsg").show();
 		return false;

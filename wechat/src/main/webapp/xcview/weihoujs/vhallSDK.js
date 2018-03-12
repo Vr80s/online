@@ -493,7 +493,8 @@ function(e, t, n) {
         this.role = e.user_role,
         this.user_name = e.user_name,
         this.time = e.created_at,
-        this.user_id = e.user_id
+        this.user_id = e.user_id,
+        this.account_id = e.account_id
     }
     var r = n(2),
     o = n(10),
@@ -1592,7 +1593,8 @@ function(e, t, n) {
             content: l(e.text),
             user_name: t.username,
             user_id: t.userid,
-            role: t.role
+            role: t.role,
+            third_user_id: t.third_user_id
         }
     },
     VHALL_SDK.sendQuestion = function(e) {

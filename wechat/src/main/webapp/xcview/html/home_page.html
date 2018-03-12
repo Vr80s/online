@@ -243,6 +243,27 @@
 .mui-pull-bottom-pocket, .mui-pull-top-pocket{
 	/*width: 1120px;*/
 }
+
+.zhibo_p{
+	       width: 1.702rem;
+    height: 0.553rem;
+    line-height: 0.553rem;
+    font-size: 0.42rem !important;
+    text-align: center;
+    border: 1px solid #F97B49;
+    text-align: center;
+    line-height1: 0.553rem;
+    float: left;
+    color: #F97B49 !important;
+    font-size: 0.26rem;
+    
+    margin-top: 0.05rem;
+
+	display: flex;
+	justify-content: center;
+    	align-items: Center;
+
+}
 </style>
 
 
@@ -577,7 +598,28 @@
 								{{each itemls.courseList as item i}}
 								<!--即将直播-->
 								<li style="position: relative;">
-									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
+									
+									<!--<script type="text/html" id="data_video">
+										{{if watchState == 1}}
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" data-memory="{{id}}" href="details.html?courseId={{id}}"></a>
+										
+										{{else if watchState == 3}}
+										
+										
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
+										
+										
+										{{/if}}
+									</script>-->
+									
+									
+									
+									
+								
+									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jump_play({{item.id}})"></a>
+
+									
+									
 									<div class="newest_main_two">
 										<div class="newest_two_img">
 											<img src="{{item.smallImgPath}}" alt="" />
@@ -590,17 +632,23 @@
 										<div class="newest_main_two_size">
 											{{if item.watchState == 1}}
 											<p><span>免费</span></p>
+											
 											{{else}}
 											<p><span>{{item.currentPrice}}</span>熊猫币</p>
 											{{/if}}
 											<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
 											<!--<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
 
+											
+
 											{{if itemls.lineState == 3 || itemls.lineState == 4}}
 											<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
 											{{else if itemls.lineState == 2}}
 											<p class="p3"><img src="/xcview/images/Sinatv_time.png" alt="" /><span>{{item.startDateStr}}</span></p>
 											{{else if itemls.lineState == 1}}
+											<p class='zhibo_p' style1="width: 1.702rem;height: 0.553rem;line-height: 0.553rem;border: 1px solid red;float:  left;font-size: 0.22rem;text-align: center;display1:none;">直播中</p>		
+
+											<!--<p><img src='/xcview/images/streaming_fie.png' style='width: 1.702rem;margin-top: 0.08rem;' /></p>-->
 											<!--<p class="p3" style="display: none1;"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
 											{{/if}}
 										</div>

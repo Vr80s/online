@@ -29,7 +29,11 @@
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
-
+<style type="text/css">
+	.web_toast{
+		/*font-size: 0.4rem;*/   /*浮动层提示语*/
+	}
+</style>
 </head>
 <style>
 	
@@ -62,13 +66,14 @@
 	    top: 8rem;
 	    width: 95%;
 	    height: 1.7rem;
-	    background: #ccc;
+	    background: #00bc12;
 	    line-height: 1.7rem;
 	    text-align: center;
 	    border-radius: 6px;
 	    color: #fff;
 	    margin-right: 0.2rem;
 	    font-size: 0.7rem;
+	    opacity: 0.5;
 	}
 </style>
 <body class="person_body">
@@ -88,7 +93,7 @@
         <input type="tel" name="current_mobile" id="current_mobile"  placeholder="请输入验证码" maxlength="4" />
         <div class="call_code" id="call_code_current" onclick="sendCode(this)" >获取验证码</div>
       </div>
-      <div class="pet_name_right1" id="update_mobile_next">继续</div>
+      <div class="pet_name_right1" id="update_mobile_next">下一步</div>
       
       <div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
     </div> 
@@ -137,7 +142,7 @@ $(".call_cen").text("当前绑定的手机号："+localStorage.username);
  */
 $("#update_mobile_next").click(function(){
 	
-	if (!stringnull(currentName) || !(/^1[34578]\d{9}$/.test(currentName))) {
+	if (!stringnull(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
 		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取用户手机号有误</div></div></div>");
 		$("#errorMsg").show();
 		
@@ -179,10 +184,10 @@ $("#update_mobile_next").click(function(){
 $('#current_mobile').keyup(function(){
     var phone = $("#current_mobile").val();
     if(phone==""||phone==undefined){
-        //$("#update_mobile_next").css("opacity","0.3");
-        $("#update_mobile_next").css("background","#ccc");
+          $("#update_mobile_next").css("opacity","0.5");
+        $("#update_mobile_next").css("background","#00bc12");
     }else{
-        //$("#update_mobile_next").css("opacity","1");
+          $("#update_mobile_next").css("opacity","1");
         $("#update_mobile_next").css("background","#00bc12");
     }
 })

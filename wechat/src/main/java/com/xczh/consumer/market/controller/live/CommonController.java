@@ -441,14 +441,13 @@ public class CommonController {
 		Date d = new Date();
 		String start_time = d.getTime() + "";
 		start_time = start_time.substring(0, start_time.length() - 3);
-		
 		Map<String,String> map = new TreeMap<String,String>();
 		map.put("app_key", WeihouInterfacesListUtil.APP_KEY);  //微吼key
 		map.put("signedat", start_time); //时间戳，精确到秒  
 		map.put("email", email);         //email 自己写的
 		map.put("roomid", roomNumber);   //视频id
 		map.put("account",user.getId());       //用户帐号
-		map.put("username",vhName);      //用户名
+		map.put("username","222");      //用户名
 		map.put("sign", getSign(map));
 		
 		return ResponseObject.newSuccessResponseObject(map);

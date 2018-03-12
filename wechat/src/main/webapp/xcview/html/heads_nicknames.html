@@ -79,7 +79,7 @@
 					<img src="../images/touxiang.png" id="headImg" alt="">
 				 </div> -->
 				 <!-- 图像区域 -->
-			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="" onchange="checkUser1()">
+			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="" >
 				    <img  src="/xcview/images/default_pic.png" width="100%" id="headImg" />
 				</a>
 				
@@ -402,7 +402,6 @@ function setImagePreview() {
     $(document).ready(function(){
 //用户名长度
 
-        var  cymYonghuInfo =$("#errorMsg");
         /*点击返回按钮*/
         $(".return").click(function(){
 
@@ -420,15 +419,15 @@ function setImagePreview() {
             if(!stringnull(nikeName)){
             	webToast("昵称不能为空","middle",3000);
                 return false;
-            }else if (nikeName.length > 20 || nikeName.length < 4){
-            	webToast("用户昵称长度在4-20之间","middle",3000);
+            }else if (nikeName.length > 20 || nikeName.length < 1){
+            	webToast("用户昵称长度在1-20之间","middle",3000);
                 return false;
             }
             if(!nickNameReg.test(nikeName)){
             	webToast("支持中文、字母、数字、'-'、'_'的组合","middle",3000);
             	return false;
             }
-            var falg = checkUser1("nickname");
+            var falg = setuserInfoWechat("nickname");
             if(falg){
             	location.href ='home_page.html';
             }

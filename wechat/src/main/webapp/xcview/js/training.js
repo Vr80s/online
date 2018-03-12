@@ -109,7 +109,7 @@
             return false;
         }
         
-        if (!(/^1[34578]\d{9}$/.test(phone))) {
+        if (!(/^1[345678]\d{9}$/.test(phone))) {
 //          alert("请输入正确的手机号");
 			$(".vanish1").show();
         	setTimeout(function(){$(".vanish1").hide();},1500);

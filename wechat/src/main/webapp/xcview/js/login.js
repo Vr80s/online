@@ -55,7 +55,7 @@ function login(){
 		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
-	if (!(/^1[34578]\d{9}$/.test(number))) {
+	if (!(/^1[345678]\d{9}$/.test(number))) {
 		tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入正确格式的帐号</div></div></div>";
 		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;

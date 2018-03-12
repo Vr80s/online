@@ -142,7 +142,7 @@ public class XzUserController {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		if(!XzStringUtils.checkPassword(password)){
-			return ResponseObject.newErrorResponseObject("请输入密码格式");
+			return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
 		}
 		/*
 		 * 验证短信验证码
@@ -331,7 +331,7 @@ public class XzUserController {
 		}
 		
 		if (!XzStringUtils.checkPassword(password)) {
-			return ResponseObject.newErrorResponseObject("新密码格式有误");
+			return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
 		}
 		
 		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();

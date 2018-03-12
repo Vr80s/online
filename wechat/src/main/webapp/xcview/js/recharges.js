@@ -57,12 +57,12 @@ if (window.history && window.history.pushState) {
         var rechargesBlck = sessionStorage.getItem("recharges_blck");
     	if(rechargesBlck == 1){
     		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
-    		location.href = "/xcview/html/purchase.html?courseId"+recharges_blck_param;
+    		location.href = "/xcview/html/purchase.html?courseId="+recharges_blck_param;
     	}else if(rechargesBlck == 2){
     		location.href = "/xcview/html/my_wallet.html";
     	}else if(rechargesBlck == 3){
     		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
-    		location.href = "/xcview/html/details.html?courseId"+recharges_blck_param;
+    		location.href = "/xcview/html/details.html?courseId="+recharges_blck_param;
     	}
    });
 }
@@ -84,7 +84,7 @@ $("#determine").click(function(){
 
 var type = getQueryString("type"); //若果type 不等于null 时提示充值成功。
 var xmbCount = getQueryString("xmbCount");
-if(stringnull(type) || type == 1){
+if(stringnull(type) || type == 1 || type == 2){
 	$(".success").show();
 	$("#xmb_success").html(xmbCount*10);
 	//alert("充值成功");
@@ -164,7 +164,7 @@ function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-   return "/xcview/html/recharges.html?type1=1&type=1&xmbCount="+actualPay;
+   return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
 }
 
 
