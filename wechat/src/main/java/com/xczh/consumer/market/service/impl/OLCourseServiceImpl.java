@@ -519,8 +519,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append("select * from ((");
 		}
 		commonSql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
-				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
-		commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+        commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+		commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and oc.start_time > now(),");
+        commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
+        commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 		commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
 		commonSql.append(" oc.collection as collection, ");
@@ -604,9 +607,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					commonSql.append("  order by  oc.recommend_sort desc,oc.release_time desc ");
 				}
 			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==4){
-				commonSql.append("  order by  oc.recommend_sort desc,oc.start_time desc ");
-			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==3){
 				commonSql.append("  order by  oc.recommend_sort desc,recent ");
+			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==3){
+				commonSql.append("  order by  oc.recommend_sort desc,oc.start_time desc ");
 			}else{
 				commonSql.append("  order by  oc.recommend_sort desc,oc.release_time desc ");
 			}
