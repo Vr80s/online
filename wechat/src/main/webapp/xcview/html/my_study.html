@@ -37,7 +37,7 @@
 			<p>学习</p>
 			<div class="header_news">
 				<img src="/xcview/images/system_messages.png" alt="">
-				<div class="header_news_rudio">1</div>
+				<div class="header_news_rudio" style="display: none;">1</div>
 			</div>
 		</div>
 	</div>
@@ -113,17 +113,17 @@
 						
 						{{if item.type==1 && item.collection==true}}
 						<!--多少集-->
-						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
+						<p class="my_collection">共{{item.watchState}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
 						{{else if item.type==2 && item.collection==true}}
 						<!--多少集-->
-						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
+						<p class="my_collection">共{{item.watchState}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
 						{{else if item.lineState==1}}	
 						<!--直播中-->				
 						<!--<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}" >直播中</a></p>-->
 						<p class="paly_ing" style="position: relative;z-index: 6;"><span style="float: left;">直播时间：{{item.startTime.slice(0,16)}}</span><a href="details.html?courseId={{item.id}}"></a></p>
 						{{else if item.type==4}}
 						<!--上课时间-->
-						<p class="my_collection">上课时间：<span>{{item.startTime.slice(0,16)}}</span></p>
+						<p class="my_collection" style="margin-left: 2.3rem;">上课时间：<span>{{item.startTime.slice(0,16)}}</span></p>
 						<!--直播时间-->
 						{{else if item.type==3}}
 						<!--<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>-->	
@@ -184,7 +184,7 @@
 	</div>
 	<!--底部结束-->
 	<!--底部旋转开始-->
-	<div class="rotation_bottom">
+	<div class="rotation_bottom" style="display: none;">
 		<img src="/xcview/images/120.jpg" />
 	</div>
 	<!--底部旋转结束-->
