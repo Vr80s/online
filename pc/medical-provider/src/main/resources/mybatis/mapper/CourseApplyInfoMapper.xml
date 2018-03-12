@@ -5,7 +5,7 @@
 		UPDATE
 		  `oe_course` oc
 		  JOIN `course_apply_info` cai
-			ON oc.`apply_id` = cai.`id` SET oc.`status` = #{state}
+			ON oc.`apply_id` = cai.`id` SET oc.`status` = #{state},oc.release_time =NOW()
 		WHERE cai.id = #{courseApplyId}
 		  AND cai.`user_id` = #{userId}
 	</update>
