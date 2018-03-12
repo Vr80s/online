@@ -201,7 +201,7 @@ $(function () {
     RequestService("/medical/doctor/getHotDepartment","GET",null,function(data){
         if(data.resultObject.length==0){
 //          $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
-			$('.search_hos_box > p').html('');
+			$('.forum-hot-tag > p').html('');
 			$(".forum-hot-tagGround").html('');
         }else{
             $(".forum-hot-tagGround").html(template.compile(hotTag)({

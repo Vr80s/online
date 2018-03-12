@@ -55,7 +55,7 @@ function liaoTianArea(content,type){
 		if (msg && room.type == 1){
 			var str = "<div class='coze_cen_ri'> "+
 					"<div class='coze_cen_bg_ri'>"+
-						"<span class='span_name'>"+msg.user_name+"</span>"+content+""+
+						"<span class='span_name'>"+msg.user_name+"：</span>"+content+""+
 					" </div> "+
 				" <div class='both'></div></div>";
         $("#chatmsg").append(str);  
@@ -268,7 +268,7 @@ $(document).ready(function() {
     
     /**
 	 * [onSendChatSuccess 消息发送回调事件]
-	 * 
+	 * class="span_name"
 	 * @return {[type]} [description]
 	 */
     VHALL_SDK.on('sendChat', function(msg) {
@@ -469,7 +469,7 @@ $(document).ready(function() {
  		if (msg && room.type == 1){
  			var str = "<div class='coze_cen_ri'> "+
 						"<div class='coze_cen_bg_ri'>"+
-							"<span class='span_name'>"+msg.user_name+"</span>"+msg.content+""+
+							"<span class='span_name'>"+msg.user_name+"：</span>"+msg.content+""+
 						" </div> "+
 					" <div class='both'></div></div>";
 	        $("#chatmsg").append(str);  

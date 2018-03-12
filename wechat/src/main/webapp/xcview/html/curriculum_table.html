@@ -19,8 +19,16 @@
 	document.documentElement.style.fontSize=kk/7.5+"px";
 	
 </script>
+
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 <link rel="stylesheet" href="../css/curriculum_table.css?v=wechat_1.1.1" />
+
+<style type="text/css">
+	.header_seek span{
+		margin-top: -0.6rem;
+		margin-left: 0.38rem;
+	}
+</style>
 </head>
 <body style="background: #F8F8F8;">
 	
@@ -34,7 +42,16 @@
 				<div class="header_seek_main" style="width: 0;">
 					<!--<img src="/xcview/images/sousuo0.png" alt="" onclick="queryByKey()">-->
 					<img src="/xcview/images/sousuo0.png" alt="">
+					<span class="span_hide" style="margin-left: 0.38rem;margin-top: -0.6rem;"></span>
 				</div>
+				<!--<span class="header_seek_main_span">
+						<script type="text/html" id="header_seek_main">
+						{{each items as item i}}
+							<span>{{item.queryKey}}</span>
+						{{/each}}
+	           	 		</script>
+				</span>		-->		
+				
 			</div>
 		</div>
 	</header>
