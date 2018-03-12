@@ -268,7 +268,7 @@ $(document).ready(function() {
     
     /**
 	 * [onSendChatSuccess 消息发送回调事件]
-	 * 
+	 * class="span_name"
 	 * @return {[type]} [description]
 	 */
     VHALL_SDK.on('sendChat', function(msg) {
