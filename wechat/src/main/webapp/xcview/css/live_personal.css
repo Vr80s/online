@@ -289,7 +289,7 @@ color: #999999;
 	margin-top: 0.2rem;
 }
 .wrap_vedio_btn li{
-	overflow: hidden;
+
 	margin-bottom: 0.4rem;
 	width: 3.39rem;
 	height: 3.2rem;
@@ -336,6 +336,14 @@ color:  #999999;
 }
 .on_line_status .money_status span{
 	color: #F97B49;
+}
+.zhibo_play{
+	    border: 1px solid #F97B49;
+    float: left;
+    font-size: 0.22rem !important;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+    margin-left: 0.1rem;
 }
 .more_people{
 overflow: hidden;
