@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.web.service.impl;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,6 @@ public class XmbBuyCourseServiceImpl implements XmbBuyCouserService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private RedisCacheService cacheService;
-	
-	@Autowired
 	private OrderService orderService;
 	
 	@Autowired
@@ -41,15 +39,11 @@ public class XmbBuyCourseServiceImpl implements XmbBuyCouserService {
 	@Value("${rate}")
 	private  Integer rate;
 	
-	private static String xmbBuyCourseCache = "xmbBuy_";
-
 	@SuppressWarnings("unused")
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Lock(lockName = "xmbBuyCourse",waitTime = 5,effectiveTime = 8)
 	public void xmbBuyCourseLock(String orderNo){
-		
-		
 		OrderVo ov =orderService.findOrderByOrderNoAndStatus(orderNo,null);
 		//订单是否存在
 		if(ov == null){
@@ -63,14 +57,14 @@ public class XmbBuyCourseServiceImpl implements XmbBuyCouserService {
 		double actual_pay =Double.parseDouble(ov.getActual_pay());
 		//实际要扣减的熊猫币
 		BigDecimal  xmb = BigDecimal.valueOf( actual_pay * rate);
-		userCoinService.updateBalanceForBuyCourse(ov.getUser_id(),
+		UserCoinConsumption userCoinConsumption = userCoinService.updateBalanceForBuyCourse(ov.getUser_id(),
 				OrderFrom.valueOf(ov.getOrder_from()),
 				xmb, orderNo);
 		/*
 		 * 更改订单状态，增加课程学习人数
 		 */
-		String transactionId = UUID.randomUUID().toString().replaceAll("-", "").substring(0,22);
-		orderPayService.addPaySuccess(orderNo,Payment.COINPAY,transactionId);
+//		String transactionId = UUID.randomUUID().toString().replaceAll("-", "").substring(0,22);
+		orderPayService.addPaySuccess(orderNo,Payment.COINPAY,userCoinConsumption.getId().toString());
 	}
 
 

@@ -214,7 +214,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
 
     @Override
-    public void updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo) {
+    public UserCoinConsumption updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo) {
         if(coin.compareTo(BigDecimal.ZERO) != 1){
             throw new RuntimeException("课程熊猫币价格必须大于0");
         }
@@ -225,7 +225,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setOrderNoConsume(orderNo);
         ucc.setBalanceType(BalanceType.BALANCE.getCode());
         ucc.setChangeType(ConsumptionChangeType.COURSE.getCode());
-        updateBalanceForConsumption(ucc);
+        return updateBalanceForConsumption(ucc);
     }
 
     @Override
