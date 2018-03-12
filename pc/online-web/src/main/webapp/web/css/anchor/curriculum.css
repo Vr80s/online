@@ -889,6 +889,46 @@ table{
 #resourceTypes label{
 	margin-right: 30px;
 	margin-top: 0 !important;
+	position: relative;
+    display: inline-block;
+    font-weight: 400;
+    padding-left: 20px;
+    cursor: pointer;
+}
+#resourceTypes label input {
+    position: absolute;
+    left: -9999px;
+}
+#resourceTypes label  i {
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    outline: 0;
+    border: 1px solid #e4e4e4;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: border-color .3s;
+    -webkit-transition: border-color .3s;
+}
+
+#resourceTypes label input + i:after {
+    position: absolute;
+    content: '';
+    top: 2px;
+    left: 2px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #00bc12;
+    opacity: 0;
+    transition: opacity .1s;
+    -webkit-transition: opacity .1s;
+}
+#resourceTypes label input:checked + i:after {
+    opacity: 1;
 }
 
 .wrap_box  #curriculum .zhuanlan_bottom form > div >span:first-child > em{
