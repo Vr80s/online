@@ -130,6 +130,7 @@ function recommendSchool(){
         }
     })
     //推荐模块结束
+
 }
 
 //推荐模块结束  =====================================================
@@ -376,7 +377,7 @@ function listenSchool(){
 //		}
 //	})
 //}
-
+//学堂
 //学堂/直播课程跳转
 function jump_play(id){
    requestService("/xczh/course/details?courseId="+id,null,function(data) {
@@ -432,9 +433,25 @@ function jump_play(id){
                }) 
             location.href="details.html?courseId="+id  
            }
-         else{
-            location.href="school_play.html?course_id="+id
-         }
+//主播本人自己的直播和即将直播跳直播间			
+			else if(userPlay.watchState==3 && userPlay.lineState==1){
+				requestService("/xczh/history/add",
+					{courseId:id}
+					,function(data) {
+		
+					})	
+				location.href="details.html?courseId="+id				
+			}else if(userPlay.watchState==3 && userPlay.lineState==2){
+				requestService("/xczh/history/add",
+					{courseId:id}
+					,function(data) {
+		
+					})	
+				location.href="details.html?courseId="+id				
+			}
+			else{
+				location.href="school_play.html?course_id="+id				
+			}
 
  }
  )}
