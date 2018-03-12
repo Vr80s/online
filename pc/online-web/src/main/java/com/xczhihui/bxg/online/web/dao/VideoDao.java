@@ -601,12 +601,14 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public Integer findUserFirstStars(Integer courseId,String createPerson) {
         
-    	
     	StringBuffer sql = new StringBuffer();
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId", courseId);
         paramMap.put("createPerson", createPerson);
+        
         Course c =  courseDao.getCourse(courseId);
+        
+        
         Integer is_buy = 1;
         if(c.isFree()){ //免费
         	is_buy = 0;
@@ -617,16 +619,18 @@ public class VideoDao extends SimpleHibernateDao {
         Integer isViewStars = 0;
         
         //如果这个课程是收费的
-        if(c.isFree()){ //免费
+        if(c.isFree()){ //免费   --》判断是否星级评论过
         	 if(list!=null && list.size()>0){
         		 isViewStars =2;
         	 }else{
         		 isViewStars =1;
         	 }
-        }else{   //如果这个课程是免费的
+        }else{  		
+        	//收费   --》  如果是购买了，但是没有评论过，返回 ： 1
+        	//       如果是 
             boolean isComment=false;
-            if(list.size()>0){
-                for(int i=0;i<list.size();i++){  //购买过且评论过
+            if(list.size()>0){ //评论过
+                for(int i=0;i<list.size();i++){  
                     if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
                         isComment=true;
                         isViewStars=2;
@@ -636,6 +640,15 @@ public class VideoDao extends SimpleHibernateDao {
                 if(!isComment){ //购买过没有评论
                     isViewStars=1;
                 }
+            }else{  
+            	StringBuffer sqlStr = new StringBuffer();
+            	sqlStr.append(" SELECT count(*) as count from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
+            	sqlStr.append(" and argc.user_id=:createPerson  ");
+            	List<Map<String, Object>> listArgs= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
+            	 //没有评论过，但是购买过
+            	if(listArgs!=null && listArgs.size()>0){
+            		 isViewStars=1;
+            	}
             }
         }
         return isViewStars;

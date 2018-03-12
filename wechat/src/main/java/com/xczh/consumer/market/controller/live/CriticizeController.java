@@ -101,9 +101,7 @@ public class CriticizeController {
 			map.put("items", pageList.getItems());
 			return ResponseObject.newSuccessResponseObject(map);
 		} catch (Exception e) {
-
 			e.printStackTrace();
-			
 			return ResponseObject.newErrorResponseObject(e.getMessage());
 		} 
 		
