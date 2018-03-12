@@ -195,8 +195,10 @@ $(function () {
 //    });
     //医馆搜索中的热门标签
     RequestService("/medical/hospital/getHotField","GET",null,function(data){
-        if(data.resultObject.length==0){ 
-            $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
+        if(data.resultObject.length==0){
+            $(".forum-hot-tag > p").html('')
+        	
+            $(".forum-hot-tagGround").html('')
         }else{
             $(".forum-hot-tagGround").html(template.compile(hotTag)({
                 hotTag:data.resultObject
