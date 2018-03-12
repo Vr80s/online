@@ -112,7 +112,7 @@ header {
     /* border-bottom: 1px solid red; */
     display: -webkit-box;
 	font-size: 0.28rem;
-	color: #CCCCCC !important;
+	color: #333 !important;
 	background: none !important;
 	outline: none;
 	float: left;

@@ -13,6 +13,7 @@ function chZJ(videoId,vhallId){
 	//主播的用户id
 	vhallId = vhallId;
 	
+	//获取开播时间和
 	
     var map;
     requestService("/bxg/common/getWeihouSign", {video:videoId}, function(data) {
@@ -54,7 +55,7 @@ function liaoTianArea(content,type){
 		if (msg && room.type == 1){
 			var str = "<div class='coze_cen_ri'> "+
 					"<div class='coze_cen_bg_ri'>"+
-						"<span class='span_name'>"+msg.user_name+"</span>"+content+""+
+						"<span class='span_name'>"+msg.user_name+"：</span>"+content+""+
 					" </div> "+
 				" <div class='both'></div></div>";
         $("#chatmsg").append(str);  
@@ -214,9 +215,9 @@ $(document).ready(function() {
     	
     	//alert("userOnline:"+msg);
     	
-        msg = VHALL_SDK.sendChat({
+/*        msg = VHALL_SDK.sendChat({
 		      text: content
-		});
+		});*/
     	
     	var userName = msg.user_name;
     	var content = "进入直播间";
@@ -244,9 +245,9 @@ $(document).ready(function() {
     	
     	//alert("userOffline:"+msg);
     	
-        msg = VHALL_SDK.sendChat({
+/*        msg = VHALL_SDK.sendChat({
 		      text: content
-		});
+		});*/
   	
 	  	var userName = msg.user_name;
 	  	var content = "退出直播间";
@@ -267,7 +268,7 @@ $(document).ready(function() {
     
     /**
 	 * [onSendChatSuccess 消息发送回调事件]
-	 * 
+	 * class="span_name"
 	 * @return {[type]} [description]
 	 */
     VHALL_SDK.on('sendChat', function(msg) {
@@ -340,13 +341,19 @@ $(document).ready(function() {
     });
     VHALL_SDK.on('streamOver', function(msg) {
         
-//  	alert('活动已结束'+msg);   
+    	alert('活动已结束'+msg);   
 
+    	$("#video").html("");
+    	
 		$(".video_end_top").show(); 
     	
     });
     VHALL_SDK.on('publishStart', function(msg) {
-        alert('活动开始推流'+msg);            
+        alert('活动开始推流'+msg);
+        alert("==========================")
+        //如果活动开始了
+        $(".video_end_top").hide();
+        
     });
     
     var userInfo = "";
@@ -462,7 +469,7 @@ $(document).ready(function() {
  		if (msg && room.type == 1){
  			var str = "<div class='coze_cen_ri'> "+
 						"<div class='coze_cen_bg_ri'>"+
-							"<span class='span_name'>"+msg.user_name+"</span>"+msg.content+""+
+							"<span class='span_name'>"+msg.user_name+"：</span>"+msg.content+""+
 						" </div> "+
 					" <div class='both'></div></div>";
 	        $("#chatmsg").append(str);  
