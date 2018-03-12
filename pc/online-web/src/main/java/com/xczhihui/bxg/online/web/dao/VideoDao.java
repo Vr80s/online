@@ -608,13 +608,14 @@ public class VideoDao extends SimpleHibernateDao {
         
         Course c =  courseDao.getCourse(courseId);
         
-        
         Integer is_buy = 1;
+        String str = " =1 ";
         if(c.isFree()){ //免费
         	is_buy = 0;
+        	str = " != 1 ";
         }
         sql.append("select criticize_lable ");
-        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and is_buy ="+is_buy);
+        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and is_buy "+ str);
         List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
         Integer isViewStars = 0;
         
@@ -630,6 +631,9 @@ public class VideoDao extends SimpleHibernateDao {
         	//       如果是 
             boolean isComment=false;
             if(list.size()>0){ //评论过
+            	
+            	System.out.println("-======================");
+            	
                 for(int i=0;i<list.size();i++){  
                     if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
                         isComment=true;
@@ -641,10 +645,13 @@ public class VideoDao extends SimpleHibernateDao {
                     isViewStars=1;
                 }
             }else{  
+            	
+            	System.out.println("--------------------------");
+            	
             	StringBuffer sqlStr = new StringBuffer();
             	sqlStr.append(" SELECT count(*) as count from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
             	sqlStr.append(" and argc.user_id=:createPerson  ");
-            	List<Map<String, Object>> listArgs= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
+            	List<Map<String, Object>> listArgs= this.getNamedParameterJdbcTemplate().queryForList(sqlStr.toString(), paramMap);
             	 //没有评论过，但是购买过
             	if(listArgs!=null && listArgs.size()>0){
             		 isViewStars=1;
