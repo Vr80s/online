@@ -32,6 +32,12 @@ $(function(){
     	}
         return "音频";
     }},
+	{ "title": "是否为专辑", "class":"center","width":"6%","sortable":false,"data": 'collection' ,"mRender":function (data, display, row) {
+			if(data){
+				return "是";
+			}
+			return "否";
+		}},
     { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
@@ -102,6 +108,12 @@ $(function(){
     	}
         return "音频";
     }},
+	{ "title": "是否为专辑", "class":"center","width":"6%","sortable":false,"data": 'collection' ,"mRender":function (data, display, row) {
+			if(data){
+				return "是";
+			}
+			return "否";
+		}},
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
     // { "title": "课程类别", "class":"center","width":"9%","sortable":false,"data": 'scoreTypeName' },
     // { "title": "授课方式", "class":"center","width":"10%","sortable":false,"data": 'teachMethodName' },
