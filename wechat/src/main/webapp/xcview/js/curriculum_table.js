@@ -404,7 +404,7 @@ function queryDataByParams(params,data_type){
 				}
 				var typeStr="";
 				if(item.type ==3){
-					typeStr +="<p class='p2'><img src='/xcview/images/learn.png'><span>" +item.startDateStr+"</span></p>";
+					typeStr +="<p class='p2' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>" +item.startDateStr+"</span></p><p class='zhibo_play'>直播中</p>";
 				}else if(item.type ==4){
 					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>" +item.city+"</span></p>";
 				}
