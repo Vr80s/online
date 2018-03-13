@@ -373,6 +373,7 @@ height: 100%;
 display: block;
 text-align: center;
 color: #333;
+border-top: 1px solid #D8DDE6;
 }
 .left_price p span{
 	color: #F97B49;
