@@ -1,5 +1,9 @@
 var status;
+/**
+ * 获取目前cookie的值
+ */
 var falg =authenticationCooKie();
+
 
 //yx_新增
 //var openId = getQueryString("openId");
@@ -8,7 +12,6 @@ if(stringnull(opendId)){
 	localStorage.setItem("openid", opendId);
 }
 
-//alert("falg"+falg); 
 
 
 function balance() {
@@ -37,7 +40,6 @@ function balance() {
 				'<p class="p"><span onclick="go_enter_dl()">登录</span> / <span onclick="go_cnlogin_zc()">注册</span></p>';
 
 	if (falg==1002){
-		
 		//默认的图片
 		 $("#smallHeadPhoto").attr("src","../images/default_pic.png");
 		// 登录/注册
@@ -59,8 +61,6 @@ function balance() {
 		// 登录/注册
 		var login_enter = "<span onclick='go_evpi_wxxx()'>"+nickName+"</span>";
 	    $("#p_name").html(login_enter);
-		
-		
 		
 	}else{
 		//人民币/熊猫币余额
