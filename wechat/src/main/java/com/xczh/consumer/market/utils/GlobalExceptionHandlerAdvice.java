@@ -37,7 +37,7 @@ public class GlobalExceptionHandlerAdvice {
         LOGGER.error("运行时异常.message:"+ex.getMessage());
         LOGGER.error("运行时异常.栈信息:"+sw.toString());
         try {
-            EmailUtil.sendExceptionMailBySSL("wechat端",ex.getMessage(),"运行时异常.栈信息:"+sw.toString());
+            EmailUtil.sendExceptionMailBySSL("wechat端",ex.getMessage(),printStackTraceToString(ex));
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -58,5 +58,11 @@ public class GlobalExceptionHandlerAdvice {
             return true;
         }
         return false;
+    }
+
+    public static String printStackTraceToString(Throwable t) {
+        StringWriter sw = new StringWriter();
+        t.printStackTrace(new PrintWriter(sw, true));
+        return sw.getBuffer().toString();
     }
 }

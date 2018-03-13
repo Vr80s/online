@@ -1172,6 +1172,7 @@ margin-top: 0.05rem;
 }
 .zhibo_play{
 	border: 1px solid #F97B49;
+	border-radius: 3px;
 	float:  left;
 	font-size: 0.22rem;
     padding: 0rem 0.1rem;
