@@ -33,7 +33,7 @@ $(function(){
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
     { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName' },
     { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer' },
-    { "title": "课程时长", "class":"center","width":"7%", "sortable":false,"data": 'courseLength' },
+    // { "title": "课程时长", "class":"center","width":"7%", "sortable":false,"data": 'courseLength' },
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
     //	private  int liveSource;  //直播来源  1、后台新增  2、app申请
@@ -80,7 +80,9 @@ $(function(){
 	    	}
 	    }
 	},
-	{ "title": "课程展示图", "class":"center","width":"13%","sortable":false,"data": 'smallimgPath',"visible":false},
+	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
+		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+	}},
 	{ "title": "直播方式", "class":"center","width":"13%","sortable":false,"data": 'directSeeding',"visible":false},
 	{ "title": "直播间ID", "class":"center","width":"13%","sortable":false,"data": 'directId',"visible":false},
 	{ "title": "外部链接", "class":"center","width":"13%","sortable":false,"data": 'externalLinks',"visible":false}];
@@ -290,12 +292,8 @@ $(function(){
 			return "微课";
 		}
 	}},
-    { "title": "课程展示图", "class":"center","width":"13%","sortable":false,"data": 'recImgPath' ,"mRender":function (data, display, row) {
-    	if(data != "" && data != null){
-    		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;' onclick='showImg(\""+row.id+"\",\""+row.courseName+"\",\""+row.recImgPath+"\")'/>";
-    	}else{
-    		return "暂无图片";    	
-    	}
+	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
+		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
 	}},
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
     { "title": "讲师", "class":"center","width":"10%","sortable":false,"data": 'lecturerName' },

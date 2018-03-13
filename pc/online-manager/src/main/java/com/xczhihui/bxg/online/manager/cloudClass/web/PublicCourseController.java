@@ -106,6 +106,10 @@ public class PublicCourseController {
 		if (status != null) {
 			searchVo.setStatus(status.getPropertyValue1().toString());
 		}
+		Group liveStatus = groups.findByName("search_live_status");
+		if (liveStatus != null) {
+			searchVo.setLiveStatus(Integer.valueOf(liveStatus.getPropertyValue1().toString()));
+		}
 		Page<CourseVo> coursePage = publicCourseService.findCoursePage(searchVo,
 				currentPage, pageSize);
 		Page<CourseVo> page = coursePage;

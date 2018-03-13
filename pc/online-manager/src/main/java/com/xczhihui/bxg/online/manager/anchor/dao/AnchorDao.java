@@ -49,7 +49,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				 "    ");
 		 if (courseAnchor.getName() != null) {
 			 paramMap.put("name", "%" + courseAnchor.getName() + "%");
-			 sql.append("and ou.name like :name ");
+			 sql.append("and ca.name like :name ");
 		 }
 		 if (courseAnchor.getType()!= null) {
 			 paramMap.put("type", courseAnchor.getType() );

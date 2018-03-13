@@ -76,8 +76,8 @@ public class VideoController {
         //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String userName = user==null? "" : user.getLoginName();
-        CourseApplyVo cv = courseService.getCourseApplyByCourseId(videoId);
-        return ResponseObject.newSuccessResponseObject(videoService.getVideoCriticize(cv.getUserLecturerId(), videoId, pageNumber, pageSize,user!= null ? user.getId() :null));
+//        CourseApplyVo cv = courseService.getCourseApplyByCourseId(videoId);
+        return ResponseObject.newSuccessResponseObject(videoService.getVideoCriticize(null, videoId, pageNumber, pageSize,user!= null ? user.getId() :null));
     }
 
     /**

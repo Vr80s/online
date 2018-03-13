@@ -84,7 +84,9 @@ public class UserController extends OnlineBaseController {
 		Token t = null;
 		if(o!=null) {
             t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
-        }
+        }else{
+			return ResponseObject.newErrorResponseObject("用户未注册");
+		}
 //		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
 		if (t != null) {
 			if (o != null) {
@@ -110,7 +112,7 @@ public class UserController extends OnlineBaseController {
 			
 			return ResponseObject.newSuccessResponseObject(null);
 		} else {
-			return ResponseObject.newErrorResponseObject("用户名密码错误");
+			return ResponseObject.newErrorResponseObject("密码错误");
 		}
 	}
 

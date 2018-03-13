@@ -181,9 +181,20 @@
 			
 			            <table frame=void >
 			                <tr>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_live_status" id="search_live_status" value="" class="propertyValue1" >
+											<option value="">直播状态</option>
+											<option value="1">直播中</option>
+											<option value="2">预告</option>
+											<option value="3">直播结束</option>
+										</select>
+										<input type="hidden" value="search_live_status" class="propertyName"/>
+									</div>
+								</td>
 			                    <td>
 			                        <div class="profile-info-value searchTr">
-			                            <input type="text" placeholder = "公开课名称" class="propertyValue1" id="search_courseName" style="width: 150px;">
+			                            <input type="text" placeholder = "直播名称" class="propertyValue1" id="search_courseName" style="width: 150px;">
 			                            <input type="hidden" value="search_courseName" class="propertyName"/>
 			                        </div>
 			                    </td>
@@ -208,8 +219,8 @@
 			                       <div class="profile-info-value searchTr">
 			                            <select name="search_status" id="search_status" value="" class="propertyValue1" >
 						               		<option value="">状态</option>
-						                        <option value="0">已禁用</option>
-						                        <option value="1">已启用</option>
+						                        <option value="0">未上架</option>
+						                        <option value="1">已上架</option>
 						               </select>
 			                            <input type="hidden" value="search_status" class="propertyName"/>
 			                        </div>

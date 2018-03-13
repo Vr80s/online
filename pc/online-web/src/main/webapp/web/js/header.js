@@ -1,38 +1,39 @@
-$(function(){
-	
-	//请求判断顶部是否具有我是医师、医馆的入口
-	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-	  	if(data.success == true){
-	  		//判断
-	  		localStorage.AccountStatus = data.resultObject;
-	  		if(data.resultObject == 1 ){
-	  			//医师认证成功
-	  			$('#docOrHos').text('我是医师');
-	  			$('#docOrHos').attr('href','/web/html/anchors_resources.html')
-	  			$('#docOrHos').removeClass('hide');
-	  		}else if(data.resultObject == 2 ){
-	  			//医馆认证成功
-	  			$('#docOrHos').text('我是医馆');
-	  			$('#docOrHos').attr('href','/web/html/ResidentHospital.html')
-	  			$('#docOrHos').removeClass('hide');
-	  		}
-            showAnchorWorkbench();
-	  	}else if(data.success == false && data.errorMessage == "请登录！" ){
-	  		$('#docOrHos').addClass('hide');
-	  	}
-	  });
 
-	function showAnchorWorkbench(){
-        RequestService("/anchor/info/hasPower","GET",null,function(data){
-            if(data.success == true){
-                $('#anchorWorkbench').removeClass('hide');
-            }else{
-                $('#anchorWorkbench').addClass('hide');
+//医师或医馆入口是否展示
+function showDOrH(){
+    //请求判断顶部是否具有我是医师、医馆的入口
+    RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+        if(data.success == true){
+            //判断
+            localStorage.AccountStatus = data.resultObject;
+            if(data.resultObject == 1 ){
+                //医师认证成功
+                $('#docOrHos').text('我是医师');
+                $('#docOrHos').attr('href','/web/html/anchors_resources.html')
+                $('#docOrHos').removeClass('hide');
+            }else if(data.resultObject == 2 ){
+                //医馆认证成功
+                $('#docOrHos').text('我是医馆');
+                $('#docOrHos').attr('href','/web/html/ResidentHospital.html')
+                $('#docOrHos').removeClass('hide');
             }
-        });
-    }
-	
-	
+            showAnchorWorkbench();
+        }else if(data.success == false && data.errorMessage == "请登录！" ){
+            $('#docOrHos').addClass('hide');
+        }
+    });
+}
+function showAnchorWorkbench(){
+    RequestService("/anchor/info/hasPower","GET",null,function(data){
+        if(data.success == true){
+            $('#anchorWorkbench').removeClass('hide');
+        }else{
+            $('#anchorWorkbench').addClass('hide');
+        }
+    });
+}
+$(function(){
+
     //解析url地址
     var ourl = document.location.search;
     var url = document.location.host;
@@ -646,8 +647,8 @@ if (myBrowser() == "IE55") {
                         }
                     }
                 });
-            }
-            else {
+                showDOrH();
+            }else {
                 $('#login').css("display", "none");
                 $(".loginGroup .logout").css("display", "block");
                 $(".loginGroup .login").css("display", "none");

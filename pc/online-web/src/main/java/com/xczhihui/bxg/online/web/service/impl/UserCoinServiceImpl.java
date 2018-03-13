@@ -313,43 +313,47 @@ public class UserCoinServiceImpl implements UserCoinService {
         Course course = courseDao.getCourse(orderVo.getCourse_id());
         String anchorId = course.getUserLecturerId();
         CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(anchorId);
-        //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
-        BigDecimal ratio = BigDecimal.ZERO;
-        if(course.getType()== CourseForm.LIVE.getCode()){
-            ratio = courseAnchor.getLiveDivide();
-        }else if(course.getType()== CourseForm.VOD.getCode()){
-            ratio = courseAnchor.getVodDivide();
-        }else if(course.getType()== CourseForm.OFFLINE.getCode()){
-            ratio = courseAnchor.getOfflineDivide();
-        }
-        BigDecimal iOSBrokerageValue = BigDecimal.ZERO;
-        //若为ios订单，计算苹果分成
-        if(orderVo.getOrder_from()== OrderFrom.IOS.getCode()){
-            iOSBrokerageValue = total.multiply(iosRatio);
-        }
-        //主播获益=(总金额-ios抽成)*主播分成比例
-        BigDecimal addTotal = (total.subtract(iOSBrokerageValue)).multiply(ratio.divide(new BigDecimal(100)));
-        logger.info("订单："+orderVo.getOrderId()+"总金额"+total+" 苹果分成="+iOSBrokerageValue+" 主播分成："+ratio+"="+addTotal);
-        UserCoinIncrease uci = new UserCoinIncrease();
+        if(courseAnchor!=null){
+            //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
+            BigDecimal ratio = BigDecimal.ZERO;
+            if(course.getType()== CourseForm.LIVE.getCode()){
+                ratio = courseAnchor.getLiveDivide();
+            }else if(course.getType()== CourseForm.VOD.getCode()){
+                ratio = courseAnchor.getVodDivide();
+            }else if(course.getType()== CourseForm.OFFLINE.getCode()){
+                ratio = courseAnchor.getOfflineDivide();
+            }
+            BigDecimal iOSBrokerageValue = BigDecimal.ZERO;
+            //若为ios订单，计算苹果分成
+            if(orderVo.getOrder_from()== OrderFrom.IOS.getCode()){
+                iOSBrokerageValue = total.multiply(iosRatio);
+            }
+            //主播获益=(总金额-ios抽成)*主播分成比例
+            BigDecimal addTotal = (total.subtract(iOSBrokerageValue)).multiply(ratio.divide(new BigDecimal(100)));
+            logger.info("订单："+orderVo.getOrderId()+"总金额"+total+" 苹果分成="+iOSBrokerageValue+" 主播分成："+ratio+"="+addTotal);
+            UserCoinIncrease uci = new UserCoinIncrease();
 
-        uci.setChangeType(IncreaseChangeType.COURSE.getCode());
-        uci.setUserId(anchorId);
-        uci.setValue(addTotal);
-        //苹果分成
-        uci.setIosBrokerageValue(iOSBrokerageValue);
-        //平台本笔交易抽成金额 = 总金额-苹果分成-主播分成
-        uci.setBrokerageValue(total.subtract(iOSBrokerageValue).subtract(addTotal));
-        //主播分成比例
-        uci.setRatio(ratio);
-        //记录订单
-        uci.setOrderNoCourse(orderVo.getOrderDetailId());
-        //支付方式
-        uci.setPayType(orderVo.getPayment().getCode());
-        uci.setBalanceType(BalanceType.ANCHOR_BALANCE.getCode());
-        //订单来源:1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
-        uci.setOrderFrom(orderVo.getOrder_from());
-        //更新主播的数量
-        updateBalanceForIncrease(uci);
+            uci.setChangeType(IncreaseChangeType.COURSE.getCode());
+            uci.setUserId(anchorId);
+            uci.setValue(addTotal);
+            //苹果分成
+            uci.setIosBrokerageValue(iOSBrokerageValue);
+            //平台本笔交易抽成金额 = 总金额-苹果分成-主播分成
+            uci.setBrokerageValue(total.subtract(iOSBrokerageValue).subtract(addTotal));
+            //主播分成比例
+            uci.setRatio(ratio);
+            //记录订单
+            uci.setOrderNoCourse(orderVo.getOrderDetailId());
+            //支付方式
+            uci.setPayType(orderVo.getPayment().getCode());
+            uci.setBalanceType(BalanceType.ANCHOR_BALANCE.getCode());
+            //订单来源:1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
+            uci.setOrderFrom(orderVo.getOrder_from());
+            //更新主播的数量
+            updateBalanceForIncrease(uci);
+        }else{
+            logger.info("课程{}主播不存在，未进行分成",orderVo.getCourse_id());
+        }
     }
 
     @Override

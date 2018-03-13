@@ -136,11 +136,11 @@
                 <span class="body-list-right myTimes" title="总集数" style="cursor:default">总集数：{{courseNumber}}</span>
                 {{/if}}
                 <span title="学习人数" style="cursor:default">学习人数：{{learndCount==null?0:learndCount}}人已学习</span>
-                {{if type!=3}}
-                <span title="有效期" style="cursor:default;color:#333;" class="youxiaoqi">有效期：1年
-                {{else}}
-                    <br><span title="有效期" style="cursor:default;color:#999;" class="">有效期：{{startTime}}-{{endTime}}
-                {{/if}}
+                <!--{{if type!=3}}-->
+                <!--<span title="有效期" style="cursor:default;color:#333;" class="youxiaoqi">有效期：1年-->
+                <!--{{else}}-->
+                    <!--<br><span title="有效期" style="cursor:default;color:#999;" class="">有效期：{{startTime}}-{{endTime}}-->
+                <!--{{/if}}-->
 
                 {{if apply==true}}
                     <span class="yibaoming"><img src="/web/images/130/baoming.png"/></span>
@@ -161,7 +161,7 @@
              </p>
              {{/if}}
              <div class="bigpic-body-btn">
-             {{if apply==true}}
+             {{if apply}}
                  {{if collection}}
                     <a class="purchase" style="background-color:#ccc;border-radius:4px">您已购成功报名，可直接点击选集列表进行学习</a>
                  {{else }}
