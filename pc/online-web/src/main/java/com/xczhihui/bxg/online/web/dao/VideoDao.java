@@ -608,20 +608,18 @@ public class VideoDao extends SimpleHibernateDao {
         
         Course c =  courseDao.getCourse(courseId);
         
-        Integer is_buy = 1;
-        String str = " =1 ";
+        String str = " is_buy = 1 ";
         if(c.isFree()){ //免费
-        	is_buy = 0;
-        	str = " != 1 ";
+        	str = " ( is_buy is null or is_buy = 0 ) ";
         }
         sql.append("select criticize_lable ");
-        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and is_buy "+ str);
+        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and  "+ str);
         List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
         Integer isViewStars = 0;
         
         //如果这个课程是收费的
-        if(c.isFree()){ //免费   --》判断是否星级评论过
-        	 if(list!=null && list.size()>0){
+        if(c.isFree()){ 
+        	 if(list!=null && list.size()>0){//免费   --》判断是否星级评论过
         		 isViewStars =2;
         	 }else{
         		 isViewStars =1;

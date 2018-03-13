@@ -113,7 +113,7 @@ header {
 }
 .zhibo_play{
 	    border: 1px solid #F97B49;
-
+border-radius: 3px;
     font-size: 0.22rem;
     padding: 0rem 0.1rem;
     color: #F97B49 !important;

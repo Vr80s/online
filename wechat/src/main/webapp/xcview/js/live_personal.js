@@ -109,12 +109,15 @@ requestService("/xczh/host/hostPageInfo",{
         if(src.indexOf("append1_icon")>-1){
             $(".add_follow").find('img').attr('src','../images/append2_icon.png');
             $(".add_follow").find('p').html("已关注");
-
+            $(".add_follow").find('p').css("color","#999");
+			$(".add_follow").css("border","1px solid #999");
             $(".right_personal").find('span').html(parseInt(p)+1);
             my_follow(lecturerId,1);
         }else{
             $(".add_follow").find('img').attr('src','../images/append1_icon.png');
             $(".add_follow").find('p').html("加关注");
+            $(".add_follow").find('p').css("color","#00bc12");
+            $(".add_follow").css("border","1px solid #00bc12");
             $(".right_personal").find('span').html(parseInt(p)-1);
             my_follow(lecturerId,2);
         }
@@ -374,12 +377,25 @@ function jump_play(id){
 
     //评论
     function reportComment() {
+    	var comment_detailed = $('#comment_detailed').val();
+	//正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+	 
+	 //判断输入框中有内容
+	 if(!reg.test(comment_detailed))
+	 {
+		webToast("仅支持中文、英文、数字","middle",3000);
+	 //输入非法字符，清空输入框
+	 $("#comment_detailed").val("");
+	 return false;
+	 }
+    	
         //内容是否不为空
         var opacity = $(".report_btn").css("opacity");
         if(opacity!=1){
             return false;
         }
-        var comment_detailed = $('#comment_detailed').val();
+//      var comment_detailed = $('#comment_detailed').val();
 
         requestService("/xczh/criticize/saveCriticize",{
 
@@ -403,7 +419,20 @@ function jump_play(id){
 
     //回复评论
     function replyComment() {
-        var comment_detailed = $('#littlt_return').val();
+        var comment_detailed = $('#comment_detailed').val();
+		//正则表达式
+		 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+		 
+		 //判断输入框中有内容
+		 if(!reg.test(comment_detailed))
+		 {
+			webToast("仅支持中文、英文、数字","middle",3000);
+		 //输入非法字符，清空输入框
+		 $("#comment_detailed").val("");
+		 return false;
+		 }
+        
+        
         if(comment_detailed==""){
             //webToast("内容不能为空","middle",1500);
             return
@@ -463,7 +492,10 @@ function go_play(t){
 }
 
 
-
+function on_cc_h5player_init(){
+	var oV = document.getElementsByTagName('video')[0];
+	oV.setAttribute("x5-playsinline","");
+}
 
 
 

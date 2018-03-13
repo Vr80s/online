@@ -229,9 +229,9 @@ requestService("/xczh/course/liveDetails",{
 
 				var jjzb =  result.lineState;
 				var startTime = result.startTime;
-				if(jjzb == 4){
+				
+				if(jjzb == 4){  //即将直播的
 					$(".video_end_top0").show();
-					
 					timer(new Date(startTime),new Date());
 				}
 				var vhallId =  result.vhallId;
@@ -240,8 +240,6 @@ requestService("/xczh/course/liveDetails",{
 				}
 			}
 		}, false)
-
-		
 
 /**
  * 倒计时的  分钟和秒数

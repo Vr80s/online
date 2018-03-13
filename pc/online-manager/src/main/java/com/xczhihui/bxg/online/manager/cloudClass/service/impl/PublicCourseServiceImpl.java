@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.cloudClass.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
+import com.xczhihui.bxg.online.api.service.LiveCallbackService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
@@ -48,6 +49,9 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	private OnlineUserService  onlineUserService;
 	@Autowired
 	private CourseDao  courseDao;
+	@Autowired
+	private LiveCallbackService liveCallbackService;
+	
 	
 	@Value("${ENV_FLAG}")
 	private String envFlag;
@@ -357,32 +361,37 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		
 		 String hql="from Course where direct_id = ?";
          Course course= dao.findByHQLOne(hql,new Object[] {changeCallbackVo.getWebinarId()});
-         
-         
          System.out.println("course livestate "+course);
-         System.out.println("changeCallbackVo"+changeCallbackVo.toString());
-         
-         
+         System.out.println("change CallbackVo"+changeCallbackVo.toString());
          String startOrEnd ="";
+         Integer type =0;
          if(course!=null){
         	 switch (changeCallbackVo.getEvent()) {
         	 case "start":
         		 startOrEnd ="start_time";
         		 course.setLiveStatus(1);
         		 course.setStartTime(new Date());
+        		 type = 2;
         		 break;
         	 case "stop":
         		 startOrEnd ="end_time";
         		 course.setLiveStatus(3);
         		 course.setEndTime(new Date());
+        		 type = 3;
         		 break;
         	 default:
         		 break;
         	 }
         	 dao.update(course);
         	 
-        	if(startOrEnd!=""){
-        		
+        	 /*
+        	  * 发送直播开始通知广播
+        	  */
+    		 System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"+course.getId()+",type:"+type);
+    		 liveCallbackService.liveCallbackImRadio(course.getId()+"",type);
+        	 
+    		 
+        	 if(startOrEnd!=""){
         		String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
         		Map<String,Object> find = new HashMap<String,Object>();
         		find.put("live_id", course.getDirectId());

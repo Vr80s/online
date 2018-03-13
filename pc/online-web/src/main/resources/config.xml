@@ -189,6 +189,9 @@
 
 	<!-- 熊猫币购买服务 -->
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl" timeout="${dubbo.consumer.timeout}" />
+	
+	<!-- 开始直播通知服务 -->
+	<dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" ref="liveCallbackServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
 
 </beans>

@@ -217,18 +217,17 @@ color: #999999;
 }
 /*直播中*/
 .paly_ing{
-	/*width: 0.98rem;
-	height: 0.32rem;*/
-	/*padding: 0.08rem 0.2rem;*/
-	/*font-size: 0.28rem;*/
-	/*text-align: center;
-	line-height: 0.32rem;*/
-
-	/*float: right;*/
-/*background: #00bc12;
-border-radius: 0.1rem;*/
     font-size: 0.22rem;
     color: #999;
+}
+.zhibo_play{
+		    border: 1px solid #F97B49;
+border-radius: 3px;
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+    display: inline-block;
+    margin-left: 0.1rem;
 }
 .paly_ing a{
 	/*color: white;*/
@@ -242,6 +241,28 @@ border-radius: 0.1rem;*/
 	float: left;
 	margin-top: 0.05rem;
 	display: table-cell;
+}
+/*无课程时显示图片*/
+
+.noclassInfo{
+    width: 2.3rem;
+    height: 3.1rem;
+    background: url(../images/no_class.png) no-repeat center;
+    background-size: 100% 100%;
+    margin: 1.5rem auto 0.6rem;	
+}
+.wrap_noClass p{
+	text-align: center;
+	font-size: 0.3rem;
+color: #BBBBBB;
+}
+.wrap_noClass a{
+	padding: 0.08rem 0.3rem;
+	color: #00BC12;
+	display: table;
+	border: 1px solid #00BC12;
+	    border-radius: 4px;
+    margin: 0.2rem auto 0;
 }
 /*关注的主播*/
 .wrap-follow{

@@ -107,7 +107,6 @@ public class HostController {
 			return ResponseObject.newErrorResponseObject("获取医师信息有误");
 		}
 		
-		
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		MedicalHospital mha = null;
 		
@@ -135,6 +134,7 @@ public class HostController {
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
 	    }
+	    
 		/**
 		 * 此主播最近一次的直播
 		 */
@@ -145,13 +145,12 @@ public class HostController {
 			 */
 			if(cv.getUserLecturerId().equals(user.getId())){
 			    cv.setWatchState(3);
-			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
 			if(cv.getWatchState()==1){  //免费的课程啦
-				onlineWebService.saveEntryVideo(cv.getCourseId(), user);
+				onlineWebService.saveEntryVideo(cv.getId(), user);
 				
 			}else if(cv.getWatchState()==0){ //收费课程
-				if(onlineWebService.getLiveUserCourse(cv.getCourseId(),user.getId())){  //大于零--》用户购买过  
+				if(onlineWebService.getLiveUserCourse(cv.getId(),user.getId())){  //大于零--》用户购买过
 					cv.setWatchState(2);
 				}
 			}

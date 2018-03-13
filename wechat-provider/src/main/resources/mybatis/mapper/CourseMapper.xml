@@ -137,7 +137,7 @@
 
 	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
 	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
-		( SELECT
+		select * from ( SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
 		oc.smallimg_path as smallImgPath,
@@ -153,7 +153,7 @@
 		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 		
-		oc.user_lecturer_id as userLecturerId,
+		oc.user_lecturer_id ,
 		oc.lecturer as name,
 		
 		'我的课程' as note
@@ -164,10 +164,11 @@
 		where
 		argc.user_id=#{userId}
 		and oc.is_delete=0 group by oc.id order by
-		argc.create_time desc )
+		argc.create_time desc )t1
 
 		UNION ALL
 
+		select * from
 		( SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -184,7 +185,7 @@
 		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 
-		oc.user_lecturer_id as userLecturerId,
+		oc.user_lecturer_id,
 		oc.lecturer as name,
 		
 		'已结束课程' as note
@@ -193,7 +194,7 @@
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
 		where ( (oc.type = 3 ) or (oc.type = 1 and oc.live_status = 3 ) )
 		and argc.user_id=#{userId}
-		and oc.is_delete=0  group by oc.id order by oc.end_time)
+		and oc.is_delete=0  group by oc.id order by oc.end_time)t2
 	</select>
 
 	<!-- 得到已购买课程的数量 （不包括免费的课程） -->

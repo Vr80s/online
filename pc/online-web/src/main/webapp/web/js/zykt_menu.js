@@ -47,6 +47,15 @@
 
     $("#select4 dd").click(function () {
         $(this).addClass("selected").siblings().removeClass("selected");
+        if($(this).text() == '免费'){
+//      	alert(1)
+        	$('#tab_menu_price').addClass('hide')
+        }else{
+//      	alert(2)
+        	$('#tab_menu_price').removeClass('hide')
+        	
+        }
+        
         if ($(this).hasClass("select-all")) {
             $("#selectD").remove();
         } else {
