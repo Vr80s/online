@@ -1,3 +1,13 @@
+
+/**
+ * 保存openId
+ */
+var openId = getQueryString("openId");
+if(stringnull(openId)){
+    localStorage.setItem("openid",openId);
+}
+
+
 $(function(){
 var all_history="";	
 //	播放历史
