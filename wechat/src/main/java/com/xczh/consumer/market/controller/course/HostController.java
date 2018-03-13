@@ -148,7 +148,6 @@ public class HostController {
 		    }
 			if(cv.getWatchState()==1){  //免费的课程啦
 				onlineWebService.saveEntryVideo(cv.getId(), user);
-				
 			}else if(cv.getWatchState()==0){ //收费课程
 				if(onlineWebService.getLiveUserCourse(cv.getId(),user.getId())){  //大于零--》用户购买过
 					cv.setWatchState(2);

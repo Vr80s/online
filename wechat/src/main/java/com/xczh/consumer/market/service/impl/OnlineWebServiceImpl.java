@@ -119,7 +119,7 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        StringBuffer sql = new StringBuffer();
 	        sql.append("SELECT argc.course_id ");
 	        sql.append(" from apply_r_grade_course argc ");
-	        sql.append(" where argc.is_delete=0 and argc.course_id =? and argc.user_id= ? and args.order_no is not null limit 1");
+	        sql.append(" where argc.is_delete=0 and argc.course_id =? and argc.user_id= ? and argc.order_no is not null limit 1");
 	        Object [] params = {courseId,userId};
 	        List<Map<String,Object>>  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
 	        if(list!=null && list.size()>0){

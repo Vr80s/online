@@ -87,8 +87,12 @@ function createGiftList(gift) {
     	//当前时间 
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
         	console.log("开始直播了，建议再次刷新页面   >>>>");
+        	
         	$(".video_end_top0").hide();
         	$(".video_end_top").hide(); 
+        	
+        	//刷新页面 --》在观看
+        	location.reload();
     	}
     	return;
     }else if(gift.messageType == 3){ //直播结束了

@@ -87,10 +87,14 @@ requestService("/xczh/course/liveDetails",{
 				/**
 				 * 直播状态1.直播中，2预告，3直播结束 4 即将直播
 				 */
+				if(lineState == 3){
+					$(".history_span").text("直播回放");
+				}else if(lineState == 4){
+					$(".history_span").text("即将直播");
+				}
 				if (lineState == 3 || lineState == 4) { // 隐藏送礼
 
 					$("title").text("熊猫中医");
-					$(".history_span").text("直播回放");
 					$("#mywords").css("width", "12rem");
 					$("#face").css("top", "1.45rem");
 					$("#face").css('left', '0.06rem');
@@ -232,7 +236,8 @@ requestService("/xczh/course/liveDetails",{
 				
 				if(jjzb == 4){  //即将直播的
 					$(".video_end_top0").show();
-					timer(new Date(startTime),new Date());
+					
+					timer(new Date(startTime).getTime(),parseInt(sendTime));
 				}
 				var vhallId =  result.vhallId;
 				if (stringnull(videoId)) {
@@ -248,9 +253,7 @@ requestService("/xczh/course/liveDetails",{
  */
 function timer(startTime,currentTime){
 	
-	
-	var strDiff = (startTime.getTime()-currentTime.getTime())/1000; 
-	
+	var strDiff = (startTime-currentTime)/1000; 
 	var intDiff = parseInt(strDiff);//倒计时总秒数量
 	
 	window.setInterval(function(){
