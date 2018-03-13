@@ -215,6 +215,20 @@ function refresh(pageNumber,pageSize,downOrUp){
 //评论
 function reportComment() {
     var comment_detailed = $('#comment_detailed').val();
+    
+    //正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+	 
+	 //判断输入框中有内容
+	 if(!reg.test(comment_detailed))
+	 {
+		webToast("仅支持中文、英文、数字","middle",3000);
+	 //输入非法字符，清空输入框
+	 $("#comment_detailed").val("");
+	 return false;
+	 }
+	 
+	 
     //判断浮层是否已选，内容是否不为空
         var opacity = $(".report_btn").css("opacity");
         if(opacity!=1){
@@ -266,7 +280,18 @@ function reportComment() {
 
 //回复评论
 function replyComment() {
-    var comment_detailed = $('#littlt_return').val();
+    var comment_detailed = $('#comment_detailed').val();
+	//正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+	 
+	 //判断输入框中有内容
+	 if(!reg.test(comment_detailed))
+	 {
+		webToast("仅支持中文、英文、数字","middle",3000);
+	 //输入非法字符，清空输入框
+	 $("#comment_detailed").val("");
+	 return false;
+	 }
     if(comment_detailed==""){
         //webToast("内容不能为空","middle",1500);
         return false;
@@ -364,3 +389,8 @@ function pullupRefresh() {
     }, 500);
 }
 
+
+function on_cc_h5player_init(){
+	var oV = document.getElementsByTagName('video')[0];
+	oV.setAttribute("x5-playsinline","");
+}

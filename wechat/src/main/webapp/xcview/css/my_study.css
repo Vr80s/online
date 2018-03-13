@@ -242,6 +242,28 @@ border-radius: 3px;
 	margin-top: 0.05rem;
 	display: table-cell;
 }
+/*无课程时显示图片*/
+
+.noclassInfo{
+    width: 2.3rem;
+    height: 3.1rem;
+    background: url(../images/no_class.png) no-repeat center;
+    background-size: 100% 100%;
+    margin: 1.5rem auto 0.6rem;	
+}
+.wrap_noClass p{
+	text-align: center;
+	font-size: 0.3rem;
+color: #BBBBBB;
+}
+.wrap_noClass a{
+	padding: 0.08rem 0.3rem;
+	color: #00BC12;
+	display: table;
+	border: 1px solid #00BC12;
+	    border-radius: 4px;
+    margin: 0.2rem auto 0;
+}
 /*关注的主播*/
 .wrap-follow{
 	width: 100%;

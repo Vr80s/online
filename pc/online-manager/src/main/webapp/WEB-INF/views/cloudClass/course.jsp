@@ -472,7 +472,7 @@
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 中医学习管理 </span>
+	</small> <span> 点播管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -729,6 +729,7 @@
 								<col width='8%'></col>
 							    <col width='10%'></col>
 							    <col width='7%'></col>
+                                <col width='7%'></col>
 								<col width='7%'></col>
 							    <col width='9%'></col>
 							    <col width='8%'></col>

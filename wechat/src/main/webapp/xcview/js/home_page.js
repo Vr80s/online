@@ -452,9 +452,10 @@ function jump_play(id){
 				location.href="school_play.html?course_id="+id				
 			}
 
- }
- )}
-
+ 
+ 
+})
+   }
 //学堂/推荐/课程跳转结束
 //学堂/线下课课程跳转
 //function jump_class(id){
