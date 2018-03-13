@@ -610,7 +610,7 @@ public class VideoDao extends SimpleHibernateDao {
         
         String str = " is_buy = 1 ";
         if(c.isFree()){ //免费
-        	str = " is_buy is null or is_buy =  0 ";
+        	str = " ( is_buy is null or is_buy = 0 ) ";
         }
         sql.append("select criticize_lable ");
         sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and  "+ str);
