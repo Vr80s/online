@@ -653,9 +653,15 @@ public class VideoDao extends SimpleHibernateDao {
             	sqlStr.append(" and argc.user_id=:createPerson  ");
             	List<Map<String, Object>> listArgs= this.getNamedParameterJdbcTemplate().queryForList(sqlStr.toString(), paramMap);
             	 //没有评论过，但是购买过
-            	if(listArgs!=null && listArgs.size()>0){
-            		 isViewStars=1;
-            	}
+                if(listArgs.size()>0){
+                    String  count = listArgs.get(0).get("count").toString();
+                    int s =Integer.parseInt(count);
+                    if(s>0){
+                        isViewStars=1;
+                    }
+                }
+
+
             }
         }
         return isViewStars;

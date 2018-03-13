@@ -246,7 +246,9 @@ $(".right_modification").click(function() {
 		        for(var i =0 ;i < $('#doctor_baseInf .workTime ul li ').length ;i++){
 		            for(j = 0;j < workArr.length ;j++ ){
 		                if($('#doctor_baseInf .workTime ul li').eq(i).text() == workArr[j]){
+		                	if(! $('#doctor_baseInf .workTime ul li').eq(i).hasClass('color')){
 		                	 $('#doctor_baseInf .workTime ul li').eq(i).click();
+		                	}
 		//                  $('.hospital_worktime ul li').eq(i).addClass('color keshiColor');
 		                }
 		            }

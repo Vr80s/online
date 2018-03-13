@@ -120,6 +120,8 @@ function stripHTML(str){
 
     //传ID courseId为接口的课程ID，评论列表
     refresh();
+    
+    
 })
 
 
