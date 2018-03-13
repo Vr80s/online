@@ -35,9 +35,9 @@ public class EmailUtil {
     public static final String TOUSER = "system@ixincheng.com";
 
     public static void sendExceptionMailBySSL(String server,String subject,String content) throws MessagingException {
-        if((ENV.equals("test")||ENV.equals("prod"))&&containFilter(content)){
+//        if((ENV.equals("test")||ENV.equals("prod"))&&containFilter(content)){
             sendMailBySSL(SMTP,USERNAME,PASSWORD,TOUSER,server+":"+ENV+"环境异常:"+subject,content);
-        }
+//        }
     }
 
     public static boolean containFilter(String content){
