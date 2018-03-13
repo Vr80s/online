@@ -87,13 +87,13 @@
 					   	    				{{if item.lineState==1 || item.lineState==4}}
 					   	    				<p class="zhibo_play">直播中</p>
 					   	    				{{else}}
-				   	    					<p class="p2"><img src="/xcview/images/learn.png" alt="" /><span>12.21</span></p>
+				   	    					<p class="p2"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
 					   	    				
 					   	    				{{/if}}
 
 				   	    	
 		   	    						{{else if item.type == 4}}
-		   	    							<p class="p2"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
+		   	    							<p class="p2"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
 				   	    				{{/if}}
 				   	    			</div>
 				   	    		</div>
