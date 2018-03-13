@@ -618,8 +618,8 @@ public class VideoDao extends SimpleHibernateDao {
         Integer isViewStars = 0;
         
         //如果这个课程是收费的
-        if(c.isFree()){ //免费   --》判断是否星级评论过
-        	 if(list!=null && list.size()>0){
+        if(c.isFree()){ 
+        	 if(list!=null && list.size()>0){//免费   --》判断是否星级评论过
         		 isViewStars =2;
         	 }else{
         		 isViewStars =1;

@@ -77,24 +77,29 @@ String.prototype.replaceAll = function(FindText, RepText) {
     return this.replace(regExp, RepText);
 }
 var sendTime;
+if (sendTime == null) {
+    requestService("/bxg/common/getSystemTime", null, function(data) {
+        sendTime = data;
+    }, false)
+}
 function createGiftList(gift) {
-    if (sendTime == null) {
-        requestService("/bxg/common/getSystemTime", null, function(data) {
-            sendTime = data;
-        }, false)
-
+    if(gift.messageType == 2){//直播开始了
+    	//当前时间 
+    	if(parseInt(sendTime) < parseInt(gift.sendTime)){
+        	console.log("开始直播了，建议再次刷新页面   >>>>");
+        	$(".video_end_top0").hide();
+        	$(".video_end_top").hide(); 
+    	}
+    	return;
+    }else if(gift.messageType == 3){ //直播结束了
+    	if(parseInt(sendTime) < parseInt(gift.sendTime)){
+	    	 console.log("直播结束了，建议再次刷新页面   >>>>");
+			 $("#video").html("");
+			 $(".video_end_top0").hide();
+			 $(".video_end_top").show(); 
+    	} 
+    	return;
     }
-    
-     if(gift.messageType == 2){//直播开始了
-    	console.log("开始直播了，建议再次刷新页面   >>>>");
-    	$(".video_end_top0").hide();
-    	
-     }else if(gift.messageType == 3){ //直播结束了
-    	 
-    	 console.log("直播结束了，建议再次刷新页面   >>>>");
-		 $("#video").html("");
-		 $(".video_end_top").show(); 
-     }
     if (gift.messageType == 0 || gift.messageType == 1) {
         var time = data.giftInfo == null ? data.rewardInfo.time: data.giftInfo.time
         if (time == null)
