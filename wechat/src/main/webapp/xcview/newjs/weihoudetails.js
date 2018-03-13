@@ -107,6 +107,18 @@ $(document).ready(function() {
         $("#doc").toggleClass("on");
     });
    
+    
+    
+	window.setInterval(function(){
+	
+		console.log("直播状态："+VHALL_SDK.getRoominfo().type)
+		
+	},1000);
+    
+    
+    
+    
+    
     /**
 	 * [onChatMessage 直播收到聊天消息]
 	 * 

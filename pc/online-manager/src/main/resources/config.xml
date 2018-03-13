@@ -112,6 +112,9 @@
 	<dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="${dubbo.consumer.timeout}" />
  	<dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="${dubbo.consumer.timeout}" />
 
+	<!-- 注入接口 开始直播通知服务 -->
+	<dubbo:service  id="liveCallbackServiceImpl" interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" timeout="${dubbo.consumer.timeout}" />
+
 	<import resource="shiro.xml" />
 
 	<!--RedissonUtil配置-->

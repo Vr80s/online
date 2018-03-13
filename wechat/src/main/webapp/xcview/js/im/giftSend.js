@@ -118,6 +118,13 @@ function giftShow(gift, f,continuous) {
         return;
     }
 
+    if(gift.messageType == 2){
+
+    	
+    	console.log("开始直播了，建议再次刷新页面   >>>>");
+    	//alert("");
+    }
+    
     if (gift.messageType == 1) { // 礼物
         var bottom = countChange()
         gif[f] = $("<li class='animation' id='gift"+f+"' style='position: absolute;bottom: "
