@@ -10,20 +10,27 @@ $(function(){
 	  			$('#docOrHos').text('我是医师');
 	  			$('#docOrHos').attr('href','/web/html/anchors_resources.html')
 	  			$('#docOrHos').removeClass('hide');
-                $('#anchorWorkbench').removeClass('hide');
 	  		}else if(data.resultObject == 2 ){
 	  			//医馆认证成功
 	  			$('#docOrHos').text('我是医馆');
 	  			$('#docOrHos').attr('href','/web/html/ResidentHospital.html')
 	  			$('#docOrHos').removeClass('hide');
-                $('#anchorWorkbench').removeClass('hide');
 	  		}
+            showAnchorWorkbench();
 	  	}else if(data.success == false && data.errorMessage == "请登录！" ){
 	  		$('#docOrHos').addClass('hide');
-            $('#anchorWorkbench').addClass('hide');
 	  	}
 	  });
-	
+
+	function showAnchorWorkbench(){
+        RequestService("/anchor/info/hasPower","GET",null,function(data){
+            if(data.success == true){
+                $('#anchorWorkbench').removeClass('hide');
+            }else{
+                $('#anchorWorkbench').addClass('hide');
+            }
+        });
+    }
 	
 	
     //解析url地址

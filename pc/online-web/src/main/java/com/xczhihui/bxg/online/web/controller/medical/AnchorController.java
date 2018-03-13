@@ -63,5 +63,10 @@ public class AnchorController extends AbstractController{
         return loginUser.getId();
     }
 
-
+    @RequestMapping("hasPower")
+    public ResponseObject hasPower(HttpServletRequest request){
+        OnlineUser loginUser = getOnlineUser(request);
+        anchorInfoService.validateAnchorPermission(loginUser.getId());
+        return ResponseObject.newSuccessResponseObject("有主播权限");
+    }
 }
