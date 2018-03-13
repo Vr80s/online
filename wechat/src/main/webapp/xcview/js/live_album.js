@@ -85,7 +85,26 @@ function stripHTML(str){
 		}else{
 			$(".wrap1 p").html(data.resultObject.lecturerDescription)
 		}
+			//判断简介的字长度
+		var h=$(".wrap1").height();
+		if(h>200){
+			$(".zhezhao1").show()
+			$(".btn1").show()
+			$(".wrap1").css({"height":"2rem","overflow":"hidden"})
+		}else{
+			$(".zhezhao1").hide()
+			$(".btn1").hide()
+		}
 		
+		var h2=$(".wrap").height();
+		if(h2>200){
+			$(".zhezhao").show()
+			$(".btn").show()
+			$(".wrap").css({"height":"2rem","overflow":"hidden"})
+		}else{
+			$(".zhezhao").hide()
+			$(".btn").hide()
+		}
 		
 		
 	});
