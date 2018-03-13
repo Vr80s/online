@@ -90,6 +90,7 @@ $(function(){
 	//管理按钮点击触发事件
 	$('#mymoney .administration').click(function(){
 		showContent('content_Administration',$(this).text())
+		getBankCardList()
 	})
 	
 	
