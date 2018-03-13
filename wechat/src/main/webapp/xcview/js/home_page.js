@@ -43,9 +43,44 @@ function typeSchool(){
             $("#classify_mold_type").html(template.compile(noNumber))
         }
     })
+    
+    
+    
+    //判断课程分类为空
+	var content = $("#classify_course_type").html(); 
+	if(content == null || content == "0"){
+		$(".classify_course").hide();
+	}else{
+		$(".classify_course").show();
+	};
+    
+    
+    
+    //判断专题为空
+	var content = $("#classify_special_type").html(); 
+	if(content == null || content == "0"){
+		$(".classify_special").hide();
+	}else{
+		$(".classify_special").show();
+	};
+	
+	
+	 //判断课程类型为空
+	var content = $("#classify_mold_type").html(); 
+	if(content == null || content == "0"){
+		$(".classify_mold").hide();
+	}else{
+		$(".classify_mold").show();
+	};
+
+    
+    
 
 }
 //分类  模块结束 ============================================
+
+
+
 
 //推荐模块开始 ----------------------------------------
 
