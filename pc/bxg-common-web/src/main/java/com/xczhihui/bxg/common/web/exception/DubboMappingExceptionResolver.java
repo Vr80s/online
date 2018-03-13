@@ -18,6 +18,8 @@ import javax.security.auth.Subject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * 异常处理，并记录异常日志
@@ -33,18 +35,18 @@ public class DubboMappingExceptionResolver extends SimpleMappingExceptionResolve
 		//异常通知告警
 //		if(!(ex instanceof RuntimeException)){
 		try {
-			String content = "";
+//			String content = "";
 			String subject = "";
-			if (method != null && method.getBeanType() != null && method.getMethod() != null) {
-					content += ex.toString()+":";
-					content += ex.getMessage()+";<br/>";
-					content += method.getBeanType().toString()+";<br/>";
-					content += "method "+method.getMethod().getName();
+//			if (method != null && method.getBeanType() != null && method.getMethod() != null) {
+//					content += ex.toString()+":";
+//					content += ex.getMessage()+";<br/>";
+//					content += method.getBeanType().toString()+";<br/>";
+//					content += "method "+method.getMethod().getName();
 					subject = ex.toString()+":" + ex.getMessage()+";<br/>";
-				} else {
-					content += ex.getCause().toString()+ex.getMessage();
-				}
-			EmailUtil.sendExceptionMailBySSL("pc端",subject,content);
+//				} else {
+//					content += ex.getCause().toString()+ex.getMessage();
+//				}
+			EmailUtil.sendExceptionMailBySSL("pc端",subject,printStackTraceToString(ex));
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -71,5 +73,11 @@ public class DubboMappingExceptionResolver extends SimpleMappingExceptionResolve
 			log.warn(e.getMessage(), e);
 		}
 		return mv;
+	}
+
+	public static String printStackTraceToString(Throwable t) {
+		StringWriter sw = new StringWriter();
+		t.printStackTrace(new PrintWriter(sw, true));
+		return sw.getBuffer().toString();
 	}
 }

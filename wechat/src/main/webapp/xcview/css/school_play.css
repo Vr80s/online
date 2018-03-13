@@ -167,14 +167,14 @@ padding-bottom: 0.17rem;
     text-overflow: ellipsis;
 }
 .playTime li p{
-	width: 0.98rem;
-	height: 0.32rem;
-	border: 1px solid #F97B49;
-	text-align: center;
-	line-height: 0.32rem;
-	float: left;
-	color: #F97B49;
-	font-size: 0.26rem;
+	    border: 1px solid #F97B49;
+border-radius: 3px;
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+    display: inline-block;
+    margin-left: 0.1rem;
+    float: left;
 }
 .playTime li:nth-last-child(1){
 	float: right;
@@ -546,6 +546,7 @@ height: 100%;
 display: block;
 text-align: center;
 color: #333;
+border-top: 1px solid #D8DDE6;
 }
 .left_price p span{
 	color: #F97B49;

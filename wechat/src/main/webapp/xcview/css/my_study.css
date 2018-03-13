@@ -217,18 +217,17 @@ color: #999999;
 }
 /*直播中*/
 .paly_ing{
-	/*width: 0.98rem;
-	height: 0.32rem;*/
-	/*padding: 0.08rem 0.2rem;*/
-	/*font-size: 0.28rem;*/
-	/*text-align: center;
-	line-height: 0.32rem;*/
-
-	/*float: right;*/
-/*background: #00bc12;
-border-radius: 0.1rem;*/
     font-size: 0.22rem;
     color: #999;
+}
+.zhibo_play{
+		    border: 1px solid #F97B49;
+border-radius: 3px;
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+    display: inline-block;
+    margin-left: 0.1rem;
 }
 .paly_ing a{
 	/*color: white;*/

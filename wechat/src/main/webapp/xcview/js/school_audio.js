@@ -107,6 +107,7 @@ function stripHTML(str){
 			$(".zhezhao").hide()
 		}else{
 			$(".wrap p").html(data.resultObject.description)
+	
 		}
 	//	主讲人
 		if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
@@ -120,14 +121,14 @@ function stripHTML(str){
 
     //传ID courseId为接口的课程ID，评论列表
     refresh();
-    
+
+
     
 })
-
+    
 
 
 //JQ预加载分界线----------------------------------------------------------------------------------
-
 
 
 //刷新评论列表

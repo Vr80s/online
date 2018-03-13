@@ -124,7 +124,7 @@
 						{{else if item.lineState==1}}	
 						<!--直播中-->				
 						<!--<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}" >直播中</a></p>-->
-						<p class="paly_ing" style="position: relative;z-index: 6;"><span style="float: left;">直播时间：{{item.startTime.slice(0,16)}}</span><a href="details.html?courseId={{item.id}}"></a></p>
+						<p class="paly_ing" style="position: relative;z-index: 6;"><span style="float: left;">直播时间：{{item.startTime.slice(0,16)}}</span><p class="zhibo_play">直播中</p></p>
 						{{else if item.type==4}}
 						<!--上课时间-->
 						<p class="my_collection" style="margin-left: 2.3rem;">上课时间：<span>{{item.startTime.slice(0,16)}}</span></p>
