@@ -247,11 +247,12 @@ public class CourseController {
     public ModelAndView courses(Integer courseId) throws ClientException {
     	String page = service.getCoursesPage(courseId);
 		ModelAndView m = null;
-		if(!"".equals(page)){
-			m=new ModelAndView("redirect:/web/html/"+page+"?courseId="+courseId);
-		}else{
-			m=new ModelAndView("redirect:/");
-		}
+//		if(!"".equals(page)){
+//			m=new ModelAndView("redirect:/web/html/"+page+"?courseId="+courseId);
+//		}else{
+//			m=new ModelAndView("redirect:/");
+//		}
+        m=new ModelAndView("redirect:/web/html/courseDetail.html?courseId="+courseId);
     	return m;
     }
 

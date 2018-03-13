@@ -109,12 +109,15 @@ requestService("/xczh/host/hostPageInfo",{
         if(src.indexOf("append1_icon")>-1){
             $(".add_follow").find('img').attr('src','../images/append2_icon.png');
             $(".add_follow").find('p').html("已关注");
-
+            $(".add_follow").find('p').css("color","#999");
+			$(".add_follow").css("border","1px solid #999");
             $(".right_personal").find('span').html(parseInt(p)+1);
             my_follow(lecturerId,1);
         }else{
             $(".add_follow").find('img').attr('src','../images/append1_icon.png');
             $(".add_follow").find('p').html("加关注");
+            $(".add_follow").find('p').css("color","#00bc12");
+            $(".add_follow").css("border","1px solid #00bc12");
             $(".right_personal").find('span').html(parseInt(p)-1);
             my_follow(lecturerId,2);
         }

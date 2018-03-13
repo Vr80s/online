@@ -39,10 +39,10 @@ $(function(){
 					},
 	               { "sortable": false,"data":"id","class": "center","width":"5%","title":"操作","mRender":function (data, display, row) {
 //	            	   		if(row.courseCount ==0){
-	            	   			var buttons= '<div class="hidden-sm hidden-xs action-buttons">'+
+	            	   			var buttons= '<div class="hidden-sm hidden-xs action-buttons">';
 								/*'<a class="blue" href="javascript:void(-1);" title="查看" onclick="openShow(this)"><i class="ace-icon fa fa-search  bigger-130"></i></a>'+
 								'<a class="blue" href="javascript:void(-1);" title="修改" onclick="editDialog(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+*/
-							   '<a class="blue" href="javascript:void(-1);" title="关联课程类别" onclick="openMenuManage(this)"><i class="glyphicon glyphicon-wrench"></i></a>';
+							   // '<a class="blue" href="javascript:void(-1);" title="关联课程类别" onclick="openMenuManage(this)"><i class="glyphicon glyphicon-wrench"></i></a>';
 					   			if(row.yunStatus==1) {
 									buttons+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
 								}else{

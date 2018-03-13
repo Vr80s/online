@@ -56,10 +56,14 @@ public class PublicCourseDao extends HibernateDao<Course>{
 	 		paramMap.put("menuId", courseVo.getMenuId());
 	 		sql.append(" and c.menu_id = :menuId ");
 	 	}
-	 	if(courseVo.getStatus() != null){
-	 		paramMap.put("status", courseVo.getStatus());
-	 		sql.append(" and c.status = :status ");
-	 	}
+		if(courseVo.getStatus() != null){
+			paramMap.put("status", courseVo.getStatus());
+			sql.append(" and c.status = :status ");
+		}
+		if(courseVo.getLiveStatus() != null){
+			paramMap.put("liveStatus", courseVo.getLiveStatus());
+			sql.append(" and c.live_status = :liveStatus ");
+		}
 	 	
 	 	 if(courseVo.getStartTime()!=null){
 	            sql.append(" and c.start_time >= :startTime ");

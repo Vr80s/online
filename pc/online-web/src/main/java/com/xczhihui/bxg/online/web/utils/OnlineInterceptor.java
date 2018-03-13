@@ -121,13 +121,13 @@ public class OnlineInterceptor implements HandlerInterceptor {
 //				UserLoginUtil.setLoginUser(request,user);
 //			}
 			if(!anchor){
-//				response.sendRedirect("http://www.baidu.com");
-//				return false;
-				Gson gson = new GsonBuilder().create();
+				response.sendRedirect("/");
+				return false;
+				/*Gson gson = new GsonBuilder().create();
 				response.setCharacterEncoding("utf-8");
 				response.setContentType("application/json");
 				response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("不具有主播权限或权限被禁用！")));
-				return false;
+				return false;*/
 			}
 		}
 		

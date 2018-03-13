@@ -548,10 +548,10 @@
 								<td>
 									<div class="profile-info-value searchTr">
 										<select name="search_status" id="search_status" value="" class="propertyValue1" >
-											<option value="">审核状态</option>
 											<option value="2">未审核</option>
 											<option value="1">已通过</option>
 											<option value="0">未通过</option>
+											<option value="">审核状态</option>
 										</select>
 										<input type="hidden" value="search_status" class="propertyName"/>
 									</div>

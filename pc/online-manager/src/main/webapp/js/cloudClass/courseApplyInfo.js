@@ -10,7 +10,7 @@ $(function() {
     }
     /** 职业课列表begin */
     var searchCase_P = new Array();
-    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_status","propertyValue1":"2","tempType":"String"}');
     // searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"' + $("#type").val() + '","tempType":undefined}');
     var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
     var objData = [/*{
@@ -28,7 +28,7 @@ $(function() {
         }},
         {"title": "课程名称", "class": "center", "width": "6%", "sortable": false, "data": 'title'},
         {"title": "所属学科", "class": "center", "width": "6%", "sortable": false, "data": 'menuName'},
-        {"title": "价格", "class": "center", "width": "8%", "sortable": false, "data": 'price'},
+        {"title": "价格", "class": "center", "width": "4%", "sortable": false, "data": 'price'},
         {"title": "主播", "class": "center", "width": "8%", "sortable": false, "data": 'lecturer'},
         {"title": "作者", "class": "center", "width": "8%", "sortable": false, "data": 'userName'},
         {
@@ -102,7 +102,7 @@ $(function() {
         {
             "sortable": false,
             "class": "center",
-            "width": "12%",
+            "width": "5%",
             "title": "操作",
             "mRender": function (data, display, row) {
                 if (row.status == 0) {
