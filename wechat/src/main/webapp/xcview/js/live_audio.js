@@ -430,3 +430,7 @@ function del(){
     my_impression3=""
 }
 
+function on_cc_h5player_init(){
+	var oV = document.getElementsByTagName('video')[0];
+	oV.setAttribute("x5-playsinline","");
+}
