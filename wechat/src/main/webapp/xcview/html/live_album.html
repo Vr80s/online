@@ -358,9 +358,14 @@
 			<ul class="all_list_ul">
 				<script type="text/html" id="all_list_ul">
 				{{each items as item i}}
-					<li data-myvideo="{{item.directId}}" data-courseId="{{item.id}}">
-						<p>{{item.gradeName}}</p>
+				
+				
+				
+			        <li data-myvideo="{{item.directId}}" data-courseId="{{item.id}}">
+						<p>{{item.no}}&nbsp;{{item.gradeName}}</p>
 					</li>
+				
+					
 				{{/each}}
 	            </script>
 			</ul>

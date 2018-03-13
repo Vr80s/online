@@ -113,18 +113,28 @@ function stripHTML(str){
 	
 	requestService("/xczh/course/getCoursesByCollectionId",{collectionId:collectionId},function(data) {
 	if(data.success==true){
+		for(var i=0;i<data.resultObject.length;i++){
+			
+			data.resultObject[i].no=getNo(i);
+		}
     	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}))
-    //		点击选集获取视频ID		
-	$(".all_list_ul li").click(function(){
-		var directId=$(this).attr("data-myvideo");
-		var courseId=$(this).attr("data-courseId");
-		//初始化视频资源
-//		chZJ(directId,1);
-		window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+directId+"&collection_id="+collectionId;
-	})
+	    //		点击选集获取视频ID		
+		$(".all_list_ul li").click(function(){
+			var directId=$(this).attr("data-myvideo");
+			var courseId=$(this).attr("data-courseId");
+			//初始化视频资源
+	//		chZJ(directId,1);
+			window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+directId+"&collection_id="+collectionId;
+		})
 	}
 })
-	
+	function getNo(i){
+		i++;
+		if(i<10){
+			return "0"+i;
+		}
+		return i;
+	}
 //判断普通浏览器时,去点微信分享  
     if(is_weixin()){
     	$(".share_to_one").show()
