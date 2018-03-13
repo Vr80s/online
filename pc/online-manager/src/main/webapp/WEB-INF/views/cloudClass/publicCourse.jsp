@@ -350,6 +350,7 @@
 							    <col width='12%'></col>
 							    <col width='14%'></col>
 							    <col width='14%'></col>
+							    <col width='14%'></col>
 							</colgroup>
 						</table>
 					</div>

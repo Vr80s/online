@@ -31,20 +31,34 @@ $(function(){
     			}
     	} }, 
         { "title": "资源类型", "class":"center","width":"6%","sortable":false,"data": 'multimediaType' ,"mRender":function (data, display, row) {
-                if(data == 1){
-                    return "视频";
-                }
-                return "音频";
+        	
+        		if(row.type == 2){
+        			 if(data == 1){
+                         return "视频";
+                     }
+                     return "音频";
+        		}
             }},
         { "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
     		debugger
-    			if(data==1 ){  //直播状态1.直播中，2预告，3直播结束
-    				return "直播中";
-    			}else if(data== 2){
-    				return "预告";
-    			}else if(data== 3){
-    				return "结束";
+    		
+    			if(row.type == 1){
+    				if(data==1 ){  //直播状态1.直播中，2预告，3直播结束
+    					return "直播中";
+    				}else if(data== 2){
+    					return "预告";
+    				}else if(data== 3){
+    					return "结束";
+    				}else if(data== 4){
+    					return "即将直播";
+    				}else if(data== 5){
+    					return "准备直播 ";
+    				}else if(data== 6){
+    					return "异常直播";
+    				}
     			}
+    		
+    			
     		} },    
         { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
