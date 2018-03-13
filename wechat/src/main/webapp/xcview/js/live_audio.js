@@ -282,6 +282,19 @@ function refresh(){
 }
 //评论
 function reportComment() {
+	var comment_detailed = $('#comment_detailed').val();
+	//正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+	 
+	 //判断输入框中有内容
+	 if(!reg.test(comment_detailed))
+	 {
+		webToast("仅支持中文、英文、数字","middle",3000);
+	 //输入非法字符，清空输入框
+	 $("#comment_detailed").val("");
+	 return false;
+	 }
+	
     //判断浮层是否已选
     var opacity = $(".report_btn").css("opacity");
     if(opacity!=1){
@@ -295,7 +308,7 @@ function reportComment() {
     }
     var str=arr.join(",");
 
-    var comment_detailed = $('#comment_detailed').val();
+    
     if(comment_detailed==""){
         return
     }
@@ -322,6 +335,7 @@ function reportComment() {
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
+        	
             webToast("评论成功","middle",3000);
             $(".wrapAll_comment").hide();
             $(".bg_modal").hide();
@@ -334,11 +348,30 @@ function reportComment() {
             webToast("评论失败","middle",3000);
         }
     });
+    
+    
+    
+    
+    
+    
+    
 }
 
 //回复评论
 function replyComment() {
-    var comment_detailed = $('#littlt_return').val();
+    var comment_detailed = $('#comment_detailed').val();
+	//正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+	 
+	 //判断输入框中有内容
+	 if(!reg.test(comment_detailed))
+	 {
+		webToast("仅支持中文、英文、数字","middle",3000);
+	 //输入非法字符，清空输入框
+	 $("#comment_detailed").val("");
+	 return false;
+	 }
+	 
     if(comment_detailed==""){
         webToast("内容不能为空","middle",3000);
         return
@@ -397,3 +430,7 @@ function del(){
     my_impression3=""
 }
 
+function on_cc_h5player_init(){
+	var oV = document.getElementsByTagName('video')[0];
+	oV.setAttribute("x5-playsinline","");
+}

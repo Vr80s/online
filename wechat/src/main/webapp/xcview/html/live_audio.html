@@ -302,7 +302,7 @@
 		</div>
 		<!--表情/提交评论-->
 		<ul class="brow_btn">
-			<li>
+			<li style="display: none;">
 				<img src="../images/brow.png"/>
 			</li>
 			<li onclick="replyComment()">发表评论</li>
@@ -356,14 +356,14 @@
 		{{/if}}
 		<p class="detailed_comments">详细评论</p>
 		<div class="text_write_box">
-			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+			<textarea name="" id="comment_detailed"  onblur="checkUsername()" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
 		<!--表情/提交评论-->
 		<ul class="brow_btn">
-			<li>
+			<li style="display: none;">
 				<img src="../images/brow.png"/>
 			</li>
-			<li class="report_btn" onclick="reportComment()">发表评论</li>
+			<li class="report_btn" onclick="reportComment()" id="report_btn">发表评论</li>
 		</ul>
         </script>
 	</div>
@@ -482,6 +482,8 @@ $.fn.toggle = function( fn, fn2 ) {
 			     $(".wrap1").addClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })
+			  
+			  
 		 })
 	</script>
 
