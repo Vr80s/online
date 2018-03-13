@@ -452,7 +452,7 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 		var j;
 		for(var i =0 ;i < $('#areaList li').length ;i++){
 			for(j = 0;j < fields.length ;j++ ){
-				if($('#areaList li').eq(i).text() == fields[j].name){
+				if($('#areaList li').eq(i).text() == fields[j].name && 	!$('#areaList li').eq(i).hasClass('keshiColor')){
 					$('#areaList li').eq(i).click();
 				}
 			}

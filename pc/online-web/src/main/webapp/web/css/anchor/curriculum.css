@@ -1217,7 +1217,7 @@ table{
 	height: 36px;
 	line-height: 36px;
 	font-size: 14px;
-	color: #999999 !important;
+	color: #333 !important;
 	border: 1px solid #F0F0F0;
 }
 
@@ -2506,4 +2506,8 @@ height: 14px;
 position: absolute;
 top: 3px;
 left: 0px;
+}
+.two_video embed{
+	width: 360px;
+	height: 360px;
 }

@@ -633,7 +633,7 @@ $('#docJoinHos').click(function(){
         var j;
         for(var i =0 ;i < $('.hospital_worktime ul li ').length ;i++){
             for(j = 0;j < workArr.length ;j++ ){
-                if($('.hospital_worktime ul li').eq(i).text() == workArr[j]){
+                if($('.hospital_worktime ul li').eq(i).text() == workArr[j] && ! $('.hospital_worktime ul li').eq(i).hasClass('color keshiColor')){
                 	 $('.hospital_worktime ul li').eq(i).click();
 //                  $('.hospital_worktime ul li').eq(i).addClass('color keshiColor');
                 }

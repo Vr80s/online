@@ -261,7 +261,7 @@ function createGiftShow() {
     } else if (!f1 && !f2 && !f3 && queue.size() > 0) {
         setTimeout(function() {
             createGiftShow();
-        }, 4000);
+        },4000);
     }
 }
 
@@ -270,13 +270,16 @@ var count = 1;
 function countChange() {
     if (count == 1) {
         count = 2;
-        return 10;
+        return 11;
+//      return 14;
     } else if (count == 2) {
         count = 3;
         return 7.7;
+//      return 14;
     } else {
         count = 1;
         return 5.5;
+//      return 14;
     }
 }
 var gif = [];

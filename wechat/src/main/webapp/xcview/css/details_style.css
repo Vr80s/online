@@ -133,9 +133,10 @@ div.pinch-zoom,
     background: url(/xcview/images/size_bg.png);
     background-size: 100% 100%;
     min-width:2rem;
+    padding: 0.2rem 0;
 }
 .details_size .img0{
-	width: 1rem;
+	width: 0.8rem;
 	margin-top: 0.2rem;
 }
 .details_size .img1{
@@ -900,4 +901,8 @@ div.pinch-zoom,
 	color: #fff;
 }
 /*直播结束查看回放*/
+
+.coze_bottom{
+	border-top: 1px solid #ccc;
+}
 

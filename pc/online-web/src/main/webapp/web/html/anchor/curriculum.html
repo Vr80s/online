@@ -1061,9 +1061,9 @@
 				</div>
 			</div>
 			<div class="">
-				<div class="one" style="display: inline-block;vertical-align: top;width: 84px;text-align: right;margin-right: 20px;">精彩致辞</div>
+				<div class="one" style="display: inline-block;vertical-align: top;width: 84px;text-align: right;margin-right: 20px;">视频介绍</div>
 				<div class="two two_video" id="intersting" style="display: inline-block;">
-					<video src="" controls="controls"></video>
+					<video src="" controls="controls" ></video>
 				</div>
 			</div>
 			<div class="name">
@@ -1131,7 +1131,7 @@
 					<p class="warning hide warning_profileImgphoto">请上传头像</p>
 				</div>
 				<div class="">
-					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em style="display: inline-block;color: #f40;"></em>精彩致辞</span>
+					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em style="display: inline-block;color: #f40;"></em>视频介绍</span>
 					
 					<label for="speech_select"></label>
 					<select id="speech_select" class="selectpicker bla bla bli speech_resource" data-live-search="true">
@@ -1171,7 +1171,7 @@
 					<li>四</li>
 					<li>五</li>
 					<li>六</li>
-					<li>七</li>
+					<li>日</li>
 				</ul>
 				<p class="warning return_warning7 hide">请选择坐诊时间</p>
 				</div>
@@ -1718,8 +1718,10 @@
 						</div>
 						<div>
 							<span><em>*</em>价格</span>
-							<input type="text" placeholder=""  onkeyup="clearNoNum(this)" class="zhuanlan_title zhuanlan_title3 course_price" style="width: 120px;" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+							<!--<input type="text" placeholder=""  onkeyup="clearNoNum(this)" class="zhuanlan_title zhuanlan_title3 course_price" style="width: 120px;" onkeyup="value=value.replace(/[^\d]/g,'') "/>-->
+							<!--<input type = "text" name= "number" class="zhuanlan_title zhuanlan_title3 course_price"  onkeyup="clearNoNum(this)" id = 'number' onkeyup= "value=value.replace( /^d+$/,'')" />--> 
 							<!--<input type="text" maxlength="2" style="width: 120px;" class="zhuanlan_title zhuanlan_title3 course_price"  onkeyup="value=value.replace(/[^\d]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">-->
+							<input class="zhuanlan_title zhuanlan_title3 course_price" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 							<span>熊猫币</span>
 							<p class="warning warning_course_price hide">价格不能为空</p>
 							<p class="warning warning_course_price_Illegal hide">价格数值不符合规范</p>
