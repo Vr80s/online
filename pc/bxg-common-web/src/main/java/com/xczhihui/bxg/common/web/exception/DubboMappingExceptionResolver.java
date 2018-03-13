@@ -35,17 +35,17 @@ public class DubboMappingExceptionResolver extends SimpleMappingExceptionResolve
 		//异常通知告警
 //		if(!(ex instanceof RuntimeException)){
 		try {
-			String content = "";
+//			String content = "";
 			String subject = "";
-			if (method != null && method.getBeanType() != null && method.getMethod() != null) {
-					content += ex.toString()+":";
-					content += ex.getMessage()+";<br/>";
-					content += method.getBeanType().toString()+";<br/>";
-					content += "method "+method.getMethod().getName();
+//			if (method != null && method.getBeanType() != null && method.getMethod() != null) {
+//					content += ex.toString()+":";
+//					content += ex.getMessage()+";<br/>";
+//					content += method.getBeanType().toString()+";<br/>";
+//					content += "method "+method.getMethod().getName();
 					subject = ex.toString()+":" + ex.getMessage()+";<br/>";
-				} else {
-					content += ex.getCause().toString()+ex.getMessage();
-				}
+//				} else {
+//					content += ex.getCause().toString()+ex.getMessage();
+//				}
 			EmailUtil.sendExceptionMailBySSL("pc端",subject,printStackTraceToString(ex));
 			} catch (MessagingException e) {
 				e.printStackTrace();
