@@ -38,8 +38,12 @@ if (is_weixin()) {
  */
 function sanfangLogin(){
 	
+	/**
+	 * 清理下存在的信息
+	 */
+	commonLocalStorageRemoveItem();
+	
 	location.href = "/xczh/wxlogin/publicWechatAndMobile";
-	//location.href = "/bxg/wxjs/h5BsGetCodeUrl";
 }
 
 

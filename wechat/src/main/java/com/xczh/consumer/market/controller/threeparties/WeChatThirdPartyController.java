@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
+import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
@@ -66,6 +67,9 @@ public class WeChatThirdPartyController {
 
 	@Autowired
 	private CacheService cacheService;
+	
+	@Autowired
+	private AppBrowserService appBrowserService;
 
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
@@ -132,6 +136,16 @@ public class WeChatThirdPartyController {
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		LOGGER.info("WX return userId:" + req.getParameter("userId"));
 		try {
+
+			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+			if(currentOnlineUser !=null){
+				/**
+				 * 先清理下课程存在的账户信息，以当前第三方信息为准
+				 */
+				UCCookieUtil.clearTokenCookie(res);
+				req.getSession().setAttribute("_user_", null);
+			}
+			
 			/**
 			 * 通过code获取微信信息
 			 */
