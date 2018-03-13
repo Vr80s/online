@@ -27,12 +27,12 @@ public class LiveCallbackServiceImpl implements LiveCallbackService {
 	private Broadcast broadcast;
 	
 	@Override
-	public void liveCallbackImRadio(String liveId) {
+	public void liveCallbackImRadio(String liveId,Integer Type) {
 		
     	Map<String,Object> map = new HashMap<String, Object>();
     	map.put("senderInfo","微吼系统--》manager --》web ");
     	map.put("rewardInfo", "直播间"+liveId);
-    	map.put("messageType",2);			//0 打赏 1 礼物  2 直播开始通知 
+    	map.put("messageType",Type);			//0 打赏 1 礼物  2 直播开始通知   3 直播结束通知
     	map.put("rewardTotal","0");//打赏总金额
     	String rewardStatementStr = JSONObject.toJSONString(map);
 		try {

@@ -107,18 +107,6 @@ $(document).ready(function() {
         $("#doc").toggleClass("on");
     });
    
-    
-    
-	window.setInterval(function(){
-	
-		console.log("直播状态："+VHALL_SDK.getRoominfo().type)
-		
-	},1000);
-    
-    
-    
-    
-    
     /**
 	 * [onChatMessage 直播收到聊天消息]
 	 * 
@@ -353,19 +341,14 @@ $(document).ready(function() {
     });
     VHALL_SDK.on('streamOver', function(msg) {
         
-    	alert('活动已结束'+msg);   
-
-    	$("#video").html("");
-    	
-		$(".video_end_top").show(); 
-    	
+    	//alert('活动已结束'+msg);   
+    	//$("#video").html("");
+		//$(".video_end_top").show(); 
     });
     VHALL_SDK.on('publishStart', function(msg) {
-        alert('活动开始推流'+msg);
-        alert("==========================")
+        //alert('活动开始推流'+msg);
         //如果活动开始了
-        $(".video_end_top").hide();
-        
+        //$(".video_end_top0").hide();
     });
     
     var userInfo = "";

@@ -49,7 +49,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	private OnlineUserService  onlineUserService;
 	@Autowired
 	private CourseDao  courseDao;
-	
 	@Autowired
 	private LiveCallbackService liveCallbackService;
 	
@@ -365,17 +364,20 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
          System.out.println("course livestate "+course);
          System.out.println("change CallbackVo"+changeCallbackVo.toString());
          String startOrEnd ="";
+         Integer type =0;
          if(course!=null){
         	 switch (changeCallbackVo.getEvent()) {
         	 case "start":
         		 startOrEnd ="start_time";
         		 course.setLiveStatus(1);
         		 course.setStartTime(new Date());
+        		 type = 2;
         		 break;
         	 case "stop":
         		 startOrEnd ="end_time";
         		 course.setLiveStatus(3);
         		 course.setEndTime(new Date());
+        		 type = 3;
         		 break;
         	 default:
         		 break;
@@ -385,14 +387,10 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         	 /*
         	  * 发送直播开始通知广播
         	  */
-        	 if(changeCallbackVo.getEvent().equals("start")){
-        		 
-        		 
-        		 System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"+course.getId());
-        		 
-        		 liveCallbackService.liveCallbackImRadio(course.getId()+"");
-        	 }
+    		 System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"+course.getId()+",type:"+type);
+    		 liveCallbackService.liveCallbackImRadio(course.getId()+"",type);
         	 
+    		 
         	 if(startOrEnd!=""){
         		String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
         		Map<String,Object> find = new HashMap<String,Object>();
