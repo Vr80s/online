@@ -89,6 +89,8 @@ requestService("/xczh/course/liveDetails",{
 				 */
 				if(lineState == 3){
 					$(".history_span").text("直播回放");
+					
+					$(".cover").show();  //直播回放时添加无法点击聊天
 				}else if(lineState == 4){
 					$(".history_span").text("即将直播");
 				}

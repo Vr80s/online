@@ -587,14 +587,6 @@ window.onload = function() {
 
 //购物车列表点击事件
 template.helper('orderClick', function (order) {
-	var a = "";
-	if(order.type == 3){
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;"  href="/web/html/payRealCourseDetailPage.html?id='+order.id+'"  target="_blank">';
-	}else if(order.type == 1){
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payOpenCourseDetailPage.html?id='+order.id+'&direct_id='+order.direct_id+'"  target="_blank">';
-	}else{
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payCourseDetailPage.html?id='+order.id+'&courseType='+order.course_type+'&free=0" target="_blank">';
-	}
-  console.info(a);
+	var	a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;"  href="/course/courses/'+order.id+'"  target="_blank">';
 	return a;
 });

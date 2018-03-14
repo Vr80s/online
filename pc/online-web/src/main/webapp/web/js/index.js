@@ -153,43 +153,6 @@ var strcourse_xxpxb =
 	'</div>' +
 	'{{/each}}';
 
-var livingCourse='{{each items}}'+
-    '<li>' +
-    	'{{if $value.free==true}}'+
-	    	'{{if $value.coursePwd==1}}'+
-	    		'<a style="cursor:pointer"  data-url="/web/html/encryptOpenCourseDetailPage.html?id={{$value.id}}&direct_id={{$value.direct_id}}" target="_blank" >'+
-    		'{{else}}'+
-    			'<a style="cursor:pointer"  data-url="/web/html/freeOpenCourseDetailPage.html?id={{$value.id}}&direct_id={{$value.direct_id}}" target="_blank" >'+
-			'{{/if}}'+
-		'{{else}}'+
-			'<a style="cursor:pointer"  data-url="/web/html/payOpenCourseDetailPage.html?id={{$value.id}}&direct_id={{$value.direct_id}}" target="_blank" >'+
-		'{{/if}}'+
-    '{{#hasImg($value.smallimg_path)}}' +
-        '<div class="public-class-live-detail">'+
-        '<div class="detailCourseInfo clearfix">'+
-        '<div class="detailCourseName" title="{{$value.courseName}}">{{$value.courseName}}</div>'+
-        '<div class="detailTeacher">讲师：{{$value.teacherName}}</div>'+
-        '</div>'+
-        '{{if $value.broadcastState==1}}'+
-        '<div class="detailLiveInfo clearfix">'+
-        '<div class="detailLiveDate">最近直播：{{$value.formatStartTime}}</div>'+
-        '<div class="detailLiving zhiboStart">'+
-        '<span class="enter-livingClass" href="/web/livepage/{{$value.id}}/{{$value.direct_id}}/null" target="_blank">进入教室</span>'+
-        '<img src="/web/images/zhibo.gif" alt=""/>'+
-        '<span class="living">直播中</span>'+
-        '</div></div></div>'+
-        '{{else}}'+
-        '<div class="detailLiveInfo clearfix">'+
-        '<div class="detailLiveDate">最近直播：{{$value.formatStartTime}}</div>'+
-        '<div class="detailLiving">'+
-        '<img src="/web/images/zhiboNoStart.png" alt=""/>'+
-        '<span class="noStart">直播未开始</span>'+
-        '{{/if}}'+
-        '</div></div></div>'+
-        '</a></li>'+
-        '{{/each}}';
-
-
 var liveTrailerTemplate='{{each items}}' +' <li>\n' +
 	'<img src="web/images/yugao/082305_03.png" alt="" class="li_img" />'+
     '<span class="box">\n' +
@@ -321,16 +284,7 @@ function init() {
 //获取一个直播
 RequestService("/online/live/getLive","GET",{num:4},function(data){
 	var url="";
-    if(data.resultObject.free==true){
-        if(data.resultObject.coursePwd==1){
-            url="/web/html/encryptOpenCourseDetailPage.html?id="+data.resultObject.id+"&direct_id="+data.resultObject.direct_id+"";
-        }else{
-            url="/web/html/freeOpenCourseDetailPage.html?id="+data.resultObject.id+"&direct_id="+data.resultObject.direct_id+"";
-        }
-    }else{
-    url="/web/html/payOpenCourseDetailPage.html?id="+data.resultObject.id+"&direct_id="+data.resultObject.direct_id+"";
-    }
-
+    url="/course/courses/"+data.resultObject.id;
 	$(".video_div").click(function(){
 	    window.open(url);
 	});
