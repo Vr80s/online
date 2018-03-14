@@ -334,5 +334,13 @@ public interface CourseService {
 	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
 	 * @Date: 2018/3/9 14:19
 	 **/
-	public void updateRecommendSort(Integer id,Integer recommendSort);
+	public void updateRecommendSort(Integer id,Integer recommendSort, String recommendTime);
+	/**
+	 * Description：过了推荐时效的推荐值恢复到默认值
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/14 18:00
+	 **/
+	public void updateDefaultSort();
+
 }

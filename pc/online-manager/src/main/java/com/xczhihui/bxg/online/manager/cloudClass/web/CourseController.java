@@ -1,26 +1,5 @@
 package com.xczhihui.bxg.online.manager.cloudClass.web;
 
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.aspectj.util.FileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
 import com.xczhihui.bxg.common.support.service.AttachmentType;
@@ -33,6 +12,7 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LecturerVo;
@@ -42,6 +22,23 @@ import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
+import org.aspectj.util.FileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 课程管理控制层实现类
@@ -700,9 +697,10 @@ public class CourseController extends AbstractController{
 	 **/
 	@RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject updateRecommendSort(Integer id,Integer recommendSort) {
+	public ResponseObject updateRecommendSort(Integer id,Integer recommendSort, String recommendTime) {
 		ResponseObject responseObject=new ResponseObject();
-		courseService.updateRecommendSort(id,recommendSort);
+
+		courseService.updateRecommendSort(id,recommendSort,recommendTime);
 		responseObject.setSuccess(true);
 		responseObject.setResultObject("修改成功!");
 		return responseObject;
