@@ -110,8 +110,7 @@ $(".header_news").click(function(){
 //			}
 //		}
 //	})
-	
-	$(".share").show();
+		$(".share").show();	
 });
 
 $(".share_cancel").click(function(){

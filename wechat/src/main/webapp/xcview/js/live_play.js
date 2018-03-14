@@ -107,11 +107,15 @@ requestService("/xczh/course/liveDetails",{
 
 })
 //判断普通浏览器时,去点微信分享  
-    if(is_weixin()){
-    	$(".share_to_one").show()
-    }else{
+	if(is_weixin()){
+		$(".share_to_one").show()
+		
+	}else{
     	$(".share_to_one").hide()
-    }
+  	}
+
+		
+    
 // * videoId : 视频播放id
 // * multimediaType:媒体类型  1
 function chZJ(videoId,multimediaType){
@@ -304,17 +308,7 @@ function refresh(){
 //评论
 function reportComment() {
 	var comment_detailed = $('#comment_detailed').val();
-	//正则表达式
-	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
-	 
-	 //判断输入框中有内容
-	 if(!reg.test(comment_detailed))
-	 {
-		webToast("仅支持中文、英文、数字","middle",3000);
-	 //输入非法字符，清空输入框
-	 $("#comment_detailed").val("");
-	 return false;
-	 }
+
 	
 	
     //判断浮层是否已选
@@ -322,6 +316,19 @@ function reportComment() {
     if(opacity!=1){
         return false;
     }
+// 手机自带表情添加判断
+    //正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+	 //判断输入框中有内容
+	 if(!reg.test(comment_detailed))
+	 {
+		webToast("仅支持中文、英文、数字","middle",3000);
+	 //输入非法字符，清空输入框
+	 $("#comment_detailed").val("");
+     $(".return_btn").css("opacity","0.3");
+	 return false;
+	 }
+// 手机自带表情添加判断结束
     var arr=new Array();
 
     var list=document.getElementsByClassName("active_color");
@@ -375,21 +382,24 @@ function reportComment() {
 //回复评论
 function replyComment() {
    	var comment_detailed = $('#comment_detailed').val();
-	//正则表达式
+
+    if(comment_detailed==""){
+//      webToast("内容不能为空","middle",1500);
+        return false;
+    }
+// 手机自带表情添加判断
+    //正则表达式
 	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
-	 
 	 //判断输入框中有内容
 	 if(!reg.test(comment_detailed))
 	 {
 		webToast("仅支持中文、英文、数字","middle",3000);
 	 //输入非法字符，清空输入框
 	 $("#comment_detailed").val("");
+//   $(".return_btn").css("opacity","0.3");
 	 return false;
 	 }
-    if(comment_detailed==""){
-        webToast("内容不能为空","middle",1500);
-        return
-    }
+// 手机自带表情添加判断结束
     requestService("/xczh/criticize/saveReply",{
 
         content:comment_detailed,
