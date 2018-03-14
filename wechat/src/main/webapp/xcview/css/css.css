@@ -1343,7 +1343,8 @@ footer{
 
 .coze{
 	width: 100%;
-	background: #efefef;
+	/*background: #efefef;*/
+	background: #f8f8f8;
 	display: none;
 }
 .coze_center{
