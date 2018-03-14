@@ -539,7 +539,10 @@
             	<script type="text/html" id="acupunctures">
             		{{each items as item i}}
             		<div class="acupuncture">
-                		<div class="boutique_title all_class">{{item.title}}</div>
+                		<div class="boutique_title all_class">
+                			{{item.title}}
+                			<img src="/xcview/images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;">
+                		</div>
                 		<div class="boutique_main">
                 			<ul>
                 				{{each item.courseList as item i}}
@@ -703,9 +706,9 @@
             						</div>
             						<div class="lectures_main_one_size" style="overflow: hidden;">
             							{{if item.watchState == 1}}
-            							<p style='margin-top: 0.05rem;'><span>免费</span></p>
+            							<p><span style="margin-top: -0.05rem;">免费</span></p>
             							{{else}}
-            							<p style='margin-top: 0.08rem;'><span>{{item.currentPrice}}</span>熊猫币</p>
+            							<p><span>{{item.currentPrice}}</span>熊猫币</p>
             							{{/if}}
             							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
             						</div>

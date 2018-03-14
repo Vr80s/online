@@ -83,9 +83,9 @@ $(function() {
 		}
 
 		var host = window.location.host;
-		//?id=550&direct_id=854337728
-		//var weboshare_url="http://"+host+"/web/html\/"+page+".html?id="+courseId;
-		var weboshare_url="http://"+host+"/web/html\/"+page+".html?id="+courseId+"&direct_id="+roomid;
+		var weboshare_url="http://"+host+"/course/courses/"+courseId;
+        // $("#weibo_share").attr("href","http://service.weibo.com/share/share.php?url="+weboshare_url+"&title="+description)
+        // $("#qq_share").attr("href","http://connect.qq.com/widget/shareqq/index.html?url="+weboshare_url+"&title="+description)
 		/**
 		 * 微博分享
 		 */

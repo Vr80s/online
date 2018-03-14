@@ -59,7 +59,7 @@ function stripHTML(str){
 	    var	type = data.resultObject.type;
 		
 		//初始化视频资源
-		chZJ(directId,type);
+		chZJ(directId,type,smallImgPath);
 		
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
@@ -123,7 +123,6 @@ function stripHTML(str){
 			var directId=$(this).attr("data-myvideo");
 			var courseId=$(this).attr("data-courseId");
 			//初始化视频资源
-	//		chZJ(directId,1);
 			window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+directId+"&collection_id="+collectionId;
 		})
 	}
@@ -144,7 +143,7 @@ function stripHTML(str){
 	
 	
 //	请求视频代码
-	function chZJ(videoId,multimediaType){
+	function chZJ(videoId,multimediaType,smallImgPath){
 	/**
 	 * 请求代码啦
 	 */
@@ -155,8 +154,8 @@ function stripHTML(str){
 		playerwidth:playerwidth,	
 		playerheight:playerheight,
 		videoId:videoId,
+		smallImgPath:smallImgPath,
 		multimedia_type:multimediaType
-//		multimedia_type:1
 	}
 	requestService("/bxg/ccvideo/commonCourseStatus", 
 			dataParams, function(data) {
@@ -352,6 +351,19 @@ function reportComment() {
     if(opacity!=1){
         return false;
     }
+        // 手机自带表情添加判断
+    //正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+	 //判断输入框中有内容
+	 if(!reg.test(comment_detailed))
+	 {
+		webToast("仅支持中文、英文、数字","middle",3000);
+	 //输入非法字符，清空输入框
+	 $("#comment_detailed").val("");
+     $(".return_btn").css("opacity","0.3");
+	 return false;
+	 }
+// 手机自带表情添加判断结束
     var arr=new Array();
 
     var list=document.getElementsByClassName("active_color");
@@ -407,9 +419,22 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        webToast("内容不能为空","middle",1500);
-        return
+//      webToast("内容不能为空","middle",1500);
+        return false;
     }
+        // 手机自带表情添加判断
+    //正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+	 //判断输入框中有内容
+	 if(!reg.test(comment_detailed))
+	 {
+		webToast("仅支持中文、英文、数字","middle",3000);
+	 //输入非法字符，清空输入框
+	 $("#comment_detailed").val("");
+//   $(".return_btn").css("opacity","0.3");
+	 return false;
+	 }
+// 手机自带表情添加判断结束
     requestService("/xczh/criticize/saveReply",{
 
         content:comment_detailed,
@@ -452,11 +477,8 @@ function btn_buy(){
         courseId:courseId,
         orderFrom:2
     },function(data){
-
-        window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+        window.location.href="purchase.html?orderId="+data.resultObject.orderId+"";
     });
-
-
 }
 //点击免费报名后
 function btn_mianfei(){

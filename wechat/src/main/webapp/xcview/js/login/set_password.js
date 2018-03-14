@@ -71,11 +71,11 @@ document.getElementById("forget_btn").addEventListener("tap", function() {
 		return false;
 	}
 	if (!stringnull(yanzhengma)) {
-		webToast("验证码不能为空","middle",1500);
+//		webToast("验证码不能为空","middle",1500);
 		return false;
 	}
 	if (!stringnull(userpassword)) {
-		webToast("密码不能为空","middle",1500);
+//		webToast("密码不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[345678]\d{9}$/.test(mobile))) {

@@ -164,7 +164,6 @@
 	  </select>	
 	  
 	  
-	  
 	  	<!-- 获取推荐的主播信息 -->
 	  	 
 	   <select id="hostInfoRec" resultType="java.util.Map">

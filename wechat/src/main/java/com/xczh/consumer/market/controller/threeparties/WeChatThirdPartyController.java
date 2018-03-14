@@ -138,7 +138,10 @@ public class WeChatThirdPartyController {
 		try {
 
 			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
-			if(currentOnlineUser !=null){
+			String userId = req.getParameter("userId");
+			
+			
+			if(currentOnlineUser !=null && !StringUtils.isNotBlank(userId)){
 				/**
 				 * 先清理下课程存在的账户信息，以当前第三方信息为准
 				 */
@@ -150,8 +153,7 @@ public class WeChatThirdPartyController {
 			 * 通过code获取微信信息
 			 */
 			String code = req.getParameter("code");
-			String userId = req.getParameter("userId");
-
+			
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,
 					wxcpClientUserWxMappingService);
 			if (wxw == null) {
@@ -167,7 +169,7 @@ public class WeChatThirdPartyController {
 
 				LOGGER.info(" 已经绑定过了:" + wxw.getClient_id());
 
-				if (userId != null) { // type=1 说明这个已经绑定了
+				if (StringUtils.isNotBlank(userId)) { // type=1 说明这个已经绑定了
 
 					res.sendRedirect(returnOpenidUri
 							+ "/xcview/html/lickacc_mobile.html?type=1");
@@ -199,7 +201,7 @@ public class WeChatThirdPartyController {
 			} else {
 				LOGGER.info(" 没有绑定了:");
 
-				if (userId != null) { // 手机号绑定微信号
+				if (StringUtils.isNotBlank(userId)) { // 手机号绑定微信号
 					/**
 					 * 更改微信信息 --》增加用户id
 					 */

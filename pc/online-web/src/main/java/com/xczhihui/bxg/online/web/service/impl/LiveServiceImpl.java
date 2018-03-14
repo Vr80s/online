@@ -222,18 +222,18 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 	@Override
 	public ModelAndView livepage
 		(String courseId, String roomId, String planId,HttpServletRequest request,HttpServletResponse response) {
-		
+
 		BxgUser user = UserLoginUtil.getLoginUser(request);
-		
+
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("course_id", courseId);
 		paramMap.put("user_id", user == null ? null : user.getId());
 		paramMap.put("plan_id", planId);
-		
+
 		List<Map<String, Object>> courses = dao.getNamedParameterJdbcTemplate()
 			.queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,live_status liveStatus from oe_course where id=:course_id", paramMap);
 		Map<String, Object> course =  courses.get(0);
-		
+
 //		Object type = course.get("type");
 		Object is_free = course.get("is_free");
 		String description = (String) course.get("description");
@@ -282,7 +282,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 			mv = new ModelAndView("redirect:/");
 		}
 //		mv.addObject("cc_live_user_id",OnlineConfig.CC_LIVE_USER_ID);
-		
+
 		return mv;
 	}
 
@@ -297,21 +297,12 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         List<Map<String, Object>> courses = dao.getNamedParameterJdbcTemplate()
                 .queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,direct_id,live_status liveStatus from oe_course where id=:course_id", paramMap);
         Map<String, Object> course =  courses.get(0);
-        Object is_free = course.get("is_free");
         String description = (String) course.get("description");
         Integer liveStatus = (Integer) course.get("liveStatus");
-        long coursePwd =  (long) course.get("coursePwd");
         if(description==null) {
             description = "";
         }
         description=description.replaceAll("\n", "");
-        String page="";
-        if(coursePwd==1){
-            page="encryptOpenCourseDetailPage";
-        }else{
-            is_free = (is_free != null && Boolean.valueOf(is_free.toString())) ? "1" : "0";
-            page = "1".equals(is_free) ? "freeOpenCourseDetailPage" : "payOpenCourseDetailPage";
-        }
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         ModelAndView mv = null;
         if(liveStatus==1){
@@ -326,8 +317,6 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
             mv.addObject("roomId",course.get("direct_id"));
             mv.addObject("roomJId",courseId+postfix);
             mv.addObject("boshService",boshService);
-//            mv.addObject("planId",planId);
-            mv.addObject("page",page);
             mv.addObject("now",new Date().getTime());
             mv.addObject("description",description);
             mv.addObject("email", user == null ? null : user.getId()+"@xczh.com");
