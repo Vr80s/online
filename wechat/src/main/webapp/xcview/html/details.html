@@ -84,6 +84,25 @@ $(function(){
 	.sr-bdimgshare{
 		display: none !important;
 	}
+	/*这是隐藏回放发送聊天层*/
+	.cover{
+		height: 2.125rem;
+	    width: 100%;
+	    background: red;
+	    position: fixed;
+	    bottom: 0;
+	    z-index: 99991;
+	    left: 0;
+	    display: none;
+	    opacity: 0;
+	}
+	/*聊天主播样式*/
+	.span_zhubo{
+		background: #00bc12;
+        padding: 0.01rem 0.23rem;
+	    border-radius: 4px;
+	    color: #fff;
+	}
 </style>
 </head>
 <body style="background: #f8f8f8;overflow: hidden;">
@@ -243,7 +262,7 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<!-- <div style="height:2.125rem;width:100%;background: red;"></div> -->
+	 <div class="cover"></div> 
 	<div class="coze_bottom" style="padding: 0.3rem 0;">
 		<div class="coze_bottom_input" style="margin-right: 0;">
 			<div class="div_img">
