@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,16 +57,13 @@ public class CCVideoController {
 		String playerwidth = req.getParameter("playerwidth");
 		String playerheight = req.getParameter("playerheight");
 		String videoId = req.getParameter("videoId");
-		
 		String multimedia_type = req.getParameter("multimedia_type");
-		
-		System.out.println(multimedia_type+"============");
-		
+		String smallImgPath = req.getParameter("smallImgPath");
 		boolean autoplay = true;
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", "B5E673E55C702C42");
 		paramsMap.put("videoid", videoId);
-		paramsMap.put("auto_play", "true");
+		paramsMap.put("auto_play", "false");
 		paramsMap.put("player_width", playerwidth);
 		
 		//cc_A9067DA7F5AA34C39C33DC5901307461    A9067DA7F5AA34C39C33DC5901307461
@@ -74,7 +72,6 @@ public class CCVideoController {
 		paramsMap.put("player_height",setScale+"");
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
 		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
 		LOGGER.info(responsestr);
@@ -84,6 +81,10 @@ public class CCVideoController {
 		//如果是音频的话需要这样暂时替换下
 		if("2".equals(multimedia_type)){
 			responsestr = responsestr.replaceAll("playertype=1", "playertype=1&mediatype=2");
+		}
+		//背景图片
+		if(StringUtils.isNotBlank(smallImgPath)){
+			responsestr = responsestr.replaceAll("playertype=1", "playertype=1&img_path="+smallImgPath);
 		}
 		LOGGER.info(responsestr);
 		return ResponseObject.newSuccessResponseObject(responsestr);
@@ -110,8 +111,8 @@ public class CCVideoController {
 
 	 public static void main(String[] args) {
 			
-//	    	APIServiceFunction api = new APIServiceFunction();
-//	    	
+	    	APIServiceFunction api = new APIServiceFunction();
+	    	
 //	    	Map<String, String> paramsMap = new HashMap<String, String>();
 //			paramsMap.put("userid", "B5E673E55C702C42");
 //			paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC5901307461");
@@ -127,26 +128,24 @@ public class CCVideoController {
 //			if (responsestr.contains("\"error\":")) {
 //				throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
 //			}
-//			Map<String, String> paramsMap = new HashMap<String, String>();
-//			paramsMap.put("userid", "B5E673E55C702C42");
-//			paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC59013074611");
-//			paramsMap.put("autoplay", "true");
-//			paramsMap.put("playerwidth", "100");
-//			paramsMap.put("playerheight", "120");
-//			paramsMap.put("FORMAT", "json");
-//			long time = System.currentTimeMillis();
-//			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-//			LOGGER.info(requestURL);
-//			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-//			LOGGER.info(responsestr);
+	    	
+			Map<String, String> paramsMap = new HashMap<String, String>();
+			paramsMap.put("userid", "B5E673E55C702C42");
+			paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
+			paramsMap.put("autoplay", "true");
+			paramsMap.put("playerwidth", "100");
+			paramsMap.put("playerheight", "120");
+			paramsMap.put("FORMAT", "json");
+			long time = System.currentTimeMillis();
+			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
+			LOGGER.info(requestURL);
+			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
+			LOGGER.info(responsestr);
+			
+			
+			
+			
 		 
-//		    BigDecimal decimal = new BigDecimal("1.52345");
-//	        LOGGER.info(decimal);
-//	        BigDecimal setScale = decimal.setScale(0,BigDecimal.ROUND_HALF_DOWN);
-//	        LOGGER.info(setScale);
-//	        
-//	        BigDecimal setScale1 = decimal.setScale(0,BigDecimal.ROUND_HALF_UP);
-//	        LOGGER.info(setScale1.toString());
 		 
 	 }
 }

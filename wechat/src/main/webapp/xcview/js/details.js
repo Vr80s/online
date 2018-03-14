@@ -89,6 +89,8 @@ requestService("/xczh/course/liveDetails",{
 				 */
 				if(lineState == 3){
 					$(".history_span").text("直播回放");
+					
+					$(".cover").show();  //直播回放时添加无法点击聊天
 				}else if(lineState == 4){
 					$(".history_span").text("即将直播");
 				}
@@ -368,7 +370,7 @@ requestService(
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
 								+ "</p><p  style='font-size:0.6rem;color:#666;'><span class='jiage'>"
-								+ "" + result[i].price + "</span><span style='font-size:0.6rem;color:#666;'>熊猫币</span></p></div></a></li>";
+								+ "" + result[i].price + "</span><span style='font-size:0.425rem;color:#666;'>熊猫币</span></p></div></a></li>";
 					} else {
 						html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"
 								+ result[i].smallimgPath
@@ -376,7 +378,7 @@ requestService(
 								+ result[i].id
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
-								+ "</p><p style='font-size:0.6rem;color:#666;'><span class='jiage'>0</span><span style='font-size:0.6rem;color:#666;'>熊猫币</span></p></div></a></li>";
+								+ "</p><p style='font-size:0.6rem;color:#666;'><span class='jiage'>0</span><span style='font-size:0.425rem;color:#666;'>熊猫币</span></p></div></a></li>";
 					}
 				}
 				$(".gift_ul_li").html(html);

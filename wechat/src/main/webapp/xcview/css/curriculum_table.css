@@ -336,6 +336,7 @@ header{
 .li_list_one_right .p1 img {
     width: 0.24rem;
     height: 0.24rem;
+    float: left;
 }
 .li_list_one_right .p1 span {
     color: #999;

@@ -278,7 +278,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 				+" o.collection as collection,"
 				+" o.is_free as watchState,"
-				+" o.is_recommend,o.start_time,"
+				+" o.is_recommend,o.start_time as startTime,"
 				+"'全国课程' as note "
 				+" from oe_course o "
 				+" WHERE o.is_delete=0 and o.status=1 and o.type = 3   "
@@ -297,7 +297,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 					+" o.collection as collection,"
 					+" o.is_free as watchState,"
-					+" o.is_recommend,o.start_time,"
+					+" o.is_recommend,o.start_time as startTime,"
 					+" o.city as note "
 					+" from oe_course o "
 					+" WHERE o.is_delete=0 and o.status=1 and o.type = 3  and o.city = '"+offlineCity.getCityName()+"' "
@@ -448,7 +448,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
-		
+		all.append(" oc.start_time as startTime, ");
 		all.append(" '精品课程' as note ");
 
 		all.append(" from oe_course oc ,oe_user ou ");
@@ -467,7 +467,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
-		
+		all.append(" oc.start_time as startTime, ");
 		all.append(" '最新课程' as note ");
 		
 		all.append(" from oe_course oc ,oe_user ou ");
@@ -490,7 +490,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			
 			all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
-			
+			all.append(" oc.start_time as startTime, ");
 			all.append(" om.name as note ");
 			all.append(" from oe_course oc, oe_menu om  ,oe_user ou ");
 			all.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id	and oc.is_delete=0 and oc.status=1 ");
@@ -535,7 +535,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
 		//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 		commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
-		commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time,");
+		commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
 		commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
 		commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 		commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
@@ -631,7 +631,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
-			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time,");
+			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
 			commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
 
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
@@ -709,7 +709,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
-			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time,");
+			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
 			commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
 
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
@@ -788,7 +788,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
-			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time,");
+			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
 			commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
 
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");

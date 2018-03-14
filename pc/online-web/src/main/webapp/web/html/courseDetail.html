@@ -282,28 +282,38 @@
              </p>
              {{/if}}
              <div class="bigpic-body-btn">
-             {{if apply}}
-                 {{if collection && type!=3}}
+             {{if apply}}               
+                 
+                 {{if collection == false}}
+                 	{{if type ==3}}
+	                    <a class="purchase" style="background-color:#ccc;border-radius:4px">已报名</a>
+	                {{else}}
+	                    {{if type==1}}
+	                        <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/livepage/{{id}}" >立即学习</a>
+	                    {{else if type==2}}
+                        <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
+                    	{{/if}}
+	                {{/if}}
+                 {{else }}
                     <a class="purchase" style="background-color:#ccc;border-radius:4px">您已购成功报名，可直接点击选集列表进行学习</a>
-                 {{/if}}  
-                 
-                 {{if collection == false && type!=3}}
-                    <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
                  {{/if}}
                  
-                 {{if collection == false && type ==3}}
-                    <a class="purchase" style="background-color:#ccc;border-radius:4px">已报名</a>
-                 {{/if}}
+                 
              {{else}}
 	             {{if selfCourse}}
 	             	{{if collection}}
 	             		<a class="purchase" style="background-color:#ccc;border-radius:4px">点击选集列表进行学习</a>
-	             		{{else}}
-	             		<a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即查看</a>
+	             	{{else}}
+	                     {{if type==1}}
+	                        <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/livepage/{{id}}" >立即查看</a>
+	                     {{else if type==2}}
+	                        <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即查看</a>
+                    	{{/if}}
+
 	             	{{/if}}
-	             	{{else if available}}
+	             {{else if available}}
 	                    <a class="sign-up purchase" data-apply="false" data-id="{{id}}" target="_blank">立即报名</a>
-	                {{else if available==false}}
+	             {{else if available==false}}
 	                	{{if status=='0'}}
 	                    <a class="purchase" style="background-color:#ccc;border-radius:4px">课程未上架，不可单独购买</a>
 						{{else}}
