@@ -312,11 +312,54 @@ function commonLocalStorageSetItem(data){
 	localStorage.setItem("occupation",configresult.occupation);
 	localStorage.setItem("occupationOther",configresult.occupationOther);
 	localStorage.setItem("occupationText",configresult.occupationText);
-	
-	
-	
-	
 }
+
+
+
+/**
+ * 公共的移除 localStorage 和cookie 的信息
+ * 
+ * @param data
+ */
+function commonLocalStorageRemoveItem(data){
+	
+	//删除所有的信息
+	localStorage.removeItem("token");
+	localStorage.removeItem("userId")
+	localStorage.removeItem("name");
+	localStorage.removeItem("smallHeadPhoto");
+	localStorage.removeItem("sex");
+	
+	localStorage.removeItem("provinceName");
+	localStorage.removeItem("cityName");
+	localStorage.removeItem("province");
+	
+	localStorage.removeItem("province");
+	localStorage.removeItem("city");
+	localStorage.removeItem("district");
+	
+	localStorage.removeItem("city");
+	localStorage.removeItem("email");
+	localStorage.removeItem("info");
+	localStorage.removeItem("username");
+	localStorage.removeItem("ticket");
+	
+	
+	localStorage.removeItem("occupation");
+	localStorage.removeItem("occupationOther");
+	localStorage.removeItem("occupationText");
+	
+
+	//删除  登录时用到的cookie
+	cookie.delete1("_uc_t_");
+	//删除  第三方登录时用到的cookie
+	cookie.delete1("third_party_uc_t_");
+}
+
+
+
+
+
 
 /** * 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)
 可以用 1-2 个占位符 * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) * eg: * (new

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
+import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
@@ -62,6 +63,9 @@ public class H5WeChatSetController {
 	
 	@Autowired
 	private OnlineUserMapper onlineUserMapper;
+	
+	@Autowired
+	private AppBrowserService appBrowserService;
 	
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
@@ -142,7 +146,7 @@ public class H5WeChatSetController {
 	
 	
 	/**
-	 * 个人中心    -- 我的页面
+	 * 国医学堂  -- 个人中心
 	 * Description：
 	 * @param req
 	 * @param res
@@ -159,8 +163,17 @@ public class H5WeChatSetController {
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		try {
 			String code = req.getParameter("code");
+			
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			String openid = wxw.getOpenid();
+			
+			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+			if(currentOnlineUser !=null){
+				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
+				return;
+			}
+			
+			LOGGER.info(" ==========================  " + req.getParameter("code"));
 			
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
@@ -222,7 +235,7 @@ public class H5WeChatSetController {
 	}
 	
 	/**
-	 * 在线课堂   -- 推荐页面
+	 * 国医学堂   -- 推荐页面
 	 * Description：
 	 * @param req
 	 * @param res
@@ -238,10 +251,15 @@ public class H5WeChatSetController {
 		try {
 			String code = req.getParameter("code");
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
-			
 			LOGGER.info("wxw===="+wxw);
-			
 			String openid = wxw.getOpenid();
+			
+			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+			if(currentOnlineUser !=null){
+				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
+				return;
+			}
+			
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
@@ -291,6 +309,79 @@ public class H5WeChatSetController {
 			//res.getWriter().write(e.getMessage());
 		}
 	}
+	
+	/**
+	 * 国医学堂  -- 学习中心
+	 * Description：
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("publicToLearningCenter")
+	public void publicToLearningCenter(HttpServletRequest req, HttpServletResponse res,
+			Map<String, String> params) throws Exception {
+		LOGGER.info("WX return code:" + req.getParameter("code"));
+		try {
+			String code = req.getParameter("code");
+			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+			LOGGER.info("wxw===="+wxw);
+			String openid = wxw.getOpenid();
+			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+			if(currentOnlineUser !=null){
+				res.sendRedirect(returnOpenidUri + "/xcview/html/my_study.html?openId="+openid);
+				return;
+			}
+			/**
+			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
+			 */
+			ConfigUtil cfg = new ConfigUtil(req.getSession());
+			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
+			if(StringUtils.isNotBlank(wxw.getClient_id())){
+				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
+				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
+				LOGGER.info("getLoginName===="+ou.getLoginName());
+			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+				ou.setTicket(t.getTicket());
+				onlogin(req,res,t,ou,t.getTicket());
+				/**
+				 * 清除这个cookie
+				 */
+				UCCookieUtil.clearThirdPartyCookie(res);
+				
+				if (openid != null && !openid.isEmpty()) {
+					res.sendRedirect(returnOpenidUri + "/xcview/html/my_study.html?openId="+openid);
+				} else{
+					res.getWriter().write(openid);
+				}	
+			}else{
+				/**
+				 * jump_type=1	跳到首页
+				 * jump_type=2	跳到我的页面
+				 */
+				/**
+				 * 写入这个cookie
+				 */
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(wxw.getOpenid());
+				tf.setUnionId(wxw.getUnionid());
+				tf.setNickName(wxw.getNickname());
+				tf.setHeadImg(wxw.getHeadimgurl());
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
+				
+				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
+				
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			//res.getWriter().write(e.getMessage());
+		}
+	}
+	
 	
 	/**
 	 * 登录成功处理

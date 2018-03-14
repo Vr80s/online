@@ -326,8 +326,8 @@
 		if(oc.is_free =0,0,1) as watchState,
 		 oc.collection as collection,
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
-    DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
-     AS lineState,
+   					 DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
+    					 AS lineState,
 		oc.address as address,
 		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,

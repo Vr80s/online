@@ -484,7 +484,7 @@ margin-top: 0.1rem;
 	clear: both;
 }
 .uesr_lable ul li{
-	padding: 0.08rem 0.46rem;
+	padding: 0.08rem 0.2rem;
 	background: #00BC12;
 border-radius: 8px;
 color: white;
@@ -839,11 +839,12 @@ color: #888888;
 }
 .list_box span{
 	float: right;
+	margin-top: 0.1rem;
 }
 .line-xu{
 	width: 100%;
 	height: 0.01rem;
-	background: #D8DDE6;
+	/*background: #D8DDE6;*/
 }
 .all_list{
 	width: 100%;
