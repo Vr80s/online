@@ -174,29 +174,7 @@ public class CourseApplyInfoController extends AbstractController{
 	@ResponseBody
 	public ResponseObject pass(Integer courseApplyId){
 		ResponseObject responseObj = new ResponseObject();
-		// 获得锁对象实例
-		RLock redissonLock = redissonUtil.getRedisson().getLock("courseApply-pass"+courseApplyId);
-
-		boolean resl = false;
-		try {
-			//等待3秒 有效期8秒
-			resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
-			if(resl){
-				courseApplyService.savePass(courseApplyId,UserHolder.getCurrentUser().getId());
-			}
-		}catch (RuntimeException e){
-			throw e;
-		}catch (Exception e){
-			e.printStackTrace();
-			throw new RuntimeException("网络错误，请重试");
-		}finally {
-			if(resl){
-				redissonLock.unlock();
-			}else{
-				throw new RuntimeException("网络错误，请重试");
-			}
-		}
-
+		courseApplyService.savePass(courseApplyId,UserHolder.getCurrentUser().getId());
 		responseObj.setSuccess(true);
 		responseObj.setErrorMessage("成功通过申请");
 		return responseObj;
@@ -212,28 +190,7 @@ public class CourseApplyInfoController extends AbstractController{
 	@ResponseBody
 	public ResponseObject notPass(@RequestBody CourseApplyInfo courseApplyInfo){
 		ResponseObject responseObj = new ResponseObject();
-		// 获得锁对象实例
-		RLock redissonLock = redissonUtil.getRedisson().getLock("courseApply-notPass"+courseApplyInfo.getId());
-
-		boolean resl = false;
-		try {
-			//等待3秒 有效期8秒
-			resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
-			if(resl){
-				courseApplyService.saveNotPass(courseApplyInfo,UserHolder.getCurrentUser().getId());
-			}
-		}catch (RuntimeException e){
-			throw e;
-		}catch (Exception e){
-			e.printStackTrace();
-			throw new RuntimeException("网络错误，请重试");
-		}finally {
-			if(resl){
-				redissonLock.unlock();
-			}else{
-				throw new RuntimeException("网络错误，请重试");
-			}
-		}
+		courseApplyService.saveNotPass(courseApplyInfo,UserHolder.getCurrentUser().getId());
 		responseObj.setSuccess(true);
 		responseObj.setErrorMessage("成功拒绝申请");
 		return responseObj;
