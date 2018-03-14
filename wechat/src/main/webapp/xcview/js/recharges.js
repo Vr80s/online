@@ -35,7 +35,7 @@ $(".header_return").click(function(){
 	var rechargesBlck = sessionStorage.getItem("recharges_blck");
 	if(rechargesBlck == 1){
 		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
-		location.href = "/xcview/html/purchase.html?courseId="+recharges_blck_param;
+		location.href = "/xcview/html/purchase.html?orderId="+recharges_blck_param;
 	}else if(rechargesBlck == 2){
 		location.href = "/xcview/html/my_wallet.html";
 	}else if(rechargesBlck == 3){
@@ -57,7 +57,7 @@ if (window.history && window.history.pushState) {
         var rechargesBlck = sessionStorage.getItem("recharges_blck");
     	if(rechargesBlck == 1){
     		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
-    		location.href = "/xcview/html/purchase.html?courseId="+recharges_blck_param;
+    		location.href = "/xcview/html/purchase.html?orderId="+recharges_blck_param;
     	}else if(rechargesBlck == 2){
     		location.href = "/xcview/html/my_wallet.html";
     	}else if(rechargesBlck == 3){
