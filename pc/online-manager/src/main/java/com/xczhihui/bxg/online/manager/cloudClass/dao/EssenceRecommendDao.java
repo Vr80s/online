@@ -40,6 +40,7 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 				 "  oc.is_recommend,\n" +
 				 "  oc.recommend_sort,\n" +
 				 "  oc.release_time,\n" +
+				 "  oc.sort_update_time as sortUpdateTime,\n" +
 				 "  oc.course_type AS serviceType,\n" +
 				 "  oc.user_lecturer_id AS userLecturerId,\n" +
 				 "  ou.`name` lecturerName,\n" +

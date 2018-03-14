@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
@@ -1608,17 +1609,27 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 
 	@Override
-	public void updateRecommendSort(Integer id,Integer recommendSort) {
+	public void updateRecommendSort(Integer id,Integer recommendSort, String recommendTime) {
 		String hqlPre="from Course where  isDelete = 0 and id = ?";
 		Course course= dao.findByHQLOne(hqlPre,new Object[] {id});
 		if (course!=null){
+			if(recommendTime!=null&&!recommendTime.equals("")){
+				course.setSortUpdateTime(DateUtil.parseDate(recommendTime,"yyyy-MM-dd HH:mm:ss"));
+			}
 			course.setRecommendSort(recommendSort);
-			course.setSortUpdateTime(new Date());
+			//course.setSortUpdateTime(new Date());
 			dao.update(course);
 		}
 	}
 
-	public String createWebinar(Course entity) {
+    @Override
+    public void updateDefaultSort() {
+        String sql=" update  oe_course  set recommend_sort=0 WHERE sort_update_time<= now()";
+        Map<String,Object> params=new HashMap<String,Object>();
+        dao.getNamedParameterJdbcTemplate().update(sql, params);
+    }
+
+    public String createWebinar(Course entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getGradeName());
 		webinar.setIntroduction(entity.getDescription());

@@ -16,7 +16,6 @@ $(function(){
 	var objData = [{ "title": checkbox,"class":"center","width":"60px","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
 				        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
 				    }},
-        {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
         { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":'id' },
         { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
         { "title": "所属学科", "class":"center","width":"6%","sortable":false,"data": 'xMenuName' },
@@ -62,23 +61,8 @@ $(function(){
     		} },    
         { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
-        
-        
-        /*{ "title": "是否精品推荐", "class":"center","width":"6%","sortable":false,"data": 'isEssence',"mRender":function (data, display, row) {
-        	if(data==1){
-        		return "<span name='jptj'>已推荐</span>";
-        	}else{
-        		return "<span name='sftj'>未推荐</span>";
-        	}
-        } },*/
         { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
-        /*{ "title": "是否分类推荐", "class":"center","width":"6%","sortable":false,"data": 'isTypeRecommend',"mRender":function (data, display, row) {
-        	if(data==1){
-        		return "<span name='fltj'>已推荐</span>";
-        	}else{
-        		return "<span name='sftj'>未推荐</span>";
-        	}
-        } },*/
+        { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
         { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
         
         { "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {

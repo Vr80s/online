@@ -482,10 +482,6 @@
             <a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">点播管理</a>
         </li>
-		<%--<li role="presentation">
-			<a href="#box_m" aria-controls="box_m" class="wkgl_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">微课管理</a>
-		</li>--%>
         <li role="presentation">
             <a href="#inbox" aria-controls="inbox" title="1" class="kctj_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">视频推荐</a>
@@ -494,10 +490,6 @@
             <a href="#inbox" aria-controls="inbox" title="2" class="kctj_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">音频推荐</a>
         </li>
-		<%--<li role="presentation">
-			<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程排序</a>
-		</li>--%>
     </ul>
  
     <!-- Tab panes -->
@@ -505,18 +497,9 @@
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<p class="col-xs-4" style="padding: 0;">
-					<%--<button class="btn btn-sm btn-success add_P" title="新增课程">
-						<i class="glyphicon glyphicon-plus"></i> 新增职业课
-					</button>--%>
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-					<%--<button class="btn btn-sm btn-success rec_P" title="设为推荐">
-						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
-					</button>--%>
-					<!-- <button class="btn btn-sm btn-success rec_jp" title="设为精品推荐">
-						<i class="glyphicon glyphicon-cog"></i> 设为精品推荐 
-					</button> -->
 				</p>
 			
 			<div class="searchDivClass" id="searchDiv">
@@ -557,16 +540,7 @@
 			                            <input type="hidden" value="search_scoreType" class="propertyName"/>
 			                        </div>
 			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="search_isRecommend" id="search_isRecommend" value="" class="propertyValue1" >
-						               		<option value="">是否已推荐</option>
-						                        <option value="1">已推荐</option>
-						                        <option value="0">未推荐</option>
-						               </select>
-			                            <input type="hidden" value="search_isRecommend" class="propertyName"/>
-			                        </div>
-			                    </td>
+
 			                    <td>
 			                        <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
 			                                onclick="search_P();">
@@ -731,10 +705,11 @@
 							    <col width='7%'></col>
                                 <col width='7%'></col>
 								<col width='7%'></col>
-							    <col width='9%'></col>
+							    <col width='8%'></col>
 							    <col width='8%'></col>
 							    <col width='11%'></col>
 								<col width='11%'></col>
+								<col width='8%'></col>
 							    <col width='13%'></col>
 							</colgroup>
 						</table>
@@ -1363,6 +1338,12 @@
 			<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>推荐值: </label>
 			<div class="col-sm-6">
 				<input type="text" name="recommendSort"  id="recommendSort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="courseName">推荐时效: </label>
+			<div class="col-sm-6 searchTr">
+				<input type="text" class="datetime-picker propertyValue1"  id="recommendTime" name="recommendTime" placeholder = "推荐时效" style="width:150px"/>
 			</div>
 		</div>
 	</form>

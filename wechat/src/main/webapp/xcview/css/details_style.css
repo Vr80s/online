@@ -275,6 +275,7 @@ div.pinch-zoom,
     margin-right: 0;
     border-radius: 0;
     font-size: 0.75rem;
+    margin-top: -0.025rem;
 }
 .fd_img_bg{
     width: 5.532rem;
@@ -404,7 +405,7 @@ div.pinch-zoom,
 .send_gifts .balance{
 	padding: 0;
     height: 2.085rem;
-    border-top: 1px solid #f0f0f0;
+    /*border-top: 1px solid #f0f0f0;*/
 }
 .send_gifts{
 	height: 11.234rem;

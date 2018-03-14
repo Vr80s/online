@@ -623,10 +623,11 @@
 								<col width='12%'></col>
 								<col width='8%'></col>
 								<col width='8%'></col>
+								<col width='7%'></col>
 								<col width='8%'></col>
-								<col width='10%'></col>
-								<col width='14%'></col>
-								<col width='8%'></col>
+								<col width='13%'></col>
+								<col width='13%'></col>
+								<col width='6%'></col>
 								<col width='10%'></col>
 							</colgroup>
 						</table>
@@ -1273,6 +1274,12 @@
 			<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>推荐值: </label>
 			<div class="col-sm-6">
 				<input type="text" name="recommendSort"  id="recommendSort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="courseName">推荐时效: </label>
+			<div class="col-sm-6 searchTr">
+				<input type="text" class="datetime-picker propertyValue1"  id="recommendTime" name="recommendTime" placeholder = "推荐时效" style="width:150px"/>
 			</div>
 		</div>
 	</form>

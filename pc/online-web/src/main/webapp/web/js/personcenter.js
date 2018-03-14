@@ -389,7 +389,7 @@ $(function() {
 		
 		'<div class="cy-myprofile-myfom-dv-1">' +
 		'<div class="buer"><span class="red">*</span>用户名:</div>' +
-		'<input type="text" maxlength="15" class="firsname ipt"/>' +
+		'<input type="text" maxlength="20" class="firsname ipt"/>' +
 		'<span class="nick-warn-name warning">用户名不能为空</span>' +
 		'</div>' +
 		
@@ -587,7 +587,7 @@ $(function() {
 //		'<p class="warn">职业课程需要填写报名信息，只需填写一次，适应于其他所有课程；</br>此信息不公开显示，只是为了方便老师通知课程信息，提供优质课程服务；</br>如果您是法律在线（面授、双元、熊猫中医职业课程）的学员，请在证件号中输入您的身份证号验证您的身份（针对老学员会有优惠）；</p>' +
 		'<div class="cy-myprofile-myfom-dv-1" style="margin-bottom:12px">' +
 		'<div class="buer"><i class="red">*</i>姓名:</div>' +
-		'<input type="text" maxlength="15" class="truename ipt"/>' +
+		'<input type="text" maxlength="20" class="truename ipt"/>' +
 		'<span class="true-warn warning">真实姓名不能为空</span>' +
 		'</div>' +
 		

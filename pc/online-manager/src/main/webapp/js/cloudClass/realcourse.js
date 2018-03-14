@@ -147,18 +147,8 @@ debugger;
     		return data="<span name='zt'>已禁用</span>";
     	}
     } },
-    /*{title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
-    	var str;
-    	if(row.status ==1){//如果是禁用
-    		str='<a class="blue" name="upa_a" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-        	'<a class="blue" href="javascript:void(-1);" name="downa_a" title="下移" onclick="downMoveRec(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-    	}else{//如果是不禁用
-    		str='<a class="gray" href="javascript:void(-1);" title="上移"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-        	'<a class="gray" href="javascript:void(-1);" title="下移" ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-    	}
-    	return '<div class="hidden-sm hidden-xs action-buttons">'+str;
-    }},*/
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
+    { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
     { "title": "推荐值", "class":"center","width":"10%","sortable":false,"data": 'recommendSort' },
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 		return '<div class="hidden-sm hidden-xs action-buttons">'+
@@ -1314,7 +1304,7 @@ function updateRecommendSort(obj,key){
         row = _courseRecTable.fnGetData(oo); // get datarow
 	}
     $("#UpdateRecommendSort_id").val(row.id);
-    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,300,true,"确定",function(){
         if($("#UpdateRecommendSortFrom").valid()){
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updateRecommendSort");

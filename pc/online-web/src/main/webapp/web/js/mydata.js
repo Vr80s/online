@@ -717,7 +717,7 @@ function addgetdata() { //回填数据
 //			$('.Province1 option:selected').val(data.resultObject.province);	
 //			$('.Province1 option:selected').text(data.resultObject.provinceName)
 //			console.log(data.resultObject.province )
-			$(".Province1 option[value="+data.resultObject.province+"]").attr('selected','selected');
+			$(".Province1 option[name="+data.resultObject.provinceName+"]").attr('selected','selected');
 			
 			}
 		}

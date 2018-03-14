@@ -545,6 +545,7 @@ color: #666666;
 	border: 0.01rem solid #F97B49;
 	font-size: 0.25rem;
 	margin-top: 0.1rem;
+	border-radius: 4px;
 }
 /*底部购买价格*/
 .bot_price{

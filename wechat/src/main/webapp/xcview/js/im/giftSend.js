@@ -138,12 +138,12 @@ function giftShow(gift, f,continuous) {
     }
 
     if (gift.messageType == 1) { // 礼物
-        var bottom = countChange()
-        gif[f] = $("<li class='animation' id='gift"+f+"' style='position: absolute;bottom: "
+        var bottom = countChange(f)
+        gif[f] = $("<li class='animation' id='gift"+f+"' style='position: absolute;top: "
             + bottom
             + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
             + gift.senderInfo.userName
-            + "</p><p class='animation_name_p2'>送 "
+            + "</p><p class='animation_name_p2'>送出"
             + gift.giftInfo.name
             + "</p></div><div class='animation_gift'><img src='"
             + gift.giftInfo.smallimgPath
@@ -158,7 +158,7 @@ function giftShow(gift, f,continuous) {
         }
 
     } else if (gift.messageType == 0) { // 红包
-        var bottom = countChange()
+        var bottom = countChange(f)
         gif[f] = $("<li class='animation' style='position: absolute;bottom: "
             + bottom
             + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
@@ -285,20 +285,17 @@ function createGiftShow() {
 }
 
 // 生成礼物
-var count = 1;
-function countChange() {
-    if (count == 1) {
+//var count = 1;
+function countChange(count) {
+    if (count == 3) {
         count = 2;
-        return 11;
-//      return 14;
+        return 15.4;
     } else if (count == 2) {
         count = 3;
-        return 7.7;
-//      return 14;
+        return 13.9;
     } else {
         count = 1;
-        return 5.5;
-//      return 14;
+        return 11.4;
     }
 }
 var gif = [];

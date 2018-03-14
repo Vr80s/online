@@ -398,6 +398,11 @@ function refreshGiftRanking() {
 			},
 			function(data) {
 				if (data.success) {
+					if(data.resultObject.length==0 || data.resultObject.length==""){
+						$("#phbList").css({"background":"#f8f8f8"})
+						$(".no_git").show()
+					}else{
+			
 					var list = data.resultObject;
 					var html = "";
 					for (var i = 0; i < list.length; i++) {
@@ -448,6 +453,8 @@ function refreshGiftRanking() {
 
 					}
 					$("#phbList").html(html);
+								
+					}
 				}
 			}, false);
 

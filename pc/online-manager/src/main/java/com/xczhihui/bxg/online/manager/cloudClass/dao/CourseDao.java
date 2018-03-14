@@ -140,7 +140,7 @@ public class CourseDao extends HibernateDao<Course>{
 				+ 			 "			     AS liveStatus, " 
 			
 				 + "oc.create_time as createTime,oc.collection as collection,oc.start_time as startTime,oc.release_time,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,ou.name  as lecturerName,oc.city as realCitys,"
-				 + "oc.current_price*10 as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"
+				 + "oc.current_price*10 as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.sort_update_time as sortUpdateTime,"
 				 + "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.rec_img_path,oc.course_type as serviceType FROM oe_course oc "
 				 + "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
 				 + "LEFT JOIN teach_method tm ON tm.id = oc.courseType left join oe_user as ou on oc.user_lecturer_id = ou.id "
@@ -181,7 +181,7 @@ public class CourseDao extends HibernateDao<Course>{
 		 /*paramMap.put("isRecommend","1");//只查询已推荐的课程
 		 sql.append(" and oc.is_recommend = :isRecommend ");*/
 		 
-		 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc");
+		 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc ");
 		 System.out.println(sql.toString());
 		 return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 

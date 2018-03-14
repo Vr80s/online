@@ -231,7 +231,6 @@ $(function(){
 	<div class="footer_k" style="height: 10.6rem;"></div>
 	<!-- 详情聊天开始 -->
 	
-		
 	<div class="coze" style="height: 11rem">
 		<!--关注开始-->
 		<div class="attention" id="attention">
@@ -380,9 +379,7 @@ $(function(){
 			<img src="/xcview/images/fenxiang1.png" />
 		</div>
 	</div>
-
 	<!-- 直播送礼物开始 -->
-
 	<div class="send_gifts" style="display: block1 !important;">
 		<div class="send_gifts_div0">
 			<!--<p class="send_gifts_p">送礼物</p>-->
@@ -404,22 +401,16 @@ $(function(){
 		</div>
 
 		<div class="both"></div>
+
 		<div class="balance">
-			<div class="balance_size">   <!--onClick="window.location='recharges.html?recharges_blck=3'"  这是跳转到充值页面的-->
-				<!--熊猫币<span id="xmbShowSpan" style="color: #F97B49;font-size: 0.6rem;">加载中...</span><img src="/xcview/images/rightj.png" alt="" />-->
+			<div class="balance_size">
 				熊猫币<span id="xmbShowSpan" style="color: #F97B49;font-size: 0.6rem;">加载中...</span>
 			</div>
-			<!--<div class="balance_size">
-				熊猫币：<span id="xmbShowSpan">加载中...</span>
-			</div>-->
-			<!--<div calss="" style="font-size: 0.6rem;float: left;margin-top: 0.4rem;margin-right: 0.2rem;color: #ff2020;">去充值</div>-->
 			<div class="count" style="display: none !important;">
 				<div class="count_cen" style="width:5rem;margin-left: 0.4rem;">
 					<div class="count_cen_size">礼物数量：</div>
 					<div id="import">
-						 <!-- <div class="import" contenteditable="false"></div> -->
-						
-						<div class="import_div"><input text="tel" id="giftCoun class="import" value="1" ></div>
+						<div class="import_div"><input text="tel" id="giftCoun" class="import" value="1" ></div>
 						<div class="import_hide">
 							<!-- <div class="import4">其他数量</div> -->
 							<div class="import1">100</div>
@@ -434,6 +425,7 @@ $(function(){
 			<div class="balance_send">发送</div>
 		</div>
 	</div>
+	
 	<!-- 直播送礼物结束 -->
 
 
@@ -511,6 +503,13 @@ $(function(){
 
 	<!-- 排行榜开始 -->
 	<div class="leaderboard" id="phbList" style="margin-top: 0.3rem;">
+		
+		<div class="no_git" style="display: none;">
+			<div class="no_git_pic">
+				
+			</div>
+			<p style="font-size: 0.63rem; color: #BBBBBB;padding: 1.11rem 0;">没人送礼物？快去打赏主播吧~</p>
+		</div>
 	</div>
 	
 	<!-- 排行榜结束 -->
@@ -558,6 +557,8 @@ $(function(){
 			</div>
 		</footer>
 	</div>
+
+	
 	<!-- 底部购买结束 -->
 
 	<!-- 密码开始 -->
@@ -616,7 +617,7 @@ $(function(){
 //		关注几秒后隐藏
 		setTimeout(function(){document.getElementById("attention").style.display="none";},10000);
 		
-		<!--点击礼物关闭按钮-->
+//		<!--点击礼物关闭按钮-->
 		$(".send_gifts_ul .div .span1").click(function(){
 			$(".send_gifts").hide();
 		});
