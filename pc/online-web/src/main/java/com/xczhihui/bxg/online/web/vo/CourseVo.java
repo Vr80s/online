@@ -338,7 +338,9 @@ public class CourseVo{
 	}
 
 	public void setStartTime(Date startTime) {
-		setWeek(getWeekOfDate(startTime));
+        if(startTime!=null){
+            setWeek(getWeekOfDate(startTime));
+        }
 		this.startTime = startTime;
 	}
 

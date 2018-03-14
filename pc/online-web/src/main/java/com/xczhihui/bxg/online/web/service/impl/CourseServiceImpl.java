@@ -1,37 +1,33 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.common.util.SmsUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.CourseSubscribeDao;
 import com.xczhihui.bxg.online.web.dao.ScoreTypeDao;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.LecturerService;
-import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
-import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
-import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
-import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.LecturVo;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.bxg.online.web.vo.*;
+import org.aspectj.util.FileUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  *   CourseServiceImpl:课程业务层接口实现类
@@ -63,18 +59,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     public Page<CourseLecturVo> courseList(Integer menuType, Integer menuId, String couseTypeId, String multimediaType, String isFree, String orderType, String orderBy, Integer pageNumber, Integer pageSize) {
         //获取当前课程列表数据
         Page<CourseLecturVo>  page = coursedao.listZyktCourse(menuType,menuId,couseTypeId,multimediaType,isFree,orderType,orderBy,pageNumber,pageSize);
-        //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-//        if(!CollectionUtils.isEmpty(page.getItems())){
-//            for (CourseLecturVo courseLecturVo :page.getItems()) {
-//                String name = "暂无讲师";
-//                OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
-//                if(onlineUser!=null) {
-//                    name = onlineUser.getName();
-//                }
-//                courseLecturVo.setName(name);
-//            }
-//        }
-
         return  page;
     }
 
@@ -89,18 +73,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     public   Page<CourseLecturVo>  getCourseAndLecturerlist(Integer type, Integer menuId, String couseTypeId, Integer pageNumber, Integer pageSize){
         //获取当前课程列表数据
         Page<CourseLecturVo>  page = coursedao.getCourseAndLecturerlist(type,menuId, couseTypeId,  pageNumber,  pageSize);
-        //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-        /*if(!CollectionUtils.isEmpty(page.getItems())){
-            for (CourseLecturVo courseLecturVo :page.getItems()) {
-            	String name = "暂无讲师";
-            	OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
-            	if(onlineUser!=null) {
-                    name = onlineUser.getName();
-                }
-            	courseLecturVo.setName(name);
-            }
-        }*/
-
         return  page;
     }
 
@@ -157,27 +129,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @return Example 分页列表
      */
     @Override
-    public CourseVo getCourseById( Integer courseId,String ispreview,HttpServletRequest request,OnlineUser ou) {
+    public CourseVo getCourseById( Integer courseId,String path,HttpServletRequest request,OnlineUser ou) throws IOException {
         //根据当前课程ID，查找对应的课程信息
-        CourseVo courseVo =  coursedao.getCourseById(courseId,ispreview,request);
-        String  names="";
-        //如果此课程存在,再根据课程ID 查找此课程下的老师
-        if(courseVo != null){
-        	String name = "暂无讲师";
-        	String teacherDescription="";
-        	OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
-        	if(onlineUser!=null){
-        		name=onlineUser.getName();
-        		teacherDescription=onlineUser.getDescription();
-        		
-        		if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){// 20170105---杨宣
-            		courseVo.setSelfCourse(true);
-            	}
-        	}
-        	courseVo.setTeacherName(name);
-        	courseVo.setTeacherNames(name);
-			courseVo.setTeacherDescription(teacherDescription);
-        }
+        CourseVo courseVo =  coursedao.getCourseById(courseId,request);
+        File f = new File(path+File.separator+"/course_common_problem.html");
+        courseVo.setCommonProblem(FileUtil.readAsString(f));
         return  courseVo;
     }
     
@@ -422,6 +378,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     @Override
     public List<CourseVo> getCoursesByCollectionId(Integer collectionId) {
         return  coursedao.getCoursesByCollectionId(collectionId);
+    }
+
+    @Override
+    public List<CourseVo> getCoursesRecommendByType(Integer type) {
+        return coursedao.getCoursesRecommendByType(type);
     }
 
 }

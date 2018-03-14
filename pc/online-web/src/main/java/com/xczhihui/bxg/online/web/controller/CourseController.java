@@ -17,6 +17,8 @@ import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.CourseService;
 
+import java.io.IOException;
+
 /**
  * 课程控制层实现类
  * @author Rongcai Kang
@@ -60,9 +62,10 @@ public class CourseController {
          * @return Example 分页列表
          */
         @RequestMapping(value = "/getCourseById" )
-        public ResponseObject getCourseById(Integer courserId,String ispreview,HttpServletRequest request) {
+        public ResponseObject getCourseById(Integer courserId,String ispreview,HttpServletRequest request) throws IOException {
         	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
-            return ResponseObject.newSuccessResponseObject(service.getCourseById(courserId, ispreview, request,loginUser));
+            String path = request.getServletContext().getRealPath("/template");
+            return ResponseObject.newSuccessResponseObject(service.getCourseById(courserId, path, request,loginUser));
         }
 
         /**
@@ -170,7 +173,6 @@ public class CourseController {
      */
     @RequestMapping(value = "/findCourseOrderById")
     public ResponseObject findCourseOrderById(Integer  courseId,HttpServletRequest request){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return ResponseObject.newSuccessResponseObject(service.findCourseOrderById(courseId));
     }
 
@@ -183,7 +185,6 @@ public class CourseController {
         return ResponseObject.newSuccessResponseObject(service.checkCouseInfo(orderId));
 
     }
-
 
     /**
      * 获取当前课程下学员评价
@@ -204,8 +205,6 @@ public class CourseController {
     public ResponseObject getGoodCriticizSum(Integer courseId) {
         return  ResponseObject.newSuccessResponseObject(service.getGoodCriticizSum(courseId));
     }
-
-
 
     /**
      * 获取课程目录
@@ -238,35 +237,26 @@ public class CourseController {
     public ResponseObject subscribe(String mobile, Integer courseId, HttpSession session) throws ClientException {
         OnlineUser u =  (OnlineUser)session.getAttribute("_user_");
         if(u==null) {
-            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+            return ResponseObject.newErrorResponseObject("用户未登录");
         }
         return service.insertSubscribe(u.getId(),mobile,courseId);
     }
     
     @RequestMapping(value = "/courses")
     public ModelAndView courses(Integer courseId) throws ClientException {
-    	String page = service.getCoursesPage(courseId);
-		ModelAndView m = null;
-//		if(!"".equals(page)){
-//			m=new ModelAndView("redirect:/web/html/"+page+"?courseId="+courseId);
-//		}else{
-//			m=new ModelAndView("redirect:/");
-//		}
-        m=new ModelAndView("redirect:/web/html/courseDetail.html?courseId="+courseId);
+		ModelAndView m =new ModelAndView("redirect:/web/html/courseDetail.html?courseId="+courseId);
     	return m;
     }
 
 
     @RequestMapping(value = "/courses/{courseId}")
     public ModelAndView coursesJump(@PathVariable Integer courseId) throws ClientException {
-        String page = service.getCoursesPage(courseId);
-        ModelAndView m = null;
-//        if(!"".equals(page)){
-//            m=new ModelAndView("redirect:/web/html/"+page+"?courseId="+courseId);
-//        }else{
-//            m=new ModelAndView("redirect:/");
-//        }
-        m=new ModelAndView("redirect:/web/html/courseDetail.html?courseId="+courseId);
+        ModelAndView m = new ModelAndView("redirect:/web/html/courseDetail.html?courseId="+courseId);
         return m;
+    }
+
+    @RequestMapping(value = "/courses/recommend/{type}")
+    public ResponseObject coursesRecommend(@PathVariable Integer type) throws ClientException {
+        return ResponseObject.newSuccessResponseObject(service.getCoursesRecommendByType(type));
     }
 }
