@@ -50,7 +50,9 @@
                     wxurl = "http://test-wx.ixincheng.com";
                 }
 			})();
-			var qrcodeurl = wxurl+"/wx_share.html?courseId="+course_id;
+			//-- shareType 分享类型 1 课程  2 主播
+			var qrcodeurl = wxurl+"/wx_share.html?shareType=1&shareId="+course_id;
+			
 			$(document).ready(function() {
 				$("#qrcodeCanvas1").qrcode({
 					render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
