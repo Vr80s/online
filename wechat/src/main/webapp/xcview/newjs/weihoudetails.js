@@ -365,7 +365,7 @@ $(document).ready(function() {
             	
             	var userName = item.user_name;
             	if(vhallId == item.account_id){ //说明是主播
-            		userName = "主播    "+userName;
+            		userName = "<span class='span_zhubo'>主播</span>    "+userName;
             	}
         		 str += "<div class='coze_cen_ri'> "+
     			"  <div class='coze_cen_bg_ri'> "+
@@ -399,7 +399,7 @@ $(document).ready(function() {
             	var item = res.data[i];
             	var userName = item.user_name;
             	if(vhallId == item.account_id){ //说明是主播
-            		userName = "主播    "+userName;
+            		userName = "<span class='span_zhubo'>主播</span>    "+userName;
             	}
         		 str += "<div class='coze_cen_ri'> "+
     			"  <div class='coze_cen_bg_ri'> "+
