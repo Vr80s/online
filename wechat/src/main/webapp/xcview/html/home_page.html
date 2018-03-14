@@ -539,7 +539,10 @@
             	<script type="text/html" id="acupunctures">
             		{{each items as item i}}
             		<div class="acupuncture">
-                		<div class="boutique_title all_class">{{item.title}}</div>
+                		<div class="boutique_title all_class">
+                			{{item.title}}
+                			<img src="/xcview/images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;">
+                		</div>
                 		<div class="boutique_main">
                 			<ul>
                 				{{each item.courseList as item i}}

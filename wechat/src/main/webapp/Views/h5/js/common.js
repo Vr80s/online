@@ -16,8 +16,11 @@ function is_weixin(){
     }
 }
 
+
 var accessCommon = localStorage.access;
-var current = location.href;
+
+var current = window.location.search;
+//当前域名
 var domain = window.location.host;
 /**
  * 得到  online-web 的测试或者生成域名 
@@ -36,7 +39,7 @@ function getServerHost(){
 		return server_domain;
 	}
 	if(!stringnull(server_domain)){
-		return "http://www.ixincheng.com"; 
+		return "http://www.ipandatcm.com"; 
 	}
 	return server_domain; 
 }
@@ -70,11 +73,11 @@ function h5PcConversions(falg,courserId){
 	if(!(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
 			browser.versions.iPhone || browser.versions.iPad)){    
 		
-		var nihao   = getServerHost();
+		var front_area = getServerHost();
 		if(falg ){//ture
-			window.location = nihao+"/course/courses?courseId="+courserId
+			window.location = front_area+"/course/courses/"+courserId
 		}else{
-			window.location = nihao;
+			window.location = front_area;
 		}
 		return false;
 	}else{
@@ -83,11 +86,13 @@ function h5PcConversions(falg,courserId){
 }
 /**
  *  如果页面来自课程的访问就不跳到官网
+ *    所有的课程页面--》
  */
-if(current.indexOf("/xcviews/html/share.html")==-1
-	 && current.indexOf("/xcviews/html/foreshow.html")==-1
-		&& current.indexOf("/bxg/xcpage/courseDetails")==-1
-		&& current.indexOf("/xcviews/html/particulars.html")==-1){
+if(current.indexOf("/xcview/html/share.html")==-1
+	&& current.indexOf("/xcview/html/foreshow.html")==-1
+	&& current.indexOf("/bxg/xcpage/courseDetails")==-1
+	&& current.indexOf("/xcviews/html/particulars.html")==-1){
+	
 	
 	h5PcConversions(false);
 }
@@ -155,7 +160,7 @@ function isLoginJump(){
 			  		before_address.indexOf("live_play.html")!=-1 ||   //直播展示页后面播放页
 			  		before_address.indexOf("live_personal.html")!=-1){  //主播页
 		  
-		  history.back(-1);
+		   history.back(-1);
 	  }else{
 		   location.href = "home_page.html";
 	  }
