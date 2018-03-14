@@ -69,11 +69,51 @@
         <div class="sidebar-body">
             <div class="sidebar-body-details">
                 <div class="details-title">
-                    <p class="sidebar-body-details-title">熊猫中医云课堂</p>
+                    <p class="sidebar-body-details-title">推荐课程</p>
                 </div>
-                <p class="details-body">
+                
+               	<!--右侧新增加的推荐课程的列表部分-->
+            	<ul class="RecommendClass_list clearfix">
+            		
+            		<!--中以学习中的课程样式-->
+            		<li>
+            			<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
+            			<a href="/course/courses/893" style="display: block;width: 100%;height: 100%;">
+            				<div class="class_img">
+	            				<img src="/web/images/pandaLogo.jpg" alt="" />
+	            				<span class="class_type">视频专辑</span>
+            				</div>
+	            			<div class="class_inf">
+	            				<span class="class_title">点播小客车</span>
+	            				<p>讲师：张三</p>
+	            				<div class="class_price_count clearfix">
+	            					<span class="class_price">免费</span><span class="class_Studycount"><em></em>3</span>
+	            				</div>
+	            			</div>
+            			</a>
+            		</li>
+            		
+            		<!--线下课中的课程样式-->
+            		<li>
+            			<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png" class="hide">
+            			<a href="/course/courses/893" style="display: block;width: 100%;height: 100%;">
+            				<div class="class_img">
+	            				<img src="/web/images/pandaLogo.jpg" alt="" />
+	            				<span class="class_type hide">视频专辑</span>
+            				</div>
+	            			<div class="class_inf">
+	            				<span class="class_title">点播小客车</span>
+	            				<p>讲师：张三</p>
+	            				<p>地址：河南省-商丘市 牛逼的线下课程</p>
+	            				<p>时间：2018/02/15-2018/02/24</p>
+	            			</div>
+            			</a>
+            		</li>
+            	</ul>
+            	
+                <!--<p class="details-body">
                     熊猫中医。整合线下优质课程和纯熟的教学经验，开展在线教育，突破空间、地域、时间、费用的限制，让优质教育资源平等化。
-                </p>
+                </p>-->
             </div>
             <div class="relative-course">
                 <div class="relative-course-top clearfix"><span>推荐课程</span><span class="by-the-arrow"
@@ -103,19 +143,94 @@
                 <span class="table-zhanwei"></span>
             </div>
         </div>
-        <div class="pagesBox clearfix" style="padding-bottom: 40px;position: relative;">
+        <div class="pagesBox clearfix" style="padding-bottom: 40px;position: relative;width: 890px;">
             <div class="table-modal">
                 <div class="pic"><p>
-                    江西中医药大学岐黄国医书院院长，江西中医药大学姚荷生研究室主任，江西中医药大学特聘教授，江西省名誉名中医，全国名老中医药专家传承工作室建设项目专家，中医内科学博士生导师。 &nbsp; &nbsp;
+                    <!--江西中医药大学岐黄国医书院院长，江西中医药大学姚荷生研究室主任，江西中医药大学特聘教授，江西省名誉名中医，全国名老中医药专家传承工作室建设项目专家，中医内科学博士生导师。 &nbsp; &nbsp;
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; &nbsp;</p></div>
+                    &nbsp; &nbsp; &nbsp;-->
+                </p>
+                </div>   
             </div>
-            <div class="pages" style="display: none;">
+            <!--<div class="pages" style="display: none;">
                 <div id="Pagination" style="position: absolute;bottom: 0;left: 50%;transform: translateX(-50%);"></div>
-            </div>
+            </div>-->
+            
+            
+			<!--学院评价隐藏部分 从其他位置迁移过来的-->
+            
+            <div class="videoBody-bottom hide" id="videoBody-bottom">
+				<div class="videoBody-bottom-left">
+					<div class="videoBody-bottom-left-title">
+						<span data-md="pingjia" class="act">评价</span>
+					</div>
+					<div>
+						<div class="pingjia clearfix" data-md="pingjia">
+							<div class="videoBody-bottom-left-release">
+								<!--<p>视频评分：<em class="releaseStars" style="margin-left:17px;"></em><span class="starText">五星好评！相信品牌的力量！</span></p>-->
+								
+								<span style="margin-top: 40px;margin-top: 40px;float: left;font-size: 14px;">学习感受：</span>
+								<textarea style="resize: none;" class="textStatus" placeholder="写下体验之后的真实感受，帮助我们不断优化课程产品，为大家提供更优质的服务~" maxlength="200" wrap="hard" onkeyup="countChar()"></textarea>
+								<span class="tishiText">可以输入<span id="textCounter">200</span>字</span>
+								<p><em class="tipRelease">请写下您不满意的地方，我们将努力改进！</em><span class="getRelease">提交评论</span></p>
+							</div>
+							<div class="videoBody-bottom-left-list">
+
+							</div>
+						</div>
+						<div class="biji clearfix" data-md="biji">
+							<div class="biji-title">
+								<span class="act" data-type="0">全部笔记</span><em>|</em><span data-type="1">我的笔记</span>
+							</div>
+							<div class="tips">
+								<p>确定删除此条笔记？</p>
+								<div>
+									<span class="ok">确定</span>
+									<span class="no">取消</span>
+								</div>
+							</div>
+							<div class="biji-content clearfix">
+							
+							</div>
+						</div>
+						<div class="wenda clearfix" data-md="wenda">
+							<div class="tips">
+								<p>确定删除此条问答？</p>
+								<div>
+									<span class="ok">确定</span>
+									<span class="no">取消</span>
+								</div>
+							</div>
+							<div class="wenda-title">
+								<span class="act" data-type="1">全部</span><em>|</em><span data-type="2">我的提问</span>
+							</div>
+							<div class="wenda-content clearfix">
+								
+							</div>
+						</div>
+					</div>
+					<div class="pages" style="display: none">
+						<div id="Pagination"></div>
+						<!--<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>-->
+					</div>
+				</div>
+			</div>
+            
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
 
 <script type="text/template" id="course_detail_title_tpl">
     <div class="bigpic-title">
@@ -128,14 +243,20 @@
                 <span class="bigpic-body-title-nav">{{courseName}}</span>
             </span>
             <p class="bigpic-body-text dot-ellipsis" title="" style="word-wrap: break-word;"></p>
-            <p class="bigpic-body-list">
+            <p class="bigpic-body-list" style="line-height: 24px;">
                 <span class="body-list-right">主讲：{{teacherName}}</span>
                 {{if collection == false}}
-                <span class="body-list-right myTimes" title="课程时长" style="cursor:default">课程时长：{{courseLength}}分钟</span>
+                <!--<span class="body-list-right myTimes" title="课程时长" style="cursor:default">课程时长：{{courseLength}}分钟</span>-->
+                <span title="课程开始时间" class="myTimes" style="cursor:default;color:#999;" class="">课程开始时间：{{start_time}}&nbsp;{{week}}</span>
+ 
                 {{else}}
                 <span class="body-list-right myTimes" title="总集数" style="cursor:default">总集数：{{courseNumber}}</span>
                 {{/if}}
-                <span title="学习人数" style="cursor:default">学习人数：{{learndCount==null?0:learndCount}}人已学习</span>
+                <span title="学习人数" style="cursor:default">学习人数：{{learndCount==null?0:learndCount}}人</span>
+                {{if type == 3}}
+                <br />
+                <span title="地址" style="cursor:default;margin: 10px 0;">地址：{{address}}</span>
+                {{/if}}
                 <!--{{if type!=3}}-->
                 <!--<span title="有效期" style="cursor:default;color:#333;" class="youxiaoqi">有效期：1年-->
                 <!--{{else}}-->
@@ -147,7 +268,7 @@
                 {{/if}}
                 </span>
                 {{if type==3}}
-                <br><span title="课程开始时间" style="cursor:default;color:#999;" class="">课程开始时间：{{start_time}}&nbsp;{{week}}</span>
+                <!--<br><span title="课程开始时间" style="cursor:default;color:#999;" class="">课程开始时间：{{start_time}}&nbsp;{{week}}</span>-->
                 {{/if}}
             </p>
              {{if free}}
@@ -162,10 +283,16 @@
              {{/if}}
              <div class="bigpic-body-btn">
              {{if apply}}
-                 {{if collection}}
+                 {{if collection && type!=3}}
                     <a class="purchase" style="background-color:#ccc;border-radius:4px">您已购成功报名，可直接点击选集列表进行学习</a>
-                 {{else }}
+                 {{/if}}  
+                 
+                 {{if collection == false && type!=3}}
                     <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
+                 {{/if}}
+                 
+                 {{if collection == false && type ==3}}
+                    <a class="purchase" style="background-color:#ccc;border-radius:4px">已报名</a>
                  {{/if}}
              {{else}}
 	             {{if selfCourse}}
@@ -211,6 +338,16 @@
     $(function () {
         $('input').placeholder();
     });
+    
+    
+		function countChar(textareaName, spanName) {
+			var num = 200 - $(".textStatus").val().length;
+			if(num >= 0) {
+				$("#textCounter").html(num);
+			} else {
+				$("#textCounter").html(0);
+			}
+		}
 </script>
 </body>
 </html>
