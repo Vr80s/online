@@ -45,7 +45,7 @@ function stripHTML(str){
 	    var	videoId = data.resultObject.directId;
 	    var	type = data.resultObject.type;	
 		//初始化视频资源
-		chZJ(videoId,type);
+		chZJ(videoId,type,smallImgPath);
         //获取讲师id
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
@@ -105,7 +105,7 @@ function stripHTML(str){
  * videoId : 视频播放id
  * multimediaType:媒体类型  1
  */
-function chZJ(videoId,multimediaType){
+function chZJ(videoId,multimediaType,smallImgPath){
 	/**
 	 * 请求代码啦
 	 */
@@ -116,6 +116,7 @@ function chZJ(videoId,multimediaType){
 		playerwidth:playerwidth,	
 		playerheight:playerheight,
 		videoId:videoId,
+		smallImgPath:smallImgPath,
 		multimedia_type:multimediaType
 //		multimedia_type:1
 	}
@@ -125,9 +126,7 @@ function chZJ(videoId,multimediaType){
 			var playCodeStr = data.resultObject;
 			var playCodeObj = JSON.parse(playCodeStr);
 			console.log(playCodeObj.video.playcode);
-//			$("#video_v").html(playCodeObj.video.playcode)
 			$("#video_v").html(playCodeObj.video.playcode)
-			//"<script src=\"http://p.bokecc.com/player?vid=C728945447E95B7F9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=true&width=360&height=195&playerid=E92940E0788E2DAE&playertype=1\" type=\"text/javascript\"><\/script>"
 			/**
 	    	 * 初始化评论区
 	    	 */

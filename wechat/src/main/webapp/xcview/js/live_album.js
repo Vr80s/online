@@ -59,7 +59,7 @@ function stripHTML(str){
 	    var	type = data.resultObject.type;
 		
 		//初始化视频资源
-		chZJ(directId,type);
+		chZJ(directId,type,smallImgPath);
 		
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
@@ -123,7 +123,6 @@ function stripHTML(str){
 			var directId=$(this).attr("data-myvideo");
 			var courseId=$(this).attr("data-courseId");
 			//初始化视频资源
-	//		chZJ(directId,1);
 			window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+directId+"&collection_id="+collectionId;
 		})
 	}
@@ -144,7 +143,7 @@ function stripHTML(str){
 	
 	
 //	请求视频代码
-	function chZJ(videoId,multimediaType){
+	function chZJ(videoId,multimediaType,smallImgPath){
 	/**
 	 * 请求代码啦
 	 */
@@ -155,8 +154,8 @@ function stripHTML(str){
 		playerwidth:playerwidth,	
 		playerheight:playerheight,
 		videoId:videoId,
+		smallImgPath:smallImgPath,
 		multimedia_type:multimediaType
-//		multimedia_type:1
 	}
 	requestService("/bxg/ccvideo/commonCourseStatus", 
 			dataParams, function(data) {

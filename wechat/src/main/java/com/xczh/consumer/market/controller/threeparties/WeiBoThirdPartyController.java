@@ -261,7 +261,7 @@ public class WeiBoThirdPartyController {
 					name= SLEmojiFilter.filterEmoji(name);
 					wbuser.setName(name);
 					
-					if(userId!=null){  // 绑定成功
+					if(StringUtils.isNotBlank(userId)){  // 绑定成功
 						wbuser.setUserId(userId);	
 			            mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
 			 	    }else{
@@ -277,7 +277,7 @@ public class WeiBoThirdPartyController {
 					
 					LOGGER.info("绑定了用户信息了-wcum.getUserId()-------:"+wcum.getUserId());
 
-					if(userId!=null){  // 这里说明人家这个已经绑定过其他信息了。
+					if(StringUtils.isNotBlank(userId)){  // 这里说明人家这个已经绑定过其他信息了。
 						mapRequest.put("code",UserUnitedStateType.MOBILE_UNBOUNDED.getCode()+"");	
 						return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
 		 			}
