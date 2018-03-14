@@ -2447,6 +2447,8 @@ footer{
     bottom: 2rem;
     z-index: 99990;
     display: none;
+        background: url(/xcview/images/opc.png);
+    background-size: 100% 100%;
 }
 .send_gifts .send_gifts_p{
     font-size: 0.7rem;
