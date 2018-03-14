@@ -13,7 +13,7 @@ var orderNo = "";
 var type =""; //判断课程类别，支付使用
 
 //获取课程ID跳转相应页面页面
-var courseId = getQueryString('orderId');
+var orderId = getQueryString('orderId');
 
 
 /*
@@ -23,22 +23,22 @@ var courseId = getQueryString('orderId');
  */
 var  before_address= document.referrer;
 //alert(before_address);
-sessionStorage.setItem("purchase_back",before_address);
-
+if(!(before_address.indexOf("recharges.html") !=-1 || 
+		   before_address.indexOf("buy_prosperity.html")!=-1 ||
+		   before_address.indexOf("purchase.html")!=-1 )		   
+){
+	sessionStorage.setItem("purchase_back",before_address);
+}
 /*
  * 点击进行返回
  */
 function purchaseBack(){
 	var before_address = sessionStorage.getItem("purchase_back");
-	if(before_address.indexOf("recharges.html") !=-1 || 
-	   before_address.indexOf("buy_prosperity.html")!=-1){
-		
-		//取出这个url然后跳转
-		location.href=before_address;
-	}else{
-	  //返回上一页
-	  history.back(-1);
-	}
+    if(stringnull(before_address)){
+    	location.href =before_address;
+    }else{
+    	 history.back(-1);
+    }
 }
 
 /**

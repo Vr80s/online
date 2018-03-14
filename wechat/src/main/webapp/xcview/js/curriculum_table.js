@@ -110,11 +110,15 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	paramsObj = {};
 	
 	var saisuanstr ="";
+	
+	
+	var menuTypeAll = $("[class='find_nav_cur'] a").attr("title");
+	if(parseInt(menuTypeAll) == 0){
+		$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
+	}
 	//从新赋值
 	if(stringnull(menuType)){
 		paramsObj.menuType = menuType;
-		
-		$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
 		
 		for (var int = 0; int < menuTypeArray.length; int++) {
 			var array_element = menuTypeArray[int];
@@ -133,7 +137,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 				saisuanstr += array_element.name+"-";
 				break;
 			}
-		}
+		} 
 	}
 	if(stringnull(isFree)){
 		paramsObj.isFree = isFree;
@@ -150,7 +154,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	    if(courseType == 3){
 	    	$(".all_mold4").show();
 	    }else if(courseType == 4){
-	    	 $(".all_mold3").show();
+	    	$(".all_mold3").show();
 	    }
 		
 		for (var int = 0; int < courseTypeArray.length; int++) {
@@ -265,6 +269,8 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 //		$("#slider1").css("padding-top","30px");
 		
 	}
+	
+	
 	$("#sxtj").text(saisuanstr);
 	
 	return paramsObj;
@@ -318,17 +324,6 @@ function submit(){
    	}else{
    		delete paramsObj.lineState;
    	}
-	//var submitParamsObj =  createParamsAndQuery(menuType,isFree,courseType,city,lineState);
-	/**
-	 * 判断滑动--》到第几个
-	 */
-//	$(".all_right_type_ones").find(".all_right_type_one").each(function(){
-//		 var className = $(this).attr("class");
-//		 if(className.indexOf("all_right_type_one_add")!=-1){
-//			 
-//			 return;
-//		 }
-//	});
 	
 	
 	var begin_falg = false;
@@ -343,14 +338,18 @@ function submit(){
 			break;
 		}
     }
+	
+	
 	//先存一下，然后在取一下
 	var type_index = sessionStorage.getItem("type_index");
-	if(type_index == begin){ //分类没有变动
+	if(type_index == parseInt(begin)){ //分类没有变动
 		begin_falg = false;
 	}else{
 		sessionStorage.setItem("type_index",begin);
 	}
-	if(begin_falg){
+	
+	if(begin_falg || type_index =="type_index"){
+		
 		slide(begin);
 	}else{
 		//menuType,isFree,courseType,city,lineState,queryKey
@@ -364,109 +363,108 @@ function submit(){
 
 
 function queryDataByParams(params,data_type){
+	
+	
+	
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
-			createListInfo(data,data_type)
+			//createListInfo(data,data_type)
+			
+			 if(stringnull(data_type)){
+					var id = "#query_list"+data_type;
+				}else{
+					var id = "#draw_all_query_list";
+				}
+				var data1 ="";
+				
+				if(data.resultObject.length<=0){
+					$(".li_list_main").css("background","#f8f8f8");
+					$(".no_class").show();
+				}else{
+					$(".li_list_main").css("background","#fff");
+					$(".no_class").hide();
+				}
+				for (var int = 0; int < data.resultObject.length; int++) {
+					var item = data.resultObject[int];
+					var statusImg="";  //视频、音频不同的图片
+					if(item.type == 1){
+						statusImg+="/xcview/images/tv_auto.png";
+					}else if(item.type == 2){
+						statusImg+="/xcview/images/frequency.png";
+					}else if(item.type == 3){
+						statusImg+="/xcview/images/Sinatv_auto.png";
+					}else if(item.type == 4){
+						statusImg+="/xcview/images/offline.png";
+					}
+					
+					var statusImg1="<img src="+statusImg+"  class='two'  />";
+					
+					var isFreeStr ="";
+					if(item.watchState == 1){
+						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;'><span>免费</span></p>";
+					}else if(item.watchState == 0){
+						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
+					}
+					var typeStr="";
+					if(item.type ==3){
+						if(item.lineState==1){
+							typeStr +="<p class='zhibo_play'>直播中</p>";
+						}else{
+						    typeStr +="<p class='p2' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>"+item.startDateStr+"</span></p>";
+						}
+					}else if(item.type ==4){
+						typeStr +="<p class='p5'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>"+item.city+"</span></p>";
+						//alert(typeStr);
+					}
+					data1+="<div class='li_list_div' >"+
+						       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" >"+
+							       "<div class='li_list_one_left'>" +
+							          "<img src='"+item.smallImgPath+"' class='one' />" + statusImg1 +
+							      "</div>" +
+						           "<div class='li_list_one_right'>" +
+							           "<p class='p00'>" +
+							           "<span>"+item.gradeName+"</span><br />" +
+							           "<span class='span'>"+item.name+"</span></p>" +
+							           "<div class='div'>" + isFreeStr +"<p class='p1'><img src='/xcview/images/population.png' alt=''>" +
+							             "<span>"+item.learndCount+"</span></p>"+typeStr+"</div>" +
+						            "</div>" +
+						         "</div>" +
+						     "</div>";
+				}
+				$(id).html(data1);
+				
+				/*
+				 * 点击跳转到单个课程
+				 */
+				 $(".li_list_div .li_list_one").click(function(){
+					
+					 var type =$(this).attr("data-title");
+					
+					 var id =$(this).attr("data-courseId");
+					 
+					if(type==1||type==2){
+		//					视频音频购买
+						location.href="school_audio.html?course_id="+id
+					}else if(type==3){
+						aa(id)
+					}else{
+		//					线下课购买
+						location.href="school_class.html?course_id="+id
+					}	
+				})
+			
+			
 		}else{
 			$(".no_class").show();
 			$(".li_list_main").css("background","#f8f8f8");
 			alert("查询数据结果error!");
 		}
-	},false)
+	})
 }
 
-function createListInfo(data,data_type){
-	if(stringnull(data_type)){
-				var id = "#query_list"+data_type;
-				
-			}else{
-				var id = "#draw_all_query_list";
-			}
-			var data1 ="";
-			
-			if(data.resultObject.length<=0){
-				$(".li_list_main").css("background","#f8f8f8");
-				$(".no_class").show();
-			}else{
-				$(".li_list_main").css("background","#fff");
-				$(".no_class").hide();
-			}
-			for (var int = 0; int < data.resultObject.length; int++) {
-				var item = data.resultObject[int];
-				var statusImg="";  //视频、音频不同的图片
-				if(item.type == 1){
-					statusImg+="/xcview/images/tv_auto.png";
-				}else if(item.type == 2){
-					statusImg+="/xcview/images/frequency.png";
-				}else if(item.type == 3){
-					statusImg+="/xcview/images/Sinatv_auto.png";
-				}else if(item.type == 4){
-					statusImg+="/xcview/images/offline.png";
-				}
-				
-				var statusImg1="<img src="+statusImg+"  class='two'  />";
-				
-				var isFreeStr ="";
-				if(item.watchState == 1){
-					isFreeStr+="<p class='p0' style='margin-top: -0.02rem;'><span>免费</span></p>";
-				}else if(item.watchState == 0){
-					isFreeStr+="<p class='p0' style='margin-top: -0.02rem;'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
-				}
-				var typeStr="";
-				if(item.type ==3){
-					if(item.lineState==1){
-						typeStr +="<p class='zhibo_play'>直播中</p>";
-					}else{
-					typeStr +="<p class='p2' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>" +item.startDateStr+"</span></p>";
-					}
-				}else if(item.type ==4){
-					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>" +item.city+"</span></p>";
-				}
-				data1+="<div class='li_list_div' >"+
-					       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" >"+
-						     "<div class='li_list_one_left'>" +
-						          "<img src='"+item.smallImgPath+"' class='one' />" +
-						       statusImg1 +
-						      "</div>" +
-					           "<div class='li_list_one_right'>" +
-						           "<p class='p00'>" +
-						           "<span>"+item.gradeName+"</span><br />" +
-						           "<span class='span'>"+item.name+"</span></p>" +
-						           "<div class='div'>" +
-						              isFreeStr +
-						             "<p class='p1'><img src='/xcview/images/population.png' alt=''><span>"+item.learndCount+"</span></p>" +
-						               typeStr+
-						            "</div>" +
-					            "</div>" +
-					         "</div>" +
-					     "</div>";
-			}
-			$(id).html(data1);
-			
-			
-			
-			/*
-			 * 点击跳转到单个课程
-			 */
-			 $(".li_list_div .li_list_one").click(function(){
-				
-				 var type =$(this).attr("data-title");
-				
-				 var id =$(this).attr("data-courseId");
-				 
-				if(type==1||type==2){
-	//					视频音频购买
-					location.href="school_audio.html?course_id="+id
-				}else if(type==3){
-					aa(id)
-				}else{
-	//					线下课购买
-					location.href="school_class.html?course_id="+id
-				}	
-			})
-			
-		
-}
+//function createListInfo(data,data_type){
+//		
+//}
 
 //判断是否购买过以及主播本人
 function aa(id){
