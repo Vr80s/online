@@ -84,10 +84,11 @@
 	<!--主播/时间-->
 	<div class="wrap_playTime" id="wrap_playTime">
 		<script type="text/html" id="data_name">
-		<ul class="playTime z">
+		<ul class="playTime z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
 			<li><img src="../images/population.png"/><span>{{heir}}</span></li>
 			<li>
-				<a href="live_personal.html?userLecturerId={{userLecturerId}}">
+				<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
+				<a href="javascript: ;">
 					<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  />
 				</a>
 			</li>
@@ -100,8 +101,9 @@
 			</li>
 		</ul>
 		<ul class="playTime z" style="border-bottom: 0;">
-			<li><img src="../images/population.png"/><span>上课地址：{{address}}</span></li>
-			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;" onclick="baiduMap('{{address}}','{{gradeName}}')" /></li>
+			<li><img src="../images/population.png"/><span style="width: 6.7rem;padding-right: 0;">上课地址：{{address}}</span></li>
+			<li></li>
+			<!--<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;" onclick="baiduMap('{{address}}','{{gradeName}}')" /></li>-->
 		</ul>
 		</script>
 	</div>
