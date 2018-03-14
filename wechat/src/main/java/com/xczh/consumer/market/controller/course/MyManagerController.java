@@ -132,6 +132,7 @@ public class MyManagerController {
 			map.put("user", ou);
 			// 查找购买的课程数
 			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
+			//是否拥有主播权限
 			Integer hostPermissions = myInfoService.getUserHostPermissions(user.getId());
 			LOGGER.info(hostPermissions+"");
 			// 查看主播权限   -- 并且把主播信息给返回过去
