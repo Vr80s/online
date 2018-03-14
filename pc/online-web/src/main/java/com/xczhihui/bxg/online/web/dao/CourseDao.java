@@ -64,11 +64,9 @@ public class CourseDao extends SimpleHibernateDao {
      * @return Example 分页列表
      */
     public Page<CourseLecturVo> listZyktCourse(Integer menuType, Integer menuId, String couseTypeId,String multimediaType,String isFree,String orderType,String orderBy, Integer pageNumber, Integer pageSize) {
-       // menuId = menuId==165 ? 0 : menuId;//165或0就是查全部
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize =12;
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        //paramMap.put("menuId", menuId);
 
         StringBuffer  sqlSb=new StringBuffer();
         sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.grade_name,cou.smallimg_path  as smallImgPath,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,cou.multimedia_type multimediaType,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,cou.lecturer name,");
@@ -250,19 +248,16 @@ public class CourseDao extends SimpleHibernateDao {
      * @param courseId 课程id
      * @return Example 分页列表
      */
-    public CourseVo getCourseById(Integer courseId,String ispreview,HttpServletRequest request) {
+    public CourseVo getCourseById(Integer courseId,HttpServletRequest request) {
         CourseVo courseVo = null;
-        //是否是预览，如果是预览这里就关联预览表
-        String courseTableName = "1".equals(ispreview) ? "oe_course_preview" : "oe_course";
-        String course_type = "1".equals(ispreview) ? "" : "c.course_type,";
         if (courseId != null) {
-        	String sql = " select "+course_type+" c.id,c.lecturer_description lecturerDescription,c.direct_id, c.is_recommend,c.type, c.is_free, c.grade_name as courseName ,c.description,floor(c.current_price*10) current_price,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,c.collection,c.course_number courseNumber,c.status,c.`address`,"+
-//                         " if(c.is_free=1,IFNULL((SELECT  COUNT(*)  FROM apply_r_grade_course WHERE course_id = c.id),0)+SUM(IFNULL(default_student_count, 0)),"+
-//                         " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=?  and is_delete=0 and status=1)) learnd_count,"+
+        	String sql = " select c.course_type, c.id,c.lecturer_description lecturerDescription,c.direct_id, c.is_recommend,c.type, c.is_free, c.grade_name as courseName ," +
+                        "c.description,floor(c.current_price*10) current_price,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime," +
+                        "c.start_time,c.user_lecturer_id userLecturerId,c.collection,c.course_number courseNumber,c.status,c.`address`,"+
                          " IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) + IFNULL(pv, 0) learnd_count,"+
                          " c.course_length,c.detailimg_path as detailImgPath, c.bigimg_path as bigImgPath,c.cloud_classroom ,CONCAT(replace(s.`name`,'课',''),t.`name`,\"课\") as scoreName," +
                          " c.course_outline as courseOutline , c.common_problem as commonProblem, c.course_detail  as courseDetail,ifnull(c.qqno,'暂无QQ')as qqno,m.name,c.description_show " +
-                         " from "+courseTableName+" c left join oe_menu m on c.menu_id = m.id left join score_type s on c.course_type_id = s.id left join teach_method t ON c.courseType = t.id where c.is_delete=0 and  c.id=?";
+                         " from oe_course c left join oe_menu m on c.menu_id = m.id left join score_type s on c.course_type_id = s.id left join teach_method t ON c.courseType = t.id where c.is_delete=0 and  c.id=?";
             List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{courseId}, BeanPropertyRowMapper.newInstance(CourseVo.class));
             courseVo = courseVoList.size() > 0 ? courseVoList.get(0) : courseVo;
             if(courseVo != null){
@@ -276,11 +271,6 @@ public class CourseDao extends SimpleHibernateDao {
             paramMap.put("courseId", courseId);
             //用户登录，查看用户是否购买此课程,报名isApply=true,否则isApply=false
             if(loginUser != null && courseVo != null){
-            	/*yuruixin - 20170810*/
-//                paramMap.put("userId",loginUser.getId());
-//                String  uSql="select id from user_r_video  where  user_id=:userId and course_id=:courseId  limit 1";
-//                List<Map<String, Object>> listVideo= this.getNamedParameterJdbcTemplate().queryForList(uSql, paramMap);
-//                courseVo.setIsApply(listVideo.size() > 0 ? true : false);
                 ApplyGradeCourse  applyGradeCourse = applyGradeCourseDao.findByCourseIdAndUserId(courseId, loginUser.getId());
                 if(applyGradeCourse != null) {
                     courseVo.setIsApply("1".equals(applyGradeCourse.getIsPayment()) ? false : true);
@@ -342,8 +332,6 @@ public class CourseDao extends SimpleHibernateDao {
         if (courseId != null ) {
             String sql=" select  c.id,c.grade_name as courseName,c.smallimg_path as smallimgPath ,c.original_cost as originalCost ,c.multimedia_type multimediaType,"+
 	            		" IFNULL((SELECT  COUNT(*)  FROM  apply_r_grade_course  WHERE course_id = c.id),0)+ IFNULL(default_student_count, 0) learndCount,"+
-//                        " if(c.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=c.id),"+
-//                        " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=c.id  and is_delete=0 and status=1)) learndCount,"+
                         " c.current_price as currentPrice ,c.is_free as isFree,c.description_show" +
                         " from oe_course_recommend r ,oe_course c where r.rec_course_id = c.id and r.show_course_id=?  and "+
                         " c.is_delete=0 and r.is_delete=0  and c.`status`=1  order by r.sort   limit "+ num;
@@ -800,6 +788,38 @@ public class CourseDao extends SimpleHibernateDao {
                 "WHERE cc.`collection_id` = ? \n" +
                 "ORDER BY cc.`collection_course_sort` DESC";
         courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, BeanPropertyRowMapper.newInstance(CourseVo.class),collectionId);
+        return courseVoList;
+    }
+
+    public List<CourseVo> getCoursesRecommendByType(Integer type) {
+        String sql="SELECT \n" +
+                "  c.id,\n" +
+                "  c.grade_name AS courseName,\n" +
+                "  c.lecturer,\n" +
+                "  c.smallimg_path AS smallimgPath,\n" +
+                "  c.multimedia_type multimediaType,\n" +
+                "  IFNULL(\n" +
+                "    (SELECT \n" +
+                "      COUNT(*) \n" +
+                "    FROM\n" +
+                "      apply_r_grade_course \n" +
+                "    WHERE course_id = c.id),\n" +
+                "    0\n" +
+                "  ) + IFNULL(default_student_count, 0) learndCount,\n" +
+                "  c.current_price*10 AS currentPrice,\n" +
+                "  c.is_free AS isFree,\n" +
+                "  c.address,\n" +
+                "  c.start_time startTime,\n" +
+                "  c.end_time endTime\n" +
+                "FROM\n" +
+                "  `oe_course` c \n" +
+                "WHERE c.`is_delete` = 0 \n" +
+                "  AND c.`status` = 1 \n" +
+                "  AND c.`is_recommend` = 1 \n" +
+                "  AND c.`type` = ? " +
+                "ORDER BY c.recommend_sort DESC " +
+                "LIMIT 0,3 ";
+        List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, BeanPropertyRowMapper.newInstance(CourseVo.class),type);
         return courseVoList;
     }
 }

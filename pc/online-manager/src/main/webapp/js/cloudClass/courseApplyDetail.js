@@ -4,6 +4,7 @@ function pass(){
         type:'post',
         url:basePath+'/cloudclass/courseApply/pass?courseApplyId='+courseApplyId,
         dataType:'json',
+        // sync:false,
         success:function(data){
             debugger
             alertInfo(data.errorMessage,function(){
@@ -26,6 +27,7 @@ function notPass(){
         data:JSON.stringify(cadata),
         contentType:'application/json',
         dataType:'json',
+        // sync:false,
         success:function(data){
             alertInfo(data.errorMessage,function(){
                 if(data.success){

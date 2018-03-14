@@ -13,6 +13,9 @@ body {
   padding: 0;
   position: relative;
 }
+.hide{
+	display: none;	
+}
 .page-no-result {
   padding-top: 170px!important;
 }
@@ -670,8 +673,8 @@ a {
   font-size: 16px;
   color: #333;
   width: 100%;
-  padding: 0 20px 17px;
-  border-bottom: 1px solid #eee;
+  padding: 0 20px 0px;
+  /*border-bottom: 1px solid #eee;*/
   float: left;
   margin: 0;
 }
@@ -684,6 +687,93 @@ a {
   line-height: 24px;
   font-size: 14px;
 }
+
+/*新增加的推荐课程部分*/
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list{
+	width: 100%;
+	margin: 0;
+	padding: 0 5px;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li{
+	float: left;
+	width: 280px;
+	/*height: 253px;*/
+	border: 1px solid #dedede;
+	padding-bottom: 10px;
+	position: relative;
+	margin-bottom: 20px;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_img,
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_img > img{
+	width: 100%;
+	height: 161px;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_img > img{
+	transition: all ease-in-out 0.6s ;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li a:hover .class_img img {
+  transform: scale(1.2);
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_img{
+	overflow: hidden;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_img .class_type{
+	  height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url('/web/images/index/label.png') no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -5px;
+}
+
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_inf{
+	padding: 10px 10px 0px;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_inf .class_title{
+	  max-width: 211px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_inf > p{
+	font-size: 12px;
+  color: #999;
+  margin-top: 10px;
+  margin-bottom: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_inf .class_price_count .class_price{
+	float: left;
+	color: #2cb82c;
+	font-size: 14px;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_inf .class_price_count .class_Studycount{
+	float: right;
+	color: #999;
+}
+#course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_inf .class_price_count .class_Studycount em{
+	display: inline-block;
+	width: 11px;
+	height: 13px;
+	background:url('/web/images/studentCount.png') 0 0 no-repeat;
+	margin-right: 5px;
+}
+
+
+
+
+
+
+
+
 #course-list .table-body .sidebar-body .sidebar-body-QQ {
   margin: 15px 0;
   background-color: #fff;
@@ -1340,4 +1430,656 @@ a {
     position: relative;
     padding-bottom: 39px;
 
+}
+
+
+
+/*-------------------------------------隐藏的品论部分的样式--------------------------------------------*/
+ .videoBody-bottom {
+  width: 890px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+ .videoBody-bottom .videoBody-bottom-left {
+  background-color: #ffffff;
+  width: 890px;
+  padding: 20px 25px 25px;
+  float: left;
+}
+ .videoBody-bottom .videoBody-bottom-left .videoBody-bottom-left-title {
+ 	display: none;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  height: 37px;
+}
+ .videoBody-bottom .videoBody-bottom-left .videoBody-bottom-left-title span {
+  padding: 0 15px 15px;
+  margin-bottom: 0;
+  margin-right: 20px;
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .videoBody-bottom-left-title .act {
+  color: #2CB82C;
+  /*border-bottom: 1px solid #2CB82C;*/
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia {
+  display: block;
+  padding-bottom: 30px;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release {
+  /*margin-top: 30px;*/
+  border-bottom: 1px solid #e4e4e4;
+  padding-bottom: 30px;
+  position: relative;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release .tishiText {
+  position: absolute;
+  bottom: 100px;
+  right: 10px;
+  color: #c4c4c4;
+  font-size: 12px;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release .tishiText span {
+  color: #FF8710;
+  margin-right: 4px;
+  margin-left: 4px;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release p {
+  font-size: 14px;
+  color: #333;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release p .releaseStars img {
+  vertical-align: text-top;
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release p .starText {
+  font-size: 14px;
+  color: #333;
+  margin-left: 5px;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release p .tipRelease {
+  color: #cb0000;
+  font-size: 12px;
+  font-style: normal;
+  margin-left: 90px;
+  display: none;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release p .getRelease {
+  color: #ffffff;
+  height: 42px;
+  width: 100px;
+  text-align: center;
+  background-color: #2CB82C;
+  float: right;
+  line-height: 42px;
+  font-size: 16px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release p .getRelease:hover {
+  background: #28A528;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-release textarea {
+  width: 753px;
+  height: 132px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  margin-left: 17px;
+  font-size: 14px;
+  color: #333;
+  padding: 15px;
+  background-color: #fafafa;
+  outline: none;
+  border: 1px solid #e4e4e4;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .freeNull {
+  width: 100%;
+  min-height: 540px;
+  text-align: center;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .freeNull img {
+  margin-top: 90px;
+  margin-bottom: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .freeNull p {
+  color: #333333;
+  font-size: 14px;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease {
+  padding: 20px 0;
+  border-bottom: 1px dashed #e4e4e4;
+  overflow: hidden;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-left {
+  float: left;
+  margin-right: 30px;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-left img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-left p {
+  text-align: center;
+  width: 58px;
+  overflow: hidden;
+  font-size: 12px;
+  color: #333;
+  margin-bottom: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right {
+  width: 752px;
+  float: left;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right .releaseText {
+  width: 100%;
+  float: left;
+  font-size: 14px;
+  line-height: 22px;
+  margin: 10px 0 12px;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right .releaseGood {
+  width: 100%;
+  clear: both;
+  line-height: 12px;
+  font-size: 12px;
+  float: right;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right .releaseGood .releaseTime {
+  float: left;
+  color: #999;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right .releaseGood .wqz {
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right .releaseOffice {
+  clear: both;
+  overflow: hidden;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right .releaseOffice .office_a {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #2CB82C;
+  display: block;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right .releaseOffice .office_b {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #666;
+  line-height: 22px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+ .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-right .releaseOffice .office_c {
+  margin-top: 7px;
+  display: block;
+  color: #999;
+  font-size: 12px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji {
+  display: none;
+  padding-bottom: 30px;
+  position: relative;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-title {
+  margin-top: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-title span {
+  color: #333;
+  font-size: 14px;
+  float: left;
+  cursor: pointer;
+  margin: 0 12px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-title span:first-child {
+  margin-left: 0;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-title em {
+  float: left;
+  font-style: normal;
+  color: #eee;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-title .act {
+  color: #2cb82c;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .tips {
+  display: none;
+  position: absolute;
+  width: 260px;
+  height: 150px;
+  background: #fff;
+  top: 20px;
+  z-index: 999;
+  left: 50%;
+  margin-left: -130px;
+  text-align: center;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .tips p {
+  margin-top: 40px;
+  font-size: 16px;
+  color: #333;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .tips div {
+  clear: both;
+  margin-top: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .tips div span {
+  display: block;
+  width: 80px;
+  height: 34px;
+  text-align: center;
+  line-height: 34px;
+  float: left;
+  font-size: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .tips div .ok {
+  background: #2CB82C;
+  color: #fff;
+  border: 1px solid #2CB82C;
+  margin-left: 44px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .tips div .ok:hover {
+  background: #28A528;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .tips div .no {
+  background: #fff;
+  color: #999;
+  border: 1px solid #ccc;
+  margin-left: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .tips div .no:hover {
+  border: 1px solid #2cb82c;
+  color: #2CB82C;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content {
+  clear: both;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 {
+  padding: 20px 0;
+  border-bottom: 1px dashed #E4E4E4;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headLeft {
+  float: left;
+  width: 50px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headLeft .headimg {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  overflow: hidden;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headLeft .headimg img {
+  width: 100%;
+  height: 100%;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headLeft .headname {
+  text-align: center;
+  width: 50px;
+  white-space: nowrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: 10px;
+  font-size: 12px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight {
+  float: right;
+  width: 760px;
+  display: block;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right1 {
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  font-size: 14px;
+  color: #333;
+  line-height: 22px;
+  min-height: 44px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right2 {
+  clear: both;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #999;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right2 .iconfont {
+  font-size: 12px;
+  color: #ccc;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right2 em {
+  font-style: normal;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right2 span {
+  margin-right: 30px;
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right2 span i {
+  margin-right: 5px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right2 .time {
+  cursor: default;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right2 .act {
+  color: #2CB82C;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .headRight .right2 .act .iconfont {
+  color: #2CB82C;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .reInput {
+  display: none;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .reInput .text {
+  resize: none;
+  border: 1px solid #EEEEEE;
+  background: #FAFAFA;
+  width: 100%;
+  padding: 10px 20px;
+  outline: none;
+  height: 90px;
+  font-size: 14px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .reInput span {
+  margin-top: 10px;
+  display: block;
+  float: right;
+  width: 60px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 12px;
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .reInput .warning {
+  display: none;
+  float: left;
+  color: #FF4012;
+  font-size: 12px;
+  line-height: 22px;
+  background: url("../images/icons/tanhao.png") no-repeat left center;
+  text-indent: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .reInput .qd {
+  background: #2CB82C;
+  color: #fff;
+}
+ .videoBody-bottom .videoBody-bottom-left .biji .biji-content .biji_01 .reInput .qx {
+  background: #fff;
+  color: #999;
+  margin-right: 10px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda {
+  padding-bottom: 30px;
+  display: none;
+  position: relative;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .tips {
+  display: none;
+  position: absolute;
+  width: 260px;
+  height: 150px;
+  background: #fff;
+  top: 20px;
+  z-index: 999;
+  left: 50%;
+  margin-left: -130px;
+  text-align: center;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .tips p {
+  margin-top: 40px;
+  font-size: 16px;
+  color: #333;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .tips div {
+  clear: both;
+  margin-top: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .tips div span {
+  display: block;
+  width: 80px;
+  height: 34px;
+  text-align: center;
+  line-height: 34px;
+  float: left;
+  font-size: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .tips div .ok {
+  background: #2CB82C;
+  color: #fff;
+  border: 1px solid #2CB82C;
+  margin-left: 44px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .tips div .ok:hover {
+  background: #28A528;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .tips div .no {
+  background: #fff;
+  color: #999;
+  border: 1px solid #ccc;
+  margin-left: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .tips div .no:hover {
+  border: 1px solid #2cb82c;
+  color: #2CB82C;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-title {
+  margin-top: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-title span {
+  color: #333;
+  font-size: 14px;
+  float: left;
+  margin: 0 12px;
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-title span:first-child {
+  margin-left: 0;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-title em {
+  float: left;
+  font-style: normal;
+  color: #eee;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-title .act {
+  color: #2cb82c;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content {
+  clear: both;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 {
+  padding: 20px 0;
+  border-bottom: 1px dashed #E4E4E4;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headLeft {
+  float: left;
+  width: 50px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headLeft .headimg {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  overflow: hidden;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headLeft .headimg img {
+  width: 100%;
+  height: 100%;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headLeft .headname {
+  text-align: center;
+  width: 50px;
+  white-space: nowrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: 10px;
+  font-size: 12px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight {
+  float: right;
+  width: 760px;
+  display: block;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right1 {
+  word-break: break-all;
+  word-wrap: break-word;
+  font-size: 14px;
+  color: #333;
+  line-height: 22px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right1 .title {
+  display: block;
+  color: #333;
+  display: inline;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right1 .title:hover {
+  color: #2CB82C;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right1 .text {
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  color: #999;
+  font-size: 12px;
+  margin-top: 5px;
+  min-height: 22px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right2 {
+  clear: both;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #999;
+  line-height: 25px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right2 .iconfont {
+  font-size: 12px;
+  color: #ccc;
+  margin-right: 5px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right2 .tag {
+  float: left;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right2 .tag span {
+  display: block;
+  float: left;
+  text-align: center;
+  height: 25px;
+  line-height: 25px;
+  background: #f5f5f5;
+  color: #ccc;
+  margin-right: 15px;
+  padding: 0 10px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right2 .shanchu {
+  cursor: pointer;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right2 em {
+  font-style: normal;
+  float: right;
+  margin: 0 15px;
+  color: #eee;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right2 > span {
+  float: right;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .headRight .right2 > span i {
+  margin-left: 5px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .reInput .text {
+  resize: none;
+  border: 1px solid #EEEEEE;
+  background: #FAFAFA;
+  width: 100%;
+  padding: 10px 20px;
+  outline: none;
+  height: 90px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .reInput span {
+  margin-top: 10px;
+  display: block;
+  float: right;
+  width: 60px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 12px;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .reInput .qd {
+  background: #2CB82C;
+  color: #fff;
+}
+ .videoBody-bottom .videoBody-bottom-left .wenda .wenda-content .wenda_01 .reInput .qx {
+  background: #fff;
+  color: #999;
+  margin-right: 10px;
+}
+ .videoBody-bottom .videoBody-bottom-right {
+  width: 290px;
+  float: left;
+  margin-left: 20px;
+  background-color: #ffffff;
+  padding: 20px 0 25px;
+}
+ .videoBody-bottom .videoBody-bottom-right .haveNull {
+  width: 100%;
+  text-align: center;
+  min-height: 539px;
+}
+ .videoBody-bottom .videoBody-bottom-right .haveNull img {
+  margin-top: 90px;
+  margin-bottom: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-right .haveNull p {
+  color: #333333;
+  font-size: 14px;
+}
+ .videoBody-bottom .videoBody-bottom-right .videoBody-bottom-right-title {
+  font-size: 16px;
+  color: #333333;
+  padding: 0 20px 15px;
+  border-bottom: 1px solid #eee;
+  margin: 0;
+}
+ .videoBody-bottom .videoBody-bottom-right .videoBody-bottom-right-list {
+  padding: 0 20px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+ .videoBody-bottom .videoBody-bottom-right .videoBody-bottom-right-list img {
+  float: left;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+ .videoBody-bottom .videoBody-bottom-right .videoBody-bottom-right-list .videoBody-bottom-right-list-title {
+  color: #333;
+  font-size: 14px;
+}
+ .videoBody-bottom .videoBody-bottom-right .videoBody-bottom-right-list .videoBody-bottom-right-list-text {
+  font-size: 12px;
+  color: #333;
+}
+ .videoBody-bottom .videoBody-bottom-right .videoBody-bottom-right-list .videoBody-bottom-right-list-text span {
+  color: #2CB82C;
+  white-space: nowrap!important;
+  overflow: hidden;
+  width: 150px;
+  text-overflow: ellipsis;
+  float: right;
 }
