@@ -35,47 +35,29 @@ function typeSchool(){
     var noNumber='<p style="font-size:15px;text-aline:center;">暂无数据</p>'
     requestService("/xczh/classify/schoolClass",null,function(data){
         if(data.success==true){
-            $('#classify_course_type').html(template('my_data0',{items:data.resultObject[0]}));
-            $('#classify_special_type').html(template('my_data1',{items:data.resultObject[1]}));
-            $('#classify_mold_type').html(template('my_data2',{items:data.resultObject[2]}));
+//    	课程分类
+        	if(data.resultObject[0].length==0 ||data.resultObject[0].length==null){
+        		$(".classify_course").hide();
+        	}else{
+           	 	$('#classify_course_type').html(template('my_data0',{items:data.resultObject[0]}));
+        	}
+//		专题课程
+			if(data.resultObject[1].length==0 ||data.resultObject[1].length==null){
+        		$(".classify_special").hide();
+        	}else{
+            	$('#classify_special_type').html(template('my_data1',{items:data.resultObject[1]}));
+        	}
+//		课程分类
+			if(data.resultObject[2].length==0 ||data.resultObject[2].length==null){
+        		$(".classify_mold").hide();
+        	}else{
+            	$('#classify_mold_type').html(template('my_data2',{items:data.resultObject[2]}));
+        	}
         }
         else{
             $("#classify_mold_type").html(template.compile(noNumber))
         }
-    })
-    
-    
-    
-    //判断课程分类为空
-	var content = $("#classify_course_type").html(); 
-	if(content == null || content == "0"){
-		$(".classify_course").hide();
-	}else{
-		$(".classify_course").show();
-	};
-    
-    
-    
-    //判断专题为空
-	var content = $("#classify_special_type").html(); 
-	if(content == null || content == "0"){
-		$(".classify_special").hide();
-	}else{
-		$(".classify_special").show();
-	};
-	
-	
-	 //判断课程类型为空
-	var content = $("#classify_mold_type").html(); 
-	if(content == null || content == "0"){
-		$(".classify_mold").hide();
-	}else{
-		$(".classify_mold").show();
-	};
-
-    
-    
-
+   })
 }
 //分类  模块结束 ============================================
 
@@ -90,19 +72,12 @@ function recommendSchool(){
     requestService("/xczh/recommend/recommendTop",null,
         function(data) {
             if(data.success){
-                //大师课
-                $("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
-                //判断课程类型为空
-				var content = $("#slide_one").html(); 
-				if(content == null || content == "0"){
-					$(".swiper_box0").hide();
-				}else{
-					$(".swiper_box0").show();
-				};
-
-               
-               
-               
+                //大师课 //判断课程类型为空
+                if(data.resultObject.project.records.length==0 || data.resultObject.project.records.length==""){
+               		$(".swiper_box0").hide()
+                }else{
+             		$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
+                }
                //名医
                 if(data.resultObject.doctorList.length=='' || data.resultObject.doctorList.length==0){
                     $("#doctor_follow").hide()
