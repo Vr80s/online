@@ -371,10 +371,34 @@ window.onload = function() {
 			 classType = data.resultObject.type;
 		},false)
 		
-		RequestService("/course/courses/recommend/"+classType+"", "POST", null,function(data){
-		console.log(data)
-		//渲染
-		})
+		if(classType != 3){
+			RequestService("/course/courses/recommend/"+classType+"", "POST", null,function(data){
+			console.log(data)
+				if(data.success == true && data.resultObject){
+					$('.sidebar-body').removeClass('hide');
+					//渲染
+			    	$('.RecommendClass_list').html(template('RecommendClass_list_Tpl',{item:data.resultObject}));
+				}else{
+					$('.sidebar-body').addClass('hide');
+				}
+		
+			})
+		}else{
+			RequestService("/course/courses/recommend/"+classType+"", "POST", null,function(data){
+			console.log(data)
+			if(data.success == true && data.resultObject){
+				$('.sidebar-body').removeClass('hide');
+					//渲染
+		    	$('.RecommendClass_list').html(template('RecommendClass_list_Tpl2',{item:data.resultObject}));
+			}else{
+					$('.sidebar-body').addClass('hide');
+				
+			}
+		
+			
+			})
+		}
+		
 	}
 
 	

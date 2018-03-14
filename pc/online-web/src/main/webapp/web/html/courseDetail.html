@@ -75,8 +75,8 @@
                	<!--右侧新增加的推荐课程的列表部分-->
             	<ul class="RecommendClass_list clearfix">
             		
-            		<!--中以学习中的课程样式-->
-            		<li>
+            		<!--中医学习中的课程样式-->
+            		<!--<li>
             			<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
             			<a href="/course/courses/893" style="display: block;width: 100%;height: 100%;">
             				<div class="class_img">
@@ -91,10 +91,10 @@
 	            				</div>
 	            			</div>
             			</a>
-            		</li>
+            		</li>-->
             		
             		<!--线下课中的课程样式-->
-            		<li>
+            		<!--<li>
             			<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png" class="hide">
             			<a href="/course/courses/893" style="display: block;width: 100%;height: 100%;">
             				<div class="class_img">
@@ -108,7 +108,7 @@
 	            				<p>时间：2018/02/15-2018/02/24</p>
 	            			</div>
             			</a>
-            		</li>
+            		</li>-->
             	</ul>
             	
                 <!--<p class="details-body">
@@ -224,8 +224,67 @@
     </div>
 </div>
 
+	<!--中医学习中的课程样式-->
+<script type="text/template" id="RecommendClass_list_Tpl">
+	{{each item as item i}}
+	<li>
+		<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src={{item.smallImgPath}}>-->
+		<a href="/web/html/courseDetail.html?courseId={{item.id}}" target="_blank" style="display: block;width: 100%;height: 100%;">
+			<div class="class_img">
+				<img src={{item.smallImgPath}} alt="" />
+				{{if item.multimediaType == 1}}
+					{{if item.collection}}
+						<span class="class_type">视频专辑</span>
+					{{else}}
+						<span class="class_type">视频</span>
+					{{/if}}
+				{{else if item.multimediaType == 2}}
+					{{if item.collection}}
+						<span class="class_type">音频专辑</span>
+					{{else}}
+						<span class="class_type">音频</span>
+					{{/if}}
+				{{/if}}
+			</div>
+			<div class="class_inf">
+				<span class="class_title">{{item.courseName}}</span>
+				<p>讲师：{{item.teacherName}}</p>
+				<div class="class_price_count clearfix" style="color: #999;">
+					{{if item.free}}
+					<span class="class_price">免费</span><span class="class_Studycount"><em></em>3</span>
+					{{else}}
+						<span class="class_price" style="color:red;font-size: 16px;">{{item.currentPrice}}</span>熊猫币<span class="class_Studycount"><em></em>3</span>
+					{{/if}}
+				</div>
+			</div>
+		</a>
+	</li>
+	{{/each}}
+	
+</script>
 
 
+	<!--线下课中的课程样式-->
+<script type="text/template" id="RecommendClass_list_Tpl2">
+	{{each item as item i}}
+	<li>
+		<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png" class="hide">-->
+		<a href="/web/html/courseDetail.html?courseId={{item.id}}"  target="_blank" style="display: block;width: 100%;height: 100%;">
+			<div class="class_img">
+				<img  src={{item.smallImgPath}} alt="" />
+				<!--<span class="class_type">视频专辑</span>-->
+			</div>
+			<div class="class_inf">
+				<span class="class_title">{{item.courseName}}</span>
+				<p>讲师：{{item.teacherName}}</p>
+				<p>地址：{{item.address}}</p>
+				<p>时间：{{item.startTime}}-{{item.endTime}}</p>
+			</div>
+		</a>
+	</li>
+	{{/each}}
+	
+</script>
 
 
 
