@@ -289,6 +289,7 @@ $(function(){
     	return data = row.currentPrice;
     }},
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
+    { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
 	{ "title": "状态", "class":"center","width":"4%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			if(data==1){
 				return data="<span name='zt'>已启用</span>";
@@ -327,6 +328,7 @@ $(function(){
 
 	createDatePicker($("#search_startTime"));
 	createDatePicker($("#search_endTime"));
+    createDatetimePicker2($(".datetime-picker"),"yy-mm-dd","HH:mm:ss");
 });
 
 
@@ -906,7 +908,7 @@ function updateRecommendSort(obj,key){
         row = zb_courseRecTable.fnGetData(oo); // get datarow
     }
     $("#UpdateRecommendSort_id").val(row.id);
-    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,300,true,"确定",function(){
         if($("#UpdateRecommendSortFrom").valid()){
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updateRecommendSort");
@@ -919,6 +921,7 @@ function updateRecommendSort(obj,key){
                 unmask();
                 if(data.success){
                     $("#recommendSort").val("");
+                    $("#recommendTime").val("");
                     $("#UpdateRecommendSortDialog").dialog("close");
                     layer.msg(data.resultObject);
                     if(key==1){

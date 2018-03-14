@@ -512,7 +512,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			Integer pageNumber, Integer pageSize) throws SQLException {
 
 	    pageNumber = pageNumber == null ? 1 : pageNumber;
-		pageSize = pageSize == null ? 12 : pageSize;
+		pageSize = pageSize == null ? 100000 : pageSize;
         StringBuffer  commonSql =new StringBuffer();
         //如果为模糊查询，排序规则为，课程名>分类>讲师名>课程,讲师简介
         if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){

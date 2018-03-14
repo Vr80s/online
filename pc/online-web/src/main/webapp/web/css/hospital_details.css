@@ -9,6 +9,9 @@
   width: 1200px;
   margin: 0 auto;
 }
+.footerDT{
+	background-color: #f0f0f0;
+}
 .clearfix:after {
   /*最简方式*/
   content: '';
