@@ -238,10 +238,12 @@ window.onload = function() {
 		"</div>";
 	var free;
 	var courseDetail;
+
 	$(".baomingSucces").attr("href", "/web/html/video.html?courseId=" + courserId);
 	RequestService("/course/getCourseById", "POST", {
 		courserId: courserId
 	}, function(data) {
+//		classType = data.resultObject.type;
 		$("#NoShowIntroduct").css("display", "block");
 		courseDetail = data.resultObject;
 		collection = data.resultObject.collection;
@@ -356,6 +358,36 @@ window.onload = function() {
 			$(".rTips").css("display", "none");
 		}, 2000)
 	}
+	
+	
+	//右侧推荐课程获取
+	showRecommendClass();
+	function showRecommendClass(){
+	var classType;
+		
+		RequestService("/course/getCourseById", "POST", {
+			courserId: courserId
+		}, function(data) {
+			 classType = data.resultObject.type;
+		},false)
+		
+		RequestService("/course/courses/recommend/"+classType+"", "POST", null,function(data){
+		console.log(data)
+		//渲染
+		})
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//常见问题
 	$(".course-problem").click(function() {
 		$('#videoBody-bottom').addClass('hide');

@@ -1409,7 +1409,7 @@ overflow: hidden;
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 0.14rem;
+    /*margin-bottom: 0.14rem;*/
 }
 .boutique_main_four_title .span{
 	margin-right: 0.2rem;
@@ -1626,7 +1626,7 @@ margin-top: 0.05rem;
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 0.14rem;
+    /*margin-bottom: 0.14rem;*/
 }
 .newest_main_two_title .span{
 	margin-right: 0.2rem;
