@@ -15,10 +15,13 @@ $(function(){
 	
 	/** 直播课管理 begin */
 	var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
-		var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+		var objData = [{ "title": checkbox,"class":"center","width":"3%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
     }},
-    {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
+    {title: '序号', "class": "center", "width": "3%","data": 'id',datafield: 'xuhao', "sortable": false},
+	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
+		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+	}},
 	{ "title": "直播名称", "class":"center","width":"8%","sortable":false,"data": 'courseName' },
 	{ "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
 		debugger;
@@ -43,7 +46,7 @@ $(function(){
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
     //	private  int liveSource;  //直播来源  1、后台新增  2、app申请
-    { "title": "直播来源", "class":"center","width":"10%","data":"liveSource","sortable":false,"mRender":function(data,display,row){
+    { "title": "直播来源", "class":"center","width":"8%","data":"liveSource","sortable":false,"mRender":function(data,display,row){
     	if(data!=null && data== 2){
     		return "用户申请";
     	}else{
@@ -64,7 +67,7 @@ $(function(){
     } },
     { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
 
-    { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
+    { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		var str = '<div class="hidden-sm hidden-xs action-buttons">'+
 				'<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
@@ -86,9 +89,6 @@ $(function(){
 	    	}
 	    }
 	},
-	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
-		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
-	}},
 	{ "title": "直播方式", "class":"center","width":"13%","sortable":false,"data": 'directSeeding',"visible":false},
 	{ "title": "直播间ID", "class":"center","width":"13%","sortable":false,"data": 'directId',"visible":false},
 	{ "title": "外部链接", "class":"center","width":"13%","sortable":false,"data": 'externalLinks',"visible":false}];
@@ -249,47 +249,13 @@ $(function(){
 	});
 	/** 直播课管理 end */
 
-	
-	/** 直播课统计 begin */
-	/*var objRecData = [
-	{title: '序号', "class": "center","data-width":"13px" ,"data": 'id',datafield: 'xuhao', "sortable": false},
-	{ "title": "公开课名称", "width":"16%","class":"center","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
-    		return "<span name='courseNameList'>"+data+"</span>";
-    } },
-	{ "title": "学科", "class":"center","width":"12%","sortable":false,"data": 'menuName' },
-	{ "title": "授课老师", "class":"center","width":"12%","sortable":false,"data": 'lecturerName' ,"mRender":function (data, display, row) {
-    		return "<span name='lecturerNameList'>"+data+"</span>";
-    } },
-//	{ "title": "鲜花数", "class":"center","width":"8%","sortable":false,"data": 'flowersNumber' },
-	{ "title": "访问量", "class":"center","width":"12%","sortable":false,"data": 'pv' },
-//	{ "title": "最高在线人数", "class":"center","width":"8%","sortable":false,"data": 'highestNumberLine' },
-//	{ "title": "直播结束时<br/>在线人数", "class":"center","width":"8%","sortable":false,"data": 'endLineNumber' },
-	{ "title": "课程时长", "class":"center","width":"12%", "sortable":false,"data": 'courseLength'},
-	{ "title": "开始时间", "class":"center","width":"12%", "sortable":false,"data": 'startTime'},
-	{ "title": "结束时间", "class":"center","width":"12%", "sortable":false,"data": 'endTime' },
-	{ "title": "课程展示图", "class":"center","width":"13%","sortable":false,"data": 'smallimgPath',"visible":false},
-	{ "title": "直播方式", "class":"center","width":"13%","sortable":false,"data": 'directSeeding',"visible":false},
-	{ "title": "直播间ID", "class":"center","width":"13%","sortable":false,"data": 'directId'},
-	{ "title": "外部链接", "class":"center","width":"13%","sortable":false,"data": 'externalLinks',"visible":false}];
-
-	_courseRecTable = initTables("courseRecTable",basePath+"/publiccloudclass/course/coursesReclist",objRecData,true,true,1,null,searchCase,function(data){
-		var texts = $("[name='courseNameList']");
-	    for (var i = 0; i < texts.length; i++) {
-	            texts.eq(i).parent().attr("title",texts.eq(i).text());
-	    }
-	    var texts1 = $("[name='lecturerNameList']");
-	    for (var i = 0; i < texts.length; i++) {
-	    	texts1.eq(i).parent().attr("title",texts1.eq(i).text());
-	    }
-	});*/
-
-	/** 直播课统计 end */
-	
-	
 	/** 直播课 begin */
 	//TODO
     var objZbRecData = [
     { "title": "序号", "class": "center","width":"5%","sortable": false,"data":"id" },
+	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
+		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+	}},
     { "title": "课程名称", "class":"center","width":"15%","sortable":false,"data": 'courseName' },
 	{ "title": "业务类型", "class":"center","width":"13%","sortable":false,"data": 'serviceType' ,"mRender":function (data, display, row) {
 		if(data==0){
@@ -315,10 +281,7 @@ $(function(){
 				return "异常直播";
 			}
 		} },
-	
-	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
-		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
-	}},
+
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
     { "title": "讲师", "class":"center","width":"10%","sortable":false,"data": 'lecturerName' },
     
@@ -427,23 +390,6 @@ $(".add_bx").click(function(){
 	    		$endDate.datetimepicker( "option", "minDate", startDate );
 	    	}
 	    });
-//	    $('#endTime').datetimepicker({
-//	    	showSecond: true,
-//			changeMonth: true,
-//			changeYear: true,
-//			dateFormat:'yy-mm-dd',
-//			monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
-//			timeFormat: 'HH:mm:ss',
-//	    	onSelect: function( endDate ) {
-//	    		var $startDate = $( "#startTime" );
-//	    		var $endDate = $('#endTime');
-//	    		var startDate = $startDate.datepicker( "getDate" );
-//	    		if(endDate < startDate){
-//	    			$startDate.datetimepicker('setDate', startDate + 3600*1*24*60*60*60);
-//	    		}
-//	    		$startDate.datetimepicker( "option", "maxDate", endDate );
-//	    	}
-//	    });
 	imgSenBut();
 	createImageUpload($('#addCourse-form .uploadImg'));//生成图片编辑器
 
