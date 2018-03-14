@@ -21,13 +21,19 @@ $(function(){
     {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
 	{ "title": "直播名称", "class":"center","width":"8%","sortable":false,"data": 'courseName' },
 	{ "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
-		debugger
+		debugger;
 			if(data==1 ){  //直播状态1.直播中，2预告，3直播结束
 				return "直播中";
 			}else if(data== 2){
 				return "预告";
 			}else if(data== 3){
 				return "结束";
+			}else if(data== 4){
+				return "即将直播";
+			}else if(data== 5){
+				return "准备直播 ";
+			}else if(data== 6){
+				return "异常直播";
 			}
 		} },
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
@@ -284,7 +290,7 @@ $(function(){
 	//TODO
     var objZbRecData = [
     { "title": "序号", "class": "center","width":"5%","sortable": false,"data":"id" },
-    { "title": "课程名称", "class":"center","width":"20%","sortable":false,"data": 'courseName' },
+    { "title": "课程名称", "class":"center","width":"15%","sortable":false,"data": 'courseName' },
 	{ "title": "业务类型", "class":"center","width":"13%","sortable":false,"data": 'serviceType' ,"mRender":function (data, display, row) {
 		if(data==0){
 			return "职业课";
@@ -292,24 +298,42 @@ $(function(){
 			return "微课";
 		}
 	}},
+	
+	{ "title": "直播状态", "class":"center","width":"4%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
+		debugger;
+			if(data==1 ){  //直播状态1.直播中，2预告，3直播结束
+				return "直播中";
+			}else if(data== 2){
+				return "预告";
+			}else if(data== 3){
+				return "结束";
+			}else if(data== 4){
+				return "即将直播";
+			}else if(data== 5){
+				return "准备直播 ";
+			}else if(data== 6){
+				return "异常直播";
+			}
+		} },
+	
 	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
 		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
 	}},
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
     { "title": "讲师", "class":"center","width":"10%","sortable":false,"data": 'lecturerName' },
     
-    { "title": "现价格", "class":"center","width":"9%","sortable":false,"mRender":function(data,display,row){
+    { "title": "现价格", "class":"center","width":"4%","sortable":false,"mRender":function(data,display,row){
     	return data = row.currentPrice;
     }},
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
-	{ "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
+	{ "title": "状态", "class":"center","width":"4%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			if(data==1){
 				return data="<span name='zt'>已启用</span>";
 			}else{
 				return data="<span name='zt'>已禁用</span>";
 			}
 		} },
-    { "title": "推荐值", "class":"center","width":"10%","sortable":false,"data": 'recommendSort' },
+    { "title": "推荐值", "class":"center","width":"4%","sortable":false,"data": 'recommendSort' },
     { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
 			'<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this);">设置推荐值</a> ';

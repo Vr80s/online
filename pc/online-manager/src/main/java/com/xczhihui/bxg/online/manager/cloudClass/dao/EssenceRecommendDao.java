@@ -44,7 +44,10 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 				 "  oc.user_lecturer_id AS userLecturerId,\n" +
 				 "  ou.`name` lecturerName,\n" +
 				 "  oc.`lecturer`,\n" +
-				 "  oc.live_status as liveStatus, \n" +
+				 
+				 
+				 " if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() <oc.start_time,4, "  + 
+			     " if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status)),oc.live_status) as liveStatus," +
 				 
 				 "  oc.`is_essence` as isEssence,\n" +
 				 "  oc.is_type_recommend as isTypeRecommend, \n" +

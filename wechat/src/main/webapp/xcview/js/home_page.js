@@ -43,9 +43,44 @@ function typeSchool(){
             $("#classify_mold_type").html(template.compile(noNumber))
         }
     })
+    
+    
+    
+    //判断课程分类为空
+	var content = $("#classify_course_type").html(); 
+	if(content == null || content == "0"){
+		$(".classify_course").hide();
+	}else{
+		$(".classify_course").show();
+	};
+    
+    
+    
+    //判断专题为空
+	var content = $("#classify_special_type").html(); 
+	if(content == null || content == "0"){
+		$(".classify_special").hide();
+	}else{
+		$(".classify_special").show();
+	};
+	
+	
+	 //判断课程类型为空
+	var content = $("#classify_mold_type").html(); 
+	if(content == null || content == "0"){
+		$(".classify_mold").hide();
+	}else{
+		$(".classify_mold").show();
+	};
+
+    
+    
 
 }
 //分类  模块结束 ============================================
+
+
+
 
 //推荐模块开始 ----------------------------------------
 
@@ -57,7 +92,18 @@ function recommendSchool(){
             if(data.success){
                 //大师课
                 $("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
-                //名医
+                //判断课程类型为空
+				var content = $("#slide_one").html(); 
+				if(content == null || content == "0"){
+					$(".swiper_box0").hide();
+				}else{
+					$(".swiper_box0").show();
+				};
+
+               
+               
+               
+               //名医
                 if(data.resultObject.doctorList.length=='' || data.resultObject.doctorList.length==0){
                     $("#doctor_follow").hide()
                 }
@@ -145,6 +191,10 @@ function lineWork(){
             if(data.success){
                 //各省城市                                                        											//跟参数
                 $("#xx_slide_one").html(template('xx_nav_list',{items:data.resultObject.cityList.records}))
+                
+                
+                
+                
                 //线下课程
                 $(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))
                 //swiper轮播开始
