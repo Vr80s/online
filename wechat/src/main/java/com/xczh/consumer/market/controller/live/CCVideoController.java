@@ -58,15 +58,12 @@ public class CCVideoController {
 		String playerheight = req.getParameter("playerheight");
 		String videoId = req.getParameter("videoId");
 		String multimedia_type = req.getParameter("multimedia_type");
-		
 		String smallImgPath = req.getParameter("smallImgPath");
-		
-		
 		boolean autoplay = true;
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", "B5E673E55C702C42");
 		paramsMap.put("videoid", videoId);
-		paramsMap.put("auto_play", "true");
+		paramsMap.put("auto_play", "false");
 		paramsMap.put("player_width", playerwidth);
 		
 		//cc_A9067DA7F5AA34C39C33DC5901307461    A9067DA7F5AA34C39C33DC5901307461
@@ -75,12 +72,8 @@ public class CCVideoController {
 		paramsMap.put("player_height",setScale+"");
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
 		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-		
-//<script src="https://p.bokecc.com/player?vid=AD4B14652A01EF579C33DC5901307461&siteid=B219C561216AF9D1&autoStart=false&width=600&height=490&playerid=C93D84D43280AE02&playertype=1&img_path=http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg" 
-//   type="text/javascript"></script>
 		LOGGER.info(responsestr);
 		if (responsestr.contains("\"error\":")) {
 			return ResponseObject.newErrorResponseObject("视频走丢了，请试试其他视频。");
