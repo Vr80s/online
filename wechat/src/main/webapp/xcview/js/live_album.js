@@ -477,11 +477,8 @@ function btn_buy(){
         courseId:courseId,
         orderFrom:2
     },function(data){
-
-        window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+        window.location.href="purchase.html?orderId="+data.resultObject.orderId+"";
     });
-
-
 }
 //点击免费报名后
 function btn_mianfei(){

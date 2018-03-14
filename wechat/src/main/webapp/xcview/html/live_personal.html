@@ -129,14 +129,14 @@
 					<ul class="address_all">
 						<li class="hid_name hide" >坐诊医馆：{{hospital.name}}</li>
 						<li class="hid_wtime hide">坐诊时间：{{lecturerInfo.workTime}}</li>
-						<li class="hid_tel hide">预约电话：{{hospital.tel}}</li>
+						<li class="hid_tel hide">预约电话：<a href="tel:{{hospital.tel}}" style="color: #575757;">{{hospital.tel}}</a></li>
 						<li class="hid_address hide">医馆地址：{{hospital.province}}{{hospital.city}}{{hospital.detailedAddress}}</li>
 					</ul>
 				{{else if lecturerInfo.type == 2}}
 				<span style="font-size: 0.32rem;">医馆</span>
 				<ul class="address_all">
 					<li class="hid_name hide" >医馆名称：{{hospital.name}}</li>
-					<li class="hid_tel hide">联系电话：{{hospital.tel}}</li>
+					<li class="hid_tel hide">联系电话：<a href="tel:{{hospital.tel}} style="color: #575757;""></a>{{hospital.tel}}</li>
 					<li class="hid_address hide">医馆地址：{{hospital.province}}{{hospital.city}}{{hospital.detailedAddress}}</li>
 				</ul>
 			{{/if}}
@@ -145,8 +145,10 @@
 	</div>
 	<!--课程-->
 	<div class="wrap_vedio" style="padding-bottom: 0;" id="my_class">
-		<span style="font-size: 0.32rem;">课程</span>
-		<p class="more_right"><a href="javascript:;" onclick="btn_class()"><img src="../images/rightj.png"/></a></p>
+		<div class="" onclick="btn_class()">
+			<span style="font-size: 0.32rem;">课程</span>
+			<p class="more_right"><a href="javascript:;"><img src="../images/rightj.png"/></a></p>
+		</div>
 		<ul class="wrap_vedio_btn" id="wrap_vedio_btn">
 			<script type="text/html" id="wrap_class">
 				{{each items as item i}}				
@@ -216,10 +218,10 @@
 	</div>
    <!--评论-->	
 	<!--评论-->
-	<div class="wrap_comment_title">
+	<div class="wrap_comment_title" onclick="btn_user_allComment()">
 		<p>评论</p>
 		<span>
-			<img src="../images/video_review.png" onclick="btn_user_allComment()"/>
+			<img src="../images/video_review.png" />
 		</span>
 	</div>
 	<div class="wrap_all_returned">  <!--渲染存放盒子-->

@@ -279,7 +279,7 @@ function btn_allComment(){
 //		orderFrom:2
 //	},function(data){
 //
-//		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+//		window.location.href="purchase.html?orderId="+data.resultObject.orderId+"";
 //	});
 //
 //}
@@ -303,7 +303,7 @@ function btn_zj_mianfei(){
 					courseId:courseId,
 					orderFrom:2
 				},function(data){
-					window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+					window.location.href="purchase.html?orderId="+data.resultObject.orderId+"";
 				});
 			}else if(data_zj==1){
 				window.location.href="live_audio.html?my_study="+course_id+"";	
