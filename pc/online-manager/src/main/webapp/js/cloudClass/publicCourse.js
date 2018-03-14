@@ -252,7 +252,7 @@ $(function(){
 	/** 直播课 begin */
 	//TODO
     var objZbRecData = [
-    { "title": "序号", "class": "center","width":"5%","sortable": false,"data":"id" },
+            {title: '序号', "class": "center", "width": "3%","data": 'id',datafield: 'xuhao', "sortable": false},
 	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
 		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
 	}},
