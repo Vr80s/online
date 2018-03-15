@@ -206,8 +206,8 @@ div.pinch-zoom,
 	margin-top: 0.55rem;
 }
 .fd_img{
-	width: 5.532rem;
-    height: 7.255rem;
+	width: 4rem;
+    height: 5rem;
     margin: 0 auto;
     position: relative;
     margin-top: 3rem;
@@ -219,13 +219,14 @@ div.pinch-zoom,
 	bottom: 0;
 }
 .fd_img p{
-	width: 8rem;
+	width: 7rem;
     text-align: center;
-    font-size: 0.7rem;
-    color: #999;
     margin-left: -1.7rem;
     position: absolute;
-    bottom: -1.5rem;
+    bottom: -2.1rem;
+    
+    font-size: 0.63rem;
+    color: #BBBBBB;
 }
 #sendChat{
 	font-size: 0.55rem;
@@ -233,7 +234,6 @@ div.pinch-zoom,
     top: 0rem;
     
     display: none;
-    /*background: red;*/
     margin-top: 0.35rem;
     height: 1.45rem;
     line-height: 1.45rem;
@@ -278,8 +278,8 @@ div.pinch-zoom,
     margin-top: -0.025rem;
 }
 .fd_img_bg{
-    width: 5.532rem;
-    height: 7.255rem;
+    width: 4rem;
+    height: 5rem;
     position: absolute;
     bottom: 0;
     background: url(/xcview/images/no_class.png) no-repeat;
