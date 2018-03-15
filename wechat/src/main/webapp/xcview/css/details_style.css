@@ -616,8 +616,18 @@ div.pinch-zoom,
 	float: left;
 	margin-top: 0.68rem;
 	border-radius: 100px;
+	
+}
+.add_follow00{
 	background: #00BC12;
 }
+.add_follows0{
+	background: #00BC12;
+}
+.add_follows1{
+	background: #bbb;
+}
+
 .add_follow img{
 	width: 0.6rem;
 	/*width: 0.532rem;*/

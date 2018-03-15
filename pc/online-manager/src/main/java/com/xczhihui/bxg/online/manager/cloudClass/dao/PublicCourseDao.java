@@ -77,7 +77,12 @@ public class PublicCourseDao extends HibernateDao<Course>{
 	            sql.append(" and c.end_time <= :endTime ");
 	            paramMap.put("endTime",courseVo.getEndTime());
 	        }
-	 	sql.append(" order by c.status desc,c.recommend_sort desc,c.start_time desc");
+         if (courseVo.getLiveStatus() != null&&courseVo.getLiveStatus()==2){
+            sql.append(" order by c.status desc,c.recommend_sort desc,c.start_time ");
+        }else{
+            sql.append(" order by c.status desc,c.recommend_sort desc,c.start_time desc");
+        }
+
  		
 		return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 	}
