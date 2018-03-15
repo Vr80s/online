@@ -60,4 +60,6 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
     Integer selectCourseForValidate(@Param("title") String title);
 
     List<CourseApplyInfo> selectCourseApplyByCollectionId(@Param("id")Integer id);
+
+    List<CourseApplyInfo> selectCollectionApplyByCourseApplyId(Integer id);
 }
