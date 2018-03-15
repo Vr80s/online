@@ -291,7 +291,7 @@ border-radius: 3px;
 .main_speak p:nth-child(1){
 	float: left;
 	width: 0.6rem;
-	height: 0.03rem;
+	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
@@ -302,7 +302,7 @@ border-radius: 3px;
 .main_speak p:nth-child(3){
 	float: right;
 	width: 0.6rem;
-	height: 0.03rem;
+	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
@@ -528,6 +528,7 @@ color: #666666;
 	border: 0.01rem solid #F97B49;
 	font-size: 0.25rem;
 	margin-top: 0.1rem;
+	border-radius: 4px;
 }
 /*底部购买价格*/
 .bot_price{

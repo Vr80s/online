@@ -38,6 +38,42 @@
 	.li_list_one_right .p1 span{
     float: left;
 	}
+	
+
+.li_list_one_right .div .p5 {
+    min-width: 1.35rem;
+    float: left;
+    margin-left: 0.1rem;
+}
+.li_list_one_right .p5 img {
+    width: 0.22rem;
+    height: 0.22rem;
+    float: left;
+}
+.li_list_one_right .p5 span {
+    color: #999;
+    overflow: hidden;
+    white-space: nowrap;
+	text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 1.5rem;
+    font-size: 0.22rem;
+	color: #999999;
+	float: left;
+	margin-left: 0.05rem;
+}	
+	
+.zhibo_play_list{
+	border: 1px solid #F97B49;
+    border-radius: 3px;
+    float: left;
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+        margin-top: -0.05rem;
+}	
+	
+	
 </style>
 </head>
 <body style="background: #F8F8F8;">
@@ -234,7 +270,7 @@
 <script src="../js/table/jquery-1.10.2.js"></script>
 <script src="../js/table/jquery.min.js"></script>
 <script type="text/javascript" src="../js/table/touchslider.js"></script>
-<script type="text/javascript" src="/xcview/js/curriculum_table.js?v=wechat_1.1.1&version=3822574317"></script>
+<script type="text/javascript" src="/xcview/js/curriculum_table.js?v=w1a4317"></script>
 
 
 <script type="text/javascript">
@@ -356,6 +392,8 @@ $(".find_nav_list").on('touchmove', function (e) {
 		as[this.p].className='';
 		this.p=index;
 		
+		
+		
 		var fnl_x_tmp = fnl_x;
 		
 		fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
@@ -369,7 +407,8 @@ $(".find_nav_list").on('touchmove', function (e) {
 		
 		//滑动完了后调用的是这个方法
 		//begin == 0   这是添加筛选条件时的判断
-		if(fnl_x_tmp != fnl_x || fnl_x == -1){
+		var type_index = sessionStorage.getItem("type_index");
+		if(fnl_x_tmp != fnl_x || fnl_x == -1 || type_index == "type_index"){
 			
 			typeQuery();
 		
@@ -396,6 +435,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 	tt.slide(begin, 600);
 
 	function slide(begin){
+		
 		tt.slide(begin, 600);
 	}
 
@@ -440,15 +480,15 @@ $(".find_nav_list").on('touchmove', function (e) {
 				$(".all_bottom").addClass('all_bottom_move_close');
 				$(".all_bottom").removeClass('all_bottom_move');
 			});
+			
 			$(".all_bottom_btn1").click(function(){
-				
 				
 				$(".btn_show_main").addClass('div_right');
 				$(".btn_show_main").removeClass('div_right0');
 				$(".btn_show_bg").hide();
 				$(".all_bottom").addClass('all_bottom_move_close');
 				$(".all_bottom").removeClass('all_bottom_move');
-				
+			
 				submit();
 			});
 			
@@ -459,6 +499,9 @@ $(".find_nav_list").on('touchmove', function (e) {
 		  			$(this).addClass("all_right_type_one_add");
 			 	}else{
 			    	$(this).removeClass("all_right_type_one_add");
+			    	
+			    	//设置为null,并且
+			    	sessionStorage.setItem("type_index","type_index");
 				}
 			});
 			

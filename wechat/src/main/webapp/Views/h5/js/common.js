@@ -16,9 +16,19 @@ function is_weixin(){
     }
 }
 
+/**
+ * 截取url传递的参数
+ * @param name 传递 key  得到value 
+ * @returns
+ */
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+
 
 var accessCommon = localStorage.access;
-
 var current = window.location.search;
 //当前域名
 var domain = window.location.host;
@@ -88,12 +98,22 @@ function h5PcConversions(falg,courserId){
  *  如果页面来自课程的访问就不跳到官网
  *    所有的课程页面--》
  */
-if(current.indexOf("/xcview/html/share.html")==-1
-	&& current.indexOf("/xcview/html/foreshow.html")==-1
-	&& current.indexOf("/bxg/xcpage/courseDetails")==-1
-	&& current.indexOf("/xcviews/html/particulars.html")==-1){
-	
-	
+if(current.indexOf("course_id")!=-1 || 
+   current.indexOf("my_study")!=-1){
+	//这里都表示课程id
+	var courseId = getQueryString("course_id");
+	if(stringnull(courseId)){
+		h5PcConversions(true,courseId);
+	}else{
+		var my_study = getQueryString("my_study");
+		if(stringnull(my_study)){
+			h5PcConversions(true,my_study);
+		}else{
+			h5PcConversions(false);
+		}
+	}
+}else{
+	//跳转到课程页面
 	h5PcConversions(false);
 }
 
@@ -131,16 +151,6 @@ function requestService(url, param, callback, ac) {
 	});
 }
 
-/**
- * 截取url传递的参数
- * @param name 传递 key  得到value 
- * @returns
- */
-function getQueryString(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
-}
 
 /**
  * 现在的入口有两个呢，一个是

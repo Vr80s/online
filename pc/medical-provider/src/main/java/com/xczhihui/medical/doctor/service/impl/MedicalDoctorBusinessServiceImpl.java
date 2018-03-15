@@ -82,18 +82,35 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field, String departmentId) {
         List<MedicalDoctorVO> records = null;
         if(page.getSize()==4){
-            int count = medicalDoctorMapper.selectDoctorListCount(type);
+            int unRecommendCount = medicalDoctorMapper.selectDoctorListCount(type);
+            int recommendCount = medicalDoctorMapper.selectDoctorRecommendListCount(type);
+
             int rows = 4;
             int offset =0;
             Random random = new Random();
-            if(count>rows){
-                count=random.nextInt(count);
-                offset = count-rows;
+            if(recommendCount>rows){
+                recommendCount=random.nextInt(recommendCount);
+                offset = recommendCount-rows;
                 if (offset < 0) {
                     offset=0;
                 }
             }
-            records = medicalDoctorMapper.selectDoctorList4Random(type,offset,rows);
+            records = medicalDoctorMapper.selectDoctorRecommendList4Random(type,offset,rows);
+            if(records.size()<4){
+                offset =0;
+                rows=4-records.size();
+                if(unRecommendCount>rows){
+                    unRecommendCount=random.nextInt(unRecommendCount);
+                    offset = unRecommendCount-rows;
+                    if (offset < 0) {
+                        offset=0;
+                    }
+                }
+
+                List<MedicalDoctorVO> mds = medicalDoctorMapper.selectDoctorList4Random(type, offset, rows);
+                records.addAll(mds);
+            }
+
         }else{
             records = medicalDoctorMapper.selectDoctorList(page, type, hospitalId, name, field,departmentId);
         }

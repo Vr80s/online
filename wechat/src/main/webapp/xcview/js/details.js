@@ -318,15 +318,23 @@ $(".add_follow").click(
 
 					if (htmlstr == "已关注") {
 						$(".add_follow").find('img').attr('src',
-								'../images/follow.png');
+								'../images/weigz.png');
 						$(".add_follow").find('p').html("加关注");
+						$(".add_follow").removeClass("add_follows00");
+						$(".add_follow").addClass("add_follows0");
+						$(".add_follow").removeClass("add_follows1");
 						// $(".right_personal").find('span').html(parseInt(p)-1);
 
 						$(".n_fensi").html(parseInt(n_fensi) - 1);
 					} else {
 						$(".add_follow").find('img').attr('src',
-								'../images/follow_one.png');
+								'../images/yigz.png');
 						$(".add_follow").find('p').html("已关注");
+//						$(".add_follow").css("background","#bbb");
+						$(".add_follow").removeClass("add_follows00");
+						$(".add_follow").addClass("add_follows1");
+						$(".add_follow").removeClass("add_follows0");
+						
 						// 粉丝数
 						$(".n_fensi").html(parseInt(n_fensi) + 1);
 						// $(".right_personal").find('span').html(parseInt(p)+1);
@@ -398,6 +406,11 @@ function refreshGiftRanking() {
 			},
 			function(data) {
 				if (data.success) {
+					if(data.resultObject.length==0 || data.resultObject.length==""){
+						$("#phbList").css({"background":"#f8f8f8"})
+						$(".no_git").show()
+					}else{
+			
 					var list = data.resultObject;
 					var html = "";
 					for (var i = 0; i < list.length; i++) {
@@ -448,6 +461,8 @@ function refreshGiftRanking() {
 
 					}
 					$("#phbList").html(html);
+								
+					}
 				}
 			}, false);
 

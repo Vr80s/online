@@ -58,5 +58,9 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
     int selectDoctorListCount(Integer type);
 
+    int selectDoctorRecommendListCount(Integer type);
+
     List<MedicalDoctorVO> selectDoctorList4Random(@Param("type") Integer type, @Param("offset") int offset, @Param("rows") int rows);
+
+    List<MedicalDoctorVO> selectDoctorRecommendList4Random(@Param("type") Integer type, @Param("offset") int offset, @Param("rows") int rows);
 }
