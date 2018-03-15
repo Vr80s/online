@@ -195,7 +195,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		/**
 		 * 创建微吼信息
 		 */
-		String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.MOREN,mobile, u.getSmallHeadPhoto());
+		String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),
+				WeihouInterfacesListUtil.MOREN,mobile, 
+				u.getSmallHeadPhoto(),mobile);
+		
 		u.setVhallId(weihouUserId);  //微吼id
 		u.setVhallName(mobile);
 		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
