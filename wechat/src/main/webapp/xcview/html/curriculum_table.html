@@ -161,7 +161,7 @@
 	<!--点击筛选内容开始-->
 	<div class="btn_show">
 		<div class="btn_show_bg btn_show_main_close" style="display: block1;"></div>
-		<div class="btn_show_main div_right0">
+		<div class="btn_show_main div_right0" >
 			<div class="all_classify_right"><span class="screen_close"><img src="../images/screen_close.png" /></span>筛选</div>
 			<div class="all_mold all_mold0">
 				<div class="all_classify_right_type">分类</div>
@@ -439,6 +439,12 @@ $(".find_nav_list").on('touchmove', function (e) {
 		tt.slide(begin, 600);
 	}
 
+	function slideBK(begin,time){
+		
+		tt.slide(begin, time);
+	}
+	
+	
 	for(var i=0;i<as.length;i++){
 		(function(){
 			var j=i;
@@ -519,6 +525,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 				}
 				
 			});
+
 			
 			$(".all_mold2 .all_right_type_one").click(function(){
 				var index=$(this).index();
@@ -534,8 +541,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 				}
 			 	
 			 	
-			 	if(index==2 && $("#draw_course_big_list .all_right_type_one_add").attr("title")){   //通过title获取  有没有这个title
-//				if(index==2 && $("#draw_course_big_list").children(".all_right_type_one").eq(2).hasClass("all_right_type_one_add")){   //通过eq来获取第几个
+  			 	if(index==2 && $("#draw_course_big_list .all_right_type_one_add").attr("title")){   //通过title获取  有没有这个title
 					$(".all_mold4").show();
 				}else{
 					$(".all_mold4").hide();
@@ -550,8 +556,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 					
 					//清空城市
 					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
-				}
-				
+				}  
 				
 				
 			});
@@ -560,29 +565,24 @@ $(".find_nav_list").on('touchmove', function (e) {
 				/*$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");*/
 				
-				if(!$(this).hasClass("all_right_type_one_add")){
+ 				if(!$(this).hasClass("all_right_type_one_add")){
 					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
 		  			$(this).addClass("all_right_type_one_add");
 			 	}else{
 			    	$(this).removeClass("all_right_type_one_add");
-				}
+				} 
 				
 			});
 			
 			//点击选择直播状态  --》清空城市的赛选
 			
 			$(".all_mold4 .all_right_type_one").click(function(){
-				
-				/*$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
-				$(this).addClass("all_right_type_one_add");*/
-				
-				if(!$(this).hasClass("all_right_type_one_add")){
+ 				if(!$(this).hasClass("all_right_type_one_add")){
 					$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
 		  			$(this).addClass("all_right_type_one_add");
 			 	}else{
 			    	$(this).removeClass("all_right_type_one_add");
 				}
-				
 			});
 			
 //			点击重置   --> 清空浏览器上面的url,刷新页面
