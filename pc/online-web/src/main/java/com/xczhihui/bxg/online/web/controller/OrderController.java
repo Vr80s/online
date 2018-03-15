@@ -146,6 +146,16 @@ public class OrderController {
         return ResponseObject.newSuccessResponseObject(orderService.getOrderStatus(orderNo));
     }
     /**
+     * 返回当前订单支付状态
+     * @param orderId
+     * @return
+     */
+    @RequestMapping(value = "/getOrderStatusById",method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getOrderStatusById(String orderId){
+        return ResponseObject.newSuccessResponseObject(orderService.getOrderStatusById(orderId));
+    }
+    /**
      * 检查订单是否已支付
      * @param orderNo
      * @return
