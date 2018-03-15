@@ -59,7 +59,6 @@
 		oc.course_detail as description,
 		oc.course_outline as courseOutline,
 		
-		
 		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
 		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
@@ -73,14 +72,13 @@
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 ),0) as startLevel,
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
-		ou.small_head_photo as headImg,
-		ou.id as userId,
+		ou.profile_photo as headImg,
+		ou.user_id as userId,
 		ou.name as heir,
-		ou.vhall_id as vhallId,
 		oc.live_source_type as liveSourceType
 			FROM
 		oe_course as oc
-		inner join oe_user as ou on oc.user_lecturer_id = ou.id
+		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
 		where oc.id = #{courseId} and oc.is_delete=0
 	</select>
 
@@ -127,14 +125,13 @@
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 ),0) as startLevel,
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
-		ou.small_head_photo as headImg,
+		ou.profile_photo as headImg,
 		ou.name as heir,
-		ou.vhall_id as vhallId,
 		oc.live_source_type as liveSourceType
 			FROM
 		oe_course as oc
-		inner join oe_user as ou on oc.user_lecturer_id = ou.id
-		where oc.id = #{courseId} and oc.is_delete=0   and ou.status = 0  and ou.is_delete =0
+		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+		where oc.id = #{courseId} and oc.is_delete=0   and ou.status = 1  and ou.deleted =0
 	</select>
 
 	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
@@ -150,9 +147,9 @@
 		if(oc.is_free =0,0,1) as watchState,
 		 oc.collection as collection,
 		 
-				if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
 		
 		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
