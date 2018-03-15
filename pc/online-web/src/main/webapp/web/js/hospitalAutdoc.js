@@ -69,16 +69,20 @@ $('#deleteTip #cancalDel').click(function(){
 var delid;
 //点击确认删除
 $('#deleteTip .confirm-sure').click(function(){
-	RequestService("/medical/doctor/delete", "post", {
-		id:delid,
+	RequestService("/medical/hospital/deleteDoctor", "post", {
+		doctorId:delid,
 	}, function(data) {
 		if(data.success == true){
 			//重新渲染列表
 			$('.doc_Administration_tabBtn').click();
 			 courseVodList(1);
+			 $('#deleteTip').addClass('hide');
+			$('#mask').addClass('hide');
 		}
 			
 	});
+	
+	
 })
 	
 	
