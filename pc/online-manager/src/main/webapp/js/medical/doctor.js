@@ -45,7 +45,7 @@ $(function(){
 
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status){ // 启用状态或者禁用状态
-				if(row.sourceId === null){
+				if(row.sourceId === null&&row.createPerson === null){
                     return '<div class="hidden-sm hidden-xs action-buttons">'+
                         '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
@@ -798,7 +798,7 @@ function toEdit(obj,status){
 		$("#edit_description").html(result.description); //课程简介
 
 		// 如果是用户自己认证成的医馆 不能修改其信息
-		if(result.sourceId !== null){
+		if(result.sourceId !== null||result.createPerson !== null){
             $("#edit_name").attr("disabled", true);
             $("#edit_title").attr("disabled", true);
             $("#edit_tel").attr("disabled", true);
