@@ -243,7 +243,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		
 		if(lineState==1){
 			saisuanstr +="直播中-";
-		}else if(lineState==2){
+		}else if(lineState==2 || lineState==4 || lineState==5){
 			saisuanstr +="未直播-";
 		}else if(lineState==3){
 			saisuanstr +="精彩回放-";
