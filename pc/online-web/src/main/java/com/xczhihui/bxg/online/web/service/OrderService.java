@@ -45,6 +45,9 @@ public interface OrderService {
      * 返回当前订单支付状态
      */
     public Integer getOrderStatus(String orderNo);
+
+    Integer getOrderStatusById(String orderId);
+
     /**
      * 获得支付需要的信息
      * @param orderNo

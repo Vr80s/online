@@ -167,8 +167,8 @@ $(function() {
 	});
 	//支付结果页面1
 	$(".pay-success-btn").click(function() {
-		RequestService("/web/getOrderStatus", "GET", {
-			orderNo: orderNo
+		RequestService("/web/getOrderStatusById", "GET", {
+            orderId: getQueryString("orderId")==null?orderId:getQueryString("orderId")
 		}, function(data) {
 			if(data.resultObject == 1) {
 				$(".pay-result1").css("display", "none");
