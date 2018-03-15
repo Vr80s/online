@@ -14,7 +14,7 @@ function time(o) {
         $(o).html("" + wait + "S");
         wait--;
         $(".call_code").css("background","#00bc12");
-        $(".call_code").css("opacity","0.5");
+        $(".call_code").css("opacity","0.3");
         setTimeout(function() {
             time(o)
         }, 1000)

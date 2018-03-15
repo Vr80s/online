@@ -33,11 +33,16 @@ public class EmailUtil {
     public static final String PASSWORD = getValue("email.password");
     public static final String ENV = getValue("ENV_FLAG");
     public static final String TOUSER = "system@ixincheng.com";
+    public static final String MODIFYLOGINNAMETOUSER = "yuruixin@ixincheng.com";
 
     public static void sendExceptionMailBySSL(String server,String subject,String content) throws MessagingException {
         if((ENV.equals("test")||ENV.equals("prod"))&&containFilter(content)){
             sendMailBySSL(SMTP,USERNAME,PASSWORD,TOUSER,server+":"+ENV+"环境异常:"+subject,content);
         }
+    }
+
+    public static void modifyLoginNameMailBySSL(String content) throws MessagingException {
+            sendMailBySSL(SMTP,USERNAME,PASSWORD,MODIFYLOGINNAMETOUSER,"工作人员操作:用户名更换",content);
     }
 
     public static boolean containFilter(String content){

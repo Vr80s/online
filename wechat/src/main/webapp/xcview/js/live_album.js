@@ -100,6 +100,7 @@ function stripHTML(str){
 		if(h2>200){
 			$(".zhezhao").show()
 			$(".btn").show()
+			$(".line_xian").hide()
 			$(".wrap").css({"height":"2rem","overflow":"hidden"})
 		}else{
 			$(".zhezhao").hide()

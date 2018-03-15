@@ -390,7 +390,7 @@ $(function() {
 	    //var host2 = document.domain; 
 		//alert("host:"+host+"host2:"+host2);
 		
-		var weboshare_url="http://"+host+"/web/html\/"+page+".html?id="+courseId;
+		var weboshare_url="http://"+host+"/course/courses/"+courseId;
 		
 		/**
 		 * 微博分享

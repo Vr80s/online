@@ -289,7 +289,7 @@ function createGiftShow() {
 function countChange(count) {
     if (count == 3) {
         count = 2;
-        return 15.4;
+        return 16.4;
     } else if (count == 2) {
         count = 3;
         return 13.9;

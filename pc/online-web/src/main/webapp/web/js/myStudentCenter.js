@@ -127,7 +127,7 @@ $.getUrlParam = function(name) {
 	var mycourse_xianxia = '<div class="box clearfix">' +
 	'{{each items as $value i }}' +
 	'<div class="course" data-url="/web/html/payRealCourseDetailPage.html?id={{$value.id}}">' +
-	'<a href="/web/html/payRealCourseDetailPage.html?id={{$value.id}}"   data-videoId="{{$value.id}}">' +
+	'<a href="/course/courses/{{$value.id}}"   data-videoId="{{$value.id}}">' +
 	'{{#hasImg($value.smallImgPath)}}' +
 	'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +
 	'<div class="name" title="{{$value.courseName}}">{{$value.startTime}}-{{$value.endTime}}</div>' +
@@ -223,7 +223,7 @@ $.getUrlParam = function(name) {
 		'{{if $value.order_status=="0"}}' +
 		'<span  style="float: right;margin-right: 30px;"><a href="/web/{{$value.order_no}}/findOrderByOrderNo?orderId={{$value.id}}" target="_blank" style="width: 78px;height: 36px;text-align: center;line-height: 36px;border: 1px solid #2CB82C;color: #fff;background-color: #2CB82C;border-radius: 2px;">去支付</a></span>'+
 		'{{/if}}' +
-		'<span style="float: right;margin-right: 30px;">实付总额：<i style="font-style:normal;color:#2CB82C">{{$value.actual_pay}}</i>元</span><span style="float: right;margin-right: 30px;">订单总金额：{{$value.actual_pay}}</span>'+
+		'<span style="float: right;margin-right: 30px;">实付款：<i style="font-style:normal;color:#2CB82C">{{$value.actual_pay}}</i>元</span><span style="float: right;margin-right: 30px;"></span>'+
 	
 		'</div>'+
 		

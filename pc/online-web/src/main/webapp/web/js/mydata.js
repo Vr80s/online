@@ -711,7 +711,7 @@ function addgetdata() { //回填数据
 	var num = 1;
 	setInterval(function(){
 		num += 1;
-		if(num<30){
+		if(num<80){
 			if(data.resultObject.province != ''&&data.resultObject.city != null){
 				
 //			$('.Province1 option:selected').val(data.resultObject.province);	
