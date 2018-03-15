@@ -41,7 +41,7 @@ window.onload = function() {
 		'<tr><td><span class="name">{{$value.courseName}}</span></td></tr>' +
 		'</table>' +
 		'</div>' +
-		'<div class="td2">即日起至{{#expiry($value.create_time)}}</div>' +
+		'<div class="td2" style="visibility:hidden">即日起至{{#expiry($value.create_time)}}</div>' +
 		'<div class="td3">￥{{#add00($value.currentPrice)}}</div>' +
 		'<div class="td4">' +
 
