@@ -173,6 +173,9 @@ public class MyManagerController {
 			return ResponseObject.newErrorResponseObject("登录失效！");
 		}
 		Page<CourseLecturVo> page = new Page<>();
+		if(pageNumber==0){
+			pageNumber= 1;
+		}
 		page.setCurrent(pageNumber);
 		page.setSize(pageSize);
 		return ResponseObject.newSuccessResponseObject(courseService.selectMyFreeCourseList(page, user.getUserId()));
@@ -269,8 +272,6 @@ public class MyManagerController {
 		
 		int num = (pageNumber - 1) * pageSize;
 		num = num < 0 ? 0 : num;
-		
-		
 		
 		return ResponseObject.newSuccessResponseObject(myInfoService.findUserWallet(num,pageSize, user.getId()));
 	}
@@ -389,6 +390,9 @@ public class MyManagerController {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		Page<CourseLecturVo> page = new Page<>();
+		if(pageNumber==0){
+			pageNumber= 1;
+		}
 		page.setCurrent(pageNumber);
 		page.setSize(pageSize);
 		List<CourseLecturVo> list = courseService.selectUserConsoleCourseLiveByPage(page,user.getId());
@@ -434,7 +438,11 @@ public class MyManagerController {
 			courseFrom = 2;
 			multimediaType = 2;
 		}
+		
 		Page<CourseLecturVo> page = new Page<>();
+		if(pageNumber==0){
+			pageNumber= 1;
+		}
 		page.setCurrent(pageNumber);
 		page.setSize(pageSize);
 

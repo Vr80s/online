@@ -206,8 +206,9 @@
 										<select name="" id="citys">
 
 										</select>
-										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">所在城市地址不能为空</p>
+										<p class="cityWarn warning hide" style="margin-left:110px;padding-left: 0px;">所在城市地址不能为空</p>
 										<textarea placeholder="请填写医馆详细信息" cols="" style="width: 500px;height: 90px;border: 1px solid #F0F0F0;padding: 10px;resize: none;margin: 20px 0px 0px 110px;outline: none;"></textarea>
+										<p class="detailWarn warning hide" style="margin-left:110px;padding-left: 0px;">所在城市地址不能为空</p>
 									</div>
 
 									<div class="baocun">
@@ -961,8 +962,8 @@
 			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>
 			{{else}}
 			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
-			<!--<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=1 class="upRoDown">上线</a>
-			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>-->
+			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=1 class="upRoDown">上线</a>
+			<!--<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>-->
 			<a href="javascript:;" class="delete" data-id={{item.id}}>删除</a>
 			{{/if}}
 			

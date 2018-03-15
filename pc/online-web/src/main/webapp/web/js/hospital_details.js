@@ -134,5 +134,17 @@ $(function(){
 	    });
 	
 	
+	
+	  //优秀医馆部分 hot-article
+    RequestService("/medical/hospital/getRecHospitals", "GET", null, function (data) {
+        if(data.resultObject.length==0){
+            $("#good_hospital").html(' ');
+        }else{
+        	$('#good_hospital').removeClass('hide')
+        	console.log(data);
+	        $('#good_hospital_list').html(template('good_hospital_list_Tpl',{item:data.resultObject}));
+            
+        }
+    });
 
 })
