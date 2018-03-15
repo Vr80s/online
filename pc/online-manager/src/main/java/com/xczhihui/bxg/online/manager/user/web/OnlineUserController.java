@@ -10,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -162,5 +163,14 @@ public class OnlineUserController extends AbstractController {
 	     request.setAttribute("lecturerStatus",ou.getIsLecturer());
 	     ModelAndView mav=new ModelAndView(USER_PATH_PREFIX +"userDescriptionEdit");
 	     return mav;
+	}
+
+	@RequestMapping(value = "modifyUser", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseObject modifyUser(String userId,String loginName) throws ServletRequestBindingException {
+		ResponseObject responseObject = new ResponseObject();
+		service.updateUserLogin(userId,loginName);
+		responseObject.setSuccess(true);
+		return responseObject;
 	}
 }

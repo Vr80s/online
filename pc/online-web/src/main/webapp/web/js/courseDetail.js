@@ -313,7 +313,11 @@ window.onload = function() {
 												$(".sign-up-body,.gotengxun").css("display", "none");
 												$(".sign-up-success,.baomingSucces").css("display", "block");
 												$(".bigpic-body-btn .sign-up").text("立即学习");
-												$(".sign-up,.baomingSucces").attr("href", "/web/html/video.html?courseId=" + courserId);
+												if(courseDetail.type==1){
+                                                    $(".sign-up,.baomingSucces").attr("href", "/web/livepage/" + courserId);
+                                                }else if(courseDetail.type==2){
+                                                    $(".sign-up,.baomingSucces").attr("href", "/web/html/video.html?courseId=" + courserId);
+												}
 												$(".sign-up1").css("display", "none");
 												$("#payCourseSlider .baomingSucces").css("display", "block");
 												$(".sign-up").unbind("click");

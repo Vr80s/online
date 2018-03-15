@@ -225,6 +225,7 @@ border-radius: 3px;
 	text-align: justify;
 	padding-top: 0.1rem;
 	min-height: 2rem;
+	padding-bottom: 0.2rem;
 }
 .wrap p img{
 	/*width: 100%;*/
@@ -265,7 +266,7 @@ border-radius: 3px;
 	display: none;
 	text-align: center;
     line-height: 1.8rem;
-    border-bottom: 0.01rem solid #D8DDE6;
+    /*border-bottom: 0.01rem solid #D8DDE6;*/
     color: #a5a5a5;
 	
 }
@@ -317,6 +318,7 @@ border-radius: 3px;
 	text-align: justify;
 	padding-top: 0.1rem;
 	min-height:2rem;
+	padding-bottom: 0.2rem;
 }
 .wrap1 p img{
 	/*width: 100%;*/
