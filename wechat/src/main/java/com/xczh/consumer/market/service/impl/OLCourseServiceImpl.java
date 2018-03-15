@@ -1,5 +1,14 @@
 package com.xczh.consumer.market.service.impl;
 
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.dao.OLCourseMapper;
 import com.xczh.consumer.market.dao.OnlineLecturerMapper;
@@ -7,21 +16,16 @@ import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczh.consumer.market.vo.*;
+import com.xczh.consumer.market.vo.ChapterVo;
+import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.DateUtil;
+import com.xczh.consumer.market.vo.MenuVo;
+import com.xczh.consumer.market.vo.MyCourseVo;
+import com.xczh.consumer.market.vo.WxcpCourseVo;
+import com.xczh.consumer.market.vo.WxcpOeMenuVo;
 import com.xczh.consumer.market.wxpay.typeutil.StringUtil;
-
 import com.xczhihui.wechat.course.model.OfflineCity;
 import com.xczhihui.wechat.course.service.IOfflineCityService;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class OLCourseServiceImpl implements OLCourseServiceI {

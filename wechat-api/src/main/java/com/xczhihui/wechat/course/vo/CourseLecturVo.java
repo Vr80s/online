@@ -151,7 +151,7 @@ public class CourseLecturVo implements Serializable {
 
 	private String courseTimeConver; //课程时间转换为: 00:00:00
 	
-	private Integer cutoff;	// 0 已截止  1 未截止
+	private Integer cutoff;	//  0 为截止  1 已截止
 	
 	private String userLecturerId;
 	

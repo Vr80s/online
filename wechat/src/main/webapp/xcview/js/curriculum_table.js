@@ -364,8 +364,6 @@ function submit(){
 
 function queryDataByParams(params,data_type){
 	
-	
-	
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
 			//createListInfo(data,data_type)
@@ -386,6 +384,7 @@ function queryDataByParams(params,data_type){
 				}
 				for (var int = 0; int < data.resultObject.length; int++) {
 					var item = data.resultObject[int];
+					
 					var statusImg="";  //视频、音频不同的图片
 					if(item.type == 1){
 						statusImg+="/xcview/images/tv_auto.png";
@@ -409,11 +408,13 @@ function queryDataByParams(params,data_type){
 					if(item.type ==3){
 						if(item.lineState==1){
 							typeStr +="<p class='zhibo_play'>直播中</p>";
+						/*	typeStr +="直播中";*/
 						}else{
-						    typeStr +="<p class='p2' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>"+item.startDateStr+"</span></p>";
+						   /* typeStr +="<p class='p5' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>"+item.startDateStr+"</span></p>";*/
+							 typeStr +="<p class='p5' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>"+item.startDateStr+"</span></p>";
 						}
 					}else if(item.type ==4){
-						typeStr +="<p class='p5'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>"+item.city+"</span></p>";
+						typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>"+item.city+"</span></p>";
 						//alert(typeStr);
 					}
 					data1+="<div class='li_list_div' >"+

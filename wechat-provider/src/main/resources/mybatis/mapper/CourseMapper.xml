@@ -49,7 +49,7 @@
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
-		if(oc.type =4,if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0),0)  as cutoff,
+		if(oc.type =3,if(date_sub(oc.start_time,INTERVAL 1 DAY) >= now(),1,0),0)  as cutoff,
 		
 		if(oc.collection=0,oc.direct_id,(select o.direct_id from oe_course o join collection_course cc on
         o.id =cc.course_id where cc.collection_id =oc.id  ORDER BY cc.collection_course_sort asc limit 1 ))  as directId,
@@ -95,7 +95,7 @@
 		oc.end_time as endTime,
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
-		if(oc.type =4,if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0),0)  as cutoff,
+		if(oc.type =3,if(date_sub(oc.start_time,INTERVAL 1 DAY) >= now(),1,0),0)  as cutoff,
 		if(oc.is_free =0,0,1) as watchState,
 		if(oc.type=1,ifnull((select SUM(count) from oe_gift_statement where receiver = user_lecturer_id),0),0) as giftCount,
 		
