@@ -1342,11 +1342,16 @@ function initMenu(){
     RequestService("/menu/getAllMenu?type=1", "get", null, function(data) {
         var menus = data.resultObject;
         var str="";
-        for(var i in menus){
-            if(menus[i].id!=1){
+        for(var i = 0;i < menus.length;i++){
+        	 if(menus[i].id!=1){
                 str += "<option value='"+menus[i].id+"'>"+menus[i].name+"</option>"
             }
         }
+//      for(var i in menus){
+//          if(menus[i].id!=1){
+//              str += "<option value='"+menus[i].id+"'>"+menus[i].name+"</option>"
+//          }
+//      }
         $("#menu_select").html(str);
         $("#menu_select_collection").html(str);
     });
