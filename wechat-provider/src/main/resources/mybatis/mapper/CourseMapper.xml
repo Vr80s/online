@@ -194,7 +194,7 @@
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
 		where ( (oc.type = 3 ) or (oc.type = 1 and oc.live_status = 3 ) )
 		and argc.user_id=#{userId}
-		and oc.is_delete=0  group by oc.id order by oc.end_time)t2
+		and oc.is_delete=0  group by oc.id order by oc.end_time desc)t2
 	</select>
 
 	<!-- 得到已购买课程的数量 （不包括免费的课程） -->
