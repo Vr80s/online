@@ -369,8 +369,8 @@ $(document).ready(function() {
             alert("非法的礼物数量!");
             return;
         }*/
-        var xmbShowSpan = $("#xmbShowSpan").html();
-        var jiage = $(".gift_ul_li_li .gift_p .jiage").text();
+        var xmbShowSpan = $("#xmbShowSpan").html(); //1
+        var jiage = $(".gift_ul_li_li .gift_p .jiage").text();  //1
 //      if(jiage<xmbShowSpan || jiage == 0){
         if(jiage<=xmbShowSpan || jiage <= 0){
             if (connected) {

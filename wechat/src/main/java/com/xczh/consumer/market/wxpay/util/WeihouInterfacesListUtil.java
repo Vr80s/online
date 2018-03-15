@@ -89,28 +89,6 @@ public class WeihouInterfacesListUtil {
 	}
 	
 	
-	//测试
-	public static void main(String[] args) {
-		//CURRENT_USER_ID("24e7d53a956f4a4eb7b22d5742626e8f");
-		//third_user_id
-		//getUserinfo("20383761", "name,head,third_user_id");
-		
-		//21047835   v21054339
-		/*createUser("137827828781", "123456", "123456", "http://attachment-center.ixincheng.com:38080/data/"
-				+ "picture/online/2017/09/25/15/e4981eeaec9746f7b965ee475ed90a2c.jpg");*/
-		
-		//账号：15936216273, 接口/bxg/bs/login返回的微吼id是"22785686", 微吼登录返回的id是"20383761".
-		
-		//getUserinfo("22785686", "name,head");
-		System.out.println(createUser("123456","123456","yangxuan","123456"));
-		
-/*		updateUser("6798c0bdeeea47f8ae6c016a97ee36ac", null, "yangxuanhao","http://attachment-center.ixincheng.com:38080/data/"
-				+ "picture/online/2017/09/25/15/e4981eeaec9746f7b965ee475ed90a2c.jpg");*/
-		
-	}
-	
-	
-	
 	/**
 	 * Description：请求根据用户id,更新用户接口信息！微吼更新用户接口，
 	 * @param userId
@@ -185,6 +163,25 @@ public class WeihouInterfacesListUtil {
 	}
 	
 	
+	//测试
+	public static void main(String[] args) {
+		//CURRENT_USER_ID("24e7d53a956f4a4eb7b22d5742626e8f");
+		//third_user_id
+		//getUserinfo("20383761", "name,head,third_user_id");
+		
+		//21047835   v21054339
+		/*createUser("137827828781", "123456", "123456", "http://attachment-center.ixincheng.com:38080/data/"
+				+ "picture/online/2017/09/25/15/e4981eeaec9746f7b965ee475ed90a2c.jpg");*/
+		
+		//账号：15936216273, 接口/bxg/bs/login返回的微吼id是"22785686", 微吼登录返回的id是"20383761".
+		
+		//getUserinfo("22785686", "name,head");
+		//System.out.println(createUser("123456","123456","yangxuan","123456"));
+		
+		updateUser("96797247b8c747d19cd248e5df3b2145",null,null,null);
+		
+	}
+	
 	/**
 	 * Description：请求根据用户id,更新用户接口信息！微吼更新用户接口，
 	 * @param userId
@@ -211,6 +208,11 @@ public class WeihouInterfacesListUtil {
 		if(StringUtils.hasText(password)){
 			parameters.put("pass", password);
 		}
+		
+		//if(StringUtils.hasText(mobile)){
+		parameters.put("phone", "18821274320");
+		//}
+		
 		if(StringUtils.hasText(name)){
 			parameters.put("name", name);
 		}
@@ -306,6 +308,44 @@ public class WeihouInterfacesListUtil {
 		}
 		return null;
 	}
+	
+	/**
+	 * Description：请求微吼创建用户接口，得到一个微吼用户id。
+	 * @param userId  第三方用户id
+	 * @param pass	登录密码
+	 * @param name  姓名
+	 * @param head	头像
+	 * @return
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public static String createUser(String userId,String pass,
+			String name,String head,String loginName) {
+
+		Map<String, String> parameters =  WeihouInterfacesListUtil.getBaseParams();
+		
+		parameters.put("third_user_id", userId);
+		parameters.put("pass", pass);
+		parameters.put("name", name);
+		parameters.put("head", head);
+		parameters.put("phone", loginName);
+		
+		String json = HttpUtil.sendPostRequest(REGISTER, parameters);
+		
+		JSONObject js = JSONObject.parseObject(json);
+		if("success".equals(js.get("msg"))){
+			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
+			System.out.println(jsData.toJSONString());
+			String vhallId = jsData.get("user_id").toString();
+			return vhallId;
+		}else if(Integer.parseInt(js.get("code").toString()) == 10804){
+			
+			return updateUser(userId, pass, name, head);
+		}
+		return null;
+	}
+	
+	
 	
 	//20264468
 	public static Map<String, String> json2Map(String jsonStr) {
