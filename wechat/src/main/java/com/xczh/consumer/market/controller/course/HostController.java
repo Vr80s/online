@@ -111,7 +111,6 @@ public class HostController {
 		MedicalHospital mha = null;
 		
 		LOGGER.info("lecturerInfo"+lecturerInfo.toString());
-		
 		//1.医师2.医馆
 		if(lecturerInfo.get("type").toString().equals("1")){
 			 mha = 	medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);	

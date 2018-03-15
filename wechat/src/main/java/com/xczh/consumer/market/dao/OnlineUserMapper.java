@@ -656,7 +656,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
      */
 	public Map<String, Object> findHostById(String lecturerId) throws SQLException {
 		StringBuffer sql = new StringBuffer(); 
-		sql.append("select ou.id,ou.name,ou.small_head_photo,ca.video,ca.detail,ca.type as type,"
+		sql.append("select ca.user_id,ca.name,ca.profile_photo as small_head_photo,ca.video,ca.detail,ca.type as type,"
 				+ " (select md.work_time from medical_doctor md where id = (select doctor_id from medical_doctor_account as mda  "
 				+ "    where mda.account_id = ?) )  as workTime  "
 				+ "  from  oe_user ou inner join course_anchor ca on  ou.id = ca.user_id where ou.id = ?");
