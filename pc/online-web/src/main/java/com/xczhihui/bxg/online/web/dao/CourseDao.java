@@ -251,18 +251,50 @@ public class CourseDao extends SimpleHibernateDao {
     public CourseVo getCourseById(Integer courseId,HttpServletRequest request) {
         CourseVo courseVo = null;
         if (courseId != null) {
-        	String sql = " select c.course_type, c.id,c.lecturer_description lecturerDescription,c.direct_id, c.is_recommend,c.type, c.is_free, c.grade_name as courseName ," +
-                        "c.description,floor(c.current_price*10) current_price,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime," +
-                        "c.start_time,c.user_lecturer_id userLecturerId,c.collection,c.course_number courseNumber,c.status,c.`address`,"+
-                         " IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) + IFNULL(pv, 0) learnd_count,"+
-                         " c.course_length,c.detailimg_path as detailImgPath, c.bigimg_path as bigImgPath,c.cloud_classroom ,CONCAT(replace(s.`name`,'课',''),t.`name`,\"课\") as scoreName," +
-                         " c.course_outline as courseOutline , c.common_problem as commonProblem, c.course_detail  as courseDetail,ifnull(c.qqno,'暂无QQ')as qqno,m.name,c.description_show " +
-                         " from oe_course c left join oe_menu m on c.menu_id = m.id left join score_type s on c.course_type_id = s.id left join teach_method t ON c.courseType = t.id where c.is_delete=0 and  c.id=?";
+        	String sql = "SELECT \n" +
+                    "  c.id,\n" +
+                    "  c.lecturer_description lecturerDescription,\n" +
+                    "  c.direct_id,\n" +
+                    "  c.is_recommend,\n" +
+                    "  c.type,\n" +
+                    "  c.is_free,\n" +
+                    "  c.grade_name AS courseName,\n" +
+                    "  c.description,\n" +
+                    "  FLOOR(c.current_price * 10) current_price,\n" +
+                    "  IFNULL(c.start_time, NOW()) startTime,\n" +
+                    "  IFNULL(c.end_time, NOW()) endTime,\n" +
+                    "  c.start_time,\n" +
+                    "  c.user_lecturer_id userLecturerId,\n" +
+                    "  c.collection,\n" +
+                    "  c.course_number courseNumber,\n" +
+                    "  c.status,\n" +
+                    "  c.`address`,\n" +
+                    "  IFNULL(\n" +
+                    "    (SELECT \n" +
+                    "      COUNT(*) \n" +
+                    "    FROM\n" +
+                    "      apply_r_grade_course \n" +
+                    "    WHERE course_id = c.id),\n" +
+                    "    0\n" +
+                    "  ) + IFNULL(default_student_count, 0) + IFNULL(pv, 0) learnd_count,\n" +
+                    "  c.course_length,\n" +
+                    "  c.detailimg_path AS detailImgPath,\n" +
+                    "  c.bigimg_path AS bigImgPath,\n" +
+                    "  c.course_outline AS courseOutline,\n" +
+                    "  c.course_detail AS courseDetail,\n" +
+                    "  c.lecturer teacherName,\n" +
+                    "  m.name\n" +
+                    "FROM\n" +
+                    "  oe_course c \n" +
+                    "  LEFT JOIN oe_menu m \n" +
+                    "    ON c.menu_id = m.id \n" +
+                    "WHERE c.is_delete = 0 \n" +
+                    "  AND c.id = ?";
             List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{courseId}, BeanPropertyRowMapper.newInstance(CourseVo.class));
             courseVo = courseVoList.size() > 0 ? courseVoList.get(0) : courseVo;
             if(courseVo != null){
                 //成为分享大使课程的id，购买此课程可成为分享大使
-                courseVo.setShareCourseId(shareCourseId);
+//                courseVo.setShareCourseId(shareCourseId);
             }
 
             //获取登录用户
