@@ -362,7 +362,7 @@ function updateRecommendSort(obj){
     var oo = $(obj).parent().parent().parent();
     var row = scoreTypeTable.fnGetData(oo);
     $("#UpdateRecommendSort_id").val(row.id);
-    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,300,true,"确定",function(){
         if($("#UpdateRecommendSortFrom").valid()){
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updateRecommendSort");
@@ -375,6 +375,7 @@ function updateRecommendSort(obj){
                 unmask();
                 if(data.success){
                     $("#recommendSort").val("");
+                    $("#recommendTime").val("");
                     $("#UpdateRecommendSortDialog").dialog("close");
                     layer.msg(data.resultObject);
                         freshTable(scoreTypeTable);

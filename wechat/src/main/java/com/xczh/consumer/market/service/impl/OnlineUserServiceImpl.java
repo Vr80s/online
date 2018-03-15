@@ -49,6 +49,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
+	@Value("${webdomain}")
+	private String webdomain;
 	
 	@Autowired
 	public WxcpClientUserWxMappingMapper wxcpClientUserWxMappingMapper;
@@ -179,8 +181,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setCreateTime(new Date());
 		u.setDelete(false);
 		u.setName(mobile);   //初次登录设置默认名为：手机号
-		//u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/yx_mr.png");
-		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/yx_mr.png");
+		u.setSmallHeadPhoto(webdomain+"/web/images/defaultHead/yx_mr.png");
 		u.setVisitSum(0);
 		u.setStayTime(0);
 		u.setUserType(0);
@@ -680,8 +681,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setCreateTime(new Date());
 		u.setDelete(false);
 		u.setName("");   //默认一个名字
-		//u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/yx_mr.png");
+		u.setSmallHeadPhoto(webdomain+"/web/images/defaultHead/yx_mr.png");
 		u.setVisitSum(0);
 		u.setStayTime(0);
 		u.setUserType(0);

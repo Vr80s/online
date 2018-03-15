@@ -220,6 +220,11 @@ public class PublicCourseController {
 		if (endTime != null) {
 			searchVo.setEndTime(DateUtil.parseDate(endTime.getPropertyValue1().toString(), "yyyy-MM-dd"));
 		}
+		Group liveStatus = groups.findByName("search_liveStatus");
+
+		if (liveStatus != null) {
+			searchVo.setLiveStatus(Integer.valueOf(liveStatus.getPropertyValue1().toString()));
+		}
 
 		Page<CourseVo> page = publicCourseService.findCoursePage(searchVo,
 				currentPage, pageSize);

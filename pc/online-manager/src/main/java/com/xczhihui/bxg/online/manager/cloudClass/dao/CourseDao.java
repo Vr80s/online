@@ -177,9 +177,6 @@ public class CourseDao extends HibernateDao<Course>{
 		 }else if(multimediaType !=null && !"".equals(multimediaType) && !multimediaType.equals(0)){
 			 sql.append(" and oc.multimedia_type = "+multimediaType);
 		 }
-		 //20180309 取消推荐功能，添加设置推荐值功能 wys
-		 /*paramMap.put("isRecommend","1");//只查询已推荐的课程
-		 sql.append(" and oc.is_recommend = :isRecommend ");*/
 		 
 		 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc ");
 		 System.out.println(sql.toString());

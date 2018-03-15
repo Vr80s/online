@@ -72,7 +72,8 @@ function transactionRecord(pageNumber,pageSize,downOrUp) {
             //	判断是刷新还是加载
             if(downOrUp=='down'){
                 if(data.resultObject.length=='' || data.resultObject.length==0){
-                    $(".no_deal").show()
+                    $(".no_deal").show();
+                    $(".mui-scroll-wrapper").removeAttr("style");
                 }
               
                 $(".record_main_div").html(template('record_main_div',{items:data.resultObject}));

@@ -129,6 +129,9 @@ $(document).ready(function() {
 		//右侧送礼物代码
 		//点击渲染的图片时
 		$('#gifList li').click(function(){
+			$('#gifList li').removeClass('giftSelectColor');
+			$(this).addClass('giftSelectColor');
+			
 			//获取最新的时间
 			var newtime = new Date();
 			//下面的小图标获取对应的图片url
