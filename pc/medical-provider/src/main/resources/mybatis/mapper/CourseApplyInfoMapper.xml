@@ -282,4 +282,16 @@
 		WHERE cca.`collection_apply_id` = #{id}
     	ORDER BY cca.`collection_course_sort`
 	</select>
+	<select id="selectCollectionApplyByCourseApplyId" resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
+		SELECT
+		  cai.title
+		FROM
+		  `collection_course_apply` cca
+		  JOIN `course_apply_info` cai
+			ON cca.`collection_apply_id` = cai.id
+			 AND cai.`status`=2
+			 AND cai.`is_delete`=0
+			 AND cca.`course_apply_id`=#{id}
+		   GROUP BY cai.id
+	</select>
 </mapper>

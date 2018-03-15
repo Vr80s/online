@@ -124,7 +124,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Lock(lockName = "addCourseApply")
     public void saveCourseApply4Lock(String lockKey,CourseApplyInfo courseApplyInfo){
         validateCourseApply(courseApplyInfo);
-
         //将价格由熊猫币转化为人民币
         courseApplyInfo.setPrice(courseApplyInfo.getPrice()/10);
         //当课程为点播视频时
@@ -447,6 +446,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      * @Date: 上午 10:37 2018/1/24 0024
      **/
     private void validateCourseApply(CourseApplyInfo courseApplyInfo) {
+        validateCourseUsed(courseApplyInfo);
         if(StringUtils.isBlank(courseApplyInfo.getUserId())){
             throw new RuntimeException("用户id不可为空");
         }
@@ -465,15 +465,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }else if(courseApplyInfo.getLecturer().length()>30){
             throw new RuntimeException("主播名称长度不可超过30");
         }
-//        if(StringUtils.isBlank(courseApplyInfo.getLecturerDescription())){
-//            throw new RuntimeException("主播介绍不可为空");
-//        }
         if(StringUtils.isBlank(courseApplyInfo.getCourseMenu())){
             throw new RuntimeException("课程分类不可为空");
         }
-//        if(StringUtils.isBlank(courseApplyInfo.getCourseLength())){
-//            throw new RuntimeException("时长不可为空");
-//        }
         if(courseApplyInfo.getCourseForm()==null){
             throw new RuntimeException("课程形式不可为空");
         }
@@ -525,6 +519,15 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             throw new RuntimeException("课程形式有误");
         }
         validateCourseName(courseApplyInfo);
+    }
+
+    private void validateCourseUsed(CourseApplyInfo courseApplyInfo) {
+        if((courseApplyInfo.getCollection()==null||!courseApplyInfo.getCollection()) && courseApplyInfo.getOldApplyInfoId()!=null){
+            List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCollectionApplyByCourseApplyId(courseApplyInfo.getOldApplyInfoId());
+            if(courseApplyInfos.size()>0){
+                throw new RuntimeException("该课程正在被其他专辑申请引用，暂时不可更新");
+            }
+        }
     }
 
 }

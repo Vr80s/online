@@ -637,5 +637,5 @@ function refreshBalance(){
 }
 //返回按钮
 $("#return").click(function() {
-    location.href = "/course/courses?courseId=" + course_id;
+    location.href = "/course/courses/" + course_id;
 });

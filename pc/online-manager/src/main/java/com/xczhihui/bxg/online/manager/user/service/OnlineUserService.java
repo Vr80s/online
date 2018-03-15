@@ -71,4 +71,5 @@ public interface OnlineUserService {
 
 	public List<Map<String, Object>> getAllCourseName();
 
+    void updateUserLogin(String userId, String loginName);
 }
