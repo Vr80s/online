@@ -850,7 +850,7 @@ div.pinch-zoom,
 }
 
 
-.time-item strong{background:#00BC12;color:#fff;font-size:0.8rem;margin-right:10px;border-radius:5px;padding: 0 0.1rem;}
+.time-item strong{background:#00BC12;color:#fff;font-size:0.6rem;margin-right:10px;border-radius:5px;padding: 0.2rem 0.2rem;font-weight: 500;}
 #day_show{float:left;color:#c71c60;font-size:32px;margin:0 10px;;}
 .item-title .unit{background:none;line-height:49px;font-size:24px;padding:0 10px;float:left;}
 /*即将开始提示*/

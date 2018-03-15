@@ -238,7 +238,7 @@ requestService("/xczh/course/liveDetails",{
 				
 				if(jjzb == 4){  //即将直播的
 					$(".video_end_top0").show();
-					
+					$(".cover").show();  //显示即将直播时候--聊天区域添加的遮盖层
 					timer(new Date(startTime).getTime(),parseInt(sendTime));
 				}
 				var vhallId =  result.vhallId;
