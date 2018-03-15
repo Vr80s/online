@@ -308,7 +308,7 @@ $(function(){
     searchCase_P.push('{"tempMatchType":8,"propertyName":"search_type","propertyValue1":"1","tempType":Integer}');
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_liveStatus","propertyValue1":"1","tempType":"Integer"}');
     
-	zb_courseRecTable = initTables("courseZbRecTable",basePath+"/publiccloudclass/course/coursesReclist",objZbRecData,true,true,0,null,searchCase_P,function(data){
+	zb_courseRecTable = initTables("courseZbRecTable",basePath+"/cloudclass/course/recList",objZbRecData,true,true,0,null,searchCase_P,function(data){
 		$("[name='liveUpa']").each(function(index){
 			if(index == 0){
 				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
