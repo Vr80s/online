@@ -349,3 +349,54 @@
     margin-bottom: 7px;
 
 }
+
+/*优秀医馆*/
+.content_box #main .main_right .good_hospital{
+	  padding: 20px;
+    background-color: #fff;
+}
+.content_box #main .main_right .good_hospital > span{
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.content_box #main .main_right .good_hospital > ul >li{
+	  margin-top: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    line-height: 20px;
+}
+.content_box #main .main_right .good_hospital > ul >li > a{
+	text-decoration: none;
+}
+.content_box #main .main_right .good_hospital > ul >li > a:hover{
+	color: #2cb82c;
+}
+.content_box #main .main_right .good_hospital > ul >li .select{
+	  border: none;
+    background-color: #2cb82c;
+    color: #fff;
+    border-radius: 4px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-style: normal;
+    margin-right: 10px;
+}
+.content_box #main .main_right .good_hospital > ul >li em{
+	  display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #999;
+    font-style: normal;
+    margin-right: 10px;
+    border-radius: 4px;
+}
