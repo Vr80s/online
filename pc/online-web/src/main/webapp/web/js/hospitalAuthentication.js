@@ -105,12 +105,20 @@ $('.path .hospital').addClass('select');
 			
 		//城市判断
 		if($('#hos_Administration .hos_base_inf #choosePro  option:selected').text()== '请选择省' ||$('#hos_Administration .hos_base_inf  #citys option:selected').text() == '请选择市'){
-			$('#hos_Administration .hos_base_inf .doc_address .warning').removeClass('hide');
+			$('#hos_Administration .hos_base_inf .doc_address .cityWarn').removeClass('hide');
 			return false;
 		}else{
-			$('#hos_Administration .hos_base_inf .doc_address .warning').addClass('hide');
+			$('#hos_Administration .hos_base_inf .doc_address .cityWarn').addClass('hide');
 		}
 		
+		
+		//详细地址判断
+		if($('#hos_Administration .hos_base_inf .doc_address textarea').val() == ''){
+			$('#hos_Administration .hos_base_inf .doc_address .detailWarn').removeClass('hide');
+			return false;
+		}else{
+			$('#hos_Administration .hos_base_inf .doc_address .detailWarn').addClass('hide');
+		}
 		
 		
 		
