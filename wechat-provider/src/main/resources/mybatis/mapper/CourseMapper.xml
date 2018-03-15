@@ -184,9 +184,9 @@
 		if(oc.is_free =0,0,1) as watchState,
 		 oc.collection as collection,
 		 
-				if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
                     
 		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
@@ -536,8 +536,11 @@
 		 c.collection as collection,
 		 (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
 		 + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
-		if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,
-		    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,
+		 
+		if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
+		    
 		'正在直播' as note
 		from oe_course c ,oe_user ou
 		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
@@ -555,8 +558,11 @@
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
 		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
-		if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,
-		if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,
+		
+	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
+		
 		'即将直播' as note
 		from oe_course c,oe_user ou
 		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
@@ -574,8 +580,11 @@
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
 		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
-		if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,
-		if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,
+		
+	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
+		
 		'直播课程' as note
 		from oe_course c ,oe_user ou
 		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
@@ -593,8 +602,11 @@
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
 		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
-		if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,
-		if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,
+		
+	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
+		
 		'精彩直播回放' as note
 		from oe_course c,oe_user ou
 		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
