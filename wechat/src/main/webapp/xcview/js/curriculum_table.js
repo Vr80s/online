@@ -111,34 +111,34 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	
 	var saisuanstr ="";
 	
-	
 	var menuTypeAll = $("[class='find_nav_cur'] a").attr("title");
 	if(parseInt(menuTypeAll) == 0){
 		$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
+	}else{
+		//从新赋值
+		if(stringnull(menuType)){
+			paramsObj.menuType = menuType;
+			for (var int = 0; int < menuTypeArray.length; int++) {
+				var array_element = menuTypeArray[int];
+				if(menuType == array_element.id){
+					$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
+					/**
+					 * 让筛选条件 ---》 变为选中
+					 */
+					$(".all_right_type_ones").find(".all_right_type_one").each(function(){
+						 var sxmenu = $(this).attr("title");
+						 if(sxmenu == menuType){
+							 $(this).addClass("all_right_type_one_add");
+							 return;
+						 }
+					});
+					saisuanstr += array_element.name+"-";
+					break;
+				}
+			} 
+		}
 	}
-	//从新赋值
-	if(stringnull(menuType)){
-		paramsObj.menuType = menuType;
-		
-		for (var int = 0; int < menuTypeArray.length; int++) {
-			var array_element = menuTypeArray[int];
-			if(menuType == array_element.id){
-				
-				/**
-				 * 让筛选条件 ---》 变为选中
-				 */
-				$(".all_right_type_ones").find(".all_right_type_one").each(function(){
-					 var sxmenu = $(this).attr("title");
-					 if(sxmenu == menuType){
-						 $(this).addClass("all_right_type_one_add");
-						 return;
-					 }
-				});
-				saisuanstr += array_element.name+"-";
-				break;
-			}
-		} 
-	}
+
 	if(stringnull(isFree)){
 		paramsObj.isFree = isFree;
 		if(isFree==0){
@@ -269,10 +269,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 //		$("#slider1").css("padding-top","30px");
 		
 	}
-	
-	
 	$("#sxtj").text(saisuanstr);
-	
 	return paramsObj;
 }
 
@@ -281,7 +278,8 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
  * 点击确认按钮获取查询进行查询
  */
 
-function submit(){
+function submit(mzw){
+	
 	/**
 	 * 在浏览器地址上获取课程信息
 	 */
@@ -290,9 +288,6 @@ function submit(){
 	var courseType = $(".all_mold2  .all_right_type_one_add").attr("title");
 	var city = $(".all_mold3  .all_right_type_one_add").text();
 	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
-	
-	
-	
 	
 /*	paramsObj.pageNumber = num;
 	paramsObj.pageSize = 10;
@@ -339,7 +334,6 @@ function submit(){
 		}
     }
 	
-	
 	//先存一下，然后在取一下
 	var type_index = sessionStorage.getItem("type_index");
 	if(type_index == parseInt(begin)){ //分类没有变动
@@ -349,18 +343,24 @@ function submit(){
 	}
 	
 	if(begin_falg || type_index =="type_index"){
-		
 		slide(begin);
 	}else{
 		//menuType,isFree,courseType,city,lineState,queryKey
 		createParamsAndQuery(menuType,isFree,courseType,city,lineState);
+		
+		
+		if(stringnull(mzw)){
+			paramsObj.mzw =mzw;
+		}else{
+			delete paramsObj.mzw;
+		}
+		//alert(paramsObj.mzw);
+		
 		queryDataByParams(paramsObj,menuType);
 	}
 }
 
-
-
-
+var mzw = 0;
 
 function queryDataByParams(params,data_type){
 	
@@ -374,6 +374,7 @@ function queryDataByParams(params,data_type){
 					var id = "#draw_all_query_list";
 				}
 				var data1 ="";
+				$(id).html(data1);
 				
 				if(data.resultObject.length<=0){
 					$(".li_list_main").css("background","#f8f8f8");
@@ -408,10 +409,8 @@ function queryDataByParams(params,data_type){
 					if(item.type ==3){
 						if(item.lineState==1){
 							typeStr +="<p class='zhibo_play'>直播中</p>";
-						/*	typeStr +="直播中";*/
 						}else{
-						   /* typeStr +="<p class='p5' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>"+item.startDateStr+"</span></p>";*/
-							 typeStr +="<p class='p5' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>"+item.startDateStr+"</span></p>";
+							typeStr +="<p class='p5' style='min-width: 1rem;'><img src='/xcview/images/learn.png'><span>"+item.startDateStr+"</span></p>";
 						}
 					}else if(item.type ==4){
 						typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>"+item.city+"</span></p>";
@@ -432,8 +431,18 @@ function queryDataByParams(params,data_type){
 						         "</div>" +
 						     "</div>";
 				}
-				$(id).html(data1);
 				
+				var text = $("#sxtj").text();
+				
+				
+				
+				if("免费-直播课程-未直播" == text){
+					
+					alert(data1);
+				}else{
+					$(id).html(data1);
+				}
+				$(id).html(data1);
 				/*
 				 * 点击跳转到单个课程
 				 */
