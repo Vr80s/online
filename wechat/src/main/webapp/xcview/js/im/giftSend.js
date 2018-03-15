@@ -372,7 +372,7 @@ $(document).ready(function() {
         var xmbShowSpan = $("#xmbShowSpan").html();
         var jiage = $(".gift_ul_li_li .gift_p .jiage").text();
 //      if(jiage<xmbShowSpan || jiage == 0){
-        if(jiage<xmbShowSpan || jiage <= 0){
+        if(jiage<=xmbShowSpan || jiage <= 0){
             if (connected) {
                 var msgJson = {
                     channel : 1,
