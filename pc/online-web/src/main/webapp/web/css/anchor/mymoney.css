@@ -1,5 +1,7 @@
 /*我的收益部分的结构*/
-
+/*.hide{
+	display: none;
+}*/
 /*我的收益 课程收益部分*/
 .myResive .little_box1 > div{
 	width: 950px;
