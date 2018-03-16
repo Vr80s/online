@@ -769,7 +769,7 @@ function addgetdata() { //回填数据
 //	getUserApplyInfo
 	RequestService("/online/apply/getUserApplyInfo", "get", {
 	}, function(data) {
-//		console.log(data);
+		console.log(data);
 		if(data.success&&data.resultObject!=null){
 			var personInfo = data.resultObject;
 //			console.log(personInfo)
