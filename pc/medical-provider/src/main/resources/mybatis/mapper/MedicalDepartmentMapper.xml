@@ -5,15 +5,15 @@
 	<select id="page" resultType="com.xczhihui.medical.department.model.MedicalDepartment">
 		SELECT
 		  md.id,
-		  md.name ,
+		  md.name,
 		  COUNT(mdd.id) mc
 		FROM
 		  medical_department md
-		  JOIN `medical_doctor_department` mdd
-		  ON md.id=mdd.`department_id`
-		  JOIN `medical_doctor` mdo
-		  ON mdo.id=mdd.`doctor_id`
-		  GROUP BY md.`id`
-		  ORDER BY mc DESC
+		  LEFT JOIN `medical_doctor_department` mdd
+			ON md.id = mdd.`department_id`
+		  LEFT JOIN `medical_doctor` mdo
+			ON mdo.id = mdd.`doctor_id`
+		GROUP BY md.`id`
+		ORDER BY mc DESC
 	</select>
 </mapper>
