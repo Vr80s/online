@@ -98,6 +98,27 @@ public class CourseApplyInfo implements Serializable {
 	private String address;
 	private String city;
 
+	@Transient
+	private Integer applyStatus; //审核状态  0未通过 1通过 2未审核
+	@Transient
+	private Date releaseTime;
+
+	public Integer getApplyStatus() {
+		return applyStatus;
+	}
+
+	public void setApplyStatus(Integer applyStatus) {
+		this.applyStatus = applyStatus;
+	}
+
+	public Date getReleaseTime() {
+		return releaseTime;
+	}
+
+	public void setReleaseTime(Date releaseTime) {
+		this.releaseTime = releaseTime;
+	}
+
 	public Boolean getFree() {
 		return isFree;
 	}

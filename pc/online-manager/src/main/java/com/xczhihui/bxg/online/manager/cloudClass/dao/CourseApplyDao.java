@@ -176,6 +176,9 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 				"  cai.`start_time` as startTime,\n" +
 				"  cai.`multimedia_type` as multimediaType,\n" +
 				"  cai.`sale` as sale,\n" +
+				"  cai.`status` as applyStatus,\n" +
+				"  oc.`status` as status,\n" +
+				"  oc.`release_time` as releaseTime,\n" +
 				"  cai.`img_path` imgPath,\n" +
 				"  cai.`course_form` courseForm,\n" +
 				"  cai.`price`*10 as price,\n" +
