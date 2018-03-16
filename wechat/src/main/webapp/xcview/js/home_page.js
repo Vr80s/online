@@ -403,6 +403,7 @@ function listenSchool(){
 //}
 //学堂
 //学堂/直播课程跳转
+var url_adress=window.location.href;
 function jump_play(id){
    requestService("/xczh/course/details?courseId="+id,null,function(data) {
       var userPlay=data.resultObject;
@@ -416,8 +417,10 @@ function jump_play(id){
 //免费的直播和即将直播跳直播间      
          else if(userPlay.watchState==1 && userPlay.lineState==1){
             if (falg==1002){
+            	localStorage.save_adress=url_adress;
             location.href ="/xcview/html/cn_login.html";      
             }else if (falg==1005) {
+            	localStorage.save_adress=url_adress;
                location.href ="/xcview/html/evpi.html";
             }else{
             requestService("/xczh/history/add",
@@ -429,8 +432,10 @@ function jump_play(id){
             }
          }else if(userPlay.watchState==1 && userPlay.lineState==4){
             if (falg==1002){
+            	localStorage.save_adress=url_adress;
                   location.href ="/xcview/html/cn_login.html";      
                }else if (falg==1005) {
+               	localStorage.save_adress=url_adress;
                   location.href ="/xcview/html/evpi.html";
                }else{
                   requestService("/xczh/history/add",
@@ -556,8 +561,10 @@ function clickBanner(id){
 var falg =authenticationCooKie();
 function go_study(){
     if (falg==1002){
+    	localStorage.save_adress=url_adress;
         location.href ="/xcview/html/cn_login.html";
     }else if (falg==1005) {
+    	localStorage.save_adress=url_adress;
         location.href ="/xcview/html/evpi.html";
     }else{
         location.href ="/xcview/html/my_study.html";

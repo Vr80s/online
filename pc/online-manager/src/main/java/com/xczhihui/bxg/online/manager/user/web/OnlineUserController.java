@@ -168,9 +168,7 @@ public class OnlineUserController extends AbstractController {
 	@RequestMapping(value = "modifyUser", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseObject modifyUser(String userId,String loginName) throws ServletRequestBindingException {
-		ResponseObject responseObject = new ResponseObject();
 		service.updateUserLogin(userId,loginName);
-		responseObject.setSuccess(true);
-		return responseObject;
+		return ResponseObject.newSuccessResponseObject("牛逼啦，替换成功！");
 	}
 }

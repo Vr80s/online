@@ -43,22 +43,22 @@ function purchaseBack(){
 /**
  * 监听浏览器---》回退事件
  */
-var counter = 0;
-if (window.history && window.history.pushState) {
-     $(window).on('popstate', function () {
-    	 
-        window.history.pushState('forward', null, '#');
-        window.history.forward(1);
-                    
-        /*
-         * 返回事件
-         */
-        purchaseBack();
-   });
-}
-window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
-window.history.forward(1);
-
+//var counter = 0;
+//if (window.history && window.history.pushState) {
+//   $(window).on('popstate', function () {
+//  	 
+//      window.history.pushState('forward', null, '#');
+//      window.history.forward(1);
+//                  
+//      /*
+//       * 返回事件
+//       */
+//      purchaseBack();
+// });
+//}
+//window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+//window.history.forward(1);
+//
 
 
 

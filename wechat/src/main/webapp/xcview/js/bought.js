@@ -31,6 +31,7 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
                 mui("#refreshContainer").off();
             }else if(data.resultObject.records.length==0 || data.resultObject.records.length==''){
                 mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+                mui("#refreshContainer").off();
             }else{
                 $(".bought_main").append(template('bought_main',{items:data.resultObject.records}));
                 var backData = data.resultObject.records;

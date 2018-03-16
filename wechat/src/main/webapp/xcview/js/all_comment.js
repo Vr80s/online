@@ -39,6 +39,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             mui("#refreshContainer").off();
         }else if(data.resultObject.items.length==0){
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+            mui("#refreshContainer").off();
         }else{
             $(".wrap_all_returned").append(template('wrap_people_comment',{items:data.resultObject.items}));
             mui("#refreshContainer").off();

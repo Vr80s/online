@@ -145,10 +145,10 @@ function giftShow(gift, f,continuous) {
             + gift.senderInfo.userName
             + "</p><p class='animation_name_p2'>送出"
             + gift.giftInfo.name
-            + "</p></div><div class='animation_gift'><img src='"
+            + "</p></div><div class='animation_span'>×<span class=addnum"
+            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div><div class='animation_gift'><img src='"
             + gift.giftInfo.smallimgPath
-            + "' alt='' /></div><div class='animation_span'>X<span class=addnum"
-            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div></div></li>");
+            + "' alt='' /></div></div></li>");
         try {
             $("#liveGiftCount").html(gift.continuousCount);
         } catch (error) {

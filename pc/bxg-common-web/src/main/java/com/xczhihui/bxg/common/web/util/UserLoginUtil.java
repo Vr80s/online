@@ -33,9 +33,6 @@ final public class UserLoginUtil {
 	 */
 	public static BxgUser getLoginUser(HttpServletRequest request) {
 		BxgUser bxgUser = (BxgUser) (request.getSession().getAttribute(SESSION_USER));
-//		if(bxgUser==null){
-//			throw new RuntimeException("用户未登录");
-//		}
 		return bxgUser;
 	}
 
