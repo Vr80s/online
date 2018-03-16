@@ -47,6 +47,7 @@ header {
 .header_return img {
     width: 0.511rem;
     height: 0.915rem;
+    margin-top: 0.5rem;
 }
 .header_title {
     width: 100%;
