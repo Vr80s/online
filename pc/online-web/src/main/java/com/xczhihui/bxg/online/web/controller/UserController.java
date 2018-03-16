@@ -503,15 +503,10 @@ public class UserController extends OnlineBaseController {
 		
 		String countyName = ServletRequestUtils.getStringParameter(request,
 				"countyName");
-		
-//		String district = ServletRequestUtils.getStringParameter(request,
-//				"district");
 		String target = ServletRequestUtils.getStringParameter(request,
 				"target");
 		String sex = ServletRequestUtils.getStringParameter(request,
 				"sex");
-//		String fullAddress = ServletRequestUtils.getStringParameter(request,
-//				"fullAddress");
 		UserDataVo vo = new UserDataVo();
 		vo.setUid(userId);
 		if(nickName==null||StringUtils.isEmpty(nickName.trim())){
@@ -519,29 +514,28 @@ public class UserController extends OnlineBaseController {
 		}else {
 			vo.setNickName(nickName);
 		}
-//		vo.setFullAddress(fullAddress);
 		vo.setAutograph(autograph);
 		vo.setOccupation(occupation);
-//		vo.setCompany(company);
-//		vo.setPosts(posts);
-//		vo.setJobyearId(jobyearId);
-		
+
 		vo.setProvince(province);
 		vo.setCity(city);
 		vo.setDistrict(district);
 		
-		
 		vo.setProvinceName(provinceName);
 		vo.setCityName(cityName);
 		vo.setCountyName(countyName);
-//		vo.setDistrict(district);
 		vo.setTarget(target);
 		vo.setLoginName(loginName);
-//		if(occupation != null && occupation == 24) {
-			vo.setOccupationOther(occupationOther);
-//		}
+		vo.setOccupationOther(occupationOther);
 		vo.setSex(Integer.valueOf(sex));
 		boolean a = userCenterService.updateUser(vo);
+		OnlineUser o = dao.get(vo.getUid(), OnlineUser.class);
+		Token t = null;
+		if(o!=null) {
+			t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
+		}else{
+			return ResponseObject.newErrorResponseObject("用户未注册");
+		}
 		if(a){
 			user.setName(nickName);
 			return OnlineResponse.newSuccessOnlineResponse("修改成功");

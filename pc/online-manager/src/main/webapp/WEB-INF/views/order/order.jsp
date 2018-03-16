@@ -66,25 +66,29 @@
                     <td>
                         <div class="profile-info-value searchTr">
                             <select id="search_payType" name="search_payType" class="propertyValue1">
+                                <%--支付类型 0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付-2未支付--%>
                                 <option  value="" >支付方式</option>
-                                <option  value="1" >支付宝</option>
-                                <option  value="0" >微信支付</option>
-                                <option  value="2" >网银支付</option>
-                                <option  value="3" >快捷支付</option>
+                                <option  value="1" >微信支付</option>
+                                <option  value="0" >支付宝</option>
+                                <option  value="2" >苹果支付</option>
+                                <option  value="3" >熊猫币支付</option>
+                                <option  value="4" >线下支付</option>
                             </select>
                             <input type="hidden" value="search_payType" class="propertyName" />
                         </div>
                     </td>
                     <td>
                         <div class="profile-info-value searchTr">
+                            <%--订单来源 0.赠送1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员--%>
                             <select id="search_order_from" name="order_from" class="propertyValue1">
                                 <option  value="" >订单来源</option>
-                                <option  value="0" >官网</option>
-                                <option  value="1" >分销</option>
-                                <option  value="2" >线下录入</option>
-                                <option  value="3" >微信</option>
-                                <option  value="4" >h5</option>
-                                <option  value="5" >app</option>
+                                <option  value="1" >pc</option>
+                                <option  value="2" >h5</option>
+                                <option  value="3" >android</option>
+                                <option  value="4" >ios</option>
+                                <option  value="5" >线下</option>
+                                <option  value="6" >工作人员</option>
+                                <option  value="0" >赠送</option>
                             </select>
                             <input type="hidden" value="order_from" class="propertyName" />
                         </div>

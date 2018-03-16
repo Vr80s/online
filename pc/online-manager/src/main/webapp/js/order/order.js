@@ -36,18 +36,20 @@ function loadOrderList(){
         {title: '订单号', "class": "center", "width": "12%","data": 'orderNo', "sortable": false},
         {title: '订单类型', "class": "center", "width": "8%","data": 'orderFrom', "sortable": false,"mRender":function(data,display,row){
         	var orderForm = "";
-        	if(data == 0){
-        		orderForm = "官网订单";
+        	if(data == 0){//0.赠送1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
+        		orderForm = "赠送";
         	}else if(data == 1){
-        		orderForm = "分销订单";
+        		orderForm = "pc";
         	}else if(data == 2){
-                orderForm = "线下录入";
-            }else if(data == 3){
-                orderForm = "微信";
-            }else if(data == 4){
                 orderForm = "h5";
+            }else if(data == 3){
+                orderForm = "android";
+            }else if(data == 4){
+                orderForm = "ios";
             }else if(data == 5){
-                orderForm = "app";
+                orderForm = "线下";
+            }else if(data == 5){
+                orderForm = "工作人员";
             }
         	return orderForm;
         }},
@@ -60,12 +62,16 @@ function loadOrderList(){
 		{title: '购买者(用户名)', "class": "center", "width": "8%","data": 'createPerson', "sortable": false},
         {title: '支付方式', "class": "center", "width": "10%","data": 'payType', "sortable": false,"mRender":function(data,display,row){
         	var payType ;
-        	if(data == 0){
+        	if(data == 0){//0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付-2未支付
         		payType = "支付宝\n"+row.payTime;
             }else if(data == 1){
             	payType = "微信支付\n"+row.payTime;
             }else if(data == 2){
-            	payType = "网银支付\n"+row.payTime;
+                payType = "IOS支付\n"+row.payTime;
+            }else if(data == 3){
+                payType = "熊猫币支付\n"+row.payTime;
+            }else if(data == 4){
+                payType = "线下支付\n"+row.payTime;
             }else{
             	payType= "-- --"
             }
@@ -187,12 +193,18 @@ function previewDialog(obj){
 	$("#show_actualPay").html("<span style='color:red;font-size: medium'>"+actualPay.formatMoney())+"&nbsp;元</span>";
 	
 	var payType ;
-	if(row.payType == 0){
-		payType = "微信支付";
+    if(row.payType == 0){//0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付-2未支付
+        payType = "支付宝";
     }else if(row.payType == 1){
-    	payType = "支付宝";
+        payType = "微信支付";
     }else if(row.payType == 2){
-    	payType = "网银支付";
+        payType = "IOS支付";
+    }else if(row.payType == 3){
+        payType = "熊猫币支付";
+    }else if(row.payType == 4){
+        payType = "线下支付";
+    }else{
+        payType= "-- --"
     }
 
 	$("#show_payType").text(payType);

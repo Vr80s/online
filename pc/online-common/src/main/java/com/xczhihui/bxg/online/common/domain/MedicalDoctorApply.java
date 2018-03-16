@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.common.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -35,6 +37,8 @@ public class MedicalDoctorApply implements Serializable {
     /**
      * 医师简介
      */
+	@Basic(fetch = FetchType.LAZY)
+	@Type(type="text")
 	private String description;
 
     /**
