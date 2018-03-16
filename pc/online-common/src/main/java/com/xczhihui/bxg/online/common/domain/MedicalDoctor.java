@@ -58,9 +58,6 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="update_time")
 	private Date updateTime;
 
-	@Column(name="user_id")
-	private String userId;
-
 	private String version;
 
 	@Column(name="work_time")
@@ -279,14 +276,6 @@ public class MedicalDoctor implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
-	}
-
-	public String getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public String getVersion() {

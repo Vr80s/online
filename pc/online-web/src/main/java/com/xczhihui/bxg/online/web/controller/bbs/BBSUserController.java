@@ -20,6 +20,8 @@ import com.xczhihui.bxg.online.web.vo.ApplyVo;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.bxg.online.web.vo.UserVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.bean.TokenExpires;
@@ -72,13 +74,14 @@ public class BBSUserController extends OnlineBaseController {
 	private ActivityTotalService totalService;
 
 	@Autowired
-	private UserCenterAPI api;
-
-	@Autowired
 	private MessageService messageService;
 
 	@Autowired
 	private ShoppingCartService shoppingCartService;
+	@Autowired
+	private ICommonService commonService;
+	@Autowired
+	private IAnchorInfoService anchorInfoService;
 
 
 	@Value("${domain}")
@@ -878,4 +881,42 @@ public class BBSUserController extends OnlineBaseController {
 		}
 		return ResponseObject.newSuccessResponseObject(shoppingCartService.findCourseNum(user.getId()));
 	}
+
+	/**
+	 * 是否为医师或医馆角色
+	 * @return
+	 */
+	@RequestMapping(value = "/isDoctorOrHospital" )
+	@ResponseBody
+	public ResponseObject isDoctorOrHospital(HttpServletRequest request) {
+		// 获取当前用户
+		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		if (onlineUser == null) {
+			return ResponseObject.newErrorResponseObject("请登录！");
+		}
+		Integer result = commonService.isDoctorOrHospital(onlineUser.getId());
+		return ResponseObject.newSuccessResponseObject(result);
+	}
+
+
+	/**
+	 * 是否为医师或医馆角色
+	 * @return
+	 */
+	@RequestMapping(value = "/hasPower" )
+	@ResponseBody
+	public ResponseObject hasPower(HttpServletRequest request) {
+		// 获取当前用户
+		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		if (onlineUser == null) {
+			return ResponseObject.newErrorResponseObject("请登录！");
+		}
+		try {
+			anchorInfoService.validateAnchorPermission(onlineUser.getId());
+		}catch (Exception e){
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+		return ResponseObject.newSuccessResponseObject("有主播权限");
+	}
+
 }

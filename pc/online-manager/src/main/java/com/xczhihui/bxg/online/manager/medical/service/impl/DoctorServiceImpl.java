@@ -214,6 +214,7 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 			medicalHospitalDoctor.setDoctorId(doctorId);
 			medicalHospitalDoctor.setHospitalId(hospitalId);
 			medicalHospitalDoctor.setCreateTime(new Date());
+			medicalHospitalDoctor.setDeleted("0");
 			dao.save(medicalHospitalDoctor);
 		}
 	}

@@ -259,7 +259,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * 购买课程时，进行检测此订单关联的课程是否下架以及是否购买
      */
     @Override
-    public  String   checkCouseInfo(String  orderId){
+    public  String  checkCouseInfo(String  orderId){
           coursedao.checkCouseInfo(orderId);
           return "开始报名";
     }

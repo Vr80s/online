@@ -531,8 +531,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 		commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
 		commonSql.append(" oc.collection as collection, ");
-		commonSql.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
-		commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
+		commonSql.append(" if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < oc.start_time and now() > oc.start_time ) or ");
+		commonSql.append(" (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time ),4, ");
+		commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status)),oc.live_status) as lineState,");
 		commonSql.append(" oc.city as city, ");//是否免费
 		commonSql.append(" 1 as querySort, ");//排序
 		commonSql.append(" oc.release_time, ");//上架/下架时间
@@ -627,8 +628,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
 			commonSql.append(" oc.collection as collection, ");
-			commonSql.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
-			commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
+			commonSql.append(" if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < oc.start_time and now() > oc.start_time ) or ");
+			commonSql.append(" (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time ),4, ");
+			commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status)),oc.live_status) as lineState,");
 			commonSql.append(" oc.city as city, ");//是否免费
 			commonSql.append(" 2 as querySort, ");//排序
 			commonSql.append(" oc.release_time, ");//上架/下架时间
@@ -705,8 +707,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
 			commonSql.append(" oc.collection as collection, ");
-			commonSql.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
-			commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
+			commonSql.append(" if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < oc.start_time and now() > oc.start_time ) or ");
+			commonSql.append(" (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time ),4, ");
+			commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status)),oc.live_status) as lineState,");
 			commonSql.append(" oc.city as city, ");//是否免费
 			commonSql.append(" 3 as querySort, ");//排序
 			commonSql.append(" oc.release_time, ");//上架/下架时间
@@ -784,8 +787,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
 			commonSql.append(" oc.collection as collection, ");
-			commonSql.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
-			commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
+			commonSql.append(" if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < oc.start_time and now() > oc.start_time ) or ");
+			commonSql.append(" (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time ),4, ");
+			commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status)),oc.live_status) as lineState,");
 			commonSql.append(" oc.city as city, ");//是否免费
 			commonSql.append(" 4 as querySort, ");//排序
 			commonSql.append(" oc.release_time, ");//上架/下架时间
