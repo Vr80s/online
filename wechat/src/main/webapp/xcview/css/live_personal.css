@@ -157,7 +157,7 @@ textarea::-webkit-input-placeholder {
     border-radius: 100px;
     font-size: 24px;
     color: #00BC12;
-    line-height: 0.56rem;
+    /*line-height: 0.56rem;*/
     position: relative;
     margin-top: 0.16rem;
     margin: 0 auto;
@@ -172,6 +172,7 @@ textarea::-webkit-input-placeholder {
 }
 .add_follow p{
 	margin-left: 0.78rem;
+	margin-top: 0.07rem;
 }
 /*主播状态*/
 .ccH5playerBox{

@@ -161,7 +161,7 @@ text-align: right;
 .wrap_class{
 	width: 100%;
 	padding: 0.25rem 0 0 0.26rem;
-	margin-top: 0.2rem;
+	margin: 0.2rem 0;
 	background: white;
 	box-sizing: border-box;
 	overflow: hidden;
