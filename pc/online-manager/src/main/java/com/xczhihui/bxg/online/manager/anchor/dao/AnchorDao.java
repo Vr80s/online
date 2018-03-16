@@ -32,6 +32,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
 		 StringBuilder sql = new StringBuilder("SELECT ca.id,\n" +
 				 "  ca.`name`,\n" +
+				 "  ca.`user_id` as userId,\n" +
 				 "  ou.`login_name` loginName,\n" +
 				 "  ca.`type`,\n" +
 				 "  ca.`vod_divide`,\n" +
@@ -107,7 +108,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 
 	public CourseAnchor findCourseAnchorById(Integer id) {
 	 	String sql = "SELECT \n" +
-				"  ou.`name`,\n" +
+				"  ca.`name`,\n" +
 				"  ca.`type`,\n" +
 				"  ca.`vod_divide` vodDivide,\n" +
 				"  ca.`live_divide` liveDivide,\n" +

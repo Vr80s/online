@@ -22,7 +22,7 @@
 	
 	<!-- 我的关注列表  -->
 	<select id="selectFocusList" resultType="com.xczhihui.wechat.course.vo.FocusVo">
-	    select of.lecturer_id as userId,ou.name as name,ou.small_head_photo as smallHeadPhoto
+	    select of.lecturer_id as userId,ou.name as name,ou.profile_photo as smallHeadPhoto
 		from oe_focus as of
 		inner join course_anchor as ou on of.lecturer_id = ou.user_id
 		where of.user_id =#{userId}  and ou.status = 1  and ou.deleted =0  order by of.create_time desc 
@@ -30,7 +30,7 @@
 	
     <!-- 我的粉丝列表  -->
 	<select id="selectFansList" resultType="com.xczhihui.wechat.course.vo.FocusVo">
-	    select  user_id as userId,ou.name as name,ou.small_head_photo as smallHeadPhoto 
+	    select  user_id as userId,ou.name as name,ou.profile_photo as smallHeadPhoto 
 		from oe_focus as of 
 		inner join course_anchor as ou  of.user_id = ou.user_id
 		where of.lecturer_id =#{userId}   and ou.status = 1  and ou.deleted =0

@@ -22,5 +22,11 @@ public interface CourseApplyService {
     Page<CourseApplyResource> findCourseApplyResourcePage(CourseApplyResource searchVo, int currentPage, int pageSize);
 
 	void deleteOrRecoveryCourseApplyResource(Integer courseApplyId,Boolean delete);
-
+	/**
+	 * Description：获取主播的课程列表
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/15 21:46
+	 **/
+	public Page<CourseApplyInfo> findCoursePageByUserId(String userId, int pageNumber, int pageSize);
 }

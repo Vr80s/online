@@ -1180,10 +1180,15 @@ function courseResourceList(current){
     RequestService(url, "get", null, function(data) {
         $("#resource_list").html(template('course_resource_list_tpl', data.resultObject));
         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
-        $('#ziyuan_bottom2').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无资源</p></div>');
-         	$('#ziyuan_bottom2').removeClass('hide')
+        	$('#ziyuan_bottom2 > table').addClass('hide')
+        	$('#ziyuan_bottom2 > div').removeClass('hide')
+//      $('#ziyuan_bottom2').append('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无资源</p></div>');
+//       	$('#ziyuan_bottom2').removeClass('hide')
         }else{
-        	 $('#ziyuan_bottom2').removeClass('hide')
+        	$('#ziyuan_bottom2 > div').addClass('hide')
+        	$('#ziyuan_bottom2 > table').removeClass('hide')
+//      	$('#ziyuan_bottom2').html('<table><thead><tr><td>标题</td><td>时长</td><td>创建时间</td><td>状态</td><td>类型</td><td>操作</td></tr></thead><tbody id="resource_list"></tbody></table>');
+//      	 $('#ziyuan_bottom2').removeClass('hide')
         }
 
         // debugger

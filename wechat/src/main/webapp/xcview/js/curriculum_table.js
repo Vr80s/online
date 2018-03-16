@@ -401,9 +401,9 @@ function queryDataByParams(params,data_type){
 					
 					var isFreeStr ="";
 					if(item.watchState == 1){
-						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;'><span>免费</span></p>";
+						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;font-size: 0.2rem;'><span>免费</span></p>";
 					}else if(item.watchState == 0){
-						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
+						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;font-size: 0.2rem;'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
 					}
 					var typeStr="";
 					if(item.type ==3){
@@ -421,6 +421,33 @@ function queryDataByParams(params,data_type){
 							       "<div class='li_list_one_left'>" +
 							          "<img src='"+item.smallImgPath+"' class='one' />" + statusImg1 +
 							      "</div>" +
+							      
+							      
+							      	
+							      	/*"<div class='li_list_one_right'>" +
+							           "<p class='p00'>" +
+							           "<span>我是测试</span><br />" +
+							           "<span class='span'>我是测试</span></p>" +
+							           "<div class='div'>我是测试<p class='p1'><img src='/xcview/images/population.png' alt=''>" +
+							             "<span>我是测试</span></p>我是测试</div>" +
+						            "</div>" +*/
+							      	
+							      
+							      
+							      
+							       /*"<div class='li_list_one_right'>" +
+							           
+							            "<div>"+
+							           		"<p style='font-size: 0.2rem;'>" + item.gradeName + "</p>"+
+							           		"<p style='font-size: 0.2rem;'>" + item.name + "</p>"+
+							            "</div>"+
+							            
+							            "<div>"+ isFreeStr +"<img src='/xcview/images/population.png' alt='' style='width: 0.25rem;' />" +
+							             "<span style='font-size: 0.2rem;'>"+item.learndCount+"</span>"+typeStr+"</div>"
+						            "</div>" +*/
+							      
+							      
+							      
 						           "<div class='li_list_one_right'>" +
 							           "<p class='p00'>" +
 							           "<span>"+item.gradeName+"</span><br />" +
@@ -428,6 +455,8 @@ function queryDataByParams(params,data_type){
 							           "<div class='div'>" + isFreeStr +"<p class='p1'><img src='/xcview/images/population.png' alt=''>" +
 							             "<span>"+item.learndCount+"</span></p>"+typeStr+"</div>" +
 						            "</div>" +
+						             
+						            
 						         "</div>" +
 						     "</div>";
 				}
@@ -438,7 +467,7 @@ function queryDataByParams(params,data_type){
 				
 				if("免费-直播课程-未直播" == text){
 					
-					alert(data1);
+//					alert(data1);
 				}else{
 					$(id).html(data1);
 				}

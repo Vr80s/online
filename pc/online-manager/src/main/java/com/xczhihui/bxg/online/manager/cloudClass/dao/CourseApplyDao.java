@@ -167,4 +167,31 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 
 		return courseApplyResources;
 	}
+
+
+	public Page<CourseApplyInfo> findCoursePageByUserId(String userId, int pageNumber, int pageSize){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder("SELECT cai.id,\n" +
+				"  cai.`title`,\n" +
+				"  cai.`start_time` as startTime,\n" +
+				"  cai.`multimedia_type` as multimediaType,\n" +
+				"  cai.`sale` as sale,\n" +
+				"  cai.`img_path` imgPath,\n" +
+				"  cai.`course_form` courseForm,\n" +
+				"  cai.`price`*10 as price,\n" +
+				"  oc.lecturer as lecturer,\n" +
+				"  cai.create_time,cai.status,cai.review_time,cai.collection," +
+				"om.`name` as menuName FROM `course_apply_info` cai left JOIN `oe_menu` om ON om.id=cai.`course_menu` " +
+				" LEFT JOIN `oe_course` as oc ON cai.id = oc.apply_id WHERE cai.`is_delete`=0 ");
+
+		if (userId != null) {
+			paramMap.put("userId", userId);
+			sql.append("and cai.user_id = :userId ");
+		}
+
+		sql.append(" ORDER BY cai.`create_time` DESC");
+		Page<CourseApplyInfo> courseApplyInfos = this.findPageBySQL(sql.toString(), paramMap, CourseApplyInfo.class, pageNumber, pageSize);
+
+		return courseApplyInfos;
+	}
 }
