@@ -467,7 +467,7 @@ function queryDataByParams(params,data_type){
 				
 				if("免费-直播课程-未直播" == text){
 					
-					alert(data1);
+//					alert(data1);
 				}else{
 					$(id).html(data1);
 				}

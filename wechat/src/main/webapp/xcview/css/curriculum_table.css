@@ -582,6 +582,7 @@ header{
     margin-left: -1.44rem;
     margin-top: -3rem;
     /*display: none !important;*/
+    z-index: -1;
 }
 .no_class img {
     width: 2.5rem;
