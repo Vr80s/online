@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.common.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -29,6 +31,8 @@ public class MedicalHospital implements Serializable {
 
 	private Boolean deleted;
 
+	@Basic(fetch = FetchType.LAZY)
+	@Type(type="text")
 	private String description;
 
 	@Column(name="detailed_address")
