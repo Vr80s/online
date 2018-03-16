@@ -234,6 +234,18 @@ public class OrderDao extends SimpleHibernateDao {
     }
 
     /**
+     * 返回当前订单支付状态
+     */
+    public Integer getOrderStatusById(String orderId) {
+        StringBuffer sql = new StringBuffer();
+        Map<String,Object> paramMap = new HashMap<>();
+        sql.append("select order_status from oe_order where id =:orderId");
+        paramMap.put("orderId", orderId);
+        List<OrderVo> list = this.findEntitiesByJdbc(OrderVo.class, sql.toString(), paramMap);
+        return list.size()>0 ? list.get(0).getOrder_status() : null;
+    }
+
+    /**
      * 根据订单号查找订单
      * @param orderNo  订单号
      * @return

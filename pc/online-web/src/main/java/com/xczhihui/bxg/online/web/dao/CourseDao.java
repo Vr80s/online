@@ -530,19 +530,27 @@ public class CourseDao extends SimpleHibernateDao {
             throw new RuntimeException("对不起,您要购买的课程已下架!");
         }
         Map<String,Object> paramMap = new HashMap<>();
-        paramMap.put("courseId",course.getId());
+        paramMap.put("orderId",orderId);
         //1、查询当前课程下是否有视频
-//        String  querySql="select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0";
-//        List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
         /*20170810---yuruixin*/
-        if (course.getType()== CourseForm.VOD.getCode() && (course.getDirectId()==null || "".equals(course.getDirectId().trim())) && !course.getCollection())
-        {
+        if (course.getType()== CourseForm.VOD.getCode() && (course.getDirectId()==null || "".equals(course.getDirectId().trim())) && !course.getCollection()){
             throw new RuntimeException("此课暂时没有视频,请稍后购买!");
         }
         // 查看用户有没有购买此课程
-        if( videoDao.getUserCourse(course.getId(), course.getUserId()).size()>0){
+        String querySql="SELECT \n" +
+                "  argc.* \n" +
+                "FROM\n" +
+                "  `apply_r_grade_course` argc \n" +
+                "WHERE argc.`order_no` IN \n" +
+                "  (SELECT \n" +
+                "    ood.id \n" +
+                "  FROM\n" +
+                "    `oe_order_detail` ood \n" +
+                "  WHERE ood.order_id = :orderId)";
+        List<ApplyGradeCourse>  agc = this.findEntitiesByJdbc(ApplyGradeCourse.class, querySql, paramMap);
+        if( agc.size()>0){
             throw new RuntimeException("同学,您已经购买了此课程!");
-        };
+        }
 
     }
 

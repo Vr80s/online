@@ -68,7 +68,12 @@
 		oc.subtitle as subtitle,
 		oc.course_length as courseLength,
 		oc.current_price*10 as currentPrice,
-		IFNULL((select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
+		
+		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id in 
+					( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id)) ,
+		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id )
+		) as  criticizeCount,
+		
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 ),0) as startLevel,
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
@@ -120,7 +125,12 @@
 		oc.direct_id as directId,
 		oc.subtitle as subtitle,
 		oc.current_price*10 as currentPrice,
-		IFNULL((select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
+	
+		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id in 
+					( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id)) ,
+		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id )
+		) as  criticizeCount,
+	
 
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 ),0) as startLevel,
 		oc.lecturer as name,
@@ -259,7 +269,7 @@
 		WHERE cc.`collection_id` = #{collectionId} order by cc.collection_course_sort
 	</select>
 
-	<!-- 查找讲师距离当前时间最近一次的课程 -->
+	<!-- 查找讲师距离当前时间最近一次的课程   1.直播中，2预告，3直播结束 -->
 	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
@@ -281,14 +291,13 @@
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name,
-		ABS(timestampdiff(second,current_timestamp,oc.create_time)) as recent
+		ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent
 		FROM
 		oe_course oc
 		where oc.user_lecturer_id = #{userId} 
 		and oc.is_delete=0 
 		and oc.status=1 
 		and oc.type = 1
-		and oc.live_status in (2,3)
 		order by recent limit 0,1
 	</select>
 
