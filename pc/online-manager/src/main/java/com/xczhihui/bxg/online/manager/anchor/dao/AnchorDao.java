@@ -108,7 +108,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 
 	public CourseAnchor findCourseAnchorById(Integer id) {
 	 	String sql = "SELECT \n" +
-				"  ou.`name`,\n" +
+				"  ca.`name`,\n" +
 				"  ca.`type`,\n" +
 				"  ca.`vod_divide` vodDivide,\n" +
 				"  ca.`live_divide` liveDivide,\n" +

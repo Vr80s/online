@@ -25,8 +25,11 @@ $(function() {
         { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
         { "title": "价格", "class":"center","width":"8%","sortable":false,"data": 'price'},
-        {title: '开课时间', "class": "center", "width": "10%","data": 'startTime',"mRender":function(data,display,row){
+        { "title": "开课时间", "class": "center", "width": "10%","data": 'startTime',"mRender":function(data,display,row){
+            if(data!=null&&data!=""){
                 return getLocalTime(data);
+            }
+                return data;
             }},
         { "title": "资源类型", "class":"center","width":"6%","sortable":false,"data": 'multimediaType' ,"mRender":function (data, display, row) {
             if(data == 1){
