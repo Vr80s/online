@@ -124,7 +124,8 @@ function login(){
 				/*
 				 * 跳转到分类
 				 */
-				location.href = "/xcview/html/home_page.html";
+				var jump_address=localStorage.save_adress
+				location.href = jump_address;
 				
 				/**
 				 * 如果是分享页面的话，就去分享页面了

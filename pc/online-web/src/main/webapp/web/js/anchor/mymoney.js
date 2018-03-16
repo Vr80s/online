@@ -293,7 +293,12 @@ $(function(){
         $("#myResive_list").html(template('myResive_list_Tpl', data.resultObject));
         
         if(!data.resultObject || data.resultObject.records.length == 0 || !data.resultObject.records ){
-        	$('.kecheng_Resive_bottom').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>');
+//      	$('.kecheng_Resive_bottom').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>');
+        	$('.kecheng_Resive_bottom > table').addClass('hide')
+        	$('.kecheng_Resive_bottom > div').removeClass('hide')
+        }else{
+        	$('.kecheng_Resive_bottom > div').addClass('hide')
+        	$('.kecheng_Resive_bottom > table').removeClass('hide')
         }
         
         // debugger
@@ -374,14 +379,20 @@ $(function(){
     });
 }
 	
-//条件搜索课程列表
+//条件搜索课程收益列表
 function searchCourseResiveList(){
 //	console.log($('.search_classIpt').val(),$('.Order_start_time').val(),$('.Order_end_time').val())
 	getCourseResiveList (1,$('.classSearch_Name').val(),$('.Order_start_time').val(),$('.Order_end_time').val());
 }
 
+//改变课程收益筛选条件出发搜索课程收益
+//$('.searc_classSel').on('change',function(){
+//	searchCourseResiveList()
+//})
 
-//条件搜索礼物列表
+
+
+//条件搜索礼物收益列表
 function searchgiftResiveList(){
 //	console.log($('.search_classIpt').val(),$('.Order_start_time').val(),$('.Order_end_time').val())
 	getGiftResiveList (1,$('.giftSearch_Name').val(),$('.Gift_start_time').val(),$('.Gift_end_time').val());

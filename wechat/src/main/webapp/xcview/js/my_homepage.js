@@ -76,10 +76,13 @@ function balance() {
 	        }
 	    });
 	}
+var url_adress=window.location.href;
 	function go_enter_dl(){
+		localStorage.save_adress=url_adress;
         window.location.href="enter.html";         
 	}
 	function go_cnlogin_zc(){
+		localStorage.save_adress=url_adress;
         window.location.href="cn_login.html";         
 	}
 	function go_evpi_wxxx(){
@@ -90,8 +93,10 @@ function balance() {
 //已购
 function go_enter(){
 	if (falg==1002){
+		localStorage.save_adress=url_adress;
 			location.href ="/xcview/html/cn_login.html";		
 	}else if (falg==1005) {
+		localStorage.save_adress=url_adress;
 			location.href ="/xcview/html/evpi.html";
 	}else{
 		window.location='/xcview/html/bought.html'		
@@ -100,8 +105,10 @@ function go_enter(){
 //钱包
 function go_cnlogin(){
 	if (falg==1002){
+		localStorage.save_adress=url_adress;
 			location.href ="/xcview/html/cn_login.html";		
 	}else if (falg==1005) {
+		localStorage.save_adress=url_adress;
 			location.href ="/xcview/html/evpi.html";
 	}else{
 	window.location.href="/xcview/html/my_wallet.html";		
@@ -131,8 +138,10 @@ $(".my_anchor").click(function(){
 //点击学习判断游客
 function go_study(){
 		if (falg==1002){
+			localStorage.save_adress=url_adress;
 			location.href ="/xcview/html/cn_login.html";		
 		}else if (falg==1005) {
+			localStorage.save_adress=url_adress;
 			location.href ="/xcview/html/evpi.html";
 		}else{
 			location.href ="/xcview/html/my_study.html";			

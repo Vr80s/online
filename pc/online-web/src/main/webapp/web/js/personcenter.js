@@ -377,7 +377,7 @@ $(function() {
 		'<div class="tabnavigator my-data">' +
 		'<div class="tabbar">' +
 		'<div class="btn-item color2cb">个人信息</div>' +
-		'<div class="btn-item kc"  >课程报名信息</div>' +
+		'<div class="btn-item kc hide"  >课程报名信息</div>' +
 //		'<div class="btn-item zh" >老学员认证</div>' +
 		'<div class="btn-item address" >常用地址管理</div>' +
 		'</div>' +
