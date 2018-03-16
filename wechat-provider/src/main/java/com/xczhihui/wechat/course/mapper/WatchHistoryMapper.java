@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.wechat.course.model.WatchHistory;
 import com.xczhihui.wechat.course.vo.WatchHistoryVO;
+
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -25,4 +26,6 @@ public interface WatchHistoryMapper extends BaseMapper<WatchHistory> {
 	void deleteBatch(@Param("list") List<WatchHistory> list);
 
 	List<WatchHistory> findWatchHistoryByUserId(@Param("userId") String userId);
+
+	void deleteWatchHistoryByUserId(@Param("userId") String userId);
 }

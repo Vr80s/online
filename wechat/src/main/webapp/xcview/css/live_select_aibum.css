@@ -546,7 +546,7 @@ margin-top: 0.1rem;
 .write_text{
 	font-size: 0.26rem;
 	padding-top: 0.16rem;
-
+    word-wrap: break-word;
 	clear: both;
 	
 }
@@ -581,6 +581,7 @@ color: #666666;
 .returned_text{
 	font-size: 0.26rem;
 	clear: both;
+	word-wrap: break-word;
 }
 
 /*<!--回复时间/点赞/评论按钮-->*/

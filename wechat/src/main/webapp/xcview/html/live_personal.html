@@ -69,13 +69,14 @@
 							粉丝&nbsp;<span>{{fansCount}}</span>
 						</div>
 					</div>
-					<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.id}}" >
-						{{if isFours==0 }}
-						<img src="../images/append1_icon.png"/>
-						<p>加关注</p>
+						{{if isFours==0 }}					
+							<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.user_id}}" >
+							<img src="../images/append1_icon.png"/>
+							<p>加关注</p>
 						{{else}}
-						<img src="../images/append2_icon.png"/>
-						<p class="aaa">已关注</p>
+							<div style="border: 1px solid #999;" class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.user_id}}" >
+							<img src="../images/append2_icon.png"/>
+							<p class="aaa" style="color: #999;">已关注</p>
 						{{/if}}
 					</div>
 				</div>

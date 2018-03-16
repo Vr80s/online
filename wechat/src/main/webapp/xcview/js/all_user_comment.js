@@ -160,11 +160,12 @@ function refresh(pageNumber,pageSize,downOrUp){
 }
 //评论
 function reportComment() {
-
-    var comment_detailed = $('#littlt_return').val();
-    //正则表达式
-	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
-	 
+    var comment_detailed = $('#comment_detailed').val();
+    if(comment_detailed==""){
+        return false;
+    }
+     //正则表达式
+	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");	 
 	 //判断输入框中有内容
 	 if(!reg.test(comment_detailed))
 	 {
@@ -173,11 +174,6 @@ function reportComment() {
 	 $("#comment_detailed").val("");
 	 return false;
 	 }
-	 
-    if(comment_detailed==""){
-
-        return false;
-    }
     requestService("/xczh/criticize/saveCriticize",{
         content:comment_detailed,
         userId : userLecturerId
@@ -198,7 +194,11 @@ function reportComment() {
 //回复评论
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
-    //正则表达式
+    if(comment_detailed==""){
+        //webToast("内容不能为空","middle",1500);
+        return
+    }
+        //正则表达式
 	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
 	 
 	 //判断输入框中有内容
@@ -209,12 +209,6 @@ function replyComment() {
 	 $("#comment_detailed").val("");
 	 return false;
 	 }
-	 
-	 
-    if(comment_detailed==""){
-        //webToast("内容不能为空","middle",1500);
-        return
-    }
     requestService("/xczh/criticize/saveReply",{
 
         content:comment_detailed,
