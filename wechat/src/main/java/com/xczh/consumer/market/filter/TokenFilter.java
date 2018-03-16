@@ -98,7 +98,7 @@ public class TokenFilter implements Filter {
 			+ "/xczh/alipay/pay,/xczh/alipay/rechargePay";
 	
 	private static String new_controller_pay_the_callback_one =
-			"/xczh/criticize/getCriticizeList,"
+			"/xczh/criticize/getCriticizeList,/bxg/ccvideo/commonCourseStatus"
 			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,"
 			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/gift/list";
 	
@@ -139,7 +139,7 @@ public class TokenFilter implements Filter {
 		String newExcludedControllerStr = new_controller_login_before+","+new_controller_share_before+","+
 				new_controller_login_three_parties+","+new_controller_specific_business_one+","+new_controller_specific_business_two;
 		
-		if (StringUtils.isNotEmpty(newExcludedControllerStr) ) {   
+		if (StringUtils.isNotEmpty(newExcludedControllerStr)) {   
 			newInterfaceFilter  = newExcludedControllerStr.split(",");
 		}  
 		

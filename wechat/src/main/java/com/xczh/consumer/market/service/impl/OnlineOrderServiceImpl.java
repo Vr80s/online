@@ -171,7 +171,7 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		order.setCreatePerson(user.getLoginName());
 		order.setCreateTime(new Date());     //创建时间
 		order.setUserId(user.getId());       //用户ID
-		order.setOrderFrom(orderFrom);       //订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销' 4:h5网页    5：手机app 
+		order.setOrderFrom(orderFrom);       //订单来源   1：pc 2：h5 3:android 4 ios 5 线下 6 工作人员
 		order.setPayAccount("暂无");          //支付账号
 		order.setPayTime(new Date());
 		orderMapper.addOrder(order);

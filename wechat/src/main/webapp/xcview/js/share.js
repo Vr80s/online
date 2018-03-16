@@ -39,8 +39,8 @@ var type ="";
 var lineState ="";
 
 var result="";
-
 var descriptionType  = "";
+
 
 requestService("/bxg/common/h5ShareAfter",{
 	course_id : course_id

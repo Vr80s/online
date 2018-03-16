@@ -76,6 +76,7 @@ function balance() {
 	        }
 	    });
 	}
+
 	function go_enter_dl(){
         window.location.href="enter.html";         
 	}

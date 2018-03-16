@@ -242,6 +242,8 @@ public class BunchPlanController {
 		} else {
 			pageSize = Integer.valueOf(e);
 		}
+		
+		
 		List<CourseLecturVo> list = wxcpCourseService.offLineClass(keyWord,number, pageSize);
 		LOGGER.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);

@@ -291,6 +291,7 @@ function btn_allComment(){
 //}
 //判断状态跳转
 var courseId = getQueryString('course_id');
+
 function btn_zj_mianfei(){
 	var falg =authenticationCooKie();
 	var data_zj= $(".right_priceBtn").attr("data-zj")

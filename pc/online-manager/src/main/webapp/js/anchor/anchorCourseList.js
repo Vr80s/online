@@ -23,9 +23,9 @@ $(function() {
                 return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
             }},
         { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
-        { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
+        { "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
         { "title": "价格", "class":"center","width":"8%","sortable":false,"data": 'price'},
-        { "title": "开课时间", "class": "center", "width": "10%","data": 'startTime',"mRender":function(data,display,row){
+        { "title": "直播时间", "class": "center", "width": "10%","data": 'startTime',"mRender":function(data,display,row){
             if(data!=null&&data!=""){
                 return getLocalTime(data);
             }
@@ -43,13 +43,14 @@ $(function() {
             }
             return "否";
         }},
-        { "title": "是否上架", "class":"center","width":"6%","sortable":false,"data": 'sale' ,"mRender":function (data, display, row) {
-                if(data){
-                    return "已上架";
+        { "title": "是否上架", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
+                if(data==1){
+                    return "<span name='zt'>已上架</span>";
+                }else{
+                    return "<span name='zt'>未上架</span>";
                 }
-                return "未上架";
-            }},
-        { "title": "课程大分类", "class":"center","width":"6%","sortable":false,"data": 'courseForm' ,"mRender":function (data, display, row) {
+            } },
+        { "title": "课程类型", "class":"center","width":"6%","sortable":false,"data": 'courseForm' ,"mRender":function (data, display, row) {
                 if(data==1 ){  //课程分类 1:公开直播课（1.直播2.点播3.线下课）
                     return "直播课";
                 }else if(data== 2){
@@ -58,16 +59,16 @@ $(function() {
                     return "线下课";
                 }
             } },
-        { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status' ,"mRender":function (data, display, row) {
+        { "title": "审核状态", "class":"center","width":"6%","sortable":false,"data": 'applyStatus' ,"mRender":function (data, display, row) {
                 if(data==0 ){
-                    return "拒绝";
+                    return "未通过";
                 }else if(data== 1){
                     return "通过";
                 }else if(data== 2){
-                    return "未处理";
+                    return "未审核";
                 }
-            } }
-
+            } },
+        { "title": "发布时间", "class":"center","width":"8%","sortable":false,"data": 'releaseTime'}
     ];
 
     P_courseTable = initTables("courseTable", basePath + "/anchor/courseAnchor/courseList", objData, true, true, 0, null, searchCase_P, function (data) {

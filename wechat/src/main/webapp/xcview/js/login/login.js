@@ -124,6 +124,7 @@ function login(){
 				/*
 				 * 跳转到分类
 				 */
+
 				location.href = "/xcview/html/home_page.html";
 				
 				/**

@@ -181,7 +181,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setCreateTime(new Date());
 		u.setDelete(false);
 		u.setName(mobile);   //初次登录设置默认名为：手机号
-		u.setSmallHeadPhoto(webdomain+"/web/images/defaultHead/yx_mr.png");
+		u.setSmallHeadPhoto(webdomain+"/web/images/defaultHead/18.png");
 		u.setVisitSum(0);
 		u.setStayTime(0);
 		u.setUserType(0);
@@ -638,7 +638,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setMobile(mobile);
 		u.setName(mobile);
 		u.setPassword(password);
-		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/18.png");
 		onlineUserDao.updateOnlineUserAddPwdAndUserName(u);
 		return u;
 	}
@@ -684,7 +684,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setCreateTime(new Date());
 		u.setDelete(false);
 		u.setName("");   //默认一个名字
-		u.setSmallHeadPhoto(webdomain+"/web/images/defaultHead/yx_mr.png");
+		u.setSmallHeadPhoto(webdomain+"/web/images/defaultHead/18.png");
 		u.setVisitSum(0);
 		u.setStayTime(0);
 		u.setUserType(0);

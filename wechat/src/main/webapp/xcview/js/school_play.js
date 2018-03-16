@@ -289,13 +289,15 @@ function btn_allComment(){
 
 
 var courseId = getQueryString('course_id');
+
 function btn_zj_mianfei(){
 	var falg =authenticationCooKie();
 	var data_zj= $(".right_priceBtn").attr("data-zj")
 		if (falg==1002){
-//			localStorage.memory=window.location.href;
+
 			location.href ="/xcview/html/cn_login.html";		
 		}else if (falg==1005) {
+
 			location.href ="/xcview/html/evpi.html";
 		}else{
 			if(data_zj==0){
