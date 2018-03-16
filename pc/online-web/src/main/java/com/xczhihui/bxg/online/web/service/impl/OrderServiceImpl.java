@@ -247,6 +247,11 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
     public Integer getOrderStatus(String orderNo) {
         return orderDao.getOrderStatus(orderNo);
     }
+
+    @Override
+    public Integer getOrderStatusById(String orderId) {
+        return orderDao.getOrderStatusById(orderId);
+    }
     
     @Override
 	public Map<String, Object> checkPayInfo(String orderNo) {

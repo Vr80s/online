@@ -73,6 +73,7 @@
 		<if test="name != null and name!=''">
 			and mh.name like concat('%',#{name},'%')
 		</if>
+		GROUP BY mh.id
 		ORDER BY mh.authentication DESC, mh.score DESC,mh.`create_time` DESC
 	</select>
 

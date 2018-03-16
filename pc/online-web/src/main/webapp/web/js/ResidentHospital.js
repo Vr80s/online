@@ -406,7 +406,7 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, descr
 		})
 		$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
 		if(medicalHospitalPictures.length > 3){
-		$('.zhicheng_pic').css('padding-left', '110px')
+		$('#hos_Administration .zhicheng_pic').css('padding-left', '110px')
 			
 		}
 

@@ -1862,8 +1862,8 @@ function geren() {
 			$(".nick-warn-name").text("用户名不能为空").css("display", "inline-block");
 			return false;
 		}
-		if(value.length<2 || value.length>15) {
-			$(".nick-warn-name").text("用户名长度不能小于2或者大于15").css("display", "inline-block");
+		if(value.length<2 || value.length>20) {
+			$(".nick-warn-name").text("用户名长度不能小于2或者大于20").css("display", "inline-block");
 			return false;
 		}
 		//昵称不能能有空格
