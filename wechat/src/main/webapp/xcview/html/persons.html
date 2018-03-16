@@ -562,7 +562,8 @@ pre:after {
   			$(".mui-zx_mask").hide();
   		});
   		
-  		
+// 点击跳转传字符 		
+	var username_text=$("#person_one").text()
   		
 
   		
@@ -744,10 +745,10 @@ pre:after {
 		</div>
 		<div class="person_cen">
 			<div class="person_cen0">
-			<div class="person_cen_top person_one" onclick="location.href ='nickname.html'">
+			<div class="person_cen_top person_one" onclick="location.href ='nickname.html?username_id='+username_text">
 				<p class="person_p1">昵称</p>
 				<div class="person_cen_right">
-					<p id="person_one"></p>  
+					<p id="person_one"></p> 
 					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>

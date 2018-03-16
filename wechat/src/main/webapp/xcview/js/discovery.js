@@ -43,10 +43,13 @@ function myAnchor(){
 
 //点击学习判断游客
 var falg =authenticationCooKie();
+var url_adress=window.location.href;
 function go_study(){
 		if (falg==1002){
+			localStorage.save_adress=url_adress;
 			location.href ="/xcview/html/cn_login.html";		
 		}else if (falg==1005) {
+			localStorage.save_adress=url_adress;
 			location.href ="/xcview/html/evpi.html";
 		}else{
 			location.href ="/xcview/html/my_study.html";			
