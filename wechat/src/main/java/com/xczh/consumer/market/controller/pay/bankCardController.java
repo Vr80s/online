@@ -73,7 +73,7 @@ public class bankCardController {
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
 
-		List<UserBank> userBankList = userBankService.selectUserBankByUserId(user.getId());
+		List<UserBank> userBankList = userBankService.selectUserBankByUserId(user.getId(),false);
 		return  ResponseObject.newSuccessResponseObject(userBankList);
 	}
 	/**

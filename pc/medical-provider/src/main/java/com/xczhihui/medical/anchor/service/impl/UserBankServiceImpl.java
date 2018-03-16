@@ -125,7 +125,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			userBank.setCardType(cardType);
 
 
-		List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId());
+		List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId(),false);
 		if(userBankList!=null&&userBankList.size()>0){
 			userBank.setDefault(false);
 		}else {
@@ -137,11 +137,15 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	}
 
 	@Override
-	public List<UserBank> selectUserBankByUserId(String userId) {
+	public List<UserBank> selectUserBankByUserId(String userId,boolean complete) {
 		anchorInfoService.validateAnchorPermission(userId);
 		List<UserBank> userBankCards = userBankMapper.selectUserBankByUserId(userId);
 		for (UserBank userBankCard : userBankCards) {
-			userBankCard.setAcctPan(dealBankCard(userBankCard.getAcctPan()));
+			if(complete){
+				userBankCard.setAcctPan(userBankCard.getAcctPan());
+			}else{
+				userBankCard.setAcctPan(dealBankCard(userBankCard.getAcctPan()));
+			}
 		}
 		return userBankCards;
 	}

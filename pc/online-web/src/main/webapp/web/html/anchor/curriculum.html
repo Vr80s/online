@@ -421,7 +421,7 @@
 			<img  src="/web/images/bankLogo/{{bankcard.tel}}.png" alt="" />
 		</div>
 		<div class="cardBottom">
-			<span>尾号<i>{{bankcard.tailNumber}}</i></span>
+			<span><i>{{bankcard.acctPan}}</i></span>
 			{{if bankcard.default==false}}
 			<a href="javascript:;" onclick="setDefaultBankCard({{bankcard.id}})">设为默认</a>
 			{{/if}}

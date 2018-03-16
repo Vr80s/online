@@ -25,10 +25,19 @@ $(function(){
     // { "title": "医师ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "姓名", "class":"center","width":"9%","sortable":false,"data": 'name' },
     { "title": "职称", "class":"center","width":"8%","sortable":false,"data": 'title'},
+    { "title": "科室", "class":"center","width":"8%","sortable":false,"data": 'department',"mRender":function (data, display, row) {
+       if(data==null)return "";
+       return data;
+    }},
+    { "title": "医馆", "class":"center","width":"8%","sortable":false,"data": 'hospital',"mRender":function (data, display, row) {
+        if(data==null)return "";
+        return data;
+    }},
     // { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
     { "title": "坐诊时间", "class":"center","width":"6%", "sortable":false,"data": 'workTime',"visible":true},
     { "title": "所在地", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {
-        debugger
+    	if(row.province==null)row.province=""
+    	if(row.city==null)row.city=""
     	return row.province+"-"+row.city;
     }}, { "title": "医师类别", "class":"center","width":"8%","sortable":false,"data": 'type','mRender':function(data){
     	return doctorType(data);}},
@@ -37,9 +46,9 @@ $(function(){
             },
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data) {
     	if(data==1){
-    		return data="<span name='zt'>已启用</span>";
+    		return "<span name='zt'>已启用</span>";
     	}else{
-    		return data="<span name='zt'>已禁用</span>";
+    		return "<span name='zt'>已禁用</span>";
     	}
     } },
 

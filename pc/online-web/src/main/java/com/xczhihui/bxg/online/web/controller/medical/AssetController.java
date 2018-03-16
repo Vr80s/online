@@ -71,9 +71,9 @@ public class AssetController extends AbstractController{
      * @Date: 下午 12:00 2018/2/2 0002
      **/
     @RequestMapping(value = "/getBankCardList",method= RequestMethod.GET)
-    public ResponseObject getBankCardList(HttpServletRequest request){
+    public ResponseObject getBankCardList(HttpServletRequest request,boolean complate){
         OnlineUser user = getOnlineUser(request);
-        return ResponseObject.newSuccessResponseObject(userBankService.selectUserBankByUserId(user.getId()));
+        return ResponseObject.newSuccessResponseObject(userBankService.selectUserBankByUserId(user.getId(),complate));
     }
 
     @RequestMapping(value = "/getPhoneNumber",method= RequestMethod.GET)

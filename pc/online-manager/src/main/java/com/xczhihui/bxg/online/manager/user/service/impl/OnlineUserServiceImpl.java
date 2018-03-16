@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.manager.user.dao.OnlineUserDao;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -120,6 +122,17 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		dao.update(o);
 		//更新用户信息
 		api.updateLoginName(loginName,newLoginName);
+		
+		String sql_wx = "delete from wxcp_client_user_wx_mapping where client_id = ?";
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wx, new Object[]{userId});
+		
+
+		String sql_wb = "delete from weibo_client_user_mapping where user_id = ?";
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wb, new Object[]{userId});
+		
+		String sql_qq = "delete from qq_client_user_mapping where user_id = ?";
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_qq, new Object[]{userId});
+		
 		try {
 			EmailUtil.modifyLoginNameMailBySSL("原账号"+loginName+"==>"+newLoginName);
 		} catch (Exception e) {
