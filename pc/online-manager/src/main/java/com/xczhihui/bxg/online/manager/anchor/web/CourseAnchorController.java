@@ -4,12 +4,13 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.api.po.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.manager.anchor.service.AnchorService;
+import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class CourseAnchorController extends AbstractController{
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/anchor/";
 	@Autowired
 	private AnchorService anchorService;
+
+    @Autowired
+    private CourseApplyService courseApplyService;
 
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
@@ -190,5 +194,38 @@ public class CourseAnchorController extends AbstractController{
         anchorService.updateSortDownRec(id);
         responseObj.setSuccess(true);
         return responseObj;
+    }
+
+
+    @RequestMapping(value = "anchorCourse")
+    public String anchorCourse(HttpServletRequest request,String userId) {
+        request.setAttribute("userId", userId);
+        return CLOUD_CLASS_PATH_PREFIX + "/anchorCourseList";
+    }
+    /**
+     * Description：获取主播的课程列表
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/3/15 21:19
+     **/
+    @RequestMapping(value = "courseList")
+    @ResponseBody
+    public TableVo courseDetail(TableVo tableVo) {
+        int pageSize = tableVo.getiDisplayLength();
+        int index = tableVo.getiDisplayStart();
+        int currentPage = index / pageSize + 1;
+        String params = tableVo.getsSearch();
+        Groups groups = Tools.filterGroup(params);
+        Group userId = groups.findByName("userId");
+        String user_Id="";
+        if (userId != null) {
+            user_Id = userId.getPropertyValue1().toString();
+        }
+        Page<CourseApplyInfo> page = courseApplyService.findCoursePageByUserId(user_Id, currentPage, pageSize);
+        int total = page.getTotalCount();
+        tableVo.setAaData(page.getItems());
+        tableVo.setiTotalDisplayRecords(total);
+        tableVo.setiTotalRecords(total);
+        return tableVo;
     }
 }
