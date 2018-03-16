@@ -732,7 +732,7 @@ color: #666666;
 	font-size: 0.26rem;
 color: #888888;
     clear: both;
-    padding-top: 0.4rem;
+    /*padding-top: 0.4rem;*/
 }
 .text_write_box{
 	width: 100%;
