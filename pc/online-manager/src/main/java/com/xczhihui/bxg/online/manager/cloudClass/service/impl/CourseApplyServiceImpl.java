@@ -226,6 +226,12 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		dao.update(courseApplyResource);
 	}
 
+	@Override
+	public Page<CourseApplyInfo> findCoursePageByUserId(String userId, int pageNumber, int pageSize) {
+		Page<CourseApplyInfo> page = courseApplyDao.findCoursePageByUserId(userId, pageNumber, pageSize);
+		return page;
+	}
+
 	private void saveNotPassCourse(CourseApplyInfo courseApply, String userId) {
 		courseApply.setStatus(ApplyStatus.NOT_PASS.getCode());
 		courseApply.setReviewPerson(userId);

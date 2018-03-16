@@ -16,7 +16,8 @@ $(function() {
     var objData = [
         { "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
             return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
-        }},{"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+        }},
+        {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
         {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.type==1){
@@ -54,6 +55,7 @@ $(function() {
                        str += '<a class="blue" href="javascript:void(-1);" title="打开主播权限" onclick="editPermissions(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
                 }
                 str += '<a class="blue" href="javascript:void(-1);" title="设置分成比例" onclick="toEdit(this,1);"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+                str += '<a class="blue" href="javascript:void(-1);" title="课程列表" onclick="showCourseListDialog(this);"><i class="ace-icon fa fa-ellipsis-h bigger-130"></i></a>';
                 return str;
             }
         }];
@@ -201,6 +203,7 @@ function upMoveRec(obj){
  * @param obj
  */
 function downMoveRec(obj){
+    debugger;
     var oo = $(obj).parent().parent().parent();
     var aData = anchorRecTable.fnGetData(oo);
     ajaxRequest(basePath+'/anchor/courseAnchor/downMoveRec',{"id":aData.id},function(res){
@@ -309,4 +312,16 @@ function setUserLecturer(obj,op){
             alertInfo(data.errorMessage);
         }
     });
+}
+/**
+ * Description：点击主播，跳转到主播的课程列表
+ * creed: Talk is cheap,show me the code
+ * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+ * @Date: 2018/3/15 21:16
+ **/
+function showCourseListDialog(obj) {
+    debugger;
+    var oo = $(obj).parent().parent().parent();
+    var aData = P_courseTable.fnGetData(oo); // get datarow
+    window.location.href = basePath + '/home#anchor/courseAnchor/anchorCourse?userId=' + aData.userId;
 }
