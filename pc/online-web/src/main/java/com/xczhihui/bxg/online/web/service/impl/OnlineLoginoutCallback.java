@@ -47,23 +47,6 @@ public class OnlineLoginoutCallback implements LoginoutCallback {
 		u.setVisitSum(u.getVisitSum() + 1);
 		u.setLastLoginIp(this.getIpAddress(request));
 		dao.update(u);
-		
-		/**
-		 * 单用户登录
-		 */
-//		if (logins.containsKey(ou.getId())) {
-//			try {
-//				logins.get(ou.getId()).getSession().invalidate();
-//			} catch (Exception e) {}
-//			api.destoryTicket(logins.get(ou.getId()).getTicket());
-//			logins.remove(ou.getId());
-//		}
-//
-//		Token t = TokenHolder.getCurrentToken();
-//		SingletonUserLogin sgu = new SingletonUserLogin();
-//		sgu.setSession(request.getSession());
-//		sgu.setTicket(t.getTicket());
-//		logins.put(u.getId(), sgu);
 	}
 	/**
 	 * 记录停留时间，当前时间 - 最后登录时间
