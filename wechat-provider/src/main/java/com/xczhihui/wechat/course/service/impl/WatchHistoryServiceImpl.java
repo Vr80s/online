@@ -68,15 +68,6 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		  watchHistory.setCreateTime(new Date());
 		  watchHistoryMapper.updateById(watchHistory);
 	  }else{
-		  if(target.getCourseId() == null){
-	          throw new RuntimeException("请传递课程名字");
-	      }
-		  CourseLecturVo course =  courseMapper.selectCourseById(target.getCourseId());
-		  if(course == null){
-	          throw new RuntimeException("课程信息有误");
-	      }
-		  target.setLecturerId(course.getUserLecturerId());
-		  //通过课程id查找讲师id
 		  try {
 			  watchHistoryMapper.insert(target);
 		  } catch (Exception e) {
@@ -88,11 +79,12 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	@Override
 	public void deleteBatch(String userId) {
 		// TODO Auto-generated method stub
-		List<WatchHistory> list = watchHistoryMapper.findWatchHistoryByUserId(userId);
-		//System.out.println(list.get(0).getId());
-		if(list.size()>0){
-			watchHistoryMapper.deleteBatch(list);
-		}
+//		List<WatchHistory> list = watchHistoryMapper.findWatchHistoryByUserId(userId);
+//		//System.out.println(list.get(0).getId());
+//		if(list.size()>0){
+//			watchHistoryMapper.deleteBatch(list);
+//		}
+		watchHistoryMapper.deleteWatchHistoryByUserId(userId);
 	}
 	
 	

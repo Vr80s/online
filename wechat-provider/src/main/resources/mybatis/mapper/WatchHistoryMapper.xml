@@ -47,4 +47,9 @@
         </foreach>  
 	</delete >
 	
+	<delete  id="deleteWatchHistoryByUserId">    
+        delete  from  oe_watch_history1  where user_id = #{userId}
+	</delete >
+	
+	
 </mapper>

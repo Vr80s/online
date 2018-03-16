@@ -96,12 +96,8 @@ public class CourseController {
 				cv.setWatchState(3);
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
-			if (cv.getWatchState() == 1) { // 免费的课程啦
-				
-				onlineWebService.saveEntryVideo(courseId, user);
-
-			} else if (cv.getWatchState() == 0) { // 收费课程
-
+		   
+			if (cv.getWatchState() == 0) { // 收费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
 				}
@@ -151,11 +147,8 @@ public class CourseController {
 				cv.setWatchState(3);
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
-			if (cv.getWatchState() == 1) { // 免费的课程啦
-				//synchronized (lock) {
-					onlineWebService.saveEntryVideo(courseId, user);
-				//}
-			} else if (cv.getWatchState() == 0) { // 收费课程
+			
+			if (cv.getWatchState() == 0) { // 收费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
 				}
