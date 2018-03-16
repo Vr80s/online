@@ -109,6 +109,10 @@ $(function(){
 		opacity: 0;
 	}
 	
+	
+	.animation{
+		z-index: 9999999999 !important;
+	}
 </style>
 </head>
 <body style="background: #f8f8f8;overflow: hidden1;">
@@ -643,6 +647,11 @@ $(function(){
 			$(".pinch-zoom-container").css("display","block");
 			$(".fd_img").css("display","none");
 		}
+		
+		
+		$(".give_a1").click(function(){
+			$("#attention").hide();
+		});
 		
 	};
 </script>
