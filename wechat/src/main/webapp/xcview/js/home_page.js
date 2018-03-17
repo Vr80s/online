@@ -173,22 +173,26 @@ function lineWork(){
                 //线下课程
                 $(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))
                 //swiper轮播开始
-                var result_class = data.resultObject.banner.records;
-                var str_class ="";
-                for (var int = 0; int < result_class.length; int++) {
-                    var wb_class = result_class[int];
-                    str_class+="<div class='swiper-slide swiper-banner swiper-banner-class'>"+
-                        "<img src='"+wb_class.imgPath+"' alt='Concept for children game' data_id='"+wb_class.id+"' data_class='"+wb_class.url+"'>"+
-                        "</div>";
+                if(data.resultObject.banner.records.length==0 || data.resultObject.banner.records==null){
+                	$("#swiper-container-class").hide()
+                }else{
+	                var result_class = data.resultObject.banner.records;
+	                var str_class ="";
+	                for (var int = 0; int < result_class.length; int++) {
+	                    var wb_class = result_class[int];
+	                    str_class+="<div class='swiper-slide swiper-banner swiper-banner-class'>"+
+	                        "<img src='"+wb_class.imgPath+"' alt='Concept for children game' data_id='"+wb_class.id+"' data_class='"+wb_class.url+"'>"+
+	                        "</div>";
+	                }
+	                $("#wrapper-box-class").html(str_class);
+	                var mySwiper = new Swiper('#swiper-container-class',{
+	                    pagination : '#swiper-banner-list-class',
+	                    loop:true,
+	                    autoplay : 3000,
+	                    autoplayDisableOnInteraction : false,
+	                    //pagination : '#swiper-pagination1',
+	                })
                 }
-                $("#wrapper-box-class").html(str_class);
-                var mySwiper = new Swiper('#swiper-container-class',{
-                    pagination : '#swiper-banner-list-class',
-                    loop:true,
-                    autoplay : 3000,
-                    autoplayDisableOnInteraction : false,
-                    //pagination : '#swiper-pagination1',
-                })
             }else{
                 alert("网络异常");
             };
