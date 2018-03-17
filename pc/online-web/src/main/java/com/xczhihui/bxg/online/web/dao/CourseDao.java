@@ -826,7 +826,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "  JOIN `collection_course` cc \n" +
                 "    ON oc.id = cc.`course_id` \n" +
                 "WHERE cc.`collection_id` = ? \n" +
-                "ORDER BY cc.`collection_course_sort` DESC";
+                "ORDER BY cc.`collection_course_sort` ";
         courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, BeanPropertyRowMapper.newInstance(CourseVo.class),collectionId);
         return courseVoList;
     }
