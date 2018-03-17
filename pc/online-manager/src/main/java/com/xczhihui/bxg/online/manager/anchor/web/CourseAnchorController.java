@@ -202,8 +202,9 @@ public class CourseAnchorController extends AbstractController{
 
 
     @RequestMapping(value = "anchorCourse")
-    public String anchorCourse(HttpServletRequest request,String userId) {
+    public String anchorCourse(HttpServletRequest request,String userId,String anchorNname) {
         request.setAttribute("userId", userId);
+        request.setAttribute("anchorNname", anchorNname);
         List<Menu> menuVos= courseService.getfirstMenus(null);
         request.setAttribute("menuVo", menuVos);
         return CLOUD_CLASS_PATH_PREFIX + "/anchorCourseList";

@@ -69,7 +69,12 @@ $(function() {
                     return "未审核";
                 }
             } },
-        { "title": "发布时间", "class":"center","width":"8%","sortable":false,"data": 'releaseTime'}
+        { "title": "发布时间", "class":"center","width":"8%","sortable":false,"data": 'releaseTime',"mRender":function(data,display,row){
+                if(data!=null&&data!=""){
+                    return getLocalTime(data);
+                }
+                return data;
+            }}
     ];
 
     P_courseTable = initTables("courseTable", basePath + "/anchor/courseAnchor/courseList", objData, true, true, 0, null, searchCase_P, function (data) {
