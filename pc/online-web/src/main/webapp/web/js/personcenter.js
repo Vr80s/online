@@ -453,7 +453,7 @@ $(function() {
 	        '</select> ' +
 	        
 	        //区
-	        '<select class="District1"> ' +
+	        '<select class="District1 hide"> ' +
 	        '<option value="volvo">--选择区/县--</option> ' +
 //	        '<option value="saab">Saab</option> ' +
 //	        '<option value="opel">Opel</option> ' +
