@@ -5,18 +5,17 @@
 	<!-- 返回的map 第一个是我的粉丝总数         第二个是我的关注总数    第三个是评论总数    -->
 	<select id="selectFocusAndFansCount" resultType="java.lang.Integer">
 	    ( select count(*)  from oe_focus of
-	      inner join oe_user as ou on of.user_id = ou.id 
+	      inner join course_anchor as ou on of.user_id =ou.user_id
 	      where  of.lecturer_id =#{userId} 
-	      and ou.is_delete = 0  and ou.status = 0 )
+	      and ou.status = 1  and ou.deleted =0  )
 	    	UNION ALL     
 	    ( select count(*)  from oe_focus as of
-	      inner join oe_user as ou on of.lecturer_id = ou.id	
-		  where of.user_id = #{userId} and  ou.is_delete = 0  
-		   and ou.status = 0 )
+	      inner join course_anchor as ou on of.lecturer_id = ou.user_id
+		  where of.user_id = #{userId} and  ou.status = 1  and ou.deleted =0  )
 		 UNION ALL   
 		  ( select count(*) from oe_criticize cc  
-		  	inner join oe_user as ou on cc.user_id = ou.id
-		  	where cc.user_id = #{userId}  and ou.is_delete = 0 and ou.status = 0
+		  	inner join course_anchor as ou on cc.user_id =ou.user_id
+		  	where cc.user_id = #{userId}  and ou.status = 1  and ou.deleted =0 
 		  ) 
 	</select>
 	
