@@ -40,12 +40,12 @@ var cityTypeArray = new Array();
 /**
  * 默认搜索条件
  */
-var defaultKey = localStorage.getItem("defaultKey");
-if(stringnull(defaultKey)){
-//	$(".header_seek_main img").html(defaultKey);
-	$(".header_seek_main span").html(defaultKey);
-//	$(".span_hide").hide();
-}
+//var defaultKey = localStorage.getItem("defaultKey");
+//if(stringnull(defaultKey)){
+////	$(".header_seek_main img").html(defaultKey);
+////	$(".header_seek_main span").html(defaultKey);
+////	$(".span_hide").hide();
+//}
 /*
  * 点击进入搜索页面
  */
