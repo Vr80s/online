@@ -49,10 +49,10 @@ function getCoinTransactionList (current){
             }
         }
         var str = '<thead><tr><td>交易金额（熊猫币）</td><td>交易类型</td><td>商品</td><td>交易时间</td><td>备注</td></tr></thead><tbody id="coin_transaction_list"></tbody></table>';
-        $('.pandaTable').html(str);
+        $('.content_bottom_bottom > .pandaTable').html(str);
         $("#coin_transaction_list").html(template('coin_transaction_list_tpl', data.resultObject));
         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
-        	$('.pandaTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无熊猫币交易记录</p></div>');
+        	$('.content_bottom_bottom > .pandaTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无熊猫币交易记录</p></div>');
         }
 //      debugger
         //每次请求完数据就去渲染分页部分
@@ -95,10 +95,10 @@ function getRmbTransactionList (current){
             }
         }
         var str = '<thead><tr><td>交易金额（人民币）</td><td>交易类型</td><td>申请时间</td><td>提现方式</td><td>提现账户</td><td>状态</td><td>备注</td></tr></thead><tbody id="rmb_transaction_list"></tbody></table>';
-        $('.rmbTable').html(str);
+        $('.content_bottom_bottom > .rmbTable').html(str);
         $("#rmb_transaction_list").html(template('rmb_transaction_list_tpl', data.resultObject));
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
-        	$('.rmbTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无人民币交易记录</p></div>');
+        	$('.content_bottom_bottom > .rmbTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无人民币交易记录</p></div>');
         }
 
 		//银行卡处理
