@@ -247,4 +247,13 @@ public interface OnlineUserService {
 	 *
 	 */
 	public OnlineUser wechatCreateUserInfo(WxcpClientUserWxMapping wxw) throws SQLException;
+	/**
+	 * 
+	 * Description：验证手机号是否已经注册
+	 * @param username
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public void verifyPhone(String username)throws SQLException;
 }
