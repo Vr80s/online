@@ -130,13 +130,15 @@
 		</td>
 		<td>
 			{{if course.applyStatus==1}}
-			{{if course.status==1}}
-			<span>已上架</span>
-			{{else}}
-			<span>未上架</span>
-			{{/if}}
-			{{else}}
-			<span>无</span>
+				{{if course.status==1}}
+				<span>已上架</span>
+				{{else}}
+				<span>未上架</span>
+				{{/if}}
+			{{else if course.applyStatus==2}}
+				<span>审核中</span>
+			{{else if course.applyStatus==0}}
+				<span>审核失败</span>
 			{{/if}}
 		</td>
 		<td>
@@ -234,13 +236,15 @@
 		</td>
 		<td>
 			{{if collection.applyStatus==1}}
-			{{if collection.status==1}}
-			<span>已上架</span>
-			{{else}}
-			<span>未上架</span>
-			{{/if}}
-			{{else}}
-			<span>无</span>
+				{{if collection.status==1}}
+					<span>已上架</span>
+				{{else}}
+					<span>未上架</span>
+				{{/if}}
+			{{else if collection.applyStatus==2}}
+				<span>审核中</span>
+			{{else if collection.applyStatus==0}}
+				<span>审核失败</span>
 			{{/if}}
 		</td>
 		<td>
