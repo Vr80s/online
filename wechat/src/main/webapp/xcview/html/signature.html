@@ -102,7 +102,16 @@
 	    });
 	
 </script>
-
+<script>
+		function getQueryString(key){
+        var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
+        var result = window.location.search.substr(1).match(reg);
+        return result?decodeURIComponent(result[2]):null;
+      }	
+      var username_id = getQueryString('username_style');
+		username_id == "" ? $("#info").val("") : $("#info").val(username_id)
+		
+</script>
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
