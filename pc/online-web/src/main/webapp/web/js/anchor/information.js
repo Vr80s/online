@@ -573,6 +573,7 @@ function showAnchorInfo() {
                
                 $('#u_nickname').val(anchor.name);
                 $('#nickname').text(anchor.name);
+                $('#nickname').attr('title','');
                 $('#profilePhoto').attr('src', anchor.profilePhoto);
                 
 //              $('#hospitalName').text(anchor.hospitalName);
