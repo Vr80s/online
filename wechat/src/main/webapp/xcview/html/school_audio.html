@@ -277,61 +277,70 @@
 					
 			<!--底部购买价格-->
 			<div class="bot_price">
-<!--有无专辑收费0-->
-				{{if watchState==0}}
-				<a class="left_price z" href="javascript:;">
+				{{if currentPrice>0}}
+					<a class="left_price z" href="javascript:;">
 					<p><span>{{currentPrice}}</span>熊猫币</p>
 				</a>
+					{{else}}
+					<a class="left_price z" href="javascript:;">
+					<p><span>免费</span></p>
+				</a>
+				{{/if}}
+<!--有无专辑收费0-->
+				{{if watchState==0}}
+				<!--<a class="left_price z" href="javascript:;">
+					<p><span>{{currentPrice}}</span>熊猫币</p>
+				</a>-->
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}}">
 					购买
 				</a>
 <!--无专辑免费1-->
 				{{else if watchState==1 && collection == false}}
-				<a class="left_price z" href="javascript:;">
+				<!--<a class="left_price z" href="javascript:;">
 					<p><span>免费</span></p>
-				</a>
+				</a>-->
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{1}}">
 					立即学习
 				</a>
 <!--有专辑免费2-->
 				{{else if watchState==1 && collection == true}}
-				<a class="left_price z" href="javascript:;">
+				<!--<a class="left_price z" href="javascript:;">
 					<p><span>免费</span></p>
-				</a>
+				</a>-->
 				<a class="right_priceBtn y" href="javascript:;" data-zj="{{2}}" onclick="btn_zj_mianfei()">
 					立即学习
 				</a>
 <!--//已购买并没有专辑3-->
 	
 				{{else if watchState==2 && collection == false}}
-				<a class="left_price z" href="javascript:;">
+				<!--<a class="left_price z" href="javascript:;">
 					<p><span>{{currentPrice}}</span>熊猫币</p>
-				</a>
+				</a>-->
 				<a class="right_priceBtn y" href="javascript:;" data-zj="{{3}}" onclick="btn_zj_mianfei()">
 					立即学习
 				</a>
 <!--//已购买并有专辑4-->			
 				{{else if watchState==2 && collection == true}}
-				<a class="left_price z" href="javascript:;">
+				<!--<a class="left_price z" href="javascript:;">
 					<p><span>{{currentPrice}}</span>熊猫币</p>
-				</a>
+				</a>-->
 				<a class="right_priceBtn y" href="javascript:;" data-zj="{{4}}" onclick="btn_zj_mianfei()">
 					立即学习
 				</a>
 <!--//主播买并没有专辑5-->			
 				{{else if watchState==3 && collection == false}}
-				<a class="left_price z" href="javascript:;">
+				<!--<a class="left_price z" href="javascript:;">
 					<p><span>{{currentPrice}}</span>熊猫币</p>
 
-				</a>
+				</a>-->
 				<a class="right_priceBtn y" href="javascript:;" data-zj="{{5}}" onclick="btn_zj_mianfei()">
 					立即学习
 				</a>
 <!--//主播并有专辑6-->			
 				{{else if watchState==3 && collection == true}}
-				<a class="left_price z" href="javascript:;">
+				<!--<a class="left_price z" href="javascript:;">
 					<p><span>{{currentPrice}}</span>熊猫币</p>
-				</a>
+				</a>-->
 				<a class="right_priceBtn y" href="javascript:;" data-zj="{{6}}" onclick="btn_zj_mianfei()">
 					立即学习
 
