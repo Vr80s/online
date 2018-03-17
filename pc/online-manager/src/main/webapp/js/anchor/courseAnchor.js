@@ -89,6 +89,7 @@ $(function() {
             }
             return "已关闭";
         }},
+        {"title": "推荐值", "class": "center", "width": "6%", "sortable": false, "data": 'recommendSort'},
         {"sortable": false,"class": "center","width":"10%","title":"排序","data": 'sort',"mRender":function (data, display, row) {
             return '<div class="hidden-sm hidden-xs action-buttons">'+
                /* '<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+

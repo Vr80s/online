@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.cloudClass.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
+import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.ApplyStatus;
@@ -234,11 +235,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 
 	@Override
 	public void updateRecommendSort(Integer id, Integer recommendSort) {
-		String hqlPre="from CourseApplyInfo where  isDelete = 0 and id = ?";
-		CourseApplyInfo courseApplyInfo= dao.findByHQLOne(hqlPre,new Object[] {id});
-		if (courseApplyInfo!=null){
-			courseApplyInfo.setRecommendSort(recommendSort);
-			dao.update(courseApplyInfo);
+		String hqlPre="from CourseAnchor where  isDelete = 0 and id = ?";
+		CourseAnchor courseAnchor= dao.findByHQLOne(hqlPre,new Object[] {id});
+		if (courseAnchor!=null){
+			courseAnchor.setRecommendSort(recommendSort);
+			dao.update(courseAnchor);
 		}
 	}
 
