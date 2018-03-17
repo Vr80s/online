@@ -89,6 +89,8 @@ requestService("/xczh/course/details",{
 //	课程名称/等级/评论
 	$("#speak_people").html(template('data_people',data.resultObject));
 //	直播时间/主播名字
+
+	data.resultObject.startTime= data.resultObject.startTime.replace(/-/g,".");
 	$("#wrap_playTime").html(template('data_name',data.resultObject));
 //	是否购买
 	$("#sure_isBuy").html(template('data_isBuy',data.resultObject));

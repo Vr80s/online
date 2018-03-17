@@ -57,7 +57,12 @@ var all_history="";
 
 //	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
 	requestService("/xczh/myinfo/list",null,function(data) {
-//		data.resultObject[0].startTime = data.resultObject[0].startTime.replace(/-/g,".");
+
+//			if(data.resultObject[0].courseList.startTime!="" || data.resultObject[0].courseList.startTime!=null){
+//				data.resultObject[0].courseList.startTime=data.resultObject[0].courseList.startTime.replace(/-/g,".")
+//			}else if(data.resultObject[1].courseList.startTime!="" || data.resultObject[1].courseList.startTime!=null){
+//				data.resultObject[1].courseList.startTime=data.resultObject[1].courseList.startTime.replace(/-/g,".")
+//			}
 			$(template("data_my_class",{items:data.resultObject[0]})).appendTo("#my_class_box");
 			$(template("data_my_class",{items:data.resultObject[1]})).appendTo("#my_class_box");
 			if(data.resultObject[0].courseList.length==0){				
