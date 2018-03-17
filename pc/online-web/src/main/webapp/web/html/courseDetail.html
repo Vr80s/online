@@ -306,8 +306,11 @@
                 <span class="body-list-right">主讲：{{teacherName}}</span>
                 {{if collection == false}}
                 <!--<span class="body-list-right myTimes" title="课程时长" style="cursor:default">课程时长：{{courseLength}}分钟</span>-->
-                <span title="课程开始时间" class="myTimes" style="cursor:default;color:#999;" class="">课程开始时间：{{start_time}}&nbsp;{{week}}</span>
- 
+                	{{if type == 2}}
+                		<span title="课程时长" class="myTimes" style="cursor:default;color:#999;" class="">课程时长：{{courseLength}}分钟</span>
+                	{{else}}
+                		<span title="课程开始时间" class="myTimes" style="cursor:default;color:#999;" class="">课程开始时间：{{start_time}}&nbsp;{{week}}</span>
+                	{{/if}}
                 {{else}}
                 <span class="body-list-right myTimes" title="总集数" style="cursor:default">总集数：{{courseNumber}}</span>
                 {{/if}}
