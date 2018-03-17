@@ -46,7 +46,7 @@
 }
 
 .mCustomScrollBox {
-	height: 11rem;
+	height: 11.5rem;
 	/* padding-top:1rem; */
 	/* padding-top: 0.5rem; */
 }
@@ -344,4 +344,10 @@ i {
     background: url(../images/no_git.png) no-repeat center;
     background-size: 100% 100%;
     margin: 3.32rem auto 0;
+}
+
+
+/*聊天滚动条*/
+#mCSB_1_scrollbar_vertical{
+	opacity: 0;
 }
