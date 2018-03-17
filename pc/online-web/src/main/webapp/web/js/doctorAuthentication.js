@@ -7,7 +7,7 @@ $(function(){
 	$('#doc_Distinguish #AutList #submit').click(function(){
 	//姓名
 	var name = $.trim($('#AutList .doc_name').val());
-	var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;;
+	var name_pass = /^[\u4E00-\u9FA5]{1,20}$/;;
 	var doc_Idnum = $.trim($('#AutList .doc_Idnum').val());
 	var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
 	var personInt = UE.getEditor('editor').getContent();
