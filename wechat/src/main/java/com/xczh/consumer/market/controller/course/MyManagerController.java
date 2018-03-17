@@ -123,8 +123,10 @@ public class MyManagerController {
 			// 熊猫币-- 普通用户的平台
 			map.put("xmbCount",userCoinService.getBalanceByUserId(user.getId()));
 			// 更新下用户信息
-			
 			OnlineUser ou = onlineUserService.findUserById(user.getId());
+			if(ou == null){
+				return ResponseObject.newErrorResponseObject("token过期",1002);
+			}
 			ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 			ou.setUserCenterId(iu.getId());
 			ou.setPassword(iu.getPassword());

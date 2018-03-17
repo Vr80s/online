@@ -144,7 +144,6 @@ public class CriticizeController {
         //获取当前登录用户信息
         OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if(user!=null) {
-        	
         	/**
         	 * 这个是讲师id
         	 */

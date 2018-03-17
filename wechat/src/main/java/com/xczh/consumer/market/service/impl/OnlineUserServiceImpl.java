@@ -776,8 +776,22 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		 * 为用户初始化一条代币记录
 		 */
 		userCoinService.saveUserCoin(u.getId());
-		
 		return u;
+	}
+	@Override
+	public void verifyPhone(String username) throws SQLException {
+		// TODO Auto-generated method stub
+		//在用户重新获取登录对象
+		ItcastUser iu = userCenterAPI.getUser(username);
+		if(iu == null){
+			throw new RuntimeException ("用户不存在！");
+		}
+		OnlineUser o = onlineUserDao.findUserByLoginName(username);
+		if (o != null) {
+			if (o.isDelete() || o.getStatus() == -1){
+				throw new RuntimeException ("用户已禁用！");
+			}
+		}	
 	}
 	
 }

@@ -275,7 +275,7 @@ function reportComment() {
             webToast("评论失败","middle",1500);
         }
 
-    });
+    },false);
 }
 
 //回复评论
@@ -315,7 +315,7 @@ function replyComment() {
             webToast("回复失败","middle",1500);
         }
 
-    });
+    },false);
 }
 
 //点赞、取消点赞
@@ -325,7 +325,7 @@ function updatePraise(id,isPraise) {
         criticizeId: id
     }, function (data) {
         //	课程名称/等级/评论
-    });
+    },false);
 }
 
 //清空评论状态

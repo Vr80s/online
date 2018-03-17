@@ -61,6 +61,8 @@ requestService("/xczh/course/liveDetails",{
 				$(".guanz_headImg").attr("src", result.headImg);
 				$(".main_title").find('.p0').html(result.heir);
 				
+//				即将播放时间
+				$(".initiation_span").html(result.startTime.slice(0,16));
 				
 				$(".details_chat1").attr("src", result.headImg);
 				var children = $("#zhiboxiangqing [class='p1']").text(
@@ -504,14 +506,14 @@ document.getElementById('qqShare').onclick = function(e) {
 };
 
 // qq空间分享
-document.getElementById('qqShare1212').onclick = function(e) {
+/*document.getElementById('qqShare1212').onclick = function(e) {
 	var p = {
-		url : getServerHost() + "/wx_share.html?courseId=" + course_id,/* 获取URL，可加上来自分享到QQ标识，方便统计 */
-		desc : '中医传承', /* 分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔） */
-		title : result.gradeName,/* 分享标题(可选) */
-		summary : result.description.stripHTML(),/* 分享描述(可选) */
+		url : getServerHost() + "/wx_share.html?courseId=" + course_id, 获取URL，可加上来自分享到QQ标识，方便统计 
+		desc : '中医传承',  分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔） 
+		title : result.gradeName, 分享标题(可选) 
+		summary : result.description.stripHTML(), 分享描述(可选) 
 		pics : result.smallImgPath
-	/* 分享图片(可选) */
+	 分享图片(可选) 
 	};
 	var s = [];
 	for ( var i in p) {
@@ -520,7 +522,7 @@ document.getElementById('qqShare1212').onclick = function(e) {
 	var _src = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?"
 			+ s.join('&');
 	window.open(_src);
-};
+};*/
 /** ************** 微信分享 ************************ */
 /*
  * 注意： 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
