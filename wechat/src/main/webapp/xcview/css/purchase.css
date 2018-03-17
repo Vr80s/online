@@ -81,12 +81,13 @@ header {
 
 /*中间内容开始*/
 .purchase_details{
-	width: 100%;
-	height: 2.2rem;
-	background: #fff;
-	padding: 0.638rem 0;
-	margin-top: 2.398rem;
-	margin-bottom: 0.426rem;
+	    width: 100%;
+    /* height: 2.2rem; */
+    background: #fff;
+    padding: 0.338rem 0;
+    margin-top: 2.398rem;
+    margin-bottom: 0.426rem;
+    overflow: hidden;
 }
 .purchase_details_main{
 	width: 15.45rem;
@@ -104,7 +105,7 @@ header {
 .purchase_details_left{
 	float: left;
 	width: 9rem;
-	height: 1.915rem;
+	height1: 1.915rem;
 	/*background: red;*/
 }
 .purchase_details_title{

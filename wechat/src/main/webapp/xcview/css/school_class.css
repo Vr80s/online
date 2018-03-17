@@ -176,6 +176,7 @@ padding-bottom: 0.17rem;
     overflow: hidden;
     /*white-space: nowrap;*/
     text-overflow: ellipsis;
+    word-wrap:break-word;
 }
 
 .playTime li:nth-last-child(1){
