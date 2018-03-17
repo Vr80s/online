@@ -227,8 +227,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	}
 
 	@Override
-	public Page<CourseApplyInfo> findCoursePageByUserId(String userId, int pageNumber, int pageSize) {
-		Page<CourseApplyInfo> page = courseApplyDao.findCoursePageByUserId(userId, pageNumber, pageSize);
+	public Page<CourseApplyInfo> findCoursePageByUserId(CourseApplyInfo courseApplyInfo, int pageNumber, int pageSize) {
+		Page<CourseApplyInfo> page = courseApplyDao.findCoursePageByUserId(courseApplyInfo, pageNumber, pageSize);
 		return page;
 	}
 
