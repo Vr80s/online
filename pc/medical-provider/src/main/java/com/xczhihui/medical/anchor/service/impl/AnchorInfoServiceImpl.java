@@ -219,7 +219,9 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     }
 
     private void updateHospitalDetail(CourseAnchorVO target) {
-
+        if(StringUtils.isNotBlank(target.getDetailAddress())&&target.getDetailAddress().length()>100){
+            throw new RuntimeException("详细地址长度不可超过100字");
+        }
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(target.getUserId());
 
         MedicalHospital hospital = new MedicalHospital();

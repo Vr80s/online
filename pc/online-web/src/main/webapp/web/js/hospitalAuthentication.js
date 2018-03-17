@@ -21,7 +21,7 @@ $('.path .hospital').addClass('select');
 		var hosName = $.trim($('.hos_base_inf .doc_zhicheng').val());
 		var hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
 		var name = $.trim($('.hos_base_inf .doc_shanchang').val());
-		var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;
+		var name_pass = /^[\u4E00-\u9FA5]{1,20}$/;
 		var WeChat =  $.trim($('.hos_base_inf .hos_weixin').val());
 		var WeChatPatt = /^[a-zA-Z\d_-]{5,}$/;
 		var email = $.trim($('.hos_base_inf .doc_hospital').val());
@@ -388,7 +388,7 @@ $('.path .hospital').addClass('select');
 
 	//获取数据
 	var name = $.trim($('#doc_Administration_bottom .doc_name').val());
-	var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;;
+	var name_pass = /^[\u4E00-\u9FA5]{1,20}$/;
 	var doc_zhicheng = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
 	var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
 	var description = UE.getEditor('editor').getContent();

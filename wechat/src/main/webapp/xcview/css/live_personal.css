@@ -274,9 +274,9 @@ color: #999999;
 .address_all li{
 	margin-top: 0.2rem;
 	color: #575757;
-	    overflow: hidden;
+	    /*overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap;*/
 }
 /*课程*/
 .more_right{

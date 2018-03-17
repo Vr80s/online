@@ -235,7 +235,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 
 	@Override
 	public void updateRecommendSort(Integer id, Integer recommendSort) {
-		String hqlPre="from CourseAnchor where  isDelete = 0 and id = ?";
+		String hqlPre="from CourseAnchor where id = ?";
 		CourseAnchor courseAnchor= dao.findByHQLOne(hqlPre,new Object[] {id});
 		if (courseAnchor!=null){
 			courseAnchor.setRecommendSort(recommendSort);

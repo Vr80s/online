@@ -565,12 +565,14 @@ function verifyCourse(course){
     }
 //  course.lecturer.charAt(course.lecturer.length – 1)== ','
 //course.lecturer.substr(course.lecturer.length-1,1)
-    if( course.lecturer.substr(course.lecturer.length-1,1)== "，"){
-        $('.warning_course_lecturer_length').removeClass('hide');
-        return false;
-    }else{
-        $('.warning_course_lecturer_length').addClass('hide');
-    }
+
+//结尾不能是逗号限制
+//  if( course.lecturer.substr(course.lecturer.length-1,1)== "，"){
+//      $('.warning_course_lecturer_length').removeClass('hide');
+//      return false;
+//  }else{
+//      $('.warning_course_lecturer_length').addClass('hide');
+//  }
     //主播介绍
     if(course.lecturerDescription == ''){
         $('.warning_course_lecturer_description').removeClass('hide');
@@ -1164,8 +1166,8 @@ function initCourseSelect(){
     for(var i=0;i < courseArr.length;i++){
         csArr.push(courseArr[i].id);
     }
-    $('.selectpicker_collection').selectpicker('refresh');
     $('.selectpicker_collection').selectpicker('val',(csArr));
+    $('.selectpicker_collection').selectpicker('refresh');
     $(".new_box").show();
 }
 /**
