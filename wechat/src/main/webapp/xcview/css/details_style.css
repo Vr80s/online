@@ -132,7 +132,7 @@ div.pinch-zoom,
     margin-left: 0;
     background: url(/xcview/images/size_bg.png);
     background-size: 100% 100%;
-    min-width:2rem;
+    min-width: 5.5rem;
     padding: 0.2rem 0;
 }
 .details_size .img0{
@@ -522,12 +522,13 @@ div.pinch-zoom,
 
 .anchor_center01{
 	padding-top: 0.638rem;
-	position: fixed;
-    top: 10.4rem;
+	position1: fixed;
+    top1: 10.4rem;
+
 }
 .anchor_center{
-	overflow-y: scroll;
-	max-height: 14rem;
+	overflow-y1: scroll;
+	max-height1: 14rem;
 }
 
 
