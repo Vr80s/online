@@ -573,7 +573,7 @@
 		'即将直播' as note
 		from oe_course c,oe_user ou
 		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
-		and c.live_status = 2 and c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now()
+		and c.live_status = 2 and ( ( c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now() ) or ( DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ))   
 		order by  c.recommend_sort DESC,c.start_time asc LIMIT 0,4)
 
 		union all
