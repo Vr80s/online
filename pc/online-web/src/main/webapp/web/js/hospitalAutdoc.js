@@ -15,6 +15,8 @@ $(function() {
 		if($('.add_newTeacher').text() == '返回'){
 			$('.add_newTeacher').click()
 		}
+		$('.search_teacher_ipt').val('');
+		$('.search_teacher_btn').click()
 //		RequestService("/medical/hospital/getDoctors", "get", {
 //			current: currentPage,
 //			size: size,
@@ -127,7 +129,13 @@ $('#deleteTip .confirm-sure').click(function(){
 		},function(data){
 			$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
 			if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
-				$('#doc_Administration_bottom2').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到“<span style="color:#00BC12">'+docName+'</span>”相关医师</p></div>');
+//				$('#doc_Administration_bottom2').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到“<span style="color:#00BC12">'+docName+'</span>”相关医师</p></div>');
+				$('#doc_Administration_bottom2 > table').addClass('hide')
+				$('#searchName').text(docName);
+				$('#noDocList').removeClass('hide');
+			}else{
+				$('#noDocList').addClass('hide');
+				$('#doc_Administration_bottom2 > table').removeClass('hide')
 			}
 		})
 		
