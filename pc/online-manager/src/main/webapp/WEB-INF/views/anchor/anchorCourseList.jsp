@@ -480,8 +480,69 @@
 			        <div class="profile-info-row" >
 			            <table frame=void >
 			                <tr>
+								<!-- 课程名 -->
+								<td>
+									<div class="profile-info-value searchTr">
+										<input type="text" placeholder = "课程名称" class="propertyValue1" id="search_courseName" style="width: 150px;">
+										<input type="hidden" value="search_courseName" class="propertyName"/>
+									</div>
+								</td>
+								<!-- 学科 -->
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="menuName" id="search_menu" value="" class="propertyValue1"  >
+											<option value="">学科</option>
+											<c:forEach var="menus" items="${menuVo}">
+												<option value="${menus.id}">${menus.name}</option>
+											</c:forEach>
+										</select>
+										<input type="hidden" value="search_menu" class="propertyName"/>
+									</div>
+								</td>
+								<!-- 审核状态（所有状态、已审核、未审核）0未通过 1通过 2未审核-->
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_applyStatus" id="search_applyStatus" value="" class="propertyValue1"  >
+											<option value="">审核状态</option>
+											<option value="0">未通过</option>
+											<option value="1">通过</option>
+											<option value="2">未审核</option>
+										</select>
+										<input type="hidden" value="search_applyStatus" class="propertyName"/>
+									</div>
+								</td>
+								<!-- 课程类型（所有、直播、线下、点播）课程类型：1.直播 2.点播 3.线下课-->
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_courseForm" id="search_courseForm" value="" class="propertyValue1"  >
+											<option value="">课程类型</option>
+											<option value="1">直播</option>
+											<option value="2">点播</option>
+											<option value="3">线下课</option>
+										</select>
+										<input type="hidden" value="search_courseForm" class="propertyName"/>
+									</div>
+								</td>
+								<!-- 是否上架（所有、已上架、未上架）；禁用0，启用，1-->
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_status" id="search_status" value="" class="propertyValue1"  >
+											<option value="">所有</option>
+											<option value="0">未上架</option>
+											<option value="1">已上架</option>
+										</select>
+										<input type="hidden" value="search_status" class="propertyName"/>
+									</div>
+								</td>
+
+								<td>
+									<button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_P();">
+										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+									</button>
+								</td>
 			                    <td>
-			                        <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
+			                        <button id="returnBtn" type="button" class="btn btn-sm  btn-primary "
 			                                onclick="return_P();">
 			                            <i class="ace-icon  icon-on-right bigger-110">返回</i>
 			                        </button>
