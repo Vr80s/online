@@ -660,7 +660,13 @@ window.onload = function () {
     //搜索
     $(".search-ansAndQus i").off().on("click",function () {
     	if($.trim($(".search-ansAndQus input").val()) == ""){
-    		return false;
+    	
+    		list.tag = "",
+            list.menuId = -1,
+            list.title = $(".search-ansAndQus input").val();
+            list.pageNumber = 1;
+            list.status = $.getUrlParam('status');
+           	location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status="+list.status +"");
     	}
     	
         if ($.trim($(".search-ansAndQus input").val()) != "") {
@@ -668,7 +674,8 @@ window.onload = function () {
             list.menuId = -1,
             list.title = $(".search-ansAndQus input").val();
             list.pageNumber = 1;
-           	location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
+            list.status = $.getUrlParam('status');
+           	location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status="+list.status+"");
         }
     });
     //点击标签搜索
