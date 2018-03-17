@@ -91,19 +91,15 @@ $(function(){
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
-	//	直播时间/主播名字
-//		data.resultObject.startTime= data.resultObject.startTime.substring(0,10); //截取日期
-//		data.resultObject.endTime= data.resultObject.endTime.substring(0,10); //截取日期
+	
 	//	是否购买
 	$("#sure_isBuy").html(template('data_isBuy',data.resultObject));
 
 
-		
-
-//		data.resultObject.endTime= data.resultObject.endTime.substring(0,10);
+//	直播时间/主播名字	
+		data.resultObject.endTime= data.resultObject.endTime.replace(/-/g,".");
+		data.resultObject.startTime= data.resultObject.startTime.replace(/-/g,".");
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
-		
-
 		
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){

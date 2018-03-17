@@ -529,13 +529,6 @@ public class UserController extends OnlineBaseController {
 		vo.setOccupationOther(occupationOther);
 		vo.setSex(Integer.valueOf(sex));
 		boolean a = userCenterService.updateUser(vo);
-		OnlineUser o = dao.get(vo.getUid(), OnlineUser.class);
-		Token t = null;
-		if(o!=null) {
-			t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
-		}else{
-			return ResponseObject.newErrorResponseObject("用户未注册");
-		}
 		if(a){
 			user.setName(nickName);
 			return OnlineResponse.newSuccessOnlineResponse("修改成功");
