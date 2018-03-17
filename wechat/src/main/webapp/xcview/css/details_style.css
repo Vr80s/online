@@ -522,6 +522,8 @@ div.pinch-zoom,
 
 .anchor_center01{
 	padding-top: 0.638rem;
+	position: fixed;
+    top: 10.4rem;
 }
 .anchor_center{
 	overflow-y: scroll;
