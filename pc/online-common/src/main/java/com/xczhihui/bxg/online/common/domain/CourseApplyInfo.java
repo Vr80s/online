@@ -105,6 +105,12 @@ public class CourseApplyInfo implements Serializable {
 	@Transient
 	private Date releaseTime;
 
+	/**
+	 * 推荐排序
+	 */
+	@Column(name = "recommend_sort")
+	private Integer recommendSort;
+
 	public Integer getCourseId() {
 		return courseId;
 	}
@@ -451,5 +457,13 @@ public class CourseApplyInfo implements Serializable {
 
 	public void setIsDelete(Boolean delete) {
 		isDelete = delete;
+	}
+
+	public Integer getRecommendSort() {
+		return recommendSort;
+	}
+
+	public void setRecommendSort(Integer recommendSort) {
+		this.recommendSort = recommendSort;
 	}
 }

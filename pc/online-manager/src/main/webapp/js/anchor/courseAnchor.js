@@ -91,8 +91,9 @@ $(function() {
         }},
         {"sortable": false,"class": "center","width":"10%","title":"排序","data": 'sort',"mRender":function (data, display, row) {
             return '<div class="hidden-sm hidden-xs action-buttons">'+
-                '<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-                '<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+               /* '<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+                '<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';*/
+                '<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this);">设置推荐值</a> </div>';
         }}];
 
     anchorRecTable = initTables("recAnchorTable", basePath + "/anchor/courseAnchor/recList", recData, true, true, 0, null, searchCase_Rec, function (data) {
@@ -325,3 +326,36 @@ function showCourseListDialog(obj) {
     var aData = P_courseTable.fnGetData(oo); // get datarow
     window.location.href = basePath + '/home#anchor/courseAnchor/anchorCourse?userId=' + aData.userId;
 }
+
+/**
+ * Description：设置推荐值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateRecommendSort(obj){
+    var row="";
+    var oo = $(obj).parent().parent().parent();
+    row = anchorRecTable.fnGetData(oo);
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/anchor/courseAnchor/updateRecommendSort");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                unmask();
+                if(data.success){
+                    $("#recommendSort").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    freshTable(anchorRecTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
+};

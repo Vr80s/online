@@ -232,6 +232,16 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		return page;
 	}
 
+	@Override
+	public void updateRecommendSort(Integer id, Integer recommendSort) {
+		String hqlPre="from CourseApplyInfo where  isDelete = 0 and id = ?";
+		CourseApplyInfo courseApplyInfo= dao.findByHQLOne(hqlPre,new Object[] {id});
+		if (courseApplyInfo!=null){
+			courseApplyInfo.setRecommendSort(recommendSort);
+			dao.update(courseApplyInfo);
+		}
+	}
+
 	private void saveNotPassCourse(CourseApplyInfo courseApply, String userId) {
 		courseApply.setStatus(ApplyStatus.NOT_PASS.getCode());
 		courseApply.setReviewPerson(userId);
