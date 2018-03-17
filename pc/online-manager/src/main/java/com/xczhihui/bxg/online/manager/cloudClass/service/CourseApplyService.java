@@ -28,5 +28,12 @@ public interface CourseApplyService {
 	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
 	 * @Date: 2018/3/15 21:46
 	 **/
-	public Page<CourseApplyInfo> findCoursePageByUserId(String userId, int pageNumber, int pageSize);
+	public Page<CourseApplyInfo> findCoursePageByUserId(CourseApplyInfo courseApplyInfo, int pageNumber, int pageSize);
+	/**
+	 * Description：
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/17 15:06
+	 **/
+	public void updateRecommendSort(Integer id,Integer recommendSort);
 }
