@@ -43,6 +43,7 @@ function myAnchor(){
 
 //点击学习判断游客
 var falg =authenticationCooKie();
+
 function go_study(){
 		if (falg==1002){
 			location.href ="/xcview/html/cn_login.html";		

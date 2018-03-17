@@ -109,8 +109,8 @@ requestService("/xczh/host/hostPageInfo",{
         if(src.indexOf("append1_icon")>-1){
             $(".add_follow").find('img').attr('src','../images/append2_icon.png');
             $(".add_follow").find('p').html("已关注");
-            $(".add_follow").find('p').css("color","#999");
-			$(".add_follow").css("border","1px solid #999");
+            $(".add_follow").find('p').css("color","#bbb");
+			$(".add_follow").css("border","1px solid #bbb");
             $(".right_personal").find('span').html(parseInt(p)+1);
             my_follow(lecturerId,1);
         }else{
@@ -270,7 +270,7 @@ function jump_play(id){
          }else if(userPlay.watchState==1 && userPlay.lineState==2){
             if (falg==1002){
                   location.href ="/xcview/html/cn_login.html";      
-               }else if (falg==1005) {
+              }else if (falg==1005) {
                   location.href ="/xcview/html/evpi.html";
                }else{
                   requestService("/xczh/history/add",
@@ -327,13 +327,22 @@ function jump_play(id){
 
 
 //	点击关注判断
+var falg =authenticationCooKie();
 	function my_follow(followed,type){
-					requestService("/xczh/myinfo/updateFocus",{
-						lecturerId : followed,
-						type:type
-					},function(data){
-//                      alert(data.resultObject);
-					})
+					if (falg==1002){
+					
+							location.href ="/xcview/html/cn_login.html";		
+					}else if (falg==1005) {
+			
+							location.href ="/xcview/html/evpi.html";
+					}else{
+							requestService("/xczh/myinfo/updateFocus",{
+							lecturerId : followed,
+							type:type
+							},function(data){
+			//                      alert(data.resultObject);
+							})
+					}
 			}
 	function btn_class(){
 	
@@ -478,12 +487,15 @@ function jump_play(id){
 
 	//判断主播是否在开直播及最近一次直播
 	var falg =authenticationCooKie();	
+	
 function go_play(t){
 	var data_id=$(t).attr("data-play");
 	console.log(data_id)
 	if (falg==1002){
-			location.href ="/xcview/html/enter.html";		
+			var falg =authenticationCooKie();
+			location.href ="/xcview/html/enter.html";	
 		}else if (falg==1005) {
+			var falg =authenticationCooKie();
 			location.href ="/xcview/html/evpi.html";
 		}else{
 			if(is_watchState==2 || is_watchState==3){

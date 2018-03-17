@@ -61,6 +61,8 @@ requestService("/xczh/course/liveDetails",{
 				$(".guanz_headImg").attr("src", result.headImg);
 				$(".main_title").find('.p0').html(result.heir);
 				
+//				即将播放时间
+				$(".initiation_span").html(result.startTime.slice(0,16));
 				
 				$(".details_chat1").attr("src", result.headImg);
 				var children = $("#zhiboxiangqing [class='p1']").text(

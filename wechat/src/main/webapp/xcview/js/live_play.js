@@ -59,6 +59,7 @@ requestService("/xczh/course/liveDetails",{
 	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
 	$("#speak_people").html(template('data_people',data.resultObject));
 //	直播时间/主播名字
+	data.resultObject.startTime= data.resultObject.startTime.replace(/-/g,".");
 	$("#wrap_playTime").html(template('data_name',data.resultObject));
 
 //	简介/内容

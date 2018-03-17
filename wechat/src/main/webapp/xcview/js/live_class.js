@@ -42,7 +42,8 @@ function stripHTML(str){
 //		data.resultObject.endTime= data.resultObject.endTime.slice(0,16); //截取日期	
 //		data.resultObject.endTime= data.resultObject.endTime.substring(0,10); //截取日期
 //	
-
+		data.resultObject.endTime= data.resultObject.endTime.replace(/-/g,".");
+		data.resultObject.startTime= data.resultObject.startTime.replace(/-/g,".");
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
 		
 

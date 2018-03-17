@@ -216,8 +216,6 @@ if(is_weixn()){
 	if(shareBack == 1){
 		pushHistory();
 	}
-	
-	
 	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
 	var urlparm = {
 		url: window.location.href
@@ -254,10 +252,15 @@ if(is_weixn()){
 //    pics : smallImgPath  /*分享图片(可选)*/
 	
 	wx.ready(function () {
+		
+		
 		 var d1 = description.replace(/&nbsp;/g,"");
 		
+		 console.log(d1);
+		 
+		 //如果聊天记录里面点击过来的话，点击返回--》回调聊天窗口
+		 
 		 if(shareBack == 1){
-			 
 			 if (typeof window.addEventListener != "undefined") {
 				  window.addEventListener("popstate", function(e) {
 				  	     wx.closeWindow();

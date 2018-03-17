@@ -441,6 +441,9 @@ public class VideoDao extends SimpleHibernateDao {
 		criticizeVo.setUserId(cvo.getUserId());
 		criticizeVo.setCourseId(cvo.getCourseId());
 		
+		/**
+		 * 如果这个是免费的就没有必要的
+		 */
 		boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(), userId);
 		criticizeVo.setIsBuy(isbuy);
 		
@@ -745,7 +748,7 @@ public class VideoDao extends SimpleHibernateDao {
     public Boolean  checkUserIsBuyCourse(Integer courseId,String userId) {
         StringBuffer sql = new StringBuffer();
         sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =?");
-        sql.append(" and argc.user_id=? ");
+        sql.append(" and argc.user_id=?  and argc.order_no is not null limit 1 ");
         Object [] obj  ={courseId,userId};
         int count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
         		sql.toString(),Integer.class,obj);

@@ -33,7 +33,7 @@ public interface IUserBankService {
 	   * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
 	   * @Date: 2018/2/2 20:57
 	   **/
-	  public List<UserBank> selectUserBankByUserId(String userId);
+	  public List<UserBank> selectUserBankByUserId(String userId,boolean complete);
 
 	  /**
 	   * Description：

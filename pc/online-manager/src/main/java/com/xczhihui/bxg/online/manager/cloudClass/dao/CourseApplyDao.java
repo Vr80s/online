@@ -176,11 +176,14 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 				"  cai.`start_time` as startTime,\n" +
 				"  cai.`multimedia_type` as multimediaType,\n" +
 				"  cai.`sale` as sale,\n" +
+				"  cai.`status` as applyStatus,\n" +
+				"  oc.`status` as status,\n" +
+				"  oc.`release_time` as releaseTime,\n" +
 				"  cai.`img_path` imgPath,\n" +
 				"  cai.`course_form` courseForm,\n" +
 				"  cai.`price`*10 as price,\n" +
 				"  oc.lecturer as lecturer,\n" +
-				"  cai.create_time,cai.status,cai.review_time,cai.collection," +
+				"  cai.create_time,cai.review_time,cai.collection," +
 				"om.`name` as menuName FROM `course_apply_info` cai left JOIN `oe_menu` om ON om.id=cai.`course_menu` " +
 				" LEFT JOIN `oe_course` as oc ON cai.id = oc.apply_id WHERE cai.`is_delete`=0 ");
 
@@ -189,7 +192,7 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 			sql.append("and cai.user_id = :userId ");
 		}
 
-		sql.append(" ORDER BY cai.`create_time` DESC");
+		sql.append(" ORDER BY oc.`release_time` DESC");
 		Page<CourseApplyInfo> courseApplyInfos = this.findPageBySQL(sql.toString(), paramMap, CourseApplyInfo.class, pageNumber, pageSize);
 
 		return courseApplyInfos;

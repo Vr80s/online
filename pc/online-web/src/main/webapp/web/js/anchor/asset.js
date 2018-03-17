@@ -167,7 +167,7 @@ function getBankList (){
 }
 
 function getBankCardList(){
-    RequestService("/anchor/asset/getBankCardList", "get", null, function(data) {
+    RequestService("/anchor/asset/getBankCardList?complate=true", "get", null, function(data) {
         for(var i=0;i<data.resultObject.length;i++){
             data.resultObject[i].tailNumber = data.resultObject[i].acctPan.substring(17,21);
             if(data.resultObject[i].default){

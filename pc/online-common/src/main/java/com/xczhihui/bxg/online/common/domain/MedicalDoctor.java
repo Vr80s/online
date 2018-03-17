@@ -87,6 +87,19 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="field_text")
 	private String fieldText;
 
+	@Transient
+	private String department;
+	@Transient
+	private String hospital;
+
+	public String getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(String hospital) {
+		this.hospital = hospital;
+	}
+
 	public String getFieldText() {
 		return fieldText;
 	}
@@ -112,6 +125,14 @@ public class MedicalDoctor implements Serializable {
 	}
 
 	public MedicalDoctor() {
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public boolean isHas() {

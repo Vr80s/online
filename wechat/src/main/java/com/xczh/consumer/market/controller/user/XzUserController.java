@@ -544,4 +544,33 @@ public class XzUserController {
         	return RegisterForm.IOS.getText();
         }
     }
+    
+    
+	/**
+	 * 
+	 * Description：发送短信验证码
+	 * @param req
+	 * @param res
+	 * @param vtype
+	 * @param username
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @throws SQLException 
+	 *
+	 */
+	@RequestMapping(value="verifyPhone")
+	@ResponseBody
+	public ResponseObject sendCode(HttpServletRequest req,
+			@RequestParam("username")String username) throws SQLException{
+		
+		//类型，1注册，  2重置密码   3 完善信息
+			
+		 if(!XzStringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		 }
+		 onlineUserService.verifyPhone(username);
+		 return ResponseObject.newSuccessResponseObject("验证成功");
+	}
+    
 }

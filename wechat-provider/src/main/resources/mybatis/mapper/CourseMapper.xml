@@ -103,6 +103,7 @@
 		if(oc.is_free =0,0,1) as watchState,
 		if(oc.type=1,ifnull((select SUM(count) from oe_gift_statement where receiver = user_lecturer_id),0),0) as giftCount,
 		
+		
 		if(oc.type=1,ifnull(( select count(*) from oe_focus of inner join oe_user as ozu on of.user_id = ozu.id
 		     where of.lecturer_id = oc.user_lecturer_id and ozu.is_delete = 0 and ozu.status = 0),0),0) as fansCount,
 		

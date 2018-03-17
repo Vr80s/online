@@ -77,10 +77,16 @@ public class MobileShareController {
 	 */
 	@RequestMapping("courseShare")
 	@ResponseBody
-	public ResponseObject courseShare(@RequestParam(value="shareId")String shareId,@RequestParam(value="shareType")Integer shareType)throws Exception{
+	public ResponseObject courseShare(
+			@RequestParam(value="shareId")String shareId,
+			@RequestParam(value="shareType")Integer shareType)throws Exception{
 		try {
 			if(shareType==1){ // 课程分享 
 				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
+				if(courseLectur==null){
+					return ResponseObject.newErrorResponseObject("课程信息有误");
+				}
+				
 				if(courseLectur.getDescription()!=null){
 					String description = courseLectur.getDescription();
 					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
@@ -90,6 +96,9 @@ public class MobileShareController {
 				return ResponseObject.newSuccessResponseObject(courseLectur);
 			}else {			 //  主播分享
 				LecturVo lectur = onlineCourseService.lectureShare(shareId);
+				if(lectur==null){
+					return ResponseObject.newErrorResponseObject("主播信息有误");
+				}
 				if(lectur.getDescription()!=null){
 					String description = lectur.getDescription();
 					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);

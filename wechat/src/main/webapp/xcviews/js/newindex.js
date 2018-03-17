@@ -75,9 +75,12 @@ requestService("/bxg/binner/list",null,
 		if(data.success){
 			var result = data.resultObject;
 			var str ="";
-			for (var int = 0; int < result.length; int++) {
+			//for (var int = 0; int < result.length; int++) {
+			
+		    for (var int = result.length-1;int >=0;int--) {	
+				
 				var wb = result[int];
-				str+="<li class='sw-slide'>"+
+				str+="<li class='sw-slide' onclick='jumpBannerUrl("+int+")'  >"+
 		            "<img src='"+wb.img_path+"' alt='Concept for children game'>" +
 		          "</li>";
 			}
@@ -86,6 +89,34 @@ requestService("/bxg/binner/list",null,
 			alert("网络异常");
 		};
 },false)
+
+
+
+function jumpBannerUrl(i) {
+	if(bannerList[i].url=='')return;
+	
+	if(i==1){
+		//判断这个课程的状态
+		requestService("//bxg/live/liveDetails",{course_id : 608}, 
+			    function(data) {
+					if(data.success){
+						var result = data.resultObject;
+						if(result.lineState == 2){  //预告
+							location.href="/xcviews/html/foreshow.html?course_id=608";
+						}else if(result.lineState == 1){ //直播中
+							location.href="/bxg/xcpage/courseDetails?courseId=608";
+						}else if(result.lineState == 3){ //直播回放
+							location.href="/bxg/xcpage/courseDetails?courseId=608";
+						}
+					}else{
+						alert("网络异常");
+					};
+		},false)
+	}else if(i==0){
+		location.href=bannerList[i].url;
+	}
+}
+
 
 /**
  * 直播、视频、音频的点击事件
@@ -110,9 +141,9 @@ requestService("/bxg/bunch/offLineClass",xxpxbUrlParams,
 			var result = data.resultObject;
 			var str ="";
 
-			for (var int = 0; int < result.length; int++) {
-				var wb = result[int];
+			for (var int = result.length-1;int >=0;int--) {
 				
+				var wb = result[int];
 				/**
 				 * <div class="offline_bto_one"><a href="javascript: ;">
 				 * <img src="/xcviews/images/xianxia_03.jpg" alt="" ></a></div>
@@ -120,6 +151,15 @@ requestService("/bxg/bunch/offLineClass",xxpxbUrlParams,
 				str+= "<div class='offline_bto_one'><a href='javascript: ;'>"+
                 "<img src='"+wb.smallImgPath+"'  alt='' onclick='opitem("+wb.id+")' ></a></div>";
 			}
+			
+		/*	for(var i=a.length-1;i>=0;i--){  
+				
+				console.log()i
+				
+			}  
+			*/
+			
+			
 			$("#partner").html(str);
 		}else{
 			alert("网络异常");
