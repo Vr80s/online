@@ -2489,11 +2489,11 @@ footer{
 	display: table;
 }
 .send_gifts .gifts_div{
-	width: 2rem;
-	height: 1.8rem;
+	/*width: 2rem;
+	height: 1.8rem;*/
 	text-align: center;
 	overflow: hidden;
-	padding-top: 0.3rem;
+	/*padding-top: 0.3rem;*/
 }
 .gifts_div img{
 	width: 100%;
