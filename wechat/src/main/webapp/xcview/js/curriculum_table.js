@@ -25,8 +25,6 @@ function goto_back(){
 	
 }
 
-
-
 /**
  * 将上面的url封装为json对象
  */	
@@ -278,7 +276,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
  * 点击确认按钮获取查询进行查询
  */
 
-function submit(mzw){
+function submit(){
 	
 	/**
 	 * 在浏览器地址上获取课程信息
@@ -288,6 +286,10 @@ function submit(mzw){
 	var courseType = $(".all_mold2  .all_right_type_one_add").attr("title");
 	var city = $(".all_mold3  .all_right_type_one_add").text();
 	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
+	
+	
+	var queryKey = getQueryString('queryKey');
+	
 	
 /*	paramsObj.pageNumber = num;
 	paramsObj.pageSize = 10;
@@ -320,6 +322,11 @@ function submit(mzw){
    		delete paramsObj.lineState;
    	}
 	
+    if(stringnull(queryKey)){
+    	paramsObj.queryKey = queryKey;
+   	}else{
+   		delete paramsObj.queryKey;
+   	}
 	
 	var begin_falg = false;
 	var begin = 0;
@@ -345,22 +352,12 @@ function submit(mzw){
 	if(begin_falg || type_index =="type_index"){
 		slide(begin);
 	}else{
-		//menuType,isFree,courseType,city,lineState,queryKey
-		createParamsAndQuery(menuType,isFree,courseType,city,lineState);
 		
-		
-		if(stringnull(mzw)){
-			paramsObj.mzw =mzw;
-		}else{
-			delete paramsObj.mzw;
-		}
-		//alert(paramsObj.mzw);
-		
+		createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey);
 		queryDataByParams(paramsObj,menuType);
 	}
 }
 
-var mzw = 0;
 
 function queryDataByParams(params,data_type){
 	
@@ -401,9 +398,9 @@ function queryDataByParams(params,data_type){
 					
 					var isFreeStr ="";
 					if(item.watchState == 1){
-						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;font-size: 0.2rem;'><span>免费</span></p>";
+						isFreeStr+="<p class='p0' style='margin-top: 0rem;font-size: 0.2rem;'><span style='margin-top: 0rem;margin-top: -0.11rem;display: block;'>免费</span></p>";
 					}else if(item.watchState == 0){
-						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;font-size: 0.2rem;'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
+						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;font-size: 0.2rem;'><span style='display: block;float: left;margin-top: -0.09rem;'>"+item.currentPrice+"</span><span class='span' style='display: block;float: left;margin-top: -0.09rem;'>熊猫币</span></p>";
 					}
 					var typeStr="";
 					if(item.type ==3){

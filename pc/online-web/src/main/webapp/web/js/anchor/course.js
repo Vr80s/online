@@ -1166,8 +1166,8 @@ function initCourseSelect(){
     for(var i=0;i < courseArr.length;i++){
         csArr.push(courseArr[i].id);
     }
-    $('.selectpicker_collection').selectpicker('refresh');
     $('.selectpicker_collection').selectpicker('val',(csArr));
+    $('.selectpicker_collection').selectpicker('refresh');
     $(".new_box").show();
 }
 /**

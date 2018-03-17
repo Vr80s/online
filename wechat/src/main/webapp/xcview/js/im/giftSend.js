@@ -83,6 +83,7 @@ if (sendTime == null) {
     }, false)
 }
 function createGiftList(gift) {
+	
     if(gift.messageType == 2){//直播开始了
     	//当前时间 
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
@@ -121,10 +122,26 @@ function createGiftList(gift) {
             createGiftShow();
             console.info("danji");
         }
-
-        // createGiftShow();
+        var str = "<div class='coze_cen_ri'> "+
+				"<div class='coze_cen_bg_ri'>"+
+					"<span class='span_name'>"+data.senderInfo.userName+"赠送给主播</span>1个<span style='color: #F97B49;'>"+data.giftInfo.name+"</span>"+
+				" </div> "+
+			    "<div class='both'></div></div>";
+        
+        //将礼物发送到
+      var msg = null;
+      msg = VHALL_SDK.sendChat({
+      	      text: data.giftInfo.continuousCount+data.giftInfo.name
+      });
+      $("#chatmsg").append(str);
+      // createGiftShow();
     }
 }
+
+
+
+
+
 var gif = [];
 var num = [];
 var min = [];
@@ -372,7 +389,7 @@ $(document).ready(function() {
         var xmbShowSpan = $("#xmbShowSpan").html(); //1
         var jiage = $(".gift_ul_li_li .gift_p .jiage").text();  //1
 //      if(jiage<xmbShowSpan || jiage == 0){
-        if( xmbShowSpan <jiage  || jiage <= 0){
+        if( xmbShowSpan >= jiage  || jiage <= 0){
             if (connected) {
                 var msgJson = {
                     channel : 1,
@@ -400,12 +417,14 @@ $(document).ready(function() {
                             // 更新余额
                             $("#xmbShowSpan").html(data.resultObject.balanceTotal);
                         } else {
-                            if ("余额不足，请充值！" == data.errorMessage) {
+                        	
+                            if ("余额不足" == data.errorMessage) { //当余额不足时去充值页面
                                var courseId = getQueryString("courseId");
                                location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
-                            }else{
+                            }else{ //否则弹出初五信息
                                alert(data.errorMessage);
                             }
+                            
                         }
                     })
                 $("#chat-content").val('');

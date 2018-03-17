@@ -288,7 +288,63 @@ function gotToAut() {
 function Autagain() {
 	$('#AutList').removeClass('hide');
 	$('#AutStatus').addClass('hide');
+	//医师认证状态回显示
+	
+	RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+		if( data.success == true && data.resultObject != null){
+			console.log(data);
+			var result = data.resultObject;
+			//姓名
+			$('#AutList .doc_name').val(result.name);
+			//身份证号码
+			$('#AutList .doc_Idnum').val(result.cardNum);
+			//身份证图片  正面
+			$('#AutList .idFont_pic').html("<img src="+result.cardPositive+">");
+			//反面
+			$('#AutList .idBack_pic').html("<img src="+result.cardNegative+">");
+			//医师资格证
+			$('#AutList .teacher_pic').html("<img src="+result.qualificationCertificate+">");
+			//执业资格证
+			$('#AutList .zhiye_pic').html("<img src="+result.professionalCertificate+">");
+			// 真实头像
+			$('#AutList .touxiang_pic').html("<img src="+result.headPortrait+">");
+			//职称
+			$('#AutList .doc_zhicheng').val(result.title);
+			// 职称证明
+			$('#AutList .zhicheng_pic').html("<img src="+result.titleProve+">");
+			
+			//科室
+			var j;
+			for(var i = 0; i < $('#AutList #keshiList li').length; i++) {
+				for(j = 0; j < result.medicalDepartments.length; j++) {
+					if($('#AutList #keshiList li').eq(i).text() == result.medicalDepartments[j].name && !$('#AutList #keshiList li').eq(i).hasClass('keshiColor')) {
+						$('#AutList #keshiList li').eq(i).click();
+					}
+				}
+			}
+			//擅长
+			$('#AutList .doc_shanchang').val(result.field);
+			//个人介绍 editor
+			UE.getEditor('editor').setContent(result.description);
+			
+			//省份
+			for(var i = 0 ;i < $('#AutList #choosePro option').length ;i++){
+				if($('#AutList #choosePro option').eq(i).text() == result.province){
+					$('#AutList #choosePro option').eq(i).attr('selected','selected')
+				}
+			}
+			//城市
+			$('#AutList #citys option:selected').text(result.city);
+			
+		}
+	})
 }
+
+
+
+
+
+
 
 //医师认证状态信息显示
 showAutStatus();

@@ -236,7 +236,7 @@ function createGiftList(data){
 				"<span>"+data.giftInfo.name+"</span>" +
 				"</div>" +
 				"<div class='imgNum'><img style='position: absolute;width: 54px;right: 25px;height: 54px;' src="+data.giftInfo.smallimgPath+">" +
-				"<span style=' position: absolute; right: 0;top: 20px'>X"+data.giftInfo.continuousCount+"</span>" +
+				"<span style=' position: absolute; right: 0;top: 20px'>X1</span>" +
 				"</div>" +
 		"</li>")
 		$('#chat-list').append(li);
