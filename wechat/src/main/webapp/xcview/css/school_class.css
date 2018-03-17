@@ -209,7 +209,7 @@ padding-bottom: 0.17rem;
 }
 .my_synopsis ul li p{
 	width: 0.6rem;
-	height: 0.01rem;
+	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.23rem;
 }
