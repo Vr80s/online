@@ -99,9 +99,19 @@ public class CourseApplyInfo implements Serializable {
 	private String city;
 
 	@Transient
+	private Integer courseId;
+	@Transient
 	private Integer applyStatus; //审核状态  0未通过 1通过 2未审核
 	@Transient
 	private Date releaseTime;
+
+	public Integer getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
 
 	public Integer getApplyStatus() {
 		return applyStatus;
@@ -442,4 +452,5 @@ public class CourseApplyInfo implements Serializable {
 	public void setIsDelete(Boolean delete) {
 		isDelete = delete;
 	}
+
 }

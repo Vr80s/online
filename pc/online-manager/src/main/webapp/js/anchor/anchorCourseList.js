@@ -18,6 +18,7 @@ $(function() {
         { "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
             return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
         }},
+        { "title": "序号", "class":"center","width":"9%","sortable":false,"data": 'courseId' },
         { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'title' },
         {"title": "封面图", "class": "center", "width": "12%", "sortable": false, "data": 'imgPath',"mRender":function(data){
                 return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
@@ -25,7 +26,7 @@ $(function() {
         { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
         { "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
         { "title": "价格", "class":"center","width":"8%","sortable":false,"data": 'price'},
-        { "title": "直播时间", "class": "center", "width": "10%","data": 'startTime',"mRender":function(data,display,row){
+        { "title": "直播时间", "class": "center", "width": "10%","sortable":false,"data": 'startTime',"mRender":function(data,display,row){
             if(data!=null&&data!=""){
                 return getLocalTime(data);
             }
@@ -96,5 +97,10 @@ function getLocalTime(nS) {
 function return_P() {
     window.location.href = basePath + '/home#anchor/courseAnchor/index';
 }
-
+//条件搜索
+function search_P(){
+    var searchCase_P = new Array();
+    searchCase_P.push('{"tempMatchType":"9","propertyName":"userId","propertyValue1":"'+userId+'","tempType":"String"}');
+    searchButton(P_courseTable,searchCase_P);
+};
 

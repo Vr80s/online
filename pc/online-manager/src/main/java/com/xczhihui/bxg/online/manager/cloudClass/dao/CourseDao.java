@@ -130,11 +130,9 @@ public class CourseDao extends HibernateDao<Course>{
 	 
 	 public Page<CourseVo> findCloudClassCourseRecPage(CourseVo courseVo, int pageNumber, int pageSize){
 		 Map<String,Object> paramMap=new HashMap<String,Object>();
-		 StringBuilder sql =new StringBuilder( "SELECT oc.id as id ,oc.grade_name as courseName, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName,oc.smallimg_path smallimgPath,"
+		 StringBuilder sql =new StringBuilder( "SELECT oc.id as id ,oc.grade_name as courseName, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName,oc.smallimg_path smallimgPath,oc.lecturer,"
 				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.multimedia_type as multimediaType,oc.recommend_sort as recommendSort,"
-				 
-				 
-		+ " if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(  " 
+		+ " if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(  "
 			+ 			"			    DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time," 
 				+ "    4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status))),oc.live_status) " 
 				+ 			 "			     AS liveStatus, " 

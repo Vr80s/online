@@ -5,12 +5,15 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
+import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.manager.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
+import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 课程管理控制层实现类
@@ -34,11 +38,11 @@ public class CourseAnchorController extends AbstractController{
 
     @Autowired
     private CourseApplyService courseApplyService;
+    @Autowired
+    private CourseService courseService;
 
 	@RequestMapping(value = "index")
-	public String index(HttpServletRequest request) {
-		return CLOUD_CLASS_PATH_PREFIX + "/courseAnchor";
-	}
+	public String index(HttpServletRequest request) {return CLOUD_CLASS_PATH_PREFIX + "/courseAnchor";}
 	
 	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "list")
@@ -200,6 +204,8 @@ public class CourseAnchorController extends AbstractController{
     @RequestMapping(value = "anchorCourse")
     public String anchorCourse(HttpServletRequest request,String userId) {
         request.setAttribute("userId", userId);
+        List<Menu> menuVos= courseService.getfirstMenus(null);
+        request.setAttribute("menuVo", menuVos);
         return CLOUD_CLASS_PATH_PREFIX + "/anchorCourseList";
     }
     /**
@@ -216,16 +222,54 @@ public class CourseAnchorController extends AbstractController{
         int currentPage = index / pageSize + 1;
         String params = tableVo.getsSearch();
         Groups groups = Tools.filterGroup(params);
-        Group userId = groups.findByName("userId");
-        String user_Id="";
-        if (userId != null) {
-            user_Id = userId.getPropertyValue1().toString();
+
+        CourseApplyInfo courseApplyInfo =new CourseApplyInfo();
+        //课程名查找
+        Group courseName = groups.findByName("search_courseName");
+        if (courseName != null) {
+            courseApplyInfo.setTitle(courseName.getPropertyValue1().toString());
         }
-        Page<CourseApplyInfo> page = courseApplyService.findCoursePageByUserId(user_Id, currentPage, pageSize);
+        // 审核状态 0未通过 1通过 2未审核
+        Group search_applyStatus = groups.findByName("search_applyStatus");
+        if (search_applyStatus!=null && StringUtils.isNotBlank(search_applyStatus.getPropertyValue1().toString())) {
+            courseApplyInfo.setApplyStatus(Integer.valueOf(search_applyStatus.getPropertyValue1().toString()));
+        }
+        // 课程类型  1.直播 2.点播 3.线下课
+        Group search_courseForm = groups.findByName("search_courseForm");
+        if (search_courseForm!=null && StringUtils.isNotBlank(search_courseForm.getPropertyValue1().toString())) {
+            courseApplyInfo.setCourseForm(Integer.valueOf(search_courseForm.getPropertyValue1().toString()));
+        }
+        // 是否上架（所有、已上架、未上架）；禁用0，启用，1
+        Group search_status = groups.findByName("search_status");
+        if (search_status!=null && StringUtils.isNotBlank(search_status.getPropertyValue1().toString())) {
+            courseApplyInfo.setStatus(Integer.valueOf(search_status.getPropertyValue1().toString()));
+        }
+
+        Group userId = groups.findByName("userId");
+        if (userId != null) {
+            courseApplyInfo.setUserId(userId.getPropertyValue1().toString());
+        }
+        Page<CourseApplyInfo> page = courseApplyService.findCoursePageByUserId(courseApplyInfo, currentPage, pageSize);
         int total = page.getTotalCount();
         tableVo.setAaData(page.getItems());
         tableVo.setiTotalDisplayRecords(total);
         tableVo.setiTotalRecords(total);
         return tableVo;
+    }
+
+    /**
+     * Description：设置主播推荐值
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/3/17 15:05
+     **/
+    @RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateRecommendSort(Integer id,Integer recommendSort) {
+        ResponseObject responseObject=new ResponseObject();
+        courseApplyService.updateRecommendSort(id,recommendSort);
+        responseObject.setSuccess(true);
+        responseObject.setResultObject("修改成功!");
+        return responseObject;
     }
 }

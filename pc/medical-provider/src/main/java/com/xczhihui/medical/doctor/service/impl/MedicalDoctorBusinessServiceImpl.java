@@ -615,11 +615,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
             if(StringUtils.isBlank(medicalDoctor.getDescription())){
                 throw new RuntimeException("医师介绍不能为空");
-            }else{
+            }/*else{
                 if(medicalDoctor.getDescription().length() > 500){
                     throw new RuntimeException("医师介绍字数应在500字以内");
                 }
-            }
+            }*/
         }
     }
 

@@ -169,10 +169,11 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 	}
 
 
-	public Page<CourseApplyInfo> findCoursePageByUserId(String userId, int pageNumber, int pageSize){
+	public Page<CourseApplyInfo> findCoursePageByUserId(CourseApplyInfo courseApplyInfo, int pageNumber, int pageSize){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder("SELECT cai.id,\n" +
 				"  cai.`title`,\n" +
+				"  oc.`id` as courseId,\n" +
 				"  cai.`start_time` as startTime,\n" +
 				"  cai.`multimedia_type` as multimediaType,\n" +
 				"  cai.`sale` as sale,\n" +
@@ -187,9 +188,30 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 				"om.`name` as menuName FROM `course_apply_info` cai left JOIN `oe_menu` om ON om.id=cai.`course_menu` " +
 				" LEFT JOIN `oe_course` as oc ON cai.id = oc.apply_id WHERE cai.`is_delete`=0 ");
 
-		if (userId != null) {
+		String userId=courseApplyInfo.getUserId();
+		String title = courseApplyInfo.getTitle();
+		Integer applyStatus = courseApplyInfo.getApplyStatus();
+		Integer courseForm = courseApplyInfo.getCourseForm();
+		Integer status = courseApplyInfo.getStatus();
+		if (userId != null&&!userId.equals("")) {
 			paramMap.put("userId", userId);
 			sql.append("and cai.user_id = :userId ");
+		}
+		if (title != null) {
+			paramMap.put("title", "%" + title + "%");
+			sql.append("and cai.title like :title ");
+		}
+		if (applyStatus != null) {
+			paramMap.put("applyStatus", applyStatus);
+			sql.append("and cai.status = :applyStatus ");
+		}
+		if (courseForm != null) {
+			paramMap.put("courseForm", courseForm);
+			sql.append("and cai.course_form = :courseForm ");
+		}
+		if (status != null) {
+			paramMap.put("status", status);
+			sql.append("and oc.status = :status ");
 		}
 
 		sql.append(" ORDER BY oc.`release_time` DESC");

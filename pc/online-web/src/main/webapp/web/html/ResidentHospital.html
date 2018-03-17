@@ -413,7 +413,7 @@
 
 								<div class="shanchang_name">
 									<span><em>*</em> 擅长</span>
-									<input type="text" placeholder="请输入您的擅长领域" maxlength="15" class="doc_shanchangIpt" />
+									<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt" />
 									<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
 								</div>
 
@@ -548,6 +548,11 @@
 										</tr>-->
 									</tbody>
 								</table>
+								
+								<!--医师管理列表没有数据默认样式-->
+								<div id="noDocList" class="hide" style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到“<span id="searchName" style="color:#00BC12">'+docName+'</span>”相关医师</p></div>
+								
+								
 								<!--分页部分-->
 								<div class="pages hide" style="margin-top: 20px;">
 									<div id="Pagination"></div>
@@ -768,7 +773,7 @@
 
 				<div class="shanchang_name">
 					<span><em>*</em> 擅长</span>
-					<input type="text" placeholder="请输入您的擅长领域" maxlength="15" class="doc_shanchangIpt">
+					<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt">
 					<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
 				</div>
 

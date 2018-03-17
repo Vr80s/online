@@ -1924,7 +1924,7 @@ function geren() {
 		var province  = $('.Province1  option:selected').val();
 		var disval =  $('.District1  option:selected').val();
 		var cityval =  $('.City1  option:selected').val();
-		if(province == 'volvo' || disval == 'volvo' || cityval == 'volvo'){
+		if(province == 'volvo' ||  cityval == 'volvo'){
 			$(".address_warn").text("请填写所在地区信息").css("display", "block");
 			return false;
 		}
@@ -1953,7 +1953,8 @@ function geren() {
 			provinceName: $('.Province1  option:selected').text(),
 //			district: $(".City1").attr("value"),
 			cityName: $('.City1  option:selected').text(),
-			countyName: $('.District1  option:selected').text(),
+//			countyName: $('.District1  option:selected').text(),
+			countyName: ' ',
 			
 			province : $('.Province1  option:selected').val(),
 			city : $('.City1  option:selected').val(),

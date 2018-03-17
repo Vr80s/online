@@ -170,7 +170,7 @@ public class DoctorController extends AbstractController{
 			 	MedicalDoctor old = doctorService.findMedicalDoctorById(medicalDoctor.getId());
 
 			 	// 如果是用户认证成功的医师 管理员可以修改用户的医师类型
-			 	if(StringUtils.isNotBlank(old.getSourceId())){
+			 	if(StringUtils.isNotBlank(old.getSourceId())||StringUtils.isNotBlank(old.getCreatePerson())){
 			 		if(StringUtils.isNotBlank(medicalDoctor.getType())){
 						old.setType(medicalDoctor.getType());
 						doctorService.updateMedicalDoctor(old);

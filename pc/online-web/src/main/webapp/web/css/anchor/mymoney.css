@@ -356,6 +356,7 @@
 }
 #mymoney .content_toCash .chooseCard ul li .cardTop_img{
 	height: 52px;
+	padding: 10px;
 }
 #mymoney .content_toCash .chooseCard ul li .cardTop_img > img{
 	width: 100%;

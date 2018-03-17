@@ -85,6 +85,7 @@
 		  `medical_field` mf
 		  JOIN `medical_hospital_field` mhf
 			ON mf.`id` = mhf.`field_id`
+			AND mhf.`deleted`=0
 		  JOIN `medical_hospital` mh
 			ON mh.id = mhf.`hospital_id`
 			AND mh.`deleted`=0
