@@ -427,7 +427,7 @@ div.pinch-zoom,
     height: 3.404rem;
     padding: 0;
     position: relative;
-   	border: 1px solid #fcf9f9;
+   	border: 1px solid #fefefe;
    	margin-bottom: 0rem;
    	margin-left: 0.4rem;
 }
@@ -461,8 +461,8 @@ div.pinch-zoom,
 	line-height: 2.45rem;
 }
 .send_gifts .gifts_div{
-	width: 1.7rem;
-    height: 1.7rem;
+	width: 2.5rem;
+    /*height: 1.7rem;*/
 }
 
 .coze_cen_ri .span_name{
