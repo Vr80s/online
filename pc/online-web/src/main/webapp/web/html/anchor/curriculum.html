@@ -97,7 +97,9 @@
 			{{course.price}}
 		</td>
 		<td>
-			{{course.courseLength}}'
+			{{if course.courseForm != 1}}
+				{{course.courseLength}}'
+			{{/if}}
 		</td>
 		<td>
 			{{if course.courseForm==1}}
