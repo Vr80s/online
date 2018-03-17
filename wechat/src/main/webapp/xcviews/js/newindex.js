@@ -70,9 +70,11 @@ $(".more_btm").click(function(){
 /**
  * 请求banner   -- 两个
  */
+var bannerList = "";
 requestService("/bxg/binner/list",null, 
     function(data) {
 		if(data.success){
+			bannerList = data.resultObject;
 			var result = data.resultObject;
 			var str ="";
 			//for (var int = 0; int < result.length; int++) {
@@ -97,16 +99,16 @@ function jumpBannerUrl(i) {
 	
 	if(i==1){
 		//判断这个课程的状态
-		requestService("//bxg/live/liveDetails",{course_id : 608}, 
+		requestService("/bxg/live/liveDetails",{course_id : 609}, 
 			    function(data) {
 					if(data.success){
 						var result = data.resultObject;
 						if(result.lineState == 2){  //预告
-							location.href="/xcviews/html/foreshow.html?course_id=608";
+							location.href="/xcviews/html/foreshow.html?course_id=609";
 						}else if(result.lineState == 1){ //直播中
-							location.href="/bxg/xcpage/courseDetails?courseId=608";
+							location.href="/bxg/xcpage/courseDetails?courseId=609";
 						}else if(result.lineState == 3){ //直播回放
-							location.href="/bxg/xcpage/courseDetails?courseId=608";
+							location.href="/bxg/xcpage/courseDetails?courseId=609";
 						}
 					}else{
 						alert("网络异常");

@@ -40,6 +40,10 @@ requestService("/xczh/course/liveDetails",{
 				watchState = result.watchState;
 				teacherId = result.userLecturerId; // 讲师Id
 //				teacherName = result.name; // 讲师名
+				
+				sessionStorage.setItem("hostName",result.name);
+				
+				
 				teacherName = result.heir; // 上传人
 
 				$("#userId").val(result.userId);
@@ -245,7 +249,7 @@ requestService("/xczh/course/liveDetails",{
 				}
 				var vhallId =  result.vhallId;
 				if (stringnull(videoId)) {
-					chZJ(videoId, vhallId);
+					chZJ(videoId);
 				}
 			}
 		}, false)

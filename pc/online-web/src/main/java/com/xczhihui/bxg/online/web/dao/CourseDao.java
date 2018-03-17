@@ -69,10 +69,40 @@ public class CourseDao extends SimpleHibernateDao {
         Map<String, Object> paramMap = new HashMap<String, Object>();
 
         StringBuffer  sqlSb=new StringBuffer();
-        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.grade_name,cou.smallimg_path  as smallImgPath,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,cou.multimedia_type multimediaType,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,cou.lecturer name,");
-        sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0) + IFNULL(default_student_count, 0) learnd_count,");
-        sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
-                + "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");
+        sqlSb.append(" SELECT \n" +
+                "  cou.id,\n" +
+                "  IF(cou.recommend_sort > 0, TRUE, FALSE) is_recommend,\n" +
+                "  cou.type,\n" +
+                "  cou.direct_id,\n" +
+                "  cou.grade_name,\n" +
+                "  cou.smallimg_path AS smallImgPath,\n" +
+                "  FLOOR(cou.current_price * 10) current_price,\n" +
+                "  cou.start_time startTime,\n" +
+                "  cou.end_time endTime,\n" +
+                "  cou.user_lecturer_id userLecturerId,\n" +
+                "  cou.address,\n" +
+                "  cou.multimedia_type multimediaType,\n" +
+                "  IF(ISNULL(cou.`course_pwd`), 0, 1) coursePwd,\n" +
+                "  cou.collection,\n" +
+                "  cou.lecturer NAME,\n" +
+                "  IFNULL(\n" +
+                "    (SELECT \n" +
+                "      COUNT(*) \n" +
+                "    FROM\n" +
+                "      apply_r_grade_course \n" +
+                "    WHERE course_id = cou.id),\n" +
+                "    0\n" +
+                "  ) + IFNULL(default_student_count, 0) learnd_count,\n" +
+                "  cou.course_length,\n" +
+                "  cou.is_free,\n" +
+                "  tm.`name` AS courseType,\n" +
+                "  cou.description_show \n" +
+                "FROM\n" +
+                "  oe_course cou \n" +
+                "  LEFT JOIN teach_method tm \n" +
+                "    ON cou.courseType = tm.id \n" +
+                "  LEFT JOIN oe_menu om \n" +
+                "    ON om.id = menu_id ");
         sqlSb.append("  where  cou.is_delete=0  and  cou.status=1  ");
         sqlSb.append("  and  cou.type=2  ");
 
@@ -119,7 +149,7 @@ public class CourseDao extends SimpleHibernateDao {
                     break;
         }
         }else{
-            sqlSb.append(" order by   learnd_count desc,cou.create_time desc  ") ;
+            sqlSb.append(" order by   recommend_sort desc") ;
         }
         System.out.println(sqlSb.toString());
         Page<CourseLecturVo> page = this.findPageBySQL(sqlSb.toString(), paramMap, CourseLecturVo.class, pageNumber, pageSize);
@@ -207,9 +237,34 @@ public class CourseDao extends SimpleHibernateDao {
         paramMap.put("menuId", menuId);
         paramMap.put("couseTypeId", couseTypeId);
         StringBuffer  sqlSb=new StringBuffer();
-        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.is_recommend as isRecommend,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.multimedia_type multimediaType,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,cou.lecturer name,");
-        sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0)+IFNULL(default_student_count, 0) learnd_count, ");
-        sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
+        sqlSb.append(" SELECT \n" +
+                "  cou.id,\n" +
+                "  cou.type,\n" +
+                "  cou.direct_id,\n" +
+                "  IF(cou.recommend_sort>0,TRUE,FALSE) is_recommend,\n" +
+                "  cou.grade_name,\n" +
+                "  cou.smallimg_path AS smallImgPath,\n" +
+                "  cou.multimedia_type multimediaType,\n" +
+                "  FLOOR(cou.current_price * 10) current_price,\n" +
+                "  cou.start_time startTime,\n" +
+                "  cou.end_time endTime,\n" +
+                "  cou.user_lecturer_id userLecturerId,\n" +
+                "  cou.address,\n" +
+                "  IF(ISNULL(cou.`course_pwd`), 0, 1) coursePwd,\n" +
+                "  cou.collection,\n" +
+                "  cou.lecturer NAME,\n" +
+                "  IFNULL(\n" +
+                "    (SELECT \n" +
+                "      COUNT(*) \n" +
+                "    FROM\n" +
+                "      apply_r_grade_course \n" +
+                "    WHERE course_id = cou.id),\n" +
+                "    0\n" +
+                "  ) + IFNULL(default_student_count, 0) learnd_count,\n" +
+                "  cou.course_length,\n" +
+                "  cou.is_free,\n" +
+                "  tm.`name` AS courseType,\n" +
+                "  cou.description_show from oe_course cou "
         		+ "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");
         sqlSb.append("  where  cou.is_delete=0  and  cou.status=1  ");
         switch (menuId) {
@@ -237,7 +292,7 @@ public class CourseDao extends SimpleHibernateDao {
         	sqlSb= "0".equals(couseTypeId) ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
         	sqlSb.append(" AND cou.type = 2 ");
         }
-        sqlSb.append(" order by  cou.sort desc ") ;
+        sqlSb.append(" order by  cou.recommend_sort desc ") ;
         Page<CourseLecturVo> page = this.findPageBySQL(sqlSb.toString(), paramMap, CourseLecturVo.class, pageNumber, pageSize);
         return page;
     }
@@ -255,7 +310,7 @@ public class CourseDao extends SimpleHibernateDao {
                     "  c.id,\n" +
                     "  c.lecturer_description lecturerDescription,\n" +
                     "  c.direct_id,\n" +
-                    "  c.is_recommend,\n" +
+                    "  IF(c.recommend_sort>0,TRUE,FALSE) is_recommend,\n" +
                     "  c.type,\n" +
                     "  c.is_free,\n" +
                     "  c.grade_name AS courseName,\n" +
@@ -288,7 +343,7 @@ public class CourseDao extends SimpleHibernateDao {
                     "  oe_course c \n" +
                     "  LEFT JOIN oe_menu m \n" +
                     "    ON c.menu_id = m.id \n" +
-                    "WHERE c.is_delete = 0 \n" +
+                    "WHERE c.is_delete = 0 " +
                     "  AND c.id = ?";
             List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{courseId}, BeanPropertyRowMapper.newInstance(CourseVo.class));
             courseVo = courseVoList.size() > 0 ? courseVoList.get(0) : courseVo;
@@ -835,9 +890,10 @@ public class CourseDao extends SimpleHibernateDao {
         String sql="SELECT \n" +
                 "  c.id,\n" +
                 "  c.grade_name AS courseName,\n" +
-                "  c.lecturer,\n" +
+                "  c.lecturer teacherName,\n" +
                 "  c.smallimg_path AS smallimgPath,\n" +
                 "  c.multimedia_type multimediaType,\n" +
+                "  c.recommend_sort recommendSort,\n" +
                 "  IFNULL(\n" +
                 "    (SELECT \n" +
                 "      COUNT(*) \n" +
@@ -855,10 +911,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "  `oe_course` c \n" +
                 "WHERE c.`is_delete` = 0 \n" +
                 "  AND c.`status` = 1 \n" +
-                "  AND c.`is_recommend` = 1 \n" +
-                "  AND c.`type` = ? " +
-                "ORDER BY c.recommend_sort DESC " +
-                "LIMIT 0,3 ";
+                "  AND c.`type` = ? ORDER BY c.recommend_sort DESC LIMIT 0,3 ";
         List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, BeanPropertyRowMapper.newInstance(CourseVo.class),type);
         return courseVoList;
     }

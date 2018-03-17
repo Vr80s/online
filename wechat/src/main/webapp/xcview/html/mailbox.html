@@ -104,4 +104,14 @@ $(".mailbox_right").click(function(){
 });
 			
 </script>
+<script>
+		function getQueryString(key){
+        var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
+        var result = window.location.search.substr(1).match(reg);
+        return result?decodeURIComponent(result[2]):null;
+      }	
+      var username_id = getQueryString('username_mail');
+		username_id == "立即绑定" ? $("#email").val("") : $("#email").val(username_id)
+		
+</script>
 </html>

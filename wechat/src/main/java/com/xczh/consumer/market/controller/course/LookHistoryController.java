@@ -76,8 +76,9 @@ public class LookHistoryController {
 			target.setUserId(ou.getId());
 			target.setLecturerId(course.getUserLecturerId());
 			
-			if(course.getWatchState() == 1){
-			  onlineWebService.saveEntryVideo(courseId, ou);
+			
+			if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
+			   onlineWebService.saveEntryVideo(courseId, ou);
 			}
 			
 			watchHistoryServiceImpl.addOrUpdate(target);

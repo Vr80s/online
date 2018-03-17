@@ -227,6 +227,7 @@ pre:after {
       
   });
 </script>
+
 <style>
   .person_img{
     margin-top: 0;
@@ -355,4 +356,16 @@ pre:after {
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<script>
+
+	
+	function getQueryString(key){
+        var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
+        var result = window.location.search.substr(1).match(reg);
+        return result?decodeURIComponent(result[2]):null;
+      }	
+      var username_id = getQueryString('username_id');
+	$("#nickname").val(username_id)
+</script>
+
 </html>
