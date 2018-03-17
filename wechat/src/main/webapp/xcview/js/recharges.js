@@ -44,22 +44,6 @@ if(stringnull(recharges_blck) && recharges_blck ==1){
 //	}
 //})
 
-/**
- * 监听浏览器---》回退事件
- */
-var counter = 0;
-if (window.history && window.history.pushState) {
-   $(window).on('popstate', function () {
-  	 
-      window.history.pushState('forward', null, '#');
-      window.history.forward(1);
-                  
-  	  location.href = "/xcview/html/details.html?courseId="+recharges_blck_param;
- });
-}
-window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
-window.history.forward(1);
-
 
 
 /**
@@ -68,7 +52,9 @@ window.history.forward(1);
  */
 $("#determine").click(function(){
 	//点击返回 --》我的天去哪里
-	location.href = "/xcview/html/recharges.html";
+	//location.href = "/xcview/html/recharges.html";
+
+	$(".success").hide();
 })
 
 
@@ -155,14 +141,7 @@ function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-	var pay_test_chongzhi =  getQueryString("pay_test_chongzhi"); 
-	if(pay_test_chongzhi ==1  ){    //充值
-		 return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
-	}else if(pay_test_chongzhi==2){ //购买
-		 return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
-	}else if(pay_test_chongzhi==3){ //详情
-		 return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
-	}
+    return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
 }
 
 
