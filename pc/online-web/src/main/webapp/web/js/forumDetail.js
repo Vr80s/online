@@ -107,10 +107,10 @@ $(function(){
     var relativeArticle = '{{each hotArticle}}' +
         '{{if $index<=2}}' +
         '<li>' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><em class="select">{{$index+1}}</em><span title="{{$value.title}}">{{$value.title}}</span></a>' +
+        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><span title="{{$value.title}}">{{$value.title}}</span></a>' +
         '</li>' +
         '{{else}}' +
-        '<li><a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><em>{{$index+1}}</em><span title="{{$value.title}}">{{$value.title}}</span></li></a>' +
+        '<li><a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><span title="{{$value.title}}">{{$value.title}}</span></li></a>' +
         '{{/if}}' +
         '{{/each}}';
     var hotTag='{{each hotTag}}'+

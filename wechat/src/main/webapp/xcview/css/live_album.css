@@ -277,6 +277,7 @@ overflow: hidden;
 }
 .wrap p img{
 	/*width: 100%;*/
+	max-width: 7rem;
 }
 .zhezhao{
 	width: 100%;
@@ -371,6 +372,7 @@ overflow: hidden;
 }
 .wrap1 p img{
 	/*width: 100%;*/
+	max-width: 7rem;
 }
 .zhezhao1{
 	width: 100%;

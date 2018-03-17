@@ -13,6 +13,7 @@
 			ON md.id = mdd.`department_id`
 		  LEFT JOIN `medical_doctor` mdo
 			ON mdo.id = mdd.`doctor_id`
+		WHERE md.`deleted`=0 AND md.`status`=1
 		GROUP BY md.`id`
 		ORDER BY mc DESC
 	</select>

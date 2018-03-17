@@ -484,7 +484,7 @@ public class VideoDao extends SimpleHibernateDao {
          * 一个专辑下存在多个课程，然后课程
          */
         if(courseId !=null || teacherId!=null){
-           StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
+           StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1  and c.onlineUser is not null  ");
 	       
            if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
 	       	  sql.append("  and c.userId =:userId ");

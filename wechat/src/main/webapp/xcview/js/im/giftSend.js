@@ -372,7 +372,7 @@ $(document).ready(function() {
         var xmbShowSpan = $("#xmbShowSpan").html(); //1
         var jiage = $(".gift_ul_li_li .gift_p .jiage").text();  //1
 //      if(jiage<xmbShowSpan || jiage == 0){
-        if(jiage<=xmbShowSpan || jiage <= 0){
+        if( xmbShowSpan <jiage  || jiage <= 0){
             if (connected) {
                 var msgJson = {
                     channel : 1,
@@ -400,9 +400,12 @@ $(document).ready(function() {
                             // 更新余额
                             $("#xmbShowSpan").html(data.resultObject.balanceTotal);
                         } else {
-                            //if ("用户账户余额不足，请充值！" == data.errorMessage) {
-                            alert(data.errorMessage);
-                            //}
+                            if ("余额不足，请充值！" == data.errorMessage) {
+                               var courseId = getQueryString("courseId");
+                               location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
+                            }else{
+                               alert(data.errorMessage);
+                            }
                         }
                     })
                 $("#chat-content").val('');

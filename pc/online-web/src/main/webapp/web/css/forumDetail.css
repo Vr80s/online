@@ -66,7 +66,7 @@ img {
   margin-top: 16px;
 }
 #forum .forum-content .forum-content-left {
-  width: 890px;
+  width: 860px;
   min-height: 956px;
   float: left;
   background-color: #fff;
@@ -146,7 +146,7 @@ img {
   word-wrap: break-word;
 }
 #forum .forum-content .forum-content-left .forum-detailInfo .forum-detail-content img {
-  max-width: 830px;
+  max-width: 730px;
 }
 #forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox {
   position: relative;
@@ -301,7 +301,7 @@ img {
 }
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right {
   float: right;
-  width: 770px;
+  width: 740px;
 }
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-personAndTime .comment-person {
   font-size: 14px;
@@ -436,11 +436,11 @@ img {
   display: none;
 }
 #forum .forum-content .forum-content-right {
-  width: 290px;
+  width: 320px;
   float: right;
 }
 #forum .forum-content .forum-content-right .hot-article {
-  width: 290px;
+  /*width: 290px;*/
   height: 346px;
   background-color: #fff;
 }
@@ -463,7 +463,7 @@ img {
 }
 #forum .forum-content .forum-content-right .hot-article .hot-article-list li span {
   display: inline-block;
-  width: 220px;
+  width: 280px;
   vertical-align: middle;
   white-space: nowrap;
   overflow: hidden;
