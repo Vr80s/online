@@ -890,7 +890,7 @@ public class CourseDao extends SimpleHibernateDao {
         String sql="SELECT \n" +
                 "  c.id,\n" +
                 "  c.grade_name AS courseName,\n" +
-                "  c.lecturer,\n" +
+                "  c.lecturer teacherName,\n" +
                 "  c.smallimg_path AS smallimgPath,\n" +
                 "  c.multimedia_type multimediaType,\n" +
                 "  c.recommend_sort recommendSort,\n" +
