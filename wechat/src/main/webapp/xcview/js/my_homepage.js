@@ -22,7 +22,6 @@ function balance() {
             $("#courseNumber").text(data.resultObject.courseCount);
             //用户头像
             //$(".header_img").html(template('userInfo',data.resultObject.user));
-			
             if(stringnull(data.resultObject.user)){
             	 var item = data.resultObject.user;
             	 $("#smallHeadPhoto").attr("src",item.smallHeadPhoto);
