@@ -183,7 +183,7 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 		if(CollectionUtils.isEmpty(hospitals)){
 			throw new MedicalException(MedicalExceptionEnum.HOSPITAL_NOT_EXIT);
 		}else{
-			if(StringUtils.isNotBlank(hospitals.get(0).getSourceId())){
+			if(StringUtils.isNotBlank(hospitals.get(0).getSourceId())||StringUtils.isNotBlank(hospitals.get(0).getCreatePerson())){
 				throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
 			}
 		}
