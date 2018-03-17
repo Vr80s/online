@@ -44,6 +44,31 @@ if(stringnull(recharges_blck) && recharges_blck ==1){
 //	}
 //})
 
+/**
+ * 监听浏览器---》回退事件
+ */
+//var counter = 0;
+//if (window.history && window.history.pushState) {
+//   $(window).on('popstate', function () {
+//  	 
+//      window.history.pushState('forward', null, '#');
+//      window.history.forward(1);
+//                  
+//      var rechargesBlck = sessionStorage.getItem("recharges_blck");
+//  	if(rechargesBlck == 1){
+//  		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
+//  		location.href = "/xcview/html/purchase.html?orderId="+recharges_blck_param;
+//  	}else if(rechargesBlck == 2){
+//  		location.href = "/xcview/html/my_wallet.html";
+//  	}else if(rechargesBlck == 3){
+//  		var recharges_blck_param = sessionStorage.getItem("recharges_blck_param");
+//  		location.href = "/xcview/html/details.html?courseId="+recharges_blck_param;
+//  	}
+// });
+//}
+//window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+//window.history.forward(1);
+
 
 
 /**
@@ -52,9 +77,8 @@ if(stringnull(recharges_blck) && recharges_blck ==1){
  */
 $("#determine").click(function(){
 	//点击返回 --》我的天去哪里
-	//location.href = "/xcview/html/recharges.html";
-
-	$(".success").hide();
+//	location.href = "/xcview/html/recharges.html";
+$(".success").hide();
 })
 
 
@@ -141,7 +165,7 @@ function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-    return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
+   return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
 }
 
 
