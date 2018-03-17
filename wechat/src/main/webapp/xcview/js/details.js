@@ -41,10 +41,12 @@ requestService("/xczh/course/liveDetails",{
 				teacherId = result.userLecturerId; // 讲师Id
 //				teacherName = result.name; // 讲师名
 				
-				sessionStorage.setItem("hostName",result.name);
+				
 				
 				
 				teacherName = result.heir; // 上传人
+				
+				sessionStorage.setItem("hostName",teacherName);
 
 				$("#userId").val(result.userId);
 				$("#teacherId").val(result.userId);
