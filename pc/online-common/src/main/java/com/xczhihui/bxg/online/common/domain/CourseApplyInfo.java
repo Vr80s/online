@@ -452,4 +452,5 @@ public class CourseApplyInfo implements Serializable {
 	public void setIsDelete(Boolean delete) {
 		isDelete = delete;
 	}
+
 }

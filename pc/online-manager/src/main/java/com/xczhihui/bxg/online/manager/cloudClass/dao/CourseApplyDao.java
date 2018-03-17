@@ -197,9 +197,9 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 			paramMap.put("userId", userId);
 			sql.append("and cai.user_id = :userId ");
 		}
-		if (title != null&&!title.equals("")) {
-			paramMap.put("title", title);
-			sql.append("and cai.title = :title ");
+		if (title != null) {
+			paramMap.put("title", "%" + title + "%");
+			sql.append("and cai.title like :title ");
 		}
 		if (applyStatus != null) {
 			paramMap.put("applyStatus", applyStatus);

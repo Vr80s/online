@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.cloudClass.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
+import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.ApplyStatus;
@@ -230,6 +231,16 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	public Page<CourseApplyInfo> findCoursePageByUserId(CourseApplyInfo courseApplyInfo, int pageNumber, int pageSize) {
 		Page<CourseApplyInfo> page = courseApplyDao.findCoursePageByUserId(courseApplyInfo, pageNumber, pageSize);
 		return page;
+	}
+
+	@Override
+	public void updateRecommendSort(Integer id, Integer recommendSort) {
+		String hqlPre="from CourseAnchor where  isDelete = 0 and id = ?";
+		CourseAnchor courseAnchor= dao.findByHQLOne(hqlPre,new Object[] {id});
+		if (courseAnchor!=null){
+			courseAnchor.setRecommendSort(recommendSort);
+			dao.update(courseAnchor);
+		}
 	}
 
 	private void saveNotPassCourse(CourseApplyInfo courseApply, String userId) {

@@ -245,11 +245,8 @@ public class CourseAnchorController extends AbstractController{
             courseApplyInfo.setStatus(Integer.valueOf(search_status.getPropertyValue1().toString()));
         }
 
-
         Group userId = groups.findByName("userId");
-        String user_Id="";
         if (userId != null) {
-            user_Id = userId.getPropertyValue1().toString();
             courseApplyInfo.setUserId(userId.getPropertyValue1().toString());
         }
         Page<CourseApplyInfo> page = courseApplyService.findCoursePageByUserId(courseApplyInfo, currentPage, pageSize);
@@ -258,5 +255,21 @@ public class CourseAnchorController extends AbstractController{
         tableVo.setiTotalDisplayRecords(total);
         tableVo.setiTotalRecords(total);
         return tableVo;
+    }
+
+    /**
+     * Description：设置主播推荐值
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/3/17 15:05
+     **/
+    @RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateRecommendSort(Integer id,Integer recommendSort) {
+        ResponseObject responseObject=new ResponseObject();
+        courseApplyService.updateRecommendSort(id,recommendSort);
+        responseObject.setSuccess(true);
+        responseObject.setResultObject("修改成功!");
+        return responseObject;
     }
 }
