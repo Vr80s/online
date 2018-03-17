@@ -77,7 +77,8 @@ if(stringnull(recharges_blck) && recharges_blck ==1){
  */
 $("#determine").click(function(){
 	//点击返回 --》我的天去哪里
-	location.href = "/xcview/html/recharges.html";
+//	location.href = "/xcview/html/recharges.html";
+$(".success").hide();
 })
 
 

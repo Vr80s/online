@@ -563,6 +563,11 @@ if (is_weixin()) {
 	var domain = window.location.protocol + "//" + document.domain;
 
 	wx.ready(function() {
+		
+		console.log(result.gradeName);
+		console.log(result.description.stripHTML());
+		console.log(result.smallImgPath);
+		
 		// 发送到朋友
 		wx.onMenuShareAppMessage({
 			title : result.gradeName, // 分享标题
