@@ -468,7 +468,7 @@
 	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
 		<li role="presentation" class="active">
 			<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">主播课程</a>
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">${anchorNname}的课程</a>
 		</li>
 	</ul>
     <!-- Tab panes -->

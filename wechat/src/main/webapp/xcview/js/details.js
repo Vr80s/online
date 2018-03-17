@@ -379,8 +379,8 @@ requestService(
 								+ result[i].id
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
-								+ "</p><p  style='font-size:0.6rem;color:#666;'><span class='jiage'>"
-								+ "" + result[i].price + "</span><span style='font-size:0.425rem;color:#666;'>熊猫币</span></p></div></a></li>";
+								+ "</p><p  style='font-size:0.6rem;color:#666;'><span class='jiage' style='color:#999;'>"
+								+ "" + result[i].price + "</span><span style='font-size:0.425rem;color:#999;'>熊猫币</span></p></div></a></li>";
 					} else {
 						html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"
 								+ result[i].smallimgPath
@@ -388,7 +388,7 @@ requestService(
 								+ result[i].id
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
-								+ "</p><p style='font-size:0.6rem;color:#666;'><span class='jiage'>0</span><span style='font-size:0.425rem;color:#666;'>熊猫币</span></p></div></a></li>";
+								+ "</p><p style='font-size:0.6rem;color:#666;'><span class='jiage' style='color:#999;'>0</span><span style='font-size:0.425rem;color:#999;'>熊猫币</span></p></div></a></li>";
 					}
 				}
 				$(".gift_ul_li").html(html);
@@ -563,6 +563,11 @@ if (is_weixin()) {
 	var domain = window.location.protocol + "//" + document.domain;
 
 	wx.ready(function() {
+		
+		console.log(result.gradeName);
+		console.log(result.description.stripHTML());
+		console.log(result.smallImgPath);
+		
 		// 发送到朋友
 		wx.onMenuShareAppMessage({
 			title : result.gradeName, // 分享标题

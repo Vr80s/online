@@ -1101,7 +1101,7 @@ ul {
   color: #333;
 }
 #main .content > div > a .detail .title {
-  max-width: 211px;
+  max-width: 260px;
   /* height: 30px;*/
   display: inline-block;
   overflow: hidden;
