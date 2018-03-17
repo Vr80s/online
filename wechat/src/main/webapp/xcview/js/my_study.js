@@ -113,7 +113,7 @@ var all_history="";
  * 搜索历史播放   点击事件
  */
 function go_play_hos(type,lineState,collection,id){
-	if(type ==3 && (lineState ==1 || lineState ==3 || lineState ==4)){ //直播间  
+	if(type ==3 && (lineState ==1 || lineState ==3 || lineState ==4)){ //直播间
 		location.href="details.html?courseId="+id
 	}else if(type ==3 && (lineState ==2 || lineState ==5)){ //预告的、回放的
 		location.href="live_play.html?my_study="+id

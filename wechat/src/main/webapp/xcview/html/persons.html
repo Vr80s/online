@@ -562,8 +562,8 @@ pre:after {
   			$(".mui-zx_mask").hide();
   		});
   		
-// 点击跳转传字符 		
-	var username_text=$("#person_one").text()
+
+
   		
 
   		
@@ -745,8 +745,9 @@ pre:after {
 		</div>
 		<div class="person_cen">
 			<div class="person_cen0">
-			<!--<div class="person_cen_top person_one" onclick="location.href ='nickname.html?username_id='+username_text">-->
-			<div class="person_cen_top person_one" onclick="location.href ='nickname.html'">
+			<!--<div class="person_cen_top person_one" onclick="location.href ='nickname.html?username_id='+username_text+">-->
+			<div class="person_cen_top person_one" onclick="jump_username()">
+				
 				<p class="person_p1">昵称</p>
 				<div class="person_cen_right">
 					<p id="person_one"></p> 
@@ -764,7 +765,9 @@ pre:after {
 				<div class="both"></div>
 			</div>
 			
-			<div class="person_cen_top person_five" onclick="location.href ='mailbox.html'">
+			<!--<div class="person_cen_top person_five" onclick="location.href ='mailbox.html'">-->
+			<div class="person_cen_top person_five" onclick="jump_mail()">
+				
 				<p class="person_p1">邮箱</p>
 				<div class="person_cen_right">
 					<p id="person_five">立即绑定</p>
@@ -784,7 +787,9 @@ pre:after {
 				<div class="both"></div>
 			</div>
 			
-			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'" style="margin-bottom: 0;border: 0;">
+			<!--<div class="person_cen_top person_sign" onclick="location.href ='signature.html'" style="margin-bottom: 0;border: 0;">-->
+			<div class="person_cen_top person_sign" onclick="jump_style()" style="margin-bottom: 0;border: 0;">
+				
 				<p class="person_p1">个性签名</p>
 				<div class="person_cen_right">
 					<p id="person_sign"></p>  
@@ -810,7 +815,9 @@ pre:after {
 			</div>
 			
 			
-			<div class="person_cen_top" onclick="location.href ='occupation_info.html'" style="border: 0;">
+			<!--<div class="person_cen_top" onclick="location.href ='occupation_info.html'" style="border: 0;">-->
+			<div class="person_cen_top" onclick="jump_major()" style="border: 0;">
+				
 				<p class="person_p1">职业信息</p>
 				<div class="person_cen_right">
 					<p id="zyxx"></p>
@@ -1209,5 +1216,27 @@ function setImagePreview() {
   			$("#dpage").show();
   		});
 	};
+</script>
+<script>
+	// 点击跳转传字符 		
+function jump_username(){
+	var username_text=$("#person_one").text()
+	location.href ="nickname.html?username_id="+username_text+"";	
+}
+//邮箱
+function jump_mail(){
+	var username_text=$("#person_five").text()
+	location.href ="mailbox.html?username_mail="+username_text+"";	
+}
+//个性签名邮箱
+function jump_style(){
+	var username_text=$("#person_sign").text()
+	location.href ="signature.html?username_style="+username_text+"";	
+}
+//职业信息
+function jump_major(){
+	var username_text=$("#zyxx").text()
+	location.href ="occupation_info.html?username_major="+username_text+"";	
+}
 </script>
 </html>
