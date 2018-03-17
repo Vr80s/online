@@ -129,6 +129,28 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 		return this.findEntityByJdbc(CourseAnchor.class,sql,m);
 	}
 
+	public CourseAnchor findCourseAnchorByUserId(String userId) {
+	 	String sql = "SELECT \n" +
+				"  ca.`name`,\n" +
+				"  ca.`type`,\n" +
+				"  ca.`vod_divide` vodDivide,\n" +
+				"  ca.`live_divide` liveDivide,\n" +
+				"  ca.`offline_divide` offlineDivide,\n" +
+				"  ca.`gift_divide` giftDivide,\n" +
+				"  ca.`status` \n" +
+				"FROM\n" +
+				"  `course_anchor` ca \n" +
+				"  JOIN `oe_user` ou \n" +
+				"    ON ca.`user_id` = ou.`id` \n" +
+				"WHERE ca.`deleted` = 0 \n" +
+				"  AND ou.`is_delete` = 0 \n" +
+				"  AND ou.id=:userId  \n" +
+				"  ORDER BY ca.`create_time`\n" ;
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("userId",userId);
+		return this.findEntityByJdbc(CourseAnchor.class,sql,m);
+	}
+
     public Page<AnchorIncomeVO> findCourseAnchorIncomePage(CourseAnchor courseAnchor, int currentPage, int pageSize) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder(" SELECT \n" +

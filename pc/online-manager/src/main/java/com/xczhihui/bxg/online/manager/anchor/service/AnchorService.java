@@ -17,6 +17,8 @@ public interface AnchorService {
 
     CourseAnchor findCourseAnchorById(Integer id);
 
+    CourseAnchor findCourseAnchorByUserId(String userId);
+
     void updateCourseAnchor(CourseAnchor courseAnchor);
 
 	void updatePermissions(Integer id);
