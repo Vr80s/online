@@ -14,8 +14,10 @@
 		  if(oc.is_free =0,0,1) as watchState,
 		  oc.collection as collection,
 		  oc.live_source_type as liveSourceType,
-		  if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState
+		  
+		 if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState
                     
 		FROM
 		  oe_watch_history1 owh 
