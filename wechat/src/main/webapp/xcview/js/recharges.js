@@ -110,15 +110,15 @@ function  goPay() {
 		alert("获取支付类型有误");
 		return;
 	}
+	
+	
+	payType = 3;
+	
 	/**
 	 * 这里需要获取熊猫币的余额
 	 */
 	var actualPay  = $("#ul").find(".li0").find(".p1").find("span").text();
-//	alert(actualPay);    测试弹出多少元
 	console.log("实际充值的人民币"+actualPay);
-//	actualPay = 1; //充值金额人民币
-//	//测试  
-//	actualPay = 0.01;
 	
 	if(payType == 2){ //支付宝支付  rechargePay
     	/**
