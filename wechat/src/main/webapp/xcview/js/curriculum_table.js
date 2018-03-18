@@ -16,13 +16,15 @@ if(before_url.indexOf("home_page.html")!=-1){
  */
 function goto_back(){
 
-	var curriculum_blck = sessionStorage.getItem("curriculum_blck");
+/*	var curriculum_blck = sessionStorage.getItem("curriculum_blck");
 	if(curriculum_blck == 1){
 		location.href="home_page.html";
 	}else if(curriculum_blck == 2){
 		location.href="search.html?search_back=2";
-	}
+	}*/
 	
+	//去学堂
+	location.href="home_page.html";
 }
 
 /**
@@ -140,7 +142,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	if(stringnull(isFree)){
 		paramsObj.isFree = isFree;
 		if(isFree==0){
-			saisuanstr +="收费-";
+			saisuanstr +="付费-";
 		}else{
 			saisuanstr +="免费-";
 		}
@@ -509,7 +511,7 @@ function aa(id){
 	  requestService("/xczh/course/details?courseId="+id,null,function(data) {
       var userPlay=data.resultObject;
       var falg =authenticationCooKie();       	       
-//收费的直播和即将直播未购买跳购买页    
+//付费的直播和即将直播未购买跳购买页    
          if(userPlay.watchState==0 && userPlay.lineState==1){
             location.href="school_play.html?course_id="+id 
         }else if(userPlay.watchState==0 && userPlay.lineState==4){

@@ -39,13 +39,8 @@ requestService("/xczh/course/liveDetails",{
 				videoId = result.directId;
 				watchState = result.watchState;
 				teacherId = result.userLecturerId; // 讲师Id
-//				teacherName = result.name; // 讲师名
-				
-				
-				
-				
+
 				teacherName = result.heir; // 上传人
-				
 				sessionStorage.setItem("hostName",teacherName);
 
 				$("#userId").val(result.userId);
@@ -86,9 +81,19 @@ requestService("/xczh/course/liveDetails",{
 				 * 关注 0 未关注 1 关注
 				 */
 				if (result.isFocus == 1) {
+					$(".add_follow").find('img').attr('src','../images/yigz.png');
 					$(".add_follow").find('p').html("已关注");
+					$(".add_follow").removeClass("add_follows00");
+					$(".add_follow").addClass("add_follows1");
+					$(".add_follow").removeClass("add_follows0");
+					
+					
 				} else if (result.isFocus == 0) {
+					$(".add_follow").find('img').attr('src','../images/weigz.png');
 					$(".add_follow").find('p').html("加关注");
+					$(".add_follow").removeClass("add_follows00");
+					$(".add_follow").addClass("add_follows0");
+					$(".add_follow").removeClass("add_follows1");
 				}
 				
 				lineState = result.lineState;
@@ -325,28 +330,22 @@ $(".add_follow").click(
 				if (data.success) {
 
 					if (htmlstr == "已关注") {
-						$(".add_follow").find('img').attr('src',
-								'../images/weigz.png');
+						$(".add_follow").find('img').attr('src','../images/weigz.png');
 						$(".add_follow").find('p').html("加关注");
 						$(".add_follow").removeClass("add_follows00");
 						$(".add_follow").addClass("add_follows0");
 						$(".add_follow").removeClass("add_follows1");
-						// $(".right_personal").find('span').html(parseInt(p)-1);
-
 						$(".n_fensi").html(parseInt(n_fensi) - 1);
 					} else {
-						$(".add_follow").find('img').attr('src',
-								'../images/yigz.png');
+						
+						$(".add_follow").find('img').attr('src','../images/yigz.png');
 						$(".add_follow").find('p').html("已关注");
-//						$(".add_follow").css("background","#bbb");
 						$(".add_follow").removeClass("add_follows00");
 						$(".add_follow").addClass("add_follows1");
 						$(".add_follow").removeClass("add_follows0");
 						
 						// 粉丝数
 						$(".n_fensi").html(parseInt(n_fensi) + 1);
-						// $(".right_personal").find('span').html(parseInt(p)+1);
-
 					}
 				}
 			})

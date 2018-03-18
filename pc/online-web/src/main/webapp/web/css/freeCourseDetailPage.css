@@ -13,6 +13,10 @@ body {
   padding: 0;
   position: relative;
 }
+/*修改底部距离*/
+.footerDT{
+	height: 100px !important;
+}
 .hide{
 	display: none;	
 }
@@ -656,6 +660,7 @@ a {
   background-color: #fff;
   padding: 17px 0;
   margin-bottom: 20px;
+  padding-bottom: 0px;
 }
 #course-list .table-body .sidebar-body .sidebar-body-details .details-title {
   overflow: hidden;
@@ -1326,6 +1331,9 @@ a {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
 }
+#course-list .table-body .table-modal .studentEvaluate .good-repuBox:last-child{
+	border-bottom: none;
+}
 #course-list .table-body .table-modal .studentEvaluate .good-repuBox .repuImg {
   float: left;
 }
@@ -1554,6 +1562,9 @@ a {
   padding: 20px 0;
   border-bottom: 1px dashed #e4e4e4;
   overflow: hidden;
+}
+.videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease:last-child{
+	border-bottom: none;
 }
  .videoBody-bottom .videoBody-bottom-left .pingjia .videoBody-bottom-left-list .videoBody-bottom-listRelease .videoBody-bottom-listRelease-left {
   float: left;
