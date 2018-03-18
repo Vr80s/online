@@ -71,7 +71,7 @@ public class MenuServiceImpl  extends OnlineBaseServiceImpl implements MenuServi
 
 
     /**
-     * 学堂模块获取全部一级菜单
+     * 云课堂模块获取全部一级菜单
      * @param type 
      * @return
      */

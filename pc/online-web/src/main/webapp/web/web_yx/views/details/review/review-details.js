@@ -41,7 +41,7 @@ define(['template',
 	          common ,config,audiojs) {
 
 		function createPage( reviewId ) {
-			document.title = "熊猫中医学堂 - 复习";
+			document.title = "熊猫中医云课堂 - 复习";
 
 			var treeId = '',
 				onlyshow = '',  //  判断是否可以在该树下有知识资源

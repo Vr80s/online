@@ -27,7 +27,7 @@ public class CourseApplyVo {
     private String  bigImgPath;
 
     /**
-     *学堂跳转地址
+     *云课堂跳转地址
      */
     private  String cloudClassroom;
 

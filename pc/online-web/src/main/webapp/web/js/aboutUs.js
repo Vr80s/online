@@ -1,6 +1,6 @@
 window.onload = function() {
 		if(window.sessionStorage.aboutus) {
-			document.title=$("."+window.sessionStorage.aboutus).find("a").text()+" - 熊猫中医学堂";
+			document.title=$("."+window.sessionStorage.aboutus).find("a").text()+" - 熊猫中医云课堂";
 			$("#" + window.sessionStorage.aboutus).css("display", "block").siblings().css("display", "none");
 			$(".aboutus-nav-2").text($("." + window.sessionStorage.aboutus).find("a").text());
 			$(".right-content .content-title span").html($("." + window.sessionStorage.aboutus).find("a").text());
@@ -10,13 +10,13 @@ window.onload = function() {
 			}
 		} else {
 			$("#first").css("display", "block").siblings().css("display", "none");
-			document.title=$(".first a").text()+" - 熊猫中医学堂";
+			document.title=$(".first a").text()+" - 熊猫中医云课堂";
 		}
 		$(".left-nav li").on("click", function() {
 			$('html,body').animate({
 				scrollTop: '0px'
 			}, 0);
-			document.title=$(this).find("a").text()+" - 熊猫中医学堂";
+			document.title=$(this).find("a").text()+" - 熊猫中医云课堂";
 			$(this).addClass("active").siblings().removeClass("active");
 			$(".right-content .content-title span").html($(this).find("a").text());
 			$("#" + $(this).find("a").attr("data-id")).css("display", "block").siblings().css("display", "none");

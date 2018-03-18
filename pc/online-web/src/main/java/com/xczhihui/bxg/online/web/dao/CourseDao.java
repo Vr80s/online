@@ -902,7 +902,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "    WHERE course_id = c.id),\n" +
                 "    0\n" +
                 "  ) + IFNULL(default_student_count, 0) learndCount,\n" +
-                "  FLOOR(c.current_price*10) AS currentPrice,\n" +
+                "  c.current_price*10 AS currentPrice,\n" +
                 "  c.is_free AS isFree,\n" +
                 "  c.address,\n" +
                 "  c.start_time startTime,\n" +
