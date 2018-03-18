@@ -415,9 +415,9 @@
 			{{each resultObject as item i}}
 			<li data-id="{{item.id}}" data-isContinuous={{item.isContinuous}} data-countinuousCount={{item.countinuousCount}} data-isFree={{item.isFree}}>
 			<img alt="礼物" src="{{item.smallimgPath}}">
-			<p class='gif-name'>{{item.name}}</p>
+			<p class='gif-name' title={{item.name}}>{{item.name}}</p>
 			{{if item.price>0}}
-			<p class="gif-free" style="color:#2cb82c">{{item.price}}熊猫币</p>
+			<p class="gif-free" style="color:#2cb82c" title=""+{{item.price}}+"熊猫币">{{item.price}}熊猫币</p>
 			{{else}}
 			<p class="gif-free">免费</p>
 			{{/if}}

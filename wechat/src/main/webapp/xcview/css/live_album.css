@@ -835,7 +835,7 @@ color: #888888;
 	padding: 0 0.26rem 0.19rem;
 	box-sizing: border-box;
 	font-size: 0.18rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #e6e6e6;
 	position: absolute;
     top: 0;
     left: 0;
@@ -863,7 +863,7 @@ color: #888888;
 }
 .all_list ul li{
 	padding: 0.19rem 0;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #e6e6e6;
 	
 }
 .all_list ul li:nth-last-child(1){
