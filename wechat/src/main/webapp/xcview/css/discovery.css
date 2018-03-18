@@ -26,7 +26,7 @@ img{display: block;}
 	line-height: 0.88rem;
 	overflow: hidden;
 	position: fixed;
-	border-bottom: 1px solid #d8dde6;	
+	border-bottom: 1px solid #d8dde6;
 	background: white;
 }
 .header p{
@@ -85,6 +85,7 @@ img{display: block;}
 	/*background: red;*/
 	position: fixed;
 	bottom: 0;
+	border-top: 1px solid #d8dde6;
 }
 .footer ul li{
 	width: 25%;
