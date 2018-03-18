@@ -256,10 +256,10 @@ overflow: hidden;
 	width: 0.6rem;
 	height: 1px;
 	background: #D8DDE6;
-	margin-top: 0.23rem;
+	margin-top: 0.2rem;
 }
 .my_synopsis ul li:nth-child(2){
-	margin: 0 0.3rem;
+	margin-left: 0.3rem;
 }
 /*内容*/
 .wrap{
@@ -347,7 +347,7 @@ overflow: hidden;
 }
 .main_speak p:nth-child(2){
 	float: left;
-	margin: 0 0.3rem;
+	margin-left: 0.3rem;
 }
 .main_speak p:nth-child(3){
 	float: right;
