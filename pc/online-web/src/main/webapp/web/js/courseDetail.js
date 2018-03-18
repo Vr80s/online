@@ -47,7 +47,7 @@ template.helper("removeSecond", function(num) {
 var collection;
 window.onload = function() {
 	$(".header_left .path a").each(function() {
-		if($(this).text() == "学堂") {
+		if($(this).text() == "云课堂") {
 			$(this).addClass("select");
 		} else {
 			$(this).removeClass("select");
@@ -255,7 +255,7 @@ window.onload = function() {
 			$('.course-outline').addClass('hide')
 		}
 		free = data.resultObject.free;
-		document.title = data.resultObject.courseName + " - 熊猫中医学堂";
+		document.title = data.resultObject.courseName + " - 熊猫中医云课堂";
 		var templateStr = template('course_detail_title_tpl', data.resultObject);
 		$('.bigpic').html(templateStr);
 
