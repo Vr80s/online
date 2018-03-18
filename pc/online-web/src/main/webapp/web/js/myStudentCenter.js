@@ -168,7 +168,7 @@ $.getUrlParam = function(name) {
 			'<table border="0" cellspacing="" cellpadding="" class="name">' +
 			'<tr><td><span style="font:  16px 微软雅黑">{{$a.grade_name}}</span></td></tr>' +
 			'<tr><td><span style="color:rgb(153,153,153)">主讲：{{$a.lecturer}}</span></td></tr>' +
-			'<tr><td><span class="or7" style="font:  12px 微软雅黑">课程有效期至{{#expiry($value.create_time)}}</span></td></tr>' +
+			// '<tr><td><span class="or7" style="font:  12px 微软雅黑">课程有效期至{{#expiry($value.create_time)}}</span></td></tr>' +
 			'</table>' +
 			'</div>' +
 			
