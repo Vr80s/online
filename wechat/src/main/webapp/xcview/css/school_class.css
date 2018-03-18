@@ -448,7 +448,7 @@ margin-top: 0.1rem;
 .user_header{
 	width: 0.98rem;
 	height: 0.98rem;
-	background: skyblue;
+	/*background: skyblue;*/
 	float: left;
 	border-radius: 50%;
 }
@@ -529,6 +529,7 @@ margin-top: 0.1rem;
 	border-radius: 0.04rem;
 	margin-top: 0.2rem;
 	box-sizing: border-box;
+	overflow: hidden;
 }
 .returned_id{
 color: #666666;
@@ -571,6 +572,9 @@ color: #666666;
 	font-size: 0.25rem;
 	margin-top: 0.1rem;
 	border-radius: 4px;
+}
+.wrap_purchaser p{
+	font-size: 0.22rem !important;
 }
 /*底下评论输入框*/
 .wrap_user_input{
