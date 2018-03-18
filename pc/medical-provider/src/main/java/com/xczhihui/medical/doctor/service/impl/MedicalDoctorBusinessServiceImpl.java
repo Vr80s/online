@@ -580,11 +580,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             if(StringUtils.isNotBlank(medicalDoctor.getTitle()) && medicalDoctor.getTitle().length() > 100){
                 throw new RuntimeException("职称不能超过100个字");
             }
-            if(StringUtils.isNotBlank(medicalDoctor.getFieldText()) && medicalDoctor.getFieldText().length() > 32){
-                throw new RuntimeException("擅长领域不能超过32个字");
-            }
-            if(StringUtils.isNotBlank(medicalDoctor.getDescription()) && medicalDoctor.getDescription().length() > 1000){
-                throw new RuntimeException("医师简介不能超过1000个字");
+            if(StringUtils.isNotBlank(medicalDoctor.getFieldText()) && medicalDoctor.getFieldText().length() > 100){
+                throw new RuntimeException("擅长领域不能超过100个字");
             }
         }
 
