@@ -1790,13 +1790,15 @@ height: 60px;
 	cursor: pointer;
 }
 .new_box_main .input{
-	width: 390px;
-	height: 36px;
-	line-height: 36px;
-	font-size: 14px;
-	color: #666666;
-	margin: 0 auto;
-	margin-bottom: 20px;
+	display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    color: #666666;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    margin-right: 20px;
 }
 .new_box_main .input input{
 	width: 280px;
@@ -1806,17 +1808,18 @@ height: 60px;
 	margin-left: 20px;
 }
 .new_box_main .add{
-	width: 120px;
-	height: 36px;
-	line-height: 36px;
-	text-align: center;
-	font-size: 14px;
-	color: #FFFFFF;
-	margin-bottom: 20px;
-	background: #00BC12;
-	border-radius: 4px;
-	margin-left: 184px;
-	cursor: pointer;
+	display: inline-block;
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+    background: #00BC12;
+    border-radius: 4px;
+    cursor: pointer;
+    vertical-align: top;
 }
 .new_box_main .size{
 	font-size: 14px;

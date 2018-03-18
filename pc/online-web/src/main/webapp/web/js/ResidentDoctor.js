@@ -34,6 +34,13 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 			} else if(data.resultObject == 7) {
 				//未认证
 				//	       			$('#docNoPass_tip').removeClass('hide');
+				//拒绝情况
+				RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+					if(data.resultObject.status == 0){
+						seeAutStatus();
+						$('#docAut_tip').removeClass('hide');
+					}
+				})
 				$('#AutList').removeClass('hide');
 				$('#AutStatus').addClass('hide');
 			}

@@ -4,8 +4,14 @@
 /**
  * Created by admin on 2016/9/19.
  */
-window.onload = function() {
 
+
+window.onload = function() {
+	
+	
+	
+
+	
 	function tousuTrue() {
 		$(".tousuTrue").css("display", "block");
 		setTimeout(function() {
@@ -2366,4 +2372,8 @@ window.onload = function() {
 		})
 	}
 
+
+//顶部医师字体变色
+	$('.forum').css('color','#000');
+	$('.path .ansAndQus').addClass('select');
 }
