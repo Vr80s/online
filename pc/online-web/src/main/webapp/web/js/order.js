@@ -304,13 +304,6 @@ window.onload = function() {
 					}, false);
 				}
 			}, false);
-			//			} else {
-			//				$('#login').modal('show');
-			//				$('#login').css("display", "block");
-			//				$(".loginGroup .logout").css("display", "block");
-			//				$(".loginGroup .login").css("display", "none");
-			//				return false;
-			//			}
 		}
 	});
 	var lb =

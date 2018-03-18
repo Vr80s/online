@@ -186,11 +186,6 @@ public interface CourseService {
     ResponseObject insertSubscribe(String userId, String mobile, Integer courseId) throws ClientException ;
 
 
-
-
-	public String getCoursesPage(Integer courseId);
-
-	
 	/**
 	 * Description：新的评论、回复、用户关系  并且查询
 	 * @param courseId
