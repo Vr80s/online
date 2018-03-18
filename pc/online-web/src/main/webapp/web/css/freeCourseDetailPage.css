@@ -733,7 +733,9 @@ a {
 	padding: 10px 10px 0px;
 }
 #course-list .table-body .sidebar-body .sidebar-body-details .RecommendClass_list li .class_inf .class_title{
-	  max-width: 211px;
+	     max-width: 260px;
+    /* height: 30px; */
+    display: inline-block;
     overflow: hidden;
     font-size: 14px;
     color: #333;
@@ -1152,7 +1154,7 @@ a {
 	border-bottom: 1px solid #f0f0f0;
 	padding: 20px 0px;
 }
-#course-list .table-body .table-modal .collection_course_List li > a{
+#course-list .table-body .table-modal .collection_course_List li .playTip{
 	vertical-align: top;
 	display: inline-block;
 	width: 32px;
