@@ -33,7 +33,7 @@
 		FROM
 		  `course_apply_resource` car
 		WHERE car.`is_delete` = 0
-		AND car.`length` IS NULL
+		AND (car.`length` IS NULL or car.`length` =0)
 		ORDER BY car.`create_time` ASC
 	</select>
 
