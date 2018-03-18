@@ -182,9 +182,10 @@ overflow: hidden;
     background: #00bc12;
     color: white;
     border-radius: 50%;
-    line-height: 0.72rem;
-    text-align: center;
     font-size: 0.22rem;
+     display: flex;    
+    justify-content:center;
+    align-items:Center;
 }
 .select_icon img{
 	width: 100%;
@@ -279,7 +280,8 @@ overflow: hidden;
 	padding-top: 0.1rem;
 	min-height: 2.5rem;
 	padding-bottom: 0.2rem;
-	
+	word-wrap:break-word; 
+word-break:break-all; 
 }
 .wrap p img{
 	/*width: 100%;*/
@@ -374,7 +376,8 @@ overflow: hidden;
 	padding-top: 0.1rem;
 	min-height: 2.5rem;
 	padding-bottom: 0.2rem;
-	
+	word-wrap:break-word; 
+word-break:break-all; 
 }
 .wrap1 p img{
 	/*width: 100%;*/

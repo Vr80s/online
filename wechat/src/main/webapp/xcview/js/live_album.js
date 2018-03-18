@@ -22,7 +22,6 @@ function stripHTML(str){
  	 $(".select_icon").click(function(){
   		$(".bg_modal02").show();
 		$(".wrap_select_list").show();
-		sessionStorage.setItem("zhuanji",name_title)
  	 });
   	$(".bg_modal02").on('click',function(){
 		$(".bg_modal02").hide();
@@ -133,7 +132,7 @@ function stripHTML(str){
 			var directId=$(this).attr("data-myvideo");
 			var courseId=$(this).attr("data-courseId");
 			//初始化视频资源
-			window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+directId+"&collection_id="+collectionId;
+			window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+directId+"&collection_id="+collectionId+"&name_title="+name_title;
 		})
 	}
 })

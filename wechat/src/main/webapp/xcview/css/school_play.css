@@ -226,6 +226,8 @@ border-radius: 3px;
 	padding-top: 0.1rem;
 	min-height: 2rem;
 	padding-bottom: 0.2rem;
+	word-wrap:break-word; 
+word-break:break-all; 
 }
 .wrap p img{
 	/*width: 100%;*/
@@ -319,6 +321,8 @@ border-radius: 3px;
 	padding-top: 0.1rem;
 	min-height:2rem;
 	padding-bottom: 0.2rem;
+	word-wrap:break-word; 
+word-break:break-all; 
 }
 .wrap1 p img{
 	/*width: 100%;*/
