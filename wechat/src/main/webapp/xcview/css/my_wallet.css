@@ -129,9 +129,12 @@ header{
     line-height: 0.5rem;
 	border-bottom: 1px solid #D8DDE6;
 	overflow: hidden;
+	padding-bottom: 0.2rem;
+    margin-top: 0.2rem;
 }
 .record_course:last-child{
 	border-bottom: 1px solid #D8DDE6;
+	padding-bottom: 0;
 }
 .record_course_left .span0{
 	font-size: 0.28rem;

@@ -40,11 +40,13 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
             if(StringUtils.isNotBlank(startTime)){
                 start = LocalDateTime.parse(startTime, dateTimeFormatter);
-                if(StringUtils.isNotBlank(endTime)){
-                    end = LocalDateTime.parse(endTime, dateTimeFormatter);
-                    if(end.isBefore(start)){
-                        throw new RuntimeException("起始时间不应大于终止时间");
-                    }
+            }
+            if(StringUtils.isNotBlank(endTime)){
+                end = LocalDateTime.parse(endTime, dateTimeFormatter);
+            }
+            if(StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(startTime)){
+                if(end.isBefore(start)){
+                    throw new RuntimeException("起始时间不应大于终止时间");
                 }
             }
 
@@ -52,9 +54,10 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             CourseAnchor courseAnchor = new CourseAnchor();
             courseAnchor.setUserId(userId);
             CourseAnchor anchor = anchorMapper.selectOne(courseAnchor);
-
+            String startTimeStr = start==null ? null:start.toString();
+            String endTimeStr = end==null ? null:end.toString();
             // 获取礼物订单的课程名称，直播时间
-            List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listGiftOrder(userId, page, gradeName, start, end);
+            List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listGiftOrder(userId, page, gradeName, startTimeStr, endTimeStr);
 
             // 根据直播id获取直播的礼物总价,总熊猫币，平台扣除
             Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional =

@@ -17,11 +17,11 @@ import java.util.List;
 public interface UserCoinIncreaseMapper extends BaseMapper<UserCoinIncrease> {
 
 	List<UserCoinIncreaseVO> listCourseOrder(@Param("userId") String userId, @Param("page") Page<UserCoinIncreaseVO> page
-			, @Param("gradeName") String gradeName, @Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime
+			, @Param("gradeName") String gradeName, @Param("startTime") String startTime, @Param("endTime") String endTime
 			, @Param("courseForm") Integer courseForm, @Param("multimediaType") Integer multimediaType);
 
 	List<UserCoinIncreaseVO> listGiftOrder(@Param("userId") String userId, @Param("page") Page<UserCoinIncreaseVO> page
-			, @Param("gradeName") String gradeName, @Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime);
+			, @Param("gradeName") String gradeName, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
 	/**
 	 * 根据课程id获取课程苹果扣除的总数

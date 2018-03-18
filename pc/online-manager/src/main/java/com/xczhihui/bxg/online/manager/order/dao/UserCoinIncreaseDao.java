@@ -15,8 +15,20 @@ public class UserCoinIncreaseDao extends SimpleHibernateDao {
 
 	public Page<UserCoinIncrease> findUserCoinIncreasePage(UserCoinIncrease orderVo, int pageNumber, int pageSize){
 		   Map<String,Object> paramMap=new HashMap<String,Object>();
-		   StringBuilder sql=new StringBuilder("SELECT ou.`login_name` userId,uci.`order_no_recharge` orderNoRecharge,uci.`value`,uci.`create_time`,uci.`order_from`,uci.`pay_type` "
-		   		+ "FROM `user_coin_increase` uci LEFT JOIN oe_user ou ON ou.`id`=uci.`user_id` WHERE uci.`change_type`=1 AND deleted=0 AND uci.status = 1");
+		   StringBuilder sql=new StringBuilder("SELECT \n" +
+				   "  ou.`login_name` userId,\n" +
+				   "  uci.`order_no_recharge` orderNoRecharge,\n" +
+				   "  uci.`value`,\n" +
+				   "  uci.`create_time`,\n" +
+				   "  uci.`order_from`,\n" +
+				   "  uci.`pay_type` \n" +
+				   "FROM\n" +
+				   "  `user_coin_increase` uci \n" +
+				   "  LEFT JOIN oe_user ou \n" +
+				   "    ON ou.`id` = uci.`user_id` \n" +
+				   "WHERE uci.`change_type` = 1 \n" +
+				   "  AND deleted = 0 \n" +
+				   "  AND uci.status = 1 ");
 		   if(orderVo.getStartTime() !=null){
 			  sql.append(" and uci.create_time >=:startTime");
 			  paramMap.put("startTime", orderVo.getStartTime());
@@ -47,7 +59,7 @@ public class UserCoinIncreaseDao extends SimpleHibernateDao {
 	    	   paramMap.put("loginName", "%" + orderVo.getUserId() + "%");
 	       }
 	       
-		   sql.append(" order by uci.pay_type desc , uci.create_time desc ");
+		   sql.append(" order by uci.create_time desc ");
 		   Page<UserCoinIncrease> ms = this.findPageBySQL(sql.toString(), paramMap, UserCoinIncrease.class, pageNumber, pageSize);
 		   
 	  	   return ms;

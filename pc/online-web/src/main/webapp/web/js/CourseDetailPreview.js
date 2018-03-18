@@ -130,7 +130,7 @@ window.onload=function(){
         '</div>' +
         '</div>' +
         '<div class="sign-up-body-center">' +
-        '<p>系统升级中！即将进入<span>“腾讯课堂-博客学堂”</span>；我们的努力，只为更好的你！</p>' +
+        '<p>系统升级中！即将进入<span>“腾讯课堂-博客云课堂”</span>；我们的努力，只为更好的你！</p>' +
     '</div>' +
     '<div class="sign-up-body-bottom">' +
     '{{if free == true}}' +
@@ -323,7 +323,7 @@ window.onload=function(){
                  //qq号码
                  $(".sidebar-body-QQ-name").append("<p class='greend-QQnumber'><span>QQ号 : </span>"+
         "<a href='javascript:;' >"+ data.resultObject.qqno + "</a></p>")
-                 document.title=data.resultObject.courseName+" - 熊猫中医学堂";
+                 document.title=data.resultObject.courseName+" - 熊猫中医云课堂";
                  $(".bigpic-title").html(template.compile(mytitlelist)({
                      item: data.resultObject
                  }));

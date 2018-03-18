@@ -38,10 +38,10 @@
 		  JOIN `oe_order` oo
 			ON ood.`order_id` = oo.`id`
 		    <if test="startTime != null">
-			    and oo.`create_time` &gt; #{startTime}
+				<![CDATA[ and oo.`create_time` >= #{startTime}]]>
 			</if>
 		    <if test="endTime != null">
-			    and oo.`create_time` &lt;  #{endTime}
+				<![CDATA[ and oo.`create_time` <= #{endTime}]]>
 		    </if>
 		  JOIN `oe_course` oc
 			ON oc.id = ood.`course_id`
@@ -73,10 +73,10 @@
 		  JOIN `oe_gift_statement` ogs
 			ON uci.`order_no_gift` = ogs.id
 			<if test="startTime != null">
-				and ogs.`create_time` &gt; #{startTime}
+				<![CDATA[ and ogs.`create_time` >= #{startTime}]]>
 			</if>
 			<if test="endTime != null">
-				and ogs.`create_time` &lt;  #{endTime}
+				 <![CDATA[ and ogs.`create_time` <=  #{endTime}]]>
 			</if>
 		  JOIN `oe_course` oc
 			ON ogs.`live_id` = oc.`id`

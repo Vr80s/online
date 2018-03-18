@@ -89,7 +89,7 @@ $(function () {
         '<div class="cymylogin">'+
         '<div class="cymylogin-top clearfix">'+
         '<div class="cymyloginclose" data-dismiss="modal" aria-label="Close" data-backdrop="static"></div>'+
-        '<div class="cymyloginlogo">欢迎登录&nbsp;&nbsp;熊猫中医学堂</div>'+
+        '<div class="cymyloginlogo">欢迎登录&nbsp;&nbsp;熊猫中医云课堂</div>'+
         '<div class="cymyloginhint cymlogin">'+
         '</div></div>'+
         '<div class="cymylogin-bottom form-login">'+
@@ -172,7 +172,7 @@ $(function () {
 //  '<img src="web/images/laba.png"/>' + 
 //  '<span class="friendSee-Body-title">域名切换通知</span>' +
 //  '</p>' +
-//  '<p class="friendSee-Body-text">温馨提示：各位院校合作的老师请注意，当前&nbsp;www.ixincheng.com&nbsp;已切换为【熊猫中医学堂】使用，【熊猫中医院校】请访问地址&nbsp;yx.ixincheng.com</p>' +
+//  '<p class="friendSee-Body-text">温馨提示：各位院校合作的老师请注意，当前&nbsp;www.ixincheng.com&nbsp;已切换为【熊猫中医云课堂】使用，【熊猫中医院校】请访问地址&nbsp;yx.ixincheng.com</p>' +
 //  '</div><div class="friendSee-Body-right"><a href="http://yx.ixincheng.com" target="_blank">点此过去</a></div>' + 
 //  '<div class="closeSee"><img src="web/images/close.png"></div>' +
 //  '</div></div>';
@@ -398,7 +398,7 @@ $(function () {
         }
         return false;
     });
-    /*学堂和博问答切换*/
+    /*云课堂和博问答切换*/
 //  $(".path a").on('click', function () {
 //      $(this).addClass('select').siblings().removeClass('select');
 //  })

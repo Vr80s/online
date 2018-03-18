@@ -492,7 +492,7 @@ window.onload = function() {
 					$(".content .course-range").append(template.compile(courserange)({
 						result: data.resultObject
 					}));
-					document.title = data.resultObject.courseName + " - 熊猫中医学堂";
+					document.title = data.resultObject.courseName + " - 熊猫中医云课堂";
 					//0职业课，1微课
 					if(data.resultObject.course_type == 0) {
 						$(".course-nav .jihua").show();

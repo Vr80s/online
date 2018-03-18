@@ -27,7 +27,7 @@ $(function () {
 		
 	}
     $(".header_left .path a").each(function () {
-        if ($(this).text() == "学堂") {
+        if ($(this).text() == "云课堂") {
             $(this).addClass("select");
         } else {
             $(this).removeClass("select");

@@ -41,7 +41,7 @@ define(['template',
 	          common ,config,audiojs) {
 
 		function createPage( reviewId ) {
-			document.title = "熊猫中医学堂 - 预习";
+			document.title = "熊猫中医云课堂 - 预习";
 
 			var treeId = '',
 				typeId = '',

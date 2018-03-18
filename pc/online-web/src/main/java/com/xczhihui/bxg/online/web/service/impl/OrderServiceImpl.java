@@ -228,7 +228,7 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 		if(courses.size() > 0) {
 			for(Map<String,Object>  course : courses){
 				String msg_id = UUID.randomUUID().toString().replaceAll("-", ""); //最新消息的id
-				String msg_link = basePath+"/course/courses?courseId=" + course.get("course_id").toString();
+				String msg_link = basePath+"/course/courses/" + course.get("course_id").toString();
 				String content = "恭喜您成功报名课程<a href=\"javascript:void(0)\" onclick=\"on_click_msg('" + msg_id + "','" + msg_link + "');\"><p>"+course.get("course_name")+"</p></a>";
 				//"快去加入班级QQ群："+course.get("qqno")+"~";
 				MessageShortVo messageShortVo = new MessageShortVo();

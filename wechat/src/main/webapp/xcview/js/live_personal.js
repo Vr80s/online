@@ -249,7 +249,7 @@ function jump_play(id){
    requestService("/xczh/course/details?courseId="+id,null,function(data) {
       var userPlay=data.resultObject;
       var falg =authenticationCooKie();       	       
-//收费的直播和即将直播未购买跳购买页    
+//付费的直播和即将直播未购买跳购买页    
          if(userPlay.watchState==0 && userPlay.lineState==1){
             location.href="school_play.html?course_id="+id 
          }else if(userPlay.watchState==0 && userPlay.lineState==2){

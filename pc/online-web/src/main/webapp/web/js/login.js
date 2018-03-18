@@ -233,7 +233,7 @@ $(function () {
             cymPassBox = $(".registerPassword .RpassowrdHit");
 
 
-        var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
+        var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，20个字符
         var numberReg=/^\d{4,20}$/;//纯数字验证
         var passwordReg = /^(?!\s+)[\w\W]{6,18}$/;//密码格式验证
         $(".allowProtocal").click(function () {
@@ -270,7 +270,7 @@ $(function () {
                 yonghuNameLength=0;
             }
             if (data.nikeName == "") {
-                cymYonghuInfo.text("支持中文、字母、数字、'-'、'_'的组合，4-20个字符");
+                cymYonghuInfo.text("支持中文、字母、数字、'-'、'_'的组合，20个字符内");
                 cymYonghuBox.css("display", "block");
                 cymYonghuInput.css("border", "1px solid #ff4012");
                 return false;
@@ -284,8 +284,8 @@ $(function () {
                 cymYonghuBox.css("display", "block");
                 cymYonghuInput.css("border", "1px solid #ff4012");
                 return false;
-            }else if (yonghuNameLength > 20 || yonghuNameLength < 4){
-                cymYonghuInfo.text("长度只能在4-20个字符之间");
+            }else if (yonghuNameLength > 20 || yonghuNameLength < 1){
+                cymYonghuInfo.text("长度只能在20个字符之内");
                 cymYonghuBox.css("display", "block");
                 cymYonghuInput.css("border", "1px solid #ff4012");
                 return false;
@@ -410,8 +410,8 @@ $(function () {
         cymYonghuInput.blur(function () {
             if(nickNameReg.test(cymYonghuInput.val())==true){
                 var yonghuNameLength = nickName();
-                if (yonghuNameLength > 20 || yonghuNameLength < 4) {
-                    cymYonghuInfo.text("长度只能在4-20个字符之间");
+                if (yonghuNameLength > 20 || yonghuNameLength < 1) {
+                    cymYonghuInfo.text("长度只能在20个字符之内");
                     cymYonghuBox.css("display", "block");
                     $(this).css("border", "1px solid #ff4012");
                 } else if(numberReg.test(cymYonghuInput.val())){
@@ -435,7 +435,7 @@ $(function () {
                 }
             }else{
                 if(cymYonghuInput.val()==""){
-                    cymYonghuInfo.text("支持中文、字母、数字、'-'、'_'的组合，4-20个字符");
+                    cymYonghuInfo.text("支持中文、字母、数字、'-'、'_'的组合，20个字符内");
                     cymYonghuBox.css("display", "block");
                     $(this).css("border", "1px solid #ff4012");
                 }else if(!nickNameReg.test(cymYonghuInput.val())){
