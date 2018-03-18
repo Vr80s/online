@@ -111,13 +111,13 @@
                     </td>
                 	<td style="display:none">
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="search_orderNo" name="search_orderNo" class="propertyValue1"  placeholder = "订单号关键字" maxlength="30"/>
+                            <input type="text"   id="search_orderNo" name="search_orderNo" class="propertyValue1"  placeholder = "订单号" maxlength="30"/>
                             <input type="hidden" value="search_orderNo" class="propertyName"/>
                         </div>
                     </td>
                 	<td style="display:none">
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="search_createPersonName" name="search_createPersonName" class="propertyValue1"  placeholder = "购买者关键字" maxlength="30"/>
+                            <input type="text"   id="search_createPersonName" name="search_createPersonName" class="propertyValue1"  placeholder = "购买者帐号" maxlength="30"/>
                             <input type="hidden" value="search_createPersonName" class="propertyName"/>
                         </div>
                     </td>
