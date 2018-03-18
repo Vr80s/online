@@ -992,6 +992,9 @@ public class BrowserUserController {
 	@ResponseBody
 	public ResponseObject checkToken(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String token = req.getParameter("token");
+		
+		
+		System.out.println();
 		if(null == token){
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}

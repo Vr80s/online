@@ -219,6 +219,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         return  cours;
     }
 
+    @Deprecated
 	@Override
 	public ModelAndView livepage
 		(String courseId, String roomId, String planId,HttpServletRequest request,HttpServletResponse response) {

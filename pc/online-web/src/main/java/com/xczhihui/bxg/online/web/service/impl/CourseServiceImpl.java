@@ -333,33 +333,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		return coursedao.findCourseOrderById(courseId);
 	}
 
-	@Override
-	public String getCoursesPage(Integer courseId) {
-        CourseVo cv = coursedao.findCourseOrderById(courseId);
-		if(cv==null) {
-            return "";
-        }
-		if(cv.getType()== CourseForm.LIVE.getCode()){
-			if(cv.isFree()){
-				return "freeOpenCourseDetailPage.html";//免费直播
-			}else{
-				return "payOpenCourseDetailPage.html";//付费直播
-			}
-		}else if(cv.getType()== CourseForm.VOD.getCode()){
-		    if(cv.isFree()){
-				return "freeCourseDetailPage.html";//免费直播
-			}else{
-				return "payCourseDetailPage.html";//付费直播
-			}
-		}else{
-            if(cv.isFree()){
-                return "freeRealCourseDetailPage.html";//免费直播
-            }else{
-                return "payRealCourseDetailPage.html";//付费直播
-            }
-        }
-	}
-	
+
 	 @Override
 	 public  Page<Criticize>  findUserCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
 	      return  coursedao.findUserCriticize(courseId, pageNumber,  pageSize);
