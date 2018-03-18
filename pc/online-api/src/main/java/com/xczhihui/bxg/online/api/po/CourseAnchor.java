@@ -55,6 +55,17 @@ public class CourseAnchor implements java.io.Serializable {
 
 	private Integer isRecommend;
 
+	private  int courseCount;
+
+	@Transient
+	public int getCourseCount() {
+		return courseCount;
+	}
+
+	public void setCourseCount(int courseCount) {
+		this.courseCount = courseCount;
+	}
+
 	@Column(name="is_recommend")
 	public Integer getIsRecommend() {
 		return isRecommend;

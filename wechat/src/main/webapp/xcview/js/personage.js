@@ -95,7 +95,7 @@ function userIndexCourseList(type,falg){
 					var obj = objList[int];
 					var watchStr ="";
 					var lineState = obj.lineState;
-					if(obj.watchState == 0){  // watchState ： 0 免费   1 收费  2 密码 
+					if(obj.watchState == 0){  // watchState ： 0 免费   1 付费  2 密码 
 						watchStr ="免费";
 					}else if(obj.watchState == 1){
 						watchStr ="￥"+obj.currentPrice;

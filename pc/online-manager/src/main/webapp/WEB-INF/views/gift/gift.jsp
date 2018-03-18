@@ -152,9 +152,9 @@
 					<button class="btn btn-sm btn-success add_bx" title="新增">
 						<i class="glyphicon glyphicon-plus"></i> 新增
 					</button>
-					<button class="btn btn-sm btn-success fencheng_bx" title="新增">
+					<%--<button class="btn btn-sm btn-success fencheng_bx" title="新增">
 						<i class="glyphicon glyphicon-plus"></i> 分成设置
-					</button>
+					</button>--%>
 					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
