@@ -14,8 +14,8 @@
 		  where of.user_id = #{userId} and  ou.status = 1  and ou.deleted =0  )
 		 UNION ALL   
 		  ( select count(*) from oe_criticize cc  
-		  	inner join course_anchor as ou on cc.user_id =ou.user_id
-		  	where cc.user_id = #{userId}  and ou.status = 1  and ou.deleted =0 
+		  	inner join course_anchor as ou on cc.user_id =ou.user_id 
+		  	where cc.user_id = #{userId} and cc.create_person is not null and ou.status = 1  and ou.deleted =0 
 		  ) 
 	</select>
 	
