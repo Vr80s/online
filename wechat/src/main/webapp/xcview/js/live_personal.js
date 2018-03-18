@@ -8,6 +8,8 @@ var smallImgPath = "";
 var description= "";
 
 var is_watchState="";
+var is_lineState="";
+
 /**
  * videoId : 视频播放id
  * multimediaType:媒体类型  视频 1 音频 2  
@@ -490,24 +492,27 @@ var falg =authenticationCooKie();
 	
 function go_play(t){
 	var data_id=$(t).attr("data-play");
-	console.log(data_id)
-	if (falg==1002){
-			var falg =authenticationCooKie();
+	 requestService("/xczh/course/details?courseId="+data_id,null,function(data) {
+	 var userPlay=data.resultObject;
+		if (falg==1002){
 			location.href ="/xcview/html/enter.html";	
 		}else if (falg==1005) {
-			var falg =authenticationCooKie();
 			location.href ="/xcview/html/evpi.html";
 		}else{
-			if(is_watchState==2 || is_watchState==3){
-			location.href ="details.html?courseId="+data_id;			
+			if(userPlay.watchState==2 || is_watchState==3 || userPlay.watchState==1){
+				if(userPlay.lineState==1 || userPlay.lineState==4){
+					location.href ="details.html?courseId="+data_id;
+				}	
+				else{
+				location.href ="school_play.html?course_id="+data_id;		
+				}
 			}
 			else{
 				location.href ="school_play.html?course_id="+data_id;		
 			}
-	}		
+		}		
+	})
 }
-
-
 function on_cc_h5player_init(){
 	var oV = document.getElementsByTagName('video')[0];
 	oV.setAttribute("x5-playsinline","");
