@@ -494,7 +494,7 @@ img {
 .report_right_read{
 	background: #fff;
     padding-bottom: 20px;
-    padding-top: 22px;
+    padding-top: 20px;
     min-height: 152px;
 }
 .report_right_read .name{
@@ -504,11 +504,11 @@ img {
 }
 .report_right_read ul li{
 	width: 280px;
-    margin: 0 auto;
-	margin-bottom: 12px;
+  margin: 0 auto;
+	margin-bottom: 18px;
 	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .report_right_read ul li a{
 	font-size: 14px;

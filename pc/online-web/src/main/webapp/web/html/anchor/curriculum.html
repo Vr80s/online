@@ -36,6 +36,9 @@
 	<link rel="stylesheet" href="/web/css/style.css"/>
 	<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
 	<link rel="stylesheet" href="/web/css/style.css" />
+	<link rel="stylesheet" href="/web/css/anchor/jedate.css?v=ipandatcm_1.2.1">
+	
+
 
 	<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
@@ -70,6 +73,12 @@
 	<!--修改点击切换隐藏第一二页-->
 	<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/web/js/swfobject.js"></script>
+	
+	<!--时间插件引入-->
+	<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
+	
+	
+	
 	<style type="text/css">
 		.fla_btn {
 			position: relative;
@@ -1690,14 +1699,17 @@
 						</div>
 						<div class="select live offline special">
 							<span><em>*</em>开课时间</span>
-							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择开课时间" readonly="readonly" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time" />
+							<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择开课时间" readonly="readonly" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time" />-->
+							<input type="text"  id="test04" readonly="readonly" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time">
 							<p class="warning warning_course_start_time hide">开课时间不能为空</p>
 							<p class="warning warning_course_time1 hide">开课时间应大于当前时间</p>
 						</div>
 
 						<div class="select offline special">
 							<span><em>*</em>结课时间</span>
-							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" readonly="readonly" class="select_time course_end_time" />
+							<input type="text"  id="test05" readonly="readonly" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time">
+							
+							<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" readonly="readonly" class="select_time course_end_time" />-->
 							<p class="warning warning_course_end_time hide">结课时间不能为空</p>
 							<p class="warning warning_course_time hide">结课时间应大于开课时间</p>
 						</div>
@@ -2707,6 +2719,26 @@
 //                $("#ccId").val($("#videoId").val());
             }
 		});
+		
+		//时间插件调用
+		var data = new Date();
+		var year = data.getFullYear();
+ 		var month = data.getMonth() + 1;
+ 		var day = data.getDate();
+
+		 $("#test04").jeDate({
+		 		
+		        format: "YYYY-MM-DD hh:mm",
+		        minDate: ""+year+"-"+month+"-"+day+" 10:00"
+		   });
+		   
+		    $("#test05").jeDate({
+		 		
+		        format: "YYYY-MM-DD hh:mm",
+		        minDate: ""+year+"-"+month+"-"+day+" 10:00"
+		   });
+		
+		
 	});
     var uploadfinished = false;
     // 加载上传flash ------------- start
@@ -2796,6 +2828,9 @@
 //        url = url + "&categoryid=DBBA248F23807F22";
         document.getElementById("uploadswf").start_upload(url); //	调用flash上传函数
     }
+    
+    
+    
 </script>
 </body>
 
