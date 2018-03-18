@@ -130,4 +130,28 @@ public interface ICourseService {
 	 * @Date: 2018/3/1 10:49
 	 **/
 	public List<CourseLecturVo> findLiveListInfo();
+
+	/**
+	 * 	
+	 * Description：用户当前课程状态   User current course status. 用户登录了  
+	 * @param courseId
+	 * @param id
+	 * @return
+	 * @return CourseLecturVo
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public CourseLecturVo selectUserCurrentCourseStatus(Integer courseId,
+			String id);
+
+	/**
+	 * 
+	 * Description：课程状态   User current course status. 用户没有登录  
+	 * @param courseId
+	 * @return
+	 * @return CourseLecturVo
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public CourseLecturVo selectCurrentCourseStatus(Integer courseId);
 }

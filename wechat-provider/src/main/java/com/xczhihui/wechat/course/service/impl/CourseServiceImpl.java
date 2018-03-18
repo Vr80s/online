@@ -28,33 +28,28 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	
 	@Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
-		// TODO Auto-generated method stub
 		List<CourseLecturVo> records = iCourseMapper.selectCoursePage(page);
 		return   page.setRecords(records);
 	}
 
 	@Override
 	public CourseLecturVo selectCourseDetailsById(Integer courseId) {
-		// TODO Auto-generated method stub
 		return iCourseMapper.selectCourseDetailsById(courseId);
 	}
 
 	@Override
 	public List<CourseLecturVo> selectLearningCourseListByUserId(String id) {
-		// TODO Auto-generated method stub
 		List<CourseLecturVo> listAll = iCourseMapper.selectLearningCourseListByUserId(id);
 		return listAll;
 	}
 	
 	@Override
     public Integer selectMyFreeCourseListCount(String id) {
-		// TODO Auto-generated method stub
 		return   iCourseMapper.selectMyFreeCourseListCount(id);
 	}
 	
 	@Override
     public Page<CourseLecturVo> selectMyFreeCourseList(Page<CourseLecturVo> page,String id) {
-		// TODO Auto-generated method stub
 		List<CourseLecturVo> records = iCourseMapper.selectMyFreeCourseList(page,id);
 		
 		return   page.setRecords(records);
@@ -104,7 +99,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public List<CourseLecturVo> selectUserConsoleCourseLiveByPage(
 			Page<CourseLecturVo> page, String userId) {
-		// TODO Auto-generated method stub
 //		List<CourseLecturVo> records = iCourseMapper.selectUserConsoleCourseLiveByPage(page,userId);
 //		page.setRecords(records);
 		return  iCourseMapper.selectUserConsoleCourseLiveByPage(page,userId);
@@ -118,6 +112,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public List<CourseLecturVo> findLiveListInfo() {
 		return iCourseMapper.findLiveListInfo();
+	}
+
+	@Override
+	public CourseLecturVo selectUserCurrentCourseStatus(Integer courseId,
+			String userId) {
+		return iCourseMapper.selectUserCurrentCourseStatus(courseId,userId);
+	}
+
+	@Override
+	public CourseLecturVo selectCurrentCourseStatus(Integer courseId) {
+		return iCourseMapper.selectCurrentCourseStatus(courseId);
 	}
 
 

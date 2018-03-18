@@ -35,7 +35,7 @@ function balance() {
     //判断是否为游客并跳转登录界面
     var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 				'<div class="both"></div>'+
-				'<img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" />'+
+				'<div style="border: 2px solid #fff;"><img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" /></div>'+
 				'<p class="p"><span onclick="go_enter_dl()">登录</span> / <span onclick="go_cnlogin_zc()">注册</span></p>';
 
 	if (falg==1002){
