@@ -6,6 +6,12 @@ var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
 var wwww1="";
+	function getQueryString(key){
+        var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
+        var result = window.location.search.substr(1).match(reg);
+        return result?decodeURIComponent(result[2]):null;
+      }
+	var name_title = getQueryString('name_title');
 $(function(){
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -16,6 +22,7 @@ function stripHTML(str){
  	 $(".select_icon").click(function(){
   		$(".bg_modal02").show();
 		$(".wrap_select_list").show();
+		sessionStorage.setItem("zhuanji",name_title)
  	 });
   	$(".bg_modal02").on('click',function(){
 		$(".bg_modal02").hide();
@@ -29,6 +36,8 @@ function stripHTML(str){
         	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('course_id');
+
+
     course_id = courseId;
     var collectionId = getQueryString('collection_id');
 //	获取默认第一个视频ID
@@ -66,8 +75,8 @@ function stripHTML(str){
         $(".all_returned_num span").html(data.resultObject.criticizeCount);
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
+		$("#wrap_playTime .title_name").html(name_title)
 
-		
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){
 			$(".no_data").show();
