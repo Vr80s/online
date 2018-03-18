@@ -72,7 +72,8 @@ public class GiftDao extends SimpleHibernateDao {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	public int findByUserId(String userId) {
-		String sql="select IFNULL(SUM(COUNT),0) from oe_gift_statement where receiver= \""+userId+"\"";
+		String sql="select count(value) from user_coin_increase  ucc INNER JOIN   oe_gift_statement ogs  "
+				+ " on ucc.order_no_gift = ogs.id where ucc.change_type = 3 and ogs.live_id ="+userId+" ";
 		return (int) this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(sql, Integer.class);
 	}
 

@@ -136,7 +136,7 @@ div.pinch-zoom,
     padding: 0.2rem 0;
 }
 .details_size .img0{
-	width: 0.8rem;
+	width: 0.74rem;
 	margin-top: 0.2rem;
 }
 .details_size .img1{
@@ -597,6 +597,9 @@ div.pinch-zoom,
 	color: #333333;
 	margin-bottom: 0.2rem;
     margin-top: 0.4rem;
+    overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .attention .main_title .p1 span{
 	font-size: 0.51rem;

@@ -275,7 +275,7 @@ if(is_weixn()){
 		 }
 		//发送到朋友
 		wx.onMenuShareAppMessage({
-		    title: shareType == 1 ? '中医好课程' + '《' + gradeName + '》' : '中医好主播' + '-' + gradeName, // 分享标题
+			  title :shareType == 1 ? '中医好课程：'  + gradeName  : '中医好主播：' + gradeName,/*分享标题(可选)*/
 		    desc: d1, // 分享描述
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
@@ -294,7 +294,7 @@ if(is_weixn()){
 		});
 		//发送到朋友圈
 		wx.onMenuShareTimeline({
-		    title:shareType == 1 ? '中医好课程' + '《' + gradeName + '》' : '中医好主播' + '-' + gradeName, // 分享标题
+			  title :shareType == 1 ? '中医好课程：'  + gradeName  : '中医好主播：' + gradeName,/*分享标题(可选)*/
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
 		    success: function () {

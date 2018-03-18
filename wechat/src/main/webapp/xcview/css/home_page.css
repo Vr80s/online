@@ -2052,6 +2052,7 @@ to {-webkit-transform: rotate(360deg);}
 	position: fixed;
 	bottom: 0;
 	z-index: 9999999999;
+	border-top: 1px solid #d8dde6;
 }
 .footer ul li{
 	width: 25%;
