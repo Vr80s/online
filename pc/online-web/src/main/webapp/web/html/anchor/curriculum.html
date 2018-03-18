@@ -2292,9 +2292,12 @@
 							<option value="4">音频</option>
 							<option value="3">线下</option>
 					</select>
-					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
+					<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">-->
+					<input type="text"  id="test06" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
 					至
-					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
+					<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">-->
+					<input type="text"  id="test07" readonly="readonly" placeholder="订单时间"  style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
+					
 					<button class="order_search_btn" onclick="searchCourseResiveList()">搜索</button>
 				</div>
 				<div class="kecheng_Resive_bottom">
@@ -2420,13 +2423,17 @@
 				<hr style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;">
 				<div class="gift_Resive_mid">
 					<input type="text" placeholder="课程名称" class="search_classIpt giftSearch_Name"/>
-					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_start_time">
+					<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_start_time">-->
+					<input type="text"  id="test08" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_start_time">
+					
 					至
-					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_end_time">
+					<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_end_time">-->
+					<input type="text"  id="test09" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_end_time">
+					
 					<button class="order_search_btn" onclick="searchgiftResiveList()">搜索</button>
 				</div>
 				<div class="gift_Resive_bottom">
-					<table>
+					<table class="hide">
 						<thead>
 							<tr>
 								<td>课程名称</td>
@@ -2450,6 +2457,9 @@
 							</tr>-->
 						</tbody>
 					</table>
+					
+					<!--礼物没有默认显示样式-->
+					<div id="noGiftList" class="hide" style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>
 					
 					<!--礼物收益分页-->
 					<div class="pages giftResive_pages">
@@ -2730,18 +2740,33 @@
  		var day = data.getDate();
 
 		 $("#test04").jeDate({
-		 		
 		        format: "YYYY-MM-DD hh:mm",
 		        minDate: ""+year+"-"+month+"-"+day+" 10:00"
 		   });
 		   
-		    $("#test05").jeDate({
-		 		
+		   $("#test05").jeDate({
 		        format: "YYYY-MM-DD hh:mm",
 		        minDate: ""+year+"-"+month+"-"+day+" 10:00"
 		   });
 		
-		
+		  $("#test06").jeDate({
+		        format: "YYYY-MM-DD hh:mm:ss"
+		   });
+	   
+	   
+	   $("#test07").jeDate({
+	        format: "YYYY-MM-DD hh:mm:ss"
+	   });
+	   
+	     $("#test08").jeDate({
+	        format: "YYYY-MM-DD hh:mm:ss"
+	   });
+	   
+		  $("#test09").jeDate({
+		        format: "YYYY-MM-DD hh:mm:ss"
+		   });
+	
+	
 	});
     var uploadfinished = false;
     // 加载上传flash ------------- start

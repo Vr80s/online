@@ -356,7 +356,12 @@ $(function(){
         
         //没事有搜索结果
         if(!data.resultObject || data.resultObject.records.length == 0 || !data.resultObject.records ){
-        	$('.gift_Resive_bottom').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>');
+        	$('.gift_Resive_bottom > table').addClass('hide');
+        	$('#noGiftList').removeClass('hide');
+//      	$('.gift_Resive_bottom').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>');
+        }else{
+        	$('#noGiftList').addClass('hide');
+        	$('.gift_Resive_bottom > table').removeClass('hide');
         }
         // debugger
         //每次请求完数据就去渲染分页部分
