@@ -517,7 +517,7 @@ $(function () {
         $(".form-login .cyinput1").blur(function () {
 //            var cymyLogin = document.getElementsByClassName("cymlogin")[0];
         	var cymyLogin = $(".cymlogin")[0];
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             if ($(".form-login .cyinput1").val().trim().length === 0) {
                 $(".cyinput1").css("border", "1px solid #ff4012");
@@ -564,7 +564,7 @@ $(function () {
         });
         $(".form-login .cyinput2").focus().blur();
         $(".form-login .cymyloginbutton").click(function (evt) { //登录验证
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             var passwordReg = /^(?!\s+)[\w\W]{6,18}$/;//密码格式验证
             $(".cyinput1").css("border", "");

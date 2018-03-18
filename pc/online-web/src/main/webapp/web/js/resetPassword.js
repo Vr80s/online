@@ -190,7 +190,7 @@ $(function(){
         var btn = this;
         var resetPhoneInput=$(".phoneNumberBox .resetusername");
         var tel = resetPhoneInput.val().trim();
-        var rel = /^1[3-578]\d{8,9}$/;
+        var rel = /^1[3-5678]\d{8,9}$/;
         var resetcode = $(".resetcode").val();
         //验证码
         var yzm=$(".resetImg").val().trim();
@@ -251,7 +251,7 @@ $(function(){
         resetPassVerfication();
     });
     $(".phoneNumberBox .nextStep").click(function () { //验证邮箱注册
-        var regPhone = /^1[3-578]\d{9}$/;
+        var regPhone = /^1[3-5678]\d{9}$/;
         var code1 = $(".resetcode").val().trim();
         var imgCode = $('.resetImg').val().trim();
         var resetuname=resetPhoneInput.val().trim();
@@ -517,7 +517,7 @@ $(function(){
         $(".phoneNumberBox .resetUsernameHit").css("display","none");
     });
     $(".phoneNumberBox .resetusername").blur(function () {
-        var regPhone = /^1[3-578]\d{9}$/;
+        var regPhone = /^1[3-5678]\d{9}$/;
         var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
         var resetuname=resetPhoneInput.val().trim();
         var cyResetPasswordhint = document.getElementsByClassName("cyResetPasswordhint")[0];
