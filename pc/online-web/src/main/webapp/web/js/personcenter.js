@@ -24,13 +24,13 @@ $(function() {
 				}));
 				if(window.localStorage.personcenter!=""&&window.localStorage.personcenter!="undefined") {
 					$(".personcenterPage .left-nav ." + window.localStorage.personcenter).click();
-					document.title = $(".left-nav ." + window.localStorage.personcenter).text() + " - 熊猫中医云课堂";
+					document.title = $(".left-nav ." + window.localStorage.personcenter).text() + " - 熊猫中医学堂";
 				} else {
 					//先打开课程
 					$(".left-nav .mynews").parent().addClass("selected");
 					$(".left-nav .mynews").parent().find(".yes-click").show();
 					$(".left-nav .mynews").parent().find(".not-click").hide();
-					document.title = "我的消息" + " - 熊猫中医云课堂";
+					document.title = "我的消息" + " - 熊猫中医学堂";
 					$(".my-personcenter-nav-2 a").text("我的消息");
 					$(".view-content-content").empty();
 					$(".personcenterPage .left-nav .mynews").click();
@@ -193,7 +193,7 @@ $(function() {
 			if(evt.target.tagName !== "A") {
 				return;
 			}
-			document.title = $(".left-nav ." + window.localStorage.personcenter).text() + " - 熊猫中医云课堂";
+			document.title = $(".left-nav ." + window.localStorage.personcenter).text() + " - 熊猫中医学堂";
 			$(".view-content-notbodys").html("");
 			$(".left-nav ul li").removeClass("selected");
 			var li = $(evt.target).parent();

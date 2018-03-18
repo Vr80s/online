@@ -78,7 +78,7 @@ public class CourseVo{
     private String bigImgPath;
 
     /**
-     * 云课堂链接
+     * 学堂链接
      */
     private String cloudClassroom;
 
