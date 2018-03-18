@@ -96,7 +96,7 @@ requestService("/xczh/host/hostPageInfo",{
 		}
 
 	}
-	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
+    $(".all_returned_num span").html(data.resultObject.criticizeCount);
 //	直播头像/主播名字
 	$(".personal_bg").html(template('personal_header',data.resultObject));
 //<!--主播名字/粉丝数量-->
@@ -422,6 +422,9 @@ var falg =authenticationCooKie();
                 $(".bg_modal").hide();
                 document.getElementById("comment_detailed").value="";
                 refresh();
+                //评论数加1
+                var cc = $('#criticizeCount').text();
+                $('#criticizeCount').text(parseInt(cc)+1);
 
             }else{
                 webToast("评论失败","middle",1500);
@@ -465,6 +468,9 @@ var falg =authenticationCooKie();
                 $(".wrapLittle_comment").hide();
                 document.getElementById("littlt_return").value="";
                 refresh();
+                //评论数加1
+                var cc = $('#criticizeCount').text();
+                $('#criticizeCount').text(parseInt(cc)+1);
             }else {
                 webToast("回复失败","middle",1500);
             }
