@@ -112,11 +112,11 @@
 		
 		
 		if(oc.type=1,ifnull(( select count(*) from oe_focus of 
-		     inner join course_anchor as ou on of.user_id = ou.user_id
+		     inner join course_anchor as ou on of.lecturer_id = ou.user_id
 		     where of.lecturer_id = oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0),0),0) as fansCount,
 		
 	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of 
-	    	 inner join course_anchor as ou on of.lecturer_id = ou.user_id
+	    	 inner join course_anchor as ou on of.user_id = ou.user_id
 			 where of.user_id =oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0 ),0),0) as focusCount,
 		
 		oc.course_length as courseLength,

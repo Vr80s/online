@@ -265,10 +265,11 @@ pre:after {
 		
 		//给这个省市区下拉框增加 默认值，如果有的情况下
 		
-		var pervinceValue = localStorage.getItem("province");
-		var cityValue = localStorage.getItem("city");
-		var disValue = localStorage.getItem("district");
+		//countyName  cityName     provinceName
 		
+		var pervinceValue = localStorage.getItem("regionAreaId");
+		var cityValue = localStorage.getItem("regionCityId");
+		var disValue = localStorage.getItem("regionId");
 		
 		
 		function countMin(){
@@ -288,12 +289,10 @@ pre:after {
 		},2000)
 		
 		
-		
 		var showCityPicker = document.getElementById('showCityPicker');
 		var cityResult = document.getElementById('xzdz');
 		showCityPicker.addEventListener('tap', function(event) {
 			picker.show(function(items) {
-				
 				var citysNames = "";
 				var citysIds ="";
 				for (var int = 0; int < items.length; int++) {
@@ -305,7 +304,6 @@ pre:after {
 						citysIds +=items[int].value +" ";
 					}
 				}
-				
 				if(items.length>=2){
 					picker.pickers[0].setSelectedValue(items[0].value);
 					picker.pickers[1].setSelectedValue(items[1].value);
