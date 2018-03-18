@@ -137,6 +137,9 @@ $('.select-udss .classResive').click(function(event){
 	event.stopPropagation(); // 阻止事件冒泡
 	localStorage.AnchorsTbl_myResive = 'classResive';
 	getCourseResiveList (1);
+	$('#test06').val('');
+	$('#test07').val('');
+	
 })
 
 //礼物收益点击
@@ -152,6 +155,8 @@ $('.select-udss .giftResive').click(function(event){
 	event.stopPropagation(); // 阻止事件冒泡
 	localStorage.AnchorsTbl_myResive = 'giftResive';
 	getGiftResiveList (1);
+	$('#test08').val('');
+	$('#test09').val('');
 })
 	
 	
