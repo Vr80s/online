@@ -4,6 +4,11 @@ var my_impression3="";
 var course_id ="";
 var criticize_id = "";
 var LecturerId="";
+
+var gradeName = "";
+var smallImgPath = "";
+var description= "";
+
 $(function(){
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;

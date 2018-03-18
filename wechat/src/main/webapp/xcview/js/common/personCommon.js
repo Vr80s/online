@@ -91,7 +91,7 @@ function setuserInfoWechat(saveFalg){
 	  var falg = true;
 	
 	  var nickname = "";  var sex  = ""; var email = "";  var provinceCityName = "";
-	  var info = "";var occupation = ""; var  occupationOther = "";
+	  var info = "";var occupation = ""; var  occupationOther = ""; var regionId ="";
 	  if(saveFalg == "nickname"){
 		  nickname =  $("#form input[name='nickname']").val();
 	  }else if(saveFalg == "sex"){
@@ -100,6 +100,7 @@ function setuserInfoWechat(saveFalg){
 		  email = $("#form input[name='email']").val();
 	  }else  if(saveFalg == "provinceCityName"){
 		  provinceCityName  =  $("#xzdz").html();
+		  regionId  =  $("#xzdz").attr("class");
 	  }else  if(saveFalg == "info"){
 		  info = $("#info").val().trim();
 	  }else if(saveFalg == "occupation"){
@@ -114,6 +115,8 @@ function setuserInfoWechat(saveFalg){
 		  sex:stringnull(sex) ? sex : "",
 		  email:stringnull(email) ? email : "",
           provinceName:stringnull(provinceCityName) ? provinceCityName : "",
+          regionId:stringnull(regionId) ? regionId : "",		  
+         		  
 		  info:stringnull(info) ? info : "",
 	      occupation:stringnull(occupation) ? occupation : "",
 	      occupationOther:stringnull(occupationOther) ? occupationOther : ""
@@ -136,17 +139,20 @@ function setuserInfoWechat(saveFalg){
 				$("#person_five").html(result.email);
 				localStorage.setItem("email",result.email);
 			}
+			
+			
+
 			if(stringnull(result.provinceName)){
 				localStorage.setItem("provinceName",result.provinceName);
-				localStorage.setItem("province",result.province);
+				localStorage.setItem("regionAreaId",result.regionAreaId);
 			}
 			if(stringnull(result.cityName)){
 				localStorage.setItem("cityName",result.cityName);
-				localStorage.setItem("city",result.city);
+				localStorage.setItem("regionCityId",result.regionCityId);
 			}
 			if(stringnull(result.countyName)){
 				localStorage.setItem("countyName",result.countyName);
-				localStorage.setItem("district",result.district);
+				localStorage.setItem("regionId",result.regionId);
 			}
 			
 			if(stringnull(result.info)){
