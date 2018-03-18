@@ -471,6 +471,7 @@ margin-top: 0.1rem;
 	border-radius: 0.04rem;
 	margin-top: 0.2rem;
 	box-sizing: border-box;
+	overflow: hidden;
 }
 .returned_id{
 color: #666666;
@@ -510,9 +511,12 @@ color: #666666;
 	line-height: 0.32rem;
 	color: #F97B49;
 	border: 1px solid #F97B49;
-	font-size: 0.25rem;
 	margin-top: 0.1rem;
 	border-radius: 4px;
+}
+.wrap_purchaser p{
+	
+	font-size: 0.22rem !important;
 }
 /*无评论时显示图片*/
 .quie_pic{
@@ -580,9 +584,9 @@ color: #666666;
 	display: inline-block;
 }
 .all_returned_num p{
-	color: #ddd;
+	color: #999;
 	font-size: 0.24rem;
-	margin-top: -0.1rem;
+	/*margin-top: -0.1rem;*/
 	overflow: hidden;
  text-overflow: ellipsis;
  white-space: nowrap;
