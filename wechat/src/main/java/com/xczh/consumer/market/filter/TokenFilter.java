@@ -216,7 +216,6 @@ public class TokenFilter implements Filter {
 				//转发的url
 				String forwardUrl = "/xczh/common/verifyLoginStatus";
 				
-				
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
 		    		/*
@@ -263,7 +262,6 @@ public class TokenFilter implements Filter {
 		    		tfParams ="&openId="+tf.getOpenId()+"&unionId="+tf.getUnionId();
 		    	}
 		    	if(isAjax){ //?
-		    		
 		    		System.out.println("forwardUrl"+forwardUrl+"?statusFalg="+statusFalg+tfParams);
     				req.getRequestDispatcher(forwardUrl+"?statusFalg="+statusFalg+tfParams).forward(request,response);
     			}else{

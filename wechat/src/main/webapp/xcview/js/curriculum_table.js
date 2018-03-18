@@ -205,7 +205,6 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 			}
 		}
 	    if(!falg){
-	    	
 	    	if("全国课程" != city){
 	    	    saisuanstr +="其他-";
 	    	    $(".all_right_type_twos").find(".all_right_type_one").each(function(){

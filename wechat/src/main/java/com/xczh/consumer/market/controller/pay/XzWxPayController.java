@@ -219,8 +219,9 @@ public class XzWxPayController {
 		/**
 		 * 判断此请求来时h5呢，还是微信公众号，还是app
 		 */
+		
 		String spbill_create_ip =WxPayConst.server_ip;;
-		if(clientType == 2 || clientType == 3){
+		if(clientType == 4 || clientType == 5){
 			spbill_create_ip =getIpAddress(req);
 		}
 		String tradeType = null; //公众号
@@ -233,10 +234,10 @@ public class XzWxPayController {
 			orderFrom = 3;
 		}else if(clientType == 4){
 			tradeType =PayInfo.TRADE_TYPE_H5;
-			orderFrom = 2;
+			orderFrom = 4;
 		}else if(clientType == 5){
 			tradeType =PayInfo.TRADE_TYPE_APP;
-			orderFrom = 2;
+			orderFrom = 5;
 		}
 		// TODO
 		/*

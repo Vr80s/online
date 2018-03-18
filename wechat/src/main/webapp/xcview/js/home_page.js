@@ -222,7 +222,8 @@ function lineWork(){
 //			if(all_class=='全国课程'){
 //				all_class='';
 //			}
-        window.location.href="/xcview/html/curriculum_table.html?city="+all_class+"";
+        
+        window.location.href="/xcview/html/curriculum_table.html?city="+all_class.trim()+"";
     })
 
 }
