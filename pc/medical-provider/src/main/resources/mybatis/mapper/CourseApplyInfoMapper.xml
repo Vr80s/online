@@ -46,7 +46,7 @@
 		<if test="title != null and title!=''">
 			AND cai.`title` like concat('%',#{title},'%')
 		</if>
-		ORDER BY convert(cai.`title` using gbk) ASC
+		ORDER BY cai.`create_time` DESC
 	</select>
 
 	<select id="selectCollectionApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
