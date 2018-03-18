@@ -377,19 +377,9 @@ $(function() {
 			$(".headerBody .rightT i").html("暂无讲师");
 		}
 		menuid = data.resultObject.menu_id;
-		var page="";
-		if(data.resultObject.coursePwd==1){
-			page="encryptCourseDetailPage";
-		}else if(data.resultObject.free == true){
-			page="freeCourseDetailPage";
-		}else{
-			page="payCourseDetailPage";
-		}
-		
+
 		var host = window.location.host;
-	    //var host2 = document.domain; 
-		//alert("host:"+host+"host2:"+host2);
-		
+
 		var weboshare_url="http://"+host+"/course/courses/"+courseId;
 		
 		/**
@@ -1487,7 +1477,7 @@ $(function() {
 		$(".backgrounds2").addClass("hide");
 	});
 	$(".videomodal1 .buy").click(function() {
-		window.location.href = "/web/html/payCourseDetailPage.html?id=" + courseId + "&courseType=1&free=0";
+		window.location.href = "/course/courses/" + courseId;
 	});
 	//点击返回列表
 	$(".goup").click(function() {

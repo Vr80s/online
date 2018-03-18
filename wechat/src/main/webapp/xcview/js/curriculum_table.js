@@ -40,12 +40,12 @@ var cityTypeArray = new Array();
 /**
  * 默认搜索条件
  */
-var defaultKey = localStorage.getItem("defaultKey");
-if(stringnull(defaultKey)){
-//	$(".header_seek_main img").html(defaultKey);
-	$(".header_seek_main span").html(defaultKey);
-//	$(".span_hide").hide();
-}
+//var defaultKey = localStorage.getItem("defaultKey");
+//if(stringnull(defaultKey)){
+////	$(".header_seek_main img").html(defaultKey);
+////	$(".header_seek_main span").html(defaultKey);
+////	$(".span_hide").hide();
+//}
 /*
  * 点击进入搜索页面
  */
@@ -398,9 +398,9 @@ function queryDataByParams(params,data_type){
 					
 					var isFreeStr ="";
 					if(item.watchState == 1){
-						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;font-size: 0.2rem;'><span>免费</span></p>";
+						isFreeStr+="<p class='p0' style='margin-top: 0rem;font-size: 0.2rem;'><span style='margin-top: 0rem;margin-top: -0.11rem;display: block;'>免费</span></p>";
 					}else if(item.watchState == 0){
-						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;font-size: 0.2rem;'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
+						isFreeStr+="<p class='p0' style='margin-top: -0.02rem;font-size: 0.2rem;'><span style='display: block;float: left;margin-top: -0.09rem;'>"+item.currentPrice+"</span><span class='span' style='display: block;float: left;margin-top: -0.09rem;'>熊猫币</span></p>";
 					}
 					var typeStr="";
 					if(item.type ==3){

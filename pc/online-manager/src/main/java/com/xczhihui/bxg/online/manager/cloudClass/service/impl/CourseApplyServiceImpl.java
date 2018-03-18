@@ -10,6 +10,8 @@ import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.CourseDismissal;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.online.manager.anchor.service.AnchorService;
+import com.xczhihui.bxg.online.manager.anchor.service.impl.CourseAnchorServiceImpl;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseApplyDao;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
@@ -41,6 +43,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
     private CourseService courseService;
     @Autowired
     private OnlineUserService onlineUserService;
+    @Autowired
+    private AnchorService anchorService;
 	@Value("${LIVE_VHALL_USER_ID}")
 	private String liveVhallUserId;
 	@Value("${vhall_callback_url}")
@@ -262,7 +266,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 
 	private Course saveCourseApply2course(CourseApplyInfo courseApply) {
 		courseService.checkName(null,courseApply.getTitle());
-		// TODO Auto-generated method stub
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql="SELECT IFNULL(MAX(sort),0) as sort FROM oe_course ";
 		List<Course> temp = dao.findEntitiesByJdbc(Course.class, sql, params);
@@ -373,7 +376,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		String start_time = start.getTime() + "";
 		start_time = start_time.substring(0, start_time.length() - 3);
 		webinar.setStart_time(start_time);
-		webinar.setHost(entity.getLecturer());
+		CourseAnchor courseAnchor = anchorService.findCourseAnchorByUserId(entity.getUserLecturerId());
+		webinar.setHost(courseAnchor.getName());
 		Integer directSeeding = entity.getDirectSeeding();
 		if(directSeeding==null){
 			directSeeding = 3;

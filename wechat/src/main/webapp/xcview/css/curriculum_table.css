@@ -307,8 +307,9 @@ header{
     /* line-height: 0.2rem !important; */
     /*line-height: 0.3rem !important;*/
     margin-right: 0.1rem;
+	
 	height: 0.5rem;
-    /* line-height: 2rem; */
+    line-height: 0.5rem;
     margin-top: -0.02rem;
 }
 .li_list_one_right .div .p0 span{

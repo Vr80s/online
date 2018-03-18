@@ -126,7 +126,7 @@ $.getUrlParam = function(name) {
 	'</div>';
 	var mycourse_xianxia = '<div class="box clearfix">' +
 	'{{each items as $value i }}' +
-	'<div class="course" data-url="/web/html/payRealCourseDetailPage.html?id={{$value.id}}">' +
+	'<div class="course" data-url="/course/courses/{{$value.id}}">' +
 	'<a href="/course/courses/{{$value.id}}"   data-videoId="{{$value.id}}">' +
 	'{{#hasImg($value.smallImgPath)}}' +
 	'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +

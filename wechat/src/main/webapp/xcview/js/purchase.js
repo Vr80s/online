@@ -205,10 +205,10 @@ function  goPay() {
  		
     }else if(payType==3){ //微信支付
         var openId=   localStorage.getItem("openid");
-        var orderForm = 2;
+        var orderForm = 3;
         if(is_weixn()){
             orderForm=3;
-        }else if(btype=='brower'){ //h5
+        }else{ //h5
             orderForm=4
         }
         var strparam = "orderFrom="+orderForm+"&orderId="+getQueryString("orderId");

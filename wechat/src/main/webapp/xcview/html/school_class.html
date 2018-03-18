@@ -272,48 +272,58 @@
 					
 			<!--底部购买价格-->
 			<div class="bot_price">
-				{{if cutoff == 0}}
-					{{if watchState==0}}
+				{{if currentPrice>0}}
 					<a class="left_price z" href="javascript:;">
 						<p><span>{{currentPrice}}</span>熊猫币</p>
 					</a>
+					{{else}}
+					<a class="left_price z" href="javascript:;">
+						<p><span>免费</span></p>
+					</a>
+				{{/if}}
+				{{if cutoff == 0}}
+					
+					{{if watchState==0}}
+					<!--<a class="left_price z" href="javascript:;">
+						<p><span>{{currentPrice}}</span>熊猫币</p>
+					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="0">
 						购买
 					</a>
 					{{else if watchState==1}}
-					<a class="left_price z" href="javascript:;">
+					<!--<a class="left_price z" href="javascript:;">
 						<p><span>免费</span></p>
-					</a>
+					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="1">
 						立即报名
 					</a>
 					{{else if watchState==2 || watchState==3}}
-					<a class="left_price z" href="javascript:;">
+					<!--<a class="left_price z" href="javascript:;">
 						<p><span>{{currentPrice}}</span>熊猫币</p>
-					</a>
+					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="2">
 						立即查看
 					</a>				
 					{{/if}}
 				{{else}}
 					{{if watchState==0}}
-					<a class="left_price z" href="javascript:;">
+					<!--<a class="left_price z" href="javascript:;">
 						<p><span>{{currentPrice}}</span>熊猫币</p>
-					</a>
+					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" style="background: #b1b1b1;">
 						已结束报名
 					</a>
 					{{else if watchState==1}}
-					<a class="left_price z" href="javascript:;">
+					<!--<a class="left_price z" href="javascript:;">
 						<p><span>免费</span></p>
-					</a>
+					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" style="background: #b1b1b1;">
 						已结束报名
 					</a>
 					{{else if watchState==2 || watchState==3}}
-					<a class="left_price z" href="javascript:;">
+					<!--<a class="left_price z" href="javascript:;">
 						<p><span>{{currentPrice}}</span>熊猫币</p>
-					</a>
+					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" style="background: #b1b1b1;">
 						已结束报名
 					</a>

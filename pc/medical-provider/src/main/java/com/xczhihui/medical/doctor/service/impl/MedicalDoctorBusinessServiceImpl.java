@@ -81,7 +81,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Override
     public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field, String departmentId) {
         List<MedicalDoctorVO> records = null;
-        if(page.getSize()==4){
+        if(page.getSize()==4&&StringUtils.isBlank(hospitalId)){
             int unRecommendCount = medicalDoctorMapper.selectDoctorListCount(type);
             int recommendCount = medicalDoctorMapper.selectDoctorRecommendListCount(type);
 

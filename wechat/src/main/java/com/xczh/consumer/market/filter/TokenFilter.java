@@ -223,8 +223,6 @@ public class TokenFilter implements Filter {
 		    		 * 是不是需要传递一个token过来啊。然后判断这个token是否
 		    		 */
 		    		chain.doFilter(request, response);
-		    		
-		    		System.out.println("================================chain.doFilter");
 		    		return;
 		    	}else if(session !=null){
 					/**
@@ -248,7 +246,6 @@ public class TokenFilter implements Filter {
 		    		statusFalg = 1002;
 		    		redirectUrl = request.getContextPath() + "/xcview/html/enter.html";
 		    	}  
-		    	System.out.println("================================chain.doFilter11111111111111111111");
 //		        1002  token过期  --去登录页面
 //		        1003      其他设备登录
 // 				1005  token过期  --去完善信息页面

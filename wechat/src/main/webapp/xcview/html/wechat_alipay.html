@@ -70,7 +70,6 @@
         var type = getQueryString("type");
  
 		var outTradeNo="";
-    
   	 	if(is_weixn()){   //在微信浏览器内部时 ，进行轮询 
        		//轮循查看订单是否已支付 跳转 redirectUrl
        		
@@ -95,15 +94,19 @@ function whileSelectOrderStatus(){
 			 if (data.success) {
 	             var result = data.resultObject;
 	             if(result.orderStatus==1){ //
-	                 location.href=""+getQueryString("redirectUrl")+"";
+	                // location.href=""+getQueryString("redirectUrl")+"";
+	                 
+	                 location.replace(""+getQueryString("redirectUrl")+"");
 	             }
 	         }
 		},false)
 	}else{
 		requestService("/xczh/alipay/queryAlipayByOutTradeNo",{outTradeNo:getQueryString("outTradeNo")}, function(data) {
 			 if (data.success) {
-	            location.href=""+getQueryString("redirectUrl")+"&xmbCount="+getQueryString("xmbCount")+"";
-	         }
+	            //location.href=""+getQueryString("redirectUrl")+"&xmbCount="+getQueryString("xmbCount")+"";
+	            location.replace(""+getQueryString("redirectUrl")+"&xmbCount="+getQueryString("xmbCount")+"");
+			 
+			 }
 		},false)
 	}
 }
