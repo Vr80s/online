@@ -5,6 +5,11 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
+
+var select_jump_id="";
+var select_directId="";
+var select_collectionId="";
+var name_title="";
 $(function(){
 	function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -35,6 +40,7 @@ $(function(){
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
        	$(".all_returned_num span").html(data.resultObject.criticizeCount);
+       	name_title=$(".speak_title").text()
 		
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
@@ -102,21 +108,26 @@ var course='';
 	requestService("/xczh/course/getCoursesByCollectionId",{
 		collectionId : courseId	
 	},function(data) {
-		
+
 		if(data.success && data.resultObject.length>0){
 			for(var i in data.resultObject){
+				select_id=data.resultObject[i].id;
+				select_directId=data.resultObject[i].directId;
 				data.resultObject[i].collectionId=courseId;
 			}
-			course=data.resultObject[0];	
-			$("#select_album").html(template('data_select_album',{items:data.resultObject}));
+			course=data.resultObject[0];
+			$("#select_album").html(template('data_select_album',{items:data.resultObject}));		
 		}
 	})
 //点击视频默认第一个视频ID
+		
 	function btn_album_page(){
-		window.location.href="live_album.html?course_id="+courseId+"&direct_id="+course.directId+"&collection_id="+courseId;
+		window.location.href="live_album.html?course_id="+courseId+"&direct_id="+course.directId+"&collection_id="+courseId+"&name_title="+name_title;
 	}
-
-//刷新评论列表
+//选集视频跳转
+function jump_album_my(){
+		window.location.href="live_album.html?course_id="+select_id+"&direct_id="+select_directId+"&collection_id="+courseId+"&name_title="+name_title;	
+}
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
