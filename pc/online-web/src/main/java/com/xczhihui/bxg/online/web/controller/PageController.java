@@ -93,7 +93,7 @@ public class PageController {
     @RequestMapping(value = "/livepage/{courseId}/{roomId}/{planId}",method= RequestMethod.GET)
     public ModelAndView livepage(@PathVariable String courseId,@PathVariable String roomId,
     		@PathVariable String planId,HttpServletRequest request,HttpServletResponse response){
-        ModelAndView mv = liveService.livepage(courseId, roomId, planId,request,response);
+        ModelAndView mv = liveService.livepage(courseId, request,response);
         return mv;
     }
 
