@@ -164,12 +164,14 @@ function lineWork(){
     requestService("/xczh/bunch/offLine",null,
         function(data) {
             if(data.success){
-                //各省城市                                                        											//跟参数
+                //各省城市        //跟参数
+                
+                if(data.resultObject.cityList.records.length==0 || data.resultObject.cityList.records==null){
+                	$("#swiper1").hide()
+                }else{
                 $("#xx_slide_one").html(template('xx_nav_list',{items:data.resultObject.cityList.records}))
-                
-                
-                
-                
+                	
+                }
                 //线下课程
                 $(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))
                 //swiper轮播开始
