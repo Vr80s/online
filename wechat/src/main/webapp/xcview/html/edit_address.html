@@ -18,7 +18,7 @@
 
 
 
-<script src="/xcview/js/common/js.js"></script>
+
 
 <link rel="stylesheet" href="/xcview/css/css.css">
 <link rel="stylesheet" href="/xcview/css/tailor.css">
@@ -228,7 +228,7 @@
 <script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
 
 <script type="text/javascript" src="/xcview/js/address.js"></script>  
-
+<script src="/xcview/js/common/js.js"></script>
 
 <script>
 /* 选择省市区插件    -- 初始化新增地址这个地方啦 */
@@ -236,8 +236,8 @@ function picker2() {
     //var nowValue = document.getElementById('nowValue');
     new Picker({
         "title": '请选择',//标题(可选)
-        "defaultValue": "北京市 北京市 东城区",//默认值-多个以空格分开（可选）
-        "type": 3,//需要联动级数[1、2、3]（可选）
+        "defaultValue": "北京市 北京市",//默认值-多个以空格分开（可选）
+        "type": 2,//需要联动级数[1、2、3]（可选）
         "data": cityData,//数据(必传)
         "keys": {
             "id": "Code",
