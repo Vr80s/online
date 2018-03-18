@@ -124,14 +124,14 @@ function createGiftList(gift) {
         }
         var str = "<div class='coze_cen_ri'> "+
 				"<div class='coze_cen_bg_ri'>"+
-					"<span class='span_name'>"+data.senderInfo.userName+"赠送给主播</span>1个<span style='color: #F97B49;'>"+data.giftInfo.name+"</span>"+
+					"<span class='span_name'>"+data.senderInfo.userName+"</span>赠送给主播1个<span style='color: #F97B49;'>"+data.giftInfo.name+"</span>"+
 				" </div> "+
 			    "<div class='both'></div></div>";
         
         //将礼物发送到
       var msg = null;
       msg = VHALL_SDK.sendChat({
-      	      text: data.giftInfo.continuousCount+data.giftInfo.name
+      	      text: "赠送给主播1个"+data.giftInfo.name+""
       });
       $("#chatmsg").append(str);
       // createGiftShow();
