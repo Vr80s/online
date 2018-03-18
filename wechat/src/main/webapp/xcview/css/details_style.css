@@ -181,7 +181,7 @@ div.pinch-zoom,
 	display: inline-block;
 	margin-left: 0.3rem;
 	color: #666;
-	margin-right: 0.3rem;
+	/*margin-right: 0.3rem;*/
 }
 .balance_size_span01{
 	display: inline-block;
@@ -347,7 +347,7 @@ div.pinch-zoom,
 	position: fixed; 
 	width: 100%; 
 	background: #fff; 
-	border-bottom: 1px solid #d2d2d2; 
+	border-bottom: 1px solid #f0f0f0; 
 	z-index: 9999;
 }
 #video{
@@ -379,10 +379,10 @@ div.pinch-zoom,
 	right: -3.5rem;
 }
 .give_a1 .give_a1_img{
-	margin-left: -2.8rem;
-	width: 1.2rem;
-	margin-top: 0.45rem;
-	display: block !important;
+	margin-left: -2.9rem;
+    width: 1.4rem;
+    margin-top: 0.4rem;
+    display: block !important;
 }
 .give_a01{
 	margin-left: -0.2rem;
@@ -405,7 +405,7 @@ div.pinch-zoom,
 .send_gifts .balance{
 	padding: 0;
     height: 2.085rem;
-    /*border-top: 1px solid #f0f0f0;*/
+    border-top: 1px solid #f0f0f0;
 }
 .send_gifts{
 	height: 11.234rem;
@@ -790,6 +790,7 @@ div.pinch-zoom,
     width: 1.4rem;
     height: 100%;
     text-align: center;
+    color: #999;
 }
 .send_gifts ul li a p{
 	font-size: 0.5rem !important;
@@ -919,6 +920,6 @@ div.pinch-zoom,
 /*直播结束查看回放*/
 
 .coze_bottom{
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #f0f0f0;
 }
 
