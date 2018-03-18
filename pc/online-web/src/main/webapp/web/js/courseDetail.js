@@ -309,6 +309,9 @@ window.onload = function() {
 								}, function(data) {
 									if(data.success == true) {
 										if(data.resultObject == "报名成功") {
+											if(courseDetail.type == 3){
+												window.location.reload();	
+											}
 											if(!collection) {
 												$(".sign-up-body,.gotengxun").css("display", "none");
 												$(".sign-up-success,.baomingSucces").css("display", "block");

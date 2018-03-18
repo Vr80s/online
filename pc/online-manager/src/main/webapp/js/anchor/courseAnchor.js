@@ -30,6 +30,7 @@ $(function() {
         {"title": "直播分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'liveDivide'},
         {"title": "线下课分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'offlineDivide'},
         {"title": "礼物分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'giftDivide'},
+        {"title": "课程数", "class": "center", "width": "8%", "sortable": false, "data": 'courseCount'},
         {"title": "主播权限", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.status){
                 return "已开启";

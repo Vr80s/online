@@ -65,10 +65,11 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
             // 获取主播的信息：分成比例
             CourseAnchor anchor = new CourseAnchor();
             anchor.setUserId(userId);
-            CourseAnchor target = anchorMapper.selectOne(anchor);
-
+//            CourseAnchor target = anchorMapper.selectOne(anchor);
+            String startTimeStr = start==null ? null:start.toString();
+            String endTimeStr = end==null ? null:end.toString();
             // 获取课程订单的订单号，课程名称，支付时间，支付用户，实际支付的价格
-            List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page, gradeName, start, end, courseForm, multimediaType);
+            List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page, gradeName, startTimeStr, endTimeStr, courseForm, multimediaType);
 
             // 根据课程id获取：苹果扣除的总数，分成比例，课程获得总熊猫币
 //            Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional = Optional.ofNullable(userCoinIncreaseVOList);

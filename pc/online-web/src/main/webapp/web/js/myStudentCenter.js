@@ -139,7 +139,7 @@ $.getUrlParam = function(name) {
 // 	'<div class="rangenum">' +
 //	'<span class="curr">{{$value.learndCount}}</span>/<span class="all">{{$value.count}}</span>' +
 	'</div>' +
-	'</div>' +
+//	'</div>' +
 	'</a>' +
 	'</div>' +
 	'{{/each}}' +

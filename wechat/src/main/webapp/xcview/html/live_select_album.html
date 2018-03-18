@@ -163,7 +163,8 @@
 				<script type="text/html" id="data_select_album">
 				{{each items as item i}}
 					<li>
-						<a href="live_album.html?course_id={{item.id}}&direct_id={{item.directId}}&collection_id={{item.collectionId}}"></a>
+						<!--<a href="live_album.html?course_id={{item.id}}&direct_id={{item.directId}}&collection_id={{item.collectionId}}"></a>-->
+							<a href="javascript:;" onclick="jump_album_my()"></a>
 						<div class="limit_play_img z">
 							<img src="../images/play_img.png"/>
 						</div>
@@ -451,7 +452,7 @@ $.fn.toggle = function( fn, fn2 ) {
 //			简介内容
 			$('.btn').prepend('<a href="#">展开全部</a>');
 			  $(".btn").toggle(function(){
-			    $(".btn a").html('点击隐藏');
+			    $(".btn a").html('点击收起');
 			    $(".wrap").removeClass("pp");
 			    $(".wrap").removeAttr("style");
 			    $(".zhezhao").hide();
@@ -468,7 +469,7 @@ $.fn.toggle = function( fn, fn2 ) {
 //			主讲人内容
 		  $('.btn1').prepend('<a href="#">展开全部</a>');
 			  $(".btn1").toggle(function(){
-			    $(".btn1 a").html('点击隐藏');
+			    $(".btn1 a").html('点击收起');
 			    $(".wrap1").removeClass("pp1");
 			    $(".wrap1").removeAttr("style");
 			    $(".zhezhao1").hide();
@@ -510,6 +511,8 @@ $.fn.toggle = function( fn, fn2 ) {
 				$(".weixin_ceng").hide();
 			});
 		};
+		
+
 	</script>
 	<!--点击分享结束-->
 </html>

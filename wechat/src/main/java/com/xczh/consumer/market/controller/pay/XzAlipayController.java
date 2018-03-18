@@ -831,7 +831,7 @@ public class XzAlipayController {
 						userCoinService.updateBalanceForRecharge(rechargeParamVo.getUserId(),
 								Payment.ALIPAY,rechargeParamVo.getValue(),
 								OrderFrom.valueOf(rechargeParamVo.getOrderForm()),
-								alipayPaymentRecordH5.getTradeNo());
+								alipayPaymentRecordH5.getOutTradeNo());
 						
 						
 						LOG.info("代币扣减成功："+rechargeParamVo.toString());

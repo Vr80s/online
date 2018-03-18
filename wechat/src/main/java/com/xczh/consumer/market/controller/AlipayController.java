@@ -962,7 +962,7 @@ public class AlipayController {
 						BigDecimal coin = new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount()) * rate);
 						// 执行代币充值工作
 
-						userCoinService.updateBalanceForRecharge(alipayPaymentRecordH5.getUserId(),Payment.ALIPAY,coin, OrderFrom.H5,alipayPaymentRecordH5.getTradeNo());
+						userCoinService.updateBalanceForRecharge(alipayPaymentRecordH5.getUserId(),Payment.ALIPAY,coin, OrderFrom.H5,alipayPaymentRecordH5.getOutTradeNo());
 						// 请不要修改或删除
 						response.getWriter().println("success");
 					}

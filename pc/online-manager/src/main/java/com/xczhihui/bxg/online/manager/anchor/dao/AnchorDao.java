@@ -40,6 +40,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				 "  ca.`offline_divide`,\n" +
 				 "  ca.`gift_divide`,\n" +
 				 "  ca.`is_recommend` isRecommend,\n" +
+				 " (SELECT count(*) from course_apply_info cai where cai.user_id=ca.user_id and cai.is_delete=0) as courseCount,"+
 				 "  ca.`status`  \n" +
 				 "FROM\n" +
 				 "  `course_anchor` ca \n" +
