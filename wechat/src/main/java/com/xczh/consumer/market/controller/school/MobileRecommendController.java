@@ -180,7 +180,7 @@ public class MobileRecommendController {
 	 * 可通过关键字  -- 关键字是全文匹配
 	 * 上面哪个是
 	 * 分类搜索
-	 * 是否收费
+	 * 是否付费
 	 * 类型
 	 * 城市
 	 */

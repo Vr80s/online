@@ -115,14 +115,14 @@ public class MobileClassifyController {
 		//课程分类
 		list11.add(menuService.list());
 
-		//是否收费
+		//是否付费
 		List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
 		Map<String, Object> m1 = new HashMap<String, Object>();
 		m1.put("id", "1");
 		m1.put("name", "免费");
 		Map<String, Object> m2 = new HashMap<String, Object>();
 		m2.put("id", "0");
-		m2.put("name", "收费");
+		m2.put("name", "付费");
 		list.add(m1);
 		list.add(m2);
 

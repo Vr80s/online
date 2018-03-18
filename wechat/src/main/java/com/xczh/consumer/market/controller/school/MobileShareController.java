@@ -230,7 +230,7 @@ public class MobileShareController {
 					if(cv.getUserLecturerId().equals(ou.getId())){
 					    cv.setWatchState(4);
 				    }
-					if(cv.getWatchState()==0){ //收费课程
+					if(cv.getWatchState()==0){ //付费课程
 						if(onlineWebService.getLiveUserCourse(courseId,ou.getId())){  //大于零--》用户购买过  
 							cv.setWatchState(2);
 						}

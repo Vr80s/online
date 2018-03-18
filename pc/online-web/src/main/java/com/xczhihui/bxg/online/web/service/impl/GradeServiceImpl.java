@@ -81,7 +81,7 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
 
 
     /**
-     * 收费课程下的班级信息
+     * 付费课程下的班级信息
      * @param courseId 课程id
      * @return
      */

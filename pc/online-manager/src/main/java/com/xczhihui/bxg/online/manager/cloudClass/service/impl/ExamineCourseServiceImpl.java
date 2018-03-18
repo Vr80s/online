@@ -204,7 +204,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		entity.setTitle(le.getTitle());   //课程名称
 		entity.setContent(le.getContent());
 		entity.setType(le.getType());//学科的id
-		entity.setSeeMode(le.getSeeMode());  //观看方式 0公开 1 收费 2 密码
+		entity.setSeeMode(le.getSeeMode());  //观看方式 0公开 1 付费 2 密码
 		entity.setWhenLong(le.getWhenLong()); //课程时长
 		entity.setStartTime(le.getStartTime());//直播开始时间
 		entity.setUserId(le.getUserId());      //讲师id
@@ -319,7 +319,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			entity.setDelete(false);//不删除
 			entity.setDefaultStudentCount(0);
 			/*2017.08.10  yuruixin*/
-			//观看方式 0公开 1 收费 2 密码
+			//观看方式 0公开 1 付费 2 密码
 
 			//默认原价格都是0
 			entity.setOriginalCost(0d);
@@ -328,7 +328,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 				entity.setIsFree(true); //免费
 				entity.setCurrentPrice(0d);
 			}else if("1".equals(le.getSeeMode())){
-				entity.setIsFree(false); //收费
+				entity.setIsFree(false); //付费
 				entity.setCurrentPrice(le.getPrice().doubleValue());
 			}else if("2".equals(le.getSeeMode())){
 				entity.setIsFree(true); //密码

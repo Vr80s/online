@@ -337,7 +337,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			//免费
 			course.setIsFree(true);
 		}else{
-			//收费
+			//付费
 			course.setIsFree(false);
 		}
 		//排序

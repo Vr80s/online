@@ -129,7 +129,7 @@ public class CourseController {
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
 		   
-			if (cv.getWatchState() == 0) { // 收费课程
+			if (cv.getWatchState() == 0) { // 付费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
 				}
@@ -180,7 +180,7 @@ public class CourseController {
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
 			
-			if (cv.getWatchState() == 0) { // 收费课程
+			if (cv.getWatchState() == 0) { // 付费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
 				}

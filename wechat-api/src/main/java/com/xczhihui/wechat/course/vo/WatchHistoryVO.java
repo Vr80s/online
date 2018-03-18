@@ -33,7 +33,7 @@ public class WatchHistoryVO implements Serializable {
     private String type; //观看类型 1 直播 2 点播 3 音频
     
     /**
-     * 是否收费     0 付费   1 免费
+     * 是否付费     0 付费   1 免费
      */
     public Integer isFree;
     /**
