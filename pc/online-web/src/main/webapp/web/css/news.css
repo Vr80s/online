@@ -254,7 +254,7 @@ img {
 	margin-bottom: 12px;
 	font-size: 14px;
 	color: #666666;
-	width: 236px;
+	width: 280px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -376,6 +376,7 @@ img {
 }
 #forum .forum-content {
   margin-top: 20px;
+  position: relative;
 }
 #forum .forum-content .forum-content-left {
   width: 860px;
@@ -508,7 +509,7 @@ img {
   width: 860px;
 }
 #forum .forum-content .forum-content-right {
-  width: 290px;
+  width: 320px;
   float: right;
 }
 #forum .forum-content .forum-content-right .forum-hot-tag {
