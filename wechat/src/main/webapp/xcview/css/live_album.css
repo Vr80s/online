@@ -182,9 +182,10 @@ overflow: hidden;
     background: #00bc12;
     color: white;
     border-radius: 50%;
-    line-height: 0.72rem;
-    text-align: center;
     font-size: 0.22rem;
+     display: flex;    
+    justify-content:center;
+    align-items:Center;
 }
 .select_icon img{
 	width: 100%;
