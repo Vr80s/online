@@ -157,7 +157,7 @@ function onlineCourse(type){
 					var course = result[int];
 					var watchStr ="";
 					//需要判断是否加密，需要判断
-					if(course.watchState == 0){  // watchState ： 0 免费   1 收费  2 密码 
+					if(course.watchState == 0){  // watchState ： 0 免费   1 付费  2 密码 
 						watchStr ="免费";
 					}else if(course.watchState == 1){
 						watchStr ="￥"+course.currentPrice;
