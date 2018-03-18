@@ -267,10 +267,9 @@ pre:after {
 		
 		//countyName  cityName     provinceName
 		
-		var pervinceValue = localStorage.getItem("provinceName");
-		var cityValue = localStorage.getItem("cityName");
-		var disValue = localStorage.getItem("countyName");
-		
+		var pervinceValue = localStorage.getItem("regionAreaId");
+		var cityValue = localStorage.getItem("regionCityId");
+		var disValue = localStorage.getItem("regionId");
 		
 		
 		function countMin(){
@@ -288,7 +287,6 @@ pre:after {
 				});
 			}
 		},2000)
-		
 		
 		
 		var showCityPicker = document.getElementById('showCityPicker');
