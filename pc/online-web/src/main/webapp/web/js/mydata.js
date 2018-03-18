@@ -1686,7 +1686,7 @@ function test() {
 				$(".nick-warn").text('用户名不能是纯数字，请重新输入！').css("display", "inline-block");
 				return false;
 			} else if(nickName() < 4 || nickName() > 20) {
-				$(".nick-warn").text("支持中文、字母、数字、'-'、'_'的组合，4-20个字符").css("display", "inline-block");
+				$(".nick-warn").text("支持中文、字母、数字、'-'、'_'的组合，20个字符内").css("display", "inline-block");
 				return false;
 			} else if(data.resultObject == true) {
 				$(".nick-warn").text("用户名已存在").css("display", "inline-block");
