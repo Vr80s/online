@@ -167,6 +167,7 @@ function giftShow(gift, f,continuous) {
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         try {
+        	
             $("#liveGiftCount").html(gift.continuousCount);
         } catch (error) {
             // 此处是负责例外处理的语句

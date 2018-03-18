@@ -327,6 +327,7 @@ color: #BBBBBB;
 	position: fixed;
 	bottom: 0;
 	z-index: 999;
+	border-top: 1px solid #d8dde6;
 }
 .footer ul li{
 	width: 25%;
