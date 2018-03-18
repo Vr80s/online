@@ -125,7 +125,7 @@ public class GiftSendServiceImpl implements GiftSendService {
     	Map<String,Object> map = new HashMap<String,Object>();
     	map.put("senderInfo", mapSenderInfo);
     	map.put("giftInfo", mapGiftInfo);
-    	map.put("giftCount",findByUserId(gs.getReceiver()));
+    	map.put("giftCount",findByUserId(liveId));
     	map.put("messageType",1);
 
 		return map;
