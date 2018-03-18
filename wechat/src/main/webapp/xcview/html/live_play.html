@@ -241,8 +241,8 @@
 						<!--被回复的内容灰色部分-->
 						{{if item.reply.length > 0}}
 						<div class="uesr_returned">
-							<p class="returned_id z">{{item.reply[0].onlineUser.name}}：</p>
-							<p class="returned_text">{{item.reply[0].replyContent}}</p>
+							<p class="returned_id z">{{item.reply[0].onlineUser.name}}：<span style="color: #333;">{{item.reply[0].replyContent}}</span></p>
+							<!--<p class="returned_text"></p>-->
 						</div>
 						{{/if}}
 						<!--回复时间/点赞/评论按钮-->

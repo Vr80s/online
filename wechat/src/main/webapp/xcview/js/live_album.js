@@ -362,16 +362,16 @@ function reportComment() {
     }
         // 手机自带表情添加判断
     //正则表达式
-	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+//	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
 	 //判断输入框中有内容
-	 if(!reg.test(comment_detailed))
+	 /*if(!reg.test(comment_detailed))
 	 {
-		webToast("仅支持中文、英文、数字","middle",3000);
+		webToast("仅支持中文、英文、数字","middle",3000);*/
 	 //输入非法字符，清空输入框
-	 $("#comment_detailed").val("");
+	 /*$("#comment_detailed").val("");
      $(".return_btn").css("opacity","0.3");
 	 return false;
-	 }
+	 }*/
 // 手机自带表情添加判断结束
     var arr=new Array();
 
@@ -436,16 +436,16 @@ function replyComment() {
     }
         // 手机自带表情添加判断
     //正则表达式
-	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
+//	 var reg = new RegExp("^[A-Za-z0-9\u4e00-\u9fa5]+$");
 	 //判断输入框中有内容
-	 if(!reg.test(comment_detailed))
+	 /*if(!reg.test(comment_detailed))
 	 {
-		webToast("仅支持中文、英文、数字","middle",3000);
+		webToast("仅支持中文、英文、数字","middle",3000);*/
 	 //输入非法字符，清空输入框
-	 $("#comment_detailed").val("");
+//	 $("#comment_detailed").val("");
 //   $(".return_btn").css("opacity","0.3");
-	 return false;
-	 }
+//	 return false;
+//	 }
 // 手机自带表情添加判断结束
     requestService("/xczh/criticize/saveReply",{
 
