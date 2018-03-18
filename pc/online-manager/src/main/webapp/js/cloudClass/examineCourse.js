@@ -47,7 +47,7 @@ $(function(){
     	if(data==0){  //审核状态 0未审核 1 审核通过 2 审核未通过
     		return data="<span name='zt'>免费</span>";
     	}else if(data == 1){
-    		return data="<span name='zt'> 收费 </span>";
+    		return data="<span name='zt'> 付费 </span>";
     	}else if(data == 2){
     		return data="<span name='zt'>密码</span>";
     	}

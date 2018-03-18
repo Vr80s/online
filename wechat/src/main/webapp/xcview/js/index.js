@@ -59,7 +59,7 @@ function requestLiveList(downOrOn) {
 							var currentOnlineNumber = live.learndCount;
 							
 							var watchStr ="";
-							if(live.watchState == 0){  // watchState ： 0 免费   1 收费  2 密码 
+							if(live.watchState == 0){  // watchState ： 0 免费   1 付费  2 密码 
 								watchStr ="免费";
 							}else if(live.watchState == 1){
 								watchStr ="￥"+live.currentPrice;
