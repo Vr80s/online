@@ -537,6 +537,9 @@ color: #666666;
 	margin-top: 0.1rem;
 	border-radius: 4px;
 }
+.wrap_purchaser p{
+	font-size: 0.2rem !important;
+}
 /*底部购买价格*/
 .bot_price{
 	width: 100%;
