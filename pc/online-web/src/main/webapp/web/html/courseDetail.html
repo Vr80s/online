@@ -251,9 +251,9 @@
 				<p>讲师：{{item.teacherName}}</p>
 				<div class="class_price_count clearfix" style="color: #999;">
 					{{if item.free}}
-					<span class="class_price">免费</span><span class="class_Studycount"><em></em>3</span>
+					<span class="class_price">免费</span><span class="class_Studycount"><em></em>{{item.learndCount}}</span>
 					{{else}}
-						<span class="class_price" style="color:red;font-size: 16px;">{{item.currentPrice}}</span>熊猫币<span class="class_Studycount"><em></em>3</span>
+						<span class="class_price" style="color:red;font-size: 16px;">{{item.currentPrice}}</span>熊猫币<span class="class_Studycount"><em></em>{{item.learndCount}}</span>
 					{{/if}}
 				</div>
 			</div>
