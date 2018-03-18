@@ -36,7 +36,7 @@ function weixin(url,params,returnUrl) {
 
 	if(is_weixn()){
         gongzhonghao(url,params,returnUrl);
-	}else if(btype=='brower'){
+	}else{
         wechatH5(url,params,returnUrl);
 	}
 }
