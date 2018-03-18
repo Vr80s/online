@@ -1,6 +1,8 @@
 	
-
-
+var openId = getQueryString("openId");
+if(stringnull(openId)){
+    localStorage.setItem("openid",openId);
+}
 
 /**
  * 从列表页返回
