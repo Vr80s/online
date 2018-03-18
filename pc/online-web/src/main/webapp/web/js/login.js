@@ -284,8 +284,8 @@ $(function () {
                 cymYonghuBox.css("display", "block");
                 cymYonghuInput.css("border", "1px solid #ff4012");
                 return false;
-            }else if (yonghuNameLength > 20 || yonghuNameLength < 4){
-                cymYonghuInfo.text("长度只能在4-20个字符之间");
+            }else if (yonghuNameLength > 20 || yonghuNameLength < 1){
+                cymYonghuInfo.text("长度只能在20个字符之内");
                 cymYonghuBox.css("display", "block");
                 cymYonghuInput.css("border", "1px solid #ff4012");
                 return false;
@@ -410,8 +410,8 @@ $(function () {
         cymYonghuInput.blur(function () {
             if(nickNameReg.test(cymYonghuInput.val())==true){
                 var yonghuNameLength = nickName();
-                if (yonghuNameLength > 20 || yonghuNameLength < 4) {
-                    cymYonghuInfo.text("长度只能在4-20个字符之间");
+                if (yonghuNameLength > 20 || yonghuNameLength < 1) {
+                    cymYonghuInfo.text("长度只能在20个字符之内");
                     cymYonghuBox.css("display", "block");
                     $(this).css("border", "1px solid #ff4012");
                 } else if(numberReg.test(cymYonghuInput.val())){

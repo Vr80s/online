@@ -388,9 +388,11 @@ $(function () {
     //头条右侧大家专栏部分
 	    RequestService("/medical/doctor/getHotSpecialColumn","GET",null,function(data){
 	        if(data.success==false || data.resultObject.length == 0){
-	           $('.dajia_zhuanlan').addClass('hide')
+	           $('#dajia_bigbox').addClass('hide');
+	           $('.forum-content-right').css({'position':'absolute','left':'880px'})
 	        }else{
 	        	//获取到数据渲染
+	           $('#dajia_bigbox').removeClass('hide');
 	           $('#dajia_zhuanlan_list2').html(template('hotdajiaTpl',{inf:data.resultObject}));
 	        }
 	    });
@@ -398,10 +400,11 @@ $(function () {
      //头条右侧热门作者
 	    RequestService("/medical/doctor/getHotSpecialColumnAuthor","GET",null,function(data){
 	        if(data.success==false || data.resultObject.length == 0){
-	           $('.zhuanlan_zuozhe').addClass('hide')
+	           $('#zhuanlan_bigbox').addClass('hide')
 	        }else{
 	        	//获取到数据渲染
-	        	console.log(data)
+	        	$('#zhuanlan_bigbox').removeClass('hide')
+//	        	console.log(data)
 	           $('#zhuanlan_zuozhe').html(template('hotzuozheTpl',{inf:data.resultObject}));
 	        }
 	    });

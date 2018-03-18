@@ -1431,6 +1431,9 @@
 						<!--</tr>-->
 					</tbody>
 				</table>
+				
+				<!--没有银行卡默认显示样式-->
+				<div id="noBankCard" class="hide" style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>
 			</div>
 			
 			<!--新增银行卡部分-->
@@ -1664,7 +1667,7 @@
 						</div>
 
 						<div>
-							<span><em>*</em>主播姓名</span>
+							<span><em>*</em>主讲人</span>
 							<input type="text" placeholder="" autocomplete="off" class="zhuanlan_title zhuanlan_title1 course_lecturer "/>
 							<span style="font-size: 14px;color: #999999;margin-left: 20px;">两个或两个以上请用逗号隔开</span>
 							<p class="warning warning_course_lecturer hide">主播不能为空</p>
@@ -1672,7 +1675,7 @@
 						</div>
 
 						<div class="">
-							<span class="span" style="vertical-align: top;"><em>*</em>主播介绍</span>
+							<span class="span" style="vertical-align: top;"><em>*</em>主讲人介绍</span>
 							<div class="" style="display: inline-block">
 								<script id="editor" type="text/plain" style="width:540px;height:160px;"></script></div>
 							<p class="warning warning_course_lecturer_description hide">主播介绍不能为空</p>
@@ -2198,7 +2201,7 @@
 
 							<input type="button" value="点击上传资源" id="btn_width" style="width: 128px; height: 32px;line-height: 32px;font-size: 14px;color: #00BC12;border-radius: 4px;border: 1px solid #00BC12;background: #fff;outline: none;" />
 
-							<span class="uploadfinish" style="display:none;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(ps:记得点击保存哦)</span> </span>
+							<span class="uploadfinish" style="display:none;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
 							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
 							<p class="warning warning1 hide">请先上传资源文件</p >
 						</div>

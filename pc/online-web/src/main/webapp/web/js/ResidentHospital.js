@@ -50,7 +50,14 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 
 			} else if(data.resultObject == 7 || data.resultObject == 3 || data.resultObject == 5) {
 				//未认证
-				//	       			$('#docNoPass_tip').removeClass('hide');	
+				//	       			$('#docNoPass_tip').removeClass('hide');
+				//拒绝的情况
+				RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+					if(data.resultObject.status == 0){
+						$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
+						$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
+					}
+				})
 				$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
 				$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
 			}
@@ -778,7 +785,30 @@ function hosAgainAut() {
 
 	$('#hos_Administration .hos_renzheng_inf .bottomContent2 ').addClass('hide');
 	$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
-
+	
+//	医馆提交的数组回显
+	RequestService("/medical/hospital/apply/getLastOne", "GET", null, function(data) {
+		console.log(data);
+		if(data.success == true && data.resultObject != null){
+			var result = data.resultObject;
+		
+		//姓名
+		$('#hos_Administration .hos_name').val(result.name);
+		//所属公司
+		$('#hos_Administration .doc_name').val(result.company);
+		//统一社会信用代码
+		$('#hos_Administration .doc_Idnum').val(result.businessLicenseNo);
+		//营业执照
+		$('#hos_Administration .teacher_pic').html('<img src='+result.businessLicensePicture+'>')
+		//药品经营许可证号
+		$('#hos_Administration .doc_zhicheng').val(result.licenseForPharmaceuticalTrading);
+		//药品经营许可证
+		$('#hos_Administration .zhicheng_pic').html('<img src='+result.licenseForPharmaceuticalTradingPicture+'>')
+		}
+		
+		
+	})
+	
 }
 
 $(function() {

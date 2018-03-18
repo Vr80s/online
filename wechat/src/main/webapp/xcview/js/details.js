@@ -476,11 +476,11 @@ function refreshGiftRanking() {
 
 }
 
-// 微博分享
+// 微博分享  title :'中医好课程' + '《' + gradeName + '》',/*分享标题(可选)*/
 document.getElementById('qqShare0').onclick = function(e) {
 	var p = {
 		url : getServerHost() + "/wx_share.html?courseId=" + course_id,/* 获取URL，可加上来自分享到QQ标识，方便统计 */
-		title : result.gradeName,/* 分享标题(可选) */
+		title : '中医好主播' + '《'+result.gradeName+'》',/* 分享标题(可选) */
 		pic : result.smallImgPath
 	/* 分享图片(可选) */
 	};
@@ -498,7 +498,7 @@ document.getElementById('qqShare').onclick = function(e) {
 		url : getServerHost() + "/wx_share.html?courseId=" + course_id,/* 获取URL，可加上来自分享到QQ标识，方便统计 */
 		desc : '中医传承', /* 分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔） */
 		
-		title : result.gradeName,/* 分享标题(可选) */
+		title : '中医好主播' + '《'+result.gradeName+'》',/* 分享标题(可选) */
 		summary : result.description.stripHTML(),/* 分享描述(可选) */
 		pics : result.smallImgPath
 	/* 分享图片(可选) */
@@ -576,7 +576,7 @@ if (is_weixin()) {
 		
 		// 发送到朋友
 		wx.onMenuShareAppMessage({
-			title : result.gradeName, // 分享标题
+			title : '中医好主播' + '《'+result.gradeName+'》', // 分享标题
 			desc : result.description.stripHTML(), // 分享描述
 			link : domain + "/wx_share.html?courseId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标
@@ -595,7 +595,7 @@ if (is_weixin()) {
 		});
 		// 发送到朋友圈
 		wx.onMenuShareTimeline({
-			title : result.gradeName, // 分享标题
+			title : '中医好主播' + '《'+result.gradeName+'》', // 分享标题
 			link : domain + "/wx_share.html?courseId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标
 			success : function() {
@@ -613,7 +613,7 @@ if (is_weixin()) {
 		});
 		// 发送到qq
 		wx.onMenuShareQQ({
-			title : result.gradeName, // 分享标题
+			title : '中医好主播' + '《'+result.gradeName+'》', // 分享标题
 			desc : result.description.stripHTML(), // 分享描述
 			link : domain + "/wx_share.html?courseId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标

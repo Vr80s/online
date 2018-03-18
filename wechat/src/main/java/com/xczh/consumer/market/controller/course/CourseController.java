@@ -62,9 +62,41 @@ public class CourseController {
 	@Value("${live.preheating}")
 	private Integer livePreheating;
 
+	
+	
+	
+	/**
+	 * Description：用户当前课程状态   User current course status. 
+	 *     用户判断用户是否购买了这个课程
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 */
+	@RequestMapping("userCurrentCourseStatus")
+	public ResponseObject userCurrentCourseStatus(HttpServletRequest req,
+			HttpServletResponse res, 
+			@RequestParam("courseId") Integer courseId)
+			throws Exception {
+		/**
+		 * 这里需要判断是否购买过了
+		 */
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		CourseLecturVo cv = null;
+		if (user != null) {
+			cv = courseServiceImpl.selectUserCurrentCourseStatus(courseId,user.getId());
+		}else{
+			cv = courseServiceImpl.selectCurrentCourseStatus(courseId);
+		}
+		return ResponseObject.newSuccessResponseObject(cv);
+	}
+	
+	
 	/**
 	 * Description：课程详情（展示页面）页面
-	 * 
 	 * @param req
 	 * @param res
 	 * @return

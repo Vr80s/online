@@ -69,12 +69,19 @@
 		oc.course_length as courseLength,
 		oc.current_price*10 as currentPrice,
 		
-		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null and cc.course_id in 
-					( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id ) ,
+		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null 
+		  and ( cc.course_id in  ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id  )) ,
 		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.create_person is not null )
 		) as  criticizeCount,
 		
-		IFNULL((SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 ),0) as startLevel,
+	    IF(oc.collection = 1,
+   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1  and cc.overall_level !=0  
+   		    and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or cc.course_id = oc.id ) )
+	      ,
+		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 )
+		)  as startLevel,
+		
+		
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.profile_photo as headImg,
@@ -128,14 +135,20 @@
 		oc.direct_id as directId,
 		oc.subtitle as subtitle,
 		oc.current_price*10 as currentPrice,
-	
-		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null and cc.course_id in 
-					( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id ) ,
+		
+	    IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null 
+		  and ( cc.course_id in  ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id  )) ,
 		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.create_person is not null )
 		) as  criticizeCount,
 	
 
-		IFNULL((SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 ),0) as startLevel,
+	    IF(oc.collection = 1,
+   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1  and cc.overall_level >0  
+   		    and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or cc.course_id = oc.id ) )
+	      ,
+		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 )
+		)  as startLevel,
+		
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.profile_photo as headImg,
@@ -624,5 +637,51 @@
 		]]>
 	</select>
 	
+	
+	
+	
+   <!-- 用户当前课程状态   User current course status. 用户没有登录   -->
+   <select id="selectCurrentCourseStatus" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+       SELECT
+		oc.id as id,
+		oc.start_time as startTime,
+		oc.end_time as endTime,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		if(oc.user_lecturer_id = ou.user_id,3,if(oc.is_free =0, ) )
+		oc.collection as collection,
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType
+			FROM
+		oe_course as oc
+		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+		where oc.id = #{courseId}    and oc.is_delete=0
+	</select>	
+	
+	 <!-- 用户当前课程状态   User current course status. 用户登录了  -->
+	 <select id="selectUserCurrentCourseStatus" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		    SELECT
+				oc.id as id,
+				oc.start_time as startTime,
+				oc.end_time as endTime,
+				if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+				if(oc.user_lecturer_id = ou.user_id,3,
+	         			  if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args 
+	         			   where  args.course_id = oc.id  and  args.user_id = #{userId} and args.is_delete=0 ) >0 ,2, 1),1) )
+	      	    as watchState,
+				oc.collection as collection,
+				if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+				                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+		                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+				oc.current_price*10 as currentPrice,
+				oc.live_source_type as liveSourceType
+			FROM
+				oe_course as oc
+			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+				where oc.id = #{courseId} and oc.is_delete=0
+	</select>
 	
 </mapper>

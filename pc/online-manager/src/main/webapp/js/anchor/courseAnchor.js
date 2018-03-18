@@ -325,7 +325,7 @@ function showCourseListDialog(obj) {
     debugger;
     var oo = $(obj).parent().parent().parent();
     var aData = P_courseTable.fnGetData(oo); // get datarow
-    window.location.href = basePath + '/home#anchor/courseAnchor/anchorCourse?userId=' + aData.userId+'&anchorNname='+aData.name;
+    window.location.href = basePath + '/home#anchor/courseAnchor/anchorCourse?userId=' + aData.userId+'&anchorNname='+aData.name+'&loginName='+aData.loginName;
 }
 
 /**

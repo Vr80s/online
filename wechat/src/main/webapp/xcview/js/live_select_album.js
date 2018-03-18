@@ -34,7 +34,7 @@ $(function(){
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
-       	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
+       	$(".all_returned_num span").html(data.resultObject.criticizeCount);
 		
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
@@ -338,8 +338,11 @@ function reportComment() {
             document.getElementById("comment_detailed").value="";
             del();
             refresh();
+            //评论数加1
             var criticizeCount = $('#criticizeCountId').text();
             $('#criticizeCountId').text(parseInt(criticizeCount)+1);
+            var cc = $('#criticizeCount').text();
+            $('#criticizeCount').text(parseInt(cc)+1);
         }else{
             webToast("评论失败","middle",1500);
         }
@@ -378,6 +381,9 @@ function replyComment() {
             document.getElementById("littlt_return").value="";
             del();
             refresh();
+            //评论数加1
+            var criticizeCount = $('#criticizeCountId').text();
+            $('#criticizeCountId').text(parseInt(criticizeCount)+1);
         }else {
             webToast("回复失败","middle",1500);
         }

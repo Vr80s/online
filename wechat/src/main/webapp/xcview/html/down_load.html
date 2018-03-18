@@ -6,6 +6,9 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<meta name="keywords" content="" />
 		<meta name="description" content="" />
+		<!--弹框引入-->
+		<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+		<link rel="stylesheet" href="../css/down_load.css" />
 		<script>
 			var kk=document.documentElement.clientWidth;
 			if(kk>750){
@@ -14,7 +17,7 @@
 			document.documentElement.style.fontSize=kk/7.5+"px";
 		</script>
 		
-		<link rel="stylesheet" href="../css/down_load.css" />
+		
 	</head>
 	<body>
 		<div class="wp">
@@ -74,14 +77,11 @@
 				<div class="wrap_footer">
 					<p>下载移动客户端</p>
 				</div>
-			
-			
-			
-		
 		</div>
 	
 	
 	
+		
 	
 	
 	
@@ -91,39 +91,45 @@
 	
 	</body>
 	<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
-	
+	<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>
 	
 		<script>
-			$(".wrap_footer").click(function(){
+//			$(".wrap_footer").click(function(){
+////			安卓路劲 
+//			var androidURL ="http://sj.qq.com/myapp/detail.htm?apkName=com.bj.healthlive";  
+//			var browser = {  
+//         versions: function() {  
+//               var u = navigator.userAgent,  
+//                   app = navigator.appVersion;  
+//               return {  
+//                       android: u.indexOf("Android") > -1 || u.indexOf("Linux") >-1,  
+//                       iPhone: u.indexOf("iPhone") > -1 ,  
+//                       iPad: u.indexOf("iPad") >-1,  
+//                       iPod: u.indexOf("iPod") > -1,  
+//                     };  
+//               } (),  
+//          language: (navigator.browserLanguage || navigator.language).toLowerCase()  
+//       }  
+//
+//       if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)  
+//           { 
+//              //如果是ios系統，直接跳轉至appstore該應用首頁，傳遞参數为該應用在appstroe的id號  
+////              window.location.href="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=123456";  
+//              window.location.href="itms-apps://itunes.apple.com/cn/app/id1279187788";
+////          	https://itunes.apple.com/cn/app/id1279187788
+//           }
+//           else if(browser.versions.android)  
+//           {  
+//              window.location.href = androidURL;  
+//           }  
+//				
+//			})
 
-//			androidURL ="http://xxx/xxx.apk";  
-			var androidURL ="http://sj.qq.com/myapp/detail.htm?apkName=com.bj.healthlive";  
-			var browser = {  
-           versions: function() {  
-                 var u = navigator.userAgent,  
-                     app = navigator.appVersion;  
-                 return {  
-                         android: u.indexOf("Android") > -1 || u.indexOf("Linux") >-1,  
-                         iPhone: u.indexOf("iPhone") > -1 ,  
-                         iPad: u.indexOf("iPad") >-1,  
-                         iPod: u.indexOf("iPod") > -1,  
-                       };  
-                 } (),  
-            language: (navigator.browserLanguage || navigator.language).toLowerCase()  
-         }  
-  
-         if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)  
-             { 
-                //如果是ios系統，直接跳轉至appstore該應用首頁，傳遞参數为該應用在appstroe的id號  
-//              window.location.href="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=123456";  
-                window.location.href="itms-apps://itunes.apple.com/cn/app/id1279187788";
-//          	https://itunes.apple.com/cn/app/id1279187788
-             }
-             else if(browser.versions.android)  
-             {  
-                window.location.href = androidURL;  
-             }  
-				
-			})
+
+
+
+$(".wrap_footer").click(function(){
+	webToast("敬请期待","middle",1500);
+})
 		</script>
 </html>
