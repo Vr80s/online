@@ -407,7 +407,7 @@ public class H5WeChatSetController {
 			
 			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
 			if(currentOnlineUser !=null){
-				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
+				res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&menuType="+menuType);
 				return;
 			}
 			/**

@@ -153,7 +153,14 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements CommonSe
 		
 		Integer falg  = 0;
 		String  errorFalg ="";
-		for (int i = 0; i < listob.size(); i++) {
+
+		//清除xls中的空行 wys
+		for(int i = 0; i < listob.size(); i++){
+			if(listob.get(i).size()<=0){
+				listob.remove(i);
+			}
+		}
+			for (int i = 0; i < listob.size(); i++) {
 			if(i == listob.size()-1){
 				break;
 			}
