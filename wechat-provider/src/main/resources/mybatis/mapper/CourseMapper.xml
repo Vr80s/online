@@ -69,9 +69,9 @@
 		oc.course_length as courseLength,
 		oc.current_price*10 as currentPrice,
 		
-		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id in 
-					( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id)) ,
-		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id )
+		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null and cc.course_id in 
+					( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id ) ,
+		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.create_person is not null )
 		) as  criticizeCount,
 		
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 ),0) as startLevel,
@@ -104,11 +104,13 @@
 		if(oc.type=1,ifnull((select SUM(count) from oe_gift_statement where receiver = user_lecturer_id),0),0) as giftCount,
 		
 		
-		if(oc.type=1,ifnull(( select count(*) from oe_focus of inner join oe_user as ozu on of.user_id = ozu.id
-		     where of.lecturer_id = oc.user_lecturer_id and ozu.is_delete = 0 and ozu.status = 0),0),0) as fansCount,
+		if(oc.type=1,ifnull(( select count(*) from oe_focus of 
+		     inner join course_anchor as ou on of.user_id = ou.user_id
+		     where of.lecturer_id = oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0),0),0) as fansCount,
 		
-	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of inner join oe_user as ou on of.lecturer_id = ou.id
-			 where of.user_id =oc.user_lecturer_id and ou.is_delete = 0  and ou.status = 0),0),0) as focusCount,
+	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of 
+	    	 inner join course_anchor as ou on of.lecturer_id = ou.user_id
+			 where of.user_id =oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0 ),0),0) as focusCount,
 		
 		oc.course_length as courseLength,
 		oc.collection as collection,
@@ -127,9 +129,9 @@
 		oc.subtitle as subtitle,
 		oc.current_price*10 as currentPrice,
 	
-		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id in 
-					( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id)) ,
-		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id )
+		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null and cc.course_id in 
+					( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id ) ,
+		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.create_person is not null )
 		) as  criticizeCount,
 	
 
