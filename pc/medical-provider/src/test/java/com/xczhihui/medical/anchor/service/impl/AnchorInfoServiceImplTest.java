@@ -58,4 +58,6 @@ public class AnchorInfoServiceImplTest extends BaseJunit4Test {
         service.update(courseAnchor);
     }
 
+
+
 }

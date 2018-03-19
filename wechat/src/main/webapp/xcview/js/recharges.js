@@ -74,7 +74,10 @@ window.history.forward(1);*/
 $("#determine").click(function(){
 	//点击返回 --》我的天去哪里
 //	location.href = "/xcview/html/recharges.html";
-$(".success").hide();
+//$(".success").hide();
+
+	window.history.go(-1);
+
 })
 
 
@@ -163,7 +166,7 @@ function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-   return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
+	return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
 }
 
 

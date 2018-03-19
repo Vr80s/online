@@ -176,9 +176,9 @@
 		<td>
 			{{course.title}}
 		</td>
-		<td>
-			{{course.courseLength}}'
-		</td>
+		<!--<td>-->
+			<!--{{course.courseLength}}'-->
+		<!--</td>-->
 		<td>
 			{{course.startTime}}
 		</td>
@@ -307,10 +307,12 @@
 			{{resource.title}}
 		</td>
 		<td>
-			{{if resource.length!=null}}
-			<span>{{resource.length}}'</span>
-			{{else}}
+			{{if resource.length==null}}
 			<span>转码中</span>
+			{{else if resource.length==-1}}
+			<span>转码失败</span>
+			{{else}}
+			<span>{{resource.length}}'</span>
 			{{/if}}
 		</td>
 		<td>
@@ -608,7 +610,7 @@
 			<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
 				<i class="iconfont icon-xiangji"></i>
 			</div>
-			<img src="../images/5.jpg" alt="">
+			<img src="" alt="">
 			<!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
 			<h4 class="nickname"></h4>
 			<p>说点什么来彰显你的个性...</p>
@@ -1786,7 +1788,7 @@
 				<div class="zhuanlan_bottom2 course_content" id="kecheng_bottom2" style="margin-bottom: 30px;">
 					<div class="zhuanlan_top">
 						<span class="title">课程</span>
-						<button class="button" onclick="resetCourseForm()">新课程</button>
+						<button class="button" onclick="resetCourseForm(true)">新课程</button>
 					</div>
 				<hr style="margin-left: -30px;margin-right: -30px;margin-top: 0px !important;margin-bottom: 30px !important;color:#f0f0f0 !important;">
 					
@@ -2140,7 +2142,7 @@
 						<tr>
 							<td>封面图</td>
 							<td>课程名称</td>
-							<td>时长</td>
+							<!--<td>时长</td>-->
 							<td>直播时间</td>
 							<td>直播状态</td>
 							<td>操作</td>
