@@ -135,6 +135,10 @@ function createGiftList(gift) {
       });
       $("#chatmsg").append(str);
       // createGiftShow();
+      
+      setTimeout(function(){
+ 	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+      },50);
     }
 }
 

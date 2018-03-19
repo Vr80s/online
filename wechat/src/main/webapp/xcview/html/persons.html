@@ -199,7 +199,8 @@ pre:after {
 			        if(stringnull(localStorage.getItem("provinceName"))){
 			        	
 			        	
-			        	 $("#xzdz").text(localStorage.getItem("provinceName")+" "+localStorage.getItem("cityName")+" "+localStorage.getItem("countyName"));
+//			        	 $("#xzdz").text(localStorage.getItem("provinceName")+" "+localStorage.getItem("cityName")+" "+localStorage.getItem("countyName"));
+			        	 $("#xzdz").text(localStorage.getItem("provinceName")+" "+localStorage.getItem("cityName"));
 			        }
 			        
 			        if(stringnull(localStorage.getItem("email"))){
@@ -259,7 +260,7 @@ pre:after {
 		
 		//省市区
 		var picker = new mui.PopPicker({
-	   	 	layer: 3
+	   	 	layer: 2
 		});
 		picker.setData(mucityData);
 		
@@ -269,20 +270,20 @@ pre:after {
 		
 		var pervinceValue = localStorage.getItem("regionAreaId");
 		var cityValue = localStorage.getItem("regionCityId");
-		var disValue = localStorage.getItem("regionId");
+//		var disValue = localStorage.getItem("regionId");
 		
 		
 		function countMin(){
 			picker.pickers[0].setSelectedValue(3);
 			picker.pickers[3].setSelectedValue(6);
-			picker.pickers[6].setSelectedValue(2);
+//			picker.pickers[6].setSelectedValue(2);
 		}
 		setTimeout(function(){
 			//这个就是mui的的多级选择。我的天
 			if(stringnull(pervinceValue) && stringnull(cityValue) && stringnull(disValue)){
 				picker.pickers[0].setSelectedValue(pervinceValue,0,function(){
 					picker.pickers[1].setSelectedValue(cityValue,0,function(){
-						picker.pickers[2].setSelectedValue(disValue);
+//						picker.pickers[2].setSelectedValue(disValue);
 					});
 				});
 			}
@@ -307,7 +308,7 @@ pre:after {
 				if(items.length>=2){
 					picker.pickers[0].setSelectedValue(items[0].value);
 					picker.pickers[1].setSelectedValue(items[1].value);
-					picker.pickers[2].setSelectedValue(items[2].value);
+//					picker.pickers[2].setSelectedValue(items[2].value);
 				}
 				
 				cityResult.innerText = citysNames;
