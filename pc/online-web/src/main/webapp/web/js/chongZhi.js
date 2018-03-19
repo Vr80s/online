@@ -1,4 +1,4 @@
-var price;
+var price=5;
 var rate;
 var env;
 //var rate=10;//一元兑换10熊猫币
@@ -14,8 +14,8 @@ $('.chongZhi').click(function(){
         $(".balanceTotal").html(balanceTotal);
     },false);
 	console.log(1)
-	price=100/rate;//初始化为10元
-	$('.number').text(price);
+	// price=100/rate;//初始化为10元
+	$('.number').text(5);
 	$('#main1').addClass('show')
 	$('.mask').css({'display':'block'})
 })
@@ -50,8 +50,7 @@ $('.content_two li').click(function(){
 	$(this).addClass('orange')
 	$(this).find('.i-selector').addClass('show')
 	//选择对应的充值数下面对应变化数值
-	var a = $(this).attr('data-value');
-	price=a/rate;
+    price = $(this).attr('data-value');
 	$('.number').text(price) ;
 	$('.erweima').animate({'display':'none'}).hide(100)
 })

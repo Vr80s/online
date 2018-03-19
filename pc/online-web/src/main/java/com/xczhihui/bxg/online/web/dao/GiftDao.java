@@ -73,7 +73,7 @@ public class GiftDao extends SimpleHibernateDao {
 	 **/
 	public int findByLiveId(Integer liveId) {
 		String sql="SELECT \n" +
-				"  SUM(ogs.`price`) \n" +
+				"  IFNULL(SUM(ogs.`price`),0)  \n" +
 				"FROM\n" +
 				"  `user_coin_increase` uci\n" +
 				"   JOIN oe_gift_statement ogs \n" +
