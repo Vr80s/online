@@ -588,7 +588,7 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>链接地址: </label>
 			<div class="col-sm-6">
-				<input type="text" name="linkCondition"  id="add_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+				<input type="text" name="linkCondition"  id="add_url" class="col-xs-10 col-sm-12 {required:true,maxlength:100}">
 			</div>
 		</div>
 		<input type="hidden" name="type" id="addProjectType" >

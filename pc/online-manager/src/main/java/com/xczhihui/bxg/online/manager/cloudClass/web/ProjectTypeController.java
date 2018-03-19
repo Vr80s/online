@@ -124,7 +124,7 @@ public class ProjectTypeController {
               responseObj.setErrorMessage("新增课程专题成功");
          }catch(Exception e){
               responseObj.setSuccess(false);
-              responseObj.setErrorMessage("新增课程专题失败");
+              responseObj.setErrorMessage(e.getMessage());
          }
          return responseObj;
      }
