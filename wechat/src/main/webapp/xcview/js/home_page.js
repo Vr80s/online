@@ -331,13 +331,16 @@ function listenSchool(){
                 location.href=data_listen;
             })
             //swiper轮播结束
+			if(data.resultObject.listenCourseList.length==0 || data.resultObject.listenCourseList.length== null){
+				$(".lecturess").hide()
+			}else{
+				$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
+	            $(".lectures_title").click(function(){
+	                window.location.href="/xcview/html/curriculum_table.html?courseType=2";
+	            })
+			}
 
-
-            $(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
-
-            $(".lectures_title").click(function(){
-                window.location.href="/xcview/html/curriculum_table.html?courseType=2";
-            })
+          
 
         })
 
