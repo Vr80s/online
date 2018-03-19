@@ -155,13 +155,13 @@ $('.path .hospital').addClass('select');
             async: false,
             success: function(data) {
                 if(data.success == false){
-                    $('#tip').text('保存失败，请重试');
+                    $('#tip').text(data.errorMessage);
                     $('#tip').toggle();
                     setTimeout(function(){
                         $('#tip').toggle();
                     },2000)
                 }else if(data.success == true){
-                    $('#tip').text('保存成功');
+                    $('#tip').text(data.resultObject);
                     $('#tip').toggle();
                     setTimeout(function(){
                         $('#tip').toggle();
