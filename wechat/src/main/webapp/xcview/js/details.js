@@ -577,7 +577,7 @@ if (is_weixin()) {
 		wx.onMenuShareAppMessage({
 			title : '中医好课程：' +result.gradeName, // 分享标题
 			desc : stringnull(result.description) ? result.description.stripHTML() : "", // 分享描述
-			link : domain + "/wx_share.html?courseId=" + course_id, // 分享链接
+			link : domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标
 			type : '', // 分享类型,music、video或link，不填默认为link
 			dataUrl : '', // 如果type是music或video，则要提供数据链接，默认为空
@@ -595,7 +595,7 @@ if (is_weixin()) {
 		// 发送到朋友圈
 		wx.onMenuShareTimeline({
 			title : '中医好课程：'+result.gradeName, // 分享标题
-			link : domain + "/wx_share.html?courseId=" + course_id, // 分享链接
+			link : domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标
 			success : function() {
 				// 用户确认分享后执行的回调函数
@@ -614,7 +614,7 @@ if (is_weixin()) {
 		wx.onMenuShareQQ({
 			title : '中医好课程：' +result.gradeName, // 分享标题
 			desc : stringnull(result.description) ? result.description.stripHTML() : "", // 分享描述
-			link : domain + "/wx_share.html?courseId=" + course_id, // 分享链接
+			link : domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标
 			success : function() {
 				// 用户确认分享后执行的回调函数
