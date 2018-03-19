@@ -415,10 +415,10 @@ window.onload = function () {
         $(this).parent().find("span").addClass("hide");
         $(document).keydown(function (e) {
             if (e.which == 13) {
-                if ($.trim($(".search-ansAndQus input").val()) != "") {
-                	location.href = encodeURI("ansAndQus.html?page=1" + "&title=" + encodeURIComponent($.trim($(".search-ansAndQus input").val())) + "&menuId=-1" + "&tag=" + "" + "&status=-1");
-                   
-                }
+//              if ($.trim($(".search-ansAndQus input").val()) != "") {
+//              	location.href = encodeURI("ansAndQus.html?page=1" + "&title=" + encodeURIComponent($.trim($(".search-ansAndQus input").val())) + "&menuId=-1" + "&tag=" + "" + "&status=-1");
+                    $(".search-ansAndQus i").click()
+//              }
             }
         });
     });

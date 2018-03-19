@@ -43,7 +43,7 @@ public interface GiftService {
 	 * @return int
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public int findByUserId(String receiver);
+	public int findByLiveId(Integer liveId);
 
 	/** 
 	 * Description：获取收到的礼物

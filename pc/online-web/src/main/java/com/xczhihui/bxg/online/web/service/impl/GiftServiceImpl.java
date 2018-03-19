@@ -34,6 +34,7 @@ public class GiftServiceImpl implements GiftService {
 		//每次送一个  20180305 yuxin
 		count=1;
 		Map<String, Object> map = giftSendService.addGiftStatement4Lock(liveId, giverId, receiverId, giftId, orderFrom, count, liveId);
+		map.put("giftCount",findByLiveId(Integer.valueOf(liveId)));
 		map.put("balanceTotal",userCoinService.getBalanceByUserId(giverId));
 		return map;
 	}
@@ -44,8 +45,8 @@ public class GiftServiceImpl implements GiftService {
 	}
 
     @Override
-    public int findByUserId(String userId) {
-        return giftDao.findByUserId(userId);
+    public int findByLiveId(Integer userId) {
+        return giftDao.findByLiveId(userId);
     }
 
 	@Override
