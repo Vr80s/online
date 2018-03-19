@@ -14,14 +14,5 @@ import java.util.Map;
  */
 public interface GiftSendService {
 
-	/**
-	 * Description：通过主播查询礼物数量
-	 * @param receiver
-	 * @return
-	 * @return int
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	public int findByUserId(String receiver);
-
     Map<String,Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
 }

@@ -159,7 +159,7 @@ public class LiveDao extends SimpleHibernateDao {
         }
 
         //获取主播礼物数目
-        int count = giftDao.findByUserId((String) course.get("teacherId"));
+        int count = giftDao.findByLiveId(courseId);
         String rewardTotal = rewardDao.getRewardTotal(courseId.toString());
         course.put("giftCount", count);
         course.put("rewardTotal", rewardTotal==null?0:rewardTotal);
