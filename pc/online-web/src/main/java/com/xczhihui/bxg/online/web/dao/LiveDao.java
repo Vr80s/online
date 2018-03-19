@@ -214,31 +214,68 @@ public class LiveDao extends SimpleHibernateDao {
 
 	public List<OpenCourseVo> getOpenCourse(Integer num, String userId) {
         StringBuffer  sqlbf=new StringBuffer();
-//        sqlbf.append(" select z.* from (select c.id , c.is_free as free,c.grade_name as courseName,c.smallimg_path,c.direct_id,IF ( c.is_free = 1, ( SELECT count(*) FROM apply_r_grade_course WHERE course_id = c.id ), ( SELECT sum(ifnull(student_count, 0)) + sum( ifnull(default_student_count, 0)) FROM oe_grade WHERE course_id = c.id AND is_delete = 0 AND STATUS = 1 )) learnd_count,c.external_links,c.direct_seeding,IF(ISNULL(c.`course_pwd`),0,1) coursePwd,");
-//        sqlbf.append(" c.start_time as formatStartTime,ifnull(ou.name ,'暂无讲师') as teacherName,if(now()< c.start_time,2,1 ) as broadcastState");
-////        sqlbf.append(" from oe_course c left join oe_lecturer l on c.lecturer_id = l.id where c.type=1 and c.is_delete=0 and c.status=1 and  now() <= c.end_time  order by c.sort desc  ) as z   limit 4 ");
-//        sqlbf.append(" from oe_course c left join oe_user ou on c.user_lecturer_id = ou.id where c.type=1 and c.is_delete=0 and c.status=1 and  now() <= c.end_time  order by c.sort desc  ) as z  ");
         if(userId == null){
-        	sqlbf.append("SELECT c.id,c.is_free AS free,c.description,c.grade_name AS courseName,c.smallimg_path,c.direct_id,IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) learnd_count,");
-        	sqlbf.append("c.external_links,c.direct_seeding,IF(ISNULL(c.`course_pwd`), 0, 1) coursePwd,c.start_time AS formatStartTime,IFNULL(ou.name, '暂无讲师') AS teacherName,");
-//        	if("test".equals(envFlag)){
-//        		sqlbf.append("IF(NOW() < c.start_time, 2, IF(NOW() > c.end_time, 3, 1)) AS broadcastState  FROM oe_course c  LEFT JOIN oe_user ou  ON c.user_lecturer_id = ou.id  WHERE c.type = 1 ");
-//        		sqlbf.append("AND c.is_delete = 0  AND c.status = 1 ORDER BY broadcastState ,c.start_time");
-//        	}else{
-        		sqlbf.append("c.live_status AS broadcastState  FROM oe_course c  LEFT JOIN oe_user ou  ON c.user_lecturer_id = ou.id  WHERE c.type = 1 ");
-        		sqlbf.append("AND c.is_delete = 0  AND c.status = 1 ORDER BY broadcastState ,c.start_time");
-//        	}
+        	sqlbf.append("SELECT \n" +
+                    "  c.id,\n" +
+                    "  c.is_free AS free,\n" +
+                    "  c.description,\n" +
+                    "  c.grade_name AS courseName,\n" +
+                    "  c.smallimg_path,\n" +
+                    "  c.direct_id,\n" +
+                    "  IFNULL(\n" +
+                    "    (SELECT \n" +
+                    "      COUNT(*) \n" +
+                    "    FROM\n" +
+                    "      apply_r_grade_course \n" +
+                    "    WHERE course_id = c.id),\n" +
+                    "    0\n" +
+                    "  ) + IFNULL(default_student_count, 0) learnd_count,\n" +
+                    "  c.direct_seeding,\n" +
+                    "  c.start_time AS formatStartTime,\n" +
+                    "  c.lecturer AS teacherName,\n" +
+                    "  c.live_status AS broadcastState \n" +
+                    "FROM\n" +
+                    "  oe_course c \n" +
+                    "  LEFT JOIN oe_user ou \n" +
+                    "    ON c.user_lecturer_id = ou.id \n" +
+                    "WHERE c.type = 1 \n" +
+                    "  AND c.is_delete = 0 \n" +
+                    "  AND c.status = 1 \n" +
+                    "ORDER BY broadcastState,\n" +
+                    "  c.start_time ");
         }else{
-        	sqlbf.append("SELECT c.id,c.is_free AS free,c.description,c.grade_name AS courseName,c.smallimg_path,c.direct_id,IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) learnd_count,");
-        	sqlbf.append("c.external_links,c.direct_seeding,IF(ISNULL(c.`course_pwd`), 0, 1) coursePwd,c.start_time AS formatStartTime,IFNULL(ou.name, '暂无讲师') AS teacherName,");
-        	sqlbf.append("IF(ISNULL(ocs.user_id),0,1) isSubscribe,");
-//        	if("test".equals(envFlag)){
-//        		sqlbf.append("IF(NOW() < c.start_time, 2, IF(NOW() > c.end_time, 3, 1)) AS broadcastState  FROM oe_course c  LEFT JOIN oe_user ou  ON c.user_lecturer_id = ou.id LEFT JOIN `oe_course_subscribe` ocs ON ocs.user_id = '"+userId+"' AND ocs.course_id = c.id ");
-//        		sqlbf.append("WHERE c.type = 1 AND c.is_delete = 0  AND c.status = 1  ORDER BY broadcastState ,c.start_time");
-//        	}else{
-        		sqlbf.append("c.live_status AS broadcastState  FROM oe_course c  LEFT JOIN oe_user ou  ON c.user_lecturer_id = ou.id LEFT JOIN `oe_course_subscribe` ocs ON ocs.user_id = '"+userId+"' AND ocs.course_id = c.id ");
-            	sqlbf.append("WHERE c.type = 1 AND c.is_delete = 0  AND c.status = 1  ORDER BY broadcastState ,c.start_time");
-//        	}
+        	sqlbf.append("SELECT \n" +
+                    "  c.id,\n" +
+                    "  c.is_free AS free,\n" +
+                    "  c.description,\n" +
+                    "  c.grade_name AS courseName,\n" +
+                    "  c.smallimg_path,\n" +
+                    "  c.direct_id,\n" +
+                    "  IFNULL(\n" +
+                    "    (SELECT \n" +
+                    "      COUNT(*) \n" +
+                    "    FROM\n" +
+                    "      apply_r_grade_course \n" +
+                    "    WHERE course_id = c.id),\n" +
+                    "    0\n" +
+                    "  ) + IFNULL(default_student_count, 0) learnd_count,\n" +
+                    "  c.direct_seeding,\n" +
+                    "  c.start_time AS formatStartTime,\n" +
+                    "   c.lecturer teacherName,\n" +
+                    "  IF(ISNULL(ocs.user_id), 0, 1) isSubscribe,\n" +
+                    " c.live_status AS broadcastState \n" +
+                    "FROM\n" +
+                    "  oe_course c \n" +
+                    "  LEFT JOIN oe_user ou \n" +
+                    "    ON c.user_lecturer_id = ou.id \n" +
+                    "  LEFT JOIN `oe_course_subscribe` ocs \n" +
+                    "    ON ocs.user_id = '"+userId+"' \n" +
+                    "    AND ocs.course_id = c.id \n" +
+                    "WHERE c.type = 1 \n" +
+                    "  AND c.is_delete = 0 \n" +
+                    "  AND c.status = 1 \n" +
+                    "ORDER BY broadcastState,\n" +
+                    "  c.start_time ");
         }
     
     
