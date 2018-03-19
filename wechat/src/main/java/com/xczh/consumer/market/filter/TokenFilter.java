@@ -292,6 +292,7 @@ public class TokenFilter implements Filter {
 		JSONObject obj = new JSONObject();
 		try{
 			String httpUrl = WxPayConst.returnOpenidUri+"/bxg/bs/checkToken?token="+token;
+			
 			String str = HttpUtil.sendPostRequest(httpUrl,null);
 			if(null!=str) {
                 obj = JSONObject.parseObject(str);

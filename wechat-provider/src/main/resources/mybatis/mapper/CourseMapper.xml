@@ -248,6 +248,7 @@
 		oc.grade_name as gradeName,
 		oc.smallimg_path as smallImgPath,
 		oc.start_time as startTime,
+		DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr,
 		oc.end_time as endTime,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,

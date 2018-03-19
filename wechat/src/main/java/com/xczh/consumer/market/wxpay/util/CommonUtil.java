@@ -595,19 +595,14 @@ public class CommonUtil {
 	}
 	//app二次签名
 	public static Map<String,String> getSignER(Map<String,String> map) throws SDKRuntimeException {
-		/*AppInfo ai = new AppInfo();
-		ai.setAppid(map.get("appid"));
-		ai.setNoncestr(map.get("nonce_str"));
-		ai.setPackage_app(map.get("Sign=WXPay"));
-		ai.setPartnerid(map.get("mch_id"));
-		ai.setPrepayid(map.get("prepay_id"));
-		ai.setTimestamp(map.get(System.currentTimeMillis()/1000+""));*/
+		
+		
 		String timestamp = System.currentTimeMillis()/1000+"";
+		
 		String str = "appid="+map.get("appid")+"&noncestr="+map.get("nonce_str")+""
 				   + "&package=Sign=WXPay"
                    +"&partnerid="+map.get("mch_id")+"&prepayid="+map.get("prepay_id")+"" 
                    +"&timestamp="+timestamp+"";
-		//String signTemp = orderParamByAscii(ai);
 		String sign ="";
 	    sign = MD5SignUtil.Sign(str, WxPayConst.app_ApiKey);
 	    map.put("sign",sign);
