@@ -369,7 +369,7 @@ public class OrderDao extends SimpleHibernateDao {
      */
     public Boolean findCourseIsFree(String ids){
         String[] idArr = ids.split(",");
-        Boolean isFree=false;  //收费课程
+        Boolean isFree=false;  //付费课程
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("idArr", Arrays.asList(idArr));
         String sql=" select sum(c.current_price) current_price from oe_course c  where c.id in (:idArr) ";

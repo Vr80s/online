@@ -360,7 +360,7 @@ public class VideoDao extends SimpleHibernateDao {
         
         OnlineUser user =  userCenter.getUser(orderVo.getUser_id());
        *//**
-         * 如果是收费的点播课，先得查询此课程下正在报名中的班级信息
+         * 如果是付费的点播课，先得查询此课程下正在报名中的班级信息
          *   1、如果有报名中的班级，那么就将学员添加到此班级下
          *   2、如果没有报名中的班级，将用户填到 0班,  此班级不存在
          *//*
@@ -661,7 +661,7 @@ public class VideoDao extends SimpleHibernateDao {
 //        List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
 //        Integer isViewStars = 0;
         
-        //如果这个课程是收费的
+        //如果这个课程是付费的
 //        if(c.isFree()){ 
 //        	 if(list!=null && list.size()>0){//免费   --》判断是否星级评论过
 //        		 isViewStars =2;
@@ -669,7 +669,7 @@ public class VideoDao extends SimpleHibernateDao {
 //        		 isViewStars =1;
 //        	 }
 //        }else{  		
-//        	//收费   --》  如果是购买了，但是没有评论过，返回 ： 1
+//        	//付费   --》  如果是购买了，但是没有评论过，返回 ： 1
 //        	//       如果是 
 //            boolean isComment=false;
 //            if(list.size()>0){ //评论过
