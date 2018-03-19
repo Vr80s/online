@@ -150,6 +150,7 @@ public class XzUserSetController {
 		}
 	}
 	
+	
 	 /**
      * Description：验证是否收到验证码啦
      * @param req
@@ -416,7 +417,6 @@ public class XzUserSetController {
 			/**
 			 * 保存个人资料信息
 			 */
-
 			String provinceCityName=user.getProvinceName();
 			//cityResult.className
 			String citys=user.getRegionId();
