@@ -8,13 +8,13 @@ function time(o) {
 	if (wait == 0) {
 		//o.removeAttribute("disabled");
 		$(o).css("background","#00bc12");
-        $(o).val("获取验证码");
+        $(o).text("获取验证码");
 		wait = 60;
 	} else {
 		//o.setAttribute("disabled", true);
 		$(o).css("background","#00bc12");
 		$(o).css("opacity","0.5");
-        $(o).val("" + wait + "S");
+        $(o).text("" + wait + "S");
 		wait--;
 		setTimeout(function() {
 			time(o)
@@ -37,7 +37,9 @@ document.getElementById("btn").addEventListener("tap", function() {
 	
 	var o = $(this);
 	
-	var text = $(this).val();
+	//var text = $(this).val();
+
+	var text = $(this).text();
 	if(text!="获取验证码"){
 		return false;
 	}
