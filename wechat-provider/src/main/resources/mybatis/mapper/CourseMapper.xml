@@ -522,14 +522,14 @@
 		 from 
 		    course_apply_info cai  
 		    LEFT JOIN  oe_course as oc on cai.id = oc.apply_id
-		    where cai.user_id = #{userId}
+		    where cai.user_id = #{userId} and cai.is_delete=0
 		<if test="courseForm != null">
 			AND cai.`course_form` = #{courseForm}
 		</if>
 		<if test="multimediaType != null">
 			AND cai.`multimedia_type` = #{multimediaType}
 		</if>
-		 order by oc.release_time desc
+		 order by oc.release_time desc,cai.create_time desc
 	</select>
 
 	<!--  查看听课列表  -->
