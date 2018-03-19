@@ -109,7 +109,7 @@
 				if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)  as cutoff,
 		if(oc.is_free =0,0,1) as watchState,
 		
-		if(oc.type=1,ifnull((select count(value) from user_coin_increase  ucc 
+		if(oc.type=1,ifnull((select sum(value) from user_coin_increase  ucc 
  					 INNER JOIN   oe_gift_statement ogs  on ucc.order_no_gift = ogs.id
  						 where ucc.change_type = 3 and ogs.live_id = oc.id ),0),0) as giftCount,
 		if(oc.type=1,ifnull(( select count(*) from oe_focus of 
@@ -158,7 +158,7 @@
 			FROM
 		oe_course as oc
 		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-		where oc.id = #{courseId} and oc.is_delete=0   and ou.status = 1  and ou.deleted =0
+		where oc.id = #{courseId} and oc.is_delete=0   and ou.deleted =0
 	</select>
 
 	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
@@ -248,6 +248,7 @@
 		oc.grade_name as gradeName,
 		oc.smallimg_path as smallImgPath,
 		oc.start_time as startTime,
+		DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr,
 		oc.end_time as endTime,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
@@ -346,7 +347,7 @@
 		oc.lecturer as name
 		FROM
 		oe_course oc
-		where oc.user_lecturer_id = #{userId} and oc.status = 1  order by release_time desc
+		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0   order by release_time desc
 	</select>
 
 
@@ -381,7 +382,7 @@
 		FROM
 		oe_course oc
 		where
-		oc.user_lecturer_id = #{userId}
+		oc.user_lecturer_id = #{userId} and oc.is_delete=0 
 		and
 		DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(oc.start_time)
 		and oc.type =1 and oc.live_status = 2
@@ -414,7 +415,7 @@
 		'我的课程' as note
 		FROM
 		oe_course oc
-		where oc.user_lecturer_id = #{userId} order by oc.release_time
+		where oc.user_lecturer_id = #{userId}  and oc.is_delete=0  order by oc.release_time
 		desc,oc.start_time desc limit 3
 		)
 	</select>
@@ -451,7 +452,7 @@
 		oc.user_lecturer_id = #{userId}
 		and
 		DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(oc.start_time)
-		and oc.type =1 and oc.live_status = 2
+		and oc.type =1 and oc.live_status = 2 and oc.is_delete=0 
 		order by oc.start_time desc
 	</select>
 	

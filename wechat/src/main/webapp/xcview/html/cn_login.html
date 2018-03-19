@@ -12,8 +12,8 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 
-<link rel="stylesheet" href="/xcview/css/cn_login.css">
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<link rel="stylesheet" href="/xcview/css/cn_login.css?version=6a75a54bdc">
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=31c81b486a">
 <script>
 	var kk=document.documentElement.clientWidth;
 	if(kk>750){
@@ -59,7 +59,9 @@
 		<div class="enter_one">
 			<img src="../images/auth_code.png" class="img1" />
 			<input type="text" name="vcode" id="vcode" value="" placeholder="验证码" class="input2 put" maxlength="4" style="width: 4rem;float: left;" />
-			<input type="button" id="btn" value="获取验证码" /> 
+			<!--<input type="button" id="btn" value="获取验证码" /> -->
+			<div id="btn">获取验证码</div>
+
 		</div>
 		<div class="enter_one">
 			<img src="../images/suo.png" class="img1" style="margin-top: 0.37rem;" />
@@ -181,10 +183,10 @@
 <!-- 公共的 js  -->
 <script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js"></script>
-<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js?version=1a72100b6d"></script>
+<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js?version=6155d0c1d4"></script>
 
-<script type="text/javascript" src="/xcview/js/login/cn_reg.js"></script>
+<script type="text/javascript" src="/xcview/js/login/cn_reg.js?version=df86968395"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -230,13 +232,13 @@ $(document).ready(function() {
 	    if (countdown == 0) { 
 	        obj.attr('disabled',false); 
 	        //obj.removeattr("disabled"); 
-	        obj.val("获取验证码");
+	        obj.text("获取验证码");
 	        $("#btn").css("background","#00bc12")
 	        countdown = 60; 
 	        return;
 	    } else { 
 	        obj.attr('disabled',true);
-	        obj.val("(" + countdown + ")S");
+	        obj.text("(" + countdown + ")S");
 	        countdown--; 
 	        $("#btn").css("background","#ccc")
 	    } 
@@ -312,3 +314,4 @@ $(document).ready(function() {
 </script>
 
 </html>
+

@@ -66,14 +66,14 @@ public class GiftDao extends SimpleHibernateDao {
 
 	/** 
 	 * Description：查询某人获得的礼物数量
-	 * @param userId
+	 * @param liveId
 	 * @return
 	 * @return int
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public int findByUserId(String userId) {
+	public int findByLiveId(Integer liveId) {
 		String sql="select count(value) from user_coin_increase  ucc INNER JOIN   oe_gift_statement ogs  "
-				+ " on ucc.order_no_gift = ogs.id where ucc.change_type = 3 and ogs.live_id ="+userId+" ";
+				+ " on ucc.order_no_gift = ogs.id where ucc.change_type = 3 and ogs.live_id ="+liveId+" ";
 		return (int) this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(sql, Integer.class);
 	}
 
