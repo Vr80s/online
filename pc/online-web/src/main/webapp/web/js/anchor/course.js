@@ -470,7 +470,7 @@ function showPersonInf(){
    RequestService("/anchor/info", "get",null, function(data) {
     $('.course_lecturer').val(data.resultObject.name);
    	UE.getEditor('editor').setContent(data.resultObject.detail);
-   });
+   },false);
 }
 
 /**
