@@ -134,6 +134,7 @@ function createGiftList(gift) {
       	      text: "赠送给主播1个"+data.giftInfo.name+""
       });
       $("#chatmsg").append(str);
+     
       // createGiftShow();
       
       setTimeout(function(){
