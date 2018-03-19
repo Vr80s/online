@@ -262,7 +262,7 @@ public class XzWxPayController {
 
 		if (retpay != null) {
 			retpay.put("ok", "true");
-			if(orderFrom == 2){
+			if(orderFrom == 5){
 				retpay = CommonUtil.getSignER(retpay);
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
