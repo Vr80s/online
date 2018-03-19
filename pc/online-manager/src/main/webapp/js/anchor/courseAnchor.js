@@ -56,7 +56,7 @@ $(function() {
                        str += '<a class="blue" href="javascript:void(-1);" title="打开主播权限" onclick="editPermissions(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
                 }
                 str += '<a class="blue" href="javascript:void(-1);" title="设置分成比例" onclick="toEdit(this,1);"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
-                str += '<a class="blue" href="javascript:void(-1);" title="课程列表" onclick="showCourseListDialog(this);"><i class="ace-icon fa fa-ellipsis-h bigger-130"></i></a>';
+                str += '<a class="blue" href="javascript:void(-1);" title="课程列表" onclick="showCourseListDialog(this);">课程列表</a>';
                 return str;
             }
         }];

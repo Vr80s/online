@@ -461,16 +461,18 @@
 <div class="page-header">
 	当前位置：主播管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 	</small> <span> 主播课程列表 </span>
+	<small> <i class="ace-icon fa fa-angle-double-right"></i>
+	</small> <span> ${anchorNname}(${loginName})的课程 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
 	<!-- Nav tabs -->
-	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+	<%--<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
 		<li role="presentation" class="active">
 			<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">${anchorNname}(${loginName})的课程</a>
 		</li>
-	</ul>
+	</ul>--%>
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
