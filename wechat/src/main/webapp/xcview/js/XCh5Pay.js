@@ -42,24 +42,31 @@ function weixin(url,params,returnUrl) {
 }
 function wechatH5(url,params,returnUrl){
 	var domain = window.location.host;
-	returnUrl =domain +returnUrl;
+	if(returnUrl.indexOf(domain) ==-1){
+		returnUrl =domain +returnUrl;
+	}
     $.ajax({
         url : url+"?"+params,
         type : 'get',
         success : function(datas) {
             var params = datas.resultObject;
             if(datas.success){
-            	if(datas.code == 1002){  //过期
-    				location.href = "/xcview/html/cn_login.html";
-    			}else if(datas.code == 1003){ //被同一用户顶掉了
-    				location.href = "/xcview/html/common.html";
-    			}else if(datas.code == 1005){ //token过期  -->去完善信息页面
-    				var openId =  msg.resultObject.openId;
-    				var unionId =  msg.resultObject.unionId;
-    				location.href = "/xcview/html/evpi.html?openId="+openId+"&unionId="+unionId;
-    			}else{
-    				window.location.href = params.mweb_url+"&redirect_url="+returnUrl;
-    			}
+            	var paramsIsOk = params.ok;
+            	if(paramsIsOk != "false"){
+            		if(datas.code == 1002){  //过期
+        				location.href = "/xcview/html/cn_login.html";
+        			}else if(datas.code == 1003){ //被同一用户顶掉了
+        				location.href = "/xcview/html/common.html";
+        			}else if(datas.code == 1005){ //token过期  -->去完善信息页面
+        				var openId =  msg.resultObject.openId;
+        				var unionId =  msg.resultObject.unionId;
+        				location.href = "/xcview/html/evpi.html?openId="+openId+"&unionId="+unionId;
+        			}else{
+        				location.replace(window.location.href = params.mweb_url+"&redirect_url="+returnUrl);
+        			}
+            	}else{
+            		alert("抱歉充值失败!");
+            	}
             }else{
             	alert(data.errorMessage);
             }
@@ -93,7 +100,8 @@ function gongzhonghao(url,params,returnUrl){
                 function(res){
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                     	//alert(returnUrl);
-                        location.href = returnUrl;//"/bxg/page/wait_money";
+                        //location.href = returnUrl;//"/bxg/page/wait_money";
+                        location.replace(returnUrl);
                     }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 }
             );

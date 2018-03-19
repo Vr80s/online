@@ -29,11 +29,13 @@
 
 	<select id="selectAllCourseResourcesForUpdateDuration" resultType="com.xczhihui.medical.anchor.model.CourseApplyResource">
 		SELECT
-		  car.id,car.`resource`
+		  car.id,car.`resource`,
+		  car.title,
+  			car.`create_time`
 		FROM
 		  `course_apply_resource` car
 		WHERE car.`is_delete` = 0
-		AND (car.`length` IS NULL or car.`length` =0)
+		AND (car.`length` IS NULL)
 		ORDER BY car.`create_time` ASC
 	</select>
 

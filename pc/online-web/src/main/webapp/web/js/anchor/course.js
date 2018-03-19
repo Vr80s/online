@@ -340,7 +340,7 @@ function addCourse(course){
             console.log(data);
             if(data.success === true) {
                 showTip(data.resultObject);
-                resetCourseForm();
+                resetCourseForm(true);
                 setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
             } else {
                 showTip(data.errorMessage)
@@ -360,7 +360,7 @@ function updateCourse(course){
             console.log(data);
             if(data.success === true) {
                 showTip(data.resultObject);
-                resetCourseForm();
+                resetCourseForm(false);
                 setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
             } else {
                 showTip(data.errorMessage)
@@ -370,10 +370,13 @@ function updateCourse(course){
 }
 
 function editCourse(caiId){
-    resetCourseForm();
-    echoCourse(caiId);
-    $(".curriculum_two").hide();
-    $(".curriculum_one").show();
+    resetCourseForm(false);
+    if(echoCourse(caiId)){
+        $(".curriculum_two").hide();
+        $(".curriculum_one").show();
+    }else{
+        showTip("课程已通过，不可再次编辑");
+    }
 }
 
 function deleteCourse(caiId,collection){
@@ -395,62 +398,70 @@ function deleteCourse(caiId,collection){
         });
     });
 }
-function echoCourse(caiId){
+function getCourse4Update(caiId){
+    var course;
     RequestService("/anchor/course/getCourseApplyById?caiId="+caiId, "get", null, function(data) {
-        var course = data.resultObject;
-        $('#caiId').val(caiId);
-        $('.course_title').val(course.title);
-        $('.course_subtitle').val(course.subtitle);
-        $('#courseImg').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
-        $('#courseImg img').attr('src',course.imgPath);
-        $('.course_lecturer ').val(course.lecturer);
-        UE.getEditor('editor').setContent(course.lecturerDescription);
-        // $("input[name='course_form']:checked").val();
-        $("input:radio[name=course_form][value="+course.courseForm+"]").prop("checked",true);
-        $('#menu_select').val(course.courseMenu);
-        $('.course_price').val(course.price);
-        // course.courseDetail = getCDContent();
-        UE.getEditor('editor_cd').setContent(course.courseDetail);
-        $('.course_length').val(course.courseLength);
-        showCourseAttribute(course.courseForm);
-        if(course.courseForm==1){
-            $('.course_start_time').val(course.startTime);
-        }else if(course.courseForm==2){
-            // course.multimediaType = $("input[name='course_multimedia_type']:checked").val();
-            initResource(course.multimediaType);
-            $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
-            // $('.course_resource').val(course.resourceId);
-            $('.course_resource').selectpicker('val',(course.resourceId));
-        }else{
-            $('.course_start_time').val(course.startTime);
-            $('.course_end_time').val(course.endTime);
-            //TODO 省市回显
-            //省市区
-            var address = course.address.split(" ")[1];
-            var p_c = course.address.split(" ")[0];
-            p_c = p_c.split("-");
-            if(p_c.length==2){
-                //省
-                for(var i=0;i<$(".course_province option").length;i++){
-                    if($(".course_province option").eq(i).text()==p_c[0]){
-                        $(".course_province option").eq(i).prop("selected",true);
-                        break;
-                    }
-                }
-                $(".course_city").empty();
-                doProvAndCityRelation($(".course_province"));
-                for(var i=0;i<$(".course_city option").length;i++){
-                    if($(".course_city option").eq(i).text()==p_c[1]){
-                        $(".course_city option").eq(i).prop("selected",true);
-                        break;
-                    }
+        course = data.resultObject;
+    },false);
+    return course;
+}
+
+function echoCourse(caiId){
+    var course = getCourse4Update(caiId);
+    if(course.status==1)return false;
+    $('#caiId').val(caiId);
+    $('.course_title').val(course.title);
+    $('.course_subtitle').val(course.subtitle);
+    $('#courseImg').html('<img src="" style="width: 100%;height: 100%" >');
+    $('#courseImg img').attr('src',course.imgPath);
+    $('.course_lecturer ').val(course.lecturer);
+    UE.getEditor('editor').setContent(course.lecturerDescription);
+    // $("input[name='course_form']:checked").val();
+    $("input:radio[name=course_form][value="+course.courseForm+"]").prop("checked",true);
+    $('#menu_select').val(course.courseMenu);
+    $('.course_price').val(course.price);
+    // course.courseDetail = getCDContent();
+    UE.getEditor('editor_cd').setContent(course.courseDetail);
+    $('.course_length').val(course.courseLength);
+    showCourseAttribute(course.courseForm);
+    if(course.courseForm==1){
+        $('.course_start_time').val(course.startTime);
+    }else if(course.courseForm==2){
+        // course.multimediaType = $("input[name='course_multimedia_type']:checked").val();
+        initResource(course.multimediaType);
+        $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
+        // $('.course_resource').val(course.resourceId);
+        $('.course_resource').selectpicker('val',(course.resourceId));
+    }else{
+        $('.course_start_time').val(course.startTime);
+        $('.course_end_time').val(course.endTime);
+        //TODO 省市回显
+        //省市区
+        var address = course.address.split(" ")[1];
+        var p_c = course.address.split(" ")[0];
+        p_c = p_c.split("-");
+        if(p_c.length==2){
+            //省
+            for(var i=0;i<$(".course_province option").length;i++){
+                if($(".course_province option").eq(i).text()==p_c[0]){
+                    $(".course_province option").eq(i).prop("selected",true);
+                    break;
                 }
             }
-            $(".course_address").val(address);
+            $(".course_city").empty();
+            doProvAndCityRelation($(".course_province"));
+            for(var i=0;i<$(".course_city option").length;i++){
+                if($(".course_city option").eq(i).text()==p_c[1]){
+                    $(".course_city option").eq(i).prop("selected",true);
+                    break;
+                }
+            }
         }
-    });
+        $(".course_address").val(address);
+    }
+    return true;
 }
-function resetCourseForm(){
+function resetCourseForm(sp){
     document.getElementById("courseForm").reset();
     $("#course_version").val(new Date().getTime());
     $("input:radio[name=course_form][value=1]").prop("checked",true);
@@ -461,8 +472,9 @@ function resetCourseForm(){
     $("#citys").empty();
     showCourseAttribute(1);
     initResource(1);
-    showPersonInf();
-//  alert(222)
+    if(sp){
+        showPersonInf();
+    }
 }
 
 //课程展示主播信息

@@ -20,11 +20,14 @@ import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -50,6 +53,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private ICourseApplyService courseApplyService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Description：分页获取主播课程列表
@@ -270,8 +275,17 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         List<CourseApplyResource> CourseApplyResources = courseApplyResourceMapper.selectAllCourseResourcesForUpdateDuration();
         for (CourseApplyResource courseApplyResource : CourseApplyResources) {
             try {
-                String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
-                courseApplyResource.setLength(duration);
+                LocalDateTime today = LocalDateTime.now();
+                LocalDateTime birthDate = LocalDateTime.ofInstant(courseApplyResource.getCreateTime().toInstant(), ZoneId.systemDefault());
+                Duration d = java.time.Duration.between(birthDate, today );
+                if(d.toHours()>24){
+                    logger.info("资源{}-{}转码超时",courseApplyResource.getId(),courseApplyResource.getTitle());
+                    courseApplyResource.setLength(-1+"");
+                }else{
+                    String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
+                    courseApplyResource.setLength(duration);
+                }
+
                 courseApplyResourceMapper.updateById(courseApplyResource);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -311,6 +325,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         CourseApplyInfo cai = selectCourseApplyById(courseApplyInfo.getUserId(), courseApplyInfo.getId());
         if(cai==null){
             throw new RuntimeException("课程不存在");
+        }else if(cai.getStatus()==ApplyStatus.PASS.getCode()){
+            throw new RuntimeException("课程已审核通过，不能再次编辑");
         }
         //删除之前申请
         courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());
@@ -530,4 +546,14 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
     }
 
+    public static void main(String[] args) {
+        LocalDateTime today = LocalDateTime.now();
+        System.out.println("Today : " + today);
+        LocalDateTime birthDate = LocalDateTime.of(2018,03,18,16,30);
+        System.out.println("BirthDate : " + birthDate);
+
+        Duration duration = java.time.Duration.between(birthDate, today );
+        System.out.print(duration.toHours());
+
+    }
 }
