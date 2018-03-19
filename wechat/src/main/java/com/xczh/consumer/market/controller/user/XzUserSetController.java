@@ -150,6 +150,7 @@ public class XzUserSetController {
 		}
 	}
 	
+	
 	 /**
      * Description：验证是否收到验证码啦
      * @param req
@@ -416,27 +417,26 @@ public class XzUserSetController {
 			/**
 			 * 保存个人资料信息
 			 */
-
 			String provinceCityName=user.getProvinceName();
 			//cityResult.className
 			String citys=user.getRegionId();
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  provinceCityName.split(" ");
 				//获取省市县
-				if(str.length ==2){
+				if(str.length ==3){
 					user.setProvinceName(str[0]);
 					user.setCityName(str[1]);
-					//user.setCountyName(str[2]);
+					user.setCountyName(str[2]);
 				}
 			}
 			
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  citys.split(" ");
 				//获取省市县
-				if(str.length == 2){
+				if(str.length == 3){
 					user.setRegionAreaId(str[0]);
 					user.setRegionCityId(str[1]);
-					//user.setRegionId(str[2]);
+					user.setRegionId(str[2]);
 				}
 			}
 			
