@@ -423,20 +423,20 @@ public class XzUserSetController {
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  provinceCityName.split(" ");
 				//获取省市县
-				if(str.length ==3){
+				if(str.length ==2){
 					user.setProvinceName(str[0]);
 					user.setCityName(str[1]);
-					user.setCountyName(str[2]);
+					//user.setCountyName(str[2]);
 				}
 			}
 			
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  citys.split(" ");
 				//获取省市县
-				if(str.length == 3){
+				if(str.length == 2){
 					user.setRegionAreaId(str[0]);
 					user.setRegionCityId(str[1]);
-					user.setRegionId(str[2]);
+					//user.setRegionId(str[2]);
 				}
 			}
 			

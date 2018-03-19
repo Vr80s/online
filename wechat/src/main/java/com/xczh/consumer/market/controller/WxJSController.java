@@ -292,6 +292,25 @@ public class WxJSController {
 		return ResponseObject.newSuccessResponseObject(buffer);
 	}	
 		
+	
+	/**
+	 * 
+	 * Description：
+	 *  第一步、判断是post请求还是get请求
+	 *    get请求用来校验签名信息
+	 *    post请求用来 推送微信发送过来的事件
+	 *  第二步、  
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	
+	
+	
 	@RequestMapping("checkInWx")
 	public void checkInWx (HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
 		
