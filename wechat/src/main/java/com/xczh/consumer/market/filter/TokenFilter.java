@@ -69,6 +69,7 @@ public class TokenFilter implements Filter {
 	private static String specific_business_one = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
 			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/bs/appLogin,/bxg/focus/myHome,"
 			+ "/bxg/user/appleLogout";
+	
 	private static String specific_business_two = "/bxg/bunch/queryAllCourse,/bxg/bunch/schoolClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop,"
 			+ "/bxg/bunch/offLine,/bxg/live/onlineLive,/bxg/bunch/listenCourse,/bxg/criticize/saveCriticize,/bxg/criticize/updatePraise,"
 			+ "/bxg/criticize/saveReply,/bxg/criticize/getCriticizeList,/bxg/host/hostPageCourse,/bxg/host/hostPageInfo,/bxg/bunch/hotSearch";
@@ -99,7 +100,7 @@ public class TokenFilter implements Filter {
 	
 	private static String new_controller_pay_the_callback_one =
 			"/xczh/criticize/getCriticizeList,/bxg/ccvideo/commonCourseStatus"
-			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,"
+			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
 			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/gift/list";
 	
 	

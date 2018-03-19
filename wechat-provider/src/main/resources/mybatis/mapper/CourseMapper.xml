@@ -109,7 +109,7 @@
 				if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)  as cutoff,
 		if(oc.is_free =0,0,1) as watchState,
 		
-		if(oc.type=1,ifnull((select count(value) from user_coin_increase  ucc 
+		if(oc.type=1,ifnull((select sum(value) from user_coin_increase  ucc 
  					 INNER JOIN   oe_gift_statement ogs  on ucc.order_no_gift = ogs.id
  						 where ucc.change_type = 3 and ogs.live_id = oc.id ),0),0) as giftCount,
 		if(oc.type=1,ifnull(( select count(*) from oe_focus of 
