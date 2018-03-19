@@ -230,7 +230,7 @@
 					/**
 					 * 目前暂时不显示街道
 					 */
-					//var a_all = result.provinces + result.city+ result.county + result.street +result.detailedAddress;
+//					var a_all = result.provinces + result.city+ result.county + result.street +result.detailedAddress;
 					var a_all = result.provinces + result.city+ result.county  +result.detailedAddress;
 
 					/*
