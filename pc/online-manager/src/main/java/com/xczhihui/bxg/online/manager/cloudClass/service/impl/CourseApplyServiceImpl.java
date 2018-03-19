@@ -292,6 +292,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		course.setOriginalCost(courseApply.getPrice());
 		//现价格
 		course.setCurrentPrice(courseApply.getPrice());
+		//推荐值
+		course.setRecommendSort(0);
 
 		if(0==course.getCurrentPrice()){
 			//免费

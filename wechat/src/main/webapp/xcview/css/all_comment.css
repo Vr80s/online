@@ -153,9 +153,9 @@ margin-top: 0.1rem;
     padding-bottom: 0.5rem;
 }    
 .quie_pic img{
-	width: 4rem;
-	display: inline-block;
-	margin-top: 1rem;
+	    width: 2.5rem;
+    display: inline-block;
+    margin: 3rem 0 0.6rem;
 }
 .quie_pic p{
 	color: #BBBBBB;

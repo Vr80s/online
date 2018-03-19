@@ -109,14 +109,16 @@ public class XzIapController {
         LOGGER.info("version:"+version);
         int diff = VersionCompareUtil.compareVersion(newVersion, version);
         
-        /*
-         * 非最新版本
-         */
-        //iphone.iap.url=https://sandbox.itunes.apple.com/verifyReceipt
-        //iphone.iap.url=https://buy.itunes.apple.com/verifyReceipt
+      
         if (diff > 0) {  //当前版本小于最新版本，说明是老版本，需要用--生产环境
+        	
+        	LOGGER.info("{}{}{}{}{}-----》当前版本小于最新版本，说明是老版本  ");
+        	
         	url = "https://buy.itunes.apple.com/verifyReceipt";
         }else{			//当前版本等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境
+        	
+        	LOGGER.info("{}{}{}{}{}-----》当前版本等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境");
+        	
         	url = "https://sandbox.itunes.apple.com/verifyReceipt";
         }
         

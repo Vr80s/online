@@ -198,17 +198,31 @@ public class XzCommonController {
 		if (newVer == null) {
 			return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
 		}
-		LOGGER.info("version:" + userVersion);
+		LOGGER.info("userVersion:" + userVersion);
 		LOGGER.info("newVer.getVersion():" + newVer.getVersion());
 		// 对比版本号
 		String newVersion = newVer.getVersion();
 		int diff = VersionCompareUtil.compareVersion(newVersion, userVersion);
 		if (diff <= 0) {
+			LOGGER.info("{}{}{}{}{}-----》已经是最新版本，不需要更新");
 			return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
 		}
+		LOGGER.info("{}{}{}{}{}-----》已经是最新版本，需要更新了"+"-------ismustipdate:"+newVer.getIsMustUpdate());
+		
 		newVer.setIsUpdate(true);
 
 		return ResponseObject.newSuccessResponseObject(newVer);
+	}
+	public static void main(String[] args) {
+		
+		String userVersion = "2.2.1";
+		String newVersion = "2.2.2";
+		int diff = VersionCompareUtil.compareVersion(newVersion, userVersion);
+		if (diff <= 0) {
+			System.out.println("已经是最新版本");
+		}else{
+			System.out.println("需要更新了啊");
+		}
 	}
 	/**
 	 * Description：微吼签名认证得到微吼的视频播放权
