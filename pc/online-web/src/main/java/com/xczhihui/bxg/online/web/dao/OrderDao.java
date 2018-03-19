@@ -204,8 +204,22 @@ public class OrderDao extends SimpleHibernateDao {
             for (OrderVo  orderVo : page.getItems()){
                 paramMap = new HashMap<>();
                 paramMap.put("order_id",orderVo.getId());
-                String sql = "select c.id,c.smallimg_path,c.grade_name,c.course_length,c.type,c.direct_id,c.course_type,od.price,od.actual_pay actualPay,ou.name lecturer "
-                		+ " from oe_order_detail od join oe_course c on od.course_id=c.id left join oe_user ou on ou.id=c.user_lecturer_id where od.order_id=:order_id";
+                String sql = "select \n" +
+                        "  c.id,\n" +
+                        "  c.smallimg_path,\n" +
+                        "  c.grade_name,\n" +
+                        "  c.course_length,\n" +
+                        "  c.type,\n" +
+                        "  c.direct_id,\n" +
+                        "  c.course_type,\n" +
+                        "  od.price,\n" +
+                        "  od.actual_pay actualPay,\n" +
+                        "  c.`lecturer`\n" +
+                        "from\n" +
+                        "  oe_order_detail od \n" +
+                        "  join oe_course c \n" +
+                        "    on od.course_id = c.id \n" +
+                        "  where od.order_id = :order_id ";
                 List<Map<String,Object>> courses = this.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
                 orderVo.setOrderDetail(courses);
             }
@@ -355,7 +369,7 @@ public class OrderDao extends SimpleHibernateDao {
      */
     public Boolean findCourseIsFree(String ids){
         String[] idArr = ids.split(",");
-        Boolean isFree=false;  //收费课程
+        Boolean isFree=false;  //付费课程
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("idArr", Arrays.asList(idArr));
         String sql=" select sum(c.current_price) current_price from oe_course c  where c.id in (:idArr) ";

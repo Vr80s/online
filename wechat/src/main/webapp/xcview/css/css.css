@@ -1697,10 +1697,13 @@ footer{
 	width: 90%;
 	line-height:0.8rem;
     margin: 0 auto;
-    font-size: 0.55rem;
+    font-size: 0.59rem;
     text-align: justify;
     /*font-family: "微软雅黑";*/
     /*text-indent: 1rem;*/
+}
+.anchor_center p span{
+	font-size: 0.59rem !important;
 }
 .anchor_center img{
 	width: 100%;
@@ -1765,7 +1768,7 @@ footer{
 }
 .leaderboard_center_size .p2{
 	font-size: 0.55rem;
-	color: #e5b907;
+	color: #F97B49;
 }
 .leaderboard_list_right{
 	float: right;

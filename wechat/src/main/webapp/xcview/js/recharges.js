@@ -100,25 +100,23 @@ function  goPay() {
 	var zhifubao_payFalg =  $("#zhifubao_pay").attr("class");
 	var weixin_payFalg =  $("#weixin_pay").attr("class");
 	
-	var payType = ""; //支付类型   1 熊猫币支付   2支付宝支付  3 微信支付
+	var payType = 3; //支付类型   1 熊猫币支付   2支付宝支付  3 微信支付
 	
-	if(zhifubao_payFalg.indexOf("pay_border")!=-1){ //就是支付宝支付
+/*	if(zhifubao_payFalg.indexOf("pay_border")!=-1){ //就是支付宝支付
 		payType = 2;
 	}else if(weixin_payFalg.indexOf("pay_border")!=-1){
 		payType = 3;
 	}else{
 		alert("获取支付类型有误");
 		return;
-	}
+	}*/
+	//payType = 3;
+	
 	/**
 	 * 这里需要获取熊猫币的余额
 	 */
 	var actualPay  = $("#ul").find(".li0").find(".p1").find("span").text();
-//	alert(actualPay);    测试弹出多少元
 	console.log("实际充值的人民币"+actualPay);
-//	actualPay = 1; //充值金额人民币
-//	//测试  
-//	actualPay = 0.01;
 	
 	if(payType == 2){ //支付宝支付  rechargePay
     	/**

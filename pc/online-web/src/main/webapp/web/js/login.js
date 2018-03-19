@@ -119,7 +119,7 @@ $(function () {
             $(this).css("border", "1px solid #2cb82c");
         });
         logUserInput.blur(function () {
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             if (logUserInput.val().trim().length === 0) {
                 logUserInput.css("border", "1px solid #ff4012");
@@ -159,7 +159,7 @@ $(function () {
             }
         });
         $(".goLogin").click(function (evt) { //登录验证
-            var regPhone = /^1[3-578]\d{9}$/;/*
+            var regPhone = /^1[3-5678]\d{9}$/;/*
             */var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             logUserInput.css("border", "");
             logPassInput.css("border", "");
@@ -240,7 +240,7 @@ $(function () {
             $(".goRegister").toggleClass("registerProtocal");
         });
         $(".goRegister").click(function () { //验证注册
-            var reg = /^1[3-578]\d{9}$/;
+            var reg = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             var yonghuNameLength;
 
@@ -453,7 +453,7 @@ $(function () {
         });
         //注册失去焦点判断用户名
         cymregInput.blur(function () {
-            var reg = /^1[3-578]\d{9}$/;
+            var reg = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             var data = {
                 username: cymregInput.val().trim(),
@@ -533,7 +533,7 @@ $(function () {
          })
         
         cymCodeInput.focus(function () {
-            var reg = /^1[3-578]\d{9}$/;
+            var reg = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             var data = {
                 username: cymregInput.val(),
@@ -621,7 +621,7 @@ $(function () {
             }
         });
         cymregInput.on("input", function () { //用户名提示
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             if (regPhone.test($(this).val())) {
                 registMethond = "mobile";
                 $(".verification-code").css("display", "block");
@@ -665,7 +665,7 @@ $(function () {
         //注册框输入内容清空按钮出现，点击清空按钮内容清空自身消失
         cymregInput.on("input", function () {
             var val = cymregInput.val();
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             if (cymregInput.val() == "") {
                 $(".registerUsernameBox .cymyloginsuccess").css("display", "none");

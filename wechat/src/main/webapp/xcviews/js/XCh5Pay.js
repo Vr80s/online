@@ -39,7 +39,17 @@ function wechatH5(url,params,returnUrl){
         success : function(datas) {
             var params = datas.resultObject;
             if(datas.success){
-                window.location.href = params.mweb_url+"&redirect_url="+returnUrl;
+            	if(datas.code == 1002){  //过期
+    				location.href = "/xcview/html/cn_login.html";
+    			}else if(datas.code == 1003){ //被同一用户顶掉了
+    				location.href = "/xcview/html/common.html";
+    			}else if(datas.code == 1005){ //token过期  -->去完善信息页面
+    				var openId =  msg.resultObject.openId;
+    				var unionId =  msg.resultObject.unionId;
+    				location.href = "/xcview/html/evpi.html?openId="+openId+"&unionId="+unionId;
+    			}else{
+    				window.location.href = params.mweb_url+"&redirect_url="+returnUrl;
+    			}
             }else{
             	alert(data.errorMessage);
             }

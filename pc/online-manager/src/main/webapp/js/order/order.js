@@ -48,7 +48,7 @@ function loadOrderList(){
                 orderForm = "ios";
             }else if(data == 5){
                 orderForm = "线下";
-            }else if(data == 5){
+            }else if(data == 6){
                 orderForm = "工作人员";
             }
         	return orderForm;

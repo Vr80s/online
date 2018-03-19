@@ -196,12 +196,6 @@ function  goPay() {
                alert(data.errorMessage);
              }
  		},false)
-// 	    PC(1, "pc"),
-// 	    H5(2, "h5"),
-// 	    ANDROID(3, "android"),
-// 	    IOS(4, "ios"),
-// 	    OFFLINE(5, "线下"),
-// 	    WORKER(6, "工作人员");		
  		
     }else if(payType==3){ //微信支付
         var openId=   localStorage.getItem("openid");

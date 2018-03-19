@@ -17,7 +17,7 @@ public class CourseApplyVo {
     private String  courseName;
 
     /**
-     *课程是否免费状态:true:免费  false:收费
+     *课程是否免费状态:true:免费  false:付费
      */
     private boolean  isFree;
 

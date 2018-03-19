@@ -304,7 +304,7 @@ public class LiveController {
 		//map.put("logo", json.get("url").toString());
 
 		LOGGER.info("req.getParameterprice================"+req.getParameter("price"));
-		if("1".equals(liveExamineInfo.getSeeMode())){//收费
+		if("1".equals(liveExamineInfo.getSeeMode())){//付费
 			liveExamineInfo.setPrice(new BigDecimal(req.getParameter("price")));
 		}
 		if("2".equals(liveExamineInfo.getSeeMode())){//密码

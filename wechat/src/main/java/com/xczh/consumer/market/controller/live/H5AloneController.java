@@ -60,7 +60,7 @@ public class H5AloneController {
 	 * 这个方法暂时先这样提供，能用到的就用呗
 	 * 
 	 * 只需要得到这个课程的状态集合,用户判断前台的页面跳转
-	 * watchState 观看状态  0 免费观看  1 需要收费  2 需要密码
+	 * watchState 观看状态  0 免费观看  1 需要付费  2 需要密码
 	 * lineState: 0 直播已结束 1 直播还未开始 2 正在直播
 	 * type: 1直播  2点播 3音频 
 	 * 

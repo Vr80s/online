@@ -82,7 +82,7 @@ public class CourseLecturVo implements Serializable {
      */
     private double currentPrice;
     /**
-     * 是否收费  true 免费  false 收费
+     * 是否付费  true 免费  false 付费
      */
     private Integer isFree;
 
@@ -139,7 +139,7 @@ public class CourseLecturVo implements Serializable {
     
     private Integer isSubscribe; //0 未预约  1预约
     
-    private Integer watchState; //观看状态 0免费  1收费  2 需要密码验证
+    private Integer watchState; //观看状态 0免费  1付费  2 需要密码验证
     
     private String imRoomId; //im房间号
 

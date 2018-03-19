@@ -116,7 +116,7 @@ $(document).ready(function() {
     	
     	if(msg.role == "host"){ //说明是主播
     		var hostName = sessionStorage.getItem("hostName");
-    		userName = "<span class='span_zhubo'>主讲人</span>"+ (stringnull(hostName) ?  hostName : "");
+    		userName = "<span class='span_zhubo'>主播</span>"+ (stringnull(hostName) ?  hostName : "");
     	}
     	var str = "<div class='coze_cen_ri'><div class='coze_cen_bg_ri'><span class='span_name'>"+userName+"：</span>"+msg.content+"</div><div class='both'></div></div>";
         $("#chatmsg").append(str);

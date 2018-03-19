@@ -108,15 +108,16 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 				if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)  as cutoff,
 		if(oc.is_free =0,0,1) as watchState,
-		if(oc.type=1,ifnull((select SUM(count) from oe_gift_statement where receiver = user_lecturer_id),0),0) as giftCount,
 		
-		
+		if(oc.type=1,ifnull((select count(value) from user_coin_increase  ucc 
+ 					 INNER JOIN   oe_gift_statement ogs  on ucc.order_no_gift = ogs.id
+ 						 where ucc.change_type = 3 and ogs.live_id = oc.id ),0),0) as giftCount,
 		if(oc.type=1,ifnull(( select count(*) from oe_focus of 
-		     inner join course_anchor as ou on of.user_id = ou.user_id
+		     inner join course_anchor as ou on of.lecturer_id = ou.user_id
 		     where of.lecturer_id = oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0),0),0) as fansCount,
 		
 	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of 
-	    	 inner join course_anchor as ou on of.lecturer_id = ou.user_id
+	    	 inner join course_anchor as ou on of.user_id = ou.user_id
 			 where of.user_id =oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0 ),0),0) as focusCount,
 		
 		oc.course_length as courseLength,
@@ -345,7 +346,7 @@
 		oc.lecturer as name
 		FROM
 		oe_course oc
-		where oc.user_lecturer_id = #{userId}  order by release_time desc
+		where oc.user_lecturer_id = #{userId} and oc.status = 1  order by release_time desc
 	</select>
 
 

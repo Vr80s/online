@@ -418,6 +418,8 @@ public class XzUserSetController {
 			 */
 
 			String provinceCityName=user.getProvinceName();
+			//cityResult.className
+			String citys=user.getRegionId();
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  provinceCityName.split(" ");
 				//获取省市县
@@ -427,6 +429,17 @@ public class XzUserSetController {
 					user.setCountyName(str[2]);
 				}
 			}
+			
+			if(StringUtils.isNotBlank(provinceCityName)){
+				String [] str =  citys.split(" ");
+				//获取省市县
+				if(str.length == 3){
+					user.setRegionAreaId(str[0]);
+					user.setRegionCityId(str[1]);
+					user.setRegionId(str[2]);
+				}
+			}
+			
 			/**
 			 * 更新信息
 			 */

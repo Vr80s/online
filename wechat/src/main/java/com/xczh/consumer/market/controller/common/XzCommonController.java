@@ -119,13 +119,10 @@ public class XzCommonController {
 		}
 		String openId = req.getParameter("openId");
 		String unionId = req.getParameter("unionId");
-		
-	     System.out.println("openId+unionId"+openId+unionId);
 		if(StringUtils.isNotBlank(openId) && StringUtils.isNotBlank(unionId)){
 			ThridFalg tf = new ThridFalg();
 			tf.setOpenId(openId);
 			tf.setUnionId(unionId);
-			  System.out.println("openId+unionId"+openId+unionId);
 			return ResponseObject.newSuccessResponseObject(tf,statusFalg);
 		}
 		return ResponseObject.newSuccessResponseObject("登录状态验证",statusFalg);

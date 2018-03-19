@@ -371,16 +371,94 @@ public class H5WeChatSetController {
 				tf.setNickName(wxw.getNickname());
 				tf.setHeadImg(wxw.getHeadimgurl());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
-				
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
-				
-				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			//res.getWriter().write(e.getMessage());
 		}
 	}
+	
+	
+	
+	/**
+	 * 国医学堂  -- 学习中心
+	 * Description：
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("publicToMenuTypeList")
+	public void publicToMenuTypeList(HttpServletRequest req, HttpServletResponse res,
+			Map<String, String> params) throws Exception {
+		LOGGER.info("WX return code:" + req.getParameter("code"));
+		try {
+			
+			String code = req.getParameter("code");
+			String menuType = req.getParameter("menuType");
+			
+			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+			LOGGER.info("wxw===="+wxw);
+			String openid = wxw.getOpenid();
+			
+			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+			if(currentOnlineUser !=null){
+				res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&menuType="+menuType);
+				return;
+			}
+			/**
+			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
+			 */
+			ConfigUtil cfg = new ConfigUtil(req.getSession());
+			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
+			if(StringUtils.isNotBlank(wxw.getClient_id())){
+				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
+				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
+				LOGGER.info("getLoginName===="+ou.getLoginName());
+			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+				ou.setTicket(t.getTicket());
+				onlogin(req,res,t,ou,t.getTicket());
+				/**
+				 * 清除这个cookie
+				 */
+				UCCookieUtil.clearThirdPartyCookie(res);
+				
+				if (openid != null && !openid.isEmpty()) {
+					res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&menuType="+menuType);
+				} else{
+					res.getWriter().write(openid);
+				}	
+			}else{
+				/**
+				 * jump_type=1	跳到首页
+				 * jump_type=2	跳到我的页面
+				 */
+				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
+				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+				/**
+				 * 写入这个cookie
+				 */
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(wxw.getOpenid());
+				tf.setUnionId(wxw.getUnionid());
+				tf.setNickName(wxw.getNickname());
+				tf.setHeadImg(wxw.getHeadimgurl());
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
+				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
+				res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&menuType="+menuType);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			//res.getWriter().write(e.getMessage());
+		}
+	}
+	
+	
 	
 	
 	/**

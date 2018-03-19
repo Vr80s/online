@@ -125,7 +125,6 @@ public class GiftSendServiceImpl implements GiftSendService {
     	Map<String,Object> map = new HashMap<String,Object>();
     	map.put("senderInfo", mapSenderInfo);
     	map.put("giftInfo", mapGiftInfo);
-    	map.put("giftCount",findByUserId(gs.getReceiver()));
     	map.put("messageType",1);
 
 		return map;
@@ -144,11 +143,6 @@ public class GiftSendServiceImpl implements GiftSendService {
 			cacheService.set(giftShowTicket,continuousCount,3);
 		}
 		return continuousCount.intValue();
-	}
-
-	@Override
-	public int findByUserId(String userId) {
-		return giftDao.findByUserId(userId);
 	}
 
 }

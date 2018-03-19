@@ -67,7 +67,7 @@ public class WeChatThirdPartyController {
 
 	@Autowired
 	private CacheService cacheService;
-	
+
 	@Autowired
 	private AppBrowserService appBrowserService;
 
@@ -137,23 +137,23 @@ public class WeChatThirdPartyController {
 		LOGGER.info("WX return userId:" + req.getParameter("userId"));
 		try {
 
-			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+			OnlineUser currentOnlineUser = appBrowserService
+					.getOnlineUserByReq(req);
 			String userId = req.getParameter("userId");
-			
-			
-			if(currentOnlineUser !=null && !StringUtils.isNotBlank(userId)){
+
+			if (currentOnlineUser != null && !StringUtils.isNotBlank(userId)) {
 				/**
 				 * 先清理下课程存在的账户信息，以当前第三方信息为准
 				 */
 				UCCookieUtil.clearTokenCookie(res);
 				req.getSession().setAttribute("_user_", null);
 			}
-			
+
 			/**
 			 * 通过code获取微信信息
 			 */
 			String code = req.getParameter("code");
-			
+
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,
 					wxcpClientUserWxMappingService);
 			if (wxw == null) {
@@ -211,8 +211,8 @@ public class WeChatThirdPartyController {
 					res.sendRedirect(returnOpenidUri
 							+ "/xcview/html/lickacc_mobile.html?type=2");
 					return;
-					
-				} else {   //此微信号没有绑定，在进入系统后，进行相关操作需要完善信息 
+
+				} else { // 此微信号没有绑定，在进入系统后，进行相关操作需要完善信息
 					/**
 					 * 写入这个cookie
 					 */
@@ -225,7 +225,6 @@ public class WeChatThirdPartyController {
 
 					LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"
 							+ UCCookieUtil.readThirdPartyCookie(req));
-
 
 					res.sendRedirect(returnOpenidUri
 							+ "/xcview/html/home_page.html?openId=" + openId

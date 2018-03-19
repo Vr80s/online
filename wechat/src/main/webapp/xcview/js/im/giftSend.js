@@ -124,7 +124,7 @@ function createGiftList(gift) {
         }
         var str = "<div class='coze_cen_ri'> "+
 				"<div class='coze_cen_bg_ri'>"+
-					"<span class='span_name'>"+data.senderInfo.userName+"</span>赠送给主播1个<span style='color: #F97B49;'>"+data.giftInfo.name+"</span>"+
+					"<span class='span_name'>"+data.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.giftInfo.name+"</span>"+
 				" </div> "+
 			    "<div class='both'></div></div>";
         
@@ -167,7 +167,8 @@ function giftShow(gift, f,continuous) {
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         try {
-            $("#liveGiftCount").html(gift.continuousCount);
+        	
+            $("#liveGiftCount").html(gift.giftCount);
         } catch (error) {
             // 此处是负责例外处理的语句
         } finally {
