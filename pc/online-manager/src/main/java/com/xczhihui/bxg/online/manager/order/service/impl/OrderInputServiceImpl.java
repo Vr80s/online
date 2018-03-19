@@ -87,7 +87,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 				paramMap.put("create_person", orderVo.getKey_value());
 			}
 		}
-		sql += " order by t1.course_id desc,t1.create_time desc ";
+		sql += " order by t1.create_time desc ";
 		return dao.findPageBySQL(sql, paramMap, OrderInputVo.class, pageNumber, pageSize);
 	}
 
