@@ -34,13 +34,13 @@ $(function(){
         browser.versions.iPhone || browser.versions.iPad){
 
         if(document.location.host=='www.ipandatcm.com' ||document.location.host=='www.ixincheng.com'){
-            wxurl = "http://m.ipandatcm.com";
+            wxurl = "http://m.ipandatcm.com/wx_share.html?shareType=1&shareId="+courserId;
         }else{
-            wxurl = "http://test-wx.ixincheng.com";
+            wxurl = "http://test-wx.ixincheng.com/wx_share.html?shareType=1&shareId="+courserId;
         }
         window.location = wxurl; 
     }else if(document.location.host=='www.ixincheng.com'){
-        window.location = "http://www.ipandatcm.com";
+        window.location = "http://www.ipandatcm.com/course/courses/"+courserId;
     }
 });
 
