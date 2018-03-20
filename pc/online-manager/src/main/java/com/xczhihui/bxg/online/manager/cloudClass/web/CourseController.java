@@ -176,6 +176,11 @@ public class CourseController extends AbstractController{
         	  searchVo.setType(1);
           }
 
+		Group multimediaType = groups.findByName("search_multimediaType");
+		if (multimediaType != null) {
+			searchVo.setMultimediaType(Integer.valueOf(multimediaType.getPropertyValue1().toString()));
+		}
+
           Page<CourseVo> page = courseService.findCoursePage(searchVo, currentPage, pageSize);
           int total = page.getTotalCount();
           tableVo.setAaData(page.getItems());
