@@ -380,7 +380,9 @@ window.onload = function() {
 		
 		if(classType != 3){
 			RequestService("/course/courses/recommend/"+classType+"", "POST", null,function(data){
-			console.log(data)
+                for(var i in data.resultObject){
+                    data.resultObject[i].currentPrice = parseInt(data.resultObject[i].currentPrice);
+                }
 				if(data.success == true && data.resultObject){
 					$('.sidebar-body').removeClass('hide');
 					//渲染
@@ -392,7 +394,9 @@ window.onload = function() {
 			})
 		}else{
 			RequestService("/course/courses/recommend/"+classType+"", "POST", null,function(data){
-			console.log(data)
+			for(var i in data.resultObject){
+				data.resultObject[i].currentPrice = parseInt(data.resultObject[i].currentPrice);
+			}
 			if(data.success == true && data.resultObject){
 				$('.sidebar-body').removeClass('hide');
 					//渲染
