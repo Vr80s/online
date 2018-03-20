@@ -131,7 +131,7 @@
 			</div>     
 		</div>
 		<div class="btn1" style="display: none;">
-			<img src="../images/bot0.png"/>
+			<img src="../images/top.png"/>
 		</div>
 		<div class="line_xian" style="width: 100%; height: 1px;border-top: 1px solid #D8DDE6;">
 			
@@ -475,39 +475,80 @@ var description ="";
 <script>
 		
 //			简介内容
-			$('.btn').prepend('<a href="#">展开全部</a>');
+//			$('.btn').prepend('<a href="#">展开全部</a>');
+//			  $(".btn").toggle(function(){
+//			    $(".btn a").html('点击收起');
+//			    $(".wrap").removeClass("pp");
+//			    $(".wrap").removeAttr("style");
+//			    $(".zhezhao").hide();
+//			    $(".btn img").attr("src","../images/top.png")  
+//			  },function(){
+//			  	$(".zhezhao").show();
+//
+//			    $(".btn img").attr("src","../images/bot0.png")
+//			    
+//			    $(".btn a").html('展开全部');
+//			     $(".wrap").addClass("pp");
+////			     $(".wrap").attr("style");
+//			 })
+////			主讲人内容
+//		  $('.btn1').prepend('<a href="#">展开全部</a>');
+//			  $(".btn1").toggle(function(){
+//			    $(".btn1 a").html('点击收起');
+//			    $(".wrap1").removeClass("pp1");
+//			    $(".wrap1").removeAttr("style");
+//			    $(".zhezhao1").hide();
+//			    $(".btn1 img").attr("src","../images/top.png")  
+//			  },function(){
+//			  	$(".zhezhao1").show();
+//
+//			    $(".btn1 img").attr("src","../images/bot0.png")
+//			    
+//			    $(".btn1 a").html('展开全部');
+//			     $(".wrap1").addClass("pp1");
+////			     $(".wrap1").attr("style");
+//			 })
+
+
+
+			$('.btn').prepend('<a href="#">点击收起</a>');
 			  $(".btn").toggle(function(){
-			    $(".btn a").html('点击收起');
+			    $(".btn a").html('展开全部');
 			    $(".wrap").removeClass("pp");
 			    $(".wrap").removeAttr("style");
-			    $(".zhezhao").hide();
-			    $(".btn img").attr("src","../images/top.png")  
+			    $(".zhezhao").show();
+			    $(".btn img").attr("src","../images/bot0.png")  
 			  },function(){
-			  	$(".zhezhao").show();
+			  	$(".zhezhao").hide();
 
-			    $(".btn img").attr("src","../images/bot0.png")
+			    $(".btn img").attr("src","../images/top.png")
 			    
-			    $(".btn a").html('展开全部');
+			    $(".btn a").html('点击收起');
 			     $(".wrap").addClass("pp");
 //			     $(".wrap").attr("style");
 			 })
 //			主讲人内容
-		  $('.btn1').prepend('<a href="#">展开全部</a>');
+		  $('.btn1').prepend('<a href="#">点击收起</a>');
 			  $(".btn1").toggle(function(){
-			    $(".btn1 a").html('点击收起');
-			    $(".wrap1").removeClass("pp1");
-			    $(".wrap1").removeAttr("style");
-			    $(".zhezhao1").hide();
-			    $(".btn1 img").attr("src","../images/top.png")  
-			  },function(){
-			  	$(".zhezhao1").show();
-
-			    $(".btn1 img").attr("src","../images/bot0.png")
-			    
 			    $(".btn1 a").html('展开全部');
-			     $(".wrap1").addClass("pp1");
+			    $(".wrap1").addClass("pp1");
+			    $(".wrap1").removeAttr("style");
+			    $(".zhezhao1").show();
+			    $(".btn1 img").attr("src","../images/bot0.png")  
+			  },function(){
+			  	$(".zhezhao1").hide();
+			    $(".btn1 img").attr("src","../images/top.png")
+			    $(".btn1 a").html('点击收起');
+			     $(".wrap1").removeClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })
+
+
+
+
+
+
+
 
 	</script>
 	
