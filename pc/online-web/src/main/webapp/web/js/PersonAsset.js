@@ -625,7 +625,7 @@
                 $(".balanceTotal").html(balanceTotal);
             },false);
 //            console.log(1)
-            price=100/rate;//初始化为10元
+            price=5;//初始化为10元
             $('.number').text(price);
             $('#main1').addClass('show')
 

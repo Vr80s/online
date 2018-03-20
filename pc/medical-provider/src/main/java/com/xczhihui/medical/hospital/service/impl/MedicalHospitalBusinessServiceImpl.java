@@ -262,6 +262,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
         if(StringUtils.isBlank(medicalHospital.getContactor())){
             throw new RuntimeException("请填写医馆联系人");
+        }else if(medicalHospital.getContactor().length()>16){
+            throw new RuntimeException("联系人姓名不能超过16个字");
         }
 
         if(StringUtils.isBlank(medicalHospital.getProvince())){
