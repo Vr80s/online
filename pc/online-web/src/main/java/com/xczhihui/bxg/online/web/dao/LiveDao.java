@@ -114,7 +114,7 @@ public class LiveDao extends SimpleHibernateDao {
      * 获取直播课程信息，根据课程id查询课程
      * @param courseId 课程id号
      */
-    public Map<String, Object> getOpenCourseById(Integer courseId,String planId) {
+    public Map<String, Object> getOpenCourseById(Integer courseId) {
         String  sql="";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId", courseId);
