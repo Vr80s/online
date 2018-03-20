@@ -75,7 +75,7 @@ requestService("/xczh/course/liveDetails",{
 				var children = $("#zhibopinglun [class='p2']")
 						.text(result.name);
 
-				$(".anchor_center").html(result.description);
+				$(".anchor_center").html(result.lecturerDescription);
 
 				/**
 				 * 关注 0 未关注 1 关注
@@ -103,7 +103,9 @@ requestService("/xczh/course/liveDetails",{
 				if(lineState == 3){
 					$(".history_span").text("直播回放");
 					
-					$(".cover").show();  //直播回放时添加无法点击聊天
+					$(".coze_bottom").addClass("coze_bottom_hide");
+
+					$(".mCustomScrollbar").css("padding-bottom","0");
 				}else if(lineState == 4){
 					$(".history_span").text("即将直播");
 				}

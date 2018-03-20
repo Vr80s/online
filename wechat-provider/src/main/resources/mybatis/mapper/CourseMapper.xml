@@ -110,12 +110,13 @@
 		if(oc.is_free =0,0,1) as watchState,
 		if(oc.type =1,ifnull((SELECT SUM(ogs.price) FROM user_coin_increase uci  JOIN oe_gift_statement ogs  
 		 ON uci.order_no_gift = ogs.id WHERE uci.change_type = 3  AND ogs.live_id = oc.id ),0),0) as giftCount,
+		 
 		if(oc.type=1,ifnull(( select count(*) from oe_focus of 
 		     inner join course_anchor as ou on of.lecturer_id = ou.user_id
 		     where of.lecturer_id = oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0),0),0) as fansCount,
 		
 	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of 
-	    	 inner join course_anchor as ou on of.user_id = ou.user_id
+	    	 inner join course_anchor as ou on of.lecturer_id = ou.user_id
 			 where of.user_id =oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0 ),0),0) as focusCount,
 		
 		oc.course_length as courseLength,
@@ -124,9 +125,9 @@
 		oc.course_detail as description,
 		oc.course_outline as courseOutline,
 		
-				if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
 		
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		oc.address as address,
@@ -168,9 +169,11 @@
 		oc.start_time as startTime,
 		oc.end_time as endTime,
 		oc.user_lecturer_id as userLecturerId,
+		
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		 oc.collection as collection,
+		 oc.course_number as courseNumber,
 		 
 		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
                              (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
@@ -205,6 +208,7 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		 oc.collection as collection,
+		 oc.course_number as courseNumber,
 		 
 		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
                              (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
@@ -496,7 +500,7 @@
 			cai.img_path as  smallImgPath,
 			cai.title as gradeName,
 			cai.user_id as userLecturerId,
-			cai.`price` * 10 as currentPrice,
+			FLOOR(cai.`price` * 10) as currentPrice,
 		    cai.lecturer as name,
 			if(cai.course_form=1,3,if(cai.course_form=3,4,if(cai.multimedia_type=1,1,2))) as type,
 		    cai.start_time as startTime,
@@ -509,6 +513,7 @@
 			oc.id as id,
 		    oc.live_source_type as liveSourceType,
 		    
+		    DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
 		    if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
 			 (DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
     		   (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time),4,

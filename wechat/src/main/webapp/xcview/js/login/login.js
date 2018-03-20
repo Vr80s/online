@@ -23,8 +23,13 @@ var wxOrbrower = "";
 if (is_weixin()) {
 	console.log(" 是来自微信内置浏览器")
 	wxOrbrower = "wx";
+	
+	
 } else {
 	wxOrbrower = "brower";
+	
+	$(".other_means").hide();
+	$(".enter_bottom").hide();
 }
 //localStorage.setItem("access", wxOrbrower);
 //var access = localStorage.access;

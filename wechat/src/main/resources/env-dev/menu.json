@@ -1,0 +1,46 @@
+ {
+     "button":[
+     {
+           "name":"国医学堂",
+           "sub_button":[
+           {    
+               "type":"view",
+               "name":"学堂中心",
+               "url":"http://www.soso.com/"
+            },
+            {
+               "type":"view",
+               "name":"学习中心",
+               "url":"http://www.soso.com/"
+             },
+            {
+              "type":"view",
+               "name":"个人中心",
+               "url":"http://www.soso.com/"
+            }]
+       },
+      {
+           "name":"特色课程",
+           "sub_button":[
+           {    
+               "type":"view",
+               "name":"脉诊大全",
+               "url":"http://www.soso.com/"
+            },
+            {
+               "type":"view",
+               "name":"古籍经典",
+               "url":"http://www.soso.com/"
+             },
+            {
+              "type":"view",
+               "name":"针灸课程",
+               "url":"http://www.soso.com/"
+            }]
+       },
+        {
+           "type": "media_id", 
+           "name": "健康好文", 
+           "media_id": "MEDIA_ID1"
+        }]
+ }

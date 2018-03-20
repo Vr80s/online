@@ -46,11 +46,13 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
 
             if(StringUtils.isNotBlank(startTime)){
                 start = LocalDateTime.parse(startTime, dateTimeFormatter);
-                if(StringUtils.isNotBlank(endTime)){
-                    end = LocalDateTime.parse(endTime, dateTimeFormatter);
-                    if(start.isAfter(end)){
-                        throw new RuntimeException("起始时间不应大于终止时间");
-                    }
+            }
+            if(StringUtils.isNotBlank(endTime)){
+                end = LocalDateTime.parse(endTime, dateTimeFormatter);
+            }
+            if(StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(endTime)){
+                if(end.isBefore(start)){
+                    throw new RuntimeException("起始时间不应大于终止时间");
                 }
             }
 
