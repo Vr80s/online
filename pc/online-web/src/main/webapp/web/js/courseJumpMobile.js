@@ -1,7 +1,6 @@
-$(function(){
+(function(){
 	//解析url地址
 	var ourl = document.location.search;
-	var url = document.location.host;
 	var apams = ourl.substring(1).split("&");
 	var arr = [];
 	for (i = 0; i < apams.length; i++) {
@@ -33,7 +32,7 @@ $(function(){
     if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
         browser.versions.iPhone || browser.versions.iPad){
 
-        if(document.location.host=='www.ipandatcm.com' ||document.location.host=='www.ixincheng.com'){
+        if(document.location.host=='www.ipandatcm.com' ||document.location.host=='www.ixincheng.com' || document.location.host=='ipandatcm.com' ||document.location.host=='ixincheng.com'){
             wxurl = "http://m.ipandatcm.com/wx_share.html?shareType=1&shareId="+courserId;
         }else{
             wxurl = "http://test-wx.ixincheng.com/wx_share.html?shareType=1&shareId="+courserId;
@@ -42,8 +41,7 @@ $(function(){
     }else if(document.location.host=='www.ixincheng.com'){
         window.location = "http://www.ipandatcm.com/course/courses/"+courserId;
     }
-});
-
+})()
 
 
 
