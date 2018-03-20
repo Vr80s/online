@@ -44,7 +44,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             if(StringUtils.isNotBlank(endTime)){
                 end = LocalDateTime.parse(endTime, dateTimeFormatter);
             }
-            if(StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(startTime)){
+            if(StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(endTime)){
                 if(end.isBefore(start)){
                     throw new RuntimeException("起始时间不应大于终止时间");
                 }
