@@ -125,7 +125,7 @@ public class LiveDao extends SimpleHibernateDao {
                 "  c.id,\n" +
                 "  c.menu_id,\n" +
                 "  c.grade_name as courseName,\n" +
-                "  ca.name as teacherName,\n" +
+                "  ca.name as teacherName,c.lecturer,\n" +
                 "  c.description,\n" +
                 "  c.smallimg_path as smallImgPath,\n" +
                 "  ca.profile_photo as head_img,\n" +
