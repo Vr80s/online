@@ -57,6 +57,7 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  ou.`name` lecturerName,\n" +
 				 "  oc.`lecturer`,\n" +
 				 "  oc.`collection`,\n" +
+				 "  oc.sort_update_time as sortUpdateTime,"+
 				 "  oc.`essence_sort` as essenceSort \n" +
 
 				 "FROM\n" +
@@ -116,6 +117,10 @@ public class CourseDao extends HibernateDao<Course>{
 			 sql.append(" AND oc.`type` = 2");
 		 }else{
 			 sql.append(" AND oc.`type` = 3");
+		 }
+		 if(courseVo.getMultimediaType() !=null ){
+			 paramMap.put("multimediaType", courseVo.getMultimediaType());
+			 sql.append(" and oc.multimedia_type = :multimediaType ");
 		 }
 
 		 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc");

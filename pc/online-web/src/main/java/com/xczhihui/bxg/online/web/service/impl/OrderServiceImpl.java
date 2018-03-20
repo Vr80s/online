@@ -271,7 +271,7 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 			}
 			return lst.get(0);
 		}
-    	throw new RuntimeException("找不到订单信息！");
+    	throw new RuntimeException("找不到订单"+orderNo+"信息！");
 	}
 
     /**

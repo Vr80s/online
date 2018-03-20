@@ -15,11 +15,11 @@ $(function(){
 	
 	/** 直播课管理 begin */
 	var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
-		var objData = [{ "title": checkbox,"class":"center","width":"3%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+		var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
     }},
-    {title: '序号', "class": "center", "width": "3%","data": 'id',datafield: 'xuhao', "sortable": false},
-	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
+    {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
+	{"title": "封面图", "class": "center", "width": "12%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
 		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
 	}},
 	{ "title": "直播名称", "class":"center","width":"8%","sortable":false,"data": 'courseName' },
@@ -46,7 +46,7 @@ $(function(){
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
     //	private  int liveSource;  //直播来源  1、后台新增  2、app申请
-    { "title": "直播来源", "class":"center","width":"8%","data":"liveSource","sortable":false,"mRender":function(data,display,row){
+    { "title": "直播来源", "class":"center","width":"6%","data":"liveSource","sortable":false,"mRender":function(data,display,row){
     	if(data!=null && data== 2){
     		return "用户申请";
     	}else{
@@ -65,9 +65,10 @@ $(function(){
     		return data="<span name='zt'>已禁用</span>";
     	}
     } },
-    { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
+    { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
+    { "title": "推荐值", "class":"center","width":"5%", "sortable":false,"data": 'recommendSort' },
 
-    { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+    { "sortable": false,"class": "center","width":"9%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		var str = '<div class="hidden-sm hidden-xs action-buttons">'+
 				'<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
@@ -251,7 +252,7 @@ $(function(){
 
 	/** 直播课 begin */
 	//TODO
-    var objZbRecData = [
+    /*var objZbRecData = [
             {title: '序号', "class": "center", "width": "3%","data": 'id',datafield: 'xuhao', "sortable": false},
 	{"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
 		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
@@ -320,7 +321,7 @@ $(function(){
 			}
 		});
 		$("#courseRecTable_info").hide();
-	});
+	});*/
 	/** 课程推荐列表end */
 	
 	
