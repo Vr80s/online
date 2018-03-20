@@ -197,6 +197,11 @@
 							{{if item.type == 3}}
 								{{if item.lineState == 1}}
 								<p class="zhibo_play">直播中</p>
+								{{else if item.lineState == 4 || item.lineState == 5}}
+									<p class="more_people">
+										<img src="/xcview/images/Sinatv_time.png"/>
+										<span>{{item.startTime.slice(11,16)}}</span>
+									</p>
 								{{else}}
 								<p class="more_people">
 									<img src="../images/learn.png"/>
