@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,9 @@ import com.xczhihui.wechat.course.vo.FocusVo;
 @Service("focusServiceRemote")
 public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements IFocusService {
 
+	
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(FocusServiceImpl.class);
+	
 	@Autowired
 	private FocusMapper focusMapper;
 
@@ -62,6 +66,9 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 			f.setId(UUID.randomUUID().toString().replace("-", ""));
 			f.setUserId(userid);
 			f.setLecturerId(lecturerId);
+			f.setCreateTime(new Date());
+			
+			LOGGER.info("userid:"+userid+",lecturerId:"+lecturerId);
 			focusMapper.insert(f);
 		}else if(type !=null && type == 2){
 			if(f==null){

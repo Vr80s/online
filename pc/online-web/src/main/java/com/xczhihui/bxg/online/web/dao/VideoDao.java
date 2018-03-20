@@ -538,25 +538,42 @@ public class VideoDao extends SimpleHibernateDao {
 	 	        	/**
 	        		 * 星级的平均数
 	        		 */
-	 	        	if(c.getOverallLevel()!=null&&!"".equals(c.getOverallLevel())){
+	 	        	if(c.getOverallLevel()!=null&& !"".equals(c.getOverallLevel()) && c.getOverallLevel()!=0){
+	 	        		
+	 	        		System.out.println("c.getOverallLevel():"+c.getOverallLevel());
+	 	        		System.out.println("c.getContentLevel():"+c.getContentLevel());
+	 	         		System.out.println("c.getDeductiveLevel():"+c.getDeductiveLevel());
+	 	         		
                         BigDecimal totalAmount = new BigDecimal(c.getOverallLevel() !=null ? c.getOverallLevel() :0 );
-                        totalAmount.add(new BigDecimal(c.getContentLevel()  !=null ? c.getContentLevel() :0 ));
-                        totalAmount.add(new BigDecimal(c.getDeductiveLevel()  !=null ? c.getDeductiveLevel() :0 ));
+                        totalAmount =totalAmount.add(new BigDecimal(c.getContentLevel()  !=null ? c.getContentLevel() :0 ));
+                        totalAmount =totalAmount.add(new BigDecimal(c.getDeductiveLevel()  !=null ? c.getDeductiveLevel() :0 ));
+                      
                         String startLevel = "0";
                         try {
                             startLevel = divCount(totalAmount.doubleValue(),3d,1);
+                            System.out.println("startLevel:"+startLevel);
                             c.setStarLevel(Float.valueOf(startLevel));
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         }
                     }
-
 	 			}
 	        }
             return criticizes;
         }
         return  null;
     }
+    
+    
+    public static void main(String[] args) throws IllegalAccessException {
+		
+      	 BigDecimal totalAmount = new BigDecimal(5.0);  
+      	 totalAmount =totalAmount.add(new BigDecimal(3.0));
+      	 totalAmount =totalAmount.add(new BigDecimal(3.0));
+
+      	System.err.println(divCount(totalAmount.doubleValue(),3d,1));
+      	 
+   	}
     
 	/**
 	 * Description：求平均值，并且把小数点的都截取到5，或者大于5的
@@ -581,18 +598,30 @@ public class VideoDao extends SimpleHibernateDao {
          */
         BigDecimal b3 =  b1.divide(b2, 1, BigDecimal.ROUND_HALF_UP);
           
-        String bigDecimalStr = b3.toString();
-        String startStr = bigDecimalStr.substring(0, 1);
-        String lastStr = bigDecimalStr.substring(bigDecimalStr.length()-1,bigDecimalStr.length());
-        int lastInt = Integer.parseInt(lastStr);
-        if(lastInt<5){ //认为是5
-        	bigDecimalStr = startStr+".5"; 
-        }else{         //+1 
-        	bigDecimalStr = (Integer.parseInt(startStr)+1)+".0"; 
-        }
-        return bigDecimalStr;
+        return criticizeStartLevel(b3.doubleValue()).toString();
     }  
 	
+    
+	public static Double criticizeStartLevel(Double startLevel) {
+
+		if (startLevel != null && startLevel != 0) { // 不等于0
+			String b = startLevel.toString();
+			if (b.length() > 1
+					&& !b.substring(b.length() - 1, b.length()).equals("0")) { // 不等于整数
+				String[] arr = b.split("\\.");
+				Integer tmp = Integer.parseInt(arr[1]);
+				if (tmp >= 5) {
+					return (double) (Integer.parseInt(arr[0]) + 1);
+				} else {
+					return Double.valueOf(arr[0] + "." + 5);
+				}
+			} else {
+				return startLevel;
+			}
+		}
+		return startLevel;
+	}
+    
     
     /**
      * Description：判断这个星级用户是否购买过这个课程以及判断是否已经星级评论了一次此课程
@@ -761,18 +790,6 @@ public class VideoDao extends SimpleHibernateDao {
     
     
     
-    public static void main(String[] args) throws IllegalAccessException {
-		
-   	 BigDecimal totalAmount = new BigDecimal(1);  
-   	 totalAmount =totalAmount.add(new BigDecimal(1));
-   	 totalAmount =totalAmount.add(new BigDecimal(1));
-//   	 System.out.println(totalAmount.toString());
-   	 System.out.print(divCount(6d,3d,1));
-   	 BigDecimal b1 = new BigDecimal("6");  
-   	 BigDecimal b2 = new BigDecimal("3");  
-   	 //rslt = b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
-   	// System.out.println(b1.divide(b2, 1, BigDecimal.ROUND_HALF_UP).doubleValue());
-	}
 
 
 }
