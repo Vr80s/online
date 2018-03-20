@@ -160,7 +160,7 @@
 			
 		</div>
 		<div class="btn" style="display: none;">
-			<img src="../images/bot0.png"/>
+			<img src="../images/top.png"/>
 		</div>
 <!--详情结束-->
 	<!--评论-->
@@ -514,17 +514,15 @@ var description ="";
 			$('.btn').prepend('<a href="#">点击收起</a>');
 			  $(".btn").toggle(function(){
 			    $(".btn a").html('展开全部');
-			    $(".wrap").removeClass("pp");
+			    $(".wrap").addClass("pp");
 			    $(".wrap").removeAttr("style");
 			    $(".zhezhao").show();
 			    $(".btn img").attr("src","../images/bot0.png")  
 			  },function(){
 			  	$(".zhezhao").hide();
-
 			    $(".btn img").attr("src","../images/top.png")
-			    
 			    $(".btn a").html('点击收起');
-			     $(".wrap").addClass("pp");
+			     $(".wrap").removeClass("pp");
 //			     $(".wrap").attr("style");
 			 })
 //			主讲人内容
