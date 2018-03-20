@@ -83,9 +83,17 @@ public class MobileShareController {
 		try {
 			if(shareType==1){ // 课程分享 
 				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
+				
+				
 				if(courseLectur==null){
 					return ResponseObject.newErrorResponseObject("课程信息有误");
 				}
+				
+				/*
+				 * 课程名增加一个中医好课程  
+				 */
+				courseLectur.setGradeName("中医好课程："+courseLectur.getGradeName());
+				
 				
 				if(courseLectur.getDescription()!=null){
 					String description = courseLectur.getDescription();
@@ -99,6 +107,12 @@ public class MobileShareController {
 				if(lectur==null){
 					return ResponseObject.newErrorResponseObject("主播信息有误");
 				}
+				
+				/*
+				 * 课程名增加一个中医好课程  
+				 */
+				lectur.setName("中医好主播："+lectur.getName());
+				
 				if(lectur.getDescription()!=null){
 					String description = lectur.getDescription();
 					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);

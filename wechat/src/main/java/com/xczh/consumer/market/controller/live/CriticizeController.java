@@ -67,6 +67,7 @@ public class CriticizeController {
 			 */
 			Boolean isBuy = onlineWebService.getLiveUserCourseAndIsFree(criticize.getCourseId(),ou.getId());
 			criticize.setIsBuy(isBuy);
+			
 			criticizeService.saveNewCriticize(criticize);
 			return ResponseObject.newSuccessResponseObject("评论成功");
 		}
@@ -147,7 +148,6 @@ public class CriticizeController {
         	 * 这个是讲师id
         	 */
             criticizeService.saveReply(content,user.getId(),criticizeId);
-            
             return ResponseObject.newSuccessResponseObject("回复成功！");
         }else{
             return ResponseObject.newErrorResponseObject("用户未登录！");

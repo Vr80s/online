@@ -255,7 +255,7 @@ $(function(){
 			}
 	});
 
-	$(".doctor_inf >img").attr('src',userPic)
+//	$(".doctor_inf >img").attr('src',userPic)
 	$(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
 //		$(".mask").css("display", "block");
 		showDel();
