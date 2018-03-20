@@ -74,9 +74,6 @@ public class MyInfoController {
 		if(user == null){
 			ResponseObject.newErrorResponseObject("登录失效");
 		}
-		
-		
-		
 		List<CourseLecturVo>  listAll  = courseServiceImpl.selectLearningCourseListByUserId(user.getId());
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> mapTj = new HashMap<String, Object>();
