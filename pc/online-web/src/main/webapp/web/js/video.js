@@ -369,13 +369,12 @@ $(function() {
 	RequestService("/online/live/getOpenCourseById", "get", {
 		courseId: courseId
 	}, function(data) {
+		if(!data.success){
+			location.href="/course/courses/"+courseId;
+		}
 		$(".headerBody .rightT p").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
 		document.title = data.resultObject.courseName ;
-		if(data.resultObject.teacherName != undefined) {
-			$(".headerBody .rightT i").html(data.resultObject.teacherName);
-		} else {
-			$(".headerBody .rightT i").html("暂无讲师");
-		}
+		$(".headerBody .rightT i").html(data.resultObject.lecturer);
 		menuid = data.resultObject.menu_id;
 
 		var host = window.location.host;

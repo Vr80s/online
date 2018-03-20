@@ -121,7 +121,7 @@
 			</div>     
 		</div>
 		<div class="btn1" style="display: none;">
-			<img src="../images/bot0.png"/>
+			<img src="../images/top.png"/>
 		</div>
 		<div class="line_xian" style="width: 100%; height: 1px;border-top: 1px solid #D8DDE6;">
 			
@@ -150,7 +150,7 @@
 			
 		</div>
 		<div class="btn" style="display: none;">
-			<img src="../images/bot0.png"/>
+			<img src="../images/top.png"/>
 		</div>
 <!--详情结束-->
 
@@ -174,15 +174,23 @@
 					<div class="user_text">
 						<div class="wrap_userName">
 							<p class="z">{{item.onlineUser.name}}</p>
-							{{if item.overallLevel == 1}}
+							{{if item.starLevel == 1}}
 							<img class="z" src="../images/xing1_0.png"/>
-							{{else if item.overallLevel == 2}}
+							{{else if item.starLevel == 1.5}}
+							<img class="z" src="../images/xing1_5.png"/>
+							{{else if item.starLevel == 2}}
 							<img class="z" src="../images/xing2.png"/>
-							{{else if item.overallLevel == 3}}
+							{{else if item.starLevel == 2.5}}
+							<img class="z" src="../images/xing2_5.png"/>
+							{{else if item.starLevel == 3}}
 							<img class="z" src="../images/xing3.png"/>
-							{{else if item.overallLevel == 4}}
+							{{else if item.starLevel == 3.5}}
+							<img class="z" src="../images/xing3_5.png"/>
+							{{else if item.starLevel == 4}}
 							<img class="z" src="../images/xing4_0.png"/>
-							{{else if item.overallLevel == 5}}
+							{{else if item.starLevel == 4.5}}
+							<img class="z" src="../images/xing4_5.png"/>
+							{{else if item.starLevel == 5}}
 							<img class="z" src="../images/xing5.png"/>
 							{{/if}}
 
@@ -432,36 +440,36 @@ var description ="";
 	<script>
 		$(function(){
 //			简介内容
-			$('.btn').prepend('<a href="#">展开全部</a>');
+			$('.btn').prepend('<a href="#">点击收起</a>');
 			  $(".btn").toggle(function(){
-			    $(".btn a").html('点击收起');
-			    $(".wrap").removeClass("pp");
-			    $(".wrap").removeAttr("style");
-			    $(".zhezhao").hide();
-			    $(".btn img").attr("src","../images/top.png") 
-			  },function(){
-			  	$(".zhezhao").show();
-
-			    $(".btn img").attr("src","../images/bot0.png")
-			    
 			    $(".btn a").html('展开全部');
-			     $(".wrap").addClass("pp");
+			    $(".wrap").addClass("pp");
+			    $(".wrap").removeAttr("style");
+			    $(".zhezhao").show();
+			    $(".btn img").attr("src","../images/bot0.png") 
+			  },function(){
+			  	$(".zhezhao").hide();
+
+			    $(".btn img").attr("src","../images/top.png")
+			    
+			    $(".btn a").html('点击收起');
+			     $(".wrap").removeClass("pp");
 //			     $(".wrap").attr("style");
 			 })
 //			主讲人内容
-		  $('.btn1').prepend('<a href="#">展开全部</a>');
+		  $('.btn1').prepend('<a href="#">点击收起</a>');
 			  $(".btn1").toggle(function(){
-			    $(".btn1 a").html('点击收起');
+			    $(".btn1 a").html('展开全部');
 			    $(".wrap1").removeClass("pp1");
 			    $(".wrap1").removeAttr("style");
-			    $(".zhezhao1").hide();
-			    $(".btn1 img").attr("src","../images/top.png")  
+			    $(".zhezhao1").show();
+			    $(".btn1 img").attr("src","../images/bot0.png")  
 			  },function(){
-			  	$(".zhezhao1").show();
+			  	$(".zhezhao1").hide();
 
-			    $(".btn1 img").attr("src","../images/bot0.png")
+			    $(".btn1 img").attr("src","../images/top.png")
 			    
-			    $(".btn1 a").html('展开全部');
+			    $(".btn1 a").html('点击收起');
 			     $(".wrap1").addClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })

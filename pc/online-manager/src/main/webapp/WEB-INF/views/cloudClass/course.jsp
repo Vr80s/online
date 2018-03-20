@@ -39,7 +39,7 @@
  
     .vertical-tab-content {
         float: left;
-        width: 90%;
+        width: 100%;
         padding: 5px;
         margin-left: -1px;
         margin-bottom: 2px;
@@ -379,17 +379,7 @@
          /* border-radius: 4px 4px 4px 4px; */
          border-radius: 4px 0px 0px 4px; 
     }
- 
-    .vertical-tab-content {
-        float: left;
-        width: 90%;
-        padding: 5px;
-        margin-left: -1px;
-        margin-bottom: 2px;
-        border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
-        color: #666;
-    }
+
  
     .send {
         position: relative;
@@ -477,7 +467,7 @@
 
 <div style="height: 100%;" class="clearfix">
     <!-- Nav tabs -->
-    <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+    <%--<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
         <li role="presentation" class="active">
             <a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">点播管理</a>
@@ -490,17 +480,17 @@
             <a href="#inbox" aria-controls="inbox" title="2" class="kctj_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">音频推荐</a>
         </li>
-    </ul>
+    </ul>--%>
  
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-				<p class="col-xs-4" style="padding: 0;">
+				<%--<p class="col-xs-4" style="padding: 0;">
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-				</p>
+				</p>--%>
 			
 			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
@@ -512,10 +502,21 @@
 			                            <input type="hidden" value="search_courseName" class="propertyName"/>
 			                        </div>
 			                    </td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_multimediaType" id="search_multimediaType" value="" class="propertyValue1" >
+											<option value="">媒体类型</option>
+											<option value="1">视频</option>
+											<option value="2">音频</option>
+										</select>
+										<input type="hidden" value="search_multimediaType" class="propertyName"/>
+									</div>
+								</td>
 			                    <td>
 			                        <div class="profile-info-value searchTr">
 			                            <input type="hidden" class="propertyValue1" value="${type}" id="type" style="width: 150px;">
-			                            <input type="hidden" value="type" class="propertyName"/>
+			                            <input type="hidden" value="type" class="p
+			                            ropertyName"/>
 			                        </div>
 			                    </td>
 			                    <td>

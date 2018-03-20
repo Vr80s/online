@@ -57,6 +57,7 @@ $(function(){
     		return "<span name='zt'>未上架</span>";
     	}
     } },
+    { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
     { "title": "推荐值", "class":"center","width":"8%","sortable":false,"data": 'recommendSort'},
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
@@ -93,7 +94,7 @@ $(function(){
 
 
 	/** 课程推荐列表begin */
-	var searchCase_P = new Array();
+	/*var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"'+$("#type").val()+'","tempType":undefined}');
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_multimediaType","propertyValue1":"1","tempType":"Integer"}');
     
@@ -165,7 +166,7 @@ $(function(){
 //		$("#courseRecTable tr").each(function(){
 //			$(this).find("td").eq(0).attr("width","10px");
 //		});
-	});
+	});*/
 	/** 课程推荐列表end */
 
 	/** 课程排序列表begin */

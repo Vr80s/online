@@ -433,7 +433,9 @@ overflow-y: auto;
   height: 30px;
   cursor: pointer;
 }
-
+.right-live .chat .right-list a:hover{
+	cursor: default;
+}
 
 .right-live .chat .right-list >p {
 	padding-left: 5px;

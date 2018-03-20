@@ -482,10 +482,10 @@
             <a href="#home" aria-controls="home" class="xxpxb_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">线下课管理</a>
         </li>
-		<li role="presentation">
+		<%--<li role="presentation">
 			<a href="#box_m" aria-controls="box_m" class="xxtj_bx" role="tab"
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">线下课推荐管理</a>
-		</li>
+		</li>--%>
         <li role="presentation">
             <a href="#city_m" aria-controls="city_m" class="city_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">城市推荐管理</a>
@@ -500,9 +500,9 @@
 					<%--<button class="btn btn-sm btn-success add_P" title="新增">--%>
 						<%--<i class="glyphicon glyphicon-plus"></i> 新增--%>
 					<%--</button>--%>
-					<button class="btn btn-sm btn-success dele_P" title="批量删除">
+					<%--<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
-					</button>
+					</button>--%>
 					 <%--<button class="btn btn-sm btn-success rec_P" title="设为推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
 					</button>--%>

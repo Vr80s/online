@@ -120,10 +120,10 @@ function stripHTML(str){
 //判断简介的字长度
 		var h=$(".wrap1").height();
 		if(h>200){
-			$(".zhezhao1").show()
+			$(".zhezhao1").hide()
 			$(".btn1").show()
 			$(".line_xian").hide()
-			$(".wrap1").css({"height":"2rem","overflow":"hidden"})
+//			$(".wrap1").css({"height":"2rem","overflow":"hidden"})
 		}else{
 			$(".zhezhao1").hide()
 			$(".btn1").hide()
@@ -131,9 +131,9 @@ function stripHTML(str){
 		
 		var h2=$(".wrap").height();
 		if(h2>200){
-			$(".zhezhao").show()
+			$(".zhezhao").hide()
 			$(".btn").show()
-			$(".wrap").css({"height":"2rem","overflow":"hidden"})
+//			$(".wrap").css({"height":"2rem","overflow":"hidden"})
 		}else{
 			$(".zhezhao").hide()
 			$(".btn").hide()

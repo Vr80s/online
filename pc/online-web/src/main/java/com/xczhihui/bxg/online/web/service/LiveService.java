@@ -42,8 +42,9 @@ public interface LiveService {
     /**
      * 获取直播课程信息，根据课程id查询课程
      * @param courseId 课程id号
+     * @param user
      */
-    public Map<String, Object> getOpenCourseById(Integer courseId,String planId);
+    public Map<String, Object> getOpenCourseById(Integer courseId, OnlineUser user);
 
     /**
      * 修改鲜花数
@@ -79,8 +80,6 @@ public interface LiveService {
      * @param request
      * @return
      */
-    public ModelAndView livepage(String courseId,String roomId,String planId,HttpServletRequest request,HttpServletResponse response);
-
     public ModelAndView livepage(String courseId,HttpServletRequest request,HttpServletResponse response);
 
 	public List<OpenCourseVo> getOpenCourse(Integer num, String id);

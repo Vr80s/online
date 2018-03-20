@@ -420,9 +420,9 @@ function jump_play(id){
       var falg =authenticationCooKie();       	       
 //付费的直播和即将直播未购买跳购买页    
          if(userPlay.watchState==0 && userPlay.lineState==1){
-            location.href="school_play.html?course_id="+id 
+            location.href="/xcview/html/school_play.html?course_id="+id 
          }else if(userPlay.watchState==0 && userPlay.lineState==4){
-            location.href="school_play.html?course_id="+id          
+            location.href="/xcview/html/school_play.html?course_id="+id          
          }
 //免费的直播和即将直播跳直播间      
          else if(userPlay.watchState==1 && userPlay.lineState==1){
@@ -438,7 +438,7 @@ function jump_play(id){
                ,function(data) {
       
                }) 
-            location.href="details.html?courseId="+id
+            location.href="/xcview/html/details.html?courseId="+id
             }
          }else if(userPlay.watchState==1 && userPlay.lineState==4){
             if (falg==1002){
@@ -453,7 +453,7 @@ function jump_play(id){
                      ,function(data) {
             
                      }) 
-                  location.href="details.html?courseId="+id  
+                  location.href="/xcview/html/details.html?courseId="+id  
                }
          }
 //购买后的直播和即将直播跳直播间
@@ -463,14 +463,14 @@ function jump_play(id){
                ,function(data) {
       
                }) 
-            location.href="details.html?courseId="+id           
+            location.href="/xcview/html/details.html?courseId="+id           
          }else if(userPlay.watchState==2 && userPlay.lineState==4){
             requestService("/xczh/history/add",
                {courseId:id}
                ,function(data) {
       
                }) 
-            location.href="details.html?courseId="+id  
+            location.href="/xcview/html/details.html?courseId="+id  
            }
 //主播本人自己的直播和即将直播跳直播间			
 			else if(userPlay.watchState==3 && userPlay.lineState==1){
@@ -479,17 +479,17 @@ function jump_play(id){
 					,function(data) {
 		
 					})	
-				location.href="details.html?courseId="+id				
+				location.href="/xcview/html/details.html?courseId="+id				
 			}else if(userPlay.watchState==3 && userPlay.lineState==4){
 				requestService("/xczh/history/add",
 					{courseId:id}
 					,function(data) {
 		
 					})	
-				location.href="details.html?courseId="+id				
+				location.href="/xcview/html/details.html?courseId="+id				
 			}
 			else{
-				location.href="school_play.html?course_id="+id				
+				location.href="/xcview/html/school_play.html?course_id="+id				
 			}
 
  

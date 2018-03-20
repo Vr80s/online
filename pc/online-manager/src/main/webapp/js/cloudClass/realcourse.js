@@ -55,6 +55,7 @@ $(function(){
     		return data="<span name='zt'>已禁用</span>";
     	}
     } },
+    { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
     { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
     /*{"sortable": false,"class": "center","width":"5%","title":"排序","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
@@ -131,7 +132,7 @@ debugger;
 	
 	/** 课程推荐列表begin */
 	
-    var objRecData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+    /*var objRecData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
     }},
     { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
@@ -167,12 +168,12 @@ debugger;
 		var countNum = data._iRecordsTotal;//总条数
 		pageSize = data._iDisplayLength;//每页显示条数
 		currentPage = iDisplayStart / pageSize +1;//页码
-		/*if(currentPage == 1){//第一页的第一行隐藏向上箭头
+		/!*if(currentPage == 1){//第一页的第一行隐藏向上箭头
 			$("#courseRecTable tbody tr:first td").eq(7).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
 		}
 		if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
 			$("#courseRecTable tbody tr:last td").eq(7).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}*/
+		}*!/
 		var countPage;
 		if(countNum%pageSize == 0){
 			countPage = parseInt(countNum/pageSize);
@@ -189,12 +190,12 @@ debugger;
                  $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
              }
          });
-		/*if(countPage == currentPage){//隐藏最后一条数据下移
+		/!*if(countPage == currentPage){//隐藏最后一条数据下移
 			$("#courseRecTable tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}*/
+		}*!/
 		
 		
-	});
+	});*/
 	/** 课程推荐列表end */
 	
 	
@@ -1317,6 +1318,7 @@ function updateRecommendSort(obj,key){
                 unmask();
                 if(data.success){
                 	$("#recommendSort").val("");
+                    $("#recommendTime").val("");
                     $("#UpdateRecommendSortDialog").dialog("close");
                     layer.msg(data.resultObject);
                     if(key==1){
