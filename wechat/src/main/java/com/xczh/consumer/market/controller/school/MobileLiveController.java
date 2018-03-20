@@ -92,7 +92,7 @@ public class MobileLiveController {
 			}
 		}
 
-		if(listTj.size()>0){
+		if(listTj.size()>0){    
 			mapTj.put("title","正在直播");
 			mapTj.put("lineState","1");
 			mapTj.put("courseList",listTj);
@@ -101,14 +101,14 @@ public class MobileLiveController {
 
 		if(listNw.size()>0){
 			mapNw.put("title","即将直播");
-			mapNw.put("lineState","2");
+			mapNw.put("lineState","4");
 			mapNw.put("courseList",listNw);
 			mapCourseList.add(mapNw);
 		}
 
 		if(listZz.size()>0){
 			mapZz.put("title","直播课程");
-			mapZz.put("lineState","2");
+			mapZz.put("lineState","1345");
 			mapZz.put("courseList",listZz);
 			mapCourseList.add(mapZz);
 		}
