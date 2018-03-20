@@ -28,8 +28,7 @@ public class GiftMapper extends BasicSimpleDao {
     }
 
     public List<Gift> listAll(Integer pageNumber, Integer pageSize) throws SQLException {
-
-        String sql="select id, id giftId,name,smallimg_path smallimgPath,price,is_free isFree,is_continuous isContinuous,continuous_count continuousCount from oe_gift og where og.is_delete=0 and og.status=1 ORDER BY sort";
+        String sql="select id, id giftId,name,smallimg_path smallimgPath,price,is_free isFree,is_continuous isContinuous,continuous_count continuousCount from oe_gift og where og.is_delete=0 and og.status=1 ORDER BY sort desc";
         List<Gift> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,Gift.class, null);
         return lists;
     }
