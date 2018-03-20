@@ -170,6 +170,8 @@
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService" id="threePartiesLoginServiceImpl" timeout="5000"  />	
     
      <!-- 熊猫币购买接口 -->
-    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl" timeout="5000"  />	
-	
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl" timeout="5000"  />
+
+	<!--主播详情-->
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoServiceImpl"  timeout="5000" />
 </beans>
