@@ -192,8 +192,9 @@ public class LiveController {
 	 * @param courseId 课程id号
 	 */
 	@RequestMapping(value = "/getOpenCourseById")
-	public ResponseObject getOpenCourseById(Integer courseId,String planId) {
-		return ResponseObject.newSuccessResponseObject(service.getOpenCourseById(courseId,planId));
+	public ResponseObject getOpenCourseById(Integer courseId,HttpServletRequest request) {
+		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		return ResponseObject.newSuccessResponseObject(service.getOpenCourseById(courseId,user));
 	}
 
 
