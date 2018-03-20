@@ -114,8 +114,6 @@ function stripHTML(str){
 			$(".zhezhao").hide()
 			$(".btn").hide()
 		}
-		
-		
 	});
     //传ID courseId为接口的课程ID，评论列表
     refresh();
