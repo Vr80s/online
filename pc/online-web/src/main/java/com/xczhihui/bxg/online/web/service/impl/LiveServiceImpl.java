@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.util.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,8 @@ import com.xczhihui.user.center.bean.ItcastUser;
  */
 @Service
 public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveService{
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private LiveDao  dao;
@@ -101,7 +105,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
             throw new RuntimeException("请登录");
         }
         //获取当前直播课程信息
-        Map<String, Object> openCourseVo= dao.getOpenCourseById(courseId,"");
+        Map<String, Object> openCourseVo= dao.getOpenCourseById(courseId);
         if (openCourseVo == null){
             throw  new RuntimeException("直播课程不存在");
         }
@@ -152,10 +156,24 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
     /**
      * 获取直播课程信息，根据课程id查询课程
      * @param courseId 课程id号
+     * @param user
      */
     @Override
-    public Map<String, Object> getOpenCourseById(Integer courseId, String planId) {
-        return  dao.getOpenCourseById(courseId,planId);
+    public Map<String, Object> getOpenCourseById(Integer courseId, OnlineUser user) {
+        if(user == null){
+            throw new RuntimeException("用户未登录");
+        }else{
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("userId", user.getId());
+            paramMap.put("courseId", courseId);
+            List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
+                    .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId", paramMap);
+            if(argc.size()==0){
+                logger.info("用户{}未购买该课程{}",user.getId(),courseId);
+                throw new RuntimeException("用户未购买该课程");
+            }
+        }
+        return  dao.getOpenCourseById(courseId);
     }
 
     /**
@@ -219,84 +237,26 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         return  cours;
     }
 
-    @Deprecated
-	@Override
-	public ModelAndView livepage
-		(String courseId, String roomId, String planId,HttpServletRequest request,HttpServletResponse response) {
-
-		BxgUser user = UserLoginUtil.getLoginUser(request);
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("course_id", courseId);
-		paramMap.put("user_id", user == null ? null : user.getId());
-		paramMap.put("plan_id", planId);
-
-		List<Map<String, Object>> courses = dao.getNamedParameterJdbcTemplate()
-			.queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,live_status liveStatus from oe_course where id=:course_id", paramMap);
-		Map<String, Object> course =  courses.get(0);
-
-//		Object type = course.get("type");
-		Object is_free = course.get("is_free");
-		String description = (String) course.get("description");
-		Integer liveStatus = (Integer) course.get("liveStatus");
-		long coursePwd =  (long) course.get("coursePwd");
-		if(description==null) {
-            description = "";
-        }
-		description=description.replaceAll("\n", "");
-		String page="";
-		if(coursePwd==1){
-			page="encryptOpenCourseDetailPage";
-		}else{
-			is_free = (is_free != null && Boolean.valueOf(is_free.toString())) ? "1" : "0";
-			page = "1".equals(is_free) ? "freeOpenCourseDetailPage" : "payOpenCourseDetailPage";
-		}
-		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		ModelAndView mv = null;
-		if(liveStatus==1){
-			mv = new ModelAndView("live_success_page");
-		}else{
-			mv = new ModelAndView("live_success_other_page");
-		}
-		if(user!=null){
-			mv.addObject("userId",u.getId());
-			mv.addObject("courseId",courseId);
-			mv.addObject("liveStatus",liveStatus);
-			mv.addObject("roomId",roomId);
-			mv.addObject("roomJId",courseId+postfix);
-			mv.addObject("boshService",boshService);
-			mv.addObject("planId",planId);
-			mv.addObject("page",page);
-			mv.addObject("now",new Date().getTime());
-			mv.addObject("description",description);
-			mv.addObject("email", user == null ? null : user.getId()+"@xczh.com");
-			mv.addObject("name", user == null ? null : user.getName());
-			mv.addObject("k", "yrxk");//TODO 此处暂时写死
-			ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
-			mv.addObject("guId", iu.getId());
-			mv.addObject("guPwd", iu.getPassword());
-
-			mv.addObject("env", env);
-			mv.addObject("host", host);
-			mv.addObject("rate", rate);
-		}else{
-			mv = new ModelAndView("redirect:/");
-		}
-//		mv.addObject("cc_live_user_id",OnlineConfig.CC_LIVE_USER_ID);
-
-		return mv;
-	}
-
     @Override
     public ModelAndView livepage
             (String courseId, HttpServletRequest request,HttpServletResponse response) {
 
-        BxgUser user = UserLoginUtil.getLoginUser(request);
-
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("course_id", courseId);
+        BxgUser user = UserLoginUtil.getLoginUser(request);
+        paramMap.put("courseId", courseId);
+        if(user==null){
+            return  new ModelAndView("redirect:/course/courses/"+courseId);
+        }else{
+            paramMap.put("userId", user.getId());
+            List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
+                    .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId", paramMap);
+            if(argc.size()==0){
+                return  new ModelAndView("redirect:/course/courses/"+courseId);
+            }
+        }
+
         List<Map<String, Object>> courses = dao.getNamedParameterJdbcTemplate()
-                .queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,direct_id,live_status liveStatus from oe_course where id=:course_id", paramMap);
+                .queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,direct_id,live_status liveStatus from oe_course where id=:courseId", paramMap);
         Map<String, Object> course =  courses.get(0);
         String description = (String) course.get("description");
         Integer liveStatus = (Integer) course.get("liveStatus");
@@ -311,29 +271,24 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         }else{
             mv = new ModelAndView("live_success_other_page");
         }
-        if(user!=null){
-            mv.addObject("userId",u.getId());
-            mv.addObject("courseId",courseId);
-            mv.addObject("liveStatus",liveStatus);
-            mv.addObject("roomId",course.get("direct_id"));
-            mv.addObject("roomJId",courseId+postfix);
-            mv.addObject("boshService",boshService);
-            mv.addObject("now",new Date().getTime());
-            mv.addObject("description",description);
-            mv.addObject("email", user == null ? null : user.getId()+"@xczh.com");
-            mv.addObject("name", user == null ? null : user.getName());
-            mv.addObject("k", "yrxk");//TODO 此处暂时写死
-            ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
-            mv.addObject("guId", iu.getId());
-            mv.addObject("guPwd", iu.getPassword());
+        mv.addObject("userId",u.getId());
+        mv.addObject("courseId",courseId);
+        mv.addObject("liveStatus",liveStatus);
+        mv.addObject("roomId",course.get("direct_id"));
+        mv.addObject("roomJId",courseId+postfix);
+        mv.addObject("boshService",boshService);
+        mv.addObject("now",new Date().getTime());
+        mv.addObject("description",description);
+        mv.addObject("email", user == null ? null : user.getId()+"@xczh.com");
+        mv.addObject("name", user == null ? null : user.getName());
+        mv.addObject("k", "yrxk");//TODO 此处暂时写死
+        ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
+        mv.addObject("guId", iu.getId());
+        mv.addObject("guPwd", iu.getPassword());
 
-            mv.addObject("env", env);
-            mv.addObject("host", host);
-            mv.addObject("rate", rate);
-        }else{
-            mv = new ModelAndView("redirect:/");
-        }
-
+        mv.addObject("env", env);
+        mv.addObject("host", host);
+        mv.addObject("rate", rate);
         return mv;
     }
 
