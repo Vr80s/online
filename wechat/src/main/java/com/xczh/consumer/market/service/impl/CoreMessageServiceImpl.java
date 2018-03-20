@@ -44,7 +44,6 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             if (msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_TEXT)) {  
                 // 接收用户发送的文本消息内容  
                 String content = requestMap.get("Content");  
-  
                 if ("1".equals(content)) {  
                     textMessage.setContent("1是很好的");  
                     // 将文本消息对象转换成xml字符串  
@@ -54,9 +53,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                     // 将文本消息对象转换成xml字符串  
                     respMessage = MessageUtil.textMessageToXml(textMessage);  
                 }  
+            }else if(msgType.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)){
+            	
+            	
+            	
             }   
-              
-              
         } catch (Exception e) {  
             e.printStackTrace();  
         }  

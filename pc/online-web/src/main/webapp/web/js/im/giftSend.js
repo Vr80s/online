@@ -466,57 +466,53 @@ function Queue(size) {
     }
 }
 //编辑送礼物的数量
-$(document).on('click','.gif-num',function(){
-	console.log(11)
-	//遮罩层出现
-	$(".mask2").css({'display':'block'});
-	//列表出现
-	$('.send-gif-num').css({'display':'block'});
-	//点击切换数量
-	$('.send-gif-num li:nth-last-child(-n+5)').click(function(){
-		var a = $(this).attr('data-value')
-		$('.gif-num').text(a) ;
-		$(".mask2").css({'display':'none'});
-		$('.send-gif-num').css({'display':'none'});
-		$('.gif-num').attr('contenteditable','false')
-	})
-	//点击其他数量进行编辑
-	$('.send-gif-num li:first-child()').click(function(){
-		$(".mask2").css({'display':'none'});
-		$('.send-gif-num').css({'display':'none'});
-		$('.gif-num').attr('contenteditable','true')
-		$('.gif-num').text('')
-		$('.gif-num').focus();
-		//输入数字
-		$('.gif-num').keyup(function(e){
-			$(this).selectionEnd = $(this).text().length;
-			//限制输入整数 不能又小数点
-			 if((!Number($(this).text()*1))||($(this).text()).indexOf('.')!==-1){
-				 $(this).text('')
-			 }
-			 //输入回车
-			var keycode = e.which;
-			if(keycode == 13&&($(this).text()!='')){
-				 $(this).text( $(this).text())
-//				 $('.sub').click();
-				 $('.gif-num').attr('contenteditable','false')
-				 
-			}
-			 //限制输入4位数
-			 if($(this).text().length>4){
-				 $(this).text('')
-			 }
-			 
-			 //将输入的数量传到后台的代码可以写在这里
-			 
-			 
-		})
-	
-		
-	})
-	
-	
-})
+//$(document).on('click','.gif-num',function(){
+//	console.log(11)
+//	//遮罩层出现
+//	$(".mask2").css({'display':'block'});
+//	//列表出现
+//	$('.send-gif-num').css({'display':'block'});
+//	//点击切换数量
+//	$('.send-gif-num li:nth-last-child(-n+5)').click(function(){
+//		var a = $(this).attr('data-value')
+//		$('.gif-num').text(a) ;
+//		$(".mask2").css({'display':'none'});
+//		$('.send-gif-num').css({'display':'none'});
+//		$('.gif-num').attr('contenteditable','false')
+//	})
+//	//点击其他数量进行编辑
+//	$('.send-gif-num li:first-child()').click(function(){
+//		$(".mask2").css({'display':'none'});
+//		$('.send-gif-num').css({'display':'none'});
+//		$('.gif-num').attr('contenteditable','true')
+//		$('.gif-num').text('')
+//		$('.gif-num').focus();
+//		//输入数字
+//		$('.gif-num').keyup(function(e){
+//			$(this).selectionEnd = $(this).text().length;
+//			//限制输入整数 不能又小数点
+//			 if((!Number($(this).text()*1))||($(this).text()).indexOf('.')!==-1){
+//				 $(this).text('')
+//			 }
+//			 //输入回车
+//			var keycode = e.which;
+//			if(keycode == 13&&($(this).text()!='')){
+//				 $(this).text( $(this).text())
+////				 $('.sub').click();
+//				 $('.gif-num').attr('contenteditable','false')
+//				 
+//			}
+//			 //限制输入4位数
+//			 if($(this).text().length>4){
+//				 $(this).text('')
+//			 }
+//			 
+//			 //将输入的数量传到后台的代码可以写在这里
+//		 
+//		})
+//	
+//	})
+//})
 $(function () {
     setInterval(function(){
         for(var i=1;i<5;i++){

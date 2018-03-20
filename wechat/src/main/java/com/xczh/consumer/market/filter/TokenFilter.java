@@ -101,7 +101,7 @@ public class TokenFilter implements Filter {
 	private static String new_controller_pay_the_callback_one =
 			"/xczh/criticize/getCriticizeList,/bxg/ccvideo/commonCourseStatus"
 			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
-			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/gift/list";
+			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/gift/list,/xczh/message";
 	
 	
 	/*
@@ -109,7 +109,7 @@ public class TokenFilter implements Filter {
 	 *  推荐、分类、线下班、直播、听课、
 	 */
 	private static String new_controller_specific_business_one 
-	  = "/xczh/recommend,/xczh/classify,/xczh/bunch,/xczh/live,/xczh/bunch";
+	  = "/xczh/recommend,/xczh/classify,/xczh/bunch,/xczh/live,/xczh/bunch,/xczh/message";//message
 	/*
 	 *  主播页面 、课程详情、
 	 */
@@ -167,7 +167,7 @@ public class TokenFilter implements Filter {
 		 */
 		if((useLoopEqual(appExcludedPageArray,currentURL) || 
 				useLoopContains(newInterfaceFilter, currentURL))
-				&& new_to_intercept.indexOf("currentURL")==-1){
+				&& new_to_intercept.indexOf(currentURL)==-1){
 			     isExcludedPage = true;     
 		}
 		System.out.println("isExcludedPage，"+isExcludedPage);

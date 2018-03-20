@@ -180,15 +180,23 @@
 					<div class="user_text">
 						<div class="wrap_userName">
 							<p class="z">{{item.onlineUser.name}}</p>
-							{{if item.overallLevel == 1}}
+							{{if item.starLevel == 1}}
 							<img class="z" src="../images/xing1_0.png"/>
-							{{else if item.overallLevel == 2}}
+							{{else if item.starLevel == 1.5}}
+							<img class="z" src="../images/xing1_5.png"/>
+							{{else if item.starLevel == 2}}
 							<img class="z" src="../images/xing2.png"/>
-							{{else if item.overallLevel == 3}}
+							{{else if item.starLevel == 2.5}}
+							<img class="z" src="../images/xing2_5.png"/>
+							{{else if item.starLevel == 3}}
 							<img class="z" src="../images/xing3.png"/>
-							{{else if item.overallLevel == 4}}
+							{{else if item.starLevel == 3.5}}
+							<img class="z" src="../images/xing3_5.png"/>
+							{{else if item.starLevel == 4}}
 							<img class="z" src="../images/xing4_0.png"/>
-							{{else if item.overallLevel == 5}}
+							{{else if item.starLevel == 4.5}}
+							<img class="z" src="../images/xing4_5.png"/>
+							{{else if item.starLevel == 5}}
 							<img class="z" src="../images/xing5.png"/>
 							{{/if}}
 

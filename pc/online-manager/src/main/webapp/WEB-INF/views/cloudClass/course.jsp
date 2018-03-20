@@ -515,7 +515,8 @@
 			                    <td>
 			                        <div class="profile-info-value searchTr">
 			                            <input type="hidden" class="propertyValue1" value="${type}" id="type" style="width: 150px;">
-			                            <input type="hidden" value="type" class="propertyName"/>
+			                            <input type="hidden" value="type" class="p
+			                            ropertyName"/>
 			                        </div>
 			                    </td>
 			                    <td>

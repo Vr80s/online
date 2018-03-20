@@ -175,7 +175,7 @@
 	<!-- 免费课程 用户报名时，将课程下所有视频插入用户视频中间表中-->
 	<uri>/video/saveEntryVideo</uri>
 	<!-- 获取所有对该视频的评论 -->
-	<uri>/video/getVideoCriticize</uri>
+	<!--<uri>/video/getVideoCriticize</uri>-->
 
     <!-- 获取用户信息-->
 	<uri>/online/user/isAlive</uri>

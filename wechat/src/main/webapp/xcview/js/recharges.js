@@ -76,8 +76,11 @@ $("#determine").click(function(){
 //	location.href = "/xcview/html/recharges.html";
 //$(".success").hide();
 
-	window.history.go(-1);
-
+	if(is_weixn()){
+		window.history.go(-1);
+	}else{
+		window.history.go(-2);
+	}
 })
 
 
@@ -166,7 +169,8 @@ function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-	return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
+	//http://m.ipandatcm.com/xcview/html/recharges.html
+	return "http://m.ipandatcm.com/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
 }
 
 
