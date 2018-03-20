@@ -122,24 +122,6 @@ function createGiftList(gift) {
             createGiftShow();
             console.info("danji");
         }
-        var str = "<div class='coze_cen_ri'> "+
-				"<div class='coze_cen_bg_ri'>"+
-					"<span class='span_name'>"+data.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.giftInfo.name+"</span>"+
-				" </div> "+
-			    "<div class='both'></div></div>";
-        
-        //将礼物发送到
-      var msg = null;
-      msg = VHALL_SDK.sendChat({
-      	      text: "赠送给主播1个"+data.giftInfo.name+""
-      });
-      $("#chatmsg").append(str);
-     
-      // createGiftShow();
-      
-      setTimeout(function(){
- 	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
-      },50);
     }
 }
 
@@ -417,6 +399,26 @@ $(document).ready(function() {
                              */
                             sendMsg(data.resultObject);
 
+                            var str = "<div class='coze_cen_ri'> "+
+            				"<div class='coze_cen_bg_ri'>"+
+            					"<span class='span_name'>"+data.resultObject.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.resultObject.giftInfo.name+"</span>"+
+            				" </div> "+
+            			    "<div class='both'></div></div>";
+                            
+                            //将礼物发送到
+                            var msg = null;
+                            msg = VHALL_SDK.sendChat({
+                            	      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
+                            });
+                            $("#chatmsg").append(str);
+                           
+                            // createGiftShow();
+                            
+                            setTimeout(function(){
+                       	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+                            },50);
+                            
+                            
                             //隐藏发送礼物的，连击效果，暂时不隐藏
 
                             //$(".send_gifts").hide();
