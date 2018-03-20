@@ -50,7 +50,7 @@ public class ActivityRuleController{
          return mav;
     }
 
-	@RequiresPermissions("activity:menu:rule")
+	//@RequiresPermissions("activity:menu:rule")
     @RequestMapping(value = "/findActivityRuleList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findActivityRuleList(TableVo tableVo) {
@@ -89,7 +89,7 @@ public class ActivityRuleController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("activity:menu:rule")
+	//@RequiresPermissions("activity:menu:rule")
 	@RequestMapping(value = "/addActivityRule", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addActivityRule(ActivityRuleVo activityRuleVo,HttpServletRequest request){
@@ -108,7 +108,7 @@ public class ActivityRuleController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("activity:menu:rule")
+	//@RequiresPermissions("activity:menu:rule")
 	@RequestMapping(value = "updateActivityRuleById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateActivityRuleById (ActivityRuleVo activityRuleVo,HttpServletRequest request){

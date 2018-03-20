@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 
 <style type="text/css">
     .vertical-tab {
@@ -468,11 +468,11 @@
         });
     });
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-	当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 课程管理 </span>
+	当前位置：移动端管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+	</small> <span> 移动端banner管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -506,8 +506,28 @@
 					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-				</p>
-			
+					
+				<!--     <button class="btn btn-sm btn-success upload_bx" title="上传word文档">
+						<i class="glyphicon glyphicon-trash"></i> 上传word文档
+					</button>
+					
+					 <button class="btn btn-sm btn-success upload_excel" title="上传excel文档">
+						<i class="glyphicon glyphicon-trash"></i> 上传excel文档
+					</button>
+					 -->
+					<!--  <a href="/link/word/download?filename=链接地址添加文档.docx">文档说明</a>
+					  
+					 <form action="/link/word/upload" enctype="multipart/form-data" method="post">
+				        <table>
+				            <tr>
+				                <td>请选择文件:</td>
+				                <td><input type="file" name="file"></td>
+				            </tr>
+				            <tr>
+				                <td><input type="submit" value="上传"></td>
+				            </tr>
+				        </table>
+				    </form> -->
 			
 				<div class="row">
 					<div class="col-xs-12">
@@ -557,6 +577,52 @@
     </div>
 </div>
 
+
+
+<!-- 增加wordform -->
+<div id="dialogAddWordDiv"></div>
+<div id="addwordDialog" class="hide">
+	<form id="addword-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	    <div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
+			 <div class="col-sm-6">
+					 <input type="file" name="file" id="imgPath_file1"/>
+					 <input type="hidden" name="filename" id="jia_imgPath_file"/>
+<!-- 					 <div id="kewudeie" style="padding-top:20px;">
+					 <p><span>原始文件名：</span><span id="ys_filename"></span></p>
+					 <p><span>下载地址：</span><p id="xz_fileurl" style="word-wrap: break-word;word-break: normal;"></p></p>
+					 </div>
+ -->					 <input name="downUrl" id="add_imgPath1" value="" type="hidden" class="{required:true}" >
+             </div>
+		</div>
+	</form>
+</div>
+
+<!-- 上传excelform -->
+<div id="dialogAddExcelDiv"></div>
+<div id="addExcelDialog" class="hide">
+	<form id="addExcel-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	    <div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
+			 <div class="col-sm-6">
+					 <input type="file" name="file" id="excel_file"/>
+					 <input type="hidden" name="filename" id="jia_imgPath_file"/>
+                     <input name="downUrl" id="add_imgPath1" value="" type="hidden" class="{required:true}" >
+             </div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+
 <!-- 增加form -->
 <div id="dialogAddMobileBannerDiv"></div>
 <div id="addMobileBannerDialog" class="hide">
@@ -598,13 +664,11 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>链接地址: </label>
 			 <div class="col-sm-6">
-               		<input type="text" name="url"  id="add_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+               		<textarea  name="url"  id="add_url" rows="6" cols="20"  class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+               		</textarea>
              </div>
 		</div>
-		
-	
 		<input type="hidden" name="bannerType" id="bannerType" >
-		
 	</form>
 </div>
 
@@ -634,7 +698,8 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="imgHref"><font color="red">*</font>链接地址: </label>
 			 <div class="col-sm-6">
-               		<input type="text" name="url"  id="update_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+               		<textarea name="url"  id="update_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+               		</textarea>
              </div>
 		</div>
 		
@@ -652,9 +717,9 @@
                </select>
              </div>
 		</div>
-		<!-- <input type="hidden" name="bannerType" id="upload_bannerType" > -->
+		 <input type="hidden" name="bannerType" id="upload_bannerType" >
 		
 		
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/operate/mobileBanner2.js?v=11231231231"></script>
+<script type="text/javascript" src="/js/operate/mobileBanner2.js?v=ipandatcm_1.3"></script>

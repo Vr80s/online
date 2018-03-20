@@ -48,17 +48,36 @@ public class Token implements Serializable,Writable {
 	private String email;
 	private String nikeName;
 	
-	@Override
-	public String toString() {
-		return "userId:" + userId + " loginName:" + loginName 
-				+ " origin:" + origin 
-				+ " ticket:" + ticket 
-				+ " expires:" + expires 
-				+ "mobile:" + mobile 
-				+ "type:" + type 
-				+ "sex:" + sex 
-				+ "email:" + email 
-				+ "nikeName:" + nikeName;
+	private String headPhoto;
+
+	private String uuid;
+
+	private String passWord;
+	
+	
+
+	public String getHeadPhoto() {
+		return headPhoto;
+	}
+
+	public void setHeadPhoto(String headPhoto) {
+		this.headPhoto = headPhoto;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 
 	public int getUserId() {
@@ -139,6 +158,18 @@ public class Token implements Serializable,Writable {
 
 	public void setSex(int sex) {
 		this.sex = sex;
+	}
+
+	
+	
+	@Override
+	public String toString() {
+		return "Token [userId=" + userId + ", loginName=" + loginName
+				+ ", origin=" + origin + ", ticket=" + ticket + ", expires="
+				+ expires + ", mobile=" + mobile + ", type=" + type + ", sex="
+				+ sex + ", email=" + email + ", nikeName=" + nikeName
+				+ ", headPhoto=" + headPhoto + ", uuid=" + uuid + ", passWord="
+				+ passWord + "]";
 	}
 
 	@Override

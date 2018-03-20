@@ -9,11 +9,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 
+import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
+import com.xczhihui.bxg.online.manager.utils.subscribe.Subscribe;
+import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
+import com.xczhihui.bxg.online.manager.vhall.bean.Webinar;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,12 +35,6 @@ import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.CoursePreview;
-import com.xczhihui.bxg.online.common.domain.Grade;
-import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.bxg.online.common.domain.TeachMethod;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseDao;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseSubscribeDao;
@@ -54,9 +58,20 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     private CourseDao courseDao;
     @Autowired
     private CourseSubscribeDao courseSubscribeDao;
-    @Value("${ENV_FLAG}")
+	//由后台配置的点播视频
+    private static String CNAME = "video-on-demand-background";
+
+	@Autowired
+	private OnlineUserService onlineUserService;
+
+	@Value("${ENV_FLAG}")
 	private String envFlag;
-    private static String CNAME = "video-on-demand-background";//由后台配置的点播视频
+	@Value("${LIVE_VHALL_USER_ID}")
+	private String liveVhallUserId;
+	@Value("${vhall_callback_url}")
+	String vhall_callback_url;
+	@Value("${vhall_private_key}")
+	String vhall_private_key;
     
     @Override
 	public Page<CourseVo> findCoursePage(CourseVo courseVo,  int pageNumber, int pageSize) {
@@ -80,7 +95,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param pageSize 每页显示多少行，默认20
      * @return Example 分页列表
      */
-    public List<CourseLecturVo>  getCourseAndLecturerlist(Integer number, Integer courseType,Integer pageNumber, Integer pageSize) {
+    @Override
+	public List<CourseLecturVo>  getCourseAndLecturerlist(Integer number, Integer courseType, Integer pageNumber, Integer pageSize) {
 
          List<CourseLecturVo> courseLecturVos=null;
          //先根据菜单编号获取相关课程信息
@@ -277,8 +293,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void addCourse(CourseVo courseVo) {
+		checkName(courseVo.getId(),courseVo.getCourseName());
 		// TODO Auto-generated method stub
-		
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql="SELECT IFNULL(MAX(sort),0) as sort FROM oe_course ";
 		List<Course> temp = dao.findEntitiesByJdbc(Course.class, sql, params);
@@ -288,72 +304,106 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		}else{
 			 sort=1;
 		}
+		//设置精品推荐排序
+		String essenceSortsql="SELECT IFNULL(MAX(essence_sort),0) as essenceSort FROM oe_course ";
+		List<Course> essenceSorttemp = dao.findEntitiesByJdbc(Course.class, essenceSortsql, params);
+		int essenceSort;
+		if(essenceSorttemp.size()>0){
+			essenceSort=essenceSorttemp.get(0).getEssenceSort().intValue()+1;
+		}else{
+			essenceSort=1;
+		}
 		//当课程存在密码时，设置的当前价格失效，改为0.0
 		if(courseVo.getCoursePwd()!=null && !"".equals(courseVo.getCoursePwd().trim())){
 			courseVo.setCurrentPrice(0.0);
 		}
 		Course course = new Course();
-		course.setGradeName(courseVo.getCourseName()); //课程名称
-		course.setClassTemplate(courseVo.getCourseName()); //课程名称模板mv//20180109  yuxin 将课程名作为模板
-		course.setMenuId(courseVo.getMenuId()); //学科id
-		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
-		course.setCourseType(courseVo.getCourseType()); //授课方式
-		course.setCourseLength(courseVo.getCourseLength()); //课程时长
-		course.setOriginalCost(courseVo.getOriginalCost()); //原价格
-		course.setCurrentPrice(courseVo.getCurrentPrice()); //现价格
-		if(/*0==course.getOriginalCost()&&*/0==course.getCurrentPrice()){
-			course.setIsFree(true); //免费
+		//课程名称
+		course.setGradeName(courseVo.getCourseName());
+		//课程名称模板mv//20180109  yuxin 将课程名作为模板
+		course.setClassTemplate(courseVo.getCourseName());
+		//学科id
+		course.setMenuId(courseVo.getMenuId());
+//		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
+		//授课方式
+		course.setCourseType(courseVo.getCourseType());
+		//课程时长
+		course.setCourseLength(courseVo.getCourseLength());
+		//原价格
+		course.setOriginalCost(courseVo.getCurrentPrice());
+		//现价格
+		course.setCurrentPrice(courseVo.getCurrentPrice());
+		if(0==course.getCurrentPrice()){
+			//免费
+			course.setIsFree(true);
 		}else{
-			course.setIsFree(false); //收费
+			//付费
+			course.setIsFree(false);
 		}
-		course.setSort(sort); //排序
-		//course.setType(1);
-		course.setLearndCount(courseVo.getLearndCount()); //请填写一个基数，统计的时候加上这个基数
-		course.setCreatePerson(UserHolder.getCurrentUser().getLoginName()); //当前登录人
-		course.setCreateTime(new Date()); //当前时间
-		course.setStatus('0'+""); //状态
-		course.setDescription(courseVo.getDescription());//课程描述
-		course.setCloudClassroom(courseVo.getCloudClassroom());//云课堂连接
-		course.setIsRecommend(courseVo.getIsRecommend());//
-		course.setRecommendSort(courseVo.getRecommendSort());//
-		course.setQqno(courseVo.getQqno());
+		//排序
+		course.setSort(sort);
+		course.setEssenceSort(essenceSort); //精品推荐排序
+		course.setType(courseVo.getType());
+
+		course.setLearndCount(0);
+		//当前登录人
+		course.setCreatePerson(courseVo.getCreatePerson());
+		//当前时间
+		course.setCreateTime(new Date());
+		//状态
+		course.setStatus("0");
+		//课程描述  2018-01-20 yuxin 暂时弃用描述
+//		course.setDescription(courseVo.getDescription());
+		course.setIsRecommend(0);
+		course.setRecommendSort(null);
+
 		course.setDescriptionShow(0);
-		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
+		//随机生成一个10-99数，统计的时候加上这个基数
+		java.util.Random random=new java.util.Random();
+		// 返回[0,100)集合中的整数，注意不包括10
+		int result=random.nextInt(100);
+		// +1后，[0,10)集合变为[52,152)集合，满足要求
+		int defaultStudentCount = result+52;
+		course.setDefaultStudentCount(defaultStudentCount);
 		//yuruixin-2017-08-16
 		course.setMultimediaType(courseVo.getMultimediaType());
-		if(courseVo.getServiceType()==1){//判断添加职业课/微课
-			course.setClassRatedNum(courseVo.getClassRatedNum());
-			course.setServiceType(1);
-			course.setGradeQQ(courseVo.getGradeQQ());
-			course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
-			if(!course.isFree()){
-				//添加微课，自动为微课创建一个报名中的班级
-				String savesql=" insert into oe_grade (create_person,create_time,is_delete,course_id,name,qqno,status,sort,grade_status,student_amount,default_student_count) " +
-						" values ('"+course.getCreatePerson()+"',now(),0,(select AUTO_INCREMENT courseId FROM information_schema.TABLES WHERE  TABLE_NAME ='oe_course' and TABLE_SCHEMA='online' ),'"+course.getClassTemplate()+"1期',"+course.getGradeQQ()+",1,1,1,"+course.getClassRatedNum()+"," + course.getDefaultStudentCount()+")";
-				dao.getNamedParameterJdbcTemplate().update(savesql, params);
-			}
-		}else{//添加职业课
-			course.setClassRatedNum(0);
-			course.setServiceType(0);
-		}
+		course.setClassRatedNum(0);
+		course.setServiceType(0);
 		//增加密码和老师
 		course.setCoursePwd(courseVo.getCoursePwd());
 		course.setUserLecturerId(courseVo.getUserLecturerId());
-		course.setOnlineCourse(courseVo.getOnlineCourse());
-		course.setAddress(courseVo.getAddress());
-		course.setCity(courseVo.getRealCitys());
-		
-		if(course.getOnlineCourse() == 1){
-			course.setStartTime(courseVo.getStartTime());
-			course.setEndTime(courseVo.getEndTime());
-		}
-
+		course.setLecturer(courseVo.getLecturer());
+//		course.setOnlineCourse(courseVo.getOnlineCourse());
+		course.setPv(0);
+		course.setApplyId(0);
 		// zhuwenbao-2018-01-09 设置课程的展示图
 		// findCourseById 是直接拿小图 getCourseDetail是从大图里拿 同时更新两个 防止两者数据不一样
 		course.setSmallImgPath(courseVo.getSmallimgPath());
 		course.setBigImgPath(courseVo.getSmallimgPath());
+		if(course.getType() == CourseForm.OFFLINE.getCode()){
+			course.setStartTime(courseVo.getStartTime());
+			course.setEndTime(courseVo.getEndTime());
+			course.setAddress(courseVo.getAddress());
+			course.setCity(courseVo.getRealCitys());
+		}else if(course.getType() == CourseForm.LIVE.getCode()){
+			course.setMultimediaType(Multimedia.VIDEO.getCode());
+			course.setStartTime(courseVo.getStartTime());
+			//直播布局
+			course.setDirectSeeding(courseVo.getDirectSeeding());
+			course.setVersion(UUID.randomUUID().toString().replace("-",""));
+			String webinarId = createWebinar(course);
+			course.setDirectId(webinarId);
+			//将直播状态设为2
+			course.setLiveStatus(2);
+		}
+
+		course.setCollection(false);
+		course.setSubtitle(courseVo.getSubtitle());
 
 		dao.save(course);
+		if(course.getType() == CourseForm.LIVE.getCode()){
+			Subscribe.setting(course.getId(), this, courseSubscribeDao);
+		}
 	}
 
     @Override
@@ -371,13 +421,53 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		// TODO Auto-generated method stub
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("courseId", id);
-		String sql = "SELECT oc.id as id,oc.grade_name as courseName,oc.class_template as classTemplate,om.name as xMenuName,st.name as scoreTypeName,oc.multimedia_type multimediaType,oc.start_time startTime,oc.end_time endTime,oc.address,"
-				+ "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.course_pwd as coursePwd,oc.grade_qq gradeQQ,oc.default_student_count defaultStudentCount,"
-				+ "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
-				+ "oc.current_price as currentPrice,oc.description as description ,oc.cloud_classroom as cloudClassroom ,"
-				+ "oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.courseType as courseType,oc.qqno,oc.grade_student_sum as classRatedNum,oc.user_lecturer_id as userLecturerId,oc.smallimg_path as smallimgPath FROM oe_course oc "
-				+ "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
-				+ "LEFT JOIN teach_method tm ON tm.id = oc.courseType WHERE oc.id = :courseId";
+//		String sql = "SELECT oc.id as id,oc.grade_name as courseName,oc.class_template as classTemplate,oc.subtitle,oc.lecturer,om.name as xMenuName,st.name as scoreTypeName,oc.multimedia_type multimediaType,oc.start_time startTime,oc.end_time endTime,oc.address,"
+//				+ "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.course_pwd as coursePwd,oc.grade_qq gradeQQ,oc.default_student_count defaultStudentCount,"
+//				+ "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
+//				+ "oc.current_price as currentPrice,oc.description as description ,oc.cloud_classroom as cloudClassroom ,"
+//				+ "oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.courseType as courseType,oc.qqno,oc.grade_student_sum as classRatedNum,oc.user_lecturer_id as userLecturerId,oc.smallimg_path as smallimgPath FROM oe_course oc "
+//				+ "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
+//				+ "LEFT JOIN teach_method tm ON tm.id = oc.courseType WHERE oc.id = :courseId";
+		String sql = "SELECT \n" +
+				"  oc.id AS id,\n" +
+				"  oc.grade_name AS courseName,\n" +
+				"  oc.class_template AS classTemplate,\n" +
+				"  oc.subtitle,\n" +
+				"  oc.lecturer,\n" +
+				"  om.name AS xMenuName,\n" +
+				"  st.name AS scoreTypeName,\n" +
+				"  oc.multimedia_type multimediaType,\n" +
+				"  oc.start_time startTime,\n" +
+				"  oc.end_time endTime,\n" +
+				"  oc.address,\n" +
+				"  oc.course_length AS courseLength,\n" +
+				"  oc.learnd_count AS learndCount,\n" +
+				"  oc.course_pwd AS coursePwd,\n" +
+				"  oc.grade_qq gradeQQ,\n" +
+				"  oc.default_student_count defaultStudentCount,\n" +
+				"  oc.create_time AS createTime,\n" +
+				"  oc.status AS STATUS,\n" +
+				"  oc.is_free AS isFree,\n" +
+				"  oc.original_cost AS originalCost,\n" +
+				"  oc.current_price AS currentPrice,\n" +
+				"  oc.description AS description,\n" +
+				"  oc.cloud_classroom AS cloudClassroom,\n" +
+				"  oc.menu_id AS menuId,\n" +
+				"  oc.course_type_id AS courseTypeId,\n" +
+				"  oc.courseType AS courseType,\n" +
+				"  oc.qqno,\n" +
+				"  oc.grade_student_sum AS classRatedNum,\n" +
+				"  ou.name AS userLecturerId,\n" +
+				"  oc.smallimg_path AS smallimgPath \n" +
+				"FROM\n" +
+				"  oe_course oc \n" +
+				"  LEFT JOIN `oe_user` ou \n" +
+				"  ON ou.id=oc.`user_lecturer_id`\n" +
+				"  LEFT JOIN oe_menu om \n" +
+				"    ON om.id = oc.menu_id \n" +
+				"  LEFT JOIN score_type st \n" +
+				"    ON st.id = oc.course_type_id \n" +
+				"WHERE oc.id = :courseId ";
 		List<CourseVo> courseVoList=dao.findEntitiesByJdbc(CourseVo.class, sql, paramMap);
 		sql = "select sum(IFNULL(t.default_student_count,0)) from oe_grade t where t.course_id = ?";
 		courseVoList.get(0).setLearndCount(courseDao.queryForInt(sql, new Object[]{id}));//累计默认报名人数
@@ -387,25 +477,31 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void updateCourse(CourseVo courseVo) {
+		checkName(courseVo.getId(),courseVo.getCourseName());
+
 		Course course = dao.findOneEntitiyByProperty(Course.class, "id", courseVo.getId());
 		//当课程存在密码时，设置的当前价格失效，改为0.0
 		if(courseVo.getCoursePwd()!=null && !"".equals(courseVo.getCoursePwd().trim())){
 			courseVo.setCurrentPrice(0.0);
 		}
 
-		course.setGradeName(courseVo.getCourseName()); //课程名称
-		course.setClassTemplate(courseVo.getClassTemplate()); //课程名称模板
-		course.setMenuId(courseVo.getMenuId()); //学科的id
-		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
-		course.setCourseType(courseVo.getCourseType()); //授课方式id
-//		course.setCourseLength(courseVo.getCourseLength()); //课程时长
-		//course.setIsFree(courseVo.getIsFree()); //是否免费
-		course.setOriginalCost(courseVo.getOriginalCost()); //原价格
-		course.setCurrentPrice(courseVo.getCurrentPrice()); //现价格
+		//课程名称
+		course.setGradeName(courseVo.getCourseName());
+		//课程名称模板
+		course.setClassTemplate(courseVo.getCourseName());
+		//学科的id
+		course.setMenuId(courseVo.getMenuId());
+		//课程时长
+		course.setCourseLength(courseVo.getCourseLength());
+		//原价格
+		course.setOriginalCost(courseVo.getCurrentPrice());
+		//现价格
+		course.setCurrentPrice(courseVo.getCurrentPrice());
 		course.setMultimediaType(courseVo.getMultimediaType());
 		//增加密码和老师
 		course.setCoursePwd(courseVo.getCoursePwd());
-		course.setUserLecturerId(courseVo.getUserLecturerId());
+		//作者禁止修改
+//		course.setUserLecturerId(courseVo.getUserLecturerId());
 		course.setAddress(courseVo.getAddress());
 		course.setCity(courseVo.getRealCitys());
 		
@@ -415,45 +511,52 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setSmallImgPath(courseVo.getSmallimgPath());
 		course.setBigImgPath(courseVo.getSmallimgPath());
 
-//		if(0==course.getOriginalCost()&&0==course.getCurrentPrice()){
 		if(0==course.getCurrentPrice()){
-			course.setIsFree(true); //免费
+			course.setIsFree(true);
 		}else{
-			course.setIsFree(false); //收费
-			if(course.getServiceType()==1){ //微课自动建班级
-				Map<String,Object> paramMap = new HashMap<String,Object>();
-				paramMap.put("courseId",course.getId());
-				String sql="select id from oe_grade where is_delete=0 and grade_status = 1 and course_id =:courseId and curriculum_time is null  and "+
-						"  ifnull(student_count+default_student_count,0)< student_amount order by create_time  limit 1 ";
-				List<Map<String, Object>> grades = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-				//存在报名未结束的班级
-				if (grades.size() <=0) {
-					//查看上一个班级是第几期，要在这期上面加1
-					sql="select count(id)+1 number,(select AUTO_INCREMENT gradeId FROM information_schema.TABLES WHERE  TABLE_NAME ='oe_grade' and TABLE_SCHEMA='online' ) id  from oe_grade  where course_id=:courseId";
-					List<Map<String, Object>> gradeInfos= dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-					Map<String, Object> gradeInfo=gradeInfos.get(0);
-					Integer default_count=Integer.valueOf(gradeInfo.get("number").toString())==1 ? course.getDefaultStudentCount() : 0;
-					//修改微课，自动为微课创建一个报名中的班级
-					String savesql=" insert into oe_grade (create_person,create_time,is_delete,course_id,name,qqno,status,sort,grade_status,student_amount,default_student_count) " +
-							" values ('"+course.getCreatePerson()+"',now(),0,"+course.getId()+",'"+course.getClassTemplate()+gradeInfo.get("number")+"期',"+courseVo.getGradeQQ()+",1,1,1,"+course.getClassRatedNum()+"," + default_count+")";
-					dao.getNamedParameterJdbcTemplate().update(savesql, paramMap);
-				}
+			course.setIsFree(false);
+		}
+//		course.setLearndCount(courseVo.getLearndCount());
+		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
+
+		course.setSubtitle(courseVo.getSubtitle());
+		course.setLecturer(courseVo.getLecturer());
+
+		if(course.getType()==CourseForm.LIVE.getCode()){
+			course.setStartTime(courseVo.getStartTime());
+			course.setVersion(UUID.randomUUID().toString().replace("-",""));
+		}else if(course.getType()==CourseForm.OFFLINE.getCode()){
+			course.setStartTime(courseVo.getStartTime());
+			course.setEndTime(courseVo.getEndTime());
+		}
+
+		dao.update(course);
+
+		if(course.getType()==CourseForm.LIVE.getCode()){
+			updateWebinar(course);
+			Subscribe.setting(courseVo.getId(), this, courseSubscribeDao);
+		}
+	}
+
+	/**
+	 * Description：校验是否重名
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 5:44 2018/1/21 0021
+	 **/
+	@Override
+	public void checkName(Integer id, String courseName) {
+		List<Course> entitys= findByName(courseName);
+		for(Course entity: entitys){
+			if(id==null) {
+				id = 0;
+			}
+			if(!entity.isDelete()&&entity.getId().intValue()!=id){
+				throw new RuntimeException(courseName+":课程名称已存在！");
 			}
 		}
-		//course.setCourseDescribe(courseVo.getCourseDescribe()); //课程简介
-		course.setDescription(courseVo.getDescription());//课程描述
-		course.setCloudClassroom(courseVo.getCloudClassroom());//云课堂连接
-		course.setQqno(courseVo.getQqno());
-		course.setLearndCount(courseVo.getLearndCount());
-		course.setClassRatedNum(courseVo.getClassRatedNum());//班级额定人数
-		course.setGradeQQ(courseVo.getGradeQQ());
-		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
-		course.setOnlineCourse(courseVo.getOnlineCourse());
-		course.setStartTime(courseVo.getStartTime());
-		course.setEndTime(courseVo.getEndTime());
-		dao.update(course);
 	}
-	
+
 	@Override
 	public void updateRecImgPath(CourseVo courseVo) {
 		Course course = dao.findOneEntitiyByProperty(Course.class, "id", courseVo.getId());
@@ -468,7 +571,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		
 		 String hql="from Course where 1=1 and isDelete=0 and id = ?";
          Course course= dao.findByHQLOne(hql, new Object[]{id});
-         
+         course.setReleaseTime(new Date());
          if(course.getStatus()!=null&&"1".equals(course.getStatus())){
         	 course.setStatus("0");
          }else{
@@ -479,14 +582,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         				throw new RuntimeException ("只能启用4条数据！");
         		 }
         	 }*/
-        	 
         	 course.setStatus("1");
          }
          
          dao.update(course);
 	}
-
-
 	@Override
 	public void deleteCourseById(Integer id) {
 		// TODO Auto-generated method stub
@@ -511,7 +611,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getSort();
          
-         String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type is null  and isDelete=0 order by sort asc";
+         String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type=2  and isDelete=0 order by sort asc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getSort();
          
@@ -531,7 +631,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
 		Integer coursePreSort=coursePre.getSort();
 		
-		String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type is null and online_course=1 and isDelete=0 order by sort asc";
+		String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type=3 and isDelete=0 order by sort asc";
 		Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
 		Integer courseNextSort=courseNext.getSort();
 		
@@ -551,7 +651,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getSort();
-         String hqlNext="from Course where sort < (select sort from Course where id= ? ) and type is null  and isDelete=0 order by sort desc";
+         String hqlNext="from Course where sort < (select sort from Course where id= ? ) and type=2  and isDelete=0 order by sort desc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getSort();
          
@@ -569,7 +669,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		String hqlPre="from Course where  isDelete=0 and id = ?";
 		Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
 		Integer coursePreSort=coursePre.getSort();
-		String hqlNext="from Course where sort < (select sort from Course where id= ? ) and type is null and online_course=1 and isDelete=0 order by sort desc";
+		String hqlNext="from Course where sort < (select sort from Course where id= ? ) and type = 3 and isDelete=0 order by sort desc";
 		Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
 		Integer courseNextSort=courseNext.getSort();
 		
@@ -624,11 +724,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void updateCourseDetail(String courseId, String smallImgPath, String detailImgPath, String courseDetail,
-			String courseOutline, String commonProblem) {
+								   String courseOutline, String commonProblem, String lecturerDescription) {
 		Course c = courseDao.findOneEntitiyByProperty(Course.class, "id", Integer.valueOf(courseId));
 
 		// zhuwenbao 2018-01-09 在课程详情页面已经移除调smallImgPath选项 不加判断的话会将之前的smallImgPath设置为null
-		if(smallImgPath != null && !smallImgPath.trim().equals("")){
+		if(smallImgPath != null && !"".equals(smallImgPath.trim())){
 			c.setSmallImgPath(smallImgPath);
 			c.setBigImgPath(smallImgPath);
 		}
@@ -636,6 +736,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		c.setCourseDetail(courseDetail);
 		c.setCourseOutline(courseOutline);
 		c.setCommonProblem(commonProblem);
+		c.setLecturerDescription(lecturerDescription);
 		courseDao.update(c);
 	}
 
@@ -649,6 +750,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			retn.put("courseDetail", c.getCourseDetail());
 			retn.put("courseOutline", c.getCourseOutline());
 			retn.put("commonProblem", c.getCommonProblem());
+			retn.put("lecturerDescription", c.getLecturerDescription());
 			retn.put("gradeName", c.getGradeName());
 			retn.put("descriptionShow", c.getDescriptionShow().toString());
 			/*2017-08-14---yuruixin*/
@@ -769,19 +871,18 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	public boolean updateRec(String[] ids,int isRecommend) {
 		// TODO Auto-generated method stub
 		List<String> ids2 = new ArrayList();
-		if(isRecommend == 1)//如果是要推荐 那么就验证 推荐数量是否大于4
-		{
+		//如果是要推荐 那么就验证 推荐数量是否大于4
+		if(isRecommend == 1){
 			//校验是否被引用
 			String hqlPre="from Course where isDelete=0 and isRecommend = 1";
 			List<Course> list= dao.findByHQL(hqlPre);
 			if(list.size() > 0){//只有原来大于0才执行
-//				List<Course> list2 = new ArrayList<Course>();
-				
 					for(int i = 0;i<ids.length;i++)
 					{
 						int j = 0;
 						Iterator<Course> iterator = list.iterator();
-						while(iterator.hasNext()){//剔除本次推荐的与已经推荐的重复的
+						while(iterator.hasNext()){
+							//剔除本次推荐的与已经推荐的重复的
 							
 							Course course = iterator.next();
 							if(course.getId() == Integer.parseInt(ids[i])){//如果存在就把他剔除掉从list中
@@ -803,8 +904,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 				}
 			}
 			//已经存在的数量 +  即将添加的数量
-            if((list.size()+ids2.size()) > 4){
-            	return false;
+            if((list.size()+ids2.size()) > 12){
+				//取消推荐数目限制
+//            	return false;
             }
 		}else{//如果是取消推荐
 			for(int i=0;i<ids.length;i++)
@@ -832,15 +934,34 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         }
 		return true;
 	}
+	@Override
+	public boolean updateCityRec(String[] ids,int isRecommend) {
+		// TODO Auto-generated method stub
+
+		for(String id:ids){
+			if(id == "" || id == null)
+			{
+				continue;
+			}
+			String hqlPre="from OffLineCity where  isDelete = 0 and id = ?";
+			OffLineCity course= dao.findByHQLOne(hqlPre,new Object[] {Integer.valueOf(id)});
+			if(course !=null){
+				course.setIsRecommend(isRecommend);
+				dao.update(course);
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public void updateSortUpRec(Integer id) {
+		
 		// TODO Auto-generated method stub
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getRecommendSort();
          
-         String hqlNext="from Course where recommendSort < (select recommendSort from Course where id= ? )  and isDelete=0 and isRecommend = 1 order by recommendSort desc";
+         String hqlNext="from Course where recommendSort > (select recommendSort from Course where id= ? )  and isDelete=0 and isRecommend = 1 order by recommendSort asc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getRecommendSort();
          
@@ -853,12 +974,62 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 
 	@Override
+	public void updateCitySortUp(Integer id) {
+		// TODO Auto-generated method stub
+		String hqlPre="from OffLineCity where  isDelete=0 and id = ?";
+		OffLineCity coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		
+		if(coursePre.getIsRecommend() == 0){
+			throw new RuntimeException("排序只能选择推荐的线下课");
+		}
+		
+		Integer coursePreSort=coursePre.getSort();
+		String hqlNext="from OffLineCity where sort > (select sort from OffLineCity where id= ? )  and isDelete=0  and isRecommend = 1 order by sort asc";
+		OffLineCity courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		Integer courseNextSort=courseNext.getSort();
+
+		coursePre.setSort(courseNextSort);
+		courseNext.setSort(coursePreSort);
+
+		dao.update(coursePre);
+		dao.update(courseNext);
+
+	}
+	@Override
+	public void updateCitySortDown(Integer id) {
+		// TODO Auto-generated method stub
+		String hqlPre="from OffLineCity where  isDelete=0 and id = ?";
+		OffLineCity coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		
+		if(coursePre.getIsRecommend() == 0){
+			throw new RuntimeException("排序只能选择推荐的线下课");
+		}
+		
+		Integer coursePreSort=coursePre.getSort();
+		
+		String hqlNext="from OffLineCity where sort < (select sort from OffLineCity where id= ? ) and isRecommend = 1 and isDelete=0 order by sort desc";
+		OffLineCity courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		
+		if(courseNext == null){
+			throw new RuntimeException("此排序已是最小值了");
+		}
+		Integer courseNextSort=courseNext.getSort();
+
+		coursePre.setSort(courseNextSort);
+		courseNext.setSort(coursePreSort);
+
+		dao.update(coursePre);
+		dao.update(courseNext);
+	}
+
+	@Override
 	public void updateSortDownRec(Integer id) {
 		// TODO Auto-generated method stub
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getRecommendSort();
-         String hqlNext="from Course where recommendSort > (select recommendSort from Course where id= ? ) and isRecommend = 1  and isDelete=0 order by recommendSort asc";
+       
+         String hqlNext="from Course where recommendSort < (select recommendSort from Course where id= ? ) and isRecommend = 1 and isDelete=0 order by recommendSort desc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getRecommendSort();
          
@@ -870,6 +1041,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 
 	
+	@Override
 	public List<Course> findByName(String name){
 		List<Course> courses=dao.findEntitiesByProperty(Course.class, "gradeName", name);
 		/*if(course!=null&&!course.isDelete()){
@@ -977,7 +1149,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 
 	@Override
-	public void deleteCourseByExamineId(String examineId, boolean falg) {
+	public void deleteCourseByExamineId(Integer examineId, boolean falg) {
 		String hqlPre="from Course where  examine_id = ?";
 		Course course= dao.findByHQLOne(hqlPre,new Object[] {examineId});
 		if(course !=null){
@@ -1111,7 +1283,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	public void createCourseCategories(String courseId,List<CategoryBean> cs) throws Exception{
 		String name = null;
 		List<Map<String, Object>> lst = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.queryForList("select o.grade_name from oe_course o where o.is_delete=0 and (o.type is null or o.type=0) and id="+courseId);
+				.queryForList("select o.grade_name from oe_course o where o.is_delete=0 and (o.type=2 or o.type=0) and id="+courseId);
 		if (lst != null && lst.size() > 0) {
 			name = lst.get(0).get("grade_name").toString();
 		}
@@ -1144,7 +1316,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 		List<Map<String, Object>> lst = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
 				.queryForList("select o.grade_name,z.`name` from oe_course o,oe_chapter z "
-						+ "where z.parent_id=o.id and z.`level`=2 and o.is_delete=0 and z.is_delete=0 and (o.type is null or o.type=0) and o.id="+courseId);
+						+ "where z.parent_id=o.id and z.`level`=2 and o.is_delete=0 and z.is_delete=0 and (o.type=2 or o.type=0) and o.id="+courseId);
 
 		for (Map<String, Object> map : lst) {
 			String grade_name = map.get("grade_name").toString();
@@ -1234,30 +1406,26 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 					Map<String, Object> video = (Map<String, Object>) object;
 
 					String duration = video.get("duration").toString();
-					double d = Double.valueOf(duration);
-					int totalM = (int)d/(60);
-					int h = totalM/60;
-					double m = Double.valueOf(totalM-h*60) / 60;
-					DecimalFormat df   = new DecimalFormat("######0.00");
-					m = Double.valueOf(df.format(m));
-//					String s = String.valueOf((int) d % 60);
-//					h = h.length() == 1 ? "0" + h : h;
-//					m = m.length() == 1 ? "0" + m : m;
-//					s = s.length() == 1 ? "0" + s : s;
-					String hm = String.valueOf(h + m);
-//					String ms = m + ":" + s;
+//					double d = Double.valueOf(duration);
+//					int totalM = (int)d/(60);
+//					int h = totalM/60;
+//					double m = Double.valueOf(totalM-h*60) / 60;
+//					DecimalFormat df   = new DecimalFormat("######0.00");
+//					m = Double.valueOf(df.format(m));
+					String hm = String.valueOf(Double.valueOf(duration).intValue()/60);
+//					String hm = String.valueOf(h + m);
 
 					String vid = video.get("id").toString();
 					String title = video.get("title").toString();
 
-					if (cs.containsKey(title)) {
-						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
-						if (d > oldduration) {
-							cs.put(title, vid + "_#_" + hm + "_#_" + duration);
-						}
-					} else {
+//					if (cs.containsKey(title)) {
+//						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
+//						if (d > oldduration) {
+//							cs.put(title, vid + "_#_" + hm + "_#_" + duration);
+//						}
+//					} else {
 						cs.put(title, vid + "_#_" + hm + "_#_" + duration);
-					}
+//					}
 				}
 
 				try {
@@ -1283,4 +1451,216 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		return "ok";
 	}
 
+	@Override
+	public void addCourseCity(String city) {
+		// TODO Auto-generated method stub
+		/**
+		 * 添加前，看存在此城市，如果存在那么就不添加
+		 */
+		if(!findCourseCityByName(city)){
+			Map<String,Object> params1=new HashMap<String,Object>();
+			String sql="SELECT IFNULL(MAX(sort),0) as sort FROM oe_offline_city ";
+			List<OffLineCity> temp = dao.findEntitiesByJdbc(OffLineCity.class, sql, params1);
+			int sort;
+			if(temp.size()>0){
+				sort=temp.get(0).getSort().intValue()+1;
+			}else{
+				sort=1;
+			}
+			User user = (User) UserHolder.getRequireCurrentUser(); 
+			String savesql=" insert into oe_offline_city (create_person,create_time,city_name,sort)"+
+					" values ('"+user.getCreatePerson()+"',now(),'"+city+"','"+sort+"')";
+			 Map<String,Object> params=new HashMap<String,Object>();
+			dao.getNamedParameterJdbcTemplate().update(savesql, params);
+		}
+	}
+	
+	@Override
+	public Boolean findCourseCityByName(String city) {
+		 Map<String,Object> params=new HashMap<String,Object>();
+		 List<Integer>  list = dao.getNamedParameterJdbcTemplate().
+				 queryForList("select count(*) as c from oe_offline_city o where  o.city_name = '"+city+"'",params,Integer.class);
+		 if(list!=null && null!= list.get(0) && list.get(0)>0){
+			 return true;
+		 }
+		 return false;
+	}
+	
+	@Override
+	public OffLineCity findCourseCityByName(Integer cityId) {
+		String hqlPre="from OffLineCity where id  = '"+cityId+"'";;
+		OffLineCity object =  dao.findByHQLOne(hqlPre,new Object[] {});
+		return object;
+	}
+	
+	@Override
+	public void deleteCourseCityByName(String city) {
+		String savesql=" delete from oe_offline_city where city_name = '"+city+"'";
+		Map<String,Object> params=new HashMap<String,Object>();
+		dao.getNamedParameterJdbcTemplate().update(savesql, params);
+	}
+	
+	@Override
+	public Page<OffLineCity>  getCourseCityList(OffLineCity searchVo,Integer pageNumber,Integer pageSize) {
+		String sql="select  *  from  oe_offline_city where  is_delete = 0 and status = 1 ";
+		//List<OffLineCity> list= dao.findByHQL(hqlPre);
+		 if(searchVo.getCityName()!=null && !"".equals(searchVo.getCityName())){
+			 sql+=" and city_name = '"+searchVo.getCityName()+"'";
+		 }
+		sql+=" order by is_recommend desc,sort desc ";
+		Map<String,Object> params=new HashMap<String,Object>();
+		Page<OffLineCity> courseVos = dao.findPageBySQL(sql, params, OffLineCity.class, pageNumber, pageSize);
+		return courseVos;
+	}
+
+	@Override
+	public void updateCourseCityStatus(Integer courseId) {
+		// TODO Auto-generated method stub
+
+		
+		String hql="from Course where 1=1 and isDelete=0 and id = ?";
+        Course course= dao.findByHQLOne(hql, new Object[]{courseId});
+        
+        Map<String,Object> params=new HashMap<String,Object>();
+        /*
+         * 课程中所有关于这个城市的
+         */
+        List<Integer>  list = dao.getNamedParameterJdbcTemplate().
+				 queryForList("select count(*) as c from oe_course o where  o.status=1 and "
+				 		+ "o.city = '"+course.getCity()+"'",params,Integer.class);
+        
+        Integer status = 0;
+        if(list!=null && null!= list.get(0) && list.get(0)>0){
+        	status = 1;
+		}
+        String savesql=" update  oe_offline_city  set status = '"+status+"' where city_name = '"+course.getCity()+"' ";
+		dao.getNamedParameterJdbcTemplate().update(savesql, params);
+	}
+
+	@Override
+	public void deleteCourseCityStatus(Integer courseId) {
+
+		String hql="from Course where 1=1 and isDelete=0 and id = ?";
+        Course course= dao.findByHQLOne(hql, new Object[]{courseId});
+        
+        Map<String,Object> params=new HashMap<String,Object>();
+        
+        //查出所有为禁用的
+        List<Integer>  list = dao.getNamedParameterJdbcTemplate().
+				 queryForList("select count(*) as c from oe_course o where o.is_delete=0  and "
+				 		+ "o.city = '"+course.getCity()+"'",params,Integer.class);
+        
+        Integer status = 1;
+        if(list!=null && null!= list.get(0) && list.get(0)>0){
+        	status = 0;
+		}
+        String savesql=" update  oe_offline_city  set  is_delete= '"+status+"' where city_name = '"+course.getCity()+"' ";
+		dao.getNamedParameterJdbcTemplate().update(savesql, params);
+	}
+
+	@Override
+	public void updateCourseCity(OffLineCity offLineCity) {
+		// TODO Auto-generated method stub
+		String savesql=" update  oe_offline_city  set icon = '"+offLineCity.getIcon()+"' where id = '"+offLineCity.getId()+"' ";
+		Map<String,Object> params=new HashMap<String,Object>();
+		dao.getNamedParameterJdbcTemplate().update(savesql, params);
+	}
+
+	@Override
+	public Course findCourseInfoById(Integer id) {
+		Course course = dao.get(id, Course.class);
+		course.setCurrentPrice(course.getCurrentPrice()*10);
+		if((course.getCollection()==null || !course.getCollection())&&course.getDirectId()!=null&&course.getType()==CourseForm.VOD.getCode()){
+			String audioStr="";
+			if(course.getMultimediaType()==Multimedia.AUDIO.getCode()){
+				audioStr = "_2";
+			}
+			String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+course.getDirectId()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
+			String uuid = UUID.randomUUID().toString().replace("-", "");
+			String playCode = "";
+			playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
+			playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
+			playCode+="		width=\"600\" ";
+			playCode+="		height=\"490\" ";
+			playCode+="		id=\""+uuid+"\">";
+			playCode+="		<param name=\"movie\" value=\""+src+"\" />";
+			playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
+			playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
+			playCode+="		<param value=\"transparent\" name=\"wmode\" />";
+			playCode+="		<embed src=\""+src+"\" ";
+			playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
+			playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
+			playCode+="			type=\"application/x-shockwave-flash\"/> ";
+			playCode+="	</object>";
+			course.setPlayCode(playCode);
+		}
+
+		if(course.getCollection()!=null && course.getCollection()){
+			List<Course> courses = courseDao.getCourseByCollectionId(course.getId());
+			course.setCourseInfoList(courses);
+		}
+		DetachedCriteria menudc = DetachedCriteria.forClass(Menu.class);
+		menudc.add(Restrictions.eq("id", Integer.valueOf(course.getMenuId())));
+		Menu menu = dao.findEntity(menudc);
+		if(menu!=null){
+			course.setCourseMenu(menu.getName());
+		}
+		return course;
+	}
+
+	@Override
+	public void updateRecommendSort(Integer id,Integer recommendSort, String recommendTime) {
+		String hqlPre="from Course where  isDelete = 0 and id = ?";
+		Course course= dao.findByHQLOne(hqlPre,new Object[] {id});
+		if (course!=null){
+			if(recommendTime!=null&&!recommendTime.equals("")){
+				course.setSortUpdateTime(DateUtil.parseDate(recommendTime,"yyyy-MM-dd HH:mm:ss"));
+			}
+			course.setRecommendSort(recommendSort);
+			//course.setSortUpdateTime(new Date());
+			dao.update(course);
+		}
+	}
+
+    @Override
+    public void updateDefaultSort() {
+        String sql=" update  oe_course  set recommend_sort=0 WHERE sort_update_time<= now()";
+        Map<String,Object> params=new HashMap<String,Object>();
+        dao.getNamedParameterJdbcTemplate().update(sql, params);
+    }
+
+    public String createWebinar(Course entity) {
+		Webinar webinar = new Webinar();
+		webinar.setSubject(entity.getGradeName());
+		webinar.setIntroduction(entity.getDescription());
+		Date start = entity.getStartTime();
+		String start_time = start.getTime() + "";
+		start_time = start_time.substring(0, start_time.length() - 3);
+		webinar.setStart_time(start_time);
+		webinar.setHost(entity.getLecturer());
+		webinar.setLayout(entity.getDirectSeeding().toString());
+		OnlineUser u = onlineUserService.getOnlineUserByUserId(entity.getUserLecturerId());
+		webinar.setUser_id(u.getVhallId());
+		String webinarId = VhallUtil.createWebinar(webinar);
+
+		VhallUtil.setActiveImage(webinarId, VhallUtil.downUrlImage(entity.getSmallImgPath(), "image"));
+		VhallUtil.setCallbackUrl(webinarId, vhall_callback_url, vhall_private_key);
+		return webinarId;
+	}
+
+	public String updateWebinar(Course entity) {
+		//更新封面
+		VhallUtil.setActiveImage(entity.getDirectId(), VhallUtil.downUrlImage(entity.getSmallImgPath(), "image"));
+		Webinar webinar = new Webinar();
+		webinar.setId(entity.getDirectId()+"");
+		webinar.setSubject(entity.getGradeName());
+		webinar.setIntroduction(entity.getDescription());
+		Date start = entity.getStartTime();
+		String start_time = start.getTime() + "";
+		start_time = start_time.substring(0, start_time.length() - 3);
+		webinar.setStart_time(start_time);
+		webinar.setHost(entity.getLecturer());
+		webinar.setLayout(entity.getDirectSeeding()+"");
+		return VhallUtil.updateWebinar(webinar);
+	}
 }

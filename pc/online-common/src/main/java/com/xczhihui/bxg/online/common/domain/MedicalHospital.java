@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.common.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -29,6 +31,8 @@ public class MedicalHospital implements Serializable {
 
 	private Boolean deleted;
 
+	@Basic(fetch = FetchType.LAZY)
+	@Type(type="text")
 	private String description;
 
 	@Column(name="detailed_address")
@@ -86,6 +90,59 @@ public class MedicalHospital implements Serializable {
 	@Column(name="recommend_sort")
 	private Integer recommendSort;
 
+	@Column(name="authentication_id")
+	private String authenticationId;
+
+	@Column(name="source_id")
+	private String sourceId;
+
+	/**
+	 * 微信
+	 */
+	private String wechat;
+
+	/**
+	 * 联系人
+	 */
+	private String contactor;
+
+	/**
+	 * 头像
+	 */
+	@Column(name="head_portrait")
+	private String headPortrait;
+
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
+	}
+
+	public String getContactor() {
+		return contactor;
+	}
+
+	public void setContactor(String contactor) {
+		this.contactor = contactor;
+	}
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
 
 	public MedicalHospital() {
 	}
@@ -290,4 +347,11 @@ public class MedicalHospital implements Serializable {
 		this.version = version;
 	}
 
+	public String getAuthenticationId() {
+		return authenticationId;
+	}
+
+	public void setAuthenticationId(String authenticationId) {
+		this.authenticationId = authenticationId;
+	}
 }

@@ -42,13 +42,27 @@ function getQueryString(name) {
     if (r != null) return unescape(r[2]); return null;
 }
 var domain = window.location.protocol+"//"+document.domain;
-debugger;
-var course = getQueryString("courseId");
-console.log(parseFloat(course).toString());
-if(course!=null && course!="" && parseFloat(course).toString() != "NaN"){
-	location.href =domain+"/bxg/common/pcShareLink?courseId="+course+"&wxOrbrower="+wxOrbrower;
+
+/*
+ *	 用户点击获取到这个页面,我们重定向到这个地方到一个连接判断用户有没有登录，
+        判断应该跳转到哪个页面
+ */
+
+/**
+ * 这里判断下是课程的分享还是主播的分享
+ */
+var shareType = getQueryString("shareType");
+var shareId = getQueryString("shareId");
+/*alert("shareType"+shareType);
+alert("shareId"+shareId);*/
+
+/**
+ * 
+ */
+if(shareId!=null && shareId!="" &&shareType!=null &&shareType!=""){
+	location.href =domain+"/xczh/share/shareBrowserDifferentiation?shareId="+shareId+"&shareType="+shareType+"&wxOrbrower="+wxOrbrower;
 }else{
-	location.href =domain+"/bxg/page/index/null/null";
+	location.href =domain+"/xcview/html/home_page.html";
 }
 </script>
 </head>

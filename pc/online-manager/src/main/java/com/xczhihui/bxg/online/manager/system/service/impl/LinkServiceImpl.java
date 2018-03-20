@@ -88,7 +88,8 @@ public class LinkServiceImpl implements LinkService{
 	}
 
 
-	public void updateUpMove(Integer id) {
+	@Override
+    public void updateUpMove(Integer id) {
 		Otherlink otherlinkCur = dao.get(id,Otherlink.class);
 		Integer otherlinkCurSort=otherlinkCur.getSort();
 		
@@ -103,7 +104,8 @@ public class LinkServiceImpl implements LinkService{
 	}
 
 
-	public void updateDownMove(Integer id) {
+	@Override
+    public void updateDownMove(Integer id) {
 		Otherlink otherlinkCur = dao.get(id,Otherlink.class);
 		Integer otherlinkCurSort=otherlinkCur.getSort();
 		
@@ -118,14 +120,16 @@ public class LinkServiceImpl implements LinkService{
 	}
 
 	
-	public Page<OtherLinkVo> findOtherLinkPage(Map<String, Object> paramMap, int pageNumber, int pageSize) {
+	@Override
+    public Page<OtherLinkVo> findOtherLinkPage(Map<String, Object> paramMap, int pageNumber, int pageSize) {
 		Page<OtherLinkVo> linkPage = this.dao.findOtherLinkPage(paramMap, pageNumber, pageSize);
 		return ConvertNullToEmptyStringUtil.convert(linkPage);
 		
 	}
 
 
-	public boolean findSort(Integer sort, Integer id) {
+	@Override
+    public boolean findSort(Integer sort, Integer id) {
 		List<Otherlink> list = new ArrayList<>();
 		if(id!=null&&!"".equals(id)){//修改
 			list = dao.findByHQL("from Otherlink b where b.isDelete = 0 and b.sort = ? and b.id != ?", sort,id);

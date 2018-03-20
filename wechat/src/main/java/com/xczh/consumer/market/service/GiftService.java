@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface GiftService {
 
-    public GiftStatement addGiftStatement(GiftStatement giftStatement);
+//    public GiftStatement addGiftStatement(GiftStatement giftStatement);
 
     List<Gift> listAll(Integer pageNumber, Integer pageSize);
 
@@ -44,4 +44,6 @@ public interface GiftService {
      * @return
      */
     List<RankingUserVo>  userRankingList(String userId) ;
+
+    List<RankingUserVo>  newRankingList(String liveId, Integer current, Integer size);
 }

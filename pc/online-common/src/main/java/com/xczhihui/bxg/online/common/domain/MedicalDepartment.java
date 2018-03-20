@@ -43,6 +43,8 @@ public class MedicalDepartment implements Serializable {
 	private Date updateTime;
 
 	private String version;
+	
+	private Integer sort;
 
 	@Transient
 	private Boolean has;
@@ -144,6 +146,14 @@ public class MedicalDepartment implements Serializable {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 
 }

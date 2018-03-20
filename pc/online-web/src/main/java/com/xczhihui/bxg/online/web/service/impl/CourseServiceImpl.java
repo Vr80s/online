@@ -1,34 +1,33 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.common.util.SmsUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
+import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.CourseSubscribeDao;
 import com.xczhihui.bxg.online.web.dao.ScoreTypeDao;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.LecturerService;
-import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
-import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
-import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
-import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.LecturVo;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.bxg.online.web.vo.*;
+import org.aspectj.util.FileUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  *   CourseServiceImpl:课程业务层接口实现类
@@ -49,6 +48,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     @Autowired
     private ScoreTypeDao scoreTypeDao;
 
+    private static Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
+
     @Override
     public List<ScoreType> findAllScoreType() {
         return scoreTypeDao.findAll();
@@ -58,18 +59,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     public Page<CourseLecturVo> courseList(Integer menuType, Integer menuId, String couseTypeId, String multimediaType, String isFree, String orderType, String orderBy, Integer pageNumber, Integer pageSize) {
         //获取当前课程列表数据
         Page<CourseLecturVo>  page = coursedao.listZyktCourse(menuType,menuId,couseTypeId,multimediaType,isFree,orderType,orderBy,pageNumber,pageSize);
-        //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-        if(!CollectionUtils.isEmpty(page.getItems())){
-            for (CourseLecturVo courseLecturVo :page.getItems()) {
-                String name = "暂无讲师";
-                OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
-                if(onlineUser!=null) {
-                    name = onlineUser.getName();
-                }
-                courseLecturVo.setName(name);
-            }
-        }
-
         return  page;
     }
 
@@ -80,21 +69,10 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param pageSize 每页显示多少行，默认20
      * @return Example 分页列表
      */
-    public   Page<CourseLecturVo>  getCourseAndLecturerlist( Integer type,Integer menuId,String couseTypeId, Integer pageNumber, Integer pageSize){
+    @Override
+    public   Page<CourseLecturVo>  getCourseAndLecturerlist(Integer type, Integer menuId, String couseTypeId, Integer pageNumber, Integer pageSize){
         //获取当前课程列表数据
         Page<CourseLecturVo>  page = coursedao.getCourseAndLecturerlist(type,menuId, couseTypeId,  pageNumber,  pageSize);
-        //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-        if(!CollectionUtils.isEmpty(page.getItems())){
-            for (CourseLecturVo courseLecturVo :page.getItems()) {
-            	String name = "暂无讲师";
-            	OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
-            	if(onlineUser!=null) {
-                    name = onlineUser.getName();
-                }
-            	courseLecturVo.setName(name);
-            }
-        }
-
         return  page;
     }
 
@@ -106,7 +84,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param pageNumber 当前是第几页，默认1
      * @param pageSize   每页显示多少行，默认20
      */
-    public Page<CourseVo> findUserCoursePage(String userId,Integer courseStatus, Integer pageNumber, Integer pageSize) {
+    @Override
+    public Page<CourseVo> findUserCoursePage(String userId, Integer courseStatus, Integer pageNumber, Integer pageSize) {
         return coursedao.findUserCoursePage(userId, courseStatus, pageNumber, pageSize);
     }
     
@@ -117,7 +96,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param pageNumber 当前是第几页，默认1
      * @param pageSize   每页显示多少行，默认20
      */
-    public Page<CourseVo> findUserPublicCoursePage(String userId,Integer courseStatus, Integer pageNumber, Integer pageSize) {
+    @Override
+    public Page<CourseVo> findUserPublicCoursePage(String userId, Integer courseStatus, Integer pageNumber, Integer pageSize) {
     	return coursedao.findUserPublicCoursePage(userId, courseStatus, pageNumber, pageSize);
     }
     
@@ -128,7 +108,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param pageNumber 当前是第几页，默认1
      * @param pageSize   每页显示多少行，默认20
      */
-    public Page<CourseVo> findUserRealCoursePage(String userId,Integer courseStatus, Integer pageNumber, Integer pageSize) {
+    @Override
+    public Page<CourseVo> findUserRealCoursePage(String userId, Integer courseStatus, Integer pageNumber, Integer pageSize) {
     	return coursedao.findUserRealCoursePage(userId, courseStatus, pageNumber, pageSize);
     }
 
@@ -136,6 +117,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * 根据课程ID号，查找对应的课程对象
      * @param courseId 课程id
      */
+    @Override
     public CourseApplyVo getCourseApplyByCourseId(Integer courseId) {
         return coursedao.getCourseApplyByCourseId(courseId);
     }
@@ -147,26 +129,20 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @return Example 分页列表
      */
     @Override
-    public CourseVo getCourseById( Integer courseId,String ispreview,HttpServletRequest request,OnlineUser ou) {
+    public CourseVo getCourseById( Integer courseId,String path,HttpServletRequest request,OnlineUser ou) throws IOException {
         //根据当前课程ID，查找对应的课程信息
-        CourseVo courseVo =  coursedao.getCourseById(courseId,ispreview,request);
-        String  names="";
+        CourseVo courseVo =  coursedao.getCourseById(courseId,request);
+        File f = new File(path+File.separator+"/course_common_problem.html");
+        courseVo.setCommonProblem(FileUtil.readAsString(f));
         //如果此课程存在,再根据课程ID 查找此课程下的老师
         if(courseVo != null){
-        	String name = "暂无讲师";
-        	String teacherDescription="";
-        	OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
-        	if(onlineUser!=null){
-        		name=onlineUser.getName();
-        		teacherDescription=onlineUser.getDescription();
-        		
-        		if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){// 20170105---杨宣
-            		courseVo.setSelfCourse(true);
-            	}
-        	}
-        	courseVo.setTeacherName(name);
-        	courseVo.setTeacherNames(name);
-			courseVo.setTeacherDescription(teacherDescription);
+            OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
+            if(onlineUser!=null){
+                // 20170105---杨宣
+                if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){
+                    courseVo.setSelfCourse(true);
+                }
+            }
         }
         return  courseVo;
     }
@@ -196,7 +172,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param courseId 课程id
      * @return
      */
-    public List<CourseVo> getCourseByCourseId( Integer courseId,Integer num) {
+    @Override
+    public List<CourseVo> getCourseByCourseId(Integer courseId, Integer num) {
         return  coursedao.getCourseByCourseId(courseId, num);
     }
 
@@ -207,6 +184,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param menuId      学科ID号
      * @return  推荐课程集合 courseLecturVos
      */
+    @Override
     public List<CourseLecturVo>  getRecommendedCourse(Integer menuId) {
         List<CourseLecturVo> clvs=  coursedao.getRecommendedCourse(menuId);
         //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
@@ -228,6 +206,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * 首页推荐课程信息
      * @return
      */
+    @Override
     public List<CourseLecturVo> getRecommendCourse (Integer num){
             List<CourseLecturVo> clvs=  coursedao.getRecommendCourse(num);
             //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
@@ -261,7 +240,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param courseId  课程id号
      * @return 返回对应的课程对象
      */
-    public  CourseVo   findEnterCourseDetail(HttpServletRequest request,Integer  courseId){
+    @Override
+    public  CourseVo   findEnterCourseDetail(HttpServletRequest request, Integer  courseId){
         return coursedao.findEnterCourseDetail(request,courseId);
     }
 
@@ -270,6 +250,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param courseId  课程id号
      * @return 返回对应的课程对象
      */
+    @Override
     public  CourseVo   findCourseOrderById(Integer  courseId){
         return coursedao.findCourseOrderById(courseId);
     }
@@ -277,7 +258,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     /**
      * 购买课程时，进行检测此订单关联的课程是否下架以及是否购买
      */
-    public  String   checkCouseInfo(String  orderId){
+    @Override
+    public  String  checkCouseInfo(String  orderId){
           coursedao.checkCouseInfo(orderId);
           return "开始报名";
     }
@@ -288,6 +270,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param courseId 课程id
      * @return
      */
+    @Override
     public  Page<CriticizeVo>   findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
         return  coursedao.findStudentCriticize(courseId, pageNumber,  pageSize);
     }
@@ -298,6 +281,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param courseId 课程ID
      * @return
      */
+    @Override
     public Integer getGoodCriticizSum(Integer courseId) {
        return coursedao.getGoodCriticizSum(courseId);
     }
@@ -308,6 +292,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param courseId
      * @return
      */
+    @Override
     public List<Map<String, Object>> getCourseCatalog(Integer courseId) {
        return coursedao.getCourseCatalog(courseId);
     }
@@ -348,29 +333,40 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		return coursedao.findCourseOrderById(courseId);
 	}
 
-	@Override
-	public String getCoursesPage(Integer courseId) {
-        CourseVo cv = coursedao.findCourseOrderById(courseId);
-		if(cv==null) {
-            return "";
+
+	 @Override
+	 public  Page<Criticize>  findUserCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
+	      return  coursedao.findUserCriticize(courseId, pageNumber,  pageSize);
+	 }
+
+    @Override
+    public void updateCourseException() {
+        List<Course> liveCourse = coursedao.getLiveCourse();
+        for (Course course : liveCourse) {
+            Date startTime = course.getStartTime();
+            Date now = new Date();
+            if((now.getTime()-startTime.getTime())>1000*60*30){
+                course.setStatus("0");
+                dao.update(course);
+                CourseException courseException = new CourseException();
+                courseException.setCourseId(course.getId());
+                courseException.setDeleted(false);
+                courseException.setType(1);
+                courseException.setCreateTime(new Date());
+                dao.save(courseException);
+                logger.info("课程id{}的直播课程由于超时未发起直播，被下架并插入课程异常表中",course.getId());
+            }
         }
-		if(cv.getType()!=null && cv.getType()==1){
-			if("1".equals(cv.getCoursePwd())){
-				return "encryptOpenCourseDetailPage.html";//加密直播
-			}else if(cv.isFree()){
-				return "freeOpenCourseDetailPage.html";//免费直播
-			}else{
-				return "payOpenCourseDetailPage.html";//付费直播
-			}
-		}else{
-			if("1".equals(cv.getCoursePwd())){
-				return "encryptCourseDetailPage.html";//加密直播
-			}else if(cv.isFree()||Double.valueOf(cv.getCurrentPrice())==0){
-				return "freeCourseDetailPage.html";//免费直播
-			}else{
-				return "payCourseDetailPage.html";//付费直播
-			}
-		}
-	}
+    }
+
+    @Override
+    public List<CourseVo> getCoursesByCollectionId(Integer collectionId) {
+        return  coursedao.getCoursesByCollectionId(collectionId);
+    }
+
+    @Override
+    public List<CourseVo> getCoursesRecommendByType(Integer type) {
+        return coursedao.getCoursesRecommendByType(type);
+    }
 
 }

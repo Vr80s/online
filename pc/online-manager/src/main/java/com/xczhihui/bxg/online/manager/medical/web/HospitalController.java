@@ -3,17 +3,20 @@ package com.xczhihui.bxg.online.manager.medical.web;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
-import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleTypeVo;
-import com.xczhihui.bxg.online.manager.boxueshe.vo.TagVo;
+import com.xczhihui.bxg.online.manager.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.bxg.online.manager.medical.exception.MedicalException;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,6 +50,19 @@ public class HospitalController extends AbstractController{
 	public String MedicalHospitalDetail(HttpServletRequest request) {
 		request.setAttribute("weburl", weburl);
 		return CLOUD_CLASS_PATH_PREFIX + "/hospitalDetail";
+	}
+
+	/**
+	 * 跳转到医馆详情页
+	 * @param hospitalId 医馆id
+	 */
+	@RequestMapping(value = "info/{hospitalId}")
+	public String info(HttpServletRequest request, @PathVariable String hospitalId) {
+
+		MedicalHospital hospital = hospitalService.findMedicalHospitalById(hospitalId);
+		request.setAttribute("hospital", hospital);
+
+		return CLOUD_CLASS_PATH_PREFIX + "/hospitalInfo";
 	}
 
 	@RequestMapping(value = "list")
@@ -87,7 +103,7 @@ public class HospitalController extends AbstractController{
 	 * @param medicalHospital
 	 * @return
 	 */
-//	@RequiresPermissions("RealClass:menu:MedicalHospital")
+//	//@RequiresPermissions("RealClass:menu:MedicalHospital")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(MedicalHospital medicalHospital){
@@ -144,27 +160,36 @@ public class HospitalController extends AbstractController{
 		}
 
 		 try{
-			 	MedicalHospital old = hospitalService.findMedicalHospitalById(medicalHospital.getId());
-			 	old.setName(medicalHospital.getName());
-			 	old.setLal(medicalHospital.getLal());
-			 	old.setTel(medicalHospital.getTel());
-			 	old.setEmail(medicalHospital.getEmail());
-			 	old.setPostCode(medicalHospital.getPostCode());
-			 	old.setProvince(medicalHospital.getProvince());
-			 	old.setCity(medicalHospital.getCity());
-			 	old.setDetailedAddress(medicalHospital.getDetailedAddress());
-			 	old.setDescription(medicalHospital.getDescription());
-			 	old.setScore(medicalHospital.getScore());
-			 	old.setAuthentication(medicalHospital.isAuthentication());
-			 	hospitalService.updateMedicalHospital(old);
-	            responseObj.setSuccess(true);
-	            responseObj.setErrorMessage("修改成功");
-	       }catch(Exception e){
+			 MedicalHospital old = hospitalService.findMedicalHospitalById(medicalHospital.getId());
+
+			 if(StringUtils.isNotBlank(old.getSourceId())){
+				 throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+			 }
+
+			 old.setName(medicalHospital.getName());
+			 old.setLal(medicalHospital.getLal());
+			 old.setTel(medicalHospital.getTel());
+			 old.setEmail(medicalHospital.getEmail());
+			 old.setPostCode(medicalHospital.getPostCode());
+			 old.setProvince(medicalHospital.getProvince());
+			 old.setCity(medicalHospital.getCity());
+			 old.setDetailedAddress(medicalHospital.getDetailedAddress());
+			 old.setDescription(medicalHospital.getDescription());
+			 old.setScore(medicalHospital.getScore());
+			 old.setAuthentication(medicalHospital.isAuthentication());
+			 hospitalService.updateMedicalHospital(old);
+			 responseObj.setSuccess(true);
+			 responseObj.setErrorMessage("修改成功");
+
+	       }catch(MedicalException e){
 	            responseObj.setSuccess(false);
-	            responseObj.setErrorMessage("修改失败");
-	            e.printStackTrace();
-	       }
-	        return responseObj;
+	            responseObj.setErrorMessage(MedicalExceptionEnum.MUST_NOT_HANDLE.getMsg());
+	       }catch(Exception e){
+			 responseObj.setSuccess(false);
+			 responseObj.setErrorMessage("修改失败");
+			 e.printStackTrace();
+		   }
+		   return responseObj;
 	}
 	
 	/**

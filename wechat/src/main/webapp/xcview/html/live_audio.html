@@ -1,0 +1,502 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="../css/animate.css" />
+<link rel="stylesheet" href="../css/live_audio.css" />
+<link rel="stylesheet" href="../css/share/share.css" />
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}	
+	document.documentElement.style.fontSize=kk/7.5+"px"	
+</script>
+</head>
+<style type="text/css">
+	.ccH5playerBox{
+	    height: 4.24rem !important;
+	}
+</style>
+    
+<body style="background:#F8F8F8;">
+<div class="wp">
+	<div class="wrap-header">
+		<div class="header">		
+			<p>课程</p>
+			<div class="arror_return z" onclick="javascript:history.go(-1);">
+				<img src="../images/back icon.png"/>
+			</div>
+			<div class="header_news">
+				<img src="/xcview/images/share_img.png" alt="">
+			</div>
+		</div>
+	</div>
+	<!--视频-->
+	<div class="play_video">
+		<div id="video_v">
+			
+		</div>
+		<!--<div class="video_prompt">
+			暂未开播
+		</div>-->
+		<!--<script src="https://p.bokecc.com/player?vid=E0D4ADCB85DEBEE79C33DC5901307461&siteid=B5E673E55C702C42&autoStart=false&width=600&height=490&playerid=E92940E0788E2DAE&playertype=1" type="text/javascript"></script>-->
+		<!--<div class="video_prompt_open">
+			<img src="../images/play_btn.png"/>
+		</div>-->
+	</div>
+	
+	<div id="cc">
+	
+	</div>
+	
+	<!--主讲人-->
+	<div class="speak_people" id="speak_people">
+		<script type="text/html" id="data_people">	
+			<p class="speak_title">{{gradeName}}</p>
+			<p class="speak-text">{{subtitle}}</p>
+			<div class="wrap_grade" onclick="btn_allComment()">
+				<ul class="grade_pic">
+					<li>
+						{{if startLevel == 0 || startLevel == null}}
+						<img src="../images/xing0.png"/>
+						{{else if startLevel == 0.5}}
+						<img src="../images/xing0_5.png"/>
+						{{else if startLevel == 1}}
+						<img src="../images/xing1_0.png"/>
+						{{else if startLevel == 1.5}}
+						<img src="../images/xing1_5.png"/>
+						{{else if startLevel == 2}}
+						<img src="../images/xing2.png"/>
+						{{else if startLevel == 2.5}}
+						<img src="../images/xing2_5.png"/>
+						{{else if startLevel == 3}}
+						<img src="../images/xing3.png"/>
+						{{else if startLevel == 3.5}}
+						<img src="../images/xing3_5.png"/>
+						{{else if startLevel == 4}}
+						<img src="../images/xing4_0.png"/>
+						{{else if startLevel == 4.5}}
+						<img src="../images/xing4_5.png"/>
+						{{else if startLevel == 5}}
+						<img src="../images/xing5.png"/>
+					
+						{{/if}}
+						<a href="javascript:;"><span id="criticizeCountId">{{criticizeCount}}</span>评论</a>
+						<img class="jiantou" src="../images/video_review.png"/>
+					</li>
+				</ul>
+			
+			</div>
+		</script>
+	</div>
+	<!--主播/时间-->
+	<div class="wrap_playTime" id="wrap_playTime">
+		<script type="text/html" id="data_name">
+			<ul class="playTime z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
+				<li><img src="../images/population.png"/><span>{{heir}}</span></li>
+				<li>
+					<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
+					<a href="javascript: ;">
+						<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  />
+					</a>
+				</li>
+			</ul>
+			
+			{{if collection == true}}
+			<ul class="playTime z" style="border-top: 0.01rem solid #D8DDE6;">
+				<li><img src="../images/population.png"/><span>共{{courseNumber}}集</span></li>
+				<li>
+					<a href="course_outline.html?courseId={{id}}">
+
+						<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem; float: right;"  />
+						<span class="look_text">查看大纲</span>
+					</a>
+				</li>
+			</ul>
+			{{/if}}
+			<!--<ul class="playTime z" style="border-bottom: 0;">
+				<li style="float: left;">
+					<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
+					<span>直播时间：2017.12.30&nbsp;&nbsp;12:00&nbsp;&nbsp;</span>
+					<p>直播中</p>
+				</li>
+			</ul>-->
+		</script>	
+	</div>
+<!--详情开始-->
+	<p class="my_details">详情</p>
+	<!--简介-->
+	<div class="wrap_synopsis">	
+		<div class="my_synopsis">
+			<ul>
+				<li class="z">
+					<p></p>
+				</li>
+				<li>简介</li>
+				<li class="y" style="float: right;">
+					<p></p>
+				</li>
+			</ul>
+		</div>		
+	</div>
+	<!--内容-->
+		<div class="wrap">
+			<p></p>
+			<p class="no_data">暂无数据...</p>
+			<div class="zhezhao" style="display: none;">
+				<img src="../images/op_bg.png"/>	
+			</div>     
+			
+		</div>
+		<div class="btn" style="display: none;">
+			<img src="../images/bot0.png"/>
+		</div>
+		<div class="line_xian" style="width: 100%; height: 1px;border-top: 1px solid #D8DDE6;">
+			
+		</div>
+	<!--主讲人-->
+		<div class="wrap_speak">		
+			<div class="main_speak">
+				<p></p>
+				<p>主讲人</p>
+				<p></p>
+			</div>		
+		</div>
+	<!--内容-->
+		<div class="wrap1">
+			<p></p> 
+			<p class="no_data1">暂无数据...</p>
+			<div class="zhezhao1" style="display: none;">
+				<img src="../images/op_bg.png"/>	
+			</div>     
+		</div>
+		<div class="btn1" style="display: none;">
+			<img src="../images/bot0.png"/>
+		</div>
+<!--详情结束-->
+	<!--评论-->
+	<div class="wrap_comment_title" onclick="btn_allComment()">
+		<p>评论</p>
+		<span>
+			<img src="../images/video_review.png" />
+		</span>
+	</div>
+	<div class="wrap_all_returned">  <!--渲染存放盒子-->
+		<script type="text/html" id="wrap_people_comment">
+			{{each items as item i}}
+		<div class="wrap_people_comment">
+			<div class="wrap_comment_text">
+				<!--头像-->
+				<div class="user_header">
+					<img src="{{item.onlineUser.smallHeadPhoto}}"/>
+				</div>
+				<!--右边评论-->
+				<div class="user_text">
+					<div class="wrap_userName">
+						<p class="z">{{item.onlineUser.name}}</p>
+						{{if item.overallLevel == 1}}
+						<img class="z" src="../images/xing1_0.png"/>
+						{{else if item.overallLevel == 2}}
+						<img class="z" src="../images/xing2.png"/>
+						{{else if item.overallLevel == 3}}
+						<img class="z" src="../images/xing3.png"/>
+						{{else if item.overallLevel == 4}}
+						<img class="z" src="../images/xing4_0.png"/>
+						{{else if item.overallLevel == 5}}
+						<img class="z" src="../images/xing5.png"/>
+						{{/if}}
+
+					</div>
+					<!--很赞/干货很多-->
+					<div class="uesr_lable">
+						{{if item.criticizeLable !=null}}
+						<ul>
+							{{if item.criticizeLable.indexOf('1')>-1}}
+							<li>很赞</li>
+							{{/if}}
+							{{if item.criticizeLable.indexOf('2')>-1}}
+							<li>干货很多</li>
+							{{/if}}
+							{{if item.criticizeLable.indexOf('3')>-1}}
+							<li>超值推荐</li>
+							{{/if}}
+							{{if item.criticizeLable.indexOf('4')>-1}}
+							<li>喜欢</li>
+							{{/if}}
+							{{if item.criticizeLable.indexOf('5')>-1}}
+							<li>买对了</li>
+							{{/if}}
+						</ul>
+						{{/if}}
+					</div>
+					<!--回复的内容-->
+					<p class="write_text">
+						{{item.content}}
+					</p>
+					<!--被回复的内容灰色部分-->
+					{{if item.reply.length > 0}}
+					<div class="uesr_returned">
+						<p class="returned_id z">{{item.reply[0].onlineUser.name}}：<span style="color: #333;">{{item.reply[0].replyContent}}</span></p>
+						<!--<p class="returned_text"></p>-->
+					</div>
+                    {{/if}}
+					<!--回复时间/点赞/评论按钮-->
+					<div class="wrap_returned_btn">
+						<ul>
+							<li>{{item.createTime.slice(0,16)}}</li>
+							<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}" >
+								<img src="../images/returned.png"/>
+							</li>
+							<li class="btn_click_zan"  data-id ="{{item.id}}"  >
+								{{if item.isPraise }}
+								<img src="../images/zan001.png"/>&nbsp;<span id="zan001">{{item.praiseSum}}</span>
+								{{else}}
+								<img src="../images/zan01.png"/>&nbsp;<span id="zan01">{{item.praiseSum}}</span>
+								{{/if}}
+							</li>
+
+						</ul>
+					</div>
+				</div>
+
+				<!--购买者显示-->
+				{{if item.isBuy  }}
+				<div class="wrap_purchaser">
+					<p>购买者</p>
+				</div>
+				{{/if}}
+			</div>
+
+		</div>
+			{{/each}}
+		</script>
+	</div>
+<!--评论结束-->	
+<!--无评论显示的图片-->
+	<div class="quie_pic">
+		<img src="../images/no_comment.png"/>	
+		<p>还没有评价？快来抢沙发呀~</p>
+	</div>
+					
+			
+			
+		<!--底下评论输入框-->	
+		<div class="wrap_user_input">
+			<div class="wrap_input z">
+				<img src="../images/inp_retured.png"/>
+				<span>来点儿神聊</span>
+			</div>
+			<div class="all_returned_num y">
+				<img src="../images/returned.png"/>
+				<p onclick="btn_allComment()">评论<span id="criticizeCount"></span></p>
+			</div>
+		</div>
+
+	<!--评论用户弹出框-->
+	<div class="bg_userModal"></div>
+	<div class="wrapLittle_comment">
+		<p class="detailed_comments little_comment">详细评论</p>
+		<div class="text_write_box">
+			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+		</div>
+		<!--表情/提交评论-->
+		<ul class="brow_btn">
+			<li style="display: none;">
+				<img src="../images/brow.png"/>
+			</li>
+			<li onclick="replyComment()">发表评论</li>
+		</ul>
+	</div>	
+	<!--评论弹出框-->
+	<div class="bg_modal"></div>
+	
+	<div class="wrapAll_comment">
+		<script type="text/html" id="id_show_xingxing">
+			<p class="set_title">发布评论</p>
+			{{if items==1}}
+		<!--星星五星好评-->
+		<div class="my_impression1 cl mar_bot">
+			<p>总体印象</p>
+			<img src="../images/xing1.png"/>
+			<img src="../images/xing1.png"/>
+			<img src="../images/xing1.png"/>
+			<img src="../images/xing1.png"/>
+			<img src="../images/xing1.png"/>
+			<span></span>
+		</div>
+	<!--主播演绎好评-->
+		<div class="my_impression2 cl mar_bot">
+			<p>主播演绎</p>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<span></span>
+		</div>
+	<!--节目内容好评-->
+		<div class="my_impression3 cl">
+			<p>节目内容</p>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<span></span>
+		</div>
+		<!--标签-->
+		<ul class="select_lable">
+			<li value="1">很赞</li>
+			<li value="2">干货很多</li>
+			<li value="3">超值推荐</li>
+			<li value="4">喜欢</li>
+			<li value="5">买对了</li>
+		</ul>
+		<p class="detailed_comments">详细评论</p>
+		{{/if}}
+		<div class="text_write_box">
+			<textarea name="" id="comment_detailed"   rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+		</div>
+		<!--表情/提交评论-->
+		<ul class="brow_btn">
+			<li style="display: none;">
+				<img src="../images/brow.png"/>
+			</li>
+			<li class="report_btn" onclick="reportComment()" id="report_btn">发表评论</li>
+		</ul>
+        </script>
+	</div>
+</div>
+
+<!--分享开始-->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_main">
+			<div class="share_main_bg">
+				<ul>
+					<div class="share_to">分享到</div>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/ShareSDK.png" />
+							<p>微信</p>
+						</div>
+					</li>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/Friends.png" />
+							<p>朋友圈</p>
+						</div>
+					</li>
+					<li id="qqShare0">
+						<div class="" id="qqShare">
+							<img src="../images/Qzone_share.png" />
+							<p>qq空间</p>
+						</div>
+					</li>
+					<li id="weiboShare">
+						<div class="" id="qqShare0">
+							<img src="../images/RSS_links.png" />
+							<p>新浪微博</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="share_cancel">取消</div>
+		</div>
+	</div>
+	<div class="weixin_ceng" style="display1: block;">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!--分享结束-->
+</body>
+<script src="/xcviews/weihoujs/jquery.min.js"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/live_audio.js"></script>
+<!--分享-->
+<script type="text/javascript" src="/xcview/js/share/share.js"></script>
+<!--公用弹框 -->
+
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+
+<script>
+	//分享的信息
+	var gradeName = "";
+	var smallImgPath ="";
+	var description ="";
+//由于jq  1.9  以上版本删除了toggle ,加以下代码兼容	
+$.fn.toggle = function( fn, fn2 ) {
+    var args = arguments,guid = fn.guid || $.guid++,i=0,
+    toggle = function( event ) {
+      var lastToggle = ( $._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+      $._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+      event.preventDefault();
+      return args[ lastToggle ].apply( this, arguments ) || false;
+    };
+    toggle.guid = guid;
+    while ( i < args.length ) {
+      args[ i++ ].guid = guid;
+    }
+    return this.click( toggle );
+  };
+</script>
+<!--详情点击隐藏和显示-->
+<script>
+		$(function(){
+//			简介内容
+			$('.btn').prepend('<a href="#">展开全部</a>');
+			  $(".btn").toggle(function(){
+			    $(".btn a").html('点击收起');
+			    $(".wrap").removeClass("pp");
+			    $(".wrap").removeAttr("style");
+			    $(".zhezhao").hide();
+			    $(".btn img").attr("src","../images/top.png") 
+			  },function(){
+			  	$(".zhezhao").show();
+
+			    $(".btn img").attr("src","../images/bot0.png")
+			    
+			    $(".btn a").html('展开全部');
+			     $(".wrap").addClass("pp");
+//			     $(".wrap").attr("style");
+			 })
+//			主讲人内容
+		  $('.btn1').prepend('<a href="#">展开全部</a>');
+			  $(".btn1").toggle(function(){
+			    $(".btn1 a").html('点击收起');
+			    $(".wrap1").removeClass("pp1");
+			    $(".wrap1").removeAttr("style");
+			    $(".zhezhao1").hide();
+			    $(".btn1 img").attr("src","../images/top.png")  
+			  },function(){
+			  	$(".zhezhao1").show();
+
+			    $(".btn1 img").attr("src","../images/bot0.png")
+			    
+			    $(".btn1 a").html('展开全部');
+			     $(".wrap1").addClass("pp1");
+//			     $(".wrap1").attr("style");
+			 })
+			  
+			  
+		 })
+//	点击视频或音频按钮
+	$("#video_v").click(function(){
+		$(".play_video img").css("display","none");
+	});
+		
+	</script>
+
+</html>

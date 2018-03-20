@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />
 <style>
 .btnGroup a:hover{
 	text-decoration: none;
@@ -108,8 +108,8 @@
 	}
 	var weburl = '${weburl}';
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js"
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js"
 	type="text/javascript"></script>
 <div class="page-header row">
 		<div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
@@ -119,144 +119,61 @@
 			<small> <i class="ace-icon fa fa-angle-double-right"></i></small> 
 			<span id="titleXQ"> 课程详情 </span>
 		</div>
-		<!-- <div class="col-xs-4" style="text-align: right; margin-top:-14px;padding-left: 0px;padding-right: 0px;">
-			<button class="btn btn-sm btn-success" id="returnbutton">
-				<i class="glyphicon glyphicon-arrow-left"></i>
-				返回上级
-			</button>
-		</div> -->
 </div>
 <ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">课程介绍</a></li>
-  <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">课程详情</a></li>
+  <%--<li role="presentation"><a href="#home" role="tab" data-toggle="tab">课程介绍</a></li>--%>
+  <li role="presentation" class="active"><a href="#profile" role="tab" data-toggle="tab">课程详情</a></li>
   <li role="presentation"><a href="#messages" role="tab" data-toggle="tab">推荐课程</a></li>
 </ul>
 <!-- Tab panes -->
 <div class="tab-content" style="padding-left: 0;">
-  <div role="tabpanel" class="tab-pane active" id="home">
-  		<div id="divKcjs" class="row">
-		<br/>
-			<div class="col-xs-3" style="width:20%">
-				<div class="panel panel-default">
-				    <div class="panel-body"> 
-			        	<button class="btn btn-sm btn-block" id="tjgsbt">
-							添加故事标题
-						</button>
-				    </div>
-				    <ul class="list-group" id="titleUl" style="margin: 0;"></ul>
-				</div>
-			</div>
-			<div class="col-xs-9" id="ce">
-			        <script id="courseContentPreviewEdit" type="text/plain" style="width:90%;height:65%;"></script>
-				    <br>
-					<input type="hidden" name="courseContentPreview"  id="courseContentPreview" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
-					<div class="row">
-						<div class="col-xs-4" style="text-align: right">
-							<!-- 第一个复选框是控制单个故事的 暂时保留 -->
-							<input type="checkbox" id="desStatusEdit" name="status" checked="checked" style="display:none">
-							<!-- 控制全局展示 -->
-							
-								<input type="checkbox" id="descriptionShow" name="descriptionShow" style="cursor: pointer;">
-								<label for="descriptionShow" style="cursor: pointer;">
-									设置在前台展示
-								</label>
-						</div>
-						<div class="col-xs-8" style="text-align: left">
-							<!-- <button class="btn btn-sm btn-success" id="testSaveBtn">
-								预览
-							</button> -->
-							<button class="btn btn-sm btn-success" id="desSaveBtn">
-								保存
-							</button>
-							<!-- <button class="btn btn-sm btn-success" id="returnbutton2">
-								返回
-							</button> -->
-						</div>
-					</div>
-			</div>
-		</div>
-  </div>
-  <div role="tabpanel" class="tab-pane" id="profile">
-  		<div id="divKcxq">
+  <div role="tabpanel" class="tab-pane active" id="profile">
 		<!-- 增加form -->
 		<div id="detailDiv">
 			<form class="form-horizontal" id="courseDetailForm" method="post" action="">
 				<input type="hidden" name="courseId" id="courseId" value="${param.courseId}">
 				<input type="hidden" name="weburl" id="weburl" value="${weburl}">
 				<input type="hidden" name="page" id="page" value="${param.page}">
-				<!--<div class="form-group" style="margin-top:18px;">-->
-                        <!--<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>-->
-                    <!--<div class="col-sm-3" style="width: 285px; height: 140px;">-->
-                        <!--<div class="clearfix">-->
-                        <!--<input type="file" name="smallImgPath_file" id="smallImgPath_file" class="uploadImg"/>-->
-                        <!--</div>-->
-                        <!--<input name="smallImgPath" id="edit_smallImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">-->
-                        <!--</div>-->
-					<!-- 设置多个展示图暂时关闭 -->
-					<!-- <div class="col-sm-3" style="width: 285px; height: 140px;">-->
-                    <!--<div class="clearfix">-->
-                    <!--<input type="file" name="smallImgPath_file" id="smallImgPath_file1" class="uploadImg"/>-->
-                    <!--</div>-->
-                    <!--<input name="smallImgPath1" id="edit_smallImgPath1" value="" type="text" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-3" style="width: 285px; height: 140px;">-->
-                        <!--<div class="clearfix">-->
-                        <!--<input type="file" name="smallImgPath_file" id="smallImgPath_file2" class="uploadImg"/>-->
-                        <!--</div>-->
-                        <!--<input name="smallImgPath2" id="edit_smallImgPath2" value="" type="text" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">-->
-                        <!--</div> -->
-                        <!--</div>-->
 				<div class="space-4"></div>
 				<div class="form-group " style="margin-top:50px;margin-bottom:60px">
-					<label class="col-sm-1 control-label no-padding-right" for="courseDetail_content"><font color="red">*</font>课程详情:</label>
+					<label class="col-sm-1 control-label no-padding-right" for="courseDetail_content"><font color="red">*</font>主播详情:</label>
 					<div class="col-lg-10 " style="height:500px">
 						<div class="clearfix">
-						<script id="courseDetail_content" type="text/plain" style="width:100%;height:100%;"></script>
-							<!-- <div class="wysiwyg-editor" id="courseDetail_content"></div><br>-->
-							<input type="hidden" name="courseDetail"  id="courseDetail" class="col-xs-10 col-sm-12 {required:true,minlength:1}"> 
+							<script id="lecturerDescription_content" type="text/plain" style="width:100%;height:100%;"></script>
+							<input type="hidden" name="lecturerDescription"  id="lecturerDescription" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
 						</div>
 					</div>
 				</div>
-				<!-- <div class="form-group " style="margin-top:50px;margin-bottom:60px">
-					<label class="col-sm-1 control-label no-padding-right" for="courseOutline_content"><font color="red">*</font>课程大纲:</label>
-					<div class="col-lg-10 " style="height:500px">
-						<div class="clearfix">
-						<script id="courseOutline_content" type="text/plain" style="width:100%;height:100%;"></script>
-							<div class="wysiwyg-editor" id="courseOutline_content"></div><br>
-							<input type="hidden" name="courseOutline"  id="courseOutline" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
+                <div class="space-4"></div>
+				<div class="form-group " style="margin-top:50px;margin-bottom:60px">
+                    <label class="col-sm-1 control-label no-padding-right" for="courseDetail_content"><font color="red">*</font>课程详情:</label>
+                    <div class="col-lg-10 " style="height:500px">
+                        <div class="clearfix">
+                            <script id="courseDetail_content" type="text/plain" style="width:100%;height:100%;"></script>
+							<input type="hidden" name="courseDetail"  id="courseDetail" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
 						</div>
 					</div>
-				</div> -->
+				</div>
+				<div class="space-4"></div>
 				<div class="form-group " style="margin-top:50px;margin-bottom:60px">
 					<label class="col-sm-1 control-label no-padding-right" for="courseOutline_content"><font color="red">*</font>常见问题:</label>
 					<div class="col-lg-10 " style="height:500px">
-						<div class="clearfix">
-						<script id="commonProblem_content" type="text/plain" style="width:100%;height:100%;"></script>
-							<!-- <div class="wysiwyg-editor" id="commonProblem_content"></div><br> -->
-							<input type="hidden" name="commonProblem"  id="commonProblem" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
-							<!-- <input type="hidden" name="commonProblem"  id="commonProblem_text" class="col-xs-10 col-sm-12 {required:true,minlength:1}"> -->
+							<div class="clearfix">
+								<script id="commonProblem_content" type="text/plain" style="width:100%;height:100%;"></script>
+								<input type="hidden" name="commonProblem"  id="commonProblem" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
+							</div>
 						</div>
-					</div>
 				</div>
 			</form>
 		</div>
 		<div style="width:100%; text-align: center;">
-			<!-- <button class="btn btn-sm btn-success add_bx" id="previewbt">
-				<i class="glyphicon glyphicon-search"></i> 预览
-			</button> -->
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="btn btn-sm btn-success add_bx" id="okbt">
 				<i class="glyphicon glyphicon-ok"></i> 确定
 			</button>
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<!-- <button class="btn btn-sm btn-success qx_bx" id="cancelbt">
-				<i class="glyphicon glyphicon-remove"></i> 取消
-			</button> -->
 		</div>
 	</div>
-  </div>
   <div role="tabpanel" class="tab-pane" id="messages">
-	  <div id="divKctj">
 		<div class="mainrighttab tabresourse bordernone" id="courseRecDiv">
 			<p class="col-xs-4" >
 				<button class="btn btn-sm btn-success" title="新增推荐课程" onclick="addRecCourse()" style="margin-left: -10px">
@@ -280,7 +197,6 @@
 			</div>
 		</div>
 	</div>
-  </div>
 </div>
 <!-- 预览 -->
 <div id="dialogShowCourseDetailDiv"></div>
@@ -329,12 +245,6 @@
 	
 	            <table frame=void >
 	                <tr>
-	                    <!-- <td>
-	                        <div class="profile-info-value searchTr">
-	                            <input type="text" placeholder = "课程名称" class="propertyValue1" id="search_courseName" style="width: 150px;">
-	                            <input type="hidden" value="search_courseName" class="propertyName"/>
-	                        </div>
-	                    </td> -->
 	                    <td>
 	                       <div class="profile-info-value searchTr">
 	                            <select name="menuName" id="search_menu" value="" class="propertyValue1"  style="width: 150px;">
@@ -425,10 +335,10 @@
 	</div>
 </div>
 
-<script type="text/javascript" charset="utf-8" src="${base}/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="${base}/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-<script type="text/javascript" charset="utf-8" src="${base}/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 
-<script type="text/javascript" src="${base}/js/cloudClass/courseDetail.js?v=2.32"></script>
+<script type="text/javascript" src="/js/cloudClass/courseDetail.js?v=ipandatcm_1.3"></script>

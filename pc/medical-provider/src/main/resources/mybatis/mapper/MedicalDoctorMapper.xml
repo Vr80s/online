@@ -33,10 +33,14 @@
 		<if test="field != null and field!=''">
 			join medical_doctor_field mdf on md.id = mdf.doctor_id and mdf.`field_id`=#{field}
 		</if>
+		<if test="department != null and department!=''">
+			join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`department_id`=#{department}
+		</if>
 		  LEFT JOIN `medical_doctor_authentication_information` mdai
 			ON md.`authentication_information_id` = mdai.`id`
 		  LEFT JOIN `medical_hospital_doctor` mhd
 			ON mhd.`doctor_id` = md.`id`
+			AND mhd.`deleted`=0
 		  LEFT JOIN `medical_hospital` mh
 			ON mhd.`hospital_id` = mh.`id`
 		WHERE md.deleted = 0
@@ -66,6 +70,7 @@
 		ON md.`authentication_information_id` = mdai.`id`
 		LEFT JOIN `medical_hospital_doctor` mhd
 		ON mhd.`doctor_id` = md.`id`
+		AND mhd.`deleted`=0
 		LEFT JOIN `medical_hospital` mh
 		ON mhd.`hospital_id` = mh.`id`
 		WHERE md.deleted = 0
@@ -85,6 +90,22 @@
 		LIMIT 0, 8
 	</select>
 
+	<select id="getHotDepartment" resultType="com.xczhihui.medical.department.vo.MedicalDepartmentVO">
+		SELECT
+		  md.id,
+		  md.name,
+		  COUNT(mdd.`department_id`)
+		FROM
+		  `medical_department` md
+		  JOIN `medical_doctor_department` mdd
+			ON md.`id` = mdd.`department_id`
+			AND mdd.`deleted`=0
+		WHERE md.`status` = 1
+		AND md.`deleted`=0
+		GROUP BY mdd.`department_id`
+		ORDER BY COUNT(mdd.`department_id`) DESC
+		LIMIT 0, 10
+	</select>
 
 	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
 		select
@@ -98,7 +119,7 @@
 		and md.status = 1
 		and md.recommend = 1
 		order by md.recommend_sort desc
-		limit 0, 10
+		limit 0, 8
 	</select>
 
 	<select id="getHotSpecialColumnAuthor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
@@ -135,6 +156,17 @@
 		  `medical_doctor_field` mdf
 		WHERE mf.`id` = mdf.`field_id`
 		and mdf.doctor_id = #{doctorId}
+	</select>
+
+	<select id="selectMedicalDepartmentsByDoctorId" resultType="com.xczhihui.medical.department.vo.MedicalDepartmentVO">
+		SELECT
+		  md.name,
+		  md.id
+		FROM
+		  `medical_department` md,
+		  `medical_doctor_department` mdd
+		WHERE md.`id` = mdd.`department_id`
+		and mdd.doctor_id = #{doctorId}
 	</select>
 
 	<select id="getWritingsByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">
@@ -226,4 +258,206 @@
 			WHERE mw.id = #{writingsId}
 	</select>
 
+	<insert id="insertSelective" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		INSERT INTO medical_doctor
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="medicalDoctor.id != null">
+				id,
+			</if>
+			<if test="medicalDoctor.name != null">
+				name,
+			</if>
+			<if test="medicalDoctor.title != null">
+				title,
+			</if>
+			<if test="medicalDoctor.description != null">
+				description,
+			</if>
+			<if test="medicalDoctor.deleted != null">
+				deleted,
+			</if>
+			<if test="medicalDoctor.status != null">
+				status,
+			</if>
+			<if test="medicalDoctor.authenticationInformationId != null">
+				authentication_information_id,
+			</if>
+			<if test="medicalDoctor.createTime != null">
+				create_time,
+			</if>
+			<if test="medicalDoctor.createPerson != null">
+				create_person,
+			</if>
+			<if test="medicalDoctor.fieldText != null">
+				field_text,
+			</if>
+			<if test="medicalDoctor.workTime != null">
+				work_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="medicalDoctor.id != null">
+				#{medicalDoctor.id},
+			</if>
+			<if test="medicalDoctor.name != null">
+				#{medicalDoctor.name},
+			</if>
+			<if test="medicalDoctor.title != null">
+				#{medicalDoctor.title},
+			</if>
+			<if test="medicalDoctor.description != null">
+				#{medicalDoctor.description},
+			</if>
+			<if test="medicalDoctor.deleted != null">
+				#{medicalDoctor.deleted},
+			</if>
+			<if test="medicalDoctor.status != null">
+				#{medicalDoctor.status},
+			</if>
+			<if test="medicalDoctor.authenticationInformationId != null">
+				#{medicalDoctor.authenticationInformationId},
+			</if>
+			<if test="medicalDoctor.createTime != null">
+				#{medicalDoctor.createTime},
+			</if>
+			<if test="medicalDoctor.createPerson != null">
+				#{medicalDoctor.createPerson},
+			</if>
+			<if test="medicalDoctor.fieldText != null">
+				#{medicalDoctor.fieldText},
+			</if>
+			<if test="medicalDoctor.workTime != null">
+				#{medicalDoctor.workTime},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="getWorkTimeById" parameterType="string" resultType="string">
+		SELECT work_time
+		FROM medical_doctor
+		WHERE id = #{doctorId}
+	</select>
+
+	<update id="updateSelective" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		UPDATE medical_doctor
+		<set>
+			<if test="medicalDoctor.name != null">
+				name = #{medicalDoctor.name},
+			</if>
+			<if test="medicalDoctor.title != null">
+				title = #{medicalDoctor.title},
+			</if>
+			<if test="medicalDoctor.description != null">
+				description = #{medicalDoctor.description},
+			</if>
+			<if test="medicalDoctor.deleted != null">
+				deleted = #{medicalDoctor.deleted},
+			</if>
+			<if test="medicalDoctor.status != null">
+				status = #{medicalDoctor.status},
+			</if>
+			<if test="medicalDoctor.authenticationInformationId != null">
+				authenticationInformationId = #{medicalDoctor.authenticationInformationId},
+			</if>
+			<if test="medicalDoctor.createTime != null">
+				createTime = #{medicalDoctor.createTime},
+			</if>
+			<if test="medicalDoctor.createPerson != null">
+				createPerson = #{medicalDoctor.createPerson},
+			</if>
+			<if test="medicalDoctor.fieldText != null">
+				fieldText = #{medicalDoctor.fieldText},
+			</if>
+			<if test="medicalDoctor.fieldText != null">
+				fieldText = #{medicalDoctor.fieldText},
+			</if>
+			<if test="medicalDoctor.workTime != null">
+				work_time = #{medicalDoctor.workTime}
+			</if>
+			where id = #{medicalDoctor.id}
+		</set>
+	</update>
+
+	<select id="selectDoctorListCount" resultType="java.lang.Integer">
+		SELECT
+		count(md.id)
+		FROM
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+		ON md.`authentication_information_id` = mdai.`id`
+		LEFT JOIN `medical_hospital_doctor` mhd
+		ON mhd.`doctor_id` = md.`id`
+		AND mhd.`deleted`=0
+		LEFT JOIN `medical_hospital` mh
+		ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		AND md.status = 1
+		AND md.`recommend`=0
+		and md.type = #{type}
+	</select>
+	<select id="selectDoctorList4Random" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+		SELECT
+		md.*,
+		md.`work_time` workTime,
+		mdai.head_portrait headPortrait,
+		mh.`name` hospitalName
+		FROM
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+		ON md.`authentication_information_id` = mdai.`id`
+		LEFT JOIN `medical_hospital_doctor` mhd
+		ON mhd.`doctor_id` = md.`id`
+		AND mhd.`deleted`=0
+		LEFT JOIN `medical_hospital` mh
+		ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		AND md.status = 1
+		AND md.`recommend`=0
+		<if test="type != null and type != ''">
+			and md.type = #{type}
+		</if>
+		ORDER BY CONVERT(md.`name` USING gbk) ASC
+		LIMIT #{offset},#{rows}
+	</select>
+	<select id="selectDoctorRecommendListCount" resultType="java.lang.Integer">
+		SELECT
+		count(md.id)
+		FROM
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+		ON md.`authentication_information_id` = mdai.`id`
+		LEFT JOIN `medical_hospital_doctor` mhd
+		ON mhd.`doctor_id` = md.`id`
+		AND mhd.`deleted`=0
+		LEFT JOIN `medical_hospital` mh
+		ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		AND md.status = 1
+		AND md.`recommend`=1
+		and md.type = #{type}
+	</select>
+	<select id="selectDoctorRecommendList4Random" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+		SELECT
+		md.*,
+		md.`work_time` workTime,
+		mdai.head_portrait headPortrait,
+		mh.`name` hospitalName
+		FROM
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+		ON md.`authentication_information_id` = mdai.`id`
+		LEFT JOIN `medical_hospital_doctor` mhd
+		ON mhd.`doctor_id` = md.`id`
+		AND mhd.`deleted`=0
+		LEFT JOIN `medical_hospital` mh
+		ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		AND md.status = 1
+		AND md.`recommend`=1
+		<if test="type != null and type != ''">
+			and md.type = #{type}
+		</if>
+		ORDER BY md.`recommend_sort`desc
+		LIMIT #{offset},#{rows}
+	</select>
 </mapper>

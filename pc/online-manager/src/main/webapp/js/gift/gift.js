@@ -26,17 +26,17 @@ $(function(){
     		return "<span name='lecturerNameList'>"+data+"</span>";
     } },
     { "title": "价格", "class":"center","width":"8%", "sortable":false,"data": 'price' },
-    { "title": "是否可以连击", "class":"center","width":"10%", "sortable":false,"data": 'isContinuous',"mRender":function (data, display, row) {
-    	if(data){
-    		return data="<span name='zt'>是</span>";
-    	}else{
-    		return data="<span name='zt'>否</span>";
-    	}
-    } },
-    { "title": "连击数量", "class":"center","width":"10%", "sortable":false,"data": 'countinuousCount' },
-    { "title": "平台分成", "class":"center","width":"10%", "sortable":false,"data": 'brokerage',"mRender":function (data, display, row) {
-    		return data+"%";
-    } },
+    // { "title": "是否可以连击", "class":"center","width":"10%", "sortable":false,"data": 'isContinuous',"mRender":function (data, display, row) {
+    // 	if(data){
+    // 		return data="<span name='zt'>是</span>";
+    // 	}else{
+    // 		return data="<span name='zt'>否</span>";
+    // 	}
+    // } },
+    // { "title": "连击数量", "class":"center","width":"10%", "sortable":false,"data": 'countinuousCount' },
+    // { "title": "平台分成", "class":"center","width":"10%", "sortable":false,"data": 'brokerage',"mRender":function (data, display, row) {
+    // 		return data+"%";
+    // } },
     { "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
@@ -58,11 +58,11 @@ $(function(){
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+				// '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+				// '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '
 	    	}
 	    } 
@@ -177,7 +177,7 @@ $(".add_bx").click(function(){
 	imgSenBut();
 	createImageUpload($('#addCourse-form .uploadImg'));//生成图片编辑器
 	
-	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增公开课",580,600,true,"确定",function(){
+	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增礼物",400,400,true,"确定",function(){
 		
 		if($("#addCourse-form").valid()){
 			mask();
@@ -303,7 +303,7 @@ function toEdit(obj){
 	$("#teacherImgPath_edit").val(row.smallimgPath); //图片字段赋值
 	$("#brokerage_edit").val(row.brokerage); //图片字段赋值
 	
-	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改礼物",580,650,true,"确定",function(){
+	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改礼物",400,400,true,"确定",function(){
 		
 		if($("#updateCourse-form").valid()){
 			mask();

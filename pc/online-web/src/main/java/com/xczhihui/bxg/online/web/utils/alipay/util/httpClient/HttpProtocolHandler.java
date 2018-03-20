@@ -51,7 +51,7 @@ public class HttpProtocolHandler {
     private int                        defaultMaxTotalConn                 = 80;
 
     /** 默认等待HttpConnectionManager返回连接超时（只有在达到最大连接数时起作用）：1秒*/
-    private static final long          defaultHttpConnectionManagerTimeout = 3 * 1000;
+    private static final long DEFAULT_HTTP_CONNECTION_MANAGER_TIMEOUT = 3 * 1000;
 
     /**
      * HTTP连接管理器，该连接管理器必须是线程安全的.
@@ -112,7 +112,7 @@ public class HttpProtocolHandler {
         httpclient.getHttpConnectionManager().getParams().setSoTimeout(soTimeout);
 
         // 设置等待ConnectionManager释放connection的时间
-        httpclient.getParams().setConnectionManagerTimeout(defaultHttpConnectionManagerTimeout);
+        httpclient.getParams().setConnectionManagerTimeout(DEFAULT_HTTP_CONNECTION_MANAGER_TIMEOUT);
 
         String charset = request.getCharset();
         charset = charset == null ? DEFAULT_CHARSET : charset;
@@ -125,7 +125,7 @@ public class HttpProtocolHandler {
 
             // parseNotifyConfig会保证使用GET方法时，request一定使用QueryString
             method.setQueryString(request.getQueryString());
-        } else if(strParaFileName.equals("") && strFilePath.equals("")) {
+        } else if("".equals(strParaFileName) && "".equals(strFilePath)) {
         	//post模式且不带上传文件
             method = new PostMethod(request.getUrl());
             ((PostMethod) method).addParameters(request.getParameters());

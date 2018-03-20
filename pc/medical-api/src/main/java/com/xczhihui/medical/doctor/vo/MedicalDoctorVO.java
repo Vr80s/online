@@ -1,5 +1,6 @@
 package com.xczhihui.medical.doctor.vo;
 
+import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
@@ -20,39 +21,48 @@ public class MedicalDoctorVO implements Serializable{
      * 医师表
      */
 	private String id;
-    /**
+
+	/**
      * 姓名
      */
 	private String name;
-    /**
+
+	/**
      * 职称
      */
 	private String title;
-    /**
+
+	/**
      * 医师简介
      */
 	private String description;
-    /**
+
+	/**
      * 联系电话
      */
 	private String tel;
-    /**
+
+	/**
      * 用户表id
      */
 	private String userId;
-    /**
+
+	/**
      * 医师类别：1.名青年中医2.名老中医3.少数民族中医4.国医大师5.古中医
      */
 	private String type;
-    /**
+
+	/**
      * 省
      */
 	private String province;
-    /**
+
+	/**
      * 市
      */
 	private String city;
-    /**
+
+	/**
      * 详细地址
      */
 	private String detailedAddress;
@@ -61,23 +71,84 @@ public class MedicalDoctorVO implements Serializable{
      * 坐诊时间
      */
 	private String workTime;
-    /**
+
+	/**
      * 认证信息id
      */
 	private String authenticationInformationId;
 
-	//头像
+	/**
+	 * 头像
+	 */
 	private String headPortrait;
-	//医馆名
+
+	/**
+	 * 医馆id
+	 */
 	private String hospitalId;
+
+	/**
+	 * 医馆名
+	 */
 	private String hospitalName;
+
+	/**
+	 * 签名
+	 */
 	private String signature;
 
+	/**
+	 * 领域
+	 */
 	private List<MedicalFieldVO> fields;
 
 	private MedicalHospitalVo medicalHospital;
 
+	/**
+	 * 擅长
+	 */
+	private String fieldText;
+
+	private String departmentText;
+
+	/**
+	 * 认证信息
+	 */
 	private MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation;
+
+	/**
+	 * 科室
+	 */
+	private List<MedicalDepartment> departments;
+
+	/**
+	 * 身份证号
+	 */
+	private String cardNum;
+
+	public String getDepartmentText() {
+		return departmentText;
+	}
+
+	public void setDepartmentText(String departmentText) {
+		this.departmentText = departmentText;
+	}
+
+	public String getCardNum() {
+		return cardNum;
+	}
+
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
+
+	public List<MedicalDepartment> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(List<MedicalDepartment> departments) {
+		this.departments = departments;
+	}
 
 	public String getSignature() {
 		return signature;
@@ -225,6 +296,14 @@ public class MedicalDoctorVO implements Serializable{
 
 	public void setMedicalDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation) {
 		this.medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformation;
+	}
+
+	public String getFieldText() {
+		return fieldText;
+	}
+
+	public void setFieldText(String fieldText) {
+		this.fieldText = fieldText;
 	}
 
 	public String getDescription() {

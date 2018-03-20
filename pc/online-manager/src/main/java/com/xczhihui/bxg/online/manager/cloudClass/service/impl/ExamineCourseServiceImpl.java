@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.manager.cloudClass.service.impl;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +17,6 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.Grade;
 import com.xczhihui.bxg.online.common.domain.LiveAppealInfo;
 import com.xczhihui.bxg.online.common.domain.LiveExamineInfo;
 import com.xczhihui.bxg.online.common.domain.Menu;
@@ -37,7 +35,6 @@ import com.xczhihui.bxg.online.manager.cloudClass.vo.LiveAppealInfoVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LiveExamineInfoVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
-import com.xczhihui.bxg.online.manager.utils.CountUtils;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import com.xczhihui.bxg.online.manager.vhall.bean.Webinar;
 
@@ -86,7 +83,8 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public String createWebinar(Course entity) {
+	@Override
+    public String createWebinar(Course entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getGradeName());
 		webinar.setIntroduction(entity.getDescription());
@@ -152,7 +150,8 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public String reCreateWebinar(CourseVo entity) {
+	@Override
+    public String reCreateWebinar(CourseVo entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getCourseName());
 		webinar.setIntroduction(entity.getDescription());
@@ -205,7 +204,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		entity.setTitle(le.getTitle());   //课程名称
 		entity.setContent(le.getContent());
 		entity.setType(le.getType());//学科的id
-		entity.setSeeMode(le.getSeeMode());  //观看方式 0公开 1 收费 2 密码
+		entity.setSeeMode(le.getSeeMode());  //观看方式 0公开 1 付费 2 密码
 		entity.setWhenLong(le.getWhenLong()); //课程时长
 		entity.setStartTime(le.getStartTime());//直播开始时间
 		entity.setUserId(le.getUserId());      //讲师id
@@ -272,29 +271,28 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		 * 查找是否已经存在这个直播申请了。如果存在那么需要查一下啦
 		 */
 		Course course =publicCourseService.findCourseVoByLiveExanmineId(le.getId());
-		if(course == null && le.getExamineStatus().equals("1")){ //保存课程，并且生成课程id
+		if(course == null && "1".equals(le.getExamineStatus())){ //保存课程，并且生成课程id
 			//保存了
 			Course entity = new Course();
-			
-			entity.setExamineId(le.getId());
+
+			//entity.setApplyId(le.getId());
 			entity.setLiveSource(2);//设置直播源
-			
+
 			entity.setGradeName(le.getTitle()); //课程名称
 			entity.setMenuId(Integer.parseInt(le.getType())); //学科的id
-			
+
 		    //时间转换
 	        long l = Long.parseLong(le.getWhenLong()) / (1000*60*60);
-	        
-	        
+
+
 	      /*  double f = Double.parseDouble(l+"");
 			BigDecimal b = new BigDecimal(f);
 			double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();*/
-	        
 //			BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
 //			//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
 //			BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
 			//System.out.println(bd_half_even);
-	        
+
 	        double bd_half_up =  com.xczhihui.bxg.online.manager.utils.CountUtils.div(
 	        		Double.parseDouble(le.getWhenLong()), 3600000d,2);
 			System.out.println(bd_half_up);
@@ -302,7 +300,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			entity.setCreateTime(new Date()); //当前时间
 			entity.setStatus('1' + ""); //状态
 			entity.setStartTime(le.getStartTime());//直播开始时间
-	
+
 			l= Long.parseLong(le.getWhenLong()) +  le.getStartTime().getTime();
 			Date dend = new Date(l);
 			entity.setEndTime(dend);//直播结束时间
@@ -321,18 +319,18 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			entity.setDelete(false);//不删除
 			entity.setDefaultStudentCount(0);
 			/*2017.08.10  yuruixin*/
-			//观看方式 0公开 1 收费 2 密码
-			
+			//观看方式 0公开 1 付费 2 密码
+
 			//默认原价格都是0
 			entity.setOriginalCost(0d);
-			
-			if(le.getSeeMode().equals("0")){
+
+			if("0".equals(le.getSeeMode())){
 				entity.setIsFree(true); //免费
 				entity.setCurrentPrice(0d);
-			}else if(le.getSeeMode().equals("1")){
-				entity.setIsFree(false); //收费
+			}else if("1".equals(le.getSeeMode())){
+				entity.setIsFree(false); //付费
 				entity.setCurrentPrice(le.getPrice().doubleValue());
-			}else if(le.getSeeMode().equals("2")){
+			}else if("2".equals(le.getSeeMode())){
 				entity.setIsFree(true); //密码
 				//新增课程密码
 				entity.setCoursePwd(le.getPassword());
@@ -357,13 +355,13 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			entity.setVersion(UUID.randomUUID().toString().replace("-",""));
 			String webinarId = createWebinar(entity);
 			entity.setDirectId(webinarId);
-			
+			entity.setExamineId(le.getId()+""); 
 			System.out.println("=============================");
 			System.out.println(entity.toString());
 			dao.save(entity);
 			System.out.println("=============================");
-			
-		}else if(course != null && le.getExamineStatus().equals("2")){ //更新  直播课程状态变为0
+
+		}else if(course != null && "2".equals(le.getExamineStatus())){ //更新  直播课程状态变为0
 			//更新课程仅仅是把状态变为：0
 			course.setStatus("0");
 			dao.update(course);
@@ -387,7 +385,6 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		if(ou.getIsLecturer() !=1){
 			return "申请人不具备讲师权限";
 		}
-		
 		lei.setExamineStatus("1"); //通过啦
 		User user = (User) UserHolder.getRequireCurrentUser(); 
 		lei.setAuditPerson(user.getId()); //审核人id
@@ -427,9 +424,9 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		/**
 		 * 看状态啦。	 0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
 		 */
-		if(lei.getExamineStatus().equals("0")){
+		if("0".equals(lei.getExamineStatus())){
 			lei.setExamineStatus("2"); 		  //2 	审核未通过
-		}else if(lei.getExamineStatus().equals("3")){
+		}else if("3".equals(lei.getExamineStatus())){
 			lei.setExamineStatus("4"); 		  //4 	审核失败
 		}
 		lei.setAuditPerson(user.getId()); //审核人
@@ -452,10 +449,10 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
                 * 如果删除了未审核的
                 * 如果删除了审核未通过的那么就让此课程变为未审核的状态。对应的申诉中的信息也变成了无效的。
                 */
-               if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+               if(lei.getExamineStatus()!=null && "1".equals(lei.getExamineStatus())){
             	   lei.setIsDelete(true);
                     dao.update(lei);
-            	   courseService.deleteCourseByExamineId(lei.getId(),true);
+//            	   courseService.deleteCourseByExamineId(lei.getId(),true);
                }  
             }
         }
@@ -469,10 +466,10 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		for(String id : _ids){
 			LiveExamineInfo lei = findExamineById(id);
             if(lei !=null){
-                 if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+                 if(lei.getExamineStatus()!=null && "1".equals(lei.getExamineStatus())){
                 	 lei.setIsDelete(false);
                      dao.update(lei);
-              	    courseService.deleteCourseByExamineId(lei.getId(),false);
+//              	    courseService.deleteCourseByExamineId(lei.getId(),false);
                  }  
             }
         }
@@ -516,12 +513,12 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		 //0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
 		
 		LiveExamineInfo lei = findExamineById(id);
-		if(lei.getExamineStatus().equals("2")){//审核失败
+		if("2".equals(lei.getExamineStatus())){//审核失败
 			lei.setExamineStatus("0");
 	        dao.update(lei);
 		}
 		
-		if(lei.getExamineStatus().equals("4")){//审核失败
+		if("4".equals(lei.getExamineStatus())){//审核失败
 			lei.setExamineStatus("3");
 	        dao.update(lei);
 		}

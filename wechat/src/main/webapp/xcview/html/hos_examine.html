@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="../css/hos_examine.css" />
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/hos_examine.js" ></script>
+
+
+	
+</head>
+    
+<body style="background:#F8F8F8;">
+<div class="wp">
+	<script type="text/html" id="hospitalInfo">
+		<div class="wrap-header">
+			<div class="header">		
+				<p>主播认证</p>
+				<div class="arror_return z">
+					<a href="javascript:;" onclick="returnSkip()"><img src="../images/back icon.png"/></a>
+				</div>
+			</div>
+		</div>
+		<div class="wrap_examine">
+			{{if status==2}}
+			<div class="box-content">
+				<div class="examine-pic z">
+					<img src="../images/examine.png"/>
+				</div>
+				<p class="z">医馆认证审核中，3个工作日完成</p>
+			</div>
+			{{else if status==0}}
+			<div class="box-content">
+				<div class="examine-pic z">
+					<img src="../images/examine.png"/>
+				</div>
+				<p class="z">审核未通过,<a href="my_anchor.html" style="color: #00BC12;">重新认证</a></p>
+			</div>
+			{{else if status==1}}
+			<div class="box-content">
+				<div class="examine-pic z">
+					<img src="../images/examine.png"/>
+				</div>
+				<p class="z">已于{{updateTime}}通过审核</p>
+			</div>
+			{{/if}}
+		</div>
+
+<!--验证信息-->	
+		<div class="wrap-information">
+			<ul class="wrap-user-id">
+				<li>
+					<span>医馆名称</span>
+					<p>{{name}}</p>
+				</li>
+			</ul>
+			<ul class="wrap-user-id idcar">
+				<li>
+					<span>公司名称</span>
+					<p>{{company}}</p>
+				</li>
+			</ul>
+			<ul class="wrap-user-id idcar">
+				<li>
+					<span>统一社会信用代码</span>
+					<p>{{businessLicenseNo}}</p>
+				</li>
+			</ul>
+		
+		</div>
+	<!--营业执照-->		
+	<div class="wrap-qualification">
+			<p class="qualification-title">营业执照</p>
+			<div class="input-group z">
+                	<div class="preview3">
+						<img src="{{businessLicensePicture}}"/>
+                    </div>         
+                    <span style="margin-bottom: 0.3rem;">营业执照</span>
+            </div>
+     </div>
+	<!--药品经营许可证-->
+		<div class="wrap-qualification" style="margin-top: 0.2rem;">
+			<ul class="wrap-user-id idcar" style="margin-bottom: 0.2rem;">
+				<li>
+					<span>药品经营许可证号</span>
+					<p>989889777</p>
+				</li>
+			</ul>
+			<p class="qualification-title">药品经营许可证</p>
+			<div class="input-group z">
+                	<div class="preview3">
+						<img src="{{licenseForPharmaceuticalTradingPicture}}"/>
+                     </div>         
+                    <span>药品经营许可证</span>
+            </div>
+		</div>
+	
+	
+	</script>
+	</div>
+</body>
+<script>
+			var kk=document.documentElement.clientWidth;
+			if(kk>750){
+				kk=750
+			}
+			document.documentElement.style.fontSize=kk/7.5+"px"		
+		</script>
+
+</html>

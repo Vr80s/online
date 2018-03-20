@@ -6,6 +6,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserUtil;
@@ -83,7 +84,9 @@ public class UserController extends OnlineBaseController {
 		Token t = null;
 		if(o!=null) {
             t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
-        }
+        }else{
+			return ResponseObject.newErrorResponseObject("用户未注册");
+		}
 //		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
 		if (t != null) {
 			if (o != null) {
@@ -93,39 +96,15 @@ public class UserController extends OnlineBaseController {
 					return ResponseObject.newErrorResponseObject("用户已禁用");
 				}
 				if(o.getVhallId()==null){
-					String vhallId = VhallUtil.createUser(o,password);
+					String vhallPassword = RandomUtil.getCharAndNumr(6);
+					String vhallId = VhallUtil.createUser(o,vhallPassword);
 					o.setVhallId(vhallId);
-					o.setVhallPass(password);
+					o.setVhallPass(vhallPassword);
 					o.setVhallName(o.getId());
 					service.updateVhallInfo(o);
 				}
 			} else {
 				return ResponseObject.newErrorResponseObject("用户不存在");
-//				//本系统没有此用户，说明此用户来自熊猫中医其他系统，新增此用户
-//				boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", username);
-//				boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",username);
-//				if (!ism && !ise) {
-//					return ResponseObject.newErrorResponseObject("请用手机或邮箱登陆");
-//				}
-//
-//				ItcastUser u = this.userCenterAPI.getUser(username);
-//    			o = new OnlineUser();
-//    			o.setLoginName(u.getLoginName());
-//    			o.setName(u.getNikeName());
-//    			o.setEmail(u.getEmail());
-//    			o.setMobile(u.getMobile());
-//    			o.setCreateTime(new Date());
-//    			o.setDelete(false);
-//    			o.setStatus(0);
-//    			o.setVisitSum(0);
-//    			o.setStayTime(0);
-//				o.setSmallHeadPhoto("/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-//    			o.setUserType(0);
-//    			o.setMenuId(-1);
-//    			o.setOrigin(u.getOrigin());
-//    			o.setType(u.getType());
-//    			service.addUser(o);
-
 			}
 			
 			UserUtil.setSessionCookie(request, response, o, t);
@@ -133,10 +112,10 @@ public class UserController extends OnlineBaseController {
 			
 			return ResponseObject.newSuccessResponseObject(null);
 		} else {
-			return ResponseObject.newErrorResponseObject("用户名密码错误");
+			return ResponseObject.newErrorResponseObject("密码错误");
 		}
 	}
-	
+
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public ResponseObject logout(HttpServletRequest request,HttpServletResponse response) {
 		callback.onLogout(request, response);
@@ -153,15 +132,42 @@ public class UserController extends OnlineBaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "phoneRegist", method = RequestMethod.POST)
-	public ResponseObject phoneRegist(String username, String password, String code, String nikeName, HttpServletRequest req) {
+	public ResponseObject phoneRegist(String username, String password, String code, String nikeName, HttpServletRequest req, HttpServletResponse resp) {
 		String regmsg = service.addPhoneRegist(req,username, password, code,nikeName);
 		//活动统计
 		String cok = CookieUtil.getCookieValue(req, "act_code_from");
 		if (cok != null && !"".equals(cok)) {
 			totalService.addTotalDetail4Reg(cok,username,nikeName);
 		}
+		try {
+			autoLogin(req,resp,username,password);
+		}catch (Exception e){
+			return ResponseObject.newErrorResponseObject("用户已禁用或不存在");
+		}
 		return ResponseObject.newSuccessResponseObject(regmsg);
 	}
+
+	private void autoLogin(HttpServletRequest req, HttpServletResponse resp, String loginname, String password) {
+		OnlineUser o = service.findUserByLoginName(loginname);
+		Token t = null;
+		if(o!=null) {
+			t = userCenterAPI.login4BBS(loginname, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
+		}
+		if (t != null) {
+			if (o != null) {
+				t.setHeadPhoto(o.getSmallHeadPhoto());
+				t.setUuid(o.getId());
+				if (o.isDelete() || o.getStatus() == -1) {
+					throw new RuntimeException("用户已禁用");
+				}
+			} else {
+				throw new RuntimeException("用户不存在");
+			}
+		}
+		UserUtil.setSessionCookie(req, resp, o, t);
+		callback.onLogin(req, resp);
+	}
+
 	/**
 	 * 邮箱提交注册
 	 * @param username
@@ -195,11 +201,12 @@ public class UserController extends OnlineBaseController {
 			if ("ok".equals(msg)) {
 				Token token = this.createToken(userCenterAPI.getUser(vcode.split("!@!")[0]), TokenExpires.Day.getExpires());
 				OnlineUser user = this.userCenterService.getUserByLoginName(vcode.split("!@!")[0]);
+				
 				if(user.getVhallId()==null){
-					String password = "123456";//邮箱注册用户密码默认123456
-					String vhallId = VhallUtil.createUser(user,password );
+					String vhallPassword = RandomUtil.getCharAndNumr(6);
+					String vhallId = VhallUtil.createUser(user,vhallPassword );
 					user.setVhallId(vhallId);
-					user.setVhallPass(password);
+					user.setVhallPass(vhallPassword);
 					user.setVhallName(user.getId());
 					service.updateVhallInfo(user);
 				}
@@ -297,7 +304,7 @@ public class UserController extends OnlineBaseController {
 
 
 	/**
-	 * 是否登陆
+	 * 是否登录
 	 * @return
 	 */
 	@RequestMapping(value = "isAlive")
@@ -308,7 +315,7 @@ public class UserController extends OnlineBaseController {
 	}
 
 	/**
-	 * 登陆状态
+	 * 登录状态
 	 * @return
 	 */
 	@RequestMapping(value = "loginStatus")
@@ -496,15 +503,10 @@ public class UserController extends OnlineBaseController {
 		
 		String countyName = ServletRequestUtils.getStringParameter(request,
 				"countyName");
-		
-//		String district = ServletRequestUtils.getStringParameter(request,
-//				"district");
 		String target = ServletRequestUtils.getStringParameter(request,
 				"target");
 		String sex = ServletRequestUtils.getStringParameter(request,
 				"sex");
-//		String fullAddress = ServletRequestUtils.getStringParameter(request,
-//				"fullAddress");
 		UserDataVo vo = new UserDataVo();
 		vo.setUid(userId);
 		if(nickName==null||StringUtils.isEmpty(nickName.trim())){
@@ -512,27 +514,19 @@ public class UserController extends OnlineBaseController {
 		}else {
 			vo.setNickName(nickName);
 		}
-//		vo.setFullAddress(fullAddress);
 		vo.setAutograph(autograph);
 		vo.setOccupation(occupation);
-//		vo.setCompany(company);
-//		vo.setPosts(posts);
-//		vo.setJobyearId(jobyearId);
-		
+
 		vo.setProvince(province);
 		vo.setCity(city);
 		vo.setDistrict(district);
 		
-		
 		vo.setProvinceName(provinceName);
 		vo.setCityName(cityName);
 		vo.setCountyName(countyName);
-//		vo.setDistrict(district);
 		vo.setTarget(target);
 		vo.setLoginName(loginName);
-//		if(occupation != null && occupation == 24) {
-			vo.setOccupationOther(occupationOther);
-//		}
+		vo.setOccupationOther(occupationOther);
 		vo.setSex(Integer.valueOf(sex));
 		boolean a = userCenterService.updateUser(vo);
 		if(a){
@@ -642,7 +636,7 @@ public class UserController extends OnlineBaseController {
 	@RequestMapping(value = "updateHeadPhoto")
 	@ResponseBody
 	public ResponseObject updateHeadPhoto(HttpServletRequest request) throws ServletRequestBindingException, IOException {
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
 
 		String content = ServletRequestUtils.getRequiredStringParameter(request, "image");
@@ -741,7 +735,7 @@ public class UserController extends OnlineBaseController {
 		//生成签名
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		request.getSession().setAttribute("qq_connect_state",uuid);
-		String state = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
+		String state = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
 		Map<String,String> param = new HashMap<>();
 		param.put("response_type", "code");
 		param.put("client_id", ThirdConnectionConfig.QQ_APP_ID);
@@ -759,7 +753,7 @@ public class UserController extends OnlineBaseController {
 	public void qquserInfo(HttpServletRequest request, HttpServletResponse response,String code,String state) throws Exception {
 		//生成签名
 		String uuid = (String) request.getSession().getAttribute("qq_connect_state");
-		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
+		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
 		if(!StringUtils.isEmpty(state) && !StringUtils.isEmpty(stateSign) && state.equalsIgnoreCase(stateSign)) {
 			String accessToken = service.getQQAccessToken(code);
 			if (accessToken != null) {
@@ -793,7 +787,7 @@ public class UserController extends OnlineBaseController {
 		//生成签名
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		request.getSession().setAttribute("wx_connect_state",uuid);
-		String state = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
+		String state = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
 		Map<String,String> param = new HashMap<>();
 		param.put("response_type", "code");
 		param.put("client_id", ThirdConnectionConfig.WX_APP_ID);
@@ -811,7 +805,7 @@ public class UserController extends OnlineBaseController {
 	public void wechatUserInfo(HttpServletRequest request, HttpServletResponse response,String code,String state) throws Exception {
 		//生成签名
 		String uuid = (String) request.getSession().getAttribute("wx_connect_state");
-		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
+		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
 		if(!StringUtils.isEmpty(state) && !StringUtils.isEmpty(stateSign) && state.equalsIgnoreCase(stateSign)) {
 			Map<String, String> returnMap = service.saveWechatUserInfo(code);
 			if (returnMap != null) {
@@ -828,15 +822,15 @@ public class UserController extends OnlineBaseController {
 		}
 	}
 	/**
-	 * 三方登录账号绑定手机或邮箱账号
+	 * 三方登录帐号绑定手机或邮箱帐号
 	 * @param request
-	 * @param username    绑定账号
+	 * @param username    绑定帐号
 	 * @return
 	 */
 	@RequestMapping(value = "bindcount",method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject bindCount(HttpServletRequest request,HttpServletResponse response,String username){
-		//获取当前登陆用户信息(三方登录用户)
+		//获取当前登录用户信息(三方登录用户)
 		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		if(onlineUser!=null) {
 			ResponseObject obj = service.saveBindCount(username, onlineUser.getUnionId());

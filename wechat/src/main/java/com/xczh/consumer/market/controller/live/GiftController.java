@@ -7,6 +7,8 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.online.api.po.GiftStatement;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import org.aspectj.weaver.ast.Var;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.redisson.Redisson;
@@ -59,7 +61,7 @@ public class GiftController {
 
 	private RedissonClient redisson;
 
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(GiftController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(GiftController.class);
 	
 	
 	public GiftController(){
@@ -82,84 +84,23 @@ public class GiftController {
 	 **/
 	@ResponseBody
 	@RequestMapping(value = "/sendGift")
-	public ResponseObject sendGift(HttpServletRequest req,
-								   HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
+	public ResponseObject sendGift(HttpServletRequest req,HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
 
 		Map<String, String> params=new HashMap<>();
 		params.put("token",req.getParameter("token"));
-		OnlineUser user =appBrowserService.getOnlineUserByReq(req, params); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		OnlineUser user =appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		log.info("====================="+user.getId());
+		LOGGER.info("====================="+user.getId());
 		
-		GiftStatement giftStatement=new GiftStatement();
-		giftStatement.setCreateTime(new Date());
-		giftStatement.setGiver(user.getId());
-		giftStatement.setGiftId(req.getParameter("giftId"));
-		giftStatement.setLiveId(req.getParameter("liveId"));
-		giftStatement.setReceiver(req.getParameter("receiverId"));
-		//giftStatement.setCount(Integer.valueOf(req.getParameter()("continuousCount")));
-		log.info("c:"+req.getParameter("continuousCount"));
-		try {
-			giftStatement.setCount(Integer.valueOf(req.getParameter("count")));
-			if(giftStatement.getCount()<1){
-				throw  new RuntimeException("非法的礼物数量!");
-			}
-		}catch (Exception e){
-			throw  new RuntimeException("非法的礼物数量!");
-		}
-
-		giftStatement.setContinuousCount(Integer.valueOf(req.getParameter("continuousCount")));
-		giftStatement.setChannel(1);
-		giftStatement.setClientType(Integer.valueOf(req.getParameter("clientType")));
-		giftStatement.setPayType(3);
-		//	giftStatement = giftService.addGiftStatement(giftStatement);
-		//giftStatement.setGiver(user.getName());
-	        	/*Broadcast bd = new Broadcast();
-
-	        	Map<String,Object> map = new HashMap<String,Object>();
-	        	Map<String,Object> mapSenderInfo = new HashMap<String,Object>();
-	        	Map<String,Object> mapGiftInfo = new HashMap<String,Object>();
-
-	        	mapSenderInfo.put("avatar", user.getSmallHeadPhoto());
-	        	mapSenderInfo.put("userId", user.getId());
-	        	mapSenderInfo.put("userName", user.getName());
-
-	        	mapGiftInfo.put("continuousCount", giftStatement.getContinuousCount());
-	        	mapGiftInfo.put("giftId", giftStatement.getGiftId());
-				mapGiftInfo.put("time",giftStatement.getCreateTime());
-		mapGiftInfo.put("count",giftStatement.getContinuousCount());
-	        	mapGiftInfo.put("name", giftStatement.getGiftName());
-	        	mapGiftInfo.put("smallimgPath", giftStatement.getGiftImg());
-
-	        	map.put("senderInfo", mapSenderInfo);
-	        	map.put("giftInfo", mapGiftInfo);
-	        	map.put("messageType",1);
-				map.put("giftCount",giftService.findByUserId(giftStatement.getReceiver()));
-
-		map.put("balanceTotal",userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));*/
+		String giftId = req.getParameter("giftId");
+		String liveId = req.getParameter("liveId");
+		Integer clientType = Integer.valueOf(req.getParameter("clientType"));
+		Integer count = Integer.valueOf(req.getParameter("count"));
+		String receiverId = req.getParameter("receiverId");
 		Map<String,Object> map=null;
-//		synchronized (giftStatement.getReceiver().intern()){
-//			map=remoteGiftService.addGiftStatement(giftStatement);
-//				}
-
-		
-		RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId()); // 1.获得锁对象实例
-		boolean resl = false;
-		try {
-			resl = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);//等待十秒。有效期五秒
-//			log.info(giftStatement.getLiveId()+":"+resl);
-			map=remoteGiftService.addGiftStatement(giftStatement);
-		}catch (Exception e){
-			e.printStackTrace();
-			log.info(e.getMessage());
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}finally {
-			if(resl){
-				redissonLock.unlock();
-			}
-		}
+		map=remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 
@@ -178,7 +119,7 @@ public class GiftController {
 
 //		OnlineUser user =appBrowserService.getOnlineUserByReq(req, params); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 //		if(user==null){
-//			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+//			return ResponseObject.newErrorResponseObject("登录失效");
 //		}
 		int pageNumber = 0;
 		if(null != req.getParameter("pageNumber")){

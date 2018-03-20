@@ -7,7 +7,7 @@ body {
   -ms-overflow-style: scrollbar;
   /*浏览器提示*/
   /*管理提示*/
-  /*登陆和注册*/
+  /*登录和注册*/
 }
 html input:-webkit-autofill,
 body input:-webkit-autofill {
@@ -734,8 +734,8 @@ body .select{
 body .shoppingBox .shopping,body .messageBox .messageCount{
 	    display: block;
     position: absolute;
-    top: 5px;
-    right: -15px;
+    top: 6px;
+    right: -18px;
     /*background-color: #ff4012;*/
     width: 16px;
     height: 16px;

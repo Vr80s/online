@@ -57,7 +57,7 @@ public class AskCommentController {
 	 */
 	@RequestMapping(value = "/deleteComment")
 	public ResponseObject deleteComment(String comment_id,HttpServletRequest request) {
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		service.deleteComment(request,u,comment_id);
 		return ResponseObject.newSuccessResponseObject("操作成功！");

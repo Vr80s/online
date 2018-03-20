@@ -73,4 +73,17 @@ public class LiveCourseVO implements Serializable{
 	public void setPrice(String price) {
 		this.price = price;
 	}
+
+	@Override
+	public String toString() {
+		return "LiveCourseVO{" +
+				"id='" + id + '\'' +
+				", courseName='" + courseName + '\'' +
+				", startTime='" + startTime + '\'' +
+				", endTime='" + endTime + '\'' +
+				", enrollmentCount='" + enrollmentCount + '\'' +
+				", totalAmount='" + totalAmount + '\'' +
+				", price='" + price + '\'' +
+				'}';
+	}
 }

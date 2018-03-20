@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <style type="text/css">
 #showOrderTable td{
 	text-align: left;
@@ -16,8 +16,8 @@
   } catch (e) {
   }
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
   当前位置：销售管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
@@ -66,25 +66,29 @@
                     <td>
                         <div class="profile-info-value searchTr">
                             <select id="search_payType" name="search_payType" class="propertyValue1">
+                                <%--支付类型 0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付-2未支付--%>
                                 <option  value="" >支付方式</option>
-                                <option  value="1" >支付宝</option>
-                                <option  value="0" >微信支付</option>
-                                <option  value="2" >网银支付</option>
-                                <option  value="3" >快捷支付</option>
+                                <option  value="1" >微信支付</option>
+                                <option  value="0" >支付宝</option>
+                                <option  value="2" >苹果支付</option>
+                                <option  value="3" >熊猫币支付</option>
+                                <option  value="4" >线下支付</option>
                             </select>
                             <input type="hidden" value="search_payType" class="propertyName" />
                         </div>
                     </td>
                     <td>
                         <div class="profile-info-value searchTr">
+                            <%--订单来源 0.赠送1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员--%>
                             <select id="search_order_from" name="order_from" class="propertyValue1">
                                 <option  value="" >订单来源</option>
-                                <option  value="0" >官网</option>
-                                <option  value="1" >分销</option>
-                                <option  value="2" >线下录入</option>
-                                <option  value="3" >微信</option>
-                                <option  value="4" >h5</option>
-                                <option  value="5" >app</option>
+                                <option  value="1" >pc</option>
+                                <option  value="2" >h5</option>
+                                <option  value="3" >android</option>
+                                <option  value="4" >ios</option>
+                                <option  value="5" >线下</option>
+                                <option  value="6" >工作人员</option>
+                                <option  value="0" >赠送</option>
                             </select>
                             <input type="hidden" value="order_from" class="propertyName" />
                         </div>
@@ -107,13 +111,13 @@
                     </td>
                 	<td style="display:none">
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="search_orderNo" name="search_orderNo" class="propertyValue1"  placeholder = "订单号关键字" maxlength="30"/>
+                            <input type="text"   id="search_orderNo" name="search_orderNo" class="propertyValue1"  placeholder = "订单号" maxlength="30"/>
                             <input type="hidden" value="search_orderNo" class="propertyName"/>
                         </div>
                     </td>
                 	<td style="display:none">
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="search_createPersonName" name="search_createPersonName" class="propertyValue1"  placeholder = "购买者关键字" maxlength="30"/>
+                            <input type="text"   id="search_createPersonName" name="search_createPersonName" class="propertyValue1"  placeholder = "购买者帐号" maxlength="30"/>
                             <input type="hidden" value="search_createPersonName" class="propertyName"/>
                         </div>
                     </td>
@@ -249,4 +253,4 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="${base}/js/order/order.js?v=1.8"></script>
+<script type="text/javascript" src="/js/order/order.js?v=ipandatcm_1.3"></script>

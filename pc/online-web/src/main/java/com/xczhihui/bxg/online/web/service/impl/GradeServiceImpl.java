@@ -63,7 +63,8 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      * @param gradeId
      * @return
      */
-    public Grade findGradeById( Integer gradeId) {
+    @Override
+    public Grade findGradeById(Integer gradeId) {
          return  dao.findByHQLOne("from Grade  where isDelete = 0 and  id=?", gradeId);
     }
 
@@ -72,14 +73,15 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      * @param grade
      * @return
      */
-    public void update( Grade  grade){
+    @Override
+    public void update(Grade  grade){
          dao.update(grade);
     }
 
 
 
     /**
-     * 收费课程下的班级信息
+     * 付费课程下的班级信息
      * @param courseId 课程id
      * @return
      */

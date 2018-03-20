@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.service;
 
 import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.utils.ResponseObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +34,7 @@ public interface OnlineUserService {
 	 * 手机提交注册
 	 * @param password
 	 */
-	public ResponseObject addPhoneRegist(HttpServletRequest req,
-										 String password, String mobile, String openId)throws Exception;
+	public ResponseObject addPhoneRegist(HttpServletRequest req,String password, String mobile, String openId)throws Exception;
 	/**
 	 * 验证码检验
 	 * @param mobile
@@ -42,7 +42,7 @@ public interface OnlineUserService {
 	 * @return
 	 * @throws Exception
 	 */
-	public ResponseObject checkCode(String mobile, String code, String vtype)throws Exception;
+	public ResponseObject checkCode(String mobile, String code, Integer vtype)throws Exception;
 	/**
 	 * 更新用户share_code
 	 * @param user
@@ -58,7 +58,19 @@ public interface OnlineUserService {
 	 * @throws Exception
 	 */
 	public OnlineUser addUser(String mobile, String username, String shareCode, String password) throws Exception;
-	String addMessage(String username, String vtype)throws Exception;
+	
+	/**
+	 * 
+	 * Description：发送短信验证码
+	 * @param username
+	 * @param vtype
+	 * @return
+	 * @throws Exception
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	String addMessage(String username, Integer vtype)throws Exception;
 	/**
 	 * Description：h5、app注册功能
 	 * @param req
@@ -69,8 +81,8 @@ public interface OnlineUserService {
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	public ResponseObject addPhoneRegistByAppH5(HttpServletRequest req,
-                                                String password, String mobile, String vtype)throws Exception;
+	public OnlineUser addPhoneRegistByAppH5(HttpServletRequest req,
+                                                String password, String mobile, Integer vtype)throws Exception;
 	/**
 	 *
 	 * Description：修改用户中心数据接口
@@ -128,14 +140,14 @@ public interface OnlineUserService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	ResponseObject changeMobileCheckCode(String mobile, String code,
-			String vtype) throws Exception;
+			Integer vtype) throws Exception;
 	/**
 	 * Description：给 3和4 发送验证码
 	 * @param o
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	String changeMobileSendCode(String username, String vtype) throws Exception;
+	String changeMobileSendCode(String username, Integer vtype) throws Exception;
 	/**
 	 * Description：更新登录名（手机号）
 	 * @param o
@@ -192,7 +204,7 @@ public interface OnlineUserService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
-			String password, String username, String vtype, String appUniqueId)throws Exception;
+			String password, String username, Integer vtype, String appUniqueId)throws Exception;
 	void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception;
 	
 	public OnlineUser findUserByIdAndVhallNameInfo(String string)throws SQLException;
@@ -214,4 +226,34 @@ public interface OnlineUserService {
 	 *
 	 */
 	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs)throws SQLException;
+	/**
+	 * Description：查找主播信息
+	 * @param lecturerId
+	 * @return
+	 * @throws SQLException
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public Map<String, Object> findHostById(String lecturerId)throws SQLException;
+	
+	public void emptyAccount(String userName)throws SQLException;
+	/**
+	 * 
+	 * Description：第三方用户登录后，默认创建一个用户
+	 * @param wxw
+	 * @return
+	 * @return OnlineUser
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public OnlineUser wechatCreateUserInfo(WxcpClientUserWxMapping wxw) throws SQLException;
+	/**
+	 * 
+	 * Description：验证手机号是否已经注册
+	 * @param username
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public void verifyPhone(String username)throws SQLException;
 }

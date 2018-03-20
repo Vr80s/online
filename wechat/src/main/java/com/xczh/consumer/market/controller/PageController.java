@@ -60,7 +60,7 @@ public class PageController {
 		
 		req.setAttribute("openId", openId);
 		req.setAttribute("code", code);
-		req.setAttribute("access", "wx");
+		req.setAttribute("access", "WX");
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
 	}
@@ -123,7 +123,7 @@ public class PageController {
 		req.getRequestDispatcher("/WEB-INF/jsp/order_confirm.html.jsp").forward(req, res);
 	}
 	/**
-	 * 登陆页
+	 * 登录页
 	 * @param req
 	 * @param res
 	 * @param params

@@ -18,6 +18,18 @@ img {
   display: inline-block;
   outline: none;
 }
+#tip{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	padding: 20px;
+	background-color: #000;
+	color: #fff;
+	opacity: .5;
+	border-radius: 4px;
+	z-index: 999;
+}
 .clearfix:after {
   content: "";
   height: 0;
@@ -32,7 +44,7 @@ img {
 .practitioner_settled{
 	float: left;
 	width: 860px;
-	height: 580px;
+	height: 630px;
 	background: white;
 	margin-top: 20px;
 }
@@ -47,6 +59,7 @@ img {
 	height: 36px;
 	overflow: hidden;
 	margin: 30px 0 0 20px;
+	margin-left: 20%;
 	background: url(../images/examine_01.png) no-repeat center;
 }
 .practitioner_examine  ul li{
@@ -63,9 +76,9 @@ img {
 	margin-left: 21px;
 }
 .practitioner_inf{
-	width: 115px;
+	width: 35%;
 	height: 300px;
-
+	
 	float: left;
 }
 .practitioner_inf ul li{
@@ -99,6 +112,7 @@ img {
 	border: 1px solid #f0f0f0;
 	padding-left: 5px;
 	outline: none;
+	font-size: 14px;
 }
 .practitioner_input ul li input:focus{
 border: 1px solid #2db92c;
@@ -110,7 +124,7 @@ outline: none;
 	left: 0;
 	color: red;
 	font-size: 13px;
-	display: none;
+	/*display: none;*/
 }
 .practitioner_input ul li .my_different{
 	position: absolute;
@@ -120,6 +134,7 @@ outline: none;
 	font-size: 12px;
 	display: none;
 }
+.practitioner_input .imgVertifyCode input,
 .practitioner_input .my_code input{
 	width: 182px;
 }
@@ -130,10 +145,11 @@ outline: none;
     float: right;
     border: 0;
     border-radius: 7px;
-    font-size: 15px;
+    font-size: 14px;
     margin-right: 30px;
     color: white;
     outline: none;
+    line-height: 37px;
 }
 .practitioner_input .register{
 	width: 95px;
@@ -142,13 +158,23 @@ outline: none;
     border: 0;
     color: white;
     margin: 27px 17px 0 0;
+    outline: none;
+}
+.practitioner_input .notregister{
+	width: 95px;
+	height: 35px;
+	background: #ccc;
+    border: 0;
+    color: white;
+    margin: 27px 17px 0 0;
+    outline: none;
 }
 .practitioner_input .have_login{
 	font-size: 14px;
 }
 .practitioner_input .have_login a{
 	text-decoration: none;
-	color: #188eee;
+	color: #00BC12;	
 }
 .practitioner_input .btn_checkbox{
 	font-size: 14px;
@@ -156,6 +182,7 @@ outline: none;
 }
 .practitioner_input .btn_checkbox input{
 	margin-right: 5px;
+	vertical-align: top;
 }
 
 /*医师的好处*/

@@ -68,7 +68,7 @@ $(function(){
     $(".bindOldAccountPassword .bindOldAccountClose").click(function(){
         $(".oldAccountPassword").val("");
     });
-    //绑定新账号失去焦点验证
+    //绑定新帐号失去焦点验证
     var newAccNameInput=$(".newAccountUsername"),
         newAccNameInfo=$(".bindNewAccountHit .HitWord"),
         newAccNameBox=$(".bindNewAccountHit"),
@@ -80,7 +80,7 @@ $(function(){
         newAccNameBox.css("display","none");
     });
     newAccNameInput.on("blur",function(){
-        var reg = /^1[3-578]\d{9}$/;
+        var reg = /^1[3-5678]\d{9}$/;
         var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
         var newAccNameVal=$(this).val();
         if (newAccNameVal == "") {
@@ -130,7 +130,7 @@ $(function(){
         $(this).css("background", "#ccc");
         var data = {phone:username , vtype: 1};
         var btn = this;
-        var reg = /^1[3-578]\d{9}$/;
+        var reg = /^1[3-5678]\d{9}$/;
         if (username == "") {
             newAccNameInfo.text("用户名不能为空！");
             newAccNameBox.css("display", "block");
@@ -187,7 +187,7 @@ $(function(){
         }
     });
     $(".newBindAndLogin").click(function(){
-        var reg = /^1[3-578]\d{9}$/;
+        var reg = /^1[3-5678]\d{9}$/;
         var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
         var bindUserName=$(".newAccountUsername");
         var bindVerfiCode=$(".bindverifCode");
@@ -280,7 +280,7 @@ $(function(){
             })
         }
     });
-    //绑定已有账号
+    //绑定已有帐号
    var oldAccnameInput=$(".oldAccountUsername"),
        oldAccnameInfo=$(".bindOldAccountUsername .HitWord"),
        oldAccnameBox=$(".bindOldAccountUsername .bindOldAccountHit"),
@@ -293,7 +293,7 @@ $(function(){
     });
     oldAccnameInput.on("blur",function(){
         var oldAccnamVal=$(this).val();
-        var reg = /^1[3-578]\d{9}$/;
+        var reg = /^1[3-5678]\d{9}$/;
         var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
         if (oldAccnamVal == "") {
             oldAccnameInfo.text("用户名不能为空！");
@@ -341,7 +341,7 @@ $(function(){
         }
     });
     $(".oldBindAndLogin").click(function(){
-        var reg = /^1[3-578]\d{9}$/;
+        var reg = /^1[3-5678]\d{9}$/;
         var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
         var passwordReg = /^(?!\s+)[\w\W]{6,18}$/;//密码格式验证
         var bindUserName=$(".oldAccountUsername");

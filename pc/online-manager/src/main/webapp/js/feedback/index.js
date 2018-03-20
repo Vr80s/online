@@ -30,7 +30,7 @@ $(function(){
        }},
        { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 		   var replyBtn="<a style='visibility:hidden'><i class='ace-icon fa fa-comment-o bigger-130'></i></a>";
-		   if(row.answerStatus != '1'){
+		   if(row.answerStatus != '1' && row.userId !=null ){
 			   replyBtn="<a class='blue' href='javascript:void(-1);' title='回复' onclick='addContext(this)'><i class='ace-icon fa fa-comment-o bigger-130'></i></a>";
 		   }
 

@@ -138,7 +138,7 @@ public class FcodeController {
      * @throws ParseException 
      * @throws DataAccessException 
 	 */
-	@RequiresPermissions("activity:menu:fcode")
+	//@RequiresPermissions("activity:menu:fcode")
 	@RequestMapping(value = "/addFcodeRule", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addFcodeRule(FcodeVo fcodeVo,HttpServletRequest request) throws DataAccessException, ParseException{
@@ -152,7 +152,7 @@ public class FcodeController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("activity:menu:fcode")
+	//@RequiresPermissions("activity:menu:fcode")
 	@RequestMapping(value = "/updateFcodeRule", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateFcodeRule(FcodeVo fcodeVo,HttpServletRequest request){

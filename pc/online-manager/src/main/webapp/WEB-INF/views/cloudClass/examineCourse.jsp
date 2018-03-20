@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <style type="text/css">
     .vertical-tab {
         width: 8%;
@@ -124,8 +124,8 @@
         });
     });
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 	</small> <span> 直播管理 </span>
@@ -177,9 +177,9 @@
 			                       <div class="profile-info-value searchTr">
 			                            <select name="search_status" id="search_status" value="" class="propertyValue1" >
 						               		    <option value="">审核状态</option>
-						                        <option value="0">未审核</option>
+						                        <option value="2">未审核</option>
 						                        <option value="1">审核通过</option>
-						                        <option value="2">审核未通过</option>
+						                        <option value="0">审核未通过</option>
 						               </select>
 			                            <input type="hidden" value="search_status" class="propertyName"/>
 			                        </div>
@@ -405,7 +405,7 @@
 					 	<input type="text" name="whenLong"  disabled="disabled"  readonly="readonly"  id="courseLength_edit" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
 		             </div>
 					 <div class="col-sm-1 control-label " style="text-align: left;">
-		           	      小时
+		           	      分钟
 		            </div>
 		            
 		            <label class="col-sm-2 control-label "><i class="text-danger">*</i> 开播时间: </label>
@@ -513,4 +513,4 @@
             	source: availableTags
             });			
 </script>
-<script type="text/javascript" src="${base}/js/cloudClass/examineCourse.js?v=1"></script>
+<script type="text/javascript" src="/js/cloudClass/examineCourse.js?v=ipandatcm_1.3"></script>

@@ -6,7 +6,9 @@ import com.xczhihui.bxg.online.manager.common.vo.KeyValVo;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.PageVo;
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 对应OE_COMMON表数据的处理服务
@@ -99,4 +101,17 @@ public interface CommonService {
 	 * @return
 	 */
 	public List<KeyValVo> findListByGroup(String group);
+    
+	/**
+	 * 
+	 * Description：导入excel文件--》
+	 * @param inputStream
+	 * @param originalFilename
+	 * @return
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public Map<String, Object> updateImportExcel(InputStream inputStream,
+			String originalFilename);
 }

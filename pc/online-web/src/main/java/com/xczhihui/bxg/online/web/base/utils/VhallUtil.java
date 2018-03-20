@@ -56,7 +56,7 @@ public class VhallUtil {
 		
 		String json = HttpUtil.sendPostRequest(USER_REGISTER, parameters);
 		Map<String, String> m =json2Map(json);
-		if(m.get("msg").equals("success")){
+		if("success".equals(m.get("msg"))){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
 //			System.out.println(json+":"+u.getLoginName()+":"+password);
@@ -107,7 +107,7 @@ public class VhallUtil {
 		
 		String json = HttpUtil.sendPostRequest(USER_UPDATE, parameters);
 		Map<String, String> m =json2Map(json);
-		if(m.get("msg").equals("success")){
+		if("success".equals(m.get("msg"))){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
 //			System.out.println(json+":"+u.getLoginName()+":"+password);
@@ -151,7 +151,7 @@ public class VhallUtil {
 		
 		String json = HttpUtil.sendPostRequest(WEBINAR_CREATE, parameters);
 		Map<String, String> m =json2Map(json);
-		if(m.get("code").equals("200")){
+		if("200".equals(m.get("code"))){
 			return m.get("data");
 		}
 		return null;
@@ -176,7 +176,7 @@ public class VhallUtil {
 		String json = HttpUtil.sendPostRequest(WEBINAR_START, parameters);
 		System.out.println(json);
 		Map<String, String> m =json2Map(json);
-		if(m.get("code").equals("200")){
+		if("200".equals(m.get("code"))){
 			return m.get("data");
 		}
 		return null;

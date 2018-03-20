@@ -62,14 +62,14 @@ public class AppealCourseController {
 		//查找所有的讲师
 		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
-			String str = "昵称:"+map.get("name").toString() + ",账号:"+map.get("logo").toString();
+			String str = "昵称:"+map.get("name").toString() + ",帐号:"+map.get("logo").toString();
 			map.put("name", str);
 		}
 		request.setAttribute("mapList", mapList);
 		return PUBLIC_CLASS_PATH_PREFIX + "/appealCourse";
 	}
 	
-	@RequiresPermissions("cloudClass:menu:appeal")
+	//@RequiresPermissions("cloudClass:menu:appeal")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -99,7 +99,7 @@ public class AppealCourseController {
 		Group ssIsdelete = groups.findByName("ssIsdelete");
 		if (ssIsdelete != null) {
 			String falg = ssIsdelete.getPropertyValue1().toString();
-			liveExamineInfoVo.setSsisDelete(falg.equals("1") ? true : false);
+			liveExamineInfoVo.setSsisDelete("1".equals(falg) ? true : false);
 		}
 		
 		Page<LiveExamineInfoVo> page = examineCourseService.findAppealListPage(liveExamineInfoVo,currentPage, pageSize);
@@ -115,7 +115,7 @@ public class AppealCourseController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseById (LiveExamineInfoVo liveExamineInfoVo){
@@ -140,7 +140,7 @@ public class AppealCourseController {
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "passCourseById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateApply(String id){

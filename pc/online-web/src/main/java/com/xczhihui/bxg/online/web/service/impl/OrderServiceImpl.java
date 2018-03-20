@@ -1,23 +1,22 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.web.dao.CourseDao;
-import com.xczhihui.bxg.online.web.dao.MessageDao;
-import com.xczhihui.bxg.online.web.dao.OrderDao;
-import com.xczhihui.bxg.online.web.service.OrderService;
-import com.xczhihui.bxg.online.web.utils.*;
-import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.MessageShortVo;
-import com.xczhihui.bxg.online.web.vo.OrderVo;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.UUID;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,15 +25,26 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.online.web.dao.CourseDao;
+import com.xczhihui.bxg.online.web.dao.MessageDao;
+import com.xczhihui.bxg.online.web.dao.OrderDao;
+import com.xczhihui.bxg.online.web.service.OrderService;
+import com.xczhihui.bxg.online.web.utils.HttpUtil;
+import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
+import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
+import com.xczhihui.bxg.online.web.utils.PayConfigUtil;
+import com.xczhihui.bxg.online.web.utils.XMLUtil;
+import com.xczhihui.bxg.online.web.vo.MessageShortVo;
+import com.xczhihui.bxg.online.web.vo.OrderVo;
 
 /**
  * 订单业务层接口实现类
@@ -63,7 +73,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
      * @param ids
      * @param request
      */
-    public Map<String,String> saveOrder(String orderNo,String ids,HttpServletRequest request){
+    @Override
+    public Map<String,String> saveOrder(String orderNo, String ids, HttpServletRequest request){
         return orderDao.saveOrder(orderNo,ids,request);
     }
 
@@ -71,7 +82,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
      * 获取用户全部订单信息
      * @return 所有订单信息
      */
-    public Page<OrderVo> getMyAllOrder(Integer  orderStatus,Integer timeQuantum,Integer pageNumber, Integer pageSize,HttpServletRequest request){
+    @Override
+    public Page<OrderVo> getMyAllOrder(Integer  orderStatus, Integer timeQuantum, Integer pageNumber, Integer pageSize, HttpServletRequest request){
         OnlineUser u =  (OnlineUser) request.getSession().getAttribute("_user_");
         if(u != null){
              return  orderDao.getMyAllOrder(orderStatus,timeQuantum,pageNumber, pageSize,u.getId());
@@ -209,13 +221,14 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	/**
 	 * 为购买用户发送消息通知
 	 */
-	public  void  savePurchaseNotice(String  basePath,String orderNo){
+	@Override
+    public  void  savePurchaseNotice(String  basePath, String orderNo){
 		//为购买用户发送消息通知
 		List<Map<String, Object>> courses=courseDao.findNewestCourse(orderNo);
 		if(courses.size() > 0) {
 			for(Map<String,Object>  course : courses){
 				String msg_id = UUID.randomUUID().toString().replaceAll("-", ""); //最新消息的id
-				String msg_link = basePath+"/course/courses?courseId=" + course.get("course_id").toString();
+				String msg_link = basePath+"/course/courses/" + course.get("course_id").toString();
 				String content = "恭喜您成功报名课程<a href=\"javascript:void(0)\" onclick=\"on_click_msg('" + msg_id + "','" + msg_link + "');\"><p>"+course.get("course_name")+"</p></a>";
 				//"快去加入班级QQ群："+course.get("qqno")+"~";
 				MessageShortVo messageShortVo = new MessageShortVo();
@@ -227,11 +240,17 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 				messageDao.saveMessage(messageShortVo);
 			}
 		}
+		logger.info("发送课程消息通知"+orderNo);
 	}
     
     @Override
     public Integer getOrderStatus(String orderNo) {
         return orderDao.getOrderStatus(orderNo);
+    }
+
+    @Override
+    public Integer getOrderStatusById(String orderId) {
+        return orderDao.getOrderStatusById(orderId);
     }
     
     @Override
@@ -252,7 +271,7 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 			}
 			return lst.get(0);
 		}
-    	throw new RuntimeException("找不到订单信息！");
+    	throw new RuntimeException("找不到订单"+orderNo+"信息！");
 	}
 
     /**
@@ -260,16 +279,25 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
      * @param orderNo  订单号
      * @return
      */
+    @Override
     public OrderVo findOrderByOrderNo(String orderNo){
          return  orderDao.findOrderByOrderNo(orderNo);
     }
 
-	public OrderVo findOrderByOrderId(String orderId){
+	@Override
+    public OrderVo findOrderByOrderId(String orderId){
 		return  orderDao.findOrderByOrderId(orderId);
 	}
 
-
-    public Map<String,Object>  findOrderByCourseId(String ids,String userId,String orderNo){
+	
+	@Override
+    public OrderVo findOrderByOrderNoAndStatus(String orderId,Integer status){
+		return  orderDao.findOrderByOrderNoAndStatus(orderId,status);
+	}
+	
+	
+    @Override
+    public Map<String,Object>  findOrderByCourseId(String ids, String userId, String orderNo){
         return orderDao.findOrderByCourseId(ids, userId,orderNo);
     }
 
@@ -278,7 +306,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param ids  课程id号
 	 * @return
 	 */
-	public Boolean findCourseIsFree(String ids){
+	@Override
+    public Boolean findCourseIsFree(String ids){
 		return   orderDao.findCourseIsFree(ids);
 	}
 
@@ -384,7 +413,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param type:0删除订单 1:取消订单
 	 * @param orderNo
 	 */
-	public void  updateOrderStatu(Integer type,String orderNo,OnlineUser user){
+	@Override
+    public void  updateOrderStatu(Integer type, String orderNo, OnlineUser user){
 		String sql="";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("user_id",user.getId());
@@ -413,7 +443,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param ids 购买课程的id数组
 	 * @return
 	 */
-	public List<Map<String,Object>> findActivityOrder(HttpServletRequest request,String ids){
+	@Override
+    public List<Map<String,Object>> findActivityOrder(HttpServletRequest request, String ids){
 		return  orderDao.findActivityOrder(request,ids);
 	}
 
@@ -422,7 +453,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param ids
 	 * @return
 	 */
-	public List<Map<String,Object>>  findActivityCourse(String ids){
+	@Override
+    public List<Map<String,Object>>  findActivityCourse(String ids){
 		return orderDao.findActivityCourse(ids);
 	}
 
@@ -431,7 +463,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param idArr  课程id号
 	 * @return 返回对应的课程对象
 	 */
-	public  List<Map<String,Object>>   findNotActivityOrder(String  idArr,String orderNo,HttpServletRequest request){
+	@Override
+    public  List<Map<String,Object>>   findNotActivityOrder(String  idArr, String orderNo, HttpServletRequest request){
 		return  orderDao.findNotActivityOrder(idArr,orderNo,request);
 	}
 

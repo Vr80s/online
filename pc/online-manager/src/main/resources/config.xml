@@ -55,6 +55,7 @@
 			<list>
 				<value>com.xczhihui.bxg.online.**.domain</value>
 				<value>com.xczhihui.bxg.online.api.po</value>
+				<value>com.xczhihui.bxg.online.manager.mobile.vo</value>
 			</list>
 		</property>
 		<property name="annotatedClasses">
@@ -73,8 +74,8 @@
 			</props>
 		</property>
 	</bean>
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
@@ -90,6 +91,7 @@
 			<tx:method name="process*" propagation="REQUIRED" />
 			<tx:method name="batchProcess" propagation="REQUIRED" />
 			<tx:method name="uploadSuccessCallback" propagation="REQUIRED" />
+			<tx:method name="after*" propagation="REQUIRED" />
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
@@ -106,8 +108,19 @@
 	<!-- dubbo -->
 	<dubbo:application name="${dubbo.app.name}"/>
 	<dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
-	<dubbo:reference id="exceptionService" interface="com.xczhihui.bxg.common.support.service.ExceptionCenterService" timeout="${dubbo.consumer.timeout}" />
+	<!--<dubbo:reference id="exceptionService" interface="com.xczhihui.bxg.common.support.service.ExceptionCenterService" timeout="${dubbo.consumer.timeout}" />-->
 	<dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="${dubbo.consumer.timeout}" />
+ 	<dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="${dubbo.consumer.timeout}" />
 
+	<!-- 注入接口 开始直播通知服务 -->
+	<dubbo:reference  id="liveCallbackServiceImpl" interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" timeout="${dubbo.consumer.timeout}" />
+	
 	<import resource="shiro.xml" />
+
+	<!--RedissonUtil配置-->
+	<bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+		<property name="redisHost" value="${redis.host}"></property>
+		<property name="redisPort" value="${redis.port}"></property>
+	</bean>
+
 </beans>

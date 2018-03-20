@@ -35,7 +35,7 @@
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="/web/js/header.js?v=1.2" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
     <!--百度统计-->
     <script>
@@ -60,18 +60,51 @@
             <!--名医搜索列表-->
             <div class="doctor clearfix">
               <div class="doctor_search_top clearfix">
-              	<h3>名医列表</h3>
+              	<h3>筛选</h3>
               	<div class="doctor_search_ipt">
               		<input type="text" placeholder="输入名字搜索医师"/>
               		<button>搜索</button>
               	</div>
               	
               </div>
-              <div class="doctor_search_bottom"></div>
+              <div class="doctor_search_bottom">
+              	<div class="doctor_search_class">
+              		<!--<span>分类：</span>-->
+              		<span style="padding-left: 28px;">分类：</span>
+              		<ul class="clearfix" id="doctor_search_class">
+              			<!--<li><a href="javascript:;">全部</a></li>
+              			<li><a href="javascript:;">国医大师</a></li>
+              			<li><a href="javascript:;">名老中医</a></li>
+              			<li><a href="javascript:;">古中医</a></li>
+              			<li><a href="javascript:;">少数民族中医</a></li>-->
+              		</ul>
+              	</div>
+              	<div class="doctor_search_keshi">
+              		<span style="padding-left: 28px;">科室：</span>
+              		<ul class="clearfix" id="doctor_search_keshi">
+              			<!--<li><a href="javascript:;">全部</a></li>
+              			<li><a href="javascript:;">肿瘤科</a></li>
+              			<li><a href="javascript:;">儿科</a></li>
+              			<li><a href="javascript:;">骨科/伤科</a></li>
+              			<li><a href="javascript:;">妇科</a></li>
+              			<li><a href="javascript:;">老年人科</a></li>
+              			<li><a href="javascript:;">骨科/伤科</a></li>-->
+              		</ul>
+              	</div>
+              	<div class="doctor_search_condition">
+              		<span>筛选条件：</span>
+              		<ul class="clearfix">
+              			<li id="doctor_search_condition1" class="hide">分类：<div style="display: inline-block;"><span>国医大师</span></div><a href="javascript:;"></a></li>
+              			<li id="doctor_search_condition2" class="hide">科室：<div style="display: inline-block;"><span>中医内科</span></div><a href="javascript:;"></a></li>
+              			<li id="doctor_search_condition3" style="border:none;color: #999;">暂无筛选条件</li>
+              		</ul>
+              	</div>
+              </div>
             </div>
            
            <!--名医列表展示-->
            <div class="doctor_list">
+           	<div id="search_num" style="height: 60px;line-height: 60px;border-bottom: 1px solid #f0f0f0;"></div>
            	<ul id="doctor_list">
            		<!--<li class="clearfix">
            			<div class="doctor_pic">
@@ -229,11 +262,29 @@
 	{{/each}}
 </script>
 
+<!--医师筛选分类部分-->
+<script type="text/template" id="doctor_search_class_Tpl">
+	<li><a href="javascript:;" class="color">全部</a></li>
+	{{each item as item i}}
+	<li><a href="javascript:;" data-type={{item.code}}>{{item.value}}</a></li>
+	{{/each}}
+</script>
+
+<!--医师筛选科室部分-->
+<script type="text/template" id="doctor_search_keshi_Tpl">
+	<li><a href="javascript:;" class="color">全部</a></li>
+	{{each item as item i}}
+	<li><a href="javascript:;" data-id={{item.id}}>{{item.name}}</a></li>
+	{{/each}}
+</script>
+
+
+
 </body>
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/doctor_list.js"></script>
-<script type="text/javascript" src="/web/js/footer.js"></script>
+<script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript">
     $(function () {

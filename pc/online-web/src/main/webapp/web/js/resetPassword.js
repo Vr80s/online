@@ -190,7 +190,7 @@ $(function(){
         var btn = this;
         var resetPhoneInput=$(".phoneNumberBox .resetusername");
         var tel = resetPhoneInput.val().trim();
-        var rel = /^1[3-578]\d{8,9}$/;
+        var rel = /^1[3-5678]\d{8,9}$/;
         var resetcode = $(".resetcode").val();
         //验证码
         var yzm=$(".resetImg").val().trim();
@@ -213,8 +213,12 @@ $(function(){
                 if (result.success === false) {
                     errorMessage(result.errorMessage);
                     if (!flag) {
-                        $(".phoneNumberBox .resetUsernameBox .HitWord").text(result.errorMessage);
-                        $(".phoneNumberBox .resetUsernameBox .resetUsernameHit").css("display","block");
+//                      $(".phoneNumberBox .resetUsernameBox .HitWord").text(result.errorMessage);
+//                      $(".phoneNumberBox .resetUsernameBox .resetUsernameHit").css("display","block");
+                        //验证码错误的时候
+                        $(".resetVificationHit   .HitWord").text(result.errorMessage);
+                         $(".resetImg").css("border", "1px solid #ff4012");
+                        $(".resetVificationHit ").css("display","block");
                     }
                     $(this).css("background-color", "#2cb82c");
                 } else {
@@ -247,8 +251,9 @@ $(function(){
         resetPassVerfication();
     });
     $(".phoneNumberBox .nextStep").click(function () { //验证邮箱注册
-        var regPhone = /^1[3-578]\d{9}$/;
+        var regPhone = /^1[3-5678]\d{9}$/;
         var code1 = $(".resetcode").val().trim();
+        var imgCode = $('.resetImg').val().trim();
         var resetuname=resetPhoneInput.val().trim();
         if (resetuname == "") {
             $(".phoneNumberBox .resetUsernameBox .HitWord").text("用户名不能为空!");
@@ -260,15 +265,29 @@ $(function(){
             resetPhoneInput.css("border", "1px solid #ff4012");
             $(".phoneNumberBox .resetUsernameBox .resetUsernameHit").css("display","block");
             return false;
+        }else if(imgCode.length == 0){
+        	$(".resetVificationHit .HitWord").text("验证码错误");
+            $(".resetImg").css("border", "1px solid #ff4012");
+            $(".resetVificationHit").css("display","block");
+            return false;
         }else if(code1.length==0){
-            $(".resetUsernameCode .HitWord").text("请输入动态码!");
+//          $(".resetUsernameCode .HitWord").text("请输入动态码!");
+//          $(".resetcode").css("border", "1px solid #ff4012");
+//          $(".resetUsernameCode .resetVificationHit").css("display","block");
+            
+            $('#moveCode_warn > span').text("请输入动态码!");
             $(".resetcode").css("border", "1px solid #ff4012");
-            $(".resetUsernameCode .resetVificationHit").css("display","block");
+            $("#moveCode_warn").css("display","block");
             return false;
         }else if (code1.length != 0 && code1.length < 4) {
-            $(".resetUsernameCode .HitWord").text("请输入4位动态码!");
+//          $(".resetUsernameCode .HitWord").text("请输入4位动态码!");
+//          $(".resetcode").css("border", "1px solid #ff4012");
+//          $(".resetUsernameCode .resetVificationHit").css("display","block");
+            
+            
+            $('#moveCode_warn > span').text("请输入4位动态码!");
             $(".resetcode").css("border", "1px solid #ff4012");
-            $(".resetUsernameCode .resetVificationHit").css("display","block");
+            $("#moveCode_warn").css("display","block");
             return false;
         } else if (resetPhoneInput.val() != "" && resetPhoneInput.val().length == 11) {
                 $(".phoneNumberBox .resetUsernameHit").css("display","none");
@@ -285,9 +304,15 @@ $(function(){
                         $(".resetcode").css("border", "1px solid #ff4012");
                         $(".resetUsernameCode .resetVificationHit").css("display","block");
                     }else if(result.success==false){
-                        $(".resetUsernameCode .HitWord").text(result.errorMessage);
-                        $(".resetcode").css("border", "1px solid #ff4012");
-                        $(".resetUsernameCode .resetVificationHit").css("display","block");
+//                      $(".resetUsernameCode .HitWord").text(result.errorMessage);
+//                      $(".resetcode").css("border", "1px solid #ff4012");
+//                      $(".resetUsernameCode .resetVificationHit").css("display","block");
+                        
+                        
+                        $('#moveCode_warn > span').text(result.errorMessage);
+			            $(".resetcode").css("border", "1px solid #ff4012");
+			            $("#moveCode_warn").css("display","block");
+                        
                     }
                     if (result.success === true) {
                         $(".phoneNumberBox").css("display","none");
@@ -492,7 +517,7 @@ $(function(){
         $(".phoneNumberBox .resetUsernameHit").css("display","none");
     });
     $(".phoneNumberBox .resetusername").blur(function () {
-        var regPhone = /^1[3-578]\d{9}$/;
+        var regPhone = /^1[3-5678]\d{9}$/;
         var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
         var resetuname=resetPhoneInput.val().trim();
         var cyResetPasswordhint = document.getElementsByClassName("cyResetPasswordhint")[0];
@@ -512,19 +537,50 @@ $(function(){
     $(".resetcode").blur(function () {
         var code1 = $(".resetcode").val();
         if (code1.length == 0) {
-            $(".resetUsernameCode .HitWord").text("请输入动态码!");
+//          $(".resetUsernameCode .HitWord").text("请输入动态码!");
+//          $(".resetcode").css("border", "1px solid #ff4012");
+//          $(".resetUsernameCode .resetVificationHit").css("display","block");
+            
+            $('#moveCode_warn > span').text("请输入动态码!");
             $(".resetcode").css("border", "1px solid #ff4012");
-            $(".resetUsernameCode .resetVificationHit").css("display","block");
+            $("#moveCode_warn").css("display","block");
         } else if (code1.length > 0 && code1.length < 4) {
-            $(".resetUsernameCode .HitWord").text("请输入4位动态码!");
+//          $(".resetUsernameCode .HitWord").text("请输入4位动态码!");
+//          $(".resetcode").css("border", "1px solid #ff4012");
+//          $(".resetUsernameCode .resetVificationHit").css("display","block");
+            
+             $('#moveCode_warn > span').text("请输入4位动态码!");
             $(".resetcode").css("border", "1px solid #ff4012");
-            $(".resetUsernameCode .resetVificationHit").css("display","block");
+            $("#moveCode_warn").css("display","block");
         }else{
             $(".resetcode").css("border", "");
         }
     })
+    
+      $(".resetImg").blur(function () {
+        var code1 = $(".resetImg").val();
+        if (code1.length == 0) {
+//          $(".resetUsernameCode .HitWord").text("请输入动态码!");
+//          $(".resetcode").css("border", "1px solid #ff4012");
+//          $(".resetUsernameCode .resetVificationHit").css("display","block");
+            
+            $('.resetVificationHit .HitWord').text("请输入验证码!");
+            $(".resetImg").css("border", "1px solid #ff4012");
+            $(".resetVificationHit").css("display","block");
+        }else{
+            $(".resetImg").css("border", "");
+        }
+    })
+    
     $(".resetcode").focus(function () {
         $(".resetcode").css("border", "1px solid #2cb82c");
-        $(".resetUsernameCode .resetVificationHit").css("display","none");
+//      $(".resetUsernameCode .resetVificationHit").css("display","none");
+         $("#moveCode_warn").css("display","none");
+    })
+    
+     $(".resetImg").focus(function () {
+        $(".resetImg").css("border", "1px solid #2cb82c");
+//      $(".resetUsernameCode .resetVificationHit").css("display","none");
+         $(".resetVificationHit ").css("display","none");
     })
 });

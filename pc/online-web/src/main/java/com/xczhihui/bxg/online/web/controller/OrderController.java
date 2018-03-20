@@ -3,7 +3,9 @@ package com.xczhihui.bxg.online.web.controller;
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
@@ -36,6 +38,8 @@ public class OrderController {
     @Autowired
     private OrderService  orderService;
     @Autowired
+    private OrderPayService orderPayService;
+    @Autowired
     private CourseService courseService;
     private Object lock = new Object();
 
@@ -65,17 +69,18 @@ public class OrderController {
         if( u != null){
                 //是否已经生成此课程待支付订单 如果未生成:则生成订单,并且限时免费课购买成功
                Map<String,Object> result=orderService.findOrderByCourseId(ids, u.getId(),orderNo);
-               if(result.get("isBuy").toString().equals("false")) {
+               if("false".equals(result.get("isBuy").toString())) {
                    mapValues= orderService.saveOrder(orderNo, ids, request);
                    //限时免费课或总支付为0元，购买成功
                    if(orderService.findCourseIsFree(ids) || Double.valueOf(mapValues.get("actualPay").toString()) <= 0){
                        synchronized (lock) {
                            String transaction_id="activity"+ UUID.randomUUID().toString().replaceAll("-", "").substring(0,22);
-                           orderService.addPaySuccess(mapValues.get("orderNo").toString(), 0, transaction_id);
+                           orderPayService.addPaySuccess(mapValues.get("orderNo").toString(), Payment.OTHERPAY, transaction_id);
+//                           orderService.addPaySuccess(mapValues.get("orderNo").toString(), 0, transaction_id);
                            //为购买用户发送购买成功的消息通知
-                           String path = request.getContextPath();
-                           String basePath =weburl;
-                           orderService.savePurchaseNotice(basePath, mapValues.get("orderNo").toString());
+//                           String path = request.getContextPath();
+//                           String basePath =weburl;
+//                           orderService.savePurchaseNotice(basePath, mapValues.get("orderNo").toString());
                        }
                        mav.setViewName("redirect:/web/html/myStudyCenter.html");
                    } else { //付费课程只是成成
@@ -139,6 +144,16 @@ public class OrderController {
     @ResponseBody
     public ResponseObject getOrderStatus(String orderNo){
         return ResponseObject.newSuccessResponseObject(orderService.getOrderStatus(orderNo));
+    }
+    /**
+     * 返回当前订单支付状态
+     * @param orderId
+     * @return
+     */
+    @RequestMapping(value = "/getOrderStatusById",method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getOrderStatusById(String orderId){
+        return ResponseObject.newSuccessResponseObject(orderService.getOrderStatusById(orderId));
     }
     /**
      * 检查订单是否已支付

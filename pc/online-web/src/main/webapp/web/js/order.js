@@ -41,7 +41,7 @@ window.onload = function() {
 		'<tr><td><span class="name">{{$value.courseName}}</span></td></tr>' +
 		'</table>' +
 		'</div>' +
-		'<div class="td2">即日起至{{#expiry($value.create_time)}}</div>' +
+		'<div class="td2" style="visibility:hidden">即日起至{{#expiry($value.create_time)}}</div>' +
 		'<div class="td3">￥{{#add00($value.currentPrice)}}</div>' +
 		'<div class="td4">' +
 
@@ -193,20 +193,20 @@ window.onload = function() {
 		'{{/each}}';
 	var step =
 		'<a class="save" style="cursor:pointer"  >提交订单</a>' +
-		'<a class="getRedeem" href="/web/html/myStudyCenter.html?location=fcode">我有课程兑换码，前去兑换</a>' +
+		// '<a class="getRedeem" href="/web/html/myStudyCenter.html?location=fcode">我有课程兑换码，前去兑换</a>' +
 		'{{if course_type==0}}' +
 		'{{if isOldUser==0}}' +
 		'<p>应付金额：<span class="js"></span></p>' +
-		'<a href="javascript:void(0);"  class="return">返回购物车修改</a>' +
+		// '<a href="javascript:void(0);"  class="return">返回购物车修改</a>' +
 //		'<span class="cardNum">验证老学员身份，享受优惠</span>' +
 		'{{else}}' +
 
 		'<p>应付金额：<span class="js"></span></p>' +
-		'<a href="javascript:void(0);"  class="return">返回购物车修改</a>' +
+		// '<a href="javascript:void(0);"  class="return">返回购物车修改</a>' +
 		'{{/if}}' +
 		'{{else}}' +
 		'<p>应付金额：<span class="js"></span></p>' +
-		'<a href="javascript:void(0);"  class="return">返回购物车修改</a>' +
+		// '<a href="javascript:void(0);"  class="return">返回购物车修改</a>' +
 		'{{/if}}';
 	$.ajax({
 		type: "get",
@@ -304,13 +304,6 @@ window.onload = function() {
 					}, false);
 				}
 			}, false);
-			//			} else {
-			//				$('#login').modal('show');
-			//				$('#login').css("display", "block");
-			//				$(".loginGroup .logout").css("display", "block");
-			//				$(".loginGroup .login").css("display", "none");
-			//				return false;
-			//			}
 		}
 	});
 	var lb =
@@ -587,14 +580,6 @@ window.onload = function() {
 
 //购物车列表点击事件
 template.helper('orderClick', function (order) {
-	var a = "";
-	if(order.onlineCourse == 1){
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;"  href="/web/html/payRealCourseDetailPage.html?id='+order.id+'"  target="_blank">';
-	}else if(order.type == 1){
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payOpenCourseDetailPage.html?id='+order.id+'&direct_id='+order.direct_id+'"  target="_blank">';
-	}else{
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payCourseDetailPage.html?id='+order.id+'&courseType='+order.course_type+'&free=0" target="_blank">';
-	}
-  console.info(a);
+	var	a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;"  href="/course/courses/'+order.id+'"  target="_blank">';
 	return a;
 });

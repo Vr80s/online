@@ -3,6 +3,7 @@ package com.xczh.consumer.market.service;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.LecturVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ public interface OnlineCourseService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	List<CourseLecturVo> findLiveListInfo(Integer start_page, Integer page_size, String queryParam) throws SQLException;
+	List<CourseLecturVo>findLiveListInfo() throws SQLException;
 	/**
 	 * 根据课程id得到直播详情
 	 * Description：
@@ -218,6 +219,36 @@ public interface OnlineCourseService {
 	 */
 	String sumMoneyLive(String id);
 	String getlecturerIdByCourseId(Integer courseId)
+			throws SQLException;
+	/**
+	 * 
+	 * Description：修改直播源类型为app直播
+	 * @param courseId
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	void updateLiveSourceType(Integer courseId)throws SQLException ;
+	
+	List<CourseLecturVo> findLiveListInfoOld(Integer start_page,
+			Integer page_size, String queryParam) throws SQLException;
+
+	/**
+	 *
+	 * Description：课程分享
+	 * @param courseId
+	 * @return CourseLecturVo
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	CourseLecturVo courseShare(Integer courseId)
+			throws SQLException;
+	/**
+	 *
+	 * Description：主播分享
+	 * @param lecturerId
+	 * @return LecturVo
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	LecturVo lectureShare(String lecturerId)
 			throws SQLException;
 	
 }

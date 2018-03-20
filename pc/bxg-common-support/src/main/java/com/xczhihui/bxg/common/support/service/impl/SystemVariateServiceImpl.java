@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.support.domain.SystemVariate;
 import com.xczhihui.bxg.common.support.service.SystemVariateService;
+import com.xczhihui.bxg.common.util.bean.Page;
 
 @Service("systemVariateService")
 public class SystemVariateServiceImpl implements SystemVariateService {
@@ -102,6 +103,13 @@ public class SystemVariateServiceImpl implements SystemVariateService {
 		if (svs != null && svs.size() > 0) {
 			return svs.get(0).getName();
 		}
+		return null;
+	}
+
+	@Override
+	public Page<SystemVariate> getSystemVariatesList(Object object,
+			int currentPage, int pageSize) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

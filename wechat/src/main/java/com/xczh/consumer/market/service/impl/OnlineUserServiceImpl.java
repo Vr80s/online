@@ -1,5 +1,19 @@
 package com.xczh.consumer.market.service.impl;
 
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.xczh.consumer.market.bean.OnlineUser;
@@ -10,28 +24,18 @@ import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.dao.WxcpClientUserWxMappingMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.CookieUtil;
-import com.xczh.consumer.market.utils.JdbcUtil;
+import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.common.enums.SMSCode;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.UserOrigin;
 import com.xczhihui.user.center.bean.UserSex;
 import com.xczhihui.user.center.bean.UserStatus;
 import com.xczhihui.user.center.bean.UserType;
-
-import org.apache.commons.dbutils.handlers.MapListHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-
-import java.sql.SQLException;
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class OnlineUserServiceImpl implements OnlineUserService {
@@ -45,10 +49,17 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
+	@Value("${webdomain}")
+	private String webdomain;
+	
 	@Autowired
 	public WxcpClientUserWxMappingMapper wxcpClientUserWxMappingMapper;
 	//数据字典
 	private Map<String, String> attrs = new HashMap<String, String>();
+	
+	//private String  password = RandomUtil.getCharAndNumr(6);
+	
+	
 	@Override
 	public OnlineUser findUserById(String id) throws SQLException {
 		return onlineUserDao.findUserById(id);
@@ -64,7 +75,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	}
 
 	@Override
-	public ResponseObject checkCode(String mobile, String code, String vtype) throws Exception {
+	public ResponseObject checkCode(String mobile, String code,Integer  vtype) throws Exception {
 		if(null == mobile){
 			return ResponseObject.newErrorResponseObject("手机号不能为空! ");
 		}
@@ -73,11 +84,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 		initSystemVariate();
 		/**
-		 * 如果vtype类型等于1 的话，证明是注册，用户肯定是不存在了
-		 * 如果vtype等于1 的话,就需要判断用户是否存在啦
+		 * 如果短信验证类型是忘记密码的话，通过手机号查询是否存在此用户
 		 */
-		if(vtype!=null && "2".equals(vtype)){
-			//在用户重新获取登陆对象
+		if(vtype!=null && SMSCode.FORGOT_PASSWORD.getCode() == vtype){
+			//在用户重新获取登录对象
 			ItcastUser iu = userCenterAPI.getUser(mobile);
 			if(iu == null){
 				return ResponseObject.newErrorResponseObject("用户不存在！");
@@ -89,16 +99,18 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				}
 			}	
 		}
-		//动态码验证
+		/**
+		 * 通过手机号和短信验证码类型查找 是否存在此条信息
+		 */
 		List<VerificationCode>  codes = onlineUserDao.getListVerificationCode(mobile,vtype);
+		
 		if (codes == null || codes.size() <= 0) {
 			return ResponseObject.newErrorResponseObject("动态码不正确! ");
 		}
 		if(!codes.get(0).getVcode().equals(code)){
 			return ResponseObject.newErrorResponseObject("动态码不正确！");
 		}
-		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 1000 * 60
-				* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
+		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 			return ResponseObject.newErrorResponseObject("动态码超时，请重新发送！");
 		}
 		return ResponseObject.newSuccessResponseObject("动态码正确！");
@@ -157,7 +169,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	}
 	
 	@Override
-	public OnlineUser addUser(String mobile, String username, String shareCode, String password) throws Exception {
+	public OnlineUser addUser(String mobile, String username, 
+			String origin, String password) throws Exception {
+		
 		OnlineUser u = new OnlineUser();
 		//保存本地库
 		u.setId(UUID.randomUUID().toString().replace("-", ""));
@@ -167,39 +181,35 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setCreateTime(new Date());
 		u.setDelete(false);
 		u.setName(mobile);   //初次登录设置默认名为：手机号
-		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		u.setSmallHeadPhoto(webdomain+"/web/images/defaultHead/18.png");
 		u.setVisitSum(0);
 		u.setStayTime(0);
 		u.setUserType(0);
-		u.setOrigin("online");
+		u.setOrigin(origin);
 		u.setMenuId(-1);
-		
 		u.setPassword(password);
-		
 		u.setSex(OnlineUser.SEX_UNKNOWN);
 		u.setCreateTime(new Date());
 		u.setType(1);
-		//分销，设置上级
-		if (shareCode != null && !"".equals(shareCode)) {
-			List<Map<String, Object>> parent = onlineUserDao.query
-					(JdbcUtil.getCurrentConnection(),"select id from oe_user where share_code = ?", new MapListHandler(),shareCode);
-			if (parent.size() > 0) {
-				u.setParentId(parent.get(0).get("id").toString());
-			}
-		}
-		//String uuid = UUID.randomUUID().toString().replace("-", "");
-		String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren,mobile, u.getSmallHeadPhoto());
+		
+		/**
+		 * 创建微吼信息
+		 */
+		String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),
+				WeihouInterfacesListUtil.MOREN,mobile, 
+				u.getSmallHeadPhoto(),mobile);
+		
 		u.setVhallId(weihouUserId);  //微吼id
-		//u.setVhallName(u.getId());  //微吼名字
 		u.setVhallName(mobile);
-		u.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
+		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
+		
 		onlineUserDao.addOnlineUser(u);
 		return u;
 	}
 
 	//20170711---yuruixin
 	@Override
-	public String addMessage(String username, String vtype) throws Exception{
+	public String addMessage(String username, Integer vtype) throws Exception{
 		
 		try {
 			initSystemVariate();
@@ -207,10 +217,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (!"1".equals(vtype) && !"2".equals(vtype)) {
-			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码");
+		if (SMSCode.RETISTERED.getCode() !=vtype && SMSCode.FORGOT_PASSWORD.getCode()!=vtype &&
+				SMSCode.WITHDRAWAL.getCode() != vtype ) {
+			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码  5 为提现使用");
 		}
-		
 		ItcastUser iu = null;
 		try {
 			iu = userCenterAPI.getUser(username);
@@ -221,7 +231,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		/**
 		 * 新注册，根据用户中心判断用户是否存在
 		 */
-		if ("1".equals(vtype) && iu != null) {
+		if (SMSCode.RETISTERED.getCode() == vtype && iu != null) {
 			return  (String.format("该%s已注册，请直接登录！",username.contains("@") ? "邮箱" : "手机号"));
 		}
 
@@ -235,17 +245,17 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		/**
 		 * 重置密码，根据本地库判断用户是否存在
 		 */
-		if ("2".equals(vtype) && (o == null || iu == null)) {
+		if ((SMSCode.FORGOT_PASSWORD.getCode() == vtype || SMSCode.WITHDRAWAL.getCode() == vtype)  && (o == null || iu == null)) {
 			return  "用户不存在！";
 		}
 		/**
 		 * 重置密码，根据用户中心判断用户是否被禁用
 		 */
-		if ("2".equals(vtype) && iu.getStatus() == -1) {
+		if ((SMSCode.FORGOT_PASSWORD.getCode() == vtype || SMSCode.WITHDRAWAL.getCode() == vtype) && iu.getStatus() == -1) {
 			return "用户已禁用！";
 		}
 		
-		// 产生随机6位动态码
+		// 产生随机4位动态码
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
 		
 		//vcode = "1234";
@@ -297,12 +307,14 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			}
 		}
 		sendPhone(username, vcode, vtype);
-		return "发送成功！";
+		return "发送成功";
 	}
 	
-	private void sendPhone(String phone, String vcode,String vtype){
-		if (!"1".equals(vtype) && !"2".equals(vtype)) {
-			throw new RuntimeException("动态码类型错误！1为注册，2为找回密码");
+	private void sendPhone(String phone, String vcode,Integer vtype){
+		
+		if (SMSCode.RETISTERED.getCode() !=vtype && SMSCode.FORGOT_PASSWORD.getCode()!=vtype &&
+				SMSCode.WITHDRAWAL.getCode() != vtype ) {
+			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码  5 为提现使用");
 		}
 		//判断发送结果
 		SendSmsResponse response = null;
@@ -319,8 +331,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	 * 微信端注册
 	 */
 	@Override
-	public ResponseObject addPhoneRegistByAppH5(HttpServletRequest req, String password,
-			String mobile,String vtype)
+	public OnlineUser addPhoneRegistByAppH5(HttpServletRequest req, String password,
+			String mobile,Integer vtype)
 			throws Exception {
 		//手机
 		ItcastUser iu = userCenterAPI.getUser(mobile);
@@ -334,16 +346,19 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
 			user = this.addUser(mobile, "",shareCode,password);
 		}
-		//注册过后删除这个被记录的验证码
+		/*
+		 * 注册过后删除这个被记录的验证码
+		 */
 		List<VerificationCode> lists = onlineUserDao.getListVerificationCode(mobile,vtype);
 		if(null != lists && lists.size() > 0){
 			onlineUserDao.deleteVerificationCodeById(lists.get(0).getId());
 		}
 		/**
+		 * 注册成功后初始化
 		 * 为用户初始化一条代币记录
 		 */
 		userCoinService.saveUserCoin(user.getId());
-		return ResponseObject.newSuccessResponseObject(user);
+		return user;
 	}
 	@Override
 	public void updateUserCenterData(OnlineUser user, Map<String,String> map) throws SQLException {
@@ -379,10 +394,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		onlineUserDao.updateUserUnionidByid(ou1);
 	}
 	/**
-	 * 验证3 和 4 的动态码
+	 * 短信验证码验证
 	 */
 	@Override
-	public ResponseObject changeMobileCheckCode(String mobile, String code, String vtype) throws Exception {
+	public ResponseObject changeMobileCheckCode(String mobile, String code, Integer vtype) throws Exception {
 		if(null == mobile){
 			return ResponseObject.newErrorResponseObject("手机号不能为空! ");
 		}
@@ -390,15 +405,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			return ResponseObject.newErrorResponseObject("验证码不能为空! ");
 		}
 		initSystemVariate();
-		/**
-		 * 如果vtype类型等于1 的话，证明是注册，用户肯定是不存在了
-		 * 如果vtype等于1 的话,就需要判断用户是否存在啦
-		 * 
-		 * 如果vtype类型等于3 的话，证明是注册，用户肯定是不存在了
-		 * 如果vtype等于3的话,就需要判断用户是否存在啦
-		 */
-		if(vtype!=null && "3".equals(vtype)){
-			//在用户重新获取登陆对象
+		
+		//已经存在的手机号需要验证时候有效
+		if(vtype!=null && SMSCode.OLD_PHONE.getCode() ==vtype &&  SMSCode.WITHDRAWAL.getCode() == vtype){
+			
+			//在用户重新获取登录对象
 			ItcastUser iu = userCenterAPI.getUser(mobile);
 			if(iu == null){
 				return ResponseObject.newErrorResponseObject("用户不存在！");
@@ -428,20 +439,18 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	 * 给 3 和 4  发送动态码
 	 */
 	@Override
-	public String changeMobileSendCode(String username, String vtype) throws Exception{
-		
+	public String changeMobileSendCode(String username, Integer vtype) throws Exception{
 		try {
 			initSystemVariate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (!"3".equals(vtype) && !"4".equals(vtype)) {
+		if (SMSCode.OLD_PHONE.getCode()!=vtype && SMSCode.NEW_PHONE.getCode()!=vtype ) {
 			throw new RuntimeException ("动态码类型错误！3为本手机，4为要更换的手机");
 		}
-		
-		if(vtype!=null && "3".equals(vtype)){
-			//在用户重新获取登陆对象
+		if(vtype!=null && SMSCode.OLD_PHONE.getCode()==vtype){
+			//在用户重新获取登录对象
 			ItcastUser iu = userCenterAPI.getUser(username);
 			if(iu == null){
 				return "用户不存在！";
@@ -452,8 +461,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 					return "用户已禁用";
 				}
 			}	
-		}else if(vtype!=null && "4".equals(vtype)){
-			//在用户重新获取登陆对象
+		}else if(vtype!=null && SMSCode.NEW_PHONE.getCode()==vtype){
+			//在用户重新获取登录对象
 			ItcastUser iu = userCenterAPI.getUser(username);
 			if(iu!=null){
 				return "此手机号已被绑定";
@@ -467,6 +476,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 		// 产生随机4位动态码
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
+		
 		//vcode = "1234";
 		List<VerificationCode> codes = null;
 		try {
@@ -478,6 +488,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				
 			VerificationCode code = codes.get(0);
 			
+			//时间差
+			Long  t_difference = new Date().getTime() - code.getCreateTime().getTime() ;
+			
+			//时间间隔
+			
 			if (new Date().getTime() - code.getCreateTime().getTime() < 1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
 				//发送，判断邮箱还是手机
 				if (username.contains("@")){
@@ -485,8 +500,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				}else{
 					return "同一手机号两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！";
 				}
-			} else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60
-					* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
+			} else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 				code.setVcode(vcode);
 			} else {
 				vcode = code.getVcode();
@@ -511,9 +525,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				e.printStackTrace();
 			}
 		}
-		//为了方便测试战时不做这个测试了
 		sendPhoneCheck(username, vcode, vtype);
-		return "发送成功！";
+		return "发送成功";
 	}
 	/**
 	 * 
@@ -524,8 +537,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	private void sendPhoneCheck(String phone, String vcode,String vtype){
-		if (!"3".equals(vtype) && !"4".equals(vtype)) {
+	private void sendPhoneCheck(String phone, String vcode,Integer vtype){
+		if (SMSCode.OLD_PHONE.getCode()!=vtype && SMSCode.NEW_PHONE.getCode()!=vtype ) {
 			throw new RuntimeException ("动态码类型错误！3为本手机，4为要更换的手机");
 		}
 		//判断发送结果
@@ -536,15 +549,19 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			e.printStackTrace();
 		}
 		if (response==null || !"OK".equals(response.getCode())) {
-			throw new RuntimeException ("发送动态码失败！");
+			throw new RuntimeException ("发送失败");
 		}
 	}
-	
 	
 	public static void main(String[] args) {
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
 		System.out.println(vcode);
+		double 	vcode1 = Math.random()*9000+1000;
+		System.out.println(vcode1);
+		System.out.println((int)((Math.random()*9+1)*1000));
 	}
+	
+	
 	@Override
 	public void updateUserLoginName(OnlineUser o) throws SQLException {
 		onlineUserDao.updateUserLoginName(o);
@@ -575,17 +592,24 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	}
 	@Override
 	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
-			String password, String mobile, String vtype, String appUniqueId) throws Exception {
+			String password, String mobile, Integer vtype, String appUniqueId) throws Exception {
 		
 		//手机
 		ItcastUser iu = userCenterAPI.getUser(mobile);
 		OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
+		ItcastUser iuApple = userCenterAPI.getUser(appUniqueId);
+		//如果此唯一id已经注册了，那么这个就是普通的注册
+		if(iu == null && iuApple==null){
+			//向用户中心注册
+			return ResponseObject.newSuccessResponseObject(addPhoneRegistByAppH5(req,password,mobile,vtype));
+		}
+		
 		if(iu == null){
 		   //向用户中心注册
-//			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
-//					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
-			userCenterAPI.update(mobile,"",0, null, mobile,0, 0);
+			userCenterAPI.update(appUniqueId,"",3, null, mobile,3, 3);
 			userCenterAPI.updatePassword(appUniqueId,"123456",password);
+			//更改登录名
+			userCenterAPI.updateLoginName(appUniqueId,mobile);
 		}
 		if(null == user ){
 			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
@@ -614,8 +638,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setMobile(mobile);
 		u.setName(mobile);
 		u.setPassword(password);
-		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-		
+		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/18.png");
 		onlineUserDao.updateOnlineUserAddPwdAndUserName(u);
 		return u;
 	}
@@ -637,7 +660,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 //		int index=(int)(Math.random()*arr.length);
 		String name = "游客";
 		String password = "123456";
-		
 		/**
 		 * 因为要用到用户中心id了
 		 */
@@ -662,8 +684,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setCreateTime(new Date());
 		u.setDelete(false);
 		u.setName("");   //默认一个名字
-		//u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/yx_mr.png");
+		u.setSmallHeadPhoto(webdomain+"/web/images/defaultHead/18.png");
 		u.setVisitSum(0);
 		u.setStayTime(0);
 		u.setUserType(0);
@@ -675,13 +696,13 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		//分销，设置上级
 		String weihouUserId = WeihouInterfacesListUtil.createUser(
 				u.getId(),
-				WeihouInterfacesListUtil.moren,
+				WeihouInterfacesListUtil.MOREN,
 				name,
 				returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
 		
 		u.setVhallId(weihouUserId);  //微吼id
 		u.setVhallName(name);
-		u.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
+		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
 		onlineUserDao.addOnlineUser(u);
 		/**
 		 * 为用户初始化一条代币记录
@@ -694,6 +715,83 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs) throws SQLException {
 		// TODO Auto-generated method stub
 		onlineUserDao.updateAppleTourisrecord(appUniqueId,isReigs);
+	}
+	@Override
+	public Map<String, Object> findHostById(String lecturerId)
+			throws SQLException {
+		return onlineUserDao.findHostById(lecturerId);
+	}
+	@Override
+	public void emptyAccount(String userName) throws SQLException {
+		
+		onlineUserDao.emptyAccount(userName);
+	}
+	@Override
+	public OnlineUser wechatCreateUserInfo(WxcpClientUserWxMapping wx) throws SQLException {
+		// TODO Auto-generated method stub
+		/**
+		 * 用户中心注册
+		 */
+		com.xczh.consumer.market.utils.Token iu =  userCenterAPI.regist(wx.getUnionid(), 
+				WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
+				wx.getNickname(),UserSex.parseWechat(wx.getSex()), null,
+				null, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
+			
+		
+		OnlineUser u = new OnlineUser();
+		//用户中心id  用于发送礼物等操作
+		u.setUserCenterId(iu.getUserId());
+		//保存本地库
+		u.setId(UUID.randomUUID().toString().replace("-", ""));
+		u.setStatus(0);
+		u.setCreateTime(new Date());
+		u.setDelete(false);
+		u.setLoginName(wx.getUnionid());
+		u.setName(wx.getNickname());   						//微信用户名称
+		u.setSmallHeadPhoto(wx.getHeadimgurl());//微信用户头像
+		u.setVisitSum(0);
+		u.setStayTime(0);
+		u.setUserType(0);
+		u.setOrigin("weixin_public");
+		u.setMenuId(-1);
+		u.setPassword(WeihouInterfacesListUtil.MOREN_USER_PASSWORD);
+		u.setSex(UserSex.parseWechat(wx.getSex()).getValue()); //微信性别
+		u.setType(1);
+		
+		/**
+		 * 创建微吼信息
+		 */
+		String weihouUserId = WeihouInterfacesListUtil.createUser(
+				u.getId(),
+				WeihouInterfacesListUtil.MOREN,wx.getNickname(),
+				wx.getHeadimgurl());
+		u.setVhallId(weihouUserId);  //微吼id
+		u.setVhallName(wx.getNickname());
+		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
+		
+		onlineUserDao.addOnlineUser(u);
+		
+		
+		/**
+		 * 为用户初始化一条代币记录
+		 */
+		userCoinService.saveUserCoin(u.getId());
+		return u;
+	}
+	@Override
+	public void verifyPhone(String username) throws SQLException {
+		// TODO Auto-generated method stub
+		//在用户重新获取登录对象
+		ItcastUser iu = userCenterAPI.getUser(username);
+		if(iu == null){
+			throw new RuntimeException ("用户不存在！");
+		}
+		OnlineUser o = onlineUserDao.findUserByLoginName(username);
+		if (o != null) {
+			if (o.isDelete() || o.getStatus() == -1){
+				throw new RuntimeException ("用户已禁用！");
+			}
+		}	
 	}
 	
 }

@@ -14,6 +14,10 @@
 		<id column="detailed_address" property="detailedAddress" />
 		<id column="score" property="score" />
 		<id column="authentication" property="authentication" />
+		<id column="front_img" property="frontImg" />
+		<id column="wechat" property="wechat" />
+		<id column="head_portrait" property="headPortrait" />
+		<id column="contactor" property="contactor" />
 	</resultMap>
 
 	<resultMap type="com.xczhihui.medical.hospital.vo.MedicalHospitalVo" id="MedicalHospitalListResult" extends="MedicalHospitalBaseResult">
@@ -57,7 +61,7 @@
 		<foreach collection="list" index="index" item="id" open="(" separator="," close=")">
 			#{id}
 		</foreach>
-		ORDER BY mh.authentication DESC, mh.score DESC ,convert(mh.name using gbk) ASC
+		ORDER BY mh.authentication DESC, mh.score DESC ,mh.`create_time` DESC
 	</select>
 
 	<select id="selectHospitalIdList" resultType="java.lang.String">
@@ -69,19 +73,26 @@
 		<if test="name != null and name!=''">
 			and mh.name like concat('%',#{name},'%')
 		</if>
-		ORDER BY mh.authentication DESC, mh.score DESC,convert(name using gbk) ASC
+		GROUP BY mh.id
+		ORDER BY mh.authentication DESC, mh.score DESC,mh.`create_time` DESC
 	</select>
 
 	<select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
 		SELECT
-		  mf.id,mf.name
+		  mf.id,
+		  mf.name
 		FROM
 		  `medical_field` mf
-		  LEFT JOIN `medical_hospital_field` mhf
+		  JOIN `medical_hospital_field` mhf
 			ON mf.`id` = mhf.`field_id`
+			AND mhf.`deleted`=0
+		  JOIN `medical_hospital` mh
+			ON mh.id = mhf.`hospital_id`
+			AND mh.`deleted`=0
+			AND mh.`status`=1
 		GROUP BY mhf.`field_id`
 		ORDER BY COUNT(mhf.`field_id`) DESC
-		LIMIT 0, 8
+		LIMIT 0, 10
 	</select>
 
 	<select id="selectRecHospital" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalVo">
@@ -125,13 +136,118 @@
 		  mh.score,
 		  mh.authentication,
 		  mh.recommend,
+		  mh.front_img,
+		  mh.wechat,
+		  mh.head_portrait,
+		  mh.contactor,
 		  mhp.`picture`,
 		  mf.`name` fieldName
 		FROM
-		  medical_hospital mh LEFT JOIN `medical_hospital_picture` mhp ON mh.`id`=mhp.`hospital_id`
+		  medical_hospital mh LEFT JOIN `medical_hospital_picture` mhp ON mh.`id`=mhp.`hospital_id` AND mhp.deleted = 0
 		  LEFT JOIN `medical_hospital_field` mhf ON mh.id = mhf.`hospital_id`
 		  LEFT JOIN `medical_field` mf ON mf.`id`=mhf.`field_id`
 		WHERE mh.deleted = 0
 		  AND mh.status = 1  and  mh.id = #{id}
 	</select>
+
+	<select id="getAuthenticationById" parameterType="string" resultType="boolean">
+		SELECT authentication
+		FROM medical_hospital
+		WHERE id = #{id}
+	</select>
+
+	<select id="getFieldsPage" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
+		SELECT
+		id, name
+		FROM
+		medical_field
+	</select>
+
+	<update id="updateSelective" parameterType="com.xczhihui.medical.hospital.model.MedicalHospital">
+		UPDATE medical_hospital
+		<set>
+			<if test="medicalHospital.headPortrait != null">
+				head_portrait = #{medicalHospital.headPortrait},
+			</if>
+			<if test="medicalHospital.description != null">
+				description = #{medicalHospital.description},
+			</if>
+			<if test="medicalHospital.contactor != null">
+				contactor = #{medicalHospital.contactor},
+			</if>
+			<if test="medicalHospital.tel != null">
+				tel = #{medicalHospital.tel},
+			</if>
+			<if test="medicalHospital.email != null">
+				email = #{medicalHospital.email},
+			</if>
+			<if test="medicalHospital.wechat != null">
+				wechat = #{medicalHospital.wechat},
+			</if>
+			<if test="medicalHospital.province != null">
+				province = #{medicalHospital.province},
+			</if>
+			<if test="medicalHospital.city != null">
+				city = #{medicalHospital.city},
+			</if>
+			<if test="medicalHospital.detailedAddress != null">
+				detailed_address = #{medicalHospital.detailedAddress},
+			</if>
+			<if test="medicalHospital.updateTime != null">
+				update_time = #{medicalHospital.updateTime},
+			</if>
+		</set>
+		WHERE id = #{medicalHospital.id}
+	</update>
+
+	<select id="findByName" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+		SELECT id
+	  	FROM medical_hospital
+	  	WHERE name = #{name} and deleted = 0
+	</select>
+
+	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		SELECT md.id, md.name, md.title,md.status,
+			md.authentication_information_id, md.field_text
+		FROM medical_doctor md
+		where md.deleted = 0 AND md.id IN(
+			SELECT mhd.doctor_id FROM medical_hospital_doctor mhd WHERE hospital_id = #{hospitalId} and deleted = 0
+		)
+		<if test="doctorName != null">
+			AND md.name LIKE concat('%',#{doctorName},'%')
+		</if>
+		order by create_time
+	</select>
+
+	<select id="selectHospitalByIdAndStatus"  resultMap="MedicalHospitalResult">
+		SELECT
+		mh.id,
+		mh.name,
+		mh.lal,
+		mh.description,
+		mh.tel,
+		mh.email,
+		mh.province,
+		mh.city,
+		mh.detailed_address,
+		mh.score,
+		mh.authentication,
+		mh.recommend,
+		mh.front_img,
+		mh.wechat,
+		mh.head_portrait,
+		mh.contactor,
+		mhp.`picture`,
+		mf.`name` fieldName
+		FROM
+		medical_hospital mh LEFT JOIN `medical_hospital_picture` mhp ON mh.`id`=mhp.`hospital_id` AND mhp.deleted = 0
+		LEFT JOIN `medical_hospital_field` mhf ON mh.id = mhf.`hospital_id`
+		LEFT JOIN `medical_field` mf ON mf.`id`=mhf.`field_id`
+		WHERE mh.deleted = 0
+		AND mh.id = #{id}
+		<if test="status != null">
+			AND md.status = #{status}
+		</if>
+	</select>
+
 </mapper>

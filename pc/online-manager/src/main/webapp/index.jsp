@@ -10,7 +10,7 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="refresh" content="0; url=${base}/home" />
+<meta http-equiv="refresh" content="0; url=/home" />
 </head>
 <body>
 </body>

@@ -3,6 +3,7 @@ package com.xczhihui.medical.doctor.model;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 
@@ -27,104 +28,210 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
      * 医师表
      */
 	private String id;
-    /**
+
+	/**
      * 姓名
      */
 	private String name;
-    /**
+
+	/**
      * 职称
      */
 	private String title;
-    /**
+
+	/**
      * 医师简介
      */
 	private String description;
-    /**
+
+	/**
      * 联系电话
      */
 	private String tel;
-    /**
+
+	/**
      * 用户表id
      */
 	@TableField("user_id")
 	private String userId;
-    /**
+
+	/**
      * 医师类别：1.名青年中医2.名老中医3.少数民族中医4.国医大师5.古中医
      */
 	private String type;
-    /**
+
+	/**
      * 省
      */
 	private String province;
-    /**
+
+	/**
      * 市
      */
 	private String city;
-    /**
+
+	/**
      * 详细地址
      */
 	@TableField("detailed_address")
 	private String detailedAddress;
-
 
 	/**
      * 坐诊时间
      */
 	@TableField("work_time")
 	private String workTime;
-    /**
+
+	/**
      * 认证信息id
      */
 	@TableField("authentication_information_id")
 	private String authenticationInformationId;
-    /**
+
+	/**
      * 1已删除0未删除
      */
-//	private Boolean deleted;
-    /**
+	private Boolean deleted;
+
+	/**
      * 启用状态
      */
-//	private Boolean status;
-    /**
+	private Boolean status;
+
+	/**
      * 创建时间
      */
-//	@TableField("create_time")
-//	private Date createTime;
-    /**
+	@TableField("create_time")
+	private Date createTime;
+
+	/**
      * 创建人id
      */
-//	@TableField("create_person")
-//	private String createPerson;
-    /**
+	@TableField("create_person")
+	private String createPerson;
+
+	/**
      * 更新时间
      */
-//	@TableField("update_time")
-//	private Date updateTime;
-    /**
+	@TableField("update_time")
+	private Date updateTime;
+
+	/**
      * 更新人id
      */
-//	@TableField("update_person")
-//	private String updatePerson;
-    /**
+	@TableField("update_person")
+	private String updatePerson;
+
+	/**
      * 版本
      */
-//	private String version;
-    /**
+	private String version;
+
+	/**
      * 备注
      */
-//	private String remark;
+	private String remark;
 
-	//头像
+	/**
+	 * 头像
+	 */
+	@TableField(exist = false)
 	private String headPortrait;
-	//医馆名
+
+	/**
+	 * 医馆id
+	 */
+	@TableField(exist = false)
 	private String hospitalId;
+
+	/**
+	 * 医馆名
+	 */
+	@TableField(exist = false)
 	private String hospitalName;
 
+	/**
+	 * 医师擅长领域
+	 */
+	@TableField(exist = false)
 	private List<MedicalField> fields;
 
+	/**
+	 * 医师所在医馆
+	 */
+	@TableField(exist = false)
 	private MedicalHospital medicalHospital;
 
+	/**
+	 * 医师认证信息
+	 */
+	@TableField(exist = false)
 	private MedicalDoctorAuthenticationInformation medicalDoctorAuthenticationInformation;
+
+	/**
+	 * 擅长
+	 */
+	@TableField("field_text")
+	private String fieldText;
+
+	/**
+	 * 身份证号
+	 */
+	@TableField("card_num")
+	private String cardNum;
+
+	/**
+	 * 医师所在的科室
+	 * false：不映射到数据库表字段
+	 */
+	@TableField(exist = false)
+	private List<MedicalDepartment> departments;
+
+	/**
+	 * 科室id数组
+	 * false：不映射到数据库表字段
+	 */
+	@TableField(exist = false)
+	private List<String> departmentIds;
+
+	/**
+	 * 职称证明
+	 * false：不映射到数据库表字段
+	 */
+	@TableField(exist = false)
+	private String titleProve;
+
+	public String getTitleProve() {
+		return titleProve;
+	}
+
+	public void setTitleProve(String titleProve) {
+		this.titleProve = titleProve;
+	}
+
+	public List<String> getDepartmentIds() {
+		return departmentIds;
+	}
+
+	public void setDepartmentIds(List<String> departmentIds) {
+		this.departmentIds = departmentIds;
+	}
+
+	public List<MedicalDepartment> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(List<MedicalDepartment> departments) {
+		this.departments = departments;
+	}
+
+	public String getCardNum() {
+		return cardNum;
+	}
+
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
 
 	public MedicalDoctorAuthenticationInformation getMedicalDoctorAuthenticationInformation() {
 		return medicalDoctorAuthenticationInformation;
@@ -275,6 +382,77 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 		this.authenticationInformationId = authenticationInformationId;
 	}
 
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCreatePerson() {
+		return createPerson;
+	}
+
+	public void setCreatePerson(String createPerson) {
+		this.createPerson = createPerson;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getUpdatePerson() {
+		return updatePerson;
+	}
+
+	public void setUpdatePerson(String updatePerson) {
+		this.updatePerson = updatePerson;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getFieldText() {
+		return fieldText;
+	}
+
+	public void setFieldText(String fieldText) {
+		this.fieldText = fieldText;
+	}
 
 	@Override
 	protected Serializable pkVal() {
@@ -295,14 +473,14 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 			", city=" + city +
 			", detailedAddress=" + detailedAddress +
 			", authenticationInformationId=" + authenticationInformationId +
-//			", deleted=" + deleted +
-//			", status=" + status +
-//			", createTime=" + createTime +
-//			", createPerson=" + createPerson +
-//			", updateTime=" + updateTime +
-//			", updatePerson=" + updatePerson +
-//			", version=" + version +
-//			", remark=" + remark +
+			", deleted=" + deleted +
+			", status=" + status +
+			", createTime=" + createTime +
+			", createPerson=" + createPerson +
+			", updateTime=" + updateTime +
+			", updatePerson=" + updatePerson +
+			", version=" + version +
+			", remark=" + remark +
 			"}";
 	}
 }

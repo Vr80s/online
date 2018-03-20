@@ -235,9 +235,17 @@ public class OnlineUser extends BxgUser implements Serializable {
 	
 	@Column(name = "individuality_signature")
 	private String  individualitySignature;    //个性签名
-	
-	
-	
+
+	@Transient
+	private Boolean caStatus;
+
+	public Boolean getCaStatus() {
+		return caStatus;
+	}
+
+	public void setCaStatus(Boolean caStatus) {
+		this.caStatus = caStatus;
+	}
 
 	public String getVhallId() {
 		return vhallId;
@@ -297,11 +305,13 @@ public class OnlineUser extends BxgUser implements Serializable {
 	}
 
 
+	@Override
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	public Date getCreateTime() {
 		return super.getCreateTime();
 	}
 
+	@Override
 	public void setCreateTime(Date createTime) {
 		super.setCreateTime(createTime);
 	}

@@ -28,7 +28,10 @@ public class MessageServiceImpl implements MessageService {
     public void add(String content,String userId) {
         try {
         	//content = "<font color=\"#2cb82c\">意见反馈：</font>"+content;
-            basicSimpleDao.update(JdbcUtil.getCurrentConnection(),"insert into oe_message(title,id,user_id,context,type,status,is_delete,create_time,readstatus,answerStatus) values(?,?,?,?,?,?,?,?,?,?)", "无",UUID.randomUUID().toString().replaceAll("-",""),userId,content,2,1,0,new Date(),0,0);
+            basicSimpleDao.update(JdbcUtil.getCurrentConnection(),"insert into oe_message(title,id,user_id,context,type,status,is_delete,create_time,readstatus,answerStatus) values(?,?,?,?,?,?,?,?,?,?)", 
+            		"无",UUID.randomUUID().toString().replaceAll("-",""),userId,content,2,1,0,new Date(),0,0);
+            
+            System.out.println("========================");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -32,7 +32,7 @@ public class BxsTagController {
 
 	@Autowired
 	BxsTagService tagService;
-	@RequiresPermissions("boxueshe:menu:tag")
+	//@RequiresPermissions("boxueshe:menu:tag")
 	@RequestMapping(value = "/tagIndex" , method = RequestMethod.GET)
 	public ModelAndView student(HttpServletRequest request,String page,String menuName,String menuId){
 		 ModelAndView mav=new ModelAndView("boxueshe/tag");
@@ -43,7 +43,7 @@ public class BxsTagController {
      * 获取班级列表信息，根据课程ID号查找
      * @return
      */
-	@RequiresPermissions("boxueshe:menu:tag")
+	//@RequiresPermissions("boxueshe:menu:tag")
     @RequestMapping(value = "/findTagList")
     @ResponseBody
     public TableVo findTagList(TableVo tableVo){

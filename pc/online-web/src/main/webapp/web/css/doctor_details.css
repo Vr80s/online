@@ -22,7 +22,8 @@
 .header {
   margin-top:20px;
   height: 200px;
-  background-image: url(../images/doctor_detail/header_bg.png);
+  /*background-image: url(../images/doctor_detail/header_bg.png);*/
+ 	background: #fff;
   background-repeat: no-repeat;
   background-position: top ;
   -webkit-background-size: 100% 50%;
@@ -64,7 +65,7 @@
   padding-top: 54px;
 }
 .header .header_inf .header_inf_right > span {
-  color: #fff;
+  color: #000;
 }
 .header .header_inf .header_inf_right > span:first-child {
   font-weight: 700;

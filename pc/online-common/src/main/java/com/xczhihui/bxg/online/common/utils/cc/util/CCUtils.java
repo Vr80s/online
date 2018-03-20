@@ -8,6 +8,7 @@ import java.util.Map;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
+import org.hibernate.annotations.SourceType;
 import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
@@ -104,5 +105,28 @@ public class CCUtils {
 			return fromJson.get("result").toString();
 		}
 		return null;
+	}
+
+
+	public static String getVideoLength(String videoid){
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+		paramsMap.put("videoid", videoid);
+		paramsMap.put("format", "json");
+		long time = System.currentTimeMillis();
+		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+		String responsestr = APIServiceFunction.HttpRetrieve(Config.api_video_v3+"?" + requestURL);
+		Gson g = new GsonBuilder().create();
+		System.out.println(responsestr);
+		Map<String, Object> fromJson = g.fromJson(responsestr, Map.class);
+		Map<String, Object> obj = (Map<String, Object>) fromJson.get("video");
+		String duration = obj.get("duration").toString();
+		return String.valueOf(Double.valueOf(duration).intValue()/60);
+	}
+
+	public static void main(String[] args) {
+		String duration = getVideoLength("B21B63BC0506CB809C33DC5901307461");
+
+		System.out.println(duration);
 	}
 }

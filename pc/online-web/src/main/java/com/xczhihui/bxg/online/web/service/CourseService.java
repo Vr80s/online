@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
@@ -44,10 +46,10 @@ public interface CourseService {
     /**
      * 根据课程ID号，查找对应的课程对象
      * @param courseId 课程id
-     * @param ispreview 是否为预览，1为预览
+     * @param path
      * @return Example 分页列表
      */
-    public CourseVo getCourseById(Integer courseId,String ispreview,HttpServletRequest request,OnlineUser ou);
+    public CourseVo getCourseById(Integer courseId,String path,HttpServletRequest request,OnlineUser ou) throws IOException;
 
     /**
      * 根据课程ID号，查找对应的课程对象
@@ -184,9 +186,29 @@ public interface CourseService {
     ResponseObject insertSubscribe(String userId, String mobile, Integer courseId) throws ClientException ;
 
 
+	/**
+	 * Description：新的评论、回复、用户关系  并且查询
+	 * @param courseId
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 * @return Page<Criticize>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	Page<Criticize> findUserCriticize(Integer courseId, Integer pageNumber,
+			Integer pageSize);
 
 
-	public String getCoursesPage(Integer courseId);
+    void updateCourseException();
+
+    /**
+     * Description：根据专辑id获取课程
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/2/27 0027 下午 8:27
+     **/
+    List<CourseVo> getCoursesByCollectionId(Integer collectionId);
 
 
+    List<CourseVo> getCoursesRecommendByType(Integer type);
 }

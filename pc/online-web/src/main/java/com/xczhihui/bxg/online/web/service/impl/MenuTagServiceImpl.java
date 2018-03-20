@@ -61,7 +61,8 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 		return menuTagDao.findByHQLOne("from Menu where id = ? and isDelete = 0 and status = 1", id);
 	}
 
-	public List<GroupLevelVo>	getAllMenuTagVoByParentId(String parentMenuId,int level) {
+	@Override
+    public List<GroupLevelVo>	getAllMenuTagVoByParentId(String parentMenuId, int level) {
 		List<GroupLevelVo> result = new ArrayList<>();
 		List<MenuTag> menus=null;
 		if(level==2) {
@@ -131,7 +132,8 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 	 * 获取全部学科以及学科下的标签
 	 * @return 菜单集合
 	 */
-	public List<Map> getMenuTags() throws InvocationTargetException, IllegalAccessException {
+	@Override
+    public List<Map> getMenuTags() throws InvocationTargetException, IllegalAccessException {
 		List<Map> resultList = new ArrayList<Map>();
 		//获取全部学科信息
 		List<Menu> firstMenu = menuService.getFirstQuestionMenu(null, null);
@@ -157,8 +159,9 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 	 * 博文答提问时获取有权限学科以及学科下的标签
 	 * @return 菜单集合
 	 */
-	public List<Map> getQuestionMenuTags(HttpServletRequest request) throws InvocationTargetException, IllegalAccessException {
-		//获取当前登陆用户信息
+	@Override
+    public List<Map> getQuestionMenuTags(HttpServletRequest request) throws InvocationTargetException, IllegalAccessException {
+		//获取当前登录用户信息
 		OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		List<Map> resultList = new ArrayList<Map>();
 		//获取全部学科信息
@@ -219,7 +222,8 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 	 * 投诉
 	 * @param ac 参数封装对象
 	 */
-	public  String    saveAccuse(AskAccuseVo ac){
+	@Override
+    public  String    saveAccuse(AskAccuseVo ac){
 		menuTagDao.saveAccuse(ac);
 		return  "投诉成功!";
 	}
@@ -229,7 +233,8 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 	 * 修改投诉状态
 	 * @param ac 参数封装对象
 	 */
-	public String updateAccuseStatus(AskAccuseVo ac){
+	@Override
+    public String updateAccuseStatus(AskAccuseVo ac){
 		menuTagDao.updateAccuseStatus(ac.getTarget_id(),ac.getTarget_type());
 		return  "true";
 	}

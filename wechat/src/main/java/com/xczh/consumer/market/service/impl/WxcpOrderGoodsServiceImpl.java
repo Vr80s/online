@@ -34,42 +34,48 @@ public class WxcpOrderGoodsServiceImpl implements WxcpOrderGoodsService {
 	/**
 	 * 查询（根据订单ID查询）
 	 **/
-	public List<WxcpOrderGoods>  selectByOrderId (String order_id ) throws SQLException {
+	@Override
+    public List<WxcpOrderGoods>  selectByOrderId (String order_id ) throws SQLException {
 		return wxcpOrderGoodsMapper.selectByOrderId(order_id);
 	}
 
 	/**
 	 * 删除（根据主键ID删除）
 	 **/
-	public int deleteByPrimaryKey ( String id ) throws SQLException {
+	@Override
+    public int deleteByPrimaryKey (String id ) throws SQLException {
 		return wxcpOrderGoodsMapper.deleteByPrimaryKey(id);
 	}
 	
 	/**
 	 * 添加
 	 **/
-	public int insert( WxcpOrderGoods record ) throws SQLException {
+	@Override
+    public int insert(WxcpOrderGoods record ) throws SQLException {
 		return wxcpOrderGoodsMapper.insert(record);
 	}
 
 	/**
 	 * 添加 （匹配有值的字段）
 	 **/
-	public int insertSelective( WxcpOrderGoods record ) throws SQLException {
+	@Override
+    public int insertSelective(WxcpOrderGoods record ) throws SQLException {
 		return wxcpOrderGoodsMapper.insertSelective(record);
 	}
 
 	/**
 	 * 修改 （匹配有值的字段）
 	 **/
-	public int updateByPrimaryKeySelective( WxcpOrderGoods record ) throws SQLException {
+	@Override
+    public int updateByPrimaryKeySelective(WxcpOrderGoods record ) throws SQLException {
 		return wxcpOrderGoodsMapper.updateByPrimaryKeySelective(record);
 	}
 
 	/**
 	 * 修改（根据主键ID修改）
 	 **/
-	public int updateByPrimaryKey ( WxcpOrderGoods record ) throws SQLException {
+	@Override
+    public int updateByPrimaryKey (WxcpOrderGoods record ) throws SQLException {
 		return wxcpOrderGoodsMapper.updateByPrimaryKey(record);
 	}
 

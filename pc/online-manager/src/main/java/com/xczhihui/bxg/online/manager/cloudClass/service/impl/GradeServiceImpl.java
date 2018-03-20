@@ -27,7 +27,8 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      * @param
      * @return
      */
-    public Page<GradeVo> findGradeList(GradeDetailVo gradeVo,Integer pageNumber,Integer pageSize) {
+    @Override
+    public Page<GradeVo> findGradeList(GradeDetailVo gradeVo, Integer pageNumber, Integer pageSize) {
         Map<String,Object> paramMap=new HashMap<String,Object>();
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
@@ -102,7 +103,8 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      * @param
      * @return
      */
-    public Page<GradeVo> findMicroGradeList(GradeDetailVo gradeVo,Integer pageNumber,Integer pageSize) {
+    @Override
+    public Page<GradeVo> findMicroGradeList(GradeDetailVo gradeVo, Integer pageNumber, Integer pageSize) {
     	Map<String,Object> paramMap=new HashMap<String,Object>();
     	pageNumber = pageNumber == null ? 1 : pageNumber;
     	pageSize = pageSize == null ? 20 : pageSize;
@@ -214,6 +216,7 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
         dao.update(grade);
     }
 
+    @Override
     public void deleteGrades(String[] ids) {
     	
         if (ids.length>0){
@@ -277,7 +280,8 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      * @param
      * @return
      */
-    public List<CourseVo> findCourseList(Integer pageNumber,Integer pageSize) {
+    @Override
+    public List<CourseVo> findCourseList(Integer pageNumber, Integer pageSize) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
         String sql="select cou.id,cou.grade_name as courseName  from  oe_course cou  where 1=1 and cou.is_delete=0  order by cou.sort  ";
@@ -319,7 +323,8 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      * @param gradeId 班级id
      * @return
      */
-    public int updateGradeStatus( Integer gradeId,Integer isGradeStatus){
+    @Override
+    public int updateGradeStatus(Integer gradeId, Integer isGradeStatus){
         String sql = String.format("update oe_grade set grade_status=%d where id =:id", new Object[]{ isGradeStatus});
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("id", gradeId);
@@ -336,6 +341,7 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      * @param id
      * @return
      */
+    @Override
     public int updatePreSortEntity(Integer id){
           int flag=0;
           //查出小于等于当前排号的所有班级信息，然后倒排，那么查出来的第一条数据就是当前数据，第二条就是排在他前面的班级对象
@@ -364,6 +370,7 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      * @param id
      * @return
      */
+    @Override
     public int updateNextSortEntity(Integer id) {
         int flag=0;
         //查出小于等于当前排号的所有班级信息，然后倒排，那么查出来的第一条数据就是当前数据，第二条就是排在他前面的班级对象
@@ -387,6 +394,7 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
         return  flag;
     }
 
+    @Override
     public List<Grade> getByName(String name){
     	return dao.findEntitiesByProperty(Grade.class,"name",name);
     	

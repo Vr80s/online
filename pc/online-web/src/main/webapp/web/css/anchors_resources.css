@@ -1,11 +1,31 @@
 .wp{width: 1200px; margin: 0 auto;}
 .z{float: left;}
 .y{float: right;}
+#tip{
+	    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    padding: 20px;
+    background-color: #000;
+    color: #fff;
+    opacity: .5;
+    border-radius: 4px;
+    z-index: 999;
+    font-size: 14px;
+}
+#close_hosChoose:hover{
+	cursor: pointer;
+}
+.color{
+	border: 1px solid #00BC12 !important;
+    color: #00BC12;
+}
 .left-listNav{
-	    width: 220px;
+	width: 220px;
     display: block;
     height: 100%;
-    min-height: 520px;
+    /*min-height: 520px;*/
     background-color: #fff;
     float: left;
     margin-top: 20px;
@@ -28,10 +48,14 @@
   padding-top: 10px;
 }
 .doctor_inf p {
-  color: #999999;
-  font-size: 14px;
-  height: 24px;
-  line-height: 24px;
+   color: #999999;
+    font-size: 14px;
+    height: 24px;
+    line-height: 24px;
+    width: 210px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 /*.contentWrap{
 	margin-top: 20px;
@@ -41,7 +65,7 @@
     display: block;
     float: right;
     vertical-align: top;
-    padding: 0 30px;
+    /*padding: 0 30px;*/
     min-height: 642px;
     background-color: #fff;
     padding-bottom: 50px;
@@ -147,4 +171,814 @@
 }
 .doctor_inf .picModal .icon-xiangji {
   font-size: 12px;
+}
+
+
+
+/*右侧专栏内容*/
+.contentWrap #zhuanlan .zhuanlan_top{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	position: relative;
+}
+.contentWrap #zhuanlan .zhuanlan_top .title{
+	font-size: 16px;
+    color: #333333;
+    position: absolute;
+    left: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_top button{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px; 
+}
+.contentWrap #zhuanlan .zhuanlan_bottom {
+	padding: 30px 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form > div {
+	margin-bottom: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form > div >span:first-child{
+	display: inline-block;
+	width: 89px;
+	text-align: right;
+	font-size: 14px;
+	color: #2A2A2A;
+	line-height: 19px;
+	margin-right: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form > div >span:first-child > em{
+	color: #f40;
+	display: inline;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	text-indent: 1em;
+	font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-ms-input-placeholder {
+	font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian{
+  	
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian_pic{
+	display: inline-block;
+    width: 260px;
+    height: 147px;
+    border: 1px solid #f0f0f0;
+    vertical-align: middle;
+    margin-right: 30px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian_tip{
+	display: inline-block;
+	width: 159px;
+	height: 48px;
+	color: #999;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea{
+	vertical-align: text-top;
+	width: 540px;
+	height: 160px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	padding-top:10px;
+	text-indent: 1em;
+	font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-webkit-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-ms-input-placeholder{
+	font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .baocun #submit{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .baocun #save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .baocun{
+	padding-left:120px ;
+}
+.warning{
+	font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(../images/icons/tanhao.png) no-repeat left center;
+     margin-left: 120px;
+}
+
+/*专栏列表内容部分*/
+.contentWrap #zhuanlan .zhuanlan_bottom2{
+	padding: 31px 20px 59px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tr td {
+	text-align: center;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead {
+	height: 40px;line-height: 40px;
+	background: #F0F0F0;
+	font-size: 14px;
+	color: #666666;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody{
+	font-size: 14px;
+	color: #333;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody tr{
+	height: 80px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:first-child,
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child{
+	width: 126px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child{
+	padding: 10px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child img{
+	width: 100%;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(2),
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(2){
+	width: 364px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(3),
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
+	width: 105px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(4),
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(4){
+	width: 121px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(5),
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(5){
+	width: 200px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tr,.contentWrap #zhuanlan .zhuanlan_bottom2 table td{
+	border: 1px solid #DEDEDE;
+}
+
+
+/*右侧资源部分*/
+.wrap_box  #resource .zhuanlan_top{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	position: relative;
+}
+.wrap_box  #resource .zhuanlan_top .title{
+	font-size: 16px;
+    color: #333333;
+    position: absolute;
+    left: 20px;
+}
+.wrap_box  #resource .zhuanlan_top button{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px; 
+}
+.wrap_box  #resource .zhuanlan_bottom {
+	padding: 30px 20px;
+}
+.wrap_box  #resource .zhuanlan_bottom form > div {
+	margin-bottom: 20px;
+}
+.wrap_box  #resource .zhuanlan_bottom form > div >span:first-child{
+	display: inline-block;
+	width: 89px;
+	text-align: right;
+	font-size: 14px;
+	color: #2A2A2A;
+	line-height: 19px;
+	margin-right: 20px;
+}
+.wrap_box  #resource .zhuanlan_bottom form > div >span:first-child > em{
+	color: #f40;
+	display: inline;
+}
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	text-indent: 1em;
+	font-size: 14px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title:-ms-input-placeholder {
+	font-size: 14px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .fengmian{
+  	
+}
+.wrap_box  #resource .zhuanlan_bottom form .fengmian_pic{
+	display: inline-block;
+    width: 260px;
+    height: 147px;
+    border: 1px solid #f0f0f0;
+    vertical-align: middle;
+    margin-right: 30px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .fengmian_tip{
+	display: inline-block;
+	width: 159px;
+	height: 48px;
+	color: #999;
+}
+.wrap_box  #resource .zhuanlan_bottom form #resourceType {
+	font-size: 14px;
+	line-height: 24px;
+}
+.wrap_box  #resource .zhuanlan_bottom form #resourceType label{
+	margin-right: 30px;
+	font-weight: 400;
+}
+.wrap_box  #resource .zhuanlan_bottom form #resourceType label input{
+	vertical-align: sub;
+}
+.wrap_box  #resource .zhuanlan_bottom form .baocun #submit{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .baocun #save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .baocun{
+	padding-left:120px ;
+}
+.warning{
+	font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(../images/icons/tanhao.png) no-repeat left center;
+     margin-left: 120px;
+}
+#resourceUrl input{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+}
+
+/*右侧资源列表内容*/
+.wrap_box  #resource #ziyuan_bottom2{
+	padding: 31px 20px 59px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table tr td {
+	text-align: center;
+}
+.wrap_box  #resource #ziyuan_bottom2 table thead {
+	height: 40px;line-height: 40px;
+	background: #F0F0F0;
+	font-size: 14px;
+	color: #666666;
+}
+.wrap_box  #resource #ziyuan_bottom2 table tbody{
+	font-size: 14px;
+	color: #333;
+}
+.wrap_box  #resource #ziyuan_bottom2 table tbody tr{
+	height: 80px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:first-child,
+.wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:first-child{
+	width: 126px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:first-child{
+	padding: 10px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:first-child img{
+	width: 100%;
+}
+.wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(2),
+.wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:nth-child(2){
+	width: 364px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(3),
+.wrap_box  #resource .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
+	width: 105px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(4),
+.wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:nth-child(4){
+	width: 121px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(5),
+.wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:nth-child(5){
+	width: 200px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table tr,.wrap_box  #resource #ziyuan_bottom2 table td{
+	border: 1px solid #DEDEDE;
+}
+
+
+/*医馆页面*/
+#hosChoose{
+	width: 400px;
+	height: 300px;
+	padding-left: 50px;
+	padding-top: 80px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	z-index: 9999;
+	background-color: #fff;
+	
+}
+#hosChoose .hosChooseTip{
+	font-size: 16px;
+	font-weight: 700;
+	text-align: left;
+}
+#hospital_bottom  #hosChoose .sureChoosehos{
+	display: inline-block;
+    width: 80px;
+    height: 34px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+    vertical-align: top;
+}
+#hospital_bottom .hosContantTel .hosTel,
+#hosPro,
+#hosCity{
+	 width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+}
+#hosPro,
+#hosCity{
+	width: 242px;
+	color: #999;
+	
+}
+.contentWrap #hospital .zhuanlan_top{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	position: relative;
+}
+.contentWrap #hospital .zhuanlan_top .title{
+	font-size: 16px;
+    color: #333333;
+    position: absolute;
+    left: 20px;
+    font-weight: 700;
+}
+.contentWrap #hospital .zhuanlan_top button{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px; 
+}
+
+
+/*右侧医馆内容*/
+
+.contentWrap #hospital .zhuanlan_top{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	position: relative;
+}
+.contentWrap #hospital .zhuanlan_top .title{
+	font-size: 16px;
+    color: #333333;
+    position: absolute;
+    left: 20px;
+}
+.contentWrap #hospital .zhuanlan_top button{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px; 
+}
+.contentWrap #hospital .zhuanlan_bottom {
+	padding: 30px 20px;
+}
+.contentWrap #hospital .zhuanlan_bottom  > div {
+	margin-bottom: 20px;
+}
+.contentWrap #hospital .zhuanlan_bottom .hos_fengmian .fengmian_pic{
+	display: inline-block;
+    width: 260px;
+    height: 147px;
+    background-color: #f0f0f0;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+.contentWrap #hospital .zhuanlan_bottom .hos_fengmian .fengmian_pic:hover{
+	cursor: pointer;
+}
+.contentWrap #hospital .zhuanlan_bottom .hos_fengmian .fengmian_pic img{
+	width: 100%;
+	height: 100%;
+}
+.contentWrap #hospital .zhuanlan_bottom .hos_fengmian .fengmian_tip{
+	display: inline-block;
+    width: 159px;
+    height: 48px;
+    color: #999;
+}
+.contentWrap #hospital .zhuanlan_bottom  > div >span:first-child{
+	display: inline-block;
+	width: 89px;
+	text-align: right;
+	font-size: 14px;
+	color: #2A2A2A;
+	line-height: 19px;
+	margin-right: 20px;
+}
+.contentWrap #hospital .zhuanlan_bottom  > div >span:first-child > em{
+	color: #f40;
+	display: inline;
+}
+.contentWrap #hospital .zhuanlan_bottom  .zhuanlan_title{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	text-indent: 1em;
+	margin-right: 10px;
+	font-size: 14px;
+}
+.contentWrap #hospital .zhuanlan_bottom  .chooseHospital span{
+	font-size: 14px;
+}
+.contentWrap #hospital .zhuanlan_bottom  .zhuanlan_title::-webkit-input-placeholder,
+.contentWrap #hospital .zhuanlan_bottom  .zhuanlan_title:-moz-placeholder,
+.contentWrap #hospital.zhuanlan_bottom  .zhuanlan_title::-moz-placeholder,
+.contentWrap #hospital .zhuanlan_bottom  .zhuanlan_title:-ms-input-placeholder {
+	font-size: 14px;
+}
+
+.contentWrap #hospital .zhuanlan_bottom   .hospital_address select{
+	width: 240px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	font-size: 14px;
+	color: #999;
+}
+.contentWrap #hospital .zhuanlan_bottom   .hospital_address textarea{
+	display: block;
+	width: 499px;
+	height: 90px;
+	border: 1px solid #F0F0F0;
+	margin-left: 113px;
+    margin-top: 10px;
+    padding: 10px;
+    outline: none;
+    font-size: 14px;
+	color: #999;
+}
+.contentWrap #hospital .zhuanlan_bottom  .hospital_worktime ul{
+	display: inline-block;
+	vertical-align: middle;
+}
+.contentWrap #hospital .zhuanlan_bottom  .hospital_worktime li {
+	float: left;
+	width: 92px;
+	height: 36px;
+	border: 1px solid #DEDEDE;
+	border-radius: 4px;
+	margin-right: 20px;
+	text-align: center;
+	line-height: 36px;
+}
+.contentWrap #hospital .zhuanlan_bottom  .hospital_worktime li:hover{
+	cursor: pointer;
+}
+/*.contentWrap #hospital .zhuanlan_bottom form #resourceType label input{
+	vertical-align: sub;
+}*/
+.contentWrap #hospital .zhuanlan_bottom  .baocun #submit{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.contentWrap #hospital .zhuanlan_bottom  .baocun #save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+}
+.contentWrap #hospital .zhuanlan_bottom  .baocun{
+	padding-left:120px ;
+}
+.warning{
+	font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(../images/icons/tanhao.png) no-repeat left center;
+     margin-left: 120px;
+}
+#resourceUrl input{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+}
+
+
+/*医师认证部分*/
+#doc_Distinguish .topTitle {
+  border-bottom: 1px solid #f0f0f0;
+}
+#doc_Distinguish .topTitle h3 {
+  font-size: 16px;
+  color: #333333;
+  font-weight: 700;
+  height: 60px;
+  line-height: 60px;
+  margin: 0;
+  padding: 0 20px;
+  text-align: left;
+}
+#doc_Distinguish .bottomContent{
+	text-align: left;
+	padding-top: 30.5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+#doc_Distinguish .bottomContent  .bottomContent_inf {
+  margin-bottom: 20px;
+  height: 80px;
+  line-height: 80px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  padding: 0 20px;
+}
+.contentWrap #doc_Distinguish .bottomContent  .bottomContent_inf span {
+  font-size: 14px;
+  color: #333333;
+  display: inline;
+}
+.contentWrap #doc_Distinguish .bottomContent  .bottomContent_inf button {
+  width: 92px;
+  font-size: 14px;
+  height: 36px;
+  background: #00BC12;
+  border-radius: 4px;
+  color: #ffffff;
+  outline: none;
+  vertical-align: middle;
+  line-height: 36px;
+  border: none ;
+  margin: 0 20px;
+}
+
+#doc_Distinguish .bottomContent > div{
+	margin-bottom: 20px;
+}
+#doc_Distinguish .bottomContent > div > span:first-child{
+	  display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px
+}
+#doc_Distinguish .bottomContent > div > span:first-child em{
+	  color: #f40;
+    display: inline;
+}
+
+#doc_Distinguish .bottomContent > div .doc_Idnum,
+#doc_Distinguish .bottomContent > div .doc_name,
+#doc_Distinguish .bottomContent > div .doc_zhicheng,
+#doc_Distinguish .bottomContent > div .doc_shanchang,
+#doc_Distinguish .bottomContent > div .doc_hospital{
+	display: inline-block;
+	width: 280px;
+ 	height: 36px;
+ 	line-height: 36px;
+ 	/*border: 1px solid #f0f0f0;
+ 	outline: none;
+ 	text-indent: 1em;
+ 	margin-right: 10px;*/
+ 	font-size: 14px;
+}
+#doc_Distinguish .bottomContent >.idCard_pic .idFont_pic,
+#doc_Distinguish .bottomContent >.idCard_pic .idBack_pic{
+	display: inline-block;
+	width: 260px;
+	height: 147px;
+	background-color: #f0f0f0;
+	margin-right: 20px;
+	vertical-align: middle;
+	vertical-align: top;
+}
+#doc_Distinguish .bottomContent >.idCard_pic .idCard_tip,
+#doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic_tip,
+#doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip,
+#doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip{
+    display: inline-block;
+    width: 159px;
+    height: 48px;
+    color: #999;
+}
+/*#doc_Distinguish .bottomContent >.idCard_pic .idCard_tip p,
+#doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic_tip p,
+#doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip p,
+#doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip p{
+	font-size: 14px;
+}*/
+#doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic,
+#doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiye_pic,
+#doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic{
+	display: inline-block;
+	width: 260px;
+	height: 147px;
+	background-color: #f0f0f0;
+	margin-right: 20px;
+	vertical-align: middle;
+	vertical-align: top;
+} 
+#doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic{
+	width: 120px;
+	height: 120px;
+	display: inline-block;
+	background-color: #f0f0f0;
+	vertical-align: middle;
+	margin-right: 20px;
+	vertical-align: top;
+}
+/*#doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic_tip{
+	display: inline-block;
+	color: #999;
+}*/
+#doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic_tip p{
+	font-size: 14px;
+}
+#doc_Distinguish .bottomContent >.keshi ul{
+	width: 540px;
+	display: inline-block;
+  vertical-align: top;
+}
+#doc_Distinguish .bottomContent >.keshi ul li{
+	width: 92px;
+	height: 36px;
+	text-align: center;
+	line-height: 36px;
+	border: 1px solid #DEDEDE;
+	border-radius: 4px;
+	margin-right: 20px;
+	float: left;
+	margin-bottom: 20px;
+	font-size: 14px;
+}
+#doc_Distinguish .bottomContent >.keshi ul li:hover{
+	cursor: pointer;
+}
+#doc_Distinguish .bottomContent >.keshi ul li:nth-child(5n){
+	margin-right: 0;
+}
+#doc_Distinguish .bottomContent .personIntroduct textarea {
+	width: 540px;
+	height: 160px;
+	padding: 10px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	vertical-align: top;
+	font-size: 14px;
+}
+#doc_Distinguish .bottomContent .baocun{
+	padding-left: 110px;
+	padding-bottom: 40px;
+}
+#doc_Distinguish .bottomContent .baocun #submit{
+	  display: inline-block;
+    width: 120px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+#doc_Distinguish .bottomContent >.idCard_pic .idFont_pic img,
+#doc_Distinguish .bottomContent >.idCard_pic .idBack_pic img,
+#doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic img,
+#doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiye_pic img,
+#doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic img,
+#doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic img{
+	width: 100%;
+	height: 100%;
 }

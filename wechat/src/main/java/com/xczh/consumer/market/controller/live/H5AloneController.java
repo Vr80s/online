@@ -31,7 +31,7 @@ import java.util.Map;
  * Create Time: 2017年8月10日<br>
  */
 @Controller
-@RequestMapping("/bxg/live")
+@RequestMapping("/bxg/live1")
 public class H5AloneController {
 
 	@Autowired
@@ -55,12 +55,12 @@ public class H5AloneController {
 	@Autowired
 	private OnlineWebService onlineWebService;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(H5AloneController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AloneController.class);
 	/**
 	 * 这个方法暂时先这样提供，能用到的就用呗
 	 * 
 	 * 只需要得到这个课程的状态集合,用户判断前台的页面跳转
-	 * watchState 观看状态  0 免费观看  1 需要收费  2 需要密码
+	 * watchState 观看状态  0 免费观看  1 需要付费  2 需要密码
 	 * lineState: 0 直播已结束 1 直播还未开始 2 正在直播
 	 * type: 1直播  2点播 3音频 
 	 * 
@@ -75,9 +75,9 @@ public class H5AloneController {
 		}
 		Map<String, String> params=new HashMap<>();
 		params.put("token",req.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(null == user){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		
 		int course_id =Integer.parseInt(req.getParameter("course_id"));
@@ -104,8 +104,8 @@ public class H5AloneController {
 //		}
 		if(courseLecturVo.getWatchState()!=0){
 			if(courseLecturVo.getUserId().equals(user.getId()) 
-					|| onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
-		       //log.info("同学,当前课程您已经报名了!");
+					|| onlineWebService.getLiveUserCourse(course_id,user.getId())){
+		       //LOGGER.info("同学,当前课程您已经报名了!");
 		       courseLecturVo.setWatchState(0);    
 		    };
 		}

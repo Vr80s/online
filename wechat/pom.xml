@@ -9,9 +9,9 @@
 	</parent>
 
 	<artifactId>wechat</artifactId>
-	<name>wechat_new</name>
+	<name>wechat</name>
 	<packaging>war</packaging>
-	<url>http://viedo.ixincheng.com</url>
+	<url>http://www.ipandatcm.com</url>
 
 	<properties>
 		<encoding>UTF-8</encoding>
@@ -36,10 +36,7 @@
             <scope>system</scope>
             <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
         </dependency>
-        
- 
-        
-        
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -194,18 +191,6 @@
 		    <artifactId>UserAgentUtils</artifactId>
 		    <version>1.2.4</version>
 		</dependency>
-		
-
-
-
-
-
-
-
-
-
-
-
 
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -388,19 +373,6 @@
 			<artifactId>alipay</artifactId>
 			<version>12.1</version>
 		</dependency>
-
-
-
-
-
-
-
-
-
-
-
-
-
 		<!--以上是新拷贝过来的-->
 
 		<dependency>
@@ -497,8 +469,6 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-
-
 
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -620,15 +590,39 @@
 			<artifactId>smack-extensions</artifactId>
 		</dependency>
 
-
-
 	  <dependency>
 		  <groupId>com.xczhihui</groupId>
 		  <artifactId>medical-api</artifactId>
 		  <version>1.0.0-SNAPSHOT</version>
 	  </dependency>
+	  
+	  <dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>wechat-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
         	
+        <!-- qq分享使用 --> 
+		<!-- https://mvnrepository.com/artifact/net.gplatform/Sdk4J -->
+		<dependency>
+		    <groupId>net.gplatform</groupId>
+		    <artifactId>Sdk4J</artifactId>
+		    <version>2.0</version>
+		</dependency>
 
+		<!-- 微博分享使用  -->
+		<dependency>
+		    <groupId>com.belerweb</groupId>
+		    <artifactId>weibo4j-oauth2</artifactId>
+		    <version>2.1.1-beta2-2</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.vdurmont/emoji-java -->
+		<dependency>
+		    <groupId>com.vdurmont</groupId>
+		    <artifactId>emoji-java</artifactId>
+		    <version>4.0.0</version>
+		</dependency>
 
 
 	</dependencies>
@@ -679,10 +673,8 @@
 		<plugins>
 			<!-- 设置源文件编码方 -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<source>1.8</source>
 					<target>1.8</target>
 					<encoding>UTF-8</encoding>
@@ -690,32 +682,54 @@
 			</plugin>
 			<!-- 解决资源文件的编码问 -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			<!--jcv-maven-plugin -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
+				<groupId>com.iqarr.maven.plugin</groupId>
+				<artifactId>jcv-maven-plugin</artifactId>
+				<version>1.0.2</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
-
+					<!--如果项目名称使用EL表达式 那么必须加\ 转义 -->
+					<!--<jsConstantName>/</jsConstantName>-->
+					<!--<cssConstantName>/</cssConstantName>-->
+					<suffixs>
+						<param>html</param>
+						<param>jsp</param>
+					</suffixs>
+					<!-- 清理html 页面注释-->
+					<clearPageComment>false</clearPageComment>
+					<globaJsMethod>MD5_METHOD</globaJsMethod>
+					<globaCssMethod>MD5_METHOD</globaCssMethod>
+					<versionValLenth>20</versionValLenth>
+					<!-- 压缩js-->
+					<compressionJs>false</compressionJs>
+					<!-- 压缩css-->
+					<compressionCss>false</compressionCss>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
 					<warName>${project.artifactId}-${project.version}</warName>
 					<filters>
 						<filter>src/main/resources/${env}/config.properties</filter>
 					</filters>
-					<!-- <webResources>
-						特殊处理bastPath.js文件
-						<resource>
-							<directory>src/main/resources</directory>
-							<targetPath>web/js</targetPath>
-							<includes>
-								<include>*.js</include>
-							</includes>
-							<filtering>true</filtering>
-						</resource>
-					</webResources> -->
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -726,9 +740,6 @@
 				<includes>
 					<include>*.*</include>
 				</includes>
-				<!-- <excludes>
-					<exclude>*.js</exclude>
-				</excludes> -->
 				<filtering>true</filtering>
 			</resource>
 			<resource>

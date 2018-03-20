@@ -1,10 +1,8 @@
 package com.xczhihui.bxg.online.api.service;
 
-import java.math.BigDecimal;
-import java.util.Map;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
+import java.math.BigDecimal;
 
 
 /** 
@@ -15,48 +13,20 @@ import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
  */
 public interface EnchashmentService {
 
-
-    /** 
-     * Description：提现申请表
-     * @param pageNumber
-     * @param pageSize
-     * @return
-     * @return Page<EnchashmentApplication>
-     * @author name：yuxin <br>email: yuruixin@ixincheng.com
-     **/
-    public Page<EnchashmentApplication>  enchashmentApplicationList(String userId,Integer pageNumber, Integer pageSize);
-
-	/** 
-	 * Description：保存提现申请
-	 * @param ea  
-	 * @return
-	 * @return Object
+	/**
+	 * Description：结算
+	 * creed: Talk is cheap,show me the code
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 7:04 2018/1/27 0027
 	 **/
-	public void saveEnchashmentApplication(EnchashmentApplication ea);
+	public void saveSettlement(String userId, int amount,OrderFrom orderFrom);
 
-	/** 
-	 * Description：获取可提现熊猫币余额
-	 * @return
-	 * @return Object
+	/**
+	 * Description：提现
+	 * creed: Talk is cheap,show me the code
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 5:17 2018/1/29 0029
 	 **/
-	public String enableEnchashmentBalance(String userId);
-	
-	/** 
-	 * Description：获取可提现余额（充值+打赏礼物）
-	 * @return
-	 * @return Object
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	public Double enableEnchashmentRmbBalance(String userId);
+	void saveEnchashmentApplyInfo(String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom);
 
-	/** 
-	 * Description：获取提现表单中相应数据：姓名,手机号，可提现金额
-	 * @param userId
-	 * @return
-	 * @return Map<String,String>
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	public Map<String,Object> getEnableEnchashmentData(String userId);
 }

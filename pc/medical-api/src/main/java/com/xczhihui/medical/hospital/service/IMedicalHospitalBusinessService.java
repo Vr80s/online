@@ -2,7 +2,10 @@ package com.xczhihui.medical.hospital.service;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 import java.util.List;
@@ -43,4 +46,37 @@ public interface IMedicalHospitalBusinessService {
 
     List<MedicalFieldVO> getHotField();
 
+    /**
+     * 获取医疗领域（分页）
+     * @param page 分页对象
+     * @return 医疗领域列表
+     */
+    Page<MedicalFieldVO> getFieldsPage(Page page);
+
+    /**
+     * 修改医馆信息
+     * @author zhuwenbao
+     */
+    void update(MedicalHospital medicalHospital);
+
+    /**
+     * 获取医馆的医师列表
+     * @param page 分页封装
+     * @param doctorName 医师名字
+     * @param userId 医馆id
+     * @author zhuwenbao
+     */
+    Page selectDoctorPage(Page<MedicalDoctor> page, String doctorName, String userId);
+
+    /**
+     * 根据用户id获取其医馆详情
+     * @author zhuwenbao
+     */
+    MedicalHospitalVo selectHospitalByUserId(String uid);
+
+    /**
+     * 删除医馆里面的医师
+     * @param doctorId 医师id
+     */
+    void deleteDoctor(String uid, String doctorId);
 }

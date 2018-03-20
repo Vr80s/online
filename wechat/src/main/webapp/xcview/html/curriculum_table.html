@@ -1,0 +1,640 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!-- 网页自适应JS代码引入 -->
+
+<script type="text/javascript">
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px";
+	
+</script>
+
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+<link rel="stylesheet" href="../css/curriculum_table.css?v=wechat_1.1.1" />
+
+<style type="text/css">
+	.header_seek span{
+		margin-top: -0.6rem;
+		margin-left: 0.58rem;
+    	font-size: 0.26rem;
+	}
+
+	<--可以放到css里-->
+.li_list_one_right .p1 img {
+    width: 0.24rem;
+    height: 0.24rem;
+    float: left;
+}
+	.li_list_one_right .p1 span{
+    float: left;
+	}
+	
+
+.li_list_one_right .div .p5 {
+    min-width: 1.35rem;
+    float: left;
+    margin-left: 0.1rem;
+}
+.li_list_one_right .p5 img {
+    width: 0.22rem;
+    height: 0.22rem;
+    float: left;
+}
+.li_list_one_right .p5 span {
+    color: #999;
+    overflow: hidden;
+    white-space: nowrap;
+	text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 1.5rem;
+    font-size: 0.22rem;
+	color: #999999;
+	float: left;
+	margin-left: 0.05rem;
+}	
+	
+.zhibo_play_list{
+	border: 1px solid #F97B49;
+    border-radius: 3px;
+    float: left;
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+        margin-top: -0.05rem;
+}	
+.li_list_main{
+	height: 100%;
+}
+	
+	
+</style>
+</head>
+<body style="background: #F8F8F8;background1: red;">
+	
+	<!--头部开始-->
+	<header>
+		<div class="header">
+			<div class="header_return">
+				<img src="/xcview/images/backicon.png" onclick="goto_back()">
+			</div>
+			<div class="header_seek"> 
+				<div class="header_seek_main" style="width: 0;">
+					<!--<img src="/xcview/images/sousuo0.png" alt="" onclick="queryByKey()">-->
+					<img src="/xcview/images/sousuo0.png" alt="">
+					<span class="span_hide"></span>
+				</div>
+				<!--<span class="header_seek_main_span">
+						<script type="text/html" id="header_seek_main">
+						{{each items as item i}}
+							<span>{{item.queryKey}}</span>
+						{{/each}}
+	           	 		</script>
+				</span>		-->		
+				
+			</div>
+		</div>
+	</header>
+	<!--头部结束-->
+	
+	
+	<div class="top_border">
+		<div class="screen_size">
+       		<img src="/xcview/images/shu_top.png" class="img0">
+       		<img src="/xcview/images/screen.png" class="img1">
+       		<span class="btn">筛选</span>
+       	</div>
+		<div class="">
+			<div class="find_nav" style="display: none1;">
+			    <div class="find_nav_left">
+			        <div class="find_nav_list" style="left: 0px;">
+			            <ul id="pagenavi1">
+			            </ul>
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+	<div class="hint">
+		筛选：<span id="sxtj"></span>
+	</div>
+	
+	
+	
+	
+	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
+		<ul class="box01_list" style="position: relative; transition: left 0ms ease-out; width: 19200px; left: 0px;">
+			
+			<li class="li_list">
+				<div class="li_list_main">
+				</div>
+			</li>
+			<li class="li_list">
+				<div class="li_list_main">
+				</div>
+			</li>
+			<li class="li_list">
+				<div class="li_list_main">
+				</div>
+			</li>
+			<li class="li_list">
+				<div class="li_list_main">
+				</div>
+			</li>
+			<li class="li_list">
+				<div class="li_list_main">
+				</div>
+			</li>
+			<li class="li_list">
+				<div class="li_list_main">
+				</div>
+			</li>
+		</ul>
+
+	</div>
+	<!--点击筛选内容开始-->
+	<div class="btn_show">
+		<div class="btn_show_bg btn_show_main_close" style="display: block1;"></div>
+		<div class="btn_show_main div_right0" >
+			<div class="all_classify_right"><span class="screen_close"><img src="../images/screen_close.png" /></span>筛选</div>
+			<div class="all_mold all_mold0">
+				<div class="all_classify_right_type">分类</div>
+				<div class="all_right_type all_right_type_ones" id="draw_type_list">
+					<script type="text/html" id="type_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>	
+<!-- 					<div class="all_right_type_one">针灸疗法</div>
+					<div class="all_right_type_one">各式推拿</div>
+					<div class="all_right_type_one">美容养生</div>
+					<div class="all_right_type_one">药膳食疗</div>
+					<div class="all_right_type_one">古籍经典</div>
+					<div class="all_right_type_one">各家综合</div>
+					<div class="all_right_type_one">脉诊大全</div> -->
+				</div>
+				<div class="both"></div>
+			</div>
+			<div class="all_mold all_mold1">
+				<div class="all_classify_right_type">付费</div>
+				<div class="all_right_type" id="draw_isfree_list">
+					<script type="text/html" id="isfree_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
+<!-- 					<div class="all_right_type_one">免费</div>
+					<div class="all_right_type_one">付费</div> -->
+					<div class="both"></div>
+				</div>
+			</div>
+			<div class="all_mold all_mold2">
+				<div class="all_classify_right_type">类型</div>
+				<div class="all_right_type" id="draw_course_big_list">
+					<!-- <div class="all_right_type_one">视频课程</div>
+					<div class="all_right_type_one">直播课程</div>
+					<div class="all_right_type_one">音频课程</div>
+					<div class="all_right_type_one">线下课程</div> -->
+					
+					<script type="text/html" id="course_big_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
+					
+					<div class="both"></div>
+				</div>
+			</div>
+			<div class="all_mold all_mold3" style="display: none;margin-bottom: 1rem;">
+				<div class="all_classify_right_type">城市</div>
+				<div class="all_right_type all_right_type_twos" id="draw_city_list">
+				<!-- 	<div class="all_right_type_one">上海</div>
+					<div class="all_right_type_one">广州</div>
+					<div class="all_right_type_one">成都</div>
+					<div class="all_right_type_one">上海</div>
+					<div class="all_right_type_one">广州</div>
+					<div class="all_right_type_one">成都</div> -->
+					<script type="text/html" id="city_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
+				</div>
+				<div class="both"></div>
+			</div>
+			<div class="all_mold all_mold4" style="display: none;margin-bottom: 1rem;">
+				<div class="all_classify_right_type">直播状态</div>
+				<div class="all_right_type" id="draw_live_status_list">
+			<!-- 		<div class="all_right_type_one">直播中</div>
+					<div class="all_right_type_one">待直播</div>
+					<div class="all_right_type_one">精彩回放</div> -->
+					<script type="text/html" id="live_status_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
+					<div class="both"></div>
+				</div>
+			</div>
+			<div class="" style="width: 100%;height: 0.89rem;display: none;"></div>
+			<div class="all_bottom">
+				<div class="all_bottom_btn0">重置</div>
+				<div class="all_bottom_btn1">确认</div>
+			</div>
+		</div>
+	</div>
+	<!--点击筛选内容结束-->
+	
+	
+	<!--无课程时默认图片-->
+	<div class="no_class">
+		<img src="../images/no_class.png"/>
+		<p>课程正在赶来的路上...</p>
+	</div>
+	
+</body>
+
+
+
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+
+<script src="../js/table/jquery-1.10.2.js"></script>
+<script src="../js/table/jquery.min.js"></script>
+<script type="text/javascript" src="../js/table/touchslider.js"></script>
+<script type="text/javascript" src="/xcview/js/curriculum_table.js?v=w1a4317&version=ab65705395"></script>
+
+
+<script type="text/javascript">
+
+// 给li定义高度，配合css使li独立滚动
+var $window = $(window);
+var initialWindowHeight = null;
+
+$window.resize(function() {
+	sliderHeight();
+});
+
+sliderHeight();
+function sliderHeight(){
+	var wHeight = $(window).height();
+	var sliderHeight = wHeight - 70
+	
+	$(".swipe li").height(sliderHeight);
+}
+
+ $(".find_nav_list").css("left",0);
+$(".find_nav_list li").each(function(){
+		$(".sideline").css({left:0});
+		$(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+});
+var nav_w=$(".find_nav_list li").first().width();
+$(".sideline").width(nav_w);
+$(".find_nav_list li").on('click', function(){
+	/*alert("-------------");*/
+	nav_w=$(this).width();
+	$(".sideline").stop(true);
+	$(".sideline").animate({left:$(this).position().left},300);
+	$(".sideline").animate({width:nav_w});
+	$(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+	var fn_w = ($(".find_nav").width() - nav_w) / 2;
+	var fnl_l;
+	var fnl_x = parseInt($(this).position().left);
+	if (fnl_x <= fn_w) {
+		fnl_l = 0;
+	} else if (fn_w - fnl_x <= flb_w - fl_w) {
+		fnl_l = flb_w - fl_w;
+	} else {
+		fnl_l = fn_w - fnl_x;
+	}
+	$(".find_nav_list").animate({
+		"left" : fnl_l
+	}, 300);
+	
+});
+var fl_w=$(".find_nav_list").width();
+var flb_w=$(".find_nav_left").width();
+$(".find_nav_list").on('touchstart', function (e) {
+	var touch1 = e.originalEvent.targetTouches[0];
+	x1 = touch1.pageX;
+	y1 = touch1.pageY;
+	ty_left = parseInt($(this).css("left"));
+});
+$(".find_nav_list").on('touchmove', function (e) {
+	var touch2 = e.originalEvent.targetTouches[0];
+	var x2 = touch2.pageX;
+	var y2 = touch2.pageY;
+	if(ty_left + x2 - x1>=0){
+		$(this).css("left", 0);
+	}else if(ty_left + x2 - x1<=flb_w-fl_w){
+		$(this).css("left", flb_w-fl_w);
+	}else{
+		$(this).css("left", ty_left + x2 - x1);
+	}
+	if(Math.abs(y2-y1)>0){
+		e.preventDefault();
+	}
+});
+
+
+	var n =1;
+	var page='pagenavi'+n;
+	var mslide='slider'+n;
+	var mtitle='emtitle'+n;
+	arrdiv = 'arrdiv' + n;
+	var as=$("#" + page + "").find("a");
+	var begin='';
+	
+	//根据上面的参数进行定义---》获取分类的ID跳转滑到对应的tap页
+	
+	for (var int = 0; int < menuTypeArray.length; int++) {
+		if(menuTypeArray[int].id == matching){
+			$("#pagenavi1 li").removeClass("find_nav_cur");
+			var index = int+2;
+			$("#pagenavi1 li:nth-child("+index+")").addClass("find_nav_cur");
+		 	break;
+		}
+	}
+	
+   
+    
+	var list = $("#pagenavi1 li");
+	for(var i = 0; i < list.length; i++) {
+		var liClassName = list[i].className;
+		if(liClassName == "find_nav_cur"){
+			begin = i;
+			break;
+		}
+    }
+//	alert(begin);
+	
+//	alert(fnl_x);
+	
+	var fnl_x=-1;
+	var tt=new TouchSlider({
+		id:mslide,
+		'auto':'-1',
+		fx:'ease-out',
+		direction:'left',
+		speed:600,
+		timeout:5000,
+		'before':function(index){
+		var as=document.getElementById(this.page).getElementsByTagName('a');
+		
+		as[this.p].className='';
+		this.p=index;
+		
+		
+		
+		var fnl_x_tmp = fnl_x;
+		
+		fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
+		nav_w=$(".find_nav_list li").eq(this.p).width();
+		$(".sideline").stop(true);
+		$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
+		$(".sideline").animate({width:nav_w},100);
+		
+		//alert("js 底部");
+		$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+		
+		//滑动完了后调用的是这个方法
+		//begin == 0   这是添加筛选条件时的判断
+		var type_index = sessionStorage.getItem("type_index");
+		if(fnl_x_tmp != fnl_x || fnl_x == -1 || type_index == "type_index"){
+			
+			typeQuery();
+		
+		}
+		
+		var fn_w = ($(".find_nav").width() - nav_w) / 2;
+		var fnl_l;
+		if (fnl_x <= fn_w) {
+			fnl_l = 0;
+		} else if (fn_w - fnl_x <= flb_w - fl_w) {
+			fnl_l = flb_w - fl_w;
+		} else {
+			fnl_l = fn_w - fnl_x;
+		}
+		$(".find_nav_list").animate({
+			"left" : fnl_l
+		}, 300);
+	}});
+	
+	//这里进行的是初始化参数
+	tt.page = page;
+	tt.p = 0;
+
+	tt.slide(begin, 600);
+
+	function slide(begin){
+		
+		tt.slide(begin, 600);
+	}
+
+	function slideBK(begin,time){
+		
+		tt.slide(begin, time);
+	}
+	
+	
+	for(var i=0;i<as.length;i++){
+		(function(){
+			var j=i;
+			as[j].tt = tt;
+			as[j].onclick=function(){
+				this.tt.slide(j);
+				return false;
+			}
+		})();
+	}
+
+</script>
+
+
+<script>
+		window.onload = function(){
+			$(".btn").click(function(){
+				$(".btn_show").fadeIn();
+				$(".btn_show_bg").fadeIn();
+				$(".btn_show_main").addClass('div_right0');
+				$(".btn_show_main").removeClass('div_right');
+				$(".all_bottom").addClass('all_bottom_move');
+				$(".all_bottom").removeClass('all_bottom_move_close');
+				
+			});
+//			点击黑色区域
+			$(".btn_show_main_close").click(function(){
+				$(".btn_show_main").addClass('div_right');
+				$(".btn_show_main").removeClass('div_right0');
+				$(".btn_show_bg").hide();
+				$(".all_bottom").addClass('all_bottom_move_close');
+				$(".all_bottom").removeClass('all_bottom_move');
+			});
+//			点击筛选旁边返回
+			$(".screen_close").click(function(){
+				$(".btn_show_main").addClass('div_right');
+				$(".btn_show_main").removeClass('div_right0');
+				$(".btn_show_bg").hide();
+				$(".all_bottom").addClass('all_bottom_move_close');
+				$(".all_bottom").removeClass('all_bottom_move');
+			});
+			
+			$(".all_bottom_btn1").click(function(){
+				
+				$(".btn_show_main").addClass('div_right');
+				$(".btn_show_main").removeClass('div_right0');
+				$(".btn_show_bg").hide();
+				$(".all_bottom").addClass('all_bottom_move_close');
+				$(".all_bottom").removeClass('all_bottom_move');
+			
+				submit();
+			});
+			
+//			点击筛选下面的内容框
+			$(".all_mold0 .all_right_type_one").click(function(){
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold0 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+			    	
+			    	//设置为null,并且
+			    	sessionStorage.setItem("type_index","type_index");
+				}
+			});
+			
+			
+			//付费
+			$(".all_mold1 .all_right_type_one").click(function(){
+				/*$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
+				$(this).addClass("all_right_type_one_add");*/
+				
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+				}
+				
+			});
+
+			
+			$(".all_mold2 .all_right_type_one").click(function(){
+				var index=$(this).index();
+				/*$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
+				$(this).addClass("all_right_type_one_add");*/
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+		  			
+			 	}else{
+			 		
+			    	$(this).removeClass("all_right_type_one_add");
+				}
+			 	
+			 	
+  			 	if(index==2 && $("#draw_course_big_list .all_right_type_one_add").attr("title")){   //通过title获取  有没有这个title
+					$(".all_mold4").show();
+				}else{
+					$(".all_mold4").hide();
+					
+					//清空直播状态
+					$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
+				}
+				if(index==3 && $("#draw_course_big_list").children(".all_right_type_one").eq(3).hasClass("all_right_type_one_add")){
+					$(".all_mold3").show();
+				}else{
+					$(".all_mold3").hide();	
+					
+					//清空城市
+					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
+				}  
+				
+				
+			});
+			//点击选择城市  --》清空直播状态的赛选
+			$(".all_mold3 .all_right_type_one").click(function(){
+				/*$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
+				$(this).addClass("all_right_type_one_add");*/
+				
+ 				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+				} 
+				
+			});
+			
+			//点击选择直播状态  --》清空城市的赛选
+			
+			$(".all_mold4 .all_right_type_one").click(function(){
+ 				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+				}
+			});
+			
+//			点击重置   --> 清空浏览器上面的url,刷新页面
+			$(".all_bottom_btn0").click(function(){
+				
+			    location.href = "/xcview/html/curriculum_table.html";
+			});
+			
+			
+		};
+		
+//顶部搜索框的提示添加
+// 		var historyTip='';
+// 		var modile = localStorage.hisArr;
+// 		if(stringnull(modile)){
+// 			historyTip=localStorage.hisArr.split(',')
+// 			$('.header_seek').append('<span>' + historyTip[0] + '</span>');
+// 		}
+//		console.log(historyTip[0])
+	</script>
+	
+		<script>
+		/**
+	 * 监听浏览器---》回退事件
+	 */
+		var counter = 0;
+		if (window.history && window.history.pushState) {
+		     $(window).on('popstate', function () {
+		                    window.history.pushState('forward', null, '#');
+		                    window.history.forward(1);
+		
+		                    location.href ='/xcview/html/search.html'
+		   });
+		}
+		window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+		window.history.forward(1);
+	</script>
+	
+	
+	
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -10,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,7 +51,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param request
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "index")
 	public ModelAndView index(HttpServletRequest request) {
 		 List<MenuVo> menuVos=menuService.list();
@@ -65,7 +66,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param tableVo
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo list(TableVo tableVo) {
@@ -110,7 +111,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param loginName
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "updateUserStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateUserStatus(String loginName, int status) {
@@ -123,7 +124,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param OnlineUser
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "setMenu", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject setMenu(OnlineUser entity) {
@@ -136,7 +137,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param loginName
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "updateUserLecturer", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateUserLecturer(String userId, int lecturerStatus,String description) {
@@ -151,7 +152,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param request
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "editUserDescription")
 	public ModelAndView editUserDescription(HttpServletRequest request,String userId) {
 		 List<MenuVo> menuVos=menuService.list();
@@ -162,5 +163,12 @@ public class OnlineUserController extends AbstractController {
 	     request.setAttribute("lecturerStatus",ou.getIsLecturer());
 	     ModelAndView mav=new ModelAndView(USER_PATH_PREFIX +"userDescriptionEdit");
 	     return mav;
+	}
+
+	@RequestMapping(value = "modifyUser", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseObject modifyUser(String userId,String loginName) throws ServletRequestBindingException {
+		service.updateUserLogin(userId,loginName);
+		return ResponseObject.newSuccessResponseObject("牛逼啦，替换成功！");
 	}
 }

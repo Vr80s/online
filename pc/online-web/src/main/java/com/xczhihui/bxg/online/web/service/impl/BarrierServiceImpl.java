@@ -28,8 +28,9 @@ public class BarrierServiceImpl  extends OnlineBaseServiceImpl implements Barrie
      * @param id 关卡id
      * @return
      */
-    public BarrierVo getBarrierBasicInfo(String id,Integer examStatu,HttpServletRequest request){
-        //获取当前登陆用户信息
+    @Override
+    public BarrierVo getBarrierBasicInfo(String id, Integer examStatu, HttpServletRequest request){
+        //获取当前登录用户信息
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return   dao.getBarrierBasicInfo(id, examStatu, u);
     }
@@ -40,7 +41,8 @@ public class BarrierServiceImpl  extends OnlineBaseServiceImpl implements Barrie
      * @param
      * @return
      */
-    public List<Map<String, Object>> createUserTestPaper(String userId,String barrierId){
+    @Override
+    public List<Map<String, Object>> createUserTestPaper(String userId, String barrierId){
     	String sql = null;
     	String record_id = null;
     	Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -75,7 +77,8 @@ public class BarrierServiceImpl  extends OnlineBaseServiceImpl implements Barrie
 	 * @param barrierId
 	 * @return
 	 */
-	public List<BarrierQuestionVo> getCurrentPaper(String userId,String barrierId,Integer examStatu){
+	@Override
+    public List<BarrierQuestionVo> getCurrentPaper(String userId, String barrierId, Integer examStatu){
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("barrier_id", barrierId);
 		paramMap.put("user_id", userId);
@@ -99,7 +102,8 @@ public class BarrierServiceImpl  extends OnlineBaseServiceImpl implements Barrie
      * 保存我的回答 姜海成
      * @param
      */
-    public void updateQuestionById(String questionId,String answer,String userId){
+    @Override
+    public void updateQuestionById(String questionId, String answer, String userId){
     	String sql = "";
     	Map<String,Object> paramMap = new HashMap<>();
     	paramMap.put("question_id",questionId);
@@ -286,8 +290,9 @@ public class BarrierServiceImpl  extends OnlineBaseServiceImpl implements Barrie
 	 * @param id 关卡id
 	 * @return
 	 */
-	public BarrierVo  getNewBarrierBasicInfo(String id,HttpServletRequest request){
-		 //获取当前登陆用户信息
+	@Override
+    public BarrierVo  getNewBarrierBasicInfo(String id, HttpServletRequest request){
+		 //获取当前登录用户信息
 		 OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		 return  dao.getNewBarrierBasicInfo(id,u);
 	}

@@ -52,7 +52,8 @@ public class OnlineInterceptor implements HandlerInterceptor {
 	private UserService userService;
 	
 	private List<String> checkuris = new ArrayList<String>();
-	
+	private List<String> checkanchoruris = new ArrayList<String>();
+
 	public OnlineInterceptor(){
 		try {
 			URL controller = this.getClass().getClassLoader().getResource("auth.xml");
@@ -60,6 +61,12 @@ public class OnlineInterceptor implements HandlerInterceptor {
 			List<Element> uris = doc.selectNodes("//checkuris/uri");
 			for (Element e : uris) {
 				checkuris.add(e.getStringValue());
+			}
+			//新增主播校验2018-02-06
+			List<Element> anchoruris = doc.selectNodes("//checkuris/anchoruri");
+			for (Element e : anchoruris) {
+				checkuris.add(e.getStringValue());
+				checkanchoruris.add(e.getStringValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,7 +95,7 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		}
 		
 		//session与cookie都有，但是不是同一个用户的，以cookie为准重新设置session
-		//这种情况可能是先登陆了一个用户，然后用另一个用户从其他系统登陆再跳过来
+		//这种情况可能是先登录了一个用户，然后用另一个用户从其他系统登录再跳过来
 		if (u != null && t != null && !u.getLoginName().equals(t.getLoginName())) {
 			ItcastUser user = api.getUser(t.getLoginName());
 			if(user != null){
@@ -96,14 +103,32 @@ public class OnlineInterceptor implements HandlerInterceptor {
 			}
 		}
 		
-		//没登陆，但是调用了必须登陆才可以调的接口
-		if ((UserLoginUtil.getLoginUser(request) == null || UCCookieUtil.readTokenCookie(request) == null)
-				&& checkuris.contains(request.getRequestURI())) {
+		//没登录，但是调用了必须登录才可以调的接口
+		if ((UserLoginUtil.getLoginUser(request) == null || UCCookieUtil.readTokenCookie(request) == null) && checkuris.contains(request.getRequestURI())) {
 			Gson gson = new GsonBuilder().create();
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("application/json");
-			response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("请登陆！")));
+			response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("请登录！")));
 			return false;
+		}
+
+		//已经登录，但是调用了主播角色才可以调的接口
+		if (checkanchoruris.contains(request.getRequestURI())) {
+			BxgUser user = UserLoginUtil.getLoginUser(request);
+//			if(user.getAnchor()==null){
+				Boolean anchor = userService.isAnchor(user.getLoginName());
+//				user.setAnchor(anchor);
+//				UserLoginUtil.setLoginUser(request,user);
+//			}
+			if(!anchor){
+				response.sendRedirect("/");
+				return false;
+				/*Gson gson = new GsonBuilder().create();
+				response.setCharacterEncoding("utf-8");
+				response.setContentType("application/json");
+				response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("不具有主播权限或权限被禁用！")));
+				return false;*/
+			}
 		}
 		
 		return true;

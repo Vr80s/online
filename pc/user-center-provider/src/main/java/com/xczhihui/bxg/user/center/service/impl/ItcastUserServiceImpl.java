@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.xczhihui.bxg.user.center.dao.LoginLimitDao;
 import com.xczhihui.user.center.bean.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import com.xczhihui.bxg.user.center.dao.ItcastUserDao;
 import com.xczhihui.bxg.user.center.service.CacheService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -73,7 +73,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				}
 				String   opSign = map.get("opSign").toString();
 				//2==新增操作,1==更新操作
-				if(opSign.equals("1")){
+				if("1".equals(opSign)){
 					this.update(map.get("loginName")+"" , map.get("name")+"", Integer.valueOf(map.get("sex")+""), map.get("email")+"" ,map.get("mobile")+"" , UserType.STUDENT.getValue() ,0);
 				}else{
 					ItcastUser u = this.getUser(map.get("loginName").toString());
@@ -173,7 +173,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		} else {
 			logger.warn("重置密码");
 		}
-
 		user.setPassword(newPassword);
 		this.proccessPassword(user, false);
 		this.itcastUserDao.updatePassword(user.getId(), user.getPassword());
@@ -233,7 +232,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				throw new RuntimeException("手机号暂未注册");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("账号被禁用");
+				throw new RuntimeException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -260,7 +259,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				throw new RuntimeException("手机号暂未注册");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("账号被禁用");
+				throw new RuntimeException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -355,7 +354,8 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		itcastUser.setPassword(encPassord);
 	}
 
-	public TableVo getUsers(TableVo vo) {
+	@Override
+    public TableVo getUsers(TableVo vo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if(!StringUtils.isEmpty(vo.getsSearch())){
 			Gson gson = new Gson();
@@ -385,7 +385,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			throw new RuntimeException("用户名或密码错误");
 		}
 		if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-			throw new RuntimeException("账号被禁用");
+			throw new RuntimeException("帐号被禁用");
 		}
 		String salt = user.getSalt();
 		if (salt == null) {
@@ -418,7 +418,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				throw new RuntimeException("用户名或密码错误");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("账号被禁用");
+				throw new RuntimeException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -473,6 +473,8 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				ll.setAppInfo(info);
 				ll.setAppLastTime(lastTime);
 				break;
+			default:
+				break;
 		}
 		if(ll.getId()==null){
 			loginLimitDao.addLoginList(ll);
@@ -480,6 +482,23 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			loginLimitDao.updateLoginLimit(ll);
 		}
 	}
-
-
+	@Override
+	public void updatePasswordAndLoginName(int id, String userName,
+			String passWord) {
+		// TODO Auto-generated method stub
+		ItcastUser user = this.getUser(id);
+		if (user == null) {
+			logger.warn("没有找到登录名'{}'的用户.");
+			return;
+		}
+		/**
+		 * 更新用户和密码
+		 */
+		if(passWord !=null){
+			user.setPassword(passWord);
+			this.proccessPassword(user, false);
+			itcastUserDao.updatePasswordAndLoginName(id, user.getPassword(), userName);
+		}
+		this.itcastUserDao.updateLoginName(user.getLoginName(), userName);
+	}
 }

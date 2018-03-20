@@ -176,7 +176,7 @@
 					<div>
 						<div class="pingjia clearfix" data-md="pingjia">
 							<div class="videoBody-bottom-left-release">
-								<p>视频评分：<em class="releaseStars" style="margin-left:17px;"></em><span class="starText">五星好评！相信品牌的力量！</span></p>
+								<!--<p>视频评分：<em class="releaseStars" style="margin-left:17px;"></em><span class="starText">五星好评！相信品牌的力量！</span></p>-->
 								<span style="margin-top: 40px;margin-top: 40px;float: left;font-size: 14px;">学习感受：</span>
 								<textarea style="resize: none;" class="textStatus" placeholder="写下体验之后的真实感受，帮助我们不断优化课程产品，为大家提供更优质的服务~" maxlength="200" wrap="hard" onkeyup="countChar()"></textarea>
 								<span class="tishiText">可以输入<span id="textCounter">200</span>字</span>
@@ -380,8 +380,8 @@
 			</div>
 		</div>
 	</body>
-	<script src="../js/video.js??v=1.0" type="text/javascript" charset="utf-8"></script>
-	<script src="../js/footer.js" type="text/javascript"></script>
+	<script src="../js/video.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/footer.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 	<script src="//cdn.bootcss.com/jquery-placeholder/2.3.1/jquery.placeholder.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
@@ -403,7 +403,7 @@
 				'<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码?</a>' +
 				'</div>' +
 				'</div></div></div></div>');
-			//登陆
+			//登录
 			var flag = false;
 
 			function errorMessage(info) {
@@ -498,7 +498,7 @@
 
 				$(".form-login .cyinput1").on("blur", function() {
 					var cymyLogin = document.getElementsByClassName("cymlogin")[0];
-					var regPhone = /^1[3-578]\d{9}$/;
+					var regPhone = /^1[3-5678]\d{9}$/;
 					/* var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/; */
 					if($(".form-login .cyinput1").val().trim().length === 0) {
 						$(".cyinput1").css("border", "1px solid #ff4012");
@@ -550,7 +550,7 @@
 					}
 				});
 				$(".form-login .cymyloginbutton").on("click", function(evt) { //登录验证
-					var regPhone = /^1[3-578]\d{9}$/;
+					var regPhone = /^1[3-5678]\d{9}$/;
 					/* var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/; */
 					var passwordReg = /^(?!\s+)[\w\W]{6,18}$/; //密码格式验证
 					$(".cyinput1").css("border", "");
@@ -590,11 +590,11 @@
 				});
 
 				function login(data, autoLogin) {
-					RequestService("/online/user/login", "POST", data, function(result) { //登陆/index.html   /online/user/login
+					RequestService("/online/user/login", "POST", data, function(result) { //登录/index.html   /online/user/login
 						if(result.success === true || result.success == undefined) {
 							window.localStorage.userName = data.username;
 							window.location.reload();
-						} else { //登陆错误提示
+						} else { //登录错误提示
 							$(".loginGroup .logout").css("display", "block");
 							errorMessage(result.errorMessage);
 							if(!flag) {
@@ -698,7 +698,7 @@
 						verificationcode = data.resultObject.verificationcode;
 					} else {
 //						alert(data.errorMessage)
-						if(data.errorMessage == "请登陆！") {
+						if(data.errorMessage == "请登录！") {
 							$('#login').modal('show');
 						}
 					}
@@ -790,7 +790,7 @@
 	})();
 	var courseId = $.getUrlParam("courseId");
 	/* var qrcodeurl = 'http://wx.ixincheng.com/xcviews/html/share.html?course_id='+courseId; */
-		var qrcodeurl = wxurl+"/wx_share.html?courseId="+courseId;
+		var qrcodeurl = wxurl+"/wx_share.html?shareType=1&shareId="+courseId;
 		$("#qrcodeCanvas1").qrcode({
 			render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
 			text : qrcodeurl,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后

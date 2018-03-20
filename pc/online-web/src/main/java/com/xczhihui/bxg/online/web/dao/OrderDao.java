@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -22,7 +23,6 @@ import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
-import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
 import com.xczhihui.bxg.online.web.vo.MyConsumptionRecords;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
@@ -74,7 +74,7 @@ public class OrderDao extends SimpleHibernateDao {
                 sql = "select is_old_user from oe_apply where user_id=:userId";
                 List<Map<String,Object>>  applys= this.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
                 if(applys.size() > 0){
-                    isOldUser=applys.get(0).get("is_old_user").toString().equals("1") ? true : false;
+                    isOldUser= "1".equals(applys.get(0).get("is_old_user").toString()) ? true : false;
                 }
 
                 //查询购买的课程里面的课程信息
@@ -94,7 +94,7 @@ public class OrderDao extends SimpleHibernateDao {
                     Double price=Double.valueOf(course.get("current_price").toString());
                     if(ruleId==null){//非活动课程
                         //当前用户是老学员，并且课程是职业课,为其产生老学员优惠记录
-                        if(isOldUser && course.get("course_type").toString().equals("0")){
+                        if(isOldUser && "0".equals(course.get("course_type").toString())){
                             sql = " insert into oe_order_preferenty_record (id,order_detail_id,preferenty_money,preferenty_type,course_id) "  +
                                     " values ('"+ UUID.randomUUID().toString().replace("-", "")+"','"+orderDetailId+"',"+oldUserPreferentyMoney+",1,"+course.get("id")+")";
                             this.getNamedParameterJdbcTemplate().update(sql, paramMap);
@@ -129,7 +129,9 @@ public class OrderDao extends SimpleHibernateDao {
                 orderVo.setPurchaser(u.getName());
                 orderVo.setCreate_person(u.getLoginName());
                 orderVo.setUser_id(u.getId());
-                orderVo.setOrder_from(0);//订单来源，暂时为官网，以后做了分销根据情况来判断
+                //订单来源，暂时为官网，以后做了分销根据情况来判断
+                //订单来源改为pc   2018-01-27
+                orderVo.setOrder_from(OrderFrom.PC.getCode());
                 sql = " insert into oe_order (id,order_no,actual_pay,purchaser,create_person,user_id,order_from) "  +
                         " values (:id,:order_no,:actual_pay,:purchaser,:create_person,:user_id,:order_from) ";
                 this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(orderVo));
@@ -202,8 +204,22 @@ public class OrderDao extends SimpleHibernateDao {
             for (OrderVo  orderVo : page.getItems()){
                 paramMap = new HashMap<>();
                 paramMap.put("order_id",orderVo.getId());
-                String sql = "select c.id,c.smallimg_path,c.grade_name,c.course_length,c.type,c.online_course onlineCourse,c.direct_id,c.course_type,od.price,od.actual_pay actualPay,ou.name lecturer "
-                		+ " from oe_order_detail od join oe_course c on od.course_id=c.id left join oe_user ou on ou.id=c.user_lecturer_id where od.order_id=:order_id";
+                String sql = "select \n" +
+                        "  c.id,\n" +
+                        "  c.smallimg_path,\n" +
+                        "  c.grade_name,\n" +
+                        "  c.course_length,\n" +
+                        "  c.type,\n" +
+                        "  c.direct_id,\n" +
+                        "  c.course_type,\n" +
+                        "  od.price,\n" +
+                        "  od.actual_pay actualPay,\n" +
+                        "  c.`lecturer`\n" +
+                        "from\n" +
+                        "  oe_order_detail od \n" +
+                        "  join oe_course c \n" +
+                        "    on od.course_id = c.id \n" +
+                        "  where od.order_id = :order_id ";
                 List<Map<String,Object>> courses = this.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
                 orderVo.setOrderDetail(courses);
             }
@@ -217,7 +233,6 @@ public class OrderDao extends SimpleHibernateDao {
     public void updateOrderStatus(String orderNo,Integer payType,String transaction_id) {
         Map<String,Object> paramMap = new HashMap<>();
         String sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+transaction_id+"' where order_no = '"+orderNo+"' ";
-        System.out.println(sql);
         this.getNamedParameterJdbcTemplate().update(sql.toString(), paramMap);
     }
     /**
@@ -233,6 +248,18 @@ public class OrderDao extends SimpleHibernateDao {
     }
 
     /**
+     * 返回当前订单支付状态
+     */
+    public Integer getOrderStatusById(String orderId) {
+        StringBuffer sql = new StringBuffer();
+        Map<String,Object> paramMap = new HashMap<>();
+        sql.append("select order_status from oe_order where id =:orderId");
+        paramMap.put("orderId", orderId);
+        List<OrderVo> list = this.findEntitiesByJdbc(OrderVo.class, sql.toString(), paramMap);
+        return list.size()>0 ? list.get(0).getOrder_status() : null;
+    }
+
+    /**
      * 根据订单号查找订单
      * @param orderNo  订单号
      * @return
@@ -241,11 +268,32 @@ public class OrderDao extends SimpleHibernateDao {
         StringBuffer sql = new StringBuffer();
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("orderNo", orderNo);
-        sql.append("select o.id, o.actual_pay,GROUP_CONCAT(c.grade_name) as course_name,o.order_no,GROUP_CONCAT(c.id) as course_id,o.user_id from oe_order o,oe_order_detail od,oe_course c  ");
+        sql.append("select o.id, o.actual_pay,GROUP_CONCAT(c.grade_name) as course_name,o.order_status,o.order_from,o.order_no,GROUP_CONCAT(c.id) as course_id,o.user_id from oe_order o,oe_order_detail od,oe_course c  ");
         sql.append(" where o.id=od.order_id and od.course_id=c.id and o.order_status=0 and o.order_no=:orderNo GROUP BY o.id");
         List<OrderVo> listOrder = this.findEntitiesByJdbc(OrderVo.class, sql.toString(), paramMap);
         return listOrder.size()>0 ? listOrder.get(0) : null;
     }
+    
+    /**
+     * 根据订单号查找订单
+     * @param orderNo  订单号
+     * @return
+     */
+    public OrderVo findOrderByOrderNoAndStatus(String orderNo,Integer orderStatus){
+        StringBuffer sql = new StringBuffer();
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("orderNo", orderNo);
+        sql.append("select o.id, o.actual_pay,GROUP_CONCAT(c.grade_name) as course_name,o.order_status,o.order_from,o.order_no,GROUP_CONCAT(c.id) as course_id,o.user_id from oe_order o,oe_order_detail od,oe_course c  ");
+        sql.append(" where o.id=od.order_id and od.course_id=c.id and o.order_no=:orderNo  ");
+        if(orderStatus!=null){
+        	  paramMap.put("orderStatus", orderStatus);
+        	  sql.append(" and o.order_status=:orderStatus ");
+        }
+        sql.append("  GROUP BY o.id ");
+        List<OrderVo> listOrder = this.findEntitiesByJdbc(OrderVo.class, sql.toString(), paramMap);
+        return listOrder.size()>0 ? listOrder.get(0) : null;
+    }
+    
 
     public OrderVo findOrderByOrderId(String orderId){
         StringBuffer sql = new StringBuffer();
@@ -321,12 +369,12 @@ public class OrderDao extends SimpleHibernateDao {
      */
     public Boolean findCourseIsFree(String ids){
         String[] idArr = ids.split(",");
-        Boolean isFree=false;  //收费课程
+        Boolean isFree=false;  //付费课程
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("idArr", Arrays.asList(idArr));
         String sql=" select sum(c.current_price) current_price from oe_course c  where c.id in (:idArr) ";
         String current_price = this.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class);
-        if(current_price.equals("0.00")){
+        if("0.00".equals(current_price)){
             isFree=true;
         }
         return isFree;
@@ -601,7 +649,7 @@ public class OrderDao extends SimpleHibernateDao {
             courseIds.add(cour.get("course_id").toString());
         }
         sql =" SELECT c.current_price priceCount,c.id ,c.course_type, c.grade_name as courseName ,c.smallimg_path as smallImgPath," +
-        		"c.online_course onlineCourse,c.type,direct_id,"+
+        		"c.type,direct_id,"+
                 " c.original_cost as originalCost, c.current_price as currentPrice,now() as create_time,0 as preferentyMoney " +
                 " from oe_course c where c.id in (:ids) ";
         if(courseIds.size()>0){
@@ -667,7 +715,7 @@ public class OrderDao extends SimpleHibernateDao {
                 " left join oe_activity_rule_detail ard on c.id=ard.course_id " +
                 " where c.id in (:ids) and rule_id is null) a ";
         Double subTotal=this.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Double.class);*/
-        if(orderNo == null || orderNo.equals("")){
+        if(orderNo == null || "".equals(orderNo)){
             //活动后需要支付的金额存在session里面,key值为订单号
             orderNo=TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
         }else{

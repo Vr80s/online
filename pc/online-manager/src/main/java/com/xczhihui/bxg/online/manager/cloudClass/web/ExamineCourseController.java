@@ -62,7 +62,7 @@ public class ExamineCourseController {
 		//查找所有的讲师
 		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
-			String str = "昵称:"+map.get("name").toString() + ",账号:"+map.get("logo").toString();
+			String str = "昵称:"+map.get("name").toString() + ",帐号:"+map.get("logo").toString();
 			map.put("name", str);
 		}
 		request.setAttribute("mapList", mapList);
@@ -110,7 +110,7 @@ public class ExamineCourseController {
 		Group isDelte = groups.findByName("isDelete");
 		if (isDelte != null) {
 			String falg = isDelte.getPropertyValue1().toString();
-			liveExamineInfoVo.setIsDelete(falg.equals("1") ? true : false);
+			liveExamineInfoVo.setIsDelete("1".equals(falg) ? true : false);
 		}
 		
 		Page<LiveExamineInfoVo> page = examineCourseService.findCoursePage(liveExamineInfoVo,currentPage, pageSize);

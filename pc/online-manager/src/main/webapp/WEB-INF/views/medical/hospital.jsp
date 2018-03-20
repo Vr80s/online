@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 
 <style type="text/css">
     .vertical-tab {
@@ -447,6 +447,11 @@
     input.custom-combobox-input.ui-widget.ui-widget-content.ui-state-default.ui-corner-left.ui-autocomplete-input{
      width: 100%;
     }
+
+	.show_description img{
+		width: 250px;
+		height: 200px;
+	}
     
     </style>
 <script type="text/javascript">
@@ -468,10 +473,10 @@
         });
     });
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-	当前位置：医馆管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+	当前位置：医师医馆<small> <i class="ace-icon fa fa-angle-double-right"></i>
 	</small> <span> 医馆管理 </span>
 </div>
 
@@ -782,7 +787,7 @@
 			 <label class="col-sm-4 control-label no-padding-right" for="description"><b>医馆简介:</b> </label>
 			 <div class="col-sm-6">
 			 	<!-- <input type="text" name="courseDescribe"  id="show_courseDescribe" disabled="disabled" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}"> -->
-			 	<p id="show_description" class="paddingtop7px padding7" style="word-break:break-all;word-wrap:break-word;width:250px"></p>
+			 	<p id="show_description" class="paddingtop7px padding7 show_description" style="word-break:break-all;word-wrap:break-word;width:250px"></p>
              </div>
 		</div>
 	</form>
@@ -793,6 +798,12 @@
 <div id="EditCourseDialog" class="hide">
 	<form class="form-horizontal" id="updateCourse-form" method="post" action="" style="margin-top: 15px;">
 	<input type="hidden" id="editHospital_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
+		<%--<div class="form-group" style="margin-top: 18px;">--%>
+			<%--<label class="col-sm-3 control-label no-padding-right" for="name"><font color="red">*</font>医馆头像: </label>--%>
+			<%--<div class="col-sm-6">--%>
+				<%--<img src="" name="headPortrait"  id="edit_headPortrait" width="100px" height="100px" style="margin-top: 10px;">--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="form-group" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" for="name"><font color="red">*</font>医馆名称: </label>
 			 <div class="col-sm-6">
@@ -822,6 +833,18 @@
 			<label class="col-sm-3 control-label no-padding-right" for="email">email: </label>
 			<div class="col-sm-6" >
 				<input type="text" id="edit_email" name="email" maxlength="100" class="col-xs-10 col-sm-12 ">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="email">微信: </label>
+			<div class="col-sm-6" >
+				<input type="text" id="edit_wechat" name="wechat" maxlength="100" class="col-xs-10 col-sm-12 ">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="email">联系人: </label>
+			<div class="col-sm-6" >
+				<input type="text" id="edit_contactor" name="contactor" maxlength="100" class="col-xs-10 col-sm-12 ">
 			</div>
 		</div>
 		<div class="space-4"></div>
@@ -917,5 +940,5 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/medical/provinces.js?v=112312312311"></script>
-<script type="text/javascript" src="${base}/js/medical/hospital.js?v=112312312311"></script>
+<script type="text/javascript" src="/js/medical/provinces.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/medical/hospital.js?v=ipandatcm_1.3"></script>

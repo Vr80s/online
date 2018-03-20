@@ -110,7 +110,16 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
      */
 	public List<Map<String, Object>> getAllUserLecturer() {
 		// TODO Auto-generated method stub
-		String sql = "select id,name,login_name as logo from oe_user where is_lecturer = 1";
+		String sql = "SELECT \n" +
+				"  ou.id,\n" +
+				"  ou.name,\n" +
+				"  ou.login_name AS logo \n" +
+				"FROM\n" +
+				"  oe_user ou\n" +
+				"  JOIN `course_anchor` ca\n" +
+				"  ON ou.id=ca.`user_id`\n" +
+				"WHERE is_lecturer = 1 \n" +
+				"  AND ca.status = 1 ";
 //		String sql = "select id,name,ifnull(mobile,email) as logo from oe_user where is_lecturer = 1";
 		List<Map<String, Object>> list =this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql);
 		return list;
@@ -124,7 +133,8 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
 	public int getCurrent(){
 		String sql = "select max(room_number) from oe_user";
 		int count = super.queryForInt(sql,null);
-		if(count==0){//说明存在
+		if(count==0){
+			//说明存在
 			count = 10000;
 		}else{
 			count = count+1;
@@ -133,5 +143,10 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
 	}
 	public OnlineUser getOnlineUserByUserId(String userId) {
 		return this.find(userId);
+	}
+	public List<Map<String, Object>> getAllCourseName() {
+		String sql = "select c.id,c.grade_name as courseName,ou.name as name from oe_course as c,oe_user as ou  where c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1  and ou.status =0";
+		List<Map<String, Object>> list =this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql);
+		return list;
 	}
 }

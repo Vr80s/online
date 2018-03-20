@@ -49,7 +49,7 @@
                     wxurl = "http://test-wx.ixincheng.com";
                 }
 			})();
-            var qrcodeurl = wxurl+"/wx_share.html?courseId="+course_id;
+			var qrcodeurl = wxurl+"/wx_share.html?shareType=1&shareId="+course_id;
 			$(document).ready(function() {
 				$("#qrcodeCanvas1").qrcode({
 					render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
@@ -111,8 +111,8 @@
 						<li style="line-height:none;background:none;width:75px;">分享到：</li>
 						<li class="share_li1"><img src="/web/images/video2/weixin.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li1_img"><div id="qrcodeCanvas1"></div></div></li>
 						<li class="share_li2"><img src="/web/images/video2/quan.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li2_img"><div id="qrcodeCanvas2"></div></div></li>
-						<li style="background:none;"><a href="" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
-						<li style="background:none;"><a href="" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>
+						<li style="background:none;"><a href="javascript:void(0)" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
+						<li style="background:none;"><a href="javascript:void(0)" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>
 				</ul>
 				</div>
 				<span class="liveTime">直播时间：<span></span></span>
@@ -174,7 +174,7 @@
 	<div id='main'>
 
 	<div class='topbanner'>
-	<span>账号充值</span><b>账号名称</b><i class="close" style="opacity: 1"></i>
+	<span>帐号充值</span><b>帐号名称</b><i class="close" style="opacity: 1"></i>
 	</div>
 	<div id='pay'>
 	
@@ -199,8 +199,14 @@
 			<p>充值数量</p>
 			<div class='item_content content_two'>
 				<ul>
-					<li data-value='10' class='orange dian'>100个
+					<li data-value='5' class='orange dian'>50个
 						<i class="ico i-selector show"></i>
+					</li>
+					<li data-value='10' class="dian">100个
+						<i class="ico i-selector"></i>
+					</li>
+					<li data-value='20' class="dian">200个
+						<i class="ico i-selector"></i>
 					</li>
 					<li data-value='50' class="dian">500个
 						<i class="ico i-selector"></i>
@@ -208,18 +214,11 @@
 					<li data-value='100' class="dian">1000个
 						<i class="ico i-selector"></i>
 					</li>
-					<li data-value='500' class="dian">5000个
-						<i class="ico i-selector"></i>
-					</li>
-					<li data-value='0' class='other dian' style="width: 103px">
-					<input class="editPayNum" style='width: 60px;' id="editPayNum" id="phone"  onkeyup="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10));showNum()" onafterpaste="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10))" maxLength=6 >
-					<!-- <span class="baseNum">,000个</span> -->
-						<!-- <div>
-							<input type="text" placeholder="其他数量" style="outline: none;">
-						</div> -->
-						<label class="inTips" for="editPayNum">其它数量</label>
-						<i class="ico i-selector"></i>
-					</li>
+					<!--<li data-value='0' class='other dian' style="width: 103px">-->
+					<!--<input class="editPayNum" style='width: 60px;' id="editPayNum" id="phone"  onkeyup="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10));showNum()" onafterpaste="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10))" maxLength=6 >-->
+						<!--<label class="inTips" for="editPayNum">其它数量</label>-->
+						<!--<i class="ico i-selector"></i>-->
+					<!--</li>-->
 					<!-- <li class='tip' style="width: 100px;border: none;">
 						<p class="inputTips" style="visibility: hidden;">1~20w元</p>
 						<p>1元=10个熊猫币</p>
@@ -310,9 +309,6 @@
 				'<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码?</a>' +
 				'</div>' +
 				'</div></div></div></div>');
-			var weboshare_url="http://www.ipandatcm.com/web/html\/"+page+".html?id="+course_id;
-			$("#weibo_share").attr("href","http://service.weibo.com/share/share.php?url="+weboshare_url+"&title="+description)
-			$("#qq_share").attr("href","http://connect.qq.com/widget/shareqq/index.html?url="+weboshare_url+"&title="+description)
 		</script>
 </html>
 <script src="/web/js/placeHolder.js"></script>

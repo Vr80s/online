@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *  课程实体类
@@ -253,6 +254,8 @@ public class Course extends BasicEntity2 implements Serializable {
 	 */
 	@Column(name = "course_type")
 	private Integer serviceType;
+	@Column(name = "course_number")
+	private Integer courseNumber;
 
 	/**
 	 * 班级额定人数
@@ -288,26 +291,73 @@ public class Course extends BasicEntity2 implements Serializable {
 	private  Integer liveStatus;
 	
 	@Column(name = "multimedia_type" )
-	private  int multimediaType;
+	private Integer multimediaType;
 	
 	
 	@Column(name = "live_source" )
-	private  int liveSource;  //直播来源  1、后台新增  2、app申请
+	private  Integer liveSource;  //直播来源  1、后台新增  2、app申请
 	
 	
+	@Column(name = "apply_id")
+	private Integer applyId;
+
 	@Column(name = "examine_id")
 	private String examineId;
+	
+	
+	/**
+	 * 上架或者下架时间
+	 */
+	@Column(name = "release_time")
+	private Date releaseTime;
 	
 	
 	@Column(name = "city")
 	private String city;
 	
+	@Column(name = "type_sort")
+	private Integer typeSort;
 	
-	public int getMultimediaType() {
+	@Column(name = "is_essence")
+	private Integer isEssence;
+	
+	@Column(name = "is_type_recommend")
+	private Integer isTypeRecommend;
+
+	/**
+	 * 排序更新时间
+	 */
+	@Column(name = "sort_update_time")
+	private Date sortUpdateTime;
+	
+	
+	
+	@Transient
+	private String playCode;
+	@Transient
+	private String courseMenu;
+
+	public String getCourseMenu() {
+		return courseMenu;
+	}
+
+	public void setCourseMenu(String courseMenu) {
+		this.courseMenu = courseMenu;
+	}
+
+	public String getPlayCode() {
+		return playCode;
+	}
+
+	public void setPlayCode(String playCode) {
+		this.playCode = playCode;
+	}
+
+	public Integer getMultimediaType() {
 		return multimediaType;
 	}
 
-	public void setMultimediaType(int multimediaType) {
+	public void setMultimediaType(Integer multimediaType) {
 		this.multimediaType = multimediaType;
 	}
 
@@ -327,8 +377,90 @@ public class Course extends BasicEntity2 implements Serializable {
 	private  String coursePwd;
 
 	@Column(name = "online_course" )
-	private int onlineCourse;;
+	private int onlineCourse;
+
+	@Column(name = "collection" )
+	private Boolean collection;
+	@Column(name = "lecturer" )
+	private String lecturer;
+	@Type(type="text")
+	@Column(name = "lecturer_description" )
+	private String lecturerDescription;
+	private String subtitle;
+	@Transient
+	private Integer collectionCourseSort;
 	
+	/**
+	 * 直播源类型  0:来自pc直播,1:来自app 直播
+	 */
+	@Column(name = "live_source_type")
+	private boolean  liveSourceType;
+	/**
+	 * 直播源类型
+	 */
+	@Column(name = "essence_sort")
+	private Integer  essenceSort;
+
+
+	@Transient
+	private List<Course> courseInfoList;
+
+	public Integer getCourseNumber() {
+		return courseNumber;
+	}
+
+	public void setCourseNumber(Integer courseNumber) {
+		this.courseNumber = courseNumber;
+	}
+
+	public Integer getCollectionCourseSort() {
+		return collectionCourseSort;
+	}
+
+	public void setCollectionCourseSort(Integer collectionCourseSort) {
+		this.collectionCourseSort = collectionCourseSort;
+	}
+
+	public List<Course> getCourseInfoList() {
+		return courseInfoList;
+	}
+
+	public void setCourseInfoList(List<Course> courseInfoList) {
+		this.courseInfoList = courseInfoList;
+	}
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+	public String getLecturer() {
+		return lecturer;
+	}
+
+	public void setLecturer(String lecturer) {
+		this.lecturer = lecturer;
+	}
+
+	public String getLecturerDescription() {
+		return lecturerDescription;
+	}
+
+	public void setLecturerDescription(String lecturerDescription) {
+		this.lecturerDescription = lecturerDescription;
+	}
+
+	public Boolean getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Boolean collection) {
+		this.collection = collection;
+	}
+
 	public int getOnlineCourse() {
 		return onlineCourse;
 	}
@@ -738,12 +870,44 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.liveStatus = liveStatus;
 	}
 
-	public int getLiveSource() {
+	public Integer getLiveSource() {
 		return liveSource;
 	}
 
-	public void setLiveSource(int liveSource) {
+	public void setLiveSource(Integer liveSource) {
 		this.liveSource = liveSource;
+	}
+
+	public Integer getApplyId() {
+		return applyId;
+	}
+
+	public void setApplyId(Integer examineId) {
+		this.applyId = examineId;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public boolean isLiveSourceType() {
+		return liveSourceType;
+	}
+
+	public void setLiveSourceType(boolean liveSourceType) {
+		this.liveSourceType = liveSourceType;
+	}
+
+	public Integer getEssenceSort() {
+		return essenceSort;
+	}
+
+	public void setEssenceSort(Integer essenceSort) {
+		this.essenceSort = essenceSort;
 	}
 
 	public String getExamineId() {
@@ -754,11 +918,43 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.examineId = examineId;
 	}
 
-	public String getCity() {
-		return city;
+	public Date getReleaseTime() {
+		return releaseTime;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setReleaseTime(Date releaseTime) {
+		this.releaseTime = releaseTime;
+	}
+
+	public Integer getTypeSort() {
+		return typeSort;
+	}
+
+	public void setTypeSort(Integer typeSort) {
+		this.typeSort = typeSort;
+	}
+
+	public Integer getIsEssence() {
+		return isEssence;
+	}
+
+	public void setIsEssence(Integer isEssence) {
+		this.isEssence = isEssence;
+	}
+
+	public Integer getIsTypeRecommend() {
+		return isTypeRecommend;
+	}
+
+	public void setIsTypeRecommend(Integer isTypeRecommend) {
+		this.isTypeRecommend = isTypeRecommend;
+	}
+
+	public Date getSortUpdateTime() {
+		return sortUpdateTime;
+	}
+
+	public void setSortUpdateTime(Date sortUpdateTime) {
+		this.sortUpdateTime = sortUpdateTime;
 	}
 }

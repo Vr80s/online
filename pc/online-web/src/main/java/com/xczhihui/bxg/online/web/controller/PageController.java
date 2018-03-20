@@ -93,7 +93,20 @@ public class PageController {
     @RequestMapping(value = "/livepage/{courseId}/{roomId}/{planId}",method= RequestMethod.GET)
     public ModelAndView livepage(@PathVariable String courseId,@PathVariable String roomId,
     		@PathVariable String planId,HttpServletRequest request,HttpServletResponse response){
-        ModelAndView mv = liveService.livepage(courseId, roomId, planId,request,response);
+        ModelAndView mv = liveService.livepage(courseId, request,response);
+        return mv;
+    }
+
+    /**
+     * 跳转到直播间
+     * @param courseId
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/livepage/{courseId}",method= RequestMethod.GET)
+    public ModelAndView livepage(@PathVariable String courseId,HttpServletRequest request,HttpServletResponse response){
+        ModelAndView mv = liveService.livepage(courseId, request,response);
         return mv;
     }
 }

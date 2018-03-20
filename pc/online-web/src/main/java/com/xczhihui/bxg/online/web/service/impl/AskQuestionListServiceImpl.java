@@ -63,6 +63,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param menuId     学科ID号
      * @return
      */
+    @Override
     public Page<AskQuestionVo> findListQuestion(OnlineUser u, Integer pageNumber, Integer pageSize, Integer menuId, String status, String tag, String title, String text, String content) {
         //处理搜索条件中的特殊字符
         title = MysqlUtils.replaceESC(title);
@@ -94,7 +95,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
                     if (u != null) {
                         //看当前用户是否针对当前学科有权限，如果有，可以看到回答信息，否则必须购买才可以看到
                         OnlineUser user=questionListDao.findOneEntitiyByProperty(OnlineUser.class, "loginName", u.getLoginName());
-                        if(user.getMenuId()==askQuestionVo.getMent_id()) {
+                        if(user.getMenuId().intValue()==askQuestionVo.getMent_id().intValue()) {
                             //获取当前提问下的问题信息()
                             AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);
                             if (askAnswerVo != null) {
@@ -125,6 +126,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * 获取问题数据，根据问题ID号
      * @param questionId 问题ID号
      */
+    @Override
     public AskQuestionVo findQuestionById(Token token, String questionId, HttpServletRequest request) {
         //获取当前问题信息
         AskQuestionVo questionVo = questionListDao.findQuestionById(questionId);
@@ -135,7 +137,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
             questionVo.setStrTime(TimeUtil.comparisonDate(questionVo.getCreate_time()));
             //未登录情况下： 控制此问题下回答信息是否显示 true 显示   false 未显示
             questionVo.setIsShowAnswer(questionVo.getAsk_limit() == 1 ? true : false);
-            //获取当前登陆用户信息
+            //获取当前登录用户信息
             OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
             if (loginUser != null) {
                 //查找用户收藏状态
@@ -145,7 +147,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
                 questionVo.setIsMyself(loginUser.getId().equals(questionVo.getUserId()) ? true : false);
                 /**
                  * 登录情况下： 控制此问题下回答信息是否显示 true 显示   false 未显示
-                 * 首先，当登陆用户针对当前学科有权限，那么他可以看到回答信息
+                 * 首先，当登录用户针对当前学科有权限，那么他可以看到回答信息
                  * 其次，当前登录用户没有当前学科的权限，用户购买此学科下的课程，他也可以看到回答信息
                  */
                 if (!questionVo.isShowAnswer()) {
@@ -171,6 +173,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      *
      * @param questionId 问题ID号
      */
+    @Override
     public AskQuestionVo findAdminQuestionById(String questionId, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("_adminUser_");
         //获取当前问题信息
@@ -198,6 +201,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      *
      * @param qu 问题的id号
      */
+    @Override
     public String updateBrowseSum(AskQuestionVo qu) {
         questionListDao.updateBrowseSum(qu);
         return "浏览数增加成功";
@@ -208,8 +212,9 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      *
      * @param qu 参数封装对象
      */
+    @Override
     public String saveQuestion(AskQuestionVo qu, HttpServletRequest request) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         loginUser =  userDao.get(loginUser.getId(),OnlineUser.class);
         if (loginUser != null) {
@@ -221,7 +226,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
             questionListDao.saveQuestion(qu);
             return "提问成功!";
         }
-        return "请先登陆!";
+        return "请先登录!";
     }
 
 
@@ -231,8 +236,9 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param title 提问标题信息
      * @return 类似问题集合
      */
+    @Override
     public List<AskQuestionVo> findSimilarProblemByTitle(String title) {
-        if (title.equals("")) {
+        if ("".equals(title)) {
             return null;
         }
         return questionListDao.findSimilarProblemByTitle(title);
@@ -244,6 +250,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param menuId 学科id号
      * @return
      */
+    @Override
     public List<CourseVo> getCourseByMenuId(Integer menuId) {
         return questionListDao.getCourseByMenuId(menuId);
     }
@@ -255,6 +262,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param
      * @return
      */
+    @Override
     public List<AskQuestionVo> getHotAnswer() {
         return questionListDao.getHotAnswer();
     }
@@ -266,6 +274,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param
      * @return
      */
+    @Override
     public List<AskQuestionVo> getSameProblem(String[] tags, Integer menuId, String qId) {
         return questionListDao.getSameProblem(tags, menuId, qId);
     }
@@ -277,6 +286,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param questionId 问题id号
      * @return
      */
+    @Override
     public String deleteQuestionById(HttpServletRequest request, OnlineUser u, String questionId) {
         //再删除问题信息
         questionListDao.deleteQuestionById(request, questionId, u);
@@ -294,8 +304,9 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param pageSize
      * @return
      */
-    public Page<AskQuestionVo> findVideoQuestion(String videoId,Integer type,Integer pageNumber, Integer pageSize,HttpServletRequest request) {
-         //获取当前登陆用户信息
+    @Override
+    public Page<AskQuestionVo> findVideoQuestion(String videoId, Integer type, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
+         //获取当前登录用户信息
          OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
          if(u != null){
              return  questionListDao.findVideoQuestion(videoId,type,pageNumber,pageSize,u);
@@ -308,6 +319,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * 修改问题信息内容
      * @param questionVo
      */
+    @Override
     public void updateQuestion(AskQuestionVo  questionVo){
          questionListDao.updateQuestion(questionVo);
     }

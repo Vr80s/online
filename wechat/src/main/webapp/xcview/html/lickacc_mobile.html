@@ -1,0 +1,117 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+<link rel="stylesheet" href="/xcview/css/lickacc_mobile.css">
+
+
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return" onclick="location.href ='set.html'">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">帐号和绑定设置</div>
+		</div>
+	</header>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="email">
+		<div class="email_title">注册帐号</div>
+		<div class="email_one">
+			<div class="div0" data-title="mobile" onclick="check_login(this)">
+				<span class="span0">手机号</span>
+				<img src="../images/account05.png" alt="" />
+				<span class="span1" id="mobileShow">15054054532</span>
+				
+			</div>
+			<div class="div0" data-title="password" style="border: 0;" onclick="check_login(this)">
+				<span class="span0">密码</span>
+				<img src="../images/account05.png" alt="" />
+				<span class="span1">修改密码</span>
+				
+			</div>
+		</div>
+		
+		<div class="email_title">其他登录方式</div>
+		<div class="email_one" style="height: 0.94rem;">
+			<div class="div0 div0_show" style="border: none;">
+				<span class="span0">微信</span>
+				<img src="../images/account05.png" alt="" />
+				<span class="span1" id="weixin_bind">去绑定</span>
+				
+			</div>
+			<!--<div class="div0">
+				<span class="span0">腾讯QQ</span>
+				<img src="../images/account05.png" alt="" />
+				<span class="span1">去绑定</span>
+				
+			</div>
+			<div class="div0" style="border: 0;">
+				<span class="span0">新浪微博</span>
+				<img src="../images/account05.png" alt="" />
+				<span class="span1">去绑定</span>
+			</div>-->
+		</div>
+	</div>
+	
+	<!-- 中间内容结束 -->
+	<div class="success">
+		<div class="success_bg"></div>
+		<div class="success_main">	
+			<div class="one">确定要解除绑定吗?</div>
+			<div class="three">
+				 <!--<div class="three_btn0 tishi">确定</div>--> 
+				<div class="three_btn0" onclick="removeBind()">确定</div>
+				<div class="three_btn1">取消</div>
+			</div>
+		</div>
+	</div>
+</body>
+<!-- 刷新引入js -->
+<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/lickacc_mobile.js?v=wechat_1.1.1"></script>
+<!--处理分辨率-->
+
+
+<!--点击微信绑定-->
+<script type="text/javascript">
+/* 	window.onload = function(){
+		$(".email_one .div0").click(function(){
+			$(".success").show();
+		});
+		
+		$(".success .three .three_btn0").click(function(){
+			$(".success").hide();
+		});
+	}; */
+</script>
+
+</html>

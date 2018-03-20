@@ -43,7 +43,7 @@ public class FcodeVo {
 	private Integer status;//F码状态
 	private String usedCourseId;//兑换了哪些课程Id
 	private String CourseName;//兑换了哪些课程Name
-	private String loginName;//使用人(账号)
+	private String loginName;//使用人(帐号)
 	
     
 	public String getId() {

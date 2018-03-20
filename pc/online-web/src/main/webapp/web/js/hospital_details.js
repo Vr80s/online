@@ -100,12 +100,12 @@ $(function(){
 			size:4,
 			hospitalId:id
 	    },function(data){
-	        if(data.resultObject.total < 4){
+	        if(data.resultObject.total == 0){
 	        	//没有数据处理
 //	           alert("名老中医没有数据")
 //			$('.doctor_inf').html('<h3>暂无数据</h3>');
 			$('.hospital_doctor').addClass('hide')
-	        }else{
+	        }else if(data.resultObject.total > 0){
 	        	console.log(data)
 	        	$('.hospital_doctor').removeClass('hide')
 	        	//获取到数据渲染
@@ -134,5 +134,17 @@ $(function(){
 	    });
 	
 	
+	
+	  //优秀医馆部分 hot-article
+    RequestService("/medical/hospital/getRecHospitals", "GET", null, function (data) {
+        if(data.resultObject.length==0){
+            $("#good_hospital").html(' ');
+        }else{
+        	$('#good_hospital').removeClass('hide')
+        	console.log(data);
+	        $('#good_hospital_list').html(template('good_hospital_list_Tpl',{item:data.resultObject}));
+            
+        }
+    });
 
 })

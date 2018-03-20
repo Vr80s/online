@@ -1,0 +1,453 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>用户主页</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<style>
+.personage_bto_cen_one_put {
+    /*margin-right: 0.5rem;*/
+}
+#fansCount{
+	width: 4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.personage_top_cen01 span{
+	width: 6.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.div_attention{
+	width: 100%;
+	color: #fff;
+	margin-top: 0.2rem;
+}
+.pay_attention{
+	width: 48%;
+	text-align: right;
+	font-size: 0.6rem;
+	float: left;
+	margin-right: 0.1rem;
+	margin-top: -0.08rem;
+}
+.bean_vermicelli{
+	width: 48%;
+	text-align: left;
+	font-size: 0.6rem;
+	float: right;
+}
+.information{
+	font-size: 0.65rem;
+	margin-top: 0.55rem;
+    border-left: 2px solid #00bc12;
+    text-indent: 0.2rem;
+    color: #333;
+}
+.contribution{
+	width: 100%;
+	height: 2.5rem;
+}
+.cup{
+	color: #e5b907;
+	font-size: 0.6rem;
+	margin-top: 0.8rem;
+	width: 34%;
+    margin-left: 0.4rem;
+    float: left;
+}
+.cup img{
+	width: 0.775rem;
+	height: 0.8rem;
+	vertical-align: middle1;
+	margin-right: 0.15rem;
+}
+.personage_bto{
+	padding-top1: 0.54rem;
+	margin-top: 2.8rem;
+}
+.personage_bto_ul{
+	border-bottom: 1px solid #e5e5e5;
+}
+.personage_bto_ul ul{
+	height: 1.4rem;
+	line-height: 1.4rem;
+	/*padding-top: 0.25rem;*/
+	border-bottom: #f0f0f0;
+	padding-top: 0.4rem
+}
+.contribution_img_one img{
+	width: 0.925rem;
+	height: 0.5rem;
+}
+.contribution_img_two img{
+	width: 1.25rem;
+	height: 1.25rem;
+	border-radius: 60px;
+	border: 1px solid #e5b907;
+}
+.contribution_right{
+	min-width: 1rem;
+    float: right;
+	height: 2.5rem;
+}
+/*.contribution_right_one:first-child{
+	margin-left: 2.25rem;
+}*/
+.contribution_right_one{
+	width: 1.25rem;
+    text-align: center;
+    float: left;
+    margin-right: 0.4rem;
+    margin-top: -0.1rem;
+height: 2.5rem;
+}
+.contribution_img_two{
+	height: 1.25rem;
+	margin-top: -0.35rem;
+}
+.contribution_right_two{
+	width: 0.3rem;
+	height: 1.5rem;
+	float: right;
+    margin-top: 0.6rem;
+    margin-right: 0.4rem;
+}
+.contribution_right_two img{
+	width: 0.3rem;
+	height: 0.5rem;
+}
+.public1_list{
+	position: relative;
+}
+.public1_list_bg{
+	width: 7.45rem;
+    height: 4.55rem;
+	background: url(/xcviews/images/zhibo_bg.png) no-repeat;
+	background-size: 100% 100%;
+    position: absolute;
+    border-radius: 8px;
+}
+.public1_list_bottom{
+	position: absolute;
+	bottom: 0;
+	font-size: 0.425rem;
+	bottom: 1.75rem;
+	color: #fff;
+}
+
+.public1_list_bottom img{
+	width: 0.525rem;
+	height: 0.3rem;
+	margin-left: 0.4rem;
+	margin-right: 0.2rem;
+
+}
+.public1_list_bottom0{
+	position: absolute;
+	bottom: 0;
+	font-size: 0.425rem;
+	bottom: 1.75rem;
+	color: #fff;
+	right: 0.4rem;
+}
+.public1_list_img img{
+	border-radius: 8px;
+}
+.public1_list_bottom01{
+	width: 100%;
+	height: 0.8rem;
+	position: absolute;
+	top: 0;
+}
+.play_types{
+	float: left;
+	margin-top: -0.25rem;
+    margin-left: 0.4rem;
+    margin-right: 0.3rem;
+}
+.play_types_size{
+	font-size: 0.5rem;
+    color: #fff;
+    margin-top: 0.25rem;
+} 
+.play_types img{
+	width: 0.425rem;
+}
+.public1_cen_right{
+	float: left;
+    color: #ff6767;
+}
+#teacherName{
+	font-size: 0.7rem;
+    color: #fff;
+    width: 5rem;
+    margin: 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.null15{
+	width: 6rem;
+    text-align: center;
+    margin: 0px auto;
+    margin-top: 1.2rem;
+}
+
+.null15 img{
+	width: 5.275rem;
+	height: 6.125rem;
+}
+.null15 p{
+	font-size: 0.6rem;
+	color: #999;	
+}
+.personage_bto_cen_one_put{
+	margin-top: -0.15rem;
+	width: 12.5rem;
+}
+.personage_bto_cen_one_put input{
+	line-height: 1rem;
+	font-size: 0.6rem;
+	color: #333;
+}
+.personage_bto_cen_one_size{
+	font-size: 0.6rem;
+	color: #666;
+}
+.personage_bto_cen_one{
+	height: 1.2rem;
+    line-height: 1.2rem;
+}
+.personage_bto_ul ul li{
+	font-size: 0.65rem;
+}
+.personage_top_cen_in{
+	color: #fff;
+}
+.null15{
+	display: none;
+}
+.personage_bto_ul ul li{
+	padding-bottom: 0;
+}
+</style>
+</head>
+
+<body style="background:#fff;">
+	<!-- 个人主页开始 -->
+	<div class="personage">
+		<!-- 返回开始 -->
+		<div class="personage_return" >
+			<div class="getback"></div>
+		</div>
+		<!-- 返回结束 -->
+	
+		<div class="personage_top">
+			<div class="personage_top_left">
+				<img src="../images/touxiang01.png" id="teacherHeadImg" alt="" >
+			</div>
+			<div class="personage_top_cen">
+				<div class="personage_top_cen01">
+					<div id="teacherName"></div>
+					<div class="personage_top_cen_img" style="position: absolute;right: 2.6rem;top: 4rem;">
+						<div class="personage_top_cen_img1"><img src="../images/gif.gif" alt="" /></div>
+						<div class="personage_top_cen_in" >正在直播</div>
+				    </div>
+					<!--添加粉丝和关注-->
+					<div class="div_attention">
+						<div class="pay_attention">关注:<span id="focusCount"></span></div> <span style="width: 0.3rem;font-size: 0.6rem;float: left;">&nbsp;|</span> 
+						<div class="bean_vermicelli">粉丝数:<span id="fansCount" style="width: 0.3rem;font-size: 0.6rem;"></span></div>
+					</div>
+					<div class="both"></div>
+				</div>
+			</div>
+			<div class="personage_top_right" id="is_fours">
+				<!-- 关注 -->
+			</div>
+			<div class="both"></div>
+			
+			<!--贡献榜-->
+			<!--<div class="contribution">
+				<div class=""></div>
+			</div>-->
+			
+			<!--改版-->
+			<div class="personage_pay ">
+				<div class="contribution">
+					<div class="cup">
+						<img src="/xcviews/images/cup.png" alt="" />熊猫币贡献榜
+					</div>
+					<div class="contribution_right">
+						<div class="contribution_right_one">
+							<div class="contribution_img_one"><img src="/xcviews/images/Scholar.png" /></div>
+							<div class="contribution_img_two"><img src="/xcviews/images/120.jpg" /></div>
+						</div>
+						<div class="contribution_right_one">
+							<div class="contribution_img_one"><img src="/xcviews/images/smirnoff.png" /></div>
+							<div class="contribution_img_two"><img src="/xcviews/images/120.jpg" style="border: 1px solid #cdcdcd;" /></div>
+						</div>
+						<div class="contribution_right_one">
+							<div class="contribution_img_one"><img src="/xcviews/images/tertius.png" /></div>
+							<div class="contribution_img_two"><img src="/xcviews/images/120.jpg" /></div>
+						</div>
+						<div class="contribution_right_two"><img src="/xcviews/images/rightj.png" alt="" /></div>
+						
+					</div>
+					
+				</div>
+				<div class="" style="width: 100%;height: 0.475rem;background: #f0f0f0;"></div>
+				
+				<!--<div class="personage_pay_left">
+					<p class="p1" id="courseAll"></p>
+					<p class="p2">视频数</p>
+				</div>
+				<div class="personage_pay_cen">
+					<img src="../images/shu01.png" alt="" />
+				</div>
+				<div class="personage_pay_right">
+					<p class="p1" id="giftAll"></p>
+					<p class="p2" >礼物数</p>
+				</div>-->
+			</div>
+			
+		</div>
+
+
+
+		<!-- 粉丝已关注开始   改版惠普隱藏 -->
+		<!--<div class="personage_image">
+			<div class="personage_image0">
+				<div class="personage_image_left">
+					<p class="p1"></p>
+					<p class="p2">粉丝已关注</p>
+				</div>
+				<div class="personage_image_right">
+					<div class="personage_image_right_cen"> 
+					    <div style="width:640px;" id="listFans"> 
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>-->
+		<!-- 粉丝已关注结束 -->
+
+		<!-- table开始 -->
+		<div class="personage_bto">
+			<div class="both"></div>
+			<div class="personage_bto_ul">
+				<ul>
+					<li class="personage_bto_li personage_bto_li01" title="0">资料</li>
+					<li class="personage_bto_li personage_bto_li02" title="1">直播</li>
+					<li class="personage_bto_li personage_bto_li03" title="2">视频</li>
+					<li class="personage_bto_li personage_bto_li04" title="3">音频</li>
+				</ul>
+			</div>
+
+			<div class="both"></div>
+			<!-- 资料 -->
+			<div class="personage_bto_cen">
+				<!--灰色条-->
+				<div class="grey_scroll" style="width: 100%;height: 0.475rem;background: #f0f0f0;display: none;"></div>
+				<div class="information">基本信息</div>
+				<div class="personage_bto_cen_one" style="border-top:0;">
+					<div class="personage_bto_cen_one_left">
+						<div class="personage_bto_cen_one_size">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</div>
+					</div>
+					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="index_sex" /></div>
+				</div>
+				<div class="both"></div>
+				<div class="personage_bto_cen_one">
+					<div class="personage_bto_cen_one_left">
+						<div class="personage_bto_cen_one_size">课&nbsp;&nbsp;程&nbsp;&nbsp;数：</div>
+					</div>
+					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="courseAll"/></div>
+				</div>
+				<div class="both"></div>
+				<div class="personage_bto_cen_one">
+					<div class="personage_bto_cen_one_left">
+						<div class="personage_bto_cen_one_size">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</div>
+					</div>
+					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="index_address"/></div>
+				</div>
+				<div class="both"></div>
+				
+				<div class="personage_bto_cen_one" style="border-top:0;">
+					<div class="personage_bto_cen_one_left">
+						<div class="personage_bto_cen_one_size">个性签名：</div>
+					</div>
+					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="index_individualitySignature" /></div>
+				</div>
+			</div>
+			<!-- 直播 -->
+			<div class="both"></div>
+			<div class="public1 personage_bto_cen1" >
+				<!--<div class="public1_list_bg"></div>-->
+				<!-- <div class="public1_list">
+					<div class="public1_list_img">
+						<img src="../images/line_03.jpg" alt="">
+					</div>
+					<div class="public1_title">秋季养生7要诀秋季养生7要诀秋季养生7要诀秋季养生7要诀</div>
+					<div class="public1_cen">
+						<div class="public1_cen_left">主讲: 张晓晓&nbsp;22小时</div>
+						<div class="public1_cen_right">￥128.00</div>
+					</div>
+				</div> -->
+				<div id="personage_bto_cen1">
+				</div>
+				<div class="both"></div>
+				<div class="more_btm">更多</div>
+			</div>
+		<!-- table结束 -->
+		
+		<!--背景图-->
+		<div class="null15">
+			<img src="../images/null15.png" alt="" />
+			<p>暂无内容</p>
+		</div>
+		</div>
+
+	</div>
+	<!-- 个人主页结束 -->
+</body>
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<!-- 选项卡 -->
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="/xcviews/js/personage.js"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

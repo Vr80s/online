@@ -1,0 +1,196 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>更换手机号</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+  content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script>
+        (function(window){var setHtmlSize=function(w){var b=750/100;var c=window.innerWidth;if(w){c=w}var a=c/b;if(a<42){a=42}else if(a>60){a=60}document.querySelector("html").style.fontSize=a+"px";if(navigator.userAgent.indexOf("iPad")!=-1){document.querySelector("html").style.fontSize="60px"}};setHtmlSize();window.onresize=function(){var w=window.innerWidth;setHtmlSize(w)}}(window));
+</script>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcview/js/common/js.js"></script>
+<link rel="stylesheet" href="/xcview/css/css.css">
+<link rel="stylesheet" href="/xcview/css/tailor.css">
+<link rel="stylesheet" href="/xcview/css/personCommon.css">
+<link rel="stylesheet" href="/xcview/css/vanish.css">
+<script type="text/javascript"  src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<style type="text/css">
+	.web_toast{
+		/*font-size: 0.4rem;*/   /*浮动层提示语*/
+	}
+</style>
+</head>
+<style>
+	
+	.pet_name_right{
+		  position: absolute;
+	    right: 0.2rem;
+	    top: 8rem;
+	    width: 95%;
+	    height: 1.7rem;
+	    background: #ccc;
+	    line-height: 1.7rem;
+	    text-align: center;
+	    border-radius: 6px;
+	    color: #fff;
+	}
+	.return_system{
+			width: 0.52rem;
+	    /*height: 0.9rem;*/
+	    display: inline-block;
+	    float: left;
+	    background: url(../images/backicon.png) no-repeat;
+	    background-size: 100% 100%;
+	  	margin-left: 0.54rem;
+			height: 0.92rem;
+	    margin-top: 0.48rem;
+	}
+	.pet_name_right1{
+		  position: absolute;
+	    right: 0.2rem;
+	    top: 8rem;
+	    width: 95%;
+	    height: 1.7rem;
+	    background: #00bc12;
+	    line-height: 1.7rem;
+	    text-align: center;
+	    border-radius: 6px;
+	    color: #fff;
+	    margin-right: 0.2rem;
+	    font-size: 0.7rem;
+	    opacity: 0.3;
+	}
+</style>
+<body class="person_body">
+	
+	
+	
+<!-- 更换手机号开始 -->
+     <div class="call" style="display: block;">
+      <div class="pet_name_top" style="position: relative;">
+        <div class="return_delicacy" onclick="location.href ='lickacc_mobile.html'"><div class="return_system"></div></div>
+        <div class="dl" style="width: 100%;">修改手机号</div>
+        
+        <div class="both"></div>
+      </div>
+      <div class="call_cen">当前绑定手机号：</div>
+      <div class="call_put">
+        <input type="tel" name="current_mobile" id="current_mobile"  placeholder="请输入验证码" maxlength="4" />
+        <div class="call_code" id="call_code_current" onclick="sendCode(this)" >获取验证码</div>
+      </div>
+      <div class="pet_name_right1" id="update_mobile_next">下一步</div>
+      
+      <div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
+    </div> 
+    
+    <!--<div class="call01">
+      <div class="pet_name_top">
+        <div class="return"></div>
+        <div class="dl"
+          style="width: 70%;float: left;margin-left: 1.5rem;">更改手机号</div>
+        
+        <div class="both"></div>
+      </div>
+      <div class="call_put" style="margin-top:0.4rem;margin-bottom: 0.1rem;">
+        <input type="tel" name="new_mobile" id="new_mobile" placeholder="请输入新绑定的手机号" />
+      </div>
+      <div class="call_put">
+        <input type="tel" name="new_code" id="new_code" placeholder="请输入验证码" />
+        <div class="call_code" id="call_code_update"  onclick="sendCode(this)">获取验证码</div>
+      </div>
+      <div class="pet_name_right" id="pet_name_right_bind" onclick="updateMobile()" style="margin-right:0.4rem;width: 1.6rem;">绑定</div>
+      
+        <div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
+    </div> -->
+    <!-- 更换手机号结束 -->
+  
+</body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript"
+    src="/xcview/js/common/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script src="/xcview/js/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/xcview/js/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="/xcview/js/iscroll-zoom.js"></script>
+<script src="/xcview/js/hammer.js"></script>
+<script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
+<script>
+
+/**
+ * 	更换手机号开始
+ */
+var currentName = localStorage.username;
+//获取下当前的手机号吗
+$(".call_cen").text("当前绑定的手机号："+localStorage.username);
+/**
+ * 下一步
+ */
+$("#update_mobile_next").click(function(){
+	
+	if (!stringnull(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
+		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取用户手机号有误</div></div></div>");
+		$("#errorMsg").show();
+		
+		setTimeout(function(){$(".vanish").hide();},1500);
+		return false;
+	}
+	var code= $("#current_mobile").val();
+	if(!stringnull(code)){
+		/*$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
+		$("#errorMsg").show();
+		
+		setTimeout(function(){$(".vanish").hide();},1500);*/
+		return false;
+	}
+	var urlparm = {
+		username : currentName,
+		code:code,
+		vtype:3   	//类型，3注册，2重置密码
+	};
+	requestService("/xczh/set/phoneCheckAndCode",
+			urlparm, function(data) {
+		if (data.success) {
+			//time(obj);
+			
+			 location.href ='phone_numbers.html';
+			/* $(".call01").show();
+			$(".call").hide();
+    		$(".attention").hide();  */
+		} else {
+			
+//			$("#errorMsg").html(data.errorMessage);  动态码不正确
+			/*$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确！</div></div></div>");
+			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish").hide();},1500);*/
+			webToast("动态码不正确！","middle",1500);
+		}
+	});
+})
+$('#current_mobile').keyup(function(){
+    var phone = $("#current_mobile").val();
+    if(phone==""||phone==undefined){
+          $("#update_mobile_next").css("opacity","0.3");
+        $("#update_mobile_next").css("background","#00bc12");
+    }else{
+          $("#update_mobile_next").css("opacity","1");
+        $("#update_mobile_next").css("background","#00bc12");
+    }
+})
+
+</script>
+</html>

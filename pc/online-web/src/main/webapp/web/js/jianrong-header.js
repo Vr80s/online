@@ -517,7 +517,7 @@ $(function () {
         $(".form-login .cyinput1").blur(function () {
 //            var cymyLogin = document.getElementsByClassName("cymlogin")[0];
         	var cymyLogin = $(".cymlogin")[0];
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             if ($(".form-login .cyinput1").val().trim().length === 0) {
                 $(".cyinput1").css("border", "1px solid #ff4012");
@@ -564,7 +564,7 @@ $(function () {
         });
         $(".form-login .cyinput2").focus().blur();
         $(".form-login .cymyloginbutton").click(function (evt) { //登录验证
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             var passwordReg = /^(?!\s+)[\w\W]{6,18}$/;//密码格式验证
             $(".cyinput1").css("border", "");
@@ -604,7 +604,7 @@ $(function () {
         });
 
         function login(data, autoLogin) {
-            RequestService("/online/user/login", "POST", data, function (result) { //登陆/index.html   /online/user/login
+            RequestService("/online/user/login", "POST", data, function (result) { //登录/index.html   /online/user/login
                 if (result.success === true || result.success == undefined) {
                 
                 	
@@ -616,7 +616,7 @@ $(function () {
                         window.location.href="/web/html/myStudyCenter.html";
                         window.localStorage.myStudyCenter=null;
                     }
-                } else { //登陆错误提示
+                } else { //登录错误提示
                     $(".loginGroup .logout").css("display", "block");
                     errorMessage(result.errorMessage);
                     if (!flag) {

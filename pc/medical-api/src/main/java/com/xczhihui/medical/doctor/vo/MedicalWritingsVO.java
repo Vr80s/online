@@ -89,4 +89,18 @@ public class MedicalWritingsVO implements Serializable{
 	public void setMedicalDoctors(List<MedicalDoctorVO> medicalDoctors) {
 		this.medicalDoctors = medicalDoctors;
 	}
+
+	@Override
+	public String toString() {
+		return "MedicalWritingsVO{" +
+				"id='" + id + '\'' +
+				", articleId='" + articleId + '\'' +
+				", author='" + author + '\'' +
+				", title='" + title + '\'' +
+				", buyLink='" + buyLink + '\'' +
+				", imgPath='" + imgPath + '\'' +
+				", content='" + content + '\'' +
+				", medicalDoctors=" + medicalDoctors +
+				'}';
+	}
 }

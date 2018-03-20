@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script src="/xcview/js/js.js"></script>
+<link rel="stylesheet" type="text/css" href="/xcview/css/recharges.css" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			 <div class="header_return" onclick="window.history.go(-1)">
+			<!-- <div class="header_return" > -->
+				<img src="/xcview/images/back icon.png">
+			</div>
+			<div class="header_title">充值</div>
+		</div>
+	</header>
+	<!--头部搜索结束-->
+	
+	<!--中间内容开始-->
+	<div class="recharges">
+		<div class="recharges_limit">
+			<div class="recharges_limit_title">选择充值的额度<span style="color: #b3b3b3;">&nbsp;(1元=10熊猫币)</span></div>
+			<div class="recharges_limit_list">
+				<ul id="ul">
+					<!-- <li class="li" id="one_li_bg">
+						<p class="p0"><span>50</span>熊猫币</p>
+						<p class="p1">￥<span>50</span>元</p>
+					</li> -->
+					<li class="li">
+						<p class="p0"><span>50</span>熊猫币</p>
+						<p class="p1">￥<span>5</span>元</p>
+					</li>
+					<li class="li">
+						<p class="p0"><span>100</span>熊猫币</p>
+						<p class="p1">￥<span>10</span>元</p>
+					</li>
+					<li class="li">
+						<p class="p0"><span>200</span>熊猫币</p>
+						<p class="p1">￥<span>20</span>元</p>
+					</li>
+					<li class="li">
+						<p class="p0"><span>500</span>熊猫币</p>
+						<p class="p1">￥<span>50</span>元</p>
+					</li>
+					<li class="li">
+						<p class="p0"><span>1000</span>熊猫币</p>
+						<p class="p1">￥<span>100</span>元</p>
+					</li>
+					
+					<li class="li">
+						<p class="p0"><span>1</span>熊猫币</p>
+						<p class="p1">￥<span>0.1</span>元</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- <div class="recharges_polite">
+			<div class="recharges_polite_title">充值有礼</div>
+			<div class="recharges_polite_gift">
+				<div class="recharges_polite_gift_img">
+					<img src="../images/" />
+				</div>
+				<div class="recharges_polite_gift_cen">
+					<p class="p0">首充礼包：送50熊猫币</p>
+					<p class="p1">内含：10熊猫币优惠券1张；20熊猫币优惠券2张</p>
+				</div>
+			</div>
+			<div class="recharges_polite_gift">
+				<div class="recharges_polite_gift_img">
+					<img src="../images/" />
+				</div>
+				<div class="recharges_polite_gift_cen">
+					<p class="p0">土豪礼包：充1000送500</p>
+					<p class="p1">内含：50熊猫币优惠券5张；25熊猫币优惠券10张</p>
+				</div>
+			</div>
+		</div> -->
+	</div>
+	<!--中间内容结束-->
+	
+	
+			<!--选择支付方式开始-->
+	<div class="weixin_pay">
+		<div class="weixin_pay_title">选择方式</div>
+		<div class="div">
+			<!-- <div class="pay_div div0" id="zhifubao_pay">
+				<img src="../images/Alipay_img.png" class="img0" />
+				支付宝
+			</div> -->
+			<div class="pay_div div0" id="weixin_pay">
+				<img src="../images/weixin_pay.png" />
+				微信
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>
+	
+	
+	<!--底部开始-->
+	<!--<div class="footer_perch"></div>-->
+	<div class="footer">
+		<div class="footer_div_btn" onclick="goPay()">去充值</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
+	</div>
+	<!--底部结束-->
+	
+	<!--充值成功-->
+ 	<div class="success">
+		<div class="success_bg"></div>
+		<div class="success_main">
+			<div class="one">充值成功</div>
+			<div class="two">恭喜您成功充值<span id="xmb_success"></span>熊猫币</div>
+			<div class="three" id="determine">
+				确定
+				<!--<div class="three_btn0">确定</div>-->
+				<!--<div class="three_btn1">继续充值</div>-->
+			</div>
+		</div>
+	</div> 
+	
+	<!--充值失败-->
+	<div class="defeated" style="display:none;">
+		<div class="defeated_bg"></div>
+		<div class="defeated_main">
+			<div class="one">充值失败</div>
+			<div class="two">对不起，支付没有成功，麻烦再试一次吧</div>
+			<div class="three">
+				<div class="three_btn0">取消</div>
+				<div class="three_btn1">再试一次</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+	window.onload = function(){	
+
+		
+		/**
+		 * 如果从购买页面或者我的钱包页面过来的话 
+		 *  就不用 选中当前选中的充值金额了。否则如果返回的话，就选中啦。
+		 */
+		var pathname = window.location.pathname; //设置或获取与 URL 的路径部分（就是文件地址）
+		if(pathname.indexOf("purchase.html")==-1 ||  pathname.indexOf("purchase.html") ==-1){
+			
+			
+			 var recharges_money_falg = sessionStorage.getItem("recharges_money_falg");
+		}
+		
+		var aBtn=$('#ul li');
+      	for(i=0;i<aBtn.length;i++){
+	        $(aBtn[i]).click(function(){
+	          for(i=0;i<aBtn.length;i++){
+	            $(aBtn[i]).removeClass('li0');
+	            $(aBtn[i]).addClass('li');
+//	            $(aBtn[i]).find(".ul_li_bg").show();
+	          }
+          	  $(this).removeClass();
+          	  $(this).addClass('li0');
+          	  
+          	  sessionStorage.setItem("recharges_money_falg",i);
+          	  
+          	  
+//	           	$(aBtn[i]).find(".ul_li_bg").hide();
+	        })
+      	}
+      	$(aBtn[0]).click();
+      	
+//    	点击支付失败中--再试一次
+		$(".three_btn1").click(function(){
+			$(".defeated").hide();
+		});
+		
+		
+		$(".success_main .three").click(function(){
+			$(".success").hide();
+		
+		});
+		
+		
+//		选择支付方式
+		$(".weixin_pay .div .div0").click(function(){
+			$(this).addClass('pay_border');
+			$(".weixin_pay .div .div1").removeClass('pay_border');
+		});
+		$(".weixin_pay .div .div1").click(function(){
+			$(this).addClass('pay_border');
+			$(".weixin_pay .div .div0").removeClass('pay_border');
+		});
+		$(".weixin_pay .div .div0").click();
+		
+		
+
+		
+	};
+</script>
+
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.2"></script>
+<script type="text/javascript" src="/xcview/js/XCh5Pay.js?v=wechat_1111111.1.2"></script>
+<script src="/xcview/js/recharges.js?v=wechat_1111.111111.211111"></script>
+
+
+</html>

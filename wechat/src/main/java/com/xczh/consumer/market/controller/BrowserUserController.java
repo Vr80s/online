@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.controller.live.LiveController;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineCourseService;
@@ -84,7 +83,7 @@ public class BrowserUserController {
 	private String returnOpenidUri;
 	
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(BrowserUserController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BrowserUserController.class);
 	
 	/**
 	 * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
@@ -93,6 +92,7 @@ public class BrowserUserController {
 	 */
 	@RequestMapping(value="phoneRegist")
 	@ResponseBody
+	@Transactional
 	public ResponseObject phoneRegist(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String password = req.getParameter("password");
@@ -103,11 +103,13 @@ public class BrowserUserController {
 		}
 		String vtype = "1";
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
-		return onlineUserService.addPhoneRegistByAppH5(req, password,username,vtype);
+		OnlineUser ou = onlineUserService.addPhoneRegistByAppH5(req, password,username,Integer.parseInt(vtype));
+		
+		return ResponseObject.newSuccessResponseObject(ou);
 	}
 	/**
 	 * 忘记密码
@@ -125,7 +127,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
@@ -154,7 +156,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
@@ -329,28 +331,27 @@ public class BrowserUserController {
 			if (o != null) {
 				//判断是否存在微吼信息
 				if(o.getVhallId()==null || "".equals(o.getVhallId())){
-					String weihouId = WeihouInterfacesListUtil.createUser(o.getId(), WeihouInterfacesListUtil.moren, o.getName(),o.getSmallHeadPhoto());
-					onlineUserService.updateVhallIdOnlineUser(weihouId,WeihouInterfacesListUtil.moren,o.getName(),o.getId());
+					String weihouId = WeihouInterfacesListUtil.createUser(o.getId(), WeihouInterfacesListUtil.MOREN, o.getName(),o.getSmallHeadPhoto());
+					onlineUserService.updateVhallIdOnlineUser(weihouId,WeihouInterfacesListUtil.MOREN,o.getName(),o.getId());
 					o.setVhallId(weihouId);
-					o.setVhallPass(WeihouInterfacesListUtil.moren);
+					o.setVhallPass(WeihouInterfacesListUtil.MOREN);
 					o.setVhallName(o.getName());
 				}
 				ItcastUser user = userCenterAPI.getUser(username);
 				if (o.isDelete() || o.getStatus() == -1){
 					return ResponseObject.newErrorResponseObject("用户已禁用");
 				}
-				//把这个票给前端
-				o.setTicket(t.getTicket());
-				
 				//把用户中心的数据给他   这里im都要用到
 				o.setUserCenterId(user.getId());
 				o.setPassword(user.getPassword());
+				//把这个票给前端
+				o.setTicket(t.getTicket());
 				
 				this.onlogin(req, res, t, o,t.getTicket());
 				//这个也存放在redis中吧
 				return ResponseObject.newSuccessResponseObject(o);
 			} else {
-				boolean ise = Pattern.matches("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",username);
+				boolean ise = Pattern.matches("^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$",username);
 				if (ise) {
 					ItcastUser user = userCenterAPI.getUser(username);
 					//这个地方会返回这个用户的微吼id和名字
@@ -361,7 +362,6 @@ public class BrowserUserController {
 					//把用户中心的数据给他
 					newUser.setUserCenterId(user.getId());
 					newUser.setPassword(user.getPassword());
-					
 					this.onlogin(req, res, t, newUser,t.getTicket());
 					return ResponseObject.newSuccessResponseObject(newUser);
 				}
@@ -378,7 +378,7 @@ public class BrowserUserController {
 		
     	Cookie []	c = req.getCookies();
     	for (Cookie cookie : c) {
-    		log.info("cookieName+"+cookie.getName());
+    		LOGGER.info("cookieName+"+cookie.getName());
 		}
     	Cookie cookie = new Cookie("nihao", "nihao");
 		cookie.setDomain("localhost");
@@ -390,7 +390,7 @@ public class BrowserUserController {
 		cookie = CookieUtil.getCookie(req,"nihao");
 		if(cookie!=null)
 		{
-			log.info("cookie:"+cookie.getValue());
+			LOGGER.info("cookie:"+cookie.getValue());
 		}
     	
 //		req.setAttribute("access", "brower");
@@ -403,15 +403,12 @@ public class BrowserUserController {
 //		long time = System.currentTimeMillis() + 10 * 1000;
 //		token.setExpires(time);
 //		cacheService.set(ticket, token, 1*1000);
-//		log.info("存储成功");
+//		LOGGER.info("存储成功");
 //		token = cacheService.get(token.getTicket());
-//		log.info(token.getEmail());
-//		
+//		LOGGER.info(token.getEmail());
 //		String str = cacheService.get("123");
-//		log.info("str:"+str);
-//		
-//		
-//		log.info("取数据成功");
+//		LOGGER.info("str:"+str);
+//		LOGGER.info("取数据成功");
 //		req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
 	}
 	
@@ -429,8 +426,8 @@ public class BrowserUserController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject addGetUserInfoByCode(HttpServletRequest req, HttpServletResponse res )throws Exception  {
-		log.info("wx get access_token:" + req.getParameter("access_token"));
-		log.info("wx get openid:" + req.getParameter("openid"));
+		LOGGER.info("WX get access_token:" + req.getParameter("access_token"));
+		LOGGER.info("WX get openid:" + req.getParameter("openid"));
 		
 //		String access_token = "i9X50V0RcmKT48n0l8HFO7R4R9mP7ue9Jg1Jm3Uo-ZmSaYDKS5dCu_BjpWusetygygGjQ9SXLWQhp-JaCFbzgg";
 //		String openid = "oN9qS1ShzGgzs5aovtk7i9TJqz2Y";
@@ -520,9 +517,9 @@ public class BrowserUserController {
 			u.setCreateTime(new Date());
 			u.setType(1);
 			
-			String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
+			String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
 			u.setVhallId(weihouUserId);  //微吼id
-			u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码 
+			u.setVhallPass(WeihouInterfacesListUtil.MOREN);        //微吼密码
 			u.setVhallName(u.getName());
 			
 			u.setPassword(unionid_);     
@@ -584,8 +581,8 @@ public class BrowserUserController {
 	@Transactional
 	public ResponseObject addAppThirdparty(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		log.info("wx get access_token	:" + req.getParameter("access_token"));
-		log.info("wx get openid	:" + req.getParameter("openid"));
+		LOGGER.info("WX get access_token	:" + req.getParameter("access_token"));
+		LOGGER.info("WX get openid	:" + req.getParameter("openid"));
 		
 		String access_token = req.getParameter("access_token");
 		String openid = req.getParameter("openid");
@@ -670,9 +667,8 @@ public class BrowserUserController {
 				//把用户中心的数据给他  --这些数据是IM的
 				ou.setUserCenterId(iu.getId());
 				ou.setPassword(iu.getPassword());
-				
-				
 				ou.setTicket(t.getTicket());
+				
 				onlogin(req,res,t,ou,t.getTicket());
 				
 				ou.setCode(code);
@@ -699,9 +695,9 @@ public class BrowserUserController {
 	public ResponseObject getBalanceTotal(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Map<String, String> params2=new HashMap<>();
 		params2.put("token",req.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
          return ResponseObject.newSuccessResponseObject(userCoinService.getBalanceByUserId(user.getId()));
 	}
@@ -726,16 +722,16 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		String str = onlineUserService.changeMobileSendCode(username,vtype);
+		String str = onlineUserService.changeMobileSendCode(username,Integer.parseInt(vtype));
 		try {
-			if("发送成功！".equals(str)){
+			if("发送成功".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
 			}else{
 				return ResponseObject.newErrorResponseObject(str);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.info("获取错误信息啦"+e.getMessage());
+			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
 		}
 	}
@@ -759,7 +755,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(username, code,Integer.parseInt(vtype));
 		
 		return checkCode;
 	}
@@ -784,7 +780,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(newUsername, code,vtype);
+		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(newUsername, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
@@ -812,7 +808,7 @@ public class BrowserUserController {
 	public ResponseObject isLecturer(HttpServletRequest request){
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		try {
 			String userId = request.getParameter("userId");
@@ -870,6 +866,7 @@ public class BrowserUserController {
 		 * 直接中缓存中得到这个token。如果这个token没有或者失效了。那么就中数据库中取下。
 		 * 在从数据库中去的时候
 		 */
+		//cacheService.delete("ba525056ebfa48dfb33974e7ab92d7a5");
 		OnlineUser ou = new OnlineUser();
 		if(token!=null && cacheService.get(token)!=null){
 			ou = cacheService.get(token);
@@ -881,7 +878,7 @@ public class BrowserUserController {
 		Map<String, Object> map = onlineUserService.getAppTouristRecord(appUniqueId);
 		if(map ==null){ //第一次进来
 			ou = onlineUserService.addYkUser(appUniqueId);
-			log.info("用户中心id:"+ou.getUserCenterId());
+			LOGGER.info("用户中心id:"+ou.getUserCenterId());
 			//也需要保存这个信息啦
 			onlineUserService.saveAppTouristRecord(ou, appUniqueId);
 		}else{
@@ -892,9 +889,9 @@ public class BrowserUserController {
 			 * 2、当登录的时候，在增加这个标识符为0:  
 			 */
 			Boolean regis =  (Boolean) map.get("isRegis");
-			log.info(""+map.get("userCenterId"));
+			LOGGER.info("userCenterId;"+map.get("userCenterId"));
 			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
-			if(!regis|| type.equals("1") ){ //返回用户基本信息   --主要是不返回loginName
+			if(!regis|| "1".equals(type)){ //返回用户基本信息   --主要是不返回loginName
 				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());
 			}else{ //返回用户信息 -- 包括loginName
 				ou = onlineUserService.findUserById(map.get("userId").toString());
@@ -904,6 +901,9 @@ public class BrowserUserController {
 				ou.setPassword(iu.getPassword());
 			}
 		}
+		
+		
+		
 		/**
 		 * 游客身份进入后，存缓存到redis中。也就是这个票
 		 * 	 通过这个票进行各种身份通过，对出登录删除这个票就行了。
@@ -920,8 +920,9 @@ public class BrowserUserController {
 		cacheService.set(ticket, user,TokenExpires.Day.getExpires());
 		cacheService.set(user.getId(),ticket,TokenExpires.Day.getExpires());
 	}
+	
 	/**
-	 * 登陆成功处理
+	 * 登录成功处理
 	 * @param req
 	 * @param res
 	 * @param token
@@ -932,17 +933,20 @@ public class BrowserUserController {
 	public void onlogin(HttpServletRequest req, HttpServletResponse res,
                         Token token, OnlineUser user, String ticket) throws SQLException{
 		
-		log.info("用户普通登录----》ticket"+ticket);
+		LOGGER.info("用户普通登录----》ticket"+ticket);
 		/**
 		 * 存在两个票，两个票都可以得到用户信息。
 		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
 		 */
 		String appUniqueId = req.getParameter("appUniqueId");
-		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			
+		
+		/*
+		 * 这个地方是可以了。目前都支持吧
+		 */
+		
+		//if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
 			//设置登录标识
 			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
-			
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
 			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
@@ -952,7 +956,7 @@ public class BrowserUserController {
 			}else if(user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
 			}
-		}else{
+		//}else{
 			// 用户登录成功
 			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
 			req.getSession().invalidate();
@@ -981,18 +985,20 @@ public class BrowserUserController {
 			 * 这是cookie 
 			 */
 			UCCookieUtil.writeTokenCookie(res, token);
-		}
+		//}
 	}
 	
 	@RequestMapping(value="checkToken")
 	@ResponseBody
 	public ResponseObject checkToken(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String token = req.getParameter("token");
+		
+		
+		System.out.println();
 		if(null == token){
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}
 		OnlineUser ou = cacheService.get(token);
-		
 		if(null == ou){
 			return ResponseObject.newErrorResponseObject("已过期", 1002);
 		}else if(null !=ou && cacheService.get(ou.getId())!=null && cacheService.get(ou.getId()).equals(token)){
@@ -1003,6 +1009,9 @@ public class BrowserUserController {
 		       return ResponseObject.newErrorResponseObject(model,1003);
 		    }
 			return ResponseObject.newErrorResponseObject("其他设备",1004);
+			
+			//暂时有效，为了方便测试使用
+			//return ResponseObject.newSuccessResponseObject("有效",1000);
 		}else{
 			return ResponseObject.newSuccessResponseObject("有效",1000);
 		}
@@ -1025,11 +1034,11 @@ public class BrowserUserController {
 		}
 		String vtype = "1";
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
-		return onlineUserService.updateIPhoneRegist(req, password,username,vtype,appUniqueId);
+		return onlineUserService.updateIPhoneRegist(req, password,username,Integer.parseInt(vtype),appUniqueId);
 	}
 	
 	public static void main(String[] args) {
@@ -1037,14 +1046,10 @@ public class BrowserUserController {
 		
 		int [] arr = {1,2,3,4};
 		//产生0-(arr.length-1)的整数值,也是数组的索引
-		log.info(Math.random() +"==="+Math.random()*arr.length);
+		LOGGER.info(Math.random() +"==="+Math.random()*arr.length);
 		int index=(int)(Math.random()*arr.length);
-		log.info(index+"");
+		LOGGER.info(index+"");
 		int rand = arr[index];
-		log.info(rand+"");
+		LOGGER.info(rand+"");
 	}
-	
-	
-	
-	
 }

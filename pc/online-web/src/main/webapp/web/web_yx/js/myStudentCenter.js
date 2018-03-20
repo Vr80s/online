@@ -101,7 +101,7 @@ window.onload = function() {
 		'{{if $value.order_status=="1"}}' +
 		'<div class="or6">-- --</div>' +
 		'{{/if}}' +
-		'<div class="or7">课程有效期至{{#expiry($value.create_time)}}</div>' +
+		// '<div class="or7">课程有效期至{{#expiry($value.create_time)}}</div>' +
 		'</div>' +
 		'</div>' +
 		'{{/each}}';

@@ -1,0 +1,213 @@
+﻿*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+
+body{
+	font-family: "Helvetica";
+}
+
+header {
+    width: 100%;
+    height: 1.872rem;
+    line-height: 1.872rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+.header{
+	width: 14.851rem;
+    height: 100%;
+    margin-left: 0.553rem;
+    /*padding-top: 0.298rem;*/
+}
+#home_img{
+	display: none;
+}
+.header_return{
+	width: 2.15rem;
+    height: 1.8rem;
+    /* background: red; */
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_return img{
+	width: 0.511rem;
+    height: 0.915rem;
+}
+.header_title{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 0.766rem;
+	text-align: center;
+	color: #333;
+}
+
+/*列表内容开始*/
+.course_list{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+.course_list_main{
+	width: 15.5rem;
+	/*height: 800px;*/
+	margin: 0 auto;    
+	margin-top: 2.278rem;
+    padding-top: 0.638rem;
+    overflow: hidden;
+}
+.course_list_main .div{
+	margin-left: 0.26rem;
+    margin-right: 0.26rem;
+    float: left;
+    margin-bottom: 0.638rem;
+    position: relative;
+}
+/*第一块*/
+.course_list_main_one{
+	width: 7.213rem;
+	float: left;
+	
+}
+.course_list_one_img{
+	width: 7.213rem;
+	height: 4.064rem;
+	position: relative;
+	margin-bottom: 0.34rem;
+}
+.course_list_one_img .img0{
+	position: absolute;
+    top: 0.213rem;
+    left: 0.213rem;
+    width: 0.681rem;
+    height: 0.681rem;
+}
+.course_list_one_img .img1{
+	width: 7.213rem;
+	height: 4.064rem;
+}
+.course_list_one_title{
+	width: 7.213rem;
+    height: 0.851rem;
+    line-height: 0.851rem;
+    font-size: 0.596rem;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+.course_list_one_title_name{
+	color: #999;
+	font-size: 0.468rem;
+	padding: 0.1rem 0;
+}
+
+.course_list_main_cen_one{
+	width: 100%;
+    height: 0.851rem;
+}
+.course_list_main_cen_one .p0{
+	margin-right: 0.213rem;
+    min-width: 1rem;
+    max-width: 3.4rem;
+    float: left;
+    font-size: 0.468rem;
+    color: #999999;
+}
+.course_list_main_cen_one .p0 span{
+	font-size: 0.511rem;
+    color: #F97B49;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    max-width: 1.8rem;
+	float:left;
+}
+
+.course_list_main_cen_one .span0_span{
+	font-size: 0.468rem !important;
+    	color: #999 !important;
+}
+
+.course_list_main_cen_one .p1{
+	min-width: 3rem;
+    float: left;
+    min-width: 0.5rem;
+    margin-right: 0.1rem;
+}
+.zhibo_play{
+	    border: 1px solid #F97B49;
+    float: left;
+    font-size: 0.22rem !important;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+    margin-left: 0.1rem;
+}
+.course_list_main_cen_one .p1 img{
+	width: 0.51rem;
+    	margin-right: 0.15rem;
+	float:left;
+}
+.course_list_main_cen_one .p1 span{
+	font-size: 0.468rem;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 1.752rem;
+	float:left;
+}
+.course_list_main_cen_one .p2{
+	float: left;
+}
+.course_list_main_cen_one .p2 img{
+	width: 0.45rem;
+	margin-right: 0.15rem;
+	float: left;
+	
+}
+.course_list_main_cen_one .p2 span{
+	font-size: 0.468rem;
+	color: #999999;
+	vertical-align: bottom;
+	float: left;
+}
+/*列表内容结束*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

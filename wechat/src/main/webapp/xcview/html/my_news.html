@@ -1,0 +1,123 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/xcview/css/my_news.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return" onclick="window.history.go(-1);">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">我的消息</div>
+		</div>
+	</header>
+	<!--<div class="footer_k" style="height:2rem;"></div>-->
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<!-- <div class="a">标题</div> -->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+		  <div class="mui-scroll">
+		   	    <!--数据列表-->
+		   	    <!--消息内容开始-->
+		   	    <div class="my_news" style="padding-bottom: 0.5rem;">
+		   	    	<div class="my_news_one">
+		   	    		<div class="time">2018-01-05 17:50</div>
+		   	    		<div class="my_news_left">
+		   	    			<img src="../images/system_messages.png " />
+		   	    		</div>
+		   	    		<div class="my_news_right">
+		   	    			<img src="../images/ban_02.png" class="img" />
+		   	    			<div class="div">
+		   	    				<div class="div_title">系统通知</div>
+		   	    				<div class="div_cen">要过节了，有一个优惠和你商量一下~~现在充值，可以有多多的优惠券可以领取。<span>马上去充值 >></span></div>
+		   	    			</div>
+		   	    		</div>
+		   	    		<div class="both"></div>
+		   	    	</div>
+		   	    	<div class="my_news_one">
+		   	    		<div class="time">2018-01-05 17:50</div>
+		   	    		<div class="my_news_left">
+		   	    			<img src="../images/system_messages.png " />
+		   	    		</div>
+		   	    		<div class="my_news_right">
+		   	    			<img src="../images/ban_02.png" class="img" />
+		   	    			<div class="div">
+		   	    				<div class="div_title">系统通知</div>
+		   	    				<div class="div_cen">张三丰老师叫你去上课了~~《太极拳的精华》还有10分钟开始。<span>进入直播 >></span></div>
+		   	    			</div>
+		   	    		</div>
+		   	    		<div class="both"></div>
+		   	    	</div>
+		   	    	<div class="my_news_one">
+		   	    		<div class="time">2018-01-05 17:50</div>
+		   	    		<div class="my_news_left">
+		   	    			<img src="../images/system_messages.png " />
+		   	    		</div>
+		   	    		<div class="my_news_right">
+		   	    			<img src="../images/ban_02.png" class="img" />
+		   	    			<div class="div">
+		   	    				<div class="div_title">系统通知</div>
+		   	    				<div class="div_cen">你有课程需要更新啦~~<span>去更新课程>></span></div>
+		   	    			</div>
+		   	    		</div>
+		   	    		<div class="both"></div>
+		   	    	</div>
+		   	    </div>
+		   	    	
+		   	    <!--消息内容结束-->
+			    <div class=""></div>
+		  </div>
+		</div>
+	</div>
+	<!-- 中间内容结束 -->
+	<!-- 底部结束 -->
+	<div class="both"></div>
+	<div class="footer_k"></div>
+	<!-- <footer>
+		<div class="base">
+			<ul>
+				<li><a href="/bxg/page/index/null/null" class="base_a1 base_0a1"></a></li>
+				<li><a href="/xcviews/html/frequency.html?multimedia_type=1" class="base_a2"></a></li>
+				<li><a href="/xcviews/html/frequency.html?multimedia_type=2" class="base_a3"></a></li>
+				<li><a href="/xcviews/html/my.html" class="base_a4"></a></li>
+			</ul>
+		</div>
+	</footer> -->
+	<!-- 底部结束 -->
+	<!-- 刷新引入js -->
+	<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+    <script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<script src="/xcview/js/index.js" type="text/javascript"></script>
+</body>
+</html>

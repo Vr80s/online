@@ -1,0 +1,126 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!-- 公共的  -->
+<link rel="stylesheet" href="/xcview/css/enter.css">
+
+<!--弹框引入-->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<!--处理手机端自适应模板-->
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+</head>
+<body style="background:#fff;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return" onclick="javascript:history.back(-1);">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">登录</div>
+			<!--<div class="enroll" onclick="window.location='cn_login.html'">注册</div>-->
+		</div>
+	</header>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="enter">
+		<div class="enter_one">
+			<img src="../images/population.png" class="img0"/>
+			<input type="text" name="account" id="account" value="" placeholder="手机号" class="input0" maxlength="11" />
+		</div>
+		<div class="enter_one">
+			<img src="../images/suo.png" class="img1"/>
+			<input type="password" name="password" id="password" value="" placeholder="密码" class="input1" />
+			<div class="div open"></div>
+		</div>
+		<div class="enter_btn" onclick="login()">登录</div>
+		<div class="forget_password"><a href="/xcview/html/forget_password.html" style="float: left;">忘记密码?</a><a href="/xcview/html/cn_login.html">注册</a></div>
+		<div class="other_means">
+			<div class="div0"></div>
+			<div class="div1">其他方式登录</div>
+			<div class="div2"></div>
+		</div>
+		<div class="enter_bottom">
+			<div class="weixin" onclick="sanfangLogin()">
+				<img src="../images/share01.png" />
+			</div>
+			<!--<div class="QQ">
+				<img src="../images/share04.png" />
+			</div>
+			<div class="weibo">
+				<img src="../images/share03.png" />
+			</div>-->
+		</div>
+	</div>
+	
+	<!-- 中间内容结束 -->
+</body>
+
+<!-- 公共的 js  -->
+<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>  <!--弹框引入-->
+<script type="text/javascript" src="/xcview/js/login/login.js"></script>
+
+<script type="text/javascript">
+	window.onload = function(){
+		var Ipt0,Ipt1,Ipt2;
+
+		$('.input0').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").css("opacity","1");
+			}else{
+				$(".enter_btn").css("opacity","0.3");      	
+			}
+		})
+		
+		$('.input1').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").css("opacity","1");
+			}else{
+				$(".enter_btn").css("opacity","0.3");      	
+			}
+		})
+		
+//		点击小眼睛
+		$('.open').on('click',function(){
+		  	if($("#password").prop('type')=='password'){
+		    	$("#password").prop('type','text');
+		    	$(".div").css("background","url(../images/show.png) no-repeat");
+		    	$(".div").css("background-size","100% 100%");
+		  	}else{
+		    	$("#password").prop('type','password');   /*看不到小眼睛,最初默认的时候*/
+		    	$(".div").css("background","url(../images/hide.png) no-repeat");
+		    	$(".div").css("background-size","100% 100%");
+		  	}
+		});
+		
+	};
+</script>
+
+</html>

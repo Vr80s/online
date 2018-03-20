@@ -79,7 +79,7 @@ public class CourseLecturVo implements Serializable {
      */
     public double currentPrice;
     /**
-     * 是否收费  true 免费  false 收费
+     * 是否付费  true 免费  false 付费
      */
     public Integer isFree;
     /**
@@ -142,7 +142,7 @@ public class CourseLecturVo implements Serializable {
     public Integer isSubscribe = 0; //0 未预约  1预约
     
     
-    public Integer watchState = 0; //观看状态 0免费  1收费  2 需要密码验证
+    public Integer watchState = 0; //观看状态 0免费  1付费  2 需要密码验证
     
     public String imRoomId; //im房间号
 
@@ -159,7 +159,26 @@ public class CourseLecturVo implements Serializable {
 	
 	private String  note; //
 	
+	private String  startDateStr; //
 	
+	
+	private Integer collection;
+
+	private String  link;
+
+	/**
+	 * 推荐排序
+	 */
+	private Integer recommendSort;
+
+	public String getStartDateStr() {
+		return startDateStr;
+	}
+
+	public void setStartDateStr(String startDateStr) {
+		this.startDateStr = startDateStr;
+	}
+
 	public String getUdescription() {
 		return udescription;
 	}
@@ -422,5 +441,29 @@ public class CourseLecturVo implements Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public Integer getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Integer collection) {
+		this.collection = collection;
+	}
+
+	public Integer getRecommendSort() {
+		return recommendSort;
+	}
+
+	public void setRecommendSort(Integer recommendSort) {
+		this.recommendSort = recommendSort;
 	}
 }

@@ -42,7 +42,7 @@ public class NoticeController{
          return mav;
     }
 
-	@RequiresPermissions("operate:menu:notice")
+	//@RequiresPermissions("operate:menu:notice")
     @RequestMapping(value = "/findNoticeList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findNoticeList(TableVo tableVo) {
@@ -76,7 +76,7 @@ public class NoticeController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("operate:menu:notice")
+	//@RequiresPermissions("operate:menu:notice")
 	@RequestMapping(value = "/addNotice", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addNotice(NoticeVo noticeVo,HttpServletRequest request){
@@ -90,7 +90,7 @@ public class NoticeController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("operate:menu:notice")
+	//@RequiresPermissions("operate:menu:notice")
 	@RequestMapping(value = "updateNoticeById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateNoticeById (NoticeVo noticeVo){

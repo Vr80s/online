@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script src="/xcview/js/js.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/purchase.css" />
+
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			<!--<div class="header_return"  onclick="purchaseBack()">-->
+			<div class="header_return"  onclick="window.history.go(-1)">
+				
+				<img src="/xcview/images/back icon.png">
+			</div>
+			<div class="header_title">购买</div>
+		</div>
+	</header>
+	<!--头部搜索结束-->
+	
+	<!--中间内容开始-->
+	<div class="purchase_details" id="purchase_details">
+		<script type="text/html" id="data_details">
+			<div class="purchase_details_main">
+				<div class="purchase_details_main_cen">
+					<img src="{{smallImgPath}}" alt="" />
+					<div class="purchase_details_left">
+						<div class="purchase_details_title">
+							
+							<span class="span1">{{gradeName}}</span>
+							<span class="span0">{{teacherName}}</span>
+						</div>
+						<div class="both"></div>
+						<!--<div class="purchase_details_money"><span> parseInt({{currentPrice}}) </span>&nbsp;熊猫币</div>-->
+						<div class="purchase_details_money"><span></span>&nbsp;熊猫币</div>
+					</div>
+				</div>
+			</div>
+		</script>
+	</div>
+	
+	<!--优惠券开始-->
+	<!--<div class="purchase_list">
+		<div class="purchase_list_main">
+			<div class="purchase_list_one div">
+				<div class="purchase_list_one_left">
+					<img src="../images/discount_coupon.png" />优惠券
+				</div>
+				<div class="purchase_list_one_right">
+					<span>-88</span>熊猫币<img src="../images/video_review.png" />
+				</div>
+			</div>
+			<div class="both"></div>
+			<div class="purchase_list_two div">
+				<div class="purchase_list_two_left">
+					<img src="../images/member.png" />会员折扣
+				</div>
+				<div class="purchase_list_two_right">
+					<span>-88</span>熊猫币<img src="../images/video_review.png" />
+				</div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>-->
+	
+	<!--总价开始-->
+	<div class="price">
+		<div class="purchase_list_main">
+			<div class="purchase_list_one div">
+				<div class="purchase_list_one_left">
+					<img src="../images/total_prices.png" />总价
+				</div>
+				<div class="purchase_list_one_right">
+					<span class="give_price pay_xmb"></span>&nbsp;熊猫币
+				</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<!--中间内容结束-->
+	
+	<!--支付方式开始-->
+	<div class="payment">
+		<div class="payment_title">支付方式<span style="color: #b3b3b3;">&nbsp;(1元=10熊猫币)</span></div>
+		<div class="payment_ul">
+			<ul id="ul">
+				<li class="ul_li">
+					<img src="../images/BTCpanda.png" class="BTCpanda" />熊猫币
+					<div class="ul_li_bg"></div>
+				</li>
+				<!-- <li class="ul_li">
+					<img src="../images/Alipay_img.png" class="alipay_img" />支付宝
+					<div class="ul_li_bg"></div>
+				</li> -->
+				<li class="ul_li">
+					<img src="../images/weixin_img.png" class="weixin_img" />微信
+					<div class="ul_li_bg"></div>
+				</li>
+				<div class="ul_li_bg"></div>
+				<div class="both"></div>
+			</ul>
+		</div>
+		<div class="balance">余额：<span id="xmb_ye"></span>熊猫币</div>
+	</div>
+	<!--支付方式结束-->
+	
+	
+	<!--底部开始-->
+	<!--<div class="footer_perch"></div>-->
+	<div class="footer">
+		<div class="footer_div" onclick="goPay()">去支付<span class="pay_xmb" id="xmb_rmb"></span><span  id="currency"></span></div>
+		<div class="footer_div_btn">进入充值页面</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
+		<!--<ul>
+			<li class="footer_one">
+				<span>88</span>熊猫币
+			</li>
+			<li class="footer_two">
+				购买
+			</li>
+		</ul>-->
+	</div>
+	<!--底部结束-->
+</body>
+
+
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+  <script type="text/javascript" src="/xcview/js/XCh5Pay.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="../js/purchase.js?v=wechat_1.1.1"></script>
+<!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+	window.onload = function(){
+//		点击详情
+		$("#li0").click(function(){
+			$(".container_main").show();
+			$(".course_detaiks_play").hide();
+			$(".li0").addClass("ul_li");
+			$(".li1").removeClass("ul_li");
+		});	
+	};
+</script>
+</html>

@@ -40,9 +40,14 @@ public class UserCoinIncrease implements Serializable {
 
 	@Column(name="balance_reward_gift")
 	private BigDecimal balanceRewardGift;
+	private BigDecimal rmb;
 
 	@Column(name="brokerage_value")
 	private BigDecimal brokerageValue;
+	@Column(name="ios_brokerage_value")
+	private BigDecimal iosBrokerageValue;
+	@Column(name="ratio")
+	private BigDecimal ratio;
 
 	@Column(name="change_type")
 	private Integer changeType;
@@ -71,6 +76,12 @@ public class UserCoinIncrease implements Serializable {
 	@Column(name="order_no_reward")
 	private String orderNoReward;
 
+	@Column(name="order_no_settlement")
+	private String orderNoSettlement;
+
+	@Column(name="order_no_course")
+	private String orderNoCourse;
+
 	@Column(name="pay_type")
 	private Integer payType;
 
@@ -93,7 +104,17 @@ public class UserCoinIncrease implements Serializable {
 	private String version;
 	
 	@Transient
-	private String subject;;
+	private String subject;
+	@Column(name="balance_type")
+	private Integer balanceType;
+
+	public Integer getBalanceType() {
+		return balanceType;
+	}
+
+	public void setBalanceType(Integer balanceType) {
+		this.balanceType = balanceType;
+	}
 
 	@Transient
     private java.util.Date startTime;
@@ -101,6 +122,46 @@ public class UserCoinIncrease implements Serializable {
     private java.util.Date stopTime;
 
 	public UserCoinIncrease() {
+	}
+
+	public BigDecimal getIosBrokerageValue() {
+		return iosBrokerageValue;
+	}
+
+	public void setIosBrokerageValue(BigDecimal iosBrokerageValue) {
+		this.iosBrokerageValue = iosBrokerageValue;
+	}
+
+	public BigDecimal getRatio() {
+		return ratio;
+	}
+
+	public void setRatio(BigDecimal ratio) {
+		this.ratio = ratio;
+	}
+
+	public BigDecimal getRmb() {
+		return rmb;
+	}
+
+	public void setRmb(BigDecimal rmb) {
+		this.rmb = rmb;
+	}
+
+	public String getOrderNoSettlement() {
+		return orderNoSettlement;
+	}
+
+	public void setOrderNoSettlement(String orderNoSettlement) {
+		this.orderNoSettlement = orderNoSettlement;
+	}
+
+	public String getOrderNoCourse() {
+		return orderNoCourse;
+	}
+
+	public void setOrderNoCourse(String orderNoCourse) {
+		this.orderNoCourse = orderNoCourse;
 	}
 
 	public Integer getId() {

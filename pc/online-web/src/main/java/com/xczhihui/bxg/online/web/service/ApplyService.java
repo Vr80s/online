@@ -22,7 +22,7 @@ public interface ApplyService {
      * 判断一个用户是否老用户
      * @param realName 真实姓名
      * @param idCardNumber 身份证号
-     * @param user 登陆账号
+     * @param user 登录帐号
      * @return
      * @throws Exception 
      */

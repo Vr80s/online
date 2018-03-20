@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <script type="text/javascript" src="js/boxueshe/articleAdd.js"></script>
 <script type="text/javascript">
 	try {
@@ -10,14 +10,14 @@
 				function() {
 				});
 	} catch (e) {
-		
+
 	}
 	var weburl = '${weburl}';
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-  当前位置：博学社管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+  当前位置：头条管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 			</small> 
 			文章管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 		</small>
@@ -55,7 +55,7 @@
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属标签:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
-					 <input type="text" id="tagName" readonly="readonly"  onclick="openTagDiv()" class="col-xs-12 col-sm-12 {required:true}" style="cursor: pointer;">
+					 <input type="text" id="tagName1" readonly="readonly"  onclick="openTagDiv()" class="col-xs-12 col-sm-12 {required:true}" style="cursor: pointer;">
 					 <input type="hidden" name="tagId" id="tagId" >
 				</div>
 			</div>
@@ -82,10 +82,9 @@
 		<div class="form-group " style="margin-top:18px;margin-bottom:60px">
 			<label class="col-sm-1 control-label no-padding-right" for="courseDetail_content"><font color="red">*</font>内容:</label>
 			<div class="col-lg-10 " style="height:250px">
-				<div class="clearfix">
-					<div class="wysiwyg-editor" id="article_content" style="max-height:400px;height: 400px;"></div><br>
-					<input type="hidden" name="content"  id="content" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
-				</div>
+				<div>
+					<script id="editor" type="text/plain" style="width:1024px;height:300px;"></script></div>
+				<input type="hidden" name="content"  id="content" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
 			</div>
 		</div>
 	
@@ -113,3 +112,69 @@
 		</c:forEach> 
 	</div>	
 </div>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor',{
+        toolbars:[['source', //源代码
+            'undo', //撤销
+            'redo', //重做
+            'bold', //加粗
+            'forecolor', //字体颜色
+            'backcolor', //背景色
+            'indent', //首行缩进
+            'removeformat',//清除格式
+            'formatmatch', //格式刷
+            'blockquote', //引用
+            'fontfamily', //字体
+            'fontsize', //字号
+            'paragraph', //段落格式
+            'italic', //斜体
+            'underline', //下划线
+            'strikethrough', //删除线
+            'superscript', //上标
+            'subscript', //下标
+            'touppercase', //字母大写
+            'tolowercase', //字母小写
+            'justifyleft', //居左对齐
+            'justifyright', //居右对齐
+            'justifycenter', //居中对齐
+            'justifyjustify',//两端对齐
+            'link', //超链接
+            'unlink', //取消链接
+            'simpleupload', //单图上传
+            // 'insertimage', //多图上传
+            'emotion', //表情
+            'fullscreen'
+        ] ],
+        autoHeightEnabled: false,
+        autoFloatEnabled: true,
+        enableAutoSave:false,
+        imagePopup:false
+    });
+
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
+
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+        var url = '/ueditor/upload'
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return url;
+        } else if (action == 'uploadvideo') {//视频上传：
+            return url;
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+</script>

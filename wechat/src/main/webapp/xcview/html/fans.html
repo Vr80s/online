@@ -1,0 +1,270 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>我的粉丝</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+	<link rel="stylesheet" href="/xcviews/css/mui.min.css">
+	<script type="text/javascript" src="/xcviews/js/js.js"></script>
+	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" href="/xcviews/css/css.css">
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	
+	<style>
+		/*.mui-block{
+			top:1.5rem;
+		}*/
+		.wm-block{
+			width: 100% !important;
+		    height: 2.8rem !important;
+		    margin-top: 0rem;
+		    /*border-bottom: 1px solid #d2d2d2;*/
+		}
+		.kongbai_div{
+			width: 11.275rem;
+			height: 6.925rem;
+			margin: 0 auto;
+			margin-top: 8.75rem;
+			text-align: center;
+		}
+		.kongbai_div img{
+			width: 4.675rem;
+		}
+		.kongbai_div p{
+			font-size: 0.6rem;
+			color: #999;
+			margin-top: 0.65rem;
+		}
+		
+		.perfection{
+		    width: 3.5rem;
+		    background: white;
+		    font-size: 0.55rem;
+		    /*font-family: "微软雅黑";*/
+		    margin: 0 auto;
+		    text-align: center;
+		    margin-top: 2rem;
+		    border: 1px solid #e5e5e5;
+		    height: 1rem;
+		    line-height: 1rem;
+		    border-radius: 6px;
+		}
+		.attention_right{
+			color: #666;
+		}
+		.focus{
+			color: #00bc12;
+		}
+		.attention_li{
+			width: 11rem;
+		}
+		.attention_li p{
+			width:8rem;
+		}
+		.attention_right{
+			width: 3rem;
+		}
+		#content{
+			background: none;
+		}
+		#clist{
+			background: none;
+		}
+		.wm-block{
+			background: #fff;
+		}
+		.attention_left{
+			width: 1rem;
+			height: 1.8rem;
+			float: left;
+		}
+	</style>
+</head>
+
+<body style="background:#efefef;">
+
+	<!-- 我的粉丝开始 -->
+	<div class="attention">
+		<div class="attention_top">
+			<div class="attention_left" onclick="history.go(-1)"><div class="return" style="margin-top: 0.52rem;"></div></div>
+			
+			<div class="dl">我的粉丝</div>
+		</div>
+		<div class="both"></div>
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="attention_center" style="margin-top:2.25rem;">
+					<div class="non_payment_null1"></div>
+					<ul id="clist">
+						
+					</ul>
+				</div>
+		   </div>
+		</div>
+	</div>
+	<!-- 我的粉丝结束 -->
+</body>
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
+/*    $(document).on("click", ".focus",function(e){
+        var l=$(this);
+        requestService("/bxg/focus/add",  {lecturerId : $(this).attr("lecturerId")}, function(data) {
+            var result = data.resultObject;
+            if(data.success==true){
+                l.html("互相关注");
+                l.attr("class","cancelFocus")
+            }
+        });
+
+    });
+
+    $(document).on("click", ".cancelFocus",function(e){
+        var l=$(this);
+        requestService("/bxg/focus/cancel",  {lecturerId : $(this).attr("lecturerId")}, function(data) {
+            var result = data.resultObject;
+            if(data.success==true){
+                l.html("关注");
+                l.attr("class","focus")
+            }
+        });
+
+    });*/
+
+  /*   function init(){
+        requestService("/bxg/focus/myFans",  {pageNumber : 1,pageSize:10}, function(data) {
+    }); */
+    var pageNumber = 1;
+    var pageSize = 10;
+    function init(downOrOn){
+
+    	if (downOrOn) {
+    		pageNumber = 1;
+    	} else {
+    		pageNumber = pageNumber + 1;
+    	}
+    	var urlparm = {
+    		pageNumber : pageNumber,
+    		pageSize : pageSize
+    	};
+        requestService("/bxg/focus/myFans",  urlparm, function(data) {
+            var result = data.resultObject;
+            var content = document.getElementById("clist");
+			if(downOrOn){
+				content.innerHTML = "";
+			}
+
+            if(result.length>0){
+            	for(var i=0;i<result.length;i++){
+            		result[i]
+            		var odiv = document.createElement("div");
+					odiv.className = "wm-block mui-table-view-cell";
+					odiv.id = 'div' + i;
+
+                    var isFocus=result[i].isFocus;
+                    var focusHtml="";
+                    var html="";
+                    if(isFocus==0){
+    					focusHtml="<span class='focus' lecturerId='"+result[i].lecturerId+"'>加关注</span>";
+    				}else if(isFocus==2){
+                        focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"'>互相关注</span>";
+    				}
+                    html+="<li class='userIndex' title='"+result[i].lecturerId+"'><div class='attention_li '><img src='"+result[i].lecturerHeadImg+"'/>"+
+                   	   "<p class='attention_p1'>"+result[i].lecturerName+"</p><p class='attention_p2'>粉丝数：<span>"+result[i].fansCount+"</span></p></div><div class='attention_right'>"+focusHtml+"</div><div class='both'></div></li>"
+
+                    odiv.innerHTML = html;
+					content.appendChild(odiv);
+            	}
+            	mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+				mui('#refreshContainer').pullRefresh().refresh(true);
+            }else{
+            	var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var num = cells.length;
+				console.log(num);
+				if(num == "0") {
+					document.getElementById("clist").innerHTML ="";
+					var odiv = document.createElement("div");
+					odiv.id = 'content';
+//					var tip_str = "您还没有粉丝，快去完善个人信息吧！";
+					odiv.innerHTML = "<div class='kongbai_div'><img src='/xcviews/images/null03.png' class='kongbai' /><p>您还没有粉丝，快去完善个人信息吧！</p><div  class='perfection'>完善信息</div></div>";
+					document.getElementById("clist").appendChild(odiv);
+				} else {
+					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+				}
+            }
+        });
+        
+    }
+    init(true);
+    
+    
+    /**
+     * 点击进入主播用户页面
+     */
+    mui("#refreshContainer").on('tap', '.userIndex', function (event) {
+    	var ev = this;
+    	var lecturerId = ev.title;
+    	location.href = "/xcviews/html/personage.html?lecturerId="+lecturerId;
+    });
+    
+    //点击完善信息
+    mui("#refreshContainer").on('tap', '.perfection', function (event) {
+    	
+    	location.href = "/xcviews/html/persons.html";
+    });
+
+    /**
+     * ************************************ 页面刷新下刷新事件
+     * **************************************************
+     */
+    mui.init();
+    mui.init({
+    	pullRefresh: {
+    		container: '#refreshContainer',
+    		down: {
+    			callback: pulldownRefresh
+    		},
+    		up: {
+    			contentrefresh: '正在加载...',
+    			callback: pullupRefresh
+    		}
+    	}
+    });
+    /**
+     * 下拉刷新
+     */
+    function pulldownRefresh() {
+    	setTimeout(function() {
+    		init(true);
+    		mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+    	}, 500);
+    };
+    var count = 0;
+    /**
+     * 上拉加载具体业务实现
+     */
+    function pullupRefresh() {
+    	setTimeout(function() {
+    		init(false);
+    	}, 500);
+    };
+
+</script>
+</html>

@@ -22,7 +22,11 @@ window.onload = function() {
 			return '<div class="aimg" style="background-image:none;"><img   src="/web/images/load26.gif"/></div>';
 		}
 	});
-	template.helper('zhibohref', function(id) {
+	template.helper('zhibohref', function(id,collection) {
+		debugger
+		if(collection){
+			return "/course/courses?courseId="+id
+		}
 		return "/web/html/video.html?courseId=" + id;
 	});
 	template.helper('orderState', function(num) {
@@ -83,7 +87,7 @@ $.getUrlParam = function(name) {
 
 	var mycourse = '<div class="box clearfix">' +
 		'{{each items as $value i }}' +
-		'<div class="course" data-url="{{#zhibohref($value.id)}}">' +
+		'<div class="course" data-url="{{#zhibohref($value.id,$value.collection)}}">' +
 		'<a href="javascript:;"   data-videoId="{{$value.id}}">' +
 		'{{#hasImg($value.smallImgPath)}}' +
 		'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +
@@ -103,7 +107,7 @@ $.getUrlParam = function(name) {
 	var mycourse_live = '<div class="box clearfix">' +
 	'{{each items as $value i }}' +
 	'<div class="course" data-url="{{#zhibohref($value.id)}}">' +
-	'<a href="/web/livepage/{{$value.id}}/{{$value.direct_id}}/null"   data-videoId="{{$value.id}}">' +
+	'<a href="/web/livepage/{{$value.id}}"   data-videoId="{{$value.id}}">' +
 	'{{#hasImg($value.smallImgPath)}}' +
 	'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +
 	'<div class="name" title="{{$value.courseName}}">开始时间：{{$value.start_time}}</div>' +
@@ -122,8 +126,8 @@ $.getUrlParam = function(name) {
 	'</div>';
 	var mycourse_xianxia = '<div class="box clearfix">' +
 	'{{each items as $value i }}' +
-	'<div class="course" data-url="/web/html/payRealCourseDetailPage.html?id={{$value.id}}">' +
-	'<a href="/web/html/payRealCourseDetailPage.html?id={{$value.id}}"   data-videoId="{{$value.id}}">' +
+	'<div class="course" data-url="/course/courses/{{$value.id}}">' +
+	'<a href="/course/courses/{{$value.id}}"   data-videoId="{{$value.id}}">' +
 	'{{#hasImg($value.smallImgPath)}}' +
 	'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +
 	'<div class="name" title="{{$value.courseName}}">{{$value.startTime}}-{{$value.endTime}}</div>' +
@@ -135,7 +139,7 @@ $.getUrlParam = function(name) {
 // 	'<div class="rangenum">' +
 //	'<span class="curr">{{$value.learndCount}}</span>/<span class="all">{{$value.count}}</span>' +
 	'</div>' +
-	'</div>' +
+//	'</div>' +
 	'</a>' +
 	'</div>' +
 	'{{/each}}' +
@@ -164,7 +168,7 @@ $.getUrlParam = function(name) {
 			'<table border="0" cellspacing="" cellpadding="" class="name">' +
 			'<tr><td><span style="font:  16px 微软雅黑">{{$a.grade_name}}</span></td></tr>' +
 			'<tr><td><span style="color:rgb(153,153,153)">主讲：{{$a.lecturer}}</span></td></tr>' +
-			'<tr><td><span class="or7" style="font:  12px 微软雅黑">课程有效期至{{#expiry($value.create_time)}}</span></td></tr>' +
+//			'<tr><td><span class="or7" style="font:  12px 微软雅黑">课程有效期至{{#expiry($value.create_time)}}</span></td></tr>' +
 			'</table>' +
 			'</div>' +
 			
@@ -219,7 +223,7 @@ $.getUrlParam = function(name) {
 		'{{if $value.order_status=="0"}}' +
 		'<span  style="float: right;margin-right: 30px;"><a href="/web/{{$value.order_no}}/findOrderByOrderNo?orderId={{$value.id}}" target="_blank" style="width: 78px;height: 36px;text-align: center;line-height: 36px;border: 1px solid #2CB82C;color: #fff;background-color: #2CB82C;border-radius: 2px;">去支付</a></span>'+
 		'{{/if}}' +
-		'<span style="float: right;margin-right: 30px;">实付总额：<i style="font-style:normal;color:#2CB82C">{{$value.actual_pay}}</i>元</span><span style="float: right;margin-right: 30px;">订单总金额：{{$value.actual_pay}}</span>'+
+		'<span style="float: right;margin-right: 30px;">实付款：<i style="font-style:normal;color:#2CB82C">{{$value.actual_pay}}</i>元</span><span style="float: right;margin-right: 30px;"></span>'+
 	
 		'</div>'+
 		
@@ -849,7 +853,7 @@ $.getUrlParam = function(name) {
 //										course(1, 1, 12);
 										console.log(param.pageNumber,param.pageSize);
 //										pageSize = param.pageSize;
-//										course(courseStatus, pageNumber, pageSize);
+										course(courseStatus, param.pageNumber, pageSize);
 									}
 								});
 							}
@@ -1832,14 +1836,14 @@ function addSelectedMenu(){
 
 //购物车列表点击事件
 template.helper('orderClick', function (order) {
-	var a = "";
-	if(order.onlineCourse == 1){
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;"  href="/web/html/payRealCourseDetailPage.html?id='+order.id+'"  target="_blank">';
-	}else if(order.type == 1){
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payOpenCourseDetailPage.html?id='+order.id+'&direct_id='+order.direct_id+'"  target="_blank">';
-	}else{
-		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payCourseDetailPage.html?id='+order.id+'&courseType='+order.course_type+'&free=0" target="_blank">';
-	}
-console.info(a);
+	var a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;"  href="/course/courses/'+order.id+'"  target="_blank">';
+	// if(order.type == 3){
+	// 	a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;"  href="/web/html/payRealCourseDetailPage.html?id='+order.id+'"  target="_blank">';
+	// }else if(order.type == 1){
+	// 	a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payOpenCourseDetailPage.html?id='+order.id+'&direct_id='+order.direct_id+'"  target="_blank">';
+	// }else{
+	// 	a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payCourseDetailPage.html?id='+order.id+'&courseType='+order.course_type+'&free=0" target="_blank">';
+	// }
+// console.info(a);
 	return a;
 });

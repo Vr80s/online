@@ -303,7 +303,7 @@ public class CourseVo extends OnlineBaseVo{
     
     private  String coursePwd;
     
-    private int multimediaType;
+    private Integer multimediaType;
     
     private int onlineCourse;
 
@@ -316,6 +316,86 @@ public class CourseVo extends OnlineBaseVo{
     private String realCitys;
     
     private String realCounty;
+    
+    private Integer liveStatus;
+
+    private Boolean collection;
+    private Boolean singleSale;
+    private String lecturer;
+    private String lecturerDescription;
+	private String subtitle;
+	
+	// 精品推荐
+	private Integer isEssence;
+
+	// 精品排序
+	private Integer essenceSort; //不推荐(0)，推荐（1）
+	
+	// 分类推荐
+	private Integer isTypeRecommend;
+	
+	// 分类排序
+	private Integer typeSort; 
+	//发布时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date releaseTime;
+
+    //排序更新时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date sortUpdateTime;
+	
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+
+
+	public Integer getEssenceSort() {
+		return essenceSort;
+	}
+
+	public void setEssenceSort(Integer essenceSort) {
+		this.essenceSort = essenceSort;
+	}
+
+	public String getLecturerDescription() {
+		return lecturerDescription;
+	}
+
+	public void setLecturerDescription(String lecturerDescription) {
+		this.lecturerDescription = lecturerDescription;
+	}
+
+	public String getLecturer() {
+		return lecturer;
+	}
+
+	public void setLecturer(String lecturer) {
+		this.lecturer = lecturer;
+	}
+
+	public Boolean getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Boolean collection) {
+		this.collection = collection;
+	}
+
+	public Boolean getSingleSale() {
+		return singleSale;
+	}
+
+	public void setSingleSale(Boolean singleSale) {
+		this.singleSale = singleSale;
+	}
 
 	public String getAddress() {
 		return address;
@@ -338,11 +418,11 @@ public class CourseVo extends OnlineBaseVo{
     private Integer isCourseDetails; //TODO 0 表示不展示 1 表示展示
 
 	
-    public int getMultimediaType() {
+    public Integer getMultimediaType() {
 		return multimediaType;
 	}
 
-	public void setMultimediaType(int multimediaType) {
+	public void setMultimediaType(Integer multimediaType) {
 		this.multimediaType = multimediaType;
 	}
 
@@ -599,11 +679,13 @@ public class CourseVo extends OnlineBaseVo{
 		this.countGradeNum = countGradeNum;
 	}
 
-	public Date getCreateTime() {
+	@Override
+    public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	@Override
+    public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -940,8 +1022,52 @@ public class CourseVo extends OnlineBaseVo{
 		this.realCounty = realCounty;
 	}
 
-	
-	
-	
+	public Integer getLiveStatus() {
+		return liveStatus;
+	}
+
+	public void setLiveStatus(Integer liveStatus) {
+		this.liveStatus = liveStatus;
+	}
+
+	public Integer getIsEssence() {
+		return isEssence;
+	}
+
+	public void setIsEssence(Integer isEssence) {
+		this.isEssence = isEssence;
+	}
+
+	public Integer getIsTypeRecommend() {
+		return isTypeRecommend;
+	}
+
+	public void setIsTypeRecommend(Integer isTypeRecommend) {
+		this.isTypeRecommend = isTypeRecommend;
+	}
+
+	public Integer getTypeSort() {
+		return typeSort;
+	}
+
+	public void setTypeSort(Integer typeSort) {
+		this.typeSort = typeSort;
+	}
+
+	public Date getReleaseTime() {
+		return releaseTime;
+	}
+
+	public void setReleaseTime(Date releaseTime) {
+		this.releaseTime = releaseTime;
+	}
+
+    public Date getSortUpdateTime() {
+        return sortUpdateTime;
+    }
+
+    public void setSortUpdateTime(Date sortUpdateTime) {
+        this.sortUpdateTime = sortUpdateTime;
+    }
 }
 

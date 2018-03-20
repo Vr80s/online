@@ -518,7 +518,7 @@ public class QuesstoreController {
 		@ResponseBody
 		public String saveBatch(String fileName, String courseName, HttpServletRequest request) {
 
-			// 获得登陆成功的token
+			// 获得登录成功的token
 			Token token = UCCookieUtil.readTokenCookie(request);
 			if (token == null) {
 				return "请登录！";

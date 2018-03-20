@@ -1,10 +1,12 @@
 package com.xczh.consumer.market.wxpay.util;
 
+import com.qq.connect.utils.QQConnectConfig;
 import com.xczh.consumer.market.bean.WxcpWxTrans;
 import com.xczh.consumer.market.wxpay.SignAbledBean;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.entity.PayInfo;
 import com.xczh.consumer.market.wxpay.entity.SendRedPack;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -262,7 +264,7 @@ public class CommonUtil {
 	public static Map<String, String> getPrePayInfos(Object xmlobj) throws Exception {
 		
 		HttpsRequest request = new HttpsRequest();
-		String buffer = request.sendPost(WxPayConst.unitorder_url, xmlobj);
+		String buffer = request.sendPost(WxPayConst.UNITORDER_URL, xmlobj);
 		if(buffer == null) {
             buffer = "";
         }
@@ -300,7 +302,7 @@ public class CommonUtil {
 	public static String getAccessToken() throws Exception {
 		
 		String out = "";
-		String in = WxPayConst.query_access_token.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
+		String in = WxPayConst.QUERY_ACCESS_TOKEN.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
 				.replace("secret=secret", "secret=" + WxPayConst.gzh_Secret);
 		System.out.println("openidtest"+in);
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
@@ -317,7 +319,7 @@ public class CommonUtil {
 	public static String getWxCode(String uri) throws Exception {
 		
 		String out = "";
-		String in = WxPayConst.code_url.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
+		String in = WxPayConst.CODE_URL.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
 				.replace("redirect_uri=url", "redirect_uri=" + uri);
 		System.out.println("openidtest"+in);
 		
@@ -334,7 +336,7 @@ public class CommonUtil {
 	public static String getWxCode2(String uri) throws Exception {
 		
 		String out = "";
-		String in = WxPayConst.code_url_2.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
+		String in = WxPayConst.CODE_URL_2.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
 				.replace("redirect_uri=url", "redirect_uri=" + uri);
 		System.out.println("openidtest"+in);
 		
@@ -350,13 +352,13 @@ public class CommonUtil {
 	 */
 	public static String getOpenId(String code) throws Exception {
 		
-		String out = ""; //?? openid获取URL : WxPayConst.oauth_url；
-		String in=WxPayConst.oauth_url.replace("appid=APPID","appid="+WxPayConst.gzh_appid)
+		
+		
+		String out = ""; //?? openid获取URL : WxPayConst.OAUTH_URL；
+		String in=WxPayConst.OAUTH_URL.replace("appid=APPID","appid="+WxPayConst.gzh_appid)
 				.replace("secret=SECRET","secret="+WxPayConst.gzh_Secret).
 				replace("code=CODE", "code="+code);
-		System.out.println("openidtest"+in);
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-		System.out.println("openidtest"+buffer);
 		return buffer.toString();
 	}
 	
@@ -368,9 +370,9 @@ public class CommonUtil {
 	 */
 	public static String getUserInfo(String access_token,String openid) throws Exception {	
 		String out = ""; 		
-		String in=WxPayConst.user_url.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
+		String in=WxPayConst.USER_URL.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-		System.out.println("getUserInfo:"+buffer.toString());
+		System.out.println("GET_USER_INFO:"+buffer.toString());
 		return buffer.toString();
 	}
 		
@@ -383,11 +385,7 @@ public class CommonUtil {
 	 */
 	public static String getUserManagerGetInfo(String access_token,String openid) throws Exception {	
 		String out = ""; 		
-		String in=WxPayConst.usermanager_getinfo_url.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
-		
-	    /*in="https://api.weixin.qq.com/cgi-bin/user/info?access_token=WbOLClDPg-7y5R41vPYIxwoplYD6OFUzXEwycStaclA6HqOU"
-	 		+ "zjmr2V_cCM7cc-yZz5wY8l-g-sLBVHaFaial0sGDDnkw8Tq_7VXfCfIrDwLMhQ01uRNgfqQ0XnhRvQtrMRFjADAFKY&openid=ovE_ow7RIZFm3Rf8NpCWwK00UGsU";*/
-		
+		String in=WxPayConst.USERMANAGER_GETINFO_URL.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
 		System.out.println("getUserManagerGetInfo:"+buffer.toString());
 		return buffer.toString();
@@ -533,8 +531,8 @@ public class CommonUtil {
         }
         for (String key : sArray.keySet()) {
             String value = sArray.get(key);
-            if (value == null || value.equals("") || key.equalsIgnoreCase("sign")
-                || key.equalsIgnoreCase("sign_type")) {
+            if (value == null || "".equals(value) || "sign".equalsIgnoreCase(key)
+                || "sign_type".equalsIgnoreCase(key)) {
                 continue;
             }
             result.put(key, value);
@@ -582,13 +580,13 @@ public class CommonUtil {
 	
 //	public static String getSign(SignAbledBean payInfo) throws Exception {
 //		String signTemp = orderParamByAscii(payInfo);
-//		String sign = MD5SignUtil.Sign(signTemp, WxPayConst.app_key);
+//		String sign = MD5SignUtil.Sign(signTemp, WxPayConst.APP_KEY);
 //		return sign;
 //	}
 	public static String getSign(SignAbledBean payInfo, String tradeType) throws SDKRuntimeException {
 		String signTemp = orderParamByAscii(payInfo);
 		String sign ="";
-		if(PayInfo.trade_type_app.equals(tradeType)){
+		if(PayInfo.TRADE_TYPE_APP.equals(tradeType)){
 		    sign = MD5SignUtil.Sign(signTemp, WxPayConst.app_ApiKey);
 		}else{
 			sign = MD5SignUtil.Sign(signTemp, WxPayConst.gzh_ApiKey);
@@ -597,19 +595,14 @@ public class CommonUtil {
 	}
 	//app二次签名
 	public static Map<String,String> getSignER(Map<String,String> map) throws SDKRuntimeException {
-		/*AppInfo ai = new AppInfo();
-		ai.setAppid(map.get("appid"));
-		ai.setNoncestr(map.get("nonce_str"));
-		ai.setPackage_app(map.get("Sign=WXPay"));
-		ai.setPartnerid(map.get("mch_id"));
-		ai.setPrepayid(map.get("prepay_id"));
-		ai.setTimestamp(map.get(System.currentTimeMillis()/1000+""));*/
+		
+		
 		String timestamp = System.currentTimeMillis()/1000+"";
+		
 		String str = "appid="+map.get("appid")+"&noncestr="+map.get("nonce_str")+""
 				   + "&package=Sign=WXPay"
                    +"&partnerid="+map.get("mch_id")+"&prepayid="+map.get("prepay_id")+"" 
                    +"&timestamp="+timestamp+"";
-		//String signTemp = orderParamByAscii(ai);
 		String sign ="";
 	    sign = MD5SignUtil.Sign(str, WxPayConst.app_ApiKey);
 	    map.put("sign",sign);
@@ -617,5 +610,20 @@ public class CommonUtil {
 		return map;
 	}
 	
+	
+	/**
+	 * 通过openId 和票据 获取到unionId
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getQQUnionIdByOpenIdAndAccessToken(String accessToken) throws Exception {
+		String out = ""; //?? openid获取URL : WxPayConst.OAUTH_URL；
+		//https://graph.qq.com/oauth2.0/me?access_token=ACCESSTOKEN&unionid=1
+		String in=QQConnectConfig.getValue("getOpenIDURL")+"?access_token="+accessToken+"&unionid=1";
+		System.out.println("url:"+in);
+		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
+		return buffer.toString();
+	}
 	
 }

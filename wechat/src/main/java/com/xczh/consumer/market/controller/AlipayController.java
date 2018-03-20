@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczh.consumer.market.utils.*;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -45,8 +45,6 @@ import com.xczh.consumer.market.bean.OnlineCourse;
 import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.Reward;
-import com.xczh.consumer.market.bean.RewardStatement;
-import com.xczh.consumer.market.controller.live.XCPageController;
 import com.xczh.consumer.market.service.AlipayPaymentRecordH5Service;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineOrderService;
@@ -100,7 +98,7 @@ public class AlipayController {
 	private String returnOpenidUri;
 
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(AlipayController.class);
+	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AlipayController.class);
 	/**
 	 * 订单支付
 	 *
@@ -181,7 +179,7 @@ public class AlipayController {
 		// AlipayTradeWapPayRequest alipa= payBizRun.(request,response);
 
 		String passbackParams = JSONObject.toJSON(orderParamVo).toString();
-		log.info("附加参数：" + passbackParams);
+		LOG.info("附加参数：" + passbackParams);
 		model.setPassbackParams(passbackParams);
 		alipay_request.setBizModel(model);
 		// 设置异步通知地址
@@ -259,8 +257,8 @@ public class AlipayController {
 
 		// 订单号 支付的钱
 		orderNo = onlineOrder.getOrderNo();
-		log.info("orderNo:" + orderNo);
-		log.info("orderNo2:" + orderNo);
+		LOG.info("orderNo:" + orderNo);
+		LOG.info("orderNo2:" + orderNo);
 
 		String ap = null;
 		ap = onlineOrder.getActualPay().toString();
@@ -310,7 +308,7 @@ public class AlipayController {
 		// AlipayTradeWapPayRequest alipa= payBizRun.(request,response);
 
 		String passbackParams = JSONObject.toJSON(orderParamVo).toString();
-		log.info("附加参数：" + passbackParams);
+		LOG.info("附加参数：" + passbackParams);
 		model.setPassbackParams(passbackParams);
 		alipay_request.setBizModel(model);
 		// 设置异步通知地址
@@ -320,14 +318,14 @@ public class AlipayController {
 		List<OnlineCourse> cList = null;
 		if (StringUtils.isNotBlank(request.getParameter("formIsWechat"))) {
 
-			log.info("orderNo:" + orderNo);
+			LOG.info("orderNo:" + orderNo);
 
-			log.info("OnlineOrder:"
+			LOG.info("OnlineOrder:"
 					+ onlineOrderService
 							.getOrderAndCourseInfoByOrderNo(orderNo)
 							.getResultObject());
 
-			// log.info("OnlineOrder:"+onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject().getAllCourse().s);
+			// LOG.info("OnlineOrder:"+onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject().getAllCourse().s);
 
 			cList = ((OnlineOrder) onlineOrderService
 					.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject())
@@ -387,7 +385,7 @@ public class AlipayController {
 		 * params2.put("token",request.getParameter("token")); OnlineUser user =
 		 * appBrowserService.getOnlineUserByReq(request, params2); //
 		 * onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000"); if
-		 * (user == null) { throw new RuntimeException("登录超时！"); }
+		 * (user == null) { throw new RuntimeException("登录失效"); }
 		 */
 
 		String ap = null;
@@ -453,7 +451,7 @@ public class AlipayController {
 		 */
 
 		String passbackParams = JSONObject.toJSON(rewardParamVo).toString();
-		log.info("打赏参数：" + passbackParams);
+		LOG.info("打赏参数：" + passbackParams);
 		// 封装请求支付信息
 		AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
 		model.setOutTradeNo(out_trade_no);
@@ -501,10 +499,9 @@ public class AlipayController {
 			HttpServletResponse response) throws Exception {
 		Map<String, String> params2 = new HashMap<>();
 		params2.put("token", request.getParameter("token"));
-		OnlineUser user = appBrowserService
-				.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 
 		String ap = null;
@@ -554,7 +551,7 @@ public class AlipayController {
 		rechargeParamVo.setUserId(user.getId());
 
 		String passbackParams = JSONObject.toJSON(rechargeParamVo).toString();
-		log.info("充值代币参数：" + passbackParams);
+		LOG.info("充值代币参数：" + passbackParams);
 		// 封装请求支付信息
 		AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
 		model.setOutTradeNo(out_trade_no);
@@ -562,6 +559,7 @@ public class AlipayController {
 		model.setTotalAmount(total_amount);
 		model.setBody(body);
 		model.setTimeoutExpress(timeout_express);
+		
 		model.setProductCode(product_code);
 		model.setPassbackParams(passbackParams);
 		alipay_request.setBizModel(model);
@@ -651,7 +649,7 @@ public class AlipayController {
 		OrderParamVo orderParamVo = new OrderParamVo();
 		orderParamVo.setUserId(onlineOrder.getUserId());
 		String passbackParams = JSONObject.toJSON(orderParamVo).toString();
-		log.info("附加参数：" + passbackParams);
+		LOG.info("附加参数：" + passbackParams);
 		model.setPassbackParams(passbackParams);
 		request.setBizModel(model);
 		request.setNotifyUrl(alipayConfig.notify_url);
@@ -659,7 +657,7 @@ public class AlipayController {
 			// 这里和普通的接口调用不同，使用的是sdkExecute
 			AlipayTradeAppPayResponse response = alipayClient
 					.sdkExecute(request);
-			log.info(response.getBody());// 就是orderString
+			LOG.info(response.getBody());// 就是orderString
 													// 可以直接给客户端请求，无需再做处理。
 			return ResponseObject.newSuccessResponseObject(response.getBody());
 		} catch (AlipayApiException e) {
@@ -715,7 +713,7 @@ public class AlipayController {
 		rewardParamVo.setReceiver(req.getParameter("receiver"));
 		rewardParamVo.setUserId(req.getParameter("userId"));
 		String passbackParams = JSONObject.toJSON(rewardParamVo).toString();
-		log.info("打赏参数：" + passbackParams);
+		LOG.info("打赏参数：" + passbackParams);
 
 		AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
 		// model.setBody("");
@@ -732,7 +730,7 @@ public class AlipayController {
 			// 这里和普通的接口调用不同，使用的是sdkExecute
 			AlipayTradeAppPayResponse response = alipayClient
 					.sdkExecute(request);
-			log.info(response.getBody());// 就是orderString
+			LOG.info(response.getBody());// 就是orderString
 													// 可以直接给客户端请求，无需再做处理。
 			return ResponseObject.newSuccessResponseObject(response.getBody());
 		} catch (AlipayApiException e) {
@@ -832,7 +830,7 @@ public class AlipayController {
 			}
 			// 乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
 			// valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
-			log.info(name+"{}{}{}{}{}{}{}{}"+valueStr);
+			LOG.info(name+"{}{}{}{}{}{}{}{}"+valueStr);
 			para.put(name, valueStr);
 		}
 		// 获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
@@ -856,9 +854,10 @@ public class AlipayController {
 		boolean verify_result = AlipaySignature.rsaCheckV1(para,
 				alipayConfig.ALIPAY_PUBLIC_KEY, alipayConfig.CHARSET, "RSA2");
 
-		log.info("verify_result:"+verify_result);
-		
-		if (verify_result) {// 验证成功
+		LOG.info("verify_result:"+verify_result);
+
+		// 验证成功
+		if (verify_result) {
 			if ("TRADE_CLOSED".equals(para.get("trade_status"))) {
 				return;
 			}
@@ -899,8 +898,8 @@ public class AlipayController {
 					.get("voucher_detail_list"));
 
 			
-			log.info("trade_status:"+trade_status);
-			if (trade_status.equals("TRADE_SUCCESS")) {
+			LOG.info("trade_status:"+trade_status);
+			if ("TRADE_SUCCESS".equals(trade_status)) {
 				// 判断该笔订单是否在商户网站中已经做过处理
 				// 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				// 请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -911,19 +910,13 @@ public class AlipayController {
 				// 如果没有签约可退款协议，那么付款完成后，支付宝系统发送该交易状态通知。
 				
 				
-				log.info("alipayPaymentRecordH5:"+alipayPaymentRecordH5
-						.getPassbackParams());
-				if (StringUtils.isNotBlank(alipayPaymentRecordH5
-						.getPassbackParams())) {
+				LOG.info("alipayPaymentRecordH5:"+alipayPaymentRecordH5.getPassbackParams());
+				if (StringUtils.isNotBlank(alipayPaymentRecordH5.getPassbackParams())) {
+					LOG.info("trade_status:"+trade_status);
 					
-					
-					log.info("trade_status:"+trade_status);
-					
-					String ppbt = JSONObject
-							.parseObject(
-									alipayPaymentRecordH5.getPassbackParams())
-							.get("t").toString();
-					if (ppbt.equals("1")) { // 打赏
+					String ppbt = JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams()).get("t").toString();
+					if ("1".equals(ppbt)) {
+						// 打赏
 						RewardParamVo rpv = JSONObject.parseObject(
 								alipayPaymentRecordH5.getPassbackParams(),
 								RewardParamVo.class);
@@ -931,7 +924,8 @@ public class AlipayController {
 						com.xczhihui.bxg.online.api.po.RewardStatement rs = new com.xczhihui.bxg.online.api.po.RewardStatement();
 						BeanUtils.copyProperties(rs, rpv);
 						rs.setCreateTime(new Date());
-						rs.setPayType(0);//
+						//支付宝支付
+						rs.setPayType(Payment.ALIPAY.getCode());
 						rs.setStatus(1);
 						rs.setOrderNo(out_trade_no);
 						rs.setPrice(new Double(alipayPaymentRecordH5
@@ -939,66 +933,38 @@ public class AlipayController {
 						rs.setChannel(1);
 						// rewardService.insert(rs);1
 						alipayPaymentRecordH5.setUserId(rpv.getUserId());
+						
+						
 						alipayPaymentRecordH5Service
 								.insert(alipayPaymentRecordH5);
 						userCoinService.updateBalanceForReward(rs);
-						response.getWriter().println("success"); // 请不要修改或删除
+						// 请不要修改或删除
+						response.getWriter().println("success");
 						return;
-					} else if (ppbt.equals("2")) { // 普通订单
+					} else if ("2".equals(ppbt)) {
+						// 普通订单
+						LOG.info("回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
+						alipayPaymentRecordH5.setUserId((JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams()).get("userId").toString()));
+						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 
-						
-						
-						log.info("回调数据包："
-								+ alipayPaymentRecordH5.getPassbackParams());
-						alipayPaymentRecordH5.setUserId((JSONObject
-								.parseObject(
-										alipayPaymentRecordH5
-												.getPassbackParams()).get(
-										"userId").toString()));
-
-						alipayPaymentRecordH5Service
-								.insert(alipayPaymentRecordH5);
-						
-						
-						log.info("普通订单=============================");
-						
-						boolean onlinePaySuccess = httpOnline(out_trade_no,
-								trade_no); // 普通订单
-
-						
-						log.info("普通订单=============================");
+						boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no);
 						if (onlinePaySuccess) {
-							response.getWriter().println("success"); // 请不要修改或删除
+							// 请不要修改或删除
+							response.getWriter().println("success");
 						}
-					} else if (ppbt.equals("3")) {
-						log.info("充值回调数据包："
+					} else if ("3".equals(ppbt)) {
+						LOG.info("充值回调数据包："
 								+ alipayPaymentRecordH5.getPassbackParams());
-						alipayPaymentRecordH5.setUserId((JSONObject
-								.parseObject(
-										alipayPaymentRecordH5
-												.getPassbackParams()).get(
-										"userId").toString()));
-						alipayPaymentRecordH5Service
-								.insert(alipayPaymentRecordH5);
+						alipayPaymentRecordH5.setUserId((JSONObject.parseObject(alipayPaymentRecordH5
+												.getPassbackParams()).get("userId").toString()));
+						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 
+						BigDecimal coin = new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount()) * rate);
 						// 执行代币充值工作
-						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-						userCoinIncrease.setUserId(alipayPaymentRecordH5
-								.getUserId());
-						userCoinIncrease.setChangeType(1);
-						userCoinIncrease
-								.setValue(new BigDecimal(new Double(
-										alipayPaymentRecordH5.getTotalAmount())
-										* rate));
-						userCoinIncrease.setCreateTime(new Date());
-						userCoinIncrease.setPayType(0);
-						// userCoinIncrease.setChangeType(0);
-						userCoinIncrease
-								.setOrderNoRecharge(alipayPaymentRecordH5
-										.getTradeNo());
-						userCoinService
-								.updateBalanceForIncrease(userCoinIncrease);
-						response.getWriter().println("success"); // 请不要修改或删除
+
+						userCoinService.updateBalanceForRecharge(alipayPaymentRecordH5.getUserId(),Payment.ALIPAY,coin, OrderFrom.H5,alipayPaymentRecordH5.getOutTradeNo());
+						// 请不要修改或删除
+						response.getWriter().println("success");
 					}
 				}
 			}
@@ -1030,7 +996,7 @@ public class AlipayController {
 		// 请求web端的方法
 		String msg = HttpUtil.sendDataRequest(pcUrl + "/web/pay_notify_alipay",
 				"application/xml", resXml.toString().getBytes());
-		log.info("msg  >>>  " + msg);
+		LOG.info("msg  >>>  " + msg);
 
 		//
 
@@ -1043,7 +1009,7 @@ public class AlipayController {
 	
 	public AlipayTradeAppPayResponse pay1() throws AlipayApiException{
 	    //正式环境使用
-	    //AlipayClient client = new DefaultAlipayClient(Config.serverUrl, Config.appId, Config.privateKey, Config.format, Config.charset, Config.alipayPulicKey, Config.signType);
+	    //AlipayClient client = new DefaultAlipayClient(Config.serverUrl, Config.appId, Config.privateKey, Config.FORMAT, Config.charset, Config.alipayPulicKey, Config.signType);
 	    //沙箱环境使用
 		
 		
@@ -1080,9 +1046,9 @@ public class AlipayController {
 		//调用成功，则处理业务逻辑
 		if(response.isSuccess()){
 			//.....
-			log.info("成功");
+			LOG.info("成功");
 		}else{
-			log.info("失败");
+			LOG.info("失败");
 		}
 	    return  null;
 	}
@@ -1091,16 +1057,16 @@ public class AlipayController {
 	public static void main(String[] args) {
 		
 		
-		//log.info(alipayConfig.URL);
+		//LOG.info(alipayConfig.URL);
 //		String ap = "中国你好";
 //        try {
 //        	double apd = Double.valueOf(ap);
 //            if(apd < (0.01d)){
-//    			log.info("金额必须大于等于0.01");
+//    			LOG.info("金额必须大于等于0.01");
 //    		}
 //		} catch (Exception e) {
 //			 e.printStackTrace();
-//			log.info("请输入正确的金额");
+//			LOG.info("请输入正确的金额");
 //		}
 ////		
 		AlipayController ali = new AlipayController();

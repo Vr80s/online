@@ -2,24 +2,16 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:task="http://www.springframework.org/schema/task"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns:mvc="http://www.springframework.org/schema/mvc"
 	   xmlns:aop="http://www.springframework.org/schema/aop"
 	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-	   xsi:schemaLocation="
-           http://www.springframework.org/schema/beans
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	        http://www.springframework.org/schema/context
 	        http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 	        http://www.springframework.org/schema/aop
 	        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-	         http://www.springframework.org/schema/task
-	        http://www.springframework.org/schema/task/spring-task-4.0.xsd
-	        http://www.springframework.org/schema/tx
-	        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-
 	        http://code.alibabatech.com/schema/dubbo
     		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
@@ -117,6 +109,11 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<!--RedissonUtil配置-->
+	<bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+		<property name="redisHost" value="${redis.host}"></property>
+		<property name="redisPort" value="${redis.port}"></property>
+	</bean>
 	<mvc:default-servlet-handler />
 	
 	<!--
@@ -124,22 +121,55 @@
 
 	<dubbo:application name="wechat2"/>
 	<dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
+
 	
 	<dubbo:reference id="userCenterAPI"  interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="5000" />
-	<dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="5000" />
+	<dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="5000" />
 	<dubbo:reference id="giftServiceImpl" interface="com.xczhihui.bxg.online.api.service.GiftService" timeout="5000" />
-	<dubbo:reference id="enchashmentService" interface="com.xczhihui.bxg.online.api.service.EnchashmentService" timeout="5000" />
-	<dubbo:reference id="cityService" interface="com.xczhihui.bxg.online.api.service.CityService" timeout="5000" />
-	<dubbo:reference id="liveExamineInfoService" interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" timeout="5000" />
-	<!-- 新增评论接口 -->
-	<!-- <dubbo:reference id="criticizeService"  interface="com.xczhihui.bxg.online.api.service.CriticizeService" timeout="5000" /> -->
+	<dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.bxg.online.api.service.EnchashmentService" timeout="5000" />
+	<dubbo:reference id="cityServiceImpl" interface="com.xczhihui.bxg.online.api.service.CityService" timeout="5000" />
+	<dubbo:reference id="liveExamineInfoServiceImpl" interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" timeout="5000" />
 	<!-- 新增公共的接口 -->
-	<dubbo:reference id="commonApiService"  interface="com.xczhihui.bxg.online.api.service.CommonApiService" timeout="5000" />
-	
-	<!-- 医馆 -->
-	<dubbo:reference id="medicalHospitalBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"  timeout="5000" />
-	<!-- 医馆招聘 -->
-	<dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"  timeout="5000" />
-	<!--医师-->
+	<dubbo:reference id="commonApiServiceImpl"  interface="com.xczhihui.bxg.online.api.service.CommonApiService" timeout="5000" />
+	<dubbo:reference  interface="com.xczhihui.bxg.online.api.service.CriticizeService"  id="criticizeServiceImpl"  timeout="5000" />
+	<!-- 医馆 --> <!-- 医馆招聘 --> <!--医师-->
+    <dubbo:reference id="medicalHospitalBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"  timeout="5000" />
+    <dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"  timeout="5000" /> 
 	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="5000"/>
+
+	<dubbo:reference interface="com.xczhihui.wechat.course.service.ICourseService" id="courseServiceImpl" timeout="5000"/>
+	<!--学堂-->
+	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileBannerService" id="mobileBannerServiceImpl" timeout="5000"/>
+	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="5000"/> 
+    <!--观看记录 -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IWatchHistoryService" id="watchHistoryServiceImpl" timeout="5000" />
+	<dubbo:reference interface="com.xczhihui.wechat.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="5000"/>
+    <!-- 我的关注，我的粉丝service -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote" timeout="5000" />
+	<!--礼物相关-->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IGiftService" id="giftService" timeout="5000" />
+	<!--医师入驻-->
+	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService" id="medicalDoctorApplyServiceImpl"  timeout="5000" />
+	<!--医馆入驻-->
+	<dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" id="medicalHospitalApplyServiceImpl"  timeout="5000" />
+	<!--主播课程-->
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"  timeout="5000" />
+
+	 <!--医师医馆公共服务-->
+     <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonServiceImpl" timeout="5000"  />
+	<!--用户银行卡-->
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl" timeout="5000" />
+	
+	<!-- 我的信息管理类 -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl" timeout="5000"  />
+    
+    <!-- 支付服务后回调服务 -->
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.OrderPayService" id="orderPayServiceImpl" timeout="5000"  />
+	
+	<!-- 微博、qq第三方登录数据存储接口 -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService" id="threePartiesLoginServiceImpl" timeout="5000"  />	
+    
+     <!-- 熊猫币购买接口 -->
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl" timeout="5000"  />	
+	
 </beans>

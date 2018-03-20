@@ -94,15 +94,15 @@ var strcourse =
     '{{each item}}' +
     '<div class="course clearfix">' +
     '{{if $value.isRecommend == true}}' +
-    '<img style="position:absolute;width: 16%;top:-2px;left:-2px" src="/web/images/recommend2.png" ></img>'+
+    '<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png" ></img>'+
     '{{/if}}' +
     '{{#indexHref($value.description_show,$value.free,$value.id,$value.courseType,$value.type,$value.direct_id,null,$value.coursePwd)}}'+
     '{{#hasImg($value.smallImgPath)}}' +
-    '{{#online($value.multimediaType)}}' +
+    '{{#online($value.multimediaType,$value.collection)}}' +
     '<div class="detail">' +
     '<p class="title" data-text="{{$value.gradeName}}" title="{{$value.gradeName}}">{{$value.gradeName}}</p>' +
     '<p class="timeAndTeac">' +
-    '<span>{{#timeChange($value.courseLength)}}</span><i>|</i>' +
+    // '<span>{{#timeChange($value.courseLength)}}</span><i>|</i>' +
     '<span>讲师：<span class="teacher">{{$value.name}}</span></span>' +
     '</p>' +
     '<p class="info clearfix">' +
@@ -114,7 +114,7 @@ var strcourse =
     '<span class="pricefree">免费</span>' +
     '{{/if}}' +
     '{{else}}' +
-    '<i>￥</i><span class="price">{{$value.currentPrice}}</span><del><i class="price1">￥</i>{{$value.originalCost}}</del>' +
+    '<span class="price">{{$value.currentPrice}}</span><span>熊猫币</span>' +
     '{{/if}}' +
     '</span>' +
     '<span class="stuCount"><img src="/web/images/studentCount.png" alt=""/><span class="studentCou">{{$value.learnd_count==null?0:$value.learnd_count}}</span></span>' +
@@ -128,6 +128,9 @@ var strcourse =
 var strcourse_xxpxb =
 	'{{each item}}' +
 	'<div class="course xxpxb clearfix">' +
+	'{{if $value.isRecommend == true}}' +
+    '<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png" ></img>'+
+    '{{/if}}' +
 	'{{#indexHref($value.description_show,$value.free,$value.id,$value.courseType,$value.type,$value.direct_id,1)}}'+
 	'{{#hasImg($value.smallImgPath)}}' +
 //	'{{#online($value.courseType)}}' +
@@ -149,43 +152,6 @@ var strcourse_xxpxb =
 	'</a>' +
 	'</div>' +
 	'{{/each}}';
-
-var livingCourse='{{each items}}'+
-    '<li>' +
-    	'{{if $value.free==true}}'+
-	    	'{{if $value.coursePwd==1}}'+
-	    		'<a style="cursor:pointer"  data-url="/web/html/encryptOpenCourseDetailPage.html?id={{$value.id}}&direct_id={{$value.direct_id}}" target="_blank" >'+
-    		'{{else}}'+
-    			'<a style="cursor:pointer"  data-url="/web/html/freeOpenCourseDetailPage.html?id={{$value.id}}&direct_id={{$value.direct_id}}" target="_blank" >'+
-			'{{/if}}'+
-		'{{else}}'+
-			'<a style="cursor:pointer"  data-url="/web/html/payOpenCourseDetailPage.html?id={{$value.id}}&direct_id={{$value.direct_id}}" target="_blank" >'+
-		'{{/if}}'+
-    '{{#hasImg($value.smallimg_path)}}' +
-        '<div class="public-class-live-detail">'+
-        '<div class="detailCourseInfo clearfix">'+
-        '<div class="detailCourseName" title="{{$value.courseName}}">{{$value.courseName}}</div>'+
-        '<div class="detailTeacher">讲师：{{$value.teacherName}}</div>'+
-        '</div>'+
-        '{{if $value.broadcastState==1}}'+
-        '<div class="detailLiveInfo clearfix">'+
-        '<div class="detailLiveDate">最近直播：{{$value.formatStartTime}}</div>'+
-        '<div class="detailLiving zhiboStart">'+
-        '<span class="enter-livingClass" href="/web/livepage/{{$value.id}}/{{$value.direct_id}}/null" target="_blank">进入教室</span>'+
-        '<img src="/web/images/zhibo.gif" alt=""/>'+
-        '<span class="living">直播中</span>'+
-        '</div></div></div>'+
-        '{{else}}'+
-        '<div class="detailLiveInfo clearfix">'+
-        '<div class="detailLiveDate">最近直播：{{$value.formatStartTime}}</div>'+
-        '<div class="detailLiving">'+
-        '<img src="/web/images/zhiboNoStart.png" alt=""/>'+
-        '<span class="noStart">直播未开始</span>'+
-        '{{/if}}'+
-        '</div></div></div>'+
-        '</a></li>'+
-        '{{/each}}';
-
 
 var liveTrailerTemplate='{{each items}}' +' <li>\n' +
 	'<img src="web/images/yugao/082305_03.png" alt="" class="li_img" />'+
@@ -318,16 +284,7 @@ function init() {
 //获取一个直播
 RequestService("/online/live/getLive","GET",{num:4},function(data){
 	var url="";
-    if(data.resultObject.free==true){
-        if(data.resultObject.coursePwd==1){
-            url="/web/html/encryptOpenCourseDetailPage.html?id="+data.resultObject.id+"&direct_id="+data.resultObject.direct_id+"";
-        }else{
-            url="/web/html/freeOpenCourseDetailPage.html?id="+data.resultObject.id+"&direct_id="+data.resultObject.direct_id+"";
-        }
-    }else{
-    url="/web/html/payOpenCourseDetailPage.html?id="+data.resultObject.id+"&direct_id="+data.resultObject.direct_id+"";
-    }
-
+    url="/course/courses/"+data.resultObject.id;
 	$(".video_div").click(function(){
 	    window.open(url);
 	});
@@ -518,6 +475,10 @@ getData(1,1);
 function fenye(currentPage,numberOfPages,totalPages){
 			if(numberOfPages>5){
 				numberOfPages = 5;
+			}else if(numberOfPages <= 1){
+				$('.zhongyi').addClass('hide');
+			}else{
+				$('.zhongyi').removeClass('hide');
 			}
 			//分页结构结合数据渲染部分
 			$('.zhongyi .pagination').bootstrapPaginator({
@@ -569,6 +530,8 @@ getData2(pageNum2)
 function fenye2(currentPage,numberOfPages,totalPages){
 			if(numberOfPages>5){
 				numberOfPages = 5;
+			}else if(numberOfPages <= 1){
+				$('.peixun').addClass('hide');
 			}
 			//分页结构结合数据渲染部分
 			$('.peixun .pagination').bootstrapPaginator({

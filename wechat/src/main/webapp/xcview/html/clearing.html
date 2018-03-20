@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="../css/clearing.css" />
+
+
+	
+</head>
+<!--公用-->
+<!--y--float:right;  z--float:left;  both--clear:both;-->
+<body style="background:#F8F8F8;">
+	
+	<!--头部开始-->
+	<header>
+		<div class="header_img">
+			<img src="../images/back icon.png" />
+		</div>
+		<div class="header">
+			结算
+		</div>
+	</header>
+	<!--头部结束-->
+	
+	<!--中间内容开始-->
+	<div class="clearing">
+		<div class="clearing_title">结算熊猫币金额</div>
+		<div class="clearing_main">
+			<input type="number" name="" id="" value="" class="input" />
+			<div class="clearing_main_hint">
+				本次最多可结算<span>888</span>熊猫币
+			</div>
+		</div>
+		<div class="clearing_border"></div>
+		<div class="clearing_size">熊猫币和人民币兑换比例为1:1</div>
+	</div>
+	
+	<div class="clearing_btn">确认结算</div>
+	<!--中间内容结束-->
+	
+</body>
+
+
+<!--点击可提现金额-->
+<script type="text/javascript">
+	window.onload = function(){
+		$(".input").focus(function(){
+		 	$(".clearing_main_hint").hide();
+		});
+		 
+		$(".input").blur(function(){
+		 	
+		 	if(!($('.input').val()=='')){
+             	$(".clearing_main_hint").hide();
+ 	        }else{
+	          	$(".clearing_main_hint").show();
+	        }
+			
+		});
+		
+		$(".input").keyup(function(){
+			if($('.input').val().length<=0){
+	           	$(".clearing_btn").css("opacity","0.3");
+	           	
+	       }else{
+	        	$(".clearing_btn").css("opacity","1");
+	        }
+		});
+		
+	};
+</script>
+
+</html>

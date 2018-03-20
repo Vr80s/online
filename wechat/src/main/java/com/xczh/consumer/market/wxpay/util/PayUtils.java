@@ -22,7 +22,7 @@ public class PayUtils {
 
 		// 请求实体
 		PayInfo testinfo = new PayInfo();
-		testinfo = testinfo.createPayInfo(bo, PayInfo.trade_type_native);
+		testinfo = testinfo.createPayInfo(bo, PayInfo.TRADE_TYPE_NATIVE);
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
 		//
@@ -47,7 +47,7 @@ public class PayUtils {
 
 		// 请求实体
 		PayInfo testinfo = new PayInfo();
-		testinfo = testinfo.createPayInfo(bo, PayInfo.trade_type_native);
+		testinfo = testinfo.createPayInfo(bo, PayInfo.TRADE_TYPE_NATIVE);
 
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
@@ -67,7 +67,7 @@ public class PayUtils {
 			throws Exception {
 		// 请求实体
 		PayInfo testinfo = new PayInfo();
-		testinfo = testinfo.createPayInfo(bo, PayInfo.trade_type_app);
+		testinfo = testinfo.createPayInfo(bo, PayInfo.TRADE_TYPE_APP);
 
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
@@ -109,7 +109,7 @@ public class PayUtils {
 
 		// 请求实体
 		PayInfo testinfo = new PayInfo();
-		testinfo = testinfo.createPayInfo(bo, PayInfo.trade_type_jsapi);
+		testinfo = testinfo.createPayInfo(bo, PayInfo.TRADE_TYPE_JSAPI);
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
 		System.out.println("微信app支付返回:" + retobj.toString());
@@ -148,7 +148,7 @@ public class PayUtils {
 			String khdip) throws Exception {
 		// 请求实体
 		PayInfo testinfo = new PayInfo();
-		testinfo = testinfo.createPayInfoH5(bo, PayInfo.trade_type_h5, khdip);
+		testinfo = testinfo.createPayInfoH5(bo, PayInfo.TRADE_TYPE_H5, khdip);
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
 		System.out.println("微信app支付返回:" + retobj.toString());
@@ -173,7 +173,7 @@ public class PayUtils {
 			String khdip) throws Exception {
 		// 请求实体
 		PayInfo testinfo = new PayInfo();
-		testinfo = testinfo.createPayInfoApp(bo, PayInfo.trade_type_app, khdip);
+		testinfo = testinfo.createPayInfoApp(bo, PayInfo.TRADE_TYPE_APP, khdip);
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
 		System.out.println("微信app支付返回:" + retobj.toString());
@@ -192,7 +192,7 @@ public class PayUtils {
 		testinfo = testinfo.createPayInfoCommon(bo,tradeType, khdip);
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
-		if(PayInfo.trade_type_jsapi.equals(tradeType)){
+		if(PayInfo.TRADE_TYPE_JSAPI.equals(tradeType)){
 			if (retobj != null && WxPayConst.recode_success.equals(retobj.get("result_code"))) {
 				// 附加移动支付额外参数
 				Map<String, String> param = new HashMap<>();

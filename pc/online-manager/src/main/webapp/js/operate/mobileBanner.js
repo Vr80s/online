@@ -18,6 +18,22 @@ function loadMobileBannerList(){
 		}},
         {title: '序号', "class": "center", "width": "5%","height":"68px","data": 'id',datafield: 'xuhao', "sortable": false},
         {title: 'banner名称', "class": "center","height":"68px","data": 'name', "sortable": false},
+        {title: '连接类型', "class": "center","height":"68px","data": 'linkType', "sortable": false,"mRender":function(data,display,row){
+        	var linkType ;
+        	/* 连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件） -->*/
+        	if(data == 1){
+        		linkType = "活动页";
+            }else if(data == 2){
+            	linkType = "专题页";
+            }else if(data == 3){
+            	linkType = "课程";
+            }else if(data == 4){
+            	linkType = "主播";
+            }else if(data == 5){
+            	linkType = "课程列表";
+            }
+        	return linkType;
+        }},
         {title: '缩略图', "class": "center", "width": "144px","height":"38px","data": 'imgPath', "sortable": false,"mRender":function(data,display,row){
         	return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;' onclick='showImg(\""+row.id+"\",\""+row.description+"\",\""+row.imgPath+"\")'/>";
         }},
@@ -168,6 +184,15 @@ function updateMobileBanner(obj){
 
 	reviewImage("update_imgPath_file",row.imgPath);
 	
+	
+/*	<option value="1">活动页</option>
+		<option value="2">专题页</option>
+		<option value="3">课程</option>
+		<option value="4">主播</option>
+		<option value="5">课程列表</option>*/
+	
+	
+	
  	var dialog = openDialog("updateMobileBannerDialog","dialogUpdateMobileBannerDiv","修改",580,500,true,"确定",function(){
  		if($("#updateMobileBanner-form").valid()){
  			 mask();
@@ -311,6 +336,68 @@ function downMove(obj){
 		}
 	});
 };
+
+/**
+ * 关联医师
+ * @param obj
+ */
+function openFieldManage(obj){
+	ajaxRequest(basePath+"/medical/field/alllist",{'id':row.id,'type':2},function(data) {
+	    openDialog("childMenuDialog","childMenuDialogDiv","关联医疗领域",580,450,true,"提交",function(){
+	    	
+	    	 drawMenusPage(data);
+	    	 $("#childMenuDialog").dialog("close");
+	    
+	    });
+	});    
+}
+
+/**
+ * 关联课程
+ * @param obj
+ */
+function openFieldManage(obj){
+	ajaxRequest(basePath+"/medical/field/alllist",{'id':row.id,'type':2},function(data) {
+	    openDialog("childMenuDialog","childMenuDialogDiv","关联医疗领域",580,450,true,"提交",function(){
+	    	
+	    	 drawMenusPage(data);
+	    	 $("#childMenuDialog").dialog("close");
+	    
+	    });
+	});    
+}
+
+
+function drawMenusPage(data){
+    $("#childMenus").html("");
+    for(var i=0;i<data.length;i++){
+        var rowData="<tr id='childMenus_tr_"+data[i].id+"'><td> ";
+        if(data[i].has){
+            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='doctorId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+        }else{
+            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='doctorId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+        }
+        rowData+="</td>";
+        rowData+="<td>";
+        rowData+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        rowData+="</td>";
+        rowData+="</tr>";
+        $("#childMenus").append(rowData);
+        checckboxSingle();
+    }
+}
+
+function checckboxSingle (){
+    $(':checkbox[name=hospitalId]').each(function(){
+        $(this).click(function(){
+            if(this.checked){
+                $(':checkbox[name=hospitalId]').removeAttr('checked');
+                $(this).prop('checked','checked');
+            }
+        });
+    });
+}
+
 
 
 //获取当前时间

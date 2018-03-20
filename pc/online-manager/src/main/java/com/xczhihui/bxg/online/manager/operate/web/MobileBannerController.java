@@ -42,7 +42,7 @@ public class MobileBannerController{
          return mav;
     }
 
-	@RequiresPermissions("mobile:menu:banner")
+	//@RequiresPermissions("mobile:menu:banner")
     @RequestMapping(value = "/findMobileBannerList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findMobileBannerList(TableVo tableVo) {
@@ -68,11 +68,10 @@ public class MobileBannerController{
  		 if (bannerType != null) {
  			searchVo.setBannerType(Integer.parseInt(bannerType.getPropertyValue1().toString()));
  		 }
-         
-         
 
          Page<MobileBannerVo> page = mobileBannerService.findMobileBannerPage(searchVo, currentPage, pageSize);
 
+         
          int total = page.getTotalCount();
          tableVo.setAaData(page.getItems());
          tableVo.setiTotalDisplayRecords(total);
@@ -80,12 +79,13 @@ public class MobileBannerController{
          return tableVo;
     }
 
+    
     /**
 	 * 添加
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("mobile:menu:banner")
+	//@RequiresPermissions("mobile:menu:banner")
 	@RequestMapping(value = "/addMobileBanner", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addMobileBanner(MobileBannerVo mobileBannerVo,HttpServletRequest request){
@@ -99,7 +99,7 @@ public class MobileBannerController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("mobile:menu:banner")
+	//@RequiresPermissions("mobile:menu:banner")
 	@RequestMapping(value = "updateMobileBannerById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateMobileBannerById (MobileBannerVo mobileBannerVo){

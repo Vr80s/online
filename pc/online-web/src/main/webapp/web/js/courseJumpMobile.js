@@ -38,7 +38,7 @@ $(function(){
         }else{
             wxurl = "http://test-wx.ixincheng.com";
         }
-        window.location = wxurl+"/bxg/page/index/null/null";
+        window.location = wxurl; 
     }else if(document.location.host=='www.ixincheng.com'){
         window.location = "http://www.ipandatcm.com";
     }

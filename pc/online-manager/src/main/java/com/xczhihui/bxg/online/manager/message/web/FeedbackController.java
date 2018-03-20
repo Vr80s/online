@@ -115,7 +115,7 @@ public class FeedbackController {
 					if(keyValVo.get_key()!=null) {
 						if(Short.parseShort(String.valueOf(keyValVo.get_key()))==messageVo.getStatus()){
 							messageVo.setStatusStr(String.valueOf(keyValVo.getName()));
-							User user=userService.getUserById(messageVo.getUserId());
+							
 							if(messageVo.getLastTime()!=null) {
 //								messageVo.setLastTimeStr(TimeUtil.formatDate(messageVo.getLastTime()));
 								messageVo.setLastTimeStr(messageVo.getLastTimeStr());
@@ -124,9 +124,14 @@ public class FeedbackController {
 //								messageVo.setCreateTimeStr(TimeUtil.formatDate(messageVo.getCreateTime()));
 								messageVo.setCreateTimeStr(messageVo.getCreateTimeStr());
 							}
-							if(user!=null) {
-								messageVo.setAnswerName(user.getName());
+							if(messageVo.getUserId()!=null){
+								User user=userService.getUserById(messageVo.getUserId());
+								if(user!=null) {
+									messageVo.setAnswerName(user.getName());
+								}
 							}
+							
+							
 						}
 					}
 				}
@@ -191,12 +196,15 @@ public class FeedbackController {
 		ResponseObject responseObj = new ResponseObject();
 		Message message=service.findFeekBackByFeedId(feedId);
 		MessageVo messageVo=new MessageVo();
-		BeanUtils.copyProperties(messageVo,message);
+		if(message!=null){
+			BeanUtils.copyProperties(messageVo,message);
 //			messageVo.setLastTimeStr(TimeUtil.formatDate(messageVo.getLastTime()));
-		messageVo.setLastTimeStr(messageVo.getLastTimeStr());
+			messageVo.setLastTimeStr(messageVo.getLastTimeStr());
 //			messageVo.setCreateTimeStr(TimeUtil.formatDate(messageVo.getCreateTime()));
-		messageVo.setCreateTimeStr(messageVo.getCreateTimeStr());
-		responseObj.setResultObject(messageVo);
+			messageVo.setCreateTimeStr(messageVo.getCreateTimeStr());
+			responseObj.setResultObject(messageVo);
+		}
+
 		return responseObj;
 	}
 }

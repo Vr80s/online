@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcview/js/js.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/buy_prosperity.css" />
+
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png">
+				首页
+			</div>
+			<div class="header_title">购买成功</div>
+			<!--<div class="header_share">
+				<img src="/xcview/images/share_img.png">
+			</div>-->
+		</div>
+	</header>
+	<!--头部搜索结束-->
+	
+	
+	<!--中间内容开始-->
+	<div class="prosperity">
+		<div class="buy_prosperity">
+			<div class="prosperity_title">
+				<div class="prosperity_yuan" style="float: left;">
+					<img src="../images/dui_img.png" />
+				</div>
+				购买成功
+			</div>
+			<div class="purchase_details">
+				<div class="purchase_details_main">
+					<div class="purchase_details_main_cen">
+						<img src="../images/white.jpg" alt="" id="smallImgPath">
+						<div class="purchase_details_left">
+							<div class="purchase_details_title">
+
+								<span class="span1"></span>
+							</div>
+							<div class="purchase_details_title">
+								<span class="span0"></span>
+
+							</div>
+							<div class="both"></div>
+							<div class="purchase_details_money"><span></span>熊猫币</div>
+							<div class="prosperity_play" onclick="jump()">去学习</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="prosperity_border"></div>
+			<div class="check_one">查看已购课程，请前往<span>学习中心</span></div>
+			<div class="check_two">继续寻找感兴趣的课程，请前往<span>学堂</span></div>
+		</div>
+		<!--猜你喜欢开始-->
+    	<div class="acupuncture">
+    		<div class="boutique_title">猜你喜欢</div>
+    		<div class="boutique_main">
+    			<ul>
+    				<!--视频-->
+    				<div class="lectures"></div>
+    				
+    				
+<!--     				if(type ==3 && (lineState ==4 || lineState ==1 || lineState ==3)){ //直播间
+		location.href="details.html?courseId="+id
+	}else if(type ==1 || type ==2){ //课程页面
+		
+		location.href="live_audio.html?my_study="+id
+		
+	}else if(type ==4){ //线下培训班
+		location.href="live_class.html?my_study="+id
+	}else if((type ==1 || type ==2) && collection){
+		location.href="live_select_album.html?my_study="+id
+	} -->
+    				
+    				<script type="text/html" id="lectures">
+	                {{each items as item i}}
+    				<li>
+    					<div class="boutique_main_one">
+				
+							<div class="boutique_one_img" onclick="guesYouLike({{item.type}},{{item.id}})">	
+    							<img src="{{item.smallImgPath}}" alt="" />
+    						</div>			
+								{{if item.type == 1}}
+    								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
+    							{{else if item.type == 2}}
+    								<img src="/xcview/images/frequency.png" alt="" class="boutique_main_one_img_type" />
+								{{else if item.type == 3}}
+    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_one_img_type" />
+								{{else if item.type == 4}}
+    								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
+    							{{/if}}
+
+    						<div class="boutique_main_one_title">{{item.gradeName}}</div>
+    						<div class="boutique_main_one_author">{{item.name}}</div>
+							     {{if item.type == 1 || item.type == 2}}
+								   <div class="boutique_main_one_size">
+								 {{else if item.type == 3 }}
+								    <div class="boutique_main_two_size">
+								 {{else if item.type == 4}}
+								    <div class="boutique_main_four_size">
+		                         {{/if}}	
+
+								{{if item.watchState == 0 || item.watchState == 2 || item.watchState == 3}}
+								<p><span>{{item.currentPrice}}</span>熊猫币</p>
+								{{else}}
+    							<p><span>免费</span></p>
+								{{/if}}
+								
+    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>   						
+	                            {{if item.type == 3}}
+								   <p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
+								{{else if item.type == 4}}
+								   <p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
+		                        {{/if}}							
+							</div>
+    					</div>
+    				</li>
+					{{/each}}
+					</script>
+    			
+    				<div class="both"></div>
+    			</ul>
+    		</div>
+    		<div class="both"></div>
+    	</div>
+    	<!--猜你喜欢结束-->
+	</div>
+	<!--中间内容结束-->
+</body>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="../js/template.js"></script> 
+<script type="text/javascript" src="/xcview/js/buy_prosperity.js?v=wechat_1.1.1"></script>
+
+<!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+	window.onload = function(){
+//		点击详情
+		$("#li0").click(function(){
+			$(".container_main").show();
+			$(".course_detaiks_play").hide();
+			$(".li0").addClass("ul_li");
+			$(".li1").removeClass("ul_li");
+		});
+//		点击免费试听
+		$("#li1").click(function(){
+			$(".course_detaiks_play").show();
+			$(".container_main").hide();
+			$(".li1").addClass("ul_li");
+			$(".li0").removeClass("ul_li");
+		});
+		$("#li0").click();
+//		点击分享share
+		$(".header_share").click(function(){
+			$(".share").show();
+		});
+		
+		$(".share_cancel").click(function(){
+			$(".share").hide();
+		});
+		
+	};
+</script>
+<script>
+	function guesYouLike(type,courseId){
+//	if(type == 1){ //直播间   直播中、即将直播、直播回放
+//		location.href="details.html?courseId="+courseId
+//	}else if(type ==2){ // 预告
+//		location.href="live_play.html?my_study="+courseId
+//	}else if(type ==3){ //课程页面
+//		location.href="live_audio.html?my_study="+courseId
+//	}else if(type ==4){ //线下培训班
+//		location.href="live_class.html?my_study="+courseId
+//	}else if(type ==5){ //专辑
+//		location.href="live_select_album.html?my_study="+courseId
+//	}
+	
+	
+//	<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump({{item.id}})"></a>-->
+//	{{if item.type == 1 || item.type == 2}}
+//	<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
+//	{{else if item.type == 3}}
+//	<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
+//	{{else if item.type == 4}}
+//	<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
+//	
+//	{{/if}}
+	
+	if(type == 1 ||type ==2){ //课程
+		location.href="school_audio.html?course_id="+courseId
+	}else if(type ==3){ // 直播
+		location.href="school_play.html?course_id="+courseId
+	}else if(type ==4){ // 线下班
+		location.href="school_class.html?course_id="+courseId
+	}
+		
+}
+</script>
+
+
+
+</html>

@@ -45,13 +45,10 @@ public class WeihouController {
 			content.append(new String(b, 0, lens));
 		}
 		String strcont = content.toString();// 内容
-		System.out.println(strcont);
 		response.setContentType("text/html;charset=UTF-8");
 		if ("yrxk".equals(k)) {
-			System.out.println("pass");
 			response.getWriter().write("pass");
 		} else {
-			System.out.println("fail");
 			response.getWriter().write("fail");
 		}
 	}

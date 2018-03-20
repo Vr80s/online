@@ -16,7 +16,7 @@ public class UserHolder {
 
 	static final Logger logger = LoggerFactory.getLogger(UserHolder.class);
 
-	private static final ThreadLocal<BxgUser> currentUser = new ThreadLocal<BxgUser>();
+	private static final ThreadLocal<BxgUser> CURRENT_USER = new ThreadLocal<BxgUser>();
 
 	/**
 	 * 修改当前用户(一般在登录或退出时调用)
@@ -24,7 +24,7 @@ public class UserHolder {
 	 * @param user
 	 */
 	public static void setCurrentUser(BxgUser user) {
-		currentUser.set(user);
+		CURRENT_USER.set(user);
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class UserHolder {
 	 * @return 如果未登录返回null
 	 */
 	public static BxgUser getCurrentUser() {
-		return currentUser.get();
+		return CURRENT_USER.get();
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class UserHolder {
 	 * @return
 	 */
 	public static BxgUser getRequireCurrentUser() {
-		BxgUser user = currentUser.get();
+		BxgUser user = CURRENT_USER.get();
 		if (user == null) {
 			throw new RuntimeException("Current user is null.");
 		}

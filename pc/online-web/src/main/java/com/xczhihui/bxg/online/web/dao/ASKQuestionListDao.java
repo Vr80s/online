@@ -141,8 +141,8 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
             paramMap.put("menuId", menuId);
         }
         //根据问题状态搜索，拼接的sql
-        if(!"".equals(status) && status!=null && !status.equals("-1")){
-              if(status.equals("2")){
+        if(!"".equals(status) && status!=null && !"-1".equals(status)){
+              if("2".equals(status)){
                   statuSql= " and  q.status = :status " ;
                   paramMap.put("status", status);
               }else{
@@ -245,10 +245,8 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
         List<CourseVo> courseVoList = null;
         if (menuId != null) {
             String sql = " select c.id,c.grade_name as courseName,c.smallimg_path as smallimgPath ,c.original_cost as originalCost ,c.current_price as currentPrice ,c.is_free as isFree  ,tm.`name` as scoreName,c.description_show,c.multimedia_type multimediaType," +
-//                         " if(c.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=c.id),"+
-//                         " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=c.id  and is_delete=0 and status=1)) learndCount"+
 						 "IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) learnd_count"+
-                         " from  oe_course c left join  teach_method tm on c.courseType = tm.id   where  c.is_delete=0  and c.`status`=1 AND ISNULL(c.type) AND c.online_course=0 and c.menu_id =?  order by c.sort desc limit 5";
+                         " from  oe_course c left join  teach_method tm on c.courseType = tm.id   where  c.is_delete=0  and c.`status`=1 AND ISNULL(c.type) and c.menu_id =?  order by c.sort desc limit 5";
             courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{menuId}, BeanPropertyRowMapper.newInstance(CourseVo.class));
         }
         return courseVoList;

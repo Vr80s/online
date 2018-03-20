@@ -177,7 +177,7 @@ function drawMenusPage(data){
         rowData+="</td>";
         rowData+="</tr>";
         $("#childMenus").append(rowData);
-       // checckboxSingle();
+        //checckboxSingle();
     }
 }
 

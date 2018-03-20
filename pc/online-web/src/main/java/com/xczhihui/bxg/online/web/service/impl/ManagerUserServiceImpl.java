@@ -25,9 +25,10 @@ public class ManagerUserServiceImpl  extends  SimpleHibernateDao  implements Man
 
     /**
      * 查看当前登录账号是否存在于manager端
-     * @param loginName  当前登录用户的登陆账号
+     * @param loginName  当前登录用户的登录账号
      * @return
      */
+    @Override
     public User  findUserByLoginName(String loginName){
         String  sql="select login_name from user t where upper(md5(md5(CONCAT(t.login_name,'WWW.ixincheng.com20161021')))) = upper(?)";
         List<User> user = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,

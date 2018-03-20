@@ -100,7 +100,8 @@ public class CourseResourceServiceImpl extends OnlineBaseServiceImpl implements 
 		return pdp.markdownToHtml(new String(arr,"utf-8"));
 	}
 	
-	@Resource(name="simpleHibernateDao")
+	@Override
+    @Resource(name="simpleHibernateDao")
 	public void setDao(SimpleHibernateDao dao) {
 		this.dao = dao;
 	}

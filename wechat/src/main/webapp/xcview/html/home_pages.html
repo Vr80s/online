@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+	
+<html lang="en" style="font-size: 84.3125px;">
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="/xcview/css/slide.css?version=bb3228f0a6" rel="stylesheet">  
+<link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>
+<link rel="stylesheet" href="/xcview/css/mui.mins.css?version=1d4e23c84d">
+<link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1.1&version=3ac11bcd28"/>
+<script src="/xcview/js/js.js?version=b35e3bdcab"></script>
+<script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1&version=e7fcfa9205"></script>
+<script type="text/javascript" src="/xcview/js/template.js?version=ba28dcc6c4"></script>   
+<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1&version=b9b45b249a"></script>
+<script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
+<script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1&version=f862e0a164"></script>
+<style type="text/css">
+	.swiper-container {
+        width: 100%;
+	    /*height: 3.064rem;*/
+	    margin-bottom: 0.426rem;
+	    background: #fff;
+	    padding-bottom: 0.3rem;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        width: 62px;  /*新添加宽度,隐藏掉就会出现头像栏全屏宽度*/
+    }
+    .slide_one_div{
+	    color: #333;
+	    font-size: 0.468rem;
+	    float: left;
+	    width: 2.5rem;
+	    text-align: center;
+	    margin-left: 1.3rem;
+    }
+    
+    .swiper-slide ul li{
+    	float: left;
+    }
+    .swiper_box p{
+    	font-size: 0.681rem;
+	    color: #333;
+	    margin-left: 0.553rem;
+	    margin-bottom: 0.426rem;
+	    padding-top: 0.489rem;
+    }
+    .swiper_box {
+   	 	background: white;
+    }
+   /*先下课*/
+	#swiper1{
+	  	padding-top: 0.4rem;
+	}
+	#slide_one .slide_one_div{
+		margin-left: 0;
+	}
+	#slide_one .slide_one_div p{
+		font-size: 0.468rem;
+		margin-left: 0;
+		/*margin-bottom: 0;*/
+		overflow: hidden;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    width: 2.5rem;
+	}
+	.swiper_box0{
+		margin-bottom: 0.426rem;
+		overflow: hidden;
+		padding-top: 0.4rem;
+	}
+	/*swiper轮播*/
+	.swiper-banner{
+		width: 100% !important;
+		height: 6.425rem !important;
+		margin-right: 0 !important;
+	}
+	.swiper-banner img{
+		width: 100%;
+		height: 100%;
+	}
+	.swiper-banner-list{
+		width: 100% !important;
+		top: 5rem !important;
+	}
+	.swiper-banner-list span{
+		margin: 0 0.2rem !important;
+		background: #00BC12 !important;
+	}
+	.swiper-container-box{
+		padding-bottom: 0;
+	}
+	
+	/*新滑动添加*/
+.find_nav {
+    width: 100%;
+    height: 0.852rem;
+    line-height: 0.852rem;
+    background-color: #fff;
+    position: fixed;
+    top: 1.87rem;
+    z-index: 9999999999;
+    border-bottom: 1px solid #ddd;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+    padding-bottom: 0.426rem;
+}
+.find_nav_left {
+    height: 70px;
+    position: relative;
+    overflow: hidden;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    padding-bottom: 0.426rem;
+    height: 0.852rem;
+    line-height: 0.852rem;
+}
+.find_nav_list {
+    position: absolute;
+    left: 0.35rem !important;
+}
+.find_nav_list ul {
+    position: relative;
+    white-space: nowrap;
+    font-size: 0;
+}
+.find_nav_list ul li {
+    display: inline-block;
+    padding: 0;
+	margin: 0 0.85rem;
+	font-size: 0.58rem;
+    text-align: center;
+    color: #151515;
+}
+.find_nav_list ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /*line-height: 70px;*/
+    text-align: center;
+    color: #666;
+    font-size: 0.596rem;
+}
+.find_nav_cur a {
+    color: #00BC12 !important;
+}
+.find_nav_list a.active{ color:#00BC12}
+.sideline {
+    display: block;
+    position: absolute;
+    border: 0;
+    height: 2px;
+    background-color: #00BC12;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+.li_list{overflow-y:auto; display: table;}/*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
+.li_list0{
+	display: -webkit-inline-box !important;
+}
+/*.li_list span{ display:block; height:300px; overflow:hidden; background:rgba(255,255,255,.2); color:#fff; margin:0 0 20px; font-size:55px; line-height:300px; text-align:center}*/
+.swipe{ padding:70px 0 0 0;}
+/*处理底部最后一个div距离*/
+/*.first_box .acupuncture:last-child{
+	margin-bottom: 2.5rem;
+}
+.acupunctures .acupuncture:last-child{
+	margin-bottom: 2.5rem;
+}
+.newests .newest:last-child{
+	margin-bottom: 2.5rem;
+}
+.lectures{
+	margin-bottom: 2.5rem;
+}*/
+/*处理刷新效果*/
+/*.mui-scroll-wrapper{
+	top: 1.1rem;
+}*/
+.mui-pull-top-pocket{
+	top: 2.6rem;
+}
+.mui-scroll-wrapper{
+	height: 100%;
+}
+.mui-pull-bottom-pocket .mui-pull{
+	bottom: 1rem;
+}
+.bought_main{
+	padding-bottom: 0.6rem;
+}
+.mui-pull-bottom-pocket .mui-pull{
+	bottom: 0rem;
+	height: 40px;
+	line-height: 40px;
+}
+.mui-pull-bottom-pocket{
+	position: relative;
+	bottom: 1rem;
+	height: 40px;
+	line-height: 40px;
+}
+.mui-pull-bottom-pocket, .mui-pull-top-pocket{
+	/*width: 1120px;*/
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css?version=888895ce70">
+</head>
+<body style="background: #F8F8F8;display: none;">
+	
+	<header>
+		<div class="header">
+			<div class="header_seek" onClick="location.href='/xcview/html/search.html?search_back=1'"> 
+				<div class="header_seek_main">
+					<img src="/xcview/images/sousuo0.png" alt="" />
+					<span class="header_seek_main_span">
+						<script type="text/html" id="header_seek_main">
+						{{each items as item i}}
+							<span>{{item.name}}</span>
+						{{/each}}
+	           	 		</script>
+					</span>
+					
+				</div>
+			</div>
+			<div class="header_news">
+				<img src="/xcview/images/system_messages.png" alt="" />
+				<div class="header_news_rudio">1</div>
+			</div>
+		</div>
+	</header>
+	
+	
+	
+	
+	
+	<div class="find_nav">
+	    <div class="find_nav_left">
+	        <div class="find_nav_list" style="left: 0px;">
+	            <ul id="pagenavi1">
+	                <li><a href="#">分类</a></li>
+	                <li><a href="#">推荐</a></li>
+	                <li><a href="#">线下课</a></li>
+	                <li><a href="#">直播</a></li>
+	                <li><a href="#">听课</a></li>
+	                <li class="sideline" style="left: 0px; width: 28px;"></li>
+	            </ul>
+	
+	        </div>
+	    </div>
+	</div>
+	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
+		
+		<ul class="box01_list" style="position: relative; transition: left 0ms ease-out; width: 19200px; left: 0px;">
+			
+			<li class="li_list li_list0" style="">
+				<div class="classify">
+					
+					<div class="classify_course">
+						<div class="classify_course_title">课程分类</div>
+						<div class="classify_course_type" id="classify_course_type">
+							<script type="text/html" id="my_data0">
+								{{each items as item i}}
+								<div class="classify_course_type_one" data-jump="{{item.id}}">
+									<a href="/xcview/html/curriculum_table.html?menuType={{item.id}}">{{item.name}}</a>
+								</div>
+								{{/each}}
+								<div class="both"></div>
+							</script>
+						</div>
+					</div>
+					
+					
+					
+					<div class="classify_special">
+						<div class="classify_special_title">专题课程</div>
+						<div class="classify_special_type" id="classify_special_type">
+							<script type="text/html" id="my_data1">
+								{{each items as item i}}
+								<div class="classify_special_type_one">{{item.name}}</div>
+								{{/each}}
+							<div class="both"></div>
+							</script>
+							
+						</div>
+					</div>
+					
+					
+					
+					<div class="classify_mold">
+						<div class="classify_mold_title">课程类型</div>
+						<div class="classify_mold_type" id="classify_mold_type">
+							<script type="text/html" id="my_data2">
+								{{each items as item i}}
+										<div class="classify_mold_type_one" data-jump="{{item.id}}">
+											<a href="/xcview/html/curriculum_table.html?courseType={{item.id}}">{{item.name}}</a>
+										</div>
+								{{/each}}
+							<div class="both"></div>
+							</script>
+							
+						</div>
+					</div>
+					
+				</div>
+			</li>
+			
+			
+			<li class="li_list">
+				
+				<div class="swiper-container swiper-container-box" id="swiper-container-box" style="">
+				    <div class="swiper-wrapper" id="wrapper-box">
+				     
+				    </div>
+				    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list"></div>
+				</div>
+				
+				
+				<div class="swiper_box swiper_box0" >
+                	<div class="swiper-containers">
+				        <div class="swiper-wrapper" id="slide_one">
+				        	<script type="text/html" id="nav_list">
+								{{each items as item i}}
+									<div class="slide_one_div swiper-slide">
+										<a href="javascript:;">
+											<img src="{{item.icon}}" class="slide_one_artist"  data-div="{{item.linkCondition}}" />
+											<p>{{item.name}}</p>
+										</a>
+									</div>
+								{{/each}}
+							</script>					          
+				        </div>
+				    </div>
+            	</div>
+				
+					                    	
+            	<div class="swiper_box" id="doctor_follow" >
+            		<p>名师推荐</p>
+                	<div class="swiper-container">
+				        <div class="swiper-wrapper" id="phy_box">
+				        	<script type="text/html" id="wrap_phy">
+                    			{{each items as item i}}
+					            <div class="swiper-slide">  
+					            	
+					            	<div class="teacher_slider_ul_div teacherRecommend" data-jump="{{item.userId}}">
+					            		<a style="color: #333;" href="/xcview/html/live_personal.html?userLecturerId={{item.userId}}">
+                    						<img src="{{item.headPortrait}}" />
+                    						<span style="font-size: 0.468rem;">{{item.name}}</span>
+                    					</a>
+                    				</div>
+                    				
+					            </div>
+	                    		{{/each}}
+	                  		</script>						          
+				        </div>
+				    </div>
+            	</div>
+            	
+            	
+            	
+            	
+            	<div class="first_box"></div>
+            	<script type="text/html" id="shipin">
+						{{each items as item i}} 
+            	<div class="acupuncture">
+            		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
+            		<div class="boutique_main">
+            			<ul>
+            				
+            				{{each item.courseList as item i}}                  					
+                				<li style="position: relative;" class="goodCourseList" data-id="{{item.id}}" data-type="{{item.type}}">
+		                    		
+	                    			{{if item.type == 1 || item.type == 2}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
+	                    			{{else if item.type == 3}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
+	                    			{{else if item.type == 4}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+	                    			
+	                    			{{/if}}
+                					<div class="boutique_main_one">
+                						<div class="boutique_one_img">
+                							<img src="{{item.smallImgPath}}" alt="" />
+                						</div>
+                							{{if item.type == 1}}
+                								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
+                							{{else if item.type == 2}}
+                								<img src="/xcview/images/frequency.png" alt="" class="boutique_main_one_img_type" />
+											{{else if item.type == 3}}
+                								<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_one_img_type" />
+											{{else if item.type == 4}}
+                								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
+                							{{/if}}
+                						
+                						<div class="boutique_main_one_title">
+                							<span>{{item.gradeName}}</span><br />
+                							<span class="span0">{{item.name}}</span>
+                						</div>
+                						<div class="boutique_main_one_size">
+                							{{if item.watchState == 1}}
+                							<p style="margin-top: -0.05rem;"><span>免费</span></p>
+                							{{else}}
+                							<p style="margin-top: 0.02rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
+                							{{/if}}
+                							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
+                							{{if item.type == 3}}
+                							<p class="p3 p4" style='margin-top: 0rem;'><img src="/xcview/images/learn.png" alt="" style='margin-top: 0.01rem;' /><span style="float: left;">{{item.startDateStr}}</span></p>
+                							{{else if item.type == 4}}
+                							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span style="margin-top: -0.1rem;">{{item.city}}</span></p>
+                							{{/if}}
+                						</div>
+                					</div>
+                				</li>
+            				{{/each}}
+            				<div class="both"></div>
+            			</ul>
+            		</div>
+            	</div>
+            	{{/each}}
+            	</script>
+			</li>
+			
+			
+			<li class="li_list">
+				
+				<div class="swiper-container swiper-container-box" id="swiper-container-class">
+				    <div class="swiper-wrapper" id="wrapper-box-class">
+				     
+				    </div>
+				    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list-class"></div>
+				</div>
+				
+				
+            	<div class="swiper-container" id="swiper1">
+			        <div class="swiper-wrapper" id="xx_slide_one">
+			        	<script type="text/html" id="xx_nav_list">
+                			{{each items as item i}}
+				            <div class="swiper-slide">
+				            	<div class="teacher_slider_ul_div go_search">
+                						<img src="{{item.icon}}" />
+                						<span style="font-size: 0.468rem;">{{item.cityName}}</span>
+                				</div>
+				            </div>
+                    		{{/each}}
+                  		</script>						          
+			        </div>
+			    </div>	
+				  
+            	
+            	<div class="acupunctures"></div>
+            	<script type="text/html" id="acupunctures">
+            		{{each items as item i}}
+            		<div class="acupuncture">
+                		<div class="boutique_title all_class">{{item.title}}</div>
+                		<div class="boutique_main">
+                			<ul>
+                				{{each item.courseList as item i}}
+                				<li class="offlineCourseList" data-jump="{{item.id}}">
+									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+                					<div class="boutique_main_four">
+                						<div class="boutique_four_img">
+                							<img src="{{item.smallImgPath}}" alt="" />
+                						</div >
+            							
+                						<div class="boutique_main_four_title">
+                							<span>{{item.gradeName}}</span><br />
+                							<span class="span">{{item.name}}</span>
+                						</div>
+                						<div class="boutique_main_four_size">
+                							{{if item.watchState == 1}}
+                							<p style='margin-top:-0.05rem;'><span>免费</span></p>
+                							{{else}}
+                							<p><span>{{item.currentPrice}}</span>熊猫币</p>
+                							{{/if}}
+                							<p class="p2"><img src="/xcview/images/population.png" alt="" style='margin-top:0.05rem;float: left;' /><span style='margin-top:0.01rem;'>{{item.learndCount}}</span></p>
+                							<p class="p3" style='margin-top: -0.08rem;'><img src="/xcview/images/location_four.png" alt="" style='margin-top: 0.1rem;display: block;float: left;' /><span>{{item.city}}</span></p>
+                						</div>
+                					</div>
+                				</li>
+                				{{/each}}
+                				
+                				<div class="both"></div>
+                			</ul>
+                		</div>
+                	</div>
+            		{{/each}}
+            		
+            	</script>
+            	
+            		
+            	
+			</li>
+			
+			
+			<li class="li_list">
+				
+				<div class="swiper-container swiper-container-box" id="swiper-container-play">
+				    <div class="swiper-wrapper" id="wrapper-box-play">
+				     
+				    </div>
+				    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list-play"></div>
+				</div>
+				
+            	
+            	<div class="newests"></div>
+            	<script type="text/html" id="newests">
+            		{{each items as itemls i}}
+            	<div class="newest">
+            		<div class="newest_title" lineState="{{itemls.lineState}}">{{itemls.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
+            		<div class="newest_main">
+            			<ul>
+            				{{each itemls.courseList as item i}}
+            				
+            				<li style="position: relative;" class="liveCourseList" data-jump="{{item.id}}">
+								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
+								<div class="newest_main_two">
+            						<div class="newest_two_img">
+            							<img src="{{item.smallImgPath}}" alt="" />
+            						</div>
+            						
+            						<div class="newest_main_two_title">
+            							<span>{{item.gradeName}}</span><br />
+            							<span class="span">{{item.name}}</span>
+            						</div>
+            						<div class="newest_main_two_size">
+            							{{if item.watchState == 1}}
+            								<p><span style='margin-top: -0.1rem;display: inline-block;'>免费</span></p>
+            							{{else}}
+            								<p><span>{{item.currentPrice}}</span>熊猫币</p>
+            							{{/if}}
+            							<p class="p2"><img src="/xcview/images/population.png" alt="" style='margin-top: 0.05rem;display: block;float: left;' /><span>{{item.learndCount}}</span></p>
+            							
+            							
+            							{{if itemls.lineState == 3 || itemls.lineState == 4}}
+											<p class="p3"><img src="/xcview/images/learn.png" alt="" style='margin-top:0.05rem;' /><span style='margin-top:0.05rem;'>{{item.startDateStr}}</span></p>
+										{{else if itemls.lineState == 2}}
+											<p class="p3"><img src="/xcview/images/Sinatv_time.png" alt="" /><span>{{item.startDateStr}}</span></p>
+										{{else if itemls.lineState == 1}}
+											
+            							{{/if}}
+            						</div>
+            					</div>
+            				</li>
+            				{{/each}}
+            				
+            				<div class="both"></div>
+            			</ul>
+            		</div>
+            	</div>
+            	{{/each}}
+            	</script>
+            	
+			</li>
+			
+			
+			<li class="li_list">
+				
+				<div class="swiper-container swiper-container-box" id="swiper-container-listen">
+				    <div class="swiper-wrapper" id="wrapper-box-listen">
+				     
+				    </div>
+				    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list-listen"></div>
+				</div>
+				
+				
+            	
+            	<div class="lectures">
+            		<div class="lectures_title" >听课推荐<img src="/xcview/images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
+            		<div class="lectures_main">
+            			<ul class="lecturess">
+            				<script type="text/html" id="lectures">
+            				{{each items as item i}}
+            				<li class="listenCourseList" data-jump="{{item.id}}">
+								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
+            					<div class="lectures_main_one">
+            						<div class="lectures_one_img">
+            							<img src="{{item.smallImgPath}}" alt="" />
+            						</div>
+            						
+            						<div class="lectures_main_one_title">
+            							<span>{{item.gradeName}}</span><br />
+            							<span class="span">{{item.name}}</span>
+            						</div>
+            						<div class="lectures_main_one_size" style="overflow: hidden;">
+            							{{if item.watchState == 1}}
+            							<p><span>免费</span></p>
+            							{{else}}
+            							<p><span>{{item.currentPrice}}</span>熊猫币</p>
+            							{{/if}}
+            							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
+            						</div>
+            					</div>
+            				</li>
+            				{{/each}}
+            				</script>
+            				
+            				<div class="both"></div>
+            			</ul>
+            		</div>
+            		<div class="both"></div>
+            	</div>
+            	
+			</li>
+			
+		</ul>
+			
+	</div>
+	
+	
+	
+	
+	
+	<div class="rotation_bottom">
+		<img src="/xcview/images/120.jpg" />
+	</div>
+	
+	
+	
+	<div class="footer_perch" style="1display: none;"></div>
+	<div class="footer" style="display: none1;">
+		<ul>
+			<li>
+				<a href="" class="footer_one" style="background: url(/xcview/images/school_ones.png) no-repeat center;background-size: 1.042rem 0.809rem;"></a>
+				<p style="color: #00BC12;">学堂</p>
+			</li>
+			<li>
+				<a href="javascript:;" class="footer_two" onclick="go_study()"></a>
+				<p>学习</p>
+			</li>
+			<li>
+				<a href="/xcview/html/discovery.html" class="footer_three"></a>
+				<p>发现</p>
+			</li>
+			<li>
+				<a href="/xcview/html/my_homepage.html" class="footer_four"></a>
+				<p>我</p>
+			</li>
+		</ul>
+	</div>
+	
+	
+</body>
+    
+    
+    
+<script type="text/javascript">
+// 给li定义高度，配合css使li独立滚动
+var $window = $(window);
+var initialWindowHeight = null;
+$window.resize(function() {
+	sliderHeight();
+});
+function sliderHeight(){
+	var wHeight = $(window).height();
+	var sliderHeight = wHeight - 70
+	$(".swipe li").height(sliderHeight);
+}
+sliderHeight();
+$(".find_nav_list").css("left",1);
+$(".find_nav_list li").each(function(){
+   $(".find_nav_list li").eq(1).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+});
+var nav_w=$(".find_nav_list li").first().width();
+$(".sideline").width(nav_w);
+$("body").show();
+/* $(".find_nav_list li").on('click', function(){
+	nav_w=$(this).width();
+	$(".sideline").stop(true);
+	$(".sideline").animate({left:$(this).position().left},300);
+	$(".sideline").animate({width:nav_w});
+	$(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+	var fn_w = ($(".find_nav").width() - nav_w) / 2;
+	var fnl_l;
+	var fnl_x = parseInt($(this).position().left);
+	if (fnl_x <= fn_w) {
+		fnl_l = 0;
+	} else if (fn_w - fnl_x <= flb_w - fl_w) {
+		fnl_l = flb_w - fl_w;
+	} else {
+		fnl_l = fn_w - fnl_x;
+	}
+	$(".find_nav_list").animate({
+		"left" : fnl_l
+	}, 300);
+});	 */
+var fl_w=$(".find_nav_list").width();
+var flb_w=$(".find_nav_left").width();
+$(".find_nav_list").on('touchstart', function (e) {
+	var touch1 = e.originalEvent.targetTouches[0];
+	x1 = touch1.pageX;
+	y1 = touch1.pageY;
+	ty_left = parseInt($(this).css("left"));
+});
+$(".find_nav_list").on('touchmove', function (e) {
+	var touch2 = e.originalEvent.targetTouches[0];
+	var x2 = touch2.pageX;
+	var y2 = touch2.pageY;
+	if(ty_left + x2 - x1>=0){
+		$(this).css("left", 0);
+	}else if(ty_left + x2 - x1<=flb_w-fl_w){
+		$(this).css("left", flb_w-fl_w);
+	}else{
+		$(this).css("left", ty_left + x2 - x1);
+	}
+	if(Math.abs(y2-y1)>0){
+		e.preventDefault();
+	}
+});
+var n = 1;
+var page='pagenavi'+n;
+var mslide='slider'+n;
+var mtitle='emtitle'+n;
+arrdiv = 'arrdiv' + n;
+var as=$("#" + page + "").find("a");
+var fnl_x=-1;
+var tt=new TouchSlider({
+	id:mslide,
+	'auto':'-1',
+	fx:'ease-out',
+	direction:'left',
+	speed:600,
+	timeout:5000,
+	'before':function(index){
+		
+    sessionStorage.setItem("school_index",index);	
+		
+		
+	var as=document.getElementById(this.page).getElementsByTagName('a');
+	as[this.p].className='';
+	this.p=index;
+	
+	var fnl_x_tmp = fnl_x;
+	
+	fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
+	
+	nav_w=$(".find_nav_list li").eq(this.p).width();
+	$(".sideline").stop(true);
+	$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
+	$(".sideline").animate({width:nav_w},100);
+	
+	$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+	
+	
+	if(fnl_x_tmp != fnl_x || fnl_x == -1){
+	
+		schoolQuery(index);
+	}
+	
+	var fn_w = ($(".find_nav").width() - nav_w) / 2;
+	var fnl_l;
+	if (fnl_x <= fn_w) {
+		fnl_l = 0;
+	} else if (fn_w - fnl_x <= flb_w - fl_w) {
+		fnl_l = flb_w - fl_w;
+	} else {
+		fnl_l = fn_w - fnl_x;
+	}
+	$(".find_nav_list").animate({
+		"left" : fnl_l
+	}, 300);
+	
+	
+}});
+tt.page = page;
+tt.p = 0;
+/**
+ * 加载页面 滑动上边的tab
+ */
+var school_index =  sessionStorage.getItem("school_index");
+if(!stringnull(school_index)){
+	school_index = 1;
+}
+//alert(school_index);
+tt.slide(parseInt(school_index), 600);
+/**
+ * 传递参数  滑动上边的tab
+ */
+function slide(begin){
+	tt.slide(begin, 600);
+}
+for(var i=0;i<as.length;i++){
+	(function(){
+		var j=i;
+		as[j].tt = tt;
+		as[j].onclick=function(){
+			this.tt.slide(j);
+			return false;
+		}
+	})();
+}
+</script>
+</html>

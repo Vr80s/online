@@ -1,0 +1,203 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script src="/xcview/js/js.js?version=b35e3bdcab"></script>
+<link rel="stylesheet" href="/xcview/css/course_list.css?version=e888934897">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<!--下拉刷新引入的css-->
+<link rel="stylesheet" href="/xcviews/css/mui.min.css">
+<!--rem引入的JS-->
+
+
+
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return" onclick="javascript:history.go(-1);">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">主播课程</div>
+		</div>
+	</header>
+	<!--<div class="footer_k" style="height:2rem;"></div>-->
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<!-- <div class="a">标题</div> -->
+		<!--<div id="refreshContainer" class="mui-content mui-scroll-wrapper">-->
+		  <div class="mui-scroll">
+		   	    <!--数据列表-->
+		   	    <!--列表内容开始-->
+		   	    <div class="course_list">
+		   	    	<div class="course_list_main" id="course_list_main">
+		   	    		<script type="text/html" id="data_course_list">
+			   	    		{{each items as item i}}   	    		
+				   	    		<div class="course_list_main_one div">
+				   	    			<!--跳转-->
+				   	    			{{if item.type == 1 || item.type == 2}}
+		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
+	                    				{{else if item.type == 3}}
+		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jump_play({{item.id}})"></a>
+		                    			{{else if item.type == 4}}
+		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
+									{{/if}}
+				   	    			<!--视频/音频/直播/线下课判断-->
+				   	    			<div class="course_list_one_img">
+				   	    					{{if item.type == 1}}
+                    								<img src="/xcview/images/tv_auto.png" alt="" class="img0" />
+                    							{{else if item.type == 2}}
+                    								<img src="/xcview/images/frequency.png" alt="" class="img0" />
+												{{else if item.type == 3}}
+                    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="img0" />
+												{{else if item.type == 4}}
+                    								<img src="/xcview/images/offline.png" alt="" class="img0" />
+		                    				{{/if}}
+				   	    				<!--<img src="/xcview/images/tv_auto.png" class="img0" />-->
+				   	    				<img src="{{item.smallImgPath}}" class="img1" />
+				   	    			</div>
+				   	    			<div class="course_list_one_title">{{item.gradeName}}</div>
+				   	    			<div class="course_list_one_title_name">{{item.name}}</div>
+				   	    			
+				   	    			<div class="course_list_main_cen_one">
+				   	    				
+				   	    				{{if item.watchState == 1}}
+	            							<p class="p0">免费</p>
+	            							{{else}}
+											<p class="p0"><span>{{item.currentPrice}}</span><span class='span0_span'>熊猫币</span></p>
+            							{{/if}}
+				   	    				
+				   	    				<!--<p class="p0"><span>9000</span>熊猫币</p>-->
+				   	    					<p class="p1"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
+				   	    				{{if item.type == 3 }}
+					   	    				{{if item.lineState==1 || item.lineState==4}}
+					   	    				<p class="zhibo_play">直播中</p>
+					   	    				{{else}}
+				   	    					<p class="p2"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
+					   	    				
+					   	    				{{/if}}
+
+				   	    	
+		   	    						{{else if item.type == 4}}
+		   	    							<p class="p2"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
+				   	    				{{/if}}
+				   	    			</div>
+				   	    		</div>
+			   	    		{{/each}}
+		   	    		</script>
+		   	    		<!--<div class="course_list_main_two div">
+		   	    			<div class="course_list_two_img">
+		   	    				<img src="/xcview/images/Sinatv_auto.png" class="img0" />
+		   	    				<img src="/xcview/images/list_img.png" class="img1" />
+		   	    			</div>
+		   	    			<div class="course_list_two_title">郝万山：《伤寒论》讲解郝万山：《伤寒论》讲解</div>
+		   	    			
+		   	    			<div class="course_list_main_cen_two">
+		   	    				<p class="p0">免费</p>
+		   	    				<p class="p1"><img src="/xcview/images/population.png" alt="" /><span>2000</span></p>
+		   	    				<p class="p2"><img src="/xcview/images/learn.png" alt="" /><span>12.21</span></p>
+		   	    			</div>
+		   	    		</div>-->
+		   	    		<!--<div class="course_list_main_two div">
+		   	    			<div class="course_list_two_img">
+		   	    				<img src="/xcview/images/Sinatv_auto.png" class="img0" />
+		   	    				<img src="/xcview/images/list_img.png" class="img1" />
+		   	    			</div>
+		   	    			<div class="course_list_two_title">郝万山：《伤寒论》讲解郝万山：《伤寒论》讲解</div>
+		   	    			
+		   	    			<div class="course_list_main_cen_two">
+		   	    				<p class="p0"><span>9000</span>熊猫币</p>
+		   	    				<p class="p1"><img src="/xcview/images/population.png" alt="" /><span>2000</span></p>
+		   	    				<p class="p2"><img src="/xcview/images/learn.png" alt="" /><span>12.21</span></p>
+		   	    			</div>
+		   	    		</div>
+		   	    		<div class="course_list_main_three div">
+		   	    			<div class="course_list_three_img">
+		   	    				<img src="/xcview/images/frequency_auto.png" class="img0" />
+		   	    				<img src="/xcview/images/list_img.png" class="img1" />
+		   	    			</div>
+		   	    			<div class="course_list_three_title">郝万山：《伤寒论》讲解郝万山：《伤寒论》讲解</div>
+		   	    			<div class="course_list_main_cen_three">
+		   	    				<p class="p0">免费</p>
+		   	    				<p class="p1"><img src="/xcview/images/population.png" alt="" /><span>2000</span></p>
+		   	    			</div>
+		   	    		</div>
+		   	    		<div class="course_list_main_four div">
+		   	    			<div class="course_list_four_img">
+		   	    				<img src="/xcview/images/offline_auto.png" class="img0" />
+		   	    				<img src="/xcview/images/list_img.png" class="img1" />
+		   	    			</div>
+		   	    			<div class="course_list_four_title">郝万山：《伤寒论》讲解郝万山：《伤寒论》讲解</div>
+		   	    			
+		   	    			<div class="course_list_main_cen_four">
+		   	    				<p class="p0"><span>9000</span>熊猫币</p>
+		   	    				<p class="p1"><img src="/xcview/images/population.png" alt="" /><span>2000</span></p>
+		   	    				<p class="p2"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
+		   	    			</div>
+		   	    		</div>
+		   	    		<div class="course_list_main_five div">
+		   	    			<div class="course_list_five_img">
+		   	    				<img src="/xcview/images/Sinatv_auto.png" class="img0" />
+		   	    				<img src="/xcview/images/list_img.png" class="img1" />
+		   	    			</div>
+		   	    			<div class="course_list_five_title">郝万山：《伤寒论》讲解郝万山：《伤寒论》讲解</div>
+		   	    			
+		   	    			<div class="course_list_main_five_streaming">
+		   	    				<p><img src="/xcview/images/encrypt.png" /><span>需要密码进入</span></p>
+		   	    				<div class="div0"><img src="/xcview/images/streaming_fie.png" alt="" /></div>
+		   	    				<div class="both"></div>
+		   	    			</div>
+		   	    		</div>-->
+		   	    		
+		   	    		
+		   	    		<div class="both"></div>
+		   	    	</div>
+		   	    </div>
+		   	    <!--列表内容结束-->
+			    <div class=""></div>
+		  </div>
+		<!--</div>-->
+	<!--</div>-->
+	<!-- 中间内容结束 -->
+	<!-- 底部结束 -->
+	<div class="both"></div>
+	<div class="footer_k"></div>
+	<!-- <footer>
+		<div class="base">
+			<ul>
+				<li><a href="/bxg/page/index/null/null" class="base_a1 base_0a1"></a></li>
+				<li><a href="/xcviews/html/frequency.html?multimedia_type=1" class="base_a2"></a></li>
+				<li><a href="/xcviews/html/frequency.html?multimedia_type=2" class="base_a3"></a></li>
+				<li><a href="/xcviews/html/my.html" class="base_a4"></a></li>
+			</ul>
+		</div>
+	</footer> -->
+	<!-- 底部结束 -->
+	<!-- 刷新引入js -->
+	<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+    <script type="text/javascript" src="/Views/h5/js/common.js?version=2885ae00d7"></script>
+	<script type="text/javascript" src="../js/template.js"></script>   <!--模板引入-->
+	<!--<script src="/xcview/js/index.js?version=613bb34f99" type="text/javascript"></script>-->
+	<script src="/xcview/js/course_list.js?version=d5b228b68f" type="text/javascript"></script>
+	
+</body>
+
+</html>
+

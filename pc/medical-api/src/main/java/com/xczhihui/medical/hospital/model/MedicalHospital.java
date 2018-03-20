@@ -26,90 +26,182 @@ public class MedicalHospital extends Model<MedicalHospital> {
      * 医馆表
      */
 	private String id;
-    /**
+
+	/**
      * 经纬度
      */
 	private String lal;
-    /**
+
+	/**
      * 医馆名称
      */
 	private String name;
-    /**
+
+	/**
      * 医馆简介
      */
 	private String description;
-    /**
+
+	/**
      * 联系电话
      */
 	private String tel;
+
+	/**
+	 * 联系邮箱
+	 */
 	private String email;
-    /**
+
+	/**
      * 邮编
      */
 	@TableField("post_code")
 	private Integer postCode;
+
     /**
      * 省
      */
 	private String province;
-    /**
+
+	/**
      * 市
      */
 	private String city;
-    /**
+
+	/**
      * 详细地址
      */
 	@TableField("detailed_address")
 	private String detailedAddress;
-    /**
+
+	/**
      * 1已删除0未删除
      */
-//	private Boolean deleted;
-    /**
+	private Boolean deleted;
+
+	/**
      * 启用状态
      */
-//	private Boolean status;
-    /**
+	private Boolean status;
+
+	/**
      * 创建时间
      */
-//	@TableField("create_time")
-//	private Date createTime;
-    /**
+	@TableField("create_time")
+	private Date createTime;
+
+	/**
      * 创建人id
      */
-//	@TableField("create_person")
-//	private String createPerson;
-    /**
+	@TableField("create_person")
+	private String createPerson;
+
+	/**
      * 更新时间
      */
-//	@TableField("update_time")
-//	private Date updateTime;
-    /**
+	@TableField("update_time")
+	private Date updateTime;
+
+	/**
      * 更新人id
      */
-//	@TableField("update_person")
-//	private String updatePerson;
-    /**
+	@TableField("update_person")
+	private String updatePerson;
+
+	/**
      * 版本
      */
-//	private String version;
-    /**
+	private String version;
+
+	/**
      * 备注
      */
-//	private String remark;
+	private String remark;
+
 	/**
 	 * 是否已认证
 	 */
 	@TableField("authentication")
 	private Boolean authentication;
+
 	/**
 	 * 分值
 	 */
 	private Double score;
 
+	@TableField(exist = false)
 	private List<MedicalHospitalPicture> medicalHospitalPictures;
 
+	@TableField(exist = false)
 	private List<MedicalField> fields;
+
+	@TableField(exist = false)
+	private String versionPictures;
+
+	/**
+	 * 头像
+	 */
+	@TableField("head_portrait")
+	private String headPortrait;
+
+	/**
+	 * 联系人名称
+	 */
+	private String contactor;
+
+	/**
+	 * 微信
+	 */
+	private String wechat;
+
+	/**
+	 * 封面图
+	 */
+	@TableField("front_img")
+	private String frontImg;
+
+	/**
+	 * 医馆图片id数组
+	 */
+	@TableField(exist = false)
+	private List<String> pictures;
+
+	/**
+	 * 医馆领域id数组
+	 */
+	@TableField(exist = false)
+	private List<String> fieldIds;
+
+	/**
+	 * authentication_id 医馆认证信息id
+	 * @return
+	 */
+	@TableField("authentication_id")
+	private String authenticationId;
+
+	public String getAuthenticationId() {
+		return authenticationId;
+	}
+
+	public void setAuthenticationId(String authenticationId) {
+		this.authenticationId = authenticationId;
+	}
+
+	public List<String> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<String> pictures) {
+		this.pictures = pictures;
+	}
+
+	public List<String> getFieldIds() {
+		return fieldIds;
+	}
+
+	public void setFieldIds(List<String> fieldIds) {
+		this.fieldIds = fieldIds;
+	}
 
 	public List<MedicalField> getFields() {
 		return fields;
@@ -228,73 +320,115 @@ public class MedicalHospital extends Model<MedicalHospital> {
 		this.detailedAddress = detailedAddress;
 	}
 
-//	public Boolean getDeleted() {
-//		return deleted;
-//	}
-//
-//	public void setDeleted(Boolean deleted) {
-//		this.deleted = deleted;
-//	}
-//
-//	public Boolean getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(Boolean status) {
-//		this.status = status;
-//	}
-//
-//	public Date getCreateTime() {
-//		return createTime;
-//	}
-//
-//	public void setCreateTime(Date createTime) {
-//		this.createTime = createTime;
-//	}
-//
-//	public String getCreatePerson() {
-//		return createPerson;
-//	}
-//
-//	public void setCreatePerson(String createPerson) {
-//		this.createPerson = createPerson;
-//	}
-//
-//	public Date getUpdateTime() {
-//		return updateTime;
-//	}
-//
-//	public void setUpdateTime(Date updateTime) {
-//		this.updateTime = updateTime;
-//	}
-//
-//	public String getUpdatePerson() {
-//		return updatePerson;
-//	}
-//
-//	public void setUpdatePerson(String updatePerson) {
-//		this.updatePerson = updatePerson;
-//	}
-//
-//	public String getVersion() {
-//		return version;
-//	}
-//
-//	public void setVersion(String version) {
-//		this.version = version;
-//	}
-//
-//	public String getRemark() {
-//		return remark;
-//	}
-//
-//	public void setRemark(String remark) {
-//		this.remark = remark;
-//	}
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCreatePerson() {
+		return createPerson;
+	}
+
+	public void setCreatePerson(String createPerson) {
+		this.createPerson = createPerson;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getUpdatePerson() {
+		return updatePerson;
+	}
+
+	public void setUpdatePerson(String updatePerson) {
+		this.updatePerson = updatePerson;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
+
+	public String getContactor() {
+		return contactor;
+	}
+
+	public void setContactor(String contactor) {
+		this.contactor = contactor;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
+	}
+
+	public String getFrontImg() {
+		return frontImg;
+	}
+
+	public void setFrontImg(String frontImg) {
+		this.frontImg = frontImg;
+	}
 
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
+	}
+
+	
+	
+	public String getVersionPictures() {
+		return versionPictures;
+	}
+
+	public void setVersionPictures(String versionPictures) {
+		this.versionPictures = versionPictures;
 	}
 
 	@Override
@@ -310,14 +444,14 @@ public class MedicalHospital extends Model<MedicalHospital> {
 			", province=" + province +
 			", city=" + city +
 			", detailedAddress=" + detailedAddress +
-//			", deleted=" + deleted +
-//			", status=" + status +
-//			", createTime=" + createTime +
-//			", createPerson=" + createPerson +
-//			", updateTime=" + updateTime +
-//			", updatePerson=" + updatePerson +
-//			", version=" + version +
-//			", remark=" + remark +
+			", deleted=" + deleted +
+			", status=" + status +
+			", createTime=" + createTime +
+			", createPerson=" + createPerson +
+			", updateTime=" + updateTime +
+			", updatePerson=" + updatePerson +
+			", version=" + version +
+			", remark=" + remark +
 			"}";
 	}
 }

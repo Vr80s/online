@@ -1,12 +1,7 @@
 package com.xczhihui.bxg.online.manager.cloudClass.dao;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
-import com.xczhihui.bxg.online.common.domain.Chapter;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.Grade;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.bxg.online.common.domain.TeachMethod;
+import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.common.dao.HibernateDao;
 
@@ -29,18 +24,54 @@ import java.util.Map;
 public class CourseDao extends HibernateDao<Course>{
 	 public Page<CourseVo> findCloudClassCoursePage(CourseVo courseVo, int pageNumber, int pageSize){
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
-		 StringBuilder sql = new StringBuilder("SELECT oc.id as id ,oc.grade_name as courseName,oc.direct_id directId, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName, oc.multimedia_type multimediaType, oc.address, IF(ISNULL(oc.`course_pwd`),0,1) coursePwd,"
-				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,"
-				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
-				 + "oc.current_price as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"
-				 + "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.qqno,oc.course_type as serviceType,oc.user_lecturer_id as userLecturerId, "//TODO 杨宣增加userLecturerId
-				 + "(select group_concat(ol.name) from oe_lecturer ol where role_type=1 and is_delete=0 and ol.id in (select lecturer_id from course_r_lecturer where course_id=og.course_id and is_delete=0 )) AS role_type1, "
-				 + "(select group_concat(ol.name) from oe_lecturer ol where role_type=2 and is_delete=0 and ol.id in (select lecturer_id from course_r_lecturer where course_id=og.course_id and is_delete=0 ))role_type2, "
-				 + "(select group_concat(ol.name) from oe_lecturer ol where role_type=3 and is_delete=0 and ol.id in (select lecturer_id from course_r_lecturer where course_id=og.course_id and is_delete=0 ))role_type3 "
-				 + "FROM oe_course oc "
-				 + "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
-				 + "LEFT JOIN teach_method tm ON tm.id = oc.courseType "
-				 + "left join oe_grade og on og.course_id = oc.id where oc.is_delete = 0  and oc.type is null ");
+		 StringBuilder sql = new StringBuilder("SELECT \n" +
+				 "  oc.id AS id,\n" +
+				 "  oc.grade_name AS courseName,\n" +
+				 "  oc.direct_id directId,\n" +
+				 "  oc.class_template AS classTemplate,\n" +
+				 "  om.name AS xMenuName,\n" +
+				 "  st.name AS scoreTypeName,\n" +
+				 "  oc.multimedia_type multimediaType,\n" +
+				 "  oc.address,\n" +
+				 "  IF(ISNULL(oc.`course_pwd`), 0, 1) coursePwd,\n" +
+				 "  tm.name AS teachMethodName,\n" +
+				 "  oc.course_length AS courseLength,\n" +
+				 "  oc.learnd_count AS learndCount,\n" +
+				 "  oc.city AS realCitys,\n" +
+				 "  oc.create_time AS createTime,\n" +
+				 "  oc.status AS STATUS,\n" +
+				 "  oc.is_free AS isFree, \n" +
+//				 "  oc.original_cost AS originalCost,\n" +
+				 "  oc.current_price*10 AS currentPrice,\n" +
+				 "  oc.description AS description,\n" +
+				 "  oc.menu_id AS menuId,\n" +
+				 "  oc.course_type_id AS courseTypeId,\n" +
+				 "  oc.courseType AS courseType,\n" +
+				 "  COUNT(og.id) AS countGradeNum,\n" +
+				 "  oc.is_recommend,\n" +
+				 "  oc.recommend_sort,\n" +
+				 "  oc.release_time as releaseTime,\n" +
+				 "  oc.start_time as startTime,\n" +
+				 "  oc.course_type AS serviceType,\n" +
+				 "  oc.user_lecturer_id AS userLecturerId,\n" +
+				 "  ou.`name` lecturerName,\n" +
+				 "  oc.`lecturer`,\n" +
+				 "  oc.`collection`,\n" +
+				 "  oc.sort_update_time as sortUpdateTime,"+
+				 "  oc.`essence_sort` as essenceSort \n" +
+
+				 "FROM\n" +
+				 "  oe_course oc \n" +
+				 "  LEFT JOIN oe_menu om \n" +
+				 "    ON om.id = oc.menu_id \n" +
+				 "  LEFT JOIN score_type st \n" +
+				 "    ON st.id = oc.course_type_id \n" +
+				 "  LEFT JOIN teach_method tm \n" +
+				 "    ON tm.id = oc.courseType \n" +
+				 "  LEFT JOIN oe_grade og \n" +
+				 "    ON og.course_id = oc.id \n" +
+				 "  LEFT JOIN oe_user ou\n" +
+				 "    ON ou.id=oc.user_lecturer_id where oc.is_delete = 0 ");
 		 if (courseVo.getCourseName() != null) {
 			 paramMap.put("courseName", "%" + courseVo.getCourseName() + "%");
 			 sql.append("and oc.grade_name like :courseName ");
@@ -61,10 +92,10 @@ public class CourseDao extends HibernateDao<Course>{
 			 paramMap.put("serviceType", courseVo.getServiceType());
 			 sql.append("and oc.course_type = :serviceType ");
 		 }
-		 if (courseVo.getIsRecommend() != null) {
+		 /*if (courseVo.getIsRecommend() != null) {
 			 paramMap.put("isRecommend", courseVo.getIsRecommend());
 			 sql.append("and oc.is_recommend = :isRecommend ");
-		 }
+		 }*/
 		 if (courseVo.getStatus() != null) {
 			 paramMap.put("status", courseVo.getStatus());
 			 sql.append("and oc.status = :status ");
@@ -73,62 +104,85 @@ public class CourseDao extends HibernateDao<Course>{
 			 paramMap.put("type", courseVo.getType());
 			 sql.append("and om.type = :type ");
 		 }
-
+		 if (courseVo.getRealCitys() != null) {
+			 paramMap.put("city", courseVo.getRealCitys());
+			 sql.append("and oc.city = :city ");
+		 }
+		 
 		 if (courseVo.getId() > 0) {
 			 paramMap.put("courseId", courseVo.getId());
 			 sql.append("and oc.id <> :courseId ");
 		 }
-		 
-		 if (courseVo.getOnlineCourse() == 1) {
-			 paramMap.put("onlineCourse", courseVo.getOnlineCourse());
-			 sql.append("and oc.online_course = :onlineCourse ");
+		 if(courseVo.getOnlineCourse()==0){
+			 sql.append(" AND oc.`type` = 2");
 		 }else{
-			 sql.append(" AND oc.`online_course` = 0");
+			 sql.append(" AND oc.`type` = 3");
+		 }
+		 if(courseVo.getMultimediaType() !=null ){
+			 paramMap.put("multimediaType", courseVo.getMultimediaType());
+			 sql.append(" and oc.multimedia_type = :multimediaType ");
 		 }
 
-		 sql.append(" group by oc.id  order by oc.status desc,oc.sort desc");
+		 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc");
 
 		 Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 for (CourseVo entityVo : courseVos.getItems()) {
 			 List<ApplyGradeCourse> temps = this.findEntitiesByProperty(ApplyGradeCourse.class, "courseId", entityVo.getId());
 			 entityVo.setActCount(temps.size());
-			 
-			/*Map<String,Object> params=new HashMap<String,Object>();
-	        params.put("courseId", entityVo.getId());
-	        StringBuilder teacherSql=new StringBuilder();
-	        teacherSql.append("SELECT group_concat(ol. name) as lecturerName from oe_lecturer ol ,course_r_lecturer grl where ol.id = grl.lecturer_id AND grl.course_id =:courseId AND ol.is_delete = 0 GROUP BY grl.course_id");
-	        List<CourseVo> teacherNames = this.getNamedParameterJdbcTemplate().query(teacherSql.toString(),params,BeanPropertyRowMapper.newInstance(CourseVo.class));
-	        entityVo.setLecturerName(teacherNames==null||teacherNames.size()==0?"":teacherNames.get(0).getLecturerName());*/
-		    /**
-		     * 杨宣修改   把班级信息去掉
-		     */
-		    Map<String,Object> params=new HashMap<String,Object>();
-	        params.put("user_lecturer_id", entityVo.getUserLecturerId());
-	        
-	        StringBuilder teacherSql=new StringBuilder();  //// + "LEFT JOIN oe_user ou on oc.user_lecturer_id = ou.id and oe.is_lecturer = 1 and oe.status = 0");
-	        teacherSql.append("SELECT ou.name as lecturerName from oe_user as ou where ou.id =:user_lecturer_id and ou.is_lecturer = 1 and ou.status = 0 ");
-	        List<CourseVo> teacherNames = this.getNamedParameterJdbcTemplate().query(teacherSql.toString(),params,BeanPropertyRowMapper.newInstance(CourseVo.class));
-	        entityVo.setLecturerName(teacherNames==null||teacherNames.size()==0?"":teacherNames.get(0).getLecturerName()); 
 		 }
 		 return courseVos;
-//		 }
 	 }
 	 
 	 public Page<CourseVo> findCloudClassCourseRecPage(CourseVo courseVo, int pageNumber, int pageSize){
 		 Map<String,Object> paramMap=new HashMap<String,Object>();
-		 StringBuilder sql =new StringBuilder( "SELECT oc.id as id ,oc.grade_name as courseName, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName,"
-				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,"
-				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
-				 + "oc.current_price as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"
+		 StringBuilder sql =new StringBuilder( "SELECT oc.id as id ,oc.grade_name as courseName, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName,oc.smallimg_path smallimgPath,oc.lecturer,"
+				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.multimedia_type as multimediaType,oc.recommend_sort as recommendSort,"
+		+ " if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(  "
+			+ 			"			    DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time," 
+				+ "    4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status))),oc.live_status) " 
+				+ 			 "			     AS liveStatus, " 
+			
+				 + "oc.create_time as createTime,oc.collection as collection,oc.start_time as startTime,oc.release_time,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,ou.name  as lecturerName,oc.city as realCitys,"
+				 + "oc.current_price*10 as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.sort_update_time as sortUpdateTime,"
 				 + "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.rec_img_path,oc.course_type as serviceType FROM oe_course oc "
 				 + "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
-				 + "LEFT JOIN teach_method tm ON tm.id = oc.courseType "
+				 + "LEFT JOIN teach_method tm ON tm.id = oc.courseType left join oe_user as ou on oc.user_lecturer_id = ou.id "
 				 + "left join oe_grade og on og.course_id = oc.id where oc.is_delete = 0  ");
 		 
-		 paramMap.put("isRecommend","1");//只查询已推荐的课程
-		 sql.append(" and oc.is_recommend = :isRecommend ");
+		 /**
+		  * 这里不仅仅是课程进行推荐
+		  *     并且课程的推荐位需要按照：视频、音频进行排序
+		  *  	对线下课进行排序
+		  *  	对直播进行排序：预告、直播中、已经结束的
+					online_course    = 1 线下课
+					type  不等于null 就是   直播
+					multimedia_type = 1 视频  = 2音频
+		  */
 		 
-		 sql.append(" group by oc.id  order by oc.recommend_sort asc");
+		 Integer offLine = courseVo.getOnlineCourse();
+		 Integer courseType = courseVo.getType();
+		 Integer multimediaType = courseVo.getMultimediaType();
+		 Integer liveStatus = courseVo.getLiveStatus();//直播状态1.直播中，2预告，3直播结束
+		 
+		 String city = courseVo.getRealCitys();//
+		 
+		 
+		 if(offLine!=null && !"".equals(offLine) &&offLine.equals(1) ){
+			 sql.append(" and oc.type = 3 ");
+			 if(city!=null && !"".equals(city)){
+				 sql.append(" and oc.city ='"+city+"'");
+			 }
+		 }else if(courseType!=null && !"".equals(courseType)){
+			 sql.append(" and oc.type = 1 ");
+			 if(liveStatus != null && !"".equals(offLine)){
+				 sql.append(" and oc.live_status = "+ liveStatus);
+			 }		 
+		 }else if(multimediaType !=null && !"".equals(multimediaType) && !multimediaType.equals(0)){
+			 sql.append(" and oc.multimedia_type = "+multimediaType);
+		 }
+		 
+		 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc ");
+		 System.out.println(sql.toString());
 		 return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 
 	 }
@@ -191,5 +245,24 @@ public class CourseDao extends HibernateDao<Course>{
 		dc.add(Restrictions.eq("id", courseId));
 		Course course = this.findEntity(dc);
 		return course;
+	}
+
+	public List<Course> getCourseByCollectionId(Integer id) {
+		String sql = "SELECT \n" +
+				"  oc.`grade_name`,\n" +
+				"  oc.`id`,\n" +
+				"  oc.`lecturer`,\n" +
+				"  oc.`current_price`*10 as current_price " +
+				"FROM\n" +
+				"  `oe_course` oc \n" +
+				"  JOIN `collection_course` cc \n" +
+				"    ON oc.id = cc.`course_id` \n" +
+				"WHERE cc.`collection_id` = :cid \n" +
+				"AND oc.`is_delete` = 0";
+//				"AND oc.`is_delete` = 0\n" +
+//				"ORDER BY oc.`collection_course_sort` ASC";
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("cid",id);
+		return this.getNamedParameterJdbcTemplate().query(sql,params, BeanPropertyRowMapper.newInstance(Course.class));
 	}
 }

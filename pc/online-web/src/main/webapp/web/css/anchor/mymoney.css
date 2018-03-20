@@ -1,0 +1,465 @@
+/*我的收益部分的结构*/
+/*.hide{
+	display: none;
+}*/
+/*我的收益 课程收益部分*/
+.myResive .little_box1 > div{
+	width: 950px;
+    display: block;
+    float: right;
+    vertical-align: top;
+    min-height: 520px;
+    padding-bottom: 50px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+.redBorder{
+	border: 1px solid #f40 !important;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_top,
+.myResive .little_box1 #gift_Resive .gift_Resive_top{
+	padding: 20px 20px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_top .title,
+.myResive .little_box1 #gift_Resive .gift_Resive_top .title{
+	font-size: 16px;
+    color: #333333;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid{
+	padding: 30px 20px 0px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .search_classIpt,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .search_classIpt{
+	width: 220px;
+	height: 36px;
+	line-height: 36px;
+	outline: none;
+	border: 1px solid #F0F0F0;
+	font-size: 14px;
+	color: #999999;
+	text-indent: 2em;
+	background-image: url(../../images/hospital/hos_search.png);
+    background-repeat: no-repeat;
+    background-position: 9px 11px;
+    margin-right: 10px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .searc_classSel{
+	width: 100px;
+	height: 36px;
+	line-height: 36px;
+	outline: none;
+	color: #333;
+	border: 1px solid #F0F0F0;
+	margin-right: 10px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .Order_end_time,
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .Order_start_time,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .Gift_end_time,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .Gift_start_time{
+	border: 1px solid #F0F0F0;
+	margin-right: 10px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .Order_end_time,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .Order_end_time{
+	margin-left: 10px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .order_search_btn,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .order_search_btn{
+	width: 60px;
+	height: 36px;
+	background: #00BC12;
+	color: #fff;
+	font-size: 14px;
+	line-height: 36px;
+	border: none;
+    outline: none;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2{
+	padding: 20px 20px 0px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom table,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom table,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2 table{
+	margin-bottom: 30px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom table td,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom table td,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2 table td{
+	border: 1px solid #dedede;
+	text-align: center;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom table thead tr,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom table thead tr,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2 table thead tr{
+	height: 40px;
+	line-height: 40px;
+	background: #F0F0F0;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom table tbody tr,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom table tbody tr,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2 table tbody tr{
+	height: 80px;
+	line-height: 80px;
+}
+
+
+/*我的收益  礼物收益部分 不同结构部分样式*/
+.myResive .little_box1 #gift_Resive .gift_Resive_top{
+	padding: 20px 20px;
+	position: relative;
+}
+
+.myResive .little_box1 #gift_Resive .gift_Resive_top .toRankingList{
+	position: absolute;
+	right: 20px;
+	top: 15px;
+	padding: 8px 25px;
+	background: #00BC12;
+	border-radius: 4px;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+/*我的资产上面的结构*/
+#mymoney{
+	width: 950px;
+    display: block;
+    float: right;
+    vertical-align: top;
+    min-height: 520px;
+    padding-bottom: 50px;
+    margin-top: 20px;
+    background-color: #f8f8f8;
+}
+#mymoney>div{
+	background-color: #fff;
+}
+#mymoney .mymoney_top{
+	padding: 20px 30px;
+}
+#mymoney .title{
+	font-size: 16px;
+    color: #333333;
+    
+}
+#mymoney .content_top{
+	height: 210px;
+	padding: 45px 30px;
+}
+#mymoney .content_top ul > li{
+	text-align: center;
+	width: 296px;
+	border-right: 1px solid #DEDEDE;
+	float: left;
+}
+#mymoney .content_top ul > li:last-child{
+	border: none;
+}
+#mymoney .content_top ul > li > p{
+	font-size: 14px;
+	color: #666666;
+}
+#mymoney .content_top ul > li > h2{
+	font-size: 26px;
+	color: #333333;
+}
+#mymoney .content_top ul > li > a{
+	display: inline-block;
+    padding: 9px 32px;
+    color: #fff;
+    background: #00BC12;
+    border-radius: 4px;
+    font-size: 14px;
+}
+#mymoney .content_top ul > li .administration{
+	margin-right: 10px;
+}
+#mymoney .content_top ul > li .addNew{
+	margin-left: 10px;
+}
+/*我的资产上面的结构结束*/
+
+
+
+
+/*我的资产底部表单结构*/
+.orange{
+	background-color: #F97B49 ;
+	color: #fff !important;
+	border: none !important;
+}
+#mymoney .content_bottom {
+	padding-bottom: 60px;
+}
+#mymoney .content_bottom .content_bottom_top{
+	padding: 20px 30px;
+}
+#mymoney .content_bottom .content_bottom_bottom .changeType{
+	margin: 20px 0;
+}
+#mymoney .content_bottom .content_bottom_bottom .changeType > li{
+	float: left;
+	width: 76px;
+	height: 32px;
+
+}
+#mymoney .content_bottom .content_bottom_bottom .changeType > li a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	line-height: 32px;
+	color: #666;
+	font-size: 14px;
+	text-align: center;
+	margin-bottom: 20px;
+	border: 1px solid #dedede;
+}
+#mymoney .content_bottom .content_bottom_bottom{
+	padding: 0 20px;
+}
+#mymoney .content_bottom .pandaTable td,
+#mymoney .content_bottom .rmbTable td{
+	border: 1px solid #dedede;
+	text-align: center;
+}
+#mymoney .content_bottom .pandaTable,
+#mymoney .content_bottom .rmbTable{
+	margin-bottom: 20px;
+}
+#mymoney .content_bottom .pandaTable thead tr,
+#mymoney .content_bottom .rmbTable thead tr{
+	height: 40px;
+	line-height: 40px;
+	background: #f0f0f0;
+}
+#mymoney .content_bottom .pandaTable tbody tr,
+#mymoney .content_bottom .rmbTable tbody tr{
+	height: 80px;
+}
+/*我的资产底部表单结构结束*/
+
+
+
+/*我的资产中间变化结构开始*/
+
+#mymoney .content_mid{
+	margin-bottom: 20px;
+}
+#mymoney .content_mid .content_mid_top{
+	padding: 20px 30px;
+}
+#mymoney .content_mid .content_mid_top title{
+	font-size: 16px;
+    color: #333333;
+}
+
+/*结算部分*/
+#mymoney .content_mid .content_Settlement{
+	height: 257px;
+	padding: 32px 0px 30px 24px;
+}
+#mymoney .content_mid .content_Settlement td{
+	text-align: left;
+}
+#mymoney .content_mid .content_Settlement table tr{
+	height: 50px;
+}
+#mymoney .content_mid .content_Settlement table tr>td:first-child{
+	width: 92px;
+	height: 40px;
+	text-align: right;
+	padding-right: 20px;
+}
+
+#mymoney .content_mid .content_Settlement td > span{
+	font-size: 26px;
+	color: #FF4012;
+}
+
+#mymoney .content_mid .content_Settlement .content_Settlement_btn{
+	background: #00BC12;
+	border-radius: 4px;
+	width: 92px;
+	height: 36px;
+	line-height: 36px;
+	color: #fff;
+	font-size: 14px;
+	border: none;
+	outline: none;
+	margin-left: 114px;
+}
+
+/*提现部分*/
+#mymoney .content_toCash{
+	padding: 30px 0px 30px 24px;
+}
+#mymoney .content_toCash > div {
+	margin-bottom: 20px;
+}
+#mymoney .content_toCash > div span:first-child{
+	display: inline-block;
+	width: 70px;
+	font-size: 14px;
+	color: #666666;
+	text-align: right;
+	margin-right: 20px;
+}
+#mymoney .content_toCash > div .getPassWord{
+	width: 112px;
+	height: 36px;
+	outline: none;
+	line-height: 36px;
+	color: #fff;
+	font-size: 14px;
+	background-color:#00BC12;
+	border-radius: 4px;
+	border: none;
+	margin-left: 20px;
+}
+#mymoney .content_toCash  .toCashSure_btn{
+	width: 92px;
+	height: 36px;
+	outline: none;
+	line-height: 36px;
+	color: #fff;
+	font-size: 14px;
+	background-color:#00BC12;
+	border-radius: 4px;
+	border: none;
+	margin-left: 20px;
+	margin-left: 100px;
+}
+#mymoney .content_toCash .chooseCard ul{
+	width: 825px;
+}
+#mymoney .content_toCash .chooseCard ul li{
+	float: left;
+	margin-right: 20px;
+	width: 230px;
+	height: 80px;
+	border: 1px solid #F0F0F0;
+	margin-bottom: 20px;
+}
+#mymoney .content_toCash .chooseCard ul li:hover{
+	cursor: pointer;
+}
+#mymoney .content_toCash .chooseCard ul li .cardTop_img{
+	height: 52px;
+	padding: 10px;
+}
+#mymoney .content_toCash .chooseCard ul li .cardTop_img > img{
+	width: 100%;
+	height: 100%;
+}
+#mymoney .content_toCash .chooseCard ul li .cardBottom{
+	height: 26px;
+	padding: 0 9px;
+	line-height: 26px;
+	background: #F0F0F0;
+}
+#mymoney .content_toCash .chooseCard ul li .cardBottom > span{
+	float: left;
+	font-size: 12px;
+	width: auto;
+}
+#mymoney .content_toCash .chooseCard ul li .cardBottom > span > i{
+	font-style: normal;
+}
+#mymoney .content_toCash .chooseCard ul li .cardBottom > a{
+	float: right;
+	color: #188EEE;
+	font-size: 12px;
+}
+#mymoney .content_toCash .chooseCard >span,
+#mymoney .content_toCash .chooseCard ul{
+	float: left;
+}
+#mymoney .content_toCash .smallAdd{
+	width: 16px;
+    display: inline-block;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid;
+    line-height: 14px;
+    background: #00BC12;
+    color: #fff;
+    font-style: normal;
+    text-align: center;
+    margin-right: 5px;
+}
+.smallwarn{
+	width: 16px;
+    display: inline-block;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid;
+    line-height: 14px;
+    background: #f40;
+    color: #fff;
+    font-style: normal;
+    text-align: center;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+/*银行卡管理部分*/
+#mymoney .content_Administration{
+	padding: 20px 20px 30px 20px;
+}
+#mymoney .content_Administration .Card_Administration td{
+	border: 1px solid #dedede;
+	text-align: center;
+}
+#mymoney .content_Administration .Card_Administration thead tr{
+	height: 40px;
+	line-height: 40px;
+	background: #F0F0F0;
+}
+#mymoney .content_Administration .Card_Administration tbody tr{
+	height: 80px;
+	line-height: 80px;
+}
+
+
+
+/*新增银行卡部分*/
+#mymoney .content_add{
+	padding: 20px 24px 30px ;
+}
+#mymoney .content_add > div >span:first-child{
+	display: inline-block;
+	width: 69px;
+	text-align: right;
+	margin-right: 20px;
+	font-size: 14px;
+	color: #666666;
+}
+#mymoney .content_add > div{
+	margin-bottom: 30px;
+}
+.waring{
+	font-size: 14px;
+	color: #f40;
+}
+#mymoney .content_add .addNewCard{
+	width: 92px;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 4px;
+	background: #00BC12;
+	border: none;
+	outline: none;
+	color: #fff;
+	margin-left: 90px;
+}

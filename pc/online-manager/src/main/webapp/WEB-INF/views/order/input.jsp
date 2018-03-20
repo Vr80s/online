@@ -7,9 +7,9 @@
 		$('.page-content-area').ace_ajax('loadScripts', scripts,function(){});
 	} catch (e) {}
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js"
+<script src="/js/layer/layer.js"></script>
+<link href="/js/layer/skin/layer.css" type="text/css" />
+<script src="/js/jquery-ui-timepicker-zh-CN.js"
 	type="text/javascript"></script>
 <div class="page-header">
 		当前位置：销售管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
@@ -73,7 +73,7 @@
 <div id="orderInputDialog" class="hide">
 <form action="" method="post" class="form-horizontal" role="form" id="orderinputForm">
 	<div class="form-group" style="margin-top: 20px;">
-		<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="login_name"><font color="red">*</font>账号</label>
+		<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="login_name"><font color="red">*</font>帐号</label>
 		<div class="col-xs-12 col-sm-9">
 			<div class="clearfix">
 				<input class="form-control {required:true,maxlength:60}" name="login_name"
@@ -94,7 +94,7 @@
 		<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="class_id">班级ID</label>
 		<div class="col-xs-12 col-sm-9">
 			<div class="clearfix">
-				<input class="form-control " name="class_id"
+				<input class="form-control " name="class_id" value="0"
 				 id="class_id" type="text" placeholder="请输入5位以内班级id" style="width:200px;"/>
 			</div>
 		</div>
@@ -104,8 +104,9 @@
 		<div class="col-xs-12 col-sm-9">
 			<div class="clearfix">
 				<select name="order_from" id="order_from" style="width:200px;">
-					<option value="1">分销</option>
-					<option value="2">线下</option>
+					<option value="5">线下订单</option>
+					<option value="6">工作人员</option>
+					<option value="0">赠送</option>
 				</select>
 			</div>
 		</div>
@@ -128,4 +129,4 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/order/input.js?v=1.0"></script>
+<script type="text/javascript" src="/js/order/input.js?v=ipandatcm_1.3"></script>

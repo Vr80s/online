@@ -32,7 +32,7 @@ public class WritingDao extends HibernateDao<ArticleVo>{
 				+ "medical_writings as mw,oe_bxs_article as oba  where 1=1 and mw.article_id = oba.id ");
 
 		  if(articleVo.getTitle() != null){
-			   sql.append(" and mw.title like :title or mw.author like :author ");
+			   sql.append(" and (mw.title like :title or mw.author like :author )");
 			   paramMap.put("title", "%"+articleVo.getTitle()+"%");
 			   paramMap.put("author", "%"+articleVo.getTitle()+"%");
 		   }

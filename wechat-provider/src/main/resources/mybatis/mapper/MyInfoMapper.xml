@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.wechat.course.mapper.MyInfoMapper">
+
+	<!-- 查找主播的学员、课程数  -->
+	<select id="selectCollegeCourseXmbNumber" resultType="java.math.BigDecimal">
+		( select count(*) as number from apply_r_grade_course where course_id in 
+		  (select id from oe_course where user_lecturer_id = #{userId} ) )
+		UNION ALL 
+        ( select count(*) as number from oe_course  where user_lecturer_id =#{userId} )
+	</select>	
+	
+	
+   <!-- 结算页面记录信息  -->
+   <select id="selectSettlementList" resultType="java.util.Map">
+		
+	select	* from  (	
+	
+	  (	select (select course.grade_name from oe_course course where course.id = ood.course_id) as gradeName,
+       		CONCAT('+',format(uci.value,2)) as value,uci.create_time as createTime,'课程' as label,"熊猫币" as unit 
+   	    from user_coin_increase uci 
+    	   inner join oe_order_detail ood on uci.order_no_course = ood.id
+   				 where ood.course_id in (select id from oe_course as oc where oc.user_lecturer_id =#{userId} )  )
+   				 
+		UNION ALL
+		
+	  (	select  (select course.grade_name from oe_course course where course.id = ogs.live_id) as gradeName,
+	      	 CONCAT('+',format(uci.value,2)) as value,max(ogs.create_time) as createTime,'直播礼物' as label,"熊猫币" as unit  
+	    from user_coin_increase uci
+	    	inner join oe_gift_statement ogs on uci.order_no_gift = ogs.id
+	   			 where ogs.receiver =  #{userId} group by ogs.live_id  )
+		
+		UNION ALL
+		
+	  ( select '' as gradeName,format(ucc.value,2) as value,ucc.create_time as createTime,'结算' as label,"熊猫币" as unit  from  user_coin_consumption as ucc  where 
+	         ucc.change_type = 5  and ucc.user_id = #{userId}	 )
+		
+		UNION ALL
+		
+	  ( select '' as gradeName,format(uci.value,2) as value,uci.create_time as createTime,'提现驳回' as label,"熊猫币" as unit   from  user_coin_increase as uci  where  
+	  		uci.change_type = 5 	and uci.user_id = #{userId} )
+	  		
+	  ) as  jiesuan order by jiesuan.createTime desc  limit #{pageNumber},#{pageSize}	
+	  		
+	</select>	
+	
+	
+	 <!-- 提现页面记录信息  -->
+   <select id="selectWithdrawalList" resultType="java.util.Map">
+		
+   select	* from  (			
+	  ( select '提现' as label,format(ucc.value,2) as value,ucc.create_time as createTime,"人民币" as unit 
+	  from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id=#{userId}	 )
+		
+		UNION ALL
+		
+	  ( select '结算' as label,CONCAT('+',format(uci.value,2)) as value,uci.create_time as createTime,"人民币" as unit 
+	  from user_coin_increase as uci  where  uci.change_type = 6 and user_id=#{userId} )
+	  
+	  	UNION ALL
+	  
+	  ( select '提现驳回' as label,CONCAT('+',format(uci.value,2)) as value,uci.create_time as createTime,"人民币" as unit 
+	  from user_coin_increase as uci  where  uci.change_type = 5 and user_id=#{userId} )
+		
+	 ) as tixian  order by tixian.createTime desc limit #{pageNumber},#{pageSize}
+	 
+	</select>	
+	
+	
+	
+		 <!--  我的钱包  充值、熊猫币购买课程、微信支付宝购买课程                   -->
+   <select id="findUserWallet" resultType="java.util.Map">
+		
+	   select	* from  (			
+		  ( select  '1' as type,'赠送礼物' as subject ,format(ucc.value,2) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as unit
+		  from user_coin_consumption as ucc  where  ucc.change_type = 8 and user_id=#{userId}	 )
+			
+			UNION ALL
+		
+		  ( select  '2' as type,'购买课程' as subject ,format(ucc.value,2) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as unit
+		  from user_coin_consumption as ucc  where  ucc.change_type = 10 and user_id=#{userId}	 )	
+			
+			UNION ALL
+			
+		  ( select  '3' as type,'充值' as subject ,CONCAT('+',format(uci.value,2)) as totalAmount,uci.create_time as gmtCreate,"熊猫币" as unit 
+		  from user_coin_increase as uci  where  uci.change_type = 1  and user_id=#{userId} )
+		  
+		  	UNION ALL
+		  
+		  
+		  ( select  '4' as type,'购买课程' as subject,CONCAT('-',argc.cost) as totalAmount,argc.create_time as gmtCreate,"人民币" as unit 
+			  from  oe_order_detail ood 
+				INNER  JOIN apply_r_grade_course as argc on  ood.id =argc.order_no
+				INNER  JOIN oe_order as oo on ood.order_id =oo.id
+      			WHERE  oo.pay_type in (0,1) and argc.user_id =#{userId}  )
+		  
+		 ) as tixian  order by tixian.gmtCreate desc  limit #{pageNumber},#{pageSize}
+	 
+	</select>	
+	
+	
+	<!-- 修改用户信息  个人资料信息  -->
+	<update id="updateUserSetInfo" parameterType="com.xczhihui.wechat.course.vo.OnlineUserVO">
+		UPDATE oe_user 
+		<set>
+			<if test="user.id != null ">
+				id = #{user.id},
+			</if>
+			<if test="user.sex != null ">
+				sex = #{user.sex},
+			</if>
+			<if test="user.email != null and user.email!=''">
+				email = #{user.email},
+			</if>
+			<if test="user.smallHeadPhoto != null and user.smallHeadPhoto!=''">
+				small_head_photo = #{user.smallHeadPhoto},
+			</if>
+			<if test="user.name != null and user.name!=''">
+				name = #{user.name},
+			</if>
+			<if test="user.info != null and user.info!=''">
+				info = #{user.info},
+			</if>
+			
+			<!-- 省 -->
+			<if test="user.regionAreaId != null and user.regionAreaId!=''">
+				region_area_id = #{user.regionAreaId},
+			</if>
+			<if test="user.provinceName != null and user.provinceName!=''">
+				province_name = #{user.provinceName},
+			</if>
+			<!-- 市-->
+			<if test="user.regionCityId != null and user.regionCityId!=''">
+				region_city_id = #{user.regionCityId},
+			</if>
+			<if test="user.cityName != null and user.cityName!=''">
+				city_name = #{user.cityName},
+			</if>
+			<!-- 区 -->
+			<if test="user.regionId != null and user.regionId!=''">
+				region_id = #{user.regionId},
+			</if>
+			<if test="user.countyName != null and user.countyName!=''">
+				county_name = #{user.countyName},
+			</if>
+			
+			<if test="user.occupation != null and user.occupation!=''">
+				occupation = #{user.occupation},
+			</if>
+			
+			<if test="user.occupationOther != null and user.occupationOther!=''">
+				occupation_other = #{user.occupationOther},
+			</if>
+		</set>
+		WHERE id = #{user.id}
+	</update>
+	
+			
+	  <!-- 用户主播权限   0 普通用户  1 主播 -->
+      <select id="getUserHostPermissions" resultType="java.lang.Integer">
+		 select ca.type from oe_user as ou
+		    INNER JOIN  course_anchor as ca on ou.id = ca.user_id
+	     where ou.id =#{userId} and ca.status=1 and ca.deleted =0 and ou.status = 0  and ou.is_delete =0
+	  </select>	
+	  
+	  
+	  	<!-- 获取推荐的主播信息 -->
+	  	 
+	   <select id="hostInfoRec" resultType="java.util.Map">
+			select 
+		    	ca.profile_photo as headPortrait,
+		    	ca.name,
+				ca.user_id as userId
+		    from 
+		    course_anchor ca 
+		         join oe_user  ou on ca.user_id = ou.id
+		         where ca.deleted = 0 
+		    AND ou.is_delete = 0
+		    AND ca.is_recommend = 1  ORDER BY ca.recommend_sort DESC 
+		</select>	
+	  
+	  
+</mapper>

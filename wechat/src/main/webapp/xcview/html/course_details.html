@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcviews/js/js.js"></script>
+
+
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
+<!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
+<!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
+
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>  <!--模板引入-->
+
+<script src="../js/course_details.js"></script>
+<script src="../js/details1.js"></script>
+
+
+<!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
+<link rel="stylesheet" type="text/css" href="/xcview/css/course_details.css" />
+<!--<link rel="stylesheet" type="text/css" href="/xcview/css/css.css" />-->
+
+
+
+
+<style>
+
+</style>
+
+
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png">
+			</div>
+			<div class="header_title">课程</div>
+			<div class="header_share">
+				<img src="/xcview/images/share_img.png">
+			</div>
+		</div>
+	</header>
+	<!--头部搜索结束-->
+	
+	
+	<!--中间内容开始-->
+	<div class="course_main">
+		<!--视频开始-->
+		<div class="course_video_bg">
+			<video class="course_video">
+				<source src="myvideo.mp4" type="video/mp4"></source>
+			</video>
+		</div>
+		<!--视频结束-->
+		<div class="course_video_bottom">
+			
+			<script type="text/html" id="course_video_bottom">
+      		<div class="course_video_title">{{subtitle}}</div>
+      		<div class="course_video_cen">{{description}}</div>
+      		<div class="course_video_graded">
+      			<!--星星开始-->
+      			 <div id="startone" class="block clearfix" >
+			          <div class="star_score"></div>
+			    </div>
+			    <!--星星结束-->
+			    <div class="course_video_review">
+			    	<span>{{criticizeCount}}</span>
+			    	<!--<div class="">-->
+			    		评论<img src="../images/video_review.png" alt="" />
+			    	<!--</div>-->
+			    </div>
+      		</div>
+      		</script>
+      		
+      		
+     	</div>
+     	<div class="both"></div>
+  		<div class="course_video_time">
+  			<div class="course_video_main_time">
+  				<script type="text/html" id="course_video_main_time">
+  				<div class="course_video_main_time_one div">
+  					<img src="../images/people_img.png" class="img0" />
+  					<span>{{name}}</span>
+  					<img src="../images/video_review.png" class="img1" />
+  				</div>
+  				<div class="course_video_main_time_two div">
+  					<img src="../images/time_bg0.png" class="img0" />
+  					直播时间：
+  					<span>{{startTime}}</span>
+  				</div>
+  				<div class="course_video_main_time_two div">
+  					<img src="../images/time_bg0.png" class="img0" />
+  					上课时间：
+  					<span>{{address}}</span>
+  				</div>
+  				<div class="course_video_main_time_three div">
+  					<img src="../images/site_bg.png" class="img0" />
+  					上课地址：
+  					<img src="../images/video_review.png" class="img1" />
+  					<span>{{city}}</span>
+  				</div>
+  				<div class="course_video_main_time_four div">
+  					<img src="../images/outline_bg.png" class="img0" />
+  					<img src="../images/video_review.png" class="img1" />
+  					<span class="span">共<span>{{courseNumber}}</span>集。<!--已更新<span>{{courseNumber}}</span>集（每周<span>三四五</span>更新）--></span>
+  					<span class="span0">查看大纲</span>
+  				</div>
+  				</script>
+  			</div>
+  			<div class="both"></div>
+  		</div>
+    </div>
+	</div>
+	<!--中间内容结束-->
+	
+	<div class="course_detaiks_main">
+		<div class="course_detaiks_ul">
+			<ul class="ul">
+				<li class="li0" id="li0">详情</li>
+				<div class="ul_border"></div>
+				<li class="li1" id="li1">免费试听</li>
+				<div class="both"></div>
+			</ul>
+			<div class="course_detaiks_one">
+				<div class="container_main" style="display1: none;">
+					<div class="keynote_speaker_can">
+						<div class="keynote_speaker_left"></div>
+						<div class="keynote_speaker">主讲人</div>
+						<div class="keynote_speaker_right"></div>
+						<div class="both"></div>
+					</div>
+            		<!--这是点击展开，点击隐藏文字。  开始-->
+            		<div class="container">
+				        <div class="wrap">
+				        	
+				        	<script type="text/html" id="wrap">
+				            <div>
+				                {{lecturerDescription}}
+				            </div>
+				            </script>
+				            
+				            
+				          <div class="gradient"></div>
+				        </div>
+				        <div class="read-more">
+				            <div class="hewenqiToggle"></div>
+				            <span class="triangle-down-hovertree"></span>
+				        </div>
+				        <div class="both"></div>
+				    </div>
+            		<!--这是点击展开，点击隐藏文字。  结束-->
+            		<div class="container_border"></div>
+            		<div class="both"></div>
+            		
+            		<div class="keynote_speaker_can">
+						<div class="keynote_speaker_left"></div>
+						<div class="keynote_speaker">简介</div>
+						<div class="keynote_speaker_right"></div>
+						<div class="both"></div>
+					</div>
+            		<div class="container1">
+				        <div class="wrap1">
+				        	<script type="text/html" id="wrap1">
+				            <div>
+				                {{description}}
+				            </div>
+				            </script>
+				            
+				          <div class="gradient1"></div>
+				        </div>
+				        <div class="read-more1">
+				            <div class="hewenqiToggle1"></div>
+				            <span class="triangle-down-hovertree1"></span>
+				        </div>
+				    </div>
+            	</div>
+				
+				<!--免费试听这期没有 暂时隐藏-->
+				<div class="course_detaiks_play" style="display: none;">
+					<div class="course_detaiks_play_main">
+						<ul>
+							<li>
+								<div class="course_play_main_one">
+									<img src="../images/play_img.png" class="play_img" />
+									<div class="course_play_main_one_right">
+										<p class="p"><span>郝万山</span><span>《伤寒论》讲解</span></p>
+										<div class="course_play_main_one_bottom">
+											<img src="../images/time_bg0.png" class="img0" />
+											<span>9:59</span>
+											<img src="../images/audition.png" class="img1" />
+										</div>
+										<!--<div class="both"></div>-->
+									</div>
+								</div>
+								<!--<div class="both"></div>-->
+							</li>
+							<div class="both"></div>
+							<li>
+								<div class="course_play_main_one">
+									<img src="../images/play_img.png" class="play_img" />
+									<div class="course_play_main_one_right">
+										<p class="p"><span>郝万山</span><span>《伤寒论》讲解</span></p>
+										<div class="course_play_main_one_bottom">
+											<img src="../images/time_bg0.png" class="img0" />
+											<span>9:59</span>
+											<img src="../images/audition.png" class="img1" />
+										</div>
+										<!--<div class="both"></div>-->
+									</div>
+								</div>
+								
+							</li>
+							<div class="both"></div>
+							<li>
+								<div class="course_play_main_one">
+									<img src="../images/play_img.png" class="play_img" />
+									<div class="course_play_main_one_right">
+										<p class="p"><span>郝万山</span><span>《伤寒论》讲解</span></p>
+										<div class="course_play_main_one_bottom">
+											<img src="../images/time_bg0.png" class="img0" />
+											<span>9:59</span>
+											<img src="../images/audition.png" class="img1" />
+										</div>
+										<!--<div class="both"></div>-->
+									</div>
+								</div>
+								
+							</li>
+							<div class="both"></div>
+						</ul>
+					</div>
+					<div class="both"></div>
+				</div>
+			</div>
+			
+			
+			<div class="footer_perch"></div>
+		</div>
+		
+	</div>
+	
+	
+	<!--底部开始-->
+	<!--<div class="footer_perch"></div>-->
+	<div class="footer">
+		<ul class="footer_ul">
+			<script type="text/html" id="footer_one">
+				
+			
+			<li class="footer_one">
+				<span>{{currentPrice}}</span>熊猫币
+			</li>
+			
+			<li class="footer_two">
+				购买
+			</li>
+			</script>
+			
+		</ul>
+	</div>
+	<!--底部结束-->
+	
+	
+	<!--分享开始-->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_main">
+			<div class="share_main_bg">
+				<ul>
+					<div class="share_to">分享到</div>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/ShareSDK.png" />
+							<p>微信</p>
+						</div>
+					</li>
+					<li>
+						<div class="" id="qqShare">
+							<img src="../images/Qzone_share.png" />
+							<p>qq空间</p>
+						</div>
+					</li>
+					<li>
+						<div class="" id="qqShare0">
+							<img src="../images/RSS_links.png" />
+							<p>新浪微博</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="share_cancel">取消</div>
+		</div>
+	</div>
+	<div class="weixin_ceng" style="display1: block;">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!--分享结束-->
+</body>
+
+
+
+
+
+<!--控制课程详情标题超出2行js   星星js影响给注释了 -->
+<!--<script>
+    window.onload = function(){
+      function getByClass(oParent, sClass) {
+      if (oParent.getElementsByClassName) {
+      return oParent.getElementsByClassName(sClass);
+      } else { //IE 8 7 6
+      var arr = [];
+      var reg = new RegExp('\\b' + sClass + '\\b');
+      var aEle = oParent.getElementsByTagName('*');
+      for (var i = 0; i < aEle.length; i++) {
+      if (reg.test(aEle[i].className)) {
+      arr.push(aEle[i]);
+      }
+      }
+      return arr;
+      }
+      }
+      function testAuto() {
+      var textName = getByClass(document, 'course_video_title');
+      for (var i = 0; i < textName.length; i++) {
+      var nowLeng = textName[i].innerHTML.length;
+      if ( nowLeng > 80 ) {   //80 可以为0
+      var nowWord = textName[i].innerHTML.substr(0, 38) + '···';  
+      textName[i].innerHTML = nowWord;
+      }
+      }
+      }
+      testAuto();
+    };
+</script>
+
+-->
+<!--星星js-->
+<script type="text/javascript">
+	function scoreFun(object,opts){
+	// 默认属性
+	var defaults={
+		fen_d:12,  // 每个a的宽度
+		ScoreGrade:10,  // a的个数
+		types:["很不满意",
+		       "差得太离谱，与卖家描述的严重不符，非常不满",
+		       "不满意",
+		       "部分有破损，与卖家描述的不符，不满意",
+		       "一般",
+		       "质量一般",
+		       "没有卖家描述的那么好",
+		       "满意",
+		       "质量不错，与卖家描述的基本一致，还是挺满意的",
+		       "非常满意",
+		       "很差",
+		       "差",
+		       "一般",
+		       "好",
+		       "很好"],
+		       nameScore:"fenshu",
+		       parent:"star_score",
+		       attitude:"attitude"};
+		options=$.extend({},defaults,opts);
+		var countScore=object.find("."+options.nameScore);  // 找到名为“fenshu”的类
+		var startParent=object.find("."+options.parent);    // 找到名为“star_score”的类
+		var atti=object.find("."+options.attitude);    // 找到名为“attitude”的类
+		var now_cli;
+		var fen_cli;
+		var atu;
+		var fen_d=options.fen_d;     // 每个a的宽度
+		var len=options.ScoreGrade;  // 把a的个数赋值给len
+		startParent.width(fen_d*len); //包含a的div盒子的宽度
+		var preA=(5/len);
+		for(var i=0;i<len;i++){
+			var newSpan=$("<a href='javascript:void(0)'></a>");     // 不整体刷新页面的情况下，可以使用void(0)
+			newSpan.css({"left":0,"width":fen_d*(i+1),"z-index":len-i});  // 设置a的宽度、层级
+			newSpan.appendTo(startParent)
+		}                                    //  把a放到类名为“star_score”的div里
+	  startParent.find("a").each(          // each（）方法
+	  	function(index,element){
+		  	$(this).click(function(){        // 点击事件
+		  	now_cli=index;                   // 当前a的索引值
+		  	show(index,$(this))             //  调用show方法
+		  });
+		  $(this).mouseenter(function(){    /* mouseenter事件(与 mouseover 事件不同，只有在鼠标指针穿过被选元素时，
+		  	                                 才会触发 mouseenter 事件。如果鼠标指针穿过任何子元素，同样会触发 mouseover 事件。) */
+        show(index,$(this))
+		  });
+		  $(this).mouseleave(function(){    // mouseleave事件 
+		  	if(now_cli>=0){
+		  		var scor=preA*(parseInt(now_cli)+1);         // 评分
+		  		startParent.find("a").removeClass("clibg");  // 清除a的“clibg”类
+		  		startParent.find("a").eq(now_cli).addClass("clibg"); // eq()选择器，选取索引值为“now_cli”的a，给它加上“clibg”类
+		  		var ww=fen_d*(parseInt(now_cli)+1);                  // 当前a的宽度
+		  		startParent.find("a").eq(now_cli).css({"width":ww,"left":"0"});  // 给索引值为“now_cli”的a加上宽度“ww”和left值
+		  		if(countScore){
+		  			countScore.text(scor)
+		  		} 
+		  	}else{
+		  		startParent.find("a").removeClass("clibg");
+		  		if(countScore){
+		  			countScore.text("")
+		  		}
+		  	}
+		  })
+		});
+ 
+      // show方法
+		  function show(num,obj){
+		  	var n=parseInt(num)+1;
+		  	var lefta=num*fen_d;
+		  	var ww=fen_d*n;
+		  	var scor=preA*n;                        // 评分
+		  	(len>5)?atu=options.types[parseInt(num)]:atu=options.types[parseInt(num)+10];       // 用户态度
+		  	object.find("a").removeClass("clibg");  // 清除所有a的“clibg”类
+		  	obj.addClass("clibg");                  // 给当前a添加“clibg”类
+		  	obj.css({"width":ww,"left":"0"});       // 给当前a添加宽度“ww”和left值
+		  	countScore.text(scor);                  // 显示评分
+		  	atti.text(atu);                        // 显示用户态度
+		  }
+		};
+</script>
+
+<script>
+     scoreFun($("#startone"))
+     scoreFun($("#starttwo"),{
+           fen_d:18,//每一个a的宽度
+           ScoreGrade:5//a的个数5
+         });
+     //显示分数
+      $(".show_number li p").each(function(index, element) {
+        var num=$(this).attr("tip");
+        var www=num*2*12;//
+        $(this).css("width",www);
+        $(this).parent(".atar_Show").siblings("span").text(num+"分");
+    });
+    </script>
+
+<!--点击更多隐藏心事开始-->
+<script type="text/javascript">
+//	window.onload = function(){
+		$(function(){
+		    var slideHeight = 100; // px
+		    var defHeight = $('.wrap').height();
+		    if(defHeight >= slideHeight){
+		        $('.wrap').css('height' , slideHeight + 'px');
+		        $('.read-more').append('<a href="#">展开全部</a>');
+		        $('.read-more a').click(function(){
+		        var curHeight = $('.wrap').height();
+		        if(curHeight == slideHeight){
+		            $('.wrap').animate({
+		            height: defHeight
+		            }, "normal");
+		            $('.read-more a').html('点击隐藏');
+		            $('.gradient').fadeOut();
+		            $('.read-more span').addClass("triangle-down-hovertree");
+		            $('.read-more span').removeClass("triangle-up-hovertree");
+		            $('.hewenqiToggle').css("height","0.2rem");
+		        }else{
+		            $('.wrap').animate({
+		            height: slideHeight
+		            }, "normal");
+		            $('.read-more a').html('展开全部');
+		            $('.gradient').fadeIn();
+		            $('.read-more span').removeClass("triangle-down-hovertree");
+		            $('.read-more span').addClass("triangle-up-hovertree");
+		            $('.hewenqiToggle').css("height","2.5rem");
+		        }
+		        return false;
+		        });  
+		    }
+		});
+		
+		
+		$(function(){
+		    var slideHeight1 = 100; // px
+		    var defHeight1 = $('.wrap1').height();
+		    if(defHeight1 >= slideHeight1){
+		        $('.wrap1').css('height' , slideHeight1 + 'px');
+		        $('.read-more1').append('<a href="#">展开全部</a>');
+		        $('.read-more1 a').click(function(){
+		        var curHeight1 = $('.wrap1').height();
+		        if(curHeight1 == slideHeight1){
+		            $('.wrap1').animate({
+		            height: defHeight1
+		            }, "normal1");
+		            $('.read-more1 a').html('点击隐藏');
+		            $('.gradient1').fadeOut();
+		            $('.read-more1 span').addClass("triangle-down-hovertree1");
+		            $('.read-more1 span').removeClass("triangle-up-hovertree1");
+		            $('.hewenqiToggle1').css("height","0.2rem");
+		        }else{
+		            $('.wrap1').animate({
+		            height: slideHeight1
+		            }, "normal1");
+		            $('.read-more1 a').html('展开全部');
+		            $('.gradient1').fadeIn();
+		            $('.read-more1 span').removeClass("triangle-down-hovertree1");
+		            $('.read-more1 span').addClass("triangle-up-hovertree1");
+		            $('.hewenqiToggle1').css("height","2.5rem");
+		        }
+		        return false;
+		        });  
+		    }
+		});
+//	};
+</script>
+
+
+
+<!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+	window.onload = function(){
+//		点击详情
+		$("#li0").click(function(){
+			$(".container_main").show();
+			$(".course_detaiks_play").hide();
+			$(".li0").addClass("ul_li");
+			$(".li1").removeClass("ul_li");
+		});
+//		点击免费试听
+		$("#li1").click(function(){
+			$(".course_detaiks_play").show();
+			$(".container_main").hide();
+			$(".li1").addClass("ul_li");
+			$(".li0").removeClass("ul_li");
+		});
+		$("#li0").click();
+		
+		
+		
+//		点击分享share
+		$(".header_share").click(function(){
+			$(".share").show();
+		});
+		
+		$(".share_cancel").click(function(){
+			$(".share").hide();
+		});
+		
+		$(".share_cancel").click(function(){
+			$(".weixin_ceng").hide();
+		});
+		
+		
+		
+//		点击微信出现提示框
+		$(".share_to_one").click(function(){
+			$(".weixin_ceng").show();
+		});
+		
+	};
+</script>
+
+
+
+
+			<div class="both"></div>
+</html>

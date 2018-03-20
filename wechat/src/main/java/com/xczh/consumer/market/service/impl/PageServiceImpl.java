@@ -34,7 +34,7 @@ public class PageServiceImpl implements PageService {
 		if (result.size() <= 0) {
 			return false;
 		}
-		//用户登陆着
+		//用户登录着
 		if (loginUser != null) {
 			OnlineUser ou = (OnlineUser)loginUser;
 			sql = "select share_code,parent_id from oe_user where id = ?";

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <style type="text/css">
     .vertical-tab {
         width: 8%;
@@ -124,8 +124,8 @@
         });
     });
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 	</small> <span> 直播管理 </span>
@@ -149,9 +149,9 @@
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<p class="col-xs-4" style="padding: 0;">
-					<button class="btn btn-sm btn-success add_bx" title="新增课程">
-						<i class="glyphicon glyphicon-plus"></i> 新增课程
-					</button>
+					<%--<button class="btn btn-sm btn-success add_bx" title="新增课程">--%>
+						<%--<i class="glyphicon glyphicon-plus"></i> 新增课程--%>
+					<%--</button>--%>
 					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
@@ -378,7 +378,7 @@
 				 	<input type="text" name="courseLength"  id="courseLength" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
 	             </div>
 				 <div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
-	           	 小时
+	           	 分钟
 	            </div>
 			</div>
 			
@@ -530,7 +530,7 @@
 					 	<input type="text" name="courseLength"  id="courseLength_edit" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
 		             </div>
 					 <div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
-		           	 小时
+		           	 分钟
 		            </div>
 				</div>
 				
@@ -641,4 +641,4 @@
             	source: availableTags
             });			
 </script>
-<script type="text/javascript" src="${base}/js/cloudClass/publicCourse.js?v=1"></script>
+<script type="text/javascript" src="/js/cloudClass/publicCourse.js?v=ipandatcm_1.3"></script>

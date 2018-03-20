@@ -1,11 +1,15 @@
 package com.xczhihui.bxg.online.web.dao;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 
 import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
@@ -20,11 +24,13 @@ import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ApplyService;
 import com.xczhihui.bxg.online.web.vo.ChapterLevelVo;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.UserVideoVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
  * 视频相关功能数据访问层
@@ -42,6 +48,7 @@ public class VideoDao extends SimpleHibernateDao {
     private UserCenterDao userCenter;//DAO
     @Autowired
     private  OrderDao  orderDao;
+    
 
     /**
      * 获取章级别菜单(章节知识点信息)
@@ -152,7 +159,7 @@ public class VideoDao extends SimpleHibernateDao {
      * @param videoId 视频ID
      * @return
      */
-    public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize) {
+    public Page<CriticizeVo> getVideoCriticize(String videoId,String name, Integer pageNumber, Integer pageSize) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 15 : pageSize;
         StringBuffer sql = new StringBuffer();
@@ -166,7 +173,6 @@ public class VideoDao extends SimpleHibernateDao {
         sql.append(" ORDER BY oc.create_time DESC");
         paramMap.put("userName", name);
         paramMap.put("videoId", videoId);
-        
         return this.findPageBySQL(sql.toString(), paramMap,CriticizeVo.class,pageNumber, pageSize);
     }
 
@@ -191,7 +197,7 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public CriticizeVo findCriticizeById(String id) {
         StringBuffer sql = new StringBuffer();
-        sql.append("select id,create_person createPerson,create_time createTime,content,user_id userId,");
+        sql.append("select id,create_person createPerson,create_time createTime,content,user_id userId,course_id courseId,");
         sql.append("chapter_id chapterId,video_id videoId,star_level starLevel,praise_sum praiseSum,praise_login_names praiseLoginNames ");
         sql.append("from oe_criticize where id=:id");
         Map<String,Object> paramMap = new HashMap<>();
@@ -259,7 +265,7 @@ public class VideoDao extends SimpleHibernateDao {
     }
 
     /**
-     * 查看当前登陆用户是否购买过当前课程
+     * 查看当前登录用户是否购买过当前课程
      * @param courseId 课程id
      * @param userId
      * @return
@@ -305,7 +311,7 @@ public class VideoDao extends SimpleHibernateDao {
 		dc.add(Restrictions.eq("id", courseId));
         Course c = orderDao.findEntity(dc);
 //        if((c.getType()==null||c.getType()!=1) && videos.size()<= 0){
-        if((c.getType()==null||c.getType()!=1) && (c.getDirectId()==null||c.getDirectId().equals(""))){
+        if(c.getType()== CourseForm.VOD.getCode() && (c.getDirectId()==null|| "".equals(c.getDirectId())) && !c.getCollection()){
             throw new RuntimeException("此课程下没有相关视频!");
         };
         String sql="";
@@ -354,7 +360,7 @@ public class VideoDao extends SimpleHibernateDao {
         
         OnlineUser user =  userCenter.getUser(orderVo.getUser_id());
        *//**
-         * 如果是收费的点播课，先得查询此课程下正在报名中的班级信息
+         * 如果是付费的点播课，先得查询此课程下正在报名中的班级信息
          *   1、如果有报名中的班级，那么就将学员添加到此班级下
          *   2、如果没有报名中的班级，将用户填到 0班,  此班级不存在
          *//*
@@ -390,15 +396,383 @@ public class VideoDao extends SimpleHibernateDao {
         }
 
     }*/
-
-
     public  List<Map<String, Object>>  findVideosByCourseId(Integer courseId){
         //1、查询当前课程下所有视频
         String  querySql="select id as video_id  from oe_video where course_id=? and is_delete=0 and status=1";
         List<Map<String, Object>>  check = this.getNamedParameterJdbcTemplate().getJdbcOperations() .queryForList(querySql, courseId);
         return  check;
     }
+	public void saveNewCriticize(CriticizeVo criticizeVo) {
+		// TODO Auto-generated method stub
+    	if (!StringUtils.hasText(criticizeVo.getUserId()) && 
+    			criticizeVo.getCourseId() == null) {
+			throw new RuntimeException("参数错误！");
+		}
+		String sql = "insert into oe_criticize (id,create_person,content,"
+		        + "user_id,course_id,content_level,deductive_level,criticize_lable,"
+		        + "overall_level,is_buy) "
+		        + "values (:id,:createPerson,:content,:userId,"
+		        + ":courseId,:contentLevel,:deductiveLevel,:criticizeLable,"
+		        + ":overallLevel,:isBuy)";
+		this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
+		
+	}
+	public void saveReply(String content, String userId,String criticizeId) {
+		
+		if (!StringUtils.hasText(content) || !StringUtils.hasText(userId)) {
+			throw new RuntimeException("参数错误！");
+		}
+		/*
+		 * 回复此评论的人
+		 */
+		CriticizeVo cvo = this.findCriticizeById(criticizeId);
+		if (cvo==null) {
+			throw new RuntimeException("获取此条评论信息有误！");
+		}
+		/**
+		 * 回复其实也是一个评论
+		 *   插入一个评论
+		 *   插入一个回复
+		 */
+		CriticizeVo criticizeVo = new CriticizeVo();
+		criticizeVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+		criticizeVo.setContent(content);
+		criticizeVo.setCreatePerson(userId);
+		criticizeVo.setUserId(cvo.getUserId());
+		criticizeVo.setCourseId(cvo.getCourseId());
+		
+		/**
+		 * 如果这个是免费的就没有必要的
+		 */
+		boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(), userId);
+		criticizeVo.setIsBuy(isbuy);
+		
+		this.saveNewCriticize(criticizeVo);
+		
+		/**
+		 * 然后在这个评论中增加一个回复
+		 */
+		String replyId = UUID.randomUUID().toString().replaceAll("-", "");
+		String sql = "insert into oe_reply (id,create_person,reply_content,"
+		        + "reply_user,criticize_id) "
+		        + "values (:id,:createPerson,:content,:reply_user,"
+		        + ":criticizeId)";
+		 Map<String,Object> params=new HashMap<String,Object>();
+		 params.put("id", replyId);
 
+		 params.put("createPerson", userId);     //
+		 params.put("content", cvo.getContent());         //内容
+		 params.put("reply_user", cvo.getCreatePerson());     //当前被回复的评论id是这个回复创建人
+		 params.put("criticizeId", criticizeVo.getId());  //此条评论的人
+		 this.getNamedParameterJdbcTemplate().update(sql,params);
+	}
+
+	 /**
+     * 获取主播的或者课程的评价数
+     * @return
+	 * @throws IllegalAccessException 
+     */
+    public Page<Criticize> getUserOrCourseCriticize(String teacherId,Integer courseId, Integer pageNumber, Integer pageSize,String userId){
+        Map<String,Object> paramMap = new HashMap<>();
+        pageNumber = pageNumber == null ? 1 : pageNumber;
+        pageSize = pageSize == null ? 10 : pageSize;
+        
+        /**
+         * 购买者这里怎么显示了啊。好尴尬了，不能用多个循环吧，不然会卡点呢
+         * 	 或者是购买成功	
+         * 
+         * 一个专辑下存在多个课程，然后课程
+         */
+        if(courseId !=null || teacherId!=null){
+           StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1  and c.onlineUser is not null  ");
+	       
+           if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
+	       	  sql.append("  and c.userId =:userId ");
+	       	  paramMap.put("userId", teacherId);
+	       }else if(courseId!=null && courseId!=0){
+	    	  //查找这个课程是不是专辑、如果是专辑就 用in来查找啦
+	    	  List<Integer> list =  getCoursesIdListByCollectionId(courseId);
+	    	  
+	    	  if(list.size()>0){
+	    		  list.add(courseId);
+	    		  String str = "";
+	    		  for (int i = 0; i < list.size(); i++) {
+					Integer array_element = list.get(i);
+					if(i == list.size()-1){
+						str +=array_element;
+					}else{
+						str +=array_element+",";
+					}
+				  }
+	    		  sql.append("  and c.courseId in ("+str+") ");
+	    	  }else{
+	    		  sql.append("  and c.courseId =:courseId ");
+		       	  paramMap.put("courseId",courseId);
+	    	  } 
+	       }
+	       sql.append(" order by c.createTime desc ");
+
+	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
+	        
+	        if(criticizes.getTotalCount()>0){
+	        	String loginName = "";
+	        	if(userId!=null){
+                    //这里就查询了一次，所是ok的。这是不是需要查询下。
+	        		OnlineUser u = this.get(userId,OnlineUser.class);
+	        		loginName = u.getLoginName();
+	        	}
+	        	 for (Criticize c : criticizes.getItems()) {
+	        		/**
+	        		 * 判断会否点过赞 
+	        		 */
+	        		String loginNames =  c.getPraiseLoginNames();
+	 	        	Boolean isPraise = false;
+	 	        	if(org.apache.commons.lang.StringUtils.isNotBlank(loginNames)){
+	 	        		for (String loginName1 : loginNames.split(",")) {
+	 						if(loginName.equals(loginName1)){
+	 							isPraise =  true;
+	 						}
+	 					}
+	 	        	}
+	 	        	c.setIsPraise(isPraise);
+	 	        	/**
+	        		 * 星级的平均数
+	        		 */
+	 	        	if(c.getOverallLevel()!=null&&!"".equals(c.getOverallLevel())){
+                        BigDecimal totalAmount = new BigDecimal(c.getOverallLevel() !=null ? c.getOverallLevel() :0 );
+                        totalAmount.add(new BigDecimal(c.getContentLevel()  !=null ? c.getContentLevel() :0 ));
+                        totalAmount.add(new BigDecimal(c.getDeductiveLevel()  !=null ? c.getDeductiveLevel() :0 ));
+                        String startLevel = "0";
+                        try {
+                            startLevel = divCount(totalAmount.doubleValue(),3d,1);
+                            c.setStarLevel(Float.valueOf(startLevel));
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+	 			}
+	        }
+            return criticizes;
+        }
+        return  null;
+    }
+    
+	/**
+	 * Description：求平均值，并且把小数点的都截取到5，或者大于5的
+	 * @param value1
+	 * @param value2
+	 * @param scale
+	 * @return
+	 * @throws IllegalAccessException
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+    public static String divCount(double value1,double value2,int scale) throws IllegalAccessException{  
+        //如果精确范围小于0，抛出异常信息  
+        if(scale<0){           
+            throw new IllegalAccessException("精确度不能小于0");  
+        }  
+        
+        BigDecimal b1 = new BigDecimal(Double.valueOf(value1));  
+        BigDecimal b2 = new BigDecimal(Double.valueOf(value2)); 
+        /**
+         * 得到平均数，保留以为小数
+         */
+        BigDecimal b3 =  b1.divide(b2, 1, BigDecimal.ROUND_HALF_UP);
+          
+        String bigDecimalStr = b3.toString();
+        String startStr = bigDecimalStr.substring(0, 1);
+        String lastStr = bigDecimalStr.substring(bigDecimalStr.length()-1,bigDecimalStr.length());
+        int lastInt = Integer.parseInt(lastStr);
+        if(lastInt<5){ //认为是5
+        	bigDecimalStr = startStr+".5"; 
+        }else{         //+1 
+        	bigDecimalStr = (Integer.parseInt(startStr)+1)+".0"; 
+        }
+        return bigDecimalStr;
+    }  
+	
+    
+    /**
+     * Description：判断这个星级用户是否购买过这个课程以及判断是否已经星级评论了一次此课程
+     * @param courseId
+     * @param userId
+     * @return
+     * @return Integer  返回参数： 0 未购买     1 购买了，但是没有星级评论过     2 购买了，也星级评论了
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+    public Integer findUserFirstStars(Integer courseId,String createPerson) {
+        
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("courseId", courseId);
+        paramMap.put("createPerson", createPerson);
+        
+        Integer isViewStars = 0;
+        
+    	StringBuffer sqlStr = new StringBuffer();
+    	sqlStr.append(" SELECT count(*) as count from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
+    	sqlStr.append(" and argc.user_id=:createPerson  ");
+    	List<Map<String, Object>> listArgs= this.getNamedParameterJdbcTemplate().queryForList(sqlStr.toString(), paramMap);
+    	/*
+    	 * 判断是不是等于： 1
+    	 * 付费的有没有购买过
+    	 * 免费的有没有观看过
+    	 */
+        if(listArgs.size()>0){
+            String  count = listArgs.get(0).get("count").toString();
+            int s =Integer.parseInt(count);
+            if(s>0){
+                isViewStars=1;
+            }
+        }
+        
+        /*
+         * 判断是不是等于： 2
+         *   有没有星星评论
+         */
+        if(isViewStars==1){
+        	StringBuffer sql = new StringBuffer();
+	        sql.append("select criticize_lable ");
+	        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson ");
+	        List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
+        	
+	        if(list.size()>0){ //评论过
+	            for(int i=0;i<list.size();i++){  
+	                if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
+	                    isViewStars=2;
+	                    break;
+	                }
+	            }
+	        }
+        }
+        
+        return isViewStars;
+        
+        
+//        Course c =  courseDao.getCourse(courseId);
+//        String str = " is_buy = 1 ";
+//        if(c.isFree()){ //免费
+//        	str = " ( is_buy is null or is_buy = 0 ) ";
+//        }
+//        sql.append("select criticize_lable ");
+//        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and  "+ str);
+//        List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
+//        Integer isViewStars = 0;
+        
+        //如果这个课程是付费的
+//        if(c.isFree()){ 
+//        	 if(list!=null && list.size()>0){//免费   --》判断是否星级评论过
+//        		 isViewStars =2;
+//        	 }else{
+//        		 isViewStars =1;
+//        	 }
+//        }else{  		
+//        	//付费   --》  如果是购买了，但是没有评论过，返回 ： 1
+//        	//       如果是 
+//            boolean isComment=false;
+//            if(list.size()>0){ //评论过
+//            	
+//            	System.out.println("-======================");
+//            	
+//                for(int i=0;i<list.size();i++){  
+//                    if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
+//                        isComment=true;
+//                        isViewStars=2;
+//                        break;
+//                    }
+//                }
+//                if(!isComment){ //购买过没有评论
+//                    isViewStars=1;
+//                }
+//            }else{  
+//            	
+//            	System.out.println("--------------------------");
+//            	
+//            	StringBuffer sqlStr = new StringBuffer();
+//            	sqlStr.append(" SELECT count(*) as count from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
+//            	sqlStr.append(" and argc.user_id=:createPerson  ");
+//            	List<Map<String, Object>> listArgs= this.getNamedParameterJdbcTemplate().queryForList(sqlStr.toString(), paramMap);
+//            	 //没有评论过，但是购买过
+//                if(listArgs.size()>0){
+//                    String  count = listArgs.get(0).get("count").toString();
+//                    int s =Integer.parseInt(count);
+//                    if(s>0){
+//                        isViewStars=1;
+//                    }
+//                }
+//
+//
+//            }
+//        }
+//        return isViewStars;
+    }
+    
+    
+    /**
+     * 
+     * Description：通过课程id得到这个专辑的信息
+     * @param courseId
+     * @param userId
+     * @return
+     * @return List<Integer>
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+    public List<Integer>  getCoursesIdListByCollectionId(Integer courseId) {
+    	
+        String sql="SELECT \n" +
+                "  oc.`id` \n"+ 
+                "FROM\n" +
+                "  `oe_course` oc \n" +
+                "  JOIN `collection_course` cc \n" +
+                "    ON oc.id = cc.`course_id` \n" +
+                "WHERE cc.`collection_id` = "+courseId+" \n";
+        List<Integer> list = this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql, Integer.class);
+        return list;
+       
+    }
+    
+    
+    /**
+     * 
+     * Description：判断用户是否已经购买过
+     * @param courseId
+     * @param userId
+     * @return
+     * @return Boolean true 购买  false 未购买
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+    public Boolean  checkUserIsBuyCourse(Integer courseId,String userId) {
+        StringBuffer sql = new StringBuffer();
+        sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =?");
+        sql.append(" and argc.user_id=?  and argc.order_no is not null limit 1 ");
+        Object [] obj  ={courseId,userId};
+        int count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
+        		sql.toString(),Integer.class,obj);
+        if(count>0){
+        	return true;
+        }else{
+        	return false;
+        }
+    }
+    
+    
+    
+    public static void main(String[] args) throws IllegalAccessException {
+		
+   	 BigDecimal totalAmount = new BigDecimal(1);  
+   	 totalAmount =totalAmount.add(new BigDecimal(1));
+   	 totalAmount =totalAmount.add(new BigDecimal(1));
+//   	 System.out.println(totalAmount.toString());
+   	 System.out.print(divCount(6d,3d,1));
+   	 BigDecimal b1 = new BigDecimal("6");  
+   	 BigDecimal b2 = new BigDecimal("3");  
+   	 //rslt = b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+   	// System.out.println(b1.divide(b2, 1, BigDecimal.ROUND_HALF_UP).doubleValue());
+	}
 
 
 }

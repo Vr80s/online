@@ -7,7 +7,7 @@ public class VersionCompareUtil {
     /**
      *  int diff = VersionCompareUtil.compareVersion(最新版本号, 用户的版本号);
      if (diff <= 0) {
-     return 已是最新版本
+     	return 已是最新版本
      }
      Map<String, Object> dataMap = new HashMap<String, Object>();
      dataMap.put("newVersion", newVersion);
@@ -36,6 +36,6 @@ public class VersionCompareUtil {
     
     public static void main(String[] args) {
 		
-    	System.out.println(compareVersion("1.1.2","1.1.2"));
+    	System.out.println(compareVersion("1.1.1","1.1.2"));
 	}
 }

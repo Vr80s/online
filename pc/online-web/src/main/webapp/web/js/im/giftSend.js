@@ -129,6 +129,9 @@ $(document).ready(function() {
 		//右侧送礼物代码
 		//点击渲染的图片时
 		$('#gifList li').click(function(){
+			$('#gifList li').removeClass('giftSelectColor');
+			$(this).addClass('giftSelectColor');
+			
 			//获取最新的时间
 			var newtime = new Date();
 			//下面的小图标获取对应的图片url
@@ -174,8 +177,7 @@ $(document).ready(function() {
 			var msgJson = {
 					channel:1,
 					giftId:selectGift.id,
-					count:gifNumber,
-//					count:selectGift.count,
+					count:1,
 					clientType:1,
 					liveId:course_id,
 					receiver:teacherId,
@@ -186,13 +188,13 @@ $(document).ready(function() {
         			sendMsg(data.resultObject);
         			refreshBalance();
 				}else{
-//					 alert("余额不足");
-					 $('.mask3').text('余额不足').fadeIn(400,function(){
-							
-							setTimeout(function(){
-								$('.mask3').fadeOut()
-							},1000)
-						});
+					// if("余额不足"==data.errorMessage){
+                        $('.mask3').text(data.errorMessage).fadeIn(400,function(){
+                            setTimeout(function(){
+                                $('.mask3').fadeOut()
+                            },1000)
+                        });
+					// }
 				}
 			});
 //			$("#chat-content").val('');
@@ -234,7 +236,7 @@ function createGiftList(data){
 				"<span>"+data.giftInfo.name+"</span>" +
 				"</div>" +
 				"<div class='imgNum'><img style='position: absolute;width: 54px;right: 25px;height: 54px;' src="+data.giftInfo.smallimgPath+">" +
-				"<span style=' position: absolute; right: 0;top: 20px'>X"+data.giftInfo.continuousCount+"</span>" +
+				"<span style=' position: absolute; right: 0;top: 20px'>X1</span>" +
 				"</div>" +
 		"</li>")
 		$('#chat-list').append(li);
@@ -245,34 +247,39 @@ function createGiftList(data){
 		if(data.giftInfo.time==null)return;
 		
 		if(parseInt(sendTime)>parseInt(data.giftInfo.time))return;
-		queue.push(data);
-		createGiftShow();
+		if($("#"+data.senderInfo.userId+data.giftInfo.giftId).length>0){
+            giftShow(data,$("#"+data.senderInfo.userId+data.giftInfo.giftId).attr("xh"),true);
+		}else{
+            queue.push(data);
+            createGiftShow();
+		}
+
+
 	}else if(data.messageType==0){//打赏
 	//右侧生成打赏得礼物
-			var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
-			li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;' >" +
-					"<div class='headImg' style='float: left;'>" +
-				 	"  <img style ='width:54px;height:54px;border-radius: 60px;margin-right: 10px;' src='"+data.senderInfo.avatar+"'>" +
-				    " </div>" +
-					"<div class='sender-gif'>" +
-					"<p>"+data.senderInfo.userName+"：</p>" +
-					"<span>打赏给主播&nbsp;&nbsp;红包</span>&nbsp;&nbsp;" +
-					"</div>" +
-					"<div class='imgNum'><img src='../../../images/hongbao.png' style='position: absolute;width: 54px;height: 54px;right: 25px;'>" +
-					"</div>" +
-			"</li>")
-			$('#chat-list').append(li);
-			var a = $('#chat-list');
-			a.scrollTop(a[0].scrollHeight);
-		console.info("打赏："+data)
-		if(parseInt(sendTime)>parseInt(data.rewardInfo.time))return;
-        $(".dashang").html(data.rewardTotal);
-		queue.push(data);
-		createGiftShow();
-		if(data.senderInfo.userId==userId){
-			rewardClose();
-//			展示打赏的弹幕
-		}
+	// 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
+	// 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;' >" +
+	// 				"<div class='headImg' style='float: left;'>" +
+	// 			 	"  <img style ='width:54px;height:54px;border-radius: 60px;margin-right: 10px;' src='"+data.senderInfo.avatar+"'>" +
+	// 			    " </div>" +
+	// 				"<div class='sender-gif'>" +
+	// 				"<p>"+data.senderInfo.userName+"：</p>" +
+	// 				"<span>打赏给主播&nbsp;&nbsp;红包</span>&nbsp;&nbsp;" +
+	// 				"</div>" +
+	// 				"<div class='imgNum'><img src='../../../images/hongbao.png' style='position: absolute;width: 54px;height: 54px;right: 25px;'>" +
+	// 				"</div>" +
+	// 		"</li>")
+	// 		$('#chat-list').append(li);
+	// 		var a = $('#chat-list');
+	// 		a.scrollTop(a[0].scrollHeight);
+	// 	console.info("打赏："+data)
+	// 	if(parseInt(sendTime)>parseInt(data.rewardInfo.time))return;
+     //    $(".dashang").html(data.rewardTotal);
+	// 	queue.push(data);
+	// 	createGiftShow();
+	// 	if(data.senderInfo.userId==userId){
+	// 		rewardClose();
+	// 	}
 	}
     //console.log(gift)
 }
@@ -288,8 +295,10 @@ function autoLogin(){
 var f1 = true;
 var f2 = true;
 var f3 = true;
+var f4 = true;
 
 function createGiftShow(){
+
 	//若f1位可用，。。。
 	if(f1){
 		f1=false;
@@ -302,12 +311,17 @@ function createGiftShow(){
 		//将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
 		giftShow(gift,2);
 	}else if(f3){//若f2位可用，。。。
-		f3=false;
-		var gift = queue.pop();
-		//将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
-		giftShow(gift,3);
-	}else if(!f1&&!f2&&!f3&&queue.size()>0){
-		setTimeout(function(){createGiftShow();},4000);
+        f3=false;
+        var gift = queue.pop();
+        //将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
+        giftShow(gift,3);
+    }else if(f4){//若f2位可用，。。。
+        f4=false;
+        var gift = queue.pop();
+        //将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
+        giftShow(gift,4);
+    }else if(!f1&&!f2&&!f3&&queue.size()>0){
+		setTimeout(function(){createGiftShow();},1000);
 	}
 }
 
@@ -318,31 +332,56 @@ function countChange(){
 		count=2;
 		return 350;
 	}else if(count==2){
-		count=3;
-		return 300;
-	}else{
+        count=3;
+        return 300;
+    }else if(count==3){
+        count=4;
+        return 250;
+    }else{
 		count=1;
-		return 250;
+		return 200;
 	}
 }
 var gif=[];    
 var num=[];	
 var min=[];	
-var addn=[];
-function giftShow(gift,f){
+// var addn=[];
+var sto=[];
+function clearGift(f){
+    gif[f].remove();
+    $("#gift"+f).remove();
+    if(f == 1){
+        f1 = true;
+    }else if(f == 2){
+        f2 = true;
+    }else if(f == 3){
+        f3 = true;
+    }else{
+        f4 = true;
+    }
+}
+function giftShow(gift,f,continuous){
+    if(continuous){
+        $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
+        // clearTimeout(sto[f]);
+        // $("#gift"+f).appendTo($("#boxDom"));
+        // sto[f] = setTimeout(function (){
+        //     clearGift(f);
+        // },3000);
+        $('.addnum'+f).data("sto",new Date().getTime())
+        return;
+    }
 	var colors = ["red", "green", "hotpink", "pink", "cyan", "yellowgreen", "purple", "deepskyblue"];
    
     if(gift.messageType==1){
 	    var top=countChange()
-    	gif[f] = $( "<div class='big' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
+    	gif[f] = $( "<div class='big' id='gift"+f+"' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
     			"<div class='left' style='height: 100%;display: inline-block;vertical-align: top;'>" +
     			"<span>"+gift.senderInfo.userName+"</span>&nbsp;" +
     			"<span>送&nbsp;"+gift.giftInfo.name+"</span>" +
     			"</div><img src="+gift.giftInfo.smallimgPath+" style='height: 54px;width:54px;margin-left: 10px;'>" +
-    			"<span class='' style='height: 100%;display: inline-block;vertical-align: top;margin-left: 10px;color: white;font-size: 24px;'>x<i class='addnum"+f+"' style='font-size: 30px;font-weight: 700;'>1</i></span>" +
+    			"<span class='' style='height: 100%;display: inline-block;vertical-align: top;margin-left: 10px;color: white;font-size: 24px;'>x<i class='addnum"+f+"' style='font-size: 30px;font-weight: 700;' id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"'>"+gift.giftInfo.continuousCount+"</i></span>" +
     	"</div>")	
-    	
-    	
     }else if(gift.messageType==0){
     	var top=countChange()
     	gif[f] = $( "<div class='big' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
@@ -353,6 +392,7 @@ function giftShow(gift,f){
     	"</div>")	
     	
     }
+
     //礼物弹幕生成效果
     	 gif[f].appendTo($("#boxDom"))
     	   .css("color", colors[Math.floor(Math.random() * 8)])
@@ -360,108 +400,33 @@ function giftShow(gift,f){
     	   .animate({// 设置运动
     	       "left": "50px"
     	     }, 500, "linear", function () {
-    	    	 if(gift.giftInfo!=null){
-    	    		 num[f] = gift.giftInfo.count;
-    	    	 }else{
-    	    		 num[f] = 100;
-    	    	 }
-    	    	 min[f] = 0;
-    	    	 addn[f] = parseInt(Math.floor(num[f]/100));
-    	    	 
     	    	 if(f==1){
-    	    		 if(num[f] < 100){  		 
-        	    		 var s1 = setInterval(function(){
-        	    				if(min[f]<num[f]){
-        	    					min[f]++;
-        	    					$('.addnum'+f).html(min[f])
-        	    				}else{
-        	    					clearInterval(s1);
-        	    					setTimeout(function (){
-        	    						clearGift();
-        	    					},1000);
-        	    				}
-        	    				},3000/num[f])
-        	    	 }else{
-        	    		 var s1 = setInterval(function(){
-     	    		    	if(min[f]<num[f]){
-     	    		    		min[f]+=addn[f];
-     	    		    		$('.addnum'+f).html(min[f])	    		    		
-     	    		    	}else{
-     	    		    		$('.addnum'+f).html(num[f])
-     	    		    		clearInterval(s1);
-     	    		    		setTimeout(function (){
-    	    						clearGift();
-    	    					},1000);
-     	    		    	}
-     	    		    	},2500/100)
-        	    	 }
+                     $('.addnum'+f).html(gift.giftInfo.continuousCount);
+                     $('.addnum'+f).data("sto",new Date().getTime())
+                     // sto[1] = setTimeout(function (){
+                     //     clearGift(f);
+                     // },3000);
     	    	 }else if(f==2){
-    	    		 if(num[f] < 100){  		 
-        	    		 var s2 = setInterval(function(){
-        	    				if(min[f]<num[f]){
-        	    					min[f]++;
-        	    					$('.addnum'+f).html(min[f])
-        	    				}else{
-        	    					clearInterval(s2);
-        	    					setTimeout(function (){
-        	    						clearGift();
-        	    					},1000);
-        	    				}
-        	    				},3000/num[f])
-        	    	 }else{
-        	    		 var s2 = setInterval(function(){
-     	    		    	if(min[f]<num[f]){
-     	    		    		min[f]+=addn[f];
-     	    		    		$('.addnum'+f).html(min[f])	    		    		
-     	    		    	}else{
-     	    		    		$('.addnum'+f).html(num[f])
-     	    		    		clearInterval(s2);
-     	    		    		setTimeout(function (){
-    	    						clearGift(f);
-    	    					},1000);
-     	    		    	}
-     	    		    	},2500/100)
-        	    	 }
-    	    	 }else{
-    	    		 if(num[f] < 100){  		 
-        	    		 var s3 = setInterval(function(){
-        	    				if(min[f]<num[f]){
-        	    					min[f]++;
-        	    					$('.addnum'+f).html(min[f])
-        	    				}else{
-        	    					clearInterval(s3);
-        	    					setTimeout(function (){
-        	    						clearGift(f);
-        	    					},1000);
-        	    				}
-        	    				},3000/num[f])
-        	    	 }else{
-        	    		 var s3 = setInterval(function(){
-     	    		    	if(min[f]<num[f]){
-     	    		    		min[f]+=addn[f];
-     	    		    		$('.addnum'+f).html(min[f])	    		    		
-     	    		    	}else{
-     	    		    		$('.addnum'+f).html(num[f])
-     	    		    		clearInterval(s3);
-     	    		    		setTimeout(function (){
-    	    						clearGift(f);
-    	    					},1000);
-     	    		    	}
-     	    		    	},2500/100)
-        	    	 }
+                     $('.addnum'+f).html(gift.giftInfo.continuousCount);
+                     $('.addnum'+f).data("sto",new Date().getTime())
+                     // sto[2] = setTimeout(function (){
+                     //     clearGift(f);
+                     // },3000);
+                 }else if(f==3){
+                     $('.addnum'+f).html(gift.giftInfo.continuousCount);
+                     $('.addnum'+f).data("sto",new Date().getTime())
+                     // sto[3] = setTimeout(function (){
+                     //     clearGift(f);
+                     // },3000);
+                 }else{
+                     $('.addnum'+f).html(gift.giftInfo.continuousCount);
+                     $('.addnum'+f).data("sto",new Date().getTime())
+                     // sto[4] = setTimeout(function (){
+                     //     clearGift(f);
+                     // },3000);
     	    	 }
-    	    	 
-    	    	function clearGift(){
-		    		 gif[f].remove();
-		    		 if(f == 1){
-		    			 f1 = true;
-		    		 }else if(f == 2){
-		    			 f2 = true;
-		    		 }else{
-		    			 f3 = true;
-		    		 }
-    	    	}
     	     });
+
 }
 /**
  * [Queue]
@@ -552,4 +517,23 @@ $(document).on('click','.gif-num',function(){
 	
 	
 })
-
+$(function () {
+    setInterval(function(){
+        for(var i=1;i<5;i++){
+            var t = new Date().getTime()-$('.addnum'+i).data("sto");
+            if(t>3000){
+            	var f = $('.addnum'+i).attr("xh");
+                if(f == 1){
+                    f1 = true;
+                }else if(f == 2){
+                    f2 = true;
+                }else if(f == 3){
+                    f3 = true;
+                }else{
+                    f4 = true;
+                }
+                $("#gift"+i).remove();
+			}
+        }
+    },500)
+});

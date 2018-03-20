@@ -1,0 +1,401 @@
+*{margin: 0; padding: 0;}
+.z{float: left;}
+.y{float: right;}
+body{color: #333333;font-size: 0.28rem;font-family: "Helvetica";}
+ul li{list-style: none;}
+a{
+text-decoration: none;
+outline:none;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+p{font-size: 0.28rem;}
+img{display: block;}
+.wp{width: 7.5rem;margin: 0 auto;}
+/*医师认证*/
+.wrap-header{
+	width: 100%;
+	height: 0.88rem;	
+
+}
+.header{
+	width: 7.5rem;
+	height: 0.88rem;	
+	text-align: center;
+	line-height: 0.88rem;
+	overflow: hidden;
+	position: fixed;
+	border-bottom: 1px solid #d8dde6;	
+	background: white;
+	z-index: 10;
+}
+.header p{
+	font-size: 0.36rem;
+	color: #333333;
+	
+}
+.header_news{
+	width: 0.42rem;
+	height:0.38rem;
+	position: absolute;
+	z-index: 10;
+	top: 0.24rem;
+	right:0.28rem;
+}
+.header_news img{
+	width: 0.42rem;
+	height:0.38rem;
+}
+.header_news_rudio{
+	    position: absolute;
+    top: -0.14rem;
+    right: -0.18rem;
+    width: 0.32rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    background: #F97B49;
+    font-size: 0.2rem;
+    text-align: center;
+    color: #fff;
+    border-radius: 60px;
+}
+/*播放历史*/
+.wrap-his-play{
+	width: 100%;
+	padding: 0.3rem 0 0 0.26rem;
+	margin-top: 0.2rem;
+	background: white;
+	box-sizing: border-box;
+	overflow: hidden;
+	display: none;
+}
+.play-title span{
+	float: left;
+	font-size:0.32rem;
+
+}
+.play-title p{
+	float: right;
+	color:#00BC12;
+	margin-right: 0.26rem;
+}
+.play-title{
+	overflow: hidden;
+	margin-bottom: 0.1rem;
+}
+.play_list{
+	width: 100%;
+	
+}
+.play_list ul li{
+	padding: 0.2rem 0;
+	border-bottom: 1px solid #D8DDE6;
+	overflow: hidden;
+}
+.play_list ul li p{
+	width: 5.2rem;
+	float: left;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.play_list ul li span{
+	display: block;
+	float: right;
+	width: 1.5rem;
+	color: #999999;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+margin-right: 0.26rem;
+font-size: 0.24rem;
+text-align: right;
+}
+.play_list ul li:nth-last-child(1){
+	border-bottom: 0;
+}
+/*是否清除历史*/
+.history_bg{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.1);
+        z-index: 3;
+        display: none;
+}
+.history_modal{
+	width: 5rem;
+       height: 2.25rem;
+    background: white;
+    position: fixed;
+    margin-left: -2.5rem;
+    margin-top: -1.3rem;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    z-index: 10;
+    border-radius: 0.2rem;
+    display: none;
+}
+.history_modal p{
+	font-size: 0.32rem;
+    padding: 0.6rem 0 0.43rem;
+    border-bottom: 0.01rem solid #D8DDE6;
+}
+.history_modal ul li{
+	text-align: center;
+	line-height: 0.78rem;
+}
+.history_modal ul li:nth-child(1){
+	width: 2.4rem;
+	border-right: 0.01rem solid #D8DDE6;
+	float: left;
+}
+.history_modal ul li:nth-child(2){
+	width: 2.49rem;
+	color: green;
+	float: right;
+}
+/*是否清除历史结束*/
+.wrap_class{
+	width: 100%;
+	padding: 0.25rem 0 0 0.26rem;
+	margin: 0.2rem 0;
+	background: white;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.my_class_title{
+	font-size: 0.32rem;
+	padding-bottom: 0.2rem;
+
+}
+.my_class_text{
+	    width: 100%;
+    padding: 0.2rem 0.26rem 0.2rem 0;
+    box-sizing: border-box;
+	border-bottom: 0.01rem solid #D8DDE6;
+	    overflow: hidden;
+    
+}
+.my_class_img{
+	width: 2.12rem;
+	height: 1.22rem;
+	margin-right: 0.2rem;
+	position: relative;
+}
+.my_class_img img{
+	width: 100%;
+	height: 100%;
+}
+.little_img{
+width: 0.32rem;
+height: 0.32rem;
+position: absolute;
+top: 0.13rem;
+left: 0.13rem;	
+}
+.text_more{
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 2;
+overflow: hidden;
+margin-bottom: 0.1rem;
+}
+.text_more .span{
+	font-size: 0.22rem;
+    color: #999;
+}
+.my_class_text:nth-last-child(1){
+	border-bottom: 0;
+}
+/*多少集*/
+.my_collection{
+	font-size: 0.22rem;
+color: #999999;
+}
+/*直播中*/
+.paly_ing{
+    font-size: 0.22rem;
+    color: #999;
+}
+.zhibo_play{
+		    border: 1px solid #F97B49;
+border-radius: 3px;
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #F97B49 !important;
+    display: inline-block;
+    margin-left: 0.1rem;
+}
+.paly_ing a{
+	/*color: white;*/
+	
+	width: 0.8rem;
+	height: 0.26rem;
+	background: url("../images/streaming_fie.png") no-repeat;
+	background-size: 100% 100%;
+	display: inline-block;
+	margin-left: 0.1rem;
+	float: left;
+	margin-top: 0.05rem;
+	display: table-cell;
+}
+/*无课程时显示图片*/
+
+.noclassInfo{
+    width: 2.3rem;
+    height: 3.1rem;
+    background: url(../images/no_class.png) no-repeat center;
+    background-size: 100% 100%;
+    margin: 1.5rem auto 0.6rem;	
+}
+.wrap_noClass p{
+	text-align: center;
+	font-size: 0.3rem;
+color: #BBBBBB;
+}
+.wrap_noClass a{
+	padding: 0.08rem 0.3rem;
+	color: #00BC12;
+	display: table;
+	border: 1px solid #00BC12;
+	    border-radius: 4px;
+    margin: 0.2rem auto 0;
+}
+/*关注的主播*/
+.wrap-follow{
+	width: 100%;
+	padding: 0.3rem 0.26rem;
+	margin-top: 0.2rem;
+	background: white;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin-bottom: 0.2rem;
+}
+
+.follow_title{
+	font-size: 0.32rem;
+	color: #2F2F2F;
+}
+.follow_people ul li{
+	width: 1rem;
+	height: 1.39rem;
+	float: left;
+    margin-right: 0.49rem;
+    margin-top: 0.25rem;
+}
+.follow_people ul li:nth-child(5n){
+	margin-right: 0;
+}
+.follow_people ul li P{
+	text-align: center;
+	font-size: 0.22rem;
+	margin-top: 0.09rem;
+	    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.img_people{
+	width: 1rem;
+	height: 1rem;
+}
+.img_people img{
+	width: 100%;
+	height: 100%;
+	border-radius: 100px;
+}
+.no_follow_uesr{
+	display: none;
+	font-size: 0.3rem;
+	color: #999;
+	text-align: center;
+	padding: 0.5rem 0;
+}
+/*底部开始*/
+.footer_perch{
+	width: 100%;
+	height:1rem;
+	/*background: red;*/
+}
+.footer{
+	width: 100%;
+	height: 1rem;
+	background: #fff;
+	/*background: red;*/
+	position: fixed;
+	bottom: 0;
+	z-index: 999;
+	border-top: 1px solid #d8dde6;
+}
+.footer ul li{
+	width: 25%;
+	float: left;
+	text-align: center;
+}
+.footer ul li a{
+	display: block;
+	width: 0.486rem;
+	height: 0.4rem;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 0.06rem;
+	margin-top: 0.14rem;
+}
+.footer ul li p{
+	width: 100%;
+	/*height: 0.468rem;
+	line-height: 0.468rem;*/
+	color: #999;
+	font-size: 0.2rem;
+	text-align: center;
+}
+.footer_one{
+	background: url(../images/school_one.png) no-repeat center;
+	background-size: 0.48rem 0.37rem;
+}
+.footer_two{
+	background: url(../images/learn_two.png) no-repeat center;
+	background-size: 0.38rem 0.38rem;
+	
+}
+.footer_three{
+	background: url(../images/discovery_three.png) no-repeat center;
+	background-size: 0.4rem 0.41rem;
+}
+.footer_four{
+	background: url(../images/my_four.png) no-repeat center;
+	background-size: 0.38rem 0.4rem;
+}
+/*底部结束*/
+/*底部旋转开始*/
+@-webkit-keyframes rotation{
+from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(360deg);}
+}
+
+.rotation_bottom{
+	width: 0.8rem;
+	height: 0.8rem;
+	border-radius: 50px;
+	padding: 0.07rem;
+	background: #fff;
+	position: fixed;
+	right: 0.188rem;
+	bottom: 1.175rem;
+	box-shadow: 0px 0px 14px #F97B49;
+	z-index: 99;
+	
+	-webkit-transform: rotate(360deg);
+	animation: rotation 3s linear infinite;
+	-moz-animation: rotation 3s linear infinite;
+	-webkit-animation: rotation 3s linear infinite;
+	-o-animation: rotation 3s linear infinite;
+}
+.rotation_bottom img{
+	width: 100%;
+	height: 100%;
+	border-radius: 50px;
+}
+/*底部旋转结束*/

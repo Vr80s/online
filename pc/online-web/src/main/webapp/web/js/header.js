@@ -1,4 +1,39 @@
+
+//医师或医馆入口是否展示
+function showDOrH(){
+    //请求判断顶部是否具有我是医师、医馆的入口
+    RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+        if(data.success == true){
+            //判断
+            localStorage.AccountStatus = data.resultObject;
+            if(data.resultObject == 1 ){
+                //医师认证成功
+                $('#docOrHos').text('我是医师');
+                $('#docOrHos').attr('href','/web/html/anchors_resources.html')
+                $('#docOrHos').removeClass('hide');
+            }else if(data.resultObject == 2 ){
+                //医馆认证成功
+                $('#docOrHos').text('我是医馆');
+                $('#docOrHos').attr('href','/web/html/ResidentHospital.html')
+                $('#docOrHos').removeClass('hide');
+            }
+            showAnchorWorkbench();
+        }else if(data.success == false && data.errorMessage == "请登录！" ){
+            $('#docOrHos').addClass('hide');
+        }
+    });
+}
+function showAnchorWorkbench(){
+    RequestService("/anchor/info/hasPower","GET",null,function(data){
+        if(data.success == true){
+            $('#anchorWorkbench').removeClass('hide');
+        }else{
+            $('#anchorWorkbench').addClass('hide');
+        }
+    });
+}
 $(function(){
+
     //解析url地址
     var ourl = document.location.search;
     var url = document.location.host;
@@ -161,7 +196,8 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
 //    	'<a href="javascript:;">语言选择</a>'+
     	
     	'</li>'+
-    	'<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li>'+
+    	'<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>'+
+    	// '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>'+
     	'</ul></div></div>',
         nav:
         	
@@ -190,8 +226,10 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
 //        '<a href="#">师承有道</a>'+
 //        '<a href="#">国医馆</a>'+
         '<a href="/web/html/news.html" class="forum">头条</a>'+
-        '<a href="/web/html/bestPractitioners.html" class="doctor">名医</a>'+
          '<a href="/classroom.html" class="classroom">学堂</a>'+
+        
+        '<a href="/web/html/bestPractitioners.html" class="doctor">名医</a>'+
+
         '<a href="/web/html/clinics.html" class="hospital">医馆</a>'+
         '<a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>'+
 //        '<a href="/web/html/Exhibition.html" target="_blank">作品展</a>'+
@@ -219,7 +257,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<button class="cymyloginbutton">登<em></em>录</button>'+
         '<div class="cymyloginpassword">'+
         '<a class="atOnceRegister" href="/web/html/login.html?ways=register">立即注册</a>'+
-        '<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码?</a>'+
+        '<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码？</a>'+
         '</div>'+
        /* ' <div class="other-login-box">'+
         ' <span>其它方式登录</span>'+
@@ -585,6 +623,10 @@ if (myBrowser() == "IE55") {
                 $(".loginGroup .logout").css("display", "none");
                 $(".loginGroup .login").css("display", "block");
                 $(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
+                //20180205主播信息
+                $(".nickname").text(data.resultObject.name).attr("title", data.resultObject.name);
+                $(".anchor_info").show();
+
                 //首页未读消息总数
                 RequestService("/online/message/findMessageCount","GET",null,function(data){
                     if(data.success==true && data.resultObject.count!=0){
@@ -607,8 +649,8 @@ if (myBrowser() == "IE55") {
                         }
                     }
                 });
-            }
-            else {
+                showDOrH();
+            }else {
                 $('#login').css("display", "none");
                 $(".loginGroup .logout").css("display", "block");
                 $(".loginGroup .login").css("display", "none");
@@ -634,7 +676,7 @@ if (myBrowser() == "IE55") {
 
         $(".form-login .cyinput1").blur(function () {
             var cymyLogin = document.getElementsByClassName("cymlogin")[0];
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             /*var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;*/
             if ($(".form-login .cyinput1").val().trim().length === 0) {
                 $(".cyinput1").css("border", "1px solid #ff4012");
@@ -681,7 +723,7 @@ if (myBrowser() == "IE55") {
         });
         $(".form-login .cyinput2").focus().blur();
         $(".form-login .cymyloginbutton").click(function (evt) { //登录验证
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             /*var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;*/
             var passwordReg = /^(?!\s+)[\w\W]{6,18}$/;//密码格式验证
             $(".cyinput1").css("border", "");
@@ -723,7 +765,7 @@ if (myBrowser() == "IE55") {
         });
 
         function login(data, autoLogin) {
-            RequestService("/online/user/login", "POST", data, function (result) { //登陆/index.html   /online/user/login
+            RequestService("/online/user/login", "POST", data, function (result) { //登录/index.html   /online/user/login
                 if (result.success === true || result.success == undefined) {
                 
                 	
@@ -739,13 +781,13 @@ if (myBrowser() == "IE55") {
                      * 获取当前页面
                      */
                     var current = location.href;
-                    debugger;
+//                  debugger;
                     if(current.indexOf("otherDevice.html")!=-1){
                     	
                     	window.location.href="/index.html";
                     }
                     
-                } else { //登陆错误提示
+                } else { //登录错误提示
                     $(".loginGroup .logout").css("display", "block");
                     errorMessage(result.errorMessage);
                     if (!flag) {

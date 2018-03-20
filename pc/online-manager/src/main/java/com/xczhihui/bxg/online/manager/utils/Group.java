@@ -158,49 +158,49 @@ public class Group {
 	public void setTempType(String tempType) throws ParseException {
 		this.tempType = tempType;
 		
-		if (tempType.toString().toUpperCase().equals("INTEGER")) {
+		if ("INTEGER".equals(tempType.toString().toUpperCase())) {
 			Float obj = Float.valueOf(propertyValue1.toString());
 			propertyValue1 = obj.intValue();
 			if (propertyValue2 != null) {
 				propertyValue2 = Integer.valueOf(propertyValue1.toString());
 			}
-		} else if (tempType.toString().toUpperCase().equals("FLOAT")) {
+		} else if ("FLOAT".equals(tempType.toString().toUpperCase())) {
 			propertyValue1 = Float.valueOf(propertyValue1.toString());
 			if (propertyValue2 != null) {
 				propertyValue2 = Float.valueOf(propertyValue1.toString());
 			}
-		} else if (tempType.toString().toUpperCase().equals("DOUBLE")) {
+		} else if ("DOUBLE".equals(tempType.toString().toUpperCase())) {
 			propertyValue1 = Double.valueOf(propertyValue1.toString());
 			if (propertyValue2 != null) {
 				propertyValue2 = Double.valueOf(propertyValue1.toString());
-			} else if (tempType.toString().toUpperCase().equals("YYDATE")) {
+			} else if ("YYDATE".equals(tempType.toString().toUpperCase())) {
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				propertyValue1 = simpleDateFormat.parse(propertyValue1.toString());
 				if (propertyValue2 != null) {
 					propertyValue2 = simpleDateFormat.parseObject(propertyValue2.toString());
 				}
-			} else if (tempType.toString().toUpperCase().equals("LONG")) {
+			} else if ("LONG".equals(tempType.toString().toUpperCase())) {
 				propertyValue1 = Long.valueOf(propertyValue1.toString());
 				if (propertyValue2 != null) {
 					propertyValue2 = Long.valueOf(propertyValue1.toString());
 				}
-			} else if (tempType.toString().toUpperCase().equals("BOOLEAN")) {
+			} else if ("BOOLEAN".equals(tempType.toString().toUpperCase())) {
 				propertyValue1 = Boolean.valueOf(propertyValue1.toString());
 				if (propertyValue2 != null) {
 					propertyValue2 = Boolean.valueOf(propertyValue1.toString());
 				}
-			} else if (tempType.toString().toUpperCase().equals("DOUBLE")) {
+			} else if ("DOUBLE".equals(tempType.toString().toUpperCase())) {
 				propertyValue1 = Double.valueOf(propertyValue1.toString());
 				if (propertyValue2 != null) {
 					propertyValue2 = Double.valueOf(propertyValue1.toString());
 				}
 			}
-		} else if (tempType.toString().toUpperCase().equals("BOOLEAN")) {
+		} else if ("BOOLEAN".equals(tempType.toString().toUpperCase())) {
 			propertyValue1 = Boolean.valueOf(propertyValue1.toString());
 			if (propertyValue2 != null) {
 				propertyValue2 = Boolean.valueOf(propertyValue1.toString());
 			}
-		} else if (tempType.toString().toUpperCase().equals("DATE")) {
+		} else if ("DATE".equals(tempType.toString().toUpperCase())) {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			propertyValue1 = simpleDateFormat.parse(propertyValue1.toString());
 			if (propertyValue2 != null) {

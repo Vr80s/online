@@ -20,6 +20,7 @@
 		<aspectjweaver.version>1.8.8</aspectjweaver.version>
 		<fileupload.version>1.3.1</fileupload.version>
 		<jstl.version>1.2</jstl.version>
+		<jedis.version>2.9.0</jedis.version>
 	</properties>
 
 	<dependencies>
@@ -151,11 +152,11 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.slf4j</groupId>-->
+			<!--<artifactId>slf4j-log4j12</artifactId>-->
+			<!--<version>${slf4j.version}</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -198,6 +199,10 @@
 					<groupId>log4j</groupId>
 					<artifactId>log4j</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -211,9 +216,58 @@
             <artifactId>online-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>online-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<!-- <version>4.3.2</version> -->
+			<version>4.4.5</version>
+		</dependency>
+
+		<!--jedis-->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.8.6.RELEASE</version>
+		</dependency>
+	</dependencies>
 
 	<profiles>
+		<profile>
+			<id>dev-local</id>
+			<properties>
+				<env>env-dev-local</env>
+			</properties>
+		</profile>
+
+
 		<profile>
 			<id>dev</id>
 			<properties>

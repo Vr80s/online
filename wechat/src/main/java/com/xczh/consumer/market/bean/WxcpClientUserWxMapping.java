@@ -16,7 +16,7 @@ public class WxcpClientUserWxMapping implements Serializable {
 	/**会员id;**/
 	 private String client_id;
 
-	/**用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息，只有openid和UnionID（在该公众号绑定到了微信开放平台账号时才有）。**/
+	/**用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息，只有openid和UnionID（在该公众号绑定到了微信开放平台帐号时才有）。**/
 	 private String subscribe;
 
 	/**用户的标识，对当前公众号唯一**/
@@ -205,4 +205,19 @@ public class WxcpClientUserWxMapping implements Serializable {
 	public void setWx_public_name(String wx_public_name) {
 		this.wx_public_name = wx_public_name;
 	}
+
+	@Override
+	public String toString() {
+		return "WxcpClientUserWxMapping [wx_id=" + wx_id + ", client_id="
+				+ client_id + ", subscribe=" + subscribe + ", openid=" + openid
+				+ ", openname=" + openname + ", nickname=" + nickname
+				+ ", sex=" + sex + ", city=" + city + ", country=" + country
+				+ ", province=" + province + ", language=" + language
+				+ ", headimgurl=" + headimgurl + ", subscribe_time="
+				+ subscribe_time + ", unionid=" + unionid + ", remark="
+				+ remark + ", groupid=" + groupid + ", wx_public_id="
+				+ wx_public_id + ", wx_public_name=" + wx_public_name + "]";
+	}
+
+
 }

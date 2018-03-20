@@ -54,7 +54,7 @@ class TokenManager {
 		token.setType(user.getType());
 		token.setEmail(user.getEmail());
 		token.setNickName(user.getNikeName());
-
+		token.setPassWord(user.getPassword());
 		token.setUuid(user.getUuid());
 		token.setHeadPhoto(user.getHeadPhoto());
 
@@ -131,6 +131,10 @@ class TokenManager {
 		token.setMobile(user.getMobile());
 		token.setType(user.getType());
 		token.setEmail(user.getEmail());
+		token.setNickName(user.getNikeName());
+		token.setPassWord(user.getPassword());
+		token.setUuid(user.getUuid());
+		token.setHeadPhoto(user.getHeadPhoto());
 		/*String userRedisKey="tuk_"+user.getId();
 		this.cacheService.set(userRedisKey, token, expires);*/
 		return token;

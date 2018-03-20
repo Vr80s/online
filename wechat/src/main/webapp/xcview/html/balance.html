@@ -1,0 +1,169 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>余额</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" type="text/css" href="../css/swipeslider.css">
+
+
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+
+window.onload=function(){
+	var aBtn=$('.index_list_div1');
+      for(i=0;i<aBtn.length;i++){
+        $(aBtn[i]).click(function(){
+          for(i=0;i<aBtn.length;i++){
+            $(aBtn[i]).removeClass('index_list_div1');
+            $(aBtn[i]).addClass('line_top_live_div');
+          }
+          $(this).removeClass();
+          $(this).addClass('index_list_div1');
+        })
+     }
+
+      $(aBtn[0]).click();
+}
+</script>
+<style>
+	.attention_left{
+		float: left;
+	    height: 1.875rem;
+	    width: 1.5rem;
+	}
+	.deposit_cen_auto{
+		min-width: 6.1rem;
+	}
+	.deposit{
+		width: 100%;
+	    min-height: 3.4rem;
+	    background: #fff;
+	    margin-bottom: 0.25rem;
+	    padding-bottom: 0.8rem;
+	}
+	.deposit_chongzhi{
+		width: 10.65rem;
+	    height: 1.5rem;
+	    line-height: 1.5rem;
+	    background: #00bc12;
+	    color: #fff;
+	    font-size: 0.7rem;
+	    text-align: center;
+	    margin: 0 auto;
+	    margin-bottom: 0.53rem;
+	    margin-top: 0.4rem;
+	    border-radius: 6px;
+	}
+</style>
+</head>
+<body style="background:#efefef;">
+	<div class="attention_top" style="border: none;">
+		<div class="attention_left" id="grabble_img" onclick="history.go(-1)"><div class="return"></div></div>
+		
+		<div class="dl" style="padding-top1: 0.2rem;">余额</div>
+	</div>
+	<div class="both"></div>
+	<!--<div class="deposit">
+		<div class="deposit_cen" style="margin-top: 2.2rem;">
+			<div class="deposit_cen_border">
+				<div class="deposit_cen_auto">
+					<div class="deposit_cen_size"><span style="display: inline-flex;margin-right: 0.2rem;"><img src="../images/account01.png" alt="" style="width: 0.85rem;height: 0.825rem;" /> </span><span>余额:</span> &nbsp;&nbsp;<span id="xmb"></span> &nbsp;熊猫币</div>
+				</div>
+			</div>
+			<div class="deposit_cen_size01" id="jiangshidiv1">(可提现人民币：<span id="rmb"></span>元，<span onclick="location.href='convert.html'">详情</span>)</div>
+			<div class="deposit_chongzhi" onclick="location.href ='echarge.html'">充 值</div>
+			<div class="deposit_tiixan" id="jiangshidiv2" onclick="location.href ='withdraw.html'">提 现</div>
+		</div>
+	</div>-->
+	
+	
+	<div class="deposit">
+		<div class="deposit_cen">
+			<div class="deposit_cen_border">
+			<div class="deposit_cen_auto">
+				
+				<div class="deposit_cen_size">
+					<div class="deposit_cen_img1"><span style="display: inline-flex;margin-right: 0.2rem;"> </span>余额</div>
+					
+				</div>
+			</div>
+			</div>
+			<div class="panda_coin"><img src="../images/account01.png" alt="" style="width: 0.975rem;height: 1rem;" /><span id="xmb"></span></div>
+			<div class="deposit_cen_size01" id="jiangshidiv1">(可提现人民币：<span id="rmb"></span>元，<span onclick="location.href='convert.html'">详情</span>)</div>
+			<div class="deposit_chongzhi" onclick="location.href ='echarge.html'">充 值</div>
+			<div class="deposit_tiixan" id="jiangshidiv1" onclick="location.href ='withdraw.html'" style="display: block !important;">提 现</div>
+		</div>
+	</div>
+	
+	
+	
+</body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script>
+
+    /**
+     * 初始化显示可提现金额
+	 *
+	 * 讲师显示可提现余额等功能
+     */
+    function init(){
+    	
+      	requestService("/bxg/bs/isLecturer", {orderId:1}, function(data) {
+      		 if (data.success) {
+                 var result = data.resultObject;
+					if(result==0){
+                     var i=0;
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+					}else{
+						$(".zhongzhi").css("border-bottom","1px solid #e5e5e5");
+					}	
+             }
+            
+   		})		
+
+
+   		requestService("/bxg/enchash/getEnchashmentRmbBalance", {orderId:1}, function(data) {
+	   		 if (data.success) {
+	             var result = data.resultObject;
+	
+	             $("#rmb").html(result);
+	         }
+   		})	
+   	
+   		requestService("/bxg/enchash/getEnchashmentBalance", {orderId:1}, function(data) {
+	   		 if (data.success) {
+	             var result = data.resultObject;
+	             $("#xmb").html(result);
+	         }
+   		})	
+   		
+    }
+
+    init();
+
+
+
+</script>
+</html>

@@ -32,7 +32,8 @@ final public class UserLoginUtil {
 	 * @return
 	 */
 	public static BxgUser getLoginUser(HttpServletRequest request) {
-		return (BxgUser) (request.getSession().getAttribute(SESSION_USER));
+		BxgUser bxgUser = (BxgUser) (request.getSession().getAttribute(SESSION_USER));
+		return bxgUser;
 	}
 
 	/**

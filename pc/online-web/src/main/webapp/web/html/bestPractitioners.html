@@ -35,7 +35,7 @@
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="/web/js/header.js?v=1.2" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
     <!--百度统计-->
     <script>
@@ -49,6 +49,12 @@
     </script>
 </head>
 <body>
+	<!--提示-->
+	<div id="tip" style="display: none;">
+		您已完成了医馆注册，不能进行医师注册!
+	</div>
+	
+	
 <div id="forum" class="clearfix">
     <div class="forum-banner">
         <div class="banner">
@@ -181,7 +187,7 @@
             </div>
             
             <div class="doctor_list clearfix" id="doc_lis3">
-            <h2>中青年名中医</h2>
+            <h2>名青年中医</h2>
             <a href="/web/html/practitionerListing.html?name=&type=1" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
             <ul class="doctor_inf" id="mingqing">
 				<!--<li>
@@ -306,7 +312,7 @@
         
         <div class="forum-hosJoin hide">
                 <p>期待有志于传承和发展中医药的医馆加入</p>
-               <button>医官入住</button>
+              	<a href="javascript:;" id="toDocJoin">医师入驻</a>
             </div>
             
           
@@ -317,7 +323,7 @@
                 	<button class="search_hos_btn">搜索</button>
                  	<input class="search_hos" type="text" placeholder="请输入名字搜索医师">
                 </div>
-                <p>按擅长领域搜索</p>
+                <p>按热门科室搜索</p>
                 <ul class="forum-hot-tagGround">
 
                 </ul>
@@ -529,7 +535,7 @@
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/doctor.js"></script>
-<script type="text/javascript" src="/web/js/footer.js"></script>
+<script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript">
     $(function () {

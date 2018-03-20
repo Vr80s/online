@@ -1,21 +1,30 @@
 package com.xczhihui.bxg.online.manager.user.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.common.web.util.EmailUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.manager.user.dao.OnlineUserDao;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 @Service("onlineUserService")
 public class OnlineUserServiceImpl implements OnlineUserService {
+
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private OnlineUserDao dao;
@@ -86,4 +95,49 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		OnlineUser ou = dao.getOnlineUserByUserId(userId);
 		return ou;
 	}
+
+	@Override
+	public List<Map<String, Object>> getAllCourseName() {
+		return dao.getAllCourseName();
+	}
+
+	@Override
+	public void updateUserLogin(String userId, String loginName) {
+		if(StringUtils.isBlank(userId)||StringUtils.isBlank(loginName)){
+			throw new RuntimeException("参数不全啊，小伙子");
+		}
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		String date = df.format(new Date());
+		String newLoginName = loginName+"-"+date;
+
+		//更新用户表中的密码
+		OnlineUser o = getOnlineUserByUserId(userId);
+		if(o==null){
+			throw new RuntimeException("用户id你蒙的？");
+		}
+		if(!o.getLoginName().equals(loginName)){
+			throw new RuntimeException("用户id与手机号不对应");
+		}
+		o.setLoginName(newLoginName);
+		dao.update(o);
+		//更新用户信息
+		api.updateLoginName(loginName,newLoginName);
+		
+		String sql_wx = "delete from wxcp_client_user_wx_mapping where client_id = ?";
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wx, new Object[]{userId});
+		
+
+		String sql_wb = "delete from weibo_client_user_mapping where user_id = ?";
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wb, new Object[]{userId});
+		
+		String sql_qq = "delete from qq_client_user_mapping where user_id = ?";
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_qq, new Object[]{userId});
+		
+		try {
+			EmailUtil.modifyLoginNameMailBySSL("原账号"+loginName+"==>"+newLoginName);
+		} catch (Exception e) {
+			logger.error("发送modifyUser邮件失败");
+		}
+	}
+
 }

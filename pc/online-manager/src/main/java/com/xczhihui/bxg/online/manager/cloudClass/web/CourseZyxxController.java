@@ -49,11 +49,11 @@ public class CourseZyxxController extends AbstractController{
 		request.setAttribute("scoreTypeVo", scoreTypeVos);
 		
 		//在列表初始化时查找出授课方式
-		List<TeachMethod> teachMethodVos= courseService.getTeachMethod();
-		request.setAttribute("teachMethodVo", teachMethodVos);
+//		List<TeachMethod> teachMethodVos= courseService.getTeachMethod();
+//		request.setAttribute("teachMethodVo", teachMethodVos);
 		
-		List<LecturerVo> lecturers = courseService.getLecturers();
-		request.setAttribute("lecturerVo", lecturers);
+//		List<LecturerVo> lecturers = courseService.getLecturers();
+//		request.setAttribute("lecturerVo", lecturers);
 		request.setAttribute("type", 1);
 		
 		
@@ -61,7 +61,7 @@ public class CourseZyxxController extends AbstractController{
 		//OnlineUserService
 		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
-			String str = "昵称:"+map.get("name").toString() + ",账号:"+map.get("logo").toString();
+			String str = "昵称:"+map.get("name").toString() + ",帐号:"+map.get("logo").toString();
 			map.put("name", str);
 		}
 		request.setAttribute("mapList", mapList);

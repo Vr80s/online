@@ -242,7 +242,7 @@ public class SimpleHibernateDao {
 
 	/**
 	 * 将sql查询的结果转成一个整数。
-	 * 
+	 *
 	 * @param sql
 	 * @param args
 	 * @return
@@ -250,6 +250,11 @@ public class SimpleHibernateDao {
 	public int queryForInt(String sql, Object... args) {
 		Number number = this.namedParameterJdbcTemplate.getJdbcOperations().queryForObject(sql, args, Integer.class);
 		return (number != null ? number.intValue() : 0);
+	}
+
+	public Double queryForDouble(String sql, Object... args) {
+		Number d = this.namedParameterJdbcTemplate.getJdbcOperations().queryForObject(sql, args, Double.class);
+		return (d != null ? d.doubleValue(): 0);
 	}
 
 	/**
@@ -305,7 +310,8 @@ public class SimpleHibernateDao {
 		final int totalCount = this.getTotal(hql, paramList, valueList);
 
 		List<T> list = this.hibernateTemplate.executeWithNativeSession(new HibernateCallback<List<T>>() {
-			public List<T> doInHibernate(Session session) throws HibernateException {
+			@Override
+            public List<T> doInHibernate(Session session) throws HibernateException {
 				Query query = session.createQuery(hql);
 
 				// 设置查询条件
@@ -427,6 +433,9 @@ public class SimpleHibernateDao {
 	 */
 	public <T> List<T> findEntitiesByJdbc(Class<T> clazz, String sql, Map<String, ?> paramMap) {
 		return this.namedParameterJdbcTemplate.query(sql, paramMap, BeanPropertyRowMapper.newInstance(clazz));
+	}
+	public <T> T findEntityByJdbc(Class<T> clazz, String sql, Map<String, ?> paramMap) {
+		return this.namedParameterJdbcTemplate.queryForObject(sql, paramMap, BeanPropertyRowMapper.newInstance(clazz));
 	}
 
 	public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {

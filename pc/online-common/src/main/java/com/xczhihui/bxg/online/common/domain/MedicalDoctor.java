@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.common.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -32,6 +34,8 @@ public class MedicalDoctor implements Serializable {
 
 	private boolean deleted;
 
+	@Basic(fetch = FetchType.LAZY)
+	@Type(type="text")
 	private String description;
 
 	@Column(name="detailed_address")
@@ -58,9 +62,6 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="update_time")
 	private Date updateTime;
 
-	@Column(name="user_id")
-	private String userId;
-
 	private String version;
 
 	@Column(name="work_time")
@@ -77,7 +78,61 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="recommend_sort")
 	private Integer recommendSort;
 
+	@Column(name="source_id")
+	private String sourceId;
+
+	@Column(name="card_num")
+	private String cardNum;
+
+	@Column(name="field_text")
+	private String fieldText;
+
+	@Transient
+	private String department;
+	@Transient
+	private String hospital;
+
+	public String getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(String hospital) {
+		this.hospital = hospital;
+	}
+
+	public String getFieldText() {
+		return fieldText;
+	}
+
+	public void setFieldText(String fieldText) {
+		this.fieldText = fieldText;
+	}
+
+	public String getCardNum() {
+		return cardNum;
+	}
+
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
+
 	public MedicalDoctor() {
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public boolean isHas() {
@@ -246,14 +301,6 @@ public class MedicalDoctor implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
-	}
-
-	public String getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public String getVersion() {

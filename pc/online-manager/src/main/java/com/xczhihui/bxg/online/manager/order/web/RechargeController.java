@@ -35,7 +35,7 @@ public class RechargeController{
          return mav;
     }
 
-	@RequiresPermissions("order:menu:order")
+	//@RequiresPermissions("order:menu:order")
     @RequestMapping(value = "/findRechargeList")
     @ResponseBody
     public TableVo findRechargeList(TableVo tableVo) {

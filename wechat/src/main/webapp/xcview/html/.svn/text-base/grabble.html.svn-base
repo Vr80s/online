@@ -1,0 +1,141 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>搜索热门直播</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="../css/css.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="../js/js.js"></script>
+
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="grabble">
+			<div class="grabble_top">
+				<div class="grabble_img"></div>
+				<input type="text" placeholder="输入房间编号/主播/课程" />
+				<!-- <span class="history_span"><span class="history_span_one" style="margin-left: 2.4rem;">直播</span><span class="history_span_two">视频</span><span class="history_span_three" style="color:#91b18a1111;">音频</span></span> -->
+				<div class="history_img_right" style="width:1.4rem;"><button>搜 索</button></div>
+			</div>
+		</div>
+	</header>
+	<div class="footer_k" style="height:1.8rem;"></div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	
+	<!-- 热门播主开始 -->
+	<div class="hot_zhibo">
+		<p>热门播主</p>
+		<div class="zhibo">
+			<ul class="hot_zhibo_ul">
+				<li><a href="javascript: ;"><img src="../images/touxiang.png" alt="" /><br>中医朱小宝中医朱小宝中医朱小宝中医朱小宝中医朱小宝中医朱小宝</a></li>
+				<li><a href="javascript: ;"><img src="../images/touxiang.png" alt="" /><br><span>中医朱小宝中医朱小宝中医朱小宝中医朱小宝中医朱小宝</span></a></li>
+				<li><a href="javascript: ;"><img src="../images/touxiang.png" alt="" /><br><span>中医朱小宝</span></a></li>
+				<li><a href="javascript: ;"><img src="../images/touxiang.png" alt="" /><br><span>中医朱小宝</span></a></li>
+			</ul>
+			<div class="both"></div>
+		</div>
+	</div>
+	<div class="both"></div>
+	<!-- 热门播主结束 -->
+	<!-- 热门直播开始 -->
+	<div class="hot_zhibo">
+		<p>热门直播</p>
+		<div class="zhibo">
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;">小宝老师带11111小宝老师带你学中医5小宝老师带你学中医5</a></div>
+					<div class="zhibo_list_size1"><img src="../images/touxiang.png" alt="" /><span>中医朱小宝</span></div>
+				</div>
+			</div>
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;">小宝老师带11111小宝老师带你学中医5小宝老师带你学中医5</a></div>
+					<div class="zhibo_list_size1"><img src="../images/touxiang.png" alt="" /><span>中医朱小宝</span></div>
+				</div>
+			</div>
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;">小宝老师带11111小宝老师带你学中医5小宝老师带你学中医5</a></div>
+					<div class="zhibo_list_size1"><img src="../images/touxiang.png" alt="" /><span>中医朱小宝</span></div>
+				</div>
+			</div>
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;">小宝老师带11111小宝老师带你学中医5小宝老师带你学中医5</a></div>
+					<div class="zhibo_list_size1"><img src="../images/touxiang.png" alt="" /><span>中医朱小宝</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 热门直播结束 -->
+	<!-- 热门课程开始 -->
+	<div class="hot_zhibo">
+		<p>热门课程</p>
+		<div class="zhibo">
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;">小宝老师带11111小宝老师带你学中医5小宝老师带你学中医5</a></div>
+					<div class="zhibo_list_size1"><img src="../images/touxiang.png" alt="" /><span>中医朱小宝</span></div>
+				</div>
+			</div>
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;">小宝老师带11111小宝老师带你学中医5小宝老师带你学中医5</a></div>
+					<div class="zhibo_list_size1"><img src="../images/touxiang.png" alt="" /><span>中医朱小宝</span></div>
+				</div>
+			</div>
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;">小宝老师带11111小宝老师带你学中医5小宝老师带你学中医5</a></div>
+					<div class="zhibo_list_size1"><img src="../images/touxiang.png" alt="" /><span>中医朱小宝</span></div>
+				</div>
+			</div>
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;">小宝老师带11111小宝老师带你学中医5小宝老师带你学中医5</a></div>
+					<div class="zhibo_list_size1"><img src="../images/touxiang.png" alt="" /><span>中医朱小宝</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 热门课程结束 -->
+
+	<!-- 中间内容结束 -->
+
+	<!-- 底部结束 -->
+	<div class="footer_k"></div>
+	<footer>
+		<div class="base">
+			<ul>
+				<li><a href="/bxg/page/index/null/null" class="base_a1" style="background: url(../images/a01.png) no-repeat;background-size: 100% 100%;"></a></li>
+				<li><a href="javascript: ;" class="base_a2"></a></li>
+				<li><a href="javascript: ;" class="base_a3"></a></li>
+				<li><a href="/bxg/page/login/1" class="base_a4"></a></li>
+			</ul>
+		</div>
+	</footer>
+	<!-- 底部结束 -->
+</body>
+</html>

@@ -558,7 +558,7 @@ a {
 }
 #course-list .bigpic .bigpic-title .bigpic-body .bigpic-body-money .bigpic-body-redmoney {
   font-size: 26px;
-  color: #ff4012;
+  color: #F97B49;
   margin-right: 5px;
 }
 #course-list .bigpic .bigpic-title .bigpic-body .bigpic-body-money .bigpic-body-notmoney {
@@ -570,7 +570,7 @@ a {
 }
 #course-list .bigpic .bigpic-title .bigpic-body .bigpic-body-btn .purchase {
   display: inline-block;
-  width: 108px;
+	padding: 0 10px;
   height: 42px;
   background-color: #2cb82c;
   color: #fff;
@@ -817,6 +817,7 @@ a {
   overflow: hidden;
   background-color: #fff;
   padding: 17px 0;
+  margin-bottom: 20px;
 }
 #course-list .table-body .sidebar-body .sidebar-body-details .details-title {
   overflow: hidden;
@@ -892,6 +893,7 @@ a {
   position: relative;
   min-height: 250px;
   background-color: #fff;
+  display: none;
 }
 #course-list .table-body .sidebar-body .relative-course .classCategory {
   width: 38px;
@@ -1216,6 +1218,36 @@ a {
 }
 #course-list .table-body .table-modal span {
   white-space: normal !important;
+}
+#course-list .table-body .table-modal .collection_course_List{
+	padding: 0;
+	margin-top: -20px;
+}
+#course-list .table-body .table-modal .collection_course_List li{
+	height: 78px;
+	border-bottom: 1px solid #f0f0f0;
+	padding: 20px 0px;
+}
+#course-list .table-body .table-modal .collection_course_List li > a{
+	vertical-align: top;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	background: url("../images/class_list_play.png") 0 0 no-repeat;
+	margin-right: 20px;
+}
+#course-list .table-body .table-modal .collection_course_List .class_search_time{
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	background: url("../images/class_search_time.png") 0 0 no-repeat;
+	margin-right: 3px;
+}
+#course-list .table-body .table-modal .collection_course_List li .collection_course_inf{
+	display: inline-block;
+}
+#course-list .table-body .table-modal .collection_course_List li .collection_course_inf > span{
+	display: block;
 }
 #course-list .table-body .table-modal .questionName {
   color: #333;

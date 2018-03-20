@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.anchor.mapper.UserBankMapper">
+	<resultMap type="com.xczhihui.medical.anchor.vo.UserBank" id="UserBankBaseResult">
+		<id column="id" property="id" />
+		<id column="user_id" property="userId" />
+		<id column="acct_name" property="acctName" />
+		<id column="cert_id" property="certId" />
+		<id column="acct_pan" property="acctPan" />
+		<id column="cert_type" property="certType" />
+		<id column="create_time" property="createTime" />
+		<id column="is_delete" property="isDelete" />
+		<id column="is_default" property="isDefault" />
+		<id column="sort" property="sort" />
+		<id column="bank_name" property="bankName" />
+		<id column="tel" property="tel" />
+	</resultMap>
+	<select id="selectUserBankByUserIdAndAcctPan" resultMap="UserBankBaseResult">
+		SELECT
+		  oub.*
+		FROM
+		  oe_user_bank_card oub
+		WHERE oub.is_delete = 0
+		<if test="userId != null and userId != ''">
+			AND oub.user_id = #{userId}
+		</if>
+		<if test="acctPan != null and acctPan != ''">
+			AND oub.acct_pan = #{acctPan}
+		</if>
+		<if test="certId != null and certId != ''">
+			AND oub.cert_id = #{certId}
+		</if>
+	</select>
+	<insert id="add">
+		INSERT INTO
+		oe_user_bank_card
+		(user_id, acct_name, cert_id, acct_pan, cert_type, create_time,is_default,sort,bank_name,tel,card_type)
+		VALUES
+		(#{userBank.userId}, #{userBank.acctName}, #{userBank.certId},
+		 #{userBank.acctPan}, #{userBank.certType}, #{userBank.createTime},
+		 #{userBank.isDefault}, #{userBank.sort}, #{userBank.bankName}, #{userBank.tel}, #{userBank.cardType})
+	</insert>
+	<select id="selectUserBankByUserId" resultMap="UserBankBaseResult">
+		SELECT
+		oub.*
+		FROM
+		oe_user_bank_card oub
+		WHERE oub.is_delete = 0
+		<if test="userId != null and userId != ''">
+			AND oub.user_id = #{userId}
+		</if>
+		ORDER BY oub.is_default DESC ,oub.create_time DESC
+	</select>
+	<select id="getDefault" resultMap="UserBankBaseResult">
+		SELECT
+		oub.*
+		FROM
+		oe_user_bank_card oub
+		WHERE oub.is_delete = 0
+			AND  oub.`is_default` = 1
+			AND oub.user_id = #{userId}
+	</select>
+	<select id="getCardById" resultMap="UserBankBaseResult">
+		SELECT
+		oub.*
+		FROM
+		oe_user_bank_card oub
+		WHERE oub.is_delete = 0
+		AND  oub.id = #{id}
+	</select>
+    <select id="getBankCount" resultType="java.lang.Integer">
+		SELECT
+		  COUNT(oub.`id`)
+		FROM
+		  oe_user_bank_card oub
+		WHERE oub.is_delete = 0
+		  AND oub.user_id = #{userId}
+	</select>
+    <update id="deleteBankCard">
+		UPDATE
+		`oe_user_bank_card` oub
+		SET oub.`is_delete` = 1
+		WHERE oub.id = #{id}
+	</update>
+	<update id="updateDefault">
+		UPDATE
+		`oe_user_bank_card` oub
+		SET oub.`is_default` = 1
+		WHERE oub.id = #{id}
+	</update>
+	<update id="cancelDefault">
+		UPDATE
+		`oe_user_bank_card` oub
+		SET oub.`is_default` = 0
+		WHERE oub.user_id = #{userId}
+	</update>
+</mapper>

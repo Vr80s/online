@@ -48,11 +48,12 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
 	private String weburl;
     
     /**
-     *  判断当前登陆用户是否已经报名了
+     *  判断当前登录用户是否已经报名了
      *  报名成功，不向学员表添加数据(apply表),只要学员班级课程中间表添加数据
      *  未报名,向学员表添加数据,并向学员班级课程表中添加一条数据
      *
      */
+    @Override
     public String saveApply(OnlineUser onlineUser, Integer courseId, Integer gradeId) {
         //判断当前用户是否报名
         boolean  applyStatus= onlineUser.isApply();
@@ -98,7 +99,7 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
         }
 
         //当课程是付费课程时，将班级中的剩余席位改变
-        if (status.equals("2")){
+        if ("2".equals(status)){
             Grade grade=gradeService.findGradeById(gradeId);
             if(grade != null){
                 int count =0;
@@ -160,7 +161,7 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
             sql = "update oe_apply  set is_old_user=1,id_card_no=:id_card_no,real_name=:real_name,"
             		+ "old_user_subject_id=:old_user_subject_id,old_user_class_name=:old_user_class_name"
             			+appendSql+"  where user_id=:user_id";
-            if(applys.get(0).get("is_old_user").toString().equals("0")) {
+            if("0".equals(applys.get(0).get("is_old_user").toString())) {
                 applyDao.getNamedParameterJdbcTemplate().update(sql,paramMap);
             }
         }
@@ -242,7 +243,8 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public void saveApply(Apply apply, OnlineUser onlineUser) {
+	@Override
+    public void saveApply(Apply apply, OnlineUser onlineUser) {
 		// 查询一下当前用户的学员信息
 		Apply a = applyDao.findByUserId(onlineUser.getId());
 		if (a == null) {
@@ -257,28 +259,28 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
 			a.setIsOldUser(0);
 			a.setSex(apply.getSex());
 			a.setIsFirst(apply.getIsFirst());
-			if(apply.getRealName()!=null && !apply.getRealName().equals("")){
+			if(apply.getRealName()!=null && !"".equals(apply.getRealName())){
 				a.setRealName(apply.getRealName());
 			}
-			if(apply.getMobile()!=null && !apply.getMobile().equals("")){
+			if(apply.getMobile()!=null && !"".equals(apply.getMobile())){
 				a.setMobile(apply.getMobile());
 			}
-			if(apply.getIdCardNo()!=null && !apply.getIdCardNo().equals("")){
+			if(apply.getIdCardNo()!=null && !"".equals(apply.getIdCardNo())){
 				a.setIdCardNo(apply.getIdCardNo());
 			}
-			if(apply.getWechatNo()!=null && !apply.getWechatNo().equals("")){
+			if(apply.getWechatNo()!=null && !"".equals(apply.getWechatNo())){
 				a.setWechatNo(apply.getWechatNo());
 			}
-			if(apply.getEmail()!=null && !apply.getEmail().equals("")){
+			if(apply.getEmail()!=null && !"".equals(apply.getEmail())){
 				a.setEmail(apply.getEmail());
 			}
-			if(apply.getQq()!=null && !apply.getQq().equals("")){
+			if(apply.getQq()!=null && !"".equals(apply.getQq())){
 				a.setQq(apply.getQq());
 			}
-			if(apply.getReferee()!=null && !apply.getReferee().equals("")){
+			if(apply.getReferee()!=null && !"".equals(apply.getReferee())){
 				a.setReferee(apply.getReferee());
 			}
-			if(apply.getOccupation()!=null && !apply.getOccupation().equals("")){
+			if(apply.getOccupation()!=null && !"".equals(apply.getOccupation())){
 				a.setOccupation(apply.getOccupation());
 			}
 			applyDao.save(a);

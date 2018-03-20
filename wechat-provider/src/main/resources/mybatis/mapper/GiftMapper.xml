@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.wechat.course.mapper.GiftMapper">
+	<select id="selectRankingList" resultType="com.xczhihui.wechat.course.vo.RankingUserVO">
+		SELECT
+		  ou.id userId,
+		  ou.`name`,
+		  ou.small_head_photo smallHeadPhoto,
+		  ogs.create_time,
+		  CAST(SUM(ogs.`price`) AS SIGNED) giftCount
+		FROM
+		  oe_gift_statement ogs
+		  INNER JOIN oe_user ou
+			ON (ogs.giver = ou.id)
+		WHERE ogs.live_id = #{liveId}
+		GROUP BY giver
+		ORDER BY giftCount DESC
+	</select>
+</mapper>

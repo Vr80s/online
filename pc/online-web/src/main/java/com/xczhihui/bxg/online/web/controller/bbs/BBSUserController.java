@@ -6,6 +6,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserUtil;
@@ -19,6 +20,8 @@ import com.xczhihui.bxg.online.web.vo.ApplyVo;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.bxg.online.web.vo.UserVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.bean.TokenExpires;
@@ -71,13 +74,14 @@ public class BBSUserController extends OnlineBaseController {
 	private ActivityTotalService totalService;
 
 	@Autowired
-	private UserCenterAPI api;
-
-	@Autowired
 	private MessageService messageService;
 
 	@Autowired
 	private ShoppingCartService shoppingCartService;
+	@Autowired
+	private ICommonService commonService;
+	@Autowired
+	private IAnchorInfoService anchorInfoService;
 
 
 	@Value("${domain}")
@@ -97,9 +101,10 @@ public class BBSUserController extends OnlineBaseController {
 						return ResponseObject.newErrorResponseObject("用户已禁用");
 					}
 					if(o.getVhallId()==null){
-						String vhallId = VhallUtil.createUser(o,password);
+						String vhallPassword = RandomUtil.getCharAndNumr(6);
+						String vhallId = VhallUtil.createUser(o,vhallPassword);
 						o.setVhallId(vhallId);
-						o.setVhallPass(password);
+						o.setVhallPass(vhallPassword);
 						o.setVhallName(o.getId());
 						service.updateVhallInfo(o);
 					}
@@ -108,7 +113,7 @@ public class BBSUserController extends OnlineBaseController {
 					boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", username);
 					boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",username);
 					if (!ism && !ise) {
-						return ResponseObject.newErrorResponseObject("请用手机或邮箱登陆");
+						return ResponseObject.newErrorResponseObject("请用手机或邮箱登录");
 					}
 
 					ItcastUser u = this.userCenterAPI.getUser(username);
@@ -202,10 +207,10 @@ public class BBSUserController extends OnlineBaseController {
 				Token token = this.createToken(userCenterAPI.getUser(vcode.split("!@!")[0]), TokenExpires.Day.getExpires());
 				OnlineUser user = this.userCenterService.getUserByLoginName(vcode.split("!@!")[0]);
 				if(user.getVhallId()==null){
-					String password = "123456";//邮箱注册用户密码默认123456
-					String vhallId = VhallUtil.createUser(user,password );
+					String vhallPassword = RandomUtil.getCharAndNumr(6);
+					String vhallId = VhallUtil.createUser(user,vhallPassword );
 					user.setVhallId(vhallId);
-					user.setVhallPass(password);
+					user.setVhallPass(vhallPassword);
 					user.setVhallName(user.getId());
 					service.updateVhallInfo(user);
 				}
@@ -303,7 +308,7 @@ public class BBSUserController extends OnlineBaseController {
 
 
 	/**
-	 * 是否登陆
+	 * 是否登录
 	 * @return
 	 */
 	@RequestMapping(value = "isAlive")
@@ -314,7 +319,7 @@ public class BBSUserController extends OnlineBaseController {
 	}
 
 	/**
-	 * 登陆状态
+	 * 登录状态
 	 * @return
 	 */
 	@RequestMapping(value = "loginStatus")
@@ -500,7 +505,7 @@ public class BBSUserController extends OnlineBaseController {
 		UserDataVo vo = new UserDataVo();
 		vo.setUid(userId);
 		if(nickName==null||StringUtils.isEmpty(nickName.trim())){
-			vo.setNickName(loginName); //如果什么都不填的话 昵称默认为账号
+			vo.setNickName(loginName); //如果什么都不填的话 昵称默认为帐号
 		}else {
 			vo.setNickName(nickName);
 		}
@@ -627,7 +632,7 @@ public class BBSUserController extends OnlineBaseController {
 	@RequestMapping(value = "updateHeadPhoto")
 	@ResponseBody
 	public ResponseObject updateHeadPhoto(HttpServletRequest request) throws ServletRequestBindingException, IOException {
-		//获取当前登陆用户信息
+		//获取当前登录用户信息
 		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
 
 		String content = ServletRequestUtils.getRequiredStringParameter(request, "image");
@@ -726,7 +731,7 @@ public class BBSUserController extends OnlineBaseController {
 		//生成签名
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		request.getSession().setAttribute("qq_connect_state",uuid);
-		String state = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
+		String state = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
 		Map<String,String> param = new HashMap<>();
 		param.put("response_type", "code");
 		param.put("client_id", ThirdConnectionConfig.QQ_APP_ID);
@@ -744,7 +749,7 @@ public class BBSUserController extends OnlineBaseController {
 	public void qquserInfo(HttpServletRequest request, HttpServletResponse response,String code,String state) throws Exception {
 		//生成签名
 		String uuid = (String) request.getSession().getAttribute("qq_connect_state");
-		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
+		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
 		if(!StringUtils.isEmpty(state) && !StringUtils.isEmpty(stateSign) && state.equalsIgnoreCase(stateSign)) {
 			String accessToken = service.getQQAccessToken(code);
 			if (accessToken != null) {
@@ -777,7 +782,7 @@ public class BBSUserController extends OnlineBaseController {
 		//生成签名
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		request.getSession().setAttribute("wx_connect_state",uuid);
-		String state = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
+		String state = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
 		Map<String,String> param = new HashMap<>();
 		param.put("response_type", "code");
 		param.put("client_id", ThirdConnectionConfig.WX_APP_ID);
@@ -795,7 +800,7 @@ public class BBSUserController extends OnlineBaseController {
 	public void wechatUserInfo(HttpServletRequest request, HttpServletResponse response,String code,String state) throws Exception {
 		//生成签名
 		String uuid = (String) request.getSession().getAttribute("wx_connect_state");
-		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
+		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
 		if(!StringUtils.isEmpty(state) && !StringUtils.isEmpty(stateSign) && state.equalsIgnoreCase(stateSign)) {
 			Map<String, String> returnMap = service.saveWechatUserInfo(code);
 			if (returnMap != null) {
@@ -811,15 +816,15 @@ public class BBSUserController extends OnlineBaseController {
 		}
 	}
 	/**
-	 * 三方登录账号绑定手机或邮箱账号
+	 * 三方登录帐号绑定手机或邮箱帐号
 	 * @param request
-	 * @param username    绑定账号
+	 * @param username    绑定帐号
 	 * @return
 	 */
 	@RequestMapping(value = "bindcount",method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject bindCount(HttpServletRequest request,HttpServletResponse response,String username){
-		//获取当前登陆用户信息(三方登录用户)
+		//获取当前登录用户信息(三方登录用户)
 		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		if(onlineUser!=null) {
 			ResponseObject obj = service.saveBindCount(username, onlineUser.getUnionId());
@@ -876,4 +881,42 @@ public class BBSUserController extends OnlineBaseController {
 		}
 		return ResponseObject.newSuccessResponseObject(shoppingCartService.findCourseNum(user.getId()));
 	}
+
+	/**
+	 * 是否为医师或医馆角色
+	 * @return
+	 */
+	@RequestMapping(value = "/isDoctorOrHospital" )
+	@ResponseBody
+	public ResponseObject isDoctorOrHospital(HttpServletRequest request) {
+		// 获取当前用户
+		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		if (onlineUser == null) {
+			return ResponseObject.newErrorResponseObject("请登录！");
+		}
+		Integer result = commonService.isDoctorOrHospital(onlineUser.getId());
+		return ResponseObject.newSuccessResponseObject(result);
+	}
+
+
+	/**
+	 * 是否为医师或医馆角色
+	 * @return
+	 */
+	@RequestMapping(value = "/hasPower" )
+	@ResponseBody
+	public ResponseObject hasPower(HttpServletRequest request) {
+		// 获取当前用户
+		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		if (onlineUser == null) {
+			return ResponseObject.newErrorResponseObject("请登录！");
+		}
+		try {
+			anchorInfoService.validateAnchorPermission(onlineUser.getId());
+		}catch (Exception e){
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+		return ResponseObject.newSuccessResponseObject("有主播权限");
+	}
+
 }

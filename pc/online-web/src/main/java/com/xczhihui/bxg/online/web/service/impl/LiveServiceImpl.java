@@ -59,6 +59,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * @param  num:条数
      * @return
      */
+    @Override
     public List<OpenCourseVo> getOpenCourse(Integer num){
         return  dao.getOpenCourse(num);
     }
@@ -83,6 +84,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      *
      * @param courseId 鲜花数
      */
+    @Override
     public int updateBrowseSum(Integer courseId) {
         return dao.updateBrowseSum(courseId);
     }
@@ -91,7 +93,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * 修改鲜花数
      * @param courseId 课程ID号
      */
-    public Map<String,Object> updateFlowersNumber(Integer courseId,OnlineUser u) {
+    @Override
+    public Map<String,Object> updateFlowersNumber(Integer courseId, OnlineUser u) {
         Map<String,Object> returnMap = new HashMap<>();
         //只有当前用户登录才可以送花
         if(u == null){
@@ -130,7 +133,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * @param courseId
      * @return true:可以送花，false：不可以送花
      */
-    public Boolean checkTime(String courseId,OnlineUser u){
+    @Override
+    public Boolean checkTime(String courseId, OnlineUser u){
         //从缓存中取当前登录用户上次送花时间
         String key=courseId+u.getLoginName().trim();
         String value=cacheService.get(key);
@@ -149,7 +153,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * 获取直播课程信息，根据课程id查询课程
      * @param courseId 课程id号
      */
-    public Map<String, Object> getOpenCourseById(Integer courseId,String planId) {
+    @Override
+    public Map<String, Object> getOpenCourseById(Integer courseId, String planId) {
         return  dao.getOpenCourseById(courseId,planId);
     }
 
@@ -158,7 +163,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * @param courseId  课程id
      * @param personNumber 当前在线人数
      */
-    public void  saveOnUserCount(Integer courseId,Integer personNumber){
+    @Override
+    public void  saveOnUserCount(Integer courseId, Integer personNumber){
         dao.saveOnUserCount(courseId,personNumber);
     }
 
@@ -167,6 +173,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * 获取一周的课程表数据
      * @param currentTime 前端传过来的时间
      */
+    @Override
     public  List<List<OpenCourseVo>>   getCourseTimetable(long currentTime){
         //存放一周内每天课程集合
         List<List<OpenCourseVo>>  cours= new ArrayList<List<OpenCourseVo>>();
@@ -212,21 +219,22 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         return  cours;
     }
 
+    @Deprecated
 	@Override
 	public ModelAndView livepage
 		(String courseId, String roomId, String planId,HttpServletRequest request,HttpServletResponse response) {
-		
+
 		BxgUser user = UserLoginUtil.getLoginUser(request);
-		
+
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("course_id", courseId);
 		paramMap.put("user_id", user == null ? null : user.getId());
 		paramMap.put("plan_id", planId);
-		
+
 		List<Map<String, Object>> courses = dao.getNamedParameterJdbcTemplate()
 			.queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,live_status liveStatus from oe_course where id=:course_id", paramMap);
 		Map<String, Object> course =  courses.get(0);
-		
+
 //		Object type = course.get("type");
 		Object is_free = course.get("is_free");
 		String description = (String) course.get("description");
@@ -275,24 +283,63 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 			mv = new ModelAndView("redirect:/");
 		}
 //		mv.addObject("cc_live_user_id",OnlineConfig.CC_LIVE_USER_ID);
-		
+
 		return mv;
 	}
-//	
-//	private void jump(HttpServletResponse response,String page,String courseId,String is_free){
-//		try {
-//			response.sendRedirect("/web/html/"+page+".html?id="+courseId+"&courseType=1&free="+is_free);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+
+    @Override
+    public ModelAndView livepage
+            (String courseId, HttpServletRequest request,HttpServletResponse response) {
+
+        BxgUser user = UserLoginUtil.getLoginUser(request);
+
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("course_id", courseId);
+        List<Map<String, Object>> courses = dao.getNamedParameterJdbcTemplate()
+                .queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,direct_id,live_status liveStatus from oe_course where id=:course_id", paramMap);
+        Map<String, Object> course =  courses.get(0);
+        String description = (String) course.get("description");
+        Integer liveStatus = (Integer) course.get("liveStatus");
+        if(description==null) {
+            description = "";
+        }
+        description=description.replaceAll("\n", "");
+        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        ModelAndView mv = null;
+        if(liveStatus==1){
+            mv = new ModelAndView("live_success_page");
+        }else{
+            mv = new ModelAndView("live_success_other_page");
+        }
+        if(user!=null){
+            mv.addObject("userId",u.getId());
+            mv.addObject("courseId",courseId);
+            mv.addObject("liveStatus",liveStatus);
+            mv.addObject("roomId",course.get("direct_id"));
+            mv.addObject("roomJId",courseId+postfix);
+            mv.addObject("boshService",boshService);
+            mv.addObject("now",new Date().getTime());
+            mv.addObject("description",description);
+            mv.addObject("email", user == null ? null : user.getId()+"@xczh.com");
+            mv.addObject("name", user == null ? null : user.getName());
+            mv.addObject("k", "yrxk");//TODO 此处暂时写死
+            ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
+            mv.addObject("guId", iu.getId());
+            mv.addObject("guPwd", iu.getPassword());
+
+            mv.addObject("env", env);
+            mv.addObject("host", host);
+            mv.addObject("rate", rate);
+        }else{
+            mv = new ModelAndView("redirect:/");
+        }
+
+        return mv;
+    }
 
 	@Override
 	public List<OpenCourseVo> getOpenCourse(Integer num, String id) {
 		return  dao.getOpenCourse(num,id);
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(new Date().getTime());
-	}
+
 }

@@ -57,7 +57,6 @@ public class InformationServiceImpl extends OnlineBaseServiceImpl implements Inf
         }
 		
 	}
-
 	@Override
 	public String updateStatus(Integer id) {
 		// TODO Auto-generated method stub

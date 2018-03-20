@@ -11,7 +11,7 @@
 		<div class="form-group">
 			<label for="message_user_select" class="col-lg-2 control-label">用户搜索:</label>
 			<div class="col-lg-10">
-				<select id="message_user_select" class="selectpicker form-control"  data-live-search="true" >
+				<select id="message_user_select" class="selectpicker form-control"  data-live-search="true" multiple>
 					<option value="-1">全部</option>
 				</select>
 			</div>

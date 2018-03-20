@@ -73,7 +73,7 @@ public class H5AppPayController {
 	@Value("${minimum_amount}")
 	private Double minimumAmount;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(H5AppPayController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AppPayController.class);
 	
 	/**
 	 * 拉取微信访问用户信息；
@@ -93,7 +93,7 @@ public class H5AppPayController {
 		Map<String, String> retobj = new HashMap<String, String>();
 		String orderId = req.getParameter("orderId");
 		String order_From = req.getParameter("orderFrom");
-		OnlineUser u = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser u = appBrowserService.getOnlineUserByReq(req);
 		/**
 		 * 根据订单id得到这个订单中已经存在的课程。
 		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
@@ -102,7 +102,7 @@ public class H5AppPayController {
 		if(!ro.isSuccess()){//存在此订单哈，
 			return ro;
 		}
-		log.info("wxPay   user.getId()"+u.getId());
+		LOGGER.info("wxPay   user.getId()"+u.getId());
 		
 		String userId = u.getId();
 		if (null == orderId || null == userId || null == order_From) {
@@ -146,16 +146,16 @@ public class H5AppPayController {
 					/*
 					 * 如果以上两种情况都获取不到微信的信息，重定向的登录页面。
 					 */
-					return ResponseObject.newErrorResponseObject("获取用户信息异常");
+					return ResponseObject.newErrorResponseObject("登录失效");
 				}
 			}else{
 				openId = openId1;
 			}
-			tradeType= PayInfo.trade_type_jsapi;
+			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 		}else if(orderFrom == 4){
-			tradeType =PayInfo.trade_type_h5;
+			tradeType =PayInfo.TRADE_TYPE_H5;
 		}else if(orderFrom == 5){
-			tradeType =PayInfo.trade_type_app;
+			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
 		// TODO
 		OrderParamVo orderParamVo=new OrderParamVo();
@@ -166,7 +166,7 @@ public class H5AppPayController {
 		String extDatas ="order&"+cacheKey;
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString(),7200);
-		log.info("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
+		LOGGER.info("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(newOrderNo, price,  "订单支付",
 						extDatas, openId, spbill_create_ip, tradeType);
@@ -176,11 +176,11 @@ public class H5AppPayController {
 				retpay = CommonUtil.getSignER(retpay);
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			log.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// log.info(jsonObject);
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// LOGGER.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
@@ -204,7 +204,7 @@ public class H5AppPayController {
 		params2.put("token",req.getParameter("token"));
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}*/
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		String userId = user.getId();
@@ -241,16 +241,16 @@ public class H5AppPayController {
 				if(wxUser!=null){
 					openId = wxUser.getOpenid();
 				}else{
-					return ResponseObject.newErrorResponseObject("获取用户信息异常");
+					return ResponseObject.newErrorResponseObject("登录失效");
 				}
 			}else{
 				openId = openId1;
 			}
-			tradeType= PayInfo.trade_type_jsapi;
+			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 		}else if(orderFrom == 3){
-			tradeType =PayInfo.trade_type_h5;
+			tradeType =PayInfo.TRADE_TYPE_H5;
 		}else if(orderFrom == 2){
-			tradeType =PayInfo.trade_type_app;
+			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
 		// TODO
 		RewardParamVo rewardParamVo=new RewardParamVo();
@@ -295,10 +295,11 @@ public class H5AppPayController {
 
 		
 		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
+		
 		String extDatas ="reward&"+cacheKey;
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(rewardParamVo).toString(),7200);
-		log.info("打赏参数："+extDatas.length());
+		LOGGER.info("打赏参数："+extDatas.length());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "打赏支付",
 						extDatas, openId, spbill_create_ip, tradeType);
@@ -311,11 +312,11 @@ public class H5AppPayController {
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
 			
-			log.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// log.info(jsonObject);
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// LOGGER.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
@@ -338,9 +339,9 @@ public class H5AppPayController {
 
 		Map<String, String> params2=new HashMap<>();
 		params2.put("token",req.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if ( user== null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		String userId = user.getId();
 		String clientType=req.getParameter("clientType");
@@ -373,25 +374,12 @@ public class H5AppPayController {
 		String tradeType = null; //公众号
 		String openId = null;
 		if(orderFrom == 4){
-			String openId1 = req.getParameter("openId");
-			if(null == openId1){
-				WxcpClientUserWxMapping wxUser = wxService.getWxcpClientUserWxMappingByUserId(userId);
-				if(wxUser == null){
-					wxUser = wxService.getWxMappingByUserIdOrUnionId(userId);
-				}
-				if(wxUser!=null){
-					openId = wxUser.getOpenid();
-				}else{
-					return ResponseObject.newErrorResponseObject("获取用户信息异常");
-				}
-			}else{
-				openId = openId1;
-			}
-			tradeType= PayInfo.trade_type_jsapi;
+			openId = req.getParameter("openId");
+			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 		}else if(orderFrom == 3){
-			tradeType =PayInfo.trade_type_h5;
+			tradeType =PayInfo.TRADE_TYPE_H5;
 		}else if(orderFrom == 2){
-			tradeType =PayInfo.trade_type_app;
+			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
 		// TODO
 
@@ -405,24 +393,23 @@ public class H5AppPayController {
 		String extDatas ="recharge&"+cacheKey;
 		String passbackParams = com.alibaba.fastjson.JSONObject.toJSON(rechargeParamVo).toString();
 		cacheService.set(cacheKey,passbackParams,7200);
-		log.info("充值参数："+extDatas.length());
+		LOGGER.info("充值参数："+extDatas.length());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "充值",
 						extDatas, openId, spbill_create_ip, tradeType);
 
 		if (retpay != null) {
 			retpay.put("ok", "true");
-
+			
 			if(orderFrom == 2){
 				retpay = CommonUtil.getSignER(retpay);
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
-
-			log.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// log.info(jsonObject);
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// LOGGER.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
@@ -443,8 +430,8 @@ public class H5AppPayController {
 				|| "unknown".equalsIgnoreCase(ipAddress)) {
 			ipAddress = request.getRemoteAddr();
 
-			if (ipAddress.equals("127.0.0.1")
-					|| ipAddress.equals("0:0:0:0:0:0:0:1")) {
+			if ("127.0.0.1".equals(ipAddress)
+					|| "0:0:0:0:0:0:0:1".equals(ipAddress)) {
 				// 根据网卡获取本机配置的IP地址
 				InetAddress inetAddress = null;
 				try {

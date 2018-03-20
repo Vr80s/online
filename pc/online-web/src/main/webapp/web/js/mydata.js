@@ -513,7 +513,7 @@ function addgetdata() { //回填数据
 		$('.zhiYe').val(data.resultObject.occupationOther);
 		
 		
-		//判断用户登录账号类型，并以此回填
+		//判断用户登录帐号类型，并以此回填
 		if(data.resultObject.loginName.indexOf("@") == -1) {
 			$(".emailname").val(data.resultObject.email);
 			$(".phonenumber").val(data.resultObject.loginName).attr("disabled", "disabled").css("background", "#fafafa");
@@ -711,13 +711,13 @@ function addgetdata() { //回填数据
 	var num = 1;
 	setInterval(function(){
 		num += 1;
-		if(num<30){
+		if(num<80){
 			if(data.resultObject.province != ''&&data.resultObject.city != null){
 				
 //			$('.Province1 option:selected').val(data.resultObject.province);	
 //			$('.Province1 option:selected').text(data.resultObject.provinceName)
 //			console.log(data.resultObject.province )
-			$(".Province1 option[value="+data.resultObject.province+"]").attr('selected','selected');
+			$(".Province1 option[name="+data.resultObject.provinceName+"]").attr('selected','selected');
 			
 			}
 		}
@@ -769,7 +769,7 @@ function addgetdata() { //回填数据
 //	getUserApplyInfo
 	RequestService("/online/apply/getUserApplyInfo", "get", {
 	}, function(data) {
-//		console.log(data);
+		console.log(data);
 		if(data.success&&data.resultObject!=null){
 			var personInfo = data.resultObject;
 //			console.log(personInfo)
@@ -1686,7 +1686,7 @@ function test() {
 				$(".nick-warn").text('用户名不能是纯数字，请重新输入！').css("display", "inline-block");
 				return false;
 			} else if(nickName() < 4 || nickName() > 20) {
-				$(".nick-warn").text("支持中文、字母、数字、'-'、'_'的组合，4-20个字符").css("display", "inline-block");
+				$(".nick-warn").text("支持中文、字母、数字、'-'、'_'的组合，20个字符内").css("display", "inline-block");
 				return false;
 			} else if(data.resultObject == true) {
 				$(".nick-warn").text("用户名已存在").css("display", "inline-block");
@@ -1862,8 +1862,8 @@ function geren() {
 			$(".nick-warn-name").text("用户名不能为空").css("display", "inline-block");
 			return false;
 		}
-		if(value.length<2 || value.length>15) {
-			$(".nick-warn-name").text("用户名长度不能小于2或者大于15").css("display", "inline-block");
+		if(value.length<2 || value.length>20) {
+			$(".nick-warn-name").text("用户名长度不能小于2或者大于20").css("display", "inline-block");
 			return false;
 		}
 		//昵称不能能有空格
@@ -1924,7 +1924,7 @@ function geren() {
 		var province  = $('.Province1  option:selected').val();
 		var disval =  $('.District1  option:selected').val();
 		var cityval =  $('.City1  option:selected').val();
-		if(province == 'volvo' || disval == 'volvo' || cityval == 'volvo'){
+		if(province == 'volvo' ||  cityval == 'volvo'){
 			$(".address_warn").text("请填写所在地区信息").css("display", "block");
 			return false;
 		}
@@ -1953,7 +1953,8 @@ function geren() {
 			provinceName: $('.Province1  option:selected').text(),
 //			district: $(".City1").attr("value"),
 			cityName: $('.City1  option:selected').text(),
-			countyName: $('.District1  option:selected').text(),
+//			countyName: $('.District1  option:selected').text(),
+			countyName: ' ',
 			
 			province : $('.Province1  option:selected').val(),
 			city : $('.City1  option:selected').val(),

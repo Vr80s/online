@@ -22,15 +22,36 @@ $(function(){
 		var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
     }},
-    // { "title": "医馆ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "医馆名", "class":"center","width":"9%","sortable":false,"data": 'name' },
-    // { "title": "经纬度", "class":"center","width":"8%","sortable":false,"data": 'lal'},
-    { "title": "评分", "class":"center","width":"6%", "sortable":false,"data": 'score',"visible":true},
-    { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
-    { "title": "email", "class":"center","width":"6%", "sortable":false,"data": 'email',"visible":true},
+    { "title": "评分", "class":"center","width":"6%", "sortable":false,"data": 'score',"visible":true,"mRender":function (data, display, row) {
+        if(row.score == null) {
+            return '0';
+        } else {
+            return row.score;
+        }
+    }},
+    { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true,"mRender":function (data, display, row) {
+        if(row.tel == null) {
+            return '暂无';
+        } else {
+            return row.tel;
+        }
+    }},
+    { "title": "email", "class":"center","width":"6%", "sortable":false,"data": 'email',"visible":true,"mRender":function (data, display, row) {
+        if(row.email == null) {
+            return '暂无';
+        } else {
+            return row.email;
+        }
+    }},
     { "title": "地址", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {
-        debugger
-    	return row.province+"-"+row.city+"-"+row.detailedAddress;
+
+    	if(row.province == null) {
+    		return '暂无';
+    	} else {
+    		return row.province+"-"+row.city+"-"+row.detailedAddress;
+    	}
+
     }}, { "title": "创建日期", "class":"center","width":"8%","sortable":false,"data": 'createTime','mRender':function(data, display, row){
                 return getLocalTime(data);
             }
@@ -75,22 +96,42 @@ $(function(){
 	}},*/
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status){
-	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
-				'<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
-	    	}else{
-	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
-				'<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
-	    	}
+                if(row.sourceId === null){
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
+
+                }else{
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
+
+                	}
+			}else{
+                if(row.sourceId === null){
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
+
+                }else{
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
+
+                }
+			}
 	    }
 	}];
 	
@@ -691,38 +732,47 @@ function search_PX(){
  * @param status（1，医馆，2：微课）
  */
 function previewDialog(obj,status){
-	var oo = $(obj).parent().parent().parent();
-	var row;
-	if(status==1) {
-		row = P_courseTable.fnGetData(oo); // get datarow
-	}else{
-		row = M_courseTable.fnGetData(oo); // get datarow
-	}
+	// var oo = $(obj).parent().parent().parent();
+	// var row;
+	// if(status==1) {
+	// 	row = P_courseTable.fnGetData(oo); // get datarow
+	// }else{
+	// 	row = M_courseTable.fnGetData(oo); // get datarow
+	// }
 	
-	debugger
-	//根据当前id查找对应的课程信息
-    $.get(basePath+"/medical/hospital/findMedicalHospitalById",{id:row.id}, function(result){
+	// debugger
+	// //根据当前id查找对应的课程信息
+    // $.get(basePath+"/medical/hospital/findMedicalHospitalById",{id:row.id}, function(result){
+    //
+    	// $("#show_name").text(result.name);
+    	// $("#show_lal").text(result.lal);
+    	// $("#show_tel").text(result.tel);
+    	// $("#show_postCode").text(result.postCode);
+    	// $("#show_email").text(result.email);
+    	// $("#show_province").text(result.province);
+    	// $("#show_city").text(result.city);
+    	// $("#show_detailedAddress").text(result.detailedAddress);
+    	// $("#show_description").html(result.description); //课程简介
+    	// $("#show_score").text(result.score); //课程评分
+    //
+     //    $("#show_description").removeClass("form-control");
+    //
+    // });
+	// var prev_title="查看课程";
+	// if(status ==1){
+	// 	prev_title="查看医馆";
+	// }else{
+	// 	prev_title="查看微课程";
+	// }
+	// var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
 
-    	$("#show_name").text(result.name);
-    	$("#show_lal").text(result.lal);
-    	$("#show_tel").text(result.tel);
-    	$("#show_postCode").text(result.postCode);
-    	$("#show_email").text(result.email);
-    	$("#show_province").text(result.province);
-    	$("#show_city").text(result.city);
-    	$("#show_detailedAddress").text(result.detailedAddress);
-    	$("#show_description").text(result.description); //课程简介
-    	$("#show_score").text(result.score); //课程简介
-
-    });
-	var prev_title="查看课程";
-	if(status ==1){
-		prev_title="查看医馆";
-	}else{
-		prev_title="查看微课程";
-	}
-	var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
-};
+    var oo = $(obj).parent().parent().parent();
+    var aData;
+    if (status == 1) {
+        aData = P_courseTable.fnGetData(oo); // get datarow
+        window.location.href = basePath + '/home#medical/hospital/info/' + aData.id;
+    }
+}
 
 
 /**
@@ -770,6 +820,10 @@ function toEdit(obj,status){
 			$("#edit_detailedAddress").val(result.detailedAddress);
 			$("#edit_description").html(result.description); //课程简介
 			$("#edit_score").val(result.score);
+			$("#edit_wechat").val(result.wechat);//微信
+			$("#edit_contactor").val(result.contactor);//联系人
+			// $("#edit_headPortrait").attr("src", result.headPortrait);//头像
+
 			if(result.authentication){
                 $("#edit_authentication_y").prop("checked","checked");
             }else{
@@ -923,17 +977,21 @@ $(".list-items1").on("click",function(event){
   }
 })
 
+/**
+ * 修改医馆的医疗领域
+ * @param obj
+ */
 function openFieldManage(obj){
 
-	debugger
+	// debugger
     var oo = $(obj).parent().parent().parent();
     var row = P_courseTable.fnGetData(oo); // get datarow
     rowId = row.id;
     $("#parentId").val(row.id);
     $("#child_MenuName").html(row.name);
-    var courseCount = row.courseCount
+    var courseCount = row.courseCount;
     ajaxRequest(basePath+"/medical/field/alllist",{'id':row.id,'type':1},function(data) {
-    	debugger
+    	// debugger
         drawMenusPage(data);
 
         if(row.courseCount==0){
@@ -1019,11 +1077,11 @@ $(".rec_P").click(function(){
         }
         ids.push($(trs[i]).val());
     }
-    if(ids.length > 10)
+   /* if(ids.length > 10)
     {
         showDelDialog("","","最多只能推荐10个医馆！","");
         return false;
-    }
+    }*/
 
     if(ids.length>0){
         ajaxRequest(basePath+"/medical/hospital/updateRec",{'ids':ids.join(","),"isRec":1},function(data){

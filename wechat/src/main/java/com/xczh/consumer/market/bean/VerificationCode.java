@@ -16,7 +16,8 @@ public class VerificationCode extends BasicEntity2{
 	/**
 	 * 动态码类型，1新注册，2找回密码
 	 */
-	private String vtype;
+	private Integer vtype;
+	
 	public String getPhone() {
 		return phone;
 	}
@@ -29,10 +30,10 @@ public class VerificationCode extends BasicEntity2{
 	public void setVcode(String vcode) {
 		this.vcode = vcode;
 	}
-	public String getVtype() {
+	public Integer getVtype() {
 		return vtype;
 	}
-	public void setVtype(String vtype) {
+	public void setVtype(Integer vtype) {
 		this.vtype = vtype;
 	}
 	

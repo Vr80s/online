@@ -2,8 +2,6 @@
 
 package com.xczhihui.bxg.online.manager.utils;
 
-import org.slf4j.Logger;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,11 +18,10 @@ public class TimeUtil {
 		return hms;
 	}
 
-
-
-	private static final DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-	private static final DateFormat format_hh_mm_ss=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-	private static final DateFormat format_hh_mm=new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	private static final DateFormat FORMAT =new SimpleDateFormat("yyyy-MM-dd");
+	private static final DateFormat FORMAT_HH_MM_SS =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private static final DateFormat FORMAT_HH_MM =new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	private static final DateFormat FORMAT_HHMM_UNDERLINE =new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss");
 
 	/**
 	 * 格式化成时期对象
@@ -33,7 +30,7 @@ public class TimeUtil {
 	 */
 	public static Date parseDate(String date){
 		try {
-			return format_hh_mm.parse(date);
+			return FORMAT_HH_MM.parse(date);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -47,7 +44,7 @@ public class TimeUtil {
 	 */
 	public static Date stringParseDate(String date){
 		try {
-			return format.parse(date);
+			return FORMAT.parse(date);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -61,13 +58,28 @@ public class TimeUtil {
 	 */
 	public static String formatDate(Date date){
 		try {
-			return format_hh_mm_ss.format(date);
+			return FORMAT_HH_MM_SS.format(date);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return null;
 	}
 
+	/**
+	 * 格式化成字符串对象
+	 * @param date
+	 * @return
+	 */
+	public static String formatDateUnderline(Date date){
+		try {
+			return FORMAT_HHMM_UNDERLINE.format(date);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
 	/**
 	 * 时间和当前时间对比
 	 * 不足1小时显示XX分钟前,超过一小时不足一天显示XX小时前,超过1天显示昨天,大于1天显示日期
@@ -85,7 +97,7 @@ public class TimeUtil {
 		if(day==1) {
 			return "昨天";
 		}else if(day>1){
-			return format.format(date);
+			return FORMAT.format(date);
 		}
 		if(hour > 0 ) {
 			return hour + "小时前";

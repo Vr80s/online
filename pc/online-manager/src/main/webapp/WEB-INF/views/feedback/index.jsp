@@ -1,8 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript" src="js/feedback/index.js"></script>
-<script src="${base}/js/layer/layer.js"></script>
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
+<script src="/js/layer/layer.js"></script>
+<link href="/js/layer/skin/layer.css" type="text/css" />
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];

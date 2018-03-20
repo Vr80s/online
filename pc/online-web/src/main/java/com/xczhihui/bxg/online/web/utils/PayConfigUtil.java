@@ -21,5 +21,5 @@ public final class PayConfigUtil {
     /**
      * 微信分销提供key值
      */
-    public  static  final  String  key ="9A96E42016CCA857E26059B71CA912FB";
+    public  static  final  String KEY ="9A96E42016CCA857E26059B71CA912FB";
 }

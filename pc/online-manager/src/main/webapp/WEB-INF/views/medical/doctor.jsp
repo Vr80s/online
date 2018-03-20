@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 
 <style type="text/css">
     .vertical-tab {
@@ -447,6 +447,11 @@
     input.custom-combobox-input.ui-widget.ui-widget-content.ui-state-default.ui-corner-left.ui-autocomplete-input{
      width: 100%;
     }
+
+	.show_description img{
+		width: 250px;
+		height: 200px;
+	}
     
     </style>
 <script type="text/javascript">
@@ -468,10 +473,10 @@
         });
     });
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-	当前位置：医师管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+	当前位置：医师医馆<small> <i class="ace-icon fa fa-angle-double-right"></i>
 	</small> <span> 医师管理 </span>
 </div>
 
@@ -774,7 +779,7 @@
 			 <label class="col-sm-4 control-label no-padding-right" for="description"><font color="red">*</font><b>医师简介:</b> </label>
 			 <div class="col-sm-6">
 			 	<!-- <input type="text" name="courseDescribe"  id="show_courseDescribe" disabled="disabled" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}"> -->
-			 	<p id="show_description" class="paddingtop7px padding7" style="word-break:break-all;word-wrap:break-word;width:250px"></p>
+			 	<p id="show_description" class="paddingtop7px padding7 show_description" style="word-break:break-all;word-wrap:break-word;width:250px"></p>
              </div>
 		</div>
 	</form>
@@ -791,6 +796,7 @@
 			 	<input type="text" name="name"  id="edit_name" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
              </div>
 		</div>
+
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="title">职称: </label>
 			<div class="col-sm-6" >
@@ -798,6 +804,7 @@
 			</div>
 		</div>
 		<div class="space-4"></div>
+
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="tel"><font color="red">*</font>联系电话: </label>
 			<div class="col-sm-6">
@@ -809,6 +816,7 @@
 			<label class="col-sm-3 control-label no-padding-right">医师类别: </label>
 			<div class="col-sm-6" >
 				<select name="type" id="edit_type">
+					<option value ="0">请选择医师类型</option>
 					<option value ="1">名青年中医</option>
 					<option value ="2">名老中医</option>
 					<option value="3">少数民族中医</option>
@@ -820,19 +828,17 @@
 		<div class="space-4"></div>
 
 
-		<div class="form-group"  style="margin-top: 18px;" >
+		<div class="form-group" style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>所在省市: </label>
 			<div class="col-sm-3">
 				<select id="edit_province"  onchange="doProvAndCityRelationEdit();"
 						class="clearfix col-xs-10 col-sm-12 {required:true}" >
-					<%--　　　　　　　　			<option id="edit_choosePro"value="-1">请选择省份</option>--%>
-					　　　　　　	   </select>
+				</select>
 				<input type="hidden" name = "province"  id="edit_realProvince"/>
 			</div>
 			<div class="col-sm-3">
 				<select id="edit_citys" onchange="onchangeCityEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
-					<%--　　　　　　　　			<option id='edit_chooseCity' value='-1'>请选择城市</option>--%>
-					　　　　		　　 </select>
+				</select>
 				<input type="hidden" name = "city"  id="edit_realCitys"/>
 			</div>
 		</div>
@@ -849,8 +855,8 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="description">医师简介: </label>
 			<div class="col-sm-6">
-				<textarea class="form-control" name="description" id="edit_description"  rows="8"></textarea>
-				<%--<input type="hidden" name="descriptionHid" id="edit_descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">--%>
+				<%--<textarea class="form-control" name="description" id="edit_description"  rows="8"></textarea>--%>
+				<textarea class="form-control edit_description" name="description" id="edit_description"  rows="8"></textarea>
 			</div>
 		</div>
 
@@ -879,7 +885,7 @@
 
 <!-- 查看 -->
 <div id="childMenuDialogDiv"></div>
-<div id="childMenuDialog" class="hide" >
+<div id="childMenuDialog" class="hide" >'
 
 	<form class='form-horizontal' id="childMenu-form"  method="post"  action="">
 		<input type="hidden" name="id" id="parentId"/>
@@ -921,5 +927,5 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/medical/provinces.js?v=112312312311"></script>
-<script type="text/javascript" src="${base}/js/medical/doctor.js?v=112312312311"></script>
+<script type="text/javascript" src="/js/medical/provinces.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/medical/doctor.js?v=ipandatcm_1.3"></script>

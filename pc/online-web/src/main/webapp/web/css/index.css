@@ -195,7 +195,7 @@ p {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 12px;
+  font-size: 14px;
   /*font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important;*/
 }
 header,
@@ -1029,7 +1029,7 @@ ul {
   overflow: hidden;
 }
 #main #log_xxpxb #content_xxpxb .detail {
-	  height: 72px;
+	  height: 77px;
 }
 #main .content > div > a .detail .info {
   padding-top: 3px;
@@ -1065,9 +1065,9 @@ ul {
 }
 #main .content > div > a .detail .info .price {
   display: inline-block;
-  margin: 0 6px 0 0;
+  margin: 0 3px 0 0;
   font-size: 16px;
-  color: #ff4012;
+  color: #F97B49;
 }
 #main .content > div > a .detail .info .price1 {
   font-style: normal;
@@ -1101,7 +1101,7 @@ ul {
   color: #333;
 }
 #main .content > div > a .detail .title {
-  max-width: 211px;
+  max-width: 260px;
   /* height: 30px;*/
   display: inline-block;
   overflow: hidden;
@@ -1144,12 +1144,12 @@ ul {
   transform: scale(1.2);
 }
 #main .content .course .classCategory {
-  width: 38px;
   height: 22px;
+  padding: 0 5px;
   text-align: center;
   line-height: 22px;
   color: white;
-  background: url(../images/index/label.png) no-repeat left top;
+  background: #2cb82c  url(../images/index/label.png) no-repeat left top;
   position: absolute;
   right: 18px;
   font-size: 12px;

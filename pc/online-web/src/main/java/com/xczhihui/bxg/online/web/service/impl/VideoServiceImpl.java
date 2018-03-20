@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -199,9 +200,9 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     }
 
     @Override
-    public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize) {
+    public Page<Criticize> getVideoCriticize(String videoId, Integer name, Integer pageNumber, Integer pageSize, String userId) {
         
-    	return videoDao.getVideoCriticize(videoId,name, pageNumber, pageSize);
+    	return videoDao.getUserOrCourseCriticize(videoId,name, pageNumber, pageSize,userId);
     }
 
     @Override
@@ -222,6 +223,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
         /** 根据id查出当前评论 */
         CriticizeVo criticizeVo = videoDao.findCriticizeById(id);
         boolean praise = false;
+        
         int sum = 0;
         Map<String,Object> returnMap = new HashMap<>();
         /** 点赞排除排除已经点赞的，记录点赞人 */
@@ -248,7 +250,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
                 }
             }
         }
-        returnMap.put("praise",praise);
+        //returnMap.put("praise",praise);
         returnMap.put("praiseSum",sum);
         return returnMap;
     }
@@ -273,7 +275,8 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
      * @param courseId 课程id
      * @return
      */
-    public  String saveEntryVideo(Integer  courseId,String password,HttpServletRequest request){
+    @Override
+    public  String saveEntryVideo(Integer  courseId, String password, HttpServletRequest request){
            CourseApplyVo courseApplyVo= courseDao.getCourseApplyByCourseId(courseId);
 //           if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getOriginalCost())==0 && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
     	   if(courseApplyVo.getCoursePwd()!=null&&!"".equals(courseApplyVo.getCoursePwd().trim())){
@@ -288,6 +291,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
            throw new RuntimeException(String.format("课程下架或非法操作"));
     }
 
+    @Override
     public  String   findVideosByCourseId(Integer courseId){
     	/*20170810---yuruixin*/
     	CourseVo course = courseDao.findCourseOrderById(courseId);
@@ -297,9 +301,4 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
         return "购买";
     }
 
-    public static void main(String[] args) {
-    	int sum =1;
-    	++sum;
-    	System.out.println(sum);
-	}
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <style type="text/css">
 #showOrderTable td{
 	text-align: left;
@@ -16,8 +16,8 @@
   } catch (e) {
   }
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
   当前位置：销售管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
@@ -66,9 +66,10 @@
                         <div class="profile-info-value searchTr">
                             <select id="search_order_from" name="order_from" class="propertyValue1">
                                 <option  value="" >订单来源</option>
-                                <option  value="1" >PC</option>
-                                <option  value="2" >H5</option>
-                                <option  value="3" >APP</option>
+                                <option  value="1" >pc</option>
+                                <option  value="2" >h5</option>
+                                <option  value="3" >android</option>
+                                <option  value="4" >ios</option>
                             </select>
                             <input type="hidden" value="order_from" class="propertyName" />
                         </div>
@@ -77,8 +78,8 @@
                         <div class="profile-info-value">
                         	关键词&nbsp;
                             <select id="selType" class="propertyValue1">
-                                <option  value="1" >订单号</option>
-                                <option  value="2" >购买者</option>
+								<option  value="2" >购买者</option>
+								<option  value="1" >订单号</option>
                             </select>
                         </div>
                     </td>
@@ -88,15 +89,15 @@
                             <input type="hidden" value="search_courseName" class="propertyName"/>
                         </div>
                     </td> -->
-                	<td>
+                	<td style="display:none">
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="search_orderNo" name="search_orderNo" class="propertyValue1"  placeholder = "订单号关键字" maxlength="30"/>
+                            <input type="text"   id="search_orderNo" name="search_orderNo" class="propertyValue1"  placeholder = "订单号" maxlength="30"/>
                             <input type="hidden" value="search_orderNo" class="propertyName"/>
                         </div>
                     </td>
-                	<td style="display:none">
+                	<td>
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="search_createPersonName" name="search_createPersonName" class="propertyValue1"  placeholder = "购买者关键字" maxlength="30"/>
+                            <input type="text"   id="search_createPersonName" name="search_createPersonName" class="propertyValue1"  placeholder = "购买者帐号" maxlength="30"/>
                             <input type="hidden" value="search_createPersonName" class="propertyName"/>
                         </div>
                     </td>
@@ -208,4 +209,4 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="${base}/js/order/recharge.js?v=1.7"></script>
+<script type="text/javascript" src="/js/order/recharge.js?v=ipandatcm_1.3"></script>

@@ -203,12 +203,12 @@ marquee {
   background: #fafafa;
 }
 .right-live .right-header .headImg {
-  width: 50px;
-  height: 50px;
+  width: 54px;
+  height: 54px;
   border-radius: 25px;
   overflow: hidden;
   float: left;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .right-live .right-header .headImg img {
   width: 100%;
@@ -247,7 +247,7 @@ marquee {
 }
 .right-live .right-header .head-tab .tab {
   width: 50%;
-  text-align: center;
+  /*text-align: center;*/
   float: left;
   height: 61px;
 }
@@ -275,7 +275,7 @@ marquee {
 
 .right-live .right-con .mess .box {
   height: 100%;
-  padding-bottom: 200px;
+  padding-bottom: 295px;
   width:326px;
   overflow-y: scroll;
 }
@@ -314,6 +314,9 @@ overflow-y: auto;
 .right-live .right-con .mess #chat-list .rflower .time {
   color: #333;
   margin-left: 5px;
+}
+.giftSelectColor{
+	background-color: skyblue !important;
 }
 .right-live .right-con .mess li {
   margin:10px;
@@ -409,7 +412,7 @@ overflow-y: auto;
 .right-live .chat {
   bottom: -8px;
   width: 100%;
-  height: 200px;
+  height: 300px;
   z-index: 10;
   left: 0;
   background: #FAFAFA;
@@ -442,7 +445,7 @@ overflow-y: auto;
 .right-live .chat .right-list #restMoney{
 	float: right;
 	font-size: 12px;
-  color: #999;
+  color: #f40;
   margin-right: 20px;
 }
 
@@ -515,7 +518,7 @@ overflow-y: auto;
   margin: 0 auto;
   display: block;
   width: 100%;
-  height: 128px;
+  height: 230px;
   background: #fff;
   padding: 10px 20px;
   border: none;

@@ -32,6 +32,7 @@ public class UserPaperServiceImpl  extends OnlineBaseServiceImpl implements User
      * @param user  当前登录用户
      * @return
      */
+    @Override
     public Page<PaperVo> findMyCurrentPage(Integer paperStatus, Integer pageNumber, Integer pageSize, OnlineUser user) {
         return  paperDao.findMyCurrentPage(paperStatus,pageNumber,pageSize,user);
     }
@@ -44,7 +45,8 @@ public class UserPaperServiceImpl  extends OnlineBaseServiceImpl implements User
      * @param user  当前登录用户
      * @return
      */
-    public Page<PaperVo>  findMyHistoryPage(Integer paperStatus,String startTime,String endTime,Integer pageNumber, Integer pageSize,OnlineUser user){
+    @Override
+    public Page<PaperVo>  findMyHistoryPage(Integer paperStatus, String startTime, String endTime, Integer pageNumber, Integer pageSize, OnlineUser user){
         return  paperDao.findMyHistoryPage(paperStatus, startTime, endTime, pageNumber, pageSize, user);
     }
 
@@ -53,7 +55,8 @@ public class UserPaperServiceImpl  extends OnlineBaseServiceImpl implements User
      * @param paperId  试卷id
      * @return
      */
-    public Map<String,Object> getMyPaper(String paperId,OnlineUser user){
+    @Override
+    public Map<String,Object> getMyPaper(String paperId, OnlineUser user){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         resultMap.put("baseInfo", paperDao.findPaperBaseInfo(paperId,user));
         resultMap.put("paper",paperDao.getMyPaper(paperId,user));
@@ -65,14 +68,16 @@ public class UserPaperServiceImpl  extends OnlineBaseServiceImpl implements User
      * @param paperId
      * @param user
      */
-    public  void  updateStartTimeAboutPaper(String paperId,OnlineUser user){
+    @Override
+    public  void  updateStartTimeAboutPaper(String paperId, OnlineUser user){
        paperDao.updateStartTimeAboutPaper(paperId,user);
     }
     /**
      * 保存我的回答 康荣彩
      * @param
      */
-    public void updateQuestionById(String questionId,String answer, String attachment){
+    @Override
+    public void updateQuestionById(String questionId, String answer, String attachment){
         paperDao.updateQuestionById(questionId, answer,attachment);
     }
 
@@ -81,7 +86,8 @@ public class UserPaperServiceImpl  extends OnlineBaseServiceImpl implements User
      * 提交作业  康荣彩
      * @param paperId  试卷id
      */
-    public void savePaper(String paperId,OnlineUser user){
+    @Override
+    public void savePaper(String paperId, OnlineUser user){
         paperDao.savePaper(paperId,user);
     }
 
@@ -90,7 +96,8 @@ public class UserPaperServiceImpl  extends OnlineBaseServiceImpl implements User
      * @param paperId  试卷id
      * @return
      */
-    public  Map<String,Object> findMyPaperOrScore(String paperId,OnlineUser user){
+    @Override
+    public  Map<String,Object> findMyPaperOrScore(String paperId, OnlineUser user){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         //获取作业页面的基本信息
         List<Map<String,Object>> paperInfos = paperDao.findPaperBaseInfo(paperId,user);
@@ -99,7 +106,7 @@ public class UserPaperServiceImpl  extends OnlineBaseServiceImpl implements User
         List<Map<String,Object>> questions= paperDao.findMyPaper(paperId,user);
         resultMap.put("question",questions);
         List<Map<String,Object>>  scores=null;
-        if (paperInfos.size() > 0 && paperInfos.get(0).get("status").toString().equals("3")){
+        if (paperInfos.size() > 0 && "3".equals(paperInfos.get(0).get("status").toString())){
             scores = paperDao.findMyScore(paperId,user);
         }
         resultMap.put("score",scores);

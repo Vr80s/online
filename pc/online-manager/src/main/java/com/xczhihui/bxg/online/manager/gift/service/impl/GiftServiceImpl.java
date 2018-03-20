@@ -100,7 +100,7 @@ public class GiftServiceImpl extends OnlineBaseServiceImpl implements
 		if (0 == gift.getPrice()) {
 			gift.setIsFree(true); // 免费
 		} else {
-			gift.setIsFree(false); // 收费
+			gift.setIsFree(false); // 付费
 		}
 		gift.setCreatePerson(UserHolder.getCurrentUser().getId());
 		// 增加密码和老师
@@ -119,7 +119,7 @@ public class GiftServiceImpl extends OnlineBaseServiceImpl implements
 		if (0 == gift.getPrice()) {
 			gift.setIsFree(true); // 免费
 		} else {
-			gift.setIsFree(false); // 收费
+			gift.setIsFree(false); // 付费
 		}
 		dao.update(gift);
 	}

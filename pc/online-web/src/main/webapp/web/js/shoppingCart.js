@@ -219,14 +219,8 @@ function addSelectedMenu(){
 
 //购物车列表点击事件
 template.helper('shopClick', function (shopping) {
-	var a = "";
-	if(shopping.onlineCourse == 1){
-		a = '<a style="cursor:pointer;color=#333;display: block;"  href="/web/html/payRealCourseDetailPage.html?id='+shopping.courseId+'"  target="_blank">';
-	}else if(shopping.type == 1){
-		a = '<a style="cursor:pointer;color=#333;display: block;" href="/web/html/payOpenCourseDetailPage.html?id='+shopping.courseId+'&direct_id='+shopping.direct_id+'"  target="_blank">';
-	}else{
-		a = '<a style="cursor:pointer;color=#333;display: block;" href="/web/html/payCourseDetailPage.html?id='+shopping.courseId+'&courseType='+shopping.course_type+'&free=0" target="_blank">';
-	}
+	var a = '<a style="cursor:pointer;color=#333;display: block;"  href="/course/courses/'+shopping.courseId+'"  target="_blank">';
+
     console.info(a);
 	return '<li class="w485">' +
 		'<div class="aloneYes">' +

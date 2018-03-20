@@ -2,9 +2,14 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.web.vo.ArticleVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.enums.DoctorType;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
+import com.xczhihui.bxg.online.web.service.UserService;
+import com.xczhihui.bxg.online.web.vo.UserDataVo;
+import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/medical/doctor")
-public class DoctorController {
+public class DoctorController extends AbstractController{
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private UserService userService;
 
     /**
      * Description：获取医师分页信息
@@ -28,11 +36,11 @@ public class DoctorController {
      * @Date: 下午 3:07 2017/12/10 0010
      **/
     @RequestMapping(value = "/getDoctors",method= RequestMethod.GET)
-    public ResponseObject getDoctors(Integer current,Integer size,Integer type,String hospitalId,String name,String field){
+    public ResponseObject getDoctors(Integer current,Integer size,Integer type,String hospitalId,String name,String field,String department){
         Page<MedicalDoctorVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorPage(page,type,hospitalId,name,field));
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorPage(page,type,hospitalId,name,field,department));
     }
 
     /**
@@ -59,6 +67,26 @@ public class DoctorController {
     @ResponseBody
     public ResponseObject getHotField(){
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotField());
+    }
+
+    /**
+     * 获取医师热门引用科室
+     * @return
+     */
+    @RequestMapping(value = "getHotDepartment")
+    @ResponseBody
+    public ResponseObject getHotDepartment(){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotDepartment());
+    }
+
+    /**
+     * 获取医师类型
+     * @return
+     */
+    @RequestMapping(value = "getDoctorType")
+    @ResponseBody
+    public ResponseObject getDoctorType(){
+        return ResponseObject.newSuccessResponseObject(DoctorType.getDoctorTypeList());
     }
 
 //    /**
@@ -191,6 +219,78 @@ public class DoctorController {
     @ResponseBody
     public ResponseObject getHotSpecialColumnAuthor(){
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotSpecialColumnAuthor());
+    }
+
+    /**
+     * 加入医馆
+     */
+    @RequestMapping(value = "joinHospital", method = RequestMethod.POST)
+    public ResponseObject joinHospital(MedicalDoctor medicalDoctor,HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = getOnlineUser(request);
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalDoctor.setUserId(currentUser.getUid());
+        medicalDoctorBusinessService.joinHospital(medicalDoctor);
+        return ResponseObject.newSuccessResponseObject("加入成功");
+    }
+
+    /**
+     * 获取医师的坐诊时间
+     * @author zhuwenbao
+     */
+    @RequestMapping(value = "getWorkTime", method = RequestMethod.GET)
+    public ResponseObject getWorkTime(Integer type, HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = getOnlineUser(request);
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        String workTime = medicalDoctorBusinessService.getWorkTimeById(currentUser.getUid(), type);
+        return ResponseObject.newSuccessResponseObject(workTime);
+    }
+
+    /**
+     * 修改医师信息
+     * @author zhuwenbao
+     */
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public ResponseObject update(MedicalDoctor doctor, HttpServletRequest request){
+
+        // 获取当前用户
+        OnlineUser loginUser = getOnlineUser(request);
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalDoctorBusinessService.update(currentUser.getUid(), doctor);
+        return ResponseObject.newSuccessResponseObject("修改成功");
+    }
+
+    /**
+     * 通过医师id获取详细信息
+     */
+    @RequestMapping(value = "get",method= RequestMethod.GET)
+    public ResponseObject getDoctorByIdV2(String doctorId) {
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorByIdV2(doctorId));
+    }
+
+    /**
+     * 添加医师
+     */
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = getOnlineUser(request);
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalDoctor.setUserId(currentUser.getUid());
+        medicalDoctorBusinessService.add(medicalDoctor);
+        return ResponseObject.newSuccessResponseObject("添加成功");
+    }
+
+    /**
+     * 获取医师所在的医馆信息
+     */
+    @RequestMapping(value = "getHospital", method = RequestMethod.GET)
+    public ResponseObject getHospital(HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = getOnlineUser(request);
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHospital(currentUser.getUid()));
     }
 
 }

@@ -36,7 +36,7 @@
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="/web/js/header.js?v=1.2" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
     <!--百度统计-->
     <script>
@@ -246,7 +246,7 @@
 
         <!--右侧-->
        <div class="main_right ">
-            <!--账号认领-->
+            <!--帐号认领-->
             <div class="import_thing hide">
                <h2>暂无重要通知</h2>
                 <!--<p>因我馆医疗系统升级，患者需重新登记资料</p>-->
@@ -281,6 +281,17 @@
                 </div>-->
 
             </div>
+            
+            <!--优秀医馆-->
+            <div class="good_hospital hide" id="good_hospital">
+            	<span>优秀医馆</span>
+            	<ul id="good_hospital_list">
+            		<!--<li><a href=""><em class="select">1</em>北京同仁堂</a></li>
+            		<li><a href=""><em class="select">1</em>北京同仁堂</a></li>
+            		<li><a href=""><em class="select">1</em>北京同仁堂</a></li>-->
+            	</ul>
+            </div>
+            	
 
        </div>
     </div>
@@ -353,7 +364,16 @@
 {{/each}}
 </script>
 
-
+<!--优秀医馆模板-->
+<script type="text/template" id="good_hospital_list_Tpl">
+		{{each item as item i}}
+			{{if i+1 < 4}}
+            	<li><a href="/web/html/clinicDetails.html?Id={{item.id}}"><em class="select">{{i+1}}</em>{{item.city}}&nbsp;&nbsp;{{item.name}}</a></li>
+			{{else}}
+            	<li><a href="/web/html/clinicDetails.html?Id={{item.id}}"><em class="">{{i+1}}</em>{{item.city}}&nbsp;&nbsp;{{item.name}}</a></li>
+			{{/if}}
+		{{/each}}
+</script>
 
 
 
@@ -361,7 +381,7 @@
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/hospital_details.js?v=ipandatcm_1.2.1"></script>
-<script type="text/javascript" src="/web/js/footer.js"></script>
+<script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script src="/web/js/slides-1.1.1-min.js"></script>
 <script type="text/javascript">

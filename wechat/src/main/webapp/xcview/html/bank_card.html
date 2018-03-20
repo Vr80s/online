@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
+
+<script type="text/javascript" src="../js/bank_card.js"></script> <!--银行卡选择-->
+	<script type="text/javascript" src="../js/common/data.city.js"></script>
+<script type="text/javascript" src="../js/common/mui.picker.min.js"></script><!--银行卡选择-->
+
+<link rel="stylesheet" href="../css/mui.css" /><!--银行卡选择-->
+<link rel="stylesheet" href="../css/choice.css" /><!--银行卡选择-->
+
+
+<link rel="stylesheet" href="../css/bank_card.css" />
+
+
+	
+</head>
+<!--公用-->
+<!--y--float:right;  z--float:left;  both--clear:both;-->
+<body style="background:#F8F8F8;">
+	
+	<!--头部开始-->
+	<header>
+		<div class="header_img">
+			<img src="../images/back icon.png" />
+		</div>
+		<div class="header">
+			添加银行卡
+		</div>
+	</header>
+	<!--头部结束-->
+	
+	<!--中间内容开始-->
+	<div class="bank_card">
+		<div class="bank_card_hint">请绑定持卡人本人的银行卡</div>
+		<div class="bank_card_one">
+			<div class="cardholder">
+				持卡人<input type="text" class="input0" id="acct_name"/>
+			</div>
+			<div class="cardholder">
+				卡号<input type="number" style="margin-left: 0.68rem;" class="input1" id="acct_pan"/>
+			</div>
+		</div>
+		
+		<div class="bank_card_two">
+			<div class="cardholders cardholders_one">
+				卡类型<span class="r-tx-txt2 r-tx-txt2s fl" id="bankCard_text">请选择银行卡类型</span>
+				<input type="hidden" id="bankCard_id" />
+			</div>
+			<div class="cardholders">
+				身份证号<input type="number" style="margin-left: 0.14rem;" class="input2" id="cert_id" />
+			</div>
+		</div>
+		
+		<div class="next_step" onclick="clickNext()">下一步</div>
+	</div>
+	<!--中间内容结束-->
+	
+	<!--是否放弃添加银行卡开始-->
+	<div class="yes_bank_card" style="display: block1;">
+		<div class="yes_bank_card_bg"></div>
+		<div class="yes_bank_card_main">
+			<div class="yes_bank_card_main_title">是否放弃绑定银行卡？</div>
+			<div class="yes_bank_card_main_btn">
+				<div class="no">否</div>
+				<div class="yes">是</div>
+			</div>
+		</div>
+	</div>
+	<!--是否放弃添加银行卡结束-->
+</body>
+
+
+
+<!--点击可提现金额-->
+<script type="text/javascript">
+	window.onload = function(){
+
+		var Ipt0,Ipt1,Ipt2;
+		 
+		
+		$('.input0').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".next_step").css("opacity","1");
+			}else{
+				$(".next_step").css("opacity","0.3");      	
+			}
+		})
+		
+		$('.input1').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".next_step").css("opacity","1");
+			}else{
+				$(".next_step").css("opacity","0.3");      	
+			}
+		})
+		
+		
+		$('.input2').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".next_step").css("opacity","1");
+			}else{
+				$(".next_step").css("opacity","0.3");      	
+			}
+		})
+		
+		
+		
+		
+//		点击头部返回按钮
+		$(".header_img").click(function(){
+		 	$(".yes_bank_card").show();
+		});
+		
+//		点击添加银行卡选择是否
+		$(".yes_bank_card_main_btn .no").click(function(){
+		 	$(".yes_bank_card").hide();
+		});
+		$(".yes_bank_card_main_btn .yes").click(function(){
+//		 	$(".yes_bank_card").hide();
+		});
+		
+		
+		$(".cardholders_one").click(function(){
+		 	$(".cardholders span").html("请选择银行卡");
+		});
+		
+	};
+</script>
+
+
+
+</html>

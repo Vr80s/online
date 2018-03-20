@@ -1,0 +1,179 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>打赏</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="../css/css.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="../js/js.js"></script>
+
+<!-- input背景切换 -->
+<script type="text/javascript" src="../js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function(){
+			$(".label01").click(function(){
+		  		$(this).addClass('label1');
+		  		$(".label02").removeClass('label1');
+	  		});
+	  		$(".label02").click(function(){
+		  		$(this).addClass('label1');
+		  		$(".label01").removeClass('label1');
+	  		});
+	  		$(".label02").click();
+	  		
+	  		$(".label03").click(function(){
+		  		$(this).addClass('label1');
+		  		$(this).removeClass('label03');
+	  		});
+
+		});
+	</script>
+	<style>
+		#buy_right a{
+			height: 2.5rem;
+			line-height: 2.5rem;
+		}
+	</style>
+
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="grabble">
+			<div class="grabble_top">
+				<div class="grabble_img"  onclick="history.go(-1)"></div>
+				<div class="dl">打赏</div>
+			</div>
+		</div>
+	</header>
+	<div class="footer_k" style="height:1.8rem;"></div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+
+
+	<!-- 支付方式开始 -->
+	<div class="hot_zhibo buy">
+		<p style="color:#999;margin-bottom:0.7rem;">支付方式</p>
+		<div class="zhibo">
+			<div class="buy_pay">
+				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" />
+				<span>
+					<label class="label02"><input name="fruit" type="radio" value="1" class="buy_put" /></label>
+				</span>
+			</div>
+		</div>
+		<div class="zhibo">
+			<div class="buy_pay" id="zfbDiv">
+				<img src="../images/pay01.png" alt="" class="buy_pay_img" />
+				<sapn><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></sapn>
+			</div>
+		</div>
+	</div>
+	<!-- 支付方式结束 -->
+
+	<!-- 同意条款开始 -->
+	<div class="buy_clause">
+		<span>
+			<label class="label1"><input name="xi" type="radio" value="cc" class="buy_put" checked="checked" /></label>
+		</span>
+		<div class="buy_clause_a">我已阅读并同意<a href="payment_agree.html">《用户付费协议》</a></div>
+	</div>
+	<!-- 同意条款结束 -->
+	<!-- 中间内容结束 -->
+
+	<!-- 底部结束 -->
+	<div class="footer_k"></div>
+	<footer style="padding-bottom: 0.345rem;padding-top: 0.68rem;">
+		<div class="base buy_bottom">
+			<ul>
+				<li class="buy_left"><p class="buy_bottom_p1">￥<span id="buyPirce"></span></p></li>
+				<li class="buy_right" id="buy_right"><a href="javascript: ;" onclick="goPay()">去支付</a></li>
+			</ul>
+		</div>
+	</footer>
+	<!-- 底部结束 -->
+</body>
+
+
+
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcviews/js/XCh5Pay.js"></script>
+
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    function is_weixn(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $("#buyPirce").html(getQueryString("actualPay"));
+function goPay(){
+
+    var xiradio = document.getElementsByName("xi");
+    var xic=null;
+    for (i=0; i<xiradio.length; i++) {
+        if (xiradio[i].checked) {
+            xic=xiradio[i].value;
+        }
+    }
+    if(xic==null){
+        alert("请同意用户消费协议！");
+        return;
+    }
+    var radio = document.getElementsByName("fruit");
+    var payType=null;
+    for (i=0; i<radio.length; i++) {
+        if (radio[i].checked) {
+            payType=radio[i].value;
+        }
+    }
+
+    var btype=   localStorage.getItem("access")
+    var orderFrom;
+    if(btype=='wx'){
+        orderFrom=4;
+    }else if(btype=='brower'){
+        orderFrom=3;
+    }
+    if(payType==0){
+
+        if(is_weixn()){
+            location.href = "/xcviews/html/wechat_alipay_ds.html?"+"receiver="+getQueryString("receiver")+"&giver="+localStorage.userId+"&rewardId="+getQueryString("rewardId")+"&clientType="+orderFrom+"&liveId="+getQueryString("liveId")+"&actualPay="+getQueryString("actualPay")+"&returnUrl="+getQueryString("returnUrl");
+            return;
+        }
+
+        jmpPayPage("/bxg/alipay/rewardPay",payType,+"receiver="+getQueryString("receiver")+"&giver="+localStorage.userId+"&rewardId="+getQueryString("rewardId")+"&clientType="+orderFrom+"&liveId="+getQueryString("liveId")+"&actualPay="+getQueryString("actualPay")+"&returnUrl="+getQueryString("returnUrl"),null);
+    }else if(payType==1){
+
+        var openId=   localStorage.getItem("openid");
+        var strparam ="clientType="+orderFrom+"&liveId="+getQueryString("liveId")+"&giver="+localStorage.userId+"&actualPay="+getQueryString("actualPay")+"&receiver="+getQueryString("receiver")+"&rewardId="+getQueryString("rewardId");
+        if(stringnull(openId)){
+            strparam+="&openId="+openId;
+        }
+        jmpPayPage("/bxg/pay/rewardPay",payType,strparam,getQueryString("returnUrl"));
+    }
+
+}
+</script>
+</html>

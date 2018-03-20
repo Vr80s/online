@@ -24,8 +24,17 @@ public class PublicCourseDao extends HibernateDao<Course>{
 		 * 
 		 * oe_course_mobile 从这个里面判断是否存在课程详情啊
 		 */
-		StringBuilder sql =new StringBuilder("select c.*,c.grade_name as courseName ,ou.name as lecturerName ,m.name as menuName,c.`course_pwd` coursePwd "
-				+ ",c.live_source as liveSource \n" +
+		StringBuilder sql =new StringBuilder("select c.id,c.current_price*10 currentPrice,c.`lecturer`,c.`course_length`,c.`start_time`,c.smallimg_path smallimgPath,"
+
+
+				+ " if(c.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=c.start_time,6,if(  "
+				+ "			    DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time,"
+				+ "    4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status))),c.live_status) "
+				+ "			     AS liveStatus, "
+				
+				
+				+ "c.grade_name as courseName ,c.sort_update_time as sortUpdateTime,ou.name as lecturerName ,m.name as menuName,c.`course_pwd` coursePwd "
+				+ ",c.live_source as liveSource,c.release_time as releaseTime,c.recommend_sort as recommendSort,c.status as status,c.direct_id as directId,c.`essence_sort` as essenceSort \n" +
 				" from oe_course c  LEFT JOIN\n" +
 				"  oe_menu m ON c.menu_id = m.id \n" +
 				"  LEFT JOIN \n" +
@@ -51,10 +60,14 @@ public class PublicCourseDao extends HibernateDao<Course>{
 	 		paramMap.put("menuId", courseVo.getMenuId());
 	 		sql.append(" and c.menu_id = :menuId ");
 	 	}
-	 	if(courseVo.getStatus() != null){
-	 		paramMap.put("status", courseVo.getStatus());
-	 		sql.append(" and c.status = :status ");
-	 	}
+		if(courseVo.getStatus() != null){
+			paramMap.put("status", courseVo.getStatus());
+			sql.append(" and c.status = :status ");
+		}
+		if(courseVo.getLiveStatus() != null){
+			paramMap.put("liveStatus", courseVo.getLiveStatus());
+			sql.append(" and c.live_status = :liveStatus ");
+		}
 	 	
 	 	 if(courseVo.getStartTime()!=null){
 	            sql.append(" and c.start_time >= :startTime ");
@@ -64,7 +77,9 @@ public class PublicCourseDao extends HibernateDao<Course>{
 	            sql.append(" and c.end_time <= :endTime ");
 	            paramMap.put("endTime",courseVo.getEndTime());
 	        }
-	 	sql.append(" order by c.status desc, c.sort desc");
+            sql.append(" order by c.status desc,c.recommend_sort desc,c.release_time desc");
+
+
  		
 		return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 	}

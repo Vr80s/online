@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];
@@ -12,8 +12,8 @@
 		
 	}
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
   当前位置：销售策略管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
@@ -88,4 +88,4 @@
     </div>
     <span style="position:absolute;bottom:10px;right:10px;color:red;top:2px;">数据截止至：<span id="updateDataTime"></span></span>
 </div>
-<script type="text/javascript" src="${base}/js/activity/activityDetail.js?v=1.7"></script>
+<script type="text/javascript" src="/js/activity/activityDetail.js?v=ipandatcm_1.3"></script>

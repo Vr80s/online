@@ -1,0 +1,723 @@
+.account{
+	width: 100%;
+	height: 100%;
+}
+.account_main{
+	width: 950px;
+    display: block;
+    float: right;
+    vertical-align: top;
+    padding: 0 20px;
+    min-height: 520px;
+    background-color: #fff;
+    padding-bottom: 50px;
+    display: none;
+    margin-top: 20px;
+}
+.account_main_title{
+	width: 100%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #333333;
+    /*border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 20px;*/
+}
+.reauthentication{
+	width: 100%;
+    height: 70px;
+    padding: 26px 20px;
+    background: #F0F0F0;
+    border-radius: 4px;
+    margin-bottom: 30px;
+}
+.reauthentication .left_size{
+	width: 430px;
+    font-size: 14px;
+    color: #333333;
+    float: left;
+}
+.reauthentication .left_size span{
+	font-size: 14px;
+	color: #FF4012;
+}
+.reauthentication .right_btn{
+	width: 92px;
+	height: 36px;
+	line-height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	text-align: center;
+	font-size: 14px;
+	color: #FFFFFF;
+	float: left;
+	cursor: pointer;
+	margin-top: -8px;
+}
+.account_main .name{
+	font-size: 14px;
+	color: #666666;
+	overflow: hidden;
+	/*margin-bottom: 20px;*/
+}
+.account_main .name .one{
+	width: 80px;
+	text-align: right;
+	float: left;	
+	margin-right: 20px;
+	margin-top: 10px;
+	font-size: 14px;
+	color: #666666;
+}
+.account_main .name .two{
+	text-align: left;	
+	float: left;	
+	margin-right: 20px;
+	margin-bottom: 20px;
+	font-size: 14px;
+	color: #333333;
+}
+.account_main .name .two_img{
+	width: 260px;
+	height: 147px;
+}
+.account_main .name .two_img img{
+	width: 260px;
+	height: 147px;
+}
+.account_main .name .three{
+	width: 260px;
+	height: 147px;
+	float: left;
+}
+
+.account_main .name .three img{
+	width: 260px;
+	height: 147px;
+}
+
+/*重新认证 第二页*/
+.account_main_alter_title{
+	width: 100%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #333333;
+    border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 20px;
+	position: relative;
+	margin-bottom: 30px;
+}
+.account_main_alter_title .one{
+	font-size: 16px;
+}
+.account_main_alter_title .two{
+	width: 92px;
+	height: 36px;
+	line-height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 10px;
+	z-index: 1;
+	font-size: 14px;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+.account_main_alter .div_title{
+	margin-bottom: 20px;
+}    
+.account_main_alter .div_title span:first-child {
+	display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+}
+.account_main_alter .div_title span:first-child > em{
+	color: #f40;
+    display: inline;
+}
+.account_main_alter .div_title input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    font-size: 14px;
+}
+/*医师认证结束*/
+.one_name{
+	margin-top: 0 !important;
+	width: 120px !important;
+}
+.one_names{
+	margin-top: 0 !important;
+	width: 120px !important;
+}
+/*医馆认证开始*/
+
+/*医馆认证结束*/
+
+.account_main_alter .uploading{
+	margin-bottom: 20px;
+}    
+.account_main_alter .uploading span:first-child {
+	display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+    float: left;
+    margin-top: 18px;
+    margin-right: 24px;
+}
+.account_main_alter .uploading span:first-child > em{
+	color: #f40;
+    display: inline;
+}
+
+/*上传图片*/
+.account_main_alter .uploading .input-group{
+	width: 260px;
+	height: 147px;
+	float: left;
+	background: #F0F0F0;	
+	border: 1px solid #F0F0F0;
+	margin-right: 20px;
+    margin-left: 0;
+    position: relative;
+}
+.uploading .input-group .row_size {
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+}
+.uploading .input-group .row_size .one{
+	font-size: 74px;
+	color: #D8D8D8;
+	width: 260px;
+}
+.uploading .input-group .row_size .two{
+	font-size: 14px;
+	color: #999999;
+	width: 260px;
+}
+.uploading .input-group .big-photo{
+	padding: 0;
+    width: 260px;
+}
+.uploading .input-group .big-photo .preview{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.uploading .input-group .big-photo input{
+	display: block !important;
+	width: 262px;
+    height: 147px;
+    outline: none;
+    opacity: 0;
+}
+.uploading .hint{
+	font-size: 14px;
+	color: #999999;
+	line-height: 24px;
+	float: left;
+	margin-top: 48px;
+}
+
+
+/*医师资格证*/
+.account_main_alter .certification{
+	margin-bottom: 20px;
+}    
+.account_main_alter .certification span:first-child {
+	display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+    float: left;
+    margin-top: 18px;
+    margin-right: 24px;
+}
+.account_main_alter .certification span:first-child > em{
+	color: #f40;
+    display: inline;
+}
+
+
+
+.account_main_alter .certification .input-group{
+	width: 260px;
+	height: 147px;
+	float: left;
+	background: #F0F0F0;	
+	border: 1px solid #F0F0F0;
+	margin-right: 20px;
+    margin-left: 0;
+    position: relative;
+}
+.certification .input-group .row_size {
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+}
+.certification .input-group .row_size .one{
+	font-size: 74px;
+	color: #D8D8D8;
+	width: 260px;
+}
+.certification .input-group .row_size .two{
+	font-size: 14px;
+	color: #999999;
+	width: 260px;
+}
+.certification .input-group .big-photo{
+	padding: 0;
+    width: 260px;
+}
+.certification .input-group .big-photo .preview{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.certification .input-group .big-photo .preview > img{
+	width: 260px !important;
+	height: 147px !important;
+}
+.certification .input-group .big-photo input{
+	display: block !important;
+	width: 262px;
+    height: 147px;
+    outline: none;
+    opacity: 0;
+}
+.certification .hint{
+	font-size: 14px;
+	color: #999999;
+	line-height: 24px;
+	float: left;
+	margin-top: 48px;
+}
+.certification .hint div{
+	font-size: 14px;
+	color: #999999;
+}
+
+
+
+/*执业医师资格证*/
+.account_main_alter .profession{
+	margin-bottom: 20px;
+}    
+.account_main_alter .profession span:first-child {
+	display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+    float: left;
+    margin-top: 18px;
+    margin-right: 24px;
+}
+.account_main_alter .profession span:first-child > em{
+	color: #f40;
+    display: inline;
+}
+
+
+
+.account_main_alter .profession .input-group{
+	width: 260px;
+	height: 147px;
+	float: left;
+	background: #F0F0F0;	
+	border: 1px solid #F0F0F0;
+	margin-right: 20px;
+    margin-left: 0;
+    position: relative;
+}
+.profession .input-group .row_size {
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+}
+.profession .input-group .row_size .one{
+	font-size: 74px;
+	color: #D8D8D8;
+	width: 260px;
+}
+.profession .input-group .row_size .two{
+	font-size: 14px;
+	color: #999999;
+	width: 260px;
+}
+.profession .input-group .big-photo{
+	padding: 0;
+    width: 260px;
+}
+.profession .input-group .big-photo .preview{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.profession .input-group .big-photo input{
+	display: block !important;
+	width: 262px;
+    height: 147px;
+    outline: none;
+    opacity: 0;
+}
+.profession .hint{
+	font-size: 14px;
+	color: #999999;
+	line-height: 24px;
+	float: left;
+	margin-top: 48px;
+}
+
+.img_imghead{
+	width: 260px;
+	height: 147px;
+	margin-top: 0 !important;
+}
+ 
+
+
+/*提交按钮*/
+.approve{
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	text-align: center;
+	font-size: 14px;
+	color: #FFFFFF;
+	margin-top: 20px;
+	margin-bottom: 21px;
+	margin-left: 112px;
+	cursor: pointer;
+}
+.deal{
+	font-size: 14px;
+	color: #666666;
+	margin-left: 112px;
+}
+.account_main_alter .deal lable input{
+	margin-top: 0;
+}
+.account_main_alter .deal a{
+	font-size: 14px;
+	color: #449ae6;
+}
+
+
+
+/*个人信息*/
+.personal_details_title{
+	width: 100%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #333333;
+    /*border-bottom: 1px solid #F0F0F0;*/
+    /*margin-bottom: 20px;*/
+	font-size: 16px;
+	color: #333333;
+}
+.account_modification{
+	width: 100%;
+    height: 70px;
+    padding: 26px 20px;
+    background: #F0F0F0;
+    border-radius: 4px;
+    margin-bottom: 30px;
+}
+.account_modification .left_size{
+	width: 188px;
+    font-size: 14px;
+    color: #333333;
+    float: left;
+}
+.account_modification .right_modification{
+	width: 92px;
+    height: 36px;
+    line-height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    color: #FFFFFF;
+    float: left;
+    cursor: pointer;
+    margin-top: -8px;
+}
+.personal_details .name{
+	font-size: 14px;
+    color: #666666;
+    overflow: hidden;
+}
+.personal_details .name .one {
+    width: 84px;
+    text-align: right;
+    float: left;
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+	color: #666666;
+}
+.personal_details .name .two {
+    text-align: left;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.personal_details .name .two {
+    text-align: left;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.personal_details .name .two_img img {
+    width: 120px;
+    height: 120px;
+}
+.personal_details .name .two_video{
+	width: 260px;
+	height: 147px;
+}
+.personal_details .name .two_video video{
+	width: 260px;
+	height: 147px;
+}
+.personal_details .name .two_size{
+	font-size: 14px;
+	color: #333333;
+	width: 540px;
+}
+
+/*修改信息*/
+.message_return .message_title{
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #F0F0F0;
+    position: relative;
+    margin-bottom: 30px;
+}
+.message_title .one{
+	font-size: 16px;
+}
+.message_title .two{
+	width: 92px;
+    height: 36px;
+    line-height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    z-index: 1;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.message_return .name{
+	margin-bottom: 20px;
+}
+.message_return .name span:first-child > em{
+	color: #f40;
+    display: inline;
+}
+.message_return .name span:first-child{
+	display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+    float: left;
+    margin-top: 10px;
+}
+
+.message_return form .name input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    font-size: 14px;
+}
+.message_return form .name .span{
+	font-size: 14px;
+	color: #188EEE;
+	cursor: pointer;
+}
+.message_return form .name .textarea{
+	width: 540px;
+	height: 160px;
+	outline: none;
+	resize: none;
+	border: 1px solid #F0F0F0;
+	padding: 10px;
+}
+.message_return form .name .citys p{
+	margin-bottom: 20px;
+}
+.message_return form .name .citys select{
+	width: 280px;
+    height: 36px;
+    color: #999999 !important;
+    font-size: 14px;
+    border: 1px solid #F0F0F0;
+}
+.message_return form .name .name_textarea{
+	width: 499px;
+    height: 90px;
+    padding: 10px;
+    margin-left: 112px;
+    outline: none;
+    resize: none;
+    font-size: 14px;
+	color: #999999;
+	margin-left: 109px;
+	border: 1px solid #F0F0F0;
+}
+.message_return form .name_btn{
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	font-size: 14px;
+	color: #FFFFFF;
+	background: #00BC12;
+	border-radius: 4px;
+	margin-left: 109px;
+	cursor: pointer;
+}
+
+
+/*上传头像*/
+.message_return .input-group{
+	width: 120px;
+	height: 120px;
+	float: left;
+	background: #F0F0F0;	
+	border: 1px solid #F0F0F0;
+	margin-right: 20px;
+    margin-left: 0;
+    position: relative;
+}
+.message_return .input-group .row_size {
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+}
+.message_return .input-group .row_size .one{
+	font-size: 49px;
+	color: #D8D8D8;
+	width: 120px;
+	text-align: center;
+}
+.message_return .input-group .row_size .two{
+	font-size: 14px;
+	color: #999999;
+	width: 120px;
+	text-align: center;
+}
+.message_return .input-group .big-photo{
+	padding: 0;
+    width: 120px;
+}
+.message_return .input-group .big-photo .preview{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.message_return .input-group .big-photo .preview img{
+	width: 120px !important;
+	height: 120px !important;
+}
+.message_return .input-group .big-photo input{
+	display: block !important;
+	width: 120px;
+    height: 120px;
+    outline: none;
+    opacity: 0;
+}
+.message_return .name_hint{
+	font-size: 14px;
+	color: #999999;
+	line-height: 24px;
+	float: left;
+	margin-top: 48px;
+}
+.img_imgheads{
+	width: 120px;
+	height: 120px;
+}
+
+/*医师信息科室部分*/
+.account_main_alter #keshiList{
+	display: inline-block;
+	vertical-align: top;
+}
+.account_main_alter #keshiList > li  {
+	width: 92px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+    margin-right: 20px;
+    float: left;
+    margin-bottom: 20px;
+    font-size: 14px;
+} 
+.account_main_alter #keshiList > li:hover{
+	cursor: pointer;
+}
+.account_main_alter .PersonAddress select{
+	width: 240px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    font-size: 14px;
+    color: #999;
+}
+
+.keshiColor{
+	    border: 1px solid #00BC12 !important;
+    color: #00BC12;
+}
+/*弹框添加*/
+.show_pop_up{
+	border: 1px solid #F0F0F0;
+	
+}
+
+.hide_pop_up{
+	border: 1px solid #FF4012;
+}

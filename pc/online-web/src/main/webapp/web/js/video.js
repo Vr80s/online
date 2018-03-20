@@ -128,11 +128,11 @@ $(function() {
 		'{{each items as e}}' +
 		'<div class="videoBody-bottom-listRelease">' +
 		'<div class="videoBody-bottom-listRelease-left">' +
-		'<img src="{{#headImg(e.smallPhoto)}}"/>' +
-		'<p title="{{e.userName}}">{{e.userName}}</p>' +
+		'<img src="{{#headImg(e.onlineUser.smallHeadPhoto)}}"/>' +
+		'<p title="{{e.onlineUser.name}}">{{e.onlineUser.name}}</p>' +
 		'</div>' +
 		'<div class="videoBody-bottom-listRelease-right">' +
-		'<p class="releaseStar">{{#stars2(e.starLevel)}}</p>' +
+		// '<p class="releaseStar">{{#stars2(e.starLevel)}}</p>' +
 		'<p class="releaseText" style="word-wrap: break-word;">{{e.content}}</p>' +
 		'<div class="releaseGood clearfix" data-criticizeId="{{e.id}}" data-isPraise="{{e.isPraise}}">' +
 		'<span class="releaseTime">{{removeSecond(e.createTime)}}</span>' +
@@ -377,20 +377,10 @@ $(function() {
 			$(".headerBody .rightT i").html("暂无讲师");
 		}
 		menuid = data.resultObject.menu_id;
-		var page="";
-		if(data.resultObject.coursePwd==1){
-			page="encryptCourseDetailPage";
-		}else if(data.resultObject.free == true){
-			page="freeCourseDetailPage";
-		}else{
-			page="payCourseDetailPage";
-		}
-		
+
 		var host = window.location.host;
-	    //var host2 = document.domain; 
-		//alert("host:"+host+"host2:"+host2);
-		
-		var weboshare_url="http://"+host+"/web/html\/"+page+".html?id="+courseId;
+
+		var weboshare_url="http://"+host+"/course/courses/"+courseId;
 		
 		/**
 		 * 微博分享
@@ -717,7 +707,7 @@ $(function() {
 
 	function givecriticize() {
 		//获取评价列表
-		RequestService("/video/getVideoCriticize", "GET", {
+		RequestService("/video/getVideoCriticize", "POST", {
 			videoId: courseId,
 			pageNumber: pageNumber,
 			pageSize: pageSize
@@ -1487,7 +1477,7 @@ $(function() {
 		$(".backgrounds2").addClass("hide");
 	});
 	$(".videomodal1 .buy").click(function() {
-		window.location.href = "/web/html/payCourseDetailPage.html?id=" + courseId + "&courseType=1&free=0";
+		window.location.href = "/course/courses/" + courseId;
 	});
 	//点击返回列表
 	$(".goup").click(function() {

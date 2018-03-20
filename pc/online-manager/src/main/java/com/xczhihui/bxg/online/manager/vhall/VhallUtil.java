@@ -69,7 +69,7 @@ public class VhallUtil {
 		
 		String json = HttpUtil.sendPostRequest(USER_REGISTER, parameters);
 		Map<String, String> m =json2Map(json);
-		if(m.get("msg").equals("success")){
+		if("success".equals(m.get("msg"))){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
 			System.out.println(json+":"+u.getLoginName()+":"+password);
@@ -120,7 +120,7 @@ public class VhallUtil {
 		
 		String json = HttpUtil.sendPostRequest(USER_UPDATE, parameters);
 		Map<String, String> m =json2Map(json);
-		if(m.get("msg").equals("success")){
+		if("success".equals(m.get("msg"))){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
 			System.out.println(json+":"+u.getLoginName()+":"+password);
@@ -171,7 +171,7 @@ public class VhallUtil {
 		Map<String, String> m =json2Map(json);
 		
 		JSONObject js = JSONObject.parseObject(json);
-		if(js.get("code").equals("200")){
+		if("200".equals(js.get("code"))){
 			System.out.println(js.toJSONString());
 		    return js.get("data").toString();
 		}
@@ -220,7 +220,7 @@ public class VhallUtil {
 		String json = HttpUtil.sendPostRequest(WEBINAR_UPDATE, parameters);
 		System.out.println(json);
 		Map<String, String> m =json2Map(json);
-		if(m.get("code").equals("200")){
+		if("200".equals(m.get("code"))){
 			return m.get("data");
 		}
 		return null;
@@ -228,8 +228,6 @@ public class VhallUtil {
 	
 	/** 
 	 * Description：获取主播的直播地址
-	 * @param u
-	 * @param password
 	 * @return
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -250,7 +248,7 @@ public class VhallUtil {
 		String json = HttpUtil.sendPostRequest(WEBINAR_START, parameters);
 		System.out.println(json);
 		Map<String, String> m =json2Map(json);
-		if(m.get("code").equals("200")){
+		if("200".equals(m.get("code"))){
 			System.out.println(m.get("data"));
 			return m.get("data");
 		}
@@ -415,7 +413,7 @@ public class VhallUtil {
 		String json = HttpUtil.sendPostRequest(CALLBACK_URL, parameters);
 		System.out.println(json);
 		Map<String, String> m =json2Map(json);
-		if(m.get("code").equals("200")){
+		if("200".equals(m.get("code"))){
 			System.out.println(m.get("data"));
 			return m.get("data");
 		}
@@ -447,7 +445,7 @@ public class VhallUtil {
 		String json = HttpUtil.sendPostRequest(CHANGE_USER_POWER, parameters);
 		System.out.println(json);
 		Map<String, String> m =json2Map(json);
-		if(m.get("code").equals("200")){
+		if("200".equals(m.get("code"))){
 			System.out.println("修改用户权限"+m.get("msg"));
 		}
 	}

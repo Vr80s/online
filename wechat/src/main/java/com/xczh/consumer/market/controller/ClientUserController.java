@@ -44,7 +44,7 @@ public class ClientUserController {
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 	
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(ClientUserController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ClientUserController.class);
 	
 	/**
 	 * 拉取微信访问用户信息；

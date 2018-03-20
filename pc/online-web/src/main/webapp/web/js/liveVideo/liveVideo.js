@@ -26,7 +26,7 @@ function checkLoginStatus(){
 
 }
 
-window.setInterval("checkLoginStatus()",5000);
+window.setInterval("checkLoginStatus()",1000*60*5);
 
 var teacherId;
 var teacherName;
@@ -73,7 +73,7 @@ $(function() {
 		//教师头像
 		$(".headImg img").attr("src", data.resultObject.head_img);
 		//开始结束时间
-		$(".liveMess .liveTime span").html('' + data.resultObject.start_time + "~" + data.resultObject.end_time);
+		$(".liveMess .liveTime span").html('' + data.resultObject.start_time);
 		$(".liwu").html(data.resultObject.giftCount);
 		$(".dashang").html(data.resultObject.rewardTotal);
 		if(data.resultObject.broadcastState==1){
@@ -83,9 +83,9 @@ $(function() {
 		}
 
 		var host = window.location.host;
-		//?id=550&direct_id=854337728
-		//var weboshare_url="http://"+host+"/web/html\/"+page+".html?id="+courseId;
-		var weboshare_url="http://"+host+"/web/html\/"+page+".html?id="+courseId+"&direct_id="+roomid;
+		var weboshare_url="http://"+host+"/course/courses/"+courseId;
+        // $("#weibo_share").attr("href","http://service.weibo.com/share/share.php?url="+weboshare_url+"&title="+description)
+        // $("#qq_share").attr("href","http://connect.qq.com/widget/shareqq/index.html?url="+weboshare_url+"&title="+description)
 		/**
 		 * 微博分享
 		 */
@@ -344,7 +344,7 @@ $(function() {
 			$(".right-list span").html(0);
 		}
 	});
-	//登陆
+	//登录
 	var flag = false;
 
 	function errorMessage(info) {
@@ -442,7 +442,7 @@ $(function() {
 		$(".form-login .cyinput1").on("blur", function() {
 //			var cymyLogin = document.getElementsByClassName("cymlogin")[0];
 			var cymyLogin = $(".cymlogin")[0];
-			var regPhone = /^1[3-578]\d{9}$/;
+			var regPhone = /^1[3-5678]\d{9}$/;
 //			var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
 			if($(".form-login .cyinput1").val().trim().length === 0) {
 				$(".cyinput1").css("border", "1px solid #ff4012");
@@ -495,7 +495,7 @@ $(function() {
 			}
 		});
 		$(".form-login .cymyloginbutton").click(function(evt) { //登录验证
-			var regPhone = /^1[3-578]\d{9}$/;
+			var regPhone = /^1[3-5678]\d{9}$/;
 			var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
 			var passwordReg = /^(?!\s+)[\w\W]{6,18}$/; //密码格式验证
 			$(".cyinput1").css("border", "");
@@ -534,11 +534,11 @@ $(function() {
 		});
 
 		function login(data, autoLogin) {
-			RequestService("/online/user/login", "POST", data, function(result) { //登陆/index.html   /online/user/login
+			RequestService("/online/user/login", "POST", data, function(result) { //登录/index.html   /online/user/login
 				if(result.success === true || result.success == undefined) {
 					window.localStorage.userName = data.username;
 					window.location.reload();
-				} else { //登陆错误提示
+				} else { //登录错误提示
 					$(".loginGroup .logout").css("display", "block");
 					errorMessage(result.errorMessage);
 					if(!flag) {
@@ -630,12 +630,12 @@ function refreshBalance(){
 	//获取个人熊猫币余额
 	RequestService("/userCoin/balance", "GET", {
 	}, function(data) {
-		var balance = data.resultObject.balanceTotal;
+		var balance = data.resultObject;
 		$(".balanceTotal").html(balance);
-		$("#account").html(data.resultObject.account);
+		$("#account").html(balance);
 	});
 }
 //返回按钮
 $("#return").click(function() {
-    location.href = "/course/courses?courseId=" + course_id;
+    location.href = "/course/courses/" + course_id;
 });

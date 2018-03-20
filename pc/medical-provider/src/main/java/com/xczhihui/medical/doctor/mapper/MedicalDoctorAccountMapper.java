@@ -13,4 +13,9 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
  */
 public interface MedicalDoctorAccountMapper extends BaseMapper<MedicalDoctorAccount> {
 
+    /**
+     * 根据用户id获取doctorId
+     * @param userId 用户id
+     */
+    MedicalDoctorAccount getByUserId(String userId);
 }

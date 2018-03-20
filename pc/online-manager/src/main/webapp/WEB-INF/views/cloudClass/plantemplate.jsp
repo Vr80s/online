@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <script type="text/javascript">
   try {
     var scripts = [ null, null ];
@@ -54,8 +54,8 @@
         font-weight: bold;
     }
 </style>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
     <div class="row">
         <div style="margin-left:10px">
@@ -127,4 +127,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="${base}/js/cloudClass/plantemplate.js?v=1"></script>
+<script type="text/javascript" src="/js/cloudClass/plantemplate.js?v=ipandatcm_1.3"></script>

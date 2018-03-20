@@ -247,7 +247,7 @@ $(function() {
 				})
 				$(".feedback-icon .btn").click(function(evt) {
 					RequestService("/online/user/isAlive", "get", null, function(data) {
-						if(!data.success) { //登陆判断
+						if(!data.success) { //登录判断
 							$('#login').modal('show');$('#login').css("display", "block");
 							localStorage.username = null;
 							localStorage.password = null;
@@ -377,7 +377,7 @@ $(function() {
 		'<div class="tabnavigator my-data">' +
 		'<div class="tabbar">' +
 		'<div class="btn-item color2cb">个人信息</div>' +
-		'<div class="btn-item kc"  >课程报名信息</div>' +
+		'<div class="btn-item kc hide"  >课程报名信息</div>' +
 //		'<div class="btn-item zh" >老学员认证</div>' +
 		'<div class="btn-item address" >常用地址管理</div>' +
 		'</div>' +
@@ -389,7 +389,7 @@ $(function() {
 		
 		'<div class="cy-myprofile-myfom-dv-1">' +
 		'<div class="buer"><span class="red">*</span>用户名:</div>' +
-		'<input type="text" maxlength="15" class="firsname ipt"/>' +
+		'<input type="text" maxlength="20" class="firsname ipt"/>' +
 		'<span class="nick-warn-name warning">用户名不能为空</span>' +
 		'</div>' +
 		
@@ -453,7 +453,7 @@ $(function() {
 	        '</select> ' +
 	        
 	        //区
-	        '<select class="District1"> ' +
+	        '<select class="District1 hide"> ' +
 	        '<option value="volvo">--选择区/县--</option> ' +
 //	        '<option value="saab">Saab</option> ' +
 //	        '<option value="opel">Opel</option> ' +
@@ -587,7 +587,7 @@ $(function() {
 //		'<p class="warn">职业课程需要填写报名信息，只需填写一次，适应于其他所有课程；</br>此信息不公开显示，只是为了方便老师通知课程信息，提供优质课程服务；</br>如果您是法律在线（面授、双元、熊猫中医职业课程）的学员，请在证件号中输入您的身份证号验证您的身份（针对老学员会有优惠）；</p>' +
 		'<div class="cy-myprofile-myfom-dv-1" style="margin-bottom:12px">' +
 		'<div class="buer"><i class="red">*</i>姓名:</div>' +
-		'<input type="text" maxlength="15" class="truename ipt"/>' +
+		'<input type="text" maxlength="20" class="truename ipt"/>' +
 		'<span class="true-warn warning">真实姓名不能为空</span>' +
 		'</div>' +
 		
@@ -872,12 +872,12 @@ $(function() {
     '<div class="save-cash">'+
         '<div>'+
             '<span display="inline-block"><img src="/web/images/myResetMoney.png" alt=""></span>'+
-            '<strong  style="margin-left: 10px;">账户余额：<span class="restMoney" style="color:#2cb82c">300</span>熊猫币</strong>&nbsp;&nbsp;'+
+            '<strong  style="margin-left: 10px;">账户余额：<span class="restMoney" style="color:#2cb82c"></span>熊猫币</strong>&nbsp;&nbsp;'+
             '<button class="save-cash-recharge " id="recharge">充值</button>'+
-            '&nbsp;&nbsp;'+
-            '<button calss="save-cash-tocash" id="toCash";>提现</button>'+
+            // '&nbsp;&nbsp;'+
+            // '<button calss="save-cash-tocash" id="toCash";>提现</button>'+
         '</div>'+
-        '<p class="canTocash" style="position: absolute;bottom: 75px;height: 24px;font-size:12px;left:27px;font-weight:700" >可提现金额：￥<span class="toCashMoney"></span>&nbsp;<a href="javascript:;" style="color:red;display:inline"  class="detail">详情</a></p>'+
+        // '<p class="canTocash" style="position: absolute;bottom: 75px;height: 24px;font-size:12px;left:27px;font-weight:700" >可提现金额：￥<span class="toCashMoney"></span>&nbsp;<a href="javascript:;" style="color:red;display:inline"  class="detail">详情</a></p>'+
     '</div>'+
 
     //<!--提现模态框-->
@@ -955,13 +955,13 @@ $(function() {
             '<li role="presentation" class="active"><a class="home" href="#home"  aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false">现金消费记录</a></li>'+
             '<li role="presentation" class=""><a class="panda" href="#panda"  aria-controls="panda" role="tab" data-toggle="tab" aria-expanded="false">熊猫币消费记录</a></li>'+
             '<li role="presentation" class=""><a class="profile" href="#profile" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">充值记录</a></li>'+
-            '{{if item == 1}}' +
-            '<li role="presentation" class=""><a class="messages" href="#messages" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">提现记录</a></li>'+
-            '<li role="presentation" class=""><a class="settings" href="#settings" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false">收到礼物</a></li>'+
-            '<li role="presentation" class=""><a class="reward" href="#reward " aria-controls="reward" role="tab" data-toggle="tab" aria-expanded="true">收到打赏</a></li>'+
-           	'<li role="presentation" class=""><a class="lecturer" href="#lecturer " aria-controls="lecturer" role="tab" data-toggle="tab" aria-expanded="true">直播课程列表</a></li>'+
-           
-           '{{/if}}' +
+           //  '{{if item == 1}}' +
+           //  '<li role="presentation" class=""><a class="messages" href="#messages" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">提现记录</a></li>'+
+           //  '<li role="presentation" class=""><a class="settings" href="#settings" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false">收到礼物</a></li>'+
+           //  '<li role="presentation" class=""><a class="reward" href="#reward " aria-controls="reward" role="tab" data-toggle="tab" aria-expanded="true">收到打赏</a></li>'+
+           // 	'<li role="presentation" class=""><a class="lecturer" href="#lecturer " aria-controls="lecturer" role="tab" data-toggle="tab" aria-expanded="true">直播课程列表</a></li>'+
+           //
+           // '{{/if}}' +
 
            '</ul>'+
         

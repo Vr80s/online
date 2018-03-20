@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="../css/my_asset.css" />
+<script type="text/javascript" src="../js/my_asset.js"></script>
+
+	
+</head>
+<!--公用-->
+<!--y--float:right;  z--float:left;  both--clear:both;-->
+<body style="background:#F8F8F8;">
+	
+	<!--头部开始-->
+	<header>
+		<div class="header_img" onclick="window.history.go(-1);">
+			<img src="../images/back icon.png" />
+		</div>
+		<div class="header">
+			我的资产
+		</div>
+		<div class="add" onclick="window.location.href='../html/bankcards.html'">
+			银行卡
+		</div>
+	</header>
+	<!--头部结束-->
+	
+	<!--余额开始-->
+	<div class="balance">
+		<div class="div0">熊猫币余额(熊猫币)</div>
+		<div class="div1" id="xmbNumber"></div>
+		<div class="div2">结算</div>
+	</div>
+	<!--余额结束-->
+	
+	<!--交易记录开始-->
+	<div class="record">
+		<div class="record_main">
+			<div class="record_title">
+				交易记录
+			</div>
+			<div class="record_course_div">
+				<script type="text/html" id="record_course_div">
+					{{each items as item i}}
+				<div class="record_course">
+					<div class="record_course_left z">
+						<span class="span0">{{item.label}}课程</span>
+						<span class="span1">{{itme.gradeName}}砒霜的价值</span>
+					</div>
+					<div class="record_course_right y">
+						<span class="span0">+<span>{{itme.value}}100</span></span>
+						<span class="span1">熊猫币</span>
+					</div>
+					<div class="both"></div>
+					<div class="time">2018-02-02 12:30</div>
+				</div>
+					{{/each}}
+				</script>
+				<!--<div class="record_course">
+					<div class="record_course_left z">
+						<span class="span0">直播礼物</span>
+						<span class="span1">砒霜的价值</span>
+					</div>
+					<div class="record_course_right y">
+						<span class="span0">+<span>100</span></span>
+						<span class="span1">熊猫币</span>
+					</div>
+					
+				</div>
+				
+				<div class="record_course">
+					<div class="record_course_left z">
+						<span class="span0">结算</span>
+					</div>
+					<div class="record_course_right y">
+						<span class="span0">+<span>100</span></span>
+						<span class="span1">熊猫币</span>
+					</div>
+				</div>
+				
+				<div class="record_course">
+					<div class="record_course_left z">
+						<span class="span0">购买广告位</span>
+						<span class="span1">首页广告位</span>
+					</div>
+					<div class="record_course_right y">
+						<span class="span0">+<span>100</span></span>
+						<span class="span1">熊猫币</span>
+					</div>
+				</div>-->
+			</div>
+		</div>
+		<div class="both"></div>
+		
+	</div>
+	<!--交易记录结束-->
+
+
+
+
+
+</body>
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"
+
+
+</script>
+<script>
+    function addBankCard() {
+
+        window.location.href="../xcview/html/bankcards.html";
+    }
+	</script>
+
+</html>

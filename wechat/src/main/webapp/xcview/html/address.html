@@ -1,0 +1,194 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>地址管理</title>-->
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script>
+	(function(window) {
+		var setHtmlSize = function(w) {
+			var b = 750 / 100;
+			var c = window.innerWidth;
+			if (w) {
+				c = w
+			}
+			var a = c / b;
+			if (a < 42) {
+				a = 42
+			} else if (a > 60) {
+				a = 60
+			}
+			document.querySelector("html").style.fontSize = a + "px";
+			if (navigator.userAgent.indexOf("iPad") != -1) {
+				document.querySelector("html").style.fontSize = "60px"
+			}
+		};
+		setHtmlSize();
+		window.onresize = function() {
+			var w = window.innerWidth;
+			setHtmlSize(w)
+		}
+	}(window));
+</script>
+<!--弹框引入-->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcview/js/common/js.js"></script>
+<link rel="stylesheet" href="/xcview/css/css.css">
+<link rel="stylesheet" href="/xcview/css/tailor.css">
+<link rel="stylesheet" href="/xcview/css/personCommon.css">
+<link rel="stylesheet" href="/xcview/css/vanish.css">
+<script type="text/javascript" src="/xcviews/js/jquery-2.1.1.min.js"></script>
+
+	
+	<style>
+		/*.site{
+			height: 4.8rem;
+		}
+		.site_div{
+			height: 4.8rem;	
+		}*/
+		.site_bg01{
+			margin-top: 0.8rem;
+		}
+		.site_bg001{
+			/*margin-top: 0.6rem;*/
+		}
+		.site_bg002{
+			/*margin-top: 0.6rem;*/
+		}
+		.site_bto_right01 span{
+			font-size: 0.6rem;
+		}
+		.site_bto_right01{
+			width: 2.3rem;
+		    float: left;
+		    height: 1rem;
+		    line-height: 1rem;
+		    margin-top: 0.5rem;
+		}
+		.site_bto_right02{
+			width: 2.3rem;
+		    float: right;
+		    height: 1rem;
+		    line-height: 1rem;
+		    margin-top: 0.5rem;
+		}
+		.site_bto_left{
+			height: 1rem;
+		}
+		.vanish0{
+			display: none;
+		}
+		.vanish{
+			display: none;
+		}
+		.vanish1{
+			display: none;
+		}
+		
+		.vanish5{
+			display: none;
+		}
+		
+		
+		.history_bg_bto01 {
+		    margin: 0 auto;
+		    margin-top: 1.6rem;
+		    width: 100%;
+		    border-top: 1px solid #d2d2da;
+		    line-height: 1.8rem;
+		}
+		
+		.address_return {
+		    width: 0.51rem;
+		    display: inline-block;
+		    float: left;
+		    background: url(../images/backicon.png) no-repeat;
+		    background-size: 100% 100%;
+		    margin-left: 0.54rem;
+		    height: 0.9rem;
+		    margin-top: 0.48rem;
+		}
+		
+		
+	</style>
+</head>
+
+<body class="person_body">
+	<!--删除弹框-->
+	<div class="history_bg">
+		<div class="history_bg_color"></div>
+		<div class="history_bg_cen">
+			<div class="history_bg_cen_size">确定要删除吗？</div>
+			<div class="history_bg_bto01">
+				<div class="history_bg_bto1" style="border-right: 1px solid #d2d2da;color: #666 !important;" title="deleteOrder">取消</div>
+				<div class="history_bg_bto2" style="color: #00bc12 !important;border: 0;">确定</div>
+				
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class='vanish0'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取数据有误！</div></div></div>
+	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>删除数据成功</div></div></div>
+	<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>获取数据有误</div></div></div>
+	<div class='vanish5'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>请求列表有误</div></div></div>
+	
+	
+    <!-- 地址管理开始 -->
+    <div class="site_call" style="display: block; !important">
+      <div class="pet_name_top">
+        <div class="address_return"></div>
+        <div class="dl"
+          style="width: 75%;float: left;margin-left: 1.25rem;">地址管理</div>
+        <div class="both"></div>
+        <div  id="address_list">
+        </div>
+        <div class="site_newly" onclick="location.href ='edit_address.html'">
+          <div class="site_newly_cen">
+            <div class="site_newly_img"><img src="/xcview/images/dingwei.png" /></div>
+            <span>新增地址</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 地址管理结束 -->
+</body>
+<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>  <!--弹框引入-->
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script src="/xcview/js/jquery.min.js" type="text/javascript"></script>
+<script>
+	window.jQuery
+			|| document
+					.write('<script src="/xcview/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+<script src="/xcview/js/iscroll-zoom.js"></script>
+<script src="/xcview/js/hammer.js"></script>
+
+<script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
+<script type="text/javascript" src="/xcview/js/address.js"></script>
+<script src="../js/city.js"></script>
+<script src="../js/picker.min.js"></script>
+<script type="text/javascript">
+/**
+ * 请求地址列表
+	 */
+addressList();
+
+</script>
+</html>

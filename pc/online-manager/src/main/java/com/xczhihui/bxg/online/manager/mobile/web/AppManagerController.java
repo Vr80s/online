@@ -37,7 +37,7 @@ public class AppManagerController{
          return mav;
     }
 
-	@RequiresPermissions("mobile:appManager")
+	//@RequiresPermissions("mobile:appManager")
     @RequestMapping(value = "/findAppManagerList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findAppManagerList(TableVo tableVo) {
@@ -46,19 +46,19 @@ public class AppManagerController{
          int currentPage = index / pageSize + 1;
          String params = tableVo.getsSearch();
          Groups groups = Tools.filterGroup(params);
-         Group statusGroup = groups.findByName("search_status");
-//         Group nameGroup = groups.findByName("search_name");
-
+       
          AppVersionInfo searchVo=new AppVersionInfo();
 
+         Group statusGroup = groups.findByName("search_status");
          if(statusGroup!=null){
         	 searchVo.setStatus(Integer.parseInt(statusGroup.getPropertyValue1().toString()));
          }
-
-//         if(nameGroup!=null){
-//              searchVo.setName(nameGroup.getPropertyValue1().toString());
-//         }
-
+         Group appType = groups.findByName("search_type");
+ 		 if (appType != null) {
+ 			searchVo.setType(Integer.parseInt(appType.getPropertyValue1().toString()));
+ 		 }
+         
+         
          Page<AppVersionInfo> page = appVersionManagerService.findAppVersionInfoPage(searchVo, currentPage, pageSize);
 
          int total = page.getTotalCount();
@@ -73,11 +73,21 @@ public class AppManagerController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("mobile:appManager")
+	//@RequiresPermissions("mobile:appManager")
 	@RequestMapping(value = "/addAppManager", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addAppManager(AppVersionInfo appVersionInfo,HttpServletRequest request){
 		appVersionInfo.setCreatePerson(UserLoginUtil.getLoginUser(request).getId());
+		
+//	    String b =  request.getParameter("isMustUpdate");
+//	    if(b!=null && b.equals("1")){
+//	    	appVersionInfo.setMustUpdate(true);
+//	    }else if(b!=null && b.equals("0")){
+//	    	appVersionInfo.setMustUpdate(false);
+//	    }
+	    
+	    
+		
 		appVersionManagerService.addAppVersionInfo(appVersionInfo);
         return ResponseObject.newSuccessResponseObject("新增成功!");
     }
@@ -87,7 +97,7 @@ public class AppManagerController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("mobile:appManager")
+	//@RequiresPermissions("mobile:appManager")
 	@RequestMapping(value = "updateAppVersionInfoById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateAppVersionInfoById (AppVersionInfo appVersionInfo){

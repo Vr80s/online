@@ -40,13 +40,13 @@ public class RoleController extends AbstractController {
 	@Autowired
 	private RoleService roleService;
 
-	@RequiresPermissions("role:manager")
+	//@RequiresPermissions("role:manager")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		return USER_PATH_PREFIX + "/roles";
 	}
 
-	@RequiresPermissions("role:manager")
+	//@RequiresPermissions("role:manager")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo roles(TableVo tableVo) {
@@ -67,7 +67,7 @@ public class RoleController extends AbstractController {
 		return tableVo;
 	}
 
-	@RequiresPermissions("role:manager")
+	//@RequiresPermissions("role:manager")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addRole(Role role) {
@@ -86,7 +86,7 @@ public class RoleController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("role:manager")
+	//@RequiresPermissions("role:manager")
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject delete(HttpServletRequest request) throws ServletRequestBindingException {
@@ -98,7 +98,7 @@ public class RoleController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("role:manager")
+	//@RequiresPermissions("role:manager")
 	@RequestMapping(value = "deletes", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject deletes(HttpServletRequest request) throws ServletRequestBindingException {
@@ -112,7 +112,7 @@ public class RoleController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("role:manager")
+	//@RequiresPermissions("role:manager")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject update(Role role) {
@@ -123,7 +123,7 @@ public class RoleController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("role:manager")
+	//@RequiresPermissions("role:manager")
 	@RequestMapping(value = "update/resources", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateResources(HttpServletRequest request) throws ServletRequestBindingException {
@@ -141,7 +141,7 @@ public class RoleController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("role:manager")
+	//@RequiresPermissions("role:manager")
 	@RequestMapping(value = "check/name")
 	@ResponseBody
 	public String checkName(HttpServletRequest request) throws ServletRequestBindingException {

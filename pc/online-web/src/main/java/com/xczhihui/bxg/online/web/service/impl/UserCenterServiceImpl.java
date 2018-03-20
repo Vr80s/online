@@ -46,9 +46,6 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 	
 	@Autowired
 	private UserCenterAPI userCenterAPI;
-
-	@Autowired
-	private SystemVariateService systemVariateService;
 	
 	@Override
 	public boolean updateUser(UserDataVo user) {
@@ -74,7 +71,6 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 		    u.setLoginName(user.getLoginName());
 			u.setTarget(user.getTarget());
 			u.setSex(user.getSex());
-//		    u.setFullAddress(user.getFullAddress());
 			u.setOccupationOther(user.getOccupationOther());
 			if (user.getOccupation() != null && user.getOccupation() > 0) {
                 u.setOccupation(user.getOccupation());
@@ -100,7 +96,8 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 
 
 
-	public Map<String,String>  updateApply(ApplyVo applyVo,HttpServletRequest request) {
+	@Override
+    public Map<String,String>  updateApply(ApplyVo applyVo, HttpServletRequest request) {
 		Map<String,String> mapValue=new HashMap<String,String>();
 		OnlineUser user= (OnlineUser) request.getSession().getAttribute(Constant.LOGINUSER);
 		if (user == null){

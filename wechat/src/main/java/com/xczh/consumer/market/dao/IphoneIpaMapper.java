@@ -25,8 +25,6 @@ public class IphoneIpaMapper extends BasicSimpleDao {
             throw new RuntimeException();
         }
     }
-
-
 	public Integer findIap(String orderNo) throws SQLException {
 		String sql = "SELECT count(*) as c from iphone_iap where  order_no = ? ";
 		Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql,

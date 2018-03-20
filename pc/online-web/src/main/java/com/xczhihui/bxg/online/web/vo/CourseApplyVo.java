@@ -17,7 +17,7 @@ public class CourseApplyVo {
     private String  courseName;
 
     /**
-     *课程是否免费状态:true:免费  false:收费
+     *课程是否免费状态:true:免费  false:付费
      */
     private boolean  isFree;
 
@@ -54,17 +54,28 @@ public class CourseApplyVo {
     private  String  courseType;
 
     /**
-     * 用户登陆账号
+     * 用户登录账号
      */
     private  String  userId;
 
     private  String  coursePwd;
 
     private Integer type;
-    
+    private Boolean collection;
+
     private int onlineCourse;
 
     private String directId;
+    //主播id
+    private  String userLecturerId;
+
+    public Boolean getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Boolean collection) {
+        this.collection = collection;
+    }
 
     public String getDirectId() {
         return directId;
@@ -177,5 +188,13 @@ public class CourseApplyVo {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserLecturerId() {
+        return userLecturerId;
+    }
+
+    public void setUserLecturerId(String userLecturerId) {
+        this.userLecturerId = userLecturerId;
     }
 }

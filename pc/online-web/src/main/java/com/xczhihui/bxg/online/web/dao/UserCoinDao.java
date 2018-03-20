@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.web.dao;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.api.vo.MyConsumptionCoinRecords;
 import com.xczhihui.bxg.online.web.vo.MyConsumptionRecords;
 import org.hibernate.criterion.DetachedCriteria;
@@ -79,12 +80,63 @@ public class UserCoinDao extends SimpleHibernateDao {
 	}
 
 	public Object consumptionCoinList(String userId, Integer pageNumber, Integer pageSize) {
-		String sql="SELECT ucc.id orderNo,  CONCAT_WS('-','购买礼物',ogs.`gift_name`) remark,ucc.`create_time` TIME,  ogs.`count`, ROUND(ucc.value) total FROM" +
-				"  `user_coin_consumption` ucc,  `oe_gift_statement` ogs WHERE ucc.`order_no_gift` = ogs.`id`   AND ucc.`change_type` = 8 " +
-				" and ucc.user_id=:userId order by ucc.`create_time` desc";
+		String sql="SELECT \n" +
+				"  * \n" +
+				"FROM\n" +
+				"  (SELECT \n" +
+				"    ucc.id orderNo,\n" +
+				"    CONCAT_WS(\n" +
+				"      '-',\n" +
+				"      '购买礼物',\n" +
+				"      ogs.`gift_name`\n" +
+				"    ) remark,\n" +
+				"    ucc.`create_time` TIME,\n" +
+				"    ogs.`count`,\n" +
+				"    ROUND(ucc.value) total \n" +
+				"  FROM\n" +
+				"    `user_coin_consumption` ucc,\n" +
+				"    `oe_gift_statement` ogs \n" +
+				"  WHERE ucc.`order_no_gift` = ogs.`id` \n" +
+				"    AND ucc.`change_type` = 8 \n" +
+				"    AND ucc.user_id = :userId \n" +
+				"  UNION\n" +
+				"  SELECT \n" +
+				"    ucc.id orderNo,\n" +
+				"    CONCAT_WS(\n" +
+				"      '-',\n" +
+				"      '购买课程',\n" +
+				"      oc.`grade_name`\n" +
+				"    ) remark,\n" +
+				"    ucc.`create_time` TIME,\n" +
+				"    1 AS COUNT,\n" +
+				"    ROUND(ucc.value) total \n" +
+				"  FROM\n" +
+				"    `user_coin_consumption` ucc,\n" +
+				"    `oe_order` oo,\n" +
+				"    `oe_order_detail` ood,\n" +
+				"    `oe_course` oc \n" +
+				"  WHERE ucc.`order_no_consume` = oo.order_no \n" +
+				"    AND ood.order_id = oo.id \n" +
+				"    AND ood.course_id = oc.id \n" +
+				"    AND ucc.`change_type` = 10 \n" +
+				"    AND ucc.user_id = :userId) a \n" +
+				"ORDER BY a.TIME DESC ";
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("userId", userId);
 		Page<MyConsumptionCoinRecords> page = this.findPageBySQL(sql.toString(), paramMap, MyConsumptionCoinRecords.class, pageNumber, pageSize);
 		return page;
 	}
+
+	/**
+	 * Description：获取主播分成比例信息
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 9:35 2018/1/25 0025
+	 **/
+    public CourseAnchor getCourseAnchor(String receiverId) {
+		DetachedCriteria dc = DetachedCriteria.forClass(CourseAnchor.class);
+		dc.add(Restrictions.eq("userId", receiverId));
+		CourseAnchor uc = this.findEntity(dc);
+		return uc;
+    }
 }

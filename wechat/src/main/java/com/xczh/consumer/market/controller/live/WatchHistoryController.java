@@ -1,22 +1,23 @@
 package com.xczh.consumer.market.controller.live;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineWatchHistoryService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.wxpay.entity.OeWatchHistory;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OnlineWatchHistoryService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.wxpay.entity.OeWatchHistory;
+import com.xczhihui.wechat.course.service.IWatchHistoryService;
 
 @Controller
 @RequestMapping("/bxg/history")
@@ -24,6 +25,9 @@ public class WatchHistoryController {
 
 	@Autowired
 	public OnlineWatchHistoryService onlineWatchHistoryService;
+	
+	@Autowired
+	public IWatchHistoryService watchHistoryServiceImpl;
 
 	@Autowired
 	private AppBrowserService appBrowserService;
@@ -31,17 +35,15 @@ public class WatchHistoryController {
 	@RequestMapping("list")
 	@ResponseBody
 	public ResponseObject getWatchHistoryList(HttpServletRequest req,
-											  HttpServletResponse res, Map<String, String> params) {
+											  HttpServletResponse res) {
 		if(null == req.getParameter("pageNumber") || null == req.getParameter("pageSize")||null == req.getParameter("type")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
 		}
-		OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
-		
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 		String appUniqueId = req.getParameter("appUniqueId");
 		String ouStrId = "";
 		if(ou==null){
 			ouStrId = appUniqueId;
-		   //return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}else{
 			ouStrId = ou.getId();
 		}
@@ -69,43 +71,10 @@ public class WatchHistoryController {
      * @return ResponseObject
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-//	@RequestMapping("add")
-//	@ResponseBody
-//	public ResponseObject add(HttpServletRequest req,
-//			HttpServletResponse res, Map<String, String> params) {
-//		try {
-//			String courseId = req.getParameter()("course_id");
-//			if(null == courseId){
-//				return ResponseObject.newErrorResponseObject("缺少参数");
-//			}
-//			OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
-//			if(ou==null){
-//			   return ResponseObject.newErrorResponseObject("获取用户信息异常");
-//			}
-//			//params.put("user_id", ou.getId());
-//			onlineWatchHistoryService.saveOnlineWatchHistory(ou,courseId);
-//			return ResponseObject.newSuccessResponseObject("保存成功");
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return ResponseObject.newErrorResponseObject("保存失败");
-//		}
-//		//return null;
-//	}
-	
-    /**
-     * Description：添加观看记录
-     * @param req
-     * @param res
-     * @param params
-     * @return
-     * @return ResponseObject
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     */
 	@RequestMapping("add")
 	@ResponseBody
-	public ResponseObject add1(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params) {
+	public ResponseObject add(HttpServletRequest req,
+			HttpServletResponse res) {
 		try {
 			String courseId = req.getParameter("course_id");
 			String type = req.getParameter("type");
@@ -114,11 +83,11 @@ public class WatchHistoryController {
 			if(null == courseId && null == type){
 				return ResponseObject.newErrorResponseObject("缺少参数");
 			}
-			OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			String ouStrId = "";
 			if(ou==null){
 				ouStrId = appUniqueId;
-			   //return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			   //return ResponseObject.newErrorResponseObject("登录失效");
 			}else{
 				ouStrId = ou.getId();
 			}
@@ -150,12 +119,12 @@ public class WatchHistoryController {
 	@RequestMapping("empty")
 	@ResponseBody
 	public ResponseObject empty(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params) {
+			HttpServletResponse res) {
 		try {
 			if(null == req.getParameter("type")){
 				return ResponseObject.newErrorResponseObject("缺少参数");
 			}
-			OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			String appUniqueId = req.getParameter("appUniqueId");
 			String ouStrId = "";
 			if(ou==null){
@@ -172,6 +141,4 @@ public class WatchHistoryController {
 			return ResponseObject.newErrorResponseObject("清空有误");
 		}
 	}
-	
-	
 }

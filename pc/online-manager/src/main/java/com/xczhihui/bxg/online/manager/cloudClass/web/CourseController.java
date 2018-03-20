@@ -1,25 +1,5 @@
 package com.xczhihui.bxg.online.manager.cloudClass.web;
 
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.aspectj.util.FileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
 import com.xczhihui.bxg.common.support.service.AttachmentType;
@@ -32,6 +12,7 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LecturerVo;
@@ -41,6 +22,23 @@ import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
+import org.aspectj.util.FileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 课程管理控制层实现类
@@ -80,7 +78,7 @@ public class CourseController extends AbstractController{
 		
 		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
-			String str = "昵称:"+map.get("name").toString() + ",账号:"+map.get("logo").toString();
+			String str = "昵称:"+map.get("name").toString() + ",帐号:"+map.get("logo").toString();
 			map.put("name", str);
 		}
 		request.setAttribute("mapList", mapList);
@@ -118,7 +116,7 @@ public class CourseController extends AbstractController{
 	     return mav;
 	}
 
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -175,9 +173,14 @@ public class CourseController extends AbstractController{
           
           Group type = groups.findByName("type");
           if (type != null) {
-        	  searchVo.setType(Integer.valueOf(type.getPropertyValue1().toString()));
+        	  searchVo.setType(1);
           }
-          
+
+		Group multimediaType = groups.findByName("search_multimediaType");
+		if (multimediaType != null) {
+			searchVo.setMultimediaType(Integer.valueOf(multimediaType.getPropertyValue1().toString()));
+		}
+
           Page<CourseVo> page = courseService.findCoursePage(searchVo, currentPage, pageSize);
           int total = page.getTotalCount();
           tableVo.setAaData(page.getItems());
@@ -187,47 +190,44 @@ public class CourseController extends AbstractController{
 		
 	}
 	
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "recList")
 	@ResponseBody
 	public TableVo recList(TableVo tableVo) {
-		
-		
-		int pageSize = 10;
-		int index = 1;
+
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
 		int currentPage = index / pageSize + 1;
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);
-		
 		CourseVo searchVo=new CourseVo();
-//		Group courseName = groups.findByName("search_courseName");
-//		
-//		if (courseName != null) {
-//			searchVo.setCourseName(courseName.getPropertyValue1().toString());
-//		}
-//		
-//		Group menuId = groups.findByName("search_menu");
-//		if (menuId != null) {
-//			searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
-//		}
-//		
-//		Group scoreTypeId = groups.findByName("search_scoreType");
-//		if (scoreTypeId != null) {
-//			searchVo.setCourseTypeId(scoreTypeId.getPropertyValue1().toString());
-//		}
-//		
-//		Group courseType = groups.findByName("search_courseType");
-//		
-//		if (courseType != null) {
-//			searchVo.setCourseType(courseType.getPropertyValue1().toString());
-//		}
-//		
-//		Group isRecommend = groups.findByName("search_isRecommend");
-//		
-//		if (isRecommend != null) {
-//			searchVo.setIsRecommend(Integer.parseInt(isRecommend.getPropertyValue1().toString()));
-//		}
+		Group onlineCourse = groups.findByName("search_onlineCourse");
+
+		if (onlineCourse != null) {
+			searchVo.setOnlineCourse(Integer.valueOf(onlineCourse.getPropertyValue1().toString()));
+		}
 		
+		Group city = groups.findByName("search_city");
+		
+		if (city != null) {
+			searchVo.setRealCitys(city.getPropertyValue1().toString());
+		}
+		
+		Group type = groups.findByName("search_type");
+		if (type != null) {
+			searchVo.setType(Integer.valueOf(type.getPropertyValue1().toString()));
+		}
+		
+		Group multimediaType = groups.findByName("search_multimediaType");
+		if (multimediaType != null) {
+			searchVo.setMultimediaType(Integer.valueOf(multimediaType.getPropertyValue1().toString()));
+		}
+		
+		Group liveStatus = groups.findByName("search_liveStatus");
+		
+		if (liveStatus != null) {
+			searchVo.setLiveStatus(Integer.valueOf(liveStatus.getPropertyValue1().toString()));
+		}
 		Page<CourseVo> page = courseService.findCourseRecPage(searchVo, currentPage, pageSize);
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
@@ -249,67 +249,22 @@ public class CourseController extends AbstractController{
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "addCourse", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(CourseVo courseVo){
 		ResponseObject responseObj = new ResponseObject();
-		List<Course> entitys= courseService.findByName(courseVo.getCourseName());
-		for(Course entity:entitys){
-			if(entity!=null&&!entity.isDelete()&&null==entity.getType()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("课程名称已存在！");
-		         return responseObj;
-			}
-		}
-	
-		
-		if(courseVo.getOriginalCost()!=null&&courseVo.getCurrentPrice()!=null&&courseVo.getOriginalCost()<courseVo.getCurrentPrice()){
-			 responseObj.setSuccess(false);
-	         responseObj.setErrorMessage("现价必须小于等于原价!");
-	         return responseObj;
-		}
-		
-		if(courseVo.getOriginalCost() == null){
-			courseVo.setOriginalCost(0.0);
-		}
 		if(courseVo.getCurrentPrice() == null ){
+			courseVo.setOriginalCost(0.0);
 			courseVo.setCurrentPrice(0.0);
 		}
 		courseVo.setIsRecommend(0);
 		courseVo.setRecommendSort(0);
+		courseVo.setType(CourseForm.VOD.getCode());
 
-		if(courseVo.getSmallimgPath() == null || "".equals(courseVo.getSmallimgPath().trim())){
-			responseObj.setErrorMessage("课程展示图不能为空");
-			return responseObj;
-		}
-
-		try{
-			courseService.addCourse(courseVo);
-            responseObj.setSuccess(true);
-            responseObj.setErrorMessage("新增成功");
-            
-//        	try {
-//        		//删除CC视频的分类
-//        		List<CategoryBean> allCategories = CCUtils.getAllCategories();
-//        		boolean b = false;
-//        		for (CategoryBean categoryBean : allCategories) {
-//        			if (categoryBean.getName().equals(courseVo.getCourseName())) {
-//        				b = true;
-//        				break;
-//        			}
-//        		}
-//        		if (!b) {
-//        			CCUtils.createCategory(courseVo.getCourseName(), null);
-//        		}
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-       }catch(Exception e){
-    	   	e.printStackTrace();
-            responseObj.setSuccess(false);
-            responseObj.setErrorMessage("新增失败");
-       }
+		courseService.addCourse(courseVo);
+        responseObj.setSuccess(true);
+        responseObj.setErrorMessage("新增成功");
         return responseObj;
     }
 	
@@ -318,7 +273,7 @@ public class CourseController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "findCourseById", method = RequestMethod.GET)
 	@ResponseBody
 	  public List<CourseVo> findCourseById(Integer id) {
@@ -330,29 +285,12 @@ public class CourseController extends AbstractController{
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseById (CourseVo courseVo){
 		ResponseObject responseObj = new ResponseObject();
-		List<Course> entitys= courseService.findByName(courseVo.getCourseName());
-		for(Course entity: entitys){
-			if(entity!=null&&!entity.isDelete()&&entity.getId()!=courseVo.getId()&&null==entity.getType()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("课程名称已存在！");
-		         return responseObj;
-			}
-		}
-		
-		
-		if(courseVo.getOriginalCost()<courseVo.getCurrentPrice()){
-			 responseObj.setSuccess(false);
-	         responseObj.setErrorMessage("现价必须小于等于原价");
-	         return responseObj;
-		}
-		if(courseVo.getOriginalCost() == null){
-			courseVo.setOriginalCost(0.0);
-		}
+
 		if(courseVo.getCurrentPrice() == null){
 			courseVo.setCurrentPrice(0.0);
 		}
@@ -361,26 +299,10 @@ public class CourseController extends AbstractController{
 			responseObj.setErrorMessage("课程展示图不能为空");
 			return responseObj;
 		}
-
-		 try{
-//			 	CourseVo old = courseService.getCourseById(courseVo.getId());
-//			 	String oldName = old.getCourseName();
-			 	courseService.updateCourse(courseVo);
-	            responseObj.setSuccess(true);
-	            responseObj.setErrorMessage("修改成功");
-//	            try {
-//	            	if (!oldName.equals(courseVo.getCourseName())) {
-//	            		this.updateCCCategory(oldName,courseVo.getCourseName());
-//					}
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-	       }catch(Exception e){
-	            responseObj.setSuccess(false);
-	            responseObj.setErrorMessage("修改失败");
-	            e.printStackTrace();
-	       }
-	        return responseObj;
+		courseService.updateCourse(courseVo);
+	    responseObj.setSuccess(true);
+	    responseObj.setErrorMessage("修改成功");
+	    return responseObj;
 	}
 	
 //	private void updateCCCategory(String oldName,String newName){
@@ -447,7 +369,7 @@ public class CourseController extends AbstractController{
     }
     
 	/**
-     * 上移
+     * 下移
      * @param id
      * @return
      */
@@ -475,7 +397,7 @@ public class CourseController extends AbstractController{
     }
     
     /**
-     * 上移
+     * 下移
      * @param id
      * @return
      */
@@ -487,6 +409,33 @@ public class CourseController extends AbstractController{
     	responseObj.setSuccess(true);
     	return responseObj;
     }
+	/**
+	 * 城市上移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "cityUpMove", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject cityUpMove(Integer id) {
+		ResponseObject responseObj = new ResponseObject();
+		courseService.updateCitySortUp(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
+	/**
+	 * 城市下移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "cityDownMove", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject cityDownMove(Integer id) {
+		ResponseObject responseObj = new ResponseObject();
+		courseService.updateCitySortDown(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
 
     @RequestMapping(value = "deletes", method = RequestMethod.POST)
     @ResponseBody
@@ -518,6 +467,30 @@ public class CourseController extends AbstractController{
     	}
     	return responseObject;
     }
+
+	/**
+	 * 城市推荐
+	 * @param ids
+	 * @param isRec
+	 * @return
+	 */
+	@RequestMapping(value = "updateCityRec", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateCityRec(String ids,int isRec) {
+		ResponseObject responseObject=new ResponseObject();
+		if(ids!=null) {
+			String[] _ids = ids.split(",");
+			if(courseService.updateCityRec(_ids,isRec))
+			{
+				responseObject.setSuccess(true);
+				responseObject.setErrorMessage("操作成功!");
+			}else{
+				responseObject.setSuccess(false);
+				responseObject.setErrorMessage("推荐失败!");
+			}
+		}
+		return responseObject;
+	}
     
     @RequestMapping(value = "getCourseDetail", method = RequestMethod.POST)
 	@ResponseBody
@@ -537,14 +510,14 @@ public class CourseController extends AbstractController{
 	@RequestMapping(value = "updateCourseDetail", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject updateCourseDetail(String courseId, String smallImgPath,String smallImgPath1,String smallImgPath2, String courseDetail,
-				String courseOutline, String commonProblem){
+				String courseOutline, String commonProblem, String lecturerDescription){
 		if(smallImgPath1!=null) {
             smallImgPath += "dxg" + smallImgPath1;
         }
 		if(smallImgPath2!=null) {
             smallImgPath += "dxg" + smallImgPath2;
         }
-		courseService.updateCourseDetail(courseId, smallImgPath, null, courseDetail, courseOutline, commonProblem);
+		courseService.updateCourseDetail(courseId, smallImgPath, null, courseDetail, courseOutline, commonProblem,lecturerDescription);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
 	
@@ -648,7 +621,7 @@ public class CourseController extends AbstractController{
      * 老师列表
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("cloudClass:menu:course")
     @RequestMapping(value = "/teachers",method= RequestMethod.GET)
     @ResponseBody
     public ResponseObject teachers(String courseId){
@@ -663,7 +636,7 @@ public class CourseController extends AbstractController{
      * 增加班级信息
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade:teachers:save")
+    //@RequiresPermissions("cloudClass:menu:grade:teachers:save")
     @RequestMapping(value = "/teachers/save",method= RequestMethod.POST)
     @ResponseBody
     public ResponseObject saveTeachers(HttpServletRequest request,String gradeId,String courseId,String[] roleType1,String[] roleType2,String[] roleType3){
@@ -700,7 +673,6 @@ public class CourseController extends AbstractController{
         return ResponseObject.newSuccessResponseObject(null);
     }
 
-
 	/**
 	 * 同步课程视频信息（无章节知识点版）
 	 * @param id
@@ -709,7 +681,35 @@ public class CourseController extends AbstractController{
 	@RequestMapping(value = "updateCourseVideo", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseVideo(String id) {
+		
+		
 		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideo(id));
 	}
 
+	@RequestMapping(value = "courseInfoDetail")
+	public String courseInfoDetail(HttpServletRequest request,Integer id) {
+		Course course =courseService.findCourseInfoById(id);
+		request.setAttribute("course", course);
+		request.setAttribute("courseForm", course.getType());
+		return CLOUD_CLASS_PATH_PREFIX + "/courseInfoDetail";
+	}
+
+	/**
+	 * Description：设置推荐值
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/9 14:13
+	 **/
+	@RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateRecommendSort(Integer id,Integer recommendSort, String recommendTime) {
+		ResponseObject responseObject=new ResponseObject();
+
+		courseService.updateRecommendSort(id,recommendSort,recommendTime);
+		responseObject.setSuccess(true);
+		responseObject.setResultObject("修改成功!");
+		return responseObject;
+	}
+	
+	
 }

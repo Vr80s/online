@@ -5,17 +5,20 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
+import com.xczhihui.bxg.online.manager.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.bxg.online.manager.medical.exception.MedicalException;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,7 +39,7 @@ public class DoctorController extends AbstractController{
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/medical/";
 	@Autowired
 	private DoctorService doctorService;
-	
+
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
 
@@ -45,12 +48,26 @@ public class DoctorController extends AbstractController{
 	public String index(HttpServletRequest request) {
 		return CLOUD_CLASS_PATH_PREFIX + "/doctor";
 	}
-	
+
 	@RequestMapping(value = "MedicalDoctorDetail")
 	public String MedicalDoctorDetail(HttpServletRequest request) {
 		request.setAttribute("weburl", weburl);
 		return CLOUD_CLASS_PATH_PREFIX + "/doctorDetail";
 	}
+
+	/**
+	 * 跳转到医师详情页
+	 * @param doctorId 医师id
+	 */
+	@RequestMapping(value = "info/{doctorId}")
+	public String index(HttpServletRequest request, @PathVariable String doctorId) {
+
+		MedicalDoctor doctor = doctorService.findMedicalDoctorById(doctorId);
+		request.setAttribute("doctor", doctor);
+
+		return CLOUD_CLASS_PATH_PREFIX + "/doctorInfo";
+	}
+
 
 	@RequestMapping(value = "list")
 	@ResponseBody
@@ -60,7 +77,7 @@ public class DoctorController extends AbstractController{
           int currentPage = index / pageSize + 1;
           String params = tableVo.getsSearch();
           Groups groups = Tools.filterGroup(params);
-          
+
           MedicalDoctor searchVo=new MedicalDoctor();
           Group MedicalDoctorName = groups.findByName("search_courseName");
           Group medicalDoctorStatus = groups.findByName("search_status");
@@ -85,15 +102,15 @@ public class DoctorController extends AbstractController{
           tableVo.setiTotalDisplayRecords(total);
           tableVo.setiTotalRecords(total);
           return tableVo;
-		
+
 	}
-	
+
 	/**
 	 * 添加
 	 * @param medicalDoctor
 	 * @return
 	 */
-//	@RequiresPermissions("RealClass:menu:MedicalDoctor")
+//	//@RequiresPermissions("RealClass:menu:MedicalDoctor")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(MedicalDoctor medicalDoctor){
@@ -111,7 +128,7 @@ public class DoctorController extends AbstractController{
 			doctorService.addMedicalDoctor(medicalDoctor);
             responseObj.setSuccess(true);
             responseObj.setErrorMessage("新增成功");
-            
+
        }catch(Exception e){
     	   	e.printStackTrace();
             responseObj.setSuccess(false);
@@ -119,7 +136,7 @@ public class DoctorController extends AbstractController{
        }
         return responseObj;
     }
-	
+
 	/**
 	 * 查看
 	 * @param id
@@ -130,7 +147,7 @@ public class DoctorController extends AbstractController{
 	  public MedicalDoctor findMedicalDoctorById(String id) {
 		return 	doctorService.findMedicalDoctorById(id);
 	}
-	
+
 	/**
 	 * 编辑
 	 * @param medicalDoctor
@@ -151,6 +168,19 @@ public class DoctorController extends AbstractController{
 
 		 try{
 			 	MedicalDoctor old = doctorService.findMedicalDoctorById(medicalDoctor.getId());
+
+			 	// 如果是用户认证成功的医师 管理员可以修改用户的医师类型
+			 	if(StringUtils.isNotBlank(old.getSourceId())||StringUtils.isNotBlank(old.getCreatePerson())){
+			 		if(StringUtils.isNotBlank(medicalDoctor.getType())){
+						old.setType(medicalDoctor.getType());
+						doctorService.updateMedicalDoctor(old);
+						responseObj.setSuccess(true);
+						responseObj.setErrorMessage("修改成功");
+						return responseObj;
+					}
+					throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+				}
+
 			 	old.setName(medicalDoctor.getName());
 			 	old.setTel(medicalDoctor.getTel());
 			 	old.setTitle(medicalDoctor.getTitle());
@@ -163,14 +193,17 @@ public class DoctorController extends AbstractController{
 			 	doctorService.updateMedicalDoctor(old);
 	            responseObj.setSuccess(true);
 	            responseObj.setErrorMessage("修改成功");
-	       }catch(Exception e){
+	       }catch(MedicalException e){
 	            responseObj.setSuccess(false);
-	            responseObj.setErrorMessage("修改失败");
-	            e.printStackTrace();
-	       }
-	        return responseObj;
+	            responseObj.setErrorMessage(MedicalExceptionEnum.MUST_NOT_HANDLE.getMsg());
+	       }catch(Exception e){
+			 responseObj.setSuccess(false);
+			 responseObj.setErrorMessage("修改失败");
+			 e.printStackTrace();
+		   }
+		   return responseObj;
 	}
-	
+
 	/**
 	 * 修改状态(禁用or启用)
 	 * @param id
@@ -213,7 +246,7 @@ public class DoctorController extends AbstractController{
 	 public ResponseObject getMedicalDoctorDetail(String medicalDoctorId){
     	return ResponseObject.newSuccessResponseObject(doctorService.getMedicalDoctorDetail(medicalDoctorId));
     }
-    
+
     /**
      * 添加或者修改身份验证的信息
      * @return
@@ -221,9 +254,9 @@ public class DoctorController extends AbstractController{
 	@RequestMapping(value = "updateMedicalDoctorDetail", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject updateMedicalDoctorDetail(String medicalDoctorId, String authenticationInformationId
-			 ,String picture1, String picture2, 
+			 ,String picture1, String picture2,
 			 String picture3, String picture4, String picture5,String picture6){
-		
+
 		doctorService.updateMedicalDoctorDetail(medicalDoctorId,authenticationInformationId,picture1,
 				picture2, picture3, picture4, picture5,picture6);
         return ResponseObject.newSuccessResponseObject("修改成功！");
@@ -233,10 +266,10 @@ public class DoctorController extends AbstractController{
 	public String doctorDetail(HttpServletRequest request) {
 
 		request.setAttribute("weburl", weburl);
-		
+
 		String doctorId = request.getParameter("doctorId");
 		String mdaiId = request.getParameter("mdaiId");
-		
+
 		System.out.println("doctorId:"+doctorId+",mdaiId:"+mdaiId);
 		/*
 		 * 这里需要传递两个参数
@@ -244,16 +277,16 @@ public class DoctorController extends AbstractController{
 		 */
 		request.setAttribute("doctorId", doctorId);
 		request.setAttribute("mdaiId", mdaiId);
-		
+
 		return CLOUD_CLASS_PATH_PREFIX + "/doctorDetail";
 	}
-	
+
 	@RequestMapping(value = "mdaiDetail")
 	@ResponseBody
 	public ResponseObject mdaiDetail(String authenticationInformationId) {
 
 		 MedicalDoctorAuthenticationInformation mdai = doctorService.mdaiDetail(authenticationInformationId);
-		
+
 		 return ResponseObject.newSuccessResponseObject( mdai);
 	}
 
@@ -282,7 +315,7 @@ public class DoctorController extends AbstractController{
 		List<MedicalHospital> medicalHospitals= doctorService.getMedicalHospital(id);
 		return medicalHospitals;
 	}
-	
+
 	@RequestMapping(value = "recList")
 	@ResponseBody
 	public TableVo recList(TableVo tableVo) {
@@ -403,7 +436,17 @@ public class DoctorController extends AbstractController{
 		responseObject.setResultObject("报道-医师关联成功！");
 		return responseObject;
 	}
-	
+
+	/**
+	 * 获取医师的科室列表
+	 */
+	@RequestMapping(value = "listDepartmemt")
+	@ResponseBody
+	public List<MedicalDoctor> listDepartmemt(String writingsId){
+		List<MedicalDoctor> medicalHospitals= doctorService.getMedicalDoctor(writingsId);
+		return medicalHospitals;
+	}
+
 	/**
 	 * 获取所有医师   名字 的 接口
 	 * @return

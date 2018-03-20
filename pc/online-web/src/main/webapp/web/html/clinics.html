@@ -35,7 +35,7 @@
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="/web/js/header.js?v=1.2" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
     <!--百度统计-->
     <script>
@@ -49,6 +49,10 @@
     </script>
 </head>
 <body>
+	<div id="tip" style="display: none;">
+		您已完成了医馆注册，不能进行医师注册!
+	</div>
+	
 <div id="forum" class="clearfix">
     <div class="forum-banner clearfix">
         <div class="banner">
@@ -109,7 +113,7 @@
         
         <div class="forum-hosJoin hide">
                 <p>期待有志于传承和发展中医药的医馆加入</p>
-               <button>医馆入住</button>
+               <a  href="javascript:;" id="toHosJoin">医馆入驻</a>
             </div>
             
             
@@ -283,7 +287,7 @@
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/hospital.js?v=ipandatcm_1.2.1"></script>
-<script type="text/javascript" src="/web/js/footer.js"></script>
+<script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript">
     $(function () {

@@ -62,7 +62,7 @@ $(function(){
         if(!row.isRecommend){
             str += '<a class="blue" href="javascript:void(-1);" title="推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
         }else{
-            str += '<a class="gray" href="javascript:void(-1);" title="推荐" ><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
+            str += '<a class="gray" href="javascript:void(-1);" title="取消推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
         }
     	return str;
 	}}

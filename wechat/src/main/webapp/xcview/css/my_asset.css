@@ -1,0 +1,245 @@
+*{margin: 0; padding: 0;}
+.z{float: left;}
+.y{float: right;}
+body{color: #333333;font-size: 0.28rem;}
+ul li{list-style: none;}
+a{
+text-decoration: none;
+outline:none;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+/*p{font-size: 0.28rem;}*/
+img{display: block;}
+.both{
+	clear: both;
+}
+
+/*头部开始*/
+header{
+	width: 100%;
+	height: 0.88rem;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.header_img{
+	width: 2.15rem;
+    height: 0.88rem;
+    /*background: red;*/ 
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_img img{
+	width: 0.24rem;
+    height: 0.43rem;
+    margin-top: 0.22rem;
+    margin-left: 0.26rem;
+}
+.header{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	font-size: 0.36rem;
+	color: #333333;
+}
+.add{
+	float: right;
+	width: 2rem;
+	height: 0.88rem;
+	color: #00BC12;
+	text-align: right;
+	margin-right: 0.26rem;
+	line-height: 0.8rem;
+	font-size: 0.3rem;
+	position: relative;
+}
+/*头部结束*/
+
+/*余额开始*/
+.balance{
+	width: 6.98rem;
+	height: 3.02rem;
+	margin: 0 auto;
+	background: #fff;
+	margin-top: 1.08rem;
+	border: 1px solid #F0F0F0;
+	border-radius: 16px;
+}
+.balance .div0{
+	width: 100%;
+	font-size: 0.28rem;
+	color: #666666;
+	text-align: center;
+	margin-top: 0.45rem;
+	margin-bottom: 0.1rem;
+}
+.balance .div1{
+	width: 100%;
+	font-size: 0.66rem;
+	color: #333333;
+	text-align: center;
+	margin-bottom: 0.16rem;
+}
+.balance .div2{
+	width: 6.48rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	background: #00BC12;
+	border-radius: 8px;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	margin: 0 auto;
+}
+/*余额结束*/
+
+/*交易记录开始*/
+.record{
+	width: 100%;
+	min-height: 1rem;
+	background: #fff;
+	margin-top: 0.2rem;
+}
+.record_main{
+	width: 7.24rem;
+	margin: 0 auto;
+	float: right;
+}
+.record_title{
+	font-size: 0.32rem;
+	color: #333333;
+	margin-top: 0.3rem;
+	margin-bottom: 0.25rem;
+}
+
+
+
+/*课程*/
+
+.record_course_div{
+	width: 100%;
+	height: 100%;
+}
+.record_course{
+	width: 100%;
+	height: 1rem;
+    line-height: 0.5rem;
+	border-bottom: 1px solid #D8DDE6;
+	overflow: hidden;
+}
+.record_course:last-child{
+	border-bottom: 0;
+	border-bottom: none;
+	border: 0;
+}
+.record_course_left .span0{
+	font-size: 0.28rem;
+	color: #333333;
+	margin-right: 0.16rem;
+}
+.record_course_left .span1{
+	font-size: 0.24rem;
+	color: #999999;
+}
+.record_course_right{
+	margin-right: 0.26rem;
+}
+.record_course_right .span0{
+	font-size: 0.36rem;
+	color: #F97B49;
+}
+.record_course_right .span1{
+	font-size: 0.28rem;
+	color: #333333;
+}
+.record_course .time{
+	font-size: 0.2rem;
+	color: #ccc;
+}
+
+/*礼物*/
+.record_gift{
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	border-bottom: 1px solid #D8DDE6;
+}
+.record_gift_left .span0{
+	font-size: 0.28rem;
+	color: #333333;
+	margin-right: 0.16rem;
+}
+.record_gift_left .span1{
+	font-size: 0.24rem;
+	color: #999999;
+}
+.record_gift_right{
+	margin-right: 0.26rem;
+}
+.record_gift_right .span0{
+	font-size: 0.36rem;
+	color: #F97B49;
+}
+.record_gift_right .span1{
+	font-size: 0.28rem;
+	color: #333333;
+}
+
+/*结算*/
+.record_clearing{
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	border-bottom: 1px solid #D8DDE6;
+}
+.record_clearing_left .span0{
+	font-size: 0.28rem;
+	color: #333333;
+	margin-right: 0.16rem;
+}
+
+.record_clearing_right{
+	margin-right: 0.26rem;
+}
+.record_clearing_right .span0{
+	font-size: 0.36rem;
+	color: #F97B49;
+}
+.record_clearing_right .span1{
+	font-size: 0.28rem;
+	color: #333333;
+}
+
+/*购买广告位*/
+.record_AdPositionId{
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	/*border-bottom: 1px solid #D8DDE6;*/
+}
+.record_AdPositionId .span0{
+	font-size: 0.28rem;
+	color: #333333;
+	margin-right: 0.16rem;
+}
+
+.record_AdPositionId_right{
+	margin-right: 0.26rem;
+}
+.record_AdPositionId_right .span0{
+	font-size: 0.36rem;
+	color: #F97B49;
+}
+.record_AdPositionId_right .span1{
+	font-size: 0.28rem;
+	color: #333333;
+}
+
+/*交易记录结束*/

@@ -14,6 +14,10 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +65,8 @@ public class WechatController {
 
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private OrderPayService orderPayService;
 	@Autowired
 	private WechatService wechatService;
 	@Autowired
@@ -165,7 +171,7 @@ public class WechatController {
 
 			RewardParamVo rewardParamVo=new RewardParamVo();
 			rewardParamVo.setUserId(loginUser.getId());
-			rewardParamVo.setClientType("1");
+			rewardParamVo.setClientType(OrderFrom.PC.getCode()+"");
 			rewardParamVo.setLiveId(req.getParameter("liveId"));
 			rewardParamVo.setGiver(loginUser.getId());
 			rewardParamVo.setReceiver(req.getParameter("receiver"));
@@ -231,8 +237,8 @@ public class WechatController {
 			}
 			
 			UserCoinIncrease uci = new  UserCoinIncrease();
-	    	uci.setPayType(0);
-	    	uci.setChangeType(1);
+	    	uci.setPayType(Payment.WECHATPAY.getCode());
+	    	uci.setChangeType(IncreaseChangeType.RECHARGE.getCode());
 	    	uci.setValue(new BigDecimal(count));
 	    	uci.setUserId(loginUser.getId());
 	    	
@@ -290,7 +296,7 @@ public class WechatController {
 		}
 		in.close();
 		inputStream.close();
-		
+		logger.info("微信支付回调参数:{}",sb.toString());
 		// 解析xml成map
 		Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
 		if (m != null && !m.isEmpty()) {
@@ -355,40 +361,45 @@ public class WechatController {
 					String[] attachs=attach.split("&");
 
 					if(attachs.length>0) {
-                        if (attachs[0].equals("order")) {
+                        if ("order".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             OrderParamVo orderParamVo = JSONObject.parseObject(json, OrderParamVo.class);
                             wxcpPayFlow.setSubject(orderParamVo.getSubject());
                             wxcpPayFlow.setUser_id(orderParamVo.getUserId());
-                        } else if (attachs[0].equals("reward")) {
+                        } else if ("reward".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             RewardParamVo rpv = JSONObject.parseObject(json, RewardParamVo.class);
                             RewardStatement rs = new RewardStatement();
                             BeanUtils.copyProperties(rs, rpv);
                             rs.setCreateTime(new Date());
-                            rs.setPayType(1);//
+                            rs.setPayType(Payment.WECHATPAY.getCode());
                             rs.setOrderNo(out_trade_no);
-                            rs.setChannel(1);
+                            rs.setChannel(OrderFrom.PC.getCode());
                             rs.setStatus(1);
                             userCoinService.updateBalanceForReward(rs);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
                             wxcpPayFlow.setSubject(rpv.getSubject());
-                        } else if (attachs[0].equals("recharge")) {
+                        } else if ("recharge".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             UserCoinIncrease uci = JSONObject.parseObject(json, UserCoinIncrease.class);
-                            uci.setCreateTime(new Date());
-                            uci.setPayType(1);//
-                            uci.setOrderNoRecharge(out_trade_no);
-                            uci.setOrderFrom(1);
-                            userCoinService.updateBalanceForIncrease(uci);
+//                            uci.setCreateTime(new Date());
+//                            uci.setPayType(Payment.WECHATPAY.getCode());
+//                            uci.setOrderNoRecharge(out_trade_no);
+//                            uci.setOrderFrom(OrderFrom.PC.getCode());
+//                            uci.setBalanceType(BalanceType.BALANCE.getCode());
+                            userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.WECHATPAY,uci.getValue(), OrderFrom.PC,out_trade_no);
                             wxcpPayFlow.setUser_id(uci.getUserId());
                             wxcpPayFlow.setSubject(uci.getSubject());
                         }
                     }
-					wxcpPayFlowService.insert(wxcpPayFlow);
+                    try{
+						wxcpPayFlowService.insert(wxcpPayFlow);
+					}catch (Exception exception){
+						logger.error("以下订单重复插入:"+wxcpPayFlow.toString());
+					}
 
 
-					if(attachs[0].equals("order")) {
+					if("order".equals(attachs[0])) {
 					//新启线程，处理支付成功
 					new Thread(new Runnable() {
 						@Override
@@ -397,11 +408,12 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderService.addPaySuccess(out_trade_no,1,transaction_id);
+								orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY,transaction_id);
+//								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
 								//为购买用户发送购买成功的消息通知
-								orderService.savePurchaseNotice(basePath, out_trade_no);
+//								orderService.savePurchaseNotice(basePath, out_trade_no);
 							} catch (Exception e) {
 								logger.error("用户支付成功，构建课程失败！！！"+out_trade_no+"，错误信息：",e);
 							}
@@ -426,165 +438,135 @@ public class WechatController {
 		logger.info("微信回调"+orderNo+"，用时"+(end - current)+"毫秒");
 	}
 	
-	/**
-	 * 微信分销系统支付成功回调
-	 * @param request
-	 * @param response
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/pay_notify_wechat")
-	public ResponseObject pay_notify_wechat(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			// 读取参数
-			InputStream inputStream = request.getInputStream();
-			StringBuffer sb = new StringBuffer();
-			String str = null;
-			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-			while ((str = in.readLine()) != null) {
-				sb.append(str);
-			}
-			in.close();
-			inputStream.close();
-			
-			// 解析xml成map
-			Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
-			if (m != null && !m.isEmpty()) {
-				// 过滤空 设置 TreeMap
-				SortedMap<Object, Object> packageParams = new TreeMap<>();
-				for (Map.Entry<String, String> e : m.entrySet()) {
-					if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
-						packageParams.put(e.getKey(), e.getValue());
-					}
-				}
-				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
+//	/**
+//	 * 微信分销系统支付成功回调
+//	 * @param request
+//	 * @param response
+//	 * @throws Exception
+//	 */
+//	@RequestMapping(value = "/pay_notify_wechat")
+//	public ResponseObject pay_notify_wechat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		try {
+//			// 读取参数
+//			InputStream inputStream = request.getInputStream();
+//			StringBuffer sb = new StringBuffer();
+//			String str = null;
+//			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+//			while ((str = in.readLine()) != null) {
+//				sb.append(str);
+//			}
+//			in.close();
+//			inputStream.close();
+//
+//			// 解析xml成map
+//			Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
+//			if (m != null && !m.isEmpty()) {
+//				// 过滤空 设置 TreeMap
+//				SortedMap<Object, Object> packageParams = new TreeMap<>();
+//				for (Map.Entry<String, String> e : m.entrySet()) {
+//					if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
+//						packageParams.put(e.getKey(), e.getValue());
+//					}
+//				}
+//				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
 //					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
 //					String transaction_id = String.valueOf(packageParams.get("transaction_id"));
-//					if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null 
-//							&& !"".equals(transaction_id.trim())) {
-//						String s = "out_trade_no="+out_trade_no+"&result_code=SUCCESS"+"&transaction_id="+transaction_id+"&key="+OnlineConfig.API_KEY;
-//						String mysign = CodeUtil.MD5Encode(s).toLowerCase();
-//						
-//						String resXml = 
-//								"<xml>"
-//										+ "<out_trade_no><![CDATA["+out_trade_no+"]]></out_trade_no>"
-//										+ "<result_code><![CDATA[SUCCESS]]></result_code>"
-//										+ "<transaction_id><![CDATA["+transaction_id+"]]></transaction_id>"
-//										+ "<sign><![CDATA["+mysign+"]]></sign>"
-//										+ " </xml> ";
-//						
-//						URL url = new URL(weburl+"/web/weixin_pay_notify");
-//						HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-//						urlConn.setRequestProperty("Content-type", "application/xml");
-//						urlConn.setRequestMethod("POST");
-//						urlConn.setConnectTimeout(15000);// （单位：毫秒）jdk
-//						urlConn.setReadTimeout(15000);// （单位：毫秒）jdk 1.5换成这个,读操作超时
-//						urlConn.setDoOutput(true);
-//						byte[] b = resXml.toString().getBytes();
-//						urlConn.getOutputStream().write(b, 0, b.length);
-//						urlConn.getOutputStream().flush();
-//						urlConn.getOutputStream().close();
-//						urlConn.getInputStream();
-//					} else {
-//						logger.error("微信分销系统回调接口，参数错误！！！");
+//					//新启线程，处理支付成功
+//					new Thread(new Runnable() {
+//						@Override
+//						public void run() {
+//							try {
+//								//计时
+//								long current = System.currentTimeMillis();
+//								//处理订单业务
+//								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY,transaction_id);
+////								orderService.addPaySuccess(out_trade_no,1,transaction_id);
+//								logger.info("订单支付成功，订单号:{},用时{}",out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
+//								//为购买用户发送购买成功的消息通知
+////								orderService.savePurchaseNotice(weburl, out_trade_no);
+//							} catch (Exception e) {
+//								logger.error("用户支付成功，构建课程失败！！！"+out_trade_no+"，错误信息：",e);
+//							}
+//						}
+//					}).start();
+//				} else {
+//					logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
+//				}
+//			}
+//			return ResponseObject.newSuccessResponseObject("支付成功！");
+//		} catch (Exception e) {
+//			return ResponseObject.newSuccessResponseObject(e.getMessage());
+//		}
+//	}
+//
+//	/**
+//	 * IOS内购成功后回调
+//	 * @param request
+//	 * @param response
+//	 * @throws Exception
+//	 */
+//	@RequestMapping(value = "/pay_notify_iosiap")
+//	public ResponseObject pay_notify_iosiap(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		try {
+//			// 读取参数
+//			InputStream inputStream = request.getInputStream();
+//			StringBuffer sb = new StringBuffer();
+//			String str = null;
+//			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+//			while ((str = in.readLine()) != null) {
+//				sb.append(str);
+//			}
+//			in.close();
+//			inputStream.close();
+//
+//			// 解析xml成map
+//			Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
+//
+//			if (m != null && !m.isEmpty()) {
+//				// 过滤空 设置 TreeMap
+//				SortedMap<Object, Object> packageParams = new TreeMap<>();
+//				for (Map.Entry<String, String> e : m.entrySet()) {
+//					if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
+//						packageParams.put(e.getKey(), e.getValue());
 //					}
-					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
-					String transaction_id = String.valueOf(packageParams.get("transaction_id"));
-					//新启线程，处理支付成功
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							try {
-								//计时
-								long current = System.currentTimeMillis();
-								//处理订单业务
-								orderService.addPaySuccess(out_trade_no,1,transaction_id);
-								logger.info("订单支付成功，订单号:{},用时{}",
-										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
-								//为购买用户发送购买成功的消息通知
-								orderService.savePurchaseNotice(weburl, out_trade_no);
-							} catch (Exception e) {
-								logger.error("用户支付成功，构建课程失败！！！"+out_trade_no+"，错误信息：",e);
-							}
-						}
-					}).start();
-				} else {
-					logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
-				}
-			}
-			return ResponseObject.newSuccessResponseObject("支付成功！");
-		} catch (Exception e) {
-			return ResponseObject.newSuccessResponseObject(e.getMessage());
-		}
-	}
-
-	/**
-	 * IOS内购成功后回调
-	 * @param request
-	 * @param response
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/pay_notify_iosiap")
-	public ResponseObject pay_notify_iosiap(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			// 读取参数
-			InputStream inputStream = request.getInputStream();
-			StringBuffer sb = new StringBuffer();
-			String str = null;
-			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-			while ((str = in.readLine()) != null) {
-				sb.append(str);
-			}
-			in.close();
-			inputStream.close();
-			
-			// 解析xml成map
-			Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
-			
-			if (m != null && !m.isEmpty()) {
-				// 过滤空 设置 TreeMap
-				SortedMap<Object, Object> packageParams = new TreeMap<>();
-				for (Map.Entry<String, String> e : m.entrySet()) {
-					if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
-						packageParams.put(e.getKey(), e.getValue());
-					}
-				}
-				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
-
-					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
-					String transaction_id = String.valueOf(packageParams.get("transaction_id"));
-					//新启线程，处理支付成功
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							try {
-								
-								//计时
-								long current = System.currentTimeMillis();
-								//处理订单业务
-								orderService.addPaySuccess(out_trade_no,1,transaction_id);
-								logger.info("订单支付成功，订单号:{},用时{}",
-										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
-								//为购买用户发送购买成功的消息通知
-								orderService.savePurchaseNotice(weburl, out_trade_no);
-							} catch (Exception e) {
-								logger.error("用户支付成功，构建课程失败！！！"+out_trade_no+"，错误信息：",e);
-							}
-						}
-					}).start();
-				} else {
-					logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
-				}
-			}
-			return ResponseObject.newSuccessResponseObject("支付成功！");
-		} catch (Exception e) {
-			return ResponseObject.newSuccessResponseObject(e.getMessage());
-		}
-	}
-	
-	
-	
-	@RequestMapping(value = "/wechatDistribution", method = RequestMethod.GET)
-	public ResponseObject wechatDistribution(WechatVo wechatVo) {
-		return ResponseObject.newSuccessResponseObject(wechatService.saveUserAndBuyCourse(wechatVo));
-	}
+//				}
+//				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
+//
+//					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
+//					String transaction_id = String.valueOf(packageParams.get("transaction_id"));
+//					//新启线程，处理支付成功
+//					new Thread(new Runnable() {
+//						@Override
+//						public void run() {
+//							try {
+//
+//								//计时
+//								long current = System.currentTimeMillis();
+//								//处理订单业务
+//								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY,transaction_id);
+////								orderService.addPaySuccess(out_trade_no,1,transaction_id);
+//								logger.info("订单支付成功，订单号:{},用时{}",
+//										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
+//
+//							} catch (Exception e) {
+//								logger.error("用户支付成功，构建课程失败！！！"+out_trade_no+"，错误信息：",e);
+//							}
+//						}
+//					}).start();
+//				} else {
+//					logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
+//				}
+//			}
+//			return ResponseObject.newSuccessResponseObject("支付成功！");
+//		} catch (Exception e) {
+//			return ResponseObject.newSuccessResponseObject(e.getMessage());
+//		}
+//	}
+//
+//
+//
+//	@RequestMapping(value = "/wechatDistribution", method = RequestMethod.GET)
+//	public ResponseObject wechatDistribution(WechatVo wechatVo) {
+//		return ResponseObject.newSuccessResponseObject(wechatService.saveUserAndBuyCourse(wechatVo));
+//	}
 }

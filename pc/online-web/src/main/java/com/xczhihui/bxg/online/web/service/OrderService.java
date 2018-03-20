@@ -45,6 +45,9 @@ public interface OrderService {
      * 返回当前订单支付状态
      */
     public Integer getOrderStatus(String orderNo);
+
+    Integer getOrderStatusById(String orderId);
+
     /**
      * 获得支付需要的信息
      * @param orderNo
@@ -131,4 +134,16 @@ public interface OrderService {
      * @param orderId
      */
 	void updateOrderNo(String orderNo,String orderId);
+	/**
+	 * 
+	 * Description：根据订单号和订单状态查找订单信息
+	 *              如果传递status 等于null，就是查询全部  
+	 * @param orderId
+	 * @param status
+	 * @return
+	 * @return OrderVo
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	OrderVo findOrderByOrderNoAndStatus(String orderId, Integer status);
 }

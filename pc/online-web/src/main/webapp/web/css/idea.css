@@ -243,7 +243,7 @@
 }
 .tabnavigator .form-horizontal .form-group div .text-title {
   width: 509px;
-  color: #999;
+  color: #333;
   font-size: 12px;
   padding-left: 10px;
   border: 1px solid #eee;
@@ -253,7 +253,7 @@
   width: 668px;
   border: 1px solid #eee;
   font-size: 12px;
-  color: #999;
+  color: #333;
   padding: 10px;
   height: 178px;
 }

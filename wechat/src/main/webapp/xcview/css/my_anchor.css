@@ -1,0 +1,161 @@
+*{margin: 0; padding: 0;}
+.z{float: left;}
+.y{float: right;}
+ul li{list-style: none;}
+a{
+text-decoration: none;
+outline:none;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+p{font-size: 0.28rem;}
+img{display: block;}
+.wp{width: 7.5rem;margin: 0 auto;}
+.cl:after {
+  /*最简方式*/
+  content: '';
+  display: block;
+  clear: both;
+}
+.cl {
+  /*兼容 IE*/
+  zoom: 1;
+}
+.wrap-header{
+	width: 100%;
+	height: 0.88rem;	
+
+}
+.header{
+	width: 100%;
+	height: 0.88rem;	
+	text-align: center;
+	line-height: 0.88rem;
+	overflow: hidden;
+	position: fixed;
+	border-bottom: 1px solid #d8dde6;	
+	background: white;
+}
+.header p{
+	font-size: 0.36rem;
+	color: #333333;
+	
+}
+.arror_return{
+	width: 0.24rem;
+	height: 0.42rem;
+	position: absolute;
+	left: 0.26rem;
+	top: 0.23rem;
+}
+.arror_return img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+/*医师认证*/
+.wrap-physician{
+	margin-top: 0.2rem;
+	width: 100%;
+	background: white;
+	padding: 0.6rem 0;
+	text-align: center;
+}
+.wrap-pic-line{
+	width: 3.6rem;
+	height: 3.6rem;
+	border-radius: 50%;
+	margin: 0 auto 0.3rem;
+	border: 1px dashed #F97B49;		
+}
+.box-pic{
+	width: 3.2rem;
+	height: 3.2rem;
+	margin: 0.2rem auto;
+	border-radius:50%;
+}
+.box-pic img{
+	width: 100%;
+	height: 100%;
+}
+.wrap-physician .physician-title{
+font-size: 0.36rem;
+color: #333333;
+}
+.wrap-physician .physician-text{
+font-size: 0.28rem;
+color: #666666;
+padding-top: 0.08rem;
+padding-bottom: 0.6rem;
+}
+.physician-btn{
+	width: 4.28rem;
+	height: 0.72rem;
+	background: #00bc12;
+	text-align: center;
+	line-height: 0.72rem;
+	display: block;
+	font-size: 0.3rem;
+	line-height: 0.72rem;
+	color: white;
+	display: block;
+	margin: 0 auto;
+	border-radius: 100px;
+}
+/*平台优势*/
+.advantage{
+	width: 100%;
+	margin-top: 0.2rem;
+
+	background: white;
+	overflow: hidden;
+	    padding: 0.6rem 0;
+}
+.advantage-title{
+	text-align: center;
+	font-size: 0.36rem;
+	color: #333333;
+	padding-bottom: 0.2rem;
+}
+.advantage-box{
+
+	width: 3.4rem;
+	height: 3.4rem;
+	padding: 0.2rem;
+	padding-top: 0.75rem;
+    box-sizing: border-box;
+    text-align: center;
+    background: #fafafa;
+}
+.advantage-box:nth-child(even){
+	float: left;
+	margin: 0.2rem 0 0 0.26rem;
+	
+}
+.advantage-box:nth-child(odd){
+	float: right;
+	margin: 0.2rem 0.26rem 0 0;
+	
+}
+.wrap-partner{
+	width: 0.92rem;
+	height: 0.72rem;
+	margin: 0 auto;
+}
+.wrap-partner img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.advantage-box p{
+	padding-top: 0.41rem;
+font-size: 0.28rem;
+color: #666666;
+}
+.wrap-partner03{
+	width: 0.66rem;
+	height: 0.74rem;
+}
+.wrap-partner04{
+	width: 0.69rem;
+	height: 0.75rem;
+}

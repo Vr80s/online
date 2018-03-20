@@ -11,7 +11,7 @@ $(function(){
 				        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
 				    }},
 	                { "title": "学号", "class": "center","width":"80px","sortable": false,"data":"studentNumber" },
-	                { "title": "账号", "class":"center","sortable":false,"data": 'loginName' },
+	                { "title": "帐号", "class":"center","sortable":false,"data": 'loginName' },
 	                { "title": "学员姓名", "class":"center","sortable":false,"data": 'realName' },
 					{ "title": "手机号", "class":"center","sortable":false,"data": 'mobile' },
 					{ "title": "邮箱", "class":"center","sortable":false,"data": 'email' },

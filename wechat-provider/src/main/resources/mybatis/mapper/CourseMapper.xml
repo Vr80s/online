@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.wechat.course.mapper.CourseMapper">
+	<resultMap type="com.xczhihui.wechat.course.vo.CourseLecturVo"
+		id="courseBaseResult">
+		<id column="id" property="id" />
+		<id column="description" property="description" />
+		<id column="detailimg_path" property="detailImgPath" />
+		<id column="grade_name" property="gradeName" />
+		<id column="live_time" property="liveTime" />
+		<id column="smallimg_path" property="smallImgPath" />
+		<id column="learnd_count" property="learndCount" />
+		<id column="current_price" property="currentPrice" />
+		<id column="course_length" property="courseLength" />
+		<id column="is_free" property="isFree" />
+		<id column="start_time" property="startTime" />
+		<id column="end_time" property="endTime" />
+		<id column="direct_id" property="directId" />
+		<id column="type" property="type" />
+		<id column="user_lecturer_id" property="userLecturerId" />
+		<id column="multimedia_type" property="multimediaType" />
+		<id column="address" property="address" />
+		<id column="city" property="city" />
+	</resultMap>
+	<!-- 查询所有的课程 -->
+	<select id="selectCoursePage" resultMap="courseBaseResult">
+		SELECT
+		oc.*
+		FROM
+		oe_course oc
+	</select>
+	<!-- 根据课程id 仅仅查找课程信息 -->
+	<select id="selectCourseById" resultMap="courseBaseResult">
+		SELECT
+		oc.*
+		FROM
+		oe_course oc where oc.id = #{courseId}
+	</select>
+
+	<!-- 课程详情 此详情包括了  不包括礼物等信息   selectCourseDetailsById -->
+	
+	<select id="selectCourseMidileDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+				if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)  as cutoff,
+		
+		if(oc.collection=0,oc.direct_id,(select o.direct_id from oe_course o join collection_course cc on
+        o.id =cc.course_id where cc.collection_id =oc.id  ORDER BY cc.collection_course_sort asc limit 1 ))  as directId,
+        
+		oc.collection as collection,
+		oc.course_number as courseNumber,
+		oc.course_detail as description,
+		oc.course_outline as courseOutline,
+		
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		
+		oc.address as address,
+		oc.city as city,
+		oc.subtitle as subtitle,
+		oc.course_length as courseLength,
+		oc.current_price*10 as currentPrice,
+		
+		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null 
+		  and ( cc.course_id in  ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id  )) ,
+		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.create_person is not null )
+		) as  criticizeCount,
+		
+	    IF(oc.collection = 1,
+   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1  and cc.overall_level !=0  
+   		    and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or cc.course_id = oc.id ) )
+	      ,
+		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 )
+		)  as startLevel,
+		
+		
+		oc.lecturer as name,
+		oc.lecturer_description as lecturerDescription,
+		ou.profile_photo as headImg,
+		ou.user_id as userId,
+		ou.name as heir,
+		oc.live_source_type as liveSourceType
+			FROM
+		oe_course as oc
+		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+		where oc.id = #{courseId} and oc.is_delete=0
+	</select>
+
+
+	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
+	
+	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+				if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)  as cutoff,
+		if(oc.is_free =0,0,1) as watchState,
+		if(oc.type =1,ifnull((SELECT SUM(ogs.price) FROM user_coin_increase uci  JOIN oe_gift_statement ogs  
+		 ON uci.order_no_gift = ogs.id WHERE uci.change_type = 3  AND ogs.live_id = oc.id ),0),0) as giftCount,
+		if(oc.type=1,ifnull(( select count(*) from oe_focus of 
+		     inner join course_anchor as ou on of.lecturer_id = ou.user_id
+		     where of.lecturer_id = oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0),0),0) as fansCount,
+		
+	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of 
+	    	 inner join course_anchor as ou on of.user_id = ou.user_id
+			 where of.user_id =oc.user_lecturer_id and  ou.status = 1  and ou.deleted =0 ),0),0) as focusCount,
+		
+		oc.course_length as courseLength,
+		oc.collection as collection,
+		oc.course_number as courseNumber,
+		oc.course_detail as description,
+		oc.course_outline as courseOutline,
+		
+				if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		
+		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		oc.address as address,
+		oc.city as city,
+		oc.direct_id as directId,
+		oc.subtitle as subtitle,
+		oc.current_price*10 as currentPrice,
+		
+	    IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null 
+		  and ( cc.course_id in  ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id  )) ,
+		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.create_person is not null )
+		) as  criticizeCount,
+	
+
+	    IF(oc.collection = 1,
+   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1  and cc.overall_level >0  
+   		    and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or cc.course_id = oc.id ) )
+	      ,
+		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 )
+		)  as startLevel,
+		
+		oc.lecturer as name,
+		oc.lecturer_description as lecturerDescription,
+		ou.profile_photo as headImg,
+		ou.name as heir,
+		oc.live_source_type as liveSourceType
+			FROM
+		oe_course as oc
+		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+		where oc.id = #{courseId} and oc.is_delete=0   and ou.deleted =0
+	</select>
+
+	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
+	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		select * from ( SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		 oc.collection as collection,
+		 
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType,
+		
+		oc.user_lecturer_id ,
+		oc.lecturer as name,
+		
+		'我的课程' as note
+		
+		FROM
+		oe_course as oc
+		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+		where
+		argc.user_id=#{userId}
+		and oc.is_delete=0 group by oc.id order by
+		argc.create_time desc )t1
+
+		UNION ALL
+
+		select * from
+		( SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		 oc.collection as collection,
+		 
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+                    
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType,
+
+		oc.user_lecturer_id,
+		oc.lecturer as name,
+		
+		'已结束课程' as note
+		FROM
+		oe_course as oc
+		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+		where
+	   ( oc.type = 3 and  date_add(now(),INTERVAL 1 DAY) >= oc.start_time  ) or 
+       ( oc.type = 1 and oc.live_status = 3 )
+		and argc.user_id=#{userId}
+		and oc.is_delete=0  group by oc.id order by oc.end_time desc)t2
+	</select>
+
+	<!-- 得到已购买课程的数量 （不包括免费的课程） -->
+	<select id="selectMyFreeCourseListCount" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		oe_course as oc
+		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+		where argc.user_id=#{userId}
+		and oc.is_delete=0  and oc.is_free = 0
+	</select>
+	
+	
+	<!-- 得到已经购买的课程排序 -->
+	<select id="selectMyFreeCourseList" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr,
+		oc.end_time as endTime,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+                    
+		oc.address as address,
+		oc.current_price*10 as currentPrice,
+		oc.city as city,
+	    oc.collection as collection,
+		oc.course_number as courseNumber,
+		oc.live_source_type as liveSourceType,
+		oc.user_lecturer_id as userLecturerId,
+		oc.lecturer as name
+		FROM
+		oe_course as oc
+		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+		where argc.user_id=#{userId}
+		and oc.is_delete=0 and oc.is_free = 0 group by oc.id
+		order by argc.create_time desc
+	</select>
+
+	<select id="selectCoursesByCollectionId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id,
+		oc.`grade_name` gradeName,
+		oc.`course_length` courseLength,
+		oc.`direct_id`  directId,
+		oc.lecturer as name
+		FROM
+		`oe_course` oc
+		JOIN `collection_course` cc
+		ON oc.id = cc.`course_id`
+		WHERE cc.`collection_id` = #{collectionId} order by cc.collection_course_sort
+	</select>
+
+	<!-- 查找讲师距离当前时间最近一次的课程   1.直播中，2预告，3直播结束 -->
+	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		 oc.collection as collection,
+		 
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+                    
+		oc.address as address,
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType,
+		oc.city as city,
+		oc.lecturer as name,
+		ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent
+		FROM
+		oe_course oc
+		where oc.user_lecturer_id = #{userId} 
+		and oc.is_delete=0 
+		and oc.status=1 
+		and oc.type = 1
+		order by recent limit 0,1
+	</select>
+
+
+	<!-- 通过主播id得到主播的所有课程页面 -->
+	<select id="selectLecturerAllCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		 oc.collection as collection,
+		 
+		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+    		   (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time),4,
+    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
+    		            
+		oc.address as address,
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType,
+		oc.city as city,
+		oc.lecturer as name
+		FROM
+		oe_course oc
+		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0   order by release_time desc
+	</select>
+
+
+	<!-- 未来一周内要直播的课程、最近发布的五个课程 ，条件中判断了是否为存在最近一小时的直播 -->
+	<select id="selectUserConsoleCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		(
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		 oc.collection as collection,
+		 
+		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+    		   (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time),4,
+    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
+    					 
+    					 
+		oc.address as address,
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType,
+		oc.city as city,
+		oc.lecturer as name,
+		oc.direct_id as directId,
+		'直播间' as note
+		FROM
+		oe_course oc
+		where
+		oc.user_lecturer_id = #{userId} and oc.is_delete=0 
+		and
+		DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(oc.start_time)
+		and oc.type =1 and oc.live_status = 2
+		order by oc.start_time desc limit 3 )
+		UNION ALL
+		(
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		'0' as isLive,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		oc.collection as collection,
+		
+		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+    		   (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time),4,
+    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
+		
+		oc.address as address,
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType,
+		oc.city as city,
+		oc.lecturer as name,
+		oc.direct_id as directId,
+		'我的课程' as note
+		FROM
+		oe_course oc
+		where oc.user_lecturer_id = #{userId}  and oc.is_delete=0  order by oc.release_time
+		desc,oc.start_time desc limit 3
+		)
+	</select>
+	
+	
+	<!-- 主播控制台  直播间分页  -->
+	<select id="selectUserConsoleCourseLiveByPage" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		
+	    if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+    		   (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time),4,
+    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
+	     
+		oc.address as address,
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType,
+		oc.city as city,
+		oc.lecturer as name,
+		oc.direct_id as directId,
+		'直播间' as note
+		FROM
+		oe_course oc
+		where
+		oc.user_lecturer_id = #{userId}
+		and
+		DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(oc.start_time)
+		and oc.type =1 and oc.live_status = 2 and oc.is_delete=0 
+		order by oc.start_time desc
+	</select>
+	
+	
+	
+    <!-- 猜你喜欢，随机的取出同分类的两个课程 -->
+	<select id="selectMenuTypeAndRandCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+		if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		oc.collection as collection,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		
+		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+    		   (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time),4,
+    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
+    	
+    	
+		oc.address as address,
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType,
+		oc.city as city,
+		oc.lecturer as name
+		
+		FROM
+		oe_course oc
+		where  oc.is_delete=0 and oc.status=1  and oc.id != #{courseId}  and
+		oc.menu_id= (select menu_id from oe_course where id =#{courseId} limit 1)  order by rand()
+	</select>
+	
+	
+	<!--  app端我的课程   全部、直播、视频、线下课、音频  -->
+    <select id="selectAppCourseApplyPage" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		select 
+			cai.img_path as  smallImgPath,
+			cai.title as gradeName,
+			cai.user_id as userLecturerId,
+			cai.`price` * 10 as currentPrice,
+		    cai.lecturer as name,
+			if(cai.course_form=1,3,if(cai.course_form=3,4,if(cai.multimedia_type=1,1,2))) as type,
+		    cai.start_time as startTime,
+			cai.end_time as endTime,
+		    cai.course_number as courseNumber,
+		    cai.address as address,
+		    cai.city as city,
+			cai.`status` as applyStatus,
+			cai.collection as collection,
+			oc.id as id,
+		    oc.live_source_type as liveSourceType,
+		    
+		    if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+			 (DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+    		   (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time),4,
+    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
+    		 
+			if(cai.`status`=1,(SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as  learndCount,
+			oc.direct_id as directId,
+			if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
+		 from 
+		    course_apply_info cai  
+		    LEFT JOIN  oe_course as oc on cai.id = oc.apply_id
+		    where cai.user_id = #{userId} and cai.is_delete=0
+		<if test="courseForm != null">
+			AND cai.`course_form` = #{courseForm}
+		</if>
+		<if test="multimediaType != null">
+			AND cai.`multimedia_type` = #{multimediaType}
+		</if>
+		 order by oc.release_time desc,cai.create_time desc
+	</select>
+
+	<!--  查看听课列表  -->
+	<select id="listenCourseList" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,
+		oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
+		if(oc.is_free =0,0,1) as watchState,
+		 oc.collection as collection,
+		oc.city as city,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		'2' as courseType,
+		oc.release_time,
+		oc.is_recommend,oc.start_time as startTime,oc.create_time
+		from oe_course oc ,oe_user ou
+		where oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status = 1 and oc.multimedia_type = 2
+		order by oc.recommend_sort desc,oc.release_time desc LIMIT 0,12
+	</select>
+	<!--  查看直播课程列表  -->
+	<select id="findLiveListInfo" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		<![CDATA[
+		(select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,
+		c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime,
+		 c.original_cost as originalCost,c.current_price*10 as currentPrice,
+		 if(c.is_free =0,0,1) as watchState,
+		 if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,
+		 c.is_recommend,c.start_time as startTime,
+		 c.collection as collection,
+		 (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
+		 + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
+		 
+		if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
+		    
+		'正在直播' as note
+		from oe_course c ,oe_user ou
+		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
+		and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY)
+		order by  c.recommend_sort DESC,c.start_time DESC LIMIT 0,12)
+
+		union all
+
+		(select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,
+		c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime,
+		c.original_cost as originalCost,c.current_price*10 as currentPrice,
+		if(c.is_free =0,0,1) as watchState,
+		if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,
+		c.is_recommend,c.start_time as startTime,
+		c.collection as collection,
+		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
+		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
+		
+	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
+		
+		'即将直播' as note
+		from oe_course c,oe_user ou
+		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
+		and c.live_status = 2 and ( ( c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now() ) or ( DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ))   
+		order by  c.recommend_sort DESC,c.start_time asc LIMIT 0,4)
+
+		union all
+
+		(select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,
+		c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime,
+		c.original_cost as originalCost,c.current_price*10 as currentPrice,
+		if(c.is_free =0,0,1) as watchState,
+		if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,
+		c.is_recommend,c.start_time as startTime,
+		c.collection as collection,
+		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
+		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
+		
+	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
+		
+		'直播课程' as note
+		from oe_course c ,oe_user ou
+		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
+		and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY)
+		order by  c.recommend_sort DESC,c.start_time asc LIMIT 0,4)
+
+		union all
+
+		(select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,
+		c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime,
+		c.original_cost as originalCost,c.current_price*10 as currentPrice,
+		if(c.is_free =0,0,1) as watchState,
+		if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,
+		c.is_recommend,c.start_time as startTime,
+		c.collection as collection,
+		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
+		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
+		
+	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
+		
+		'精彩直播回放' as note
+		from oe_course c,oe_user ou
+		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
+		and c.live_status = 3
+		order by  c.recommend_sort DESC,c.start_time desc LIMIT 0,4)
+		]]>
+	</select>
+	
+	
+	
+	
+   <!-- 用户当前课程状态   User current course status. 用户没有登录   -->
+   <select id="selectCurrentCourseStatus" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+       SELECT
+		oc.id as id,
+		oc.start_time as startTime,
+		oc.end_time as endTime,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		if(oc.user_lecturer_id = ou.user_id,3,if(oc.is_free =0, ) )
+		oc.collection as collection,
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		oc.current_price*10 as currentPrice,
+		oc.live_source_type as liveSourceType
+			FROM
+		oe_course as oc
+		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+		where oc.id = #{courseId}    and oc.is_delete=0
+	</select>	
+	
+	 <!-- 用户当前课程状态   User current course status. 用户登录了  -->
+	 <select id="selectUserCurrentCourseStatus" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		    SELECT
+				oc.id as id,
+				oc.start_time as startTime,
+				oc.end_time as endTime,
+				if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+				if(oc.user_lecturer_id = ou.user_id,3,
+	         			  if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args 
+	         			   where  args.course_id = oc.id  and  args.user_id = #{userId} and args.is_delete=0 ) >0 ,2, 1),1) )
+	      	    as watchState,
+				oc.collection as collection,
+				if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+				                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+		                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+				oc.current_price*10 as currentPrice,
+				oc.live_source_type as liveSourceType
+			FROM
+				oe_course as oc
+			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+				where oc.id = #{courseId} and oc.is_delete=0
+	</select>
+	
+</mapper>

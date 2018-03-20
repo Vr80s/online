@@ -82,7 +82,7 @@ public class CloudClassMenuController {
     	
      }
      
-     @RequiresPermissions("cloudClass:menu:menuType:manager")
+     //@RequiresPermissions("cloudClass:menu:menuType:manager")
      @RequestMapping(value = "list")
      @ResponseBody
      public TableVo list(TableVo tableVo) {

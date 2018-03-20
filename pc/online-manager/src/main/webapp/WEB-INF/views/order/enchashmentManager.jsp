@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 <style type="text/css">
     .vertical-tab {
         width: 8%;
@@ -115,8 +115,8 @@
         });
     });
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：销售管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 	</small> <span> 提现管理 </span>
@@ -157,41 +157,40 @@
                         <div class="profile-info-value searchTr">
                             <select id="search_orderStatus" name="search_orderStatus" class="propertyValue1">
                               <option  value="" >提现状态</option>
-                                <option  value="0" >未处理</option>
+                                <option  value="2" >未处理</option>
                                 <option  value="1" >已打款</option>
-                                <option  value="2" >已驳回</option>
+                                <option  value="0" >已驳回</option>
                             </select>
                              <input type="hidden" value="search_orderStatus" class="propertyName" />
                         </div>
                     </td>
+                    <%--<td>--%>
+                        <%--<div class="profile-info-value searchTr">--%>
+                            <%--<select id="search_payType" name="search_payType" class="propertyValue1">--%>
+                                <%--<option  value="" >提现方式</option>--%>
+                                <%--<option  value="0" >支付宝</option>--%>
+                                <%--<option  value="1" >微信支付</option>--%>
+                                <%--<option  value="2" >网银支付</option>--%>
+                            <%--</select>--%>
+                            <%--<input type="hidden" value="search_payType" class="propertyName" />--%>
+                        <%--</div>--%>
+                    <%--</td>--%>
                     <td>
                         <div class="profile-info-value searchTr">
-                            <select id="search_payType" name="search_payType" class="propertyValue1">
-                                <option  value="" >提现方式</option>
-                                <option  value="0" >支付宝</option>
-                                <option  value="1" >微信支付</option>
-                                <option  value="2" >网银支付</option>
+                            <select id="search_anthor_type" name="anthor_type" class="propertyValue1">
+                                <option  value="" >主播类型</option>
+                                <option  value="1" >医师</option>
+                                <option  value="2" >医馆</option>
                             </select>
-                            <input type="hidden" value="search_payType" class="propertyName" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="profile-info-value searchTr">
-                            <select id="search_order_from" name="order_from" class="propertyValue1">
-                                <option  value="" >提现来源</option>
-                                <option  value="1" >PC</option>
-                                <option  value="2" >H5</option>
-                                <option  value="3" >APP</option>
-                            </select>
-                            <input type="hidden" value="order_from" class="propertyName" />
+                            <input type="hidden" value="anthor_type" class="propertyName" />
                         </div>
                     </td>
                     <td>
                         <div class="profile-info-value">
                         	关键词&nbsp;
                             <select id="selType" class="propertyValue1">
-                                <option  value="1" >提现申请单号</option>
-                                <option  value="2" >提现者</option>
+								<option  value="2" >提现者昵称</option>
+								<option  value="1" >提现申请单号</option>
                             </select>
                         </div>
                     </td>
@@ -236,20 +235,21 @@
 	<div id="EditCourseDialog" class="hide">
 		<form class="form-horizontal" id="dakuan-form" method="post" action="" style="margin-top: 15px;">
 			<input type="hidden" id="dakuan_id" name="id" class="col-xs-10 col-sm-8 {required:true}">
-			<input type="hidden"  name="enchashmentStatus" value="1" class="col-xs-10 col-sm-8 {required:true}">
+			<input type="hidden"  id="dakuanStatus" name="status" value="1" class="col-xs-10 col-sm-8 {required:true}">
 				<div class="space-4"></div>
-		        <div class="form-group" style="margin-top: 18px;">
-		            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 打款时间: </label>
-		            <div class="col-sm-9">
-		                <input type="text" name="ticklingTime"  id="startTime_edit" maxlength="20" readonly="readonly" class="datetime-picker col-xs-10 col-sm-8 {required:true,date:true,rangelength:[10,19]}">
-		            </div>
-		        </div>
-		       <div class="form-group" style="margin-top: 18px;">
-				 <label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>备注: </label>
-				 <div class="col-sm-6">
-				 	<textarea class="form-control {required:true}" name="operateRemark"  rows="3"></textarea>
-	             </div>
-			</div>
+				<span id="dakuanStr"></span>
+		        <%--<div class="form-group" style="margin-top: 18px;">--%>
+		            <%--<label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 打款时间: </label>--%>
+		            <%--<div class="col-sm-9">--%>
+		                <%--<input type="text" name="ticklingTime"  id="startTime_edit" maxlength="20" readonly="readonly" class="datetime-picker col-xs-10 col-sm-8 {required:true,date:true,rangelength:[10,19]}">--%>
+		            <%--</div>--%>
+		        <%--</div>--%>
+		       <%--<div class="form-group" style="margin-top: 18px;">--%>
+				 <%--<label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>备注: </label>--%>
+				 <%--<div class="col-sm-6">--%>
+				 	<%--<textarea class="form-control {required:true}" name="operateRemark"  rows="3"></textarea>--%>
+	             <%--</div>--%>
+			<%--</div>--%>
 		</form>
 	</div>
 	
@@ -259,25 +259,28 @@
 	<div id="EditbohuiDialog" class="hide">
 		<form class="form-horizontal" id="bohui-form" method="post" action="" style="margin-top: 15px;">
 			<input type="hidden" id="bohui_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
-			<input type="hidden"  name="enchashmentStatus" value="2" class="col-xs-10 col-sm-8 {required:true}">
+			<input type="hidden"  name="status" value="0" class="col-xs-10 col-sm-8 {required:true}">
 		       <div class="space-4"></div>
 				<div class="form-group"  style="margin-top: 18px;" >
 					<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>驳回理由: </label>
 		            <div class="col-sm-6">
-		               <select name="causeType" class="clearfix col-xs-10 col-sm-12 {required:true}" >
-		               		<option value="0">未能与提现人取得联系</option>
-		               		<option value="1">支付宝账号有误</option>
-		               		<option value="2">微信账号有误</option>
-		               		<option value="3">手机号有误</option>
-		               		<option value="4">姓名有误</option>
-		               		<option value="5">其他</option>
+		               <select name="dismissal" class="clearfix col-xs-10 col-sm-12 {required:true}" >
+						   <c:forEach var="ed" items="${enchashmentDismissals}">
+							   <option value="${ed.code}">${ed.text}</option>
+						   </c:forEach>
+		               		<%--<option value="0">未能与提现人取得联系</option>--%>
+		               		<%--<option value="1">支付宝帐号有误</option>--%>
+		               		<%--<option value="2">微信账号有误</option>--%>
+		               		<%--<option value="3">手机号有误</option>--%>
+		               		<%--<option value="4">姓名有误</option>--%>
+		               		<%--<option value="5">其他</option>--%>
 		               </select>
 		            </div>
 				</div>
 		     <div class="form-group" style="margin-top: 18px;">
-				 <label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>补充: </label>
+				 <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>补充: </label>
 				 <div class="col-sm-6">
-				 	<textarea class="form-control {required:true}" name="operateRemark"  rows="3"></textarea>
+				 	<textarea class="form-control {required:true}" name="dismissalRemark"  rows="3"></textarea>
 	             </div>
 			</div>
 		</form>
@@ -293,20 +296,20 @@
 			<table class="table table-striped table-condensed" id="showOrderTable">
 			   <tbody>
 			     <tr>
-			       <td style="width: 30%;">姓名</td>
-			       <td id="s_name"></td>
+			       <td style="width: 30%;">开户名</td>
+			       <td id="acctName"></td>
 			     </tr>
 			     <tr>
-			       <td style="width: 30%;">手机号</td>
-			       <td id="s_phone"></td>
+			       <td style="width: 30%;">银行</td>
+			       <td id="bankName"></td>
 			     </tr>
 			     <tr>
-			       <td style="width: 30%;">支付宝账号</td>
-			       <td id="s_zfb"></td>
+			       <td style="width: 30%;">卡号</td>
+			       <td id="acctPan"></td>
 			     </tr>
 			     <tr>
-			       <td style="width: 30%;">提现金额</td>
-			       <td id="s_price"></td>
+			       <td style="width: 30%;">身份证号</td>
+			       <td id="certId"></td>
 			     </tr>
 			   </tbody>
 			 </table>
@@ -391,4 +394,4 @@
             });			
 			
 </script>
-<script type="text/javascript" src="${base}/js/order/enchashmentManager.js?v=1.7"></script>
+<script type="text/javascript" src="/js/order/enchashmentManager.js?v=ipandatcm_1.3"></script>

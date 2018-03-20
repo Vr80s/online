@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.xczhihui.bxg.online.api.vo.LiveCourseUserVO;
 import com.xczhihui.bxg.online.api.vo.LiveCourseVO;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -65,13 +66,20 @@ public class GiftDao extends SimpleHibernateDao {
 
 	/** 
 	 * Description：查询某人获得的礼物数量
-	 * @param userId
+	 * @param liveId
 	 * @return
 	 * @return int
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public int findByUserId(String userId) {
-		String sql="select IFNULL(SUM(COUNT),0) from oe_gift_statement where receiver= \""+userId+"\"";
+	public int findByLiveId(Integer liveId) {
+		String sql="SELECT \n" +
+				"  IFNULL(SUM(ogs.`price`),0)  \n" +
+				"FROM\n" +
+				"  `user_coin_increase` uci\n" +
+				"   JOIN oe_gift_statement ogs \n" +
+				"    ON uci.order_no_gift = ogs.id \n" +
+				"WHERE uci.change_type = 3 \n" +
+				"  AND ogs.live_id ="+liveId+" ";
 		return (int) this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(sql, Integer.class);
 	}
 
@@ -97,6 +105,7 @@ public class GiftDao extends SimpleHibernateDao {
         Page<ReceivedGift> page = this.findPageBySQL(sql.toString(), paramMap, ReceivedGift.class, pageNumber, pageSize);
 		return page;
 	}
+
 
 	/** 
 	 * Description：获取收到的打赏

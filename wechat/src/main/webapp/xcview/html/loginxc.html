@@ -1,0 +1,61 @@
+<%@page pageEncoding="UTF-8"%> 
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>登录</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcviews/js/common/js.js"></script>
+<link rel="stylesheet" href="/xcviews/css/css.css">
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
+<style>
+	.vanish{
+		left: 0.1rem;
+	}
+</style>
+</head>
+
+<body>
+	<div class="last">
+		<div class="last_top">
+			<div class="dl" style="margin-top:0.2rem;">登录</div>
+		</div>
+		<div class="last_input">
+			<div class="phone phone_bottom1">
+				手机号码&nbsp;&nbsp;<input type="tel" name="account" id="account" maxlength="11" />
+			</div>
+			<div class="phone phone_bottom2">
+				输入密码&nbsp;&nbsp;<input type="password" name="password" id="password" maxlength="18" />
+				<a href="/xcviews/html/find.html"  class="phone_password" /><span class="phone_span" style="bottom:-1.2rem;">忘记密码？</span></a>
+			</div>
+			
+		   <div class="tishi" id="tishi" style="text-align: center;color: red;margin-top: 20px;font-size: 14px;">
+		   </div>
+			<button class="last_bu1" onclick="login()" id="login">登 录</button>
+			<!-- <br> -->
+			<button class="last_bu2"><a href="/bxg/page/reg">手机号码注册</a></button>
+		</div>
+		<!-- 微信登录   在微信中登录的时候需要有这个第三方登录啦。 -->
+		<div class="footer" style="display:none;">
+			<div class="footer_headline"><img src="/xcviews/images/footer_b1.png" alt="" class="footer_b1"  />第三方登录<img src="/xcviews/images/footer_b1.png" alt="" class="footer_b1" /></div>
+			<a href="javascript: ;" onclick="sanfangLogin()" class="last_weixin"><img src="/xcviews/images/weixin.png" alt="" /></a>
+		</div>
+	</div>
+</body>
+<script src="/xcviews/weihoujs/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcviews/js/login.js"></script>
+</html>

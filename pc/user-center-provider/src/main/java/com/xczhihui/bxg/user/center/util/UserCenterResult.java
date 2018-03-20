@@ -72,7 +72,7 @@ public class UserCenterResult implements Serializable {
 		if (this.isSuccess()) {
 			String json = this.getResultObjectJson();
 			if (json == null || json.length() < 1
-			        || json.equalsIgnoreCase("null")) {
+			        || "null".equalsIgnoreCase(json)) {
 				return null;
 			}
 			Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_PATTERN)

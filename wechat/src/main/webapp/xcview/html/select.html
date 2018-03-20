@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../js/select.js"></script>
+
+
+<link rel="stylesheet" href="../css/select.css" />
+
+
+	
+</head>
+<!--公用-->
+<!--y--float:right;  z--float:left;  both--clear:both;-->
+<body style="background:#F8F8F8;">
+	
+	<!--头部开始-->
+	<header>
+		<div class="header_img">
+			<img src="../images/back icon.png" onclick="back();"/>
+		</div>
+		<div class="header">
+			选择银行卡
+		</div>
+		<div class="add" onclick="addBankCard()">
+			＋
+		</div>
+	</header>
+	<!--头部结束-->
+	
+	<!--中间内容开始-->
+	<div class="select">
+		<div class="select_main">
+			<script type="text/html" id="select_bank_card">
+				{{each items as item i}}
+			<div class="main_one">
+				<div class="main_one_left" onclick="deleteBankCardById('{{item.id}}')">
+					<div class="itemId" style="display: none">{{item.id}}</div>
+					<div class="div0">{{item.acctName}}</div>
+					<div class="div1">{{item.bankName}}（{{item.acctPan}}）</div>
+				</div>
+				<div class="main_one_right0"></div>
+			</div>
+				{{/each}}
+			</script>
+
+		</div>
+		<div class="both"></div>
+	</div>
+	<!--中间内容结束-->
+	
+	
+	
+	
+</body>
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+<!--处理右侧对号-->
+<script type="text/javascript">
+	var aBtn=$('.select_main .main_one');
+      	for(i=0;i<aBtn.length;i++){
+	        $(aBtn[i]).click(function(){
+	          	for(i=0;i<aBtn.length;i++){
+//	            	$(aBtn[i]).removeClass('li0');
+					/*$(this).find(".main_one_right").show();
+		            $(aBtn[i]).find(".main_one_right").hide();*/
+		           
+	            	$(this).find(".main_one_right0").addClass('main_one_right');
+	            	
+					$(aBtn[i]).find(".main_one_right0").removeClass('main_one_right');
+		           
+	        	}
+//	          	$(this).removeClass();
+//	          	$(this).addClass('li0');
+//	           	$(aBtn[i]).find(".main_one_right").hide();
+				$(this).find(".main_one_right0").addClass('main_one_right');
+	            	
+				$(aBtn[i]).find(".main_one_right0").removeClass('main_one_right');
+
+
+
+	        })
+      	}
+      	$(aBtn[0]).click();
+</script>
+</html>

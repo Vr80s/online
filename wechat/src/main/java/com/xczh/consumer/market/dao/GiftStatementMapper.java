@@ -19,11 +19,37 @@ public class GiftStatementMapper extends BasicSimpleDao {
     public int addGiftStatement(GiftStatement giftStatement) throws SQLException {
 
 
-        int ct=        this.update(JdbcUtil.getCurrentConnection(),"insert into oe_gift_statement(channel,gift_id,gift_name,create_time,price,count,giver,receiver,live_id,pay_type,client_type,status) values(?,?,?,?,?,?,?,?,?,?,?,?)",giftStatement.getChannel(),giftStatement.getGiftId(),giftStatement.getGiftName(),giftStatement.getCreateTime(),giftStatement.getPrice(),giftStatement.getCount(),giftStatement.getGiver(),giftStatement.getReceiver(),giftStatement.getLiveId(),giftStatement.getPayType(),giftStatement.getClientType(),giftStatement.getStatus());
+        int ct=  this.update(JdbcUtil.getCurrentConnection(),"insert into oe_gift_statement(channel,gift_id,gift_name,create_time,price,count,giver,receiver,live_id,pay_type,client_type,status) values(?,?,?,?,?,?,?,?,?,?,?,?)",giftStatement.getChannel(),giftStatement.getGiftId(),giftStatement.getGiftName(),giftStatement.getCreateTime(),giftStatement.getPrice(),giftStatement.getCount(),giftStatement.getGiver(),giftStatement.getReceiver(),giftStatement.getLiveId(),giftStatement.getPayType(),giftStatement.getClientType(),giftStatement.getStatus());
 
         return ct;
     }
 
+    
+    /**
+     * Description：新的礼物单
+     * @param liveId
+     * @param type
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     * @throws SQLException
+     * @return List<RankingUserVo>
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+    public List<RankingUserVo> newRankingList(String liveId, int pageNumber, int pageSize) throws SQLException {
+        StringBuffer sb = new StringBuffer();
+        sb.append( " SELECT  ou.id userId,ou.`name`, ou.small_head_photo smallHeadPhoto, ogs.create_time, ");
+        sb.append( " CAST(SUM(ogs.`price`) AS SIGNED) giftCount ");
+        sb.append( " FROM oe_gift_statement ogs  INNER JOIN oe_user ou 	ON (ogs.giver = ou.id) ");
+        sb.append( " WHERE ogs.live_id = ? 	GROUP BY giver 	ORDER BY giftCount DESC ");
+        List<RankingUserVo> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sb.toString(),
+        		pageNumber, pageSize,RankingUserVo.class, liveId);
+        return lists;
+    }
+    
+    
+    
     /**
      * 榜单列表
      * @param type 0 总榜 1 日榜 2 周榜 3月榜单
@@ -42,7 +68,6 @@ public class GiftStatementMapper extends BasicSimpleDao {
         String sql="select ou.id userId,ou.`name`,ou.small_head_photo smallHeadPhoto,ogs.create_time,SUM(ogs.count) giftCount from oe_gift_statement ogs INNER JOIN oe_user ou on(ogs.giver=ou.id)  where ogs.live_id=? "+con+" GROUP BY giver ORDER BY  SUM(ogs.count) desc ";
         List<RankingUserVo> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,RankingUserVo.class, liveId);
         return lists;
-
     }
 
     /**

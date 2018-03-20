@@ -52,7 +52,7 @@ public class OnlineApiController {
 	@Autowired
 	private CommonApiService commonApiService;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(OnlineApiController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OnlineApiController.class);
 	
 	/**
 	 * Description：得到用户充值列表
@@ -77,7 +77,7 @@ public class OnlineApiController {
 		
 		Page<RechargeRecord> page =  userCoinService.getUserCoinIncreaseRecord(ou.getId()
 				, pageNumber, pageSize);
-		log.info("page.getPageSize()"+page.getPageSize());
+		LOGGER.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	
@@ -93,7 +93,7 @@ public class OnlineApiController {
 		@SuppressWarnings("unchecked")
 		Page<ReceivedGift> page =  (Page<ReceivedGift>) giftService.getReceivedGift(ou.getId()
 				, pageNumber, pageSize);
-		log.info("page.getPageSize()"+page.getPageSize());
+		LOGGER.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	/**
@@ -118,7 +118,7 @@ public class OnlineApiController {
 		@SuppressWarnings("unchecked")
 		Page<ReceivedGift> page =  (Page<ReceivedGift>) giftService.getReceivedReward(ou.getId()
 				, pageNumber, pageSize);
-		log.info("page.getPageSize()"+page.getPageSize());
+		LOGGER.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	/**
@@ -133,17 +133,22 @@ public class OnlineApiController {
 	@RequestMapping(value="cashList")
 	@ResponseBody
 	public ResponseObject cashList(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
-			return ResponseObject.newErrorResponseObject("缺少分页参数");
-		}
-		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
-		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-		Page<EnchashmentApplication> page =  (Page<EnchashmentApplication>) 
-				enchashmentService.enchashmentApplicationList(ou.getId()
-				, pageNumber, pageSize);
-		log.info("page.getPageSize()");
-		return ResponseObject.newSuccessResponseObject(page);
+		
+		throw new RuntimeException("请更新最新版本！");
+		
+//		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
+//			return ResponseObject.newErrorResponseObject("缺少分页参数");
+//		}
+//		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
+//		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+//		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+//		
+//		//Page<EnchashmentApplication> page =  (Page<EnchashmentApplication>)enchashmentService.enchashmentApplicationList(ou.getId(), pageNumber, pageSize);
+//		
+//		throw new RuntimeException("请更新最新版本！");
+//		
+//		LOGGER.info("page.getPageSize()");
+//		return ResponseObject.newSuccessResponseObject(page);
     }
 	
 	/**

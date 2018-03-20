@@ -61,7 +61,7 @@ window.onload = function() {
 		'<p>学习人数：<span>{{items.learndCount}}</span></p>' +
 		'</div>' +
 		'<div class="right2">' +
-		'<p>课程时长：<span>{{items.courseLength}}</span>小时</p>' +
+		'<p>课程时长：<span>{{items.courseLength}}</span>分钟</p>' +
 		'</div>' +
 		'<div class="right2">' +
 		'<p>课时长度：<span>{{items.count}}</span>课时</p>' +

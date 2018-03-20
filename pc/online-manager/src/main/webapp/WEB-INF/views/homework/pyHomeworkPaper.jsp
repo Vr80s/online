@@ -13,11 +13,11 @@
 	} catch (e) {
 	}
 </script>
-<link rel="stylesheet" href="${base}/css/common.css"/>
-<link rel="stylesheet" href="${base}/css/npyPaper.css"/>
-<link rel="stylesheet" href="${base}/js/imageviewer/viewer.min.css"/>
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
-<script src="${base}/js/layer/layer.js"></script>
+<link rel="stylesheet" href="/css/common.css"/>
+<link rel="stylesheet" href="/css/npyPaper.css"/>
+<link rel="stylesheet" href="/js/imageviewer/viewer.min.css"/>
+<link href="/js/layer/skin/layer.css" type="text/css" />
+<script src="/js/layer/layer.js"></script>
 <div class="page-header">
 	<input id="py_type" type="hidden" value="${type}"/>
 	<ul class="breadcrumb">
@@ -486,6 +486,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="${base}/js/common.js"></script>
-<script type="text/javascript" src="${base}/js/imageviewer/viewer.min.js"> </script>
-<script type="text/javascript" src="${base}/js/homework/pyHomeworkPaper.js"> </script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/imageviewer/viewer.min.js"> </script>
+<script type="text/javascript" src="/js/homework/pyHomeworkPaper.js"> </script>

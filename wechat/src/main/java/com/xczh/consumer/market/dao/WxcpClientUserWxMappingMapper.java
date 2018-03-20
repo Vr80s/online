@@ -3,6 +3,7 @@ package com.xczh.consumer.market.dao;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.utils.DateUtil;
 import com.xczh.consumer.market.utils.JdbcUtil;
+
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.springframework.stereotype.Repository;
 
@@ -235,6 +236,20 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 		String sql = "select * from wxcp_client_user_wx_mapping where unionid = ? ";
 		Object params[] = {unionId};
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(WxcpClientUserWxMapping.class),params);
+	}
+
+	public WxcpClientUserWxMapping getWxcpClientUserWxMappingByOpenId(
+			String userId, String unionId) throws SQLException {
+		String sql = "select * from wxcp_client_user_wx_mapping where client_id =? and unionid = ?  ";
+		Object params[] = {userId,unionId};
+		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(WxcpClientUserWxMapping.class),params);
+	}
+
+	public void deleteAccount(String userId) throws SQLException {
+		StringBuilder sb = new StringBuilder("");
+		sb.append("delete from  wxcp_client_user_wx_mapping  where client_id =? ");
+		Object[] params = {userId};
+		this.update(JdbcUtil.getCurrentConnection(), sb.toString(), params);
 	}
 		
 }

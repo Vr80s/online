@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper">
+
+     <select id="getByUserId" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospitalAccount">
+        SELECT id, doctor_id, account_id
+		FROM medical_hospital_account
+		WHERE account_id = #{userId}
+     </select>
+     
+     
+     <!-- 通过用户id     查找得到医师id    根据医师id查找医馆信息  -->
+     <select id="getMedicalHospitalByMiddleUserId" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+       select mh.*,(select picture from medical_hospital_picture where hospital_id = mh.id order by version limit 0,1 ) as versionPictures
+        from  medical_hospital mh where mh.deleted =0 and mh.status = 1 and  mh.id =
+  			 ( select hospital_id from medical_hospital_doctor 
+   	   			 where doctor_id = 
+   	   			   (select doctor_id from medical_doctor_account where account_id =#{userId} ) and deleted = 0  )
+     </select>
+     
+     <select id="getMedicalHospitalByUserId" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+       select mh.* from 
+         medical_hospital mh inner join 
+          	medical_hospital_account mha on  mh.id = mha.doctor_id
+          	  where mh.deleted =0 and mh.status = 1 and  mha.account_id = #{userId}
+     </select>
+</mapper>

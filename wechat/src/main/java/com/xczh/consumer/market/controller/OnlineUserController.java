@@ -41,6 +41,7 @@ import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
@@ -82,7 +83,7 @@ public class OnlineUserController {
 	@Autowired
 	private CityService cityService;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(OnlineUserController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OnlineUserController.class);
 	
 	@RequestMapping("login")
 	@ResponseBody
@@ -135,8 +136,12 @@ public class OnlineUserController {
 			return ResponseObject.newErrorResponseObject("用户名密码错误");
 		}
 	}
+	
+	
+	
+	
 	/**
-	 * 登陆成功处理
+	 * 登录成功处理
 	 * @param req
 	 * @param res
 	 * @param token
@@ -203,7 +208,7 @@ public class OnlineUserController {
 	@RequestMapping("wechatLogout")
 	public void logoutWechat(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
 		
-	    log.info("wx return code:" + req.getParameter("code"));
+	    LOGGER.info("WX return code:" + req.getParameter("code"));
 		ConfigUtil cfg = new ConfigUtil(req.getSession());
 		String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 		try {
@@ -295,6 +300,8 @@ public class OnlineUserController {
 		    	break;
 		    case 1: randomCode = num1-num2;
 		    	break;
+			default:
+				break;
 //			    case 2: randomCode = num1*num2;
 //			    	break;  
 //			    case 3: randomCode = num1/num2;
@@ -351,8 +358,8 @@ public class OnlineUserController {
 		String username = req.getParameter("username");
 		
 		try {
-			String str = onlineUserService.addMessage(username, vtype);
-			if("发送成功！".equals(str)){
+			String str = onlineUserService.addMessage(username, Integer.parseInt(vtype));
+			if("发送成功".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
 			}else{
 				return ResponseObject.newErrorResponseObject(str);
@@ -360,7 +367,7 @@ public class OnlineUserController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			log.info("获取错误信息啦"+e.getMessage());
+			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
 			
 		}
@@ -388,7 +395,7 @@ public class OnlineUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(mobile, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(mobile, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
@@ -406,7 +413,7 @@ public class OnlineUserController {
 	@ResponseBody
 	public ResponseObject getShareCode(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)throws Exception{
 		String id = req.getParameter("id");
-		if(StringUtils.isBlank(id) || id.equals("undefined")){
+		if(StringUtils.isBlank(id) || "undefined".equals(id)){
 			return ResponseObject.newSuccessResponseObject("");
 		}
 		OnlineUser user = onlineUserService.findUserById(id);
@@ -478,7 +485,7 @@ public class OnlineUserController {
              // 获得输入流：   
              //InputStream input = fileMul.getInputStream();   
              
-             if(filename!=null && !filename.trim().equals("")){
+             if(filename!=null && !"".equals(filename.trim())){
                  filename = filename.toLowerCase();
      			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
      					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
@@ -491,7 +498,7 @@ public class OnlineUserController {
      			String headImgPath = service.upload(null, //用户中心的用户ID
  				projectName, filename,contentType, bs,fileType,null);
      			JSONObject json = JSONObject.parseObject(headImgPath);
-     			log.info("文件路径——path:"+headImgPath);
+     			LOGGER.info("文件路径——path:"+headImgPath);
      			map.put("smallHeadPhoto", json.get("url").toString());
              }
          }  	
@@ -547,7 +554,7 @@ public class OnlineUserController {
           if(email!=null && email.length()>32){
         	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
           }
-          if(email!=null && !com.xczh.consumer.market.utils.StringUtils.checkEmail(email)){
+          if(email!=null && !XzStringUtils.checkEmail(email)){
         	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
           }
           
@@ -561,13 +568,13 @@ public class OnlineUserController {
           cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());
           String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,map.get("nickname"),map.get("smallHeadPhoto"));
           if(weiHouResp == null){
-        	  log.info("同步微吼昵称，头像失败");
+        	  LOGGER.info("同步微吼昵称，头像失败");
           }
           //先这样处理，到时他们在线的时候在给他们说下吧
        /*   if(map.get("sex").equals("2")){
         	  map.remove("sex");
           }*/
-          log.info(map.toString());
+          LOGGER.info(map.toString());
           return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
             e.printStackTrace();
@@ -655,7 +662,7 @@ public class OnlineUserController {
           OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
           req.getSession().setAttribute("_user_",newUser);
           if(weiHouResp == null){
-        	  log.info("同步微吼昵称失败");
+        	  LOGGER.info("同步微吼昵称失败");
           }
           return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
@@ -719,59 +726,33 @@ public class OnlineUserController {
  			String fileType="1"; //图片类型了
  			
  			Map<String,String> map = new HashMap<String,String>();
- 			String headImgPath = service.upload(null, //用户中心的用户ID
-				projectName, imageName, suffix, bs123,fileType,null);
+ 			String headImgPath = service.upload(null,projectName, imageName, suffix, bs123,fileType,null);
+ 			
  			JSONObject json = JSONObject.parseObject(headImgPath);
- 			log.info("文件路径——path:"+headImgPath);
+ 			LOGGER.info("文件路径——path:"+headImgPath);
  			map.put("smallHeadPhoto", json.get("url").toString());
         	  
-/*    	    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-            MultipartFile fileMul = multipartRequest.getFile("file");  
-            Map<String,String> map = new HashMap<String,String>();
-            if(!fileMul.isEmpty()){  
-                // 获得文件名：   
-                String filename = fileMul.getOriginalFilename();   
-                // 获得输入流：   
-                //InputStream input = fileMul.getInputStream();   
-                if(filename!=null && !filename.trim().equals("")){
-                    filename = filename.toLowerCase();
-        			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
-        					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
-        				return ResponseObject.newErrorResponseObject("文件类型有误");
-        			}
-        			String contentType =  fileMul.getContentType();//文件类型
-        			byte [] bs = fileMul.getBytes();
-        			String projectName="other";
-        			String fileType="1"; //图片类型了
-        			String headImgPath = service.upload(null, //用户中心的用户ID
-    				projectName, filename,contentType, bs,fileType,null);
-        			JSONObject json = JSONObject.parseObject(headImgPath);
-        			log.info("文件路径——path:"+headImgPath);
-        			map.put("smallHeadPhoto", json.get("url").toString());
-                }
-            }*/
-            
-          OnlineUser user = new OnlineUser();
-          String token = request.getParameter("token");
-          if(token !=null ){
-        	  user = cacheService.get(token);
-          }else{
-        	  user = (OnlineUser) request.getSession().getAttribute("_user_");
-          }  
-          onlineUserService.updateUserCenterData(user,map);
-          String weiHouResp = WeihouInterfacesListUtil.
-        		  updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
-          
-          /**
-           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
-           */
-          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
-          request.getSession().setAttribute("_user_",newUser);
-          
-          if(weiHouResp == null){
-        	  log.info("同步微吼头像失败");
-          }
-          return ResponseObject.newSuccessResponseObject(map);
+	        OnlineUser user = new OnlineUser();
+	        String token = request.getParameter("token");
+	        if(token !=null ){
+	        	user = cacheService.get(token);
+	        }else{
+	        	user = (OnlineUser) request.getSession().getAttribute("_user_");
+	        }  
+	        onlineUserService.updateUserCenterData(user,map);
+	        
+	        String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
+	          
+	          /**
+	           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
+	           */
+	          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
+	          request.getSession().setAttribute("_user_",newUser);
+	          
+	          if(weiHouResp == null){
+	        	  LOGGER.info("同步微吼头像失败");
+	          }
+	          return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("后台处理流程异常");
@@ -804,7 +785,7 @@ public class OnlineUserController {
 		}
 		String vtype = "2";
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) { //如果动态验证码不正确
 			return checkCode;
 		}
@@ -882,7 +863,7 @@ public class OnlineUserController {
 		}
 		String vtype = "1";
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) { //如果动态验证码不正确
 			return checkCode;
 		}
@@ -948,9 +929,9 @@ public class OnlineUserController {
 					u.setCreateTime(new Date());
 					u.setType(1);
 					
-					String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
+					String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
 					u.setVhallId(weihouUserId);  //微吼id
-					u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码 
+					u.setVhallPass(WeihouInterfacesListUtil.MOREN);        //微吼密码
 					u.setVhallName(u.getName());
 					u.setPassword(iu.getPassword()); 
 					u.setUserCenterId(iu.getId());
@@ -958,7 +939,7 @@ public class OnlineUserController {
 					 /**
 					 * 将从微信获取的省市区信息变为对应的id和name
 					 */
-					log.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+					LOGGER.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
 					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
 					if(map!=null){
 						Object objId = map.get("cid");
@@ -1000,7 +981,7 @@ public class OnlineUserController {
 					 /**
 					 * 将从微信获取的省市区信息变为对应的id和name
 					 */
-					log.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+					LOGGER.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
 					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
 					if(map!=null){
 						Object objId = map.get("cid");
@@ -1048,7 +1029,7 @@ public class OnlineUserController {
 	
 	
 	/**
-	 * 登陆成功处理
+	 * 登录成功处理
 	 * @param req
 	 * @param res
 	 * @param token

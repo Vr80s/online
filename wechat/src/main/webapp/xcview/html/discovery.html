@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}	
+	document.documentElement.style.fontSize=kk/7.5+"px";
+
+</script>
+<link rel="stylesheet" href="../css/discovery.css" />
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="/xcview/js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/discovery.js?v=wechat_1.1.1"></script>
+
+
+
+	
+</head>
+    
+<body style="background:#F8F8F8;">
+<div class="wp" style="position: relative;">
+	<div class="wrap-header">
+		<div class="header">		
+			<p>发现</p>
+			
+		</div>
+	</div>
+	
+	<!--中间内容开始-->
+		<div class="discovery">
+			<div class="discovery_one" onclick="myAnchor()">
+				<div class="div">
+					<img src="../images/my_anchors.png" class="img0"/>
+					我要当主播
+					<img src="../images/video_review.png" class="img1"/>
+					<div class="both"></div>
+				</div>
+			</div>
+		</div>
+	<!--中间内容结束-->
+	
+	<div class="footer_perch"></div>
+	<div class="footer">
+		<ul>
+			<li>
+				<a href="home_page.html" class="footer_one"></a>
+				<p>学堂</p>
+			</li>
+			<li>
+				<a href="javascript:;" class="footer_two" onclick="go_study()"></a>
+				<p>学习</p>
+			</li>
+			<li>
+				<a href="discovery.html" class="footer_three" style="margin-top: 0.13rem; margin-bottom: 0.07rem;background: url(../images/discovery_threes.png) no-repeat center;background-size: 0.4rem 0.41rem;"></a>
+				<p style="color: #00BC12;">发现</p>
+			</li>
+			<li>
+				<a href="my_homepage.html" class="footer_four"></a>
+				<p>我的</p>
+			</li>
+		</ul>
+	</div>
+	<!--底部结束-->
+
+</div>
+	
+
+</body>
+
+
+</html>

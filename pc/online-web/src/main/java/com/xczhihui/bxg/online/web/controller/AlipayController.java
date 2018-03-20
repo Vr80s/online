@@ -15,6 +15,9 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +50,6 @@ import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.exception.XcApiException;
 import com.xczhihui.bxg.online.web.service.AliPayPaymentRecordService;
-import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.service.RewardService;
 import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
@@ -70,11 +72,11 @@ public class AlipayController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderPayService orderPayService;
 
     @Autowired
     private AliPayPaymentRecordService aliPayPaymentRecordService;
-    @Autowired
-    private CourseService courseService;
     @Autowired
     private RewardService rewardService;
     @Autowired
@@ -133,7 +135,7 @@ public class AlipayController {
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         alipayRequest.setReturnUrl(weburl+AlipayConfig.return_url);
         alipayRequest.setNotifyUrl(weburl+AlipayConfig.notify_url);
-
+        
         //商户订单号，商户网站订单系统中唯一订单号，必填
         String out_trade_no = new String(orderNo);
         //付款金额，必填
@@ -142,11 +144,9 @@ public class AlipayController {
         String subject =new String("购买课程【"+payInfo.get("course_name").toString()+"】");
         //商品描述，可空
         String body = new String("");
-
-
         OrderParamVo orderParamVo=new OrderParamVo();
         orderParamVo.setUserId(payInfo.get("user_id").toString());
-        String passbackParams="order&"+orderParamVo.getUserId();// JSONObject.toJSON(orderParamVo).toString();
+        String passbackParams="order&"+orderParamVo.getUserId();
         String timeoutExpress="24h";
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
                 + "\"total_amount\":\"" + total_amount + "\","
@@ -155,21 +155,17 @@ public class AlipayController {
                 + "\"passback_params\":\"" + passbackParams + "\","
                 + "\"timeout_express\":\"" + timeoutExpress + "\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-        System.out.println("aliBizContent"+alipayRequest.getBizContent());
         try {
             //请求
             String result = alipayClient.pageExecute(alipayRequest).getBody();
 
             //输出html
-            System.out.println(result);
             response.getWriter().println(result);
 
         }catch (Exception ex){
             ex.printStackTrace();
             throw  new XcApiException("未知错误！");
         }
-
-
     }
 
     /**
@@ -231,7 +227,7 @@ public class AlipayController {
         }
         rewardParamVo.setPrice(Double.valueOf(ap));
         rewardParamVo.setRewardId(rewardId);
-        String passbackParams="reward&"+JSONObject.toJSON(rewardParamVo).toString().replaceAll("\"", "|");// JSONObject.toJSON(orderParamVo).toString();
+        String passbackParams="reward&"+JSONObject.toJSON(rewardParamVo).toString().replaceAll("\"", "|");
         String timeoutExpress="24h";
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
                 + "\"total_amount\":\"" + total_amount + "\","
@@ -240,13 +236,11 @@ public class AlipayController {
                 + "\"passback_params\":\"" + passbackParams + "\","
                 + "\"timeout_express\":\"" + timeoutExpress + "\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-        System.out.println("aliBizContent"+alipayRequest.getBizContent());
         try {
             //请求
             String result = alipayClient.pageExecute(alipayRequest).getBody();
 
             //输出html
-            System.out.println(result);
             response.getWriter().println(result);
 
         }catch (Exception ex){
@@ -303,7 +297,7 @@ public class AlipayController {
     	uci.setValue(new BigDecimal(count));
 		uci.setUserId(loginUser.getId());
     	
-       	String passbackParams="recharge&"+JSONObject.toJSON(uci).toString().replaceAll("\"", "|");// JSONObject.toJSON(orderParamVo).toString();
+       	String passbackParams="recharge&"+JSONObject.toJSON(uci).toString().replaceAll("\"", "|");
     	String timeoutExpress="24h";
     	alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
     			+ "\"total_amount\":\"" + total_amount + "\","
@@ -312,20 +306,17 @@ public class AlipayController {
     			+ "\"passback_params\":\"" + passbackParams + "\","
     			+ "\"timeout_express\":\"" + timeoutExpress + "\","
     			+ "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-    	System.out.println("aliBizContent"+alipayRequest.getBizContent());
     	try {
     		//请求
     		String result = alipayClient.pageExecute(alipayRequest).getBody();
     		//输出html
-    		System.out.println(result);
     		response.getWriter().println(result);
     		
     	}catch (Exception ex){
     		ex.printStackTrace();
     		throw  new XcApiException("未知错误！");
     	}
-    	
-    	
+
     }
 
     /**
@@ -353,7 +344,6 @@ public class AlipayController {
             }
             //乱码解决，这段代码在出现乱码时使用
             valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
-//            System.out.println(name+"========"+valueStr);
             params.put(name, valueStr);
         }
 
@@ -374,14 +364,11 @@ public class AlipayController {
         //同步回调返回的页面
         if (signVerified) {
             response.getWriter().println("<script>window.open('" + weburl + page+"','_self')</script>");
-
         } else {
             response.getWriter().println("验签失败");
         }
 
     }
-
-
 
     /**
      * 异步回调
@@ -393,7 +380,7 @@ public class AlipayController {
     @RequestMapping("/alipay/notify_url")
     public void notifyUrl(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
+        logger.info("进入支付宝异步回调");
         //获取支付宝POST过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
         Map<String, String[]> requestParams = request.getParameterMap();
@@ -408,11 +395,13 @@ public class AlipayController {
             //乱码解决，这段代码在出现乱码时使用
             //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
+            logger.info("{}:{}",name,valueStr);
         }
-
-        boolean signVerified = AlipaySignature.rsaCheckV1(params, alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
-        if (signVerified) {//验证成功
-
+        //调用SDK验证签名
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type);
+        logger.info("验证签名:{}",signVerified);
+        if (signVerified) {
+            //验证成功
             AlipayPaymentRecord alipayPaymentRecord = new AlipayPaymentRecord();
             alipayPaymentRecord.setTradeNo(params.get("trade_no"));
             alipayPaymentRecord.setAppId(params.get("app_id"));
@@ -448,7 +437,7 @@ public class AlipayController {
                 }
 
             }catch (Exception ex){
-                System.out.println("支付宝返回参数解析失败，参数为【"+alipayPaymentRecord.getPassbackParams()+"】");
+                logger.info("支付宝返回参数解析失败，参数为【"+alipayPaymentRecord.getPassbackParams()+"】");
             }
 
             aliPayPaymentRecordService.save(alipayPaymentRecord);
@@ -462,57 +451,49 @@ public class AlipayController {
             //交易状态
             String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"), "UTF-8");
 
-            if (trade_status.equals("TRADE_SUCCESS")) {
+            if ("TRADE_SUCCESS".equals(trade_status)) {
                 //判断该笔订单是否在商户网站中已经做过处理
                 String notifyType=alipayPaymentRecord.getPassbackParams().split("&")[0];
                 if("order".equals(notifyType)){
                     Integer orderStatus = orderService.getOrderStatus(out_trade_no);
-                    if (orderStatus == 0) { //付款成功，如果order未完成
+                    //付款成功，如果order未完成
+                    if (orderStatus == 0) {
                         try {
                             //计时
                             long current = System.currentTimeMillis();
                             //处理订单业务
-                            orderService.addPaySuccess(out_trade_no, 0, trade_no);
+                            orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY,trade_no);
+//                            orderService.addPaySuccess(out_trade_no, 0, trade_no);
                             logger.info("订单支付成功，订单号:{},用时{}",
                                     out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
                             //为购买用户发送购买成功的消息通知
-                            orderService.savePurchaseNotice(weburl, out_trade_no);
+//                            orderService.savePurchaseNotice(weburl, out_trade_no);
                         } catch (Exception e) {
                             logger.error("用户支付成功，构建课程失败！！！" + out_trade_no + "，错误信息：", e);
                         }
                     }
 
                 }else if("reward".equals(notifyType)){
-                	System.out.println("即将插入数据");
                     RewardParamVo rpv = JSONObject.parseObject(alipayPaymentRecord.getPassbackParams().split("&")[1].replace("|", "\""),RewardParamVo.class);
                     RewardStatement rs=new RewardStatement();
                     BeanUtils.copyProperties(rs,rpv);
                     rs.setCreateTime(new Date());
-                    rs.setPayType(0);//
-                    rs.setChannel(1);
+                    rs.setPayType(Payment.ALIPAY.getCode());
+                    rs.setChannel(OrderFrom.PC.getCode());
                     rs.setOrderNo(out_trade_no);
                     rs.setStatus(1);
-//                    rs.setPrice(price);
-                    System.out.println("channel"+rs.toString());
-//                    rewardService.insert(rs);
                     userCoinService.updateBalanceForReward(rs);
 
                 }else if("recharge".equals(notifyType)){
-                	System.out.println("即将插入数据recharge");
                     UserCoinIncrease uci = JSONObject.parseObject(alipayPaymentRecord.getPassbackParams().split("&")[1].replace("|", "\""),UserCoinIncrease.class);
-                    uci.setCreateTime(new Date());
-                    uci.setOrderNoRecharge(out_trade_no);
-                    uci.setPayType(0);
-                    uci.setOrderFrom(1);
-//                    rs.setPrice(price);
-                    System.out.println("channel"+uci.toString());
-                    userCoinService.updateBalanceForIncrease(uci);
+                    userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.ALIPAY,uci.getValue(), OrderFrom.PC,out_trade_no);
                 }
 
             }
             response.getWriter().println("success");
 
-        } else {//验证失败
+        } else {
+            //验证失败
             response.getWriter().println("fail");
 
         }
@@ -525,68 +506,69 @@ public class AlipayController {
      * @param response
      * @throws Exception
      */
-    @ResponseBody
-    @RequestMapping(value = "/pay_notify_alipay")
-    public Object pay_notify_wechat(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try {
-            // 读取参数
-            InputStream inputStream = request.getInputStream();
-            StringBuffer sb = new StringBuffer();
-            String str = null;
-            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            while ((str = in.readLine()) != null) {
-                sb.append(str);
-            }
-            in.close();
-            inputStream.close();
-
-            // 解析xml成map
-            Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
-            if (m != null && !m.isEmpty()) {
-                // 过滤空 设置 TreeMap
-                SortedMap<Object, Object> packageParams = new TreeMap<>();
-                for (Map.Entry<String, String> e : m.entrySet()) {
-                    if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
-                        packageParams.put(e.getKey(), e.getValue());
-                    }
-                }
-                if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
-                    String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
-                    String transaction_id = String.valueOf(packageParams.get("transaction_id"));
-                    if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null
-                            && !"".equals(transaction_id.trim())) {
-//                        String s = "out_trade_no=" + out_trade_no + "&result_code=SUCCESS" + "&transaction_id=" + transaction_id + "&key=" + OnlineConfig.API_KEY;
-//                        String mysign = CodeUtil.MD5Encode(s).toLowerCase();
-                        Integer orderStatus = orderService.getOrderStatus(out_trade_no);
-                        if (orderStatus == 0) { //付款成功，如果order未完成
-                            try {
-                                //计时
-                                long current = System.currentTimeMillis();
-                                //处理订单业务
-                                orderService.addPaySuccess(out_trade_no, 0, transaction_id);
-                                logger.info("订单支付成功，订单号:{},用时{}",
-                                        out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
-                                //为购买用户发送购买成功的消息通知
-                                orderService.savePurchaseNotice(weburl, out_trade_no);
-                            } catch (Exception e) {
-                                logger.error("用户支付成功，构建课程失败！！！" + out_trade_no + "，错误信息：", e);
-                            }
-                        }
-
-                    } else {
-                        logger.error("微信分销系统回调接口，参数错误！！！");
-                    }
-                } else {
-                    logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
-                    return "error";
-                }
-            } else {
-                return "error";
-            }
-            return ResponseObject.newSuccessResponseObject("支付成功！");
-        } catch (Exception e) {
-            return "error";
-        }
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/pay_notify_alipay")
+//    public Object pay_notify_wechat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        try {
+//            // 读取参数
+//            InputStream inputStream = request.getInputStream();
+//            StringBuffer sb = new StringBuffer();
+//            String str = null;
+//            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+//            while ((str = in.readLine()) != null) {
+//                sb.append(str);
+//            }
+//            in.close();
+//            inputStream.close();
+//
+//            // 解析xml成map
+//            Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
+//            if (m != null && !m.isEmpty()) {
+//                // 过滤空 设置 TreeMap
+//                SortedMap<Object, Object> packageParams = new TreeMap<>();
+//                for (Map.Entry<String, String> e : m.entrySet()) {
+//                    if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
+//                        packageParams.put(e.getKey(), e.getValue());
+//                    }
+//                }
+//                if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
+//                    String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
+//                    String transaction_id = String.valueOf(packageParams.get("transaction_id"));
+//                    if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null
+//                            && !"".equals(transaction_id.trim())) {
+////                        String s = "out_trade_no=" + out_trade_no + "&result_code=SUCCESS" + "&transaction_id=" + transaction_id + "&KEY=" + OnlineConfig.API_KEY;
+////                        String mysign = CodeUtil.MD5Encode(s).toLowerCase();
+//                        Integer orderStatus = orderService.getOrderStatus(out_trade_no);
+//                        if (orderStatus == 0) {
+//                            //付款成功，如果order未完成
+//                            try {
+//                                //计时
+//                                long current = System.currentTimeMillis();
+//                                //处理订单业务
+//                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, transaction_id);
+//                                logger.info("订单支付成功，订单号:{},用时{}",
+//                                        out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
+//                                //为购买用户发送购买成功的消息通知
+////                                orderService.savePurchaseNotice(weburl, out_trade_no);
+//                            } catch (Exception e) {
+//                                logger.error("用户支付成功，构建课程失败！！！" + out_trade_no + "，错误信息：", e);
+//                            }
+//                        }
+//
+//                    } else {
+//                        logger.error("微信分销系统回调接口，参数错误！！！");
+//                    }
+//                } else {
+//                    logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
+//                    return "error";
+//                }
+//            } else {
+//                return "error";
+//            }
+//            return ResponseObject.newSuccessResponseObject("支付成功！");
+//        } catch (Exception e) {
+//            return "error";
+//        }
+//    }
 
 }

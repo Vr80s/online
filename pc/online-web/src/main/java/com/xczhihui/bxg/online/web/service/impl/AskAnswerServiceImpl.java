@@ -39,7 +39,7 @@ public class AskAnswerServiceImpl implements AskAnswerService {
 	public Map<String,Object> findOfficialAnswer(String question_id,String menu_id,String userId) {
 		Map<String,Object> returnMap = new HashMap<>();
 		AskAnswerVo askAnswerVo = dao.findOfficialAnswer(question_id);
-		if(userId.equals("")){
+		if("".equals(userId)){
 			returnMap.put("hasRight",false);
 		}else{
 			List<Map<String, Object>> list = dao.findMenuIdByUser(userId);
@@ -105,7 +105,8 @@ public class AskAnswerServiceImpl implements AskAnswerService {
 	 * @param answerId 回答信息的id号
 	 * @return
 	 */
-	public String deleteAnswerById(HttpServletRequest request,OnlineUser u,String  answerId){
+	@Override
+    public String deleteAnswerById(HttpServletRequest request, OnlineUser u, String  answerId){
 		return  dao.deleteAnswerById(request,u,answerId,"");
 	}
 
@@ -114,7 +115,8 @@ public class AskAnswerServiceImpl implements AskAnswerService {
 	 * 重点：为院校项目准备的接口  不要随便改动
 	 * @return
 	 */
-	public  Page<AskQuestionAndAnswerVo>   findMaxPraiseAnswer(Integer pageNumber, Integer pageSize){
+	@Override
+    public  Page<AskQuestionAndAnswerVo>   findMaxPraiseAnswer(Integer pageNumber, Integer pageSize){
 		 return dao.findMaxPraiseAnswer(pageNumber,pageSize);
 	}
 }

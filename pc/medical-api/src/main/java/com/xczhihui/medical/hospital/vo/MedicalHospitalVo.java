@@ -66,6 +66,58 @@ public class MedicalHospitalVo implements Serializable{
 	private List<MedicalHospitalPictureVO> medicalHospitalPictures;
 
 	private List<MedicalFieldVO> fields;
+	
+	//坐诊时间
+	private String visitTime;
+	
+	/**
+	 * 认证类别   1 医师认证   2 医馆认证
+	 */
+	private Integer certificationType;
+
+	/**
+	 * 医馆封面图
+	 */
+	private String frontImg;
+
+	/**
+	 * 微信
+	 */
+	private String wechat;
+
+	/**
+	 * 头像
+	 */
+	private String headPortrait;
+
+	/**
+	 * 联系人名称
+	 */
+	private String contactor;
+
+	public String getContactor() {
+		return contactor;
+	}
+
+	public void setContactor(String contactor) {
+		this.contactor = contactor;
+	}
+
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
+	}
 
 	public String getId() {
 		return id;
@@ -183,7 +235,34 @@ public class MedicalHospitalVo implements Serializable{
 		description = description.replace("\n","<br/>");
 		return description;
 	}
+	
+	public String getVisitTime() {
+		return visitTime;
+	}
 
+	public void setVisitTime(String visitTime) {
+		this.visitTime = visitTime;
+	}
+	/**
+	 * 认证类别   1 医师认证   2 医馆认证
+	 */
+	public Integer getCertificationType() {
+		return certificationType;
+	}
+	/**
+	 * 认证类别   1 医师认证   2 医馆认证
+	 */
+	public void setCertificationType(Integer certificationType) {
+		this.certificationType = certificationType;
+	}
+
+	public String getFrontImg() {
+		return frontImg;
+	}
+
+	public void setFrontImg(String frontImg) {
+		this.frontImg = frontImg;
+	}
 
 	@Override
 	public String toString() {

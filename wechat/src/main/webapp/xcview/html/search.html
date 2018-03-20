@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+
+<script src="/xcview/js/js.js?v=wechat_1.1.1"></script>
+
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/search.css" />
+
+</head>
+
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			
+			<div class="header_seek"> 
+				
+				<input type="text" name="" value="" id="header_input" />
+				
+				<span class="span">
+					
+					<img src="/xcview/images/sousuo0.png" alt="" class="sousuo" /><!--针灸疗法-->
+					
+				</span>
+				<div class="header_seek_main">
+					<span class="div_span_input">
+						<!--给inpiu默认值-->
+						<script type="text/html" id="shipin">
+						{{each items as item i}}
+						<span>{{item.name}}</span>
+						{{/each}}
+	           	 		</script>
+					</span>
+				</div>
+			</div>
+			<div class="header_cancel" onclick="location.href='home_page.html'">取消</div>
+		</div>
+	</header>
+	<!--头部搜索结束-->
+	
+	<!--热门搜索开始-->
+	<div class="search_hot">
+		<div class="search_hot_title">热门搜索</div>
+		<div class="search_hot_main">
+			<script type="text/html" id="search1">
+	        {{each items as item i}}
+			<div class="search_hot_main_one">{{item.name}}</div>
+			<!--<div class="both"></div>-->
+			{{/each}}
+	       </script>
+			<div class="both"></div>  <!--both清除浮动-->
+		</div>
+	</div>
+	<!--热门搜索结束-->
+	
+	<!--搜索历史开始-->
+	<div class="search_history">
+		<div class="search_history_title">
+			<div class="div0">搜索历史</div>
+			<div class="div1" onclick="clearAll()">清除历史</div>
+			<div class="both"></div>
+		</div>
+		<div class="search_history_list">
+			<!--<div class="search_history_list_one">
+				<div class="div0">针灸疗法</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">麦冬</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">伤寒论</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">各式推拿</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>-->
+		</div>
+		<div class="both"></div>
+	</div>
+	<!--搜索历史结束-->
+	
+
+</body>
+
+
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+
+<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="../js/template.js"></script>  <!--模板引入-->
+
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>-->
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
+<script src="/xcview/js/search.js?v=wechat_1.1.1"></script>
+
+
+
+<script type="text/javascript">
+
+	var arr=[];
+		//点击关键字查询
+		function queryKeyToList(obj){
+//			event.stopPropagation(); 
+			var queryKey = $(obj).find(".div0").text();
+			
+			location.href="../html/curriculum_table.html?queryKey="+queryKey+"&curriculum_blck=2";
+		}
+
+		//历史记录删除事件
+		function del(i){
+			event.stopPropagation(); 
+			var arrList = localStorage.hisArr.split(',');
+			arrList.splice(i,1); 
+			localStorage.setItem("hisArr", arrList);
+			arr=localStorage.hisArr.split(',');
+			if(arrList.length==0 || arrList.length=='' || arrList.length==null){
+				$(".search_history").hide()
+			}
+			var historyInf = '';
+ 			localStorage.hisArr.split(',').forEach(function(v,i){
+				historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+			})
+			$('.search_history_list').html(historyInf);  
+		}
+		
+		//判断历史记录
+
+		
+		if(localStorage.hisArr){
+			if(localStorage.hisArr.length==0 || localStorage.hisArr.length=='' || localStorage.hisArr.length==null){
+				$(".search_history").hide()
+			}
+		}else{
+
+				$(".search_history").hide()
+
+		}
+		//若逐条删除 到没记录就会隐藏结束
+		if(localStorage.hisArr){
+			//渲染上
+			var historyInf = '';
+			localStorage.hisArr.split(',').forEach(function(v,i){
+				historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+			})
+			$('.search_history_list').html(historyInf);
+			arr = localStorage.hisArr.split(',');
+		}else{
+			arr = [];
+		}
+   		initHistoryList();
+
+   		
+   		
+//      点击yinput  失去焦点隐藏默认值
+        $("#header_input").keyup(function(){
+			var search_val=$(this).val()
+        	
+			if($("#header_input").val() != ""){
+				$(".header_seek_main").css("display","none");
+				
+				//头部input搜索框开始
+				document.onkeyup=function(event){
+					initHistoryList();
+			        var e = event || window.event || arguments.callee.caller.arguments[0];          
+			        if(e && e.keyCode==13){ // enter 键
+                        var keyValue = $('#header_input').val();
+                        //判断该记录是否已存在
+						if($.inArray(keyValue, arr)!=-1){
+                            removeByValue(arr, keyValue);
+                            arr.unshift($('#header_input').val());
+                            localStorage.hisArr = arr;
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+						}else{
+                            arr.unshift($('#header_input').val())
+                            localStorage.hisArr = arr;
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+						}
+
+			        } 
+			   }; 
+			}else{
+				$(".header_seek_main").css("display","block");
+			};
+		});
+		//删除指定数组中的元素
+        function removeByValue(arr, val) {
+            for(var i=0; i<arr.length; i++) {
+                if(arr[i] == val) {
+                    arr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+		function initHistoryList(){		
+			if(arr.length >= 10){
+				arr.splice(9,1);
+			}
+
+			var historyInf = '';
+			if(localStorage.hisArr!=undefined){
+                localStorage.hisArr.split(',').forEach(function(v,i){
+                    if(v.split($("#header_input").val()).length>1||$("#header_input").val()==''){
+                    	$(".search_history_title").show();
+                        historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+                    }else{
+                    	$(".search_history_title").hide();
+                    }
+                })
+                $('.search_history_list').html(historyInf);
+			}
+
+		//
+		}
+		
+		$("#header_input").click(function(){
+			$(".header_seek_main").css("display","none");
+		});
+
+</script>
+
+
+
+
+</html>

@@ -56,8 +56,9 @@ public class ShareManageServiceImpl implements ShareManageService{
      * 查询用户各级别用户人数
      * @return
      */
+    @Override
     public Map<String, Object> findUserCount(HttpServletRequest request){
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return shareManageDao.findUserCount(u);
     }
@@ -74,8 +75,9 @@ public class ShareManageServiceImpl implements ShareManageService{
      * @param request  当前登录用户
      * @return
      */
-    public Page<ShareUserVo> findOneLevelUser(Integer searchCase,String searchContent,String startTime,String endTime,Integer pageNumber, Integer pageSize,HttpServletRequest request) throws ParseException {
-        //获取当前登陆用户信息
+    @Override
+    public Page<ShareUserVo> findOneLevelUser(Integer searchCase, String searchContent, String startTime, String endTime, Integer pageNumber, Integer pageSize, HttpServletRequest request) throws ParseException {
+        //获取当前登录用户信息
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return  shareManageDao.findOneLevelUser(searchCase,searchContent,startTime,endTime,pageNumber,pageSize,u);
     }
@@ -97,7 +99,7 @@ public class ShareManageServiceImpl implements ShareManageService{
     @Override
     public Map<String,Object> updateCheckShareRelation(HttpServletRequest req) {
         Map<String,Object> returnMap = new HashMap<>();
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(req);
         onlineUser = shareManageDao.findOneEntitiyByProperty(OnlineUser.class, "id", onlineUser.getId());//重新查询登录用户信息
         String shareCode = CookieUtil.getCookieValue(req,"_usercode_")==null? "" : CookieUtil.getCookieValue(req,"_usercode_");
@@ -115,7 +117,7 @@ public class ShareManageServiceImpl implements ShareManageService{
                 returnMap.put("oldShareMember",oldShareMember);
                 returnMap.put("newShareMember",shareUser.getName());
             } else {
-            	//当前登陆用户没有上级用户时，通过别人分享课程购买，此时当前登录用户的上次是分享课程用户
+            	//当前登录用户没有上级用户时，通过别人分享课程购买，此时当前登录用户的上次是分享课程用户
             	this.saveShareRelation(req,onlineUser);
                 returnMap.put("isShow",false);
             }

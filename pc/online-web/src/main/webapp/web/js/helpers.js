@@ -1,49 +1,17 @@
 	//首页判断是否有直播
-	template.helper('online', function(num) {
+	template.helper('online', function(num,collection) {
         if(num==1){
-        	return '<span class="classCategory">'+'视频'+'</span>'
+            if(collection)
+                return '<span class="classCategory">'+'视频专辑'+'</span>'
+            return '<span class="classCategory">'+'视频'+'</span>'
         }else{
+            if(collection)
+                return '<span class="classCategory">'+'音频专辑'+'</span>'
         	return '<span class="classCategory">'+'音频'+'</span>'
-//      	return false;
-//      	'<span class="classCategory">点播</span>'
         }
     });
-/*	template.helper('online', function(num) {
-		if(num=="直播"){
-			return '<span class="classCategory">'+num+'</span>'
-		}else{
-			return '<span class="classCategory">'+num+'</span>'
-//      	return false;
-//      	'<span class="classCategory">点播</span>'
-		}
-	});
-*/    //首页的推荐课程{
     template.helper('indexHref',function(description_show,free,id,courseType,type,direct_id,onlineCourse,encrypt){
-        courseType=(courseType=="直播")?0:1;//0：直播 1：点播
-        freeSt=(free==true)?1:0;//1:免费 0：收费
-        //description_show 0:不显示课程介绍页 1：显示课程介绍页
-//        if(description_show==0){
-            //不显示课程介绍页
-            //freest:1为免费 0为付费   courseType1为点播，0为直播
-        	if(onlineCourse == 1)
-        		return '<a style="cursor:pointer"  href="/web/html/payRealCourseDetailPage.html?id='+id+'"  target="_blank">';
-            if(freeSt==1 && encrypt == 1){
-            	if(type == 1)
-            		return '<a style="cursor:pointer" href="/web/html/encryptOpenCourseDetailPage.html?id='+id+'"  target="_blank">';
-                return '<a href="/web/html/encryptCourseDetailPage.html?id='+id+'" target="_blank">';
-            }else if(freeSt==1){
-            	if(type == 1)
-            		return '<a style="cursor:pointer" href="/web/html/freeOpenCourseDetailPage.html?id='+id+'"  target="_blank">';
-                return '<a href="/web/html/freeCourseDetailPage.html?id='+id+'" target="_blank">';
-            }else{
-            	if(type == 1)
-            		return '<a style="cursor:pointer"  href="/web/html/payOpenCourseDetailPage.html?id='+id+'"  target="_blank">';
-                return '<a href="/web/html/payCourseDetailPage.html?id='+id+'" target="_blank">';
-            }
-//        }else{
-            //显示课程介绍页
-//            return '<a href="/web/html/courseIntroductionPage.html?id='+id+'" target="_blank">';
-//        }
+        return '<a style="cursor:pointer"  href="/course/courses/'+id+'"  target="_blank">';
     })
     //详情页相关课程的直播判断
     template.helper('online2', function(num) {
@@ -138,7 +106,7 @@
         if(num==null){
             return '暂无';
         }
-        return ''+num+'小时';
+        return ''+num+'分钟';
     });
     //头像
     template.helper("headImg",function(num){
@@ -578,37 +546,13 @@
     	var a = '<span class="time"><strong></strong>&nbsp;'+showFormatDateString.split(" ")[1]+'</span>\n' +
         '<span class="time1"><strong></strong>&nbsp;'+showFormatDateString.split(" ")[0]+'</span>\n';
     	if(broadcastState == 3){
-    		if(free==true){
-    			if(coursePwd==1){
-        			url='/web/html/encryptOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-        		}else{
-        			url='/web/html/freeOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-        		}
-    		}else{
-    			url='/web/html/payOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-    		}
+    		url='/course/courses/'+id;
     		a+='<a href="'+url+'" class="reser-btn" ><img src="/web/images/yugao/turn.png" alt="" />回放</a>\n';
     	}else if(broadcastState == 1){
-    		if(free==true){
-    			if(coursePwd==1){
-        			url='/web/html/encryptOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-        		}else{
-        			url='/web/html/freeOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-        		}
-    		}else{
-    			url='/web/html/payOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-    		}
+            url='/course/courses/'+id;
     		a+='<a href="'+url+'" class="reser-btn" ><img src="/web/images/yugao/guankan.png" alt="" />直播中</a>\n';
     	}else{
-    		if(free==true){
-    			if(coursePwd==1){
-        			url='/web/html/encryptOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-        		}else{
-        			url='/web/html/freeOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-        		}
-    		}else{
-    			url='/web/html/payOpenCourseDetailPage.html?id='+id+'&direct_id='+direct_id;
-    		}
+            url='/course/courses/'+id;
     		if(isSubscribe==1){
     			a+='<a href="javascript:;" class="reser-btn"><img src="/web/images/yugao/yuyue.png" alt="" />已预约</a>\n'
     		}else{

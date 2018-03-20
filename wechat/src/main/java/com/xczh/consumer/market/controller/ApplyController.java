@@ -5,8 +5,6 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.ApplyService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.wxpay.typeutil.StringUtil;
-import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
 
@@ -19,9 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author liutao
@@ -43,13 +38,13 @@ public class ApplyController {
     private CityService cityService;
 
     
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(ApplyController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApplyController.class);
     
     @RequestMapping("updateBaseInfo")
     @ResponseBody
     public ResponseObject updateBaseInfo(HttpServletRequest request, HttpServletResponse res){
 
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request, null);
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         applyService.saveOrUpdateBaseInfo(user.getId(),request.getParameter("realName"),request.getParameter("phone"));
         return ResponseObject.newSuccessResponseObject(null);
     }
@@ -71,8 +66,8 @@ public class ApplyController {
             apply.setReferee(null);
         }
 
-log.info(apply.toString());
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request, null);
+LOGGER.info(apply.toString());
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         applyService.updateDetailsInfo(apply);
         return ResponseObject.newSuccessResponseObject(null);
     }
@@ -82,7 +77,7 @@ log.info(apply.toString());
     public ResponseObject get(HttpServletRequest request, HttpServletResponse res){
         String userId=null;
         if(!StringUtils.isNotBlank(userId=request.getParameter("userId"))){
-            OnlineUser user = appBrowserService.getOnlineUserByReq(request, null);
+            OnlineUser user = appBrowserService.getOnlineUserByReq(request);
             userId=user.getId();
         }
         Apply apply = applyService.get(userId);

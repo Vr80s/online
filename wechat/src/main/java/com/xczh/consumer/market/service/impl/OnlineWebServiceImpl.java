@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @Service
 public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebService {
+	
 	   /**
 	    * 免费课程 
 	    *   用户报名时，将课程下所有视频插入用户视频中间表中
@@ -35,17 +36,16 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        paramMap.put("userId",u.getId());
 	        paramMap.put("loginName",u.getLoginName());
 
-	       if(this.getLiveUserCourse(courseId,u.getId()).size()>0){
-	           System.out.println("同学,当前课程您已经报名了!");
-	           return;
-	       };
-	       System.out.println("=============================");
+    	   if(this.getLiveUserCourse(courseId,u.getId())){
+  	           return;
+  	       };
 	       String sql="";
 	       //写用户报名信息表，如果有就不写了
 	       String apply_id = UUID.randomUUID().toString().replace("-", "");
 	       sql = "select id from oe_apply where user_id=? ";
 	       Object [] params ={u.getId()};
 	       List<Map<String, Object>> applies = this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	       
 	       if (applies.size() > 0) {
 	           apply_id = applies.get(0).get("id").toString();
 	       } else {
@@ -57,15 +57,14 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	       }
 	       //写用户报名中间表
 	       String id = UUID.randomUUID().toString().replace("-", "");
-	       sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 as allCount from apply_r_grade_course where grade_id=-1";
 	       
+	       sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 as allCount from apply_r_grade_course where grade_id=-1";
 	       Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql,new MapHandler());
 	       
 	       //报名此班级的学生人数
 		   Double no = 0d;
 			if(map!=null && map.size()>0){
 				Object allCount = map.get("allCount");
-				System.out.println(allCount.toString());
 				no = Double.valueOf(allCount.toString());
 			}
 	       String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
@@ -74,17 +73,10 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	       Object [] ops = {id,courseId,apply_id,u.getName(),u.getId(),sno};
 	       this.update(JdbcUtil.getCurrentConnection(), sql,ops);
 
-	       //写用户视频表
-//	       sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
-//	               + " select replace(uuid(),'-',''),?,sort,id,?,course_id "
-//	               + "from oe_video where course_id=? and is_delete=0 and status=1 ";
-//	       //orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-//	       Object [] params3 ={u.getLoginName(),u.getId(),courseId};
-//	       this.update(JdbcUtil.getCurrentConnection(), sql,params3);
 	   }
 	
 	   /**
-	     * 查看当前登陆用户是否购买过当前课程 (音频和视频)
+	     * 查看当前登录用户是否购买过当前课程 (音频和视频)
 	     * @param courseId 课程id
 	     * @param userId
 	     * @return
@@ -101,20 +93,40 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	    }
 	    
 	    /**
-	     * 查看当前登陆用户是否购买过当前直播(直播)
+	     * 查看当前登录用户是否购买过当前直播(直播)
 	     * @param courseId 课程id
 	     * @param userId
 	     * @return
 	     * @throws SQLException 
 	     */
 	    @Override
-	    public List<Map<String, Object>> getLiveUserCourse(Integer courseId,String userId) throws SQLException {
+	    public Boolean getLiveUserCourse(Integer courseId,String userId) throws SQLException {
 	        StringBuffer sql = new StringBuffer();
 	        sql.append("SELECT argc.course_id ");
 	        sql.append(" from apply_r_grade_course argc ");
-	        sql.append(" where argc.is_delete=0 and argc.course_id =? and argc.user_id= ?  limit 1");
+	        sql.append(" where argc.is_delete=0 and argc.course_id =? and argc.user_id= ? limit 1");
 	        Object [] params = {courseId,userId};
- 	        return this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	        List<Map<String,Object>>  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	        if(list!=null && list.size()>0){
+	        	return true;
+	        }
+ 	        return false;
 	    }
+	    
+	    
+	    @Override
+	    public Boolean getLiveUserCourseAndIsFree(Integer courseId,String userId) throws SQLException {
+	        StringBuffer sql = new StringBuffer();
+	        sql.append("SELECT argc.course_id ");
+	        sql.append(" from apply_r_grade_course argc ");
+	        sql.append(" where argc.is_delete=0 and argc.course_id =? and argc.user_id= ? and argc.order_no is not null limit 1");
+	        Object [] params = {courseId,userId};
+	        List<Map<String,Object>>  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	        if(list!=null && list.size()>0){
+	        	return true;
+	        }
+ 	        return false;
+	    }
+	    
 	    
 }

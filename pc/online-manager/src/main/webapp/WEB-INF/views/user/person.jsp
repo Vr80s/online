@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
     
-    <link rel="stylesheet" href="${base}/css/usercenter.css" />
-    <script type="text/javascript" src="${base}/js/corpbox/cropbox.js"></script>
+    <link rel="stylesheet" href="/css/usercenter.css" />
+    <script type="text/javascript" src="/js/corpbox/cropbox.js"></script>
     <script>
     		try {
 			var scripts = [ null, null ];
@@ -162,7 +162,7 @@
                 </div>
                 <div class="cropped">
                     <div class="avatarlarge">
-                        <img src="${base}/images/defaultavatar.png">
+                        <img src="/images/defaultavatar.png">
                     </div>
                     <p>大尺寸头像</p>
                     <p>180×180</p>
@@ -170,7 +170,7 @@
                 </div>
                 <div class="cropped csmall">
                     <div class="avatarsmall">
-                        <img src="${base}/images/defaultavatar.png">
+                        <img src="/images/defaultavatar.png">
                     </div>
                     <p>小尺寸头像</p>
                     <p>45×45</p>
@@ -217,4 +217,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${base}/js/user/person.js?v=1"></script>
+<script type="text/javascript" src="/js/user/person.js?v=ipandatcm_1.3"></script>

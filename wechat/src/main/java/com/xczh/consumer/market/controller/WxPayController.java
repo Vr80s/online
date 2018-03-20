@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.enums.Payment;
+
 import net.sf.json.JSONObject;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -72,9 +75,9 @@ import com.xczh.consumer.market.wxpay.entity.SendRedPack;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.MD5SignUtil;
 import com.xczhihui.bxg.online.api.po.RewardStatement;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
+import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
@@ -123,6 +126,17 @@ public class WxPayController {
 
     @Autowired
     private AppBrowserService appBrowserService;
+    
+	@Autowired
+	private UserCenterAPI userCenterAPI;
+	@Autowired
+	private OnlineUserMapper onlineUserMapper;
+	
+	@Autowired
+	private iphoneIpaService iIpaService;
+	
+	@Autowired
+	private  OrderPayService  orderPayService;
 	
 	@Value("${online.weburl}")
 	private String pcUrl;
@@ -136,20 +150,12 @@ public class WxPayController {
 	private Double minimumAmount;
 	
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(H5AppPayController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AppPayController.class);
 	
 	
 	private final String tell_ok = "success";
 	private final String tell_failer = "signError";
 	private final String key_sign = "sign";
-
-	@Autowired
-	private UserCenterAPI userCenterAPI;
-	@Autowired
-	private OnlineUserMapper onlineUserMapper;
-	
-	@Autowired
-	private iphoneIpaService iIpaService;
 	
 	/**
 	 * 订单支付
@@ -190,11 +196,11 @@ public class WxPayController {
 		if (retpay != null) {
 			retpay.put("ok", "true");
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			log.info("h5Prepay->jsonObject->\r\n\t"
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
 					+ jsonObject.toString());
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 	/**
@@ -215,9 +221,9 @@ public class WxPayController {
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
 		try {
-
-			log.info("进入回调函数方法中啦");
-
+			
+			LOGGER.info("----进入微信回调函数方法中  ");
+			
 			req.setCharacterEncoding("utf-8");
 			ServletInputStream is = req.getInputStream();
 			String content = IOUtils.toString(is);
@@ -225,15 +231,10 @@ public class WxPayController {
                 content = "";
             }
 			content = content.trim();
-			System.out
-					.println("wxNotify->content->\r\n\t" + content.toString());// log.info("wxNotify=\r\n"
-																				// +
-																				// content.toString());
+			
+			LOGGER.info("wxNotify->content->\r\n\t" + content.toString());
 			Map<String, String> map = CommonUtil.parseXml(content);
-			log.info("wxNotify->map->\r\n\t"
-					+ JSONObject.fromObject(map).toString());// log.info("map:"
-																// +
-																// map.toString());
+			LOGGER.info("wxNotify->map->\r\n\t"+ JSONObject.fromObject(map).toString());
 			String flow_id = UUID.randomUUID().toString().replace("-", "");
 			String appid = map.get("appid"); // 应用ID
 			String attach = map.get("attach"); // 商户数据包
@@ -250,7 +251,7 @@ public class WxPayController {
 			String sub_mch_id = map.get("sub_mch_id");
 			String time_end = map.get("time_end"); // 支付完成时间
 			
-			log.info("time_end:"+time_end);
+			LOGGER.info("time_end:"+time_end);
 			
 			String total_fee = map.get("total_fee"); // 总金额
 			String trade_type = map.get("trade_type");// 交易类型
@@ -261,7 +262,7 @@ public class WxPayController {
 			wxcpPayFlow.setFlow_id(flow_id);
 			wxcpPayFlow.setAppid(appid);
 			wxcpPayFlow.setAttach(attach);
-			log.info("微信返回数据包："+attach);
+			LOGGER.info("微信返回数据包："+attach);
 			//wxcpPayFlow.setUser_id((com.alibaba.fastjson.JSONObject.parseObject(attach).get("userId").toString()));
 			wxcpPayFlow.setBank_type(bank_type);
 			wxcpPayFlow.setFee_type(fee_type);
@@ -281,68 +282,61 @@ public class WxPayController {
 			wxcpPayFlow.setReturn_msg(return_msg);
 			wxcpPayFlow.setPayment_type(payment_type);
 			//wxcpPayFlow.setSubject(((String) com.alibaba.fastjson.JSONObject.parseObject(attach).get("subject")));
-
-
 			WxcpPayFlow condPayFlow = new WxcpPayFlow();
-			condPayFlow.setOut_trade_no(out_trade_no);// 商户订单号
+			condPayFlow.setOut_trade_no(out_trade_no);//商户订单号
 
-			List<WxcpPayFlow> listWxcpPayFlow = wxcpPayFlowService
-					.select(condPayFlow);
+			List<WxcpPayFlow> listWxcpPayFlow = wxcpPayFlowService.select(condPayFlow);
+			
 			int paysed_sum = 0;
+	
 			if (listWxcpPayFlow != null && listWxcpPayFlow.size() > 0) {
 				for (int i = 0; i < listWxcpPayFlow.size(); i++) {
-					if (listWxcpPayFlow.get(i).getResult_code() == null
-							|| listWxcpPayFlow.get(i).getResult_code().trim()
-									.length() == 0
-							|| listWxcpPayFlow.get(i).getReturn_code() == null
-							|| listWxcpPayFlow.get(i).getReturn_code().trim()
-									.length() == 0) {
+					if (listWxcpPayFlow.get(i).getResult_code() == null|| listWxcpPayFlow.get(i).getResult_code().trim().length() == 0
+							|| listWxcpPayFlow.get(i).getReturn_code() == null || listWxcpPayFlow.get(i).getReturn_code().trim().length() == 0) {
                         continue;
                     }
-					if (listWxcpPayFlow.get(i).getResult_code()
-							.equals("SUCCESS")
-							&& listWxcpPayFlow.get(i).getReturn_code()
-									.equals("SUCCESS")) {
+					if ("SUCCESS".equals(listWxcpPayFlow.get(i).getResult_code()) && "SUCCESS".equals(listWxcpPayFlow.get(i).getReturn_code())) {
 						try {
-							paysed_sum = Integer.valueOf(listWxcpPayFlow.get(i)
-									.getTotal_fee());
+							paysed_sum = Integer.valueOf(listWxcpPayFlow.get(i).getTotal_fee());
 						} catch (Exception e) {
-							System.out
-									.println("WxPayController->wxNotify->paysed_sum->\r\n\t"
-											+ e.getMessage());
+							LOGGER.info("WxPayController->wxNotify->paysed_sum->\r\n\t"+ e.getMessage());
 						}
 						break;
 					}
 				}
 			}
-			/** 放到在线更新 **/
+			/** 放到在线更新     **/
+
+			/**
+			 * 根据支付类型判断得到--》回调验证签名的key
+			 *  h5和公众号用的是一样了。
+			 *  app用的是另一个
+			 */
 			String key ="";
-			if(PayInfo.trade_type_app.equals(trade_type)){
+			if(PayInfo.TRADE_TYPE_APP.equals(trade_type)){
 				key = WxPayConst.app_ApiKey;
 			}else{
 				key = WxPayConst.gzh_ApiKey;
 			}
-			if (MD5SignUtil.VerifySignature(map, map.get(key_sign),key)) {
-				
-				log.info("回调后签名对比是否成功");
+			//签名对比
+//			if (MD5SignUtil.VerifySignature(map, map.get(key_sign),key)) {
+			if (MD5SignUtil.VerifySignature(content,key)) {
+
+				LOGGER.info("回调后签名对比是否成功");
 				//打赏支付
 				if(StringUtils.isNotBlank(wxcpPayFlow.getAttach())){
 					String[] attachs=attach.split("&");
-
-					//String ppbt= (String) com.alibaba.fastjson.JSONObject.parseObject(attach).get("passbackParamBizType");
-					//if(ppbt.equals("1")) {
-					//RewardParamVo rpv= com.alibaba.fastjson.JSONObject.parseObject(wxcpPayFlow.getAttach(),RewardParamVo.class);
-					//if("1".equals(rpv.getT())){
-
+					
 					if(attachs.length>0) {
-                        if (attachs[0].equals("reward")) {
-
+						
+						//第二版本考虑打赏
+                        if ("reward".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             RewardParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RewardParamVo.class);
                             RewardStatement rs = new RewardStatement();
                             BeanUtils.copyProperties(rs, rpv);
                             rs.setCreateTime(new Date());
-                            rs.setPayType(1);//
+                            rs.setPayType(Payment.WECHATPAY.getCode());//
                             rs.setOrderNo(out_trade_no);
                             rs.setPrice((new Double(wxcpPayFlow.getTotal_fee()) / 100));
                             rs.setChannel(1);
@@ -353,54 +347,68 @@ public class WxPayController {
                             wxcpPayFlowService.insert(wxcpPayFlow);
                             userCoinService.updateBalanceForReward(rs);
                             res.getWriter().write(tell_ok);
-                            log.info("打赏回调打印:" + json);
+                            LOGGER.info("打赏回调打印:" + json);
                             //	}
-                        } else if (attachs[0].equals("order")) {
+                        } else if ("order".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             OrderParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, OrderParamVo.class);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
-                            log.info("order回调打印:" + json);
+                            LOGGER.info("order回调打印:" + json);
                             wxcpPayFlow.setSubject(rpv.getSubject());
                             wxcpPayFlowService.insert(wxcpPayFlow);
-                        } else if (attachs[0].equals("recharge")) {
+                            
+                        } else if ("recharge".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             RechargeParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RechargeParamVo.class);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
-                            log.info("充值回调打印:" + json);
+                            LOGGER.info("充值回调打印:" + json);
                             wxcpPayFlow.setSubject(rpv.getSubject());
                             wxcpPayFlowService.insert(wxcpPayFlow);
 
-                            UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-                            userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
-                            userCoinIncrease.setChangeType(1);
-                            userCoinIncrease.setPayType(1);
-                            userCoinIncrease.setValue(new BigDecimal(new Double(wxcpPayFlow.getTotal_fee()) / 100 * rate));//熊猫币
-                            userCoinIncrease.setCreateTime(new Date());
-//						userCoinIncrease.setChangeType(0);
-                            userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
-                            userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
-                            userCoinService.updateBalanceForIncrease(userCoinIncrease);
+							BigDecimal coin = new BigDecimal(new Double(wxcpPayFlow.getTotal_fee()) / 100 * rate);
+//
+//							UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
+//							userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
+//							userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+//							userCoinIncrease.setPayType(Payment.WECHATPAY.getCode());
+//							userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
+//							//熊猫币
+//							userCoinIncrease.setValue(coin);
+//                            userCoinIncrease.setCreateTime(new Date());
+//                            userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
+//                            userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
+							
+                            userCoinService.updateBalanceForRecharge(wxcpPayFlow.getUser_id(),Payment.WECHATPAY,coin,
+                            		OrderFrom.ANDROID,wxcpPayFlow.getOut_trade_no());
                         }
                     }
 				}
 
-				log.info("WxPayController->wxNotify->sign success");
-				if (map != null
-						&& WxPayConst.recode_success.equals(map
-								.get(WxPayConst.return_code))) {
-					log.info("WxPayController->wxNotify->good");
-				} else {
-					log.info("WxPayController->wxNotify->bad");
-				}
-				if(attach.split("&")[0].equals("order")){
-					
-					boolean onlinePaySuccess = httpOnline(out_trade_no, transaction_id);//普通订单
+				LOGGER.info("WxPayController->wxNotify->sign success");
 				
+				if (map != null && WxPayConst.recode_success.equals(map.get(WxPayConst.return_code))) {
+					
+					LOGGER.info("WxPayController->wxNotify->good");
+				
+				} else {
+					LOGGER.info("WxPayController->wxNotify->bad");
 				}
-
+				if("order".equals(attach.split("&")[0])){
+					
+//					boolean onlinePaySuccess = httpOnline(out_trade_no, transaction_id);//普通订单
+					//这里使用doubo服务
+					
+					orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY, transaction_id);
+					
+					LOGGER.info("订单支付成功，订单号:{},用时{}"+out_trade_no);
+					/*
+					 * 为购买用户发送购买成功的消息通知
+					 */
+					//orderService.savePurchaseNotice(weburl, out_trade_no);
+				}
 				res.getWriter().write(tell_ok);
 			} else {
-				log.info("wxNotify->sign failure");
+				LOGGER.info("wxNotify->sign failure");
 				res.getWriter().write(tell_failer);
 			}
 		} catch (UnsupportedEncodingException e) {
@@ -422,41 +430,36 @@ public class WxPayController {
 	public ResponseObject appleInternalPurchaseOrder(HttpServletRequest req,
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
-		
 		try {
-			log.info("======================================");
 			/*
 			 * 传递过来一个订单号
 			 */
 			String order_no = req.getParameter("order_no");
-			//String courderName = req.getParameter("courderName");
-			log.info("======================================"+order_no);
-			
 			ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
     		if(null == orderDetails.getResultObject()){
     			return ResponseObject.newErrorResponseObject("未找到订单信息");
     		}
 			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
-    		Double actualPrice = order.getActualPay();//订单金额
+			//订单金额
+    		Double actualPrice = order.getActualPay();
     		double  xmb = actualPrice * rate;
-    		
     		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     		if(user == null) {
-    	         return ResponseObject.newErrorResponseObject("登录超时！");
+    	         return ResponseObject.newErrorResponseObject("登录失效");
     	    }
-    		String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		
+    		//String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		String userYE = userCoinService.getBalanceByUserId(user.getId());
     		double d = Double.valueOf(userYE);
-    		log.info("要消费余额:"+xmb);
-    		log.info("当前用户余额:"+d);
+    		LOGGER.info("要消费余额:"+xmb);
+    		LOGGER.info("当前用户余额:"+d);
     		if(xmb>d){
     			return ResponseObject.newErrorResponseObject("余额不足,请到个人账户充值！");
 			}
 			/**
 			 * 然后你那边加下密
 			 */
-			//得到更多的参数。然后
 			String transaction_id = CodeUtil.getRandomUUID();
-			
 			String s = "out_trade_no=" + order_no + "&result_code=SUCCESS"
 					+ "&transaction_id="+transaction_id+"&key=" + onlinekey;
 			
@@ -468,12 +471,11 @@ public class WxPayController {
 					+ "<sign><![CDATA[" + mysign
 					+ "]]></sign>" + " </xml> ";
 			
-			log.info("请求web端的  ios   内购成功回调  pay_notify_iosiap");
-			String msg = HttpUtil.sendDataRequest(
-					pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml
-							.toString().getBytes());
+			LOGGER.info("请求web端的  ios   内购成功回调  pay_notify_iosiap");
 			
-			log.info("msg  >>>  " + msg);
+			String msg = HttpUtil.sendDataRequest(pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml.toString().getBytes());
+			
+			LOGGER.info("msg  >>>  " + msg);
 			Gson g = new GsonBuilder().create();
 			Map<String, Object> mp = g.fromJson(msg, Map.class);
 			boolean falg =  Boolean.valueOf(mp.get("success").toString());
@@ -518,12 +520,12 @@ public class WxPayController {
 				+ "<transaction_id><![CDATA[" + transaction_id
 				+ "]]></transaction_id>" + "<sign><![CDATA[" + mysign
 				+ "]]></sign>" + " </xml> ";
-		log.info("请求web端的微信支付回调pay_notify_wechat");
+		LOGGER.info("请求web端的微信支付回调pay_notify_wechat");
 		// 请求web端的方法
 		String msg = HttpUtil.sendDataRequest(
 				pcUrl + "/web/pay_notify_wechat", "application/xml", resXml
 						.toString().getBytes());
-		log.info("msg  >>>  " + msg);
+		LOGGER.info("msg  >>>  " + msg);
 		Gson g = new GsonBuilder().create();
 		Map<String, Object> mp = g.fromJson(msg, Map.class);
 		return Boolean.valueOf(mp.get("success").toString());
@@ -535,14 +537,14 @@ public class WxPayController {
 			Map<String, String> params) throws Exception {
 
 		try {
-			log.info("wx return code:" + req.getParameter("code"));
+			LOGGER.info("WX return code:" + req.getParameter("code"));
 			String code = req.getParameter("code");
 			String openid = ClientUserUtil.setWxInfo(code, null, null,
 					wxcpClientUserService, wxcpClientUserWxMappingService,
 					userCenterAPI, onlineUserMapper, req, res);
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnCodeUri = cfg.getConfig("returnCodeUri");
-			log.info("returnCodeUri=" + returnCodeUri);
+			LOGGER.info("returnCodeUri=" + returnCodeUri);
 			if (openid != null && !openid.isEmpty()) {
 				JSONObject jsonObject = JSONObject.fromObject(openid);
 				res.sendRedirect(returnCodeUri + "/bxg/page/index/"
@@ -579,10 +581,10 @@ public class WxPayController {
 		String courseid = req.getParameter("courseid");
 		String shareCourseId = req.getParameter("shareCourseId");
 		
-		log.info("code:" + code);
-		log.info("share:" + share);
-		log.info("courseid:" + courseid);
-		log.info("shareCourseId:" + shareCourseId);
+		LOGGER.info("code:" + code);
+		LOGGER.info("share:" + share);
+		LOGGER.info("courseid:" + courseid);
+		LOGGER.info("shareCourseId:" + shareCourseId);
 		
 		ConfigUtil cfg = new ConfigUtil(req.getSession());
 		String returnOpenidUri = cfg.getConfig("returnOpenidUri");
@@ -591,7 +593,7 @@ public class WxPayController {
 			JSONObject jsonObject = JSONObject.fromObject(code_buffer);//Map<String, Object> access_info =GsonUtils.fromJson(code_buffer, Map.class);
 			String openid = (String)jsonObject.get("openid");
          
-			log.info("openid:" + openid);
+			LOGGER.info("openid:" + openid);
 			
 			if(StringUtils.isNotBlank(share) && share == "liveDetails"){  //liveDetails bunchDetails
 				res.sendRedirect("/bxg/xcpage/courseDetails?courseId="+courseid);
@@ -622,33 +624,52 @@ public class WxPayController {
 	@RequestMapping("h5GetOpenid")
 	public void h5GetOpenid(HttpServletRequest req, HttpServletResponse res,
 			Map<String, String> params) throws Exception {
-		log.info("wx return code:" + req.getParameter("code"));
+		LOGGER.info("WX return code:" + req.getParameter("code"));
 		try {
 			String code = req.getParameter("code");
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+			
+			LOGGER.info("wxw===="+wxw);
 			/*
 			 * 判断这个uninonid是否在user表中存在
 			 */
-			OnlineUser ou =  onlineUserMapper.findOnlineUserByUnionid(wxw.getUnionid());
+			//OnlineUser ou =  onlineUserMapper.findOnlineUserByUnionid(wxw.getUnionid());
+			
+			//WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(wxw.getUnionid());
+			
 			String openid = wxw.getOpenid();
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
-			if(ou != null){
+			if(StringUtils.isNotBlank(wxw.getClient_id())){
+				
+				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
+				
+				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
+				
+				LOGGER.info("getLoginName===="+ou.getLoginName());
+				
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
 				if (openid != null && !openid.isEmpty()) {
-					res.sendRedirect(returnOpenidUri + "/bxg/page/index/"+ openid + "/" + code);
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
+					//res.sendRedirect(returnOpenidUri + "/bxg/page/index/"+ openid + "/" + code);
 				} else{
 					res.getWriter().write(openid);
 				}	
 			}else{
+				/**
+				 * jump_type=1	跳到首页
+				 * jump_type=2	跳到我的页面
+				 */
+				
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
-				res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?openId="+openid);
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+				//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?openId="+openid);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -660,9 +681,9 @@ public class WxPayController {
 	@RequestMapping("h5ShareGetWxUserInfo")
 	public void h5ShareGetWxUserInfo(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		
-		log.info("wx return code:" + req.getParameter("code"));
-		log.info("courseId:" + req.getParameter("courseId"));
-		log.info("wxOrbrower:" + req.getParameter("wxOrbrower"));
+		LOGGER.info("WX return code:" + req.getParameter("code"));
+		LOGGER.info("courseId:" + req.getParameter("courseId"));
+		LOGGER.info("wxOrbrower:" + req.getParameter("wxOrbrower"));
 		try {
 			String courseId = req.getParameter("courseId");
 			String code = req.getParameter("code");
@@ -698,13 +719,13 @@ public class WxPayController {
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 			//先判断这个用户是否存在
 			if(ou != null){
-				log.info("}}}}}}}}}}}}}}}}} ou.getUnionId():"+ou.getUnionId());
+				LOGGER.info("}}}}}}}}}}}}}}}}} ou.getUnionId():"+ou.getUnionId());
 				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
 				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 				//这样直接跳转的话，怎样跳转呢，直接到直播页面啊，还是直接到
 				if(type == 1){ //直播或者预约详情页           
 					//1.直播中，2预告，3直播结束
-					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").toString().equals("2")){  //预告
+					if(null != mapCourseInfo.get("lineState") && "2".equals(mapCourseInfo.get("lineState").toString())){  //预告
 						url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId)+"&openId="+openid;
 					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
 						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
@@ -712,15 +733,15 @@ public class WxPayController {
 				}else{ //视频音频详情页
 					//haiyao   multimediaType
 					Integer multimediaType = 1;
-					if(null != mapCourseInfo.get("multimediaType") && mapCourseInfo.get("multimediaType").toString().equals("2")){
+					if(null != mapCourseInfo.get("multimediaType") && "2".equals(mapCourseInfo.get("multimediaType").toString())){
 						multimediaType = 2;
 					}
 					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId)+"&openId="+openid+"&multimedia_type="+multimediaType;
 				}
-				log.info("}}}}}}}}}}}}}}}}}} url："+url);
+				LOGGER.info("}}}}}}}}}}}}}}}}}} url："+url);
 				res.sendRedirect(returnOpenidUri + url);
 			}else{
-				log.info("}}}}}}}}}}}}}}}}}用户不存在");
+				LOGGER.info("}}}}}}}}}}}}}}}}}用户不存在");
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
 				//这里跳转到分享页面啦
 				res.sendRedirect(returnOpenidUri + "/xcviews/html/share.html?openid="+openid+"&course_id="+courseId);
@@ -731,7 +752,6 @@ public class WxPayController {
 		}
 	}
 	/**
-	 * 
 	 * 1、需要在写一个来判断这个微信信息是否包含了手机号。
 	 * 2、或者这个手机号是否和已经存在的一样
 	 */
@@ -745,7 +765,7 @@ public class WxPayController {
 		 * 微信回调后，获取微信信息。
 		 */
 		String userName = req.getParameter("userName");
-		log.info("wx return code:" + req.getParameter("code"));
+		LOGGER.info("WX return code:" + req.getParameter("code"));
 		String code = req.getParameter("code");
 		/*
 		 * 获取当前登录用户信息
@@ -785,7 +805,7 @@ public class WxPayController {
 			ouNew.setUnionId(wxw.getUnionid());
 			//省市区
 			if(StringUtils.isBlank(ou.getProvince())){
-				log.info("country_:"+wxw.getCountry()+",province_:"+wxw.getProvince()+",city_:"+wxw.getCity());
+				LOGGER.info("country_:"+wxw.getCountry()+",province_:"+wxw.getProvince()+",city_:"+wxw.getCity());
 				Map<String,Object> map = cityService.getSingProvinceByCode(wxw.getCountry());
 				if(map!=null){
 					Object objId = map.get("cid");
@@ -875,7 +895,7 @@ public class WxPayController {
 		if(null == ou){  //去登录页面
 			res.sendRedirect(returnOpenidUri + "/bxg/page/login/1");
 		}
-		log.info("wx return code:" + req.getParameter("code"));
+		LOGGER.info("WX return code:" + req.getParameter("code"));
 		
 		String code = req.getParameter("code");
 		WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
@@ -905,7 +925,7 @@ public class WxPayController {
 		
 		//省市区
 		if(StringUtils.isBlank(ou.getProvince())){
-			log.info("country_:"+wxw.getCountry()+",province_:"+wxw.getProvince()+",city_:"+wxw.getCity());
+			LOGGER.info("country_:"+wxw.getCountry()+",province_:"+wxw.getProvince()+",city_:"+wxw.getCity());
 			Map<String,Object> map = cityService.getSingProvinceByCode(wxw.getCountry());
 			if(map!=null){
 				Object objId = map.get("cid");
@@ -967,7 +987,7 @@ public class WxPayController {
 	public void h5GetOpenidForPersonal(HttpServletRequest req,
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
-		log.info("wx return code:" + req.getParameter("code"));
+		LOGGER.info("WX return code:" + req.getParameter("code"));
 		try {
 			String code = req.getParameter("code");
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
@@ -987,14 +1007,20 @@ public class WxPayController {
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
 				if (openid != null && !openid.isEmpty()) {
-					res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?center=center");
+					
+					res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
+					//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?center=center");
 				} else{
 					res.getWriter().write(openid);
 				}	
 			}else{
+				/**
+				 * jump_type=1	跳到首页
+				 * jump_type=2	跳到我的页面
+				 */
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
-				res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?"
-						+ "openId="+openid);
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=2");
+				//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?"+ "openId="+openid);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1016,7 +1042,7 @@ public class WxPayController {
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
 		try {
-			log.info("wx return code:" + req.getParameter("code"));
+			LOGGER.info("WX return code:" + req.getParameter("code"));
 			String code = req.getParameter("code");
 			String courseId = req.getParameter("courseId");
 			// String openid = PayFactory.work().getOpenId(code);//openid =
@@ -1027,9 +1053,9 @@ public class WxPayController {
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnOpenidUriRedirect = cfg
 					.getConfig("returnOpenidUriRedirect");
-			log.info("returnOpenidUriRedirect="
+			LOGGER.info("returnOpenidUriRedirect="
 					+ returnOpenidUriRedirect);
-			// log.info("notifyUrl=" + WxPayConst.getNotifyUrl());
+			// LOGGER.info("notifyUrl=" + WxPayConst.getNotifyUrl());
 			if (openid != null && !openid.isEmpty()) {
 				JSONObject jsonObject = JSONObject.fromObject(openid);
 				res.sendRedirect(returnOpenidUriRedirect
@@ -1067,7 +1093,7 @@ public class WxPayController {
 			throws Exception {
 
 		try {
-			log.info("wx get codeid:" + req.getParameter("code"));
+			LOGGER.info("WX get codeid:" + req.getParameter("code"));
 			String code = req.getParameter("code");
 			if (code != null && !code.isEmpty()) {
 				res.getWriter().write("code=" + code);
@@ -1086,7 +1112,7 @@ public class WxPayController {
 			throws Exception {
 
 		try {
-			log.info("wx get openid:" + req.getParameter("openid"));
+			LOGGER.info("WX get openid:" + req.getParameter("openid"));
 			String openid = req.getParameter("openid");
 			if (openid != null && !openid.isEmpty()) {
 				res.getWriter().write("openid=" + openid);
@@ -1151,7 +1177,7 @@ public class WxPayController {
 
 		if (true) {
 			JSONObject jsonObject = JSONObject.fromObject(redPack);
-			log.info("WxPayController->sendRedPack->send\r\n\t"
+			LOGGER.info("WxPayController->sendRedPack->send\r\n\t"
 					+ jsonObject.toString());
 		}
 
@@ -1173,7 +1199,7 @@ public class WxPayController {
 		wxcpWxRedpackService.insert(redPack);
 		if (true) {
 			JSONObject jsonObject = JSONObject.fromObject(redPack);
-			log.info("WxPayController->sendRedPack->recv\r\n\t"
+			LOGGER.info("WxPayController->sendRedPack->recv\r\n\t"
 					+ jsonObject.toString());
 		}
 
@@ -1256,7 +1282,7 @@ public class WxPayController {
 		wxTrans.setPayment_time(payment_time);
 		if (true) {
 			JSONObject jsonObject = JSONObject.fromObject(wxTrans);
-			log.info("WxPayController->wxTrans->send\r\n\t"
+			LOGGER.info("WxPayController->wxTrans->send\r\n\t"
 					+ jsonObject.toString());
 		}
 
@@ -1276,7 +1302,7 @@ public class WxPayController {
 		wxcpWxTransService.insert(wxTrans);
 		if (true) {
 			JSONObject jsonObject = JSONObject.fromObject(wxTrans);
-			log.info("WxPayController->wxTrans->recv\r\n\t"
+			LOGGER.info("WxPayController->wxTrans->recv\r\n\t"
 					+ jsonObject.toString());
 		}
 
@@ -1305,7 +1331,7 @@ public class WxPayController {
 		return val;
 	}
 	/**
-	 * 登陆成功处理
+	 * 登录成功处理
 	 * @param req
 	 * @param res
 	 * @param token

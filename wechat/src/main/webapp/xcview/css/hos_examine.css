@@ -1,0 +1,140 @@
+*{margin: 0; padding: 0;}
+.z{float: left;}
+.y{float: right;}
+ul li{list-style: none;}
+a{
+text-decoration: none;
+outline:none;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+p{font-size: 0.28rem;}
+img{display: block;}
+.wp{width: 7.5rem;margin: 0 auto;}
+/*医师认证*/
+.wrap-header{
+	width: 100%;
+	height: 0.88rem;	
+
+}
+.header{
+	width: 100%;
+	height: 0.88rem;	
+	text-align: center;
+	line-height: 0.88rem;
+	overflow: hidden;
+	position: fixed;
+	border-bottom: 1px solid #d8dde6;	
+	background: white;
+}
+.header p{
+	font-size: 0.36rem;
+	color: #333333;
+	
+}
+.arror_return{
+	width: 0.24rem;
+	height: 0.42rem;
+	position: absolute;
+	left: 0.26rem;
+	top: 0.23rem;
+}
+.arror_return img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+/*正在审核*/
+.wrap_examine{
+	width: 100%;
+	padding: 0.3rem 0 0.5rem 0;
+	text-align: center;
+	    background: white;
+    margin-top: 0.2rem;
+}
+.box-content{
+	margin: 0 auto;
+	overflow: hidden;
+	display: inline-block;
+}
+.examine-pic{
+	width: 0.6rem;
+	height: 0.6rem;
+
+}
+.examine-pic img{
+	width: 100%;
+	height: 100%;
+}
+.box-content p{
+	font-size: 0.32rem;
+	color: #333;
+	padding-top: 0.07rem;
+	margin-left: 0.1rem;
+}
+/*验证信息*/
+.wrap-information{
+	margin-top: 0.2rem;
+	width: 100%;
+	padding: 0.29rem 0 0.29rem 0.26rem;
+	box-sizing: border-box;
+	overflow: hidden;
+    background: white;
+    color: #333333;   
+}
+.wrap-user-id li{
+	border-bottom: 1px solid #e2e2e2;
+
+    overflow: hidden;
+    padding-bottom: 0.29rem;
+}
+
+.wrap-user-id li span{
+	 font-size: 0.3rem;
+    float: left;
+}
+.wrap-user-id li P{
+	 font-size: 0.3rem;
+    float: right;
+    margin-right: 0.26rem;
+}
+.idcar{
+	padding-top: 0.29rem;
+}
+
+/*医师资格证*/
+.wrap-qualification{
+	width: 100%;
+
+	padding: 0rem 0 0.3rem 0.3rem;
+	background: white;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.qualification-title{
+	font-size: 0.3rem;
+	color: #333333;
+	padding-bottom: 0.29rem;
+}
+.line-long{
+	width: 100%;
+	height: 0.02rem;
+	background: #e2e2e2;
+	clear: both;
+	margin-bottom: 0.3rem;
+}
+.input-group span{
+	font-size: 0.3rem;
+    color: #999999;
+    display: block;
+    text-align: center;
+    padding-top: 0.2rem;
+    letter-spacing: 0.02rem;
+}
+.preview3{
+	width: 3.4rem;
+    height: 1.9rem;
+}
+.preview3 img{
+	width: 100%;
+	height: 100%;
+}

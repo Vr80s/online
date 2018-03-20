@@ -55,7 +55,7 @@ public class VersionController {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(WxJSController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WxJSController.class);
 
     @RequestMapping("checkUpdate")
     @ResponseBody
@@ -69,15 +69,14 @@ public class VersionController {
         }
 
         VersionInfoVo newVer=versionService.getNewVersion();
-
-		VersionInfoVo defaultNoUpdateResult=new VersionInfoVo();
-		defaultNoUpdateResult.setIsUpdate(false);
-		if(newVer==null){
-			return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
-		}
-		log.info("version:"+userVersion);
-		log.info("newVer.getVersion():"+newVer.getVersion());
-		//对比版本号
+        VersionInfoVo defaultNoUpdateResult=new VersionInfoVo();
+        defaultNoUpdateResult.setIsUpdate(false);
+        if(newVer==null){
+            return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
+        }
+        LOGGER.info("version:"+userVersion);
+        LOGGER.info("newVer.getVersion():"+newVer.getVersion());
+        //对比版本号
         String newVersion=newVer.getVersion();
         int diff = VersionCompareUtil.compareVersion(newVersion, userVersion);
         if (diff <= 0) {
@@ -92,11 +91,11 @@ public class VersionController {
 
     public static void main(String[] args) {
 //    	int diff = VersionCompareUtil.compareVersion("1.0.40","1.0.31");
-//    	log.info(diff);
+//    	LOGGER.info(diff);
 //        if (diff <= 0) {
-//           log.info("=========一样了");
+//           LOGGER.info("=========一样了");
 //        }else{
-//        	log.info("=========新了");
+//        	LOGGER.info("=========新了");
 //        }
 	}
     
@@ -137,7 +136,7 @@ public class VersionController {
 	    	versionService.insertTipOff(content,courseId,label,teacherId,"",imgStrs);
 			//return ResponseObject.newSuccessResponseObject("举报成功");
 	    	String str =  returnOpenidUri + "/xcviews/html/complaint_details.html?label="+label+"&falg=1";
-	    	log.info(str);
+	    	LOGGER.info(str);
 	    	//req.getRequestDispatcher(str).forward(req,res);
 	    	
 	    	res.sendRedirect("/xcviews/html/complaint_details.html?label="+label+"&falg=1");
@@ -172,7 +171,7 @@ public class VersionController {
         				             file.getBytes(),fileType,null);
             	JSONObject json = JSONObject.parseObject(headImgPath);
             	
-        		log.info("文件路径——path:"+headImgPath);
+        		LOGGER.info("文件路径——path:"+headImgPath);
             	
         		headImgPath  = json.get("url").toString();
             	newFilePaths.add(headImgPath);

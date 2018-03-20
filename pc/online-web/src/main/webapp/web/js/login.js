@@ -66,7 +66,7 @@ $(function () {
         if (ways == "register") {
             $(".register-button").trigger("click");
         }
-        /*登陆右边的叉*/
+        /*登录右边的叉*/
         var logUserInput = $(".login-content .userName"),
             logPassInput = $(".login-content .password");
         logUserInput.on("input", function () {
@@ -119,7 +119,7 @@ $(function () {
             $(this).css("border", "1px solid #2cb82c");
         });
         logUserInput.blur(function () {
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             if (logUserInput.val().trim().length === 0) {
                 logUserInput.css("border", "1px solid #ff4012");
@@ -159,7 +159,7 @@ $(function () {
             }
         });
         $(".goLogin").click(function (evt) { //登录验证
-            var regPhone = /^1[3-578]\d{9}$/;/*
+            var regPhone = /^1[3-5678]\d{9}$/;/*
             */var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             logUserInput.css("border", "");
             logPassInput.css("border", "");
@@ -193,10 +193,10 @@ $(function () {
             login(data);
         });
         function login(data, autoLogin) {
-            RequestService("/online/user/login", "POST", data, function (result) { //登陆/index.html   /online/user/login
+            RequestService("/online/user/login", "POST", data, function (result) { //登录/index.html   /online/user/login
                 if (result.success === true || result.success == undefined) {
                     location.href = "/index.html";
-                } else { //登陆错误提示
+                } else { //登录错误提示
                     errorMessage(result.errorMessage);
                     if (!flag) {
                         if (result.errorMessage == "用户名密码错误！") {
@@ -233,14 +233,14 @@ $(function () {
             cymPassBox = $(".registerPassword .RpassowrdHit");
 
 
-        var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
+        var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，20个字符
         var numberReg=/^\d{4,20}$/;//纯数字验证
         var passwordReg = /^(?!\s+)[\w\W]{6,18}$/;//密码格式验证
         $(".allowProtocal").click(function () {
             $(".goRegister").toggleClass("registerProtocal");
         });
         $(".goRegister").click(function () { //验证注册
-            var reg = /^1[3-578]\d{9}$/;
+            var reg = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             var yonghuNameLength;
 
@@ -270,7 +270,7 @@ $(function () {
                 yonghuNameLength=0;
             }
             if (data.nikeName == "") {
-                cymYonghuInfo.text("支持中文、字母、数字、'-'、'_'的组合，4-20个字符");
+                cymYonghuInfo.text("支持中文、字母、数字、'-'、'_'的组合，20个字符内");
                 cymYonghuBox.css("display", "block");
                 cymYonghuInput.css("border", "1px solid #ff4012");
                 return false;
@@ -284,8 +284,8 @@ $(function () {
                 cymYonghuBox.css("display", "block");
                 cymYonghuInput.css("border", "1px solid #ff4012");
                 return false;
-            }else if (yonghuNameLength > 20 || yonghuNameLength < 4){
-                cymYonghuInfo.text("长度只能在4-20个字符之间");
+            }else if (yonghuNameLength > 20 || yonghuNameLength < 1){
+                cymYonghuInfo.text("长度只能在20个字符之内");
                 cymYonghuBox.css("display", "block");
                 cymYonghuInput.css("border", "1px solid #ff4012");
                 return false;
@@ -337,14 +337,15 @@ $(function () {
                     } else {
                         RequestService("/online/user/phoneRegist", "POST", data, function (result) {
                             if (result.success === true) {
-                                rTips("注册成功，立即登录");
+                                rTips("注册成功");
                                 setTimeout(function () {
-                                    $(".login-button").trigger("click");
-                                    $(".usernameBox .userName").css("border", "");
-                                    $(".usernameBox .userNameHit").css("display", "none");
-                                    $(".passwordBox .password").css("border", "");
-                                    $(".passwordBox .passwordHit").css("display", "none");
-                                    $(".userName").val(data.username);
+                                    // $(".login-button").trigger("click");
+                                    // $(".usernameBox .userName").css("border", "");
+                                    // $(".usernameBox .userNameHit").css("display", "none");
+                                    // $(".passwordBox .password").css("border", "");
+                                    // $(".passwordBox .passwordHit").css("display", "none");
+                                    // $(".userName").val(data.username);
+                                    window.location.href = "/";
                                 }, 1000);
                             } else {
                                 errorMessage(result.errorMessage);
@@ -409,8 +410,8 @@ $(function () {
         cymYonghuInput.blur(function () {
             if(nickNameReg.test(cymYonghuInput.val())==true){
                 var yonghuNameLength = nickName();
-                if (yonghuNameLength > 20 || yonghuNameLength < 4) {
-                    cymYonghuInfo.text("长度只能在4-20个字符之间");
+                if (yonghuNameLength > 20 || yonghuNameLength < 1) {
+                    cymYonghuInfo.text("长度只能在20个字符之内");
                     cymYonghuBox.css("display", "block");
                     $(this).css("border", "1px solid #ff4012");
                 } else if(numberReg.test(cymYonghuInput.val())){
@@ -434,7 +435,7 @@ $(function () {
                 }
             }else{
                 if(cymYonghuInput.val()==""){
-                    cymYonghuInfo.text("支持中文、字母、数字、'-'、'_'的组合，4-20个字符");
+                    cymYonghuInfo.text("支持中文、字母、数字、'-'、'_'的组合，20个字符内");
                     cymYonghuBox.css("display", "block");
                     $(this).css("border", "1px solid #ff4012");
                 }else if(!nickNameReg.test(cymYonghuInput.val())){
@@ -452,7 +453,7 @@ $(function () {
         });
         //注册失去焦点判断用户名
         cymregInput.blur(function () {
-            var reg = /^1[3-578]\d{9}$/;
+            var reg = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             var data = {
                 username: cymregInput.val().trim(),
@@ -532,7 +533,7 @@ $(function () {
          })
         
         cymCodeInput.focus(function () {
-            var reg = /^1[3-578]\d{9}$/;
+            var reg = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             var data = {
                 username: cymregInput.val(),
@@ -620,7 +621,7 @@ $(function () {
             }
         });
         cymregInput.on("input", function () { //用户名提示
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             if (regPhone.test($(this).val())) {
                 registMethond = "mobile";
                 $(".verification-code").css("display", "block");
@@ -630,7 +631,7 @@ $(function () {
             }
         });
         //登录框输入内容清空按钮出现，点击清空按钮内容清空自身消失 格式正确则显示绿色对勾
-        /*登陆右边的叉*/
+        /*登录右边的叉*/
         cymregInput.on("input", function () {
             var val = $(this).val();
             if (val == "") {
@@ -664,7 +665,7 @@ $(function () {
         //注册框输入内容清空按钮出现，点击清空按钮内容清空自身消失
         cymregInput.on("input", function () {
             var val = cymregInput.val();
-            var regPhone = /^1[3-578]\d{9}$/;
+            var regPhone = /^1[3-5678]\d{9}$/;
             var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
             if (cymregInput.val() == "") {
                 $(".registerUsernameBox .cymyloginsuccess").css("display", "none");

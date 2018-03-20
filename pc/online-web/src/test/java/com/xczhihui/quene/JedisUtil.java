@@ -73,7 +73,7 @@ public class JedisUtil {
     }
 
     /**
-     * Description：获取指定 key 的值。
+     * Description：获取指定 KEY 的值。
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 8:20 2017/12/27 0027
@@ -98,8 +98,8 @@ public class JedisUtil {
     }
 
     /**
-     * Description：设置给定 key 的值。
-     * 如果 key 已经存储其他值， SET 就覆写旧值，且无视类型。
+     * Description：设置给定 KEY 的值。
+     * 如果 KEY 已经存储其他值， SET 就覆写旧值，且无视类型。
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 8:19 2017/12/27 0027
@@ -120,8 +120,8 @@ public class JedisUtil {
     }
 
     /**
-     * Description：设置给定 key 的值。
-     * 如果 key 已经存储其他值， SET 就覆写旧值，且无视类型。
+     * Description：设置给定 KEY 的值。
+     * 如果 KEY 已经存储其他值， SET 就覆写旧值，且无视类型。
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 8:19 2017/12/27 0027
@@ -237,7 +237,7 @@ public class JedisUtil {
     }
 
     /**
-     * Description：删除哈希表 key 中的一个或多个指定字段，不存在的字段将被忽略。
+     * Description：删除哈希表 KEY 中的一个或多个指定字段，不存在的字段将被忽略。
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 8:16 2017/12/27 0027
@@ -260,8 +260,8 @@ public class JedisUtil {
 
     /**
      * Description：将一个或多个值插入到列表头部。
-     * 如果 key 不存在，一个空列表会被创建并执行 LPUSH 操作。
-     * 当 key 存在但不是列表类型时，返回一个错误。
+     * 如果 KEY 不存在，一个空列表会被创建并执行 LPUSH 操作。
+     * 当 KEY 存在但不是列表类型时，返回一个错误。
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 8:15 2017/12/27 0027

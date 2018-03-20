@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.cloudClass.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
+import com.xczhihui.bxg.online.api.service.LiveCallbackService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
@@ -48,6 +49,9 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	private OnlineUserService  onlineUserService;
 	@Autowired
 	private CourseDao  courseDao;
+	@Autowired
+	private LiveCallbackService liveCallbackService;
+	
 	
 	@Value("${ENV_FLAG}")
 	private String envFlag;
@@ -89,6 +93,15 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		}else{
 			 sort=1;
 		}
+		//设置精品推荐排序
+		String essenceSortsql="SELECT IFNULL(MAX(essence_sort),0) as essenceSort FROM oe_course ";
+		List<Course> essenceSorttemp = dao.findEntitiesByJdbc(Course.class, essenceSortsql, params);
+		int essenceSort;
+		if(essenceSorttemp.size()>0){
+			essenceSort=essenceSorttemp.get(0).getEssenceSort().intValue()+1;
+		}else{
+			essenceSort=1;
+		}
 		//当课程存在密码时，设置的当前价格失效，改为0.0 yuruixin20170819
 		if(courseVo.getCoursePwd()!=null && !"".equals(courseVo.getCoursePwd().trim())){
 			courseVo.setCurrentPrice(0.0);
@@ -101,6 +114,7 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		entity.setCreateTime(new Date()); //当前时间
 		entity.setStatus('0' + ""); //状态
 		entity.setSort(sort); //排序
+		entity.setEssenceSort(essenceSort); //精品推荐排序
 		entity.setStartTime(courseVo.getStartTime());//直播开始时间
 		entity.setEndTime(courseVo.getEndTime());//直播结束时间
 		
@@ -242,7 +256,8 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public String createWebinar(Course entity) {
+	@Override
+    public String createWebinar(Course entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getGradeName());
 		webinar.setIntroduction(entity.getDescription());
@@ -319,7 +334,8 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public String reCreateWebinar(CourseVo entity) {
+	@Override
+    public String reCreateWebinar(CourseVo entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getCourseName());
 		webinar.setIntroduction(entity.getDescription());
@@ -345,25 +361,37 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		
 		 String hql="from Course where direct_id = ?";
          Course course= dao.findByHQLOne(hql,new Object[] {changeCallbackVo.getWebinarId()});
-         
+         System.out.println("course livestate "+course);
+         System.out.println("change CallbackVo"+changeCallbackVo.toString());
          String startOrEnd ="";
+         Integer type =0;
          if(course!=null){
         	 switch (changeCallbackVo.getEvent()) {
         	 case "start":
         		 startOrEnd ="start_time";
-        		course.setLiveStatus(1);
+        		 course.setLiveStatus(1);
+        		 course.setStartTime(new Date());
+        		 type = 2;
         		 break;
         	 case "stop":
         		 startOrEnd ="end_time";
         		 course.setLiveStatus(3);
+        		 course.setEndTime(new Date());
+        		 type = 3;
         		 break;
         	 default:
         		 break;
         	 }
         	 dao.update(course);
         	 
-        	if(startOrEnd!=""){
-        		
+        	 /*
+        	  * 发送直播开始通知广播
+        	  */
+    		 System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"+course.getId()+",type:"+type);
+    		 liveCallbackService.liveCallbackImRadio(course.getId()+"",type);
+        	 
+    		 
+        	 if(startOrEnd!=""){
         		String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
         		Map<String,Object> find = new HashMap<String,Object>();
         		find.put("live_id", course.getDirectId());
@@ -375,7 +403,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         			maxRecord = list.get(0);
         			maxRecord ++;
         		}
-        		
         		/**
         		 * 并且记录当前视频id开播的次数：
         		 */
@@ -408,6 +435,12 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	}
 	
 	
+	@Override
+	public Course findCourseVoByLiveExanmineId(Integer id) {
+		 String hql="from Course where examine_id = ?";
+         Course course= dao.findByHQLOne(hql,new Object[] {id});
+         return course;
+	}
 	@Override
 	public Course findCourseVoByLiveExanmineId(String id) {
 		 String hql="from Course where examine_id = ?";

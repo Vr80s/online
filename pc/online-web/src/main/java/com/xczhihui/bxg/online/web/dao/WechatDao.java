@@ -1,8 +1,16 @@
 package com.xczhihui.bxg.online.web.dao;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.online.api.vo.*;
 import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -13,17 +21,13 @@ import com.xczhihui.bxg.online.web.utils.PayConfigUtil;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
 import com.xczhihui.bxg.online.web.vo.GradeVo;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
-import com.xczhihui.bxg.online.web.vo.UserVideoVo;
 import com.xczhihui.bxg.online.web.vo.WechatVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
-
-import java.util.*;
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.user.center.bean.UserOrigin;
+import com.xczhihui.user.center.bean.UserSex;
+import com.xczhihui.user.center.bean.UserStatus;
+import com.xczhihui.user.center.bean.UserType;
 
 /**
  * 微信分销业务层对接接口类
@@ -65,7 +69,7 @@ public class WechatDao  extends SimpleHibernateDao {
                         "&orderNo="+wechatVo.getOrderNo()+"&timestamp="+wechatVo.getTimestamp()+"&transactionId="+wechatVo.getTransactionId();
         params= MD5Util.MD5Encode(params, "utf-8").toUpperCase();
         //生成签名
-        String sign = MD5Util.MD5Encode(params+"&key="+ PayConfigUtil.key, "utf-8").toUpperCase();
+        String sign = MD5Util.MD5Encode(params+"&KEY="+ PayConfigUtil.KEY, "utf-8").toUpperCase();
         if(wechatVo.getSign().equals(sign)){
 
                 //先判断此订单是否存在，如果存在，就是已经购买成功，否则继续注册以及购买课程流程

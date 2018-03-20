@@ -47,6 +47,8 @@
         var currentDay =dateStrYMd(myDate).replace(/-/g,"");*/
         
         if(result.watchState == 0){
+        	
+        	
             $("#buyDiv").show();
             $("#buyPirce").html(result.currentPrice);
             $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名</div>");
@@ -64,6 +66,11 @@
                 $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">报名已截止</div>");
             }
         }
+        
+        if(getQueryString("id") == "607"){
+        	 $("#buyDiv").show();
+        }
+        
         /**
          * 为详情页面添加数据
          */

@@ -39,6 +39,7 @@ public class UserCoinConsumption implements Serializable {
 
 	@Column(name="balance_value")
 	private BigDecimal balanceValue;
+	private BigDecimal rmb;
 
 	@Column(name="change_type")
 	private Integer changeType;
@@ -60,6 +61,8 @@ public class UserCoinConsumption implements Serializable {
 
 	@Column(name="order_no_overdue")
 	private String orderNoOverdue;
+	@Column(name="order_from")
+	private Integer orderFrom;
 
 	private String remark;
 
@@ -71,6 +74,8 @@ public class UserCoinConsumption implements Serializable {
 
 	@Column(name="user_coin_id")
 	private Integer userCoinId;
+	@Column(name="balance_type")
+	private Integer balanceType;
 
 	@Column(name="user_id")
 	private String userId;
@@ -82,8 +87,32 @@ public class UserCoinConsumption implements Serializable {
 	public UserCoinConsumption() {
 	}
 
+	public BigDecimal getRmb() {
+		return rmb;
+	}
+
+	public void setRmb(BigDecimal rmb) {
+		this.rmb = rmb;
+	}
+
+	public Integer getOrderFrom() {
+		return orderFrom;
+	}
+
+	public void setOrderFrom(Integer orderFrom) {
+		this.orderFrom = orderFrom;
+	}
+
 	public Integer getId() {
 		return this.id;
+	}
+
+	public Integer getBalanceType() {
+		return balanceType;
+	}
+
+	public void setBalanceType(Integer balanceType) {
+		this.balanceType = balanceType;
 	}
 
 	public void setId(Integer id) {

@@ -1,15 +1,10 @@
 package com.xczh.consumer.market.controller;
 
 import com.xczh.consumer.market.bean.OnlineCourse;
-import com.xczh.consumer.market.bean.OnlineOrder;
-import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.TimeUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +32,7 @@ public class LearningCenterController {
     @Autowired
     private OnlineUserService onlineUserService;
 
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(LearningCenterController.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LearningCenterController.class);
     
     /**
      * 获取列表
@@ -84,7 +78,7 @@ public class LearningCenterController {
 //				}
 //			}
 		}
-		log.info("list.size():"+lists.size());
+		LOGGER.info("list.size():"+lists.size());
         return ResponseObject.newSuccessResponseObject(lists);
     }
 

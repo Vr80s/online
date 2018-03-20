@@ -28,6 +28,7 @@ public class SchoolServiceImpl  extends OnlineBaseServiceImpl implements SchoolS
      * @param cityId
      * @return
      */
+    @Override
     public List<SchoolVo> getSchoolList(String cityId) {
         List<SchoolVo> schools= schoolDao.getSchoolList(cityId);
         return  schools;

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />	
 
 <script type="text/javascript">
   try {
@@ -12,19 +12,22 @@
   } catch (e) {
   }
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
   当前位置：移动端管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span>安卓app管理 </span>
+  <span>app版本管理 </span>
 </div>
 
 
 <div class="mainrighttab tabresourse bordernone">
 	<p class="col-xs-4" style="padding: 0;">
 		<button class="btn btn-sm btn-success add_bx" title="新增">
-			<i class="glyphicon glyphicon-plus"></i> 新增
+			<i class="glyphicon glyphicon-plus"></i> 新增安卓版本
+		</button>
+		<button class="btn btn-sm btn-success add_ios_bx" title="新增">
+			<i class="glyphicon glyphicon-plus"></i> 新增ios版本
 		</button>
 		<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 			<i class="glyphicon glyphicon-trash"></i> 批量删除
@@ -40,6 +43,16 @@
                             <input type="hidden" value="search_name" class="propertyName"/>
                            </div>
                     </td> -->
+                    <td>
+                        <div class="profile-info-value searchTr">
+                            <select id="search_type" class="propertyValue1">
+                                <option  value="" >app类型</option>
+                                <option  value="1" >IOS</option>
+                                <option  value="2" >安卓</option>
+                            </select>
+                            <input type="hidden" value="search_type" class="propertyName"/>
+                        </div>
+                    </td>
                     <td>
                         <div class="profile-info-value searchTr">
                             <select id="search_status" class="propertyValue1">
@@ -75,6 +88,9 @@
 <div id="dialogAddMobileBannerDiv"></div>
 <div id="addMobileBannerDialog" class="hide">
 	<form id="addMobileBanner-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	
+		<input type="hidden" value = "2" name="type"  maxlength="50">
+	
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="description"><font color="red">*</font>版本号: </label>
 			 <div class="col-sm-6">
@@ -82,7 +98,7 @@
              </div>
 		</div>
 	    <div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
+		<div class="form-group"  id ="ad_apk" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
 			 <div class="col-sm-6">
 					 <input type="file" name="filename1" id="imgPath_file"/>
@@ -94,12 +110,14 @@
 					 <input name="downUrl" id="add_imgPath" value="" type="hidden" class="{required:true}" >
              </div>
 		</div>
+		
+		
 	    <div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>强制更新: </label>
 			 <div class="col-sm-6">
-               		<input type="radio" value="1" name="isMustUpdate" class="{required:true}">是
-               		<input type="radio" value="2" name="isMustUpdate" class="{required:true}" checked="checked">否
+               		<input type="radio" value="true" name="mustUpdate" class="{required:true}">是
+               		<input type="radio" value="0" name="mustUpdate" class="{required:true}" checked="checked">否
              </div>
 		</div>
 	    <div class="space-4"></div>
@@ -113,6 +131,47 @@
 		</div>
 	</form>
 </div>
+
+
+
+<!-- 新增iosform -->
+<div id="dialogAddIosDiv"></div>
+<div id="dialogAddIosDivDialog" class="hide">
+	<form id="dialogAddIosDiv-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	
+		<input type="hidden" value = "1" name="type"  maxlength="50">
+	
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="description"><font color="red">*</font>版本号: </label>
+			 <div class="col-sm-6">
+			 		<input type="text" name="version"  id="add_name" maxlength="50" class="col-xs-10 col-sm-12 {required:true}">
+             </div>
+		</div>
+		
+	    <div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>强制更新: </label>
+			 <div class="col-sm-6">
+               		<input type="radio" value="true" name="mustUpdate" class="{required:true}" >是
+               		<input type="radio" value="0" name="mustUpdate" class="{required:true}" checked="checked">否
+             </div>
+		</div>
+	    <div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>更新介绍: </label>
+			 <div class="col-sm-6">
+               		<div class="clearfix" >
+	                	<textarea name="describe" id="description"class="{required:true}" cols="39" rows="5"></textarea>
+	                </div>
+             </div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
 
 <!-- 修改form -->
 <div id="dialogUpdateMobileBannerDiv"></div>
@@ -137,8 +196,8 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>强制更新: </label>
 			 <div class="col-sm-6">
-               		<input type="radio" value="1" id="r1" name="mustUpdate" class="{required:true}">是
-               		<input type="radio" value="0" id="r2" name="mustUpdate" class="{required:true}" checked="checked">否
+               		<input type="radio" value="true" id="r1" name="mustUpdate" class="{required:true}">是
+               		<input type="radio" value="false" id="r2" name="mustUpdate" class="{required:true}" checked="checked">否
              </div>
 		</div>
 	    <div class="space-4"></div>
@@ -152,4 +211,4 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/mobile/appManager.js?v=1.7"></script>
+<script type="text/javascript" src="/js/mobile/appManager.js?v=ipandatcm_1.3"></script>

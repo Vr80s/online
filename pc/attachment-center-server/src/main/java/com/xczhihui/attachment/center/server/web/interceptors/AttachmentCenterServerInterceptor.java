@@ -24,16 +24,19 @@ public class AttachmentCenterServerInterceptor implements HandlerInterceptor {
 	@Value("${white.ip.list:127.0.0.1}")
 	private String whiteIpList = "127.0.0.1";
 	
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object object,
-	        Exception exception) throws Exception {
+	@Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object object,
+                                Exception exception) throws Exception {
 	}
 
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object object,
-	        ModelAndView modelAndView) throws Exception {
+	@Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object object,
+                           ModelAndView modelAndView) throws Exception {
 
 	}
 
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
+	@Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
 		
 		//上传判断白名单
 		if ("on".equals(whiteIpListOn) && "/attachment/upload".equals(request.getRequestURI()) 

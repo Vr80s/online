@@ -39,13 +39,16 @@ public class AppVersionInfo extends BasicEntity2 implements Serializable {
 	private String describe;
 
 	@Column(name = "is_must_update")
-	private boolean isMustUpdate;
+	private Boolean isMustUpdate;
 	
 	@Column(name = "down_url")
 	private String downUrl;
 	
 	@Column(name = "filename")
 	private String filename;
+	
+	@Column(name = "type")
+	private Integer type;
 	
 
 	public Integer getSort() {
@@ -90,6 +93,12 @@ public class AppVersionInfo extends BasicEntity2 implements Serializable {
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
 	}
 	
 	

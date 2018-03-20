@@ -104,7 +104,8 @@ public class AttachmentServiceImpl implements AttachmentService {
 		return this.getFileData(att);
 	}
 
-	public byte[] getFileData(Attachment attachment) {
+	@Override
+    public byte[] getFileData(Attachment attachment) {
 		String absPath = this.getAbsPathFileName(attachment);
 		byte[] data = FileUtil.readFromFile(absPath);
 		return data;

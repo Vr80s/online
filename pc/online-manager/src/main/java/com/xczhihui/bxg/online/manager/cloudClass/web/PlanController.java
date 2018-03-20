@@ -56,7 +56,7 @@ public class PlanController{
 	 * @param vo
 	 * @return
 	 */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
 	@RequestMapping(value = "/addPlan", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addPlan(PlanVo planVo,HttpServletRequest request){
@@ -77,7 +77,7 @@ public class PlanController{
      * @param vo
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/addOneRestPlan", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addOneRestPlan(PlanVo planVo,HttpServletRequest request){
@@ -98,7 +98,7 @@ public class PlanController{
      * @return
      * @throws IOException 
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/exportExcelPlan")
     public void exportExcelPlan(PlanVo planVo,HttpServletRequest request,HttpServletResponse res) throws IOException{
 
@@ -270,7 +270,7 @@ public class PlanController{
      * @param vo
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/getGradePlanChapter", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject getGradePlanChapter(PlanVo planVo,HttpServletRequest request){
@@ -286,7 +286,7 @@ public class PlanController{
 	 * @param vo
 	 * @return
 	 */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
 	@RequestMapping(value = "updatePlanById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updatePlanById (PlanVo planVo,HttpServletRequest request){
@@ -314,7 +314,7 @@ public class PlanController{
      * @param vo
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "deletePlanChuanJiangById", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject deletePlanChuanJiangById (PlanVo planVo,HttpServletRequest request){

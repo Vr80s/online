@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper">
+    <update id="updateSaleState">
+		UPDATE
+		  `oe_course` oc
+		  JOIN `course_apply_info` cai
+			ON oc.`apply_id` = cai.`id` SET oc.`status` = #{state},oc.release_time =NOW()
+		WHERE cai.id = #{courseApplyId}
+		  AND cai.`user_id` = #{userId}
+	</update>
+	<update id="deleteCourseApplyById">
+		UPDATE
+		  `course_apply_info` cai
+		SET
+		  cai.`is_delete` = 1,
+		  cai.`update_time` = NOW()
+		WHERE cai.id = #{id}
+	</update>
+
+	<select id="selectCourseApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+		SELECT
+		  cai.id,
+		  cai.img_path imgPath,
+		  cai.title,
+		(cai.`price`*10) price,
+		  cai.`multimedia_type` multimediaType,
+		  cai.`course_length` courseLength,
+		  cai.`course_form` courseForm,
+		  cai.`status` applyStatus,
+		  oc.`status`
+		FROM
+		  `course_apply_info` cai
+		  LEFT JOIN
+		  `oe_course` oc
+		  ON cai.`id` = oc.`apply_id`
+		WHERE cai.`user_id` = #{userId}
+		AND cai.is_delete=0
+		AND cai.`collection` = 0
+		<if test="courseForm != null">
+			AND cai.`course_form` = #{courseForm}
+		</if>
+		<if test="multimediaType != null">
+			AND cai.`multimedia_type` = #{multimediaType}
+		</if>
+		<if test="title != null and title!=''">
+			AND cai.`title` like concat('%',#{title},'%')
+		</if>
+		ORDER BY cai.`create_time` DESC
+	</select>
+
+	<select id="selectCollectionApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+		SELECT
+		  cai.id id,
+		  cai.img_path imgPath,
+		  cai.title,
+		(cai.`price`*10) price,
+		  cai.`course_number` courseNumber,
+		  oc.`is_recommend` recommend,
+		  cai.`multimedia_type` multimediaType,
+		  cai.`status` applyStatus,
+		  oc.`status` ,
+		  cai.`last_update_time` lastUpdateTime
+		FROM
+		  `course_apply_info` cai
+		  LEFT JOIN `oe_course` oc
+			ON cai.`id` = oc.`apply_id`
+		WHERE cai.`user_id` = #{userId}
+		AND cai.is_delete=0
+		AND cai.`collection` = 1
+		AND cai.`course_form` = 2
+		<if test="multimediaType != null">
+			AND cai.`multimedia_type` = #{multimediaType}
+		</if>
+		<if test="title != null and title!=''">
+			AND cai.`title` like concat('%',#{title},'%')
+		</if>
+		ORDER BY cai.`create_time` DESC
+
+	</select>
+
+	<select id="selectLiveApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+		SELECT
+		cai.id id,
+		cai.img_path imgPath,
+		cai.title,
+		cai.`course_length` courseLength,
+		cai.`start_time` startTime,
+		oc.live_status liveStatus,
+		oc.direct_id webinarId
+		FROM
+		`course_apply_info` cai
+	    JOIN `oe_course` oc
+		ON cai.`id` = oc.`apply_id`
+		WHERE cai.`user_id` = #{userId}
+		AND cai.`course_form` = 1
+		<if test="title != null and title!=''">
+			AND cai.`title` concat('%',#{title},'%')
+		</if>
+		ORDER BY cai.`create_time` DESC
+
+	</select>
+	<select id="selectCoinTransactionPage" resultType="java.util.Map">
+		SELECT
+		  *
+		FROM
+		  (SELECT
+			'礼物' AS changeType,
+			oc.`grade_name` AS goods,
+			TRUNCATE(uci.value, 2) AS VALUE,
+			uci.`create_time`
+		  FROM
+			`user_coin_increase` uci
+			JOIN `oe_gift_statement` ogs
+			  ON ogs.id = uci.order_no_gift
+			JOIN `oe_course` oc
+			  ON ogs.`live_id` = oc.`id`
+		  WHERE uci.`change_type` = 3
+			AND uci.`user_id` = #{userId}
+		  UNION all
+		  SELECT
+			'课程销售' AS changeType,
+			oc.`grade_name` AS goods,
+			TRUNCATE(uci.value, 2) AS VALUE,
+			uci.`create_time`
+		  FROM
+			`user_coin_increase` uci
+			JOIN `oe_order_detail` ood
+			  ON ood.`id` = uci.`order_no_course`
+			JOIN `oe_course` oc
+			  ON ood.`course_id` = oc.`id`
+		  WHERE uci.`change_type` = 7
+			AND uci.`user_id` = #{userId}
+		  UNION all
+		  SELECT
+			'结算' AS changeType,
+			'结算' AS goods,
+			TRUNCATE(ucc.value, 2) AS VALUE,
+			ucc.`create_time`
+		  FROM
+			`user_coin_consumption` ucc
+		  WHERE ucc.`change_type` = 5
+			AND ucc.`user_id` = #{userId}
+		  ) uccuci
+		ORDER BY uccuci.create_time DESC
+	</select>
+	<select id="selectRmbTransactionPage" resultType="java.util.Map">
+		SELECT
+		  *
+		FROM
+		  (SELECT
+		  ucc.`value`,
+		  '提现' AS changeType,
+		  ucc.`create_time` createTime,
+		  '银行卡' AS form,
+		  oubc.`acct_pan` acctPan,
+		  eai.`status`,
+		  eai.`dismissal`,
+		  eai.`dismissal_remark` dismissalRemark
+		FROM
+		  `user_coin_consumption` ucc
+		  JOIN `enchashment_apply_info` eai
+			ON ucc.`order_no_enchashment` = eai.`id`
+		  JOIN `oe_user_bank_card` oubc
+			ON eai.`bank_card_id` = oubc.`id`
+		WHERE ucc.`change_type` = 6 AND ucc.`user_id`=#{userId}
+		UNION all
+		SELECT
+		  uci.`value`,
+		  '提现驳回' AS changeType,
+		  uci.`create_time` createTime,
+		  NULL AS form,
+		  NULL AS acctPan,
+		  NULL AS `status`,
+		  NULL AS `dismissal`,
+		  NULL AS dismissalRemark
+		FROM
+		  `user_coin_increase` uci
+		WHERE uci.`change_type` = 5 AND uci.`user_id`=#{userId}
+		UNION all
+		SELECT
+		  uci.`value`,
+		  '结算' AS changeType,
+		  uci.`create_time` createTime,
+		  NULL AS form,
+		  NULL AS acctPan,
+		  NULL AS `status`,
+		  NULL AS `dismissal`,
+		  NULL AS dismissalRemark
+		FROM
+		  `user_coin_increase` uci
+		WHERE uci.`change_type` = 6 AND uci.`user_id`=#{userId}
+		) uccuci
+		ORDER BY uccuci.createTime DESC
+	</select>
+	<select id="selectAllCourses" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+		SELECT
+		  cai.`id`,
+		  cai.`title`,
+		  cai.lecturer,
+		 (cai.`price`*10) price
+		FROM
+		  `course_apply_info` cai
+		WHERE cai.`collection` = 0
+		  AND cai.`is_delete` = 0
+		  AND cai.`user_id` = #{userId}
+		  AND cai.`multimedia_type` =#{multimediaType}
+	</select>
+	<select id="selectCourseApplyById" resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
+		SELECT
+		  cai.id,
+		  cai.title,
+		  cai.subtitle,
+		  cai.user_id,
+		  cai.img_path,
+		  cai.lecturer,
+		  cai.lecturer_description,
+		  cai.course_form,
+		  cai.course_menu,
+		  cai.start_time,
+		  cai.end_time,
+		  cai.city,
+		  cai.address,
+		  cai.course_length,
+		  cai.price * 10 AS price,
+		  cai.password,
+		  cai.course_description,
+		  cai.course_detail,
+		  cai.course_outline,
+		  cai.course_resource,
+		  cai.course_number,
+		  cai.multimedia_type,
+		  cai.collection,
+		  cai.sale,
+		  cai.status,
+		  cai.dismissal,
+		  cai.dismissal_remark,
+		  cai.review_person,
+		  cai.review_time,
+		  cai.create_time,
+		  cai.update_time,
+		  cai.resource_id,
+		  cai.city,
+		  cai.old_apply_info_id
+		  FROM
+		  `course_apply_info` cai
+		WHERE  cai.`is_delete` = 0
+		  AND cai.`user_id` = #{userId}
+		  AND cai.`id`=#{caiId}
+	</select>
+	<select id="selectCourseApplyForValidate" resultType="java.lang.Integer">
+		SELECT
+		COUNT(*)
+		FROM
+		`course_apply_info` cai
+		WHERE cai.`is_delete` = 0
+		AND  cai.`title`=#{title}
+		<if test="oldApplyInfoId != null">
+			AND cai.`id` != #{oldApplyInfoId}
+		</if>
+	</select>
+	<select id="selectCourseForValidate" resultType="java.lang.Integer">
+		SELECT
+		  COUNT(*)
+		FROM
+		  `oe_course` oc
+		WHERE oc.`is_delete` = 0
+		  AND oc.`grade_name` =  #{title}
+	</select>
+	<select id="selectCourseApplyByCollectionId"
+			resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
+		SELECT
+		  cai.`id`,
+		  cai.`title`,
+		  cai.`lecturer`,
+		  (cai.`price`*10) price,
+		  cca.collection_course_sort
+		FROM
+		  `course_apply_info` cai
+		  JOIN `collection_course_apply` cca
+			ON cai.id = cca.`course_apply_id`
+		WHERE cca.`collection_apply_id` = #{id}
+    	ORDER BY cca.`collection_course_sort`
+	</select>
+	<select id="selectCollectionApplyByCourseApplyId" resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
+		SELECT
+		  cai.title
+		FROM
+		  `collection_course_apply` cca
+		  JOIN `course_apply_info` cai
+			ON cca.`collection_apply_id` = cai.id
+			 AND cai.`status`=2
+			 AND cai.`is_delete`=0
+			 AND cca.`course_apply_id`=#{id}
+		   GROUP BY cai.id
+	</select>
+</mapper>

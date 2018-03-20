@@ -14,13 +14,13 @@ $(function() {
 		"sortable" : false,
 		"data" : "id"
 	},{
-		"title" : "用户名",
+		"title" : "用户昵称",
 		"width" : "12%",
 		"class" : "center",
 		"sortable" : false,
 		"data" : 'name'
 	},{
-		"title" : "账号",
+		"title" : "用户名",
 		"width" : "12%",
 		"class" : "center",
 		"sortable" : false,
@@ -60,7 +60,7 @@ $(function() {
 		"visible":false
 	}
 	,{
-		"title" : "登陆IP",
+		"title" : "登录IP",
 		"class" : "center",
 		"width" : "8%",
 		"sortable" : false,
@@ -122,7 +122,7 @@ $(function() {
             "sortable" : false,
             "data" : 'balanceGive'
         },{
-            "title" : "微吼账号",
+            "title" : "微吼帐号",
             "class" : "center",
             "width" : "8%",
             "sortable" : false,
@@ -194,7 +194,7 @@ $(function() {
 				str+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,0);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
 			}
 			debugger;
-			str += '<a class="blue" href="javascript:void(-1);" title="编辑个人简介" onclick="showDetailDialog(\''+row.id+'\');"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>';
+			// str += '<a class="blue" href="javascript:void(-1);" title="编辑个人简介" onclick="showDetailDialog(\''+row.id+'\');"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>';
 //			str+='<a class="blue" href="javascript:void(-1);" title="设置学科权限" onclick="OpenMenuDailg(this);"><i class="glyphicon glyphicon-wrench"></i></a></div>';
 			return str;
 		}

@@ -1,0 +1,181 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+body{
+	font-family: "Helvetica";
+}
+/*头部开始*/
+header {
+    width: 100%;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    /*background: #ccc;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    /*border-bottom: 1px solid #D8DDE6;*/
+}
+.header{
+	/*width: 14.851rem;*/
+    height: 100%;
+    /*margin-left: 0.26rem;*/
+    /*padding-top: 0.298rem;*/
+}
+#home_img{
+	display: none;
+}
+.header_return{
+	width: 1.24rem;
+    height: 0.88rem;
+    /* background: red; */
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_return img{
+	width: 0.24rem;
+    height: 0.43rem;
+    margin-top: 0.22rem;
+    display: block;
+    margin-left: 0.26rem;
+}
+.header_title{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 0.36rem;
+	text-align: center;
+	color: #333;
+	z-index: -1;
+}
+.enroll{
+	font-size: 0.28rem;
+    color: #00BC12;
+    float: right;
+    width: 1.1rem;
+    text-align: center;
+}
+
+/*头部结束*/
+
+/*中间内容开始*/
+.enter{
+	width: 100%;
+	height: 100%;
+	margin-top: 1.55rem;
+}
+.enter_one{
+	width: 6.1rem;
+	height: 0.97rem;
+	line-height: 0.97rem;
+	margin: 0 auto;
+	/*background: #ddd;*/
+	border-bottom: 1px solid #D8DDE6;
+}
+.enter_one .img0{
+	width: 0.25rem;
+	height: 0.25rem;
+	margin-top: 0.35rem;
+	float: left;
+	margin-right: 0.142rem;
+}
+.enter_one .img1{
+	width: 0.25rem;
+	height: 0.25rem;
+	margin-top: 0.35rem;
+	float: left;
+	margin-right: 0.142rem;
+}
+.enter_one .put{
+	width: 4.8rem;
+    height: 0.98rem;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0;
+    /* border-bottom: 1px solid red; */
+    display: -webkit-box;
+	font-size: 0.28rem;
+	color: #333 !important;
+	background: none !important;
+	outline: none;
+	float: left;
+}
+.enter_one .div{
+	width: 0.3rem;
+	height: 0.18rem;
+	background: url(../images/hide.png) no-repeat;
+	background-size: 100% 100%;
+	float: left;
+	margin-top: 0.4rem;
+}
+.enter_one .span{
+	font-size: 0.3rem;
+	color: #333;
+	float: left;
+	margin-right: 0.2rem;
+}
+
+
+.enter_btn{
+	width: 6.1rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	margin: 0 auto;
+	text-align: center;
+	background: #00BC12;
+	font-size: 0.30rem;
+	color: #fff;
+	opacity: 0.3;
+	border-radius: 8px;
+	margin-top: 0.6rem;
+	margin-bottom: 0.3rem;
+}
+
+#btn{
+	width: 1.6rem;
+	height: 0.56rem;
+	line-height: 0.56rem;
+	text-align: center;
+	background: #00BC12;
+	border-radius: 8px;
+	font-size: 0.24rem;
+	float: right;
+    margin-top: 0.25rem;
+    border: 0;
+    background: #00bc12;
+	color: #fff;
+}
+
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #ccc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ccc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #ccc;
+}
+/*中间内容结束*/
+

@@ -90,10 +90,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		if(null == course){
 			return ResponseObject.newErrorResponseObject("查询不到课程信息！");
 		}
-//		boolean falg = oLCourseMapper.queryOrderIsShop(course.getId(),user.getId());
-//		if(falg){
-//			return ResponseObject.newErrorResponseObject("已经购买了此课程！");
-//		}
 		Map<String,Object> returnMap = new HashMap<String,Object>();
 		/*
 		 * 查找订单详情
@@ -103,15 +99,17 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		/**
 		 * 原来只判断了一种情况，单个订单。如果是多个订单呢？
 		 */
-		//OnlineOrder order_query = orderMapper.getCourseInfoByCourseId(courseId,userId);
 		OnlineOrder order_query = orderMapper.getOrderCourseInfoByUserId(courseId,userId);
 		String orderId =UUID.randomUUID().toString().replace("-", "");
 		if(null != order_query){
 	        long createTime = order_query.getCreateTime().getTime();//订单创建时间
 	        long now = new Date().getTime();
-	        if((now - createTime)/1000 > 60 * 60 * 24){  //也就是这个未支付的订单，并且很长时间了，就直接取消了，在生成一个新订单
-	        	orderMapper.updateOnlineOrderStatus(1, order_query.getOrderNo()); //取消这个订单
-	        	
+	         //也就是这个未支付的订单，超过一天就失效了，就直接取消。在生成一个新订单
+	        
+	        if((now - createTime)/1000 > 60 * 60 * 24){  
+	        	//取消这个订单
+	        	orderMapper.updateOnlineOrderStatus(1, order_query.getOrderNo()); 
+	        	//创建一个新订单
 	        	String orderNo = createOrder1(course, user,orderFrom,orderId);
 	        	returnMap.put("orderNo", orderNo);
 	        	returnMap.put("orderId", orderId);
@@ -168,17 +166,16 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		String orderNo= TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
 		order.setOrderNo(orderNo); //订单号
 		order.setPreferentyMoney(0.0); //优惠金额
-		order.setActualPay(course.getCurrentPrice());//实际支付
+		order.setActualPay(course.getCurrentPrice());//实际支付 人民币
 		order.setPurchaser(user.getName());  //购买者
 		order.setCreatePerson(user.getLoginName());
 		order.setCreateTime(new Date());     //创建时间
 		order.setUserId(user.getId());       //用户ID
-		order.setOrderFrom(orderFrom);       //订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销' 4:h5网页    5：手机app 
+		order.setOrderFrom(orderFrom);       //订单来源   1：pc 2：h5 3:android 4 ios 5 线下 6 工作人员
 		order.setPayAccount("暂无");          //支付账号
 		order.setPayTime(new Date());
 		orderMapper.addOrder(order);
 		orderMapper.addOrderDetail(order.getId(), course.getCourseId(),course.getCurrentPrice());
-		
 		return orderNo;
 	}
 	/**
@@ -229,6 +226,7 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 
 	@Override
 	public ResponseObject getOrderAndCourseInfoByOrderNo(String orderNo) throws SQLException {
+		
 		OnlineOrder order = orderMapper.getOnlineOrderByOrderNo(orderNo);
 		Map<String,Object> returnMap = new HashMap<String,Object>();
 		if(null == order){
@@ -236,17 +234,25 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		}
 		returnMap.put("orderNo", order.getOrderNo());
 		List<OnlineCourse> lists = orderMapper.getCourseByOrderId(order.getId());
-		if(null != lists && lists.size() > 0){
-			/*OnlineCourse course = lists.get(0);
-			returnMap.put("courseName", course.getGradeName());
-			returnMap.put("currentPrice", course.getCurrentPrice());
-			returnMap.put("orderId",order.getId());
-			returnMap.put("courseId",course.getId());
-			returnMap.put("smallimgPath",course.getSmallImgPath());*/
-		}
 		order.setAllCourse(lists);
 		return ResponseObject.newSuccessResponseObject(order);
 	}
+	
+	@Override
+	public ResponseObject getNewOrderAndCourseInfoByOrderNo(String orderNo) throws SQLException {
+		
+		OnlineOrder order = orderMapper.getOnlineOrderByOrderNo(orderNo);
+		Map<String,Object> returnMap = new HashMap<String,Object>();
+		if(null == order){
+			return ResponseObject.newErrorResponseObject("查询不到订单信息！");
+		}
+		returnMap.put("orderNo", order.getOrderNo());
+		List<OnlineCourse> lists = orderMapper.getNewCourseByOrderId(order.getId());
+		order.setAllCourse(lists);
+		return ResponseObject.newSuccessResponseObject(order);
+	}
+	
+	
 	@Override
 	public void updateUserParentId(String id, String shareCode) throws Exception {
 		Connection conn = JdbcUtil.getCurrentConnection();
@@ -308,7 +314,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 	}
 	@Override
 	public ResponseObject getOnlineOrderByOrderId(String orderId) throws SQLException {
-		
 		
 		OnlineOrder order = orderMapper.getOnlineOrderByOrderId(orderId);
 		Map<String,Object> returnMap = new HashMap<String,Object>();
@@ -429,8 +434,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		List<Map<String,Object>> listOod = orderMapper.query(JdbcUtil.getCurrentConnection(), sql.toString(),new MapListHandler(),params1);
 		
 		//如果不是订单是订单号呢
-
-
 		for (Map<String, Object> map : listUser) {
 			if(map.get("courseId")!=null){
 				for (Map<String, Object> map1 : listOod) {
@@ -465,6 +468,27 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		return  str;
 	}
 
+	@Override
+	public ResponseObject getNewOrderAndCourseInfoByOrderId(String orderId) throws SQLException {
+		OnlineOrder order =  orderMapper.getOnlineOrderByOrderId(orderId);
+		Map<String,Object> returnMap = new HashMap<String,Object>();
+		if(null == order){
+			return ResponseObject.newErrorResponseObject("查询不到订单信息！");
+		}
+		returnMap.put("orderNo", order.getOrderNo());
+		List<OnlineCourse> lists = orderMapper.getNewCourseByOrderId(order.getId());
+		if(null != lists && lists.size() > 0){
+			/*OnlineCourse course = lists.get(0);
+			returnMap.put("courseName", course.getGradeName());
+			returnMap.put("currentPrice", course.getCurrentPrice());
+			returnMap.put("orderId",order.getId());
+			returnMap.put("courseId",course.getId());
+			returnMap.put("smallimgPath",course.getSmallImgPath());*/
+		}
+		order.setAllCourse(lists);
+		return ResponseObject.newSuccessResponseObject(order);
+	}
+	
 
 	public static void main(String[] args) {
 
@@ -519,5 +543,19 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 
 		//System.out.println(list.size());
 
+	}
+	
+	
+
+
+	@Override
+	public List<PayRecordVo> findUserWallet(Integer pageNumber,
+			Integer pageSize, String userId) {
+		try {
+			return payRecordMapper.findUserWallet(userId,pageNumber,pageSize);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
 	}
 }

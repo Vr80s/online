@@ -207,7 +207,7 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 
 	private Integer roomNumber; //房间号
 	
-	private String  vhallId; //微吼账号
+	private String  vhallId; //微吼帐号
 	
 	private String  vhallPass; //微吼密码
 	
@@ -697,8 +697,7 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 		System.out.println("进入了....");
 		HttpSession session = event.getSession();
 
-		Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) session
-				.getServletContext().getAttribute("userMap");
+		Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) session.getServletContext().getAttribute("userMap");
 
 		userMap.put(this, session);
 	}
@@ -710,8 +709,7 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 		System.out.println("退出了....");
 		HttpSession session = event.getSession();
 		// 获得人员列表
-		Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) session
-				.getServletContext().getAttribute("userMap");
+		Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) session.getServletContext().getAttribute("userMap");
 		// 将用户移除了
 		userMap.remove(this);
 	}

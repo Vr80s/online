@@ -33,7 +33,7 @@ public class ShareManageController {
      */
     @RequestMapping(value = "/order_subsidies")
     public ResponseObject findSubsidies(HttpServletRequest request){
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(user!=null) {
             return newSuccessResponseObject(shareManageService.findSubsidies(user.getId()));
@@ -53,7 +53,7 @@ public class ShareManageController {
      */
     @RequestMapping(value = "/order_shareOrders")
     public ResponseObject findShareOrders(HttpServletRequest request,Integer searchCase,String searchContent,Integer level,String startTime,String endTime,Integer pageNumber, Integer pageSize){
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(user!=null) {
             return newSuccessResponseObject(shareManageService.findShareOrders(user.getId(),searchCase,searchContent,level,startTime,endTime,pageNumber,pageSize));
@@ -97,7 +97,7 @@ public class ShareManageController {
      */
     @RequestMapping(value = "/saveShareRelation")
     public ResponseObject saveShareRelation(HttpServletRequest req){
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(req);
         return ResponseObject.newSuccessResponseObject(shareManageService.saveShareRelation(req,user));
     }

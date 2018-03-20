@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.service.impl;
 
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.ShoppingCartDao;
 import com.xczhihui.bxg.online.web.dao.VideoDao;
@@ -36,11 +37,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     @Override
     public ResponseObject addCart(BxgUser user, Integer courseId) {
         CourseVo course = courseDao.findCourseOrderById(courseId);
-        if(course.getType()==null && (course.getDirectId()==null||"".equals(course.getDirectId().trim())) && course.getOnlineCourse()!=1){
+        if(course.getType()== CourseForm.VOD.getCode() && (course.getDirectId()==null||"".equals(course.getDirectId().trim()))&&!course.getCollection()){
             throw new RuntimeException(String.format("视频正在来的路上，请稍后购买"));
         }
-        boolean existCourse = dao.ifExistsCourse(user.getId(),courseId);//课程是否已经加入购物车
-        boolean ifBuy = dao.ifHasBuyCourse(user.getId(),courseId);//课程是否已经购买了
+        //课程是否已经加入购物车
+        boolean existCourse = dao.ifExistsCourse(user.getId(),courseId);
+        //课程是否已经购买了
+        boolean ifBuy = dao.ifHasBuyCourse(user.getId(),courseId);
         boolean ifZero = dao.ifZeroCourse(courseId);
         if(existCourse){
             return ResponseObject.newSuccessResponseObject("该课程已在购物车中了，无需重复加入");
@@ -82,7 +85,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
      * @param courseIds 加入购物车课程id数组
      * @param rule_id 活动id号
      */
-    public ResponseObject addCourseToCart(String userId, String[] courseIds,String rule_id) {
+    @Override
+    public ResponseObject addCourseToCart(String userId, String[] courseIds, String rule_id) {
         List<String> ids = Arrays.asList(courseIds);
         Iterator<String> iter = ids.iterator();
         while (iter.hasNext()) {

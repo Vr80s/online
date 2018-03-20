@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
+<link href="/js/layer/skin/layer.css" type="text/css" />	
     <style>
         .caret {
             display: inline-block;
@@ -364,8 +364,8 @@
   });
 
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
   当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
@@ -904,7 +904,7 @@
 				<%-- <div class="fengpeiSearch">
 					<input class="fenpeiTeacherSearch" type="text"
 						placeholder="老师姓名、拼音、首字母搜索" /> <img class="fenpeiTeacherImg"
-						src="${base}/images/mynote-search.png" alt="" />
+						src="/images/mynote-search.png" alt="" />
 				</div> --%>
 				<div class="fenpeiList">
 					<div class="fenpeiList-content">
@@ -1092,4 +1092,4 @@
   </table>
 </div>
 
-<script type="text/javascript" src="${base}/js/cloudClass/grade.js?v=1"></script>
+<script type="text/javascript" src="/js/cloudClass/grade.js?v=ipandatcm_1.3"></script>

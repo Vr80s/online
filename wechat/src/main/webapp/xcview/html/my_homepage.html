@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--弹框引入-->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px";
+</script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<link rel="stylesheet" href="../css/my_homepage.css" />
+
+</head>
+<!--公用-->
+<!--y--float:right;  z--float:left;  both--clear:both;-->
+<body style="background:#F8F8F8;">
+	
+	<!--头部开始-->
+	<header>
+		<div class="header">
+			<!--<div class="header_bg"></div>-->
+			<div class="header_img">
+				<!-- <script type="text/html" id="userInfo"> -->
+				<div class="header_img_right y">
+					主播工作台 &nbsp;>
+				</div>
+				<div class="both"></div>
+				<img src="" alt="" class="img0"
+						 onclick="location.href ='persons.html'"
+						 id="smallHeadPhoto" />
+				<p class="p" id="p_name"></p>
+				<!-- </script> -->
+			</div>
+		</div>
+	</header>
+	<!--头部结束-->
+	
+	<!--中间模块开始-->
+	<div class="my_main">
+		<ul>
+
+			<li>
+				<p class="p0" id="xmbNumber">0</p>
+
+				<p class="p1">熊猫币</p>
+			</li>
+			<li class="li0">
+				<p class="p0">0</p>
+				<p class="p1">优惠券</p>
+			</li>
+			<li onclick="go_enter()">
+				<p class="p0" id="courseNumber">0</p>
+				<p class="p1">已购课程</p>
+			</li>
+			<li style="border-left: 1px solid #D8DDE6;" onclick="go_cnlogin()">
+				<p class="p0" style="margin-top: 0.28rem;margin-bottom: 0.16rem;"><img src="../images/order-status.png" alt="" /></p>
+				<p class="p1">我的钱包</p>
+			</li>
+			<div class="both"></div>
+		</ul>
+	</div>
+	
+	<!--我要当主播-->
+	<!--<div class="my_anchor" onclick="myAnchor()">
+		<div class="anchor_main">
+			<img src="../images/my_anchor.png" class="img0 z" />
+			我要当主播
+			<img src="../images/account05.png" class="img1 y" />
+		</div>
+	</div>-->
+	<!--去下载页面-->
+	<div class="my_anchor">
+		<div class="anchor_main">
+			<img src="../images/my_anchor.png" class="img0 z" />
+			我要当主播
+			<img src="../images/account05.png" class="img1 y" />
+		</div>
+	</div>
+	
+	<!--我的消息-->
+	<!--<div class="my_news">
+		<div class="my_news_main">
+			<div class="news" onclick="location.href ='my_news.html'">
+				<img src="../images/my_news.png" class="img0 z" />
+				我的消息
+				<img src="../images/account05.png" class="img1 y" />
+			</div>
+			<div class="achievement">
+				<img src="../images/my_reflection.png" class="img0 z" />
+				我的成就
+				<img src="../images/account05.png" class="img1 y" />
+			</div>
+			<div class="integral">
+				<img src="../images/my_integral.png" class="img0 z" />
+				我的积分
+				<img src="../images/account05.png" class="img1 y" />
+			</div>
+		</div>
+	</div>-->
+	
+	<!--帮助-->
+	<div class="my_help">
+		<div class="my_help_main">
+			<div class="help" onclick="location.href ='help.html'">
+				<img src="../images/help.png" class="img0 z" />
+				帮助
+				<img src="../images/account05.png" class="img1 y" />
+			</div>
+			<div class="tickling" onclick="location.href ='feedback.html'">
+				<img src="../images/tickling.png" class="img0 z" />
+				反馈
+				<img src="../images/account05.png" class="img1 y" />
+			</div>
+			<div class="set" onclick="location.href ='set.html'">
+				<img src="../images/set.png" class="img0 z" />
+				设置
+				<img src="../images/account05.png" class="img1 y" />
+			</div>
+		</div>
+	</div>
+
+	<!--中间模块结束-->
+	
+	
+
+
+<!--底部开始-->
+	<div class="footer_perch"></div>
+	<div class="footer">
+		<ul>
+			<li>
+				<a href="home_page.html" class="footer_one"></a>
+				<p>学堂</p>
+			</li>
+			<li>
+				<a href="javascript:;" class="footer_two" onclick="go_study()"></a>
+				<p>学习</p>
+			</li>
+			<li>
+				<a href="discovery.html" class="footer_three"></a>
+				<p>发现</p>
+			</li>
+			<li>
+				<a href="" class="footer_four" style="background: url(../images/my_fours.png) no-repeat center;background-size: 0.38rem 0.4rem;"></a>
+				<p style="color: #00BC12;">我的</p>
+			</li>
+		</ul>
+	</div>
+	<!--底部结束-->
+
+
+</body>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/my_homepage.js?v=wechat_1.11111.1"></script>
+
+
+<script type="text/javascript">
+	window.onload = function(){
+		$(".li0").click(function(){
+			webToast("敬请期待...","middle",1500);
+		});
+	};
+</script>
+
+
+</html>

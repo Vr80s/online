@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +32,8 @@ public class VideoController {
     private VideoService videoService;
     @Autowired
     private AskTagService  askTagService;
+    @Autowired
+    private CourseService courseService;
     private Object lock = new Object();
 
     /**
@@ -40,7 +44,7 @@ public class VideoController {
      */
     @RequestMapping(value = "/getVideos")
     public ResponseObject getVideos(HttpServletRequest request,String sectionId,String courseId,Boolean isTryLearn) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return ResponseObject.newSuccessResponseObject(videoService.getVideos(sectionId, courseId,user,isTryLearn));
     }
@@ -53,7 +57,7 @@ public class VideoController {
      */
     @RequestMapping(value = "/getvideos")
     public ResponseObject getvideos(HttpServletRequest request,Integer courseId,Boolean isTryLearn) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String userId = "";
         if(user!=null){
@@ -68,11 +72,12 @@ public class VideoController {
      * @return
      */
     @RequestMapping(value = "/getVideoCriticize")
-    public ResponseObject getVideoCriticize(HttpServletRequest request,String videoId,Integer pageNumber,Integer pageSize) {
-        //获取当前登陆用户信息
+    public ResponseObject getVideoCriticize(HttpServletRequest request,Integer videoId,Integer pageNumber,Integer pageSize) {
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String userName = user==null? "" : user.getLoginName();
-        return ResponseObject.newSuccessResponseObject(videoService.getVideoCriticize(videoId, userName, pageNumber, pageSize));
+//        CourseApplyVo cv = courseService.getCourseApplyByCourseId(videoId);
+        return ResponseObject.newSuccessResponseObject(videoService.getVideoCriticize(null, videoId, pageNumber, pageSize,user!= null ? user.getId() :null));
     }
 
     /**
@@ -84,10 +89,12 @@ public class VideoController {
     @RequestMapping(value = "/saveCriticize",method = RequestMethod.POST)
     public ResponseObject saveCriticize(HttpServletRequest request,CriticizeVo criticizeVo){
         try {
-            //获取当前登陆用户信息
+            //获取当前登录用户信息
             OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
             if(user!=null) {
-                criticizeVo.setUserId(user.getId());
+                CourseApplyVo cv = courseService.getCourseApplyByCourseId(criticizeVo.getCourseId());
+                criticizeVo.setCreatePerson(user.getId());
+                criticizeVo.setUserId(cv.getUserLecturerId());
                 criticizeVo.setCreateTime(new Date());
                 videoService.saveCriticize(criticizeVo);
                 return ResponseObject.newSuccessResponseObject("提交评论成功！");
@@ -118,7 +125,7 @@ public class VideoController {
      */
     @RequestMapping(value = "/updatePraise",method = RequestMethod.POST)
     public ResponseObject updatePraise(HttpServletRequest request,Boolean isPraise, String criticizeId) {
-        //获取当前登陆用户信息
+        //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(user!=null) {
             Map<String, Object> returnMap = videoService.updatePraise(isPraise, criticizeId, user.getLoginName());
@@ -136,7 +143,7 @@ public class VideoController {
     @RequestMapping(value = "/updateStudyStatus",method = RequestMethod.POST)
     public ResponseObject updateStudyStatus(HttpServletRequest request,String studyStatus,String videoId) {
         try {
-            //获取当前登陆用户信息
+            //获取当前登录用户信息
             OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
             if(user!=null) {
                 videoService.updateStudyStatus(studyStatus, videoId, user.getId());

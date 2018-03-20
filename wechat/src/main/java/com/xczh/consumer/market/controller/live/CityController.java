@@ -39,7 +39,7 @@ public class CityController {
 	
 	//UserAddressManagerVo
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(CityController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CityController.class);
 	
 	/**
 	 * 得到用户的地址管理列表
@@ -47,10 +47,10 @@ public class CityController {
 	@RequestMapping("getAddressAll")
 	@ResponseBody
 	public ResponseObject getAddressAll(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res)
 			throws Exception {
 		
-		OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 		/**
 		 * 获取所有的省份
 		 */

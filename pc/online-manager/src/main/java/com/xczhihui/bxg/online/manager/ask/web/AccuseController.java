@@ -52,7 +52,7 @@ public class AccuseController {
          return mav;
     }
     
-    @RequiresPermissions("ask:accuse")
+    //@RequiresPermissions("ask:accuse")
     @RequestMapping(value = "/findAccuseList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findQuestionList(TableVo tableVo) {
@@ -92,7 +92,7 @@ public class AccuseController {
          return tableVo;
     }
     
-    @RequiresPermissions("ask:accuse")
+    //@RequiresPermissions("ask:accuse")
     @RequestMapping(value = "/checkAccuseStatus", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject checkAccuseStatus(AccuseVo accuseVo){

@@ -44,7 +44,7 @@ public class FocusController {
 	private UserCoinService userCoinService;
 	
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(FocusController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(FocusController.class);
 	/**
 	 * Description： 我的主页
 	 * @param req
@@ -83,7 +83,7 @@ public class FocusController {
 		}
 		Map<String,Object> map =new HashMap<String, Object>();
 		if(null == user){	
-			//return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			//return ResponseObject.newErrorResponseObject("登录失效");
 			map.put("countFans", 0);
 			map.put("countFocus", 0);
 			map.put("xmbCount", 0);
@@ -99,7 +99,7 @@ public class FocusController {
 			Integer countFocus =focusService.findMyFocusCount(user.getId());
 			map.put("countFans", countFans);
 			map.put("countFocus", countFocus);
-			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));
+			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()));
 			/**
 			 * 查下房间号
 			 *  是否是讲师：0,用户，1既是用户也是讲师
@@ -129,9 +129,9 @@ public class FocusController {
 		if(null == pageNumberS || null == pageSizeS){	
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		int pageNumber =Integer.parseInt(pageNumberS);
 		int pageSize = Integer.parseInt(pageSizeS);
@@ -161,9 +161,9 @@ public class FocusController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		int pageNumber =Integer.parseInt(pageNumberS);
 		int pageSize = Integer.parseInt(pageSizeS);
@@ -185,9 +185,9 @@ public class FocusController {
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
 		String lecturerId = req.getParameter("lecturerId");
-		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req);
 	    if(onlineUser==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		OnlineUser onlineLecturer= onlineUserService.findUserById(lecturerId);
 		if(null == onlineLecturer){	
@@ -215,9 +215,9 @@ public class FocusController {
 		params.put("token",req.getParameter("token"));
 		String lecturerId = req.getParameter("lecturerId");
 		String courseId = req.getParameter("courseId");
-		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req);
 	    if(onlineUser==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		int course_id =0;
 		if(null != courseId){

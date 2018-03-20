@@ -7,6 +7,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Grade;
 import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.OffLineCity;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseLecturVo;
@@ -59,8 +60,10 @@ public interface CourseService {
 	 *@return void
 	 */
 	public void updateCourse(CourseVo courseVo);
-	
-	/**
+
+    void checkName(Integer id,String courseName);
+
+    /**
 	 * 修改课程
 	 * 
 	 *@return void
@@ -147,6 +150,20 @@ public interface CourseService {
       * @return
       */
      public void updateSortUpRec (Integer id);
+
+	/**
+	 * 上移
+	 * @param Integer id
+	 * @return
+	 */
+	public void updateCitySortUp (Integer id);
+
+	/**
+	 * 下移
+	 * @param Integer id
+	 * @return
+	 */
+	public void updateCitySortDown (Integer id);
      
      /**
       * 下移
@@ -167,6 +184,12 @@ public interface CourseService {
       * @return
       */
      public boolean updateRec(String[] ids,int isRecommend);
+	/**
+	 * 更新城市是否推荐
+	 * @param Integer id
+	 * @return
+	 */
+	public boolean updateCityRec(String[] ids,int isRecommend);
 
      /**
       * 查询出授课方式的下拉值
@@ -194,9 +217,10 @@ public interface CourseService {
 	 * @param courseDetail
 	 * @param courseOutline
 	 * @param commonProblem
+	 * @param lecturerDescription
 	 */
 	public void updateCourseDetail(String courseId, String smallImgPath, String detailImgPath, String courseDetail,
-			String courseOutline, String commonProblem);
+								   String courseOutline, String commonProblem, String lecturerDescription);
 	/**
 	 * 获得课程详情
 	 * @param courseId
@@ -254,11 +278,69 @@ public interface CourseService {
 
 	public Course getPublicCourseById(Integer courseId);
 
-	public void deleteCourseByExamineId(String id, boolean b);
+	public void deleteCourseByExamineId(Integer id, boolean b);
 
 	/**
 	 * 同步课程视频信息（无章节知识点版）
 	 * @param id
 	 */
 	public String updateCourseVideo(String id);
+
+	public void addCourseCity(String city);
+
+	/**
+	 * Description：根据id获取线下课
+	 * @param cityId
+	 * @return
+	 * @return OffLineCity
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	OffLineCity findCourseCityByName(Integer cityId);
+    /**
+     * Description：根据城市名判断是否存在此城市
+     * @param city
+     * @return
+     * @return Boolean
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	Boolean findCourseCityByName(String city);
+	/**
+	 * Description：当禁用或者启用时，如果这个城市是最后一个。就直接删除吧,查询不出来。
+	 * 		也就禁用了。在删除线下课时，如果判断得到这个城市是最后一个的话，就也删除这个
+	 * @param city
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	void deleteCourseCityByName(String city);
+	/**
+	 * 获取所有的城市管理数据
+	 * Description：
+	 * @return
+	 * @return List<OffLineCity>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	Page<OffLineCity>   getCourseCityList(OffLineCity searchVo,Integer pageNumber,Integer pageSize);
+
+	public void updateCourseCityStatus(Integer id);
+
+	public void deleteCourseCityStatus(Integer id);
+
+	public void updateCourseCity(OffLineCity offLineCity);
+
+	Course findCourseInfoById(Integer id);
+	/**
+	 * Description：设置推荐值
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/9 14:19
+	 **/
+	public void updateRecommendSort(Integer id,Integer recommendSort, String recommendTime);
+	/**
+	 * Description：过了推荐时效的推荐值恢复到默认值
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/14 18:00
+	 **/
+	public void updateDefaultSort();
+
 }

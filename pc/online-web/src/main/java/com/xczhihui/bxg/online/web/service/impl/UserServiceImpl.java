@@ -15,6 +15,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -152,15 +153,16 @@ public class UserServiceImpl implements UserService {
 		/*初始化用户账户--20170911--yuruixin*/
 		userCoinService.saveUserCoin(u.getId());
 		if(u.getVhallId()==null){
-			String vhallId = VhallUtil.createUser(u,password);
+			String vhallPassword = RandomUtil.getCharAndNumr(6);
+			String vhallId = VhallUtil.createUser(u,vhallPassword);
 			u.setVhallId(vhallId);
-			u.setVhallPass(password);
+			u.setVhallPass(vhallPassword);
 			u.setVhallName(u.getId());
 			updateVhallInfo(u);
 		}
 
 		/*初始化用户账户--20170911--yuruixin*/
-		u.getId();
+//		u.getId();
 		//向用户中心注册
 		if (userCenterAPI.getUser(u.getLoginName()) == null) {
 			userCenterAPI.regist(u.getLoginName(), password, u.getName(), UserSex.UNKNOWN, null,
@@ -451,7 +453,8 @@ public class UserServiceImpl implements UserService {
 	 * 获取用户资料
 	 * @return
 	 */
-	public UserDataVo getUserData(OnlineUser loginUser) {
+	@Override
+    public UserDataVo getUserData(OnlineUser loginUser) {
 		UserDataVo vo = new UserDataVo();
 		if (StringUtils.hasText(loginUser.getId())) {
 			vo = userCenterDao.getUserData(loginUser.getId());
@@ -501,7 +504,8 @@ public class UserServiceImpl implements UserService {
 	 * @param nickName  昵称
 	 * @return
 	 */
-    public Boolean  checkNickName(String  nickName,OnlineUser u) {
+    @Override
+    public Boolean  checkNickName(String  nickName, OnlineUser u) {
 		String sql = "select name from oe_user where name = ? ";
 		List<UserDataVo> ou = dao.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,
 				BeanPropertyRowMapper.newInstance(UserDataVo.class), nickName);
@@ -519,7 +523,8 @@ public class UserServiceImpl implements UserService {
 	public void updateHeadPhoto(String userId, byte[] image) throws IOException {
 
 		OnlineUser ou = dao.findOneEntitiyByProperty(OnlineUser.class, "id", userId);
-		String oldHeadImg=ou.getSmallHeadPhoto();  //旧的头像
+		//旧的头像
+		String oldHeadImg=ou.getSmallHeadPhoto();
 		Attachment bigattr = this.attachmentCenterService.addAttachment(userId, AttachmentType.ONLINE, userId+"_big.png", 
 				image,StringUtils.getFilenameExtension(userId+"_big.png"), null);
 		
@@ -814,7 +819,7 @@ public class UserServiceImpl implements UserService {
 				return ResponseObject.newErrorResponseObject("绑定失败！");
 			}
 		}else{
-			return ResponseObject.newErrorResponseObject("要绑定的账号未注册！");
+			return ResponseObject.newErrorResponseObject("要绑定的帐号未注册！");
 		}
 	}
 	
@@ -823,6 +828,28 @@ public class UserServiceImpl implements UserService {
 	public String updateVhallInfo(OnlineUser u) {
 		dao.update(u);
 		return "修改成功！";
+	}
+
+	@Override
+	public Boolean isAnchor(String loginName) {
+		StringBuffer sql = new StringBuffer();
+		List<OnlineUser> users;
+		Map<String,Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("loginName",loginName);
+		sql.append( "SELECT \n" +
+				"  ou.`name`," +
+				" ca.status caStatus "+
+				"FROM\n" +
+				"  `course_anchor` ca \n" +
+				"  JOIN `oe_user` ou \n" +
+				"    ON ca.`user_id` = ou.id \n" +
+				"WHERE ou.`login_name` = :loginName ");
+		users= dao.findEntitiesByJdbc(OnlineUser.class, sql.toString(), paramMap);
+		if(users.size()!=1){
+			return false;
+		}else{
+			return users.get(0).getCaStatus();
+		}
 	}
 }
 

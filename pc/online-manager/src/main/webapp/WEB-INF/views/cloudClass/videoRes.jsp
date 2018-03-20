@@ -21,11 +21,11 @@
 	
     #quesTable td {height: 35px!important; text-overflow: ellipsis;overflow:hidden;white-space: nowrap!important;}
 </style>
-<script type="text/javascript" src="${base}/js/cloudClass/map.js"></script>
-<script type="text/javascript" src="${base}/js/cloudClass/map.min.js"></script>
-<script src="${base}/js/layer/layer.js"></script>
-<script type="text/javascript" src="${base}/js/ajaxfileupload.js"></script>
-<script type="text/javascript" src="${base}/js/cloudClass/question_type.min.js"></script>
+<script type="text/javascript" src="/js/cloudClass/map.js"></script>
+<script type="text/javascript" src="/js/cloudClass/map.min.js"></script>
+<script src="/js/layer/layer.js"></script>
+<script type="text/javascript" src="/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/js/cloudClass/question_type.min.js"></script>
 <script type="text/javascript">
 		try {
 			var sessionId = "${pageContext.session.id}";
@@ -40,7 +40,7 @@
 			
 			alertInfo(e.message);
 		}
-		var BASE = "${base}";
+		var BASE = "";
 		 $(function(){
 		        $(".divques").on("mouseover","img",function(){
 		            var csrc = $(this).attr("src");
@@ -58,12 +58,12 @@
 		    });
 </script>
 <%@ include file="../common/excel.jsp"%>
-<link rel="stylesheet" href="${base}/js/chosen/chosen.css" />
-<script type="text/javascript" src="${base}/js/chosen/chosen.jquery.js"></script>
-<script type="text/javascript" src="${base}/js/jquery.form.js"></script>
-<script type="text/javascript" src="${base}/js/cloudClass/videoRes.js?v=6757846"></script>
-<script type="text/javascript" src="${base}/js/swfobject.js"></script>
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
+<link rel="stylesheet" href="/js/chosen/chosen.css" />
+<script type="text/javascript" src="/js/chosen/chosen.jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.form.js"></script>
+<script type="text/javascript" src="/js/cloudClass/videoRes.js?v=6757846"></script>
+<script type="text/javascript" src="/js/swfobject.js"></script>
+<link href="/js/layer/skin/layer.css" type="text/css" />
 <script type="text/javascript">
 	//视频上传
 	/* swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '80', '25', '8');

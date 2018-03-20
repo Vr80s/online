@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+/*.header {
+  height: 50px;
+  background-color: skyblue;
+}
+.footer {
+  height: 250px;
+  background-color: skyblue;
+}*/
+
+/*.contain {
+  width: 1200px;
+  margin: 0 auto;
+}*/
+.footerDT{
+	background-color: #fff;
+}
+.contain > div{
+	height: 540px;
+	background-color: #fff;
+	/*border: 1px solid #000;*/
+}
+.changColor{
+	 background-color:#2cb82c !important;
+}
+.contain .app_first{
+	background: #ECF6ED;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.contain .app_first >img{
+	width: 498px;
+	height: 480px;
+}
+.contain .app_first .app_first_right {
+ height: 400px;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ justify-content: space-around;
+ margin-left: 30px;
+}
+.contain .app_first .app_first_right > img{
+	width: 461px;
+	height: 65px;
+}
+.contain .app_first .app_first_right > p{
+	width: 541px;
+	font-family: MicrosoftYaHei;
+	font-size: 18px;
+	color: #6B7870;
+	line-height: 32px;
+}
+.contain .app_first .app_first_right .app_phone_ewm {
+	align-self: center;
+}
+.contain .app_first .app_first_right .app_phone_ewm img{
+	width: 140px;
+	height: 140px;
+}
+
+.contain .app_second,
+.contain  .app_third,
+.contain .app_four{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.contain .app_second > img,
+.contain .app_third > img{
+		width: 400px;
+		height: 400px;
+}
+.contain .app_second .app_second_right,
+.contain .app_four .app_four_right{
+	width: 641px;
+	padding-left: 128px;
+}
+.contain .app_second .app_second_right > h3,
+.contain .app_third .app_third_left >h3,
+.contain .app_four .app_four_right > h3{
+	font-family: MicrosoftYaHei;
+	font-size: 32px;
+	color: #00BC12;
+	margin-bottom: 30px;
+}
+.contain .app_second .app_second_right > p,
+.contain .app_third .app_third_left > p,
+.contain .app_four .app_four_right > p{
+	font-family: MicrosoftYaHei;
+	font-size: 16px;
+	color: #888888;
+}
+.contain .app_third .app_third_left > p,
+.contain .app_four .app_four_right > p{
+	width: 476px;
+}
+.contain .app_third .app_third_left{
+	width: 641px;
+}

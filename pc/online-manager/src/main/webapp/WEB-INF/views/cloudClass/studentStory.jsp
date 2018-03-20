@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
 <style>
 #edit_imgAdd img{
 width:85px!important;
@@ -15,9 +15,9 @@ height:85px!important;
 	} catch (e) {
 	}
 </script>
-<script src="${base}/js/layer/layer.js"></script>
-<link href="${base}/js/layer/skin/layer.css" type="text/css" />
-<script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script src="/js/layer/layer.js"></script>
+<link href="/js/layer/skin/layer.css" type="text/css" />
+<script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：运营管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 	</small> <span> 学员故事 </span>
@@ -372,4 +372,4 @@ height:85px!important;
 </div>
 
 
-<script type="text/javascript" src="${base}/js/cloudClass/studentStory.js?v=1.1"></script>
+<script type="text/javascript" src="/js/cloudClass/studentStory.js?v=ipandatcm_1.3"></script>

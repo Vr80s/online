@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper">
+
+	<resultMap type="com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO" id="UserCoinIncreaseVOResult">
+		<id column="order_no" property="orderNo" />
+		<id column="grade_name" property="gradeName" />
+		<id column="pay_time" property="payTime" />
+		<id column="name" property="name" />
+		<id column="actual_pay" property="actualPay" />
+		<id column="course_id" property="courseId" />
+		<id column="start_time" property="startTime" />
+		<id column="live_id" property="liveId" />
+		<id column="giver" property="giver" />
+		<id column="create_time" property="createTime" />
+		<id column="total" property="total" />
+	</resultMap>
+
+	<select id="listCourseOrder" parameterType="string" resultMap="UserCoinIncreaseVOResult">
+		SELECT
+		  uci.id,
+		  oo.`order_no`,
+		  oc.`grade_name`,
+		  oc.type,
+		  oo.`pay_time`,
+		  ou.`name`,
+		  ood.`actual_pay`*10 actual_pay,
+		  ood.`course_id`,
+		  oo.`user_id`,
+		  oo.`create_time` ,
+		  CONCAT(TRUNCATE(uci.`ratio`,2),'%')  percent,
+			uci.ios_brokerage_value,
+			uci.value
+		FROM
+		  `user_coin_increase` uci
+		  JOIN `oe_order_detail` ood
+			ON uci.`order_no_course` = ood.`id`
+		  JOIN `oe_order` oo
+			ON ood.`order_id` = oo.`id`
+		    <if test="startTime != null">
+				<![CDATA[ and oo.`create_time` >= #{startTime}]]>
+			</if>
+		    <if test="endTime != null">
+				<![CDATA[ and oo.`create_time` <= #{endTime}]]>
+		    </if>
+		  JOIN `oe_course` oc
+			ON oc.id = ood.`course_id`
+		    <if test="gradeName != null">
+			    and oc.`grade_name` like concat('%', #{gradeName}, '%')
+			</if>
+			<if test="courseForm != null">
+				and oc.`type` = #{courseForm}
+			</if>
+			<if test="multimediaType != null">
+				and oc.`multimedia_type` = #{multimediaType}
+			</if>
+		  JOIN `oe_user` ou
+			ON oo.`user_id` = ou.id
+		  JOIN `course_apply_info` cai
+			ON cai.id = oc.`apply_id`
+		WHERE cai.`user_id` = #{userId}
+		ORDER BY oo.`pay_time` DESC
+	</select>
+
+	<select id="listGiftOrder" parameterType="string" resultMap="UserCoinIncreaseVOResult">
+		SELECT
+		  ogs.`live_id`,
+		  oc.`grade_name`,
+		  oc.type,
+		  oc.`start_time`
+		FROM
+		  `user_coin_increase` uci
+		  JOIN `oe_gift_statement` ogs
+			ON uci.`order_no_gift` = ogs.id
+			<if test="startTime != null">
+				<![CDATA[ and ogs.`create_time` >= #{startTime}]]>
+			</if>
+			<if test="endTime != null">
+				 <![CDATA[ and ogs.`create_time` <=  #{endTime}]]>
+			</if>
+		  JOIN `oe_course` oc
+			ON ogs.`live_id` = oc.`id`
+			<if test="gradeName != null">
+				and oc.`grade_name` like concat('%', #{gradeName}, '%')
+			</if>
+		WHERE uci.user_id = #{userId}
+		GROUP BY ogs.`live_id`
+		ORDER BY oc.`start_time` desc
+	</select>
+
+	<select id="sumIosBrokerageValueByCourseId" parameterType="string" resultType="java.math.BigDecimal">
+		SELECT
+			sum(uci.`ios_brokerage_value`)
+		FROM
+		  `user_coin_increase` uci
+		  JOIN `oe_order_detail` ood
+			ON uci.`order_no_course` = ood.`id`
+			AND ood.`course_id` = #{courseId}
+	</select>
+
+	<select id="sumIosBrokerageValueByLiveId" parameterType="string" resultType="java.math.BigDecimal">
+		SELECT
+			sum(uci.`ios_brokerage_value`)
+		FROM
+			`user_coin_increase` uci
+		JOIN `oe_gift_statement` ogs
+			ON uci.`order_no_gift` = ogs.`id`
+			AND ogs.`live_id` = #{liveId}
+	</select>
+
+	<select id="sumGiverIosBrokerageValueByLiveId" resultType="java.math.BigDecimal">
+		SELECT
+			sum(uci.`ios_brokerage_value`)
+		FROM
+			`user_coin_increase` uci
+		JOIN `oe_gift_statement` ogs
+			ON uci.`order_no_gift` = ogs.`id`
+			AND ogs.`live_id` = #{liveId}
+			AND ogs.`giver` = #{giver}
+	</select>
+
+	<select id="sumValueByCourse" parameterType="string" resultType="decimal">
+		SELECT
+		  SUM(uci.value)
+		FROM
+		  `user_coin_increase` uci
+		  JOIN `oe_order_detail` ood
+			ON uci.`order_no_course` = ood.`id`
+			AND ood.`course_id` = #{courseId}
+		WHERE uci.`change_type`=7
+	</select>
+
+	<select id="sumValueByGift" parameterType="string" resultType="decimal">
+		SELECT
+		  SUM(uci.`value`)
+		FROM
+		  `user_coin_increase` uci
+		  JOIN `oe_gift_statement` ogs
+			ON uci.`order_no_gift` = ogs.id
+			WHERE ogs.`live_id`= #{liveId}
+	</select>
+
+	<select id="sumGiftTotalPriceByLiveId" resultType="java.math.BigDecimal">
+		SELECT
+		  SUM(ogs.`price`)
+		FROM
+		  `oe_gift_statement` ogs
+		WHERE ogs.`live_id` = #{liveId}
+	</select>
+
+	<select id="rankGiftList" parameterType="string" resultMap="UserCoinIncreaseVOResult">
+		SELECT
+		  oc.type,
+		  ou.`name`,
+		  ogs.giver,
+		  SUM(ogs.`price`) total,
+  			CONCAT(TRUNCATE(uci.`ratio`,2),'%')  percent
+		FROM
+		  `oe_gift_statement` ogs
+		  JOIN `oe_user` ou
+			ON ogs.`giver` = ou.id
+		  JOIN `oe_course` oc
+			ON ogs.`live_id` = oc.`id`
+		  JOIN `user_coin_increase` uci
+			ON uci.`order_no_gift` = ogs.id
+		WHERE ogs.`live_id` = #{liveId}
+		GROUP BY ou.id
+		ORDER BY total desc
+	</select>
+
+	<select id="sumValue" resultType="java.math.BigDecimal">
+		select
+		  sum(uci.`value`)
+		from
+		  `oe_gift_statement` ogs
+		  join `oe_user` ou
+			on ogs.`giver` = ou.id
+		   join `user_coin_increase` uci
+		   on uci.`order_no_gift` = ogs.id
+		where ogs.`giver`= #{giver}
+		and ogs.`live_id` = #{liveId}
+	</select>
+
+	<select id="sumValueByCourseByUciId" parameterType="string" resultType="decimal">
+		SELECT
+		uci.value
+		FROM
+		`user_coin_increase` uci
+		JOIN `oe_order_detail` ood
+		ON uci.`order_no_course` = ood.`id`
+		AND uci.`id` = #{id}
+		WHERE uci.`change_type`=7
+	</select>
+
+</mapper>

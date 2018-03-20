@@ -170,6 +170,7 @@ public class CourseVo{
     private String week;
 
     private String teacherDescription;
+    private String lecturerDescription;
 
     /**
      * 课程跳转是否展示课程介绍页 0:不展示  1:展示
@@ -194,6 +195,7 @@ public class CourseVo{
      *是否发送过订阅短信提醒
      */
     private Boolean isSent;
+    private Boolean collection;
 
     private String userLecturerId;
     
@@ -206,10 +208,54 @@ public class CourseVo{
     private boolean isAvailable;//是否有效
     
     
-    private boolean isSelfCourse; //是否自己的课程 
-    
+    private boolean isSelfCourse; //是否自己的课程
 
-    
+    private Integer courseNumber;
+
+    private String status;
+
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getCourseNumber() {
+        return courseNumber;
+    }
+
+    public void setCourseNumber(Integer courseNumber) {
+        this.courseNumber = courseNumber;
+    }
+
+    public Boolean getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Boolean collection) {
+        this.collection = collection;
+    }
+
+    public String getLecturerDescription() {
+        return lecturerDescription;
+    }
+
+    public void setLecturerDescription(String lecturerDescription) {
+        this.lecturerDescription = lecturerDescription;
+    }
+
     public boolean isSelfCourse() {
         return isSelfCourse;
     }
@@ -292,7 +338,9 @@ public class CourseVo{
 	}
 
 	public void setStartTime(Date startTime) {
-		setWeek(getWeekOfDate(startTime));
+        if(startTime!=null){
+            setWeek(getWeekOfDate(startTime));
+        }
 		this.startTime = startTime;
 	}
 

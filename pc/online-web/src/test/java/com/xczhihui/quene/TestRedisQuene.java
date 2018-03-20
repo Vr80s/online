@@ -2,7 +2,7 @@ package com.xczhihui.quene;
 
 public class TestRedisQuene {
 
-    public static byte[] redisKey = "key-yuxin".getBytes();
+    public static byte[] redisKey = "KEY-yuxin".getBytes();
     static{
         try {
             init();

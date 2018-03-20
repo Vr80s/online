@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.order.service.OrderInputService;
 import com.xczhihui.bxg.online.manager.order.vo.OrderInputVo;
@@ -47,14 +48,14 @@ public class OrderInputController{
 	@Autowired
 	private OrderInputService service;
 	
-	@RequiresPermissions("input:order")
+	//@RequiresPermissions("input:order")
     @RequestMapping(value = "/index")
     public ModelAndView index(){
          ModelAndView mav=new ModelAndView("/order/input");
          return mav;
     }
 
-	@RequiresPermissions("input:order")
+	//@RequiresPermissions("input:order")
     @RequestMapping(value = "/find")
     @ResponseBody
     public TableVo find(TableVo tableVo) {
@@ -88,7 +89,7 @@ public class OrderInputController{
         return tableVo;
    }
 	
-	@RequiresPermissions("input:order")
+	//@RequiresPermissions("input:order")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject add(OrderInputVo vo,HttpServletRequest req) throws Exception {
@@ -96,12 +97,12 @@ public class OrderInputController{
 		//生成用户
 		service.addUser(vo.getLogin_name());
 		//生成订单
-		String order_no = service.addOrder(vo);
-		this.docallback(order_no);
+		service.addOrder(vo);
+//		this.docallback(order_no);
 		return ResponseObject.newSuccessResponseObject(null);
 	}
 	
-	@RequiresPermissions("input:order")
+	//@RequiresPermissions("input:order")
     @RequestMapping(value = "/importOrder",method = RequestMethod.POST)
     @ResponseBody
     public void importOrder(OrderInputVo vo,HttpServletRequest req,HttpServletResponse res) throws Exception {
@@ -124,20 +125,28 @@ public class OrderInputController{
 				v.setClass_id(row.getCell(2).getStringCellValue());
 				
 				row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
+				Integer of = Integer.valueOf(row.getCell(3).getStringCellValue());
+				if(of != OrderFrom.OFFLINE.getCode()&&of!= OrderFrom.WORKER.getCode()&&of!= OrderFrom.GIVE.getCode()){
+					throw new RuntimeException("订单类型必须为5(下线订单)或6(工作人员)或0(赠送)");
+				}
 				v.setOrder_from(Integer.valueOf(row.getCell(3).getStringCellValue()));
 				service.checkOrderInput(v);
+				v.setCreate_person(UserLoginUtil.getLoginUser(req).getId());
 				lv.add(v);
 			}
 			for(OrderInputVo ov : lv){
-				this.add(ov, req);
+//				this.add(ov, req);
+				service.addUser(ov.getLogin_name());
 				Thread.sleep(100);
 			}
+			service.addOrders(lv);
 			book.close();
 			Gson g = new GsonBuilder().create();
 			res.setCharacterEncoding("utf-8");
 			res.setContentType("text/html;charset=utf-8");
 			res.getWriter().print(g.toJson(ResponseObject.newSuccessResponseObject(null)));
 		} catch ( Exception e) {
+			e.printStackTrace();
 			Gson g = new GsonBuilder().create();
 			res.setCharacterEncoding("utf-8");
 			res.setContentType("text/html;charset=utf-8");
@@ -148,7 +157,6 @@ public class OrderInputController{
 	
 	private void docallback(String order_no) throws Exception{
 		//生成课程
-//		String s = "out_trade_no="+order_no+"&result_code=SUCCESS&key="+OnlineConfig.API_KEY;
 		String s = "out_trade_no="+order_no+"&result_code=SUCCESS&key="+OnlineConfig.WECHAT_API_KEY;
 		String mysign = CodeUtil.MD5Encode(s).toLowerCase();
 		

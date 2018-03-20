@@ -17,10 +17,10 @@
 		<link href="/web/css/header.css" rel="stylesheet" />
 		<link rel="stylesheet" href="/web/css/componet.css" />
 		<link rel="stylesheet" href="/web/font/iconfont.css">
-		<link rel="stylesheet" href="/web/css/sendGift.css?v=1.0">
-		<link rel="stylesheet" type="text/css" href="/web/css/liveVideo.css?v=1.0" />
-		<link rel="stylesheet" type="text/css" href="/web/css/dashang.css" />
-		<link rel="stylesheet" type="text/css" href="/web/css/chongZhi.css?v=1.0" />
+		<link rel="stylesheet" href="/web/css/sendGift.css?v=ipandatcm_1.3">
+		<link rel="stylesheet" type="text/css" href="/web/css/liveVideo.css?v=ipandatcm_1.3" />
+		<link rel="stylesheet" type="text/css" href="/web/css/dashang.css?v=ipandatcm_1.3" />
+		<link rel="stylesheet" type="text/css" href="/web/css/chongZhi.css?v=ipandatcm_1.3" />
 		<script src="/web/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/artTemplate.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/bootstrap.js"></script>
@@ -31,10 +31,10 @@
 		<script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
 		
-			<script src="/web/js/dashang.js" type="text/javascript" charset="utf-8"></script>
+			<script src="/web/js/dashang.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 		<!-- <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script> -->
     	<script src='http://cdn.bootcss.com/strophe.js/1.1.3/strophe.min.js'></script>
-		<script src="/web/js/im/giftSend.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/im/giftSend.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 	
 		
 		<script>
@@ -50,7 +50,9 @@
                     wxurl = "http://test-wx.ixincheng.com";
                 }
 			})();
-			var qrcodeurl = wxurl+"/wx_share.html?courseId="+course_id;
+			//-- shareType 分享类型 1 课程  2 主播
+			var qrcodeurl = wxurl+"/wx_share.html?shareType=1&shareId="+course_id;
+			
 			$(document).ready(function() {
 				$("#qrcodeCanvas1").qrcode({
 					render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
@@ -113,8 +115,8 @@
 						<li style="line-height:none;background:none;width:75px;">分享到：</li>
 						<li class="share_li1"><img src="/web/images/video2/weixin.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li1_img"><div id="qrcodeCanvas1"></div></div></li>
 						<li class="share_li2"><img src="/web/images/video2/quan.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li2_img"><div id="qrcodeCanvas2"></div></div></li>
-						<li style="background:none;"><a href="" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
-						<li style="background:none;"><a href="" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>
+						<li style="background:none;"><a href="javascript:void(0)" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
+						<li style="background:none;"><a href="javascript:void(0)" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>
 				</ul>
 				</div>
 				<!-- 礼物移动下边了
@@ -145,7 +147,7 @@
 					</div>
 					<div class="headMess">
 						<p class="name"></p>
-						<p class="num dashang" ></p>
+						<!--<p class="num dashang" ></p>-->
 						<p class="num liwu"></p>
 						<p class="learnd"></p>
 					</div>
@@ -163,12 +165,12 @@
 							<div class="chat">
 								<div class="right-list">
 								<!-- 添加打赏按钮 -->
-								<a href="javascript:;" class="rss-pay">
-    								<i></i>
-    						<span class="rss-reward-down" style="display: none; margin-top: 0px;z-index:888">
-    						<img class="" src="/web/images/live/reward-pay-down.png">
-    						</span>
-								</a>
+								<!--<a href="javascript:;" class="rss-pay">-->
+    								<!--<i></i>-->
+    						<!--<span class="rss-reward-down" style="display: none; margin-top: 0px;z-index:888">-->
+    						<!--<img class="" src="/web/images/live/reward-pay-down.png">-->
+    						<!--</span>-->
+								<!--</a>-->
 								<!-- 充值-->
 								<a href="javascript:;" class='giftip' style='margin-left:36px;background-color: #fff;'>
 								<i></i>
@@ -285,7 +287,7 @@
 	<div id='main1'>
 
 	<div class='topbanner'>
-	<span>账号充值</span><i class="close" style="opacity: 1">X</i>
+	<span>帐号充值</span><i class="close" style="opacity: 1">X</i>
 	</div>
 	<div id='pay'>
 	<!-- 充值成功页面 -->
@@ -294,7 +296,7 @@
 		<img src="/web/images/video2/weixin.png" alt=""><span>充值成功</span>
 	</div>
 		<div class="pay-success-bottom">
-		<p>充值账号:<span>hanpingwei</span></p>
+		<p>充值帐号:<span>hanpingwei</span></p>
 		<p>您可获得:<span>10熊猫币</span></p>
 		<p>充值时间:<span>2017-09-16 &nbsp;14:00:17</span></p>
 	</div>
@@ -322,40 +324,26 @@
 			<p>充值数量</p>
 			<div class='item_content content_two'>
 				<ul>
-					<li data-value='100' class='orange dian'>100个
+					<li data-value='5' class='orange dian'>50个
 						<i class="ico i-selector show"></i>
 					</li>
-					<li data-value='500' class="dian">500个
+					<li data-value='10' class="dian">100个
 						<i class="ico i-selector"></i>
 					</li>
-					<li data-value='1000' class="dian">1000个
+					<li data-value='20' class="dian">200个
 						<i class="ico i-selector"></i>
 					</li>
-					<li data-value='5000' class="dian">5000个
+					<li data-value='50' class="dian">500个
 						<i class="ico i-selector"></i>
 					</li>
-					<li data-value='10000' class="dian">10000个
+					<li data-value='100' class="dian">1000个
 						<i class="ico i-selector"></i>
 					</li>
-					<li data-value='50000' class="dian">50000个
-						<i class="ico i-selector"></i>
-					</li>
-					<li data-value='100000' class="dian">100000个
-						<i class="ico i-selector"></i>
-					</li>
-					<li data-value='500000' class="dian">500000个
-						<i class="ico i-selector"></i>
-					</li>
-					<li data-value='0' class='other dian' style="width: 103px">
-					<input class="editPayNum" style='width: 80px;' id="editPayNum" onkeyup="showNum()" >
-					<!-- <span class="baseNum">,000个</span> -->
-						<!-- <div>
-							<input type="text" placeholder="其他数量" style="outline: none;">
-						</div> -->
-						<label class="inTips" for="editPayNum">其它数量</label>
-						<i class="ico i-selector"></i>
-					</li>
-					<div style="height: 36px;display:none;float: left;line-height: 36px;" id='wain'>最低限额10元，最高20万</div>
+					<!--<li data-value='0' class='other dian' style="width: 103px">-->
+					<!--<input class="editPayNum" style='width: 60px;' id="editPayNum" id="phone"  onkeyup="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10));showNum()" onafterpaste="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10))" maxLength=6 >-->
+					<!--<label class="inTips" for="editPayNum">其它数量</label>-->
+					<!--<i class="ico i-selector"></i>-->
+					<!--</li>-->
 					<!-- <li class='tip' style="width: 100px;border: none;">
 						<p class="inputTips" style="visibility: hidden;">1~20w元</p>
 						<p>1元=10个熊猫币</p>
@@ -385,7 +373,7 @@
 		<div class='item_title title_one'>
 			<p>应付金额</p>
 			<div class='item_content content_one'>
-				<em class='number'>10</em>
+				<em class='number'>5</em>
 				<span>元</span>
 			</div>
 		</div>
@@ -413,9 +401,9 @@
 			{{each resultObject as item i}}
 			<li data-id="{{item.id}}" data-isContinuous={{item.isContinuous}} data-countinuousCount={{item.countinuousCount}} data-isFree={{item.isFree}}>
 			<img alt="礼物" src="{{item.smallimgPath}}">
-			<p class='gif-name'>{{item.name}}</p>
+			<p class='gif-name' title={{item.name}}>{{item.name}}</p>
 			{{if item.price>0}}
-			<p class="gif-free" style="color:#2cb82c">{{item.price}}熊猫币</p>
+			<p class="gif-free" style="color:#2cb82c" title=""+{{item.price}}+"熊猫币">{{item.price}}熊猫币</p>
 			{{else}}
 			<p class="gif-free">免费</p>
 			{{/if}}
@@ -423,7 +411,7 @@
 			{{/each}}
 		</script>
 
-		<script src="/web/js/liveVideo/liveVideo.js?v=1.0"></script>
+		<script src="/web/js/liveVideo/liveVideo.js?v=ipandatcm_1.3"></script>
 		
 		
 		
@@ -455,11 +443,8 @@
 	</script>
 </html>
 <script src="/web/js/placeHolder.js"></script>
-<script src="/web/js/chongZhi.js?v=1.0" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-
-
-
     $(function() {
 		$('input').placeholder();
 		/* var html = template('',html) */

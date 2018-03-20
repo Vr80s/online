@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,16 +38,16 @@ public class CCVideoController {
 	@Autowired
 	private OnlineCourseService onlineCourseService;
 
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(CCVideoController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CCVideoController.class);
 	
 	/**
 	 * 这个方法暂时先这样提供，能用到的就用呗
 	 * 
 	 * 只需要得到这个课程的状态集合,用户判断前台的页面跳转
-	 * watchState 观看状态  0 免费观看  1 需要收费  2 需要密码
+	 * watchState 观看状态  0 免费观看  1 需要付费  2 需要密码
 	 * lineState: 0 直播已结束 1 直播还未开始 2 正在直播
 	 * type: 1直播  2点播 3音频 
-	 * 
+	 * multimedia_type：1 视频 2 音频
 	 */
 	@RequestMapping("commonCourseStatus")
 	@ResponseBody
@@ -56,16 +57,13 @@ public class CCVideoController {
 		String playerwidth = req.getParameter("playerwidth");
 		String playerheight = req.getParameter("playerheight");
 		String videoId = req.getParameter("videoId");
-		
 		String multimedia_type = req.getParameter("multimedia_type");
-		
-		System.out.println(multimedia_type+"============");
-		
+		String smallImgPath = req.getParameter("smallImgPath");
 		boolean autoplay = true;
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", "B5E673E55C702C42");
 		paramsMap.put("videoid", videoId);
-		paramsMap.put("auto_play", "true");
+		paramsMap.put("auto_play", "false");
 		paramsMap.put("player_width", playerwidth);
 		
 		//cc_A9067DA7F5AA34C39C33DC5901307461    A9067DA7F5AA34C39C33DC5901307461
@@ -74,18 +72,21 @@ public class CCVideoController {
 		paramsMap.put("player_height",setScale+"");
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
 		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-		log.info(responsestr);
+		LOGGER.info(responsestr);
 		if (responsestr.contains("\"error\":")) {
 			return ResponseObject.newErrorResponseObject("视频走丢了，请试试其他视频。");
 		}
 		//如果是音频的话需要这样暂时替换下
-		if(multimedia_type.equals("2")){
+		if("2".equals(multimedia_type)){
 			responsestr = responsestr.replaceAll("playertype=1", "playertype=1&mediatype=2");
 		}
-		log.info(responsestr);
+		//背景图片
+		if(StringUtils.isNotBlank(smallImgPath)){
+			responsestr = responsestr.replaceAll("playertype=1", "playertype=1&img_path="+smallImgPath);
+		}
+		LOGGER.info(responsestr);
 		return ResponseObject.newSuccessResponseObject(responsestr);
 
 		/*<script src="https://p.bokecc.com/player?vid=9FFDF6EC272558969C33DC5901307461"
@@ -110,12 +111,12 @@ public class CCVideoController {
 
 	 public static void main(String[] args) {
 			
-//	    	APIServiceFunction api = new APIServiceFunction();
-//	    	
+	    	APIServiceFunction api = new APIServiceFunction();
+	    	
 //	    	Map<String, String> paramsMap = new HashMap<String, String>();
 //			paramsMap.put("userid", "B5E673E55C702C42");
 //			paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC5901307461");
-//			paramsMap.put("format", "json");
+//			paramsMap.put("FORMAT", "json");
 //			long time = System.currentTimeMillis();
 //			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
 //			/**
@@ -123,30 +124,28 @@ public class CCVideoController {
 //			 */
 //			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video?" + requestURL);
 //			
-//			log.info(responsestr);
+//			LOGGER.info(responsestr);
 //			if (responsestr.contains("\"error\":")) {
 //				throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
 //			}
-//			Map<String, String> paramsMap = new HashMap<String, String>();
-//			paramsMap.put("userid", "B5E673E55C702C42");
-//			paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC59013074611");
-//			paramsMap.put("autoplay", "true");
-//			paramsMap.put("playerwidth", "100");
-//			paramsMap.put("playerheight", "120");
-//			paramsMap.put("format", "json");
-//			long time = System.currentTimeMillis();
-//			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-//			log.info(requestURL);
-//			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-//			log.info(responsestr);
+	    	
+			Map<String, String> paramsMap = new HashMap<String, String>();
+			paramsMap.put("userid", "B5E673E55C702C42");
+			paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
+			paramsMap.put("autoplay", "true");
+			paramsMap.put("playerwidth", "100");
+			paramsMap.put("playerheight", "120");
+			paramsMap.put("FORMAT", "json");
+			long time = System.currentTimeMillis();
+			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
+			LOGGER.info(requestURL);
+			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
+			LOGGER.info(responsestr);
+			
+			
+			
+			
 		 
-//		    BigDecimal decimal = new BigDecimal("1.52345");
-//	        log.info(decimal);
-//	        BigDecimal setScale = decimal.setScale(0,BigDecimal.ROUND_HALF_DOWN);
-//	        log.info(setScale);
-//	        
-//	        BigDecimal setScale1 = decimal.setScale(0,BigDecimal.ROUND_HALF_UP);
-//	        log.info(setScale1.toString());
 		 
 	 }
 }

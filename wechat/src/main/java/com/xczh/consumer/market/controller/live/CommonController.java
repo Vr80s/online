@@ -30,11 +30,10 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
-import com.xczh.consumer.market.utils.cc.APIServiceFunction;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczh.consumer.market.wxpay.entity.FocusVo;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 /**
  * 通用控制器
@@ -69,7 +68,7 @@ public class CommonController {
 	@Value("${webdomain}")
 	private String webdomain;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(CommonController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CommonController.class);
 	
 	
 	/**
@@ -85,7 +84,7 @@ public class CommonController {
 	@RequestMapping("userHomePage")
 	@ResponseBody
 	public ResponseObject userHomePage(HttpServletRequest req,
-									   HttpServletResponse res, Map<String,String> params)throws Exception {
+									   HttpServletResponse res)throws Exception {
 		//用户主页   -- 》接口
 		//关注人数         用户头像
 		//直播的课程     传递一个讲师id 就ok了... 得到讲师下的所有课程，得到讲师下的所有粉丝，得到讲师的
@@ -97,11 +96,6 @@ public class CommonController {
 		 * 得到讲师   主要是房间号，缩略图的信息啦
 		 */
 		Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
-		
-		/**
-		 * 关注讲师的粉丝  显示六个
-		 */
-		//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
 		/**
 		 * 粉丝总数 
 		 */
@@ -110,28 +104,46 @@ public class CommonController {
 		 * 关注总数 
 		 */
 		Integer focusCount  = focusService.findMyFocusCount(lecturerId);
+		
+		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
+		mapAll.put("fansCount", fansCount);       		   //粉丝总数
+		mapAll.put("focusCount", focusCount);   	  	   //关注总数
+		
+		//讲师的精彩简介  
+		mapAll.put("videoId", "F89D83B02BCE744D9C33DC5901307461");  //
+		//坐诊医馆
+		MedicalHospitalVo   mh = new MedicalHospitalVo();
+		mh.setDetailedAddress("北京市丰台区开阳路一号瀚海花园大厦一层底商 北京海淀区中关村南大街19号院");
+		mh.setTel("010-68412758");
+		mh.setVisitTime("周一到周五");
+		mh.setCertificationType(1);
+		//认证的主播 还是 医馆
+		mapAll.put("hospital",mh);
+		/**
+		 * 关注讲师的粉丝  显示六个
+		 */
+		//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
 		/**
 		 * 得到讲师下面的所有课程数  ---》如果是视频数的话客户会比较蒙
 		 */
-		Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
+		//Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
 		/**
 		 * 得到这个讲师的所有   礼物数
 		 */
 		//Integer giftAll = giftService.findByUserId(lecturerId);
-		   /**
+		/**
          * 得到判断这个主播有没有正在直播的课程啦	
          */
-		Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
+		//Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
 		
-		
-		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-		mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
-		mapAll.put("fansCount", fansCount);       //粉丝总数
-		mapAll.put("focusCount", focusCount);   	  // 关注总数
+//		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
+//		//mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
+//		mapAll.put("fansCount", fansCount);       //粉丝总数
+//		mapAll.put("focusCount", focusCount);   	  // 关注总数
 		//mapAll.put("giftAll", giftAll);           // 礼物数 
-		mapAll.put("courseAll", courseAll);       // 课程数 
+		//mapAll.put("courseAll", courseAll);       // 课程数 
 		//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
-		
+		//主播最近一次直播
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(null == lecturerId){  //讲师id
@@ -177,8 +189,6 @@ public class CommonController {
 		int pageSize = Integer.parseInt(pageSizeS);
 		try {
 			List<CourseLecturVo> list = onlineCourseService.liveAndBunchAndAudio(lecturerId,pageNumber,pageSize,type!=null ? Integer.parseInt(type):1);
-			
-			
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -205,8 +215,8 @@ public class CommonController {
 		String userId = req.getParameter("userId");
 		//是否是讲师：0,用户，1既是用户也是讲师  is_lecturer
 	    Map<String,Object>  map =  onlineUserService.judgeUserIsTeacher(userId);
-	    log.info("map.get(is_lecturer)"+map.get("is_lecturer"));
-	    if(null !=map && map.get("is_lecturer").toString().equals("0")){
+	    LOGGER.info("map.get(is_lecturer)"+map.get("is_lecturer"));
+	    if(null !=map && "0".equals(map.get("is_lecturer").toString())){
 	    	return ResponseObject.newErrorResponseObject(map.get("is_lecturer").toString());
 	    }else{
 	    	return ResponseObject.newSuccessResponseObject(map);
@@ -228,11 +238,11 @@ public class CommonController {
 	@RequestMapping("courseIsBuy")
 	@ResponseBody
 	public ResponseObject courseIsBuy(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
-	    OnlineUser ou =  appBrowserService.getOnlineUserByReq(req, params);
+	    OnlineUser ou =  appBrowserService.getOnlineUserByReq(req);
 	    if(ou==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
@@ -255,11 +265,11 @@ public class CommonController {
 	@RequestMapping("courseIsPwd")
 	@ResponseBody
 	public ResponseObject courseIsConfirmPwd(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
@@ -269,7 +279,7 @@ public class CommonController {
 		//onlineCourseService.
 		//course_id
 		
-		if(user.getId().equals(onlineCourseService.getlecturerIdByCourseId(course_id)) || onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
+		if(user.getId().equals(onlineCourseService.getlecturerIdByCourseId(course_id)) || onlineWebService.getLiveUserCourse(course_id,user.getId())){
 			return ResponseObject.newSuccessResponseObject("认证通过");
 		}else{
 			return ResponseObject.newErrorResponseObject("需要进行密码认证");
@@ -291,11 +301,11 @@ public class CommonController {
 	@RequestMapping("courseStatus")
 	@ResponseBody
 	public ResponseObject courseStatus(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
@@ -319,15 +329,15 @@ public class CommonController {
 	@RequestMapping("coursePwdConfirm")
 	@ResponseBody
 	public ResponseObject coursePwdConfirm(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		if(null == req.getParameter("course_pwd") && null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
 		}
 		int course_id =Integer.parseInt(req.getParameter("course_id"));
 		String course_pwd =req.getParameter("course_pwd");
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		return onlineCourseService.saveCoursePwdAndConfirm(user,course_id,course_pwd);
 	}
@@ -345,16 +355,16 @@ public class CommonController {
 	@RequestMapping("subscribe")
 	@ResponseBody
 	public ResponseObject subscribe(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		String mobile =req.getParameter("mobile");
 		String course_id =req.getParameter("course_id");
 	    if(course_id==null){
 	    	return ResponseObject.newErrorResponseObject("缺少参数");
 	    }
 		//获取用户信息
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 	    int isSubscribeInfo =  onlineCourseService.selectSubscribeInfoIs(Integer.parseInt(course_id),user.getId());
 	    if(isSubscribeInfo>0){
@@ -386,12 +396,12 @@ public class CommonController {
 	@RequestMapping("userIsSubscribe")
 	@ResponseBody
 	public ResponseObject userIsSubscribe(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
@@ -416,9 +426,9 @@ public class CommonController {
 		Map<String,String> params=new HashMap<>();
 		params.put("token",req.getParameter("token"));
 		String roomNumber = req.getParameter("video");  //视频id
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		String gvhallId = user.getVhallId();
-		log.info("微吼gvhallId:"+gvhallId);
+		LOGGER.info("微吼gvhallId:"+gvhallId);
 		
 		//JSONObject json = WeihouInterfacesListUtil.getUserinfo(gvhallId,"name,head,id");
 		//String vh_app_key = "71a22e5b4a41483d41d96474511f58f3";
@@ -431,14 +441,13 @@ public class CommonController {
 		Date d = new Date();
 		String start_time = d.getTime() + "";
 		start_time = start_time.substring(0, start_time.length() - 3);
-		
 		Map<String,String> map = new TreeMap<String,String>();
-		map.put("app_key", WeihouInterfacesListUtil.app_key);  //微吼key
+		map.put("app_key", WeihouInterfacesListUtil.APP_KEY);  //微吼key
 		map.put("signedat", start_time); //时间戳，精确到秒  
 		map.put("email", email);         //email 自己写的
 		map.put("roomid", roomNumber);   //视频id
-		map.put("account",user.getId());       //用户账号
-		map.put("username",vhName);      //用户名
+		map.put("account",user.getId());       //用户帐号
+		map.put("username",user.getName());      //用户名
 		map.put("sign", getSign(map));
 		
 		return ResponseObject.newSuccessResponseObject(map);
@@ -448,7 +457,7 @@ public class CommonController {
 	@RequestMapping("h5ShareAfter")
 	@ResponseBody
 	public ResponseObject h5ShareLink(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
 		String courseId = req.getParameter("course_id");  //视频id
 		if(courseId == null ){
@@ -460,7 +469,7 @@ public class CommonController {
 		 */
 		try {
 			Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-			log.info("type:"+type);
+			LOGGER.info("type:"+type);
 			CourseLecturVo courseLecturVo = onlineCourseService.h5ShareAfter(Integer.parseInt(courseId), type);
 			if(type ==1){
 				//礼物数：
@@ -477,7 +486,7 @@ public class CommonController {
 	@RequestMapping("shareLink")
 	@ResponseBody
 	public ResponseObject shareLink(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception{
+			HttpServletResponse res)throws Exception{
 		String courseId = req.getParameter("courseId");  //视频id
 		if(courseId == null ){
 			return ResponseObject.newErrorResponseObject("获取参数异常");
@@ -487,17 +496,15 @@ public class CommonController {
 		 */
 		try {
 			Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-			log.info("type:"+type);
+			LOGGER.info("type:"+type);
 			Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 			if(mapCourseInfo.get("description")!=null){
 				String description = mapCourseInfo.get("description").toString();
-				description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
+				description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
 				mapCourseInfo.put("description", description);
 			}else{
 				mapCourseInfo.put("description", "");
 			}
-			//mapCourseInfo.put("link",returnOpenidUri+"/bxg/common/pcShareLink?courseId="+Integer.parseInt(courseId));
-			//wx_share.html
 			mapCourseInfo.put("link",returnOpenidUri+"/wx_share.html?courseId="+Integer.parseInt(courseId));
 			return ResponseObject.newSuccessResponseObject(mapCourseInfo);
 		} catch (Exception e) {
@@ -517,7 +524,7 @@ public class CommonController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping("pcShareLink")
-	public void pcShareLink(HttpServletRequest req,HttpServletResponse res, Map<String,String> params)throws Exception{
+	public void pcShareLink(HttpServletRequest req,HttpServletResponse res)throws Exception{
 		/*
 		 * 难道这里就需要搞下吗。
 		 */
@@ -526,26 +533,28 @@ public class CommonController {
 		 * 这里有个问题就是。如果去分享页面的话
 		 */
 		String courseId = req.getParameter("courseId");  //视频id
+		System.out.println("========"+courseId);
 		/*
 		 * 这里需要判断下是不是微信浏览器
 		 */
 		String wxOrbrower = req.getParameter("wxOrbrower");  //视频id
+		System.out.println();
 		if(StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)){
 			String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5ShareGetWxUserInfo?courseId="+courseId+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 			res.sendRedirect(strLinkHome);
 		}else if(StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)){
 			res.sendRedirect(returnOpenidUri +"/bxg/wxpay/h5ShareGetWxUserInfo?courseId="+courseId+"&wxOrbrower=brower");//
 		}
-		
+		System.out.println("{}{}{}{}{}="+courseId);
 //		if(courseId == null ){
-//			log.info("参数异常啦");
+//			LOGGER.info("参数异常啦");
 //		}
-//        log.info("===========================================");		
+//        LOGGER.info("===========================================");
 //		String url  ="/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
 		 */
-//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 //		if(user == null){ //直接跳转到分享页面
 //			res.sendRedirect(returnOpenidUri +url);//
 //		}else{
@@ -553,7 +562,7 @@ public class CommonController {
 //				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
 //				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 //				
-//				log.info("type:"+type);
+//				LOGGER.info("type:"+type);
 //				if(type == 1){ //直播或者预约详情页           
 //					
 //					//1.直播中，2预告，3直播结束
@@ -587,7 +596,7 @@ public class CommonController {
 	@RequestMapping("shareJump")
 	@ResponseBody
 	public ResponseObject shareJump(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception{
+			HttpServletResponse res)throws Exception{
 		String courseId = req.getParameter("courseId");  //视频id
 		if(courseId == null ){
 			return ResponseObject.newErrorResponseObject("获取参数异常");
@@ -629,16 +638,16 @@ public class CommonController {
 		Set<String> keySet = signkv.keySet();
         Iterator<String> iter = keySet.iterator();
         StringBuilder sb = new StringBuilder();
-        //String AppSecretKey = "1898130bad871d1bf481823ba1f3ffb1";
-        sb.append(WeihouInterfacesListUtil.AppSecretKey);
+        //String APP_SECRET_KEY = "1898130bad871d1bf481823ba1f3ffb1";
+        sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
         while (iter.hasNext()) {
             String key = iter.next();
-            //log.info(key + ":" + signkv.get(key));
+            //LOGGER.info(key + ":" + signkv.get(key));
             sb.append(key + signkv.get(key));
         }
-        sb.append(WeihouInterfacesListUtil.AppSecretKey);
-        //log.info(sb.toString());
-        //log.info(getMD5(sb.toString()));
+        sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
+        //LOGGER.info(sb.toString());
+        //LOGGER.info(getMD5(sb.toString()));
         return getMD5(sb.toString());
 	}
 	

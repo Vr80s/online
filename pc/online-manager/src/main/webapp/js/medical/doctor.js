@@ -25,10 +25,19 @@ $(function(){
     // { "title": "医师ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "姓名", "class":"center","width":"9%","sortable":false,"data": 'name' },
     { "title": "职称", "class":"center","width":"8%","sortable":false,"data": 'title'},
-    { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
+    { "title": "科室", "class":"center","width":"8%","sortable":false,"data": 'department',"mRender":function (data, display, row) {
+       if(data==null)return "";
+       return data;
+    }},
+    { "title": "医馆", "class":"center","width":"8%","sortable":false,"data": 'hospital',"mRender":function (data, display, row) {
+        if(data==null)return "";
+        return data;
+    }},
+    // { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
     { "title": "坐诊时间", "class":"center","width":"6%", "sortable":false,"data": 'workTime',"visible":true},
     { "title": "所在地", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {
-        debugger
+    	if(row.province==null)row.province=""
+    	if(row.city==null)row.city=""
     	return row.province+"-"+row.city;
     }}, { "title": "医师类别", "class":"center","width":"8%","sortable":false,"data": 'type','mRender':function(data){
     	return doctorType(data);}},
@@ -37,30 +46,50 @@ $(function(){
             },
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data) {
     	if(data==1){
-    		return data="<span name='zt'>已启用</span>";
+    		return "<span name='zt'>已启用</span>";
     	}else{
-    		return data="<span name='zt'>已禁用</span>";
+    		return "<span name='zt'>已禁用</span>";
     	}
     } },
 
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
-	    	if(row.status){
-	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
-				'<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
-	    	}else{
-	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
-				'<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
-	    	}
+	    	if(row.status){ // 启用状态或者禁用状态
+				if(row.sourceId === null&&row.createPerson === null){
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
+
+                }else{
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
+
+                	}
+			}else{
+                if(row.sourceId === null){
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
+
+                }else{
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
+
+                }
+			}
 	    }
 	}];
 	
@@ -127,35 +156,47 @@ $(function(){
         }
         }
     ];
-    PX_courseTable = initTables("courseTable_PX",basePath+"/medical/doctor/recList",objData_PX,true,true,1,null,searchCase_P,function(data){
-        var iDisplayStart = data._iDisplayStart;
-        var countNum = data._iRecordsTotal;//总条数
-        pageSize = data._iDisplayLength;//每页显示条数
-        currentPage = iDisplayStart / pageSize +1;//页码
-        // if(currentPage == 1){//第一页的第一行隐藏向上箭头
-        //     $("#courseTable_PX tbody tr:first td").eq(9).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
-        // }
-        // if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
-        //     $("#courseTable_PX tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-        // }
-        var countPage;
-        if(countNum%pageSize == 0){
-            countPage = parseInt(countNum/pageSize);
-        }else{
-            countPage = parseInt(countNum/pageSize) + 1;
-        }
-
-        $("[name='upa']").each(function(index){
-            if(index == 0){
-                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
-            }
-        });
-        $("[name='downa']").each(function(index){
-            if(index == $("[name='downa']").size()-1){
-                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
-            }
-        });
+    
+    $(".kctj_bx").click(function(){
+    	debugger
+        freshTable(PX_courseTable1());
     });
+    
+    
+    function PX_courseTable1(){
+    	 PX_courseTable = initTables("courseTable_PX",basePath+"/medical/doctor/recList",objData_PX,true,true,1,null,searchCase_P,function(data){
+    	        var iDisplayStart = data._iDisplayStart;
+    	        var countNum = data._iRecordsTotal;//总条数
+    	        pageSize = data._iDisplayLength;//每页显示条数
+    	        currentPage = iDisplayStart / pageSize +1;//页码
+    	        // if(currentPage == 1){//第一页的第一行隐藏向上箭头
+    	        //     $("#courseTable_PX tbody tr:first td").eq(9).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
+    	        // }
+    	        // if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
+    	        //     $("#courseTable_PX tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
+    	        // }
+    	        var countPage;
+    	        if(countNum%pageSize == 0){
+    	            countPage = parseInt(countNum/pageSize);
+    	        }else{
+    	            countPage = parseInt(countNum/pageSize) + 1;
+    	        }
+
+    	        $("[name='upa']").each(function(index){
+    	            if(index == 0){
+    	                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+    	            }
+    	        });
+    	        $("[name='downa']").each(function(index){
+    	            if(index == $("[name='downa']").size()-1){
+    	                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+    	            }
+    	        });
+    	    });
+    	 
+    	 return PX_courseTable;
+    }
+   
     /** 医馆排序列表end */
 
 	courseForm = $("#addCourse-form").validate({
@@ -670,31 +711,41 @@ function search_PX(){
  * @param status（1，医师，2：微课）
  */
 function previewDialog(obj,status){
-	var oo = $(obj).parent().parent().parent();
-	var row;
-	if(status==1) {
-		row = P_courseTable.fnGetData(oo); // get datarow
-	}else{
-		row = M_courseTable.fnGetData(oo); // get datarow
-	}
-	
-	debugger
-	//根据当前id查找对应的课程信息
-    $.get(basePath+"/medical/doctor/findMedicalDoctorById",{id:row.id}, function(result){
+	// var oo = $(obj).parent().parent().parent();
+	// var row;
+	// if(status==1) {
+	// 	row = P_courseTable.fnGetData(oo); // get datarow
+	// }else{
+	// 	row = M_courseTable.fnGetData(oo); // get datarow
+	// }
+	//
+	// debugger
+	// //根据当前id查找对应的课程信息
+    // $.get(basePath+"/medical/doctor/findMedicalDoctorById",{id:row.id}, function(result){
+    //
+    	// $("#show_name").text(result.name);
+    	// $("#show_title").text(result.title);
+    	// $("#show_tel").text(result.tel);
+    	// $("#show_type").text(doctorType(result.type));
+    	// $("#show_province").text(result.province);
+    	// $("#show_city").text(result.city);
+    	// // $("#show_detailedAddress").text(result.detailedAddress);
+    	// $("#show_description").html(result.description); //课程简介
+    	// $("#show_workTime").text(result.workTime);
+    //
+     //    $("#show_description").removeClass("form-control");
+    //
+    // });
+	// var prev_title="查看医师";
+	// var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
 
-    	$("#show_name").text(result.name);
-    	$("#show_title").text(result.title);
-    	$("#show_tel").text(result.tel);
-    	$("#show_type").text(doctorType(result.type));
-    	$("#show_province").text(result.province);
-    	$("#show_city").text(result.city);
-    	// $("#show_detailedAddress").text(result.detailedAddress);
-    	$("#show_description").text(result.description); //课程简介
-    	$("#show_workTime").text(result.workTime);
+    var oo = $(obj).parent().parent().parent();
+    var aData;
+    if (status == 1) {
+        aData = P_courseTable.fnGetData(oo); // get datarow
+    }
+    window.location.href = basePath + '/home#medical/doctor/info/' + aData.id;
 
-    });
-	var prev_title="查看医师";
-	var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
 };
 
 
@@ -704,7 +755,6 @@ function previewDialog(obj,status){
  * @param status（1：医师，2：微课）
  */
 function toEdit(obj,status){
-    debugger
 	updateCourseForm.resetForm();
 	
 	var oo = $(obj).parent().parent().parent();
@@ -714,37 +764,66 @@ function toEdit(obj,status){
 	// $("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	//根据当前id查找对应的课程信息
     $.get(basePath+"/medical/doctor/findMedicalDoctorById",{id:row.id}, function(result){
+
     	$("#editHospital_id").val(row.id);
     	debugger;
-    		//省
-    		$("#edit_citys").empty();
-    		
-    		$('#edit_province option:contains(' + result.province + ')').each(function(){
-    		  if ($(this).text() == result.province) {
-    		     $(this).prop("selected", 'selected');
-    		  }
-    		});
-    		//市
-        	doProvAndCityRelationEdit();
+
+    	//省
+		$("#edit_citys").empty();
+
+		$('#edit_province option:contains(' + result.province + ')').each(function(){
+		  if ($(this).text() == result.province) {
+			 $(this).prop("selected", 'selected');
+		  }
+		});
+
+		//市
+		doProvAndCityRelationEdit();
         $('#edit_citys option:contains(' + result.city + ')').each(function(){
             if ($(this).text() == result.city) {
                 $(this).prop("selected", 'selected');
             }
         });
-    		//地点
-    		// $("#edit_address").val(result.detailedAddress);
-    		// $("#edit_realProvince").val(result.province);
 
-			$("#edit_name").val(result.name);
-			$("#edit_title").val(result.title);
+        //地点
+		// $("#edit_address").val(result.detailedAddress);
+		// $("#edit_realProvince").val(result.province);
+
+		$("#edit_name").val(result.name);
+
+		$("#edit_title").val(result.title);
+
+		if(result.type === null){
+			$("#edit_type").val("0");
+		}else{
 			$("#edit_type").val(result.type);
-			$("#edit_tel").val(result.tel);
-			$("#edit_workTime").val(result.workTime);
-			// $("#edit_email").val(result.email);
-			// $("#edit_city").val(result.city);
-			// $("#edit_detailedAddress").val(result.detailedAddress);
-			$("#edit_description").html(result.description); //课程简介
+		}
 
+		$("#edit_tel").val(result.tel);
+		$("#edit_workTime").val(result.workTime);
+		// $("#edit_email").val(result.email);
+		// $("#edit_city").val(result.city);
+		// $("#edit_detailedAddress").val(result.detailedAddress);
+		$("#edit_description").html(result.description); //课程简介
+
+		// 如果是用户自己认证成的医馆 不能修改其信息
+		if(result.sourceId !== null||result.createPerson !== null){
+            $("#edit_name").attr("disabled", true);
+            $("#edit_title").attr("disabled", true);
+            $("#edit_tel").attr("disabled", true);
+            $("#edit_province").attr("disabled", true);
+            $("#edit_citys").attr("disabled", true);
+            $("#edit_workTime").attr("disabled", true);
+            $("#edit_description").attr("disabled", true);
+		}else{
+            $("#edit_name").attr("disabled", false);
+            $("#edit_title").attr("disabled", false);
+            $("#edit_tel").attr("disabled", false);
+            $("#edit_province").attr("disabled", false);
+            $("#edit_citys").attr("disabled", false);
+            $("#edit_workTime").attr("disabled", false);
+            $("#edit_description").attr("disabled", false);
+		}
 
     	var edit_title="修改医师";
     	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv",edit_title,580,650,true,"确定",function(){
@@ -783,7 +862,6 @@ function toEdit(obj,status){
     });
     
 };
-
 
 /**
  * 状态修改
@@ -1000,9 +1078,9 @@ function drawMenusPage(data){
         for(var i=0;i<data.length;i++){
             var rowData="<tr id='childMenus_tr_"+data[i].id+"'><td> ";
             if(data[i].has){
-                rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='fieldId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+                rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='departmentId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
             }else{
-                rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='fieldId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+                rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='departmentId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
             }
             rowData+="</td>";
             rowData+="<td>";
@@ -1102,11 +1180,11 @@ $(".rec_P").click(function(){
         }
         ids.push($(trs[i]).val());
     }
-    if(ids.length > 10)
+    /*if(ids.length > 10)
     {
         showDelDialog("","","最多只能推荐10个医馆！","");
         return false;
-    }
+    }*/
 
     if(ids.length>0){
         ajaxRequest(basePath+"/medical/doctor/updateRec",{'ids':ids.join(","),"isRec":1},function(data){
@@ -1165,10 +1243,6 @@ function drawHospitalPage(data){
     }
 }
 
-$(".kctj_bx").click(function(){
-	debugger
-    freshTable(PX_courseTable);
-});
 function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
 }
@@ -1182,5 +1256,45 @@ function checckboxSingle (){
                 $(this).prop('checked','checked');
             }
         });
+    });
+}
+
+/**
+ * 修改医师科室
+ * @param obj
+ */
+function openDepartmentManage(obj){
+
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo);
+    rowId = row.id;
+    $("#parentId").val(row.id);
+    $("#child_MenuName").html(row.name);
+    ajaxRequest(basePath+"/medical/department/alllist",{'id':row.id,'type':2},function(data) {
+        drawMenusPage(data);
+
+        $("#childMenu-form").attr("action", basePath+"/medical/department/addDoctorDepartment");
+        openDialog("childMenuDialog","childMenuDialogDiv","科室",580,450,true,"提交",function(){
+            $("input:checkbox").removeAttr("disabled");
+            mask();
+
+            $("#childMenu-form").ajaxSubmit(function(data){
+                unmask();
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                if(data.success){
+                    $("#childMenuDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    freshTable(cloudClassMenuTable);
+                }else{
+                    layer.msg(data.errorMessage);
+                }
+            });
+
+        });
+
     });
 }

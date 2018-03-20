@@ -2,7 +2,6 @@ package com.xczhihui.bxg.online.manager.cloudClass.web;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,9 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.OffLineCity;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
@@ -82,9 +82,13 @@ public class RealCourseController extends AbstractController{
 		List<LecturerVo> lecturers = courseService.getLecturers();
 		request.setAttribute("lecturerVo", lecturers);
 		
+		//得到所有有效的城市信息
+		Page<OffLineCity> page = courseService.getCourseCityList(new OffLineCity(),0,Integer.MAX_VALUE);
+		request.setAttribute("cityVo", page.getItems());
+		
 		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
-			String str = "昵称:"+map.get("name").toString() + ",账号:"+map.get("logo").toString();
+			String str = "昵称:"+map.get("name").toString() + ",帐号:"+map.get("logo").toString();
 			map.put("name", str);
 		}
 		request.setAttribute("mapList", mapList);
@@ -122,10 +126,10 @@ public class RealCourseController extends AbstractController{
 	     return mav;
 	}
 
-	@RequiresPermissions("RealClass:menu:course")
+	//@RequiresPermissions("RealClass:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
-	public TableVo courses(TableVo tableVo) {
+	public TableVo courses(TableVo tableVo,HttpServletRequest request) {
 		 
 		 
 	      int pageSize = tableVo.getiDisplayLength();
@@ -135,59 +139,42 @@ public class RealCourseController extends AbstractController{
           Groups groups = Tools.filterGroup(params);
           
           CourseVo searchVo=new CourseVo();
+          
           Group courseName = groups.findByName("search_courseName");
           searchVo.setOnlineCourse(1);
           if (courseName != null) {
         	  searchVo.setCourseName(courseName.getPropertyValue1().toString());
           }
+		Group menuId = groups.findByName("search_menu");
+		if (menuId != null) {
+			searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1()
+					.toString()));
+		}
           
-//          Group menuId = groups.findByName("search_menu");
-//          if (menuId != null) {
-//        	  searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
-//          }
-//          
-//          Group scoreTypeId = groups.findByName("search_scoreType");
-//          if (scoreTypeId != null) {
-//        	  searchVo.setCourseTypeId(scoreTypeId.getPropertyValue1().toString());
-//          }
-//          
-//          Group courseType = groups.findByName("search_courseType");
-//          
-//          if (courseType != null) {
-//        	  searchVo.setCourseType(courseType.getPropertyValue1().toString());
-//          }
-//
-//		Group serviceType = groups.findByName("search_service_type");
-//		if (serviceType != null) {
-//			searchVo.setServiceType(Integer.parseInt(serviceType.getPropertyValue1().toString()));
-//		}
-//          
-//          Group isRecommend = groups.findByName("search_isRecommend");
-//          
-//          if (isRecommend != null) {
-//        	  searchVo.setIsRecommend(Integer.parseInt(isRecommend.getPropertyValue1().toString()));
-//          }
-//          
-//          Group status = groups.findByName("search_status");
-//          
-//          if (status != null) {
-//        	  searchVo.setStatus(status.getPropertyValue1().toString());
-//          }
-//          
-//          Group courseId = groups.findByName("search_courseId");
-//          if (courseId != null) {
-//        	  searchVo.setId(Integer.valueOf(courseId.getPropertyValue1().toString()));
-//          }
-//          
-//          Group type = groups.findByName("type");
-//          if (type != null) {
-//        	  searchVo.setType(Integer.valueOf(type.getPropertyValue1().toString()));
-//          }
+          Group city = groups.findByName("search_city");
+          if (city != null) {
+        	  searchVo.setRealCitys(city.getPropertyValue1().toString());
+          }
+		Group searchIsRecommend = groups.findByName("search_isRecommend");
+		if (searchIsRecommend != null) {
+			String isRecommend = searchIsRecommend.getPropertyValue1().toString();
+			if(!isRecommend.equals("2")){
+				searchVo.setIsRecommend(Integer.parseInt(isRecommend));
+			}
+
+		}
+          
           Page<CourseVo> page = courseService.findCoursePage(searchVo, currentPage, pageSize);
           int total = page.getTotalCount();
           tableVo.setAaData(page.getItems());
           tableVo.setiTotalDisplayRecords(total);
           tableVo.setiTotalRecords(total);
+          
+          
+          //得到所有有效的城市信息
+	  	  Page<OffLineCity> page1 = courseService.getCourseCityList(new OffLineCity(),0,Integer.MAX_VALUE);
+	  	  request.setAttribute("cityVo", page1.getItems());
+          
           return tableVo;
 		
 	}
@@ -205,36 +192,18 @@ public class RealCourseController extends AbstractController{
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("RealClass:menu:course")
+	//@RequiresPermissions("RealClass:menu:course")
 	@RequestMapping(value = "addCourse", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(CourseVo courseVo){
 		ResponseObject responseObj = new ResponseObject();
-		List<Course> entitys= courseService.findByName(courseVo.getCourseName());
-		for(Course entity:entitys){
-			if(entity!=null&&!entity.isDelete()&&null==entity.getType()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("课程名称已存在！");
-		         return responseObj;
-			}
-		}
-	
-		
-		if(courseVo.getOriginalCost()!=null&&courseVo.getCurrentPrice()!=null&&courseVo.getOriginalCost()<courseVo.getCurrentPrice()){
-			 responseObj.setSuccess(false);
-	         responseObj.setErrorMessage("现价必须小于等于原价!");
-	         return responseObj;
-		}
-		
-		if(courseVo.getOriginalCost() == null){
-			courseVo.setOriginalCost(0.0);
-		}
+
 		if(courseVo.getCurrentPrice() == null ){
 			courseVo.setCurrentPrice(0.0);
 		}
 		courseVo.setIsRecommend(0);
 		courseVo.setRecommendSort(0);
-		courseVo.setOnlineCourse(1);
+		courseVo.setType(CourseForm.OFFLINE.getCode());
 		/**
 		 * 因为线下课程存在地区的，所以呢，需要搞下啦
 		 * 这里需要搞下地址的转换
@@ -245,6 +214,9 @@ public class RealCourseController extends AbstractController{
 		
 		String address = province+"-"+city+"-"+county+" "+courseVo.getAddress();
 		courseVo.setAddress(address);
+		
+		//添加城市管理
+		courseService.addCourseCity(city);
 		
 		try{
 			courseService.addCourse(courseVo);
@@ -264,7 +236,7 @@ public class RealCourseController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequiresPermissions("RealClass:menu:course")
+	//@RequiresPermissions("RealClass:menu:course")
 	@RequestMapping(value = "findCourseById", method = RequestMethod.GET)
 	@ResponseBody
 	  public List<CourseVo> findCourseById(Integer id) {
@@ -276,29 +248,12 @@ public class RealCourseController extends AbstractController{
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("RealClass:menu:course")
+	//@RequiresPermissions("RealClass:menu:course")
 	@RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseById (CourseVo courseVo){
 		ResponseObject responseObj = new ResponseObject();
-		List<Course> entitys= courseService.findByName(courseVo.getCourseName());
-		for(Course entity: entitys){
-			if(entity!=null&&!entity.isDelete()&&entity.getId()!=courseVo.getId()&&null==entity.getType()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("课程名称已存在！");
-		         return responseObj;
-			}
-		}
-		
-		
-		if(courseVo.getOriginalCost()<courseVo.getCurrentPrice()){
-			 responseObj.setSuccess(false);
-	         responseObj.setErrorMessage("现价必须小于等于原价");
-	         return responseObj;
-		}
-		if(courseVo.getOriginalCost() == null){
-			courseVo.setOriginalCost(0.0);
-		}
+
 		if(courseVo.getCurrentPrice() == null){
 			courseVo.setCurrentPrice(0.0);
 		}
@@ -313,20 +268,14 @@ public class RealCourseController extends AbstractController{
 		String address = province+"-"+city+"-"+county+" "+courseVo.getAddress();
 		courseVo.setAddress(address);
 		courseVo.setRealCitys(city);
-		
-		 try{
-			 	CourseVo old = courseService.getCourseById(courseVo.getId());
-			 	String oldName = old.getCourseName();
-			 	courseVo.setOnlineCourse(1);
-			 	courseService.updateCourse(courseVo);
-	            responseObj.setSuccess(true);
-	            responseObj.setErrorMessage("修改成功");
-	       }catch(Exception e){
-	            responseObj.setSuccess(false);
-	            responseObj.setErrorMessage("修改失败");
-	            e.printStackTrace();
-	       }
-	        return responseObj;
+		/*
+		 * 添加城市管理
+		 */
+		courseService.addCourseCity(city);
+		courseService.updateCourse(courseVo);
+	    responseObj.setSuccess(true);
+	    responseObj.setErrorMessage("修改成功");
+	    return responseObj;
 	}
 	
 	/**
@@ -337,7 +286,14 @@ public class RealCourseController extends AbstractController{
 	@RequestMapping(value = "updateStatus", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateStatus(Integer id){
+		
 		courseService.updateStatus(id);
+		/*
+		 * 更改了线下课的状态，如果此城市的线下课都是禁用状态--那么就禁用这个城市
+		 * 				         如果此城市的线下课都是禁用状态--那么就启用这个城市
+		 */
+		courseService.updateCourseCityStatus(id);
+		
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
 	
@@ -365,6 +321,11 @@ public class RealCourseController extends AbstractController{
     @ResponseBody
     public ResponseObject deleteCourseById(Integer id){
 		courseService.deleteCourseById(id);
+		/*
+		 * 如果全部逻辑删除了。那么就不显示了
+		 */
+		courseService.deleteCourseCityStatus(id);
+		
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
 	
@@ -454,6 +415,8 @@ public class RealCourseController extends AbstractController{
     	}
     	return responseObject;
     }
+
+
     
     @RequestMapping(value = "getCourseDetail", method = RequestMethod.POST)
 	@ResponseBody
@@ -473,14 +436,14 @@ public class RealCourseController extends AbstractController{
 	@RequestMapping(value = "updateCourseDetail", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject updateCourseDetail(String courseId, String smallImgPath,String smallImgPath1,String smallImgPath2, String courseDetail,
-				String courseOutline, String commonProblem){
+				String courseOutline, String commonProblem,String lecturerDescription){
 		if(smallImgPath1!=null) {
             smallImgPath += "dxg" + smallImgPath1;
         }
 		if(smallImgPath2!=null) {
             smallImgPath += "dxg" + smallImgPath2;
         }
-		courseService.updateCourseDetail(courseId, smallImgPath, null, courseDetail, courseOutline, commonProblem);
+		courseService.updateCourseDetail(courseId, smallImgPath, null, courseDetail, courseOutline, commonProblem, lecturerDescription);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
 	
@@ -563,7 +526,7 @@ public class RealCourseController extends AbstractController{
      * 老师列表
      * @return
      */
-    @RequiresPermissions("RealClass:menu:course")
+    //@RequiresPermissions("RealClass:menu:course")
     @RequestMapping(value = "/teachers",method= RequestMethod.GET)
     @ResponseBody
     public ResponseObject teachers(String courseId){
@@ -578,7 +541,7 @@ public class RealCourseController extends AbstractController{
      * 增加班级信息
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade:teachers:save")
+    //@RequiresPermissions("cloudClass:menu:grade:teachers:save")
     @RequestMapping(value = "/teachers/save",method= RequestMethod.POST)
     @ResponseBody
     public ResponseObject saveTeachers(HttpServletRequest request,String gradeId,String courseId,String[] roleType1,String[] roleType2,String[] roleType3){
@@ -621,4 +584,47 @@ public class RealCourseController extends AbstractController{
 //		courseService.initOpenCourseToSend();
 //		return "ok";
 //	}
+    
+    //TODO
+    @RequestMapping(value = "getRealCityList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<CourseVo> getRealCityList(String search) {
+		return courseService.getCourselist(search);
+	}
+    
+    
+	@RequestMapping(value = "courseCityList")
+	@ResponseBody
+	public TableVo courseCityList(TableVo tableVo) {
+		 
+	      int pageSize = tableVo.getiDisplayLength();
+          int index = tableVo.getiDisplayStart();
+          int currentPage = index / pageSize + 1;
+          String params = tableVo.getsSearch();
+          Groups groups = Tools.filterGroup(params);
+          OffLineCity searchVo=new OffLineCity();
+
+	    Group city = groups.findByName("search_city");
+	    if (city!=null) {
+	    	searchVo.setCityName(city.getPropertyValue1().toString());
+	    }
+          Page<OffLineCity> page = courseService.getCourseCityList(searchVo,currentPage, pageSize);
+          int total = page.getTotalCount();
+          tableVo.setAaData(page.getItems());
+          tableVo.setiTotalDisplayRecords(total);
+          tableVo.setiTotalRecords(total);
+          return tableVo;
+	}
+	
+	
+	@RequestMapping(value = "courseCityUpdate")
+	@ResponseBody
+	public ResponseObject courseCityUpdate(OffLineCity offLineCity) {
+		if(offLineCity==null || offLineCity.getIcon() ==null){
+			 ResponseObject.newErrorResponseObject("请选择图标！");
+		}
+		courseService.updateCourseCity(offLineCity);
+        return ResponseObject.newSuccessResponseObject("修改成功！");
+	}
+    
 }

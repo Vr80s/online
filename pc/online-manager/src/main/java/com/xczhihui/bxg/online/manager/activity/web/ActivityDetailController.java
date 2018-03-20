@@ -29,7 +29,7 @@ public class ActivityDetailController {
          ModelAndView mav=new ModelAndView("/activity/activityDetail");
          return mav;
     }
-    @RequiresPermissions("activity:menu:detail")
+    //@RequiresPermissions("activity:menu:detail")
     @RequestMapping(value = "/findActivityDetailList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findActivityDetailList(TableVo tableVo) {
