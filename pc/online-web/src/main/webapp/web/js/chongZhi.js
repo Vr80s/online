@@ -135,12 +135,12 @@ function showNum(){
 //支付
 $('.goPay').click(function(){
 	if(price==""||price==null||price==0)return;
-	if(price*rate<100||price*rate>200000){
-		if(env == "prod"){
-			$('#wain').css({'display':'block'});
-			return;
-		}
-	}
+	// if(price*rate<100||price*rate>200000){
+	// 	if(env == "prod"){
+	// 		$('#wain').css({'display':'block'});
+	// 		return;
+	// 	}
+	// }
 	
 	window.open("/userCoin/recharge/pay?price="+price);
 		setTimeout(function (){
