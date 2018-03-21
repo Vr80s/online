@@ -4,8 +4,8 @@
 
 	<!-- 查找主播的学员、课程数  -->
 	<select id="selectCollegeCourseXmbNumber" resultType="java.math.BigDecimal">
-		( select count(*) as number from apply_r_grade_course where course_id in 
-		  (select id from oe_course where user_lecturer_id = #{userId} ) )
+		( select count(*) from (select count(*) from apply_r_grade_course where course_id in 
+		   (select id from oe_course where user_lecturer_id =#{userId} ) group  by user_id) as aaa)
 		UNION ALL 
         ( select count(*) as number from oe_course  where user_lecturer_id =#{userId} )
 	</select>	
