@@ -231,7 +231,7 @@ span,p{
 .boutique_one_img{
 	width: 3.39rem;
 	height: 1.9rem;
-
+	margin-bottom: 0.15rem;
 }
 .boutique_one_img img{
 	width: 100%;
@@ -312,7 +312,8 @@ span,p{
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-	margin-top: 0.02rem;
+	margin-top: 0.03rem;
+	float: left;
 }
 /*直播*/
 .boutique_main_two_size P span{
@@ -339,18 +340,19 @@ span,p{
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-
+margin-top: 0.03rem;
 }
 .boutique_main_two_size .p3 img{
 	    width: 0.24rem;
     height: 0.24rem;
-       margin: 0.03rem 0.06rem 0 0.03rem;
+       margin: 0.04rem 0.06rem 0 0.03rem;
     float: left;
 }
 .boutique_main_two_size .p3 span{
 		font-size: 0.22rem;
 color: #999999;
 float: left;
+margin-top: 0.03rem;
 }
 /*线下课*/
 .boutique_main_four_size P span{
@@ -376,7 +378,8 @@ float: left;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-
+    float: left;
+	margin-top: 0.03rem;
 }
 
 .boutique_main_four_size .p3 img{
