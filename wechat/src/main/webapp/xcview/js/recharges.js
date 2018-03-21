@@ -170,7 +170,7 @@ function getRedirectUrl(actualPay){
     * 去充值页面的几个途径
     */	
 	//http://m.ipandatcm.com/xcview/html/recharges.html
-	return "http://m.ipandatcm.com/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
+	return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
 }
 
 
