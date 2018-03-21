@@ -45,7 +45,7 @@ function jump(){
 	if(type ==3 && (lineState ==1 || lineState ==3 || lineState ==4)){ //直播间  
 		 //增加一条学习记录
 		 requestService("/xczh/history/add",
-	               {courseId:id} ,function(data) {
+	               {courseId:id,recordType:2} ,function(data) {
 	     }) 
 		 location.href="details.html?courseId="+id
 	}else if(type ==3 && (lineState ==2 || lineState ==5)){ //预告的、回放的
