@@ -55,7 +55,7 @@ $(function(){
     }},
 
     { "title": "价格", "class":"center","width":"5%","sortable":false,"mRender":function(data,display,row){
-    	data = row.currentPrice;
+    	data = parseInt(row.currentPrice);
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {

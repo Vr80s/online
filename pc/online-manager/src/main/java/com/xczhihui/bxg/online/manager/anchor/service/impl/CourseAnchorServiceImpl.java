@@ -118,14 +118,14 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements An
 				ids2.add(ids[i]);
 			}
 		}
-		String sql="select ifnull(min(recommend_sort),0) from course_anchor where  deleted=0 and is_recommend = 1";
+		String sql="select ifnull(max(recommend_sort),0) from course_anchor where  deleted=0 and is_recommend = 1";
 		//最小的排序
 		int i = dao.queryForInt(sql,null);
 		for(String id:ids2){
 			if(id == "" || id == null){
 				continue;
 			}
-			i = i -1;
+			i = i +1;
 			String hqlPre="from CourseAnchor where  deleted = 0 and id = ?";
 			CourseAnchor courseAnchor= dao.findByHQLOne(hqlPre,new Object[] {Integer.valueOf(id)});
 			if(courseAnchor !=null){
