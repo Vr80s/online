@@ -317,7 +317,7 @@
                 <span title="学习人数" style="cursor:default">学习人数：{{learndCount==null?0:learndCount}}人</span>
                 {{if type == 3}}
                 <br />
-                <span title="地址" style="cursor:default;margin: 10px 0;">地址：{{address}}</span>
+                <span title={{change(address)}} class="address" style="cursor:default;margin: 10px 0;">地址：{{address}}</span>
                 {{/if}}
                 <!--{{if type!=3}}-->
                 <!--<span title="有效期" style="cursor:default;color:#333;" class="youxiaoqi">有效期：1年-->
