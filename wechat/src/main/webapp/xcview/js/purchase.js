@@ -219,7 +219,7 @@ function  goPay() {
  */
 function getgetRedirectUrl(allCourse,falg){
 	var c=allCourse[0];
-	return "http://m.ipandatcm.com/xcview/html/buy_prosperity.html?courseId="+c.id;
-	//return "/xcview/html/buy_prosperity.html?recharges_blck=2&orderId="+c.id;
+	//return "http://m.ipandatcm.com/xcview/html/buy_prosperity.html?courseId="+c.id;
+	return "/xcview/html/buy_prosperity.html?recharges_blck=2&courseId="+c.id;
 }
 
