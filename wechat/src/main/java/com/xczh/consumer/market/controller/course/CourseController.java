@@ -184,21 +184,17 @@ public class CourseController {
 				cv.setWatchState(3);
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
-			
 			if (cv.getWatchState() == 0) { // 付费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
 				}
 			}
-			
 			//如果是线下课程，并且这个课程是免费的，那么判断下是 这个课程是否已经报过名了
 			if (cv.getWatchState() == 1 && cv.getType() == 4) { // 付费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
 				}
 			}
-			
-			
 			// 是否关注
 			Integer isFours = focusService.myIsFourslecturer(user.getId(),
 					cv.getUserLecturerId());

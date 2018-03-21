@@ -44,8 +44,6 @@ public class MyLiveController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyLiveController.class);
-	
 	/**
 	 * Description：开始直播时调用，因为要区分这个直播来自app直播呢，还是pc端直播了。
 	 * @param req
@@ -58,9 +56,13 @@ public class MyLiveController {
 	@RequestMapping("appLivePre")
 	@ResponseBody
 	public ResponseObject myFocus(HttpServletRequest req,
-			@RequestParam("courseId")Integer courseId)
-			throws Exception {
-	    onlineCourseService.updateLiveSourceType(courseId);
-		return ResponseObject.newSuccessResponseObject("操作成功");
+			@RequestParam("courseId")Integer courseId){
+		try {
+			 onlineCourseService.updateLiveSourceType(courseId);
+			 return ResponseObject.newSuccessResponseObject("操作成功!");
+		} catch (Exception e) {
+			 e.printStackTrace(); 
+			 return ResponseObject.newErrorResponseObject("操作失败!");
+		}
 	}
 }
