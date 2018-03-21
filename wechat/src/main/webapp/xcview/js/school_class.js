@@ -312,9 +312,10 @@ function btn_zj_mianfei(){
 				});
 			}else if(data_zj==1){
 				
-			requestService("/xczh/history/add",
-			{courseId:courseId}
-			,function(data) {
+			requestService("/xczh/history/add",{
+				courseId:courseId,
+				recordType:1
+			},function(data) {
 
 			})
 				window.location.href="live_class.html?my_study="+course_id+"";

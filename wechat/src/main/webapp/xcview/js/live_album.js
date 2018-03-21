@@ -191,7 +191,7 @@ function stripHTML(str){
 
 $("#video_box").click(function(){
 	requestService("/xczh/history/add",
-	{courseId:wwww1}
+	{courseId:wwww1,recordType:2}
 	,function(data) {
 
 	})	

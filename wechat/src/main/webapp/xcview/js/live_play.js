@@ -36,7 +36,7 @@ requestService("/xczh/course/liveDetails",{
 		$(".memory_lujin").click(function(){
 			var memory_data=$(this).attr("data-memory")
 			requestService("/xczh/history/add",
-			{courseId:memory_data}
+			{courseId:memory_data,recordType:2}
 			,function(data) {
 
 			})	
