@@ -30,8 +30,10 @@ requestService("/xczh/bunch/hotSearch",null,
  	    	$(".search_hot_main").html(template('search1',{items:data.resultObject.hotSearch}))
 // 	    	<!--给inpiu默认值-->
  	    	$(".div_span_input").html(template('shipin',{items:data.resultObject.defaultSearch}))
-			
-   	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch[0].name);
+			if(data.resultObject.defaultSearch!=null&&data.resultObject.defaultSearch.length>0){
+				localStorage.setItem("defaultKey", data.resultObject.defaultSearch[0].name);
+			}
+   	    	
  	    	
  	    	
 // 	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch);
@@ -48,11 +50,11 @@ requestService("/xczh/bunch/hotSearch",null,
 						if($.inArray(btn_write, arr)!=-1){
                             removeByValue(arr, btn_write);
                             arr.unshift(btn_write);
-                            localStorage.hisArr = arr;
+                            localStorage.getItem(hisArr) = arr;
 
 						}else{
                             arr.unshift(btn_write)
-                            localStorage.hisArr = arr;
+                            localStorage.getItem(hisArr) = arr;
 
 						}
 //		localStorage.hisArr = arr;
@@ -63,8 +65,8 @@ requestService("/xczh/bunch/hotSearch",null,
 
 //清空历史
 function clearAll() {
-	if(localStorage.hisArr!=undefined){
-        localStorage.hisArr="";
+	if(localStorage.getItem(hisArr)!=undefined){
+        localStorage.setItem(hisArr,"");
         $(".search_history_list").empty();
         $(".search_history").hide();
         arr = [];
