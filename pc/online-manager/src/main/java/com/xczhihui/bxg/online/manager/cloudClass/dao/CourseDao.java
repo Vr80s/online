@@ -123,7 +123,12 @@ public class CourseDao extends HibernateDao<Course>{
 			 sql.append(" and oc.multimedia_type = :multimediaType ");
 		 }
 
-		 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc");
+		 if(courseVo.getOnlineCourse()==0){
+			 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc");
+		 }else{
+			 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.start_time desc");
+		 }
+
 
 		 Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 for (CourseVo entityVo : courseVos.getItems()) {
