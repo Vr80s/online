@@ -36,7 +36,7 @@ $(function(){
     // { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
     // { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
     { "title": "价格", "class":"center","width":"8%","sortable":false,"mRender":function(data,display,row){
-    	data = row.currentPrice;
+    	data = parseInt(row.currentPrice);
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "开课时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime'},
