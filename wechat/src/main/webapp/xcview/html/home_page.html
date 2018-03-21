@@ -651,18 +651,14 @@
 											<p class="p2"><img src="/xcview/images/population.png" alt=""  /><span style="margin-top: 0.03rem;">{{item.learndCount}}</span></p>
 											<!--<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
 
-											
-
-											{{if itemls.lineState == 3 || itemls.lineState == 4}}
-											<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
-											{{else if itemls.lineState == 2}}
-											<p class="p3" style="margin-top: 0.03rem;"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top: 0.08rem;">{{item.startDateStr}}</span></p>
-											{{else if itemls.lineState == 1}}
-											<!--<p class='zhibo_p' style1="width: 1.702rem;height: 0.553rem;line-height: 0.553rem;border: 1px solid red;float:  left;font-size: 0.22rem;text-align: center;display1:none;">直播中</p>-->		
-											<p class="zhibo_play" style="margin-top: -0.05rem;">直播中</p>
-											<!--<p><img src='/xcview/images/streaming_fie.png' style='width: 1.702rem;margin-top: 0.08rem;' /></p>-->
-											<!--<p class="p3" style="display: none1;"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
+											{{if itemls.lineState == 1}}
+												<p class="zhibo_play" style="margin-top: -0.05rem;">直播中</p>
+											{{else if itemls.lineState == 4}}
+												<p class="p3" style="margin-top: 0.03rem;"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top: 0.08rem;">{{item.startDateStr}}</span></p>
+											{{else}}
+												<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>			
 											{{/if}}
+											
 										</div>
 									</div>
 								</li>

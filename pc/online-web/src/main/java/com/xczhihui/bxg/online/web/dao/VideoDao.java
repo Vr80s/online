@@ -403,68 +403,81 @@ public class VideoDao extends SimpleHibernateDao {
         return  check;
     }
 	public void saveNewCriticize(CriticizeVo criticizeVo) {
-		// TODO Auto-generated method stub
-    	if (!StringUtils.hasText(criticizeVo.getUserId()) && 
-    			criticizeVo.getCourseId() == null) {
-			throw new RuntimeException("参数错误！");
+
+		try {
+			if (!StringUtils.hasText(criticizeVo.getUserId()) && 
+	    			criticizeVo.getCourseId() == null) {
+				throw new RuntimeException("参数错误！");
+			}
+			String sql = "insert into oe_criticize (id,create_person,content,"
+			        + "user_id,course_id,content_level,deductive_level,criticize_lable,"
+			        + "overall_level,is_buy) "
+			        + "values (:id,:createPerson,:content,:userId,"
+			        + ":courseId,:contentLevel,:deductiveLevel,:criticizeLable,"
+			        + ":overallLevel,:isBuy)";
+			this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("保存失败！");
 		}
-		String sql = "insert into oe_criticize (id,create_person,content,"
-		        + "user_id,course_id,content_level,deductive_level,criticize_lable,"
-		        + "overall_level,is_buy) "
-		        + "values (:id,:createPerson,:content,:userId,"
-		        + ":courseId,:contentLevel,:deductiveLevel,:criticizeLable,"
-		        + ":overallLevel,:isBuy)";
-		this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
-		
 	}
 	public void saveReply(String content, String userId,String criticizeId) {
 		
-		if (!StringUtils.hasText(content) || !StringUtils.hasText(userId)) {
-			throw new RuntimeException("参数错误！");
-		}
-		/*
-		 * 回复此评论的人
-		 */
-		CriticizeVo cvo = this.findCriticizeById(criticizeId);
-		if (cvo==null) {
-			throw new RuntimeException("获取此条评论信息有误！");
-		}
-		/**
-		 * 回复其实也是一个评论
-		 *   插入一个评论
-		 *   插入一个回复
-		 */
-		CriticizeVo criticizeVo = new CriticizeVo();
-		criticizeVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-		criticizeVo.setContent(content);
-		criticizeVo.setCreatePerson(userId);
-		criticizeVo.setUserId(cvo.getUserId());
-		criticizeVo.setCourseId(cvo.getCourseId());
-		
-		/**
-		 * 如果这个是免费的就没有必要的
-		 */
-		boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(), userId);
-		criticizeVo.setIsBuy(isbuy);
-		
-		this.saveNewCriticize(criticizeVo);
-		
-		/**
-		 * 然后在这个评论中增加一个回复
-		 */
-		String replyId = UUID.randomUUID().toString().replaceAll("-", "");
-		String sql = "insert into oe_reply (id,create_person,reply_content,"
-		        + "reply_user,criticize_id) "
-		        + "values (:id,:createPerson,:content,:reply_user,"
-		        + ":criticizeId)";
-		 Map<String,Object> params=new HashMap<String,Object>();
-		 params.put("id", replyId);
+		try {
+			
+			
+			if (!StringUtils.hasText(content) || !StringUtils.hasText(userId)) {
+				throw new RuntimeException("参数错误！");
+			}
+			/*
+			 * 回复此评论的人
+			 */
+			CriticizeVo cvo = this.findCriticizeById(criticizeId);
+			if (cvo==null) {
+				throw new RuntimeException("获取此条评论信息有误！");
+			}
+			/**
+			 * 回复其实也是一个评论
+			 *   插入一个评论
+			 *   插入一个回复
+			 */
+			CriticizeVo criticizeVo = new CriticizeVo();
+			criticizeVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+			criticizeVo.setContent(content);
+			criticizeVo.setCreatePerson(userId);
+			criticizeVo.setUserId(cvo.getUserId());
+			criticizeVo.setCourseId(cvo.getCourseId());
+			
+			/**
+			 * 如果这个是免费的就没有必要的
+			 */
+			boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(), userId);
+			criticizeVo.setIsBuy(isbuy);
+			
+			this.saveNewCriticize(criticizeVo);
+			
+			/**
+			 * 然后在这个评论中增加一个回复
+			 */
+			String replyId = UUID.randomUUID().toString().replaceAll("-", "");
+			String sql = "insert into oe_reply (id,create_person,reply_content,"
+			        + "reply_user,criticize_id) "
+			        + "values (:id,:createPerson,:content,:reply_user,"
+			        + ":criticizeId)";
+			 Map<String,Object> params=new HashMap<String,Object>();
+			 params.put("id", replyId);
 
-		 params.put("createPerson", userId);     //
-		 params.put("content", cvo.getContent());         //内容
-		 params.put("reply_user", cvo.getCreatePerson());     //当前被回复的评论id是这个回复创建人
-		 params.put("criticizeId", criticizeVo.getId());  //此条评论的人
-		 this.getNamedParameterJdbcTemplate().update(sql,params);
+			 params.put("createPerson", userId);     //
+			 params.put("content", cvo.getContent());         //内容
+			 params.put("reply_user", cvo.getCreatePerson());     //当前被回复的评论id是这个回复创建人
+			 params.put("criticizeId", criticizeVo.getId());  //此条评论的人
+			 this.getNamedParameterJdbcTemplate().update(sql,params);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+			throw new RuntimeException("回复失败！");
+		}
 	}
 
 	 /**
@@ -472,95 +485,103 @@ public class VideoDao extends SimpleHibernateDao {
      * @return
 	 * @throws IllegalAccessException 
      */
-    public Page<Criticize> getUserOrCourseCriticize(String teacherId,Integer courseId, Integer pageNumber, Integer pageSize,String userId){
-        Map<String,Object> paramMap = new HashMap<>();
-        pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize = pageSize == null ? 10 : pageSize;
+    public Page<Criticize> getUserOrCourseCriticize(String teacherId,Integer courseId,
+    		Integer pageNumber, Integer pageSize,String userId){
         
-        /**
-         * 购买者这里怎么显示了啊。好尴尬了，不能用多个循环吧，不然会卡点呢
-         * 	 或者是购买成功	
-         * 
-         * 一个专辑下存在多个课程，然后课程
-         */
-        if(courseId !=null || teacherId!=null){
-           StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1  and c.onlineUser is not null  ");
-	       
-           if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
-	       	  sql.append("  and c.userId =:userId ");
-	       	  paramMap.put("userId", teacherId);
-	       }else if(courseId!=null && courseId!=0){
-	    	  //查找这个课程是不是专辑、如果是专辑就 用in来查找啦
-	    	  List<Integer> list =  getCoursesIdListByCollectionId(courseId);
-	    	  
-	    	  if(list.size()>0){
-	    		  list.add(courseId);
-	    		  String str = "";
-	    		  for (int i = 0; i < list.size(); i++) {
-					Integer array_element = list.get(i);
-					if(i == list.size()-1){
-						str +=array_element;
-					}else{
-						str +=array_element+",";
-					}
-				  }
-	    		  sql.append("  and c.courseId in ("+str+") ");
-	    	  }else{
-	    		  sql.append("  and c.courseId =:courseId ");
-		       	  paramMap.put("courseId",courseId);
-	    	  } 
-	       }
-	       sql.append(" order by c.createTime desc ");
+    	try {
+    		
+    		Map<String,Object> paramMap = new HashMap<>();
+            pageNumber = pageNumber == null ? 1 : pageNumber;
+            pageSize = pageSize == null ? 10 : pageSize;
+            /**
+             * 购买者这里怎么显示了啊。好尴尬了，不能用多个循环吧，不然会卡点呢
+             * 	 或者是购买成功	
+             * 
+             * 一个专辑下存在多个课程，然后课程
+             */
+            if(courseId !=null || teacherId!=null){
+               StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1  and c.onlineUser is not null  ");
+    	       
+               if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
+    	       	  sql.append("  and c.userId =:userId ");
+    	       	  paramMap.put("userId", teacherId);
+    	       }else if(courseId!=null && courseId!=0){
+    	    	  //查找这个课程是不是专辑、如果是专辑就 用in来查找啦
+    	    	  List<Integer> list =  getCoursesIdListByCollectionId(courseId);
+    	    	  
+    	    	  if(list.size()>0){
+    	    		  list.add(courseId);
+    	    		  String str = "";
+    	    		  for (int i = 0; i < list.size(); i++) {
+    					Integer array_element = list.get(i);
+    					if(i == list.size()-1){
+    						str +=array_element;
+    					}else{
+    						str +=array_element+",";
+    					}
+    				  }
+    	    		  sql.append("  and c.courseId in ("+str+") ");
+    	    	  }else{
+    	    		  sql.append("  and c.courseId =:courseId ");
+    		       	  paramMap.put("courseId",courseId);
+    	    	  } 
+    	       }
+    	       sql.append(" order by c.createTime desc ");
 
-	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
-	        
-	        if(criticizes.getTotalCount()>0){
-	        	String loginName = "";
-	        	if(userId!=null){
-                    //这里就查询了一次，所是ok的。这是不是需要查询下。
-	        		OnlineUser u = this.get(userId,OnlineUser.class);
-	        		loginName = u.getLoginName();
-	        	}
-	        	 for (Criticize c : criticizes.getItems()) {
-	        		/**
-	        		 * 判断会否点过赞 
-	        		 */
-	        		String loginNames =  c.getPraiseLoginNames();
-	 	        	Boolean isPraise = false;
-	 	        	if(org.apache.commons.lang.StringUtils.isNotBlank(loginNames)){
-	 	        		for (String loginName1 : loginNames.split(",")) {
-	 						if(loginName.equals(loginName1)){
-	 							isPraise =  true;
-	 						}
-	 					}
-	 	        	}
-	 	        	c.setIsPraise(isPraise);
-	 	        	/**
-	        		 * 星级的平均数
-	        		 */
-	 	        	if(c.getOverallLevel()!=null&& !"".equals(c.getOverallLevel()) && c.getOverallLevel()!=0){
-	 	        		
-	 	        		System.out.println("c.getOverallLevel():"+c.getOverallLevel());
-	 	        		System.out.println("c.getContentLevel():"+c.getContentLevel());
-	 	         		System.out.println("c.getDeductiveLevel():"+c.getDeductiveLevel());
-	 	         		
-                        BigDecimal totalAmount = new BigDecimal(c.getOverallLevel() !=null ? c.getOverallLevel() :0 );
-                        totalAmount =totalAmount.add(new BigDecimal(c.getContentLevel()  !=null ? c.getContentLevel() :0 ));
-                        totalAmount =totalAmount.add(new BigDecimal(c.getDeductiveLevel()  !=null ? c.getDeductiveLevel() :0 ));
-                      
-                        String startLevel = "0";
-                        try {
-                            startLevel = divCount(totalAmount.doubleValue(),3d,1);
-                            System.out.println("startLevel:"+startLevel);
-                            c.setStarLevel(Float.valueOf(startLevel));
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
+    	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
+    	        
+    	        if(criticizes.getTotalCount()>0){
+    	        	String loginName = "";
+    	        	if(userId!=null){
+                        //这里就查询了一次，所是ok的。这是不是需要查询下。
+    	        		OnlineUser u = this.get(userId,OnlineUser.class);
+    	        		loginName = u.getLoginName();
+    	        	}
+    	        	 for (Criticize c : criticizes.getItems()) {
+    	        		/**
+    	        		 * 判断会否点过赞 
+    	        		 */
+    	        		String loginNames =  c.getPraiseLoginNames();
+    	 	        	Boolean isPraise = false;
+    	 	        	if(org.apache.commons.lang.StringUtils.isNotBlank(loginNames)){
+    	 	        		for (String loginName1 : loginNames.split(",")) {
+    	 						if(loginName.equals(loginName1)){
+    	 							isPraise =  true;
+    	 						}
+    	 					}
+    	 	        	}
+    	 	        	c.setIsPraise(isPraise);
+    	 	        	/**
+    	        		 * 星级的平均数
+    	        		 */
+    	 	        	if(c.getOverallLevel()!=null&& !"".equals(c.getOverallLevel()) && c.getOverallLevel()!=0){
+    	 	        		
+    	 	        		System.out.println("c.getOverallLevel():"+c.getOverallLevel());
+    	 	        		System.out.println("c.getContentLevel():"+c.getContentLevel());
+    	 	         		System.out.println("c.getDeductiveLevel():"+c.getDeductiveLevel());
+    	 	         		
+                            BigDecimal totalAmount = new BigDecimal(c.getOverallLevel() !=null ? c.getOverallLevel() :0 );
+                            totalAmount =totalAmount.add(new BigDecimal(c.getContentLevel()  !=null ? c.getContentLevel() :0 ));
+                            totalAmount =totalAmount.add(new BigDecimal(c.getDeductiveLevel()  !=null ? c.getDeductiveLevel() :0 ));
+                          
+                            String startLevel = "0";
+                            try {
+                                startLevel = divCount(totalAmount.doubleValue(),3d,1);
+                                System.out.println("startLevel:"+startLevel);
+                                c.setStarLevel(Float.valueOf(startLevel));
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-	 			}
-	        }
-            return criticizes;
-        }
+    	 			}
+    	        }
+                return criticizes;
+            }
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("获取评论列表有误!");
+		}
         return  null;
     }
     

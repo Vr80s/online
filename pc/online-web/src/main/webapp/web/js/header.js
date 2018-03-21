@@ -98,49 +98,32 @@ function on_click_msg(msg_id, msg_link) {
 
 $(function () {
 
-    $(document).ajaxSend(function(event, request, settings) {
-/*        $.ajax({
-            type: "get",
-            url: bath + "/online/user/isAlive",
-            async: false,
-            success: function(data) {
-                if(data.success === true) {
-                } else {
-                    $('#login').modal('show');
-                    $('#login').css("display", "block");
-                    $(".loginGroup .logout").css("display", "block");
-                    $(".loginGroup .login").css("display", "none");
-                    alert("没登录！");
-                    //window.location.href=bath+"/index.html"
-                }
-            }
-        });*/
+    /*$(document).ajaxSend(function(event, request, settings) {
+        //pc端多端登录限制
+        if((settings.url.indexOf("/online/user/isAlive")>=0)){
+                    $.ajax({
+                    type: "get",
+                    url: bath + "/online/user/loginStatus",
+                    async: false,
+                    success: function(data) {
+                        console.log(data);
+                        if(data.success === true) {
+                            if(data.resultObject==0){
+                                //alert("当前已登录");
+                             }else if(data.resultObject==1){
+                                //alert("未登录状态");
+                            }else if(data.resultObject==2){
+                                //alert("被顶掉！");
+                                window.location.href=bath+"/otherDevice.html"
+                            }
 
-if((settings.url.indexOf("/online/user/isAlive")>=0)){
-            $.ajax({
-            type: "get",
-            url: bath + "/online/user/loginStatus",
-            async: false,
-            success: function(data) {
-                console.log(data);
-                if(data.success === true) {
-                    if(data.resultObject==0){
-                        //alert("当前已登录");
-                     }else if(data.resultObject==1){
-                        //alert("未登录状态");
-                    }else if(data.resultObject==2){
-                        //alert("被顶掉！");
-                        window.location.href=bath+"/otherDevice.html"
+                        } else {
+
+                        }
                     }
-
-                } else {
-
-                }
-            }
-        });
-}
-
-    });
+                });
+        }
+    });*/
 
 
 

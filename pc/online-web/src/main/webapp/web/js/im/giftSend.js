@@ -196,7 +196,7 @@ $(document).ready(function() {
                         });
 					// }
 				}
-			});
+			},false);
 //			$("#chat-content").val('');
 
 			//获取当前点击时候的id/点击的时间
