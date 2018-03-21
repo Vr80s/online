@@ -59,8 +59,8 @@ public class CriticizeController {
 		}
 		criticize.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 		criticize.setCreatePerson(ou.getId());  //创建人id
-		if(criticize.getContent().length()>100){
-			return ResponseObject.newErrorResponseObject("评论失败");
+		if(criticize.getContent().length()>200){
+			return ResponseObject.newErrorResponseObject("字符太长");
 		}else{
 			/**
 			 * 这里判断下此用户有没有购买过此视频
@@ -147,7 +147,11 @@ public class CriticizeController {
         	/**
         	 * 这个是讲师id
         	 */
-            criticizeService.saveReply(content,user.getId(),criticizeId);
+        	if(content.length()>200){
+    			return ResponseObject.newErrorResponseObject("字符太长");
+    		}else{
+    			criticizeService.saveReply(content,user.getId(),criticizeId);
+    		}
             return ResponseObject.newSuccessResponseObject("回复成功！");
         }else{
             return ResponseObject.newErrorResponseObject("用户未登录！");

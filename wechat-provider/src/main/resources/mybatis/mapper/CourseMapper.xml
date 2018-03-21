@@ -503,6 +503,7 @@
 			FLOOR(cai.`price` * 10) as currentPrice,
 		    cai.lecturer as name,
 			if(cai.course_form=1,3,if(cai.course_form=3,4,if(cai.multimedia_type=1,1,2))) as type,
+			
 		    cai.start_time as startTime,
 			cai.end_time as endTime,
 		    cai.course_number as courseNumber,
@@ -513,7 +514,9 @@
 			oc.id as id,
 		    oc.live_source_type as liveSourceType,
 		    
-		    DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+		    if(oc.start_time is null,(DATE_FORMAT(cai.create_time,'%Y-%m-%d %H:%i')),
+		        (DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i'))) as startDateStr,
+		    
 		    if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
 			 (DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
     		   (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time),4,

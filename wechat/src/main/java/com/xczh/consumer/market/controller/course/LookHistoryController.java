@@ -67,21 +67,28 @@ public class LookHistoryController {
 			if(ou==null){
 			   return ResponseObject.newSuccessResponseObject("登录失效");
 			}
-			CourseLecturVo course =  courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+			//courseServiceImpl.selectCurrentCourseStatus(courseId);
+			CourseLecturVo course =  courseServiceImpl.selectCurrentCourseStatus(courseId);
 			if(course == null){
 		          throw new RuntimeException("课程信息有误");
-		     }
-			WatchHistory target = new WatchHistory();
-			target.setCourseId(courseId);
-			target.setUserId(ou.getId());
-			target.setLecturerId(course.getUserLecturerId());
+		    }
 			
+			if(course.getType() == 4){
+				
+				WatchHistory target = new WatchHistory();
+				target.setCourseId(courseId);
+				target.setUserId(ou.getId());
+				target.setLecturerId(course.getUserLecturerId());
+				watchHistoryServiceImpl.addOrUpdate(target);
+			}
+			
+
 			
 			if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
 			   onlineWebService.saveEntryVideo(courseId, ou);
 			}
 			
-			watchHistoryServiceImpl.addOrUpdate(target);
+			
 			
 			return ResponseObject.newSuccessResponseObject("保存成功");
 		} catch (Exception e) {
