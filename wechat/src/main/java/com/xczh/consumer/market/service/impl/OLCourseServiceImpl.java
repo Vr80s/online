@@ -574,12 +574,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		/**
 		 * 直播中的状态 4:直播课程
 		 */
-		if(lineState!=null&&lineState!=4){
+		if(lineState!=null&&lineState!=1234){
 			commonSql.append(" and oc.live_status = '"+lineState+"'");
 		}
-		if(lineState!=null&&lineState==4){
-			commonSql.append(" and oc.live_status = 2 ");
-			commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
+		if(lineState!=null&&lineState==1234){
+			commonSql.append(" and oc.type = 1 ");
 		}
 		/**
 		 * 目前检索的是讲师名和课程id
@@ -672,13 +671,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			/**
 			 * 直播中的状态 4:直播课程
 			 */
-			if(lineState!=null&&lineState!=4){
-				commonSql.append(" and oc.live_status = '"+lineState+"'");
-			}
-			if(lineState!=null&&lineState==4){
-				commonSql.append(" and oc.live_status = 2 ");
-				commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
-			}
+            if(lineState!=null&&lineState!=1234){
+                commonSql.append(" and oc.live_status = '"+lineState+"'");
+            }
+            if(lineState!=null&&lineState==1234){
+                commonSql.append(" and oc.type = 1 ");
+            }
 			/**
 			 * 目前检索的是讲师名和课程id
 			 */
@@ -751,13 +749,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			/**
 			 * 直播中的状态 4:直播课程
 			 */
-			if(lineState!=null&&lineState!=4){
-				commonSql.append(" and oc.live_status = '"+lineState+"'");
-			}
-			if(lineState!=null&&lineState==4){
-				commonSql.append(" and oc.live_status = 2 ");
-				commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
-			}
+            if(lineState!=null&&lineState!=1234){
+                commonSql.append(" and oc.live_status = '"+lineState+"'");
+            }
+            if(lineState!=null&&lineState==1234){
+                commonSql.append(" and oc.type = 1 ");
+            }
 			/**
 			 * 目前检索的是讲师名和课程id
 			 */
@@ -831,13 +828,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			/**
 			 * 直播中的状态 4:直播课程
 			 */
-			if(lineState!=null&&lineState!=4){
-				commonSql.append(" and oc.live_status = '"+lineState+"'");
-			}
-			if(lineState!=null&&lineState==4){
-				commonSql.append(" and oc.live_status = 2 ");
-				commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
-			}
+            if(lineState!=null&&lineState!=1234){
+                commonSql.append(" and oc.live_status = '"+lineState+"'");
+            }
+            if(lineState!=null&&lineState==1234){
+                commonSql.append(" and oc.type = 1 ");
+            }
 			/**
 			 * 目前检索的是讲师名和课程id
 			 */
