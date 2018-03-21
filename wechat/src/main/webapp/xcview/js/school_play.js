@@ -315,6 +315,12 @@ function btn_zj_mianfei(){
 					window.location.href="purchase.html?orderId="+data.resultObject.orderId+"";
 				});
 			}else if(data_zj==1){
+				requestService("/xczh/history/add",{
+				courseId:courseId,
+				recordType:1
+				},function(data) {
+	
+				})
 				window.location.href="live_play.html?my_study="+course_id+"";
 			}else if(data_zj==2){
 				window.location.href="live_play.html?my_study="+course_id+"";

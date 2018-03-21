@@ -263,7 +263,7 @@ function jump_play(id){
                location.href ="/xcview/html/evpi.html";
             }else{
             requestService("/xczh/history/add",
-               {courseId:id}
+               {courseId:id,recordType:2}
                ,function(data) {
       
                }) 
@@ -276,7 +276,7 @@ function jump_play(id){
                   location.href ="/xcview/html/evpi.html";
                }else{
                   requestService("/xczh/history/add",
-                     {courseId:id}
+                     {courseId:id,recordType:2}
                      ,function(data) {
             
                      }) 
@@ -286,14 +286,14 @@ function jump_play(id){
 //购买后的直播和即将直播跳直播间
          else if(userPlay.watchState==2 && userPlay.lineState==1){
             requestService("/xczh/history/add",
-               {courseId:id}
+               {courseId:id,recordType:2}
                ,function(data) {
       
                }) 
             location.href="details.html?courseId="+id           
          }else if(userPlay.watchState==2 && userPlay.lineState==2){
             requestService("/xczh/history/add",
-               {courseId:id}
+               {courseId:id,recordType:2}
                ,function(data) {
       
                }) 
@@ -302,14 +302,14 @@ function jump_play(id){
 //主播本人自己的直播和即将直播跳直播间			
 			else if(userPlay.watchState==3 && userPlay.lineState==1){
 				requestService("/xczh/history/add",
-					{courseId:id}
+					{courseId:id,recordType:2}
 					,function(data) {
 		
 					})	
 				location.href="details.html?courseId="+id				
 			}else if(userPlay.watchState==3 && userPlay.lineState==2){
 				requestService("/xczh/history/add",
-					{courseId:id}
+					{courseId:id,recordType:2}
 					,function(data) {
 		
 					})	
