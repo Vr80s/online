@@ -57,26 +57,31 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 	@Override
 	public String updateFocus(String lecturerId, String userid, Integer type) {
 		// TODO Auto-generated method stub
-		Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid,lecturerId);
-		if(type !=null && type == 1){//增加关注
-			if(f!=null){
-				return "你已经关注过了";
+		try {
+			Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid,lecturerId);
+			if(type !=null && type == 1){//增加关注
+				if(f!=null){
+					//return "你已经关注过了";
+					throw new RuntimeException("你已经关注过了!");
+				}
+				f= new Focus();
+				f.setId(UUID.randomUUID().toString().replace("-", ""));
+				f.setUserId(userid);
+				f.setLecturerId(lecturerId);
+				f.setCreateTime(new Date());
+				LOGGER.info("userid:"+userid+",lecturerId:"+lecturerId);
+				focusMapper.insert(f);
+			}else if(type !=null && type == 2){
+				if(f==null){
+					//return "你还未关注此主播";
+					throw new RuntimeException("你还未关注此主播!");
+				}
+				focusMapper.deleteById(f.getId());
 			}
-			f= new Focus();
-			f.setId(UUID.randomUUID().toString().replace("-", ""));
-			f.setUserId(userid);
-			f.setLecturerId(lecturerId);
-			f.setCreateTime(new Date());
-			
-			LOGGER.info("userid:"+userid+",lecturerId:"+lecturerId);
-			focusMapper.insert(f);
-		}else if(type !=null && type == 2){
-			if(f==null){
-				return "你还未关注此主播";
-			}
-			focusMapper.deleteById(f.getId());
+			return "操作成功!";
+		} catch (Exception e) {
+			throw new RuntimeException("操作失败!");
 		}
-		return "操作成功!";
 	}
 
 	
