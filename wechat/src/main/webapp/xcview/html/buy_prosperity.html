@@ -1,37 +1,33 @@
 <!DOCTYPE html>
-	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
-<html lang="en" style="font-size: 84.3125px;">
-<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html>
+
 <head>
 <meta charset="UTF-8">
 <title>熊猫中医</title>
-
-
-
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-
-<!-- 网页自适应JS代码引入 -->
-<script src="/xcview/js/js.js"></script>
-
 <link rel="stylesheet" type="text/css" href="/xcview/css/buy_prosperity.css" />
-
+<script>
+	var adapt=document.documentElement.clientWidth;
+	if(adapt>750){
+		adapt=750;
+	}
+	document.documentElement.style.fontSize=adapt/7.5+"px";
+</script>
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
-	<header>
+<div class="wp">
+	<div class="header-wrap">	
 		<div class="header">
-			<div class="header_return">
+			<div class="header_return z">
 				<img src="/xcview/images/back icon.png">
-				首页
+				<span>首页</span>
 			</div>
-			<div class="header_title">购买成功</div>
-			<!--<div class="header_share">
-				<img src="/xcview/images/share_img.png">
-			</div>-->
-		</div>
-	</header>
+			<p class="header_title">购买成功</p>
+		</div>	
+	</div>
 	<!--头部搜索结束-->
 	
 	
@@ -39,10 +35,10 @@
 	<div class="prosperity">
 		<div class="buy_prosperity">
 			<div class="prosperity_title">
-				<div class="prosperity_yuan" style="float: left;">
+				<div class="prosperity_yuan z">
 					<img src="../images/dui_img.png" />
 				</div>
-				购买成功
+				<span class="msg_bug">购买成功</span>
 			</div>
 			<div class="purchase_details">
 				<div class="purchase_details_main">
@@ -50,12 +46,10 @@
 						<img src="../images/white.jpg" alt="" id="smallImgPath">
 						<div class="purchase_details_left">
 							<div class="purchase_details_title">
-
 								<span class="span1"></span>
 							</div>
 							<div class="purchase_details_title">
 								<span class="span0"></span>
-
 							</div>
 							<div class="both"></div>
 							<div class="purchase_details_money"><span></span>熊猫币</div>
@@ -74,21 +68,7 @@
     		<div class="boutique_main">
     			<ul>
     				<!--视频-->
-    				<div class="lectures"></div>
-    				
-    				
-<!--     				if(type ==3 && (lineState ==4 || lineState ==1 || lineState ==3)){ //直播间
-		location.href="details.html?courseId="+id
-	}else if(type ==1 || type ==2){ //课程页面
-		
-		location.href="live_audio.html?my_study="+id
-		
-	}else if(type ==4){ //线下培训班
-		location.href="live_class.html?my_study="+id
-	}else if((type ==1 || type ==2) && collection){
-		location.href="live_select_album.html?my_study="+id
-	} -->
-    				
+    				<div class="lectures"></div>   				
     				<script type="text/html" id="lectures">
 	                {{each items as item i}}
     				<li>
@@ -131,18 +111,22 @@
 		                        {{/if}}							
 							</div>
     					</div>
+    				</div>
+    			</div>
+    					
     				</li>
 					{{/each}}
 					</script>
     			
     				<div class="both"></div>
     			</ul>
-    		</div>
+
     		<div class="both"></div>
-    	</div>
+
     	<!--猜你喜欢结束-->
 	</div>
 	<!--中间内容结束-->
+	</div>
 </body>
 
 <!--这段meta代码需要加上，移动端自适应缩放用-->

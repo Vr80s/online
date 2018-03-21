@@ -143,7 +143,7 @@ function giftShow(gift, f,continuous) {
 
     if (gift.messageType == 1) { // 礼物
         var bottom = countChange(f)
-        gif[f] = $("<li class='animation' id='gift"+f+"' style='position: absolute;top: "
+        gif[f] = $("<li class='animation' id='gift"+f+"' style='position: fixed;top: "
             + bottom
             + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
             + gift.senderInfo.userName
@@ -294,15 +294,29 @@ function createGiftShow() {
 function countChange(count) {
     if (count == 3) {
         count = 2;
-        return 16.4;
+        return 16.1;
     } else if (count == 2) {
         count = 3;
-        return 13.9;
+        return 13.8;
     } else {
         count = 1;
-        return 11.4;
+        return 11.5;
     }
 }
+
+/*function countChange(count) {
+    if (count == 3) {
+        count = 2;
+        return 5.8;
+    } else if (count == 2) {
+        count = 3;
+        return 3.5;
+    } else {
+        count = 1;
+        return 1.2;
+    }
+}*/  /*这是 absolute定位，现在用的固定定位，可能分辨率不同，有影响，ab定位先留着*/
+
 var gif = [];
 var num = [];
 var min = [];
