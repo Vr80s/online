@@ -65,10 +65,20 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
 			
 			mui("#refreshContainer").on('tap', '.div5', function (event) {
 				var itemId5=$(this).attr("data-jump");
+				 requestService("/xczh/history/add",
+               {courseId:itemId5,recordType:2}
+               ,function(data) {
+      
+               }) 
 				location.href = "details.html?courseId="+itemId5;
 			});
 			mui("#refreshContainer").on('tap', '.div5_1', function (event) {
 				var itemId5_1=$(this).attr("data-jump");
+				 requestService("/xczh/history/add",
+               {courseId:itemId5_1,recordType:2}
+               ,function(data) {
+      
+               }) 
 				location.href = "details.html?courseId="+itemId5_1;
 			});
 			mui("#refreshContainer").on('tap', '.div5_2', function (event) {

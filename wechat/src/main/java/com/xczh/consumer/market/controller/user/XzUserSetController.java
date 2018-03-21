@@ -127,14 +127,12 @@ public class XzUserSetController {
 	public ResponseObject phoneCheck(HttpServletRequest req,
 			@RequestParam("username")String username,
 			@RequestParam("vtype")Integer vtype)throws Exception {
-	
 		/**
 		 * 验证手机号
 		 */
 		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
-		
 		//短信验证码
 		String str = onlineUserService.changeMobileSendCode(username,vtype);
 		try {
@@ -166,14 +164,12 @@ public class XzUserSetController {
 			@RequestParam("username")String username,
 			@RequestParam("code")String code,
 			@RequestParam("vtype")Integer vtype) throws Exception {
-		
 		/**
 		 * 验证手机号
 		 */
 		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
-		
 		//短信验证码
 		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(username, code,vtype);
 		return checkCode;
@@ -365,13 +361,7 @@ public class XzUserSetController {
           * 更新信息
           */
          myInfoService.updateUserSetInfo(user);
-         /*
-          * 修改用户中心的方法
-          * 直接调用，里面有封装好的方法
-          */
-         /*userCenterAPI.update(user.getLoginName(),
-        		 user.getName(),user.getSex(),user.getEmail(),
-        				 null, 10, 10);*/
+
          /**
           *  如果用户信息发生改变。
           *  更改缓存中的数据
@@ -429,7 +419,6 @@ public class XzUserSetController {
 					user.setCountyName(str[2]);
 				}
 			}
-			
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  citys.split(" ");
 				//获取省市县
@@ -439,7 +428,6 @@ public class XzUserSetController {
 					user.setRegionId(str[2]);
 				}
 			}
-			
 			/**
 			 * 更新信息
 			 */

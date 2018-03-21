@@ -286,29 +286,48 @@ $(document)
 										});
 					}
 
-					// 点击分享
-					$(".history_img_right").click(function() {
-						$(".share").show();
-					});
-					$(".share_footer_call").click(function() {
-						$(".share").hide();
-					});
+//					添加判断浏览器的分享
+
+					if(is_weixin()){
+						// 点击分享
+						$(".history_img_right").click(function() {
+							$(".weixin_ceng").show();
+						});
+						
+						//点击微信显示黑色指示背景
+						$(".weixin_ceng").click(function() {
+							$(".weixin_ceng").hide();
+						});
+						
+					}else{
+						
+						$(".history_img_right").click(function() {
+							$(".share").show();
+						});
+						
+						$(".share_footer_call").click(function() {
+							$(".share").hide();
+						});
+						
+	//					点击取消
+						$(".share_cancel").click(function() {
+							$(".share").hide();
+						});
+						
+						
+						
+	//					点击微信显示黑色指示
+						/*$(".share_to_one").click(function() {
+							$(".weixin_ceng").show();
+						});*/
+	
+					}
+
+
+
+
+
 					
-//					点击取消
-					$(".share_cancel").click(function() {
-						$(".share").hide();
-					});
-					
-					
-					
-//					点击微信显示黑色指示
-					$(".share_to_one").click(function() {
-						$(".weixin_ceng").show();
-					});
-//					点击微信显示黑色指示背景
-					$(".weixin_ceng").click(function() {
-						$(".weixin_ceng").hide();
-					});
 					
 					
 					$(".gift_ul_li").on(

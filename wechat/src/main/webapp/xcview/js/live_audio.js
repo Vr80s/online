@@ -24,7 +24,7 @@ function stripHTML(str){
 		memory_data=data.resultObject.id;
 		$("#video_v").click(function(){
 			requestService("/xczh/history/add",
-			{courseId:memory_data}
+			{courseId:memory_data,recordType:2}
 			,function(data) {
 
 			})	
