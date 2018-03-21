@@ -101,7 +101,7 @@ public class MobileLiveController {
 
 		if(listNw.size()>0){
 			mapNw.put("title","即将直播");
-			mapNw.put("lineState","4");
+			mapNw.put("lineState","2");
 			mapNw.put("courseList",listNw);
 			mapCourseList.add(mapNw);
 		}
