@@ -73,16 +73,17 @@
 	var close_falg =  authenticationCooKie();
 	if(close_falg != 1000){   //不是登录状态 --》隐藏账号设置
 		$(".set_main_close").hide();
+		$(".btn").hide();
 		if(close_falg == 1002){ //游客状态隐藏  退出登录
 			$(".btn").hide();
 		}
 	}	
 	
-	if(is_weixin()){
+	/*if(is_weixin()){
     	$(".btn").show()
     }else{
     	$(".btn").hide()
-    }
+    }*/
 </script>
 
 <script>
