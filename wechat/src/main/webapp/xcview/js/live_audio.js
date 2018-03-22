@@ -24,10 +24,21 @@ function stripHTML(str){
 		memory_data=data.resultObject.id;
 		$("#video_v").click(function(){
 			requestService("/xczh/history/add",
-			{courseId:memory_data}
+			{courseId:memory_data,recordType:2}
 			,function(data) {
 
 			})	
+			if(type == 2){
+				$(".ccH5playerBox video").css("display","none");   //CC视频隐藏
+				$(".ccH5FullsBtn").css("display","none");
+				$(".play_video img").css("z-index","1"); 
+				
+			}
+
+			if(type == 1){
+				$(".play_video img").css("display","none");
+			}
+			
 		})
 			//分享的信息展示
 		gradeName = data.resultObject.gradeName;
@@ -53,6 +64,11 @@ function stripHTML(str){
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
+
+	
+		
+
+
 
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){

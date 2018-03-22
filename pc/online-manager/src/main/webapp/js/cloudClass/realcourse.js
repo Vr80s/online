@@ -35,7 +35,7 @@ $(function(){
     }},
     // { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
     // { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
-    { "title": "价格", "class":"center","width":"8%","sortable":false,"mRender":function(data,display,row){
+    { "title": "价格", "class":"center","width":"7%","sortable":false,"mRender":function(data,display,row){
     	data = parseInt(row.currentPrice);
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
@@ -62,7 +62,7 @@ $(function(){
     		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)" name="up_PX"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
     		'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)" name="down_PX"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
 	}},*/
-    { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+    { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
                     '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+

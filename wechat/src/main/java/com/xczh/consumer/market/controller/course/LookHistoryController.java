@@ -59,7 +59,8 @@ public class LookHistoryController {
 	@ResponseBody
 	public ResponseObject add(HttpServletRequest req,
 			HttpServletResponse res,
-			@RequestParam("courseId") Integer courseId) {
+			@RequestParam("courseId") Integer courseId,
+			@RequestParam(required=false)Integer recordType) {
 		try {
 			
 			
@@ -67,32 +68,38 @@ public class LookHistoryController {
 			if(ou==null){
 			   return ResponseObject.newSuccessResponseObject("登录失效");
 			}
-			//courseServiceImpl.selectCurrentCourseStatus(courseId);
 			CourseLecturVo course =  courseServiceImpl.selectCurrentCourseStatus(courseId);
 			if(course == null){
 		          throw new RuntimeException("课程信息有误");
 		    }
-			
-			if(course.getType() == 4){
-				
-				WatchHistory target = new WatchHistory();
-				target.setCourseId(courseId);
-				target.setUserId(ou.getId());
-				target.setLecturerId(course.getUserLecturerId());
-				watchHistoryServiceImpl.addOrUpdate(target);
-			}
-			
 
-			
-			if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
-			   onlineWebService.saveEntryVideo(courseId, ou);
+			if(recordType!=null){
+				if(recordType == 1){ //增加学习记录
+					if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
+						  onlineWebService.saveEntryVideo(courseId, ou);
+				    }
+				}
+				if(recordType == 2){
+					WatchHistory target = new WatchHistory();
+					target.setCourseId(courseId);
+					target.setUserId(ou.getId());
+					target.setLecturerId(course.getUserLecturerId());
+					watchHistoryServiceImpl.addOrUpdate(target);
+				}
+			}else{
+				if(course.getType() == 4){
+					WatchHistory target = new WatchHistory();
+					target.setCourseId(courseId);
+					target.setUserId(ou.getId());
+					target.setLecturerId(course.getUserLecturerId());
+					watchHistoryServiceImpl.addOrUpdate(target);
+				}
+				if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
+				   onlineWebService.saveEntryVideo(courseId, ou);
+				}
 			}
-			
-			
-			
 			return ResponseObject.newSuccessResponseObject("保存成功");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("保存失败");
 		}

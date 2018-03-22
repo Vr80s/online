@@ -429,11 +429,6 @@ public class CommonController {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		String gvhallId = user.getVhallId();
 		LOGGER.info("微吼gvhallId:"+gvhallId);
-		
-		//JSONObject json = WeihouInterfacesListUtil.getUserinfo(gvhallId,"name,head,id");
-		//String vh_app_key = "71a22e5b4a41483d41d96474511f58f3";
-		
-		String vhName = user.getName();
 		String email = user.getLoginName();
 		if(email!=null && email.indexOf("@")==-1){
 			email+="@163.com";
@@ -449,7 +444,6 @@ public class CommonController {
 		map.put("account",user.getId());       //用户帐号
 		map.put("username",user.getName());      //用户名
 		map.put("sign", getSign(map));
-		
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 	
@@ -458,6 +452,7 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject h5ShareLink(HttpServletRequest req,
 			HttpServletResponse res)throws Exception {
+		
 		
 		String courseId = req.getParameter("course_id");  //视频id
 		if(courseId == null ){
@@ -638,16 +633,12 @@ public class CommonController {
 		Set<String> keySet = signkv.keySet();
         Iterator<String> iter = keySet.iterator();
         StringBuilder sb = new StringBuilder();
-        //String APP_SECRET_KEY = "1898130bad871d1bf481823ba1f3ffb1";
         sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
         while (iter.hasNext()) {
             String key = iter.next();
-            //LOGGER.info(key + ":" + signkv.get(key));
             sb.append(key + signkv.get(key));
         }
         sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
-        //LOGGER.info(sb.toString());
-        //LOGGER.info(getMD5(sb.toString()));
         return getMD5(sb.toString());
 	}
 	
