@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.manager.gift.web;
+package com.xczhihui.bxg.online.manager.wechat.web;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -33,9 +33,10 @@ import com.xczhihui.bxg.online.manager.utils.Tools;
  */
 
 @Controller
-@RequestMapping("gift")
-public class GiftController extends AbstractController {
-	protected final static String GIFT_PATH_PREFIX = "/gift/";
+@RequestMapping("wechat/menu")
+public class WechatMaterialController extends AbstractController {
+	
+	protected final static String GIFT_PATH_PREFIX = "/wechat/";
 	@Autowired
 	private GiftService giftService;
 	@Autowired
@@ -43,17 +44,13 @@ public class GiftController extends AbstractController {
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
 
-	@RequestMapping(value = "index")
+	
+	@RequestMapping(value = "material")
 	public String index(HttpServletRequest request) {
 
-		// List<LecturerVo> lecturers = courseService.getLecturers();
-		// request.setAttribute("lecturerVo", lecturers);
-
-		
-		
-		return GIFT_PATH_PREFIX + "/gift";
+		System.out.println("[=[===========");
+		return GIFT_PATH_PREFIX + "/materialList";
 	}
-
 	//@RequiresPermissions("gift:menu")
 	@RequestMapping(value = "list")
 	@ResponseBody

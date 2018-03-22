@@ -390,7 +390,7 @@
 		and
 		DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(oc.start_time)
 		and oc.type =1 and oc.live_status = 2
-		order by oc.start_time desc limit 3 )
+		order by oc.start_time desc limit 5 )
 		UNION ALL
 		(
 		SELECT
@@ -421,7 +421,7 @@
 		FROM
 		oe_course oc
 		where oc.user_lecturer_id = #{userId}  and oc.is_delete=0  order by oc.release_time
-		desc,oc.start_time desc limit 3
+		desc,oc.start_time desc limit 5
 		)
 	</select>
 	
