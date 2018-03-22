@@ -13,6 +13,7 @@ import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.manager.anchor.service.impl.CourseAnchorServiceImpl;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseApplyDao;
+import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseDao;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import com.xczhihui.bxg.online.manager.message.dao.MessageDao;
@@ -45,6 +46,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
     private OnlineUserService onlineUserService;
     @Autowired
     private AnchorService anchorService;
+    @Autowired
+    private CourseDao courseDao;
 	@Value("${LIVE_VHALL_USER_ID}")
 	private String liveVhallUserId;
 	@Value("${vhall_callback_url}")
@@ -110,20 +113,19 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		Course collection = savePassCourse(courseApply,userId);
 		//对于专辑，通过时，所有课程都通过
 		if(courseApply.getCollection()){
+			deleteCollectionCourseByCollectionId(collection.getId());
 			List<CourseApplyInfo> courseApplyInfos = courseApplyDao.getCourseDeatilsByCollectionId(courseApply.getId());
 			for (int i = 0; i < courseApplyInfos.size(); i++) {
-				if (courseApplyInfos.get(i).getStatus()!=1){
-					Course course = savePassCourse(courseApplyInfos.get(i),userId);
-					//保存专辑-课程关系
-					saveCollectionCourse(collection,course);
-				}else{
-					Course course = getCourseByApplyId(courseApplyInfos.get(i));
-					course.setCollectionCourseSort(courseApplyInfos.get(i).getCollectionCourseSort());
-					//保存专辑-课程关系
-					saveCollectionCourse(collection,course);
+				if (courseApplyInfos.get(i).getStatus()!=1) {
+					throw new RuntimeException("专辑中包含未通过课程，无法通过审核");
 				}
+				Course course = getCourseByApplyId(courseApplyInfos.get(i));
+				course.setCollectionCourseSort(courseApplyInfos.get(i).getCollectionCourseSort());
+				//保存专辑-课程关系
+				saveCollectionCourse(collection,course);
 			}
 		}
+
 		String msgId = UUID.randomUUID().toString().replaceAll("-", "");
 		MessageShortVo messageShortVo = new MessageShortVo();
 		messageShortVo.setUser_id(courseApply.getUserId());
@@ -131,7 +133,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		messageShortVo.setCreate_person(userId);
 		messageShortVo.setType(1);
 		String n;
-		//若为打款
+		//若为专辑
 		if(courseApply.getCollection()){
 			n="专辑";
 		}else{
@@ -140,6 +142,13 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		String content = n+"《"+courseApply.getTitle()+"》通过系统审核，可以上架啦！";
 		messageShortVo.setContext(content);
 		messageDao.saveMessage(messageShortVo);
+	}
+
+	private void deleteCollectionCourseByCollectionId(Integer collectionId) {
+		String sql = "DELETE FROM `collection_course` WHERE collection_id=:collectionId";
+		Map<String, Integer> paramMap = new HashMap<String, Integer>();
+		paramMap.put("collectionId",collectionId);
+		dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 	}
 
 	private Course getCourseByApplyId(CourseApplyInfo courseApplyInfo) {
@@ -265,7 +274,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	}
 
 	private Course saveCourseApply2course(CourseApplyInfo courseApply) {
-		courseService.checkName(null,courseApply.getTitle());
+		courseService.checkName(null,courseApply.getTitle(),courseApply.getOldApplyInfoId());
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql="SELECT IFNULL(MAX(sort),0) as sort FROM oe_course ";
 		List<Course> temp = dao.findEntitiesByJdbc(Course.class, sql, params);
@@ -279,7 +288,13 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		if(courseApply.getPassword()!=null && !"".equals(courseApply.getPassword().trim())){
 			courseApply.setPrice(0.0);
 		}
-		Course course = new Course();
+		Course course = null;
+		if(courseApply.getOldApplyInfoId()!=null){
+			course = courseDao.findOneEntitiyByProperty(Course.class, "applyId", Integer.valueOf(courseApply.getOldApplyInfoId()));
+		}
+		if(course == null){
+			course = new Course();
+		}
 		//课程名称
 		course.setGradeName(courseApply.getTitle());
 		//课程副标题
@@ -308,8 +323,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		course.setLearndCount(0);
 		//当前登录人
 		course.setCreatePerson(UserHolder.getCurrentUser().getLoginName());
-		//当前时间
-		course.setCreateTime(new Date());
+
 		//状态
 		course.setStatus('0'+"");
 		//课程介绍
@@ -360,7 +374,14 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		course.setCollectionCourseSort(courseApply.getCollectionCourseSort());
 		course.setCollection(courseApply.getCollection());
 		course.setCourseNumber(courseApply.getCourseNumber());
-		dao.save(course);
+		if(course.getId()!=null){
+			//若course有id，说明该申请来自一个已经审核通过的课程，则更新
+			dao.update(course);
+		}else{
+			//当前时间
+			course.setCreateTime(new Date());
+			dao.save(course);
+		}
 		return course;
 	}
 

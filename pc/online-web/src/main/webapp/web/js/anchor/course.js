@@ -369,13 +369,13 @@ function updateCourse(course){
     });
 }
 
-function editCourse(caiId){
+function editCourse(caiId,passEdit){
     resetCourseForm(false);
-    if(echoCourse(caiId)){
+    if(echoCourse(caiId,passEdit)){
         $(".curriculum_two").hide();
         $(".curriculum_one").show();
     }else{
-        showTip("课程已通过，不可再次编辑");
+        showTip("课程发生变化了，请刷新列表");
     }
 }
 
@@ -406,22 +406,27 @@ function getCourse4Update(caiId){
     return course;
 }
 
-function echoCourse(caiId){
+function echoCourse(caiId,passEdit){
     var course = getCourse4Update(caiId);
-    if(course.status==1)return false;
+    //若该申请已通过，且点进方法的页面显示未通过，给出提示  //暂时关闭该校验
+    if(course.status==1 && !passEdit)return false;
     $('#caiId').val(caiId);
     $('.course_title').val(course.title);
     $('.course_subtitle').val(course.subtitle);
     $('#courseImg').html('<img src="" style="width: 100%;height: 100%" >');
     $('#courseImg img').attr('src',course.imgPath);
     $('.course_lecturer ').val(course.lecturer);
-    UE.getEditor('editor').setContent(course.lecturerDescription);
+    if(course.lecturerDescription) {
+        UE.getEditor('editor').setContent(course.lecturerDescription);
+    }
     // $("input[name='course_form']:checked").val();
     $("input:radio[name=course_form][value="+course.courseForm+"]").prop("checked",true);
     $('#menu_select').val(course.courseMenu);
     $('.course_price').val(course.price);
-    // course.courseDetail = getCDContent();
-    UE.getEditor('editor_cd').setContent(course.courseDetail);
+    if(course.courseDetail) {
+        UE.getEditor('editor_cd').setContent(course.courseDetail);
+    }
+
     $('.course_length').val(course.courseLength);
     showCourseAttribute(course.courseForm);
     if(course.courseForm==1){
@@ -987,36 +992,47 @@ function updateCollection(collection){
         }
     });
 }
+
+function getCollection4Update(collectionId){
+    var collection;
+    RequestService("/anchor/course/getCourseApplyById?caiId="+collectionId, "get", null, function(data) {
+        collection = data.resultObject;
+    },false);
+    return collection;
+}
 function editCollection(collectionId){
     resetCollectionForm();
-    echoCollection(collectionId);
-    $("#zhuanji_bottom2").hide();
-    $("#zhuanji_bottom").show();
+    if(echoCollection(collectionId)){
+        $("#zhuanji_bottom2").hide();
+        $("#zhuanji_bottom").show();
+    }else{
+        showTip("专辑发生变化了，请刷新列表");
+    }
 }
-function echoCollection(collectionId){
-    RequestService("/anchor/course/getCourseApplyById?caiId="+collectionId, "get", null, function(data) {
-        var collection = data.resultObject;
-        $('#collectionId').val(collection.id)
-        $('.collection_title').val(collection.title);
-        $('.collection_subtitle').val(collection.subtitle);
-        $('#collectionImg').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
-        $('#collectionImg img').attr('src',collection.imgPath);
-        $('.collection_lecturer ').val(collection.lecturer);
-        UE.getEditor('editor_collection_lecturer_description').setContent(collection.lecturerDescription);
-        $('#menu_select_collection').val(collection.courseMenu);
-        $('.collection_price').val(collection.price);
-        UE.getEditor('editor_collection_details').setContent(collection.courseDetail);
-        UE.getEditor('editor_collection_outline').setContent(collection.courseOutline);
-        $('.course_number').val(collection.courseNumber);
-        $("input:radio[name=collection_multimedia_type][value="+collection.multimediaType+"]").prop("checked",true);
-        // debugger
-        initCourse(collection.multimediaType);
-        courseArr = collection.courseApplyInfos;
-        courseArr = upDownShowInit(courseArr);
-        var arr={};
-        arr.courseArr=courseArr;
-        $(".collection_courses").html(template('collection_course_list_tpl', arr));
-    });
+function echoCollection(collectionId,passEdit){
+    var collection = getCollection4Update(collectionId);
+    //若该申请已通过，且点进方法的页面显示未通过，给出提示  //暂时关闭该校验
+    // if(collection.status==1 && !passEdit)return false;
+    $('#collectionId').val(collection.id)
+    $('.collection_title').val(collection.title);
+    $('.collection_subtitle').val(collection.subtitle);
+    $('#collectionImg').html('<img src="" style="width: 100%;height: 100%" >');
+    $('#collectionImg img').attr('src',collection.imgPath);
+    $('.collection_lecturer ').val(collection.lecturer);
+    UE.getEditor('editor_collection_lecturer_description').setContent(collection.lecturerDescription);
+    $('#menu_select_collection').val(collection.courseMenu);
+    $('.collection_price').val(collection.price);
+    UE.getEditor('editor_collection_details').setContent(collection.courseDetail);
+    UE.getEditor('editor_collection_outline').setContent(collection.courseOutline);
+    $('.course_number').val(collection.courseNumber);
+    $("input:radio[name=collection_multimedia_type][value="+collection.multimediaType+"]").prop("checked",true);
+    initCourse(collection.multimediaType);
+    courseArr = collection.courseApplyInfos;
+    courseArr = upDownShowInit(courseArr);
+    var arr={};
+    arr.courseArr=courseArr;
+    $(".collection_courses").html(template('collection_course_list_tpl', arr));
+    return true;
 }
 function getCollectionData(){
     var collection = {};
