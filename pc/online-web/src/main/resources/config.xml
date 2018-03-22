@@ -1,193 +1,231 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xmlns:aop="http://www.springframework.org/schema/aop"
-	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 	        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	        http://www.springframework.org/schema/context
 	        http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	        http://www.springframework.org/schema/aop
 	        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+
+
 	        http://www.springframework.org/schema/tx
 	        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-	        http://code.alibabatech.com/schema/dubbo  
+	        http://code.alibabatech.com/schema/dubbo
     		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<context:property-placeholder location="classpath:config.properties" />
-	<context:component-scan base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.bxg.common.support.dao"/>
-	
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<!-- c3p0连接池配置： -->
-		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
-		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
-		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
-		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
-		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
-		<property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}" />
-		<property name="acquireRetryDelay" value="${c3p0.acquireRetryDelay}" />
-		<property name="testConnectionOnCheckin" value="${c3p0.testConnectionOnCheckin}" />
-		<property name="automaticTestTable" value="${c3p0.automaticTestTable}" />
-		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}" />
-		<property name="checkoutTimeout" value="${c3p0.checkoutTimeout}" />
-	</bean>
-	
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan">
-			<list>
-				<value>com.xczhihui.bxg.online.**.domain</value>
-				<value>com.xczhihui.bxg.online.api.po</value>
-			</list>
-		</property>
-		<property name="annotatedClasses">
-			<list>
-				<value>com.xczhihui.bxg.common.support.domain.SystemVariate</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.connection.autocommit">false</prop>
-				<prop key="hibernate.cache.use_query_cache">false</prop>
-				<prop key="hibernate.cache.use_second_level_cache">false</prop>
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>
-				<prop key="hibernate.connection.release_mode">${hibernate.connection.release_mode}</prop>
-			</props>
-		</property>
-	</bean>
+    <context:property-placeholder location="classpath:config.properties"/>
+    <context:component-scan
+            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.bxg.common.support.dao, com.xczhihui.bxg.common.support.config"/>
 
-	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!-- c3p0连接池配置： -->
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}"/>
+        <property name="acquireIncrement" value="${c3p0.acquireIncrement}"/>
+        <property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"/>
+        <property name="acquireRetryDelay" value="${c3p0.acquireRetryDelay}"/>
+        <property name="testConnectionOnCheckin" value="${c3p0.testConnectionOnCheckin}"/>
+        <property name="automaticTestTable" value="${c3p0.automaticTestTable}"/>
+        <property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"/>
+        <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
+    </bean>
 
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="add*" propagation="REQUIRED" />
-			<tx:method name="create*" propagation="REQUIRED" />
-			<tx:method name="insert*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="remove*" propagation="REQUIRED" />
-			<tx:method name="onLogin" propagation="REQUIRED" />
-			<tx:method name="onLogout" propagation="REQUIRED" />
-			<!--<tx:method name="sendGiftStatement" propagation="SUPPORTS" />-->
-			<tx:method name="uploadSuccessCallback" propagation="REQUIRED" />
-			<tx:method name="weixin_pay_share_unifiedorder" propagation="REQUIRED" />
-			<!--<tx:method name="*" read-only="true" />-->
-		</tx:attributes>
-	</tx:advice>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>com.xczhihui.bxg.online.**.domain</value>
+                <value>com.xczhihui.bxg.online.api.po</value>
+            </list>
+        </property>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.xczhihui.bxg.common.support.domain.SystemVariate</value>
+                <value>com.xczhihui.bxg.common.support.domain.Attachment</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.connection.autocommit">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+                <prop key="hibernate.connection.release_mode">${hibernate.connection.release_mode}</prop>
+            </props>
+        </property>
+    </bean>
 
-	<aop:config proxy-target-class="true">
-		<aop:advisor advice-ref="txAdvice"
-			pointcut="execution(* com.xczhihui.bxg.online..service..*.*(..))" />
-	</aop:config>
+    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
 
-	<!-- 开启事务控制的注解支持 20180302-->
-	<tx:annotation-driven transaction-manager="txManager"/>
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="create*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="remove*" propagation="REQUIRED"/>
+            <tx:method name="onLogin" propagation="REQUIRED"/>
+            <tx:method name="onLogout" propagation="REQUIRED"/>
+            <tx:method name="upload**"/>
+            <!--<tx:method name="sendGiftStatement" propagation="SUPPORTS" />-->
+            <tx:method name="uploadSuccessCallback" propagation="REQUIRED"/>
+            <tx:method name="weixin_pay_share_unifiedorder" propagation="REQUIRED"/>
+            <!--<tx:method name="*" read-only="true" />-->
+        </tx:attributes>
+    </tx:advice>
 
-	<!-- <bean id="simpleHibernateDao" class="com.xczhihui.bxg.common.support.dao.SimpleHibernateDao" /> -->
-	<bean id="broadcast" class="com.xczhihui.bxg.online.web.base.common.Broadcast" />
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="txAdvice"
+                     pointcut="execution(* com.xczhihui.bxg..service..*.*(..))"/>
+    </aop:config>
 
-	<bean id="emailService" class="com.xczhihui.bxg.online.web.service.impl.EmailService">
-		<property name="auth" value="${email.auth}" />
-		<property name="host" value="${email.host}" />
-		<property name="user" value="${email.user}" />
-		<property name="password" value="${email.password}" />
-	</bean>
-	
-	<bean id="cacheService" class="com.xczhihui.bxg.common.support.service.impl.RedisCacheService" >
-		<constructor-arg name="host" value="${redis.host}" />
-		<constructor-arg name="port" value="${redis.port}" />
-		<constructor-arg name="maxIdle" value="${reids.maxIdle}" />
-		<constructor-arg name="maxTotal" value="${reids.maxTotal}" />
-		<constructor-arg name="timeout" value="${reids.timeout}" />
-		<!-- 
-		<constructor-arg name="password" value="${redis.password}" />
-		 -->
-	</bean>
-	<!-- 附件中心 -->
-	<bean id="attachmentCenterService" class="com.xczhihui.bxg.common.support.service.impl.AttachmentCenterServiceImpl" />
-	<bean id="systemVariateService" class="com.xczhihui.bxg.common.support.service.impl.SystemVariateServiceImpl" />
+    <!-- 开启事务控制的注解支持 20180302-->
+    <tx:annotation-driven transaction-manager="txManager"/>
 
-	<!--RedissonUtil配置-->
-	<bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
-		<property name="redisHost" value="${redis.host}"></property>
-		<property name="redisPort" value="${redis.port}"></property>
-	</bean>
+    <!-- <bean id="simpleHibernateDao" class="com.xczhihui.bxg.common.support.dao.SimpleHibernateDao" /> -->
+    <bean id="broadcast" class="com.xczhihui.bxg.online.web.base.common.Broadcast"/>
 
-	<!-- aop分布式锁 -->
-	<bean id="lockService" class="com.xczhihui.bxg.online.common.utils.lock.LockService"></bean>
-	<!-- 启动对@AspectJ注解的支持  -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
+    <bean id="emailService" class="com.xczhihui.bxg.online.web.service.impl.EmailService">
+        <property name="auth" value="${email.auth}"/>
+        <property name="host" value="${email.host}"/>
+        <property name="user" value="${email.user}"/>
+        <property name="password" value="${email.password}"/>
+    </bean>
 
-	<!-- dubbo -->
-	<dubbo:application name="${dubbo.app.name}"/>
-	<dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
-	<dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}" />
+    <bean id="cacheService" class="com.xczhihui.bxg.common.support.service.impl.RedisCacheService">
+        <constructor-arg name="host" value="${redis.host}"/>
+        <constructor-arg name="port" value="${redis.port}"/>
+        <constructor-arg name="maxIdle" value="${reids.maxIdle}"/>
+        <constructor-arg name="maxTotal" value="${reids.maxTotal}"/>
+        <constructor-arg name="timeout" value="${reids.timeout}"/>
+        <!--
+        <constructor-arg name="password" value="${redis.password}" />
+         -->
+    </bean>
+    <!-- 附件中心 -->
+    <bean id="attachmentCenterService"
+          class="com.xczhihui.bxg.common.support.service.impl.AttachmentCenterServiceImpl"/>
+    <bean id="systemVariateService" class="com.xczhihui.bxg.common.support.service.impl.SystemVariateServiceImpl"/>
 
-	<dubbo:reference id="exceptionService" interface="com.xczhihui.bxg.common.support.service.ExceptionCenterService" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="${dubbo.consumer.timeout}" />
-	<!-- 医馆 -->
-	<dubbo:reference id="medicalHospitalBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"  timeout="${dubbo.consumer.timeout}" />
-	<!-- 医馆招聘 -->
-	<dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"  timeout="${dubbo.consumer.timeout}" />
-	<!--医师-->
-	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <!--RedissonUtil配置-->
+    <bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+        <property name="redisHost" value="${redis.host}"></property>
+        <property name="redisPort" value="${redis.port}"></property>
+    </bean>
 
-	<!--医师入驻-->
-	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService" id="medicalDoctorApplyServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<!--科室-->
-	<dubbo:reference interface="com.xczhihui.medical.department.service.IMedicalDepartmentService" id="medicalDepartmentService" timeout="${dubbo.consumer.timeout}" />
-	<!--医馆入驻-->
-	<dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" id="medicalHospitalApplyService" timeout="${dubbo.consumer.timeout}" />
-	<!--医师医馆公共服务-->
-	<dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonService" timeout="${dubbo.consumer.timeout}" />
+    <!-- aop分布式锁 -->
+    <bean id="lockService" class="com.xczhihui.bxg.online.common.utils.lock.LockService"></bean>
+    <!-- 启动对@AspectJ注解的支持  -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-	<!--医馆主播课程-->
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<!--主播资产管理-->
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IAssetService" id="assetServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <!-- dubbo -->
+    <dubbo:application name="${dubbo.app.name}"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
+    <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
 
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.GiftService" ref="giftServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.EnchashmentService" ref="enchashmentServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.CityService" ref="cityServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" ref="liveExamineInfoServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<!-- 评论使用 -->
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.CriticizeService" ref="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<!-- 公共的使用 -->
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.CommonApiService" ref="commonApiServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.OrderPayService" ref="orderPayServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:reference id="exceptionService" interface="com.xczhihui.bxg.common.support.service.ExceptionCenterService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!-- 医馆 -->
+    <dubbo:reference id="medicalHospitalBusinessServiceImpl"
+                     interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!-- 医馆招聘 -->
+    <dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl"
+                     interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!--医师-->
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService"
+                     id="medicalDoctorBusinessServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
-	<!--医馆认证信息-->
-	<dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService" id="medicalHospitalAuthenticationService" timeout="${dubbo.consumer.timeout}" />
-	<!--医师认证信息-->
-	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService" id="medicalDoctorAuthenticationInformationService" timeout="${dubbo.consumer.timeout}" />
+    <!--医师入驻-->
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService"
+                     id="medicalDoctorApplyServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <!--科室-->
+    <dubbo:reference interface="com.xczhihui.medical.department.service.IMedicalDepartmentService"
+                     id="medicalDepartmentService" timeout="${dubbo.consumer.timeout}"/>
+    <!--医馆入驻-->
+    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService"
+                     id="medicalHospitalApplyService" timeout="${dubbo.consumer.timeout}"/>
+    <!--医师医馆公共服务-->
+    <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonService"
+                     timeout="${dubbo.consumer.timeout}"/>
 
-	<!--主播-->
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoService" timeout="${dubbo.consumer.timeout}" />
+    <!--医馆主播课程-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!--主播资产管理-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IAssetService" id="assetServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
 
-	<!--主播控制台：订单-->
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IGiftOrderService"  id="giftOrderService" timeout="${dubbo.consumer.timeout}" />
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseOrderService"  id="CourseOrderService" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.GiftService" ref="giftServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.EnchashmentService" ref="enchashmentServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CityService" ref="cityServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService"
+                   ref="liveExamineInfoServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <!-- 评论使用 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CriticizeService" ref="criticizeServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+    <!-- 公共的使用 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CommonApiService" ref="commonApiServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.OrderPayService" ref="orderPayServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
 
-	<!-- 熊猫币购买服务 -->
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl" timeout="${dubbo.consumer.timeout}" />
-	
-	<!-- 开始直播通知服务 -->
-	<dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" ref="liveCallbackServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <!--医馆认证信息-->
+    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService"
+                     id="medicalHospitalAuthenticationService" timeout="${dubbo.consumer.timeout}"/>
+    <!--医师认证信息-->
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService"
+                     id="medicalDoctorAuthenticationInformationService" timeout="${dubbo.consumer.timeout}"/>
 
+    <!--主播-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoService"
+                     timeout="${dubbo.consumer.timeout}"/>
 
+    <!--主播控制台：订单-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IGiftOrderService" id="giftOrderService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseOrderService" id="CourseOrderService"
+                     timeout="${dubbo.consumer.timeout}"/>
+
+    <!-- 熊猫币购买服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+
+    <!-- 开始直播通知服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" ref="liveCallbackServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+
+    <!-- 附件服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService"
+                     ref="attachmentCenterService"
+                     timeout="${dubbo.consumer.timeout}"/>
 </beans>
