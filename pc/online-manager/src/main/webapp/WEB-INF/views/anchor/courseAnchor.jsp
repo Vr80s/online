@@ -504,6 +504,12 @@
 			                <tr>
 								<td>
 									<div class="profile-info-value searchTr">
+										<input type="text" placeholder = "账号" class="propertyValue1" id="search_loginName" style="width: 150px;">
+										<input type="hidden" value="search_loginName" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
 										<input type="text" placeholder = "主播名称" class="propertyValue1" id="search_name" style="width: 150px;">
 										<input type="hidden" value="search_name" class="propertyName"/>
 									</div>

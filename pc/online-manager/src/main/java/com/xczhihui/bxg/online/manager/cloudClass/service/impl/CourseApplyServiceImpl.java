@@ -87,7 +87,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 			playCode+="	</object>";
 			courseApply.setPlayCode(playCode);
 		}
-
+		//获取主播名
+		CourseAnchor ca = anchorService.findCourseAnchorByUserId(courseApply.getUserId());
+		courseApply.setUserName(ca.getName());
 		if(courseApply.getCollection()){
 			List<CourseApplyInfo> courseApplyInfos = courseApplyDao.getCourseByCollectionId(courseApply.getId());
 			courseApply.setCourseApplyInfoList(courseApplyInfos);

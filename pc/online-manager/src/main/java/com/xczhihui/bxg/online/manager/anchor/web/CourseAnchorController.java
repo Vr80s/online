@@ -56,6 +56,11 @@ public class CourseAnchorController extends AbstractController{
           
           CourseAnchor searchVo=new CourseAnchor();
 
+        Group loginName = groups.findByName("search_loginName");
+        if (loginName != null) {
+            searchVo.setLoginName(loginName.getPropertyValue1().toString());
+        }
+
           Group name = groups.findByName("search_name");
           if (name != null) {
         	  searchVo.setName(name.getPropertyValue1().toString());
