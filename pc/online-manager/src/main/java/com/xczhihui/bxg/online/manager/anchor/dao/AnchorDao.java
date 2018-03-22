@@ -49,6 +49,10 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				 "WHERE ca.`deleted` = 0 \n" +
 				 "  AND ou.`is_delete` = 0 \n" +
 				 "    ");
+		 if (courseAnchor.getLoginName() != null) {
+			 paramMap.put("loginName", "%" + courseAnchor.getLoginName() + "%");
+			 sql.append("and ou.login_name like :loginName ");
+		 }
 		 if (courseAnchor.getName() != null) {
 			 paramMap.put("name", "%" + courseAnchor.getName() + "%");
 			 sql.append("and ca.name like :name ");
