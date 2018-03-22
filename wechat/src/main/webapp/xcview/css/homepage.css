@@ -27,7 +27,6 @@ header{
     top: 0;
     left: 0;
     z-index: 99991;
-    background: #ba5353;
 }
 .header{
 	width: 100%;
@@ -315,6 +314,7 @@ header{
 	display: block;
 	margin: 0 auto;
 	margin-bottom: 0.09rem;
+	margin-top: 0.2rem;
 }
 .teacher_slider_ul_div span{
     text-align: center;
@@ -1086,7 +1086,7 @@ header{
 /*视频*/
 .boutique_main_one{
 	width: 3.39rem;
-	/*height: 4.085rem;*/
+	height: 100%;
 	position: relative;
 }
 .boutique_one_img{
@@ -1145,7 +1145,7 @@ header{
 }
 .boutique_main_one_size P{
 	font-size: 0.22rem;
-	color: #999999;
+	color: #999999;.teacher_slider_ul_div img
 }
 .boutique_main_one_size P span{
 	font-size: 0.24rem;
@@ -1161,7 +1161,7 @@ header{
 /*background1: red;*/
 }
 .boutique_main_one_size p:first-child{
-	margin-right: 0.2rem;
+	margin-right: 0.12rem;
     float: left;
     /*min-width: 1rem;*/
     /*max-width: 3.4rem;*/
@@ -1173,7 +1173,7 @@ header{
 	/*height: 0.51rem;*/
     /*line-height1: 0.51rem;*/
     float: left;
-    margin-right: 0.2rem;
+    margin-right: 0.12rem;
 }
 .boutique_main_one_size .p2 img{
 	width: 0.24rem;
@@ -1201,7 +1201,7 @@ header{
 	font-size: 0.22rem;
     padding: 0rem 0.1rem;
     color: #F97B49 !important;
-    margin-top: -0.05rem;
+    margin-top: -0.02rem;
 }
 .boutique_main_one_size .p3{
 	/*float: right;*/
@@ -1210,6 +1210,7 @@ header{
     /*height1: 0.52rem;
     line-height1: 0.51rem;*/
 	overflow: hidden;
+	float: left;
 }
    
  .boutique_main_one_size .p3 img{
@@ -1473,7 +1474,7 @@ header{
     max-width: 1.8rem;*/
 }
 .boutique_main_four_size p:first-child{
-	margin-right: 0.2rem;
+	margin-right: 0.15rem;
     float: left;
     /*min-width: 1rem;*/
     /*max-width: 3.4rem;*/
@@ -1487,7 +1488,7 @@ header{
 	/*height: 0.51rem;*/
     /*line-height1: 0.51rem;*/
     float: left;
-    margin-right: 0.2rem;
+    margin-right: 0.15rem;
 }
 .boutique_main_four_size .p2 img{
 	width: 0.24rem;
@@ -1528,7 +1529,7 @@ header{
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-    width: 0.8rem;
+    width: 1rem;
 }
 /*精品课程结束*/
 
@@ -1555,6 +1556,7 @@ header{
 	/*margin-left: 0.456rem;*/
 	margin-bottom: 0.4rem;
 	/*height: 7rem;*/
+	height: 3.25rem;
 }
 
 
@@ -1705,7 +1707,7 @@ header{
     max-width: 1.8rem;*/
 }
 .newest_main_two_size p:first-child{
-	margin-right: 0.2rem;
+	margin-right: 0.15rem;
     float: left;
     /*min-width: 1rem;
     max-width: 3.4rem;*/
@@ -1718,8 +1720,7 @@ header{
 	/*height: 0.51rem;*/
     line-height1: 0.51rem;
     float: left;
-    margin-right: 0.2rem;
-	margin-right: 0.2rem;
+	margin-right: 0.15rem;
     margin-top: 0.01rem;
 
 }
@@ -1957,6 +1958,7 @@ margin-top: 0.1rem;*/
 	margin-bottom: 0.4rem;
 	position: relative;
 	/*height: 7rem;*/
+	height: 3.25rem;
 }
 
 .lectures_main ul li:nth-child(even){
@@ -2034,7 +2036,7 @@ margin-top: 0.1rem;*/
     vertical-align: bottom;
 }
 .lectures_main_one_size p:first-child{
-	margin-right: 0.2rem;
+	margin-right: 0.15rem;
     float: left;
     /*min-width: 1rem;
     max-width: 3.4rem;*/
