@@ -526,7 +526,7 @@ public class UserServiceImpl implements UserService {
 		//旧的头像
 		String oldHeadImg=ou.getSmallHeadPhoto();
 		Attachment bigattr = this.attachmentCenterService.addAttachment(userId, AttachmentType.ONLINE, userId+"_big.png", 
-				image,StringUtils.getFilenameExtension(userId+"_big.png"), null);
+				image,StringUtils.getFilenameExtension(userId+"_big.png"));
 		
 		ou.setBigHeadPhoto(bigattr.getUrl());
 		
@@ -538,7 +538,7 @@ public class UserServiceImpl implements UserService {
 		
 		Attachment smallattr  = this.attachmentCenterService.addAttachment(
 				userId, AttachmentType.ONLINE, userId+"_small.png", image,
-				StringUtils.getFilenameExtension(userId+"_small.png"), null);
+				StringUtils.getFilenameExtension(userId+"_small.png"));
 		ou.setSmallHeadPhoto(smallattr.getUrl());
 		
 		dao.update(ou);

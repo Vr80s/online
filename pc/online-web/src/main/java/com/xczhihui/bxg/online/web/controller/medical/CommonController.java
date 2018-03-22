@@ -56,8 +56,7 @@ public class CommonController extends AbstractController{
         Attachment attachment = attachmentCenterService.addAttachment(currentUser.getUid(),
                 AttachmentType.ONLINE,
                 currentUser.getUid() + System.currentTimeMillis() + ".png", image,
-                org.springframework.util.StringUtils.getFilenameExtension(currentUser.getUid()+ System.currentTimeMillis()  + ".png"),
-                null);
+                org.springframework.util.StringUtils.getFilenameExtension(currentUser.getUid()+ System.currentTimeMillis()  + ".png"));
 
         return ResponseObject.newSuccessResponseObject(attachment.getUrl());
 

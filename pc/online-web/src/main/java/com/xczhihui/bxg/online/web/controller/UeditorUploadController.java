@@ -61,8 +61,7 @@ public class UeditorUploadController {
 
 		String upload = service.upload(userId, // 用户中心的用户ID
 				"online", attachmentFile.getOriginalFilename(), attachmentFile.getContentType(),
-				attachmentFile.getBytes(), "2", null// 用户中心，登录成功的票
-		);
+				attachmentFile.getBytes(), "2");
 		
 		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		Attachment a = g.fromJson(upload, Attachment.class);
