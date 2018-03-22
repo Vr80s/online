@@ -589,10 +589,10 @@ function clickBanner(id){
 var falg =authenticationCooKie();
 function go_study(){
     if (falg==1002){
-    	localStorage.save_adress=url_adress;
+
         location.href ="/xcview/html/cn_login.html";
     }else if (falg==1005) {
-    	localStorage.save_adress=url_adress;
+
         location.href ="/xcview/html/evpi.html";
     }else{
         location.href ="/xcview/html/my_study.html";
