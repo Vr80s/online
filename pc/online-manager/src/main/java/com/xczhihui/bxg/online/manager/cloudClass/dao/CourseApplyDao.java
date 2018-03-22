@@ -38,7 +38,7 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 		 }
 		 if (courseApplyInfo.getLecturer() != null) {
 			 paramMap.put("lecturer", "%" + courseApplyInfo.getLecturer() + "%");
-			 sql.append("and cai.lecturer like :lecturer ");
+			 sql.append("and ca.name like :lecturer ");
 		 }
 		 if (courseApplyInfo.getCourseMenu() != null) {
 			 paramMap.put("course_menu", courseApplyInfo.getCourseMenu());
