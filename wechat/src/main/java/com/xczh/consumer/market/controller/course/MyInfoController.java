@@ -68,7 +68,8 @@ public class MyInfoController {
 	 */
 	@RequestMapping("list")
 	@ResponseBody
-	public ResponseObject categoryXCList(HttpServletRequest req,HttpServletResponse res)
+	public ResponseObject categoryXCList(HttpServletRequest req,
+			HttpServletResponse res)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user == null){
@@ -143,7 +144,13 @@ public class MyInfoController {
 		if(null == onlineLecturer){	
 			return ResponseObject.newErrorResponseObject("操作失败");
 		}
-		String result = ifocusService.updateFocus(lecturerId,onlineUser.getId(),type);
-		return ResponseObject.newSuccessResponseObject(result);
+		try {
+			String result = ifocusService.updateFocus(lecturerId,onlineUser.getId(),type);
+			return ResponseObject.newSuccessResponseObject(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+		
 	}
 }

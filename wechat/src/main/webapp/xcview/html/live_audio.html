@@ -25,7 +25,38 @@
 	    height: 4.24rem !important;
 	}
 </style>
-    
+<style type="text/css">
+	.ccH5playerBox section{
+ 		/*background: red;*/
+	    bottom: -1rem;
+	    z-index: 999999;
+	    opacity: 1;
+ 	}
+ 	.ccH5playerBox{
+ 		overflow: auto;
+ 	}
+ 	.ccH5AudioBg img{
+ 		display: block !important;
+ 	}
+ 	#video_vs .ccH5playerBox video{
+ 		opacity: 0;
+    	z-index: -1;
+    	display: none;
+ 	}
+ 	#video_vs .ccH5playerBox{
+ 		background: none;
+ 	}
+ 	.hide{
+		display: none !important;
+	}
+	.play_video img{
+		/*z-index: 1;*/
+	}
+	/*
+	.ccH5FullsBtn{
+		display: none;
+	}*/
+</style>
 <body style="background:#F8F8F8;">
 <div class="wp">
 	<div class="wrap-header">
@@ -463,6 +494,9 @@ $.fn.toggle = function( fn, fn2 ) {
 <!--详情点击隐藏和显示-->
 <script>
 		$(function(){
+			
+//			$(".ccH5FadeOut").css("display","none");
+			
 //			简介内容
 			$('.btn').prepend('<a href="#">点击收起</a>');
 			  $(".btn").toggle(function(){
@@ -497,10 +531,11 @@ $.fn.toggle = function( fn, fn2 ) {
 			  
 		 })
 //	点击视频或音频按钮
-	$("#video_v").click(function(){
+	/*$("#video_v").click(function(){
 		$(".play_video img").css("display","none");
-	});
+	});*/
 		
+	
 	</script>
 
 </html>

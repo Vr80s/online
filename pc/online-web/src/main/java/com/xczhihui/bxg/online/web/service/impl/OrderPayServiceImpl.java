@@ -100,10 +100,15 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 						+ " '"+sno+"',"+"'"+order.getOrderDetailId()+"')";
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
-				//将该用户所购买的课程对应的评论改为已购买
+				/*
+				 * 将该用户所购买的课程对应的评论改为已购买
+				 */
 				Map<String,Object> paramMap1 = new HashMap<>();
 				paramMap1.put("createPerson", order.getUser_id());
 				paramMap1.put("courseId", order.getCourse_id());
+				
+			
+				
 				String sql1 = "update oe_criticize set is_buy = TRUE  where create_person =:createPerson and course_id=:courseId";
 				orderDao.getNamedParameterJdbcTemplate().update(sql1, paramMap1);
 

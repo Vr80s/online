@@ -442,7 +442,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		
 		StringBuffer all = new StringBuffer("");
 		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
-				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+		all.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+		all.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+		all.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 		all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 		all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
 		all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
@@ -462,7 +465,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append("  union all ");
 		
 		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
-				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+		all.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+		all.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+		all.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 		all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 		all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
 		all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
@@ -485,7 +491,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		for (MenuVo menuVo : listmv) {
 			i++;
 			all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
-					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			all.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			all.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			all.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 			all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 			all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
 			all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
@@ -525,7 +534,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
         commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
-		commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and oc.start_time > now(),");
+		commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
         commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
         commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
@@ -622,7 +631,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" union ");
 
 			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
-					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 			commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
@@ -700,7 +712,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" union ");
 
 			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
-					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 			commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
@@ -779,7 +794,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" union ");
 
 			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
-					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 			commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费

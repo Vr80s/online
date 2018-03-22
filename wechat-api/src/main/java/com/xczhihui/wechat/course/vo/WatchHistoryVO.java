@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class WatchHistoryVO implements Serializable {
-    private Long id;
+    
+	private Integer id;
     
     private String userId;       //用户id
 
@@ -51,14 +52,6 @@ public class WatchHistoryVO implements Serializable {
     
     public Integer liveSourceType; //直播源
     
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getUserId() {
         return userId;
     }
@@ -210,6 +203,14 @@ public class WatchHistoryVO implements Serializable {
 
 	public void setLiveSourceType(Integer liveSourceType) {
 		this.liveSourceType = liveSourceType;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	
