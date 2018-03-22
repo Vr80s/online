@@ -114,7 +114,7 @@ header{
 	float: left;
 	width: 4.468rem;
 	height: 1.106rem;
-	/*line-height: 1.106rem;*/
+	line-height: 1.106rem;
 	text-align: center;
 	border: 1px solid #DEDEDE;
 	border-radius: 8px;
@@ -122,9 +122,9 @@ header{
 	color: #333333;
     margin-left: 0.58rem;
     margin-bottom: 0.638rem;
-        display: flex;
-    justify-content: center;
-    align-items: Center;
+     overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
 }
 .classify_course_type_one a{
 	color: #333;
@@ -151,7 +151,7 @@ header{
 	float: left;
 	width: 4.468rem;
 	height: 1.106rem;
-	/*line-height: 1.106rem;*/
+	line-height: 1.106rem;
 	text-align: center;
 	border: 1px solid #DEDEDE;
 	border-radius: 8px;
@@ -159,9 +159,9 @@ header{
 	color: #333333;
     margin-left: 0.58rem;
     margin-bottom: 0.638rem;
-        display: flex;
-    justify-content: center;
-    align-items: Center;
+	overflow: hidden;
+ 	text-overflow: ellipsis;
+ 	white-space: nowrap;
 }
 /*专题课程结束*/
 
@@ -185,7 +185,7 @@ header{
 	float: left;
 	width: 4.468rem;
 	height: 1.106rem;
-	/*line-height: 1.106rem;*/
+	line-height: 1.106rem;
 	text-align: center;
 	border: 1px solid #DEDEDE;
 	border-radius: 8px;
@@ -193,9 +193,9 @@ header{
 	color: #333333;
     margin-left: 0.58rem;
     margin-bottom: 0.638rem;
-        display: flex;
-    justify-content: center;
-    align-items: Center;
+	overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
 }
 .classify_mold_type_one a{
 	color: #333;
