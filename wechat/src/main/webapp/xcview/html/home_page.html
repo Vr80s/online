@@ -492,6 +492,9 @@
                 							{{if item.type == 3}}
                 							   {{if item.lineState == 1}}
                 							   <p class="zhibo_play">直播中</p>
+                							   {{else if item.startDateStr.indexOf('.')==-1}}
+                								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="float: left;">{{item.startDateStr}}</span></p>
+                							   
                 								{{else}}
                 								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" /><span style="float: left;">{{item.startDateStr}}</span></p>
                 								{{/if}}
@@ -653,7 +656,7 @@
 
 											{{if itemls.lineState == 1}}
 												<p class="zhibo_play" style="margin-top: -0.05rem;">直播中</p>
-											{{else if itemls.lineState == 2}}
+											{{else if item.startDateStr.indexOf('.')==-1}}
 												<p class="p3" style="margin-top: 0.03rem;"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top: 0.08rem;">{{item.startDateStr}}</span></p>
 											{{else}}
 												<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>			

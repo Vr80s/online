@@ -50,12 +50,10 @@ requestService("/xczh/bunch/hotSearch",null,
 						if($.inArray(btn_write, arr)!=-1){
                             removeByValue(arr, btn_write);
                             arr.unshift(btn_write);
-                            localStorage.getItem(hisArr) = arr;
-
+                            localStorage.setItem(hisArr,arr);
 						}else{
                             arr.unshift(btn_write)
-                            localStorage.getItem(hisArr) = arr;
-
+                            localStorage.setItem(hisArr,arr);
 						}
 //		localStorage.hisArr = arr;
 		window.location.href="curriculum_table.html?queryKey="+btn_write+""
