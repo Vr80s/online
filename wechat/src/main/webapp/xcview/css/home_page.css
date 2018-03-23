@@ -316,7 +316,7 @@ header{
 	display: block;
 	margin: 0 auto;
 	margin-bottom: 0.09rem;
-	margin-top: 0.2rem;
+	/*margin-top: 0.2rem;*/
 }
 .teacher_slider_ul_div span{
     text-align: center;
@@ -1147,7 +1147,7 @@ header{
 }
 .boutique_main_one_size P{
 	font-size: 0.22rem;
-	color: #999999;.teacher_slider_ul_div img
+	color: #999999;
 }
 .boutique_main_one_size P span{
 	font-size: 0.24rem;
