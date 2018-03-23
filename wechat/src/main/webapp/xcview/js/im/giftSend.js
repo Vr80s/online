@@ -444,7 +444,10 @@ $(document).ready(function() {
                                var courseId = getQueryString("courseId");
                                location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
                             }else{ //否则弹出初五信息
-                               alert(data.errorMessage);
+                            	
+//                             alert(data.errorMessage);
+                               
+                               webToast(data.errorMessage,"middle",1500);
                             }
                             
                         }
