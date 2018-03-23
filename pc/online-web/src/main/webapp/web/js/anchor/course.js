@@ -389,11 +389,15 @@ function deleteCourse(caiId,collection){
     confirmBox(title,content,function(closefn){
         RequestService("/anchor/course/deleteCourseApplyById?caiId="+caiId, "get", null, function(data) {
             closefn();
-            showTip(data.resultObject);
-            if(collection){
-                courseCollectionList(1);
+            if(data.success){
+                showTip(data.resultObject);
+                if(collection){
+                    courseCollectionList(1);
+                }else{
+                    courseList(1);
+                }
             }else{
-                courseList(1);
+                showTip(data.errorMessage);
             }
         });
     });
@@ -1191,6 +1195,7 @@ function showPersonInf2(){
 
 function initCourseSelect(){
     var csArr=[];
+    if(courseArr==null)courseArr={};
     for(var i=0;i < courseArr.length;i++){
         csArr.push(courseArr[i].id);
     }

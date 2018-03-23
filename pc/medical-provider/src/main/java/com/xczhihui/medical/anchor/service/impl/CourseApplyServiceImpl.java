@@ -341,6 +341,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(cai==null){
             throw new RuntimeException("课程申请不存在");
         }
+        if(courseApplyInfo.getPrice()==0&&cai.getPrice()>0){
+            throw new RuntimeException("课程不可由付费变为免费");
+        }
+        if(courseApplyInfo.getPrice()>0&&cai.getPrice()==0){
+            throw new RuntimeException("课程不可由免费变为付费");
+        }
         if(cai.getStatus()==ApplyStatus.PASS.getCode()){
             String status = courseApplyInfoMapper.selectCourseStastusByApplyId(courseApplyInfo.getId());
             if("1".equals(status)){
@@ -361,9 +367,13 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(cai==null){
             throw new RuntimeException("操作的申请记录不存在");
         }
-        //仅未通过的申请可删除
+        //仅通过的申请不删除
         if(cai.getStatus()==ApplyStatus.PASS.getCode()){
             throw new RuntimeException("该条申请记录暂不允许删除");
+        }
+        List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCollectionApplyByCourseApplyId(caiId);
+        if(courseApplyInfos.size()>0){
+            throw new RuntimeException("该课程正在被其他专辑引用，暂时不可删除");
         }
         courseApplyInfoMapper.deleteCourseApplyById(caiId);
     }
@@ -563,16 +573,5 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                 throw new RuntimeException("该课程正在被其他专辑引用，暂时不可更新");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        LocalDateTime today = LocalDateTime.now();
-        System.out.println("Today : " + today);
-        LocalDateTime birthDate = LocalDateTime.of(2018,03,18,16,30);
-        System.out.println("BirthDate : " + birthDate);
-
-        Duration duration = java.time.Duration.between(birthDate, today );
-        System.out.print(duration.toHours());
-
     }
 }
