@@ -35,8 +35,10 @@ $(function() {
         { "title": "资源类型", "class":"center","width":"6%","sortable":false,"data": 'multimediaType' ,"mRender":function (data, display, row) {
             if(data == 1){
                 return "视频";
+            }else if(data == 2){
+                return "音频";
             }
-            return "音频";
+
         }},
         { "title": "是否为专辑", "class":"center","width":"6%","sortable":false,"data": 'collection' ,"mRender":function (data, display, row) {
             if(data){
