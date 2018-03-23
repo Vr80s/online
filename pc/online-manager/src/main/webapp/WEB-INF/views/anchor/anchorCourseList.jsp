@@ -31,7 +31,7 @@
  
     .vertical-tab-content {
         float: left;
-        width: 90%;
+        width: 95%;
         padding: 5px;
         margin-left: -1px;
         margin-bottom: 2px;
@@ -363,17 +363,6 @@
          /* border-radius: 4px 4px 4px 4px; */
          border-radius: 4px 0px 0px 4px; 
     }
- 
-    .vertical-tab-content {
-        float: left;
-        width: 90%;
-        padding: 5px;
-        margin-left: -1px;
-        margin-bottom: 2px;
-        border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
-        color: #666;
-    }
 
     .send {
         position: relative;
@@ -543,7 +532,7 @@
 										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
 									</button>
 								</td>
-			                    <td>
+			                    <td style="padding-left: 25px">
 			                        <button id="returnBtn" type="button" class="btn btn-sm  btn-primary "
 			                                onclick="return_P();">
 			                            <i class="ace-icon  icon-on-right bigger-110">返回</i>

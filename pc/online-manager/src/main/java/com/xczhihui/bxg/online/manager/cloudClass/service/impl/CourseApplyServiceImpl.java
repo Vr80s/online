@@ -90,7 +90,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 			playCode+="	</object>";
 			courseApply.setPlayCode(playCode);
 		}
-
 		if(courseApply.getCollection()){
 			List<CourseApplyInfo> courseApplyInfos = courseApplyDao.getCourseByCollectionId(courseApply.getId());
 			courseApply.setCourseApplyInfoList(courseApplyInfos);
