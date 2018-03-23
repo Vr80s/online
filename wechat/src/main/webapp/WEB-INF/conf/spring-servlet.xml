@@ -68,6 +68,19 @@
 								<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
 							</bean>
 						</property>
+						
+						
+                         <!-- 
+                            	如果返回的字段是空的话，这里自动转成字符串
+                         <property name="serializerProvider">  
+			                <bean class="com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.Impl">  
+			                    <property name="nullValueSerializer">  
+			                        <bean class="com.xczh.consumer.market.utils.TransferJsonSerializer"></bean>  
+			                    </property>  
+			                </bean>  
+            			</property>  
+            			
+            			 -->
 					</bean>
 				</property>
 			</bean>
