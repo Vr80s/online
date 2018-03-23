@@ -1,0 +1,202 @@
+.swiper-container {
+        width: 100%;
+	    background: #fff;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        width: 62px;  /*新添加宽度,隐藏掉就会出现头像栏全屏宽度*/
+    }
+    .slide_one_div{
+	    color: #333;
+	    font-size: 0.468rem;
+	    float: left;
+	    width: 2.5rem;
+	    text-align: center;
+	    margin-left: 1.3rem;
+    }
+    .swiper-slide ul li{
+    	float: left;
+    }
+    .swiper_box p{
+    	font-size: 0.32rem;
+	    color: #333;
+	    margin-left: 0.26rem;
+	    padding-top: 0.09rem;
+    }
+    .swiper_box {
+   	 	background: white;
+    }
+   /*先下课*/
+	#slide_one .slide_one_div{
+		margin-left: 0;
+	}
+	#slide_one .slide_one_div p{
+		font-size: 0.22rem;
+		margin-left: 0;
+		overflow: hidden;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    width: 1.2rem;
+	}
+	.swiper_box0{
+		height: 1.44rem;
+		margin-bottom: 0.2rem;
+		overflow: hidden;
+	}
+	/*swiper轮播*/
+	.swiper-banner{
+		width: 100% !important;
+		height: 3.02rem !important;
+		margin-right: 0 !important;
+	}
+	.swiper-banner img{
+		width: 100%;
+		height: 100%;
+	}
+	.swiper-banner-list{
+		width: 100% !important;
+		top: 1.9rem !important;
+	}
+	.swiper-banner-list span{
+		margin: 0 0.2rem !important;
+		background: #00BC12 !important;
+	}
+	.swiper-container-box{
+		padding-bottom: 0;
+	}
+	
+	/*新滑动添加*/
+.find_nav {
+    width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    background-color: #fff;
+    position: fixed;
+    top: 0.88rem;
+    z-index: 9999999999;
+    border-bottom: 1px solid #d8dde6;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+}
+.find_nav_left {
+    height: 70px;
+    position: relative;
+    overflow: hidden;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    height: 0.88rem;
+    line-height: 0.88rem;
+}
+.find_nav_list {
+    position: absolute;
+    left: 0.1rem !important;
+}
+.find_nav_list ul {
+    position: relative;
+    white-space: nowrap;
+    font-size: 0;
+    height: 0.8rem;
+}
+.find_nav_list ul li {
+    display: inline-block;
+    padding: 0;
+	margin: 0 0.42rem;
+	font-size: 0.58rem;
+    text-align: center;
+    color: #151515;
+}
+.find_nav_list ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #666;
+    font-size: 0.28rem;
+}
+.find_nav_cur a {
+    color: #00BC12 !important;
+}
+.find_nav_list a.active{ color:#00BC12}
+.sideline {
+    display: block;
+    position: absolute;
+    border: 0;
+    height: 2px;
+    background-color: #00BC12;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.li_list{overflow-y:auto; display: table;}/*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
+.li_list0{
+	display: -webkit-inline-box !important;
+}
+
+/*处理刷新效果*/
+.mui-pull-top-pocket{
+	top: 2.6rem;
+}
+.mui-scroll-wrapper{
+	height: 100%;
+
+}
+.mui-pull-bottom-pocket .mui-pull{
+	bottom: 1rem;
+}
+.bought_main{
+	padding-bottom: 0.6rem;
+}
+.mui-pull-bottom-pocket .mui-pull{
+	bottom: 0rem;
+	height: 40px;
+	line-height: 40px;
+}
+.mui-pull-bottom-pocket{
+	position: relative;
+	bottom: 1rem;
+	height: 40px;
+	line-height: 40px;
+}
+.zhibo_p{
+	       width: 1.702rem;
+    height: 0.553rem;
+    line-height: 0.553rem;
+    font-size: 0.42rem !important;
+    text-align: center;
+    border: 1px solid #F97B49;
+    text-align: center;
+    line-height1: 0.553rem;
+    float: left;
+    color: #F97B49 !important;
+    font-size: 0.26rem;
+    
+    margin-top: 0.05rem;
+
+	display: flex;
+	justify-content: center;
+    	align-items: Center;
+}
+.top_height{
+	width: 100%;
+	height: 1.7rem;
+}
+
+.boutique_main ul li{
+	height: 3.25rem;
+}
