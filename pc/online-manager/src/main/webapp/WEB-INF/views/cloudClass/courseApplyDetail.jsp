@@ -123,10 +123,10 @@
 			</div>
 		</div>
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">主播:</label>
+			<label class="col-sm-1 control-label no-padding-right">主讲人:</label>
 			<div class="col-sm-2" >
 				<div class="clearfix" style="width: 200px;">
-					<label class=" control-label no-padding-right">${courseApplyInfo.userName}</label>
+					<label class=" control-label no-padding-right">${courseApplyInfo.lecturer}</label>
 				</div>
 			</div>
 <c:choose>
