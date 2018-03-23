@@ -3,14 +3,22 @@ $(function(){
    
     $('#anchorWorkbench').css('color','#00bc12');
     
+    //进入页面定位之前位置
+//  if(location.hash == "#menu=1"){
+//  	$("#accordion li[data-name='#menu=1']").click();
+//  }
+    
+     
     
 //  左侧一级菜单点击的时候保存localStorate 和 对应事件
 $('#accordion > li').click(function(){
-	console.log($(this).attr('data-name'))
-	localStorage.AnchorsTbl = $(this).attr('data-name');
+//	console.log($(this).attr('data-name'))
+//	localStorage.AnchorsTbl = $(this).attr('data-name');
+	location.hash = $(this).attr('data-name');
+	localStorage.leftTblSta == ' ';
 	
 	//点击学堂事件
-	if($(this).attr('data-name') == "School"){
+	if($(this).attr('data-name') == "menu=1"){
 		$('#mymoney').hide();
 		$('.myResive').hide();
 		$('.account').hide();
@@ -19,14 +27,13 @@ $('#accordion > li').click(function(){
 		$(".curriculum_one").hide();
 		$(".curriculum_two").show();
 		//触发点击课程事件
-		setTimeout(function(){
 		$(".courseP").click()	
-		},500)
+
 
 	}
 	
 	//点击我的资产
-	if($(this).attr('data-name') == "myAssets" ){
+	if($(this).attr('data-name') == "menu=2" ){
 		//重置我的资产部分
 		initBasaeAssetInfo();
 		$('.wrap_box .little_box').hide();
@@ -42,7 +49,7 @@ $('#accordion > li').click(function(){
 	
 	
 	//点击我的收益
-	if($(this).attr('data-name') == "myEarnings" ){
+	if($(this).attr('data-name') == "menu=3" ){
 		$('.wrap_box .little_box').hide();
 		$('.account').hide()
 		$('#mymoney').hide();
@@ -54,7 +61,7 @@ $('#accordion > li').click(function(){
 	}
 	
 	//点击我的账号
-	if($(this).attr('data-name') == "AccountNumber" ){
+	if($(this).attr('data-name') == "menu=4" ){
 		$('.wrap_box .little_box').hide();
 		$('#mymoney').hide();
 		$('.myResive').hide();
@@ -69,37 +76,47 @@ $('#accordion > li').click(function(){
 $('#accordion > li .submenu >li>a').click(function(e){
 	$('#accordion > li .submenu >li>a').removeClass('leftTab_active');
 	$(this).addClass('leftTab_active');
-	e.stopPropagation()
-	location.hash = $(this).attr('data-name')
-	leftTblSta()
+	e.stopPropagation();
+	location.hash = $(this).attr('data-name');
+	localStorage.leftTblSta = $(this).attr('data-name');
+	leftTblSta();
 })
 
 
 function leftTblSta(){
-	if(location.hash == '#menu=1-1'){
+	if(localStorage.leftTblSta == 'menu=1-1'){
+		location.hash = 'menu=1-1';
 		 $(".courseP").click();
 	}
-	if(location.hash == '#menu=1-2'){
+	if(localStorage.leftTblSta == 'menu=1-2'){
+		location.hash = 'menu=1-2';
 		$('.specialP').click();
 	}
-	if(location.hash == '#menu=1-3'){
+	if(localStorage.leftTblSta == 'menu=1-3'){
+		location.hash = 'menu=1-3';
 		$('.liveP').click();
 	}
-	if(location.hash == '#menu=1-4'){
+	if(localStorage.leftTblSta == 'menu=1-4'){
+		location.hash = 'menu=1-4';
 		$('.resourceP').click();
 	}
-	if(location.hash == '#menu=3-1'){
+	if(localStorage.leftTblSta == 'menu=3-1'){
+		location.hash = 'menu=3-1';
 		$('.classResive').click();
 	}
-	if(location.hash == '#menu=3-2'){
+	if(localStorage.leftTblSta == 'menu=3-2'){
+		location.hash = 'menu=3-2';
 		$('.giftResive').click();
 	}
-	if(location.hash == '#menu=4-1'){
+	if(localStorage.leftTblSta == 'menu=4-1'){
+		location.hash = 'menu=4-1';
 		$('.name_news').click();
 	}
-	if(location.hash == '#menu=4-2'){
+	if(localStorage.leftTblSta == 'menu=4-2'){
+		location.hash = 'menu=4-2';
 		$('.name_personage').click();
 	}
+//	localStorage.leftTblSta = '';	
 }
 
 

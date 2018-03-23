@@ -293,7 +293,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void addCourse(CourseVo courseVo) {
-		checkName(courseVo.getId(),courseVo.getCourseName());
+		checkName(courseVo.getId(),courseVo.getCourseName(),null);
 		// TODO Auto-generated method stub
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql="SELECT IFNULL(MAX(sort),0) as sort FROM oe_course ";
@@ -477,7 +477,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void updateCourse(CourseVo courseVo) {
-		checkName(courseVo.getId(),courseVo.getCourseName());
+		checkName(courseVo.getId(),courseVo.getCourseName(),null);
 
 		Course course = dao.findOneEntitiyByProperty(Course.class, "id", courseVo.getId());
 		//当课程存在密码时，设置的当前价格失效，改为0.0
@@ -545,15 +545,31 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	 * @Date: 下午 5:44 2018/1/21 0021
 	 **/
 	@Override
-	public void checkName(Integer id, String courseName) {
+	public void checkName(Integer id, String courseName,Integer applyCourseId) {
 		List<Course> entitys= findByName(courseName);
 		for(Course entity: entitys){
 			if(id==null) {
 				id = 0;
 			}
-			if(!entity.isDelete()&&entity.getId().intValue()!=id){
-				throw new RuntimeException(courseName+":课程名称已存在！");
+			if(applyCourseId==null) {
+				applyCourseId = 0;
 			}
+			if(!entity.isDelete()&&entity.getId().intValue()!=id){
+				List<Integer> ids = new ArrayList<>();
+				ids.add(applyCourseId);
+				getApplyIdsByChild(applyCourseId,ids);
+				if(entity.getApplyId()==null || !ids.contains(entity.getApplyId())){
+					throw new RuntimeException(courseName+":课程名称已存在！");
+				}
+			}
+		}
+	}
+
+	private void getApplyIdsByChild(Integer applyId, List<Integer> ids) {
+		CourseApplyInfo cai = dao.findOneEntitiyByProperty(CourseApplyInfo.class, "id",applyId);
+		if(cai.getOldApplyInfoId()!=null){
+			ids.add(cai.getOldApplyInfoId());
+			getApplyIdsByChild(cai.getOldApplyInfoId(),ids);
 		}
 	}
 

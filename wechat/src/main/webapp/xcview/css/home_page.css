@@ -1531,7 +1531,7 @@ header{
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-    width: 1rem;
+    width: 0.95rem;
 }
 /*精品课程结束*/
 

@@ -61,7 +61,7 @@ public interface CourseService {
 	 */
 	public void updateCourse(CourseVo courseVo);
 
-    void checkName(Integer id,String courseName);
+    void checkName(Integer id,String courseName,Integer applyCourseId);
 
     /**
 	 * 修改课程

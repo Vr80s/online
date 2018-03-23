@@ -655,7 +655,7 @@
 		
 		
 		<ul id="accordion" class="accordion">
-		<li data-name="School">
+		<li data-name="menu=1">
 			<div class="link"><i class="glyphicon glyphicon-book left_range"></i>学堂<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
 				<li><a data-name="menu=1-1" href="javascript:;">课程</a></li>
@@ -664,7 +664,7 @@
 				<li><a data-name="menu=1-4" href="javascript:;">资源</a></li>
 			</ul>
 		</li>
-		<li  data-name="myAssets">
+		<li  data-name="menu=2">
 			<div class="link"><i class="iconfont icon-qianbao left_range"></i>我的资产</div>
 			<ul class="submenu">
 				<!-- <li><a href="#">Javascript</a></li>
@@ -672,17 +672,17 @@
 				<li><a href="#">Frameworks javascript</a></li> -->
 			</ul>
 		</li>
-		<li data-name="myEarnings">
+		<li data-name="menu=3">
 			<div class="link"><i class="glyphicon glyphicon-list-alt left_range ino_color"></i>我的收益<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
 				<li><a data-name="menu=3-1" href="javascript:;">课程收益</a></li>
 				<li><a data-name="menu=3-2" href="javascript:;">礼物收益</a></li>
 			</ul>
 		</li>
-		<li data-name="AccountNumber" ><div class="link"><i class="glyphicon glyphicon-book left_range"></i>账号<i class="fa fa-chevron-down"></i></div>
+		<li data-name="menu=4" ><div class="link"><i class="glyphicon glyphicon-book left_range"></i>账号<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
-				<li><a data-name="menu=4-2" href="javascript:;">认证信息</a></li>
-				<li><a data-name="menu=4-1" href="javascript:;">主播信息</a></li>
+				<li><a data-name="menu=4-1" href="javascript:;">认证信息</a></li>
+				<li><a data-name="menu=4-2" href="javascript:;">主播信息</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -2635,36 +2635,32 @@
 
         //			默认点击学堂
 //      $(".courseP").click();
-        if(!localStorage.AnchorsTbl){
-        	 $(".school").click();
-        }else{
-        	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
-        	 //课程
-        	 if(localStorage.AnchorsTbl == 'School'){
-        	 	  if(localStorage.AnchorsTbl_School == 'kecheng') $('.littleBox .courseP ').click();
-	        	 //专辑
-	        	  if(localStorage.AnchorsTbl_School == 'zhuanji') $('.littleBox .specialP ').click();
-	        	  //直播
-	        	  if(localStorage.AnchorsTbl_School == 'zhibo') $('.littleBox .liveP ').click();
-	        	  //资源
-	        	  if(localStorage.AnchorsTbl_School == 'ziyuan') $('.littleBox .resourceP ').click();
-        	 }else if(localStorage.AnchorsTbl == 'myEarnings'){
-        	 	//礼物收益
-        	  if(localStorage.AnchorsTbl_myResive == 'giftResive') $('.littleBoxss .giftResive ').click();
-        	 }else if(localStorage.AnchorsTbl == 'AccountNumber'){
-        	 	//认证信息
-//	        	  if(localStorage.AnchorsTbl_accountInf == 'name_news') $('.littleBoxs .name_news ').click();
-        	 	 //主播信息
-	        	  if(localStorage.AnchorsTbl_accountInf == 'name_personage') $('.littleBoxs .name_personage ').click();
-        	 }
-        	  
-        	  
-        	  
-    	 			
-    	 		
-
-        }
-   
+//      if(!localStorage.AnchorsTbl){
+//      	 $(".school").click();
+//      }else{
+//      	 $("#accordion li[data-name="+localStorage.AnchorsTbl+"]").click();
+//      	  $("#accordion li[data-name="+localStorage.AnchorsTbl+"]").addClass('open');
+//      	  $("#accordion li[data-name="+localStorage.AnchorsTbl+"] submenu").style.display="block";
+//      	 //课程
+//      	 if(localStorage.AnchorsTbl == 'School'){
+//      	 	  if(localStorage.AnchorsTbl_School == 'kecheng') $('.littleBox .courseP ').click();
+//	        	 //专辑
+//	        	  if(localStorage.AnchorsTbl_School == 'zhuanji') $('.littleBox .specialP ').click();
+//	        	  //直播
+//	        	  if(localStorage.AnchorsTbl_School == 'zhibo') $('.littleBox .liveP ').click();
+//	        	  //资源
+//	        	  if(localStorage.AnchorsTbl_School == 'ziyuan') $('.littleBox .resourceP ').click();
+//      	 }else if(localStorage.AnchorsTbl == 'myEarnings'){
+//      	 	//礼物收益
+//      	  if(localStorage.AnchorsTbl_myResive == 'giftResive') $('.littleBoxss .giftResive ').click();
+//      	 }else if(localStorage.AnchorsTbl == 'AccountNumber'){
+//      	 	//认证信息
+////	        	  if(localStorage.AnchorsTbl_accountInf == 'name_news') $('.littleBoxs .name_news ').click();
+//      	 	 //主播信息
+//	        	  if(localStorage.AnchorsTbl_accountInf == 'name_personage') $('.littleBoxs .name_personage ').click();
+//      	 }
+//      }
+ 
        
     };
 </script>
@@ -2902,9 +2898,79 @@
         document.getElementById("uploadswf").start_upload(url); //	调用flash上传函数
     }
     
-    
+      
+   
     
 </script>
 </body>
+<script>	
 
+$(function(){
+	
+
+		if(location.hash == "#menu=1" || location.hash == "#menu=1-1" || location.hash == "#menu=1-2" || location.hash == "#menu=1-3" || location.hash == "#menu=1-4"){
+	    	$("#accordion li[data-name='menu=1']").click();
+	    	$("#accordion li[data-name='menu=1']").addClass('open');
+	    	$("#accordion li[data-name='menu=1'] .submenu").css('display','block')
+    	}
+
+		if(location.hash == "#menu=2"){
+	    	$("#accordion li[data-name='menu=2']").click();
+	    	$("#accordion li[data-name='menu=2']").addClass('open');
+	    	$("#accordion li[data-name='menu=2'] .submenu").css('display','block')
+    	}
+		if(location.hash == "#menu=3" || location.hash == "#menu=3-1" || location.hash == "#menu=3-2"){
+	    	$("#accordion li[data-name='menu=3']").click();
+	    	$("#accordion li[data-name='menu=3']").addClass('open');
+	    	$("#accordion li[data-name='menu=3'] .submenu").css('display','block')
+    	}
+		
+		if(location.hash == "#menu=4" || location.hash == "#menu=4-1" || location.hash == "#menu=4-2"){
+	    	$("#accordion li[data-name='menu=4']").click();
+	    	$("#accordion li[data-name='menu=4']").addClass('open');
+	    	$("#accordion li[data-name='menu=4'] .submenu").css('display','block')
+    	}
+
+	leftTblSta();
+	function leftTblSta(){
+	if(localStorage.leftTblSta == 'menu=1-1'){
+		location.hash = 'menu=1-1';
+		 $("#accordion a[data-name='menu=1-1']").click();
+	}
+	if(localStorage.leftTblSta == 'menu=1-2'){
+		location.hash = 'menu=1-2';
+		 $("#accordion a[data-name='menu=1-2']").click();
+	}
+	if(localStorage.leftTblSta == 'menu=1-3'){
+		location.hash = 'menu=1-3';
+		 $("#accordion a[data-name='menu=1-3']").click();
+	}
+	if(localStorage.leftTblSta == 'menu=1-4'){
+		location.hash = 'menu=1-4';
+		 $("#accordion a[data-name='menu=1-4']").click();
+	}
+	if(localStorage.leftTblSta == 'menu=3-1'){
+		location.hash = 'menu=3-1';
+		 $("#accordion a[data-name='menu=3-1']").click();
+	}
+	if(localStorage.leftTblSta == 'menu=3-2'){
+		location.hash = 'menu=3-2';
+		 $("#accordion a[data-name='menu=3-2']").click();
+	}
+	if(localStorage.leftTblSta == 'menu=4-1'){
+		location.hash = 'menu=4-1';
+		 $("#accordion a[data-name='menu=4-1']").click();
+	}
+	if(localStorage.leftTblSta == 'menu=4-2'){
+		location.hash = 'menu=4-2';
+		 $("#accordion a[data-name='menu=4-2']").click();
+	}
+	//定位之后清楚
+	localStorage.leftTblSta = '';	
+	
+}
+	 
+})
+
+</script>
 </html>
