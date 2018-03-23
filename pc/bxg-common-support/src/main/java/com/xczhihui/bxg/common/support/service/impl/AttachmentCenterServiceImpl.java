@@ -21,7 +21,7 @@ import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
 import com.xczhihui.bxg.common.support.service.AttachmentType;
 import com.xczhihui.bxg.common.support.support.AttachmentBusinessType;
-import com.xczhihui.bxg.common.util.FileUtil;
+import com.xczhihui.bxg.common.util.CodeUtil;
 import com.xczhihui.bxg.common.util.HttpUtil;
 import com.xczhihui.bxg.common.util.JsonUtil;
 
@@ -63,10 +63,11 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
         Attachment attachment;
         //附件类型保持原文件名
         if (AttachmentBusinessType.ATTACHMENT.getValue().equals(fileType)) {
-            attachment = addAttachmentRecord(createUserId, AttachmentType.valueOf(projectName.toUpperCase()), fileName, fileData, fileName);
+            attachment = addAttachmentRecord(createUserId, AttachmentType.valueOf(projectName.toUpperCase()),
+                    CodeUtil.generateRandomString(6) + "-" + fileName, fileData, fileName);
         } else if (AttachmentBusinessType.PICTURE.getValue().equals(fileType)) {
             attachment = addAttachmentRecord(createUserId, AttachmentType.valueOf(projectName.toUpperCase()),
-                    FileUtil.getRandomFileName(StringUtils.getFilenameExtension(fileName)), fileData, fileName);
+                    CodeUtil.generateRandomString(8) + "-" + StringUtils.getFilenameExtension(fileName), fileData, fileName);
         } else {
             attachment = new Attachment(1, "请传入fileType参数，1图片，2附件");
         }
@@ -86,11 +87,10 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
     @Override
     public Attachment addAttachment(String createUserId, AttachmentType type, String fileName, byte[] fileData, String contentType) {
         try {
-            return addAttachmentRecord(createUserId, type, fileName, fileData, contentType);
+            return addAttachmentRecord(createUserId, type, CodeUtil.generateRandomString(6) + "-" + fileName, fileData, fileName);
         } catch (Exception e) {
             return new Attachment(1, "上传附件失败");
         }
-
     }
 
     private Attachment addAttachmentRecord(String createUserId, AttachmentType type, String fileName, byte[] fileData, String originName) {
