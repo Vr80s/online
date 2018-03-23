@@ -681,9 +681,10 @@ color: #666666;
 .all_returned_num img{
 	width: 0.4rem;
 	display: inline-block;
+	margin-bottom: 0.1rem;
 }
 .all_returned_num p{
-	color: #ddd;
+	color: #999;
 	font-size: 0.24rem;
 	margin-top: -0.1rem;
 	 overflow: hidden;
