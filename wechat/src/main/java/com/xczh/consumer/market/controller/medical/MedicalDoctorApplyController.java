@@ -59,6 +59,7 @@ public class MedicalDoctorApplyController {
 			, @RequestParam("professionalCertificateFile")MultipartFile professionalCertificateFile){
 
 
+		System.out.println("--------------------医师认证开始"+professionalCertificateFile.getOriginalFilename());
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 			if(user==null){
 				return ResponseObject.newErrorResponseObject("登录失效");
@@ -89,7 +90,7 @@ public class MedicalDoctorApplyController {
 				JSONObject professionalCertificateJson = JSONObject.parseObject(professionalCertificate);
 				medicalDoctorApply.setProfessionalCertificate(professionalCertificateJson.get("url").toString());
 
-
+				System.out.println("--------------------医师认证");
 			medicalDoctorApplyService.add(medicalDoctorApply);
 		} catch (Exception e) {
 			return ResponseObject.newErrorResponseObject(e.getMessage());

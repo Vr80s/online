@@ -619,9 +619,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				}else{
 					commonSql.append("  order by  oc.recommend_sort desc,oc.release_time desc ");
 				}
-			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==4){
-				commonSql.append("  order by  oc.recommend_sort desc,recent ");
 			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==3){
+				commonSql.append("  order by  oc.recommend_sort desc,recent ");
+			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==4){
 				commonSql.append("  order by  oc.recommend_sort desc,oc.start_time desc ");
 			}else{
 				commonSql.append("  order by  oc.recommend_sort desc,oc.release_time desc ");
