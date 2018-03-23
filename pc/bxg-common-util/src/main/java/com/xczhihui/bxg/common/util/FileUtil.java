@@ -200,8 +200,4 @@ public class FileUtil {
     public static String getUUIDFileName(String suffix) {
         return CodeUtil.getRandomUUID() + "." + suffix;
     }
-
-    public static String getRandomFileName(String suffix) {
-        return CodeUtil.generateRandomString(10) + "." + suffix;
-    }
 }
