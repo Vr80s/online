@@ -591,8 +591,8 @@
 
 		(select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,
 		c.smallimg_path as smallImgPath,
-		if(c.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND)
-		and c.start_time > now(),DATE_FORMAT(c.start_time,'%H:%i'),DATE_FORMAT(c.start_time,'%m.%d')) as startDateStr,c.end_time as endTime,
+		if(c.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+		DATE_FORMAT(c.start_time,'%H:%i'),DATE_FORMAT(c.start_time,'%m.%d')) as startDateStr,c.end_time as endTime,
 		c.original_cost as originalCost,c.current_price*10 as currentPrice,
 		if(c.is_free =0,0,1) as watchState,
 		if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,

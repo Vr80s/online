@@ -74,6 +74,17 @@ $(function() {
                     return getLocalTime(data);
                 }
                 return data;
+            }},
+        { "sortable": false,"class": "center","width":"9%","title":"操作","mRender":function (data, display, row) {
+                if(row.status=="1"&&row.applyStatus=="1"){
+                    var str = '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a></div> ';
+
+                    return str;
+                }else if(row.status=="0"&&row.applyStatus=="1"){
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a></div> '
+                }
             }}
     ];
 
@@ -109,3 +120,19 @@ function search_P(){
     searchButton(P_courseTable,searchCase_P);
 };
 
+/**
+ * 状态修改
+ * @param obj
+ */
+function updateStatus(obj){
+
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo); // get datarow
+    ajaxRequest(basePath+"/cloudclass/course/updateStatus",{"id":row.courseId},function(data){
+        console.log(data);
+        if(data.success==false){
+            layer.msg(data.errorMessage);
+        }
+        freshTable(P_courseTable);
+    });
+};
