@@ -93,9 +93,7 @@ if(is_weixin()){
 		$(".weixin_ceng").show();
 	});
 	
-	/*$(".weixin_ceng").click(function(){
-		$(".weixin_ceng").hide();
-	});*/
+	
 	
 	
 }else{
@@ -140,6 +138,17 @@ $(".share_cancel").click(function(){
 
 
 }
+
+/*$(".weixin_ceng_bg").click(function(){
+		$(".weixin_ceng").hide();
+	});
+$(".weixin_img img").click(function(){
+	$(".weixin_ceng").hide();
+});*/
+
+$(".weixin_ceng").click(function(){
+	$(".weixin_ceng").hide();
+});
 
 
 
