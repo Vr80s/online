@@ -8,6 +8,9 @@ table{
 	border: 1px solid #00BC12 !important;
     color: #00BC12;
 }
+.leftTab_active{
+	color: #00BC12 !important;
+}
 .workTime >ul >li{
 	    float: left;
     width: 92px;

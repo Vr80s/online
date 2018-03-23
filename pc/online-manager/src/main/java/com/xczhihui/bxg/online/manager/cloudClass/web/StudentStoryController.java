@@ -136,7 +136,7 @@ public class StudentStoryController {
 		
 		BxgUser u = UserHolder.getCurrentUser();
 		String upload = att.upload(u.getId(), "online", attachmentFile.getOriginalFilename(), 
-				attachmentFile.getContentType(), attachmentFile.getBytes(), "1", null);
+				attachmentFile.getContentType(), attachmentFile.getBytes(), "1");
 		response.getWriter().write(upload);
 	}
 	
@@ -180,7 +180,7 @@ public class StudentStoryController {
 				if(group.split("base64,").length>1){
 					String str = group.split("base64,")[1];
 					byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
-					Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png", null);
+					Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png");
 					content = content.replace(group, a.getUrl());
 				}
 				

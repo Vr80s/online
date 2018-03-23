@@ -62,7 +62,7 @@ public class CourseController {
          * @return Example 分页列表
          */
         @RequestMapping(value = "/getCourseById" )
-        public ResponseObject getCourseById(Integer courserId,String ispreview,HttpServletRequest request) throws IOException {
+        public ResponseObject getCourseById(Integer courserId,HttpServletRequest request) throws IOException {
         	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
             String path = request.getServletContext().getRealPath("/template");
             return ResponseObject.newSuccessResponseObject(service.getCourseById(courserId, path, request,loginUser));

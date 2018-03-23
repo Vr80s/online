@@ -41,15 +41,6 @@ if(window.location.pathname.indexOf("/index.html")!=-1 || window.location.pathna
 	$("body").append(footers.footer);
 }
 
-var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cspan id='cnzz_stat_icon_1263718355'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1263718355%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-//window.onload=function(){
-//	RequestService("/online/user/isAlive", "GET", null, function (data) {///online/user/isAlive
-//    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-//    document.write(unescape("%3Cspan id='cnzz_stat_icon_1260713417'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260713417%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-	$(".trademark span").after($("#cnzz_stat_icon_1263718355"));
-// });
-//})
 //==========================================================================================
 //左侧导航栏点击添加缓存
 $(".gate li").click(function() {
@@ -790,7 +781,6 @@ $("#qusForm .myquiz-btn").click(function(evt) {
 					});
 				});
 			}
-			//}
 			/**
 			 * 问题描述非必填项
 			 else {
@@ -895,41 +885,6 @@ $("#tiForm .tiForm-btn").click(function(evt) { //提交模态表单
 	}
 });
 
-/*function ajaxFileUpload(id) {
- $.ajaxFileUpload(
- {
- url: bath + '/online/attachment/upload?type=question&fid=9', //用于文件上传的服务器端请求地址
- secureuri: false, //是否需要安全协议，一般设置为false
- fileElementId: id, //文件上传域的ID
- dataType: "text", //返回值类型 一般设置为json
- success: function (data)  //服务器成功响应处理函数
- {console.log("=666===" + data)
- debugger;
- //alert(typeof data)
- //if (typeof (data.error) != 'undefined') {
- //    if (data.error != '') {
- //        alert(data.error);
- //    } else {
- //        alert(data.msg);
- //    }
- //}
- //$("#answerForm .img-content").append(Handlebars.compile(imgTl)({url: data.imgurl}));
- //if($("#answerForm .img-content").children().length > 4) {
- //    $("#answerForm .myanswer-bottom-dv-2").hide();
- //}
- },
- error: function (data)//服务器响应失败处理函数
- {
- debugger;
-
- console.log(data);
- }
- }
- );
-
- return false;
- }*/
-
 function zhuangtai() { //状态判断
 	var a = 0;
 	for(var l = 0; l < $(".myquiz-bottom-select-dv div").length; l++) {
@@ -943,3 +898,17 @@ function zhuangtai() { //状态判断
 		return false;
 	}
 }
+
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1273217042'%3E%3C/span%3E%3Cscript src='"
+	+ cnzz_protocol
+	+ "s22.cnzz.com/z_stat.php%3Fid%3D1273217042%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+$(".trademark span").after($("#cnzz_stat_icon_1273217042"));
+
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?7d139bd69b722f04598cb7d0ed34b77b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();

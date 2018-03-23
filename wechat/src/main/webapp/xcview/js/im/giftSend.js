@@ -146,7 +146,7 @@ function giftShow(gift, f,continuous) {
         gif[f] = $("<li class='animation' id='gift"+f+"' style='position: fixed;top: "
             + bottom
             + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
-            + gift.senderInfo.userName
+            + gift.senderInfo.userName    //userName  用户昵称
             + "</p><p class='animation_name_p2'>送出"
             + gift.giftInfo.name
             + "</p></div><div class='animation_span'>×<span class=addnum"
@@ -377,7 +377,8 @@ $(document).ready(function() {
 // 发送消息
     $(".balance_send").click(function() {
         if ($(".gift_ul_li_li .gift_p .liwu").attr("giftId") == null) {
-            alert("请先选择一个礼物!");
+//          alert("请先选择一个礼物!");
+			webToast("请先选择一个礼物!","middle",1500);
             return;
         }
         /*if (isNaN($("#giftCount").val())) {
@@ -444,7 +445,10 @@ $(document).ready(function() {
                                var courseId = getQueryString("courseId");
                                location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
                             }else{ //否则弹出初五信息
-                               alert(data.errorMessage);
+                            	
+//                             alert(data.errorMessage);
+                               
+                               webToast(data.errorMessage,"middle",1500);
                             }
                             
                         }

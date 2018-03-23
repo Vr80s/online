@@ -67,7 +67,7 @@ public class PersonServiceImpl implements PersonService {
 		String ext = StringUtils.getFilenameExtension(fileName);
 		Attachment att = this.attachmentCenterService.addAttachment(
 		        user.getId(), AttachmentType.HEADPHOTO, fileName, fileData,
-		        ext, null);
+		        ext);
 		// user.setBigHeadPhoto(att.getFilePath() + "/" + att.getFileName());
 		user.setBigHeadPhoto(att.getId());
 
@@ -88,7 +88,7 @@ public class PersonServiceImpl implements PersonService {
 		}
 		att = this.attachmentCenterService.addAttachment(
 		        user.getId(), AttachmentType.HEADPHOTO, fileName, fileData,
-		        ext, null);
+		        ext);
 		// user.setSmallHeadPhoto(att.getFilePath() + "/" + att.getFileName());
 
 		user.setSmallHeadPhoto(att.getId());
@@ -110,7 +110,7 @@ public class PersonServiceImpl implements PersonService {
 					// this.attachmentCenterService.deleteAttachment(file,
 					// AttachmentType.HEADPHOTO);
 
-					this.attachmentCenterService.deleteAttachment(file);
+//					this.attachmentCenterService.deleteAttachment(file);
 				}
 			});
 		}

@@ -63,7 +63,7 @@ public class UtilController {
 			
 			BxgUser u = UserLoginUtil.getLoginUser(request);
 			String upload = attService.upload(u.getId(), "online", attachmentFile.getOriginalFilename(), 
-					attachmentFile.getContentType(), attachmentFile.getBytes(), "1", null);
+					attachmentFile.getContentType(), attachmentFile.getBytes(), "1");
 			
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 			Attachment att = gson.fromJson(upload, Attachment.class);

@@ -58,7 +58,42 @@
 			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
+		<property name="order" value="1"/>
 	</bean>
+
+	<!-- 配置freeMarker视图解析器 -->
+	<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="contentType" value="text/html; charset=UTF-8"/>
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="cache" value="true" />
+		<property name="suffix" value=".ftl" />
+		<property name="order" value="0"/>
+	</bean>
+
+	<!-- 配置freeMarker的模板路径 -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/views-ftl/"/>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="xml_escape" value-ref="fmXmlEscape" />
+			</map>
+		</property>
+		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="number_format">#.##</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
 
 	<mvc:resources mapping="/online/live/image/**" location="file:/online/live/image/"  />
 	<mvc:default-servlet-handler />

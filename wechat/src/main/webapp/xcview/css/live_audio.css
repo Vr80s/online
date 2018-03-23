@@ -60,7 +60,7 @@ textarea::-webkit-input-placeholder {
 }
 .header_news img{
 	width: 0.42rem;
-	height:0.38rem;
+	height:0.43rem;
 }
 .arror_return{
 	width: 0.24rem;
@@ -640,9 +640,10 @@ color: white;
 .all_returned_num img{
 	width: 0.4rem;
 	display: inline-block;
+	margin-bottom: 0.1rem;
 }
 .all_returned_num p{
-	color: #ddd;
+	color: #999;
 	font-size: 0.24rem;
 	margin-top: -0.1rem;
 	overflow: hidden;
