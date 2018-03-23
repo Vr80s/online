@@ -40,6 +40,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             textMessage.setCreateTime(new Date().getTime());  
             textMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_TEXT);  
             textMessage.setFuncFlag(0);  
+            
             // 文本消息  
             if (msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_TEXT)) {  
                 // 接收用户发送的文本消息内容  
@@ -54,6 +55,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                     respMessage = MessageUtil.textMessageToXml(textMessage);  
                 }  
             }else if(msgType.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)){
+            	
+            	
             	
             	
             	

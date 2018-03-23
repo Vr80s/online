@@ -532,7 +532,6 @@ function randomWord(randomFlag, min, max){
 
 
 
-
 /**
  *  h5  ---> 百度统计
  */

@@ -48,10 +48,11 @@ public class TestToken1 {
 					"}]"+
 		 			"}";
 		 Map<String,String>  mapYJ = new HashMap<String,String>();
-		 mapYJ.put("access_token", "8_zTfENp6QJ2Qmp2Gk7nXbXK4-EhBCdEZT5VLtJ1bN-MdsFiz_cq_PCyepxpyeeTnnMPq8NW6ash93KO2nuKWabwnJYapyKgUTtL9XKhkCJV_Kd6_csQrSY2LHnSJHnrNFzbkJQGhZF07_qBCvUYLiAAANRE");
+		 mapYJ.put("access_token", "8_YmHpMe04i2eth1QufkXR6ChwwOVi7TPMzezqkM59y-UF2oWcHlJKvYyP-brjonMCo4U5u_h-c6ptpph8fDkQax7tA8Vu2TM0hAIsMTsZnUOJ3LWGNI035HElnHYGUBbAFAKYF");
 		 mapYJ.put("articles", str1);
 		 
-		 String url_access = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=8_zTfENp6QJ2Qmp2Gk7nXbXK4-EhBCdEZT5VLtJ1bN-MdsFiz_cq_PCyepxpyeeTnnMPq8NW6ash93KO2nuKWabwnJYapyKgUTtL9XKhkCJV_Kd6_csQrSY2LHnSJHnrNFzbkJQGhZF07_qBCvUYLiAAANRE";
+		 
+		 String url_access = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=8_YmHpMe04i2eth1QufkXR6ChwwOVi7TPMzezqkM59y-UF2oWcHlJKvYyP-brjonMCo4U5u_h-c6ptpph8fDkQax7tA8Vu2TM0hAIsMTsZnUOJ3LWGNI035HElnHYGUBbAFAKYF";
 		 String hehe = HttpUtil.doHttpsPost(url_access, str1);
 		 System.out.println("就看你了，兄弟："+hehe);
 	}

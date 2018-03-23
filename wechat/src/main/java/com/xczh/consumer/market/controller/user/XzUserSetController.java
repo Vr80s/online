@@ -52,6 +52,8 @@ import com.xczhihui.wechat.course.vo.OnlineUserVO;
 @Controller
 @RequestMapping(value = "/xczh/set")
 public class XzUserSetController {
+	
+	
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
@@ -77,7 +79,6 @@ public class XzUserSetController {
 	private CommonApiService commonApiService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserSetController.class);
-	
 	
 	
 	/**
