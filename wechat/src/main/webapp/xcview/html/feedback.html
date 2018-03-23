@@ -11,6 +11,9 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+
 <link rel="stylesheet" href="/xcview/css/feedback.css">
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
@@ -18,7 +21,7 @@
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <!-- 刷新引入js -->
-<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 <!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
@@ -48,18 +51,7 @@
 	<div class="btn" onclick="feedback()">提交</div>
 	
 	<!-- 中间内容结束 -->
-	
-
 </body>
-
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
-</script>
 
 <script type="text/javascript">
 	window.onload = function(){
