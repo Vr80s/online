@@ -330,6 +330,14 @@ span,p{
     display: inline-block;
     margin-top: 0.01rem;
 }
+.boutique_main_two_size .p1{
+	font-size: 0.22rem !important;
+}
+}
+.boutique_main_two_size .p1 span{
+	font-size: 0.24rem !important;
+}
+
 .boutique_main_two_size .p2{
     margin: 0 0.05rem;
 }

@@ -9,13 +9,9 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" type="text/css" href="/xcview/css/buy_prosperity.css" />
-<script>
-	var adapt=document.documentElement.clientWidth;
-	if(adapt>750){
-		adapt=750;
-	}
-	document.documentElement.style.fontSize=adapt/7.5+"px";
-</script>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
 <div class="wp">
@@ -98,9 +94,9 @@
 		                         {{/if}}	
 
 								{{if item.watchState == 0 || item.watchState == 2 || item.watchState == 3}}
-								<p><span>{{item.currentPrice}}</span>熊猫币</p>
+								<p class="p1" style="margin-top: -0.15rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 								{{else}}
-    							<p><span>免费</span></p>
+    							<p class="p1"><span>免费</span></p>
 								{{/if}}
 								
     							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>   						
@@ -128,9 +124,6 @@
 	<!--中间内容结束-->
 	</div>
 </body>
-
-<!--这段meta代码需要加上，移动端自适应缩放用-->
-<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 
 <script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
@@ -202,7 +195,5 @@
 		
 }
 </script>
-
-
 
 </html>
