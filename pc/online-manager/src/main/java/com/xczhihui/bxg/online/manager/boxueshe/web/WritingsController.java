@@ -105,13 +105,9 @@ public class WritingsController extends AbstractController{
 	
 	@RequestMapping(value = "toAdd")
 	public String toAdd(HttpServletRequest request) {
-		 	/*List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
-		 	List<TagVo> tags= articleService.getTags();
-		 	request.setAttribute("articleTypes", articleTypes);
-		 	request.setAttribute("tags", tags);*/
 		 	request.setAttribute("weburl", weburl);
 			return BOXUESHE_PATH_PREFIX + "/writingAdd";
-		}
+    }
 	
 	/**
 	 * 添加

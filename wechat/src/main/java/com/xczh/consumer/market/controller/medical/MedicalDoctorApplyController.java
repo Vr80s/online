@@ -54,8 +54,10 @@ public class MedicalDoctorApplyController {
 	@RequestMapping("addDoctorApply")
 	@ResponseBody
 	public ResponseObject addDoctorApply(HttpServletRequest req,
-									 HttpServletResponse res,MedicalDoctorApply medicalDoctorApply, @RequestParam("cardPositiveFile")MultipartFile cardPositiveFile
-			, @RequestParam("cardNegativeFile")MultipartFile cardNegativeFile, @RequestParam("qualificationCertificateFile")MultipartFile qualificationCertificateFile
+									 HttpServletResponse res,MedicalDoctorApply medicalDoctorApply,
+			 @RequestParam("cardPositiveFile")MultipartFile cardPositiveFile
+			, @RequestParam("cardNegativeFile")MultipartFile cardNegativeFile,
+			@RequestParam("qualificationCertificateFile")MultipartFile qualificationCertificateFile
 			, @RequestParam("professionalCertificateFile")MultipartFile professionalCertificateFile){
 
 
