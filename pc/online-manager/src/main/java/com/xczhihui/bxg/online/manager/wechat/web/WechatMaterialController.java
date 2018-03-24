@@ -238,7 +238,7 @@ public class WechatMaterialController extends AbstractController {
 		String str = content.split("base64,")[1];
 		byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
 		Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(),
-				AttachmentType.ONLINE, "1.png", b, "image/png", null);
+				AttachmentType.ONLINE, "1.png", b, "image/png");
 		if (a.getError() != 0) {
 			return ResponseObject.newErrorResponseObject("上传失败！");
 		}
