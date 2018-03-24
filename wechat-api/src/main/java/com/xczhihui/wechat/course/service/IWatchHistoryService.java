@@ -25,7 +25,7 @@ public interface IWatchHistoryService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      *
      */
-	void addOrUpdate(WatchHistory target);
+	void addOrUpdate(String lockId,WatchHistory target);
 	/**
 	 * 逻辑删除
 	 * Description：

@@ -118,6 +118,12 @@ public class CourseController {
 		 */
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user != null) {
+			
+			// 是否关注
+			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
+			if (isFours != 0) {
+				cv.setIsFocus(1);
+			}
 			/**
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
@@ -136,11 +142,6 @@ public class CourseController {
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 如果购买过返回true 如果没有购买返回false
 					cv.setLearning(1);
 				}
-			}
-			// 是否关注
-			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
-			if (isFours != 0) {
-				cv.setIsFocus(1);
 			}
 		}
 		return ResponseObject.newSuccessResponseObject(cv);
@@ -174,6 +175,13 @@ public class CourseController {
 		 */
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user != null) {
+			
+			// 是否关注
+			Integer isFours = focusService.myIsFourslecturer(user.getId(),
+					cv.getUserLecturerId());
+			if (isFours != 0) {
+				cv.setIsFocus(1);
+			}
 			/**
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
@@ -193,12 +201,6 @@ public class CourseController {
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 如果购买过返回true 如果没有购买返回false
 					cv.setLearning(1);
 				}
-			}
-			// 是否关注
-			Integer isFours = focusService.myIsFourslecturer(user.getId(),
-					cv.getUserLecturerId());
-			if (isFours != 0) {
-				cv.setIsFocus(1);
 			}
 		}
 		return ResponseObject.newSuccessResponseObject(cv);

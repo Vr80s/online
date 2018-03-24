@@ -66,9 +66,6 @@ public class CriticizeController {
 			 * 这里判断下此用户有没有购买过此视频
 			 */
 			Boolean isBuy = onlineWebService.getLiveUserCourseAndIsFree(criticize.getCourseId(),ou.getId());
-			
-			
-			
 			criticize.setIsBuy(isBuy);
 			
 			criticizeService.saveNewCriticize(criticize);

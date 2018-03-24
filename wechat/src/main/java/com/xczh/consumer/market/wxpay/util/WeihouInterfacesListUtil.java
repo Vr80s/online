@@ -193,9 +193,6 @@ public class WeihouInterfacesListUtil {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public static String updateUser(String userId,String password,String name,String head) {
-/*		if(!StringUtils.hasText(name) &&!StringUtils.hasText(head)){
-			return null;
-		}*/
 		String whUrl = "http://e.vhall.com/api/vhallapi/v2/user/update";
 		Map<String, String> parameters = new TreeMap<String, String>();
 		/* 公共参数 */
@@ -204,15 +201,9 @@ public class WeihouInterfacesListUtil {
 		parameters.put("password", "xinchengzhihui");
 		/* 公共参数 */
 		parameters.put("third_user_id", userId);
-		//parameters.put("pass", userId);
 		if(StringUtils.hasText(password)){
 			parameters.put("pass", password);
 		}
-		
-		//if(StringUtils.hasText(mobile)){
-		parameters.put("phone", "18821274320");
-		//}
-		
 		if(StringUtils.hasText(name)){
 			parameters.put("name", name);
 		}

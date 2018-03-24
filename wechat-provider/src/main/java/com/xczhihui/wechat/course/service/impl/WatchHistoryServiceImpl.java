@@ -6,9 +6,12 @@ import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.mapper.WatchHistoryMapper;
 import com.xczhihui.wechat.course.model.WatchHistory;
@@ -56,24 +59,28 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	}
 
 	@Override
-	public void addOrUpdate(WatchHistory target) {
-		// TODO Auto-generated method stub
-	  //根据课程Id查找讲师id
-		
-	  /**
-	   * 判断这个记录有没有添加进去，如果有添加进去，需要做更新操作	
-	   */
-	  WatchHistory watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(), target.getCourseId());
-	  if(watchHistory!=null){
-		  watchHistory.setCreateTime(new Date());
-		  watchHistoryMapper.updateById(watchHistory);
-	  }else{
-		  try {
-			  watchHistoryMapper.insert(target);
-		  } catch (Exception e) {
-				e.printStackTrace();
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Lock(lockName = "addOrUpdateLock",waitTime = 5,effectiveTime = 8)
+	public void addOrUpdate(String lockId, WatchHistory target) {
+		try {
+		  /**
+		   * 判断这个记录有没有添加进去，如果有添加进去，需要做更新操作	
+		   */
+		  WatchHistory watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(), target.getCourseId());
+		  if(watchHistory!=null){
+			  watchHistory.setCreateTime(new Date());
+			  watchHistoryMapper.updateById(watchHistory);
+		  }else{
+			  try {
+				  watchHistoryMapper.insert(target);
+			  } catch (Exception e) {
+					e.printStackTrace();
+			  }
 		  }
-	  }
+		} catch (Exception e) {
+			throw new RuntimeException("操作过于频繁!");
+		}
+	
 	}
 
 	@Override
