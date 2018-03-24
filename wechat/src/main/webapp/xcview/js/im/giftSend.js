@@ -134,6 +134,8 @@ var num = [];
 var min = [];
 var addn = [];
 // 生成礼物
+
+//gift.messageType == 1;
 function giftShow(gift, f,continuous) {
     if(continuous){
         $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
