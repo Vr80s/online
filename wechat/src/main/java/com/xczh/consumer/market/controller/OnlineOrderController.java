@@ -111,7 +111,7 @@ public class OnlineOrderController {
 		
 		//orderFrom订单来源  //订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销' 4:h5网页    5：手机app
 		//分销，设置上下级管理
-		String code = CookieUtil.getCookieValue(req, "_usercode_");
+/*		String code = CookieUtil.getCookieValue(req, "_usercode_");
 		if (code != null && !"".equals(code.trim())) {
 			OnlineUser u = (OnlineUser)req.getSession().getAttribute("_user_");
 			onlineOrderService.updateUserParentId(u.getId(), code);
@@ -126,7 +126,9 @@ public class OnlineOrderController {
 		}
 		Integer orderFrom = Integer.valueOf(req.getParameter("orderFrom"));
 		Integer courseId = Integer.valueOf(req.getParameter("courseId"));
-		return onlineOrderService.addOrder(courseId,user.getId(),orderFrom);
+		return onlineOrderService.addOrder(courseId,user.getId(),orderFrom);*/
+		
+		return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	/**
 	 * 获取订单列表

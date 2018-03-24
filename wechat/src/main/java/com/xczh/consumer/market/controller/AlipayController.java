@@ -111,7 +111,6 @@ public class AlipayController {
 			HttpServletResponse response) throws Exception {
 
 		Map<String, String> retobj = new HashMap<String, String>();
-
 		String orderNo = request.getParameter("orderNo");
 		if (null == orderNo) {
 			// return ResponseObject.newErrorResponseObject("参数异常");
@@ -226,7 +225,6 @@ public class AlipayController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -367,7 +365,6 @@ public class AlipayController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -380,13 +377,6 @@ public class AlipayController {
 	@ResponseBody
 	public void onlineRewardPay(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		/*
-		 * Map<String, String> params2=new HashMap<>();
-		 * params2.put("token",request.getParameter("token")); OnlineUser user =
-		 * appBrowserService.getOnlineUserByReq(request, params2); //
-		 * onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000"); if
-		 * (user == null) { throw new RuntimeException("登录失效"); }
-		 */
 
 		String ap = null;
 		ap = request.getParameter("actualPay");
@@ -815,8 +805,6 @@ public class AlipayController {
 	public void alipayNotify(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		
-		
 		// 获取支付宝POST过来反馈信息
 		Map<String, String> para = new HashMap<String, String>();
 		Map requestParams = request.getParameterMap();

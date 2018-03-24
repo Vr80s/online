@@ -80,6 +80,7 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 			}
 			return "操作成功!";
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("操作失败!");
 		}
 	}

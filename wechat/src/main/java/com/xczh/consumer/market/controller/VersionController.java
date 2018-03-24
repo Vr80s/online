@@ -169,11 +169,9 @@ public class VersionController {
             	 */
             	String headImgPath = service.upload(null,projectName, file.getOriginalFilename(),file.getContentType(),
         				             file.getBytes(),fileType,null);
-            	JSONObject json = JSONObject.parseObject(headImgPath);
-            	
+
         		LOGGER.info("文件路径——path:"+headImgPath);
             	
-        		headImgPath  = json.get("url").toString();
             	newFilePaths.add(headImgPath);
             }
         }catch (IOException e){

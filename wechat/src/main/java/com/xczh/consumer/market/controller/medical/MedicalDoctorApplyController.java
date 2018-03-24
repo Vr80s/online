@@ -74,23 +74,19 @@ public class MedicalDoctorApplyController {
 				//身份证正面
 				String cardPositive = service.upload(null,
 						projectName, cardPositiveFile.getOriginalFilename(),cardPositiveFile.getContentType(), cardPositiveFile.getBytes(),fileType,null);
-				JSONObject cardPositiveJson = JSONObject.parseObject(cardPositive);
-				medicalDoctorApply.setCardPositive(cardPositiveJson.get("url").toString());
+				medicalDoctorApply.setCardPositive(cardPositive);
 				//身份证反面
 				String cardNegative = service.upload(null,
 						projectName, cardNegativeFile.getOriginalFilename(),cardNegativeFile.getContentType(), cardNegativeFile.getBytes(),fileType,null);
-				JSONObject cardNegativeJson = JSONObject.parseObject(cardNegative);
-				medicalDoctorApply.setCardNegative(cardNegativeJson.get("url").toString());
+				medicalDoctorApply.setCardNegative(cardNegative);
 				//医师资格证
 				String qualificationCertificate = service.upload(null,
 						projectName, qualificationCertificateFile.getOriginalFilename(),qualificationCertificateFile.getContentType(), qualificationCertificateFile.getBytes(),fileType,null);
-				JSONObject qualificationCertificateJson = JSONObject.parseObject(qualificationCertificate);
-				medicalDoctorApply.setQualificationCertificate(qualificationCertificateJson.get("url").toString());
+				medicalDoctorApply.setQualificationCertificate(qualificationCertificate);
 				//医师执业证书
 				String professionalCertificate = service.upload(null,
 						projectName, professionalCertificateFile.getOriginalFilename(),professionalCertificateFile.getContentType(), professionalCertificateFile.getBytes(),fileType,null);
-				JSONObject professionalCertificateJson = JSONObject.parseObject(professionalCertificate);
-				medicalDoctorApply.setProfessionalCertificate(professionalCertificateJson.get("url").toString());
+				medicalDoctorApply.setProfessionalCertificate(professionalCertificate);
 
 				System.out.println("--------------------医师认证");
 			medicalDoctorApplyService.add(medicalDoctorApply);
