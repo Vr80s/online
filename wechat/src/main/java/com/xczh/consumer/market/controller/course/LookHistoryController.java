@@ -63,7 +63,6 @@ public class LookHistoryController {
 			@RequestParam(required=false)Integer recordType) {
 		try {
 			
-			
 			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
 			   return ResponseObject.newSuccessResponseObject("登录失效");
@@ -72,7 +71,6 @@ public class LookHistoryController {
 			if(course == null){
 		          throw new RuntimeException("课程信息有误");
 		    }
-
 			if(recordType!=null){
 				if(recordType == 1){ //增加学习记录
 					if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){

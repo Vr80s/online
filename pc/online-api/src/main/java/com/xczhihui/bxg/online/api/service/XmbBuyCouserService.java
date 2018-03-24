@@ -12,4 +12,8 @@ public interface XmbBuyCouserService {
 	
 	public void xmbBuyCourseLock(String orderNo);
 	
+
+
+	public void focusHostLock(String lecturerId, String userid, Integer type);
+	
 }
