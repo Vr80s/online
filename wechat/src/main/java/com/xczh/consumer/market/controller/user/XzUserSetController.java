@@ -8,9 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.xczhihui.bxg.common.support.domain.Attachment;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.controller.live.CityController;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
@@ -529,13 +524,11 @@ public class XzUserSetController {
          * 更新微吼信息
          */
         String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
-          
          /**
           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
           */
          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
          request.getSession().setAttribute("_user_",newUser);
-          
          if(weiHouResp == null){
         	  LOGGER.info("同步微吼头像失败");
          }

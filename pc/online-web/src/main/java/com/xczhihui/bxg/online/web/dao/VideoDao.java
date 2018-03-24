@@ -425,7 +425,6 @@ public class VideoDao extends SimpleHibernateDao {
 		
 		try {
 			
-			
 			if (!StringUtils.hasText(content) || !StringUtils.hasText(userId)) {
 				throw new RuntimeException("参数错误！");
 			}
@@ -455,7 +454,6 @@ public class VideoDao extends SimpleHibernateDao {
 			criticizeVo.setIsBuy(isbuy);
 			
 			this.saveNewCriticize(criticizeVo);
-			
 			/**
 			 * 然后在这个评论中增加一个回复
 			 */

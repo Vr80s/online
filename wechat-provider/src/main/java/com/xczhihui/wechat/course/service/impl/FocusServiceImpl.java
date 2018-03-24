@@ -7,8 +7,11 @@ import java.util.UUID;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.wechat.course.mapper.FocusMapper;
 import com.xczhihui.wechat.course.model.Focus;
 import com.xczhihui.wechat.course.service.IFocusService;
@@ -55,14 +58,18 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 	}
 
 	@Override
-	public String updateFocus(String lecturerId, String userid, Integer type) {
-		// TODO Auto-generated method stub
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Lock(lockName = "updateFocusHost",waitTime = 5,effectiveTime = 8)
+	public void updateFocus(String lockId,String lecturerId, String userid, Integer type) {
+		
 		try {
 			Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid,lecturerId);
 			if(type !=null && type == 1){//增加关注
+				LOGGER.info("1111111111111111111"+f.getId());
 				if(f!=null){
 					//return "你已经关注过了";
 					throw new RuntimeException("你已经关注过了!");
+					//return "你已经关注过了";
 				}
 				f= new Focus();
 				f.setId(UUID.randomUUID().toString().replace("-", ""));
@@ -76,15 +83,12 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 					//return "你还未关注此主播";
 					throw new RuntimeException("你还未关注此主播!");
 				}
+				LOGGER.info("2222222_f.getId()"+f.getId());
 				focusMapper.deleteById(f.getId());
 			}
-			return "操作成功!";
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("操作失败!");
+			throw new RuntimeException("操作过于频繁!");
 		}
 	}
-
-	
-	
 }

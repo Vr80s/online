@@ -50,7 +50,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	           apply_id = applies.get(0).get("id").toString();
 	       } else {
 	           sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
-	                   /*+ " values ("+apply_id+","+u.getId()+",now(),0,"+u.getName()+")";*/
 	        		   + " values (?,?,now(),0,?)";
 	           Object []  ps = {apply_id,u.getId(),u.getName()};
 	           this.update(JdbcUtil.getCurrentConnection(), sql,ps);
@@ -60,7 +59,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	       
 	       sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 as allCount from apply_r_grade_course where grade_id=-1";
 	       Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql,new MapHandler());
-	       
 	       //报名此班级的学生人数
 		   Double no = 0d;
 			if(map!=null && map.size()>0){
@@ -72,7 +70,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	               + " values(?,?,-1,?,0,?,?,now(),0,?)";
 	       Object [] ops = {id,courseId,apply_id,u.getName(),u.getId(),sno};
 	       this.update(JdbcUtil.getCurrentConnection(), sql,ops);
-
 	   }
 	
 	   /**
