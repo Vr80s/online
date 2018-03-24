@@ -8,6 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.xczhihui.bxg.common.support.domain.Attachment;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -343,8 +346,8 @@ public class XzUserSetController {
  				projectName, filename,contentType, bs,fileType,null);
      			LOGGER.info("文件路径——path:"+headImgPath);
      			
-     			JSONObject cardNegativeJson = JSONObject.parseObject(headImgPath);
-     			user.setSmallHeadPhoto(cardNegativeJson.get("url").toString());
+//     			JSONObject cardNegativeJson = JSONObject.parseObject(headImgPath);
+     			user.setSmallHeadPhoto(headImgPath);
              }
           }
 
@@ -516,10 +519,9 @@ public class XzUserSetController {
 		
 		Map<String,String> map = new HashMap<String,String>();
 		String headImgPath = service.upload(null,projectName, imageName, suffix, bs123,fileType,null);
-		
-		JSONObject json = JSONObject.parseObject(headImgPath);
+
 		LOGGER.info("文件路径——path:"+headImgPath);
-		map.put("smallHeadPhoto", json.get("url").toString());
+		map.put("smallHeadPhoto", headImgPath);
     	  
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         onlineUserService.updateUserCenterData(user,map);

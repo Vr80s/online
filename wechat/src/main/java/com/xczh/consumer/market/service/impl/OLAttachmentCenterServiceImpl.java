@@ -1,5 +1,8 @@
 package com.xczh.consumer.market.service.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.xczhihui.bxg.common.support.domain.Attachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,10 @@ public class OLAttachmentCenterServiceImpl implements OLAttachmentCenterService 
                          String fileName, String contentType, byte[] fileData,
                          String fileType, String ticket) {
         try {
-            attachmentCenterService.upload(createUserId, projectName, fileName, contentType, fileData, fileType);
+            String headImgPath = attachmentCenterService.upload(createUserId, projectName, fileName, contentType, fileData, fileType);
+            Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+            Attachment a = g.fromJson(headImgPath, Attachment.class);
+            return a.getUrl();
         } catch (Exception e) {
             e.printStackTrace();
         }

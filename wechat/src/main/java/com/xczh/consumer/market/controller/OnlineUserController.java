@@ -497,9 +497,8 @@ public class OnlineUserController {
      			String fileType="1"; //图片类型了
      			String headImgPath = service.upload(null, //用户中心的用户ID
  				projectName, filename,contentType, bs,fileType,null);
-     			JSONObject json = JSONObject.parseObject(headImgPath);
      			LOGGER.info("文件路径——path:"+headImgPath);
-     			map.put("smallHeadPhoto", json.get("url").toString());
+     			map.put("smallHeadPhoto", headImgPath);
              }
          }  	
         	
@@ -728,11 +727,10 @@ public class OnlineUserController {
  			Map<String,String> map = new HashMap<String,String>();
  			String headImgPath = service.upload(null,projectName, imageName, suffix, bs123,fileType,null);
  			
- 			JSONObject json = JSONObject.parseObject(headImgPath);
  			LOGGER.info("文件路径——path:"+headImgPath);
- 			map.put("smallHeadPhoto", json.get("url").toString());
+ 			map.put("smallHeadPhoto",headImgPath);
         	  
-	        OnlineUser user = new OnlineUser();
+	        OnlineUser user;
 	        String token = request.getParameter("token");
 	        if(token !=null ){
 	        	user = cacheService.get(token);

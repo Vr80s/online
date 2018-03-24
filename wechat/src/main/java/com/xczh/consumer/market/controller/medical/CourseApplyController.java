@@ -98,8 +98,8 @@ public class CourseApplyController {
 			String fileType="1"; //图片类型了
 			String imgPath = service.upload(null,
 					projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
-			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
-			courseApplyInfo.setImgPath(imgPathJson.get("url").toString());
+//			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
+			courseApplyInfo.setImgPath(imgPath);
 			courseApplyService.saveCourseApply(courseApplyInfo);
 			return  ResponseObject.newSuccessResponseObject("创建成功");
 		} catch (Exception e) {
