@@ -64,7 +64,6 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             newsMessage.setToUserName(fromUserName);  
             newsMessage.setFromUserName(toUserName);  
             newsMessage.setCreateTime(new Date().getTime());  
-            newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_MPNEWS);  
             newsMessage.setFuncFlag(0);  
             
             
@@ -101,7 +100,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             }else if(msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_EVENT)){ //请求消息类型：事件推送
             	
         	  if(scan.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)){  // 关注公众号事件
-        		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");	
+        		  
+        		  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_MPNEWS);  
+        		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        		  
 //                  Article article = new Article();  
 //                  article.setTitle("弘扬中医药文化，助力中医药产业。【熊猫中医】与您，一路同行。");  
 //                  article.setDescription("感谢关注【熊猫国医学堂】点击【国医学堂】进入【熊猫中医课堂】，即可观看现有中医课程。点击【个人中心】 可以查看自己的账户情况。【熊猫中医在线云课堂】，打破时间空间的限制，学习最适合你的中医。");  
@@ -127,6 +129,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
              	
              	 LOGGER.info("有人了扫二维码了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
              	 
+                newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);   
              	 
                Article article = new Article();  
                article.setTitle("弘扬中医药文化，助力中医药产业。【熊猫中医】与您，一路同行。");  
@@ -151,14 +154,6 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                respMessage = MessageUtil.newsMessageToXml(newsMessage); 
              	 
              	 
-             	 
-             	 
-             	 
-             	 
-             	 
-             	 
-             	 
-             	 respMessage ="";
               }
             }
         } catch (Exception e) {  

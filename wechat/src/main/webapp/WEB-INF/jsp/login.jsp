@@ -4,4 +4,4 @@
 	var openId = <%=request.getAttribute("openId")%>;
 </script>
 <%-- <%@ include file="../../Views/h5/login.html" %> --%>
-<%@ include file="../../xcviews/html/loginxc.html" %>
+<%@ include file="../../xcview/html/enter.html" %>
