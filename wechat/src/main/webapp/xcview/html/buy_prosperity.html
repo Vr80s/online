@@ -11,7 +11,17 @@
 <link rel="stylesheet" type="text/css" href="/xcview/css/buy_prosperity.css" />
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/template/template.js"></script>
-
+ 
+ <style type="text/css">
+ 	.boutique_main_one_size .P1{
+ 		font-size: 0.22rem !important;
+ 	}
+ 	.boutique_main_one_size .P1 span{
+ 		font-size: 0.24rem !important;
+ 	}
+ 	
+ </style>
+ 
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
 <div class="wp">
@@ -94,9 +104,9 @@
 		                         {{/if}}	
 
 								{{if item.watchState == 0 || item.watchState == 2 || item.watchState == 3}}
-								<p class="p1" style="margin-top: -0.15rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
+								<p class="p1" style="margin-top: -0.01rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 								{{else}}
-    							<p class="p1"><span>免费</span></p>
+    							<p class="p1"><span style="font-size: 0.24rem !important;">免费</span></p>
 								{{/if}}
 								
     							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>   						
