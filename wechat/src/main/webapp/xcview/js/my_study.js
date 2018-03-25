@@ -122,7 +122,7 @@ function go_play_hos(type,lineState,collection,id){
 	}else if(type ==4){								 //线下培训班
 		location.href="live_class.html?my_study="+id
 	}else if((type ==1 || type ==2) && collection){
-		location.href="live_select_album.html?my_study="+id
+		location.href="live_select_album.html?course_id="+id
 	}
 }
 //搜索历史播放结束

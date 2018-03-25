@@ -157,7 +157,7 @@
 			FROM
 		oe_course as oc
 		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-		where oc.id = #{courseId} and oc.is_delete=0   and ou.deleted =0
+		where oc.id = #{courseId} and oc.is_delete=0 
 	</select>
 
 	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
