@@ -47,7 +47,7 @@ public class WechatSYSTest {
 		/*String token =SingleAccessToken.getInstance().getAccessToken().getToken();
 		System.out.println(token);*/
 		String url = QR_CODE_TICKET.replace("APPSECRET","8_7oaxQHY9nyj_6ZSUFO36w5_e6USU07EIny2znh-r64vjjdSFPMxx3B_Cy69luIzRWG82edzWGkCP1YJum-8lrdnrzH3vTyrCJXQtnUsQz3qm_pOoE9R_6Yciov4X7SLmPDRTeUnraEorz0zKSYBaAGAJPS" );
-		String params = "{\"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"心承test\"}}}";
+		String params = "{\"expire_seconds\":2592000,\"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"心承test\"}}}";
 		String hehe = HttpUtil.doHttpsPost(url, params);
 		
 		System.out.println(hehe);
