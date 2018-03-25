@@ -41,9 +41,10 @@ function weixin(url,params,returnUrl) {
 	}
 }
 function wechatH5(url,params,returnUrl){
+	var protocol = document.location.protocol;
 	var domain = window.location.host;
 	if(returnUrl.indexOf(domain) ==-1){
-		returnUrl =domain +returnUrl;
+		returnUrl =protocol+"//"+domain +returnUrl;
 	}
     $.ajax({
         url : url+"?"+params,

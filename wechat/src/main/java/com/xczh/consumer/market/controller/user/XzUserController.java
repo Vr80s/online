@@ -120,7 +120,6 @@ public class XzUserController {
 			e.printStackTrace();
 			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
-			
 		}
 	}
 	

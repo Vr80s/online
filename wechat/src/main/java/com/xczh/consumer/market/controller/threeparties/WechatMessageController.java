@@ -158,6 +158,7 @@ public class WechatMessageController {
 		return strDigest;
 	}
 
+	
 	/**
 	 * 将字节转换为十六进制字符串
 	 *
