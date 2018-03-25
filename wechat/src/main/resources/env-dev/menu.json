@@ -34,13 +34,13 @@
              },
             {
               "type":"view",
-               "name":"针灸课程",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToMenuTypeList?menuType=201&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
+              "name":"针灸课程",
+              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToMenuTypeList?menuType=201&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
             }]
        },
         {
            "type": "media_id", 
            "name": "健康好文", 
-           "media_id": "6y0EBrCsG4Si29EjR7_uAPKHf5fHnte_6__89Y0IiyA"
+           "url":  "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUzNDI3NTAzOA==&scene=124#wechat_redirect"
         }]
  }

@@ -33,6 +33,9 @@ public class MessageConstant {
     // 事件类型：CLICK(自定义菜单)
     public static final String EVENT_TYPE_CLICK = "CLICK";
  
+    
+    ////////////   这个具体在微信开发者平台  --》  在客户消息中      
+    
     // 响应消息类型：文本
     public static final String RESP_MESSAGE_TYPE_TEXT = "text";
     // 响应消息类型：图片
