@@ -11,7 +11,9 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<!--<script type="text/javascript" src="/xcview/js/template/template.js"></script>-->
+
+
 
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>
@@ -20,6 +22,19 @@
 <link rel="stylesheet" href="/xcview/css/mui.mins.css">
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1.1"/>
+
+
+
+<!--没有用上面js模板，手机上加载的太慢。会出错误-缩小放大效果-->
+<script type="text/javascript">
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+
+</script>
+
 
 <script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
