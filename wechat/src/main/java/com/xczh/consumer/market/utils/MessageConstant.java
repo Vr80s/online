@@ -48,4 +48,7 @@ public class MessageConstant {
     public static final String RESP_MESSAGE_TYPE_MUSIC = "music";
     // 响应消息类型：图文
     public static final String RESP_MESSAGE_TYPE_NEWS = "news";
+    
+    // 响应消息类型：图文   -->media_id  方式的
+    public static final String RESP_MESSAGE_TYPE_MPNEWS = "mpnews";
 }

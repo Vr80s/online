@@ -16,6 +16,12 @@ public class NewsMessage extends BaseMessage {
      * 多条图文消息信息，默认第一个item为大图 
      */  
     private List<Article> Articles;  
+    
+    
+    /** 
+     * 发送图文消息（点击跳转到图文消息页面）
+     */  
+    private String media_id;  
   
     public int getArticleCount() {  
         return ArticleCount;  
@@ -31,5 +37,13 @@ public class NewsMessage extends BaseMessage {
   
     public void setArticles(List<Article> articles) {  
         Articles = articles;  
-    }  
+    }
+
+	public String getMedia_id() {
+		return media_id;
+	}
+
+	public void setMedia_id(String media_id) {
+		this.media_id = media_id;
+	}  
 }  
