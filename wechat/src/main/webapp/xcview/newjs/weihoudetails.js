@@ -145,7 +145,6 @@ $(document).ready(function() {
 		 */
         console.log(VHALL_SDK.getRoominfo());
         
-        
         var room  = VHALL_SDK.getRoominfo();
         if(room.type  == 3 ){
             $(".chatmsg-box").mCustomScrollbar({
@@ -208,11 +207,6 @@ $(document).ready(function() {
 	 */
     VHALL_SDK.on('userOnline', function(msg) {
     	
-    	//alert("userOnline:"+msg);
-    	
-/*        msg = VHALL_SDK.sendChat({
-		      text: content
-		});*/
     	
     	var userName = msg.user_name;
     	var content = "进入直播间";
@@ -228,6 +222,15 @@ $(document).ready(function() {
         $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
     	
         console.log(msg);
+        
+        
+        /**
+         * 当有人进来房间的时候，学习人数加1
+         */
+		var learndCount = $(".details_size span:eq(0)").html();
+		
+		$(".details_size span:eq(0)").html(parseInt(learndCount)+1);
+        
     });
     /**
 	 * [onUserOffline 用户下线]
@@ -237,12 +240,6 @@ $(document).ready(function() {
 	 * @return {[type]} [description]
 	 */
     VHALL_SDK.on('userOffline', function(msg) {
-    	
-    	//alert("userOffline:"+msg);
-    	
-/*        msg = VHALL_SDK.sendChat({
-		      text: content
-		});*/
   	
 	  	var userName = msg.user_name;
 	  	var content = "退出直播间";
@@ -256,9 +253,15 @@ $(document).ready(function() {
   	
         $("#chatmsg").append(str);
         $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
-    	
-    	
         console.log(msg);
+        
+        /**
+         * 当有人进来房间的时候，学习人数加1
+         */
+		var learndCount = $(".details_size span:eq(0)").html();
+		if(learndCount>0){
+			$(".details_size span:eq(0)").html(parseInt(learndCount)-1);
+		}
     });
     
     /**

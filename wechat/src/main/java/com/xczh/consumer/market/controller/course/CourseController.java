@@ -20,12 +20,14 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
@@ -167,9 +169,14 @@ public class CourseController {
 		if (cv == null) {
 			return ResponseObject.newErrorResponseObject("获取课程有误");
 		}
-
+		//判断星级
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
-
+		
+		//判断点钱在线人数
+		if(cv.getType() == 1 && cv.getLineState() == 1){ //表示的是直播中
+			Integer lendCount = cv.getLearndCount()+WeihouInterfacesListUtil.getCurrentOnlineNumber(cv.getDirectId());
+			cv.setLearndCount(lendCount);
+		}
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -189,13 +196,11 @@ public class CourseController {
 				cv.setWatchState(3);
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
-			
 			if (cv.getWatchState() == 0) {
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
 				}
 			}
-			
 			//如果是免费的  判断是否学习过
 			if (cv.getWatchState() == 1) {
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 如果购买过返回true 如果没有购买返回false
@@ -276,24 +281,12 @@ public class CourseController {
 	}
 
 	public static void main(String[] args) {
-		// 计算星级
-//		Double a = 4.1;
-//		if (a != 0) { // 不等于0
-//			String b = a.toString();
-//			if (b.length() > 1) { // 不等于整数
-//				String[] arr = b.split("\\.");
-//				Integer tmp = Integer.parseInt(arr[1]);
-//				if (tmp >= 5) {
-//					System.out.println(Integer.parseInt(arr[0]) + 1);
-//				} else {
-//					System.out.println(arr[0] + "." + 5);
-//				}
-//			}
-//		}
-		
-		
-		
-		
+
+		Random r = new Random();
+		float floatNumber = r.nextFloat();
+		System.out.println(floatNumber/10);
+		System.out.println(r.nextInt(3));
+		System.out.println((int)(30*Math.random()));
 	}
 	
 	

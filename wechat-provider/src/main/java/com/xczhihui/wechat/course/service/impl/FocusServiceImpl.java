@@ -65,7 +65,6 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 		try {
 			Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid,lecturerId);
 			if(type !=null && type == 1){//增加关注
-				LOGGER.info("1111111111111111111"+f.getId());
 				if(f!=null){
 					//return "你已经关注过了";
 					throw new RuntimeException("你已经关注过了!");
@@ -76,14 +75,12 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 				f.setUserId(userid);
 				f.setLecturerId(lecturerId);
 				f.setCreateTime(new Date());
-				LOGGER.info("userid:"+userid+",lecturerId:"+lecturerId);
 				focusMapper.insert(f);
 			}else if(type !=null && type == 2){
 				if(f==null){
 					//return "你还未关注此主播";
 					throw new RuntimeException("你还未关注此主播!");
 				}
-				LOGGER.info("2222222_f.getId()"+f.getId());
 				focusMapper.deleteById(f.getId());
 			}
 		} catch (Exception e) {
