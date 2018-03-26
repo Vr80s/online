@@ -240,5 +240,8 @@
 }
 
 .boutique_main ul li{
+	width: 3.39rem;
 	height: 3.25rem;
+	/*background: aliceblue;*/
+	overflow: hidden;
 }

@@ -1126,7 +1126,11 @@ header{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 0.35rem;
+    /*height: 0.35rem;*/
+       height: 0.38rem;
+    /* line-height: 0.35rem; */
+    /*background: blue;*/
+    margin-bottom: 0.07rem;
 }
 .boutique_main_one_title .span0{
 	color: #999999;
