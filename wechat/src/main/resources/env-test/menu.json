@@ -1,0 +1,46 @@
+ {
+     "button":[
+     {
+           "name":"国医学堂",
+           "sub_button":[
+           {    
+               "type":"view",
+               "name":"学堂中心",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
+            },
+            {
+               "type":"view",
+               "name":"学习中心",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToLearningCenter&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
+             },
+            {
+              "type":"view",
+               "name":"个人中心",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToPersonalCenter&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
+            }]
+       },
+      {
+           "name":"特色课程",
+           "sub_button":[
+           {    
+               "type":"view",
+               "name":"脉诊大全",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToMenuTypeList?menuType=200&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
+            },
+            {
+               "type":"view",
+               "name":"古籍经典",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToMenuTypeList?menuType=205&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
+             },
+            {
+              "type":"view",
+              "name":"针灸课程",
+              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToMenuTypeList?menuType=201&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
+            }]
+       },
+        {
+           "type": "media_id", 
+           "name": "健康好文", 
+           "url":  "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUzNDI3NTAzOA==&scene=124#wechat_redirect"
+        }]
+ }

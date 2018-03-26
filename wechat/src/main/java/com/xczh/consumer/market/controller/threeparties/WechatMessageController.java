@@ -42,7 +42,17 @@ public class WechatMessageController {
 	
 	@Autowired
 	private CoreMessageService coreMessageService;
-
+	
+	/**
+	 * 
+	 * Description：微信开发者配置 get方法验证签名
+	 * @param req
+	 * @param res
+	 * @throws IOException
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public void get(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		// 微信加密签名
@@ -58,10 +68,7 @@ public class WechatMessageController {
 	    String[] str = { wxToken, timestamp, nonce };
 	    Arrays.sort(str); // 字典序排序
 	    String bigStr = str[0] + str[1] + str[2];
-	       
         //SHA1加密
-        //String digest = new SHA1().getDigestOfString(bigStr.getBytes()).toLowerCase();
-	    
 	    String digest = "";
 	    try {
 	    	MessageDigest crypt = MessageDigest.getInstance("SHA-1");
@@ -74,31 +81,25 @@ public class WechatMessageController {
 	    } catch (UnsupportedEncodingException e) {
 	    	e.printStackTrace();
 	    }
-	    	    
-	    //if(true) {
-	    //	LOGGER.info("signature=" + signature);
-	    //	LOGGER.info("echostr=" + echostr);
-	    //	LOGGER.info("timestamp=" + timestamp);
-	    //	LOGGER.info("nonce=" + nonce);
-	    //	LOGGER.info("digest=" + digest);
-	    //}
-	   
 	    // 确认请求来至微信
 	    if (digest.equals(signature)) {
-	    	
 	    	LOGGER.info("get方法-----》认证成功："+signature);
-	    	
 	    	res.getWriter().print(echostr);
 	    } else {
-	    	
 	    	LOGGER.info("get方法-----》认证失败："+signature);
-	    	
 	    	res.getWriter().print("error");
 	    }
-	    
-	    
 	}
 
+	/**
+	 * 
+	 * Description：微信的自定义消息  post请求推送消息
+	 * @param request
+	 * @param response
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public void post(HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -143,7 +144,6 @@ public class WechatMessageController {
     private static String create_timestamp() {
         return Long.toString(System.currentTimeMillis() / 1000);
     }
-	
     /**
 	 * 将字节数组转换为十六进制字符串
 	 *
@@ -158,6 +158,7 @@ public class WechatMessageController {
 		return strDigest;
 	}
 
+	
 	/**
 	 * 将字节转换为十六进制字符串
 	 *

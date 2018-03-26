@@ -105,13 +105,9 @@ public class WritingsController extends AbstractController{
 	
 	@RequestMapping(value = "toAdd")
 	public String toAdd(HttpServletRequest request) {
-		 	/*List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
-		 	List<TagVo> tags= articleService.getTags();
-		 	request.setAttribute("articleTypes", articleTypes);
-		 	request.setAttribute("tags", tags);*/
 		 	request.setAttribute("weburl", weburl);
 			return BOXUESHE_PATH_PREFIX + "/writingAdd";
-		}
+    }
 	
 	/**
 	 * 添加
@@ -186,7 +182,7 @@ public class WritingsController extends AbstractController{
 				if(group.split("base64,").length>1){
 					String str = group.split("base64,")[1];
 					byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
-					Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png", null);
+					Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png");
 					content = content.replace(group, a.getUrl());
 				}
 				

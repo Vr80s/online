@@ -57,9 +57,13 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
 
     Integer selectCourseApplyForValidate(@Param("title")String title, @Param("oldApplyInfoId")Integer oldApplyInfoId);
 
-    Integer selectCourseForValidate(@Param("title") String title);
+    Integer selectCourseForValidate(@Param("title") String title, @Param("oldApplyInfoIds") List<Integer> oldApplyInfoIds);
 
     List<CourseApplyInfo> selectCourseApplyByCollectionId(@Param("id")Integer id);
 
     List<CourseApplyInfo> selectCollectionApplyByCourseApplyId(Integer id);
+
+    String selectCourseStastusByApplyId(Integer id);
+
+    Integer getParentIdByChildId(Integer id);
 }

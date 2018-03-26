@@ -32,7 +32,7 @@ public class PublicCourseDao extends HibernateDao<Course>{
 				+ "    4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status))),c.live_status) "
 				+ "			     AS liveStatus, "
 				
-				
+				+" ABS(timestampdiff(second,current_timestamp,c.start_time)) as recent,"
 				+ "c.grade_name as courseName ,c.sort_update_time as sortUpdateTime,ca.name as lecturerName ,m.name as menuName,c.`course_pwd` coursePwd "
 				+ ",c.live_source as liveSource,c.release_time as releaseTime,c.recommend_sort as recommendSort,c.status as status,c.direct_id as directId,c.`essence_sort` as essenceSort \n" +
 				" from oe_course c  LEFT JOIN\n" +
@@ -79,7 +79,7 @@ public class PublicCourseDao extends HibernateDao<Course>{
 	            sql.append(" and c.end_time <= :endTime ");
 	            paramMap.put("endTime",courseVo.getEndTime());
 	        }
-            sql.append(" order by c.status desc,c.recommend_sort desc,c.release_time desc");
+            sql.append(" order by c.status desc,c.recommend_sort desc,recent ");
 
 
  		

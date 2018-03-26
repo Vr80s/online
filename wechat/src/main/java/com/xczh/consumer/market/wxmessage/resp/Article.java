@@ -26,6 +26,9 @@ public class Article {
      */  
     private String Url;  
   
+    
+    private String media_id;
+    
     public String getTitle() {  
         return Title;  
     }  
@@ -56,6 +59,16 @@ public class Article {
   
     public void setUrl(String url) {  
         Url = url;  
-    }  
+    }
+
+	public String getMedia_id() {
+		return media_id;
+	}
+
+	public void setMedia_id(String media_id) {
+		this.media_id = media_id;
+	}  
   
+    
+    
 }  

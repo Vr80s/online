@@ -46,7 +46,6 @@ public interface IFocusService {
 	 */
 	Integer isFoursLecturer(String userId,String lecturerId);
 	/**
-	 * 
 	 * Description：
 	 * @param lecturerId
 	 * @param id
@@ -54,7 +53,6 @@ public interface IFocusService {
 	 * @return
 	 * @return String
 	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
 	 */
-	String updateFocus(String lecturerId, String id, Integer parseInt);
+	void updateFocus(String lockId,String lecturerId, String id, Integer parseInt);
 }

@@ -14,14 +14,8 @@
 
 <link rel="stylesheet" href="/xcview/css/cn_login.css?version=6a75a54bdc">
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=31c81b486a">
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
-</script>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
 
 <style type="text/css">
 	.enter_btns{
@@ -75,13 +69,13 @@
 			<div class="other_means_ru">
 				<input type="checkbox" name='check' style="width: 0.24rem;height: 0.24rem;opacity: 0;" checked="checked" id="checkbox1" />
 			</div>
-			同意<span class="check01_a">《熊猫中医用户协议》</span><!--和<span class="check02_a">《隐私条款》</span>-->
+			同意<span class="check01_a" onclick="window.location='/xcview/html/user_agree.html'">《熊猫中医用户注册协议》</span><!--和<span class="check02_a">《隐私条款》</span>-->
 		</div>
 	</div>
 	<!-- 中间内容结束 -->
 	<!-- 熊猫中医用户协议 -->
 	
-	<div class="deal_show">
+	<div class="deal_show" style="display: none !important;">
 		<div id="" style="width: 100%;">
 			<div id="deal_title" style="height: 0.88rem;background: #00bc12;text-align: center;line-height: 0.88rem;color: #fff;width: 100%;position: fixed;top: 0;">
 				熊猫中医用户协议<span class="deal_title_close" style="width: 0.8rem;position: absolute;left: 0;"><img style="width: 0.7rem;margin-top: 0.08rem;" src="../images/rpw_back_n.png"/></span>
@@ -192,14 +186,14 @@
 $(document).ready(function() {
 	
 	//显示隐藏熊猫中医的用户注册协议
-	$(".check01_a").click(function() {
+	/*$(".check01_a").click(function() {
 		$(".deal_show").show();
 		$(".last_cn").hide();
 	});
 	$(".deal_title_close").click(function() {
 		$(".last_cn").show();
 		$(".deal_show").hide();
-	});
+	});*/
 	
 	
 	var flag = 1;

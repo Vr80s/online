@@ -17,28 +17,28 @@
 	select	* from  (	
 	
 	  (	select (select course.grade_name from oe_course course where course.id = ood.course_id) as gradeName,
-       		CONCAT('+',format(uci.value,0)) as value,uci.create_time as createTime,'课程' as label,"熊猫币" as unit 
+       		CONCAT('+',format(uci.value,2)) as value,uci.create_time as createTime,'课程' as label,"熊猫币" as unit 
    	    from user_coin_increase uci 
     	   inner join oe_order_detail ood on uci.order_no_course = ood.id
-   				 where ood.course_id in (select id from oe_course as oc where oc.user_lecturer_id =#{userId} )  )
+   				 where  uci.change_type =7 and ood.course_id in (select id from oe_course as oc where oc.user_lecturer_id =#{userId} )  )
    				 
 		UNION ALL
 		
 	  (	select  (select course.grade_name from oe_course course where course.id = ogs.live_id) as gradeName,
-	      	 CONCAT('+',format(uci.value,0)) as value,max(ogs.create_time) as createTime,'直播礼物' as label,"熊猫币" as unit  
+	      	 CONCAT('+',format(uci.value,2)) as value,max(ogs.create_time) as createTime,'直播礼物' as label,"熊猫币" as unit  
 	    from user_coin_increase uci
 	    	inner join oe_gift_statement ogs on uci.order_no_gift = ogs.id
-	   			 where ogs.receiver =  #{userId} group by ogs.live_id  )
+	   			 where uci.change_type = 3  and  ogs.receiver =  #{userId} group by ogs.live_id  )
 		
 		UNION ALL
 		
-	  ( select '' as gradeName,format(ucc.value,0) as value,ucc.create_time as createTime,'结算' as label,"熊猫币" as unit  from  user_coin_consumption as ucc  where 
+	  ( select '' as gradeName,format(ucc.value,2) as value,ucc.create_time as createTime,'结算' as label,"熊猫币" as unit  from  user_coin_consumption as ucc  where 
 	         ucc.change_type = 5  and ucc.user_id = #{userId}	 )
 		
 		UNION ALL
 		
-	  ( select '' as gradeName,format(uci.value,0) as value,uci.create_time as createTime,'提现驳回' as label,"熊猫币" as unit   from  user_coin_increase as uci  where  
-	  		uci.change_type = 5 	and uci.user_id = #{userId} )
+	  ( select '' as gradeName,format(uci.value,2) as value,uci.create_time as createTime,'提现驳回' as label,"熊猫币" as unit   from  user_coin_increase as uci  where  
+	  		uci.change_type = 5 and uci.user_id = #{userId} )
 	  		
 	  ) as  jiesuan order by jiesuan.createTime desc  limit #{pageNumber},#{pageSize}	
 	  		
@@ -49,17 +49,17 @@
    <select id="selectWithdrawalList" resultType="java.util.Map">
 		
    select	* from  (			
-	  ( select '提现' as label,format(ucc.value,0) as value,ucc.create_time as createTime,"人民币" as unit 
+	  ( select '提现' as label,format(ucc.value,2) as value,ucc.create_time as createTime,"人民币" as unit 
 	  from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id=#{userId}	 )
 		
 		UNION ALL
 		
-	  ( select '结算' as label,CONCAT('+',format(uci.value,0)) as value,uci.create_time as createTime,"人民币" as unit 
+	  ( select '结算' as label,CONCAT('+',format(uci.value,2)) as value,uci.create_time as createTime,"人民币" as unit 
 	  from user_coin_increase as uci  where  uci.change_type = 6 and user_id=#{userId} )
 	  
 	  	UNION ALL
 	  
-	  ( select '提现驳回' as label,CONCAT('+',format(uci.value,0)) as value,uci.create_time as createTime,"人民币" as unit 
+	  ( select '提现驳回' as label,CONCAT('+',format(uci.value,2)) as value,uci.create_time as createTime,"人民币" as unit 
 	  from user_coin_increase as uci  where  uci.change_type = 5 and user_id=#{userId} )
 		
 	 ) as tixian  order by tixian.createTime desc limit #{pageNumber},#{pageSize}
@@ -74,7 +74,6 @@
 	   select	* from  (			
 		  ( select  '1' as type,'赠送礼物' as subject ,format(ucc.value,0) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as unit
 		  from user_coin_consumption as ucc  where  ucc.change_type = 8 and user_id=#{userId}	 )
-			
 			UNION ALL
 		
 		  ( select  '2' as type,'购买课程' as subject ,format(ucc.value,0) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as unit

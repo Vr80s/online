@@ -1,40 +1,36 @@
 package com.xczh.consumer.market.service.impl;
 
-
-import com.alibaba.fastjson.JSONObject;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.utils.HttpUtil;
-
-import org.springframework.beans.factory.annotation.Value;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.xczhihui.bxg.common.support.domain.Attachment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.xczh.consumer.market.service.OLAttachmentCenterService;
+import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
 
 @Service
 public class OLAttachmentCenterServiceImpl implements OLAttachmentCenterService {
+    private static final Logger logger = LoggerFactory.getLogger(OLAttachmentCenterServiceImpl.class);
 
+    @Autowired
+    private AttachmentCenterService attachmentCenterService;
 
-	@Value("${attachmentCenterPath}")
-	private String attachmentCenterPath;
-	
-	//<img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2017/09/25/09/e9dfe660b8744af3b39ebd92165fc639.jpg">
-	//private String attachmentCenterPath = "http://172.26.108.181:38080/";
-	@Override
-	public String upload(String createUserId, String projectName,
-			String fileName, String contentType, byte[] fileData,
-			String fileType, String ticket) {
-		
-		Map<String,String> parameters = new HashMap<String,String>();
-		parameters.put("createUserId",createUserId);
-		parameters.put("projectName",projectName);
-		parameters.put("fileType",fileType);
-		
-	 
-		System.out.println("attachmentCenterPath : "+attachmentCenterPath+"/attachment/upload");
-		String headImgPath=HttpUtil.uploadFile(attachmentCenterPath+"/attachment/upload", parameters,
-				"attachment", fileName, contentType, fileData);
-		return headImgPath;
-	}
+    @Override
+    public String upload(String createUserId, String projectName,
+                         String fileName, String contentType, byte[] fileData,
+                         String fileType, String ticket) {
+        try {
+            String headImgPath = attachmentCenterService.upload(createUserId, projectName, fileName, contentType, fileData, fileType);
+            Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+            Attachment a = g.fromJson(headImgPath, Attachment.class);
+            return a.getUrl();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

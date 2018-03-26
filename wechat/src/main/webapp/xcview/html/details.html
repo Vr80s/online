@@ -12,21 +12,18 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" href="/xcview/css/css.css?version=96a0f827c0&version=96a0f827c0&version=96a0f827c0">
-<!-- <link rel="stylesheet" href="/xcview/css/yangxuan.css"> -->
-<!--这段meta代码需要加上，移动端自适应缩放用-->
-<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+
+
 <!-- 网页自适应JS代码引入 -->
 <script type="text/javascript" src="/xcview/js/common/js.js?version=b35e3bdcab&version=b35e3bdcab&version=b35e3bdcab"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?version=b35e3bdcab&version=b35e3bdcab&version=b35e3bdcab"></script>
-<!-- <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script> -->
 
 <!-- 图片引入放大缩小 -->
 <script type="text/javascript" src="/xcview/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/xcview/js/underscore.js?version=9d2dc1d44f&version=9d2dc1d44f&version=9d2dc1d44f"></script>
 <script type="text/javascript" src="/xcview/js/pinchzoom.js?version=1b3192f6cb&version=1b3192f6cb&version=1b3192f6cb"></script>
 
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">  <!--公共弹框-->
-<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>  <!--公共弹框-->
+
 
 <!-- 双击图片变大缩小 -->
 <script type="text/javascript">
@@ -94,7 +91,7 @@ $(function(){
 	.cover{
 		height: 2.125rem;
 	    width: 100%;
-	    background: red;
+	    /*background: red;*/
 	    position: fixed;
 	    bottom: 0;
 	    z-index: 99991;
@@ -137,7 +134,7 @@ $(function(){
 	    padding-bottom: 2.5rem;
 }
 .coze{
-	position: fixed;
+	position: absolute;
     top: 10.5rem;
 }
 </style>
@@ -371,7 +368,7 @@ $(function(){
 			<div class="share_cancel">取消</div>
 		</div>
 	</div>
-	<div class="weixin_ceng" style="display1: block;">
+	<div class="weixin_ceng" style="display1: block;display: none !important;">
 		<div class="weixin_ceng_bg"></div>
 		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 	</div>
@@ -620,6 +617,12 @@ $(function(){
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<!-- <link rel="stylesheet" href="/xcview/css/yangxuan.css"> -->
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+
+<!-- <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script> -->
+
 <script src="/xcview/weihoujs/vhallSDK.js?version=8c159d7822&version=8c159d7822&version=8c159d7822"></script>
 <script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="/xcview/weihoujs/underscore-min.js?version=963bd48ea8&version=963bd48ea8&version=963bd48ea8"></script>

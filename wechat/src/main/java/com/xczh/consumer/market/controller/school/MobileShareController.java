@@ -29,6 +29,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.vo.LecturVo;
@@ -89,15 +90,11 @@ public class MobileShareController {
 					return ResponseObject.newErrorResponseObject("课程信息有误");
 				}
 				
-				/*
-				 * 课程名增加一个中医好课程  
-				 */
 				courseLectur.setGradeName("中医好课程："+courseLectur.getGradeName());
-				
 				
 				if(courseLectur.getDescription()!=null){
 					String description = courseLectur.getDescription();
-					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
+					description = XzStringUtils.delHTMLTag(description);
 					courseLectur.setDescription(description);
 				}
 				courseLectur.setLink(returnOpenidUri+"/wx_share.html?shareType=1&shareId="+Integer.parseInt(shareId));
@@ -115,7 +112,7 @@ public class MobileShareController {
 				
 				if(lectur.getDescription()!=null){
 					String description = lectur.getDescription();
-					description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
+					description = XzStringUtils.delHTMLTag(description);
 					lectur.setDescription(description);
 				}
 				lectur.setLink(returnOpenidUri+"/wx_share.html?shareType=2&shareId="+shareId);

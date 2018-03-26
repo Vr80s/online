@@ -666,7 +666,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	}
 
 	public void emptyAccount(String userName) throws SQLException {
-		// TODO Auto-generated method stub
 		StringBuilder sb = new StringBuilder("");
 		sb.append("delete from  oe_user where login_name = ?");
 		Object[] params = {userName};

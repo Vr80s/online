@@ -120,7 +120,6 @@ public class XzUserController {
 			e.printStackTrace();
 			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
-			
 		}
 	}
 	
@@ -453,6 +452,8 @@ public class XzUserController {
 		   @RequestParam("userName")String userName) throws Exception{
 	   OnlineUser ou =  onlineUserService.findUserByLoginName(userName);
 	   if(ou!=null){
+		   
+		   
 		   threePartiesLoginService.deleteAccount(ou.getId());
 		   wxcpClientUserWxMappingService.deleteAccount(ou.getId());
 		   userCenterAPI.deleteUser(userName);

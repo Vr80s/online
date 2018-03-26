@@ -28,9 +28,9 @@ public class GiftServiceImpl implements GiftService {
 
 	@Override
 	public Map<String,Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom,int count,String liveId) {
-		if(giverId.equals(receiverId)){
-			throw new RuntimeException("不可以给自己送礼物哦~");
-		}
+//		if(giverId.equals(receiverId)){
+//			throw new RuntimeException("不可以给自己送礼物哦~");
+//		}
 		//每次送一个  20180305 yuxin
 		count=1;
 		Map<String, Object> map = giftSendService.addGiftStatement4Lock(liveId, giverId, receiverId, giftId, orderFrom, count, liveId);

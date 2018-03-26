@@ -134,6 +134,8 @@ var num = [];
 var min = [];
 var addn = [];
 // 生成礼物
+
+//gift.messageType == 0;
 function giftShow(gift, f,continuous) {
     if(continuous){
         $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
@@ -185,6 +187,7 @@ function giftShow(gift, f,continuous) {
     .css("left", "-9.55rem")//初始未知
     .animate({// 设置运动
     	       "left": "0"
+//  	     },500,"linear",
     	     },500,"linear",
     function(){
     	 if (f == 1) {
@@ -392,7 +395,7 @@ $(document).ready(function() {
         var xmbShowSpan = $("#xmbShowSpan").html(); //1
         var jiage = $(".gift_ul_li_li .gift_p .jiage").text();  //1
 //      if(jiage<xmbShowSpan || jiage == 0){
-        if( xmbShowSpan >= jiage  || jiage <= 0){
+        if( parseInt(xmbShowSpan) >= parseInt(jiage)  || parseInt(jiage) <= 0){
             if (connected) {
                 var msgJson = {
                     channel : 1,
@@ -510,7 +513,7 @@ $(function () {
                 }else{
                     f3 = true;
                 }
-                $("#gift"+i).remove();
+                $("#gift"+i).remove();   /*注释以后,礼物就不会隐藏*/
             }
         }
     },500)

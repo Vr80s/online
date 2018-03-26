@@ -132,13 +132,19 @@ public class WeihouInterfacesListUtil {
 	 * @return JSONObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	public static JSONObject getCurrentOnlineNumber(String webinar_id){
+	public static Integer getCurrentOnlineNumber(String webinar_id){
 		Map<String,String> parameters =  getBaseParams();
 		parameters.put("webinar_id", webinar_id);
 		String str  = HttpUtil.sendPostRequest(CURRENTONLINENUMBER, parameters);
 		JSONObject js = JSONObject.parseObject(str);
-		return js;
+		if(js.get("msg")!=null && js.get("code").equals("200")){
+			return Integer.parseInt(js.get("data").toString());
+		}
+		return 0;
 	}
+	
+	
+
 	/**
 	 * 请求当前观看人数时，需要判断是不是在30秒内，如果在30秒内，就不用请求了
 	 * Description：
@@ -146,7 +152,6 @@ public class WeihouInterfacesListUtil {
 	 * @return
 	 * @return boolean
 	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
 	 */
 	public static boolean currentonLinenumberConditions(Date recordDate){
 		boolean falg = false;
@@ -163,25 +168,6 @@ public class WeihouInterfacesListUtil {
 	}
 	
 	
-	//测试
-	public static void main(String[] args) {
-		//CURRENT_USER_ID("24e7d53a956f4a4eb7b22d5742626e8f");
-		//third_user_id
-		//getUserinfo("20383761", "name,head,third_user_id");
-		
-		//21047835   v21054339
-		/*createUser("137827828781", "123456", "123456", "http://attachment-center.ixincheng.com:38080/data/"
-				+ "picture/online/2017/09/25/15/e4981eeaec9746f7b965ee475ed90a2c.jpg");*/
-		
-		//账号：15936216273, 接口/bxg/bs/login返回的微吼id是"22785686", 微吼登录返回的id是"20383761".
-		
-		//getUserinfo("22785686", "name,head");
-		//System.out.println(createUser("123456","123456","yangxuan","123456"));
-		
-		updateUser("96797247b8c747d19cd248e5df3b2145",null,null,null);
-		
-	}
-	
 	/**
 	 * Description：请求根据用户id,更新用户接口信息！微吼更新用户接口，
 	 * @param userId
@@ -193,9 +179,6 @@ public class WeihouInterfacesListUtil {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public static String updateUser(String userId,String password,String name,String head) {
-/*		if(!StringUtils.hasText(name) &&!StringUtils.hasText(head)){
-			return null;
-		}*/
 		String whUrl = "http://e.vhall.com/api/vhallapi/v2/user/update";
 		Map<String, String> parameters = new TreeMap<String, String>();
 		/* 公共参数 */
@@ -204,15 +187,9 @@ public class WeihouInterfacesListUtil {
 		parameters.put("password", "xinchengzhihui");
 		/* 公共参数 */
 		parameters.put("third_user_id", userId);
-		//parameters.put("pass", userId);
 		if(StringUtils.hasText(password)){
 			parameters.put("pass", password);
 		}
-		
-		//if(StringUtils.hasText(mobile)){
-		parameters.put("phone", "18821274320");
-		//}
-		
 		if(StringUtils.hasText(name)){
 			parameters.put("name", name);
 		}
@@ -221,24 +198,15 @@ public class WeihouInterfacesListUtil {
 		}
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		Map<String, String> m =json2Map(json);
-		if("success".equals(m.get("msg"))){
+		if("success".equals(m.get("msg"))
+				&& Integer.parseInt(m.get("code")) == 200){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
-			System.out.println(json+":"+userId);
 			return vhallId;
 		}
-		/*JSONObject js = JSONObject.parseObject(json);
-		System.out.println(js.toJSONString());
-		if(js.get("msg").equals("success")){
-			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
-			System.out.println(jsData.toJSONString());
-			
-			return jsData.toJSONString();
-		}
-		*/
 		return null;
 	}
-	//
+	
 	
 	/**
 	 * Description：请求根据用户id,更新用户接口信息！微吼更新用户接口，
@@ -297,17 +265,27 @@ public class WeihouInterfacesListUtil {
 		String json = HttpUtil.sendPostRequest(REGISTER, parameters);
 		
 		JSONObject js = JSONObject.parseObject(json);
-		if("success".equals(js.get("msg"))){
+		if("success".equals(js.get("msg")) && 
+				Integer.parseInt(js.get("code").toString()) == 200){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(jsData.toJSONString());
 			String vhallId = jsData.get("user_id").toString();
 			return vhallId;
 		}else if(Integer.parseInt(js.get("code").toString()) == 10804){
-			
 			return updateUser(userId, pass, name, head);
 		}
 		return null;
 	}
+	
+	
+	
+	//测试
+	public static void main(String[] args) {
+		
+		createUser("13723160793","12345","杨宣",null);
+		
+	}
+	
 	
 	/**
 	 * Description：请求微吼创建用户接口，得到一个微吼用户id。
@@ -331,15 +309,13 @@ public class WeihouInterfacesListUtil {
 		parameters.put("phone", loginName);
 		
 		String json = HttpUtil.sendPostRequest(REGISTER, parameters);
-		
 		JSONObject js = JSONObject.parseObject(json);
-		if("success".equals(js.get("msg"))){
+		if("success".equals(js.get("msg")) && "200".equals(js.get("code").toString())){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(jsData.toJSONString());
 			String vhallId = jsData.get("user_id").toString();
 			return vhallId;
 		}else if(Integer.parseInt(js.get("code").toString()) == 10804){
-			
 			return updateUser(userId, pass, name, head);
 		}
 		return null;
