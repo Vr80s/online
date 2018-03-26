@@ -1423,7 +1423,7 @@ header{
 	width: 3.358rem;
 	height: 1.92rem;
 	margin-bottom: 0.16rem;
-	background: #A4824B;
+	/*background: #A4824B;*/
 }
 .boutique_four_img img{
 	width: 3.39rem;
@@ -1568,7 +1568,8 @@ header{
 	/*margin-left: 0.456rem;*/
 	margin-bottom: 0.4rem;
 	/*height: 7rem;*/
-	height: 3.25rem;
+	width: 3.39rem !important;
+	height: 3.25rem !important;
 }
 
 
@@ -1973,7 +1974,8 @@ margin-top: 0.1rem;*/
 	margin-bottom: 0.4rem;
 	position: relative;
 	/*height: 7rem;*/
-	height: 3.25rem;
+	width: 3.39rem !important;
+	height: 3.25rem !important;
 }
 
 .lectures_main ul li:nth-child(even){
