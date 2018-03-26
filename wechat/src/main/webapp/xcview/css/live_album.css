@@ -870,13 +870,13 @@ color: #888888;
 }
 .all_list{
 	width: 100%;
-	padding: 0 0 0 0.26rem;
+	/*padding: 0 0 0 0.26rem;*/
 	box-sizing: border-box;
     margin-top: 0.6rem;
 }
 .all_list ul li{
-	padding: 0.19rem 0;
-	border-bottom: 1px solid #e6e6e6;
+	/*padding: 0.19rem 0;
+	border-bottom: 1px solid #e6e6e6;*/
 	
 }
 .all_list ul li:nth-last-child(1){
@@ -888,6 +888,13 @@ color: #888888;
     white-space: nowrap;
 	padding-right: 0.26rem;
 	box-sizing: border-box;
+	padding: 0.19rem 0;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 0.19rem 0;
+    margin-left: 0.26rem;
+}
+.all_list_ul_li{
+	background: #F0F0F0;
 }
 .little_comment{
 	padding-bottom: 0.2rem;
