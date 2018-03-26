@@ -2,14 +2,6 @@
 	margin: 0px;
 	padding: 0px;
 }
-body{
-	/*font-family: 汉仪全唐诗简,华文细黑,DroidSans,宋体,黑体;*/
-}
-
-/* @font-face {
-font-family: "汉仪全唐诗简";
-src: url(‘’);
-} */
 
 /*@font-face {
 	font-family: '汉仪全唐诗简';
@@ -72,10 +64,8 @@ img{
 	width: 83%;
     margin: 0 auto;
     font-size: 0.851rem;
-    /*font-size: 1rem;*/
     text-align: center;
     color: #333;
-    /*font-family: "汉仪全唐诗简";*/
 }
 .last_input{
 	width: 85%;
@@ -84,11 +74,9 @@ img{
 	margin-top: 5rem;
 	font-size: 0.74rem;
 	color:#999;
-	/*font-family: "微软雅黑";*/
 }
 .phone{
 	width: 100%;
-    /*font-family: "微软雅黑";*/
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.3rem;
     font-size: 0.65rem;
@@ -101,7 +89,6 @@ img{
 	height:1rem;
     font-size: 0.6rem;
     color: #999;
-    /*font-family: "微软雅黑";*/
     border: 0px;
     border: none;
     background: none;
@@ -190,7 +177,6 @@ img{
     display: inline-block;
     text-align: right;
     color: #00bc12;
-    /*font-family: "微软雅黑";*/
     border-radius: 6px;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
@@ -302,7 +288,6 @@ header{
     color: #333;
     height: 1.9rem;
     line-height: 1.9rem;
-    /*padding-top: 0.1rem;*/
     font-size: 0.851rem;
 }
 .home_img_right{
@@ -382,7 +367,6 @@ header{
 	overflow: hidden;
 	height: 0.94rem;
 	font-size: 0.7rem;
-	/*font-family: "微软雅黑";*/
 	color: #000;
 	margin-top: 0.5rem;
 }
@@ -391,7 +375,6 @@ header{
 	height: 0.94rem;
 	font-size: 0.55rem;
 	overflow: hidden;
-	/*font-family: "微软雅黑";*/
 	color: #999;
 }
 .list1_right{
@@ -412,7 +395,6 @@ header{
 .list1_right span{
 	font-size: 0.55rem;
 	color: #00bc12;
-	/*font-family: "微软雅黑";*/
 	margin-right: 0.45rem;
 }
 /*列表1结束*/
@@ -433,7 +415,7 @@ header{
 	min-width: 6rem;
     height: 0.85rem;
     position: absolute;
-    background: url(/xcviews/images/size_bg.png);
+    background: url(/xcview/images/size_bg.png);
     background-size: 100% 100%;
     margin-top: 0.4rem;
     line-height: 0.85rem;
@@ -576,7 +558,6 @@ footer{
     float: left;
     text-align: center;
     color: #666;
-    /*font-family: "汉仪全唐诗简";*/
 }
 .history_span span{
 	margin-right: 1.8rem;
@@ -655,7 +636,6 @@ footer{
 }
 .zhibo_list_size{
 	font-size: 0.45rem;
-	/*font-family: "微软雅黑";*/
 	color: #999;
 }
 .zhibo_list_size img{
@@ -683,14 +663,6 @@ footer{
 
 
 #header{
-	/*height: 1.9rem;
-	width: 100%;
-    position: fixed;
-    top: 0px;
-    z-index: 9999;
-    background: #fff;
-    z-index: 9999999;
-    line-height: 1.875rem;*/
 	height: 1.8rem;
     width: 100%;
     position: fixed;
@@ -712,13 +684,6 @@ footer{
     height: 0.95rem;
 }
 .page{
-	/*width: 6.95rem;
-	height: 1.05rem;
-	float: right;
-	margin-top: 0.4rem;
-	margin-right: 0.4rem;
-	background: url(/xcviews/images/sousuo.png1) no-repeat;
-	background-size: 100% 100%;*/
 	width: 100%;
     height: 1.05rem;
     float: right;
@@ -777,7 +742,6 @@ footer{
     margin-left: 1.37rem;
     margin-right: 1.37rem;
     margin-top: 0.4rem;
-    /* font-family: "微軟雅黑"; */
     width: 1.5rem;
 }
 .index_list_div_li1{
@@ -796,7 +760,6 @@ footer{
 }
 .index_list_div_li2 img{
 	width: 1.3rem;
-	/*height: 1.3rem;*/
 	margin-bottom: 0.2rem;
 }
 .index_list_div_li3{
@@ -827,7 +790,6 @@ footer{
 .offline_top_left{
 	width: 50%;
 	font-size: 0.7rem;
-	/*font-family: "微软雅黑";*/
 	color: #333;
 	float: left;
 }
@@ -841,14 +803,14 @@ footer{
 #more{
 	font-size: 0.6rem;
 	color: #666;
-	/*font-family: "微软雅黑";*/
+	
 	float: right;
 	margin-right: 0.4rem;
 }
 #more1{
 	font-size: 0.6rem;
 	color: #666;
-	/*font-family: "微软雅黑";*/
+	
 	float: right;
 	margin-right: 0.4rem;
 }
@@ -867,7 +829,7 @@ footer{
 .line_top_left{
 	width: 50%;
 	font-size: 0.7rem;
-	/*font-family: "微软雅黑";*/
+	
 	color: #333;
 	float: left;
 }
@@ -888,7 +850,6 @@ footer{
     font-size: 0.7rem;
     padding-right: 0.2rem;
     border-right: 1px solid #ccc;
-    /* margin-left: 0.5rem; */
     height: 0.5rem;
     line-height: 0.5rem;
     width: 2rem;
@@ -1158,7 +1119,7 @@ footer{
 }
 .result_zhibo_ul li a{
 	font-size: 0.64rem;
-	/*font-family: "微软雅黑";*/
+	
 	color: #000;
 	width: 14rem;
 	overflow: hidden;
@@ -1174,7 +1135,7 @@ footer{
 	margin-top: 0.4rem;
 	margin-left: 3.2rem;
 	font-size: 0.7rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 .result_zhibo_ul li a img{
 	margin-left: 0.4rem;
@@ -1188,7 +1149,7 @@ footer{
 	margin-top: 0.2rem;
 	font-size: 0.7rem;
 	color: #666;
-	/*font-family: "微软雅黑";*/
+	
 }
 #result_input{
 	background: none;
@@ -1212,7 +1173,7 @@ footer{
     min-width: 7.6rem;
     font-size: 0.64rem;
     color: #fff;
-    /*font-family: "微软雅黑";*/
+    
     text-indent: 0.4rem;
     border-radius: 6px 0px 0px 6px;
     margin-left: 0.4rem;
@@ -1257,7 +1218,6 @@ footer{
     font-size: 0.75rem;
     color: #fff;
 }
-
 /* 没有视频的时候展示效果结束 */
 
 
@@ -1333,7 +1293,7 @@ footer{
 }
 .details_chat2 p{
 	font-size: 0.55rem;
-	/*font-family: "微软雅黑";*/
+	
 	color: #fff;
 }
 .close{
@@ -1344,11 +1304,8 @@ footer{
 	margin-top: 1.01rem;
     margin-right: 0.2rem;
 }
-
-
 .coze{
 	width: 100%;
-	/*background: #efefef;*/
 	background: #f8f8f8;
 	display: none;
 }
@@ -1368,27 +1325,18 @@ footer{
 }
 .coze_cen_bg{
 	position: relative;
-	/*max-width: 10rem;*/
 	background: #fff;
-	/*border: 0.01rem solid #ccc;*/
 	float: left;
 	padding: 0.15rem;
 	font-size: 0.6rem;
 	color: #000;
 	min-width: 1rem;
     border-radius: 6px;
-    /*font-family: "微软雅黑";*/
     margin-top: 0.3rem;
     word-break: break-all;
     word-wrap: break-word;
 }
 .coze_cen_bg img:first-child{
-	/*position: absolute;
-    top: 0.3rem;
-    left: -0.22rem;
-    z-index: 1;
-    width: 0.225rem;
-    height: 0.4rem;*/
 	vertical-align: middle;
 }
 .coze_cen_bg img{
@@ -1408,27 +1356,17 @@ footer{
 }
 .coze_cen_bg_ri{
 	position: relative;
-	/*max-width: 10rem;*/
 	background: #d1e3cd;
-	/*border: 0.01rem solid #ccc;*/
 	float: right;
 	padding: 0.15rem;
 	font-size: 0.6rem;
 	color: #000;
 	border-radius: 6px;
-	/*font-family: "微软雅黑";*/
 	margin-top:0.3rem;
 	word-break: break-all;
     word-wrap: break-word;
 }
 .coze_cen_bg_ri img{
-	/*position: absolute;
-    top: 0.3rem;
-    right: 0rem;
-    z-index: 1;*/
-    /*width: 0.8rem;*/
-    /*height: 0.4rem;*/
-    /*font-family: "微软雅黑";*/
     vertical-align: middle;
 }
 
@@ -1472,7 +1410,6 @@ footer{
 	height: 2.1rem;
    	background: #F97B49;
     margin-bottom:0.5rem;
-	/*animation: move  .5s linear forwards;*/ 
    	z-index: 9;
    	display: block !important;
    	border-radius: 0 20px 20px 0;
@@ -1506,8 +1443,6 @@ footer{
     font-size: 0.6rem;
     margin-right: 0.15rem;
     margin-top: 0.2rem;
-    /*padding-right: 4rem;*/
-   /*background: blueviolet;*/
 }
 .animation_name p{
 	padding-top: 0.1rem;
@@ -1528,13 +1463,10 @@ footer{
 	width: 2rem;
     overflow: hidden;
     text-align: center;
-    /*float: left;*/
     float: right;
     height: 2rem;
-    /*margin-right: 0.2rem;*/
 }
 .animation_gift img{
-	/*width: 2.35rem;*/
 	width: 2rem;
     float: right;
     text-align: center;
@@ -1570,7 +1502,6 @@ footer{
     margin-right: 0rem;
     margin-top: 0.5rem;
     color: #FFD800;
-    /* margin-right: 1rem; */
     text-align: right;
 }
 .animation_span span{
@@ -1596,7 +1527,6 @@ footer{
 	background: #fff;
 	border-bottom: 1px solid #d2d2d2;
 	height:3.15rem;
-	/*position: absolute;*/
     top: 0.8rem;
 	padding-bottom: 0.2rem;
 }
@@ -1619,7 +1549,7 @@ footer{
 	width: 9rem;
 }
 .details_anchor_attention p{
-	/*font-family: "微软雅黑";*/
+	
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -1668,14 +1598,14 @@ footer{
 }
 .details_attention p{
 	font-size: 0.55rem;
-	/*font-family: "微软雅黑";*/
+	
 	color: #fff;
 }
 .details_anchor_title{
 	width: 100%;
 	font-size: 0.5rem;
 	color: #000;
-	/*font-family: "微软雅黑";*/
+	
 	background: #efefef;
 	padding: 0.4rem 0rem 0.4rem 0;
 }
@@ -1684,7 +1614,6 @@ footer{
 	width:100%;
 	background: #fff;
 	padding: 0.8rem 0 0.8rem;
-	/*border-top: 1px solid #d2d2d2;*/
 	margin-top: 2.7rem;
 }
 .anchor_center02{
@@ -1699,21 +1628,18 @@ footer{
     margin: 0 auto;
     font-size: 0.59rem;
     text-align: justify;
-    /*font-family: "微软雅黑";*/
-    /*text-indent: 1rem;*/
 }
 .anchor_center p span{
 	font-size: 0.59rem !important;
 }
 .anchor_center img{
 	width: 100%;
-	/*margin-top: 0.5rem;*/
 }
 .anchor_center_div1{
 	width: 85%;
 	margin: 0 auto;
 	font-size: 0.74rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 .anchor_center_div1{
 	width: 95%;
@@ -1948,12 +1874,11 @@ footer{
 	margin-left: 0.4rem;
 }
 .buy_bottom ul li p{
-	/*font-family: "微软雅黑";*/
+	
 }
 .buy_bottom_p1{
 	font-size: 0.8rem;
 	color: #ff0000;
-	/*margin-top: -0.5rem;*/
 }
 .buy_bottom_p2{
 	font-size: 0.5rem;
@@ -1968,8 +1893,6 @@ footer{
 }
 #buy_right a{
 	width: 5rem;
-    /*line-height: 3.07rem;
-    height: 3.07rem;*/
    	line-height: 2.1rem;
     height: 2.1rem;
     background: #00bc12;
@@ -1983,18 +1906,9 @@ footer{
 
 /*底部购买开始*/
 .buy_bottom_bg{
-	/* width: 100%;
-	height: 100%;
-	position: relative;
-	杨宣注释，因为对预约界面有影响 
-	display: none;
-	position: fixed;
-    z-index: 9999; */
-    
     width: 100%;
     height: 7rem;
     position: relative;
-    /* display: none; */
     position: fixed;
     z-index: 9999;
     top: 3.5rem;
@@ -2008,7 +1922,6 @@ footer{
 	position: fixed;
 	left: 0;
 	top: 1.8rem;
-	/* z-index: 9999; */
 }
 .buy_bg01{
 	display: none;
@@ -2018,18 +1931,6 @@ footer{
 
 /*观看登录开始*/
 .buy_center{
-	/* width: 80%;
-	height: 7rem;
-	background: #fff;
-	border-radius: 10px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin-top: -11.4rem;
-	margin-left: -40%;
-	z-index: 99999;
-	display: none; */
-	
 	width: 80%;
     height: 7rem;
     border-radius: 10px;
@@ -2093,8 +1994,6 @@ footer{
 	border: 1px solid #00bc12;
 }
 /*观看登录结束*/
-
-
 
 /*预约开始*/
 .order{
@@ -2244,7 +2143,7 @@ footer{
 	outline: none;
 	font-size: 0.8rem;
 	color: #000;
-	/*font-family: "微软雅黑";*/
+	
 	float: left;
 }
 .textarea02{
@@ -2253,7 +2152,7 @@ footer{
 	outline: none;
 	font-size: 0.8rem;
 	color: #000;
-	/*font-family: "微软雅黑";*/
+	
 	float: left;
 }
 .give_a2 img{
@@ -2311,7 +2210,7 @@ footer{
     z-index: -1;
     color: #666;
     font-size: 0.6rem;
-    /*font-family: "微软雅黑";*/
+    
 }
 .give_lable2{
 	position: relative;
@@ -2348,7 +2247,7 @@ footer{
     z-index: -1;
     color: #000;
     font-size: 0.8rem;
-    /*font-family: "微软雅黑";*/
+    
 }
 .give_lable3{
 	position: relative;
@@ -2385,13 +2284,11 @@ footer{
     z-index: -1;
     color: #000;
     font-size: 0.8rem;
-    /*font-family: "微软雅黑";*/
+    
 }
 .givebg{
 	border: 1px solid #00bc12;
-	
 	z-index: -2;
-	
 }
 .givebg .give_money1{
 	color: #00bc12 !important;
@@ -2404,7 +2301,6 @@ footer{
 .give_money01{
 	color: #fff;
 }
-
 .give_footer{
 	width: 100%;
 	background: #fff;
@@ -2421,7 +2317,6 @@ footer{
     border: 1px solid #e5e5e5;
     font-size: 0.8rem;
     color: #999;
-    /*font-family: "微软雅黑";*/
     margin-left: 0.4rem;
     margin-right: 0.2rem;
     background: #fff;
@@ -2448,7 +2343,6 @@ footer{
 }
 /*直播打赏结束*/
 
-
 /*直播送礼物开始*/
 .send_gifts{
 	width: 100%;
@@ -2458,7 +2352,6 @@ footer{
     bottom: 2rem;
     z-index: 2;
     display: none;
-        /*background: url(/xcview/images/opc.png);*/
     background-size: 100% 100%;
 	background: #fff;
 }
@@ -2494,11 +2387,8 @@ footer{
 	display: table;
 }
 .send_gifts .gifts_div{
-	/*width: 2rem;
-	height: 1.8rem;*/
 	text-align: center;
 	overflow: hidden;
-	/*padding-top: 0.3rem;*/
 }
 .gifts_div img{
 	width: 100%;
@@ -2520,7 +2410,6 @@ footer{
 	background: none;
 }
 .gift_ul_li_li{
-	/*background: #e5eee3!important;*/
 	border: 1px solid #96e39d;
 }
 .gift_p{
@@ -2543,11 +2432,10 @@ footer{
 .balance_size{
 	font-size: 0.7rem;
 	color: #000;
-	/*font-family: "微软雅黑";*/
+	
 	float: left;
 	margin-left: 0.4rem;
 	margin-top: 0.2rem;
-	/*width: 6.5rem;*/
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -2579,9 +2467,7 @@ footer{
 .count_cen_size{
 	font-size: 0.65rem;
     color: #666;
-    /*font-family: "微软雅黑";*/
     float: left;
-
 }
 #import{
 	float: right;
@@ -2618,7 +2504,7 @@ footer{
     font-size: 0.55rem;
     border-bottom: 1px solid #d2d2d2;
     line-height: 1.3rem;
-    /*font-family: "微软雅黑";*/
+    
 }
 /*直播送礼物结束*/
 
@@ -2673,8 +2559,6 @@ footer{
 	color: #00bc12;
 	padding-top: 0.7rem;
 }
-
-
 
 /*以下是样式代码*/
 /*#share{margin: 50px;text-align: center;}*/
@@ -2859,13 +2743,12 @@ footer{
 	outline: none;
 	text-indent: 0.4rem;
 	font-size: 0.7rem;
-	/*font-family: "微软雅黑";*/
+	
 	border-radius: 8px;
 }
 .all_withdraw{
 	font-size: 0.8rem;
 	color: #2586ea;
-	/*float: right;*/
 	width: 70%;
 	margin: 0 auto;
 	text-align: right;
@@ -2913,7 +2796,7 @@ footer{
 	width: 86%;
     margin: 0 auto;
 	font-size: 0.7rem;
-    /*font-family: "微软雅黑";*/
+    
     display: inline-flex;
     margin-left: 1.2rem;
 }
@@ -2921,8 +2804,6 @@ footer{
 	height:13.6rem;
 }
 /*直播预告结束*/
-
-
 
 /*我的关注开始*/
 .attention{
@@ -2946,7 +2827,6 @@ footer{
 	width: 100%;
 	margin: 0 auto;
 	background: #fff;
-    /*min-height: 0rem;*/
 }
 .attention_center ul li{
     background: #fff;
@@ -2959,14 +2839,11 @@ footer{
 	width: 100%;
     height: 2.75rem;
     float: right;
-    /*border-bottom: 1px solid #e5e5e5;*/
 }
 .attention_li{
 	float: left;
 	width: 7rem;
 	margin-top: 0.49rem;
-	/*padding: 0.4rem 0;*/
-	/*margin-left: 0.4rem;*/
 }
 .attention_li img{
 	width: 2rem;
@@ -2976,10 +2853,9 @@ footer{
     margin-right: 0.3rem;
 }
 .attention_li p{
-	/*font-family: "微软雅黑";*/
+	
 	width: 8rem;
 	overflow: hidden;
-	/*margin-top: 0.1rem;*/
     height: 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2996,7 +2872,6 @@ footer{
 }
 .attention_right{
 	float: right;
-	/*margin-top: 1.3rem;*/
 	color: #00bc12;
 	font-size: 0.7rem;
 	margin-right: 0.4rem;
@@ -3031,13 +2906,12 @@ footer{
     float: right;
     line-height: 2.75rem;
 	margin: 0 auto;
-	/*padding: 0.4rem 0;*/
 	border-bottom: 0.002rem solid #e5e5e5;
 	margin-bottom: 0.4rem;
 }
 .detail_top p{
 	font-size: 0.65rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 .detail_cen_p1{
 	float: left;
@@ -3057,7 +2931,7 @@ footer{
 }
 .detail_cen p{
 	font-size: 0.65rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 .detail_cen .detail_cen_p1{
 	float: left;
@@ -3079,8 +2953,6 @@ footer{
 	float: left;
 	width: 7rem;
 	margin-top: 0.49rem;
-	/*padding: 0.4rem 0;*/
-	/*margin-left: 0.4rem;*/
 }
 .consume_li img{
 	width: 2.55rem;
@@ -3089,10 +2961,9 @@ footer{
     margin-right: 0.3rem;
 }
 .consume_li p{
-	/*font-family: "微软雅黑";*/
+	
 	width: 7rem;
 	overflow: hidden;
-	/*margin-top: 0.3rem;*/
     height: 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -3110,7 +2981,6 @@ footer{
 .consume_right{
 	float: right;
 	line-height: 2.75rem;
-	/*margin-top: 1.3rem;*/
 	color: #00bc12;
 	font-size: 0.7rem;
 	margin-right: 0.4rem;
@@ -3127,10 +2997,6 @@ footer{
 	font-size: 1rem;
 	margin-right: 0.4rem;
 }
-#clist li:last-child{
-	/*border: 0;*/
-}
-
 /*消费记录结束*/
 
 
@@ -3150,7 +3016,6 @@ footer{
 	float: left;
 	font-size: 0.7rem;
 	color: #666;
-	/*margin-left: 0.4rem;*/
 }
 .person_img{
 	width: 2rem;
@@ -3513,8 +3378,6 @@ footer{
 	color: #fff;
 	font-size: 0.7rem;
 }
-
-
 .password_now{
 	width: 100%;
 	height: 2.05rem;
@@ -3537,7 +3400,7 @@ footer{
 	font-size: 0.55rem;
 	color: #999;
 	width: 62%;
-	/*font-family: "微软雅黑";*/
+	
 }
 /*修改密码结束*/
 /* 更换手机号开始 */
@@ -3557,7 +3420,7 @@ footer{
 	font-size: 0.7rem;
 	color: #000;
 	margin-left: 0.4rem;
-	/*font-family: "微软雅黑";*/
+	
 	margin-top: 0.3rem;
 }
 .call_put{
@@ -3565,7 +3428,7 @@ footer{
     height: 2.125rem;
     background: #fff;
     line-height: 2.125rem;
-    /*font-family: "微软雅黑";*/
+    
 }
 .call_put input{
 	width: 72%;
@@ -3584,7 +3447,7 @@ footer{
 	background: #00bc12;
 	text-align: center;
 	font-size: 0.55rem;
-	/*font-family: "微软雅黑";*/
+	
 	float: right;
 	border-radius: 6px;
 	margin-top: 0.45rem;
@@ -3597,7 +3460,6 @@ footer{
 	position: relative;
 }
 	
-
 .call_popup_cen{
     position: absolute;
     top: 2rem;
@@ -3619,12 +3481,10 @@ footer{
 	font-size: 0.5rem;
     color: #999;
     margin-bottom: 0.2rem;
-    /*font-family: "微软雅黑";*/
 }
 .call_popup_size2{
 	font-size: 0.7rem;
     color: #333;
-    /*font-family: "微软雅黑";*/
 }
 .call_popup_btn{
 	width: 10.75rem;
@@ -3646,7 +3506,6 @@ footer{
 	width: 100%;
 	min-height: 4.2rem;
 	background: #fff;
-	
 }
 .site_div{
 	width: 100%;
@@ -3654,8 +3513,6 @@ footer{
 	margin-top: 0.5rem;
 	background: #fff;
 	padding-bottom: 0.4rem;
-	/*border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;*/
 }
 .site_div_cen{
 	width: 95%;
@@ -3666,9 +3523,8 @@ footer{
 }
 .site_div_cen_top{
 	color: #333;
-	/*font-size: 0.8rem;*/
 	font-size: 0.75rem;
-	/*font-family: "微软雅黑";*/
+	
 	height: 1rem;
     line-height: 1rem;
     padding-top: 0.4rem;
@@ -3699,11 +3555,7 @@ footer{
 	min-height: 1rem;
 	line-height: 1rem;
 	color: #666;
-	/*font-size: 0.6rem;*/
 	font-size: 0.6rem;
-	/*overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;*/
 }
 .site_bto{
 	width: 100%;
@@ -3712,7 +3564,7 @@ footer{
 .site_bg1{
 	width: 0.638rem;
 	height: 0.638rem;
-	background: url(/xcviews/images/site01.png) no-repeat;
+	background: url(/xcview/images/site01.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
 	margin-top: 0.8rem;
@@ -3721,7 +3573,7 @@ footer{
 .site_bg01{
 	width: 0.638rem;
 	height: 0.638rem;
-	background: url(/xcviews/images/site02.png) no-repeat;
+	background: url(/xcview/images/site02.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
 	margin-top: 0.4rem;
@@ -3737,7 +3589,6 @@ footer{
 }
 
 .site_bto_left span{
-	/*font-size: 0.6rem;*/
 	font-size: 0.6rem;
 	color: #00bc12;
 }
@@ -3750,7 +3601,7 @@ footer{
     float: right;
 }
 .site_bg001{
-	background: url(/xcviews/images/bianji.png) no-repeat;
+	background: url(/xcview/images/bianji.png) no-repeat;
     background-size: 100% 100%;
     float: left;
     margin-top: 0.25rem;
@@ -3761,7 +3612,7 @@ footer{
 .site_bg002{
 	width: 0.55rem;
     height: 0.65rem;
-	background: url(/xcviews/images/shanchu.png) no-repeat;
+	background: url(/xcview/images/shanchu.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
 	margin-top: 0.25rem;
@@ -3890,8 +3741,6 @@ footer{
     height: 2.6rem;
 }
 
-
-
 @charset "utf-8";/* CSS Document*//*公共部分*/
 .fl{float: left;}
 .fr{float: right;}
@@ -3927,7 +3776,6 @@ footer{
 #s_dpage i {  color:#fff; margin-top:10px;  font-size:24px; width:30px; height:30px; display:inline-block;  line-height:30px;   }
 #dpage { 
    background:#ebebeb; 
-   /* height:143px;  */
    width:100%; 
    position:fixed;
    left:0;
@@ -3949,10 +3797,6 @@ footer{
 #dpage a:nth-child(3) { margin-top:10px; margin-bottom:10px; background:none;  }
 
 .logoBox { display:block; padding-top:10%;  }
-
-
-
-
 
 /*我的主页开始*/
 .my{
@@ -4014,8 +3858,6 @@ footer{
 	text-align: center;
 	float: left;
 	margin-left: 0.26rem;
-	/*background: red;*/
-	/*font-family: "微软雅黑";*/
 }
 .my_three_left{
 	width: 5rem;
@@ -4033,8 +3875,6 @@ footer{
 	font-size: 0.65rem;
 	color: #999;
 }
-
-
 .my_three_cen{
 	width: 5rem;
 	float: left;
@@ -4051,8 +3891,6 @@ footer{
 	font-size: 0.65rem;
 	color: #999;
 }
-
-
 .my_three_right{
 	width: 5rem;
 	float: left;
@@ -4091,7 +3929,6 @@ footer{
 .my_details1_img{
 	width: 60%;
 	float: left;
-	/*margin-left: 0.35rem;*/
 }
 .my_details1_img img{
 	width: 1.5rem;
@@ -4162,7 +3999,7 @@ footer{
 .my_bg_tel{
 	margin: 0 auto;
 	width: 85%;
-    /*font-family: "微软雅黑";*/
+    
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.3rem;
     font-size: 0.65rem;
@@ -4175,7 +4012,7 @@ footer{
     height: 1rem;
     font-size: 0.55rem;
     color: #999;
-    /*font-family: "微软雅黑";*/
+    
     border: 0px;
     border: none;
     background: none;
@@ -4184,7 +4021,7 @@ footer{
 .my_bg_tel2{
 	width: 85%;
 	 margin: 0 auto;
-    /*font-family: "微软雅黑";*/
+    
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.3rem;
     font-size: 0.65rem;
@@ -4197,7 +4034,7 @@ footer{
     height: 1rem;
     font-size: 0.55rem;
     color: #999;
-    /*font-family: "微软雅黑";*/
+    
     border: 0px;
     border: none;
     background: none;
@@ -4223,7 +4060,7 @@ footer{
     font-size: 0.45rem;
     text-align: right;
     color: #fff;
-    /*font-family: "微软雅黑";*/
+    
     border-radius: 6px;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
@@ -4365,7 +4202,6 @@ footer{
 
 .indent_main{
 	width: 100%;
-	/* min-height: 7rem; */
 	background: #f8f8f8;
 	margin-top: 0.25rem;
 }
@@ -4384,7 +4220,6 @@ footer{
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    /*font-family: "微软雅黑";*/
 }
 .indent_main_top_left span{
 	font-family: "Arial";
@@ -4404,14 +4239,10 @@ footer{
 }
 .indent_main_cen_left{
 	width: 98%;
-	/*float: left;*/
 }
 .indent_main_cen_left img{
-	/*width: 3.9rem;
-    height: 2.8rem;*/
     float: left;
     margin-right: 0.375rem;
-    /*margin-left: 0.4rem;*/
 }
 .indent_main_left_p1{
 	font-size: 0.7rem;
@@ -4438,7 +4269,6 @@ footer{
     margin-right: 0.4rem;
 }
 
-
 .indent_main_bot{
 	width: 100%;
 	height: 1.5rem;
@@ -4450,7 +4280,7 @@ footer{
 	margin-left: 0.4rem;
 	font-size: 0.55rem;
 	color: #666;
-	/*font-family: "微软雅黑";*/
+	
 }
 .indent_main_bot_left span{
 	color: #00bc12;
@@ -4497,7 +4327,6 @@ footer{
     outline: none;
     font-size: 0.8rem;
     color: #000;
-    /*font-family: "微软雅黑";*/
 }
 .particulars_a{
 	margin-right: 0.3rem;
@@ -4573,7 +4402,6 @@ footer{
     height: 1.5rem;
 }
 
-
 /*全部开始*/
 .video_list{
 	width: 100%;
@@ -4623,7 +4451,7 @@ footer{
 	height: 0.95rem;
 	line-height: 0.85rem;
 	font-size: 0.55rem;
-	/*font-family: "微软雅黑";*/
+	
 	float: left;
 	overflow: hidden;
     text-overflow: ellipsis;
@@ -4670,7 +4498,6 @@ footer{
 	margin-top: 0.4rem;
 }
 
-
 /*章节开始*/
 .chapter{
 	width: 100%;
@@ -4694,7 +4521,7 @@ footer{
 .chapter_title_left{
 	float: left;
 	font-size: 0.65rem;
-	/*font-family: "微软雅黑";*/
+	
 	color: #000;
 	position: relative;
 	line-height: 1.625rem;
@@ -4715,7 +4542,7 @@ footer{
 .chapter_title_right{
 	float: right;
 	font-size: 0.46925rem;
-	/*font-family: "微软雅黑";*/
+	
 	color: #000;
 	margin-top: 0.2rem;
 	margin-right: 0.58rem;
@@ -4739,7 +4566,7 @@ footer{
 .chapter_main_title span{
 	font-size: 0.55rem;
     color: #000;
-    /*font-family: "微软雅黑";*/
+    
     display: inline-block;
     position: absolute;
     left: 0.2rem;
@@ -4770,7 +4597,7 @@ footer{
     overflow: hidden;
     font-size: 0.6rem;
     color: #000;
-    /*font-family: "微软雅黑";*/
+    
     margin-left: 0.8rem;
     margin-bottom: 0.4rem;
 }
@@ -4783,7 +4610,6 @@ footer{
 	width: 95%;
 	height: 1rem;
 	line-height: 1.1rem;
-	/*background: red;*/
 	float: right;
 	padding-bottom: 0.3rem;
 	border-bottom: 0.001rem solid #d2d2d2;
@@ -4795,7 +4621,7 @@ footer{
 .chapter_main_cen_ul_li{
 	font-size: 0.6rem;
 	color: #000;
-	/*font-family: "微软雅黑";*/
+	
 	float: left;
 	margin-left: 1.2rem;
 	text-indent: 1.2rem;
@@ -4804,32 +4630,27 @@ footer{
 .chapter_main_cen_ul_li01{
 	font-size: 0.55rem;
 	color: #00bc12;
-	/*font-family: "微软雅黑";*/
+	
 	float: left;
 	margin-left: 1.2rem;
 	text-indent: 1.3rem;
 	background: url(../images/sanjiao_03.png) 0.5rem 0.23rem no-repeat;
     background-size: 0.5rem 0.55rem;
 }
-
-
 .chapter_ul_span{
 	font-size: 0.55rem;
 	color: #999;
-	/*font-family: "微软雅黑";*/
+	
 	float: right;
 }
 .chapter_ul_span01{
 	font-size: 0.6rem;
 	color: #999;
-	/*font-family: "微软雅黑";*/
+	
 	float: right;
 }
 
-
-
 /*章节结束*/
-
 
 /*视频结束*/
 
@@ -4849,11 +4670,9 @@ footer{
 }
 .deposit_cen_border{
 	width: 100%;
-	/*border-bottom: 1px solid #e5e5e5;*/
 	padding-top: 0.05rem;
 }
 .deposit_cen_auto{
-	/* width: 2.5rem; */
 	margin: 0 auto;
 }
 .deposit_cen_img{
@@ -4868,8 +4687,6 @@ footer{
 }
 .deposit_cen_size{
 	width: 100%;
-	/*height: 1.5rem;
-	line-height:1.5rem;*/
 	font-size: 0.65rem;
 	color: #666;
 	margin-top: 1.25rem;
@@ -4930,7 +4747,6 @@ footer{
 }
 .deposit_expense_left{
 	float: left;
-	/*margin-left: 0.4rem;*/
     margin-right: 0.45rem;
     margin-top: 0.35rem;
     height: 1.825rem;
@@ -4948,7 +4764,6 @@ footer{
 	height: 0.575rem;
 	
 }
-
 
 /*新ui添加*/
 .panda_coin{
@@ -4986,7 +4801,7 @@ footer{
 .withdraw_finds_name_div{
 	font-size: 0.65rem;
 	color: #666;
-	/*font-family: "微软雅黑";*/
+	
 	float: left;
 	height: 1.3rem;
 	line-height: 1.3rem;
@@ -5003,7 +4818,7 @@ footer{
 
 .withdraw_finds_size{
 	font-size: 0.5rem;
-    /*font-family: "微软雅黑";*/
+    
     width: 66%;
     float: right;
     margin-top: -0.3rem;
@@ -5027,7 +4842,6 @@ footer{
 	margin-top: 0.7rem;
 	border-radius: 6px;
 	font-size: 0.7rem;
-    /*font-family: "微软雅黑";*/
 }
 /* 提现申请结束 */
 
@@ -5047,14 +4861,12 @@ footer{
 	font-size: 0.45rem;
 	padding-top: 1.1rem;
     margin-bottom: 0.3rem;
-    /*font-family: "微软雅黑";*/
+    
 }
 .convert_bg{
 	width: 100%;
-	/*width: 14.1rem;*/
-	/* width: 14.35rem; */
 	height: 1.5rem;
-	background: url(/xcviews/images/ban.png) no-repeat;
+	background: url(/xcview/images/ban.png) no-repeat;
 	background-size: 100% 100%;
 }
 .convert_border{
@@ -5070,7 +4882,7 @@ footer{
 	line-height: 1.5rem;
     text-align: center;
     font-size: 0.6rem;
-    /*font-family: "微软雅黑";*/
+    
 }
 .convert_border02{
 	width: 49%;
@@ -5079,7 +4891,6 @@ footer{
 	line-height: 1.5rem;
     text-align: center;
     font-size: 0.6rem;
-    /*font-family: "微软雅黑";*/
 }
 /* 提现申请结束*/
 
@@ -5094,7 +4905,7 @@ footer{
 .success_bg{
 	width: 10.125rem;
 	height: 7.25rem;
-	background: url(/xcviews/images/ok02.png) no-repeat;
+	background: url(/xcview/images/ok02.png) no-repeat;
 	background-size: 100% 100%;
     position: absolute;
     top: 1.5rem;
@@ -5106,7 +4917,7 @@ footer{
     margin: 0 auto;
     text-align: center;
     padding-top: 7.5rem;
-    /*font-family: "微软雅黑";*/
+    
 }
 /* 提现成功结束 */
 
@@ -5153,9 +4964,7 @@ footer{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-	/*float:right;*/
 	font-size: 0.65rem;
-	/*font-family: "微软雅黑";*/
 	color: #333;
 }
 .echarge_right span{
@@ -5259,7 +5068,6 @@ footer{
     line-height: 2rem;
     text-align: center;
     font-size: 0.7rem;
-/*font-family: "微软雅黑";*/
     color: #fff;
     margin-top: 1rem;
 	
@@ -5279,7 +5087,7 @@ footer{
 	line-height: 1.05rem;
 	font-size: 0.65rem;
 	float: left;
-	/*font-family: "微软雅黑";*/
+	
     text-align: center;
     border-radius: 6px;
     margin: 0.56rem 0.9rem 0 0.9rem;
@@ -5293,7 +5101,7 @@ footer{
 }
 .learning_right{
 	font-size: 0.5rem;
-	/*font-family: "微软雅黑";*/
+	
 	color: #a8a8a8;
 	float: right;
 	margin-right: 0.4rem;
@@ -5324,7 +5132,6 @@ footer{
 }
 .system_div_left{
 	float: left;
-	/*margin-left: 0.4rem;*/
 }
 .system_div_right{
 	float: right;
@@ -5342,7 +5149,7 @@ footer{
 }
 .offer_title{
 	color: #999;
-	/*font-family: "微软雅黑";*/
+	
 	font-size: 0.6rem;
 	margin-bottom: 0.3rem;
 }
@@ -5355,7 +5162,7 @@ footer{
 	border-radius: 6px;
 	resize:none;
 	text-indent: 1rem;
-	/*font-family: "微软雅黑";*/
+	
 	font-size: 0.6rem;
 	color: #666;
     letter-spacing: 0.1rem;
@@ -5382,7 +5189,7 @@ footer{
 	width: 100%;
 	font-size: 0.6rem;
 	color: #000;
-	/*font-family: "微软雅黑";*/
+	
 	text-align: center;
 	margin-bottom: 2.75rem;
 }
@@ -5400,14 +5207,14 @@ footer{
 .regards_official{
 	float: right;
 	margin-right: 0.4rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 .regards_bot{
 	width: 100%;
 	text-align: center;
 	font-size: 0.6rem;
 	color: #1d77e7;
-	/*font-family: "微软雅黑";*/
+	
 	margin: 1.05rem 0 0.85rem 0;
 }
 .regards_bot1{
@@ -5415,7 +5222,7 @@ footer{
 	text-align: center;
 	font-size: 0.55rem;
 	color: #999;
-	/*font-family: "微软雅黑";*/
+	
 }
 /*关于熊猫中医结束*/
 
@@ -5462,7 +5269,7 @@ footer{
 	float: left;
 	color: #333;
 	font-size: 0.6rem;
-	/*font-family: "微软雅黑";*/
+	
 	border-radius: 0px 0px 6px 0px;
 	margin-top: 0.2rem;
 }
@@ -5487,7 +5294,7 @@ footer{
 .train_lecturer1{
 	font-size: 0.6rem;
 	color: #333;
-	/*font-family: "微软雅黑";*/
+	
 	margin-top: 0.5rem;
 	width: 4rem;
     overflow: hidden;
@@ -5531,7 +5338,7 @@ footer{
 	float: right;
     font-size: 0.5rem;
     color: #00bc12;
-    /*font-family: "微软雅黑";*/
+    
     max-width: 9rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -5543,7 +5350,7 @@ footer{
     margin-top: 0rem;
 }
 .train_list_bto2 div{
-	/*font-family: "微软雅黑";*/
+	
 }
 .train_list_bto01{
 	float: left;
@@ -5572,7 +5379,7 @@ footer{
 	color: #000;
 	font-size: 0.5rem;
 	margin-top: 0.08rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 /*线下培训班结束*/
 
@@ -5619,7 +5426,7 @@ footer{
 	padding: 0 0.3rem;
 	height: 1rem; 
 	line-height: 1rem; 
-	/*font-family: "微软雅黑";*/
+	
 	text-align: center;
 	border-radius: 8px;
 	float: left;
@@ -5645,7 +5452,7 @@ footer{
 	float: right;
 	font-size: 0.5rem;
 	color: #00bc12;
-	/*font-family: "微软雅黑";*/
+	
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -5655,7 +5462,7 @@ footer{
 	color: #000;
 	font-size: 0.5rem;
 	margin-top: 0.22rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 /*立即报名弹框开始*/
 .submit_tarining{
@@ -5694,7 +5501,7 @@ footer{
 	border-radius: 6px;
 	color: #666;
 	font-size: 0.55rem;
-	/*font-family: "微软雅黑";*/
+	
     text-indent: 0.6rem;
 }
 .submit_information{
@@ -5705,7 +5512,7 @@ footer{
 .submit_information_name{
 	font-size: 0.55rem;
 	color: #333;
-	/*font-family: "微软雅黑";*/   
+	   
 	margin-bottom: 0.2rem;
 }
 .submit_information_put input{
@@ -5739,7 +5546,6 @@ footer{
 	top: 0;
 	width: 100%;
 	height: 6.725rem;
-	/*background: url(../images/toptub.jpg) no-repeat;*/
 	background-size: 100% 100%;
 	z-index: -1;
 }
@@ -5771,10 +5577,7 @@ footer{
 /*报名详细信息cen开始*/
 .personal_main{
 	width: 100%;
-	/*height: 21.9rem;*/
 	background: #fff;
-	/*border-radius: 6px;*/
-	/*background: red;*/
 	margin: 0 auto;
 	position: relative;
 	margin-top: 0.4rem;
@@ -5782,7 +5585,6 @@ footer{
 .personal_main_cen{
 	width: 97%;
     height: 100%;
-    /*background: blanchedalmond;*/
     float: right;
 }
 .personal_main_one{
@@ -5816,7 +5618,6 @@ footer{
 	width: 100%;
 	height: 1.8rem;
 	line-height: 1.8rem;
-	/*margin-bottom: 0.75rem;*/
 	border-bottom: 1px solid #e5e5e5;
 }
 .personal_main_radio{
@@ -5876,10 +5677,9 @@ footer{
 	color: #fff;
 	text-align: center;
 	background: #00bc12;
-	/*position: absolute;*/
 	margin-top: 1.6rem;
 	border-radius: 0px 0px 6px 6px;
-	/*font-family: "微软雅黑";*/
+	
 }
 .personal_main0{
 	width: 100%;
@@ -5959,13 +5759,13 @@ footer{
 	text-align: center;
 	color: #000;
 	margin-bottom: 0.2rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 .success01_btn{
 	width: 12.6rem;
 	height: 1.75rem;
 	line-height: 1.75rem;
-	/*font-family: "微软雅黑";*/
+	
 	font-size: 0.7rem;
 	color: #fff;
 	background: #00bc12;
@@ -5987,7 +5787,7 @@ footer{
 .training_teacher_title{
 	font-size: 0.6em;
 	color: #999;
-	/*font-family: "微软雅黑";*/
+	
 	padding-top: 0.7rem;
 	margin-left: 0.4rem;
 	margin-bottom: 1.65rem;
@@ -5996,7 +5796,7 @@ footer{
 	width: 100%;
 	font-size: 0.7rem;
 	color: #000;
-		/*font-family: "微软雅黑";*/
+		
 	margin-bottom: 1.15rem;
 }
 .training_teacher_cen_img{
@@ -6021,7 +5821,6 @@ footer{
     position: relative;
     font-size: 0.6rem;
     color: #666;
-    /*font-family: "微软雅黑";*/
 }
 .hovertreeContent img{
 	width: 100%;
@@ -6057,8 +5856,6 @@ footer{
 	top:0.6rem;
 }
 
-
-
 /*课程介绍*/
 
 .training_teacher_course{
@@ -6066,7 +5863,7 @@ footer{
 	width: 96%;
     margin: 0 auto;
     font-size: 0.6rem;
-    /*font-family: "微软雅黑";*/
+    
     color: #666;
     text-align: justify;
 }
@@ -6083,12 +5880,12 @@ footer{
 	margin-left: 0.4rem;
 }
 .training_teacher_bto_left .p1{
-	/*font-family: "微软雅黑";*/
+	
 	font-size: 0.75rem;
 	color: #ff0000;
 }
 .training_teacher_bto_left .p2{
-	/*font-family: "微软雅黑";*/
+	
 	font-size: 0.5rem;
 	color: #999;
 }
@@ -6153,19 +5950,15 @@ footer{
 .history_bg_bto div{
 	font-size: 0.6rem;
 	color: #5ebdad;	
-	/*font-family: "微软雅黑";*/
+	
 }
 .history_bg_bto{
 	width: 100%;
-    /*float: right;*/
-    /*margin-right: 1rem;*/
     margin-top: 1.7rem;
 }
 .history_bg_bto1{
 	float: left;
 	width: 5.75rem;
-    /*height: 1.825rem;
-    line-height: 1.825rem;*/
     text-align: center;
     color: #00bc12 !important;
     font-size: 0.65rem !important;
@@ -6174,14 +5967,11 @@ footer{
 	float: left;
 	width: 5.75rem;
     border-right: 1px solid #d2d2da;
-    /*height: 1.825rem;
-    line-height: 1.825rem;*/
     text-align: center;
     color: #666 !important;
     font-size: 0.65rem !important;
 }
 .boxbtn{
-	/*height: 1.825rem;*/
     border-top: 1px solid #d2d2da;
     line-height: 1.8rem;
     font-size: 0.65rem !important;
@@ -6212,7 +6002,6 @@ footer{
 }
 .personage_top{
 	width: 100%;
-    /*height: 8.775rem;*/
     height: 7.5rem;
     background: url(../images/geren.jpg) center top no-repeat;
     background-size: 100% 8.775rem;
@@ -6222,23 +6011,18 @@ footer{
 .personage_top_left{
 	width: 3.25rem;
     height: 3.25rem;
-    /*float: left;
-    margin-left: 0.4rem;*/
     background: #fff;
     border-radius: 60px;
     text-align: center;
-    /*border: 0.25rem solid #fff;*/
    margin: 0 auto;
 }
 .personage_top_left img{
 	width: 3.25rem;
 	height: 3.25rem; 
 	border-radius: 60px;
-	
 }
 .personage_top_cen{
 	margin-top: 0.2rem;
-    /*margin-left: 4.4rem;*/
 }
 .personage_top_cen01{
 	width: 100%;
@@ -6247,11 +6031,6 @@ footer{
 .personage_top_cen01 span{
 	font-size: 0.7rem;
 	color: #fff;
-	/*font-family: "微软雅黑";*/
-	/*float: left;*/
-}
-.personage_top_right{
-	/*float: right;*/
 }
 .personage_top_cen_img1{
 	float: left;
@@ -6275,7 +6054,7 @@ footer{
     text-align: center;
     font-size: 0.6rem;
     color: #fff;
-    background: url(/xcviews/images/attention.png) no-repeat;
+    background: url(/xcview/images/attention.png) no-repeat;
     background-size: 100% 100%;
     margin-top: 0.5rem;
 }
@@ -6288,12 +6067,10 @@ footer{
 .personage_pay .p1{
 	font-size: 0.7rem;
 	color: #000;
-	/*font-family: "微软雅黑";*/
 }
 .personage_pay .p2{
 	font-size: 0.5rem;
 	color: #999;
-	/*font-family: "微软雅黑";*/
 }
 .personage_pay_left{
 	float: left;
@@ -6314,8 +6091,6 @@ footer{
     position: absolute;
     top: 0.3rem;
 }
-
-
 .personage_image{
 	width: 100%;
 	height: 2.8rem;
@@ -6341,7 +6116,6 @@ footer{
 .personage_image_left .p2{
 	font-size: 0.6rem;
 	color: #999;
-	/*font-family: "微软雅黑";*/
 }
 
 .personage_image_right{
@@ -6394,12 +6168,9 @@ footer{
 	margin-left: 1.2rem;
     margin-right: 1.2rem;
     padding-bottom: 0.2rem;
-    /*font-family: "微软雅黑";*/
 }
 .personage_bto_li{
 	color: #333;
-	
-	
 }
 .personage_bto_li1{
 	color: #00bc12;
@@ -6409,8 +6180,6 @@ footer{
 	width: 100%;
 	height: 100%;
 	float: right;
-	/*margin-top: 0.2rem;*/
-	/*display: none;*/
 }
 .personage_bto_cen1{
 	display: none;
@@ -6425,14 +6194,9 @@ footer{
 	width: 100%;
 	height: 1rem;
 	line-height: 1rem;
-	/*background: red;*/
-	/*border-top: 1px solid #d3d3d3;
-	border-bottom: 1px solid #d3d3d3;*/
 }
 .personage_bto_cen_one_left{
 	float: left;
-	/*width: 3rem;*/
-
 }
 .personage_bto_cen_one_img{
 	width: 1.2rem;
@@ -6492,7 +6256,7 @@ footer{
 	line-height: 1.58rem;
 	font-size: 0.6rem;
 	color: #000;
-	/*font-family: "微软雅黑";*/
+	
 }
 .personage_bto_bg_size_left{
 	float: left;
@@ -6512,22 +6276,18 @@ footer{
 	float: right;
 	color: #fff;
 	font-size: 0.7rem;
-	/*font-family: "微软雅黑";*/
+	
 }
 /*table结束*/
 
-
-
 /*首页结束*/
-
-
 
 
 #popup{
 	width: 3rem;
     height: 2rem;
     position: fixed;
-    /*font-family: "微软雅黑";*/
+    
     border-radius: 60px;
     text-align: center;
     top: 50%;
@@ -6546,7 +6306,7 @@ footer{
 }
 .popup_div{
     font-size: 0.6rem;
-    /*font-family: "微软雅黑";*/
+    
     color: white;
     position: absolute;
     text-align: center;
