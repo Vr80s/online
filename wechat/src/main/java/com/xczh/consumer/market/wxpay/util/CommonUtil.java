@@ -378,7 +378,7 @@ public class CommonUtil {
 		
 	
 	/**
-	 * 获取微信用户信息；
+	 * 获取微信用户信息：通过uniondid机制
 	 * @param params
 	 * @return
 	 * @throws Exception

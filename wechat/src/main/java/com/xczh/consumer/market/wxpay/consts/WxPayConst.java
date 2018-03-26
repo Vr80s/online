@@ -71,9 +71,6 @@ public class WxPayConst {
 	}
 
 
-	//h5.openid.get.URL
-	//??public final String RedirectUri = "http://viedo.ixincheng.com/v1/pay/h5.openid.get";
-
 	//code获取URL
 	public final static String CODE_URL ="https://open.weixin.qq.com/connect/oauth/authorize?appid=appid&redirect_uri=url&response_type=code&scope=snsapi_base&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
 	public final static String CODE_URL_2 ="https://open.weixin.qq.com/connect/oauth/authorize?appid=appid&redirect_uri=url&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
@@ -100,6 +97,7 @@ public class WxPayConst {
 	//access_token
 	public static final String QUERY_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=appid&secret=secret";
 
+	
 
 	public static String return_code="return_code";
 	public static String result_code="result_code";
