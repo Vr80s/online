@@ -505,7 +505,7 @@
 		  $('.btn1').prepend('<a href="#">点击收起</a>');
 			  $(".btn1").toggle(function(){
 			    $(".btn1 a").html('展开全部');
-			    $(".wrap1").removeClass("pp1");
+			    $(".wrap1").addClass("pp1");
 			    $(".wrap1").removeAttr("style");
 			    $(".zhezhao1").hide();
 			    $(".btn1 img").attr("src","../images/bot0.png")  
@@ -515,7 +515,7 @@
 			    $(".btn1 img").attr("src","../images/top.png")
 			    
 			    $(".btn1 a").html('点击收起');
-			     $(".wrap1").addClass("pp1");
+			     $(".wrap1").removeClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })
 		 })
