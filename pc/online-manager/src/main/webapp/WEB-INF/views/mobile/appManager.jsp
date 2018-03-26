@@ -125,7 +125,8 @@
 			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>更新介绍: </label>
 			 <div class="col-sm-6">
                		<div class="clearfix" >
-	                	<textarea name="describe" id="description"class="{required:true}" cols="39" rows="5"></textarea>
+	                	<textarea name="describe" value="课程观看更加流畅，功能更加完善，给你不一样的学习体验~" id="description"class="{required:true}"
+	                	 cols="39" rows="5">课程观看更加流畅，功能更加完善，给你不一样的学习体验~</textarea>
 	                </div>
              </div>
 		</div>
@@ -161,7 +162,8 @@
 			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>更新介绍: </label>
 			 <div class="col-sm-6">
                		<div class="clearfix" >
-	                	<textarea name="describe" id="description"class="{required:true}" cols="39" rows="5"></textarea>
+	                	<textarea name="describe" value="课程观看更加流畅，功能更加完善，给你不一样的学习体验~" id="description"class="{required:true}"
+	                	 cols="39" rows="5">课程观看更加流畅，功能更加完善，给你不一样的学习体验~</textarea>
 	                </div>
              </div>
 		</div>

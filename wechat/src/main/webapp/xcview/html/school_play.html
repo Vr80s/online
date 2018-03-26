@@ -10,14 +10,9 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/school_play.css" />
 <link rel="stylesheet" href="../css/share/share.css" />
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}	
-	document.documentElement.style.fontSize=kk/7.5+"px"	
-</script>
-</head>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+
     
 <body style="background:#F8F8F8;">
 <div class="wp">
@@ -460,7 +455,7 @@ var description ="";
 		  $('.btn1').prepend('<a href="#">点击收起</a>');
 			  $(".btn1").toggle(function(){
 			    $(".btn1 a").html('展开全部');
-			    $(".wrap1").removeClass("pp1");
+			    $(".wrap1").addClass("pp1");
 			    $(".wrap1").removeAttr("style");
 			    $(".zhezhao1").show();
 			    $(".btn1 img").attr("src","../images/bot0.png")  
@@ -470,7 +465,7 @@ var description ="";
 			    $(".btn1 img").attr("src","../images/top.png")
 			    
 			    $(".btn1 a").html('点击收起');
-			     $(".wrap1").addClass("pp1");
+			     $(".wrap1").removeClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })
 		 })

@@ -1122,7 +1122,8 @@ header{
 	margin-bottom: 0.1rem;
 }
 .boutique_main_one_title .div{
-	width: 100%;
+	/*width: 100%;*/
+	width: 3.358rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -1131,6 +1132,7 @@ header{
     /* line-height: 0.35rem; */
     /*background: blue;*/
     margin-bottom: 0.07rem;
+    /*background: #6641E2;*/
 }
 .boutique_main_one_title .span0{
 	color: #999999;
@@ -1418,9 +1420,10 @@ header{
 	position: relative;
 }
 .boutique_four_img{
-	width: 3.39rem;
+	width: 3.358rem;
 	height: 1.92rem;
 	margin-bottom: 0.16rem;
+	/*background: #A4824B;*/
 }
 .boutique_four_img img{
 	width: 3.39rem;
@@ -1445,11 +1448,14 @@ header{
     /*margin-bottom: 0.14rem;*/
 }
 .boutique_main_four_title .div{
-	width: 100%;
+	/*width: 100%;*/
+	width: 3.358rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 0.35rem;
+    height: 0.38rem;
+    margin-bottom: 0.07rem;
+    /*background: #00BB12;*/
 }
 .boutique_main_four_title div{
 	margin-bottom: 0.1rem;
@@ -1562,7 +1568,8 @@ header{
 	/*margin-left: 0.456rem;*/
 	margin-bottom: 0.4rem;
 	/*height: 7rem;*/
-	height: 3.25rem;
+	width: 3.39rem !important;
+	height: 3.25rem !important;
 }
 
 
@@ -1678,14 +1685,17 @@ header{
     /*margin-bottom: 0.14rem;*/
 }
 .newest_main_two_title .div{
-	width: 100%;
+	/*width: 100%;*/
+	width: 3.358rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 0.35rem;
+    height: 0.38rem;
+    margin-bottom: 0.07rem;
+    /*background: blue;*/
 }
 .newest_main_two_title div{
-	margin-bottom: 0.1rem;
+	/*margin-bottom: 0.1rem;*/
 }
 .newest_main_two_title .span{
 	/*margin-right: 0.2rem;*/
@@ -1964,7 +1974,8 @@ margin-top: 0.1rem;*/
 	margin-bottom: 0.4rem;
 	position: relative;
 	/*height: 7rem;*/
-	height: 3.25rem;
+	width: 3.39rem !important;
+	height: 3.25rem !important;
 }
 
 .lectures_main ul li:nth-child(even){
@@ -2003,11 +2014,14 @@ margin-top: 0.1rem;*/
 
 }
 .lectures_main_one_title .div{
-	width: 100%;
+	/*width: 100%;*/
+	width: 3.358rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 0.35rem;
+    /*height: 0.35rem;*/
+    height: 0.38rem;
+    margin-bottom: 0.07rem;
 }
 .lectures_main_one_title div{
 	margin-bottom: 0.1rem;

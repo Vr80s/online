@@ -2,8 +2,25 @@ package com.xczh.consumer.market.utils;
 
 public class MessageConstant {
 
+	//获取商户信息
+	public static final String OBTAIN_MERCHANT_INFORMATION = "https://api.weixin.qq.com/scan/merchantinfo/get?access_token=APPSECRET";
 	
-	   // 请求消息类型：文本
+	//创建商品
+	public static final String CREATE_GOODS = "https://api.weixin.qq.com/scan/merchantinfo/get?access_token=APPSECRET";
+	
+	//获取二维码的ticket
+	public static final String QR_CODE_TICKET = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=APPSECRET";
+	
+	//通过ticket 获取二维码图片
+	public static final String QR_CODE_IMG = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=TICKETS";
+	
+	//获取永久素材   
+	public static  final String GET_PERMANENT_MATERISL ="https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=APPSECRET"; 
+	
+	//获取用户基本信息(UnionID机制)   -->这个并不是通过用户授权得到了啊
+	public static final String UNIONID_USERINFO ="https://api.weixin.qq.com/cgi-bin/user/info?access_token=APPSECRET&openid=OPENID&lang=zh_CN"; 
+
+	// 请求消息类型：文本
     public static final String REQ_MESSAGE_TYPE_TEXT = "text";
     // 请求消息类型：图片
     public static final String REQ_MESSAGE_TYPE_IMAGE = "image";
