@@ -1,15 +1,29 @@
-package com.xczhihui.user.center.utils;
+package com.xczh.consumer.market.wxpay.util;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import net.sf.json.JSONObject;
 
+import com.xczh.consumer.market.utils.HttpUtil;
+
+@Component
 public class SingleAccessToken {
 
 	
 	private static final String access_token_url="https://api.weixin.qq.com/cgi-bin/token?"
         + "grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	
-	private static final String appid="wx48d230a99f1c20d9";//你自己的appid
-    private static final String appsecret="df2206fd380c36389ceccec9e8ac8f5c";//你自己的appsecret
+	
+	@Value("${wechatpay.gzh_appid}")
+	public  String appid;
+	
+	@Value("${wechatpay.gzhSecret}")
+	public  String appsecret;
+	
+//	main 方法测试使用	
+//	private static final String appid="wx48d230a99f1c20d9";//你自己的appid
+//  private static final String appsecret="df2206fd380c36389ceccec9e8ac8f5c";//你自己的appsecret
 
     private AccessToken accessToken;
     private static SingleAccessToken singleAccessToken;
@@ -19,7 +33,7 @@ public class SingleAccessToken {
     private SingleAccessToken(){
     	
         String requestUrl=access_token_url.replace("APPID",appid).replace("APPSECRET", appsecret);
-        String token = HttpUtil.doGet(requestUrl);
+        String token = HttpUtil.sendGetRequest(requestUrl);
         JSONObject jsonObject = JSONObject.fromObject(token);
 		String access_token = (String)jsonObject.get("access_token");
 		Integer expires_in = (Integer)jsonObject.get("expires_in");

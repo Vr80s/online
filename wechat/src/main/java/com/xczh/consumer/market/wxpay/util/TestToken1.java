@@ -1,4 +1,4 @@
-package com.xczhihui.user.center.utils;
+package com.xczh.consumer.market.wxpay.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.xczh.consumer.market.utils.HttpUtil;
 
 
 public class TestToken1 {
@@ -51,9 +53,8 @@ public class TestToken1 {
 		 mapYJ.put("access_token", "8_YmHpMe04i2eth1QufkXR6ChwwOVi7TPMzezqkM59y-UF2oWcHlJKvYyP-brjonMCo4U5u_h-c6ptpph8fDkQax7tA8Vu2TM0hAIsMTsZnUOJ3LWGNI035HElnHYGUBbAFAKYF");
 		 mapYJ.put("articles", str1);
 		 
-		 
 		 String url_access = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=8_YmHpMe04i2eth1QufkXR6ChwwOVi7TPMzezqkM59y-UF2oWcHlJKvYyP-brjonMCo4U5u_h-c6ptpph8fDkQax7tA8Vu2TM0hAIsMTsZnUOJ3LWGNI035HElnHYGUBbAFAKYF";
-		 String hehe = HttpUtil.doHttpsPost(url_access, str1);
+		 String hehe = HttpsRequest.doHttpsPost(url_access, str1);
 		 System.out.println("就看你了，兄弟："+hehe);
 	}
 	

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,7 @@ import com.xczh.consumer.market.utils.MessageUtil;
 import com.xczh.consumer.market.wxmessage.resp.Article;
 import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
 import com.xczh.consumer.market.wxmessage.resp.TextMessage;
+import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
 
 @Service
 public class CoreMessageServiceImpl implements CoreMessageService {
@@ -28,6 +28,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
+	
+	
+	//https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+	
 	
 	@Override
 	public String processRequest(HttpServletRequest request) {
@@ -109,15 +113,6 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                   article.setDescription("感谢关注【熊猫国医学堂】点击【国医学堂】进入【熊猫中医课堂】，即可观看现有中医课程。点击【个人中心】 可以查看自己的账户情况。【熊猫中医在线云课堂】，打破时间空间的限制，学习最适合你的中医。");  
                   article.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
                   article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
-                 
-            /*    Article article1 = new Article();  
-                  article1.setTitle("啦啦啦啦啦啦，我是卖报的小画家！");  
-                  article1.setDescription("啦啦啦啦啦啦，我是卖报的小画家！");  
-                  article1.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
-                  article1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
-                  articleList.add(article1); */
-                  
-
                   articleList.add(article);
                   // 设置图文消息个数  
                   newsMessage.setArticleCount(articleList.size());  
@@ -125,9 +120,20 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                   newsMessage.setArticles(articleList);  
                   // 将图文消息对象转换成xml字符串  
                   respMessage = MessageUtil.newsMessageToXml(newsMessage); 
-                  
         		  newsMessage.setMedia_id("6y0EBrCsG4Si29EjR7_uAPKHf5fHnte_6__89Y0IiyA");
                   
+        		  /*
+        		   * 保存用户微信信息
+        		   */
+        		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+        		  
+        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
+        	      
+        	      //保存用户信息
+        	      
+        	      
+        	      
+        	      
         		  respMessage = MessageUtil.newsMessageToXml(newsMessage); 
                   
         	  }else if(scan.equals(MessageConstant.EVENT_TYPE_UNSUBSCRIBE)){  //取消公众号事件
