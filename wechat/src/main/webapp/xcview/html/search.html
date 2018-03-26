@@ -117,7 +117,11 @@
 
 
 <script type="text/javascript">
-
+	hisArr="hisArr";
+	if(localStorage.token!=null){
+		var token = JSON.parse(localStorage.token);
+		hisArr = token.userId + "hisArr";
+	}
 	var arr=[];
 		//点击关键字查询
 		function queryKeyToList(obj){
@@ -130,15 +134,15 @@
 		//历史记录删除事件
 		function del(i){
 			event.stopPropagation(); 
-			var arrList = localStorage.hisArr.split(',');
+			var arrList = localStorage.getItem(hisArr).split(',');
 			arrList.splice(i,1); 
-			localStorage.setItem("hisArr", arrList);
-			arr=localStorage.hisArr.split(',');
+			localStorage.setItem(hisArr, arrList);
+			arr=localStorage.getItem(hisArr).split(',');
 			if(arrList.length==0 || arrList.length=='' || arrList.length==null){
 				$(".search_history").hide()
 			}
 			var historyInf = '';
- 			localStorage.hisArr.split(',').forEach(function(v,i){
+ 			localStorage.getItem(hisArr).split(',').forEach(function(v,i){
 				historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
 			})
 			$('.search_history_list').html(historyInf);  
@@ -147,8 +151,8 @@
 		//判断历史记录
 
 		
-		if(localStorage.hisArr){
-			if(localStorage.hisArr.length==0 || localStorage.hisArr.length=='' || localStorage.hisArr.length==null){
+		if(localStorage.getItem(hisArr)){
+			if(localStorage.getItem(hisArr).length==0 || localStorage.getItem(hisArr).length=='' || localStorage.getItem(hisArr).length==null){
 				$(".search_history").hide()
 			}
 		}else{
@@ -157,14 +161,14 @@
 
 		}
 		//若逐条删除 到没记录就会隐藏结束
-		if(localStorage.hisArr){
+		if(localStorage.getItem(hisArr)){
 			//渲染上
 			var historyInf = '';
-			localStorage.hisArr.split(',').forEach(function(v,i){
+			localStorage.getItem(hisArr).split(',').forEach(function(v,i){
 				historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
 			})
 			$('.search_history_list').html(historyInf);
-			arr = localStorage.hisArr.split(',');
+			arr = localStorage.getItem(hisArr).split(',');
 		}else{
 			arr = [];
 		}
@@ -189,11 +193,11 @@
 						if($.inArray(keyValue, arr)!=-1){
                             removeByValue(arr, keyValue);
                             arr.unshift($('#header_input').val());
-                            localStorage.hisArr = arr;
+                            localStorage.setItem(hisArr,arr);
                             window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
 						}else{
                             arr.unshift($('#header_input').val())
-                            localStorage.hisArr = arr;
+                            localStorage.setItem(hisArr,arr);
                             window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
 						}
 
@@ -218,8 +222,8 @@
 			}
 
 			var historyInf = '';
-			if(localStorage.hisArr!=undefined){
-                localStorage.hisArr.split(',').forEach(function(v,i){
+			if(localStorage.getItem(hisArr)!=undefined){
+                localStorage.getItem(hisArr).split(',').forEach(function(v,i){
                     if(v.split($("#header_input").val()).length>1||$("#header_input").val()==''){
                     	$(".search_history_title").show();
                         historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';

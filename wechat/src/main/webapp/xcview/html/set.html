@@ -56,7 +56,7 @@
 	</div>
 	<!-- 中间内容结束 -->
 	<!-- 刷新引入js -->
-	<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
     <script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
 </body>
@@ -73,10 +73,17 @@
 	var close_falg =  authenticationCooKie();
 	if(close_falg != 1000){   //不是登录状态 --》隐藏账号设置
 		$(".set_main_close").hide();
+		$(".btn").hide();
 		if(close_falg == 1002){ //游客状态隐藏  退出登录
 			$(".btn").hide();
 		}
 	}	
+	
+	/*if(is_weixin()){
+    	$(".btn").show()
+    }else{
+    	$(".btn").hide()
+    }*/
 </script>
 
 <script>

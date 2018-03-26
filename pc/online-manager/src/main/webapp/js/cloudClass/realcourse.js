@@ -26,8 +26,8 @@ $(function(){
     { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
-    { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
-    { "title": "讲师", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
+	{ "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
+	{ "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {
@@ -35,8 +35,8 @@ $(function(){
     }},
     // { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
     // { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
-    { "title": "价格", "class":"center","width":"8%","sortable":false,"mRender":function(data,display,row){
-    	data = row.currentPrice;
+    { "title": "价格", "class":"center","width":"6%","sortable":false,"mRender":function(data,display,row){
+    	data = parseInt(row.currentPrice);
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "开课时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime'},
@@ -62,7 +62,7 @@ $(function(){
     		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)" name="up_PX"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
     		'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)" name="down_PX"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
 	}},*/
-    { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+    { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
                     '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+

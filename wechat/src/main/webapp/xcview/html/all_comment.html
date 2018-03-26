@@ -13,13 +13,8 @@
 		<link rel="stylesheet" href="/xcview/css/minirefresh.css" />
 		<link rel="stylesheet" href="/xcview/css/common.css" />
 		
-		<script type="text/javascript">
-			var kk=document.documentElement.clientWidth;
-			if(kk>750){
-				kk=750
-			}
-			document.documentElement.style.fontSize=kk/7.5+"px"	;
-		</script>
+		<!--手机嵌入模板-->
+		<script type="text/javascript" src="/xcview/js/template/template.js"></script>
 
 		<!--刷新css引入-->
 		<link rel="stylesheet" href="/xcview/css/mui.min.css">
@@ -101,15 +96,23 @@
 						<div class="user_text">
 							<div class="wrap_userName">
 								<p class="z">{{item.onlineUser.name}}</p>
-								{{if item.overallLevel == 1}}
+								{{if item.starLevel == 1}}
 								<img class="z" src="../images/xing1_0.png"/>
-								{{else if item.overallLevel == 2}}
+								{{else if item.starLevel == 1.5}}
+								<img class="z" src="../images/xing1_5.png"/>
+								{{else if item.starLevel == 2}}
 								<img class="z" src="../images/xing2.png"/>
-								{{else if item.overallLevel == 3}}
+								{{else if item.starLevel == 2.5}}
+								<img class="z" src="../images/xing2_5.png"/>
+								{{else if item.starLevel == 3}}
 								<img class="z" src="../images/xing3.png"/>
-								{{else if item.overallLevel == 4}}
+								{{else if item.starLevel == 3.5}}
+								<img class="z" src="../images/xing3_5.png"/>
+								{{else if item.starLevel == 4}}
 								<img class="z" src="../images/xing4_0.png"/>
-								{{else if item.overallLevel == 5}}
+								{{else if item.starLevel == 4.5}}
+								<img class="z" src="../images/xing4_5.png"/>
+								{{else if item.starLevel == 5}}
 								<img class="z" src="../images/xing5.png"/>
 								{{/if}}
 		

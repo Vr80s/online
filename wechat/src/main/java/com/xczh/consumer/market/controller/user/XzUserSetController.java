@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.controller.live.CityController;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
@@ -52,6 +50,8 @@ import com.xczhihui.wechat.course.vo.OnlineUserVO;
 @Controller
 @RequestMapping(value = "/xczh/set")
 public class XzUserSetController {
+	
+	
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
@@ -77,7 +77,6 @@ public class XzUserSetController {
 	private CommonApiService commonApiService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserSetController.class);
-	
 	
 	
 	/**
@@ -127,14 +126,12 @@ public class XzUserSetController {
 	public ResponseObject phoneCheck(HttpServletRequest req,
 			@RequestParam("username")String username,
 			@RequestParam("vtype")Integer vtype)throws Exception {
-	
 		/**
 		 * 验证手机号
 		 */
 		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
-		
 		//短信验证码
 		String str = onlineUserService.changeMobileSendCode(username,vtype);
 		try {
@@ -166,14 +163,12 @@ public class XzUserSetController {
 			@RequestParam("username")String username,
 			@RequestParam("code")String code,
 			@RequestParam("vtype")Integer vtype) throws Exception {
-		
 		/**
 		 * 验证手机号
 		 */
 		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
-		
 		//短信验证码
 		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(username, code,vtype);
 		return checkCode;
@@ -346,8 +341,8 @@ public class XzUserSetController {
  				projectName, filename,contentType, bs,fileType,null);
      			LOGGER.info("文件路径——path:"+headImgPath);
      			
-     			JSONObject cardNegativeJson = JSONObject.parseObject(headImgPath);
-     			user.setSmallHeadPhoto(cardNegativeJson.get("url").toString());
+//     			JSONObject cardNegativeJson = JSONObject.parseObject(headImgPath);
+     			user.setSmallHeadPhoto(headImgPath);
              }
           }
 
@@ -365,13 +360,7 @@ public class XzUserSetController {
           * 更新信息
           */
          myInfoService.updateUserSetInfo(user);
-         /*
-          * 修改用户中心的方法
-          * 直接调用，里面有封装好的方法
-          */
-         /*userCenterAPI.update(user.getLoginName(),
-        		 user.getName(),user.getSex(),user.getEmail(),
-        				 null, 10, 10);*/
+
          /**
           *  如果用户信息发生改变。
           *  更改缓存中的数据
@@ -429,7 +418,6 @@ public class XzUserSetController {
 					user.setCountyName(str[2]);
 				}
 			}
-			
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  citys.split(" ");
 				//获取省市县
@@ -439,7 +427,6 @@ public class XzUserSetController {
 					user.setRegionId(str[2]);
 				}
 			}
-			
 			/**
 			 * 更新信息
 			 */
@@ -527,10 +514,9 @@ public class XzUserSetController {
 		
 		Map<String,String> map = new HashMap<String,String>();
 		String headImgPath = service.upload(null,projectName, imageName, suffix, bs123,fileType,null);
-		
-		JSONObject json = JSONObject.parseObject(headImgPath);
+
 		LOGGER.info("文件路径——path:"+headImgPath);
-		map.put("smallHeadPhoto", json.get("url").toString());
+		map.put("smallHeadPhoto", headImgPath);
     	  
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         onlineUserService.updateUserCenterData(user,map);
@@ -538,13 +524,11 @@ public class XzUserSetController {
          * 更新微吼信息
          */
         String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
-          
          /**
           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
           */
          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
          request.getSession().setAttribute("_user_",newUser);
-          
          if(weiHouResp == null){
         	  LOGGER.info("同步微吼头像失败");
          }

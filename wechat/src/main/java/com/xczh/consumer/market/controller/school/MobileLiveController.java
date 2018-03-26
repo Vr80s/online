@@ -92,7 +92,7 @@ public class MobileLiveController {
 			}
 		}
 
-		if(listTj.size()>0){
+		if(listTj.size()>0){    
 			mapTj.put("title","正在直播");
 			mapTj.put("lineState","1");
 			mapTj.put("courseList",listTj);
@@ -108,7 +108,7 @@ public class MobileLiveController {
 
 		if(listZz.size()>0){
 			mapZz.put("title","直播课程");
-			mapZz.put("lineState","2");
+			mapZz.put("lineState","1234");
 			mapZz.put("courseList",listZz);
 			mapCourseList.add(mapZz);
 		}

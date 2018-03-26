@@ -12,13 +12,9 @@
 <link rel="stylesheet" href="../css/live_personal.css" />
 <link rel="stylesheet" href="../css/share/share.css" />
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=31c81b486a">
-<script>
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}	
-	document.documentElement.style.fontSize=kk/7.5+"px"	
-</script>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+
 <style type="text/css">
 	#ccvideo table{
 		width: 100% !important;
@@ -97,7 +93,7 @@
 					{{if lineState == 1}}
 					<p>直播中</p>
 					{{else if lineState == 2}}
-					<p>未直播</p>	
+					<p>直播预告</p>	
 					{{else if lineState == 3}}
 					<p>直播回放</p>			
 					{{/if}}
@@ -137,7 +133,7 @@
 				<span style="font-size: 0.32rem;">医馆</span>
 				<ul class="address_all">
 					<li class="hid_name hide" >医馆名称：{{hospital.name}}</li>
-					<li class="hid_tel hide">联系电话：<a href="tel:{{hospital.tel}}" style="color: #575757;"></a>{{hospital.tel}}</li>
+					<li class="hid_tel hide">联系电话：<a href="tel:{{hospital.tel}}" style="color: #575757;">{{hospital.tel}}</a></li>
 					<li class="hid_address hide">医馆地址：{{hospital.province}}{{hospital.city}}{{hospital.detailedAddress}}</li>
 				</ul>
 			{{/if}}
@@ -195,8 +191,13 @@
 							</p>
 							<!--日历-->
 							{{if item.type == 3}}
-								{{if item.lineState == 1 || item.lineState == 2}}
+								{{if item.lineState == 1}}
 								<p class="zhibo_play">直播中</p>
+								{{else if item.lineState == 4 || item.lineState == 5}}
+									<p class="more_people">
+										<img src="/xcview/images/Sinatv_time.png"/>
+										<span>{{item.startTime.slice(11,16)}}</span>
+									</p>
 								{{else}}
 								<p class="more_people">
 									<img src="../images/learn.png"/>
@@ -238,15 +239,23 @@
 					<div class="user_text">
 						<div class="wrap_userName">
 							<p class="z">{{item.onlineUser.name}}</p>
-							{{if item.overallLevel == 1}}
+							{{if item.starLevel == 1}}
 							<img class="z" src="../images/xing1_0.png"/>
-							{{else if item.overallLevel == 2}}
+							{{else if item.starLevel == 1.5}}
+							<img class="z" src="../images/xing1_5.png"/>
+							{{else if item.starLevel == 2}}
 							<img class="z" src="../images/xing2.png"/>
-							{{else if item.overallLevel == 3}}
+							{{else if item.starLevel == 2.5}}
+							<img class="z" src="../images/xing2_5.png"/>
+							{{else if item.starLevel == 3}}
 							<img class="z" src="../images/xing3.png"/>
-							{{else if item.overallLevel == 4}}
+							{{else if item.starLevel == 3.5}}
+							<img class="z" src="../images/xing3_5.png"/>
+							{{else if item.starLevel == 4}}
 							<img class="z" src="../images/xing4_0.png"/>
-							{{else if item.overallLevel == 5}}
+							{{else if item.starLevel == 4.5}}
+							<img class="z" src="../images/xing4_5.png"/>
+							{{else if item.starLevel == 5}}
 							<img class="z" src="../images/xing5.png"/>
 							{{/if}}
 
@@ -406,7 +415,7 @@
 	</div>
 	<div class="weixin_ceng" style="display1: block;">
 		<div class="weixin_ceng_bg"></div>
-		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 	</div>
 	<!--分享结束-->
 
@@ -439,7 +448,7 @@
 		}; */
 	</script>
 	<!--点击分享结束-->
-<script src="/xcviews/weihoujs/jquery.min.js"></script>
+<script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1234"></script>

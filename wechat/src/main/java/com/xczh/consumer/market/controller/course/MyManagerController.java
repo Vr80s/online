@@ -304,7 +304,7 @@ public class MyManagerController {
 				.selectCollegeCourseXmbNumber(userId);
 
 		map.put("collegeNumber", list.get(0).intValue()); // 学员数量
-		map.put("courseNumber", list.get(1).intValue());// 课程数量
+		map.put("courseNumber", list.get(1).intValue());  // 课程数量
 		/*
 		 * 熊猫币数量和人民币数量，
 		 */
@@ -312,12 +312,6 @@ public class MyManagerController {
 				userCoinService.getSettlementBalanceByUserId(userId));// 熊猫币数量
 		map.put("rmbNumber",
 				userCoinService.getEnchashmentBalanceByUserId(userId));
-
-		
-		
-		// BigDecimal bd = list.get(2);//获取熊猫币数量
-		// //转换为人民币数量
-		// bd = bd.divide(new BigDecimal(rate), 2,RoundingMode.DOWN);
 
 		return ResponseObject.newSuccessResponseObject(map);
 	}

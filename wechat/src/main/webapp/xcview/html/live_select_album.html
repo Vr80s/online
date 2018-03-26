@@ -13,13 +13,9 @@
 <link rel="stylesheet" href="../css/share/share.css" />
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 
-<script type="text/javascript">
-	var kk=document.documentElement.clientWidth;
-	if(kk>750){
-		kk=750
-	}
-	document.documentElement.style.fontSize=kk/7.5+"px";
-</script>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+
 	
 </head>
     
@@ -125,14 +121,14 @@
 		<!--内容-->
 			<div class="wrap">
 				<p class="car_p1"></p>
-				<p class="no_data">暂无数据...</p>
+				<div class="no_data">暂无数据...</div>
 				<div class="zhezhao" style="display: none;">
 					<img src="../images/op_bg.png"/>	
 				</div>     
 				
 			</div>
 			<div class="btn" style="display: none;">
-				<img src="../images/bot0.png"/>
+				<img src="../images/top.png"/>
 			</div>
 			<div class="line_xian" style="width: 100%; height: 1px;border-top: 1px solid #D8DDE6;">
 			
@@ -148,13 +144,13 @@
 		<!--内容-->
 			<div class="wrap1">
 				<p class="car_p2"></p> 
-				<p class="no_data1">暂无数据...</p>
+				<div class="no_data1">暂无数据...</div>
 				<div class="zhezhao1" style="display: none;">
 					<img src="../images/op_bg.png"/>	
 				</div>     
 			</div>
 			<div class="btn1" style="display: none;">
-				<img src="../images/bot0.png"/>
+				<img src="../images/top.png"/>
 			</div>		
 		</div>
 	<!--专辑选集-->
@@ -202,15 +198,23 @@
 					<div class="user_text">
 						<div class="wrap_userName">
 							<p class="z">{{item.onlineUser.name}}</p>
-							{{if item.overallLevel == 1}}
+							{{if item.starLevel == 1}}
 							<img class="z" src="../images/xing1_0.png"/>
-							{{else if item.overallLevel == 2}}
+							{{else if item.starLevel == 1.5}}
+							<img class="z" src="../images/xing1_5.png"/>
+							{{else if item.starLevel == 2}}
 							<img class="z" src="../images/xing2.png"/>
-							{{else if item.overallLevel == 3}}
+							{{else if item.starLevel == 2.5}}
+							<img class="z" src="../images/xing2_5.png"/>
+							{{else if item.starLevel == 3}}
 							<img class="z" src="../images/xing3.png"/>
-							{{else if item.overallLevel == 4}}
+							{{else if item.starLevel == 3.5}}
+							<img class="z" src="../images/xing3_5.png"/>
+							{{else if item.starLevel == 4}}
 							<img class="z" src="../images/xing4_0.png"/>
-							{{else if item.overallLevel == 5}}
+							{{else if item.starLevel == 4.5}}
+							<img class="z" src="../images/xing4_5.png"/>
+							{{else if item.starLevel == 5}}
 							<img class="z" src="../images/xing5.png"/>
 							{{/if}}
 
@@ -378,7 +382,7 @@
 			<div class="share_main_bg">
 				<ul>
 					<div class="share_to">分享到</div>
-					<li class="share_to_one">
+					<!--<li class="share_to_one">
 						<div class="">
 							<img src="../images/ShareSDK.png" />
 							<p>微信</p>
@@ -389,7 +393,7 @@
 							<img src="../images/ShareSDK.png" />
 							<p>朋友圈</p>
 						</div>
-					</li>
+					</li>-->
 					<li id="qqShare0">
 						<div class="" id="qqShare">
 							<img src="../images/Qzone_share.png" />
@@ -409,7 +413,7 @@
 	</div>
 	<div class="weixin_ceng" style="display1: block;">
 		<div class="weixin_ceng_bg"></div>
-		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 	</div>
 	<!--分享结束-->	
 
@@ -450,37 +454,37 @@ $.fn.toggle = function( fn, fn2 ) {
 <script>
 		$(function(){
 //			简介内容
-			$('.btn').prepend('<a href="#">展开全部</a>');
+			$('.btn').prepend('<a href="#">点击收起</a>');
 			  $(".btn").toggle(function(){
-			    $(".btn a").html('点击收起');
-			    $(".wrap").removeClass("pp");
-			    $(".wrap").removeAttr("style");
-			    $(".zhezhao").hide();
-			    $(".btn img").attr("src","../images/top.png")  
-			  },function(){
-			  	$(".zhezhao").show();
-
-			    $(".btn img").attr("src","../images/bot0.png")
-			    
 			    $(".btn a").html('展开全部');
-			     $(".wrap").addClass("pp");
+			    $(".wrap").addClass("pp");
+			    $(".wrap").removeAttr("style");
+			    $(".zhezhao").show();
+			    $(".btn img").attr("src","../images/bot0.png")  
+			  },function(){
+			  	$(".zhezhao").hide();
+
+			    $(".btn img").attr("src","../images/top.png")
+			    
+			    $(".btn a").html('点击收起');
+			     $(".wrap").removeClass("pp");
 //			     $(".wrap").attr("style");
 			 })
 //			主讲人内容
-		  $('.btn1').prepend('<a href="#">展开全部</a>');
+		  $('.btn1').prepend('<a href="#">点击收起</a>');
 			  $(".btn1").toggle(function(){
-			    $(".btn1 a").html('点击收起');
-			    $(".wrap1").removeClass("pp1");
-			    $(".wrap1").removeAttr("style");
-			    $(".zhezhao1").hide();
-			    $(".btn1 img").attr("src","../images/top.png")  
-			  },function(){
-			  	$(".zhezhao1").show();
-
-			    $(".btn1 img").attr("src","../images/bot0.png")
-			    
 			    $(".btn1 a").html('展开全部');
-			     $(".wrap1").addClass("pp1");
+			    $(".wrap1").addClass("pp1");
+			    $(".wrap1").removeAttr("style");
+			    $(".zhezhao1").show();
+			    $(".btn1 img").attr("src","../images/bot0.png")  
+			  },function(){
+			  	$(".zhezhao1").hide();
+
+			    $(".btn1 img").attr("src","../images/top.png")
+			    
+			    $(".btn1 a").html('点击收起');
+			     $(".wrap1").removeClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })
 		 })
@@ -489,7 +493,7 @@ $.fn.toggle = function( fn, fn2 ) {
 	<script type="text/javascript">
 		window.onload = function(){
 			//		点击分享share
-			$(".header_news").click(function(){
+			/*$(".header_news").click(function(){
 				$(".share").show();
 			});
 			
@@ -499,7 +503,7 @@ $.fn.toggle = function( fn, fn2 ) {
 			
 			$(".share_cancel").click(function(){
 				$(".weixin_ceng").hide();
-			});
+			});*/
 			
 			
 	//		点击微信出现提示框

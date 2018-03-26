@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
+import com.xczhihui.bxg.online.web.dao.ApplyGradeCourseDao;
 import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +47,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 
 	@Autowired
 	private UserCenterAPI userCenterAPI;
+	@Autowired
+	private ApplyGradeCourseDao applyGradeCourseDao;
 	
 	@Value("${ENV_FLAG}")
     private String env;
@@ -169,8 +173,15 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
             List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
                     .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId", paramMap);
             if(argc.size()==0){
-                logger.info("用户{}未购买该课程{}",user.getId(),courseId);
-                throw new RuntimeException("用户未购买该课程");
+                List<Map<String, Object>> selfCourse = dao.getNamedParameterJdbcTemplate()
+                        .queryForList("SELECT id FROM `oe_course` oc WHERE oc.id = :courseId AND oc.`user_lecturer_id`=:userId", paramMap);
+                if(selfCourse.size()==0){
+                    ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(courseId,user.getId());
+                    if(applyGradeCourse == null) {
+                        logger.info("用户{}未购买该课程{}",user.getId(),courseId);
+                        throw new RuntimeException("用户未购买该课程");
+                    }
+                }
             }
         }
         return  dao.getOpenCourseById(courseId);
@@ -251,7 +262,10 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
             List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
                     .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId", paramMap);
             if(argc.size()==0){
-                return  new ModelAndView("redirect:/course/courses/"+courseId);
+                ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(Integer.valueOf(courseId), user.getId());
+                if(applyGradeCourse != null) {
+                    return  new ModelAndView("redirect:/course/courses/"+courseId);
+                }
             }
         }
 

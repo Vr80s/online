@@ -1442,7 +1442,7 @@ footer{
 	border-top: 0.01rem solid #ccc;
 	position: fixed;
     bottom: 0;
-    z-index: 9999;
+    z-index: 1;
 }
 .coze_bottom_input{
 	float: left;
@@ -2456,7 +2456,7 @@ footer{
     background: #fff;
     position: fixed;
     bottom: 2rem;
-    z-index: 99990;
+    z-index: 2;
     display: none;
         /*background: url(/xcview/images/opc.png);*/
     background-size: 100% 100%;
@@ -3193,6 +3193,11 @@ footer{
 	font-size: 0.7rem;
 	color: #666;
 	float: left;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 11rem;
+    text-align: right;
 }
 .person_cen_right img{
 	width: 0.5rem;

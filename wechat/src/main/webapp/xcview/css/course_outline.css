@@ -110,7 +110,7 @@ header {
 .outline_list_ul p{
 	font-size: 0.553rem;
     color: #333333;
-    border-bottom: 1px solid #d8dde6;
+    /*border-bottom: 1px solid #d8dde6;*/
     padding: 0.3rem 0;
     word-wrap: break-word;
 }

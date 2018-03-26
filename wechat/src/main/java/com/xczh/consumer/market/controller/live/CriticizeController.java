@@ -7,8 +7,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczh.consumer.market.utils.SLEmojiFilter;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +17,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
@@ -59,15 +58,15 @@ public class CriticizeController {
 		}
 		criticize.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 		criticize.setCreatePerson(ou.getId());  //创建人id
-		if(criticize.getContent().length()>100){
-			return ResponseObject.newErrorResponseObject("评论失败");
+		if(criticize.getContent().length()>200){
+			return ResponseObject.newErrorResponseObject("字符太长");
 		}else{
 			/**
 			 * 这里判断下此用户有没有购买过此视频
 			 */
-			Boolean isBuy = onlineWebService.getLiveUserCourseAndIsFree(criticize.getCourseId(),
-					ou.getId());
+			Boolean isBuy = onlineWebService.getLiveUserCourseAndIsFree(criticize.getCourseId(),ou.getId());
 			criticize.setIsBuy(isBuy);
+			
 			criticizeService.saveNewCriticize(criticize);
 			return ResponseObject.newSuccessResponseObject("评论成功");
 		}
@@ -147,8 +146,11 @@ public class CriticizeController {
         	/**
         	 * 这个是讲师id
         	 */
-            criticizeService.saveReply(content,user.getId(),criticizeId);
-            
+        	if(content.length()>200){
+    			return ResponseObject.newErrorResponseObject("字符太长");
+    		}else{
+    			criticizeService.saveReply(content,user.getId(),criticizeId);
+    		}
             return ResponseObject.newSuccessResponseObject("回复成功！");
         }else{
             return ResponseObject.newErrorResponseObject("用户未登录！");

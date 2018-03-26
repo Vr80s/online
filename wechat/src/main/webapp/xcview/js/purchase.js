@@ -219,11 +219,6 @@ function  goPay() {
  */
 function getgetRedirectUrl(allCourse,falg){
 	var c=allCourse[0];
-	return "/xcview/html/buy_prosperity.html?courseId="+c.id;
-	//return "/xcview/html/buy_prosperity.html?recharges_blck=2&orderId="+c.id;
+	return "/xcview/html/buy_prosperity.html?recharges_blck=2&courseId="+c.id;
 }
-
-
-
-
 

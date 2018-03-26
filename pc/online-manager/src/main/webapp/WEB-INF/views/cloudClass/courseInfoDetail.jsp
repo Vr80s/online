@@ -33,7 +33,7 @@
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right">封面:</label>
 			<div class="col-sm-1" >
-				<img src="${course.smallImgPath}"  alt="课程封面" />
+				<img src="${course.smallImgPath}"  height="450" width="800" alt="课程封面" />
 			</div>
 		</div>
 		<c:choose>
@@ -49,8 +49,8 @@
 
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right">主标题:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
+			<div class="col-sm-2" >
+				<div class="clearfix" style="width: 200px;">
 					<label class=" control-label no-padding-right">${course.gradeName}</label>
 				</div>
 			</div>
@@ -87,9 +87,9 @@
 			</div>
 		</div>
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">主播:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
+			<label class="col-sm-1 control-label no-padding-right">主讲人:</label>
+			<div class="col-sm-2" >
+				<div class="clearfix" style="width: 200px;">
 					<label class="control-label no-padding-right">${course.lecturer}</label>
 				</div>
 			</div>
@@ -143,7 +143,7 @@
 					<label class="col-sm-1 control-label no-padding-right">课程结束时间:</label>
 					<div class="col-sm-1" >
 						<div class="clearfix" style="width: 240px;">
-							<label class="control-label no-padding-right"><fmt:formatDate value="${course.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
+							<label class="control-label no-padding-right"><fmt:formatDate value="${course.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
 						</div>
 					</div>
 				</c:when>

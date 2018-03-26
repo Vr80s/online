@@ -86,6 +86,18 @@ var domain = window.location.protocol+"//"+document.domain;
 var link = domain+"/wx_share.html?shareType="+shareType+"&shareId="+shareId;
 
 //点击分享share
+if(is_weixin()){
+	
+	//点击微信出现提示框
+	$(".header_news").click(function(){
+		$(".weixin_ceng").show();
+	});
+	
+	
+	
+	
+}else{
+	
 $(".header_news").click(function(){
 
 	var shareType = getShareType();
@@ -122,10 +134,17 @@ $(".share_cancel").click(function(){
 });
 
 
-//点击微信出现提示框
-$(".share_to_one").click(function(){
-	$(".weixin_ceng").show();
-});
+
+
+
+}
+
+/*$(".weixin_ceng_bg").click(function(){
+		$(".weixin_ceng").hide();
+	});
+$(".weixin_img img").click(function(){
+	$(".weixin_ceng").hide();
+});*/
 
 $(".weixin_ceng").click(function(){
 	$(".weixin_ceng").hide();

@@ -1,78 +1,92 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:mvc="http://www.springframework.org/schema/mvc"
-	   xmlns:aop="http://www.springframework.org/schema/aop"
-	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-	        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-	        http://www.springframework.org/schema/context
-	        http://www.springframework.org/schema/context/spring-context-4.0.xsd
-	        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
-	        http://www.springframework.org/schema/aop
-	        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-	        http://code.alibabatech.com/schema/dubbo
-    		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+            http://code.alibabatech.com/schema/dubbo
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<context:property-placeholder location="classpath:config.properties" />
-	<context:component-scan base-package="com.xczh.consumer" />
+    <context:property-placeholder location="classpath:config.properties"/>
+    <context:component-scan base-package="com.xczh.consumer"/>
 
-	<aop:aspectj-autoproxy />
+    <aop:aspectj-autoproxy/>
 
-	<!-- 配置MultipartResolver 用于文件上传 使用spring的CommosMultipartResolver -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="utf-8" />
-		<property name="maxUploadSize" value="10485760000" />
-		<property name="maxInMemorySize" value="40960" />
-	</bean>
+    <!-- 配置MultipartResolver 用于文件上传 使用spring的CommosMultipartResolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
 
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!-- c3p0连接池配置： -->
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}"/>
+        <property name="acquireIncrement" value="${c3p0.acquireIncrement}"/>
+        <property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"/>
+        <property name="acquireRetryDelay" value="${c3p0.acquireRetryDelay}"/>
+        <property name="testConnectionOnCheckin" value="${c3p0.testConnectionOnCheckin}"/>
+        <property name="automaticTestTable" value="${c3p0.automaticTestTable}"/>
+        <property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"/>
+        <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
+    </bean>
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		  destroy-method="close">
-		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<!-- c3p0连接池配置： -->
-		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
-		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
-		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
-		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
-		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
-		<property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}" />
-		<property name="acquireRetryDelay" value="${c3p0.acquireRetryDelay}" />
-		<property name="testConnectionOnCheckin" value="${c3p0.testConnectionOnCheckin}" />
-		<property name="automaticTestTable" value="${c3p0.automaticTestTable}" />
-		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}" />
-		<property name="checkoutTimeout" value="${c3p0.checkoutTimeout}" />
-	</bean>
+    <!-- 定时器-->
+    <!--	<task:annotation-driven/>
 
-	<!-- 定时器-->
-<!--	<task:annotation-driven/>
+        <bean id="multipartResolver"
+            class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+            <property name="maxUploadSize" value="1073741824" />&lt;!&ndash;1024M &ndash;&gt;
+            <property name="defaultEncoding" value="UTF-8" />
+        </bean>-->
 
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="1073741824" />&lt;!&ndash;1024M &ndash;&gt;
-		<property name="defaultEncoding" value="UTF-8" />
-	</bean>-->
-
-	<mvc:annotation-driven>
-		<!-- 处理responseBody 里面日期类型 -->
-		<mvc:message-converters>
-			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-				<property name="objectMapper">
-					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
-						<property name="dateFormat">
-							<bean class="java.text.SimpleDateFormat">
-								<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-							</bean>
-						</property>
-					</bean>
-				</property>
-			</bean>
-		</mvc:message-converters>
-		<!--	   <mvc:message-converters>
+    <mvc:annotation-driven>
+        <!-- 处理responseBody 里面日期类型 -->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                            </bean>
+                        </property>
+                        
+                        <!-- 
+                            	如果返回的字段是空的话，这里自动转成字符串
+                         <property name="serializerProvider">  
+			                <bean class="com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.Impl">  
+			                    <property name="nullValueSerializer">  
+			                        <bean class="com.xczh.consumer.market.utils.TransferJsonSerializer"></bean>  
+			                    </property>  
+			                </bean>  
+            			</property>  
+            			
+            			 -->
+                        
+                        
+                        
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+        <!--	   <mvc:message-converters>
                     <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                         <property name="supportedMediaTypes">
                             <list>
@@ -90,86 +104,116 @@
                         </property>
                     </bean>
                 </mvc:message-converters>-->
-	</mvc:annotation-driven>
-<!--
-	<bean id="handlerExceptionResolver"
-		class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="java.lang.Throwable">common/500</prop>
-			</props>
-		</property>
-	</bean>-->
+    </mvc:annotation-driven>
+    <!--
+        <bean id="handlerExceptionResolver"
+            class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
+            <property name="exceptionMappings">
+                <props>
+                    <prop key="java.lang.Throwable">common/500</prop>
+                </props>
+            </property>
+        </bean>-->
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 
-	<!--RedissonUtil配置-->
-	<bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
-		<property name="redisHost" value="${redis.host}"></property>
-		<property name="redisPort" value="${redis.port}"></property>
-	</bean>
-	<mvc:default-servlet-handler />
-	
-	<!--
-	<bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController" />-->
+    <!--RedissonUtil配置-->
+    <bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+        <property name="redisHost" value="${redis.host}"></property>
+        <property name="redisPort" value="${redis.port}"></property>
+    </bean>
+    <mvc:default-servlet-handler/>
 
-	<dubbo:application name="wechat2"/>
-	<dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
+    <!--
+    <bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController" />-->
 
-	
-	<dubbo:reference id="userCenterAPI"  interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="5000" />
-	<dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="5000" />
-	<dubbo:reference id="giftServiceImpl" interface="com.xczhihui.bxg.online.api.service.GiftService" timeout="5000" />
-	<dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.bxg.online.api.service.EnchashmentService" timeout="5000" />
-	<dubbo:reference id="cityServiceImpl" interface="com.xczhihui.bxg.online.api.service.CityService" timeout="5000" />
-	<dubbo:reference id="liveExamineInfoServiceImpl" interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" timeout="5000" />
-	<!-- 新增公共的接口 -->
-	<dubbo:reference id="commonApiServiceImpl"  interface="com.xczhihui.bxg.online.api.service.CommonApiService" timeout="5000" />
-	<dubbo:reference  interface="com.xczhihui.bxg.online.api.service.CriticizeService"  id="criticizeServiceImpl"  timeout="5000" />
-	<!-- 医馆 --> <!-- 医馆招聘 --> <!--医师-->
-    <dubbo:reference id="medicalHospitalBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"  timeout="5000" />
-    <dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"  timeout="5000" /> 
-	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="5000"/>
+    <dubbo:application name="wechat2"/>
+    <dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
 
-	<dubbo:reference interface="com.xczhihui.wechat.course.service.ICourseService" id="courseServiceImpl" timeout="5000"/>
-	<!--学堂-->
-	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileBannerService" id="mobileBannerServiceImpl" timeout="5000"/>
-	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="5000"/> 
+
+    <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="5000"/>
+    <dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.bxg.online.api.service.UserCoinService"
+                     timeout="5000"/>
+    <dubbo:reference id="giftServiceImpl" interface="com.xczhihui.bxg.online.api.service.GiftService" timeout="5000"/>
+    <dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.bxg.online.api.service.EnchashmentService"
+                     timeout="5000"/>
+    <dubbo:reference id="cityServiceImpl" interface="com.xczhihui.bxg.online.api.service.CityService" timeout="5000"/>
+    <dubbo:reference id="liveExamineInfoServiceImpl"
+                     interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" timeout="5000"/>
+    <!-- 新增公共的接口 -->
+    <dubbo:reference id="commonApiServiceImpl" interface="com.xczhihui.bxg.online.api.service.CommonApiService"
+                     timeout="5000"/>
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.CriticizeService" id="criticizeServiceImpl"
+                     timeout="5000"/>
+    <!-- 医馆 --> <!-- 医馆招聘 --> <!--医师-->
+    <dubbo:reference id="medicalHospitalBusinessServiceImpl"
+                     interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService" timeout="5000"/>
+    <dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl"
+                     interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"
+                     timeout="5000"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService"
+                     id="medicalDoctorBusinessServiceImpl" timeout="5000"/>
+
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.ICourseService" id="courseServiceImpl"
+                     timeout="5000"/>
+    <!--学堂-->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileBannerService" id="mobileBannerServiceImpl"
+                     timeout="5000"/>
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileProjectService" id="mobileProjectServiceImpl"
+                     timeout="5000"/>
     <!--观看记录 -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IWatchHistoryService" id="watchHistoryServiceImpl" timeout="5000" />
-	<dubbo:reference interface="com.xczhihui.wechat.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="5000"/>
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IWatchHistoryService" id="watchHistoryServiceImpl"
+                     timeout="5000"/>
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IOfflineCityService" id="offlineCityServiceImpl"
+                     timeout="5000"/>
     <!-- 我的关注，我的粉丝service -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote" timeout="5000" />
-	<!--礼物相关-->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IGiftService" id="giftService" timeout="5000" />
-	<!--医师入驻-->
-	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService" id="medicalDoctorApplyServiceImpl"  timeout="5000" />
-	<!--医馆入驻-->
-	<dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" id="medicalHospitalApplyServiceImpl"  timeout="5000" />
-	<!--主播课程-->
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"  timeout="5000" />
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote"
+                     timeout="5000"/>
+    <!--礼物相关-->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IGiftService" id="giftService" timeout="5000"/>
+    <!--医师入驻-->
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService"
+                     id="medicalDoctorApplyServiceImpl" timeout="5000"/>
+    <!--医馆入驻-->
+    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService"
+                     id="medicalHospitalApplyServiceImpl" timeout="5000"/>
+    <!--主播课程-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"
+                     timeout="5000"/>
 
-	 <!--医师医馆公共服务-->
-     <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonServiceImpl" timeout="5000"  />
-	<!--用户银行卡-->
-	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl" timeout="5000" />
-	
-	<!-- 我的信息管理类 -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl" timeout="5000"  />
-    
+    <!--医师医馆公共服务-->
+    <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonServiceImpl"
+                     timeout="5000"/>
+    <!--用户银行卡-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl"
+                     timeout="5000"/>
+
+    <!-- 我的信息管理类 -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl"
+                     timeout="5000"/>
+
     <!-- 支付服务后回调服务 -->
-    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.OrderPayService" id="orderPayServiceImpl" timeout="5000"  />
-	
-	<!-- 微博、qq第三方登录数据存储接口 -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService" id="threePartiesLoginServiceImpl" timeout="5000"  />	
-    
-     <!-- 熊猫币购买接口 -->
-    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl" timeout="5000"  />	
-	
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.OrderPayService" id="orderPayServiceImpl"
+                     timeout="5000"/>
+
+    <!-- 微博、qq第三方登录数据存储接口 -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService"
+                     id="threePartiesLoginServiceImpl" timeout="5000"/>
+
+    <!-- 熊猫币购买接口 -->
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl"
+                     timeout="5000"/>
+
+    <!--主播详情-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoServiceImpl"
+                     timeout="5000"/>
+
+    <!-- 附件服务 -->
+    <dubbo:reference interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService" id="attachmentCenterService" timeout="5000"/>
 </beans>

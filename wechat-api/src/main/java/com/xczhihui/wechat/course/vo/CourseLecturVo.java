@@ -186,6 +186,9 @@ public class CourseLecturVo implements Serializable {
 	
 	private String vhallId; //进入直播间后需要用这个id来判断是否是主播发布的消息
 	
+	private Integer learning = 0;
+	
+	
 	public String getUdescription() {
 		return udescription;
 	}
@@ -565,4 +568,14 @@ public class CourseLecturVo implements Serializable {
 	public void setVhallId(String vhallId) {
 		this.vhallId = vhallId;
 	}
+
+	public Integer getLearning() {
+		return learning;
+	}
+
+	public void setLearning(Integer learning) {
+		this.learning = learning;
+	}
+	
+	
 }

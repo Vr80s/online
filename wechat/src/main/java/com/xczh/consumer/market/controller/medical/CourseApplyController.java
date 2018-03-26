@@ -9,7 +9,9 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
+import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 import org.redisson.api.RLock;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,9 @@ public class CourseApplyController {
 	@Autowired
 	private RedissonUtil redissonUtil;
 
+	@Autowired
+	private IAnchorInfoService anchorInfoService;
+
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseApplyController.class);
 
 	/**
@@ -77,7 +82,9 @@ public class CourseApplyController {
 			courseApplyInfo.setCreateTime(new Date());
 
 			courseApplyInfo.setUserId(user.getId());
-			courseApplyInfo.setLecturer(user.getName());
+			//获取主播昵称
+			CourseAnchorVO ca = anchorInfoService.detail(user.getId());
+			courseApplyInfo.setLecturer(ca.getName());
 
 			Map<String,Object> lecturerInfo = onlineUserService.findHostById(user.getId());
 			if(lecturerInfo.get("detail")!=null&&!"".equals(lecturerInfo.get("detail"))){
@@ -91,8 +98,8 @@ public class CourseApplyController {
 			String fileType="1"; //图片类型了
 			String imgPath = service.upload(null,
 					projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
-			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
-			courseApplyInfo.setImgPath(imgPathJson.get("url").toString());
+//			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
+			courseApplyInfo.setImgPath(imgPath);
 			courseApplyService.saveCourseApply(courseApplyInfo);
 			return  ResponseObject.newSuccessResponseObject("创建成功");
 		} catch (Exception e) {

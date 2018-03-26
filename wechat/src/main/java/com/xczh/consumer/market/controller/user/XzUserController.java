@@ -120,7 +120,6 @@ public class XzUserController {
 			e.printStackTrace();
 			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
-			
 		}
 	}
 	
@@ -453,6 +452,8 @@ public class XzUserController {
 		   @RequestParam("userName")String userName) throws Exception{
 	   OnlineUser ou =  onlineUserService.findUserByLoginName(userName);
 	   if(ou!=null){
+		   
+		   
 		   threePartiesLoginService.deleteAccount(ou.getId());
 		   wxcpClientUserWxMappingService.deleteAccount(ou.getId());
 		   userCenterAPI.deleteUser(userName);
@@ -487,7 +488,7 @@ public class XzUserController {
 		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
 			
 			//设置登录标识
-			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
+			//onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());

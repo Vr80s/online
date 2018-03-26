@@ -266,6 +266,10 @@
 		  `oe_course` oc
 		WHERE oc.`is_delete` = 0
 		  AND oc.`grade_name` =  #{title}
+			AND oc.`apply_id` not in
+			<foreach collection="oldApplyInfoIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 	</select>
 	<select id="selectCourseApplyByCollectionId"
 			resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
@@ -289,9 +293,15 @@
 		  `collection_course_apply` cca
 		  JOIN `course_apply_info` cai
 			ON cca.`collection_apply_id` = cai.id
-			 AND cai.`status`=2
+			 AND cai.`status`!=0
 			 AND cai.`is_delete`=0
 			 AND cca.`course_apply_id`=#{id}
 		   GROUP BY cai.id
+	</select>
+	<select id="selectCourseStastusByApplyId" resultType="java.lang.String">
+		select oc.`status` from `oe_course` oc where oc.`apply_id`=#{id}
+	</select>
+	<select id="getParentIdByChildId" resultType="java.lang.Integer">
+		SELECT cai.old_apply_info_id FROM `course_apply_info` cai WHERE cai.`id`=#{id};
 	</select>
 </mapper>

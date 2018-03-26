@@ -68,15 +68,13 @@ public class MyInfoController {
 	 */
 	@RequestMapping("list")
 	@ResponseBody
-	public ResponseObject categoryXCList(HttpServletRequest req,HttpServletResponse res)
+	public ResponseObject categoryXCList(HttpServletRequest req,
+			HttpServletResponse res)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user == null){
 			ResponseObject.newErrorResponseObject("登录失效");
 		}
-		
-		
-		
 		List<CourseLecturVo>  listAll  = courseServiceImpl.selectLearningCourseListByUserId(user.getId());
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> mapTj = new HashMap<String, Object>();
@@ -146,7 +144,15 @@ public class MyInfoController {
 		if(null == onlineLecturer){	
 			return ResponseObject.newErrorResponseObject("操作失败");
 		}
-		String result = ifocusService.updateFocus(lecturerId,onlineUser.getId(),type);
-		return ResponseObject.newSuccessResponseObject(result);
+		try {
+			String lockId = lecturerId+onlineUser.getId();
+			
+			ifocusService.updateFocus(lockId,lecturerId,onlineUser.getId(),type);
+			return ResponseObject.newSuccessResponseObject("操作成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+		
 	}
 }

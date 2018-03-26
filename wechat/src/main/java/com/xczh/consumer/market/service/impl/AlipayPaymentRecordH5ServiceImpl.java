@@ -27,6 +27,7 @@ public class AlipayPaymentRecordH5ServiceImpl implements AlipayPaymentRecordH5Se
         }
     }    
     
+    
     @Override
     public AlipayPaymentRecordH5 queryAlipayPaymentRecordH5ByOutTradeNo(String outTradeNo) {
         try {

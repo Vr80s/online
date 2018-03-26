@@ -82,6 +82,8 @@ public class CourseApplyInfo implements Serializable {
 
 	@Column(name="is_delete")
 	private Boolean isDelete;
+	@Column(name="old_apply_info_id")
+	private Integer oldApplyInfoId;
 
 	@Transient
 	private List<CourseApplyInfo> courseApplyInfoList;
@@ -104,6 +106,14 @@ public class CourseApplyInfo implements Serializable {
 	private Integer applyStatus; //审核状态  0未通过 1通过 2未审核
 	@Transient
 	private Date releaseTime;
+
+	public Integer getOldApplyInfoId() {
+		return oldApplyInfoId;
+	}
+
+	public void setOldApplyInfoId(Integer oldApplyInfoId) {
+		this.oldApplyInfoId = oldApplyInfoId;
+	}
 
 	public Integer getCourseId() {
 		return courseId;

@@ -442,7 +442,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		
 		StringBuffer all = new StringBuffer("");
 		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
-				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+		all.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+		all.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+		all.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 		all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 		all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
 		all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
@@ -462,7 +465,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append("  union all ");
 		
 		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
-				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+		all.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+		all.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+		all.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 		all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 		all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
 		all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
@@ -485,7 +491,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		for (MenuVo menuVo : listmv) {
 			i++;
 			all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
-					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			all.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			all.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			all.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 			all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 			all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
 			all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
@@ -525,7 +534,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
         commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
-		commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and oc.start_time > now(),");
+		commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
         commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
         commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
@@ -574,12 +583,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		/**
 		 * 直播中的状态 4:直播课程
 		 */
-		if(lineState!=null&&lineState!=4){
+		if(lineState!=null&&lineState!=1234){
 			commonSql.append(" and oc.live_status = '"+lineState+"'");
 		}
-		if(lineState!=null&&lineState==4){
-			commonSql.append(" and oc.live_status = 2 ");
-			commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
+		if(lineState!=null&&lineState==1234){
+			commonSql.append(" and oc.type = 1 ");
 		}
 		/**
 		 * 目前检索的是讲师名和课程id
@@ -611,9 +619,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				}else{
 					commonSql.append("  order by  oc.recommend_sort desc,oc.release_time desc ");
 				}
-			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==4){
-				commonSql.append("  order by  oc.recommend_sort desc,recent ");
 			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==3){
+				commonSql.append("  order by  oc.recommend_sort desc,recent ");
+			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==4){
 				commonSql.append("  order by  oc.recommend_sort desc,oc.start_time desc ");
 			}else{
 				commonSql.append("  order by  oc.recommend_sort desc,oc.release_time desc ");
@@ -623,7 +631,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" union ");
 
 			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
-					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 			commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
@@ -672,13 +683,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			/**
 			 * 直播中的状态 4:直播课程
 			 */
-			if(lineState!=null&&lineState!=4){
-				commonSql.append(" and oc.live_status = '"+lineState+"'");
-			}
-			if(lineState!=null&&lineState==4){
-				commonSql.append(" and oc.live_status = 2 ");
-				commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
-			}
+            if(lineState!=null&&lineState!=1234){
+                commonSql.append(" and oc.live_status = '"+lineState+"'");
+            }
+            if(lineState!=null&&lineState==1234){
+                commonSql.append(" and oc.type = 1 ");
+            }
 			/**
 			 * 目前检索的是讲师名和课程id
 			 */
@@ -702,7 +712,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" union ");
 
 			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
-					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 			commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
@@ -751,13 +764,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			/**
 			 * 直播中的状态 4:直播课程
 			 */
-			if(lineState!=null&&lineState!=4){
-				commonSql.append(" and oc.live_status = '"+lineState+"'");
-			}
-			if(lineState!=null&&lineState==4){
-				commonSql.append(" and oc.live_status = 2 ");
-				commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
-			}
+            if(lineState!=null&&lineState!=1234){
+                commonSql.append(" and oc.live_status = '"+lineState+"'");
+            }
+            if(lineState!=null&&lineState==1234){
+                commonSql.append(" and oc.type = 1 ");
+            }
 			/**
 			 * 目前检索的是讲师名和课程id
 			 */
@@ -782,7 +794,91 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" union ");
 
 			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
-					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
+			commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
+			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
+			commonSql.append(" oc.collection as collection, ");
+			commonSql.append(" if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < oc.start_time and now() > oc.start_time ) or ");
+			commonSql.append(" (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time ),4, ");
+			commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status)),oc.live_status) as lineState,");
+			commonSql.append(" oc.city as city, ");//是否免费
+			commonSql.append(" 2 as querySort, ");//排序
+			commonSql.append(" oc.release_time, ");//上架/下架时间
+			commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
+			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
+			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
+			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
+			commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
+
+			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
+			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
+					+ " oc.is_delete=0 and oc.status = 1   ");
+			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
+				if(city.equals("其他")){
+					Page<OfflineCity> OfflineCityPage = new Page<>();
+					OfflineCityPage.setCurrent(1);
+					OfflineCityPage.setSize(5);
+					List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
+					String citylist = " (";
+					for(OfflineCity c : oclist){
+						citylist+="'"+c.getCityName()+"',";
+					}
+					citylist = citylist.substring(0,citylist.length()-1);
+					citylist+=") ";
+					commonSql.append(" and oc.type =3 ");
+					commonSql.append(" and oc.city not in "+citylist+"");
+				}else if(city.equals("全国课程")){
+					commonSql.append(" and oc.type =3 ");
+				}else{
+					commonSql.append(" and oc.city= '"+city+"'");
+					commonSql.append(" and oc.type =3 ");
+				}
+			}
+
+			if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
+				commonSql.append(" and oc.is_free = '"+isFree+"'");
+			}
+
+			/**
+			 * 直播中的状态 4:直播课程
+			 */
+			if(lineState!=null&&lineState!=1234){
+				commonSql.append(" and oc.live_status = '"+lineState+"'");
+			}
+			if(lineState!=null&&lineState==1234){
+				commonSql.append(" and oc.type = 1 ");
+			}
+			/**
+			 * 目前检索的是讲师名和课程id
+			 */
+			if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
+				commonSql.append(" and ");
+				commonSql.append(" oc.city like '%"+ queryKey + "%' ");
+			}
+			if(courseType!=null) {
+				if (courseType == 1 || courseType == 2) { //视频或者音频
+					commonSql.append(" and oc.multimedia_type = '" + courseType + "'");  //多媒体类型1视频2音频
+				} else if (courseType == 3 || courseType == 4) { //直播  或者线下课程
+					commonSql.append(" and " + (courseType == 3 ? " oc.type=1 " : " oc.type =3 "));
+				}
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)&&
+					!menuType.equals("goodCourse")&&!menuType.equals("newCourse")){
+				commonSql.append(" AND oc.menu_id = '"+menuType+"' ");
+			}
+			commonSql.append(") ");
+
+			commonSql.append(" union ");
+
+			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,");
+			commonSql.append(" if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),");
+			commonSql.append("if(oc.live_status=2,if(oc.start_time <= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,");
+			commonSql.append("DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,");
 			commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 			commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
@@ -831,13 +927,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			/**
 			 * 直播中的状态 4:直播课程
 			 */
-			if(lineState!=null&&lineState!=4){
-				commonSql.append(" and oc.live_status = '"+lineState+"'");
-			}
-			if(lineState!=null&&lineState==4){
-				commonSql.append(" and oc.live_status = 2 ");
-				commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
-			}
+            if(lineState!=null&&lineState!=1234){
+                commonSql.append(" and oc.live_status = '"+lineState+"'");
+            }
+            if(lineState!=null&&lineState==1234){
+                commonSql.append(" and oc.type = 1 ");
+            }
 			/**
 			 * 目前检索的是讲师名和课程id
 			 */

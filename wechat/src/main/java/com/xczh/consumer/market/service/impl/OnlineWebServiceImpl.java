@@ -50,7 +50,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	           apply_id = applies.get(0).get("id").toString();
 	       } else {
 	           sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
-	                   /*+ " values ("+apply_id+","+u.getId()+",now(),0,"+u.getName()+")";*/
 	        		   + " values (?,?,now(),0,?)";
 	           Object []  ps = {apply_id,u.getId(),u.getName()};
 	           this.update(JdbcUtil.getCurrentConnection(), sql,ps);
@@ -60,7 +59,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	       
 	       sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 as allCount from apply_r_grade_course where grade_id=-1";
 	       Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql,new MapHandler());
-	       
 	       //报名此班级的学生人数
 		   Double no = 0d;
 			if(map!=null && map.size()>0){
@@ -72,7 +70,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	               + " values(?,?,-1,?,0,?,?,now(),0,?)";
 	       Object [] ops = {id,courseId,apply_id,u.getName(),u.getId(),sno};
 	       this.update(JdbcUtil.getCurrentConnection(), sql,ops);
-
 	   }
 	
 	   /**
@@ -119,9 +116,14 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        StringBuffer sql = new StringBuffer();
 	        sql.append("SELECT argc.course_id ");
 	        sql.append(" from apply_r_grade_course argc ");
-	        sql.append(" where argc.is_delete=0 and argc.course_id =? and argc.user_id= ? and argc.order_no is not null limit 1");
-	        Object [] params = {courseId,userId};
+	        sql.append(" where argc.is_delete=0 and "
+	        		+ " argc.course_id =IFNULL((select collection_id from collection_course where course_id  =? limit 1),?) "
+	        		+ " and argc.user_id= ? and argc.order_no is not null limit 1");
+	        Object [] params = {courseId,courseId,userId};
 	        List<Map<String,Object>>  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	        
+	        System.out.println("list.size()："+list.size());
+	        
 	        if(list!=null && list.size()>0){
 	        	return true;
 	        }

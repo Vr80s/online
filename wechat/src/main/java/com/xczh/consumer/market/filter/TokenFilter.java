@@ -101,7 +101,7 @@ public class TokenFilter implements Filter {
 	private static String new_controller_pay_the_callback_one =
 			"/xczh/criticize/getCriticizeList,/bxg/ccvideo/commonCourseStatus"
 			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
-			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/gift/list";
+			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/gift/list,/xczh/message";
 	
 	
 	/*
@@ -109,7 +109,7 @@ public class TokenFilter implements Filter {
 	 *  推荐、分类、线下班、直播、听课、
 	 */
 	private static String new_controller_specific_business_one 
-	  = "/xczh/recommend,/xczh/classify,/xczh/bunch,/xczh/live,/xczh/bunch";
+	  = "/xczh/recommend,/xczh/classify,/xczh/bunch,/xczh/live,/xczh/bunch,/xczh/message";//message
 	/*
 	 *  主播页面 、课程详情、
 	 */
@@ -167,7 +167,7 @@ public class TokenFilter implements Filter {
 		 */
 		if((useLoopEqual(appExcludedPageArray,currentURL) || 
 				useLoopContains(newInterfaceFilter, currentURL))
-				&& new_to_intercept.indexOf("currentURL")==-1){
+				&& new_to_intercept.indexOf(currentURL)==-1){
 			     isExcludedPage = true;     
 		}
 		System.out.println("isExcludedPage，"+isExcludedPage);
@@ -183,7 +183,6 @@ public class TokenFilter implements Filter {
 		if(isExcludedPage){ // 直接放行
 			chain.doFilter(request, response);
 		}else{
-			
 		    /*
 			 * 如果是app的话也需要拦截，因为拦截需要验证下时候是否在其他客户端登录
 			 */
@@ -191,10 +190,6 @@ public class TokenFilter implements Filter {
 			String strToken = (String) request.getAttribute("token");
 			String contentType = request.getContentType();//获取请求的content-type
 			if(StringUtils.isNotBlank(contentType) && contentType.contains("multipart/form-data")){//文件上传请求 *特殊请求
-                  /*
-	　　　　　　　　　　　CommonsMultipartResolver 是spring框架中自带的类，使用multipartResolver.resolveMultipart(final HttpServletRequest request)方法可以将request转化为MultipartHttpServletRequest
-	　　　　　　　　　　　使用MultipartHttpServletRequest对象可以使用getParameter(key)获取对应属性的值
-	　　　　　　　　　　 */
 	              MultipartHttpServletRequest multiReq = multipartResolver.resolveMultipart(request);
 	              appUniqueId= multiReq.getParameter("appUniqueId");//获取参数中的token
 	              strToken= multiReq.getParameter("token");//获取参数中的token
@@ -269,6 +264,9 @@ public class TokenFilter implements Filter {
     				response.sendRedirect(redirectUrl);
     			}
 		    }else{ 
+		    	
+		    	
+		    	
 	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
 		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
 		    	if(code == 1000){

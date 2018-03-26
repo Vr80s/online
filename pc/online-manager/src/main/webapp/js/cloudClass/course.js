@@ -38,15 +38,15 @@ $(function(){
 			}
 			return "否";
 		}},
-    { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
-    { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
+    { "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
+    { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":true,"mRender":function (data, display, row) {
         return data;
     }},
     // { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
     { "title": "价格", "class":"center","width":"8%","sortable":false,"mRender":function(data,display,row){
-    	data = row.currentPrice;
+    	data = parseInt(row.currentPrice);
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "发布时间", "class":"center","width":"10%","sortable":false,"data": 'releaseTime'},

@@ -51,7 +51,7 @@
 }
 .share_main_bg ul li{
 	float: left;
-	margin-left: 0.42rem;
+	margin-left: 1.55rem;
 }
 .share_main_bg ul li img{
 	width: 1.2rem;
@@ -80,7 +80,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 20;
+    z-index: 999999999999999;
 }
 .weixin_img {
     /*background: red;*/

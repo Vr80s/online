@@ -391,8 +391,13 @@ a {
   border-right: 1px solid #999;
   color: #999;
 }
-#course-list .bigpic .bigpic-title .bigpic-body .bigpic-body-list span {
-  margin: 0 12px;
+#course-list .bigpic .bigpic-title .bigpic-body .bigpic-body-list .address {
+    display: inline-block;
+    width: 681px;
+    margin: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #course-list .bigpic .bigpic-title .bigpic-body .bigpic-body-list span:first-child {
   margin-left: 0;

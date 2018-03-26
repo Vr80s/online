@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,17 +30,31 @@ import com.xczh.consumer.market.utils.ConfigUtil;
  * Create Time: 2018年3月19日<br>
  */
 @Controller
-@RequestMapping(value = "/xczh/third")
+@RequestMapping("/xczh/message")
 public class WechatMessageController {
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
 			.getLogger(WechatMessageController.class);
 
+	
+	@Value("${wxToken}")
+	private String wxToken;
+	
 	@Autowired
 	private CoreMessageService coreMessageService;
-
+	
+	/**
+	 * 
+	 * Description：微信开发者配置 get方法验证签名
+	 * @param req
+	 * @param res
+	 * @throws IOException
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public void get(HttpServletRequest req, HttpServletResponse res) {
+	public void get(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		// 微信加密签名
 	    String signature = req.getParameter("signature");	    
 	    // 随机字符串
@@ -49,17 +64,11 @@ public class WechatMessageController {
 	    // 随机数
 	    String nonce = req.getParameter("nonce");
 	    
-		ConfigUtil cfg = new ConfigUtil(req.getSession());
-		String wxToken = cfg.getConfig("wxToken");	
-		LOGGER.info("wxToken=" + wxToken);
 	    
 	    String[] str = { wxToken, timestamp, nonce };
 	    Arrays.sort(str); // 字典序排序
 	    String bigStr = str[0] + str[1] + str[2];
-	       
         //SHA1加密
-        //String digest = new SHA1().getDigestOfString(bigStr.getBytes()).toLowerCase();
-	    
 	    String digest = "";
 	    try {
 	    	MessageDigest crypt = MessageDigest.getInstance("SHA-1");
@@ -72,33 +81,25 @@ public class WechatMessageController {
 	    } catch (UnsupportedEncodingException e) {
 	    	e.printStackTrace();
 	    }
-	    	    
-	    //if(true) {
-	    //	LOGGER.info("signature=" + signature);
-	    //	LOGGER.info("echostr=" + echostr);
-	    //	LOGGER.info("timestamp=" + timestamp);
-	    //	LOGGER.info("nonce=" + nonce);
-	    //	LOGGER.info("digest=" + digest);
-	    //}
-	   
-	/*    try { 
 	    // 确认请求来至微信
 	    if (digest.equals(signature)) {
-	    	
-				res.getWriter().print(echostr);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	    	LOGGER.info("get方法-----》认证成功："+signature);
+	    	res.getWriter().print(echostr);
 	    } else {
+	    	LOGGER.info("get方法-----》认证失败："+signature);
+	    	res.getWriter().print("error");
 	    }
-	    	
-	    } catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	*/
 	}
 
+	/**
+	 * 
+	 * Description：微信的自定义消息  post请求推送消息
+	 * @param request
+	 * @param response
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public void post(HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -106,11 +107,12 @@ public class WechatMessageController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		
+		LOGGER.info("post方法-----》接受用户传递过来的消息，或者微信端的消息，我们进行响应。");
+		
 		response.setCharacterEncoding("UTF-8");
-
 		// 调用核心业务类接收消息、处理消息
 		String respMessage = coreMessageService.processRequest(request);
-
 		// 响应消息
 		PrintWriter out = null;
 		try {
@@ -124,7 +126,6 @@ public class WechatMessageController {
 		}
 	}
 
-	
     private static String byteToHex(final byte[] hash) {
         Formatter formatter = new Formatter();
         for (byte b : hash)
@@ -143,7 +144,6 @@ public class WechatMessageController {
     private static String create_timestamp() {
         return Long.toString(System.currentTimeMillis() / 1000);
     }
-	
     /**
 	 * 将字节数组转换为十六进制字符串
 	 *
@@ -158,6 +158,7 @@ public class WechatMessageController {
 		return strDigest;
 	}
 
+	
 	/**
 	 * 将字节转换为十六进制字符串
 	 *

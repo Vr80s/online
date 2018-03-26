@@ -1,9 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
+import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.service.XmbBuyCouserService;
@@ -39,7 +37,6 @@ public class XmbBuyCourseServiceImpl implements XmbBuyCouserService {
 	@Value("${rate}")
 	private  Integer rate;
 	
-	@SuppressWarnings("unused")
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Lock(lockName = "xmbBuyCourse",waitTime = 5,effectiveTime = 8)
@@ -63,9 +60,52 @@ public class XmbBuyCourseServiceImpl implements XmbBuyCouserService {
 		/*
 		 * 更改订单状态，增加课程学习人数
 		 */
-//		String transactionId = UUID.randomUUID().toString().replaceAll("-", "").substring(0,22);
 		orderPayService.addPaySuccess(orderNo,Payment.COINPAY,userCoinConsumption.getId().toString());
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Lock(lockName = "xmbBuyCourse",waitTime = 5,effectiveTime = 8)
+	public void focusHostLock(String lecturerId, String userid, Integer type) {
+		
+//		try {
+//			Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid,lecturerId);
+//			if(type !=null && type == 1){//增加关注
+//				if(f!=null){
+//					//return "你已经关注过了";
+//					throw new RuntimeException("你已经关注过了!");
+//				}
+//				f= new Focus();
+//				f.setId(UUID.randomUUID().toString().replace("-", ""));
+//				f.setUserId(userid);
+//				f.setLecturerId(lecturerId);
+//				f.setCreateTime(new Date());
+//				focusMapper.insert(f);
+//			}else if(type !=null && type == 2){
+//				if(f==null){
+//					//return "你还未关注此主播";
+//					throw new RuntimeException("你还未关注此主播!");
+//				}
+//				focusMapper.deleteById(f.getId());
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new RuntimeException("操作失败!");
+//		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 }

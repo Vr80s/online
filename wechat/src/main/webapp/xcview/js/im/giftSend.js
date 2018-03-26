@@ -122,24 +122,6 @@ function createGiftList(gift) {
             createGiftShow();
             console.info("danji");
         }
-        var str = "<div class='coze_cen_ri'> "+
-				"<div class='coze_cen_bg_ri'>"+
-					"<span class='span_name'>"+data.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.giftInfo.name+"</span>"+
-				" </div> "+
-			    "<div class='both'></div></div>";
-        
-        //将礼物发送到
-      var msg = null;
-      msg = VHALL_SDK.sendChat({
-      	      text: "赠送给主播1个"+data.giftInfo.name+""
-      });
-      $("#chatmsg").append(str);
-     
-      // createGiftShow();
-      
-      setTimeout(function(){
- 	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
-      },50);
     }
 }
 
@@ -152,6 +134,8 @@ var num = [];
 var min = [];
 var addn = [];
 // 生成礼物
+
+//gift.messageType == 0;
 function giftShow(gift, f,continuous) {
     if(continuous){
         $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
@@ -161,10 +145,10 @@ function giftShow(gift, f,continuous) {
 
     if (gift.messageType == 1) { // 礼物
         var bottom = countChange(f)
-        gif[f] = $("<li class='animation' id='gift"+f+"' style='position: absolute;top: "
+        gif[f] = $("<li class='animation' id='gift"+f+"' style='position: fixed;top: "
             + bottom
             + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
-            + gift.senderInfo.userName
+            + gift.senderInfo.userName    //userName  用户昵称
             + "</p><p class='animation_name_p2'>送出"
             + gift.giftInfo.name
             + "</p></div><div class='animation_span'>×<span class=addnum"
@@ -203,6 +187,7 @@ function giftShow(gift, f,continuous) {
     .css("left", "-9.55rem")//初始未知
     .animate({// 设置运动
     	       "left": "0"
+//  	     },500,"linear",
     	     },500,"linear",
     function(){
     	 if (f == 1) {
@@ -312,15 +297,29 @@ function createGiftShow() {
 function countChange(count) {
     if (count == 3) {
         count = 2;
-        return 16.4;
+        return 16.1;
     } else if (count == 2) {
         count = 3;
-        return 13.9;
+        return 13.8;
     } else {
         count = 1;
-        return 11.4;
+        return 11.5;
     }
 }
+
+/*function countChange(count) {
+    if (count == 3) {
+        count = 2;
+        return 5.8;
+    } else if (count == 2) {
+        count = 3;
+        return 3.5;
+    } else {
+        count = 1;
+        return 1.2;
+    }
+}*/  /*这是 absolute定位，现在用的固定定位，可能分辨率不同，有影响，ab定位先留着*/
+
 var gif = [];
 var num = [];
 var min = [];
@@ -381,7 +380,8 @@ $(document).ready(function() {
 // 发送消息
     $(".balance_send").click(function() {
         if ($(".gift_ul_li_li .gift_p .liwu").attr("giftId") == null) {
-            alert("请先选择一个礼物!");
+//          alert("请先选择一个礼物!");
+			webToast("请先选择一个礼物!","middle",1500);
             return;
         }
         /*if (isNaN($("#giftCount").val())) {
@@ -395,7 +395,7 @@ $(document).ready(function() {
         var xmbShowSpan = $("#xmbShowSpan").html(); //1
         var jiage = $(".gift_ul_li_li .gift_p .jiage").text();  //1
 //      if(jiage<xmbShowSpan || jiage == 0){
-        if( xmbShowSpan >= jiage  || jiage <= 0){
+        if( parseInt(xmbShowSpan) >= parseInt(jiage)  || parseInt(jiage) <= 0){
             if (connected) {
                 var msgJson = {
                     channel : 1,
@@ -417,6 +417,26 @@ $(document).ready(function() {
                              */
                             sendMsg(data.resultObject);
 
+                            var str = "<div class='coze_cen_ri'> "+
+            				"<div class='coze_cen_bg_ri'>"+
+            					"<span class='span_name'>"+data.resultObject.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.resultObject.giftInfo.name+"</span>"+
+            				" </div> "+
+            			    "<div class='both'></div></div>";
+                            
+                            //将礼物发送到
+                            var msg = null;
+                            msg = VHALL_SDK.sendChat({
+                            	      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
+                            });
+                            $("#chatmsg").append(str);
+                           
+                            // createGiftShow();
+                            
+                            setTimeout(function(){
+                       	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+                            },50);
+                            
+                            
                             //隐藏发送礼物的，连击效果，暂时不隐藏
 
                             //$(".send_gifts").hide();
@@ -428,7 +448,10 @@ $(document).ready(function() {
                                var courseId = getQueryString("courseId");
                                location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
                             }else{ //否则弹出初五信息
-                               alert(data.errorMessage);
+                            	
+//                             alert(data.errorMessage);
+                               
+                               webToast(data.errorMessage,"middle",1500);
                             }
                             
                         }
@@ -490,7 +513,7 @@ $(function () {
                 }else{
                     f3 = true;
                 }
-                $("#gift"+i).remove();
+                $("#gift"+i).remove();   /*注释以后,礼物就不会隐藏*/
             }
         }
     },500)

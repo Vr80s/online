@@ -59,33 +59,49 @@ public class LookHistoryController {
 	@ResponseBody
 	public ResponseObject add(HttpServletRequest req,
 			HttpServletResponse res,
-			@RequestParam("courseId") Integer courseId) {
+			@RequestParam("courseId") Integer courseId,
+			@RequestParam("recordType")Integer recordType) {
 		try {
+			
 			
 			
 			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
 			   return ResponseObject.newSuccessResponseObject("登录失效");
 			}
-			CourseLecturVo course =  courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+			CourseLecturVo course =  courseServiceImpl.selectCurrentCourseStatus(courseId);
 			if(course == null){
 		          throw new RuntimeException("课程信息有误");
-		     }
-			WatchHistory target = new WatchHistory();
-			target.setCourseId(courseId);
-			target.setUserId(ou.getId());
-			target.setLecturerId(course.getUserLecturerId());
-			
-			
-			if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
-			   onlineWebService.saveEntryVideo(courseId, ou);
+		    }
+			String lockId = ou.getId()+courseId;
+			if(recordType!=null){
+				if(recordType == 1){ //增加学习记录
+					if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
+						  onlineWebService.saveEntryVideo(courseId, ou);
+				    }
+				}
+				if(recordType == 2){
+					WatchHistory target = new WatchHistory();
+					target.setCourseId(courseId);
+					target.setUserId(ou.getId());
+					target.setLecturerId(course.getUserLecturerId());
+					
+					watchHistoryServiceImpl.addOrUpdate(lockId,target);
+				}
+			}else{
+				if(course.getType() == 4){
+					WatchHistory target = new WatchHistory();
+					target.setCourseId(courseId);
+					target.setUserId(ou.getId());
+					target.setLecturerId(course.getUserLecturerId());
+					watchHistoryServiceImpl.addOrUpdate(lockId,target);
+				}
+				if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
+				   onlineWebService.saveEntryVideo(courseId, ou);
+				}
 			}
-			
-			watchHistoryServiceImpl.addOrUpdate(target);
-			
 			return ResponseObject.newSuccessResponseObject("保存成功");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("保存失败");
 		}

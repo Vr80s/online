@@ -41,9 +41,10 @@ function weixin(url,params,returnUrl) {
 	}
 }
 function wechatH5(url,params,returnUrl){
+	var protocol = document.location.protocol;
 	var domain = window.location.host;
 	if(returnUrl.indexOf(domain) ==-1){
-		returnUrl =domain +returnUrl;
+		returnUrl =protocol+"//"+domain +returnUrl;
 	}
     $.ajax({
         url : url+"?"+params,
@@ -62,7 +63,13 @@ function wechatH5(url,params,returnUrl){
         				var unionId =  msg.resultObject.unionId;
         				location.href = "/xcview/html/evpi.html?openId="+openId+"&unionId="+unionId;
         			}else{
-        				location.replace(window.location.href = params.mweb_url+"&redirect_url="+returnUrl);
+        				//location.replace(params.mweb_url+"&redirect_url="+returnUrl);
+        				/*alert(returnUrl);
+        				alert(encodeURI(returnUrl));
+        				alert(encodeURIComponent(returnUrl));
+        				alert(params.mweb_url);*/
+        				//location.href =params.mweb_url+"&redirect_url="+encodeURIComponent(returnUrl);
+        				location.replace(params.mweb_url+"&redirect_url="+encodeURIComponent(returnUrl));
         			}
             	}else{
             		alert("抱歉充值失败!");

@@ -54,7 +54,7 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  oc.start_time as startTime,\n" +
 				 "  oc.course_type AS serviceType,\n" +
 				 "  oc.user_lecturer_id AS userLecturerId,\n" +
-				 "  ou.`name` lecturerName,\n" +
+				 "  ca.`name` lecturerName,\n" +
 				 "  oc.`lecturer`,\n" +
 				 "  oc.`collection`,\n" +
 				 "  oc.sort_update_time as sortUpdateTime,"+
@@ -71,7 +71,9 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  LEFT JOIN oe_grade og \n" +
 				 "    ON og.course_id = oc.id \n" +
 				 "  LEFT JOIN oe_user ou\n" +
-				 "    ON ou.id=oc.user_lecturer_id where oc.is_delete = 0 ");
+				 "    ON ou.id=oc.user_lecturer_id " +
+				 "  LEFT JOIN course_anchor ca  " +
+				 "  ON oc.user_lecturer_id = ca.user_id where oc.is_delete = 0 ");
 		 if (courseVo.getCourseName() != null) {
 			 paramMap.put("courseName", "%" + courseVo.getCourseName() + "%");
 			 sql.append("and oc.grade_name like :courseName ");
@@ -123,7 +125,12 @@ public class CourseDao extends HibernateDao<Course>{
 			 sql.append(" and oc.multimedia_type = :multimediaType ");
 		 }
 
-		 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc");
+		 if(courseVo.getOnlineCourse()==0){
+			 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc");
+		 }else{
+			 sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.start_time desc");
+		 }
+
 
 		 Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 for (CourseVo entityVo : courseVos.getItems()) {

@@ -24,10 +24,21 @@ function stripHTML(str){
 		memory_data=data.resultObject.id;
 		$("#video_v").click(function(){
 			requestService("/xczh/history/add",
-			{courseId:memory_data}
+			{courseId:memory_data,recordType:2}
 			,function(data) {
 
 			})	
+			if(type == 2){
+				$(".ccH5playerBox video").css("display","none");   //CC视频隐藏
+				$(".ccH5FullsBtn").css("display","none");
+				$(".play_video img").css("z-index","1"); 
+				
+			}
+
+			if(type == 1){
+				$(".play_video img").css("display","none");
+			}
+			
 		})
 			//分享的信息展示
 		gradeName = data.resultObject.gradeName;
@@ -54,6 +65,11 @@ function stripHTML(str){
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
 
+	
+		
+
+
+
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){
 			$(".no_data").show();
@@ -71,26 +87,28 @@ function stripHTML(str){
 			$(".wrap1 p").html(data.resultObject.lecturerDescription)
 		}
 	//判断简介的字长度
-		var h=$(".wrap1").height();
-		if(h>200){
-			$(".zhezhao1").show()
-			$(".btn1").show()
-			$(".wrap1").css({"height":"2rem","overflow":"hidden"})
-		}else{
-			$(".zhezhao1").hide()
-			$(".btn1").hide()
-		}
 		
 		var h2=$(".wrap").height();
 		if(h2>200){
-			$(".zhezhao").show()
+			$(".zhezhao").hide()
 			$(".btn").show()
 			$(".line_xian").hide()
-			$(".wrap").css({"height":"2rem","overflow":"hidden"})
+//			$(".wrap").css({"height":"2rem","overflow":"hidden"})
 		}else{
 			$(".zhezhao").hide()
 			$(".btn").hide()
 		}
+	
+		var h=$(".wrap1").height();
+		if(h>200){
+			$(".zhezhao1").hide()
+			$(".btn1").show()
+//			$(".wrap1").css({"height":"2rem","overflow":"hidden"})
+		}else{
+			$(".zhezhao1").hide()
+			$(".btn1").hide()
+		}
+	
 	});
 
     //传ID courseId为接口的课程ID，评论列表

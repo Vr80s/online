@@ -76,8 +76,11 @@ $("#determine").click(function(){
 //	location.href = "/xcview/html/recharges.html";
 //$(".success").hide();
 
-	window.history.go(-1);
-
+	if(is_weixn()){
+		window.history.go(-1);
+	}else{
+		window.history.go(-2);
+	}
 })
 
 

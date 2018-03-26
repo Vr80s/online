@@ -1004,14 +1004,14 @@ public class BrowserUserController {
 		}else if(null !=ou && cacheService.get(ou.getId())!=null && cacheService.get(ou.getId()).equals(token)){
 			return ResponseObject.newSuccessResponseObject("有效",1000);
 		}else if(ou.getLoginName()!=null){
-			String model = cacheService.get(ou.getLoginName());
+			/*String model = cacheService.get(ou.getLoginName());
 		    if(model!=null){
 		       return ResponseObject.newErrorResponseObject(model,1003);
 		    }
-			return ResponseObject.newErrorResponseObject("其他设备",1004);
+			return ResponseObject.newErrorResponseObject("其他设备",1004);*/
 			
 			//暂时有效，为了方便测试使用
-			//return ResponseObject.newSuccessResponseObject("有效",1000);
+			return ResponseObject.newSuccessResponseObject("有效",1000);
 		}else{
 			return ResponseObject.newSuccessResponseObject("有效",1000);
 		}

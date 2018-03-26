@@ -40,8 +40,8 @@ $(function(){
 			}
 		} },
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
-    { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName' },
-    { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer' },
+	{ "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
+	{ "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     // { "title": "课程时长", "class":"center","width":"7%", "sortable":false,"data": 'courseLength' },
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
@@ -55,7 +55,7 @@ $(function(){
     }},
 
     { "title": "价格", "class":"center","width":"5%","sortable":false,"mRender":function(data,display,row){
-    	data = row.currentPrice;
+    	data = parseInt(row.currentPrice);
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {

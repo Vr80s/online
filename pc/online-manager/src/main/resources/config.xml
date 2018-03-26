@@ -1,126 +1,128 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xmlns:aop="http://www.springframework.org/schema/aop"
-	   xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
-	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-	   xsi:schemaLocation="
-		http://www.springframework.org/schema/beans     
-		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/aop
-		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-		http://www.springframework.org/schema/tx        
-		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-		http://www.directwebremoting.org/schema/spring-dwr
-		http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd
-		http://code.alibabatech.com/schema/dubbo  
-    	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<context:property-placeholder location="classpath:config.properties" />
-	<context:component-scan
-			base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service" />
+    <context:property-placeholder location="classpath:config.properties"/>
+    <context:component-scan
+            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service, com.xczhihui.bxg.common.support.config"/>
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		  destroy-method="close">
-		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="breakAfterAcquireFailure" value="false" />
-		<!--连接池中保留的最小连接数。 -->
-		<property name="minPoolSize" value="10" />
-		<!--连接池中保留的最大连接数。Default: 15 -->
-		<property name="maxPoolSize" value="100" />
-		<!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
-		<property name="maxIdleTime" value="1800" />
-		<property name="initialPoolSize" value="10" />
-		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
-		<property name="acquireIncrement" value="3" />
-		<property name="maxStatements" value="1000" />
-		<!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
-		<property name="idleConnectionTestPeriod" value="60" />
-		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
-		<property name="acquireRetryAttempts" value="30" />
-		<!-- 连接失败后是否进行重连，fasele表示进行重连 -->
-		<property name="testConnectionOnCheckout" value="false" />
-	</bean>
-	<bean id="sessionFactory"
-		  class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan">
-			<list>
-				<value>com.xczhihui.bxg.online.**.domain</value>
-				<value>com.xczhihui.bxg.online.api.po</value>
-				<value>com.xczhihui.bxg.online.manager.mobile.vo</value>
-			</list>
-		</property>
-		<property name="annotatedClasses">
-			<list>
-				<value>com.xczhihui.bxg.common.support.domain.SystemVariate</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.connection.autocommit">true</prop>
-				<prop key="hibernate.cache.use_query_cache">false</prop>
-				<prop key="hibernate.cache.use_second_level_cache">false</prop>
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>
-			</props>
-		</property>
-	</bean>
-	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="add*" propagation="REQUIRED" />
-			<tx:method name="create*" propagation="REQUIRED" />
-			<tx:method name="insert*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="remove*" propagation="REQUIRED" />
-			<tx:method name="regist*" propagation="REQUIRED" />
-			<tx:method name="login*" propagation="REQUIRED" />
-			<tx:method name="process*" propagation="REQUIRED" />
-			<tx:method name="batchProcess" propagation="REQUIRED" />
-			<tx:method name="uploadSuccessCallback" propagation="REQUIRED" />
-			<tx:method name="after*" propagation="REQUIRED" />
-			<tx:method name="*" read-only="true" />
-		</tx:attributes>
-	</tx:advice>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="breakAfterAcquireFailure" value="false"/>
+        <!--连接池中保留的最小连接数。 -->
+        <property name="minPoolSize" value="10"/>
+        <!--连接池中保留的最大连接数。Default: 15 -->
+        <property name="maxPoolSize" value="100"/>
+        <!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+        <property name="maxIdleTime" value="1800"/>
+        <property name="initialPoolSize" value="10"/>
+        <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+        <property name="acquireIncrement" value="3"/>
+        <property name="maxStatements" value="1000"/>
+        <!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
+        <property name="idleConnectionTestPeriod" value="60"/>
+        <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+        <property name="acquireRetryAttempts" value="30"/>
+        <!-- 连接失败后是否进行重连，fasele表示进行重连 -->
+        <property name="testConnectionOnCheckout" value="false"/>
+    </bean>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>com.xczhihui.bxg.online.**.domain</value>
+                <value>com.xczhihui.bxg.online.api.po</value>
+                <value>com.xczhihui.bxg.online.manager.mobile.vo</value>
+            </list>
+        </property>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.xczhihui.bxg.common.support.domain.SystemVariate</value>
+                <value>com.xczhihui.bxg.common.support.domain.Attachment</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="create*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="remove*" propagation="REQUIRED"/>
+            <tx:method name="regist*" propagation="REQUIRED"/>
+            <tx:method name="login*" propagation="REQUIRED"/>
+            <tx:method name="process*" propagation="REQUIRED"/>
+            <tx:method name="upload*"/>
+            <tx:method name="batchProcess" propagation="REQUIRED"/>
+            <tx:method name="uploadSuccessCallback" propagation="REQUIRED"/>
+            <tx:method name="after*" propagation="REQUIRED"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
 
-	<aop:config proxy-target-class="true">
-		<aop:advisor advice-ref="txAdvice"
-					 pointcut="execution(* com.xczhihui.bxg..service..*.*(..))" />
-	</aop:config>
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="txAdvice"
+                     pointcut="execution(* com.xczhihui.bxg..service..*.*(..))"/>
+    </aop:config>
 
-	<bean id="simpleHibernateDao" class="com.xczhihui.bxg.common.support.dao.SimpleHibernateDao" />
-	<bean id="systemVariateService" class="com.xczhihui.bxg.common.support.service.impl.SystemVariateServiceImpl" />
-	<!-- 附件中心 -->
-	<bean id="attachmentCenterService" class="com.xczhihui.bxg.common.support.service.impl.AttachmentCenterServiceImpl" />
-	<!-- dubbo -->
-	<dubbo:application name="${dubbo.app.name}"/>
-	<dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
-	<!--<dubbo:reference id="exceptionService" interface="com.xczhihui.bxg.common.support.service.ExceptionCenterService" timeout="${dubbo.consumer.timeout}" />-->
-	<dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="${dubbo.consumer.timeout}" />
- 	<dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="${dubbo.consumer.timeout}" />
+    <bean id="simpleHibernateDao" class="com.xczhihui.bxg.common.support.dao.SimpleHibernateDao"/>
+    <bean id="systemVariateService" class="com.xczhihui.bxg.common.support.service.impl.SystemVariateServiceImpl"/>
+    <!-- 附件中心 -->
+    <bean id="attachmentCenterService"
+          class="com.xczhihui.bxg.common.support.service.impl.AttachmentCenterServiceImpl"/>
+    <!-- dubbo -->
+    <dubbo:application name="${dubbo.app.name}"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
+    <!--<dubbo:reference id="exceptionService" interface="com.xczhihui.bxg.common.support.service.ExceptionCenterService" timeout="${dubbo.consumer.timeout}" />-->
+    <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService"
+                     timeout="${dubbo.consumer.timeout}"/>
 
-	<!-- 注入接口 开始直播通知服务 -->
-	<dubbo:reference  id="liveCallbackServiceImpl" interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" timeout="${dubbo.consumer.timeout}" />
-	
-	<import resource="shiro.xml" />
+    <!-- 注入接口 开始直播通知服务 -->
+    <dubbo:reference id="liveCallbackServiceImpl" interface="com.xczhihui.bxg.online.api.service.LiveCallbackService"
+                     timeout="${dubbo.consumer.timeout}"/>
 
-	<!--RedissonUtil配置-->
-	<bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
-		<property name="redisHost" value="${redis.host}"></property>
-		<property name="redisPort" value="${redis.port}"></property>
-	</bean>
+    <import resource="shiro.xml"/>
+
+    <!--RedissonUtil配置-->
+    <bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+        <property name="redisHost" value="${redis.host}"></property>
+        <property name="redisPort" value="${redis.port}"></property>
+    </bean>
 
 </beans>

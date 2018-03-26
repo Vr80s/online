@@ -108,6 +108,8 @@
 		<td>
 			{{if course.courseForm != 1}}
 				{{course.courseLength}}'
+			{{else}}
+				无
 			{{/if}}
 		</td>
 		<td>
@@ -156,11 +158,13 @@
 			<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}})">下架</a>
 			{{else}}
 			<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},true)">编辑</a>
 			{{/if}}
 			{{else if course.applyStatus==2}}
-			<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
+			<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 			{{else if course.applyStatus==0}}
-			<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
 			<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 			{{/if}}
 		</td>
@@ -262,9 +266,11 @@
 			<a href="javascript:;" onclick="confirmCollection(0,{{collection.id}})">下架</a>
 			{{else}}
 			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}})">上架</a>
+			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 			{{/if}}
 			{{else if collection.applyStatus==2}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
+			<a href="javascript:;" onclick="deleteCourse({{collection.id}},1)">删除</a>
 			{{else if collection.applyStatus==0}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 			<a href="javascript:;" onclick="deleteCourse({{collection.id}},1)">删除</a>
@@ -2743,12 +2749,12 @@
 
 		 $("#test04").jeDate({
 		        format: "YYYY-MM-DD hh:mm",
-		        minDate: ""+year+"-"+month+"-"+day+" 10:00"
+		        minDate: ""+year+"-"+month+"-"+day+" 00:00"
 		   });
 		   
 		   $("#test05").jeDate({
 		        format: "YYYY-MM-DD hh:mm",
-		        minDate: ""+year+"-"+month+"-"+day+" 10:00"
+		        minDate: ""+year+"-"+month+"-"+day+" 00:00"
 		   });
 		
 		  $("#test06").jeDate({
