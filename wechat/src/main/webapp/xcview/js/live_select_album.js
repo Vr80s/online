@@ -127,8 +127,10 @@ var course='';
 		window.location.href="live_album.html?course_id="+courseId+"&direct_id="+course.directId+"&collection_id="+courseId+"&name_title="+name_title;
 	}
 //选集视频跳转
-function jump_album_my(){
-		window.location.href="live_album.html?course_id="+select_id+"&direct_id="+select_directId+"&collection_id="+courseId+"&name_title="+name_title;	
+function jump_album_my(e,selectId,selectDirectId){
+	//alert(e.target)
+	var index = e.parentNode.value
+	window.location.href="live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index;	
 }
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{

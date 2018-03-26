@@ -6,12 +6,15 @@ var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
 var wwww1="";
+var collectionId = "";
+var name_title = "";
+
 	function getQueryString(key){
         var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
         var result = window.location.search.substr(1).match(reg);
         return result?decodeURIComponent(result[2]):null;
       }
-	var name_title = getQueryString('name_title');
+	 name_title = getQueryString('name_title');
 $(function(){
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -38,7 +41,7 @@ function stripHTML(str){
 
 
     course_id = courseId;
-    var collectionId = getQueryString('collection_id');
+    collectionId = getQueryString('collection_id');
 //	获取默认第一个视频ID
 	var directId = getQueryString('direct_id');
 	//传ID courseId为接口的课程ID
@@ -126,14 +129,20 @@ function stripHTML(str){
 			
 			data.resultObject[i].no=getNo(i);
 		}
-    	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}))
-	    //		点击选集获取视频ID		
-		$(".all_list_ul li").click(function(){
-			var directId=$(this).attr("data-myvideo");
-			var courseId=$(this).attr("data-courseId");
-			//初始化视频资源
-			window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+directId+"&collection_id="+collectionId+"&name_title="+name_title;
-		})
+    	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}));
+    	
+    	
+		
+		var aBtn=$('.all_list_ul li');
+		var aBtnId = getQueryString('index');
+		for(var i=0;i<aBtn.length;i++){
+			if(i==aBtnId){
+				$(aBtn[i]).addClass('all_list_ul_li');
+			}else{
+				$(aBtn[i]).removeClass('all_list_ul_li');
+			}
+		}
+		
 	}
 })
 	function getNo(i){
@@ -187,7 +196,14 @@ function stripHTML(str){
 	
 })
 
-
+$('.all_list_ul').on('click','li',function(){
+	var myvideo = $(this).attr('data-myvideo');
+	var courseId = $(this).attr('data-courseId');
+	var index = $(this).index();	
+	//初始化视频资源
+	window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
+	
+})
 
 $("#video_box").click(function(){
 	requestService("/xczh/history/add",
