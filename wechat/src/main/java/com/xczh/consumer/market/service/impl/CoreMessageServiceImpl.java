@@ -110,7 +110,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                   article.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
                   article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
                  
-            /*      Article article1 = new Article();  
+            /*    Article article1 = new Article();  
                   article1.setTitle("啦啦啦啦啦啦，我是卖报的小画家！");  
                   article1.setDescription("啦啦啦啦啦啦，我是卖报的小画家！");  
                   article1.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
