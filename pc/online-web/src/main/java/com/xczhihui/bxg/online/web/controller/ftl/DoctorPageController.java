@@ -9,8 +9,10 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,17 +26,17 @@ import java.util.List;
  * @Date: 2018/3/26 0026 上午 11:59
  **/
 @Controller
-@RequestMapping(value = "/")
-public class PractitionerController {
+@RequestMapping(value = "/doctors")
+public class DoctorPageController {
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private BannerService  bannerService;
 
-    @RequestMapping(value="doctors",method=RequestMethod.GET)
+    @RequestMapping(method=RequestMethod.GET)
     public ModelAndView index() {
-        ModelAndView view = new ModelAndView("practitioner");
+        ModelAndView view = new ModelAndView("doctor/doctors");
 
         List<BannerVo> banners = bannerService.list(null, null, 6);
         view.addObject("banners", banners);
@@ -66,6 +68,38 @@ public class PractitionerController {
 
         Page<MedicalDoctorVO> doctors5 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.GZY.getCode(), null, null, null, null);
         view.addObject("doctors5", doctors5);
+
+        return view;
+    }
+
+    @RequestMapping(value="details/{id}",method=RequestMethod.GET)
+    public ModelAndView details(@PathVariable String id) {
+        ModelAndView view = new ModelAndView("doctor/details");
+
+        MedicalDoctorVO doctor = medicalDoctorBusinessService.selectDoctorById(id);
+        view.addObject("doctor", doctor);
+
+        Page page = new Page<>();
+        page.setCurrent(1);
+        page.setSize(2);
+
+        Page newsReports = medicalDoctorBusinessService.getNewsReportsByPage(page, id);
+        for (Object oeBxsArticleVO:newsReports.getRecords()) {
+            OeBxsArticleVO newsReport = (OeBxsArticleVO)oeBxsArticleVO;
+            newsReport.setContent(StringEscapeUtils.unescapeHtml(newsReport.getContent().replaceAll("\\<.*?\\>","")));
+        }
+        view.addObject("newsReports", newsReports);
+
+        Page specialColumns = medicalDoctorBusinessService.getSpecialColumns(page, id);
+        for (Object oeBxsArticleVO:specialColumns.getRecords()) {
+            OeBxsArticleVO specialColumn = (OeBxsArticleVO)oeBxsArticleVO;
+            specialColumn.setContent(StringEscapeUtils.unescapeHtml(specialColumn.getContent().replaceAll("\\<.*?\\>","")));
+        }
+        view.addObject("specialColumns", specialColumns);
+
+        List<MedicalWritingsVO> writings = medicalDoctorBusinessService.getWritingsByDoctorId(id);
+        view.addObject("writings", writings);
+
 
         return view;
     }

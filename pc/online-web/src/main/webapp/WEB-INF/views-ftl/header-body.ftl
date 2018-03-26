@@ -4,7 +4,7 @@
     </div>
     <div class="header_left">
         <div class="path" style="width:95%">
-            <a href="/index.html" class="home select">首页</a>
+            <a href="/index.html" class="home">首页</a>
             <a href="/web/html/news.html" class="forum">头条</a>
             <a href="/classroom.html" class="classroom">学堂</a>
             <a href="/web/html/bestPractitioners.html" class="doctor">名医</a>

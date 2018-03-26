@@ -39,7 +39,7 @@
     </div>
 </div>
 <header>
-    <#include "header-body.ftl">
+    <#include "../header-body.ftl">
 </header>
 
 <div id="tip" style="display: none;">
@@ -286,11 +286,14 @@
         </div>
     </div>
 </div>
-<#include "footer.ftl">
-
+<#include "../footer.ftl">
+</body>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
+    $(function(){
+        $(".doctor").addClass("select");
+    });
     //banner
     function init() {
         var $sliders = $('#slider li');
