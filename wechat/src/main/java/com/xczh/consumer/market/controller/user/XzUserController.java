@@ -452,6 +452,8 @@ public class XzUserController {
 		   @RequestParam("userName")String userName) throws Exception{
 	   OnlineUser ou =  onlineUserService.findUserByLoginName(userName);
 	   if(ou!=null){
+		   
+		   
 		   threePartiesLoginService.deleteAccount(ou.getId());
 		   wxcpClientUserWxMappingService.deleteAccount(ou.getId());
 		   userCenterAPI.deleteUser(userName);
