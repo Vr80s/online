@@ -667,7 +667,7 @@
 		<li  data-name="menu=2">
 			<div class="link"><i class="iconfont icon-qianbao left_range"></i>我的资产</div>
 			<ul class="submenu">
-				<!-- <li><a href="#">Javascript</a></li>
+				<!--<li><a href="#">Javascript</a></li>
 				<li><a href="#">jQuery</a></li>
 				<li><a href="#">Frameworks javascript</a></li> -->
 			</ul>
@@ -685,6 +685,7 @@
 				<li><a data-name="menu=4-2" href="javascript:;">主播信息</a></li>
 			</ul>
 		</li>
+	
 	</ul>
 		
 		
@@ -2634,7 +2635,7 @@
 
 
         //			默认点击学堂
-//      $(".courseP").click();
+//      $(".courseP").click();	
 //      if(!localStorage.AnchorsTbl){
 //      	 $(".school").click();
 //      }else{
@@ -2904,9 +2905,10 @@
 </script>
 </body>
 <script>	
-
+//页面进入之后左侧tab定位
 $(function(){
-	
+        $(".courseP").click();	
+		
 
 		if(location.hash == "#menu=1" || location.hash == "#menu=1-1" || location.hash == "#menu=1-2" || location.hash == "#menu=1-3" || location.hash == "#menu=1-4"){
 	    	$("#accordion li[data-name='menu=1']").click();

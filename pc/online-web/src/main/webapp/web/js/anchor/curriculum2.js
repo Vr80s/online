@@ -12,10 +12,15 @@ $(function(){
     
 //  左侧一级菜单点击的时候保存localStorate 和 对应事件
 $('#accordion > li').click(function(){
-//	console.log($(this).attr('data-name'))
-//	localStorage.AnchorsTbl = $(this).attr('data-name');
+	//设置hash
 	location.hash = $(this).attr('data-name');
+	//清空localStorage
 	localStorage.leftTblSta == ' ';
+
+	$('#accordion > li .submenu > li >a').removeClass('leftTab_active')
+	$('#accordion > li .submenu > li:first-child >a').addClass('leftTab_active')
+
+
 	
 	//点击学堂事件
 	if($(this).attr('data-name') == "menu=1"){
@@ -116,7 +121,6 @@ function leftTblSta(){
 		location.hash = 'menu=4-2';
 		$('.name_personage').click();
 	}
-//	localStorage.leftTblSta = '';	
 }
 
 
