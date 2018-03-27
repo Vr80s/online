@@ -228,6 +228,22 @@ public class DepartmentController {
      	responseObj.setSuccess(true);
      	return responseObj;
      }
+
+     /**
+      * Description：设置推荐值
+      * creed: Talk is cheap,show me the code
+      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+      * @Date: 2018/3/9 14:13
+      **/
+     @RequestMapping(value = "updateSort", method = RequestMethod.POST)
+     @ResponseBody
+     public ResponseObject updateRecommendSort(Integer id,Integer sort) {
+          ResponseObject responseObject=new ResponseObject();
+          service.updateSort(id,sort);
+          responseObject.setSuccess(true);
+          responseObject.setResultObject("修改成功!");
+          return responseObject;
+     }
      
      
 }

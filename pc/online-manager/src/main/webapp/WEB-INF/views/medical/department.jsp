@@ -139,7 +139,19 @@
     </form>
 </div>
 
-
+<!-- 修改推荐值form -->
+<div id="dialogUpdateRecommendSortDiv"></div>
+<div id="UpdateRecommendSortDialog" class="hide">
+    <form class="form-horizontal" id="UpdateRecommendSortFrom" method="post" action="" style="margin-top: 15px;">
+        <input type="hidden" name="id" id="UpdateRecommendSort_id">
+        <div class="form-group"  style="margin-top: 18px;" >
+            <label class="col-sm-3 control-label no-padding-right" for="recommendSort"><font color="red">*</font>推荐值: </label>
+            <div class="col-sm-6">
+                <input type="text" name="sort"  id="sort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
+            </div>
+        </div>
+    </form>
+</div>
 
 <!-- 查看 -->
 <!--  

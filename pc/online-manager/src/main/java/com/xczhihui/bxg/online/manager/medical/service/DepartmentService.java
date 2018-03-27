@@ -77,4 +77,12 @@ public interface DepartmentService {
 	public void updateSortUpRec(String id);
 
 	public void updateSortDownRec(String id);
+
+	/**
+	 * Description：设置推荐值
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/3/9 14:19
+	 **/
+	public void updateSort(Integer id,Integer sort);
 }
