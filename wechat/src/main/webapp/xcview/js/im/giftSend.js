@@ -98,7 +98,7 @@ function createGiftList(gift) {
     	return;
     }else if(gift.messageType == 3){ //直播结束了
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
-	    	 console.log("直播结束了，建议再次刷新页面   >>>>");
+	    	 console.log("直播结束了，去学习中心 >>>>");
 			 $("#video").html("");
 			 $(".video_end_top0").hide();
 			 $(".video_end_top").show(); 

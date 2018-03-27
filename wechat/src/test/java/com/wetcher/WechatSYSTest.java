@@ -30,15 +30,15 @@ public class WechatSYSTest {
 	
 	/**
 	 * 
-	 * Description：获取永久素材   
+	 * Description：获取永久素材   列表
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@Test
 	public void testGET_PERMANENT_MATERISL() {
-	/*	String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-		System.out.println(token);*/
-		String url = GET_PERMANENT_MATERISL.replace("APPSECRET", "8_ESe5hkkvBWRLO-6W5YJdQ-RQUuq8SYq-JY54r2j41KFbsQX3NGFspHUk55ulY3JHvJujCrLP7XVmpa1EG4cnoTtqsJAEIUsjRNhSvOEDuyTHRG1hUOkiRCR-r-FMo24VE25kxfF3zZWcmgkqNPWhAJAHJQ");
+		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+		System.out.println(token);
+		String url = GET_PERMANENT_MATERISL.replace("APPSECRET",token);
 		
 		Map<String,String> parameters = new HashMap<String,String>();
 		parameters.put("type", "news");
@@ -66,6 +66,13 @@ public class WechatSYSTest {
 		System.out.println(goods_info);
 	}
 	
+	
+	/**
+	 * 获取二维码的票据
+	 * Description：
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
 	@Test
 	public void testEWMTicket() {
 		
@@ -79,6 +86,13 @@ public class WechatSYSTest {
 		
 	}
 	
+	/**
+	 * 通过获得的二维码票据  --》得到二维码
+	 * Description：
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@Test
 	public void testEWM() {
 		//String token =SingleAccessToken.getInstance().getAccessToken().getToken();
@@ -90,5 +104,4 @@ public class WechatSYSTest {
 	}
 	
 	//{"ticket":"gQGr7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyaEhqZ1pSdTFlRWkxQTRaVGhxY3cAAgTIfLdaAwQ8AAAA","expire_seconds":60,"url":"http:\/\/weixin.qq.com\/q\/02hHjgZRu1eEi1A4ZThqcw"}
-
 }

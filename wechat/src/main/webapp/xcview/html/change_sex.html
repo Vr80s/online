@@ -16,10 +16,14 @@
 <script>
         (function(window){var setHtmlSize=function(w){var b=750/100;var c=window.innerWidth;if(w){c=w}var a=c/b;if(a<42){a=42}else if(a>60){a=60}document.querySelector("html").style.fontSize=a+"px";if(navigator.userAgent.indexOf("iPad")!=-1){document.querySelector("html").style.fontSize="60px"}};setHtmlSize();window.onresize=function(){var w=window.innerWidth;setHtmlSize(w)}}(window));
 </script>
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<script src="/xcview/js/common/js.js"></script>
+<!--<script src="/xcview/js/common/js.js"></script>-->
 <link rel="stylesheet" href="/xcview/css/css.css">
 <link rel="stylesheet" href="/xcview/css/tailor.css">
 <link rel="stylesheet" href="/xcview/css/personCommon.css">
@@ -27,19 +31,31 @@
 
 <style type="text/css">
 .pet_name_right1{
-    color: #00bc12;
+   color: #00bc12;
     display: inline-block;
     float: right;
-    font-size: 0.7rem;
+    margin-right: 0.02rem;
+    font-size: 0.3rem;
     margin-top: 0rem;
+    margin-right: 0.26rem;
 }
 .return {
     background: url(../images/backicon.png) no-repeat;
     background-size: 100% 100%;
-    margin-left: 0.54rem;
-    height: 0.9rem;
-    margin-top: 0.48rem;
+    width: 0.24rem;
+    height: 0.42rem;
+    margin-top: 0.22rem;
+    display: block;
+    margin-left: 0.26rem;
 }
+.dl{
+			position: fixed;
+			width: 100% !important;
+			top: 0;
+			text-align: center;
+			z-index: 0;
+			pointer-events:none;
+		}
 </style>
 </head>
 
@@ -50,9 +66,8 @@
     <div class="sex_pet_name" style="display: block;">
       <div class="sex_pet_name_top">
         <div class="return" onclick="location.href ='persons.html'"></div>
-        <div class="dl"
-          style="width: 75%; float: left; margin-left: 0.9rem;">更改性别</div>
-        <div class="pet_name_right1" id="sex_save" style="width:1.8rem;margin-right:0.2rem;">保存</div>
+        <div class="dl">更改性别</div>
+        <div class="pet_name_right1" id="sex_save">保存</div>
         <div class="both"></div>
       </div>
       <div class="sex_div0">

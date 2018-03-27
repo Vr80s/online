@@ -61,9 +61,10 @@ img{
     margin-left: 0.4rem;
 }
 .dl{
-	width: 83%;
+	/*width: 83%;*/
+	width: 5rem !important;
     margin: 0 auto;
-    font-size: 0.851rem;
+    font-size: 0.36rem;
     text-align: center;
     color: #333;
 }
@@ -2815,9 +2816,12 @@ footer{
 	position: fixed;
     top: 0;
     z-index: 99999999;
-    height: 1.875rem;
-    line-height: 1.875rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
     border-bottom: 1px solid #e6e6e6;
+}
+.attention_top .dl{
+	font-size: 0.36rem;
 }
 .attention_center{
 	width: 100%;
@@ -3014,7 +3018,7 @@ footer{
 }
 .person p{
 	float: left;
-	font-size: 0.7rem;
+	font-size: 0.28rem;
 	color: #666;
 }
 .person_img{
@@ -3036,39 +3040,41 @@ footer{
     padding-bottom: 0.1rem;
 }
 .person_cen0{
-	width: 97%;
+	/*width: 97%;*/
+	width: 7.25rem;
     float: right;
 }
 .person_cen_top{
 	width: 100%;
     margin: 0 auto;
-    padding: 0.4rem 0;
+    padding: 0.29rem 0;
     border-bottom: 1px solid #e5e5e5;
     /*margin-bottom: 0.4rem;*/
 }
 .person_p1{
 	float: left;
 	color: #666;
-	font-size: 0.7rem;
+	font-size: 0.28rem;
 }
 .person_cen_right{
 	float: right;
-}
+}	
 .person_cen_right p{
-	font-size: 0.7rem;
+	font-size: 0.26rem;
 	color: #666;
 	float: left;
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 11rem;
+    width: 5rem;
     text-align: right;
+    /*background: #007AFF;*/
 }
 .person_cen_right img{
 	width: 0.5rem;
     height: 0.9rem;
     display: inline-block;
-    margin-left: 0.4rem;
+    /*margin-left: 0.4rem;*/
 }
 .quit{
 	width: 100%;
@@ -3095,41 +3101,42 @@ footer{
 	background: #fff;
 	padding-bottom: 0.3rem;
     border-bottom: 1px solid #d2d2d2;
-    height: 1.875rem;
-    line-height: 1.875rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
 }
 .pet_name_right{
     color: #00bc12;
     display: inline-block;
     float: right;
     margin-right: 0.02rem;
-    font-size: 0.7rem;
+    font-size: 0.3rem;
     margin-top: 0rem;
     margin-right: 0.2rem;
 }
 .pet_name_put{
-	width: 98%;
-	height: 1.5rem;
+	width: 7.25rem;
+	height: 0.98rem;
+	line-height: 0;
 	margin: 0 auto;
-	margin-top: 1rem;
+	margin-top: 0.02rem;
 	border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 0.2rem;
+    /*padding-bottom: 0.2rem;*/
     float: right;
 }
 .pet_name_put input{
 	width: 100%;
-	height: 1.5rem;
+	height: 0.98rem;
 	border: 0;
 	outline: none;
-	font-size: 0.7rem;
+	font-size: 0.28rem;
 	color: #000;
 }
 .pet_name_bot{
-	width: 95%;
-	margin: 0 auto;
-	margin-top: 0.5rem;
-	font-size: 0.6rem;
-	color: #666;
+	width: 7rem;
+    margin: 0 auto;
+    margin-top: 0.1rem;
+    font-size: 0.2rem;
+    color: #666;
 }
 /*点击昵称结束*/
 /*点击性别开始*/
@@ -3142,21 +3149,21 @@ footer{
 	background: #fff;
 	padding-bottom: 0.3rem;
     border-bottom: 1px solid #d2d2d2;
-    height: 1.875rem;
-    line-height: 1.875rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
 }
 .sex_div0{
 	width:100%;
 	height:100%;
-	margin-top:0.4rem;
+	margin-top:0rem;
 }
 .sex_div0 ul li{
 	width:100%;
-	height:1.875rem;
-	line-height: 1.875rem;
-	font-size: 0.675rem;
+	height:0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
 	color:#010101;
-	text-indent: 0.4rem;
+	text-indent: 0.26rem;
 	background: #fff;
 	position: relative;
 }
@@ -3173,7 +3180,7 @@ footer{
     top: 0;
     left: 0;
     z-index: 999;
-    height: 2rem;
+    height: 1rem;
     width: 100%;
 }
 .sex_div0_li2_label{
@@ -3181,26 +3188,27 @@ footer{
     top: 0;
     left: 0;
     z-index: 999;
-    height: 2rem;
+    height: 1rem;
     width: 100%;
+    opacity: 0;
 }
-.sex_buy_put1{
+.xcview1{
 	width:96%;
 	height:100%;
 	opacity: 0;
 }
 .lable_img1{
 	position: absolute;
-    right: 0.8rem;
-    width: 0.8rem;
-    top: 0.7rem;
+    right: 0.26rem;
+    width: 0.4rem;
+    top: 0.4rem;
     display: none;
 }
 .lable_img2{
-	position: absolute;
-    right: 0.8rem;
-    width: 0.8rem;
-    top: 0.7rem;
+    position: absolute;
+    right: 0.26rem;
+    width: 0.4rem;
+    top: 0.4rem;
     display: none;
 }
 .sex{
@@ -3290,34 +3298,36 @@ footer{
 	width: 100%;
 	background: #fff;
     border-bottom: 1px solid #d2d2d2;
-    height: 1.875rem;
-    line-height: 1.875rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
 }
 .mailbox_right{
-	width: 1.6rem;
-    color: #00bc12;
+	color: #00bc12;
     display: inline-block;
     float: right;
     margin-right: 0.02rem;
-    font-size: 0.7rem;
-    margin-right: 0.4rem;
+    font-size: 0.3rem;
+    margin-top: 0rem;
+    margin-right: 0.2rem;
 }
 .mailbox_put{
-	width: 98%;
-	height: 1.5rem;
-	margin: 0 auto;
-	margin-top: 1rem;
-	border-bottom: 1px solid #d2d2d2;
-    padding-bottom: 0.2rem;
+	width: 7.25rem;
+    height: 1rem;
+    margin: 0 auto;
+    margin-top: 0.02rem;
+    border-bottom: 1px solid #d2d2d2;
+    /* padding-bottom: 0.2rem; */
     float: right;
+    line-height: 0rem;
 }
 .mailbox_put input{
 	width: 100%;
-	height: 1.5rem;
-	border: 0;
-	outline: none;
-	font-size: 0.7rem;
-	color: #000;
+    height: 0.98rem;
+    border: 0;
+    outline: none;
+    font-size: 0.28rem;
+    color: #000;
+    line-height: 0.98rem;
 }
 /*点击更改邮箱结束*/
 /*修改密码开始*/
@@ -4126,10 +4136,10 @@ footer{
 	float: right;
     width: 3rem;
     text-align: right;
-    margin-right: 0.6rem;
+    margin-right: 0.26rem;
 }
 .my_right_img img{
-	width: 0.325rem;	
+	width: 0.15rem;	
 }
 .deposit_bottom_cen{
 	width: 97%;
@@ -6314,6 +6324,8 @@ footer{
     height: 2rem;
     line-height: 2rem;	
 }
+
+
 
 
 

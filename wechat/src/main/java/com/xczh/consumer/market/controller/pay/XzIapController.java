@@ -104,6 +104,7 @@ public class XzIapController {
         LOGGER.info("苹果充值   封装的数据  receipt:"+receipt);
         String url = certificateUrl;
         String newVersion = iphoneVersion;
+        
         LOGGER.info("certificateUrl:"+url);
         LOGGER.info("newVersion:"+iphoneVersion);
         LOGGER.info("version:"+version);
