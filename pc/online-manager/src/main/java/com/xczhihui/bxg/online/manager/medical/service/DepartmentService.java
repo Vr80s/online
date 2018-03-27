@@ -84,5 +84,5 @@ public interface DepartmentService {
 	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
 	 * @Date: 2018/3/9 14:19
 	 **/
-	public void updateSort(Integer id,Integer sort);
+	public void updateSort(String id,Integer sort);
 }
