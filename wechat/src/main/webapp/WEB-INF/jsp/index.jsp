@@ -32,5 +32,4 @@
 		}			
 	}
 </script>
-<%-- <%@ include file="../../Views/h5/index.html"%> --%>
-<%@ include file="../../xcviews/html/newindex.html"%>
+<jsp:forward page="/xcview/html/home_page.html"/>

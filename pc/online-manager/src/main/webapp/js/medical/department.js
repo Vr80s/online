@@ -31,7 +31,7 @@ $(function(){
 						}},*/
 					
 					
-					 {"sortable": false,"class": "center","width":"10%","title":"排序","data": 'sort',"mRender":function (data, display, row) {
+					 /*{"sortable": false,"class": "center","width":"10%","title":"排序","data": 'sort',"mRender":function (data, display, row) {
 							if(row.status ==1){//如果是禁用
 					    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 					    		'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
@@ -41,10 +41,10 @@ $(function(){
 					    		'<a class="gray" href="javascript:void(-1);" title="上移"  ><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
 					        	'<a class="gray" href="javascript:void(-1);" title="下移"  ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
 					    	}
-					 }},
-					
-					
-	               { "sortable": false,"data":"id","class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
+					 }},*/
+
+        			{ "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'sort' },
+	               { "sortable": false,"data":"id","class": "center","width":"14%","title":"操作","mRender":function (data, display, row) {
 		            		   var buttons= '<div class="hidden-sm hidden-xs action-buttons">'+
 								'<a class="blue" href="javascript:void(-1);" title="查看" onclick="openShow(this)"><i class="ace-icon fa fa-search  bigger-130"></i></a>'+
 								'<a class="blue" href="javascript:void(-1);" title="修改" onclick="editDialog(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
@@ -53,6 +53,7 @@ $(function(){
 								}else{
 									buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ';
 								};
+                                buttons+='<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this)">设置推荐值</a>';
 		      				return buttons;
 
 				   		}
@@ -354,6 +355,38 @@ function search(){
 function deleteBatch(){
 	deleteAll(basePath+"/medical/department/deletes",scoreTypeTable);
 }
+
+/**
+ * Description：设置推荐值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateRecommendSort(obj){
+    var oo = $(obj).parent().parent().parent();
+    var row = scoreTypeTable.fnGetData(oo);
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,200,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/medical/department/updateSort");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                unmask();
+                if(data.success){
+                    $("#sort").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    freshTable(scoreTypeTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
+};
 
 
 //配置角色权限

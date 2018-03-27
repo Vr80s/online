@@ -25,8 +25,8 @@ import java.util.Map;
 
 /**
  * 医馆控制器 ClassName: MedicalHopitalApplyController.java <br>
- * Description: <br>医馆认证
- * Create by: name：wangyishuai <br>
+ * Description: <br>
+ * 医馆认证 Create by: name：wangyishuai <br>
  * email: 15210815880@163.com <br>
  * Create Time: 2018年1月16日<br>
  */
@@ -46,41 +46,49 @@ public class MedicalHopitalApplyController {
 	@Autowired
 	private ICommonService commonServiceImpl;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalHopitalApplyController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory
+			.getLogger(MedicalHopitalApplyController.class);
 
 	/**
 	 * 医馆认证
+	 * 
+	 * @throws IOException
 	 */
 	@RequestMapping("addHospitalApply")
 	@ResponseBody
-	public ResponseObject addDoctorApply(HttpServletRequest req,
-										 HttpServletResponse res, MedicalHospitalApply medicalHospitalApply,
-										 @RequestParam("businessLicensePictureFile")MultipartFile businessLicensePictureFile
-										 , @RequestParam("licenseForPharmaceuticalTradingPictureFile")MultipartFile licenseForPharmaceuticalTradingPictureFile){
+	public ResponseObject addDoctorApply(
+			HttpServletRequest req,
+			HttpServletResponse res,
+			MedicalHospitalApply medicalHospitalApply,
+			@RequestParam("businessLicensePictureFile") MultipartFile businessLicensePictureFile,
+			@RequestParam("licenseForPharmaceuticalTradingPictureFile") MultipartFile licenseForPharmaceuticalTradingPictureFile)
+			throws IOException {
 
-
-			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-			if(user==null){
-				return ResponseObject.newErrorResponseObject("登录失效");
-			}
-		try {
-			medicalHospitalApply.setUserId(user.getId());
-			//循环获取file数组中得文件
-			String projectName="other";
-			String fileType="1"; //图片类型了
-			//营业执照
-			String businessLicensePicture = service.upload(null,
-                    projectName, businessLicensePictureFile.getOriginalFilename(),businessLicensePictureFile.getContentType(), businessLicensePictureFile.getBytes(),fileType,null);
-			medicalHospitalApply.setBusinessLicensePicture(businessLicensePicture);
-			//药品经营许可证
-			String licenseForPharmaceuticalTradingPicture = service.upload(null,
-                    projectName, licenseForPharmaceuticalTradingPictureFile.getOriginalFilename(),licenseForPharmaceuticalTradingPictureFile.getContentType(), licenseForPharmaceuticalTradingPictureFile.getBytes(),fileType,null);
-			medicalHospitalApply.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPicture);
-
-			medicalHospitalApplyService.add(medicalHospitalApply);
-		} catch (IOException e) {
-			return ResponseObject.newErrorResponseObject(e.getMessage());
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if (user == null) {
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
+		medicalHospitalApply.setUserId(user.getId());
+		// 循环获取file数组中得文件
+		String projectName = "other";
+		String fileType = "1"; // 图片类型了
+		// 营业执照
+		String businessLicensePicture = service.upload(null, projectName,
+				businessLicensePictureFile.getOriginalFilename(),
+				businessLicensePictureFile.getContentType(),
+				businessLicensePictureFile.getBytes(), fileType, null);
+		medicalHospitalApply.setBusinessLicensePicture(businessLicensePicture);
+		// 药品经营许可证
+		String licenseForPharmaceuticalTradingPicture = service.upload(null,
+				projectName, licenseForPharmaceuticalTradingPictureFile
+						.getOriginalFilename(),
+				licenseForPharmaceuticalTradingPictureFile.getContentType(),
+				licenseForPharmaceuticalTradingPictureFile.getBytes(),
+				fileType, null);
+		medicalHospitalApply
+				.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPicture);
+
+		medicalHospitalApplyService.add(medicalHospitalApply);
 		return ResponseObject.newSuccessResponseObject("创建成功");
 
 	}
@@ -90,21 +98,20 @@ public class MedicalHopitalApplyController {
 	 */
 	@RequestMapping("hospitalInfo")
 	@ResponseBody
-	public ResponseObject getLastOne(HttpServletRequest req)
-			throws Exception {
+	public ResponseObject getLastOne(HttpServletRequest req) throws Exception {
 
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-		if(user==null){
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 
 		Map<String, Object> mapAll = new HashMap<String, Object>();
-		MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(user.getId());
+		MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(user
+				.getId());
 		Integer status = commonServiceImpl.isDoctorOrHospital(user.getId());
-		mapAll.put("medicalHospital",mda);
-		mapAll.put("status",status);
+		mapAll.put("medicalHospital", mda);
+		mapAll.put("status", status);
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 
-	
 }

@@ -293,7 +293,7 @@ function liveSchool(){
 
                     var lineState=$(this).attr("lineState");
 
-                    window.location.href="/xcview/html/curriculum_table.html?lineState="+lineState+"";
+                    window.location.href="/xcview/html/curriculum_table.html?courseType=3&lineState="+lineState+"";
                 })
 
 

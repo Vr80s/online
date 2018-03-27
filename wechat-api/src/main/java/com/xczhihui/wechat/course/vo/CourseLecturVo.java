@@ -189,6 +189,8 @@ public class CourseLecturVo implements Serializable {
 	private Integer learning = 0;
 	
 	
+	private Integer status; //是否上架      禁用0，启用，1
+	
 	public String getUdescription() {
 		return udescription;
 	}
@@ -576,6 +578,13 @@ public class CourseLecturVo implements Serializable {
 	public void setLearning(Integer learning) {
 		this.learning = learning;
 	}
-	
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 	
 }

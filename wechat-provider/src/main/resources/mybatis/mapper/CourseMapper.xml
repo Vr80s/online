@@ -376,7 +376,7 @@
 		oe_course oc
 		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
 		where
-		oc.user_lecturer_id = #{userId} and oc.is_delete=0 
+		oc.user_lecturer_id = #{userId} and oc.is_delete=0 and oc.status=1
 		and
 		DATE_ADD(CURDATE(), INTERVAL 7 DAY) >= date(oc.start_time)  and oc.start_time > CURDATE()
 		and oc.type =1 and oc.live_status = 2
@@ -413,7 +413,7 @@
 		FROM
 		oe_course oc
 		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-		where oc.user_lecturer_id = #{userId}  and oc.is_delete=0  
+		where oc.user_lecturer_id = #{userId}  and oc.is_delete=0  and oc.status=1
 		order by oc.release_time  desc,oc.start_time asc limit 5
 		)
 	</select>
@@ -512,6 +512,7 @@
 			cai.`status` as applyStatus,
 			cai.collection as collection,
 			oc.id as id,
+			oc.status as status,
 		    oc.live_source_type as liveSourceType,
 		    if(cai.course_form = 1 and oc.live_status is null,4,oc.live_status) as  sortLineState,
 		    if(oc.id is not null,(select ca.name from course_anchor ca where ca.user_id =  oc.user_lecturer_id),cai.lecturer) as name,

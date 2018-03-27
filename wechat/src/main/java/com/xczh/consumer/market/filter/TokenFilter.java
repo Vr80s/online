@@ -40,8 +40,8 @@ public class TokenFilter implements Filter {
 	/*
 	 * 注册、忘记密码等不需要拦截：
 	 */
-	private static String login_before ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login,/bxg/page/login/1"
-			+ ",/bxg/user/logout,/bxg/user/phoneRegist,/bxg/bs/forgotPassword,/bxg/page/login/1,/bxg/bs/checkToken,/bxg/user/forgotPassword,"
+	private static String login_before ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login"
+			+ ",/bxg/user/logout,/bxg/user/phoneRegist,/bxg/bs/forgotPassword,/bxg/bs/checkToken,/bxg/user/forgotPassword,"
 			+ "/bxg/user/login,/bxg/bs/isReg,/bxg/wxjs/h5JSSDK,/bxg/page/verifyLoginStatus,/bxg/wxjs/checkInWx";
 	/*
 	 * 来自分享等不需要拦截。
@@ -66,7 +66,7 @@ public class TokenFilter implements Filter {
 	/*
 	 * 下面是一下具体业务方法不需要拦截
 	 */
-	private static String specific_business_one = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
+	private static String specific_business_one = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,"
 			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/bs/appLogin,/bxg/focus/myHome,"
 			+ "/bxg/user/appleLogout";
 	

@@ -517,17 +517,11 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		try {
-			/**
-			 * 结算服务
-			 */
-			enchashmentService.saveSettlement(user.getId(), xmbNumber,OrderFrom.valueOf(orderFrom));
-			return ResponseObject.newSuccessResponseObject("结算成功");
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return ResponseObject.newSuccessResponseObject(e.getMessage());
-		}
+		/**
+		 * 结算服务
+		 */
+		enchashmentService.saveSettlement(user.getId(), xmbNumber,OrderFrom.valueOf(orderFrom));
+		return ResponseObject.newSuccessResponseObject("结算成功");
 	}
 
 	/**

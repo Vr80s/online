@@ -16,10 +16,14 @@
 <script>
         (function(window){var setHtmlSize=function(w){var b=750/100;var c=window.innerWidth;if(w){c=w}var a=c/b;if(a<42){a=42}else if(a>60){a=60}document.querySelector("html").style.fontSize=a+"px";if(navigator.userAgent.indexOf("iPad")!=-1){document.querySelector("html").style.fontSize="60px"}};setHtmlSize();window.onresize=function(){var w=window.innerWidth;setHtmlSize(w)}}(window));
 </script>
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<script src="/xcview/js/common/js.js"></script>
+<!--<script src="/xcview/js/common/js.js"></script>-->
 <link rel="stylesheet" href="/xcview/css/css.css">
 <link rel="stylesheet" href="/xcview/css/tailor.css">
 <link rel="stylesheet" href="/xcview/css/personCommon.css">
@@ -61,20 +65,28 @@
 	    margin-top: 0.48rem;
 	}
 	.pet_name_right1{
-		  position: absolute;
-	    right: 0.2rem;
-	    top: 8rem;
-	    width: 95%;
-	    height: 1.7rem;
-	    background: #00bc12;
-	    line-height: 1.7rem;
-	    text-align: center;
-	    border-radius: 6px;
-	    color: #fff;
-	    margin-right: 0.2rem;
-	    font-size: 0.7rem;
-	    opacity: 0.3;
+		 position: absolute;
+    right: 0.2rem;
+    top: 4rem;
+    width: 6.98rem;
+    height: 0.72rem;
+    background: #00bc12;
+    line-height: 0.72rem;
+    text-align: center;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.3rem;
+    opacity: 0.3;
 	}
+	.return_system{
+    background: url(../images/backicon.png) no-repeat;
+    background-size: 100% 100%;
+    width: 0.24rem;
+    height: 0.42rem;
+    margin-top: 0.22rem;
+    display: block;
+    margin-left: 0.26rem;
+}
 </style>
 <body class="person_body">
 	
