@@ -115,6 +115,7 @@ public class XzGiftController {
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
+		
 		LOGGER.info("====================="+user.getId());
 		String giftId = req.getParameter("giftId");
 		String liveId = req.getParameter("liveId");

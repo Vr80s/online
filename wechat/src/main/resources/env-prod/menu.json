@@ -39,8 +39,8 @@
             }]
        },
         {
-           "type": "media_id", 
+           "type": "view_limited", 
            "name": "健康好文", 
-           "url":  "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUzNDI3NTAzOA==&scene=124#wechat_redirect"
+           "media_id": "J_yKCqyYzwWaAJjGf3mxH6nC1CUNmKrgIZ75xt9ODEY"
         }]
  }
