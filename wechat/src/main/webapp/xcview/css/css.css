@@ -3100,7 +3100,6 @@ footer{
 	width: 100%;
 	background: #fff;
 	padding-bottom: 0.3rem;
-    border-bottom: 1px solid #d2d2d2;
     height: 0.88rem;
     line-height: 0.88rem;
 }
@@ -3514,44 +3513,42 @@ footer{
 }
 .site{
 	width: 100%;
-	min-height: 4.2rem;
+	min-height: 2rem;
 	background: #fff;
 }
 .site_div{
 	width: 100%;
-	min-height: 4.2rem;
-	margin-top: 0.5rem;
+	min-height: 2.2rem;
+	margin-top: 0.2rem;
 	background: #fff;
-	padding-bottom: 0.4rem;
+	/*padding-bottom: 0.4rem;*/
 }
 .site_div_cen{
 	width: 95%;
-	min-height: 4.2rem;
+	min-height: 2.2rem;
 	margin: 0 auto;
 	padding-top: 0.1rem;
-	padding-bottom: 0.2rem;
+	/*padding-bottom: 0.2rem;*/
 }
 .site_div_cen_top{
 	color: #333;
-	font-size: 0.75rem;
-	
+	font-size: 0.3rem;
 	height: 1rem;
     line-height: 1rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
 }
 .site_cen1{
-	width: 3rem;
+	min-width: 0.5rem;
+    max-width: 3rem;
     height: 1rem;
     display: inline-block;
     line-height: 1rem;
-    margin-right: 1rem;
+    margin-right: 0.76rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 .site_cen2{
-	width: 10rem;
+	width: 2rem;
     height: 1rem;
     display: inline-block;
     line-height: 1rem;
@@ -3562,94 +3559,97 @@ footer{
 }
 .site_div_text{
 	width: 100%;
-	min-height: 1rem;
-	line-height: 1rem;
+	min-height: 0.6rem;
+	line-height: 0.4rem;
 	color: #666;
-	font-size: 0.6rem;
+	font-size: 0.24rem;
+	margin-bottom: 0.1rem;
 }
 .site_bto{
 	width: 100%;
-	height: 1.5rem;
+	height: 0.5rem;
 }
 .site_bg1{
-	width: 0.638rem;
-	height: 0.638rem;
-	background: url(/xcview/images/site01.png) no-repeat;
-	background-size: 100% 100%;
-	float: left;
-	margin-top: 0.8rem;
-    margin-right: 0.3rem;
+	width: 0.3rem;
+    height: 0.3rem;
+    background: url(/xcview/images/site01.png) no-repeat;
+    background-size: 100% 100%;
+    float: left;
+    /* margin-top: 0.8rem; */
+    margin-right: 0.1rem;
 }
 .site_bg01{
-	width: 0.638rem;
-	height: 0.638rem;
+	width: 0.3rem;
+	height: 0.3rem;
 	background: url(/xcview/images/site02.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
-	margin-top: 0.4rem;
-    margin-right: 0.3rem;
+	/*margin-top: 0.4rem;*/
+    margin-right: 0.1rem;
 }
 .site_bto_left{
-	width:40%;
+	/*width:40%;*/
+	min-width: 2rem;
 	float:left;
 }
 .site_bto_right{
-	width:5.6rem;
+	width:2.6rem;
 	float:right;
 }
 
 .site_bto_left span{
-	font-size: 0.6rem;
+	font-size: 0.24rem;
 	color: #00bc12;
+	float: left;
 }
 .site_bto_right01{
 	float: left;
-    margin-right: 1rem;
+    margin-right: 0rem;
 }
 .site_bto_right02{
-	width: 2.3rem;
+	width: 1rem;
     float: right;
 }
 .site_bg001{
 	background: url(/xcview/images/bianji.png) no-repeat;
     background-size: 100% 100%;
     float: left;
-    margin-top: 0.25rem;
-    margin-right: 0.3rem;
-    width: 0.5rem;
-    height: 0.625rem;
+    /*margin-top: 0.25rem;*/
+    margin-right: 0.1rem;
+    width: 0.24rem;
+    height: 0.29rem;
 }
 .site_bg002{
-	width: 0.55rem;
-    height: 0.65rem;
+	width: 0.22rem;
+    height: 0.26rem;
 	background: url(/xcview/images/shanchu.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
-	margin-top: 0.25rem;
-    margin-right: 0.3rem;
+	/*margin-top: 0.22rem;*/
+    margin-right: 0.1rem;
 }
 .site_newly{
 	width: 100%;
-	height: 2.5rem;
+	height: 1rem;
 	background: #fff;
-	margin-top: 0.5rem;
+	margin-top: 0.25rem;
 }
 .site_newly_cen{
-	width: 26%;
-	height: 2.5rem;
-	line-height: 2.5rem;
-	text-align: center;
+	width: 1.6rem;
+    height: 1rem;
+    line-height: 1rem;
+    text-align: center;
     margin: 0 auto;
-    font-size: 0.7rem;
+    font-size: 0.28rem;
     color: #333;
 }
 .site_newly_img{
 	float: left;
 }
 .site_newly_img img{
-	width: 0.65rem;
-    height: 0.65rem;
-	margin-top: 0.95rem;
+	width: 0.26rem;
+    height: 0.26rem;
+	margin-top: 0.35rem;
 }
 
 /* 管理地址结束 */
@@ -5939,20 +5939,20 @@ footer{
     left: 0;
 }
 .history_bg_cen{
-	width: 11.55rem;
-    height: 6.35rem;
+	width: 5.55rem;
+    height: 2.4rem;
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -5.5rem;
-    margin-left: -37%;
+    margin-top: -1.8rem;
+    margin-left: -2.8rem;
     background: #f4f4f4;
     z-index: 999999999;
     border-radius: 6px;
 }
 .history_bg_cen_size{
-	font-size: 0.65rem;
-    margin-top: 1.85rem;
+	font-size: 0.28rem;
+    margin-top: 0.6rem;
     margin-left: 0.4rem;
     text-align: center;
     color: #333;
@@ -5968,18 +5968,16 @@ footer{
 }
 .history_bg_bto1{
 	float: left;
-	width: 5.75rem;
+    width: 2.75rem;
     text-align: center;
-    color: #00bc12 !important;
-    font-size: 0.65rem !important;
+    font-size: 0.28rem !important;
 }
 .history_bg_bto2{
 	float: left;
-	width: 5.75rem;
+    width: 2.75rem;
     border-right: 1px solid #d2d2da;
     text-align: center;
-    color: #666 !important;
-    font-size: 0.65rem !important;
+    font-size: 0.28rem !important;
 }
 .boxbtn{
     border-top: 1px solid #d2d2da;
