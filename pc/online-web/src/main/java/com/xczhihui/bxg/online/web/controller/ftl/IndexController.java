@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping(value = "/")
-public class FtlPageController {
+public class IndexController {
 
     @Autowired
     private ManagerUserService  managerUserService;
