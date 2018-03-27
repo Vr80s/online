@@ -14,6 +14,10 @@
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+
 <script>
 	(function(window) {
 		var setHtmlSize = function(w) {
@@ -45,7 +49,7 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<script src="/xcview/js/common/js.js"></script>
+<!--<script src="/xcview/js/common/js.js"></script>-->
 <link rel="stylesheet" href="/xcview/css/css.css">
 <link rel="stylesheet" href="/xcview/css/tailor.css">
 <link rel="stylesheet" href="/xcview/css/personCommon.css">
@@ -54,40 +58,28 @@
 
 	
 	<style>
-		/*.site{
-			height: 4.8rem;
-		}
-		.site_div{
-			height: 4.8rem;	
-		}*/
-		.site_bg01{
-			margin-top: 0.8rem;
-		}
-		.site_bg001{
-			/*margin-top: 0.6rem;*/
-		}
-		.site_bg002{
-			/*margin-top: 0.6rem;*/
-		}
 		.site_bto_right01 span{
-			font-size: 0.6rem;
+			font-size: 0.24rem;
+			float: left;
+			line-height: 0.35rem;
 		}
 		.site_bto_right01{
-			width: 2.3rem;
+			width: 1rem;
 		    float: left;
-		    height: 1rem;
-		    line-height: 1rem;
-		    margin-top: 0.5rem;
+		    /*height: 1rem;
+		    line-height: 1rem;*/
+		    /*margin-top: 0.5rem;*/
 		}
 		.site_bto_right02{
-			width: 2.3rem;
+			width: 1rem;
 		    float: right;
-		    height: 1rem;
-		    line-height: 1rem;
-		    margin-top: 0.5rem;
+		    /*height: 1rem;*/
+		    line-height: 0.35rem;
+		    /*margin-top: 0.5rem;*/
 		}
 		.site_bto_left{
-			height: 1rem;
+			height: 0.3rem;
+		    line-height: 0.3rem;
 		}
 		.vanish0{
 			display: none;
@@ -102,28 +94,39 @@
 		.vanish5{
 			display: none;
 		}
-		
-		
 		.history_bg_bto01 {
 		    margin: 0 auto;
-		    margin-top: 1.6rem;
+		    margin-top: 0.6rem;
 		    width: 100%;
 		    border-top: 1px solid #d2d2da;
-		    line-height: 1.8rem;
+		    line-height: 0.8rem;
 		}
-		
 		.address_return {
-		    width: 0.51rem;
-		    display: inline-block;
+			display: inline-block;
 		    float: left;
 		    background: url(../images/backicon.png) no-repeat;
 		    background-size: 100% 100%;
-		    margin-left: 0.54rem;
-		    height: 0.9rem;
-		    margin-top: 0.48rem;
+		    width: 0.24rem;
+		    height: 0.42rem;
+		    margin-top: 0.22rem;
+		    display: block;
+		    margin-left: 0.26rem;
 		}
-		
-		
+		.site_bto_right02 span{
+			font-size: 0.24rem;
+			float: left;
+		    line-height: 0.3rem;
+		}
+		.fixed_top{
+			width: 100%;
+		    height: 0.88rem;
+		    line-height: 0.88rem;
+		    background: #fff;
+		    position: fixed;
+		    top: 0;
+		    left: 0;    
+		    border-bottom: 1px solid #d2d2d2;
+		}
 	</style>
 </head>
 
@@ -143,18 +146,22 @@
 	</div>
 	
 	
-	<div class='vanish0'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取数据有误！</div></div></div>
+	<!--<div class='vanish0'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取数据有误！</div></div></div>
 	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>删除数据成功</div></div></div>
 	<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>获取数据有误</div></div></div>
 	<div class='vanish5'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>请求列表有误</div></div></div>
+	-->
 	
-	
+	<div class="fixed_top">
+        <div class="address_return"></div>
+  		<div class="dl">地址管理</div>
+    </div>
     <!-- 地址管理开始 -->
     <div class="site_call" style="display: block; !important">
       <div class="pet_name_top">
-        <div class="address_return"></div>
-        <div class="dl"
-          style="width: 75%;float: left;margin-left: 1.25rem;">地址管理</div>
+        <div class="" style="height: 0.88rem;"></div>
+       
+        
         <div class="both"></div>
         <div  id="address_list">
         </div>
