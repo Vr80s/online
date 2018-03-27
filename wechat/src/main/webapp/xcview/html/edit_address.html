@@ -16,9 +16,8 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 
-
-
-
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/template/template.js"></script>
 
 <link rel="stylesheet" href="/xcview/css/css.css">
 <link rel="stylesheet" href="/xcview/css/tailor.css">
@@ -68,7 +67,7 @@
 		width: 100%;
 		height: 9.8rem;
 		background: #fff;
-		margin-top: 0.4rem;
+		margin-top: 0.2rem;
 		padding-bottom: 1rem;
 	}
 	.edit_one_put{
@@ -129,12 +128,13 @@
 	    font-size: 0.65rem !important;
 	}
 	.update_address_return{
-		width: 0.5rem;
-	    height: 0.9rem;
 		background: url(../images/backicon.png) no-repeat;
 	    background-size: 100% 100%;
-	    margin-left: 0.54rem;
-	    margin-top: 0.48rem;
+	    width: 0.24rem;
+	    height: 0.42rem;
+	    margin-top: 0.22rem;
+	    display: block;
+	    margin-left: 0.26rem;
 	}
 	.my_right_img img{
 		margin-top: 0.85rem;
@@ -143,6 +143,17 @@
 	.web_toast{
 		font-size: 0.5rem !important;
 	
+	}
+	.dl{
+		position: fixed;
+		width: 100% !important;
+		top: 0;
+		text-align: center;
+		z-index: 0;
+		pointer-events:none;
+	}
+	.my_right_img{
+		margin-top: -1.5rem;
 	}
 </style>
 
@@ -173,34 +184,34 @@
       <div class="sex_pet_name_top">
         <div class="update_address_return" id="update_address_return"></div>
         <div class="dl"
-          style="width: 75%; float: left; margin-left: 0.9rem;">编辑地址</div>
-        <div class="pet_name_right" id="address_save" style="width:1.8rem;margin-right:0.2rem;">保存</div>
+          >编辑地址</div>
+        <div class="pet_name_right" id="address_save" style="margin-right:0.26rem;">保存</div>
         <div class="both"></div>
       </div>
       <div class="edit">
         <div class="edit_one01">
           <div class="edit_one">
             <div class="edit_one_size">收货人</div>
-            <div class="edit_one_put"><input type="type" id="consignee" placeholder="请输入收货人姓名" style="text-align: right;font-size:0.65rem;"/></div>
+            <div class="edit_one_put"><input type="type" id="consignee" placeholder="请输入收货人姓名" style="text-align: right;font-size:0.28rem;"/></div>
           </div>
         </div>
         <div class="edit_one01">
           <div class="edit_one">
             <div class="edit_one_size">手机号码</div>
-            <div class="edit_one_put"><input type="tel" id="phone" placeholder="请输入手机号码" style="text-align: right;font-size:0.65rem;" maxlength="11" /></div>
+            <div class="edit_one_put"><input type="tel" id="phone" placeholder="请输入手机号码" style="text-align: right;font-size:0.28rem;" maxlength="11" /></div>
           </div>
         </div>
         <div class="edit_one01">
           <div class="edit_one">
             <div class="edit_one_size">所在地区</div>
-            <div class="edit_one_put" style="margin-right: 1rem;"><p id="cityP" onclick="picker2()" style="text-align: right;font-size:0.65rem;">请选择</p></div>
-            <div class="my_right_img" style="float: right;margin-top: -2.18rem;margin-right: 0;"><img src="/xcview/images/right_jian.png"></div>
+            <div class="edit_one_put" style="margin-right: 1rem;"><p id="cityP" onclick="picker2()" style="text-align: right;font-size:0.28rem;">请选择</p></div>
+            <div class="my_right_img" style="float: right;margin-right: 0.26rem;"><img src="/xcview/images/right_jian.png"></div>
           </div>
         </div>
         <div class="edit_one01" style="height: 2.5rem;border: 0;">
           <div class="edit_one">
             <!--<div class="edit_one_size" style="color: #999;">请输入详细地址</div>-->
-            <div class="edit_one_put"><textarea type="text" placeholder="请输入详细地址" id="detailed_address" style="text-align: left;font-size:0.65rem;width: 100%;float: right;height: 3.8rem;border: 0;outline: none;resize: none;margin-top: 0.5rem;font-size: 0.65rem;color: #999;background: #fff;"></textarea></div>
+            <div class="edit_one_put"><textarea type="text" placeholder="请输入详细地址" id="detailed_address" style=""></textarea></div>
           </div>
         </div>
         <div class="both"></div>
@@ -228,7 +239,7 @@
 <script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
 
 <script type="text/javascript" src="/xcview/js/address.js"></script>  
-<script src="/xcview/js/common/js.js"></script>
+<!--<script src="/xcview/js/common/js.js"></script>-->
 
 <script>
 /* 选择省市区插件    -- 初始化新增地址这个地方啦 */

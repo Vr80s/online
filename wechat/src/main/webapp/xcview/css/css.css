@@ -3659,26 +3659,26 @@ footer{
 	display: none;
 }
 .edit_one01{
-	width: 97%;
-    height: 2.125rem;
+	width: 7.25rem;
+    height: 0.98rem;
     background: #fff;
     border-bottom: 1px solid #e6e6e6;
     float: right;
 }
 .edit_one{
-	width: 97%;
-    height: 2.125rem;
-    line-height: 2.125rem;
+	width: 100%;
+    /*height: 0.98rem;*/
+    line-height: 0.98rem;
     margin: 0 auto;
     float: left;
 }
 .edit_one_size{
 	color: #333;
-	font-size: 0.65rem;
+	font-size: 0.28rem;
 	float: left;
 }
 .edit_one_put input{
-	height: 2.125rem;
+	height: 0.98rem;
     border: 0;
     background: none;
     outline: none;
