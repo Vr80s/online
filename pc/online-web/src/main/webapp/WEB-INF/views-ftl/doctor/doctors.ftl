@@ -200,8 +200,8 @@
                         <a href="/doctors/details/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait}" alt="">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
+                        <p>${doctor.workTime?default('暂无')}</p>
+                        <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -292,7 +292,7 @@
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
     $(function(){
-        $(".doctor").addClass("select");
+        $(".doctor-tab").addClass("select");
     });
     //banner
     function init() {
