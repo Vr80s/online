@@ -237,7 +237,7 @@ public class DepartmentController {
       **/
      @RequestMapping(value = "updateSort", method = RequestMethod.POST)
      @ResponseBody
-     public ResponseObject updateRecommendSort(Integer id,Integer sort) {
+     public ResponseObject updateRecommendSort(String id,Integer sort) {
           ResponseObject responseObject=new ResponseObject();
           service.updateSort(id,sort);
           responseObject.setSuccess(true);

@@ -211,7 +211,7 @@ public class DepartmentServiceImpl extends OnlineBaseServiceImpl implements Depa
 	}
 
 	@Override
-	public void updateSort(Integer id, Integer sort) {
+	public void updateSort(String id, Integer sort) {
 		String hqlPre="from MedicalDepartment where  deleted=0 and id = ?";
 		MedicalDepartment md= dao.findByHQLOne(hqlPre,new Object[] {id});
 		if (md!=null){
