@@ -306,7 +306,6 @@ public class H5WeChatSetController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//res.getWriter().write(e.getMessage());
 		}
 	}
 	

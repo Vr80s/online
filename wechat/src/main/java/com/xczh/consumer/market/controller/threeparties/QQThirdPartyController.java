@@ -83,11 +83,12 @@ public class QQThirdPartyController {
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @throws IOException 
 	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value="evokeQQRedirect")
 	public void evokeQQRedirect(HttpServletRequest request,
-			HttpServletResponse res){
+			HttpServletResponse res) throws IOException{
 		try {
 			LOGGER.info("进入	qq回调函数   ============：qq_connect_state");
 
@@ -175,9 +176,11 @@ public class QQThirdPartyController {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
+			
+		 	//重定向到推荐首页
+			res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
+			//throw new RuntimeException(e.getMessage());
 		}
 	}
 	
@@ -189,6 +192,7 @@ public class QQThirdPartyController {
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value="appEvokeQQRedirect")
@@ -197,8 +201,8 @@ public class QQThirdPartyController {
 			HttpServletResponse res,
 			@RequestParam("accessToken")String accessToken,
 			@RequestParam("openId")String openId,
-			@RequestParam("model")String model){
-		try {
+			@RequestParam("model")String model) throws Exception{
+		
 			LOGGER.info("进入	qq回调函数   ============：qq_connect_state");
 			
 			String userId = request.getParameter("userId");
@@ -318,11 +322,6 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 				}
 				return ResponseObject.newSuccessResponseObject("");
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-		}
 	}
 	/**
 	 * 

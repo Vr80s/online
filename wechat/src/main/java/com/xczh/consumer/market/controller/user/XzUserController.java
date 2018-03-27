@@ -235,13 +235,8 @@ public class XzUserController {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		Token t = null;
-		try {
 			//存储在redis中了，有效期为10天。
 			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}
 		
 		if (t != null) {
 			OnlineUser o = onlineUserService.findUserByLoginName(username);

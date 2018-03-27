@@ -41,6 +41,21 @@ public class GlobalExceptionHandlerAdvice {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+        
+//                ex.getMessage():BIZ_RUNTIME_EXCEPTION_MESSAGE
+//        if(ex.getMessage()!=null){
+//        	!isContainChinese(ex.getMessage().substring(0,1))
+//        }else{
+//        	BIZ_RUNTIME_EXCEPTION_MESSAGE:ex.getMessage()==null
+//        			BIZ_RUNTIME_EXCEPTION_MESSAGE
+//        			ex.getMessage()
+//        			BIZ_RUNTIME_EXCEPTION_MESSAGE
+//        }
+        
+        LOGGER.error("ex.getMessage()：~~~~~~~~~~~~"+ex.getMessage());
+        
+        LOGGER.error("打印出这个异常啦：~~~~~~~~~~~~"+ex.getMessage()!=null?!isContainChinese(ex.getMessage().substring(0,1))?BIZ_RUNTIME_EXCEPTION_MESSAGE:ex.getMessage()==null?BIZ_RUNTIME_EXCEPTION_MESSAGE:ex.getMessage():BIZ_RUNTIME_EXCEPTION_MESSAGE);
+        
         return  ResponseObject.newErrorResponseObject(ex.getMessage()!=null?!isContainChinese(ex.getMessage().substring(0,1))?BIZ_RUNTIME_EXCEPTION_MESSAGE:ex.getMessage()==null?BIZ_RUNTIME_EXCEPTION_MESSAGE:ex.getMessage():BIZ_RUNTIME_EXCEPTION_MESSAGE);
     }
 

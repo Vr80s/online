@@ -47,17 +47,12 @@ public class bankCardController {
 										 @RequestParam("acctName")String acctName,
 										 @RequestParam("acctPan")String acctPan,
 										 @RequestParam("certId")String certId,
-										 @RequestParam("tel")String tel){
+										 @RequestParam("tel")String tel)throws Exception{
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-
-		try {
-			userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
-		} catch (Exception e) {
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}
+		userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
 		return  ResponseObject.newSuccessResponseObject("添加成功");
 
 	}
