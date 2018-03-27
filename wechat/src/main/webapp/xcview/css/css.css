@@ -61,7 +61,8 @@ img{
     margin-left: 0.4rem;
 }
 .dl{
-	width: 83%;
+	/*width: 83%;*/
+	width: 5rem;
     margin: 0 auto;
     font-size: 0.851rem;
     text-align: center;
@@ -2815,9 +2816,12 @@ footer{
 	position: fixed;
     top: 0;
     z-index: 99999999;
-    height: 1.875rem;
-    line-height: 1.875rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
     border-bottom: 1px solid #e6e6e6;
+}
+.attention_top .dl{
+	font-size: 0.36rem;
 }
 .attention_center{
 	width: 100%;
@@ -3014,7 +3018,7 @@ footer{
 }
 .person p{
 	float: left;
-	font-size: 0.7rem;
+	font-size: 0.28rem;
 	color: #666;
 }
 .person_img{
@@ -3036,39 +3040,41 @@ footer{
     padding-bottom: 0.1rem;
 }
 .person_cen0{
-	width: 97%;
+	/*width: 97%;*/
+	width: 7.25rem;
     float: right;
 }
 .person_cen_top{
 	width: 100%;
     margin: 0 auto;
-    padding: 0.4rem 0;
+    padding: 0.29rem 0;
     border-bottom: 1px solid #e5e5e5;
     /*margin-bottom: 0.4rem;*/
 }
 .person_p1{
 	float: left;
 	color: #666;
-	font-size: 0.7rem;
+	font-size: 0.28rem;
 }
 .person_cen_right{
 	float: right;
 }
 .person_cen_right p{
-	font-size: 0.7rem;
+	font-size: 0.26rem;
 	color: #666;
 	float: left;
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 11rem;
+    width: 5rem;
     text-align: right;
+    /*background: #007AFF;*/
 }
 .person_cen_right img{
 	width: 0.5rem;
     height: 0.9rem;
     display: inline-block;
-    margin-left: 0.4rem;
+    /*margin-left: 0.4rem;*/
 }
 .quit{
 	width: 100%;
@@ -4126,10 +4132,10 @@ footer{
 	float: right;
     width: 3rem;
     text-align: right;
-    margin-right: 0.6rem;
+    margin-right: 0.26rem;
 }
 .my_right_img img{
-	width: 0.325rem;	
+	width: 0.15rem;	
 }
 .deposit_bottom_cen{
 	width: 97%;
@@ -6314,6 +6320,8 @@ footer{
     height: 2rem;
     line-height: 2rem;	
 }
+
+
 
 
 
