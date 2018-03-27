@@ -251,7 +251,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime,");
 		sql.append("c.course_detail as description");  //课程简介
 		sql.append(" from oe_course c");
-		sql.append(" where c.id = ?  and c.is_delete=0 and c.status = 1   ");
+		sql.append(" where c.id = ?  and c.is_delete=0  ");
 		Object[] params = {courseId};
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 	}
