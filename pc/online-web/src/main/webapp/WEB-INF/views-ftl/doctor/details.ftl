@@ -192,78 +192,81 @@
             </div>
 
             <!--专栏-->
-            <div class="zhuanlan clearfix hide" id="zhuanlan">
-                <div class="class_top">
-                    <span>专栏</span>
-                    <a href="/web/html/columnListing.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" id="more_zhuanlan">
-                        更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                    </a>
+            <#if newsReports.total gt 0>
+                <div class="zhuanlan clearfix" id="zhuanlan">
+                    <div class="class_top">
+                        <span>专栏</span>
+                        <a href="/web/html/columnListing.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" id="more_zhuanlan">
+                            更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        </a>
+                    </div>
+
+                    <ul class="zhuanlan_list" id="zhuanlan_list">
+                        <!--<li class="clearfix">
+                            <div class="zhuanlan_left">
+                                <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                            </div>
+                           <div class="zhuanlan_right">
+                               <h3>2017年中国国际中医药大健康博览会举行</h3>
+                               <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
+                               <span>2017.11.11</span>
+                           </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="zhuanlan_left">
+                                <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                            </div>
+                            <div class="zhuanlan_right">
+                                <h3>2017年中国国际中医药大健康博览会举行</h3>
+                                <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
+                                <span>2017.11.11</span>
+                            </div>
+                        </li>-->
+                        <#list specialColumns.records as specialColumn>
+                            <li class="clearfix">
+                                <div class="zhuanlan_left">
+                                    <img src="${specialColumn.imgPath}" alt="">
+                                </div>
+                                <div class="zhuanlan_right">
+                                    <h3>${specialColumn.title}</h3>
+                                    <p>${specialColumn.content}</p>
+                                    <span>${(specialColumn.createTime?string("yyyy-MM-dd"))!}</span>
+                                </div>
+                            </li>
+                        </#list>
+                    </ul>
+                </div>
+                </#if>
+                <#if newsReports.total gt 0>
+                <!--媒体报道-->
+                <div class="zhuanlan clearfix" id="media_report">
+                    <div class="class_top">
+                        <span>媒体报道</span>
+                        <a href="/web/html/practitioneNews.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" class="more_madia_report">
+                            更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        </a>
+                    </div>
+
+                    <ul class="zhuanlan_list" id="meaid_list">
+                        <#list newsReports.records as newsReport>
+                            <li class="clearfix">
+                                <div class="zhuanlan_left">
+                                    <a href="/web/html/newsDetails.html?articleId=${newsReport.id}"><img src="${newsReport.imgPath}" alt=""></a>
+                                </div>
+                                <div class="zhuanlan_right">
+                                    <h3><a href="/web/html/newsDetails.html?id=${newsReport.id}" style="color: #000;">${newsReport.title}</a></h3>
+                                    <p>${newsReport.content}</p>
+                                    <span>${(newsReport.createTime?string("yyyy-MM-dd"))!}</span>
+                                </div>
+                            </li>
+                        </#list>
+                    </ul>
                 </div>
 
-                <ul class="zhuanlan_list" id="zhuanlan_list">
-                    <!--<li class="clearfix">
-                        <div class="zhuanlan_left">
-                            <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                        </div>
-                       <div class="zhuanlan_right">
-                           <h3>2017年中国国际中医药大健康博览会举行</h3>
-                           <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
-                           <span>2017.11.11</span>
-                       </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="zhuanlan_left">
-                            <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                        </div>
-                        <div class="zhuanlan_right">
-                            <h3>2017年中国国际中医药大健康博览会举行</h3>
-                            <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
-                            <span>2017.11.11</span>
-                        </div>
-                    </li>-->
-                <#list newsReports.records as newsReport>
-                    <li class="clearfix">
-                        <div class="zhuanlan_left">
-                            <img src="${newsReport.imgPath}" alt="">
-                        </div>
-                        <div class="zhuanlan_right">
-                            <h3>${newsReport.title}</h3>
-                            <p>${newsReport.content}</p>
-                            <span>${(newsReport.createTime?string("yyyy-MM-dd"))!}</span>
-                        </div>
-                    </li>
-                </#list>
-                </ul>
             </div>
+            </#if>
 
-
-            <!--媒体报道-->
-            <div class="zhuanlan clearfix" id="media_report">
-                <div class="class_top">
-                    <span>媒体报道</span>
-                    <a href="/web/html/practitioneNews.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" class="more_madia_report">
-                        更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                    </a>
-                </div>
-
-                <ul class="zhuanlan_list" id="meaid_list">
-                <#list newsReports.records as newsReport>
-                    <li class="clearfix">
-                        <div class="zhuanlan_left">
-                            <a href="/web/html/newsDetails.html?articleId=${newsReport.id}"><img src="${newsReport.imgPath}" alt=""></a>
-                        </div>
-                        <div class="zhuanlan_right">
-                            <h3><a href="/web/html/newsDetails.html?id=${newsReport.id}" style="color: #000;">${newsReport.title}</a></h3>
-                            <p>${newsReport.content}</p>
-                            <span>${(newsReport.createTime?string("yyyy-MM-dd"))!}</span>
-                        </div>
-                    </li>
-                </#list>
-                </ul>
-            </div>
-
-        </div>
 
 
         <!--右侧-->
