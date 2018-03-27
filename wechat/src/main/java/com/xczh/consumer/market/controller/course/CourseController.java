@@ -109,8 +109,8 @@ public class CourseController {
 			HttpServletResponse res, @RequestParam("courseId") Integer courseId)
 			throws Exception {
 
-		CourseLecturVo cv = courseServiceImpl
-				.selectCourseMiddleDetailsById(courseId);
+		CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+		
 		if (cv == null) {
 			return ResponseObject.newErrorResponseObject("课程信息有误");
 		}
@@ -120,7 +120,6 @@ public class CourseController {
 		 */
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user != null) {
-			
 			// 是否关注
 			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
 			if (isFours != 0) {

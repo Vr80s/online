@@ -144,15 +144,9 @@ public class MyInfoController {
 		if(null == onlineLecturer){	
 			return ResponseObject.newErrorResponseObject("操作失败");
 		}
-		try {
-			String lockId = lecturerId+onlineUser.getId();
-			
-			ifocusService.updateFocus(lockId,lecturerId,onlineUser.getId(),type);
-			return ResponseObject.newSuccessResponseObject("操作成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}
+		String lockId = lecturerId+onlineUser.getId();
 		
+		ifocusService.updateFocus(lockId,lecturerId,onlineUser.getId(),type);
+		return ResponseObject.newSuccessResponseObject("操作成功");
 	}
 }

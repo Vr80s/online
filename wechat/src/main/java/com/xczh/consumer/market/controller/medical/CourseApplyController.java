@@ -73,7 +73,6 @@ public class CourseApplyController {
 										 HttpServletResponse res, CourseApplyInfo courseApplyInfo, @RequestParam("file")MultipartFile file)
 			throws Exception {
 
-		try {
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 			if(user==null){
 				return ResponseObject.newErrorResponseObject("登录失效");
@@ -102,12 +101,7 @@ public class CourseApplyController {
 			courseApplyInfo.setImgPath(imgPath);
 			courseApplyService.saveCourseApply(courseApplyInfo);
 			return  ResponseObject.newSuccessResponseObject("创建成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}
 	}
-
 	@InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {
 
