@@ -3,6 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
 <link href="/js/layer/skin/layer.css" type="text/css" />	
+<style>
+	#text-myset p{
+		word-wrap : break-word ;
+	}
+</style>
 <script type="text/javascript" src="js/cloudClass/courseApplyDetail.js"></script>
 <script type="text/javascript">
 	try {
@@ -176,7 +181,7 @@
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right">课程简介:</label>
 			<div class="col-lg-10 " >
-				<div class="clearfix" style="width: 1000px;">
+				<div class="clearfix" style="width: 1000px;" id="text-myset">
 					<p>${course.courseDetail}</p>
 				</div>
 			</div>
