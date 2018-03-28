@@ -480,6 +480,8 @@ public class VhallUtil {
 		
 		if(  ("success".equals(js.get("msg")) || "成功".equals(js.get("msg")) ) && 
 				Integer.parseInt(js.get("code").toString()) == 200){
+			
+			
 			/*
 			 * 判断这个回放的所有时长相加等于多少
 			 */

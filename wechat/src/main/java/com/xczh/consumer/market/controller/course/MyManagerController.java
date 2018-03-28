@@ -225,8 +225,27 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newSuccessResponseObject(0);
 		} else {
-			return ResponseObject.newSuccessResponseObject(userCoinService.getSettlementBalanceByUserId(user.getId()));
+			
+			String xmbye = userCoinService.getSettlementBalanceByUserId(user.getId());
+			double d_xmbye = Double.valueOf(xmbye);
+			if(d_xmbye>=1){
+				int i = (int)d_xmbye;    
+				return ResponseObject.newSuccessResponseObject(i);
+			}else{
+				return ResponseObject.newSuccessResponseObject(d_xmbye);
+			}
+			
 		}
+	}
+	public static void main(String[] args) {
+		
+		  double d  = Double.valueOf("0.5");    
+		  if(d>=1){
+			  int i  = (int)d;   
+			  System.out.println(i);   
+		  }
+		 
+	      
 	}
     /**
      * 
@@ -308,10 +327,15 @@ public class MyManagerController {
 		/*
 		 * 熊猫币数量和人民币数量，
 		 */
-		map.put("xmbNumber",
-				userCoinService.getSettlementBalanceByUserId(userId));// 熊猫币数量
-		map.put("rmbNumber",
-				userCoinService.getEnchashmentBalanceByUserId(userId));
+		String xmbye = userCoinService.getSettlementBalanceByUserId(user.getId());
+		double d_xmbye = Double.valueOf(xmbye);
+		if(d_xmbye>=1){
+			int i = (int)d_xmbye;    
+			map.put("xmbNumber",i);// 熊猫币数量
+		}else{
+			map.put("xmbNumber",d_xmbye);// 熊猫币数量
+		}
+		map.put("rmbNumber",userCoinService.getEnchashmentBalanceByUserId(userId));
 
 		return ResponseObject.newSuccessResponseObject(map);
 	}
