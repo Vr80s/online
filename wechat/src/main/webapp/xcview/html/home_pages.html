@@ -11,7 +11,9 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<!--<script type="text/javascript" src="/xcview/js/template/template.js"></script>-->
+
+
 
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>
@@ -19,21 +21,35 @@
 <!--刷新css引入-->
 <link rel="stylesheet" href="/xcview/css/mui.mins.css">
 
+<link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1.1"/>
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/homepage.css?v=wechat_1.1.1"/>
+
+
+
+
+<!--没有用上面js模板，手机上加载的太慢。会出错误-缩小放大效果-->
+<script type="text/javascript">
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+
+</script>
+
 
 <script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
-<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>
+<!--<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>-->  
+<script type="text/javascript" src="/xcview/js/home_pages.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
 <!--新滑动引入-->
 <script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1"></script>
 
-<!--这些css覆盖上面的css-->
-<link rel="stylesheet" href="/xcview/css/home_pages/home_pages.css">
+<link rel="stylesheet" href="/xcview/css/home_pages/home_pages.css">  <!--这是替换css-->
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
 </head>
@@ -61,6 +77,7 @@
 		</div>
 	</header>
 	<!--头部搜索结束-->
+	
 	<div class="find_nav">
 	    <div class="find_nav_left">
 	        <div class="find_nav_list" style="left: 0px;">
@@ -77,6 +94,9 @@
 	    </div>
 	</div>
 	<div class="top_height"></div>
+	
+	
+	
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
 		<!--<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">-->
@@ -201,15 +221,42 @@
             				<!--视频-->
             				{{each item.courseList as item i}}                  					
                 				<li style="position: relative;" class="goodCourseList" data-id="{{item.id}}" data-type="{{item.type}}">
+                					
+                					<!--watchState，1免费、0收费-------type，1-视频、2-音频、3-直播、4-线下培训班   -->
+                					
+                					{{if item.watchState == 1}}
+	                					{{if item.type == 1 || item.type == 2}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
+		                    			{{else if item.type == 3}}   
+			                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_play.html?my_study={{item.id}}"></a>-->
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
+		                    			{{else if item.type == 4}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+		                    			{{/if}}	
+		                    			
+		                    		{{else if item.watchState == 0}}
+		                    			{{if item.type == 1 || item.type == 2}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
+		                    			{{else if item.type == 3}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
+		                    			{{else if item.type == 4}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+		                    			
+		                    			{{/if}}
+		                    			
+                					{{/if}}
+                					
+                					
 		                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump({{item.id}})"></a>-->
-	                    			{{if item.type == 1 || item.type == 2}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
+	                    			<!--{{if item.type == 1 || item.type == 2}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
 	                    			{{else if item.type == 3}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" onclick="jump_play({{item.id}})"></a>
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
 	                    			{{else if item.type == 4}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
 	                    			
-	                    			{{/if}}
+	                    			{{/if}}-->
+	                    			
                 					<div class="boutique_main_one">
                 						<div class="boutique_one_img">
                 							<img src="{{item.smallImgPath}}" alt="" />
@@ -238,6 +285,8 @@
                 							{{if item.type == 3}}
                 							   {{if item.lineState == 1}}
                 							   <p class="zhibo_play">直播中</p>
+                							   {{else if item.startDateStr.indexOf('.')==-1}}
+                								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p              						   
                 								{{else}}
                 								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p>
                 								{{/if}}
@@ -298,7 +347,7 @@
                 				{{each item.courseList as item i}}
                 				<li class="offlineCourseList" data-jump="{{item.id}}">
 
-									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
 
                 					<div class="boutique_main_four">
                 						<div class="boutique_four_img">
@@ -366,21 +415,38 @@
 										
 										{{else if watchState == 3}}
 										
-										
 											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
-										
 										
 										{{/if}}
 									</script>-->
 									
-									
-									
-									
-								
-									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" onclick="jump_play({{item.id}})"></a>
+									<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>-->
 
-									
-									
+									{{if item.watchState == 1}}
+	                					{{if item.type == 1 || item.type == 2}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
+		                    			{{else if item.type == 3}}   
+			                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_play.html?my_study={{item.id}}"></a>-->
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
+		                    			{{else if item.type == 4}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+		                    			{{/if}}	
+		                    			
+		                    		{{else if item.watchState == 0}}
+		                    			{{if item.type == 1 || item.type == 2}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
+		                    			{{else if item.type == 3}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
+		                    			{{else if item.type == 4}}
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+		                    			
+		                    			{{/if}}
+		                    			
+	            					{{/if}}
+
+
+
+
 									<div class="newest_main_two">
 										<div class="newest_two_img">
 											<img src="{{item.smallImgPath}}" alt="" />
@@ -402,7 +468,7 @@
 
 											{{if itemls.lineState == 1}}
 												<p class="zhibo_play" style="margin-top1: -0.05rem;">直播中</p>
-											{{else if itemls.lineState == 2}}
+											{{else if item.startDateStr.indexOf('.')==-1}}
 												<p class="p3" style="margin-top1: 0.03rem;"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top1: 0.08rem;">{{item.startDateStr}}</span></p>
 											{{else}}
 												<p class="p3"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="font-size: 0.22rem;">{{item.startDateStr}}</span></p>			
@@ -443,7 +509,33 @@
             				<script type="text/html" id="lectures">
             				{{each items as item i}}
             				<li class="listenCourseList" data-jump="{{item.id}}">
-								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
+        
+								<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?course_id={{item.id}}"></a>-->
+            					
+        
+        						{{if item.watchState == 1}}
+                					{{if item.type == 1 || item.type == 2}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
+	                    			{{else if item.type == 3}}   
+		                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_play.html?my_study={{item.id}}"></a>-->
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
+	                    			{{else if item.type == 4}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+	                    			{{/if}}	
+	                    			
+	                    		{{else if item.watchState == 0}}
+	                    			{{if item.type == 1 || item.type == 2}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
+	                    			{{else if item.type == 3}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
+	                    			{{else if item.type == 4}}
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+	                    			
+	                    			{{/if}}
+	                    			
+            					{{/if}}
+            					
+            					
             					<div class="lectures_main_one">
             						<div class="lectures_one_img">
             							<img src="{{item.smallImgPath}}" alt="" />
@@ -485,7 +577,6 @@
 	
 	
 	
-	
 	<!--底部旋转开始-->
 	<div class="rotation_bottom">
 		<img src="/xcview/images/120.jpg" />
@@ -498,11 +589,11 @@
 	<div class="footer" style="display: none1;">
 		<ul>
 			<li>
-				<a href="" class="footer_one" style="background: url(/xcview/images/school_ones.png) no-repeat center;background-size: 0.486rem 0.4rem;margin-top: 0.14rem;"></a>
+				<a href="" class="footer_one" style="background: url(/xcview/images/school_ones.png) no-repeat center;background-size: 0.48rem 0.37rem;margin-top: 0.14rem;"></a>
 				<p style="color: #00BC12;">学堂</p>
 			</li>
 			<li>
-				<a href="javascript:;" class="footer_two" onclick="go_study()" style="margin-top: 0.14rem;"></a>
+				<a href="javascript:;" class="footer_two" onclick="go_study()" style="margin-top: 0.13rem;"></a>
 				<p>学习</p>
 			</li>
 			<li>
@@ -698,5 +789,7 @@ for(var i=0;i<as.length;i++){
 }
 
 </script>
+
+
 
 </html>
