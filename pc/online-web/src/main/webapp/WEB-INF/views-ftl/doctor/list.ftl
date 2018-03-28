@@ -1,19 +1,17 @@
 <!-- 导入自定义ftl -->
 <#import "../page.ftl" as cast/>
 <!DOCTYPE html>
-<!-- saved from url=(0056)http://dev.ixincheng.com/doctors -->
 <html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IEedge">
 
-    <title>熊猫中医 - 名医</title>
-    <link rel="shortcut icon" href="http://dev.ixincheng.com/favicon.ico">
-    <meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医">
+    <title>${tk.title?default('')}熊猫中医名医</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="keywords" content="${tk.keywords?default('')}中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医">
     <meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。">
     <meta name="renderer" content="webkit">
-    <meta name="baidu-site-verification" content="UHaAQAeAQF">
     <link rel="stylesheet" href="/web/css/bootstrap.min.css">
     <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
@@ -271,12 +269,14 @@
             searchParams.departmentId = '';
         }else{
             searchParams.departmentId = $('#doctor_search_condition2 span').attr('data-id');
+            searchParams.departmentText = $('#doctor_search_condition2 span').html();
         }
 
         if($('#doctor_search_condition1').hasClass('hide')){
             searchParams.type = '';
         }else{
             searchParams.type = $('#doctor_search_condition1 span').attr('data-type');
+            searchParams.typeText = $('#doctor_search_condition1 span').html();
         }
         var params = getParams();
         window.location.href="/doctors/list?"+params;

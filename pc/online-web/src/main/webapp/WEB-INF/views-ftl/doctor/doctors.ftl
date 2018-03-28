@@ -6,12 +6,11 @@
     <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IEedge">
 
-    <title>熊猫中医 - 名医</title>
+    <title>熊猫中医-名医</title>
     <link rel="shortcut icon" href="http://dev.ixincheng.com/favicon.ico">
     <meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医">
     <meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。">
     <meta name="renderer" content="webkit">
-    <meta name="baidu-site-verification" content="UHaAQAeAQF">
     <link rel="stylesheet" href="/web/css/bootstrap.min.css">
     <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
@@ -123,7 +122,7 @@
                 <ul class="doctor_inf" id="guoyi">
                     <#--<li>-->
                         <#--<a href="/doctors/bd753d68f1cf4558a4d56cc39676c8dd" target="_blank"></a>-->
-                        <#--<img src="./熊猫中医 - 名医_files/6d07a4d683b844918077dc044ffb59e6.jpg" alt="">-->
+                        <#--<img src="./熊猫中医-名医_files/6d07a4d683b844918077dc044ffb59e6.jpg" alt="">-->
                         <#--<h5>邓铁涛&nbsp;<span>主任医师</span></h5>-->
                         <#--<p>暂无</p>-->
                         <#--<p>广东省&nbsp;广州市&nbsp; </p>-->

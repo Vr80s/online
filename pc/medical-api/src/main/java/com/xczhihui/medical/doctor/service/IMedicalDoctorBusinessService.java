@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
@@ -101,4 +102,6 @@ public interface IMedicalDoctorBusinessService {
      * 根据用户id获取其所在的医馆信息
      */
     MedicalHospitalVo getHospital(String uid);
+
+    MedicalDepartment getDepartmentById(String departmentId);
 }
