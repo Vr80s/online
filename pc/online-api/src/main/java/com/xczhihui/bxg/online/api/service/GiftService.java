@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.GiftStatement;
+import com.xczhihui.bxg.online.api.po.Recharges;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.utils.lock.Lock;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /** 
@@ -88,4 +85,5 @@ public interface GiftService {
 	 * @Date: 下午 8:20 2017/12/26 0026
 	 **/
 	Object getLiveCourseUsersById(String id, String userId, Integer pageNumber, Integer pageSize);
+	
 }

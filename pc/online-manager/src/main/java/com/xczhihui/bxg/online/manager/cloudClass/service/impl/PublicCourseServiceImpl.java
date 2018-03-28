@@ -53,6 +53,8 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	private LiveCallbackService liveCallbackService;
 	
 	
+	
+	
 	@Value("${ENV_FLAG}")
 	private String envFlag;
 	@Value("${LIVE_VHALL_USER_ID}")
@@ -361,8 +363,11 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		
 		 String hql="from Course where direct_id = ?";
          Course course= dao.findByHQLOne(hql,new Object[] {changeCallbackVo.getWebinarId()});
+         
+         
          System.out.println("course livestate "+course);
          System.out.println("change CallbackVo"+changeCallbackVo.toString());
+         
          String startOrEnd ="";
          Integer type =0;
          if(course!=null){
@@ -382,6 +387,22 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         	 default:
         		 break;
         	 }
+        	 
+        	 
+        	 System.out.println("{}{}{}{}{}{}  这个伟大的直播是否生成回访了   开始  ");
+        	 
+        	 /*
+        	  * 这里查看下信息，看是否生成回放
+        	  */
+        	 System.out.println(VhallUtil.recordList(changeCallbackVo.getWebinarId()));
+        	 
+        	 
+        	 System.out.println("{}{}{}{}{}{}  这个伟大的直播是否生成回访了  结束  ");
+        	 
+        	 
+        	 /*
+        	  * 更改直播开始结束时间,更改直播当前状态
+        	  */
         	 dao.update(course);
         	 
         	 /*
@@ -390,6 +411,14 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
     		 System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"+course.getId()+",type:"+type);
     		 liveCallbackService.liveCallbackImRadio(course.getId()+"",type);
         	 
+    		 
+    		 
+    		 
+    		 
+    		 
+    		 
+    		 
+    		 
     		 
         	 if(startOrEnd!=""){
         		String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
