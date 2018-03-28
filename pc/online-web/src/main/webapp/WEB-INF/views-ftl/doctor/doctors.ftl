@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IEedge">
 
     <title>熊猫中医-名医</title>
-    <link rel="shortcut icon" href="http://dev.ixincheng.com/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     <meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医">
     <meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。">
     <meta name="renderer" content="webkit">
@@ -51,15 +51,14 @@
         <div class="banner">
             <ul id="slider" class="slider">
             <#list banners as banner>
-            <#if banner_index==0>
+                <#if banner_index==0>
                 <li style="z-index: 2;">
                     <a href="${banner.imgHref}" target="_blank" style="background:url(${banner.imgPath})no-repeat top center;background-size:100% 100%">
-            <#else>
+                 <#else>
                 <li>
                     <a href="${banner.imgHref}" target="_blank" style="background:url(${banner.imgPath})no-repeat top center;%">
-            </#if>
+                </#if>
                         <div class="image-overlay">
-
                         </div>
                     </a>
                 </li>
@@ -130,7 +129,7 @@
                 <#list doctors4.records as doctor>
                     <li>
                         <a href="/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="">
+                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -147,7 +146,7 @@
                 <#list doctors2.records as doctor>
                     <li>
                         <a href="/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="">
+                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -163,7 +162,7 @@
                 <#list doctors1.records as doctor>
                     <li>
                         <a href="/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="">
+                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -180,7 +179,7 @@
                 <#list doctors5.records as doctor>
                     <li>
                         <a href="/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="">
+                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -197,7 +196,7 @@
                 <#list doctors3.records as doctor>
                     <li>
                         <a href="/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="">
+                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('暂无')}</p>
                         <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}&nbsp; </p>
