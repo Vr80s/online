@@ -60,6 +60,7 @@ public class bankCardController {
 		 * 数据验证
 		 */
 		Integer devCode =  userBankService.validateBankInfo(user.getId(),acctName,acctPan,certId,tel,code);
+		
 		if(devCode == 201){ //说明身份证号不一致 
 			return  ResponseObject.newSuccessResponseObject("提示填写的为其他人的身份证，是否还添加银行卡",devCode);
 		}
