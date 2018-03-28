@@ -1,5 +1,20 @@
 package com.xczhihui.medical.anchor.service.impl;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
@@ -23,15 +38,6 @@ import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * 主播工作台资产业务接口实现层
@@ -65,6 +71,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private CourseApplyResourceMapper courseApplyResourceMapper;
     @Autowired
     private RedisCacheService cacheService;
+    
 
     /**
      * 获取主播详情

@@ -7,7 +7,7 @@
 		( select count(*) from (select count(*) from apply_r_grade_course where course_id in 
 		   (select id from oe_course where user_lecturer_id =#{userId} ) group  by user_id) as aaa)
 		UNION ALL 
-        ( select count(*) as number from course_apply_info  where user_id =#{userId} )
+        ( select count(*) as number from course_apply_info  where user_id =#{userId} and is_delete=0 )
 	</select>	
 	
 	

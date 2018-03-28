@@ -9,9 +9,12 @@ import com.xczhihui.medical.anchor.mapper.UserBankMapper;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.anchor.service.IUserBankService;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.utils.BankUtil;
 import com.xczhihui.utils.HttpUtils;
 import com.xczhihui.utils.MatchLuhn;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -48,6 +51,9 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Autowired
 	private IAnchorInfoService anchorInfoService;
+	
+	@Autowired
+	private MedicalDoctorApplyMapper medicalDoctorApplyMapper;
 
 	@Override
 	public UserBank selectUserBankByUserIdAndAcctPan(String userId, String acctPan,String certId) {
@@ -55,9 +61,12 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		return userBankMapper.selectUserBankByUserIdAndAcctPan(userId,acctPan,certId);
 	}
 
+	
+	
+	
 	@Override
 	public void addUserBank(String userId,String acctName, String acctPan,String certId,String tel) {
-		anchorInfoService.validateAnchorPermission(userId);
+		
 		userBankService.addUserBank4Lock(userId,userId,acctName,acctPan,certId,tel);
 	}
 
@@ -65,14 +74,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Lock(lockName = "addUserBankCard")
 	public void addUserBank4Lock(String lockKey, String userId, String acctName, String acctPan, String certId, String tel) {
-		anchorInfoService.validateAnchorPermission(userId);
-		if(!MatchLuhn.matchLuhn(acctPan)){
-			throw new RuntimeException("银行卡格式有误");
-		}
-		boolean verifyBank = BankUtil.getNameOfBank(acctPan).contains(BankCardType.getBankCard(Integer.valueOf(tel)));
-		if(!verifyBank){
-			throw new RuntimeException("银行卡号与银行不匹配");
-		}
+		
 		UserBank userBank = new UserBank();
 		userBank.setUserId(userId);
 		userBank.setAcctName(acctName);
@@ -80,13 +82,14 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		userBank.setCertId(certId);
 		userBank.setBankName(BankCardType.getBankCard(Integer.parseInt(tel)));
 		userBank.setTel(tel);
-		validateUserBank(userBank);
+
 		UserBank ub = selectUserBankByUserIdAndAcctPan(userBank.getUserId(),userBank.getAcctPan(),userBank.getCertId());
 		if(ub!=null){
 			throw new RuntimeException("此卡已添加");
 		}
 		String host = "https://ali-bankcard4.showapi.com";
 		String path = "/bank3";
+		
 		String method = "GET";
 		String appcode = "c46df1e69afe4de199c7ce7041277534";
 		Map<String, String> headers = new HashMap<String, String>();
@@ -95,10 +98,18 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		Map<String, String> querys = new HashMap<String, String>();
 		querys.put("acct_name", userBank.getAcctName());
 		querys.put("acct_pan", userBank.getAcctPan());
-		querys.put("cert_id", userBank.getCertId());
-		querys.put("cert_type", "01");
 		querys.put("needBelongArea", "true");
-		String Telephone="";
+		
+		
+		/**
+		 * 如果不填写身份证号信息时就是二元素认证
+		 */
+		if(!StringUtils.isNotBlank(certId)){
+			 path = "/bank2";
+			 querys.put("cert_id", userBank.getCertId());
+			 querys.put("cert_type", "01");
+		}
+		
 		String bankInfo="";
 		try {
 			HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
@@ -136,6 +147,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		userBankMapper.add(userBank);
 	}
 
+	
 	@Override
 	public List<UserBank> selectUserBankByUserId(String userId,boolean complete) {
 		anchorInfoService.validateAnchorPermission(userId);
@@ -197,12 +209,22 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		if(StringUtils.isBlank(userBank.getAcctPan())){
 			throw new RuntimeException("卡号不可为空");
 		}
-		if(StringUtils.isBlank(userBank.getCertId())){
-			throw new RuntimeException("身份证号不可为空");
-		}else if(!IDCard.validator(userBank.getCertId())){
+		
+//		if(StringUtils.isBlank(userBank.getCertId())){
+//			throw new RuntimeException("身份证号不可为空");
+//		}else if(!IDCard.validator(userBank.getCertId())){
+//			throw new RuntimeException("身份证号不正确");
+//		}
+	}
+	
+	private void validateUserBankCertId(UserBank userBank) {
+		
+		if(!IDCard.validator(userBank.getCertId())){
 			throw new RuntimeException("身份证号不正确");
 		}
+		
 	}
+	
 
 	/**
 	 * Description：处理银行卡显示
@@ -213,5 +235,55 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	public static String dealBankCard(String acctPan){
 		int length=acctPan.length();
 		return "***** ***** **** "+acctPan.substring(length-4);
+	}
+
+
+
+
+	@Override
+	public Integer validateBankInfo(String userId, String acctName, String acctPan,
+			String certId, String tel, Integer code) {
+		
+	    anchorInfoService.validateAnchorPermission(userId);
+		
+		if(!MatchLuhn.matchLuhn(acctPan)){
+			throw new RuntimeException("银行卡格式有误");
+		}
+		boolean verifyBank = BankUtil.getNameOfBank(acctPan).contains(BankCardType.getBankCard(Integer.valueOf(tel)));
+		if(!verifyBank){
+			throw new RuntimeException("银行卡号与银行不匹配");
+		}
+		UserBank userBank = new UserBank();
+		userBank.setUserId(userId);
+		userBank.setAcctName(acctName);
+		userBank.setAcctPan(acctPan);
+		userBank.setCertId(certId);
+		userBank.setBankName(BankCardType.getBankCard(Integer.parseInt(tel)));
+		userBank.setTel(tel);
+		validateUserBank(userBank);
+		Integer fontCode = 200;
+		
+		/*
+		 * 如果
+		 */
+		if(StringUtils.isNotBlank(certId)){
+			/**
+			 * 验证身份证号 格式
+			 */
+			validateUserBankCertId(userBank);
+			if(code != 1){  //用户同意了这次操作
+				/**
+				 * 如果是医师过的主播，验证主播的身份证号和这个是否相同
+				 *    验证身份证号 是否相同
+				 */
+				MedicalDoctorApply	medicalDoctorApply = medicalDoctorApplyMapper.getLastOne(userBank.getUserId());
+				if(medicalDoctorApply!=null){
+					if(!userBank.getCertId().equals(medicalDoctorApply.getCardNum())){
+						fontCode = 201;
+					}
+				}
+			}
+		}
+		return fontCode;
 	}
 }

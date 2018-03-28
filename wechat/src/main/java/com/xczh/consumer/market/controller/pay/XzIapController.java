@@ -31,10 +31,12 @@ import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineOrderService;
+import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.service.iphoneIpaService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.CodeUtil;
+import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
@@ -83,6 +85,10 @@ public class XzIapController {
 
 	@Autowired
 	private XmbBuyCouserService xmbBuyCouserService;
+	
+	@Autowired
+	private VersionService versionService;
+	
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
 			.getLogger(XzIapController.class);
@@ -102,19 +108,38 @@ public class XzIapController {
 
 		LOGGER.info("苹果充值   封装的数据  receipt:" + receipt);
 		String url = certificateUrl;
-		String newVersion = iphoneVersion;
+		LOGGER.info("app 购买地址   certificateUrl:" + url);
+		/*
+		 * 如果
+		 */
+		if(certificateUrl.equals("https://sandbox.itunes.apple.com/verifyReceipt")){ //测试环境
+			
+			url = certificateUrl; 
+		
+		}else{
+			/*
+			 * 正式环境需要区分下：是否在审核中，审核中需要是沙箱环境，审核后我们上线需要是正式环境
+			 * 
+			 *  需要注意的一点，如果ios进行上架后，后台需要立即更新这个状态app版本状态
+			 */
+			
+			VersionInfoVo newVer = versionService.getNewVersion(1);
+			
+			String newVersion = newVer.getVersion()+".1";
+			
+			LOGGER.info("newVersion:" + iphoneVersion);
+			LOGGER.info("currentVersion:" + version);
+			
+			int diff = VersionCompareUtil.compareVersion(newVersion, version);
 
-		LOGGER.info("certificateUrl:" + url);
-		LOGGER.info("newVersion:" + iphoneVersion);
-		LOGGER.info("version:" + version);
-		int diff = VersionCompareUtil.compareVersion(newVersion, version);
-
-		if (diff > 0) { // 当前版本小于最新版本，说明是老版本，需要用--生产环境
-			LOGGER.info("{}{}{}{}{}-----》当前版本小于最新版本，说明是老版本  ");
-			url = "https://buy.itunes.apple.com/verifyReceipt";
-		} else { // 当前版本等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境
-			LOGGER.info("{}{}{}{}{}-----》当前版本等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境");
-			url = "https://sandbox.itunes.apple.com/verifyReceipt";
+			if (diff > 0) {   
+				
+				LOGGER.info("{}{}{}{}{}-----》当前版本小于最新版本，说明是老版本  ");
+				url = "https://buy.itunes.apple.com/verifyReceipt";
+			} else {        // 当前版本大于等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境
+				LOGGER.info("{}{}{}{}{}-----》当前版本等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境");
+				url = "https://sandbox.itunes.apple.com/verifyReceipt";
+			}
 		}
 
 		LOGGER.info("苹果地址:" + url);
@@ -144,6 +169,18 @@ public class XzIapController {
 		}
 	}
 
+	
+	
+	public static void main(String[] args) {
+		
+		int diff = VersionCompareUtil.compareVersion("2.1.1.1.1", "2.1.1.1");
+		
+		System.out.println(diff);
+	}
+	
+	
+	
+	
 	/**
 	 * 安卓、ios、h5 扣减熊猫币,购买课程
 	 */
