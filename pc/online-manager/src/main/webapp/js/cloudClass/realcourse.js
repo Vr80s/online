@@ -40,6 +40,7 @@ $(function(){
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "开课时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime'},
+    { "title": "结束时间", "class":"center","width":"10%", "sortable":false,"data": 'endTime'},
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
     // { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
     // { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
