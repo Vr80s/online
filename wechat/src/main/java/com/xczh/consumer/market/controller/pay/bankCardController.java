@@ -48,7 +48,7 @@ public class bankCardController {
 	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,
 										 @RequestParam("acctName")String acctName,
 										 @RequestParam("acctPan")String acctPan,
-										 @RequestParam("certId")String certId,
+										 @RequestParam(required=false)String certId,
 										 @RequestParam("tel")String tel,
 										 @RequestParam(required=false)Integer code)throws Exception{
 		
@@ -60,14 +60,11 @@ public class bankCardController {
 		 * 数据验证
 		 */
 		Integer devCode =  userBankService.validateBankInfo(user.getId(),acctName,acctPan,certId,tel,code);
-		
 		if(devCode == 201){ //说明身份证号不一致 
 			return  ResponseObject.newSuccessResponseObject("提示填写的为其他人的身份证，是否还添加银行卡",devCode);
 		}
 		userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
-		
 		return  ResponseObject.newSuccessResponseObject("添加成功");
-
 	}
 	/**
 	 * 获取银行卡列表

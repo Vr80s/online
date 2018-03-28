@@ -218,7 +218,7 @@
 		where
 	   ( oc.type = 3 and  now() >= oc.end_time  and argc.user_id=#{userId}  and  oc.is_delete=0 ) or 
        ( oc.type = 1 and oc.live_status = 3  and argc.user_id=#{userId}  and  oc.is_delete=0 )
-        group by oc.id order by oc.end_time desc  )t2
+        group by oc.id order by oc.end_time desc  ) t2
 	</select>
 
 	<!-- 得到已购买课程的数量 （不包括免费的课程） -->
@@ -371,6 +371,7 @@
 		ou.name as name,
 		ou.profile_photo as headImg,
 		oc.direct_id as directId,
+		oc.status as status,
 		'直播间' as note
 		FROM
 		oe_course oc
@@ -409,6 +410,7 @@
 		ou.name as name,
 		ou.profile_photo as headImg,
 		oc.direct_id as directId,
+		oc.status as status,
 		'我的课程' as note
 		FROM
 		oe_course oc

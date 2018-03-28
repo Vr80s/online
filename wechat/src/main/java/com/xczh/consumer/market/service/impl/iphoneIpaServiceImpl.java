@@ -110,13 +110,15 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 			BigDecimal actualPrice) {
 		try {
 			String orderNoRecharge = TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
-			/*iphoneIpaMapper.save(json,
+			
+			iphoneIpaMapper.save(json,
 	        		actualPrice+"",
 	        		JSONObject.parseObject(json).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("transaction_id").toString(),
 					orderNoRecharge,
 	        		userId,
 	        		"充值熊猫币："+xmb.doubleValue()+"个",
-	        		1);*/
+	        		1);
+			
 			userCoinService.updateBalanceForRecharge(userId,Payment.APPLYPAY,xmb, OrderFrom.IOS,orderNoRecharge);
 		} catch (Exception e) {
 			// TODO: handle exception
