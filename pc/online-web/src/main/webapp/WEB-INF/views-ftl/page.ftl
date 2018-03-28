@@ -1,6 +1,6 @@
 <#-- 参数说明：pageNo当前的页码，totalPage总页数， showPages显示的页码个数，callFunName回调方法名（需在js中自己定义）-->
 <#macro page pageNo totalPage showPages callFunName>
-    <#if pageNo!=totalPage>
+    <#if totalPage!=1>
     <div class="page_list clearfix">
         <#if pageNo!=1>
             <a href="javascript:${callFunName+'('+1+')'};" class="top_page">首页</a>

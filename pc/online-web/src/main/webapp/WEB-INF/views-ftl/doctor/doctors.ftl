@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0056)http://dev.ixincheng.com/web/html/bestPractitioners.html -->
+<!-- saved from url=(0056)http://dev.ixincheng.com/doctors -->
 <html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
@@ -119,10 +119,10 @@
             <!-- TODO -->
             <div class="doctor_list clearfix" id="doc_lis1">
                 <h2>国医大师</h2>
-                <a href="http://dev.ixincheng.com/web/html/practitionerListing.html?name=&amp;type=4" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="/doctors/list?type=4" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="guoyi">
                     <#--<li>-->
-                        <#--<a href="/doctors/details/bd753d68f1cf4558a4d56cc39676c8dd" target="_blank"></a>-->
+                        <#--<a href="/doctors/bd753d68f1cf4558a4d56cc39676c8dd" target="_blank"></a>-->
                         <#--<img src="./熊猫中医 - 名医_files/6d07a4d683b844918077dc044ffb59e6.jpg" alt="">-->
                         <#--<h5>邓铁涛&nbsp;<span>主任医师</span></h5>-->
                         <#--<p>暂无</p>-->
@@ -130,7 +130,7 @@
                     <#--</li>-->
                 <#list doctors4.records as doctor>
                     <li>
-                        <a href="/doctors/details/${doctor.id}" target="_blank"></a>
+                        <a href="/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait}" alt="">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
@@ -143,11 +143,11 @@
 
             <div class="doctor_list clearfix" id="doc_lis2">
                 <h2>名老中医</h2>
-                <a href="http://dev.ixincheng.com/web/html/practitionerListing.html?name=&amp;type=2" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="/doctors/list?type=2" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="minglao">
                 <#list doctors2.records as doctor>
                     <li>
-                        <a href="/doctors/details/${doctor.id}" target="_blank"></a>
+                        <a href="/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait}" alt="">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
@@ -159,11 +159,11 @@
 
             <div class="doctor_list clearfix" id="doc_lis3">
                 <h2>名青年中医</h2>
-                <a href="http://dev.ixincheng.com/web/html/practitionerListing.html?name=&amp;type=1" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="/doctors/list?type=1" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="mingqing">
                 <#list doctors1.records as doctor>
                     <li>
-                        <a href="/doctors/details/${doctor.id}" target="_blank"></a>
+                        <a href="/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait}" alt="">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
@@ -176,11 +176,11 @@
 
             <div class="doctor_list clearfix" id="doc_lis4">
                 <h2>家传中医</h2>
-                <a href="http://dev.ixincheng.com/web/html/practitionerListing.html?name=&amp;type=5" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="/doctors/list?type=5" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="guzhongyi">
                 <#list doctors5.records as doctor>
                     <li>
-                        <a href="/doctors/details/${doctor.id}" target="_blank"></a>
+                        <a href="/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait}" alt="">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
@@ -193,11 +193,11 @@
 
             <div class="doctor_list clearfix" id="doc_lis5">
                 <h2>少数民族中医</h2>
-                <a href="http://dev.ixincheng.com/web/html/practitionerListing.html?name=&amp;type=3" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="/doctors/list?type=3" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="shaoshu">
                 <#list doctors3.records as doctor>
                     <li>
-                        <a href="/doctors/details/${doctor.id}" target="_blank"></a>
+                        <a href="/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait}" alt="">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('暂无')}</p>

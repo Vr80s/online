@@ -78,7 +78,7 @@ public class DoctorPageController {
         return view;
     }
 
-    @RequestMapping(value="details/{id}",method=RequestMethod.GET)
+    @RequestMapping(value="{id}",method=RequestMethod.GET)
     public ModelAndView details(@PathVariable String id) {
         ModelAndView view = new ModelAndView("doctor/details");
 

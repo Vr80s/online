@@ -200,7 +200,7 @@ $(function () {
         '<a href="/web/html/news.html" class="forum">头条</a>'+
          '<a href="/classroom.html" class="classroom">学堂</a>'+
         
-        '<a href="/web/html/bestPractitioners.html" class="doctor">名医</a>'+
+        '<a href="/doctors" class="doctor">名医</a>'+
 
         '<a href="/web/html/clinics.html" class="hospital">医馆</a>'+
         '<a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>'+

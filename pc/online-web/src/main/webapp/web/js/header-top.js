@@ -131,32 +131,7 @@ $(function () {
 
     	'</li>'+
     	'<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>'+
-    	'</ul></div></div>',
-        nav:
-//        	开始
-		'<div class="header_right">'+
-        '<a href="/index.html"><img src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>'+
-
-        '</div>'+
-        '<div class="header_left">'+
-        '<div class="path" style="width:95%">'+
-        '<a href="/index.html" class="home">首页</a>'+
-       
-        '<a href="/web/html/news.html" class="forum">头条</a>'+
-         '<a href="/classroom.html" class="classroom">学堂</a>'+
-        
-        '<a href="/web/html/bestPractitioners.html" class="doctor">名医</a>'+
-
-        '<a href="/web/html/clinics.html" class="hospital">医馆</a>'+
-        '<a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>'+
-        '<a href='+bbs_domain+"/index"+'>论坛</a>'+
-        
-        
-        '</div>'+
-        ' </div>'+
-       
-        
-        '</div>'
+    	'</ul></div></div>'
     };
     //<!--网站公告-->
     var webNotice='<div class="webSiteNotice" style="display:none;">'+

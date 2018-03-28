@@ -1,7 +1,7 @@
 <!-- 导入自定义ftl -->
 <#import "../page.ftl" as cast/>
 <!DOCTYPE html>
-<!-- saved from url=(0056)http://dev.ixincheng.com/web/html/bestPractitioners.html -->
+<!-- saved from url=(0056)http://dev.ixincheng.com/doctors -->
 <html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
@@ -99,7 +99,7 @@
                     </li>-->
                 <#list doctors.records as doctor>
                     <li class="clearfix">
-                        <a href="/doctors/details/${doctor.id}" id="${doctor.id}"></a>
+                        <a href="/doctors/${doctor.id}" id="${doctor.id}"></a>
                         <div class="doctor_pic">
                             <img src="${doctor.headPortrait}" alt="">
                         </div>
@@ -128,77 +128,24 @@
             <div class="about_doctor">
                 <h3>名医推荐</h3>
                 <ul class="about_doctor_list clearfix" id="doc_rec">
-                    <li>
-                        <a href="/web/html/practitionerDetails.html?Id=8356a18d548e400d8e8b9b8aaa9d03db"></a>
-                        <span class="about_doctor_pic">
-            <img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/30/10/496ed54d9282454d957035460ee63dd6.jpg" alt="暂无图片">
-        </span>
-                        <p>林超岱</p>
+                    <#--<li>-->
+                        <#--<a href="/web/html/practitionerDetails.html?Id=8356a18d548e400d8e8b9b8aaa9d03db"></a>-->
+                        <#--<span class="about_doctor_pic">-->
+            <#--<img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/30/10/496ed54d9282454d957035460ee63dd6.jpg" alt="暂无图片">-->
+        <#--</span>-->
+                        <#--<p>林超岱</p>-->
 
-                    </li>
+                    <#--</li>-->
 
-                    <li>
-                        <a href="/web/html/practitionerDetails.html?Id=c156c9d5237340deb689b65a484a45fa"></a>
-                        <span class="about_doctor_pic">
-            <img src="http://test-www.ixincheng.com:38080/data/picture/online/2017/12/15/22/29e0c801c7dc4e5b9f92f4e0fa0ea1bb.jpg" alt="暂无图片">
-        </span>
-                        <p>平光宇</p>
-
-                    </li>
-
-                    <li>
-                        <a href="/web/html/practitionerDetails.html?Id=c33cb5908844428886da892923d1179f"></a>
-                        <span class="about_doctor_pic">
-            <img src="http://test-www.ixincheng.com:38080/data/picture/online/2017/12/15/22/7cc4238462744ed298ce50b55698028a.jpg" alt="暂无图片">
-        </span>
-                        <p>靳士华</p>
-
-                    </li>
-
-                    <li>
-                        <a href="/web/html/practitionerDetails.html?Id=c05f6ebc34574a7080647066f8848662"></a>
-                        <span class="about_doctor_pic">
-            <img src="http://test-www.ixincheng.com:38080/data/picture/online/2017/12/15/22/6cf13b28b89f4cbb8dd1de6f0ddfe1c3.jpg" alt="暂无图片">
-        </span>
-                        <p>李振华</p>
-
-                    </li>
-
-                    <li>
-                        <a href="/web/html/practitionerDetails.html?Id=026246ba969f47ae96e3bc1f111f6690"></a>
-                        <span class="about_doctor_pic">
-            <img src="http://test-www.ixincheng.com:38080/data/picture/online/2017/12/15/22/ffbee0a343df4555afbaf61a8b72008e.jpg" alt="暂无图片">
-        </span>
-                        <p>关庆维</p>
-
-                    </li>
-
-                    <li>
-                        <a href="/web/html/practitionerDetails.html?Id=ba80f1d6b7454457b87438a2610bce27"></a>
-                        <span class="about_doctor_pic">
-            <img src="http://test-www.ixincheng.com:38080/data/picture/online/2017/12/15/22/036e866a52e64e6593363f9bd6171f9a.jpg" alt="暂无图片">
-        </span>
-                        <p>曲延华</p>
-
-                    </li>
-
-                    <li>
-                        <a href="/web/html/practitionerDetails.html?Id=2e52d2670d824d1c996e318c4289409a"></a>
-                        <span class="about_doctor_pic">
-            <img src="http://test-www.ixincheng.com:38080/data/picture/online/2017/12/15/22/c39844607a034fe58644e0ad6ae1c762.jpg" alt="暂无图片">
-        </span>
-                        <p>严季澜</p>
-
-                    </li>
-
-                    <li>
-                        <a href="/web/html/practitionerDetails.html?Id=77d21dca9b5848549c581b1ff4972c7c"></a>
-                        <span class="about_doctor_pic">
-            <img src="http://test-www.ixincheng.com:38080/data/picture/online/2017/12/15/22/cb2cc5c1fdcf4c2ab27a88b63a2bcd1f.jpg" alt="暂无图片">
-        </span>
-                        <p>许润三</p>
-
-                    </li>
+                    <#list recDoctors as doctor>
+                        <li>
+                            <a href="/doctors/${doctor.id}"></a>
+                            <span class="about_doctor_pic">
+                                <img src="${doctor.headPortrait}" alt="暂无图片">
+                            </span>
+                            <p>${doctor.name}</p>
+                        </li>
+                    </#list>
                 </ul>
             </div>
         </div>

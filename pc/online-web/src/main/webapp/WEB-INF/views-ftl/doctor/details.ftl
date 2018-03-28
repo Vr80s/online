@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0056)http://dev.ixincheng.com/web/html/bestPractitioners.html -->
+<!-- saved from url=(0056)http://dev.ixincheng.com/doctors -->
 <html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
@@ -259,7 +259,7 @@
 
 
         <!--右侧-->
-        <div class="main_right ">
+        <div class="main_right hide">
             <!--帐号认领-->
             <div class="renling hide">
                 <p>若您是李辅仁本人，可以认领此帐号</p>
@@ -276,20 +276,13 @@
                     <!--<div class="zhuzuo_left">
                         <img src="../images/doctor_detail/book2.png" alt="">
                         <p>施今墨对药</p>
-                    </div>
-
-                   <div class="zhuzuo_left">
-                        <img src="../images/doctor_detail/book2.png" alt="">
-                        <p>施今墨对药</p>
-                    </div>
-                    <div class="zhuzuo_left">
-                        <img src="../images/doctor_detail/book2.png" alt="">
-                        <p>施今墨对药</p>
-                    </div>
-                    <div class="zhuzuo_left">
-                        <img src="../images/doctor_detail/book2.png" alt="">
-                        <p>施今墨对药</p>
                     </div>-->
+                <#list writings as writing>
+                    <div class="zhuzuo_left">
+                        <img src="${writing.imgPath}" alt="">
+                        <p>${writing.title}</p>
+                    </div>
+                </#list>
                 </div>
 
             </div>
