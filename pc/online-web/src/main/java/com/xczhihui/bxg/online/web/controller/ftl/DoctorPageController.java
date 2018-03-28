@@ -3,7 +3,10 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.enums.DoctorType;
 import com.xczhihui.bxg.online.web.service.BannerService;
+import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
+import com.xczhihui.medical.department.model.MedicalDepartment;
+import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description：医师页面
@@ -33,6 +37,8 @@ public class DoctorPageController {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private BannerService  bannerService;
+    @Autowired
+    private IMedicalDepartmentService medicalDepartmentService;
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView index() {
@@ -86,19 +92,41 @@ public class DoctorPageController {
         Page newsReports = medicalDoctorBusinessService.getNewsReportsByPage(page, id);
         for (Object oeBxsArticleVO:newsReports.getRecords()) {
             OeBxsArticleVO newsReport = (OeBxsArticleVO)oeBxsArticleVO;
-            newsReport.setContent(StringEscapeUtils.unescapeHtml(newsReport.getContent().replaceAll("\\<.*?\\>","")));
+            newsReport.setContent(HtmlUtil.getTextFromHtml(newsReport.getContent().replaceAll("\\<.*?\\>", "")));
         }
         view.addObject("newsReports", newsReports);
 
         Page specialColumns = medicalDoctorBusinessService.getSpecialColumns(page, id);
         for (Object oeBxsArticleVO:specialColumns.getRecords()) {
             OeBxsArticleVO specialColumn = (OeBxsArticleVO)oeBxsArticleVO;
-            specialColumn.setContent(StringEscapeUtils.unescapeHtml(specialColumn.getContent().replaceAll("\\<.*?\\>","")));
+            specialColumn.setContent(HtmlUtil.getTextFromHtml(specialColumn.getContent().replaceAll("\\<.*?\\>","")));
         }
         view.addObject("specialColumns", specialColumns);
 
         List<MedicalWritingsVO> writings = medicalDoctorBusinessService.getWritingsByDoctorId(id);
         view.addObject("writings", writings);
+
+
+        return view;
+    }
+
+    @RequestMapping(value="list",method=RequestMethod.GET)
+    public ModelAndView list(Integer current,Integer size,Integer type,String hospitalId,String name,String field,String departmentId) {
+        ModelAndView view = new ModelAndView("doctor/list");
+        current = current==null?1:current;
+        size = size==null?10:size;
+        List<MedicalDoctorVO> recDoctors = medicalDoctorBusinessService.selectRecDoctor();
+        view.addObject("recDoctors", recDoctors);
+
+        Page page = new Page(0,Integer.MAX_VALUE);
+        Page<MedicalDepartment> departments = medicalDepartmentService.page(page);
+        view.addObject("departments", departments);
+
+        List<Map> doctorTypeList = DoctorType.getDoctorTypeList();
+        view.addObject("doctorTypeList", doctorTypeList);
+
+        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page(current,size), type, hospitalId, name, field, departmentId);
+        view.addObject("doctors", doctors);
 
 
         return view;

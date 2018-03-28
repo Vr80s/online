@@ -8,6 +8,7 @@
 		width: 8%;
 		height: 100%;
 		float: left;
+		margin-top: 50px;
 		/* overflow: hidden; */
 	}
 

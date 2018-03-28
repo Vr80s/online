@@ -2,7 +2,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="/js/layer/skin/layer.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />
+<style>
+	#btn-myset{
+		width: 175px;
+		margin: 0 auto;
+	}
+	#btn-myset button:nth-child(odd){
+
+
+	}
+	#btn-myset button:nth-child(even){
+		float: right;
+
+		
+	}
+</style>
 <script type="text/javascript" src="js/cloudClass/courseApplyDetail.js"></script>
 <script type="text/javascript">
 	try {
@@ -180,7 +195,7 @@
 <c:choose>
 	<c:when test="${courseApplyInfo.courseForm!= '2'}">
 			<label class="col-sm-1 control-label no-padding-right">课程开始时间:</label>
-			<div class="col-sm-1" >
+			<div class="col-sm-1" style="margin-right: 142px;">
 				<div class="clearfix" style="width: 240px;">
 					<label class="control-label no-padding-right"><fmt:formatDate value="${courseApplyInfo.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
 				</div>
@@ -299,7 +314,7 @@
 		</c:when>
 	</c:choose>
 
-	<div class="col-xs-7" style="text-align: right;margin-top:50px;">
+	<div id="btn-myset">
 		<c:choose>
 			<c:when test="${courseApplyInfo.status== '2'}">
 				<button class="btn btn-success" id="previewSaveBtn" onclick="pass()">通过 </button>

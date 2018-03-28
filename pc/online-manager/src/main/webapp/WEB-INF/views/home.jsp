@@ -75,11 +75,16 @@
 			font-weight: bold;
 		}
 		#breadcrumbs{
-			background: #2C6AA0 none repeat scroll 0% 0%;
+			background: #f5f5f5 none repeat scroll 0% 0%;
 		}
 		.lightb > a{
 			background-color:none;
 			background: none!important;
+		}
+		#dropdown-myset{
+			    left: auto;
+    right: 4px;
+    top: 45px;
 		}
 	</style>
 </head>
@@ -99,13 +104,13 @@
 			<div class="breadcrumbs" id="breadcrumbs" style="height:50px;">
 				<div class="navbar-header pull-left">
 					<div href="#" class="navbar-brand" style="color:#fff;font-size:20px">
-						<small>
+						<small style="color: #2d3638;">
 							<i class="fa fa-leaf"></i>
 							熊猫中医直播教育管理系统
 						</small>
 					</div>
 				</div>
-				<div class="navbar-buttons navbar-header pull-right" role="navigation" style="padding-top: 10px;">
+				<div class="navbar-buttons navbar-header pull-right" role="navigation" style="padding-top: 3px;">
 					<ul class="nav ace-nav">
 						<li class="light-blue lightb">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -116,15 +121,15 @@
 									<c:set var="headPhoto" value="images/defaultavatar.png"/>
 								</c:if>
 								<img class="nav-user-photo" src="${headPhoto}" alt="头像" />
-								<span class="user-info">
-									<small>Welcome,</small>
+								<span class="user-info" style="color: #2d3638;">
+									<small style="color: #2d3638;">Welcome,</small>
 									${_user_.loginName}
 								</span>
 
-								<i class="ace-icon fa fa-caret-down"></i>
+								<i class="ace-icon fa fa-caret-down" style="color: #2d3638;"></i>
 							</a>
 
-							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close" id="dropdown-myset">
 								<li>
 									<a href="${base}/logout">
 										<i class="ace-icon fa fa-power-off"></i>

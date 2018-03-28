@@ -49,7 +49,7 @@
                 <span class="dizhi"><em></em>${doctor.city}</span>
             </div>
             <div class="doctor_inf2">
-                <p>主治1：
+                <p>主治：
                 <#list doctor.fields as field>
                     <span>${field.name}</span>
                 </#list>
@@ -192,7 +192,7 @@
             </div>
 
             <!--专栏-->
-            <#if newsReports.total gt 0>
+            <#if specialColumns.total gt 0>
                 <div class="zhuanlan clearfix" id="zhuanlan">
                     <div class="class_top">
                         <span>专栏</span>
@@ -211,17 +211,6 @@
                                <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
                                <span>2017.11.11</span>
                            </div>
-                        </li>
-
-                        <li class="clearfix">
-                            <div class="zhuanlan_left">
-                                <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                            </div>
-                            <div class="zhuanlan_right">
-                                <h3>2017年中国国际中医药大健康博览会举行</h3>
-                                <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
-                                <span>2017.11.11</span>
-                            </div>
                         </li>-->
                         <#list specialColumns.records as specialColumn>
                             <li class="clearfix">
@@ -367,7 +356,7 @@
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
     $(function(){
-        $(".doctor").addClass("select");
+        $(".doctor-tab").addClass("select");
     });
     //banner
     function init() {
