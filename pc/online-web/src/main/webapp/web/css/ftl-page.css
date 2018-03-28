@@ -1,9 +1,12 @@
 /*分页 begin*/
-.page_list{width:75%;margin:5% auto;}
-.page_list a{ text-decoration: none;font-size:75%;color:#666; display: block;float: left;width:46px;height:46px;line-height:46px;
+.page_list{width:75%;margin:5% auto;padding-left: 130px;}
+.page_list a{ text-decoration: none;font-size:75%;color:#2CB82C; display: block;float: left;width:30px;height:30px;line-height:30px;
     margin-right: 10px;text-align: center;background-color: #fff;border:1px solid #dedede;}
-.page_list a.top_page,.page_list a.end_page{width:62px;}
-.page_list a.page_prev,.page_list a.page_next{width:76px;}
+.page_list a.top_page,.page_list a.end_page{width:30px;height:30px}
+.page_list a.page_prev,.page_list a.page_next{width:30px;height:30px}
 .page_list span.page_ellipsis{display: block;float: left;width:46px;height:46px;margin-right: 10px;background-position:5px -88px;border:none;}
-.page_list a:hover ,.page_list a.current{background-color: #dedede;color:#333;}
+.page_list a.current{background-color: #2CB82C;color:#333;color: #fff;}
+.page_list a:hover {background-color: #ececec;}
+.page_list a:first-child{border-top-left-radius: 3px;border-bottom-left-radius: 3px;}
+.page_list a:last-child{border-top-right-radius: 3px;border-bottom-right-radius: 3px;}
 /*分页 end*/

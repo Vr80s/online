@@ -3,8 +3,8 @@
     <#if totalPage!=1>
     <div class="page_list clearfix">
         <#if pageNo!=1>
-            <a href="javascript:${callFunName+'('+1+')'};" class="top_page">首页</a>
-            <a href="javascript:${callFunName+'('+(pageNo-1)+')'};" class="page_prev">上一页</a>
+            <a href="javascript:${callFunName+'('+1+')'};" class="top_page"><<</a>
+            <a href="javascript:${callFunName+'('+(pageNo-1)+')'};" class="page_prev"><</a>
         </#if>
         <#if pageNo-showPages/2 gt 0>
             <#assign start = pageNo-(showPages-1)/2/>
@@ -32,8 +32,8 @@
             </#if>
         </#list>
         <#if pageNo!=totalPage>
-            <a href="javascript:${callFunName+'('+(pageNo+1)+')'};" class="page_next">下一页</a>
-            <a href="javascript:${callFunName+'('+totalPage+')'};" class="end_page">尾页</a>
+            <a href="javascript:${callFunName+'('+(pageNo+1)+')'};" class="page_next">></a>
+            <a href="javascript:${callFunName+'('+totalPage+')'};" class="end_page">>></a>
         </#if>
     </div>
     </#if>
