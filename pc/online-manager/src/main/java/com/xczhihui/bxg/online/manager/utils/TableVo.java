@@ -2,141 +2,159 @@ package com.xczhihui.bxg.online.manager.utils;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.xczhihui.bxg.common.util.bean.Page;
+
 public class TableVo {
 
-	private int iTotalRecords;
-	
-	private int iTotalDisplayRecords;
-	
-	//每页显示数量
-	private int iDisplayLength = 10;
-	
-	//分页时每页跨度数量
-	private int iDisplayStart = 10;
-	
-	private List aaData;
-	
-	//DataTable请求服务器端次数
-	private String sEcho;
-	
-	private String sSortDir_0;
-	
-	private int iSortCol_0;
-	
-	private String sColumns;
-	
-	private int iSortingCols;
-	
-	//列数
-	private int iColumns;
+    private int iTotalRecords;
 
-	//搜索条件
-	private String sSearch;
-	
-	private Long unreadNum;
-	
-	public String getsSearch() {
-		return sSearch;
-	}
+    private int iTotalDisplayRecords;
 
-	public void setsSearch(String sSearch) {
-		this.sSearch = sSearch;
-	}
+    //每页显示数量
+    private int iDisplayLength = 10;
 
-	public int getiDisplayLength() {
-		return iDisplayLength;
-	}
+    //分页时每页跨度数量
+    private int iDisplayStart = 10;
 
-	public void setiDisplayLength(int iDisplayLength) {
-		this.iDisplayLength = iDisplayLength;
-	}
+    private List aaData;
 
-	public int getiDisplayStart() {
-		return iDisplayStart;
-	}
+    //DataTable请求服务器端次数
+    private String sEcho;
 
-	public void setiDisplayStart(int iDisplayStart) {
-		this.iDisplayStart = iDisplayStart;
-	}
+    private String sSortDir_0;
 
-	public String getsEcho() {
-		return sEcho;
-	}
+    private int iSortCol_0;
 
-	public void setsEcho(String sEcho) {
-		this.sEcho = sEcho;
-	}
+    private String sColumns;
 
-	public int getiColumns() {
-		return iColumns;
-	}
+    private int iSortingCols;
 
-	public void setiColumns(int iColumns) {
-		this.iColumns = iColumns;
-	}
+    //列数
+    private int iColumns;
 
-	public int getiTotalRecords() {
-		return iTotalRecords;
-	}
+    //搜索条件
+    private String sSearch;
 
-	public void setiTotalRecords(int iTotalRecords) {
-		this.iTotalRecords = iTotalRecords;
-	}
+    private Long unreadNum;
 
-	public int getiTotalDisplayRecords() {
-		return iTotalDisplayRecords;
-	}
+    @JsonIgnore
+    private int currentPage;
 
-	public void setiTotalDisplayRecords(int iTotalDisplayRecords) {
-		this.iTotalDisplayRecords = iTotalDisplayRecords;
-	}
+    public int getCurrentPage() {
+        return iDisplayStart / iDisplayLength + 1;
+    }
 
-	public List getAaData() {
-		return aaData;
-	}
+    public TableVo fetch(Page<?> page) {
+        int totalCount = page.getTotalCount();
+        this.setAaData(page.getItems());
+        this.setiTotalDisplayRecords(totalCount);
+        this.setiTotalRecords(totalCount);
+        return this;
+    }
 
-	public void setAaData(List aaData) {
-		this.aaData = aaData;
-	}
+    public String getsSearch() {
+        return sSearch;
+    }
 
-	public String getsColumns() {
-		return sColumns;
-	}
+    public void setsSearch(String sSearch) {
+        this.sSearch = sSearch;
+    }
 
-	public void setsColumns(String sColumns) {
-		this.sColumns = sColumns;
-	}
+    public int getiDisplayLength() {
+        return iDisplayLength;
+    }
 
-	public int getiSortingCols() {
-		return iSortingCols;
-	}
+    public void setiDisplayLength(int iDisplayLength) {
+        this.iDisplayLength = iDisplayLength;
+    }
 
-	public void setiSortingCols(int iSortingCols) {
-		this.iSortingCols = iSortingCols;
-	}
+    public int getiDisplayStart() {
+        return iDisplayStart;
+    }
 
-	public String getsSortDir_0() {
-		return sSortDir_0;
-	}
+    public void setiDisplayStart(int iDisplayStart) {
+        this.iDisplayStart = iDisplayStart;
+    }
 
-	public void setsSortDir_0(String sSortDir_0) {
-		this.sSortDir_0 = sSortDir_0;
-	}
+    public String getsEcho() {
+        return sEcho;
+    }
 
-	public int getiSortCol_0() {
-		return iSortCol_0;
-	}
+    public void setsEcho(String sEcho) {
+        this.sEcho = sEcho;
+    }
 
-	public void setiSortCol_0(int iSortCol_0) {
-		this.iSortCol_0 = iSortCol_0;
-	}
+    public int getiColumns() {
+        return iColumns;
+    }
 
-	public Long getUnreadNum() {
-		return unreadNum;
-	}
+    public void setiColumns(int iColumns) {
+        this.iColumns = iColumns;
+    }
 
-	public void setUnreadNum(Long unreadNum) {
-		this.unreadNum = unreadNum;
-	}
+    public int getiTotalRecords() {
+        return iTotalRecords;
+    }
+
+    public void setiTotalRecords(int iTotalRecords) {
+        this.iTotalRecords = iTotalRecords;
+    }
+
+    public int getiTotalDisplayRecords() {
+        return iTotalDisplayRecords;
+    }
+
+    public void setiTotalDisplayRecords(int iTotalDisplayRecords) {
+        this.iTotalDisplayRecords = iTotalDisplayRecords;
+    }
+
+    public List getAaData() {
+        return aaData;
+    }
+
+    public void setAaData(List aaData) {
+        this.aaData = aaData;
+    }
+
+    public String getsColumns() {
+        return sColumns;
+    }
+
+    public void setsColumns(String sColumns) {
+        this.sColumns = sColumns;
+    }
+
+    public int getiSortingCols() {
+        return iSortingCols;
+    }
+
+    public void setiSortingCols(int iSortingCols) {
+        this.iSortingCols = iSortingCols;
+    }
+
+    public String getsSortDir_0() {
+        return sSortDir_0;
+    }
+
+    public void setsSortDir_0(String sSortDir_0) {
+        this.sSortDir_0 = sSortDir_0;
+    }
+
+    public int getiSortCol_0() {
+        return iSortCol_0;
+    }
+
+    public void setiSortCol_0(int iSortCol_0) {
+        this.iSortCol_0 = iSortCol_0;
+    }
+
+    public Long getUnreadNum() {
+        return unreadNum;
+    }
+
+    public void setUnreadNum(Long unreadNum) {
+        this.unreadNum = unreadNum;
+    }
 
 }
