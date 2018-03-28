@@ -1,12 +1,22 @@
 package com.xczhihui.bxg.online.manager.vhall;
 
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xczhihui.bxg.common.util.HttpUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -36,6 +46,9 @@ public class VhallUtil {
     private static String WEBINAR_START = "https://e.vhall.com/api/vhallapi/v2/webinar/start";//获取直播间地址
     private static String CALLBACK_URL = "http://e.vhall.com/api/vhallapi/v2/webinar/change-callback";//设置回调地址
     private static String CHANGE_USER_POWER = "http://e.vhall.com/api/vhallapi/v2/user/change-user-power";//修改用户权限
+    
+  
+    private static String record_list ="http://e.vhall.com/api/vhallapi/v2/record/list";	//获取直播回放列表
 
 
     /**
@@ -439,5 +452,68 @@ public class VhallUtil {
             System.out.println("修改用户权限" + m.get("msg"));
         }
     }
+    
+    
+    
+	/**
+	 * Description：查看回放信息  --》来判断这个回放是否有效，来判断这个直播是否应该下架
+	 * @param userId
+	 * @return
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public static String recordList(String videoId) {
+
+	    Map<String, String> parameters = new TreeMap<String, String>();
+		
+		/* 公共参数 */
+        parameters.put("auth_type", AUTO_TYPE);
+        parameters.put("account", ACCOUNT);
+        parameters.put("password", PWD);
+		/* 公共参数 */
+
+		parameters.put("webinar_id", videoId);
+		String json = HttpUtil.sendPostRequest(record_list, parameters);
+		JSONObject js = JSONObject.parseObject(json);
+		
+		System.out.println(js.toJSONString());
+		
+		if(  ("success".equals(js.get("msg")) || "成功".equals(js.get("msg")) ) && 
+				Integer.parseInt(js.get("code").toString()) == 200){
+			/*
+			 * 判断这个回放的所有时长相加等于多少
+			 */
+			js = (JSONObject)js.get("data");
+			
+			JSONArray jsonArray =  (JSONArray) js.get("lists");
+			Integer countDuration = 0;
+			for (Object jobj : jsonArray) {
+				JSONObject jsonObject = (JSONObject)jobj;
+				System.out.println(jsonObject.get("duration").toString());
+				countDuration+=Integer.parseInt(jsonObject.get("duration").toString());
+			}
+			
+			
+			System.out.println("countDuration:"+countDuration);
+			if(countDuration>300){//总长度大于5分钟才可以上架
+				return "ok";
+			}else{
+				return "error";
+			}
+		}else{
+			System.out.println(js.toJSONString());
+		}
+		return "error";
+	}
+    
+	//测试
+	public static void main(String[] args) {
+		
+		
+		recordList("593865804");
+	}
+    
+    
+    
 }
 
