@@ -420,7 +420,7 @@ function queryDataByParams(params,data_type){
 						//alert(typeStr);
 					}
 					data1+="<div class='li_list_div' >"+
-						       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" >"+
+						       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" data-watchState="+item.watchState+" data-collection="+item.collection+">"+
 							       "<div class='li_list_one_left'>" +
 							          "<img src='"+item.smallImgPath+"' class='one' />" + statusImg1 +
 							      "</div>" +
@@ -484,9 +484,30 @@ function queryDataByParams(params,data_type){
 					
 					 var id =$(this).attr("data-courseId");
 					 
+					 var WatchState=$(this).attr("data-watchState");  //收费付费
+					 
+					 var Collection=$(this).attr("data-collection");  //专辑是否
+					 
 					if(type==1||type==2){
 		//					视频音频购买
-						location.href="school_audio.html?course_id="+id
+						
+						if(WatchState==1){   //判断收费和付费跳转
+//							location.href="live_audio.html?my_study="+id
+							if(Collection==0){     /*判断专辑*/
+								location.href="live_audio.html?my_study="+id
+								
+							}else{
+								location.href="live_select_album.html?course_id="+id
+							}
+
+
+						}else{
+							location.href="school_audio.html?course_id="+id
+						}
+						
+						
+							
+						
 					}else if(type==3){
 						aa(id)
 					}else{
@@ -515,10 +536,22 @@ function aa(id){
       var falg =authenticationCooKie();       	       
 //付费的直播和即将直播未购买跳购买页    
          if(userPlay.watchState==0 && userPlay.lineState==1){
-            location.href="school_play.html?course_id="+id 
+            location.href="school_play.html?course_id="+id
         }else if(userPlay.watchState==0 && userPlay.lineState==4){
-            location.href="school_play.html?course_id="+id          
+            location.href="school_play.html?course_id="+id   
+         }else if(userPlay.watchState==1 && userPlay.lineState==3){
+         	location.href="live_play.html?my_study="+id
+         }else if(userPlay.watchState==1 && userPlay.lineState==2){
+         	location.href="live_play.html?my_study="+id
          }
+        
+        /*else if(userPlay.watchState==0 && userPlay.lineState==3){
+            location.href="school_play.html?course_id="+id
+        }else{
+        	location.href="live_audio.html?my_study="+id
+        }*/
+        
+        
 //免费的直播和即将直播跳直播间      
          else if(userPlay.watchState==1 && userPlay.lineState==1){
             if (falg==1002){
@@ -526,9 +559,8 @@ function aa(id){
             }else if (falg==1005) {
                location.href ="/xcview/html/evpi.html";
             }else{
-            requestService("/xczh/history/add",
-               {courseId:id}
-               ,function(data) {
+               requestService("/xczh/history/add",
+               {courseId:id,recordType:2},function(data) {
       
                }) 
             location.href="details.html?courseId="+id
@@ -540,7 +572,7 @@ function aa(id){
                  location.href ="/xcview/html/evpi.html";
                }else{
                   requestService("/xczh/history/add",
-                     {courseId:id}
+                     {courseId:id,recordType:2}
                      ,function(data) {
             
                      }) 
@@ -550,14 +582,14 @@ function aa(id){
 //购买后的直播和即将直播跳直播间
          else if(userPlay.watchState==2 && userPlay.lineState==1){
             requestService("/xczh/history/add",
-               {courseId:id}
+               {courseId:id,recordType:2}
                ,function(data) {
       
                }) 
             location.href="details.html?courseId="+id           
          }else if(userPlay.watchState==2 && userPlay.lineState==4){
             requestService("/xczh/history/add",
-               {courseId:id}
+               {courseId:id,recordType:2}
               ,function(data) {
       
                }) 
@@ -566,14 +598,14 @@ function aa(id){
 //主播本人自己的直播和即将直播跳直播间			
 			else if(userPlay.watchState==3 && userPlay.lineState==1){
 				requestService("/xczh/history/add",
-					{courseId:id}
+					{courseId:id,recordType:2}
 					,function(data) {
 		
 					})	
 				location.href="details.html?courseId="+id				
 			}else if(userPlay.watchState==3 && userPlay.lineState==4){
 				requestService("/xczh/history/add",
-					{courseId:id}
+					{courseId:id,recordType:2}
 					,function(data) {
 		
 					})	

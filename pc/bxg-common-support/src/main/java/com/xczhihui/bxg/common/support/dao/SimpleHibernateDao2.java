@@ -32,9 +32,9 @@ import com.xczhihui.bxg.common.support.domain.BasicEntity2;
 import com.xczhihui.bxg.common.util.bean.Page;
 
 /**
- * 
+ *
  * 用新的BasicEntity2，主键int类型
- * 
+ *
  * 完成基本操作的DAO。使用该类前请确保已通过setDataSource和setSessionFactory方法注入必须的属性。
  * 在spring容器中注册名为simpleHibernateDao，
  * 并使用名为dataSource和sessionFactory作为数据源和hibernate的SessionFactory。
@@ -52,7 +52,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 修改数据源
-	 * 
+	 *
 	 * @param dataSource
 	 */
 	@Resource(name = "dataSource")
@@ -63,7 +63,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 修改hibernate的sessionFactory
-	 * 
+	 *
 	 * @param sessionFactory
 	 */
 	@Resource(name = "sessionFactory")
@@ -74,7 +74,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 保存实体，保存后实体的主键有值。
-	 * 
+	 *
 	 * @param entity
 	 */
 	public void save(Object entity) {
@@ -83,7 +83,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 删除实体
-	 * 
+	 *
 	 * @param entity
 	 */
 	public void delete(Object entity) {
@@ -96,7 +96,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 根据ID删除实体.
-	 * 
+	 *
 	 * @param id
 	 */
 	public <T> T delete(Serializable id, Class<T> entityClass) {
@@ -111,7 +111,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 更新实体
-	 * 
+	 *
 	 * @param entity
 	 */
 	public void update(Object entity) {
@@ -120,7 +120,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 保存或更新，id有值更新否则保存。
-	 * 
+	 *
 	 * @param entity
 	 */
 	public void saveOrUpdate(Object entity) {
@@ -129,7 +129,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 批量保存或更新实体。
-	 * 
+	 *
 	 * @param entities
 	 */
 	public <T> void saveOrUpdate(final List<T> entities) {
@@ -153,7 +153,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 根据ID获取一个实体。
-	 * 
+	 *
 	 * @param id
 	 * @param clazz
 	 * @return
@@ -164,7 +164,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 获取所有的指定实体。
-	 * 
+	 *
 	 * @param clazz
 	 *            实体类型。
 	 * @return
@@ -176,7 +176,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 根据查询条件查询。
-	 * 
+	 *
 	 * @param detachedCriteria
 	 * @return
 	 */
@@ -187,7 +187,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 更加查询条件获取一个实体。
-	 * 
+	 *
 	 * @param detachedCriteria
 	 * @return
 	 */
@@ -201,7 +201,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 分页获取符合条件的实体。
-	 * 
+	 *
 	 * @param detachedCriteria
 	 * @param limit
 	 * @param count
@@ -214,7 +214,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 通过HQL查询实体。
-	 * 
+	 *
 	 * @param hql
 	 *            如:from User where name=? and age=?
 	 * @param params
@@ -227,7 +227,7 @@ public class SimpleHibernateDao2 {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param hql
 	 *            如:from User where name=? and age=?
 	 * @param params
@@ -244,7 +244,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 将sql查询的结果转成一个整数。
-	 * 
+	 *
 	 * @param sql
 	 * @param args
 	 * @return
@@ -256,7 +256,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 分页查询
-	 * 
+	 *
 	 * @param criteria
 	 * @param pageNumber
 	 *            页码(表示第几页，从1开始)
@@ -280,7 +280,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 分页通过HQL查询实体。
-	 * 
+	 *
 	 * @param hql
 	 *            如：from TestBean where name=:name
 	 * @param paramMap
@@ -336,7 +336,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 分页通过SQL查询实体。
-	 * 
+	 *
 	 * @param sql
 	 *            如：select * from test_bean where name=:name
 	 * @param paramMap
@@ -378,7 +378,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 根据实体的ID获取一批实体
-	 * 
+	 *
 	 * @param clazz
 	 * @param entityIds
 	 * @return
@@ -391,7 +391,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 根据单个属性查一批实体
-	 * 
+	 *
 	 * @param clazz
 	 * @param propertyName
 	 * @param propertyValue
@@ -405,7 +405,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 根据单个属性查一个实体
-	 * 
+	 *
 	 * @param clazz
 	 * @param propertyName
 	 * @param propertyValue
@@ -419,7 +419,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 命名参数查询。
-	 * 
+	 *
 	 * @param clazz
 	 *            返回list中元素的类型
 	 * @param sql
@@ -442,7 +442,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 当前上下文中得session
-	 * 
+	 *
 	 * @return
 	 */
 	protected Session getCurrentSession() {
@@ -468,7 +468,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 将字符串列表转换成字符串数组
-	 * 
+	 *
 	 * @param list
 	 *            List 字符串列表
 	 * @return String[]
@@ -483,7 +483,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 逻辑删除一批实体。
-	 * 
+	 *
 	 * @param clazz
 	 * @param ids
 	 * @return
@@ -494,7 +494,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 修改is_delete字段状态。
-	 * 
+	 *
 	 * @param domainClass
 	 *            实体类
 	 * @param ids
@@ -517,7 +517,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 逻辑删除一个实体
-	 * 
+	 *
 	 * @param id
 	 * @param clazz
 	 */
@@ -527,7 +527,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 逻辑删除一个实体
-	 * 
+	 *
 	 * @param id
 	 * @param clazz
 	 */
@@ -537,7 +537,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 修改实体的删除属性
-	 * 
+	 *
 	 * @param id
 	 * @param clazz
 	 * @param isDelete
@@ -550,7 +550,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 修改实体的删除属性
-	 * 
+	 *
 	 * @param entity
 	 * @param isDelete
 	 */
@@ -563,7 +563,7 @@ public class SimpleHibernateDao2 {
 
 	/**
 	 * 获取有效（未逻辑删除）的实体。
-	 * 
+	 *
 	 * @param id
 	 * @param clazz
 	 * @return

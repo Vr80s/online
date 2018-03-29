@@ -1,7 +1,7 @@
 .page-main{
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
+    /*margin-left: 50px;*/
 }
 
 .page-main div{
@@ -36,7 +36,7 @@
     /*width: 300px;*/
     /*height: 200px;*/
     margin-right: 60px;
-    margin-left: 30px;
+    /*margin-left: 30px;*/
 }
 
 .doctor-cardNegative-img{
@@ -172,3 +172,59 @@
 .doctor-departments-text{
     margin-right: 10px;
 }
+.doctor-description-text p{
+	font-size: 16px !important;
+}
+.doctor-description-text span{
+	font-size: 16px !important;
+}
+/*后加样式*/
+.doctor-name{
+	width: 170px;
+	text-align: right;
+}
+.doctor-cardnum{
+	width: 170px;
+	text-align: right;
+}
+.doctor-cardPicture{
+	width: 170px;
+	text-align: right;
+}
+.doctor-qualification{
+	width: 170px;
+	text-align: right;
+}
+.doctor-professional{
+	width: 170px;
+	text-align: right;
+}
+.doctor-headPortrait{
+	width: 170px;
+	text-align: right;
+}
+.doctor-title{
+	width: 170px;
+	text-align: right;
+}
+.doctor-titleProve{
+	width: 170px;
+	text-align: right;
+}
+.doctor-departments{
+	width: 170px;
+	text-align: right;
+}
+.doctor-field{
+	width: 170px;
+	text-align: right;
+}
+.doctor-description{
+	width: 170px;
+	text-align: right;
+}
+.doctor-address{
+	width: 170px;
+	text-align: right;
+}
+
