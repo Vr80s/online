@@ -1088,3 +1088,49 @@
 
 
 /*著作部分内容*/
+
+
+
+/*删除 下架 提示框*/
+#deleteTip {
+    width: 400px;
+    height: 200px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999;
+    text-align: center;
+    padding: 30px 65px;
+    background-color: #fff;
+}
+#deleteTip h4 {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+#deleteTip p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 40px;
+}
+#deleteTip button{
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    outline: none;
+    background-color: #fff;
+    color: #000;
+}
+#deleteTip #sureDel {
+    float: left;
+}
+#deleteTip #cancalDel {
+    float: right;
+}
+#deleteTip button:hover {
+    background-color: #00BC12;
+    color: #fff;
+}

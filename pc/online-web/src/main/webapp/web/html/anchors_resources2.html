@@ -56,6 +56,19 @@
 		<div id="tip" style="display: none;">
 			您已完成了医馆注册，不能进行医师注册!
 		</div>
+		
+		<!--删除提示弹窗-->
+		<div id="deleteTip" class="hide">
+			<h4 class="confirm-title">删除资源</h4>
+			<p class="confirm-content">确定删除这条资源？</p>
+			<button id="sureDel" class="confirm-sure">确定</button><button id="cancalDel" onclick="hideDel()">取消</button>
+		</div>
+		
+		<!--全局遮罩层-->
+		<div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
+				
+		
+		
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
@@ -82,7 +95,7 @@
 							</div>
 						</li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>主播工作台</span></li>-->
-						<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>
+						<!--<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>-->
 						<li class="setTop docSuccessBtn" id="docJoinHos"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>医馆</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
@@ -97,7 +110,7 @@
 				<!--课程-->
 				<!--<div class="select_box">主播工作台</div>-->
 				<!--收徒-->
-				<div class="select_box">收徒</div>
+				<!--<div class="select_box">收徒</div>-->
 				<!--医馆-->
 				<div class="select_box docSuccessBox" id="hospital">
 					<div class="zhuanlan_top">
@@ -197,7 +210,7 @@
 				<div class="select_box" id="zhuanlan">
 					<div class="zhuanlan_top">
 						<span class="title">专栏</span>
-						<button>发布</button>
+						<button class="changeStaBtn">发布</button>
 					</div>
 					<div class="zhuanlan_bottom hide" id="zhuanlan_bottom">
 						<form action="">
@@ -207,7 +220,6 @@
 								<p class="warning hide">用户名不能为空</p>
 							</div>
 							<div class="fengmian">
-
 								<span style="vertical-align: top;"><em>*</em>封面图</span>
 								<span class="fengmian_pic">点击上传封面图片</span>
 								<span class="fengmian_tip">
@@ -257,7 +269,7 @@
 									</td>
 									<td>
 										<a href="javascript:;">预览</a>
-										<a href="javascript:;">下线</a>
+										<a href="javascript:;" onclick="downLine()">下线</a>
 										<a href="javascript:;">编辑</a>
 									</td>
 								</tr>
@@ -343,7 +355,7 @@
 				<div class="select_box" id="zhuzuo">
 					<div class="zhuzuo_top">
 						<span class="title">著作</span>
-						<button>发布</button>
+						<button class="changeStaBtn">发布</button>
 					</div>
 					
 					
@@ -521,7 +533,7 @@
 				<div class="select_box" id="media_report">
 					<div class="media_report_top">
 						<span class="title">媒体报道</span>
-						<button>发布</button>
+						<button class="changeStaBtn">发布</button>
 					</div>
 					
 					<div class="media_report_bottom hide">
