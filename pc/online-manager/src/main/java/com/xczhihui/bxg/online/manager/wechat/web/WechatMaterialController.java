@@ -23,6 +23,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.WechatMaterial;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
@@ -237,7 +238,7 @@ public class WechatMaterialController extends AbstractController {
 	public ResponseObject uploadImg(String content) {
 		String str = content.split("base64,")[1];
 		byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
-		Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(),
+		Attachment a = att.addAttachment(ManagerUserUtil.getId(),
 				AttachmentType.ONLINE, "1.png", b, "image/png");
 		if (a.getError() != 0) {
 			return ResponseObject.newErrorResponseObject("上传失败！");

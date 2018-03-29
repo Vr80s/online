@@ -285,7 +285,6 @@ public class AskMenuServiceImpl extends OnlineBaseServiceImpl implements AskMenu
 		mt.setMenuId(menuId);
 		mt.setCourseTypeId(id);
 		mt.setDelete(false);
-		//mt.setCreatePerson(UserHolder.getCurrentUser().getId());
 		mt.setCreateTime(new Date());
 		askMenuDao.save(mt);
 		return "添加成功！";

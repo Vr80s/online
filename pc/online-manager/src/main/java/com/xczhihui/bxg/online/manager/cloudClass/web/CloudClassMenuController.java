@@ -21,6 +21,7 @@ import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CloudClassMenuService;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.ScoreTypeVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.user.service.UserService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
@@ -257,30 +258,6 @@ public class CloudClassMenuController {
           }
           return responseObj;
      }
-
-    
-     /**
-      * 保存课程类别到中间表
-      * @param menu
-      * @return
-      * @throws InvocationTargetException
-      * @throws IllegalAccessException
-      */
-//     @RequestMapping(value = "addChildren", method = RequestMethod.POST)
-//     @ResponseBody
-//     public ResponseObject addChildren(MenuVo menu) throws InvocationTargetException, IllegalAccessException {
-//          Menu entity=new Menu();
-//          entity.setCreatePerson(UserHolder.getCurrentUser().getId());
-//          entity.setCreateTime(new Date());
-//          entity.setNumber(service.getMaxNumber(menu.getParentId(), 2) + 1);
-//          entity.setLevel("2");
-//          entity.setStatus(1);
-//          entity.setType(0);
-//          entity.setSort(service.getMaxSort(menu.getParentId(),2)+1);
-//          entity.setName(menu.getMenuName());
-//          service.save(entity);
-//          return ResponseObject.newSuccessResponseObject(null);
-//     }
      
      /**
       * 保存课程类别到中间表
@@ -294,8 +271,8 @@ public class CloudClassMenuController {
      public ResponseObject addChildren(ScoreTypeVo scoreTypeVo) throws InvocationTargetException, IllegalAccessException {
     	  MenuCourseType menuCourseType=new MenuCourseType();
     	  menuCourseType.setCourseTypeId(scoreTypeVo.getId()); //课程类别id
-    	  menuCourseType.setCreatePerson(UserHolder.getCurrentUser().getId()); //当前登录用户id
-//          entity.setCreatePerson(UserHolder.getCurrentUser().getId());
+    	  menuCourseType.setCreatePerson(ManagerUserUtil.getId()); //当前登录用户id
+//          entity.setCreatePerson(ManagerUserUtil.getId());
 //          entity.setCreateTime(new Date());
 //          entity.setNumber(service.getMaxNumber(menu.getParentId(), 2) + 1);
 //          entity.setLevel("2");
@@ -330,7 +307,7 @@ public class CloudClassMenuController {
           if (existsEntity != null && existsEntity.isDelete()!=true) {
                throw new IllegalArgumentException("已经存在");
           }
-          entity.setCreatePerson(UserHolder.getCurrentUser().getName());
+          entity.setCreatePerson(ManagerUserUtil.getName());
           entity.setCreateTime(new Date());
           entity.setNumber(service.getMaxNumber(1) + 1);
           entity.setYunSort(service.getMaxYunSort()+1);

@@ -1,123 +1,224 @@
 package com.xczhihui.bxg.online.common.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 熊猫中医在线后台管理用户。
+ *
  * @author Haicheng Jiang
  */
 @Entity
-@Table(name = "user", uniqueConstraints = { @UniqueConstraint(columnNames = { "login_name" }) })
-public class User extends BxgUser implements Serializable {
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"login_name"})})
+public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private String qq;
+    @GenericGenerator(name = "idGenerator", strategy = "uuid")
+    @GeneratedValue(generator = "idGenerator")
+    @Id
+    private String id;
 
-	/**
-	 * 学历
-	 */
-	private String education;
+    /**
+     * 实体是否删除
+     */
+    @Column(name = "is_delete")
+    private boolean isDelete;
 
-	/**
-	 * 身份证号
-	 */
-	private String identity;
+    /**
+     * 创建人ID
+     */
+    @Column(name = "create_person")
+    private String createPerson;
 
-	private String description;
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
 
-	@Column(name = "big_head_photo")
-	private String bigHeadPhoto;// 180x180
+    private String salt;
 
-	@Column(name = "small_head_photo")
-	private String smallHeadPhoto;// 45x45
+    private String qq;
 
-	@Transient
-	private String roleNames;
-	
-	@Transient
-	private String roleIds;
+    private String description;
+    /**
+     * 昵称给其他用户看的名。
+     */
+    private String name;
 
-	@Transient
-	private String createTimeStr;
+    /**
+     * 登录名
+     */
+    @Column(name = "login_name")
+    private String loginName;
 
-	public String getQq() {
-		return qq;
-	}
+    private String password;
 
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
+    /**
+     * 性别
+     */
+    private int sex = 2;
 
-	public String getEducation() {
-		return education;
-	}
+    /**
+     * email
+     */
+    private String email;
 
-	public void setEducation(String education) {
-		this.education = education;
-	}
+    /**
+     * 电话号码
+     */
+    private String mobile;
 
-	public String getIdentity() {
-		return identity;
-	}
+    @Transient
+    private Boolean anchor;
 
-	public void setIdentity(String identity) {
-		this.identity = identity;
-	}
+    @Transient
+    private String roleNames;
 
-	public String getDescription() {
-		return description;
-	}
+    @Transient
+    private String roleIds;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    @Transient
+    private String createTimeStr;
 
-	public String getRoleNames() {
-		return roleNames;
-	}
+    public String getQq() {
+        return qq;
+    }
 
-	public void setRoleNames(String roleNames) {
-		this.roleNames = roleNames;
-	}
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
 
-	public String getCreateTimeStr() {
-		return createTimeStr;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setCreateTimeStr(String createTimeStr) {
-		this.createTimeStr = createTimeStr;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getBigHeadPhoto() {
-		return bigHeadPhoto;
-	}
+    public String getRoleNames() {
+        return roleNames;
+    }
 
-	public void setBigHeadPhoto(String bigHeadPhoto) {
-		this.bigHeadPhoto = bigHeadPhoto;
-	}
+    public void setRoleNames(String roleNames) {
+        this.roleNames = roleNames;
+    }
 
-	public String getSmallHeadPhoto() {
-		return smallHeadPhoto;
-	}
+    public String getCreateTimeStr() {
+        return createTimeStr;
+    }
 
-	public void setSmallHeadPhoto(String smallHeadPhoto) {
-		this.smallHeadPhoto = smallHeadPhoto;
-	}
+    public void setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
+    }
 
-	public String getRoleIds() {
-		return roleIds;
-	}
+    public String getRoleIds() {
+        return roleIds;
+    }
 
-	public void setRoleIds(String roleIds) {
-		this.roleIds = roleIds;
-	}
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
+
+    public String getCreatePerson() {
+        return createPerson;
+    }
+
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Boolean getAnchor() {
+        return anchor;
+    }
+
+    public void setAnchor(Boolean anchor) {
+        this.anchor = anchor;
+    }
 }

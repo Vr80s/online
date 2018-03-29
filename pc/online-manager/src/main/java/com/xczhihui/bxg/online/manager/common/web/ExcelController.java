@@ -20,11 +20,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
 import com.xczhihui.bxg.common.support.service.AttachmentType;
-import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.manager.common.vo.KindeditorVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
@@ -40,40 +39,7 @@ public class ExcelController {
     @Autowired
     private AttachmentCenterService attachmentCenterService;
     // 最大文件大小
-    long maxSize = 1048576;
-    /*
-	 * @RequestMapping(value = "uploadKindeditor")
-	 * @ResponseBody public void uploadKindeditor(HttpServletRequest request,
-	 * HttpServletResponse response) { KindeditorVo kindeditorVo = new
-	 * KindeditorVo(); MultipartHttpServletRequest multipartRequest =
-	 * (MultipartHttpServletRequest) request; Iterator<String> it =
-	 * multipartRequest.getFileNames(); String newFileName = "";// 新文件名 try {
-	 * while (it.hasNext()) { String fileName = it.next(); MultipartFile
-	 * uploadFile = multipartRequest.getFile(fileName); long size =
-	 * uploadFile.getSize(); if (size > 500 * 1024)// 只能上传500K以内的文件 {
-	 * kindeditorVo.setError(1); kindeditorVo.setMessage("只能上传500KB以内的图片！"); }
-	 * else { String extName = "";// 扩展名 String nowTime = new
-	 * SimpleDateFormat("yyyyMMddHHmmssSSS") .format(new Date());// 当前时间 毫秒数
-	 * String filename = uploadFile.getOriginalFilename(); InputStream
-	 * inputStream = uploadFile.getInputStream(); FileType fileType =
-	 * getType(inputStream); if (fileType == null ||
-	 * !fileType.getValue().equals( FileType.PNG.getValue()) &&
-	 * !fileType.getValue().equals( FileType.JPEG.getValue()) &&
-	 * !fileType.getValue().equals( FileType.GIF.getValue())) {
-	 * kindeditorVo.setError(1); kindeditorVo.setMessage("图片格式不正确！"); } else {
-	 * if (filename.lastIndexOf(".") >= 0) { extName =
-	 * filename.substring(filename .lastIndexOf(".")); } newFileName = nowTime +
-	 * extName; String savePath = request.getSession()
-	 * .getServletContext().getRealPath("/"); savePath = savePath +
-	 * File.separatorChar + "temp/"; File dir = new File(savePath); if
-	 * (!dir.exists()) { dir.mkdirs(); } savePath += newFileName; File file =
-	 * new File(savePath);// 在本地临时目录生成图片 uploadFile.transferTo(file);
-	 * kindeditorVo.setUrl(savePath); kindeditorVo.setError(0); } } } } catch
-	 * (Exception e) { kindeditorVo.setError(1); kindeditorVo.setMessage("上传出错："
-	 * + e.toString()); } Gson gson = new Gson(); try {
-	 * response.getWriter().write(gson.toJson(kindeditorVo)); } catch
-	 * (IOException e) { e.printStackTrace(); } }
-	 */
+    private static final long MAX_SIZE = 1048576;
 
     @RequestMapping(value = "uploadKindeditor")
     @ResponseBody
@@ -115,11 +81,10 @@ public class ExcelController {
                     response.getWriter().write(gson.toJson(kindeditorVo));
                     return;
                 }
-                BxgUser user = UserHolder.getCurrentUser();
                 Attachment attachment = new Attachment();
                 String contextPath = request.getContextPath();
                 attachment = attachmentCenterService.addAttachment(
-                        user.getId(), AttachmentType.KCENTER,
+                        ManagerUserUtil.getId(), AttachmentType.KCENTER,
                         uploadFile.getOriginalFilename(),
                         uploadFile.getBytes(), uploadFile.getContentType());
                 kindeditorVo.setUrl(contextPath
@@ -163,7 +128,7 @@ public class ExcelController {
             String fileName = item.next();
             MultipartFile file = multipartRequest.getFile(fileName);
             // 检查文件大小
-            if (file.getSize() > maxSize) {
+            if (file.getSize() > MAX_SIZE) {
                 response.getWriter().write(getError("上传文件大小超过限制。"));
                 return;
             }
@@ -181,9 +146,8 @@ public class ExcelController {
                 return;
             }
             Attachment attachment = new Attachment();
-            BxgUser currentUser = UserHolder.getCurrentUser();
 
-            attachmentCenterService.addAttachment(currentUser.getId(),
+            attachmentCenterService.addAttachment(ManagerUserUtil.getId(),
                     AttachmentType.OTHER, file.getOriginalFilename(),
                     file.getBytes(), file.getContentType());
             // 请求的路径
@@ -222,8 +186,7 @@ public class ExcelController {
             if (filename.lastIndexOf(".") >= 0) {
                 extName = filename.substring(filename.lastIndexOf("."));
             }
-            BxgUser user = UserHolder.getCurrentUser();
-            newFileName = user.getLoginName() + nowTime + extName;
+            newFileName = ManagerUserUtil.getUsername() + nowTime + extName;
             File file = new File(savePath + newFileName);
 
             uploadify.transferTo(file);
