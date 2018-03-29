@@ -75,7 +75,7 @@
             <ul class="hot-article-list">
             <#list recClinics as recClinic>
                 <li>
-                    <a href="/web/html/clinicDetails.html?Id=${recClinic.id}">
+                    <a href="/clinics/${recClinic.id}">
                         <#if recClinic_index <= 2>
                             <em class="select">${recClinic_index+1}</em>
                             <#else>
@@ -95,8 +95,12 @@
                 <div id="hospital_list">
                     <#list clinics.records as clinic>
                         <div class="hospitals">
-                            <a href="/web/html/clinicDetails.html?Id=08a08cf4f87848298576838206653c39" id="08a08cf4f87848298576838206653c39" target="_blank"></a>
-                            <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;" alt="${clinic.name}">
+                            <a href="/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
+                            <#if clinic.medicalHospitalPictures[0]??>
+                                <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;" alt="${clinic.name}">
+                            <#else >
+                                <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;" alt="${clinic.name}">
+                            </#if>
                             <div class="hospital_inf">
                                 <span class="hospital_name">${clinic.name}</span>
                                 <#if clinic.authentication==true>
@@ -106,11 +110,17 @@
                                     <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
                                 </div>
                                 <div class="hospital_star">
-                                    <#list 1..clinic.score/1 as t>
-                                        <em class="full_star"></em>
-                                    </#list>
-                                    <#if (5-(clinic.score/1)) gt 0>
-                                        <#list 1..(5-(clinic.score/1)) as t>
+                                    <#if clinic.score??>
+                                        <#list 1..clinic.score/1 as t>
+                                            <em class="full_star"></em>
+                                        </#list>
+                                        <#if (5-(clinic.score/1)) gt 0>
+                                            <#list 1..(5-(clinic.score/1)) as t>
+                                                <em class="gray_star"></em>
+                                            </#list>
+                                        </#if>
+                                    <#else >
+                                        <#list 1..5 as t>
                                             <em class="gray_star"></em>
                                         </#list>
                                     </#if>
@@ -139,13 +149,15 @@
             <div class="forum-hot-tag">
                 <div class="forum-hot-tag-title">医馆搜索</div>
                 <div class="search_hos_box clearfix">
-                    <button class="search_hos_btn">搜索</button>
-                    <input class="search_hos" type="text" placeholder="请输入名字搜索医馆">
+                    <form action="/clinics/list" method="get">
+                        <input type="text" placeholder="输入名字搜索医馆" name="name" value=""/>
+                        <button type="submit">搜索</button>
+                    </form>
                 </div>
                 <p>按擅长领域搜索</p>
                 <ul class="forum-hot-tagGround">
                     <#list hotFields as hotField>
-                        <li><a href="/web/html/clinicListing.html?field=${hotField.id}" target="_blank">${hotField.name}</a></li>
+                        <li><a href="/clinics/list?field=${hotField.id}" target="_blank">${hotField.name}</a></li>
                     </#list>
                 </ul>
             </div>
@@ -158,8 +170,8 @@
                         <ul class="course boxContent clearfix" id="doctor_recruit_list">
                             <#list recruits as recruit>
                             <li>
-                                <h4><a href="/web/html/clinicDetails.html?Id=${recruit.id}" style="color: #000;">${recruit.position}</a></h4>
-                                <a href="/web/html/clinicDetails.html?Id=e5841d2a87814a968a1c1ee1f8040762">${recruit.city}&nbsp;&nbsp;${recruit.hospitalName}</a>
+                                <h4><a href="/clinics/${recruit.hospitalId}" style="color: #000;">${recruit.position}</a></h4>
+                                <a href="/clinics/${recruit.hospitalId}">${recruit.city}&nbsp;&nbsp;${recruit.hospitalName}</a>
                             </li>
                             </#list>
                         </ul>
@@ -175,7 +187,7 @@
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
     $(function(){
-        $(".doctor-tab").addClass("select");
+        $(".hospital-tab").addClass("selected");
     });
     //banner
     function init() {
