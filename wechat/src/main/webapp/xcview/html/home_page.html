@@ -43,7 +43,7 @@
 <script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
 <!--<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>-->  
-<script type="text/javascript" src="/xcview/js/home_pages.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
 <!--新滑动引入-->
@@ -175,7 +175,7 @@
 								{{each items as item i}}
 									<div class="slide_one_div swiper-slide">
 										<a href="javascript:;">
-											<img src="{{item.icon}}" class="slide_one_artist"  data-div="{{item.linkCondition}}" />
+											<img src="{{item.icon}}?imageView2/1/w/100/h/60" class="slide_one_artist"  data-div="{{item.linkCondition}}" />
 											<p>{{item.name}}</p>
 										</a>
 									</div>
@@ -259,7 +259,7 @@
 	                    			
                 					<div class="boutique_main_one">
                 						<div class="boutique_one_img">
-                							<img src="{{item.smallImgPath}}" alt="" />
+                							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
                 						</div>
                 							{{if item.type == 1}}
                 								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />

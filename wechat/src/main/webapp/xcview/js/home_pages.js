@@ -324,7 +324,7 @@ function listenSchool(){
                 for (var int = 0; int < result_listen.length; int++) {
                     var wb_listen = result_listen[int];
                     str_listen+="<div class='swiper-slide swiper-banner swiper-banner-listen'>"+
-                        "<img src='"+wb_listen.imgPath+"' alt='Concept for children game' data_id='"+wb_listen.id+"' data_listen='"+wb_listen.url+"'>"+
+                        "<img src='"+wb_listen.imgPath+"' data_id='"+wb_listen.id+"' data_listen='"+wb_listen.url+"'>"+
                         "</div>";
                 }
                 $("#wrapper-box-listen").html(str_listen);

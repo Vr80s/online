@@ -89,7 +89,7 @@ function recommendSchool(){
                 for (var int = 0; int < result.length; int++) {
                     var wb = result[int];
                     str+="<div class='swiper-slide swiper-banner swiper-banner-btn'>"+
-                        "<img src='"+wb.imgPath+"' alt='Concept for children game' data_id='"+wb.id+"' data_img='"+wb.url+"'>"+
+                        "<img src='"+wb.imgPath+"' data_id='"+wb.id+"' data_img='"+wb.url+"'>"+
                         "</div>";
                 }
                 $("#wrapper-box").html(str);
@@ -183,7 +183,7 @@ function lineWork(){
 	                for (var int = 0; int < result_class.length; int++) {
 	                    var wb_class = result_class[int];
 	                    str_class+="<div class='swiper-slide swiper-banner swiper-banner-class'>"+
-	                        "<img src='"+wb_class.imgPath+"' alt='Concept for children game' data_id='"+wb_class.id+"' data_class='"+wb_class.url+"'>"+
+	                        "<img src='"+wb_class.imgPath+"' data_id='"+wb_class.id+"' data_class='"+wb_class.url+"'>"+
 	                        "</div>";
 	                }
 	                $("#wrapper-box-class").html(str_class);
@@ -247,7 +247,7 @@ function liveSchool(){
                 for (var int = 0; int < result_play.length; int++) {
                     var wb_play = result_play[int];
                     str_play+="<div class='swiper-slide swiper-banner swiper-banner-play'>"+
-                        "<img src='"+wb_play.imgPath+"' alt='Concept for children game' data_id='"+wb_play.id+"' data_play='"+wb_play.url+"'>"+
+                        "<img src='"+wb_play.imgPath+"' data_id='"+wb_play.id+"' data_play='"+wb_play.url+"' style='width: 7.5rem;height:3.2rem;' />"+
                         "</div>";
                 }
                 $("#wrapper-box-play").html(str_play);
@@ -324,7 +324,7 @@ function listenSchool(){
                 for (var int = 0; int < result_listen.length; int++) {
                     var wb_listen = result_listen[int];
                     str_listen+="<div class='swiper-slide swiper-banner swiper-banner-listen'>"+
-                        "<img src='"+wb_listen.imgPath+"' alt='Concept for children game' data_id='"+wb_listen.id+"' data_listen='"+wb_listen.url+"'>"+
+                        "<img src='"+wb_listen.imgPath+"' data_id='"+wb_listen.id+"' data_listen='"+wb_listen.url+"'>"+
                         "</div>";
                 }
                 $("#wrapper-box-listen").html(str_listen);
