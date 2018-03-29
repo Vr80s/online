@@ -58,7 +58,7 @@
 	width: 280px;
 	height: 36px;
 }
-.content_box #main .main_left .doctor .doctor_search_top > div >input{
+.content_box #main .main_left .doctor .doctor_search_top > div input{
 	display: inline-block;
 	width: 220px;
 	height: 36px;
@@ -71,7 +71,7 @@
     background-position: 9px 11px;
 }
 
-.content_box #main .main_left .doctor .doctor_search_top > div > button{
+.content_box #main .main_left .doctor .doctor_search_top > div  button{
 	width: 60px;
 	height: 36px;
 	float: left;

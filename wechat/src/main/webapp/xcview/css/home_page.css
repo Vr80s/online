@@ -286,8 +286,8 @@ header{
 	width: 1rem;
 }
 .teacher_slider_ul_div img{
-	width: 0.72rem;
-	height: 0.72rem;
+	width: 1rem;
+	height: 1rem;
 	border-radius: 60px;
 	display: block;
 	margin: 0 auto;
@@ -1045,6 +1045,10 @@ header{
 	color: #999999;
 	font-size: 0.22rem;
 	display: inline-block;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 3.39rem;
 }
 .boutique_main_one_title .span{
 	margin-right: 0.2rem;
