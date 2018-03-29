@@ -551,7 +551,7 @@ margin-top:0;
 	margin-bottom:20px;
     padding: 0 20px;
 }
-#forum .forum-content .forum-content-right .forum-hot-tag .search_hos_box > button{
+#forum .forum-content .forum-content-right .forum-hot-tag .search_hos_box  button{
 	width: 60px;
     height: 36px;
     text-align: center;

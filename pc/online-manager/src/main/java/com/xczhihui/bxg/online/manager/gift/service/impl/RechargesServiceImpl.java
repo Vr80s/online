@@ -17,6 +17,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.manager.gift.dao.RechargesDao;
 import com.xczhihui.bxg.online.manager.gift.service.RechargesService;
 import com.xczhihui.bxg.online.manager.gift.vo.RechargesVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 
 /**
  * RechargesServiceImpl:礼物业务层接口实现类
@@ -98,7 +99,7 @@ public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
 		recharges.setStatus("0");
 		recharges.setSort(sort);
 		recharges.setIsDelete(false);
-		recharges.setCreatePerson(UserHolder.getCurrentUser().getId());
+		recharges.setCreatePerson(ManagerUserUtil.getId());
 		// 增加密码和老师
 		dao.save(recharges);
 	}
