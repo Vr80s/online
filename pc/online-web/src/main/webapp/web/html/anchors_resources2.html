@@ -88,7 +88,7 @@
 						<li class="setTop"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>
 						<li class="setTop active"><span class="icon iconfont icon-msnui-user-auth left_range ino_color" aria-hidden="true"></span><span>医师认证</span></li>
-						<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>个人中心</span></li>
+						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>个人中心</span></li>-->
 					</ul>
 				</div>
 			</div>
@@ -208,7 +208,7 @@
 							</div>
 							<div class="fengmian">
 
-								<span><em>*</em>封面图</span>
+								<span style="vertical-align: top;"><em>*</em>封面图</span>
 								<span class="fengmian_pic">点击上传封面图片</span>
 								<span class="fengmian_tip">
 								<p>文件小于2M</p>
@@ -321,14 +321,360 @@
 									<td></td>
 									<td></td>
 								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 				<!--著作-->
-				<div class="select_box">著作</div>
+				<div class="select_box" id="zhuzuo">
+					<div class="zhuzuo_top">
+						<span class="title">著作</span>
+						<button>发布</button>
+					</div>
+					
+					
+					<div class="zhuzuo_bottom hide">
+						<div>
+							<span><em>*</em>书名</span>
+							<input type="text" placeholder="请填写书名" class="zhuzuo_name">
+							<p class="warning hide">书名不能为空</p>
+						</div>
+						
+						<div>
+							<span><em>*</em>作者</span>
+							<input type="text" placeholder="请填写作者" class="zhuzuo_name">
+							<p class="warning hide">作者不能为空</p>
+						</div>
+						
+						<div class="fengmian">
+								<span style="vertical-align: top;"><em>*</em>封面图</span>
+								<span class="fengmian_pic">点击上传封面图片</span>
+								<span class="fengmian_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>
+								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuzuo_picIpt" />
+								<p class="warning hide">请上传封面图</p>
+						</div>
+						
+						<div class="neirong">
+							<span><em>*</em>著作介绍</span>
+							<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>
+							<p class="warning hide">著作介绍不能为空</p>
+						</div>
+
+
+						<div>
+							<span><em>*</em>购买链接</span>
+							<input type="text" placeholder="请输入购买链接" class="zhuzuo_name">
+							<p class="warning hide">购买链接不能为空</p>
+						</div>
+						
+						<div class="baocun">
+							<input type="submit" value="保存并发布" id="submit" />
+							<button id="save">保存</button>
+						</div>
+						
+					</div>
+					
+					<div class="zhuzuo_bottom2">
+						<table>
+							<thead>
+								<tr>
+									<td>图片</td>
+									<td>书名</td>
+									<td>作者</td>
+									<td>状态</td>
+									<td>编辑时间</td>									
+									<td>操作</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="" />
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										刘能
+									</td>
+									<td>
+										已发布
+									</td>
+									<td>
+										2017.11.12
+									</td>
+									<td>
+										<a href="javascript:;">预览</a>
+										<a href="javascript:;">下线</a>
+										<a href="javascript:;">编辑</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="" />
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										刘能
+									</td>
+									<td>
+										已发布
+									</td>
+									<td>
+										2017.11.12
+									</td>
+									<td>
+										<a href="javascript:;">预览</a>
+										<a href="javascript:;">删除</a>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+				
+				</div>
 				<!--媒体报道-->
-				<div class="select_box">媒体报道</div>
+				<div class="select_box" id="media_report">
+					<div class="media_report_top">
+						<span class="title">媒体报道</span>
+						<button>发布</button>
+					</div>
+					
+					<div class="media_report_bottom hide">
+						
+						<div>
+							<span><em>*</em>标题</span>
+							<input type="text" placeholder="请输入报道标题" class="media_report_name">
+							<p class="warning hide">报道标题不能为空</p>
+						</div>
+						
+						<div class="fengmian">
+								<span style="vertical-align: top;"><em>*</em>封面图</span>
+								<span class="fengmian_pic">点击上传封面图片</span>
+								<span class="fengmian_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>
+								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuzuo_picIpt" />
+								<p class="warning hide">请上传封面图</p>
+						</div>
+						
+						<div class="neirong">
+							<span><em>*</em>报道内容</span>
+							<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>
+							<p class="warning hide">著作介绍不能为空</p>
+						</div>
+
+
+						<div>
+							<span><em>*</em>报道医师</span>
+							<input type="text" placeholder="请输入被报道医师姓名" class="media_report_name">
+							<p class="warning hide">报道医师不能为空</p>
+						</div>
+						
+						<div class="baocun">
+							<input type="submit" value="保存并发布" id="submit" />
+							<button id="save">保存</button>
+						</div>
+						
+					</div>
+					
+					
+					<div class="media_report_bottom2">
+						<table>
+							<thead>
+								<tr>
+									<td>封面图</td>
+									<td>标题</td>
+									<td>状态</td>
+									<td>编辑时间</td>
+									<td>操作</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="" />
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										已发布
+									</td>
+									<td>
+										2017.11.12
+									</td>
+									<td>
+										<a href="javascript:;">预览</a>
+										<a href="javascript:;">下线</a>
+										<a href="javascript:;">编辑</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="" />
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										已发布
+									</td>
+									<td>
+										2017.11.12
+									</td>
+									<td>
+										<a href="javascript:;">预览</a>
+										<a href="javascript:;">删除</a>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					
+				</div>
 				<!--医师认证-->
 				<div class="select_box" id="doc_Distinguish" style="display: block;">
 
@@ -435,7 +781,7 @@
 
 				</div>
 				<!--个人中心-->
-				<div class="select_box">个人中心</div>
+				<!--<div class="select_box">个人中心</div>-->
 			</div>
 			<!--右边课程/直播/资源/div内容-->
 			<div class="wrap_box y">
