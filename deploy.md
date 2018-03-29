@@ -29,6 +29,6 @@ BBS管理 | fas fa-at  |   二级  |   bbs:menu    |
 
 1.alter sql 
         
-        ALTER TABLE `user` ADD `salt` varchar(50) NULL  COMMENT '盐';
+        ALTER TABLE `user` ADD `salt` varchar(50) NULL COMMENT '盐';
         
-        update user set salt = 'jlakgjo9345j';
+        更新prod_online 库中的user表中的password 与 salt为 user-center 库中的password 与 salt
