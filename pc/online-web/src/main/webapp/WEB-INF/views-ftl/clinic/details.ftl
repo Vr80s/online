@@ -35,7 +35,7 @@
 <div class="header" id="doctor_detail_header">
     <div class="header_inf content">
         <div class="header_inf_left">
-            <img src="${doctor.headPortrait}" alt="${doctor.name}">
+            <img src="${doctor.headPortrait}" alt="暂无头像">
             <!--<img src=../images/doctor_detail/xunzhang.png alt="">-->
         </div>
         <div class="header_inf_right">
@@ -72,7 +72,7 @@
                         <a class="to_hospital_detail"></a>
                         <h3>坐诊医馆</h3>
                         <div class="hospital_pic">
-                            <img src="${doctor.medicalHospital.medicalHospitalPictures[0].picture}" alt="${doctor.medicalHospital.name}">
+                            <img src="${doctor.medicalHospital.medicalHospitalPictures[0].picture}" alt="暂无图片">
                         </div>
                         <div class="hospital_inf">
                             <p>${doctor.medicalHospital.name}</p>
@@ -214,7 +214,7 @@
                         <#list specialColumns.records as specialColumn>
                             <li class="clearfix">
                                 <div class="zhuanlan_left">
-                                    <img src="${specialColumn.imgPath}" alt="${specialColumn.title}">
+                                    <img src="${specialColumn.imgPath}" alt="">
                                 </div>
                                 <div class="zhuanlan_right">
                                     <h3>${specialColumn.title}</h3>
@@ -240,7 +240,7 @@
                         <#list newsReports.records as newsReport>
                             <li class="clearfix">
                                 <div class="zhuanlan_left">
-                                    <a href="/web/html/newsDetails.html?articleId=${newsReport.id}"><img src="${newsReport.imgPath}" alt="${newsReport.title}"></a>
+                                    <a href="/web/html/newsDetails.html?articleId=${newsReport.id}"><img src="${newsReport.imgPath}" alt=""></a>
                                 </div>
                                 <div class="zhuanlan_right">
                                     <h3><a href="/web/html/newsDetails.html?id=${newsReport.id}" style="color: #000;">${newsReport.title}</a></h3>

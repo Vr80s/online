@@ -718,20 +718,6 @@ $.getUrlParam = function(name) {
 								$(".myshare").hide();
 								$(".myredeem").hide();
 								course_live(0, 1, 12);
-							} else if($this.hasClass("college")) {
-								$("#fra").attr("src","/web/web_yx/html/StudentCenter.html");
-								atime=window.setInterval(iFrameHeight,300);
-								$(".mycourse").hide();
-								$(".mycourse-xianxia").hide();
-								$(".myanswerBox").hide();
-								$(".mybuy").hide();
-								$(".myshare").hide();
-								$(".myredeem").hide();
-								$(".mycollege").show();
-								$(".mycollege .right-title span").eq(0).addClass("act").siblings().removeClass("act");
-								$(".mycollege .college1").show().siblings().hide();
-								iFrameHeight()
-			
 							} else if($this.hasClass("share")) {
 								clearInterval(atime);
 								$(".mycourse").hide();

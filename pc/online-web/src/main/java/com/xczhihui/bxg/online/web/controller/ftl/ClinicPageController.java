@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.common.enums.DoctorType;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
@@ -12,7 +13,11 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
-import org.apache.commons.lang.StringUtils;
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,61 +25,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Description：医师页面
+ * Description：医馆页面
  * creed: Talk is cheap,show me the code
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
- * @Date: 2018/3/26 0026 上午 11:59
+ * @Date: 2018/3/28 0028 下午 4:50
  **/
 @Controller
-@RequestMapping(value = "/doctors")
-public class DoctorPageController extends AbstractController{
+@RequestMapping(value = "/clinics")
+public class ClinicPageController extends AbstractController{
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
+    private IMedicalHospitalBusinessService medicalHospitalBusinessServiceImpl;
+    @Autowired
     private BannerService  bannerService;
     @Autowired
     private IMedicalDepartmentService medicalDepartmentService;
+    @Autowired
+    private IMedicalHospitalRecruitBusinessService medicalHospitalRecruitBusinessService;
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView index() {
-        ModelAndView view = new ModelAndView("doctor/doctors");
+        ModelAndView view = new ModelAndView("clinic/clinics");
 
-        List<BannerVo> banners = bannerService.list(null, null, 6);
+        List<BannerVo> banners = bannerService.list(null, null, 7);
         view.addObject("banners", banners);
 
-        List<MedicalDepartmentVO> hotDepartments = medicalDoctorBusinessService.getHotDepartment();
-        view.addObject("hotDepartments", hotDepartments);
+        List<MedicalHospitalVo> recClinics = medicalHospitalBusinessServiceImpl.selectRecHospital();
+        view.addObject("recClinics", recClinics);
 
-        List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
-        view.addObject("recentlyNewsReports", recentlyNewsReports);
+        List<MedicalFieldVO> hotFields = medicalHospitalBusinessServiceImpl.getHotField();
+        view.addObject("hotFields", hotFields);
 
-        List<MedicalWritingsVO> recentlyWritings = medicalDoctorBusinessService.getRecentlyWritings();
-        view.addObject("recentlyWritings", recentlyWritings);
+        List<MedicalHospitalRecruitVO> recruits = medicalHospitalRecruitBusinessService.selectRecHospitalRecruit();
+        view.addObject("recruits", recruits);
 
-        Page<MedicalDoctorVO> page = new Page<>();
-        page.setCurrent(1);
-        page.setSize(4);
 
-        Page<MedicalDoctorVO> doctors1 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.MQNZY.getCode(), null, null, null, null);
-        view.addObject("doctors1", doctors1);
-
-        Page<MedicalDoctorVO> doctors2 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.MLZY.getCode(), null, null, null, null);
-        view.addObject("doctors2", doctors2);
-
-        Page<MedicalDoctorVO> doctors3 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.SSMZZY.getCode(), null, null, null, null);
-        view.addObject("doctors3", doctors3);
-
-        Page<MedicalDoctorVO> doctors4 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.GYDS.getCode(), null, null, null, null);
-        view.addObject("doctors4", doctors4);
-
-        Page<MedicalDoctorVO> doctors5 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.GZY.getCode(), null, null, null, null);
-        view.addObject("doctors5", doctors5);
+        Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0,9),null,null);
+        view.addObject("clinics", clinics);
 
         return view;
     }
@@ -113,7 +106,7 @@ public class DoctorPageController extends AbstractController{
     }
 
     @RequestMapping(value="list",method=RequestMethod.GET)
-    public ModelAndView list(Integer current,Integer size,Integer type,String hospitalId,String name,String field,String departmentId) {
+    public ModelAndView list(Integer current,Integer size,Integer type,String hospitalId,String name,String field,String departmentId,String departmentText,String typeText) {
         ModelAndView view = new ModelAndView("doctor/list");
         current = current==null?1:current;
         size = size==null?10:size;
@@ -133,35 +126,25 @@ public class DoctorPageController extends AbstractController{
 
         StringBuilder title = new StringBuilder();
         StringBuilder keywords = new StringBuilder();
-        Map echoMap = new HashMap();
-        if(StringUtils.isNotBlank(name)){
+        if(name!=null){
             title.append(name+"-");
             keywords.append(name+",");
-
-            echoMap.put("name",name);
         }
         if(type!=null){
             String dt = DoctorType.getDoctorTypeText(type);
             title.append(dt+"-");
             keywords.append(dt+",");
-
-            echoMap.put("type",type);
-            echoMap.put("typeText",dt);
         }
-        if(StringUtils.isNotBlank(departmentId)){
+        if(departmentId!=null){
             MedicalDepartment department = medicalDoctorBusinessService.getDepartmentById(departmentId);
             if(department != null){
                 String departmentName = department.getName();
                 title.append(departmentName+"-");
                 keywords.append(departmentName+",");
-
-                echoMap.put("departmentId",departmentId);
-                echoMap.put("departmentText",departmentName);
             }
         }
 
         doTitleKeyWords(view,title.toString(),keywords.toString());
-        doConditionEcho(view,echoMap);
 
         return view;
     }

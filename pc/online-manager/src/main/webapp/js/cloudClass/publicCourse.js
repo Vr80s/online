@@ -42,8 +42,10 @@ $(function(){
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
 	{ "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
 	{ "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+	
     // { "title": "课程时长", "class":"center","width":"7%", "sortable":false,"data": 'courseLength' },
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
+    { "title": "结束时间", "class":"center","width":"10%", "sortable":false,"data": 'endTime' },
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
     //	private  int liveSource;  //直播来源  1、后台新增  2、app申请
     { "title": "直播来源", "class":"center","width":"6%","data":"liveSource","sortable":false,"mRender":function(data,display,row){

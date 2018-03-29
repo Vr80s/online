@@ -2,6 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript" src="js/feedback/index.js"></script>
 <script src="/js/layer/layer.js"></script>
+<style>
+	.my_setPadding{
+		margin-bottom: 15px;
+	}
+</style>
 <link href="/js/layer/skin/layer.css" type="text/css" />
 <script type="text/javascript">
 	try {
@@ -83,7 +88,7 @@
 					<%--<input type="text" name="title" id="add_replytitle" maxlength="32" style="width:345px" class="{required:true}"/>--%>
 			<%--</div>--%>
 		<%--</div>--%>
-		<div class="form-group row">
+		<div class="form-group row my_setPadding">
 			<label class="control-label col-xs-12 col-sm-2 no-padding-right" ><font color="red">*</font>回答内容:</label>
 			<div class="col-xs-12 col-sm-9">
 					<textarea style="position: relative; resize: none;width:345px;font-size: 12px" maxlength="125" name="replytext" id="add_replytext"  class="{required:true}"  ></textarea>
@@ -96,14 +101,14 @@
 				<%--<input type="text" disabled="disabled" id="add_title" style="width:345px"/>--%>
 			<%--</div>--%>
 		<%--</div>--%>
-		<div class="form-group row">
+		<div class="form-group row my_setPadding">
 			<label class="control-label col-xs-12 col-sm-2 no-padding-right"
 					>创建时间:</label>
 			<div class="col-lg-7 col-xs-9">
 				<input type="text" disabled="disabled" id="add_createtimeStr" style="width:345px"/>
 			</div>
 		</div>
-		<div class="form-group row">
+		<div class="form-group row my_setPadding">
 			<label class="control-label col-xs-12 col-sm-2 no-padding-right"
 					>意见描述:</label>
 			<div class="col-lg-7 col-xs-9">
@@ -122,14 +127,14 @@
 			<%--<input type="text" readonly="readonly" id="show_title" style="width:345px"/>--%>
 		<%--</div>--%>
 	<%--</div>--%>
-	<div class="form-group row">
+	<div class="form-group row my_setPadding">
 		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
 				>创建时间:</label>
 		<div class="col-lg-7 col-xs-9">
 			<input type="text" readonly="readonly" id="show_createtimeStr" style="width:345px"/>
 		</div>
 	</div>
-	<div class="form-group row">
+	<div class="form-group row my_setPadding">
 		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
 				>意见描述:</label>
 		<div class="col-lg-7 col-xs-9">
@@ -143,14 +148,14 @@
 			<%--<input type="text" readonly="readonly" class="col-xs-12" id="show_replytitle" style="width:345px"/>--%>
 		<%--</div>--%>
 	<%--</div>--%>
-	<div class="form-group row">
+	<div class="form-group row my_setPadding">
 		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
 				>回复内容:</label>
 		<div class="col-lg-7 col-xs-9">
 			<textarea cols="45" rows="5" id="show_replytext" style="position: relative; resize: none;width:345px;font-size: 12px" class="col-xs-12" readonly="readonly"></textarea>
 		</div>
 	</div>
-	<div class="form-group row">
+	<div class="form-group row my_setPadding">
 		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
 				>状态:</label>
 		<div class="col-lg-7 col-xs-9">
