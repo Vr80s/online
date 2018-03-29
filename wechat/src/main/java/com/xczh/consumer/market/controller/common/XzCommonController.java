@@ -32,6 +32,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
@@ -164,6 +165,10 @@ public class XzCommonController {
    public ResponseObject addOpinion(HttpServletRequest req,
 		   @RequestParam("content")String content) throws Exception{
     	 OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+    	 
+    	 
+         content = SLEmojiFilter.emojiConvert1(content);
+    	 
     	 if(user!=null){
     		 messageService.add(content,user.getId());
     	 }else{

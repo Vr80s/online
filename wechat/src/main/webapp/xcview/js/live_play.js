@@ -51,7 +51,7 @@ requestService("/xczh/course/liveDetails",{
 	
 	//详情页的banner
 	var school_img = document.createElement("img");
-	school_img.src = data.resultObject.smallImgPath;
+	school_img.src = data.resultObject.smallImgPath + '?imageView2/2/w/750';
 	$(".play_video").append(school_img);
     //获取讲师id
     LecturerId=data.resultObject.userLecturerId;

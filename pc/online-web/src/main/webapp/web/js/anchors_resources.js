@@ -315,6 +315,60 @@ $(function(){
     })
 
 
+//	著作部分
+//	著作部分点击发布效果
+    var zhuzuoCount = 1;
+    $('#zhuzuo .zhuzuo_top button').click(function(){
+        zhuzuoCount *= -1;
+        //发布
+        if(zhuzuoCount < 0){
+            //顶部变化
+            $(this).text('返回');
+            $(this).siblings('.title').text('著作编辑');
+            //底部变化
+            $('.zhuzuo_bottom2').addClass('hide');
+            $('.zhuzuo_bottom').removeClass('hide');
+        }else{
+            //取消发布
+            $(this).text('发布');
+            $(this).siblings('.title').text('著作');
+            //底部变化
+            $('.zhuzuo_bottom').addClass('hide');
+            $('.zhuzuo_bottom2').removeClass('hide');
+        }
+
+    })
+
+
+
+
+//	媒体报道部分
+//	媒体报道部分点击发布效果
+    var meitiCount = 1;
+    $('#media_report .media_report_top button').click(function(){
+        meitiCount *= -1;
+        //发布
+        if(meitiCount < 0){
+            //顶部变化
+            $(this).text('返回');
+            $(this).siblings('.title').text('报道编辑');
+            //底部变化
+            $('.media_report_bottom2').addClass('hide');
+            $('.media_report_bottom').removeClass('hide');
+        }else{
+            //取消发布
+            $(this).text('发布');
+            $(this).siblings('.title').text('媒体报道');
+            //底部变化
+            $('.media_report_bottom').addClass('hide');
+            $('.media_report_bottom2').removeClass('hide');
+        }
+
+    })
+
+
+
+
 
 
 //资源部分

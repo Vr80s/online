@@ -420,7 +420,8 @@ function reportComment() {
         criticizeLable:str,
         content:comment_detailed,
         courseId : course_id,
-        userId:LecturerId
+        userId:LecturerId,
+        collectionId:collectionId
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
@@ -499,7 +500,8 @@ function updatePraise(id,isPraise) {
 }
 //点击所有评论跳转
 function btn_allComment(){
-    window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
+	
+    window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"&collection_id="+collectionId;
 }
 
 

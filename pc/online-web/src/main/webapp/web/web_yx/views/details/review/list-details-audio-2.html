@@ -1,9 +1,0 @@
-{{if resourceDB.success}}
-{{if resourceDB.resultObject.items != ''}}
-<audio src="{{resourceDB.resultObject.items[0].url}}" preload="auto"/>
-{{else}}
-<div class="nodeta">
-	<span>没有可播放的资源</span>
-</div>
-{{/if}}
-{{/if}}

@@ -20,7 +20,7 @@ requestService("/xczh/course/details",{courseId:courseId}, function(data) {
          $(".purchase_details_title").find(".span0").html(result.name);
          
          $(".purchase_details_money").find("span").html(result.currentPrice);
-         $("#smallImgPath").attr("src",result.smallImgPath);
+         $("#smallImgPath").attr("src",result.smallImgPath + '?imageView2/2/w/212' );
          
          type= result.type;
          lineState = result.lineState;

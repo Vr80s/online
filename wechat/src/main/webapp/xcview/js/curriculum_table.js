@@ -422,7 +422,8 @@ function queryDataByParams(params,data_type){
 					data1+="<div class='li_list_div' >"+
 						       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" data-watchState="+item.watchState+" data-collection="+item.collection+">"+
 							       "<div class='li_list_one_left'>" +
-							          "<img src='"+item.smallImgPath+"' class='one' />" + statusImg1 +
+//							          "<img src='"+item.smallImgPath +"' class='one' />" + statusImg1 +
+							         "<img src='"+item.smallImgPath+"?imageView2/2/w/212' class='one' />" + statusImg1 +
 							      "</div>" +
 							      
 							      

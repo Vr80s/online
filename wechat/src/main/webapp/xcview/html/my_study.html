@@ -92,7 +92,7 @@
 						<a href="live_class.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>	
 						{{/if}}
 						<div class="my_class_img z">
-							<img src="{{item.smallImgPath}}"/>
+							<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img"/>
 							<div class="little_img">
 								{{if item.type == 1}}
 									<img src="/xcview/images/tv_auto.png" alt="" />
@@ -154,7 +154,7 @@
 					{{each resultObject as p}}
 						<li onclick="location.href='live_personal.html?userLecturerId={{p.userId}}'">
 							<div class="img_people">
-								<img src="{{p.smallHeadPhoto}}"/>
+								<img src="{{p.smallHeadPhoto}}?imageView2/2/w/100"/>
 							</div>
 							<p>{{p.name}}</p>
 						</li>

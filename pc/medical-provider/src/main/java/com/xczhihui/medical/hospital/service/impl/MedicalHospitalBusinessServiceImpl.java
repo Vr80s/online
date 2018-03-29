@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.medical.field.mapper.MedicalFieldMapper;
+import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.mapper.*;
 import com.xczhihui.medical.hospital.model.*;
@@ -41,6 +43,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     private MedicalHospitalFieldMapper hospitalFieldMapper;
     @Autowired
     private MedicalHospitalDoctorMapper hospitalDoctorMapper;
+    @Autowired
+    private MedicalFieldMapper medicalFieldMapper;
 
     @Override
     public Page<MedicalHospitalVo> selectHospitalPage(Page<MedicalHospitalVo> page, String name, String field) {
@@ -136,6 +140,11 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
         });
 
+    }
+
+    @Override
+    public MedicalField getFieldById(String fieldId) {
+        return medicalFieldMapper.selectById(fieldId);
     }
 
     @Override
