@@ -424,7 +424,7 @@ public class WeihouInterfacesListUtil {
 	//测试
 	public static void main(String[] args) {
 		
-		recordList("659631617");
+		recordList("508148233");
 	}
 
 }

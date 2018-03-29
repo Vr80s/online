@@ -5,6 +5,7 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
+var collection_id = "";
 $(function(){
 
     	//获取课程ID跳转相应页面页面
@@ -13,6 +14,9 @@ $(function(){
     course_id = courseId;
     var Lecturer = getQueryString('LecturerId');
     LecturerId = Lecturer;
+    
+    var collection_id = getQueryString('collection_id');
+    
 	refresh(1,10,'down');
 });
 
@@ -254,15 +258,21 @@ function reportComment() {
     if(my_impression3!=""){
         contentLevel = parseInt(my_impression3)+1
     }
-    requestService("/xczh/criticize/saveCriticize",{
-        overallLevel:overallLevel,
-        deductiveLevel:deductiveLevel,
-        contentLevel:contentLevel,
-        criticizeLable:str,
-        content:comment_detailed,
-        courseId : course_id,
-        userId:LecturerId
-    },function(data) {
+    
+    var paramsCriticize ={
+            overallLevel:overallLevel,
+            deductiveLevel:deductiveLevel,
+            contentLevel:contentLevel,
+            criticizeLable:str,
+            content:comment_detailed,
+            courseId : course_id,
+            userId:LecturerId
+    }
+    if(stringnull(collection_id)){
+    	paramsCriticize.collectionId = collection_id;
+    }
+    
+    requestService("/xczh/criticize/saveCriticize",paramsCriticize,function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
             webToast("评论成功","middle",1500);

@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.service;
 
 import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -38,7 +39,7 @@ public interface OnlineWebService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	Boolean getLiveUserCourseAndIsFree(Integer courseId, String userId)
+	Boolean getLiveUserCourseAndIsFree(CriticizeVo criticize)
 			throws SQLException;
 
 }
