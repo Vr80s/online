@@ -35,6 +35,11 @@
 	.my-setallContent span{
 		font-size: 16px;
 	}
+	.return-text{
+		    width: 500px;
+    text-align: left !important;
+    font-size: 16px;
+	}
 </style>
 <script type="text/javascript" src="js/cloudClass/courseApplyDetail.js"></script>
 <script type="text/javascript">
@@ -83,15 +88,15 @@
 			<c:choose>
 				<c:when test="${courseApplyInfo.status== '0'}">
 					<div class="form-group" style="margin-top:18px;">
-						<label class="col-sm-1 control-label no-padding-right">拒绝理由：</label>
+						<label class="col-sm-1 control-label no-padding-right my-set-leftTitle z">拒绝理由：</label>
 						<div  >
-							<label class="control-label no-padding-right">${courseApplyInfo.dismissalText}</label>
+							<label class="control-label no-padding-right return-text">${courseApplyInfo.dismissalText}</label>
 						</div>
 					</div>
 					<div class="form-group" style="margin-top:18px;">
-						<label class="col-sm-1 control-label no-padding-right">补充理由：</label>
+						<label class="col-sm-1 control-label no-padding-right my-set-leftTitle z">补充理由：</label>
 						<div >
-							<label class="control-label no-padding-right">${courseApplyInfo.dismissalRemark}</label>
+							<label class="control-label no-padding-right return-text">${courseApplyInfo.dismissalRemark}</label>
 						</div>
 					</div>
 				</c:when>
