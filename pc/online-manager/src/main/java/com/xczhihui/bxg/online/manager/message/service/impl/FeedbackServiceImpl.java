@@ -13,6 +13,7 @@ import com.xczhihui.bxg.online.manager.message.dao.FeedBackDao;
 import com.xczhihui.bxg.online.manager.message.service.FeedbackService;
 import com.xczhihui.bxg.online.manager.message.vo.FeedBackVo;
 import com.xczhihui.bxg.online.manager.message.vo.MessageVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.PageVo;
 import org.apache.commons.beanutils.BeanUtils;
@@ -94,7 +95,6 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements Feedb
 
 	@Override
 	public void addContext(FeedBackVo vo) {
-		BxgUser u = UserHolder.getCurrentUser();
 		Message message = new Message();
 		message.setLastTime(new Date());
 		message.setContext("<font color=\"#2cb82c\">意见反馈：</font>"+vo.getReplytext());
@@ -105,7 +105,7 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements Feedb
 		message.setTitle(vo.getTitle());
 //		message.setReplytext(vo.getReplytext());
 		message.setCreateTime(new Date());
-		message.setCreatePerson(u.getName());
+		message.setCreatePerson(ManagerUserUtil.getName());
 		message.setReadstatus((short)0);
 		dao.save(message);
 		Message feekMessage=dao.get(vo.getId(), Message.class);

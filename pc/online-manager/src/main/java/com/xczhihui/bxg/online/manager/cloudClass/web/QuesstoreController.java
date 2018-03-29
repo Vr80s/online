@@ -50,6 +50,7 @@ import com.xczhihui.bxg.online.manager.cloudClass.vo.QuestionOptionPicture;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.QuestionVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.TreeNode;
 import com.xczhihui.bxg.online.manager.common.util.ExcelPoiUtil;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.StringUtil;
@@ -240,7 +241,7 @@ public class QuesstoreController {
 		}
 		
 		QuesStore q = quesStoreService.findQuestion(question.getId());
-		String currentUserId = UserHolder.getCurrentUser().getId();
+		String currentUserId = ManagerUserUtil.getId();
 		question.setCreatePerson(currentUserId);
 		question.setCreateTime(q.getCreateTime());
 		
@@ -340,7 +341,7 @@ public class QuesstoreController {
 			}
 		}
 
-		String currentUserId = UserHolder.getCurrentUser().getId();
+		String currentUserId = ManagerUserUtil.getId();
 		question.setCreatePerson(currentUserId);
 		question.setCreateTime(new Date());
 		question.setChapterName(vo.getKnowledgeNames());

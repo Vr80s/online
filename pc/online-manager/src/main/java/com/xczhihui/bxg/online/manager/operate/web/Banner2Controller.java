@@ -4,25 +4,22 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.manager.operate.service.Banner2Service;
+import com.xczhihui.bxg.online.manager.operate.vo.Banner2Vo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
-
-import com.xczhihui.bxg.online.manager.operate.service.Banner2Service;
-import com.xczhihui.bxg.online.manager.operate.vo.Banner2Vo;
 
 @Controller
 @RequestMapping(value = "/operate/banner2")
@@ -86,7 +83,7 @@ public class Banner2Controller{
 	@ResponseBody
 	public ResponseObject add(Banner2Vo banner2Vo,HttpServletRequest request){
 		ResponseObject responseObj = new ResponseObject();
-		banner2Vo.setCreatePerson(UserLoginUtil.getLoginUser(request).getLoginName());
+		banner2Vo.setCreatePerson(ManagerUserUtil.getUsername());
 		try{
 			banner2Service.addBanner(banner2Vo);
             responseObj.setSuccess(true);

@@ -6,6 +6,7 @@ import java.util.Date;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.User;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.user.service.UserService;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -117,7 +118,7 @@ public class ScoreTypeController {
           if (existsEntity != null && existsEntity.isDelete()!=true) {
                throw new IllegalArgumentException("已经存在");
           }
-          entity.setCreatePerson(UserHolder.getCurrentUser().getName());
+          entity.setCreatePerson(ManagerUserUtil.getName());
           entity.setCreateTime(new Date());
           entity.setSort(service.getMaxSort()+1);
           entity.setStatus(0);

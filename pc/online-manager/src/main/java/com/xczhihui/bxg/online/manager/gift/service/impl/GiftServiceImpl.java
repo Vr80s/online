@@ -17,6 +17,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.manager.gift.dao.GiftDao;
 import com.xczhihui.bxg.online.manager.gift.service.GiftService;
 import com.xczhihui.bxg.online.manager.gift.vo.GiftVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 
 /**
  * GiftServiceImpl:礼物业务层接口实现类
@@ -102,7 +103,7 @@ public class GiftServiceImpl extends OnlineBaseServiceImpl implements
 		} else {
 			gift.setIsFree(false); // 付费
 		}
-		gift.setCreatePerson(UserHolder.getCurrentUser().getId());
+		gift.setCreatePerson(ManagerUserUtil.getId());
 		// 增加密码和老师
 		dao.save(gift);
 	}

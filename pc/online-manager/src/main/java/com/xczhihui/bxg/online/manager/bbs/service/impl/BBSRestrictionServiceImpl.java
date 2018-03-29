@@ -8,13 +8,13 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.BBSUserStatus;
 import com.xczhihui.bxg.online.common.domain.Message;
 import com.xczhihui.bxg.online.manager.bbs.dao.BBSUserStatusDao;
 import com.xczhihui.bxg.online.manager.bbs.service.BBSRestrictionService;
 import com.xczhihui.bxg.online.manager.message.dao.MessageDao;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
@@ -49,7 +49,7 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
     }
 
     @Override
-    public ResponseObject updateGags(String mobile, boolean gags, BxgUser bxgUser) {
+    public ResponseObject updateGags(String mobile, boolean gags) {
         String onlineUserId = bbsUserStatusDao.findByMobile(mobile);
         if (onlineUserId == null) {
             return ResponseObject.newErrorResponseObject("用户不存在");
@@ -65,13 +65,13 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
             message = UN_GAGS_MESSAGE;
         }
         if (updated) {
-            sendMessage(onlineUserId, bxgUser, message);
+            sendMessage(onlineUserId, message);
         }
         return ResponseObject.newSuccessResponseObject(null);
     }
 
     @Override
-    public ResponseObject updateBlacklist(String mobile, boolean blacklist, BxgUser bxgUser) {
+    public ResponseObject updateBlacklist(String mobile, boolean blacklist) {
         String onlineUserId = bbsUserStatusDao.findByMobile(mobile);
         if (onlineUserId == null) {
             return ResponseObject.newErrorResponseObject("用户不存在");
@@ -87,7 +87,7 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
                 updated = bbsUserStatusDao.cancelBlacklist(onlineUserId);
             }
             if (updated) {
-                sendMessage(onlineUserId, bxgUser, message);
+                sendMessage(onlineUserId, message);
             }
         }
         return ResponseObject.newSuccessResponseObject(null);
@@ -106,7 +106,7 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
         }
     }
 
-    private void sendMessage(String userId, BxgUser bxgUser, String msgText) {
+    private void sendMessage(String userId, String msgText) {
         Message message = new Message();
         message.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         message.setContext(msgText);
@@ -114,7 +114,7 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
         message.setType(0);
         message.setStatus((short) 1);
         message.setReadstatus((short) 0);
-        message.setCreatePerson(bxgUser.getId());
+        message.setCreatePerson(ManagerUserUtil.getId());
         message.setCreateTime(new Date());
         messageDao.save(message);
     }
