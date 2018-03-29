@@ -13,4 +13,8 @@ public class AbstractController {
         tk.put("keywords", keywords);
         view.addObject("tk", tk);
     }
+
+    public void doConditionEcho(ModelAndView view, Map echoMap){
+        view.addObject("echoMap", echoMap);
+    }
 }

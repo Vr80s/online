@@ -72,7 +72,20 @@
         </div>
         <div class="hot-article">
             <span class="hot-article-title">优秀医馆</span>
-            <ul class="hot-article-list"><li><a href="/web/html/clinicDetails.html?Id=932984f654cd41e9b6baef9451763912"><em class="select">1</em>北京市&nbsp;&nbsp;慈方中医馆北苑店</a></li><li><a href="/web/html/clinicDetails.html?Id=a795f0c6adfb40ad9f8469d014ffe245"><em class="select">2</em>深圳市&nbsp;&nbsp;深圳九味堂</a></li><li><a href="/web/html/clinicDetails.html?Id=5362f094fee3498d934b125b98c05595"><em class="select">3</em>深圳市&nbsp;&nbsp;五味中医馆</a></li><li><a href="/web/html/clinicDetails.html?Id=f5750b879b5441a68c288caf8366f80f"><em>4</em>普洱市&nbsp;&nbsp;淞茂中医馆</a></li><li><a href="/web/html/clinicDetails.html?Id=72e3e519f6d44f98a296fc2432a69be4"><em>5</em>北京市&nbsp;&nbsp;合顺堂中医馆</a></li><li><a href="/web/html/clinicDetails.html?Id=5f2d1a8d5b414aff86c1b05c4c7a9db6"><em>6</em>北京市&nbsp;&nbsp;博爱堂</a></li><li><a href="/web/html/clinicDetails.html?Id=11f500e6cb4b49be8a77d9e76531c595"><em>7</em>北京市&nbsp;&nbsp;孔医堂</a></li></ul>
+            <ul class="hot-article-list">
+            <#list recClinics as recClinic>
+                <li>
+                    <a href="/web/html/clinicDetails.html?Id=${recClinic.id}">
+                        <#if recClinic_index <= 2>
+                            <em class="select">${recClinic_index+1}</em>
+                            <#else>
+                            <em>${recClinic_index+1}</em>
+                        </#if>
+                    ${recClinic.city}&nbsp;&nbsp;${recClinic.name}
+                    </a>
+                </li>
+            </#list>
+            </ul>
         </div>
     </div>
     <div class="forum-content clearfix">
@@ -86,16 +99,21 @@
                             <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;" alt="${clinic.name}">
                             <div class="hospital_inf">
                                 <span class="hospital_name">${clinic.name}</span>
-                                <span class="hospital_pass">已认证</span>
+                                <#if clinic.authentication==true>
+                                    <span class="hospital_pass">已认证</span>
+                                </#if>
                                 <div class="hospital_address"><em></em>
-                                    <span>${clinic.name}</span>
+                                    <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
                                 </div>
                                 <div class="hospital_star">
-                                    <em class="full_star"></em>
-                                    <em class="full_star"></em>
-                                    <em class="full_star"></em>
-                                    <em class="full_star"></em>
-                                    <em class="full_star"></em>
+                                    <#list 1..clinic.score/1 as t>
+                                        <em class="full_star"></em>
+                                    </#list>
+                                    <#if (5-(clinic.score/1)) gt 0>
+                                        <#list 1..(5-(clinic.score/1)) as t>
+                                            <em class="gray_star"></em>
+                                        </#list>
+                                    </#if>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +143,11 @@
                     <input class="search_hos" type="text" placeholder="请输入名字搜索医馆">
                 </div>
                 <p>按擅长领域搜索</p>
-                <ul class="forum-hot-tagGround"><li><a href="/web/html/clinicListing.html?name=&amp;field=95a9064d30d849a683ced18607cded32" target="_blank">妇科</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=4afdaa92eef44489ba9bfa8a5d13fa5d" target="_blank">失眠</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=3f1a219d345c4b3ca1d4880a9e88878e" target="_blank">月经不调</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=15df5e58e2ba4353a74331b4910b72b9" target="_blank">高血压</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=fd9758320e234fee9d81a20b65b30996" target="_blank">内科</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=4a763366c3684693b30f8558982dde39" target="_blank">不孕不育</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=e73e48fad2064aa08b6585aa2a1e9a0c" target="_blank">脾胃病</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=cdca88eddb2b4c83b40d5398511cebe6" target="_blank">冠心病</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=0100c335457e47e3ab0d88e433222c4c" target="_blank">高血脂</a></li><li><a href="/web/html/clinicListing.html?name=&amp;field=fc3695a88d124f518b29c0151283eb62" target="_blank">结节病</a></li></ul>
+                <ul class="forum-hot-tagGround">
+                    <#list hotFields as hotField>
+                        <li><a href="/web/html/clinicListing.html?field=${hotField.id}" target="_blank">${hotField.name}</a></li>
+                    </#list>
+                </ul>
             </div>
             <div class="forum-hot-course ">
                 <div class="forum-hot-course-title">
@@ -134,10 +156,12 @@
                 <div class="hot-course">
                     <div id="box" class="slideBox clearfix">
                         <ul class="course boxContent clearfix" id="doctor_recruit_list">
+                            <#list recruits as recruit>
                             <li>
-                                <h4><a href="/web/html/clinicDetails.html?Id=e5841d2a87814a968a1c1ee1f8040762" style="color: #000;">招募药剂师</a></h4>
-                                <a href="/web/html/clinicDetails.html?Id=e5841d2a87814a968a1c1ee1f8040762">北京市&nbsp;&nbsp;豫医堂1号馆</a>
+                                <h4><a href="/web/html/clinicDetails.html?Id=${recruit.id}" style="color: #000;">${recruit.position}</a></h4>
+                                <a href="/web/html/clinicDetails.html?Id=e5841d2a87814a968a1c1ee1f8040762">${recruit.city}&nbsp;&nbsp;${recruit.hospitalName}</a>
                             </li>
+                            </#list>
                         </ul>
                     </div>
                 </div>

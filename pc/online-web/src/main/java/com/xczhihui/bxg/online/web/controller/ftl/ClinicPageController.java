@@ -13,7 +13,10 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +46,8 @@ public class ClinicPageController extends AbstractController{
     private BannerService  bannerService;
     @Autowired
     private IMedicalDepartmentService medicalDepartmentService;
+    @Autowired
+    private IMedicalHospitalRecruitBusinessService medicalHospitalRecruitBusinessService;
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView index() {
@@ -51,17 +56,17 @@ public class ClinicPageController extends AbstractController{
         List<BannerVo> banners = bannerService.list(null, null, 7);
         view.addObject("banners", banners);
 
-        List<MedicalDepartmentVO> hotDepartments = medicalDoctorBusinessService.getHotDepartment();
-        view.addObject("hotDepartments", hotDepartments);
+        List<MedicalHospitalVo> recClinics = medicalHospitalBusinessServiceImpl.selectRecHospital();
+        view.addObject("recClinics", recClinics);
 
-        List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
-        view.addObject("recentlyNewsReports", recentlyNewsReports);
+        List<MedicalFieldVO> hotFields = medicalHospitalBusinessServiceImpl.getHotField();
+        view.addObject("hotFields", hotFields);
 
-        List<MedicalWritingsVO> recentlyWritings = medicalDoctorBusinessService.getRecentlyWritings();
-        view.addObject("recentlyWritings", recentlyWritings);
+        List<MedicalHospitalRecruitVO> recruits = medicalHospitalRecruitBusinessService.selectRecHospitalRecruit();
+        view.addObject("recruits", recruits);
 
 
-        Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0,10),null,null);
+        Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0,9),null,null);
         view.addObject("clinics", clinics);
 
         return view;

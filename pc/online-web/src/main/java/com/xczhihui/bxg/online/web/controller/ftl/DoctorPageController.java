@@ -12,6 +12,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,7 +113,7 @@ public class DoctorPageController extends AbstractController{
     }
 
     @RequestMapping(value="list",method=RequestMethod.GET)
-    public ModelAndView list(Integer current,Integer size,Integer type,String hospitalId,String name,String field,String departmentId,String departmentText,String typeText) {
+    public ModelAndView list(Integer current,Integer size,Integer type,String hospitalId,String name,String field,String departmentId) {
         ModelAndView view = new ModelAndView("doctor/list");
         current = current==null?1:current;
         size = size==null?10:size;
@@ -131,25 +133,35 @@ public class DoctorPageController extends AbstractController{
 
         StringBuilder title = new StringBuilder();
         StringBuilder keywords = new StringBuilder();
-        if(name!=null){
+        Map echoMap = new HashMap();
+        if(StringUtils.isNotBlank(name)){
             title.append(name+"-");
             keywords.append(name+",");
+
+            echoMap.put("name",name);
         }
         if(type!=null){
             String dt = DoctorType.getDoctorTypeText(type);
             title.append(dt+"-");
             keywords.append(dt+",");
+
+            echoMap.put("type",type);
+            echoMap.put("typeText",dt);
         }
-        if(departmentId!=null){
+        if(StringUtils.isNotBlank(departmentId)){
             MedicalDepartment department = medicalDoctorBusinessService.getDepartmentById(departmentId);
             if(department != null){
                 String departmentName = department.getName();
                 title.append(departmentName+"-");
                 keywords.append(departmentName+",");
+
+                echoMap.put("departmentId",departmentId);
+                echoMap.put("departmentText",departmentName);
             }
         }
 
         doTitleKeyWords(view,title.toString(),keywords.toString());
+        doConditionEcho(view,echoMap);
 
         return view;
     }

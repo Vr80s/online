@@ -219,8 +219,10 @@
             <div class="forum-hot-tag">
                 <div class="forum-hot-tag-title">医师搜索</div>
                 <div class="search_hos_box clearfix">
-                    <button class="search_hos_btn">搜索</button>
-                    <input class="search_hos" type="text" placeholder="请输入名字搜索医师">
+                    <form action="/doctors/list" method="get">
+                        <button type="submit" value="Submit" class="search_hos_btn">搜索</button>
+                        <input class="search_hos" type="text" name="name" placeholder="请输入名字搜索医师">
+                    </form>
                 </div>
                 <p>按热门科室搜索</p>
                 <ul class="forum-hot-tagGround">

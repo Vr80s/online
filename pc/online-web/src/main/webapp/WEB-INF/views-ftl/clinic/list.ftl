@@ -112,7 +112,7 @@
                 </#list>
                 </ul>
                 <!-- 使用该标签 -->
-                <@cast.page pageNo=doctors.current totalPage=doctors.pages showPages=5 callFunName="getHostipalList"/>
+                <@cast.page pageNo=doctors.current totalPage=doctors.pages showPages=5 callUrl="getHostipalList"/>
             </div>
 
 

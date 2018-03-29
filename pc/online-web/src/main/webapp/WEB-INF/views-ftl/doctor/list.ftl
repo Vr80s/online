@@ -45,35 +45,62 @@
                 <div class="doctor_search_top clearfix">
                     <h3>筛选</h3>
                     <div class="doctor_search_ipt">
-                        <input type="text" placeholder="输入名字搜索医师">
-                        <button id="search">搜索</button>
+                        <form action="/doctors/list" method="get">
+                            <input type="hidden" name="departmentId" value="${echoMap.departmentId?default('')}"/>
+                            <input type="hidden" name="type" value="${echoMap.type?default('')}"/>
+                            <input type="text" placeholder="输入名字搜索医师" name="name" value="${echoMap.name?default('')}"/>
+                            <button type="submit">搜索</button>
+                        </form>
                     </div>
-
                 </div>
                 <div class="doctor_search_bottom">
                     <div class="doctor_search_class">
                         <!--<span>分类：</span>-->
                         <span style="padding-left: 28px;">分类：</span>
-                        <ul class="clearfix" id="doctor_search_class"><li><a href="javascript:;" class="color">全部</a></li>
+                        <ul class="clearfix" id="doctor_search_class">
+                        <#if echoMap.type?default("")?trim?length == 0>
+                            <li><a href="javascript:;" class="color">全部</a></li>
+                        <#else >
+                            <li><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}" >全部</a></li>
+                        </#if>
                         <#list doctorTypeList as doctorType>
-                            <li><a href="javascript:;" data-type="${doctorType.code}">${doctorType.value}</a></li>
+                            <#if echoMap.type?? && doctorType.code == echoMap.type>
+                                <li><a href="javascript:;" data-type="${doctorType.code}" class="color">${doctorType.value}</a></li>
+                            <#else>
+                                <li><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&type=${doctorType.code?default("")}&departmentId=${echoMap.departmentId?default("")}" data-type="${doctorType.code}">${doctorType.value}</a></li>
+                            </#if>
                         </#list>
                         </ul>
                     </div>
                     <div class="doctor_search_keshi">
                         <span style="padding-left: 28px;">科室：</span>
-                        <ul class="clearfix" id="doctor_search_keshi"><li><a href="javascript:;" class="color">全部</a></li>
+                        <ul class="clearfix" id="doctor_search_keshi">
+                        <#if echoMap.departmentId?default("")?trim?length == 0>
+                            <li><a href="javascript:;" class="color">全部</a></li>
+                        <#else >
+                            <li><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"  >全部</a></li>
+                        </#if>
                         <#list departments.records as department>
-                            <li><a href="javascript:;" data-id="${department.id}">${department.name}</a></li>
+                            <#if echoMap.departmentId?? &&department.id == echoMap.departmentId>
+                                <li><a href="javascript:;" class="color" data-id="${department.id}">${department.name}</a></li>
+                            <#else>
+                                <li><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}&departmentId=${department.id?default("")}" data-id="${department.id}">${department.name}</a></li>
+                            </#if>
                         </#list>
                         </ul>
                     </div>
                     <div class="doctor_search_condition">
                         <span>筛选条件：</span>
                         <ul class="clearfix">
-                            <li id="doctor_search_condition1" class="hide">分类：<div style="display: inline-block;"><span>国医大师</span></div><a href="javascript:;"></a></li>
-                            <li id="doctor_search_condition2" class="hide">科室：<div style="display: inline-block;"><span>中医内科</span></div><a href="javascript:;"></a></li>
-                            <li id="doctor_search_condition3" style="border:none;color: #999;">暂无筛选条件</li>
+                            <#if echoMap.type??>
+                                <li id="doctor_search_condition1" class="">分类：<div style="display: inline-block;"><span data-type="${echoMap.type}">${echoMap.typeText}</span></div><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}"></a></li>
+                            </#if>
+                            <#if echoMap.departmentId??>
+                                <li id="doctor_search_condition2" class="">科室：<div style="display: inline-block;"><span data-id="${echoMap.departmentId}">${echoMap.departmentText}</span></div><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"></a></li>
+                            </#if>
+                            <#if !(echoMap.departmentId?? || echoMap.type??)>
+                                <li id="doctor_search_condition3" style="border:none;color: #999;" class="">暂无筛选条件</li>
+                            </#if>
                         </ul>
                     </div>
                 </div>
@@ -99,7 +126,7 @@
                     <li class="clearfix">
                         <a href="/doctors/${doctor.id}" id="${doctor.id}"></a>
                         <div class="doctor_pic">
-                            <img src="${doctor.headPortrait}" alt="">
+                            <img src="${doctor.headPortrait}" alt="${doctor.name}">
                         </div>
                         <div class="doctor_inf">
                             <h4>${doctor.name}&nbsp;&nbsp;&nbsp;&nbsp;
@@ -112,7 +139,7 @@
                 </#list>
                 </ul>
                 <!-- 使用该标签 -->
-                <@cast.page pageNo=doctors.current totalPage=doctors.pages showPages=5 callFunName="getHostipalList"/>
+                <@cast.page pageNo=doctors.current totalPage=doctors.pages showPages=5 callUrl="/doctors/list?name="+echoMap.name?default("")+"&type="+echoMap.type?default("")+"&departmentId="+echoMap.departmentId?default("")+"&current="/>
             </div>
 
 
@@ -154,182 +181,7 @@
 </body>
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
-    document.onkeydown = function(e){
-        if(!e){
-            e = window.event;
-        }
-        if((e.keyCode || e.which) == 13){
-            document.getElementById("search").click();
-        }
-    }
-    $(function(){
+    $(function() {
         $(".doctor-tab").addClass("select");
-
-        //名医分类筛选效果
-        $('#doctor_search_class').on('click','a',function(){
-            $('#doctor_search_class li a ').removeClass('color');
-            $(this).addClass('color');
-            //筛选条件部分变化
-            $('#doctor_search_condition3').addClass('hide')
-            $('#doctor_search_condition1').removeClass('hide')
-            $('#doctor_search_condition1 span').text($(this).text());
-            $('#doctor_search_condition1 span').attr('data-type',$(this).attr('data-type'))
-            if($(this).text() == '全部'){
-                $('#doctor_search_condition1').addClass('hide');
-                if($('#doctor_search_condition2').hasClass('hide')){
-                    $('#doctor_search_condition3').removeClass('hide')
-                }
-            }
-            //触发搜索功能
-            $('.doctor_search_ipt > button').click()
-        })
-
-        //名医科室筛选效果
-        $('#doctor_search_keshi').on('click','a',function(){
-            $('#doctor_search_keshi li a ').removeClass('color');
-            $(this).addClass('color');
-            //筛选条件部分变化
-            $('#doctor_search_condition3').addClass('hide')
-            $('#doctor_search_condition2').removeClass('hide')
-            $('#doctor_search_condition2 span').text($(this).text());
-            $('#doctor_search_condition2 span').attr('data-id',$(this).attr('data-id'))
-            if($(this).text() == '全部'){
-                $('#doctor_search_condition2').addClass('hide');
-                if($('#doctor_search_condition1').hasClass('hide')){
-                    $('#doctor_search_condition3').removeClass('hide')
-                }
-            }
-            //触发搜索功能
-            $('.doctor_search_ipt > button').click()
-        })
-
-        //分类筛选条件删除效果
-        $('#doctor_search_condition1 a').click(function(){
-            $(this).parent().addClass('hide');
-            $('#doctor_search_class li a ').removeClass('color');
-            $('#doctor_search_class li:first-child a ').addClass('color');
-            if($('#doctor_search_condition2').hasClass('hide')){
-                $('#doctor_search_condition3').removeClass('hide')
-            }
-            $('.doctor_search_ipt > button').click()
-        })
-
-        //可是筛选条件删除效果
-        $('#doctor_search_condition2 a').click(function(){
-            $(this).parent().addClass('hide');
-            $('#doctor_search_keshi li a ').removeClass('color');
-            $('#doctor_search_keshi li:first-child a').addClass('color');
-            if($('#doctor_search_condition1').hasClass('hide')){
-                $('#doctor_search_condition3').removeClass('hide')
-            }
-            $('.doctor_search_ipt > button').click()
-        })
     });
-
-    //获取url中参数值的方法
-    function getQueryString(name) {
-        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) {
-            return (r[2]);
-        }
-        return null;
-    }
-    //初始化请求信息
-    var searchParams;
-    searchParams={};
-    searchParams.hospitalId = getQueryString('hospitalId')?getQueryString('hospitalId'):null;
-    searchParams.name =getQueryString("name")?decodeURI(getQueryString("name")):'';
-    searchParams.type =getQueryString('type')?getQueryString('type'):null;
-    searchParams.departmentId=getQueryString('departmentId')?getQueryString('departmentId'):null;
-    searchParams.current=getQueryString('current')?getQueryString('current'):1;
-
-    function getParams(){
-        var params="current="+searchParams.current;
-        if(searchParams.hospitalId){
-            params+="&hospitalId="+searchParams.hospitalId;
-        }
-        if(searchParams.name){
-            params+="&name="+searchParams.name;
-        }
-        if(searchParams.type){
-            params+="&type="+searchParams.type;
-        }
-        if(searchParams.departmentId){
-            params+="&departmentId="+searchParams.departmentId;
-        }
-        return params;
-    }
-
-    function getHostipalList(current){
-        searchParams.current=1;
-        if(current!=null)searchParams.current=current;
-        searchParams.name =$('.doctor_search_ipt > input').val();
-        if($('#doctor_search_condition2').hasClass('hide')){
-            searchParams.departmentId = '';
-        }else{
-            searchParams.departmentId = $('#doctor_search_condition2 span').attr('data-id');
-            searchParams.departmentText = $('#doctor_search_condition2 span').html();
-        }
-
-        if($('#doctor_search_condition1').hasClass('hide')){
-            searchParams.type = '';
-        }else{
-            searchParams.type = $('#doctor_search_condition1 span').attr('data-type');
-            searchParams.typeText = $('#doctor_search_condition1 span').html();
-        }
-        var params = getParams();
-        window.location.href="/doctors/list?"+params;
-    }
-
-    $(function(){
-        //	渲染到所搜栏中
-        if(searchParams.name){
-            $('.doctor_search_ipt > input').val(searchParams.name);
-        }
-        typeClick(searchParams.type);
-        departmentClick(searchParams.departmentId);
-
-        //搜索功能
-        $('.doctor_search_ipt > button').click(function(e){
-            getHostipalList();
-        });
-
-        //分类
-        function typeClick(type){
-            if(type==null)return;
-            $('#doctor_search_class li a ').removeClass('color');
-            $('#doctor_search_class li a[data-type = '+type+']').addClass('color');
-            //筛选条件部分变化
-            $('#doctor_search_condition3').addClass('hide')
-            $('#doctor_search_condition1').removeClass('hide')
-            $('#doctor_search_condition1 span').text( 	$('#doctor_search_class li a[data-type = '+type+']').text());
-            $('#doctor_search_condition1 span').attr('data-type', 	$('#doctor_search_class li a[data-type = '+type+']').attr('data-type'))
-            if( $('#doctor_search_class li a[data-type = '+type+']').text() == '全部'){
-                $('#doctor_search_condition1').addClass('hide');
-                if($('#doctor_search_condition2').hasClass('hide')){
-                    $('#doctor_search_condition3').removeClass('hide')
-                }
-            }
-        }
-
-        //科室
-        function departmentClick(departmentId){
-            if(departmentId==null)return;
-            $('#doctor_search_keshi li a ').removeClass('color');
-            $('#doctor_search_keshi li a[data-id='+departmentId+']').addClass('color');
-            //筛选条件部分变化
-            $('#doctor_search_condition3').addClass('hide')
-            $('#doctor_search_condition2').removeClass('hide')
-            $('#doctor_search_condition2 span').text($('#doctor_search_keshi li a[data-id='+departmentId+']').text());
-            $('#doctor_search_condition2 span').attr('data-id',	departmentId)
-            if($(this).text() == '全部'){
-                $('#doctor_search_condition2').addClass('hide');
-                if($('#doctor_search_condition1').hasClass('hide')){
-                    $('#doctor_search_condition3').removeClass('hide')
-                }
-            }
-        }
-    });
-
 </script>
