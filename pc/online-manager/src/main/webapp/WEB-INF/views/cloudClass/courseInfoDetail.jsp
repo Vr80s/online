@@ -7,6 +7,29 @@
 	#text-myset p{
 		word-wrap : break-word ;
 	}
+	.lable-myset-title{
+		width: 130px;
+		font-size: 16px;
+	}
+	.z{
+		float: left;
+	}
+	.my-set-content{
+		width: 150px;
+		text-align: left !important;
+		font-size: 16px;
+	}
+	.author-text p{
+		font-size: 16px !important;
+		text-align: left !important;
+	}
+	.author-text span{
+		font-size: 16px !important;
+		text-align: left !important;
+	}
+	.author-text img{
+		display: block;
+	}
 </style>
 <script type="text/javascript" src="js/cloudClass/courseApplyDetail.js"></script>
 <script type="text/javascript">
@@ -35,128 +58,126 @@
 <div id="addArticleDialog" >
 
 	<form id="addArticle-form" class="form-horizontal"  method="post" action="" >
-		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">封面:</label>
-			<div class="col-sm-1" >
+		<div class="form-group" style="margin-top:6px;">
+			<label class="control-label no-padding-right lable-myset-title z">封面：</label>
+			<div class="" >
 				<img src="${course.smallImgPath}"  height="450" width="800" alt="课程封面" />
 			</div>
 		</div>
 		<c:choose>
 			<c:when test="${!course.collection && course.type==2}">
-				<div class="form-group" style="margin-top:18px;">
-					<label class="col-sm-1 control-label no-padding-right">视频:</label>
-					<div class="" >
+				<div class="form-group" style="margin-top:6px;">
+					<label class=" control-label no-padding-right lable-myset-title  z">视频：</label>
+					<div class="z" >
 						${course.playCode}
 					</div>
 				</div>
 			</c:when>
 		</c:choose>
 
-		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">主标题:</label>
-			<div class="col-sm-2" >
-				<div class="clearfix" style="width: 200px;">
-					<label class=" control-label no-padding-right">${course.gradeName}</label>
-				</div>
+		<div class="form-group" style="margin-top:30px; padding-top: 18px; border-top: 1px solid #ededed;">
+			<label class=" control-label no-padding-right lable-myset-title z">主标题：</label>
+			<div class="" >
+			
+					<label class=" control-label no-padding-right my-set-content z">${course.gradeName}</label>
+				
 			</div>
 
-			<label class="col-sm-1 control-label no-padding-right">副标题:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
-					<label class=" control-label no-padding-right">${course.subtitle}</label>
-				</div>
+			<label class="control-label no-padding-right lable-myset-title z">副标题：</label>
+			<div class="" >
+			
+					<label class=" control-label no-padding-right my-set-content z">${course.subtitle}</label>
+				
 			</div>
 
-			<label class="col-sm-1 control-label no-padding-right">课程类型:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
+			<label class="control-label no-padding-right lable-myset-title z">课程类型：</label>
+			<div class="" >
+			
 					<c:choose>
 						<c:when test="${course.type== '3'}">
-							<label class="control-label no-padding-right">线下课</label>
+							<label class="control-label no-padding-right my-set-content z">线下课</label>
 						</c:when>
 						<c:when test="${course.type== '1'}">
-							<label class="control-label no-padding-right">直播</label>
+							<label class="control-label no-padding-right my-set-content z">直播</label>
 						</c:when>
 						<c:otherwise>
-							<label class="control-label no-padding-right">点播</label>
+							<label class="control-label no-padding-right my-set-content z">点播</label>
 						</c:otherwise>
-					</c:choose>
-				</div>
+					</c:choose>				
 			</div>
+			
+			<label class="control-label no-padding-right lable-myset-title z">课程分类：</label>
+			<div class="" >
 
-			<label class="col-sm-1 control-label no-padding-right">课程分类:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
-					<label class="control-label no-padding-right">${course.courseMenu}</label>
-				</div>
+					<label class="control-label no-padding-right my-set-content z">${course.courseMenu}</label>
+
 			</div>
 		</div>
-		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">主讲人:</label>
-			<div class="col-sm-2" >
-				<div class="clearfix" style="width: 200px;">
-					<label class="control-label no-padding-right">${course.lecturer}</label>
-				</div>
+		<div class="clearfix"></div>
+		<div class="form-group" style="margin-top:6px;">
+			<label class="control-label no-padding-right lable-myset-title z">主讲人：</label>
+			<div class="" >
+					<label class="control-label no-padding-right my-set-content z">${course.lecturer}</label>
 			</div>
 <c:choose>
 	<c:when test="${course.type== '2'}">
-			<label class="col-sm-1 control-label no-padding-right">多媒体类型:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
+			<label class="control-label no-padding-right lable-myset-title z">多媒体类型：</label>
+			<div class="" >
+
 					<c:choose>
 						<c:when test="${course.multimediaType== '1'}">
-							<label class="control-label no-padding-right">视频</label>
+							<label class="control-label no-padding-right my-set-content z">视频</label>
 						</c:when>
 						<c:when test="${course.multimediaType== '2'}">
-							<label class="control-label no-padding-right">音频</label>
+							<label class="control-label no-padding-right my-set-content z">音频</label>
 						</c:when>
 					</c:choose>
-				</div>
+
 			</div>
 	</c:when>
 </c:choose>
-			<label class="col-sm-1 control-label no-padding-right">课程单价:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
-					<label class="control-label no-padding-right">${course.currentPrice}熊猫币</label>
-				</div>
+			<label class="control-label no-padding-right lable-myset-title z">课程单价：</label>
+			<div class="" >
+				
+					<label class="control-label no-padding-right my-set-content z">${course.currentPrice}熊猫币</label>
+			
 			</div>
 		</div>
-		<div class="form-group" style="margin-top:18px;">
+		<div class="form-group" style="margin-top:6px;">
 			<c:choose>
 				<c:when test="${!course.collection}">
-					<label class="col-sm-1 control-label no-padding-right">课程时长:</label>
-					<div class="col-sm-1" >
-						<div class="clearfix" style="width: 240px;">
-							<label class="control-label no-padding-right">${course.courseLength}分钟</label>
-						</div>
+					<label class="control-label no-padding-right lable-myset-title z">课程时长：</label>
+					<div class="" >
+					
+							<label class="control-label no-padding-right my-set-content z">${course.courseLength}分钟</label>
+						
 					</div>
 				</c:when>
 			</c:choose>
 			<c:choose>
 				<c:when test="${course.type!= '2'}">
-					<label class="col-sm-1 control-label no-padding-right">课程开始时间:</label>
-					<div class="col-sm-1" >
-						<div class="clearfix" style="width: 240px;">
-							<label class="control-label no-padding-right"><fmt:formatDate value="${course.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
-						</div>
+					<label class="control-label no-padding-right lable-myset-title z">课程开始时间：</label>
+					<div class="" >
+
+							<label style="width: 300px;" class="control-label no-padding-right my-set-content z"><fmt:formatDate value="${course.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
+
 					</div>
 				</c:when>
 			</c:choose>
 			<c:choose>
 				<c:when test="${course.type== '3'}">
-					<label class="col-sm-1 control-label no-padding-right">课程结束时间:</label>
-					<div class="col-sm-1" >
-						<div class="clearfix" style="width: 240px;">
-							<label class="control-label no-padding-right"><fmt:formatDate value="${course.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
-						</div>
+					<label class="control-label no-padding-right lable-myset-title z">课程结束时间：</label>
+					<div class="" >
+
+							<label  style="width: 300px;" class="control-label no-padding-right my-set-content z"><fmt:formatDate value="${course.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
+
 					</div>
 				</c:when>
 			</c:choose>
 			<c:choose>
 				<c:when test="${course.collection}">
-					<label class="col-sm-1 control-label no-padding-right">总集数:</label>
-					<div class="col-sm-1" >
+					<label class="control-label no-padding-right z">总集数：</label>
+					<div class="" >
 						<div class="clearfix" style="width: 240px;">
 							<label class="control-label no-padding-right">${course.courseNumber}</label>
 						</div>
@@ -169,27 +190,25 @@
 
 
 
-		<div class="form-group " style="margin-top:18px;margin-bottom:60px">
-			<label class="col-sm-1 control-label no-padding-right" >主播介绍:</label>
-			<div class="col-lg-10 " >
-				<div class="clearfix" style="width: 1000px;">
+		<div class="form-group " style="margin-top:30px;margin-bottom:20px;padding-top: 18px; border-top: 1px solid #ededed;">
+			<label class="col-sm-1 control-label no-padding-right lable-myset-title z" >主播介绍：</label>
+			<div class="col-lg-10 author-text" style="padding-left: 0;">
 					<p>${course.lecturerDescription}</p>
-				</div>
 			</div>
 		</div>
 
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">课程简介:</label>
-			<div class="col-lg-10 " >
-				<div class="clearfix" style="width: 1000px;" id="text-myset">
+			<label class="col-sm-1 control-label no-padding-right lable-myset-title">课程简介：</label>
+			<div class="col-lg-10 author-text" style="padding-left: 0;">
+
 					<p>${course.courseDetail}</p>
-				</div>
+
 			</div>
 		</div>
 <c:choose>
 	<c:when test="${course.collection}">
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">课程大纲:</label>
+			<label class="col-sm-1 control-label no-padding-right">课程大纲：</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 1000px;">
 					<p >${course.courseOutline}</p>
