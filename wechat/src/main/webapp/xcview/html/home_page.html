@@ -13,8 +13,6 @@
 <!--手机嵌入模板-->
 <!--<script type="text/javascript" src="/xcview/js/template/template.js"></script>-->
 
-
-
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>
 
@@ -23,10 +21,6 @@
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1.1"/>
 
-
-
-
-
 <!--没有用上面js模板，手机上加载的太慢。会出错误-缩小放大效果-->
 <script type="text/javascript">
 	var kk=document.documentElement.clientWidth;
@@ -34,7 +28,6 @@
 		kk=750
 	}
 	document.documentElement.style.fontSize=kk/7.5+"px"		
-
 </script>
 
 
@@ -42,7 +35,6 @@
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
-<!--<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>-->  
 <script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
@@ -94,7 +86,6 @@
 	    </div>
 	</div>
 	<div class="top_height"></div>
-	
 	
 	
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
@@ -175,7 +166,7 @@
 								{{each items as item i}}
 									<div class="slide_one_div swiper-slide">
 										<a href="javascript:;">
-											<img src="{{item.icon}}?imageView2/1/w/100/h/60" class="slide_one_artist"  data-div="{{item.linkCondition}}" />
+											<img src="{{item.icon}}?imageView2/2/w/72" class="slide_one_artist"  data-div="{{item.linkCondition}}" />
 											<p>{{item.name}}</p>
 										</a>
 									</div>
@@ -196,7 +187,7 @@
 					            	
 					            	<div class="teacher_slider_ul_div teacherRecommend" data-jump="{{item.userId}}">
 					            		<a style="color: #333;" href="/xcview/html/live_personal.html?userLecturerId={{item.userId}}">
-                    						<img src="{{item.headPortrait}}" />
+                    						<img src="{{item.headPortrait}}?imageView2/2/w/72" />
                     						<span style="font-size: 0.22rem;">{{item.name}}</span>
                     					</a>
                     				</div>
@@ -245,7 +236,6 @@
 		                    			{{/if}}
 		                    			
                 					{{/if}}
-                					
                 					
 		                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump({{item.id}})"></a>-->
 	                    			<!--{{if item.type == 1 || item.type == 2}}
@@ -324,7 +314,7 @@
                 			{{each items as item i}}
 				            <div class="swiper-slide">
 				            	<div class="teacher_slider_ul_div go_search">
-                						<img src="{{item.icon}}" />
+                						<img src="{{item.icon}}?imageView2/2/w/72" />
                 						<span style="font-size: 0.22rem;">{{item.cityName}}</span>
                 				</div>
 				            </div>
@@ -351,7 +341,7 @@
 
                 					<div class="boutique_main_four">
                 						<div class="boutique_four_img">
-                							<img src="{{item.smallImgPath}}" alt="" />
+                							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
                 						</div >
             							<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
                 						<div class="boutique_main_four_title">
@@ -379,10 +369,8 @@
                 		</div>
                 	</div>
             		{{/each}}
-            		
             	</script>
             	
-            		
             	<!--全国课程结束-->
 			</li>
 			<!--线下课结束-->
@@ -444,12 +432,9 @@
 		                    			
 	            					{{/if}}
 
-
-
-
 									<div class="newest_main_two">
 										<div class="newest_two_img">
-											<img src="{{item.smallImgPath}}" alt="" />
+											<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
 										</div>
 										<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_two_img_type" />-->
 										<div class="newest_main_two_title">
@@ -499,8 +484,6 @@
 				</div>
 				<!--swiper轮播图滑动结束-->
 
-
-				
             	<!--听课推荐开始-->
             	<div class="lectures">
             		<div class="lectures_title" >听课推荐<img src="/xcview/images/video_review.png" alt="" style="width: 0.15rem;margin-right: 0.26rem;float: right;margin-top: 0.08rem;" /></div>
@@ -512,7 +495,6 @@
         
 								<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?course_id={{item.id}}"></a>-->
             					
-        
         						{{if item.watchState == 1}}
                 					{{if item.type == 1 || item.type == 2}}
 		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
@@ -538,15 +520,11 @@
             					
             					<div class="lectures_main_one">
             						<div class="lectures_one_img">
-            							<img src="{{item.smallImgPath}}" alt="" />
+            							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
             						</div>
-            						<!--<img src="/xcview/images/tv_auto.png" alt="" class="lectures_main_one_img_type" />-->
             						<div class="lectures_main_one_title">
             							<div class="div">{{item.gradeName}}</div>
             							<div class="span">{{item.name}}</div>
-            							
-            							<!--<span></span><br />
-            							<span class="span"></span>-->
             						</div>
             						<div class="lectures_main_one_size">
             							{{if item.watchState == 1}}
@@ -572,10 +550,7 @@
 		</ul>
 			<!--</div>
 		</div>-->
-
 	</div>
-	
-	
 	
 	<!--底部旋转开始-->
 	<div class="rotation_bottom">
@@ -583,7 +558,6 @@
 	</div>
 	<!--底部旋转结束-->
 	
-
 	<!--底部开始-->
 	<div class="footer_perch" style="1display: none;"></div>
 	<div class="footer" style="display: none1;">
@@ -776,7 +750,6 @@ function slide(begin){
 	tt.slide(begin, 600);
 }
 
-
 for(var i=0;i<as.length;i++){
 	(function(){
 		var j=i;
@@ -789,7 +762,5 @@ for(var i=0;i<as.length;i++){
 }
 
 </script>
-
-
 
 </html>
