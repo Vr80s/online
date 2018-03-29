@@ -52,7 +52,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
             throw new LockedAccountException("账号已被删除");
         }
 
-        if (user.getPassword().equals(CodeUtil.encodePassword(Arrays.toString(userToken.getPassword()), user.getSalt()))) {
+        if (!user.getPassword().equals(CodeUtil.encodePassword(new String(userToken.getPassword()), user.getSalt()))) {
             throw new IncorrectCredentialsException("密码错误");
         }
 
