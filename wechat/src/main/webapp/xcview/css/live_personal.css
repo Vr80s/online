@@ -195,8 +195,8 @@ textarea::-webkit-input-placeholder {
 	margin-right: 0.2rem;
 }
 .wrap_img img{
-	width: 100%;
-	height: 100%;
+	width: 2.12rem;
+	height: 1.2rem;
 }
 .personal_title{
 margin-bottom: 0.1rem;
@@ -303,8 +303,8 @@ color: #999999;
 	position: relative;	
 }
 .wrap_vedio_btn li .wrap_img_pic img{
-	width: 100%;
-	height: 100%
+	width: 3.39rem;
+	height: 1.92rem;
 }
 .wrap_vedio_btn li .wrap_img_pic .img_little{
 	width: 0.3rem;
@@ -347,6 +347,7 @@ color:  #999999;
     padding: 0rem 0.1rem;
     color: #F97B49 !important;
     margin-left: 0.1rem;
+    border-radius: 4px;
 }
 .more_people{
 overflow: hidden;
