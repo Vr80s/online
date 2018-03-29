@@ -1,120 +1,111 @@
-<!DOCTYPE html> 
-<html>
-<head lang="en">
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://dev.ixincheng.com/doctors -->
+<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->
-    <meta http-equiv="X-UA-Compatible" content="IEedge"/>
-    <meta charset="UTF-8">
-    <title>熊猫中医 - 医馆</title>
-    <link rel="shortcut icon" href="/favicon.ico"/>
-    <meta name="keywords"
-          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
-    <meta name="description"
-          content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。"/>
+    <meta http-equiv="X-UA-Compatible" content="IEedge">
+
+    <title>${tk.title?default('')}熊猫中医-医馆</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="keywords" content="${tk.keywords?default('')}中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医">
+    <meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。">
     <meta name="renderer" content="webkit">
-    <meta name="baidu-site-verification" content="UHaAQAeAQF"/>
     <link rel="stylesheet" href="/web/css/bootstrap.min.css">
     <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
     <link rel="stylesheet" href="/web/css/componet.css"/>
     <link rel="stylesheet" href="/web/css/header.css"/>
-    <link rel="stylesheet" href="/web/css/hospital_details.css"/>
+    <link rel="stylesheet" href="/web/css/hospital_details.css?v=ipandatcm_1.2.1"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
-    <link rel="stylesheet" href="/web/font/iconfont.css"/>
-	<link rel="stylesheet" href="/web/css/style2.css"/>
-	
+    <link rel="stylesheet" href="/web/css/style2.css"/>
+
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
+    <script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
     <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>
-    <!-----引用layer------>
-    <script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
-    <!-----引用layer------>
-    <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-
-    <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/header-top.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>
-
-<!--主体-->
+<header>
+    <#include "../header-body.ftl">
+</header>
 <div class="content_box">
     <div class="content clearfix" id="main">
         <!--左侧-->
         <div class="main_left">
             <!--医馆信息-->
             <div class="hospital_detail_inf">
-                <h3></h3>
+                <h3>${clinic.name}</h3>
                 <div class="hospital_detail_pic clearfix" id="hospital_detail_pic">
-                    <!--<div class="hospital_detail_pic_left">
-                        <img src="../images/hospital_detail/hospital_pic2.png" alt="暂无图片" class="big_pic">
+                    <div class="successlunbo">
+                        <div class="succesny">
+                            <div class="control">
+                                <ul class="change">
+                                </ul>
+                            </div>
+                            <div class="thumbWrap">
+                                <div class="thumbCont">
+                                    <ul id="lunbo">
+                                        <!-- img属性, url=url, text=描述, bigimg=大图, alt=标题  -->
+                                        <!--<li>
+                                            <div><img src="../images/1.jpg" url="url" bigImg="../images/1.jpg"></div>
+                                        </li>
+                                       -->
+                                    <#list clinic.medicalHospitalPictures as picture>
+                                        <li>
+                                            <div><img src="${picture.picture}" url="javascript:;" bigimg="${picture.picture}"></div>
+                                        </li>
+                                    </#list>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="hospital_detail_pic_right" id="lunbo">
-                        <img src="../images/hospital_detail/hospital_pic.png" alt="暂无图片">
-                        <img src="../images/hospital_detail/hospital_pic.png" alt="暂无图片">
-                        <img src="../images/hospital_detail/hospital_pic.png" alt="暂无图片">
-                    </div>-->
-                   
-                   
-          <div class="successlunbo">
-        <div class="succesny">
-            <div class="control">
-                <ul class="change">
-                </ul>
-            </div>
-            <div class="thumbWrap">
-                <div class="thumbCont">
-                    <ul id="lunbo">
-                        <!-- img属性, url=url, text=描述, bigimg=大图, alt=标题  -->
-                        <!--<li>
-                            <div><img src="../images/1.jpg" url="url" bigImg="../images/1.jpg"></div>
-                        </li>
-                       -->
-                    </ul>
                 </div>
-            </div>
-        </div>
-    </div>       
+                <div class="hospital_detail_con">
+                    <p>${clinic.description}</p>
+                    <!--<p>新中国成立后，中医药事业得到了很大的发展，为了进一步发扬中医药的特色和优势，发挥离退休专家的余热，解决群众看病难、看专家更难的问题，留住中医的根，由南京中医药大学、江苏省中医院、省人民医院、省中西医结合医院、南大鼓楼医院、东大中大医院、南京市中医院和江苏省中医药学会部分离退休领导干部、专家，国家、省、市级名老中医于2003年7月29日恢复了江苏省国医馆。</p>-->
+                    <div id="hos_inf">
+                        <p>医疗领域：
+                            <#list clinic.fields as field>
+                            <span>${field.name}&nbsp;</span>
+                            </#list>
+                        </p>
+                    </div>
                 </div>
-                <div class="hospital_detail_con" >
-                	<p></p>
-                <!--<p>新中国成立后，中医药事业得到了很大的发展，为了进一步发扬中医药的特色和优势，发挥离退休专家的余热，解决群众看病难、看专家更难的问题，留住中医的根，由南京中医药大学、江苏省中医院、省人民医院、省中西医结合医院、南大鼓楼医院、东大中大医院、南京市中医院和江苏省中医药学会部分离退休领导干部、专家，国家、省、市级名老中医于2003年7月29日恢复了江苏省国医馆。</p>-->
-                <div id="hos_inf">
-                	 <P></P>
-                </div>
-                
-                </div>
-                
-                
-               
-                
-                
+
+
                 <div class="hospital_detail_inf_bottom">
-                    <p> <span class="hospital_detail_inf_bottom_tel">联系电话：</span><span>地址：<span class="sheng"></span> <span class="shi"></span> <span class="detail"></span></span></p>
+                    <p>
+                        <span class="hospital_detail_inf_bottom_tel">联系电话：${clinic.tel}</span>
+                        <span>
+                            地址：<span class="sheng">${clinic.province}</span> <span class="shi">${clinic.city}</span> <span class="detail" title="${clinic.detailedAddress}">${clinic.detailedAddress}</span>
+                        </span>
+                    </p>
                 </div>
             </div>
 
             <!--医馆名家-->
-            <div class="hospital_doctor hide clearfix ">
+            <div class="hospital_doctor clearfix">
                 <div class="hospital_top">
                     <span>医馆名家</span>
-                    <a href="/web/html/practitionerListing.html" class="hide" id="more_doc">
-                        更多&nbsp;>
+                    <a href="/web/html/practitionerListing.html?name=&amp;hospitalId=08a08cf4f87848298576838206653c39" class="hide" id="more_doc">
+                        更多&nbsp;&gt;
                     </a>
                 </div>
                 <ul class="doctor_inf" id="yiguan_mingjia">
-                    <!--<li>
-                        <img src="../images/hospital_detail/touxiang.png" alt="">
-                        <h5>施小墨</h5>
-                        <p>每周二、四</p>
-                        <p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
-                    </li>
-                   	-->
-
+                    <#list doctors.records as doctor>
+                        <li>
+                            <a href="/doctors/${doctor.id}" target="_blank"></a>
+                            <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                            <h5>${doctor.name}</h5>
+                            <p>${doctor.workTime}</p>
+                            <p>${doctor.province}&nbsp;${doctor.city}</p>
+                        </li>
+                    </#list>
                 </ul>
             </div>
             <!--课程-->
@@ -220,7 +211,7 @@
             </div>-->
 
 
-			<!--联系方式-->
+            <!--联系方式-->
             <!--<div class="contant_way clearfix hide">
              <h3>联系方式</h3>
                 <div class="map">
@@ -235,17 +226,16 @@
 
 
         <!--右侧-->
-       <div class="main_right ">
+        <div class="main_right ">
             <!--帐号认领-->
             <div class="import_thing hide">
-               <h2>暂无重要通知</h2>
+                <h2>暂无重要通知</h2>
                 <!--<p>因我馆医疗系统升级，患者需重新登记资料</p>-->
                 <!--<span>2017.11.24</span>-->
             </div>
 
             <!--招募信息-->
-            <div class="employ" id="employ">
-                
+            <div class="employ hide" id="employ">
                 <!--<div class="employ_inf">
                     <p>薪资面议    <span>|</span>    江苏南京</p>
                     <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
@@ -271,111 +261,46 @@
                 </div>-->
 
             </div>
-            
-            <!--优秀医馆-->
-            <div class="good_hospital hide" id="good_hospital">
-            	<span>优秀医馆</span>
-            	<ul id="good_hospital_list">
-            		<!--<li><a href=""><em class="select">1</em>北京同仁堂</a></li>
-            		<li><a href=""><em class="select">1</em>北京同仁堂</a></li>
-            		<li><a href=""><em class="select">1</em>北京同仁堂</a></li>-->
-            	</ul>
-            </div>
-            	
 
-       </div>
+            <!--优秀医馆-->
+            <div class="good_hospital" id="good_hospital">
+                <span>优秀医馆</span>
+                <ul id="good_hospital_list">
+                <#list recClinics as recClinic>
+                    <li>
+                        <a href="/clinics/${recClinic.id}">
+                            <#if recClinic_index <= 2>
+                                <em class="select">${recClinic_index+1}</em>
+                            <#else>
+                                <em>${recClinic_index+1}</em>
+                            </#if>
+                        ${recClinic.city}&nbsp;&nbsp;${recClinic.name}
+                        </a>
+                    </li>
+                </#list>
+                </ul>
+            </div>
+
+
+        </div>
     </div>
 </div>
-
-<!--轮播模板-->
-<script type="text/template" id="lunboTpl">
-{{if medicalHospitalPictures}}
-{{each medicalHospitalPictures as item i}}
-{{if item.picture != null}}
- <li>
-      <div><img src={{item.picture}} url="javascript:;"  bigImg={{item.picture}}></div>
-</li>
-{{/if }}
-{{/each}}
-{{else}}
-
-{{/if}}
-</script>
-
-<!--医馆信息-->
-<script type="text/template" id="hos_infTpl">
-
-{{if fields.length != 0}}
-<p>医疗领域：
-	{{each fields}}
-	<span>{{$value.name}}&nbsp;</span>
-	{{/each}}
-</p>
-{{else}}
-<!--<h3>医疗领域暂无数据</h3>-->
-{{/if}}
-</script>
-
-
-<!-- 医馆医师-->
-<script type="text/template" id="hos_docTpl"> 
-{{each doctor as doctor i}}
-	<li>
-		<a href="/web/html/practitionerDetails.html?Id={{doctor.id}}" target="_blank"></a>
-        <img src={{doctor.headPortrait}} alt="">
-        <h5>{{doctor.name}}</h5>
-        <p>{{doctor.workTime}}</p>
-        <p>
-        	{{if doctor.province == doctor.city}}
-        		{{doctor.province}}&nbsp;
-        	{{else}}
-        		{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
-        	{{/if}}
-        	
-        	{{if doctor.medicalHospitalVo}}
-        		{{doctor.medicalHospitalVo.name}}
-        	{{/if}}
-        </p>
-    </li>
- {{/each}}
-</script> 
-
-
-<!--医馆招聘信息-->
-<script type="text/template" id="employ_infTpl">
-<h3 style="font-size: 16px;font-weight: 400;">招聘信息</h3>
-{{each inf as inf i}}
-<div class="employ_inf">
-    <!--<p>薪资面议    <span>|</span>江苏南京</p>-->
-    <h4>招聘岗位：{{inf.position}}</h4>
-    <p>岗位职责：<br><span>{{#inf.postDuties}}</span></p>
-    <p>任职要求：<br><span>{{#inf.jobRequirements}}</span></p>
-</div>
-{{/each}}
-</script>
-
-<!--优秀医馆模板-->
-<script type="text/template" id="good_hospital_list_Tpl">
-		{{each item as item i}}
-			{{if i+1 < 4}}
-            	<li><a href="/web/html/clinicDetails.html?Id={{item.id}}"><em class="select">{{i+1}}</em>{{item.city}}&nbsp;&nbsp;{{item.name}}</a></li>
-			{{else}}
-            	<li><a href="/web/html/clinicDetails.html?Id={{item.id}}"><em class="">{{i+1}}</em>{{item.city}}&nbsp;&nbsp;{{item.name}}</a></li>
-			{{/if}}
-		{{/each}}
-</script>
-
-
-
+<#include "../footer.ftl">
 </body>
-</html>
 <script src="/web/js/jquery.pagination.js"></script>
-<script src="/web/js/hospital_details.js?v=ipandatcm_1.2.1"></script>
-<script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script src="/web/js/slides-1.1.1-min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('input').placeholder();
+<script type="application/javascript">
+    $(function(){
+        $("hospital-tab").addClass("select");
     });
+    //启动轮播图
+    $('.succesny').olvSlides({
+        thumb: true,
+        thumbPage: true,
+        thumbDirection: "Y",
+        effect: 'fade'
+
+    });
+    init();
 </script>

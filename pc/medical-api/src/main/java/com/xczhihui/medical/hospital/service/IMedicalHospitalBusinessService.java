@@ -79,4 +79,6 @@ public interface IMedicalHospitalBusinessService {
      * @param doctorId 医师id
      */
     void deleteDoctor(String uid, String doctorId);
+
+    MedicalField getFieldById(String field);
 }

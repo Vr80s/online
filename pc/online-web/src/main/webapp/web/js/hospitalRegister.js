@@ -16,7 +16,7 @@ $(function(){
 //	       		$('#tip').toggle();
 //	       		setTimeout(function(){
 //	       			$('#tip').toggle();
-//	       			window.location.href = "/web/html/clinics.html";
+//	       			window.location.href = "/clinics";
 //	       		},1500)
 //	       		
 //	       	}else if(data.resultObject.indexOf(7) != -1){
@@ -43,7 +43,7 @@ $(function(){
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       			window.location.href = "/web/html/clinics.html";
+	       			window.location.href = "/clinics";
 	       		},2000)
 	       		
 	       	}else if(data.resultObject == 7 ){

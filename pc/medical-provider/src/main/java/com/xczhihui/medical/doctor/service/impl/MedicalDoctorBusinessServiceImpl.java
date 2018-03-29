@@ -547,6 +547,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         return hospitalVo;
     }
 
+    @Override
+    public MedicalDepartment getDepartmentById(String departmentId) {
+        return departmentMapper.selectById(departmentId);
+    }
+
     /**
      * 参数校验
      * @param medicalDoctor 被校验的参数
