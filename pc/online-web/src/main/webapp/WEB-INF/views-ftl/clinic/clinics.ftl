@@ -75,7 +75,7 @@
             <ul class="hot-article-list">
             <#list recClinics as recClinic>
                 <li>
-                    <a href="/web/html/clinicDetails.html?Id=${recClinic.id}">
+                    <a href="/clinics/${recClinic.id}">
                         <#if recClinic_index <= 2>
                             <em class="select">${recClinic_index+1}</em>
                             <#else>
@@ -95,7 +95,7 @@
                 <div id="hospital_list">
                     <#list clinics.records as clinic>
                         <div class="hospitals">
-                            <a href="/web/html/clinicDetails.html?Id=08a08cf4f87848298576838206653c39" id="08a08cf4f87848298576838206653c39" target="_blank"></a>
+                            <a href="/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
                             <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;" alt="${clinic.name}">
                             <div class="hospital_inf">
                                 <span class="hospital_name">${clinic.name}</span>
@@ -158,8 +158,8 @@
                         <ul class="course boxContent clearfix" id="doctor_recruit_list">
                             <#list recruits as recruit>
                             <li>
-                                <h4><a href="/web/html/clinicDetails.html?Id=${recruit.id}" style="color: #000;">${recruit.position}</a></h4>
-                                <a href="/web/html/clinicDetails.html?Id=e5841d2a87814a968a1c1ee1f8040762">${recruit.city}&nbsp;&nbsp;${recruit.hospitalName}</a>
+                                <h4><a href="/clinics/${recruit.hospitalId}" style="color: #000;">${recruit.position}</a></h4>
+                                <a href="/clinics/${recruit.hospitalId}">${recruit.city}&nbsp;&nbsp;${recruit.hospitalName}</a>
                             </li>
                             </#list>
                         </ul>
@@ -175,7 +175,7 @@
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
     $(function(){
-        $(".doctor-tab").addClass("select");
+        $(".hospital-tab").addClass("selected");
     });
     //banner
     function init() {

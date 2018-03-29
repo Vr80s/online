@@ -6,7 +6,7 @@
     <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IEedge">
 
-    <title>${tk.title?default('')}熊猫中医-名医</title>
+    <title>${tk.title?default('')}熊猫中医-医馆</title>
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="keywords" content="${tk.keywords?default('')}中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医">
     <meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。">
@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
     <link rel="stylesheet" href="/web/css/componet.css"/>
     <link rel="stylesheet" href="/web/css/header.css"/>
-    <link rel="stylesheet" href="/web/css/doctor_details.css?v=ipandatcm_1.2.1"/>
+    <link rel="stylesheet" href="/web/css/hospital_details.css?v=ipandatcm_1.2.1"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
-    <link rel="stylesheet" href="/web/font/iconfont.css"/>
+    <link rel="stylesheet" href="/web/css/style2.css"/>
 
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
@@ -32,75 +32,95 @@
 <header>
     <#include "../header-body.ftl">
 </header>
-<div class="header" id="doctor_detail_header">
-    <div class="header_inf content">
-        <div class="header_inf_left">
-            <img src="${doctor.headPortrait}" alt="暂无头像">
-            <!--<img src=../images/doctor_detail/xunzhang.png alt="">-->
-        </div>
-        <div class="header_inf_right">
-            <span>${doctor.name}  </span><span>${doctor.title?default('暂无')}</span>
-            <div class="doctor_inf1">
-                <span class="zhiwu"><em></em>${doctor.title?default('暂无')}</span>
-                <#if doctor.medicalHospitalVo ??>
-                    <span class="yiguan"><em></em>${doctor.medicalHospitalVo.name}</span>
-                </#if>
-                <span class="dizhi"><em></em>${doctor.city}</span>
-            </div>
-            <div class="doctor_inf2">
-                <p>主治：
-                <#list doctor.fields as field>
-                    <span>${field.name}</span>
-                </#list>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="content_box">
     <div class="content clearfix" id="main">
         <!--左侧-->
         <div class="main_left">
-            <!--医生简介-->
-            <div class="doctor_int">
-                <p>${doctor.description}</p>
-            </div>
-            <!--坐诊医馆-->
-            <#if doctor.medicalHospital??>
-                <div id="doc_hospital">
-                    <div class="hospital clearfix">
-                        <a class="to_hospital_detail"></a>
-                        <h3>坐诊医馆</h3>
-                        <div class="hospital_pic">
-                            <img src="${doctor.medicalHospital.medicalHospitalPictures[0].picture}" alt="暂无图片">
-                        </div>
-                        <div class="hospital_inf">
-                            <p>${doctor.medicalHospital.name}</p>
-                            <p>预约电话：<span>${doctor.medicalHospital.tel?default('暂无')}</span></p>
-                            <p>坐诊时间：<span style="vertical-align: text-top;display: inline-block;width: 455px;">${doctor.medicalHospital.workTime?default('暂无')}</span></p>
-                            <p>地 &nbsp;&nbsp;&nbsp;&nbsp;	址：
-                                <span style="vertical-align: text-top;display: inline-block;width: 455px;">
-                                    <span>${doctor.medicalHospital.detailedAddress?default('暂无')}</span>
-                                </span>
-                            </p>
+            <!--医馆信息-->
+            <div class="hospital_detail_inf">
+                <h3>${clinic.name}</h3>
+                <div class="hospital_detail_pic clearfix" id="hospital_detail_pic">
+                    <div class="successlunbo">
+                        <div class="succesny">
+                            <div class="control">
+                                <ul class="change">
+                                </ul>
+                            </div>
+                            <div class="thumbWrap">
+                                <div class="thumbCont">
+                                    <ul id="lunbo">
+                                        <!-- img属性, url=url, text=描述, bigimg=大图, alt=标题  -->
+                                        <!--<li>
+                                            <div><img src="../images/1.jpg" url="url" bigImg="../images/1.jpg"></div>
+                                        </li>
+                                       -->
+                                    <#list clinic.medicalHospitalPictures as picture>
+                                        <li>
+                                            <div><img src="${picture.picture}" url="javascript:;" bigimg="${picture.picture}"></div>
+                                        </li>
+                                    </#list>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </#if>
+                <div class="hospital_detail_con">
+                    <p>${clinic.description}</p>
+                    <!--<p>新中国成立后，中医药事业得到了很大的发展，为了进一步发扬中医药的特色和优势，发挥离退休专家的余热，解决群众看病难、看专家更难的问题，留住中医的根，由南京中医药大学、江苏省中医院、省人民医院、省中西医结合医院、南大鼓楼医院、东大中大医院、南京市中医院和江苏省中医药学会部分离退休领导干部、专家，国家、省、市级名老中医于2003年7月29日恢复了江苏省国医馆。</p>-->
+                    <div id="hos_inf">
+                        <p>医疗领域：
+                            <#list clinic.fields as field>
+                            <span>${field.name}&nbsp;</span>
+                            </#list>
+                        </p>
+                    </div>
+                </div>
 
+
+                <div class="hospital_detail_inf_bottom">
+                    <p>
+                        <span class="hospital_detail_inf_bottom_tel">联系电话：${clinic.tel}</span>
+                        <span>
+                            地址：<span class="sheng">${clinic.province}</span> <span class="shi">${clinic.city}</span> <span class="detail" title="${clinic.detailedAddress}">${clinic.detailedAddress}</span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <!--医馆名家-->
+            <div class="hospital_doctor clearfix">
+                <div class="hospital_top">
+                    <span>医馆名家</span>
+                    <a href="/web/html/practitionerListing.html?name=&amp;hospitalId=08a08cf4f87848298576838206653c39" class="hide" id="more_doc">
+                        更多&nbsp;&gt;
+                    </a>
+                </div>
+                <ul class="doctor_inf" id="yiguan_mingjia">
+                    <#list doctors.records as doctor>
+                        <li>
+                            <a href="/doctors/${doctor.id}" target="_blank"></a>
+                            <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                            <h5>${doctor.name}</h5>
+                            <p>${doctor.workTime}</p>
+                            <p>${doctor.province}&nbsp;${doctor.city}</p>
+                        </li>
+                    </#list>
+                </ul>
+            </div>
             <!--课程-->
-            <div class="class clearfix hide">
+            <!--<div class="class clearfix hide">
                 <div class="class_top">
                     <span>课程</span>
                     <a href="javascript:;">
-                        更多&nbsp;&gt;
+                        更多&nbsp;>
                     </a>
                 </div>
 
                 <div class="class_bottom">
                     <div class="class_inf">
                         <div class="class_inf_pic">
-                            <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                            <img src="../images/hospital_detail/hospital_pic.png" alt="">
                         </div>
                         <div class="class_inf_bottom">
                             <p class="class_title">冯世纶：中医外治四期班第二季</p>
@@ -115,7 +135,7 @@
 
                     <div class="class_inf">
                         <div class="class_inf_pic">
-                            <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                            <img src="../images/hospital_detail/hospital_pic.png" alt="">
                         </div>
                         <div class="class_inf_bottom">
                             <p class="class_title">冯世纶：中医外治四期班第二季</p>
@@ -130,7 +150,7 @@
 
                     <div class="class_inf">
                         <div class="class_inf_pic">
-                            <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                            <img src="../images/hospital_detail/hospital_pic.png" alt="">
                         </div>
                         <div class="class_inf_bottom">
                             <p class="class_title">冯世纶：中医外治四期班第二季</p>
@@ -145,7 +165,7 @@
 
                     <div class="class_inf">
                         <div class="class_inf_pic">
-                            <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                            <img src="../images/hospital_detail/hospital_pic.png" alt="">
                         </div>
                         <div class="class_inf_bottom">
                             <p class="class_title">冯世纶：中医外治四期班第二季</p>
@@ -160,7 +180,7 @@
 
                     <div class="class_inf">
                         <div class="class_inf_pic">
-                            <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                            <img src="../images/hospital_detail/hospital_pic.png" alt="">
                         </div>
                         <div class="class_inf_bottom">
                             <p class="class_title">冯世纶：中医外治四期班第二季</p>
@@ -174,7 +194,7 @@
 
                     <div class="class_inf">
                         <div class="class_inf_pic">
-                            <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                            <img src="../images/hospital_detail/hospital_pic.png" alt="">
                         </div>
                         <div class="class_inf_bottom">
                             <p class="class_title">冯世纶：中医外治四期班第二季</p>
@@ -188,157 +208,80 @@
 
                 </div>
 
-            </div>
+            </div>-->
 
-            <!--专栏-->
-            <#if specialColumns.total gt 0>
-                <div class="zhuanlan clearfix" id="zhuanlan">
-                    <div class="class_top">
-                        <span>专栏</span>
-                        <a href="/web/html/columnListing.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" id="more_zhuanlan">
-                            更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                        </a>
-                    </div>
 
-                    <ul class="zhuanlan_list" id="zhuanlan_list">
-                        <!--<li class="clearfix">
-                            <div class="zhuanlan_left">
-                                <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                            </div>
-                           <div class="zhuanlan_right">
-                               <h3>2017年中国国际中医药大健康博览会举行</h3>
-                               <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
-                               <span>2017.11.11</span>
-                           </div>
-                        </li>-->
-                        <#list specialColumns.records as specialColumn>
-                            <li class="clearfix">
-                                <div class="zhuanlan_left">
-                                    <img src="${specialColumn.imgPath}" alt="">
-                                </div>
-                                <div class="zhuanlan_right">
-                                    <h3>${specialColumn.title}</h3>
-                                    <p>${specialColumn.content}</p>
-                                    <span>${(specialColumn.createTime?string("yyyy-MM-dd"))!}</span>
-                                </div>
-                            </li>
-                        </#list>
-                    </ul>
+            <!--联系方式-->
+            <!--<div class="contant_way clearfix hide">
+             <h3>联系方式</h3>
+                <div class="map">
+                    	地图
                 </div>
-                </#if>
-                <#if newsReports.total gt 0>
-                <!--媒体报道-->
-                <div class="zhuanlan clearfix" id="media_report">
-                    <div class="class_top">
-                        <span>媒体报道</span>
-                        <a href="/web/html/practitioneNews.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" class="more_madia_report">
-                            更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                        </a>
-                    </div>
+                <p><span>联系电话：17289929373</span><span>邮编：21003</span></p>
+                <p><span>电子邮箱：13702283872@163.com</span><span>微信：387289990</span></p>
+                <p>地址：<span>江苏省南京市清凉门大街168号</span></p>
+       		</div>-->
 
-                    <ul class="zhuanlan_list" id="meaid_list">
-                        <#list newsReports.records as newsReport>
-                            <li class="clearfix">
-                                <div class="zhuanlan_left">
-                                    <a href="/web/html/newsDetails.html?articleId=${newsReport.id}"><img src="${newsReport.imgPath}" alt=""></a>
-                                </div>
-                                <div class="zhuanlan_right">
-                                    <h3><a href="/web/html/newsDetails.html?id=${newsReport.id}" style="color: #000;">${newsReport.title}</a></h3>
-                                    <p>${newsReport.content}</p>
-                                    <span>${(newsReport.createTime?string("yyyy-MM-dd"))!}</span>
-                                </div>
-                            </li>
-                        </#list>
-                    </ul>
-                </div>
-
-            </div>
-            </#if>
-
+        </div>
 
 
         <!--右侧-->
-        <div class="main_right hide">
+        <div class="main_right ">
             <!--帐号认领-->
-            <div class="renling hide">
-                <p>若您是李辅仁本人，可以认领此帐号</p>
-                <a href="javascript:;">认领</a>
+            <div class="import_thing hide">
+                <h2>暂无重要通知</h2>
+                <!--<p>因我馆医疗系统升级，患者需重新登记资料</p>-->
+                <!--<span>2017.11.24</span>-->
             </div>
-            <!--著作-->
-            <div class="zhuzuo clearfix hide">
-                <div class="zhuzuo_title">
-                    <h3>著作</h3>
-                    <a href="/web/html/pubs.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+
+            <!--招募信息-->
+            <div class="employ hide" id="employ">
+                <!--<div class="employ_inf">
+                    <p>薪资面议    <span>|</span>    江苏南京</p>
+                    <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
+                    <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
                 </div>
 
-                <div id="zhuzuo_list">
-                    <!--<div class="zhuzuo_left">
-                        <img src="../images/doctor_detail/book2.png" alt="">
-                        <p>施今墨对药</p>
-                    </div>-->
-                <#list writings as writing>
-                    <div class="zhuzuo_left">
-                        <img src="${writing.imgPath}" alt="">
-                        <p>${writing.title}</p>
-                    </div>
+                <div class="employ_inf">
+                    <p>薪资面议    <span>|</span>    江苏南京</p>
+                    <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
+                    <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
+                </div>
+
+                <div class="employ_inf">
+                    <p>薪资面议    <span>|</span>    江苏南京</p>
+                    <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
+                    <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
+                </div>
+
+                <div class="employ_inf">
+                    <p>薪资面议    <span>|</span>    江苏南京</p>
+                    <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
+                    <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
+                </div>-->
+
+            </div>
+
+            <!--优秀医馆-->
+            <div class="good_hospital" id="good_hospital">
+                <span>优秀医馆</span>
+                <ul id="good_hospital_list">
+                <#list recClinics as recClinic>
+                    <li>
+                        <a href="/clinics/${recClinic.id}">
+                            <#if recClinic_index <= 2>
+                                <em class="select">${recClinic_index+1}</em>
+                            <#else>
+                                <em>${recClinic_index+1}</em>
+                            </#if>
+                        ${recClinic.city}&nbsp;&nbsp;${recClinic.name}
+                        </a>
+                    </li>
                 </#list>
-                </div>
-
-            </div>
-            <!--相关医师-->
-            <div class="about_doctor hide">
-                <h3>相关医师</h3>
-                <ul class="about_doctor_list clearfix">
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏1</p>
-
-                    </li>
-
                 </ul>
             </div>
+
+
         </div>
     </div>
 </div>
@@ -346,70 +289,18 @@
 </body>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>
+<script src="/web/js/slides-1.1.1-min.js"></script>
 <script type="application/javascript">
     $(function(){
-        $(".doctor-tab").addClass("select");
+        $("hospital-tab").addClass("select");
     });
-    //banner
-    function init() {
-        var $sliders = $('#slider li');
-        var $selector = $('#selector');
-        var $selectors = $('#selector span');
-        var $left = $('#left');
-        var $right = $('#right');
-        //自动切换
-        var step = 0;
+    //启动轮播图
+    $('.succesny').olvSlides({
+        thumb: true,
+        thumbPage: true,
+        thumbDirection: "Y",
+        effect: 'fade'
 
-        function autoChange() {
-            if (step === $sliders.length) {
-                step = 0;
-            };
-            $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
-            $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
-            step++;
-        }
-
-        var timer = window.setInterval(autoChange, 2000);
-
-        //点击圆圈切换
-        $selector.on('click', function (e) {
-            var $target = $(e.target);
-            if ($target.get(0).tagName === 'SPAN') {
-                window.clearInterval(timer);
-                $target.addClass('cur').siblings().removeClass('cur');
-                step = $target.index();
-                $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
-                timer = window.setInterval(autoChange, 2000);
-            }
-        });
-
-        //点击左右按钮切换
-        $left.on('click', function () {
-            window.clearInterval(timer);
-            step--;
-            if (step < 0) {
-                step = $sliders.length - 1;
-                $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
-                $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
-            } else {
-                $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
-                $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
-            }
-            timer = window.setInterval(autoChange, 2000);
-        });
-        $right.on('click', function () {
-            window.clearInterval(timer);
-            step++;
-            if (step > $sliders.length - 1) {
-                step = 0;
-                $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
-                $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
-            } else {
-                $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
-                $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
-            }
-            timer = window.setInterval(autoChange, 2000);
-        })
-    }
+    });
     init();
 </script>
