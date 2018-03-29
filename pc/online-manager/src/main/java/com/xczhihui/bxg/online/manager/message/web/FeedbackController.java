@@ -1,7 +1,11 @@
 package com.xczhihui.bxg.online.manager.message.web;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLDecoder;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +21,7 @@ import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -111,6 +116,15 @@ public class FeedbackController {
 		if(!CollectionUtils.isEmpty(keyValVos)&&!CollectionUtils.isEmpty(page.getItems())){
 			for(MessageVo messageVo:page.getItems()){
 				messageVo.setRowId(rowId++);
+				
+				
+				try {
+					messageVo.setTitle(emojiRecovery2(messageVo.getTitle()));
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				for(KeyValVo keyValVo:keyValVos) {
 					if(keyValVo.get_key()!=null) {
 						if(Short.parseShort(String.valueOf(keyValVo.get_key()))==messageVo.getStatus()){
@@ -207,4 +221,37 @@ public class FeedbackController {
 
 		return responseObj;
 	}
+	
+	
+	/**
+	 * @Description 还原utf8数据库中保存的含转换后emoji表情的字符串
+	 * @param str
+	 *            转换后的字符串
+	 * @return 转换前的字符串
+	 * @throws UnsupportedEncodingException
+	 *             exception
+	 */
+	public static String emojiRecovery2(String str)
+			throws UnsupportedEncodingException {
+		String patternString = "\\[\\[(.*?)\\]\\]";
+
+		Pattern pattern = Pattern.compile(patternString);
+		Matcher matcher = pattern.matcher(str);
+
+		StringBuffer sb = new StringBuffer();
+		while (matcher.find()) {
+			try {
+				
+				matcher.appendReplacement(sb,URLDecoder.decode(matcher.group(1), "UTF-8"));
+				
+				
+			} catch (UnsupportedEncodingException e) {
+				throw e;
+			}
+		}
+		matcher.appendTail(sb);
+		return sb.toString();
+	}
+
+	
 }

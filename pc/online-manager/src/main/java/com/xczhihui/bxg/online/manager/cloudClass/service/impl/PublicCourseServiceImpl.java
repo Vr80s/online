@@ -1,5 +1,19 @@
 package com.xczhihui.bxg.online.manager.cloudClass.service.impl;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.UUID;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.api.service.LiveCallbackService;
@@ -14,6 +28,7 @@ import com.xczhihui.bxg.online.manager.cloudClass.dao.PublicCourseDao;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.LecturerService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.PublicCourseService;
+import com.xczhihui.bxg.online.manager.cloudClass.util.Task;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.ChangeCallbackVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
@@ -21,18 +36,6 @@ import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.subscribe.Subscribe;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import com.xczhihui.bxg.online.manager.vhall.bean.Webinar;
-
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Service("publicCourseServiceImpl")
 public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements PublicCourseService {
@@ -388,12 +391,19 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         		 break;
         	 }
         	 
-        	 System.out.println("{}{}{}{}{}{}  这个伟大的直播是否生成回访了   开始  ");
+        	
         	 /*
         	  * 这里查看下信息，看是否生成回放
         	  */
-        	 System.out.println(VhallUtil.recordList(changeCallbackVo.getWebinarId()));
-        	 System.out.println("{}{}{}{}{}{}  这个伟大的直播是否生成回访了  结束  ");
+        	 
+	        Timer timer = new Timer();
+	        Task task = new Task(changeCallbackVo.getWebinarId());
+	        System.out.println(DateUtil.formatDate(new Date(),null));
+	  	    timer.schedule(task, 30000);
+        	 
+        	 //休眠这个方法，过了几秒种后，在执行 ---》
+        	 //System.out.println(VhallUtil.recordList(changeCallbackVo.getWebinarId()));
+        	
         	 /*
         	  * 更改直播开始结束时间,更改直播当前状态
         	  */

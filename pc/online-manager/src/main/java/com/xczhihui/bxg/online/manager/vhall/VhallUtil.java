@@ -512,10 +512,8 @@ public class VhallUtil {
 	public static void main(String[] args) {
 		
 		
-		recordList("593865804");
+		recordList("629780295");
 	}
-    
-    
     
 }
 

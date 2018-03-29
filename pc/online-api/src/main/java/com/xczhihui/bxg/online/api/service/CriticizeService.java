@@ -70,7 +70,7 @@ public interface CriticizeService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	public void saveReply(String content, String userId,String criticizeId);
+	public void saveReply(String content, String userId,String criticizeId,Integer collectionId);
 
 	/**
 	 *  

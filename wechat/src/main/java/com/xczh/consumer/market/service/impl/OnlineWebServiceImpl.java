@@ -4,6 +4,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.dao.BasicSimpleDao;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.JdbcUtil;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
@@ -112,18 +113,25 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	    
 	    
 	    @Override
-	    public Boolean getLiveUserCourseAndIsFree(Integer courseId,String userId) throws SQLException {
+	    public Boolean getLiveUserCourseAndIsFree(CriticizeVo criticize) throws SQLException {
 	        StringBuffer sql = new StringBuffer();
 	        sql.append("SELECT argc.course_id ");
 	        sql.append(" from apply_r_grade_course argc ");
 	        sql.append(" where argc.is_delete=0 and "
-	        		+ " argc.course_id =IFNULL((select collection_id from collection_course where course_id  =? limit 1),?) "
-	        		+ " and argc.user_id= ? and argc.order_no is not null limit 1");
-	        Object [] params = {courseId,courseId,userId};
-	        List<Map<String,Object>>  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+  	        		+ " argc.course_id = ?  and argc.user_id= ? and argc.order_no is not null limit 1");
 	        
+	        List<Map<String,Object>>  list = null;
+	        //说明是专辑下的评论，直接查上一级
+	        
+	        System.out.println("专辑idcollectionId:"+criticize.getCollectionId());
+	        if(criticize.getCollectionId()!=null){
+	        	  Object []  params = {criticize.getCollectionId(),criticize.getCreatePerson()};
+	        	  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	        }else{
+	        	  Object []  params = {criticize.getCourseId(),criticize.getCreatePerson()};
+	        	  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	        }
 	        System.out.println("list.size()："+list.size());
-	        
 	        if(list!=null && list.size()>0){
 	        	return true;
 	        }
