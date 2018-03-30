@@ -20,20 +20,22 @@ import com.xczhihui.bxg.online.manager.cloudClass.service.CloudClassMenuService;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
 
 /**
- *   MenuServiceImpl:菜单业务层接口实现类
- *   @author Rongcai Kang
+ * MenuServiceImpl:菜单业务层接口实现类
+ *
+ * @author Rongcai Kang
  */
 @Service
 public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements CloudClassMenuService {
 
     @Autowired
     private CloudClassMenuDao cloudClassMenuDao;
-    
+
     @Autowired
     private ScoreTypeDao scoreTypeDao;
 
     /**
      * 获取全部一级与二级菜单
+     *
      * @return 菜单集合
      */
     /* @Override
@@ -53,9 +55,8 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
         }
         return resultList;
     }*/
-
     @Override
-    public Page<MenuVo> findMenuPage(MenuVo menuVo, Integer pageNumber, Integer pageSize)  {
+    public Page<MenuVo> findMenuPage(MenuVo menuVo, Integer pageNumber, Integer pageSize) {
         Page<MenuVo> page = cloudClassMenuDao.findCloudClassMenuPage(menuVo, pageNumber, pageSize);
         return page;
     }
@@ -64,11 +65,12 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
     public Integer getMaxSort() {
         return cloudClassMenuDao.getMaxSort();
     }
-    
+
     @Override
     public Integer getMaxYunSort() {
         return cloudClassMenuDao.getMaxYunSort();
     }
+
     @Override
     public Integer getMaxBoSort() {
         return cloudClassMenuDao.getMaxBoSort();
@@ -81,27 +83,27 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
 
     @Override
     public Integer getMaxNumber(Integer parentId, Integer level) {
-        Menu parentMenu=cloudClassMenuDao.findById(parentId);
-        return cloudClassMenuDao.getMaxNumber(parentMenu.getNumber(),2);
+        Menu parentMenu = cloudClassMenuDao.findById(parentId);
+        return cloudClassMenuDao.getMaxNumber(parentMenu.getNumber(), 2);
     }
 
     @Override
     public Integer getMaxSort(Integer parentId, Integer level) {
-        Menu parentMenu=cloudClassMenuDao.findById(parentId);
+        Menu parentMenu = cloudClassMenuDao.findById(parentId);
         return cloudClassMenuDao.getMaxSort(parentMenu.getNumber(), 2);
     }
 
     @Override
     public List<MenuVo> list() {
-        String sql="select * from oe_menu where is_delete = 0 and name <> '全部' and status=1  and yun_status=1 order by sort";
-        Map<String,Object> params=new HashMap<String,Object>();
-        List<MenuVo> voList=cloudClassMenuDao.findEntitiesByJdbc(MenuVo.class, sql, params);
+        String sql = "select * from oe_menu where is_delete = 0 and name <> '全部' and status=1  and yun_status=1 order by sort";
+        Map<String, Object> params = new HashMap<String, Object>();
+        List<MenuVo> voList = cloudClassMenuDao.findEntitiesByJdbc(MenuVo.class, sql, params);
         return voList;
     }
 
     @Override
     public Menu findMenuByName(String name) {
-        return cloudClassMenuDao.findOneEntitiyByProperty(Menu.class,"name",name);
+        return cloudClassMenuDao.findOneEntitiyByProperty(Menu.class, "name", name);
     }
 
     @Override
@@ -117,8 +119,8 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
     @Override
     public boolean exists(Menu menu) {
         //输入了一个名称 这个名称数据库已经存在了
-        Menu she=cloudClassMenuDao.findByNotEqId(menu);
-        if(she!=null){
+        Menu she = cloudClassMenuDao.findByNotEqId(menu);
+        if (she != null) {
             return true;
         }
         return false;
@@ -135,11 +137,11 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
     @Override
     public String deletes(String[] ids) {
 //        cloudClassMenuDao.deletes(ids);
-    	String msg = "";
-        for(String id:ids){
-        	msg = cloudClassMenuDao.deleteById(id);
+        String msg = "";
+        for (String id : ids) {
+            msg = cloudClassMenuDao.deleteById(id);
         }
-        return  msg;
+        return msg;
     }
 
     @Override
@@ -149,10 +151,10 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
 
     @Override
     public void updateStatus(String id) {
-        Menu menu=cloudClassMenuDao.findById(Integer.parseInt(id));
-        if(menu.getYunStatus()!=null&&menu.getYunStatus()==1){
+        Menu menu = cloudClassMenuDao.findById(Integer.parseInt(id));
+        if (menu.getYunStatus() != null && menu.getYunStatus() == 1) {
             menu.setYunStatus(0);
-        }else{
+        } else {
             menu.setYunStatus(1);
         }
         cloudClassMenuDao.update(menu);
@@ -160,9 +162,9 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
 
     @Override
     public void updateDirectionUp(String id) {
-        Menu preMenu=cloudClassMenuDao.updateDirectionUp(Integer.parseInt(id));
-        Menu me=cloudClassMenuDao.findById(Integer.parseInt(id));
-        Integer meSort=me.getYunSort();
+        Menu preMenu = cloudClassMenuDao.updateDirectionUp(Integer.parseInt(id));
+        Menu me = cloudClassMenuDao.findById(Integer.parseInt(id));
+        Integer meSort = me.getYunSort();
         me.setYunSort(preMenu.getYunSort());
         preMenu.setYunSort(meSort);
         cloudClassMenuDao.update(preMenu);
@@ -171,10 +173,10 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
 
     @Override
     public void updateChildrenMenuDirectionUp(String pid, String id, Integer level) {
-        Menu parentMenu=cloudClassMenuDao.findById(Integer.parseInt(pid));
-        Menu preMenu=cloudClassMenuDao.updateDirectionUp(parentMenu.getNumber(),Integer.parseInt(id),level);
-        Menu me=cloudClassMenuDao.findById(Integer.parseInt(id));
-        Integer meSort=me.getYunSort();
+        Menu parentMenu = cloudClassMenuDao.findById(Integer.parseInt(pid));
+        Menu preMenu = cloudClassMenuDao.updateDirectionUp(parentMenu.getNumber(), Integer.parseInt(id), level);
+        Menu me = cloudClassMenuDao.findById(Integer.parseInt(id));
+        Integer meSort = me.getYunSort();
         me.setYunSort(preMenu.getYunSort());
         preMenu.setYunSort(meSort);
         cloudClassMenuDao.update(preMenu);
@@ -184,9 +186,9 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
 
     @Override
     public void updateDirectionDown(String id) {
-        Menu downMenu=cloudClassMenuDao.updateDirectionDown(Integer.parseInt(id));
-        Menu me=cloudClassMenuDao.findById(Integer.parseInt(id));
-        Integer meSort=me.getYunSort();
+        Menu downMenu = cloudClassMenuDao.updateDirectionDown(Integer.parseInt(id));
+        Menu me = cloudClassMenuDao.findById(Integer.parseInt(id));
+        Integer meSort = me.getYunSort();
         me.setYunSort(downMenu.getYunSort());
         downMenu.setYunSort(meSort);
         cloudClassMenuDao.update(downMenu);
@@ -195,10 +197,10 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
 
     @Override
     public void updateChildrenMenuDirectionDown(String pid, String id, Integer level) {
-        Menu parentMenu=cloudClassMenuDao.findById(Integer.parseInt(pid));
-        Menu downMenu=cloudClassMenuDao.updateDirectionDown(parentMenu.getNumber(),Integer.parseInt(id),level);
-        Menu me=cloudClassMenuDao.findById(Integer.parseInt(id));
-        Integer meSort=me.getYunSort();
+        Menu parentMenu = cloudClassMenuDao.findById(Integer.parseInt(pid));
+        Menu downMenu = cloudClassMenuDao.updateDirectionDown(parentMenu.getNumber(), Integer.parseInt(id), level);
+        Menu me = cloudClassMenuDao.findById(Integer.parseInt(id));
+        Integer meSort = me.getYunSort();
         me.setYunSort(downMenu.getYunSort());
         downMenu.setYunSort(meSort);
         cloudClassMenuDao.update(downMenu);
@@ -206,35 +208,37 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
     }
 
     @Override
-    public List<Menu> findChildrenByNumber(Integer number,Integer level) {
-        return cloudClassMenuDao.findChildrenByNumber(number,level);
+    public List<Menu> findChildrenByNumber(Integer number, Integer level) {
+        return cloudClassMenuDao.findChildrenByNumber(number, level);
     }
 
     /**
      * 获取全部一级菜单
+     *
      * @return
      */
-    public List<Menu> getAllFirstMenu(String name, Integer pageNumber, Integer pageSize){
-            pageNumber = pageNumber == null ? 1 : pageNumber;
-            pageSize = pageSize == null ? 20 : pageSize;
+    public List<Menu> getAllFirstMenu(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber == null ? 1 : pageNumber;
+        pageSize = pageSize == null ? 20 : pageSize;
 
-            Map<String, Object> paramMap = new HashMap<String, Object>();
-            StringBuffer and = new StringBuffer();
-            if (StringUtils.hasText(name)) {
-                and.append(" and name = :name ");
-                paramMap.put("name", name);
-            }
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        StringBuffer and = new StringBuffer();
+        if (StringUtils.hasText(name)) {
+            and.append(" and name = :name ");
+            paramMap.put("name", name);
+        }
 
-            Page<Menu> page = dao.findPageByHQL("from Menu where 1=1 and level=1 "+and, paramMap, pageNumber, pageSize);
-            return page.getItems();
+        Page<Menu> page = dao.findPageByHQL("from Menu where 1=1 and level=1 " + and, paramMap, pageNumber, pageSize);
+        return page.getItems();
     }
 
 
     /**
      * 获取二级菜单，根据一级菜单编号
+     *
      * @return
      */
-    public  List<Menu> getAllSecondMenuByIndex(String name,Integer number,Integer pageNumber, Integer pageSize){
+    public List<Menu> getAllSecondMenuByIndex(String name, Integer number, Integer pageNumber, Integer pageSize) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
 
@@ -244,74 +248,72 @@ public class CloudClassMenuServiceImpl extends OnlineBaseServiceImpl implements 
             and.append(" and name like :name");
             paramMap.put("name", name);
         }
-        String sql="";
-        if(number==10){
-            sql="from Menu where 1=1 and isDelete=0 and level=2 and length(number)<=3  and number like '" +number+"%'"+and;
-        }else
-        {
+        String sql = "";
+        if (number == 10) {
+            sql = "from Menu where 1=1 and isDelete=0 and level=2 and length(number)<=3  and number like '" + number + "%'" + and;
+        } else {
 
-            sql="from Menu where 1=1 and isDelete=0 and level=2 and number like '" +number+"%'"+and;
+            sql = "from Menu where 1=1 and isDelete=0 and level=2 and number like '" + number + "%'" + and;
         }
         Page<Menu> page = dao.findPageByHQL(sql, paramMap, pageNumber, pageSize);
         return page.getItems();
     }
 
-	@Override
-	public List<ScoreType> findScoreType(String menuId) {
-		return cloudClassMenuDao.findScoreType(menuId);
-	}
+    @Override
+    public List<ScoreType> findScoreType(String menuId) {
+        return cloudClassMenuDao.findScoreType(menuId);
+    }
 
-	@Override
-	public void saveMenuCourseType(MenuCourseType menuCourseType) {
-		cloudClassMenuDao.save(menuCourseType);
-		
-	}
+    @Override
+    public void saveMenuCourseType(MenuCourseType menuCourseType) {
+        cloudClassMenuDao.save(menuCourseType);
 
-	@Override
-	public String addMenuCourseType(String id, int menuId) {
-		MenuCourseType mt = new MenuCourseType();
-		mt.setMenuId(menuId);
-		mt.setCourseTypeId(id);
-		mt.setDelete(false);
-		//mt.setCreatePerson(UserHolder.getCurrentUser().getId());
-		mt.setCreateTime(new Date());
-		cloudClassMenuDao.save(mt);
-		return "添加成功！";
-	}
+    }
 
-	
-	@Override
-	public void removeMenuCourseType(Integer menuId) {
-		 cloudClassMenuDao.removeMenuCourseType(menuId);
-	}
+    @Override
+    public String addMenuCourseType(String id, int menuId) {
+        MenuCourseType mt = new MenuCourseType();
+        mt.setMenuId(menuId);
+        mt.setCourseTypeId(id);
+        mt.setDelete(false);
+        mt.setCreateTime(new Date());
+        cloudClassMenuDao.save(mt);
+        return "添加成功！";
+    }
 
-	@Override
-	public void updateScoreTypeUp(String id) {
-		ScoreType scoreType = scoreTypeDao.updateScoreTypeUp(id);
-        ScoreType me= scoreTypeDao.searchById(id);
-        Integer meSort=me.getSort();
+
+    @Override
+    public void removeMenuCourseType(Integer menuId) {
+        cloudClassMenuDao.removeMenuCourseType(menuId);
+    }
+
+    @Override
+    public void updateScoreTypeUp(String id) {
+        ScoreType scoreType = scoreTypeDao.updateScoreTypeUp(id);
+        ScoreType me = scoreTypeDao.searchById(id);
+        Integer meSort = me.getSort();
         me.setSort(scoreType.getSort());
         scoreType.setSort(meSort);
         cloudClassMenuDao.update(scoreType);
         cloudClassMenuDao.update(me);
-		
-	}
 
-	@Override
-	public void updateScoreTypeDown(String id) {
-		ScoreType scoreType = scoreTypeDao.updateScoreTypeDown(id);
-        ScoreType me= scoreTypeDao.searchById(id);
-        Integer meSort=me.getSort();
+    }
+
+    @Override
+    public void updateScoreTypeDown(String id) {
+        ScoreType scoreType = scoreTypeDao.updateScoreTypeDown(id);
+        ScoreType me = scoreTypeDao.searchById(id);
+        Integer meSort = me.getSort();
         me.setSort(scoreType.getSort());
         scoreType.setSort(meSort);
         cloudClassMenuDao.update(scoreType);
         cloudClassMenuDao.update(me);
-		
-	}
 
-	@Override
-	public List<MenuVo> getMenuList() {
-		return cloudClassMenuDao.getMenuList();
-	}
+    }
+
+    @Override
+    public List<MenuVo> getMenuList() {
+        return cloudClassMenuDao.getMenuList();
+    }
 
 }

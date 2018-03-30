@@ -228,4 +228,9 @@
     <dubbo:service interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService"
                      ref="attachmentCenterService"
                      timeout="${dubbo.consumer.timeout}"/>
+                     
+    <!-- 充值服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService"  ref="rechargesService"
+                     timeout="${dubbo.consumer.timeout}"/>
+                     
 </beans>

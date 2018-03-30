@@ -9,6 +9,7 @@
         height: 100%;
         float: left;
         /* overflow: hidden; */
+           margin-top: 50px;
     }
  
     .vertical-tab > li {
@@ -452,7 +453,21 @@
 		width: 250px;
 		height: 200px;
 	}
-    
+    #edit_description{
+	 	color: #848484 !important;
+   	 	background-color: #eeeeee !important;
+   	 	height: 135px;
+   	 	padding: 5px;
+   	 	overflow-x:hidden;
+   	 	overflow-y:auto;
+	 }
+    #edit_description img{
+   		max-height: 100%;
+	}
+	#edit_description p span{
+		background: #eeeeee !important;
+	}
+	
     </style>
 <script type="text/javascript">
 
@@ -854,9 +869,10 @@
 		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="description">医师简介: </label>
-			<div class="col-sm-6">
+			<div class="col-sm-6 my-setContent">
 				<%--<textarea class="form-control" name="description" id="edit_description"  rows="8"></textarea>--%>
-				<textarea class="form-control edit_description" name="description" id="edit_description"  rows="8"></textarea>
+				<!--<textarea class="form-control edit_description" name="description" id="edit_description"  rows="8"></textarea>-->
+				<div name="description" id="edit_description"></div>
 			</div>
 		</div>
 

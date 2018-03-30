@@ -421,7 +421,7 @@ public class VideoDao extends SimpleHibernateDao {
 			throw new RuntimeException("保存失败！");
 		}
 	}
-	public void saveReply(String content, String userId,String criticizeId) {
+	public void saveReply(String content, String userId,String criticizeId,Integer collectionId) {
 		
 		try {
 			
@@ -450,7 +450,9 @@ public class VideoDao extends SimpleHibernateDao {
 			/**
 			 * 如果这个是免费的就没有必要的
 			 */
-			boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(), userId);
+			System.out.println("专辑idcollectionId:"+collectionId);
+			
+			boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(),userId,collectionId);
 			criticizeVo.setIsBuy(isbuy);
 			
 			this.saveNewCriticize(criticizeVo);
@@ -793,13 +795,22 @@ public class VideoDao extends SimpleHibernateDao {
      * @author name：yangxuan <br>email: 15936216273@163.com
      *
      */
-    public Boolean  checkUserIsBuyCourse(Integer courseId,String userId) {
+    public Boolean  checkUserIsBuyCourse(Integer courseId,String userId,Integer collectionId) {
         StringBuffer sql = new StringBuffer();
-        sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =?");
-        sql.append(" and argc.user_id=?  and argc.order_no is not null limit 1 ");
-        Object [] obj  ={courseId,userId};
-        int count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
-        		sql.toString(),Integer.class,obj);
+   	    sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 "
+ 	 		+ "and argc.course_id = ?  ");
+       sql.append(" and argc.user_id=?  and argc.order_no is not null limit 1 ");
+        
+        int count = 0;
+        if(collectionId!=null){
+        	 Object [] obj  ={collectionId,userId};
+             count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
+             		sql.toString(),Integer.class,obj);
+        }else{
+        	 Object [] obj  ={courseId,userId};
+             count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
+             		sql.toString(),Integer.class,obj);
+        }
         if(count>0){
         	return true;
         }else{

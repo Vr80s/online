@@ -804,6 +804,7 @@ function toEdit(obj,status){
 		// $("#edit_email").val(result.email);
 		// $("#edit_city").val(result.city);
 		// $("#edit_detailedAddress").val(result.detailedAddress);
+       
 		$("#edit_description").html(result.description); //课程简介
 
 		// 如果是用户自己认证成的医馆 不能修改其信息

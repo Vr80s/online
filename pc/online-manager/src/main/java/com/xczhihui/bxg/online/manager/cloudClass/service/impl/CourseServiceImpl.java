@@ -18,6 +18,7 @@ import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.subscribe.Subscribe;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
@@ -1483,9 +1484,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			}else{
 				sort=1;
 			}
-			User user = (User) UserHolder.getRequireCurrentUser(); 
 			String savesql=" insert into oe_offline_city (create_person,create_time,city_name,sort)"+
-					" values ('"+user.getCreatePerson()+"',now(),'"+city+"','"+sort+"')";
+					" values ('"+ ManagerUserUtil.getId()+"',now(),'"+city+"','"+sort+"')";
 			 Map<String,Object> params=new HashMap<String,Object>();
 			dao.getNamedParameterJdbcTemplate().update(savesql, params);
 		}

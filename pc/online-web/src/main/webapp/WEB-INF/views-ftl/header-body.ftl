@@ -7,8 +7,8 @@
             <a href="/index.html" class="home">首页</a>
             <a href="/web/html/news.html" class="forum">头条</a>
             <a href="/classroom.html" class="classroom">学堂</a>
-            <a href="/web/html/bestPractitioners.html" class="doctor">名医</a>
-            <a href="/web/html/clinics.html" class="hospital">医馆</a>
+            <a href="/doctors" class="doctor-tab">名医</a>
+            <a href="/clinics" class="hospital-tab">医馆</a>
             <a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>
             <a  href="http://bbs.ipandatcm.com/index">论坛</a>
         </div>

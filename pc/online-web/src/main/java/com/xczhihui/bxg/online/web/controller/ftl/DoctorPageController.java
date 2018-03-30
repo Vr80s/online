@@ -3,13 +3,16 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.enums.DoctorType;
 import com.xczhihui.bxg.online.web.service.BannerService;
+import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
+import com.xczhihui.medical.department.model.MedicalDepartment;
+import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description：医师页面
@@ -27,12 +32,14 @@ import java.util.List;
  **/
 @Controller
 @RequestMapping(value = "/doctors")
-public class DoctorPageController {
+public class DoctorPageController extends AbstractController{
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private BannerService  bannerService;
+    @Autowired
+    private IMedicalDepartmentService medicalDepartmentService;
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView index() {
@@ -72,7 +79,7 @@ public class DoctorPageController {
         return view;
     }
 
-    @RequestMapping(value="details/{id}",method=RequestMethod.GET)
+    @RequestMapping(value="{id}",method=RequestMethod.GET)
     public ModelAndView details(@PathVariable String id) {
         ModelAndView view = new ModelAndView("doctor/details");
 
@@ -86,20 +93,75 @@ public class DoctorPageController {
         Page newsReports = medicalDoctorBusinessService.getNewsReportsByPage(page, id);
         for (Object oeBxsArticleVO:newsReports.getRecords()) {
             OeBxsArticleVO newsReport = (OeBxsArticleVO)oeBxsArticleVO;
-            newsReport.setContent(StringEscapeUtils.unescapeHtml(newsReport.getContent().replaceAll("\\<.*?\\>","")));
+            newsReport.setContent(HtmlUtil.getTextFromHtml(newsReport.getContent().replaceAll("\\<.*?\\>", "")));
         }
         view.addObject("newsReports", newsReports);
 
         Page specialColumns = medicalDoctorBusinessService.getSpecialColumns(page, id);
         for (Object oeBxsArticleVO:specialColumns.getRecords()) {
             OeBxsArticleVO specialColumn = (OeBxsArticleVO)oeBxsArticleVO;
-            specialColumn.setContent(StringEscapeUtils.unescapeHtml(specialColumn.getContent().replaceAll("\\<.*?\\>","")));
+            specialColumn.setContent(HtmlUtil.getTextFromHtml(specialColumn.getContent().replaceAll("\\<.*?\\>","")));
         }
         view.addObject("specialColumns", specialColumns);
 
         List<MedicalWritingsVO> writings = medicalDoctorBusinessService.getWritingsByDoctorId(id);
         view.addObject("writings", writings);
 
+        doTitleKeyWords(view,doctor.getName()+"-",doctor.getName()+",");
+
+        return view;
+    }
+
+    @RequestMapping(value="list",method=RequestMethod.GET)
+    public ModelAndView list(Integer current,Integer size,Integer type,String hospitalId,String name,String field,String departmentId) {
+        ModelAndView view = new ModelAndView("doctor/list");
+        current = current==null?1:current;
+        size = size==null?10:size;
+
+        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page(current,size), type, hospitalId, name, field, departmentId);
+        view.addObject("doctors", doctors);
+
+        List<MedicalDoctorVO> recDoctors = medicalDoctorBusinessService.selectRecDoctor();
+        view.addObject("recDoctors", recDoctors);
+
+        Page page = new Page(0,Integer.MAX_VALUE);
+        Page<MedicalDepartment> departments = medicalDepartmentService.page(page);
+        view.addObject("departments", departments);
+
+        List<Map> doctorTypeList = DoctorType.getDoctorTypeList();
+        view.addObject("doctorTypeList", doctorTypeList);
+
+        StringBuilder title = new StringBuilder();
+        StringBuilder keywords = new StringBuilder();
+        Map echoMap = new HashMap();
+        if(StringUtils.isNotBlank(name)){
+            title.append(name+"-");
+            keywords.append(name+",");
+
+            echoMap.put("name",name);
+        }
+        if(type!=null){
+            String dt = DoctorType.getDoctorTypeText(type);
+            title.append(dt+"-");
+            keywords.append(dt+",");
+
+            echoMap.put("type",type);
+            echoMap.put("typeText",dt);
+        }
+        if(StringUtils.isNotBlank(departmentId)){
+            MedicalDepartment department = medicalDoctorBusinessService.getDepartmentById(departmentId);
+            if(department != null){
+                String departmentName = department.getName();
+                title.append(departmentName+"-");
+                keywords.append(departmentName+",");
+
+                echoMap.put("departmentId",departmentId);
+                echoMap.put("departmentText",departmentName);
+            }
+        }
+
+        doTitleKeyWords(view,title.toString(),keywords.toString());
+        doConditionEcho(view,echoMap);
 
         return view;
     }

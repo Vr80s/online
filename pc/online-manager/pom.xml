@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>com.xczhihui</groupId>
-            <artifactId>bxg-common-web</artifactId>
+            <artifactId>bxg-common-support</artifactId>
         </dependency>
 
         <dependency>

@@ -33,6 +33,19 @@ public class WeihouInterfacesListUtil {
 	//获取用户信息
 	public static final String GET_USER_INFO = "http://e.vhall.com/api/vhallapi/v2/user/get-user-info";
 	
+	//查看这个回放
+	public static final String record_time = "http://e.vhall.com/api/vhallapi/v2/record/record-time";
+	
+	//查看直播信息
+	public static final String live_info = "http://e.vhall.com/api/vhallapi/v2/webinar/fetch";
+	
+	
+	public static final String event_info = "http://e.vhall.com/api/vhallapi/v2/callback/event-info";
+	
+	//获取直播回放列表
+	public static final String record_list ="http://e.vhall.com/api/vhallapi/v2/record/list";
+	
+	
 	public static final String APP_KEY = "71a22e5b4a41483d41d96474511f58f3";
 	
 	public static final String APP_SECRET_KEY = "1898130bad871d1bf481823ba1f3ffb1";
@@ -279,14 +292,6 @@ public class WeihouInterfacesListUtil {
 	
 	
 	
-	//测试
-	public static void main(String[] args) {
-		
-		createUser("13723160793","12345","杨宣",null);
-		
-	}
-	
-	
 	/**
 	 * Description：请求微吼创建用户接口，得到一个微吼用户id。
 	 * @param userId  第三方用户id
@@ -336,17 +341,90 @@ public class WeihouInterfacesListUtil {
         return resultMap; 
     }
 	
-//	//测试
-//	public static void main(String[] args) {
-//		Calendar c = new GregorianCalendar();
-//		Date d= new Date();
-//		System.out.println(d.getTime());
-//		c.setTime(d);//设置参数时间
-//		c.add(Calendar.SECOND,-40);//把日期往后增加SECOND 秒.整数往后推,负数往前移动
-//		d=c.getTime();
-//		System.out.println(d.getTime());
-//		System.out.println(currentonLinenumberConditions(d));
-//	}
 	
+	/**
+	 * Description：查询回放视频时长
+	 * @param userId 视频id
+	 * @return
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public static String recordTime(String videoId) {
+
+		Map<String, String> parameters =  WeihouInterfacesListUtil.getBaseParams();
+		
+		parameters.put("record_id", videoId);
+		
+		String json = HttpUtil.sendPostRequest(record_time, parameters);
+		
+		JSONObject js = JSONObject.parseObject(json);
+		if("success".equals(js.get("msg")) && 
+				Integer.parseInt(js.get("code").toString()) == 200){
+			
+			System.out.println(js.toJSONString());
+			return "";
+		}else{
+			System.out.println(js.toJSONString());
+		}
+		
+		return null;
+	}
+
+	/**
+	 * Description：查看直播信息
+	 * @param userId
+	 * @return
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public static String liveInfo(String videoId) {
+
+		Map<String, String> parameters =  WeihouInterfacesListUtil.getBaseParams();
+		parameters.put("webinar_id", videoId);
+		parameters.put("fields", "alias_name,user_id,subject,type,t_start,end_time,live_start_time,buffer,auto_record");
+		
+		String json = HttpUtil.sendPostRequest(live_info, parameters);
+		JSONObject js = JSONObject.parseObject(json);
+		if("success".equals(js.get("msg")) && 
+				Integer.parseInt(js.get("code").toString()) == 200){
+			
+			System.out.println(js.toJSONString());
+			return "";
+		}else{
+			System.out.println(js.toJSONString());
+		}
+		return null;
+	}
+
+	/**
+	 * Description：查看回放信息
+	 * @param userId
+	 * @return
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public static String recordList(String videoId) {
+
+		Map<String, String> parameters =  WeihouInterfacesListUtil.getBaseParams();
+		parameters.put("webinar_id", videoId);
+		//parameters.put("fields", "alias_name,user_id,subject,type");
+		String json = HttpUtil.sendPostRequest(record_list, parameters);
+		JSONObject js = JSONObject.parseObject(json);
+		if("success".equals(js.get("msg")) && 
+				Integer.parseInt(js.get("code").toString()) == 200){
+			
+			System.out.println(js.toJSONString());
+			return "";
+		}else{
+			System.out.println(js.toJSONString());
+		}
+		return null;
+	}
+	
+	//测试
+	public static void main(String[] args) {
+		
+		recordList("508148233");
+	}
 
 }

@@ -12,7 +12,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.manager.boxueshe.dao.ArticleDao;
 import com.xczhihui.bxg.online.manager.boxueshe.service.ArticleService;
 import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleTypeVo;

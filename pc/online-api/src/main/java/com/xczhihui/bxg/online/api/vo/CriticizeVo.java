@@ -67,6 +67,10 @@ public class CriticizeVo implements Serializable {
     //是否购买
     private Boolean isBuy;
     
+    //是否是专辑评论
+    private Integer collectionId;
+    
+    
     public String getId() {
         return id;
     }
@@ -246,5 +250,16 @@ public class CriticizeVo implements Serializable {
 	public void setIsBuy(Boolean isBuy) {
 		this.isBuy = isBuy;
 	}
+
+	public Integer getCollectionId() {
+		return collectionId;
+	}
+
+	public void setCollectionId(Integer collectionId) {
+		this.collectionId = collectionId;
+	}
+
+	
+	
 	
 }

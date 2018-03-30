@@ -1,7 +1,6 @@
 .page-main{
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
 }
 
 .page-main div{
@@ -16,6 +15,8 @@
 .container{
     display: flex;
     margin-bottom: 20px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .container-left{
@@ -28,7 +29,7 @@
 
 .doctor-cardPositive-img{
     margin-right: 60px;
-    margin-left: 30px;
+    /*margin-left: 30px;*/
 }
 
 .doctor-qualification-container{
@@ -86,10 +87,73 @@
     margin-right: 10px;
 }
 
-.hospital-description{
+/*.hospital-description{
     margin-left: 19px;
-}
+}*/
 
-.hospital-description-text{
+/*.hospital-description-text{
     margin-top: 6px;
+
+}*/
+.doctor-description-text{
+    width: 800px;
+	
+}
+.doctor-description-text p{
+	font-size: 16px !important;
+}
+.doctor-description-text span{
+	font-size: 16px !important;
+}
+.hospital-description-text p{
+		font-size: 16px !important;
+}
+.hospital-description-text span{
+		font-size: 16px !important;
+}
+/*医师修改*/
+.doctor-name{
+	width: 140px;
+	text-align: right;
+}
+.doctor-title{
+	width: 140px;
+	text-align: right;
+}
+.doctor-type{
+	width: 140px;
+	text-align: right;
+}
+.doctor-province{
+	width: 140px;
+	text-align: right;
+}
+.doctor-city{
+	width: 140px;
+	text-align: right;
+}
+.doctor-detailedAddress{
+	width: 140px;
+	text-align: right;
+	
+}
+.doctor-workTime{
+	width: 140px;
+	text-align: right;
+}
+.doctor-description{
+	width: 140px;
+	text-align: right;
+}
+/*医馆修改 医馆详情*/
+.my-setWhite{
+	width: 150px;
+	text-align: right;
+	margin-right: 0;
+}
+.hospital-description-text{
+	width:800px ;
+}
+.my-setWhite-test{
+	width: 800px;
 }

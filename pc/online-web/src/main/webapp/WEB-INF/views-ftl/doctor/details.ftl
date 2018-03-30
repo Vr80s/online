@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<!-- saved from url=(0056)http://dev.ixincheng.com/web/html/bestPractitioners.html -->
+<!-- saved from url=(0056)http://dev.ixincheng.com/doctors -->
 <html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IEedge">
 
-    <title>熊猫中医 - 名医</title>
-    <link rel="shortcut icon" href="http://dev.ixincheng.com/favicon.ico">
-    <meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医">
-    <meta name="description" content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。">
+    <title>${tk.title?default('')}熊猫中医-名医</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="keywords" content="${tk.keywords?default('')}中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医">
+    <meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。">
     <meta name="renderer" content="webkit">
-    <meta name="baidu-site-verification" content="UHaAQAeAQF">
     <link rel="stylesheet" href="/web/css/bootstrap.min.css">
     <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
@@ -36,7 +35,7 @@
 <div class="header" id="doctor_detail_header">
     <div class="header_inf content">
         <div class="header_inf_left">
-            <img src="${doctor.headPortrait}" alt="暂无头像">
+            <img src="${doctor.headPortrait}" alt="${doctor.name}">
             <!--<img src=../images/doctor_detail/xunzhang.png alt="">-->
         </div>
         <div class="header_inf_right">
@@ -49,7 +48,7 @@
                 <span class="dizhi"><em></em>${doctor.city}</span>
             </div>
             <div class="doctor_inf2">
-                <p>主治1：
+                <p>主治：
                 <#list doctor.fields as field>
                     <span>${field.name}</span>
                 </#list>
@@ -73,7 +72,7 @@
                         <a class="to_hospital_detail"></a>
                         <h3>坐诊医馆</h3>
                         <div class="hospital_pic">
-                            <img src="${doctor.medicalHospital.medicalHospitalPictures[0].picture}" alt="暂无图片">
+                            <img src="${doctor.medicalHospital.medicalHospitalPictures[0].picture}" alt="${doctor.medicalHospital.name}">
                         </div>
                         <div class="hospital_inf">
                             <p>${doctor.medicalHospital.name}</p>
@@ -192,7 +191,7 @@
             </div>
 
             <!--专栏-->
-            <#if newsReports.total gt 0>
+            <#if specialColumns.total gt 0>
                 <div class="zhuanlan clearfix" id="zhuanlan">
                     <div class="class_top">
                         <span>专栏</span>
@@ -211,22 +210,11 @@
                                <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
                                <span>2017.11.11</span>
                            </div>
-                        </li>
-
-                        <li class="clearfix">
-                            <div class="zhuanlan_left">
-                                <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                            </div>
-                            <div class="zhuanlan_right">
-                                <h3>2017年中国国际中医药大健康博览会举行</h3>
-                                <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
-                                <span>2017.11.11</span>
-                            </div>
                         </li>-->
                         <#list specialColumns.records as specialColumn>
                             <li class="clearfix">
                                 <div class="zhuanlan_left">
-                                    <img src="${specialColumn.imgPath}" alt="">
+                                    <img src="${specialColumn.imgPath}" alt="${specialColumn.title}">
                                 </div>
                                 <div class="zhuanlan_right">
                                     <h3>${specialColumn.title}</h3>
@@ -252,7 +240,7 @@
                         <#list newsReports.records as newsReport>
                             <li class="clearfix">
                                 <div class="zhuanlan_left">
-                                    <a href="/web/html/newsDetails.html?articleId=${newsReport.id}"><img src="${newsReport.imgPath}" alt=""></a>
+                                    <a href="/web/html/newsDetails.html?articleId=${newsReport.id}"><img src="${newsReport.imgPath}" alt="${newsReport.title}"></a>
                                 </div>
                                 <div class="zhuanlan_right">
                                     <h3><a href="/web/html/newsDetails.html?id=${newsReport.id}" style="color: #000;">${newsReport.title}</a></h3>
@@ -270,7 +258,7 @@
 
 
         <!--右侧-->
-        <div class="main_right ">
+        <div class="main_right hide">
             <!--帐号认领-->
             <div class="renling hide">
                 <p>若您是李辅仁本人，可以认领此帐号</p>
@@ -287,20 +275,13 @@
                     <!--<div class="zhuzuo_left">
                         <img src="../images/doctor_detail/book2.png" alt="">
                         <p>施今墨对药</p>
-                    </div>
-
-                   <div class="zhuzuo_left">
-                        <img src="../images/doctor_detail/book2.png" alt="">
-                        <p>施今墨对药</p>
-                    </div>
-                    <div class="zhuzuo_left">
-                        <img src="../images/doctor_detail/book2.png" alt="">
-                        <p>施今墨对药</p>
-                    </div>
-                    <div class="zhuzuo_left">
-                        <img src="../images/doctor_detail/book2.png" alt="">
-                        <p>施今墨对药</p>
                     </div>-->
+                <#list writings as writing>
+                    <div class="zhuzuo_left">
+                        <img src="${writing.imgPath}" alt="">
+                        <p>${writing.title}</p>
+                    </div>
+                </#list>
                 </div>
 
             </div>
@@ -367,7 +348,7 @@
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
     $(function(){
-        $(".doctor").addClass("select");
+        $(".doctor-tab").addClass("select");
     });
     //banner
     function init() {

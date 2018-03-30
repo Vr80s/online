@@ -22,7 +22,7 @@
         margin: 0px;
     }
     .login{
-    	background:url("${contextPath}/images/login-bg.png") no-repeat center;
+    	background:url("${contextPath}/images/login-bg.jpg") no-repeat center;
     	background-size: cover;
     	height: 100%;
     }

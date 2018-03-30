@@ -18,7 +18,7 @@ $(function(){
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       			window.location.href = "/web/html/bestPractitioners.html";
+	       			window.location.href = "/doctors";
 	       		},2000)
 	       		
 	       	}else if(data.resultObject == 7 ){
