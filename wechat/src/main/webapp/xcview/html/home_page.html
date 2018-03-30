@@ -196,7 +196,7 @@
             				{{each item.courseList as item i}}                  					
                 				<li style="position: relative;" class="goodCourseList" data-id="{{item.id}}" data-type="{{item.type}}">
                 					
-                					<!--watchState，1免费、0收费-------type，1-视频、2-音频、3-直播、4-线下培训班   -->
+                					<!--watchState，1免费、0收费-type，1-视频、2-音频、3-直播、4-线下培训班   -->
                 					
                 					{{if item.watchState == 1}}
 	                					{{if item.type == 1 || item.type == 2}}
@@ -251,7 +251,7 @@
                 							   {{else if item.startDateStr.indexOf('.')==-1}}
                 								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p              						   
                 								{{else}}
-                								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p>
+                								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;margin-top: -0.03rem;">{{item.startDateStr}}</span></p>
                 								{{/if}}
                 						
                 						{{else if item.type == 4}}
@@ -514,7 +514,7 @@
 	
 	<!--底部旋转开始-->
 	<div class="rotation_bottom">
-		<img src="/xcview/images/120.jpg" />
+		<img src="/xcview/images/default_pic.png" />
 	</div>
 	<!--底部旋转结束-->
 	
