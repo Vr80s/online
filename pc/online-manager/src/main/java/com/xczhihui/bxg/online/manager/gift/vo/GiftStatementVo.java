@@ -52,6 +52,8 @@ public class GiftStatementVo extends OnlineBaseVo{
     
     private Date stopTime;
 
+	private String loginName;
+
 	public String getGiftName() {
 		return giftName;
 	}
@@ -171,6 +173,13 @@ public class GiftStatementVo extends OnlineBaseVo{
 	public void setClientType(int clientType) {
 		this.clientType = clientType;
 	}
-    
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
 }
 

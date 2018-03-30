@@ -1,4 +1,4 @@
-
+	// 整体代码响应式处理
 	var kk=document.documentElement.clientWidth;
 	if(kk>750){
 		kk=750
