@@ -360,88 +360,92 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         return webinarId;
     }
 
-    @Override
-    public void updateLiveStatus(ChangeCallbackVo changeCallbackVo) {
+	@Override
+	public void updateLiveStatus(ChangeCallbackVo changeCallbackVo) {
 
-        String hql = "from Course where direct_id = ?";
-        Course course = dao.findByHQLOne(hql, new Object[]{changeCallbackVo.getWebinarId()});
+		String hql = "from Course where direct_id = ?";
+		Course course = dao.findByHQLOne(hql,
+				new Object[] { changeCallbackVo.getWebinarId() });
 
+		System.out.println("course livestate " + course);
+		System.out.println("change CallbackVo" + changeCallbackVo.toString());
 
-        System.out.println("course livestate " + course);
-        System.out.println("change CallbackVo" + changeCallbackVo.toString());
+		String startOrEnd = "";
+		Integer type = 0;
+		if (course != null) {
+			switch (changeCallbackVo.getEvent()) {
+			case "start":
+				startOrEnd = "start_time";
+				course.setLiveStatus(1);
+				course.setStartTime(new Date());
+				type = 2;
+				break;
+			case "stop":
+				startOrEnd = "end_time";
+				course.setLiveStatus(3);
+				course.setEndTime(new Date());
+				type = 3;
+				break;
+			default:
+				break;
+			}
 
-        String startOrEnd = "";
-        Integer type = 0;
-        if (course != null) {
-            switch (changeCallbackVo.getEvent()) {
-                case "start":
-                    startOrEnd = "start_time";
-                    course.setLiveStatus(1);
-                    course.setStartTime(new Date());
-                    type = 2;
-                    break;
-                case "stop":
-                    startOrEnd = "end_time";
-                    course.setLiveStatus(3);
-                    course.setEndTime(new Date());
-                    type = 3;
-                    break;
-                default:
-                    break;
-            }
-        	 
-        	
-        	 /*
-        	  * 这里查看下信息，看是否生成回放
-        	  */
+			/*
+			 * 这里查看下信息，看是否生成回放
+			 */
+			Timer timer = new Timer();
+			Task task = new Task(changeCallbackVo.getWebinarId(),
+					course.getId());
 
-            Timer timer = new Timer();
-            Task task = new Task(changeCallbackVo.getWebinarId());
-            System.out.println(DateUtil.formatDate(new Date(), null));
-            timer.schedule(task, 30000);
+			System.out.println(DateUtil.formatDate(new Date(), null));
 
-            //休眠这个方法，过了几秒种后，在执行 ---》
-            //System.out.println(VhallUtil.recordList(changeCallbackVo.getWebinarId()));
-        	
-        	 /*
-        	  * 更改直播开始结束时间,更改直播当前状态
-        	  */
-            dao.update(course);
-        	 /*
-        	  * 发送直播开始通知广播
-        	  */
-            System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》" + course.getId() + ",type:" + type);
-            liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
+			timer.schedule(task, 30000);
 
+			// 休眠这个方法，过了几秒种后，在执行 ---》
+			// System.out.println(VhallUtil.recordList(changeCallbackVo.getWebinarId()));
+			/*
+			 * 更改直播开始结束时间,更改直播当前状态
+			 */
+			dao.update(course);
+			/*
+			 * 发送直播开始通知广播
+			 */
+			System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"
+					+ course.getId() + ",type:" + type);
 
-            if (startOrEnd != "") {
-                String findSql = "SELECT record_count  FROM oe_live_time_record WHERE live_id = :live_id ORDER BY record_count DESC LIMIT 1";
-                Map<String, Object> find = new HashMap<String, Object>();
-                find.put("live_id", course.getDirectId());
-                List<Integer> list = dao.getNamedParameterJdbcTemplate().queryForList(findSql, find, Integer.class);
+			liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
 
+			if (startOrEnd != "") {
+				String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
+				Map<String, Object> find = new HashMap<String, Object>();
+				find.put("live_id", course.getDirectId());
+				List<Integer> list = dao.getNamedParameterJdbcTemplate()
+						.queryForList(findSql, find, Integer.class);
 
-                Integer maxRecord = 0;
-                if (list != null && list.size() > 0) {
-                    maxRecord = list.get(0);
-                    maxRecord++;
-                }
-                /**
-                 * 并且记录当前视频id开播的次数：
-                 */
-                String end = "insert into  oe_live_time_record (course_id,live_id," + startOrEnd + ",record_count)  "
-                        + "values (:course_id,:live_id,:" + startOrEnd + ",:record_count)";
+				Integer maxRecord = 0;
+				if (list != null && list.size() > 0) {
+					maxRecord = list.get(0);
+					maxRecord++;
+				}
+				/**
+				 * 并且记录当前视频id开播的次数：
+				 */
+				String end = "insert into  oe_live_time_record (course_id,live_id,"
+						+ startOrEnd
+						+ ",record_count)  "
+						+ "values (:course_id,:live_id,:"
+						+ startOrEnd
+						+ ",:record_count)";
 
-                Map<String, Object> paramsEnd = new HashMap<String, Object>();
-                paramsEnd.put("course_id", course.getId());
-                paramsEnd.put("live_id", course.getDirectId());
-                paramsEnd.put("" + startOrEnd + "", new Date());
-                paramsEnd.put("record_count", maxRecord);
-                dao.getNamedParameterJdbcTemplate().update(end, paramsEnd);
-            }
-        }
-    }
-
+				Map<String, Object> paramsEnd = new HashMap<String, Object>();
+				paramsEnd.put("course_id", course.getId());
+				paramsEnd.put("live_id", course.getDirectId());
+				paramsEnd.put("" + startOrEnd + "", new Date());
+				paramsEnd.put("record_count", maxRecord);
+				dao.getNamedParameterJdbcTemplate().update(end, paramsEnd);
+			}
+		}
+	}
 
     /* (non-Javadoc)
      * @see com.xczhihui.bxg.online.manager.cloudClass.service.CourseService#initOpenCourseToSend()
