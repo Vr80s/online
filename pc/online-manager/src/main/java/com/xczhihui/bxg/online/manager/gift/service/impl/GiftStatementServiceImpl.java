@@ -10,21 +10,19 @@ import com.xczhihui.bxg.online.manager.gift.service.GiftStatementService;
 import com.xczhihui.bxg.online.manager.gift.vo.GiftStatementVo;
 
 /**
- * GiftServiceImpl:礼物业务层接口实现类
- * 
+ * GiftStatementServiceImpl:礼物业务层接口实现类
+ *
  * @author Rongcai Kang
  */
 @Service("giftStatementService")
 public class GiftStatementServiceImpl extends OnlineBaseServiceImpl implements GiftStatementService {
 
-	@Autowired
-	private GiftStatementDao giftStatementDao;
+    @Autowired
+    private GiftStatementDao giftStatementDao;
 
-	@Override
-	public Page<GiftStatementVo> findGiftPage(GiftStatementVo giftStatementVo, int pageNumber, int pageSize) {
-		Page<GiftStatementVo> page = giftStatementDao.findGiftStatementPage(giftStatementVo, pageNumber, pageSize);
-		return page;
-
-	}
-
+    @Override
+    public Page<GiftStatementVo> findGiftPage(GiftStatementVo giftStatementVo, int pageNumber, int pageSize) {
+        Page<GiftStatementVo> page = giftStatementDao.findGiftStatementPage(giftStatementVo, pageNumber, pageSize);
+        return page;
+    }
 }

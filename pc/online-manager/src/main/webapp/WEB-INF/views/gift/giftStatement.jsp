@@ -1,38 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="/js/layer/skin/layer.css" type="text/css" />	
+         pageEncoding="UTF-8" %>
+<%@ include file="../common/jstl_taglib.jsp" %>
+<link href="/css/jquery-ui-timepicker-addon.css" type="text/css"/>
+<link href="/js/layer/skin/layer.css" type="text/css"/>
 <style type="text/css">
-#showOrderTable td{
-	text-align: left;
-}
+    #showOrderTable td {
+        text-align: left;
+    }
 </style>
 <script type="text/javascript">
-  try {
-    var scripts = [ null, null ];
-    $('.page-content-area').ace_ajax('loadScripts', scripts,
-            function() {
+    try {
+        var scripts = [null, null];
+        $('.page-content-area').ace_ajax('loadScripts', scripts,
+            function () {
             });
-  } catch (e) {
-  }
+    } catch (e) {
+    }
 </script>
 <script src="/js/layer/layer.js"></script>
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-  当前位置：礼物打赏管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
-</small>
-  <span> 礼物交易管理 </span>
+    当前位置：礼物打赏管理
+    <small><i class="ace-icon fa fa-angle-double-right"></i>
+    </small>
+    <span> 礼物交易管理 </span>
 </div>
 
 
 <div class="mainrighttab tabresourse bordernone">
-	<div class="searchDivClass" id="searchDiv">
-        <div class="profile-info-row" >
-            <table frame=void >
+    <div class="searchDivClass" id="searchDiv">
+        <div class="profile-info-row">
+            <table frame=void>
                 <tr>
-                	<td>
+                    <td>
                         <div class="profile-info-value searchTr">
-                            <input type="text" class="datetime-picker propertyValue1"  id="startTime" name="startTime" placeholder = "起始时间" />
+                            <select id="clientType" name="clientType" class="propertyValue1">
+                                <option value="0">来源</option>
+                                <option value="1">pc</option>
+                                <option value="2">h5</option>
+                                <option value="3">android</option>
+                                <option value="4">ios</option>
+                            </select>
+                            <input type="hidden" value="clientType" class="propertyName"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="profile-info-value searchTr">
+                            <input type="text" class="datetime-picker propertyValue1" id="startTime" name="startTime"
+                                   placeholder="起始时间"/>
                             <input type="hidden" value="startTime" class="propertyName"/>
                         </div>
                     </td>
@@ -43,28 +58,30 @@
                     </td>
                     <td>
                         <div class="profile-info-value searchTr">
-                            <input type="text" class="datetime-picker propertyValue1"  id="stopTime" name="stopTime" placeholder = "结束时间"/>
+                            <input type="text" class="datetime-picker propertyValue1" id="stopTime" name="stopTime"
+                                   placeholder="结束时间"/>
                             <input type="hidden" value="stopTime" class="propertyName"/>
                         </div>
                     </td>
                     <td>
-                    <div class="profile-info-value searchTr">
+                        <div class="profile-info-value searchTr">
                             <select id="searchType" name="searchType" class="propertyValue1">
-                                <option  value="1" >礼物名称</option>
-                                <option  value="2" >赠送人</option>
-                                <option  value="3" >收到人</option>
-                                <option  value="4" >订单编号</option>
+                                <option value="1">礼物名称</option>
+                                <option value="2">赠送人</option>
+                                <option value="3">收到人</option>
+                                <option value="4">订单编号</option>
                             </select>
-                             <input type="hidden" value="searchType" class="propertyName" />
+                            <input type="hidden" value="searchType" class="propertyName"/>
                         </div>
                     </td>
-                	<td>
+                    <td>
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="searchCondition" name="searchCondition"  class="propertyValue1"  placeholder = "关键字" maxlength="30"/>
+                            <input type="text" id="searchCondition" name="searchCondition" class="propertyValue1"
+                                   placeholder="关键字" maxlength="30"/>
                             <input type="hidden" value="searchCondition" class="propertyName"/>
                         </div>
                     </td>
-                	
+
                     <td>
                         <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
                                 onclick="search();">
@@ -77,13 +94,13 @@
     </div>
 
 
-	<div class="row">
-		<div class="col-xs-12">
-			<table id="orderTable"
-				class="table table-striped table-bordered table-hover">
-			</table>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table id="orderTable"
+                   class="table table-striped table-bordered table-hover">
+            </table>
+        </div>
+    </div>
 </div>
 
 
