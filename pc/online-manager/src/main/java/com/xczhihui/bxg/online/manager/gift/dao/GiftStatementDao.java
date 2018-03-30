@@ -21,9 +21,10 @@ public class GiftStatementDao extends HibernateDao<Course> {
 
     public Page<GiftStatementVo> findGiftStatementPage(GiftStatementVo giftStatementVo, int pageNumber, int pageSize) {
         Map<String, Object> paramMap = new HashMap<>();
-        StringBuilder sql = new StringBuilder("SELECT ogs.`id`,ogs.`gift_name` giftName,ogs.`price`,ogs.`count`,ou1.name giver,ou2.name receiver,"
+        StringBuilder sql = new StringBuilder("SELECT ogs.`id`,ogs.`gift_name` giftName,ogs.`price`,ogs.`count`,ou1.name giver,ca.name receiver,ou2.login_name loginName,"
                 + "ogs.`pay_type`,ogs.`create_time` createTime,ogs.`channel`,ogs.client_type clientType FROM `oe_gift_statement` ogs "
-                + "LEFT JOIN `oe_user` ou1 ON ogs.`giver`=ou1.`id` LEFT JOIN `oe_user` ou2 ON ogs.`receiver`=ou2.`id` where 1=1 ");
+                + "LEFT JOIN `oe_user` ou1 ON ogs.`giver`=ou1.`id` LEFT JOIN `oe_user` ou2 ON ogs.`receiver`=ou2.`id` "
+                +"LEFT JOIN course_anchor ca ON ogs.`receiver`=ca.`user_id` where 1=1 " );
         switch (giftStatementVo.getSearchType()) {
             case 1://礼物名称
                 if (giftStatementVo.getSearchCondition() != null) {

@@ -68,13 +68,16 @@
                 <div class="hospital_detail_con">
                     <p>${clinic.description}</p>
                     <!--<p>新中国成立后，中医药事业得到了很大的发展，为了进一步发扬中医药的特色和优势，发挥离退休专家的余热，解决群众看病难、看专家更难的问题，留住中医的根，由南京中医药大学、江苏省中医院、省人民医院、省中西医结合医院、南大鼓楼医院、东大中大医院、南京市中医院和江苏省中医药学会部分离退休领导干部、专家，国家、省、市级名老中医于2003年7月29日恢复了江苏省国医馆。</p>-->
-                    <div id="hos_inf">
-                        <p>医疗领域：
-                            <#list clinic.fields as field>
-                            <span>${field.name}&nbsp;</span>
-                            </#list>
-                        </p>
-                    </div>
+                    <#if clinic.filds??>
+                        <div id="hos_inf">
+                            <p>医疗领域：
+                                <#list clinic.fields as field>
+                                    <span>${field.name}&nbsp;</span>
+                                </#list>
+                            </p>
+                        </div>
+                    </#if>
+
                 </div>
 
 

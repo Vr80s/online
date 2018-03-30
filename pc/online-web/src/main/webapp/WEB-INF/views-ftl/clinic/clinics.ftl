@@ -92,7 +92,7 @@
         <div class="forum-content-left">
             <div class="forum-content-info">
                 <h3 class="hospital_title">医馆</h3>
-				<a href="/web/html/clinicListing.html" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+				<a href="/clinics/list" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 <div id="hospital_list">
                     <#list clinics.records as clinic>
                         <div class="hospitals">
