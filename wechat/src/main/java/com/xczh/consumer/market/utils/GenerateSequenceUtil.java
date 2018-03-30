@@ -57,18 +57,5 @@ public class GenerateSequenceUtil {
 		return sValue;
 	}
 
-	public static void main(String[] args) {
-		
-		for (int i = 0; i < 100; i++) {
-			String KeyID = generateSequenceNo();
-			BigDecimal bd = new BigDecimal(KeyID);
-			System.out.println("KeyID=" + KeyID);// System.out.println("bd="+bd);// System.out.println(new Random().nextInt(99));
-			try {
-				Thread.sleep(1000);
-			} catch(Exception e) {
-				
-			}
-		}
-	}
 
 }

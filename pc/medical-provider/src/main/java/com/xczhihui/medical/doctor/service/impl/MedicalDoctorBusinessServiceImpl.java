@@ -625,20 +625,4 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
     }
 
-    public static void main(String[] args) {
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            int count = 78;
-            int rows = 4;
-            int offset =0;
-            if(count>rows){
-                count=random.nextInt(count);
-                offset = count-rows;
-                if (offset < 0) {
-                    offset=0;
-                }
-            }
-            System.out.println(offset+","+rows);
-        }
-    }
 }

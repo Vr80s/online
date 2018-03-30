@@ -217,11 +217,5 @@ public class PayUtils {
 		return null;
 	}
 	
-	
-	
-	
-	public static void main(String[] args) {
-		// ??
-	}
 
 }

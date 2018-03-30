@@ -35,10 +35,4 @@ public class CountUtils {
 		return b1.subtract(b2).doubleValue();   
 	} 
 
-	public static void main(String[] args) {
-		BigDecimal b1 = new BigDecimal("0.0222");   
-		BigDecimal b2 = new BigDecimal("0.0222");  
-	}
-	
-	
 }

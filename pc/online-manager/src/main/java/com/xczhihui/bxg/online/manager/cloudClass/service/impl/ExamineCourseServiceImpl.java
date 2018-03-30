@@ -208,45 +208,6 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
         this.synchronizingCourse(entity);
     }
 
-    public static void main(String[] args) {
-        /*long l = Long.parseLong(3600111+"") / (1000*60*60);
-	        
-        double f = Double.parseDouble(l+"");
-		BigDecimal b = new BigDecimal(f);
-		double f1 = b.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-		
-		BigDecimal bd=new BigDecimal("2.345");//建议使用String参数
-		BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
-		BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
-		System.out.println(bd_half_even);
-		System.out.println(bd_half_up);*/
-//      entity.setCurrentPrice(le.getPrice().doubleValue());
-//		BigDecimal bd=new BigDecimal("0.01");
-//		System.out.println(bd.doubleValue());
-//		System.out.println(3600 / 1000 /60 / 60);
-//		BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
-//		//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
-//		BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
-//		//System.out.println(bd_half_even);
-//		System.out.println(bd_half_up);
-        long l = Long.parseLong(600000 + "") / (1000 * 60 * 60);
-
-        if (l == 0) {
-            l = Long.parseLong(60000 + "") / (1000 * 60);
-            if (l == 0) {
-                l = Long.parseLong(60000 + "") / (1000);
-            }
-        }
-        System.out.println(l);
-//		BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
-//		//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
-//		BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
-//		//System.out.println(bd_half_even);
-//		System.out.println(bd_half_up);
-//		
-
-    }
-
     public static String formatDuring(long mss) {
         long days = mss / (1000 * 60 * 60 * 24);
         long hours = (mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);

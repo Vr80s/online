@@ -31,7 +31,4 @@ public class RandomUtil {
         return val;
     }
 
-    public static void main(String[] args) {
-        System.out.println(getCharAndNumr(6));
-    }
 }

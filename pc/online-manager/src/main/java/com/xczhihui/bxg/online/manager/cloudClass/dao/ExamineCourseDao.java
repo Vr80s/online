@@ -137,13 +137,6 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 	    return pageList;
 	}
 
-	
-	public static void main(String[] args) {
-		
-		System.out.println(CountUtils.div(new BigDecimal(""+9),1000d,4));
-	}
-	
-	
 	public void updateCourseDirectId(Course course) {
 		String sql="update oe_course set direct_id = :direct_id where  id = :id";
 		Map<String,Object> params=new HashMap<String,Object>();

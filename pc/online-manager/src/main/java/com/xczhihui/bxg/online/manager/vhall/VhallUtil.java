@@ -507,13 +507,6 @@ public class VhallUtil {
 		}
 		return "error";
 	}
-    
-	//测试
-	public static void main(String[] args) {
-		
-		
-		recordList("629780295");
-	}
-    
+
 }
 

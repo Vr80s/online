@@ -31,52 +31,6 @@ public class EmailService {
 		EmailUtil.sendMailBySSL(host, user, password, toemail, subject,content);
 	}
 	
-//	public static boolean sendMailBySSL(String smtp,String username,String password,String tousername,String subject,String content) throws AddressException, MessagingException{
-//		  Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-//		  final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-//		  // Get a Properties object
-//		  Properties props = new Properties();
-//		  props.setProperty("mail.smtp.host", smtp);
-//		  props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
-//		  props.setProperty("mail.smtp.socketFactory.fallback", "false");
-//		  props.setProperty("mail.smtp.port", "465");
-//		  props.setProperty("mail.smtp.socketFactory.port", "465");
-//		  props.put("mail.smtp.auth", "true");
-//		  Session session = Session.getDefaultInstance(props, new Authenticator(){
-//		      @Override
-//              protected PasswordAuthentication getPasswordAuthentication() {
-//		          return new PasswordAuthentication(username, password);
-//		      }});
-//
-//		       // -- Create a new message --
-//		  Message msg = new MimeMessage(session);
-//
-//		  // -- Set the FROM and TO fields --
-//		  msg.setFrom(new InternetAddress(username));
-//		  msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(tousername,false));
-//		  msg.setSubject(subject);
-////		  msg.setText(content);
-//		  msg.setContent(content, "text/html;charset = gbk");
-//		  msg.setSentDate(new Date());
-//		  Transport.send(msg);
-//
-//		  return true;
-//		 }
-	public static void main(String[] args) throws AddressException, MessagingException {
-		String subject = "11111131111111";
-		String content = "11111131111111";
-		
-/*		email.auth=true
-		email.host=smtp.ixincheng.com
-		email.user=system@ixincheng.com
-		email.password=Ixincheng1234*/
-		
-		String username = "system@ixincheng.com";
-//		password = "Ixincheng1234";
-		String tousername = "yangxuan@ixincheng.com";
-		String smtp = "smtp.ixincheng.com";
-//		sendMailBySSL(smtp, username, password, tousername, subject, content);
-	}
 	public String getAuth() {
 		return auth;
 	}

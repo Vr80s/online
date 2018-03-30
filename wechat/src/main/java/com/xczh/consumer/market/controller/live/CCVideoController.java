@@ -89,63 +89,7 @@ public class CCVideoController {
 		LOGGER.info(responsestr);
 		return ResponseObject.newSuccessResponseObject(responsestr);
 
-		/*<script src="https://p.bokecc.com/player?vid=9FFDF6EC272558969C33DC5901307461"
-		+ "&siteid=B5E673E55C702C42&autoStart=false"
-		+ "&width=600&height=490&playerid=E92940E0788E2DAE"
-		+ "&playertype=1" type="text/javascript"></script>*/
-		
-	/*	
-		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-		codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" 
-		width="600" height="490" id="cc_F5846BF4230F06F59C33DC5901307461">
-			<param name="movie" 
-			value="https://p.bokecc.com/flash/single/B5E673E55C702C42_F5846BF4230F06F59C33DC5901307461_false_E92940E0788E2DAE_1/player.swf" />
-			<param name="allowFullScreen" value="true" />
-			<param name="allowScriptAccess" value="always" />
-			<param value="transparent" name="wmode" />
-			<embed src="https://p.bokecc.com/flash/single/B5E673E55C702C42_F5846BF4230F06F59C33DC5901307461_false_E92940E0788E2DAE_1/player.swf" width="600" height="490" name="cc_F5846BF4230F06F59C33DC5901307461" allowFullScreen="true" wmode="transparent" allowScriptAccess="always" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"/>
-		</object>*/
-		
-		
+
 	}
 
-	 public static void main(String[] args) {
-			
-	    	APIServiceFunction api = new APIServiceFunction();
-	    	
-//	    	Map<String, String> paramsMap = new HashMap<String, String>();
-//			paramsMap.put("userid", "B5E673E55C702C42");
-//			paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC5901307461");
-//			paramsMap.put("FORMAT", "json");
-//			long time = System.currentTimeMillis();
-//			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-//			/**
-//			 * 获取video信息
-//			 */
-//			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video?" + requestURL);
-//			
-//			LOGGER.info(responsestr);
-//			if (responsestr.contains("\"error\":")) {
-//				throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
-//			}
-	    	
-			Map<String, String> paramsMap = new HashMap<String, String>();
-			paramsMap.put("userid", "B5E673E55C702C42");
-			paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
-			paramsMap.put("autoplay", "true");
-			paramsMap.put("playerwidth", "100");
-			paramsMap.put("playerheight", "120");
-			paramsMap.put("FORMAT", "json");
-			long time = System.currentTimeMillis();
-			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-			LOGGER.info(requestURL);
-			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-			LOGGER.info(responsestr);
-			
-			
-			
-			
-		 
-		 
-	 }
 }

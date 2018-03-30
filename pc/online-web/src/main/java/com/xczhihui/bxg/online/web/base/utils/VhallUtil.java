@@ -276,60 +276,6 @@ public class VhallUtil {
 		return resStr;
 	}
 	
-	public static void main(String[] args) throws InterruptedException {
-		/*String str = CodeUtil.getRandomUUID();
-		String whUrl = "https://e.vhall.com/api/vhallapi/v2/user/register";
-		
-		Map<String, String> parameters = new TreeMap<String, String>();
-		 公共参数 
-		parameters.put("auth_type", AUTO_TYPE);
-		parameters.put("account", ACCOUNT);
-		parameters.put("password", PWD);
-		 公共参数 
-		parameters.put("third_user_id", "yuxin000");
-		parameters.put("pass", "000000");
-		parameters.put("head", "http://www.ixincheng.com/web/images/defaultHead/18.png");
-		
-		String json = HttpUtil.sendPostRequest(whUrl, parameters);
-		Map<String, String> m =json2Map(json);
-		if(m.get("msg").equals("success")){
-			Map<String, String> map =json2Map(m.get("data"));
-			String vhallId = map.get("user_id");
-			System.out.println(vhallId);
-		}*/
-//		OnlineUser u = new OnlineUser();
-//		u.setLoginName("15399973503");
-//		u.setSmallHeadPhoto("http://attachment-center.ixincheng.com:38080/data/attachment/online/2017/08/07/20/0c15539fd1d4484b8fb3b022e27d6f7b.png");
-//		u.setName("wwwww2wwwww");
-//		String password = null;
-//		updateUser(u, password);
-//		System.out.println("\u7b2c\u4e09\u65b9\u7528\u6237\u5bf9\u8c61\u4e0d\u5b58\u5728");
-		/*Webinar webinar = new Webinar();
-		webinar.setSubject("一场api引起的show");
-		Date d = new Date();
-		String start_time = d.getTime() + "";
-		start_time = start_time.substring(0, start_time.length() - 3);
-		webinar.setStart_time(start_time);
-		webinar.setHost("红星闪闪我的心");
-		webinar.setLayout("3");
-		String id = createWebinar(webinar);*/
-//		getWebinarUrl(977685530+"");
-//		String ks = getKValue();
-//		System.out.println(cheackKValue(ks));
-//		Thread.sleep(1000);
-//		System.out.println(cheackKValue(ks));
-//		Thread.sleep(1000);
-//		System.out.println(cheackKValue(ks));
-//		Thread.sleep(1000);
-//		System.out.println(cheackKValue(ks));
-//		Thread.sleep(1000);
-//		System.out.println(cheackKValue(ks));
-//		Thread.sleep(1000);
-//		System.out.println(cheackKValue(ks));
-//		Thread.sleep(1000);
-//		System.out.println(cheackKValue(ks));
-//		Thread.sleep(1000);
-	}
 
 	public static String getKValue(){
 		String timestr = new Date().getTime()/1000+"";

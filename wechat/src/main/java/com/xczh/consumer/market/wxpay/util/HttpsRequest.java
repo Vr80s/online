@@ -637,7 +637,5 @@ public class HttpsRequest implements IServiceRequest {
 		}
 	}
     
-    public static void main(String[] args) {
-    	get();
-	}
+
 }

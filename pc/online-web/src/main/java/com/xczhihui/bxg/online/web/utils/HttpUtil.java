@@ -225,22 +225,4 @@ public class HttpUtil {
         }
         return map;
     }
-    public static void main(String args[]) {
-        Map<String,String> param = new HashMap<>();
-        param.put("grant_type","authorization_code");
-        param.put("code","CODE");
-        param.put("appid", ThirdConnectionConfig.WX_APP_ID);
-        param.put("secret",ThirdConnectionConfig.WX_APP_KEY);
-        param.put("code","ED12F9682E734EEE91540227B3D0EE1E");
-        //发送GET请求
-        String returnString = sendGet("https://api.weixin.qq.com/sns/oauth2/access_token",param);
-        Gson g = new GsonBuilder().create();
-        Map<String, Object> fromJson = g.fromJson(returnString, Map.class);
-        String error = String.valueOf(fromJson.get("error"));
-        String error_description = (String) fromJson.get("error_description");
-        System.out.println(returnString+"---");
-        //发送POST请求
-//        String s1 = sendPost("http://localhost:8888/abc/a.jsp", param);
-//        System.out.println(s1);
-    }
-}  
+}

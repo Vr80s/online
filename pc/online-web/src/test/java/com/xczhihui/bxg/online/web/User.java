@@ -32,17 +32,4 @@ public class User {
         this.age = age;
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        String timestr = new Date().getTime()/1000+"";
-        System.out.println(timestr);
-        Thread.sleep(1000);
-        timestr = new Date().getTime()/1000+"";
-        System.out.println(timestr);
-        Thread.sleep(1000);
-        timestr = new Date().getTime()/1000+"";
-        System.out.println(timestr);
-        Thread.sleep(1000);
-        timestr = new Date().getTime()/1000+"";
-        System.out.println(timestr);
-    }
 }

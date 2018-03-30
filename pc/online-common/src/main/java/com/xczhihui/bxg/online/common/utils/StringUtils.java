@@ -93,21 +93,4 @@ public class StringUtils {
 	    	return b1.divide(b2,scale,BigDecimal.ROUND_HALF_UP).doubleValue();   
 	    }  
 	    
-		public static void main(String[] args) {
-	//	    	String str = "<div style='text-align:center;'> 整治“四风”   清弊除垢<br/><span style='font-size:14px;'> </span><span style='font-size:18px;'>公司召开党的群众路线教育实践活动动员大会</span><br/></div>";  
-	//	    	String str1 = delHTMLTag(str);
-	//	    	System.out.println(str1);
-	//		 System.out.println(checkEmail("453999075@qq.com"));
-	//		 System.out.println(checkEmail("45。3@qq.com"));
-	//		 System.out.println(checkEmail("45。3@qq.com"));
-			
-//			double   f   =   111231.5585;  
-//			BigDecimal   b   =   new   BigDecimal(f);  
-//			double   f1   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  
-			 //System.out.println(div(500000d,3600000d,6));
-		 
-		   System.out.println(checkPhone("13723160793"));
-		
-		}
-	
 }

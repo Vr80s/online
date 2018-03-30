@@ -87,19 +87,6 @@ public class VersionController {
         return ResponseObject.newSuccessResponseObject(newVer);
     }
 
-
-
-    public static void main(String[] args) {
-//    	int diff = VersionCompareUtil.compareVersion("1.0.40","1.0.31");
-//    	LOGGER.info(diff);
-//        if (diff <= 0) {
-//           LOGGER.info("=========一样了");
-//        }else{
-//        	LOGGER.info("=========新了");
-//        }
-	}
-    
-    
     @RequestMapping("addTipOff")
 	public void addTipOff(HttpServletRequest req,
 								  HttpServletResponse res, LiveExamineInfo liveExamineInfo,

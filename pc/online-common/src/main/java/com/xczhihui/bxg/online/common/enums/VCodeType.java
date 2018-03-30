@@ -45,7 +45,4 @@ public enum VCodeType {
         this.code = code;
     }
 
-    public static void main(String[] args) {
-        System.out.println(getType(0));
-    }
 }
