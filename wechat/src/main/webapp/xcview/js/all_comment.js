@@ -5,7 +5,7 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
-var collection_id = "";
+var collectionId = "";
 $(function(){
 
     	//获取课程ID跳转相应页面页面
@@ -16,7 +16,7 @@ $(function(){
     LecturerId = Lecturer;
     
     var collection_id = getQueryString('collection_id');
-    
+    collectionId  = collection_id;
 	refresh(1,10,'down');
 });
 
@@ -268,8 +268,8 @@ function reportComment() {
             courseId : course_id,
             userId:LecturerId
     }
-    if(stringnull(collection_id)){
-    	paramsCriticize.collectionId = collection_id;
+    if(stringnull(collectionId)){
+    	paramsCriticize.collectionId = collectionId;
     }
     
     requestService("/xczh/criticize/saveCriticize",paramsCriticize,function(data) {
@@ -308,11 +308,18 @@ function replyComment() {
 //   $(".return_btn").css("opacity","0.3");
 //	 return false;
 //	 }
+    
+    var paramsReply ={
+    	    content:comment_detailed,
+            criticizeId : criticize_id
+    }
+    if(stringnull(collectionId)){
+    	paramsReply.collectionId = collectionId;
+    }
+    
+    
 // 手机自带表情添加判断结束
-    requestService("/xczh/criticize/saveReply",{
-        content:comment_detailed,
-        criticizeId : criticize_id
-    },function(data) {
+    requestService("/xczh/criticize/saveReply",paramsReply,function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
             webToast("回复成功","middle",1500);

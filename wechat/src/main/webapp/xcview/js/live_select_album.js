@@ -387,7 +387,8 @@ function replyComment() {
 // 手机自带表情添加判断结束
     requestService("/xczh/criticize/saveReply",{
         content:comment_detailed,
-        criticizeId : criticize_id
+        criticizeId : criticize_id,
+        collectionId:course_id
     },function(data) {
         if(data.success==true){
             webToast("回复成功","middle",1500);

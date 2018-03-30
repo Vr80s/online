@@ -164,7 +164,7 @@ public class CriticizeController {
     @RequestMapping("saveReply")
 	@ResponseBody
     public ResponseObject saveReply(HttpServletRequest request,
-    		@RequestParam("criticizeId")String content, 
+    		@RequestParam("content")String content, 
     		@RequestParam("criticizeId")String criticizeId,
     		@RequestParam(required=false)Integer collectionId) throws UnsupportedEncodingException {
         //获取当前登录用户信息

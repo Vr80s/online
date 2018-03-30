@@ -215,13 +215,7 @@
                      timeout="5000"/>
 
     <!-- 附件服务 -->
-    <dubbo:reference interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService" id="attachmentCenterService" timeout="5000"/>
-
-    <!-- 充值服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService"
-                     ref="rechargesService"
-                     timeout="5000"/>     
-
+    <dubbo:reference interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService" id="attachmentCenterService" timeout="12000"/>
 
 
 </beans>
