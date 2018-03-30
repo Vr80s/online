@@ -255,6 +255,7 @@
 		`course_apply_info` cai
 		WHERE cai.`is_delete` = 0
 		AND  cai.`title`=#{title}
+		AND  cai.`status`!=0
 		<if test="oldApplyInfoId != null">
 			AND cai.`id` != #{oldApplyInfoId}
 		</if>

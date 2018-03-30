@@ -160,7 +160,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder(" SELECT \n" +
 				"  ou.`login_name`,\n" +
-				"  ou.`name`,\n" +
+				"  ca.`name`,\n" +
 				"  ou.`id`,\n" +
 				"  IFNULL(SUM(uci.`value`), 0) total \n" +
 				"FROM\n" +
@@ -218,7 +218,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				"  AND eai.`status`=1\n" +
 				"  AND ou.id=?";
 		Double rmb = this.queryForDouble(sql, userId);
-		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df = new DecimalFormat("0.00");
 		courseAnchorIncome.setEnchashmentTotal(rmb==0?"0.00":df.format(rmb));
 	}
 	
@@ -246,7 +246,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				"  ON ou.id = uc.`user_id`" +
 				"  WHERE ou.id = ? \n";
 		Double rmb = this.queryForDouble(sql, userId);
-		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df = new DecimalFormat("0.00");
 		return rmb==0?"0.00":df.format(rmb);
 	}
 
@@ -261,7 +261,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				"  ON ou.id = uc.`user_id`" +
 				"  WHERE ou.id = ? \n";
 		Double rmb = this.queryForDouble(sql, userId);
-		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df = new DecimalFormat("0.00");
 		return rmb==0?"0.00":df.format(rmb);
 	}
 
@@ -277,7 +277,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				"    AND uci.`change_type` = 3 \n" +
 				"    AND ou.id = ? \n";
 		Double inconme = this.queryForDouble(sql, userId);
-		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df = new DecimalFormat("0.00");
 		String gift = df.format(inconme);
 		courseAnchorIncome.setGift(inconme==0?"0.00":gift);
 	}
@@ -309,12 +309,12 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				"  WHERE ou.`id`= ?"+
 				"  AND oc.type = ?" ;
 		Double inconme = this.queryForDouble(sql, userId,type);
-		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df = new DecimalFormat("0.00");
 		return inconme==0?"0.00":df.format(inconme);
 	}
 
 	public static void main(String[] args) {
-		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df = new DecimalFormat("0.00");
 		double rmb = 0;
 		System.out.println(df.format(rmb));
 	}

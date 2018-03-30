@@ -3,7 +3,6 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
-import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.field.model.MedicalField;
@@ -40,8 +39,6 @@ public class ClinicPageController extends AbstractController{
     private IMedicalHospitalBusinessService medicalHospitalBusinessServiceImpl;
     @Autowired
     private BannerService  bannerService;
-    @Autowired
-    private IMedicalDepartmentService medicalDepartmentService;
     @Autowired
     private IMedicalHospitalRecruitBusinessService medicalHospitalRecruitBusinessService;
 
@@ -101,7 +98,6 @@ public class ClinicPageController extends AbstractController{
 
         Page<MedicalFieldVO> fields = medicalHospitalBusinessServiceImpl.getFieldsPage(new Page(1, Integer.MAX_VALUE));
         view.addObject("fields", fields);
-
 
         StringBuilder title = new StringBuilder();
         StringBuilder keywords = new StringBuilder();
