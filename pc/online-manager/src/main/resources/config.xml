@@ -21,8 +21,10 @@
 
     <context:property-placeholder location="classpath:config.properties"/>
     <context:component-scan
-            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service, com.xczhihui.bxg.common.support.config"/>
-    <task:annotation-driven />
+            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service, com.xczhihui.bxg.common.support.config,
+com.xczhihui.bxg.online.manager.**"/>
+
+    <task:annotation-driven/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">

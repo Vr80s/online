@@ -56,6 +56,46 @@
 		<div id="tip" style="display: none;">
 			您已完成了医馆注册，不能进行医师注册!
 		</div>
+		
+		<!--专辑预览页面-->
+		<div id="preview">
+			<div class="preview_top">
+				<span>预览</span>
+				<a href="javascript:;">X</a>
+			</div>
+			<div class="preview_bottom">
+				<table>
+					<tr>
+						<td><span><em>*</em>专栏标题</span></td>
+						<td>这里是专栏的标题</td>
+					</tr>
+					<tr>
+						<td><span><em>*</em>封面图</span></td>
+						<td><img src="/web/images/hospital/hospital_pic.png" alt="" /></td>
+					</tr>
+					<tr>
+						<td><span><em>*</em>内容</span></td>
+						<td>《标幽赋》出自《针经指南》，为金元时期著名针灸医家窦默所著。窦氏在《标幽赋》中论述了针灸与经络、脏腑、气血的关系，施术前后的注意事项以及取穴、配穴和针灸禁忌等重要问题。《标幽赋》采用歌赋的形式把幽冥隐晦、深奥难懂的针灸理论表达出来，文字精炼，叙述准确，对后世医家影响很大。
+1遵循阴阳五行，辨别脏腑经络
+阴阳学说、五行学说是中医学理论的哲学基础，它们在《内经》、《难经》中被奉为经旨。窦汉卿在《标幽赋》中，依旧遵循《内》、《难》经旨，他把手足经脉分三阴三阳，并论述了手足三阴三阳的走行规律，如《标幽赋》中所说:“手足三阳，手走头而头走足；手足三阴，足走腹而胸走手。”至于“本形金也”、“短长水也”、“定刺象木”、“塞以象士”，都是五行理论的应用。
+窦汉卿强调经络在针灸临床中的指导作用，指出:“不穷经络阴阳，多逢刺禁；既论脏腑虚实，须向经寻。”经络是经脉和络脉的总称，是运行全身气血、联系脏腑官窍、沟通上下内外的径路。凡属于五脏的经脉为阴经，分布于四肢内侧和胸腹；凡属于六腑的经脉为阳经，分布于四肢的外侧和头面、躯干。《灵枢·海论》说:“夫十二经脉者，内属于腑脏，外络于肢节。”又《灵枢·本藏》说:“经脉者，所以行血气而营阴阳，濡筋骨，利关节者也。”这些皆指出经络是一种运行气血、外络肢节、内属腑脏的通道，同时经络也是诊查和治疗疾病的基础。中医认为，疾病的发生，是机体阴阳失衡所致，因此，在治疗上必须调整阴阳的偏盛偏衰。通过脏腑、经络之间的密切联系，来发挥经络抗御邪气、保卫机体的作用，从而达到脏腑的不盛不衰。</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<!--删除提示弹窗-->
+		<div id="deleteTip" class="hide">
+			<h4 class="confirm-title">删除资源</h4>
+			<p class="confirm-content">确定删除这条资源？</p>
+			<button id="sureDel" class="confirm-sure">确定</button><button id="cancalDel" onclick="hideDel()">取消</button>
+		</div>
+		
+		<!--全局遮罩层-->
+		<div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
+				
+		
+		
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
@@ -82,7 +122,7 @@
 							</div>
 						</li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>主播工作台</span></li>-->
-						<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>
+						<!--<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>-->
 						<li class="setTop docSuccessBtn" id="docJoinHos"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>医馆</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
@@ -97,7 +137,7 @@
 				<!--课程-->
 				<!--<div class="select_box">主播工作台</div>-->
 				<!--收徒-->
-				<div class="select_box">收徒</div>
+				<!--<div class="select_box">收徒</div>-->
 				<!--医馆-->
 				<div class="select_box docSuccessBox" id="hospital">
 					<div class="zhuanlan_top">
@@ -197,7 +237,7 @@
 				<div class="select_box" id="zhuanlan">
 					<div class="zhuanlan_top">
 						<span class="title">专栏</span>
-						<button>发布</button>
+						<button class="changeStaBtn">发布</button>
 					</div>
 					<div class="zhuanlan_bottom hide" id="zhuanlan_bottom">
 						<form action="">
@@ -207,7 +247,6 @@
 								<p class="warning hide">用户名不能为空</p>
 							</div>
 							<div class="fengmian">
-
 								<span style="vertical-align: top;"><em>*</em>封面图</span>
 								<span class="fengmian_pic">点击上传封面图片</span>
 								<span class="fengmian_tip">
@@ -257,7 +296,7 @@
 									</td>
 									<td>
 										<a href="javascript:;">预览</a>
-										<a href="javascript:;">下线</a>
+										<a href="javascript:;" onclick="downLine()">下线</a>
 										<a href="javascript:;">编辑</a>
 									</td>
 								</tr>
@@ -343,7 +382,7 @@
 				<div class="select_box" id="zhuzuo">
 					<div class="zhuzuo_top">
 						<span class="title">著作</span>
-						<button>发布</button>
+						<button class="changeStaBtn">发布</button>
 					</div>
 					
 					
@@ -521,7 +560,7 @@
 				<div class="select_box" id="media_report">
 					<div class="media_report_top">
 						<span class="title">媒体报道</span>
-						<button>发布</button>
+						<button class="changeStaBtn">发布</button>
 					</div>
 					
 					<div class="media_report_bottom hide">

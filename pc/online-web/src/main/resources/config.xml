@@ -231,6 +231,6 @@
                      
     <!-- 充值服务 -->
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService"  ref="rechargesService"
-                     timeout="${dubbo.consumer.timeout}"/>                
+                     timeout="${dubbo.consumer.timeout}"/>
                      
 </beans>

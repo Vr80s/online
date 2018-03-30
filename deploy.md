@@ -23,3 +23,12 @@ BBS管理 | fas fa-at  |   二级  |   bbs:menu    |
 拉黑/禁言|            |   三级  |    bbs:menu:restriction | /bbs/restriction/index
 
 3.修改相关角色对以上新增资源的权限
+
+管理后台用户登录逻辑修改(dev-2.0)
+==
+
+1.alter sql 
+        
+        ALTER TABLE `user` ADD `salt` varchar(50) NULL COMMENT '盐';
+        
+        更新prod_online 库中的user表中的password 与 salt为 user-center 库中的password 与 salt

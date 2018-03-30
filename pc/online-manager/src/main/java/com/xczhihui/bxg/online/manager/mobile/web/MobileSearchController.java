@@ -8,6 +8,7 @@ import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.manager.cloudClass.service.ProjectTypeService;
 import com.xczhihui.bxg.online.manager.mobile.service.MobileSearchService;
 import com.xczhihui.bxg.online.manager.mobile.vo.MobileSearchVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.user.service.UserService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
@@ -105,7 +106,7 @@ public class MobileSearchController {
                return responseObj;
 
           }
-          mobileSearchVo.setCreatePerson(UserHolder.getCurrentUser().getName());
+          mobileSearchVo.setCreatePerson(ManagerUserUtil.getName());
           mobileSearchVo.setCreateTime(new Date());
           mobileSearchVo.setSeq(service.getMaxSort()+1);
           mobileSearchVo.setStatus(0);

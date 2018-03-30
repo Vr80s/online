@@ -30,6 +30,7 @@ import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LecturerVo;
 import com.xczhihui.bxg.online.manager.mobile.service.MobileCourseService;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
@@ -191,7 +192,7 @@ public class MobileCourseController extends AbstractController{
 	public ResponseObject uploadImg(String content){
 		String str = content.split("base64,")[1];
 		byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
-		Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png");
+		Attachment a = att.addAttachment(ManagerUserUtil.getId(), AttachmentType.ONLINE, "1.png", b, "image/png");
 		if (a.getError() != 0) {
 			return ResponseObject.newErrorResponseObject("上传失败！");
 		}

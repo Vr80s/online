@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description：医馆页面
@@ -92,7 +94,7 @@ public class ClinicPageController extends AbstractController{
     public ModelAndView list(Integer current,Integer size,String name,String field) {
         ModelAndView view = new ModelAndView("clinic/list");
         current = current==null?1:current;
-        size = size==null?10:size;
+        size = size==null?20:size;
 
         Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(current,size), name, field);
         view.addObject("clinics", clinics);
@@ -103,9 +105,11 @@ public class ClinicPageController extends AbstractController{
 
         StringBuilder title = new StringBuilder();
         StringBuilder keywords = new StringBuilder();
+        Map echoMap = new HashMap();
         if(StringUtils.isNotBlank(name)){
             title.append(name+"-");
             keywords.append(name+",");
+            echoMap.put("name",name);
         }
         if(StringUtils.isNotBlank(field)){
             MedicalField medicalField = medicalHospitalBusinessServiceImpl.getFieldById(field);
@@ -113,10 +117,13 @@ public class ClinicPageController extends AbstractController{
                 String fieldName = medicalField.getName();
                 title.append(fieldName+"-");
                 keywords.append(fieldName+",");
+                echoMap.put("field",field);
+                echoMap.put("fieldText",fieldName);
             }
         }
 
         doTitleKeyWords(view,title.toString(),keywords.toString());
+        doConditionEcho(view,echoMap);
 
         return view;
     }
