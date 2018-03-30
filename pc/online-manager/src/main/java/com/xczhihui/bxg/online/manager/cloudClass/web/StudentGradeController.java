@@ -1,27 +1,33 @@
 package com.xczhihui.bxg.online.manager.cloudClass.web;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.dubbo.common.utils.StringUtils;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.auth.UserHolder;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.Grade;
 import com.xczhihui.bxg.online.common.domain.TrackRecord;
 import com.xczhihui.bxg.online.manager.cloudClass.service.*;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.*;
-import com.xczhihui.bxg.online.manager.utils.*;
-import com.alibaba.dubbo.common.utils.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.ServletRequestBindingException;
-import org.springframework.web.bind.ServletRequestUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.ApplyVo;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.GradeDetailVo;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.GradeVo;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.TrackRecordVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
+import com.xczhihui.bxg.online.manager.utils.Group;
+import com.xczhihui.bxg.online.manager.utils.Groups;
+import com.xczhihui.bxg.online.manager.utils.TableVo;
+import com.xczhihui.bxg.online.manager.utils.Tools;
 
 /**
  * 班级控制层实现类
@@ -86,7 +92,7 @@ public class StudentGradeController {
 
     @RequestMapping(value = "/student/record/save")
     public ResponseObject saveStudentRecord(HttpServletRequest request,TrackRecordVo vo) throws InvocationTargetException, IllegalAccessException {
-        vo.setCreatePerson(UserHolder.getCurrentUser().getId());
+        vo.setCreatePerson(ManagerUserUtil.getId());
         vo.setCreateTime(new Date());
         vo.setIsDelete(false);
         vo.setStatus(true);
@@ -99,7 +105,7 @@ public class StudentGradeController {
     @RequestMapping(value = "/student/record/update")
     public ResponseObject updateStudentRecord(HttpServletRequest request,TrackRecordVo vo) throws InvocationTargetException, IllegalAccessException {
         TrackRecord entity=trackRecordService.findById(vo.getId());
-        entity.setCreatePerson(UserHolder.getCurrentUser().getId());
+        entity.setCreatePerson(ManagerUserUtil.getId());
         entity.setCreateTime(new Date());
         entity.setRecordTime(vo.getRecordTime());
         entity.setRecordContent(vo.getRecordContent());

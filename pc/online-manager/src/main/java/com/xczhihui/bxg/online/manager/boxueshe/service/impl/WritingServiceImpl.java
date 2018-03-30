@@ -1,10 +1,6 @@
 package com.xczhihui.bxg.online.manager.boxueshe.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -13,14 +9,11 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorWritings;
 import com.xczhihui.bxg.online.common.domain.MedicalWritings;
 import com.xczhihui.bxg.online.manager.boxueshe.dao.ArticleDao;
 import com.xczhihui.bxg.online.manager.boxueshe.dao.WritingDao;
-import com.xczhihui.bxg.online.manager.boxueshe.service.ArticleService;
 import com.xczhihui.bxg.online.manager.boxueshe.service.WritingService;
 import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleTypeVo;
 import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleVo;

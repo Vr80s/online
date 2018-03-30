@@ -275,7 +275,7 @@ public class CommonMenuServiceMenuServiceImpl extends OnlineBaseServiceImpl impl
 		mt.setMenuId(menuId);
 		mt.setCourseTypeId(id);
 		mt.setDelete(false);
-		//mt.setCreatePerson(UserHolder.getCurrentUser().getId());
+		//mt.setCreatePerson(ManagerUserUtil.getId());
 		mt.setCreateTime(new Date());
 		commonMenuDao.save(mt);
 		return "添加成功！";

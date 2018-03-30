@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,13 +20,12 @@ import com.xczhihui.bxg.common.support.service.AttachmentType;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.manager.boxueshe.service.ArticleService;
 import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleTypeVo;
 import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleVo;
 import com.xczhihui.bxg.online.manager.boxueshe.vo.TagVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
@@ -129,7 +127,7 @@ public class ArticleController extends AbstractController{
 		String content = articleVo.getContent();
 		content = Base64ToimageURL(content);
 		articleVo.setContent(content);
-//		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
+//		articleVo.setUserId(ManagerUserUtil.getName().getId());
 		articleService.addArticle(articleVo);
 		articleService.addArticleTag(articleVo);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
@@ -147,7 +145,7 @@ public class ArticleController extends AbstractController{
 		String content = articleVo.getContent();
 		content = Base64ToimageURL(content);
 		articleVo.setContent(content);
-		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
+		articleVo.setUserId(ManagerUserUtil.getId());
 		articleService.addPreArticle(articleVo);
 		articleService.addArticleTag(articleVo);
 		return ResponseObject.newSuccessResponseObject(articleVo.getId());
@@ -165,7 +163,7 @@ public class ArticleController extends AbstractController{
 		String content = articleVo.getContent();
 		content = Base64ToimageURL(content);
 		articleVo.setContent(content);
-//		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
+//		articleVo.setUserId(ManagerUserUtil.getName().getId());
 		articleService.updateArticle(articleVo);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
     }
@@ -181,7 +179,7 @@ public class ArticleController extends AbstractController{
 				if(group.split("base64,").length>1){
 					String str = group.split("base64,")[1];
 					byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
-					Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png");
+					Attachment a = att.addAttachment(ManagerUserUtil.getId(), AttachmentType.ONLINE, "1.png", b, "image/png");
 					content = content.replace(group, a.getUrl());
 				}
 				

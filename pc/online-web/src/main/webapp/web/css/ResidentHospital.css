@@ -966,6 +966,92 @@ a {
      margin-left: 120px;
 }
 
+/*招聘管理部分*/
+.recruit-wrap-title{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	text-align: left;
+	border-bottom: 1px solid #F0F0F0;
+}
+.recruit-wrap-title p{
+	font-size: 16px;
+	color: #333333;
+  margin-left: 20px;
+  float: left;
+}
+.recruit-btn-newjob{
+	  display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    float: right;
+    margin: 12px 20px 0 0;
+}
+.recruit-wrap-content{
+	padding: 30px 20px 60px;
+}
+.recruit-wrap-content .recruit-table-list{
+	width: 100%;
+}
+.recruit-wrap-content .recruit-table-list th{
+	background: #F0F0F0;
+	font-size: 14px;
+	color: #666666;
+	border: 1px solid #DEDEDE;
+	height: 40px;
+	text-align: center;
+}
+.recruit-wrap-content .recruit-table-list td{
+	border: 1px solid #DEDEDE;
+	height: 80px;
+	padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*公告内容部分*/
 #Notice_Administration .Notice_bottom2{
 	padding: 31px 20px 59px;

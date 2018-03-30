@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.manager.bbs.service.BBSRestrictionService;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 
@@ -35,14 +33,12 @@ public class BBSRestrictionController {
     @RequestMapping(value = "changeGags", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject gagsStatusChange(@RequestParam String mobile, @RequestParam boolean gags, HttpServletRequest request) {
-        BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-        return bbsRestrictionService.updateGags(mobile, gags, loginUser);
+        return bbsRestrictionService.updateGags(mobile, gags);
     }
 
     @RequestMapping(value = "changeBlacklist", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject blacklistStatusChange(@RequestParam String mobile, @RequestParam boolean blacklist, HttpServletRequest request) {
-        BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-        return bbsRestrictionService.updateBlacklist(mobile, blacklist, loginUser);
+        return bbsRestrictionService.updateBlacklist(mobile, blacklist);
     }
 }

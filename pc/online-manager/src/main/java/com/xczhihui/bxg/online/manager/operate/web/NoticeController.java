@@ -2,28 +2,22 @@ package com.xczhihui.bxg.online.manager.operate.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
 
-
-import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.manager.ask.vo.AccuseVo;
+import com.xczhihui.bxg.online.manager.operate.service.NoticeService;
+import com.xczhihui.bxg.online.manager.operate.vo.NoticeVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
-
-import com.xczhihui.bxg.online.manager.operate.service.NoticeService;
-import com.xczhihui.bxg.online.manager.operate.vo.NoticeVo;
 
 @Controller
 @RequestMapping(value = "/operate/notice")
@@ -80,7 +74,7 @@ public class NoticeController{
 	@RequestMapping(value = "/addNotice", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addNotice(NoticeVo noticeVo,HttpServletRequest request){
-		noticeVo.setCreatePerson(UserLoginUtil.getLoginUser(request).getLoginName());
+		noticeVo.setCreatePerson(ManagerUserUtil.getUsername());
 		noticeService.addNotice(noticeVo);
         return ResponseObject.newSuccessResponseObject("新增成功!");
     }

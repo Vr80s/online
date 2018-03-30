@@ -9,6 +9,8 @@ import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.GradeDetailVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.GradeVo;
 import com.alibaba.dubbo.common.utils.StringUtils;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
@@ -175,7 +177,7 @@ public class GradeServiceImpl extends OnlineBaseServiceImpl implements GradeServ
      */
     @Override
     public void addGrade(Grade grade) {
-         grade.setCreatePerson(UserHolder.getCurrentUser().getLoginName());
+         grade.setCreatePerson(ManagerUserUtil.getUsername());
          grade.setCreateTime(new Date());
          grade.setSeat(0);
          grade.setSort(0);

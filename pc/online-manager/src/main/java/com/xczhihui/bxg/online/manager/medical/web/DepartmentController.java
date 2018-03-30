@@ -6,6 +6,7 @@ import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.domain.MedicalDepartment;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.manager.medical.service.DepartmentService;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 import com.xczhihui.bxg.online.manager.user.service.UserService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
@@ -109,7 +110,7 @@ public class DepartmentController {
           if (existsEntity != null && existsEntity.getDeleted()!=true) {
                throw new IllegalArgumentException("已经存在");
           }
-          entity.setCreatePerson(UserHolder.getCurrentUser().getName());
+          entity.setCreatePerson(ManagerUserUtil.getName());
           entity.setCreateTime(new Date());
 //          entity.setSort(service.getMaxSort()+1);
 //          entity.setStatus(false);

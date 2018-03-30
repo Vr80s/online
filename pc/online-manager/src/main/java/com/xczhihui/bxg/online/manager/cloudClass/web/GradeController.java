@@ -1,21 +1,13 @@
 package com.xczhihui.bxg.online.manager.cloudClass.web;
 
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.auth.UserHolder;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.Grade;
-import com.xczhihui.bxg.online.manager.cloudClass.service.*;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.GradeDetailVo;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.GradeVo;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
-import com.xczhihui.bxg.online.manager.utils.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.domain.Grade;
+import com.xczhihui.bxg.online.manager.cloudClass.service.*;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.GradeDetailVo;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.GradeVo;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
+import com.xczhihui.bxg.online.manager.utils.*;
 
 /**
  * 班级控制层实现类
@@ -307,7 +306,7 @@ public class GradeController {
                 roleTypes.add(_roleType3);
             }
         }
-        service.saveTeachers(gradeId, courseId, UserLoginUtil.getLoginUser(request).getName(), roleTypes);
+        service.saveTeachers(gradeId, courseId, ManagerUserUtil.getName(), roleTypes);
         return ResponseObject.newSuccessResponseObject(null);
     }
 

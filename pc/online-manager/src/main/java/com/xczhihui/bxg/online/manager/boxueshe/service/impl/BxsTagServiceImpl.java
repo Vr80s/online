@@ -20,6 +20,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.manager.boxueshe.dao.BxsTagDao;
 import com.xczhihui.bxg.online.manager.boxueshe.service.BxsTagService;
 import com.xczhihui.bxg.online.manager.boxueshe.vo.TagVo;
+import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;
 
 /**
  * 标签管理层的实现类
@@ -82,7 +83,7 @@ public class BxsTagServiceImpl  extends OnlineBaseServiceImpl implements BxsTagS
 			}
 			bxsTag.setId(UUID.randomUUID().toString().replace("-", ""));
 			bxsTag.setName(nameArray[i].trim());
-			bxsTag.setCreatePerson(UserHolder.getCurrentUser().getLoginName()); //当前登录人
+			bxsTag.setCreatePerson(ManagerUserUtil.getUsername()); //当前登录人
 			bxsTag.setCreateTime(new Date()); //当前时间
 			bxsTag.setStatus(0);
 

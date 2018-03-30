@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.manager.user.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.User;
@@ -10,123 +11,127 @@ import com.xczhihui.bxg.online.manager.utils.PageVo;
 
 /**
  * 用户接口
- * 
- * @author Haicheng Jiang
  *
  */
 public interface UserService {
 
-	/**
-	 * 根据角色代码查找用户。
-	 * 
-	 * @param roleCode
-	 *            角色代码，如：admin,manager
-	 * @return
-	 */
-	public List<User> findUsersByRole(String roleCode);
+    /**
+     * 根据角色代码查找用户。
+     *
+     * @param roleCode 角色代码，如：admin,manager
+     * @return
+     */
+    List<User> findUsersByRole(String roleCode);
 
-	/**
-	 * 根据ID获取用户
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public User getUserById(String id);
+    /**
+     * 根据ID获取用户
+     *
+     * @param id
+     * @return
+     */
+    User getUserById(String id);
 
-	/**
-	 * 根据登录名获取用户
-	 * 
-	 * @param loginName
-	 * @return
-	 */
-	public User getUserByLoginName(String loginName);
+    /**
+     * 根据登录名获取用户
+     *
+     * @param loginName
+     * @return
+     */
+    User getUserByLoginName(String loginName);
 
-	/**
-	 * 添加一个用户
-	 * 
-	 * @param user
-	 */
-	public void addUser(User user);
+    Set<String> findRoles(String userId);
 
-	/**
-	 * 删除一个用户
-	 * 
-	 * @param user
-	 */
-	public void deleteUser(User user);
+    Set<String> findPermissions(String userId);
 
-	/**
-	 * 按分页查询用户
-	 * 
-	 * @param isDelete
-	 * @param roleId
-	 * @param pageNumber
-	 * @param pageSize
-	 * @return
-	 */
-	public Page<User> findUserPage(Boolean isDelete, String roleId,String searchName, int pageNumber, int pageSize);
+    /**
+     * 添加一个用户
+     *
+     * @param user
+     */
+    void addUser(User user);
 
-	/**
-	 * 根据条件分页获取用户信息。
-	 * 
-	 * @param groups
-	 * @param pageVo
-	 * @return
-	 */
-	public PageVo findPageByGroups(Groups groups, PageVo pageVo);
+    /**
+     * 删除一个用户
+     *
+     * @param user
+     */
+    void deleteUser(User user);
 
-	/**
-	 * 根据ID软删除一个用户
-	 * 
-	 * @param id
-	 */
-	public User deleteUserLogic(String id);
+    /**
+     * 按分页查询用户
+     *
+     * @param isDelete
+     * @param roleId
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    Page<User> findUserPage(Boolean isDelete, String roleId, String searchName, int pageNumber, int pageSize);
 
-	/**
-	 * 返回所有用户
-	 * @return
-	 */
-	public List<UserVo> findAll();
-	/**
-	 * 根据ID除一个用户
-	 * 
-	 * @param id
-	 */
-	public User deleteUser(String id);
+    /**
+     * 根据条件分页获取用户信息。
+     *
+     * @param groups
+     * @param pageVo
+     * @return
+     */
+    PageVo findPageByGroups(Groups groups, PageVo pageVo);
 
-	/**
-	 * 批量软删除一批用户
-	 * 
-	 * @param ids
-	 */
-	public void deleteUsersLogic(List<String> ids);
+    /**
+     * 根据ID软删除一个用户
+     *
+     * @param id
+     */
+    void deleteUserLogic(String id);
 
-	/**
-	 * 批量删除一批用户
-	 * 
-	 * @param ids
-	 */
-	public void deleteUsers(List<String> ids);
+    /**
+     * 返回所有用户
+     *
+     * @return
+     */
+    List<UserVo> findAll();
 
-	/**
-	 * 重置用户密码
-	 * 
-	 * @param loginName
-	 */
-	public void updateUserPassword(String loginName, String password);
+    /**
+     * 根据ID除一个用户
+     *
+     * @param id
+     */
+    void deleteUser(String id);
 
-	/**
-	 * 更新用户信息
-	 * 
-	 * @param user
-	 */
-	public User updateUser(User user);
-	/**
-	 * 班级下的所有用户
-	 * 
-	 * @param gradeIds
-	 */
-	List<UserVo> findAllUserByGrade(String gradeIds);
+    /**
+     * 批量软删除一批用户
+     *
+     * @param ids
+     */
+    void deleteUsersLogic(List<String> ids);
 
-	public void saveUserCoin();
+    /**
+     * 批量删除一批用户
+     *
+     * @param ids
+     */
+    void deleteUsers(List<String> ids);
+
+    /**
+     * 重置用户密码
+     *
+     * @param loginName
+     */
+    void updateUserPassword(String loginName, String password);
+
+    /**
+     * 更新用户信息
+     *
+     * @param user
+     */
+    User updateUser(User user);
+
+    /**
+     * 班级下的所有用户
+     *
+     * @param gradeIds
+     */
+    List<UserVo> findAllUserByGrade(String gradeIds);
+
+    void saveUserCoin();
 }
