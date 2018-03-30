@@ -84,13 +84,11 @@ public class CriticizeServiceImpl implements CriticizeService {
 	@Override
 	public void saveNewCriticize(CriticizeVo criticizeVo)
 			throws IllegalAccessException, InvocationTargetException {
-		// TODO Auto-generated method stub
 		videoDao.saveNewCriticize(criticizeVo);
 	}
 
 	@Override
 	public void saveReply(String content, String userId,String criticizeId,Integer collectionId) {
-		// TODO Auto-generated method stub
 		
 		videoDao.saveReply(content,userId,criticizeId,collectionId);
 	}
@@ -99,7 +97,6 @@ public class CriticizeServiceImpl implements CriticizeService {
 	@Override
 	public Page<CriticizeVo> getVideoCriticize(String teacherId,
 			String courseId, Integer pageNumber, Integer pageSize) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

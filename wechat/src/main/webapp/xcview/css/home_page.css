@@ -993,7 +993,7 @@ header{
 }
 .boutique_main ul li{
 	float: left;
-	margin-bottom: 0.4rem;
+	margin-bottom: 0.35rem;
 	position: relative;
 }
 .boutique_main ul li:nth-child(even){
@@ -1412,7 +1412,7 @@ header{
 }
 .newest_main ul li{
 	float: left;
-	margin-bottom: 0.4rem;
+	margin-bottom: 0.35rem;
 	width: 3.39rem !important;
 	height: 3.25rem !important;
 }
@@ -1769,7 +1769,7 @@ header{
 }
 .lectures_main ul li{
 	float: left;
-	margin-bottom: 0.4rem;
+	margin-bottom: 0.35rem;
 	position: relative;
 	width: 3.39rem !important;
 	height: 3.25rem !important;

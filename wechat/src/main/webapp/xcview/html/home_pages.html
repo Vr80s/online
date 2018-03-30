@@ -10,22 +10,12 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<!--手机嵌入模板-->
-<!--<script type="text/javascript" src="/xcview/js/template/template.js"></script>-->
-
-
-
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>
-
 <!--刷新css引入-->
 <link rel="stylesheet" href="/xcview/css/mui.mins.css">
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1.1"/>
-
-
-
-
 
 <!--没有用上面js模板，手机上加载的太慢。会出错误-缩小放大效果-->
 <script type="text/javascript">
@@ -38,16 +28,11 @@
 </script>
 
 
-<script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
-<script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
-<!--<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>-->  
-<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>
-<script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
-<!--新滑动引入-->
-<script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1"></script>
+<!-- 刷新引入 -->
+<link rel="stylesheet" href="/xcview/js/refresh/pullToRefresh.css">
+<link rel="stylesheet" href="/xcview/js/refresh/reset.css">
+
+
 
 <link rel="stylesheet" href="/xcview/css/home_pages/home_pages.css">  <!--这是替换css-->
 
@@ -610,18 +595,23 @@
 	
 </body>
 
-<!--js滑动引入开始-->
+<script src="/xcview/js/refresh/iscroll.js"></script>
+<script src="/xcview/js/refresh/iscroll.js"></script>
+<script src="/xcview/js/refresh/iscroll.js"></script>
+<script src="iscroll.js"></script>
 
-<!--<script type="text/javascript">
-		$(function(){
-			app.TabSlider('#tabSlider2',{type:'line'});
-		});
-</script>-->
-<!--js滑动引入结束-->
 
-    <!--学堂4个轮播引入-->
-    <!--<script src="http://www.5iweb.com.cn/statics/js/jquery.1.7.1.min.js" type="text/javascript"></script>-->
-    <!-- 网页自适应JS代码引入 -->
+
+<script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
+<!--<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>-->  
+<script type="text/javascript" src="/xcview/js/home_pages.js?v=wechat_1.1.1"></script>
+<!-- <script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script> -->
+<script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
+<!--新滑动引入-->
+<script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1"></script>
 
 <script type="text/javascript">
 
@@ -640,8 +630,6 @@ function sliderHeight(){
 }
 sliderHeight();
 
-
-
 $(".find_nav_list").css("left",1);
 $(".find_nav_list li").each(function(){
    $(".find_nav_list li").eq(1).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
@@ -651,26 +639,6 @@ var nav_w=$(".find_nav_list li").first().width();
 $(".sideline").width(nav_w);
 
 $("body").show();
-/* $(".find_nav_list li").on('click', function(){
-	nav_w=$(this).width();
-	$(".sideline").stop(true);
-	$(".sideline").animate({left:$(this).position().left},300);
-	$(".sideline").animate({width:nav_w});
-	$(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
-	var fn_w = ($(".find_nav").width() - nav_w) / 2;
-	var fnl_l;
-	var fnl_x = parseInt($(this).position().left);
-	if (fnl_x <= fn_w) {
-		fnl_l = 0;
-	} else if (fn_w - fnl_x <= flb_w - fl_w) {
-		fnl_l = flb_w - fl_w;
-	} else {
-		fnl_l = fn_w - fnl_x;
-	}
-	$(".find_nav_list").animate({
-		"left" : fnl_l
-	}, 300);
-});	 */
 
 var fl_w=$(".find_nav_list").width();
 var flb_w=$(".find_nav_left").width();

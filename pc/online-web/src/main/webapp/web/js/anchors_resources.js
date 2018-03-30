@@ -18,8 +18,6 @@ $(function() {
 		localStorage.AutStatus = "AutAgain";
 		window.location.href = "/web/html/ResidentDoctor.html";
 	})
-	
-	
 
 	//	点击左侧tab按钮右侧页面变化效果
 	$(".select_list li").click(function() {
@@ -49,7 +47,7 @@ $(function() {
 		$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
 		$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")
 	})
-	//			对课程目录下小的下拉div进行操作		
+	//对课程目录下小的下拉div进行操作		
 	$(".select_list .littleBox p").bind('click', function(event) {
 		event.stopPropagation();
 		$(".select_list .littleBox p").removeClass("activeP");
@@ -57,7 +55,7 @@ $(function() {
 		$(".wrap_box .little_box").hide().eq($(this).index()).show();
 		$(".select_box").hide()
 	})
-	
+
 	//		下拉小箭头设置	
 	$(".select-ud").click(function() {
 		if($(this).attr("id") == "open_list") {
@@ -649,23 +647,71 @@ $('#docJoinHos').click(function() {
 
 })
 
-
-
 //下架、删除提示的显示和隐藏效果
 
-function showDel(){
-    $('#deleteTip').removeClass('hide');
-    $('#mask').removeClass('hide');
+function showDel() {
+	$('#deleteTip').removeClass('hide');
+	$('#mask').removeClass('hide');
 }
 
-
-function hideDel(){
-    $('#deleteTip').addClass('hide');
-    $('#mask').addClass('hide');
+function hideDel() {
+	$('#deleteTip').addClass('hide');
+	$('#mask').addClass('hide');
 }
-
 
 //下线功能
-function downLine(){
+function downLine() {
 	showDel()
 }
+
+//预览关闭功能
+$('.close_preview').click(function() {
+	$('#preview').addClass('hide');
+	$('#mask').addClass('hide')
+
+})
+
+//显示预览功能
+function showPreview() {
+	$('#preview').removeClass('hide');
+	$('#mask').removeClass('hide')
+}
+
+
+//医师媒体报道上传图片调用的接口
+function picUpdown(baseurl, imgname) {
+//	RequestService("/medical/common/upload", "post", {
+//		image: baseurl,
+//	}, function(data) {
+//		$('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+//	})
+}
+
+
+
+//媒体报道图片上传
+$('#zhuzuo_picIpt').on('change', function() {
+	if(this.files[0].size > 2097152) {
+		$('#tip').text('上传图片不能大于2M');
+		$('#tip').toggle();
+		setTimeout(function() {
+			$('#tip').toggle();
+		}, 2000)
+		return false;
+	}
+	if(!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
+		$('#tip').text('图片格式不正确');
+		$('#tip').toggle();
+		setTimeout(function() {
+			$('#tip').toggle();
+		}, 2000)
+		return false;
+	}
+
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		console.log(reader.result)
+//		picUpdown(reader.result, 'touxiang_pic');
+	}
+	reader.readAsDataURL(this.files[0])
+})
