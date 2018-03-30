@@ -465,9 +465,9 @@ function replyComment() {
 //	 }
 // 手机自带表情添加判断结束
     requestService("/xczh/criticize/saveReply",{
-
         content:comment_detailed,
-        criticizeId : criticize_id
+        criticizeId : criticize_id,
+        collectionId:collectionId
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
