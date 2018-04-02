@@ -49,6 +49,6 @@ public interface iphoneIpaService {
 	 *
 	 */
 	void increaseNew(String merchantOrderNo,String userId, BigDecimal multiply, String resp,
-			BigDecimal actualPrice);
+			BigDecimal actualPrice,String transactionId);
 
 }

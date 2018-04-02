@@ -111,19 +111,19 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Lock(lockName = "iphoneIapLock",waitTime = 5,effectiveTime = 8)
-	public void increaseNew(String merchantOrderNo,String userId, BigDecimal xmb, String json,
-			BigDecimal actualPrice) {
+	public void increaseNew(String OrderNo,String userId, BigDecimal xmb, String json,
+			BigDecimal actualPrice,String transactionId) {
 		
 		iphoneIpaMapper.save(json,
         		actualPrice+"",
-        		JSONObject.parseObject(json).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("transaction_id").toString(),
-        		merchantOrderNo,
+				transactionId,
+				OrderNo,
         		userId,
         		"充值熊猫币："+xmb.doubleValue()+"个",
         		1);
 		
 		userCoinService.updateBalanceForRecharge(userId,Payment.APPLYPAY,xmb,
-				OrderFrom.IOS,merchantOrderNo);
+				OrderFrom.IOS,OrderNo);
 	}
     
 	
