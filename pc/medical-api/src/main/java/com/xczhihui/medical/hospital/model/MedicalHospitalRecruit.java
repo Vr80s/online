@@ -1,16 +1,15 @@
 package com.xczhihui.medical.hospital.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableField;
+
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -24,228 +23,228 @@ public class MedicalHospitalRecruit extends Model<MedicalHospitalRecruit> {
     /**
      * 医馆招聘表
      */
-	private String id;
+    private String id;
     /**
      * 医馆id
      */
-	@TableField("hospital_id")
-	private String hospitalId;
+    @TableField("hospital_id")
+    private String hospitalId;
     /**
      * 职位
      */
-	private String position;
+    private String position;
     /**
      * 工作经验 0.不限 1.0-1年 2.1-3年 3.3-5年 4.5-10年 5.10年以上
      */
-	private String years;
+    private String years;
     /**
      * 岗位职责
      */
-	@TableField("post_duties")
-	private String postDuties;
+    @TableField("post_duties")
+    private String postDuties;
     /**
      * 职位要求
      */
-	@TableField("job_requirements")
-	private String jobRequirements;
+    @TableField("job_requirements")
+    private String jobRequirements;
     /**
      * 1已删除0未删除
      */
-	private Boolean deleted;
+    private Boolean deleted;
     /**
      * 启用状态
      */
-	private Boolean status;
+    private Boolean status;
     /**
      * 创建时间
      */
-	@TableField("create_time")
-	private Date createTime;
+    @TableField("create_time")
+    private Date createTime;
     /**
      * 创建人id
      */
-	@TableField("create_person")
-	private String createPerson;
+    @TableField("create_person")
+    private String createPerson;
     /**
      * 更新时间
      */
-	@TableField("update_time")
-	private Date updateTime;
+    @TableField("update_time")
+    private Date updateTime;
     /**
      * 更新人id
      */
-	@TableField("update_person")
-	private String updatePerson;
+    @TableField("update_person")
+    private String updatePerson;
     /**
      * 版本
      */
-	private String version;
+    private String version;
     /**
      * 备注
      */
-	private String remark;
+    private String remark;
     /**
      * 是否推荐
      */
-	private Boolean recommend;
+    private Boolean recommend;
     /**
      * 医馆招聘排序字段
      */
-	private Integer sort;
+    private Integer sort;
 
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getHospitalId() {
-		return hospitalId;
-	}
+    public String getHospitalId() {
+        return hospitalId;
+    }
 
-	public void setHospitalId(String hospitalId) {
-		this.hospitalId = hospitalId;
-	}
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
 
-	public String getPosition() {
-		return position;
-	}
+    public String getPosition() {
+        return position;
+    }
 
-	public void setPosition(String position) {
-		this.position = position;
-	}
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
-	public String getYears() {
-		return years;
-	}
+    public String getYears() {
+        return years;
+    }
 
-	public void setYears(String years) {
-		this.years = years;
-	}
+    public void setYears(String years) {
+        this.years = years;
+    }
 
-	public String getPostDuties() {
-		return postDuties;
-	}
+    public String getPostDuties() {
+        return postDuties;
+    }
 
-	public void setPostDuties(String postDuties) {
-		this.postDuties = postDuties;
-	}
+    public void setPostDuties(String postDuties) {
+        this.postDuties = postDuties;
+    }
 
-	public String getJobRequirements() {
-		return jobRequirements;
-	}
+    public String getJobRequirements() {
+        return jobRequirements;
+    }
 
-	public void setJobRequirements(String jobRequirements) {
-		this.jobRequirements = jobRequirements;
-	}
+    public void setJobRequirements(String jobRequirements) {
+        this.jobRequirements = jobRequirements;
+    }
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
+    public Boolean getDeleted() {
+        return deleted;
+    }
 
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
-	public Boolean getStatus() {
-		return status;
-	}
+    public Boolean getStatus() {
+        return status;
+    }
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public String getUpdatePerson() {
-		return updatePerson;
-	}
+    public String getUpdatePerson() {
+        return updatePerson;
+    }
 
-	public void setUpdatePerson(String updatePerson) {
-		this.updatePerson = updatePerson;
-	}
+    public void setUpdatePerson(String updatePerson) {
+        this.updatePerson = updatePerson;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public Boolean getRecommend() {
-		return recommend;
-	}
+    public Boolean getRecommend() {
+        return recommend;
+    }
 
-	public void setRecommend(Boolean recommend) {
-		this.recommend = recommend;
-	}
+    public void setRecommend(Boolean recommend) {
+        this.recommend = recommend;
+    }
 
-	public Integer getSort() {
-		return sort;
-	}
+    public Integer getSort() {
+        return sort;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
-	@Override
-	public String toString() {
-		return "MedicalHospitalRecruitVo{" +
-			", id=" + id +
-			", hospitalId=" + hospitalId +
-			", position=" + position +
-			", years=" + years +
-			", postDuties=" + postDuties +
-			", jobRequirements=" + jobRequirements +
-			", deleted=" + deleted +
-			", status=" + status +
-			", createTime=" + createTime +
-			", createPerson=" + createPerson +
-			", updateTime=" + updateTime +
-			", updatePerson=" + updatePerson +
-			", version=" + version +
-			", remark=" + remark +
-			", recommend=" + recommend +
-			", sort=" + sort +
-			"}";
-	}
+    @Override
+    public String toString() {
+        return "MedicalHospitalRecruitVo{" +
+                ", id=" + id +
+                ", hospitalId=" + hospitalId +
+                ", position=" + position +
+                ", years=" + years +
+                ", postDuties=" + postDuties +
+                ", jobRequirements=" + jobRequirements +
+                ", deleted=" + deleted +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createPerson=" + createPerson +
+                ", updateTime=" + updateTime +
+                ", updatePerson=" + updatePerson +
+                ", version=" + version +
+                ", remark=" + remark +
+                ", recommend=" + recommend +
+                ", sort=" + sort +
+                "}";
+    }
 }
