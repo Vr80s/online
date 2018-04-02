@@ -316,14 +316,14 @@ overflow-y: auto;
   margin-left: 5px;
 }
 .giftSelectColor{
-	background-color: skyblue !important;
+	border: 1px solid #00bc12 !important;
 }
 .right-live .right-con .mess li {
   margin:10px;
   list-style: none;
   font-size: 13px;
   margin-top: 5px;
-  background-color: rgb(229,248,231);
+  /*background-color: rgb(229,248,231);*/
 }
 .right-live .right-con .mess li .peo-infos {
   display: block;
