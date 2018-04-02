@@ -258,7 +258,26 @@ $(".btn-upload").click(function(evt) {
 //医馆管理下拉列表功能
 $('.luntan').click(function() {
 	$('.luntan_list').slideToggle();
+
 })
+//医馆管理下拉列表功能  箭头
+$(".hos_point").bind('click',function(){
+	if($(this).attr("id")=="hos_point"){
+		$(this).removeAttr("id")
+		$(".hos_point_icon").removeClass("glyphicon-triangle-right")
+		$(".hos_point_icon").addClass("glyphicon-triangle-bottom")
+
+	}else{
+		$(this).attr("id","hos_point")
+		$(".hos_point_icon").removeClass("glyphicon-triangle-bottom")
+		$(".hos_point_icon").addClass("glyphicon-triangle-right")
+	}
+})
+
+
+
+
+
 
 //左侧鼠标移动上去变色效果
 $('#doctor_in_inf .news_nav ul li a').mouseenter(function() {
@@ -283,7 +302,8 @@ $('#doctor_in_inf .news_nav > ul > li > a').click(function() {
 })
 
 //二级菜单点击变色效果
-$('#doctor_in_inf .news_nav > ul > li div a').click(function() {
+$('#doctor_in_inf .news_nav > ul > li div a').click(function(event) {
+	event.stopPropagation();
 	$('#doctor_in_inf .news_nav ul li div a').removeClass('color');
 	$('#doctor_in_inf .news_nav ul li div a > span').removeClass('color');
 	$(this).addClass('color');
@@ -297,6 +317,9 @@ $('#doctor_in_inf .news_nav > ul > li div a').click(function() {
 //点击其他的时候下拉的列表还原
 $('.hos_left_list > li:nth-child(n+3)').click(function() {
 	$('.luntan_list').slideUp();
+	$(".hos_point").attr("id","hos_point");
+	$(".hos_point_icon").removeClass("glyphicon-triangle-bottom")
+	$(".hos_point_icon").addClass("glyphicon-triangle-right")
 })
 
 //医馆管理部分
@@ -683,6 +706,11 @@ $('#Notice_Administration .Notice_top button').click(function() {
 	}
 
 })
+$("#news_Administration_tabBtn").click(function(){
+	if($(".Notice_top button").text() == '返回'){
+		$(".Notice_top button").click();
+	}
+})
 
 //医师管理部分
 //顶部点击切换底部内容功能
@@ -803,7 +831,7 @@ function hosAgainAut() {
 
 }
 
-//页面左侧tab 之前点击状态定位
+//页面左侧tab 刷新之后停留当前页面
 $(function() {
 	$('#hos_renzhneg_inf').addClass('color');
 	var userStatus;
@@ -824,17 +852,7 @@ $(function() {
 	})
 })
 
-//招聘管理
-//顶部点击切换底部内容功能
-//$(".recruit-btn-newjob").click(function(){
-//	$(".recruit-box-manage").hide()
-//	$(".recruit-box-newjob").show()
-//})
-//$(".recruit-btn-return").click(function(){
-//	$(".recruit-box-manage").show()
-//	$(".recruit-box-newjob").hide()
-//})
-
+//招聘管理部分，点击职位下面内容变换
 $(".recruit-btn-newjob").click(function() {
 	var recruit_btn = $(this).text()
 	if(recruit_btn == "新职位") {
@@ -850,7 +868,33 @@ $(".recruit-btn-newjob").click(function() {
 
 	}
 })
+//招聘管理部分,点击后回到第一页
+$("#collect_Administration_tabBtn").click(function(){
+	if($('.recruit-btn-newjob').text() == '返回'){
+			$('.recruit-btn-newjob').click()
+		}
+})
+//招聘管理部分,点击预览
+$(".recruit_preview_btn").click(function(){
+	$(".recruit_preview_bg").show()
+	$(".recruit_preview_box").show()	
+})
+$(".recruit_preview_content img").click(function(){
+	$(".recruit_preview_bg").hide()
+	$(".recruit_preview_box").hide()	
+})
+//招聘管理部分,点击编辑
+$(".recruit_edit_btn").click(function(){
+	$(".recruit_preview_bg").show()
+	$(".recruit_edit_box").show()	
+})
+$(".recruit_preview_content img").click(function(){
+	$(".recruit_preview_bg").hide()
+	$(".recruit_edit_box").hide()	
+})
+//招聘管理部分结束
 
+//自定义下拉select
 $(".recruit-select p").click(function() {
 	var ul = $(".recruit-select-lest");
 	if(ul.css("display") == "none") {
