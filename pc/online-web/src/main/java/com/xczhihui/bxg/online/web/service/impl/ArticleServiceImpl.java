@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.vo.AppraiseVo;
 import com.xczhihui.bxg.online.web.vo.ArticleVo;
+import com.xczhihui.medical.headline.model.OeBxsArticle;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.stereotype.Service;
@@ -137,13 +138,12 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
             paramMap.put("articleId",preId);
         }
         String  sql=" SELECT ba.title,ba.content,ba.img_path,ba.create_time,ba.browse_sum,ba.praise_sum,ba.comment_sum,ba.`user_id` name,at.name typeName,Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\")  tag , " +
-                    "Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId, if(find_in_set(:loginName,ba.praise_login_names)>0,1,0)  as isPraise from "+tableName+",article_type at,article_r_tag ar,oe_bxs_tag t "+
-                    " where ba.type_id=at.id and ba.id =ar.article_id and ar.tag_id=t.id and " +
-                    "  ba.is_delete=0 "+status+" and ba.id=:articleId ";
+                "Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId, if(find_in_set(:loginName,ba.praise_login_names)>0,1,0)  as isPraise from "+tableName+",article_type at,article_r_tag ar,oe_bxs_tag t "+
+                " where ba.type_id=at.id and ba.id =ar.article_id and ar.tag_id=t.id and " +
+                "  ba.is_delete=0 "+status+" and ba.id=:articleId ";
         List< Map<String,Object>> articles=  dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
         return  articles.size() > 0 ? articles.get(0) : null;
     }
-
 
     /**
      * 相关推荐

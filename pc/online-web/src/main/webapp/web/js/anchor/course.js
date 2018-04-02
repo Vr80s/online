@@ -1162,12 +1162,12 @@ function verifyCollection(collection){
     }else{
         $('.warning_course').addClass('hide');
     }
-    if(collection.courseNumber != collection.courseApplyInfos.length){
-        $('.warning_course_count').removeClass('hide');
-        return false;
-    }else{
-        $('.warning_course_count').addClass('hide');
-    }
+    // if(collection.courseNumber != collection.courseApplyInfos.length){
+    //     $('.warning_course_count').removeClass('hide');
+    //     return false;
+    // }else{
+    //     $('.warning_course_count').addClass('hide');
+    // }
     return true;
 }
 function resetCollectionForm(){

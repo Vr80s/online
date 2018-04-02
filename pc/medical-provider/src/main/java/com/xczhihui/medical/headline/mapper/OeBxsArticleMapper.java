@@ -1,10 +1,10 @@
-package com.xczhihui.medical.doctor.mapper;
+package com.xczhihui.medical.headline.mapper;
 
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.doctor.model.OeBxsArticle;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.headline.model.OeBxsArticle;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -32,4 +32,6 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
     List<OeBxsArticleVO> getNewsReportsByPage(@Param("page") Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId, @Param("doctorReport") String doctorReport);
 
     List<OeBxsArticleVO> getHotSpecialColumn(String specialColumn);
+
+    Page<OeBxsArticle> selectArticlesByPage(@Param("page") Page page, @Param("type") String type);
 }

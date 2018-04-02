@@ -73,10 +73,11 @@
     <dubbo:service interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" ref="anchorInfoServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
     <!--主播控制台：订单-->
-    <dubbo:service interface="com.xczhihui.medical.anchor.service.IGiftOrderService"
-                   ref="giftOrderServiceImpl" timeout="${dubbo.consumer.timeout}" />
-    <dubbo:service interface="com.xczhihui.medical.anchor.service.ICourseOrderService"
-                   ref="courseOrderServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.medical.anchor.service.IGiftOrderService" ref="giftOrderServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.medical.anchor.service.ICourseOrderService" ref="courseOrderServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
+    <!--头条相关-->
+    <dubbo:service interface="com.xczhihui.medical.headline.service.IOeBxsArticleService" ref="oeBxsArticleServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 
