@@ -26,14 +26,6 @@ public class BxgLogoutFilter extends LogoutFilter {
 
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
-        /*
-        BxgUser user = UserLoginUtil.getLoginUser((HttpServletRequest)request);
-		if (user != null) {
-			String msg = "此次退出的学生是" + user.getLoginName() + ",时间："+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-			logger.error(msg);
-			System.out.println(msg);
-		}
-		*/
         UserLoginUtil.onLogout((HttpServletRequest) request, (HttpServletResponse) response);
         this.loginoutCallback.onLogout((HttpServletRequest) request, (HttpServletResponse) response);
         return super.preHandle(request, response);
