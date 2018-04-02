@@ -196,6 +196,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         courseAnchor.setStatus(true);
         String key = VALIDATE_ANCHOR_PERMISSION_CACHE + userId;
         CourseAnchor ca = cacheService.get(key);
+        
         if(ca == null){
             ca = courseAnchorMapper.selectOne(courseAnchor);
             if(ca == null) {
