@@ -1015,13 +1015,135 @@ a {
 	padding: 10px;
 }
 
+.recruit-wrap-content .recruit-table-list tr td:nth-child(1){
+	width: 218px;
+}
 
+.recruit-wrap-content .recruit-table-list tr td:nth-child(2){
+	width:130px;
+}
 
+.recruit-wrap-content .recruit-table-list tr td:nth-child(3){
+	width: 115px;
+}
 
+.recruit-wrap-content .recruit-table-list tr td:nth-child(4){
+	width: 246px;
+}
+.recruit-wrap-content .recruit-table-list tr td:nth-child(5){
+	width: 209px;
+}
+.recruit-box-newjob{
+		text-align: left;
+}
+.recruit-box-newjob > div > span:first-child{
+	    display: inline-block;
+    width: 96px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+}
+.recruit-box-newjob > div > span:first-child em{
+	color: #f40;
+    display: inline;
+}
+.recruit-newjob-inf{
+	margin-top: 30px;
+}
+.recruit-write{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+}
+/*工作经验*/
+.recruit-write-experience{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+    position: relative;
+}
 
+.recruit-select {
+margin-top: 20px;
+display: inline-block;
+}
 
+.recruit-select p {
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    margin-right: 10px;
+    font-size: 14px;
+    line-height: 36px;
+    text-indent: 1em;
+color: #999999;
+}
 
+.recruit-select-one {
+	background: url(../images/down.png) 247px 14px no-repeat;
+}
 
+.select{
+	background: url(../images/up.png) 247px 14px no-repeat;
+}
+
+.recruit-select-lest{
+    width: 280px;
+    position: absolute;
+    border: 1px solid #f0f0f0;
+    background: white;
+	display: none;
+}
+
+.recruit-select ul li {
+	line-height: 30px;
+	padding-left: 10px;
+}
+
+.recruit-select ul li:hover {
+	background: #CCC;
+	color: #FFF;
+}
+/*岗位职责*/
+.recruit-newjob-duty{
+	margin-top: 20px;
+}
+
+.recruit-textarea{
+	width: 540px;
+	height: 188px;
+	resize: none;
+	border: 1px solid #f0f0f0;
+	outline: none;
+	    padding: 10px;
+}
+.recruit-textarea-duty{
+		width: 540px;
+	display: inline-block;
+	margin-left: 5px;
+}
+.recruit-save-btn{
+	width: 120px;
+	height: 36px;
+	background:#00BC12;
+	color: white;
+	text-align: center;
+	line-height: 36px;
+	margin-top: 20px;
+	border-radius: 4px;
+	margin-bottom: 60px;
+	cursor: pointer;
+}
 
 
 
