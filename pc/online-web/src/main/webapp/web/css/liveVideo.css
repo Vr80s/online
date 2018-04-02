@@ -323,6 +323,8 @@ overflow-y: auto;
   list-style: none;
   font-size: 13px;
   margin-top: 5px;
+  width: 94px;
+  height: 94px;
   /*background-color: rgb(229,248,231);*/
 }
 .right-live .right-con .mess li .peo-infos {
