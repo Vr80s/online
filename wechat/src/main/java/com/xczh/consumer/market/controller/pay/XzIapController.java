@@ -179,7 +179,7 @@ public class XzIapController {
 				return ResponseObject.newErrorResponseObject("操作失败！");
 			}
 
-			JSONArray inApp = newObj.getJSONArray("in_app");
+			JSONArray inApp = newObj.getJSONObject("receipt").getJSONArray("in_app");
 			JSONObject iap = null;
 			for (int i = 0; i < inApp.size(); i++) {
 				if(inApp.getJSONObject(i).get("transaction_id").equals(transactionId)){
@@ -187,8 +187,6 @@ public class XzIapController {
 				}
 			}
 			if(iap!=null){
-				LOGGER.info("原始交易ID:"+iap.get("original_transaction_id")); //原始交易ID
-				LOGGER.info("开发商交易ID："+ iap.get("unique_vendor_identifier"));//开发商交易ID
 				LOGGER.info("iap:"+iap.toJSONString());//开发商交易ID
 				LOGGER.info("status:" + status);
 
