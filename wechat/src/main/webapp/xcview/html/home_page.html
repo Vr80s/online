@@ -57,7 +57,7 @@
 	    <div class="find_nav_left">
 	        <div class="find_nav_list" style="left: 0px;">
 	            <ul id="pagenavi1">
-	                <li><a href="#">分1类</a></li>
+	                <li><a href="#">分类</a></li>
 	                <li><a href="#">推荐</a></li>
 	                <li><a href="#">线下课</a></li>
 	                <li><a href="#">直播</a></li>
@@ -196,13 +196,12 @@
             				{{each item.courseList as item i}}                  					
                 				<li style="position: relative;" class="goodCourseList" data-id="{{item.id}}" data-type="{{item.type}}">
                 					
-                					<!--watchState，1免费、0收费-------type，1-视频、2-音频、3-直播、4-线下培训班   -->
+                					<!--watchState，1免费、0收费-type，1-视频、2-音频、3-直播、4-线下培训班   -->
                 					
                 					{{if item.watchState == 1}}
 	                					{{if item.type == 1 || item.type == 2}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
 		                    			{{else if item.type == 3}}   
-			                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_play.html?my_study={{item.id}}"></a>-->
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
 		                    			{{else if item.type == 4}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
@@ -233,10 +232,9 @@
 											{{else if item.type == 4}}
                 								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
                 							{{/if}}
-                						<!--<div class="boutique_main_one_title"><span>{{item.name}}&nbsp;{{item.gradeName}}</span></div>-->
                 						<div class="boutique_main_one_title">
                 							<div class="div">{{item.gradeName}}</div>
-                							<div class="span0">{{item.name}}</div>
+                							<div class="span0" style="margin-bottom: 0rem;">{{item.name}}</div>
                 						</div>
                 						<div class="boutique_main_one_size">
                 							{{if item.watchState == 1}}
@@ -251,7 +249,7 @@
                 							   {{else if item.startDateStr.indexOf('.')==-1}}
                 								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p              						   
                 								{{else}}
-                								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p>
+                								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;margin-top: -0.02rem;">{{item.startDateStr}}</span></p>
                 								{{/if}}
                 						
                 						{{else if item.type == 4}}
@@ -316,13 +314,9 @@
                 						<div class="boutique_four_img">
                 							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
                 						</div >
-            							<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
                 						<div class="boutique_main_four_title">
                 							<div class="div">{{item.gradeName}}</div>
-                							<div class="span">{{item.name}}</div>
-                							
-                							<!--<span></span><br />
-                							<span class="span"></span>-->
+                							<div class="span">{{item.name}}</d
                 						</div>
                 						<div class="boutique_main_four_size">
                 							{{if item.watchState == 1}}
@@ -374,7 +368,6 @@
 	                					{{if item.type == 1 || item.type == 2}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
 		                    			{{else if item.type == 3}}   
-			                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_play.html?my_study={{item.id}}"></a>-->
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
 		                    			{{else if item.type == 4}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
@@ -396,7 +389,6 @@
 										<div class="newest_two_img">
 											<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
 										</div>
-										<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_two_img_type" />-->
 										<div class="newest_main_two_title">
 											<div class="div">{{item.gradeName}}</div>
 											<div class="span">{{item.name}}</div>
@@ -406,17 +398,15 @@
 											<p style="margin-top: -0.01rem;"><span>免费</span></p>
 											
 											{{else}}
-											<p style="margin-top1: 0.03rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
+											<p style="font-size: 0.22rem;margin-top: 0.03rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 											{{/if}}
 											<p class="p2"><img src="/xcview/images/population.png" alt=""  /><span style="margin-top1: 0.03rem;">{{item.learndCount}}</span></p>
-											<!--<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
-
 											{{if itemls.lineState == 1}}
-												<p class="zhibo_play" style="margin-top1: -0.05rem;">直播中</p>
+												<p class="zhibo_play">直播中</p>
 											{{else if item.startDateStr.indexOf('.')==-1}}
-												<p class="p3" style="margin-top1: 0.03rem;"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top1: 0.08rem;">{{item.startDateStr}}</span></p>
+												<p class="p3"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top1: 0.08rem;">{{item.startDateStr}}</span></p>
 											{{else}}
-												<p class="p3"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="font-size: 0.22rem;">{{item.startDateStr}}</span></p>			
+												<p class="p3" style="margin-right: 0.03rem;margin-top: 0.03rem;"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;margin-top: 0.01rem;" /><span style="font-size: 0.22rem;">{{item.startDateStr}}</span></p>			
 											{{/if}}
 											
 										</div>
@@ -452,14 +442,10 @@
             				<script type="text/html" id="lectures">
             				{{each items as item i}}
             				<li class="listenCourseList" data-jump="{{item.id}}">
-        
-								<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?course_id={{item.id}}"></a>-->
-            					
         						{{if item.watchState == 1}}
                 					{{if item.type == 1 || item.type == 2}}
 		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
 	                    			{{else if item.type == 3}}   
-		                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_play.html?my_study={{item.id}}"></a>-->
 		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
 	                    			{{else if item.type == 4}}
 		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
@@ -514,7 +500,7 @@
 	
 	<!--底部旋转开始-->
 	<div class="rotation_bottom">
-		<img src="/xcview/images/120.jpg" />
+		<img src="/xcview/images/default_pic.png" />
 	</div>
 	<!--底部旋转结束-->
 	
@@ -531,7 +517,7 @@
 				<p>学习</p>
 			</li>
 			<li>
-				<a href="/xcview/html/discovery.html" class="footer_three" style="background-size: 0.4rem 0.4rem;"></a>
+				<a href="/xcview/html/discovery.html" class="footer_three" style="background-size: 0.42rem 0.42rem;height: 0.42rem;margin-bottom: 0.04rem;"></a>
 				<p>发现</p>
 			</li>
 			<li>
@@ -548,8 +534,7 @@
 <script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
 <script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>
-<script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>  <!-- 名师推荐滑动引入 -->
 <!--新滑动引入-->
 <script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1"></script>
 

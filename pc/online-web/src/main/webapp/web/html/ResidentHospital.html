@@ -81,25 +81,25 @@
 								<p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding: 0 20px;"></p>
 							</li>
 							<li class="active">
-								<a href="#hos_Administration" aria-controls="doc_talk" role="tab" data-toggle="tab" class="luntan color"><span class="icon iconfont icon-02_dianpuguanli color" aria-hidden="true" style="margin-left: 33px;"></span>医馆管理
+								<a href="#hos_Administration" aria-controls="doc_talk" data-name="hosAdm" role="tab" data-toggle="tab" class="luntan color"><span class="icon iconfont icon-02_dianpuguanli color" aria-hidden="true" style="margin-left: 33px;"></span>医馆管理
 									<div class="luntan_list" style="display: block;">
 										<div>
-											<a href="javascript:;" id="hos_base_inf" class="hide">医馆基础信息</a>
+											<a href="javascript:;" data-name="hos_base_inf" id="hos_base_inf" class="hide">医馆基础信息</a>
 										</div>
 										<div>
-											<a href="javascript:;" id="hos_renzhneg_inf" class="">医馆认证信息</a>
+											<a href="javascript:;" data-name="hos_renzhneg_inf" id="hos_renzhneg_inf" class="">医馆认证信息</a>
 										</div>
 									</div>
 								</a>
 							</li>
 							<li class="hide" id="doc_Administration_tabBtn">
-								<a href="#doc_Administration" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>医师管理</a>
+								<a href="#doc_Administration" data-name="docAdm" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>医师管理</a>
 							</li>
-							<li>
-								<a href="#recruit_Administration" aria-controls="doc_idCard" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>招聘管理</a>
+							<li class="hide" id="collect_Administration_tabBtn">
+								<a href="#recruit_Administration" data-name="colAdm" aria-controls="doc_idCard" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>招聘管理</a>
 							</li>
-							<li>
-								<a href="#Notice_Administration" aria-controls="doc_Distinguish" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>公告管理</a>
+							<li class="hide" id="news_Administration_tabBtn">
+								<a href="#Notice_Administration" data-name="newAdm" aria-controls="doc_Distinguish" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>公告管理</a>
 							</li>							
 						</ul>
 					</div>
@@ -568,47 +568,88 @@
 							</div>
 	
 							<!--招聘管理-->
-							<div role="tabpanel" class="tab-pane" id="recruit_Administration">
-								<div class="recruit-wrap-title">
-									<p>招聘管理</p>
-									<button class="recruit-btn-newjob">新职位</button>
+							<div role="tabpanel" class="tab-pane" id="recruit_Administration">								
+									<div class="recruit-wrap-title">
+										<p>招聘管理</p>
+										<button class="recruit-btn-newjob">新职位</button>
+									</div>
+									<div class="recruit-box-manage">
+										<div class="recruit-wrap-content">
+											<table border="" cellspacing="" cellpadding="" class="recruit-table-list">
+												<tr>
+													<th>招聘职位</th>
+													<th>工作经验</th>
+													<th>状态</th>
+													<th>发布时间</th>
+													<th>操作</th>
+												</tr>
+												
+												<tr>
+													<td>针推医生助理</td>
+													<td>不限</td>
+													<td>已发布</td>
+													<td>2018.08.08  14:00</td>
+													<td>
+														<a href="">预览</a>
+														<a href="">关闭</a>
+														<a href="">编辑</a>
+													</td>
+												</tr>
+												
+												<tr>
+													<td>治未病主任医师</td>
+													<td>3~10年</td>
+													<td>已发布</td>
+													<td>2018.08.08  14:00</td>
+													<td>
+														<a href="javascript:;">预览</a>
+														<a href="javascript:;">关闭</a>
+														<a href="javascript:;">编辑</a>
+													</td>
+												</tr>
+											</table>
+										</div>		
+									</div>
+								<!--新职位-->
+								<div class="recruit-box-newjob" style="display: none;">
+									<div class="recruit-newjob-inf">
+										<span><em>*</em> 招聘职位</span>
+										<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="20" class="recruit-write" />
+										<span class="warning hide" style="margin-left: 0px;">招聘职位不能为空</span>
+									</div>
+									<div class="recruit-newjob-experience">
+										<span>工作经验</span>
+										<div class="recruit-select" id="nav">
+											<p class="recruit-select-one">请选择工作经验</p>
+											<ul class="recruit-select-lest">
+												<li>1年以内</li>
+												<li>1-2年</li>
+												<li>2-4年</li>
+												<li>4-6年</li>
+												<li>6-8年</li>
+												<li>8-10年</li>
+												<li>10年以上</li>
+											</ul>
+										</div>
+									</div>
+									<div class="recruit-newjob-duty">
+										<span style="float: left;"><em>*</em>岗位职责</span>
+										<div class="recruit-textarea-duty">				
+											<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
+											<span class="warning hide" style="margin-left: 0px;">岗位职责不能为空</span>	
+										</div>
+									</div>
+									
+									<div class="recruit-newjob-duty">
+										<span style="float: left;"><em>*</em>职位要求</span>
+										<div class="recruit-textarea-duty">				
+											<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
+											<span class="warning hide" style="margin-left: 0px;">职位要求不能为空</span>	
+											
+											<p class="recruit-save-btn">保存</p>
+										</div>
+									</div>
 								</div>
-								<div class="recruit-wrap-content">
-									<table border="" cellspacing="" cellpadding="" class="recruit-table-list">
-										<tr>
-											<th>招聘职位</th>
-											<th>工作经验</th>
-											<th>状态</th>
-											<th>发布时间</th>
-											<th>操作</th>
-										</tr>
-										
-										<tr>
-											<td>针推医生助理</td>
-											<td>不限</td>
-											<td>已发布</td>
-											<td>2018.08.08  14:00</td>
-											<td>
-												<a href="">预览</a>
-												<a href="">关闭</a>
-												<a href="">编辑</a>
-											</td>
-										</tr>
-										
-										<tr>
-											<td>治未病主任医师</td>
-											<td>3~10年</td>
-											<td>已发布</td>
-											<td>2018.08.08  14:00</td>
-											<td>
-												<a href="">预览</a>
-												<a href="">关闭</a>
-												<a href="">编辑</a>
-											</td>
-										</tr>
-									</table>
-								</div>
-								
 							</div>
 	
 							<!--公告管理-->

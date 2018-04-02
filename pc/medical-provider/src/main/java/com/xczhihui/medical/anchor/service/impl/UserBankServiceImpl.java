@@ -99,17 +99,14 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		querys.put("acct_name", userBank.getAcctName());
 		querys.put("acct_pan", userBank.getAcctPan());
 		querys.put("needBelongArea", "true");
+	
 		
-		
-		/**
-		 * 如果不填写身份证号信息时就是二元素认证
-		 */
-		if(!StringUtils.isNotBlank(certId)){
+		if(!StringUtils.isNotBlank(certId)){//如果不填写身份证号信息时就是二元素认证
 			 path = "/bank2";
+		}else{
 			 querys.put("cert_id", userBank.getCertId());
 			 querys.put("cert_type", "01");
 		}
-		
 		String bankInfo="";
 		try {
 			HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
@@ -122,6 +119,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			logger.info("银行卡校验返回信息：{}",bankInfo);
 			JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
 
+			
 			String showapi_res_body = bankInfoJson.get("showapi_res_body").toString();
 			JSONObject showapi_res_bodyJson = JSONObject.parseObject(showapi_res_body);
 			String code = showapi_res_bodyJson.get("code").toString();
@@ -271,7 +269,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			 * 验证身份证号 格式
 			 */
 			validateUserBankCertId(userBank);
-			if(code != 1){  //用户同意了这次操作
+			if(code == null || code != 1){  //用户同意了这次操作
 				/**
 				 * 如果是医师过的主播，验证主播的身份证号和这个是否相同
 				 *    验证身份证号 是否相同

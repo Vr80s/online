@@ -173,7 +173,6 @@ public class MobileShareController {
 		
 		try {
 			String code = req.getParameter("code");
-			
 			String shareId = req.getParameter("shareId");
 			String shareType = req.getParameter("shareType");
 			String wxOrbrower = req.getParameter("wxOrbrower");
@@ -185,7 +184,6 @@ public class MobileShareController {
 				shareType = idAndType[1];
 			}
 			LOGGER.info("shareId:" +shareId+"shareType:" +shareType+"wxOrbrower:" +wxOrbrower);
-			
 			
 			OnlineUser ou =null;
 			if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器

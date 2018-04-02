@@ -53,7 +53,7 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 				//	       			$('#docNoPass_tip').removeClass('hide');
 				//拒绝的情况
 				RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
-					if(data.resultObject.status == 0){
+					if(data.resultObject.status == 0) {
 						$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
 						$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
 					}
@@ -64,6 +64,9 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 		} else if(data.resultObject == 2) {
 			//医馆认证成功 左侧tab显示出来 医馆基础信息显示出来
 			$('#doc_Administration_tabBtn').removeClass('hide');
+			$('#collect_Administration_tabBtn').removeClass('hide');
+			$('#news_Administration_tabBtn').removeClass('hide');
+
 			$('#hos_base_inf').removeClass('hide');
 			$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
 			$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
@@ -255,9 +258,6 @@ $(".btn-upload").click(function(evt) {
 //医馆管理下拉列表功能
 $('.luntan').click(function() {
 	$('.luntan_list').slideToggle();
-	//	$('#hos_renzhneg_inf').click();
-	//	if(localStorage.hos_Administration == "hos_base_inf") alert(1);
-	//	if(localStorage.hos_Administration == "hos_renzhneg_inf") alert(2);
 })
 
 //左侧鼠标移动上去变色效果
@@ -277,6 +277,9 @@ $('#doctor_in_inf .news_nav > ul > li > a').click(function() {
 	if(localStorage.hos_Administration == "hos_base_inf") $('#hos_base_inf').addClass('color');
 	if(localStorage.hos_Administration == "hos_renzhneg_inf") $('#hos_renzhneg_inf').addClass('color')
 
+	//储存定位作用localstorage
+	window.localStorage.hosTabSta = $(this).attr('data-name');
+
 })
 
 //二级菜单点击变色效果
@@ -285,6 +288,9 @@ $('#doctor_in_inf .news_nav > ul > li div a').click(function() {
 	$('#doctor_in_inf .news_nav ul li div a > span').removeClass('color');
 	$(this).addClass('color');
 	$(this).children('span').addClass('color');
+
+	//储存定位作用localstorage
+	window.localStorage.hosTabSta = $(this).attr('data-name');
 
 })
 
@@ -412,10 +418,10 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, descr
 
 		})
 		$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
-		if(medicalHospitalPictures.length > 3){
-		$('#hos_Administration .zhicheng_pic').css('padding-left', '110px')	
+		if(medicalHospitalPictures.length > 3) {
+			$('#hos_Administration .zhicheng_pic').css('padding-left', '110px')
 		}
-		if(medicalHospitalPictures.length == 9){
+		if(medicalHospitalPictures.length == 9) {
 			$('#upHosPic').addClass('hide');
 		}
 
@@ -460,19 +466,9 @@ $('#hos_renzhneg_inf').click(function() {
 	localStorage.hos_Administration = 'hos_renzhneg_inf';
 
 })
-//内部医疗领域选择功能
-//$('#hos_Administration .hos_base_inf .keshi ul li').click(function(){
-//		if($(this).hasClass('keshiColor')){
-//			$(this).removeClass('keshiColor')
-//		}else{
-//			$(this).addClass('keshiColor');
-//		}
-//	})
 
 //获取医疗领域数据
 RequestService("/medical/hospital/getFields/0", "get", null, function(data) {
-	//				console.log(data);
-	//				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 	$('#areaList').html(template('areaTpl', {
 		item: data.resultObject.records
 	}));
@@ -483,7 +479,6 @@ function picUpdown(baseurl, imgname) {
 	RequestService("/medical/common/upload", "post", {
 		image: baseurl,
 	}, function(data) {
-		//				console.log(data);
 		$('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 	})
 }
@@ -493,7 +488,6 @@ function picUpdown3(baseurl, imgname) {
 	RequestService("/medical/common/upload", "post", {
 		image: baseurl,
 	}, function(data) {
-		//				console.log(data);
 		$('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 	})
 }
@@ -503,7 +497,6 @@ function picUpdown2(baseurl, imgname) {
 	RequestService("/medical/common/upload", "post", {
 		image: baseurl,
 	}, function(data) {
-		//				console.log(data);
 		if($('#hos_Administration .hos_base_inf  .' + imgname + ' img').length > 1) {
 			$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left', '110px')
 			$('#hos_Administration .hos_base_inf  .' + imgname + '').css('float', 'left');
@@ -785,32 +778,32 @@ function hosAgainAut() {
 
 	$('#hos_Administration .hos_renzheng_inf .bottomContent2 ').addClass('hide');
 	$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
-	
-//	医馆提交的数组回显
+
+	//	医馆提交的数组回显
 	RequestService("/medical/hospital/apply/getLastOne", "GET", null, function(data) {
 		console.log(data);
-		if(data.success == true && data.resultObject != null){
+		if(data.success == true && data.resultObject != null) {
 			var result = data.resultObject;
-		
-		//姓名
-		$('#hos_Administration .hos_name').val(result.name);
-		//所属公司
-		$('#hos_Administration .doc_name').val(result.company);
-		//统一社会信用代码
-		$('#hos_Administration .doc_Idnum').val(result.businessLicenseNo);
-		//营业执照
-		$('#hos_Administration .teacher_pic').html('<img src='+result.businessLicensePicture+'>')
-		//药品经营许可证号
-		$('#hos_Administration .doc_zhicheng').val(result.licenseForPharmaceuticalTrading);
-		//药品经营许可证
-		$('#hos_Administration .zhicheng_pic').html('<img src='+result.licenseForPharmaceuticalTradingPicture+'>')
+
+			//姓名
+			$('#hos_Administration .hos_name').val(result.name);
+			//所属公司
+			$('#hos_Administration .doc_name').val(result.company);
+			//统一社会信用代码
+			$('#hos_Administration .doc_Idnum').val(result.businessLicenseNo);
+			//营业执照
+			$('#hos_Administration .teacher_pic').html('<img src=' + result.businessLicensePicture + '>')
+			//药品经营许可证号
+			$('#hos_Administration .doc_zhicheng').val(result.licenseForPharmaceuticalTrading);
+			//药品经营许可证
+			$('#hos_Administration .zhicheng_pic').html('<img src=' + result.licenseForPharmaceuticalTradingPicture + '>')
 		}
-		
-		
+
 	})
-	
+
 }
 
+//页面左侧tab 之前点击状态定位
 $(function() {
 	$('#hos_renzhneg_inf').addClass('color');
 	var userStatus;
@@ -821,6 +814,70 @@ $(function() {
 		if(localStorage.hos_Administration == "hos_base_inf" && userStatus == 2) {
 			$('#hos_base_inf').click();
 		}
-	})
 
+		//医师招聘公告按钮之前点击按钮判断
+		if(localStorage.hosTabSta == 'docAdm') $('#doc_Administration_tabBtn>a').click();
+		if(localStorage.hosTabSta == 'colAdm') $('#collect_Administration_tabBtn>a').click();
+		if(localStorage.hosTabSta == 'newAdm') $('#news_Administration_tabBtn>a').click();
+		window.localStorage.removeItem('hosTabSta')
+		window.localStorage.removeItem('hos_Administration')
+	})
 })
+
+//招聘管理
+//顶部点击切换底部内容功能
+//$(".recruit-btn-newjob").click(function(){
+//	$(".recruit-box-manage").hide()
+//	$(".recruit-box-newjob").show()
+//})
+//$(".recruit-btn-return").click(function(){
+//	$(".recruit-box-manage").show()
+//	$(".recruit-box-newjob").hide()
+//})
+
+$(".recruit-btn-newjob").click(function() {
+	var recruit_btn = $(this).text()
+	if(recruit_btn == "新职位") {
+		$(".recruit-box-newjob").show()
+		$(".recruit-box-manage").hide()
+		$(this).text("返回")
+		$(".recruit-wrap-title p").text("新职位")
+	} else {
+		$(".recruit-box-newjob").hide()
+		$(".recruit-box-manage").show()
+		$(this).text("新职位")
+		$(".recruit-wrap-title p").text("招聘管理")
+
+	}
+})
+
+$(".recruit-select p").click(function() {
+	var ul = $(".recruit-select-lest");
+	if(ul.css("display") == "none") {
+		ul.slideDown();
+	} else {
+		ul.slideUp();
+	}
+});
+
+$(".recruit-select-one").click(function() {
+	var _name = $(this).attr("name");
+	if($("[name=" + _name + "]").length > 1) {
+		$("[name=" + _name + "]").removeClass("select");
+		$(this).addClass("select");
+	} else {
+		if($(this).hasClass("select")) {
+			$(this).removeClass("select");
+		} else {
+			$(this).addClass("select");
+		}
+	}
+});
+
+$(".recruit-select li").click(function() {
+	var li = $(this).text();
+	$(".recruit-select p").html(li);
+	$(".recruit-select-lest").hide();
+	/*$(".set").css({background:'none'});*/
+	$("p").removeClass("select");
+});

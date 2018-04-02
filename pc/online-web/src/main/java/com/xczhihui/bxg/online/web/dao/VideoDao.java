@@ -450,7 +450,6 @@ public class VideoDao extends SimpleHibernateDao {
 			/**
 			 * 如果这个是免费的就没有必要的
 			 */
-			System.out.println("专辑idcollectionId:"+collectionId);
 			
 			boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(),userId,collectionId);
 			criticizeVo.setIsBuy(isbuy);

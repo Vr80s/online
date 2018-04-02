@@ -478,15 +478,12 @@ public class VhallUtil {
 		
 		System.out.println(js.toJSONString());
 		
-		if(  ("success".equals(js.get("msg")) || "成功".equals(js.get("msg")) ) && 
+		if(("success".equals(js.get("msg")) || "成功".equals(js.get("msg")) ) && 
 				Integer.parseInt(js.get("code").toString()) == 200){
-			
-			
 			/*
 			 * 判断这个回放的所有时长相加等于多少
 			 */
 			js = (JSONObject)js.get("data");
-			
 			JSONArray jsonArray =  (JSONArray) js.get("lists");
 			Integer countDuration = 0;
 			for (Object jobj : jsonArray) {
@@ -494,19 +491,19 @@ public class VhallUtil {
 				System.out.println(jsonObject.get("duration").toString());
 				countDuration+=Integer.parseInt(jsonObject.get("duration").toString());
 			}
-			
-			
-			System.out.println("countDuration:"+countDuration);
-			if(countDuration>300){//总长度大于5分钟才可以上架
-				return "ok";
-			}else{
-				return "error";
-			}
+			System.out.println("回放时长：countDuration:"+countDuration);
+			return "ok";
 		}else{
-			System.out.println(js.toJSONString());
+			return "error";
 		}
-		return "error";
 	}
-
+    
+	//测试
+	public static void main(String[] args) {
+		
+		
+		recordList("583374408");
+	}
+    
 }
 

@@ -1138,19 +1138,18 @@
 
 /*预览效果部分样式*/
 #preview{
-	position: fixed;
-	top: 50%;
+	position: absolute;
 	left: 50%;
-	transform: translateX(-50% ) translateY(-50%);
+	transform: translateX(-50% ) translateY(-0%);
 	background: #fff;
 	width: 960px;
 	z-index: 999;
 }
 #preview .preview_top{
 	height: 60px;
-	    height: 60px;
+    height: 60px;	
     padding: 20px 40px;
-    border: 1px solid;
+    border-bottom: 1px solid #f0f0f0;
 }
 #preview .preview_top > span{
 	font-size: 16px;
@@ -1158,11 +1157,15 @@
 }
 #preview .preview_top > a{
 	float: right;
-	color: #333;
+	color: #666;
 }
 #preview .preview_bottom > table  tr > td:first-child{
 	width: 110px;
 	text-align: right;
+	vertical-align: top;
+}
+#preview .preview_bottom > table  tr {
+	margin-bottom: 20px;
 }
 #preview .preview_bottom > table  tr > td:first-child > span{
 	display: inline-block;
@@ -1171,8 +1174,15 @@
 	display: inline-block;
 }
 #preview .preview_bottom {
-	padding-top: 40px;
+	padding-top: 20px;
+	padding-bottom: 90px;
+	padding-right: 140px;
+	
 }
 #preview .preview_bottom > table  tr > td:nth-child(2){
 	padding-left: 20px;
+
+}
+#preview .preview_bottom > table  tr > td{
+	padding-top: 20px;
 }

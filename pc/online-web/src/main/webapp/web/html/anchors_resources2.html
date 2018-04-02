@@ -14,7 +14,7 @@
 		<meta name="renderer" content="webkit">
 		<meta name="baidu-site-verification" content="UHaAQAeAQF" />
 		<!--<link rel="stylesheet" href="/web/css/bootstrap.min.css">-->
-		  
+
 		<link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="/web/css/mylogin.css" />
 		<link rel="stylesheet" href="/web/css/componet.css" />
@@ -26,18 +26,18 @@
 		<link rel="stylesheet" href="/web/css/anchors_resources.css?v=ipandatcm_1.2.1">
 		<link rel="stylesheet" href="/web/css/style.css" />
 		<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
- 		<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
- 		<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
- 		<link rel="stylesheet" href="/web/css/iconfont/iconfont.css" />
- 		
- 		
+		<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
+		<link rel="stylesheet" href="/web/css/iconfont/iconfont.css" />
+
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>
 		<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-		    <!--<script src="/web/bootstrap-select/bootstrap.min.js"></script>-->
+		<!--<script src="/web/bootstrap-select/bootstrap.min.js"></script>-->
 		<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js">
-		<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8">
+		</script>
 		<script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
 		<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
 
@@ -51,17 +51,17 @@
 	</head>
 
 	<body>
-		
+
 		<!--提示弹窗-->
 		<div id="tip" style="display: none;">
 			您已完成了医馆注册，不能进行医师注册!
 		</div>
-		
+
 		<!--专辑预览页面-->
-		<div id="preview">
+		<div id="preview" class="hide">
 			<div class="preview_top">
 				<span>预览</span>
-				<a href="javascript:;">X</a>
+				<a href="javascript:;" class="close_preview">X</a>
 			</div>
 			<div class="preview_bottom">
 				<table>
@@ -75,27 +75,23 @@
 					</tr>
 					<tr>
 						<td><span><em>*</em>内容</span></td>
-						<td>《标幽赋》出自《针经指南》，为金元时期著名针灸医家窦默所著。窦氏在《标幽赋》中论述了针灸与经络、脏腑、气血的关系，施术前后的注意事项以及取穴、配穴和针灸禁忌等重要问题。《标幽赋》采用歌赋的形式把幽冥隐晦、深奥难懂的针灸理论表达出来，文字精炼，叙述准确，对后世医家影响很大。
-1遵循阴阳五行，辨别脏腑经络
-阴阳学说、五行学说是中医学理论的哲学基础，它们在《内经》、《难经》中被奉为经旨。窦汉卿在《标幽赋》中，依旧遵循《内》、《难》经旨，他把手足经脉分三阴三阳，并论述了手足三阴三阳的走行规律，如《标幽赋》中所说:“手足三阳，手走头而头走足；手足三阴，足走腹而胸走手。”至于“本形金也”、“短长水也”、“定刺象木”、“塞以象士”，都是五行理论的应用。
-窦汉卿强调经络在针灸临床中的指导作用，指出:“不穷经络阴阳，多逢刺禁；既论脏腑虚实，须向经寻。”经络是经脉和络脉的总称，是运行全身气血、联系脏腑官窍、沟通上下内外的径路。凡属于五脏的经脉为阴经，分布于四肢内侧和胸腹；凡属于六腑的经脉为阳经，分布于四肢的外侧和头面、躯干。《灵枢·海论》说:“夫十二经脉者，内属于腑脏，外络于肢节。”又《灵枢·本藏》说:“经脉者，所以行血气而营阴阳，濡筋骨，利关节者也。”这些皆指出经络是一种运行气血、外络肢节、内属腑脏的通道，同时经络也是诊查和治疗疾病的基础。中医认为，疾病的发生，是机体阴阳失衡所致，因此，在治疗上必须调整阴阳的偏盛偏衰。通过脏腑、经络之间的密切联系，来发挥经络抗御邪气、保卫机体的作用，从而达到脏腑的不盛不衰。</td>
+						<td>《标幽赋》出自《针经指南》，为金元时期著名针灸医家窦默所著。窦氏在《标幽赋》中论述了针灸与经络、脏腑、气血的关系，施术前后的注意事项以及取穴、配穴和针灸禁忌等重要问题。《标幽赋》采用歌赋的形式把幽冥隐晦、深奥难懂的针灸理论表达出来，文字精炼，叙述准确，对后世医家影响很大。 1遵循阴阳五行，辨别脏腑经络 阴阳学说、五行学说是中医学理论的哲学基础，它们在《内经》、《难经》中被奉为经旨。窦汉卿在《标幽赋》中，依旧遵循《内》、《难》经旨，他把手足经脉分三阴三阳，并论述了手足三阴三阳的走行规律，如《标幽赋》中所说:“手足三阳，手走头而头走足；手足三阴，足走腹而胸走手。”至于“本形金也”、“短长水也”、“定刺象木”、“塞以象士”，都是五行理论的应用。 窦汉卿强调经络在针灸临床中的指导作用，指出:“不穷经络阴阳，多逢刺禁；既论脏腑虚实，须向经寻。”经络是经脉和络脉的总称，是运行全身气血、联系脏腑官窍、沟通上下内外的径路。凡属于五脏的经脉为阴经，分布于四肢内侧和胸腹；凡属于六腑的经脉为阳经，分布于四肢的外侧和头面、躯干。《灵枢·海论》说:“夫十二经脉者，内属于腑脏，外络于肢节。”又《灵枢·本藏》说:“经脉者，所以行血气而营阴阳，濡筋骨，利关节者也。”这些皆指出经络是一种运行气血、外络肢节、内属腑脏的通道，同时经络也是诊查和治疗疾病的基础。中医认为，疾病的发生，是机体阴阳失衡所致，因此，在治疗上必须调整阴阳的偏盛偏衰。通过脏腑、经络之间的密切联系，来发挥经络抗御邪气、保卫机体的作用，从而达到脏腑的不盛不衰。
+						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
-		
+
 		<!--删除提示弹窗-->
 		<div id="deleteTip" class="hide">
 			<h4 class="confirm-title">删除资源</h4>
 			<p class="confirm-content">确定删除这条资源？</p>
 			<button id="sureDel" class="confirm-sure">确定</button><button id="cancalDel" onclick="hideDel()">取消</button>
 		</div>
-		
+
 		<!--全局遮罩层-->
 		<div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
-				
-		
-		
+
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
@@ -146,35 +142,35 @@
 					</div>
 
 					<div class="zhuanlan_bottom" id="hospital_bottom">
-						
-							<div id="hosChoose" class="hide">
-								<!--<div>
+
+						<div id="hosChoose" class="hide">
+							<!--<div>
 									<span id="close_hosChoose" style="position: absolute;top: 10px;right: 15px;font-weight: 700">关闭</span>
 									<p class="hosChooseTip">请选择任职的医馆</p>
 									<label for="id_select"></label>
 									<select id="id_select" class="selectpicker bla bla bli"  data-live-search="true"></select>
 									<button class="sureChoosehos">确认</button>
 								</div>-->
-							</div>
-							
-							<div>
-								<span><em>*</em> 任职医馆</span>
-								<input type="text" placeholder="请填写您所在医馆或医院" class="zhuanlan_title hide" />
-								<div style="display: inline-block;vertical-align: sub;">
-									<!--<span id="close_hosChoose" style="position: absolute;top: 10px;right: 15px;font-weight: 700">关闭</span>-->
-									<!--<p class="hosChooseTip">请选择任职的医馆</p>-->
-									<label for="id_select"></label>
-									<select id="id_select" class="selectpicker bla bla bli"  data-live-search="true"></select>
-									<!--<a href="javascript:;"><span>选择平台已有医馆</span></a>-->
-									<!--<button class="sureChoosehos">确认</button>-->
-								</div>
-								<!--<a href="javascript:;" class="chooseHospital"><span>选择平台已有医馆</span></a>-->
-								<p class="work_hos_warn warning hide">任职医馆不能为空</p>
-							</div>
+						</div>
 
-							<div class="hospital_address">
-								<span><em>*</em> 医馆地址</span>
-								<!--<select name="" id="choosePro" onchange="doProvAndCityRelation()">
+						<div>
+							<span><em>*</em> 任职医馆</span>
+							<input type="text" placeholder="请填写您所在医馆或医院" class="zhuanlan_title hide" />
+							<div style="display: inline-block;vertical-align: sub;">
+								<!--<span id="close_hosChoose" style="position: absolute;top: 10px;right: 15px;font-weight: 700">关闭</span>-->
+								<!--<p class="hosChooseTip">请选择任职的医馆</p>-->
+								<label for="id_select"></label>
+								<select id="id_select" class="selectpicker bla bla bli" data-live-search="true"></select>
+								<!--<a href="javascript:;"><span>选择平台已有医馆</span></a>-->
+								<!--<button class="sureChoosehos">确认</button>-->
+							</div>
+							<!--<a href="javascript:;" class="chooseHospital"><span>选择平台已有医馆</span></a>-->
+							<p class="work_hos_warn warning hide">任职医馆不能为空</p>
+						</div>
+
+						<div class="hospital_address">
+							<span><em>*</em> 医馆地址</span>
+							<!--<select name="" id="choosePro" onchange="doProvAndCityRelation()">
 									<option value="">111</option>
 									<option value="">111</option>
 									<option value="">111</option>
@@ -185,52 +181,51 @@
 									<option value="">111</option>
 									<option value="">111</option>
 								</select>-->
-								<input type="text" id="hosPro" placeholder="医馆所在省份" disabled="disabled"/>
-								<input type="text" id="hosCity" placeholder="医馆所在市区"/>
-								<textarea readonly name="" id="detail_address" style="resize: none;display: block;" placeholder="医馆详细地址"></textarea>
-								<p class="warning hide">医馆地址不能为空</p>
-							</div>
-							
-							<div class="hos_fengmian">
+							<input type="text" id="hosPro" placeholder="医馆所在省份" disabled="disabled" />
+							<input type="text" id="hosCity" placeholder="医馆所在市区" />
+							<textarea readonly name="" id="detail_address" style="resize: none;display: block;" placeholder="医馆详细地址"></textarea>
+							<p class="warning hide">医馆地址不能为空</p>
+						</div>
 
-								<span style="vertical-align: top;"><em>*</em> 医馆封面图</span>
-								<!--<span class="fengmian_pic" onclick="$('#fengmian_picIpt').click()">-->
-								<span class="fengmian_pic" >
+						<div class="hos_fengmian">
+
+							<span style="vertical-align: top;"><em>*</em> 医馆封面图</span>
+							<!--<span class="fengmian_pic" onclick="$('#fengmian_picIpt').click()">-->
+							<span class="fengmian_pic">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">暂无医馆封面图片</p>
 								</span>
-								<!--<span class="fengmian_tip">
+							<!--<span class="fengmian_tip">
 								<p>文件小于2M</p>
 								<p>支持JPG/PNG等格式图片</p>
 							</span>-->
-								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="fengmian_picIpt" accept="image/gif,image/jpeg,image/jpg,image/png" >
-								<p class="fengmian_pic_warn warning hide">请上传封面图</p>
-							</div>
-							
-							
-							<div class="hosContantTel">
-								<span><em>*</em>医馆电话</span>
-								<input type="text" placeholder="医馆电话" class="hosTel" disabled="disabled"/>
-								<p class="hosTel_warn warning hide">医馆电话不能为空</p>
-							</div>
+							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="fengmian_picIpt" accept="image/gif,image/jpeg,image/jpg,image/png">
+							<p class="fengmian_pic_warn warning hide">请上传封面图</p>
+						</div>
 
-							<div class="hospital_worktime">
-								<span><em>*</em>  每周坐诊</span>
-								<ul>
-									<li>一</li>
-									<li>二</li>
-									<li>三</li>
-									<li>四</li>
-									<li>五</li>
-									<li>六</li>
-									<li>日</li>
-								</ul>
-								<p class="hospital_worktime_warn warning hide">请选择坐诊时间</p>
-							</div>
+						<div class="hosContantTel">
+							<span><em>*</em>医馆电话</span>
+							<input type="text" placeholder="医馆电话" class="hosTel" disabled="disabled" />
+							<p class="hosTel_warn warning hide">医馆电话不能为空</p>
+						</div>
 
-							<div class="baocun">
-								<input type="submit" value="保存" id="submit" />
-							</div>
+						<div class="hospital_worktime">
+							<span><em>*</em>  每周坐诊</span>
+							<ul>
+								<li>一</li>
+								<li>二</li>
+								<li>三</li>
+								<li>四</li>
+								<li>五</li>
+								<li>六</li>
+								<li>日</li>
+							</ul>
+							<p class="hospital_worktime_warn warning hide">请选择坐诊时间</p>
+						</div>
+
+						<div class="baocun">
+							<input type="submit" value="保存" id="submit" />
+						</div>
 					</div>
 				</div>
 				<!--专栏-->
@@ -248,12 +243,15 @@
 							</div>
 							<div class="fengmian">
 								<span style="vertical-align: top;"><em>*</em>封面图</span>
-								<span class="fengmian_pic">点击上传封面图片</span>
+								<span class="fengmian_pic"  onclick="$('#zhuanlan_picIpt').click()">
+									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>
+								</span>
 								<span class="fengmian_tip">
 								<p>文件小于2M</p>
 								<p>支持JPG/PNG等格式图片</p>
 							</span>
-								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt" />
+								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuanlan_picIpt" />
 								<p class="warning hide">请上传封面图</p>
 							</div>
 
@@ -295,7 +293,7 @@
 										2017.11.12
 									</td>
 									<td>
-										<a href="javascript:;">预览</a>
+										<a href="javascript:;" onclick="showPreview()">预览</a>
 										<a href="javascript:;" onclick="downLine()">下线</a>
 										<a href="javascript:;">编辑</a>
 									</td>
@@ -314,8 +312,8 @@
 										2017.11.12
 									</td>
 									<td>
-										<a href="javascript:;">预览</a>
-										<a href="javascript:;">删除</a>
+										<a href="javascript:;" onclick="showPreview()">预览</a>
+										<a href="javascript:;" onclick="showDel()">删除</a>
 									</td>
 								</tr>
 								<tr>
@@ -384,52 +382,53 @@
 						<span class="title">著作</span>
 						<button class="changeStaBtn">发布</button>
 					</div>
-					
-					
+
 					<div class="zhuzuo_bottom hide">
 						<div>
 							<span><em>*</em>书名</span>
 							<input type="text" placeholder="请填写书名" class="zhuzuo_name">
 							<p class="warning hide">书名不能为空</p>
 						</div>
-						
+
 						<div>
 							<span><em>*</em>作者</span>
 							<input type="text" placeholder="请填写作者" class="zhuzuo_name">
 							<p class="warning hide">作者不能为空</p>
 						</div>
-						
+
 						<div class="fengmian">
-								<span style="vertical-align: top;"><em>*</em>封面图</span>
-								<span class="fengmian_pic">点击上传封面图片</span>
-								<span class="fengmian_tip">
+							<span style="vertical-align: top;"><em>*</em>封面图</span>
+							<span class="fengmian_pic"  onclick="$('#zhuzuo_picIpt').click()">
+								<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+								<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>
+							</span>
+							<span class="fengmian_tip">
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
-								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuzuo_picIpt" />
-								<p class="warning hide">请上传封面图</p>
+							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuzuo_picIpt" />
+							<p class="warning hide">请上传封面图</p>
 						</div>
-						
+
 						<div class="neirong">
 							<span><em>*</em>著作介绍</span>
 							<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>
 							<p class="warning hide">著作介绍不能为空</p>
 						</div>
 
-
 						<div>
 							<span><em>*</em>购买链接</span>
 							<input type="text" placeholder="请输入购买链接" class="zhuzuo_name">
 							<p class="warning hide">购买链接不能为空</p>
 						</div>
-						
+
 						<div class="baocun">
 							<input type="submit" value="保存并发布" id="submit" />
 							<button id="save">保存</button>
 						</div>
-						
+
 					</div>
-					
+
 					<div class="zhuzuo_bottom2">
 						<table>
 							<thead>
@@ -438,7 +437,7 @@
 									<td>书名</td>
 									<td>作者</td>
 									<td>状态</td>
-									<td>编辑时间</td>									
+									<td>编辑时间</td>
 									<td>操作</td>
 								</tr>
 							</thead>
@@ -460,7 +459,7 @@
 										2017.11.12
 									</td>
 									<td>
-										<a href="javascript:;">预览</a>
+										<a href="javascript:;" onclick="showPreview()">预览</a>
 										<a href="javascript:;">下线</a>
 										<a href="javascript:;">编辑</a>
 									</td>
@@ -482,8 +481,8 @@
 										2017.11.12
 									</td>
 									<td>
-										<a href="javascript:;">预览</a>
-										<a href="javascript:;">删除</a>
+										<a href="javascript:;" onclick="showPreview()">预览</a>
+										<a href="javascript:;" onclick="showDel()">删除</a>
 									</td>
 								</tr>
 								<tr>
@@ -553,8 +552,7 @@
 							</tbody>
 						</table>
 					</div>
-					
-				
+
 				</div>
 				<!--媒体报道-->
 				<div class="select_box" id="media_report">
@@ -562,47 +560,65 @@
 						<span class="title">媒体报道</span>
 						<button class="changeStaBtn">发布</button>
 					</div>
-					
+
 					<div class="media_report_bottom hide">
-						
+
 						<div>
 							<span><em>*</em>标题</span>
 							<input type="text" placeholder="请输入报道标题" class="media_report_name">
 							<p class="warning hide">报道标题不能为空</p>
 						</div>
-						
+
 						<div class="fengmian">
-								<span style="vertical-align: top;"><em>*</em>封面图</span>
-								<span class="fengmian_pic">点击上传封面图片</span>
-								<span class="fengmian_tip">
+							<span style="vertical-align: top;"><em>*</em>封面图</span>
+							<span class="fengmian_pic"  onclick="$('#media_picIpt').click()">
+								<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+								<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>
+							</span>
+							<span class="fengmian_tip">
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
-								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuzuo_picIpt" />
-								<p class="warning hide">请上传封面图</p>
+							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="media_picIpt" />
+							<p class="warning hide">请上传封面图</p>
 						</div>
 						
+						<!--<div class="touxiang_picUpdata">
+								<span style="vertical-align: top;"><em>*</em> 医馆头像</span>
+								<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
+									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
+								</span>
+								<span class="touxiang_pic_tip">
+									<p>推荐使用尺寸120x120</p>
+									<p>请上传清晰头像</p>
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>
+								<input name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" type="file">
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+							<div></div>
+						</div>-->
+
 						<div class="neirong">
 							<span><em>*</em>报道内容</span>
 							<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>
 							<p class="warning hide">著作介绍不能为空</p>
 						</div>
 
-
 						<div>
 							<span><em>*</em>报道医师</span>
 							<input type="text" placeholder="请输入被报道医师姓名" class="media_report_name">
 							<p class="warning hide">报道医师不能为空</p>
 						</div>
-						
+
 						<div class="baocun">
 							<input type="submit" value="保存并发布" id="submit" />
 							<button id="save">保存</button>
 						</div>
-						
+
 					</div>
-					
-					
+
 					<div class="media_report_bottom2">
 						<table>
 							<thead>
@@ -629,7 +645,7 @@
 										2017.11.12
 									</td>
 									<td>
-										<a href="javascript:;">预览</a>
+										<a href="javascript:;" onclick="showPreview()">预览</a>
 										<a href="javascript:;">下线</a>
 										<a href="javascript:;">编辑</a>
 									</td>
@@ -648,8 +664,8 @@
 										2017.11.12
 									</td>
 									<td>
-										<a href="javascript:;">预览</a>
-										<a href="javascript:;">删除</a>
+										<a href="javascript:;" onclick="showPreview()">预览</a>
+										<a href="javascript:;" onclick="showDel()">删除</a>
 									</td>
 								</tr>
 								<tr>
@@ -711,8 +727,7 @@
 							</tbody>
 						</table>
 					</div>
-					
-					
+
 				</div>
 				<!--医师认证-->
 				<div class="select_box" id="doc_Distinguish" style="display: block;">
@@ -850,7 +865,7 @@
 								<p>文件小于2M</p>
 								<p>支持JPG/PNG等格式图片</p>
 							</span>
-							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt" accept="image/gif,image/jpeg,image/jpg,image/png"/>
+							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt" accept="image/gif,image/jpeg,image/jpg,image/png" />
 							<p class="warning hide">请上传封面图</p>
 						</div>
 
@@ -899,7 +914,7 @@
 										2017.11.12
 									</td>
 									<td>
-										<a href="javascript:;">预览</a>
+										<a href="javascript:;" onclick="showPreview()">预览</a>
 										<a href="javascript:;">下线</a>
 										<a href="javascript:;">编辑</a>
 									</td>
@@ -918,8 +933,8 @@
 										2017.11.12
 									</td>
 									<td>
-										<a href="javascript:;">预览</a>
-										<a href="javascript:;">删除</a>
+										<a href="javascript:;" onclick="showPreview()">预览</a>
+										<a href="javascript:;" onclick="showDel()">删除</a>
 									</td>
 								</tr>
 								<tr>
@@ -1011,7 +1026,6 @@
 
 	</body>
 
-
 	<!--医师认证状态信息模板-->
 	<script type="text/template" id="renzheng_statusTpl">
 		{{if status == 2}}
@@ -1024,7 +1038,7 @@
 			<span>已于{{createTime}}通过认证，享有入驻医师的功能</span><span style="color: red;margin-left: -20px;"></span>
 			<!--<button class="renzhengAgain">重新认证</button> （如信息有更新可重新认证）-->
 			<!--<button class="renzhengAgain">重新认证</button>-->
-			
+
 		</div>
 		{{else if status == 0}}
 		<div class="bottomContent_inf text-left">
@@ -1088,12 +1102,10 @@
 		<div class="keshi">
 			<span>科室</span>
 			<ul>
-				{{if medicalDepartments && medicalDepartments.length > 0}}
-					{{each medicalDepartments}}
-					<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
-					{{/each}}
-				 {{/if}}
-			
+				{{if medicalDepartments && medicalDepartments.length > 0}} {{each medicalDepartments}}
+				<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
+				{{/each}} {{/if}}
+
 			</ul>
 		</div>
 
@@ -1118,28 +1130,20 @@
 			<span class="shi" style="font-size: 14px;">{{city}}</span>
 		</div>
 	</script>
-	
-	
-	<!--科室部分的小模板-->
-<script type="text/template" id="adaptTpl">
-{{each medicalDepartments}}
-	<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
-{{/each}}
-</script>
 
-	
-	
+	<!--科室部分的小模板-->
+	<script type="text/template" id="adaptTpl">
+		{{each medicalDepartments}}
+		<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
+		{{/each}}
+	</script>
+
 	<!--医馆列表-->
 	<script type="text/template" id="hosListTpl">
 		{{each item as item i}}
-			 <option value={{item.id}}>{{item.name}}</option>
+		<option value={{item.id}}>{{item.name}}</option>
 		{{/each}}
 	</script>
-	
-	
-	
-	
-	
 
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>

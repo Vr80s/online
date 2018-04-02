@@ -341,7 +341,8 @@
 		oc.lecturer as name
 		FROM
 		oe_course oc
-		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0   order by release_time desc
+		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0  
+		order by release_time desc
 	</select>
 
 
@@ -381,7 +382,7 @@
 		and
 		DATE_ADD(CURDATE(), INTERVAL 7 DAY) >= date(oc.start_time)  and oc.start_time > CURDATE()
 		and oc.type =1 and oc.live_status = 2
-		order by lineState asc,oc.start_time asc limit 5 
+		order by oc.start_time asc limit 5 
 		)
 		UNION ALL
 		(

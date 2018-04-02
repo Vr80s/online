@@ -127,8 +127,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         		  /*
         		   * 保存用户微信信息
         		   */
-//        		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-//        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
+        		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
         	      //保存用户信息
         	      
         		  respMessage = MessageUtil.newsMessageToXml(newsMessage); 
