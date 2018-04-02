@@ -7,10 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "wxcp_client_user_wx_mapping")
-public class WxcpClientUserWxMapping implements Serializable{
+public class WechatUser implements Serializable{
 	
 	private static final long serialVersionUID = 8080612633895345828L;
 	
@@ -86,6 +87,12 @@ public class WxcpClientUserWxMapping implements Serializable{
 	
 	@Column(name = "last_update_time")
 	private Date lastUpdateTime;
+	
+	@Transient
+	private String channelName;
+
+	@Transient
+	private String loginName;
 	
     public String getWxId() {
         return wxId;
@@ -277,6 +284,22 @@ public class WxcpClientUserWxMapping implements Serializable{
 
 	public void setLastUpdateTime(Date lastUpdateTime) {
 		this.lastUpdateTime = lastUpdateTime;
+	}
+
+	public String getChannelName() {
+		return channelName;
+	}
+
+	public void setChannelName(String channelName) {
+		this.channelName = channelName;
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
     
     

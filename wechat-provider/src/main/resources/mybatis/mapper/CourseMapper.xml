@@ -341,7 +341,8 @@
 		oc.lecturer as name
 		FROM
 		oe_course oc
-		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0   order by release_time desc
+		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0  
+		order by release_time desc
 	</select>
 
 
