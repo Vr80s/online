@@ -479,6 +479,7 @@ function queryDataByParams(params,data_type){
 				/*
 				 * 点击跳转到单个课程
 				 */
+				
 				 $(".li_list_div .li_list_one").click(function(){
 					
 					 var type =$(this).attr("data-title");
@@ -494,11 +495,18 @@ function queryDataByParams(params,data_type){
 						
 						if(WatchState==1){   //判断收费和付费跳转
 //							location.href="live_audio.html?my_study="+id
+						// location.href="live_album.html?course_id="+courseId+"&direct_id="+course.directId+"&collection_id="+courseId+"&name_title="+name_title; 
+								
+
 							if(Collection==0){     /*判断专辑*/
 								location.href="live_audio.html?my_study="+id
 								
 							}else{
 								location.href="live_select_album.html?course_id="+id
+								// location.href="live_album.html?course_id="+id
+								// location.href="live_album.html?course_id="+courseId+"&direct_id="+courseId.directId+"&collection_id="+courseId+"&name_title="+name_title; 
+								// location.href="live_album.html?course_id="+id; 
+							
 							}
 
 
@@ -507,6 +515,17 @@ function queryDataByParams(params,data_type){
 						}
 						
 						
+
+
+
+
+
+
+
+
+
+
+
 							
 						
 					}else if(type==3){
