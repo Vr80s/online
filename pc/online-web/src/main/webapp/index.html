@@ -26,80 +26,13 @@
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
     <link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
 
-    <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" src="/web/js/artTemplate.js"></script>
-    <script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
-    <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
-    <script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
-    <!-----引用layer------>
-    <script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
-    <!-----引用layer------>
-    <script type="text/javascript" src="/web/js/helpers.js"></script>
-    <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" charset="utf-8">
-		home = true;
-	</script>
 
-    <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+    
+    
+    
+    
     <script src="/web/js/lazyload/jquery.lazyload.js?v=1.9.1"></script>
-
-	<script type="text/javascript" charset="utf-8">
-	function lazyCkeck(){
-		$("img.lazy").lazyload({
-		  //placeholder : "web/images/load26.gif",
-	  	  //effect: "fadeIn",
-	  	  skip_invisible : false,
-	  	  threshold : 1500, //预加载，在图片距离屏幕180px时提前载入
-	  	  });
-	}
-	</script>
-    <script src="/web/js/index.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
-
-    <script>
-        $(document).ready(function(){
-            $(".video_img").click(function(){
-                $(".video_embed").show();
-            });
-        });
-    </script>
-
-    <script>
-    var browser={
-            versions:function(){   
-                   var u = navigator.userAgent, app = navigator.appVersion;   
-                   return {//移动终端浏览器版本信息   
-                        trident: u.indexOf('Trident') > -1, //IE内核  
-                        presto: u.indexOf('Presto') > -1, //opera内核  
-                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核  
-                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核  
-                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端  
-                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端  
-                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器  
-                        iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器  
-                        iPad: u.indexOf('iPad') > -1, //是否iPad    
-                        webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部  
-                        weixin: u.indexOf('MicroMessenger') > -1, //是否微信   
-                        qq: u.match(/\sQQ/i) == " qq" //是否QQ  
-                    };
-                 }(),  
-                 language:(navigator.browserLanguage || navigator.language).toLowerCase()  
-        }   
-          
-          if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
-            browser.versions.iPhone || browser.versions.iPad){
-
-              if(document.location.host=='www.ipandatcm.com' ||document.location.host=='www.ixincheng.com'){
-                  wxurl = "http://m.ipandatcm.com";
-              }else{
-                  wxurl = "http://test-wx.ixincheng.com";
-              }
-              window.location = wxurl;
-          }else if(document.location.host=='www.ixincheng.com'){
-              window.location = "http://www.ipandatcm.com";
-          }
-    </script>
+	
 </head>
 <body>
 <!-- <div class="dianwo">点我</div> -->
@@ -408,10 +341,86 @@
 </body>
 <!--<div class="bshare-custom"><a title="分享到" href="http://www.bShare.cn/" id="bshare-shareto" class="bshare-more">分享到</a><a title="分享到QQ空间" class="bshare-qzone">QQ空间</a><a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a><a title="分享到人人网" class="bshare-renren">人人网</a><a title="分享到腾讯微博" class="bshare-qqmb">腾讯微博</a><a title="分享到网易微博" class="bshare-neteasemb">网易微博</a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>-->
 </html>
+
+
+<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/web/js/artTemplate.js"></script>
+    <script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+    <!-----引用layer------>
+    <script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
+    <!-----引用layer------>
+    <script type="text/javascript" src="/web/js/helpers.js"></script>
+    <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		home = true;
+	</script>
+    <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+
 <script type="text/javascript" src="/web/js/jquery.pagination.js"></script>
 <script type="text/javascript" src="/web/js/bootstrap-paginator.min.js"></script>
 <script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript" charset="utf-8">
+	function lazyCkeck(){
+		$("img.lazy").lazyload({
+		  //placeholder : "web/images/load26.gif",
+	  	  //effect: "fadeIn",
+	  	  skip_invisible : false,
+	  	  threshold : 1500, //预加载，在图片距离屏幕180px时提前载入
+	  	  });
+	}
+	</script>
+    <script src="/web/js/index.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(".video_img").click(function(){
+                $(".video_embed").show();
+            });
+        });
+    </script>
+
+    <script>
+    var browser={
+            versions:function(){   
+                   var u = navigator.userAgent, app = navigator.appVersion;   
+                   return {//移动终端浏览器版本信息   
+                        trident: u.indexOf('Trident') > -1, //IE内核  
+                        presto: u.indexOf('Presto') > -1, //opera内核  
+                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核  
+                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核  
+                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端  
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端  
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器  
+                        iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器  
+                        iPad: u.indexOf('iPad') > -1, //是否iPad    
+                        webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部  
+                        weixin: u.indexOf('MicroMessenger') > -1, //是否微信   
+                        qq: u.match(/\sQQ/i) == " qq" //是否QQ  
+                    };
+                 }(),  
+                 language:(navigator.browserLanguage || navigator.language).toLowerCase()  
+        }   
+          
+          if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
+            browser.versions.iPhone || browser.versions.iPad){
+
+              if(document.location.host=='www.ipandatcm.com' ||document.location.host=='www.ixincheng.com'){
+                  wxurl = "http://m.ipandatcm.com";
+              }else{
+                  wxurl = "http://test-wx.ixincheng.com";
+              }
+              window.location = wxurl;
+          }else if(document.location.host=='www.ixincheng.com'){
+              window.location = "http://www.ipandatcm.com";
+          }
+    </script>
+
+
 <script type="text/javascript">
 	var yyFlag = false;
     $(function () {
