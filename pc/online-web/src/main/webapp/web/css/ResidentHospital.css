@@ -46,8 +46,16 @@ a {
 	margin-right: 0;
 }
 #hos_pic>div>img{
-	width: 100%;
-	height: 100%;
+ position:absolute;
+ max-width:100%;
+ max-height:100%;
+ width:auto;
+ height:auto;
+ top:0;
+ left:0;
+ bottom:0;
+ right:0;
+ margin:auto;
 }
 .color{
 	color: #00bc12 !important;
@@ -283,10 +291,19 @@ a {
 	background-color: #f0f0f0;
 	vertical-align: middle;
 	margin-right: 20px;
+	position: relative;
 }
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic > img{
-	width: 100%;
-	height: 100%;
+ position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
 }
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
 	cursor: pointer;
@@ -531,11 +548,20 @@ a {
 	background-color: #f0f0f0;
 	margin-right: 20px;
 	vertical-align: middle;
+	position: relative;
 } 
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic > img,
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic > img{
-	width: 100%;
-	height: 100%;
+	 position:absolute;
+ max-width:100%;
+ max-height:100%;
+ width:auto;
+ height:auto;
+ top:0;
+ left:0;
+ bottom:0;
+ right:0;
+ margin:auto;
 }
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic:hover,
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic:hover{
