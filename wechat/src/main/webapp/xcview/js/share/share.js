@@ -53,6 +53,7 @@ function getShareId(){
 	}else if(viewHtml == "school_audio.html"|| 
 			viewHtml == "school_play.html"|| 
 			viewHtml == "school_class.html"|| 
+			viewHtml == "live_album.html" ||
 			viewHtml == "live_select_album.html"){
 		
 		return getQueryString("course_id");
