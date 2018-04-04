@@ -1172,6 +1172,7 @@
 }
 #preview .preview_bottom > table  tr > td:first-child > span >em{
 	display: inline-block;
+	color: red;
 }
 #preview .preview_bottom {
 	padding-top: 20px;
