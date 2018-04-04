@@ -202,22 +202,4 @@ public class ParseUtil {
 		return c / k == 0 ? true : false;
 	}
 
-	public static void main(String[] args) {
-		String stringImg = "什么是值传递和引用传递？<br />"
-		        + "什么是值传递和引用传递？<img src=\"/knowledge-center-server2/image/getFileData?id=402880e55372d5ed015372d7c1140000\" alt=\"\" /><img src=\"/knowledge-center-server2/image/getFileData?id=402880e55372da32015372dac8580000\" alt=\"\" /><br />";
-		Pattern pattern = Pattern.compile(_REGEX_SRC);// "(?<=【)(.+?)(?=】)"
-		Matcher matcher = pattern.matcher(stringImg);
-		StringBuffer buffer = new StringBuffer();
-		while (matcher.find()) {
-			matcher.appendReplacement(
-			        buffer,
-			        "src=\""
-			                + "http://dual2-kcenter.ixincheng.com:8091"
-			                + matcher.group().substring(
-			                        matcher.group().length() - 55,
-			                        matcher.group().length()));
-		}
-		matcher.appendTail(buffer);
-	}
-
 }

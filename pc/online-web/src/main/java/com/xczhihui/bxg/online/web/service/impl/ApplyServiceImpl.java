@@ -204,31 +204,6 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
 		}
     }
     
-    /*
-    public static void main(String[] args) {
-    	//从双元验证
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("realName", "姚文江");
-		map.put("IDNumber", "372328199307190013");
-		map.put("loginName", "18234078021");
-		map.put("unixTime", System.currentTimeMillis()/1000 + "");
-		String sign = CodeUtil.calSignature(map, "dc3aa06f3b1c4857a75609bd3cc321fd");
-		
-		String url = "http://tlias.ixincheng.com/remote/student/jdugeIfExists";
-		url+="?realName=姚文江&IDNumber=372328199307190013&loginName=18234078021&unixTime="+map.get("unixTime")
-		+"&sign="+sign;
-		
-		String msg = HttpUtil.sendGetRequest(url);
-		Gson gson = new GsonBuilder().create();
-		Map<String, Object> msgmap = gson.fromJson(msg, Map.class);
-		if (Boolean.valueOf(msgmap.get("success").toString())) {
-			Map<String, Object> r = (Map<String, Object>)msgmap.get("resultObject");
-			System.out.println(r.get("className").toString());
-			System.out.println(r.get("subjectId").toString());
-		}
-	}
-	*/
-    
     @Override
     public Apply getUserApply(String userId){
     	Apply apply=applyDao.findByUserId(userId);

@@ -479,9 +479,9 @@ img {
   font-size: 12px;
   color: #999;
 }
-#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags span {
-  margin: 0 25px;
-}
+/*#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags span {*/
+  /*margin: 0 25px;*/
+/*}*/
 #forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags a {
   color: #999;
   cursor: pointer;

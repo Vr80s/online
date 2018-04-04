@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.headline.mapper.OeBxsAppraiseMapper">
+
+	<select id="selectArticleAppraiseById" resultType="com.xczhihui.medical.headline.model.OeBxsAppraise">
+		SELECT
+		  ba.id,
+		  ba.content,
+		  ba.create_time,
+		  u.name,
+		  u.small_head_photo,
+		  ba.user_id,
+		  us.name nickName,
+		  IF(ba.user_id = #{userId}, 1, 0) isMySelf
+		FROM
+		  oe_bxs_appraise ba
+		  LEFT JOIN oe_user us
+			ON ba.target_user_id = us.id,
+		  oe_user u
+		WHERE ba.user_id = u.id
+		  AND ba.is_delete = 0
+		  AND ba.article_id = #{id}
+		ORDER BY ba.create_time DESC
+	</select>
+</mapper>

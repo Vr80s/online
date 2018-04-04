@@ -81,9 +81,9 @@
 		  from user_coin_increase as uci  where  uci.change_type = 1  and user_id=#{userId} )
 		  
 		  	UNION ALL
+		  	
 		  
-		  
-		  ( select  '4' as type,'购买课程' as subject,CONCAT('-',argc.cost) as totalAmount,argc.create_time as gmtCreate,"人民币" as unit 
+		  ( select  '4' as type,'购买课程' as subject,CONCAT('-',format(argc.cost,2)) as totalAmount,argc.create_time as gmtCreate,"人民币" as unit 
 			  from  oe_order_detail ood 
 				INNER  JOIN apply_r_grade_course as argc on  ood.id =argc.order_no
 				INNER  JOIN oe_order as oo on ood.order_id =oo.id

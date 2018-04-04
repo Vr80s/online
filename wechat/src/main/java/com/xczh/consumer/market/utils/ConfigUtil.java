@@ -95,18 +95,6 @@ public class ConfigUtil {
 		return setting;
 	}
 	
-	public static void main(String[] args) throws UnsupportedEncodingException {		
-		//ConfigUtil cfg = new ConfigUtil("/WEB-INF/config.properties");
-		//ConfigUtil cfg = new ConfigUtil("D:/Management/WebRoot/WEB-INF/config.properties");
-		//String ApiFrex= cfg.getConfig("ApiFrex");
-		//System.out.println("ApiFrex=" + ApiFrex);
-	}
-
-    //public static Integer firstFreeMonthlyLimit() {
-    //    ConfigUtil cf = new ConfigUtil("/config/confige.properties");
-    //    int limitFee = cf.getConfig("use.first.free.fee.by.monthly.limit", 50000);
-    //    return limitFee;
-    //}
 }
 
 

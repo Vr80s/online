@@ -46,7 +46,4 @@ public class MailBySSL{
 		  System.out.println("Message sent.");
 		  return true;
 		 }
-	public static void main(String[] args) throws AddressException, MessagingException {
-		sendMailBySSL();
-	}
 }

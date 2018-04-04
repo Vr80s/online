@@ -42,23 +42,7 @@ public final class JSONHelper {
 		return null;
 	}
 
-	public static void main(String[] args){
-		//JSONHelper.bean2String(result,new String[]{"obj"})
-//		{
-//			List<Order> list = new ArrayList<Order>();
-//			Order order = new Order();
-//			order.setId(132L);
-//			list.add(order);
-//			BaseResult<Order> result = new BaseResult<Order>();
-//			result.setState(0);
-//			result.setMessage("成功");
-//			result.setObj(order);
-//			result.setItems(list);
-//			System.out.println(JSONHelper.bean2String(result,new String[]{ }));
-//		} 
-		
-	}
-	
+
 	/**
 	 * 将数组转换成JSON
 	 * 

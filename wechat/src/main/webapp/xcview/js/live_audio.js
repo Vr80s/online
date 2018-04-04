@@ -7,6 +7,17 @@ var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
 var memory_data="";
+
+/**
+ * 当cc初始化成功后，会主动调用这个方法
+ * @returns {String}
+ */
+function get_custom_id(){
+	var custom_id ="123456789";
+	return custom_id;
+}
+
+
 $(function(){
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -151,6 +162,7 @@ function chZJ(videoId,multimediaType,smallImgPath){
 	    	 */
 	    	//getVideoCriticize(1,vid);
 	    	
+			
 		}else{
     		$(".video_prompt").show();
 		}

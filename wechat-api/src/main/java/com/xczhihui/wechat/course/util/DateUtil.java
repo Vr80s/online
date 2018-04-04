@@ -180,12 +180,4 @@ public class DateUtil {
           }
       }
 	 
-	 public static void main(String[] args) {
-	   TimeZone.getDefault().getRawOffset();	 
-	   System.out.println(convert2String(300*1000,"HH:mm:ss"));
-	   Double bb = (double) (60*60*1000);
-	   Double aa = 2.1;
-	   Long cc = (long) (aa * bb);
-
-	 }
 }

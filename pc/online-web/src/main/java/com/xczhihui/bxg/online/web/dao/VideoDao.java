@@ -583,18 +583,7 @@ public class VideoDao extends SimpleHibernateDao {
 		}
         return  null;
     }
-    
-    
-    public static void main(String[] args) throws IllegalAccessException {
-		
-      	 BigDecimal totalAmount = new BigDecimal(5.0);  
-      	 totalAmount =totalAmount.add(new BigDecimal(3.0));
-      	 totalAmount =totalAmount.add(new BigDecimal(3.0));
 
-      	System.err.println(divCount(totalAmount.doubleValue(),3d,1));
-      	 
-   	}
-    
 	/**
 	 * Description：求平均值，并且把小数点的都截取到5，或者大于5的
 	 * @param value1

@@ -322,10 +322,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         return VhallUtil.updateWebinar(webinar);
     }
 
-    public static void main(String[] args) {
-        System.out.println("\u6d3b\u52a8\u4e0d\u5b58\u5728");
-    }
-
     @Override
     public void updateCourseDirectId(Course course) {
         publicCourseDao.updateCourseDirectId(course);

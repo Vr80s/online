@@ -323,7 +323,4 @@ public class PublicCourseController {
     	return responseObj;
     }
 	
-    public static void main(String[] args) {
-		System.out.println("\u5e03\u5c40\u8bbe\u7f6e\u53c2\u6570\u9519\u8bef");
-	}
 }

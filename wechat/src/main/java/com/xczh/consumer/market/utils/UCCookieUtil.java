@@ -189,24 +189,5 @@ public class UCCookieUtil {
 		CookieUtil.setCookie(response, name, value, DEFAULT_DOMAIN, "/", (int) age);
 	}
 	
-	public static void main(String[] args) {
-		
-		
-		String openId = "1";
-		String unionId = "1";
-		String v = String.format("%s;%s", openId, unionId);
-		try {
-			String str = URLEncoder.encode(v, "UTF-8");
-			
-			System.out.println(str);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-	}
 
 }

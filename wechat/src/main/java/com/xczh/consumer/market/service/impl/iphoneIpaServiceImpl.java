@@ -5,9 +5,12 @@ import java.math.BigDecimal;
 import com.xczhihui.bxg.online.common.enums.ConsumptionChangeType;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.dao.IphoneIpaMapper;
@@ -106,21 +109,21 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 	}
 	
 	@Override
-	public void increaseNew(String userId, BigDecimal xmb, String json,
-			BigDecimal actualPrice) {
-		
-		
-		String orderNoRecharge = TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Lock(lockName = "iphoneIapLock",waitTime = 5,effectiveTime = 8)
+	public void increaseNew(String OrderNo,String userId, BigDecimal xmb, String json,
+			BigDecimal actualPrice,String transactionId) {
 		
 		iphoneIpaMapper.save(json,
         		actualPrice+"",
-        		JSONObject.parseObject(json).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("transaction_id").toString(),
-				orderNoRecharge,
+				transactionId,
+				OrderNo,
         		userId,
         		"充值熊猫币："+xmb.doubleValue()+"个",
         		1);
 		
-		userCoinService.updateBalanceForRecharge(userId,Payment.APPLYPAY,xmb, OrderFrom.IOS,orderNoRecharge);
+		userCoinService.updateBalanceForRecharge(userId,Payment.APPLYPAY,xmb,
+				OrderFrom.IOS,OrderNo);
 	}
     
 	

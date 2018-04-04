@@ -11,8 +11,6 @@
 	        http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	        http://www.springframework.org/schema/aop
 	        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-
-
 	        http://www.springframework.org/schema/tx
 	        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	        http://code.alibabatech.com/schema/dubbo
@@ -216,6 +214,10 @@
     <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseOrderService" id="CourseOrderService"
                      timeout="${dubbo.consumer.timeout}"/>
 
+    <!--头条相关-->
+    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsArticleService"  id="oeBxsArticleServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+
     <!-- 熊猫币购买服务 -->
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"
                    timeout="${dubbo.consumer.timeout}"/>
@@ -232,5 +234,5 @@
     <!-- 充值服务 -->
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService"  ref="rechargesService"
                      timeout="${dubbo.consumer.timeout}"/>
-                     
+
 </beans>

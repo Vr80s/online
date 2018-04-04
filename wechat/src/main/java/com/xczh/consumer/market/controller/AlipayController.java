@@ -1041,30 +1041,4 @@ public class AlipayController {
 	    return  null;
 	}
 
-	
-	public static void main(String[] args) {
-		
-		
-		//LOG.info(alipayConfig.URL);
-//		String ap = "中国你好";
-//        try {
-//        	double apd = Double.valueOf(ap);
-//            if(apd < (0.01d)){
-//    			LOG.info("金额必须大于等于0.01");
-//    		}
-//		} catch (Exception e) {
-//			 e.printStackTrace();
-//			LOG.info("请输入正确的金额");
-//		}
-////		
-		AlipayController ali = new AlipayController();
-		try {
-			ali.pay1();
-		} catch (AlipayApiException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		
-	}
-	
 }

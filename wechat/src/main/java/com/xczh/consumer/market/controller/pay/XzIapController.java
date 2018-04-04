@@ -8,6 +8,10 @@ import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -16,6 +20,7 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.online.common.enums.BankCardType;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.bean.OnlineUser;
@@ -33,7 +39,9 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.service.iphoneIpaService;
+import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.CodeUtil;
 import com.xczh.consumer.market.vo.VersionInfoVo;
@@ -93,6 +101,19 @@ public class XzIapController {
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
 			.getLogger(XzIapController.class);
 
+	
+	
+	/**
+	 * ios请求后台获取订单号
+	 * @param receipt
+	 */
+	@ResponseBody
+	@RequestMapping("/getIapOrderNo")
+	public ResponseObject  getIapOrderNo() throws SQLException {
+		String orderNo  =  TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
+		return ResponseObject.newSuccessResponseObject(orderNo);
+	}
+	
 	/**
 	 * 接收iOS端发过来的购买凭证
 	 * 
@@ -103,7 +124,8 @@ public class XzIapController {
 	@Transactional
 	public Object setIapCertificate(@RequestParam("receipt") String receipt,
 			@RequestParam("userId") String userId,
-			@RequestParam("actualPrice") BigDecimal actualPrice,
+			@RequestParam("transactionId") String transactionId,
+			@RequestParam("orderNo") String orderNo,
 			@RequestParam("version") String version) throws SQLException {
 
 		LOGGER.info("苹果充值   封装的数据  receipt:" + receipt);
@@ -126,14 +148,11 @@ public class XzIapController {
 			VersionInfoVo newVer = versionService.getNewVersion(1);
 			
 			String newVersion = newVer.getVersion()+".1";
-			
 			LOGGER.info("newVersion:" + iphoneVersion);
 			LOGGER.info("currentVersion:" + version);
 			
 			int diff = VersionCompareUtil.compareVersion(newVersion, version);
-
 			if (diff > 0) {   
-				
 				LOGGER.info("{}{}{}{}{}-----》当前版本小于最新版本，说明是老版本  ");
 				url = "https://buy.itunes.apple.com/verifyReceipt";
 			} else {        // 当前版本大于等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境
@@ -145,42 +164,53 @@ public class XzIapController {
 		LOGGER.info("苹果地址:" + url);
 		final String certificateCode = receipt;
 		if (StringUtils.isNotEmpty(certificateCode)) {
+			
 			String resp = sendHttpsCoon(url, certificateCode);
-			LOGGER.info("苹果返回数据:" + resp);
+			
+			LOGGER.info("二次验证获取的数据---》苹果返回数据:" + resp);
+			
+			JSONObject newObj = JSONObject.parseObject(resp);
+			
 			// 把苹果返回的数据存到数据库
-			String productId = JSONObject.parseObject(resp)
-					.getJSONObject("receipt").getJSONArray("in_app")
-					.getJSONObject(0).get("product_id").toString();
-			LOGGER.info("productId:" + productId);
-			if (StringUtils.isBlank(productId)) {
-				return ResponseObject
-						.newErrorResponseObject("操作失败！找不到productId");
+			//String productId = newObj.getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("product_id").toString();
+			
+		    String status= newObj.getString("status");  //状态码,0为成功
+			if (!status.equals("0")) {
+				return ResponseObject.newErrorResponseObject("操作失败！");
 			}
+
+			JSONArray inApp = newObj.getJSONObject("receipt").getJSONArray("in_app");
+			JSONObject iap = null;
+			for (int i = 0; i < inApp.size(); i++) {
+				if(inApp.getJSONObject(i).get("transaction_id").equals(transactionId)){
+					iap = inApp.getJSONObject(i);
+				}
+			}
+			if(iap!=null){
+				LOGGER.info("iap:"+iap.toJSONString());//开发商交易ID
+				LOGGER.info("status:" + status);
+
+				int actualPrice = IapType.getPrice((String) iap.get("product_id"));
 			/*
-			 * 保存消费信息，并且做对应的熊猫币扣减
+			 * 保存消费信息，并且做对应的熊猫币增加
 			 */
-			iphoneIpaService.increaseNew(userId,
-					actualPrice.multiply(BigDecimal.valueOf(rate)), resp,
-					actualPrice);
-			LOGGER.info("{}{}{}{}{}{}{}{}------------苹果充值成功");
-			return ResponseObject.newSuccessResponseObject(null);
+				iphoneIpaService.increaseNew(orderNo,userId,
+						new BigDecimal(actualPrice*10),
+						resp,
+						new BigDecimal(actualPrice),transactionId);
+
+				LOGGER.info("{}{}{}{}{}{}{}{}------------苹果充值成功");
+				return ResponseObject.newSuccessResponseObject(null);
+			}else{
+				return ResponseObject.newErrorResponseObject("交易信息有误");
+			}
+
 		} else {
 			return null;
 		}
 	}
 
-	
-	
-	public static void main(String[] args) {
-		
-		int diff = VersionCompareUtil.compareVersion("2.1.1.1.1", "2.1.1.1");
-		
-		System.out.println(diff);
-	}
-	
-	
-	
-	
+
 	/**
 	 * 安卓、ios、h5 扣减熊猫币,购买课程
 	 */
@@ -270,4 +300,50 @@ public class XzIapController {
 
 		}
 	};
+
+	enum IapType {
+
+		C1("com.bj.healthlive.coin_01", 1),
+		C2("com.bj.healthlive.coin_02", 6),
+		C3("com.bj.healthlive.coin_03", 12),
+		C4("com.bj.healthlive.coin_04", 50),
+		C5("com.bj.healthlive.coin_05", 98),
+		C6("com.bj.healthlive.coin_06", 488)
+		;
+
+		// 成员变量
+		private int price;
+		private String code;
+
+		// 构造方法
+		private IapType(String code, int count) {
+			this.price = count;
+			this.code = code;
+		}
+
+		public static int getPrice(String code){
+			for (IapType e : IapType.values()) {
+				if(e.getCode().equals(code)){
+					return e.getPrice();
+				}
+			}
+			return 0;
+		}
+
+		public int getPrice() {
+			return price;
+		}
+
+		public void setPrice(int price) {
+			this.price = price;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public void setCode(String code) {
+			this.code = code;
+		}
+	}
 }

@@ -50,7 +50,4 @@ public class SendEmail {
 		  return true;
 		 }
 
-   public static void main(String[] args) throws AddressException, MessagingException {
-   	sendMailBySSL();
-	}
 }

@@ -46,8 +46,16 @@ a {
 	margin-right: 0;
 }
 #hos_pic>div>img{
-	width: 100%;
-	height: 100%;
+ position:absolute;
+ max-width:100%;
+ max-height:100%;
+ width:auto;
+ height:auto;
+ top:0;
+ left:0;
+ bottom:0;
+ right:0;
+ margin:auto;
 }
 .color{
 	color: #00bc12 !important;
@@ -69,7 +77,9 @@ a {
   width: 1200px;
   padding-bottom: 60px;
   margin: 0 auto;
-  min-height: 738px;
+  /*min-height: 738px;*/
+  min-height: 818px;
+  
 }
 .container .row {
   margin: 0;
@@ -83,6 +93,15 @@ a {
   float: left;
   background-color: #fff;
   position: relative;
+}
+#doctor_in_inf .news_nav .hos_point{
+	position: relative;
+}
+#doctor_in_inf .news_nav .hos_point .hos_point_icon{
+    position: absolute;
+    right: 32px;
+    top: 28px;
+    color: #cacbcb;
 }
 #doctor_in_inf .news_nav ul .doctor_inf img {
   width: 80px;
@@ -272,10 +291,19 @@ a {
 	background-color: #f0f0f0;
 	vertical-align: middle;
 	margin-right: 20px;
+	position: relative;
 }
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic > img{
-	width: 100%;
-	height: 100%;
+ position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
 }
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
 	cursor: pointer;
@@ -520,11 +548,20 @@ a {
 	background-color: #f0f0f0;
 	margin-right: 20px;
 	vertical-align: middle;
+	position: relative;
 } 
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic > img,
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic > img{
-	width: 100%;
-	height: 100%;
+	 position:absolute;
+ max-width:100%;
+ max-height:100%;
+ width:auto;
+ height:auto;
+ top:0;
+ left:0;
+ bottom:0;
+ right:0;
+ margin:auto;
 }
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic:hover,
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic:hover{
@@ -1015,11 +1052,228 @@ a {
 	padding: 10px;
 }
 
+.recruit-wrap-content .recruit-table-list tr td:nth-child(1){
+	width: 218px;
+}
 
+.recruit-wrap-content .recruit-table-list tr td:nth-child(2){
+	width:130px;
+}
 
+.recruit-wrap-content .recruit-table-list tr td:nth-child(3){
+	width: 115px;
+}
 
+.recruit-wrap-content .recruit-table-list tr td:nth-child(4){
+	width: 246px;
+}
+.recruit-wrap-content .recruit-table-list tr td:nth-child(5){
+	width: 209px;
+}
+.recruit-box-newjob{
+		text-align: left;
+}
+.recruit-box-newjob > div > span:first-child{
+	    display: inline-block;
+    width: 96px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+}
+.recruit-box-newjob > div > span:first-child em{
+	color: #f40;
+    display: inline;
+}
+.recruit-newjob-inf{
+	margin-top: 30px;
+}
+.recruit-write{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+}
+/*工作经验*/
+.recruit-write-experience{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+    position: relative;
+}
 
+.recruit-select {
+margin-top: 20px;
+display: inline-block;
+}
 
+.recruit-select p {
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    margin-right: 10px;
+    font-size: 14px;
+    line-height: 36px;
+    text-indent: 1em;
+color: #999999;
+}
+
+.recruit-select-one {
+	background: url(../images/down.png) 247px 14px no-repeat;
+}
+
+.select{
+	background: url(../images/up.png) 247px 14px no-repeat;
+}
+
+.recruit-select-lest{
+    width: 280px;
+    position: absolute;
+    border: 1px solid #f0f0f0;
+    background: white;
+	display: none;
+}
+
+.recruit-select ul li {
+	line-height: 30px;
+	padding-left: 10px;
+}
+
+.recruit-select ul li:hover {
+	background: #CCC;
+	color: #FFF;
+}
+/*岗位职责*/
+.recruit-newjob-duty{
+	margin-top: 20px;
+}
+
+.recruit-textarea{
+	width: 540px;
+	height: 188px;
+	resize: none;
+	border: 1px solid #f0f0f0;
+	outline: none;
+	    padding: 10px;
+}
+.recruit-textarea-duty{
+		width: 540px;
+	display: inline-block;
+	margin-left: 5px;
+}
+.recruit-save-btn{
+	width: 120px;
+	height: 36px;
+	background:#00BC12;
+	color: white;
+	text-align: center;
+	line-height: 36px;
+	margin-top: 20px;
+	border-radius: 4px;
+	margin-bottom: 60px;
+	cursor: pointer;
+}
+/*招聘管理预览*/
+.recruit_preview_bg{
+	  position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    opacity: 0.3;
+    display: none;
+}
+.recruit_preview_box{
+	width: 960px;
+	height: 634px;
+	background: white;
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 100px;
+	margin-left: -480px;
+}
+.recruit_preview_bigBox{
+	width: 960px;
+	height: 570px;
+		overflow-x:hidden;
+  overflow-y:auto;
+}
+.recruit_preview_content{
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	line-height: 60px;
+	padding: 0 40px;
+	box-sizing: border-box;
+
+}
+.recruit_preview_content p{
+	color: #333333;
+	font-size: 16px;
+	float: left;
+}
+.recruit_preview_content img{
+	float: right;
+	margin-top: 23px;
+	cursor: pointer;
+}
+.recruit_preview_wrap{
+	
+}
+.recruit_preview_h1{
+	width: 96px;
+	display: inline-block;
+	text-align: right;
+	float: left;
+}
+.recruit_preview_h1 em{
+	color: red;
+display: inline;
+margin-right: 5px;
+}
+.recruit_wrap_h1 p{
+	width: 679px;
+	display: inline;
+	padding-left: 20px;
+	display: inline-block;
+}
+.recruit_wrap_h1{
+	margin-top: 28px;
+}
+.recruit_edit_box{
+	width: 960px;
+	height: 695px;
+	background: white;
+	position: absolute;
+	left: 50%;
+	top: 100px;
+	margin-left: -480px;
+	display: none;
+}
+/*.招聘管理编辑效果开始*/
+.recruit_edit_inf{
+	
+}
+.recruit_edit_inf em{
+	color: red;
+	display: inline-block;
+}
+.recruit_edit_inf span:nth-child(1){
+	display: inline-block;
+	width: 96px;
+	text-align: right;
+	margin-right: 5px;
+}
 
 
 

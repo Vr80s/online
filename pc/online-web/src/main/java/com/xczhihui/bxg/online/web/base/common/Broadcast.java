@@ -39,19 +39,7 @@ public class Broadcast {
 	public Broadcast() throws XMPPException, SmackException, IOException {
 		
 	}
-	public static void main(String[] args) throws XMPPException,
-			SmackException, IOException {
-		Broadcast broadcast = new Broadcast();
-		broadcast.host = "47.92.39.21";
-		broadcast.port = 5222;
-		broadcast.account = "3@47.92.39.21";
-		broadcast.password = "system-im-pc";
-		String roomId = "411";
-		String body = "送你一把加特林---哒哒哒哒哒!!!!!";
-		broadcast.loginAndSend(roomId,body);
 
-	}
-	
 	public synchronized void loginAndSend(String roomId, String body) throws XMPPException, SmackException, IOException{
 		XMPPTCPConnection connection = null;
 		SASLAuthentication.blacklistSASLMechanism("SCRAM-SHA-1");
@@ -61,7 +49,6 @@ public class Broadcast {
 			connection.login();
 		}
 		// 是否已经通过身份验证
-//		System.out.println("Authenticated = " + connection.isAuthenticated());
 		if(!connection.isAuthenticated()){
 			connection.login();
 		}

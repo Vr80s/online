@@ -86,8 +86,4 @@ public class DateUtil {
 		Date endDate = cdate.getTime();
 		return getStringNowDateMMddHHmmss(endDate);
 	}
-	public static void main(String[] args) {
-		System.out.println(dateAddDay(new Date()));
-		System.out.println(dateAddYear(new Date()));
-	}
 }

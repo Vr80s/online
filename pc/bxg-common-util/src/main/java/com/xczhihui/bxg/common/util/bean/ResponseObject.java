@@ -1,68 +1,80 @@
 package com.xczhihui.bxg.common.util.bean;
 
+import java.io.Serializable;
+
 /**
  * 请求的返回结果。 如果:success=true resultObject=处理结果； 如果:success=false
  * errorMessage=错误信息
- * 
- * @author liyong
  *
+ * @author liyong
  */
-public class ResponseObject {
+public class ResponseObject implements Serializable {
 
-	private boolean success;
+    private boolean success;
 
-	private String errorMessage;
+    private String errorMessage;
 
-	private Object resultObject;
+    private Object resultObject;
 
-	/**
-	 * 构造一个错误响应对象
-	 * 
-	 * @param errorMessage
-	 * @return
-	 */
-	public static ResponseObject newErrorResponseObject(String errorMessage) {
-		ResponseObject res = new ResponseObject();
-		res.setSuccess(false);
-		res.setErrorMessage(errorMessage);
-		return res;
-	}
+    /**
+     * 构造一个错误响应对象
+     *
+     * @param errorMessage
+     * @return
+     */
+    public static ResponseObject newErrorResponseObject(String errorMessage) {
+        ResponseObject res = new ResponseObject();
+        res.setSuccess(false);
+        res.setErrorMessage(errorMessage);
+        return res;
+    }
 
-	/**
-	 * 构造一个成功响应对象
-	 * 
-	 * @param resultObject
-	 * @return
-	 */
-	public static ResponseObject newSuccessResponseObject(Object resultObject) {
-		ResponseObject res = new ResponseObject();
-		res.setSuccess(true);
-		res.setResultObject(resultObject);
-		return res;
-	}
+    /**
+     * 构造一个成功响应对象
+     *
+     * @param resultObject
+     * @return
+     */
+    public static ResponseObject newSuccessResponseObject(Object resultObject) {
+        ResponseObject res = new ResponseObject();
+        res.setSuccess(true);
+        res.setResultObject(resultObject);
+        return res;
+    }
 
-	public String getErrorMessage() {
-		return errorMessage;
-	}
+    /**
+     * 构造一个成功响应对象
+     *
+     * @return
+     */
+    public static ResponseObject newSuccessResponseObject() {
+        ResponseObject res = new ResponseObject();
+        res.setSuccess(true);
+        return res;
+    }
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 
-	public Object getResultObject() {
-		return resultObject;
-	}
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
-	public void setResultObject(Object resultObject) {
-		this.resultObject = resultObject;
-	}
+    public Object getResultObject() {
+        return resultObject;
+    }
 
-	public boolean isSuccess() {
-		return success;
-	}
+    public void setResultObject(Object resultObject) {
+        this.resultObject = resultObject;
+    }
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
 }

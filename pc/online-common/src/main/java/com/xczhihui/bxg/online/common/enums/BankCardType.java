@@ -32,7 +32,7 @@ public enum BankCardType {
     NBCB(95574, "宁波银行"),
     CZB(95527, "浙商银行"),
     EGB(95395, "恒丰银行"),
-    PSBC(95580, "邮政储蓄银行")
+    PSBC(95580, "邮储银行")
     ;
 
     // 成员变量
@@ -81,18 +81,6 @@ public enum BankCardType {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-
-    public static void main(String[] arg) {
-//        Dismissal
-//        System.err.println(Dismissal.D1.code+"==="+Dismissal.D1.text);
-//        System.err.println(Dismissal.D2.code+"==="+Dismissal.D2.text);
-//        System.err.println(Dismissal.D3.code+"==="+Dismissal.D3.text);
-        /*for (BankCardType e : BankCardType.values()) {
-            System.out.println(e.getCode());
-        }*/
-        System.err.println(getBankCardList());
     }
 
 }

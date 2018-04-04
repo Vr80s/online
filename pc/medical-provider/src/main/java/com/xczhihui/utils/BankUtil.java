@@ -7,13 +7,6 @@ package com.xczhihui.utils;
  * Create Time:  2018/2/10 0010-下午 6:36<br>
  */
 public class BankUtil {
-    public static void main(String[] args) {
-        String cardNumber = "6214680171286048";//卡号
-        String name = getNameOfBank(cardNumber);
-        System.out.println(name);
-        System.out.println(name.contains("北京银行"));
-        System.out.println(name.contains("北京银行1"));
-    }
 
 
     //传入卡号 得到银行名称
