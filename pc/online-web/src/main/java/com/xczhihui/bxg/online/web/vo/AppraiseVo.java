@@ -45,6 +45,7 @@ public class AppraiseVo {
     /**
      * 评论者头像
      */
+
     private String small_head_photo;
 
     /**

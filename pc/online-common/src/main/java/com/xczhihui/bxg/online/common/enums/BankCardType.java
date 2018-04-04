@@ -83,16 +83,4 @@ public enum BankCardType {
         this.code = code;
     }
 
-
-    public static void main(String[] arg) {
-//        Dismissal
-//        System.err.println(Dismissal.D1.code+"==="+Dismissal.D1.text);
-//        System.err.println(Dismissal.D2.code+"==="+Dismissal.D2.text);
-//        System.err.println(Dismissal.D3.code+"==="+Dismissal.D3.text);
-        /*for (BankCardType e : BankCardType.values()) {
-            System.out.println(e.getCode());
-        }*/
-        System.err.println(getBankCardList());
-    }
-
 }

@@ -58,13 +58,7 @@ public class CommonUtil {
 		}
 		return res;
 	}
-	
-	public static void main(String[] args) {
-		
-		
-		System.out.println(CreateNoncestr());
-		
-	}
+
 	
 	
 	public static String FormatQueryParaMap(HashMap<String, String> parameters) throws SDKRuntimeException {

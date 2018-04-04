@@ -173,40 +173,4 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         } 
         return respMessage;  
 	}
-	
-	
-	public static void main(String[] args) {
-		
-		
- 	    NewsMessage newsMessage = new NewsMessage();  
-        newsMessage.setToUserName("1");  
-        newsMessage.setFromUserName("2");  
-        newsMessage.setCreateTime(new Date().getTime());  
-        newsMessage.setFuncFlag(0);  
-        newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);   
-        
-//		List<Article> articleList = new ArrayList<Article>();  
-//        Article article = new Article();  
-//        article.setTitle("弘扬中医药文化，助力中医药产业。【熊猫中医】与您，一路同行。");  
-//        article.setDescription("感谢关注【熊猫国医学堂】点击【国医学堂】进入【熊猫中医课堂】，即可观看现有中医课程。点击【个人中心】 可以查看自己的账户情况。【熊猫中医在线云课堂】，打破时间空间的限制，学习最适合你的中医。");  
-//        article.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
-//        article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
-//       
-//        articleList.add(article); 
-//        // 设置图文消息个数  
-//        newsMessage.setArticleCount(articleList.size());  
-//        // 设置图文消息包含的图文集合  
-//        newsMessage.setArticles(articleList);  
-
-		newsMessage.setMedia_id("6y0EBrCsG4Si29EjR7_uAPKHf5fHnte_6__89Y0IiyA");
-		
-        
-        // 将图文消息对象转换成xml字符串  
-        String respMessage = MessageUtil.newsMessageToXml(newsMessage); 
-		
-        
-        System.out.println("respMessage:"+respMessage);
-	}
-	
-
 }

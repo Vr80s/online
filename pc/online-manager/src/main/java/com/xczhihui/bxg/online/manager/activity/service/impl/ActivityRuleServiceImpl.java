@@ -131,17 +131,7 @@ public class ActivityRuleServiceImpl extends OnlineBaseServiceImpl implements Ac
 			sql = "update oe_activity_rule_detail t set t.end_time = ? where t.rule_id = ? ";
 			dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql,new Object[]{activityRuleVo.getEndTime(),activityRuleVo.getId()});
 			return;
-		}else{//修改所有
-//			String sql = "select count(1) from oe_activity_rule_detail t where t.start_time <= now() and t.rule_id = ? ";
-//			if(dao.queryForInt(sql, new Object[]{activityRuleVo.getId()}) > 0){
-//				//如果已经生效 那么判断 是否修改过其他字段 如果 其他字段未修改 那么就更新否则  就异常
-//				sql = "select count(1) from oe_activity_rule t where t.id = ? and t.`name` = ? and t.url = ? and t.subject_ids = ? and t.start_time = ?";
-//				//未修改其他字段 更新结束时间
-//				Boolean mainIsEdit = dao.queryForInt(sql, new Object[]{activityRuleVo.getId(),activityRuleVo.getName(),activityRuleVo.getUrl(),activityRuleVo.getSubjectIds(),activityRuleVo.getStartTime()}) > 0;
-//				if(mainIsEdit){//主表副表信息全部没有修改才能修改
-//					throw new RuntimeException("规则已经生效不能修改！");
-//				}
-//			}
+		}else{
 			
 			String sql ="UPDATE oe_activity_rule " +
 						"	SET `name` = ?, " +

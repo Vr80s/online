@@ -124,9 +124,4 @@ public class CCUtils {
 		return String.valueOf(Double.valueOf(duration).intValue()/60);
 	}
 
-	public static void main(String[] args) {
-		String duration = getVideoLength("B21B63BC0506CB809C33DC5901307461");
-
-		System.out.println(duration);
-	}
 }

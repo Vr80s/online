@@ -6,25 +6,29 @@ import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
-import com.xczhihui.medical.doctor.mapper.*;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorDepartmentMapper;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
+import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalDoctorMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -625,20 +629,4 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
     }
 
-    public static void main(String[] args) {
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            int count = 78;
-            int rows = 4;
-            int offset =0;
-            if(count>rows){
-                count=random.nextInt(count);
-                offset = count-rows;
-                if (offset < 0) {
-                    offset=0;
-                }
-            }
-            System.out.println(offset+","+rows);
-        }
-    }
 }

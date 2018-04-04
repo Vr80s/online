@@ -109,26 +109,4 @@ public class SmsUtil {
     	return sendSmsResponse;
     }
 
-
-    public static void main(String[] args) throws ClientException, InterruptedException {
-
-        //发短信
-        /*SendSmsResponse response = sendSms("18511763435","1015");
-        System.out.println("短信接口返回的数据----------------");
-        System.out.println("Code=" + response.getCode());
-        System.out.println("Message=" + response.getMessage());
-        System.out.println("RequestId=" + response.getRequestId());
-        System.out.println("BizId=" + response.getBizId());
-
-        Thread.sleep(3000L);*/
-
-//    	SendSmsResponse response = sendSmsSubscribe("18511763435", "大鑫哥课堂", "2017年08月12日 17点20分", null, true);
-    	SendSmsResponse response = sendSmsSubscribe("18511763435", "大鑫哥课堂", null, "36", false);
-    	System.out.println("短信接口返回的数据----------------");
-        System.out.println("Code=" + response.getCode());
-        System.out.println("Message=" + response.getMessage());
-        System.out.println("RequestId=" + response.getRequestId());
-        System.out.println("BizId=" + response.getBizId());
-    
-    }
 }

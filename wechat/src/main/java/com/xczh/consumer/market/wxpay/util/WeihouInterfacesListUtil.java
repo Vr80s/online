@@ -421,10 +421,5 @@ public class WeihouInterfacesListUtil {
 		return null;
 	}
 	
-	//测试
-	public static void main(String[] args) {
-		
-		recordList("508148233");
-	}
 
 }

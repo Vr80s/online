@@ -41,7 +41,4 @@ public class IDCard {
         return random[total % 11] == no.charAt(17);
     }
 
-    public static void main(String[] args) {
-        System.out.println(validator(""));
-    }
 }

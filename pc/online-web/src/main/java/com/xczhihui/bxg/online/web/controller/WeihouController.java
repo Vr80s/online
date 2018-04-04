@@ -53,8 +53,4 @@ public class WeihouController {
 		}
 	}
 
-	public static void main(String[] args) {
-		String timestr = new Date().getTime()+"";
-		System.out.println(timestr);
-	}
 }

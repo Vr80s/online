@@ -269,34 +269,4 @@ public final class Base64 {
         return newSize;
     }
     
-    public static void main(String args [] )
-    {
-        try
-        {
-           Base64 b64 = new Base64();
-           
-           String str64 = "";
-           if(true) {
-        	   //encode
-        	   String str = "熊猫中医";
-        	   String str642 = b64.encode(str.getBytes());
-        	   str64 = str642;
-        	   System.out.println(str642);
-           }
-           
-           if(true) {
-	           //String str64 = "CwUEFYoAAAADjQMC7ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267ELJiY6w05267EI=";
-	           //decode
-	           byte[] theBytes = {-27, -115, -102, -27, -83, -90, -24, -80, -73};//b64.decode(str64);
-	           String str = new String(theBytes);//new String(bytes,0,bytes.length,"UTF-8");
-//	           System.out.println(str);
-           }
-           
-        }
-        catch(Exception e)
-        {
-           e.printStackTrace();
-        }
-    }
-
 }

@@ -80,7 +80,7 @@
 								<h4></h4>
 								<p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding: 0 20px;"></p>
 							</li>
-							<li class="active">
+							<li class="active hos_point">
 								<a href="#hos_Administration" aria-controls="doc_talk" data-name="hosAdm" role="tab" data-toggle="tab" class="luntan color"><span class="icon iconfont icon-02_dianpuguanli color" aria-hidden="true" style="margin-left: 33px;"></span>医馆管理
 									<div class="luntan_list" style="display: block;">
 										<div>
@@ -91,6 +91,7 @@
 										</div>
 									</div>
 								</a>
+								<span class="glyphicon glyphicon-triangle-bottom hos_point_icon" aria-hidden="true"></span>
 							</li>
 							<li class="hide" id="doc_Administration_tabBtn">
 								<a href="#doc_Administration" data-name="docAdm" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>医师管理</a>
@@ -590,9 +591,9 @@
 													<td>已发布</td>
 													<td>2018.08.08  14:00</td>
 													<td>
-														<a href="">预览</a>
-														<a href="">关闭</a>
-														<a href="">编辑</a>
+														<a href="javascript:;" class="recruit_preview_btn">预览</a>
+														<a href="javascript:;" class="recruit_close_btn">关闭</a>
+														<a href="javascript:;" class="recruit_edit_btn">编辑</a>
 													</td>
 												</tr>
 												
@@ -602,7 +603,7 @@
 													<td>已发布</td>
 													<td>2018.08.08  14:00</td>
 													<td>
-														<a href="javascript:;">预览</a>
+														<a href="" >预览</a>
 														<a href="javascript:;">关闭</a>
 														<a href="javascript:;">编辑</a>
 													</td>
@@ -651,7 +652,8 @@
 									</div>
 								</div>
 							</div>
-	
+						
+							
 							<!--公告管理-->
 							<div role="tabpanel" class="tab-pane" id="Notice_Administration">
 								<div class="Notice_top">
@@ -877,7 +879,86 @@
 						<!--TODO-->
 				
 			</div>
-
+			<!--招聘管理预览效果-->
+			<div class="recruit_preview_bg"></div>
+			<div class="recruit_preview_box">
+				<div class="recruit_preview_content">
+					<p class="recruit_preview_title">预览</p>
+					<img src="../images/rili_close.png"/>
+				</div>
+				
+				<div class="recruit_preview_bigBox">			
+					<div class="recruit_wrap_h1">
+						<span class="recruit_preview_h1"><em>*</em>招聘职位</span>
+						<p>招前端阿里十年经验</p>
+					</div>
+					<div class="recruit_wrap_h1">
+						<span class="recruit_preview_h1">工作经验</span>
+						<p>5-8年</p>
+					</div>
+					<div class="recruit_wrap_h1">
+						<span class="recruit_preview_h1"><em>*</em>岗位职责</span>
+						<p>
+							1、负责公司人员绩效管理、入职培训、员工考勤等各项人事管理组织工作。根据公司的发展规划，通过人事管理与
+							开发，激励员工、提升员工的工作绩效，为公司的可持续发展提供人力资源保障。  2、完善、健全公司各项规章制
+							度，推动公司规范化管理, 对公司的生产现场纪律，会议纪律进行监督，提醒记录，组织并宣传公司的企业文化，提
+							高员工的凝聚力，丰富员工的生活，提升员工的素质。
+						</p>
+					</div>
+					<div class="recruit_wrap_h1">
+						<span class="recruit_preview_h1"><em>*</em>职位要求</span>
+						<p>1、负责公司人员绩效管理、入职培训、员工考勤等各项人事管理组织工作。根据公司的发展规划，通过人事管理与
+							开发，激励员工、提升员工的工作绩效，为公司的可持续发展提供人力资源保障。  2、完善、健全公司各项规章制
+							度，推动公司规范化管理, 对公司的生产现场纪律，会议纪律进行监督，提醒记录，组织并宣传公司的企业文化，提
+							高员工的凝聚力，丰富员工的生活，提升员工的素质。
+						</p>
+					</div>		
+				</div>
+			</div>
+			<!--招聘管理预览效果结束-->	
+			<!--招聘管理编辑效果开始-->
+			<div class="recruit_edit_box">
+				<div class="recruit_preview_content">
+					<p class="recruit_preview_title">编辑</p>
+					<img src="../images/rili_close.png"/>
+				</div>
+				<div class="recruit-newjob-inf recruit_edit_inf">
+					<span><em>*</em> 招聘职位</span>
+					<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="20" class="recruit-write" />
+					<span class="warning hide" style="margin-left: 0px;">招聘职位不能为空</span>
+				</div>
+				<div class="recruit-newjob-experience recruit_edit_inf">
+					<span>工作经验</span>
+					<div class="recruit-select" id="nav">
+						<p class="recruit-select-one">请选择工作经验</p>
+						<ul class="recruit-select-lest">
+							<li>1年以内</li>
+							<li>1-2年</li>
+							<li>2-4年</li>
+							<li>4-6年</li>
+							<li>6-8年</li>
+							<li>8-10年</li>
+							<li>10年以上</li>
+						</ul>
+					</div>
+				</div>
+				<div class="recruit-newjob-duty recruit_edit_inf">
+					<span style="float: left;"><em>*</em>岗位职责</span>
+					<div class="recruit-textarea-duty">				
+						<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
+						<span class="warning hide" style="margin-left: 0px;">岗位职责不能为空</span>	
+					</div>
+				</div>
+				<div class="recruit-newjob-duty recruit_edit_inf">
+					<span style="float: left;"><em>*</em>职位要求</span>
+					<div class="recruit-textarea-duty">				
+						<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
+						<span class="warning hide" style="margin-left: 0px;">职位要求不能为空</span>						
+						<p class="recruit-save-btn" style="margin-bottom: 0px;">保存</p>
+					</div>
+				</div>
+			</div>
+			<!--招聘管理编辑效果结束-->
 		</div>
 
 		</div>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xczhihui.medical.doctor.mapper.OeBxsArticleMapper">
+<mapper namespace="com.xczhihui.medical.headline.mapper.OeBxsArticleMapper">
 	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVO" id="MedicalArticleBaseResult">
 		<id column="id" property="id" />
 		<id column="title" property="title" />
@@ -173,6 +173,10 @@
 			ON mdai.`id` = md.`authentication_information_id`
 		WHERE oba.id = #{articleId}
 		ORDER BY oba.`create_time` DESC
+	</select>
+
+	<select id="selectArticlesByPage" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
+
 	</select>
 
 </mapper>

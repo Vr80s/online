@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.pay;
 
+import com.jcraft.jsch.Logger;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -52,16 +53,18 @@ public class bankCardController {
 										 @RequestParam("tel")String tel,
 										 @RequestParam(required=false)Integer code)throws Exception{
 		
+		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
+		System.out.println("tel==================="+tel);
 		/**
 		 * 数据验证
 		 */
 		Integer devCode =  userBankService.validateBankInfo(user.getId(),acctName,acctPan,certId,tel,code);
 		if(devCode == 201){ //说明身份证号不一致 
-			return  ResponseObject.newSuccessResponseObject("提示填写的为其他人的身份证，是否还添加银行卡",devCode);
+			return  ResponseObject.newErrorResponseObject("提示填写的为其他人的身份证，是否还添加银行卡:"+code,code);
 		}
 		userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
 		return  ResponseObject.newSuccessResponseObject("添加成功");

@@ -581,19 +581,7 @@ public class HttpUtil {
         return "";  
     }  
 	
-	public static void main(String[] args) {
-		String str = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Mobile Safari/537.36";
-		//String str = "User-Agent: MedicineLive/1.0.0 (iPhone; iOS 11.0.2; Scale/2.00)";
-	    Pattern pattern = Pattern.compile(";\\s?(\\S*?\\s?\\S*?)\\s?(Build)?/"); 
-        Matcher matcher =pattern.matcher(str);    
-        String model = null;   
-        if(matcher.find()) {    
-            model = matcher.group(1).trim();   
-            System.out.println("model:"+model);//手机型号    
-        }  
-        System.out.println(getMobileType(str));
-	}
-	
+
 	public static String getIpAddress(HttpServletRequest request) {
 
 		String ipAddress = request.getHeader("x-forwarded-for");

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -15,116 +15,126 @@ public class MedicalHospitalRecruitVO implements Serializable {
     /**
      * 医馆招聘表
      */
-	private String id;
+    private String id;
     /**
      * 医馆id
      */
-	private String hospitalId;
-	private String city;
-	/**
+    private String hospitalId;
+    private String city;
+    /**
      * 医馆名称
      */
-	private String hospitalName;
+    private String hospitalName;
     /**
      * 职位
      */
-	private String position;
+    private String position;
     /**
      * 工作经验 0.不限 1.0-1年 2.1-3年 3.3-5年 4.5-10年 5.10年以上
      */
-	private String years;
+    private String years;
     /**
      * 岗位职责
      */
-	private String postDuties;
+    private String postDuties;
     /**
      * 职位要求
      */
-	private String jobRequirements;
+    private String jobRequirements;
 
-	public String getCity() {
-		return city;
-	}
+    private Boolean status;
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getHospitalId() {
-		return hospitalId;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setHospitalId(String hospitalId) {
-		this.hospitalId = hospitalId;
-	}
+    public String getHospitalId() {
+        return hospitalId;
+    }
 
-	public String getHospitalName() {
-		return hospitalName;
-	}
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
 
-	public void setHospitalName(String hospitalName) {
-		this.hospitalName = hospitalName;
-	}
+    public String getHospitalName() {
+        return hospitalName;
+    }
 
-	public String getPosition() {
-		return position;
-	}
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
+    }
 
-	public void setPosition(String position) {
-		this.position = position;
-	}
+    public String getPosition() {
+        return position;
+    }
 
-	public String getYears() {
-		return years;
-	}
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
-	public void setYears(String years) {
-		this.years = years;
-	}
+    public String getYears() {
+        return years;
+    }
 
-	public String getPostDuties() {
-		if(postDuties == null) {
+    public void setYears(String years) {
+        this.years = years;
+    }
+
+    public String getPostDuties() {
+        if (postDuties == null) {
             return null;
         }
-		postDuties = postDuties.replace("\n\n","<br/>");
-		postDuties = postDuties.replace("\n","<br/>");
-		return postDuties;
-	}
+        postDuties = postDuties.replace("\n\n", "<br/>");
+        postDuties = postDuties.replace("\n", "<br/>");
+        return postDuties;
+    }
 
-	public void setPostDuties(String postDuties) {
-		this.postDuties = postDuties;
-	}
+    public void setPostDuties(String postDuties) {
+        this.postDuties = postDuties;
+    }
 
-	public String getJobRequirements() {
-		if(jobRequirements == null) {
+    public String getJobRequirements() {
+        if (jobRequirements == null) {
             return null;
         }
-		jobRequirements = jobRequirements.replace("\n\n","<br/>");
-		jobRequirements = jobRequirements.replace("\n","<br/>");
-		return jobRequirements;
-	}
+        jobRequirements = jobRequirements.replace("\n\n", "<br/>");
+        jobRequirements = jobRequirements.replace("\n", "<br/>");
+        return jobRequirements;
+    }
 
-	public void setJobRequirements(String jobRequirements) {
-		this.jobRequirements = jobRequirements;
-	}
+    public void setJobRequirements(String jobRequirements) {
+        this.jobRequirements = jobRequirements;
+    }
 
-	@Override
-	public String toString() {
-		return "MedicalHospitalRecruitVo{" +
-			", id=" + id +
-			", hospitalId=" + hospitalId +
-			", position=" + position +
-			", years=" + years +
-			", postDuties=" + postDuties +
-			", jobRequirements=" + jobRequirements +
-			"}";
-	}
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalHospitalRecruitVo{" +
+                ", id=" + id +
+                ", hospitalId=" + hospitalId +
+                ", position=" + position +
+                ", years=" + years +
+                ", postDuties=" + postDuties +
+                ", jobRequirements=" + jobRequirements +
+                "}";
+    }
 }

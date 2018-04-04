@@ -327,10 +327,6 @@ public class PayFactory {
 		return "\"" + str + "\"";
 	}
 
-	public static void main(String[] args) throws Exception {
-		String str = new PayFactory().getPayQrimage(null, 2222213L, 1, "31111114324", "11123424");
-		System.out.println(str);
-	}
 
 }
 

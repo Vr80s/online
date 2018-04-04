@@ -109,7 +109,5 @@ public class DemoUtil {
 		}
 		return floatNum;
 	}
-	public static void main(String[] args) {
-	}
 
 }
