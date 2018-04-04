@@ -58,27 +58,27 @@
                 </ul>
             </div>
             <div class="forum-content-info">
-                <#list paperArticle.items as pa>
+                <#list articles.records as article>
                     <div class="forum-info clearfix">
-                        <a href="/web/html/forumDetail.html?articleId=${pa.id}" target="_blank">
-                            <img class="forum-info-left" src="${pa.img_path}" alt=""/>
+                        <a href="/headline/details/${article.id}" target="_blank">
+                            <img class="forum-info-left" src="${article.imgPath}" alt=""/>
                         </a>
                         <div class="forum-info-right">
                             <div class="forum-info-title">
-                                <a href="/web/html/forumDetail.html?articleId=${pa.id}" target="_blank">${pa.title}</a>
+                                <a href="/headline/details/${article.id}" target="_blank">${article.title}</a>
                             </div>
                             <div class="forum-info-content dot-ellipsis">
-                            ${pa.content}
+                            ${article.content}
                             </div>
                             <div class="forum-info-tags">
-                                <span>${pa.name}<em></em>${pa.create_time}</span>
+                                <span>${article.source}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>
                             </div>
                         </div>
                     </div>
                 </#list>
             </div>
             <!-- 使用该标签 -->
-        <@cast.page pageNo=paperArticle.currentPage totalPage=paperArticle.pageSize showPages=5 callUrl="/headline/list/"+echoMap.type?default("")+"?current="/>
+        <@cast.page pageNo=articles.current totalPage=articles.pages showPages=5 callUrl="/headline/list/"+echoMap.type?default("")+"?current="/>
 
         </div>
         <div class="forum-content-right" style="position: absolute; left: 880px;">

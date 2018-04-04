@@ -3,6 +3,7 @@ package com.xczhihui.medical.headline.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.headline.model.OeBxsAppraise;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ import java.util.List;
  */
 public interface OeBxsAppraiseMapper extends BaseMapper<OeBxsAppraise> {
 
-    List<OeBxsAppraise> selectArticleAppraiseById(Page<OeBxsAppraise> page, Integer id, String userId);
+    List<OeBxsAppraise> selectArticleAppraiseById(@Param("page") Page<OeBxsAppraise> page, @Param("id") Integer id, @Param("userId") String userId);
 }

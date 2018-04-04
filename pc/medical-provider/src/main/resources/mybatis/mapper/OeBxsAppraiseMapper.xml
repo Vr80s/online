@@ -8,7 +8,7 @@
 		  ba.content,
 		  ba.create_time,
 		  u.name,
-		  u.small_head_photo,
+		  u.small_head_photo smallHeadPhoto,
 		  ba.user_id,
 		  us.name nickName,
 		  IF(ba.user_id = #{userId}, 1, 0) isMySelf

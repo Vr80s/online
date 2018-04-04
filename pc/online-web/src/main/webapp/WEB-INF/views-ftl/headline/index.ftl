@@ -172,26 +172,26 @@
                 </ul>
             </div>
             <div class="forum-content-info">
-                <#list paperArticle.items as pa>
+                <#list articles.records as article>
                     <div class="forum-info clearfix">
-                        <a href="/web/html/forumDetail.html?articleId=${pa.id}" target="_blank">
-                            <img class="forum-info-left" src="${pa.img_path}" alt=""/>
+                        <a href="/headline/details/${article.id}" target="_blank">
+                            <img class="forum-info-left" src="${article.imgPath}" alt=""/>
                         </a>
                         <div class="forum-info-right">
                             <div class="forum-info-title">
-                                <a href="/web/html/forumDetail.html?articleId=${pa.id}" target="_blank">${pa.title}</a>
+                                <a href="/headline/details/${article.id}" target="_blank">${article.title}</a>
                             </div>
                             <div class="forum-info-content dot-ellipsis">
-                            ${pa.content}
+                            ${article.content}
                             </div>
                             <div class="forum-info-tags">
-                                <span>${pa.name}<em></em>${pa.create_time}</span>
+                                <span>${article.source}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>
                             </div>
                         </div>
                     </div>
                 </#list>
             </div>
-                <a href="/headline/${articleType[0].id}">更多</a>
+                <a href="/headline/list/${articleType[0].id}">更多</a>
         </div>
         <div class="forum-content-right" style="position: absolute; left: 880px;">
             <!--推荐专栏作者-->

@@ -29,11 +29,7 @@ public class OeBxsArticleServiceImpl extends ServiceImpl<OeBxsArticleMapper, OeB
 
     @Override
     public OeBxsArticle selectArticleById(Integer id) {
-        OeBxsArticle article = new OeBxsArticle();
-        article.setDelete(false);
-        article.setStatus(1);
-        article.setId(id);
-        return baseMapper.selectOne(article);
+        return baseMapper.selectArticleById(id);
     }
 
     @Override
@@ -45,6 +41,8 @@ public class OeBxsArticleServiceImpl extends ServiceImpl<OeBxsArticleMapper, OeB
 
     @Override
     public Page<OeBxsArticle> selectArticlesByPage(Page page, String type) {
-        return baseMapper.selectArticlesByPage(page,type);
+        List<OeBxsArticle> oeBxsArticles = baseMapper.selectArticlesByPage(page, type);
+        page.setRecords(oeBxsArticles);
+        return page;
     }
 }
