@@ -38,7 +38,6 @@
 	</select>
 
 	<!-- 课程详情 此详情包括了  不包括礼物等信息   selectCourseDetailsById -->
-	
 	<select id="selectCourseMidileDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
@@ -708,6 +707,25 @@
 				oe_course as oc
 			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
 				where oc.id = #{courseId} and oc.is_delete=0
+	</select>
+	
+	<!-- 单独获取详情    selectCourseDescription -->
+	
+	<select id="selectCourseDescription" resultType="java.lang.String">
+		select details from 		
+	    <if test="type != null and  type = 1 ">
+			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
+		</if>
+		<if test="type != null and type = 2 ">
+			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
+		</if>
+		<if test="type != null and type = 3 ">
+			( select ca.detail as details from course_anchor ca on  ou.id = ca.user_id where ou.id = ?} )
+		</if>
+		<if test="type != null and type = 4 ">
+			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
+		</if>
+		as common_details
 	</select>
 	
 </mapper>
