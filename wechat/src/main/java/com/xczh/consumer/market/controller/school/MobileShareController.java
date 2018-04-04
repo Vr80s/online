@@ -243,8 +243,8 @@ public class MobileShareController {
 					}
 				}
 				
-				if(cv.getWatchState() == 0 || cv.getWatchState()==1){
-					if(cv.getType()==1||cv.getType()==2){
+				if(cv.getWatchState() == 0){
+					if(cv.getType()==1 || cv.getType()==2){
 						//视频音频购买
 						res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?shareBack=1&course_id="+shareId);
 					}else if(cv.getType()==3){
@@ -254,7 +254,7 @@ public class MobileShareController {
 						//线下课购买
 						res.sendRedirect(returnOpenidUri + "/xcview/html/school_class.html?shareBack=1&course_id="+shareId);
 					}	
-				}else if(cv.getWatchState() == 2 || cv.getWatchState()==3){
+				}else if(cv.getWatchState()==1 || cv.getWatchState() == 2 || cv.getWatchState()==3){
 					if(cv.getType()==1||cv.getType()==2){
 						if(cv.getCollection()){
 							//专辑视频音频播放页
