@@ -60,10 +60,9 @@ public class LookHistoryController {
 	public ResponseObject add(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam("courseId") Integer courseId,
-			@RequestParam("recordType")Integer recordType) {
+			@RequestParam("recordType")Integer recordType,
+			@RequestParam("collectionId")Integer collectionId) {
 		try {
-			
-			
 			
 			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
@@ -73,21 +72,26 @@ public class LookHistoryController {
 			if(course == null){
 		          throw new RuntimeException("课程信息有误");
 		    }
+			//锁id
 			String lockId = ou.getId()+courseId;
+			
 			if(recordType!=null){
+				
 				if(recordType == 1){ //增加学习记录
 					if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
 						  onlineWebService.saveEntryVideo(courseId, ou);
 				    }
 				}
+				
 				if(recordType == 2){
 					WatchHistory target = new WatchHistory();
 					target.setCourseId(courseId);
 					target.setUserId(ou.getId());
 					target.setLecturerId(course.getUserLecturerId());
-					
+					target.setCollectionId(collectionId);
 					watchHistoryServiceImpl.addOrUpdate(lockId,target);
 				}
+			
 			}else{
 				if(course.getType() == 4){
 					WatchHistory target = new WatchHistory();

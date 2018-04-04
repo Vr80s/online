@@ -92,7 +92,8 @@ public class WechatUserController extends AbstractController {
 
 
 		Page<WechatUser> page = service.findUserPage(paramMap.get("nickname"), 
-				paramMap.get("subscribeTime"),
+				paramMap.get("subscribeTimeStart"),
+				paramMap.get("subscribeTimeEnd"),
 				paramMap.get("qr_scene"),
 				currentPage, pageSize);
 

@@ -247,7 +247,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		if(!MatchLuhn.matchLuhn(acctPan)){
 			throw new RuntimeException("银行卡格式有误");
 		}
+		
+		BankCardType.getBankCard(Integer.valueOf(tel));
+		
 		boolean verifyBank = BankUtil.getNameOfBank(acctPan).contains(BankCardType.getBankCard(Integer.valueOf(tel)));
+		
 		if(!verifyBank){
 			throw new RuntimeException("银行卡号与银行不匹配");
 		}

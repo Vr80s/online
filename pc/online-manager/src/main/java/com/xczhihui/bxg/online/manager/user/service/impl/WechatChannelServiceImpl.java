@@ -94,7 +94,17 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 		}
 		WechatChannelVo.setCreateTime(new Date());
 		WechatChannel WechatChannel = new WechatChannel();
-		BeanUtils.copyProperties(WechatChannel, WechatChannelVo);
+		//BeanUtils.copyProperties(WechatChannel, WechatChannelVo);
+		
+		WechatChannel.setCityId(Integer.parseInt(WechatChannelVo.getCity()));
+		WechatChannel.setProvinceId(Integer.parseInt(WechatChannelVo.getProvince()));
+		WechatChannel.setAreaId(Integer.parseInt(WechatChannelVo.getArea()));
+		
+		WechatChannel.setCity(WechatChannelVo.getRealCitys());
+		WechatChannel.setProvince(WechatChannelVo.getRealProvince());
+		WechatChannel.setArea(WechatChannelVo.getRealCounty());
+		
+		
 		WechatChannel.setStatus("0");
 		WechatChannel.setSort(sort);
 		WechatChannel.setDelete(false);

@@ -25,9 +25,10 @@ public class WechatUserServiceImpl implements WechatUserService {
     private UserCenterAPI api;
 
     @Override
-    public Page<WechatUser> findUserPage(String nickname, String subscribeTime, String qr_scene, int pageNumber,
+    public Page<WechatUser> findUserPage(String nickname,String subscribeStartTime,
+			String subscribeEndTime, String qr_scene, int pageNumber,
                                          int pageSize) {
-        return dao.findUserPage(nickname, subscribeTime, qr_scene, pageNumber, pageSize);
+        return dao.findUserPage(nickname,subscribeStartTime,subscribeEndTime, qr_scene, pageNumber, pageSize);
     }
 
     @Override

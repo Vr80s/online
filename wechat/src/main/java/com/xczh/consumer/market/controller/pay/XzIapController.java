@@ -120,7 +120,8 @@ public class XzIapController {
 	public Object setIapCertificate(@RequestParam("receipt") String receipt,
 			@RequestParam("userId") String userId,
 			@RequestParam("actualPrice") BigDecimal actualPrice,
-			@RequestParam("version") String version) throws SQLException {
+			@RequestParam("version") String version,
+			@RequestParam("merchantOrderNo")String merchantOrderNo) throws SQLException {
 
 		LOGGER.info("苹果充值   封装的数据  receipt:" + receipt);
 		String url = certificateUrl;
@@ -169,15 +170,17 @@ public class XzIapController {
 			//String productId = newObj.getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("product_id").toString();
 			
 		    String status= newObj.getString("status");  //状态码,0为成功
-			if (status.equals("0")) {
+		    
+		    LOGGER.info("status:" + status);
+		    
+			if (!status.equals("0")) {
 				return ResponseObject.newErrorResponseObject("操作失败！");
 			}
-			 JSONArray newArr =  newObj.getJSONArray("in_app");
-		    LOGGER.info("原始交易ID:"+newArr.getJSONObject(0).get("original_transaction_id")); //原始交易ID
-		    LOGGER.info("开发商交易ID："+newObj.getJSONArray("in_app").getJSONObject(0).get("unique_vendor_identifier"));//开发商交易ID
-			LOGGER.info("status:" + status);
-
-			String merchantOrderNo = newObj.getJSONArray("in_app").getJSONObject(0).getString("unique_vendor_identifier");
+//			 JSONArray newArr =  newObj.getJSONArray("in_app");
+//		    LOGGER.info("原始交易ID:"+newArr.getJSONObject(0).get("original_transaction_id")); //原始交易ID
+//		    LOGGER.info("开发商交易ID："+newObj.getJSONArray("in_app").getJSONObject(0).get("unique_vendor_identifier"));//开发商交易ID
+//			LOGGER.info("status:" + status);
+//			String merchantOrderNo = newObj.getJSONArray("in_app").getJSONObject(0).getString("unique_vendor_identifier");
 			/*
 			 * 保存消费信息，并且做对应的熊猫币扣减
 			 */

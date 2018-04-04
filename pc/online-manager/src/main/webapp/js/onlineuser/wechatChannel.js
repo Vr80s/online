@@ -20,28 +20,19 @@ $(function(){
     { "title": "创建人", "class":"center","width":"8%","sortable":false,"data": 'createPerson',"mRender":function (data, display, row) {
     		return "<span name='lecturerNameList'>"+data+"</span>";
     } },
-    { "title": "熊猫币", "class":"center","width":"8%", "sortable":false,"data": 'xmbPrice' },
+    { "title": "渠道名称", "class":"center","width":"8%", "sortable":false,"data": 'name' },
     
-    { "title": "人民币", "class":"center","width":"8%", "sortable":false,"data": 'price' },
-
-    { "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
-    	if(data==1){
-    		return data="<span name='zt'>已启用</span>";
-    	}else{
-    		return data="<span name='zt'>已禁用</span>";
-    	}
+    { "title": "联系人", "class":"center","width":"8%", "sortable":false,"data": 'contact' },
+    
+    { "title": "联系电话", "class":"center","width":"8%", "sortable":false,"data": 'mobile' },
+    
+    { "title": "省/市", "class":"center","width":"8%", "sortable":false,"data": 'xmbPrice', "mRender":function (data, display, row) {
+    		return "<span name='lecturerNameList'>"+row.province+"/"+ row.city +"</span>";
     } },
-    {"sortable": false,"class": "center","width":"8%","title":"排序","mRender":function (data, display, row) {
-    	if(row.status ==1){//如果是禁用
-    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-    		'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-        	'<a class="blue" name="downa" href="javascript:void(-1);" title="下移"  onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-    	}else{
-    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-    		'<a class="gray" href="javascript:void(-1);" title="上移"  ><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-        	'<a class="gray" href="javascript:void(-1);" title="下移"  ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-    	}
-    }},
+    { "title": "二维码", "class":"center","width":"8%", "sortable":false,"data": 'price' ,"mRender":function(data){
+		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+	}},
+
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
@@ -54,9 +45,8 @@ $(function(){
 	    	}
 	    } 
 	}];
-	
 		
-	_courseTable = initTables("courseTable",basePath+"/recharges/list",objData,true,true,2,null,searchCase,function(data){
+	_courseTable = initTables("courseTable",basePath+"/wechatChannel/list",objData,true,true,2,null,searchCase,function(data){
 		var texts = $("[name='courseNameList']");
 	    for (var i = 0; i < texts.length; i++) {
 	            texts.eq(i).parent().attr("title",texts.eq(i).text());
@@ -92,19 +82,30 @@ $(function(){
 			
 			courseForm = $("#addCourse-form").validate({
 		        messages: {
-					price: {
-						required:"价格不可空！",
+		        	name: {
+						required:"渠道名字不可空！",
+					},
+					contact: {
+						required:"联系人不可空！",
+					},
+					mobile: {
+						required:"手机号不可空！",
 					}
 		        }
 		    });
-		updateCourseForm = $("#updateCourse-form").validate({
-			messages: {
-	        	
-				price: {
-					required:"价格不可空！",
-				}
-	        }
-		});
+		    updateCourseForm = $("#updateCourse-form").validate({
+		    	messages: {
+		        	name: {
+						required:"渠道名字不可空！",
+					},
+					contact: {
+						required:"联系人不可空！",
+					},
+					mobile: {
+						required:"手机号不可空！",
+					}
+		        }
+		   });
 	});
 });
 
@@ -120,7 +121,7 @@ $(".add_bx").click(function(){
 		
 		if($("#addCourse-form").valid()){
 			mask();
-			 $("#addCourse-form").attr("action", basePath+"/recharges/addRecharges");
+			 $("#addCourse-form").attr("action", basePath+"/wechatChannel/addWechatChannel");
 	            $("#addCourse-form").ajaxSubmit(function(data){
 	            	try{
                 		data = jQuery.parseJSON(jQuery(data).text());
@@ -153,11 +154,48 @@ function toEdit(obj){
 	$("#editCourse_id").val(row.id); //充值id
 	$("#price_edit").val(row.price); //充值价格
 
+	
+	
+	//省市区
+//	var address = result[0].address;
+//	var p_c_a = address.split("-");
+//	if(p_c_a.length==3){
+		//省
+		for(i=0;i<$("#edit_province option").length;i++){
+    		if($("#edit_province option").eq(i).val()==row.province){
+    			$("#edit_province option").eq(i).attr("selected",true);
+    			break;
+    		}
+    	}
+		$("#edit_citys").empty();
+		$("#edit_county").empty();
+		
+		
+		var city = "<option id='10086'>"+p_c_a[1]+"</option>";
+		$("#edit_citys").append(city);
+		
+		var countysDetails = p_c_a[2].split(" ");
+		
+		var county = "<option id='10089'>"+countysDetails[0]+"</option>";
+		$("#edit_county").append(county);
+		
+		
+		$("#edit_realProvince").val(p_c_a[0]);
+		$("#edit_realCitys").val(p_c_a[1]);
+		$("#edit_realCounty").val(p_c_a[2]);
+		
+		//授课地点
+		$("#edit_address").val(countysDetails[1]);
+//	}
+	
+	
+	
+	
 	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改礼物",400,400,true,"确定",function(){
 		
 		if($("#updateCourse-form").valid()){
 			mask();
-            $("#updateCourse-form").attr("action", basePath+"/recharges/updateRechargesById");
+            $("#updateCourse-form").attr("action", basePath+"/wechatChannel/updateWechatChannelById");
             $("#updateCourse-form").ajaxSubmit(function(data){
             	try{
             		data = jQuery.parseJSON(jQuery(data).text());
@@ -190,7 +228,7 @@ function toEdit(obj){
 function updateStatus(obj){
 	var oo = $(obj).parent().parent().parent();
 	var row = _courseTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/recharges/updateStatus",{"id":row.id},function(data){
+	ajaxRequest(basePath+"/wechatChannel/updateStatus",{"id":row.id},function(data){
 		console.log(data);
 		if(data.success==false){
 			layer.msg(data.errorMessage);
@@ -204,11 +242,11 @@ function updateStatus(obj){
  * 
  */
 $(".dele_bx").click(function(){
-	deleteAll(basePath+"/recharges/deletes",_courseTable);
+	deleteAll(basePath+"/wechatChannel/deletes",_courseTable);
 });
 
 $(".fencheng_bx").click(function(){
-	setBrokerage(basePath+"/recharges/deletes",_courseTable);
+	setBrokerage(basePath+"/wechatChannel/deletes",_courseTable);
 });
 
 function search(){
@@ -231,7 +269,7 @@ $(".kcgl_bx").click(function(){
 function upMove(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = _courseTable.fnGetData(oo);
-	ajaxRequest(basePath+'/recharges/upMove',{"id":aData.id},function(res){
+	ajaxRequest(basePath+'/wechatChannel/upMove',{"id":aData.id},function(res){
 		if(res.success){
 			freshTable(_courseTable);
 		}else{
@@ -246,7 +284,7 @@ function upMove(obj){
 function downMove(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = _courseTable.fnGetData(oo);
-	ajaxRequest(basePath+'/recharges/downMove',{"id":aData.id},function(res){
+	ajaxRequest(basePath+'/wechatChannel/downMove',{"id":aData.id},function(res){
 		if(res.success){
 			freshTable(_courseTable);
 		}else{

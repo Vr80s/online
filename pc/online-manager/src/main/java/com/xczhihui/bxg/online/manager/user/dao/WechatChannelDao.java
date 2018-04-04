@@ -25,7 +25,7 @@ public class WechatChannelDao extends HibernateDao<Course>{
 		
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
 		 StringBuilder sql = new StringBuilder(
-				"	SELECT og.id,u.`name` createPerson,og.`create_time` createTime,og.sort,"
+				"	SELECT og.id,og.name,u.`name` createPerson,og.`create_time` createTime,og.sort,"
 		 		+ " og.status as status,og.contact,og.mobile,og.city,og.province,og.area,"
 		 		+ " og.city_id as cityId,og.province_id as provinceId,og.area_id as areaId "
 		 		+ "FROM `oe_wechat_channel` "

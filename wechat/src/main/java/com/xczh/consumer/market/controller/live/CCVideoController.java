@@ -129,19 +129,32 @@ public class CCVideoController {
 //				throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
 //			}
 	    	
+//			Map<String, String> paramsMap = new HashMap<String, String>();
+//			paramsMap.put("userid", "B5E673E55C702C42");
+//			paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
+//			paramsMap.put("autoplay", "true");
+//			paramsMap.put("playerwidth", "100");
+//			paramsMap.put("playerheight", "120");
+//			paramsMap.put("FORMAT", "json");
+//			long time = System.currentTimeMillis();
+//			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
+//			LOGGER.info(requestURL);
+//			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
+//			LOGGER.info(responsestr);
+
 			Map<String, String> paramsMap = new HashMap<String, String>();
 			paramsMap.put("userid", "B5E673E55C702C42");
-			paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
-			paramsMap.put("autoplay", "true");
-			paramsMap.put("playerwidth", "100");
-			paramsMap.put("playerheight", "120");
-			paramsMap.put("FORMAT", "json");
+			/*paramsMap.put("videoid", "FB0765EE9ECDBBDF9C33DC5901307461");*/
+			//aaaaaaaaaa
+			paramsMap.put("customid	", "aaaaaaaaaa");
+			paramsMap.put("date", "2018-01-01");
+			paramsMap.put("num_per_page", "10");
+			paramsMap.put("page", "1");
 			long time = System.currentTimeMillis();
 			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
 			LOGGER.info(requestURL);
-			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
+			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/playlog/custom/user/v2?" + requestURL);
 			LOGGER.info(responsestr);
-			
 			
 			
 			

@@ -3,9 +3,13 @@ package com.xczhihui.bxg.online.common.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.xczhihui.bxg.common.support.domain.BasicEntity2;
 
+@Entity
+@Table(name = "oe_wechat_channel")
 public class WechatChannel extends BasicEntity2 implements Serializable{
     
 	private static final long serialVersionUID = 80806126338955818L;
@@ -39,13 +43,13 @@ public class WechatChannel extends BasicEntity2 implements Serializable{
 	
 	
 	@Column(name = "area_id")
-    private String areaId;
+    private Integer areaId;
 	
 	@Column(name = "city_id")
-    private String cityId;
+    private Integer cityId;
 
 	@Column(name = "province_id")
-    private String provinceId;
+    private Integer provinceId;
 
 
     public String getName() {
@@ -122,30 +126,27 @@ public class WechatChannel extends BasicEntity2 implements Serializable{
 		this.area = area;
 	}
 
-	public String getAreaId() {
+	public Integer getAreaId() {
 		return areaId;
 	}
 
-	public void setAreaId(String areaId) {
+	public void setAreaId(Integer areaId) {
 		this.areaId = areaId;
 	}
 
-	public String getCityId() {
+	public Integer getCityId() {
 		return cityId;
 	}
 
-	public void setCityId(String cityId) {
+	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
 	}
 
-	public String getProvinceId() {
+	public Integer getProvinceId() {
 		return provinceId;
 	}
 
-	public void setProvinceId(String provinceId) {
+	public void setProvinceId(Integer provinceId) {
 		this.provinceId = provinceId;
 	}
-    
-    
-
 }

@@ -131,8 +131,6 @@ function stripHTML(str){
 		}
     	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}));
     	
-    	
-		
 		var aBtn=$('.all_list_ul li');
 		var aBtnId = getQueryString('index');
 		for(var i=0;i<aBtn.length;i++){

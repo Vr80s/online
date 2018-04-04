@@ -272,12 +272,54 @@
 	<div id="dialogAddCourseDiv"></div>
 	<div id="addCourseDialog" class="hide">
 		<form id="addCourse-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	        
 	        <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
-				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>价格: </label>
+				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>渠道名称： </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="price"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
+				 	<input type="text" name="name"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
 	             </div>
 			</div>
+			
+			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
+				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系人: </label>
+				 <div class="col-sm-6">
+				 	<input type="text" name="contact"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
+	             </div>
+			</div>
+			
+			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
+				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系电话: </label>
+				 <div class="col-sm-6">
+				 	<input type="text" name="mobile"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+	             </div>
+			</div>
+			
+			
+			<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
+			
+			<div class="col-sm-3">
+               <select id="province" name="province" onchange="doProvAndCityRelation();" 
+                        class="clearfix col-xs-10 col-sm-12 {required:true}" >
+  　　　　　　　　			<option id="choosePro"value="-1">请选择您所在省份</option>
+  　　　　　　	   </select>
+  			   <input  type="hidden" name="realProvince" id="realProvince"/>	
+             </div>
+              
+              <div class="col-sm-3">
+               <select id="citys" name="city" onchange="doCityAndCountyRelation();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+ 　　　　　　　　			<option id='chooseCity' value='-1'>请选择您所在城市</option>
+ 　　　　		　　</select>
+ 			  <input  type="hidden" name="realCitys" id="realCitys"/>	
+ 			  </div>
+ 			  
+ 			  <div class="col-sm-3" onchange="choosAddCounty();">
+               <select id="county" name="area" class="clearfix col-xs-10 col-sm-12 {required:true}">
+ 　　　　　　　　			<option id='chooseCountys' value='-1'>请选择您所在县区</option>
+ 　　　　		　　</select>
+ 			  <input  type="hidden" name="realCounty" id="realCounty"/>	
+ 			  </div>
+		</div>
 		</form>
 	</div>
 	
@@ -285,14 +327,55 @@
 	<div id="dialogEditCourseDiv"></div>
 	<div id="EditCourseDialog" class="hide">
 		<form class="form-horizontal" id="updateCourse-form" method="post" action="" style="margin-top: 15px;">
-			<input type="hidden" id="editCourse_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
+			
+		   <input type="hidden" id="editChannel_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
 	        
-	        <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
-				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>价格: </label>
+	       <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
+				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>渠道名称： </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="price" id="price_edit"  maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
+				 	<input type="text" name="name" id="editChannel_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
 	             </div>
 			</div>
+			
+			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
+				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系人: </label>
+				 <div class="col-sm-6">
+				 	<input type="text" name="contact"  id="editContact_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
+	             </div>
+			</div>
+			
+			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
+				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系电话: </label>
+				 <div class="col-sm-6">
+				 	<input type="text" name="mobile"  id="editMobile_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+	             </div>
+			</div>
+			
+			
+			<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
+			
+			 <div class="col-sm-3">
+               <select id="edit_province" name="province" onchange="doProvAndCityRelationEdit();" 
+                        class="clearfix col-xs-10 col-sm-12 {required:true}" >
+  　　　　　　　　			<option id="edit_choosePro"value="-1">请选择您所在省份</option>
+  　　　　　　	   </select>
+  				<input type="hidden" name = "realProvince"  id="edit_realProvince"/>
+  			 </div>
+  			 <div class="col-sm-3">	
+                <select id="edit_citys" name="city" onchange="doProvAndCountyRelationEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+ 　　　　　　　　			<option id='edit_chooseCity' value='-1'>请选择您所在城市</option>
+ 　　　　		　　 </select>
+ 				<input type="hidden" name = "realCitys"  id="edit_realCitys"/>
+             </div>
+             
+              <div class="col-sm-3">	
+                <select id="edit_county" name="county" onchange="onchangeCountyEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+ 　　　　　　　　			<option id='edit_chooseCounty' value='-1'>请选择您所在县区</option>
+ 　　　　		　　 </select>
+ 				<input type="hidden" name ="realCounty"  id="edit_realCounty"/>
+             </div>
+		</div>
 		</form>
 	</div>
 	
