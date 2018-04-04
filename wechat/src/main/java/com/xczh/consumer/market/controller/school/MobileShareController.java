@@ -184,7 +184,6 @@ public class MobileShareController {
 				shareType = idAndType[1];
 			}
 			LOGGER.info("shareId:" +shareId+"shareType:" +shareType+"wxOrbrower:" +wxOrbrower);
-			
 			OnlineUser ou =null;
 			if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器
 				WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
@@ -204,7 +203,6 @@ public class MobileShareController {
 						ou.setTicket(t.getTicket());
 						onlogin(req,res,t,ou,t.getTicket());
 					}	
-					
 				}
 				/**
 				 * 写入这个cookie
@@ -215,9 +213,11 @@ public class MobileShareController {
 				tf.setNickName(wxw.getNickname());
 				tf.setHeadImg(wxw.getHeadimgurl());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
-			}else{
+			}else
+			{
 				ou =  appBrowserService.getOnlineUserByReq(req);
 			}
+			
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
@@ -265,7 +265,7 @@ public class MobileShareController {
 						}
 					}else if(cv.getType()==3){
 						//播放页面
-						res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?shareBack=1&my_study="+shareId);
+						res.sendRedirect(returnOpenidUri + "/xcview/html/live_play.html?shareBack=1&my_study="+shareId);
 					}else{
 						//线下课页面
 						res.sendRedirect(returnOpenidUri + "/xcview/html/live_class.html?shareBack=1&my_study="+shareId);

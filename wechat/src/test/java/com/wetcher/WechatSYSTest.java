@@ -47,7 +47,7 @@ public class WechatSYSTest {
 		
 		String str ="{\"type\":\"news\",\"offset\":0,\"count\":10}";
 		String hehe =  HttpsRequest.doHttpsPost(url, str);
-		System.out.println(hehe);
+		System.out.println("token============"+hehe);
 	}
 	
 	/**

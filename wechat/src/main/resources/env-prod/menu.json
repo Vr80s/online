@@ -39,8 +39,8 @@
             }]
        },
         {
-           "type": "view_limited", 
+           "type": "media_id", 
            "name": "健康好文", 
-           "media_id": "J_yKCqyYzwWaAJjGf3mxH6nC1CUNmKrgIZ75xt9ODEY"
+           "media_id": "J_yKCqyYzwWaAJjGf3mxH1aa1upoqOzZEzBF8z4BLes"
         }]
  }

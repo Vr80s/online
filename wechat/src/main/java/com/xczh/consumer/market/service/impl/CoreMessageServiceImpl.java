@@ -29,6 +29,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
+	@Value("${wechatpay.gzh_appid}")
+	private String gzh_appid;
 	
 	//https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
 	
@@ -109,12 +111,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         		  
         		  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
         		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        		  
                   Article article = new Article();  
-                  article.setTitle("欢迎来到熊猫国医学堂");  
+                  article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
                   article.setDescription("");  
-                  article.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
-                  article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
+                  article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
+                  article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
                   articleList.add(article);
                   // 设置图文消息个数  
                   newsMessage.setArticleCount(articleList.size());  
@@ -122,13 +123,13 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                   newsMessage.setArticles(articleList);  
                   // 将图文消息对象转换成xml字符串  
                   respMessage = MessageUtil.newsMessageToXml(newsMessage); 
-        		  newsMessage.setMedia_id("6y0EBrCsG4Si29EjR7_uAPKHf5fHnte_6__89Y0IiyA");
-        		  
+                  
+//				  newsMessage.setMedia_id("6y0EBrCsG4Si29EjR7_uAPKHf5fHnte_6__89Y0IiyA");
         		  /*
         		   * 保存用户微信信息
         		   */
-        		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
+//        		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+//        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
         	      //保存用户信息
         	      
         		  respMessage = MessageUtil.newsMessageToXml(newsMessage); 

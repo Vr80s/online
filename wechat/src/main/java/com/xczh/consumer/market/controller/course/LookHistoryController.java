@@ -61,7 +61,7 @@ public class LookHistoryController {
 			HttpServletResponse res,
 			@RequestParam("courseId") Integer courseId,
 			@RequestParam("recordType")Integer recordType,
-			@RequestParam("collectionId")Integer collectionId) {
+			@RequestParam(required=false)Integer collectionId) {
 		try {
 			
 			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);

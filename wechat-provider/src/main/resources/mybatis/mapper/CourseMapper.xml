@@ -710,19 +710,18 @@
 	</select>
 	
 	<!-- 单独获取详情    selectCourseDescription -->
-	
 	<select id="selectCourseDescription" resultType="java.lang.String">
 		select details from 		
-	    <if test="type != null and  type = 1 ">
+	    <if test="type != null and type == 1 ">
 			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
 		</if>
-		<if test="type != null and type = 2 ">
+		<if test="type != null and type == 2 ">
 			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
 		</if>
-		<if test="type != null and type = 3 ">
-			( select ca.detail as details from course_anchor ca on  ou.id = ca.user_id where ou.id = ?} )
+		<if test="type != null and type == 3 ">
+			( select ca.detail as details from course_anchor ca on  ou.id = ca.user_id where ou.id =  #{typeId} )
 		</if>
-		<if test="type != null and type = 4 ">
+		<if test="type != null and type == 4 ">
 			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
 		</if>
 		as common_details
