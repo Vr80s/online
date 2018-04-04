@@ -85,4 +85,15 @@ public interface CourseMapper extends BaseMapper<Course> {
 	 *
 	 */
 	CourseLecturVo selectCurrentCourseStatus(@Param("courseId")Integer courseId);
+    /**
+     *  
+     * Description：根据type类型查找不同类型的富文本内容
+     * @param type
+     * @param typeId
+     * @return
+     * @return String
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+	String selectCourseDescription(@Param("type")Integer type,@Param("typeId")String typeId);
 }

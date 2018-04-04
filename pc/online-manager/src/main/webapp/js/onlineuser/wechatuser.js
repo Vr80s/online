@@ -2,10 +2,11 @@ var onlineuserTable;
 var onlineuserForm;
 $(function() {
 
-	createDatePicker($('#createTimeStart'));
-	createDatePicker($('#createTimeEnd'));
-	createDatePicker($('#lastLoginTimeStart'));
-	createDatePicker($('#lastLoginTimeEnd'));
+/*	createDatePicker($('#createTimeStart'));
+	createDatePicker($('#createTimeEnd'));*/
+	
+	createDatePicker($('#subscribeTimeStart'));
+	createDatePicker($('#subscribeTimeEnd'));
 
 	var objData = [{
 		"title" : "序号",
@@ -52,7 +53,15 @@ $(function() {
 		"width" : "9%",
 		"class" : "center",
 		"sortable" : false,
-		"data" : 'subscribeTime'
+		"data" : 'subscribeTime',
+		"mRender":function (data, display, row){
+			
+//			if(data && data != ''){
+//				var d = new Date(data);
+//				return d.format('yyyy-M-d hh:mm:ss');
+//			}
+			return getDateTimeFormat(data);
+        }
 	},{
 		"title" : "最后更新时间",
 		"class" : "center",
@@ -69,17 +78,18 @@ $(function() {
 			var str = '<div class="hidden-sm hidden-xs action-buttons">'
 				+ '<a class="blue" href="javascript:void(-1);" title="查看" onclick="viewUserDialog(this)"><i class="ace-icon fa fa-search bigger-130"></i></a>';
 			
-			/*if(row.isLecturer == 0){
+			
+/*			if(row.isLecturer == 0){
 				str +=  '<a class="blue" href="javascript:void(-1);" title="设置为讲师" onclick="setUserLecturer(this,1)"><i class="ace-icon fa fa-cog bigger-130"></i></a>';
 			}else{
 				str += '<a class="blue" href="javascript:void(-1);" title="取消讲师资格" onclick="setUserLecturer(this,0)"><i class="ace-icon fa fa-cog bigger-130"></i></a>';
 			}*/
 		 
-			if(row.status == 0){
-				str+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,-1);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
-			}else {
-				str+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,0);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
-			}
+//			if(row.status == 0){
+//				str+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,-1);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
+//			}else {
+//				str+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,0);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
+//			}
 			debugger;
 			// str += '<a class="blue" href="javascript:void(-1);" title="编辑个人简介" onclick="showDetailDialog(\''+row.id+'\');"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>';
 //			str+='<a class="blue" href="javascript:void(-1);" title="设置学科权限" onclick="OpenMenuDailg(this);"><i class="glyphicon glyphicon-wrench"></i></a></div>';
@@ -89,6 +99,15 @@ $(function() {
 	onlineuserTable = initTables("onlineuserTable", basePath + "/wechatuser/list", objData, true, true, 1);
 	onlineuserForm = $("#onlineuser-form").validate({});
 });
+
+function getDateTimeFormat(data){
+	//微信性别  --》 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+	if(data && data != ''){
+		var d = new Date(data);
+		return d.format('yyyy-M-d hh:mm:ss');
+	}
+}
+
 
 function getSex(sex){
 	//微信性别  --》 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
@@ -106,22 +125,15 @@ function viewUserDialog(obj) {
 	$('#userInfoDialog').find('.paddingtop7px').html('');
 	var oo = $(obj).parent().parent().parent();
 	var aData = onlineuserTable.fnGetData(oo); // get datarow
-	$("#name_look").html(aData.name);
+	$("#name_look").html(aData.nickname);
 	$("#sex_look").html(getSex(aData.sex));
-	$("#mobile_look").html(aData.mobile);
-	$("#qq_look").html(aData.qq);
-	$("#email_look").html(aData.email);
-	$("#ip_look").html(aData.lastLoginIp);
-	$("#visitSum_look").html(aData.visitSum);
-	$("#gradeName_look").html(aData.gradeName);
-	$("#view_room_number").html(aData.roomNumber);
 	
-	$("#account_look").html(aData.loginName);
-	$("#balance_look").html(aData.balance);
-	$("#balanceGive_look").html(aData.balanceGive);
-	$("#vhallId_look").html(aData.vhallId);
-	$("#last_time_look").html(aData.lastLoginDate);
-	$("#regis__time_look").html(aData.createTime);
+	$("#mobile_look").html(aData.loginName);
+	$("#vhallId_look").html(aData.channelName);
+	
+	$("#balanceGive_look").html(aData.province + "__"+aData.city+"__"+aData.country);
+	$("#balance_look").html(aData.subscribeTime);
+	$("#last_time_look").html(aData.lastUpdateTime);
 	//view_room_number
 	//$("#isPay_look").html(aData.isPay==1?'已付费':'未付费');
 	var dialog = openDialogNoBtnName("userInfoDialog","dialogUserInfoDiv","查看用户",600,400,false,"确定",null);

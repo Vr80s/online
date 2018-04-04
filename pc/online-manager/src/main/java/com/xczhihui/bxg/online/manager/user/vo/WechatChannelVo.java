@@ -34,12 +34,19 @@ public class WechatChannelVo {
     private String area;
     
     
-    private String areaId;
+    private String realCounty;
 	
-    private String cityId;
+    private String realCitys;
 
-    private String provinceId;
-
+    private String realProvince;
+    
+    
+//    province:120000
+//    realProvince:天津市
+//    city:120100
+//    realCitys:天津市
+//    area:120101
+//    realCounty:和平区
     
 
     public Integer getId() {
@@ -146,30 +153,28 @@ public class WechatChannelVo {
 		this.area = area;
 	}
 
-	public String getAreaId() {
-		return areaId;
+	public String getRealCounty() {
+		return realCounty;
 	}
 
-	public void setAreaId(String areaId) {
-		this.areaId = areaId;
+	public void setRealCounty(String realCounty) {
+		this.realCounty = realCounty;
 	}
 
-	public String getCityId() {
-		return cityId;
+	public String getRealCitys() {
+		return realCitys;
 	}
 
-	public void setCityId(String cityId) {
-		this.cityId = cityId;
+	public void setRealCitys(String realCitys) {
+		this.realCitys = realCitys;
 	}
 
-	public String getProvinceId() {
-		return provinceId;
+	public String getRealProvince() {
+		return realProvince;
 	}
 
-	public void setProvinceId(String provinceId) {
-		this.provinceId = provinceId;
+	public void setRealProvince(String realProvince) {
+		this.realProvince = realProvince;
 	}
-	
-	
     
 }

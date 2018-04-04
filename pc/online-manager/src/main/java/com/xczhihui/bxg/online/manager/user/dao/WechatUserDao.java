@@ -32,7 +32,7 @@ public class WechatUserDao extends HibernateDao<WechatUser> {
      * @param pageSize
      * @return
      */
-    public Page<WechatUser> findUserPage(String lastLoginIp, String createTimeStart, String createTimeEnd,
+    public Page<WechatUser> findUserPage(String nickname,String subscribeStartTime, String subscribeEndTime, String qrScene,
     		 int pageNumber,int pageSize) {
     	
     	
@@ -47,21 +47,32 @@ public class WechatUserDao extends HibernateDao<WechatUser> {
 
         Map<String, Object> paramMap = new HashMap<String, Object>();
  
-//        if (StringUtils.hasText(createTimeStart)) {
-//            sql += (" and u.create_time >= :createTimeStart and u.create_time <= :createTimeEnd ");
-//            paramMap.put("createTimeStart", createTimeStart + " 00:00:00");
-//            paramMap.put("createTimeEnd", createTimeStart + " 23:59:59");
+        
+        if (StringUtils.hasText(subscribeStartTime) && StringUtils.hasText(subscribeEndTime)) {
+            sql += (" and wcu.subscribe_time >= :subscribeTimeStart and wcu.subscribe_time <= :subscribeTimeEnd ");
+            paramMap.put("subscribeTimeStart", subscribeStartTime);
+            paramMap.put("subscribeTimeEnd", subscribeEndTime );
+        }
+        
+        if (StringUtils.hasText(subscribeStartTime) && !StringUtils.hasText(subscribeEndTime)) {
+        	   sql += (" and wcu.subscribe_time >= :subscribeTimeStart ");
+        	   paramMap.put("subscribeTimeStart", subscribeStartTime);
+        }
+        
+        if (!StringUtils.hasText(subscribeStartTime) && StringUtils.hasText(subscribeEndTime)) {
+            sql += ("wcu.subscribe_time <= :subscribeTimeEnd ");
+            paramMap.put("subscribeTimeEnd", subscribeEndTime);
+        }
+        
+        if (StringUtils.hasText(nickname)) {
+            sql += " and ( wcu.nickname like :searchName or ou.login_name like :searchName )  ";
+            paramMap.put("searchName", "%" + nickname.trim() + "%");
+        }
+//        if (StringUtils.hasText(qrScene)) {
+//            sql += " and wcu.qr_scene = :qrScene ";
+//            paramMap.put("qrScene", qrScene);
 //        }
-//        if (StringUtils.hasText(lastLoginTimeStart)) {
-//            sql += (" and u.last_login_date >= :lastLoginTimeStart and u.last_login_date <= :lastLoginTimeEnd ");
-//            paramMap.put("lastLoginTimeStart", lastLoginTimeStart + " 00:00:00");
-//            paramMap.put("lastLoginTimeEnd", lastLoginTimeStart + " 23:59:59");
-//        }
-//        if (StringUtils.hasText(searchName)) {
-//            sql += " and (u.name like :searchName or u.login_name like :searchName or o.real_name like :searchName or o.mobile like :searchName or o.qq like :searchName or o.email like :searchName ) ";
-//            paramMap.put("searchName", "%" + searchName.trim() + "%");
-//        }
-//        sql += " order by u.create_time desc";
+        sql += " order by wcu.subscribe_time desc";
         
         Page<WechatUser> pg = this.findPageBySQL(sql, paramMap, WechatUser.class, pageNumber, pageSize);
 

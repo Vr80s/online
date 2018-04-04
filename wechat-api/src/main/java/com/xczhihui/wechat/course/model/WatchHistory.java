@@ -47,7 +47,14 @@ public class WatchHistory extends Model<WatchHistory> {
    	 */
    	@TableField("is_delete" )
 	private  boolean isDelete;
+   	
+   	/**
+   	 * 专辑id
+   	 */
+   	@TableField("collectionId" )
+	private  Integer collectionId;
 
+   	
     public Long getId() {
         return id;
     }
@@ -94,6 +101,16 @@ public class WatchHistory extends Model<WatchHistory> {
 
 	public void setDelete(boolean isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	
+	
+	public Integer getCollectionId() {
+		return collectionId;
+	}
+
+	public void setCollectionId(Integer collectionId) {
+		this.collectionId = collectionId;
 	}
 
 	@Override

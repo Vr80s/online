@@ -154,4 +154,7 @@ public interface ICourseService {
 	 *
 	 */
 	public CourseLecturVo selectCurrentCourseStatus(Integer courseId);
+
+
+	public String selectCourseDescription(Integer type, String typeId);
 }

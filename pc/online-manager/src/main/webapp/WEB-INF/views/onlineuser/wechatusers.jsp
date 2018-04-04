@@ -30,8 +30,13 @@
 					</span>
 					&nbsp;&nbsp;
 					<span class="searchTr">
-						<input type="text"  id="subscribeTime" class="propertyValue1" placeholder="关注时间"/>
-						<input type="hidden" value="subscribeTime" class="propertyName"/>
+						<input type="text"  id="subscribeTimeStart" class="propertyValue1" placeholder="关注时间"/>
+						<input type="hidden" value="subscribeTimeStart" class="propertyName"/>
+					</span>
+					&nbsp;&nbsp;
+				   <span class="searchTr">
+						<input type="text"  id="subscribeTimeEnd" class="propertyValue1" placeholder="关注时间"/>
+						<input type="hidden" value="subscribeTimeEnd" class="propertyName"/>
 					</span>
 					&nbsp;&nbsp;
 				</td>
@@ -87,7 +92,7 @@
 <div id="userInfoDialog" class="hide">
 	<form action="" class="form-horizontal autowrap">
 	    <div class="form-group">
-			<label class="col-sm-2 control-label no-padding-right">用户昵称: </label>
+			<label class="col-sm-2 control-label no-padding-right">微信昵称: </label>
 	        <div class="col-sm-4"><p id="name_look" class="paddingtop7px padding7"></p></div>
 			<label class="col-sm-2 control-label no-padding-right">性别: </label>
 	        <div class="col-sm-4"><p id="sex_look" class="paddingtop7px padding7"></p></div>
@@ -96,41 +101,22 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-right">用户名: </label>
 	        <div class="col-sm-4"><p id="account_look" class="paddingtop7px padding7"></p></div>
-			<label class="col-sm-2 control-label no-padding-right">微吼帐号: </label>
+			<label class="col-sm-2 control-label no-padding-right">渠道名称: </label>
 			<div class="col-sm-4"><p id="vhallId_look" class="paddingtop7px padding7"></p></div>
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-right">赠送余额: </label>
+			<label class="col-sm-2 control-label no-padding-right">所在城市: </label>
 	        <div class="col-sm-4"><p id="balanceGive_look" class="paddingtop7px padding7"></p></div>
-			<label class="col-sm-2 control-label no-padding-right">充值余额: </label>
+			<label class="col-sm-2 control-label no-padding-right">关注时间: </label>
 			<div class="col-sm-4"><p id="balance_look" class="paddingtop7px padding7"></p></div>
 		</div>
 		
 		
-		
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-right">最后登录时间: </label>
+			<label class="col-sm-2 control-label no-padding-right">最后更新时间: </label>
 	        <div class="col-sm-4"><p id="last_time_look" class="paddingtop7px padding7"></p></div>
-			<label class="col-sm-2 control-label no-padding-right">注册时间: </label>
-	        <div class="col-sm-4"><p id="regis__time_look" class="paddingtop7px padding7"></p></div>
 		</div>
-		
-		<div class="clean"></div>
-		<div class="form-group">
-	        <label class="col-sm-2 control-label no-padding-right">手机号: </label>
-	        <div class="col-sm-4"><p id="mobile_look" class="paddingtop7px padding7"></p></div>
-			<label class="col-sm-2 control-label no-padding-right">访问次数: </label>
-			<div class="col-sm-4"><p id="visitSum_look" class="paddingtop7px padding7 autowrap"></p></div>
-	    </div>
-		<div class="space-4"></div>
-		<div class="form-group">
-	        <label class="col-sm-2 control-label no-padding-right">邮箱: </label>
-	        <div class="col-sm-4"><p id="email_look" class="paddingtop7px padding7 autowrap"></p></div>
-	        <label class="col-sm-2 control-label no-padding-right">登录IP: </label>
-	        <div class="col-sm-4"><p id="ip_look" class="paddingtop7px padding7 autowrap"></p></div>
-		</div>
-
     </form>
 </div>
 <!-- 查看 -->
