@@ -1,6 +1,6 @@
 <#-- 参数说明：pageNo当前的页码，totalPage总页数， showPages显示的页码个数，callUrl回调方法名（需在js中自己定义）-->
 <#macro page pageNo totalPage showPages callUrl>
-    <#if totalPage!=1>
+    <#if totalPage!=1 && totalPage gt 0>
     <div class="page_list clearfix">
         <#if pageNo!=1>
             <a href="${callUrl+1}" class="top_page"><<</a>

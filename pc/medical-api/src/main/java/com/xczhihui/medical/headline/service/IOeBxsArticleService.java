@@ -18,7 +18,7 @@ public interface IOeBxsArticleService extends IService<OeBxsArticle> {
 
     OeBxsArticle selectArticleById(Integer id);
 
-    Page<OeBxsAppraise> selectArticleAppraiseById(@Param("oeBxsAppraisePage") Page oeBxsAppraisePage, @Param("id") Integer id, @Param("userId") String userId);
+    Page<OeBxsAppraise> selectArticleAppraiseById(@Param("page") Page oeBxsAppraisePage, @Param("id") Integer id, @Param("userId") String userId);
 
-    Page<OeBxsArticle> selectArticlesByPage(Page page, String type);
+    Page<OeBxsArticle> selectArticlesByPage(@Param("page") Page page, @Param("type") String type);
 }

@@ -1,6 +1,5 @@
 import java.security.Security;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -13,19 +12,19 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailBySSL{
-	public static boolean sendMailBySSL() throws AddressException, MessagingException{
+	public static boolean sendMailBySSL(String user,String svnpassword) throws AddressException, MessagingException{
 		  Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 		  final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 		  // Get a Properties object
 		  Properties props = new Properties();
-		  props.setProperty("mail.smtp.host", "smtp.163.com");
+		  props.setProperty("mail.smtp.host", "smtp.ixincheng.com");
 		  props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
 		  props.setProperty("mail.smtp.socketFactory.fallback", "false");
 		  props.setProperty("mail.smtp.port", "465");
 		  props.setProperty("mail.smtp.socketFactory.port", "465");
 		  props.put("mail.smtp.auth", "true");
-		  final String username = "yuruixin_china@163.com";
-		  final String password = "yu1078329360";
+		  final String username = "system@ixincheng.com";
+		  final String password = "Ixincheng1234";
 		  Session session = Session.getDefaultInstance(props, new Authenticator(){
 		      protected PasswordAuthentication getPasswordAuthentication() {
 		          return new PasswordAuthentication(username, password);
@@ -35,15 +34,27 @@ public class MailBySSL{
 		  Message msg = new MimeMessage(session);
 		 
 		  // -- Set the FROM and TO fields --
-		  msg.setFrom(new InternetAddress("yuruixin_china@163.com"));
+		  msg.setFrom(new InternetAddress("system@ixincheng.com"));
 		  msg.setRecipients(Message.RecipientType.TO, 
-		    InternetAddress.parse("yuruixin_china@163.com",false));
-		  msg.setSubject("你好,这是来自本地11111服务器");
-		  msg.setText("来自测试邮件");
+		    InternetAddress.parse(user+"@ixincheng.com",false));
+		  msg.setSubject("svn密码变更通知");
+		  msg.setText("你好,同学：svn密码统一升级，你的svn账号:"+user+"密码变更为："+svnpassword);
+			System.out.println(user+":"+svnpassword);
 		  msg.setSentDate(new Date());
 		  Transport.send(msg);
 		  
 		  System.out.println("Message sent.");
 		  return true;
 		 }
+
+	public static void main(String[] args) {
+		List<String> list = Arrays.asList("yuruixin");
+		list.forEach(name -> {
+			try {
+				sendMailBySSL(name, UUID.randomUUID().toString());
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+		});
+	}
 }

@@ -67,8 +67,9 @@ public class HeadlinePageController extends AbstractController{
         view.addObject("hotSpecialColumnAuthor", hotSpecialColumnAuthor);
         List<Map<String, Object>> articleType = articleService.getArticleType();
         view.addObject("articleType", articleType);
+
         Page<OeBxsArticle> articles = oeBxsArticleService.selectArticlesByPage(new Page(current,size),type);
-        view.addObject("paperArticle", articles);
+        view.addObject("articles", articles);
         articles.getRecords().forEach(article ->
                 article.setContent(HtmlUtil.getTextFromHtml(article.getContent().replaceAll("\\<.*?\\>", "")))
         );
@@ -90,7 +91,7 @@ public class HeadlinePageController extends AbstractController{
         view.addObject("articleType", articleType);
         type = type==null? (String) articleType.get(0).get("id") :type;
         Page<OeBxsArticle> articles = oeBxsArticleService.selectArticlesByPage(new Page(current,size),type);
-        view.addObject("paperArticle", articles);
+        view.addObject("articles", articles);
         articles.getRecords().forEach(article ->
                 article.setContent(HtmlUtil.getTextFromHtml(article.getContent().replaceAll("\\<.*?\\>", "")))
         );
@@ -105,8 +106,6 @@ public class HeadlinePageController extends AbstractController{
         ModelAndView view = new ModelAndView("headline/details");
         current = current==null?1:current;
         size = size==null?10:size;
-        List<Map<String, Object>> hotArticle = articleService.getHotArticle();
-        view.addObject("hotArticle", hotArticle);
         OeBxsArticle article = oeBxsArticleService.selectArticleById(id);
         String title = "";
         String keywords = "";
@@ -120,10 +119,17 @@ public class HeadlinePageController extends AbstractController{
 
         OnlineUser onlineUser = getOnlineUserNull(request);
         String userId = onlineUser==null?"":onlineUser.getId();
-        com.baomidou.mybatisplus.plugins.Page<OeBxsAppraise> oeBxsAppraisePage = oeBxsArticleService.selectArticleAppraiseById(new com.baomidou.mybatisplus.plugins.Page(current, size), id, userId);
+
+        Page<OeBxsAppraise> appraises = oeBxsArticleService.selectArticleAppraiseById(new Page(current, size), id, userId);
+        view.addObject("appraises", appraises);
         doTitleKeyWordsAndDescription(view,title,keywords,description);
+        List<Map<String, Object>> hotArticle = articleService.getHotArticle();
+        view.addObject("hotArticles", hotArticle);
+
+        Map echoMap = new HashMap();
+        echoMap.put("id",id);
+        doConditionEcho(view,echoMap);
         return view;
     }
-
 
 }

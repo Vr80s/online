@@ -51,6 +51,15 @@ public class OeBxsAppraise extends Model<OeBxsAppraise> {
 	@TableField(exist = false)
 	private Boolean isMySelf;
 
+	@TableField(exist = false)
+	private String smallHeadPhoto;
+
+	@TableField(exist = false)
+	private String name;
+
+	@TableField(exist = false)
+	private String nickName;
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
