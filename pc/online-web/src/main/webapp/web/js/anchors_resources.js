@@ -13,6 +13,20 @@ $(function() {
 	//	       }
 	//	    });
 
+	
+	//定位之前点击过的位置
+	setTimeout(function(){
+		if(localStorage.docTblSta == 'doc_hos') $('.select_list li:first-child').click();
+		if(localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(2)').click();
+		if(localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(3)').click();
+		if(localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(4)').click();
+		if(localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(5)').click();
+	},100)
+	
+	
+	
+
+	
 	//重新认证按钮
 	$('#doc_Distinguish ').on("click", ".renzhengAgain", function() {
 		localStorage.AutStatus = "AutAgain";
@@ -25,7 +39,9 @@ $(function() {
 		$(this).addClass("active");
 		$(".wrap_box .little_box").hide()
 		$(".select_box").hide().eq($(this).index()).show();
-
+		
+		window.localStorage.docTblSta = $(this).attr('data-name')
+	
 		//判断顶部是否具有返回
 		if($(".select_box").eq($(this).index()).find('.changeStaBtn').text() == '返回') {
 			$(".select_box").eq($(this).index()).find('.changeStaBtn').click();
