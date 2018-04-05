@@ -145,13 +145,13 @@ public class XzIapController {
 			 *  需要注意的一点，如果ios进行上架后，后台需要立即更新这个状态app版本状态
 			 */
 			
-			VersionInfoVo newVer = versionService.getNewVersion(1);
+//			VersionInfoVo newVer = versionService.getNewVersion(1);
 			
-			String newVersion = newVer.getVersion()+".1";
+//			String newVersion = newVer.getVersion()+".1";
 			LOGGER.info("newVersion:" + iphoneVersion);
 			LOGGER.info("currentVersion:" + version);
 			
-			int diff = VersionCompareUtil.compareVersion(newVersion, version);
+			int diff = VersionCompareUtil.compareVersion(iphoneVersion, version);
 			if (diff > 0) {   
 				LOGGER.info("{}{}{}{}{}-----》当前版本小于最新版本，说明是老版本  ");
 				url = "https://buy.itunes.apple.com/verifyReceipt";
