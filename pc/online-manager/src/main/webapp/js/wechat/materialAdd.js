@@ -106,7 +106,7 @@ $("#saveBtn").click(function(){
 	
 	if($("#addArticle-form").valid()){
 		mask();
-		 $("#addArticle-form").attr("action", basePath+"/boxueshe/writing/add");
+		 $("#addArticle-form").attr("action", basePath+"/headline/writing/add");
 		 $("#addArticle-form").ajaxSubmit(function(data){
 			 try{
          		data = jQuery.parseJSON(jQuery(data).text());
@@ -115,7 +115,7 @@ $("#saveBtn").click(function(){
          	  }
 			 if(data.success){
 				 layer.msg(data.resultObject);
-				 turnPage(basePath+'/home#boxueshe/writing/index');
+				 turnPage(basePath+'/home#headline/writing/index');
 				
 			 }else{
 				 layer.alert(data.errorMessage);
@@ -127,7 +127,7 @@ $("#saveBtn").click(function(){
 
 //返回
 $("#returnbutton").click(function(){
-	turnPage(basePath+'/home#boxueshe/writing/index');
+	turnPage(basePath+'/home#headline/writing/index');
 })
 
 //新增预览
@@ -137,7 +137,7 @@ $("#previewSaveBtn").click(function(){
 	
 	if($("#addArticle-form").valid()){
 		mask();
-		 $("#addArticle-form").attr("action", basePath+"/boxueshe/article/addPre");
+		 $("#addArticle-form").attr("action", basePath+"/headline/article/addPre");
 		 $("#addArticle-form").ajaxSubmit(function(data){
 			 try{
          		data = jQuery.parseJSON(jQuery(data).text());

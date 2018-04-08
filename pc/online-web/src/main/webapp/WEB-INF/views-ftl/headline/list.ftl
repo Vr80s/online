@@ -78,7 +78,7 @@
                 </#list>
             </div>
             <!-- 使用该标签 -->
-        <@cast.page pageNo=articles.current totalPage=articles.pages showPages=5 callUrl="/headline/list/"+echoMap.type?default("")+"?current="/>
+        <@cast.page pageNo=articles.current totalPage=articles.pages showPages=5 callUrl="/headline/list/"+echoMap.type?default("")+"?page="/>
 
         </div>
         <div class="forum-content-right" style="position: absolute; left: 880px;">

@@ -191,7 +191,7 @@
                     </div>
                 </#list>
             </div>
-                <a href="/headline/list/${articleType[0].id}">更多</a>
+                <a href="/headline/list/${echoMap.type}" class="more-news">更多</a>
         </div>
         <div class="forum-content-right" style="position: absolute; left: 880px;">
             <!--推荐专栏作者-->

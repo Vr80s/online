@@ -96,7 +96,19 @@
 		  and oba.type_id =  #{doctorReport}
 		GROUP BY oba.id
 		ORDER BY oba.`is_recommend` DESC , oba.`create_time` DESC
-		LIMIT 0, 5
+		LIMIT 0, 7
+	</select>
+
+	<select id="getHotArticles" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
+		SELECT
+		  id,
+		  title
+		FROM
+		  oe_bxs_article
+		WHERE is_delete = 0
+		  AND `status` = 1
+		ORDER BY browse_sum DESC
+		LIMIT 0,7
 	</select>
 
 	<select id="getNewsReportsByPage" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">

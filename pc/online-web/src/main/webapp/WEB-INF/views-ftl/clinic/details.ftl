@@ -105,8 +105,8 @@
                             <a href="/doctors/${doctor.id}" target="_blank"></a>
                             <img src="${doctor.headPortrait}" alt="${doctor.name}">
                             <h5>${doctor.name}</h5>
-                            <p>${doctor.workTime}</p>
-                            <p>${doctor.province}&nbsp;${doctor.city}</p>
+                            <p>${doctor.workTime?default('')}</p>
+                            <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}</p>
                         </li>
                     </#list>
                 </ul>

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -88,7 +89,7 @@ public class ClinicPageController extends AbstractController{
     }
 
     @RequestMapping(value="list",method=RequestMethod.GET)
-    public ModelAndView list(Integer current,Integer size,String name,String field) {
+    public ModelAndView list(@RequestParam(value="page", required=false) Integer current, Integer size, String name, String field) {
         ModelAndView view = new ModelAndView("clinic/list");
         current = current==null?1:current;
         size = size==null?20:size;

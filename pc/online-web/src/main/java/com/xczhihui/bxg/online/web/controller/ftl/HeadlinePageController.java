@@ -2,10 +2,10 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
-import com.xczhihui.bxg.online.web.vo.ArticleVo;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,11 +53,11 @@ public class HeadlinePageController extends AbstractController{
     }
 
     @RequestMapping(value="{type}",method=RequestMethod.GET)
-    public ModelAndView page(Integer current, Integer size,String tagId,@PathVariable String type) {
+    public ModelAndView page(@PathVariable String type) {
         ModelAndView view = new ModelAndView("headline/index");
 
-        current = current==null?1:current;
-        size = size==null?6:size;
+        int current = 1;
+        int size = 6;
         List<BannerVo> banners = bannerService.list(null, null, 3);
         view.addObject("banners", banners);
         List<Map<String, Object>> hotArticle = articleService.getHotArticle();
@@ -80,7 +81,7 @@ public class HeadlinePageController extends AbstractController{
     }
 
     @RequestMapping(value="list/{type}",method=RequestMethod.GET)
-    public ModelAndView list(Integer current, Integer size,@PathVariable String type) {
+    public ModelAndView list(@RequestParam(value="page", required=false) Integer current, Integer size, @PathVariable String type) {
         ModelAndView view = new ModelAndView("headline/list");
 
         current = current==null?1:current;
@@ -102,7 +103,7 @@ public class HeadlinePageController extends AbstractController{
     }
 
     @RequestMapping(value="details/{id}",method=RequestMethod.GET)
-    public ModelAndView details(HttpServletRequest request,Integer current, Integer size, @PathVariable Integer id) {
+    public ModelAndView details(HttpServletRequest request, @RequestParam(value="page", required=false) Integer current, Integer size, @PathVariable Integer id) {
         ModelAndView view = new ModelAndView("headline/details");
         current = current==null?1:current;
         size = size==null?10:size;
@@ -123,8 +124,14 @@ public class HeadlinePageController extends AbstractController{
         Page<OeBxsAppraise> appraises = oeBxsArticleService.selectArticleAppraiseById(new Page(current, size), id, userId);
         view.addObject("appraises", appraises);
         doTitleKeyWordsAndDescription(view,title,keywords,description);
-        List<Map<String, Object>> hotArticle = articleService.getHotArticle();
-        view.addObject("hotArticles", hotArticle);
+
+        if(article.getTypeId().equals(HeadlineType.MYBD.getCode())){
+            List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
+            view.addObject("suggestedArticles", recentlyNewsReports);
+        }else{
+            List<Map<String, Object>> hotArticles = articleService.getHotArticle();
+            view.addObject("suggestedArticles", hotArticles);
+        }
 
         Map echoMap = new HashMap();
         echoMap.put("id",id);

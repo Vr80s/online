@@ -55,14 +55,14 @@
                             <#if !(echoMap.field??)>
                             <li><a href="javascript:;" class="color">全部</a></li>
                             <#else >
-                            <li><a href="/clinics/list?current=1&name=${echoMap.name?default("")}">全部</a></li>
+                            <li><a href="/clinics/list?page=1&name=${echoMap.name?default("")}">全部</a></li>
                             </#if>
 
                             <#list fields.records as field>
                                 <#if echoMap.field?? && field.id == echoMap.field>
                                     <li><a class="color" href="javascript:;" data-fileid="${field.id}">${field.name}</a></li>
                                 <#else >
-                                    <li><a href="/clinics/list?current=1&field=${field.id}&name=${echoMap.name?default("")}" data-fileid="${field.id}">${field.name}</a></li>
+                                    <li><a href="/clinics/list?page=1&field=${field.id}&name=${echoMap.name?default("")}" data-fileid="${field.id}">${field.name}</a></li>
                                 </#if>
                             </#list>
                         </ul>
@@ -77,7 +77,7 @@
                                     <div style="display: inline-block;">
                                         <span style="color: #00BC12 ;margin-left: 5px;" data-fileid="echoMap.field">${echoMap.fieldText}</span>
                                     </div>
-                                    <a href="/clinics/list?current=1&name=${echoMap.name?default("")}" style="color: #2cb82c;margin: 0 5px;"></a>
+                                    <a href="/clinics/list?page=1&name=${echoMap.name?default("")}" style="color: #2cb82c;margin: 0 5px;"></a>
                                 </li>
                             <#else >
                                 <li id="hos_search_condition3" style="border:none;color: #999;" >暂无筛选条件</li>
@@ -129,7 +129,7 @@
                 </div>
             </div>
             <!-- 使用该标签 -->
-        <@cast.page pageNo=clinics.current totalPage=clinics.pages showPages=5 callUrl="/clinics/list?name="+echoMap.name?default("")+"&field="+echoMap.field?default("")+"&current="/>
+        <@cast.page pageNo=clinics.current totalPage=clinics.pages showPages=5 callUrl="/clinics/list?name="+echoMap.name?default("")+"&field="+echoMap.field?default("")+"&page="/>
         </div>
 
     </div>

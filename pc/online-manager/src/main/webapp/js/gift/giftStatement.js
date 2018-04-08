@@ -31,8 +31,8 @@ function loadOrderList() {
         {title: '单价', "class": "center", "width": "97px", "data": 'price', "sortable": false},
         {title: '数量', "class": "center", "width": "97px", "data": 'count', "sortable": false},
         {title: '赠送人', "class": "center", "width": "8%", "data": 'giver', "sortable": false},
-                {title: '主播账号', "class": "center", "width": "8%","data": 'loginName', "sortable": false},
-                {title: '主播昵称', "class": "center", "width": "8%","data": 'receiver', "sortable": false},
+        {title: '主播账号', "class": "center", "width": "8%", "data": 'loginName', "sortable": false},
+        {title: '主播昵称', "class": "center", "width": "8%", "data": 'receiver', "sortable": false},
         {
             title: '支付方式',
             "class": "center",
@@ -69,8 +69,14 @@ function loadOrderList() {
                     payType = "android";
                 } else if (data == 4) {
                     payType = "ios";
+                } else if (data == 5) {
+                    payType = "线下";
+                } else if (data == 6) {
+                    payType = "工作人员";
+                } else if (data == 0) {
+                    payType = "赠送";
                 } else {
-                    payType = "--";
+                    payType = "__";
                 }
                 return payType;
             }

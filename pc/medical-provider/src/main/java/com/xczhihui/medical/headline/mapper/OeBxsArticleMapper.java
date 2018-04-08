@@ -36,4 +36,6 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
     List<OeBxsArticle> selectArticlesByPage(@Param("page") Page page, @Param("type") String type);
 
     OeBxsArticle selectArticleById(Integer id);
+
+    List<OeBxsArticleVO> getHotArticles();
 }

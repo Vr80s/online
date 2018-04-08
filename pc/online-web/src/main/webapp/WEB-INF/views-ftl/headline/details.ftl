@@ -124,23 +124,23 @@
             </div>
 
             <!-- 使用该标签 -->
-        <@cast.page pageNo=appraises.current totalPage=appraises.pages showPages=5 callUrl="/headline/details/"+echoMap.id?default("")+"?current="/>
+        <@cast.page pageNo=appraises.current totalPage=appraises.pages showPages=5 callUrl="/headline/details/"+echoMap.id?default("")+"?page="/>
 
         </div>
         <div class="forum-content-right">
             <div class="hot-article">
                 <span class="hot-article-title">推荐阅读</span>
                 <ul class="hot-article-list">
-                    <#list hotArticles as hotArticle>
-                        <if hotArticle_index<=2>
+                    <#list suggestedArticles as suggestedArticle>
+                        <#if suggestedArticle_index<=2>
                             <li>
-                                <a href="/headline/details/${hotArticle.id}"><span title="${hotArticle.title}">${hotArticle.title}</span></a>
+                                <a href="/headline/details/${suggestedArticle.id}"><span title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
                             </li>
                         <#else>
                             <li>
-                                <a href="/headline/details/${hotArticle.id}"><span title="${hotArticle.title}">${hotArticle.title}</span></a>
+                                <a href="/headline/details/${suggestedArticle.id}"><span title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
                             </li>
-                        </if>
+                        </#if>
                     </#list>
                 </ul>
             </div>
