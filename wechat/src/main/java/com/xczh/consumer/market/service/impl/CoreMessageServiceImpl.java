@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONObject;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,12 @@ import com.xczh.consumer.market.controller.user.XzUserController;
 import com.xczh.consumer.market.service.CoreMessageService;
 import com.xczh.consumer.market.utils.MessageConstant;
 import com.xczh.consumer.market.utils.MessageUtil;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.wxmessage.resp.Article;
 import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
 import com.xczh.consumer.market.wxmessage.resp.TextMessage;
+import com.xczh.consumer.market.wxpay.util.CommonUtil;
+import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
 
 @Service
@@ -29,6 +34,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
+	@Value("${wechatpay.gzh_appid}")
+	private String gzh_appid;
 	
 	//https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
 	
@@ -109,12 +116,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         		  
         		  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
         		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        		  
                   Article article = new Article();  
-                  article.setTitle("欢迎来到熊猫国医学堂");  
+                  article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
                   article.setDescription("");  
-                  article.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
-                  article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
+                  article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
+                  article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
                   articleList.add(article);
                   // 设置图文消息个数  
                   newsMessage.setArticleCount(articleList.size());  
@@ -122,16 +128,39 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                   newsMessage.setArticles(articleList);  
                   // 将图文消息对象转换成xml字符串  
                   respMessage = MessageUtil.newsMessageToXml(newsMessage); 
-        		  newsMessage.setMedia_id("6y0EBrCsG4Si29EjR7_uAPKHf5fHnte_6__89Y0IiyA");
-        		  
+                  
+//				  newsMessage.setMedia_id("6y0EBrCsG4Si29EjR7_uAPKHf5fHnte_6__89Y0IiyA");
         		  /*
         		   * 保存用户微信信息
         		   */
         		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
+        		  
+//        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
         	      //保存用户信息
+//        	      StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
+//        			System.out.println("getUserManagerGetInfo:"+buffer.toString());
+//        			return buffer.toString();
         	      
-        		  respMessage = MessageUtil.newsMessageToXml(newsMessage); 
+        		String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
+        		  
+        		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
+    			String openid_ = (String)jsonObject.get("openid");
+    			String nickname_ = (String)jsonObject.get("nickname");
+    			nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
+    			String sex_ = String.valueOf(jsonObject.get("sex"));
+    			String language_ = (String)jsonObject.get("language");
+    			String city_ = (String)jsonObject.get("city");
+    			String province_ = (String)jsonObject.get("province");
+    			String country_ = (String)jsonObject.get("country");
+    			String headimgurl_ = (String)jsonObject.get("headimgurl");
+    			String unionid_ = (String)jsonObject.get("unionid");
+    			
+        		
+    			
+    			
+    			
+        	      
+        		respMessage = MessageUtil.newsMessageToXml(newsMessage); 
 
         	  }else if(scan.equals(MessageConstant.EVENT_TYPE_UNSUBSCRIBE)){  //取消公众号事件
               	

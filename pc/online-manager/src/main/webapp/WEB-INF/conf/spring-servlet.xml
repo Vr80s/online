@@ -10,9 +10,9 @@
 
     <context:property-placeholder location="classpath:config.properties"/>
 
-    <context:component-scan base-package="com.xczhihui.bxg.online.**.web"/>
+    <context:component-scan base-package="com.xczhihui.**.web"/>
 
-    <bean class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController"/>
+    <!--<bean class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController"/>-->
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">

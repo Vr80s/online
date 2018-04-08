@@ -61,13 +61,13 @@
                         <#if echoMap.type?default("")?trim?length == 0>
                             <li><a href="javascript:;" class="color">全部</a></li>
                         <#else >
-                            <li><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}" >全部</a></li>
+                            <li><a href="/doctors/list?page=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}" >全部</a></li>
                         </#if>
                         <#list doctorTypeList as doctorType>
                             <#if echoMap.type?? && doctorType.code == echoMap.type>
                                 <li><a href="javascript:;" data-type="${doctorType.code}" class="color">${doctorType.value}</a></li>
                             <#else>
-                                <li><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&type=${doctorType.code?default("")}&departmentId=${echoMap.departmentId?default("")}" data-type="${doctorType.code}">${doctorType.value}</a></li>
+                                <li><a href="/doctors/list?page=1&name=${echoMap.name?default("")}&type=${doctorType.code?default("")}&departmentId=${echoMap.departmentId?default("")}" data-type="${doctorType.code}">${doctorType.value}</a></li>
                             </#if>
                         </#list>
                         </ul>
@@ -78,13 +78,13 @@
                         <#if echoMap.departmentId?default("")?trim?length == 0>
                             <li><a href="javascript:;" class="color">全部</a></li>
                         <#else >
-                            <li><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"  >全部</a></li>
+                            <li><a href="/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"  >全部</a></li>
                         </#if>
                         <#list departments.records as department>
                             <#if echoMap.departmentId?? &&department.id == echoMap.departmentId>
                                 <li><a href="javascript:;" class="color" data-id="${department.id}">${department.name}</a></li>
                             <#else>
-                                <li><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}&departmentId=${department.id?default("")}" data-id="${department.id}">${department.name}</a></li>
+                                <li><a href="/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}&departmentId=${department.id?default("")}" data-id="${department.id}">${department.name}</a></li>
                             </#if>
                         </#list>
                         </ul>
@@ -93,10 +93,10 @@
                         <span>筛选条件：</span>
                         <ul class="clearfix">
                             <#if echoMap.type??>
-                                <li id="doctor_search_condition1" class="">分类：<div style="display: inline-block;"><span data-type="${echoMap.type}">${echoMap.typeText}</span></div><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}"></a></li>
+                                <li id="doctor_search_condition1" class="">分类：<div style="display: inline-block;"><span data-type="${echoMap.type}">${echoMap.typeText}</span></div><a href="/doctors/list?page=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}"></a></li>
                             </#if>
                             <#if echoMap.departmentId??>
-                                <li id="doctor_search_condition2" class="">科室：<div style="display: inline-block;"><span data-id="${echoMap.departmentId}">${echoMap.departmentText}</span></div><a href="/doctors/list?current=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"></a></li>
+                                <li id="doctor_search_condition2" class="">科室：<div style="display: inline-block;"><span data-id="${echoMap.departmentId}">${echoMap.departmentText}</span></div><a href="/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"></a></li>
                             </#if>
                             <#if !(echoMap.departmentId?? || echoMap.type??)>
                                 <li id="doctor_search_condition3" style="border:none;color: #999;" class="">暂无筛选条件</li>
@@ -139,7 +139,7 @@
                 </#list>
                 </ul>
                 <!-- 使用该标签 -->
-                <@cast.page pageNo=doctors.current totalPage=doctors.pages showPages=5 callUrl="/doctors/list?name="+echoMap.name?default("")+"&type="+echoMap.type?default("")+"&departmentId="+echoMap.departmentId?default("")+"&current="/>
+                <@cast.page pageNo=doctors.current totalPage=doctors.pages showPages=5 callUrl="/doctors/list?name="+echoMap.name?default("")+"&type="+echoMap.type?default("")+"&departmentId="+echoMap.departmentId?default("")+"&page="/>
             </div>
 
 

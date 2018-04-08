@@ -1,3 +1,4 @@
+<#import "../page.ftl" as cast/>
 <!DOCTYPE html>
 <!-- saved from url=(0056)http://dev.ixincheng.com/doctors -->
 <html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,6 +19,7 @@
     <link rel="stylesheet" href="/web/css/header.css"/>
     <link rel="stylesheet" href="/web/css/forumDetail.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
+    <link rel="stylesheet" href="/web/css/ftl-page.css"/>
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
 
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
@@ -49,8 +51,9 @@
                 <div class="forum-detail">
                     <div class="forum-detail-title">${article.title}</div>
                     <div class="forum-info-tags">
-                        <img src="/web/images/studentCount.png" />
-                        <span>${article.userId}&nbsp;&nbsp;&nbsp;${(article.createTime?string("yyyy-MM-dd"))!}</span>
+                        <img src="/web/images/studentCount.png">
+                        <span>${article.source}&nbsp;&nbsp;&nbsp;${(article.createTime?string("yyyy-MM-dd"))!}</span>
+                        <a href="/headline/list/${article.typeId}" style="color: #188EEE;margin-left:20px">${article.type}</a>
                     </div>
                 </div>
                 <div class="forum-detail-content">${article.content}</div>
@@ -67,21 +70,21 @@
             <div class="all-comment">
                 <div class="all-comment-title">
                     <span>全部评论</span>
-                    <span class="community-count">3条</span>
+                    <span class="community-count">${appraises.total}条</span>
                 </div>
                 <div class="forum-communitybox">
                     <div class="forum-community-content">
-                        <#list appraises as appraise>
+                        <#list appraises.records as appraise>
                             <div class="forum-community-content">
                                 <div class="forum-comment-content clearfix">
-                                    '<div class="img"><img  src="${appraise.small_head_photo}" /></div>
+                                    <div class="img"><img  src="${appraise.smallHeadPhoto}" /></div>
                                     <div class="forum-comment-right">
                                         <div class="comment-personAndTime">
                                             <span class="comment-person">${appraise.name}</span>
                                             <em></em>
-                                            <span class="comment-time">${appraise.create_time}</span>
+                                            <span class="comment-time">${(appraise.createTime?string("yyyy-MM-dd hh:mm"))!}</span>
                                         </div>
-                                        <#if appraise.nickName!="" && appraise.nickName!=null>
+                                        <#if appraise.nickName??>
                                             <div class="comment-info"><span>回复&nbsp;&nbsp;<span class="replyName">${appraise.nickName}：</span></span>${appraise.content}</div>
                                             <#else>
                                             <div class="comment-info">${appraise.content}</div>
@@ -90,7 +93,7 @@
                                             <i class="iconfont icon-huifu"></i>
                                             回复
                                         </div>
-                                        <#if appraise.mySelf==true>
+                                        <#if appraise.isMySelf==true>
                                             <div class="reply-delete" data-commentId="${appraise.id}">
                                                 <i class="iconfont icon-shanchu"></i>
                                                 删除
@@ -99,7 +102,7 @@
 
                                         <div class="replay-box">
                                             <p class="replyPerson">回复 ${appraise.name}：</p>
-                                            <img class="pinglunSanjiao" src="../images/ansandqus/sanjiao02.png">
+                                            <img class="pinglunSanjiao" src="/web/images/ansandqus/sanjiao02.png">
                                             <input class="reply-input"/>
                                             <div class="emptyHit">
                                                 <i class="iconfont icon-tanhao"></i>
@@ -107,7 +110,7 @@
                                             </div>
                                             <div class="reply-btn">
                                                 <div class="cancle">取消</div>
-                                                <div class="reply" data-targetId="${appraise.user_id}">
+                                                <div class="reply" data-targetId="${appraise.userId}">
                                                     回复
                                                 </div>
                                             </div>
@@ -120,34 +123,40 @@
                 </div>
             </div>
 
-            <div class="pages" style="display: none;">
-                <div id="Pagination"></div>
-            </div>
+            <!-- 使用该标签 -->
+        <@cast.page pageNo=appraises.current totalPage=appraises.pages showPages=5 callUrl="/headline/details/"+echoMap.id?default("")+"?page="/>
+
         </div>
         <div class="forum-content-right">
             <div class="hot-article">
                 <span class="hot-article-title">推荐阅读</span>
-                <ul class="hot-article-list"><li><a href="/web/html/forumDetail.html?articleId=103" target="_blank"><span title="【熊猫头条】熊猫中医加入庭医生联盟守护家庭健康中国家">【熊猫头条】熊猫中医加入庭医生联盟守护家庭健康中国家</span></a></li><li><a href="/web/html/forumDetail.html?articleId=105" target="_blank"><span title="祝贺！熊猫中医斩获“2017国际创新创业”大赛一等奖！">祝贺！熊猫中医斩获“2017国际创新创业”大赛一等奖！</span></a></li><li><a href="/web/html/forumDetail.html?articleId=104" target="_blank"><span title="熊猫中医助力首届中国中医院院长职业化管理培训班羊城开班">熊猫中医助力首届中国中医院院长职业化管理培训班羊城开班</span></a></li><li><a href="/web/html/forumDetail.html?articleId=55" target="_blank"><span title="国家中医药管理局：鼓励建立中医电子处方数据库">国家中医药管理局：鼓励建立中医电子处方数据库</span></a></li><li><a href="/web/html/forumDetail.html?articleId=86" target="_blank"><span title="王笑频：中医药一直在“走出去”的路上">王笑频：中医药一直在“走出去”的路上</span></a></li><li><a href="/web/html/forumDetail.html?articleId=84" target="_blank"><span title="【山东】让确有专长人员在阳光下行医">【山东】让确有专长人员在阳光下行医</span></a></li><li><a href="/web/html/forumDetail.html?articleId=60" target="_blank"><span title="2017年中国国际中医药大健康博览会举行">2017年中国国际中医药大健康博览会举行</span></a></li></ul>
+                <ul class="hot-article-list">
+                    <#list suggestedArticles as suggestedArticle>
+                        <#if suggestedArticle_index<=2>
+                            <li>
+                                <a href="/headline/details/${suggestedArticle.id}"><span title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
+                            </li>
+                        <#else>
+                            <li>
+                                <a href="/headline/details/${suggestedArticle.id}"><span title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
+                            </li>
+                        </#if>
+                    </#list>
+                </ul>
             </div>
-            <div class="forum-hot-tag hide">
-                <div class="forum-hot-tag-title">热门标签</div>
-                <ul class="forum-hot-tagGround"><li><a href="/web/html/forumBiaoqian.html?tagId=08a0ce5651da46bb8b71635ee9e7a524" target="_blank">中医药</a></li><li><a href="/web/html/forumBiaoqian.html?tagId=112378305d5941358dab73f440ee9283" target="_blank">养生</a></li><li><a href="/web/html/forumBiaoqian.html?tagId=2f381d98e83f4e14a98c59dc0bbd01bb" target="_blank">大数据</a></li><li><a href="/web/html/forumBiaoqian.html?tagId=373131270a494681a5f700b969ff8619" target="_blank">文化</a></li><li><a href="/web/html/forumBiaoqian.html?tagId=3c6048aed75649aca0da896776c07dba" target="_blank">法规</a></li><li><a href="/web/html/forumBiaoqian.html?tagId=456a5c0589d14778aa76841537794dac" target="_blank">医疗服务</a></li><li><a href="/web/html/forumBiaoqian.html?tagId=4f8f4fb88b794d7c8cde96fea7e04467" target="_blank">智能</a></li><li><a href="/web/html/forumBiaoqian.html?tagId=59e915046b4f423ebc7a5d12fa4dec12" target="_blank">要闻</a></li></ul>
-            </div>
-            <div class="forum-hot-course hide">
-                <div class="forum-hot-course-title">
-                    <span>热门课程</span>
-                    <div class="forum-hot-course-banner">
-                        <span class="curCount currentLunbo">1</span><span class="curCount">/</span><span class="curCount allLunbo"></span>
-                        <span class="prev" id="prev"></span>
-                        <span class="next" id="next"></span>
-                    </div>
-                </div>
-                <div class="hot-course">
-                    <div id="box" class="slideBox clearfix">
-                        <ul class="course boxContent clearfix"><div class="page-no-result"><img src="../images/personcenter/my_nodata.png"><div class="no-title">暂无数据</div></div></ul>
-                    </div>
-                </div>
-            </div>
+            <#--<div class="forum-hot-tag hide">-->
+                <#--<div class="forum-hot-tag-title">热门标签</div>-->
+                <#--<ul class="forum-hot-tagGround">-->
+                    <#--<li><a href="/web/html/forumBiaoqian.html?tagId=08a0ce5651da46bb8b71635ee9e7a524" target="_blank">中医药</a></li>-->
+                    <#--<li><a href="/web/html/forumBiaoqian.html?tagId=112378305d5941358dab73f440ee9283" target="_blank">养生</a></li>-->
+                    <#--<li><a href="/web/html/forumBiaoqian.html?tagId=2f381d98e83f4e14a98c59dc0bbd01bb" target="_blank">大数据</a></li><li>-->
+                    <#--<a href="/web/html/forumBiaoqian.html?tagId=373131270a494681a5f700b969ff8619" target="_blank">文化</a></li>-->
+                    <#--<li><a href="/web/html/forumBiaoqian.html?tagId=3c6048aed75649aca0da896776c07dba" target="_blank">法规</a></li>-->
+                    <#--<li><a href="/web/html/forumBiaoqian.html?tagId=456a5c0589d14778aa76841537794dac" target="_blank">医疗服务</a></li>-->
+                    <#--<li><a href="/web/html/forumBiaoqian.html?tagId=4f8f4fb88b794d7c8cde96fea7e04467" target="_blank">智能</a></li>-->
+                    <#--<li><a href="/web/html/forumBiaoqian.html?tagId=59e915046b4f423ebc7a5d12fa4dec12" target="_blank">要闻</a></li></ul>-->
+            <#--</div>-->
+
         </div>
     </div>
 </div>
@@ -156,6 +165,7 @@
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
+    var articleId = ${echoMap.id}
     $(function(){
         $(".headline").addClass("select");
     });
@@ -223,4 +233,108 @@
     init();
 
 
+    (function() {
+        $(".forum-community-lgoin").click(function(){
+            $('#login').modal('show');
+        });
+        //评论
+        RequestService("/online/user/isAlive", "GET", null, function(data) {
+            if (data.success == false) {
+                $(".forum-community-loginHit").css("display","block");
+            } else {
+                $(".forum-community-loginHit").css("display","none");
+            }
+        });
+
+        //删除
+        $(".reply-delete").each(function(){
+            $(this).click(function(){
+                $("#quxiaoshoucang").paymentModal("reply-delete");
+                $(".tipType").text("确定要删除吗？");
+                var commentId = $(this).attr("data-commentId");
+                $("#quxiaoshoucang .modalFooter .yesBtn").off().click(function() {
+                    RequestService('/bxs/article/deleteAppraiseId', "POST", {
+                        appraiseId: commentId
+                    }, function(data) {
+                        if(data.success == true) {
+                            $(".payment-modal-close").trigger("click");
+                            var commentCount=$(".articleCommCoun").text();
+                            commentCount--;
+                            $(".articleCommCoun").text(commentCount);
+                            allComment();
+                        }
+                    });
+                });
+                $("#quxiaoshoucang .modalFooter .notBtn").click(function() {
+                    $(".payment-modal-close").trigger("click");
+                })
+            })
+        });
+
+        $(".reply-comment").each(function(){
+            $(this).click(function(){
+                var _rThis=$(this);
+                $(".replay-box .emptyHit").hide();
+                if(_rThis.parent().find(".replay-box").css("display") == "block") {
+                    _rThis.parent().find(".replay-box").css("display", "none");
+                } else {
+                    $(".replay-box").css("display","none");
+                    _rThis.parent().find(".replay-box").toggle();
+                }
+            })
+        });
+        $(".cancle").each(function(){
+            $(this).click(function(){
+                $(this).parent().parent().hide();
+            })
+        });
+        $(".reply-input").focus(function(){
+            var indentLength=$(this).parent().find(".replyPerson").width();
+            $(".reply-input").css("textIndent",indentLength+"px");
+            $(".replay-box .emptyHit").hide();
+        });
+        $(".reply").each(function(){
+            var forumThs=$(this);
+            forumThs.click(function(){
+                RequestService("/online/user/isAlive", "GET", null, function(data) {
+                    if (data.success == false) {
+                        $('#login').modal('show');
+                    } else {
+                        var replayCon=forumThs.parent().parent().find(".reply-input").val().trim();
+                        var targetId=forumThs.attr("data-targetid");
+                        if(replayCon==""){
+                            $(".replay-box .emptyHit").show();
+                        }else{
+                            RequestService("/bxs/article/saveAppraise","POST",{
+                                article_id:articleId,
+                                content:replayCon,
+                                target_user_id:targetId
+                            },function(data){
+                                if(data.success){
+                                    window.location.href="/headline/details/"+articleId;
+                                }
+                            })
+                        }
+                    }
+                });
+            })
+        });
+
+        $(".community-submit").click(function () {
+            var commentCon = $(".forum-community-textarea").val().trim();
+            if (commentCon == "") {
+                $(".forum-community .emptyHit").css("display", "block");
+            } else {
+                $(".forum-community .emptyHit").css("display", "none");
+                RequestService('/bxs/article/saveAppraise', 'POST', {
+                    article_id: articleId,
+                    content: commentCon
+                }, function (data) {
+                    if (data.success) {
+                        window.location.href = "/headline/details/" + articleId;
+                    }
+                });
+            }
+        });
+    })();
 </script>

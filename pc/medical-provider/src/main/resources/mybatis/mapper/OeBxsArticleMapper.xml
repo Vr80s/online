@@ -96,7 +96,19 @@
 		  and oba.type_id =  #{doctorReport}
 		GROUP BY oba.id
 		ORDER BY oba.`is_recommend` DESC , oba.`create_time` DESC
-		LIMIT 0, 5
+		LIMIT 0, 7
+	</select>
+
+	<select id="getHotArticles" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
+		SELECT
+		  id,
+		  title
+		FROM
+		  oe_bxs_article
+		WHERE is_delete = 0
+		  AND `status` = 1
+		ORDER BY browse_sum DESC
+		LIMIT 0,7
 	</select>
 
 	<select id="getNewsReportsByPage" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
@@ -176,7 +188,45 @@
 	</select>
 
 	<select id="selectArticlesByPage" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
+		SELECT
+		  b.id,
+		  b.title,
+		  b.content,
+		  b.img_path,
+		  b.create_time,
+		  b.`user_id` source,
+		  b.`type_id`,
+		  a.`name` type
+		FROM
+		  oe_bxs_article b
+		  JOIN `article_type` a
+		   ON  b.`type_id`=a.`id`
+		WHERE  b.is_delete = 0
+		  AND b.status = 1
+		  AND b.type_id = #{type}
+		GROUP BY b.id
+		ORDER BY b.create_time DESC
+	</select>
 
+	<select id="selectArticleById" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
+		SELECT
+		  b.id,
+		  b.title,
+		  b.content,
+		  b.img_path,
+		  b.create_time,
+		  b.`user_id` source,
+		  b.`type_id`,
+		  a.`name` type
+		FROM
+		  oe_bxs_article b
+		  JOIN `article_type` a
+		   ON  b.`type_id`=a.`id`
+		WHERE  b.is_delete = 0
+		  AND b.status = 1
+		  AND b.id = #{id}
+		GROUP BY b.id
+		ORDER BY b.create_time DESC
 	</select>
 
 </mapper>

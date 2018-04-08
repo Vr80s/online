@@ -2,6 +2,7 @@ package com.xczhihui.wechat.course.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -123,6 +124,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public CourseLecturVo selectCurrentCourseStatus(Integer courseId) {
 		return iCourseMapper.selectCurrentCourseStatus(courseId);
+	}
+
+	@Override
+	public String selectCourseDescription(Integer type,String typeId) {
+		return iCourseMapper.selectCourseDescription(type,typeId);
 	}
 
 

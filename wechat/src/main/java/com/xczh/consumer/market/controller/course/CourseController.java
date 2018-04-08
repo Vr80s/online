@@ -123,7 +123,12 @@ public class CourseController {
 		if (cv == null) {
 			return ResponseObject.newErrorResponseObject("课程信息有误");
 		}
+		//设置星星级别
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
+		
+		//设置html片段
+		cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+		cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+courseId);
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -179,6 +184,11 @@ public class CourseController {
 		}
 		//判断星级
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
+		
+		//设置html片段
+		cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+		cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+		
 		
 		//判断点钱在线人数
 		if(cv.getType()!=null &&  cv.getLineState() != null &&  cv.getType() == 1 && cv.getLineState() == 1){ //表示的是直播中

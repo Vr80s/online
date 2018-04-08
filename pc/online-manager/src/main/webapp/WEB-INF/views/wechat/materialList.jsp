@@ -11,7 +11,7 @@
   } catch (e) {
   }
 </script>
-<script type="text/javascript" src="/js/boxueshe/writingList.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/js/headline/writingList.js?v=ipandatcm_1.3"></script>
 <script src="/js/layer/layer.js"></script>
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">

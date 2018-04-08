@@ -32,7 +32,7 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <!-- <listener>
-        <listener-class>com.xczhihui.bxg.online.manager.utils.subscribe.ConfigListener</listener-class>
+        <listener-class>ConfigListener</listener-class>
     </listener> -->
 
     <filter>

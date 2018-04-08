@@ -188,8 +188,11 @@ public class CourseLecturVo implements Serializable {
 	
 	private Integer learning = 0;
 	
-	
 	private Integer status; //是否上架      禁用0，启用，1
+	
+	private String richCourseDetailsUrl;//富文本课程详情的html片段url
+	
+	private String richHostDetailsUrl;//富文本主讲人详情的html片段url
 	
 	public String getUdescription() {
 		return udescription;
@@ -586,5 +589,26 @@ public class CourseLecturVo implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+	public String getRichCourseDetailsUrl() {
+		
+		return richCourseDetailsUrl;
+	}
+
+	public void setRichCourseDetailsUrl(String richCourseDetailsUrl) {
+		
+		
+		this.richCourseDetailsUrl = richCourseDetailsUrl;
+	}
+
+	public String getRichHostDetailsUrl() {
+		return richHostDetailsUrl;
+	}
+
+	public void setRichHostDetailsUrl(String richHostDetailsUrl) {
+		this.richHostDetailsUrl = richHostDetailsUrl;
+	}
+	
+	
 	
 }

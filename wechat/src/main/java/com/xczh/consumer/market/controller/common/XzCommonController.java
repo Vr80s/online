@@ -44,6 +44,7 @@ import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
+import com.xczhihui.wechat.course.service.ICourseService;
 
 /**
  * 通用控制器 ClassName: CommonController.java <br>
@@ -80,9 +81,12 @@ public class XzCommonController {
     @Autowired
     private UserCenterAPI userCenterAPI;
 
-    
     @Autowired
     private CommonApiService commonApiService;
+
+	@Autowired
+	private ICourseService courseServiceImpl;
+    
     
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
@@ -100,8 +104,25 @@ public class XzCommonController {
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
 			.getLogger(XzCommonController.class);
 	
-//	newUser.setUserCenterId(user.getId());
-//	newUser.setPassword(user.getPassword());
+	
+	/**
+	 * 查询单个详情
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/richTextDetails")
+	@ResponseBody
+	public ResponseObject richTextDetails(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam("type")Integer type,
+			@RequestParam("typeId")String typeId)throws Exception{
+		
+		return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseDescription(type,typeId));
+	}
+	
+	
 	
 	/**
 	 * 请求转发用于验证用户的登录状态
