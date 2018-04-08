@@ -155,9 +155,12 @@ public class CoreMessageServiceImpl implements CoreMessageService {
     			String headimgurl_ = (String)jsonObject.get("headimgurl");
     			String unionid_ = (String)jsonObject.get("unionid");
     			
-        		 
+        		
+    			
+    			
+    			
         	      
-        		  respMessage = MessageUtil.newsMessageToXml(newsMessage); 
+        		respMessage = MessageUtil.newsMessageToXml(newsMessage); 
 
         	  }else if(scan.equals(MessageConstant.EVENT_TYPE_UNSUBSCRIBE)){  //取消公众号事件
               	

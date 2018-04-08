@@ -40,42 +40,7 @@
 	
 
 
-	<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
-	<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
-	<!--<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>-->
-	<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
-
-	<!-----引用layer------>
-	<script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
-	<!-----引用layer------>
-	<script type="text/javascript" src="/web/js/helpers.js"></script>
-	<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-
-	<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
-	<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
-	<script src="/web/bootstrap-select/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
-
-	<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
-	<script src="/web/js/anchor/provinces.js"></script>
-	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
-	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/js/anchor/information.js" type="text/javascript" charset="utf-8"></script>
-
-	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
-	<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-
-	<!--修改点击切换隐藏第一二页-->
-	<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="/web/js/swfobject.js"></script>
 	
-	<!--时间插件引入-->
-	<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
 	
 	
 	
@@ -2521,6 +2486,52 @@
 	
 </div>
 
+<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/web/js/artTemplate.js"></script>
+<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
+<!--<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
+<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+
+<!-----引用layer------>
+<script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
+<!-----引用layer------>
+<script type="text/javascript" src="/web/js/helpers.js"></script>
+<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
+
+<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
+<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
+<script src="/web/bootstrap-select/bootstrap.min.js"></script>
+<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
+
+<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="/web/js/anchor/provinces.js"></script>
+<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
+<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/anchor/information.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<!--修改点击切换隐藏第一二页-->
+<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/web/js/swfobject.js"></script>
+
+<!--时间插件引入-->
+<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script type="text/javascript" src="/web/js/placeHolder.js"></script>
 <script type="text/javascript" src="/web/js/cropbox.js"></script>
@@ -2785,6 +2796,7 @@
         swfobj.addVariable( "progress_interval" , 1);	//	上传进度通知间隔时长（单位：s）
         swfobj.addParam('allowFullscreen','true');
         swfobj.addParam('allowScriptAccess','always');
+        swfobj.addParam("quality", "low");
         swfobj.addParam('wmode','transparent');
         swfobj.write('swfDiv');
 	}

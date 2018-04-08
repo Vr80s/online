@@ -127,8 +127,8 @@ public class CourseController {
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
 		
 		//设置html片段
-		cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=3&typeId="+courseId);
-		cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=4&typeId="+courseId);
+		cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+		cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+courseId);
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -186,8 +186,8 @@ public class CourseController {
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
 		
 		//设置html片段
-		cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=3&typeId="+courseId);
-		cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+		cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+		cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+courseId);
 		
 		
 		//判断点钱在线人数
