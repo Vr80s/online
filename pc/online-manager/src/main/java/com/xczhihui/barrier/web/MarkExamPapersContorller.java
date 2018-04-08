@@ -5,7 +5,7 @@ import com.xczhihui.barrier.vo.MarkBarrierVo;
 import com.xczhihui.barrier.vo.MarkGradeVo;
 import com.xczhihui.barrier.vo.MarkRecordVo;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.cloudClass.service.CourseService;
+import com.xczhihui.course.service.CourseService;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;

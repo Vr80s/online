@@ -3,8 +3,8 @@ package com.xczhihui.menu.web;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
-import com.xczhihui.cloudClass.vo.MenuVo;
-import com.xczhihui.cloudClass.vo.ScoreTypeVo;
+import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.ScoreTypeVo;
 import com.xczhihui.menu.service.CommonMenuService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.UserService;

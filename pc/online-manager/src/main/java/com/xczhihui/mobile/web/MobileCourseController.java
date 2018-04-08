@@ -25,7 +25,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.cloudClass.vo.CourseVo;
+import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.mobile.service.MobileCourseService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.utils.Group;

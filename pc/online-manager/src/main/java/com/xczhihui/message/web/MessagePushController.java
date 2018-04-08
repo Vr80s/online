@@ -8,8 +8,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.cloudClass.service.CourseService;
-import com.xczhihui.cloudClass.service.GradeService;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.GradeService;
 import com.xczhihui.common.web.UserVo;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;

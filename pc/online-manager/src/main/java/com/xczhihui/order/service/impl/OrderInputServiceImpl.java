@@ -33,7 +33,7 @@ import com.xczhihui.bxg.online.api.po.UserCoin;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.cloudClass.dao.CourseDao;
+import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.utils.RandomUtil;
 import com.xczhihui.utils.TimeUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;

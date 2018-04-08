@@ -7,8 +7,8 @@ import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.anchor.service.AnchorService;
-import com.xczhihui.cloudClass.service.CourseApplyService;
-import com.xczhihui.cloudClass.service.CourseService;
+import com.xczhihui.course.service.CourseApplyService;
+import com.xczhihui.course.service.CourseService;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
@@ -44,7 +44,7 @@ public class CourseAnchorController extends AbstractController{
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {return CLOUD_CLASS_PATH_PREFIX + "/courseAnchor";}
 	
-	//@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("course:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -115,7 +115,7 @@ public class CourseAnchorController extends AbstractController{
      * @param id
      * @return
      */
-    //@RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("course:menu:course")
     @RequestMapping(value = "findCourseAnchorById", method = RequestMethod.GET)
     @ResponseBody
     public CourseAnchor findCourseAnchorById(Integer id) {
@@ -126,7 +126,7 @@ public class CourseAnchorController extends AbstractController{
      * 编辑
      * @return
      */
-    //@RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("course:menu:course")
     @RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateCourseById (CourseAnchor courseAnchor){
@@ -142,7 +142,7 @@ public class CourseAnchorController extends AbstractController{
      * 更改权限
      * @return
      */
-    //@RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("course:menu:course")
     @RequestMapping(value = "editPermissions")
     @ResponseBody
     public ResponseObject editPermissions (Integer id){
