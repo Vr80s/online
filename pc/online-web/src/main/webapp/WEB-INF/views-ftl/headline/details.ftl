@@ -124,7 +124,7 @@
             </div>
 
             <!-- 使用该标签 -->
-        <@cast.page pageNo=appraises.current totalPage=appraises.pages showPages=5 callUrl="/headline/details/"+echoMap.id?default("")+"?current="/>
+        <@cast.page pageNo=appraises.current totalPage=appraises.pages showPages=5 callUrl="/headline/details/"+echoMap.id?default("")+"?page="/>
 
         </div>
         <div class="forum-content-right">

@@ -5,7 +5,6 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
-import com.xczhihui.bxg.online.web.vo.ArticleVo;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,7 +80,7 @@ public class HeadlinePageController extends AbstractController{
     }
 
     @RequestMapping(value="list/{type}",method=RequestMethod.GET)
-    public ModelAndView list(Integer current, Integer size,@PathVariable String type) {
+    public ModelAndView list(@RequestParam(value="page") Integer current, Integer size, @PathVariable String type) {
         ModelAndView view = new ModelAndView("headline/list");
 
         current = current==null?1:current;
@@ -102,7 +102,7 @@ public class HeadlinePageController extends AbstractController{
     }
 
     @RequestMapping(value="details/{id}",method=RequestMethod.GET)
-    public ModelAndView details(HttpServletRequest request,Integer current, Integer size, @PathVariable Integer id) {
+    public ModelAndView details(HttpServletRequest request, @RequestParam(value="page") Integer current, Integer size, @PathVariable Integer id) {
         ModelAndView view = new ModelAndView("headline/details");
         current = current==null?1:current;
         size = size==null?10:size;
