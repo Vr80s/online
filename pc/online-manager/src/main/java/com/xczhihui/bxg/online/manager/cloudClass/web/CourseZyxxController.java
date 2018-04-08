@@ -30,9 +30,7 @@ public class CourseZyxxController extends AbstractController{
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
 	@Autowired
 	private CourseService courseService;
-	@Autowired
-	private AttachmentCenterService att;
-	@Value("${online.web.url:http://www.ixincheng.com}")
+	@Value("${online.web.url}")
 	private String weburl;
 	
 	@Autowired

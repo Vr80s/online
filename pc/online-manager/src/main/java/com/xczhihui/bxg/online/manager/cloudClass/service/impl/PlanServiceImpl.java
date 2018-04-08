@@ -33,7 +33,7 @@ public class PlanServiceImpl extends OnlineBaseServiceImpl implements PlanServic
 	@Autowired
     private PlanDao planDao;
 	
-	@Value("${online.web.url:http://www.ixincheng.com}")
+	@Value("${online.web.url}")
 	private String weburl;
 	
 	@Override
