@@ -16,7 +16,7 @@ import com.xczhihui.bxg.online.common.domain.MenuCourseType;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.ask.dao.AskMenuDao;
 import com.xczhihui.ask.service.AskMenuService;
-import com.xczhihui.cloudClass.dao.ScoreTypeDao;
+import com.xczhihui.course.dao.ScoreTypeDao;
 import com.xczhihui.ask.vo.MenuVo;
 
 /**

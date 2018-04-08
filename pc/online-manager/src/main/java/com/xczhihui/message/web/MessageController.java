@@ -9,9 +9,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.cloudClass.service.CourseService;
-import com.xczhihui.cloudClass.service.GradeService;
-import com.xczhihui.cloudClass.vo.CourseVo;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.common.web.UserVo;
 import com.xczhihui.message.service.MessageService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -70,11 +69,6 @@ public class MessageController {
      */
     @Autowired
     private CourseService courseService;
-    /**
-     * 班级服务
-     */
-    @Autowired
-    private GradeService gradeService;
 
     /**
      * PATH属性

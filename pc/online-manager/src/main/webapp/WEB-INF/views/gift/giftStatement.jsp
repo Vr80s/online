@@ -34,21 +34,6 @@
                 <tr>
                     <td>
                         <div class="profile-info-value searchTr">
-                            <select id="clientType" name="clientType" class="propertyValue1">
-                                <option value="">来源</option>
-                                <option  value="1" >pc</option>
-                                <option  value="2" >h5</option>
-                                <option  value="3" >android</option>
-                                <option  value="4" >ios</option>
-                                <option  value="5" >线下</option>
-                                <option  value="6" >工作人员</option>
-                                <option  value="0" >赠送</option>
-                            </select>
-                            <input type="hidden" value="clientType" class="propertyName"/>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="profile-info-value searchTr">
                             <input type="text" class="datetime-picker propertyValue1" id="startTime" name="startTime"
                                    placeholder="起始时间"/>
                             <input type="hidden" value="startTime" class="propertyName"/>
@@ -64,6 +49,18 @@
                             <input type="text" class="datetime-picker propertyValue1" id="stopTime" name="stopTime"
                                    placeholder="结束时间"/>
                             <input type="hidden" value="stopTime" class="propertyName"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="profile-info-value searchTr">
+                            <select id="clientType" name="clientType" class="propertyValue1">
+                                <option value="">订单来源</option>
+                                <option value="1">pc</option>
+                                <option value="2">h5</option>
+                                <option value="3">android</option>
+                                <option value="4">ios</option>
+                            </select>
+                            <input type="hidden" value="clientType" class="propertyName"/>
                         </div>
                     </td>
                     <td>

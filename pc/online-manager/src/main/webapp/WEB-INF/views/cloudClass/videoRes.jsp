@@ -25,7 +25,6 @@
 <script type="text/javascript" src="/js/cloudClass/map.min.js"></script>
 <script src="/js/layer/layer.js"></script>
 <script type="text/javascript" src="/js/ajaxfileupload.js"></script>
-<script type="text/javascript" src="/js/cloudClass/question_type.min.js"></script>
 <script type="text/javascript">
 		try {
 			var sessionId = "${pageContext.session.id}";

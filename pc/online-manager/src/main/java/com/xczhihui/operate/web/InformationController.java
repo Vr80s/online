@@ -120,7 +120,7 @@ public class InformationController {
      * @param vo
      * @return
      */
-    //@RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("course:menu:course")
     @RequestMapping(value = "updateInfoById", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateCourseById(InformationVo info) {

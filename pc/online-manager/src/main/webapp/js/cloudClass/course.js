@@ -481,49 +481,6 @@ function showDetailDialog(obj,status){
 	window.location.href=basePath+'/home#cloudclass/course/courseDetail?page='+page+'&courseId='+aData.id;
 }
 
-function showVideoDialog(obj,status){
-	debugger;
-	var oo = $(obj).parent().parent().parent();
-    var aData,page;
-        aData = P_courseTable.fnGetData(oo); // get datarow
-        page = getCurrentPageNo(P_courseTable);
-    window.location.href=basePath+'/home#cloudclass/course/videoRes?page='+
- 	page+'&courseId='+aData.id+'&courseName='+encodeURIComponent(aData.courseName);
-}
-
-/**
- * 设置学习计划模板
- * @param obj
- */
-function setPlanTemplate(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = P_courseTable.fnGetData(oo);
-	var courseId = aData.id;
-	ajaxRequest(basePath+'/studyPlan/ifExistTemplate',{"courseId":courseId},function(res){
-		if(res.success){
-			window.location.href=basePath+'/home#studyPlan/template?courseId='+courseId+'&courseName='+encodeURIComponent(aData.courseName)+'&totalDay='+res.resultObject;
-		}else{
-			studyDayForm.resetForm();
-			openDialog("setStudyDayDialog", "setStudyDayDiv", "设置学习计划天数", 350, 200, true, "确定", function () {
-				if ($("#studyDay-form").valid()) {
-					mask();
-					$("#courseId").val(courseId);
-					$("#studyDay-form").attr("action", basePath + "/studyPlan/savePlanTemplate");
-					$("#studyDay-form").ajaxSubmit(function (data) {
-						unmask();
-						if (data.success) {
-							var totalDay = $("#totalDay_update").val();
-							window.location.href=basePath+'/home#studyPlan/template?courseId='+courseId+'&courseName='+encodeURIComponent(aData.courseName)+'&totalDay='+totalDay;
-						} else {
-							layer.msg(data.errorMessage);
-						}
-					});
-				}
-			});
-		}
-	});
-}
-
 
 /**
  * 课程排序列表下移

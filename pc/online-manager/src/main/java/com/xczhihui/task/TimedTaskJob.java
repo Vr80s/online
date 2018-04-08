@@ -1,6 +1,6 @@
 package com.xczhihui.task;
 
-import com.xczhihui.cloudClass.service.CourseService;
+import com.xczhihui.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
