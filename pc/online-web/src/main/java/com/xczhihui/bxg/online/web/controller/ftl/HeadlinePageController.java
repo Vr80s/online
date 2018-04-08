@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
@@ -124,10 +125,13 @@ public class HeadlinePageController extends AbstractController{
         view.addObject("appraises", appraises);
         doTitleKeyWordsAndDescription(view,title,keywords,description);
 
-        List<Map<String, Object>> hotArticles = articleService.getHotArticle();
-        view.addObject("suggestedArticles", hotArticles);
-
-        List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
+        if(article.getTypeId().equals(HeadlineType.MYBD.getCode())){
+            List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
+            view.addObject("suggestedArticles", recentlyNewsReports);
+        }else{
+            List<Map<String, Object>> hotArticles = articleService.getHotArticle();
+            view.addObject("suggestedArticles", hotArticles);
+        }
 
         Map echoMap = new HashMap();
         echoMap.put("id",id);
