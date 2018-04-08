@@ -107,7 +107,7 @@ public class HostController {
 			return ResponseObject.newErrorResponseObject("获取医师信息有误");
 		}
 		//设置富文本的url连接
-		lecturerInfo.put("richHostDetails", "http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+lecturerId);
+		lecturerInfo.put("richHostDetailsUrl", "http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
 		
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		MedicalHospital mha = null;

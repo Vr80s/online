@@ -693,9 +693,9 @@
 				oc.end_time as endTime,
 				oc.user_lecturer_id as userLecturerId,
 				if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
-				if(oc.user_lecturer_id = ou.user_id,3,
+				if(oc.user_lecturer_id = #{userId} ,3,
 	         			  if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args 
-	         			   where  args.course_id = oc.id  and  args.user_id = #{userId} and args.is_delete=0 ) >0 ,2, 1),1) )as watchState,
+	         			   where  args.course_id = oc.id  and  args.user_id = #{userId} and args.is_delete=0 ) >0 ,2, 0),1) )as watchState,
 				oc.collection as collection,
  				if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
 			 		(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
@@ -713,16 +713,16 @@
 	<select id="selectCourseDescription" resultType="java.lang.String">
 		select details from 		
 	    <if test="type != null and type == 1 ">
-			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
+			( select oc.course_detail as details from oe_course as oc where oc.id = #{typeId} )
 		</if>
 		<if test="type != null and type == 2 ">
 			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
 		</if>
 		<if test="type != null and type == 3 ">
-			( select ca.detail as details from course_anchor ca on  ou.id = ca.user_id where ou.id =  #{typeId} )
+			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
 		</if>
 		<if test="type != null and type == 4 ">
-			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
+			( select ca.detail as details from course_anchor ca  where ca.user_id =  #{typeId} )
 		</if>
 		as common_details
 	</select>
