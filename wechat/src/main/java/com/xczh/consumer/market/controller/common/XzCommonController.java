@@ -119,7 +119,6 @@ public class XzCommonController {
 			@RequestParam("type")Integer type,
 			@RequestParam("typeId")String typeId)throws Exception{
 		
-		
 		return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseDescription(type,typeId));
 	}
 	
