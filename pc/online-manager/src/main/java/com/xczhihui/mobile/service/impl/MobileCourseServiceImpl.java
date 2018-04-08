@@ -1,27 +1,24 @@
 package com.xczhihui.mobile.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.xczhihui.course.service.LecturerService;
-import com.xczhihui.course.vo.CourseVo;
-import com.xczhihui.course.vo.MenuVo;
-import com.xczhihui.mobile.dao.MobileCourseDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.mobile.dao.MobileCourseDao;
 import com.xczhihui.mobile.service.MobileCourseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service("mobileCourseService")
 public class MobileCourseServiceImpl extends OnlineBaseServiceImpl implements MobileCourseService{
-	@Autowired
-	private LecturerService lecturerService;
+
 	@Autowired
 	private MobileCourseDao mobileCourseDao;
 	@Override

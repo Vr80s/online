@@ -1,11 +1,12 @@
 package com.xczhihui.course.web;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.course.service.CourseService;
-import com.xczhihui.course.service.PublicCourseService;
+import com.xczhihui.course.service.EssenceRecommendService;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
@@ -17,12 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.course.service.EssenceRecommendService;
-import com.xczhihui.course.vo.CourseVo;
-import com.xczhihui.utils.Group;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 精品课程管理控制层实现类
@@ -32,13 +29,10 @@ import com.xczhihui.utils.Group;
 @Controller
 @RequestMapping("essencerecommend/course")
 public class EssenceRecommendController {
+
 	protected final static String PUBLIC_CLASS_PATH_PREFIX = "/course/";
 	@Autowired
-	private PublicCourseService publicCourseService;
-	@Autowired
 	private CourseService courseService;
-
-
 
 	@Autowired
 	private EssenceRecommendService ssenceRecommenedService;

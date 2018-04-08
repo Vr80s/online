@@ -24,7 +24,6 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.course.service.LecturerService;
 import com.xczhihui.course.util.Task;
 import com.xczhihui.course.vo.ChangeCallbackVo;
 import com.xczhihui.course.vo.CourseVo;
@@ -34,8 +33,7 @@ import com.xczhihui.vhall.bean.Webinar;
 
 @Service("publicCourseServiceImpl")
 public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements PublicCourseService {
-    @Autowired
-    private LecturerService lecturerService;
+
     @Autowired
     private PublicCourseDao publicCourseDao;
     @Autowired

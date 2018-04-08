@@ -1,21 +1,5 @@
 package com.xczhihui.course.web;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.xczhihui.course.service.PublicCourseService;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.Tools;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
@@ -24,12 +8,25 @@ import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.PublicCourseService;
 import com.xczhihui.course.vo.ChangeCallbackVo;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 import com.xczhihui.vhall.VhallUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 公开课管理控制层实现类
@@ -39,7 +36,7 @@ import com.xczhihui.vhall.VhallUtil;
 @Controller
 @RequestMapping("publiccloudclass/course")
 public class PublicCourseController {
-	protected final static String PUBLIC_CLASS_PATH_PREFIX = "/course/";
+	protected final static String PUBLIC_CLASS_PATH_PREFIX = "/cloudClass/";
 	@Autowired
 	private PublicCourseService publicCourseService;
 	@Autowired
@@ -47,12 +44,7 @@ public class PublicCourseController {
 
 	@Autowired
 	private OnlineUserService  onlineUserService;
-	
-	
-	@Value("${online.web.publiccloud.courseType}")
-	private String courseType;
-	@Value("${online.web.publiccloud.courseTypeId}")
-	private String courseTypeId;
+
 	
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
@@ -60,16 +52,12 @@ public class PublicCourseController {
 		request.setAttribute("menuVo", menuVos);
 		
 		//查找所有的讲师
-		//OnlineUserService
 		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
 			String str = "昵称:"+map.get("name").toString() + ",帐号:"+map.get("logo").toString();
 			map.put("name", str);
 		}
 		request.setAttribute("mapList", mapList);
-		//在列表初始化时查找出课程类别
-//		List<ScoreType> scoreTypeVos = courseService.getScoreType();
-//		request.setAttribute("scoreTypeVo", scoreTypeVos);
 		return PUBLIC_CLASS_PATH_PREFIX + "/publicCourse";
 	
 	}

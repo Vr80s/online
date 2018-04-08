@@ -12,7 +12,6 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalPicture;
-import com.xczhihui.course.service.LecturerService;
 import com.xczhihui.medical.dao.HospitalDao;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
@@ -26,8 +25,6 @@ import com.xczhihui.medical.service.HospitalService;
 @Service
 public class HospitalServiceImpl extends OnlineBaseServiceImpl implements HospitalService {
 
-    @Autowired
-    private LecturerService lecturerService;
     @Autowired
     private HospitalDao hospitalDao;
     @Value("${ENV_FLAG}")

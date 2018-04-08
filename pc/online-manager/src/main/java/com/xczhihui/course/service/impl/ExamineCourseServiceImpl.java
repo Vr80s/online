@@ -3,12 +3,8 @@ package com.xczhihui.course.service.impl;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.course.dao.CourseSubscribeDao;
 import com.xczhihui.course.dao.ExamineCourseDao;
-import com.xczhihui.course.dao.PublicCourseDao;
-import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ExamineCourseService;
-import com.xczhihui.course.service.LecturerService;
 import com.xczhihui.course.service.PublicCourseService;
 import com.xczhihui.course.vo.*;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -27,14 +23,7 @@ import java.util.*;
 
 @Service("examineCourseServiceImpl")
 public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements ExamineCourseService {
-    @Autowired
-    private LecturerService lecturerService;
-    @Autowired
-    private PublicCourseDao publicCourseDao;
-    @Autowired
-    private CourseService courseService;
-    @Autowired
-    private CourseSubscribeDao courseSubscribeDao;
+
     @Autowired
     private OnlineUserService onlineUserService;
     @Autowired

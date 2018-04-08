@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.CriticizeService;
-import com.xczhihui.course.service.GradeService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.CriticizeVo;
 import com.xczhihui.utils.Group;
@@ -37,9 +36,7 @@ public class CriticizeController{
 
 	@Autowired
 	private CourseService courseService;
-	
-	@Autowired
-	private GradeService gradeService;
+
 
 	/**
      * 
@@ -199,17 +196,7 @@ public class CriticizeController{
           return tableVo;
 	}
 
-	/**
-     * 
-     * @return
-     */
-    @RequestMapping(value = "/criticizeDetail")
-    public ModelAndView criticizeDetail(CriticizeVo criticizeVo,HttpServletRequest request){
-         ModelAndView mav=new ModelAndView("/cloudClass/criticizeDetail");
-         request.setAttribute("gradeList", gradeService.getGradeByCourseId(criticizeVo.getCourseId()));
-         return mav;
-    }
-    
+
 	/**
 	 * 批量逻辑删除
 	 * @param Integer id

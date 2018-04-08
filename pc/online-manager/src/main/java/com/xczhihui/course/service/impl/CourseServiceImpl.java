@@ -39,7 +39,6 @@ import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.course.service.LecturerService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -51,8 +50,6 @@ import com.xczhihui.course.vo.MenuVo;
 @Service("courseService")
 public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseService {
 
-    @Autowired
-    private LecturerService lecturerService;
     @Autowired
     private CourseDao courseDao;
     @Autowired
@@ -104,11 +101,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
              courseLecturVos = new ArrayList<>();
              for (Course course : courses){
                   //根据教师ID号查找老师信息
-             //     Lecturer lecturer = lecturerService.findLecturerById(course.getLecturerId());
                   CourseLecturVo courseLecturVo=new CourseLecturVo();
                   courseLecturVo.setId(course.getId());
                   courseLecturVo.setGradeName(course.getGradeName());
-                  //courseLecturVo.setType(course.getType());
                   courseLecturVo.setCourseType(Integer.valueOf(course.getCourseType()));
                   courseLecturVo.setLiveTime(course.getLiveTime());
                   courseLecturVo.setSmallImgPath(course.getSmallImgPath());
