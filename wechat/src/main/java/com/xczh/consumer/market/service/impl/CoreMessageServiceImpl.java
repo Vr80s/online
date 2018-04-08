@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONObject;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,12 @@ import com.xczh.consumer.market.controller.user.XzUserController;
 import com.xczh.consumer.market.service.CoreMessageService;
 import com.xczh.consumer.market.utils.MessageConstant;
 import com.xczh.consumer.market.utils.MessageUtil;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.wxmessage.resp.Article;
 import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
 import com.xczh.consumer.market.wxmessage.resp.TextMessage;
+import com.xczh.consumer.market.wxpay.util.CommonUtil;
+import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
 
 @Service
@@ -128,9 +133,29 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         		  /*
         		   * 保存用户微信信息
         		   */
-//        		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+        		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+        		  
 //        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
         	      //保存用户信息
+//        	      StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
+//        			System.out.println("getUserManagerGetInfo:"+buffer.toString());
+//        			return buffer.toString();
+        	      
+        		String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
+        		  
+        		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
+    			String openid_ = (String)jsonObject.get("openid");
+    			String nickname_ = (String)jsonObject.get("nickname");
+    			nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
+    			String sex_ = String.valueOf(jsonObject.get("sex"));
+    			String language_ = (String)jsonObject.get("language");
+    			String city_ = (String)jsonObject.get("city");
+    			String province_ = (String)jsonObject.get("province");
+    			String country_ = (String)jsonObject.get("country");
+    			String headimgurl_ = (String)jsonObject.get("headimgurl");
+    			String unionid_ = (String)jsonObject.get("unionid");
+    			
+        		 
         	      
         		  respMessage = MessageUtil.newsMessageToXml(newsMessage); 
 
