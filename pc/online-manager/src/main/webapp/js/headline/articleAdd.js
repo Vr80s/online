@@ -93,20 +93,20 @@ function openTagDiv(){
 			 return;
 		}
 		$("#tagId").val(tagIds);
-		$("#tagName").val(tagNames);
+		$("#tagName1").val(tagNames);
 		dialog.dialog( "close" ); 
 	})
 };
 
 //新增
 $("#saveBtn").click(function(){
-	// var content=$("#article_content").html();
 	
+	// var content=$("#article_content").html();
 	$("#content").val(UE.getEditor('editor').getContent());
 	
 	if($("#addArticle-form").valid()){
 		mask();
-		 $("#addArticle-form").attr("action", basePath+"/headline/writing/add");
+		 $("#addArticle-form").attr("action", basePath+"/headline/article/add");
 		 $("#addArticle-form").ajaxSubmit(function(data){
 			 try{
          		data = jQuery.parseJSON(jQuery(data).text());
@@ -115,7 +115,7 @@ $("#saveBtn").click(function(){
          	  }
 			 if(data.success){
 				 layer.msg(data.resultObject);
-				 turnPage(basePath+'/home#headline/writing/index');
+				 turnPage(basePath+'/home#headline/article/index');
 				
 			 }else{
 				 layer.alert(data.errorMessage);
@@ -127,7 +127,7 @@ $("#saveBtn").click(function(){
 
 //返回
 $("#returnbutton").click(function(){
-	turnPage(basePath+'/home#headline/writing/index');
+	turnPage(basePath+'/home#headline/article/index');
 })
 
 //新增预览

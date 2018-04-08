@@ -101,7 +101,6 @@ function openTagDiv(){
 //新增
 $("#saveBtn").click(function(){
 	// var content=$("#article_content").html();
-	
 	$("#content").val(UE.getEditor('editor').getContent());
 	
 	if($("#addArticle-form").valid()){

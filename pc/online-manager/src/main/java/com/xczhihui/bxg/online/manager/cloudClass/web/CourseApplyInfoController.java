@@ -52,7 +52,7 @@ public class CourseApplyInfoController extends AbstractController {
     private CourseApplyService courseApplyService;
     @Autowired
     private AttachmentCenterService att;
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${online.web.url}")
     private String weburl;
 
     @Autowired

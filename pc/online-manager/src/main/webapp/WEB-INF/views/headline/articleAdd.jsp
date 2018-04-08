@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
 <link href="/js/layer/skin/layer.css" type="text/css" />	
-<script type="text/javascript" src="js/headline/writingAdd.js"></script>
+<script type="text/javascript" src="js/headline/articleAdd.js"></script>
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];
@@ -10,7 +10,7 @@
 				function() {
 				});
 	} catch (e) {
-		
+
 	}
 	var weburl = '${weburl}';
 </script>
@@ -19,16 +19,16 @@
 <div class="page-header">
   当前位置：头条管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 			</small> 
-			著作管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+			文章管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 		</small>
-  <span>新增著作 </span>
+  <span>新增文章 </span>
 </div>
 <!-- 新增 form -->
 <div id="dialogArticleDiv"></div>
 <div id="addArticleDialog" >
 	<form id="addArticle-form" class="form-horizontal"  method="post" action="" >
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>著作图片:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章图片:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" id="imgAdd" style="width: 240px;">
 					<!-- <input type="file" name="imgPath_file" id="imgPath_file" class="uploadImg"/> -->
@@ -38,32 +38,47 @@
 		</div>
 		
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>作者:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属分类:</label>
 			<div class="col-sm-3" >
-				<div class="clearfix" style="width: 240px;">
-					 <input type="text" name="author" id="author"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
+				<div class="clearfix " style="width: 240px;">
+					<select   name="typeId"   id="typeId"   class="col-xs-12 col-sm-12 {required:true}" >
+                        <option  value="" >请选择</option>
+                       	<c:forEach var="m" items="${articleTypes}">
+                            <option value="${m.id}">${m.name}</option>
+                         </c:forEach> 
+                    </select>
 				</div>
 			</div>
 		</div>
 		
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>书名:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属标签:</label>
+			<div class="col-sm-3" >
+				<div class="clearfix" style="width: 240px;">
+					 <input type="text" id="tagName1" readonly="readonly"  onclick="openTagDiv()" class="col-xs-12 col-sm-12 {required:true}" style="cursor: pointer;">
+					 <input type="hidden" name="tagId" id="tagId" >
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group" style="margin-top:18px;">
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章标题:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
 					 <input type="text" name="title" id="title"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
 				</div>
 			</div>
 		</div>
-		
-	    <div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>购买连接:</label>
+
+		<div class="form-group" style="margin-top:18px;">
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>作者:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
-					 <input type="text" name="buyLink" id="buyLink"  maxlength="100" class="col-xs-12 col-sm-12 {required:true}" >
+					 <input type="text" name="userId" id="userId"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="form-group " style="margin-top:18px;margin-bottom:60px">
 			<label class="col-sm-1 control-label no-padding-right" for="courseDetail_content"><font color="red">*</font>内容:</label>
 			<div class="col-lg-10 " style="height:250px">
@@ -72,11 +87,13 @@
 				<input type="hidden" name="content"  id="content" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
 			</div>
 		</div>
+	
 	</form>
+	
 	<div class="col-xs-7" style="text-align: right;margin-top:150px;">
-		<!-- <button class="btn btn-sm btn-success" id="previewSaveBtn">
+		<button class="btn btn-sm btn-success" id="previewSaveBtn">
 			预览
-		</button> -->
+		</button>
 		<button class="btn btn-sm btn-success" id="saveBtn">
 			保存
 		</button>
@@ -101,10 +118,10 @@
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-	//实例化编辑器
-	//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-	var ue = UE.getEditor('editor',{
-		toolbars:[['source', //源代码
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor',{
+        toolbars:[['source', //源代码
             'undo', //撤销
             'redo', //重做
             'bold', //加粗
@@ -134,30 +151,30 @@
             // 'insertimage', //多图上传
             'emotion', //表情
             'fullscreen'
-		] ],
-		autoHeightEnabled: false,
-		autoFloatEnabled: true,
-		enableAutoSave:false,
-		imagePopup:false
-	});
+        ] ],
+        autoHeightEnabled: false,
+        autoFloatEnabled: true,
+        enableAutoSave:false,
+        imagePopup:false
+    });
 
-	function getContent() {
-		var arr = [];
-		arr.push("使用editor.getContent()方法可以获得编辑器的内容");
-		arr.push("内容为：");
-		arr.push(UE.getEditor('editor').getContent());
-		alert(arr.join("\n"));
-	}
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
 
-	UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
-	UE.Editor.prototype.getActionUrl = function(action) {
-		var url = '/ueditor/upload'
-		if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-			return url;
-		} else if (action == 'uploadvideo') {//视频上传：
-			return url;
-		} else {
-			return this._bkGetActionUrl.call(this, action);
-		}
-	}
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+        var url = '/ueditor/upload'
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return url;
+        } else if (action == 'uploadvideo') {//视频上传：
+            return url;
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
 </script>

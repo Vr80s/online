@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
 <link href="/js/layer/skin/layer.css" type="text/css" />	
-<script type="text/javascript" src="js/headline/writingEdit.js"></script>
+<script type="text/javascript" src="js/headline/articleEdit.js"></script>
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];
@@ -19,27 +19,26 @@
 <div class="page-header">
   当前位置：头条管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 			</small> 
-			著作管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+			文章管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 		</small>
-  <span>编辑著作 </span>
+  <span>编辑文章 </span>
 </div>
 <!-- 修改 form -->
 <div id="dialogArticleDiv"></div>
 <div id="addArticleDialog" >
 	<form id="addArticle-form" class="form-horizontal"  method="post" action="" >
-	 <input type="hidden" name="id" value="${writing.id}" id="id" >
-	 <input type="hidden" name="articleId" value="${writing.articleId}" id="id" >
+	 <input type="hidden" name="id" value="${article.id}" id="id" >
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>著作图片:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章图片:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" id="imgAdd" style="width: 260px;">
 					<!-- <input type="file" name="imgPath_file" id="imgPath_file" class="uploadImg"/> -->
 				</div>
-				<input name="imgPath" id="add_imgPath" value="${writing.imgPath}" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+				<input name="imgPath" id="add_imgPath" value="${article.imgPath}" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 			</div>
 		</div>
 		
-	<%-- 	<div class="form-group" style="margin-top:18px;">
+		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属分类:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
@@ -58,42 +57,31 @@
 					</select>
 				</div>
 			</div>
-		</div> --%>
+		</div>
 		
-		<%-- <div class="form-group" style="margin-top:18px;">
+		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属标签:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
-					 <input type="text" id="tagName" readonly="readonly" value="${article.tagName}"  onclick="openTagDiv()" class="col-xs-12 col-sm-12 {required:true}" style="cursor: pointer;">
+					 <input type="text" id="tagName1" readonly="readonly" value="${article.tagName}"  onclick="openTagDiv()" class="col-xs-12 col-sm-12 {required:true}" style="cursor: pointer;">
 					 <input type="hidden" name="tagId" value="${article.tagId}" id="tagId" >
 				</div>
 			</div>
-		</div> --%>
-		
-		
+		</div>
+
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>作者:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章标题:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
-					 <input type="text" name="author" id="author" value="${writing.author}"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
+					 <input type="text" name="title" id="title" value="${article.title}" maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
 				</div>
 			</div>
 		</div>
-		
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>书名:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章作者:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
-					 <input type="text" name="title" id="title" value="${writing.title}" maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
-				</div>
-			</div>
-		</div>
-		
-		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>购买连接:</label>
-			<div class="col-sm-3" >
-				<div class="clearfix" style="width: 240px;">
-					 <input type="text" name="buyLink" id="buyLink" value="${writing.buyLink}"  maxlength="100" class="col-xs-12 col-sm-12 {required:true}" >
+					 <input type="text" name="userId" id="userId" value="${article.author}" maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
 				</div>
 			</div>
 		</div>
@@ -110,9 +98,9 @@
 	
 	</form>
 	<div class="col-xs-7" style="text-align: right;margin-top:50px;">
-        <!--   <button class="btn btn-sm btn-success" id="previewSaveBtn">
+          <button class="btn btn-sm btn-success" id="previewSaveBtn">
 	                       预览
-          </button> -->
+          </button>
           <button class="btn btn-sm btn-success" id="saveBtn">
 	                       保存
           </button>
@@ -120,6 +108,17 @@
 	                      返回
           </button>
   </div>
+</div>
+<!-- 标签浮框 -->
+<div id="dialogTagDiv"></div>
+<div id="addTagDialog" class="hide">
+	<div id="tagDiv" style="margin:0 auto;width:480px">
+		<c:forEach var="tag" items="${tags}" varStatus="status" >
+			<input style="cursor: pointer;" type="checkbox" id="tag${tag.id}" data-tagName="${tag.name}" value="${tag.id}">
+				<label style="cursor: pointer;" for="tag${tag.id}" >${tag.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${(status.index+1)%6==0}"></br></c:if>   
+		</c:forEach> 
+	</div>	
 </div>
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
@@ -166,9 +165,6 @@
         enableAutoSave:false,
         imagePopup:false
     });
-    ue.ready(function() {
-        UE.getEditor('editor').setContent('${writing.content}');
-    })
 
     function getContent() {
         var arr = [];
@@ -177,6 +173,9 @@
         arr.push(UE.getEditor('editor').getContent());
         alert(arr.join("\n"));
     }
+    ue.ready(function() {
+        UE.getEditor('editor').setContent('${article.content}');
+    })
 
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function(action) {
