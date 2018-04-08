@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
     <!-- 定时器工作调度的bean -->
-    <bean id="myJob" class="com.xczhihui.bxg.online.manager.task.TimedTaskJob" />
+    <bean id="myJob" class="com.xczhihui.task.TimedTaskJob" />
     <!-- job的配置开始 -->
     <bean id="myJobDetail"
           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
