@@ -55,6 +55,8 @@ public interface IMedicalDoctorBusinessService {
 
     List<OeBxsArticleVO> getRecentlyNewsReports();
 
+    List<OeBxsArticleVO> getHotArticles();
+
     Page<OeBxsArticleVO> getNewsReportsByPage(Page<OeBxsArticleVO> page, String doctorId);
 
     List<OeBxsArticleVO> getHotSpecialColumn();

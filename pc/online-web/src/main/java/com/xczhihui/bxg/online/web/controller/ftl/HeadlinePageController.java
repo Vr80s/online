@@ -123,8 +123,11 @@ public class HeadlinePageController extends AbstractController{
         Page<OeBxsAppraise> appraises = oeBxsArticleService.selectArticleAppraiseById(new Page(current, size), id, userId);
         view.addObject("appraises", appraises);
         doTitleKeyWordsAndDescription(view,title,keywords,description);
-        List<Map<String, Object>> hotArticle = articleService.getHotArticle();
-        view.addObject("hotArticles", hotArticle);
+
+        List<Map<String, Object>> hotArticles = articleService.getHotArticle();
+        view.addObject("suggestedArticles", hotArticles);
+
+        List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
 
         Map echoMap = new HashMap();
         echoMap.put("id",id);

@@ -4,11 +4,10 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.vo.AppraiseVo;
 import com.xczhihui.bxg.online.web.vo.ArticleVo;
-import com.xczhihui.medical.headline.model.OeBxsArticle;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +23,6 @@ import java.util.UUID;
  */
 @Service
 public class ArticleServiceImpl extends OnlineBaseServiceImpl implements ArticleService {
-
-    @Value("${specialColumn}")
-    private String specialColumn;
-    @Value("${doctorReport}")
-    private String doctorReport;
 
     /**
      * 获取博学社banner信息
@@ -88,9 +82,9 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
     @Override
     public List<Map<String,Object>>  getHotArticle(){
         Map<String,Object> paramMap = new HashMap<String,Object>();
-        paramMap.put("t1",specialColumn);
-        paramMap.put("t2",doctorReport);
-        String sql="select id, title from oe_bxs_article where is_delete=0 and `status`=1 and browse_sum>0 and type_id !=:t1 and type_id !=:t2   order by browse_sum desc limit 7";
+        paramMap.put("t1", HeadlineType.DJZL.getCode());
+        paramMap.put("t2",HeadlineType.MYBD.getCode());
+        String sql="select id, title from oe_bxs_article where is_delete=0 and `status`=1 and browse_sum>0  order by browse_sum desc limit 7";
         return  dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
     }
 
