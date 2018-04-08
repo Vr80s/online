@@ -22,7 +22,6 @@ public class GiftStatementServiceImpl extends OnlineBaseServiceImpl implements G
 
     @Override
     public Page<GiftStatementVo> findGiftPage(GiftStatementVo giftStatementVo, int pageNumber, int pageSize) {
-        Page<GiftStatementVo> page = giftStatementDao.findGiftStatementPage(giftStatementVo, pageNumber, pageSize);
-        return page;
+        return giftStatementDao.findGiftStatementPage(giftStatementVo, pageNumber, pageSize);
     }
 }
