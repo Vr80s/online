@@ -89,7 +89,7 @@ public class ClinicPageController extends AbstractController{
     }
 
     @RequestMapping(value="list",method=RequestMethod.GET)
-    public ModelAndView list(@RequestParam(value="page") Integer current, Integer size, String name, String field) {
+    public ModelAndView list(@RequestParam(value="page", required=false) Integer current, Integer size, String name, String field) {
         ModelAndView view = new ModelAndView("clinic/list");
         current = current==null?1:current;
         size = size==null?20:size;

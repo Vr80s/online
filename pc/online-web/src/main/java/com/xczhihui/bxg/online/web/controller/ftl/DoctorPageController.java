@@ -114,7 +114,7 @@ public class DoctorPageController extends AbstractController{
     }
 
     @RequestMapping(value="list",method=RequestMethod.GET)
-    public ModelAndView list(@RequestParam(value="page") Integer current, Integer size, Integer type, String hospitalId, String name, String field, String departmentId) {
+    public ModelAndView list(@RequestParam(value="page", required=false) Integer current, Integer size, Integer type, String hospitalId, String name, String field, String departmentId) {
         ModelAndView view = new ModelAndView("doctor/list");
         current = current==null?1:current;
         size = size==null?10:size;

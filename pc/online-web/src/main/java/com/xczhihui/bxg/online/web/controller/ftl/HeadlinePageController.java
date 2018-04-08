@@ -52,11 +52,11 @@ public class HeadlinePageController extends AbstractController{
     }
 
     @RequestMapping(value="{type}",method=RequestMethod.GET)
-    public ModelAndView page(Integer current, Integer size,String tagId,@PathVariable String type) {
+    public ModelAndView page(@PathVariable String type) {
         ModelAndView view = new ModelAndView("headline/index");
 
-        current = current==null?1:current;
-        size = size==null?6:size;
+        int current = 1;
+        int size = 6;
         List<BannerVo> banners = bannerService.list(null, null, 3);
         view.addObject("banners", banners);
         List<Map<String, Object>> hotArticle = articleService.getHotArticle();
@@ -80,7 +80,7 @@ public class HeadlinePageController extends AbstractController{
     }
 
     @RequestMapping(value="list/{type}",method=RequestMethod.GET)
-    public ModelAndView list(@RequestParam(value="page") Integer current, Integer size, @PathVariable String type) {
+    public ModelAndView list(@RequestParam(value="page", required=false) Integer current, Integer size, @PathVariable String type) {
         ModelAndView view = new ModelAndView("headline/list");
 
         current = current==null?1:current;
@@ -102,7 +102,7 @@ public class HeadlinePageController extends AbstractController{
     }
 
     @RequestMapping(value="details/{id}",method=RequestMethod.GET)
-    public ModelAndView details(HttpServletRequest request, @RequestParam(value="page") Integer current, Integer size, @PathVariable Integer id) {
+    public ModelAndView details(HttpServletRequest request, @RequestParam(value="page", required=false) Integer current, Integer size, @PathVariable Integer id) {
         ModelAndView view = new ModelAndView("headline/details");
         current = current==null?1:current;
         size = size==null?10:size;
