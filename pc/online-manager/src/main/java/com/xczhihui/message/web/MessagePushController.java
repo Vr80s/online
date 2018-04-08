@@ -1,16 +1,16 @@
 package com.xczhihui.message.web;
 
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.xczhihui.cloudClass.service.CourseService;
-import com.xczhihui.cloudClass.service.GradeService;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.domain.Message;
+import com.xczhihui.bxg.online.common.domain.MessageRecord;
 import com.xczhihui.common.web.UserVo;
+import com.xczhihui.message.service.MessageService;
+import com.xczhihui.message.vo.MessageVo;
+import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.user.service.UserService;
+import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
@@ -25,16 +25,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.Message;
-import com.xczhihui.bxg.online.common.domain.MessageRecord;
-import com.xczhihui.common.service.CommonService;
-import com.xczhihui.message.service.MessageService;
-import com.xczhihui.message.vo.MessageVo;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.user.service.UserService;
-import com.xczhihui.utils.Group;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * 消息管理控制器
@@ -57,27 +52,6 @@ public class MessagePushController {
      */
     @Autowired
     private UserService userService;
-
-    /**
-     * 公共服务
-     */
-    @Autowired
-    private CommonService commonService;
-    /**
-     * 课程服务
-     */
-    @Autowired
-    private CourseService courseService;
-    /**
-     * 班级服务
-     */
-    @Autowired
-    private GradeService gradeService;
-
-    /**
-     * PATH属性
-     */
-    private static final String PATH = "message/";
 
     /**
      * 跳转到页面

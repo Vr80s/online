@@ -510,24 +510,6 @@ function showDetailDialog(obj,status){
 	window.location.href=basePath+'/home#cloudclass/course/courseDetail?courseId='+aData.id;
 }
 
-function showVideoDialog(obj,status){
-	debugger;
-	var oo = $(obj).parent().parent().parent();
-    var aData,page;
-    if(status==1) {
-        aData = P_courseTable.fnGetData(oo); // get datarow
-        page = getCurrentPageNo(P_courseTable);
-    }else{
-        aData = M_courseTable.fnGetData(oo); // get datarow
-        page = getCurrentPageNo(M_courseTable);
-    }
-//	window.location.href=basePath+'/home#cloudclass/course/videoRes?page='+
-//	 	page+'&courseId='+aData.id+'&courseName='+encodeURIComponent(aData.courseName);
-    window.location.href=basePath+'/home#cloudclass/course/videoRes?page='+
- 	page+'&courseId='+aData.id+'&courseName='+encodeURIComponent(aData.courseName);
-}
-
-
 /**
  * 课程排序列表下移
  * @param obj

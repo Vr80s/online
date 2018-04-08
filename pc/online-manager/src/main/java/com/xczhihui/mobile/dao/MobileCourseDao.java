@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.cloudClass.vo.CourseVo;
+import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.common.dao.HibernateDao;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;

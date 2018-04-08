@@ -253,6 +253,7 @@ $(function(){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/2 0002 下午 9:09
  **/
+
 function courseList(current){
     var courseForm;
     var multimediaType;

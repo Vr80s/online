@@ -1376,7 +1376,7 @@ pre {
 #zhuanji_bottom .textarea .span {
     height: 160px;
     float: left;
-    line-height: 160px !important;
+    /*line-height: 160px !important;*/
 }
 #zhuanji_bottom .select select {
     width: 280px;

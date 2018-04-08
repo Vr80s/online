@@ -15,7 +15,7 @@ import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.MenuCourseType;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.ask.vo.TagVo;
-import com.xczhihui.cloudClass.vo.MenuVo;
+import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.common.dao.HibernateDao;
 
 @Repository("commonMenuDao")

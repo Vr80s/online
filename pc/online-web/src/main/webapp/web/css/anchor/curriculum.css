@@ -75,7 +75,7 @@ table{
 #addBankCard #cancalDel_bank{
 	float: right;
 }
-#blackTip{
+/*#blackTip{
 	padding: 8px 32px;
 	background-color: #fff;
 	border-radius: 4px;
@@ -87,7 +87,7 @@ table{
 	left: 50%;
 	transform: translate(-50%,-50%);
 	z-index: 1000;
-}
+}*/
 .left-listNav{
 	    width: 220px;
     display: block;

@@ -19,7 +19,7 @@ import com.xczhihui.bxg.online.common.domain.MenuCourseType;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.ask.service.AskMenuService;
 import com.xczhihui.ask.vo.MenuVo;
-import com.xczhihui.cloudClass.vo.ScoreTypeVo;
+import com.xczhihui.course.vo.ScoreTypeVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.UserService;
 import com.xczhihui.utils.Group;
