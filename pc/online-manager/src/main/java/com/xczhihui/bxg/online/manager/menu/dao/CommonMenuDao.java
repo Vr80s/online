@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.manager.MenuManager.dao;
+package com.xczhihui.bxg.online.manager.menu.dao;
 
 import java.util.HashMap;
 import java.util.List;

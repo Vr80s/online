@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.manager.MenuManager.vo;
+package com.xczhihui.bxg.online.manager.menu.vo;
 
 import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 import com.xczhihui.bxg.online.common.domain.Menu;

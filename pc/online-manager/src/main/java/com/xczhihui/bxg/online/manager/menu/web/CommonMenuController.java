@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.manager.MenuManager.web;
+package com.xczhihui.bxg.online.manager.menu.web;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -13,11 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.MenuCourseType;
 import com.xczhihui.bxg.online.common.domain.User;
-import com.xczhihui.bxg.online.manager.MenuManager.service.CommonMenuService;
+import com.xczhihui.bxg.online.manager.menu.service.CommonMenuService;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.ScoreTypeVo;
 import com.xczhihui.bxg.online.manager.support.shiro.ManagerUserUtil;

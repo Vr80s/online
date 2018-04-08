@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.manager.taskJob;
+package com.xczhihui.bxg.online.manager.task;
 
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.manager.MenuManager.service.impl;
+package com.xczhihui.bxg.online.manager.menu.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -14,8 +14,8 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.MenuCourseType;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.bxg.online.manager.MenuManager.dao.CommonMenuDao;
-import com.xczhihui.bxg.online.manager.MenuManager.service.CommonMenuService;
+import com.xczhihui.bxg.online.manager.menu.dao.CommonMenuDao;
+import com.xczhihui.bxg.online.manager.menu.service.CommonMenuService;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.ScoreTypeDao;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
 

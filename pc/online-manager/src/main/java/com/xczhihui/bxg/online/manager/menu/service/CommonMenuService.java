@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.manager.MenuManager.service;
+package com.xczhihui.bxg.online.manager.menu.service;
 
 
 
