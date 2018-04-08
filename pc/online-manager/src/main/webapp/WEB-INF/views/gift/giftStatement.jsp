@@ -35,11 +35,14 @@
                     <td>
                         <div class="profile-info-value searchTr">
                             <select id="clientType" name="clientType" class="propertyValue1">
-                                <option value="0">来源</option>
-                                <option value="1">pc</option>
-                                <option value="2">h5</option>
-                                <option value="3">android</option>
-                                <option value="4">ios</option>
+                                <option value="">来源</option>
+                                <option  value="1" >pc</option>
+                                <option  value="2" >h5</option>
+                                <option  value="3" >android</option>
+                                <option  value="4" >ios</option>
+                                <option  value="5" >线下</option>
+                                <option  value="6" >工作人员</option>
+                                <option  value="0" >赠送</option>
                             </select>
                             <input type="hidden" value="clientType" class="propertyName"/>
                         </div>

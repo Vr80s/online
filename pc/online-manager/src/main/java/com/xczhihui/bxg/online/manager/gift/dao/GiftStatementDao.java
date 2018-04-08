@@ -66,14 +66,13 @@ public class GiftStatementDao extends HibernateDao<Course> {
             paramMap.put("stopTime", giftStatementVo.getStopTime());
         }
 
-        if (giftStatementVo.getClientType() != 0) {
+        if (giftStatementVo.getClientType() != null) {
             sql.append(" and ogs.client_type = :clientType");
             paramMap.put("clientType", giftStatementVo.getClientType());
         }
 
         sql.append(" order by ogs.create_time desc");
 
-        Page<GiftStatementVo> giftStatementVos = this.findPageBySQL(sql.toString(), paramMap, GiftStatementVo.class, pageNumber, pageSize);
-        return giftStatementVos;
+        return this.findPageBySQL(sql.toString(), paramMap, GiftStatementVo.class, pageNumber, pageSize);
     }
 }
