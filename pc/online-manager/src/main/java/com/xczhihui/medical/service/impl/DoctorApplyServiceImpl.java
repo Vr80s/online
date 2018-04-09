@@ -5,7 +5,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.online.common.enums.AnchorType;
+import com.xczhihui.bxg.common.util.enums.AnchorType;
 import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.medical.dao.*;
 import com.xczhihui.medical.service.DoctorApplyService;

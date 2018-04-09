@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.api.service;
 
 
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
 
 import java.util.Map;
 

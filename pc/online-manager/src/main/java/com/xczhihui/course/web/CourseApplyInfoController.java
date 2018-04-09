@@ -30,9 +30,9 @@ import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.bxg.online.common.enums.CourseDismissal;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Multimedia;
+import com.xczhihui.bxg.common.util.enums.CourseDismissal;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.course.vo.LecturerVo;
 

@@ -1,7 +1,4 @@
-package com.xczhihui.bxg.online.common.enums;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.xczhihui.bxg.common.util.enums;
 
 /**
  * Description：订单来源

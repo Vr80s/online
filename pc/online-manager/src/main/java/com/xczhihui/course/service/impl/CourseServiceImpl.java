@@ -10,8 +10,8 @@ import java.util.UUID;
 
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Multimedia;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;

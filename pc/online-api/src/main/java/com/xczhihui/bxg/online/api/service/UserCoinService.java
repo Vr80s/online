@@ -5,8 +5,8 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.*;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 
 import java.math.BigDecimal;
 import java.util.List;

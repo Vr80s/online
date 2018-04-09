@@ -14,7 +14,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name="enchashment_application")
-@NamedQuery(name="EnchashmentApplication.findAll", query="SELECT e FROM EnchashmentApplication e")
 public class EnchashmentApplication implements Serializable {
 	private static final long serialVersionUID = 1L;
 

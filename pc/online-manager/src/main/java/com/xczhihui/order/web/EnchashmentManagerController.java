@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.xczhihui.bxg.online.api.po.EnchashmentApplyInfo;
-import com.xczhihui.bxg.online.common.enums.EnchashmentDismissal;
+import com.xczhihui.bxg.common.util.enums.EnchashmentDismissal;
 import com.xczhihui.order.service.EnchashmentService;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;

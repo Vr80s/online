@@ -25,10 +25,10 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.CourseApplyResource;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.enums.ApplyStatus;
-import com.xczhihui.bxg.online.common.enums.CourseDismissal;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Multimedia;
+import com.xczhihui.bxg.common.util.enums.ApplyStatus;
+import com.xczhihui.bxg.common.util.enums.CourseDismissal;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.vhall.bean.Webinar;
 

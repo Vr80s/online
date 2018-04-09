@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.enums;
+package com.xczhihui.bxg.common.util.enums;
 
 public enum CourseForm {
 

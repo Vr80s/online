@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.enums;
+package com.xczhihui.bxg.common.util.enums;
 
 /**
  * Description：0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付

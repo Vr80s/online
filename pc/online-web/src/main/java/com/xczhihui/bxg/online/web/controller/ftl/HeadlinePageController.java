@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.enums.HeadlineType;
+import com.xczhihui.bxg.common.util.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;

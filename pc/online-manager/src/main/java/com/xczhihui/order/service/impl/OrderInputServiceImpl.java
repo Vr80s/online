@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 //import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.vhall.VhallUtil;
 
 import com.xczhihui.order.service.OrderInputService;

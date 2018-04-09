@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.enums;
+package com.xczhihui.bxg.common.util.enums;
 
 /**
  * 注册来源  

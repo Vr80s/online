@@ -1,19 +1,16 @@
-package com.xczhihui.bxg.online.common.enums;
+package com.xczhihui.bxg.common.util.enums;
 
 /**
- * Description：账户消费类型
+ * Description：账户类型
  * creed: Talk is cheap,show me the code
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 上午 10:55 2018/1/25 0025
  **/
-public enum ConsumptionChangeType {
+public enum BalanceType {
 
-    COURSE(10, "购买课程"),
-    CONSUME(9, "其他消费"),
-    GIFT(8, "刷礼物"),
-    OVERDUE(7, "过期清零"),
-    ENCHASHMENT(6, "提现"),
-    SETTLEMENT(5, "结算");
+    BALANCE(1, "用户熊猫币余额"),
+    ANCHOR_BALANCE(2, "主播熊猫币余额"),
+    ANCHOR_RMB(3, "主播人民币余额");
 
     /**
      * 描述
@@ -21,7 +18,7 @@ public enum ConsumptionChangeType {
     private String text;
     private int code;
 
-    private ConsumptionChangeType(int code, String text) {
+    private BalanceType(int code, String text) {
         this.text = text;
         this.code = code;
     }

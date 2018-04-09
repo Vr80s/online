@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.enums;
+package com.xczhihui.bxg.common.util.enums;
 
 /**
  * 发送短信类型           枚举  1注册，2重置密码, 3 原来手机号获取验证码 ,4 新的手机号获取验证码

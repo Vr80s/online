@@ -2,11 +2,10 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.online.common.enums.ApplyStatus;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Multimedia;
+import com.xczhihui.bxg.common.util.enums.ApplyStatus;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;

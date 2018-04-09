@@ -2,9 +2,9 @@ package com.xczh.consumer.market.service.impl;
 
 import java.math.BigDecimal;
 
-import com.xczhihui.bxg.online.common.enums.ConsumptionChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.ConsumptionChangeType;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.common.utils.lock.Lock;
 
 import org.springframework.beans.factory.annotation.Autowired;

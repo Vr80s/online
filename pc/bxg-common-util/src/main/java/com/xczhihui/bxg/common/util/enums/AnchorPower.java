@@ -1,24 +1,22 @@
-package com.xczhihui.bxg.online.common.enums;
+package com.xczhihui.bxg.common.util.enums;
 
 /**
- * Description：账户类型
+ * Description：主播权限
+ * 1主播2权限禁用0非主播
  * creed: Talk is cheap,show me the code
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
- * @Date: 上午 10:55 2018/1/25 0025
+ * @Date: 下午 3:39 2018/1/29 0029
  **/
-public enum BalanceType {
+public enum AnchorPower {
 
-    BALANCE(1, "用户熊猫币余额"),
-    ANCHOR_BALANCE(2, "主播熊猫币余额"),
-    ANCHOR_RMB(3, "主播人民币余额");
+    YES(1, "主播"),
+    NO(0, "非主播"),
+    BAN(2, "权限禁用");
 
-    /**
-     * 描述
-     **/
     private String text;
     private int code;
 
-    private BalanceType(int code, String text) {
+    private AnchorPower(int code, String text) {
         this.text = text;
         this.code = code;
     }

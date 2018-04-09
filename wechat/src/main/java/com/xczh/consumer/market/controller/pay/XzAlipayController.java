@@ -59,8 +59,8 @@ import com.xczh.consumer.market.vo.RechargeParamVo;
 import com.xczh.consumer.market.vo.RewardParamVo;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 
 
 @Controller

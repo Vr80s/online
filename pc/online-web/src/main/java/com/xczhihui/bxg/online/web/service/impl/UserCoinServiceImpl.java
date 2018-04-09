@@ -8,7 +8,6 @@ import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.enums.*;
 import com.xczhihui.bxg.online.common.utils.OrderNoUtil;
 import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
@@ -29,9 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * ClassName: UserCoinServiceImpl.java <br>

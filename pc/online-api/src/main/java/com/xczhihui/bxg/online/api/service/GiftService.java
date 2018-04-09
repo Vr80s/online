@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.Recharges;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
 
 
 /** 

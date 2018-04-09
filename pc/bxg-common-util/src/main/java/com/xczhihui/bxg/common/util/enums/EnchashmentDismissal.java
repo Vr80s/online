@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.enums;
+package com.xczhihui.bxg.common.util.enums;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,32 +9,30 @@ import java.util.List;
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 下午 3:41 2018/1/29 0029
  **/
-public enum CourseDismissal {
+public enum EnchashmentDismissal {
 
-    D1(1, "课程中含有不符合要求的内容，请修改"),
-    D2(2, "课程未发现可播放视频"),
+    D1(1, "账号有误"),
+    D2(2, "提现申请存疑"),
     D0(0, "其他");
 
-    // 成员变量
     private String text;
     private int code;
 
-    // 构造方法
-    private CourseDismissal(int code, String text) {
+    private EnchashmentDismissal(int code, String text) {
         this.text = text;
         this.code = code;
     }
 
-    public static List<CourseDismissal> getDismissalList(){
-        List<CourseDismissal> dismissalList = new ArrayList<CourseDismissal>();
-        for (CourseDismissal e : CourseDismissal.values()) {
+    public static List<EnchashmentDismissal> getDismissalList(){
+        List<EnchashmentDismissal> dismissalList = new ArrayList<EnchashmentDismissal>();
+        for (EnchashmentDismissal e : EnchashmentDismissal.values()) {
             dismissalList.add(e);
         }
         return dismissalList;
     }
 
     public static String getDismissal(int code){
-        for (CourseDismissal e : CourseDismissal.values()) {
+        for (EnchashmentDismissal e : EnchashmentDismissal.values()) {
             if(e.getCode() == code){
                 return e.getText();
             }
@@ -57,5 +55,6 @@ public enum CourseDismissal {
     public void setCode(int code) {
         this.code = code;
     }
+
 
 }
