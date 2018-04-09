@@ -74,7 +74,7 @@ import com.xczh.consumer.market.wxpay.entity.PayInfo;
 import com.xczh.consumer.market.wxpay.entity.SendRedPack;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.MD5SignUtil;
-import com.xczhihui.bxg.online.api.po.RewardStatement;
+import com.xczhihui.bxg.online.common.domain.RewardStatement;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.OrderPayService;

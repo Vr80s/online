@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
+import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
 
 
 @Repository

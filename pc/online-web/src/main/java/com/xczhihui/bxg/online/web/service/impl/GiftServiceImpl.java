@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.online.api.po.Gift;
+import com.xczhihui.bxg.online.common.domain.Gift;
 import com.xczhihui.bxg.online.api.service.GiftSendService;
 import com.xczhihui.bxg.online.api.service.GiftService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;

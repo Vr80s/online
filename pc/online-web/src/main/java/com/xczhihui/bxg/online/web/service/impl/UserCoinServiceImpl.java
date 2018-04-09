@@ -3,11 +3,11 @@ package com.xczhihui.bxg.online.web.service.impl;
 import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.common.util.BeanUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.*;
+import com.xczhihui.bxg.common.util.enums.*;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
-import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.utils.OrderNoUtil;
 import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
@@ -103,10 +103,15 @@ public class UserCoinServiceImpl implements UserCoinService {
         userCoinIncrease.setOrderFrom(orderFrom.getCode());
         userCoinIncrease.setOrderNoRecharge(orderNo);
 
-        updateBalanceForIncrease(userCoinIncrease);
+        this.updateBalanceForIncrease(userCoinIncrease);
     }
 
-    @Override
+    /**
+     * Description：用户熊猫币新增
+     * @param uci
+     * @return void
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     **/
     public void updateBalanceForIncrease(UserCoinIncrease uci) {
 
         BigDecimal balance = BigDecimal.ZERO;
@@ -152,7 +157,12 @@ public class UserCoinServiceImpl implements UserCoinService {
         userCoinDao.save(uci);
     }
 
-    @Override
+    /**
+     * Description：用户熊猫币消费
+     * @param ucc
+     * @return UserCoinConsumption
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     **/
     public UserCoinConsumption updateBalanceForConsumption(UserCoinConsumption ucc) {
         UserCoin uc = userCoinDao.getBalanceByUserId(ucc.getUserId());
 
@@ -211,7 +221,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
 
     @Override
-    public UserCoinConsumption updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo) {
+    public String updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo) {
         if(coin.compareTo(BigDecimal.ZERO) != 1){
             throw new RuntimeException("课程熊猫币价格必须大于0");
         }
@@ -222,7 +232,8 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setOrderNoConsume(orderNo);
         ucc.setBalanceType(BalanceType.BALANCE.getCode());
         ucc.setChangeType(ConsumptionChangeType.COURSE.getCode());
-        return updateBalanceForConsumption(ucc);
+        UserCoinConsumption userCoinConsumption = this.updateBalanceForConsumption(ucc);
+        return userCoinConsumption.getId().toString();
     }
 
     @Override
@@ -246,7 +257,8 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
-    public void updateBalanceForGift(GiftStatement giftStatement, Gift gift) {
+    public void updateBalanceForGift(Object giftStatementobj) {
+        GiftStatement giftStatement = (GiftStatement) giftStatementobj;
         BigDecimal total = new BigDecimal(giftStatement.getCount() * giftStatement.getPrice());
         UserCoinConsumption ucc = new UserCoinConsumption();
         ucc.setValue(total.negate());
@@ -258,7 +270,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setBalanceType(BalanceType.BALANCE.getCode());
         ucc.setOrderFrom(giftStatement.getClientType());
         //扣除用户熊猫币余额
-        updateBalanceForConsumption(ucc);
+        this.updateBalanceForConsumption(ucc);
 
         CourseAnchor courseAnchor = cacheService.get(anchorCache+giftStatement.getReceiver());
         if(courseAnchor == null){
@@ -299,11 +311,16 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setOrderFrom(giftStatement.getClientType());
         uci.setBalanceType(BalanceType.ANCHOR_BALANCE.getCode());
         //更新主播的数量
-        updateBalanceForIncrease(uci);
+        this.updateBalanceForIncrease(uci);
 
     }
 
-    @Override
+    /**
+     * Description：买课后，给主播分成
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 8:19 2018/1/29 0029
+     **/
     public void updateBalanceForCourse(OrderVo orderVo) {
         //课程单价换算为熊猫币
         BigDecimal total = new BigDecimal(orderVo.getActual_pay()).multiply(new BigDecimal(rate));
@@ -347,7 +364,7 @@ public class UserCoinServiceImpl implements UserCoinService {
             //订单来源:1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
             uci.setOrderFrom(orderVo.getOrder_from());
             //更新主播的数量
-            updateBalanceForIncrease(uci);
+            this.updateBalanceForIncrease(uci);
         }else{
             logger.info("课程{}主播不存在，未进行分成",orderVo.getCourse_id());
         }
@@ -357,7 +374,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     public void updateBalanceForCourses(List<OrderVo> orderVos) {
         for (OrderVo orderVo:orderVos){
             if(orderVo.getOrder_from()!= OrderFrom.WORKER.getCode()&&orderVo.getOrder_from()!= OrderFrom.GIVE.getCode()){
-                updateBalanceForCourse(orderVo);
+                this.updateBalanceForCourse(orderVo);
             }else{
                 logger.info("订单{}为工作人员订单，不计入主播分成",orderVo.getOrderDetail());
             }
@@ -365,7 +382,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
-    public void updateBalanceForReward(RewardStatement rs) throws XMPPException, SmackException, IOException {
+    public void updateBalanceForReward(Object rs) throws XMPPException, SmackException, IOException {
         throw new RuntimeException("打赏功能暂时关闭，请通过送礼物方式为主播加油！");
         /*rewardService.insert(rs);
         Reward reward = rewardDao.getReward(Integer.valueOf(rs.getRewardId()));
@@ -387,7 +404,12 @@ public class UserCoinServiceImpl implements UserCoinService {
         updateBalanceForIncrease(uci);*/
     }
 
-    @Override
+    /**
+     * Description：提现-更改用户的人民币余额
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 4:34 2018/1/29 0029
+     **/
     public UserCoinConsumption updateBalanceForEnchashment(String userId, BigDecimal enchashmentSum, OrderFrom orderFrom,String enchashmentApplyId) {
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
 

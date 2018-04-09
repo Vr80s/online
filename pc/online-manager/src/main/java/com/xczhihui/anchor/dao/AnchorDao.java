@@ -1,7 +1,7 @@
 package com.xczhihui.anchor.dao;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.anchor.vo.AnchorIncomeVO;

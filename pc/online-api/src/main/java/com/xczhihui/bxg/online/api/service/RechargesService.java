@@ -1,13 +1,6 @@
 package com.xczhihui.bxg.online.api.service;
 
-import java.util.List;
-
-import com.xczhihui.bxg.online.api.po.Recharges;
-
-
-
-
-/** 
+/**
  * ClassName: RechargesService.java <br>
  * Description: 充值列表<br>
  * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
@@ -22,6 +15,6 @@ public interface RechargesService {
 	 * @return List<Gift>
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public List<Recharges> getRecharges();
+	public Object getRecharges();
 	
 }

@@ -1,6 +1,4 @@
-package com.xczhihui.bxg.online.api.po;
-// default package
-
+package com.xczhihui.bxg.online.api.vo;
 
 import java.math.BigDecimal;
 import java.util.Date;

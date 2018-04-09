@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.service.XmbBuyCouserService;
@@ -54,13 +53,13 @@ public class XmbBuyCourseServiceImpl implements XmbBuyCouserService {
 		double actual_pay =Double.parseDouble(ov.getActual_pay());
 		//实际要扣减的熊猫币
 		BigDecimal  xmb = BigDecimal.valueOf( actual_pay * rate);
-		UserCoinConsumption userCoinConsumption = userCoinService.updateBalanceForBuyCourse(ov.getUser_id(),
+		String userCoinConsumptionId = userCoinService.updateBalanceForBuyCourse(ov.getUser_id(),
 				OrderFrom.valueOf(ov.getOrder_from()),
 				xmb, orderNo);
 		/*
 		 * 更改订单状态，增加课程学习人数
 		 */
-		orderPayService.addPaySuccess(orderNo,Payment.COINPAY,userCoinConsumption.getId().toString());
+		orderPayService.addPaySuccess(orderNo,Payment.COINPAY,userCoinConsumptionId);
 	}
 
 	@Override

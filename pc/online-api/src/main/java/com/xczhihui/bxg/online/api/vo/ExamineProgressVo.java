@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.api.po;
+package com.xczhihui.bxg.online.api.vo;
 
 import java.io.Serializable;
 import java.util.Date;

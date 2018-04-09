@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.api.po;
+package com.xczhihui.bxg.online.common.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

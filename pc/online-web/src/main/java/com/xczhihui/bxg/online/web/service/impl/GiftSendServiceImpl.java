@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.GiftStatement;
+import com.xczhihui.bxg.online.common.domain.Gift;
+import com.xczhihui.bxg.online.common.domain.GiftStatement;
 import com.xczhihui.bxg.online.api.service.GiftSendService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -85,7 +85,7 @@ public class GiftSendServiceImpl implements GiftSendService {
 		
 		if(gift.getPrice()>0){
 			//扣除用户相应的代币数量,主播增加相应代币
-            userCoinService.updateBalanceForGift(giftStatement, gift);
+            userCoinService.updateBalanceForGift(giftStatement);
         }
 		OnlineUser u = onlineUserCenterService.getUser(giftStatement.getGiver());
 		if(u==null) {

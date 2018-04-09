@@ -29,7 +29,7 @@ import org.springframework.util.StringUtils;
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.BeanUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.UserCoin;
+import com.xczhihui.bxg.online.common.domain.UserCoin;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;

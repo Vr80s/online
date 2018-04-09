@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;

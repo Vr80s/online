@@ -2,10 +2,10 @@ package com.xczhihui.order.service.impl;
 
 import com.xczhihui.bxg.common.util.BeanUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.EnchashmentApplyInfo;
-import com.xczhihui.bxg.online.api.po.UserCoin;
-import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
+import com.xczhihui.bxg.online.common.domain.EnchashmentApplyInfo;
+import com.xczhihui.bxg.online.common.domain.UserCoin;
+import com.xczhihui.bxg.online.common.domain.UserCoinConsumption;
+import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.common.util.enums.ApplyStatus;
 import com.xczhihui.bxg.common.util.enums.BalanceType;
