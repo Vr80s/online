@@ -86,9 +86,10 @@ function getAddressList(){
 
 //清空添加表单
 function clearAddressList(){
-	$('.add-address .Province').val('volvo');
-	$('.add-address .City').val('volvo');
-	$('.add-address .District').val('volvo');
+	$('.add-address #choosePro').val('-1');
+	$('.add-address #citys').val('-1');
+	$('.add-address #county').val('-1');
+	$('.add-address #choosePro  option:selected').text('请选择省');
 	$('.add-address .detailedAddress').val('');
 	$('.add-address .postalCode').val('');
 	$('.add-address .phone').val('');
@@ -104,9 +105,9 @@ function submitAddress_add(){
 	$('.address-list').removeClass('hide');
 		//获取当前的表单填入信息
 		RequestService("/address/saveAddress", "post", {
-			provinces:$('.add-address .Province  option:selected').text(),
-			city:$('.add-address .City  option:selected').text(),
-			county:$('.add-address .District  option:selected').text(),
+			provinces:$('.add-address #choosePro  option:selected').text(),
+			city:$('.add-address #citys  option:selected').text(),
+			county:$('.add-address #county  option:selected').text(),
 			detailedAddress:$('.add-address .detailedAddress').val(),
 			postalCode:$('.add-address .postalCode').val(),
 			consignee:$('.add-address .consignee').val(),
@@ -126,9 +127,9 @@ function submitAddress_editor(id){
 	$('.address-list').removeClass('hide');
 		RequestService("/address/updateAddress", "post", {
 				id:id,
-				provinces:$('.add-address .Province  option:selected').text(),
-				city:$('.add-address .City  option:selected').text(),
-				county:$('.add-address .District  option:selected').text(),
+				provinces:$('.add-address #choosePro  option:selected').text(),
+				city:$('.add-address #citys  option:selected').text(),
+				county:$('.add-address #county  option:selected').text(),
 				detailedAddress:$('.add-address .detailedAddress').val(),
 				postalCode:$('.add-address .postalCode').val(),
 				consignee:$('.add-address .consignee').val(),
@@ -212,9 +213,9 @@ function initAddressBind(){
 		var phone_pass = /^1[3,4,5,7,8]\d{9}$/gi;
 		var postalCode = $('.add-address .postalCode').val();
 		var postalCode_pass = /^[1-9][0-9]{5}$/;
-		var sheng = $('.add-address .Province  option:selected').text();
-		var shi = $('.add-address .City  option:selected').text();
-		var qu = $('.add-address .District  option:selected').text();
+		var sheng = $('.add-address #choosePro  option:selected').text();
+		var shi = $('.add-address #citys  option:selected').text();
+		var qu = $('.add-address #county  option:selected').text();
 		if(flag==0){
 			//姓名验证
 			if($.trim(name) == ""){
@@ -292,7 +293,7 @@ function initAddressBind(){
 			}
 			//地址验证
 			console.log(sheng)
-			if(sheng == '--选择省--'||shi == '--选择市--'||qu == '--选择区/县--'){
+			if(sheng == '请选择省'||shi == '请选择市'||qu == '请选择区/县'){
 				$('.address_warn').css('display','block')
 				console.log(7777)
 				return false;
@@ -342,11 +343,11 @@ function initAddressBind(){
 		//邮编
 		$('.add-address .postalCode').val($(this).parent().parent().find('.postalCode').text());
 		//省
-		$('.add-address .Province  option:selected').text($(this).parent().parent().find('.sheng').text())
+		$('.add-address #choosePro  option:selected').text($(this).parent().parent().find('.sheng').text())
 		//市
-		$('.add-address .City  option:selected').text($(this).parent().parent().find('.shi').text())
+		$('.add-address #citys  option:selected').text($(this).parent().parent().find('.shi').text())
 		//区
-		$('.add-address .District  option:selected').text($(this).parent().parent().find('.xiang').text())
+		$('.add-address #county  option:selected').text($(this).parent().parent().find('.xiang').text())
 		
 		
 		//此时生成id值
