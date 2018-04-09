@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczhihui.cloudClass.service.PlanService;
-import com.xczhihui.cloudClass.vo.PlanVo;
+import com.xczhihui.course.vo.PlanVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;

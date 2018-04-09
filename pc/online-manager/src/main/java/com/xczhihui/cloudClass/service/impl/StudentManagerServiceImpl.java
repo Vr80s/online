@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.cloudClass.service.StudentManagerService;
-import com.xczhihui.cloudClass.vo.StudentManagerVo;
+import com.xczhihui.course.vo.StudentManagerVo;
 
 @Service
 public class StudentManagerServiceImpl implements StudentManagerService {

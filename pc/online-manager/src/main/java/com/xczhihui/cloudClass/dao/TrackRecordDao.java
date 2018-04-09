@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.TrackRecord;
-import com.xczhihui.cloudClass.vo.TrackRecordVo;
+import com.xczhihui.course.vo.TrackRecordVo;
 import com.xczhihui.common.dao.HibernateDao;
 
 /**

@@ -4,9 +4,9 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Grade;
 import com.xczhihui.cloudClass.service.GradeService;
-import com.xczhihui.cloudClass.vo.CourseVo;
-import com.xczhihui.cloudClass.vo.GradeDetailVo;
-import com.xczhihui.cloudClass.vo.GradeVo;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.GradeDetailVo;
+import com.xczhihui.course.vo.GradeVo;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 

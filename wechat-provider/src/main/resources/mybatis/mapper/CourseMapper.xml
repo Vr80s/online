@@ -585,7 +585,7 @@
 		 c.is_recommend,c.start_time as startTime,
 		 c.collection as collection,
 		 (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
-		 + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
+		 + IFNULL(c.default_student_count, 0)) as  learndCount,
 		 
 		if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
                              (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,

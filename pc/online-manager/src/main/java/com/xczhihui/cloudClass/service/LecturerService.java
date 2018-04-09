@@ -5,7 +5,7 @@ import java.util.List;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.cloudClass.vo.LecturerVo;
+import com.xczhihui.course.vo.LecturerVo;
 
 /**
  * LecturerService:讲师业务层接口类 * @author Rongcai Kang

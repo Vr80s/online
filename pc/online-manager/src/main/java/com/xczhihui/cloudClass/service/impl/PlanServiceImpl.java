@@ -22,9 +22,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.cloudClass.service.PlanService;
-import com.xczhihui.cloudClass.vo.CourseVo;
-import com.xczhihui.cloudClass.vo.GradeVo;
-import com.xczhihui.cloudClass.vo.PlanVo;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.GradeVo;
+import com.xczhihui.course.vo.PlanVo;
 
 @Service
 public class PlanServiceImpl extends OnlineBaseServiceImpl implements

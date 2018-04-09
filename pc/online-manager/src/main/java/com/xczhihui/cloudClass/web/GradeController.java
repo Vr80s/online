@@ -1,16 +1,12 @@
 package com.xczhihui.cloudClass.web;
 
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.Grade;
-import com.xczhihui.cloudClass.service.*;
-import com.xczhihui.cloudClass.vo.CourseVo;
-import com.xczhihui.cloudClass.vo.GradeDetailVo;
-import com.xczhihui.cloudClass.vo.GradeVo;
-import com.xczhihui.cloudClass.vo.MenuVo;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.utils.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -20,11 +16,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.domain.Grade;
+import com.xczhihui.cloudClass.service.GradeService;
+import com.xczhihui.cloudClass.service.TeachMethodService;
+import com.xczhihui.course.service.CloudClassMenuService;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.ScoreTypeService;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.GradeDetailVo;
+import com.xczhihui.course.vo.GradeVo;
+import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.TimeUtil;
+import com.xczhihui.utils.Tools;
 
 /**
  * 班级控制层实现类

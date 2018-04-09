@@ -1,19 +1,19 @@
 package com.xczhihui.cloudClass.web;
 
-import com.xczhihui.cloudClass.service.NotesCommentService;
-import com.xczhihui.cloudClass.vo.NotesCommentVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.course.service.NotesCommentService;
+import com.xczhihui.course.vo.NotesCommentVo;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.stereotype.Controller;
-
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
 
 @Controller
 @RequestMapping(value = "/cloudClass/notesComment")

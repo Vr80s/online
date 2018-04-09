@@ -1,15 +1,7 @@
 package com.xczhihui.cloudClass.web;
 
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
-import com.xczhihui.bxg.online.common.domain.CourseApplyResource;
-import com.xczhihui.cloudClass.service.CourseApplyService;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,7 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.bxg.online.common.domain.CourseApplyResource;
+import com.xczhihui.course.service.CourseApplyService;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 /**
  * 资源管理控制层实现类

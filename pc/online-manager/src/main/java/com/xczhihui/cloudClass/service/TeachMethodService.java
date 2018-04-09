@@ -2,7 +2,7 @@ package com.xczhihui.cloudClass.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.cloudClass.vo.TeachMethodVo;
+import com.xczhihui.course.vo.TeachMethodVo;
 
 import java.util.List;
 

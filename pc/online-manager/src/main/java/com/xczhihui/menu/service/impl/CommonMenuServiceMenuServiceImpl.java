@@ -16,8 +16,8 @@ import com.xczhihui.bxg.online.common.domain.MenuCourseType;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.menu.dao.CommonMenuDao;
 import com.xczhihui.menu.service.CommonMenuService;
-import com.xczhihui.cloudClass.dao.ScoreTypeDao;
-import com.xczhihui.cloudClass.vo.MenuVo;
+import com.xczhihui.course.dao.ScoreTypeDao;
+import com.xczhihui.course.vo.MenuVo;
 
 /**
  * CommonMenuServiceMenuServiceImpl:公共学科层接口实现类

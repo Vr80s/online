@@ -3,7 +3,7 @@ package com.xczhihui.utils.subscribe;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.xczhihui.cloudClass.service.CourseService;
+import com.xczhihui.course.service.CourseService;
 
 public class ConfigListener implements ServletContextListener {
 

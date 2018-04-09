@@ -272,6 +272,7 @@ $(".right_modification").click(function() {
     			
     		}else if(localStorage.AccountStatus == '2'){
     			//医馆自己的模板渲染
+    			
     		}
 			$('#u_detailAddress').val(data.resultObject.detailAddress)
     })

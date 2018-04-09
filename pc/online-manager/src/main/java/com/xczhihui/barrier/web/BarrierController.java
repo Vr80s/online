@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.barrier.service.BarrierService;
 import com.xczhihui.barrier.vo.BarrierVo;
-import com.xczhihui.cloudClass.service.CourseService;
-import com.xczhihui.cloudClass.vo.CourseVo;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
@@ -25,7 +25,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.cloudClass.vo.LecturerVo;
+import com.xczhihui.course.vo.LecturerVo;
 
 @Controller
 @RequestMapping(value = "/barrier/barrier")

@@ -6,7 +6,7 @@ import java.util.Map;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.cloudClass.vo.CourseVo;
+import com.xczhihui.course.vo.CourseVo;
 
 public interface MobileCourseService {
 

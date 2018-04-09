@@ -2,7 +2,7 @@ package com.xczhihui.cloudClass.service;
 
 import java.util.List;
 
-import com.xczhihui.cloudClass.vo.PlanVo;
+import com.xczhihui.course.vo.PlanVo;
 
 public interface PlanService {
 

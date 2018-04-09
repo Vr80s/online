@@ -4,7 +4,7 @@ import com.xczhihui.barrier.vo.BarrierVo;
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
-import com.xczhihui.cloudClass.vo.CourseVo;
+import com.xczhihui.course.vo.CourseVo;
 
 import java.util.HashMap;
 import java.util.List;

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.xczhihui.cloudClass.service.TeachMethodService;
-import com.xczhihui.cloudClass.vo.TeachMethodVo;
+import com.xczhihui.course.vo.TeachMethodVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.UserService;
 import com.xczhihui.utils.TableVo;

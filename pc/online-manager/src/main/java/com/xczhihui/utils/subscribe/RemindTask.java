@@ -7,9 +7,9 @@ import java.util.TimerTask;
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.common.util.SmsUtil;
 import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.cloudClass.dao.CourseSubscribeDao;
-import com.xczhihui.cloudClass.service.CourseService;
-import com.xczhihui.cloudClass.vo.CourseSubscribeVo;
+import com.xczhihui.course.dao.CourseSubscribeDao;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.vo.CourseSubscribeVo;
 
 /**
  * ClassName: RemindTask.java <br>

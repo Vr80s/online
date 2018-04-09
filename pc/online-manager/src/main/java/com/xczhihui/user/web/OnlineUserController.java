@@ -24,8 +24,8 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.cloudClass.service.CloudClassMenuService;
-import com.xczhihui.cloudClass.vo.MenuVo;
+import com.xczhihui.course.service.CloudClassMenuService;
+import com.xczhihui.course.vo.MenuVo;
 
 /**
  * 网站用户管理

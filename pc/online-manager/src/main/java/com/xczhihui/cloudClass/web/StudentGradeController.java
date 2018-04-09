@@ -1,21 +1,10 @@
 package com.xczhihui.cloudClass.web;
 
-import com.alibaba.dubbo.common.utils.StringUtils;
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.Grade;
-import com.xczhihui.bxg.online.common.domain.TrackRecord;
-import com.xczhihui.cloudClass.service.*;
-import com.xczhihui.cloudClass.vo.ApplyVo;
-import com.xczhihui.cloudClass.vo.GradeDetailVo;
-import com.xczhihui.cloudClass.vo.GradeVo;
-import com.xczhihui.cloudClass.vo.TrackRecordVo;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +12,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
+import com.alibaba.dubbo.common.utils.StringUtils;
+import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.domain.Grade;
+import com.xczhihui.bxg.online.common.domain.TrackRecord;
+import com.xczhihui.cloudClass.service.GradeService;
+import com.xczhihui.cloudClass.service.LecturerService;
+import com.xczhihui.cloudClass.service.TeachMethodService;
+import com.xczhihui.course.service.ApplyService;
+import com.xczhihui.course.service.CloudClassMenuService;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.ScoreTypeService;
+import com.xczhihui.course.service.TrackRecordService;
+import com.xczhihui.course.vo.ApplyVo;
+import com.xczhihui.course.vo.GradeDetailVo;
+import com.xczhihui.course.vo.GradeVo;
+import com.xczhihui.course.vo.TrackRecordVo;
+import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 /**
  * 班级控制层实现类

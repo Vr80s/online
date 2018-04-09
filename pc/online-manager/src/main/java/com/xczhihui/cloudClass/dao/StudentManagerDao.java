@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.cloudClass.vo.StudentManagerVo;
+import com.xczhihui.course.vo.StudentManagerVo;
 import com.xczhihui.common.dao.HibernateDao;
 
 @Repository("studentManagerDao")

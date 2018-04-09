@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.common.dao.HibernateDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.cloudClass.vo.LecturerVo;
+import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.course.dao.CloudClassMenuDao;
+import com.xczhihui.course.vo.LecturerVo;
 
 /**
  * 云课堂课程管理DAO

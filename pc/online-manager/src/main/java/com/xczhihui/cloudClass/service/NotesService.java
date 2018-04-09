@@ -1,8 +1,8 @@
 package com.xczhihui.cloudClass.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.cloudClass.vo.CourseVo;
-import com.xczhihui.cloudClass.vo.NotesVo;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.NotesVo;
 
 public interface NotesService {
 

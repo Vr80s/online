@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczhihui.cloudClass.service.StudentManagerService;
-import com.xczhihui.cloudClass.vo.StudentManagerVo;
+import com.xczhihui.course.vo.StudentManagerVo;
 
 @Controller
 @RequestMapping("cloudclass/studentmanager")

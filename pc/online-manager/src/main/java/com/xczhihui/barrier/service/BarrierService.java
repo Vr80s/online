@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.barrier.vo.BarrierVo;
-import com.xczhihui.cloudClass.vo.CourseVo;
+import com.xczhihui.course.vo.CourseVo;
 
 public interface BarrierService {
 

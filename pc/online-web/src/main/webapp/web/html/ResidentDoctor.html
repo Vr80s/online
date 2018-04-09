@@ -49,6 +49,25 @@
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 
+<style type="text/css">
+	.addclass{
+		top: 0 !important;
+	}
+</style>
+
+<script>
+	window.onload = function(){
+		
+		$(".edui-default .edui-editor").addClass("addclass");
+	
+		var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+		if (isChrome) {
+			$(".edui-default .edui-editor").removeClass("addclass");
+		}
+	};
+	
+</script>
+
    </head>
 <body>
 <div></div>

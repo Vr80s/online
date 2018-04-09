@@ -1,18 +1,19 @@
 package com.xczhihui.cloudClass.service.impl;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.TrackRecord;
-import com.xczhihui.cloudClass.dao.TrackRecordDao;
-import com.xczhihui.cloudClass.service.TrackRecordService;
-import com.xczhihui.cloudClass.vo.TrackRecordVo;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Map;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.TrackRecord;
+import com.xczhihui.cloudClass.dao.TrackRecordDao;
+import com.xczhihui.course.service.TrackRecordService;
+import com.xczhihui.course.vo.TrackRecordVo;
 
 @Service("trackRecordService")
 public class TrackRecordServiceImpl extends OnlineBaseServiceImpl implements

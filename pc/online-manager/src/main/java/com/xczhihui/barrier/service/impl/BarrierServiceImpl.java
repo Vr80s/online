@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.barrier.dao.BarrierDao;
-import com.xczhihui.cloudClass.vo.CourseVo;
+import com.xczhihui.course.vo.CourseVo;
 
 @Service
 public class BarrierServiceImpl extends OnlineBaseServiceImpl implements

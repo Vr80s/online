@@ -5,7 +5,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
 import com.xczhihui.cloudClass.dao.TeachMethodDao;
 import com.xczhihui.cloudClass.service.TeachMethodService;
-import com.xczhihui.cloudClass.vo.TeachMethodVo;
+import com.xczhihui.course.vo.TeachMethodVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,7 @@ package com.xczhihui.cloudClass.web;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.cloudClass.service.StudyPlanService;
-import com.xczhihui.cloudClass.vo.TreeNode;
+import com.xczhihui.course.vo.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

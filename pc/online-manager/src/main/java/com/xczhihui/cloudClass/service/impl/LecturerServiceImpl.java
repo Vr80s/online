@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.xczhihui.cloudClass.dao.LecturerDao;
 import com.xczhihui.cloudClass.service.LecturerService;
-import com.xczhihui.cloudClass.vo.MenuVo;
+import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.cloudClass.vo.LecturerVo;
+import com.xczhihui.course.vo.LecturerVo;
 
 /**
  * LecturerServiceImpl:讲师业务层接口实现类

@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.xczhihui.cloudClass.vo.QuestionOptionPicture;
-import com.xczhihui.cloudClass.vo.TreeNode;
+import com.xczhihui.course.vo.QuestionOptionPicture;
+import com.xczhihui.course.vo.TreeNode;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import com.xczhihui.bxg.common.util.bean.Page;

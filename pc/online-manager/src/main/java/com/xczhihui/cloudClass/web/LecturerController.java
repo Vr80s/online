@@ -21,7 +21,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.cloudClass.vo.LecturerVo;
+import com.xczhihui.course.vo.LecturerVo;
 
 /**
  * 菜单控制层实现类

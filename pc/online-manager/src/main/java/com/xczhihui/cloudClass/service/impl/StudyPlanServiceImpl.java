@@ -1,15 +1,20 @@
 package com.xczhihui.cloudClass.service.impl;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.cloudClass.dao.VideoResDao;
-import com.xczhihui.cloudClass.service.StudyPlanService;
-import com.xczhihui.cloudClass.vo.TreeNode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.cloudClass.service.StudyPlanService;
+import com.xczhihui.course.dao.VideoResDao;
+import com.xczhihui.course.vo.TreeNode;
 
 /**
  * 学习计划模块业务层实现类

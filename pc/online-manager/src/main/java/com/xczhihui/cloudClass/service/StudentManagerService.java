@@ -1,7 +1,7 @@
 package com.xczhihui.cloudClass.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.cloudClass.vo.StudentManagerVo;
+import com.xczhihui.course.vo.StudentManagerVo;
 
 /**
  * 学员管理业务层

@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Grade;
-import com.xczhihui.cloudClass.vo.CourseVo;
-import com.xczhihui.cloudClass.vo.GradeDetailVo;
-import com.xczhihui.cloudClass.vo.GradeVo;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.GradeDetailVo;
+import com.xczhihui.course.vo.GradeVo;
 
 /**
  * GradeService:班级业务层接口类

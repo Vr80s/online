@@ -75,7 +75,17 @@ requestService("/xczh/course/liveDetails",{
 				var children = $("#zhibopinglun [class='p2']")
 						.text(result.name);
 
-				$(".anchor_center").html(result.lecturerDescription);
+				$(".anchor_center").html(result.lecturerDescription);//主播简介
+
+				//	主播简介判断为空
+				if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
+					/*$(".no_data1").show();
+					$(".btn1").hide();*/
+					$(".anchor_center01").hide();
+				}else{
+					// $(".anchor_center").html(data.resultObject.lecturerDescription)
+					$(".anchor_center01").show();
+				}
 
 				/**
 				 * 关注 0 未关注 1 关注

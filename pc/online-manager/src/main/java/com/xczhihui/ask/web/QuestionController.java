@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.xczhihui.ask.service.TagService;
 import com.xczhihui.ask.vo.QuestionVo;
 import com.xczhihui.ask.vo.TagVo;
-import com.xczhihui.cloudClass.service.CloudClassMenuService;
+import com.xczhihui.course.service.CloudClassMenuService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
@@ -25,7 +25,7 @@ import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.ask.service.QuestionService;
-import com.xczhihui.cloudClass.vo.MenuVo;
+import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.user.center.utils.CodeUtil;
 
 /**

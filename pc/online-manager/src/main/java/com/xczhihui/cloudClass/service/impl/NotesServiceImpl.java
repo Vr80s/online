@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.cloudClass.dao.NotesDao;
-import com.xczhihui.cloudClass.vo.CourseVo;
-import com.xczhihui.cloudClass.vo.NotesVo;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.NotesVo;
 import com.xczhihui.cloudClass.service.NotesService;
 
 @Service

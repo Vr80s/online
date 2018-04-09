@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.cloudClass.service.CourseService;
-import com.xczhihui.user.service.OnlineUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,9 @@ import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.cloudClass.vo.LecturerVo;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.vo.LecturerVo;
+import com.xczhihui.user.service.OnlineUserService;
 
 /**
  * 课程管理控制层实现类

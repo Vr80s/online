@@ -1,7 +1,7 @@
 package com.xczhihui.cloudClass.service;
 
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.cloudClass.vo.TreeNode;
+import com.xczhihui.course.vo.TreeNode;
 
 import java.util.List;
 import java.util.Map;

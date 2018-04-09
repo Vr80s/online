@@ -3255,6 +3255,7 @@ $(function() {
     });
 $("#choosePro").html("<option id='choose' value='-1'>请选择省</option>"+sb.toString());
   doProvAndCityRelation();
+  doCityAndCountyRelation();
 });
 // 省值变化时 处理市
 function doProvAndCityRelation() {
@@ -3314,18 +3315,45 @@ function doProvAndCityRelation() {
 } 
 
 // 市值变化时 处理区/县
+//function doCityAndCountyRelation() {
+//var province =$("#citys").find("option:selected").text();
+//$("#realCitys").val(province);	
+//	
+//var cityVal = $("#citys").val();
+//var county = $("#county");
+//if (county.children().length > 1) {
+//  county.empty();
+//}
+//if ($("#chooseCounty").length === 0) {
+//  county.append("<option id='chooseCounty' value='-1'>请选择您所在区/县</option>");
+//}
+//var sb = new StringBuffer();
+//$.each(cityJson,
+//  function(i, val) {
+//    if (cityVal == '110100' || cityVal == "120100" || cityVal == "310100" || cityVal == "500100") {
+//      if (val.item_code.substr(0, 3) == cityVal.substr(0, 3) && val.item_code.substr(4, 2) != '00') {
+//        sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+//      }
+//    } else {
+//      if (val.item_code.substr(0, 4) == cityVal.substr(0, 4) && val.item_code.substr(4, 2) != '00') {
+//        sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+//      }
+//    }
+//  });
+//$("#chooseCounty").after(sb.toString());
+//}
+
 function doCityAndCountyRelation() {
 	
-  var province =$("#citys").find("option:selected").text();
-  $("#realCitys").val(province);	
+var province =$("#citys").find("option:selected").text();
+$("#realCitys").val(province);	
 	
-  var cityVal = $("#citys").val();
+var cityVal = $("#citys").val();
   var county = $("#county");
-  if (county.children().length > 1) {
     county.empty();
-  }
+    
   if ($("#chooseCounty").length === 0) {
-    county.append("<option id='chooseCounty' value='-1'>请选择您所在区/县</option>");
+    county.append("<option id='chooseCounty' value='-1'>请选择区/县</option>");
   }
   var sb = new StringBuffer();
   $.each(cityJson,
@@ -3342,6 +3370,7 @@ function doCityAndCountyRelation() {
     });
   $("#chooseCounty").after(sb.toString());
 }
+
 
 
 /*
@@ -3423,7 +3452,6 @@ function doProvAndCityRelationEdit() {
 }
 
 function doProvAndCountyRelationEdit(){
-
 	  var citys =$("#edit_citys").find("option:selected").text();
 	  $("#realCitys").val(citys);
 

@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.cloudClass.service.CloudClassMenuService;
+import com.xczhihui.course.service.CloudClassMenuService;
 import com.xczhihui.utils.TableVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.WechatUser;
-import com.xczhihui.cloudClass.vo.MenuVo;
+import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.user.service.WechatChannelService;
 import com.xczhihui.user.service.WechatUserService;
 import com.xczhihui.user.vo.WechatChannelVo;

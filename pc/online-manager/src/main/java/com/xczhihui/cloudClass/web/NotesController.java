@@ -4,21 +4,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.cloudClass.service.CourseService;
-import com.xczhihui.cloudClass.service.GradeService;
-import com.xczhihui.cloudClass.service.NotesService;
-import com.xczhihui.cloudClass.vo.CourseVo;
-import com.xczhihui.cloudClass.vo.NotesVo;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
 
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
@@ -26,7 +17,16 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.cloudClass.vo.LecturerVo;
+import com.xczhihui.cloudClass.service.GradeService;
+import com.xczhihui.cloudClass.service.NotesService;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.LecturerVo;
+import com.xczhihui.course.vo.NotesVo;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 @Controller
 @RequestMapping(value = "/cloudClass/notes")
