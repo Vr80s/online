@@ -53,7 +53,7 @@ public class ParseUtil {
 	 * 选项
 	 */
 	public static String[] optionArray = { "A", "B", "C", "D", "E", "F", "G",
-	        "H", "I", "J", "K", "L" };
+			"H", "I", "J", "K", "L" };
 
 	public static String _PREFIX = "src=\"data";
 
@@ -85,7 +85,7 @@ public class ParseUtil {
 	 * @return
 	 */
 	public static String replaceAnswers(String content, String regex,
-	        String replace) {
+			String replace) {
 		return content.replaceAll(regex, replace);
 	}
 
@@ -110,7 +110,7 @@ public class ParseUtil {
 		}
 		if (buffer.length() > 0) {
 			return buffer.toString().substring(0,
-			        buffer.length() - delim.length());
+					buffer.length() - delim.length());
 		}
 		return "";
 	}
@@ -127,8 +127,8 @@ public class ParseUtil {
 			return null;
 		}
 		if (delim == null) {
-            delim = ",";
-        }
+			delim = ",";
+		}
 		String[] array = string.split(delim);
 		List<String> list = new ArrayList<String>();
 		list = Arrays.asList(array);
@@ -140,8 +140,8 @@ public class ParseUtil {
 	 */
 	public static boolean isContained(String option, List<String> answerList) {
 		if (CollectionUtils.isEmpty(answerList)) {
-            return false;
-        }
+			return false;
+		}
 		for (int i = 0, len = answerList.size(); i < len; i++) {
 			if (option.equals(answerList.get(i))) {
 				return true;
@@ -157,7 +157,7 @@ public class ParseUtil {
 	 * @return
 	 */
 	public static String parseEditorImg(String knowledgeCenterServer,
-	        String questionHead, String attachmentCenterPath) {
+			String questionHead, String attachmentCenterPath) {
 		if (StringUtil.checkNull(questionHead)) {
 			return "";
 		}
@@ -165,9 +165,16 @@ public class ParseUtil {
 		Matcher matcher = pattern.matcher(questionHead);
 		StringBuffer buffer = new StringBuffer();
 		while (matcher.find()) {
-			if (matcher.group().startsWith(_PREFIX) && matcher.group().contains(attachmentCenterPath) && matcher.group().contains(_ATTACHMENTCENTER)) {
-				matcher.appendReplacement(buffer,"src=\""+ knowledgeCenterServer
-				                + matcher.group().substring(matcher.group().length() - 55,matcher.group().length()));
+			if (matcher.group().startsWith(_PREFIX)
+					&& matcher.group().contains(attachmentCenterPath)
+					&& matcher.group().contains(_ATTACHMENTCENTER)) {
+				matcher.appendReplacement(
+						buffer,
+						"src=\""
+								+ knowledgeCenterServer
+								+ matcher.group().substring(
+										matcher.group().length() - 55,
+										matcher.group().length()));
 			}
 		}
 		matcher.appendTail(buffer);
@@ -183,8 +190,8 @@ public class ParseUtil {
 	 */
 	public static int length(String s) {
 		if (s == null) {
-            return 0;
-        }
+			return 0;
+		}
 		char[] c = s.toCharArray();
 		int len = 0;
 		for (int i = 0; i < c.length; i++) {

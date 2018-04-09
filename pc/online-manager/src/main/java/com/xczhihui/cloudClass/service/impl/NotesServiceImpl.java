@@ -13,34 +13,39 @@ import com.xczhihui.cloudClass.vo.NotesVo;
 import com.xczhihui.cloudClass.service.NotesService;
 
 @Service
-public class NotesServiceImpl extends OnlineBaseServiceImpl implements NotesService {
+public class NotesServiceImpl extends OnlineBaseServiceImpl implements
+		NotesService {
 
 	@Autowired
-    private NotesDao notesDao;
-	
+	private NotesDao notesDao;
+
 	@Override
-	public Page<NotesVo> findNotesPage(NotesVo notesVo, Integer pageNumber, Integer pageSize) {
-		Page<NotesVo> page = notesDao.findNotesPage(notesVo, pageNumber, pageSize);
+	public Page<NotesVo> findNotesPage(NotesVo notesVo, Integer pageNumber,
+			Integer pageSize) {
+		Page<NotesVo> page = notesDao.findNotesPage(notesVo, pageNumber,
+				pageSize);
 		return page;
 	}
-	
+
 	@Override
-	public Page<CourseVo> findCoursePage(CourseVo courseVo,  int pageNumber, int pageSize) {
-    	Page<CourseVo> page = notesDao.findCloudClassCoursePage(courseVo, pageNumber, pageSize);
-    	return page;
-	
+	public Page<CourseVo> findCoursePage(CourseVo courseVo, int pageNumber,
+			int pageSize) {
+		Page<CourseVo> page = notesDao.findCloudClassCoursePage(courseVo,
+				pageNumber, pageSize);
+		return page;
+
 	}
-	
+
 	@Override
 	public void deletes(String[] ids) {
 		// TODO Auto-generated method stub
-		for(String id:ids){
-			String hqlPre="from Notes where isDelete=0 and id = ?";
-			Notes notes= dao.findByHQLOne(hqlPre,new Object[] {id});
-            if(notes !=null){
-            	notes.setDelete(true);
-                dao.update(notes);
-            }
-        }
+		for (String id : ids) {
+			String hqlPre = "from Notes where isDelete=0 and id = ?";
+			Notes notes = dao.findByHQLOne(hqlPre, new Object[] { id });
+			if (notes != null) {
+				notes.setDelete(true);
+				dao.update(notes);
+			}
+		}
 	}
 }

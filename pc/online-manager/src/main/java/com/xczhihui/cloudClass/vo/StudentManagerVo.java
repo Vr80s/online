@@ -8,37 +8,37 @@ import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class StudentManagerVo extends OnlineBaseVo{
+public class StudentManagerVo extends OnlineBaseVo {
 
-	 private String menuId;
-	 private String menuName;
-	 private String scoreTypeId;
-	 private String scoreTypeName;
-	 private String teachMethodId;
-	 private String teachMethodName;
-	 private String courseId;
-	 private String courseName;
-	 private String gradeId;
-	 private String gradeName;
-	 private String gradeCount;
-	 private String LecturerId;
-	 private String LecturerName;
-	 private String assistantName;
-	 private String HeadmasterName;
-	 /**
-	  *开课时间
-	  */
-    @DateTimeFormat(pattern = "yyyy-M-d HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-M-d HH:mm:ss", timezone = "GMT+8")
-    private Date curriculumTime;
+	private String menuId;
+	private String menuName;
+	private String scoreTypeId;
+	private String scoreTypeName;
+	private String teachMethodId;
+	private String teachMethodName;
+	private String courseId;
+	private String courseName;
+	private String gradeId;
+	private String gradeName;
+	private String gradeCount;
+	private String LecturerId;
+	private String LecturerName;
+	private String assistantName;
+	private String HeadmasterName;
+	/**
+	 * 开课时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-M-d HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-M-d HH:mm:ss", timezone = "GMT+8")
+	private Date curriculumTime;
 
-    @DateTimeFormat(pattern = "yyyy-M-d- HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-M-d- HH:mm:ss", timezone = "GMT+8")
-    private Date stopTime;
+	@DateTimeFormat(pattern = "yyyy-M-d- HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-M-d- HH:mm:ss", timezone = "GMT+8")
+	private Date stopTime;
 
-    @JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
-    private Date createTime;
-    
+	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
+	private Date createTime;
+
 	public String getMenuId() {
 		return menuId;
 	}
@@ -176,14 +176,13 @@ public class StudentManagerVo extends OnlineBaseVo{
 	}
 
 	@Override
-    public Date getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
 	@Override
-    public void setCreateTime(Date createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	 
-    
+
 }

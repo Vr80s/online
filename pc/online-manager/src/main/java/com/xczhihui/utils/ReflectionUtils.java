@@ -10,40 +10,46 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 public class ReflectionUtils {
-   
-	public static Object invokeGetterMethod(Object obj , Field field){
-		String getterMethodName ="";
-		if(field.getType().getName().equals((boolean.class).getName())||field.getType().getName().equals((Boolean.class).getName())){
-			 getterMethodName = "is" + StringUtils.capitalize(field.getName());
-		}else{
+
+	public static Object invokeGetterMethod(Object obj, Field field) {
+		String getterMethodName = "";
+		if (field.getType().getName().equals((boolean.class).getName())
+				|| field.getType().getName().equals((Boolean.class).getName())) {
+			getterMethodName = "is" + StringUtils.capitalize(field.getName());
+		} else {
 			getterMethodName = "get" + StringUtils.capitalize(field.getName());
 		}
-		return invokeMethod(obj, getterMethodName, new Class[] {},new Object[] {});
+		return invokeMethod(obj, getterMethodName, new Class[] {},
+				new Object[] {});
 	}
-	
+
 	/**
 	 * 调用Getter方法.
 	 */
 	public static Object invokeGetterMethod(Object obj, String propertyName) {
-		String getterMethodName ="";
-		Field field = getAccessibleField(obj,propertyName);
+		String getterMethodName = "";
+		Field field = getAccessibleField(obj, propertyName);
 		try {
-			if(field.getType().getName().equals((boolean.class).getName())
-					|| field.getType().getName().equals((Boolean.class).getName())){
-				if(!"is".equals(propertyName.substring(0, 2))){
-					getterMethodName="is"+StringUtils.capitalize(propertyName);
-				}else{
-					getterMethodName="get"+StringUtils.capitalize(propertyName);
+			if (field.getType().getName().equals((boolean.class).getName())
+					|| field.getType().getName()
+							.equals((Boolean.class).getName())) {
+				if (!"is".equals(propertyName.substring(0, 2))) {
+					getterMethodName = "is"
+							+ StringUtils.capitalize(propertyName);
+				} else {
+					getterMethodName = "get"
+							+ StringUtils.capitalize(propertyName);
 				}
-				
-			}else{
-			 getterMethodName = "get" + StringUtils.capitalize(propertyName);
+
+			} else {
+				getterMethodName = "get" + StringUtils.capitalize(propertyName);
 			}
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} 
-		
-		return invokeMethod(obj, getterMethodName, new Class[] {},new Object[] {});
+		}
+
+		return invokeMethod(obj, getterMethodName, new Class[] {},
+				new Object[] {});
 	}
 
 	/**
@@ -76,7 +82,7 @@ public class ReflectionUtils {
 		return list;
 
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static List<Method> getMethodAndSuperMethod(Object obj) {
 		Class _class = obj.getClass();
@@ -166,15 +172,14 @@ public class ReflectionUtils {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 循环向上转型, 获取对象的DeclaredField, 并强制设置为可访问.
 	 * 
 	 * 如向上转型到Object仍无法找到, 返回null.
 	 */
 	@SuppressWarnings("rawtypes")
-	public static Field getAllField(final Class obj,
-			final String fieldName) {
+	public static Field getAllField(final Class obj, final String fieldName) {
 		for (Class<?> superClass = obj; superClass != Object.class; superClass = superClass
 				.getSuperclass()) {
 			try {
@@ -187,46 +192,48 @@ public class ReflectionUtils {
 		}
 		return null;
 	}
-	
-	
+
 	/**
 	 * @category 查看是否为parent的子类
-	 * @param obj 需要查看的类 
-	 * @param parent 父类 
+	 * @param obj
+	 *            需要查看的类
+	 * @param parent
+	 *            父类
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public static boolean isInherit(final Class obj, final Class parent,boolean isCheckInterface){
-		if(obj==parent){
+	public static boolean isInherit(final Class obj, final Class parent,
+			boolean isCheckInterface) {
+		if (obj == parent) {
 			return true;
 		}
-		for (Class<?> superClass = obj; superClass!=null&&superClass != Object.class; superClass = superClass
+		for (Class<?> superClass = obj; superClass != null
+				&& superClass != Object.class; superClass = superClass
 				.getSuperclass()) {
-			if(superClass==parent){
+			if (superClass == parent) {
 				return true;
 			}
 		}
-		if(isCheckInterface){
-			return isInterface(obj,parent);
-			
+		if (isCheckInterface) {
+			return isInterface(obj, parent);
+
 		}
 		return false;
 	}
-	
-	private static boolean isInterface(final Class<?> obj,
-			final Class<?> parent){
-		Class<?>[] interfaces =  obj.getInterfaces();
-		if(interfaces==null||interfaces.length==0){
+
+	private static boolean isInterface(final Class<?> obj, final Class<?> parent) {
+		Class<?>[] interfaces = obj.getInterfaces();
+		if (interfaces == null || interfaces.length == 0) {
 			return false;
 		}
 		for (Class<?> class1 : interfaces) {
-			if(class1==parent){
+			if (class1 == parent) {
 				return true;
 			}
-			if(isInterface(class1,parent)){
+			if (isInterface(class1, parent)) {
 				return true;
 			}
-			
+
 		}
 		return false;
 	}
@@ -262,7 +269,8 @@ public class ReflectionUtils {
 		for (Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass
 				.getSuperclass()) {
 			try {
-				Method method = superClass.getDeclaredMethod(methodName,parameterTypes);
+				Method method = superClass.getDeclaredMethod(methodName,
+						parameterTypes);
 
 				method.setAccessible(true);
 
@@ -302,47 +310,49 @@ public class ReflectionUtils {
 	 *         determined
 	 */
 	@SuppressWarnings("rawtypes")
-	public static Class getSuperClassGenricType(final Class clazz,final int index) {
+	public static Class getSuperClassGenricType(final Class clazz,
+			final int index) {
 
 		Type genType = clazz.getGenericSuperclass();
 
 		if (!(genType instanceof ParameterizedType)) {
-			
+
 			return Object.class;
 		}
 
 		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
 
 		if (index >= params.length || index < 0) {
-			
+
 			return Object.class;
 		}
 		if (!(params[index] instanceof Class)) {
-			
+
 			return Object.class;
 		}
 
 		return (Class) params[index];
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static Class getInterFaceClassGenricType(final Class clazz,
 			final int index) {
-		Type[] types =  clazz.getGenericInterfaces();
+		Type[] types = clazz.getGenericInterfaces();
 		for (Type genType : types) {
 			if (!(genType instanceof ParameterizedType)) {
-			
+
 				return Object.class;
 			}
 
-			Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+			Type[] params = ((ParameterizedType) genType)
+					.getActualTypeArguments();
 
 			if (index >= params.length || index < 0) {
-				
+
 				continue;
 			}
 			if (!(params[index] instanceof Class)) {
-			
+
 				continue;
 			}
 			return (Class) params[index];

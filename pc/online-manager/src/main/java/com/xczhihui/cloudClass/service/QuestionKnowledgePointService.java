@@ -21,10 +21,12 @@ public interface QuestionKnowledgePointService {
 
 	/**
 	 * 题目列表关联
+	 * 
 	 * @param kpid
 	 * @param quesionsIds
 	 */
 	public void addKnowledgePoints(List<String> kpid, List<String> quesionsIds);
+
 	/**
 	 * 通过题目主键id从知识点题目关系对应表获取该题目的所有知识点name
 	 * 
@@ -48,6 +50,7 @@ public interface QuestionKnowledgePointService {
 	 * @return
 	 */
 	public List<String> getKnowledgePointsByQuestionsIds(List<String> ids);
+
 	/**
 	 * 删除题目对应的所有知识点
 	 */
@@ -60,37 +63,46 @@ public interface QuestionKnowledgePointService {
 	 * @return
 	 */
 	public Set<String> getQuestionIdsInKpointIds(List<String> knowledgePointIds);
-	
-	
+
 	/**
 	 * 通过知识点ID和试卷类型获取题ID
 	 * 
 	 * @param knowledgePointIds
 	 * @return
 	 */
-	public Set<String> getQuestionIdsInKpointIds(List<String> knowledgePointIds,String type);
+	public Set<String> getQuestionIdsInKpointIds(
+			List<String> knowledgePointIds, String type);
+
 	/**
 	 * 
 	 * @param kpointIds
 	 * @param list
 	 * @return
 	 */
-	public Set<String> getQuestionIdsInKpointIdsNotInQuestionIds(List<String> knowledgePointIds, List<String> list);
+	public Set<String> getQuestionIdsInKpointIdsNotInQuestionIds(
+			List<String> knowledgePointIds, List<String> list);
+
 	/**
 	 * 题的标签获取题
+	 * 
 	 * @param kpointIds
 	 * @param list
 	 * @return
 	 */
-	public Set<String> getQuestionIdsInKpointIdsNotInQuestionIds(List<String> knowledgePointIds, List<String> list,String type);
+	public Set<String> getQuestionIdsInKpointIdsNotInQuestionIds(
+			List<String> knowledgePointIds, List<String> list, String type);
+
 	/**
 	 * 通过题目id获取按','分隔的知识点名称字符串数据
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public String getKnowledgePointsNameString(String id);
+
 	/**
 	 * 通过题目id获取按','分隔的知识点id字符串数据
+	 * 
 	 * @param id
 	 * @return
 	 */

@@ -17,29 +17,31 @@ import com.xczhihui.cloudClass.vo.StudentManagerVo;
 @RequestMapping("cloudclass/studentmanager")
 public class StudentManagerController {
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
-	
+
 	@Autowired
-	StudentManagerService studentManagerService ;
+	StudentManagerService studentManagerService;
+
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
-		
+
 		return CLOUD_CLASS_PATH_PREFIX + "/studentManager";
 	}
-	
-	//@RequiresPermissions("cloudClass:menu：student")
+
+	// @RequiresPermissions("cloudClass:menu：student")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo studentmanagers(TableVo tableVo) {
 		int pageSize = tableVo.getiDisplayLength();
-        int index = tableVo.getiDisplayStart();
-        int currentPage = index / pageSize + 1;
-        String params = tableVo.getsSearch();
-        Groups groups = Tools.filterGroup(params);
-        
-        StudentManagerVo searchVo=new StudentManagerVo();
-        
-        studentManagerService.findstudentsInfoPage(searchVo, currentPage, pageSize);
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
+
+		StudentManagerVo searchVo = new StudentManagerVo();
+
+		studentManagerService.findstudentsInfoPage(searchVo, currentPage,
+				pageSize);
 		return null;
 	}
-	
+
 }

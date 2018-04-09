@@ -25,7 +25,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
  */
 @Service("giftService")
 public class GiftServiceImpl extends OnlineBaseServiceImpl implements
-        GiftService {
+		GiftService {
 
 	@Autowired
 	private GiftDao giftDao;
@@ -209,7 +209,7 @@ public class GiftServiceImpl extends OnlineBaseServiceImpl implements
 				dao.update(gift);
 			}
 		}
-		
+
 	}
 
 }

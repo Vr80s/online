@@ -333,7 +333,7 @@
 	       <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>渠道名称： </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="name" id="editChannel_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
+				 	<input type="text" name="name" id="editName_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
 	             </div>
 			</div>
 			
@@ -370,12 +370,39 @@
              </div>
              
               <div class="col-sm-3">	
-                <select id="edit_county" name="county" onchange="onchangeCountyEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+                <select id="edit_county" name="area" onchange="onchangeCountyEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
  　　　　　　　　			<option id='edit_chooseCounty' value='-1'>请选择您所在县区</option>
  　　　　		　　 </select>
  				<input type="hidden" name ="realCounty"  id="edit_realCounty"/>
              </div>
+             
 		</div>
+		
+		 <div class="form-group" style="margin-top: 18px;">
+			<label class="col-sm-3 control-label no-padding-right">二维码: </label>
+	        <div class="col-sm-6">
+	      <!--   <p id="qrCodeImg" class="paddingtop7px padding7"></p> -->
+	        <textarea rows="3" style="width:100%" disabled="disabled" cols="20" id="qrCodeImg">			</textarea>
+	        </div>
+		 </div>
+		 
+		 <div class="form-group" style="margin-top: 18px;">
+			<label class="col-sm-3 control-label no-padding-right">自定义二维码: </label>
+	        <div class="col-sm-6"><p id="customQrCodeUrl" class="paddingtop7px padding7"></p></div>
+		 </div>
+		 
+		 
+		 <div class="form-group" style="margin-top: 5px;">
+		    <label class="col-sm-3 control-label no-padding-right" style="color: #21201d;font-weight: 800;">备注: </label>
+			<div class="col-sm-6"><p id="customQrCodeUrl" style="color: #21201d;font-weight: 800;"
+			class="paddingtop7px padding7;">自定义二维码可通过第三方二维码生成器进行生产。将自定义二维码连接生产二维码 </p></div>
+		 </div>
+		 
+		  <div class="form-group" style="margin-left: 20%;text-align: left;margin-top: 5px;">
+			 <a href="https://cli.im/" title="草料二维码生成器" 
+			 style="color: blue;text-decoration: underline;" target="_blank">草料二维码生成器</a>
+		 </div>
+		 
 		</form>
 	</div>
 	

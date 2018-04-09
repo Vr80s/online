@@ -21,12 +21,13 @@ import com.xczhihui.cloudClass.vo.LecturerVo;
 
 /**
  * 课程管理控制层实现类
+ * 
  * @author yxd
  */
 
 @Controller
 @RequestMapping("cloudclass/course-jfyl")
-public class CourseJfylController extends AbstractController{
+public class CourseJfylController extends AbstractController {
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
 	@Autowired
 	private CourseService courseService;
@@ -34,36 +35,37 @@ public class CourseJfylController extends AbstractController{
 	private AttachmentCenterService att;
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
-	
+
 	@Autowired
 	private OnlineUserService onlineUserService;
-	
+
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
-		
-		List<Menu> menuVos= courseService.getfirstMenus(3);
+
+		List<Menu> menuVos = courseService.getfirstMenus(3);
 		request.setAttribute("menuVo", menuVos);
-		
-		//在列表初始化时查找出课程类别
+
+		// 在列表初始化时查找出课程类别
 		List<ScoreType> scoreTypeVos = courseService.getScoreType();
 		request.setAttribute("scoreTypeVo", scoreTypeVos);
-		
-		//在列表初始化时查找出授课方式
-		List<TeachMethod> teachMethodVos= courseService.getTeachMethod();
+
+		// 在列表初始化时查找出授课方式
+		List<TeachMethod> teachMethodVos = courseService.getTeachMethod();
 		request.setAttribute("teachMethodVo", teachMethodVos);
-		
+
 		List<LecturerVo> lecturers = courseService.getLecturers();
 		request.setAttribute("lecturerVo", lecturers);
 		request.setAttribute("type", 3);
-		
-		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
+
+		List<Map<String, Object>> mapList = onlineUserService
+				.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
-			String str = "昵称:"+map.get("name").toString() + ",帐号:"+map.get("logo").toString();
+			String str = "昵称:" + map.get("name").toString() + ",帐号:"
+					+ map.get("logo").toString();
 			map.put("name", str);
 		}
 		request.setAttribute("mapList", mapList);
-		
-		
+
 		return CLOUD_CLASS_PATH_PREFIX + "/course";
 	}
 

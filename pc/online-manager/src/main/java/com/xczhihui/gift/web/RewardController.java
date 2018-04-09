@@ -46,7 +46,7 @@ public class RewardController extends AbstractController {
 		return GIFT_PATH_PREFIX + "/reward";
 	}
 
-	//@RequiresPermissions("gift:menu:reward")
+	// @RequiresPermissions("gift:menu:reward")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo gifts(TableVo tableVo) {
@@ -63,8 +63,8 @@ public class RewardController extends AbstractController {
 		if (status != null) {
 			searchVo.setStatus((boolean) status.getPropertyValue1());
 		}
-		Page<RewardVo> page = rewardService.findRewardPage(searchVo, currentPage,
-				pageSize);
+		Page<RewardVo> page = rewardService.findRewardPage(searchVo,
+				currentPage, pageSize);
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
@@ -79,7 +79,7 @@ public class RewardController extends AbstractController {
 	 * @param id
 	 * @return
 	 */
-	//@RequiresPermissions("gift:menu:reward")
+	// @RequiresPermissions("gift:menu:reward")
 	@RequestMapping(value = "findRewardById", method = RequestMethod.GET)
 	@ResponseBody
 	public RewardVo findRewardById(Integer id) {
@@ -92,7 +92,7 @@ public class RewardController extends AbstractController {
 	 * @param courseVo
 	 * @return
 	 */
-	//@RequiresPermissions("gift:menu:reward")
+	// @RequiresPermissions("gift:menu:reward")
 	@RequestMapping(value = "updateRewardById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateRewardById(RewardVo giftVo) {
@@ -122,7 +122,7 @@ public class RewardController extends AbstractController {
 		rewardService.updateStatus(id);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
-	
+
 	/**
 	 * 设置分成
 	 * 
@@ -131,8 +131,8 @@ public class RewardController extends AbstractController {
 	 */
 	@RequestMapping(value = "updateBrokerage", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject updateBrokerage(String ids,String brokerage) {
-		rewardService.updateBrokerage(ids,brokerage);
+	public ResponseObject updateBrokerage(String ids, String brokerage) {
+		rewardService.updateBrokerage(ids, brokerage);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
 

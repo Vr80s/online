@@ -19,91 +19,99 @@ import com.xczhihui.utils.Group;
 
 @Controller
 @RequestMapping(value = "/recharge")
-public class RechargeController{
-	
+public class RechargeController {
+
 	@Autowired
 	private RechargeService rechargeService;
-	
+
 	/**
-     * 
-     * @return
-     */
-    @RequestMapping(value = "/index")
-    public ModelAndView index(){
-         ModelAndView mav=new ModelAndView("/order/recharge");
-         return mav;
-    }
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/index")
+	public ModelAndView index() {
+		ModelAndView mav = new ModelAndView("/order/recharge");
+		return mav;
+	}
 
-	//@RequiresPermissions("order:menu:order")
-    @RequestMapping(value = "/findRechargeList")
-    @ResponseBody
-    public TableVo findRechargeList(TableVo tableVo) {
-         int pageSize = tableVo.getiDisplayLength();
-         int index = tableVo.getiDisplayStart();
-         int currentPage = index / pageSize + 1;
-         String params = tableVo.getsSearch();
-         Groups groups = Tools.filterGroup(params);
+	// @RequiresPermissions("order:menu:order")
+	@RequestMapping(value = "/findRechargeList")
+	@ResponseBody
+	public TableVo findRechargeList(TableVo tableVo) {
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
 
-         
-         Group startTimeGroup = groups.findByName("startTime");
-         Group stopTimeGroup = groups.findByName("stopTime");
-         Group payTypeGroup = groups.findByName("search_payType");
-         Group orderNoGroup = groups.findByName("search_orderNo");
-         Group orderFromGroup = groups.findByName("order_from");
-         Group createPersonNameGroup = groups.findByName("search_createPersonName");
-         
-         UserCoinIncrease searchVo=new UserCoinIncrease();
-         
-         if(startTimeGroup!=null){
-             searchVo.setStartTime(DateUtil.parseDate(startTimeGroup.getPropertyValue1().toString(),"yyyy-MM-dd"));
-         }
+		Group startTimeGroup = groups.findByName("startTime");
+		Group stopTimeGroup = groups.findByName("stopTime");
+		Group payTypeGroup = groups.findByName("search_payType");
+		Group orderNoGroup = groups.findByName("search_orderNo");
+		Group orderFromGroup = groups.findByName("order_from");
+		Group createPersonNameGroup = groups
+				.findByName("search_createPersonName");
 
-         if(stopTimeGroup!=null){
-        	 searchVo.setStopTime(DateUtil.parseDate(stopTimeGroup.getPropertyValue1().toString(),"yyyy-MM-dd"));
-         }
-        
-         if(payTypeGroup!=null){
-        	 searchVo.setPayType(Integer.parseInt(payTypeGroup.getPropertyValue1().toString()));
-         }
-         
-         if(orderNoGroup!=null){
-        	 searchVo.setOrderNoRecharge(orderNoGroup.getPropertyValue1().toString());
-         }
-         
-         if(orderFromGroup!=null){
-        	 searchVo.setOrderFrom(Integer.valueOf(orderFromGroup.getPropertyValue1().toString()));
-         }
-         
-         if(createPersonNameGroup!=null){
-        	 searchVo.setUserId(createPersonNameGroup.getPropertyValue1().toString());
-         }
+		UserCoinIncrease searchVo = new UserCoinIncrease();
 
-         Page<UserCoinIncrease> page = rechargeService.findUserCoinIncreasePage(searchVo, currentPage, pageSize);
+		if (startTimeGroup != null) {
+			searchVo.setStartTime(DateUtil.parseDate(startTimeGroup
+					.getPropertyValue1().toString(), "yyyy-MM-dd"));
+		}
 
-         int total = page.getTotalCount();
-         tableVo.setAaData(page.getItems());
-         tableVo.setiTotalDisplayRecords(total);
-         tableVo.setiTotalRecords(total);
-         return tableVo;
-    }
+		if (stopTimeGroup != null) {
+			searchVo.setStopTime(DateUtil.parseDate(stopTimeGroup
+					.getPropertyValue1().toString(), "yyyy-MM-dd"));
+		}
+
+		if (payTypeGroup != null) {
+			searchVo.setPayType(Integer.parseInt(payTypeGroup
+					.getPropertyValue1().toString()));
+		}
+
+		if (orderNoGroup != null) {
+			searchVo.setOrderNoRecharge(orderNoGroup.getPropertyValue1()
+					.toString());
+		}
+
+		if (orderFromGroup != null) {
+			searchVo.setOrderFrom(Integer.valueOf(orderFromGroup
+					.getPropertyValue1().toString()));
+		}
+
+		if (createPersonNameGroup != null) {
+			searchVo.setUserId(createPersonNameGroup.getPropertyValue1()
+					.toString());
+		}
+
+		Page<UserCoinIncrease> page = rechargeService.findUserCoinIncreasePage(
+				searchVo, currentPage, pageSize);
+
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+	}
 
 	/**
 	 * 批量逻辑删除
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-    @RequestMapping(value = "deletes", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject deletes(String ids) {
-         ResponseObject responseObject=new ResponseObject();
-         if(ids!=null) {
-              String[] _ids = ids.split(",");
-              rechargeService.deletes(_ids);
-         }
-         responseObject.setSuccess(true);
-         responseObject.setErrorMessage("删除完成!");
-         return responseObject;
-    }
-    
+	@RequestMapping(value = "deletes", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject deletes(String ids) {
+		ResponseObject responseObject = new ResponseObject();
+		if (ids != null) {
+			String[] _ids = ids.split(",");
+			rechargeService.deletes(_ids);
+		}
+		responseObject.setSuccess(true);
+		responseObject.setErrorMessage("删除完成!");
+		return responseObject;
+	}
 
 }

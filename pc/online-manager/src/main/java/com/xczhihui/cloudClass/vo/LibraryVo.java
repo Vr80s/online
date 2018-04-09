@@ -1,6 +1,8 @@
 package com.xczhihui.cloudClass.vo;
+
 /**
  * 更新节点顺序vo
+ * 
  * @author www
  *
  */
@@ -9,7 +11,7 @@ public class LibraryVo {
 	private String id;
 
 	private String targetId;
-	
+
 	private String targetPId;
 
 	private String moveType;
@@ -46,6 +48,4 @@ public class LibraryVo {
 		this.targetPId = targetPId;
 	}
 
-	
-	
 }

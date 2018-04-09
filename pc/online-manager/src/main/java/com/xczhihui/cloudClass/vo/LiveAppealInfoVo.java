@@ -10,30 +10,28 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class LiveAppealInfoVo implements Serializable{
-	
-    private Integer id;
+public class LiveAppealInfoVo implements Serializable {
 
-    private String appealReason; //申诉理由
+	private Integer id;
 
-    private String examineId;  //审查id
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private String appealReason; // 申诉理由
+
+	private String examineId; // 审查id
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date appealTime;   //申诉时间
-    
-    private String reviewerPerson;//审核人
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date reviewerTime;    //审核时间
-	
-    private String againstReason; //驳回理由
-    
-    
-    private String name; //审核人名字
-    
-    
+	private Date appealTime; // 申诉时间
+
+	private String reviewerPerson;// 审核人
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date reviewerTime; // 审核时间
+
+	private String againstReason; // 驳回理由
+
+	private String name; // 审核人名字
+
 	public Integer getId() {
 		return id;
 	}
@@ -49,7 +47,6 @@ public class LiveAppealInfoVo implements Serializable{
 	public void setAppealReason(String appealReason) {
 		this.appealReason = appealReason;
 	}
-
 
 	public Date getAppealTime() {
 		return appealTime;
@@ -98,7 +95,5 @@ public class LiveAppealInfoVo implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
+
 }

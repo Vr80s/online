@@ -31,156 +31,162 @@ import com.xczhihui.bxg.online.common.domain.User;
 @RequestMapping(value = "/cloudClass/teachMethod")
 public class TeachMethodController {
 
-    @Autowired
-    private TeachMethodService teachMethodService;
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private TeachMethodService teachMethodService;
+	@Autowired
+	private UserService userService;
 
-    @RequestMapping(value = "/index")
-    public ModelAndView index() {
-        ModelAndView mav = new ModelAndView("cloudClass/teachMethod");
-        return mav;
-    }
+	@RequestMapping(value = "/index")
+	public ModelAndView index() {
+		ModelAndView mav = new ModelAndView("cloudClass/teachMethod");
+		return mav;
+	}
 
-    //@RequiresPermissions("cloudClass:menu:teachMethod")
-    @RequestMapping(value = "list")
-    @ResponseBody
-    public TableVo list(TableVo tableVo) {
-        int pageSize = tableVo.getiDisplayLength();
-        int index = tableVo.getiDisplayStart();
-        int currentPage = index / pageSize + 1;
-        TeachMethodVo teachMethodVo = new TeachMethodVo();
-        Page<TeachMethodVo> page = teachMethodService.findTeachMethodPage(teachMethodVo, currentPage, pageSize);
-        if (page.getItems().size() > 0) {
-            for (TeachMethodVo vo : page.getItems()) {
-                User user = userService.getUserById(vo.getCreatePerson());
-                if (user != null) {
-                    vo.setCreatePerson(user.getName());
-                }
-            }
-        }
-        int total = page.getTotalCount();
-        tableVo.setAaData(page.getItems());
-        tableVo.setiTotalDisplayRecords(total);
-        tableVo.setiTotalRecords(total);
-        return tableVo;
-    }
+	// @RequiresPermissions("cloudClass:menu:teachMethod")
+	@RequestMapping(value = "list")
+	@ResponseBody
+	public TableVo list(TableVo tableVo) {
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		TeachMethodVo teachMethodVo = new TeachMethodVo();
+		Page<TeachMethodVo> page = teachMethodService.findTeachMethodPage(
+				teachMethodVo, currentPage, pageSize);
+		if (page.getItems().size() > 0) {
+			for (TeachMethodVo vo : page.getItems()) {
+				User user = userService.getUserById(vo.getCreatePerson());
+				if (user != null) {
+					vo.setCreatePerson(user.getName());
+				}
+			}
+		}
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+	}
 
-    /**
-     * 添加数据
-     *
-     * @param scoreTypeVo
-     * @return
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     */
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject add(TeachMethodVo teachMethodVo) throws InvocationTargetException, IllegalAccessException {
-        ResponseObject responseObj = new ResponseObject();
-        TeachMethod entity = new TeachMethod();
-        BeanUtils.copyProperties(entity, teachMethodVo);
-        entity.setName(teachMethodVo.getName());
-        entity.setRemark(teachMethodVo.getRemark());
-        if (entity.getName() == null) {
-            throw new IllegalArgumentException("请输入授课方式名称");
-        }
-        List<TeachMethod> existsEntitys = teachMethodService.findTeachMethodByName(entity.getName());
-        for (TeachMethod existsEntity : existsEntitys) {
-            if (existsEntity != null && existsEntity.isDelete() != true) {
-                throw new IllegalArgumentException("已经存在");
-            }
-        }
-        entity.setCreatePerson(ManagerUserUtil.getName());
-        entity.setCreateTime(new Date());
-        entity.setSort(teachMethodService.getMaxSort() + 1);
-        entity.setStatus(false);
+	/**
+	 * 添加数据
+	 *
+	 * @param scoreTypeVo
+	 * @return
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 */
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject add(TeachMethodVo teachMethodVo)
+			throws InvocationTargetException, IllegalAccessException {
+		ResponseObject responseObj = new ResponseObject();
+		TeachMethod entity = new TeachMethod();
+		BeanUtils.copyProperties(entity, teachMethodVo);
+		entity.setName(teachMethodVo.getName());
+		entity.setRemark(teachMethodVo.getRemark());
+		if (entity.getName() == null) {
+			throw new IllegalArgumentException("请输入授课方式名称");
+		}
+		List<TeachMethod> existsEntitys = teachMethodService
+				.findTeachMethodByName(entity.getName());
+		for (TeachMethod existsEntity : existsEntitys) {
+			if (existsEntity != null && existsEntity.isDelete() != true) {
+				throw new IllegalArgumentException("已经存在");
+			}
+		}
+		entity.setCreatePerson(ManagerUserUtil.getName());
+		entity.setCreateTime(new Date());
+		entity.setSort(teachMethodService.getMaxSort() + 1);
+		entity.setStatus(false);
 
-        try {
-            teachMethodService.save(entity);
-            responseObj.setSuccess(true);
-            responseObj.setErrorMessage("新增授课方式成功");
-        } catch (Exception e) {
-            responseObj.setSuccess(false);
-            responseObj.setErrorMessage("新增授课方式失败");
-        }
+		try {
+			teachMethodService.save(entity);
+			responseObj.setSuccess(true);
+			responseObj.setErrorMessage("新增授课方式成功");
+		} catch (Exception e) {
+			responseObj.setSuccess(false);
+			responseObj.setErrorMessage("新增授课方式失败");
+		}
 
-        return responseObj;
-    }
+		return responseObj;
+	}
 
-    /**
-     * 更新课程类别管理表
-     *
-     * @param menu
-     * @return
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     */
-    @RequestMapping(value = "update", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject update(TeachMethodVo teachMethodVo) throws InvocationTargetException, IllegalAccessException {
-        ResponseObject responseObject = new ResponseObject();
-        TeachMethod entity = new TeachMethod();
-        BeanUtils.copyProperties(entity, teachMethodVo);
-        entity.setName(teachMethodVo.getName());
-        if (teachMethodVo == null) {
-            throw new IllegalArgumentException("不存在记录");
-        }
-        TeachMethod searchEntity = teachMethodService.findById(teachMethodVo.getId());
-        searchEntity.setName(teachMethodVo.getName());
-        if (teachMethodService.exists(searchEntity)) {
-            throw new IllegalArgumentException("已经存在了");
-        }
-        TeachMethod me = teachMethodService.findById(teachMethodVo.getId());
-        me.setName(entity.getName());
-        me.setRemark(entity.getRemark());
-        teachMethodService.update(me);
-        responseObject.setSuccess(true);
-        responseObject.setErrorMessage("更新授课方式成功!");
-        return responseObject;
-    }
+	/**
+	 * 更新课程类别管理表
+	 *
+	 * @param menu
+	 * @return
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 */
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject update(TeachMethodVo teachMethodVo)
+			throws InvocationTargetException, IllegalAccessException {
+		ResponseObject responseObject = new ResponseObject();
+		TeachMethod entity = new TeachMethod();
+		BeanUtils.copyProperties(entity, teachMethodVo);
+		entity.setName(teachMethodVo.getName());
+		if (teachMethodVo == null) {
+			throw new IllegalArgumentException("不存在记录");
+		}
+		TeachMethod searchEntity = teachMethodService.findById(teachMethodVo
+				.getId());
+		searchEntity.setName(teachMethodVo.getName());
+		if (teachMethodService.exists(searchEntity)) {
+			throw new IllegalArgumentException("已经存在了");
+		}
+		TeachMethod me = teachMethodService.findById(teachMethodVo.getId());
+		me.setName(entity.getName());
+		me.setRemark(entity.getRemark());
+		teachMethodService.update(me);
+		responseObject.setSuccess(true);
+		responseObject.setErrorMessage("更新授课方式成功!");
+		return responseObject;
+	}
 
-    /**
-     * 删除数据
-     *
-     * @param ids
-     * @return
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     */
-    @RequestMapping(value = "deletes", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject deletes(String ids) throws InvocationTargetException, IllegalAccessException {
-        ResponseObject responseObject = new ResponseObject();
-        if (ids != null) {
-            String[] _ids = ids.split(",");
-            teachMethodService.deletes(_ids);
-        }
-        responseObject.setSuccess(true);
-        responseObject.setErrorMessage("删除成功!");
-        return responseObject;
-    }
+	/**
+	 * 删除数据
+	 *
+	 * @param ids
+	 * @return
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 */
+	@RequestMapping(value = "deletes", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject deletes(String ids) throws InvocationTargetException,
+			IllegalAccessException {
+		ResponseObject responseObject = new ResponseObject();
+		if (ids != null) {
+			String[] _ids = ids.split(",");
+			teachMethodService.deletes(_ids);
+		}
+		responseObject.setSuccess(true);
+		responseObject.setErrorMessage("删除成功!");
+		return responseObject;
+	}
 
-    /**
-     * 禁用or启用
-     *
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "updateStatus", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject updateStatus(String id) {
-        ResponseObject responseObj = new ResponseObject();
-        try {
-            teachMethodService.updateStatus(id);
-            responseObj.setSuccess(true);
-            responseObj.setErrorMessage("操作成功");
-        } catch (Exception e) {
-            responseObj.setSuccess(false);
-            responseObj.setErrorMessage("操作失败");
-        }
-        return responseObj;
-    }
+	/**
+	 * 禁用or启用
+	 *
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "updateStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateStatus(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		try {
+			teachMethodService.updateStatus(id);
+			responseObj.setSuccess(true);
+			responseObj.setErrorMessage("操作成功");
+		} catch (Exception e) {
+			responseObj.setSuccess(false);
+			responseObj.setErrorMessage("操作失败");
+		}
+		return responseObj;
+	}
 
 }

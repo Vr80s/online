@@ -20,14 +20,17 @@ import com.xczhihui.gift.service.RewardService;
  * @author Rongcai Kang
  */
 @Service("rewardService")
-public class RewardServiceImpl extends OnlineBaseServiceImpl implements RewardService {
+public class RewardServiceImpl extends OnlineBaseServiceImpl implements
+		RewardService {
 
 	@Autowired
 	private RewardDao rewardDao;
 
 	@Override
-	public Page<RewardVo> findRewardPage(RewardVo giftVo, int pageNumber, int pageSize) {
-		Page<RewardVo> page = rewardDao.findRewardPage(giftVo, pageNumber, pageSize);
+	public Page<RewardVo> findRewardPage(RewardVo giftVo, int pageNumber,
+			int pageSize) {
+		Page<RewardVo> page = rewardDao.findRewardPage(giftVo, pageNumber,
+				pageSize);
 		return page;
 
 	}
@@ -57,7 +60,6 @@ public class RewardServiceImpl extends OnlineBaseServiceImpl implements RewardSe
 		return giftVo;
 	}
 
-
 	@Override
 	public void updateReward(RewardVo giftVo) throws IllegalAccessException,
 			InvocationTargetException {
@@ -66,9 +68,9 @@ public class RewardServiceImpl extends OnlineBaseServiceImpl implements RewardSe
 		giftVo.setCreatePerson(gift.getCreatePerson());
 		giftVo.setStatus(gift.isStatus());
 		giftVo.setCreateTime(new Date());
-		if(giftVo.getPrice()==0){
+		if (giftVo.getPrice() == 0) {
 			giftVo.setIsFreeDom(true);
-		}else{
+		} else {
 			giftVo.setIsFreeDom(false);
 		}
 		BeanUtils.copyProperties(gift, giftVo);
@@ -136,7 +138,7 @@ public class RewardServiceImpl extends OnlineBaseServiceImpl implements RewardSe
 				dao.update(reward);
 			}
 		}
-		
+
 	}
 
 }

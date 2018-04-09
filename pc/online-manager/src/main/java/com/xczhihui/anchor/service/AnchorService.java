@@ -11,33 +11,40 @@ public interface AnchorService {
 	 *
 	 * @return
 	 */
-    public Page<CourseAnchor> findCourseAnchorPage(CourseAnchor courseAnchor, int pageNumber, int pageSize);
+	public Page<CourseAnchor> findCourseAnchorPage(CourseAnchor courseAnchor,
+			int pageNumber, int pageSize);
 
-    CourseAnchor findCourseAnchorById(Integer id);
+	CourseAnchor findCourseAnchorById(Integer id);
 
-    CourseAnchor findCourseAnchorByUserId(String userId);
+	CourseAnchor findCourseAnchorByUserId(String userId);
 
-    void updateCourseAnchor(CourseAnchor courseAnchor);
+	void updateCourseAnchor(CourseAnchor courseAnchor);
 
 	void updatePermissions(Integer id);
 
-    Page<AnchorIncomeVO> findCourseAnchorIncomePage(CourseAnchor searchVo, int currentPage, int pageSize);
+	Page<AnchorIncomeVO> findCourseAnchorIncomePage(CourseAnchor searchVo,
+			int currentPage, int pageSize);
 
 	/**
 	 * 上移
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-	public void updateSortUpRec (Integer id);
+	public void updateSortUpRec(Integer id);
 
 	/**
 	 * 下移
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-	public void updateSortDownRec (Integer id);
+	public void updateSortDownRec(Integer id);
 
 	void updateRec(String[] ids, int isRec);
 
-	Page<CourseAnchor> findCourseAnchorRecPage(CourseAnchor searchVo, int currentPage, int pageSize);
+	Page<CourseAnchor> findCourseAnchorRecPage(CourseAnchor searchVo,
+			int currentPage, int pageSize);
 }

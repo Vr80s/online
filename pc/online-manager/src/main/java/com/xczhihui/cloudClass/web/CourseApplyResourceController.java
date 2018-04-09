@@ -21,12 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 资源管理控制层实现类
+ * 
  * @author yxd
  */
 
 @Controller
 @RequestMapping("cloudclass/courseResource")
-public class CourseApplyResourceController extends AbstractController{
+public class CourseApplyResourceController extends AbstractController {
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
 	@Autowired
 	private CourseApplyService courseApplyService;
@@ -35,58 +36,61 @@ public class CourseApplyResourceController extends AbstractController{
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
 
-	
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		return CLOUD_CLASS_PATH_PREFIX + "/courseApplyResource";
 	}
-	
-	//@RequiresPermissions("cloudClass:menu:course")
+
+	// @RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
-	      int pageSize = tableVo.getiDisplayLength();
-          int index = tableVo.getiDisplayStart();
-          int currentPage = index / pageSize + 1;
-          String params = tableVo.getsSearch();
-          Groups groups = Tools.filterGroup(params);
-          
-          CourseApplyResource searchVo=new CourseApplyResource();
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
 
-          Group title = groups.findByName("search_title");
-          if (title != null) {
-        	  searchVo.setTitle(title.getPropertyValue1().toString());
-          }
+		CourseApplyResource searchVo = new CourseApplyResource();
 
-          Group name = groups.findByName("search_name");
-          if (name != null) {
-        	  searchVo.setUserName(name.getPropertyValue1().toString());
-          }
+		Group title = groups.findByName("search_title");
+		if (title != null) {
+			searchVo.setTitle(title.getPropertyValue1().toString());
+		}
 
-          Group isDeleted = groups.findByName("search_isDeleted");
-          if (isDeleted != null) {
-        	  searchVo.setDeleted(isDeleted.getPropertyValue1().toString().equals("1"));
-          }
+		Group name = groups.findByName("search_name");
+		if (name != null) {
+			searchVo.setUserName(name.getPropertyValue1().toString());
+		}
 
-          Page<CourseApplyResource> page = courseApplyService.findCourseApplyResourcePage(searchVo, currentPage, pageSize);
-          int total = page.getTotalCount();
-          tableVo.setAaData(page.getItems());
-          tableVo.setiTotalDisplayRecords(total);
-          tableVo.setiTotalRecords(total);
-          return tableVo;
-		
+		Group isDeleted = groups.findByName("search_isDeleted");
+		if (isDeleted != null) {
+			searchVo.setDeleted(isDeleted.getPropertyValue1().toString()
+					.equals("1"));
+		}
+
+		Page<CourseApplyResource> page = courseApplyService
+				.findCourseApplyResourcePage(searchVo, currentPage, pageSize);
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+
 	}
 
 	/**
 	 * 删除资源
+	 * 
 	 * @return
 	 */
-	//@RequiresPermissions("cloudClass:menu:course")
+	// @RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject delete(Integer courseApplyResourceId){
+	public ResponseObject delete(Integer courseApplyResourceId) {
 		ResponseObject responseObj = new ResponseObject();
-		courseApplyService.deleteOrRecoveryCourseApplyResource(courseApplyResourceId,true);
+		courseApplyService.deleteOrRecoveryCourseApplyResource(
+				courseApplyResourceId, true);
 		responseObj.setSuccess(true);
 		responseObj.setErrorMessage("成功删除资源");
 		return responseObj;
@@ -94,14 +98,16 @@ public class CourseApplyResourceController extends AbstractController{
 
 	/**
 	 * 恢复资源
+	 * 
 	 * @return
 	 */
-	//@RequiresPermissions("cloudClass:menu:course")
+	// @RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "recovery", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject recovery(Integer courseApplyResourceId){
+	public ResponseObject recovery(Integer courseApplyResourceId) {
 		ResponseObject responseObj = new ResponseObject();
-		courseApplyService.deleteOrRecoveryCourseApplyResource(courseApplyResourceId,false);
+		courseApplyService.deleteOrRecoveryCourseApplyResource(
+				courseApplyResourceId, false);
 		responseObj.setSuccess(true);
 		responseObj.setErrorMessage("成功恢复资源");
 		return responseObj;

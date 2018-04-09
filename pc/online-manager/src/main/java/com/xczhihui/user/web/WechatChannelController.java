@@ -34,7 +34,7 @@ import com.xczhihui.user.service.WechatChannelService;
 @Controller
 @RequestMapping("wechatChannel")
 public class WechatChannelController extends AbstractController {
-	
+
 	protected final static String WechatChannel_PATH_PREFIX = "/onlineuser/";
 	@Autowired
 	private WechatChannelService WechatChannelService;
@@ -43,13 +43,12 @@ public class WechatChannelController extends AbstractController {
 	@Value("${online.web.url}")
 	private String weburl;
 
-	
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 
 		return WechatChannel_PATH_PREFIX + "/wechatChannel";
 	}
-	
+
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo WechatChannels(TableVo tableVo) {
@@ -66,9 +65,9 @@ public class WechatChannelController extends AbstractController {
 		if (status != null) {
 			searchVo.setStatus(status.getPropertyValue1().toString());
 		}
-		
-		Page<WechatChannelVo> page = WechatChannelService.findWechatChannelPage(searchVo, currentPage,
-				pageSize);
+
+		Page<WechatChannelVo> page = WechatChannelService
+				.findWechatChannelPage(searchVo, currentPage, pageSize);
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
@@ -98,17 +97,16 @@ public class WechatChannelController extends AbstractController {
 		}
 		return responseObj;
 	}
-
 	/**
 	 * 查看
-	 * 
 	 * @param id
 	 * @return
 	 */
-	//@RequiresPermissions("WechatChannel:menu")
+	// @RequiresPermissions("WechatChannel:menu")
 	@RequestMapping(value = "findCourseById", method = RequestMethod.GET)
 	@ResponseBody
 	public WechatChannelVo findWechatChannelById(Integer id) {
+		
 		return WechatChannelService.getWechatChannelById(id);
 	}
 
@@ -120,7 +118,8 @@ public class WechatChannelController extends AbstractController {
 	 */
 	@RequestMapping(value = "updateWechatChannelById", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject updateWechatChannelById(WechatChannelVo WechatChannelVo) {
+	public ResponseObject updateWechatChannelById(
+			WechatChannelVo WechatChannelVo) {
 		ResponseObject responseObj = new ResponseObject();
 
 		try {
@@ -160,7 +159,6 @@ public class WechatChannelController extends AbstractController {
 		WechatChannelService.deleteWechatChannelById(id);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
-	
 
 	/**
 	 * 上移

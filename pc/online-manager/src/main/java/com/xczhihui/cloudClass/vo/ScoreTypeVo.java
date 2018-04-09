@@ -9,36 +9,34 @@ import java.util.List;
 
 /**
  * 菜单web端调用的结果封装类
+ * 
  * @author Rongcai Kang
  */
 public class ScoreTypeVo extends OnlineBaseVo {
-    private String id;
-    /**
-     * 课程类别名称
-     */
-    private String name;
+	private String id;
+	/**
+	 * 课程类别名称
+	 */
+	private String name;
 
+	/**
+	 * 课程类别排序
+	 */
+	private Integer sort;
 
-    /**
-     * 课程类别排序
-     */
-    private Integer sort;
+	private Integer status;
 
+	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
+	private Date createTime;
 
-    private Integer status;
+	private Date time_start;
 
+	private Date time_end;
 
-    @JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
-    private Date createTime;
-    
-    private Date time_start;
+	private Integer menuCount;
+	private Integer type;
 
-    private Date time_end;
-    
-    private Integer menuCount;
-    private Integer type;
-    
-    public Integer getType() {
+	public Integer getType() {
 		return type;
 	}
 
@@ -63,11 +61,11 @@ public class ScoreTypeVo extends OnlineBaseVo {
 	}
 
 	/**
-     * 备注
-     */
-    private String remark;
-    
-    public String getRemark() {
+	 * 备注
+	 */
+	private String remark;
+
+	public String getRemark() {
 		return remark;
 	}
 
@@ -75,50 +73,47 @@ public class ScoreTypeVo extends OnlineBaseVo {
 		this.remark = remark;
 	}
 
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Integer getSort() {
+		return sort;
+	}
 
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
-    public Integer getSort() {
-        return sort;
-    }
+	public Integer getStatus() {
+		return status;
+	}
 
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
+	@Override
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	@Override
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public String getId() {
+		return id;
+	}
 
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public Integer getMenuCount() {
 		return menuCount;
@@ -128,6 +123,4 @@ public class ScoreTypeVo extends OnlineBaseVo {
 		this.menuCount = menuCount;
 	}
 
-    
-    
 }

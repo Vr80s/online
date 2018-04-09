@@ -4,47 +4,48 @@ import java.util.Date;
 
 /**
  * 友情链接Vo
+ * 
  * @author liuchenG
  * @date 2016-06-03
  *
  */
 public class OtherLinkVo {
-	
+
 	/**
 	 * id
 	 */
 	private String id;
-	
+
 	/**
 	 * 名称
 	 */
 	private String orgname;
-	
+
 	/**
 	 * 链接
 	 */
 	private String url;
-	
+
 	/**
 	 * 是否删除
 	 */
 	private boolean idDelete;
-	
+
 	/**
 	 * 创建时间
 	 */
 	private Date createTime;
-	
+
 	/**
-	 *创建人
+	 * 创建人
 	 */
 	private String createPerson;
-	
+
 	/**
 	 * 排序
 	 */
 	private Integer sort;
-	
+
 	/**
 	 * 是否禁用
 	 */
@@ -113,6 +114,5 @@ public class OtherLinkVo {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
-	
+
 }

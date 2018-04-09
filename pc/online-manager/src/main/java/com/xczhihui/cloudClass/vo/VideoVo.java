@@ -3,95 +3,94 @@ package com.xczhihui.cloudClass.vo;
 import java.util.Date;
 
 public class VideoVo {
-	
-	 	private Integer courseId;
-	   private Integer status;
 
-	    private Integer sort;
+	private Integer courseId;
+	private Integer status;
 
-	    private String chapterId;
+	private Integer sort;
 
-	    private String name;
+	private String chapterId;
 
-	    private String videoId;
+	private String name;
 
-	    private Date videoTime;
+	private String videoId;
 
-	    private String videoSize;
-	    
-	    private Boolean isTryLearn;
+	private Date videoTime;
 
-		public Integer getStatus() {
-			return status;
-		}
+	private String videoSize;
 
-		public void setStatus(Integer status) {
-			this.status = status;
-		}
+	private Boolean isTryLearn;
 
-		public Integer getSort() {
-			return sort;
-		}
+	public Integer getStatus() {
+		return status;
+	}
 
-		public void setSort(Integer sort) {
-			this.sort = sort;
-		}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-		public String getChapterId() {
-			return chapterId;
-		}
+	public Integer getSort() {
+		return sort;
+	}
 
-		public void setChapterId(String chapterId) {
-			this.chapterId = chapterId;
-		}
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
-		public String getName() {
-			return name;
-		}
+	public String getChapterId() {
+		return chapterId;
+	}
 
-		public void setName(String name) {
-			this.name = name;
-		}
+	public void setChapterId(String chapterId) {
+		this.chapterId = chapterId;
+	}
 
-		public String getVideoId() {
-			return videoId;
-		}
+	public String getName() {
+		return name;
+	}
 
-		public void setVideoId(String videoId) {
-			this.videoId = videoId;
-		}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		public Date getVideoTime() {
-			return videoTime;
-		}
+	public String getVideoId() {
+		return videoId;
+	}
 
-		public void setVideoTime(Date videoTime) {
-			this.videoTime = videoTime;
-		}
+	public void setVideoId(String videoId) {
+		this.videoId = videoId;
+	}
 
-		public String getVideoSize() {
-			return videoSize;
-		}
+	public Date getVideoTime() {
+		return videoTime;
+	}
 
-		public void setVideoSize(String videoSize) {
-			this.videoSize = videoSize;
-		}
-	    
-		public Boolean getIsTryLearn() {
-			return isTryLearn;
-		}
+	public void setVideoTime(Date videoTime) {
+		this.videoTime = videoTime;
+	}
 
-		public void setIsTryLearn(Boolean isTryLearn) {
-			this.isTryLearn = isTryLearn;
-		}
+	public String getVideoSize() {
+		return videoSize;
+	}
 
-		public Integer getCourseId() {
-			return courseId;
-		}
+	public void setVideoSize(String videoSize) {
+		this.videoSize = videoSize;
+	}
 
-		public void setCourseId(Integer courseId) {
-			this.courseId = courseId;
-		}
-		
-		
+	public Boolean getIsTryLearn() {
+		return isTryLearn;
+	}
+
+	public void setIsTryLearn(Boolean isTryLearn) {
+		this.isTryLearn = isTryLearn;
+	}
+
+	public Integer getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
+
 }

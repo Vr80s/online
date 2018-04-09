@@ -15,23 +15,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("bbs/reply")
 public class BBSReplyController {
 
-    @Autowired
-    private BBSReplyService bbsReplyService;
+	@Autowired
+	private BBSReplyService bbsReplyService;
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String index() {
-        return "bbs/reply/index";
-    }
+	@RequestMapping(value = "index", method = RequestMethod.GET)
+	public String index() {
+		return "bbs/reply/index";
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    public TableVo list(TableVo tableVo) {
-        return bbsReplyService.list(tableVo);
-    }
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseBody
+	public TableVo list(TableVo tableVo) {
+		return bbsReplyService.list(tableVo);
+	}
 
-    @RequestMapping(value = "changeDelete", method = RequestMethod.POST)
-    @ResponseBody
-    public int changeDeleteStatus(@RequestParam List<Integer> ids, @RequestParam boolean deleted) {
-        return bbsReplyService.updateDeleteStatus(ids, deleted);
-    }
+	@RequestMapping(value = "changeDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public int changeDeleteStatus(@RequestParam List<Integer> ids,
+			@RequestParam boolean deleted) {
+		return bbsReplyService.updateDeleteStatus(ids, deleted);
+	}
 }

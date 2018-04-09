@@ -46,188 +46,201 @@ import com.xczhihui.utils.Group;
 @Controller
 @RequestMapping("cloudclass/studentStory")
 public class StudentStoryController {
-    protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
-    @Autowired
-    private StudentStoryService studentStoryService;
-    @Autowired
-    private AttachmentCenterService att;
-    @Autowired
-    private CourseService courseService;
+	protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
+	@Autowired
+	private StudentStoryService studentStoryService;
+	@Autowired
+	private AttachmentCenterService att;
+	@Autowired
+	private CourseService courseService;
 
-    @RequestMapping(value = "index")
-    public String index(HttpServletRequest request) {
-        List<Menu> menuVos = courseService.getfirstMenus(null);
-        request.setAttribute("menuVo", menuVos);
+	@RequestMapping(value = "index")
+	public String index(HttpServletRequest request) {
+		List<Menu> menuVos = courseService.getfirstMenus(null);
+		request.setAttribute("menuVo", menuVos);
 
-        //在列表初始化时查找出课程
-        List<Course> scoreTypeVos = courseService.getCourse();
-        request.setAttribute("scoreTypeVo", scoreTypeVos);
-        return CLOUD_CLASS_PATH_PREFIX + "/studentStory";
-    }
+		// 在列表初始化时查找出课程
+		List<Course> scoreTypeVos = courseService.getCourse();
+		request.setAttribute("scoreTypeVo", scoreTypeVos);
+		return CLOUD_CLASS_PATH_PREFIX + "/studentStory";
+	}
 
-    //@RequiresPermissions("cloudClass:menu:studentStory")
-    @RequestMapping(value = "list")
-    @ResponseBody
-    public TableVo studentStorys(TableVo tableVo) {
-        int pageSize = tableVo.getiDisplayLength();
-        int index = tableVo.getiDisplayStart();
-        int currentPage = index / pageSize + 1;
-        String params = tableVo.getsSearch();
-        Groups groups = Tools.filterGroup(params);
+	// @RequiresPermissions("cloudClass:menu:studentStory")
+	@RequestMapping(value = "list")
+	@ResponseBody
+	public TableVo studentStorys(TableVo tableVo) {
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
 
-        StudentStory searchVo = new StudentStory();
-        Group name = groups.findByName("NameSearch");
+		StudentStory searchVo = new StudentStory();
+		Group name = groups.findByName("NameSearch");
 
-        if (name != null) {
-            searchVo.setName(name.getPropertyValue1().toString());
-        }
+		if (name != null) {
+			searchVo.setName(name.getPropertyValue1().toString());
+		}
 
-        Group menuId = groups.findByName("search_menu");
-        if (menuId != null) {
-            searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
-        }
+		Group menuId = groups.findByName("search_menu");
+		if (menuId != null) {
+			searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1()
+					.toString()));
+		}
 
-        Group scoreTypeId = groups.findByName("search_scoreType");
-        if (scoreTypeId != null) {
-            searchVo.setCourseTypeId(scoreTypeId.getPropertyValue1().toString());
-        }
+		Group scoreTypeId = groups.findByName("search_scoreType");
+		if (scoreTypeId != null) {
+			searchVo.setCourseTypeId(scoreTypeId.getPropertyValue1().toString());
+		}
 
-        Page<StudentStory> page = studentStoryService.findStudentStoryPage(searchVo, currentPage, pageSize);
-        int total = page.getTotalCount();
-        tableVo.setAaData(page.getItems());
-        tableVo.setiTotalDisplayRecords(total);
-        tableVo.setiTotalRecords(total);
-        return tableVo;
-    }
+		Page<StudentStory> page = studentStoryService.findStudentStoryPage(
+				searchVo, currentPage, pageSize);
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+	}
 
-    @RequestMapping(value = "uploadHeadImg")
-    @ResponseBody
-    public void uploadHeadImg(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "uploadHeadImg")
+	@ResponseBody
+	public void uploadHeadImg(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-        //防止中文乱码
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json; charset=utf-8");
+		// 防止中文乱码
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=utf-8");
 
-        MultipartFile attachmentFile = null;
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        Iterator<String> item = multipartRequest.getFileNames();
-        while (item.hasNext()) {
-            attachmentFile = multipartRequest.getFile(item.next());
-        }
-        if (attachmentFile == null || attachmentFile.getSize() <= 0) {
-            response.getWriter().write(new Gson().toJson(new Attachment(1, "请上传头像！")));
-            return;
-        }
-        if (attachmentFile.getSize() > 1024 * 200) {
-            response.getWriter().write(new Gson().toJson(new Attachment(1, "大小不能超过200k！")));
-            return;
-        }
+		MultipartFile attachmentFile = null;
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> item = multipartRequest.getFileNames();
+		while (item.hasNext()) {
+			attachmentFile = multipartRequest.getFile(item.next());
+		}
+		if (attachmentFile == null || attachmentFile.getSize() <= 0) {
+			response.getWriter().write(
+					new Gson().toJson(new Attachment(1, "请上传头像！")));
+			return;
+		}
+		if (attachmentFile.getSize() > 1024 * 200) {
+			response.getWriter().write(
+					new Gson().toJson(new Attachment(1, "大小不能超过200k！")));
+			return;
+		}
 
-        BufferedImage sourceImage = ImageIO.read(attachmentFile.getInputStream());
-        int orgWidth = sourceImage.getWidth();
-        int orgHeight = sourceImage.getHeight();
+		BufferedImage sourceImage = ImageIO.read(attachmentFile
+				.getInputStream());
+		int orgWidth = sourceImage.getWidth();
+		int orgHeight = sourceImage.getHeight();
 
-        if (orgWidth != orgHeight) {
-            response.getWriter().write(new Gson().toJson(new Attachment(1, "请上传1：1的图片!")));
-            return;
-        }
+		if (orgWidth != orgHeight) {
+			response.getWriter().write(
+					new Gson().toJson(new Attachment(1, "请上传1：1的图片!")));
+			return;
+		}
 
-        String upload = att.upload(ManagerUserUtil.getId(), "online", attachmentFile.getOriginalFilename(),
-                attachmentFile.getContentType(), attachmentFile.getBytes(), "1");
-        response.getWriter().write(upload);
-    }
+		String upload = att
+				.upload(ManagerUserUtil.getId(), "online",
+						attachmentFile.getOriginalFilename(),
+						attachmentFile.getContentType(),
+						attachmentFile.getBytes(), "1");
+		response.getWriter().write(upload);
+	}
 
+	/**
+	 * 添加
+	 *
+	 * @param vo
+	 * @return
+	 */
+	// @RequiresPermissions("cloudClass:menu:studentStory")
+	@RequestMapping(value = "addStudentStory", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject add(StudentStory studentStory) {
+		String content = studentStory.getText();
+		content = Base64ToimageURL(content);
+		studentStory.setText(content);
+		studentStoryService.addStudentStory(studentStory);
+		/**
+		 * edit begin author : Aaron DateTime : 2016-09-08
+		 */
+		ResponseObject responseObj = new ResponseObject();
+		try {
+			responseObj.setSuccess(true);
+			responseObj.setErrorMessage("新增学员故事成功！");
+		} catch (Exception e) {
+			responseObj.setSuccess(false);
+			responseObj.setErrorMessage("新增学员故事失败！");
+		}
+		return responseObj;
 
-    /**
-     * 添加
-     *
-     * @param vo
-     * @return
-     */
-    //@RequiresPermissions("cloudClass:menu:studentStory")
-    @RequestMapping(value = "addStudentStory", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject add(StudentStory studentStory) {
-        String content = studentStory.getText();
-        content = Base64ToimageURL(content);
-        studentStory.setText(content);
-        studentStoryService.addStudentStory(studentStory);
-        /**
-         * edit begin   author : Aaron  DateTime : 2016-09-08
-         */
-        ResponseObject responseObj = new ResponseObject();
-        try {
-            responseObj.setSuccess(true);
-            responseObj.setErrorMessage("新增学员故事成功！");
-        } catch (Exception e) {
-            responseObj.setSuccess(false);
-            responseObj.setErrorMessage("新增学员故事失败！");
-        }
-        return responseObj;
+	}
 
-    }
+	public String Base64ToimageURL(String content) {
+		Pattern p = Pattern.compile("<img\\s+(?:[^>]*)src\\s*=\\s*([^>]+)",
+				Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+		Matcher matcher = p.matcher(content);
+		while (matcher.find()) {
+			String group = matcher.group(1);
+			if (StringUtils.hasText(group)) {
+				group = group.replaceAll("\"", "");
+				// 存在base64编码的数据，才进行64Toimage转换以及上传
+				if (group.split("base64,").length > 1) {
+					String str = group.split("base64,")[1];
+					byte[] b = org.apache.commons.codec.binary.Base64
+							.decodeBase64(str);
+					Attachment a = att.addAttachment(ManagerUserUtil.getId(),
+							AttachmentType.ONLINE, "1.png", b, "image/png");
+					content = content.replace(group, a.getUrl());
+				}
 
-    public String Base64ToimageURL(String content) {
-        Pattern p = Pattern.compile("<img\\s+(?:[^>]*)src\\s*=\\s*([^>]+)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
-        Matcher matcher = p.matcher(content);
-        while (matcher.find()) {
-            String group = matcher.group(1);
-            if (StringUtils.hasText(group)) {
-                group = group.replaceAll("\"", "");
-                //存在base64编码的数据，才进行64Toimage转换以及上传
-                if (group.split("base64,").length > 1) {
-                    String str = group.split("base64,")[1];
-                    byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
-                    Attachment a = att.addAttachment(ManagerUserUtil.getId(), AttachmentType.ONLINE, "1.png", b, "image/png");
-                    content = content.replace(group, a.getUrl());
-                }
+			}
+		}
+		return content;
+	}
 
-            }
-        }
-        return content;
-    }
+	@RequestMapping(value = "deletes", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject deletes(String ids) throws InvocationTargetException,
+			IllegalAccessException {
+		ResponseObject responseObject = new ResponseObject();
+		if (ids != null) {
+			String[] _ids = ids.split(",");
+			studentStoryService.deletes(_ids);
+		}
+		responseObject.setSuccess(true);
+		responseObject.setErrorMessage("删除成功!");
+		return responseObject;
+	}
 
-    @RequestMapping(value = "deletes", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject deletes(String ids) throws InvocationTargetException, IllegalAccessException {
-        ResponseObject responseObject = new ResponseObject();
-        if (ids != null) {
-            String[] _ids = ids.split(",");
-            studentStoryService.deletes(_ids);
-        }
-        responseObject.setSuccess(true);
-        responseObject.setErrorMessage("删除成功!");
-        return responseObject;
-    }
+	/**
+	 * 查看
+	 *
+	 * @param vo
+	 * @return
+	 */
+	// @RequiresPermissions("cloudClass:menu:studentStory")
+	@RequestMapping(value = "findStudentStoryById", method = RequestMethod.GET)
+	@ResponseBody
+	public StudentStory findStudentStoryById(String id) {
 
-    /**
-     * 查看
-     *
-     * @param vo
-     * @return
-     */
-    //@RequiresPermissions("cloudClass:menu:studentStory")
-    @RequestMapping(value = "findStudentStoryById", method = RequestMethod.GET)
-    @ResponseBody
-    public StudentStory findStudentStoryById(String id) {
+		return studentStoryService.findCourseById(id);
+	}
 
-        return studentStoryService.findCourseById(id);
-    }
-
-    /**
-     * 编辑
-     *
-     * @param vo
-     * @return
-     */
-    //@RequiresPermissions("cloudClass:menu:studentStory")
-    @RequestMapping(value = "updateStudentStoryById", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject updateStudentStoryById(StudentStory studentStory) {
-        String content = studentStory.getText();
-        content = Base64ToimageURL(content);
-        studentStory.setText(content);
-        studentStoryService.updateStudentStory(studentStory);
-        return ResponseObject.newSuccessResponseObject("修改成功！");
-    }
+	/**
+	 * 编辑
+	 *
+	 * @param vo
+	 * @return
+	 */
+	// @RequiresPermissions("cloudClass:menu:studentStory")
+	@RequestMapping(value = "updateStudentStoryById", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateStudentStoryById(StudentStory studentStory) {
+		String content = studentStory.getText();
+		content = Base64ToimageURL(content);
+		studentStory.setText(content);
+		studentStoryService.updateStudentStory(studentStory);
+		return ResponseObject.newSuccessResponseObject("修改成功！");
+	}
 }

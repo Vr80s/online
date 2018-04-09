@@ -2,6 +2,7 @@ package com.xczhihui.common.vo;
 
 /**
  * K,V数据
+ * 
  * @author duanqh
  *
  */
@@ -26,7 +27,6 @@ public class KeyValVo {
 	 * value
 	 */
 	private Object _value;
-
 
 	public Object get_key() {
 		return _key;
@@ -59,6 +59,5 @@ public class KeyValVo {
 	public void setName(Object name) {
 		this.name = name;
 	}
-	
-	
+
 }

@@ -16,29 +16,31 @@ import com.xczhihui.bbs.service.BBSRestrictionService;
 @Controller
 @RequestMapping("/bbs/restriction")
 public class BBSRestrictionController {
-    @Autowired
-    private BBSRestrictionService bbsRestrictionService;
+	@Autowired
+	private BBSRestrictionService bbsRestrictionService;
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String index() {
-        return "bbs/restriction/index";
-    }
+	@RequestMapping(value = "index", method = RequestMethod.GET)
+	public String index() {
+		return "bbs/restriction/index";
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    public TableVo list(TableVo tableVo) {
-        return bbsRestrictionService.list(tableVo);
-    }
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseBody
+	public TableVo list(TableVo tableVo) {
+		return bbsRestrictionService.list(tableVo);
+	}
 
-    @RequestMapping(value = "changeGags", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject gagsStatusChange(@RequestParam String mobile, @RequestParam boolean gags, HttpServletRequest request) {
-        return bbsRestrictionService.updateGags(mobile, gags);
-    }
+	@RequestMapping(value = "changeGags", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject gagsStatusChange(@RequestParam String mobile,
+			@RequestParam boolean gags, HttpServletRequest request) {
+		return bbsRestrictionService.updateGags(mobile, gags);
+	}
 
-    @RequestMapping(value = "changeBlacklist", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject blacklistStatusChange(@RequestParam String mobile, @RequestParam boolean blacklist, HttpServletRequest request) {
-        return bbsRestrictionService.updateBlacklist(mobile, blacklist);
-    }
+	@RequestMapping(value = "changeBlacklist", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject blacklistStatusChange(@RequestParam String mobile,
+			@RequestParam boolean blacklist, HttpServletRequest request) {
+		return bbsRestrictionService.updateBlacklist(mobile, blacklist);
+	}
 }

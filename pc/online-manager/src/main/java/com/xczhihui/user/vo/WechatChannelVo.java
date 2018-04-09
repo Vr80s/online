@@ -5,145 +5,146 @@ import java.util.Date;
 import javax.persistence.Column;
 
 public class WechatChannelVo {
+
+	private Integer id;
+
+	private String name;
+
+	private String contact;
+
+	private String mobile;
+
+	private String city;
+
+	private String province;
+
+	private String qrCodeImg;
+
+	private Date createTime;
+
+	private Boolean isDelete;
+
+	private String status;
+
+	private String createPerson;
+
+	private Integer sort;
+
+	private String area;
+
+	private String realCounty;
+
+	private String realCitys;
+
+	private String realProvince;
+
+	// province:120000
+	// realProvince:天津市
+	// city:120100
+	// realCitys:天津市
+	// area:120101
+	// realCounty:和平区
 	
 	
-    private Integer id;
+	private String customQrCodeUrl;
+	private String customCaoliaoQrcode;
 
-    private String name;
 
-    private String contact;
+	public Integer getId() {
+		return id;
+	}
 
-    private String mobile;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private String city;
+	public String getName() {
+		return name;
+	}
 
-    private String province;
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    private String qrCodeImg;
+	public String getContact() {
+		return contact;
+	}
 
-    private Date createTime;
+	public void setContact(String contact) {
+		this.contact = contact == null ? null : contact.trim();
+	}
 
-    private Boolean isDelete;
+	public String getMobile() {
+		return mobile;
+	}
 
-    private String status;
+	public void setMobile(String mobile) {
+		this.mobile = mobile == null ? null : mobile.trim();
+	}
 
-    private String createPerson;
+	public String getCity() {
+		return city;
+	}
 
-    private Integer sort;
-    
-    private String area;
-    
-    
-    private String realCounty;
-	
-    private String realCitys;
+	public void setCity(String city) {
+		this.city = city == null ? null : city.trim();
+	}
 
-    private String realProvince;
-    
-    
-//    province:120000
-//    realProvince:天津市
-//    city:120100
-//    realCitys:天津市
-//    area:120101
-//    realCounty:和平区
-    
+	public String getProvince() {
+		return province;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setProvince(String province) {
+		this.province = province == null ? null : province.trim();
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public String getQrCodeImg() {
+		return qrCodeImg;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setQrCodeImg(String qrCodeImg) {
+		this.qrCodeImg = qrCodeImg == null ? null : qrCodeImg.trim();
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public String getContact() {
-        return contact;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setContact(String contact) {
-        this.contact = contact == null ? null : contact.trim();
-    }
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
 
-    public String getMobile() {
-        return mobile;
-    }
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public void setStatus(String status) {
+		this.status = status == null ? null : status.trim();
+	}
 
-    public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
-    }
+	public String getCreatePerson() {
+		return createPerson;
+	}
 
-    public String getProvince() {
-        return province;
-    }
+	public void setCreatePerson(String createPerson) {
+		this.createPerson = createPerson == null ? null : createPerson.trim();
+	}
 
-    public void setProvince(String province) {
-        this.province = province == null ? null : province.trim();
-    }
+	public Integer getSort() {
+		return sort;
+	}
 
-    public String getQrCodeImg() {
-        return qrCodeImg;
-    }
-
-    public void setQrCodeImg(String qrCodeImg) {
-        this.qrCodeImg = qrCodeImg == null ? null : qrCodeImg.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Boolean getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Boolean isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
-    }
-
-    public String getCreatePerson() {
-        return createPerson;
-    }
-
-    public void setCreatePerson(String createPerson) {
-        this.createPerson = createPerson == null ? null : createPerson.trim();
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
 	public String getArea() {
 		return area;
@@ -176,5 +177,22 @@ public class WechatChannelVo {
 	public void setRealProvince(String realProvince) {
 		this.realProvince = realProvince;
 	}
-    
+
+	public String getCustomQrCodeUrl() {
+		return customQrCodeUrl;
+	}
+
+	public void setCustomQrCodeUrl(String customQrCodeUrl) {
+		this.customQrCodeUrl = customQrCodeUrl;
+	}
+
+	public String getCustomCaoliaoQrcode() {
+		return customCaoliaoQrcode;
+	}
+
+	public void setCustomCaoliaoQrcode(String customCaoliaoQrcode) {
+		this.customCaoliaoQrcode = customCaoliaoQrcode;
+	}
+
+	
 }

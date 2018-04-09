@@ -4,15 +4,14 @@ import java.util.Date;
 
 import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
-
-/** 
+/**
  * ClassName: RewardStatementVo.java <br>
  * Description: 打赏流水表<br>
- * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
+ * Create by: name：yuxin <br>
+ * email: yuruixin@ixincheng.com <br>
  * Create Time: 2017年8月16日<br>
  */
-public class RewardStatementVo extends OnlineBaseVo{
-
+public class RewardStatementVo extends OnlineBaseVo {
 
 	/**
 	 * Copyright © 2017 xinchengzhihui. All rights reserved.
@@ -20,33 +19,33 @@ public class RewardStatementVo extends OnlineBaseVo{
 	private static final long serialVersionUID = 3696177387035569509L;
 
 	/**
-     *礼物ID
-     */
-    private int id;
-    
-    private Integer channel;
-    
-    private String giftId;
+	 * 礼物ID
+	 */
+	private int id;
 
-    private Double price ;
-    
-    private String giver;
-    
-    private String receiver;
-    
-    private String liveId;
-    
-    private Integer payType;
-    
-    private Integer clientType;
+	private Integer channel;
 
-    private Integer searchType;
-    
-    private String searchCondition;
-    
-    private Date startTime;
-    
-    private Date stopTime;
+	private String giftId;
+
+	private Double price;
+
+	private String giver;
+
+	private String receiver;
+
+	private String liveId;
+
+	private Integer payType;
+
+	private Integer clientType;
+
+	private Integer searchType;
+
+	private String searchCondition;
+
+	private Date startTime;
+
+	private Date stopTime;
 
 	public int getId() {
 		return id;
@@ -152,6 +151,4 @@ public class RewardStatementVo extends OnlineBaseVo{
 		this.stopTime = stopTime;
 	}
 
-    
 }
-

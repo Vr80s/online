@@ -29,17 +29,23 @@ $(function(){
     { "title": "省/市", "class":"center","width":"8%", "sortable":false,"data": 'xmbPrice', "mRender":function (data, display, row) {
     		return "<span name='lecturerNameList'>"+row.province+"/"+ row.city +"</span>";
     } },
-    { "title": "二维码", "class":"center","width":"8%", "sortable":false,"data": 'price' ,"mRender":function(data){
+    { "title": "二维码", "class":"center","width":"8%", "sortable":false,"data": 'qrCodeImg' ,"mRender":function(data){
 		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+	}},
+	
+	{ "title": "自定义二维码", "class":"center","width":"8%", "sortable":false,"data": 'customQrCodeUrl' ,"mRender":function(data){
+		return "<span name='lecturerNameList'>"+data+"</span>";
 	}},
 
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
+	    		'<a class="blue" href="'+row.qrCodeImg+'" title="下载二维码" download="qrcode.jpg"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
+	    		'<a class="blue" href="'+row.qrCodeImg+'" title="下载二维码" target="_blank"  ><i class="ace-icon fa fa-paperclip bigger-130"></i></a>'+
 				 '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '
 	    	}
@@ -144,15 +150,24 @@ $(".add_bx").click(function(){
 
 //修改
 function toEdit(obj){
+	debugger;
 	updateCourseForm.resetForm();
 	var oo = $(obj).parent().parent().parent();
 	var row = _courseTable.fnGetData(oo); // get datarow
 
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	
+	//<input type="hidden" id="editChannel_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
+	$("#editChannel_id").val(row.id); //充值id
+	
 //	debugger;
-	$("#editCourse_id").val(row.id); //充值id
-	$("#price_edit").val(row.price); //充值价格
+	$("#editName_id").val(row.name); //充值id
+	$("#editContact_id").val(row.contact); //充值价格
+	$("#editMobile_id").val(row.mobile); //充值价格
+
+	
+	$("#qrCodeImg").val(row.qrCodeImg); //
+	$("#customQrCodeUrl").text(row.customQrCodeUrl); //
 
 	
 	
@@ -162,7 +177,7 @@ function toEdit(obj){
 //	if(p_c_a.length==3){
 		//省
 		for(i=0;i<$("#edit_province option").length;i++){
-    		if($("#edit_province option").eq(i).val()==row.province){
+    		if($("#edit_province option").eq(i).val()==row.realProvince){
     			$("#edit_province option").eq(i).attr("selected",true);
     			break;
     		}
@@ -171,27 +186,24 @@ function toEdit(obj){
 		$("#edit_county").empty();
 		
 		
-		var city = "<option id='10086'>"+p_c_a[1]+"</option>";
+		
+		var city = "<option id='10086'>"+row.city+"</option>";
 		$("#edit_citys").append(city);
 		
-		var countysDetails = p_c_a[2].split(" ");
 		
-		var county = "<option id='10089'>"+countysDetails[0]+"</option>";
+		var county = "<option id='10089'>"+row.area+"</option>";
 		$("#edit_county").append(county);
 		
 		
-		$("#edit_realProvince").val(p_c_a[0]);
-		$("#edit_realCitys").val(p_c_a[1]);
-		$("#edit_realCounty").val(p_c_a[2]);
-		
-		//授课地点
-		$("#edit_address").val(countysDetails[1]);
+		$("#edit_realProvince").val(row.realProvince);
+		$("#edit_realCitys").val(row.realCitys); 
+		$("#edit_realCounty").val(row.realCounty);
 //	}
 	
 	
 	
 	
-	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改礼物",400,400,true,"确定",function(){
+	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改礼物",700,550,true,"确定",function(){
 		
 		if($("#updateCourse-form").valid()){
 			mask();

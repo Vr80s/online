@@ -10,7 +10,8 @@ import com.xczhihui.cloudClass.vo.StudentManagerVo;
 public class StudentManagerServiceImpl implements StudentManagerService {
 
 	@Override
-	public Page<StudentManagerVo> findstudentsInfoPage(StudentManagerVo searchVo, int currentPage, int pageSize) {
+	public Page<StudentManagerVo> findstudentsInfoPage(
+			StudentManagerVo searchVo, int currentPage, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}

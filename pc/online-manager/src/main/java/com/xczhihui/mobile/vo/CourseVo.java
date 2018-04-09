@@ -10,161 +10,159 @@ import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
 public class CourseVo extends OnlineBaseVo {
 
-    /**
-     *课程ID
-     */
-    private int id;
-    
-    /**
-     *课程ID
-     */
-    private int showCourseId;
+	/**
+	 * 课程ID
+	 */
+	private int id;
 
-    public void setId(Integer id) {
+	/**
+	 * 课程ID
+	 */
+	private int showCourseId;
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	/**
-     *课程名称
-     */
-    private String  courseName;
-    /**
-     * 课程展示图（宣传页）
-     * 课程详情图
-     */
-    private String detailImgPath;
-    /**
-     * 课程宣传图（宣传页）
-     * 课程大图
-     */
-    private String bigImgPath;
-    /**
-     * 课程展示图（首页）
-     */
-    private String smallingPath;
-    /**
-     * 课程展示图（仪晓东--新增-- 2016年11月26日 11:20:43）
-     */
-    private String smallimgPath;
-    /**
-     * 课程描述
-     */
-    private String description;
-    /**
-     * 云课堂链接
-     */
-    private String cloudClassroom;
-    /**
-     * qq 号
-     */
-    private String qqno;
 
-    /**
-     * 直播时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date liveTime;
-    /**
-     * 直播时间排序
-     */
-    private String liveTimeSort;
-    /**
-     * 讲师id
-     */
-    private Integer lecturerId;
-    /**
-     * 讲师
-     */
-    private String lecturerName;
-    /**
-     * 结课时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date graduateTime;
-    /**
-     * 所属分类
-     */
-    private String menuName;
-    
-    /**
-     * 二级分类
-     */
-    private String menuNameSecond;
-    
-    
-    /**
+	/**
+	 * 课程名称
+	 */
+	private String courseName;
+	/**
+	 * 课程展示图（宣传页） 课程详情图
+	 */
+	private String detailImgPath;
+	/**
+	 * 课程宣传图（宣传页） 课程大图
+	 */
+	private String bigImgPath;
+	/**
+	 * 课程展示图（首页）
+	 */
+	private String smallingPath;
+	/**
+	 * 课程展示图（仪晓东--新增-- 2016年11月26日 11:20:43）
+	 */
+	private String smallimgPath;
+	/**
+	 * 课程描述
+	 */
+	private String description;
+	/**
+	 * 云课堂链接
+	 */
+	private String cloudClassroom;
+	/**
+	 * qq 号
+	 */
+	private String qqno;
+
+	/**
+	 * 直播时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date liveTime;
+	/**
+	 * 直播时间排序
+	 */
+	private String liveTimeSort;
+	/**
+	 * 讲师id
+	 */
+	private Integer lecturerId;
+	/**
+	 * 讲师
+	 */
+	private String lecturerName;
+	/**
+	 * 结课时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date graduateTime;
+	/**
+	 * 所属分类
+	 */
+	private String menuName;
+
+	/**
+	 * 二级分类
+	 */
+	private String menuNameSecond;
+
+	/**
 	 * 课程类型 1：直播课 2:公开课 3:基础课4:点播课
 	 */
 	private String courseType;
-    
-    /**
-     * 是否禁用
-     */
-    private String status;
-    
-    /**
+
+	/**
+	 * 是否禁用
+	 */
+	private String status;
+
+	/**
 	 * 已学人数
 	 */
-	private Integer  learndCount;
-	
+	private Integer learndCount;
+
 	/**
 	 * 学科id
 	 */
-	private Integer  menuId;
-	
+	private Integer menuId;
+
 	/**
 	 * 课程类别id
 	 */
-	private String  courseTypeId;
-	
+	private String courseTypeId;
+
 	/**
 	 * 课程名称模板
 	 */
-	private String  classTemplate;
-	
+	private String classTemplate;
+
 	/**
 	 * 课程简介
 	 */
-	private String  courseDescribe;
-	
-	private Boolean  isFree;
-	
-	//课程时长
-	private String  courseLength;
-	
-	//原价格
-	private Double  originalCost;
-	
-	//现价格
-	private Double  currentPrice;
-	
-	//班级数
+	private String courseDescribe;
+
+	private Boolean isFree;
+
+	// 课程时长
+	private String courseLength;
+
+	// 原价格
+	private Double originalCost;
+
+	// 现价格
+	private Double currentPrice;
+
+	// 班级数
 	private Integer countGradeNum;
-	
+
 	/**
 	 * 以下添加的三个字段为在列表显示和查看的时候使用
 	 */
-	
-	//学科名称
+
+	// 学科名称
 	private String xMenuName;
-	
-	//课程类别名称
+
+	// 课程类别名称
 	private String scoreTypeName;
-	
-	//授课方式
+
+	// 授课方式
 	private String teachMethodName;
-	
+
 	/**
 	 * 是否推荐
 	 */
 	private Integer isRecommend;
-	
+
 	/**
 	 * 推荐排序
 	 */
 	private Integer recommendSort;
-	
+
 	/**
 	 * 不展示(0)，展示（1）
 	 */
@@ -227,31 +225,31 @@ public class CourseVo extends OnlineBaseVo {
 	 */
 	private Integer serviceType;
 
-    /**
+	/**
 	 * actCount实际报名人数
 	 */
 	private Integer actCount;
-	
+
 	private String teacherImgPath;
 
-	//排序类型 在查询评价管理的时候使用
+	// 排序类型 在查询评价管理的时候使用
 	private Integer sortType;
-	
+
 	private Integer criticizeNum;
-	
+
 	private Integer goodCriticizeNum;
-	
+
 	private Integer notesNum;
-	
+
 	private Integer barrierNum;
-	
+
 	private Integer gradeStudentSum;
-	
+
 	private Integer teachingDays;
-	
+
 	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
 	private Date createTime;
-	
+
 	private Integer barrierStatus;
 
 	/**
@@ -261,28 +259,28 @@ public class CourseVo extends OnlineBaseVo {
 	/**
 	 * 班级QQ群
 	 */
-	private  String gradeQQ;
+	private String gradeQQ;
 
 	/**
 	 * 默认报名人数
 	 */
 
-	private  Integer  defaultStudentCount;
+	private Integer defaultStudentCount;
 
-	 /**
-     * 讲师
-     */
-    private String role_type1;
+	/**
+	 * 讲师
+	 */
+	private String role_type1;
 
-    /**
-     * 班主任
-     */
-    private String role_type2;
+	/**
+	 * 班主任
+	 */
+	private String role_type2;
 
-    /**
-     *助教
-     */
-    private String role_type3;
+	/**
+	 * 助教
+	 */
+	private String role_type3;
 
 	public int getId() {
 		return id;
@@ -741,12 +739,12 @@ public class CourseVo extends OnlineBaseVo {
 	}
 
 	@Override
-    public Date getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
 	@Override
-    public void setCreateTime(Date createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -805,6 +803,5 @@ public class CourseVo extends OnlineBaseVo {
 	public void setRole_type3(String role_type3) {
 		this.role_type3 = role_type3;
 	}
-	
-    
+
 }

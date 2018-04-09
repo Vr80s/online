@@ -25,14 +25,16 @@ import com.xczhihui.support.shiro.ManagerUserUtil;
  */
 @Service("rechargesService")
 public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
-	RechargesService {
+		RechargesService {
 
 	@Autowired
 	private RechargesDao rechargesDao;
 
 	@Override
-	public Page<RechargesVo> findRechargesPage(RechargesVo rechargesVo, int pageNumber, int pageSize) {
-		Page<RechargesVo> page = rechargesDao.findRechargesPage(rechargesVo, pageNumber, pageSize);
+	public Page<RechargesVo> findRechargesPage(RechargesVo rechargesVo,
+			int pageNumber, int pageSize) {
+		Page<RechargesVo> page = rechargesDao.findRechargesPage(rechargesVo,
+				pageNumber, pageSize);
 		return page;
 
 	}
@@ -51,7 +53,8 @@ public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
 
 		if (RechargesId != null) {
 			String hql = "from Recharges where 1=1 and isDelete=0 and id = ?";
-			RechargesVo Recharges = dao.findByHQLOne(hql, new Object[] { RechargesId });
+			RechargesVo Recharges = dao.findByHQLOne(hql,
+					new Object[] { RechargesId });
 			if (Recharges != null) {
 				RechargesVo = new RechargesVo();
 				RechargesVo.setId(Recharges.getId());
@@ -70,22 +73,24 @@ public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
 				+ "FROM `oe_Recharges` og LEFT JOIN `user` u ON u.id = og.`create_person` WHERE og.`is_delete` = 0 ";
 		Map<String, Object> params = new HashMap<String, Object>();
 		if ("".equals(search) || null == search) {
-			List<RechargesVo> voList = dao.findEntitiesByJdbc(RechargesVo.class, sql,
-					params);
+			List<RechargesVo> voList = dao.findEntitiesByJdbc(
+					RechargesVo.class, sql, params);
 			return voList;
 		}
 		sql += "and og.name like '%" + search + "%'";
-		List<RechargesVo> voList = dao.findEntitiesByJdbc(RechargesVo.class, sql, params);
+		List<RechargesVo> voList = dao.findEntitiesByJdbc(RechargesVo.class,
+				sql, params);
 		return voList;
 	}
 
 	@Override
-	public void addRecharges(RechargesVo rechargesVo) throws IllegalAccessException,
-			InvocationTargetException {
+	public void addRecharges(RechargesVo rechargesVo)
+			throws IllegalAccessException, InvocationTargetException {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		String sql = "SELECT IFNULL(MAX(sort),0) as sort FROM oe_recharges ";
-		List<Recharges> temp = dao.findEntitiesByJdbc(Recharges.class, sql, params);
+		List<Recharges> temp = dao.findEntitiesByJdbc(Recharges.class, sql,
+				params);
 		int sort;
 		if (temp.size() > 0) {
 			sort = temp.get(0).getSort().intValue() + 1;
@@ -104,16 +109,15 @@ public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
 	}
 
 	@Override
-	public void updateRecharges(RechargesVo rechargesVo) throws IllegalAccessException,
-			InvocationTargetException {
-		Recharges Recharges = dao.findOneEntitiyByProperty(Recharges.class, "id",
-				rechargesVo.getId());
+	public void updateRecharges(RechargesVo rechargesVo)
+			throws IllegalAccessException, InvocationTargetException {
+		Recharges Recharges = dao.findOneEntitiyByProperty(Recharges.class,
+				"id", rechargesVo.getId());
 		rechargesVo.setCreatePerson(Recharges.getCreatePerson());
 		rechargesVo.setStatus(Recharges.getStatus());
 		rechargesVo.setCreateTime(new Date());
 		BeanUtils.copyProperties(Recharges, rechargesVo);
 
-		
 		dao.update(Recharges);
 	}
 
@@ -143,7 +147,8 @@ public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
 		Integer RechargesPreSort = RechargesPre.getSort();
 
 		String hqlNext = "from Recharges where sort > (select sort from Recharges where id= ? ) and isDelete=0 and status =1 order by sort asc";
-		Recharges RechargesNext = dao.findByHQLOne(hqlNext, new Object[] { id });
+		Recharges RechargesNext = dao
+				.findByHQLOne(hqlNext, new Object[] { id });
 		Integer RechargesNextSort = RechargesNext.getSort();
 
 		RechargesPre.setSort(RechargesNextSort);
@@ -159,7 +164,8 @@ public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
 		Recharges RechargesPre = dao.findByHQLOne(hqlPre, new Object[] { id });
 		Integer RechargesPreSort = RechargesPre.getSort();
 		String hqlNext = "from Recharges where sort < (select sort from Recharges where id= ? ) and isDelete=0 and status =1 order by sort desc";
-		Recharges RechargesNext = dao.findByHQLOne(hqlNext, new Object[] { id });
+		Recharges RechargesNext = dao
+				.findByHQLOne(hqlNext, new Object[] { id });
 		Integer RechargesNextSort = RechargesNext.getSort();
 
 		RechargesPre.setSort(RechargesNextSort);
@@ -184,8 +190,8 @@ public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
 	}
 
 	public List<Recharges> findByName(String name) {
-		List<Recharges> Rechargess = dao.findEntitiesByProperty(Recharges.class, "gradeName",
-				name);
+		List<Recharges> Rechargess = dao.findEntitiesByProperty(
+				Recharges.class, "gradeName", name);
 		return Rechargess;
 	}
 
@@ -201,7 +207,7 @@ public class RechargesServiceImpl extends OnlineBaseServiceImpl implements
 				dao.update(Recharges);
 			}
 		}
-		
+
 	}
 
 }

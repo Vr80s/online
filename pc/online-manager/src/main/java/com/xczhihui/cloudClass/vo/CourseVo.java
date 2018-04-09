@@ -10,176 +10,173 @@ import java.util.Date;
 /**
  * Created by admin on 2016/7/27.
  */
-public class CourseVo extends OnlineBaseVo{
+public class CourseVo extends OnlineBaseVo {
 
+	/**
+	 * 课程ID
+	 */
+	private int id;
 
-    /**
-     *课程ID
-     */
-    private int id;
-    
-    /**
-     *课程ID
-     */
-    private int showCourseId;
-    
-    /**
-     *移动端课程ID
-     */
-    private int courseId;
+	/**
+	 * 课程ID
+	 */
+	private int showCourseId;
 
-    public void setId(Integer id) {
+	/**
+	 * 移动端课程ID
+	 */
+	private int courseId;
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	/**
-     *课程名称
-     */
-    private String  courseName;
+	 * 课程名称
+	 */
+	private String courseName;
 
-    /**
-     * 课程展示图（宣传页）
-     * 课程详情图
-     */
-    private String detailImgPath;
-    /**
-     * 课程宣传图（宣传页）
-     * 课程大图
-     */
-    private String bigImgPath;
-    /**
-     * 课程展示图（首页）
-     */
-    private String smallingPath;
-    /**
-     * 课程展示图（仪晓东--新增-- 2016年11月26日 11:20:43）
-     */
-    private String smallimgPath;
-    /**
-     * 课程描述
-     */
-    private String description;
-    /**
-     * 云课堂链接
-     */
-    private String cloudClassroom;
-    /**
-     * qq 号
-     */
-    private String qqno;
+	/**
+	 * 课程展示图（宣传页） 课程详情图
+	 */
+	private String detailImgPath;
+	/**
+	 * 课程宣传图（宣传页） 课程大图
+	 */
+	private String bigImgPath;
+	/**
+	 * 课程展示图（首页）
+	 */
+	private String smallingPath;
+	/**
+	 * 课程展示图（仪晓东--新增-- 2016年11月26日 11:20:43）
+	 */
+	private String smallimgPath;
+	/**
+	 * 课程描述
+	 */
+	private String description;
+	/**
+	 * 云课堂链接
+	 */
+	private String cloudClassroom;
+	/**
+	 * qq 号
+	 */
+	private String qqno;
 
-    /**
-     * 直播时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date liveTime;
-    /**
-     * 直播时间排序
-     */
-    private String liveTimeSort;
-    /**
-     * 讲师id
-     */
-    private Integer lecturerId;
-    /**
-     * 讲师
-     */
-    private String lecturerName;
-    
-    /**
+	/**
+	 * 直播时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date liveTime;
+	/**
+	 * 直播时间排序
+	 */
+	private String liveTimeSort;
+	/**
+	 * 讲师id
+	 */
+	private Integer lecturerId;
+	/**
+	 * 讲师
+	 */
+	private String lecturerName;
+
+	/**
 	 * yangxuan 新增用户讲师id
 	 */
-    private String userLecturerId;
-    
-    /**
-     * 结课时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date graduateTime;
-    /**
-     * 所属分类
-     */
-    private String menuName;
-    
-    /**
-     * 二级分类
-     */
-    private String menuNameSecond;
-    
-    
-    /**
+	private String userLecturerId;
+
+	/**
+	 * 结课时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date graduateTime;
+	/**
+	 * 所属分类
+	 */
+	private String menuName;
+
+	/**
+	 * 二级分类
+	 */
+	private String menuNameSecond;
+
+	/**
 	 * 课程类型 1：直播课 2:公开课 3:基础课4:点播课
 	 */
 	private String courseType;
-    
-    /**
-     * 是否禁用
-     */
-    private String status;
-    
-    /**
+
+	/**
+	 * 是否禁用
+	 */
+	private String status;
+
+	/**
 	 * 已学人数
 	 */
-	private Integer  learndCount;
-	
+	private Integer learndCount;
+
 	/**
 	 * 学科id
 	 */
-	private Integer  menuId;
-	
+	private Integer menuId;
+
 	/**
 	 * 课程类别id
 	 */
-	private String  courseTypeId;
-	
+	private String courseTypeId;
+
 	/**
 	 * 课程名称模板
 	 */
-	private String  classTemplate;
-	
+	private String classTemplate;
+
 	/**
 	 * 课程简介
 	 */
-	private String  courseDescribe;
-	
-	private Boolean  isFree;
-	
-	//课程时长
-	private String  courseLength;
-	
-	//原价格
-	private Double  originalCost;
-	
-	//现价格
-	private Double  currentPrice;
-	
-	//班级数
+	private String courseDescribe;
+
+	private Boolean isFree;
+
+	// 课程时长
+	private String courseLength;
+
+	// 原价格
+	private Double originalCost;
+
+	// 现价格
+	private Double currentPrice;
+
+	// 班级数
 	private Integer countGradeNum;
-	
+
 	/**
 	 * 以下添加的三个字段为在列表显示和查看的时候使用
 	 */
-	
-	//学科名称
+
+	// 学科名称
 	private String xMenuName;
-	
-	//课程类别名称
+
+	// 课程类别名称
 	private String scoreTypeName;
-	
-	//授课方式
+
+	// 授课方式
 	private String teachMethodName;
-	
+
 	/**
 	 * 是否推荐
 	 */
 	private Integer isRecommend;
-	
+
 	/**
 	 * 推荐排序
 	 */
 	private Integer recommendSort;
-	
+
 	/**
 	 * 不展示(0)，展示（1）
 	 */
@@ -242,31 +239,31 @@ public class CourseVo extends OnlineBaseVo{
 	 */
 	private Integer serviceType;
 
-    /**
+	/**
 	 * actCount实际报名人数
 	 */
 	private Integer actCount;
-	
+
 	private String teacherImgPath;
 
-	//排序类型 在查询评价管理的时候使用
+	// 排序类型 在查询评价管理的时候使用
 	private Integer sortType;
-	
+
 	private Integer criticizeNum;
-	
+
 	private Integer goodCriticizeNum;
-	
+
 	private Integer notesNum;
-	
+
 	private Integer barrierNum;
-	
+
 	private Integer gradeStudentSum;
-	
+
 	private Integer teachingDays;
-	
+
 	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
 	private Date createTime;
-	
+
 	private Integer barrierStatus;
 
 	/**
@@ -276,76 +273,75 @@ public class CourseVo extends OnlineBaseVo{
 	/**
 	 * 班级QQ群
 	 */
-	private  String gradeQQ;
+	private String gradeQQ;
 
 	/**
 	 * 默认报名人数
 	 */
 
-	private  Integer  defaultStudentCount;
+	private Integer defaultStudentCount;
 
-	 /**
-     * 讲师
-     */
-    private String role_type1;
+	/**
+	 * 讲师
+	 */
+	private String role_type1;
 
-    /**
-     * 班主任
-     */
-    private String role_type2;
+	/**
+	 * 班主任
+	 */
+	private String role_type2;
 
-    /**
-     *助教
-     */
-    private String role_type3;
-    
-    private Integer paperNum;
-    
-    private  String coursePwd;
-    
-    private Integer multimediaType;
-    
-    private int onlineCourse;
+	/**
+	 * 助教
+	 */
+	private String role_type3;
 
-    private  String address;
-    
-    private int liveSource;
-    
-    private String realProvince;
-    
-    private String realCitys;
-    
-    private String realCounty;
-    
-    private Integer liveStatus;
+	private Integer paperNum;
 
-    private Boolean collection;
-    private Boolean singleSale;
-    private String lecturer;
-    private String lecturerDescription;
+	private String coursePwd;
+
+	private Integer multimediaType;
+
+	private int onlineCourse;
+
+	private String address;
+
+	private int liveSource;
+
+	private String realProvince;
+
+	private String realCitys;
+
+	private String realCounty;
+
+	private Integer liveStatus;
+
+	private Boolean collection;
+	private Boolean singleSale;
+	private String lecturer;
+	private String lecturerDescription;
 	private String subtitle;
-	
+
 	// 精品推荐
 	private Integer isEssence;
 
 	// 精品排序
-	private Integer essenceSort; //不推荐(0)，推荐（1）
-	
+	private Integer essenceSort; // 不推荐(0)，推荐（1）
+
 	// 分类推荐
 	private Integer isTypeRecommend;
-	
+
 	// 分类排序
-	private Integer typeSort; 
-	//发布时间
+	private Integer typeSort;
+	// 发布时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date releaseTime;
 
-    //排序更新时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date sortUpdateTime;
-	
+	// 排序更新时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date sortUpdateTime;
 
 	public String getSubtitle() {
 		return subtitle;
@@ -354,8 +350,6 @@ public class CourseVo extends OnlineBaseVo{
 	public void setSubtitle(String subtitle) {
 		this.subtitle = subtitle;
 	}
-
-
 
 	public Integer getEssenceSort() {
 		return essenceSort;
@@ -412,13 +406,13 @@ public class CourseVo extends OnlineBaseVo{
 	public void setOnlineCourse(int onlineCourse) {
 		this.onlineCourse = onlineCourse;
 	}
-	/*
-     * 用于判断，是否存在公开详情了。如果存在公开详情呢，说明在app端、微信端可以展示了
-     */
-    private Integer isCourseDetails; //TODO 0 表示不展示 1 表示展示
 
-	
-    public Integer getMultimediaType() {
+	/*
+	 * 用于判断，是否存在公开详情了。如果存在公开详情呢，说明在app端、微信端可以展示了
+	 */
+	private Integer isCourseDetails; // TODO 0 表示不展示 1 表示展示
+
+	public Integer getMultimediaType() {
 		return multimediaType;
 	}
 
@@ -482,7 +476,6 @@ public class CourseVo extends OnlineBaseVo{
 		this.courseLength = courseLength;
 	}
 
-
 	public Boolean getIsFree() {
 		return isFree;
 	}
@@ -492,63 +485,60 @@ public class CourseVo extends OnlineBaseVo{
 	}
 
 	public int getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
+	public String getDetailImgPath() {
+		return detailImgPath;
+	}
 
+	public void setDetailImgPath(String detailImgPath) {
+		this.detailImgPath = detailImgPath;
+	}
 
-    public String getDetailImgPath() {
-        return detailImgPath;
-    }
+	public String getBigImgPath() {
+		return bigImgPath;
+	}
 
-    public void setDetailImgPath(String detailImgPath) {
-        this.detailImgPath = detailImgPath;
-    }
+	public void setBigImgPath(String bigImgPath) {
+		this.bigImgPath = bigImgPath;
+	}
 
-    public String getBigImgPath() {
-        return bigImgPath;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setBigImgPath(String bigImgPath) {
-        this.bigImgPath = bigImgPath;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getCloudClassroom() {
+		return cloudClassroom;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setCloudClassroom(String cloudClassroom) {
+		this.cloudClassroom = cloudClassroom;
+	}
 
-    public String getCloudClassroom() {
-        return cloudClassroom;
-    }
+	public String getCourseName() {
+		return courseName;
+	}
 
-    public void setCloudClassroom(String cloudClassroom) {
-        this.cloudClassroom = cloudClassroom;
-    }
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
 
-    public String getCourseName() {
-        return courseName;
-    }
+	public String getQqno() {
+		return qqno;
+	}
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getQqno() {
-        return qqno;
-    }
-
-    public void setQqno(String qqno) {
-        this.qqno = qqno;
-    }
-
+	public void setQqno(String qqno) {
+		this.qqno = qqno;
+	}
 
 	public String getLecturerName() {
 		return lecturerName;
@@ -557,7 +547,6 @@ public class CourseVo extends OnlineBaseVo{
 	public void setLecturerName(String lecturerName) {
 		this.lecturerName = lecturerName;
 	}
-
 
 	public String getMenuName() {
 		return menuName;
@@ -680,12 +669,12 @@ public class CourseVo extends OnlineBaseVo{
 	}
 
 	@Override
-    public Date getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
 	@Override
-    public void setCreateTime(Date createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -997,7 +986,6 @@ public class CourseVo extends OnlineBaseVo{
 		this.liveSource = liveSource;
 	}
 
-
 	public String getRealProvince() {
 		return realProvince;
 	}
@@ -1062,12 +1050,11 @@ public class CourseVo extends OnlineBaseVo{
 		this.releaseTime = releaseTime;
 	}
 
-    public Date getSortUpdateTime() {
-        return sortUpdateTime;
-    }
+	public Date getSortUpdateTime() {
+		return sortUpdateTime;
+	}
 
-    public void setSortUpdateTime(Date sortUpdateTime) {
-        this.sortUpdateTime = sortUpdateTime;
-    }
+	public void setSortUpdateTime(Date sortUpdateTime) {
+		this.sortUpdateTime = sortUpdateTime;
+	}
 }
-

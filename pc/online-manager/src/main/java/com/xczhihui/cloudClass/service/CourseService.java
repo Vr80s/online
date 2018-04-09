@@ -16,69 +16,71 @@ import com.xczhihui.cloudClass.vo.LecturerVo;
 import com.xczhihui.cloudClass.vo.MenuVo;
 
 public interface CourseService {
-	
+
 	/**
 	 * 获得一级菜单
 	 * 
-	 *@return List<CourseVo>一级菜单集合
+	 * @return List<CourseVo>一级菜单集合
 	 */
 	public List<Menu> getfirstMenus(Integer type);
-	
+
 	/**
 	 * 获得二级菜单
 	 * 
-	 *@return List<CourseVo>二级菜单集合
+	 * @return List<CourseVo>二级菜单集合
 	 */
 	public List<MenuVo> getsecoundMenus(String firstMenuNumber);
-	
+
 	/**
 	 * 获得主讲
 	 * 
-	 *@return List<LecturerVo>二级菜单集合
+	 * @return List<LecturerVo>二级菜单集合
 	 */
 	public List<LecturerVo> getLecturers();
 
-	public List<CourseVo> findByMenuId(String menuId,String courseTypeId);
+	public List<CourseVo> findByMenuId(String menuId, String courseTypeId);
+
 	public List<CourseVo> list(String courseType);
+
 	/**
 	 * 新增课程
 	 * 
-	 *@return void
+	 * @return void
 	 */
 	public void addCourse(CourseVo courseVo);
 
 	/**
 	 * 查询对应学科下所属课程
+	 * 
 	 * @param menuId
 	 * @return
 	 */
 	public List<CourseVo> listByMenuId(String menuId);
-	
+
 	/**
 	 * 修改课程
 	 * 
-	 *@return void
+	 * @return void
 	 */
 	public void updateCourse(CourseVo courseVo);
 
-    void checkName(Integer id,String courseName,Integer applyCourseId);
+	void checkName(Integer id, String courseName, Integer applyCourseId);
 
-    /**
+	/**
 	 * 修改课程
 	 * 
-	 *@return void
+	 * @return void
 	 */
 	public void updateRecImgPath(CourseVo courseVo);
-	
-	
+
 	/**
-	 * 新增课程
-	 * 根据课程ID号，查找对应的课程对象
+	 * 新增课程 根据课程ID号，查找对应的课程对象
+	 * 
 	 * @param courseId
-	 *@return List<CourseVo>
+	 * @return List<CourseVo>
 	 */
 	public List<CourseVo> findCourseById(Integer courseId);
-	
+
 	/**
 	 * 根据条件分页获取课程信息。
 	 * 
@@ -86,131 +88,167 @@ public interface CourseService {
 	 * @param pageVo
 	 * @return
 	 */
-    public Page<CourseVo> findCoursePage(CourseVo courseVo,  int pageNumber, int pageSize);
-    
-    /**
-     * 根据条件分页获取推荐课程信息。
-     * 
-     * @param groups
-     * @param pageVo
-     * @return
-     */
-    public Page<CourseVo> findCourseRecPage(CourseVo courseVo,  int pageNumber, int pageSize);
-	
-	
+	public Page<CourseVo> findCoursePage(CourseVo courseVo, int pageNumber,
+			int pageSize);
+
 	/**
-     * 根据菜单编号，查找对应的课程列表
-     * @param number 菜单编号
-     * @param pageNumber 当前是第几页，默认1
-     * @param pageSize 每页显示多少行，默认20
-     * @return Example 分页列表
-     */
-    public List<CourseLecturVo> getCourseAndLecturerlist(Integer number,Integer courseType,Integer pageNumber,Integer pageSize);
+	 * 根据条件分页获取推荐课程信息。
+	 * 
+	 * @param groups
+	 * @param pageVo
+	 * @return
+	 */
+	public Page<CourseVo> findCourseRecPage(CourseVo courseVo, int pageNumber,
+			int pageSize);
 
+	/**
+	 * 根据菜单编号，查找对应的课程列表
+	 * 
+	 * @param number
+	 *            菜单编号
+	 * @param pageNumber
+	 *            当前是第几页，默认1
+	 * @param pageSize
+	 *            每页显示多少行，默认20
+	 * @return Example 分页列表
+	 */
+	public List<CourseLecturVo> getCourseAndLecturerlist(Integer number,
+			Integer courseType, Integer pageNumber, Integer pageSize);
 
-    /**
-     * 根据课程ID号，查找对应的课程对象
-     * @param name 暂时没用
-     * @param courseId 课程id
-     * @return Example 分页列表
-     */
-    public CourseVo getCourseById(Integer courseId);
-    
-    /**
+	/**
+	 * 根据课程ID号，查找对应的课程对象
+	 * 
+	 * @param name
+	 *            暂时没用
+	 * @param courseId
+	 *            课程id
+	 * @return Example 分页列表
+	 */
+	public CourseVo getCourseById(Integer courseId);
+
+	/**
 	 * 修改状态(禁用or启用)
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-    public void updateStatus(Integer id);
-   
-    /**
+	public void updateStatus(Integer id);
+
+	/**
 	 * 逻辑删除
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-    public void deleteCourseById (Integer id);
-    
-    /**
-	 * 上移
-	 * @param Integer id
-	 * @return
-	 */
-    public void updateSortUp (Integer id);
-    
-    /**
-   	 * 下移
-   	 * @param Integer id
-   	 * @return
-   	 */
-     public void updateSortDown (Integer id);
-     
-     /**
-      * 上移
-      * @param Integer id
-      * @return
-      */
-     public void updateSortUpRec (Integer id);
+	public void deleteCourseById(Integer id);
 
 	/**
 	 * 上移
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-	public void updateCitySortUp (Integer id);
+	public void updateSortUp(Integer id);
 
 	/**
 	 * 下移
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-	public void updateCitySortDown (Integer id);
-     
-     /**
-      * 下移
-      * @param Integer id
-      * @return
-      */
-     public void updateSortDownRec (Integer id);
-       
-    /**
+	public void updateSortDown(Integer id);
+
+	/**
+	 * 上移
+	 * 
+	 * @param Integer
+	 *            id
+	 * @return
+	 */
+	public void updateSortUpRec(Integer id);
+
+	/**
+	 * 上移
+	 * 
+	 * @param Integer
+	 *            id
+	 * @return
+	 */
+	public void updateCitySortUp(Integer id);
+
+	/**
+	 * 下移
+	 * 
+	 * @param Integer
+	 *            id
+	 * @return
+	 */
+	public void updateCitySortDown(Integer id);
+
+	/**
+	 * 下移
+	 * 
+	 * @param Integer
+	 *            id
+	 * @return
+	 */
+	public void updateSortDownRec(Integer id);
+
+	/**
 	 * 删除
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-     public void deletes(String[] ids);
-     /**
-      * 更新是否推荐
-      * @param Integer id
-      * @return
-      */
-     public boolean updateRec(String[] ids,int isRecommend);
+	public void deletes(String[] ids);
+
+	/**
+	 * 更新是否推荐
+	 * 
+	 * @param Integer
+	 *            id
+	 * @return
+	 */
+	public boolean updateRec(String[] ids, int isRecommend);
+
 	/**
 	 * 更新城市是否推荐
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
-	public boolean updateCityRec(String[] ids,int isRecommend);
+	public boolean updateCityRec(String[] ids, int isRecommend);
 
-     /**
-      * 查询出授课方式的下拉值
-      * @return
-      */
+	/**
+	 * 查询出授课方式的下拉值
+	 * 
+	 * @return
+	 */
 	public List<TeachMethod> getTeachMethod();
 
 	/**
 	 * 查询出课程
+	 * 
 	 * @return
 	 */
 	public List<Course> getCourse();
-	
+
 	/**
 	 * 查询出课程类别的下拉值
+	 * 
 	 * @return
 	 */
 	public List<ScoreType> getScoreType();
-	
+
 	/**
 	 * 增加课程详情
+	 * 
 	 * @param courseId
 	 * @param smallImgPath
 	 * @param detailImgPath
@@ -219,41 +257,54 @@ public interface CourseService {
 	 * @param commonProblem
 	 * @param lecturerDescription
 	 */
-	public void updateCourseDetail(String courseId, String smallImgPath, String detailImgPath, String courseDetail,
-								   String courseOutline, String commonProblem, String lecturerDescription);
+	public void updateCourseDetail(String courseId, String smallImgPath,
+			String detailImgPath, String courseDetail, String courseOutline,
+			String commonProblem, String lecturerDescription);
+
 	/**
 	 * 获得课程详情
+	 * 
 	 * @param courseId
 	 * @return
 	 */
-	public Map<String,String> getCourseDetail(String courseId);
+	public Map<String, String> getCourseDetail(String courseId);
+
 	/**
 	 * 添加预览
+	 * 
 	 * @param courseId
 	 */
-	public void addPreview(String courseId, String smallImgPath, String detailImgPath, String courseDetail,
-			String courseOutline, String commonProblem);
-	
+	public void addPreview(String courseId, String smallImgPath,
+			String detailImgPath, String courseDetail, String courseOutline,
+			String commonProblem);
+
 	/**
 	 * 根据名字查找课程
-	 * @param String name
+	 * 
+	 * @param String
+	 *            name
 	 */
 	public List<Course> findByName(String name);
-	
+
 	/**
 	 * 设置课程描述是否在前台展示
+	 * 
 	 * @param courseVo
 	 */
 	public void updateDescriptionShow(CourseVo courseVo);
 
 	List<CourseVo> getCourselist(String search);
+
 	/**
 	 * 同步课程视频信息
+	 * 
 	 * @param id
 	 */
 	public String updateCourseVideoInfo(String id);
+
 	/**
 	 * 同步CC分类
+	 * 
 	 * @return
 	 */
 	public void updateCategoryInfo(String courseId) throws Exception;
@@ -269,7 +320,6 @@ public interface CourseService {
 
 	public void updateSentById(Integer id);
 
-
 	Course findOpenCourseById(Integer id);
 
 	void updateSortUpForReal(Integer id);
@@ -282,6 +332,7 @@ public interface CourseService {
 
 	/**
 	 * 同步课程视频信息（无章节知识点版）
+	 * 
 	 * @param id
 	 */
 	public String updateCourseVideo(String id);
@@ -290,36 +341,47 @@ public interface CourseService {
 
 	/**
 	 * Description：根据id获取线下课
+	 * 
 	 * @param cityId
 	 * @return
 	 * @return OffLineCity
-	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
 	 */
 	OffLineCity findCourseCityByName(Integer cityId);
-    /**
-     * Description：根据城市名判断是否存在此城市
-     * @param city
-     * @return
-     * @return Boolean
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     */
+
+	/**
+	 * Description：根据城市名判断是否存在此城市
+	 * 
+	 * @param city
+	 * @return
+	 * @return Boolean
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 */
 	Boolean findCourseCityByName(String city);
+
 	/**
 	 * Description：当禁用或者启用时，如果这个城市是最后一个。就直接删除吧,查询不出来。
-	 * 		也就禁用了。在删除线下课时，如果判断得到这个城市是最后一个的话，就也删除这个
+	 * 也就禁用了。在删除线下课时，如果判断得到这个城市是最后一个的话，就也删除这个
+	 * 
 	 * @param city
 	 * @return void
-	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
 	 */
 	void deleteCourseCityByName(String city);
+
 	/**
-	 * 获取所有的城市管理数据
-	 * Description：
+	 * 获取所有的城市管理数据 Description：
+	 * 
 	 * @return
 	 * @return List<OffLineCity>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
 	 */
-	Page<OffLineCity>   getCourseCityList(OffLineCity searchVo,Integer pageNumber,Integer pageSize);
+	Page<OffLineCity> getCourseCityList(OffLineCity searchVo,
+			Integer pageNumber, Integer pageSize);
 
 	public void updateCourseCityStatus(Integer id);
 
@@ -328,17 +390,22 @@ public interface CourseService {
 	public void updateCourseCity(OffLineCity offLineCity);
 
 	Course findCourseInfoById(Integer id);
+
 	/**
-	 * Description：设置推荐值
-	 * creed: Talk is cheap,show me the code
-	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * Description：设置推荐值 creed: Talk is cheap,show me the code
+	 * 
+	 * @author name：wangyishuai <br>
+	 *         email: wangyishuai@ixincheng.com
 	 * @Date: 2018/3/9 14:19
 	 **/
-	public void updateRecommendSort(Integer id,Integer recommendSort, String recommendTime);
+	public void updateRecommendSort(Integer id, Integer recommendSort,
+			String recommendTime);
+
 	/**
-	 * Description：过了推荐时效的推荐值恢复到默认值
-	 * creed: Talk is cheap,show me the code
-	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * Description：过了推荐时效的推荐值恢复到默认值 creed: Talk is cheap,show me the code
+	 * 
+	 * @author name：wangyishuai <br>
+	 *         email: wangyishuai@ixincheng.com
 	 * @Date: 2018/3/14 18:00
 	 **/
 	public void updateDefaultSort();

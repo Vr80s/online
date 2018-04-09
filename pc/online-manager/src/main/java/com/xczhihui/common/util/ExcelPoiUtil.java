@@ -24,7 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @date 2015年12月4日 下午2:46:31
  */
 public class ExcelPoiUtil {
-	
+
 	/**
 	 * 获取合并单元格的值
 	 * 
@@ -78,13 +78,12 @@ public class ExcelPoiUtil {
 		}
 		return false;
 	}
-	
-	
+
 	@SuppressWarnings("resource")
 	public static HSSFSheet getSheet(String filename) throws Exception {
 		if (filename == null || "".equals(filename.trim())) {
-            return null;
-        }
+			return null;
+		}
 		FileInputStream in = null;
 		try {
 			in = new FileInputStream(filename);
@@ -93,10 +92,8 @@ public class ExcelPoiUtil {
 			return sheet;
 		} catch (Exception e) {
 			throw new Exception("出错:" + filename);
-		} finally
-		{
-			if (in != null)
-			{
+		} finally {
+			if (in != null) {
 				try {
 					in.close();
 				} catch (Exception e) {
@@ -109,8 +106,8 @@ public class ExcelPoiUtil {
 	@SuppressWarnings("resource")
 	public static XSSFSheet getSheet2007(String filename) throws Exception {
 		if (filename == null || "".equals(filename.trim())) {
-            return null;
-        }
+			return null;
+		}
 
 		FileInputStream in = null;
 		try {
@@ -120,10 +117,8 @@ public class ExcelPoiUtil {
 			return sheet;
 		} catch (Exception e) {
 			throw new Exception("出错:" + filename);
-		} finally
-		{
-			if (in != null)
-			{
+		} finally {
+			if (in != null) {
 				try {
 					in.close();
 				} catch (Exception e) {
@@ -138,8 +133,8 @@ public class ExcelPoiUtil {
 		while (celliIterator.hasNext()) {
 			String temp = getStrByCell(celliIterator.next());
 			if (temp != null && !temp.trim().isEmpty()) {
-                return false;
-            }
+				return false;
+			}
 		}
 		return true;
 	}
@@ -147,8 +142,8 @@ public class ExcelPoiUtil {
 	public static String getStrByCell(Cell cell) {
 
 		if (cell == null) {
-            return null;
-        }
+			return null;
+		}
 		String temp = null;
 
 		switch (cell.getCellType()) {
@@ -193,10 +188,10 @@ public class ExcelPoiUtil {
 		}
 
 		if (temp == null || "".equals(temp.trim())) {
-            temp = null;
-        } else {
-            temp = temp.trim();
-        }
+			temp = null;
+		} else {
+			temp = temp.trim();
+		}
 
 		return trim(temp);
 	}
@@ -210,7 +205,7 @@ public class ExcelPoiUtil {
 	}
 
 	public static HSSFCellStyle setHeadStyle(HSSFWorkbook workbook,
-	        HSSFCellStyle style) {
+			HSSFCellStyle style) {
 		style.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
 		style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);

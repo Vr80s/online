@@ -13,36 +13,25 @@ public class PropertyFilter {
 	public static final String OR_SEPARATOR = "_OR_";
 
 	/** 属性比较类型. */
-public enum MatchType {
-		AND,
-		OR,
-		NULL,
-		NOTNULL,
-		BETWEEN,
-		IN,
-		EQ,  //==EQuivalent with
-		LIKE, //like '%value%'
-		LIKESTART, //like 'value%'
-		LT, //< Less than
-		GT, //> Greater Than
-		LE, //<= Less than or Equivalent with
-		GE, //>= Greater than or Equivalent with 
-		NOTIN,
-		NE, MatchType; // Not Equivalent with !=
+	public enum MatchType {
+		AND, OR, NULL, NOTNULL, BETWEEN, IN, EQ, // ==EQuivalent with
+		LIKE, // like '%value%'
+		LIKESTART, // like 'value%'
+		LT, // < Less than
+		GT, // > Greater Than
+		LE, // <= Less than or Equivalent with
+		GE, // >= Greater than or Equivalent with
+		NOTIN, NE, MatchType; // Not Equivalent with !=
 	}
-public enum Type {
-	INTEGER,
-	LONG,
-	FLOAT,
-	STRING,
-	DATE,
-	DOUBLE,
-	BOOLEAN
-}
+
+	public enum Type {
+		INTEGER, LONG, FLOAT, STRING, DATE, DOUBLE, BOOLEAN
+	}
 
 	/** 属性数据类型. */
 	public enum PropertyType {
-		S(String.class), I(Integer.class), L(Long.class), N(Double.class), D(Date.class), B(Boolean.class);
+		S(String.class), I(Integer.class), L(Long.class), N(Double.class), D(
+				Date.class), B(Boolean.class);
 
 		private Class<?> clazz;
 
@@ -64,7 +53,6 @@ public enum Type {
 	public PropertyFilter() {
 	}
 
-	
 	/**
 	 * 获取比较值的类型.
 	 */

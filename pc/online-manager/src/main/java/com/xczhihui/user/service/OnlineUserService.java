@@ -15,6 +15,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 public interface OnlineUserService {
 	/**
 	 * 按条件分页查询用户
+	 * 
 	 * @param lastLoginIp
 	 * @param createTimeStart
 	 * @param createTimeEnd
@@ -26,16 +27,19 @@ public interface OnlineUserService {
 	 * @param pageSize
 	 * @return
 	 */
-	public Page<OnlineUser> findUserPage(String lastLoginIp, String createTimeStart, String createTimeEnd,
-			String lastLoginTimeStart, String lastLoginTimeEnd, String searchName, Integer status, Integer menuId, int pageNumber,
+	public Page<OnlineUser> findUserPage(String lastLoginIp,
+			String createTimeStart, String createTimeEnd,
+			String lastLoginTimeStart, String lastLoginTimeEnd,
+			String searchName, Integer status, Integer menuId, int pageNumber,
 			int pageSize);
 
 	/**
 	 * 禁用/启用
+	 * 
 	 * @param loginName
 	 * @param delete
 	 */
-	public void updateUserStatus(String loginName,int status);
+	public void updateUserStatus(String loginName, int status);
 
 	/**
 	 * 设置学科权限
@@ -46,23 +50,25 @@ public interface OnlineUserService {
 	public void updateMenuForUser(OnlineUser entity);
 
 	/**
-	 * 查找所有的讲师
-	 * Description：
+	 * 查找所有的讲师 Description：
+	 * 
 	 * @return
 	 * @return List<Map<String,Object>>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
 	 *
 	 */
 	List<Map<String, Object>> getAllUserLecturer();
 
 	/**
-	 * 设置此用户为讲师
-	 * Description：
+	 * 设置此用户为讲师 Description：
+	 * 
 	 * @param loginName
 	 * @param status
 	 * @return void
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 * @param description 
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @param description
 	 *
 	 */
 	void updateUserLecturer(String loginName, int status, String description);
@@ -71,5 +77,5 @@ public interface OnlineUserService {
 
 	public List<Map<String, Object>> getAllCourseName();
 
-    void updateUserLogin(String userId, String loginName);
+	void updateUserLogin(String userId, String loginName);
 }

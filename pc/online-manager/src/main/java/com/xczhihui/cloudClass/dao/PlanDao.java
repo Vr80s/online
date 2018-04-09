@@ -7,4 +7,3 @@ import org.springframework.stereotype.Repository;
 public class PlanDao extends SimpleHibernateDao {
 
 }
-

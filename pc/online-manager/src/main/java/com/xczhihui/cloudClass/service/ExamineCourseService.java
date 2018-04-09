@@ -16,9 +16,8 @@ public interface ExamineCourseService {
 
 	public List<Menu> getMenus();
 
-	
 	public String updateWebinar(Course entity);
-	
+
 	public String createWebinar(Course entity);
 
 	public String reCreateWebinar(CourseVo entity);
@@ -32,39 +31,27 @@ public interface ExamineCourseService {
 
 	void synchronizingCourse(LiveExamineInfo le);
 
-
 	public String updateApply(String id);
-
 
 	public LiveExamineInfo findExamineById(String id);
 
-   
 	public Page<LiveExamineInfoVo> findAppealListPage(
 			LiveExamineInfoVo liveExamineInfoVo, int currentPage, int pageSize);
 
-
 	public void updateBohuiApply(LiveAppealInfoVo lai);
-
 
 	public void deletes(String[] _ids);
 
-
 	public void deletesAppeal(String[] _ids);
-
 
 	LiveAppealInfo findAppealInfoById(Integer id);
 
-
 	void updateRecoverys(String[] _ids);
-
 
 	public void updateAppeal(String[] _ids);
 
-
 	public void updateCxBoHui(String id);
 
-
 	public List<LiveAppealInfoVo> getApplysByExamId(String id);
-	
 
 }

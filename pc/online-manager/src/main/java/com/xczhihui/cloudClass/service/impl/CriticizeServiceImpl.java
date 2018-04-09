@@ -13,41 +13,48 @@ import com.xczhihui.cloudClass.vo.CourseVo;
 import com.xczhihui.cloudClass.vo.CriticizeVo;
 
 @Service
-public class CriticizeServiceImpl extends OnlineBaseServiceImpl implements CriticizeService {
+public class CriticizeServiceImpl extends OnlineBaseServiceImpl implements
+		CriticizeService {
 
 	@Autowired
-    private CriticizeDao criticizeDao;
-	
+	private CriticizeDao criticizeDao;
+
 	@Override
-	public Page<CriticizeVo> findCriticizePage(CriticizeVo criticizeVo, Integer pageNumber, Integer pageSize) {
-		Page<CriticizeVo> page = criticizeDao.findCriticizePage(criticizeVo, pageNumber, pageSize);
+	public Page<CriticizeVo> findCriticizePage(CriticizeVo criticizeVo,
+			Integer pageNumber, Integer pageSize) {
+		Page<CriticizeVo> page = criticizeDao.findCriticizePage(criticizeVo,
+				pageNumber, pageSize);
 		return page;
 	}
 
-    @Override
-	public Page<CourseVo> findCoursePage(CourseVo courseVo,  int pageNumber, int pageSize) {
-    	Page<CourseVo> page = criticizeDao.findCloudClassCoursePage(courseVo, pageNumber, pageSize);
-    	return page;
-	
+	@Override
+	public Page<CourseVo> findCoursePage(CourseVo courseVo, int pageNumber,
+			int pageSize) {
+		Page<CourseVo> page = criticizeDao.findCloudClassCoursePage(courseVo,
+				pageNumber, pageSize);
+		return page;
+
 	}
 
 	@Override
 	public void deletes(String[] ids) {
 		// TODO Auto-generated method stub
-		for(String id:ids){
-			String hqlPre="from Criticize where isDelete=0 and id = ?";
-			Criticize criticize= dao.findByHQLOne(hqlPre,new Object[] {id});
-            if(criticize !=null){
-            	criticize.setDelete(true);
-                dao.update(criticize);
-            }
-        }
+		for (String id : ids) {
+			String hqlPre = "from Criticize where isDelete=0 and id = ?";
+			Criticize criticize = dao.findByHQLOne(hqlPre, new Object[] { id });
+			if (criticize != null) {
+				criticize.setDelete(true);
+				dao.update(criticize);
+			}
+		}
 	}
 
 	@Override
 	public void addResponse(String id, String content) {
 		content = content == null ? null : content.trim();
 		dao.getNamedParameterJdbcTemplate()
-			.getJdbcOperations().update("update oe_criticize set response=?,response_time=now() where id=?",content,id);
+				.getJdbcOperations()
+				.update("update oe_criticize set response=?,response_time=now() where id=?",
+						content, id);
 	}
 }

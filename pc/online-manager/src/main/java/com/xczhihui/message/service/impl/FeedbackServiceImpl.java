@@ -22,11 +22,13 @@ import org.springframework.stereotype.Service;
 
 /**
  * 问题反馈service
+ * 
  * @author duanqh
  *
  */
 @Service
-public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements FeedbackService {
+public class FeedbackServiceImpl extends OnlineBaseServiceImpl implements
+		FeedbackService {
 
 	/**
 	 * 意见反馈Dao层
@@ -42,46 +44,54 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements Feedb
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.xczhihui.bxg.common.util.bean.Page<MessageVo> findPageMessages(MessageVo vo, int pageNumber, int pageSize) throws InvocationTargetException, IllegalAccessException {
-		com.xczhihui.bxg.common.util.bean.Page<Message> page = this.dao.findPageMessages(vo, "answerStatus", pageNumber, pageSize);
+	public com.xczhihui.bxg.common.util.bean.Page<MessageVo> findPageMessages(
+			MessageVo vo, int pageNumber, int pageSize)
+			throws InvocationTargetException, IllegalAccessException {
+		com.xczhihui.bxg.common.util.bean.Page<Message> page = this.dao
+				.findPageMessages(vo, "answerStatus", pageNumber, pageSize);
 		List<Message> items = page.getItems();
 		List<MessageVo> itemsVo = new ArrayList<MessageVo>();
 		for (Message q : items) {
 			MessageVo dest = new MessageVo();
 			BeanUtils.copyProperties(dest, q);
-			if(dest.getUserId()!=null){
+			if (dest.getUserId() != null) {
 				String sql = "select t.login_name as loginName from oe_user t where t.id = :id";
 				Map paramMap = new HashMap();
 				paramMap.put("id", dest.getUserId());
-				System.out.println("userId"+dest.getUserId());
-				//String userName = dao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class);
-				List<Map<String,Object>> list  = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-				if(list.size()>0){
+				System.out.println("userId" + dest.getUserId());
+				// String userName =
+				// dao.getNamedParameterJdbcTemplate().queryForObject(sql,
+				// paramMap, String.class);
+				List<Map<String, Object>> list = dao
+						.getNamedParameterJdbcTemplate().queryForList(sql,
+								paramMap);
+				if (list.size() > 0) {
 					try {
-						dest.setUserName(list.get(0).get("loginName").toString());
+						dest.setUserName(list.get(0).get("loginName")
+								.toString());
 					} catch (Exception e) {
 						// TODO: handle exception
 						e.printStackTrace();
 					}
 				}
-			}else{
+			} else {
 				dest.setUserName("游客");
 			}
 			itemsVo.add(dest);
 		}
-		
-		com.xczhihui.bxg.common.util.bean.Page<MessageVo> pageVo = new com.xczhihui.bxg.common.util.bean.Page<MessageVo>(itemsVo,
-				page.getTotalCount(),
-				page.getPageSize(), 
+
+		com.xczhihui.bxg.common.util.bean.Page<MessageVo> pageVo = new com.xczhihui.bxg.common.util.bean.Page<MessageVo>(
+				itemsVo, page.getTotalCount(), page.getPageSize(),
 				page.getCurrentPage());
 		return pageVo;
 	}
+
 	@Override
 	public void updateStatus(String id) {
 		Message m = dao.get(id, Message.class);
-		if(m.isDelete()){
+		if (m.isDelete()) {
 			m.setDelete(false);
-		}else{
+		} else {
 			m.setDelete(true);
 		}
 		dao.update(m);
@@ -91,18 +101,19 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements Feedb
 	public void addContext(FeedBackVo vo) {
 		Message message = new Message();
 		message.setLastTime(new Date());
-		message.setContext("<font color=\"#2cb82c\">意见反馈：</font>"+vo.getReplytext());
+		message.setContext("<font color=\"#2cb82c\">意见反馈：</font>"
+				+ vo.getReplytext());
 		message.setPid(vo.getId());
 		message.setUserId(vo.getUserId());
 		message.setType(0);
 		message.setStatus((short) 1);
 		message.setTitle(vo.getTitle());
-//		message.setReplytext(vo.getReplytext());
+		// message.setReplytext(vo.getReplytext());
 		message.setCreateTime(new Date());
 		message.setCreatePerson(ManagerUserUtil.getName());
-		message.setReadstatus((short)0);
+		message.setReadstatus((short) 0);
 		dao.save(message);
-		Message feekMessage=dao.get(vo.getId(), Message.class);
+		Message feekMessage = dao.get(vo.getId(), Message.class);
 		feekMessage.setAnswerStatus((short) 1);
 		feekMessage.setLastTime(new Date());
 		dao.update(feekMessage);

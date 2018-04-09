@@ -7,12 +7,13 @@ import com.xczhihui.order.vo.OrderVo;
 
 public interface OrderService {
 
-	public Page<OrderVo> findOrderPage(OrderVo orderVo, Integer pageNumber, Integer pageSize);
-	
+	public Page<OrderVo> findOrderPage(OrderVo orderVo, Integer pageNumber,
+			Integer pageSize);
+
 	/**
 	 * 逻辑批量删除
 	 * 
-	 *@return void
+	 * @return void
 	 */
 	public void deletes(String[] ids);
 

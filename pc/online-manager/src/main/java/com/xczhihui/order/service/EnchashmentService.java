@@ -8,16 +8,19 @@ import com.xczhihui.bxg.online.api.po.EnchashmentApplyInfo;
 
 public interface EnchashmentService {
 
-	public Page<EnchashmentApplyInfo> findEnchashmentPage(EnchashmentApplyInfo orderVo, Integer pageNumber, Integer pageSize);
+	public Page<EnchashmentApplyInfo> findEnchashmentPage(
+			EnchashmentApplyInfo orderVo, Integer pageNumber, Integer pageSize);
 
-	/** 
+	/**
 	 * Description：处理提现申请
+	 * 
 	 * @param ea
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 * @return void
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @author name：yuxin <br>
+	 *         email: yuruixin@ixincheng.com
 	 **/
-	public void updateHandleEnchashment(EnchashmentApplyInfo ea) ;
+	public void updateHandleEnchashment(EnchashmentApplyInfo ea);
 
 }

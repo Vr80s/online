@@ -19,12 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 课程管理控制层实现类
+ * 
  * @author yxd
  */
 
 @Controller
 @RequestMapping("anchor/courseAnchorIncome")
-public class CourseAnchorIncomeController extends AbstractController{
+public class CourseAnchorIncomeController extends AbstractController {
 
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/anchor/";
 	@Autowired
@@ -34,46 +35,48 @@ public class CourseAnchorIncomeController extends AbstractController{
 	public String index(HttpServletRequest request) {
 		return CLOUD_CLASS_PATH_PREFIX + "/courseAnchorIncome";
 	}
-	
+
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
-	      int pageSize = tableVo.getiDisplayLength();
-          int index = tableVo.getiDisplayStart();
-          int currentPage = index / pageSize + 1;
-          String params = tableVo.getsSearch();
-          Groups groups = Tools.filterGroup(params);
-          
-          CourseAnchor searchVo=new CourseAnchor();
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
 
-          Group name = groups.findByName("search_name");
-          if (name != null) {
-        	  searchVo.setName(name.getPropertyValue1().toString());
-          }
+		CourseAnchor searchVo = new CourseAnchor();
 
-          Group order = groups.findByName("search_type");
-          if (order != null) {
-        	  searchVo.setRemark(order.getPropertyValue1().toString());
-          }
+		Group name = groups.findByName("search_name");
+		if (name != null) {
+			searchVo.setName(name.getPropertyValue1().toString());
+		}
 
-          Page<AnchorIncomeVO> page = anchorService.findCourseAnchorIncomePage(searchVo, currentPage, pageSize);
-          int total = page.getTotalCount();
-          tableVo.setAaData(page.getItems());
-          tableVo.setiTotalDisplayRecords(total);
-          tableVo.setiTotalRecords(total);
-          return tableVo;
-		
+		Group order = groups.findByName("search_type");
+		if (order != null) {
+			searchVo.setRemark(order.getPropertyValue1().toString());
+		}
+
+		Page<AnchorIncomeVO> page = anchorService.findCourseAnchorIncomePage(
+				searchVo, currentPage, pageSize);
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+
 	}
 
-    /**
-     * 查看
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "findCourseAnchorById", method = RequestMethod.GET)
-    @ResponseBody
-    public CourseAnchor findCourseAnchorById(Integer id) {
-        return anchorService.findCourseAnchorById(id);
-    }
+	/**
+	 * 查看
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "findCourseAnchorById", method = RequestMethod.GET)
+	@ResponseBody
+	public CourseAnchor findCourseAnchorById(Integer id) {
+		return anchorService.findCourseAnchorById(id);
+	}
 
 }

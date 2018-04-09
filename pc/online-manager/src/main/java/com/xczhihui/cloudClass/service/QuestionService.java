@@ -11,7 +11,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.QuesStore;
 
-
 /**
  * 题库接口
  * 
@@ -39,13 +38,14 @@ public interface QuestionService {
 	public String getKnowledgePointsIdString(String id);
 
 	public List<QuestionOptionPicture> getQopList(String questionId,
-                                                  String questionType, String optionName);
+			String questionType, String optionName);
 
 	public void updateQuestion(QuesStore question);
 
-	public void deleteById(String id,String chapterIds);
+	public void deleteById(String id, String chapterIds);
 
-	StringBuffer checkXls(Sheet sheet, List<QuesStore> excelList,Set<String> zipSet,String courseName);
+	StringBuffer checkXls(Sheet sheet, List<QuesStore> excelList,
+			Set<String> zipSet, String courseName);
 
 	String saveBatch(List<QuesStore> excelList, Map<String, byte[]> zipMap,
 			String ticket);
@@ -54,5 +54,4 @@ public interface QuestionService {
 
 	public void updateDisableStatus(String id);
 
-	
 }

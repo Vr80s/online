@@ -19,10 +19,11 @@ import com.xczhihui.gift.service.RewardStatementService;
 import com.xczhihui.gift.vo.RewardStatementVo;
 import com.xczhihui.utils.Group;
 
-/** 
+/**
  * ClassName: RewardStatementController.java <br>
  * Description: 打赏流水<br>
- * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
+ * Create by: name：yuxin <br>
+ * email: yuruixin@ixincheng.com <br>
  * Create Time: 2017年8月16日<br>
  */
 @Controller
@@ -45,7 +46,7 @@ public class RewardStatementController extends AbstractController {
 		return GIFT_PATH_PREFIX + "/rewardStatement";
 	}
 
-	//@RequiresPermissions("gift:menu:rewardStatement")
+	// @RequiresPermissions("gift:menu:rewardStatement")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo gifts(TableVo tableVo) {
@@ -59,8 +60,8 @@ public class RewardStatementController extends AbstractController {
 		Group startTimeGroup = groups.findByName("startTime");
 		Group stopTimeGroup = groups.findByName("stopTime");
 		Group searchTypeGroup = groups.findByName("searchType");
-        Group searchConditionGroup = groups.findByName("searchCondition");
-		
+		Group searchConditionGroup = groups.findByName("searchCondition");
+
 		if (startTimeGroup != null) {
 			searchVo.setStartTime(DateUtil.parseDate(startTimeGroup
 					.getPropertyValue1().toString(), "yyyy-MM-dd"));
@@ -70,15 +71,17 @@ public class RewardStatementController extends AbstractController {
 			searchVo.setStopTime(DateUtil.parseDate(stopTimeGroup
 					.getPropertyValue1().toString(), "yyyy-MM-dd"));
 		}
-		
 
-        if(searchTypeGroup!=null){
-       	 searchVo.setSearchType(Integer.valueOf(searchTypeGroup.getPropertyValue1().toString()));
-        }
-        if(searchConditionGroup!=null){
-       	 searchVo.setSearchCondition(searchConditionGroup.getPropertyValue1().toString());
-        }
-		Page<RewardStatementVo> page = rewardStatementService.findRewardPage(searchVo, currentPage,pageSize);
+		if (searchTypeGroup != null) {
+			searchVo.setSearchType(Integer.valueOf(searchTypeGroup
+					.getPropertyValue1().toString()));
+		}
+		if (searchConditionGroup != null) {
+			searchVo.setSearchCondition(searchConditionGroup
+					.getPropertyValue1().toString());
+		}
+		Page<RewardStatementVo> page = rewardStatementService.findRewardPage(
+				searchVo, currentPage, pageSize);
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
