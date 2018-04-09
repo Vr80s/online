@@ -19,6 +19,54 @@
 	.all_list ul li:nth-last-child(1) p{
 		border-bottom: 0;
 	}
+	.video_prompt_open{
+		display:none;
+	}
+	.ccH5AudioBg{
+		display: none !important;
+	}
+	.play_video img{
+		width: 7.5rem;
+	    height: 4.24rem;
+	    position: absolute;
+	    top: 0;
+	    z-index: 9;
+	}
+</style>
+<style type="text/css">
+	.ccH5playerBox{
+	    height: 4.24rem !important;
+	}
+	.ccH5playerBox section{
+ 		/*background: red;*/
+	    bottom: -1rem;
+	    z-index: 999999;
+	    opacity: 1;
+ 	}
+ 	.ccH5playerBox{
+ 		overflow: auto;
+ 	}
+ 	.ccH5AudioBg img{
+ 		display: block !important;
+ 	}
+ 	#video_vs .ccH5playerBox video{
+ 		opacity: 0;
+    	z-index: -1;
+    	display: none;
+ 	}
+ 	#video_vs .ccH5playerBox{
+ 		background: none;
+ 	}
+ 	.hide{
+		display: none !important;
+	}
+	.play_video img{
+		/*z-index: 1;*/
+	}
+	/*
+	.ccH5FullsBtn{
+		display: none;
+	}*/
 </style>
 </head>
     
@@ -37,7 +85,8 @@
 		</div>
 	</div>
 	<!--视频-->
-	<div class="play_video" id="video_box">
+	<div class="play_video">
+		<div id="video_box"></div>
 				<!--<div id="video_v"></div>-->
 		<!--<div class="video_prompt">
 			暂未开播
