@@ -9,7 +9,7 @@ import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.utils.OrderNoUtil;
-import com.xczhihui.bxg.online.common.utils.lock.Lock;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.EnchashmentApplyDao;
 import com.xczhihui.bxg.online.web.dao.UserCoinDao;

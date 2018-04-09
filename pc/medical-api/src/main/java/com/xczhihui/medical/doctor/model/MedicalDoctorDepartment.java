@@ -1,4 +1,4 @@
-package com.xczhihui.medical.model.entity;
+package com.xczhihui.medical.doctor.model;
 
 import java.io.Serializable;
 

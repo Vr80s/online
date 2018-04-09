@@ -59,14 +59,14 @@ public class MedicalHospitalRecruitBusinessServiceImpl implements IMedicalHospit
     }
 
     @Override
-    public ResponseObject save(MedicalHospitalRecruit medicalHospitalRecruit, OnlineUser onlineUser) {
+    public ResponseObject save(MedicalHospitalRecruit medicalHospitalRecruit, String userId) {
         MedicalHospital medicalHospital = medicalHospitalMapper.selectById(medicalHospitalRecruit.getHospitalId());
         if (medicalHospital == null || medicalHospital.getDeleted()) {
             return newErrorResponseObject("医馆不存在或已被删除");
         }
 
         medicalHospitalRecruit.setId(CodeUtil.getRandomUUID());
-        medicalHospitalRecruit.setCreatePerson(onlineUser.getId());
+        medicalHospitalRecruit.setCreatePerson(userId);
         Integer sort = medicalHospitalRecruitMapper.maxSort();
         medicalHospitalRecruit.setSort(sort != null ? sort + 1 : 0);
         medicalHospitalRecruitMapper.insert(medicalHospitalRecruit);
@@ -74,7 +74,7 @@ public class MedicalHospitalRecruitBusinessServiceImpl implements IMedicalHospit
     }
 
     @Override
-    public ResponseObject update(String id, MedicalHospitalRecruit medicalHospitalRecruit, OnlineUser onlineUser) {
+    public ResponseObject update(String id, MedicalHospitalRecruit medicalHospitalRecruit) {
         MedicalHospitalRecruit oldRecruit = medicalHospitalRecruitMapper.selectById(id);
         if (oldRecruit == null) {
             return newErrorResponseObject("招聘信息不存在");

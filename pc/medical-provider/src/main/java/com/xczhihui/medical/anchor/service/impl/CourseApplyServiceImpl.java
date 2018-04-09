@@ -7,7 +7,7 @@ import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.bxg.common.util.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
-import com.xczhihui.bxg.online.common.utils.lock.Lock;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;

@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.utils.lock;
+package com.xczhihui.bxg.common.support.lock;
 
 /**
  * Description: 分布式锁切面服务<br>
@@ -7,7 +7,6 @@ package com.xczhihui.bxg.online.common.utils.lock;
  * Create Time:  2018/3/4 0004-下午 8:46<br>
  */
 
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -49,7 +48,7 @@ public class LockService {
     private RedissonUtil redissonUtil;
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut("@annotation(com.xczhihui.bxg.online.common.utils.lock.Lock)")
+    @Pointcut("@annotation(com.xczhihui.bxg.common.support.lock.Lock)")
     public void lockPointcut() {
 
     }

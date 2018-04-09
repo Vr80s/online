@@ -11,14 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.online.common.utils.lock.Lock;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.mapper.WatchHistoryMapper;
 import com.xczhihui.wechat.course.model.WatchHistory;
 import com.xczhihui.wechat.course.service.IWatchHistoryService;
 import com.xczhihui.wechat.course.util.DateDistance;
 import com.xczhihui.wechat.course.util.DateUtil;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
 import com.xczhihui.wechat.course.vo.WatchHistoryVO;
 
 /**

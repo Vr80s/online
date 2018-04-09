@@ -1,8 +1,8 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.online.common.utils.IDCard;
-import com.xczhihui.bxg.online.common.utils.lock.Lock;
+import com.xczhihui.bxg.common.util.IDCard;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
@@ -44,8 +44,6 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private MedicalDepartmentMapper medicalDepartmentMapper;
     @Autowired
     private ICommonService commonService;
-    @Autowired
-    private RedisShardLockUtils redisShardLockUtils;
     @Autowired
     private IMedicalDoctorApplyService medicalDoctorApplyService;
 

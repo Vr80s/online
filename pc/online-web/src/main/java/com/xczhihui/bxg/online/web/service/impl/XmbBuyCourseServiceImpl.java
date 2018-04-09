@@ -15,7 +15,7 @@ import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.service.XmbBuyCouserService;
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import com.xczhihui.bxg.common.util.enums.Payment;
-import com.xczhihui.bxg.online.common.utils.lock.Lock;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
 

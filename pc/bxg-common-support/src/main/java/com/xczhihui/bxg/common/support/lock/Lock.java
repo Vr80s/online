@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.utils.lock;
+package com.xczhihui.bxg.common.support.lock;
 
 /**
  * Description: 分布式锁应用注解<br>

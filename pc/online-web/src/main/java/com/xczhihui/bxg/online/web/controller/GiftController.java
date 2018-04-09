@@ -46,13 +46,7 @@ public class GiftController {
 	 **/
 	@RequestMapping(value = "/getGift")
 	public ResponseObject getGift() {
-		List<Gift> gifts;
-		try {
-			gifts= giftService.getGift();
-		} catch (NotSufficientFundsException e) {
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}
-		return ResponseObject.newSuccessResponseObject(gifts);
+		return ResponseObject.newSuccessResponseObject(giftService.getGift());
 	}
 	
 	/** 

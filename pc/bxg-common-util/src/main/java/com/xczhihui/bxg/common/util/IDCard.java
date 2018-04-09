@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.utils;
+package com.xczhihui.bxg.common.util;
 
 /**
  * Description: 身份证号码校验工具类<br>
