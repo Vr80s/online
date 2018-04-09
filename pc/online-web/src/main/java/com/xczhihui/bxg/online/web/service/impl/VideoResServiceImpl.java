@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.cc.util.Md5Encrypt;
 import com.xczhihui.bxg.online.web.service.VideoResService;
 import org.slf4j.Logger;

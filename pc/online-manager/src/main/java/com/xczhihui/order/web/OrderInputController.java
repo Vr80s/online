@@ -32,7 +32,7 @@ import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.user.center.utils.CodeUtil;
 
 /**

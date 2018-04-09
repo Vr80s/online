@@ -39,7 +39,7 @@ import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.Reward;
 import com.xczhihui.bxg.online.common.domain.WxcpPayFlow;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;

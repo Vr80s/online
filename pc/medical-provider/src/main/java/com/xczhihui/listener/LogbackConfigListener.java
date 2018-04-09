@@ -1,9 +1,7 @@
-package com.xczhihui.bxg.common.web.listener;
+package com.xczhihui.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-import com.xczhihui.bxg.common.web.listener.LogbackWebConfigurer;
 
 /**
  * logback初始化监听器。

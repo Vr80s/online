@@ -2,7 +2,6 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
 import com.xczhihui.bxg.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
@@ -14,6 +13,7 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;

@@ -29,7 +29,7 @@ import com.xczhihui.bxg.common.util.enums.ApplyStatus;
 import com.xczhihui.bxg.common.util.enums.CourseDismissal;
 import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.bxg.common.util.enums.Multimedia;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.vhall.bean.Webinar;
 
 /**

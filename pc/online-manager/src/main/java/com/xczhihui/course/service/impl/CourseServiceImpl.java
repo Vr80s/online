@@ -38,7 +38,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;

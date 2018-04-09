@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.support.domain.BxgUser;
@@ -26,7 +25,7 @@ import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.common.util.CodeUtil;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.online.web.service.VedioService;
 import com.xczhihui.bxg.online.web.vo.VedioAuthVo;
 

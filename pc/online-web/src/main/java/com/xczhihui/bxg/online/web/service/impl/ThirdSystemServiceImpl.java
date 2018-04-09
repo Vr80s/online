@@ -22,7 +22,7 @@ import org.springframework.util.StringUtils;
 import com.xczhihui.bxg.common.util.HttpUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.online.web.dao.ThirdSystemDao;
 import com.xczhihui.bxg.online.web.service.ThirdSystemService;
 import com.xczhihui.bxg.online.web.service.VerificationCodeService;

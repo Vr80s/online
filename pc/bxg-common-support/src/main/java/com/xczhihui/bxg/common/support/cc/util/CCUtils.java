@@ -5,29 +5,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
-import org.hibernate.annotations.SourceType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-
+@Configuration
 public class CCUtils {
+
+	@Autowired
+	private OnlineConfig onlineConfig;
+
 	/**
 	 * 获得全部分类
 	 * @return
 	 */
-	public static List<CategoryBean> getAllCategories() {
+	public List<CategoryBean> getAllCategories() {
 		List<CategoryBean> array = new ArrayList<CategoryBean>();
 		
 		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+		paramsMap.put("userid", onlineConfig.ccuserId);
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 		String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category+"?" + requestURL);
 		Gson g = new GsonBuilder().create();
 		
@@ -53,16 +58,16 @@ public class CCUtils {
 		return array;
 	}
 	
-	public static CategoryBean createCategory(String name,String super_categoryid){
+	public CategoryBean createCategory(String name,String super_categoryid){
 		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+		paramsMap.put("userid", onlineConfig.ccuserId);
 		paramsMap.put("name", name);
 		if (StringUtils.hasText(super_categoryid)) {
 			paramsMap.put("super_categoryid", super_categoryid);
 		}
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 		String responsestr = APIServiceFunction.HttpRetrieve(Config.api_create_category+"?" + requestURL);
 		Gson g = new GsonBuilder().create();
 		Map<String, Object> fromJson = g.fromJson(responsestr, Map.class);
@@ -73,14 +78,14 @@ public class CCUtils {
 		return bean;
 	}
 	
-	public static CategoryBean updateCategory(String categoryid,String name){
+	public CategoryBean updateCategory(String categoryid,String name){
 		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+		paramsMap.put("userid", onlineConfig.ccuserId);
 		paramsMap.put("categoryid", categoryid);
 		paramsMap.put("name", name);
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 		String responsestr = APIServiceFunction.HttpRetrieve(Config.api_update_category+"?" + requestURL);
 		Gson g = new GsonBuilder().create();
 		Map<String, Object> fromJson = g.fromJson(responsestr, Map.class);
@@ -91,13 +96,13 @@ public class CCUtils {
 		return bean;
 	}
 	
-	public static String deleteCategory(String categoryid){
+	public String deleteCategory(String categoryid){
 		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+		paramsMap.put("userid", onlineConfig.ccuserId);
 		paramsMap.put("categoryid", categoryid);
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 		String responsestr = APIServiceFunction.HttpRetrieve(Config.api_delete_category+"?" + requestURL);
 		Gson g = new GsonBuilder().create();
 		Map<String, Object> fromJson = g.fromJson(responsestr, Map.class);
@@ -108,13 +113,13 @@ public class CCUtils {
 	}
 
 
-	public static String getVideoLength(String videoid){
+	public String getVideoLength(String videoid){
 		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+		paramsMap.put("userid", onlineConfig.ccuserId);
 		paramsMap.put("videoid", videoid);
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 		String responsestr = APIServiceFunction.HttpRetrieve(Config.api_video_v3+"?" + requestURL);
 		Gson g = new GsonBuilder().create();
 		System.out.println(responsestr);

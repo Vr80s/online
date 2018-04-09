@@ -2,7 +2,7 @@ package com.xczhihui.medical.anchor.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
+import com.xczhihui.medical.anchor.model.UserCoinIncrease;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 import org.apache.ibatis.annotations.Param;
 
