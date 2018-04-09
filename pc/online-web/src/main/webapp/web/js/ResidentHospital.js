@@ -894,6 +894,18 @@ $(".recruit_preview_content img").click(function(){
 })
 //招聘管理部分结束
 
+//公告管理部分，点击预览--------------------------------------------------------------
+$(".notice_btn_see").click(function(){
+	$(".notice_namage_see").show();
+	$(".recruit_preview_bg").show();
+})
+$(".notice_preview_content img").click(function(){
+	$(".notice_namage_see").hide();
+	$(".recruit_preview_bg").hide();
+})
+
+
+//公告管理部分结束--------------------------------------------------------------
 //自定义下拉select
 $(".recruit-select p").click(function() {
 	var ul = $(".recruit-select-lest");

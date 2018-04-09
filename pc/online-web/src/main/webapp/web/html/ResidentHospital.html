@@ -664,26 +664,8 @@
 									<span class="title">公告</span>
 									<button>新公告</button>
 								</div>
+								
 								<div class="Notice_bottom hide" id="Notice_bottom">
-	
-									<div class="hide">
-										<span><em>*</em>专栏标题</span>
-										<input type="text" placeholder="请填写您的专栏标题" class="Notice_title" />
-										<p class="warning hide">用户名不能为空</p>
-									</div>
-									<div class="fengmian hide">
-	
-										<span><em>*</em>封面图</span>
-										<span class="fengmian_pic">点击上传封面图片</span>
-										<span class="fengmian_tip">
-									<p>推荐使用尺寸620x343</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-										<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt" accept="image/gif,image/jpeg,image/jpg,image/png"/>
-										<p class="warning hide">请上传封面图</p>
-									</div>
-	
 									<div class="neirong">
 										<span><em>*</em> 公告内容</span>
 										<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
@@ -692,101 +674,36 @@
 	
 									<div class="baocun">
 										<input type="submit" value="发布" id="submit" />
-										<!--<button id="save">保存</button>-->
+
 									</div>
-	
 								</div>
+								
 								<div class="Notice_bottom2" id="Notice_bottom2">
 									<table>
 										<thead>
 											<tr>
-												<td>封面图</td>
-												<td>标题</td>
-												<td>状态</td>
-												<td>编辑时间</td>
+												<td>序号</td>
+												<td>内容</td>
+												<td>发布时间</td>
 												<td>操作</td>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
 												<td>
-													<img src="/web/images/hospital/hospital_pic.png" alt="" />
+													1
 												</td>
 												<td>
 													中医药席卷全球成独特风景，发展热情被彻底点燃
-												</td>
-												<td>
-													已发布
-												</td>
+												</td>											
 												<td>
 													2017.11.12
 												</td>
 												<td>
-													<a href="javascript:;">预览</a>
-													<a href="javascript:;">下线</a>
-													<a href="javascript:;">编辑</a>
+													<a href="javascript:;" class="notice_btn_see">预览</a>
+													<a href="javascript:;" class="notice_btn_delete">删除</a>
 												</td>
-											</tr>
-											<tr>
-												<td>
-													<img src="/web/images/hospital/hospital_pic.png" alt="" />
-												</td>
-												<td>
-													中医药席卷全球成独特风景，发展热情被彻底点燃
-												</td>
-												<td>
-													已发布
-												</td>
-												<td>
-													2017.11.12
-												</td>
-												<td>
-													<a href="javascript:;">预览</a>
-													<a href="javascript:;">删除</a>
-												</td>
-											</tr>
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
+											</tr>						
 										</tbody>
 									</table>
 								</div>
@@ -797,174 +714,191 @@
 				</div>
 
 			</div>
-
-			<!--医师隐藏的模态框部分-->
-			<div class="bottomContent " id="doc_Administration_bottom3" style="visibility: hidden;">
-
-				<div style="position: relative;">
-					<span><em>*</em> 医师姓名</span>
-					<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="15" class="doc_name">
-					<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
-					<span class="close_doc_inf">关闭</span>
-				</div>
-
-				<div class="touxiang_picUpdata">
-					<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
-					<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
-									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
-								</span>
-					<span class="touxiang_pic_tip">
-									<p>推荐使用尺寸120x120</p>
-									<p>请上传清晰头像</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-					<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
-				</div>
-
-				<div class="zhicheng_name">
-					<span><em>*</em> 医师职称</span>
-					<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng">
-					<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
-				</div>
-
-				<div class="zhicheng_picUpdata">
-					<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-					<span class="zhicheng_pic" onclick="$('#zhicheng_pic_ipt').click()">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
-								</span>
-					<span class="zhicheng_pic_tip">
-									<p>推荐使用尺寸620x343</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-					<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
-				</div>
-
-				<div class="keshi">
-					<span><em>*</em> 科室</span>
-					<ul id="shanChangList2">
-						<!--<li data-id="0f4df242c3294902a87b8bc0a0ffe4d8">科室3</li>
-
-						<li data-id="3dde4a0a3c6b4d4cbef7a2c501eee373">科室1</li>
-
-						<li data-id="bd252be6ecf24eb9965d5c8f88aa3747">科室2</li>-->
-					</ul>
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
-				</div>
-
-				<div class="shanchang_name">
-					<span><em>*</em> 擅长</span>
-					<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt">
-					<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
-				</div>
-
-				<div class="personIntroduct">
-					<span><em>*</em>  医师介绍</span>
-					<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
-					<div style="display: inline-block;vertical-align: top;">
-						<script id="editor1" type="text/plain" style="width:540px;height:160px;"></script>
+	
+				<!--医师隐藏的模态框部分-->
+				<div class="bottomContent " id="doc_Administration_bottom3" style="visibility: hidden;">
+	
+					<div style="position: relative;">
+						<span><em>*</em> 医师姓名</span>
+						<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="15" class="doc_name">
+						<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
+						<span class="close_doc_inf">关闭</span>
 					</div>
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
-				</div>
-
-				<div class="baocun">
-					<input type="submit" value="保存" id="submit">
-				</div>
-
-			</div>
-
-			<!--医师信息 预览效果-->
-			<div class="bottomContent hide" id="doc_Administration_bottom4">
-						<!--TODO-->
-				
-			</div>
-			<!--招聘管理预览效果-->
-			<div class="recruit_preview_bg"></div>
-			<div class="recruit_preview_box">
-				<div class="recruit_preview_content">
-					<p class="recruit_preview_title">预览</p>
-					<img src="../images/rili_close.png"/>
-				</div>
-				
-				<div class="recruit_preview_bigBox">			
-					<div class="recruit_wrap_h1">
-						<span class="recruit_preview_h1"><em>*</em>招聘职位</span>
-						<p>招前端阿里十年经验</p>
+	
+					<div class="touxiang_picUpdata">
+						<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
+						<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
+										<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+										<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
+									</span>
+						<span class="touxiang_pic_tip">
+										<p>推荐使用尺寸120x120</p>
+										<p>请上传清晰头像</p>
+										<p>文件小于2M</p>
+										<p>支持JPG/PNG等格式图片</p>
+									</span>
+						<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
+						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
 					</div>
-					<div class="recruit_wrap_h1">
-						<span class="recruit_preview_h1">工作经验</span>
-						<p>5-8年</p>
+	
+					<div class="zhicheng_name">
+						<span><em>*</em> 医师职称</span>
+						<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng">
+						<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
 					</div>
-					<div class="recruit_wrap_h1">
-						<span class="recruit_preview_h1"><em>*</em>岗位职责</span>
-						<p>
-							1、负责公司人员绩效管理、入职培训、员工考勤等各项人事管理组织工作。根据公司的发展规划，通过人事管理与
-							开发，激励员工、提升员工的工作绩效，为公司的可持续发展提供人力资源保障。  2、完善、健全公司各项规章制
-							度，推动公司规范化管理, 对公司的生产现场纪律，会议纪律进行监督，提醒记录，组织并宣传公司的企业文化，提
-							高员工的凝聚力，丰富员工的生活，提升员工的素质。
-						</p>
+	
+					<div class="zhicheng_picUpdata">
+						<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+						<span class="zhicheng_pic" onclick="$('#zhicheng_pic_ipt').click()">
+										<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+										<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
+									</span>
+						<span class="zhicheng_pic_tip">
+										<p>推荐使用尺寸620x343</p>
+										<p>文件小于2M</p>
+										<p>支持JPG/PNG等格式图片</p>
+									</span>
+						<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
+						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
 					</div>
-					<div class="recruit_wrap_h1">
-						<span class="recruit_preview_h1"><em>*</em>职位要求</span>
-						<p>1、负责公司人员绩效管理、入职培训、员工考勤等各项人事管理组织工作。根据公司的发展规划，通过人事管理与
-							开发，激励员工、提升员工的工作绩效，为公司的可持续发展提供人力资源保障。  2、完善、健全公司各项规章制
-							度，推动公司规范化管理, 对公司的生产现场纪律，会议纪律进行监督，提醒记录，组织并宣传公司的企业文化，提
-							高员工的凝聚力，丰富员工的生活，提升员工的素质。
-						</p>
-					</div>		
-				</div>
-			</div>
-			<!--招聘管理预览效果结束-->	
-			<!--招聘管理编辑效果开始-->
-			<div class="recruit_edit_box">
-				<div class="recruit_preview_content">
-					<p class="recruit_preview_title">编辑</p>
-					<img src="../images/rili_close.png"/>
-				</div>
-				<div class="recruit-newjob-inf recruit_edit_inf">
-					<span><em>*</em> 招聘职位</span>
-					<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="20" class="recruit-write" />
-					<span class="warning hide" style="margin-left: 0px;">招聘职位不能为空</span>
-				</div>
-				<div class="recruit-newjob-experience recruit_edit_inf">
-					<span>工作经验</span>
-					<div class="recruit-select" id="nav">
-						<p class="recruit-select-one">请选择工作经验</p>
-						<ul class="recruit-select-lest">
-							<li>1年以内</li>
-							<li>1-2年</li>
-							<li>2-4年</li>
-							<li>4-6年</li>
-							<li>6-8年</li>
-							<li>8-10年</li>
-							<li>10年以上</li>
+	
+					<div class="keshi">
+						<span><em>*</em> 科室</span>
+						<ul id="shanChangList2">
+							<!--<li data-id="0f4df242c3294902a87b8bc0a0ffe4d8">科室3</li>
+	
+							<li data-id="3dde4a0a3c6b4d4cbef7a2c501eee373">科室1</li>
+	
+							<li data-id="bd252be6ecf24eb9965d5c8f88aa3747">科室2</li>-->
 						</ul>
+						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
+					</div>
+	
+					<div class="shanchang_name">
+						<span><em>*</em> 擅长</span>
+						<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt">
+						<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
+					</div>
+	
+					<div class="personIntroduct">
+						<span><em>*</em>  医师介绍</span>
+						<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
+						<div style="display: inline-block;vertical-align: top;">
+							<script id="editor1" type="text/plain" style="width:540px;height:160px;"></script>
+						</div>
+						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
+					</div>
+	
+					<div class="baocun">
+						<input type="submit" value="保存" id="submit">
+					</div>
+	
+				</div>
+	
+				<!--医师信息 预览效果-->
+				<div class="bottomContent hide" id="doc_Administration_bottom4">
+							<!--TODO-->
+					
+				</div>
+				<!--招聘管理预览效果-->
+				<div class="recruit_preview_bg"></div>
+				<div class="recruit_preview_box">
+					<div class="recruit_preview_content">
+						<p class="recruit_preview_title">预览</p>
+						<img src="../images/rili_close.png"/>
+					</div>
+					
+					<div class="recruit_preview_bigBox">			
+						<div class="recruit_wrap_h1">
+							<span class="recruit_preview_h1"><em>*</em>招聘职位</span>
+							<p>招前端阿里十年经验</p>
+						</div>
+						<div class="recruit_wrap_h1">
+							<span class="recruit_preview_h1">工作经验</span>
+							<p>5-8年</p>
+						</div>
+						<div class="recruit_wrap_h1">
+							<span class="recruit_preview_h1"><em>*</em>岗位职责</span>
+							<p>
+								1、负责公司人员绩效管理、入职培训、员工考勤等各项人事管理组织工作。根据公司的发展规划，通过人事管理与
+								开发，激励员工、提升员工的工作绩效，为公司的可持续发展提供人力资源保障。  2、完善、健全公司各项规章制
+								度，推动公司规范化管理, 对公司的生产现场纪律，会议纪律进行监督，提醒记录，组织并宣传公司的企业文化，提
+								高员工的凝聚力，丰富员工的生活，提升员工的素质。
+							</p>
+						</div>
+						<div class="recruit_wrap_h1">
+							<span class="recruit_preview_h1"><em>*</em>职位要求</span>
+							<p>1、负责公司人员绩效管理、入职培训、员工考勤等各项人事管理组织工作。根据公司的发展规划，通过人事管理与
+								开发，激励员工、提升员工的工作绩效，为公司的可持续发展提供人力资源保障。  2、完善、健全公司各项规章制
+								度，推动公司规范化管理, 对公司的生产现场纪律，会议纪律进行监督，提醒记录，组织并宣传公司的企业文化，提
+								高员工的凝聚力，丰富员工的生活，提升员工的素质。
+							</p>
+						</div>		
 					</div>
 				</div>
-				<div class="recruit-newjob-duty recruit_edit_inf">
-					<span style="float: left;"><em>*</em>岗位职责</span>
-					<div class="recruit-textarea-duty">				
-						<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
-						<span class="warning hide" style="margin-left: 0px;">岗位职责不能为空</span>	
+				<!--招聘管理预览效果结束-->	
+				<!--招聘管理编辑效果开始-->
+				<div class="recruit_edit_box">
+					<div class="recruit_preview_content">
+						<p class="recruit_preview_title">编辑</p>
+						<img src="../images/rili_close.png"/>
+					</div>
+					<div class="recruit-newjob-inf recruit_edit_inf">
+						<span><em>*</em> 招聘职位</span>
+						<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="20" class="recruit-write" />
+						<span class="warning hide" style="margin-left: 0px;">招聘职位不能为空</span>
+					</div>
+					<div class="recruit-newjob-experience recruit_edit_inf">
+						<span>工作经验</span>
+						<div class="recruit-select" id="nav">
+							<p class="recruit-select-one">请选择工作经验</p>
+							<ul class="recruit-select-lest">
+								<li>1年以内</li>
+								<li>1-2年</li>
+								<li>2-4年</li>
+								<li>4-6年</li>
+								<li>6-8年</li>
+								<li>8-10年</li>
+								<li>10年以上</li>
+							</ul>
+						</div>
+					</div>
+					<div class="recruit-newjob-duty recruit_edit_inf">
+						<span style="float: left;"><em>*</em>岗位职责</span>
+						<div class="recruit-textarea-duty">				
+							<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
+							<span class="warning hide" style="margin-left: 0px;">岗位职责不能为空</span>	
+						</div>
+					</div>
+					<div class="recruit-newjob-duty recruit_edit_inf">
+						<span style="float: left;"><em>*</em>职位要求</span>
+						<div class="recruit-textarea-duty">				
+							<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
+							<span class="warning hide" style="margin-left: 0px;">职位要求不能为空</span>						
+							<p class="recruit-save-btn" style="margin-bottom: 0px;">保存</p>
+						</div>
 					</div>
 				</div>
-				<div class="recruit-newjob-duty recruit_edit_inf">
-					<span style="float: left;"><em>*</em>职位要求</span>
-					<div class="recruit-textarea-duty">				
-						<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
-						<span class="warning hide" style="margin-left: 0px;">职位要求不能为空</span>						
-						<p class="recruit-save-btn" style="margin-bottom: 0px;">保存</p>
+				<!--招聘管理编辑效果结束-->
+			
+				<!--公告管理预览效果-->
+				<div class="notice_namage_see">
+					<div class="notice_preview_content">
+						<p class="recruit_preview_title">预览</p>
+						<img src="../images/rili_close.png"/>
+					</div>
+					<div class="recruit_preview_bigBox">
+						<div class="recruit_wrap_h1">
+								<span class="recruit_preview_h1"><em>*</em>公告内容</span>
+							<p class="notice_namage_text">招前端阿里十年经验</p>
+						</div>
+						<div class="notice_time">
+							<p>发布时间:2017.11.02</p>
+						</div>
 					</div>
 				</div>
+				<!--公告管理预览效果结束-->
 			</div>
-			<!--招聘管理编辑效果结束-->
-		</div>
-
 		</div>
 
 		<div class="mask"></div>
