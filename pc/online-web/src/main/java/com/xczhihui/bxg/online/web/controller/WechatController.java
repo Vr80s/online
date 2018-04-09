@@ -1,23 +1,26 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.alibaba.fastjson.JSONObject;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.bxg.common.support.service.CacheService;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.util.enums.IncreaseChangeType;
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import com.xczhihui.bxg.common.util.enums.Payment;
+import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
+import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
+import com.xczhihui.bxg.online.web.base.utils.WebUtil;
+import com.xczhihui.bxg.online.web.service.OrderService;
+import com.xczhihui.bxg.online.web.service.RewardService;
+import com.xczhihui.bxg.online.web.service.WxcpPayFlowService;
+import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
+import com.xczhihui.bxg.online.web.utils.XMLUtil;
+import com.xczhihui.bxg.online.web.vo.OrderParamVo;
+import com.xczhihui.bxg.online.web.vo.RewardParamVo;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,28 +32,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczhihui.bxg.common.support.service.CacheService;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.RewardStatement;
-import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.domain.Reward;
-import com.xczhihui.bxg.online.common.domain.WxcpPayFlow;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
-import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
-import com.xczhihui.bxg.online.web.base.utils.WebUtil;
-import com.xczhihui.bxg.online.web.service.OrderService;
-import com.xczhihui.bxg.online.web.service.RewardService;
-import com.xczhihui.bxg.online.web.service.WechatService;
-import com.xczhihui.bxg.online.web.service.WxcpPayFlowService;
-import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
-import com.xczhihui.bxg.online.web.utils.XMLUtil;
-import com.xczhihui.bxg.online.web.vo.OrderParamVo;
-import com.xczhihui.bxg.online.web.vo.RewardParamVo;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * @Author Fudong.Sun【】
@@ -66,7 +55,7 @@ public class WechatController {
 	@Autowired
 	private OrderPayService orderPayService;
 	@Autowired
-	private WechatService wechatService;
+	private OnlineConfig onlineConfig;
 	@Autowired
 	private RewardService rewardService;
 
@@ -308,7 +297,7 @@ public class WechatController {
 			orderNo = String.valueOf(packageParams.get("out_trade_no"));
 			if (packageParams.isEmpty()) {
 				logger.info("参数为空，恶意调用！！！");
-			} else if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.API_KEY)) {
+			} else if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, onlineConfig.apiKey)) {
 				// 处理业务开始
 				if ("SUCCESS".equals(packageParams.get("result_code"))) {
 					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
@@ -466,7 +455,7 @@ public class WechatController {
 //						packageParams.put(e.getKey(), e.getValue());
 //					}
 //				}
-//				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
+//				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, onlineConfig.wechatApiId)) {
 //					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
 //					String transaction_id = String.valueOf(packageParams.get("transaction_id"));
 //					//新启线程，处理支付成功
@@ -528,7 +517,7 @@ public class WechatController {
 //						packageParams.put(e.getKey(), e.getValue());
 //					}
 //				}
-//				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
+//				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, onlineConfig.wechatApiId)) {
 //
 //					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
 //					String transaction_id = String.valueOf(packageParams.get("transaction_id"));

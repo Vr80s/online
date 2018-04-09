@@ -3,6 +3,7 @@ package com.xczhihui.wechat.course.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.xczhihui.bxg.common.support.lock.Lock;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.mapper.WatchHistoryMapper;
 import com.xczhihui.wechat.course.model.WatchHistory;

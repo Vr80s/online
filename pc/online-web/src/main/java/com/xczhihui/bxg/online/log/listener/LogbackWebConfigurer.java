@@ -1,18 +1,16 @@
-package com.xczhihui.bxg.common.support.listener;
+package com.xczhihui.bxg.online.log.listener;
 
-import java.io.FileNotFoundException;
-import java.net.URL;
-
-import javax.servlet.ServletContext;
-
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.util.WebUtils;
 
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
+import javax.servlet.ServletContext;
+import java.io.FileNotFoundException;
+import java.net.URL;
 
 class LogbackWebConfigurer {
 
