@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.slf4j.LoggerFactory;
@@ -47,8 +46,6 @@ public class XzGiftController {
 	
 	@Autowired
 	private AppBrowserService appBrowserService;
-	@Autowired
-	private RedissonUtil redissonUtil;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzGiftController.class);
 

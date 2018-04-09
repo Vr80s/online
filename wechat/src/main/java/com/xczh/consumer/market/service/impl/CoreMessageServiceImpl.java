@@ -149,11 +149,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    			String unionid_ = (String)jsonObject.get("unionid");
 	    			
 	    			String remark = (String)jsonObject.get("remark");
-	    			String groupid = (String)jsonObject.get("groupid");
+	    			Integer groupid = (Integer)jsonObject.get("groupid");
 	    			String tagid_list = (String)jsonObject.get("tagid_list");
 	    			
 	    			String subscribe_scene = (String)jsonObject.get("subscribe_scene");
-	    			String qr_scene = (String)jsonObject.get("qr_scene");
+	    			Integer qr_scene = (Integer)jsonObject.get("qr_scene");
 	    			String qr_scene_str = (String)jsonObject.get("qr_scene_str");
 	    	
 	    			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
@@ -179,10 +179,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    				wxcpClientUserWxMapping.setSubscribe(subscribe);
 	    				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
 	    				wxcpClientUserWxMapping.setRemark(remark);
-	    				wxcpClientUserWxMapping.setGroupid(groupid);
+	    				wxcpClientUserWxMapping.setGroupid(groupid+"");
 	    				wxcpClientUserWxMapping.setTagid_list(tagid_list);
 	    				wxcpClientUserWxMapping.setSubscribe_scene(subscribe_scene);
-	    				wxcpClientUserWxMapping.setQr_scene(qr_scene);
+	    				wxcpClientUserWxMapping.setQr_scene(qr_scene+"");
 	    				wxcpClientUserWxMapping.setQr_scene_str(qr_scene_str);
 	    			    wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
 	    			}
@@ -250,11 +250,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       			String unionid_ = (String)jsonObject.get("unionid");
       			
       			String remark = (String)jsonObject.get("remark");
-      			String groupid = (String)jsonObject.get("groupid");
+      			Integer groupid = (Integer)jsonObject.get("groupid");
       			String tagid_list = (String)jsonObject.get("tagid_list");
       			
       			String subscribe_scene = (String)jsonObject.get("subscribe_scene");
-      			String qr_scene = (String)jsonObject.get("qr_scene");
+      			Integer qr_scene = (Integer)jsonObject.get("qr_scene");
       			String qr_scene_str = (String)jsonObject.get("qr_scene_str");
       	
       			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
@@ -281,10 +281,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       				wxcpClientUserWxMapping.setSubscribe(subscribe);
       				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
       				wxcpClientUserWxMapping.setRemark(remark);
-      				wxcpClientUserWxMapping.setGroupid(groupid);
+      				wxcpClientUserWxMapping.setGroupid(groupid+"");
       				wxcpClientUserWxMapping.setTagid_list(tagid_list);
       				wxcpClientUserWxMapping.setSubscribe_scene(subscribe_scene);
-      				wxcpClientUserWxMapping.setQr_scene(qr_scene);
+      				wxcpClientUserWxMapping.setQr_scene(qr_scene+"");
       				wxcpClientUserWxMapping.setQr_scene_str(qr_scene_str);
       				wxcpClientUserWxMapping.setCreate_time(new Date());
       				wxcpClientUserWxMapping.setLast_update_time(new Date());
@@ -293,10 +293,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       			    
       			}else if(m!=null && (m.getQr_scene()!=null || m.getQr_scene_str()!=null)){
       				
-      				m.setGroupid(groupid);
+      				m.setGroupid(groupid+"");
       				m.setTagid_list(tagid_list);
       				m.setSubscribe_scene(subscribe_scene);
-      				m.setQr_scene(qr_scene);
+      				m.setQr_scene(qr_scene+"");
       				m.setQr_scene_str(qr_scene_str);
       				m.setLast_update_time(new Date());
       				
