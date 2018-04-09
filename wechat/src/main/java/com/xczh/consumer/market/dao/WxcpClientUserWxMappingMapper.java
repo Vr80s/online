@@ -249,14 +249,13 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 			record.getGroupid()								,      
 			record.getWx_public_id()						,      
 			record.getWx_public_name()			  			,
-			
 			record.getTagid_list()							,      
 			record.getSubscribe_scene()							,  
 			record.getQr_scene()							,      
 			record.getQr_scene_str()							,  
 			record.getCreate_time()	,     								
-			record.getLast_update_time()
-			
+			record.getLast_update_time(),   
+			record.getWx_id()								   
 			);
 		
 		return 0;

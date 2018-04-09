@@ -97,8 +97,10 @@ public class WechatChannelController extends AbstractController {
 		}
 		return responseObj;
 	}
+
 	/**
 	 * 查看
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -106,7 +108,7 @@ public class WechatChannelController extends AbstractController {
 	@RequestMapping(value = "findCourseById", method = RequestMethod.GET)
 	@ResponseBody
 	public WechatChannelVo findWechatChannelById(Integer id) {
-		
+
 		return WechatChannelService.getWechatChannelById(id);
 	}
 

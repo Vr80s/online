@@ -150,7 +150,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    			
 	    			String remark = (String)jsonObject.get("remark");
 	    			Integer groupid = (Integer)jsonObject.get("groupid");
-	    			String tagid_list = (String)jsonObject.get("tagid_list");
+	    			//String tagid_list = (String)jsonObject.get("tagid_list");
 	    			
 	    			String subscribe_scene = (String)jsonObject.get("subscribe_scene");
 	    			Integer qr_scene = (Integer)jsonObject.get("qr_scene");
@@ -180,7 +180,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
 	    				wxcpClientUserWxMapping.setRemark(remark);
 	    				wxcpClientUserWxMapping.setGroupid(groupid+"");
-	    				wxcpClientUserWxMapping.setTagid_list(tagid_list);
+	    				//wxcpClientUserWxMapping.setTagid_list(tagid_list);
 	    				wxcpClientUserWxMapping.setSubscribe_scene(subscribe_scene);
 	    				wxcpClientUserWxMapping.setQr_scene(qr_scene+"");
 	    				wxcpClientUserWxMapping.setQr_scene_str(qr_scene_str);
@@ -251,7 +251,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       			
       			String remark = (String)jsonObject.get("remark");
       			Integer groupid = (Integer)jsonObject.get("groupid");
-      			String tagid_list = (String)jsonObject.get("tagid_list");
+      			//String tagid_list = (String)jsonObject.get("tagid_list");
       			
       			String subscribe_scene = (String)jsonObject.get("subscribe_scene");
       			Integer qr_scene = (Integer)jsonObject.get("qr_scene");
@@ -282,7 +282,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
       				wxcpClientUserWxMapping.setRemark(remark);
       				wxcpClientUserWxMapping.setGroupid(groupid+"");
-      				wxcpClientUserWxMapping.setTagid_list(tagid_list);
+      				//wxcpClientUserWxMapping.setTagid_list(tagid_list);
       				wxcpClientUserWxMapping.setSubscribe_scene(subscribe_scene);
       				wxcpClientUserWxMapping.setQr_scene(qr_scene+"");
       				wxcpClientUserWxMapping.setQr_scene_str(qr_scene_str);
@@ -294,7 +294,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       			}else if(m!=null && (m.getQr_scene()!=null || m.getQr_scene_str()!=null)){
       				
       				m.setGroupid(groupid+"");
-      				m.setTagid_list(tagid_list);
+      				//m.setTagid_list(tagid_list);
       				m.setSubscribe_scene(subscribe_scene);
       				m.setQr_scene(qr_scene+"");
       				m.setQr_scene_str(qr_scene_str);
