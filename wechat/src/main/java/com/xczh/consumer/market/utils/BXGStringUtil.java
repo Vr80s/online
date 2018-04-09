@@ -9,7 +9,7 @@ package com.xczh.consumer.market.utils;
  * @author Alex Wang
  *
  */
-public final class BXGStringUtil {
+public final class IStringUtil {
 
 	/**
 	 * 判断str是否包含可见的字符。

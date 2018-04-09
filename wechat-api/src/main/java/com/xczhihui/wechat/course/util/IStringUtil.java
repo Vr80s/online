@@ -9,7 +9,7 @@ package com.xczhihui.wechat.course.util;
  * @author Alex Wang
  *
  */
-public final class BXGStringUtil {
+public final class IStringUtil {
 
 	/**
 	 * 判断str是否包含可见的字符。

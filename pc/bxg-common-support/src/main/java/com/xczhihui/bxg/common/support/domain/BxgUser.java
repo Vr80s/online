@@ -20,16 +20,6 @@ public abstract class BxgUser extends BasicEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 女
-	 */
-	public static final int SEX_FEMALE = UserSex.FEMALE.getValue();
-
-	/**
-	 * 男
-	 */
-	public static final int SEX_MALE = UserSex.MALE.getValue();
-
-	/**
 	 * 未知
 	 */
 	public static final int SEX_UNKNOWN = UserSex.UNKNOWN.getValue();

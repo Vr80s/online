@@ -94,8 +94,8 @@ public class DateUtil {
 	 * @return Date
 	 */
 	public static Date parseDate(String value, String format) {
-		if (BXGStringUtil.isNotBlank(value)) {
-			if (!BXGStringUtil.isNotBlank(format)) {
+		if (IStringUtil.isNotBlank(value)) {
+			if (!IStringUtil.isNotBlank(format)) {
 				format = FORMAT_DAY_TIME;
 			}
 			DateFormat dateFormate = new SimpleDateFormat(format);

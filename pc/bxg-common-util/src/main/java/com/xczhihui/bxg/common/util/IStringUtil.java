@@ -9,7 +9,7 @@ package com.xczhihui.bxg.common.util;
  * @author liyong
  *
  */
-public final class BXGStringUtil {
+public final class IStringUtil {
 
 	/**
 	 * 判断str是否包含可见的字符。
