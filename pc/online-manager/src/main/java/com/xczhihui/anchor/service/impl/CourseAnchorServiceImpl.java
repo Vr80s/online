@@ -4,7 +4,7 @@ import com.xczhihui.anchor.dao.AnchorDao;
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.anchor.vo.AnchorIncomeVO;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.vhall.VhallUtil;

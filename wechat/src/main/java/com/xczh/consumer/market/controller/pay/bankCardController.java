@@ -1,10 +1,9 @@
 package com.xczh.consumer.market.controller.pay;
 
-import com.jcraft.jsch.Logger;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.common.enums.BankCardType;
+import com.xczhihui.bxg.common.util.enums.BankCardType;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 

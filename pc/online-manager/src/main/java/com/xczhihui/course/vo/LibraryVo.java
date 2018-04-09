@@ -1,8 +1,7 @@
-﻿
 package com.xczhihui.course.vo;
+
 /**
  * 更新节点顺序vo
- * 
  * @author www
  *
  */
@@ -47,5 +46,7 @@ public class LibraryVo {
 	public void setTargetPId(String targetPId) {
 		this.targetPId = targetPId;
 	}
+
+
 
 }

@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 
 import net.sf.json.JSONObject;
 
@@ -74,7 +74,7 @@ import com.xczh.consumer.market.wxpay.entity.PayInfo;
 import com.xczh.consumer.market.wxpay.entity.SendRedPack;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.MD5SignUtil;
-import com.xczhihui.bxg.online.api.po.RewardStatement;
+import com.xczhihui.bxg.online.common.domain.RewardStatement;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.OrderPayService;

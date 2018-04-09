@@ -3,12 +3,12 @@ package com.xczhihui.bxg.online.web.controller;
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.GiftStatement;
+import com.xczhihui.bxg.online.common.domain.Gift;
+import com.xczhihui.bxg.online.common.domain.GiftStatement;
 import com.xczhihui.bxg.online.api.service.GiftService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.web.exception.NotSufficientFundsException;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
@@ -46,13 +46,7 @@ public class GiftController {
 	 **/
 	@RequestMapping(value = "/getGift")
 	public ResponseObject getGift() {
-		List<Gift> gifts;
-		try {
-			gifts= giftService.getGift();
-		} catch (NotSufficientFundsException e) {
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}
-		return ResponseObject.newSuccessResponseObject(gifts);
+		return ResponseObject.newSuccessResponseObject(giftService.getGift());
 	}
 	
 	/** 

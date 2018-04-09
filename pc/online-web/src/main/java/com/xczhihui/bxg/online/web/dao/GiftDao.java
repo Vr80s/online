@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.GiftStatement;
+import com.xczhihui.bxg.online.common.domain.Gift;
+import com.xczhihui.bxg.online.common.domain.GiftStatement;
 import com.xczhihui.bxg.online.api.vo.ReceivedGift;
 import com.xczhihui.bxg.online.api.vo.ReceivedReward;
 import com.xczhihui.bxg.online.common.domain.Reward;

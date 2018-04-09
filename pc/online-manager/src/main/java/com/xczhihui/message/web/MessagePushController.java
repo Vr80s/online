@@ -1,5 +1,4 @@
-﻿package com.xczhihui.message.web;
-
+package com.xczhihui.message.web;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;

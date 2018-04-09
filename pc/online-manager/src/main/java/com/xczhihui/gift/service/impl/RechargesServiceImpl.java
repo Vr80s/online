@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.Recharges;
+import com.xczhihui.bxg.online.common.domain.Recharges;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.gift.dao.RechargesDao;
 import com.xczhihui.gift.service.RechargesService;

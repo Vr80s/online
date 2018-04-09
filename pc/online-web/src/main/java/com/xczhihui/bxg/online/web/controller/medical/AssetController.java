@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.enums.BankCardType;
+import com.xczhihui.bxg.common.util.enums.BankCardType;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.medical.anchor.service.IAssetService;
 import com.xczhihui.medical.anchor.service.IUserBankService;

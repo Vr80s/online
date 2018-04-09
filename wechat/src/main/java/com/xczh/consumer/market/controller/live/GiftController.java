@@ -4,15 +4,12 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.api.po.GiftStatement;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import org.aspectj.weaver.ast.Var;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.redisson.Redisson;
-import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.slf4j.LoggerFactory;
@@ -28,10 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 /**

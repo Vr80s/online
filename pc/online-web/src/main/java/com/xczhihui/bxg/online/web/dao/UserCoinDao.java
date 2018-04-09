@@ -3,17 +3,16 @@ package com.xczhihui.bxg.online.web.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xczhihui.bxg.online.api.po.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.api.vo.MyConsumptionCoinRecords;
-import com.xczhihui.bxg.online.web.vo.MyConsumptionRecords;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.UserCoin;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
+import com.xczhihui.bxg.online.common.domain.UserCoin;
+import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 
 

@@ -1,8 +1,14 @@
 package com.xczhihui.course.service.impl;
 
-import java.util.*;
-
 import com.xczhihui.anchor.service.AnchorService;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.enums.ApplyStatus;
+import com.xczhihui.bxg.common.util.enums.CourseDismissal;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.Multimedia;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.course.dao.CourseApplyDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.service.CourseApplyService;
@@ -12,25 +18,14 @@ import com.xczhihui.order.vo.MessageShortVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.vhall.VhallUtil;
+import com.xczhihui.vhall.bean.Webinar;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.CourseAnchor;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
-import com.xczhihui.bxg.online.common.domain.CourseApplyResource;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.enums.ApplyStatus;
-import com.xczhihui.bxg.online.common.enums.CourseDismissal;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Multimedia;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.vhall.bean.Webinar;
+import java.util.*;
 
 /**
  * CourseServiceImpl:课程业务层接口实现类
@@ -53,6 +48,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 	private AnchorService anchorService;
 	@Autowired
 	private CourseDao courseDao;
+	@Autowired
+	private OnlineConfig onlineConfig;
 	@Value("${LIVE_VHALL_USER_ID}")
 	private String liveVhallUserId;
 	@Value("${vhall_callback_url}")
@@ -80,9 +77,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 				audioStr = "_2";
 			}
 			String src = "https://p.bokecc.com/flash/single/"
-					+ OnlineConfig.CC_USER_ID + "_"
+					+ onlineConfig.ccuserId + "_"
 					+ courseApply.getCourseResource() + "_false_"
-					+ OnlineConfig.CC_PLAYER_ID + "_1" + audioStr
+					+ onlineConfig.ccPlayerId + "_1" + audioStr
 					+ "/player.swf";
 			String uuid = UUID.randomUUID().toString().replace("-", "");
 			String playCode = "";
@@ -235,8 +232,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 				audioStr = "_2";
 			}
 			String src = "https://p.bokecc.com/flash/single/"
-					+ OnlineConfig.CC_USER_ID + "_" + car.getResource()
-					+ "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + audioStr
+					+ onlineConfig.ccuserId + "_" + car.getResource()
+					+ "_false_" + onlineConfig.ccPlayerId + "_1" + audioStr
 					+ "/player.swf";
 			String uuid = UUID.randomUUID().toString().replace("-", "");
 			String playCode = "";

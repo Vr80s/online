@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +8,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,6 @@ import com.xczhihui.bxg.online.web.service.ApplyService;
 import com.xczhihui.bxg.online.web.vo.ChapterLevelVo;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.UserVideoVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
  * 视频相关功能数据访问层
