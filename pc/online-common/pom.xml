@@ -4,7 +4,7 @@
 
   <parent>
 		<groupId>com.xczhihui</groupId>
-		<artifactId>bxg-root-pom</artifactId>
+		<artifactId>root-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	  <relativePath>../parent-pom</relativePath>
 	</parent>
@@ -48,11 +48,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.xczhihui</groupId>
-			<artifactId>bxg-common-util</artifactId>
+			<artifactId>common-util</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.xczhihui</groupId>
-			<artifactId>bxg-common-web</artifactId>
+			<artifactId>common-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
