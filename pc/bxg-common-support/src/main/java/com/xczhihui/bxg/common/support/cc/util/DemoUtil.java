@@ -1,10 +1,10 @@
-package com.xczhihui.bxg.online.common.utils.cc.util;
+package com.xczhihui.bxg.common.support.cc.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.xczhihui.bxg.online.common.utils.cc.bean.Video;
+import com.xczhihui.bxg.common.support.cc.bean.Video;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;

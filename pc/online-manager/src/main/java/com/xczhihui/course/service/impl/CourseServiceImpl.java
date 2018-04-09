@@ -8,14 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.bxg.common.util.enums.Multimedia;
-import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
-import com.xczhihui.bxg.online.common.utils.cc.config.Config;
-import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
-import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
+import com.xczhihui.bxg.common.support.cc.bean.CategoryBean;
+import com.xczhihui.bxg.common.support.cc.config.Config;
+import com.xczhihui.bxg.common.support.cc.util.APIServiceFunction;
+import com.xczhihui.bxg.common.support.cc.util.CCUtils;
 
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
@@ -38,7 +39,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -59,6 +59,10 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Autowired
 	private OnlineUserService onlineUserService;
+	@Autowired
+	private OnlineConfig onlineConfig;
+	@Autowired
+	private CCUtils CCUtils;
 
 	@Value("${ENV_FLAG}")
 	private String envFlag;
@@ -1221,12 +1225,12 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			for(int i=1; i<999999; i++){
 				Map<String, String> paramsMap = new HashMap<String, String>();
 				paramsMap.put("categoryid", categoryid);
-				paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+				paramsMap.put("userid", onlineConfig.ccuserId);
 				paramsMap.put("num_per_page", "100");
 				paramsMap.put("page", i+"");
 				paramsMap.put("format", "json");
 				long time = System.currentTimeMillis();
-				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 				String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category_videos+"?" + requestURL);
 
 				if (responsestr.contains("\"error\":")) {
@@ -1307,11 +1311,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		}
 		if (!b) {
 			Map<String, String> paramsMap = new HashMap<String, String>();
-			paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+			paramsMap.put("userid", onlineConfig.ccuserId);
 			paramsMap.put("name", name);
 			paramsMap.put("format", "json");
 			long time = System.currentTimeMillis();
-			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/category/create?" + requestURL);
 			if (responsestr.contains("error")) {
 				throw new RuntimeException("创建一级CC分类失败！");
@@ -1343,12 +1347,12 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 					}
 					if (!b) {
 						Map<String, String> paramsMap = new HashMap<String, String>();
-						paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+						paramsMap.put("userid", onlineConfig.ccuserId);
 						paramsMap.put("name", name);
 						paramsMap.put("super_categoryid", bean.getId());
 						paramsMap.put("format", "json");
 						long time = System.currentTimeMillis();
-						String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+						String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 						String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/category/create?" + requestURL);
 						if (responsestr.contains("error")) {
 							throw new RuntimeException("创建二级CC分类失败！");
@@ -1391,12 +1395,12 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			for (int i = 1; i < 999999; i++) {
 				Map<String, String> paramsMap = new HashMap<String, String>();
 				paramsMap.put("categoryid", categoryid);
-				paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+				paramsMap.put("userid", onlineConfig.ccuserId);
 				paramsMap.put("num_per_page", "100");
 				paramsMap.put("page", i + "");
 				paramsMap.put("format", "json");
 				long time = System.currentTimeMillis();
-				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
+				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, onlineConfig.ccApiKey);
 				String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category_videos + "?" + requestURL);
 
 				if (responsestr.contains("\"error\":")) {
@@ -1584,7 +1588,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			if(course.getMultimediaType()==Multimedia.AUDIO.getCode()){
 				audioStr = "_2";
 			}
-			String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+course.getDirectId()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
+			String src = "https://p.bokecc.com/flash/single/"+ onlineConfig.ccuserId+"_"+course.getDirectId()+"_false_"+onlineConfig.ccPlayerId+"_1"+audioStr+"/player.swf";
 			String uuid = UUID.randomUUID().toString().replace("-", "");
 			String playCode = "";
 			playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";

@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.utils.cc.bean;
+package com.xczhihui.bxg.common.support.cc.bean;
 
 /**
  * 功能：视频包装类，用来对视频数据进行封装 

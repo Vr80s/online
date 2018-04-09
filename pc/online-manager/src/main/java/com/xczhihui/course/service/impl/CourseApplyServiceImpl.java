@@ -52,6 +52,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
     private AnchorService anchorService;
     @Autowired
     private CourseDao courseDao;
+    @Autowired
+    private OnlineConfig onlineConfig;
+
     @Value("${LIVE_VHALL_USER_ID}")
     private String liveVhallUserId;
     @Value("${vhall_callback_url}")
@@ -75,7 +78,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
             if (courseApply.getMultimediaType() == Multimedia.AUDIO.getCode()) {
                 audioStr = "_2";
             }
-            String src = "https://p.bokecc.com/flash/single/" + OnlineConfig.CC_USER_ID + "_" + courseApply.getCourseResource() + "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + audioStr + "/player.swf";
+            String src = "https://p.bokecc.com/flash/single/" + onlineConfig.ccuserId + "_" + courseApply.getCourseResource() + "_false_" + onlineConfig.ccPlayerId + "_1" + audioStr + "/player.swf";
             String uuid = UUID.randomUUID().toString().replace("-", "");
             String playCode = "";
             playCode += "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
@@ -211,7 +214,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
             if (car.getMultimediaType() == 2) {
                 audioStr = "_2";
             }
-            String src = "https://p.bokecc.com/flash/single/" + OnlineConfig.CC_USER_ID + "_" + car.getResource() + "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + audioStr + "/player.swf";
+            String src = "https://p.bokecc.com/flash/single/" + onlineConfig.ccuserId + "_" + car.getResource() + "_false_" + onlineConfig.ccPlayerId + "_1" + audioStr + "/player.swf";
             String uuid = UUID.randomUUID().toString().replace("-", "");
             String playCode = "";
             playCode += "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";

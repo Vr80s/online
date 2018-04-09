@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.common.support.lock.RedissonUtil;
 import com.xczhihui.course.service.CourseApplyService;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -33,7 +34,6 @@ import com.xczhihui.bxg.online.common.domain.TeachMethod;
 import com.xczhihui.bxg.common.util.enums.CourseDismissal;
 import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.bxg.common.util.enums.Multimedia;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.course.vo.LecturerVo;
 
 /**
@@ -57,8 +57,6 @@ public class CourseApplyInfoController extends AbstractController {
 
     @Autowired
     private OnlineUserService onlineUserService;
-    @Autowired
-    private RedissonUtil redissonUtil;
 
     @RequestMapping(value = "index")
     public String index(HttpServletRequest request) {

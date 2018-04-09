@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.utils.cc.util;
+package com.xczhihui.bxg.common.support.cc.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

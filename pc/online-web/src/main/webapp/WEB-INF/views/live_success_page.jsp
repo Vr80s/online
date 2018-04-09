@@ -16,8 +16,7 @@
 <script>
   var room_id='<%=request.getAttribute("roomId")%>';
   var plan_id='<%=request.getAttribute("planId")%>';
-  <%-- var cc_live_user_id='<%=request.getAttribute("cc_live_user_id")%>'; --%>
-  
+
   var email = '<%=request.getAttribute("email")%>';
   var name = '<%=request.getAttribute("name")%>';
   var k = '<%=request.getAttribute("k")%>';

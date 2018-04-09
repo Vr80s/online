@@ -53,7 +53,7 @@ public interface IMedicalHospitalRecruitBusinessService {
      *
      * @return
      */
-    Object save(MedicalHospitalRecruit medicalHospitalRecruit, String userId);
+    void save(MedicalHospitalRecruit medicalHospitalRecruit, String userId);
 
     /**
      * 更新医馆招聘
@@ -62,7 +62,7 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @param medicalHospitalRecruit 招聘信息
      * @return
      */
-    Object update(String id, MedicalHospitalRecruit medicalHospitalRecruit);
+    void update(String id, MedicalHospitalRecruit medicalHospitalRecruit);
 
     /**
      * 更新招聘信息的状态
@@ -71,7 +71,7 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @param status 更新的状态 true->发布 false -> 关闭
      * @return
      */
-    Object updateStatus(String id, boolean status);
+    void updateStatus(String id, boolean status);
 
     /**
      * 逻辑删除招聘信息
@@ -79,7 +79,7 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @param id 招聘信息id
      * @return
      */
-    Object delete(String id);
+    void delete(String id);
 
     /**
      * 获取招聘信息
@@ -87,5 +87,5 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @param id 招聘信息id
      * @return
      */
-    Object get(String id);
+    MedicalHospitalRecruit get(String id);
 }

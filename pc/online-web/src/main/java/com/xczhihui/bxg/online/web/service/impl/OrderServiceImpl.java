@@ -63,6 +63,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	private CourseDao  courseDao;
 	@Autowired
 	private MessageDao  messageDao;
+	@Autowired
+	private OnlineConfig  onlineConfig;
 	
 	@Value("${share.course.id:191}")
 	private String shareCourseId;
@@ -317,15 +319,15 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 		try {
 			SortedMap<Object, Object> packageParams = new TreeMap<>();
 			// APP_ID
-			packageParams.put("appid", OnlineConfig.APP_ID);
+			packageParams.put("appid", onlineConfig.appId);
 			// 商品描述，课程名称
 			packageParams.put("body", body);
 			// 商业号
-			packageParams.put("mch_id", OnlineConfig.MCH_ID);
+			packageParams.put("mch_id", onlineConfig.mchId);
 			// 随机字符串
 			packageParams.put("nonce_str", UUID.randomUUID().toString().replace("-", ""));
 			// 通知回调地址
-			packageParams.put("notify_url",OnlineConfig.NOTIFY_PAY);
+			packageParams.put("notify_url",onlineConfig.notifyPay);
 			// 订单号
 			packageParams.put("out_trade_no", orderNo);
 			//附加参数
@@ -343,7 +345,7 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 			packageParams.put("time_expire",new SimpleDateFormat("yyyyMMddHHmmss").format(c.getTime()));
 
 			// 签名
-			String sign = PayCommonUtil.createSign("UTF-8", packageParams, OnlineConfig.API_KEY);
+			String sign = PayCommonUtil.createSign("UTF-8", packageParams, onlineConfig.apiKey);
 			packageParams.put("sign", sign);
 			
 			String requestXML = PayCommonUtil.getRequestXml(packageParams);
@@ -356,7 +358,7 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 			} 
 			if ("SUCCESS".equalsIgnoreCase(return_code)) {
 				returnmap.put("codeimg", encodeQrcode(String.valueOf(map.get("code_url"))));
-				logger.info("微信预支付下单，订单号：{}，回调地址：{}", orderNo,OnlineConfig.NOTIFY_PAY);
+				logger.info("微信预支付下单，订单号：{}，回调地址：{}", orderNo,onlineConfig.notifyPay);
 				return returnmap;
 			} else {
 				returnmap.put("errorMsg", "微信预支付下单失败,错误信息：" + map.get("return_msg"));

@@ -129,6 +129,8 @@
         <property name="redisHost" value="${redis.host}"></property>
         <property name="redisPort" value="${redis.port}"></property>
     </bean>
+    <bean id="onlineConfig" class="com.xczhihui.bxg.common.support.config.OnlineConfig"></bean>
+    <bean id="CCUtils" class="com.xczhihui.bxg.common.support.cc.util.CCUtils"></bean>
 
     <!-- aop分布式锁 -->
     <bean id="lockService" class="com.xczhihui.bxg.common.support.lock.LockService"></bean>

@@ -1,9 +1,9 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.online.common.utils.cc.config.Config;
-import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.common.support.cc.config.Config;
+import com.xczhihui.bxg.common.support.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.VideoResService;
@@ -30,6 +30,9 @@ public class VideoResController extends AbstractController{
 
     @Autowired
     private VideoResService videoResService;
+    @Autowired
+    private OnlineConfig onlineConfig;
+
     private static String categoryid = "7C85F5F633435474";
 
     /**
@@ -41,13 +44,13 @@ public class VideoResController extends AbstractController{
     public String getUploadUrl(HttpServletRequest request,String title) {
         OnlineUser loginUser = getOnlineUser(request);
         Map<String,String> paramsMap = new HashMap<String,String>();
-        paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+        paramsMap.put("userid", onlineConfig.ccuserId);
         paramsMap.put("title", title);
         paramsMap.put("description", TimeUtil.getCCtitleTimeStr());
         paramsMap.put("tag", loginUser.getLoginName());
         paramsMap.put("categoryid", categoryid);
         long time = System.currentTimeMillis();
-        String url = Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
+        String url = Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, onlineConfig.ccApiKey);
         url += "&categoryid="+categoryid;
         return url;
     }

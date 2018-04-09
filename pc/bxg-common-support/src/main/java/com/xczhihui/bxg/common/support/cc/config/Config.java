@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.utils.cc.config;
+package com.xczhihui.bxg.common.support.cc.config;
 
 /**
  * 功能：设置帐户有关信息及返回路径（基础配置页面）

@@ -1,40 +1,38 @@
 package com.xczhihui.bxg.common.support.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
 public class OnlineConfig {
 
 	//CC视频USERID
 	@Value("${CC_USER_ID}")
-	public static String CC_USER_ID;
+	public String ccuserId;
 	//CC直播USERID
-	@Value("${CC_LIVE_USER_ID}")
-	public static String CC_LIVE_USER_ID;
+//	@Value("${cc.live.user.id}")
+//	public String cc.live.user.id;
 	//CC视频API KEY
-	@Value("${CC_API_KEY}")
-	public static String CC_API_KEY;
+	@Value("${cc.api.key}")
+	public String ccApiKey;
 	//CC直播API KEY
-	@Value("${CC_LIVE_API_KEY}")
-	public static String CC_LIVE_API_KEY;
+//	@Value("${cc.live.api.key}")
+//	public String cc.live.api.key;
 	//CC播放器ID
-	@Value("${CC_PLAYER_ID}")
-	public static String CC_PLAYER_ID;
+	@Value("${cc.player.id}")
+	public String ccPlayerId;
 	//微信开发平台应用id
-	@Value("${WX_APP_ID}")
-    public static String APP_ID;
+	@Value("${wechat.app.id}")
+    public String appId;
     //商户id
-	@Value("${WX_MCH_ID}")
-    public static String MCH_ID;
+	@Value("${wechat.mch.id}")
+    public String mchId;
     //API KEY
-	@Value("${WX_API_KEY}")
-    public static String API_KEY;
+	@Value("${wechat.api.key}")
+    public String apiKey;
     //微信支付成功回调
-	@Value("${WX_NOTIFY_PAY}")
-    public static String NOTIFY_PAY;
-    //微信分销系统KEY
-	@Value("${WECHAT_API_KEY}")
-    public static String WECHAT_API_KEY;
+	@Value("${wechat.notify.pay}")
+    public String notifyPay;
+//    微信分销系统KEY
+	@Value("${wechat.api.fx.key}")
+    public String wechatApiId;
 
 }

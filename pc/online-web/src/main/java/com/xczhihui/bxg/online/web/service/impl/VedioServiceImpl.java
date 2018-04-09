@@ -44,6 +44,8 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 	
 	@Autowired
 	private RedisCacheService redis;
+	@Autowired
+	private OnlineConfig onlineConfig;
 
 	@Override
 	public String getCcVerificationCode(String userId, String vid,String id) {
@@ -81,17 +83,6 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 			return vo;
 		}
 		
-		//答题闯关
-//		String barrierSql = "select count(t1.id) from oe_video t1,oe_chapter t2,oe_barrier_user t3 "
-//				+ " where t1.chapter_id=t2.id and t2.barrier_id=t3.barrier_id and t1.id = '"+KEY.split("!")[2]+"' and t3.lock_status=0";
-//		Integer barrierVideoSum = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-//				.queryForObject(barrierSql,Integer.class);
-//		if (barrierVideoSum > 0) {
-//			vo.setEnable(0);
-//			vo.setMessage("0");
-//			return vo;
-//		}
-
 		// 用户验证
 		String sql = "select count(t2.id) from user_r_video t1,oe_video t2 "
 				+ " where t1.video_id=t2.id and t1.user_id=:user_id and t2.video_id=:video_id";
@@ -202,7 +193,7 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 		if(course.getMultimediaType()==2){
 			audioStr = "_2";
 		}
-		String src = "https://p.bokecc.com/flash/single/"+OnlineConfig.CC_USER_ID+"_"+course.getDirectId()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
+		String src = "https://p.bokecc.com/flash/single/"+onlineConfig.ccuserId+"_"+course.getDirectId()+"_false_"+onlineConfig.ccPlayerId+"_1"+audioStr+"/player.swf";
 		String id = UUID.randomUUID().toString().replace("-", "");
 		String playCode = "";
 		playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
@@ -221,100 +212,11 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 		playCode+="	</object>";
 
 		returnmap.put("playCode", playCode);
-
-//		String title = "暂无";
-//		List<Map<String, Object>> vs = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-//				.queryForList("select `name` from oe_video where video_id='"+paramsMap.get("videoid")+"' ");
-//		if (vs != null && vs.size() > 0) {
-//			title = String.valueOf(vs.get(0).get("name"));
-//		}
 
 		returnmap.put("title", course.getGradeName());
 
 		return returnmap;
 	}
-/*	
-	@Override
-	public Map<String,Object> getVideoInfo(Map<String, String> paramsMap) {
-		
-		Map<String,Object> returnmap = new HashMap<String,Object>();
-		
-		String src = "https://p.bokecc.com/flash/single/"+OnlineConfig.CC_USER_ID+"_"+paramsMap.get("videoid")+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1/player.swf";
-		String id = UUID.randomUUID().toString().replace("-", "");
-		String playCode = "";
-		playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-		playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-		playCode+="		width=\"100%\" ";
-		playCode+="		height=\"100%\" ";
-		playCode+="		id=\""+id+"\">";
-		playCode+="		<param name=\"movie\" value=\""+src+"\" />";
-		playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
-		playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
-		playCode+="		<param value=\"transparent\" name=\"wmode\" />";
-		playCode+="		<embed src=\""+src+"\" ";
-		playCode+="			width=\"100%\" height=\"100%\" name=\""+id+"\" allowFullScreen=\"true\" ";
-		playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-		playCode+="			type=\"application/x-shockwave-flash\"/> ";
-		playCode+="	</object>";
-		
-		returnmap.put("playCode", playCode);
-		
-		String title = "暂无";
-		List<Map<String, Object>> vs = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.queryForList("select `name` from oe_video where video_id='"+paramsMap.get("videoid")+"' ");
-		if (vs != null && vs.size() > 0) {
-			title = String.valueOf(vs.get(0).get("name"));
-		}
-		
-		returnmap.put("title", title);
-		
-		return returnmap;
-	}
-*/
-//	@Override
-//	public String getUploadUrl(String title, String description, String tag, String categoryid) {
-//		Map<String,String> paramsMap = new HashMap<String,String>();
-//		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
-//		paramsMap.put("title", title);
-//		paramsMap.put("description", description);
-//		paramsMap.put("tag", tag);
-//		paramsMap.put("categoryid", categoryid);
-//		long time = System.currentTimeMillis();
-//		return  Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
-//	}
-
-//	@Override
-//	public void uploadSuccessCallback(String duration,String image,String status,String videoid,String time,String hash) {
-//		if ("OK".equals(status)) {
-//			
-//			String url = String.FORMAT("duration=%s&image=%s&status=%s&videoid=%s&time=%s&salt=%s",
-//					duration,image,status,videoid,time,OnlineConfig.CC_API_KEY);
-//			
-//			String md5 = Md5Encrypt.md5(url);
-//			if (!md5.equals(hash)) {
-//				logger.error(videoid+"|uploadSuccessCallback接口验证失败！");
-//			}
-//			if (System.currentTimeMillis() / 1000 - Long.valueOf(time) > 5) {
-//				logger.error(videoid+"|uploadSuccessCallback接口恶意调用！");
-//			}
-//			
-//			String ms = "00:00";
-//			int duration_s = StringUtils.hasText(duration) ? Integer.valueOf(duration) : 0;
-//			if (duration_s > 0) {
-//				String m = String.valueOf((duration_s / 60));
-//				String s = String.valueOf((duration_s % 60));
-//				m = m.length()==1 ? "0"+m : m;
-//				s = s.length()==1 ? "0"+s : s;
-//				ms = m+":"+s;
-//			}
-//			dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(
-//					"update oe_video set video_time=? where video_id=? ",ms,videoid);
-//			
-//			logger.info(videoid+"|片长更新成功|"+ms);
-//		} else {
-//			logger.error(videoid+"|视频处理失败！");
-//		}
-//	}
 
 	@Override
 	@Resource(name="simpleHibernateDao")

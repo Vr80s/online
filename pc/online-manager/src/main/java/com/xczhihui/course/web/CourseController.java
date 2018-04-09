@@ -311,15 +311,6 @@ public class CourseController extends AbstractController {
         return responseObj;
     }
 
-//	private void updateCCCategory(String oldName,String newName){
-//		List<CategoryBean> allCategories = CCUtils.getAllCategories();
-//		for (CategoryBean first : allCategories) {
-//			if (first.getName().equals(oldName)) {
-//				CCUtils.updateCategory(first.getId(), newName);
-//				break;
-//			}
-//		}
-//	}
 
     /**
      * 修改状态(禁用or启用)

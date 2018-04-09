@@ -107,11 +107,14 @@
 
     <bean id="redisShardLockUtils" class="com.xczhihui.utils.RedisShardLockUtils"></bean>
 
+
     <!--RedissonUtil配置-->
     <bean id="redissonUtil" class="com.xczhihui.bxg.common.support.lock.RedissonUtil">
         <property name="redisHost" value="${redis.host}"></property>
         <property name="redisPort" value="${redis.port}"></property>
     </bean>
 
+    <bean id="onlineConfig" class="com.xczhihui.bxg.common.support.config.OnlineConfig"></bean>
+    <bean id="CCUtils" class="com.xczhihui.bxg.common.support.cc.util.CCUtils"></bean>
 
 </beans>

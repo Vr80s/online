@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.utils.cc.bean;
+package com.xczhihui.bxg.common.support.cc.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;

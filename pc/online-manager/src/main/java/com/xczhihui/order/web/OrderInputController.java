@@ -49,6 +49,8 @@ public class OrderInputController {
 
     @Autowired
     private OrderInputService service;
+    @Autowired
+    private OnlineConfig onlineConfig;
 
     //@RequiresPermissions("input:order")
     @RequestMapping(value = "/index")
@@ -159,7 +161,7 @@ public class OrderInputController {
 
     private void docallback(String order_no) throws Exception {
         //生成课程
-        String s = "out_trade_no=" + order_no + "&result_code=SUCCESS&key=" + OnlineConfig.WECHAT_API_KEY;
+        String s = "out_trade_no=" + order_no + "&result_code=SUCCESS&key=" + onlineConfig.wechatApiId;
         String mysign = CodeUtil.MD5Encode(s).toLowerCase();
 
         String resXml =

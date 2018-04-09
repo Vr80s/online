@@ -1,21 +1,18 @@
-package com.xczhihui.bxg.online.common.utils.cc.util;
+package com.xczhihui.bxg.common.support.cc.util;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.xczhihui.bxg.common.support.cc.bean.CategoryBean;
+import com.xczhihui.bxg.common.support.cc.config.Config;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
-import com.xczhihui.bxg.online.common.utils.cc.config.Config;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-@Configuration
 public class CCUtils {
 
 	@Autowired
