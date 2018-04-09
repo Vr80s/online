@@ -938,55 +938,58 @@ public class BrowserUserController {
 		String appUniqueId = req.getParameter("appUniqueId");
 		String token = req.getParameter("token");
 		String type = req.getParameter("type");
-		/**
-		 * 如果存在这个token。那么说明这个token可以的啦。就不用用appUniqueId来判断了
-		 * 直接中缓存中得到这个token。如果这个token没有或者失效了。那么就中数据库中取下。 在从数据库中去的时候
-		 */
-		// cacheService.delete("ba525056ebfa48dfb33974e7ab92d7a5");
-		OnlineUser ou = new OnlineUser();
-		if (token != null && cacheService.get(token) != null) {
-			ou = cacheService.get(token);
-			return ResponseObject.newSuccessResponseObject(ou);
-		}
-		/*
-		 * 1、判断是游客登录呢，还是普通用户登录
-		 */
-		Map<String, Object> map = onlineUserService
-				.getAppTouristRecord(appUniqueId);
-		if (map == null) { // 第一次进来
-			ou = onlineUserService.addYkUser(appUniqueId);
-			LOGGER.info("用户中心id:" + ou.getUserCenterId());
-			// 也需要保存这个信息啦
-			onlineUserService.saveAppTouristRecord(ou, appUniqueId);
-		} else {
-			/**
-			 * 1、点击退出的时候，在数据库中变化一个值 如果这个值是1，说明它是退出登录了。在进入的时候我返回他一些基本的信息。
-			 * 如果这个是是0,。进入的时候我返回他更过的信息。 2、当登录的时候，在增加这个标识符为0:
-			 */
-			Boolean regis = (Boolean) map.get("isRegis");
-			LOGGER.info("userCenterId;" + map.get("userCenterId"));
-			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
-			if (!regis || "1".equals(type)) { // 返回用户基本信息 --主要是不返回loginName
-				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get(
-						"userId").toString());
-			} else { // 返回用户信息 -- 包括loginName
-				ou = onlineUserService.findUserById(map.get("userId")
-						.toString());
-			}
-			if (iu != null) {
-				ou.setUserCenterId(iu.getId());
-				ou.setPassword(iu.getPassword());
-			}
-		}
-
-		/**
-		 * 游客身份进入后，存缓存到redis中。也就是这个票 通过这个票进行各种身份通过，对出登录删除这个票就行了。
-		 * 在以游客的身份过来的话，就判断这个票有效无效。如果无效就在生成这个票。如果有效，就还用这个票吧。
-		 */
-		String ticket = CodeUtil.getRandomUUID();
-		ou.setTicket(ticket);
-		cacheService.set(ticket, ou, TokenExpires.Day.getExpires());
-		return ResponseObject.newSuccessResponseObject(ou);
+		
+		return ResponseObject.newErrorResponseObject("接口过期");
+		
+//		/**
+//		 * 如果存在这个token。那么说明这个token可以的啦。就不用用appUniqueId来判断了
+//		 * 直接中缓存中得到这个token。如果这个token没有或者失效了。那么就中数据库中取下。 在从数据库中去的时候
+//		 */
+//		// cacheService.delete("ba525056ebfa48dfb33974e7ab92d7a5");
+//		OnlineUser ou = new OnlineUser();
+//		if (token != null && cacheService.get(token) != null) {
+//			ou = cacheService.get(token);
+//			return ResponseObject.newSuccessResponseObject(ou);
+//		}
+//		/*
+//		 * 1、判断是游客登录呢，还是普通用户登录
+//		 */
+//		Map<String, Object> map = onlineUserService
+//				.getAppTouristRecord(appUniqueId);
+//		if (map == null) { // 第一次进来
+//			ou = onlineUserService.addYkUser(appUniqueId);
+//			LOGGER.info("用户中心id:" + ou.getUserCenterId());
+//			// 也需要保存这个信息啦
+//			onlineUserService.saveAppTouristRecord(ou, appUniqueId);
+//		} else {
+//			/**
+//			 * 1、点击退出的时候，在数据库中变化一个值 如果这个值是1，说明它是退出登录了。在进入的时候我返回他一些基本的信息。
+//			 * 如果这个是是0,。进入的时候我返回他更过的信息。 2、当登录的时候，在增加这个标识符为0:
+//			 */
+//			Boolean regis = (Boolean) map.get("isRegis");
+//			LOGGER.info("userCenterId;" + map.get("userCenterId"));
+//			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
+//			if (!regis || "1".equals(type)) { // 返回用户基本信息 --主要是不返回loginName
+//				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get(
+//						"userId").toString());
+//			} else { // 返回用户信息 -- 包括loginName
+//				ou = onlineUserService.findUserById(map.get("userId")
+//						.toString());
+//			}
+//			if (iu != null) {
+//				ou.setUserCenterId(iu.getId());
+//				ou.setPassword(iu.getPassword());
+//			}
+//		}
+//
+//		/**
+//		 * 游客身份进入后，存缓存到redis中。也就是这个票 通过这个票进行各种身份通过，对出登录删除这个票就行了。
+//		 * 在以游客的身份过来的话，就判断这个票有效无效。如果无效就在生成这个票。如果有效，就还用这个票吧。
+//		 */
+//		String ticket = CodeUtil.getRandomUUID();
+//		ou.setTicket(ticket);
+//		cacheService.set(ticket, ou, TokenExpires.Day.getExpires());
+//		return ResponseObject.newSuccessResponseObject(ou);
 	}
 
 	public void appleOnlogin(HttpServletRequest req, HttpServletResponse res,

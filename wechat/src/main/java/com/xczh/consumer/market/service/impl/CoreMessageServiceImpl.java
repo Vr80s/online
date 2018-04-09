@@ -145,7 +145,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    			String country_ = (String)jsonObject.get("country");
 	    			String headimgurl_ = (String)jsonObject.get("headimgurl");
 	    			
-	    			String subscribe_time = (String)jsonObject.get("subscribe_time");
+	    			Integer subscribe_time = (Integer)jsonObject.get("subscribe_time");
 	    			String unionid_ = (String)jsonObject.get("unionid");
 	    			
 	    			String remark = (String)jsonObject.get("remark");
@@ -177,7 +177,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    				wxcpClientUserWxMapping.setProvince(province_);
 	    				wxcpClientUserWxMapping.setUnionid(unionid_);
 	    				wxcpClientUserWxMapping.setSubscribe(subscribe);
-	    				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time, DateUtil.FORMAT_CHINA_DAY_TIME));
+	    				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
 	    				wxcpClientUserWxMapping.setRemark(remark);
 	    				wxcpClientUserWxMapping.setGroupid(groupid);
 	    				wxcpClientUserWxMapping.setTagid_list(tagid_list);
@@ -246,7 +246,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       			String country_ = (String)jsonObject.get("country");
       			String headimgurl_ = (String)jsonObject.get("headimgurl");
       			
-      			String subscribe_time = (String)jsonObject.get("subscribe_time");
+      			Integer subscribe_time = (Integer)jsonObject.get("subscribe_time");
       			String unionid_ = (String)jsonObject.get("unionid");
       			
       			String remark = (String)jsonObject.get("remark");
@@ -279,7 +279,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       				wxcpClientUserWxMapping.setProvince(province_);
       				wxcpClientUserWxMapping.setUnionid(unionid_);
       				wxcpClientUserWxMapping.setSubscribe(subscribe);
-      				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time, DateUtil.FORMAT_CHINA_DAY_TIME));
+      				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
       				wxcpClientUserWxMapping.setRemark(remark);
       				wxcpClientUserWxMapping.setGroupid(groupid);
       				wxcpClientUserWxMapping.setTagid_list(tagid_list);
