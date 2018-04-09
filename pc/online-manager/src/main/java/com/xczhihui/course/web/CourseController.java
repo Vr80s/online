@@ -34,7 +34,7 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -311,15 +311,6 @@ public class CourseController extends AbstractController {
         return responseObj;
     }
 
-//	private void updateCCCategory(String oldName,String newName){
-//		List<CategoryBean> allCategories = CCUtils.getAllCategories();
-//		for (CategoryBean first : allCategories) {
-//			if (first.getName().equals(oldName)) {
-//				CCUtils.updateCategory(first.getId(), newName);
-//				break;
-//			}
-//		}
-//	}
 
     /**
      * 修改状态(禁用or启用)

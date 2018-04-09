@@ -22,7 +22,7 @@ import org.springframework.util.StringUtils;
 import com.xczhihui.bxg.common.util.BeanUtil;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.UserCoin;
+import com.xczhihui.bxg.online.common.domain.UserCoin;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.common.util.PasswordUtil;

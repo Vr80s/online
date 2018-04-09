@@ -1,10 +1,11 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.common.utils.cc.util.Md5Encrypt;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.bxg.common.support.cc.util.Md5Encrypt;
 import com.xczhihui.bxg.online.web.service.VideoResService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -14,12 +15,15 @@ public class VideoResServiceImpl implements VideoResService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@Autowired
+	private OnlineConfig onlineConfig;
+
 	@Override
 	public void uploadSuccessCallback(String duration,String image,String status,String videoid,String time,String hash) {
 		if ("OK".equals(status)) {
 
 			String url = String.format("duration=%s&image=%s&status=%s&videoid=%s&time=%s&salt=%s",
-					duration,image,status,videoid,time, OnlineConfig.CC_API_KEY);
+					duration,image,status,videoid,time, onlineConfig.ccApiKey);
 
 			String md5 = Md5Encrypt.md5(url);
 			if (!md5.equals(hash)) {

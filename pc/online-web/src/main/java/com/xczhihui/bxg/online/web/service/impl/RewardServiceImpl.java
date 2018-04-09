@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xczhihui.bxg.online.api.po.RewardStatement;
+import com.xczhihui.bxg.online.common.domain.RewardStatement;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.Reward;
 import com.xczhihui.bxg.online.web.base.common.Broadcast;

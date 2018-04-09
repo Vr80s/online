@@ -32,7 +32,6 @@ var teacherId;
 var teacherName;
 $(function() {
 	var roomid = room_id;
-//	var userid=cc_live_user_id;
 	var username;
 	RequestService("/online/user/isAlive", "GET", null, function(data) {
 		if(!data.success) {

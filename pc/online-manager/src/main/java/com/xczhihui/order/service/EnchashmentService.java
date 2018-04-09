@@ -3,8 +3,7 @@ package com.xczhihui.order.service;
 import java.lang.reflect.InvocationTargetException;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
-import com.xczhihui.bxg.online.api.po.EnchashmentApplyInfo;
+import com.xczhihui.bxg.online.common.domain.EnchashmentApplyInfo;
 
 public interface EnchashmentService {
 

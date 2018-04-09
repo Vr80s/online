@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import weibo4j.http.HttpClient;
-import weibo4j.util.WeiboConfig;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
@@ -27,16 +26,15 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.SMSCode;
-import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
-import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
+import com.xczhihui.bxg.common.util.enums.SMSCode;
+import com.xczhihui.bxg.common.util.enums.ThirdPartyType;
+import com.xczhihui.bxg.common.util.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.user.center.bean.UserOrigin;

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,6 @@ import weibo4j.Users;
 import weibo4j.http.AccessToken;
 import weibo4j.http.HttpClient;
 import weibo4j.model.PostParameter;
-import weibo4j.model.User;
 import weibo4j.model.WeiboException;
 import weibo4j.util.WeiboConfig;
 
@@ -38,8 +36,8 @@ import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
-import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
+import com.xczhihui.bxg.common.util.enums.ThirdPartyType;
+import com.xczhihui.bxg.common.util.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.wechat.course.model.WeiboClientUserMapping;

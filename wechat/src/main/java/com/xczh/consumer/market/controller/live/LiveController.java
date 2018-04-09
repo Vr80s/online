@@ -39,7 +39,7 @@ import com.xczh.consumer.market.service.*;
 import com.xczh.consumer.market.utils.Broadcast;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczhihui.bxg.online.api.po.LiveExamineInfo;
+import com.xczhihui.bxg.online.api.vo.LiveExamineInfo;
 import com.xczhihui.bxg.online.api.service.LiveExamineInfoService;
 
 //import java.util.UUID;

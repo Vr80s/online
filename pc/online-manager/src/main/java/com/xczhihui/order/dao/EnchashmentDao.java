@@ -3,12 +3,11 @@ package com.xczhihui.order.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xczhihui.bxg.online.api.po.EnchashmentApplyInfo;
+import com.xczhihui.bxg.online.common.domain.EnchashmentApplyInfo;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
 
 @Repository
 public class EnchashmentDao extends SimpleHibernateDao {

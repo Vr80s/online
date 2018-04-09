@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.support.service.SystemVariateService;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
+import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Order;
 import com.xczhihui.order.dao.UserCoinIncreaseDao;

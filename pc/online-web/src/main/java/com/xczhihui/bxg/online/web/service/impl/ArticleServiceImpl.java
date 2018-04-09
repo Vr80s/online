@@ -4,7 +4,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.enums.HeadlineType;
+import com.xczhihui.bxg.common.util.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.vo.AppraiseVo;
 import com.xczhihui.bxg.online.web.vo.ArticleVo;
