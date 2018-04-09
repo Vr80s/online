@@ -29,7 +29,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements Mo
 		String sql="select ifnull(min(seq),0) from oe_course_mobile_banner ";
 		int sort = dao.queryForInt(sql, null) - 1;
 		mobileBannerVo.setClickSum(0);
-		mobileBannerVo.setStatus(0);;
+		mobileBannerVo.setStatus(0);
 		sql = "INSERT INTO oe_course_mobile_banner  ( id ,  name ,  url ,  click_sum ,  "
 				+ "create_person ,  create_time ,  status ,  seq ,  img_path , link_type  ,banner_type ) " +
 				"VALUES (REPLACE(UUID(),'-',''), ?, ?, ?, ?, now(), ?, ?, ?,?,?)";
