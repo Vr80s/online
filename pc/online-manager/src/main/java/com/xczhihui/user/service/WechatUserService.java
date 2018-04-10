@@ -26,7 +26,7 @@ public interface WechatUserService {
 	 * @param pageSize
 	 * @return
 	 */
-	public Page<WechatUser> findUserPage(String nickname,
+	public Page<WechatUser> findUserPage(String nickname,String loginname,
 			String subscribeStartTime, String subscribeEndTime,
 			String qr_scene, int pageNumber, int pageSize);
 

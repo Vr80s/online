@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.util.bean.Page;
@@ -38,6 +39,12 @@ public class WechatChannelDao extends HibernateDao<Course> {
 			paramMap.put("status", WechatChannelVo.getStatus());
 			sql.append(" and og.status = :status ");
 		}
+		
+		if (StringUtils.isNotBlank(WechatChannelVo.getContact())) { //联系人，联系电话
+			paramMap.put("keyWord", "%" + WechatChannelVo.getContact()+ "%");
+			sql.append(" and ( og.contact like :keyWord  or og.mobile like :keyWord ) ");
+		}
+		
 
 		sql.append(" order by og.status desc, og.sort desc");
 		Page<WechatChannelVo> WechatChannelVos = this.findPageBySQL(

@@ -24,18 +24,23 @@
 		<table>
 			<tr>
 				<td >
-					<span class="searchTr">
-						<input type="text"  id="nickname" class="propertyValue1" style="width:240px;" placeholder="用户昵称/用户名"/>
+				
+				    <span class="searchTr">
+						<input type="text"  id="nickname" class="propertyValue1" style="width:100px;" placeholder="微信昵称"/>
 						<input type="hidden" value="nickname" class="propertyName"/>
+					</span>
+					<span class="searchTr">
+						<input type="text"  id="loginname" class="propertyValue1" style="width:100px;" placeholder="用户名"/>
+						<input type="hidden" value="loginname" class="propertyName"/>
 					</span>
 					&nbsp;&nbsp;
 					<span class="searchTr">
-						<input type="text"  id="subscribeTimeStart" class="propertyValue1" placeholder="关注时间"/>
+						<input type="text"  id="subscribeTimeStart" class="propertyValue1" placeholder="关注开始时间"/>
 						<input type="hidden" value="subscribeTimeStart" class="propertyName"/>
 					</span>
 					&nbsp;&nbsp;
 				   <span class="searchTr">
-						<input type="text"  id="subscribeTimeEnd" class="propertyValue1" placeholder="关注时间"/>
+						<input type="text"  id="subscribeTimeEnd" class="propertyValue1"   placeholder="关注结束时间"/>
 						<input type="hidden" value="subscribeTimeEnd" class="propertyName"/>
 					</span>
 					&nbsp;&nbsp;
@@ -100,7 +105,7 @@
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-right">用户名: </label>
-	        <div class="col-sm-4"><p id="account_look" class="paddingtop7px padding7"></p></div>
+	        <div class="col-sm-4"><p id="mobile_look" class="paddingtop7px padding7"></p></div>
 			<label class="col-sm-2 control-label no-padding-right">渠道名称: </label>
 			<div class="col-sm-4"><p id="vhallId_look" class="paddingtop7px padding7"></p></div>
 		</div>

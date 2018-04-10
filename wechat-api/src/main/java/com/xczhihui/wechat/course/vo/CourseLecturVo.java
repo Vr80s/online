@@ -186,6 +186,8 @@ public class CourseLecturVo implements Serializable {
 	
 	private String vhallId; //进入直播间后需要用这个id来判断是否是主播发布的消息
 	
+	private String vhallName; //进入直播间后需要用这个id来判断是否是主播发布的消息
+	
 	private Integer learning = 0;
 	
 	private Integer status; //是否上架      禁用0，启用，1
@@ -607,6 +609,14 @@ public class CourseLecturVo implements Serializable {
 
 	public void setRichHostDetailsUrl(String richHostDetailsUrl) {
 		this.richHostDetailsUrl = richHostDetailsUrl;
+	}
+
+	public String getVhallName() {
+		return vhallName;
+	}
+
+	public void setVhallName(String vhallName) {
+		this.vhallName = vhallName;
 	}
 	
 	

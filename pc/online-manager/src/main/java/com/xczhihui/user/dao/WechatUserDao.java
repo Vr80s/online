@@ -32,7 +32,7 @@ public class WechatUserDao extends HibernateDao<WechatUser> {
 	 * @param pageSize
 	 * @return
 	 */
-	public Page<WechatUser> findUserPage(String nickname,
+	public Page<WechatUser> findUserPage(String nickname,String loginname,
 			String subscribeStartTime, String subscribeEndTime, String qrScene,
 			int pageNumber, int pageSize) {
 
@@ -67,8 +67,13 @@ public class WechatUserDao extends HibernateDao<WechatUser> {
 		}
 
 		if (StringUtils.hasText(nickname)) {
-			sql += " and ( wcu.nickname like :searchName or ou.login_name like :searchName )  ";
-			paramMap.put("searchName", "%" + nickname.trim() + "%");
+			sql += " and  wcu.nickname like :nickname   ";
+			paramMap.put("nickname", "%" + nickname.trim() + "%");
+		}
+		
+		if (StringUtils.hasText(loginname)) {
+			sql += " and  ou.login_name like :loginname  ";
+			paramMap.put("loginname", "%" + loginname.trim() + "%");
 		}
 		
 		if (StringUtils.hasText(qrScene) && !qrScene.equals("-1")) {

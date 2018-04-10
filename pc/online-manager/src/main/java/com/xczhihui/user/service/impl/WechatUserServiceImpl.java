@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.xczhihui.user.dao.WechatUserDao;
 import com.xczhihui.user.service.WechatUserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,12 @@ public class WechatUserServiceImpl implements WechatUserService {
 	@Autowired
 	private UserCenterAPI api;
 
+	
 	@Override
-	public Page<WechatUser> findUserPage(String nickname,
+	public Page<WechatUser> findUserPage(String nickname,String loginname,
 			String subscribeStartTime, String subscribeEndTime,
 			String qr_scene, int pageNumber, int pageSize) {
-		return dao.findUserPage(nickname, subscribeStartTime, subscribeEndTime,
+		return dao.findUserPage(nickname,loginname, subscribeStartTime, subscribeEndTime,
 				qr_scene, pageNumber, pageSize);
 	}
 

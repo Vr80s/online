@@ -141,8 +141,8 @@ function viewUserDialog(obj) {
 	$("#vhallId_look").html(aData.channelName);
 	
 	$("#balanceGive_look").html(aData.province + "__"+aData.city+"__"+aData.country);
-	$("#balance_look").html(aData.subscribeTime);
-	$("#last_time_look").html(aData.lastUpdateTime);
+	$("#balance_look").html(getDateTimeFormat(aData.subscribeTime));
+	$("#last_time_look").html(getDateTimeFormat(aData.lastUpdateTime));
 	//view_room_number
 	//$("#isPay_look").html(aData.isPay==1?'已付费':'未付费');
 	var dialog = openDialogNoBtnName("userInfoDialog","dialogUserInfoDiv","查看用户",600,400,false,"确定",null);

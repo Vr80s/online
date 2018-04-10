@@ -10,6 +10,7 @@ import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,11 @@ public class WechatChannelController extends AbstractController {
 			searchVo.setStatus(status.getPropertyValue1().toString());
 		}
 
+		Group contact = groups.findByName("contact");
+		if (contact != null) {
+			searchVo.setContact(contact.getPropertyValue1().toString());
+		}
+		
 		Page<WechatChannelVo> page = WechatChannelService
 				.findWechatChannelPage(searchVo, currentPage, pageSize);
 		int total = page.getTotalCount();
@@ -81,20 +87,15 @@ public class WechatChannelController extends AbstractController {
 	 * 
 	 * @param courseVo
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "addWechatChannel", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject add(WechatChannelVo WechatChannelVo) {
+	public ResponseObject add(WechatChannelVo WechatChannelVo) throws Exception {
 		ResponseObject responseObj = new ResponseObject();
-		try {
-			WechatChannelService.addWechatChannel(WechatChannelVo);
-			responseObj.setSuccess(true);
-			responseObj.setErrorMessage("新增成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			responseObj.setSuccess(false);
-			responseObj.setErrorMessage("新增失败");
-		}
+		WechatChannelService.addWechatChannel(WechatChannelVo);
+		responseObj.setSuccess(true);
+		responseObj.setErrorMessage("新增成功");
 		return responseObj;
 	}
 
@@ -117,22 +118,18 @@ public class WechatChannelController extends AbstractController {
 	 * 
 	 * @param courseVo
 	 * @return
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
 	@RequestMapping(value = "updateWechatChannelById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateWechatChannelById(
-			WechatChannelVo WechatChannelVo) {
+			WechatChannelVo WechatChannelVo) throws IllegalAccessException, InvocationTargetException {
 		ResponseObject responseObj = new ResponseObject();
 
-		try {
-			WechatChannelService.updateWechatChannel(WechatChannelVo);
-			responseObj.setSuccess(true);
-			responseObj.setErrorMessage("修改成功");
-		} catch (Exception e) {
-			responseObj.setSuccess(false);
-			responseObj.setErrorMessage("修改失败");
-			e.printStackTrace();
-		}
+		WechatChannelService.updateWechatChannel(WechatChannelVo);
+		responseObj.setSuccess(true);
+		responseObj.setErrorMessage("修改成功");
 		return responseObj;
 	}
 
