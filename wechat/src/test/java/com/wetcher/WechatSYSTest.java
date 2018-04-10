@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
-import com.xczhihui.user.center.utils.HttpUtil;
 
 public class WechatSYSTest {
 
@@ -62,8 +61,8 @@ public class WechatSYSTest {
 		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
 		System.out.println(token);
 		String url = OBTAIN_MERCHANT_INFORMATION.replace("APPSECRET", "8_UTNb4a2W81yG5oOmRu7vqZPT8l90ipITfkBFfoqf93u9OhY9Ily4uEuCDsTthxNRNMYG9YedckziFBqQMlSlDwpe9dTjbtExgq8BvIvjxEu7x9Toyfq-y2EdGXtSo-aMz5GWCS8kWrAqfpvcJJAcABAAAR");
-		String goods_info  = HttpUtil.doGet(url);
-		System.out.println(goods_info);
+//		String goods_info  = HttpUtil.doGet(url);
+//		System.out.println(goods_info);
 	}
 	
 	
@@ -98,8 +97,8 @@ public class WechatSYSTest {
 		//String token =SingleAccessToken.getInstance().getAccessToken().getToken();
 		//System.out.println(token);
 		String url = QR_CODE_IMG.replace("TICKETS", "gQGr7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyaEhqZ1pSdTFlRWkxQTRaVGhxY3cAAgTIfLdaAwQ8AAAA");
-		String hehe = HttpUtil.doGet(url);
-		System.out.println(hehe);
+//		String hehe = HttpUtil.doGet(url);
+//		System.out.println(hehe);
 		
 	}
 	
