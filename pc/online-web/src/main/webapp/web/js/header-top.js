@@ -598,11 +598,11 @@ $(function () {
                                     hideHtml();
                                 }
                             } else {
-                            	location.href = "/webapp/otherDevice.html";
-                                localStorage.username = null;
-                                localStorage.password = null;
-                                $(".login").css("display", "none");
-                                $(".logout").css("display", "block");
+                                // location.href = "/webapp/otherDevice.html";
+                                // localStorage.username = null;
+                                // localStorage.password = null;
+                                // $(".login").css("display", "none");
+                                // $(".logout").css("display", "block");
                             }
                         });
                     }

@@ -835,15 +835,12 @@ if (myBrowser() == "IE55") {
                                     hideHtml();
                                 }
                             } else {
-                            	location.href = "/webapp/otherDevice.html";
-                            	
-                               /* alert("header jmp index");
-                                location.href = "/index.html";*/
-                                localStorage.username = null;
-                                localStorage.password = null;
-                                $(".login").css("display", "none");
-                                $(".logout").css("display", "block");
-//                              }
+                            	// location.href = "/webapp/otherDevice.html";
+                            	//
+                                // localStorage.username = null;
+                                // localStorage.password = null;
+                                // $(".login").css("display", "none");
+                                // $(".logout").css("display", "block");
                             }
                         });
                     }
