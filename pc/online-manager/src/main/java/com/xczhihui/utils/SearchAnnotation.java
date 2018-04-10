@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface SearchAnnotation {
-	//具体类型
+	// 具体类型
 	public Class<?> Class();
 }

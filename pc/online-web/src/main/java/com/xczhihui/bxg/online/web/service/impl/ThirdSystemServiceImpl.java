@@ -22,7 +22,7 @@ import org.springframework.util.StringUtils;
 import com.xczhihui.bxg.common.util.HttpUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.online.web.dao.ThirdSystemDao;
 import com.xczhihui.bxg.online.web.service.ThirdSystemService;
 import com.xczhihui.bxg.online.web.service.VerificationCodeService;
@@ -42,6 +42,8 @@ public class ThirdSystemServiceImpl extends OnlineBaseServiceImpl implements Thi
 	
 	@Autowired
 	private VerificationCodeService vs;
+	@Autowired
+	private OnlineConfig onlineConfig;
 	
 	private static Map<String, String> KEY = new HashMap<String, String>();
 	static {
@@ -123,7 +125,7 @@ public class ThirdSystemServiceImpl extends OnlineBaseServiceImpl implements Thi
 					packageParams.put(e.getKey(), e.getValue());
 				}
 			}
-			if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
+			if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, onlineConfig.wechatApiId)) {
 				return m;
 			}
 		}

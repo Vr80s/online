@@ -2,32 +2,33 @@ package com.xczhihui.course.vo;
 
 import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
-public class VideoResVo extends OnlineBaseVo{
+public class VideoResVo extends OnlineBaseVo {
 	private String id;
 	/**
-     * 课程ID 
-     */
-    private Integer courseId;
-    
-    private Integer status;
+	 * 课程ID
+	 */
+	private Integer courseId;
 
-    private Integer sort;
+	private Integer status;
 
-    private String chapterId;
+	private Integer sort;
 
-    private String name;
+	private String chapterId;
 
-    private String videoId;
+	private String name;
 
-    private String videoTime;
+	private String videoId;
 
-    private String videoSize;
-    
-    private String level;
-    
-    private Boolean isTryLearn;
+	private String videoTime;
 
-    private String videoVersion;
+	private String videoSize;
+
+	private String level;
+
+	private Boolean isTryLearn;
+
+	private String videoVersion;
+
 	public Integer getStatus() {
 		return status;
 	}
@@ -123,7 +124,5 @@ public class VideoResVo extends OnlineBaseVo{
 	public void setVideoVersion(String videoVersion) {
 		this.videoVersion = videoVersion;
 	}
-    
-    
-	
+
 }

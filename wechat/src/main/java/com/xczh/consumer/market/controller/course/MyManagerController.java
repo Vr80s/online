@@ -27,11 +27,10 @@ import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.SMSCode;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.SMSCode;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
@@ -85,8 +84,8 @@ public class MyManagerController {
 	
 	@Autowired
 	private IMedicalDoctorApplyService medicalDoctorApplyService;
-	@Autowired
-	private RedissonUtil redissonUtil;
+
+	
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	

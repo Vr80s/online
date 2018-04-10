@@ -5,10 +5,11 @@ import com.xczhihui.mobile.vo.MobileSearchVo;
 
 public interface MobileSearchService {
 
-	public Page<MobileSearchVo> findMobileSearchPage(MobileSearchVo mobileSearchVo, int currentPage,
-                                                     int pageSize);
+	public Page<MobileSearchVo> findMobileSearchPage(
+			MobileSearchVo mobileSearchVo, int currentPage, int pageSize);
 
-	public MobileSearchVo findMobileSearchByNameAndByType(String name, Integer type);
+	public MobileSearchVo findMobileSearchByNameAndByType(String name,
+			Integer type);
 
 	public int getMaxSort();
 

@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Resource;
 
-import com.xczhihui.bxg.online.common.enums.VCodeType;
+import com.xczhihui.bxg.common.util.enums.VCodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

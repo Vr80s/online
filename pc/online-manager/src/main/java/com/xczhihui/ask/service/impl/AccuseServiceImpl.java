@@ -1,4 +1,6 @@
-package com.xczhihui.ask.service.impl;/**
+package com.xczhihui.ask.service.impl;
+
+/**
  * Created by admin on 2016/8/29.
  */
 
@@ -18,20 +20,23 @@ import org.springframework.stereotype.Service;
  * @create 2016-10-16 10:08:05
  */
 @Service
-public class AccuseServiceImpl  extends OnlineBaseServiceImpl implements AccuseService {
+public class AccuseServiceImpl extends OnlineBaseServiceImpl implements
+		AccuseService {
 
 	@Autowired
-    private AccuseDao accuseDao;
+	private AccuseDao accuseDao;
 
 	@Override
-	public Page<AccuseVo> findAccusePage(AccuseVo accuseVo, Integer pageNumber, Integer pageSize) {
-        Page<AccuseVo> page = accuseDao.findAccusePage(accuseVo, pageNumber, pageSize);
-        return page;
+	public Page<AccuseVo> findAccusePage(AccuseVo accuseVo, Integer pageNumber,
+			Integer pageSize) {
+		Page<AccuseVo> page = accuseDao.findAccusePage(accuseVo, pageNumber,
+				pageSize);
+		return page;
 	}
 
 	@Override
 	public Boolean checkAccuseStatus(AccuseVo accuseVo) {
 		return accuseDao.checkAccuseStatus(accuseVo);
 	}
-	
+
 }

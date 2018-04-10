@@ -11,9 +11,10 @@ public interface StudentStoryService {
 	 * @param pageVo
 	 * @return
 	 */
-    public Page<StudentStory> findStudentStoryPage(StudentStory studentStory,  int pageNumber, int pageSize);
-    
-    public void addStudentStory(StudentStory studentStory);
+	public Page<StudentStory> findStudentStoryPage(StudentStory studentStory,
+			int pageNumber, int pageSize);
+
+	public void addStudentStory(StudentStory studentStory);
 
 	public void deletes(String[] ids);
 

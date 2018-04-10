@@ -89,24 +89,6 @@ public class LiveController {
 		return ResponseObject.newSuccessResponseObject(name);
 	}
 
-
-	/**
-	 * 直播课，获取在线人数列表
-	 * 此接口是访问CC接口获取用户在线人数
-	 * @param roomId 房间号
-	 * @return
-	 */
-//	@RequestMapping(value = "/getLiveLessionOnLine")
-//	@ResponseBody
-//	public  ResponseObject  getLiveLessionOnLine(String roomId){
-//		Map<String, String> paramsMap = new HashMap<String, String>();
-//		paramsMap.put("userid", OnlineConfig.CC_LIVE_USER_ID);
-//		paramsMap.put("roomid", roomId);
-//		long time = System.currentTimeMillis();
-//		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_LIVE_API_KEY);
-//		return ResponseObject.newSuccessResponseObject( APIServiceFunction.HttpRetrieve(Config.api_live_users + "?" + requestURL));
-//	}
-
 	/**
 	 * 首页获取公开直播课
 	 * @param  num:条数
@@ -161,32 +143,6 @@ public class LiveController {
 		return ResponseObject.newSuccessResponseObject("操作成功");
 	}
 
-	/**
-	 * 修改鲜花数
-	 * @param courseId 课程ID号
-	 */
-//	@RequestMapping(value = "/updateFlowersNumber")
-//	public ResponseObject updateFlowersNumber(Integer courseId,HttpServletRequest req)
-//	{
-//		OnlineUser u =  (OnlineUser)req.getSession().getAttribute("_user_");
-//		Map<String, Object> msg = service.updateFlowersNumber(courseId,u);
-//		//推送全局消息，送花
-//		if (msg != null && msg.get("state") != null && Boolean.valueOf(msg.get("state").toString())) {
-//			String from = req.getParameter("from");
-//			String roomId = req.getParameter("roomId");
-//			if (StringUtils.hasText(from) && StringUtils.hasText(roomId)) {
-//				Map<String, String> paramsMap = new HashMap<String, String>();
-//				paramsMap.put("userid", OnlineConfig.CC_LIVE_USER_ID);
-//				paramsMap.put("roomid", roomId);
-//				paramsMap.put("message", "{\"from\":\""+from+"\",\"time\":\""+DateUtil.formatDate(new Date(), "HH:mm:ss")+"\","
-//						+ "\"num\":\""+(msg.get("num")==null ? "0" : msg.get("num").toString())+"\"}");
-//				long time = System.currentTimeMillis();
-//				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_LIVE_API_KEY);
-//				APIServiceFunction.HttpRetrieve("http://api.csslcloud.net/api/room/message?" + requestURL);
-//			}
-//		}
-//		return ResponseObject.newSuccessResponseObject(msg);
-//	}
 	/**
 	 * 获取直播课程信息，根据课程id查询课程
 	 * @param courseId 课程id号

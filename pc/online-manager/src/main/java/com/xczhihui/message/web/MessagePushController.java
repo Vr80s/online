@@ -1,6 +1,5 @@
 package com.xczhihui.message.web;
 
-
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.Message;

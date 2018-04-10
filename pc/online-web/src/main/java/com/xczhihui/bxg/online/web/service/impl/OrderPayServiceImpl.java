@@ -4,7 +4,7 @@ import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.web.dao.OrderDao;
 import com.xczhihui.bxg.online.web.service.OrderService;
 

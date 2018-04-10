@@ -1,9 +1,9 @@
 package com.xczhihui.bxg.online.api.service;
 
 import com.xczhihui.bxg.online.api.dto.ProgressDto;
-import com.xczhihui.bxg.online.api.po.ExamineProgressVo;
-import com.xczhihui.bxg.online.api.po.LiveExamineInfo;
-import com.xczhihui.bxg.online.api.po.LiveExamineInfoVo;
+import com.xczhihui.bxg.online.api.vo.ExamineProgressVo;
+import com.xczhihui.bxg.online.api.vo.LiveExamineInfo;
+import com.xczhihui.bxg.online.api.vo.LiveExamineInfoVo;
 
 import java.util.List;
 

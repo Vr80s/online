@@ -10,7 +10,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 
 @Service("applyService")
-public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyService {
+public class ApplyServiceImpl extends OnlineBaseServiceImpl implements
+		ApplyService {
 
 	@Autowired
 	private ApplyDao applyDao;
@@ -28,11 +29,11 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
 
 	@Override
 	public void updateChangePayment(ApplyVo vo) {
-		String sql="update apply_r_grade_course set is_payment=:isPayment ,cost=:cost where id=:id and is_delete=0 ";
+		String sql = "update apply_r_grade_course set is_payment=:isPayment ,cost=:cost where id=:id and is_delete=0 ";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("id", vo.getId());
 		paramSource.addValue("isPayment", vo.getIsPayment());
 		paramSource.addValue("cost", vo.getCost());
-		dao.getNamedParameterJdbcTemplate().update(sql,paramSource);
+		dao.getNamedParameterJdbcTemplate().update(sql, paramSource);
 	}
 }

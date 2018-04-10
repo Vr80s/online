@@ -1,18 +1,13 @@
 package com.xczh.consumer.market.controller.medical;
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
-import com.xczhihui.medical.anchor.model.CourseApplyInfo;
-import com.xczhihui.medical.anchor.service.IAnchorInfoService;
-import com.xczhihui.medical.anchor.service.ICourseApplyService;
-import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
-import org.redisson.api.RLock;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -25,13 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OLAttachmentCenterService;
+import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.medical.anchor.model.CourseApplyInfo;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
+import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 
 /**
  * 直播课程控制器 ClassName: MedicalDoctorApplyController.java <br>
@@ -55,8 +53,6 @@ public class CourseApplyController {
 
 	@Autowired
 	private AppBrowserService appBrowserService;
-	@Autowired
-	private RedissonUtil redissonUtil;
 
 	@Autowired
 	private IAnchorInfoService anchorInfoService;

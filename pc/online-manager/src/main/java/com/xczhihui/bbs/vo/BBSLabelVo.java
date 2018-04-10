@@ -2,73 +2,73 @@ package com.xczhihui.bbs.vo;
 
 public class BBSLabelVo {
 
-    private int id;
+	private int id;
 
-    private String name;
+	private String name;
 
-    private boolean isDisable;
+	private boolean isDisable;
 
-    private Integer sort;
+	private Integer sort;
 
-    private String details;
+	private String details;
 
-    private String labelImgUrl;
+	private String labelImgUrl;
 
-    private Integer postsCount;
+	private Integer postsCount;
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public boolean isDisable() {
-        return isDisable;
-    }
+	public boolean isDisable() {
+		return isDisable;
+	}
 
-    public void setDisable(boolean disable) {
-        isDisable = disable;
-    }
+	public void setDisable(boolean disable) {
+		isDisable = disable;
+	}
 
-    public Integer getSort() {
-        return sort;
-    }
+	public Integer getSort() {
+		return sort;
+	}
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
-    public String getDetails() {
-        return details;
-    }
+	public String getDetails() {
+		return details;
+	}
 
-    public void setDetails(String details) {
-        this.details = details;
-    }
+	public void setDetails(String details) {
+		this.details = details;
+	}
 
-    public String getLabelImgUrl() {
-        return labelImgUrl;
-    }
+	public String getLabelImgUrl() {
+		return labelImgUrl;
+	}
 
-    public void setLabelImgUrl(String labelImgUrl) {
-        this.labelImgUrl = labelImgUrl;
-    }
+	public void setLabelImgUrl(String labelImgUrl) {
+		this.labelImgUrl = labelImgUrl;
+	}
 
-    public Integer getPostsCount() {
-        return postsCount;
-    }
+	public Integer getPostsCount() {
+		return postsCount;
+	}
 
-    public void setPostsCount(Integer postsCount) {
-        this.postsCount = postsCount;
-    }
+	public void setPostsCount(Integer postsCount) {
+		this.postsCount = postsCount;
+	}
 }

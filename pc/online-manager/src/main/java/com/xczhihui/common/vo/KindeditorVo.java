@@ -1,11 +1,11 @@
 package com.xczhihui.common.vo;
 
 public class KindeditorVo {
-	
+
 	private int error;
-	
+
 	private String url;
-	
+
 	private String message;
 
 	public String getUrl() {
@@ -31,6 +31,5 @@ public class KindeditorVo {
 	public void setError(int error) {
 		this.error = error;
 	}
-
 
 }

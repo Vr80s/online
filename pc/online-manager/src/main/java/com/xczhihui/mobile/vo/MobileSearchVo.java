@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 /**
  * 移动端搜索实体类
+ * 
  * @author wangyishuai
  */
 @Entity
@@ -20,7 +21,7 @@ public class MobileSearchVo extends BasicEntity2 implements Serializable {
 	 * 名称
 	 */
 	@Column(name = "name")
-    private String  name;
+	private String name;
 
 	/**
 	 * 状态，0禁用，1启用
@@ -39,7 +40,6 @@ public class MobileSearchVo extends BasicEntity2 implements Serializable {
 	 */
 	@Column(name = "seq")
 	private Integer seq;
-
 
 	public String getName() {
 		return name;

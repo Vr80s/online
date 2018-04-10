@@ -24,19 +24,19 @@ public class UserVo {
 	private String mobile;
 
 	private boolean delete;
-	
+
 	private String status;
-	
+
 	private String createPerson;
-	
+
 	private Date createTime;
-	
+
 	private String createTimeStr;
-	
+
 	private String roles = "";
-	
+
 	private List children;
-	
+
 	private boolean expanded = false;
 
 	public String getId() {
@@ -127,15 +127,15 @@ public class UserVo {
 		this.createTime = createTime;
 		this.createTimeStr = DateUtil.formatDate(createTime);
 	}
-	
+
 	public void setCreateTimeStr(String createTimeStr) {
 		this.createTimeStr = createTimeStr;
 	}
 
-	public String getCreateTimeStr(){
+	public String getCreateTimeStr() {
 		return createTimeStr;
 	}
-	
+
 	public String getRoles() {
 		return roles;
 	}

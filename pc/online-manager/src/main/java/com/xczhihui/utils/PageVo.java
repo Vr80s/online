@@ -3,17 +3,15 @@ package com.xczhihui.utils;
 import java.util.List;
 
 public class PageVo {
-	
-	public PageVo()
-	{
+
+	public PageVo() {
 	}
-	
-	public PageVo(int pageSize, int currentPage)
-	{
+
+	public PageVo(int pageSize, int currentPage) {
 		this.pageSize = pageSize;
 		this.currentPage = currentPage;
 	}
-	
+
 	private List items;
 
 	private int totalCount;// 总记录数

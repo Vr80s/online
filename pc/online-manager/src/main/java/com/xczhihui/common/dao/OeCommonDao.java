@@ -38,19 +38,21 @@ public class OeCommonDao extends HibernateDao {
 		sql.append(" ORDER BY c.sort ");
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("group", group);
-		return this.getNamedParameterJdbcTemplate().query(sql.toString(), paramMap, new RowMapper<KeyValVo>() {
+		return this.getNamedParameterJdbcTemplate().query(sql.toString(),
+				paramMap, new RowMapper<KeyValVo>() {
 
-			@Override
-			public KeyValVo mapRow(ResultSet rs, int rowNum) throws SQLException {
-				KeyValVo keyValVo = new KeyValVo();
-				keyValVo.setId(rs.getString("id"));
-				keyValVo.setName(rs.getString("name"));
-				keyValVo.set_key(rs.getString("_key"));
-				keyValVo.set_value(rs.getString("_value"));
-				return keyValVo;
-			}
+					@Override
+					public KeyValVo mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						KeyValVo keyValVo = new KeyValVo();
+						keyValVo.setId(rs.getString("id"));
+						keyValVo.setName(rs.getString("name"));
+						keyValVo.set_key(rs.getString("_key"));
+						keyValVo.set_value(rs.getString("_value"));
+						return keyValVo;
+					}
 
-		});
+				});
 	}
 
 	/**
@@ -70,10 +72,12 @@ public class OeCommonDao extends HibernateDao {
 			innerSql.append("where 1=1 ");
 			for (Group group : groups.getGroupList()) {
 				if (group.getMatchType() == PropertyFilter.MatchType.EQ) {
-                    innerSql.append(" and " + group.getPropertyName() + "=" + group.getPropertyValue1());
-                } else if (group.getMatchType() == PropertyFilter.MatchType.LIKE) {
-                    innerSql.append(" and " + group.getPropertyName() + " like '%" + group.getPropertyValue1() + "%'");
-                }
+					innerSql.append(" and " + group.getPropertyName() + "="
+							+ group.getPropertyValue1());
+				} else if (group.getMatchType() == PropertyFilter.MatchType.LIKE) {
+					innerSql.append(" and " + group.getPropertyName()
+							+ " like '%" + group.getPropertyValue1() + "%'");
+				}
 			}
 		}
 		sql.append(" (").append(innerSql).append(") oec ");
@@ -108,7 +112,8 @@ public class OeCommonDao extends HibernateDao {
 	 * @param value
 	 * @param groupVal
 	 */
-	public void updateOneColByGroup(String colName, Object value, String groupVal) {
+	public void updateOneColByGroup(String colName, Object value,
+			String groupVal) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" update oe_common oec set " + colName + "=:" + colName);
 		sql.append(" where oec.`group`=:groupVal");
@@ -117,6 +122,5 @@ public class OeCommonDao extends HibernateDao {
 		paramMap.put("groupVal", groupVal);
 		this.getNamedParameterJdbcTemplate().update(sql.toString(), paramMap);
 	}
-
 
 }

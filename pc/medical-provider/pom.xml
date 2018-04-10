@@ -213,12 +213,7 @@
 		</dependency>
         <dependency>
             <groupId>com.xczhihui</groupId>
-            <artifactId>online-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xczhihui</groupId>
-            <artifactId>online-api</artifactId>
+            <artifactId>common-util</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
@@ -257,7 +252,17 @@
 			<artifactId>spring-data-redis</artifactId>
 			<version>1.8.6.RELEASE</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>common-support</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+    </dependencies>
 
 	<profiles>
 		<profile>

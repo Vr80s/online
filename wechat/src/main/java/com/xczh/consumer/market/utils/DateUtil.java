@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 
  * 有关日期方面的操作类
@@ -78,8 +80,8 @@ public class DateUtil {
 	 * @return Date
 	 */
 	public static Date parseDate(String value, String format) {
-		if (BXGStringUtil.isNotBlank(value)) {
-			if (!BXGStringUtil.isNotBlank(format)) {
+		if (StringUtils.isNotBlank(value)) {
+			if (StringUtils.isNotBlank(format)) {
 				format = FORMAT_DAY_TIME;
 			}
 			DateFormat dateFormate = new SimpleDateFormat(format);
@@ -150,7 +152,7 @@ public class DateUtil {
 	  */  
 	 public static String convert2String(long time, String format) {  
 		  if (time > 0L) {
-		   if (BXGStringUtil.isNotBlank(format)){
+		   if (StringUtils.isNotBlank(format)){
 			   SimpleDateFormat sf = new SimpleDateFormat(format);  
 			   String hms = sf.format(time);
 			   return hms;

@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class ArticleTypeVo extends OnlineBaseVo{
+public class ArticleTypeVo extends OnlineBaseVo {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,12 +44,15 @@ public class ArticleTypeVo extends OnlineBaseVo{
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

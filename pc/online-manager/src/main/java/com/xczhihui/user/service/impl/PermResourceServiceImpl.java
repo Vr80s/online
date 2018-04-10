@@ -34,7 +34,7 @@ public class PermResourceServiceImpl implements PermResourceService {
 	@Override
 	public void addResource(Resource resource) {
 		Resource res = this.resourceDao.findResource(resource.getType(),
-		        resource.getPermission());
+				resource.getPermission());
 		if (res != null) {
 			throw new IllegalArgumentException("权限代码+类型不能重复");
 		}
@@ -67,7 +67,7 @@ public class PermResourceServiceImpl implements PermResourceService {
 	@Override
 	public List<Resource> findResourcesByType(String type) {
 		return this.resourceDao.findEntitiesByProperty(Resource.class, "type",
-		        type);
+				type);
 	}
 
 	@Override
@@ -125,8 +125,8 @@ public class PermResourceServiceImpl implements PermResourceService {
 		if (old.isDelete() != resource.isDelete()) {
 			old.setDelete(resource.isDelete());
 			if (old.isDelete()) {
-                old.setCreateTime(new Date());
-            }
+				old.setCreateTime(new Date());
+			}
 
 			updateIsDelete(old.isDelete(), old.getId(), old.getCreateTime());
 
@@ -187,10 +187,10 @@ public class PermResourceServiceImpl implements PermResourceService {
 		}
 
 		if (!CollectionUtils.isEmpty(ids)) {
-            for (String childId : ids) {
-                updateIsDelete(isDelete, childId, updateTime);
-            }
-        }
+			for (String childId : ids) {
+				updateIsDelete(isDelete, childId, updateTime);
+			}
+		}
 
 	}
 
@@ -220,7 +220,7 @@ public class PermResourceServiceImpl implements PermResourceService {
 	@Override
 	public List<Resource> getHierarchyResources(String type, Boolean isValid) {
 		List<Resource> resources = this.resourceDao
-		        .findResources(type, isValid);
+				.findResources(type, isValid);
 		this.popResourceDesc(resources);
 		return ResourceTreeHelper.genHierarchyTree(resources);
 	}
@@ -228,7 +228,7 @@ public class PermResourceServiceImpl implements PermResourceService {
 	@Override
 	public List<SystemVariate> getResourceTypes() {
 		return this.systemVariateService
-		        .getSystemVariatesByName("resource_type");
+				.getSystemVariatesByName("resource_type");
 	}
 
 	@Override
@@ -272,7 +272,7 @@ public class PermResourceServiceImpl implements PermResourceService {
 			return null;
 		}
 		List<Resource> resources = this.resourceDao
-		        .findValidResources(new HashSet<>(resIds));
+				.findValidResources(new HashSet<>(resIds));
 		return ResourceTreeHelper.genHierarchyTree(resources);
 	}
 
@@ -321,7 +321,7 @@ public class PermResourceServiceImpl implements PermResourceService {
 
 	@Autowired
 	public void setSystemVariateService(
-	        SystemVariateService systemVariateService) {
+			SystemVariateService systemVariateService) {
 		this.systemVariateService = systemVariateService;
 	}
 

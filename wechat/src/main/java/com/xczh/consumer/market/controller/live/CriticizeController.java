@@ -10,7 +10,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +25,6 @@ import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
-import com.xczhihui.bxg.online.common.domain.Criticize;
-import com.xczhihui.bxg.online.common.domain.Reply;
 
 @Controller
 @RequestMapping(value = "/xczh/criticize")
@@ -94,27 +92,28 @@ public class CriticizeController {
 			)throws Exception {
 	
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		Page<Criticize> pageList  = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, 
-				pageSize,user!= null ? user.getUserId() :null);
-		
-		List<Criticize> list1  = new ArrayList<Criticize>();
-		for (Criticize criticize : pageList.getItems()) {
-			/*
-			 * 评论的内容要转化，回复的内容也需要转化
-			 */
-			if(StringUtils.isNotBlank(criticize.getContent())){
-				criticize.setContent(SLEmojiFilter.emojiRecovery2(criticize.getContent()));
-			}
-			if(criticize.getReply()!=null && criticize.getReply().size()>0){
-				List<Reply> replyList = criticize.getReply();
-				String replyContent = replyList.get(0).getReplyContent();
-				if(StringUtils.isNotBlank(replyContent)){
-					replyList.get(0).setReplyContent(SLEmojiFilter.emojiRecovery2(replyList.get(0).getReplyContent()));
-				}
-				criticize.setReply(replyList);
-			}
-			list1.add(criticize);
-		}
+//		Page<Criticize> pageList  = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, 
+//				pageSize,user!= null ? user.getUserId() :null);
+//		
+//		List<Criticize> list1  = new ArrayList<Criticize>();
+//		
+//		for (Criticize criticize : pageList.getItems()) {
+//			/*
+//			 * 评论的内容要转化，回复的内容也需要转化
+//			 */
+//			if(StringUtils.isNotBlank(criticize.getContent())){
+//				criticize.setContent(SLEmojiFilter.emojiRecovery2(criticize.getContent()));
+//			}
+//			if(criticize.getReply()!=null && criticize.getReply().size()>0){
+//				List<Reply> replyList = criticize.getReply();
+//				String replyContent = replyList.get(0).getReplyContent();
+//				if(StringUtils.isNotBlank(replyContent)){
+//					replyList.get(0).setReplyContent(SLEmojiFilter.emojiRecovery2(replyList.get(0).getReplyContent()));
+//				}
+//				criticize.setReply(replyList);
+//			}
+//			list1.add(criticize);
+//		}
 		/**
 		 * 这里判断用户发表的评论中是否包含发表心心了，什么的如果包含的话就不返回了
 		 * 		并且判断这个用户有没有购买过这个课程
@@ -126,7 +125,7 @@ public class CriticizeController {
 		}else{
 			map.put("commentCode", 0);
 		}
-		map.put("items", list1);
+		//map.put("items", list1);
 		return ResponseObject.newSuccessResponseObject(map);
 		
 	}

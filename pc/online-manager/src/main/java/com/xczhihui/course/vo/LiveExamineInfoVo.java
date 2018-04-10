@@ -8,93 +8,86 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class LiveExamineInfoVo implements Serializable{
-	
-    private String id;
-    
-    private Integer appId;
+public class LiveExamineInfoVo implements Serializable {
 
-    private String title;    //活动标题，那就是公开课名称
+	private String id;
 
-    private String content;  //内容
+	private Integer appId;
 
-    private String type;     
+	private String title; // 活动标题，那就是公开课名称
 
-    private String seeMode;
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private String content; // 内容
+
+	private String type;
+
+	private String seeMode;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date startTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date endTime;
-
-    private String whenLong;
-
-    private String userId;
-
-    private String examineStatus;
-
-    private String isFree;
-
-    private String password;
-
-    private BigDecimal price;
-
-    private String logo;
-    
-    //private String courseName;//课程名字
-    
-    private Integer menuId;//学科类型id
-    
-    private String menuName; //学科名字
-    
-    private String lecturerName; //讲师名字
-    
-    private int examineId;  //审查id
-    
-    
-    private String appealReason; //申诉理由
-
-    //private int examineId;  //审查id
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date startTime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date appealTime;   //申诉时间
-    
-    private String reviewerPerson;//审核人
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date reviewerTime;    //审核时间 -- 
-	
-    private String againstReason; //驳回理由 --
-    
-    
-    
-    private String auditPerson;  //审核人id
-    
-    private String auditPersonStr; //审核人名字  -- 
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-   	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date auditTime;     //审核时间
-    
-    
-    @JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
-    private Date s_startTime;
-    @JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
-    private Date s_endTime;
-    
+	private Date endTime;
 
-    private Boolean isDelete; //直播申诉---是否有效
-    
-    private Boolean ssisDelete; //申诉审核---是否有效
-    
-    
-    private Integer auditCount; //审核次数
-    
-    
+	private String whenLong;
+
+	private String userId;
+
+	private String examineStatus;
+
+	private String isFree;
+
+	private String password;
+
+	private BigDecimal price;
+
+	private String logo;
+
+	// private String courseName;//课程名字
+
+	private Integer menuId;// 学科类型id
+
+	private String menuName; // 学科名字
+
+	private String lecturerName; // 讲师名字
+
+	private int examineId; // 审查id
+
+	private String appealReason; // 申诉理由
+
+	// private int examineId; //审查id
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date appealTime; // 申诉时间
+
+	private String reviewerPerson;// 审核人
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date reviewerTime; // 审核时间 --
+
+	private String againstReason; // 驳回理由 --
+
+	private String auditPerson; // 审核人id
+
+	private String auditPersonStr; // 审核人名字 --
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date auditTime; // 审核时间
+
+	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
+	private Date s_startTime;
+	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
+	private Date s_endTime;
+
+	private Boolean isDelete; // 直播申诉---是否有效
+
+	private Boolean ssisDelete; // 申诉审核---是否有效
+
+	private Integer auditCount; // 审核次数
+
 	public String getId() {
 		return id;
 	}
@@ -104,100 +97,101 @@ public class LiveExamineInfoVo implements Serializable{
 	}
 
 	public String getTitle() {
-        return title;
-    }
+		return title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
+	public void setTitle(String title) {
+		this.title = title == null ? null : title.trim();
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
+	public void setContent(String content) {
+		this.content = content == null ? null : content.trim();
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
+	public void setType(String type) {
+		this.type = type == null ? null : type.trim();
+	}
 
-    public String getSeeMode() {
-        return seeMode;
-    }
+	public String getSeeMode() {
+		return seeMode;
+	}
 
-    public void setSeeMode(String seeMode) {
-        this.seeMode = seeMode == null ? null : seeMode.trim();
-    }
+	public void setSeeMode(String seeMode) {
+		this.seeMode = seeMode == null ? null : seeMode.trim();
+	}
 
-    public Date getStartTime() {
-        return startTime;
-    }
+	public Date getStartTime() {
+		return startTime;
+	}
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
 
-    public String getWhenLong() {
-        return whenLong;
-    }
+	public String getWhenLong() {
+		return whenLong;
+	}
 
-    public void setWhenLong(String whenLong) {
-        this.whenLong = whenLong == null ? null : whenLong.trim();
-    }
+	public void setWhenLong(String whenLong) {
+		this.whenLong = whenLong == null ? null : whenLong.trim();
+	}
 
-    public String getUserId() {
-        return userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
-    }
+	public void setUserId(String userId) {
+		this.userId = userId == null ? null : userId.trim();
+	}
 
-    public String getExamineStatus() {
-        return examineStatus;
-    }
+	public String getExamineStatus() {
+		return examineStatus;
+	}
 
-    public void setExamineStatus(String examineStatus) {
-        this.examineStatus = examineStatus == null ? null : examineStatus.trim();
-    }
+	public void setExamineStatus(String examineStatus) {
+		this.examineStatus = examineStatus == null ? null : examineStatus
+				.trim();
+	}
 
-    public String getIsFree() {
-        return isFree;
-    }
+	public String getIsFree() {
+		return isFree;
+	}
 
-    public void setIsFree(String isFree) {
-        this.isFree = isFree == null ? null : isFree.trim();
-    }
+	public void setIsFree(String isFree) {
+		this.isFree = isFree == null ? null : isFree.trim();
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
+	public void setPassword(String password) {
+		this.password = password == null ? null : password.trim();
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public String getLogo() {
-        return logo;
-    }
+	public String getLogo() {
+		return logo;
+	}
 
-    public void setLogo(String logo) {
-        this.logo = logo == null ? null : logo.trim();
-    }
+	public void setLogo(String logo) {
+		this.logo = logo == null ? null : logo.trim();
+	}
 
 	public Integer getMenuId() {
 		return menuId;
@@ -350,6 +344,5 @@ public class LiveExamineInfoVo implements Serializable{
 	public void setAuditCount(Integer auditCount) {
 		this.auditCount = auditCount;
 	}
-	
-	
+
 }

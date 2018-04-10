@@ -5,7 +5,8 @@ import java.io.StringWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.xczhihui.bxg.common.web.util.EmailUtil;
+import javax.mail.MessagingException;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import javax.mail.MessagingException;
+import com.xczhihui.bxg.common.web.util.EmailUtil;
 
 /**
  * 全局异常处理

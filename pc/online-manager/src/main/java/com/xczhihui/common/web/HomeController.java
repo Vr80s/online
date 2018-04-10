@@ -22,35 +22,37 @@ import com.xczhihui.bxg.online.common.domain.User;
 @RequestMapping("/")
 public class HomeController {
 
-    @Autowired
-    private PermResourceService resourceService;
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private PermResourceService resourceService;
+	@Autowired
+	private UserService userService;
 
-    @RequestMapping(value = "home", method = RequestMethod.GET)
-    public String index(HttpServletRequest request) {
-        String type = "menu";//菜单
-        //TODO cache menus
-        List<Resource> resources = this.resourceService.findPermitResources(ManagerUserUtil.getId(), type);
-        resources = ResourceTreeHelper.genHierarchyTree(resources);
-        request.setAttribute("menus", resources);
-        request.getSession().setAttribute("_user_", ManagerUserUtil.getPrincipal());
-        return "home";
-    }
+	@RequestMapping(value = "home", method = RequestMethod.GET)
+	public String index(HttpServletRequest request) {
+		String type = "menu";// 菜单
+		// TODO cache menus
+		List<Resource> resources = this.resourceService.findPermitResources(
+				ManagerUserUtil.getId(), type);
+		resources = ResourceTreeHelper.genHierarchyTree(resources);
+		request.setAttribute("menus", resources);
+		request.getSession().setAttribute("_user_",
+				ManagerUserUtil.getPrincipal());
+		return "home";
+	}
 
-    @RequestMapping(path = "/welcome")
-    public String welcome() {
-        return "welcome";
-    }
+	@RequestMapping(path = "/welcome")
+	public String welcome() {
+		return "welcome";
+	}
 
-    @RequestMapping(value = "/check", method = RequestMethod.POST)
-    @ResponseBody
-    public boolean check() {
-        User user = userService.getUserById(ManagerUserUtil.getId());
-        if (user == null || user.isDelete()) {
-            SecurityUtils.getSubject().logout();
-            return false;
-        }
-        return true;
-    }
+	@RequestMapping(value = "/check", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean check() {
+		User user = userService.getUserById(ManagerUserUtil.getId());
+		if (user == null || user.isDelete()) {
+			SecurityUtils.getSubject().logout();
+			return false;
+		}
+		return true;
+	}
 }

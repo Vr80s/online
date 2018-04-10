@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import com.xczhihui.order.service.OrderInputService;
 import com.xczhihui.order.vo.OrderInputVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -31,8 +33,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.user.center.utils.CodeUtil;
 
 /**
@@ -49,15 +49,17 @@ public class OrderInputController {
 
     @Autowired
     private OrderInputService service;
+    @Autowired
+    private OnlineConfig onlineConfig;
 
-    //@RequiresPermissions("input:order")
+    // @RequiresPermissions("input:order")
     @RequestMapping(value = "/index")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("/order/input");
         return mav;
     }
 
-    //@RequiresPermissions("input:order")
+    // @RequiresPermissions("input:order")
     @RequestMapping(value = "/find")
     @ResponseBody
     public TableVo find(TableVo tableVo) {
@@ -72,10 +74,12 @@ public class OrderInputController {
         Group keyValueGroup = groups.findByName("key_value");
         OrderInputVo searchVo = new OrderInputVo();
         if (startTimeGroup != null) {
-            searchVo.setCreate_time_start(startTimeGroup.getPropertyValue1().toString());
+            searchVo.setCreate_time_start(startTimeGroup.getPropertyValue1()
+                    .toString());
         }
         if (endTimeGroup != null) {
-            searchVo.setCreate_time_end(endTimeGroup.getPropertyValue1().toString());
+            searchVo.setCreate_time_end(endTimeGroup.getPropertyValue1()
+                    .toString());
         }
         if (keyTypeGroup != null) {
             searchVo.setKey_type(keyTypeGroup.getPropertyValue1().toString());
@@ -83,7 +87,8 @@ public class OrderInputController {
         if (keyValueGroup != null) {
             searchVo.setKey_value(keyValueGroup.getPropertyValue1().toString());
         }
-        Page<OrderInputVo> page = service.findOrderInputPage(searchVo, currentPage, pageSize);
+        Page<OrderInputVo> page = service.findOrderInputPage(searchVo,
+                currentPage, pageSize);
         int total = page.getTotalCount();
         tableVo.setAaData(page.getItems());
         tableVo.setiTotalDisplayRecords(total);
@@ -91,25 +96,28 @@ public class OrderInputController {
         return tableVo;
     }
 
-    //@RequiresPermissions("input:order")
+    // @RequiresPermissions("input:order")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject add(OrderInputVo vo, HttpServletRequest req) throws Exception {
+    public ResponseObject add(OrderInputVo vo, HttpServletRequest req)
+            throws Exception {
         vo.setCreate_person(ManagerUserUtil.getId());
-        //生成用户
+        // 生成用户
         service.addUser(vo.getLogin_name());
-        //生成订单
+        // 生成订单
         service.addOrder(vo);
-//		this.docallback(order_no);
+        // this.docallback(order_no);
         return ResponseObject.newSuccessResponseObject(null);
     }
 
-    //@RequiresPermissions("input:order")
+    // @RequiresPermissions("input:order")
     @RequestMapping(value = "/importOrder", method = RequestMethod.POST)
     @ResponseBody
-    public void importOrder(OrderInputVo vo, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public void importOrder(OrderInputVo vo, HttpServletRequest req,
+                            HttpServletResponse res) throws Exception {
         try {
-            XSSFWorkbook book = new XSSFWorkbook(vo.getExcelFile().getInputStream());
+            XSSFWorkbook book = new XSSFWorkbook(vo.getExcelFile()
+                    .getInputStream());
             XSSFSheet sheet = book.getSheetAt(0);
             int last = sheet.getLastRowNum();
             OrderInputVo v = null;
@@ -127,17 +135,21 @@ public class OrderInputController {
                 v.setClass_id(row.getCell(2).getStringCellValue());
 
                 row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
-                Integer of = Integer.valueOf(row.getCell(3).getStringCellValue());
-                if (of != OrderFrom.OFFLINE.getCode() && of != OrderFrom.WORKER.getCode() && of != OrderFrom.GIVE.getCode()) {
+                Integer of = Integer.valueOf(row.getCell(3)
+                        .getStringCellValue());
+                if (of != OrderFrom.OFFLINE.getCode()
+                        && of != OrderFrom.WORKER.getCode()
+                        && of != OrderFrom.GIVE.getCode()) {
                     throw new RuntimeException("订单类型必须为5(下线订单)或6(工作人员)或0(赠送)");
                 }
-                v.setOrder_from(Integer.valueOf(row.getCell(3).getStringCellValue()));
+                v.setOrder_from(Integer.valueOf(row.getCell(3)
+                        .getStringCellValue()));
                 service.checkOrderInput(v);
                 v.setCreate_person(ManagerUserUtil.getId());
                 lv.add(v);
             }
             for (OrderInputVo ov : lv) {
-//				this.add(ov, req);
+                // this.add(ov, req);
                 service.addUser(ov.getLogin_name());
                 Thread.sleep(100);
             }
@@ -146,30 +158,32 @@ public class OrderInputController {
             Gson g = new GsonBuilder().create();
             res.setCharacterEncoding("utf-8");
             res.setContentType("text/html;charset=utf-8");
-            res.getWriter().print(g.toJson(ResponseObject.newSuccessResponseObject(null)));
+            res.getWriter().print(
+                    g.toJson(ResponseObject.newSuccessResponseObject(null)));
         } catch (Exception e) {
             e.printStackTrace();
             Gson g = new GsonBuilder().create();
             res.setCharacterEncoding("utf-8");
             res.setContentType("text/html;charset=utf-8");
-            res.getWriter().print(g.toJson(ResponseObject.newErrorResponseObject(e.getMessage())));
+            res.getWriter().print(
+                    g.toJson(ResponseObject.newErrorResponseObject(e
+                            .getMessage())));
         }
 
     }
 
     private void docallback(String order_no) throws Exception {
-        //生成课程
-        String s = "out_trade_no=" + order_no + "&result_code=SUCCESS&key=" + OnlineConfig.WECHAT_API_KEY;
+        // 生成课程
+        String s = "out_trade_no=" + order_no + "&result_code=SUCCESS&key="
+                + onlineConfig.wechatApiId;
         String mysign = CodeUtil.MD5Encode(s).toLowerCase();
 
-        String resXml =
-                "<xml>"
-                        + "<out_trade_no><![CDATA[" + order_no + "]]></out_trade_no>"
-                        + "<result_code><![CDATA[SUCCESS]]></result_code>"
-                        + "<sign><![CDATA[" + mysign + "]]></sign>"
-                        + " </xml> ";
+        String resXml = "<xml>" + "<out_trade_no><![CDATA[" + order_no
+                + "]]></out_trade_no>"
+                + "<result_code><![CDATA[SUCCESS]]></result_code>"
+                + "<sign><![CDATA[" + mysign + "]]></sign>" + " </xml> ";
 
-//		URL url = new URL(weburl+"/web/weixin_pay_notify");
+        // URL url = new URL(weburl+"/web/weixin_pay_notify");
         URL url = new URL(weburl + "/web/pay_notify_wechat");
         HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
         urlConn.setRequestProperty("Content-type", "application/xml");

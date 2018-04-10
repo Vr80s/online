@@ -93,14 +93,6 @@ public class CriticizeServiceImpl implements CriticizeService {
 		videoDao.saveReply(content,userId,criticizeId,collectionId);
 	}
 
-
-	@Override
-	public Page<CriticizeVo> getVideoCriticize(String teacherId,
-			String courseId, Integer pageNumber, Integer pageSize) {
-		return null;
-	}
-
-
 	@Override
 	public Integer findUserFirstStars(Integer courseId,String createPerson) {
 		// TODO Auto-generated method stub

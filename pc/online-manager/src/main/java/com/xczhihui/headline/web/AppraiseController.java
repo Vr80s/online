@@ -25,78 +25,86 @@ import com.xczhihui.headline.service.AppraiseService;
 
 /**
  * 博学社评价管理控制层实现类
- * @author 
+ * 
+ * @author
  */
 @Controller
-@RequestMapping(value="headline/appraise")
-public class AppraiseController extends AbstractController{
+@RequestMapping(value = "headline/appraise")
+public class AppraiseController extends AbstractController {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	protected final static String headline_PATH_PREFIX = "/headline/";
 	@Autowired
 	private AppraiseService appraiseService;
 
-	//@RequiresPermissions("headline:menu:appraise")
+	// @RequiresPermissions("headline:menu:appraise")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
-		
+
 		return headline_PATH_PREFIX + "/appraise";
 	}
-	
-    //@RequiresPermissions("headline:menu:appraise")
-    @RequestMapping(value = "list", method = RequestMethod.POST)
-    @ResponseBody
-    public TableVo Appraise(TableVo tableVo) {
-         int pageSize = tableVo.getiDisplayLength();
-         int index = tableVo.getiDisplayStart();
-         int currentPage = index / pageSize + 1;
-         String params = tableVo.getsSearch();
-         Groups groups = Tools.filterGroup(params);
-         Group articleIdGroup = groups.findByName("articleId");
-         Group nameGroup = groups.findByName("name");
-         Group contentGroup = groups.findByName("content");
-         Group startTimeGroup = groups.findByName("startTime");
-         Group stopTimeGroup = groups.findByName("stopTime");
-//         
-         AppraiseVo searchVo=new AppraiseVo();
-         if(articleIdGroup!=null){
-              searchVo.setArticleId(articleIdGroup.getPropertyValue1().toString());
-         }
-         if(nameGroup!=null){
-        	 searchVo.setName(nameGroup.getPropertyValue1().toString());
-         }
-         if(contentGroup!=null){
-              searchVo.setContent(contentGroup.getPropertyValue1().toString());
-         }
-         if(startTimeGroup!=null){
-              searchVo.setStartTime(DateUtil.parseDate(startTimeGroup.getPropertyValue1().toString(),"yyyy-MM-dd"));
-         }
-         if(stopTimeGroup!=null){
-        	 searchVo.setStopTime(DateUtil.parseDate(stopTimeGroup.getPropertyValue1().toString(),"yyyy-MM-dd"));
-         }
 
-         
-         Page<AppraiseVo> page = appraiseService.findAppraisePage(searchVo, currentPage, pageSize);
+	// @RequiresPermissions("headline:menu:appraise")
+	@RequestMapping(value = "list", method = RequestMethod.POST)
+	@ResponseBody
+	public TableVo Appraise(TableVo tableVo) {
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
+		Group articleIdGroup = groups.findByName("articleId");
+		Group nameGroup = groups.findByName("name");
+		Group contentGroup = groups.findByName("content");
+		Group startTimeGroup = groups.findByName("startTime");
+		Group stopTimeGroup = groups.findByName("stopTime");
+		//
+		AppraiseVo searchVo = new AppraiseVo();
+		if (articleIdGroup != null) {
+			searchVo.setArticleId(articleIdGroup.getPropertyValue1().toString());
+		}
+		if (nameGroup != null) {
+			searchVo.setName(nameGroup.getPropertyValue1().toString());
+		}
+		if (contentGroup != null) {
+			searchVo.setContent(contentGroup.getPropertyValue1().toString());
+		}
+		if (startTimeGroup != null) {
+			searchVo.setStartTime(DateUtil.parseDate(startTimeGroup
+					.getPropertyValue1().toString(), "yyyy-MM-dd"));
+		}
+		if (stopTimeGroup != null) {
+			searchVo.setStopTime(DateUtil.parseDate(stopTimeGroup
+					.getPropertyValue1().toString(), "yyyy-MM-dd"));
+		}
 
-         int total = page.getTotalCount();
-         tableVo.setAaData(page.getItems());
-         tableVo.setiTotalDisplayRecords(total);
-         tableVo.setiTotalRecords(total);
-         return tableVo;
-    }
+		Page<AppraiseVo> page = appraiseService.findAppraisePage(searchVo,
+				currentPage, pageSize);
+
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+	}
+
 	/**
 	 * 删除消息
-	 * @param id 编号
-	 * @param request 请求对象
+	 * 
+	 * @param id
+	 *            编号
+	 * @param request
+	 *            请求对象
 	 * @return 响应对象
 	 */
 	@RequestMapping(value = "delete/{id}/{articleId}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject deleteById(@PathVariable String id,@PathVariable String articleId,HttpServletRequest request) {
+	public ResponseObject deleteById(@PathVariable String id,
+			@PathVariable String articleId, HttpServletRequest request) {
 		ResponseObject responseObj = new ResponseObject();
 
 		try {
-			if(StringUtils.isNotEmpty(id)) {
-				appraiseService.deleteById(id,articleId);
+			if (StringUtils.isNotEmpty(id)) {
+				appraiseService.deleteById(id, articleId);
 				responseObj.setSuccess(true);
 				responseObj.setErrorMessage("操作成功");
 				return responseObj;

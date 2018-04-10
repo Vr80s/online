@@ -61,6 +61,26 @@ public class WxcpClientUserWxMapping implements Serializable {
 
 	/**微信公众号名称**/
 	 private String wx_public_name;
+	 
+	 
+     /**  户被打上的标签ID列表  **/
+	 private String tagid_list;
+
+	/**返回用户关注的渠道来源，ADD_SCENE_SEARCH 公众号搜索，ADD_SCENE_ACCOUNT_MIGRATION 公众号迁移，ADD_SCENE_PROFILE_CARD 名片分享，ADD_SCENE_QR_CODE 扫描二维码，ADD_SCENEPROFILE LINK 图文页内名称点击，ADD_SCENE_PROFILE_ITEM 图文页右上角菜单，ADD_SCENE_PAID 支付后关注，ADD_SCENE_OTHERS 其他 **/
+	 private String subscribe_scene;
+
+	/**二维码扫码场景（开发者自定义），id**/
+	 private String qr_scene;
+
+	 /**二维码扫码场景描述（开发者自定义）,字符串**/
+	 private String qr_scene_str;
+	 
+	 /**创建时间**/
+	 private java.util.Date create_time;
+	 
+	 /** 最后一次更新时间 **/
+	 private java.util.Date last_update_time;
+	 
 
 	public String getWx_id() {
 		return wx_id;
@@ -205,6 +225,55 @@ public class WxcpClientUserWxMapping implements Serializable {
 	public void setWx_public_name(String wx_public_name) {
 		this.wx_public_name = wx_public_name;
 	}
+	
+
+	public String getTagid_list() {
+		return tagid_list;
+	}
+
+	public void setTagid_list(String tagid_list) {
+		this.tagid_list = tagid_list;
+	}
+
+	public String getSubscribe_scene() {
+		return subscribe_scene;
+	}
+
+	public void setSubscribe_scene(String subscribe_scene) {
+		this.subscribe_scene = subscribe_scene;
+	}
+
+	public String getQr_scene() {
+		return qr_scene;
+	}
+
+	public void setQr_scene(String qr_scene) {
+		this.qr_scene = qr_scene;
+	}
+
+	public String getQr_scene_str() {
+		return qr_scene_str;
+	}
+
+	public void setQr_scene_str(String qr_scene_str) {
+		this.qr_scene_str = qr_scene_str;
+	}
+
+	public java.util.Date getCreate_time() {
+		return create_time;
+	}
+
+	public void setCreate_time(java.util.Date create_time) {
+		this.create_time = create_time;
+	}
+
+	public java.util.Date getLast_update_time() {
+		return last_update_time;
+	}
+
+	public void setLast_update_time(java.util.Date last_update_time) {
+		this.last_update_time = last_update_time;
+	}
 
 	@Override
 	public String toString() {
@@ -216,8 +285,13 @@ public class WxcpClientUserWxMapping implements Serializable {
 				+ ", headimgurl=" + headimgurl + ", subscribe_time="
 				+ subscribe_time + ", unionid=" + unionid + ", remark="
 				+ remark + ", groupid=" + groupid + ", wx_public_id="
-				+ wx_public_id + ", wx_public_name=" + wx_public_name + "]";
+				+ wx_public_id + ", wx_public_name=" + wx_public_name
+				+ ", tagid_list=" + tagid_list + ", subscribe_scene="
+				+ subscribe_scene + ", qr_scene=" + qr_scene
+				+ ", qr_scene_str=" + qr_scene_str + ", create_time="
+				+ create_time + ", last_update_time=" + last_update_time + "]";
 	}
+
 
 
 }

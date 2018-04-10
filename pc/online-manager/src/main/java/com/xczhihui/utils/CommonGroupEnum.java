@@ -22,17 +22,15 @@ public enum CommonGroupEnum {
 	/**
 	 * 当前职业
 	 */
-	OCCUPATION("occupation"),
-	URLINTER("urlinter"),
-	MESINTER("mesinter");
-	
+	OCCUPATION("occupation"), URLINTER("urlinter"), MESINTER("mesinter");
+
 	private String name;
-	
+
 	public String getName() {
 		return name;
 	}
 
-	private CommonGroupEnum(String name){
+	private CommonGroupEnum(String name) {
 		this.name = name;
 	}
 }

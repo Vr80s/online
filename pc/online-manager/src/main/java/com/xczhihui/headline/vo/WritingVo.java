@@ -3,37 +3,33 @@ package com.xczhihui.headline.vo;
 import java.util.Date;
 
 public class WritingVo {
-	
-	//著作id
+
+	// 著作id
 	private String id;
-	
+
 	private String author;
 
 	private String title;
 
 	private String buyLink;
-	
-	//文章id
-	private String articleId;
-	
-	//医师id
-	private String doctorId;
-	
-	
-	private String imgPath; //图片地址
 
-	private String content; //著作详情
-	
-	
-	private String userId; //操作的用户id
-	
-	private Integer status; //状态
-	
-	
+	// 文章id
+	private String articleId;
+
+	// 医师id
+	private String doctorId;
+
+	private String imgPath; // 图片地址
+
+	private String content; // 著作详情
+
+	private String userId; // 操作的用户id
+
+	private Integer status; // 状态
+
 	private Date startTime;
-	
+
 	private Date stopTime;
-	
 
 	public String getId() {
 		return id;
@@ -66,7 +62,6 @@ public class WritingVo {
 	public void setBuyLink(String buyLink) {
 		this.buyLink = buyLink;
 	}
-
 
 	public String getArticleId() {
 		return articleId;

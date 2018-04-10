@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * 意见反馈VO
+ * 
  * @author duanqh
  *
  */
@@ -40,7 +41,7 @@ public class FeedBackVo {
 	private String anwerName;
 
 	/**
-	 * 状态  1:已回答  0：未回答
+	 * 状态 1:已回答 0：未回答
 	 */
 	private Integer status;
 
@@ -125,5 +126,5 @@ public class FeedBackVo {
 	public void setReplytext(String replytext) {
 		this.replytext = replytext;
 	}
-	
+
 }

@@ -2,18 +2,18 @@ package com.xczhihui.anchor.vo;
 
 public class AnchorIncomeVO {
 
-    private String id;
-    private String loginName;
-    private String name;
-    private String total;
-    private String vod;
-    private String live;
-    private String offline;
-    private String gift;
-    private String rmb;
-    private String coin;
-    private String enchashmentTotal;
-    private String enchashmentCount;
+	private String id;
+	private String loginName;
+	private String name;
+	private String total;
+	private String vod;
+	private String live;
+	private String offline;
+	private String gift;
+	private String rmb;
+	private String coin;
+	private String enchashmentTotal;
+	private String enchashmentCount;
 
 	public String getId() {
 		return id;

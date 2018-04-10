@@ -1,9 +1,10 @@
 package com.xczhihui.vhall.bean;
 
-/** 
+/**
  * ClassName: Webinar.java <br>
  * Description: vhall直播间相关<br>
- * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
+ * Create by: name：yuxin <br>
+ * email: yuruixin@ixincheng.com <br>
  * Create Time: 2017年8月27日<br>
  */
 public class Webinar {

@@ -20,12 +20,13 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 医师入驻管理控制层
+ * 
  * @author zhuwenbao
  */
 
 @Controller
 @RequestMapping("medical/doctor/apply")
-public class DoctorApplyController extends AbstractController{
+public class DoctorApplyController extends AbstractController {
 
 	@Autowired
 	private DoctorApplyService doctorApplyService;
@@ -45,29 +46,31 @@ public class DoctorApplyController extends AbstractController{
 	public TableVo list(TableVo tableVo) {
 		int pageSize = tableVo.getiDisplayLength();
 		int index = tableVo.getiDisplayStart();
-		int currentPage = index / pageSize+1;
+		int currentPage = index / pageSize + 1;
 
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);
 		Group searchStatus = groups.findByName("search_status");
 		Group searchDoctorName = groups.findByName("search_doctorName");
 
-        MedicalDoctorApply searchVo = new MedicalDoctorApply();
+		MedicalDoctorApply searchVo = new MedicalDoctorApply();
 		if (searchStatus != null) {
-			searchVo.setStatus(Integer.valueOf(searchStatus.getPropertyValue1().toString()));
+			searchVo.setStatus(Integer.valueOf(searchStatus.getPropertyValue1()
+					.toString()));
 		}
 		if (searchDoctorName != null) {
 			searchVo.setName(searchDoctorName.getPropertyValue1().toString());
 		}
 
-		Page<MedicalDoctorApply> page = doctorApplyService.list(searchVo, currentPage, pageSize);
+		Page<MedicalDoctorApply> page = doctorApplyService.list(searchVo,
+				currentPage, pageSize);
 
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
 		tableVo.setiTotalRecords(total);
 		return tableVo;
-		
+
 	}
 
 	/**
@@ -87,9 +90,11 @@ public class DoctorApplyController extends AbstractController{
 	}
 
 	@RequestMapping(value = "info/{appId}")
-	public String MedicalDoctorDetail(HttpServletRequest request, @PathVariable String appId) {
+	public String MedicalDoctorDetail(HttpServletRequest request,
+			@PathVariable String appId) {
 
-		MedicalDoctorApply medicalDoctorApply = doctorApplyService.findById(appId);
+		MedicalDoctorApply medicalDoctorApply = doctorApplyService
+				.findById(appId);
 		request.setAttribute("medicalDoctorApply", medicalDoctorApply);
 
 		return CLOUD_CLASS_PATH_PREFIX + "/doctorApplyDetail";
@@ -126,6 +131,5 @@ public class DoctorApplyController extends AbstractController{
 		responseObj.setErrorMessage("修改成功");
 		return responseObj;
 	}
-
 
 }

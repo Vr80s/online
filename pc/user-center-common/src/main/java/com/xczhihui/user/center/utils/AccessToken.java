@@ -5,6 +5,11 @@ public class AccessToken {
 	private String token;// 凭证
 	private int expiresIn;// 凭证有效时间
 
+	
+	public AccessToken() {
+		
+	}
+
 	public String getToken() {
 		return token;
 	}

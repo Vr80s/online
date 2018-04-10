@@ -1,9 +1,9 @@
 package com.xczhihui.utils;
 
 public class SelectVo {
-	
+
 	private String id;
-	
+
 	private String name;
 
 	public String getId() {

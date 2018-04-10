@@ -191,10 +191,12 @@ public class CourseController {
 		
 		
 		//判断点钱在线人数
-		if(cv.getType()!=null &&  cv.getLineState() != null &&  cv.getType() == 1 && cv.getLineState() == 1){ //表示的是直播中
-			Integer lendCount = cv.getLearndCount()+WeihouInterfacesListUtil.getCurrentOnlineNumber(cv.getDirectId());
-			cv.setLearndCount(lendCount);
-		}
+		
+//		if(cv.getType()!=null &&  cv.getLineState() != null &&  cv.getType() == 1 && cv.getLineState() == 1){ //表示的是直播中
+//			Integer lendCount = cv.getLearndCount()+WeihouInterfacesListUtil.getCurrentOnlineNumber(cv.getDirectId());
+//			cv.setLearndCount(lendCount);
+//		}
+		
 		/**
 		 * 这里需要判断是否购买过了
 		 */
