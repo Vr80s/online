@@ -44,10 +44,10 @@
 					<!-- 渠道名字  -->
 					<span class="searchTr">
 						 <select name="qr_scene"   id="qr_scene"   class="propertyValue1 col-xs-8 {required:true}">
-			               	<option value="-1" select="selected">无权限</option>
-			                 <%--  <c:forEach var="m" items="${menus}" >
+			               	<option value="-1" select="selected">渠道名字</option>
+			                 <c:forEach var="m" items="${wechatChannelVos}" >
 			                      <option value="${m.id}">${m.name}</option>
-			                  </c:forEach> --%>
+			                  </c:forEach>
               		      </select>
                          <input type="hidden" value="qr_scene" class="propertyName"/>
 					</span>

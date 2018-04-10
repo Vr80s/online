@@ -182,17 +182,30 @@ function toEdit(obj){
     			break;
     		}
     	}
+		
+		$('#edit_province').val(row.realProvince);
+		
+		
 		$("#edit_citys").empty();
 		$("#edit_county").empty();
 		
 		
-		var city = "<option id='"+row.realCitys+"'>"+row.city+"</option>";
-		$("#edit_citys").append(city);
+		$('#edit_province').trigger("change");
+		$("#edit_citys").val(row.realCitys);
 		
+		$("#edit_citys").trigger("change");
+		$("#edit_county").val(row.realCounty);
 		
-		var county = "<option id='"+row.realCounty+"'>"+row.area+"</option>";
-		$("#edit_county").append(county);
+//		var city = "<option id='edit_chooseCity' value='-1'>请选择您所在城市</option><option id='"+row.realCitys+"' selected='selected'>"+row.city+"</option>";
+//		$("#edit_citys").append(city);
+//		$("#edit_citys option").eq(1).attr("selected",true);
+//		//$("#edit_citys").val(row.realCitys);
 		
+//		var county = "<option id='edit_chooseCounty' value='-1'>请选择您所在县区</option><option id='"+row.realCounty+"' selected='selected'>"+row.area+"</option>";
+//		$("#edit_county").append(county);
+//		$("#edit_county option").eq(1).attr("selected",true);
+		
+		//$("#edit_county").val(row.realCounty);
 		
 		$("#edit_realProvince").val(row.province);
 		$("#edit_realCitys").val(row.city); 

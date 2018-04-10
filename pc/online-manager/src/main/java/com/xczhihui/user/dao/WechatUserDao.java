@@ -70,10 +70,11 @@ public class WechatUserDao extends HibernateDao<WechatUser> {
 			sql += " and ( wcu.nickname like :searchName or ou.login_name like :searchName )  ";
 			paramMap.put("searchName", "%" + nickname.trim() + "%");
 		}
-		// if (StringUtils.hasText(qrScene)) {
-		// sql += " and wcu.qr_scene = :qrScene ";
-		// paramMap.put("qrScene", qrScene);
-		// }
+		
+		if (StringUtils.hasText(qrScene) && !qrScene.equals("-1")) {
+			 sql += " and wcu.qr_scene = :qrScene ";
+			 paramMap.put("qrScene", qrScene);
+		}
 		sql += " order by wcu.subscribe_time desc";
 
 		Page<WechatUser> pg = this.findPageBySQL(sql, paramMap,
