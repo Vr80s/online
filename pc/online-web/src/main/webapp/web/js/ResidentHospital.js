@@ -420,7 +420,7 @@ function baseInfrese() {
 function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, description, contactor, email, wechat, province, city, detailedAddress) {
 	//头像
 	if(headPortrait != null) {
-		var headPic = '<img src=' + headPortrait + '>';
+		var headPic = '<img src=' + headPortrait +'>';
 		$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
 	}
 
@@ -502,7 +502,7 @@ function picUpdown(baseurl, imgname) {
 	RequestService("/medical/common/upload", "post", {
 		image: baseurl,
 	}, function(data) {
-		$('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+		$('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject+'?imageView2/1/w/120/h/120'+'" >');
 	})
 }
 
@@ -540,7 +540,7 @@ function picUpdown2(baseurl, imgname) {
 		var picStr =
 			'<div style="position: relative;">' +
 			'<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">X</span>' +
-			'<img src="' + data.resultObject + '" >' +
+			'<img src="' + data.resultObject + '?imageView2/1/w/260/h/147'+'" >' +
 			'</div>'
 		$('#hos_Administration #hos_pic').append(picStr);
 	})
