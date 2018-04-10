@@ -1,12 +1,12 @@
 package com.xczhihui.bxg.common.support.domain;
 
-import java.io.Serializable;
+import com.xczhihui.bxg.common.util.enums.UserSex;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import java.io.Serializable;
 
-import com.xczhihui.user.center.bean.UserSex;
 
 /**
  * 熊猫中医用户抽象。使用UserHolder和统一的shiro登录的系统，用户必须从这个类继承。

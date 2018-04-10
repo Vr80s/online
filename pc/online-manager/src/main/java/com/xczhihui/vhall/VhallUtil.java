@@ -42,7 +42,7 @@ public class VhallUtil {
 	private static String USER_UPDATE = "https://e.vhall.com/api/vhallapi/v2/user/update";// 用户更新
 
 	private static String WEBINAR_CREATE = "https://e.vhall.com/api/vhallapi/v2/webinar/create";// 直播间创建
-	private static String WEBINAR_UPDATE = "http://e.vhall.com/api/vhallapi/v2/webinar/update";// 直播间创建
+	private static String WEBINAR_UPDATE = "http://e.vhall.com/api/vhallapi/v2/webinar/update";// 直播间更新
 	private static String WEBINAR_START = "https://e.vhall.com/api/vhallapi/v2/webinar/start";// 获取直播间地址
 	private static String CALLBACK_URL = "http://e.vhall.com/api/vhallapi/v2/webinar/change-callback";// 设置回调地址
 	private static String CHANGE_USER_POWER = "http://e.vhall.com/api/vhallapi/v2/user/change-user-power";// 修改用户权限
@@ -188,8 +188,6 @@ public class VhallUtil {
 	/**
 	 * Description：创建一个直播
 	 * 
-	 * @param u
-	 * @param password
 	 * @return
 	 * @return String
 	 * @author name：yuxin <br>
