@@ -198,6 +198,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	      				
 	      				m.setGroupid(groupid+"");
 	      				//m.setTagid_list(tagid_list);
+	      				m.setSubscribe(subscribe);
 	      				m.setSubscribe_scene(subscribe_scene);
 	      				m.setQr_scene(qr_scene+"");
 	      				m.setQr_scene_str(qr_scene_str);
