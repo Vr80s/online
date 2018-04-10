@@ -55,10 +55,10 @@ $(function() {
 		"sortable" : false,
 		"data" : 'subscribe',
 		"mRender":function (data, display, row){
-			if(data == "0"){
-				return "已取消关注";
-			}else{
+			if(null==data || data == "1"){
 				return "已关注";
+			}else{
+				return "已取消关注";
 			}
         }
 	},{

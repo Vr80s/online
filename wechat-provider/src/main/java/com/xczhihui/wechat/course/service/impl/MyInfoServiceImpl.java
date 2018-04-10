@@ -1,18 +1,18 @@
 package com.xczhihui.wechat.course.service.impl;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.common.util.enums.UserSex;
 import com.xczhihui.wechat.course.mapper.MyInfoMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.service.IMyInfoService;
 import com.xczhihui.wechat.course.vo.OnlineUserVO;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -54,18 +54,18 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			throw new RuntimeException("性别不合法,0 女  1男   2 未知");
 		}
 		
-		if(StringUtils.isNotBlank(user.getName()) 
-				&&(user.getName().length()>15 ||user.getName().length()<2)){
-			throw new RuntimeException("用户昵称长度在2-15之间");
-		}
-		if(StringUtils.isNotBlank(user.getEmail()) && 
-				 (user.getEmail().length()>32 || user.getEmail().length()<5)){
-			throw new RuntimeException("邮件长度在5-32之间");
-        }
-		
-		if(StringUtils.isNotBlank(user.getEmail())){
-			throw new RuntimeException("邮箱格式有误");
-		}
+//		if(StringUtils.isNotBlank(user.getName()) 
+//				&&(user.getName().length()>15 ||user.getName().length()<2)){
+//			throw new RuntimeException("用户昵称长度在2-15之间");
+//		}
+//		if(StringUtils.isNotBlank(user.getEmail()) && 
+//				 (user.getEmail().length()>32 || user.getEmail().length()<5)){
+//			throw new RuntimeException("邮件长度在5-32之间");
+//        }
+//		
+//		if(StringUtils.isNotBlank(user.getEmail())){
+//			throw new RuntimeException("邮箱格式有误");
+//		}
 		
         myInfoMapper.updateUserSetInfo(user);
 		

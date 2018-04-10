@@ -127,8 +127,8 @@
 <script src="/js/layer/layer.js"></script>
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-	当前位置：礼物打赏管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 礼物类型管理 </span>
+	当前位置：渠道管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+	</small> <span> 渠道管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -155,7 +155,7 @@
 			                
 			                	<td>
 			                       <div class="profile-info-value searchTr">
-			                           <input type="text"  id="contact" class="propertyValue1" style="width:100px;" placeholder="联系人"/>
+			                           <input type="text"  id="contact" class="propertyValue1" style="width:100px;" placeholder="联系人/手机号"/>
 									<input type="hidden" value="contact" class="propertyName"/>
 			                        </div>
 			                    </td>

@@ -12,7 +12,7 @@
 <script src="/js/jquery-ui-timepicker-zh-CN.js"
 	type="text/javascript"></script>
 <div class="page-header">
-		当前位置：用户管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+		当前位置：渠道管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 		</small>
 		<span>微信关注用户管理 </span>
 </div>

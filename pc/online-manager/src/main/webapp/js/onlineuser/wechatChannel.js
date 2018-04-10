@@ -20,6 +20,11 @@ $(function(){
     { "title": "创建人", "class":"center","width":"8%","sortable":false,"data": 'createPerson',"mRender":function (data, display, row) {
     		return "<span name='lecturerNameList'>"+data+"</span>";
     } },
+    
+    { "title": "创建时间", "class":"center","width":"8%","sortable":false,"data": 'createTime',"mRender":function (data, display, row) {
+		return getDateTimeFormat(data);
+     } },
+    
     { "title": "渠道名称", "class":"center","width":"8%", "sortable":false,"data": 'name' },
     
     { "title": "联系人", "class":"center","width":"8%", "sortable":false,"data": 'contact' },
@@ -149,6 +154,28 @@ $(".add_bx").click(function(){
 		}
 	});
 });
+
+
+function getFormat(time){
+	if(time >= 1 && time < 9){
+		time = "0"+time;
+	}
+	return time;
+}
+function getFormatHMS(time){
+	if(time >= 0 && time < 9){
+		time = "0"+time;
+	}
+	return time;
+}
+
+function getDateTimeFormat(data){
+	//微信性别  --》 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+	if(data && data != ''){
+		var d = new Date(data);
+		return d.format('yyyy-M-d hh:mm:ss');
+	}
+}
 
 
 //修改
