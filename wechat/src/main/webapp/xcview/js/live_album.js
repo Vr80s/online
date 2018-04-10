@@ -94,15 +94,37 @@ function stripHTML(str){
                 var md=document.getElementsByTagName("video")[0];
                 md.addEventListener("ended",function(){
 
-                    $('.all_list_ul').on('click','li',function(){
-                        var myvideo = $(this).attr('data-myvideo');
-                        var courseId = $(this).attr('data-courseId');
-                        var index = $(this).index();    
-                        //初始化视频资源
-                        window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
-                        
-                    })
-                     $('.all_list_ul li').click();
+                var num = $(".all_list_ul_li").nextAll().length, max = $(".all_list_ul li").length;
+                if (num == 0) {
+                    //alert("最后一个");
+                    var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
+                    var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
+                    var index = $(".all_list_ul_li").next("li").index();    
+                    //初始化视频资源
+                    window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
+                    $('.all_list_ul li').eq(0).click();
+
+                } else if (num == max) {
+                    //alert("第一个");
+                    var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
+                    var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
+                    var index = $(".all_list_ul_li").next("li").index();    
+                    //初始化视频资源
+                    window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
+                                 
+
+                } else {
+                    //alert("第" + (max - num) + "个");
+
+                    var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
+                    var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
+                    var index = $(".all_list_ul_li").next("li").index();    
+                    //初始化视频资源
+                    window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
+                             
+                }
+
+                    
 
                     // alert("播放结束");
                 })
