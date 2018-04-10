@@ -28,7 +28,25 @@
 	</properties>
 
 	<dependencies>
-		
+
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>medical-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>online-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>wechat-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		 <dependency>
             <groupId>jdk.tools</groupId>
             <artifactId>jdk.tools</artifactId>
@@ -176,12 +194,6 @@
 		<dependency>
 			<groupId>com.aliyun</groupId>
 			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>online-api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
@@ -555,18 +567,6 @@
 		<dependency>
 			<groupId>org.igniterealtime.smack</groupId>
 			<artifactId>smack-extensions</artifactId>
-		</dependency>
-
-	  <dependency>
-		  <groupId>com.xczhihui</groupId>
-		  <artifactId>medical-api</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
-	  </dependency>
-	  
-	  <dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>wechat-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
         	
         <!-- qq分享使用 --> 

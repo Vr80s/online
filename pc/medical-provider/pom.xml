@@ -24,6 +24,18 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>common-support</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>medical-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
 		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -207,17 +219,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>medical-api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-        <dependency>
-            <groupId>com.xczhihui</groupId>
-            <artifactId>common-util</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-
-		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
@@ -252,11 +253,7 @@
 			<artifactId>spring-data-redis</artifactId>
 			<version>1.8.6.RELEASE</version>
 		</dependency>
-        <dependency>
-            <groupId>com.xczhihui</groupId>
-            <artifactId>common-support</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

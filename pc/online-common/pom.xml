@@ -20,6 +20,12 @@
   </properties>
 
   <dependencies>
+
+	  <dependency>
+		  <groupId>com.xczhihui</groupId>
+		  <artifactId>common-web</artifactId>
+	  </dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -45,14 +51,6 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>common-util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>common-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
