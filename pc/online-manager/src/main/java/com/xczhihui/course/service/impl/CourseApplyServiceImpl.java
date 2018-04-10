@@ -19,6 +19,7 @@ import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.vhall.VhallUtil;
 import com.xczhihui.vhall.bean.Webinar;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -389,11 +390,15 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 			courseService.addCourseCity(course.getCity());
 		} else if (course.getType() == CourseForm.LIVE.getCode()) {
 			course.setStartTime(courseApply.getStartTime());
-			String webinarId = createWebinar(course);
-			course.setDirectId(webinarId);
+			course.setDirectSeeding(3);
+			if(StringUtils.isBlank(course.getDirectId())){
+				String webinarId = createWebinar(course);
+				course.setDirectId(webinarId);
+			}else{
+				updateWebinar(course);
+			}
 			// 将直播课设置为预告
 			course.setLiveStatus(2);
-			course.setDirectSeeding(1);
 		} else if (course.getType() == CourseForm.VOD.getCode()) {
 			// yuruixin-2017-08-16
 			// 课程资源
@@ -453,5 +458,21 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 		VhallUtil.setCallbackUrl(webinarId, vhall_callback_url,
 				vhall_private_key);
 		return webinarId;
+	}
+
+	public String updateWebinar(Course entity) {
+		//更新封面
+		VhallUtil.setActiveImage(entity.getDirectId(), VhallUtil.downUrlImage(entity.getSmallImgPath(), "image"));
+		Webinar webinar = new Webinar();
+		webinar.setId(entity.getDirectId()+"");
+		webinar.setSubject(entity.getGradeName());
+		webinar.setIntroduction(entity.getDescription());
+		Date start = entity.getStartTime();
+		String start_time = start.getTime() + "";
+		start_time = start_time.substring(0, start_time.length() - 3);
+		webinar.setStart_time(start_time);
+		webinar.setHost(entity.getLecturer());
+		webinar.setLayout(entity.getDirectSeeding()+"");
+		return VhallUtil.updateWebinar(webinar);
 	}
 }

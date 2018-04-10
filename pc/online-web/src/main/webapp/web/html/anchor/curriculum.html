@@ -111,7 +111,9 @@
 		</td>
 		<td>
 			{{if course.courseForm != 1}}
-				{{course.courseLength}}'
+			{{course.courseLength}}'
+			{{else}}
+			无
 			{{/if}}
 		</td>
 		<td>
@@ -143,15 +145,15 @@
 		</td>
 		<td>
 			{{if course.applyStatus==1}}
-				{{if course.status==1}}
-				<span>已上架</span>
-				{{else}}
-				<span>未上架</span>
-				{{/if}}
+			{{if course.status==1}}
+			<span>已上架</span>
+			{{else}}
+			<span>未上架</span>
+			{{/if}}
 			{{else if course.applyStatus==2}}
-				<span>审核中</span>
+			<span>审核中</span>
 			{{else if course.applyStatus==0}}
-				<span>审核失败</span>
+			<span>审核失败</span>
 			{{/if}}
 		</td>
 		<td>
@@ -160,11 +162,13 @@
 			<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}})">下架</a>
 			{{else}}
 			<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},true)">编辑</a>
 			{{/if}}
 			{{else if course.applyStatus==2}}
-			<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
+			<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 			{{else if course.applyStatus==0}}
-			<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
 			<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 			{{/if}}
 		</td>
@@ -181,7 +185,7 @@
 			{{course.title}}
 		</td>
 		<!--<td>-->
-			<!--{{course.courseLength}}'-->
+		<!--{{course.courseLength}}'-->
 		<!--</td>-->
 		<td>
 			{{course.startTime}}
@@ -249,15 +253,15 @@
 		</td>
 		<td>
 			{{if collection.applyStatus==1}}
-				{{if collection.status==1}}
-					<span>已上架</span>
-				{{else}}
-					<span>未上架</span>
-				{{/if}}
+			{{if collection.status==1}}
+			<span>已上架</span>
+			{{else}}
+			<span>未上架</span>
+			{{/if}}
 			{{else if collection.applyStatus==2}}
-				<span>审核中</span>
+			<span>审核中</span>
 			{{else if collection.applyStatus==0}}
-				<span>审核失败</span>
+			<span>审核失败</span>
 			{{/if}}
 		</td>
 		<td>
@@ -266,9 +270,11 @@
 			<a href="javascript:;" onclick="confirmCollection(0,{{collection.id}})">下架</a>
 			{{else}}
 			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}})">上架</a>
+			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 			{{/if}}
 			{{else if collection.applyStatus==2}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
+			<a href="javascript:;" onclick="deleteCourse({{collection.id}},1)">删除</a>
 			{{else if collection.applyStatus==0}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 			<a href="javascript:;" onclick="deleteCourse({{collection.id}},1)">删除</a>
@@ -396,13 +402,13 @@
 		</td>
 		<td>
 			{{if coinTransaction.status==0}}
-				<span>{{coinTransaction.dismissalRemark}}</span>
+			<span>{{coinTransaction.dismissalRemark}}</span>
 			{{else if coinTransaction.status==1}}
-				<span>1-3个工作日内发放成功</span>
+			<span>1-3个工作日内发放成功</span>
 			{{else if coinTransaction.status==2}}
-				<span>1-3个工作日内审核</span>
+			<span>1-3个工作日内审核</span>
 			{{else if coinTransaction.status==3}}
-				<span>无</span>
+			<span>无</span>
 			{{else}}
 			<span>无</span>
 			{{/if}}
@@ -435,9 +441,9 @@
 	{{each resultObject as bankcard i}}
 	{{if bankcard.default}}
 	<li class="redBorder" acctName="{{bankcard.acctName}}" bankCardId="{{bankcard.id}}">
-	{{else}}
+		{{else}}
 	<li acctName="{{bankcard.acctName}}" bankCardId="{{bankcard.id}}">
-	{{/if}}
+		{{/if}}
 		<div class="cardTop_img">
 			<img  src="/web/images/bankLogo/{{bankcard.tel}}.png" alt="" />
 		</div>
@@ -489,62 +495,55 @@
 <script type="text/template" id="myRanking_list_Tpl">
 	{{each records as item i}}
 	<tr>
-		
+
 		{{if item.ranking}}
 		<td>{{item.ranking}}</td>
 		{{else}}
 		<td>0</td>
 		{{/if}}
-		
+
 
 		{{if item.name}}
 		<td>{{item.name}}</td>
 		{{else}}
 		<td>0</td>
 		{{/if}}
-		
+
 		{{if item.total}}
 		<td>{{item.total}}</td>
 		{{else}}
 		<td>0</td>
 		{{/if}}
-		
+
 		{{if item.iosBrokerageValue}}
 		<td>{{item.iosBrokerageValue}}</td>
 		{{else}}
 		<td>0</td>
 		{{/if}}
-		
+
 		{{if item.percent}}
 		<td>{{item.percent}}</td>
 		{{else}}
 		<td>0</td>
 		{{/if}}
-		
+
 		{{if item.value}}
 		<td>{{item.value}}</td>
 		{{else}}
 		<td>0</td>
 		{{/if}}
-		
+
 	</tr>
 	{{/each}}
 </script>
 
 
 <!--医馆列表-->
-	<script type="text/template" id="hosListTpl">
-		{{each item as item i}}
-			 <option value={{item.id}}>{{item.name}}</option>
-		{{/each}}
-	</script>
-	
-	<!--课程点单部分全部-->
-	<!--<script type="text/template" id="orderListTpl">
-		{{each item as item i}}
-			 <option value={{item.id}}>{{item.name}}</option>
-		{{/each}}
-	</script>-->
+<script type="text/template" id="hosListTpl">
+	{{each item as item i}}
+	<option value={{item.id}}>{{item.name}}</option>
+	{{/each}}
+</script>
 
 <!--左侧更换头像弹窗-->
 <div id="headImg" class="clearfix">
