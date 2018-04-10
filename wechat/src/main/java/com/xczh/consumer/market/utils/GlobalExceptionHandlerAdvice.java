@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import javax.mail.MessagingException;
 
+import com.xczhihui.bxg.common.util.EmailUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.xczhihui.bxg.common.web.util.EmailUtil;
+
 
 /**
  * 全局异常处理
@@ -42,7 +43,7 @@ public class GlobalExceptionHandlerAdvice {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        
+
 //                ex.getMessage():BIZ_RUNTIME_EXCEPTION_MESSAGE
 //        if(ex.getMessage()!=null){
 //        	!isContainChinese(ex.getMessage().substring(0,1))
