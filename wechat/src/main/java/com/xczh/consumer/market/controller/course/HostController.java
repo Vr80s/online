@@ -110,7 +110,9 @@ public class HostController {
 		
 		if(lecturerInfo.get("detail")!=null){
 			//设置富文本的url连接
-			lecturerInfo.put("richHostDetailsUrl", "http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
+			lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
+		}else{
+			lecturerInfo.put("richHostDetailsUrl", null);
 		}
 		
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息

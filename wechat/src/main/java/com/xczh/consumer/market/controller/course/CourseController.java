@@ -64,6 +64,10 @@ public class CourseController {
 	@Value("${live.preheating}")
 	private Integer livePreheating;
 	
+	
+	@Value("${returnOpenidUri}")
+	private String returnOpenidUri;
+	
 	/**
 	 * Description：用户当前课程状态   User current course status. 
 	 *     用户判断用户是否购买了这个课程
@@ -127,11 +131,11 @@ public class CourseController {
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
 		
 		if(StringUtils.isNotBlank(cv.getDescription())){
-			cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+			cv.setRichCourseDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=1&typeId="+courseId);
 		}
 		
 		if(StringUtils.isNotBlank(cv.getLecturerDescription())){
-			cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
 		}
 		
 		/**
@@ -191,11 +195,11 @@ public class CourseController {
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
 		
 		if(StringUtils.isNotBlank(cv.getDescription())){
-			cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+			cv.setRichCourseDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=1&typeId="+courseId);
 		}
 		
 		if(StringUtils.isNotBlank(cv.getLecturerDescription())){
-			cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
 		}
 		
 		
