@@ -579,14 +579,14 @@ header{
     direction: down;
     text-align: center;
     line-height: 0;
-    /*posit.li_list_divion: absolute;*/
-    position: fixed;
+    /*position: fixed;*/
     top: 50%;
     left: 50%;
-    margin-left: -1.44rem;
-    margin-top: -3rem;
-    /*display: none !important;*/
+    /*margin-left: -1.44rem;*/
+    /*margin-top: -3rem;*/
+    margin-top: -10rem;
     z-index: -1;
+    display: none;
 }
 .no_class img {
     width: 2.5rem;
@@ -606,4 +606,9 @@ header{
     padding: 0rem 0.1rem;
     color: #F97B49 !important;
         margin-top: -0.05rem;
+}
+
+.li_listss1{
+    background: url(../images/weixin.png) no-repeat;
+    background-size: 100% 100%;
 }
