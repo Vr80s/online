@@ -45,7 +45,7 @@ import com.xczhihui.course.vo.LecturerVo;
 @Controller
 @RequestMapping("cloudclass/courseApply")
 public class CourseApplyInfoController extends AbstractController {
-    protected final static String CLOUD_CLASS_PATH_PREFIX = "/course/";
+    protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
     @Autowired
     private CourseService courseService;
     @Autowired
