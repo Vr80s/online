@@ -114,6 +114,11 @@ if(current.indexOf("course_id")!=-1 ||
 	}
 }else{
 	//跳转到课程页面
+	
+	if(){
+		
+	}
+	
 	h5PcConversions(false);
 }
 
