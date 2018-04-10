@@ -40,7 +40,7 @@ $(function(){
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-	    		'<a class="blue" href="'+row.qrCodeImg+'" title="下载二维码" download="qrcode.jpg"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+	    		'<a class="blue" href="'+row.qrCodeImg+'" title="下载二维码" download="qrcode.jpg"><i class="ace-icon fa fa-paperclip bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '
 	    	}else{
@@ -186,18 +186,17 @@ function toEdit(obj){
 		$("#edit_county").empty();
 		
 		
-		
-		var city = "<option id='10086'>"+row.city+"</option>";
+		var city = "<option id='"+row.realCitys+"'>"+row.city+"</option>";
 		$("#edit_citys").append(city);
 		
 		
-		var county = "<option id='10089'>"+row.area+"</option>";
+		var county = "<option id='"+row.realCounty+"'>"+row.area+"</option>";
 		$("#edit_county").append(county);
 		
 		
-		$("#edit_realProvince").val(row.realProvince);
-		$("#edit_realCitys").val(row.realCitys); 
-		$("#edit_realCounty").val(row.realCounty);
+		$("#edit_realProvince").val(row.province);
+		$("#edit_realCitys").val(row.city); 
+		$("#edit_realCounty").val(row.area);
 //	}
 	
 	

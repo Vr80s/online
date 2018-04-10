@@ -746,7 +746,6 @@ public class XzAlipayController {
 						// 打赏
 						LOG.info("打赏回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
 						throw new RuntimeException("打赏功能已关闭");
-						return;
 					} else if ("2".equals(ppbt)) { // 普通订单
 						
 						LOG.info("普通订单{}{}{}{}回调数据包=="+alipayPaymentRecordH5.getPassbackParams());
