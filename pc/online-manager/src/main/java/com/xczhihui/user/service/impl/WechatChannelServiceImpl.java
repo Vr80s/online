@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.WechatChannel;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.WechatChannelService;
@@ -91,6 +92,15 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 	public void addWechatChannel(WechatChannelVo WechatChannelVo)
 			throws Exception {
 
+		
+		
+		
+		String hql="from WechatChannel where 1=1  and name = ?";
+		WechatChannel wc= dao.findByHQLOne(hql, new Object[]{WechatChannelVo.getName()});
+		
+		if(wc!=null){
+			throw new RuntimeException(WechatChannelVo.getName()+":渠道名称已存在！");
+		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		String sql = "SELECT IFNULL(MAX(sort),0) as sort FROM oe_wechat_channel ";
 		List<WechatChannel> temp = dao.findEntitiesByJdbc(WechatChannel.class,
@@ -149,8 +159,16 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 	@Override
 	public void updateWechatChannel(WechatChannelVo WechatChannelVo)
 			throws IllegalAccessException, InvocationTargetException {
-		WechatChannel WechatChannel = dao.findOneEntitiyByProperty(
-				WechatChannel.class, "id", WechatChannelVo.getId());
+		
+		
+		WechatChannel WechatChannel = dao.findOneEntitiyByProperty(WechatChannel.class, "id", WechatChannelVo.getId());
+		
+		String hql="from WechatChannel where 1=1  and name = ?";
+		WechatChannel wc= dao.findByHQLOne(hql, new Object[]{WechatChannelVo.getName()});
+		if(wc!=null && wc.getId()!=WechatChannel.getId()){
+			throw new RuntimeException(WechatChannelVo.getName()+":渠道名称已存在！");
+		}
+		
 		WechatChannelVo.setCreatePerson(WechatChannel.getCreatePerson());
 		WechatChannelVo.setStatus(WechatChannel.getStatus());
 		WechatChannelVo.setCreateTime(new Date());

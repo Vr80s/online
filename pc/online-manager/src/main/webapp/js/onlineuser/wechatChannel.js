@@ -129,6 +129,9 @@ $(".add_bx").click(function(){
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/wechatChannel/addWechatChannel");
 	            $("#addCourse-form").ajaxSubmit(function(data){
+	            	
+	            	debugger;
+	            	
 	            	try{
                 		data = jQuery.parseJSON(jQuery(data).text());
                 	}catch(e) {

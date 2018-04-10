@@ -92,7 +92,8 @@ public class WechatUserController extends AbstractController {
 		int index = tableVo.getiDisplayStart();
 		int currentPage = index / pageSize + 1;
 
-		Page<WechatUser> page = service.findUserPage(paramMap.get("nickname"),
+		
+		Page<WechatUser> page = service.findUserPage(paramMap.get("nickname"),paramMap.get("loginname"),
 				paramMap.get("subscribeTimeStart"),
 				paramMap.get("subscribeTimeEnd"), paramMap.get("qr_scene"),
 				currentPage, pageSize);

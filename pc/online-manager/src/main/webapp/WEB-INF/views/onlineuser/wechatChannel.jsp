@@ -152,6 +152,13 @@
 			
 			            <table frame=void >
 			                <tr>
+			                
+			                	<td>
+			                       <div class="profile-info-value searchTr">
+			                           <input type="text"  id="contact" class="propertyValue1" style="width:100px;" placeholder="联系人"/>
+									<input type="hidden" value="contact" class="propertyName"/>
+			                        </div>
+			                    </td>
 								<td>
 			                       <div class="profile-info-value searchTr">
 			                            <select name="search_status" id="search_status" value="" class="propertyValue1" >

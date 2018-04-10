@@ -9,7 +9,6 @@
 		  owh.lecturer_id as lecturerId,
 		  owh.collectionId as collectionId,
 		  
-		  
 		  oc.grade_name as gradeName,
 		  oc.lecturer as lecturerName,
 		  owh.create_time as watchTime,

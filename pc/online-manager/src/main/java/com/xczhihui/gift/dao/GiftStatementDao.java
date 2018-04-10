@@ -67,7 +67,7 @@ public class GiftStatementDao extends HibernateDao<Course> {
 		}
 
 		if (giftStatementVo.getStopTime() != null) {
-			sql.append(" and ogs.create_time <=:stopTime");
+			sql.append(" and DATE_FORMAT(ogs.create_time,'%Y-%m-%d') <=:stopTime");
 			paramMap.put("stopTime", giftStatementVo.getStopTime());
 		}
 
