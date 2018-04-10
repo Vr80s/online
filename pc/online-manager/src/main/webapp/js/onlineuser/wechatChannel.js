@@ -4,6 +4,12 @@ var courseForm;
 var teacherArray=new Array();
 var _courseRecTable;
 
+
+$.validator.addMethod("mobile", function(value, element) {
+    debugger
+    return this.optional(element) || (/^1(3|4|5|6|7|8)\d{9}$/.test(value))  || (/^0\d{2,3}-?\d{7,8}$/.test(value) );
+}, "请输入正确的手机号");
+
 $(function(){
 	
 	document.onkeydown=function(event){
@@ -101,6 +107,7 @@ $(function(){
 					},
 					mobile: {
 						required:"手机号不可空！",
+						isphoneNum:"请填写正确的手机号码",
 					}
 		        }
 		    });
@@ -128,7 +135,7 @@ $(".add_bx").click(function(){
 	$("#add-directIdDiv").hide();
 	$("#add-externalLinksDiv").hide();
 
-	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增礼物",400,400,true,"确定",function(){
+	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增渠道",400,400,true,"确定",function(){
 		
 		if($("#addCourse-form").valid()){
 			mask();
@@ -245,7 +252,7 @@ function toEdit(obj){
 	
 	
 	
-	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改礼物",700,550,true,"确定",function(){
+	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改渠道",700,550,true,"确定",function(){
 		
 		if($("#updateCourse-form").valid()){
 			mask();

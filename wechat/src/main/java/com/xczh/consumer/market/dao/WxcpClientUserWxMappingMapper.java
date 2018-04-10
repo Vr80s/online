@@ -72,10 +72,12 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 		if(record==null) {
             return -1;
         }
+		if(record.getSubscribe()==null){
+			record.setSubscribe("1");
+		}
 		
 		WxcpClientUserWxMapping record_0  = this.getWxcpClientUserWxMappingInfo(record.getClient_id(),record.getOpenid(),record.getWx_public_id());
 		if(record_0 == null) { 	
-			
 			
 			/**
 			 * Parameters: [4ff5f5046dd04a1b95bd40d4554fea84, null, null, 

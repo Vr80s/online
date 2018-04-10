@@ -283,24 +283,23 @@
 	        <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>渠道名称： </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="name"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
+				 	<input type="text" name="name"   maxlength="15"  class="col-xs-10 col-sm-12 {required:true}">
 	             </div>
 			</div>
 			
 			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系人: </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="contact"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
+				 	<input type="text" name="contact"   maxlength="15"  class="col-xs-10 col-sm-12 {required:true}">
 	             </div>
 			</div>
 			
 			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系电话: </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="mobile"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+				 	<input type="text" name="mobile" maxlength="15"    class="col-xs-10 col-sm-12 {required:true,mobile:true}">
 	             </div>
 			</div>
-			
 			
 			<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
@@ -354,7 +353,7 @@
 			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系电话: </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="mobile"  id="editMobile_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+				 	<input type="text" name="mobile"  id="editMobile_id"   maxlength="15"  class="col-xs-10 col-sm-12 {required:true,mobile:true}">
 	             </div>
 			</div>
 			
@@ -417,7 +416,7 @@
 	<div id="dialogEditFcDiv"></div>
 	<div id="FcDialog" class="hide">
 		<form class="form-horizontal" id="updateBrokerage-form" method="post" action="" style="margin-top: 15px;">
-			<input type="hidden" id="ids"  name="ids" class="col-xs-10 col-sm-8 {required:true}">
+			<input type="hidden" id="ids"  name="ids" class="col-xs-10 col-sm-8 {required:true,isphoneNum:true}">
 			<div class="form-group"  style="margin-top: 18px;" >
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>分成比例: </label>
 				 <div class="col-sm-6">
