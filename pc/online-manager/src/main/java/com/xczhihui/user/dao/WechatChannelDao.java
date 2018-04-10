@@ -56,7 +56,7 @@ public class WechatChannelDao extends HibernateDao<Course> {
 	public List<WechatChannelVo> findWechatChannelList() {
 
 		StringBuilder sql = new StringBuilder(
-				"	SELECT og.id,og.`create_time` createTime,og.sort,"
+				"	SELECT og.id,og.`create_time` createTime,og.sort,og.name,"
 						+ " og.status as status,og.contact,og.mobile,og.city,og.province,og.area,"
 						+ " og.city_id as cityId,og.province_id as provinceId,og.area_id as areaId "
 						+ "FROM `oe_wechat_channel` as og WHERE og.`is_delete` = 0");

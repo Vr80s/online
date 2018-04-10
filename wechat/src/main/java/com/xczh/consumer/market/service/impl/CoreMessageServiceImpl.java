@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.slf4j.LoggerFactory;
@@ -123,9 +124,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             	
         	  if(scan.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)){  // 关注公众号事件
         		  
-        		  /*
-        		   * 保存用户微信信息
-        		   */
+        		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        		  
+        		   /*
+        		    * 保存用户微信信息
+        		    */
 					String token = SingleAccessToken.getInstance()
 							.getAccessToken().getToken();
         		  
@@ -150,7 +153,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    			
 	    			String remark = (String)jsonObject.get("remark");
 	    			Integer groupid = (Integer)jsonObject.get("groupid");
-	    			//String tagid_list = (String)jsonObject.get("tagid_list");
+	    			//JSONArray tagid_list = (JSONArray)jsonObject.get("tagid_list");
 	    			
 	    			String subscribe_scene = (String)jsonObject.get("subscribe_scene");
 	    			Integer qr_scene = (Integer)jsonObject.get("qr_scene");
@@ -158,7 +161,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    	
 	    			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
 	    			
-	    			if(null == m){  //
+	    			if(null == m){
+	    				
 	    				String public_id = WxPayConst.gzh_appid ;
 	    				String public_name = WxPayConst.appid4name ;
 	    				
@@ -180,16 +184,30 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
 	    				wxcpClientUserWxMapping.setRemark(remark);
 	    				wxcpClientUserWxMapping.setGroupid(groupid+"");
-	    				//wxcpClientUserWxMapping.setTagid_list(tagid_list);
+	    				//wxcpClientUserWxMapping.setTagid_list(tagid_list.toString());
 	    				wxcpClientUserWxMapping.setSubscribe_scene(subscribe_scene);
 	    				wxcpClientUserWxMapping.setQr_scene(qr_scene+"");
 	    				wxcpClientUserWxMapping.setQr_scene_str(qr_scene_str);
 	    			    wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
-	    			}
+	    			    
+	    			    
+//	    			    Integer qr_scene = (Integer)jsonObject.get("qr_scene");
+//		    			String qr_scene_str = (String)jsonObject.get("qr_scene_str");    
+	    			    
+	    			}else if(m!=null && (qr_scene!=null || qr_scene_str!=null)){
+	      				
+	      				m.setGroupid(groupid+"");
+	      				//m.setTagid_list(tagid_list);
+	      				m.setSubscribe_scene(subscribe_scene);
+	      				m.setQr_scene(qr_scene+"");
+	      				m.setQr_scene_str(qr_scene_str);
+	      				m.setLast_update_time(new Date());
+	      				
+	      			    wxcpClientUserWxMappingService.update(m);
+	      			}
         	      
         		
 	        		  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
-	        		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	                  Article article = new Article();  
 	                  article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
 	                  article.setDescription("");  
@@ -291,7 +309,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       				
       			    wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
       			    
-      			}else if(m!=null && (m.getQr_scene()!=null || m.getQr_scene_str()!=null)){
+      			}else if(m!=null && (qr_scene!=null || qr_scene_str!=null)){
       				
       				m.setGroupid(groupid+"");
       				//m.setTagid_list(tagid_list);

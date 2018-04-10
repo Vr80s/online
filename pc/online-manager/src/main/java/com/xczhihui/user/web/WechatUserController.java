@@ -57,8 +57,7 @@ public class WechatUserController extends AbstractController {
 	@RequestMapping(value = "index")
 	public ModelAndView index(HttpServletRequest request) {
 
-		List<WechatChannelVo> wechatChannelVoS = wechatChannelService
-				.findWechatChannelList();
+		List<WechatChannelVo> wechatChannelVoS = wechatChannelService.findWechatChannelList();
 		request.setAttribute("wechatChannelVos", wechatChannelVoS);
 		ModelAndView mav = new ModelAndView(USER_PATH_PREFIX + "wechatusers");
 		return mav;
