@@ -5,7 +5,6 @@ import com.xczhihui.gift.vo.RewardStatementVo;
 
 public interface RewardStatementService {
 
-
 	/**
 	 * 根据条件分页获取打赏
 	 * 
@@ -13,7 +12,7 @@ public interface RewardStatementService {
 	 * @param pageVo
 	 * @return
 	 */
-	public Page<RewardStatementVo> findRewardPage(RewardStatementVo rewardStatementVo, int pageNumber, int pageSize);
-
+	public Page<RewardStatementVo> findRewardPage(
+			RewardStatementVo rewardStatementVo, int pageNumber, int pageSize);
 
 }

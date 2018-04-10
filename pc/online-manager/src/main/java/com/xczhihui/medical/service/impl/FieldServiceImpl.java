@@ -18,93 +18,92 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- *   MenuServiceImpl:菜单业务层接口实现类
- *   @author Rongcai Kang
+ * MenuServiceImpl:菜单业务层接口实现类
+ * 
+ * @author Rongcai Kang
  */
 @Service
-public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldService {
+public class FieldServiceImpl extends OnlineBaseServiceImpl implements
+		FieldService {
 
-    @Autowired
-    private FieldDao medicalFieldDao;
+	@Autowired
+	private FieldDao medicalFieldDao;
 
+	/**
+	 * 查询列表
+	 */
+	@Override
+	public Page<MedicalField> findMenuPage(MedicalField menuVo,
+			Integer pageNumber, Integer pageSize) {
+		Page<MedicalField> page = medicalFieldDao.findMedicalFieldPage(menuVo,
+				pageNumber, pageSize);
+		return page;
+	}
 
-    /**
-     * 查询列表
-     */
-    @Override
-    public Page<MedicalField> findMenuPage(MedicalField menuVo, Integer pageNumber, Integer pageSize)  {
-        Page<MedicalField> page = medicalFieldDao.findMedicalFieldPage(menuVo, pageNumber, pageSize);
-        return page;
-    }
-
-
-    /**
-     * 查找输入的课程类别是否存在
-     */
+	/**
+	 * 查找输入的课程类别是否存在
+	 */
 	@Override
 	public MedicalField findMedicalFieldByName(String name) {
-		return medicalFieldDao.findOneEntitiyByProperty(MedicalField.class,"name",name);
+		return medicalFieldDao.findOneEntitiyByProperty(MedicalField.class,
+				"name", name);
 	}
 
 	@Override
 	public List<MedicalField> list() {
-		String sql="select * from medical_field where deleted=0 and status=1 order by  convert(name using gbk) ASC";
-//		Map<String,Object> params=new HashMap<String,Object>();
-		List<MedicalField> voList=medicalFieldDao.findEntitiesByJdbc(MedicalField.class, sql, null);
+		String sql = "select * from medical_field where deleted=0 and status=1 order by  convert(name using gbk) ASC";
+		// Map<String,Object> params=new HashMap<String,Object>();
+		List<MedicalField> voList = medicalFieldDao.findEntitiesByJdbc(
+				MedicalField.class, sql, null);
 		return voList;
 	}
-
 
 	/**
 	 * 保存实体
 	 */
 	@Override
 	public void save(MedicalField entity) {
-		String id = UUID.randomUUID().toString().replace("-","");
+		String id = UUID.randomUUID().toString().replace("-", "");
 		entity.setId(id);
 		medicalFieldDao.save(entity);
 	}
 
-
 	@Override
 	public boolean exists(MedicalField searchEntity) {
-		//输入了一个名称 这个名称数据库已经存在了
-        MedicalField she=medicalFieldDao.findByNotEqId(searchEntity);
-        if(she!=null){
-            return true;
-        }
-        return false;
+		// 输入了一个名称 这个名称数据库已经存在了
+		MedicalField she = medicalFieldDao.findByNotEqId(searchEntity);
+		if (she != null) {
+			return true;
+		}
+		return false;
 	}
-
 
 	@Override
 	public void update(MedicalField me) {
 		medicalFieldDao.update(me);
 	}
 
-
 	@Override
 	public MedicalField findById(String parseInt) {
 		return medicalFieldDao.findById(parseInt);
 	}
 
-
 	@Override
 	public String deletes(String[] _ids) {
 		String msg = "";
-        for(String id:_ids){
-        	msg = medicalFieldDao.deleteById(id);
-        }
-        return  msg;
+		for (String id : _ids) {
+			msg = medicalFieldDao.deleteById(id);
+		}
+		return msg;
 
 	}
 
 	@Override
 	public void updateStatus(String id) {
-		MedicalField medicalField=medicalFieldDao.findById(id);
-		if(medicalField.getStatus()){
+		MedicalField medicalField = medicalFieldDao.findById(id);
+		if (medicalField.getStatus()) {
 			medicalField.setStatus(false);
-		}else{
+		} else {
 			medicalField.setStatus(true);
 		}
 		medicalFieldDao.update(medicalField);
@@ -114,20 +113,22 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 	@Override
 	public List<MedicalField> findAllField(String id, Integer type) {
 		List<MedicalField> list = list();
-		if(type == 1){//医馆
-			List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(MedicalHospitalField.class, "hospitalId", id);
+		if (type == 1) {// 医馆
+			List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(
+					MedicalHospitalField.class, "hospitalId", id);
 			for (int i = 0; i < mhfs.size(); i++) {
 				for (int j = 0; j < list.size(); j++) {
-					if(mhfs.get(i).getFieldId().equals(list.get(j).getId())){
+					if (mhfs.get(i).getFieldId().equals(list.get(j).getId())) {
 						list.get(j).setHas(true);
 					}
 				}
 			}
-		}else{//医师
-			List<MedicalDoctorField> mdfs = dao.findEntitiesByProperty(MedicalDoctorField.class, "doctorId", id);
+		} else {// 医师
+			List<MedicalDoctorField> mdfs = dao.findEntitiesByProperty(
+					MedicalDoctorField.class, "doctorId", id);
 			for (int i = 0; i < mdfs.size(); i++) {
 				for (int j = 0; j < list.size(); j++) {
-					if(mdfs.get(i).getFieldId().equals(list.get(j).getId())){
+					if (mdfs.get(i).getFieldId().equals(list.get(j).getId())) {
 						list.get(j).setHas(true);
 					}
 				}
@@ -138,27 +139,31 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 
 	/**
 	 * 添加医疗领域
-	 * @param id 医馆id
+	 * 
+	 * @param id
+	 *            医馆id
 	 */
 	@Override
 	public void addHospitalField(String id, String[] field) {
 
-		List<MedicalHospital> hospitals = dao.findEntitiesByProperty(MedicalHospital.class, "id", id);
-		if(CollectionUtils.isEmpty(hospitals)){
-            throw new MedicalException(MedicalExceptionEnum.HOSPITAL_NOT_EXIT);
-        }else{
-			if(StringUtils.isNotBlank(hospitals.get(0).getSourceId())){
-                throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
-            }
+		List<MedicalHospital> hospitals = dao.findEntitiesByProperty(
+				MedicalHospital.class, "id", id);
+		if (CollectionUtils.isEmpty(hospitals)) {
+			throw new MedicalException(MedicalExceptionEnum.HOSPITAL_NOT_EXIT);
+		} else {
+			if (StringUtils.isNotBlank(hospitals.get(0).getSourceId())) {
+				throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+			}
 		}
 
-		List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(MedicalHospitalField.class, "hospitalId", id);
+		List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(
+				MedicalHospitalField.class, "hospitalId", id);
 		for (int i = 0; i < mhfs.size(); i++) {
 			dao.delete(mhfs.get(i));
 		}
 		for (int i = 0; i < field.length; i++) {
 			MedicalHospitalField medicalHospitalField = new MedicalHospitalField();
-			String mid = UUID.randomUUID().toString().replace("-","");
+			String mid = UUID.randomUUID().toString().replace("-", "");
 			medicalHospitalField.setId(mid);
 			medicalHospitalField.setFieldId(field[i]);
 			medicalHospitalField.setHospitalId(id);
@@ -169,14 +174,15 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 
 	@Override
 	public void addDoctorField(String id, String[] fieldId) {
-		List<MedicalDoctorField> mhfs = dao.findEntitiesByProperty(MedicalDoctorField.class, "doctorId", id);
+		List<MedicalDoctorField> mhfs = dao.findEntitiesByProperty(
+				MedicalDoctorField.class, "doctorId", id);
 		for (int i = 0; i < mhfs.size(); i++) {
 			dao.delete(mhfs.get(i));
 		}
-		if(fieldId!=null){
+		if (fieldId != null) {
 			for (int i = 0; i < fieldId.length; i++) {
 				MedicalDoctorField medicalDoctorField = new MedicalDoctorField();
-				String mid = UUID.randomUUID().toString().replace("-","");
+				String mid = UUID.randomUUID().toString().replace("-", "");
 				medicalDoctorField.setId(mid);
 				medicalDoctorField.setFieldId(fieldId[i]);
 				medicalDoctorField.setDoctorId(id);
@@ -185,6 +191,5 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 			}
 		}
 	}
-
 
 }

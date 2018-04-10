@@ -1,27 +1,19 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.bxg.common.web.auth.service.LoginoutCallback;
+import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.user.center.web.utils.CookieUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.web.auth.TokenHolder;
-import com.xczhihui.bxg.common.web.auth.service.LoginoutCallback;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.base.bean.SingletonUserLogin;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.CookieUtil;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import java.util.Date;
 @Service("onlineLoginoutCallbackService")
 public class OnlineLoginoutCallback implements LoginoutCallback {
 	

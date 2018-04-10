@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.medical.anchor.enums.AuchorTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -71,7 +71,9 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private CourseApplyResourceMapper courseApplyResourceMapper;
     @Autowired
     private RedisCacheService cacheService;
-    
+
+    @Autowired
+    private OnlineConfig onlineConfig;
 
     /**
      * 获取主播详情
@@ -392,8 +394,8 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         if(resource != null){
             String courseResource = resource.getResource();
 
-            String src = "https://p.bokecc.com/flash/single/" + OnlineConfig.CC_USER_ID+"_" + courseResource
-                    + "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + "/player.swf";
+            String src = "https://p.bokecc.com/flash/single/" + onlineConfig.ccuserId+"_" + courseResource
+                    + "_false_" + onlineConfig.ccPlayerId + "_1" + "/player.swf";
             String uuid = UUID.randomUUID().toString().replace("-", "");
             String playCode = "";
             playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";

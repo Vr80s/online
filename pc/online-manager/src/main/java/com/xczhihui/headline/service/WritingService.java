@@ -11,7 +11,8 @@ import com.xczhihui.headline.vo.WritingVo;
 
 public interface WritingService {
 
-	public Page<MedicalWritings> findCoursePage(WritingVo searchVo, int currentPage, int pageSize);
+	public Page<MedicalWritings> findCoursePage(WritingVo searchVo,
+			int currentPage, int pageSize);
 
 	public List<ArticleTypeVo> getArticleTypes();
 
@@ -34,6 +35,5 @@ public interface WritingService {
 	public void updateRecommend(Integer id);
 
 	public void updateMedicalDoctorWritings(String id, String[] doctorId);
-
 
 }

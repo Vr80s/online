@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("version")
 public class VersionManagerController {
 	protected final static String VERSION_PATH_PREFIX = "/version/";
-	
+
 	/**
 	 * 转到页面
 	 * 
 	 * @param request
 	 * @return
 	 */
-	//@RequiresPermissions("version:manager")
+	// @RequiresPermissions("version:manager")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		return VERSION_PATH_PREFIX + "index";

@@ -14,7 +14,7 @@ public class MessageShortVo {
 	private String context;
 
 	/**
-	 * 读取状态：0.未读取  1.已读取;
+	 * 读取状态：0.未读取 1.已读取;
 	 */
 	private Short readstatus;
 
@@ -23,11 +23,11 @@ public class MessageShortVo {
 	 */
 	private Date createTime;
 
-	private String  create_person;
+	private String create_person;
 
 	private Integer type;
 
-	private String  user_id;
+	private String user_id;
 
 	public String getId() {
 		return id;
@@ -84,7 +84,5 @@ public class MessageShortVo {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	
-	
 
 }

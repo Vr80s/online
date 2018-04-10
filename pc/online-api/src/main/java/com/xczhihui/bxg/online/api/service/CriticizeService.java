@@ -1,11 +1,9 @@
 package com.xczhihui.bxg.online.api.service;
 
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
-import com.xczhihui.bxg.online.common.domain.Criticize;
 
 /**
  * 评论接口：
@@ -23,21 +21,7 @@ public interface CriticizeService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
 	public void saveCriticize(CriticizeVo criticizeVo) throws IllegalAccessException, InvocationTargetException;
-	
-	/**
-	 *  
-	 * Description：得到此视频下的所有评论
-	 * @param videoId 视频id
-	 * @param name    当前用户登录名，用于判断是否点赞用的
-	 * @param pageNumber 
-	 * @param pageSize   
-	 * @return
-	 * @return Page<Criticize>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public Page<CriticizeVo> getVideoCriticize(String teacherId, String courseId,
-			Integer pageNumber, Integer pageSize);
+
 	/**
 	 * Description：点赞和取消点赞
 	 * @param isPraise
@@ -48,8 +32,7 @@ public interface CriticizeService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public Map<String, Object> updatePraise(Boolean isPraise,String criticizeId, String loginName);
-	
-	
+
 	
 	 /**
      * 提交新的评论
@@ -85,7 +68,7 @@ public interface CriticizeService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	Page<Criticize> getUserOrCourseCriticize(String teacherId, Integer courseId,
+	Object getUserOrCourseCriticize(String teacherId, Integer courseId,
 			Integer pageNumber, Integer pageSize,String userId);
 
     /**

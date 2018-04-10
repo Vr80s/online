@@ -2,13 +2,12 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.online.common.enums.ApplyStatus;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Multimedia;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
-import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
-import com.xczhihui.bxg.online.common.utils.lock.Lock;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.bxg.common.util.enums.ApplyStatus;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.Multimedia;
+import com.xczhihui.bxg.common.support.cc.util.CCUtils;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -54,6 +53,10 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private ICourseApplyService courseApplyService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    @Autowired
+    private OnlineConfig onlineConfig;
+    @Autowired
+    private CCUtils CCUtils;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -256,7 +259,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(courseApplyResource.getMultimediaType()==Multimedia.AUDIO.getCode()){
             audioStr = "_2";
         }
-        String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+courseApplyResource.getResource()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
+        String src = "https://p.bokecc.com/flash/single/"+ onlineConfig.ccuserId+"_"+courseApplyResource.getResource()+"_false_"+onlineConfig.ccPlayerId+"_1"+audioStr+"/player.swf";
         String uuid = UUID.randomUUID().toString().replace("-", "");
         String playCode = "";
         playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";

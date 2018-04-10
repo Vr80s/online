@@ -22,8 +22,9 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDao roleDao;
 
 	@Override
-    public List<Role> getAllValidRoles() {
-		return this.roleDao.findEntitiesByProperty(Role.class, "isDelete", false);
+	public List<Role> getAllValidRoles() {
+		return this.roleDao.findEntitiesByProperty(Role.class, "isDelete",
+				false);
 	}
 
 	@Override
@@ -62,7 +63,8 @@ public class RoleServiceImpl implements RoleService {
 	public Map<String, Set<String>> getUserRoles(Set<String> userIds) {
 		Map<String, Set<String>> userRoles = new HashMap<>();
 		if (userIds != null && userIds.size() > 0) {
-			List<Map<String, Object>> roles = this.roleDao.getUserRoles(userIds);
+			List<Map<String, Object>> roles = this.roleDao
+					.getUserRoles(userIds);
 			for (Map<String, Object> role : roles) {
 				String uId = role.get("userId").toString();
 				// String rId = role.get("roleId").toString();

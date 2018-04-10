@@ -1,12 +1,9 @@
 package com.xczhihui.bxg.online.api.service;
 
-
+import com.xczhihui.bxg.online.api.vo.JobVo;
 
 import java.util.List;
 import java.util.Map;
-
-import com.xczhihui.bxg.common.support.domain.SystemVariate;
-import com.xczhihui.bxg.online.api.vo.JobVo;
 
 /**
  * 关注service

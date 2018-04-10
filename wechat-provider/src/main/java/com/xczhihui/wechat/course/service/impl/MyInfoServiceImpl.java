@@ -1,20 +1,18 @@
 package com.xczhihui.wechat.course.service.impl;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.user.center.bean.UserSex;
+import com.xczhihui.bxg.common.util.enums.UserSex;
 import com.xczhihui.wechat.course.mapper.MyInfoMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.service.IMyInfoService;
 import com.xczhihui.wechat.course.vo.OnlineUserVO;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -65,7 +63,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			throw new RuntimeException("邮件长度在5-32之间");
         }
 		
-		if(StringUtils.isNotBlank(user.getEmail()) && !com.xczhihui.bxg.online.common.utils.StringUtils.checkEmail(user.getEmail())){
+		if(StringUtils.isNotBlank(user.getEmail())){
 			throw new RuntimeException("邮箱格式有误");
 		}
 		

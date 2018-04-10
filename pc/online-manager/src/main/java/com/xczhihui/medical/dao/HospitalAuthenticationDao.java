@@ -5,5 +5,6 @@ import com.xczhihui.common.dao.HibernateDao;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class HospitalAuthenticationDao extends HibernateDao<MedicalHospitalAuthentication> {
+public class HospitalAuthenticationDao extends
+		HibernateDao<MedicalHospitalAuthentication> {
 }

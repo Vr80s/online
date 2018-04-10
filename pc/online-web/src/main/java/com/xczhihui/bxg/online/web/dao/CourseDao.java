@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;

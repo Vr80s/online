@@ -1,6 +1,5 @@
 package com.xczhihui.message.service.impl;
 
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,9 +29,9 @@ import org.springframework.stereotype.Service;
 import com.xczhihui.bxg.common.util.bean.Page;
 import org.springframework.util.StringUtils;
 
-
 @Service
-public class MessageServiceImpl extends OnlineBaseServiceImpl  implements MessageService {
+public class MessageServiceImpl extends OnlineBaseServiceImpl implements
+		MessageService {
 
 	@Autowired
 	private MessageDao dao;
@@ -83,47 +82,58 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl  implements Messag
 	}
 
 	@Override
-	public Page<MessageVo> findPageMessages(String vNameOrCreater, int pageNumber, int pageSize) throws InvocationTargetException, IllegalAccessException {
-		Page<Message> page = this.dao.findPageMessages(vNameOrCreater, "createTime", pageNumber, pageSize);
+	public Page<MessageVo> findPageMessages(String vNameOrCreater,
+			int pageNumber, int pageSize) throws InvocationTargetException,
+			IllegalAccessException {
+		Page<Message> page = this.dao.findPageMessages(vNameOrCreater,
+				"createTime", pageNumber, pageSize);
 		List<Message> items = page.getItems();
 		List<MessageVo> itemsVo = new ArrayList<MessageVo>();
 		for (Message q : items) {
 			MessageVo dest = new MessageVo();
 			BeanUtils.copyProperties(dest, q);
-			User user=userDao.findOneEntitiyByProperty(User.class,"id",q.getUserId());
+			User user = userDao.findOneEntitiyByProperty(User.class, "id",
+					q.getUserId());
 			dest.setUserName(user.getName());
 			itemsVo.add(dest);
 		}
 		Page<MessageVo> pageVo = new Page<MessageVo>(itemsVo,
-				page.getTotalCount(),
-				page.getPageSize(), page.getCurrentPage());
+				page.getTotalCount(), page.getPageSize(), page.getCurrentPage());
 		return pageVo;
 	}
 
 	@Override
-	public Page<MessageVo> findPageMessages(MessageVo vo, int pageNumber, int pageSize) {
-		  Map<String,Object> paramMap=new HashMap<String,Object>();
-	      StringBuilder sql=new StringBuilder("select * from oe_message_record where 1=1 ");
-	      
-	      if(!StringUtils.isEmpty(vo.getTime_start())){
-	    	  	sql.append(" and create_time >=:startTime");
-	    	  	paramMap.put("startTime", TimeUtil.parseDate(vo.getTime_start() + " 00:00:00"));
-			}
-			if(!StringUtils.isEmpty(vo.getTime_end())){
-			    sql.append(" and create_time <=:endTime");
-				paramMap.put("endTime", TimeUtil.parseDate(vo.getTime_end() + " 23:59:59"));
-			} 
-			sql.append(" order by create_time desc");
-			Page<MessageVo> ms = dao.findPageBySQL(sql.toString(), paramMap, MessageVo.class, pageNumber, pageSize);
-			return ms;
+	public Page<MessageVo> findPageMessages(MessageVo vo, int pageNumber,
+			int pageSize) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder(
+				"select * from oe_message_record where 1=1 ");
+
+		if (!StringUtils.isEmpty(vo.getTime_start())) {
+			sql.append(" and create_time >=:startTime");
+			paramMap.put("startTime",
+					TimeUtil.parseDate(vo.getTime_start() + " 00:00:00"));
+		}
+		if (!StringUtils.isEmpty(vo.getTime_end())) {
+			sql.append(" and create_time <=:endTime");
+			paramMap.put("endTime",
+					TimeUtil.parseDate(vo.getTime_end() + " 23:59:59"));
+		}
+		sql.append(" order by create_time desc");
+		Page<MessageVo> ms = dao.findPageBySQL(sql.toString(), paramMap,
+				MessageVo.class, pageNumber, pageSize);
+		return ms;
 	}
 
 	@Override
-	public Page<MessageVo> findPageMessagesByUser(UserVo userVo, String vNameOrCreater, int pageNumber, int pageSize) {
-		Page<Message> page = this.dao.findPageMessagesByUser(userVo,vNameOrCreater, "createTime", pageNumber, pageSize);
+	public Page<MessageVo> findPageMessagesByUser(UserVo userVo,
+			String vNameOrCreater, int pageNumber, int pageSize) {
+		Page<Message> page = this.dao.findPageMessagesByUser(userVo,
+				vNameOrCreater, "createTime", pageNumber, pageSize);
 		List<Message> items = page.getItems();
 		List<MessageVo> itemsVo = new ArrayList<MessageVo>();
-		User user=userDao.findOneEntitiyByProperty(User.class,"id",userVo.getId());
+		User user = userDao.findOneEntitiyByProperty(User.class, "id",
+				userVo.getId());
 		for (Message q : items) {
 			MessageVo dest = new MessageVo();
 			try {
@@ -135,8 +145,7 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl  implements Messag
 			itemsVo.add(dest);
 		}
 		Page<MessageVo> pageVo = new Page<MessageVo>(itemsVo,
-				page.getTotalCount(),
-				page.getPageSize(), page.getCurrentPage());
+				page.getTotalCount(), page.getPageSize(), page.getCurrentPage());
 		return pageVo;
 	}
 
@@ -145,22 +154,23 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl  implements Messag
 	 * @param message
 	 */
 	@Override
-    public void save(Message message){
+	public void save(Message message) {
 		dao.save(message);
 	}
-	
+
 	/**
 	 *
 	 * @param message
 	 */
 	@Override
-    public void saveMessage(Message message){
-		String sql="insert into oe_message (id,user_id,context,type,status,create_person,create_time,readstatus) values "
+	public void saveMessage(Message message) {
+		String sql = "insert into oe_message (id,user_id,context,type,status,create_person,create_time,readstatus) values "
 				+ "(:id,:userId,:context,type,status,:createPerson,:createTime,:readstatus) ";
-	
-		KeyHolder kh=new GeneratedKeyHolder();
-		dao.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(message),kh );
-		//message.setId(kh.getKey().intValue());
+
+		KeyHolder kh = new GeneratedKeyHolder();
+		dao.getNamedParameterJdbcTemplate().update(sql,
+				new BeanPropertySqlParameterSource(message), kh);
+		// message.setId(kh.getKey().intValue());
 	}
 
 	@Override

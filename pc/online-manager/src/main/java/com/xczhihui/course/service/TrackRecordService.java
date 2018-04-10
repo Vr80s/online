@@ -13,9 +13,11 @@ public interface TrackRecordService {
 	 *
 	 * @return
 	 */
-	public Page<TrackRecordVo> findPage(TrackRecordVo trackRecordVo, int pageNumber, int pageSize);
+	public Page<TrackRecordVo> findPage(TrackRecordVo trackRecordVo,
+			int pageNumber, int pageSize);
 
-	public void save(TrackRecordVo vo) throws InvocationTargetException, IllegalAccessException;
+	public void save(TrackRecordVo vo) throws InvocationTargetException,
+			IllegalAccessException;
 
 	public void deleteById(String id);
 

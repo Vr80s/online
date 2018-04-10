@@ -6,7 +6,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.PublicCourseService;
 import com.xczhihui.course.vo.ChangeCallbackVo;

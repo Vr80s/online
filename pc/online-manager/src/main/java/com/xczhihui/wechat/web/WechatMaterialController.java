@@ -36,6 +36,7 @@ import com.xczhihui.utils.TableVo;
 @Controller
 @RequestMapping("wechat/menu")
 public class WechatMaterialController extends AbstractController {
+
 	
 	protected final static String WechatMaterial_PATH_PREFIX = "/wechat/";
 	@Autowired
@@ -45,13 +46,13 @@ public class WechatMaterialController extends AbstractController {
 	@Value("${online.web.url}")
 	private String weburl;
 
-	
 	@RequestMapping(value = "material")
 	public String index(HttpServletRequest request) {
-
+		
 		System.out.println("[=[===========");
 		return WechatMaterial_PATH_PREFIX + "/materialList";
 	}
+
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo WechatMaterials(TableVo tableVo) {
@@ -61,8 +62,8 @@ public class WechatMaterialController extends AbstractController {
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);
 		WechatMaterial searchVo = new WechatMaterial();
-		Page<WechatMaterial> page = WechatMaterialService.findWechatMaterialPage(searchVo, currentPage,
-				pageSize);
+		Page<WechatMaterial> page = WechatMaterialService
+				.findWechatMaterialPage(searchVo, currentPage, pageSize);
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
@@ -73,39 +74,41 @@ public class WechatMaterialController extends AbstractController {
 
 	/**
 	 * 添加
+	 * 
 	 * @param MaterialVo
 	 * @return
 	 */
-	//@RequiresPermissions("WechatMaterial:menu")
+	// @RequiresPermissions("WechatMaterial:menu")
 	@RequestMapping(value = "addWechatMaterial", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject add(WechatMaterial wm) {
-		
+
 		ResponseObject responseObj = new ResponseObject();
 
-	   /* String accessToken = new AccessTokenUtil().getAccessToken();  
-	    String url_upload = String.format(MaterialInterface.upload_persistent_news_url, accessToken);  */
-		
-		
-	    List<WechatMaterial> wechatMaterials = new ArrayList<WechatMaterial>();  
-	    WechatMaterial wechatMaterial = new WechatMaterial();  
-        wechatMaterial.setTitle("测试上传");  
-        wechatMaterial.setThumbMediaId("6y0EBrCsG4Si29EjR7_uAA0zZmaUa37VIAAqNDbrjQE");
-        wechatMaterial.setShowCoverPic(true);
-        wechatMaterial.setDigest("摘要");  
-        wechatMaterial.setContentSourceUrl("https://www.ixincheng.com");
-        wechatMaterial.setContent("我看到一个东西哈哈！");  
-        wechatMaterial.setAuthor("qiao");  
-        
-		
-		String reqUrl ="https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=";
-	    Map<String, Object> params = new HashMap<String, Object>();  
-	    params.put("articles", wechatMaterials);  
-	    
-		//HttpUtil.doPostObject(reqUrl, params);
-		
+		/*
+		 * String accessToken = new AccessTokenUtil().getAccessToken(); String
+		 * url_upload =
+		 * String.format(MaterialInterface.upload_persistent_news_url,
+		 * accessToken);
+		 */
 
-		
+		List<WechatMaterial> wechatMaterials = new ArrayList<WechatMaterial>();
+		WechatMaterial wechatMaterial = new WechatMaterial();
+		wechatMaterial.setTitle("测试上传");
+		wechatMaterial
+				.setThumbMediaId("6y0EBrCsG4Si29EjR7_uAA0zZmaUa37VIAAqNDbrjQE");
+		wechatMaterial.setShowCoverPic(true);
+		wechatMaterial.setDigest("摘要");
+		wechatMaterial.setContentSourceUrl("https://www.ixincheng.com");
+		wechatMaterial.setContent("我看到一个东西哈哈！");
+		wechatMaterial.setAuthor("qiao");
+
+		String reqUrl = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("articles", wechatMaterials);
+
+		// HttpUtil.doPostObject(reqUrl, params);
+
 		return responseObj;
 	}
 
@@ -118,7 +121,7 @@ public class WechatMaterialController extends AbstractController {
 	@RequestMapping(value = "findMaterialById", method = RequestMethod.GET)
 	@ResponseBody
 	public WechatMaterial findWechatMaterialById(Integer id) {
-		
+
 		return WechatMaterialService.getWechatMaterialById(id);
 	}
 
@@ -128,14 +131,14 @@ public class WechatMaterialController extends AbstractController {
 	 * @param MaterialVo
 	 * @return
 	 */
-	//@RequiresPermissions("WechatMaterial:menu")
+	// @RequiresPermissions("WechatMaterial:menu")
 	@RequestMapping(value = "updateWechatMaterialById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateWechatMaterialById(WechatMaterial WechatMaterial) {
 		ResponseObject responseObj = new ResponseObject();
 
 		try {
-			//WechatMaterialService.updateWechatMaterial(WechatMaterial);
+			// WechatMaterialService.updateWechatMaterial(WechatMaterial);
 			responseObj.setSuccess(true);
 			responseObj.setErrorMessage("修改成功");
 		} catch (Exception e) {
@@ -171,7 +174,7 @@ public class WechatMaterialController extends AbstractController {
 		WechatMaterialService.deleteWechatMaterialById(id);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
-	
+
 	/**
 	 * 设置分成
 	 * 
@@ -180,8 +183,8 @@ public class WechatMaterialController extends AbstractController {
 	 */
 	@RequestMapping(value = "updateBrokerage", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject updateBrokerage(String ids,String brokerage) {
-		WechatMaterialService.updateBrokerage(ids,brokerage);
+	public ResponseObject updateBrokerage(String ids, String brokerage) {
+		WechatMaterialService.updateBrokerage(ids, brokerage);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
 

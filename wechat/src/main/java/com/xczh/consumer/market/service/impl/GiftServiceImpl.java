@@ -1,22 +1,17 @@
 package com.xczh.consumer.market.service.impl;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xczh.consumer.market.bean.Gift;
-import com.xczh.consumer.market.bean.GiftStatement;
 import com.xczh.consumer.market.dao.GiftMapper;
 import com.xczh.consumer.market.dao.GiftStatementMapper;
 import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.vo.RankingUserVo;
-import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
 
 
 /**

@@ -9,7 +9,7 @@
         <param-value>/WEB-INF/conf/logback.xml</param-value>
     </context-param>
     <listener>
-        <listener-class>com.xczhihui.bxg.common.web.listener.LogbackConfigListener</listener-class>
+        <listener-class>com.xczhihui.bxg.common.support.listener.LogbackConfigListener</listener-class>
     </listener>
     <!-- 加载Spring配置文件 -->
     <context-param>

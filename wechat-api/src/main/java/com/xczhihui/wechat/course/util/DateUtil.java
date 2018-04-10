@@ -78,8 +78,8 @@ public class DateUtil {
 	 * @return Date
 	 */
 	public static Date parseDate(String value, String format) {
-		if (BXGStringUtil.isNotBlank(value)) {
-			if (!BXGStringUtil.isNotBlank(format)) {
+		if (IStringUtil.isNotBlank(value)) {
+			if (!IStringUtil.isNotBlank(format)) {
 				format = FORMAT_DAY_TIME;
 			}
 			DateFormat dateFormate = new SimpleDateFormat(format);
@@ -150,7 +150,7 @@ public class DateUtil {
 	  */  
 	 public static String convert2String(long time, String format) {  
 		  if (time > 0L) {
-		   if (BXGStringUtil.isNotBlank(format)){
+		   if (IStringUtil.isNotBlank(format)){
 			   SimpleDateFormat sf = new SimpleDateFormat(format);  
 			   String hms = sf.format(time);
 			   return hms;

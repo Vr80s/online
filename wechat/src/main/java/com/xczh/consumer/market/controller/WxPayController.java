@@ -16,12 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
-
 import net.sf.json.JSONObject;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -67,14 +63,14 @@ import com.xczh.consumer.market.vo.CodeUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.vo.OrderParamVo;
 import com.xczh.consumer.market.vo.RechargeParamVo;
-import com.xczh.consumer.market.vo.RewardParamVo;
 import com.xczh.consumer.market.wxpay.PayFactory;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.entity.PayInfo;
 import com.xczh.consumer.market.wxpay.entity.SendRedPack;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.MD5SignUtil;
-import com.xczhihui.bxg.online.api.po.RewardStatement;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
@@ -331,23 +327,23 @@ public class WxPayController {
 						
 						//第二版本考虑打赏
                         if ("reward".equals(attachs[0])) {
-                            String json = cacheService.get(attachs[1]);
-                            RewardParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RewardParamVo.class);
-                            RewardStatement rs = new RewardStatement();
-                            BeanUtils.copyProperties(rs, rpv);
-                            rs.setCreateTime(new Date());
-                            rs.setPayType(Payment.WECHATPAY.getCode());//
-                            rs.setOrderNo(out_trade_no);
-                            rs.setPrice((new Double(wxcpPayFlow.getTotal_fee()) / 100));
-                            rs.setChannel(1);
-                            rs.setStatus(1);
-                            //rewardService.insert(rs);
-                            wxcpPayFlow.setUser_id(rpv.getUserId());
-                            wxcpPayFlow.setSubject(rpv.getSubject());
-                            wxcpPayFlowService.insert(wxcpPayFlow);
-                            userCoinService.updateBalanceForReward(rs);
-                            res.getWriter().write(tell_ok);
-                            LOGGER.info("打赏回调打印:" + json);
+//                            String json = cacheService.get(attachs[1]);
+//                            RewardParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RewardParamVo.class);
+//                            RewardStatement rs = new RewardStatement();
+//                            BeanUtils.copyProperties(rs, rpv);
+//                            rs.setCreateTime(new Date());
+//                            rs.setPayType(Payment.WECHATPAY.getCode());//
+//                            rs.setOrderNo(out_trade_no);
+//                            rs.setPrice((new Double(wxcpPayFlow.getTotal_fee()) / 100));
+//                            rs.setChannel(1);
+//                            rs.setStatus(1);
+//                            //rewardService.insert(rs);
+//                            wxcpPayFlow.setUser_id(rpv.getUserId());
+//                            wxcpPayFlow.setSubject(rpv.getSubject());
+//                            wxcpPayFlowService.insert(wxcpPayFlow);
+//                            userCoinService.updateBalanceForReward(rs);
+//                            res.getWriter().write(tell_ok);
+//                            LOGGER.info("打赏回调打印:" + json);
                             //	}
                         } else if ("order".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);

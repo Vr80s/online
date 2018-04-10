@@ -1,34 +1,27 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
@@ -36,15 +29,13 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.po.RewardStatement;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
+import com.xczhihui.bxg.online.common.domain.RewardStatement;
+import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.AlipayPaymentRecord;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.Reward;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
@@ -52,8 +43,6 @@ import com.xczhihui.bxg.online.web.exception.XcApiException;
 import com.xczhihui.bxg.online.web.service.AliPayPaymentRecordService;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.service.RewardService;
-import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
-import com.xczhihui.bxg.online.web.utils.XMLUtil;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.bxg.online.web.vo.OrderParamVo;
 import com.xczhihui.bxg.online.web.vo.RewardParamVo;
@@ -498,77 +487,5 @@ public class AlipayController {
 
         }
     }
-
-    /**
-     * wechat系统支付成功回调
-     *
-     * @param request
-     * @param response
-     * @throws Exception
-     */
-//    @ResponseBody
-//    @RequestMapping(value = "/pay_notify_alipay")
-//    public Object pay_notify_wechat(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        try {
-//            // 读取参数
-//            InputStream inputStream = request.getInputStream();
-//            StringBuffer sb = new StringBuffer();
-//            String str = null;
-//            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-//            while ((str = in.readLine()) != null) {
-//                sb.append(str);
-//            }
-//            in.close();
-//            inputStream.close();
-//
-//            // 解析xml成map
-//            Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
-//            if (m != null && !m.isEmpty()) {
-//                // 过滤空 设置 TreeMap
-//                SortedMap<Object, Object> packageParams = new TreeMap<>();
-//                for (Map.Entry<String, String> e : m.entrySet()) {
-//                    if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
-//                        packageParams.put(e.getKey(), e.getValue());
-//                    }
-//                }
-//                if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
-//                    String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
-//                    String transaction_id = String.valueOf(packageParams.get("transaction_id"));
-//                    if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null
-//                            && !"".equals(transaction_id.trim())) {
-////                        String s = "out_trade_no=" + out_trade_no + "&result_code=SUCCESS" + "&transaction_id=" + transaction_id + "&KEY=" + OnlineConfig.API_KEY;
-////                        String mysign = CodeUtil.MD5Encode(s).toLowerCase();
-//                        Integer orderStatus = orderService.getOrderStatus(out_trade_no);
-//                        if (orderStatus == 0) {
-//                            //付款成功，如果order未完成
-//                            try {
-//                                //计时
-//                                long current = System.currentTimeMillis();
-//                                //处理订单业务
-//                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, transaction_id);
-//                                logger.info("订单支付成功，订单号:{},用时{}",
-//                                        out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
-//                                //为购买用户发送购买成功的消息通知
-////                                orderService.savePurchaseNotice(weburl, out_trade_no);
-//                            } catch (Exception e) {
-//                                logger.error("用户支付成功，构建课程失败！！！" + out_trade_no + "，错误信息：", e);
-//                            }
-//                        }
-//
-//                    } else {
-//                        logger.error("微信分销系统回调接口，参数错误！！！");
-//                    }
-//                } else {
-//                    logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
-//                    return "error";
-//                }
-//            } else {
-//                return "error";
-//            }
-//            return ResponseObject.newSuccessResponseObject("支付成功！");
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
 
 }

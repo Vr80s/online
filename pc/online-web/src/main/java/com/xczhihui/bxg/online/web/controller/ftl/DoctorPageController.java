@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.online.common.enums.DoctorType;
+import com.xczhihui.bxg.common.util.enums.DoctorType;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;

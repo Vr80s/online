@@ -4,16 +4,16 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
 /**
  * 教师VO
+ * 
  * @author yxd
  */
 
 public class LecturerVo {
 
 	private int id;
-	
+
 	/**
 	 * 讲师名
 	 */
@@ -23,7 +23,7 @@ public class LecturerVo {
 	 */
 	private String nickname;
 	/**
-	 *讲师介绍信息
+	 * 讲师介绍信息
 	 */
 	private String description;
 
@@ -36,17 +36,17 @@ public class LecturerVo {
 	 * 头像
 	 */
 	private String headImg;
-	
+
 	/**
 	 * 角色
 	 */
 	private String roleType;
-	
+
 	/**
 	 * 角色名称
 	 */
 	private String roleTypeName;
-	
+
 	/**
 	 * 所属学科id
 	 */
@@ -55,12 +55,12 @@ public class LecturerVo {
 	 * 所属学科
 	 */
 	private String menuName;
-	
+
 	/**
 	 * 班级数量
 	 */
 	private Integer gradeCount;
-	
+
 	private String teachRecords;
 	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
 	private Date createTime;
@@ -168,7 +168,5 @@ public class LecturerVo {
 	public void setGradeCount(Integer gradeCount) {
 		this.gradeCount = gradeCount;
 	}
-	
-	
-	
+
 }

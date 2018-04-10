@@ -88,7 +88,7 @@ public class MobileShareController {
 				if(courseLectur==null){
 					return ResponseObject.newErrorResponseObject("课程信息有误");
 				}
-				courseLectur.setGradeName("中医好课程："+courseLectur.getGradeName());
+				courseLectur.setGradeName("中医好课程:"+courseLectur.getGradeName());
 				if(courseLectur.getDescription()!=null){
 					String description = courseLectur.getDescription();
 					description = XzStringUtils.delHTMLTag(description);
@@ -105,7 +105,7 @@ public class MobileShareController {
 				/*
 				 * 课程名增加一个中医好课程  
 				 */
-				lectur.setName("中医好主播："+lectur.getName());
+				lectur.setName("中医好主播:"+lectur.getName());
 				
 				if(lectur.getDescription()!=null){
 					String description = lectur.getDescription();

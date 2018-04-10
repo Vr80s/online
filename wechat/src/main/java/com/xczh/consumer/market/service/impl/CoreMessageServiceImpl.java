@@ -4,23 +4,30 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.controller.user.XzUserController;
 import com.xczh.consumer.market.service.CoreMessageService;
+import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
+import com.xczh.consumer.market.utils.DateUtil;
 import com.xczh.consumer.market.utils.MessageConstant;
 import com.xczh.consumer.market.utils.MessageUtil;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.wxmessage.resp.Article;
 import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
 import com.xczh.consumer.market.wxmessage.resp.TextMessage;
+import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
@@ -36,6 +43,9 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	
 	@Value("${wechatpay.gzh_appid}")
 	private String gzh_appid;
+	
+	@Autowired
+	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 	
 	//https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
 	
@@ -114,86 +124,217 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             	
         	  if(scan.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)){  // 关注公众号事件
         		  
-        		  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
         		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                  Article article = new Article();  
-                  article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
-                  article.setDescription("");  
-                  article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
-                  article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
-                  articleList.add(article);
-                  // 设置图文消息个数  
-                  newsMessage.setArticleCount(articleList.size());  
-                  // 设置图文消息包含的图文集合  
-                  newsMessage.setArticles(articleList);  
-                  // 将图文消息对象转换成xml字符串  
-                  respMessage = MessageUtil.newsMessageToXml(newsMessage); 
-                  
-//				  newsMessage.setMedia_id("6y0EBrCsG4Si29EjR7_uAPKHf5fHnte_6__89Y0IiyA");
-        		  /*
-        		   * 保存用户微信信息
-        		   */
-        		  String token =SingleAccessToken.getInstance().getAccessToken().getToken();
         		  
-//        	      String url = MessageConstant.UNIONID_USERINFO.replace("APPSECRET", token).replace("OPENID", fromUserName);
-        	      //保存用户信息
-//        	      StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-//        			System.out.println("getUserManagerGetInfo:"+buffer.toString());
-//        			return buffer.toString();
+        		   /*
+        		    * 保存用户微信信息
+        		    */
+					String token = SingleAccessToken.getInstance()
+							.getAccessToken().getToken();
+        		  
         	      
-        		String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
-        		  
-        		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
-    			String openid_ = (String)jsonObject.get("openid");
-    			String nickname_ = (String)jsonObject.get("nickname");
-    			nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
-    			String sex_ = String.valueOf(jsonObject.get("sex"));
-    			String language_ = (String)jsonObject.get("language");
-    			String city_ = (String)jsonObject.get("city");
-    			String province_ = (String)jsonObject.get("province");
-    			String country_ = (String)jsonObject.get("country");
-    			String headimgurl_ = (String)jsonObject.get("headimgurl");
-    			String unionid_ = (String)jsonObject.get("unionid");
-    			
+	        		String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
+	        		  
+	        		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
+	    			String openid_ = (String)jsonObject.get("openid");
+	    			String nickname_ = (String)jsonObject.get("nickname");
+	    			nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
+	    			
+	    			String subscribe = String.valueOf(jsonObject.get("subscribe"));
+	    			String sex_ = String.valueOf(jsonObject.get("sex"));
+	    			String language_ = (String)jsonObject.get("language");
+	    			String city_ = (String)jsonObject.get("city");
+	    			String province_ = (String)jsonObject.get("province");
+	    			String country_ = (String)jsonObject.get("country");
+	    			String headimgurl_ = (String)jsonObject.get("headimgurl");
+	    			
+	    			Integer subscribe_time = (Integer)jsonObject.get("subscribe_time");
+	    			String unionid_ = (String)jsonObject.get("unionid");
+	    			
+	    			String remark = (String)jsonObject.get("remark");
+	    			Integer groupid = (Integer)jsonObject.get("groupid");
+	    			//JSONArray tagid_list = (JSONArray)jsonObject.get("tagid_list");
+	    			
+	    			String subscribe_scene = (String)jsonObject.get("subscribe_scene");
+	    			Integer qr_scene = (Integer)jsonObject.get("qr_scene");
+	    			String qr_scene_str = (String)jsonObject.get("qr_scene_str");
+	    	
+	    			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
+	    			
+	    			if(null == m){
+	    				
+	    				String public_id = WxPayConst.gzh_appid ;
+	    				String public_name = WxPayConst.appid4name ;
+	    				
+	    				WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
+	    				wxcpClientUserWxMapping.setWx_id(UUID.randomUUID().toString().replace("-", ""));
+	    				wxcpClientUserWxMapping.setWx_public_id(public_id);
+	    				wxcpClientUserWxMapping.setWx_public_name(public_name);
+	    				wxcpClientUserWxMapping.setOpenid(openid_);
+	    				wxcpClientUserWxMapping.setNickname(nickname_);
+	    				wxcpClientUserWxMapping.setSex(sex_);
+	    				wxcpClientUserWxMapping.setLanguage(language_);
+	    				wxcpClientUserWxMapping.setCity(city_);
+	    				wxcpClientUserWxMapping.setProvince(province_);
+	    				wxcpClientUserWxMapping.setCountry(country_);
+	    				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
+	    				wxcpClientUserWxMapping.setProvince(province_);
+	    				wxcpClientUserWxMapping.setUnionid(unionid_);
+	    				wxcpClientUserWxMapping.setSubscribe(subscribe);
+	    				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
+	    				wxcpClientUserWxMapping.setRemark(remark);
+	    				wxcpClientUserWxMapping.setGroupid(groupid+"");
+	    				//wxcpClientUserWxMapping.setTagid_list(tagid_list.toString());
+	    				wxcpClientUserWxMapping.setSubscribe_scene(subscribe_scene);
+	    				wxcpClientUserWxMapping.setQr_scene(qr_scene+"");
+	    				wxcpClientUserWxMapping.setQr_scene_str(qr_scene_str);
+	    			    wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
+	    			    
+	    			    
+//	    			    Integer qr_scene = (Integer)jsonObject.get("qr_scene");
+//		    			String qr_scene_str = (String)jsonObject.get("qr_scene_str");    
+	    			    
+	    			}else if(m!=null && (qr_scene!=null || qr_scene_str!=null)){
+	      				
+	      				m.setGroupid(groupid+"");
+	      				//m.setTagid_list(tagid_list);
+	      				m.setSubscribe_scene(subscribe_scene);
+	      				m.setQr_scene(qr_scene+"");
+	      				m.setQr_scene_str(qr_scene_str);
+	      				m.setLast_update_time(new Date());
+	      				
+	      			    wxcpClientUserWxMappingService.update(m);
+	      			}
+        	      
         		
-    			
-    			
-    			
-        	      
-        		respMessage = MessageUtil.newsMessageToXml(newsMessage); 
+	        		  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
+	                  Article article = new Article();  
+	                  article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
+	                  article.setDescription("");  
+	                  article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
+	                  article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
+	                  articleList.add(article);
+	                  // 设置图文消息个数  
+	                  newsMessage.setArticleCount(articleList.size());  
+	                  // 设置图文消息包含的图文集合  
+	                  newsMessage.setArticles(articleList);  
+	                  // 将图文消息对象转换成xml字符串  
+	                  respMessage = MessageUtil.newsMessageToXml(newsMessage); 
+	                  
+	    			
 
         	  }else if(scan.equals(MessageConstant.EVENT_TYPE_UNSUBSCRIBE)){  //取消公众号事件
               	
              	   LOGGER.info("有人取消关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+             	   
+             	   String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+             	   
+                   String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);  
+                   JSONObject jsonObject = JSONObject.fromObject(user_buffer);
+                   
+             	   WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(fromUserName);
+    				
+             	   if(null!=m){
+             		  String subscribe = String.valueOf(jsonObject.get("subscribe"));
+             		  m.setSubscribe(subscribe); 
+             		  m.setLast_update_time(new Date());
+             		  wxcpClientUserWxMappingService.update(m);
+             	   }
               
         	  }else if(scan.equals(MessageConstant.EVENT_TYPE_SCAN)){
              	
-             	  LOGGER.info("有人了扫二维码了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+             	LOGGER.info("有人了扫二维码了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
              	 
-                  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);   
+                newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);   
              	 
-//               Article article = new Article();  
-//               article.setTitle("扫码关注---》弘扬中医药文化，助力中医药产业。【熊猫中医】与您，一路同行。");  
-//               article.setDescription("感谢关注【熊猫国医学堂】点击【国医学堂】进入【熊猫中医课堂】，即可观看现有中医课程。点击【个人中心】 可以查看自己的账户情况。【熊猫中医在线云课堂】，打破时间空间的限制，学习最适合你的中医。");  
-//               article.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
-//               article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
-//              
-//               Article article1 = new Article();  
-//               article1.setTitle("啦啦啦啦啦啦，我是卖报的小画家！");  
-//               article1.setDescription("啦啦啦啦啦啦，我是卖报的小画家！");  
-//               article1.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
-//               article1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
-//              
-//               articleList.add(article); 
-//               articleList.add(article1); 
-//               
-//               // 设置图文消息个数  
-//               newsMessage.setArticleCount(articleList.size());  
-//               // 设置图文消息包含的图文集合  
-//               newsMessage.setArticles(articleList);  
-//               // 将图文消息对象转换成xml字符串  
-//               respMessage = MessageUtil.newsMessageToXml(newsMessage); 
-             	 
+                String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+                
+                String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
+        		  
+          		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
+      			String openid_ = (String)jsonObject.get("openid");
+      			String nickname_ = (String)jsonObject.get("nickname");
+      			nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
+      			
+      			String subscribe = String.valueOf(jsonObject.get("subscribe"));
+      			String sex_ = String.valueOf(jsonObject.get("sex"));
+      			String language_ = (String)jsonObject.get("language");
+      			String city_ = (String)jsonObject.get("city");
+      			String province_ = (String)jsonObject.get("province");
+      			String country_ = (String)jsonObject.get("country");
+      			String headimgurl_ = (String)jsonObject.get("headimgurl");
+      			
+      			Integer subscribe_time = (Integer)jsonObject.get("subscribe_time");
+      			String unionid_ = (String)jsonObject.get("unionid");
+      			
+      			String remark = (String)jsonObject.get("remark");
+      			Integer groupid = (Integer)jsonObject.get("groupid");
+      			//String tagid_list = (String)jsonObject.get("tagid_list");
+      			
+      			String subscribe_scene = (String)jsonObject.get("subscribe_scene");
+      			Integer qr_scene = (Integer)jsonObject.get("qr_scene");
+      			String qr_scene_str = (String)jsonObject.get("qr_scene_str");
+      	
+      			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
+      			
+      			String public_id = WxPayConst.gzh_appid ;
+  				String public_name = WxPayConst.appid4name ;
+  				
+      			if(null == m){  //
+      				
+      				WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
+      				wxcpClientUserWxMapping.setWx_id(UUID.randomUUID().toString().replace("-", ""));
+      				wxcpClientUserWxMapping.setWx_public_id(public_id);
+      				wxcpClientUserWxMapping.setWx_public_name(public_name);
+      				wxcpClientUserWxMapping.setOpenid(openid_);
+      				wxcpClientUserWxMapping.setNickname(nickname_);
+      				wxcpClientUserWxMapping.setSex(sex_);
+      				wxcpClientUserWxMapping.setLanguage(language_);
+      				wxcpClientUserWxMapping.setCity(city_);
+      				wxcpClientUserWxMapping.setProvince(province_);
+      				wxcpClientUserWxMapping.setCountry(country_);
+      				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
+      				wxcpClientUserWxMapping.setProvince(province_);
+      				wxcpClientUserWxMapping.setUnionid(unionid_);
+      				wxcpClientUserWxMapping.setSubscribe(subscribe);
+      				wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time+"", DateUtil.FORMAT_CHINA_DAY_TIME));
+      				wxcpClientUserWxMapping.setRemark(remark);
+      				wxcpClientUserWxMapping.setGroupid(groupid+"");
+      				//wxcpClientUserWxMapping.setTagid_list(tagid_list);
+      				wxcpClientUserWxMapping.setSubscribe_scene(subscribe_scene);
+      				wxcpClientUserWxMapping.setQr_scene(qr_scene+"");
+      				wxcpClientUserWxMapping.setQr_scene_str(qr_scene_str);
+      				wxcpClientUserWxMapping.setCreate_time(new Date());
+      				wxcpClientUserWxMapping.setLast_update_time(new Date());
+      				
+      			    wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
+      			    
+      			}else if(m!=null && (qr_scene!=null || qr_scene_str!=null)){
+      				
+      				m.setGroupid(groupid+"");
+      				//m.setTagid_list(tagid_list);
+      				m.setSubscribe_scene(subscribe_scene);
+      				m.setQr_scene(qr_scene+"");
+      				m.setQr_scene_str(qr_scene_str);
+      				m.setLast_update_time(new Date());
+      				
+      			    wxcpClientUserWxMappingService.update(m);
+      			}
+                  
+      		    newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
+      		    LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Article article = new Article();  
+                article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
+                article.setDescription("");  
+                article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
+                article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
+                articleList.add(article);
+                // 设置图文消息个数  
+                newsMessage.setArticleCount(articleList.size());  
+                // 设置图文消息包含的图文集合  
+                newsMessage.setArticles(articleList);  
+                // 将图文消息对象转换成xml字符串  
+                respMessage = MessageUtil.newsMessageToXml(newsMessage); 
              	 
               }
             }

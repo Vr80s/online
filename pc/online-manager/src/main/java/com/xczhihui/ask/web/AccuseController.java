@@ -32,77 +32,85 @@ import com.xczhihui.user.center.utils.CodeUtil;
 @RequestMapping(value = "/ask/accuse")
 public class AccuseController {
 
-    @Autowired
-    private AccuseService accuseService;
+	@Autowired
+	private AccuseService accuseService;
 
-    @Value("${online.web.url}")
-    private String weburl;
+	@Value("${online.web.url}")
+	private String weburl;
 
-    /**
-     * 问答管理
-     *
-     * @return
-     */
-    @RequestMapping(value = "/index")
-    public ModelAndView index(HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView("ask/accuse");
-        mav.addObject("md5UserName", CodeUtil.MD5Encode(CodeUtil.MD5Encode(ManagerUserUtil.getUsername() + "WWW.ixincheng.com20161021")));
-        weburl = (weburl == null) ? "http://www.ixincheng.com" : weburl;
-        request.setAttribute("weburl", weburl);
-        return mav;
-    }
+	/**
+	 * 问答管理
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/index")
+	public ModelAndView index(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("ask/accuse");
+		mav.addObject(
+				"md5UserName",
+				CodeUtil.MD5Encode(CodeUtil.MD5Encode(ManagerUserUtil
+						.getUsername() + "WWW.ixincheng.com20161021")));
+		weburl = (weburl == null) ? "http://www.ixincheng.com" : weburl;
+		request.setAttribute("weburl", weburl);
+		return mav;
+	}
 
-    //@RequiresPermissions("ask:accuse")
-    @RequestMapping(value = "/findAccuseList", method = RequestMethod.POST)
-    @ResponseBody
-    public TableVo findQuestionList(TableVo tableVo) {
-        int pageSize = tableVo.getiDisplayLength();
-        int index = tableVo.getiDisplayStart();
-        int currentPage = index / pageSize + 1;
-        String params = tableVo.getsSearch();
-        Groups groups = Tools.filterGroup(params);
-        Group accuseTypeGroup = groups.findByName("accuseType");
-        Group statusGroup = groups.findByName("status");
-        Group contentGroup = groups.findByName("content");
-        Group startTimeGroup = groups.findByName("startTime");
-        Group stopTimeGroup = groups.findByName("stopTime");
-//         
-        AccuseVo searchVo = new AccuseVo();
-        if (accuseTypeGroup != null) {
-            searchVo.setAccuseType(accuseTypeGroup.getPropertyValue1().toString());
-        }
-        if (statusGroup != null) {
-            searchVo.setStatus(Integer.parseInt(statusGroup.getPropertyValue1().toString()));
-        }
-        if (contentGroup != null) {
-            searchVo.setContent(contentGroup.getPropertyValue1().toString());
-        }
-        if (startTimeGroup != null) {
-            searchVo.setStartTime(DateUtil.parseDate(startTimeGroup.getPropertyValue1().toString(), "yyyy-MM-dd"));
-        }
-        if (stopTimeGroup != null) {
-            searchVo.setStopTime(DateUtil.parseDate(stopTimeGroup.getPropertyValue1().toString(), "yyyy-MM-dd"));
-        }
-        Page<AccuseVo> page = accuseService.findAccusePage(searchVo, currentPage, pageSize);
+	// @RequiresPermissions("ask:accuse")
+	@RequestMapping(value = "/findAccuseList", method = RequestMethod.POST)
+	@ResponseBody
+	public TableVo findQuestionList(TableVo tableVo) {
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
+		Group accuseTypeGroup = groups.findByName("accuseType");
+		Group statusGroup = groups.findByName("status");
+		Group contentGroup = groups.findByName("content");
+		Group startTimeGroup = groups.findByName("startTime");
+		Group stopTimeGroup = groups.findByName("stopTime");
+		//
+		AccuseVo searchVo = new AccuseVo();
+		if (accuseTypeGroup != null) {
+			searchVo.setAccuseType(accuseTypeGroup.getPropertyValue1()
+					.toString());
+		}
+		if (statusGroup != null) {
+			searchVo.setStatus(Integer.parseInt(statusGroup.getPropertyValue1()
+					.toString()));
+		}
+		if (contentGroup != null) {
+			searchVo.setContent(contentGroup.getPropertyValue1().toString());
+		}
+		if (startTimeGroup != null) {
+			searchVo.setStartTime(DateUtil.parseDate(startTimeGroup
+					.getPropertyValue1().toString(), "yyyy-MM-dd"));
+		}
+		if (stopTimeGroup != null) {
+			searchVo.setStopTime(DateUtil.parseDate(stopTimeGroup
+					.getPropertyValue1().toString(), "yyyy-MM-dd"));
+		}
+		Page<AccuseVo> page = accuseService.findAccusePage(searchVo,
+				currentPage, pageSize);
 
-        int total = page.getTotalCount();
-        tableVo.setAaData(page.getItems());
-        tableVo.setiTotalDisplayRecords(total);
-        tableVo.setiTotalRecords(total);
-        return tableVo;
-    }
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+	}
 
-    //@RequiresPermissions("ask:accuse")
-    @RequestMapping(value = "/checkAccuseStatus", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseObject checkAccuseStatus(AccuseVo accuseVo) {
-        ResponseObject responseObject = new ResponseObject();
-        if (accuseService.checkAccuseStatus(accuseVo)) {//已经处理
-            responseObject.setSuccess(true);
-            responseObject.setErrorMessage("该投诉已经处理!");
-        } else {
-            responseObject.setSuccess(false);
-        }
-        return responseObject;
-    }
+	// @RequiresPermissions("ask:accuse")
+	@RequestMapping(value = "/checkAccuseStatus", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseObject checkAccuseStatus(AccuseVo accuseVo) {
+		ResponseObject responseObject = new ResponseObject();
+		if (accuseService.checkAccuseStatus(accuseVo)) {// 已经处理
+			responseObject.setSuccess(true);
+			responseObject.setErrorMessage("该投诉已经处理!");
+		} else {
+			responseObject.setSuccess(false);
+		}
+		return responseObject;
+	}
 }

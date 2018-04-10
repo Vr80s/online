@@ -17,19 +17,21 @@ import com.xczhihui.course.dao.ProjectTypeDao;
  * @author snow
  */
 @Service("projectTypeService")
-public class ProjectTypeServiceImpl extends OnlineBaseServiceImpl implements ProjectTypeService {
+public class ProjectTypeServiceImpl extends OnlineBaseServiceImpl implements
+		ProjectTypeService {
 	@Autowired
 	private ProjectTypeDao projectTypeDao;
 
 	@Override
 	public Page<Project> findProjectPage(Project project, int pageNumber,
 			int pageSize) {
-		Page<Project> page = projectTypeDao.findProjectPage(project, pageNumber, pageSize);
+		Page<Project> page = projectTypeDao.findProjectPage(project,
+				pageNumber, pageSize);
 		return page;
 	}
 
 	@Override
-	public Project findProjectTypeByNameAndByType(String name,Integer type) {
+	public Project findProjectTypeByNameAndByType(String name, Integer type) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Project.class);
 		dc.add(Restrictions.eq("name", name));
 		dc.add(Restrictions.eq("type", type));
@@ -45,12 +47,12 @@ public class ProjectTypeServiceImpl extends OnlineBaseServiceImpl implements Pro
 	public void save(Project project) {
 		projectTypeDao.save(project);
 	}
-	
+
 	@Override
 	public void update(Project project) {
 		projectTypeDao.update(project);
 	}
-	
+
 	@Override
 	public Project findById(String parseInt) {
 		return projectTypeDao.findById(parseInt);
@@ -65,55 +67,55 @@ public class ProjectTypeServiceImpl extends OnlineBaseServiceImpl implements Pro
 	@Override
 	public String deletes(String[] _ids) {
 		String msg = "";
-        for(String id:_ids){
-        	msg = projectTypeDao.deleteById(id);
-        }
-        return  msg;
+		for (String id : _ids) {
+			msg = projectTypeDao.deleteById(id);
+		}
+		return msg;
 	}
 
 	@Override
 	public void updateStatus(String id) {
 		// TODO Auto-generated method stub
-		Project scoreType=projectTypeDao.findById(id);
-        if(scoreType.getStatus()!=null&&scoreType.getStatus()==1){
-        	scoreType.setStatus(0);
-        }else{
-        	scoreType.setStatus(1);
-        }
-        projectTypeDao.update(scoreType);
+		Project scoreType = projectTypeDao.findById(id);
+		if (scoreType.getStatus() != null && scoreType.getStatus() == 1) {
+			scoreType.setStatus(0);
+		} else {
+			scoreType.setStatus(1);
+		}
+		projectTypeDao.update(scoreType);
 	}
 
 	@Override
 	public void updateSortUp(Integer id) {
-		 String hqlPre="from Project where  isDelete=0 and status = 1 and id = ?";
-		 Project ProjectPre= dao.findByHQLOne(hqlPre,new Object[] {id});
-         Integer ProjectPreSort=ProjectPre.getSort();
-         
-         String hqlNext="from Project where sort < (select sort from Project where id= ? )  and isDelete=0 and status = 1 order by sort desc";
-         Project ProjectNext= dao.findByHQLOne(hqlNext,new Object[] {id});
-         Integer ProjectNextSort=ProjectNext.getSort();
-         
-         ProjectPre.setSort(ProjectNextSort);
-         ProjectNext.setSort(ProjectPreSort);
-         
-         dao.update(ProjectPre);
-         dao.update(ProjectNext);
+		String hqlPre = "from Project where  isDelete=0 and status = 1 and id = ?";
+		Project ProjectPre = dao.findByHQLOne(hqlPre, new Object[] { id });
+		Integer ProjectPreSort = ProjectPre.getSort();
+
+		String hqlNext = "from Project where sort < (select sort from Project where id= ? )  and isDelete=0 and status = 1 order by sort desc";
+		Project ProjectNext = dao.findByHQLOne(hqlNext, new Object[] { id });
+		Integer ProjectNextSort = ProjectNext.getSort();
+
+		ProjectPre.setSort(ProjectNextSort);
+		ProjectNext.setSort(ProjectPreSort);
+
+		dao.update(ProjectPre);
+		dao.update(ProjectNext);
 	}
 
 	@Override
 	public void updateSortDown(Integer id) {
-		 String hqlPre="from Project where  isDelete=0 and status = 1 and id = ?";
-		 Project ProjectPre= dao.findByHQLOne(hqlPre,new Object[] {id});
-         Integer ProjectPreSort=ProjectPre.getSort();
-         String hqlNext="from Project where sort > (select sort from Project where id= ? )  and isDelete=0 and status = 1 order by sort asc";
-         Project ProjectNext= dao.findByHQLOne(hqlNext,new Object[] {id});
-         Integer ProjectNextSort=ProjectNext.getSort();
-         
-         ProjectPre.setSort(ProjectNextSort);
-         ProjectNext.setSort(ProjectPreSort);
-         
-         dao.update(ProjectPre);
-         dao.update(ProjectNext);
+		String hqlPre = "from Project where  isDelete=0 and status = 1 and id = ?";
+		Project ProjectPre = dao.findByHQLOne(hqlPre, new Object[] { id });
+		Integer ProjectPreSort = ProjectPre.getSort();
+		String hqlNext = "from Project where sort > (select sort from Project where id= ? )  and isDelete=0 and status = 1 order by sort asc";
+		Project ProjectNext = dao.findByHQLOne(hqlNext, new Object[] { id });
+		Integer ProjectNextSort = ProjectNext.getSort();
+
+		ProjectPre.setSort(ProjectNextSort);
+		ProjectNext.setSort(ProjectPreSort);
+
+		dao.update(ProjectPre);
+		dao.update(ProjectNext);
 	}
-	
+
 }

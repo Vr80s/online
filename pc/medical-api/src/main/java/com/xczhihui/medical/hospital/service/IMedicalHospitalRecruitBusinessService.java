@@ -1,12 +1,10 @@
 package com.xczhihui.medical.hospital.service;
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.medical.hospital.model.MedicalHospitalRecruit;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -49,22 +47,22 @@ public interface IMedicalHospitalRecruitBusinessService {
 
     /**
      * 新增医馆招聘
-     *
+     *20180409--yuxin--修改参数，去除onlineUser
      * @param medicalHospitalRecruit 招聘信息
-     * @param onlineUser             操作用户
+     * @param userId             操作用户
+     *
      * @return
      */
-    ResponseObject save(MedicalHospitalRecruit medicalHospitalRecruit, OnlineUser onlineUser);
+    void save(MedicalHospitalRecruit medicalHospitalRecruit, String userId);
 
     /**
      * 更新医馆招聘
-     *
+     *20180409--yuxin--修改参数，去除onlineUser
      * @param id                     招聘信息id
      * @param medicalHospitalRecruit 招聘信息
-     * @param onlineUser             操作用户
      * @return
      */
-    ResponseObject update(String id, MedicalHospitalRecruit medicalHospitalRecruit, OnlineUser onlineUser);
+    void update(String id, MedicalHospitalRecruit medicalHospitalRecruit);
 
     /**
      * 更新招聘信息的状态
@@ -73,7 +71,7 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @param status 更新的状态 true->发布 false -> 关闭
      * @return
      */
-    ResponseObject updateStatus(String id, boolean status);
+    void updateStatus(String id, boolean status);
 
     /**
      * 逻辑删除招聘信息
@@ -81,7 +79,7 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @param id 招聘信息id
      * @return
      */
-    ResponseObject delete(String id);
+    void delete(String id);
 
     /**
      * 获取招聘信息
@@ -89,5 +87,5 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @param id 招聘信息id
      * @return
      */
-    ResponseObject get(String id);
+    MedicalHospitalRecruit get(String id);
 }

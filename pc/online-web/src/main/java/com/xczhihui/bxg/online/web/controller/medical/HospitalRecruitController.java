@@ -43,21 +43,24 @@ public class HospitalRecruitController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseObject create(@RequestBody @Valid MedicalHospitalRecruitBody medicalHospitalRecruitBody, HttpServletRequest request) {
-        return medicalHospitalRecruitBusinessService.save(medicalHospitalRecruitBody.build(), getOnlineUser(request));
+        medicalHospitalRecruitBusinessService.save(medicalHospitalRecruitBody.build(), getOnlineUser(request).getId());
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseObject update(@PathVariable String id, @RequestBody @Valid MedicalHospitalRecruitBody medicalHospitalRecruitBody, HttpServletRequest request) {
-        return medicalHospitalRecruitBusinessService.update(id, medicalHospitalRecruitBody.build(), getOnlineUser(request));
+        medicalHospitalRecruitBusinessService.update(id, medicalHospitalRecruitBody.build());
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseObject get(@PathVariable String id) {
-        return medicalHospitalRecruitBusinessService.get(id);
+        return ResponseObject.newSuccessResponseObject(medicalHospitalRecruitBusinessService.get(id));
     }
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
     public ResponseObject changeStatus(@PathVariable String id, @PathVariable boolean status) {
-        return medicalHospitalRecruitBusinessService.updateStatus(id, status);
+        medicalHospitalRecruitBusinessService.updateStatus(id, status);
+        return ResponseObject.newSuccessResponseObject("状态修改成功");
     }
 }

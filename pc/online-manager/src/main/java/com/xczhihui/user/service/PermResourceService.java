@@ -61,7 +61,7 @@ public interface PermResourceService {
 	 * @return
 	 */
 	public List<Resource> findResourcesByType(String type);
-	
+
 	/**
 	 * 根据类型，查询用户拥有权限的资源。
 	 * 
@@ -71,7 +71,7 @@ public interface PermResourceService {
 	 * @return
 	 */
 	public List<Resource> findPermitResources(String userId, String type);
-	
+
 	/**
 	 * 判断权限使用是否在使用。
 	 * 

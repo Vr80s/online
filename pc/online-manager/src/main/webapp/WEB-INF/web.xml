@@ -17,7 +17,7 @@
         <param-value>/WEB-INF/conf/logback.xml</param-value>
     </context-param>
     <listener>
-        <listener-class>com.xczhihui.bxg.common.web.listener.LogbackConfigListener</listener-class>
+        <listener-class>com.xczhihui.log.listener.LogbackConfigListener</listener-class>
     </listener>
 
     <context-param>

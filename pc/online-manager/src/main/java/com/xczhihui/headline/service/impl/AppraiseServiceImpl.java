@@ -11,36 +11,29 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.headline.service.AppraiseService;
 
 @Service
-public class AppraiseServiceImpl extends OnlineBaseServiceImpl implements AppraiseService{
+public class AppraiseServiceImpl extends OnlineBaseServiceImpl implements
+		AppraiseService {
 	@Autowired
 	private AppraiseDao appraiseDao;
 
 	@Override
-	public Page<AppraiseVo> findAppraisePage(AppraiseVo appraiseVo, int currentPage, int pageSize) {
+	public Page<AppraiseVo> findAppraisePage(AppraiseVo appraiseVo,
+			int currentPage, int pageSize) {
 		// TODO Auto-generated method stub
-		Page<AppraiseVo> page = appraiseDao.findAppraisePage(appraiseVo, currentPage, pageSize);
+		Page<AppraiseVo> page = appraiseDao.findAppraisePage(appraiseVo,
+				currentPage, pageSize);
 		return page;
 	}
 
 	@Override
-	public void deleteById(String id,String articleId) {
+	public void deleteById(String id, String articleId) {
 		// TODO Auto-generated method stub
 		appraiseDao.deleteById(id);
-		
-		  //修改文章评论数
-        String updateSql="update oe_bxs_article  set comment_sum=comment_sum-1 where  id=:articleId";
-        appraiseDao.getNamedParameterJdbcTemplate().update(updateSql,new MapSqlParameterSource().addValue("articleId", articleId));
+
+		// 修改文章评论数
+		String updateSql = "update oe_bxs_article  set comment_sum=comment_sum-1 where  id=:articleId";
+		appraiseDao.getNamedParameterJdbcTemplate().update(updateSql,
+				new MapSqlParameterSource().addValue("articleId", articleId));
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 }

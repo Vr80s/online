@@ -29,9 +29,10 @@ public class RoleDao extends HibernateDao<Role> {
 	 * @return
 	 */
 	public Set<String> getRoleIds(String userId) {
-		String sql = "select r.id from user_role ur, role r " + "where ur.role_id=r.id and ur.user_id=?";
-		List<String> roles = this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql, String.class,
-				userId);
+		String sql = "select r.id from user_role ur, role r "
+				+ "where ur.role_id=r.id and ur.user_id=?";
+		List<String> roles = this.getNamedParameterJdbcTemplate()
+				.getJdbcOperations().queryForList(sql, String.class, userId);
 		return new HashSet<String>(roles);
 	}
 
@@ -42,9 +43,10 @@ public class RoleDao extends HibernateDao<Role> {
 	 * @return
 	 */
 	public Set<String> getRoleCodes(String userId) {
-		String sql = "select r.code from user_role ur, role r " + "where ur.role_id=r.id and ur.user_id=?";
-		List<String> roles = this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql, String.class,
-				userId);
+		String sql = "select r.code from user_role ur, role r "
+				+ "where ur.role_id=r.id and ur.user_id=?";
+		List<String> roles = this.getNamedParameterJdbcTemplate()
+				.getJdbcOperations().queryForList(sql, String.class, userId);
 		return new HashSet<String>(roles);
 	}
 
@@ -56,7 +58,8 @@ public class RoleDao extends HibernateDao<Role> {
 	 */
 	public void addUserRole(String userId, String roleId) {
 		String sql = "insert into user_role(user_id, role_id) values(?, ?)";
-		this.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, userId, roleId);
+		this.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.update(sql, userId, roleId);
 	}
 
 	/**
@@ -67,7 +70,8 @@ public class RoleDao extends HibernateDao<Role> {
 	 */
 	public void deleteUserRole(String userId, String roleId) {
 		String sql = "delete from user_role where user_id=? and role_id=?";
-		this.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, userId, roleId);
+		this.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.update(sql, userId, roleId);
 	}
 
 	/**
@@ -78,7 +82,8 @@ public class RoleDao extends HibernateDao<Role> {
 	 */
 	public int deleteUserRolesByRoleId(String roleId) {
 		String sql = "delete from user_role where role_id=?";
-		return this.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, roleId);
+		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.update(sql, roleId);
 	}
 
 	/**
@@ -119,7 +124,8 @@ public class RoleDao extends HibernateDao<Role> {
 	 * @param roleIds
 	 */
 	public void addUserRoles(Set<String> userIds, Set<String> roleIds) {
-		if (userIds == null || userIds.size() < 1 || roleIds == null || roleIds.size() < 1) {
+		if (userIds == null || userIds.size() < 1 || roleIds == null
+				|| roleIds.size() < 1) {
 			return;
 		}
 		String sql = "insert into user_role(user_id, role_id) values(?, ?)";
@@ -130,7 +136,8 @@ public class RoleDao extends HibernateDao<Role> {
 				batchArgs.add(args);
 			}
 		}
-		this.getNamedParameterJdbcTemplate().getJdbcOperations().batchUpdate(sql, batchArgs);
+		this.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.batchUpdate(sql, batchArgs);
 	}
 
 	/**
@@ -141,7 +148,8 @@ public class RoleDao extends HibernateDao<Role> {
 	 */
 	public int deleteRoleResources(String roleId) {
 		String sql = "delete from role_resource where role_id=?";
-		return this.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, roleId);
+		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.update(sql, roleId);
 	}
 
 	/**
@@ -151,7 +159,8 @@ public class RoleDao extends HibernateDao<Role> {
 	 * @param resourceIds
 	 */
 	public void addRoleResources(String roleId, Set<String> resourceIds) {
-		if (!StringUtils.hasText(roleId) || resourceIds == null || resourceIds.size() < 1) {
+		if (!StringUtils.hasText(roleId) || resourceIds == null
+				|| resourceIds.size() < 1) {
 			return;
 		}
 		String sql = "insert into role_resource(role_id, resource_id) values(?, ?)";
@@ -160,6 +169,7 @@ public class RoleDao extends HibernateDao<Role> {
 			Object[] args = new Object[] { roleId, rid };
 			batchArgs.add(args);
 		}
-		this.getNamedParameterJdbcTemplate().getJdbcOperations().batchUpdate(sql, batchArgs);
+		this.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.batchUpdate(sql, batchArgs);
 	}
 }

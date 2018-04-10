@@ -200,11 +200,15 @@
 
 									<div class="doc_address">
 										<span><em>*</em>城市</span>
-										<select name="" id="choosePro" onchange="doProvAndCityRelation()">
+										<select name="" id="choosePro" onchange="doProvAndCityRelation(),doCityAndCountyRelation()">
 
 										</select>
 
-										<select name="" id="citys">
+										<select name="" id="citys" onchange="doCityAndCountyRelation()">
+
+										</select>
+										
+										<select name="" id="county">
 
 										</select>
 										<p class="cityWarn warning hide" style="margin-left:110px;padding-left: 0px;">所在城市地址不能为空</p>

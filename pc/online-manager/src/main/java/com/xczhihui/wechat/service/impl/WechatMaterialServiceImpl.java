@@ -18,15 +18,17 @@ import com.xczhihui.bxg.online.common.domain.WechatMediaManager;
 import com.xczhihui.wechat.dao.WechatMaterialDao;
 
 @Service("wechatMaterialService")
-public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements WechatMaterialService {
-
+public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements
+		WechatMaterialService {
 
 	@Autowired
 	private WechatMaterialDao wechatMaterialDao;
 
 	@Override
-	public Page<WechatMaterial> findWechatMaterialPage(WechatMaterial WechatMaterial, int pageNumber, int pageSize) {
-		Page<WechatMaterial> page = wechatMaterialDao.findWechatMaterialPage(WechatMaterial, pageNumber, pageSize);
+	public Page<WechatMaterial> findWechatMaterialPage(
+			WechatMaterial WechatMaterial, int pageNumber, int pageSize) {
+		Page<WechatMaterial> page = wechatMaterialDao.findWechatMaterialPage(
+				WechatMaterial, pageNumber, pageSize);
 		return page;
 	}
 
@@ -44,7 +46,8 @@ public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements 
 
 		if (WechatMaterialId != null) {
 			String hql = "from WechatMaterial where 1=1 and isDelete=0 and id = ?";
-			WechatMaterial wechatMaterial = dao.findByHQLOne(hql, new Object[] { WechatMaterialId });
+			WechatMaterial wechatMaterial = dao.findByHQLOne(hql,
+					new Object[] { WechatMaterialId });
 			if (WechatMaterial != null) {
 				WechatMaterial = new WechatMaterial();
 				WechatMaterial.setId(WechatMaterial.getId());
@@ -61,26 +64,27 @@ public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements 
 				+ "FROM `oe_WechatMaterial` og LEFT JOIN `user` u ON u.id = og.`create_person` WHERE og.`is_delete` = 0 ";
 		Map<String, Object> params = new HashMap<String, Object>();
 		if ("".equals(search) || null == search) {
-			List<WechatMaterial> voList = dao.findEntitiesByJdbc(WechatMaterial.class, sql,
-					params);
+			List<WechatMaterial> voList = dao.findEntitiesByJdbc(
+					WechatMaterial.class, sql, params);
 			return voList;
 		}
 		sql += "and og.name like '%" + search + "%'";
-		List<WechatMaterial> voList = dao.findEntitiesByJdbc(WechatMaterial.class, sql, params);
+		List<WechatMaterial> voList = dao.findEntitiesByJdbc(
+				WechatMaterial.class, sql, params);
 		return voList;
 	}
 
 	@Override
 	public void addWechatMaterial(WechatMaterial WechatMaterial) {
-		
+
 		dao.save(WechatMaterial);
 	}
 
 	@Override
-	public void updateWechatMaterial(WechatMaterial WechatMaterial) throws IllegalAccessException,
-			InvocationTargetException {
-		WechatMaterial wechatMaterial = dao.findOneEntitiyByProperty(WechatMaterial.class, "id",
-				WechatMaterial.getId());
+	public void updateWechatMaterial(WechatMaterial WechatMaterial)
+			throws IllegalAccessException, InvocationTargetException {
+		WechatMaterial wechatMaterial = dao.findOneEntitiyByProperty(
+				WechatMaterial.class, "id", WechatMaterial.getId());
 		WechatMaterial.setCreatePerson(WechatMaterial.getCreatePerson());
 		WechatMaterial.setCreateTime(new Date());
 		BeanUtils.copyProperties(WechatMaterial, WechatMaterial);
@@ -90,7 +94,8 @@ public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements 
 	@Override
 	public void updateStatus(Integer id) {
 		String hql = "from WechatMaterial where 1=1 and isDelete=0 and id = ?";
-		WechatMaterial WechatMaterial = dao.findByHQLOne(hql, new Object[] { id });
+		WechatMaterial WechatMaterial = dao.findByHQLOne(hql,
+				new Object[] { id });
 
 		dao.update(WechatMaterial);
 	}
@@ -103,10 +108,12 @@ public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements 
 	@Override
 	public void updateSortUp(Integer id) {
 		String hqlPre = "from WechatMaterial where  isDelete=0 and id = ?";
-		WechatMaterial WechatMaterialPre = dao.findByHQLOne(hqlPre, new Object[] { id });
+		WechatMaterial WechatMaterialPre = dao.findByHQLOne(hqlPre,
+				new Object[] { id });
 
 		String hqlNext = "from WechatMaterial where sort > (select sort from WechatMaterial where id= ? ) and isDelete=0 and status =1 order by sort asc";
-		WechatMaterial WechatMaterialNext = dao.findByHQLOne(hqlNext, new Object[] { id });
+		WechatMaterial WechatMaterialNext = dao.findByHQLOne(hqlNext,
+				new Object[] { id });
 
 		dao.update(WechatMaterialPre);
 		dao.update(WechatMaterialNext);
@@ -115,7 +122,8 @@ public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements 
 	@Override
 	public void updateSortDown(Integer id) {
 		String hqlPre = "from WechatMaterial where  isDelete=0 and id = ?";
-		WechatMaterial WechatMaterialPre = dao.findByHQLOne(hqlPre, new Object[] { id });
+		WechatMaterial WechatMaterialPre = dao.findByHQLOne(hqlPre,
+				new Object[] { id });
 		dao.update(WechatMaterialPre);
 
 	}
@@ -134,8 +142,8 @@ public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements 
 	}
 
 	public List<WechatMaterial> findByName(String name) {
-		List<WechatMaterial> WechatMaterials = dao.findEntitiesByProperty(WechatMaterial.class, "gradeName",
-				name);
+		List<WechatMaterial> WechatMaterials = dao.findEntitiesByProperty(
+				WechatMaterial.class, "gradeName", name);
 		return WechatMaterials;
 	}
 
@@ -150,12 +158,12 @@ public class WechatMaterialServiceImpl extends OnlineBaseServiceImpl implements 
 				dao.update(WechatMaterial);
 			}
 		}
-		
+
 	}
 
 	@Override
 	public void addWechatMediaManager(WechatMediaManager wechatMediaManager) {
-		
+
 		dao.save(wechatMediaManager);
 	}
 }

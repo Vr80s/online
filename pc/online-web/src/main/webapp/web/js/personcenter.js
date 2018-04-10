@@ -437,6 +437,7 @@ $(function() {
 		//三级联动
 		 '<div class="address-info2 cy-myprofile-myfom-dv-1"> ' +
 	        '<p class="buer"><span></span>所在地区:</p> ' +
+	        
 	        //省
 	        '<select class="Province1" onchange="getCity1()"> ' +
 	        '<option value="volvo">--选择省--</option> ' +
@@ -459,8 +460,20 @@ $(function() {
 //	        '<option value="opel">Opel</option> ' +
 //	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
+	        
+	        
+	        //后修改的三级联动
+//	        '<select name="" id="choosePro2" onchange="doProvAndCityRelation2()">'+
+//			'<option id="choose" value="-1">请选择省</option><option value="110000">北京市</option><option value="120000">天津市</option><option value="130000">河北省</option><option value="140000">山西省</option><option value="150000">内蒙古自治区</option><option value="210000">辽宁省</option><option value="220000">吉林省</option><option value="230000">黑龙江省</option><option value="310000">上海市</option><option value="320000">江苏省</option><option value="330000">浙江省</option><option value="340000">安徽省</option><option value="350000">福建省</option><option value="360000">江西省</option><option value="370000">山东省</option><option value="410000">河南省</option><option value="420000">湖北省</option><option value="430000">湖南省</option><option value="440000">广东省</option><option value="450000">广西壮族自治区</option><option value="460000">海南省</option><option value="500000">重庆市</option><option value="510000">四川省</option><option value="520000">贵州省</option><option value="530000">云南省</option><option value="540000">西藏自治区</option><option value="610000">陕西省</option><option value="620000">甘肃省</option><option value="630000">青海省</option><option value="640000">宁夏回族自治区</option><option value="650000">新疆维吾尔自治区</option>'+
+//			'</select>'+
+//			'<select name="" id="citys2">'+
+//			'<option id="chooseCity" value="-1">请选择市</option>'+
+//			'</select>'+
+	        
 	        '<p class="address_warn  warning" style="display:none;color:red">请填写所在地区信息</p>'+
 	        '</div> ' +
+	        
+	     
 		
 		
 		
@@ -770,28 +783,44 @@ $(function() {
 	        
 	        '<div class="address-info2"> ' +
 	        '<p><span>*</span>所在地区:</p> ' +
-	        //省
-	        '<select class="Province" onchange="getCity()"> ' +
-	        '<option value="volvo">--选择省--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
-	        '</select> ' +
-	        //市
-	        '<select class="City"  onchange="getDistrict()"> ' +
-	        '<option value="volvo" >--选择市--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
-	        '</select> ' +
 	        
-	        //区
-	        '<select class="District"> ' +
-	        '<option value="volvo">--选择区/县--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
-	        '</select> ' +
+	        
+//	        //省
+//	        '<select class="Province" onchange="getCity()"> ' +
+//	        '<option value="volvo">--选择省--</option> ' +
+////	        '<option value="saab">Saab</option> ' +
+////	        '<option value="opel">Opel</option> ' +
+////	        '<option value="audi">Audi</option> ' +
+//	        '</select> ' +
+//	        //市
+//	        '<select class="City"  onchange="getDistrict()"> ' +
+//	        '<option value="volvo" >--选择市--</option> ' +
+////	        '<option value="saab">Saab</option> ' +
+////	        '<option value="opel">Opel</option> ' +
+////	        '<option value="audi">Audi</option> ' +
+//	        '</select> ' +
+//	        
+//	        //区
+//	        '<select class="District"> ' +
+//	        '<option value="volvo">--选择区/县--</option> ' +
+////	        '<option value="saab">Saab</option> ' +
+////	        '<option value="opel">Opel</option> ' +
+////	        '<option value="audi">Audi</option> ' +
+//	        '</select> ' +
+	        
+			'<select name="" id="choosePro" onchange="doProvAndCityRelation(),doCityAndCountyRelation()">'+
+			'<option id="choose" value="-1">请选择省</option><option value="110000">北京市</option><option value="120000">天津市</option><option value="130000">河北省</option><option value="140000">山西省</option><option value="150000">内蒙古自治区</option><option value="210000">辽宁省</option><option value="220000">吉林省</option><option value="230000">黑龙江省</option><option value="310000">上海市</option><option value="320000">江苏省</option><option value="330000">浙江省</option><option value="340000">安徽省</option><option value="350000">福建省</option><option value="360000">江西省</option><option value="370000">山东省</option><option value="410000">河南省</option><option value="420000">湖北省</option><option value="430000">湖南省</option><option value="440000">广东省</option><option value="450000">广西壮族自治区</option><option value="460000">海南省</option><option value="500000">重庆市</option><option value="510000">四川省</option><option value="520000">贵州省</option><option value="530000">云南省</option><option value="540000">西藏自治区</option><option value="610000">陕西省</option><option value="620000">甘肃省</option><option value="630000">青海省</option><option value="640000">宁夏回族自治区</option><option value="650000">新疆维吾尔自治区</option>'+
+			
+			'</select>'+
+			'<select name="" id="citys" onchange="doCityAndCountyRelation()">'+
+			'<option id="chooseCity" value="-1">请选择市</option>'+
+			'</select>'+
+			'<select name="" id="county">'+
+			'<option id="chooseCounty" value="-1">请选择区/县</option>'+
+			'</select>'+
+	        
+	        
+	        
 	        '<p class="address_warn" style="display:none;color:red">请填写所在地区信息</p>'+
 	        '</div> ' +
 	        '<div class="address-info3"> ' +
