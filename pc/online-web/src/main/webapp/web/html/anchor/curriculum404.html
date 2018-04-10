@@ -38,48 +38,9 @@
 	<link rel="stylesheet" href="/web/css/style.css" />
 	<link rel="stylesheet" href="/web/css/anchor/jedate.css?v=ipandatcm_1.2.1">
 	
-	<!--引入下拉二级菜单样式-->
-	<!--<link href="/web/css/anchor/font-awesome.min.css" rel="stylesheet">-->
-	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-	<link rel="stylesheet" href="/web/css/anchor/Twolevelmenu.css" />
 
-	<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
-	<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
-	<!--<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>-->
-	<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
-
-	<!-----引用layer------>
-	<script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
-	<!-----引用layer------>
-	<script type="text/javascript" src="/web/js/helpers.js"></script>
-	<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-
-	<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
-	<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
-	<script src="/web/bootstrap-select/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
-
-	<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
-	<script src="/web/js/anchor/provinces.js"></script>
-	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
-	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/js/anchor/information.js" type="text/javascript" charset="utf-8"></script>
-
-	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
-	<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-
-	<!--修改点击切换隐藏第一二页-->
-	<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="/web/js/swfobject.js"></script>
 	
-	<!--时间插件引入-->
-	<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
 	
 	
 	
@@ -112,6 +73,8 @@
 		<td>
 			{{if course.courseForm != 1}}
 				{{course.courseLength}}'
+			{{else}}
+				无
 			{{/if}}
 		</td>
 		<td>
@@ -160,11 +123,13 @@
 			<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}})">下架</a>
 			{{else}}
 			<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},true)">编辑</a>
 			{{/if}}
 			{{else if course.applyStatus==2}}
-			<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
+			<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 			{{else if course.applyStatus==0}}
-			<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+			<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
 			<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 			{{/if}}
 		</td>
@@ -266,9 +231,11 @@
 			<a href="javascript:;" onclick="confirmCollection(0,{{collection.id}})">下架</a>
 			{{else}}
 			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}})">上架</a>
+			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 			{{/if}}
 			{{else if collection.applyStatus==2}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
+			<a href="javascript:;" onclick="deleteCourse({{collection.id}},1)">删除</a>
 			{{else if collection.applyStatus==0}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 			<a href="javascript:;" onclick="deleteCourse({{collection.id}},1)">删除</a>
@@ -603,9 +570,9 @@
 <!--全局遮罩层-->
 <div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
 
-<div id="blackTip" style="display: none;">
+<!--<div id="blackTip" style="display: none;">
 	保存失败
-</div>
+</div>-->
 
 <div class="wp">
 	<!--左边点击-->
@@ -620,7 +587,7 @@
 			<p>说点什么来彰显你的个性...</p>
 		</div>
 		<!--左边点击nav-->
-		<div class="select_list z hide">
+		<div class="select_list z">
 			<ul style="padding: 0;">
 				<li data-name="School" class="active select-ud">
 					<span class="glyphicon glyphicon-book left_range ino_color" aria-hidden="true"></span><span class="school">学堂<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
@@ -652,44 +619,6 @@
 
 			</ul>
 		</div>
-		
-		
-		<ul id="accordion" class="accordion">
-		<li data-name="menu=1">
-			<div class="link"><i class="glyphicon glyphicon-book left_range"></i>学堂<i class="fa fa-chevron-down"></i></div>
-			<ul class="submenu">
-				<li><a data-name="menu=1-1" href="javascript:;">课程</a></li>
-				<li><a data-name="menu=1-2" href="javascript:;">专辑</a></li>
-				<li><a data-name="menu=1-3" href="javascript:;">直播</a></li>
-				<li><a data-name="menu=1-4" href="javascript:;">资源</a></li>
-			</ul>
-		</li>
-		<li  data-name="menu=2">
-			<div class="link"><i class="iconfont icon-qianbao left_range"></i>我的资产</div>
-			<ul class="submenu">
-				<!--<li><a href="#">Javascript</a></li>
-				<li><a href="#">jQuery</a></li>
-				<li><a href="#">Frameworks javascript</a></li> -->
-			</ul>
-		</li>
-		<li data-name="menu=3">
-			<div class="link"><i class="glyphicon glyphicon-list-alt left_range ino_color"></i>我的收益<i class="fa fa-chevron-down"></i></div>
-			<ul class="submenu">
-				<li><a data-name="menu=3-1" href="javascript:;">课程收益</a></li>
-				<li><a data-name="menu=3-2" href="javascript:;">礼物收益</a></li>
-			</ul>
-		</li>
-		<li data-name="menu=4" ><div class="link"><i class="glyphicon glyphicon-book left_range"></i>账号<i class="fa fa-chevron-down"></i></div>
-			<ul class="submenu">
-				<li><a data-name="menu=4-1" href="javascript:;">认证信息</a></li>
-				<li><a data-name="menu=4-2" href="javascript:;">主播信息</a></li>
-			</ul>
-		</li>
-	
-	</ul>
-		
-		
-		
 	</div>
 	<!--右边内容-->
 	<div class="contentWrap y">
@@ -2557,17 +2486,62 @@
 	
 </div>
 
+
+
+<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/common_msg.js"></script>
+	
+	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
+	<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
+	<!--<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-----引用layer------>
+	<script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
+	<!-----引用layer------>
+	<script type="text/javascript" src="/web/js/helpers.js"></script>
+	<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
+
+	<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
+	<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
+	<script src="/web/bootstrap-select/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
+
+	<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="/web/js/anchor/provinces.js"></script>
+	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
+	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/anchor/information.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+	<!--修改点击切换隐藏第一二页-->
+	<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="/web/js/swfobject.js"></script>
+	
+	<!--时间插件引入-->
+	<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
+
+
+
+
+
+
+
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script type="text/javascript" src="/web/js/placeHolder.js"></script>
 <script type="text/javascript" src="/web/js/cropbox.js"></script>
-<script src="/web/js/anchor/curriculum2.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--主播工作台控制左侧点击事件和判断input为空-->
+<script src="/web/js/anchor/curriculum.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--主播工作台控制左侧点击事件和判断input为空-->
 <script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/curriculum_Account.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/mymoney.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/asset.js" type="text/javascript" charset="UTF-8"></script>
-<script src="/web/js/anchor/Twolevelmenu.js" type="text/javascript" charset="UTF-8"></script>
-
 <script type="text/javascript">
     function numberCk(data) {
         var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
@@ -2635,33 +2609,37 @@
 
 
         //			默认点击学堂
-//      $(".courseP").click();	
-//      if(!localStorage.AnchorsTbl){
-//      	 $(".school").click();
-//      }else{
-//      	 $("#accordion li[data-name="+localStorage.AnchorsTbl+"]").click();
-//      	  $("#accordion li[data-name="+localStorage.AnchorsTbl+"]").addClass('open');
-//      	  $("#accordion li[data-name="+localStorage.AnchorsTbl+"] submenu").style.display="block";
-//      	 //课程
-//      	 if(localStorage.AnchorsTbl == 'School'){
-//      	 	  if(localStorage.AnchorsTbl_School == 'kecheng') $('.littleBox .courseP ').click();
-//	        	 //专辑
-//	        	  if(localStorage.AnchorsTbl_School == 'zhuanji') $('.littleBox .specialP ').click();
-//	        	  //直播
-//	        	  if(localStorage.AnchorsTbl_School == 'zhibo') $('.littleBox .liveP ').click();
-//	        	  //资源
-//	        	  if(localStorage.AnchorsTbl_School == 'ziyuan') $('.littleBox .resourceP ').click();
-//      	 }else if(localStorage.AnchorsTbl == 'myEarnings'){
-//      	 	//礼物收益
-//      	  if(localStorage.AnchorsTbl_myResive == 'giftResive') $('.littleBoxss .giftResive ').click();
-//      	 }else if(localStorage.AnchorsTbl == 'AccountNumber'){
-//      	 	//认证信息
-////	        	  if(localStorage.AnchorsTbl_accountInf == 'name_news') $('.littleBoxs .name_news ').click();
-//      	 	 //主播信息
-//	        	  if(localStorage.AnchorsTbl_accountInf == 'name_personage') $('.littleBoxs .name_personage ').click();
-//      	 }
-//      }
- 
+//      $(".courseP").click();
+        if(!localStorage.AnchorsTbl){
+        	 $(".school").click();
+        }else{
+        	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
+        	 //课程
+        	 if(localStorage.AnchorsTbl == 'School'){
+        	 	  if(localStorage.AnchorsTbl_School == 'kecheng') $('.littleBox .courseP ').click();
+	        	 //专辑
+	        	  if(localStorage.AnchorsTbl_School == 'zhuanji') $('.littleBox .specialP ').click();
+	        	  //直播
+	        	  if(localStorage.AnchorsTbl_School == 'zhibo') $('.littleBox .liveP ').click();
+	        	  //资源
+	        	  if(localStorage.AnchorsTbl_School == 'ziyuan') $('.littleBox .resourceP ').click();
+        	 }else if(localStorage.AnchorsTbl == 'myEarnings'){
+        	 	//礼物收益
+        	  if(localStorage.AnchorsTbl_myResive == 'giftResive') $('.littleBoxss .giftResive ').click();
+        	 }else if(localStorage.AnchorsTbl == 'AccountNumber'){
+        	 	//认证信息
+//	        	  if(localStorage.AnchorsTbl_accountInf == 'name_news') $('.littleBoxs .name_news ').click();
+        	 	 //主播信息
+	        	  if(localStorage.AnchorsTbl_accountInf == 'name_personage') $('.littleBoxs .name_personage ').click();
+        	 }
+        	  
+        	  
+        	  
+    	 			
+    	 		
+
+        }
+   
        
     };
 </script>
@@ -2899,80 +2877,9 @@
         document.getElementById("uploadswf").start_upload(url); //	调用flash上传函数
     }
     
-      
-   
+    
     
 </script>
 </body>
-<script>	
-//页面进入之后左侧tab定位
-$(function(){
-        $(".courseP").click();	
-		
 
-		if(location.hash == "#menu=1" || location.hash == "#menu=1-1" || location.hash == "#menu=1-2" || location.hash == "#menu=1-3" || location.hash == "#menu=1-4"){
-	    	$("#accordion li[data-name='menu=1']").click();
-	    	$("#accordion li[data-name='menu=1']").addClass('open');
-	    	$("#accordion li[data-name='menu=1'] .submenu").css('display','block')
-    	}
-
-		if(location.hash == "#menu=2"){
-	    	$("#accordion li[data-name='menu=2']").click();
-	    	$("#accordion li[data-name='menu=2']").addClass('open');
-	    	$("#accordion li[data-name='menu=2'] .submenu").css('display','block')
-    	}
-		if(location.hash == "#menu=3" || location.hash == "#menu=3-1" || location.hash == "#menu=3-2"){
-	    	$("#accordion li[data-name='menu=3']").click();
-	    	$("#accordion li[data-name='menu=3']").addClass('open');
-	    	$("#accordion li[data-name='menu=3'] .submenu").css('display','block')
-    	}
-		
-		if(location.hash == "#menu=4" || location.hash == "#menu=4-1" || location.hash == "#menu=4-2"){
-	    	$("#accordion li[data-name='menu=4']").click();
-	    	$("#accordion li[data-name='menu=4']").addClass('open');
-	    	$("#accordion li[data-name='menu=4'] .submenu").css('display','block')
-    	}
-
-	leftTblSta();
-	function leftTblSta(){
-	if(localStorage.leftTblSta == 'menu=1-1'){
-		location.hash = 'menu=1-1';
-		 $("#accordion a[data-name='menu=1-1']").click();
-	}
-	if(localStorage.leftTblSta == 'menu=1-2'){
-		location.hash = 'menu=1-2';
-		 $("#accordion a[data-name='menu=1-2']").click();
-	}
-	if(localStorage.leftTblSta == 'menu=1-3'){
-		location.hash = 'menu=1-3';
-		 $("#accordion a[data-name='menu=1-3']").click();
-	}
-	if(localStorage.leftTblSta == 'menu=1-4'){
-		location.hash = 'menu=1-4';
-		 $("#accordion a[data-name='menu=1-4']").click();
-	}
-	if(localStorage.leftTblSta == 'menu=3-1'){
-		location.hash = 'menu=3-1';
-		 $("#accordion a[data-name='menu=3-1']").click();
-	}
-	if(localStorage.leftTblSta == 'menu=3-2'){
-		location.hash = 'menu=3-2';
-		 $("#accordion a[data-name='menu=3-2']").click();
-	}
-	if(localStorage.leftTblSta == 'menu=4-1'){
-		location.hash = 'menu=4-1';
-		 $("#accordion a[data-name='menu=4-1']").click();
-	}
-	if(localStorage.leftTblSta == 'menu=4-2'){
-		location.hash = 'menu=4-2';
-		 $("#accordion a[data-name='menu=4-2']").click();
-	}
-	//定位之后清楚
-	localStorage.leftTblSta = '';	
-	
-}
-	 
-})
-
-</script>
 </html>
