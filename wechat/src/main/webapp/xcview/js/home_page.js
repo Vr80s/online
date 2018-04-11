@@ -1,3 +1,5 @@
+
+
 var openId = getQueryString("openId");
 if(stringnull(openId)){
     localStorage.setItem("openid",openId);

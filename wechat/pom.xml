@@ -53,6 +53,12 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>online-common</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
 		 <dependency>
             <groupId>jdk.tools</groupId>
             <artifactId>jdk.tools</artifactId>
@@ -702,7 +708,7 @@
 						<filter>src/main/resources/${env}/config.properties</filter>
 					</filters>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
-					<warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes>
+					<!-- <warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes> -->
 				</configuration>
 			</plugin>
 		</plugins>
