@@ -522,7 +522,7 @@
 			                    <td>
 			                       <div class="profile-info-value searchTr">
 			                            <select name="menuName" id="search_menu" value="" class="propertyValue1"  >
-						               		<option value="">学科</option>
+						               		<option value="">课程分类</option>
 						               		<c:forEach var="menus" items="${menuVo}">
 						                        <option value="${menus.id}">${menus.name}</option>
 						                    </c:forEach>
@@ -530,17 +530,17 @@
 			                            <input type="hidden" value="search_menu" class="propertyName"/>
 			                        </div>
 			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="courseTypeId" id="search_scoreType" value="" class="propertyValue1" >
-						               		<option value="">课程类别</option>
-						               		 <c:forEach var="scoreTypes" items="${scoreTypeVo}">
-						                        <option value="${scoreTypes.id}">${scoreTypes.name}</option>
-						                    </c:forEach> 
-						               </select>
-			                            <input type="hidden" value="search_scoreType" class="propertyName"/>
-			                        </div>
-			                    </td>
+			                    <%--<td>--%>
+			                       <%--<div class="profile-info-value searchTr">--%>
+			                            <%--<select name="courseTypeId" id="search_scoreType" value="" class="propertyValue1" >--%>
+						               		<%--<option value="">课程类别</option>--%>
+						               		 <%--<c:forEach var="scoreTypes" items="${scoreTypeVo}">--%>
+						                        <%--<option value="${scoreTypes.id}">${scoreTypes.name}</option>--%>
+						                    <%--</c:forEach> --%>
+						               <%--</select>--%>
+			                            <%--<input type="hidden" value="search_scoreType" class="propertyName"/>--%>
+			                        <%--</div>--%>
+			                    <%--</td>--%>
 
 			                    <td>
 			                        <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
