@@ -1,7 +1,8 @@
 <!-- 导入自定义ftl -->
 <#import "../page.ftl" as cast/>
 <!DOCTYPE html>
-<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html>
+<head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->

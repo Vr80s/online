@@ -1,7 +1,7 @@
 <#import "../page.ftl" as cast/>
 <!DOCTYPE html>
-<!-- saved from url=(0056)http://dev.ixincheng.com/doctors -->
-<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html>
+<head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->
