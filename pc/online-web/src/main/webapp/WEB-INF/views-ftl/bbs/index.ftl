@@ -21,6 +21,8 @@
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
     <script src="/web/js/header-top.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+
 </head>
 <body>
 
@@ -145,13 +147,13 @@
             <#if index < 3>
                 <dd>
                     <i class="topNum">${index+1}</i>
-                    <a href="${hot.id}">${hot.title}</a>
+                    <a href="/bbs/${hot.id}">${hot.title}</a>
                     <span class="hide"><i class="iconfont">&#xe60c;</i></span>
                 </dd>
             <#else >
                 <dd>
                     <i class="botNum">${index+1}</i>
-                    <a href="${hot.id}">${hot.title}</a>
+                    <a href="/bbs/${hot.id}">${hot.title}</a>
                     <span class="hide"><i class="iconfont">&#xe60c;</i></span>
                 </dd>
             </#if>

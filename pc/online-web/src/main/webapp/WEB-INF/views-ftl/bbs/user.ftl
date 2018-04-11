@@ -21,6 +21,8 @@
     <script src="/web/js/header-top.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/jquery.pagination.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+
 </head>
 
 <header>
