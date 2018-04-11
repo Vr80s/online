@@ -65,9 +65,23 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		  /**
 		   * 判断这个记录有没有添加进去，如果有添加进去，需要做更新操作	
 		   */
-		  WatchHistory watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(), target.getCourseId());
+		  
+		 WatchHistory watchHistory =null;	
+		 if(target.getCollectionId()!=null
+					&& target.getCollectionId() !=0 ){
+			 
+			 watchHistory = watchHistoryMapper.
+					 findWatchHistoryByUserIdAndCollectionId(target.getUserId(),target.getCollectionId());	
+		 
+			 watchHistory.setCourseId(target.getCourseId());
+		 }else{
+			 watchHistory = watchHistoryMapper.
+					  findWatchHistoryByUserIdAndCourseId(target.getUserId(),target.getCourseId());	
+		 }
+		
 		  if(watchHistory!=null){
 			  watchHistory.setCreateTime(new Date());
+			  
 			  watchHistoryMapper.updateById(watchHistory);
 		  }else{
 			  try {

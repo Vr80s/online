@@ -22,6 +22,9 @@ public interface WatchHistoryMapper extends BaseMapper<WatchHistory> {
 
 	WatchHistory findWatchHistoryByUserIdAndCourseId(@Param("userId") String userId,
 			@Param("courseId")Integer courseId);
+	
+	WatchHistory findWatchHistoryByUserIdAndCollectionId(@Param("userId") String userId,
+			@Param("collectionId")Integer CollectionId);
 
 	void deleteBatch(@Param("list") List<WatchHistory> list);
 
