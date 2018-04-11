@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.xczhihui.bxg.common.support.cc.util.CCUtils;
 import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import lombok.extern.slf4j.Slf4j;
 
@@ -73,7 +74,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private RedisCacheService cacheService;
 
     @Autowired
-    private OnlineConfig onlineConfig;
+    private CCUtils ccUtils;
 
     /**
      * 获取主播详情
@@ -391,28 +392,10 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         }
 
         CourseApplyResource resource = courseApplyResourceMapper.selectById(resourceId);
+
         if(resource != null){
             String courseResource = resource.getResource();
-
-            String src = "https://p.bokecc.com/flash/single/" + onlineConfig.ccuserId+"_" + courseResource
-                    + "_false_" + onlineConfig.ccPlayerId + "_1" + "/player.swf";
-            String uuid = UUID.randomUUID().toString().replace("-", "");
-            String playCode = "";
-            playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-            playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-            playCode+="		width=\"600\" ";
-            playCode+="		height=\"490\" ";
-            playCode+="		id=\""+uuid+"\">";
-            playCode+="		<param name=\"movie\" value=\""+src+"\" />";
-            playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
-            playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
-            playCode+="		<param value=\"transparent\" name=\"wmode\" />";
-            playCode+="		<embed src=\""+src+"\" ";
-            playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
-            playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-            playCode+="			type=\"application/x-shockwave-flash\"/> ";
-            playCode+="	</object>";
-
+            String playCode = ccUtils.getPlayCode(courseResource, "");
             return playCode;
         }
 
