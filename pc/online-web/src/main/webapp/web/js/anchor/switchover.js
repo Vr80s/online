@@ -11,6 +11,7 @@ $(function(){
 	$("#kecheng_bottom2 .button").click(function() {
 	    $(".curriculum_two").hide();
 	    $(".curriculum_one").show();
+	    $(".row_size").show();//这是图片上传时的+和提示显示
 	});
 	//点击课程  返回
 	$(".curriculum_one .button").click(function() {
@@ -67,6 +68,9 @@ $(function(){
 	$("#zhuanji_bottom2 .returns").click(function() {
 	    $("#zhuanji_bottom2").hide();
 	    $("#zhuanji_bottom").show();
+	    $(".row_size").show();//这是图片上传时的+和提示显示
+
+	    
 	});
 	
 	//点击第二页返回--到第一页
