@@ -39,13 +39,6 @@ public class PageController {
     	mav.addObject("courserId",courserId);
     	return mav;
     }
-    //课程详情预览
-    @RequestMapping(value = "/courseDetailPreview/{courserId}",method= RequestMethod.GET)
-    public ModelAndView courseDetailPreview(@PathVariable String courserId,HttpServletRequest request,HttpServletResponse response){
-        ModelAndView mav=new ModelAndView("CourseDetailPreview");
-        mav.addObject("courserId",courserId);
-        return mav;
-    }
 
     @RequestMapping(value = "/storyDetail/{id}",method= RequestMethod.GET)
     public ModelAndView storyDetail(@PathVariable String id,HttpServletRequest request,HttpServletResponse response){
