@@ -10,7 +10,7 @@
             <a href="/doctors" class="doctor-tab">名医</a>
             <a href="/clinics" class="hospital-tab">医馆</a>
             <a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>
-            <a  href="http://bbs.ipandatcm.com/index">论坛</a>
+            <a href="/bbs" class="bbs-tab">论坛</a>
         </div>
     </div>
 </div>

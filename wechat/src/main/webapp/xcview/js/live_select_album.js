@@ -130,7 +130,8 @@ var course='';
 function jump_album_my(e,selectId,selectDirectId){
 	//alert(e.target)
 	var index = e.parentNode.value
-	window.location.href="live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index;	
+	
+	location.replace("live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index);
 }
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{

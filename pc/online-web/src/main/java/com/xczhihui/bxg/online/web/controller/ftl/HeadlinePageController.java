@@ -91,6 +91,12 @@ public class HeadlinePageController extends AbstractController{
         List<Map<String, Object>> articleType = articleService.getArticleType();
         view.addObject("articleType", articleType);
         type = type==null? (String) articleType.get(0).get("id") :type;
+        String typeText = null;
+        for (Map<String, Object> map : articleType) {
+            if(map.get("id").equals(type)){
+                typeText = (String) map.get("name");
+            }
+        }
         Page<OeBxsArticle> articles = oeBxsArticleService.selectArticlesByPage(new Page(current,size),type);
         view.addObject("articles", articles);
         articles.getRecords().forEach(article ->
@@ -99,6 +105,7 @@ public class HeadlinePageController extends AbstractController{
         Map echoMap = new HashMap();
         echoMap.put("type",type);
         doConditionEcho(view,echoMap);
+        doTitleKeyWords(view,typeText+"-",typeText+",");
         return view;
     }
 
@@ -136,6 +143,11 @@ public class HeadlinePageController extends AbstractController{
         Map echoMap = new HashMap();
         echoMap.put("id",id);
         doConditionEcho(view,echoMap);
+
+        doTitleKeyWords(view,article.getTitle()+"-",article.getTitle()+",");
+        String content = HtmlUtil.getTextFromHtml(article.getContent().replaceAll("\\<.*?\\>", ""));
+        content = content.length()<100?content:content.substring(0,99);
+        view.addObject("descption", content);
         return view;
     }
 

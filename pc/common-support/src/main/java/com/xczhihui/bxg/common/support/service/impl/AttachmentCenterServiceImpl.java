@@ -67,7 +67,7 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
                     CodeUtil.generateRandomString(6) + "-" + fileName, fileData, fileName);
         } else if (AttachmentBusinessType.PICTURE.getValue().equals(fileType)) {
             attachment = addAttachmentRecord(createUserId, AttachmentType.valueOf(projectName.toUpperCase()),
-                    CodeUtil.generateRandomString(8) + "-" + StringUtils.getFilenameExtension(fileName), fileData, fileName);
+                    CodeUtil.generateRandomString(8) + "." + StringUtils.getFilenameExtension(fileName), fileData, fileName);
         } else {
             attachment = new Attachment(1, "请传入fileType参数，1图片，2附件");
         }
