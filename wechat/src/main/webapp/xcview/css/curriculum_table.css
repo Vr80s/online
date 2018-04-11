@@ -609,6 +609,10 @@ header{
 }
 
 .li_listss1{
-    background: url(../images/weixin.png) no-repeat;
+    background: url(../images/weixin.png) no-repeat !important;
     background-size: 100% 100%;
+    background-position: 3rem 2rem !important;
+}
+.li_listss2{
+    background: none !important;
 }
