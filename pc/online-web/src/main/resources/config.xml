@@ -18,7 +18,7 @@
 
     <context:property-placeholder location="classpath:config.properties"/>
     <context:component-scan
-            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.bxg.common.support.dao, com.xczhihui.bxg.common.support.config"/>
+            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.bxg.common.support.**, com.xczhihui.bxg.online.web.support.*"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
@@ -177,6 +177,9 @@
                      timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
+    <!-- BBS -->
+    <dubbo:reference interface="com.xczhihui.medical.bbs.service.IPostService" id="postServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
 
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl"
                    timeout="${dubbo.consumer.timeout}"/>
@@ -215,8 +218,8 @@
                      timeout="${dubbo.consumer.timeout}"/>
 
     <!--头条相关-->
-    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsArticleService"  id="oeBxsArticleServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsArticleService" id="oeBxsArticleServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
 
     <!-- 熊猫币购买服务 -->
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"
@@ -228,11 +231,10 @@
 
     <!-- 附件服务 -->
     <dubbo:service interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService"
-                     ref="attachmentCenterService"
-                     timeout="${dubbo.consumer.timeout}"/>
-                     
-    <!-- 充值服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService"  ref="rechargesService"
-                     timeout="${dubbo.consumer.timeout}"/>
+                   ref="attachmentCenterService"
+                   timeout="${dubbo.consumer.timeout}"/>
 
+    <!-- 充值服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService" ref="rechargesService"
+                   timeout="${dubbo.consumer.timeout}"/>
 </beans>
