@@ -1410,7 +1410,6 @@ function initVhallInfo(){
         $("#vhallPassword").html(data.resultObject.password);
     });
 }
-
 //上传图片调用的接口
 function picUpdown(baseurl,imgname){
     RequestService("/medical/common/upload", "post", {
@@ -1418,6 +1417,7 @@ function picUpdown(baseurl,imgname){
     }, function(data) {
         console.log(data);
         $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
+    	$(".row_size").hide()
     })
 }
 
