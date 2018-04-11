@@ -49,6 +49,8 @@ function stripHTML(str){
     collectionId = getQueryString('collection_id');
 //  获取默认第一个视频ID
     var directId = getQueryString('direct_id');
+    
+
     //传ID courseId为接口的课程ID
     requestService("/xczh/course/liveDetails",{
         courseId : courseId 
@@ -76,7 +78,7 @@ function stripHTML(str){
 
     $("#video_box").click(function(){
             requestService("/xczh/history/add",
-            {courssseId:wwww1,recordType:2}
+            {courseId:wwww1,recordType:2,collectionId:collectionId}
             ,function(data) {
                 if(type == 2){
                     $("#video_box video").css("display","none");   //CC视频隐藏
@@ -284,7 +286,11 @@ $('.all_list_ul').on('click','li',function(){
 
 
 
-        
+function gotoLiveSelectAlbum(){
+	
+	window.location="/xcview/html/live_select_album.html?course_id="+collectionId;
+}
+      
 
 
 

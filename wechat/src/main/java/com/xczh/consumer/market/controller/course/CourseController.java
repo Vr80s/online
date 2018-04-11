@@ -91,7 +91,6 @@ public class CourseController {
 		CourseLecturVo cv = null;
 		if (user != null) {
 			cv = courseServiceImpl.selectUserCurrentCourseStatus(courseId,user.getId());
-			
 			/*
 			 * 如果是免费的  判断是否学习过
 			 */
