@@ -1,6 +1,7 @@
 package com.xczhihui.course.service.impl;
 
 import com.xczhihui.anchor.service.AnchorService;
+import com.xczhihui.bxg.common.support.cc.util.CCUtils;
 import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.enums.ApplyStatus;
@@ -50,7 +51,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 	@Autowired
 	private CourseDao courseDao;
 	@Autowired
-	private OnlineConfig onlineConfig;
+	private CCUtils ccUtils;
 	@Value("${LIVE_VHALL_USER_ID}")
 	private String liveVhallUserId;
 	@Value("${vhall_callback_url}")
@@ -77,28 +78,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 			if (courseApply.getMultimediaType() == Multimedia.AUDIO.getCode()) {
 				audioStr = "_2";
 			}
-			String src = "https://p.bokecc.com/flash/single/"
-					+ onlineConfig.ccuserId + "_"
-					+ courseApply.getCourseResource() + "_false_"
-					+ onlineConfig.ccPlayerId + "_1" + audioStr
-					+ "/player.swf";
-			String uuid = UUID.randomUUID().toString().replace("-", "");
-			String playCode = "";
-			playCode += "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-			playCode += "		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-			playCode += "		width=\"600\" ";
-			playCode += "		height=\"490\" ";
-			playCode += "		id=\"" + uuid + "\">";
-			playCode += "		<param name=\"movie\" value=\"" + src + "\" />";
-			playCode += "		<param name=\"allowFullScreen\" value=\"true\" />";
-			playCode += "		<param name=\"allowScriptAccess\" value=\"always\" />";
-			playCode += "		<param value=\"transparent\" name=\"wmode\" />";
-			playCode += "		<embed src=\"" + src + "\" ";
-			playCode += "			width=\"600\" height=\"490\" name=\"" + uuid
-					+ "\" allowFullScreen=\"true\" ";
-			playCode += "			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-			playCode += "			type=\"application/x-shockwave-flash\"/> ";
-			playCode += "	</object>";
+
+			String playCode = ccUtils.getPlayCode(courseApply.getCourseResource(), audioStr, "600", "490");
+
 			courseApply.setPlayCode(playCode);
 		}
 		if (courseApply.getCollection()) {
@@ -232,27 +214,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 			if (car.getMultimediaType() == 2) {
 				audioStr = "_2";
 			}
-			String src = "https://p.bokecc.com/flash/single/"
-					+ onlineConfig.ccuserId + "_" + car.getResource()
-					+ "_false_" + onlineConfig.ccPlayerId + "_1" + audioStr
-					+ "/player.swf";
-			String uuid = UUID.randomUUID().toString().replace("-", "");
-			String playCode = "";
-			playCode += "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-			playCode += "		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-			playCode += "		width=\"600\" ";
-			playCode += "		height=\"490\" ";
-			playCode += "		id=\"" + uuid + "\">";
-			playCode += "		<param name=\"movie\" value=\"" + src + "\" />";
-			playCode += "		<param name=\"allowFullScreen\" value=\"true\" />";
-			playCode += "		<param name=\"allowScriptAccess\" value=\"always\" />";
-			playCode += "		<param value=\"transparent\" name=\"wmode\" />";
-			playCode += "		<embed src=\"" + src + "\" ";
-			playCode += "			width=\"600\" height=\"490\" name=\"" + uuid
-					+ "\" allowFullScreen=\"true\" ";
-			playCode += "			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-			playCode += "			type=\"application/x-shockwave-flash\"/> ";
-			playCode += "	</object>";
+
+			String playCode = ccUtils.getPlayCode(car.getResource(), audioStr, "600", "490");
+
 			car.setPlayCode(playCode);
 		}
 		return page;
