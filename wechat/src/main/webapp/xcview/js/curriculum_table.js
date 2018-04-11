@@ -70,7 +70,7 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		/**
 		 * 动态生成分类
 		 */
-		var pagenavi1 ="<li class='find_nav_cur'><a href='javascript: ;' class='' title='0'>全部</a></li>";
+		var pagenavi1 ="<li class='find_nav_cur'><a href='javascript: ;' data-title ='0' class='' title='0'>全部</a></li>";
 		/**
 		 * 动态生成滑动的效果
 		 */
@@ -404,10 +404,15 @@ function queryDataByParams(params,data_type){
 
 				if(data.resultObject.length<=0){
 					$(".li_list_main").css("background","#f8f8f8");
-					$(".li_list .no_class").show();
+					$(".no_class").show();
+					/*$(".li_list_main").addClass("li_listss1");
+					$(".li_list_main").removeClass("li_listss2");*/
 				}else{
 					$(".li_list_main").css("background","#fff");
 					$(".no_class").hide();
+					
+					/*$(".li_list_main").removeClass("li_listss1");
+					$(".li_list_main").addClass("li_listss2");*/
 				}
 
 
@@ -673,6 +678,37 @@ function typeQuery(){
 
     var menuType = $("[class='find_nav_cur'] a").attr("title");
     
+
+    /*var dataTitle = $("[class='find_nav_cur'] a").attr("data-title");
+
+	var aBtn=$('.box01_list li');
+	for(i=0;i<aBtn.length;i++){
+
+        if(dataTitle==0){
+           if(i == (parseInt(dataTitle))){
+        	$(aBtn[i]).next().find(".no_class").hide();
+        	break;
+           }
+        }else if(dataTitle == aBtn.length){
+           if(i == (parseInt(dataTitle))){
+        	$(aBtn[i]).prev().find(".no_class").hide();
+        	break;
+           }
+        }else{
+		   if(i == (parseInt(dataTitle))){
+
+		   	var aaa=$(aBtn[i]).attr("id");
+		   	var aaaaa=$(aBtn[i]).next().attr("id");
+        	$(aBtn[i]).next().find(".no_class").hide();
+           }
+           if(i == (parseInt(dataTitle))){
+        	$(aBtn[i]).prev().find(".no_class").hide();
+           }
+        } 
+
+    }*/
+
+
 //	paramsObj.pageNumber = 1;
 //	paramsObj.pageSize = 10;
 //	paramsObj.downUp = "down";

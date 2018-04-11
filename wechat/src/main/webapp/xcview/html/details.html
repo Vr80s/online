@@ -626,6 +626,20 @@ $(function(){
 			$(".pinch-zoom-container").css("display","block");
 			$(".fd_img").css("display","none");
 		} */
+		if( $('#doc img').attr('src') ){
+	    	// $(".fd_img").css("display","black");
+	    	$("#doc").css("display","black");
+	    	// $(".document").css("display","black");
+	   // 不为空
+
+		}else{
+			// $(".fd_img").css("display","none");
+			$("#doc").css("display","none");
+			// $(".document").css("display","none");
+		// 为空
+
+		}
+
 		
 		
 		$(".give_a1").click(function(){
