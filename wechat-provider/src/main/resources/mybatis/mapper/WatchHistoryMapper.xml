@@ -15,9 +15,10 @@
 		  oc.live_source_type as liveSourceType,
 		  if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		  if(oc.is_free =0,0,1) as watchState,
-		  oc.collection as collection,
-		  oc.live_source_type as liveSourceType,
+
+		  if(owh.collectionId is not null,1,oc.collection) as collection,
 		  
+		  oc.live_source_type as liveSourceType,
 		  oc.user_lecturer_id as userId,
 		  oc.direct_id as directId,
 		  
@@ -28,7 +29,8 @@
 		FROM
 		  oe_watch_history1 owh 
 		  inner join oe_course oc on owh.course_id = oc.id
-		  where owh.user_id =#{userId}   order by owh.create_time desc limit 0,5
+		  where owh.user_id =#{userId}  
+		  order by owh.create_time desc limit 0,5
 	</select>		  
 	
 <!-- 	@Param("userId") Integer type, @Param("courseId") -->
