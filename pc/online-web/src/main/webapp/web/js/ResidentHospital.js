@@ -511,7 +511,7 @@ function picUpdown3(baseurl, imgname) {
 	RequestService("/medical/common/upload", "post", {
 		image: baseurl,
 	}, function(data) {
-		$('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+		$('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject +'?imageMogr2/thumbnail/260x147<'+ '" >');
 	})
 }
 
