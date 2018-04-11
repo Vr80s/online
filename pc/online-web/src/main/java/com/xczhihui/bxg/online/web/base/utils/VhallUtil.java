@@ -32,6 +32,7 @@ public class VhallUtil {
 
 	private static String WEBINAR_CREATE = "https://e.vhall.com/api/vhallapi/v2/webinar/create";//直播间创建
 	private static String WEBINAR_START = "https://e.vhall.com/api/vhallapi/v2/webinar/start";//获取直播间地址
+	private static String WEBINAR_GUEST_START = "http://e.vhall.com/api/vhallapi/v2/guest/url";//获取直播间嘉宾地址
 
 	
 	/** 
@@ -174,6 +175,27 @@ public class VhallUtil {
 		parameters.put("webinar_id", webinarId);
 		
 		String json = HttpUtil.sendPostRequest(WEBINAR_START, parameters);
+		System.out.println(json);
+		Map<String, String> m =json2Map(json);
+		if("200".equals(m.get("code"))){
+			return m.get("data");
+		}
+		return null;
+	}
+
+	public static String getWebinarGuestUrl(String webinarId) {
+		Map<String, String> parameters = new TreeMap<String, String>();
+		/* 公共参数 */
+		parameters.put("auth_type", AUTO_TYPE);
+		parameters.put("account", ACCOUNT);
+		parameters.put("password", PWD);
+		/* 公共参数 */
+
+		parameters.put("webinar_id", webinarId);
+		parameters.put("email", webinarId+"@ixincheng.com");
+		parameters.put("name", "嘉宾1");
+
+		String json = HttpUtil.sendPostRequest(WEBINAR_GUEST_START, parameters);
 		System.out.println(json);
 		Map<String, String> m =json2Map(json);
 		if("200".equals(m.get("code"))){
