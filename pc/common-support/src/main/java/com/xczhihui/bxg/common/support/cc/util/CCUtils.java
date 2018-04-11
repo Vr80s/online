@@ -8,10 +8,7 @@ import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CCUtils {
 
@@ -126,4 +123,28 @@ public class CCUtils {
 		return String.valueOf(Double.valueOf(duration).intValue()/60);
 	}
 
+	public String getPlayCode(String videoId,String audioStr){
+		return getPlayCode(videoId,audioStr,"100%","100%");
+	}
+
+	public String getPlayCode(String videoId,String audioStr,String width,String height){
+		String src = "https://p.bokecc.com/flash/single/"+onlineConfig.ccuserId+"_"+videoId+"_false_"+onlineConfig.ccPlayerId+"_1"+audioStr+"/player.swf";
+		String id = UUID.randomUUID().toString().replace("-", "");
+		String playCode = "";
+		playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
+		playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
+		playCode+="		width=\""+width+"\" ";
+		playCode+="		height=\""+height+"\" ";
+		playCode+="		id=\""+id+"\">";
+		playCode+="		<param name=\"movie\" value=\""+src+"\" />";
+		playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
+		playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
+		playCode+="		<param value=\"transparent\" name=\"wmode\" />";
+		playCode+="		<embed src=\""+src+"\" ";
+		playCode+="			width=\""+width+"\" height=\""+height+"\" name=\""+id+"\" allowFullScreen=\"true\" ";
+		playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
+		playCode+="			type=\"application/x-shockwave-flash\"/> ";
+		playCode+="	</object>";
+		return playCode;
+	}
 }

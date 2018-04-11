@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.api.service;
 
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
@@ -68,8 +69,8 @@ public interface CriticizeService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	Object getUserOrCourseCriticize(String teacherId, Integer courseId,
-			Integer pageNumber, Integer pageSize,String userId);
+	Map<String,Object> getUserOrCourseCriticize(String teacherId, Integer courseId,
+			Integer pageNumber, Integer pageSize,String userId)throws UnsupportedEncodingException;
 
     /**
      * Description：判断这个星级用户是否购买过这个课程以及判断是否已经星级评论了一次此课程

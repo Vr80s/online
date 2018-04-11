@@ -1,17 +1,15 @@
-package com.xczhihui.bxg.online.web.service.impl;/**
-												* Created by admin on 2016/8/31.
-												*/
+package com.xczhihui.bxg.online.web.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import com.xczhihui.bxg.common.support.cc.util.CCUtils;
+import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
+import com.xczhihui.bxg.common.util.CodeUtil;
+import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.web.service.VedioService;
+import com.xczhihui.bxg.online.web.vo.VedioAuthVo;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -19,15 +17,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.common.util.CodeUtil;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.online.web.service.VedioService;
-import com.xczhihui.bxg.online.web.vo.VedioAuthVo;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 视频播放验证
@@ -45,7 +40,7 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 	@Autowired
 	private RedisCacheService redis;
 	@Autowired
-	private OnlineConfig onlineConfig;
+	private CCUtils ccUtils;
 
 	@Override
 	public String getCcVerificationCode(String userId, String vid,String id) {
@@ -193,26 +188,10 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 		if(course.getMultimediaType()==2){
 			audioStr = "_2";
 		}
-		String src = "https://p.bokecc.com/flash/single/"+onlineConfig.ccuserId+"_"+course.getDirectId()+"_false_"+onlineConfig.ccPlayerId+"_1"+audioStr+"/player.swf";
-		String id = UUID.randomUUID().toString().replace("-", "");
-		String playCode = "";
-		playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-		playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-		playCode+="		width=\"100%\" ";
-		playCode+="		height=\"100%\" ";
-		playCode+="		id=\""+id+"\">";
-		playCode+="		<param name=\"movie\" value=\""+src+"\" />";
-		playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
-		playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
-		playCode+="		<param value=\"transparent\" name=\"wmode\" />";
-		playCode+="		<embed src=\""+src+"\" ";
-		playCode+="			width=\"100%\" height=\"100%\" name=\""+id+"\" allowFullScreen=\"true\" ";
-		playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-		playCode+="			type=\"application/x-shockwave-flash\"/> ";
-		playCode+="	</object>";
+
+		String playCode = ccUtils.getPlayCode(course.getDirectId(),audioStr);
 
 		returnmap.put("playCode", playCode);
-
 		returnmap.put("title", course.getGradeName());
 
 		return returnmap;

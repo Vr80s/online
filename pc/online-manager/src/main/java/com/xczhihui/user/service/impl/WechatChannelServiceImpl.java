@@ -95,7 +95,7 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 		
 		
 		
-		String hql="from WechatChannel where 1=1  and name = ?";
+		String hql="from WechatChannel where 1=1  and name = ? and isDelete = 0";
 		WechatChannel wc= dao.findByHQLOne(hql, new Object[]{WechatChannelVo.getName()});
 		
 		if(wc!=null){
@@ -163,7 +163,7 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 		
 		WechatChannel WechatChannel = dao.findOneEntitiyByProperty(WechatChannel.class, "id", WechatChannelVo.getId());
 		
-		String hql="from WechatChannel where 1=1  and name = ?";
+		String hql="from WechatChannel where 1=1  and name = ? and isDelete = 0";
 		WechatChannel wc= dao.findByHQLOne(hql, new Object[]{WechatChannelVo.getName()});
 		if(wc!=null && wc.getId()!=WechatChannel.getId()){
 			throw new RuntimeException(WechatChannelVo.getName()+":渠道名称已存在！");

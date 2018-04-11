@@ -64,7 +64,6 @@ $(function () {
         '<a href="#">国医馆</a>'+
         '<a href="/web/html/forum.html" class="forum">书房斋</a>'+
         '<a href="/web/html/ansAndQus.html" class="ansAndQus">问答</a>'+
-//        '<a href="/web/html/Exhibition.html" target="_blank">作品展</a>'+
         '</div>'+
         ' </div>'+
         '<div class="header_right">'+

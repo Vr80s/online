@@ -1,6 +1,10 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -8,15 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
-
-
-
-
-
-
-
+import com.xczhihui.bxg.common.util.SLEmojiFilter;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
@@ -60,9 +56,9 @@ public class CriticizeServiceImpl implements CriticizeService {
 
 
 	@Override
-	public Page<Criticize> getUserOrCourseCriticize(String teacherId, Integer courseId,
-			Integer pageNumber, Integer pageSize,String userId) {
-		//return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize);
+	public Map<String,Object> getUserOrCourseCriticize(String teacherId, Integer courseId,
+			Integer pageNumber, Integer pageSize,String userId) throws UnsupportedEncodingException {
+		
 		
 		if(null ==teacherId && null == courseId){
 			throw new RuntimeException("课程id和讲师id只能传递一个！");
@@ -70,7 +66,43 @@ public class CriticizeServiceImpl implements CriticizeService {
 		if(StringUtils.isNotBlank(teacherId) && courseId!=null){
 			throw new RuntimeException("课程id和讲师id只能存在一个！");
 		}
-		return videoDao.getUserOrCourseCriticize(teacherId,courseId,pageNumber,pageSize,userId);
+		
+		Page<Criticize> pageList  = videoDao.getUserOrCourseCriticize(teacherId,courseId,pageNumber,pageSize,userId);
+		
+		List<Criticize> list1  = new ArrayList<Criticize>();
+		
+		for (Criticize criticize : pageList.getItems()) {
+			/*
+			 * 评论的内容要转化，回复的内容也需要转化
+			 */
+			if(StringUtils.isNotBlank(criticize.getContent())){
+				criticize.setContent(SLEmojiFilter.emojiRecovery2(criticize.getContent()));
+			}
+			if(criticize.getReply()!=null && criticize.getReply().size()>0){
+				List<com.xczhihui.bxg.online.common.domain.Reply> replyList = criticize.getReply();
+				String replyContent = replyList.get(0).getReplyContent();
+				if(StringUtils.isNotBlank(replyContent)){
+					replyList.get(0).setReplyContent(SLEmojiFilter.emojiRecovery2(replyList.get(0).getReplyContent()));
+				}
+				criticize.setReply(replyList);
+			}
+			list1.add(criticize);
+		}
+		/**
+		 * 这里判断用户发表的评论中是否包含发表心心了，什么的如果包含的话就不返回了
+		 * 		并且判断这个用户有没有购买过这个课程
+		 */
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(userId!=null && courseId!=null){
+			Integer cv = this.findUserFirstStars(courseId,userId);
+			map.put("commentCode", cv);
+		}else{
+			map.put("commentCode", 0);
+		}
+		map.put("items", list1);
+		
+		
+		return map;
 	}
 	
 	
