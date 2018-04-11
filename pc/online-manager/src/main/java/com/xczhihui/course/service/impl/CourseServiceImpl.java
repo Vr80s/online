@@ -1614,9 +1614,10 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		if (course!=null){
 			if(recommendTime!=null&&!recommendTime.equals("")){
 				course.setSortUpdateTime(DateUtil.parseDate(recommendTime,"yyyy-MM-dd HH:mm:ss"));
+			}else{
+				course.setSortUpdateTime(null);
 			}
 			course.setRecommendSort(recommendSort);
-			//course.setSortUpdateTime(new Date());
 			dao.update(course);
 		}
 	}
