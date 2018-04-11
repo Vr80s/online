@@ -58,7 +58,6 @@ public class WechatChannelUtil {
 	public static QrCodeVo getQrCodeVo(Integer qrSceneId) throws Exception {
 		
 		QrCodeVo qr = new QrCodeVo();
-		//String token =SingleAccessToken.getInstance().getAccessToken().getToken();
 		
 		AccessToken accessToken = TokenThread.accessToken;
 		System.out.println("accessToken:"+accessToken.getToken());
@@ -84,7 +83,6 @@ public class WechatChannelUtil {
 		String ticket_url = QR_CODE_IMG.replace("TICKETS", qr_ticket);
 		qr.setWechatUrl(ticket_url);
 		qr.setCreateTime(new Date());
-		
 		return qr;
 	}
 	

@@ -92,9 +92,6 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 	public void addWechatChannel(WechatChannelVo WechatChannelVo)
 			throws Exception {
 
-		
-		
-		
 		String hql="from WechatChannel where 1=1  and name = ? and isDelete = 0";
 		WechatChannel wc= dao.findByHQLOne(hql, new Object[]{WechatChannelVo.getName()});
 		

@@ -280,7 +280,7 @@ $('.all_list_ul').on('click','li',function(){
     var courseId = $(this).attr('data-courseId');
     var index = $(this).index();    
     //初始化视频资源
-    window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
+    location.replace("/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index);
     
 })
 
@@ -288,7 +288,9 @@ $('.all_list_ul').on('click','li',function(){
 
 function gotoLiveSelectAlbum(){
 	
-	window.location="/xcview/html/live_select_album.html?course_id="+collectionId;
+	//window.location="/xcview/html/live_select_album.html?course_id="+collectionId;
+	
+	location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
 }
       
 
