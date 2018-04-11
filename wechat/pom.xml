@@ -34,30 +34,22 @@
 			<artifactId>medical-api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.xczhihui</groupId>
 			<artifactId>online-api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.xczhihui</groupId>
 			<artifactId>wechat-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.xczhihui</groupId>
 			<artifactId>common-support</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>online-common</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
 
 		 <dependency>
             <groupId>jdk.tools</groupId>

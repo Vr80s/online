@@ -4,14 +4,10 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
 
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,20 +47,8 @@ public class GiftController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	@Autowired
-	private UserCoinService userCoinService;
-
-	private RedissonClient redisson;
-
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(GiftController.class);
 	
-	
-	public GiftController(){
-		//Redisson连接配置文件
-		Config config = new Config();
-		config.useSingleServer().setAddress("redis-server:6379");
-		redisson = Redisson.create(config);
-	}
 
 	/**
 	 * Description：赠送礼物接口（做礼物赠送余额扣减和检验）
