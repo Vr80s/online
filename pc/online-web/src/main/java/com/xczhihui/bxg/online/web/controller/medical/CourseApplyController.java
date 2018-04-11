@@ -274,4 +274,19 @@ public class CourseApplyController extends AbstractController {
         }
         return responseObj;
     }
+
+    /**
+     * Description：获取嘉宾直播路径
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/4/11 0011 下午 4:10
+     **/
+    @RequestMapping(value = "getWebinarGuestUrl")
+    public ResponseObject getWebinarGuestUrl(String webinarId) {
+        ResponseObject responseObj = new ResponseObject();
+        String url = VhallUtil.getWebinarGuestUrl(webinarId);
+        responseObj.setSuccess(true);
+        responseObj.setResultObject(url);
+        return responseObj;
+    }
 }

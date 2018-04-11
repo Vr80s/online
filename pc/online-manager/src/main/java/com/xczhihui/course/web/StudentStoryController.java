@@ -46,7 +46,7 @@ import com.xczhihui.utils.Group;
 @Controller
 @RequestMapping("cloudclass/studentStory")
 public class StudentStoryController {
-    protected final static String CLOUD_CLASS_PATH_PREFIX = "/course/";
+    protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
     @Autowired
     private StudentStoryService studentStoryService;
     @Autowired

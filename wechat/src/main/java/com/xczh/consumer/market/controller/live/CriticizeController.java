@@ -1,15 +1,12 @@
 package com.xczh.consumer.market.controller.live;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OnlineWebService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
+import com.xczhihui.bxg.online.api.service.CriticizeService;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineWebService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.service.CriticizeService;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(value = "/xczh/criticize")

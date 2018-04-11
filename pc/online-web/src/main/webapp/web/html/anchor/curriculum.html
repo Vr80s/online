@@ -202,9 +202,11 @@
 		<td>
 			{{if course.liveStatus==1}}
 			<a href="javascript:;" onclick="startLive({{course.webinarId}})">进入直播</a>
+			<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>
 			<a href="javascript:;" onclick="previewLive({{course.webinarId}})">直播预览</a>
 			{{else if course.liveStatus==2}}
 			<a href="javascript:;" onclick="startLive({{course.webinarId}})">进入直播</a>
+			<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>
 			<a href="javascript:;" onclick="previewLive({{course.webinarId}})">直播预览</a>
 			{{else if course.liveStatus==0}}
 			<span>直播完成</span>
@@ -2562,7 +2564,6 @@
 <script src="/web/js/anchor/curriculum2.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--主播工作台控制左侧点击事件和判断input为空-->
 <script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
-<script src="/web/js/anchor/curriculum_Account.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/mymoney.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/asset.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/Twolevelmenu.js" type="text/javascript" charset="UTF-8"></script>

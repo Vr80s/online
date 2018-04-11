@@ -78,7 +78,7 @@
                         <div class="profile-info-value">
                         	关键词&nbsp;
                             <select id="selType" class="propertyValue1">
-								<option  value="2" >购买者</option>
+								<option  value="2" >用户名</option>
 								<option  value="1" >订单号</option>
                             </select>
                         </div>
@@ -97,7 +97,7 @@
                     </td>
                 	<td>
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="search_createPersonName" name="search_createPersonName" class="propertyValue1"  placeholder = "购买者帐号" maxlength="30"/>
+                            <input type="text"   id="search_createPersonName" name="search_createPersonName" class="propertyValue1"  placeholder = "用户名" maxlength="30"/>
                             <input type="hidden" value="search_createPersonName" class="propertyName"/>
                         </div>
                     </td>
