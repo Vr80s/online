@@ -106,7 +106,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 			throw new RuntimeException("帐号请输入手机号或邮箱！");
 		}
 
-		String name = "ixincheng_" + (int) (Math.random() * 90000 + 10000);
+		String name = ""+(int) (Math.random() * 90000 + 10000);
 		boolean delete = false;
 
 		ItcastUser user = userCenterAPI.getUser(loginName);
