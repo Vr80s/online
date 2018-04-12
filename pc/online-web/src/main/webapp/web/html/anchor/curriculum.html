@@ -2241,10 +2241,10 @@
 							<input id="videoId" name="videoId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
 							<input id="ccId" name="ccId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
 
-							<div id="swfDiv" style="display: inline-block;">
-							</div>
+							<!--<div id="swfDiv" style="display: inline-block;">
+							</div>-->
 
-							<input type="button" value="点击上传资源" id="btn_width" style="width: 128px; height: 32px;line-height: 32px;font-size: 14px;color: #00BC12;border-radius: 4px;border: 1px solid #00BC12;background: #fff;outline: none;" />
+							<input type="file" value="点击上传资源" name="file" id="btn_width" onchange="uploadFile()" style="width: 128px; height: 32px;line-height: 32px;font-size: 14px;color: #00BC12;border-radius: 4px;border: 1px solid #00BC12;background: #fff;outline: none;" />
 
 							<span class="uploadfinish" style="display:none;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
 							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
@@ -2566,6 +2566,10 @@
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/mymoney.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/asset.js" type="text/javascript" charset="UTF-8"></script>
+
+<!--<script type="text/javascript" src="/web/js/MD5/spark-md5.js"></script>-->
+<script type="text/javascript" src="/web/js/MD5/browser-md5-file.js"></script>
+
 <script src="/web/js/anchor/Twolevelmenu.js" type="text/javascript" charset="UTF-8"></script>
 
 <script type="text/javascript">
@@ -2704,7 +2708,7 @@
         $(".updataSuccess").hide();
         $(".warning").addClass('hide');
         document.getElementById('addResource').reset();
-        $("#btn_width").val('点击上传资源');
+        //$("#btn_width").val('点击上传资源');
         $("#ccName").hide();
 
 //        $('#swfDiv').css({
@@ -2739,7 +2743,7 @@
 //                "margin-top":"-68px"
 //            })
         }
-        initobj();
+        //initobj();
 	}
 	$(function(){
 	    $("#cancalUpdata").click(function (){
@@ -2822,7 +2826,7 @@
         swfobj.addParam('wmode','transparent');
         swfobj.write('swfDiv');
 	}
-    initobj();
+    //initobj();
     function on_spark_selected_file(filename) {
         document.getElementById("videofile").value = filename;
         submitvideo(filename);
