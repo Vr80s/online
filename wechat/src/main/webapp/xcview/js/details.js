@@ -48,13 +48,15 @@ requestService("/xczh/course/liveDetails",{
 				courseHead = result.smallImgPath;
 
 				$(".details_size span:eq(1)").html(result.giftCount);
+				
 				$(".details_size span:eq(0)").html(result.learndCount);
-
+				//学习人数
+				sessionStorage.setItem("learndCount",result.learndCount);
+				
 				// 关注数
 				$(".n_guanzhu").html(result.focusCount);
 				// 粉丝数
 				$(".n_fensi").html(result.fansCount);
-
 				/**
 				 * 为详情页面添加数据
 				 */
