@@ -611,33 +611,11 @@ $(function(){
 			$(".send_gifts").hide();
 		});
 		
-//		点击主讲人
-		/*$(".details_footer_width .click_li").click(function(){
-			
-			$("#attention .close").hide();
-			$("#attention .main_title").css("width","9.15rem");
-			$("#attention").css("display","block !important;");
-		});*/
-		
-/* 		if($("#doc img").attr("src").length==0){
-			$(".pinch-zoom-container").css("display","none");
-			$(".fd_img").css("display","black");
-		}else{
-			$(".pinch-zoom-container").css("display","block");
-			$(".fd_img").css("display","none");
-		} */
+
 		if( $('#doc img').attr('src') ){
-	    	// $(".fd_img").css("display","black");
 	    	$("#doc").css("display","black");
-	    	// $(".document").css("display","black");
-	   // 不为空
-
 		}else{
-			// $(".fd_img").css("display","none");
 			$("#doc").css("display","none");
-			// $(".document").css("display","none");
-		// 为空
-
 		}
 
 		
