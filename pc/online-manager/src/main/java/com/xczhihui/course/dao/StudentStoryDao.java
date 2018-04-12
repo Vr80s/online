@@ -17,25 +17,28 @@ import com.xczhihui.common.dao.HibernateDao;
  */
 
 @Repository("studentStoryDao")
-public class StudentStoryDao extends HibernateDao<StudentStory>{
-	public Page<StudentStory> findCloudClassCoursePage(StudentStory studentStory, int pageNumber, int pageSize){
-		Map<String,Object> paramMap=new HashMap<String,Object>();
-		StringBuilder sql =new StringBuilder("select * from student_story where is_delete=0");
-	 	if(studentStory.getName() != null){
-	 		paramMap.put("name", "%"+studentStory.getName()+"%");
-	 		sql.append(" and name like :name ");
-	 	}
-	 	if(studentStory.getMenuId() != null){
-	 		paramMap.put("menuId", studentStory.getMenuId());
-	 		sql.append(" and menu_id = :menuId ");
-	 	}
-	 	if(studentStory.getCourseTypeId() != null){
-	 		paramMap.put("courseTypeId", studentStory.getCourseTypeId());
-	 		sql.append(" and course_type_id = :courseTypeId ");
-	 	}
-	 	
-	 	sql.append(" order by create_time desc ");
-		
-	    return this.findPageBySQL(sql.toString(), paramMap, StudentStory.class, pageNumber, pageSize);
+public class StudentStoryDao extends HibernateDao<StudentStory> {
+	public Page<StudentStory> findCloudClassCoursePage(
+			StudentStory studentStory, int pageNumber, int pageSize) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder(
+				"select * from student_story where is_delete=0");
+		if (studentStory.getName() != null) {
+			paramMap.put("name", "%" + studentStory.getName() + "%");
+			sql.append(" and name like :name ");
+		}
+		if (studentStory.getMenuId() != null) {
+			paramMap.put("menuId", studentStory.getMenuId());
+			sql.append(" and menu_id = :menuId ");
+		}
+		if (studentStory.getCourseTypeId() != null) {
+			paramMap.put("courseTypeId", studentStory.getCourseTypeId());
+			sql.append(" and course_type_id = :courseTypeId ");
+		}
+
+		sql.append(" order by create_time desc ");
+
+		return this.findPageBySQL(sql.toString(), paramMap, StudentStory.class,
+				pageNumber, pageSize);
 	}
 }

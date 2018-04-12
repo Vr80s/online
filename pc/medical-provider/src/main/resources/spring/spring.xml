@@ -32,7 +32,7 @@
          -->
     </bean>
     <!-- aop -->
-    <bean id="lockService" class="com.xczhihui.bxg.online.common.utils.lock.LockService"></bean>
+    <bean id="lockService" class="com.xczhihui.bxg.common.support.lock.LockService"></bean>
     <!-- 启动对@AspectJ注解的支持  -->
     <aop:aspectj-autoproxy proxy-target-class="true" />
 
@@ -79,6 +79,9 @@
     <!--头条相关-->
     <dubbo:service interface="com.xczhihui.medical.headline.service.IOeBxsArticleService" ref="oeBxsArticleServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
+    <!-- bbs -->
+    <dubbo:service interface="com.xczhihui.medical.bbs.service.IPostService" ref="postServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
@@ -107,11 +110,14 @@
 
     <bean id="redisShardLockUtils" class="com.xczhihui.utils.RedisShardLockUtils"></bean>
 
+
     <!--RedissonUtil配置-->
-    <bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+    <bean id="redissonUtil" class="com.xczhihui.bxg.common.support.lock.RedissonUtil">
         <property name="redisHost" value="${redis.host}"></property>
         <property name="redisPort" value="${redis.port}"></property>
     </bean>
 
+    <bean id="onlineConfig" class="com.xczhihui.bxg.common.support.config.OnlineConfig"></bean>
+    <bean id="CCUtils" class="com.xczhihui.bxg.common.support.cc.util.CCUtils"></bean>
 
 </beans>

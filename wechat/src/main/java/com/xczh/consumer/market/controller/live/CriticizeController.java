@@ -1,32 +1,24 @@
 package com.xczh.consumer.market.controller.live;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OnlineWebService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
+import com.xczhihui.bxg.online.api.service.CriticizeService;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineWebService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.service.CriticizeService;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
-import com.xczhihui.bxg.online.common.domain.Criticize;
-import com.xczhihui.bxg.online.common.domain.Reply;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(value = "/xczh/criticize")
@@ -94,39 +86,10 @@ public class CriticizeController {
 			)throws Exception {
 	
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		Page<Criticize> pageList  = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, 
+		
+		Map<String,Object> map = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, 
 				pageSize,user!= null ? user.getUserId() :null);
 		
-		List<Criticize> list1  = new ArrayList<Criticize>();
-		for (Criticize criticize : pageList.getItems()) {
-			/*
-			 * 评论的内容要转化，回复的内容也需要转化
-			 */
-			if(StringUtils.isNotBlank(criticize.getContent())){
-				criticize.setContent(SLEmojiFilter.emojiRecovery2(criticize.getContent()));
-			}
-			if(criticize.getReply()!=null && criticize.getReply().size()>0){
-				List<Reply> replyList = criticize.getReply();
-				String replyContent = replyList.get(0).getReplyContent();
-				if(StringUtils.isNotBlank(replyContent)){
-					replyList.get(0).setReplyContent(SLEmojiFilter.emojiRecovery2(replyList.get(0).getReplyContent()));
-				}
-				criticize.setReply(replyList);
-			}
-			list1.add(criticize);
-		}
-		/**
-		 * 这里判断用户发表的评论中是否包含发表心心了，什么的如果包含的话就不返回了
-		 * 		并且判断这个用户有没有购买过这个课程
-		 */
-		Map<String,Object> map = new HashMap<String,Object>();
-		if(user!=null && courseId!=null){
-			Integer cv = criticizeService.findUserFirstStars(courseId,user.getId());
-			map.put("commentCode", cv);
-		}else{
-			map.put("commentCode", 0);
-		}
-		map.put("items", list1);
 		return ResponseObject.newSuccessResponseObject(map);
 		
 	}

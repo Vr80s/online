@@ -12,7 +12,7 @@
 <script src="/js/jquery-ui-timepicker-zh-CN.js"
 	type="text/javascript"></script>
 <div class="page-header">
-		当前位置：用户管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+		当前位置：渠道管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 		</small>
 		<span>微信关注用户管理 </span>
 </div>
@@ -24,18 +24,23 @@
 		<table>
 			<tr>
 				<td >
-					<span class="searchTr">
-						<input type="text"  id="nickname" class="propertyValue1" style="width:240px;" placeholder="用户昵称/用户名"/>
+				
+				    <span class="searchTr">
+						<input type="text"  id="nickname" class="propertyValue1" style="width:100px;" placeholder="微信昵称"/>
 						<input type="hidden" value="nickname" class="propertyName"/>
+					</span>
+					<span class="searchTr">
+						<input type="text"  id="loginname" class="propertyValue1" style="width:100px;" placeholder="用户名"/>
+						<input type="hidden" value="loginname" class="propertyName"/>
 					</span>
 					&nbsp;&nbsp;
 					<span class="searchTr">
-						<input type="text"  id="subscribeTimeStart" class="propertyValue1" placeholder="关注时间"/>
+						<input type="text"  id="subscribeTimeStart" class="propertyValue1" placeholder="关注开始时间"/>
 						<input type="hidden" value="subscribeTimeStart" class="propertyName"/>
 					</span>
 					&nbsp;&nbsp;
 				   <span class="searchTr">
-						<input type="text"  id="subscribeTimeEnd" class="propertyValue1" placeholder="关注时间"/>
+						<input type="text"  id="subscribeTimeEnd" class="propertyValue1"   placeholder="关注结束时间"/>
 						<input type="hidden" value="subscribeTimeEnd" class="propertyName"/>
 					</span>
 					&nbsp;&nbsp;
@@ -44,10 +49,10 @@
 					<!-- 渠道名字  -->
 					<span class="searchTr">
 						 <select name="qr_scene"   id="qr_scene"   class="propertyValue1 col-xs-8 {required:true}">
-			               	<option value="-1" select="selected">无权限</option>
-			                 <%--  <c:forEach var="m" items="${menus}" >
+			               	<option value="-1" select="selected">渠道名字</option>
+			                 <c:forEach var="m" items="${wechatChannelVos}" >
 			                      <option value="${m.id}">${m.name}</option>
-			                  </c:forEach> --%>
+			                  </c:forEach>
               		      </select>
                          <input type="hidden" value="qr_scene" class="propertyName"/>
 					</span>
@@ -100,7 +105,7 @@
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-right">用户名: </label>
-	        <div class="col-sm-4"><p id="account_look" class="paddingtop7px padding7"></p></div>
+	        <div class="col-sm-4"><p id="mobile_look" class="paddingtop7px padding7"></p></div>
 			<label class="col-sm-2 control-label no-padding-right">渠道名称: </label>
 			<div class="col-sm-4"><p id="vhallId_look" class="paddingtop7px padding7"></p></div>
 		</div>

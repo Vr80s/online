@@ -4,9 +4,7 @@ package com.xczhihui.bxg.online.api.service;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.Recharges;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
 
 
 /** 
@@ -31,7 +29,7 @@ public interface GiftService {
 	 * @return List<Gift>
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public List<Gift> getGift();
+	public Object getGift();
 
 	/** 
 	 * Description：通过主播查询礼物数量

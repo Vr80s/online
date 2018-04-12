@@ -19,12 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 医馆入驻管理控制层
+ * 
  * @author zhuwenbao
  */
 
 @Controller
 @RequestMapping("medical/hospital/apply")
-public class HospitalApplyController extends AbstractController{
+public class HospitalApplyController extends AbstractController {
 
 	@Autowired
 	private HospitalApplyService hospitalApplyService;
@@ -35,11 +36,13 @@ public class HospitalApplyController extends AbstractController{
 	public String index(HttpServletRequest request) {
 		return CLOUD_CLASS_PATH_PREFIX + "/hospitalApply";
 	}
-	
-	@RequestMapping(value = "/{applyId}")
-	public String MedicalDoctorDetail(HttpServletRequest request, @PathVariable String applyId) {
 
-		MedicalHospitalApply medicalHospitalApply = hospitalApplyService.findById(applyId);
+	@RequestMapping(value = "/{applyId}")
+	public String MedicalDoctorDetail(HttpServletRequest request,
+			@PathVariable String applyId) {
+
+		MedicalHospitalApply medicalHospitalApply = hospitalApplyService
+				.findById(applyId);
 
 		request.setAttribute("medicalHospitalApply", medicalHospitalApply);
 
@@ -63,20 +66,22 @@ public class HospitalApplyController extends AbstractController{
 
 		MedicalHospitalApply searchVo = new MedicalHospitalApply();
 		if (searchStatus != null) {
-			searchVo.setStatus(Integer.valueOf(searchStatus.getPropertyValue1().toString()));
+			searchVo.setStatus(Integer.valueOf(searchStatus.getPropertyValue1()
+					.toString()));
 		}
 		if (searchHospitalName != null) {
 			searchVo.setName(searchHospitalName.getPropertyValue1().toString());
 		}
 
-		Page<MedicalHospitalApply> page = hospitalApplyService.list(searchVo, currentPage, pageSize);
+		Page<MedicalHospitalApply> page = hospitalApplyService.list(searchVo,
+				currentPage, pageSize);
 
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
 		tableVo.setiTotalRecords(total);
 		return tableVo;
-		
+
 	}
 
 	/**

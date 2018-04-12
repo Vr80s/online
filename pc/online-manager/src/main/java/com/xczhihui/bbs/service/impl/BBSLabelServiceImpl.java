@@ -17,36 +17,38 @@ import com.xczhihui.bxg.online.common.domain.BBSLabel;
 @Service
 public class BBSLabelServiceImpl implements BBSLabelService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BBSLabelServiceImpl.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(BBSLabelServiceImpl.class);
 
-    @Autowired
-    private BBSLabelDao bbsLabelDao;
+	@Autowired
+	private BBSLabelDao bbsLabelDao;
 
-    @Override
-    public TableVo list(TableVo tableVo) {
-        Page<BBSLabelVo> list = bbsLabelDao.list(tableVo.getCurrentPage(), tableVo.getiDisplayLength());
-        return tableVo.fetch(list);
-    }
+	@Override
+	public TableVo list(TableVo tableVo) {
+		Page<BBSLabelVo> list = bbsLabelDao.list(tableVo.getCurrentPage(),
+				tableVo.getiDisplayLength());
+		return tableVo.fetch(list);
+	}
 
-    @Override
-    public int delete(List<Integer> ids) {
-        return bbsLabelDao.deleteByIds(ids);
-    }
+	@Override
+	public int delete(List<Integer> ids) {
+		return bbsLabelDao.deleteByIds(ids);
+	}
 
-    @Override
-    public boolean create(BBSLabel label) {
-        bbsLabelDao.save(label);
-        return true;
-    }
+	@Override
+	public boolean create(BBSLabel label) {
+		bbsLabelDao.save(label);
+		return true;
+	}
 
-    @Override
-    public boolean update(BBSLabel label) {
-        bbsLabelDao.update(label);
-        return true;
-    }
+	@Override
+	public boolean update(BBSLabel label) {
+		bbsLabelDao.update(label);
+		return true;
+	}
 
-    @Override
-    public int updateStatus(List<Integer> ids) {
-        return bbsLabelDao.updateStatusByIds(ids);
-    }
+	@Override
+	public int updateStatus(List<Integer> ids) {
+		return bbsLabelDao.updateStatusByIds(ids);
+	}
 }

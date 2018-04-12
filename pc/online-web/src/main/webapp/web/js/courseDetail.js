@@ -252,7 +252,6 @@ window.onload = function() {
 	RequestService("/course/getCourseById", "POST", {
 		courserId: courserId
 	}, function(data) {
-//		classType = data.resultObject.type;
 		$("#NoShowIntroduct").css("display", "block");
 		courseDetail = data.resultObject;
 		collection = data.resultObject.collection;
@@ -272,8 +271,6 @@ window.onload = function() {
             signUp();
 		});
 		$(".myClassName").text(data.resultObject.courseName);
-		$(".myClassName").attr("href", "/web/html/courseIntroductionPage.html?id=" + courserId + '&courseType=' + courseType + '&free=' + fre);
-		$(".enter-class").attr("href", data.resultObject.cloudClassroom);
 		$(".table-title-inset .course-details").click();
 		//省略号
 		$('.bigpic-body-text').dotdotdot();

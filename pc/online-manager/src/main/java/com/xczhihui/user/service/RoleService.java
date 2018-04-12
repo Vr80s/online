@@ -60,7 +60,7 @@ public interface RoleService {
 	 * @return
 	 */
 	public Set<String> findRoleCodes(String userId);
-	
+
 	/**
 	 * 根据角色代码查找角色
 	 * 
@@ -152,9 +152,10 @@ public interface RoleService {
 	 *            null表示删除角色的权限信息。
 	 */
 	public void updateRoleResources(String roleId, Set<String> resourcesIds);
-	
+
 	/**
 	 * 获取一个用户的角色的ID
+	 * 
 	 * @return
 	 */
 	public Set<String> getUserRoleIds(String userId);

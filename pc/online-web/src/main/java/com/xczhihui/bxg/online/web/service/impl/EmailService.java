@@ -1,12 +1,9 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.web.util.EmailUtil;
+import com.xczhihui.bxg.common.util.EmailUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 
 public class EmailService {
 	

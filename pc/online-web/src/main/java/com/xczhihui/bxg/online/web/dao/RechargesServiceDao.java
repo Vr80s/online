@@ -8,7 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.online.api.po.Recharges;
+import com.xczhihui.bxg.online.common.domain.Recharges;
 
 @Repository
 public class RechargesServiceDao extends SimpleHibernateDao {

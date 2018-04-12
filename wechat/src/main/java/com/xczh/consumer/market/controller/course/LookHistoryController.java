@@ -72,8 +72,12 @@ public class LookHistoryController {
 			if(course == null){
 		          throw new RuntimeException("课程信息有误");
 		    }
+			
 			//锁id
 			String lockId = ou.getId()+courseId;
+			if(collectionId!=null && collectionId!=0){
+				lockId  = ou.getId()+collectionId;
+			}
 			
 			if(recordType!=null){
 				
@@ -89,6 +93,8 @@ public class LookHistoryController {
 					target.setUserId(ou.getId());
 					target.setLecturerId(course.getUserLecturerId());
 					target.setCollectionId(collectionId);
+					
+					
 					watchHistoryServiceImpl.addOrUpdate(lockId,target);
 				}
 			

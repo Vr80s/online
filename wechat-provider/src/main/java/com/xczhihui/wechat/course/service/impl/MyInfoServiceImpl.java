@@ -8,9 +8,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.user.center.bean.UserSex;
+import com.xczhihui.bxg.common.util.enums.UserSex;
 import com.xczhihui.wechat.course.mapper.MyInfoMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.service.IMyInfoService;
@@ -65,7 +64,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			throw new RuntimeException("邮件长度在5-32之间");
         }
 		
-		if(StringUtils.isNotBlank(user.getEmail()) && !com.xczhihui.bxg.online.common.utils.StringUtils.checkEmail(user.getEmail())){
+		if(StringUtils.isNotBlank(user.getEmail())){
 			throw new RuntimeException("邮箱格式有误");
 		}
 		

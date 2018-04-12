@@ -375,20 +375,20 @@
 
 <div style="height: 100%;" class="clearfix">
     <!-- Nav tabs -->
-    <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
-        <li role="presentation" class="active" onclick="scoreTypeTableZyxx()">
-            <a href="#vocationalCourseGrade" aria-controls="vocationalCourseGrade" class="vocationalCourseGrade_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">中医学习管理</a>
-        </li>
-        <li role="presentation" onclick="scoreTypeTableSxxy()">
-            <a href="#vocationalCourseGrade" aria-controls="microCourseGradeBox" class="microCourseGrade_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">身心修养管理</a>
-        </li>
-        <li role="presentation" onclick="scoreTypeTableJfyl()">
-            <a href="#vocationalCourseGrade" aria-controls="microCourseGradeBox" class="microCourseGrade_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">经方要略管理</a>
-        </li>
-    </ul>
+    <%--<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">--%>
+        <%--<li role="presentation" class="active" onclick="scoreTypeTableZyxx()">--%>
+            <%--<a href="#vocationalCourseGrade" aria-controls="vocationalCourseGrade" class="vocationalCourseGrade_bx" role="tab"--%>
+               <%--data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">中医学习管理</a>--%>
+        <%--</li>--%>
+        <%--<li role="presentation" onclick="scoreTypeTableSxxy()">--%>
+            <%--<a href="#vocationalCourseGrade" aria-controls="microCourseGradeBox" class="microCourseGrade_bx" role="tab"--%>
+               <%--data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">身心修养管理</a>--%>
+        <%--</li>--%>
+        <%--<li role="presentation" onclick="scoreTypeTableJfyl()">--%>
+            <%--<a href="#vocationalCourseGrade" aria-controls="microCourseGradeBox" class="microCourseGrade_bx" role="tab"--%>
+               <%--data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">经方要略管理</a>--%>
+        <%--</li>--%>
+    <%--</ul>--%>
         <!-- Tab panes -->
         
     <div class="tab-content vertical-tab-content">

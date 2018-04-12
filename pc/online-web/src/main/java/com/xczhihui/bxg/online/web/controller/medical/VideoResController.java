@@ -1,20 +1,17 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.alibaba.fastjson.JSONArray;
+
 import com.alibaba.fastjson.JSONObject;
+import com.xczhihui.bxg.common.support.cc.config.Config;
+import com.xczhihui.bxg.common.support.cc.util.APIServiceFunction;
+import com.xczhihui.bxg.common.support.cc.util.Md5Encrypt;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.common.utils.cc.config.Config;
-import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
-import com.xczhihui.bxg.online.common.utils.cc.util.Md5Encrypt;
-import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.VideoResService;
 import org.apache.commons.fileupload.disk.DiskFileItem;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,14 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +41,9 @@ public class VideoResController extends AbstractController{
 
     @Autowired
     private VideoResService videoResService;
+    @Autowired
+    private OnlineConfig onlineConfig;
+
     private static String categoryid = "7C85F5F633435474";
 
     /**
@@ -59,13 +55,13 @@ public class VideoResController extends AbstractController{
     public String getUploadUrl(HttpServletRequest request,String title) {
         OnlineUser loginUser = getOnlineUser(request);
         Map<String,String> paramsMap = new HashMap<String,String>();
-        paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+        paramsMap.put("userid", onlineConfig.ccuserId);
         paramsMap.put("title", title);
         paramsMap.put("description", TimeUtil.getCCtitleTimeStr());
         paramsMap.put("tag", loginUser.getLoginName());
         paramsMap.put("categoryid", categoryid);
         long time = System.currentTimeMillis();
-        String url = Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
+        String url = Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, onlineConfig.ccApiKey);
         url += "&categoryid="+categoryid;
         return url;
     }
@@ -114,7 +110,7 @@ public class VideoResController extends AbstractController{
             Map<String, String> treeMap = new TreeMap<String, String>();
             //查询参数输入
             String key="K45btKhytR527yfTAjEp6z4fb3ajgu66";
-            treeMap.put("userid", OnlineConfig.CC_USER_ID);
+            treeMap.put("userid", "B5E673E55C702C42");
             treeMap.put("title", fileName);
             treeMap.put("description", fileName);
             treeMap.put("filename", fileName);
@@ -125,7 +121,7 @@ public class VideoResController extends AbstractController{
             //生成时间片
             long time = new Date().getTime() / 1000;
             //生成HASH码值
-            String hash = Md5Encrypt.md5(String.format("%s&time=%s&salt=%s", qs, time, OnlineConfig.CC_API_KEY));
+            String hash = Md5Encrypt.md5(String.format("%s&time=%s&salt=%s", qs, time, key));
 
             String str =APIServiceFunction.sendGet("http://spark.bokecc.com/api/video/create",
                     qs+"&time="+time+"&hash="+hash);
@@ -189,7 +185,7 @@ public class VideoResController extends AbstractController{
         treeMap1.put("ccvid", videoid);
         treeMap1.put("first", first);
         if(!filemd5.equals("")){
-            treeMap1.put("uid", OnlineConfig.CC_USER_ID);
+            treeMap1.put("uid", "B5E673E55C702C42");
             treeMap1.put("filename", filename);
             treeMap1.put("filesize",fileSize);
             treeMap1.put("servicetype", servicetype);
@@ -202,7 +198,7 @@ public class VideoResController extends AbstractController{
         //生成时间片
         long time1 = new Date().getTime() / 1000;
         //生成HASH码值
-        String hash1 =Md5Encrypt.md5(String.format("%s&time=%s&salt=%s", qs1, time1, OnlineConfig.CC_API_KEY));
+        String hash1 = Md5Encrypt.md5(String.format("%s&time=%s&salt=%s", qs1, time1, key));
         String str1=APIServiceFunction.sendGet(metaurl,
                 qs1+"&time="+time1+"&hash="+hash1);
         return str1;

@@ -1,28 +1,5 @@
 package com.xczh.consumer.market.controller.pay;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
@@ -37,30 +14,36 @@ import com.alipay.api.response.AlipayOpenPublicTemplateMessageIndustryModifyResp
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xczh.consumer.market.bean.AlipayPaymentRecordH5;
-import com.xczh.consumer.market.bean.OnlineCourse;
-import com.xczh.consumer.market.bean.OnlineOrder;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.bean.Reward;
-import com.xczh.consumer.market.service.AlipayPaymentRecordH5Service;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.RewardService;
-import com.xczh.consumer.market.utils.AlipayConfig;
-import com.xczh.consumer.market.utils.HttpUtil;
-import com.xczh.consumer.market.utils.RandomUtil;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.TimeUtil;
-import com.xczh.consumer.market.utils.WebUtil;
+import com.xczh.consumer.market.bean.*;
+import com.xczh.consumer.market.service.*;
+import com.xczh.consumer.market.utils.*;
 import com.xczh.consumer.market.vo.CodeUtil;
 import com.xczh.consumer.market.vo.OrderParamVo;
 import com.xczh.consumer.market.vo.RechargeParamVo;
 import com.xczh.consumer.market.vo.RewardParamVo;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -762,29 +745,7 @@ public class XzAlipayController {
 					if ("1".equals(ppbt)) {
 						// 打赏
 						LOG.info("打赏回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
-						
-						RewardParamVo rpv = JSONObject.parseObject(
-								alipayPaymentRecordH5.getPassbackParams(),
-								RewardParamVo.class);
-						// RewardStatement rs=new RewardStatement();
-						com.xczhihui.bxg.online.api.po.RewardStatement rs = new com.xczhihui.bxg.online.api.po.RewardStatement();
-						BeanUtils.copyProperties(rs, rpv);
-						rs.setCreateTime(new Date());
-						rs.setPayType(Payment.ALIPAY.getCode());
-						rs.setStatus(1);
-						rs.setOrderNo(out_trade_no);
-						rs.setPrice(new Double(alipayPaymentRecordH5
-								.getTotalAmount()));
-						rs.setChannel(1);
-						// rewardService.insert(rs);1
-						alipayPaymentRecordH5.setUserId(rpv.getUserId());
-						
-						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
-						
-						userCoinService.updateBalanceForReward(rs);
-						// 请不要修改或删除
-						response.getWriter().println("success");
-						return;
+						throw new RuntimeException("打赏功能已关闭");
 					} else if ("2".equals(ppbt)) { // 普通订单
 						
 						LOG.info("普通订单{}{}{}{}回调数据包=="+alipayPaymentRecordH5.getPassbackParams());

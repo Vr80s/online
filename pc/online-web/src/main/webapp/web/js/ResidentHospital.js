@@ -420,7 +420,7 @@ function baseInfrese() {
 function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, description, contactor, email, wechat, province, city, detailedAddress) {
 	//头像
 	if(headPortrait != null) {
-		var headPic = '<img src=' + headPortrait + '>';
+		var headPic = '<img src=' + headPortrait +'>';
 		$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
 	}
 
@@ -502,7 +502,7 @@ function picUpdown(baseurl, imgname) {
 	RequestService("/medical/common/upload", "post", {
 		image: baseurl,
 	}, function(data) {
-		$('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+		$('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject+'?imageView2/1/w/120/h/120'+'" >');
 	})
 }
 
@@ -511,7 +511,7 @@ function picUpdown3(baseurl, imgname) {
 	RequestService("/medical/common/upload", "post", {
 		image: baseurl,
 	}, function(data) {
-		$('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+		$('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject +'?imageMogr2/thumbnail/260x147<'+ '" >');
 	})
 }
 
@@ -539,8 +539,9 @@ function picUpdown2(baseurl, imgname) {
 		$('#hos_Administration #hos_pic').removeClass('hide');
 		var picStr =
 			'<div style="position: relative;">' +
-			'<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">X</span>' +
-			'<img src="' + data.resultObject + '" >' +
+			'<span style="position: absolute;top: 5px;right: 5px;color:red;z-index:5;" class="hospic_del">X</span>' +
+//			'<img src="' + data.resultObject + '?imageView2/1/w/260/h/147'+'" >' +
+			'<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<'+'" >' +
 			'</div>'
 		$('#hos_Administration #hos_pic').append(picStr);
 	})
@@ -894,6 +895,18 @@ $(".recruit_preview_content img").click(function(){
 })
 //招聘管理部分结束
 
+//公告管理部分，点击预览--------------------------------------------------------------
+$(".notice_btn_see").click(function(){
+	$(".notice_namage_see").show();
+	$(".recruit_preview_bg").show();
+})
+$(".notice_preview_content img").click(function(){
+	$(".notice_namage_see").hide();
+	$(".recruit_preview_bg").hide();
+})
+
+
+//公告管理部分结束--------------------------------------------------------------
 //自定义下拉select
 $(".recruit-select p").click(function() {
 	var ul = $(".recruit-select-lest");

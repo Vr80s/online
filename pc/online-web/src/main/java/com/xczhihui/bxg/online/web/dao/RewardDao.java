@@ -7,7 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.online.api.po.RewardStatement;
+import com.xczhihui.bxg.online.common.domain.RewardStatement;
 import com.xczhihui.bxg.online.common.domain.Reward;
 
 /**

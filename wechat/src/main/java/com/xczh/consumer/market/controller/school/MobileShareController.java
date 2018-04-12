@@ -88,7 +88,7 @@ public class MobileShareController {
 				if(courseLectur==null){
 					return ResponseObject.newErrorResponseObject("课程信息有误");
 				}
-				courseLectur.setGradeName("中医好课程："+courseLectur.getGradeName());
+				courseLectur.setGradeName("中医好课程:"+courseLectur.getGradeName());
 				if(courseLectur.getDescription()!=null){
 					String description = courseLectur.getDescription();
 					description = XzStringUtils.delHTMLTag(description);
@@ -105,7 +105,7 @@ public class MobileShareController {
 				/*
 				 * 课程名增加一个中医好课程  
 				 */
-				lectur.setName("中医好主播："+lectur.getName());
+				lectur.setName("中医好主播:"+lectur.getName());
 				
 				if(lectur.getDescription()!=null){
 					String description = lectur.getDescription();
@@ -167,7 +167,7 @@ public class MobileShareController {
 	 *
 	 */
 	@RequestMapping("viewUser")
-	public void h5ShareGetWxUserInfo(HttpServletRequest req, HttpServletResponse res) throws Exception{
+	public void viewUser(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		
@@ -177,12 +177,21 @@ public class MobileShareController {
 			String shareType = req.getParameter("shareType");
 			String wxOrbrower = req.getParameter("wxOrbrower");
 			
-			if(code!=null){
-				String shareIdAndType =  req.getParameter("shareIdAndType");
+			String shareIdAndType = req.getParameter("shareIdAndType");
+			
+			//if(code!=null){
+//				String shareIdAndType =  req.getParameter("shareIdAndType");
+//				String [] idAndType =shareIdAndType.split("_");
+//				shareId = idAndType[0];
+//				shareType = idAndType[1];
+			//}
+			
+			if(StringUtils.isNotBlank(shareIdAndType)){
 				String [] idAndType =shareIdAndType.split("_");
 				shareId = idAndType[0];
 				shareType = idAndType[1];
 			}
+			
 			LOGGER.info("shareId:" +shareId+"shareType:" +shareType+"wxOrbrower:" +wxOrbrower);
 			OnlineUser ou =null;
 			if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器
@@ -225,23 +234,27 @@ public class MobileShareController {
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 			if("1".equals(shareType)){ //课程分享啦
 				
+				LOGGER.info("shareType:"+shareType);
+				LOGGER.info("shareId:+"+shareId);
+				
 				Integer courseId = Integer.parseInt(shareId);
-				com.xczhihui.wechat.course.vo.CourseLecturVo  cv= courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+				com.xczhihui.wechat.course.vo.CourseLecturVo  cv=null;
 				
 				//判断这个课程类型啦
 				if(ou!=null){  //说明已经登录了
-					/**
-					 * 如果用户不等于null,且是主播点击的话，就认为是免费的
-					 */
-					if(cv.getUserLecturerId().equals(ou.getId())){
-					    cv.setWatchState(4);
-				    }
-					if(cv.getWatchState()==0){ //付费课程
-						if(onlineWebService.getLiveUserCourse(courseId,ou.getId())){  //大于零--》用户购买过  
-							cv.setWatchState(2);
-						}
-					}
+					cv= courseServiceImpl.selectUserCurrentCourseStatus(courseId,ou.getId());
+				}else{
+					cv= courseServiceImpl.selectCurrentCourseStatus(courseId);
+				}	
+				//如果课程id没有找到，就去首页
+				if(cv==null){
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
+					return;
 				}
+				
+				LOGGER.info("cv.getWatchState():+"+cv.getWatchState());
+				LOGGER.info("cv.getType()=:+"+cv.getType());
+				LOGGER.info("cv.getCollection()=:+"+cv.getCollection());
 				
 				if(cv.getWatchState() == 0){
 					if(cv.getType()==1 || cv.getType()==2){
@@ -254,7 +267,7 @@ public class MobileShareController {
 						//线下课购买
 						res.sendRedirect(returnOpenidUri + "/xcview/html/school_class.html?shareBack=1&course_id="+shareId);
 					}	
-				}else if(cv.getWatchState()==1 || cv.getWatchState() == 2 || cv.getWatchState()==3){
+				}else if(cv.getWatchState()==1 || cv.getWatchState() == 2 || cv.getWatchState()==3 ){
 					if(cv.getType()==1||cv.getType()==2){
 						if(cv.getCollection()){
 							//专辑视频音频播放页

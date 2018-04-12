@@ -15,13 +15,16 @@ import com.xczhihui.gift.vo.GiftStatementVo;
  * @author Rongcai Kang
  */
 @Service("giftStatementService")
-public class GiftStatementServiceImpl extends OnlineBaseServiceImpl implements GiftStatementService {
+public class GiftStatementServiceImpl extends OnlineBaseServiceImpl implements
+		GiftStatementService {
 
-    @Autowired
-    private GiftStatementDao giftStatementDao;
+	@Autowired
+	private GiftStatementDao giftStatementDao;
 
-    @Override
-    public Page<GiftStatementVo> findGiftPage(GiftStatementVo giftStatementVo, int pageNumber, int pageSize) {
-        return giftStatementDao.findGiftStatementPage(giftStatementVo, pageNumber, pageSize);
-    }
+	@Override
+	public Page<GiftStatementVo> findGiftPage(GiftStatementVo giftStatementVo,
+			int pageNumber, int pageSize) {
+		return giftStatementDao.findGiftStatementPage(giftStatementVo,
+				pageNumber, pageSize);
+	}
 }

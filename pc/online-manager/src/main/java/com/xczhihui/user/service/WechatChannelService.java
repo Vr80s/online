@@ -8,20 +8,21 @@ import com.xczhihui.user.vo.WechatChannelVo;
 
 public interface WechatChannelService {
 
-	
 	/**
 	 * 新增课程
 	 * 
 	 * @return void
 	 */
-	public void addWechatChannel(WechatChannelVo WechatChannelVo) throws IllegalAccessException, InvocationTargetException;
+	public void addWechatChannel(WechatChannelVo WechatChannelVo)
+			throws Exception;
 
 	/**
 	 * 修改课程
 	 * 
 	 * @return void
 	 */
-	public void updateWechatChannel(WechatChannelVo WechatChannelVo) throws IllegalAccessException, InvocationTargetException;
+	public void updateWechatChannel(WechatChannelVo WechatChannelVo)
+			throws IllegalAccessException, InvocationTargetException;
 
 	public WechatChannelVo getWechatChannelById(Integer WechatChannelId);
 
@@ -32,8 +33,8 @@ public interface WechatChannelService {
 	 * @param pageVo
 	 * @return
 	 */
-	public Page<WechatChannelVo> findWechatChannelPage(WechatChannelVo WechatChannelVo, int pageNumber,
-			int pageSize);
+	public Page<WechatChannelVo> findWechatChannelPage(
+			WechatChannelVo WechatChannelVo, int pageNumber, int pageSize);
 
 	/**
 	 * 修改状态(禁用or启用)

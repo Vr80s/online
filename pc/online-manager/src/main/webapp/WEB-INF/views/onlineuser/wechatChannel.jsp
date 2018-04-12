@@ -127,8 +127,8 @@
 <script src="/js/layer/layer.js"></script>
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-	当前位置：礼物打赏管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 礼物类型管理 </span>
+	当前位置：渠道管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+	</small> <span> 渠道管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -152,6 +152,13 @@
 			
 			            <table frame=void >
 			                <tr>
+			                
+			                	<td>
+			                       <div class="profile-info-value searchTr">
+			                           <input type="text"  id="contact" class="propertyValue1" style="width:100px;" placeholder="联系人/手机号"/>
+									<input type="hidden" value="contact" class="propertyName"/>
+			                        </div>
+			                    </td>
 								<td>
 			                       <div class="profile-info-value searchTr">
 			                            <select name="search_status" id="search_status" value="" class="propertyValue1" >
@@ -276,24 +283,23 @@
 	        <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>渠道名称： </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="name"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
+				 	<input type="text" name="name"   maxlength="15"  class="col-xs-10 col-sm-12 {required:true}">
 	             </div>
 			</div>
 			
 			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系人: </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="contact"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
+				 	<input type="text" name="contact"   maxlength="15"  class="col-xs-10 col-sm-12 {required:true}">
 	             </div>
 			</div>
 			
 			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系电话: </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="mobile"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+				 	<input type="text" name="mobile" maxlength="15"    class="col-xs-10 col-sm-12 {required:true,mobile:true}">
 	             </div>
 			</div>
-			
 			
 			<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
@@ -333,7 +339,7 @@
 	       <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>渠道名称： </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="name" id="editChannel_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
+				 	<input type="text" name="name" id="editName_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true}">
 	             </div>
 			</div>
 			
@@ -347,7 +353,7 @@
 			<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>联系电话: </label>
 				 <div class="col-sm-6">
-				 	<input type="text" name="mobile"  id="editMobile_id"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+				 	<input type="text" name="mobile"  id="editMobile_id"   maxlength="15"  class="col-xs-10 col-sm-12 {required:true,mobile:true}">
 	             </div>
 			</div>
 			
@@ -370,12 +376,39 @@
              </div>
              
               <div class="col-sm-3">	
-                <select id="edit_county" name="county" onchange="onchangeCountyEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+                <select id="edit_county" name="area" onchange="onchangeCountyEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
  　　　　　　　　			<option id='edit_chooseCounty' value='-1'>请选择您所在县区</option>
  　　　　		　　 </select>
  				<input type="hidden" name ="realCounty"  id="edit_realCounty"/>
              </div>
+             
 		</div>
+		
+		 <div class="form-group" style="margin-top: 18px;">
+			<label class="col-sm-3 control-label no-padding-right">二维码: </label>
+	        <div class="col-sm-6">
+	      <!--   <p id="qrCodeImg" class="paddingtop7px padding7"></p> -->
+	        <textarea rows="3" style="width:100%" disabled="disabled" cols="20" id="qrCodeImg">			</textarea>
+	        </div>
+		 </div>
+		 
+		 <div class="form-group" style="margin-top: 18px;">
+			<label class="col-sm-3 control-label no-padding-right">自定义二维码: </label>
+	        <div class="col-sm-6"><p id="customQrCodeUrl" class="paddingtop7px padding7"></p></div>
+		 </div>
+		 
+		 
+		 <div class="form-group" style="margin-top: 5px;">
+		    <label class="col-sm-3 control-label no-padding-right" style="color: #21201d;font-weight: 800;">备注: </label>
+			<div class="col-sm-6"><p id="customQrCodeUrl" style="color: #21201d;font-weight: 800;"
+			class="paddingtop7px padding7;">自定义二维码可通过第三方二维码生成器进行生产。将自定义二维码连接生产二维码 </p></div>
+		 </div>
+		 
+		  <div class="form-group" style="margin-left: 20%;text-align: left;margin-top: 5px;">
+			 <a href="https://cli.im/" title="草料二维码生成器" 
+			 style="color: blue;text-decoration: underline;" target="_blank">草料二维码生成器</a>
+		 </div>
+		 
 		</form>
 	</div>
 	
@@ -383,7 +416,7 @@
 	<div id="dialogEditFcDiv"></div>
 	<div id="FcDialog" class="hide">
 		<form class="form-horizontal" id="updateBrokerage-form" method="post" action="" style="margin-top: 15px;">
-			<input type="hidden" id="ids"  name="ids" class="col-xs-10 col-sm-8 {required:true}">
+			<input type="hidden" id="ids"  name="ids" class="col-xs-10 col-sm-8 {required:true,isphoneNum:true}">
 			<div class="form-group"  style="margin-top: 18px;" >
 				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>分成比例: </label>
 				 <div class="col-sm-6">

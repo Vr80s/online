@@ -4,6 +4,12 @@ var courseForm;
 var teacherArray=new Array();
 var _courseRecTable;
 
+
+$.validator.addMethod("mobile", function(value, element) {
+    debugger
+    return this.optional(element) || (/^1(3|4|5|6|7|8)\d{9}$/.test(value))  || (/^0\d{2,3}-?\d{7,8}$/.test(value) );
+}, "请输入正确的手机号");
+
 $(function(){
 	
 	document.onkeydown=function(event){
@@ -20,6 +26,11 @@ $(function(){
     { "title": "创建人", "class":"center","width":"8%","sortable":false,"data": 'createPerson',"mRender":function (data, display, row) {
     		return "<span name='lecturerNameList'>"+data+"</span>";
     } },
+    
+    { "title": "创建时间", "class":"center","width":"8%","sortable":false,"data": 'createTime',"mRender":function (data, display, row) {
+		return getDateTimeFormat(data);
+     } },
+    
     { "title": "渠道名称", "class":"center","width":"8%", "sortable":false,"data": 'name' },
     
     { "title": "联系人", "class":"center","width":"8%", "sortable":false,"data": 'contact' },
@@ -29,17 +40,23 @@ $(function(){
     { "title": "省/市", "class":"center","width":"8%", "sortable":false,"data": 'xmbPrice', "mRender":function (data, display, row) {
     		return "<span name='lecturerNameList'>"+row.province+"/"+ row.city +"</span>";
     } },
-    { "title": "二维码", "class":"center","width":"8%", "sortable":false,"data": 'price' ,"mRender":function(data){
+    { "title": "二维码", "class":"center","width":"8%", "sortable":false,"data": 'qrCodeImg' ,"mRender":function(data){
 		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+	}},
+	
+	{ "title": "自定义二维码", "class":"center","width":"8%", "sortable":false,"data": 'customQrCodeUrl' ,"mRender":function(data){
+		return "<span name='lecturerNameList'>"+data+"</span>";
 	}},
 
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
+	    		'<a class="blue" href="'+row.qrCodeImg+'" title="下载二维码" target="_blank"><i class="ace-icon fa fa-paperclip bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
+	    		'<a class="blue" href="'+row.qrCodeImg+'" title="下载二维码" target="_blank"  ><i class="ace-icon fa fa-paperclip bigger-130"></i></a>'+
 				 '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '
 	    	}
@@ -90,6 +107,7 @@ $(function(){
 					},
 					mobile: {
 						required:"手机号不可空！",
+						isphoneNum:"请填写正确的手机号码",
 					}
 		        }
 		    });
@@ -117,12 +135,15 @@ $(".add_bx").click(function(){
 	$("#add-directIdDiv").hide();
 	$("#add-externalLinksDiv").hide();
 
-	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增礼物",400,400,true,"确定",function(){
+	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增渠道",400,400,true,"确定",function(){
 		
 		if($("#addCourse-form").valid()){
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/wechatChannel/addWechatChannel");
 	            $("#addCourse-form").ajaxSubmit(function(data){
+	            	
+	            	debugger;
+	            	
 	            	try{
                 		data = jQuery.parseJSON(jQuery(data).text());
                 	}catch(e) {
@@ -142,17 +163,48 @@ $(".add_bx").click(function(){
 });
 
 
+function getFormat(time){
+	if(time >= 1 && time < 9){
+		time = "0"+time;
+	}
+	return time;
+}
+function getFormatHMS(time){
+	if(time >= 0 && time < 9){
+		time = "0"+time;
+	}
+	return time;
+}
+
+function getDateTimeFormat(data){
+	//微信性别  --》 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+	if(data && data != ''){
+		var d = new Date(data);
+		return d.format('yyyy-M-d hh:mm:ss');
+	}
+}
+
+
 //修改
 function toEdit(obj){
+	debugger;
 	updateCourseForm.resetForm();
 	var oo = $(obj).parent().parent().parent();
 	var row = _courseTable.fnGetData(oo); // get datarow
 
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	
+	//<input type="hidden" id="editChannel_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
+	$("#editChannel_id").val(row.id); //充值id
+	
 //	debugger;
-	$("#editCourse_id").val(row.id); //充值id
-	$("#price_edit").val(row.price); //充值价格
+	$("#editName_id").val(row.name); //充值id
+	$("#editContact_id").val(row.contact); //充值价格
+	$("#editMobile_id").val(row.mobile); //充值价格
+
+	
+	$("#qrCodeImg").val(row.qrCodeImg); //
+	$("#customQrCodeUrl").text(row.customQrCodeUrl); //
 
 	
 	
@@ -162,36 +214,45 @@ function toEdit(obj){
 //	if(p_c_a.length==3){
 		//省
 		for(i=0;i<$("#edit_province option").length;i++){
-    		if($("#edit_province option").eq(i).val()==row.province){
+    		if($("#edit_province option").eq(i).val()==row.realProvince){
     			$("#edit_province option").eq(i).attr("selected",true);
     			break;
     		}
     	}
+		
+		$('#edit_province').val(row.realProvince);
+		
+		
 		$("#edit_citys").empty();
 		$("#edit_county").empty();
 		
 		
-		var city = "<option id='10086'>"+p_c_a[1]+"</option>";
-		$("#edit_citys").append(city);
+		$('#edit_province').trigger("change");
+		$("#edit_citys").val(row.realCitys);
 		
-		var countysDetails = p_c_a[2].split(" ");
+		$("#edit_citys").trigger("change");
+		$("#edit_county").val(row.realCounty);
 		
-		var county = "<option id='10089'>"+countysDetails[0]+"</option>";
-		$("#edit_county").append(county);
+//		var city = "<option id='edit_chooseCity' value='-1'>请选择您所在城市</option><option id='"+row.realCitys+"' selected='selected'>"+row.city+"</option>";
+//		$("#edit_citys").append(city);
+//		$("#edit_citys option").eq(1).attr("selected",true);
+//		//$("#edit_citys").val(row.realCitys);
 		
+//		var county = "<option id='edit_chooseCounty' value='-1'>请选择您所在县区</option><option id='"+row.realCounty+"' selected='selected'>"+row.area+"</option>";
+//		$("#edit_county").append(county);
+//		$("#edit_county option").eq(1).attr("selected",true);
 		
-		$("#edit_realProvince").val(p_c_a[0]);
-		$("#edit_realCitys").val(p_c_a[1]);
-		$("#edit_realCounty").val(p_c_a[2]);
+		//$("#edit_county").val(row.realCounty);
 		
-		//授课地点
-		$("#edit_address").val(countysDetails[1]);
+		$("#edit_realProvince").val(row.province);
+		$("#edit_realCitys").val(row.city); 
+		$("#edit_realCounty").val(row.area);
 //	}
 	
 	
 	
 	
-	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改礼物",400,400,true,"确定",function(){
+	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","修改渠道",700,550,true,"确定",function(){
 		
 		if($("#updateCourse-form").valid()){
 			mask();

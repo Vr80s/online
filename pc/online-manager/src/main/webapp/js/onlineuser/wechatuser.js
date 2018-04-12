@@ -49,6 +49,19 @@ $(function() {
 		"sortable" : false,
 		"data" : 'city'
 	},{
+		"title" : "是否取消关注",
+		"width" : "10%",
+		"class" : "center",
+		"sortable" : false,
+		"data" : 'subscribe',
+		"mRender":function (data, display, row){
+			if(null==data || data == "1"){
+				return "已关注";
+			}else{
+				return "已取消关注";
+			}
+        }
+	},{
 		"title" : "关注时间",
 		"width" : "9%",
 		"class" : "center",
@@ -56,10 +69,6 @@ $(function() {
 		"data" : 'subscribeTime',
 		"mRender":function (data, display, row){
 			
-//			if(data && data != ''){
-//				var d = new Date(data);
-//				return d.format('yyyy-M-d hh:mm:ss');
-//			}
 			return getDateTimeFormat(data);
         }
 	},{
@@ -67,7 +76,10 @@ $(function() {
 		"class" : "center",
 		"width" : "12%",
 		"sortable" : false,
-		"data" : 'lastUpdateTime'
+		"data" : 'lastUpdateTime',
+		"mRender":function (data, display, row){
+			return getDateTimeFormat(data);
+        }
 	},{
 		"sortable" : false,
 		"data" : "id",
@@ -132,8 +144,8 @@ function viewUserDialog(obj) {
 	$("#vhallId_look").html(aData.channelName);
 	
 	$("#balanceGive_look").html(aData.province + "__"+aData.city+"__"+aData.country);
-	$("#balance_look").html(aData.subscribeTime);
-	$("#last_time_look").html(aData.lastUpdateTime);
+	$("#balance_look").html(getDateTimeFormat(aData.subscribeTime));
+	$("#last_time_look").html(getDateTimeFormat(aData.lastUpdateTime));
 	//view_room_number
 	//$("#isPay_look").html(aData.isPay==1?'已付费':'未付费');
 	var dialog = openDialogNoBtnName("userInfoDialog","dialogUserInfoDiv","查看用户",600,400,false,"确定",null);

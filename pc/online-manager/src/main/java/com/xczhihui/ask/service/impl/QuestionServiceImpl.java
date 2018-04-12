@@ -1,4 +1,6 @@
-package com.xczhihui.ask.service.impl;/**
+package com.xczhihui.ask.service.impl;
+
+/**
  * Created by admin on 2016/8/29.
  */
 
@@ -18,15 +20,18 @@ import org.springframework.stereotype.Service;
  * @create 2016-10-13 18:00:46
  */
 @Service
-public class QuestionServiceImpl  extends OnlineBaseServiceImpl implements QuestionService {
+public class QuestionServiceImpl extends OnlineBaseServiceImpl implements
+		QuestionService {
 
 	@Autowired
-    private QuestionDao questionDao;
-	
+	private QuestionDao questionDao;
+
 	@Override
-	public Page<QuestionVo> findQuestionPage(QuestionVo questionVo, Integer pageNumber, Integer pageSize) {
-        Page<QuestionVo> page = questionDao.findQuestionPage(questionVo, pageNumber, pageSize);
-        return page;
+	public Page<QuestionVo> findQuestionPage(QuestionVo questionVo,
+			Integer pageNumber, Integer pageSize) {
+		Page<QuestionVo> page = questionDao.findQuestionPage(questionVo,
+				pageNumber, pageSize);
+		return page;
 	}
 
 	@Override

@@ -5,27 +5,27 @@ import java.util.List;
 public class ZtreeVo {
 
 	private String id;
-	
+
 	private String pId = "";
-	
+
 	private String temp = "";
-	
+
 	private String name;
-	
-	//是否打开节点
+
+	// 是否打开节点
 	private boolean open = false;
-	
-	//是否是父节点
+
+	// 是否是父节点
 	private boolean isParent = false;
-	
-	//复选框是否选择
+
+	// 复选框是否选择
 	private boolean checked = false;
-	
-	//是否展示复选框
+
+	// 是否展示复选框
 	private boolean nocheck = false;
-	
+
 	private String type;
-	
+
 	private List children;
 
 	public String getId() {
@@ -44,8 +44,6 @@ public class ZtreeVo {
 		this.pId = pId;
 	}
 
-	
-
 	public String getName() {
 		return name;
 	}
@@ -53,7 +51,7 @@ public class ZtreeVo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getTemp() {
 		return temp;
 	}

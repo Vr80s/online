@@ -2,7 +2,6 @@ package com.xczhihui.course.vo;
 
 import java.util.Date;
 
-
 import com.xczhihui.bxg.common.util.DateUtil;
 
 /**
@@ -40,15 +39,14 @@ public class QuestionVo {
 	private int teacherReferncedCount;
 	private String attachmentUrl;
 	private String optionsPicture;
-	
 
-	//wgw加  组卷的时候 用来临时存放每题的分数
+	// wgw加 组卷的时候 用来临时存放每题的分数
 	private String questionScore;
-	private String kpointIds;//知识点ID
-	private String questionId;//知识点ID
-	private String chapterName;//知识点名称
-	private String fileName;//答案附件名称
-	
+	private String kpointIds;// 知识点ID
+	private String questionId;// 知识点ID
+	private String chapterName;// 知识点名称
+	private String fileName;// 答案附件名称
+
 	public boolean isUse() {
 		return isUse;
 	}
@@ -186,7 +184,8 @@ public class QuestionVo {
 
 	public void setCreateTimeStr() {
 		if (createTime != null) {
-			createTimeStr = DateUtil.formatDate(createTime, DateUtil.FORMAT_DAY);
+			createTimeStr = DateUtil
+					.formatDate(createTime, DateUtil.FORMAT_DAY);
 		}
 	}
 

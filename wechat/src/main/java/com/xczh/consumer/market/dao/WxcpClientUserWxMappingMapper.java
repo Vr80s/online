@@ -72,10 +72,12 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 		if(record==null) {
             return -1;
         }
+		if(record.getSubscribe()==null){
+			record.setSubscribe("1");
+		}
 		
 		WxcpClientUserWxMapping record_0  = this.getWxcpClientUserWxMappingInfo(record.getClient_id(),record.getOpenid(),record.getWx_public_id());
 		if(record_0 == null) { 	
-			
 			
 			/**
 			 * Parameters: [4ff5f5046dd04a1b95bd40d4554fea84, null, null, 
@@ -103,7 +105,15 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 			sql.append("   	remark				,           		");
 			sql.append("   	groupid				,           		");
 			sql.append("   	wx_public_id		,           		");
-			sql.append("   	wx_public_name	                		");
+			sql.append("   	wx_public_name	    ,            		");
+			
+			sql.append("   	tagid_list			,           		");
+			sql.append("   	subscribe_scene			,           		");
+			sql.append("   	qr_scene		,           		");
+			sql.append("   	qr_scene_str				,           		");
+			sql.append("   	create_time				,           		");
+			sql.append("   	last_update_time				           		");
+			
 			sql.append(")                                   		");
 			sql.append("values                              		");
 			sql.append("(                                   		");
@@ -119,13 +129,22 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 			sql.append("  ?,                                		");
 			sql.append("  ?,                                		");
 			sql.append("  ?,                                		");
+			
+			sql.append("  ?,                                		");
+			sql.append("  ?,                                		");
+			sql.append("  ?,                                		");
+			sql.append("  ?,                                		");
+			sql.append("  ?,                                		");
+			sql.append("  ?,                                 		");
+			
 			sql.append("  ?,                                		");
 			sql.append("  ?,                                		");
 			sql.append("  ?,                                		");
 			sql.append("  ?,                                		");
 			sql.append("  ?,                                		");
 			sql.append("  ?                                 		");
-			sql.append(")                                   		");
+			
+			sql.append(" )                                   		");
 			
 			super.update(
 				JdbcUtil.getCurrentConnection(), 
@@ -147,7 +166,14 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 				record.getRemark()								,      
 				record.getGroupid()								,      
 				record.getWx_public_id()						,      
-				record.getWx_public_name()			  
+				record.getWx_public_name()	,
+				
+				record.getTagid_list()							,      
+				record.getSubscribe_scene()							,  
+				record.getQr_scene()							,      
+				record.getQr_scene_str()							,  
+				record.getCreate_time()	,     								
+				record.getLast_update_time()	     
 				);	
 			
 		} else {
@@ -191,7 +217,15 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 		sql.append("   		remark				= ?,   	");
 		sql.append("   		groupid				= ?,   	");
 		sql.append("   		wx_public_id		= ?,    ");
-		sql.append("   		wx_public_name		= ?     ");
+		sql.append("   		wx_public_name		= ?,     ");
+		sql.append("   	tagid_list			= ?,           		");
+		sql.append("   	subscribe_scene			= ?,           		");
+		sql.append("   	qr_scene		= ?,           		");
+		sql.append("   	qr_scene_str				= ?,           		");
+		sql.append("   	create_time				= ?,           		");
+		sql.append("   	last_update_time		= ?		           		");
+		
+		
 		sql.append("where                				");
 		sql.append("	1 = 1  			   				");
 		sql.append("	and wx_id 				= ?     ");
@@ -217,8 +251,14 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 			record.getGroupid()								,      
 			record.getWx_public_id()						,      
 			record.getWx_public_name()			  			,
-			record.getWx_id()								      
-			);	
+			record.getTagid_list()							,      
+			record.getSubscribe_scene()							,  
+			record.getQr_scene()							,      
+			record.getQr_scene_str()							,  
+			record.getCreate_time()	,     								
+			record.getLast_update_time(),   
+			record.getWx_id()								   
+			);
 		
 		return 0;
 	}

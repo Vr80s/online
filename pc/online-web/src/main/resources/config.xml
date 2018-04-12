@@ -18,7 +18,7 @@
 
     <context:property-placeholder location="classpath:config.properties"/>
     <context:component-scan
-            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.bxg.common.support.dao, com.xczhihui.bxg.common.support.config"/>
+            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.bxg.common.support.**, com.xczhihui.bxg.online.web.support.*"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
@@ -125,13 +125,15 @@
     <bean id="systemVariateService" class="com.xczhihui.bxg.common.support.service.impl.SystemVariateServiceImpl"/>
 
     <!--RedissonUtil配置-->
-    <bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+    <bean id="redissonUtil" class="com.xczhihui.bxg.common.support.lock.RedissonUtil">
         <property name="redisHost" value="${redis.host}"></property>
         <property name="redisPort" value="${redis.port}"></property>
     </bean>
+    <bean id="onlineConfig" class="com.xczhihui.bxg.common.support.config.OnlineConfig"></bean>
+    <bean id="CCUtils" class="com.xczhihui.bxg.common.support.cc.util.CCUtils"></bean>
 
     <!-- aop分布式锁 -->
-    <bean id="lockService" class="com.xczhihui.bxg.online.common.utils.lock.LockService"></bean>
+    <bean id="lockService" class="com.xczhihui.bxg.common.support.lock.LockService"></bean>
     <!-- 启动对@AspectJ注解的支持  -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
@@ -140,8 +142,6 @@
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
 
-    <dubbo:reference id="exceptionService" interface="com.xczhihui.bxg.common.support.service.ExceptionCenterService"
-                     timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
                      timeout="${dubbo.consumer.timeout}"/>
     <!-- 医馆 -->
@@ -176,6 +176,9 @@
     <dubbo:reference interface="com.xczhihui.medical.anchor.service.IAssetService" id="assetServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!-- BBS -->
+    <dubbo:reference interface="com.xczhihui.medical.bbs.service.IPostService" id="postServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
 
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl"
@@ -215,8 +218,8 @@
                      timeout="${dubbo.consumer.timeout}"/>
 
     <!--头条相关-->
-    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsArticleService"  id="oeBxsArticleServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsArticleService" id="oeBxsArticleServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
 
     <!-- 熊猫币购买服务 -->
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"
@@ -228,11 +231,10 @@
 
     <!-- 附件服务 -->
     <dubbo:service interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService"
-                     ref="attachmentCenterService"
-                     timeout="${dubbo.consumer.timeout}"/>
-                     
-    <!-- 充值服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService"  ref="rechargesService"
-                     timeout="${dubbo.consumer.timeout}"/>
+                   ref="attachmentCenterService"
+                   timeout="${dubbo.consumer.timeout}"/>
 
+    <!-- 充值服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService" ref="rechargesService"
+                   timeout="${dubbo.consumer.timeout}"/>
 </beans>

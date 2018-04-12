@@ -34,7 +34,7 @@ import com.xczhihui.utils.Group;
 @Controller
 @RequestMapping("recharges")
 public class RechargesController extends AbstractController {
-	
+
 	protected final static String recharges_PATH_PREFIX = "/gift/";
 	@Autowired
 	private RechargesService rechargesService;
@@ -43,13 +43,12 @@ public class RechargesController extends AbstractController {
 	@Value("${online.web.url}")
 	private String weburl;
 
-	
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 
 		return recharges_PATH_PREFIX + "/recharges";
 	}
-	
+
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo rechargess(TableVo tableVo) {
@@ -63,13 +62,12 @@ public class RechargesController extends AbstractController {
 
 		Group status = groups.findByName("search_status");
 
-		
 		if (status != null) {
 			searchVo.setStatus(status.getPropertyValue1().toString());
 		}
-		
-		Page<RechargesVo> page = rechargesService.findRechargesPage(searchVo, currentPage,
-				pageSize);
+
+		Page<RechargesVo> page = rechargesService.findRechargesPage(searchVo,
+				currentPage, pageSize);
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
@@ -106,7 +104,7 @@ public class RechargesController extends AbstractController {
 	 * @param id
 	 * @return
 	 */
-	//@RequiresPermissions("recharges:menu")
+	// @RequiresPermissions("recharges:menu")
 	@RequestMapping(value = "findCourseById", method = RequestMethod.GET)
 	@ResponseBody
 	public RechargesVo findrechargesById(Integer id) {
@@ -161,7 +159,6 @@ public class RechargesController extends AbstractController {
 		rechargesService.deleteRechargesById(id);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
-	
 
 	/**
 	 * 上移

@@ -1,12 +1,19 @@
 package com.xczhihui.course.web;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.common.util.enums.CourseDismissal;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.Multimedia;
+import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
+import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.ScoreType;
+import com.xczhihui.bxg.online.common.domain.TeachMethod;
 import com.xczhihui.course.service.CourseApplyService;
 import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.utils.Group;
@@ -21,20 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
-import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
-import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.bxg.online.common.enums.CourseDismissal;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Multimedia;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
-import com.xczhihui.course.vo.LecturerVo;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 课程管理控制层实现类
@@ -45,20 +41,16 @@ import com.xczhihui.course.vo.LecturerVo;
 @Controller
 @RequestMapping("cloudclass/courseApply")
 public class CourseApplyInfoController extends AbstractController {
-    protected final static String CLOUD_CLASS_PATH_PREFIX = "/course/";
+    protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
     @Autowired
     private CourseService courseService;
     @Autowired
     private CourseApplyService courseApplyService;
-    @Autowired
-    private AttachmentCenterService att;
     @Value("${online.web.url}")
     private String weburl;
 
     @Autowired
     private OnlineUserService onlineUserService;
-    @Autowired
-    private RedissonUtil redissonUtil;
 
     @RequestMapping(value = "index")
     public String index(HttpServletRequest request) {

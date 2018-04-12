@@ -15,7 +15,7 @@ function checkLoginStatus(){
                     //alert("未登录状态");
                 }else if(data.resultObject==2){
                     //alert("被顶掉！");
-                    window.location.href=bath+"/otherDevice.html"
+                    // window.location.href=bath+"/otherDevice.html"
                 }
 
             } else {
@@ -26,13 +26,12 @@ function checkLoginStatus(){
 
 }
 
-window.setInterval("checkLoginStatus()",1000*60*5);
+// window.setInterval("checkLoginStatus()",1000*60*5);
 
 var teacherId;
 var teacherName;
 $(function() {
 	var roomid = room_id;
-//	var userid=cc_live_user_id;
 	var username;
 	RequestService("/online/user/isAlive", "GET", null, function(data) {
 		if(!data.success) {

@@ -3,11 +3,12 @@ package com.xczhihui.common.web;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.course.service.PublicCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.xczhihui.course.service.PublicCourseService;
 
 
 @RestController
@@ -26,4 +27,5 @@ public class TomcatMonitorController {
     public void yuruixin(){
     	publicCourseService.saveOpenCourseToSend();
     }
+    
 }

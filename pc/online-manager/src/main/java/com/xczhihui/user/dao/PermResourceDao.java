@@ -33,7 +33,7 @@ public class PermResourceDao extends SimpleHibernateDao {
 	public int deleteRoleResources(String resourceId) {
 		String sql = "delete from role_resource where resource_id = ?";
 		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .update(sql, resourceId);
+				.update(sql, resourceId);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class PermResourceDao extends SimpleHibernateDao {
 	public void addRoleResource(String roleId, String resourceId) {
 		String sql = "insert into role_resource(role_id, resource_id) values(?, ?)";
 		this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .update(sql, roleId, resourceId);
+				.update(sql, roleId, resourceId);
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class PermResourceDao extends SimpleHibernateDao {
 	public void deleteRoleResource(String roleId, String resourceId) {
 		String sql = "delete from role_resource where role_id=? and resource_id=?";
 		this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .update(sql, roleId, resourceId);
+				.update(sql, roleId, resourceId);
 	}
 
 	/**
@@ -85,11 +85,11 @@ public class PermResourceDao extends SimpleHibernateDao {
 			return new HashSet<String>();
 		}
 		String sql = "select r.permission from role_resource rp, resource r "
-		        + "where r.id=rp.resource_id and rp.role_id in (:roleIds)";
+				+ "where r.id=rp.resource_id and rp.role_id in (:roleIds)";
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("roleIds", roleIds);
 		List<String> perms = this.getNamedParameterJdbcTemplate().queryForList(
-		        sql, params, String.class);
+				sql, params, String.class);
 		return new HashSet<String>(perms);
 	}
 
@@ -121,9 +121,9 @@ public class PermResourceDao extends SimpleHibernateDao {
 	 * @return
 	 */
 	public List<Resource> findResources(Set<String> types,
-	        Set<String> permissions) {
+			Set<String> permissions) {
 		if (permissions == null || permissions.size() < 1 || types == null
-		        || types.size() < 1) {
+				|| types.size() < 1) {
 			return new ArrayList<>();
 		}
 
@@ -147,7 +147,7 @@ public class PermResourceDao extends SimpleHibernateDao {
 	public List<String> findRoleResourceIds(String roleId) {
 		String sql = "select resource_id from role_resource where role_id=?";
 		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .queryForList(sql, String.class, roleId);
+				.queryForList(sql, String.class, roleId);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class PermResourceDao extends SimpleHibernateDao {
 	public List<String> getChildIds(String parentId) {
 		String sql = "select id from resource where parent_id=?";
 		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .queryForList(sql, String.class, parentId);
+				.queryForList(sql, String.class, parentId);
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class PermResourceDao extends SimpleHibernateDao {
 	public List<String> findRoleIds(String resourceId) {
 		String sql = "select role_id from role_resource where resource_id=?";
 		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .queryForList(sql, String.class, resourceId);
+				.queryForList(sql, String.class, resourceId);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class PermResourceDao extends SimpleHibernateDao {
 	public List<String> getValidChildIds(String parentId) {
 		String sql = "select id from resource where parent_id=? and is_delete=0";
 		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .queryForList(sql, String.class, parentId);
+				.queryForList(sql, String.class, parentId);
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class PermResourceDao extends SimpleHibernateDao {
 	public List<String> getChildIdsByTime(String parentId, Date time) {
 		String sql = "select id from resource where parent_id=? and create_time=?";
 		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .queryForList(sql, String.class, parentId, time);
+				.queryForList(sql, String.class, parentId, time);
 	}
 
 	/**
@@ -240,18 +240,18 @@ public class PermResourceDao extends SimpleHibernateDao {
 		ids.forEach(cid -> {
 			if (cid != null) {
 				sql.append(sql.length() == 0 ? "" : ",").append("'")
-				        .append(cid).append("'");
+						.append(cid).append("'");
 			}
 		});
 
 		sql.insert(0,
-		        "update resource set is_delete=? , create_time=? where id in ( ");
+				"update resource set is_delete=? , create_time=? where id in ( ");
 		sql.append(")");
 
 		logger.info(sql.toString());
 
 		this.getNamedParameterJdbcTemplate().getJdbcOperations()
-		        .update(sql.toString(), delete, createTime);
+				.update(sql.toString(), delete, createTime);
 
 	}
 

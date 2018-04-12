@@ -3,10 +3,10 @@ package com.xczhihui.utils;
 import java.util.List;
 
 public class CourseTreeVo {
-	
-	//课程ID
+
+	// 课程ID
 	private String id;
-	
+
 	private List<ZtreeVo> ztreeVos;
 
 	public String getId() {

@@ -23,7 +23,7 @@ public class RechargesVo extends OnlineBaseVo {
 	private String status;
 
 	private Double price;
-	
+
 	private Double xmbPrice;
 
 	private String couponsType;
@@ -37,8 +37,6 @@ public class RechargesVo extends OnlineBaseVo {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	
 
 	public Integer getSort() {
 		return sort;
@@ -87,5 +85,5 @@ public class RechargesVo extends OnlineBaseVo {
 	public void setXmbPrice(Double xmbPrice) {
 		this.xmbPrice = xmbPrice;
 	}
-	
+
 }

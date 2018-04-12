@@ -43,7 +43,7 @@ public class ResourceTreeHelper {
 	 */
 	private static void orderByDisplayOrder(List<Resource> resources) {
 		ResourceComparator com = new ResourceComparator();
-		 resources.sort(com);//yuruixin_2017-0816
+		resources.sort(com);// yuruixin_2017-0816
 		Collections.sort(resources, com);
 		for (Resource resource : resources) {
 			List<Resource> children = resource.getChildren();
@@ -80,7 +80,7 @@ class ResourceComparator implements Comparator<Resource> {
 
 	@Override
 	public int compare(Resource o1, Resource o2) {
-		 return o2.getDisplayOrder() - o1.getDisplayOrder();
+		return o2.getDisplayOrder() - o1.getDisplayOrder();
 	}
 
 }

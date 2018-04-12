@@ -22,9 +22,8 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.service.WxcpPayFlowService;
 import com.xczh.consumer.market.service.WxcpWxRedpackService;
 import com.xczh.consumer.market.service.WxcpWxTransService;
-import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
 
 @Controller
 @RequestMapping("/xczh/order")

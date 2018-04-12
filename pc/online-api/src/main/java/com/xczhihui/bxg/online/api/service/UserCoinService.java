@@ -2,11 +2,10 @@ package com.xczhihui.bxg.online.api.service;
 
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.*;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.bxg.common.util.enums.Payment;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -54,28 +53,12 @@ public interface UserCoinService {
 	public void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderFrom orderFrom, String orderNo);
 
 	/**
-	 * Description：用户熊猫币新增
-	 * @param uci
-	 * @return void
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	public void updateBalanceForIncrease(UserCoinIncrease uci);
-	
-	/** 
-	 * Description：用户熊猫币消费
-	 * @param ucc
-	 * @return UserCoinConsumption
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	public UserCoinConsumption updateBalanceForConsumption(UserCoinConsumption ucc);
-
-	/**
 	 * Description：用户使用熊猫币买课
 	 * creed: Talk is cheap,show me the code
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 5:04 2018/1/29 0029
 	 **/
-	public UserCoinConsumption updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
+	public String updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
 
 	/**
 	 * Description：添加用户熊猫
@@ -96,11 +79,10 @@ public interface UserCoinService {
 	/** 
 	 * Description：送礼物相关余额扣减和增加
 	 * @param giftStatement
-	 * @param gift
 	 * @return void
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public void updateBalanceForGift(GiftStatement giftStatement, Gift gift);
+	public void updateBalanceForGift(Object giftStatement);
 
 	/**
 	 * Description：多订单课程主播分成
@@ -115,15 +97,8 @@ public interface UserCoinService {
 	 * @return void
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public void updateBalanceForReward(RewardStatement rs)throws Exception;
+	public void updateBalanceForReward(Object rs)throws Exception;
 
-	/**
-	 * Description：提现-更改用户的人民币余额
-	 * creed: Talk is cheap,show me the code
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 * @Date: 下午 4:34 2018/1/29 0029
-	 **/
-	public UserCoinConsumption updateBalanceForEnchashment(String userId, BigDecimal enchashmentSum, OrderFrom orderFrom,String enchashmentApplyId);
 
 	public boolean checkRechargeOrder(String orderNo);
 
@@ -134,14 +109,6 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	public Object getUserCoinConsumptionRecord(String userId, Integer pageNumber, Integer pageSize);
-
-	/**
-	 * Description：买课后，给主播分成
-	 * creed: Talk is cheap,show me the code
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 * @Date: 下午 8:19 2018/1/29 0029
-	 **/
-	public void updateBalanceForCourse(OrderVo orderVo);
 
 	/**
 	 * Description：结算熊猫币

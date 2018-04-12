@@ -5,46 +5,46 @@ import java.util.List;
 public class TreeNode {
 
 	private String id;
-	
+
 	private String pId = "";
-	
+
 	private String temp = "";
-	
+
 	private String name;
-	
+
 	private String actName;
-	
+
 	private Integer level;
-	
+
 	private String courseId;
-	 
+
 	private String targetId;
 
 	private String moveType;
-	
-	//要统计的数字 用来存放评价数、或笔记数的
+
+	// 要统计的数字 用来存放评价数、或笔记数的
 	private Integer cntNum;
-	
-	//是否打开节点
+
+	// 是否打开节点
 	private boolean open = false;
-	
-	//是否是父节点
+
+	// 是否是父节点
 	private boolean isParent = false;
-	
-	//复选框是否选择
+
+	// 复选框是否选择
 	private boolean checked = false;
-	
-	//是否展示复选框
+
+	// 是否展示复选框
 	private boolean nocheck = false;
-	
-	//是否是根节点
+
+	// 是否是根节点
 	private boolean islast = false;
-	
-	//是否可选
+
+	// 是否可选
 	private boolean chkDisabled = false;
-	
+
 	private String icon;
-	
+
 	public boolean isIslast() {
 		return islast;
 	}
@@ -55,7 +55,7 @@ public class TreeNode {
 
 	private String type;
 	private String contenttype;
-	
+
 	private List children;
 
 	public Integer getLevel() {
@@ -82,8 +82,6 @@ public class TreeNode {
 		this.pId = pId;
 	}
 
-	
-
 	public String getName() {
 		return name;
 	}
@@ -91,7 +89,7 @@ public class TreeNode {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getTemp() {
 		return temp;
 	}

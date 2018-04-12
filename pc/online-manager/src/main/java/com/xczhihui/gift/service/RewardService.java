@@ -12,7 +12,8 @@ public interface RewardService {
 	 * 
 	 * @return void
 	 */
-	public void updateReward(RewardVo giftVo) throws IllegalAccessException, InvocationTargetException;
+	public void updateReward(RewardVo giftVo) throws IllegalAccessException,
+			InvocationTargetException;
 
 	public RewardVo getRewardById(Integer giftId);
 
@@ -35,7 +36,6 @@ public interface RewardService {
 	 */
 	public void updateStatus(Integer id);
 
-
 	/**
 	 * 上移
 	 * 
@@ -53,7 +53,6 @@ public interface RewardService {
 	 * @return
 	 */
 	public void updateSortDown(Integer id);
-
 
 	public void updateBrokerage(String ids, String brokerage);
 

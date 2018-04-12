@@ -5,9 +5,9 @@ import com.xczhihui.utils.TableVo;
 
 public interface BBSRestrictionService {
 
-    TableVo list(TableVo tableVo);
+	TableVo list(TableVo tableVo);
 
-    ResponseObject updateGags(String userId, boolean gags);
+	ResponseObject updateGags(String userId, boolean gags);
 
-    ResponseObject updateBlacklist(String userId, boolean blacklist);
+	ResponseObject updateBlacklist(String userId, boolean blacklist);
 }

@@ -8,20 +8,21 @@ import com.xczhihui.gift.vo.RechargesVo;
 
 public interface RechargesService {
 
-	
 	/**
 	 * 新增课程
 	 * 
 	 * @return void
 	 */
-	public void addRecharges(RechargesVo rechargesVo) throws IllegalAccessException, InvocationTargetException;
+	public void addRecharges(RechargesVo rechargesVo)
+			throws IllegalAccessException, InvocationTargetException;
 
 	/**
 	 * 修改课程
 	 * 
 	 * @return void
 	 */
-	public void updateRecharges(RechargesVo rechargesVo) throws IllegalAccessException, InvocationTargetException;
+	public void updateRecharges(RechargesVo rechargesVo)
+			throws IllegalAccessException, InvocationTargetException;
 
 	public RechargesVo getRechargesById(Integer rechargesId);
 
@@ -32,8 +33,8 @@ public interface RechargesService {
 	 * @param pageVo
 	 * @return
 	 */
-	public Page<RechargesVo> findRechargesPage(RechargesVo rechargesVo, int pageNumber,
-			int pageSize);
+	public Page<RechargesVo> findRechargesPage(RechargesVo rechargesVo,
+			int pageNumber, int pageSize);
 
 	/**
 	 * 修改状态(禁用or启用)

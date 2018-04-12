@@ -52,6 +52,11 @@ public class WatchHistoryVO implements Serializable {
     
     public Integer liveSourceType; //直播源
     
+    
+    public String collectionName;
+    
+    public Integer collectionId;
+    
     public String getUserId() {
         return userId;
     }
@@ -212,8 +217,14 @@ public class WatchHistoryVO implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
+
+	public Integer getCollectionId() {
+		return collectionId;
+	}
+
+	public void setCollectionId(Integer collectionId) {
+		this.collectionId = collectionId;
+	}
 	
     
 }

@@ -11,56 +11,57 @@ import java.util.List;
 
 /**
  * 菜单web端调用的结果封装类
+ * 
  * @author Rongcai Kang
  */
 public class MenuVo extends OnlineBaseVo {
-    private String id;
-    /**
-     * 菜单名
-     */
-    private String name;
-    /**
-     * 包含班级
-     */
-    private String courseName;
-    /**
-     * 菜单编号
-     */
-    private String number;
+	private String id;
+	/**
+	 * 菜单名
+	 */
+	private String name;
+	/**
+	 * 包含班级
+	 */
+	private String courseName;
+	/**
+	 * 菜单编号
+	 */
+	private String number;
 
-    /**
-     * 菜单类型
-     */
-    private Integer type;
+	/**
+	 * 菜单类型
+	 */
+	private Integer type;
 
-    /**
-     * 菜单排序
-     */
-    private Integer sort;
-    
-    /**
+	/**
+	 * 菜单排序
+	 */
+	private Integer sort;
+
+	/**
 	 * 云课堂菜单排序
 	 */
 	private Integer yunSort;
-	
+
 	/**
 	 * 博问答菜单排序
 	 */
 	private Integer boSort;
 
-    /**
-     * 课程数
-     */
-    private Integer courseCount;
-    
-    /**
-     * 课程数
-     */
-    private Integer tagCount;
+	/**
+	 * 课程数
+	 */
+	private Integer courseCount;
 
-    private Integer status;
+	/**
+	 * 课程数
+	 */
+	private Integer tagCount;
 
-    /**
+	private Integer status;
+
+	/**
 	 * 云课堂禁用状态
 	 */
 	private Integer yunStatus;
@@ -69,23 +70,21 @@ public class MenuVo extends OnlineBaseVo {
 	 * 博问答禁用状态
 	 */
 	private Integer boStatus;
-    
-    /**
-     * 菜单名
-     */
-    private String menuName;
-    
-    
 
-    @JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
-    private Date createTime;
-    
-    /**
-     * 备注
-     */
-    private String remark;
-    
-    public String getRemark() {
+	/**
+	 * 菜单名
+	 */
+	private String menuName;
+
+	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
+	private Date createTime;
+
+	/**
+	 * 备注
+	 */
+	private String remark;
+
+	public String getRemark() {
 		return remark;
 	}
 
@@ -94,48 +93,47 @@ public class MenuVo extends OnlineBaseVo {
 	}
 
 	/**
-     * 子菜单
-     */
-    private String childMenuNames;
+	 * 子菜单
+	 */
+	private String childMenuNames;
 
-    private String orderCourseCount; //课程排序
+	private String orderCourseCount; // 课程排序
 
-    private Date time_start;
+	private Date time_start;
 
-    private Date time_end;
+	private Date time_end;
 
-    private List<Menu> sencodMenu;
-    
-    private List<TagVo> listTagVo;
+	private List<Menu> sencodMenu;
 
-    private Integer parentId;
-    
-    public Integer getParentId() {
-        return parentId;
-    }
+	private List<TagVo> listTagVo;
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
+	private Integer parentId;
 
-    public String getOrderCourseCount() {
-        return orderCourseCount;
-    }
+	public Integer getParentId() {
+		return parentId;
+	}
 
-    public void setOrderCourseCount(String orderCourseCount) {
-        this.orderCourseCount = orderCourseCount;
-    }
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getOrderCourseCount() {
+		return orderCourseCount;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setOrderCourseCount(String orderCourseCount) {
+		this.orderCourseCount = orderCourseCount;
+	}
 
+	public String getName() {
+		return name;
+	}
 
-    public String getNumber() {
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNumber() {
 		return number;
 	}
 
@@ -144,94 +142,94 @@ public class MenuVo extends OnlineBaseVo {
 	}
 
 	public List<Menu> getSencodMenu() {
-        return sencodMenu;
-    }
+		return sencodMenu;
+	}
 
-    public void setSencodMenu(List<Menu> sencodMenu) {
-        this.sencodMenu = sencodMenu;
-    }
+	public void setSencodMenu(List<Menu> sencodMenu) {
+		this.sencodMenu = sencodMenu;
+	}
 
-    public Integer getType() {
-        return type;
-    }
+	public Integer getType() {
+		return type;
+	}
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
-    public Integer getSort() {
-        return sort;
-    }
+	public Integer getSort() {
+		return sort;
+	}
 
-    public Integer getCourseCount() {
-        return courseCount;
-    }
+	public Integer getCourseCount() {
+		return courseCount;
+	}
 
-    public void setCourseCount(Integer courseCount) {
-        this.courseCount = courseCount;
-    }
+	public void setCourseCount(Integer courseCount) {
+		this.courseCount = courseCount;
+	}
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public Integer getStatus() {
+		return status;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
+	@Override
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	@Override
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getMenuName() {
-        return menuName;
-    }
+	public String getMenuName() {
+		return menuName;
+	}
 
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
 
-    public String getChildMenuNames() {
-        return childMenuNames;
-    }
+	public String getChildMenuNames() {
+		return childMenuNames;
+	}
 
-    public void setChildMenuNames(String childMenuNames) {
-        this.childMenuNames = childMenuNames;
-    }
+	public void setChildMenuNames(String childMenuNames) {
+		this.childMenuNames = childMenuNames;
+	}
 
-    public Date getTime_end() {
-        return time_end;
-    }
+	public Date getTime_end() {
+		return time_end;
+	}
 
-    public void setTime_end(Date time_end) {
-        this.time_end = time_end;
-    }
+	public void setTime_end(Date time_end) {
+		this.time_end = time_end;
+	}
 
-    public Date getTime_start() {
-        return time_start;
-    }
+	public Date getTime_start() {
+		return time_start;
+	}
 
-    public void setTime_start(Date time_start) {
-        this.time_start = time_start;
-    }
+	public void setTime_start(Date time_start) {
+		this.time_start = time_start;
+	}
 
 	public String getCourseName() {
 		return courseName;
@@ -288,6 +286,5 @@ public class MenuVo extends OnlineBaseVo {
 	public void setTagCount(Integer tagCount) {
 		this.tagCount = tagCount;
 	}
-    
-	
+
 }

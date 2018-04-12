@@ -163,6 +163,11 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			logger.warn("没有找到登录名'{}'的用户.", loginName);
 			return;
 		}
+		if(oldPassword!=null && newPassword!=null && oldPassword.equals(newPassword)){
+			logger.info("newPassword:{},oldPassword:{}", newPassword, oldPassword);
+			throw new RuntimeException("新密码不能与旧密码相同");
+		}
+		
 		if (StringUtils.hasText(oldPassword)) {
 			String expect = user.getPassword();
 			String actual = CodeUtil.encodePassword(oldPassword, user.getSalt());
@@ -173,6 +178,9 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		} else {
 			logger.warn("重置密码");
 		}
+		
+		
+		
 		user.setPassword(newPassword);
 		this.proccessPassword(user, false);
 		this.itcastUserDao.updatePassword(user.getId(), user.getPassword());

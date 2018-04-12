@@ -2,13 +2,12 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.online.common.enums.ApplyStatus;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Multimedia;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
-import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
-import com.xczhihui.bxg.online.common.utils.lock.Lock;
+import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.bxg.common.util.enums.ApplyStatus;
+import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.bxg.common.util.enums.Multimedia;
+import com.xczhihui.bxg.common.support.cc.util.CCUtils;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -54,6 +53,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private ICourseApplyService courseApplyService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    @Autowired
+    private CCUtils CCUtils;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -256,23 +257,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(courseApplyResource.getMultimediaType()==Multimedia.AUDIO.getCode()){
             audioStr = "_2";
         }
-        String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+courseApplyResource.getResource()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String playCode = "";
-        playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-        playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-        playCode+="		width=\"600\" ";
-        playCode+="		height=\"490\" ";
-        playCode+="		id=\""+uuid+"\">";
-        playCode+="		<param name=\"movie\" value=\""+src+"\" />";
-        playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
-        playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
-        playCode+="		<param value=\"transparent\" name=\"wmode\" />";
-        playCode+="		<embed src=\""+src+"\" ";
-        playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
-        playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-        playCode+="			type=\"application/x-shockwave-flash\"/> ";
-        playCode+="	</object>";
+
+        String playCode = CCUtils.getPlayCode(courseApplyResource.getResource(), audioStr, "600", "490");
         return playCode;
     }
 

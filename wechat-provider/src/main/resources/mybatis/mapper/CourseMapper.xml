@@ -109,7 +109,8 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 				if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)  as cutoff,
 		if(oc.is_free =0,0,1) as watchState,
-		if(oc.live_status = 1 or oc.live_status = 3,(select vhall_id from oe_user where id = oc.user_lecturer_id),0) as vhallId,
+		if(oc.type =1,(select vhall_id from oe_user where id = oc.user_lecturer_id),0) as vhallId,
+		if(oc.type =1,(select name from oe_user where id = oc.user_lecturer_id),0) as vhallName,
 		if(oc.type =1,ifnull((SELECT SUM(ogs.price) FROM user_coin_increase uci  JOIN oe_gift_statement ogs  
 		 ON uci.order_no_gift = ogs.id WHERE uci.change_type = 3  AND ogs.live_id = oc.id ),0),0) as giftCount,
 		 
@@ -131,7 +132,11 @@
                              (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
                   if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
 		
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		
+			(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
+		 + IFNULL(oc.default_student_count, 0)) as  learndCount,
+		
+		
 		oc.address as address,
 		oc.city as city,
 		oc.direct_id as directId,
@@ -323,7 +328,8 @@
 		oc.smallimg_path as smallImgPath,
 		oc.start_time as startTime,
 		DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
+		 + IFNULL(oc.default_student_count, 0)) as  learndCount,
 		oc.end_time as endTime,
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
@@ -366,7 +372,7 @@
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
 			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
     		   (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
-    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status+3) as lineState, 
+    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
 		oc.address as address,
 		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
@@ -382,8 +388,14 @@
 		where
 		oc.user_lecturer_id = #{userId} and oc.is_delete=0 and oc.status=1
 		and
-		DATE_ADD(CURDATE(), INTERVAL 7 DAY) >= date(oc.start_time)  and oc.start_time > CURDATE()
-		and oc.type =1 and oc.live_status = 2
+	    oc.type =1
+	    and 
+	    (
+	      ( oc.live_status = 1 ) 
+	      or
+	      ( DATE_ADD(CURDATE(), INTERVAL 7 DAY) >= date(oc.start_time)  and oc.start_time > CURDATE()
+		  and oc.live_status = 2 ) 
+	    )
 		order by oc.start_time asc limit 5 
 		)
 		UNION ALL
@@ -479,7 +491,8 @@
 		oc.course_number as courseNumber,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
+		 + IFNULL(oc.default_student_count, 0)) as  learndCount,
 		
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
 			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
@@ -529,7 +542,7 @@
     		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
     		 
     		 
-			if(cai.`status`=1,(SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as  learndCount,
+			if(cai.`status`=1,(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count,0)),0) as  learndCount,
 			oc.direct_id as directId,
 			if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
 		 from 
@@ -544,10 +557,10 @@
 		</if>
 		 <choose>
             <when test="courseForm != null and  courseForm == 1">
-               order by sortLineState asc,oc.release_time asc,cai.create_time desc 
+               order by cai.create_time desc
             </when>
             <otherwise>
-               order by oc.release_time desc,cai.create_time desc
+               order by cai.create_time desc
             </otherwise>
          </choose>
 	</select>

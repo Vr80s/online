@@ -13,14 +13,16 @@ public interface GiftService {
 	 * 
 	 * @return void
 	 */
-	public void addGift(GiftVo giftVo) throws IllegalAccessException, InvocationTargetException;
+	public void addGift(GiftVo giftVo) throws IllegalAccessException,
+			InvocationTargetException;
 
 	/**
 	 * 修改课程
 	 * 
 	 * @return void
 	 */
-	public void updateGift(GiftVo giftVo) throws IllegalAccessException, InvocationTargetException;
+	public void updateGift(GiftVo giftVo) throws IllegalAccessException,
+			InvocationTargetException;
 
 	public GiftVo getGiftById(Integer giftId);
 
@@ -31,8 +33,7 @@ public interface GiftService {
 	 * @param pageVo
 	 * @return
 	 */
-	public Page<GiftVo> findGiftPage(GiftVo giftVo, int pageNumber,
-			int pageSize);
+	public Page<GiftVo> findGiftPage(GiftVo giftVo, int pageNumber, int pageSize);
 
 	/**
 	 * 修改状态(禁用or启用)

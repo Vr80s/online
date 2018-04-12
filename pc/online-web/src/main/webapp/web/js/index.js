@@ -289,7 +289,7 @@ RequestService("/online/live/getLive","GET",{num:4},function(data){
 	    window.open(url);
 	});
 
-    $("#liveImg").attr("src",data.resultObject.smallimg_path);
+    $("#liveImg").attr("src",data.resultObject.smallimg_path+'?'+'imageView2/1/w/712');
     if(data.resultObject.learnd_count==null||data.resultObject.learnd_count==0){
         $(".video_div_bottom_bg2").html("暂无报名");
     }else{

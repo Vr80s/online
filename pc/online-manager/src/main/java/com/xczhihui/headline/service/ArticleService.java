@@ -9,7 +9,8 @@ import com.xczhihui.headline.vo.TagVo;
 
 public interface ArticleService {
 
-	public Page<ArticleVo> findCoursePage(ArticleVo searchVo, int currentPage, int pageSize);
+	public Page<ArticleVo> findCoursePage(ArticleVo searchVo, int currentPage,
+			int pageSize);
 
 	public List<ArticleTypeVo> getArticleTypes();
 
@@ -30,6 +31,5 @@ public interface ArticleService {
 	public void addPreArticle(ArticleVo articleVo);
 
 	public void updateRecommend(Integer id);
-
 
 }

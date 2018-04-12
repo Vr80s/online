@@ -4,7 +4,7 @@
 
 	<parent>
 		<groupId>com.xczhihui</groupId>
-		<artifactId>bxg-root-pom</artifactId>
+		<artifactId>root-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
@@ -28,7 +28,29 @@
 	</properties>
 
 	<dependencies>
-		
+
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>medical-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>online-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>wechat-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>common-support</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+
 		 <dependency>
             <groupId>jdk.tools</groupId>
             <artifactId>jdk.tools</artifactId>
@@ -179,12 +201,6 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>online-api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/nl.bitwalker/UserAgentUtils -->
 		<dependency>
 		    <groupId>nl.bitwalker</groupId>
@@ -283,29 +299,13 @@
 			<artifactId>spring-data-redis</artifactId>
 			<version>1.0.2.RELEASE</version>
 		</dependency>
-
-
-		<!--<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-		</dependency>-->
+		
 		<dependency>
 			<groupId>org.sitemesh</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		<!--<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>-->
+
 		<dependency>
 			<groupId>com.belerweb</groupId>
 			<artifactId>pinyin4j</artifactId>
@@ -348,12 +348,6 @@
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime -->
-		<!-- <dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpmime</artifactId>
-		    <version>4.4.1</version>
-		</dependency> -->
 
 		<dependency>
 			<groupId>org.pegdown</groupId>
@@ -379,11 +373,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
-<!--		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>bxg-distributed-common</artifactId>
-			<version>1.1.0-SNAPSHOT</version>
-		</dependency>-->
+
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
@@ -538,13 +528,6 @@
 			<version>4.4.5</version>
 		</dependency>
 
-		<!-- 用户中心接口 -->
-	<!--	<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>user-center-distribute-api</artifactId>
-			<version>1.1.0-SNAPSHOT</version>
-		</dependency>-->
-
 		<!-- 临时解决方案 mvn install:install-file -Dfile=C:\Users\MoRain\IdeaProjects\pc\online-web\src\main\webapp\WEB-INF\lib\alipay-sdk-java20170324180803.jar -DgroupId=com.alibaba -DartifactId=alipay -Dversion=12.1 -Dpackaging=jar  -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -588,18 +571,6 @@
 		<dependency>
 			<groupId>org.igniterealtime.smack</groupId>
 			<artifactId>smack-extensions</artifactId>
-		</dependency>
-
-	  <dependency>
-		  <groupId>com.xczhihui</groupId>
-		  <artifactId>medical-api</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
-	  </dependency>
-	  
-	  <dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>wechat-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
         	
         <!-- qq分享使用 --> 
@@ -720,7 +691,7 @@
 					<compressionCss>false</compressionCss>
 				</configuration>
 			</plugin>
-			<plugin>
+			 <plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.1.0</version>
 				<configuration>
@@ -729,7 +700,7 @@
 						<filter>src/main/resources/${env}/config.properties</filter>
 					</filters>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
-					<warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes>
+					<!-- <warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes> -->
 				</configuration>
 			</plugin>
 		</plugins>

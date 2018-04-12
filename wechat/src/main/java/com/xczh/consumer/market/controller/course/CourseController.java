@@ -64,6 +64,10 @@ public class CourseController {
 	@Value("${live.preheating}")
 	private Integer livePreheating;
 	
+	
+	@Value("${returnOpenidUri}")
+	private String returnOpenidUri;
+	
 	/**
 	 * Description：用户当前课程状态   User current course status. 
 	 *     用户判断用户是否购买了这个课程
@@ -87,7 +91,6 @@ public class CourseController {
 		CourseLecturVo cv = null;
 		if (user != null) {
 			cv = courseServiceImpl.selectUserCurrentCourseStatus(courseId,user.getId());
-			
 			/*
 			 * 如果是免费的  判断是否学习过
 			 */
@@ -126,9 +129,14 @@ public class CourseController {
 		//设置星星级别
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
 		
-		//设置html片段
-		cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
-		cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+		if(StringUtils.isNotBlank(cv.getDescription())){
+			cv.setRichCourseDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+		}
+		
+		if(StringUtils.isNotBlank(cv.getLecturerDescription())){
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+		}
+		
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -185,10 +193,13 @@ public class CourseController {
 		//判断星级
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
 		
-		//设置html片段
-		cv.setRichCourseDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=1&typeId="+courseId);
-		cv.setRichHostDetailsUrl("http://test-wx.ixincheng.com/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+		if(StringUtils.isNotBlank(cv.getDescription())){
+			cv.setRichCourseDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=1&typeId="+courseId);
+		}
 		
+		if(StringUtils.isNotBlank(cv.getLecturerDescription())){
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+		}
 		
 		//判断点钱在线人数
 		if(cv.getType()!=null &&  cv.getLineState() != null &&  cv.getType() == 1 && cv.getLineState() == 1){ //表示的是直播中

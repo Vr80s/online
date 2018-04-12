@@ -12,38 +12,39 @@ import java.util.regex.Pattern;
 
 public class StringUtil {
 	public static boolean isNull(String str) {
-	    boolean isTrue = false;
+		boolean isTrue = false;
 		if (str == null || "".equals(str)) {
 			isTrue = true;
 			throw new NullPointerException("请检查输入是否为空!");
 		}
 		return isTrue;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	public static String ForIn(List ids){
+	public static String ForIn(List ids) {
 		String str = "(";
-		if(ids==null||ids.size()==0){
+		if (ids == null || ids.size() == 0) {
 			return "";
-		}else{
+		} else {
 			for (Object object : ids) {
-				str+="'"+object.toString()+"',";
+				str += "'" + object.toString() + "',";
 			}
 		}
-		str=str.substring(0, str.length()-1);
-		str+=")";
+		str = str.substring(0, str.length() - 1);
+		str += ")";
 		return str;
 	}
-	
+
 	/**
 	 * @category 去空格
-	 * @param str 字符串
+	 * @param str
+	 *            字符串
 	 * @return
 	 */
-	public static String trim(String str){
-		if(str==null|| "".equals(str)){
+	public static String trim(String str) {
+		if (str == null || "".equals(str)) {
 			return "";
-		}else{
+		} else {
 			return str.replaceAll(" ", "");
 		}
 	}
@@ -57,10 +58,10 @@ public class StringUtil {
 	public static boolean checkNull(String str) {
 		boolean isTrue = false;
 		if (null == str || "".equals(str.trim())) {
-            isTrue = true;
-        } else {
-            isTrue = false;
-        }
+			isTrue = true;
+		} else {
+			isTrue = false;
+		}
 		return isTrue;
 	}
 
@@ -112,15 +113,17 @@ public class StringUtil {
 		}
 		return str;
 	}
-	
+
 	/**
-	 * 整数转换编号 - 长度不够   添零 -暂定长度为6位
-	 * @param Integer i 传入整数
+	 * 整数转换编号 - 长度不够 添零 -暂定长度为6位
+	 * 
+	 * @param Integer
+	 *            i 传入整数
 	 */
-	public static String formatToCode(Integer i){
-		return String.format("%06d", i); //remark_lizeyuan_20111020
+	public static String formatToCode(Integer i) {
+		return String.format("%06d", i); // remark_lizeyuan_20111020
 	}
-	
+
 	public static boolean isNotNull(Object... args) {
 		boolean isNotNull = false;
 		try {
@@ -138,34 +141,38 @@ public class StringUtil {
 	/**
 	 * 
 	 * 数组转字符串，返回用逗号分隔的字符串
-	 * @param strArr 
+	 * 
+	 * @param strArr
 	 * @return
 	 */
 	public static String arrToString(String[] strArr) {
-		return arrToString(strArr,",");
-    }
+		return arrToString(strArr, ",");
+	}
 
 	/**
 	 * 
 	 * 数组转字符串
-	 * @param strArr 数组
-	 * @param spacer 分隔符
+	 * 
+	 * @param strArr
+	 *            数组
+	 * @param spacer
+	 *            分隔符
 	 * @return
 	 */
-	public static String arrToString(String[] strArr,String spacerStr) {
-		if(strArr == null || strArr.length == 0){//为空或数组为0 返回空字符串
+	public static String arrToString(String[] strArr, String spacerStr) {
+		if (strArr == null || strArr.length == 0) {// 为空或数组为0 返回空字符串
 			return "";
 		}
 		StringBuffer sb = new StringBuffer();
-		for (int i = 0;i < strArr.length;i++) {
-			if(i == strArr.length - 1){
+		for (int i = 0; i < strArr.length; i++) {
+			if (i == strArr.length - 1) {
 				sb.append(strArr[i]);
-			}else{
+			} else {
 				sb.append(strArr[i]);
 				sb.append(spacerStr);
 			}
-		}  
-		return sb.toString();  
+		}
+		return sb.toString();
 	}
 
 	public static java.lang.Long format2Long(String str) {
@@ -175,7 +182,6 @@ public class StringUtil {
 			return Long.valueOf(str);
 		}
 	}
-
 
 	/**
 	 * Split the given String into tokens.
@@ -215,7 +221,7 @@ public class StringUtil {
 	public static String[] split(String s, String delimiter) {
 		int delimiterLength;
 		int stringLength = s.length();
-		if (delimiter == null || (delimiterLength = delimiter.length()) == 0) {		
+		if (delimiter == null || (delimiterLength = delimiter.length()) == 0) {
 			return new String[] { s };
 		}
 
@@ -364,10 +370,10 @@ public class StringUtil {
 			sdf = new SimpleDateFormat("yyyy-MM-dd");
 			break;
 		case 6:
-			sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS"); //取到毫秒
+			sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS"); // 取到毫秒
 			break;
 		case 7:
-			sdf = new SimpleDateFormat("yyyyMMddHHmmss"); //取到秒
+			sdf = new SimpleDateFormat("yyyyMMddHHmmss"); // 取到秒
 			break;
 		default:
 			sdf = new SimpleDateFormat("yyyy-M-D");
@@ -410,8 +416,8 @@ public class StringUtil {
 	 */
 	public static boolean isNumeric(String input) {
 		if (checkNull(input)) {
-            return false;
-        }
+			return false;
+		}
 
 		for (int i = 0; i < input.length(); i++) {
 			char charAt = input.charAt(i);
@@ -438,21 +444,21 @@ public class StringUtil {
 			return false;
 		}
 	}
-	
-	public static boolean isExcelData(String input){
-		if(input.indexOf(".")!=-1){
-			String decimals = input.substring(input.indexOf(".")+1);
-			if(decimals.length()==1 && "0".equals(decimals)){
-				String integers = input.substring(0,input.indexOf("."));
-				if(Integer.parseInt(integers)<0){
+
+	public static boolean isExcelData(String input) {
+		if (input.indexOf(".") != -1) {
+			String decimals = input.substring(input.indexOf(".") + 1);
+			if (decimals.length() == 1 && "0".equals(decimals)) {
+				String integers = input.substring(0, input.indexOf("."));
+				if (Integer.parseInt(integers) < 0) {
 					return false;
-				}else{
+				} else {
 					return true;
-				}				
-			}else{
+				}
+			} else {
 				return false;
 			}
-		}else{
+		} else {
 			try {
 				Integer.valueOf(input).intValue();
 
@@ -462,13 +468,14 @@ public class StringUtil {
 			}
 		}
 	}
-	public static String retIntegerpart(String input){
-		if(input.indexOf(".")!=-1){
-			return input.substring(0,input.indexOf("."));
-		}else{
+
+	public static String retIntegerpart(String input) {
+		if (input.indexOf(".") != -1) {
+			return input.substring(0, input.indexOf("."));
+		} else {
 			return input;
 		}
-		
+
 	}
 
 	/**
@@ -512,11 +519,11 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isSortFloat(String input) {
-		
+
 		if (null == input || "".equals(input.trim())) {
-            return false;
-        }
-		
+			return false;
+		}
+
 		try {
 			float f = Float.valueOf(input).floatValue();
 			if (f < 0) {
@@ -536,15 +543,15 @@ public class StringUtil {
 	 */
 	public static boolean checkOnlyChar(String s) {
 		if (s == null || "".equals(s)) {
-            return false;
-        }
+			return false;
+		}
 
 		for (int j = 0; j < s.length(); j++) {
 			char c = s.charAt(j);
 			int i = (int) c;
 			if ((i >= 65 && i <= 90) || (i >= 97 && i <= 122)) {
-                return true;
-            }
+				return true;
+			}
 		}
 
 		return false;
@@ -559,89 +566,89 @@ public class StringUtil {
 	public static boolean isOnecharLarge(String s) {
 		char c = s.charAt(0);
 		int i = (int) c;
-		if ((i >= 65 && i <= 90)/* || i >= 97 && i <= 122*/) {
+		if ((i >= 65 && i <= 90)/* || i >= 97 && i <= 122 */) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	  /**
-     * 功能：判断字符串是否为日期格式
-     * 
-     * @param str
-     * @return
-     */
-    public static boolean isDate(String strDate) {
-        Pattern pattern = Pattern
-                .compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
-        Matcher m = pattern.matcher(strDate);
-        if (m.matches()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    /**
-	 * 作者拼音编码规则
-	 */	
-	  public String AuthorNumberMapping(String authorNameSpell)
-      {
-          String authorNumber = "";
-          HashMap<String, String> mappingDict = new HashMap<String, String>();
-          mappingDict.put("A-B-C", "1");
-          mappingDict.put("D-E-F", "2");
-          mappingDict.put("G-H-I", "3");
-          mappingDict.put("J-K-L", "4");
-          mappingDict.put("M-N", "5");
-          mappingDict.put("O-P-Q", "6");
-          mappingDict.put("R-S-T", "7");
-          mappingDict.put("U-V-W", "8");
-          mappingDict.put("X-Y-Z", "9");
-          mappingDict.put("ZH-CH-SH", "0");
-          Set<Map.Entry<String,String>> entrySet = mappingDict.entrySet();
-          for(Map.Entry<String,String> entry:entrySet){
-        	  String[] tempArray = entry.getKey().split("-");
-        	  if (isKey(authorNameSpell, tempArray))
-              {
-                  authorNumber =  entry.getValue();
-              }
-           
-          }
-          return authorNumber;
-      }
 
-	  /**
-	   * 作者拼音字母是否在map的key当中
-	   * @param authorNameSpell
-	   * @param tempArray
-	   * @return
-	   */
+	/**
+	 * 功能：判断字符串是否为日期格式
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isDate(String strDate) {
+		Pattern pattern = Pattern
+				.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
+		Matcher m = pattern.matcher(strDate);
+		if (m.matches()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 作者拼音编码规则
+	 */
+	public String AuthorNumberMapping(String authorNameSpell) {
+		String authorNumber = "";
+		HashMap<String, String> mappingDict = new HashMap<String, String>();
+		mappingDict.put("A-B-C", "1");
+		mappingDict.put("D-E-F", "2");
+		mappingDict.put("G-H-I", "3");
+		mappingDict.put("J-K-L", "4");
+		mappingDict.put("M-N", "5");
+		mappingDict.put("O-P-Q", "6");
+		mappingDict.put("R-S-T", "7");
+		mappingDict.put("U-V-W", "8");
+		mappingDict.put("X-Y-Z", "9");
+		mappingDict.put("ZH-CH-SH", "0");
+		Set<Map.Entry<String, String>> entrySet = mappingDict.entrySet();
+		for (Map.Entry<String, String> entry : entrySet) {
+			String[] tempArray = entry.getKey().split("-");
+			if (isKey(authorNameSpell, tempArray)) {
+				authorNumber = entry.getValue();
+			}
+
+		}
+		return authorNumber;
+	}
+
+	/**
+	 * 作者拼音字母是否在map的key当中
+	 * 
+	 * @param authorNameSpell
+	 * @param tempArray
+	 * @return
+	 */
 	private boolean isKey(String authorNameSpell, String[] tempArray) {
-		for(int i=0;i<tempArray.length;i++){
-			  if(authorNameSpell.equals(tempArray[i])){
-				  return true;
-			  }
-		  }
+		for (int i = 0; i < tempArray.length; i++) {
+			if (authorNameSpell.equals(tempArray[i])) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	/**
-	* 字符串转换成日期
-	* @param str
-	* @return date
-	*/
-	public static Date StrToDate(String str,String formatStr) {
-	  
-	   SimpleDateFormat format = new SimpleDateFormat(formatStr);
-	   Date date = null;
-	   try {
-	    date = format.parse(str);
-	   } catch (ParseException e) {
-	    e.printStackTrace();
-	   }
-	   return date;
+	 * 字符串转换成日期
+	 * 
+	 * @param str
+	 * @return date
+	 */
+	public static Date StrToDate(String str, String formatStr) {
+
+		SimpleDateFormat format = new SimpleDateFormat(formatStr);
+		Date date = null;
+		try {
+			date = format.parse(str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
 	}
-	
+
 }

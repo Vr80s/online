@@ -27,190 +27,188 @@ import com.xczhihui.utils.ReflectionUtils;
 import com.xczhihui.utils.SearchAnnotation;
 import com.xczhihui.utils.StringUtil;
 
-
 /**
  * 公共DAO
+ * 
  * @author liuxiaodong
  *
  */
-public class HibernateDao<T> extends SimpleHibernateDao{
-	
+public class HibernateDao<T> extends SimpleHibernateDao {
+
 	protected Class<T> entityClass;
-	
+
 	public HibernateDao() {
 		this.entityClass = ReflectionUtils.getSuperClassGenricType(getClass());
 	}
-	
-	public List findByGroups(Groups groups, String sql){
+
+	public List findByGroups(Groups groups, String sql) {
 		List<Object> values = new LinkedList<Object>();
-		sql = createSqlByGroupsAll(sql,groups, values);
+		sql = createSqlByGroupsAll(sql, groups, values);
 		Query q = createSqlQuery(sql, values);
 		return q.list();
 	}
-	
-	public PageVo findPageByGroups(Groups groups, PageVo page, String sql){
-		
+
+	public PageVo findPageByGroups(Groups groups, PageVo page, String sql) {
+
 		List<Object> values = new LinkedList<Object>();
-		sql = createSqlByGroupsAll(sql,groups, values);
+		sql = createSqlByGroupsAll(sql, groups, values);
 		page = findPageBySql(page, sql, values);
 		List list = page.getItems();
 		List<Object> items = new ArrayList<Object>();
-		String fields = sql.substring(sql.indexOf("select")+6,sql.lastIndexOf("from"));
+		String fields = sql.substring(sql.indexOf("select") + 6,
+				sql.lastIndexOf("from"));
 		String[] names = fields.split(",");
-		for(Object object : list)
-		{
+		for (Object object : list) {
 			Map map = new HashMap();
 			boolean bb = object instanceof Object[];
-			if(bb)
-			{
+			if (bb) {
 				Object[] objs = (Object[]) object;
-				for(int i=0;i<objs.length;i++)
-				{
+				for (int i = 0; i < objs.length; i++) {
 					String name = names[i].trim();
-					if(name.contains(" as "))
-					{
-						name = name.substring(name.indexOf(" as ")+4).trim();
+					if (name.contains(" as ")) {
+						name = name.substring(name.indexOf(" as ") + 4).trim();
 					}
-					if(objs[i] != null)
-					{
+					if (objs[i] != null) {
 						map.put(name, objs[i].toString());
-					}
-					else
-					{
+					} else {
 						map.put(name, "");
 					}
 				}
-			}
-			else
-			{
+			} else {
 				String name = names[0].trim();
-				if(name.contains(" as "))
-				{
-					name = name.substring(name.indexOf(" as ")+4).trim();
+				if (name.contains(" as ")) {
+					name = name.substring(name.indexOf(" as ") + 4).trim();
 				}
-				if(object != null)
-				{
+				if (object != null) {
 					map.put(name, object.toString());
-				}
-				else
-				{
+				} else {
 					map.put(name, "");
 				}
-			}			
+			}
 			items.add(map);
 		}
 		page.setItems(items);
-		
+
 		return page;
 	}
-	
-	public PageVo findEntityPageByGroups(Groups groups, PageVo page){
-		
-		List<Object> values = new LinkedList<Object>();
-		
-		String hql = createHqlByGroupsAll("",groups, values);
-		
-		page = findPage(page, hql, values);
-		
-		return page;
-	}
-	
-	public List<T> findEntityByGroups(Groups groups){
+
+	public PageVo findEntityPageByGroups(Groups groups, PageVo page) {
 
 		List<Object> values = new LinkedList<Object>();
-		
-		String hql = createHqlByGroupsAll("",groups, values);
-		
+
+		String hql = createHqlByGroupsAll("", groups, values);
+
+		page = findPage(page, hql, values);
+
+		return page;
+	}
+
+	public List<T> findEntityByGroups(Groups groups) {
+
+		List<Object> values = new LinkedList<Object>();
+
+		String hql = createHqlByGroupsAll("", groups, values);
+
 		return findListByHql(hql, values);
 	}
-		
-	
-	public PageVo findPageBySql(final PageVo page, final String sql, final List<Object> parameter) {
+
+	public PageVo findPageBySql(final PageVo page, final String sql,
+			final List<Object> parameter) {
 
 		Query q = createSqlQuery(sql, parameter);
-		Integer totalCount  = countSqlResult(sql, parameter);
+		Integer totalCount = countSqlResult(sql, parameter);
 		page.setTotalCount(totalCount);
-		
+
 		int pageNo = page.getCurrentPage();
 		int pageSize = page.getPageSize();
 		int first = ((pageNo - 1) * pageSize) + 1;
-		int totalPageCount = totalCount % pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
+		int totalPageCount = totalCount % pageSize == 0 ? totalCount / pageSize
+				: totalCount / pageSize + 1;
 		page.setTotalPageCount(totalPageCount);
 		q.setFirstResult(first - 1);
 		q.setMaxResults(pageSize);
 		page.setItems(q.list());
 		return page;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	public List findListBySql(String sql, List<Object> parameter){
+	public List findListBySql(String sql, List<Object> parameter) {
 		Query q = createSqlQuery(sql, parameter);
 		return q.list();
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	public List findListByHql(String hql, List<Object> parameter){
+	public List findListByHql(String hql, List<Object> parameter) {
 		Query q = createQuery(hql, parameter);
 		return q.list();
 	}
-	
-	public PageVo findPage(final PageVo page, final String hql, final List<Object> parameter) {
+
+	public PageVo findPage(final PageVo page, final String hql,
+			final List<Object> parameter) {
 
 		Query q = createQuery(hql, parameter);
-		Long totalCount  = countResult(hql, parameter);
+		Long totalCount = countResult(hql, parameter);
 		Integer total = totalCount.intValue();
 		page.setTotalCount(total);
-		
+
 		int pageNo = page.getCurrentPage();
 		int pageSize = page.getPageSize();
 		int first = ((pageNo - 1) * pageSize) + 1;
 		q.setFirstResult(first - 1);
 		q.setMaxResults(pageSize);
-		int totalPageCount = total % pageSize == 0 ? total / pageSize : total / pageSize + 1;
+		int totalPageCount = total % pageSize == 0 ? total / pageSize : total
+				/ pageSize + 1;
 		page.setTotalPageCount(totalPageCount);
 		page.setItems(q.list());
 		return page;
 	}
-	
-	public List<String> findByGroupsAlias(Groups groups, String field){
-		List<Object> objs = findByHql(groups, new String[]{field}, new String[]{field});
+
+	public List<String> findByGroupsAlias(Groups groups, String field) {
+		List<Object> objs = findByHql(groups, new String[] { field },
+				new String[] { field });
 		List<String> result = new ArrayList<String>();
-		for(Object obj : objs){
+		for (Object obj : objs) {
 			result.add(String.valueOf(obj));
 		}
 		return result;
 	}
-	
-	public List<Object> findByHql(Groups groups, String[] selectStr, String[] groupStr){
+
+	public List<Object> findByHql(Groups groups, String[] selectStr,
+			String[] groupStr) {
 		String hql = "";
-		if(groups.getOrderby()!=null){
+		if (groups.getOrderby() != null) {
 			groups.setOrderby("");
 		}
 		List<Object> objects = new LinkedList<Object>();
 		hql = composeString(groups, null, selectStr, groupStr, objects);
 		Query q = createQuery(hql, objects);
-		
+
 		return q.list();
 	}
-	
-	private String composeString(final Groups groups, PageVo page, String[] selectStr, String[] groupStr, List<Object> values) {
+
+	private String composeString(final Groups groups, PageVo page,
+			String[] selectStr, String[] groupStr, List<Object> values) {
 		// from段
 		StringBuffer fromBuffer = new StringBuffer(" ");
 		// where 段
 		StringBuffer whereBufferQian = new StringBuffer(" where 1=1 ");
-		StringBuffer whereBufferHou = new StringBuffer("");		
-	
+		StringBuffer whereBufferHou = new StringBuffer("");
+
 		// 存取相同前缀
 		List<String> Alias1 = new LinkedList<String>();
-		Class<T> tempclass = ReflectionUtils.getSuperClassGenricType(this.getClass());
-		fromBuffer.append(" from " + tempclass.getSimpleName() + " as "+ tempclass.getSimpleName());		
+		Class<T> tempclass = ReflectionUtils.getSuperClassGenricType(this
+				.getClass());
+		fromBuffer.append(" from " + tempclass.getSimpleName() + " as "
+				+ tempclass.getSimpleName());
 
 		// 有条件组内容
-		appendGroups(groups, fromBuffer, whereBufferQian, tempclass,Alias1, whereBufferHou, values);
+		appendGroups(groups, fromBuffer, whereBufferQian, tempclass, Alias1,
+				whereBufferHou, values);
 		String hql = "";
 		List<Order> orders = new ArrayList<Order>();
-		if ((groups.getOrderbys() == null || groups.getOrderbys().length <= 0) && 
-				groups.getOrderby()!=null && !"".equals(groups.getOrderby())) {
+		if ((groups.getOrderbys() == null || groups.getOrderbys().length <= 0)
+				&& groups.getOrderby() != null
+				&& !"".equals(groups.getOrderby())) {
 			Order order = new Order();
 			order.setField(groups.getOrderby());
 			if (groups.isOrder()) {
@@ -236,12 +234,14 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		StringBuffer orderBuffer = new StringBuffer();
 		if (orders.size() > 0) {
 			orderBuffer = new StringBuffer(" order by ");
-			appendOrder(orders, orderBuffer, tempclass, Alias1,fromBuffer, whereBufferQian);
+			appendOrder(orders, orderBuffer, tempclass, Alias1, fromBuffer,
+					whereBufferQian);
 
 		}
 		StringBuffer slectBuffer = new StringBuffer(" select ");
 		if (selectStr != null && selectStr.length != 0) {
-			appendSelect(selectStr, slectBuffer, tempclass, Alias1,fromBuffer, whereBufferQian);
+			appendSelect(selectStr, slectBuffer, tempclass, Alias1, fromBuffer,
+					whereBufferQian);
 			if (!"select".equals(slectBuffer.toString().trim())) {
 				hql += slectBuffer.toString() + " ";
 			}
@@ -255,8 +255,8 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		}
 		if (groupStr != null && groupStr.length != 0) {
 			StringBuffer groupBuffer = new StringBuffer(" group by  ");
-			appendGroup(groupStr, groupBuffer, tempclass, Alias1,
-					fromBuffer, whereBufferQian);
+			appendGroup(groupStr, groupBuffer, tempclass, Alias1, fromBuffer,
+					whereBufferQian);
 			if (!"groupby".equals(groupBuffer.toString().trim())) {
 				hql += groupBuffer.toString() + " ";
 			}
@@ -266,18 +266,21 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		}
 		return hql;
 	}
+
 	private void appendSelect(String[] selectStrings, StringBuffer slectBuffer,
-			Class<?> baseClass,  List<String> Alias1,
-			StringBuffer fromBuffer, StringBuffer whereBufferQian){
+			Class<?> baseClass, List<String> Alias1, StringBuffer fromBuffer,
+			StringBuffer whereBufferQian) {
 		if (selectStrings == null || selectStrings.length == 0) {
 
 		} else {
 			for (String selectStr : selectStrings) {
 				String tem = "";
 				if (selectStr.contains("sum")) {
-					tem = selectStr.substring(selectStr.indexOf("(") + 1,selectStr.indexOf(")"));
+					tem = selectStr.substring(selectStr.indexOf("(") + 1,
+							selectStr.indexOf(")"));
 				} else if (selectStr.contains("count")) {
-					tem = selectStr.substring(selectStr.indexOf("(") + 1,selectStr.indexOf(")"));
+					tem = selectStr.substring(selectStr.indexOf("(") + 1,
+							selectStr.indexOf(")"));
 				} else {
 					tem = selectStr;
 				}
@@ -305,28 +308,38 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					temBuffer.append(string + ".");
 					// 如果是集合
 					if (ReflectionUtils.isInherit(temClass, List.class, true)) {
-						SearchAnnotation searchAnnotation = value.getAnnotation(SearchAnnotation.class);
+						SearchAnnotation searchAnnotation = value
+								.getAnnotation(SearchAnnotation.class);
 						if (searchAnnotation != null) {
-							
-							if (!Alias1.contains(temBuffer.subSequence(0,temBuffer.length() - 1))) {
-								Alias1.add(temBuffer.subSequence(0,temBuffer.length() - 1).toString());
-								fromBuffer.append(" left join ").append(temName).append(".")
-										.append(string).append(" ").append(" as ").append(string);
+
+							if (!Alias1.contains(temBuffer.subSequence(0,
+									temBuffer.length() - 1))) {
+								Alias1.add(temBuffer.subSequence(0,
+										temBuffer.length() - 1).toString());
+								fromBuffer.append(" left join ")
+										.append(temName).append(".")
+										.append(string).append(" ")
+										.append(" as ").append(string);
 
 							}
 							temName = string;
 							temClass = searchAnnotation.Class();
 						} else {
-							System.out.println("多对多关系必须要配置好注解searchAnnotation的别名");
+							System.out
+									.println("多对多关系必须要配置好注解searchAnnotation的别名");
 						}
 					}
 					// 如果是程序
-					else if (ReflectionUtils.isInherit(temClass, BasicEntity.class, false)) {
-						
-						if (!Alias1.contains(temBuffer.subSequence(0, temBuffer.length() - 1))) {
-							Alias1.add(temBuffer.subSequence(0,temBuffer.length() - 1).toString());
-							fromBuffer.append(" left join ").append(temName).append(".").append(string)
-							.append(" ").append(" as ").append(string);
+					else if (ReflectionUtils.isInherit(temClass,
+							BasicEntity.class, false)) {
+
+						if (!Alias1.contains(temBuffer.subSequence(0,
+								temBuffer.length() - 1))) {
+							Alias1.add(temBuffer.subSequence(0,
+									temBuffer.length() - 1).toString());
+							fromBuffer.append(" left join ").append(temName)
+									.append(".").append(string).append(" ")
+									.append(" as ").append(string);
 						}
 						temName = string;
 					} else {
@@ -336,7 +349,8 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 							slectBuffer.append(" count( ");
 						}
 						slectBuffer.append(temName).append(".").append(string);
-						if (selectStr.contains("sum") || selectStr.contains("count")) {
+						if (selectStr.contains("sum")
+								|| selectStr.contains("count")) {
 							slectBuffer.append(" ) ");
 						}
 						slectBuffer.append(",");
@@ -344,12 +358,14 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					}
 				}
 			}
-			slectBuffer = slectBuffer.delete(slectBuffer.length() - 1,slectBuffer.length());
+			slectBuffer = slectBuffer.delete(slectBuffer.length() - 1,
+					slectBuffer.length());
 		}
 	}
-	
-	private void appendOrder(List<Order> orders,StringBuffer orderBuffer, Class<?> baseClass, 
-			List<String> Alias1, StringBuffer fromBuffer,StringBuffer whereBufferQian){
+
+	private void appendOrder(List<Order> orders, StringBuffer orderBuffer,
+			Class<?> baseClass, List<String> Alias1, StringBuffer fromBuffer,
+			StringBuffer whereBufferQian) {
 
 		for (Order order : orders) {
 			String tem = "";
@@ -369,26 +385,36 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				// 如果是集合
 				try {
 					if (ReflectionUtils.isInherit(temClass, List.class, true)) {
-						SearchAnnotation searchAnnotation = value.getAnnotation(SearchAnnotation.class);
+						SearchAnnotation searchAnnotation = value
+								.getAnnotation(SearchAnnotation.class);
 						if (searchAnnotation != null) {
-							
-							if (!Alias1.contains(temBuffer.subSequence(0,temBuffer.length() - 1))) {
-								Alias1.add(temBuffer.subSequence(0,temBuffer.length() - 1).toString());
-								fromBuffer.append(" left join ").append(temName).append(".")
-										.append(string).append(" ").append(" as ").append(string);
+
+							if (!Alias1.contains(temBuffer.subSequence(0,
+									temBuffer.length() - 1))) {
+								Alias1.add(temBuffer.subSequence(0,
+										temBuffer.length() - 1).toString());
+								fromBuffer.append(" left join ")
+										.append(temName).append(".")
+										.append(string).append(" ")
+										.append(" as ").append(string);
 							}
 							temClass = searchAnnotation.Class();
 							temName = string;
 						} else {
-							System.out.println("多对多关系必须要配置好注解searchAnnotation的别名");
+							System.out
+									.println("多对多关系必须要配置好注解searchAnnotation的别名");
 						}
 					}
 					// 如果是程序
-					else if (ReflectionUtils.isInherit(temClass,BasicEntity.class, false)) {						
-						if (!Alias1.contains(temBuffer.subSequence(0,temBuffer.length() - 1))) {
-							Alias1.add(temBuffer.subSequence(0,temBuffer.length() - 1).toString());
+					else if (ReflectionUtils.isInherit(temClass,
+							BasicEntity.class, false)) {
+						if (!Alias1.contains(temBuffer.subSequence(0,
+								temBuffer.length() - 1))) {
+							Alias1.add(temBuffer.subSequence(0,
+									temBuffer.length() - 1).toString());
 							fromBuffer.append(" left join ").append(temName)
-									.append(".").append(string).append(" ").append(" as ").append(string);
+									.append(".").append(string).append(" ")
+									.append(" as ").append(string);
 						}
 						temName = string;
 					} else {
@@ -405,10 +431,13 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				}
 			}
 		}
-		orderBuffer = orderBuffer.delete(orderBuffer.length() - 1,orderBuffer.length());
+		orderBuffer = orderBuffer.delete(orderBuffer.length() - 1,
+				orderBuffer.length());
 	}
+
 	private void appendGroup(String[] groupStrings, StringBuffer groupBuffer,
-			Class<?> baseClass,  List<String> Alias1,StringBuffer fromBuffer, StringBuffer whereBufferQian){
+			Class<?> baseClass, List<String> Alias1, StringBuffer fromBuffer,
+			StringBuffer whereBufferQian) {
 		if (groupStrings == null || groupStrings.length == 0) {
 
 		} else {
@@ -433,25 +462,35 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					temBuffer.append(string + ".");
 					// 如果是集合
 					if (ReflectionUtils.isInherit(temClass, List.class, true)) {
-						SearchAnnotation searchAnnotation = value.getAnnotation(SearchAnnotation.class);
+						SearchAnnotation searchAnnotation = value
+								.getAnnotation(SearchAnnotation.class);
 						if (searchAnnotation != null) {
-							
-							if (!Alias1.contains(temBuffer.subSequence(0,temBuffer.length() - 1))) {
-								Alias1.add(temBuffer.subSequence(0,temBuffer.length() - 1).toString());
-								fromBuffer.append(" left join ").append(temName).append(".")
-										.append(string).append(" ").append(" as ").append(string);
+
+							if (!Alias1.contains(temBuffer.subSequence(0,
+									temBuffer.length() - 1))) {
+								Alias1.add(temBuffer.subSequence(0,
+										temBuffer.length() - 1).toString());
+								fromBuffer.append(" left join ")
+										.append(temName).append(".")
+										.append(string).append(" ")
+										.append(" as ").append(string);
 
 							}
 							temClass = searchAnnotation.Class();
 							temName = string;
 						} else {
-							System.out.println("多对多关系必须要配置好注解searchAnnotation的别名");
+							System.out
+									.println("多对多关系必须要配置好注解searchAnnotation的别名");
 						}
-					}else if (ReflectionUtils.isInherit(temClass,BasicEntity.class, false)) {						
-						if (!Alias1.contains(temBuffer.subSequence(0,temBuffer.length() - 1))) {
-							Alias1.add(temBuffer.subSequence(0,temBuffer.length() - 1).toString());
+					} else if (ReflectionUtils.isInherit(temClass,
+							BasicEntity.class, false)) {
+						if (!Alias1.contains(temBuffer.subSequence(0,
+								temBuffer.length() - 1))) {
+							Alias1.add(temBuffer.subSequence(0,
+									temBuffer.length() - 1).toString());
 							fromBuffer.append(" left join ").append(temName)
-									.append(".").append(string).append(" ").append(" as ").append(string);
+									.append(".").append(string).append(" ")
+									.append(" as ").append(string);
 						}
 						temName = string;
 					} else {
@@ -461,33 +500,33 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				}
 
 			}
-			groupBuffer = groupBuffer.delete(groupBuffer.length() - 1,groupBuffer.length());
+			groupBuffer = groupBuffer.delete(groupBuffer.length() - 1,
+					groupBuffer.length());
 
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public T find(String id){
+	public T find(String id) {
 		return (T) getSession().get(entityClass, id);
 	}
 
 	/**
 	 * @param propertyName
 	 * @param value
-	 * @return  找到多条只返回第一条　没有找倒返回空
+	 * @return 找到多条只返回第一条　没有找倒返回空
 	 */
 	@SuppressWarnings("unchecked")
 	public T findUniqueBy(final String propertyName, final Object value) {
-		Criterion criterion = Restrictions.eq(propertyName, value);		
-		List<T> lists =  createCriteria(criterion).list();		
-		if (!lists.isEmpty())
-		{
+		Criterion criterion = Restrictions.eq(propertyName, value);
+		List<T> lists = createCriteria(criterion).list();
+		if (!lists.isEmpty()) {
 			return lists.get(0);
 		}
-		
-		return null;			
+
+		return null;
 	}
-	
+
 	private Criteria createCriteria(final Criterion... criterions) {
 		Criteria criteria = getSession().createCriteria(entityClass);
 		for (Criterion c : criterions) {
@@ -495,49 +534,51 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		}
 		return criteria;
 	}
-	
-	protected Integer countSqlResult(final String sql, final List<Object> parameter) {
+
+	protected Integer countSqlResult(final String sql,
+			final List<Object> parameter) {
 		String countSql = prepareCount(sql);
 		try {
 			BigInteger count = findUniqueBySql(countSql, parameter);
-			
+
 			return count.intValue();
 		} catch (Exception e) {
 			throw new RuntimeException("sql can't be auto count, sql is:"
 					+ countSql, e);
 		}
 	}
-	
+
 	protected Long countResult(final String hql, final List<Object> parameter) {
 		String countHql = prepareCount(hql);
 		try {
 			Long count = findUnique(countHql, parameter);
-			
+
 			return count;
 		} catch (Exception e) {
 			throw new RuntimeException("sql can't be auto count, sql is:"
 					+ countHql, e);
 		}
 	}
-	
+
 	protected <X> X findUnique(final String hql, final List<Object> parameter) {
 		return (X) createQuery(hql, parameter).uniqueResult();
 	}
-	
-	protected <X> X findUniqueBySql(final String sql, final List<Object> parameter) {
+
+	protected <X> X findUniqueBySql(final String sql,
+			final List<Object> parameter) {
 		return (X) createSqlQuery(sql, parameter).uniqueResult();
 	}
-	
+
 	/**
 	 * 执行HQL进行批量修改/删除操作.
+	 * 
 	 * @param hql
 	 * @return 更新记录数.
 	 */
 	public int batchExecute(final String hql, final List<Object> parameter) {
 		return createQuery(hql, parameter).executeUpdate();
 	}
-	
-	
+
 	private String prepareCount(String query) {
 		// select子句与order by子句会影响count查询,进行简单的排除.
 		query = "from " + StringUtils.substringAfter(query, "from");
@@ -546,10 +587,9 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		String count = "select count(*) " + query;
 		return count;
 	}
-	
-	
+
 	private Query createSqlQuery(final String sql, final List<Object> parameter) {
-		
+
 		Query query = getSession().createSQLQuery(sql);
 		if (parameter != null) {
 			for (int i = 0; i < parameter.size(); i++) {
@@ -558,10 +598,9 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		}
 		return query;
 	}
-	
 
 	private Query createQuery(final String hql, final List<Object> parameter) {
-		
+
 		Query query = getSession().createQuery(hql);
 		if (parameter != null) {
 			for (int i = 0; i < parameter.size(); i++) {
@@ -570,82 +609,94 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		}
 		return query;
 	}
-	
+
 	public Session getSession() {
 		return getHibernateTemplate().getSessionFactory().getCurrentSession();
 	}
-	
-	private String createHqlByGroupsAll(String hql,Groups groups, List<Object> values) {
+
+	private String createHqlByGroupsAll(String hql, Groups groups,
+			List<Object> values) {
 		// from段
 		StringBuffer fromBuffer = new StringBuffer(" ");
 		// where 段
 		StringBuffer whereBufferQian = new StringBuffer(" where 1=1 ");
 		StringBuffer whereBufferHou = new StringBuffer("");
-		
+
 		// 存取相同前缀
 		List<String> Alias1 = new LinkedList<String>();
-		Class<T> tempclass = ReflectionUtils.getSuperClassGenricType(this.getClass());
-		fromBuffer.append(" from " + tempclass.getSimpleName() + " as " + tempclass.getSimpleName());		
-	
+		Class<T> tempclass = ReflectionUtils.getSuperClassGenricType(this
+				.getClass());
+		fromBuffer.append(" from " + tempclass.getSimpleName() + " as "
+				+ tempclass.getSimpleName());
+
 		try {
-			appendGroups(groups, fromBuffer, whereBufferQian, tempclass, Alias1, whereBufferHou, values);
+			appendGroups(groups, fromBuffer, whereBufferQian, tempclass,
+					Alias1, whereBufferHou, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		hql = fromBuffer.toString()+whereBufferQian.toString()+whereBufferHou.toString();
-		
+		hql = fromBuffer.toString() + whereBufferQian.toString()
+				+ whereBufferHou.toString();
+
 		String temp = "";
-		if(groups.getOrderbys()!=null && groups.getOrderbys().length>0) {
+		if (groups.getOrderbys() != null && groups.getOrderbys().length > 0) {
 			StringBuffer sBuffer = new StringBuffer();
 			for (int i = 0; i < groups.getOrderbys().length; i++) {// groups接受orderby数组进行多条件排序
-				if(i==0){
+				if (i == 0) {
 					sBuffer.append(" order by ");
 				}
 				// order by 别名处理
 				temp = groups.getOrderbys()[i];
 
 				if (temp.isEmpty()) {
-                    continue;
-                }
-				
-				if (groups.getOrders()[i]){
-					sBuffer.append(tempclass.getSimpleName()+"."+temp+" asc,");
-				}else{
-					sBuffer.append(tempclass.getSimpleName()+"."+temp+" desc,");
-				}					
-			}
-			hql += sBuffer.deleteCharAt(sBuffer.length()-1).toString();
-		}else if (null != groups.getOrderby()	&& !"".equals(groups.getOrderby().trim())) {
-			// 处理order by的别名
-			temp = groups.getOrderby();			
+					continue;
+				}
 
-			if (groups.isOrder()){
-				hql += " order by "+tempclass.getSimpleName()+"."+temp+" asc";				
-			}else{
-				hql += " order by "+tempclass.getSimpleName()+"."+temp+" desc";
-			}				
+				if (groups.getOrders()[i]) {
+					sBuffer.append(tempclass.getSimpleName() + "." + temp
+							+ " asc,");
+				} else {
+					sBuffer.append(tempclass.getSimpleName() + "." + temp
+							+ " desc,");
+				}
+			}
+			hql += sBuffer.deleteCharAt(sBuffer.length() - 1).toString();
+		} else if (null != groups.getOrderby()
+				&& !"".equals(groups.getOrderby().trim())) {
+			// 处理order by的别名
+			temp = groups.getOrderby();
+
+			if (groups.isOrder()) {
+				hql += " order by " + tempclass.getSimpleName() + "." + temp
+						+ " asc";
+			} else {
+				hql += " order by " + tempclass.getSimpleName() + "." + temp
+						+ " desc";
+			}
 		}
-		
+
 		return hql;
 	}
-	
+
 	private void appendGroups(Groups groups, StringBuffer fromBuffer,
-			StringBuffer whereBufferQian, Class<?> tempclass, List<String> Alias1,
-			StringBuffer whereBufferHou, List<Object> values){
+			StringBuffer whereBufferQian, Class<?> tempclass,
+			List<String> Alias1, StringBuffer whereBufferHou,
+			List<Object> values) {
 		if (groups.getGroupList() == null) {
 			System.out.println("groups的GroupList不能为空！");
 		} else {
-			if (groups.getChildGroups2() != null && groups.getChildGroups2().size() > 0
-					|| groups.getChildrelation()!=null) {
+			if (groups.getChildGroups2() != null
+					&& groups.getChildGroups2().size() > 0
+					|| groups.getChildrelation() != null) {
 				for (Group group : groups.getGroupList()) {
-					appendGroup(group, fromBuffer, whereBufferQian,
-							tempclass, Alias1, whereBufferHou, values);
+					appendGroup(group, fromBuffer, whereBufferQian, tempclass,
+							Alias1, whereBufferHou, values);
 				}
 				for (Groups tGroup : groups.getChildGroups2()) {
 					if (tGroup.getChildrelation() == PropertyFilter.MatchType.AND) {
 						whereBufferHou.append(" and ( ");
 						appendGroups(tGroup, fromBuffer, whereBufferQian,
-								 tempclass, Alias1, whereBufferHou, values);
+								tempclass, Alias1, whereBufferHou, values);
 						whereBufferHou.append(" )");
 					} else if (tGroup.getChildrelation() == PropertyFilter.MatchType.OR) {
 						whereBufferHou.append(" or ( ");
@@ -654,39 +705,41 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 						whereBufferHou.append(" )");
 					}
 				}
-			}else{
+			} else {
 				StringBuffer whereAnd = new StringBuffer();
 				StringBuffer whereOr = new StringBuffer();
 				List<Object> tempList = new ArrayList<Object>();
 				for (Group group : groups.getGroupList()) {
-					if(group.getRelation().equals(PropertyFilter.MatchType.AND)){
+					if (group.getRelation()
+							.equals(PropertyFilter.MatchType.AND)) {
 						appendGroup(group, fromBuffer, whereBufferQian,
 								tempclass, Alias1, whereAnd, values);
-					}else{
-						if("".equals(whereOr.toString())){
+					} else {
+						if ("".equals(whereOr.toString())) {
 							whereOr.append(" and ( ");
-						}						
+						}
 						appendGroup(group, fromBuffer, whereBufferQian,
 								tempclass, Alias1, whereOr, values);
 						tempList.add(group.getPropertyValue1());
 						values.remove(group.getPropertyValue1());
 					}
-					
+
 				}
-				if(!"".equals(whereOr.toString())){
+				if (!"".equals(whereOr.toString())) {
 					whereOr.append(" ) ");
 				}
-				for(Object temp : tempList){
+				for (Object temp : tempList) {
 					values.add(temp);
 				}
 				whereBufferHou.append(whereAnd).append(whereOr);
 			}
 		}
 	}
-	
+
 	private void appendGroup(Group group, StringBuffer fromBuffer,
-			StringBuffer whereBufferQian,Class<?> baseClass, List<String> Alias1,
-			StringBuffer whereBufferHou, List<Object> values) {
+			StringBuffer whereBufferQian, Class<?> baseClass,
+			List<String> Alias1, StringBuffer whereBufferHou,
+			List<Object> values) {
 
 		String[] strings = StringUtil.split(group.getPropertyName(), ".");
 		if (strings == null || strings.length == 0) {
@@ -719,21 +772,25 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 			// 加上全名
 			String alisStr = "";
 			if (!isSame) {
-                alisStr = string;
-            } else {
+				alisStr = string;
+			} else {
 				alisStr = string + t;
 
 			}
 			temBuffer.append(alisStr + ".");
 			// 如果是集合
 			if (ReflectionUtils.isInherit(temClass, List.class, true)) {
-				SearchAnnotation searchAnnotation = value.getAnnotation(SearchAnnotation.class);
+				SearchAnnotation searchAnnotation = value
+						.getAnnotation(SearchAnnotation.class);
 				if (searchAnnotation != null) {// 查看别名是否存在
-					
-					if (!Alias1.contains(temBuffer.subSequence(0,temBuffer.length() - 1))) {
-						Alias1.add(temBuffer.subSequence(0,temBuffer.length() - 1).toString());
+
+					if (!Alias1.contains(temBuffer.subSequence(0,
+							temBuffer.length() - 1))) {
+						Alias1.add(temBuffer.subSequence(0,
+								temBuffer.length() - 1).toString());
 						fromBuffer.append(" left join ").append(temName)
-								.append(".").append(alisStr).append(" ").append(" as ").append(alisStr);
+								.append(".").append(alisStr).append(" ")
+								.append(" as ").append(alisStr);
 
 					}
 					temClass = searchAnnotation.Class();
@@ -741,30 +798,38 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				} else {
 					System.out.println("多对多关系必须要配置好注解searchAnnotation的别名");
 				}
-			}else if (ReflectionUtils.isInherit(temClass, BasicEntity.class, false)) {// 如果是类
-				String propertyValue=group.getPropertyName().toString();
-				if(temName.equals(strings[0])){
-					propertyValue = propertyValue.substring(temName.length()+1);
+			} else if (ReflectionUtils.isInherit(temClass, BasicEntity.class,
+					false)) {// 如果是类
+				String propertyValue = group.getPropertyName().toString();
+				if (temName.equals(strings[0])) {
+					propertyValue = propertyValue
+							.substring(temName.length() + 1);
 				}
-				isOver = buildCase(group, whereBufferHou, temName, propertyValue);
-				
+				isOver = buildCase(group, whereBufferHou, temName,
+						propertyValue);
+
 				break;
 			} else {
 				isOver = buildCase(group, whereBufferHou, temName, alisStr);
 			}
-		}//遍历结束
-		
-		//没有到最后（可能是 NULL/ NOT NULL）
+		}// 遍历结束
+
+		// 没有到最后（可能是 NULL/ NOT NULL）
 		if (!isOver) {
 			String matchCase = "";
-			if(whereBufferHou.toString().trim().length()>0){
-				matchCase = whereBufferHou.toString().trim().substring(
-						whereBufferHou.toString().trim().length()-1, whereBufferHou.toString().trim().length());
+			if (whereBufferHou.toString().trim().length() > 0) {
+				matchCase = whereBufferHou
+						.toString()
+						.trim()
+						.substring(
+								whereBufferHou.toString().trim().length() - 1,
+								whereBufferHou.toString().trim().length());
 			}
-			if (group.getMatchType() == PropertyFilter.MatchType.NULL || group.getMatchType() == PropertyFilter.MatchType.NOTNULL) {
+			if (group.getMatchType() == PropertyFilter.MatchType.NULL
+					|| group.getMatchType() == PropertyFilter.MatchType.NOTNULL) {
 				whereBufferHou.append(" ");
 				if (group.getRelation() == PropertyFilter.MatchType.AND) {
-					try {						
+					try {
 						if (!"(".equals(matchCase)) {
 							whereBufferHou.append(" and ");
 						}
@@ -792,24 +857,29 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				case NULL:
 					whereBufferHou.append(temName).append(" is null ");
 					break;
-				default:break;
+				default:
+					break;
 				}
 			} else {
 				System.out.println("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
 			}
 		}
-		
+
 		addValues(group, whereBufferHou, values);
 	}
-	
-	private boolean buildCase(Group group, StringBuffer whereBufferHou, String temName, String alisStr) {
+
+	private boolean buildCase(Group group, StringBuffer whereBufferHou,
+			String temName, String alisStr) {
 		boolean isOver;
 		isOver = true;
 		whereBufferHou.append(" ");
 		String matchCase = "";
-		if(whereBufferHou.toString().trim().length()>0){
-			matchCase = whereBufferHou.toString().trim().substring(
-					whereBufferHou.toString().trim().length()-1, whereBufferHou.toString().trim().length());
+		if (whereBufferHou.toString().trim().length() > 0) {
+			matchCase = whereBufferHou
+					.toString()
+					.trim()
+					.substring(whereBufferHou.toString().trim().length() - 1,
+							whereBufferHou.toString().trim().length());
 		}
 		if (group.getRelation() == PropertyFilter.MatchType.AND) {
 			if (!"(".equals(matchCase)) {
@@ -818,189 +888,217 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		} else {
 			if (!"(".equals(matchCase)) {
 				whereBufferHou.append(" or ");
-			}	
+			}
 		}
-		
+
 		matchCase(group, whereBufferHou, temName, alisStr);
-		
+
 		return isOver;
 	}
-	
+
 	@SuppressWarnings("incomplete-switch")
 	private void matchCase(Group group, StringBuffer whereBufferHou,
 			String temName, String alisStr) {
 		switch (group.getMatchType()) {
 		case EQ:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" = ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" = ");
 			break;
 		case LIKE:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" like ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" like ");
 
 			break;
 
 		case LT:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" < ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" < ");
 			break;
 		case LE:
 			if (group.getRelation() == PropertyFilter.MatchType.AND) {
-                whereBufferHou.append(temName).append(".").append(alisStr).append(" <= ");
-            }
+				whereBufferHou.append(temName).append(".").append(alisStr)
+						.append(" <= ");
+			}
 			break;
 		case GT:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" > ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" > ");
 
 			break;
 		case GE:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" >= ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" >= ");
 
 			break;
 		case NE:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" <> ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" <> ");
 			break;
 
 		case IN:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" in ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" in ");
 			break;
 		case NOTIN:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" not in  ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" not in  ");
 
 			break;
 		case BETWEEN:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" between  ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" between  ");
 
 			break;
 		case NULL:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" is null ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" is null ");
 			break;
 		case NOTNULL:
-			whereBufferHou.append(temName).append(".").append(alisStr).append(" is not null ");
+			whereBufferHou.append(temName).append(".").append(alisStr)
+					.append(" is not null ");
 			break;
-		default:break;
+		default:
+			break;
 		}
 	}
-	
-	private String createSqlByGroupsAll(String sql,Groups groups, List<Object> values) {
+
+	private String createSqlByGroupsAll(String sql, Groups groups,
+			List<Object> values) {
 		// from段
 		StringBuffer fromBuffer = new StringBuffer(" ");
 		// where 段
 		StringBuffer whereBufferQian = new StringBuffer(" where 1=1 ");
 		StringBuffer whereBufferHou = new StringBuffer("");
-		
+
 		// 存取相同前缀
 		List<String> Alias1 = new LinkedList<String>();
-		fromBuffer.append(sql);		
-	
+		fromBuffer.append(sql);
+
 		try {
-			appendGroups2(groups, fromBuffer, whereBufferQian, Alias1, whereBufferHou, values);
+			appendGroups2(groups, fromBuffer, whereBufferQian, Alias1,
+					whereBufferHou, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		sql = fromBuffer.toString()+whereBufferQian.toString()+whereBufferHou.toString();
-		
-		if(groups.getGroupby() != null && !"".equals(groups.getGroupby()))
-		{
-			sql += " group by "+groups.getGroupby();
+		sql = fromBuffer.toString() + whereBufferQian.toString()
+				+ whereBufferHou.toString();
+
+		if (groups.getGroupby() != null && !"".equals(groups.getGroupby())) {
+			sql += " group by " + groups.getGroupby();
 		}
-		
+
 		String temp = "";
-		if(groups.getOrderbys()!=null && groups.getOrderbys().length>0) {
+		if (groups.getOrderbys() != null && groups.getOrderbys().length > 0) {
 			StringBuffer sBuffer = new StringBuffer();
 			for (int i = 0; i < groups.getOrderbys().length; i++) {// groups接受orderby数组进行多条件排序
-				if(i==0){
+				if (i == 0) {
 					sBuffer.append(" order by ");
 				}
 				// order by 别名处理
 				temp = groups.getOrderbys()[i];
 
 				if (temp.isEmpty()) {
-                    continue;
-                }
-				
-				if (groups.getOrders()[i]){
-					sBuffer.append(temp+" asc,");
-				}else{
-					sBuffer.append(temp+" desc,");
-				}					
+					continue;
+				}
+
+				if (groups.getOrders()[i]) {
+					sBuffer.append(temp + " asc,");
+				} else {
+					sBuffer.append(temp + " desc,");
+				}
 			}
-			sql += sBuffer.deleteCharAt(sBuffer.length()-1).toString();
-		}else if (null != groups.getOrderby()	&& !"".equals(groups.getOrderby().trim())) {
+			sql += sBuffer.deleteCharAt(sBuffer.length() - 1).toString();
+		} else if (null != groups.getOrderby()
+				&& !"".equals(groups.getOrderby().trim())) {
 			// 处理order by的别名
 			temp = groups.getOrderby();
 
-			if (groups.isOrder()){
-				sql += " order by "+temp+" asc";
-			}else{
-				sql += " order by "+temp+" desc";
-			}				
+			if (groups.isOrder()) {
+				sql += " order by " + temp + " asc";
+			} else {
+				sql += " order by " + temp + " desc";
+			}
 		}
-		
+
 		return sql;
 	}
-	
+
 	private void appendGroups2(Groups groups, StringBuffer fromBuffer,
 			StringBuffer whereBufferQian, List<String> Alias1,
-			StringBuffer whereBufferHou, List<Object> values){
+			StringBuffer whereBufferHou, List<Object> values) {
 		if (groups.getGroupList() == null) {
 			System.out.println("groups的GroupList不能为空！");
 		} else {
-			if (groups.getChildGroups2() != null && !groups.getChildGroups2().isEmpty() || groups.getChildrelation()!=null) {
+			if (groups.getChildGroups2() != null
+					&& !groups.getChildGroups2().isEmpty()
+					|| groups.getChildrelation() != null) {
 				for (Group group : groups.getGroupList()) {
-					appendGroup2(group, fromBuffer, whereBufferQian,Alias1, whereBufferHou, values);
+					appendGroup2(group, fromBuffer, whereBufferQian, Alias1,
+							whereBufferHou, values);
 				}
 				for (Groups tGroup : groups.getChildGroups2()) {
 					if (tGroup.getChildrelation() == PropertyFilter.MatchType.AND) {
 						whereBufferHou.append(" and ( ");
-						appendGroups2(tGroup, fromBuffer, whereBufferQian,Alias1, whereBufferHou, values);
+						appendGroups2(tGroup, fromBuffer, whereBufferQian,
+								Alias1, whereBufferHou, values);
 						whereBufferHou.append(" )");
 					} else if (tGroup.getChildrelation() == PropertyFilter.MatchType.OR) {
 						whereBufferHou.append(" or ( ");
-						appendGroups2(tGroup, fromBuffer, whereBufferQian,Alias1, whereBufferHou, values);
+						appendGroups2(tGroup, fromBuffer, whereBufferQian,
+								Alias1, whereBufferHou, values);
 						whereBufferHou.append(" )");
 					}
 				}
-			}else{
+			} else {
 				StringBuffer whereAnd = new StringBuffer();
 				StringBuffer whereOr = new StringBuffer();
 				List<Object> tempList = new ArrayList<Object>();
 				for (Group group : groups.getGroupList()) {
-					if(group.getRelation().equals(PropertyFilter.MatchType.AND)){
-						appendGroup2(group, fromBuffer, whereBufferQian, Alias1, whereBufferHou, values);
-					}else{
-						if("".equals(whereOr.toString())){
+					if (group.getRelation()
+							.equals(PropertyFilter.MatchType.AND)) {
+						appendGroup2(group, fromBuffer, whereBufferQian,
+								Alias1, whereBufferHou, values);
+					} else {
+						if ("".equals(whereOr.toString())) {
 							whereOr.append(" and ( ");
 						}
 						tempList.add(group.getPropertyValue1());
 						values.remove(group.getPropertyValue1());
 					}
-					
+
 				}
-				if(!"".equals(whereOr.toString())){
+				if (!"".equals(whereOr.toString())) {
 					whereOr.append(" ) ");
 				}
-				for(Object temp : tempList){
+				for (Object temp : tempList) {
 					values.add(temp);
 				}
 				whereBufferHou.append(whereAnd).append(whereOr);
 			}
 		}
 	}
-	
+
 	private void appendGroup2(Group group, StringBuffer fromBuffer,
-			StringBuffer whereBufferQian,List<String> Alias1,
+			StringBuffer whereBufferQian, List<String> Alias1,
 			StringBuffer whereBufferHou, List<Object> values) {
-		
+
 		String propertyName = group.getPropertyName();
-		
+
 		boolean isOver = buildCase2(group, whereBufferHou, propertyName);
-		
-		//没有到最后（可能是 NULL/ NOT NULL）
+
+		// 没有到最后（可能是 NULL/ NOT NULL）
 		if (!isOver) {
 			String matchCase = "";
-			if(whereBufferHou.toString().trim().length()>0){
-				matchCase = whereBufferHou.toString().trim().substring(
-						whereBufferHou.toString().trim().length()-1, whereBufferHou.toString().trim().length());
-			}	
-			if (group.getMatchType() == PropertyFilter.MatchType.NULL || group.getMatchType() == PropertyFilter.MatchType.NOTNULL) {
+			if (whereBufferHou.toString().trim().length() > 0) {
+				matchCase = whereBufferHou
+						.toString()
+						.trim()
+						.substring(
+								whereBufferHou.toString().trim().length() - 1,
+								whereBufferHou.toString().trim().length());
+			}
+			if (group.getMatchType() == PropertyFilter.MatchType.NULL
+					|| group.getMatchType() == PropertyFilter.MatchType.NOTNULL) {
 				whereBufferHou.append(" ");
 				if (group.getRelation() == PropertyFilter.MatchType.AND) {
 					try {
@@ -1019,10 +1117,10 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 						e.printStackTrace();
 					}
 				}
-						
+
 				switch (group.getMatchType()) {
 				case NOTIN:
-					whereBufferHou.append(propertyName).append(" not in  ");							
+					whereBufferHou.append(propertyName).append(" not in  ");
 					break;
 				case NOTNULL:
 					whereBufferHou.append(propertyName).append(" is not null ");
@@ -1037,34 +1135,40 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				System.out.println("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
 			}
 		}
-				
+
 		addValues(group, whereBufferHou, values);
 	}
 
-	
-	private void addValues(Group group, StringBuffer whereBufferHou, List<Object> values){
+	private void addValues(Group group, StringBuffer whereBufferHou,
+			List<Object> values) {
 		// 判断错误
-		if (group.getPropertyValue1() == null && !(group.getMatchType() == PropertyFilter.MatchType.NULL
-				|| group.getMatchType() == PropertyFilter.MatchType.NOTNULL)) {
+		if (group.getPropertyValue1() == null
+				&& !(group.getMatchType() == PropertyFilter.MatchType.NULL || group
+						.getMatchType() == PropertyFilter.MatchType.NOTNULL)) {
 			System.out.println("传入值为空，但并不是查询NULL OR NOT NULL 请查证！");
-		}else if (group.getPropertyValue1() != null && !"".equals(group.getPropertyValue1())) {
+		} else if (group.getPropertyValue1() != null
+				&& !"".equals(group.getPropertyValue1())) {
 			// 是in 或not in
-			if (group.getMatchType() == PropertyFilter.MatchType.IN || group.getMatchType() == PropertyFilter.MatchType.NOTIN) {
-				Collection<?> collection = (Collection<?>) group.getPropertyValue1();
+			if (group.getMatchType() == PropertyFilter.MatchType.IN
+					|| group.getMatchType() == PropertyFilter.MatchType.NOTIN) {
+				Collection<?> collection = (Collection<?>) group
+						.getPropertyValue1();
 				StringBuffer inBuffer = new StringBuffer(" ( ");
 				for (Object object : collection) {
 					values.add(object);
 					inBuffer.append(" ? ,");
 				}
-				inBuffer = inBuffer.delete(inBuffer.length() - 1,inBuffer.length());
+				inBuffer = inBuffer.delete(inBuffer.length() - 1,
+						inBuffer.length());
 				inBuffer.append(" ) ");
 				whereBufferHou.append(inBuffer);
-			}else if (group.getMatchType() == PropertyFilter.MatchType.BETWEEN) {
+			} else if (group.getMatchType() == PropertyFilter.MatchType.BETWEEN) {
 				// 如果是bwt
 				if (group.getPropertyValue2() == null) {
 					System.out.println("第二个参数不能为空");
 				}
-				if (group.getPropertyValue1().getClass() == Date.class || group.isDate()
+				if (group.getPropertyValue1().getClass() == Date.class
+						|| group.isDate()
 						|| group.getPropertyValue1().getClass() == java.sql.Timestamp.class) {
 					values.add(group.getPropertyValue1());
 					values.add(group.getPropertyValue2());
@@ -1073,7 +1177,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					System.out.println("BETWEEN 规定只能用于时间，数字请用大于小于进行");
 				}
 
-			}else {
+			} else {
 				if (group.getPropertyValue1().getClass() == Date.class) {
 					values.add(group.getPropertyValue1());
 					whereBufferHou.append(" ? ");
@@ -1085,23 +1189,27 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				} else {
 					whereBufferHou.append(" ? ");
 					if (group.getMatchType() == PropertyFilter.MatchType.LIKE) {
-						values.add("%"+group.getPropertyValue1()+"%");
+						values.add("%" + group.getPropertyValue1() + "%");
 					} else {
-						values.add(group.getPropertyValue1());						
+						values.add(group.getPropertyValue1());
 					}
 				}
 			}
-		}//PropertyValue1()有值的情况   结束	
+		}// PropertyValue1()有值的情况 结束
 	}
 
-	private boolean buildCase2(Group group, StringBuffer whereBufferHou, String alisStr) {
+	private boolean buildCase2(Group group, StringBuffer whereBufferHou,
+			String alisStr) {
 		boolean isOver;
 		isOver = true;
 		whereBufferHou.append(" ");
 		String matchCase = "";
-		if(whereBufferHou.toString().trim().length()>0){
-			matchCase = whereBufferHou.toString().trim().substring(
-					whereBufferHou.toString().trim().length()-1, whereBufferHou.toString().trim().length());
+		if (whereBufferHou.toString().trim().length() > 0) {
+			matchCase = whereBufferHou
+					.toString()
+					.trim()
+					.substring(whereBufferHou.toString().trim().length() - 1,
+							whereBufferHou.toString().trim().length());
 		}
 		if (group.getRelation() == PropertyFilter.MatchType.AND) {
 			if (!"(".equals(matchCase)) {
@@ -1110,20 +1218,22 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		} else {
 			if (!"(".equals(matchCase)) {
 				whereBufferHou.append(" or ");
-			}	
+			}
 		}
-		
+
 		matchCase(group, whereBufferHou, alisStr);
-		
+
 		return isOver;
 	}
+
 	/**
 	 * 
 	 * @param group
 	 * @param whereBufferHou
 	 * @param alisStr
 	 */
-	private void matchCase(Group group, StringBuffer whereBufferHou,String alisStr) {
+	private void matchCase(Group group, StringBuffer whereBufferHou,
+			String alisStr) {
 		switch (group.getMatchType()) {
 		case EQ:
 			whereBufferHou.append(alisStr).append(" = ");
@@ -1138,8 +1248,8 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 			break;
 		case LE:
 			if (group.getRelation() == PropertyFilter.MatchType.AND) {
-                whereBufferHou.append(alisStr).append(" <= ");
-            }
+				whereBufferHou.append(alisStr).append(" <= ");
+			}
 			break;
 		case GT:
 			whereBufferHou.append(alisStr).append(" > ");
@@ -1173,7 +1283,6 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		default:
 			break;
 		}
-
 
 	}
 

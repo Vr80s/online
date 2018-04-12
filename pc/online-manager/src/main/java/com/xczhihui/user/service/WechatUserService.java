@@ -14,6 +14,7 @@ import com.xczhihui.bxg.online.common.domain.WechatUser;
 public interface WechatUserService {
 	/**
 	 * 按条件分页查询用户
+	 * 
 	 * @param lastLoginIp
 	 * @param createTimeStart
 	 * @param createTimeEnd
@@ -25,19 +26,17 @@ public interface WechatUserService {
 	 * @param pageSize
 	 * @return
 	 */
-	public Page<WechatUser> findUserPage(String nickname,
-			String subscribeStartTime,
-			String subscribeEndTime,
-			String qr_scene,
-			int pageNumber,
-			int pageSize);
+	public Page<WechatUser> findUserPage(String nickname,String loginname,
+			String subscribeStartTime, String subscribeEndTime,
+			String qr_scene, int pageNumber, int pageSize);
 
 	/**
 	 * 禁用/启用
+	 * 
 	 * @param loginName
 	 * @param delete
 	 */
-	public void updateUserStatus(String loginName,int status);
+	public void updateUserStatus(String loginName, int status);
 
 	/**
 	 * 设置学科权限
@@ -48,23 +47,25 @@ public interface WechatUserService {
 	public void updateMenuForUser(WechatUser entity);
 
 	/**
-	 * 查找所有的讲师
-	 * Description：
+	 * 查找所有的讲师 Description：
+	 * 
 	 * @return
 	 * @return List<Map<String,Object>>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
 	 *
 	 */
 	List<Map<String, Object>> getAllUserLecturer();
 
 	/**
-	 * 设置此用户为讲师
-	 * Description：
+	 * 设置此用户为讲师 Description：
+	 * 
 	 * @param loginName
 	 * @param status
 	 * @return void
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 * @param description 
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @param description
 	 *
 	 */
 	void updateUserLecturer(String loginName, int status, String description);
@@ -73,5 +74,5 @@ public interface WechatUserService {
 
 	public List<Map<String, Object>> getAllCourseName();
 
-    void updateUserLogin(String userId, String loginName);
+	void updateUserLogin(String userId, String loginName);
 }

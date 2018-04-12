@@ -343,11 +343,7 @@ $('#okbt,#previewbt').on('click',function(e){
 				data = data;
 			}
 			if(data.success){
-				if(id=='previewbt'){
-					window.open($('#weburl').val()+'/web/courseDetailPreview/'+$('#courseId').val(),'熊猫中医在线');
-				} else {
-					alertInfo("保存成功！");
-				}
+				alertInfo("保存成功！");
 				$("html").eq(0).css("overflow","scroll");
 			}else{
 				layer.msg(data.errorMessage);

@@ -50,6 +50,12 @@ public class WechatChannel extends BasicEntity2 implements Serializable{
 
 	@Column(name = "province_id")
     private Integer provinceId;
+	
+	@Column(name = "custom_qr_code_url")
+    private String customQrCodeUrl;
+	
+	@Column(name = "custom_caoliao_qrcode")
+    private String customCaoliaoQrcode;
 
 
     public String getName() {
@@ -149,4 +155,23 @@ public class WechatChannel extends BasicEntity2 implements Serializable{
 	public void setProvinceId(Integer provinceId) {
 		this.provinceId = provinceId;
 	}
+
+	public String getCustomQrCodeUrl() {
+		return customQrCodeUrl;
+	}
+
+	public void setCustomQrCodeUrl(String customQrCodeUrl) {
+		this.customQrCodeUrl = customQrCodeUrl;
+	}
+
+	public String getCustomCaoliaoQrcode() {
+		return customCaoliaoQrcode;
+	}
+
+	public void setCustomCaoliaoQrcode(String customCaoliaoQrcode) {
+		this.customCaoliaoQrcode = customCaoliaoQrcode;
+	}
+	
+	
+	
 }
