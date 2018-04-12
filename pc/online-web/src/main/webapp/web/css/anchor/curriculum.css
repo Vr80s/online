@@ -624,6 +624,58 @@ table{
 	padding: 0 !important;
 	margin-top: 30px;
 }
+
+
+
+/*新加资源上传*/
+.propress-file{
+	position: relative;
+	width: 120px;
+	height: 35px;
+	text-align: center;
+	line-height: 35px;
+	display: inline-block;
+	border: 1px solid #00BC12;
+    color: #00BC12;
+    border-radius: 5px;
+}
+#btn_width{
+	position: absolute;
+	left: 0;
+	top: 0;
+	line-height: 28px;
+	font-size: 14px;
+	color: #00BC12;
+	border-radius: 4px;
+	/*border: 1px solid #00BC12;*/
+	background: #fff;
+	outline: none;
+	width: 120px;
+	opacity: 0;
+	cursor: pointer;
+}
+
+
+
+
+
+/*新加资源上传*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*点击资源出现弹框开始*/
 .resource_popout{
 	width: 100%;

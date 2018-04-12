@@ -42,10 +42,9 @@ public class WechatChannelDao extends HibernateDao<Course> {
 		
 		if (StringUtils.isNotBlank(WechatChannelVo.getContact())) { //联系人，联系电话
 			paramMap.put("keyWord", "%" + WechatChannelVo.getContact()+ "%");
-			sql.append(" and ( og.contact like :keyWord  or og.mobile like :keyWord ) ");
+			sql.append(" and ( og.contact like :keyWord  or og.mobile like :keyWord  or og.name like :keyWord  ) ");
 		}
 		
-
 		sql.append(" order by og.status desc, og.sort desc");
 		Page<WechatChannelVo> WechatChannelVos = this.findPageBySQL(
 				sql.toString(), paramMap, WechatChannelVo.class, pageNumber,

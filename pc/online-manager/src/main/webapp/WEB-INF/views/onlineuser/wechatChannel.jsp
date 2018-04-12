@@ -155,7 +155,7 @@
 			                
 			                	<td>
 			                       <div class="profile-info-value searchTr">
-			                           <input type="text"  id="contact" class="propertyValue1" style="width:100px;" placeholder="联系人/手机号"/>
+			                           <input type="text"  id="contact" class="propertyValue1" style="width:140px;" placeholder="渠道名称/联系人/手机号"/>
 									<input type="hidden" value="contact" class="propertyName"/>
 			                        </div>
 			                    </td>
