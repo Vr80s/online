@@ -28,7 +28,7 @@ var imgsource ='';
 	if (typeof define === "function" && define.amd) {
 		define(["jquery", "./iscroll-zoom", "hammer"], factory);
 	} else if (typeof exports === "object") {
-		module.exports = factory(require("jquery"), require("./iscroll-zoom"), require("../hammer"));
+		module.exports = factory(require("jquery"), require("./iscroll-zoom"), require("./hammer"));
 	} else {
 		factory(root.jQuery, root.IScroll, root.Hammer);
 	}
