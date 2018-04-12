@@ -28,7 +28,7 @@ public interface PostMapper extends BaseMapper<Post> {
             " p.`browse_count` as browseCount, p.`reply_count` as replyCount, p.`report_order` as reportOrder," +
             " p.`top` as top, p.`hot` as hot, ou.name as name, ou.id as userId, ou.small_head_photo as smallHeadPhoto, l.name as labelName" +
             " from quark_posts p" +
-            " left join oe_user ou on p.`user_id` = ou.`id` left join quark_label l on p.label_id = l.id" +
+            " join oe_user ou on p.`user_id` = ou.`id` left join quark_label l on p.label_id = l.id" +
             " where p.`is_delete` = false and (#{labelId} is null OR p.label_id = #{labelId})" +
             " order by p.top desc, p.update_time desc, p.init_time desc")
     List<PostVO> listByLabelId(Page<PostVO> page, @Param("labelId") Integer labelId);
@@ -43,7 +43,7 @@ public interface PostMapper extends BaseMapper<Post> {
             " p.`browse_count` as browseCount, p.`reply_count` as replyCount, p.`report_order` as reportOrder," +
             " p.`top` as top, p.`hot` as hot, ou.name as name, ou.id as userId, ou.small_head_photo as smallHeadPhoto, l.name as labelName" +
             " from quark_posts p" +
-            " left join oe_user ou on p.`user_id` = ou.`id` left join quark_label l on p.label_id = l.id " +
+            " join oe_user ou on p.`user_id` = ou.`id` left join quark_label l on p.label_id = l.id " +
             " where p.`is_delete` = false and hot = true order by p.top desc, p.update_time desc, p.init_time desc")
     List<PostVO> listHot(Page<PostVO> page);
 
@@ -57,7 +57,7 @@ public interface PostMapper extends BaseMapper<Post> {
             " p.`browse_count` as browseCount, p.`reply_count` as replyCount, p.`report_order` as reportOrder," +
             " p.`top` as top, p.`hot` as hot, ou.name as name, ou.id as userId, ou.small_head_photo as smallHeadPhoto, l.name as labelName" +
             " from quark_posts p" +
-            " left join oe_user ou on p.`user_id` = ou.`id` left join quark_label l on p.label_id = l.id " +
+            " join oe_user ou on p.`user_id` = ou.`id` left join quark_label l on p.label_id = l.id " +
             " where p.`is_delete` = false and good = true order by p.top desc, p.update_time desc, p.init_time desc")
     List<PostVO> listGood(Page<PostVO> page);
 
@@ -89,7 +89,7 @@ public interface PostMapper extends BaseMapper<Post> {
             " p.`browse_count` as browseCount, p.`reply_count` as replyCount, p.`report_order` as reportOrder," +
             " p.`top` as top, p.`hot` as hot, ou.name as name, ou.id as userId, ou.small_head_photo as smallHeadPhoto, l.name as labelName" +
             " from quark_posts p" +
-            " left join oe_user ou on p.`user_id` = ou.`id` left join quark_label l on p.label_id = l.id" +
+            " join oe_user ou on p.`user_id` = ou.`id` left join quark_label l on p.label_id = l.id" +
             " where p.`is_delete` = false and p.id = #{id}")
     PostVO get(Integer id);
 
