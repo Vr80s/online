@@ -79,6 +79,9 @@
     <!--头条相关-->
     <dubbo:service interface="com.xczhihui.medical.headline.service.IOeBxsArticleService" ref="oeBxsArticleServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
+    <!-- bbs -->
+    <dubbo:service interface="com.xczhihui.medical.bbs.service.IPostService" ref="postServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">

@@ -1,123 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans
-		xmlns="http://www.springframework.org/schema/beans"
-		xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:mvc="http://www.springframework.org/schema/mvc"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:task="http://www.springframework.org/schema/task"
-		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:task="http://www.springframework.org/schema/task"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
-	
-	<context:property-placeholder location="classpath:config.properties" />
-	<context:component-scan base-package="com.xczhihui.bxg.online.*.controller" />
-	<context:component-scan base-package="com.xczhihui.bxg.online.web.base.common"/>
-	<!-- 定时器-->
-	<task:annotation-driven/>
 
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="1073741824" /><!--1024M -->
-		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
+    <context:property-placeholder location="classpath:config.properties"/>
+    <context:component-scan base-package="com.xczhihui.bxg.online.*.controller"/>
+    <context:component-scan base-package="com.xczhihui.bxg.online.web.base.common"/>
+    <!-- 定时器-->
+    <task:annotation-driven/>
 
-	<mvc:annotation-driven>  
-	    <mvc:message-converters>  
-	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
-	            <property name="supportedMediaTypes">  
-	                <list>  
-	                    <value>text/json;charset=UTF-8</value>  
-	                </list>  
-	            </property>
-	            <property name="objectMapper">
-	                <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-	                    <property name="dateFormat">
-	                        <bean class="java.text.SimpleDateFormat">
-	                            <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
-	                        </bean>
-	                    </property>
-	                </bean>
-	            </property> 
-	        </bean>  
-	    </mvc:message-converters>  
-	</mvc:annotation-driven>
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1073741824"/><!--1024M -->
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
 
-	<bean id="handlerExceptionResolver"
-		class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="java.lang.Throwable">common/500</prop>
-			</props>
-		</property>
-	</bean>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
-		<property name="order" value="1"/>
-	</bean>
+    <bean id="handlerExceptionResolver"
+          class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Throwable">common/500</prop>
+            </props>
+        </property>
+    </bean>
 
-	<!-- 配置freeMarker视图解析器 -->
-	<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
-		<property name="contentType" value="text/html; charset=UTF-8"/>
-		<property name="exposeRequestAttributes" value="true" />
-		<property name="exposeSessionAttributes" value="true" />
-		<property name="exposeSpringMacroHelpers" value="true" />
-		<property name="cache" value="true" />
-		<property name="suffix" value=".ftl" />
-		<property name="order" value="0"/>
-	</bean>
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="1"/>
+    </bean>
 
-	<!-- 配置freeMarker的模板路径 -->
-	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="/WEB-INF/views-ftl/"/>
-		<property name="freemarkerVariables">
-			<map>
-				<entry key="xml_escape" value-ref="fmXmlEscape" />
-			</map>
-		</property>
-		<property name="defaultEncoding" value="UTF-8"/>
-		<property name="freemarkerSettings">
-			<props>
-				<prop key="template_update_delay">0</prop>
-				<prop key="locale">zh_CN</prop>
-				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
-				<prop key="date_format">yyyy-MM-dd</prop>
-				<prop key="number_format">#.##</prop>
-			</props>
-		</property>
-	</bean>
+    <!-- 配置freeMarker视图解析器 -->
+    <bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="contentType" value="text/html; charset=UTF-8"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="requestContextAttribute" value="request"/>
+        <property name="cache" value="true"/>
+        <property name="suffix" value=".ftl"/>
+        <property name="order" value="0"/>
+    </bean>
 
-	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+    <!-- 配置freeMarker的模板路径 -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/views-ftl/"/>
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="xml_escape" value-ref="fmXmlEscape"/>
+            </map>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">0</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="number_format">#.##</prop>
+            </props>
+        </property>
+    </bean>
 
-	<mvc:resources mapping="/online/live/image/**" location="file:/online/live/image/"  />
-	<mvc:default-servlet-handler />
-	
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.utils.OnlineInterceptor" />
-		</mvc:interceptor>
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
 
-		<!--发送系统消息拦截器-->
-		<mvc:interceptor>
-			<mvc:mapping path="/ask/answer/addAnswer" />
-			<mvc:mapping path="/ask/answer/acceptAnswer" />
-			<mvc:mapping path="/ask/comment/addComment" />
-			<mvc:mapping path="/bxs/article/saveAppraise" />
-			<mvc:mapping path="/ask/answer/acceptAnswer" />
-			<mvc:mapping path="/online/questionlist/deleteQuestionById" />
-			<mvc:mapping path="/ask/answer/deleteAnswerById" />
-			<bean id="messageInterceptor" class="com.xczhihui.bxg.online.web.interceptor.MessageInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
+    <mvc:resources mapping="/online/live/image/**" location="file:/online/live/image/"/>
+    <mvc:default-servlet-handler/>
 
-	
-	<bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController" />
-	
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.utils.OnlineInterceptor"/>
+        </mvc:interceptor>
+
+        <!--发送系统消息拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/ask/answer/addAnswer"/>
+            <mvc:mapping path="/ask/answer/acceptAnswer"/>
+            <mvc:mapping path="/ask/comment/addComment"/>
+            <mvc:mapping path="/bxs/article/saveAppraise"/>
+            <mvc:mapping path="/ask/answer/acceptAnswer"/>
+            <mvc:mapping path="/online/questionlist/deleteQuestionById"/>
+            <mvc:mapping path="/ask/answer/deleteAnswerById"/>
+            <bean id="messageInterceptor" class="com.xczhihui.bxg.online.web.interceptor.MessageInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController"/>
+
 </beans>

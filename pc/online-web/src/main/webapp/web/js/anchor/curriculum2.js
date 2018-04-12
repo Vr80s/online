@@ -2,16 +2,16 @@ $(function(){
     showCourseAttribute(1);
    
     $('#anchorWorkbench').css('color','#00bc12');
-    
     //进入页面定位之前位置
 //  if(location.hash == "#menu=1"){
 //  	$("#accordion li[data-name='#menu=1']").click();
 //  }
     
      
-    
+
 //  左侧一级菜单点击的时候保存localStorate 和 对应事件
 $('#accordion > li').click(function(){
+
 	//设置hash
 	location.hash = $(this).attr('data-name');
 	//清空localStorage
