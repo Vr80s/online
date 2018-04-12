@@ -208,16 +208,21 @@ function stripHTML(str){
         }
         $(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}));
         
-        
-        
         var aBtn=$('.all_list_ul li');
-        var aBtnId = getQueryString('index');
+        var aBtnId = getQueryString('course_id');
         for(var i=0;i<aBtn.length;i++){
-            if(i==aBtnId){
-                $(aBtn[i]).addClass('all_list_ul_li');
-            }else{
-                $(aBtn[i]).removeClass('all_list_ul_li');
-            }
+        	
+        	var courseId =  $(aBtn[i]).attr("data-courseid");
+        	if(courseId == aBtnId){
+        		$(aBtn[i]).addClass('all_list_ul_li');
+        	}else{
+        		 $(aBtn[i]).removeClass('all_list_ul_li');
+        	}
+//            if(i==aBtnId){
+//                $(aBtn[i]).addClass('all_list_ul_li');
+//            }else{
+//                $(aBtn[i]).removeClass('all_list_ul_li');
+//            }
         }
         
     }
