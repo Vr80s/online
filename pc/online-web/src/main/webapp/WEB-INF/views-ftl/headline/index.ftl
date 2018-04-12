@@ -329,6 +329,9 @@
         })
     }
     init();
-
-
+//头条tap栏的长度判断最多为7个
+var headTab=$(".forum-content-tag a").length;
+if (headTab>7) {
+	$(".forum-content-tag a:gt(6)").remove();
+}
 </script>
