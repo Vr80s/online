@@ -72,8 +72,8 @@ public class WechatChannelController extends AbstractController {
 			searchVo.setContact(contact.getPropertyValue1().toString());
 		}
 		
-		Page<WechatChannelVo> page = WechatChannelService
-				.findWechatChannelPage(searchVo, currentPage, pageSize);
+		Page<WechatChannelVo> page = WechatChannelService.findWechatChannelPage(searchVo, currentPage, pageSize);
+		
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);

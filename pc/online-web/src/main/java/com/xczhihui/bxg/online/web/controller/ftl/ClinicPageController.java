@@ -35,9 +35,6 @@ import java.util.Map;
 @RequestMapping(value = "/clinics")
 public class ClinicPageController extends AbstractController{
 
-    @Value("${online.web.url}")
-    private String webUrl;
-
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
@@ -67,7 +64,6 @@ public class ClinicPageController extends AbstractController{
         Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0,9),null,null);
         view.addObject("clinics", clinics);
 
-        doWebUrl(view,webUrl);
         return view;
     }
 
@@ -90,7 +86,6 @@ public class ClinicPageController extends AbstractController{
 
         doTitleKeyWords(view,clinic.getName()+"-",clinic.getName()+",");
 
-        doWebUrl(view,webUrl);
         return view;
     }
 
@@ -127,7 +122,6 @@ public class ClinicPageController extends AbstractController{
 
         doTitleKeyWords(view,title.toString(),keywords.toString());
         doConditionEcho(view,echoMap);
-        doWebUrl(view,webUrl);
 
         return view;
     }

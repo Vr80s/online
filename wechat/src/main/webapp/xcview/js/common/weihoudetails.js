@@ -227,7 +227,7 @@ $(document).ready(function() {
     	
         console.log(msg);
         
-        var learndCount =  sessionStorage.setItem("learndCount");
+        var learndCount =  sessionStorage.getItem("learndCount");
         if(stringnull(learndCount) && stringnull(msg.data.attend_count)){
             learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
         }
@@ -265,7 +265,7 @@ $(document).ready(function() {
         /**
          * 当有人进来房间的时候，学习人数加1
          */
-        var learndCount =  sessionStorage.setItem("learndCount");
+        var learndCount =  sessionStorage.getItem("learndCount");
         if(stringnull(learndCount) && stringnull(msg.data.attend_count)){
             learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
         }
