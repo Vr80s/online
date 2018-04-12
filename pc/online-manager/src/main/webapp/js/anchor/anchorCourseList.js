@@ -138,3 +138,24 @@ function updateStatus(obj){
         freshTable(P_courseTable);
     });
 };
+
+
+/**
+ * 修改默认学习人数。啊啊啊啊啊
+ * @param obj
+ */
+function updateStatus(obj){
+
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo); // get datarow
+    ajaxRequest(basePath+"/cloudclass/course/updateStatus",{"id":row.courseId},function(data){
+        console.log(data);
+        if(data.success==false){
+            layer.msg(data.errorMessage);
+        }
+        freshTable(P_courseTable);
+    });
+};
+
+
+

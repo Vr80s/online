@@ -183,9 +183,13 @@ public class XzCommonController {
 		   @RequestParam("content")String content) throws Exception{
     	 OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     	 
-    	 
-         content = SLEmojiFilter.emojiConvert1(content);
-    	 
+         content = SLEmojiFilter.filterEmojiToNullStr11(content);
+         if(!StringUtils.isNotBlank(content)){
+             return ResponseObject.newErrorResponseObject("暂不支持添加表情");
+         }
+         
+         LOGGER.info("content"+content);
+         content = SLEmojiFilter.filterEmoji(content);
     	 if(user!=null){
     		 messageService.add(content,user.getId());
     	 }else{
