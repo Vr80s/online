@@ -570,7 +570,7 @@ $(function(){
 
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script> -->
 
-<script src="/xcview/weihoujs/vhallSDK.js?version=8c159d78221111&version=8c159d7822&version=8c159d7822"></script>
+<script src="/xcview/weihoujs/vhallSDK.js?version=8c159d782211111111&version=8c159d7822&version=8c159d7822"></script>
 <script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="/xcview/weihoujs/underscore-min.js?version=963bd48ea8&version=963bd48ea8&version=963bd48ea8"></script>
 <script type="text/javascript" src="/xcview/newjs/weihoudetails.js?v=wechat_1.2.1&version=4d5a0432ee&version=4d5a0432ee&version=10d52d1975"></script>
@@ -611,33 +611,11 @@ $(function(){
 			$(".send_gifts").hide();
 		});
 		
-//		点击主讲人
-		/*$(".details_footer_width .click_li").click(function(){
-			
-			$("#attention .close").hide();
-			$("#attention .main_title").css("width","9.15rem");
-			$("#attention").css("display","block !important;");
-		});*/
-		
-/* 		if($("#doc img").attr("src").length==0){
-			$(".pinch-zoom-container").css("display","none");
-			$(".fd_img").css("display","black");
-		}else{
-			$(".pinch-zoom-container").css("display","block");
-			$(".fd_img").css("display","none");
-		} */
+
 		if( $('#doc img').attr('src') ){
-	    	// $(".fd_img").css("display","black");
 	    	$("#doc").css("display","black");
-	    	// $(".document").css("display","black");
-	   // 不为空
-
 		}else{
-			// $(".fd_img").css("display","none");
 			$("#doc").css("display","none");
-			// $(".document").css("display","none");
-		// 为空
-
 		}
 
 		

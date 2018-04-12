@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
+import com.xczhihui.bxg.common.util.IStringUtil;
 import com.xczhihui.bxg.common.util.JsonUtil;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
@@ -28,10 +29,12 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.body.PostBody;
 import com.xczhihui.bxg.online.web.body.ReplyBody;
 import com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter;
+import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.medical.bbs.model.Label;
 import com.xczhihui.medical.bbs.model.Post;
 import com.xczhihui.medical.bbs.model.Reply;
 import com.xczhihui.medical.bbs.service.IPostService;
+import com.xczhihui.medical.bbs.vo.PostVO;
 
 /**
  * @author hejiwei
@@ -104,8 +107,10 @@ public class BBSController extends AbstractController {
         ModelAndView modelAndView = new ModelAndView("bbs/detail");
         BxgUser loginUser = UserLoginUtil.getLoginUser(request);
         postService.addBrowseRecord(id, loginUser == null ? null : loginUser.getId());
-        modelAndView.addObject("post", postService.get(id));
+        PostVO postVO = postService.get(id);
+        modelAndView.addObject("post", postVO);
         modelAndView.addObject("replies", postService.listByPostId(id, page));
+        modelAndView.addObject("description", IStringUtil.getTop100Char(HtmlUtil.getTextFromHtml(postVO.getContent())));
         return modelAndView;
     }
 

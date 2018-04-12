@@ -24,8 +24,16 @@ var all_history="";
 			for (var int = 0; int < data.resultObject.records.length; int++) {
 				
 				var item = data.resultObject.records[int];
-				str+="<li onclick='go_play_hos("+item.type+","+item.lineState+","+item.collection+","+item.courseId+")'>";
-				str+="<p>"+item.lecturerName+"： "+item.gradeName+"</p>";
+			
+				if(item.collection){ 
+					str+="<li  data-directId ="+item.directId+" data-collectionName ="+item.collectionName+" " +
+							"onclick='go_play_hos_collection("+item.courseId+","+item.collectionId+",this)'>";
+					str+="<p>"+item.lecturerName+"： "+item.collectionName+"</p>";
+				}else{
+					str+="<li onclick='go_play_hos("+item.type+","+item.lineState+","+item.collection+","+item.courseId+")'>";
+					str+="<p>"+item.lecturerName+"： "+item.gradeName+"</p>";
+				}
+				
 				str+="<span>"+item.timeDifference+"</span>";
 				str+="</li>";
 			}
@@ -109,10 +117,22 @@ var all_history="";
 })
 
 
+function go_play_hos_collection(course_id,collection_id,obj){
+	
+	//str+="<li  data-directId ="+item.directId+" data-collectionName ="+item.collectionName+" " +
+
+	var direct_id = $(obj).attr("data-directId");
+	var name_title = $(obj).attr("data-collectionName");
+	
+	location.href="live_album.html?course_id="+course_id+"&direct_id="+direct_id+"&collection_id="+collection_id+"&name_title="+name_title;
+}
+
 /*
  * 搜索历史播放   点击事件
  */
 function go_play_hos(type,lineState,collection,id){
+	
+	
 	if(type ==3 && (lineState ==1 || lineState ==3 || lineState ==4)){ //直播间
 		location.href="details.html?courseId="+id
 	}else if(type ==3 && (lineState ==2 || lineState ==5)){ //预告的、回放的
@@ -122,8 +142,17 @@ function go_play_hos(type,lineState,collection,id){
 	}else if(type ==4){								 //线下培训班
 		location.href="live_class.html?my_study="+id
 	}else if((type ==1 || type ==2) && collection){
+		
+		
 		location.href="live_select_album.html?course_id="+id
+		//location.href="live_album.html?course_id="++"&direct_id="++"&collection_id="++"&name_title="++"&index=0";
 	}
+	
+	
+	//live_album.html?course_id=614&direct_id=4AA53B79D9C043C49C33DC5901307461&collection_id=613&name_title=%E6%96%B0%E7%89%88--%E4%B8%93%E8%BE%91-1&index=0
+	
+	
+	
 }
 //搜索历史播放结束
 

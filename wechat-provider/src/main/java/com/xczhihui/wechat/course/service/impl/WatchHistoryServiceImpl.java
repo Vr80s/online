@@ -67,21 +67,16 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		   */
 		  
 		 WatchHistory watchHistory =null;	
-		 if(target.getCollectionId()!=null
-					&& target.getCollectionId() !=0 ){
-			 
-			 watchHistory = watchHistoryMapper.
-					 findWatchHistoryByUserIdAndCollectionId(target.getUserId(),target.getCollectionId());	
-		 
-			 watchHistory.setCourseId(target.getCourseId());
+		 if(target.getCollectionId()!=null && target.getCollectionId() !=0 ){
+			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(target.getUserId(),target.getCollectionId());	
+			 if(watchHistory!=null){
+				 watchHistory.setCourseId(target.getCourseId());
+			 }
 		 }else{
-			 watchHistory = watchHistoryMapper.
-					  findWatchHistoryByUserIdAndCourseId(target.getUserId(),target.getCourseId());	
+			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(),target.getCourseId());	
 		 }
-		
 		  if(watchHistory!=null){
 			  watchHistory.setCreateTime(new Date());
-			  
 			  watchHistoryMapper.updateById(watchHistory);
 		  }else{
 			  try {
@@ -91,6 +86,7 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 			  }
 		  }
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("操作过于频繁!");
 		}
 	
