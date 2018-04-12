@@ -121,7 +121,7 @@ $(document).ready(function() {
     	var str = "<div class='coze_cen_ri'><div class='coze_cen_bg_ri'><span class='span_name'>"+userName+"：</span>"+msg.content+"</div><div class='both'></div></div>";
         $("#chatmsg").append(str);
         $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
-    });
+    });     
     VHALL_SDK.on('questionMsg', function(msg) {
         console.log('问答', msg);
         //$("#question-msg").append(question_template(msg));
@@ -209,6 +209,10 @@ $(document).ready(function() {
     	
     	
     	var userName = msg.user_name;
+    	
+        console.log("参与人数："+msg.data.attend_count);
+        console.log("当前在线人数："+msg.data.concurrent_user);
+    	
     	var content = "进入直播间";
 
     	var str = "<div class='coze_cen_ri'> "+
@@ -223,13 +227,14 @@ $(document).ready(function() {
     	
         console.log(msg);
         
-        
+        var learndCount =  sessionStorage.setItem("learndCount");
+        if(stringnull(learndCount) && stringnull(msg.data.attend_count)){
+            learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
+        }
         /**
          * 当有人进来房间的时候，学习人数加1
          */
-		var learndCount = $(".details_size span:eq(0)").html();
-		
-		$(".details_size span:eq(0)").html(parseInt(learndCount)+1);
+		$(".details_size span:eq(0)").html(learndCount);
         
     });
     /**
@@ -244,6 +249,9 @@ $(document).ready(function() {
 	  	var userName = msg.user_name;
 	  	var content = "退出直播间";
 	
+	    console.log("参与人数："+msg.data.attend_count);
+        console.log("当前在线人数："+msg.data.concurrent_user);
+	  	
 	  	var str = "<div class='coze_cen_ri'> "+
 			"  <div class='coze_cen_bg_ri'> "+
 			"<span class='span_name'>"+userName+"：</span>"+   //用户名
@@ -254,14 +262,14 @@ $(document).ready(function() {
         $("#chatmsg").append(str);
         $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
         console.log(msg);
-        
         /**
          * 当有人进来房间的时候，学习人数加1
          */
-		var learndCount = $(".details_size span:eq(0)").html();
-		if(learndCount>0){
-			$(".details_size span:eq(0)").html(parseInt(learndCount)-1);
-		}
+        var learndCount =  sessionStorage.setItem("learndCount");
+        if(stringnull(learndCount) && stringnull(msg.data.attend_count)){
+            learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
+        }
+        $(".details_size span:eq(0)").html(learndCount);
     });
     
     /**
