@@ -25,6 +25,8 @@ public class ReplyVO implements Serializable {
 
     private Integer postId;
 
+    private String smallHeadPhoto;
+
     @Override
     public String toString() {
         return "ReplyVO{" +
@@ -107,5 +109,13 @@ public class ReplyVO implements Serializable {
 
     public void setPostId(Integer postId) {
         this.postId = postId;
+    }
+
+    public String getSmallHeadPhoto() {
+        return smallHeadPhoto;
+    }
+
+    public void setSmallHeadPhoto(String smallHeadPhoto) {
+        this.smallHeadPhoto = smallHeadPhoto;
     }
 }

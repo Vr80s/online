@@ -37,9 +37,6 @@ import java.util.Map;
 @RequestMapping(value = "/headline")
 public class HeadlinePageController extends AbstractController{
 
-    @Value("${online.web.url}")
-    private String webUrl;
-
     @Autowired
     private BannerService bannerService;
     @Autowired
@@ -81,7 +78,6 @@ public class HeadlinePageController extends AbstractController{
         Map echoMap = new HashMap();
         echoMap.put("type",type);
         doConditionEcho(view,echoMap);
-        doWebUrl(view,webUrl);
 
         return view;
     }
@@ -112,7 +108,6 @@ public class HeadlinePageController extends AbstractController{
         echoMap.put("type",type);
         doConditionEcho(view,echoMap);
         doTitleKeyWords(view,typeText+"-",typeText+",");
-        doWebUrl(view,webUrl);
 
         return view;
     }
@@ -156,8 +151,6 @@ public class HeadlinePageController extends AbstractController{
         String content = HtmlUtil.getTextFromHtml(article.getContent().replaceAll("\\<.*?\\>", ""));
         content = content.length()<100?content:content.substring(0,99);
         view.addObject("descption", content);
-
-        doWebUrl(view,webUrl);
 
         return view;
     }
