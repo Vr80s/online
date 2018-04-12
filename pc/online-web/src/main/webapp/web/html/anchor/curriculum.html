@@ -2243,10 +2243,11 @@
 
 							<!--<div id="swfDiv" style="display: inline-block;">
 							</div>-->
-
-							<input type="file" value="点击上传资源" name="file" id="btn_width" onchange="uploadFile()" style="width: 128px; height: 32px;line-height: 32px;font-size: 14px;color: #00BC12;border-radius: 4px;border: 1px solid #00BC12;background: #fff;outline: none;" />
-
-							<span class="uploadfinish" style="display:none;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
+							<div class="propress-file">	
+								上传资源
+								<input type="file" value="点击上传资源" name="file" id="btn_width" onchange="uploadFile()"/>
+							</div>
+							<span class="uploadfinish" style="display:none;margin-left: 112px;display: block;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
 							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
 							<p class="warning warning1 hide">请先上传资源文件</p >
 						</div>
@@ -2710,6 +2711,8 @@
         document.getElementById('addResource').reset();
         //$("#btn_width").val('点击上传资源');
         $("#ccName").hide();
+        $(".propress-file").css({"border":"1px solid green"})          
+        $("#btn_width").css({"opacity":"0","width":"120px"})
 	}
 	$(function(){
 	    $("#cancalUpdata").click(function (){
