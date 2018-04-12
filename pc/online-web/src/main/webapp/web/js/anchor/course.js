@@ -792,6 +792,12 @@ function startLive(id) {
         window.open(data.resultObject);
     });
 }
+
+function startGuestLive(id) {
+    RequestService("/anchor/course/getWebinarGuestUrl?webinarId="+id, "get", null, function(data) {
+        window.open(data.resultObject);
+    });
+}
 function previewLive(id) {
     window.open("http://e.vhall.com/"+id);
 }

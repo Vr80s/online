@@ -38,7 +38,6 @@ public class AbstractController {
     }
 
     public OnlineUser getOnlineUserNull(HttpServletRequest request){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        return user;
+        return (OnlineUser) UserLoginUtil.getLoginUser(request);
     }
 }

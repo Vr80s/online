@@ -76,7 +76,10 @@ $(function() {
 		"class" : "center",
 		"width" : "12%",
 		"sortable" : false,
-		"data" : 'lastUpdateTime'
+		"data" : 'lastUpdateTime',
+		"mRender":function (data, display, row){
+			return getDateTimeFormat(data);
+        }
 	},{
 		"sortable" : false,
 		"data" : "id",

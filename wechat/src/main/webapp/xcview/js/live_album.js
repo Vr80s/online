@@ -49,6 +49,8 @@ function stripHTML(str){
     collectionId = getQueryString('collection_id');
 //  获取默认第一个视频ID
     var directId = getQueryString('direct_id');
+    
+
     //传ID courseId为接口的课程ID
     requestService("/xczh/course/liveDetails",{
         courseId : courseId 
@@ -76,7 +78,7 @@ function stripHTML(str){
 
     $("#video_box").click(function(){
             requestService("/xczh/history/add",
-            {courssseId:wwww1,recordType:2}
+            {courseId:wwww1,recordType:2,collectionId:collectionId}
             ,function(data) {
                 if(type == 2){
                     $("#video_box video").css("display","none");   //CC视频隐藏
@@ -206,16 +208,21 @@ function stripHTML(str){
         }
         $(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}));
         
-        
-        
         var aBtn=$('.all_list_ul li');
-        var aBtnId = getQueryString('index');
+        var aBtnId = getQueryString('course_id');
         for(var i=0;i<aBtn.length;i++){
-            if(i==aBtnId){
-                $(aBtn[i]).addClass('all_list_ul_li');
-            }else{
-                $(aBtn[i]).removeClass('all_list_ul_li');
-            }
+        	
+        	var courseId =  $(aBtn[i]).attr("data-courseid");
+        	if(courseId == aBtnId){
+        		$(aBtn[i]).addClass('all_list_ul_li');
+        	}else{
+        		 $(aBtn[i]).removeClass('all_list_ul_li');
+        	}
+//            if(i==aBtnId){
+//                $(aBtn[i]).addClass('all_list_ul_li');
+//            }else{
+//                $(aBtn[i]).removeClass('all_list_ul_li');
+//            }
         }
         
     }
@@ -278,13 +285,19 @@ $('.all_list_ul').on('click','li',function(){
     var courseId = $(this).attr('data-courseId');
     var index = $(this).index();    
     //初始化视频资源
-    window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
+    location.replace("/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index);
     
 })
 
 
 
-        
+function gotoLiveSelectAlbum(){
+	
+	//window.location="/xcview/html/live_select_album.html?course_id="+collectionId;
+	
+	location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+}
+      
 
 
 
