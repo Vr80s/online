@@ -10,6 +10,10 @@ import java.util.Map;
 
 public class AbstractController {
 
+    public void doWebUrl(ModelAndView view, String webUrl){
+        view.addObject("webUrl", webUrl);
+    }
+
     public void doTitleKeyWords(ModelAndView view, String title, String keywords){
         Map<String,String> tk = new HashMap<>();
         tk.put("title", title);

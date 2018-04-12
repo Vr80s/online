@@ -75,7 +75,7 @@
             <ul class="hot-article-list">
             <#list recClinics as recClinic>
                 <li>
-                    <a href="/clinics/${recClinic.id}">
+                    <a href="${webUrl}/clinics/${recClinic.id}">
                         <#if recClinic_index <= 2>
                             <em class="select">${recClinic_index+1}</em>
                             <#else>
@@ -92,11 +92,11 @@
         <div class="forum-content-left">
             <div class="forum-content-info">
                 <h3 class="hospital_title">医馆</h3>
-				<a href="/clinics/list" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+				<a href="${webUrl}/clinics/list" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 <div id="hospital_list">
                     <#list clinics.records as clinic>
                         <div class="hospitals">
-                            <a href="/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
+                            <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
                             <#if clinic.medicalHospitalPictures[0]??>
                                 <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;" alt="${clinic.name}">
                             <#else >
@@ -158,7 +158,7 @@
                 <p>按擅长领域搜索</p>
                 <ul class="forum-hot-tagGround">
                     <#list hotFields as hotField>
-                        <li><a href="/clinics/list?field=${hotField.id}" target="_blank">${hotField.name}</a></li>
+                        <li><a href="${webUrl}/clinics/list?field=${hotField.id}" target="_blank">${hotField.name}</a></li>
                     </#list>
                 </ul>
             </div>
@@ -171,8 +171,8 @@
                         <ul class="course boxContent clearfix" id="doctor_recruit_list">
                             <#list recruits as recruit>
                             <li>
-                                <h4><a href="/clinics/${recruit.hospitalId}" style="color: #000;">${recruit.position}</a></h4>
-                                <a href="/clinics/${recruit.hospitalId}">${recruit.city}&nbsp;&nbsp;${recruit.hospitalName}</a>
+                                <h4><a href="${webUrl}/clinics/${recruit.hospitalId}" style="color: #000;">${recruit.position}</a></h4>
+                                <a href="${webUrl}/clinics/${recruit.hospitalId}">${recruit.city}&nbsp;&nbsp;${recruit.hospitalName}</a>
                             </li>
                             </#list>
                         </ul>

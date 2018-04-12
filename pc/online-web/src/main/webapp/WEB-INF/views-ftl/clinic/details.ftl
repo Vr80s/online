@@ -94,15 +94,15 @@
             <!--医馆名家-->
             <div class="hospital_doctor clearfix">
                 <div class="hospital_top">
-                    <span>医馆名家</span>
-                    <a href="/web/html/practitionerListing.html?name=&amp;hospitalId=08a08cf4f87848298576838206653c39" class="hide" id="more_doc">
+                    <span>医馆名家-待完成</span>
+                    <a href="${webUrl}/web/html/practitionerListing.html?name=&amp;hospitalId=08a08cf4f87848298576838206653c39" class="hide" id="more_doc">
                         更多&nbsp;&gt;
                     </a>
                 </div>
                 <ul class="doctor_inf" id="yiguan_mingjia">
                     <#list doctors.records as doctor>
                         <li>
-                            <a href="/doctors/${doctor.id}" target="_blank"></a>
+                            <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                             <img src="${doctor.headPortrait}" alt="${doctor.name}">
                             <h5>${doctor.name}</h5>
                             <p>${doctor.workTime?default('')}</p>
@@ -271,7 +271,7 @@
                 <ul id="good_hospital_list">
                 <#list recClinics as recClinic>
                     <li>
-                        <a href="/clinics/${recClinic.id}">
+                        <a href="${webUrl}/clinics/${recClinic.id}">
                             <#if recClinic_index <= 2>
                                 <em class="select">${recClinic_index+1}</em>
                             <#else>
