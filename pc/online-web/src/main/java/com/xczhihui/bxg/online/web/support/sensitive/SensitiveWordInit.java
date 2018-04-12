@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SensitiveWordInit {
 
-    private static final String ENCODING = "GBK";
+    private static final String ENCODING = "utf8";
     @SuppressWarnings("rawtypes")
     private Map sensitiveWordMap;
 
