@@ -6,13 +6,13 @@ import com.xczhihui.utils.TableVo;
 
 public interface BBSPostService {
 
-	TableVo list(TableVo tableVo);
+    TableVo list(TableVo tableVo);
 
-	int updateGoodStatus(List<Integer> ids);
+    int updateGoodStatus(List<Integer> ids);
 
-	int updateTopStatus(List<Integer> ids);
+    int updateTopStatus(List<Integer> ids);
 
-	int updateDeleteStatus(List<Integer> ids, boolean deleted);
+    int updateDeleteStatus(List<Integer> ids, boolean deleted);
 
-	int updateHotStatus(List<Integer> ids);
+    int updateHotStatus(List<Integer> ids);
 }
