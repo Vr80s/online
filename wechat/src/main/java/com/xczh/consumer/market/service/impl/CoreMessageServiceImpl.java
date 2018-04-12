@@ -92,45 +92,20 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             // 文本消息  
             if (msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_TEXT)) {  
             	
-                // 接收用户发送的文本消息内容  
-//                String content = requestMap.get("Content");  
-//                textMessage.setContent("欢迎来到熊猫中医");  
-//                // 将文本消息对象转换成xml字符串  
-//                respMessage = MessageUtil.textMessageToXml(textMessage);  
-//                if ("1".equals(content)) {  
-//                    textMessage.setContent("欢迎来到熊猫中医！");  
-//                    // 将文本消息对象转换成xml字符串  
-//                    respMessage = MessageUtil.textMessageToXml(textMessage);  
-//                }else if ("2".equals(content)) {  
-//                    textMessage.setContent("我不是2货");  
-//                    // 将文本消息对象转换成xml字符串  
-//                    respMessage = MessageUtil.textMessageToXml(textMessage);  
-//                }else if("3".equals(content)){
-//                	  Article article = new Article();  
-//                      article.setTitle("啦啦啦啦啦啦啦啦，我是卖报的小画家。");  
-//                      article.setDescription("啦啦啦啦啦啦啦啦，我是卖报的小画家。");  
-//                      article.setPicUrl("http://test-file.ipandatcm.com/18323230451/3654b4749a2b88f24ee6.jpg");  
-//                      article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx48d230a99f1c20d9&redirect_uri=http://test-wx.ixincheng.com/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
-//                      articleList.add(article);  
-//                   
-//                      // 设置图文消息个数  
-//                      newsMessage.setArticleCount(articleList.size());  
-//                      // 设置图文消息包含的图文集合  
-//                      newsMessage.setArticles(articleList);  
-//                      // 将图文消息对象转换成xml字符串  
-//                      respMessage = MessageUtil.newsMessageToXml(newsMessage);  
-//                }  
+            	LOGGER.info("有人给我们发送二维码了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             	
             }else if(msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_EVENT)){ //请求消息类型：事件推送
             	
         	  if(scan.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)){  // 关注公众号事件
         		  
-        		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        		    LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         		   /*
         		    * 保存用户微信信息
         		    */
         		    JSONObject jsonObject =  serviceToken(fromUserName);
 	        		
+        		    LOGGER.info("jsonObject~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+jsonObject.toString());
+        		    
 	        		String openid_ = (String)jsonObject.get("openid");
 	    			String nickname_ = (String)jsonObject.get("nickname");
 	    			nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
@@ -156,6 +131,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    	
 	    			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
 	    			
+	    			LOGGER.info("WxcpClientUserWxMapping~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+m);
 	    			if(null == m){
 	    				
 	    				String public_id = WxPayConst.gzh_appid ;
@@ -222,14 +198,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         	  }else if(scan.equals(MessageConstant.EVENT_TYPE_UNSUBSCRIBE)){  //取消公众号事件
               	
              	   LOGGER.info("有人取消关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-             	   
-//             	   String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-//             	   
-//                   String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);  
-//                   JSONObject jsonObject = JSONObject.fromObject(user_buffer);
              	   JSONObject jsonObject =  serviceToken(fromUserName);
-             	   
-                   
              	   WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(fromUserName);
     				
              	   if(null!=m){
@@ -244,12 +213,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
              	LOGGER.info("有人了扫二维码了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
              	 
                 newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);   
-             	 
-//                String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-//                String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
-//          		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
       			
           		JSONObject jsonObject =  serviceToken(fromUserName);
+          		
+          		LOGGER.info("jsonObject~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+jsonObject.toString());
           		
           		String openid_ = (String)jsonObject.get("openid");
       			String nickname_ = (String)jsonObject.get("nickname");
@@ -278,6 +245,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       			
       			String public_id = WxPayConst.gzh_appid ;
   				String public_name = WxPayConst.appid4name ;
+  				
+  				LOGGER.info("WxcpClientUserWxMapping~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+m);
   				
       			if(null == m){  //
       				
@@ -308,10 +277,9 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       				
       			    wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
       			    
-      			}else if(m!=null && (qr_scene!=null || qr_scene_str!=null)){
+      			}else if(m!=null && (qr_scene!=null || qr_scene_str!=null)){ 
       				
       				m.setGroupid(groupid+"");
-      				//m.setTagid_list(tagid_list);
       				m.setSubscribe_scene(subscribe_scene);
       				m.setQr_scene(qr_scene+"");
       				m.setQr_scene_str(qr_scene_str);
@@ -321,7 +289,6 @@ public class CoreMessageServiceImpl implements CoreMessageService {
       			}
                   
       		    newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
-      		    LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Article article = new Article();  
                 article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
                 article.setDescription("");  

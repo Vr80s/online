@@ -35,18 +35,18 @@ public class WechatSYSTest {
 	 */
 	@Test
 	public void testGET_PERMANENT_MATERISL() {
-		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-		System.out.println(token);
-		String url = GET_PERMANENT_MATERISL.replace("APPSECRET",token);
-		
-		Map<String,String> parameters = new HashMap<String,String>();
-		parameters.put("type", "news");
-		parameters.put("offset", "0");
-		parameters.put("count", "10");
-		
-		String str ="{\"type\":\"news\",\"offset\":0,\"count\":10}";
-		String hehe =  HttpsRequest.doHttpsPost(url, str);
-		System.out.println("token============"+hehe);
+//		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+//		System.out.println(token);
+//		String url = GET_PERMANENT_MATERISL.replace("APPSECRET",token);
+//		
+//		Map<String,String> parameters = new HashMap<String,String>();
+//		parameters.put("type", "news");
+//		parameters.put("offset", "0");
+//		parameters.put("count", "10");
+//		
+//		String str ="{\"type\":\"news\",\"offset\":0,\"count\":10}";
+//		String hehe =  HttpsRequest.doHttpsPost(url, str);
+//		System.out.println("token============"+hehe);
 	}
 	
 	/**
@@ -58,9 +58,9 @@ public class WechatSYSTest {
 	 */
 	@Test
 	public void testSYS() {
-		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-		System.out.println(token);
-		String url = OBTAIN_MERCHANT_INFORMATION.replace("APPSECRET", "8_UTNb4a2W81yG5oOmRu7vqZPT8l90ipITfkBFfoqf93u9OhY9Ily4uEuCDsTthxNRNMYG9YedckziFBqQMlSlDwpe9dTjbtExgq8BvIvjxEu7x9Toyfq-y2EdGXtSo-aMz5GWCS8kWrAqfpvcJJAcABAAAR");
+//		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+//		System.out.println(token);
+//		String url = OBTAIN_MERCHANT_INFORMATION.replace("APPSECRET", "8_UTNb4a2W81yG5oOmRu7vqZPT8l90ipITfkBFfoqf93u9OhY9Ily4uEuCDsTthxNRNMYG9YedckziFBqQMlSlDwpe9dTjbtExgq8BvIvjxEu7x9Toyfq-y2EdGXtSo-aMz5GWCS8kWrAqfpvcJJAcABAAAR");
 //		String goods_info  = HttpUtil.doGet(url);
 //		System.out.println(goods_info);
 	}
