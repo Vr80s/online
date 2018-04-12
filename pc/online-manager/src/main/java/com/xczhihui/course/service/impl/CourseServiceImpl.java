@@ -1663,4 +1663,19 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		webinar.setLayout(entity.getDirectSeeding()+"");
 		return VhallUtil.updateWebinar(webinar);
 	}
+	
+
+    @Override
+    public void updatedefaultStudent(Integer id,Integer defaultStudentCount) {
+        String hqlPre="from Course where  isDelete = 0 and id = ?";
+        Course course= dao.findByHQLOne(hqlPre,new Object[] {id});
+        if(defaultStudentCount>10000000){
+            throw new RuntimeException("目前支持上传的最大值为："+10000000);
+        }
+        if (course!=null){
+            course.setDefaultStudentCount(defaultStudentCount);
+            dao.update(course);
+        }
+    }
+	
 }
