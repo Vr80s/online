@@ -22,4 +22,11 @@ public final class IStringUtil {
         }
         return false;
     }
+
+    public static String getTop100Char(String text) {
+        if (isNotBlank(text) && text.length() >= 100) {
+            return text.substring(0, 100);
+        }
+        return text;
+    }
 }
