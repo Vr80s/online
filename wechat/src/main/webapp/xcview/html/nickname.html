@@ -17,7 +17,7 @@
         (function(window){var setHtmlSize=function(w){var b=750/100;var c=window.innerWidth;if(w){c=w}var a=c/b;if(a<42){a=42}else if(a>60){a=60}document.querySelector("html").style.fontSize=a+"px";if(navigator.userAgent.indexOf("iPad")!=-1){document.querySelector("html").style.fontSize="60px"}};setHtmlSize();window.onresize=function(){var w=window.innerWidth;setHtmlSize(w)}}(window));
 </script>
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
