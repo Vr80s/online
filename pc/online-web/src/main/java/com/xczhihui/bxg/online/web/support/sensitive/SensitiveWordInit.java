@@ -148,8 +148,8 @@ public class SensitiveWordInit {
     @SuppressWarnings("resource")
     private Set<String> readSensitiveWordFile() throws Exception {
         Set<String> set;
-
-        File file = new File(sensitiveWord);
+        String path = Thread.currentThread().getContextClassLoader().getResource("sensitiveWord.txt").getPath();
+        File file = new File(path);
         try (InputStreamReader read = new InputStreamReader(new FileInputStream(file), ENCODING)) {
             if (file.isFile() && file.exists()) {
                 set = new HashSet<String>();
