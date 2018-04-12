@@ -512,6 +512,8 @@ function picUpdown3(baseurl, imgname) {
 		image: baseurl,
 	}, function(data) {
 		$('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject +'?imageMogr2/thumbnail/260x147<'+ '" >');
+
+	
 	})
 }
 
@@ -540,8 +542,7 @@ function picUpdown2(baseurl, imgname) {
 		var picStr =
 			'<div style="position: relative;">' +
 			'<span style="position: absolute;top: 5px;right: 5px;color:red;z-index:5;" class="hospic_del">X</span>' +
-//			'<img src="' + data.resultObject + '?imageView2/1/w/260/h/147'+'" >' +
-			'<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<'+'" >' +
+			'<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<'+'" >' +			
 			'</div>'
 		$('#hos_Administration #hos_pic').append(picStr);
 	})

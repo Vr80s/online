@@ -10,10 +10,6 @@ import java.util.Map;
 
 public class AbstractController {
 
-    public void doWebUrl(ModelAndView view, String webUrl){
-        view.addObject("webUrl", webUrl);
-    }
-
     public void doTitleKeyWords(ModelAndView view, String title, String keywords){
         Map<String,String> tk = new HashMap<>();
         tk.put("title", title);
@@ -43,5 +39,9 @@ public class AbstractController {
 
     public OnlineUser getOnlineUserNull(HttpServletRequest request){
         return (OnlineUser) UserLoginUtil.getLoginUser(request);
+    }
+
+    public String getUserId(HttpServletRequest request) {
+        return getOnlineUser(request).getId();
     }
 }

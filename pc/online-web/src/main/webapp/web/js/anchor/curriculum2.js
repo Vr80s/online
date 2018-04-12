@@ -1331,3 +1331,95 @@ function clearNoNum(obj){
         obj.value= parseFloat(obj.value); 
     } 
 }
+
+function uploadFile() {
+    var filemd5="";
+    var obj_file = document.getElementById("btn_width").files[0];
+    //获取文件md5
+    browserMD5File(obj_file, function (err, md5) {
+
+        filemd5=md5;
+        $('.progress-resource').css({
+            "width": "0%"
+        })
+        xmx(0,"1",filemd5,"","","")
+    });
+
+}
+
+function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
+    var obj_file = document.getElementById("btn_width").files[0];
+
+    chunkSize = 2097152;  //2M
+    var totalSize = obj_file.size;        //文件总大小
+    var start = begin;                //每次上传的开始字节
+    var end = start + chunkSize;        //每次上传的结尾字节
+    var blob = null;
+    blob = obj_file.slice(start,end);    //截取每次需要上传字节数
+
+    formData = new FormData();        //每一次需重新创建
+    formData.append('file',blob);    //添加数据到表单对象中
+    formData.append('fileSize',totalSize);    //添加数据到表单对象中
+    formData.append('filemd5',filemd5);    //添加数据到表单对象中
+    formData.append('fileName',obj_file.name);    //添加数据到表单对象中
+    formData.append('first',first);    //添加数据到表单对象中
+    formData.append('ccid',ccid);    //添加数据到表单对象中
+    formData.append('metaUrl',metaurl);    //添加数据到表单对象中
+    formData.append('chunkUrl',chunkUrl);    //添加数据到表单对象中
+    formData.append('start',start);    //添加数据到表单对象中
+    $("#ziyuan_bottom .resource_uploading").show();
+    $("#ziyuan_bottom .uploadfinish").hide();
+    $("#ziyuan_bottom .updataSuccess").hide();
+
+    $.ajax({
+        url: '/videoRes/uploadFile',
+        type: 'POST',
+        cache: false,
+        data: formData,
+        processData: false,
+        contentType: false
+    }).done(function(result){
+        if(result.success){
+            var ccid = result.resultObject[0];
+            var metaurl = result.resultObject[1];
+            var chunkUrl = result.resultObject[2];
+
+            //计算完成百分比
+            var completion = Math.round(end / totalSize * 10000) / 100.00;
+            $('.progress-resource').css({
+                "width": completion+"%"
+            })
+
+            start = end;            // 累计上传字节数
+            end = start + chunkSize;    // 由上次完成的部分字节开始，添加下次上传的字节数
+            // 上传文件部分累计
+            if(start>=totalSize){    //如果上传字节数大于或等于总字节数，结束上传
+                $("#ccId").val(result.resultObject[0]);
+                $("#ziyuan_bottom .resource_uploading").hide();
+                $("#ziyuan_bottom .uploadfinish").show();
+                $("#ziyuan_bottom .updataSuccess").show();
+                $('.progress-resource').css({
+                    "width": "100%"
+                })
+                uploadfinished=true;
+                alert('上传完成!');
+                //告诉后台上传完成后合并文件                            //返回上传文件的存放路径
+            }else{
+                xmx(start,"2","",ccid,metaurl,chunkUrl);        // 上传字节不等与或大于总字节数，继续上传
+            }
+        }else {
+
+            alert('上传失败');
+		}
+    }).fail(function() {
+
+        alert('上传失败!');
+
+    });
+
+}
+
+function againUpload() {
+
+
+}
