@@ -46,6 +46,7 @@ public class HtmlUtil {
     }
 
     public static String getTextFromHtml(String htmlStr) {
+        if(htmlStr==null){return "";}
         htmlStr = delHTMLTag(htmlStr);
         htmlStr = htmlStr.replaceAll("&nbsp;", "");
         htmlStr = htmlStr.replaceAll("　", "");

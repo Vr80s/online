@@ -40,7 +40,7 @@
                 <tbody>
                 <tr>
                     <td rowspan='2' style="<#if !(type??) || !(labelId??)>background-color:#e2e2e2</#if>">
-                        <a href='/bbs'>
+                        <a href='${webUrl}/bbs'>
                             <img style='vertical-align: bottom;' src='../web/images/bbs/all.png' alt=''>
                             <br>
                             <span style='display: inline-block;vertical-align: top;margin-top: -20px;margin-left: 67px;'>
@@ -50,7 +50,7 @@
                     </td>
                 <#list top3Labels as label>
                     <td style="<#if (type?? && labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
-                        <a href='/bbs?type=label&labelId=${label.id}'>
+                        <a href='${webUrl}/bbs?type=label&labelId=${label.id}'>
                             <img style='margin-right:10px' src="${label.labelImgUrl}">${label.name}
                         </a>
                     </td>
@@ -59,7 +59,7 @@
                 <tr>
                 <#list otherLabels as label>
                     <td style="<#if (type?? && labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
-                        <a href='/bbs?type=label&labelId=${label.id}'><img style='margin-right:10px'
+                        <a href='${webUrl}/bbs?type=label&labelId=${label.id}'><img style='margin-right:10px'
                                                                            src=${label.labelImgUrl}>${label.name}</a>
                     </td>
                 </#list>
@@ -69,9 +69,9 @@
 
             <div class="fly-tab fly-tab-index">
         <span>
-          <a href="/bbs" class="all <#if !(type??) || type=='label'>color</#if>">全部</a>
-          <a href="/bbs?type=hot" class="hot <#if type?? && type=='hot'>color</#if>">热门</a>
-          <a href="/bbs?type=good" class="good <#if type?? && type=='good'>color</#if>">精品</a>
+          <a href="${webUrl}/bbs" class="all <#if !(type??) || type=='label'>color</#if>">全部</a>
+          <a href="${webUrl}/bbs?type=hot" class="hot <#if type?? && type=='hot'>color</#if>">热门</a>
+          <a href="${webUrl}/bbs?type=good" class="good <#if type?? && type=='good'>color</#if>">精品</a>
         </span>
                 <div>
                     <a onclick="addPost()" class="layui-btn jie-add">发布帖子</a>
@@ -86,7 +86,7 @@
                                 <img src="${post.smallHeadPhoto!''}" alt="">
                             </span>
                         <h2 class="fly-tip">
-                            <a href="/bbs/${post.id}">${post.title!''}</a>
+                            <a href="${webUrl}/bbs/${post.id}">${post.title!''}</a>
                             <#if post.top>
                                 <span class="fly-tip-stick">置顶</span>
                             </#if>
@@ -107,7 +107,7 @@
                     <#--</#list>-->
 
                         <p>
-                            <span class="hide"><a href="user/home?id=${post.userId}">${post.name}</a></span>
+                            <span class="hide"><a href="${webUrl}/bbs/user/home?id=${post.userId}">${post.name}</a></span>
                             <span>${post.labelName}</span>
                             <span>${post.name}发表于</span>
                             <span>${post.initTime?string('yyyy-MM-dd HH:mm:ss')} </span>
@@ -128,7 +128,7 @@
                 </ul>
 
             </ul>
-        <#assign pageUrl = "/bbs?"/>
+        <#assign pageUrl = "${webUrl}/bbs?"/>
         <#if RequestParameters.type??>
             <#assign pageUrl = pageUrl + "&type=" + RequestParameters.type>
         </#if>
@@ -149,13 +149,13 @@
             <#if index < 3>
                 <dd>
                     <i class="topNum">${index+1}</i>
-                    <a href="/bbs/${hot.id}">${hot.title}</a>
+                    <a href="${webUrl}/bbs/${hot.id}">${hot.title}</a>
                     <span class="hide"><i class="iconfont">&#xe60c;</i></span>
                 </dd>
             <#else >
                 <dd>
                     <i class="botNum">${index+1}</i>
-                    <a href="/bbs/${hot.id}">${hot.title}</a>
+                    <a href="${webUrl}/bbs/${hot.id}">${hot.title}</a>
                     <span class="hide"><i class="iconfont">&#xe60c;</i></span>
                 </dd>
             </#if>

@@ -79,13 +79,13 @@
                 <#list hotArticle as ha>
                     <#if ha_index <=2>
                         <li>
-                            <a href="/web/html/forumDetail.html?articleId=${ha.id}" target="_blank">
+                            <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
                                 <span title="${ha.title}">${ha.title}</span>
                             </a>
                         </li>
                     <#else >
                         <li>
-                            <a href="/web/html/forumDetail.html?articleId=${ha.id}" target="_blank">
+                            <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
                                 <span title="${ha.title}">${ha.title}</span>
                             </a>
                         </li>
@@ -164,9 +164,9 @@
                 <ul class="forum-content-tag clearfix">
                     <#list articleType as at>
                         <#if at.id==echoMap.type>
-                            <a href="/headline/${at.id}" style="display: block;"><li class="select" ><em class="select"></em>${at.name}</li></a>
+                            <a href="${webUrl}/headline/${at.id}" style="display: block;"><li class="select" ><em class="select"></em>${at.name}</li></a>
                         <#else >
-                            <a href="/headline/${at.id}" style="display: block;"><li ><em class="select1"></em>${at.name}</li></a>
+                            <a href="${webUrl}/headline/${at.id}" style="display: block;"><li ><em class="select1"></em>${at.name}</li></a>
                         </#if>
                     </#list>
                 </ul>
@@ -174,12 +174,12 @@
             <div class="forum-content-info">
                 <#list articles.records as article>
                     <div class="forum-info clearfix">
-                        <a href="/headline/details/${article.id}" target="_blank">
+                        <a href="${webUrl}/headline/details/${article.id}" target="_blank">
                             <img class="forum-info-left" src="${article.imgPath}" alt=""/>
                         </a>
                         <div class="forum-info-right">
                             <div class="forum-info-title">
-                                <a href="/headline/details/${article.id}" target="_blank">${article.title}</a>
+                                <a href="${webUrl}/headline/details/${article.id}" target="_blank">${article.title}</a>
                             </div>
                             <div class="forum-info-content dot-ellipsis">
                             ${article.content}
@@ -191,7 +191,7 @@
                     </div>
                 </#list>
             </div>
-                <a href="/headline/list/${echoMap.type}" class="more-news">更多</a>
+                <a href="${webUrl}/headline/list/${echoMap.type}" class="more-news">更多</a>
         </div>
         <div class="forum-content-right" style="position: absolute; left: 880px;">
             <!--推荐专栏作者-->
@@ -246,7 +246,7 @@
                 <ul class="hot-article-list">
                     <#list hotArticle as ha>
                         <li>
-                            <a href="/web/html/forumDetail.html?articleId=${ha.id}" target="_blank">
+                            <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
                                 <span title="${ha.title}">${ha.title}</span>
                             </a>
                         </li>
@@ -329,6 +329,9 @@
         })
     }
     init();
-
-
+//头条tap栏的长度判断最多为7个
+var headTab=$(".forum-content-tag a").length;
+if (headTab>7) {
+	$(".forum-content-tag a:gt(6)").remove();
+}
 </script>

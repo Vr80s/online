@@ -194,8 +194,8 @@
             <#if specialColumns.total gt 0>
                 <div class="zhuanlan clearfix" id="zhuanlan">
                     <div class="class_top">
-                        <span>专栏</span>
-                        <a href="/web/html/columnListing.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" id="more_zhuanlan">
+                        <span>专栏-待完成</span>
+                        <a href="${webUrl}/web/html/columnListing.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" id="more_zhuanlan">
                             更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -230,8 +230,8 @@
                 <!--媒体报道-->
                 <div class="zhuanlan clearfix" id="media_report">
                     <div class="class_top">
-                        <span>媒体报道</span>
-                        <a href="/web/html/practitioneNews.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" class="more_madia_report">
+                        <span>媒体报道-待完成</span>
+                        <a href="${webUrl}/web/html/practitioneNews.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199" class="more_madia_report">
                             更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -240,10 +240,10 @@
                         <#list newsReports.records as newsReport>
                             <li class="clearfix">
                                 <div class="zhuanlan_left">
-                                    <a href="/web/html/newsDetails.html?articleId=${newsReport.id}"><img src="${newsReport.imgPath}" alt="${newsReport.title}"></a>
+                                    <a href="${webUrl}/headline/details/${newsReport.id}"><img src="${newsReport.imgPath}" alt="${newsReport.title}"></a>
                                 </div>
                                 <div class="zhuanlan_right">
-                                    <h3><a href="/web/html/newsDetails.html?id=${newsReport.id}" style="color: #000;">${newsReport.title}</a></h3>
+                                    <h3><a href="${webUrl}/headline/details/${newsReport.id}" style="color: #000;">${newsReport.title}</a></h3>
                                     <p>${newsReport.content}</p>
                                     <span>${(newsReport.createTime?string("yyyy-MM-dd"))!}</span>
                                 </div>
@@ -267,8 +267,8 @@
             <!--著作-->
             <div class="zhuzuo clearfix hide">
                 <div class="zhuzuo_title">
-                    <h3>著作</h3>
-                    <a href="/web/html/pubs.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                    <h3>著作-待完成</h3>
+                    <a href="${webUrl}/web/html/pubs.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 </div>
 
                 <div id="zhuzuo_list">
