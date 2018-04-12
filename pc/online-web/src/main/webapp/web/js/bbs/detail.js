@@ -126,7 +126,7 @@ $(function () {
     $('.reply').on('click', function () {
         $('.reply_list').removeClass('hide');
         $("#replyContent").html($(this).data('content'));
-        $('.reply_btn').data('replyid', $(this).data('id'));
+        $('.J-toReply-submit').data('replyid', $(this).data('id'));
         toReplyContentEditor = UE.getEditor('toReplyContentEditor', options);
     });
 

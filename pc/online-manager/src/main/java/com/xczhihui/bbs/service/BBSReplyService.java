@@ -6,7 +6,7 @@ import com.xczhihui.utils.TableVo;
 
 public interface BBSReplyService {
 
-	TableVo list(TableVo tableVo);
+    TableVo list(TableVo tableVo);
 
-	int updateDeleteStatus(List<Integer> ids, boolean deleted);
+    int updateDeleteStatus(List<Integer> ids, boolean deleted);
 }

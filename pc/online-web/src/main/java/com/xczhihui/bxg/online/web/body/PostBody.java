@@ -5,7 +5,6 @@ import java.util.Date;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter;
 import com.xczhihui.medical.bbs.model.Post;
 
 /**
@@ -26,8 +25,10 @@ public class PostBody {
 
     public Post build(String userId) {
         Post post = new Post();
+        Date time = new Date();
         post.setContent(this.content);
-        post.setInitTime(new Date());
+        post.setInitTime(time);
+        post.setUpdateTime(time);
         post.setLabelId(labelId);
         post.setUserId(userId);
         post.setTitle(this.title);

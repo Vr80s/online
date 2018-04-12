@@ -90,7 +90,7 @@ public class PostServiceImpl implements IPostService {
                 throw new IllegalArgumentException("回复的回复已被删除");
             }
         }
-        postMapper.updateReplyCount(postId);
+        postMapper.updateReplyCount(postId, new Date());
         replyMapper.insert(reply);
         return true;
     }
@@ -107,15 +107,15 @@ public class PostServiceImpl implements IPostService {
     @Override
     public Page<ReplyVO> listByPostId(int postId, int page) {
         Page<ReplyVO> replyVOPage = new Page<>(page, 3);
-        List<ReplyVO> replyVOS = replyMapper.listByPostId(replyVOPage, postId);
+        List<ReplyVO> replyVOs = replyMapper.listByPostId(replyVOPage, postId);
         //查询回复的回复数据
-        replyVOS.forEach(replyVO -> {
+        replyVOs.forEach(replyVO -> {
             Integer toReplyId = replyVO.getToReplyId();
             if (toReplyId != null && toReplyId != 0) {
                 replyVO.setToReply(replyMapper.get(toReplyId));
             }
         });
-        return replyVOPage.setRecords(replyVOS);
+        return replyVOPage.setRecords(replyVOs);
     }
 
     @Async
@@ -123,7 +123,7 @@ public class PostServiceImpl implements IPostService {
     public void addBrowseRecord(int postId, String userId) {
         if (userId != null) {
             Map<String, Object> params = new HashMap<>(2);
-            EntityWrapper<BrowseRecord> ew = new EntityWrapper<BrowseRecord>();
+            EntityWrapper<BrowseRecord> ew = new EntityWrapper<>();
             Integer count = browseRecordMapper.selectCount(ew.where("user_id = {0}", userId).and("post_id = {0}", postId));
             if (count == 0) {
                 BrowseRecord br = new BrowseRecord(postId, userId);

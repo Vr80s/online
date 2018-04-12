@@ -7,13 +7,13 @@ import com.xczhihui.utils.TableVo;
 
 public interface BBSLabelService {
 
-	TableVo list(TableVo tableVo);
+    TableVo list(TableVo tableVo);
 
-	int delete(List<Integer> ids);
+    int delete(List<Integer> ids);
 
-	boolean create(BBSLabel label);
+    boolean create(BBSLabel label);
 
-	boolean update(BBSLabel label);
+    boolean update(BBSLabel label);
 
-	int updateStatus(List<Integer> ids);
+    int updateStatus(List<Integer> ids);
 }
