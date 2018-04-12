@@ -16,42 +16,42 @@ import com.xczhihui.utils.TableVo;
 @Controller
 public class BBSPostController {
 
-	@Autowired
-	private BBSPostService bbsPostService;
+    @Autowired
+    private BBSPostService bbsPostService;
 
-	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index(TableVo tableVo) {
-		return "bbs/post/index";
-	}
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public String index(TableVo tableVo) {
+        return "bbs/post/index";
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseBody
-	public TableVo list(TableVo tableVo) {
-		return bbsPostService.list(tableVo);
-	}
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public TableVo list(TableVo tableVo) {
+        return bbsPostService.list(tableVo);
+    }
 
-	@RequestMapping(value = "changeGood", method = RequestMethod.POST)
-	@ResponseBody
-	public int changeGoodStatus(@RequestParam List<Integer> ids) {
-		return bbsPostService.updateGoodStatus(ids);
-	}
+    @RequestMapping(value = "changeGood", method = RequestMethod.POST)
+    @ResponseBody
+    public int changeGoodStatus(@RequestParam List<Integer> ids) {
+        return bbsPostService.updateGoodStatus(ids);
+    }
 
-	@RequestMapping(value = "changeTop", method = RequestMethod.POST)
-	@ResponseBody
-	public int changeTopStatus(@RequestParam List<Integer> ids) {
-		return bbsPostService.updateTopStatus(ids);
-	}
+    @RequestMapping(value = "changeTop", method = RequestMethod.POST)
+    @ResponseBody
+    public int changeTopStatus(@RequestParam List<Integer> ids) {
+        return bbsPostService.updateTopStatus(ids);
+    }
 
-	@RequestMapping(value = "changeDelete", method = RequestMethod.POST)
-	@ResponseBody
-	public int changeDeleteStatus(@RequestParam List<Integer> ids,
-			@RequestParam boolean deleted) {
-		return bbsPostService.updateDeleteStatus(ids, deleted);
-	}
+    @RequestMapping(value = "changeDelete", method = RequestMethod.POST)
+    @ResponseBody
+    public int changeDeleteStatus(@RequestParam List<Integer> ids,
+                                  @RequestParam boolean deleted) {
+        return bbsPostService.updateDeleteStatus(ids, deleted);
+    }
 
-	@RequestMapping(value = "changeHot", method = RequestMethod.POST)
-	@ResponseBody
-	public int changeHotStatus(@RequestParam List<Integer> ids) {
-		return bbsPostService.updateHotStatus(ids);
-	}
+    @RequestMapping(value = "changeHot", method = RequestMethod.POST)
+    @ResponseBody
+    public int changeHotStatus(@RequestParam List<Integer> ids) {
+        return bbsPostService.updateHotStatus(ids);
+    }
 }

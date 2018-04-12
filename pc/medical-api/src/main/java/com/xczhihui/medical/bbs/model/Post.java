@@ -47,6 +47,9 @@ public class Post implements Serializable {
     @TableField("is_delete")
     private boolean deleted;
 
+    @TableField("update_time")
+    private Date updateTime;
+
     public Integer getId() {
         return id;
     }
@@ -149,6 +152,14 @@ public class Post implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
