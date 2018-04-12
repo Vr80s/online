@@ -81,4 +81,12 @@ public interface IMedicalHospitalBusinessService {
     void deleteDoctor(String uid, String doctorId);
 
     MedicalField getFieldById(String field);
+
+    /**
+     * 校验该医馆与用户的关系
+     * @param userId 用户id
+     * @param hospitalId 医馆id
+     * @return true 合法 false 不合法
+     */
+    boolean check(String userId, String hospitalId);
 }

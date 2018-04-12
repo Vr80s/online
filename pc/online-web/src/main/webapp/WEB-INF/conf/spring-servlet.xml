@@ -116,6 +116,12 @@
             <mvc:mapping path="/ask/answer/deleteAnswerById"/>
             <bean id="messageInterceptor" class="com.xczhihui.bxg.online.web.interceptor.MessageInterceptor"/>
         </mvc:interceptor>
+
+        <!-- 对web请求的相关处理-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="webInterceptor" class="com.xczhihui.bxg.online.web.interceptor.WebInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 

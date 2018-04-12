@@ -40,5 +40,4 @@ public interface MedicalHospitalAccountMapper extends BaseMapper<MedicalHospital
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     MedicalHospital getMedicalHospitalByUserId(String userId);
-    
 }

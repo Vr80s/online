@@ -50,9 +50,6 @@ public class BBSController extends AbstractController {
     private static final String REPLY_SENSITIVE_EMAIL_TEMPLATE = "熊猫中医BBS帖子回复发现疑似违规内容:</br>帖子id：{0}</br>" +
             "用户ID：{1}</br>内容：{2}<br>内容中包含敏感词的个数为：{3}。包含：{4}</br>内容被和谐后，变为：{5}";
 
-    @Value("${online.web.url}")
-    private String webUrl;
-
     @Autowired
     private IPostService postService;
     @Autowired
@@ -74,16 +71,12 @@ public class BBSController extends AbstractController {
         modelAndView.addObject("type", type);
         modelAndView.addObject("labelId", labelId);
 
-        doWebUrl(modelAndView,webUrl);
         return modelAndView;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject save(@RequestBody @Valid PostBody postBody, HttpServletRequest request) {
-        String path = request.getServletContext().getRealPath("/template");
-
-
         String userId = getOnlineUser(request).getId();
         if (postService.isBlacklist(userId)) {
             return newErrorResponseObject("您已被拉入黑名单");
@@ -123,7 +116,6 @@ public class BBSController extends AbstractController {
         modelAndView.addObject("post", postVO);
         modelAndView.addObject("replies", postService.listByPostId(id, page));
         modelAndView.addObject("description", IStringUtil.getTop100Char(HtmlUtil.getTextFromHtml(postVO.getContent())));
-        doWebUrl(modelAndView,webUrl);
         return modelAndView;
     }
 

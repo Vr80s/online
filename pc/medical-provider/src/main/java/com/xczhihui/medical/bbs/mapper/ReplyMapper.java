@@ -25,7 +25,7 @@ public interface ReplyMapper extends BaseMapper<Reply> {
      * @return 回复列表
      */
     @Select("select r.id as id, r.content as content, r.init_time as initTime," +
-            " ou.name as name, r.to_reply_id as toReplyId" +
+            " ou.name as name, r.to_reply_id as toReplyId, ou.small_head_photo as smallHeadPhoto" +
             " from quark_reply r" +
             " left join oe_user ou on r.`user_id` = ou.`id`" +
             " where r.`is_delete` = false and r.posts_id = #{postId} order by r.init_time desc")
@@ -38,7 +38,7 @@ public interface ReplyMapper extends BaseMapper<Reply> {
      * @return 回复的数据
      */
     @Select("select r.id as id, r.content as content, r.init_time as initTime," +
-            " ou.name as name, r.to_reply_id as toReplyId" +
+            " ou.name as name, r.to_reply_id as toReplyId, ou.small_head_photo as smallHeadPhoto" +
             " from quark_reply r" +
             " left join oe_user ou on r.`user_id` = ou.`id`" +
             " where r.`is_delete` = false and r.id = #{id}")
@@ -52,7 +52,7 @@ public interface ReplyMapper extends BaseMapper<Reply> {
      * @return 回复列表
      */
     @Select("select r.id as id, r.content as content, r.init_time as initTime," +
-            " r.to_reply_id as toReplyId, p.title as postTitle, l.name as labelName, p.id as postId" +
+            " r.to_reply_id as toReplyId, p.title as postTitle, l.name as labelName, p.id as postId, ou.small_head_photo as smallHeadPhoto" +
             " from quark_reply r, quark_posts p, quark_label l" +
             " where r.posts_id = p.id and p.label_id = l.id and r.`is_delete` = false and r.user_id = #{userId}")
     List<ReplyVO> listMyReplies(Page<ReplyVO> page, @Param("userId") String userId);

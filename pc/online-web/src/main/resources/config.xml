@@ -168,6 +168,10 @@
     <!--医师医馆公共服务-->
     <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonService"
                      timeout="${dubbo.consumer.timeout}"/>
+    <!--医馆公告管理-->
+    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalAnnouncementService"
+                     id="medicalHospitalAnnouncementService"
+                     timeout="${dubbo.consumer.timeout}"/>
 
     <!--医馆主播课程-->
     <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"
