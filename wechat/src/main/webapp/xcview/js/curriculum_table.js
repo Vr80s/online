@@ -79,7 +79,7 @@ requestService("/xczh/classify/listScreen",null,function(data){
 			var obj = data.resultObject[0][int];
 			var index=int+1;
 			pagenavi1 +="<li><a href='javascript: ;' data-title ="+index+" title="+obj.id+">"+obj.name+"</a></li>";		
-			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"		
+			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"		
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
 		$(".box01_list").html(box01List);
@@ -363,7 +363,7 @@ function submit(){
 
 
 function queryDataByParams(params,data_type){
-	
+	// debugger
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
 			//createListInfo(data,data_type)
@@ -401,15 +401,15 @@ function queryDataByParams(params,data_type){
 				}*/
 
 
-
+				var index = $(".find_nav_cur a").attr("data-title");
 				if(data.resultObject.length<=0){
 					$(".li_list_main").css("background","#f8f8f8");
-					$(".no_class").show();
+					$(".no_class"+index).show();
 					/*$(".li_list_main").addClass("li_listss1");
 					$(".li_list_main").removeClass("li_listss2");*/
 				}else{
 					$(".li_list_main").css("background","#fff");
-					$(".no_class").hide();
+					$(".no_class"+index).hide();
 					
 					/*$(".li_list_main").removeClass("li_listss1");
 					$(".li_list_main").addClass("li_listss2");*/
@@ -678,37 +678,6 @@ function typeQuery(){
 
     var menuType = $("[class='find_nav_cur'] a").attr("title");
     
-
-    /*var dataTitle = $("[class='find_nav_cur'] a").attr("data-title");
-
-	var aBtn=$('.box01_list li');
-	for(i=0;i<aBtn.length;i++){
-
-        if(dataTitle==0){
-           if(i == (parseInt(dataTitle))){
-        	$(aBtn[i]).next().find(".no_class").hide();
-        	break;
-           }
-        }else if(dataTitle == aBtn.length){
-           if(i == (parseInt(dataTitle))){
-        	$(aBtn[i]).prev().find(".no_class").hide();
-        	break;
-           }
-        }else{
-		   if(i == (parseInt(dataTitle))){
-
-		   	var aaa=$(aBtn[i]).attr("id");
-		   	var aaaaa=$(aBtn[i]).next().attr("id");
-        	$(aBtn[i]).next().find(".no_class").hide();
-           }
-           if(i == (parseInt(dataTitle))){
-        	$(aBtn[i]).prev().find(".no_class").hide();
-           }
-        } 
-
-    }*/
-
-
 //	paramsObj.pageNumber = 1;
 //	paramsObj.pageSize = 10;
 //	paramsObj.downUp = "down";
