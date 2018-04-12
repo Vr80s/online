@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -117,6 +118,7 @@ public class PostServiceImpl implements IPostService {
         return replyVOPage.setRecords(replyVOS);
     }
 
+    @Async
     @Override
     public void addBrowseRecord(int postId, String userId) {
         if (userId != null) {
