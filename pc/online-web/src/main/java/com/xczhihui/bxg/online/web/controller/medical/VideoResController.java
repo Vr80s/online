@@ -136,7 +136,12 @@ public class VideoResController extends AbstractController{
 
             //创建视频上传信息
             String up = uploadmeta(videoid,first,fileName,fileSize,servicetype,metaurl,filemd5);
-
+            JSONObject upJson = JSONObject.parseObject(up);
+            String upResultinfo = upJson.get("result").toString();
+            String upMsginfo = upJson.get("msg").toString();
+            if(!upResultinfo.equals("0")){
+                return ResponseObject.newErrorResponseObject(upMsginfo);
+            }
             //上传视频文件块CHUNK
             String result =APIServiceFunction.uploadchunk(chunkurl+"?ccvid="+videoid+"&format=json", 0, (Integer.parseInt(String.valueOf(file.length())) - 1), file);
 
@@ -157,6 +162,11 @@ public class VideoResController extends AbstractController{
             String uploadmeta = uploadmeta(ccid,first,fileName,fileSize,servicetype,metaUrl,"");
             JSONObject uploadmetaJson = JSONObject.parseObject(uploadmeta);
             String receivedinfo = uploadmetaJson.get("received").toString();
+            String uploadmetaResultinfo = uploadmetaJson.get("result").toString();
+            String uploadmetaMsginfo = uploadmetaJson.get("msg").toString();
+            if(!uploadmetaResultinfo.equals("0")){
+                return ResponseObject.newErrorResponseObject(uploadmetaMsginfo);
+            }
             //上传视频文件块CHUNK
             String result =APIServiceFunction.uploadchunk(chunkUrl+"?ccvid="+ccid+"&format=json", start, (int)(file.length()+start-1), file);
             JSONObject resultJson = JSONObject.parseObject(result);

@@ -2710,47 +2710,13 @@
         document.getElementById('addResource').reset();
         //$("#btn_width").val('点击上传资源');
         $("#ccName").hide();
-
-//        $('#swfDiv').css({
-//            "display":"inline-block;",
-//            "margin-left":"0px",
-//            "margin-top":"0"
-//        })
-//        $('#btn_width').css({
-//            "display":"inline-block",
-//            "margin-left":"0px",
-//            "margin-top":"0"
-//        })
-
-
-//        $('#uploadswf').css({
-//            "top":"0px"
-//        })
-//        $('#swfDiv').css({
-//            "display":"inline-block;"
-//        })
-//        $('.fla_btn').css({
-//            "position":"relative;"
-//        })
-//        $('.fla_btn embed').css({
-//            "position":"absolute;",
-//			"z-index":"1"
-//        })
-		if(!firstSave){
-//            $('#btn_width').css({
-//                "display":"inline-block",
-//                "margin-left":"112px",
-//                "margin-top":"-68px"
-//            })
-        }
-        //initobj();
 	}
 	$(function(){
 	    $("#cancalUpdata").click(function (){
             $('.progress-resource').css({
                 "width": "0%"
             })
-            initobj();
+            //initobj();
             $('#mask').addClass('hide');
             $("#ziyuan_bottom .uploading").hide();
             $("#ziyuan_bottom .resource_uploading").hide();
@@ -2888,7 +2854,7 @@
         }
     }
     //控制上传
-    function submitvideo(filename) {
+    /*function submitvideo(filename) {
         var url = "";
         $.ajax({
             url:'/videoRes/getUploadUrl',
@@ -2901,7 +2867,7 @@
         });
 //        url = url + "&categoryid=DBBA248F23807F22";
         document.getElementById("uploadswf").start_upload(url); //	调用flash上传函数
-    }
+    }*/
     
       
    
