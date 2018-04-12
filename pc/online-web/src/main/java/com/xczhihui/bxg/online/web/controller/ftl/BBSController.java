@@ -11,8 +11,10 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
+import com.xczhihui.bxg.common.util.IStringUtil;
 import com.xczhihui.bxg.common.util.JsonUtil;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
@@ -28,10 +31,12 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.body.PostBody;
 import com.xczhihui.bxg.online.web.body.ReplyBody;
 import com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter;
+import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.medical.bbs.model.Label;
 import com.xczhihui.medical.bbs.model.Post;
 import com.xczhihui.medical.bbs.model.Reply;
 import com.xczhihui.medical.bbs.service.IPostService;
+import com.xczhihui.medical.bbs.vo.PostVO;
 
 /**
  * @author hejiwei
@@ -45,6 +50,9 @@ public class BBSController extends AbstractController {
     private static final String REPLY_SENSITIVE_EMAIL_TEMPLATE = "熊猫中医BBS帖子回复发现疑似违规内容:</br>帖子id：{0}</br>" +
             "用户ID：{1}</br>内容：{2}<br>内容中包含敏感词的个数为：{3}。包含：{4}</br>内容被和谐后，变为：{5}";
 
+    @Value("${online.web.url}")
+    private String webUrl;
+
     @Autowired
     private IPostService postService;
     @Autowired
@@ -57,18 +65,25 @@ public class BBSController extends AbstractController {
                               @RequestParam(defaultValue = "1") int page) {
         List<Label> labels = postService.getLabels();
         ModelAndView modelAndView = new ModelAndView("bbs/index");
-        modelAndView.addObject("posts", postService.list(page, labelId, type));
+        Page<PostVO> list = postService.list(page, labelId, type);
+        list.getRecords().forEach(post -> post.setContent(HtmlUtil.getTextFromHtml(post.getContent())));
+        modelAndView.addObject("posts", list);
         modelAndView.addObject("top3Labels", labels.size() >= 3 ? labels.subList(0, 3) : labels);
         modelAndView.addObject("otherLabels", labels.size() > 3 ? labels.subList(3, labels.size()) : new ArrayList<>());
         modelAndView.addObject("hots", postService.listHot());
         modelAndView.addObject("type", type);
         modelAndView.addObject("labelId", labelId);
+
+        doWebUrl(modelAndView,webUrl);
         return modelAndView;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject save(@RequestBody @Valid PostBody postBody, HttpServletRequest request) {
+        String path = request.getServletContext().getRealPath("/template");
+
+
         String userId = getOnlineUser(request).getId();
         if (postService.isBlacklist(userId)) {
             return newErrorResponseObject("您已被拉入黑名单");
@@ -104,8 +119,11 @@ public class BBSController extends AbstractController {
         ModelAndView modelAndView = new ModelAndView("bbs/detail");
         BxgUser loginUser = UserLoginUtil.getLoginUser(request);
         postService.addBrowseRecord(id, loginUser == null ? null : loginUser.getId());
-        modelAndView.addObject("post", postService.get(id));
+        PostVO postVO = postService.get(id);
+        modelAndView.addObject("post", postVO);
         modelAndView.addObject("replies", postService.listByPostId(id, page));
+        modelAndView.addObject("description", IStringUtil.getTop100Char(HtmlUtil.getTextFromHtml(postVO.getContent())));
+        doWebUrl(modelAndView,webUrl);
         return modelAndView;
     }
 

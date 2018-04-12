@@ -131,7 +131,7 @@
 			qq.nickname as qqName,
 	      	wc.unionid as wxUnionId,
 	      	weibo.uid as wbUnionId,
-	      	qq.union_id as qqUnionId 
+	      	qq.open_id as qqUnionId 
       	from oe_user  ou
 		   left join wxcp_client_user_wx_mapping wc on ou.id = wc.client_id 
 		   left join weibo_client_user_mapping weibo on ou.id = weibo.user_id 

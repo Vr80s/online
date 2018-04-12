@@ -1,11 +1,9 @@
 package com.xczh.consumer.market.controller.common;
 
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -33,7 +31,6 @@ import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
-import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
@@ -43,7 +40,6 @@ import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.wechat.course.service.ICourseService;
 
 /**
@@ -468,9 +464,6 @@ public class XzCommonController {
 			@RequestParam("id")String id) throws Exception {
 		return ResponseObject.newSuccessResponseObject(commonApiService.getProblemAnswer(id));
     }
-	
-	
-	
 	
 	public String getSign(Map<String, String> signkv) {
 		Set<String> keySet = signkv.keySet();

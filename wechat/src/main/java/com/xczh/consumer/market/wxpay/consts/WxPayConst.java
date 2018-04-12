@@ -77,7 +77,7 @@ public class WxPayConst {
 
 	public final static String CODE_URL_3 ="https://open.weixin.qq.com/connect/oauth2/authorize";//没有参数的
 	
-	// openid获取URL
+	// openid获取URL  
 	public final static String OAUTH_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 
 	//获取用户信息URL；

@@ -14,6 +14,7 @@ import com.xczhihui.medical.headline.model.OeBxsAppraise;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
 import com.xczhihui.medical.headline.service.IOeBxsArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,9 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/headline")
 public class HeadlinePageController extends AbstractController{
+
+    @Value("${online.web.url}")
+    private String webUrl;
 
     @Autowired
     private BannerService bannerService;
@@ -77,6 +81,8 @@ public class HeadlinePageController extends AbstractController{
         Map echoMap = new HashMap();
         echoMap.put("type",type);
         doConditionEcho(view,echoMap);
+        doWebUrl(view,webUrl);
+
         return view;
     }
 
@@ -106,6 +112,8 @@ public class HeadlinePageController extends AbstractController{
         echoMap.put("type",type);
         doConditionEcho(view,echoMap);
         doTitleKeyWords(view,typeText+"-",typeText+",");
+        doWebUrl(view,webUrl);
+
         return view;
     }
 
@@ -148,6 +156,9 @@ public class HeadlinePageController extends AbstractController{
         String content = HtmlUtil.getTextFromHtml(article.getContent().replaceAll("\\<.*?\\>", ""));
         content = content.length()<100?content:content.substring(0,99);
         view.addObject("descption", content);
+
+        doWebUrl(view,webUrl);
+
         return view;
     }
 

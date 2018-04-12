@@ -50,9 +50,9 @@
                 <ul class="forum-content-tag clearfix">
                     <#list articleType as at>
                         <#if at.id==echoMap.type>
-                            <a href="/headline/list/${at.id}" style="display: block;"><li class="select" ><em class="select"></em>${at.name}</li></a>
+                            <a href="${webUrl}/headline/list/${at.id}" style="display: block;"><li class="select" ><em class="select"></em>${at.name}</li></a>
                         <#else >
-                            <a href="/headline/list/${at.id}" style="display: block;"><li ><em class="select1"></em>${at.name}</li></a>
+                            <a href="${webUrl}/headline/list/${at.id}" style="display: block;"><li ><em class="select1"></em>${at.name}</li></a>
                         </#if>
                     </#list>
                 </ul>
@@ -60,12 +60,12 @@
             <div class="forum-content-info">
                 <#list articles.records as article>
                     <div class="forum-info clearfix">
-                        <a href="/headline/details/${article.id}" target="_blank">
+                        <a href="${webUrl}/headline/details/${article.id}" target="_blank">
                             <img class="forum-info-left" src="${article.imgPath}" alt=""/>
                         </a>
                         <div class="forum-info-right">
                             <div class="forum-info-title">
-                                <a href="/headline/details/${article.id}" target="_blank">${article.title}</a>
+                                <a href="${webUrl}/headline/details/${article.id}" target="_blank">${article.title}</a>
                             </div>
                             <div class="forum-info-content dot-ellipsis">
                             ${article.content}
@@ -78,7 +78,7 @@
                 </#list>
             </div>
             <!-- 使用该标签 -->
-        <@cast.page pageNo=articles.current totalPage=articles.pages showPages=5 callUrl="/headline/list/"+echoMap.type?default("")+"?page="/>
+        <@cast.page pageNo=articles.current totalPage=articles.pages showPages=5 callUrl="${webUrl}/headline/list/"+echoMap.type?default("")+"?page="/>
 
         </div>
         <div class="forum-content-right" style="position: absolute; left: 880px;">
@@ -134,7 +134,7 @@
                 <ul class="hot-article-list">
                     <#list hotArticle as ha>
                         <li>
-                            <a href="/web/html/forumDetail.html?articleId=${ha.id}" target="_blank">
+                            <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
                                 <span title="${ha.title}">${ha.title}</span>
                             </a>
                         </li>

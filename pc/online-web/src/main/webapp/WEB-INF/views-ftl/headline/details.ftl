@@ -53,7 +53,7 @@
                     <div class="forum-info-tags">
                         <img src="/web/images/studentCount.png">
                         <span>${article.source}&nbsp;&nbsp;&nbsp;${(article.createTime?string("yyyy-MM-dd"))!}</span>
-                        <a href="/headline/list/${article.typeId}" style="color: #188EEE;margin-left:20px">${article.type}</a>
+                        <a href="${webUrl}/headline/list/${article.typeId}" style="color: #188EEE;margin-left:20px">${article.type}</a>
                     </div>
                 </div>
                 <div class="forum-detail-content">${article.content}</div>
@@ -124,7 +124,7 @@
             </div>
 
             <!-- 使用该标签 -->
-        <@cast.page pageNo=appraises.current totalPage=appraises.pages showPages=5 callUrl="/headline/details/"+echoMap.id?default("")+"?page="/>
+        <@cast.page pageNo=appraises.current totalPage=appraises.pages showPages=5 callUrl="${webUrl}/headline/details/"+echoMap.id?default("")+"?page="/>
 
         </div>
         <div class="forum-content-right">
@@ -134,11 +134,11 @@
                     <#list suggestedArticles as suggestedArticle>
                         <#if suggestedArticle_index<=2>
                             <li>
-                                <a href="/headline/details/${suggestedArticle.id}"><span title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
+                                <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
                             </li>
                         <#else>
                             <li>
-                                <a href="/headline/details/${suggestedArticle.id}"><span title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
+                                <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
                             </li>
                         </#if>
                     </#list>

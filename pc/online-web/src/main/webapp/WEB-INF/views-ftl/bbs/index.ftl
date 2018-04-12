@@ -2,10 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>熊猫中医论坛-中医药传承创新平台</title>
+    <meta name="keywords" content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医"/>
+    <meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。"/>
     <meta charset="utf-8">
-    <title>熊猫中医-论坛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="/web/images/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/web/css/bootstrap.min.css">
     <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
@@ -38,7 +40,7 @@
                 <tbody>
                 <tr>
                     <td rowspan='2' style="<#if !(type??) || !(labelId??)>background-color:#e2e2e2</#if>">
-                        <a href='/bbs'>
+                        <a href='${webUrl}/bbs'>
                             <img style='vertical-align: bottom;' src='../web/images/bbs/all.png' alt=''>
                             <br>
                             <span style='display: inline-block;vertical-align: top;margin-top: -20px;margin-left: 67px;'>
@@ -48,7 +50,7 @@
                     </td>
                 <#list top3Labels as label>
                     <td style="<#if (type?? && labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
-                        <a href='/bbs?type=label&labelId=${label.id}'>
+                        <a href='${webUrl}/bbs?type=label&labelId=${label.id}'>
                             <img style='margin-right:10px' src="${label.labelImgUrl}">${label.name}
                         </a>
                     </td>
@@ -57,7 +59,7 @@
                 <tr>
                 <#list otherLabels as label>
                     <td style="<#if (type?? && labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
-                        <a href='/bbs?type=label&labelId=${label.id}'><img style='margin-right:10px'
+                        <a href='${webUrl}/bbs?type=label&labelId=${label.id}'><img style='margin-right:10px'
                                                                            src=${label.labelImgUrl}>${label.name}</a>
                     </td>
                 </#list>
@@ -67,9 +69,9 @@
 
             <div class="fly-tab fly-tab-index">
         <span>
-          <a href="/bbs" class="all <#if !(type??) || type=='label'>color</#if>">全部</a>
-          <a href="/bbs?type=hot" class="hot <#if type?? && type=='hot'>color</#if>">热门</a>
-          <a href="/bbs?type=good" class="good <#if type?? && type=='good'>color</#if>">精品</a>
+          <a href="${webUrl}/bbs" class="all <#if !(type??) || type=='label'>color</#if>">全部</a>
+          <a href="${webUrl}/bbs?type=hot" class="hot <#if type?? && type=='hot'>color</#if>">热门</a>
+          <a href="${webUrl}/bbs?type=good" class="good <#if type?? && type=='good'>color</#if>">精品</a>
         </span>
                 <div>
                     <a onclick="addPost()" class="layui-btn jie-add">发布帖子</a>
@@ -84,7 +86,7 @@
                                 <img src="${post.smallHeadPhoto!''}" alt="">
                             </span>
                         <h2 class="fly-tip">
-                            <a href="/bbs/${post.id}">${post.title!''}</a>
+                            <a href="${webUrl}/bbs/${post.id}">${post.title!''}</a>
                             <#if post.top>
                                 <span class="fly-tip-stick">置顶</span>
                             </#if>
@@ -100,12 +102,12 @@
                         ${post.content}
                         </div>
 
-                        <#--<#list post.imgArray as img>-->
-                            <#--<img src="${img}" alt="帖子图片1">-->
-                        <#--</#list>-->
+                    <#--<#list post.imgArray as img>-->
+                    <#--<img src="${img}" alt="帖子图片1">-->
+                    <#--</#list>-->
 
                         <p>
-                            <span class="hide"><a href="user/home?id=${post.userId}">${post.name}</a></span>
+                            <span class="hide"><a href="${webUrl}/bbs/user/home?id=${post.userId}">${post.name}</a></span>
                             <span>${post.labelName}</span>
                             <span>${post.name}发表于</span>
                             <span>${post.initTime?string('yyyy-MM-dd HH:mm:ss')} </span>
@@ -126,7 +128,7 @@
                 </ul>
 
             </ul>
-        <#assign pageUrl = "/bbs?"/>
+        <#assign pageUrl = "${webUrl}/bbs?"/>
         <#if RequestParameters.type??>
             <#assign pageUrl = pageUrl + "&type=" + RequestParameters.type>
         </#if>
@@ -147,13 +149,13 @@
             <#if index < 3>
                 <dd>
                     <i class="topNum">${index+1}</i>
-                    <a href="/bbs/${hot.id}">${hot.title}</a>
+                    <a href="${webUrl}/bbs/${hot.id}">${hot.title}</a>
                     <span class="hide"><i class="iconfont">&#xe60c;</i></span>
                 </dd>
             <#else >
                 <dd>
                     <i class="botNum">${index+1}</i>
-                    <a href="/bbs/${hot.id}">${hot.title}</a>
+                    <a href="${webUrl}/bbs/${hot.id}">${hot.title}</a>
                     <span class="hide"><i class="iconfont">&#xe60c;</i></span>
                 </dd>
             </#if>
@@ -165,6 +167,7 @@
 <#include "../footer.ftl">
 <script>
     $('.bbs-tab').addClass("select");
+
     function addPost() {
         RequestService("/online/user/isAlive", "GET", null, function (data) {
             if (!data.success) {

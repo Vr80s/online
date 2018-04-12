@@ -13,6 +13,7 @@ import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,9 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/clinics")
 public class ClinicPageController extends AbstractController{
+
+    @Value("${online.web.url}")
+    private String webUrl;
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
@@ -63,6 +67,7 @@ public class ClinicPageController extends AbstractController{
         Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0,9),null,null);
         view.addObject("clinics", clinics);
 
+        doWebUrl(view,webUrl);
         return view;
     }
 
@@ -85,6 +90,7 @@ public class ClinicPageController extends AbstractController{
 
         doTitleKeyWords(view,clinic.getName()+"-",clinic.getName()+",");
 
+        doWebUrl(view,webUrl);
         return view;
     }
 
@@ -121,6 +127,7 @@ public class ClinicPageController extends AbstractController{
 
         doTitleKeyWords(view,title.toString(),keywords.toString());
         doConditionEcho(view,echoMap);
+        doWebUrl(view,webUrl);
 
         return view;
     }
