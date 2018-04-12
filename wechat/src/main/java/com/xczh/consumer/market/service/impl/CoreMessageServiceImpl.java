@@ -27,6 +27,7 @@ import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.wxmessage.resp.Article;
 import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
 import com.xczh.consumer.market.wxmessage.resp.TextMessage;
+import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
@@ -125,18 +126,12 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         	  if(scan.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)){  // 关注公众号事件
         		  
         		  LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        		  
         		   /*
         		    * 保存用户微信信息
         		    */
-					String token = SingleAccessToken.getInstance()
-							.getAccessToken().getToken();
-        		  
-        	      
-	        		String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
-	        		  
-	        		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
-	    			String openid_ = (String)jsonObject.get("openid");
+        		    JSONObject jsonObject =  serviceToken(fromUserName);
+	        		
+	        		String openid_ = (String)jsonObject.get("openid");
 	    			String nickname_ = (String)jsonObject.get("nickname");
 	    			nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
 	    			
@@ -228,10 +223,12 @@ public class CoreMessageServiceImpl implements CoreMessageService {
               	
              	   LOGGER.info("有人取消关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
              	   
-             	   String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+//             	   String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+//             	   
+//                   String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);  
+//                   JSONObject jsonObject = JSONObject.fromObject(user_buffer);
+             	   JSONObject jsonObject =  serviceToken(fromUserName);
              	   
-                   String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);  
-                   JSONObject jsonObject = JSONObject.fromObject(user_buffer);
                    
              	   WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(fromUserName);
     				
@@ -248,12 +245,13 @@ public class CoreMessageServiceImpl implements CoreMessageService {
              	 
                 newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);   
              	 
-                String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-                
-                String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
-        		  
-          		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
-      			String openid_ = (String)jsonObject.get("openid");
+//                String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+//                String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
+//          		JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
+      			
+          		JSONObject jsonObject =  serviceToken(fromUserName);
+          		
+          		String openid_ = (String)jsonObject.get("openid");
       			String nickname_ = (String)jsonObject.get("nickname");
       			nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
       			
@@ -343,5 +341,22 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             e.printStackTrace();  
         } 
         return respMessage;  
+	}
+
+	private JSONObject  serviceToken(String fromUserName) throws Exception {
+		String token = TokenThread.accessToken;
+ 		String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
+ 		JSONObject jsonObject = JSONObject.fromObject(user_buffer);
+ 		
+ 		if(jsonObject.get("openid") == null){
+ 			LOGGER.info("失效了这个token");
+ 			//说明这个token失效了
+ 			token = SingleAccessToken.getInstance();
+ 			user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
+ 			jsonObject = JSONObject.fromObject(user_buffer);
+ 			
+ 			new Thread(new TokenThread()).start();
+ 		}
+		return jsonObject;
 	}
 }

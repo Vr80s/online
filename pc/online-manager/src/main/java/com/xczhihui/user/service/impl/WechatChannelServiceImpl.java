@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.user.center.utils.HttpUtil;
 import com.xczhihui.user.dao.WechatChannelDao;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
@@ -35,6 +37,11 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 	@Autowired
 	private WechatChannelDao wechatChannelDao;
 
+	@Value("${wechatpay.gzh_appid}")
+	public  String appid;
+	@Value("${wechatpay.gzhSecret}")
+	public  String appsecret;
+	
 	@Override
 	public Page<WechatChannelVo> findWechatChannelPage(
 			WechatChannelVo WechatChannelVo, int pageNumber, int pageSize) {
@@ -138,8 +145,17 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 		
 		System.out.println("llallalallala" + s);
 
+		//WechatChannelUtil wcu = new WechatChannelUtil();
+		
+		String requestUrl=WechatChannelUtil.access_token_url.
+				replace("APPID",appid).replace("APPSECRET", appsecret);
+		
+        String token = HttpUtil.doGet(requestUrl);
+		
+		
 		// 生产二维码图片
-		QrCodeVo qcv = WechatChannelUtil.getQrCodeVo((Integer)s);
+		QrCodeVo qcv = WechatChannelUtil.getQrCodeVo((Integer)s,token);
+		
 		WechatChannel.setQrCodeImg(qcv.getWechatUrl());
 		WechatChannel.setCustomQrCodeUrl(qcv.getCustomQrCodeUrl());
 		

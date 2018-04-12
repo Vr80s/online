@@ -382,6 +382,9 @@ public class CommonUtil {
 		String in=WxPayConst.USERMANAGER_GETINFO_URL.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
 		System.out.println("getUserManagerGetInfo:"+buffer.toString());
+		
+		
+		
 		return buffer.toString();
 	}
 	

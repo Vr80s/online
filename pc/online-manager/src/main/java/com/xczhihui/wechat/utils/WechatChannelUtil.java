@@ -6,7 +6,9 @@ import java.util.Date;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 
@@ -34,33 +36,27 @@ public class WechatChannelUtil {
 	//获取永久素材   
 	private static String GET_PERMANENT_MATERISL ="https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=APPSECRET"; 
 		
+	
+	public static String access_token_url="https://api.weixin.qq.com/cgi-bin/token?"
+	        + "grant_type=client_credential&appid=APPID&secret=APPSECRET";
+	
+	
     @Autowired
     private AttachmentCenterService service;
 	
-	/**
-	 * 获取二维码的票据
-	 * Description：
-	 * @return void
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 */
-//	@Test
-//	public void testEWMTicket() {
-//		
-//		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-//		System.out.println(token);
-//		String url = QR_CODE_TICKET.replace("APPSECRET",token);
-//		String params = "{\"expire_seconds\":2592000,\"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"心承test\"}}}";
-//		String hehe = HttpUtil.doHttpsPost(url, params);
-//		
-//		System.out.println(hehe);
-//	}
 	
-	public static QrCodeVo getQrCodeVo(Integer qrSceneId) throws Exception {
+	public static  QrCodeVo getQrCodeVo(Integer qrSceneId,String token) throws Exception {
 		
 		QrCodeVo qr = new QrCodeVo();
 		
-		AccessToken accessToken = TokenThread.accessToken;
-		System.out.println("accessToken:"+accessToken.getToken());
+        JSONObject jsonObjectToken = JSONObject.fromObject(token);
+		String  access_token = (String)jsonObjectToken.get("access_token");
+		Integer expires_in = (Integer)jsonObjectToken.get("expires_in");
+		
+		if(!StringUtils.isNotBlank(access_token)){
+			throw new RuntimeException("获取token有误");
+		}
+		System.out.println("accessToken:"+access_token);
         /*
          * 生产临时的和永久的参数是不一样的哦。
          * 
@@ -68,7 +64,7 @@ public class WechatChannelUtil {
          * 				QR_LIMIT_SCENE为永久的整型参数值，QR_LIMIT_STR_SCENE为永久的字符串参数值
          */
 		//获取二维码票据
-		String url = QR_CODE_TICKET.replace("APPSECRET",accessToken.getToken());
+		String url = QR_CODE_TICKET.replace("APPSECRET",access_token);
 		String params = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": "+qrSceneId+"}}}";
 		String Ticket = HttpUtil.doHttpsPost(url, params);
 		System.out.println(Ticket);

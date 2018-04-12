@@ -1,4 +1,4 @@
-package com.xczhihui.wechat.utils;
+package com.xczh.consumer.market.wxpay;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -7,8 +7,8 @@ import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Component;
 
-import com.xczhihui.user.center.utils.AccessToken;
-import com.xczhihui.user.center.utils.HttpUtil;
+import com.xczh.consumer.market.utils.HttpUtil;
+
 
 
 @Component
@@ -56,7 +56,7 @@ public class TokenThread implements Runnable {
 		}
 	}
     
-	public static AccessToken accessToken = null;
+	public static String accessToken = null;
 
 	@Override
 	public void run() {
@@ -65,22 +65,19 @@ public class TokenThread implements Runnable {
 				System.out.println("读取配置信息成功！"+appid+"====="+appsecret);
 				// 调用工具类获取access_token(每日最多获取100000次，每次获取的有效期为7200秒)
 				String requestUrl=access_token_url.replace("APPID",appid).replace("APPSECRET", appsecret);
-		        String token = HttpUtil.doGet(requestUrl);
+				String token = HttpUtil.sendGetRequest(requestUrl);
 		        JSONObject jsonObject = JSONObject.fromObject(token);
 				String  access_token = (String)jsonObject.get("access_token");
 				Integer expires_in = (Integer)jsonObject.get("expires_in");
 				if (null != access_token) {
-					accessToken = new AccessToken();
-					accessToken.setExpiresIn(expires_in);
-					accessToken.setToken(access_token);
 					
-					System.out.println("accessToken获取成功："+expires_in);
+					accessToken = access_token;
+					
+					System.out.println("accessToken获取成功："+expires_in+"===="+access_token);
 					// 7000秒之后重新进行获取
 					Thread.sleep((expires_in - 200) * 1000);
 				} else {
 					System.out.println("accessToken获取失败："+jsonObject.toString());
-					// 获取失败时，60秒之后尝试重新获取
-					//Thread.sleep(60 * 1000);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
