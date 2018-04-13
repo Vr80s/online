@@ -70,7 +70,7 @@ a {
     line-height: 30px;
     text-indent: 20px;
     background: url(../images/icons/tanhao.png) no-repeat left center;
-    padding-left: 20px;
+    /*padding-left: 20px;*/
 }
 .container {
   padding: 0;
@@ -1357,6 +1357,21 @@ margin-right: 5px;
 }
 #Notice_Administration .Notice_bottom2 table tr,#Notice_Administration .Notice_bottom2 table td{
 	border: 1px solid #DEDEDE;
+}
+#notice-release-btn{
+		display: inline-block;
+    width: 120px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+
+
+
 }
 /*公告管理预览效果*/
 .notice_namage_see{

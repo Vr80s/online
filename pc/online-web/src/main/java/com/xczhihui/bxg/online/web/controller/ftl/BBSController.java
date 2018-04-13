@@ -116,6 +116,7 @@ public class BBSController extends AbstractController {
         modelAndView.addObject("post", postVO);
         modelAndView.addObject("replies", postService.listByPostId(id, page));
         modelAndView.addObject("description", IStringUtil.getTop100Char(HtmlUtil.getTextFromHtml(postVO.getContent())));
+        modelAndView.addObject("isAlive", loginUser != null);
         return modelAndView;
     }
 

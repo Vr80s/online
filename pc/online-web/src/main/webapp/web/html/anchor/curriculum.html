@@ -45,6 +45,7 @@
 	<link rel="stylesheet" href="/web/css/anchor/Twolevelmenu.css" />
 
 	<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+	
 	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
 	<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
 	<!--<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>-->
@@ -81,7 +82,7 @@
 	<!--时间插件引入-->
 	<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
 	
-	
+	<script src="../../js/common_msg.js"></script>
 	
 	<style type="text/css">
 		.fla_btn {
@@ -604,9 +605,9 @@
 <!--全局遮罩层-->
 <div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
 
-<div id="blackTip" style="display: none;">
+<!--<div id="blackTip" style="display: none;">
 	保存失败
-</div>
+</div>-->
 
 <div class="wp">
 	<!--左边点击-->
@@ -2219,7 +2220,7 @@
 				
 				<div class="zhuanlan_bottom" id="ziyuan_bottom">
 					<form id="addResource">
-						<div>
+						<div id="zuyuan_titel_id">
 							<span><em>*</em>标题</span>
 							<input type="text" placeholder="请填写您的标题" class="zhuanlan_title" />
 							<p class="warning warning0 hide">标题不能为空</p>
@@ -2228,10 +2229,10 @@
 						<div id="resourceType">
 							<span><em>*</em>资源类型</span>
 							<label>
-								<input type="radio" name="resource_multimediaType" checked="checked" value="1"/>视频
+								<input type="radio" name="resource_multimediaType" onchange="changePeriod('video')" checked="checked" value="1"/>视频
 							</label>
 							<label>
-								<input type="radio" name="resource_multimediaType" value="2"/>音频
+								<input type="radio" name="resource_multimediaType" onchange="changePeriod('audio')" value="2"/>音频
 							</label>
 						</div>
 						<div class="fla_btn">
@@ -2243,9 +2244,9 @@
 
 							<!--<div id="swfDiv" style="display: inline-block;">
 							</div>-->
-							<div class="propress-file">	
+							<div class="propress-file" style="cursor:pointer;">
 								上传资源
-								<input type="file" value="点击上传资源" name="file" id="btn_width" onchange="uploadFile()"/>
+								<input type="file" value="点击上传资源" name="file" style="cursor:pointer;" id="btn_width" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts"/>
 							</div>
 							<span class="uploadfinish" style="display:none;margin-left: 112px;display: block;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
 							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
@@ -2261,7 +2262,8 @@
 									</div>
 								</div>
 							</span>
-							<!--<a id="cancalUpdata">取消上传</a>-->
+							<a id="cancalUpdata1" onclick="cancalUpdata1()" style="cursor:pointer;">取消上传</a>
+							<a id="continueUpload" onclick="continueUpload()" style="display:none;cursor:pointer;">继续上传</a>
 						</div>
 						<div class="baocun">
 							<input type="button" value="保存" id="submit" />
@@ -2567,8 +2569,6 @@
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/mymoney.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/asset.js" type="text/javascript" charset="UTF-8"></script>
-
-<!--<script type="text/javascript" src="/web/js/MD5/spark-md5.js"></script>-->
 <script type="text/javascript" src="/web/js/MD5/browser-md5-file.js"></script>
 
 <script src="/web/js/anchor/Twolevelmenu.js" type="text/javascript" charset="UTF-8"></script>
