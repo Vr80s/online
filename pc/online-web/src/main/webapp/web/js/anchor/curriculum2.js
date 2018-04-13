@@ -1334,16 +1334,24 @@ function clearNoNum(obj){
 function uploadFile() {
     var filemd5="";
     var obj_file = document.getElementById("btn_width").files[0];
+    var filepath = $("#btn_width").val();
+    //判断文件类型
+    if(!isAccord(filepath)){
+        return false;
+    }
+    $("#continueUpload").hide();
     //获取文件md5
     browserMD5File(obj_file, function (err, md5) {
-
         filemd5=md5;
+        localStorage.setItem("fileMD5", filemd5);
         $('.progress-resource').css({
             "width": "0%"
         })
+        $("#ziyuan_bottom .resource_uploading").show();
+        $("#ziyuan_bottom .uploadfinish").hide();
+        $("#ziyuan_bottom .updataSuccess").hide();
         xmx(0,"1",filemd5,"","","")
     });
-
 }
 
 function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
@@ -1366,11 +1374,7 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
     formData.append('metaUrl',metaurl);    //添加数据到表单对象中
     formData.append('chunkUrl',chunkUrl);    //添加数据到表单对象中
     formData.append('start',start);    //添加数据到表单对象中
-    $("#ziyuan_bottom .resource_uploading").show();
-    $("#ziyuan_bottom .uploadfinish").hide();
-    $("#ziyuan_bottom .updataSuccess").hide();
-
-    $.ajax({
+    currentAjax = $.ajax({
         url: '/videoRes/uploadFile',
         type: 'POST',
         cache: false,
@@ -1382,26 +1386,28 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
             var ccid = result.resultObject[0];
             var metaurl = result.resultObject[1];
             var chunkUrl = result.resultObject[2];
-
             //计算完成百分比
             var completion = Math.round(end / totalSize * 10000) / 100.00;
+            if(completion>100){
+                completion=100;
+			}
             $('.progress-resource').css({
                 "width": completion+"%"
             })
-
             start = end;            // 累计上传字节数
             end = start + chunkSize;    // 由上次完成的部分字节开始，添加下次上传的字节数
+            localStorage.setItem("startChunkSize", start);
+            localStorage.setItem("ccId", ccid);
+            localStorage.setItem("metaUrl", metaurl);
+            localStorage.setItem("chunkUrl", chunkUrl);
             // 上传文件部分累计
             if(start>=totalSize){    //如果上传字节数大于或等于总字节数，结束上传
                 $("#ccId").val(result.resultObject[0]);
                 $("#ziyuan_bottom .resource_uploading").hide();
                 $("#ziyuan_bottom .uploadfinish").show();
                 $("#ziyuan_bottom .updataSuccess").show();
-                $('.progress-resource').css({
-                    "width": "100%"
-                })
                 uploadfinished=true;
-                alert('上传完成!');
+                //alert('上传完成!');
                 //告诉后台上传完成后合并文件                            //返回上传文件的存放路径
             	$(".propress-file").css({"border":"0"})          
             	$("#btn_width").css({"opacity":"1","width":"auto"})
@@ -1409,18 +1415,55 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
                 xmx(start,"2","",ccid,metaurl,chunkUrl);        // 上传字节不等与或大于总字节数，继续上传
             }
         }else {
-
-            alert('上传失败');
+            $("#continueUpload").show();
+            //alert('上传失败');
 		}
     }).fail(function() {
-
-        alert('上传失败!');
+        $("#continueUpload").show();
+        //alert('上传失败!');
 
     });
 
 }
 
-function againUpload() {
+function isAccord(filepath) {
+		if(filepath==""){
+            return false;
+		}
+    var extStart = filepath.lastIndexOf(".");
+    var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+    if (ext != ".WMV" && ext != ".WM" && ext != ".ASF" && ext != ".ASX" &&
+		ext != ".RM"&& ext != ".RMVB" && ext != ".RA" && ext != ".RAM" && ext != ".MPG"
+        && ext != ".MPEG" && ext != ".MPE" && ext != ".VOB" && ext != ".DAT"
+        && ext != ".MOV" && ext != ".3GP" && ext != ".MP4" && ext != ".MP4V"
+        && ext != ".M4V" && ext != ".MKV" && ext != ".AVI" && ext != ".FLV"
+        && ext != ".F4V" && ext != ".MTS" && ext != ".MP3" && ext != ".WAV"
+        && ext != ".AIF" && ext != ".AIFF" && ext != ".AU" && ext != ".SND"
+        && ext != ".VOC" && ext != ".RA" && ext != ".MIDRMI" && ext != ".WMA"
+        && ext != ".APE" && ext != ".FLAC" && ext != ".AAC" && ext != ".M4A"
+        && ext != ".VQF" ) {
+        alert("文件格式不正确");
+        return false;
+    }
+    return true;
+}
 
+function cancalUpdata1() {
+    currentAjax.abort();
+    $('.progress-resource').css({
+        "width": "0%"
+    })
+    $('#mask').addClass('hide');
+    $("#ziyuan_bottom .uploading").hide();
+    $("#ziyuan_bottom .resource_uploading").hide();
+}
 
+function continueUpload() {
+    $("#continueUpload").hide();
+    var start = localStorage.getItem("startChunkSize");
+    var ccid = localStorage.getItem("ccId");
+    var metaurl = localStorage.getItem("metaUrl");
+    var chunkUrl= localStorage.getItem("chunkUrl");
+    var fileMd5 = localStorage.getItem("fileMD5");
+    xmx(parseInt(start),"2","",ccid,metaurl,chunkUrl);
 }
