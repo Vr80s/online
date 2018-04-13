@@ -119,10 +119,6 @@ $(function () {
         });
     });
 
-    function goBack() {
-        window.history.go(-1);
-    }
-
     $('.reply').on('click', function () {
         $('.reply_list').removeClass('hide');
         $("#replyContent").html($(this).data('content'));

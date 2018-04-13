@@ -20,15 +20,6 @@ body{
 	margin-top: -0.25rem1;
 }
 
-/* @font-face {
-    font-properties
-    font-family: 汉仪全唐诗简;
-    src:url('ine.ttf'),  
-    url('Corbert-Regular-webfont.woff'),
-    url('Corbert-Regular-webfont.eot'); 
-    url('Corbert-Regular-webfont.svg'),
-}
- */
 
 a{
 	text-decoration: none;
@@ -1708,6 +1699,9 @@ footer{
 	width: 100%;
 	display: none;
 	margin-top: 1.3rem;
+
+	position: fixed;
+    top: 10.5rem;
 }
 .document_ceneter{
 	width: 100%;

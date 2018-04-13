@@ -1290,14 +1290,13 @@ function hideDel_bank(){
 }
 
 //出现黑色提示弹窗方法
-function showTip(contant,fn){
-    $('#blackTip').text(contant).show()
-    setTimeout(function(){
-        $('#blackTip').text(contant).hide();
-        if(fn!=null)fn();
-    },2000)
-
-}
+//function showTip(contant,fn){
+//  $('#blackTip').text(contant).show();
+//  setTimeout(function(){
+//      $('#blackTip').text(contant).hide();
+//      if(fn!=null)fn();
+//  },2000)
+//}
 
 //科室点击验证效果
 	var arr = [];

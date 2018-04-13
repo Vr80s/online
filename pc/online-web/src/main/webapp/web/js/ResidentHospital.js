@@ -713,7 +713,26 @@ $("#news_Administration_tabBtn").click(function(){
 		$(".Notice_top button").click();
 	}
 })
+//公告部分接口调用
+$("#notice-release-btn").click(function(){
+	var  $notice_text = $.trim($("#notice-text").val());
+	if($notice_text == ''){
+		$(".warning-notice").show();
+	}else{
+		RequestService("/hospital/"+ +"/announcement", "POST", {
+			"content" : $notice_text
+		}, function(data) {
+			
+		})
+	}
 
+})
+
+
+
+
+
+//公告部分结束
 //医师管理部分
 //顶部点击切换底部内容功能
 var newTeacehr = 1;
