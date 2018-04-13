@@ -409,5 +409,11 @@ public interface CourseService {
 	 * @Date: 2018/3/14 18:00
 	 **/
 	public void updateDefaultSort();
+	/**
+	 * 设置默认学习人数
+	 * @param id
+	 * @param recommendSort
+	 */
+    void updatedefaultStudent(Integer id, Integer recommendSort);
 
 }

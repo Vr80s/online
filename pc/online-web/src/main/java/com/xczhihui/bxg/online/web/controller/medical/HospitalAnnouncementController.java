@@ -21,7 +21,7 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
  *
  * @author hejiwei
  */
-@RequestMapping("hospital/{hospitalId}/announcement")
+@RequestMapping("hospital/announcement")
 @Controller
 public class HospitalAnnouncementController extends AbstractController {
 
@@ -32,41 +32,32 @@ public class HospitalAnnouncementController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject save(@Length(max = 100) @RequestParam String content,
-                               @PathVariable String hospitalId, HttpServletRequest request) {
+    public ResponseObject save(@Length(max = 100) @RequestParam String content, HttpServletRequest request) {
         String userId = getUserId(request);
-        if (!medicalHospitalBusinessService.check(userId, hospitalId)) {
-            return newErrorResponseObject("非法参数");
-        } else {
-            MedicalHospitalAnnouncement medicalHospitalAnnouncement = new MedicalHospitalAnnouncement(hospitalId, content);
-            medicalHospitalAnnouncement.setCreatePerson(userId);
-            medicalHospitalAnnouncementService.save(medicalHospitalAnnouncement);
-            return newSuccessResponseObject();
-        }
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(userId);
+        MedicalHospitalAnnouncement medicalHospitalAnnouncement = new MedicalHospitalAnnouncement(hospitalId, content);
+        medicalHospitalAnnouncement.setCreatePerson(userId);
+        medicalHospitalAnnouncementService.save(medicalHospitalAnnouncement);
+        return newSuccessResponseObject();
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject list(@RequestParam(defaultValue = "1") int page,
-                               @PathVariable String hospitalId, HttpServletRequest request) {
-        if (!medicalHospitalBusinessService.check(getUserId(request), hospitalId)) {
-            return newErrorResponseObject("非法参数");
-        } else {
-            return newSuccessResponseObject(medicalHospitalAnnouncementService.list(page, hospitalId));
-        }
+    public ResponseObject list(@RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
+        String userId = getUserId(request);
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(userId);
+        return newSuccessResponseObject(medicalHospitalAnnouncementService.list(page, hospitalId));
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseObject delete(@PathVariable String id, @PathVariable String hospitalId, HttpServletRequest request) {
-        if (!medicalHospitalBusinessService.check(getUserId(request), hospitalId)) {
-            return newErrorResponseObject("非法参数");
+    public ResponseObject delete(@PathVariable String id, HttpServletRequest request) {
+        String userId = getUserId(request);
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(userId);
+        if (!medicalHospitalAnnouncementService.deleteById(id, hospitalId)) {
+            return newErrorResponseObject("删除失败!");
         } else {
-            if (!medicalHospitalAnnouncementService.deleteById(id, hospitalId)) {
-                return newErrorResponseObject("删除失败!");
-            } else {
-                return newSuccessResponseObject();
-            }
+            return newSuccessResponseObject();
         }
     }
 }

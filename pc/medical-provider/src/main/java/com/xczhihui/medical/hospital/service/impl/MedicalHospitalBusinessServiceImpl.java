@@ -154,9 +154,12 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     }
 
     @Override
-    public boolean check(String userId, String hospitalId) {
+    public String getHospitalIdByUserId(String userId) {
         MedicalHospitalAccount medicalHospitalAccount = hospitalAccountMapper.getByUserId(userId);
-        return medicalHospitalAccount != null && medicalHospitalAccount.getDoctorId().equals(hospitalId);
+        if (medicalHospitalAccount == null || medicalHospitalAccount.getDoctorId() == null) {
+            throw new IllegalArgumentException("参数非法");
+        }
+        return medicalHospitalAccount.getDoctorId();
     }
 
     @Override

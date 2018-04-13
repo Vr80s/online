@@ -80,11 +80,13 @@ $(function() {
         { "sortable": false,"class": "center","width":"9%","title":"操作","mRender":function (data, display, row) {
                 if(row.status=="1"&&row.applyStatus=="1"){
                     var str = '<div class="hidden-sm hidden-xs action-buttons">'+
+                    '<a class="blue" href="javascript:void(-1);" title="设置默认学习人数" onclick="updateDefaultStudentCount(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a></div> ';
 
                     return str;
                 }else if(row.status=="0"&&row.applyStatus=="1"){
                     return '<div class="hidden-sm hidden-xs action-buttons">'+
+                    '<a class="blue" href="javascript:void(-1);" title="设置默认学习人数" onclick="updateDefaultStudentCount(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a></div> '
                 }
             }}
@@ -157,5 +159,37 @@ function updateStatus(obj){
     });
 };
 
-
+/**
+ * Description：修改默认值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateDefaultStudentCount(obj){
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo);
+    
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","设置默认学习人数",350,300,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updatedefaultStudent");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                unmask();
+                if(data.success){
+                    $("#recommendSort").val("");
+                    $("#recommendTime").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    freshTable(P_courseTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
+};
 

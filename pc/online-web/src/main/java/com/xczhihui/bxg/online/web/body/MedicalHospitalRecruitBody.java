@@ -14,8 +14,6 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalRecruit;
  */
 public class MedicalHospitalRecruitBody {
 
-    private String hospitalId;
-
     @NotBlank
     private String position;
 
@@ -31,29 +29,21 @@ public class MedicalHospitalRecruitBody {
     @Length(max = 1000)
     private String jobRequirements;
 
-    public MedicalHospitalRecruit build() {
+    public MedicalHospitalRecruit build(String hospitalId) {
         MedicalHospitalRecruit medicalHospitalRecruit = new MedicalHospitalRecruit();
-        if (Integer.parseInt(years) < 0 || Integer.parseInt(years) >5) {
+        if (Integer.parseInt(years) < 0 || Integer.parseInt(years) > 5) {
             throw new IllegalArgumentException("years 参数不合法");
         }
         medicalHospitalRecruit.setCreateTime(new Date());
         medicalHospitalRecruit.setDeleted(false);
-        medicalHospitalRecruit.setHospitalId(hospitalId);
         medicalHospitalRecruit.setJobRequirements(jobRequirements);
         medicalHospitalRecruit.setPosition(position);
         medicalHospitalRecruit.setPostDuties(postDuties);
         medicalHospitalRecruit.setRecommend(false);
         medicalHospitalRecruit.setYears(years);
         medicalHospitalRecruit.setStatus(false);
+        medicalHospitalRecruit.setHospitalId(hospitalId);
         return medicalHospitalRecruit;
-    }
-
-    public String getHospitalId() {
-        return hospitalId;
-    }
-
-    public void setHospitalId(String hospitalId) {
-        this.hospitalId = hospitalId;
     }
 
     public String getPosition() {
