@@ -405,7 +405,7 @@ function(e, t, n) {
             $(s.docContent).
            /* html('<img style="width:100%"  id="doc_img" src="" onerror="this.src = " />'),*/
             		
-            html('<img style="width:100%" src="//cnstatic01.e.vhall.com/static/img/mobile/doc_noloading.png"  onerror="this.src = \'//cnstatic01.e.vhall.com/static/img/mobile/doc_error.png\'"/>'),
+            html('<img style="width:100%" src="/xcview/images/no_class.png"  onerror="this.src = \'//cnstatic01.e.vhall.com/static/img/mobile/doc_error.png\'"/>'),
             		
             		
             s.doc = $(s.docContent).find("img"),r()
