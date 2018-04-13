@@ -115,17 +115,18 @@
                                 <p>${reply.toReply.content}<span>"</span></p>
                             </div>
                             <div class="detail-body jieda-body">
-                                <p>${reply.content}</p>
+                                <div class="reply-content-${reply.id}">${reply.content}</div>
                             </div>
                         <#else >
                             <div class="detail-body jieda-body ">
-                                <p>${reply.content}</p>
+                                <div class="reply-content-${reply.id}">${reply.content}</div>
                             </div>
                         </#if>
 
                         <div class="jieda-reply">
-                            <span type="reply" class="reply" data-posts="${post.id}" data-content="${reply.content}"
-                                  data-id="${reply.id}">回复</span>
+                            <span type="reply" data-posts="${post.id}"
+                                  data-id="${reply.id}" <#if !isAlive>onclick="toLogin()" <#else>
+                                  class="reply"</#if>>回复</span>
                         </div>
 
                     </li>
@@ -144,22 +145,25 @@
             <p style="text-align: right;"><a href="javascript:;" onclick="goBack()">返回列表</a></p>
 
             <div class="layui-form layui-form-pane" style="position: relative;">
-                <div class="layui-form-abso" style="display:none;">
-                </div>
-                <form method="post">
-                    <div class="layui-form-item layui-form-text">
-                        <div class="layui-input-block">
+            <#--<div class="layui-form-abso" style="display:none;">-->
+            <#--</div>-->
+            <#--<div class="layui-form-abso-cen" <#if isAlive>style="display:none;"</#if>>-->
+            <#--您需要登录后才可以回帖-->
+            <#--<span onclick="toLogin()"> 登录</span>-->
+            <#--</div>-->
+                <div class="layui-form-item layui-form-text">
+                    <div class="layui-input-block">
                                 <textarea id="replyContentEditor" name="content"
-                                          placeholder="" class="layui-textarea fly-editor"
+                                          placeholder=""
                                           style="height: 150px;"></textarea>
-                        </div>
                     </div>
-                    <div class="layui-form-item">
-                        <button class="layui-btn J-submit" lay-filter="posts" lay-submit
-                                style="float:right;background-color:#2cb82c">提交回复
-                        </button>
-                    </div>
-                </form>
+                </div>
+                <div class="layui-form-item">
+                    <button lay-filter="posts" <#if !isAlive>onclick='toLogin()' class='layui-btn'
+                            <#else>class='J-reply-submit layui-btn'</#if>
+                            style="float:right;background-color:#2cb82c">提交回复
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -193,6 +197,10 @@
 <script>
     function goBack() {
         window.history.go(-1);
+    }
+
+    function toLogin() {
+        $('#login').modal('show');
     }
 </script>
 </body>

@@ -55,20 +55,20 @@ $(function () {
     };
 
     //回复帖子
-    $('.J-submit').on('click', function (e) {
+    $('.J-reply-submit').on('click', function (e) {
+        e.preventDefault();
         var content = replyContentEditor.getContent();
         if (!content) {
-            layer.msg("输入的内容不能为空", {icon: 7});
+            tip("输入的内容不能为空");
             return false;
         }
         if (content.length > 5000) {
-            layer.msg("输入的内容过多", {icon: 7});
+            tip("输入的内容过多");
             return false;
         }
         var reply = {};
         reply.content = content;
         reply.postId = $('#J_id').val();
-        e.preventDefault();
         $.ajax({
             url: '/bbs/reply',
             method: 'POST',
@@ -88,6 +88,7 @@ $(function () {
 
     //回复的回复
     $('.J-toReply-submit').on('click', function (e) {
+        e.preventDefault();
         var toReplyContent = toReplyContentEditor.getContent();
         if (!toReplyContent) {
             tip("输入的内容不能为空");
@@ -101,7 +102,6 @@ $(function () {
         toReply.content = toReplyContent;
         toReply.postId = $('#J_id').val();
         toReply.targetReplyId = $(this).data('replyid');
-        e.preventDefault();
         $.ajax({
             url: '/bbs/reply',
             method: 'POST',
@@ -121,8 +121,10 @@ $(function () {
 
     $('.reply').on('click', function () {
         $('.reply_list').removeClass('hide');
-        $("#replyContent").html($(this).data('content'));
-        $('.J-toReply-submit').data('replyid', $(this).data('id'));
+        var id = $(this).data('id');
+        $("#replyContent").html($('.reply-content-' + id).html());
+        console.log($('.reply-content-' + id).html());
+        $('.J-toReply-submit').data('replyid', id);
         toReplyContentEditor = UE.getEditor('toReplyContentEditor', options);
     });
 
