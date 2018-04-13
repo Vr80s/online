@@ -956,8 +956,6 @@ $(".recruit_preview_content img").click(function(){
 //招聘管理部分结束
 
 //公告管理部分，点击预览--------------------------------------------------------------
-
-
 function notice_btn_see(i){
 	var announcementText = announcementList[i];	
 	$(".notice_namage_text").text(announcementText.content);
@@ -969,6 +967,10 @@ $(".notice_preview_content img").click(function(){
 	$(".notice_namage_see").hide();
 	$(".recruit_preview_bg").hide();
 })
+//公告管理部分，点击删除--------------------------------------------------------------
+
+
+
 
 
 //公告管理部分结束--------------------------------------------------------------
