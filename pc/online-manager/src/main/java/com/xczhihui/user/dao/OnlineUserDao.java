@@ -119,6 +119,7 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
 				+ "  ou.login_name AS logo \n" + "FROM\n" + "  oe_user ou\n"
 				+ "  JOIN `course_anchor` ca\n" + "  ON ou.id=ca.`user_id`\n"
 				+ "WHERE is_lecturer = 1 \n" + "  AND ca.status = 1 ";
+
 		// String sql =
 		// "select id,name,ifnull(mobile,email) as logo from oe_user where is_lecturer = 1";
 		List<Map<String, Object>> list = this.getNamedParameterJdbcTemplate()
