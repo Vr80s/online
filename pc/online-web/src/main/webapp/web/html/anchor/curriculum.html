@@ -2245,7 +2245,9 @@
 							</div>-->
 							<div class="propress-file">	
 								上传资源
-								<input type="file" value="点击上传资源" name="file" id="btn_width" onchange="uploadFile()"/>
+								<input type="file" value="点击上传资源" name="file" id="btn_width" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,
+								.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts,
+								.Mp3,.Wav,.aif,.aiff,.au,.snd,.voc,.ra,.midrmi,.wma,.ape,.flac,.aac,.m4a,.vqf"/>
 							</div>
 							<span class="uploadfinish" style="display:none;margin-left: 112px;display: block;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
 							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
@@ -2261,7 +2263,8 @@
 									</div>
 								</div>
 							</span>
-							<!--<a id="cancalUpdata">取消上传</a>-->
+							<a id="cancalUpdata1" onclick="cancalUpdata1()" style="cursor:pointer;">取消上传</a>
+							<a id="continueUpload" onclick="continueUpload()" style="display:none;cursor:pointer;">继续上传</a>
 						</div>
 						<div class="baocun">
 							<input type="button" value="保存" id="submit" />
