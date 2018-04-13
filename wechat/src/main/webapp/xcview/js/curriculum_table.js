@@ -77,12 +77,13 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		
 		// $(".no_class").addClass("no_class"+index+"");
 
-		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class_one no_class_ones'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"; //代表全部的
+		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class no_class_one no_class_ones no_class0'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"; //代表全部的
 
 		for (var int = 0; int < data.resultObject[0].length; int++) {
 			var obj = data.resultObject[0][int];
 			var index=int+1;
 			pagenavi1 +="<li><a href='javascript: ;' data-title ="+index+" title="+obj.id+">"+obj.name+"</a></li>";		
+			// box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div><div class='size_show size_show"+index+"' style='font-size:0.2rem;'>我是加载中</div></li>"		
 			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"		
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
@@ -365,13 +366,29 @@ function submit(){
 	}
 }
 
-
+// 测试加载中
+/*var load = {
+	start: function (){
+		var index = $(".find_nav_cur a").attr("data-title");
+		$(".size_show").hide();
+		$(".size_show"+index).show();
+	},
+	end: function(){
+		var index = $(".find_nav_cur a").attr("data-title");
+		$(".size_show"+index).hide();
+	}
+}*/
 function queryDataByParams(params,data_type){
+
+	// 测试加载中
+	load.start();
 	// debugger
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
 			//createListInfo(data,data_type)
-			
+			//
+			// 测试加载中
+			load.end();
 			 if(stringnull(data_type)){
 					var id = "#query_list"+data_type;
 				}else{
@@ -379,21 +396,17 @@ function queryDataByParams(params,data_type){
 				}
 				var data1 ="";
 				$(id).html(data1);
-				
 
 				// 判断有无数据显示隐藏背景图
 				var index = $(".find_nav_cur a").attr("data-title");
 				if(data.resultObject.length<=0){
 					$(".li_list_main").css("background","#f8f8f8");
+					$(".no_class").hide();
 					$(".no_class"+index).show();
-					$(".no_class_ones").show();
 				}else{
 					$(".li_list_main").css("background","#fff");
-					$(".no_class"+index).hide();
-					$(".no_class_ones").hide();
+					$(".no_class").hide();
 				}
-
-
 
 				for (var int = 0; int < data.resultObject.length; int++) {
 					var item = data.resultObject[int];
@@ -437,31 +450,6 @@ function queryDataByParams(params,data_type){
 //							          "<img src='"+item.smallImgPath +"' class='one' />" + statusImg1 +
 							         "<img src='"+item.smallImgPath+"?imageView2/2/w/212' class='one' />" + statusImg1 +
 							      "</div>" +
-							      
-							      
-							      	
-							      	/*"<div class='li_list_one_right'>" +
-							           "<p class='p00'>" +
-							           "<span>我是测试</span><br />" +
-							           "<span class='span'>我是测试</span></p>" +
-							           "<div class='div'>我是测试<p class='p1'><img src='/xcview/images/population.png' alt=''>" +
-							             "<span>我是测试</span></p>我是测试</div>" +
-						            "</div>" +*/
-							      	
-							      
-							      
-							      
-							       /*"<div class='li_list_one_right'>" +
-							           
-							            "<div>"+
-							           		"<p style='font-size: 0.2rem;'>" + item.gradeName + "</p>"+
-							           		"<p style='font-size: 0.2rem;'>" + item.name + "</p>"+
-							            "</div>"+
-							            
-							            "<div>"+ isFreeStr +"<img src='/xcview/images/population.png' alt='' style='width: 0.25rem;' />" +
-							             "<span style='font-size: 0.2rem;'>"+item.learndCount+"</span>"+typeStr+"</div>"
-						            "</div>" +*/
-							      
 							      
 							      
 						           "<div class='li_list_one_right'>" +
@@ -527,18 +515,6 @@ function queryDataByParams(params,data_type){
 						}
 						
 						
-
-
-
-
-
-
-
-
-
-
-
-							
 						
 					}else if(type==3){
 						aa(id)
@@ -557,9 +533,6 @@ function queryDataByParams(params,data_type){
 	})
 }
 
-//function createListInfo(data,data_type){
-//		
-//}
 
 //判断是否购买过以及主播本人
 function aa(id){
