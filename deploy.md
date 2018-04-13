@@ -38,3 +38,19 @@ bbs后台整合部署
 bbs pc端整合
 
     1.拷贝online-web/src/main/resources/sensitiveWord.txt 至服务器 /data 目录下
+
+医馆管理->公告管理
+
+    CREATE TABLE `medical_hospital_announcement` (
+      `id` varchar(32) NOT NULL DEFAULT '',
+      `hospital_id` varchar(32) NOT NULL DEFAULT '' COMMENT '医馆id',
+      `content` varchar(255) NOT NULL DEFAULT '' COMMENT '公告内容',
+      `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+      `create_person` varchar(32) NOT NULL DEFAULT '' COMMENT '创建的用户id',
+      `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+医师管理->著作管理
+
+    ALTER TABLE `medical_writings` ADD `img_path` VARCHAR(255)  NULL  DEFAULT NULL  AFTER `sort`;
