@@ -47,7 +47,7 @@ public class SimpleHibernateDao {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private HibernateTemplate hibernateTemplate;
-
+	
 	/**
 	 * 修改数据源
 	 *

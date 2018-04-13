@@ -61,3 +61,4 @@ target/
 *.iws
 
 /.settings
+pc/online-manager/src/main/resources/rebel.xml

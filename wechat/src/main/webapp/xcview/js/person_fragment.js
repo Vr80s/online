@@ -1,4 +1,17 @@
 
+function loadURL(height) {
+    var iFrame;
+    iFrame = document.createElement("iframe");
+    iFrame.setAttribute("src", "wvjbscheme://__WVJB_QUEUE_MESSAGE__?height="+height);
+    iFrame.setAttribute("style", "display:none;");
+    iFrame.setAttribute("height", "0px");
+    iFrame.setAttribute("width", "0px");
+    iFrame.setAttribute("frameborder", "0");
+    document.body.appendChild(iFrame);
+    // 发起请求后这个iFrame就没用了，所以把它从dom上移除掉
+    //iFrame.parentNode.removeChild(iFrame);
+    //iFrame = null;
+}
 
 /**
  * 截取url传递的参数
@@ -88,5 +101,12 @@ requestService("/xczh/common/richTextDetails",{
 	var aaa = testEle.getAttribute("test"); //获取
 	
 	//alert(aa+"========"+scrollHeight+"======="+aaa);
+
+
+	var aa= $("body").height();
+	//alert(aa+"0413");
+	//alert(aa);
+	loadURL(aa);
+	
 })
 

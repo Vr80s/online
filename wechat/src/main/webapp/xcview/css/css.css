@@ -1700,13 +1700,13 @@ footer{
 	display: none;
 	margin-top: 1.3rem;
 
-	position: fixed;
+	/*position: fixed;*/
     top: 10.5rem;
 }
 .document_ceneter{
 	width: 100%;
 	margin: 0 auto;
-	background: #fff;
+	/*background: #fff;*/
 }
 .document_ceneter a{
 	color: #000;

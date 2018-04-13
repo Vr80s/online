@@ -77,7 +77,7 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		
 		// $(".no_class").addClass("no_class"+index+"");
 
-		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class_one'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"; //代表全部的
+		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class_one no_class_ones'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"; //代表全部的
 
 		for (var int = 0; int < data.resultObject[0].length; int++) {
 			var obj = data.resultObject[0][int];
@@ -386,12 +386,13 @@ function queryDataByParams(params,data_type){
 				if(data.resultObject.length<=0){
 					$(".li_list_main").css("background","#f8f8f8");
 					$(".no_class"+index).show();
-					$(".no_class_one").show();
+					$(".no_class_ones").show();
 				}else{
 					$(".li_list_main").css("background","#fff");
-					$(".no_class_one").hide();
-					
+					$(".no_class"+index).hide();
+					$(".no_class_ones").hide();
 				}
+
 
 
 				for (var int = 0; int < data.resultObject.length; int++) {

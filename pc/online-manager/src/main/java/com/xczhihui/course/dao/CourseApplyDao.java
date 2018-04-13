@@ -194,7 +194,7 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo> {
 						+ "  cai.`status` as applyStatus,\n"
 						+ "  oc.`status` as status,\n"
 						+ "  oc.`release_time` as releaseTime,\n"
-						+ "oc.`default_student_count` as defaultStudentCount,\n"
+						+ "  oc.`default_student_count` as defaultStudentCount,\n"
 						+ "  cai.`img_path` imgPath,\n"
 						+ "  cai.`course_form` courseForm,\n"
 						+ "  cai.`price`*10 as price,\n"
@@ -202,7 +202,7 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo> {
 						+ "  cai.create_time,cai.review_time,cai.collection,"
 						+ "om.`name` as menuName FROM `course_apply_info` cai left JOIN `oe_menu` om ON om.id=cai.`course_menu` "
 						+ " LEFT JOIN `oe_course` as oc ON cai.id = oc.apply_id WHERE cai.`is_delete`=0 ");
-
+		
 		String userId = courseApplyInfo.getUserId();
 		String title = courseApplyInfo.getTitle();
 		Integer applyStatus = courseApplyInfo.getApplyStatus();
