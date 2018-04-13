@@ -66,7 +66,9 @@ public class CourseApplyController {
 	@RequestMapping("addCourseApply")
 	@ResponseBody
 	public ResponseObject addCourseApply(HttpServletRequest req,
-										 HttpServletResponse res, CourseApplyInfo courseApplyInfo, @RequestParam("file")MultipartFile file)
+										 HttpServletResponse res,
+										 CourseApplyInfo courseApplyInfo, 
+										 @RequestParam("file")MultipartFile file)
 			throws Exception {
 
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);

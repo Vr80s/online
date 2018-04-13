@@ -182,6 +182,8 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo> {
 	public Page<CourseApplyInfo> findCoursePageByUserId(
 			CourseApplyInfo courseApplyInfo, int pageNumber, int pageSize) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		
 		StringBuilder sql = new StringBuilder(
 				"SELECT cai.id,\n"
 						+ "  cai.`title`,\n"
@@ -192,7 +194,7 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo> {
 						+ "  cai.`status` as applyStatus,\n"
 						+ "  oc.`status` as status,\n"
 						+ "  oc.`release_time` as releaseTime,\n"
-						  + "  oc.`release_time` as releaseTime,\n"
+						+ "oc.`default_student_count` as defaultStudentCount,\n"
 						+ "  cai.`img_path` imgPath,\n"
 						+ "  cai.`course_form` courseForm,\n"
 						+ "  cai.`price`*10 as price,\n"

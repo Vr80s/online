@@ -117,7 +117,7 @@ div.pinch-zoom,
     
     
 .pinch-zoom-container{
-	height: 530px !important;
+	/*height: 530px !important;*/
 	min-height: 1rem !important;
 }
 
