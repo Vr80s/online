@@ -1357,7 +1357,6 @@ function uploadFile() {
 
 function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
     var obj_file = document.getElementById("btn_width").files[0];
-
     chunkSize = 2097152;  //2M
     var totalSize = obj_file.size;        //文件总大小
     var start = begin;                //每次上传的开始字节
@@ -1404,10 +1403,14 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
             // 上传文件部分累计
             if(start>=totalSize){    //如果上传字节数大于或等于总字节数，结束上传
                 $("#ccId").val(result.resultObject[0]);
+                var fileName = obj_file.name.substring(0,obj_file.name.lastIndexOf("."));
                 $("#ziyuan_bottom .resource_uploading").hide();
                 $("#ziyuan_bottom .uploadfinish").show();
                 $("#ziyuan_bottom .updataSuccess").show();
-                $("#ziyuan_bottom .zhuanlan_title").val(obj_file.name);
+                var title = $("#ziyuan_bottom .zhuanlan_title").val();
+                if(title==""){
+                    $("#ziyuan_bottom .zhuanlan_title").val(fileName);
+				}
                 uploadfinished=true;
                 //alert('上传完成!');
                 //告诉后台上传完成后合并文件                            //返回上传文件的存放路径
