@@ -381,14 +381,17 @@ function submit(){
 function queryDataByParams(params,data_type){
 
 	// 测试加载中
-	load.start();
+	// load.start();
+	
 	// debugger
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
 			//createListInfo(data,data_type)
 			//
 			// 测试加载中
-			load.end();
+			// load.end();
+			 
+			
 			 if(stringnull(data_type)){
 					var id = "#query_list"+data_type;
 				}else{
