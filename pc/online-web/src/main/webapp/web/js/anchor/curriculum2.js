@@ -1467,5 +1467,4 @@ function continueUpload() {
     var chunkUrl= localStorage.getItem("chunkUrl");
     var fileMd5 = localStorage.getItem("fileMD5");
     xmx(parseInt(start),"2","",ccid,metaurl,chunkUrl);
-
 }
