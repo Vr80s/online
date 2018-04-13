@@ -26,9 +26,6 @@ public class SensitiveWordInit {
     @SuppressWarnings("rawtypes")
     private Map sensitiveWordMap;
 
-    @Value("${sensitiveWordFilePath}")
-    private String sensitiveWord;
-
     public Map getSensitiveWordMap() {
         return initKeyWord();
     }

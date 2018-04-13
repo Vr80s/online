@@ -1,6 +1,6 @@
 $(function(){
     showCourseAttribute(1);
-    var checkedType="";
+    var checkedType="video";
    
     $('#anchorWorkbench').css('color','#00bc12');
     //进入页面定位之前位置
