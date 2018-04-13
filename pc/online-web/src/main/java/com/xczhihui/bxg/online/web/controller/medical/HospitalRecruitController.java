@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.body.MedicalHospitalRecruitBody;
-import com.xczhihui.bxg.online.web.controller.AbstractController;
+import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
 
 @RestController
@@ -17,6 +18,8 @@ public class HospitalRecruitController extends AbstractController {
 
     @Autowired
     private IMedicalHospitalRecruitBusinessService medicalHospitalRecruitBusinessService;
+    @Autowired
+    private IMedicalHospitalBusinessService medicalHospitalBusinessService;
 
     /**
      * Description：通过医馆id获取招聘列表
@@ -36,20 +39,23 @@ public class HospitalRecruitController extends AbstractController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseObject list(@RequestParam String hospitalId, @RequestParam(value = "keyword", required = false) String keyword,
-                               @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseObject list(@RequestParam(value = "keyword", required = false) String keyword,
+                               @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId(request));
         return ResponseObject.newSuccessResponseObject(medicalHospitalRecruitBusinessService.listByPage(hospitalId, keyword, page, size));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseObject create(@RequestBody @Valid MedicalHospitalRecruitBody medicalHospitalRecruitBody, HttpServletRequest request) {
-        medicalHospitalRecruitBusinessService.save(medicalHospitalRecruitBody.build(), getOnlineUser(request).getId());
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId(request));
+        medicalHospitalRecruitBusinessService.save(medicalHospitalRecruitBody.build(hospitalId), getUserId(request));
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseObject update(@PathVariable String id, @RequestBody @Valid MedicalHospitalRecruitBody medicalHospitalRecruitBody, HttpServletRequest request) {
-        medicalHospitalRecruitBusinessService.update(id, medicalHospitalRecruitBody.build());
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId(request));
+        medicalHospitalRecruitBusinessService.update(id, medicalHospitalRecruitBody.build(hospitalId));
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
