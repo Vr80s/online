@@ -2220,7 +2220,7 @@
 				
 				<div class="zhuanlan_bottom" id="ziyuan_bottom">
 					<form id="addResource">
-						<div>
+						<div id="zuyuan_titel_id">
 							<span><em>*</em>标题</span>
 							<input type="text" placeholder="请填写您的标题" class="zhuanlan_title" />
 							<p class="warning warning0 hide">标题不能为空</p>
@@ -2229,10 +2229,10 @@
 						<div id="resourceType">
 							<span><em>*</em>资源类型</span>
 							<label>
-								<input type="radio" name="resource_multimediaType" checked="checked" value="1"/>视频
+								<input type="radio" name="resource_multimediaType" onchange="changePeriod('video')" checked="checked" value="1"/>视频
 							</label>
 							<label>
-								<input type="radio" name="resource_multimediaType" value="2"/>音频
+								<input type="radio" name="resource_multimediaType" onchange="changePeriod('audio')" value="2"/>音频
 							</label>
 						</div>
 						<div class="fla_btn">
@@ -2244,11 +2244,9 @@
 
 							<!--<div id="swfDiv" style="display: inline-block;">
 							</div>-->
-							<div class="propress-file">	
+							<div class="propress-file" style="cursor:pointer;">
 								上传资源
-								<input type="file" value="点击上传资源" name="file" id="btn_width" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,
-								.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts,
-								.Mp3,.Wav,.aif,.aiff,.au,.snd,.voc,.ra,.midrmi,.wma,.ape,.flac,.aac,.m4a,.vqf"/>
+								<input type="file" value="点击上传资源" name="file" style="cursor:pointer;" id="btn_width" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts"/>
 							</div>
 							<span class="uploadfinish" style="display:none;margin-left: 112px;display: block;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
 							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
@@ -2571,8 +2569,6 @@
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/mymoney.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/asset.js" type="text/javascript" charset="UTF-8"></script>
-
-<!--<script type="text/javascript" src="/web/js/MD5/spark-md5.js"></script>-->
 <script type="text/javascript" src="/web/js/MD5/browser-md5-file.js"></script>
 
 <script src="/web/js/anchor/Twolevelmenu.js" type="text/javascript" charset="UTF-8"></script>

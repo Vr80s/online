@@ -1,5 +1,6 @@
 $(function(){
     showCourseAttribute(1);
+    var checkedType="";
    
     $('#anchorWorkbench').css('color','#00bc12');
     //进入页面定位之前位置
@@ -1406,6 +1407,7 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
                 $("#ziyuan_bottom .resource_uploading").hide();
                 $("#ziyuan_bottom .uploadfinish").show();
                 $("#ziyuan_bottom .updataSuccess").show();
+                $("#ziyuan_bottom .zhuanlan_title").val(obj_file.name);
                 uploadfinished=true;
                 //alert('上传完成!');
                 //告诉后台上传完成后合并文件                            //返回上传文件的存放路径
@@ -1432,7 +1434,27 @@ function isAccord(filepath) {
 		}
     var extStart = filepath.lastIndexOf(".");
     var ext = filepath.substring(extStart, filepath.length).toUpperCase();
-    if (ext != ".WMV" && ext != ".WM" && ext != ".ASF" && ext != ".ASX" &&
+    if(checkedType=='video'){
+        if (ext != ".WMV" && ext != ".WM" && ext != ".ASF" && ext != ".ASX" &&
+            ext != ".RM"&& ext != ".RMVB" && ext != ".RA" && ext != ".RAM" && ext != ".MPG"
+            && ext != ".MPEG" && ext != ".MPE" && ext != ".VOB" && ext != ".DAT"
+            && ext != ".MOV" && ext != ".3GP" && ext != ".MP4" && ext != ".MP4V"
+            && ext != ".M4V" && ext != ".MKV" && ext != ".AVI" && ext != ".FLV"
+            && ext != ".F4V" && ext != ".MTS") {
+            showTip("文件格式有误")
+            return false;
+        }
+	}else {
+        if (ext != ".MP3" && ext != ".WAV"
+            && ext != ".AIF" && ext != ".AIFF" && ext != ".AU" && ext != ".SND"
+            && ext != ".VOC" && ext != ".RA" && ext != ".MIDRMI" && ext != ".WMA"
+            && ext != ".APE" && ext != ".FLAC" && ext != ".AAC" && ext != ".M4A"
+            && ext != ".VQF") {
+            showTip("文件格式有误")
+            return false;
+        }
+	}
+    /*if (ext != ".WMV" && ext != ".WM" && ext != ".ASF" && ext != ".ASX" &&
 		ext != ".RM"&& ext != ".RMVB" && ext != ".RA" && ext != ".RAM" && ext != ".MPG"
         && ext != ".MPEG" && ext != ".MPE" && ext != ".VOB" && ext != ".DAT"
         && ext != ".MOV" && ext != ".3GP" && ext != ".MP4" && ext != ".MP4V"
@@ -1442,14 +1464,16 @@ function isAccord(filepath) {
         && ext != ".VOC" && ext != ".RA" && ext != ".MIDRMI" && ext != ".WMA"
         && ext != ".APE" && ext != ".FLAC" && ext != ".AAC" && ext != ".M4A"
         && ext != ".VQF" ) {
-        alert("文件格式不正确");
+        showTip("文件格式有误")
         return false;
-    }
+    }*/
     return true;
 }
 
 function cancalUpdata1() {
     currentAjax.abort();
+    var file = document.getElementById('btn_width');
+    file.value = '';
     $('.progress-resource').css({
         "width": "0%"
     })
@@ -1466,4 +1490,13 @@ function continueUpload() {
     var chunkUrl= localStorage.getItem("chunkUrl");
     var fileMd5 = localStorage.getItem("fileMD5");
     xmx(parseInt(start),"2","",ccid,metaurl,chunkUrl);
+}
+//判断选中的是视频还是音频
+function changePeriod(checked) {
+    checkedType = checked;
+		if(checked=="video"){
+            $("#btn_width").attr("accept",".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts");
+		}else {
+            $("#btn_width").attr("accept",".Mp3,.Wav,.aif,.aiff,.au,.snd,.voc,.ra,.midrmi,.wma,.ape,.flac,.aac,.m4a,.vqf");
+		}
 }
