@@ -253,5 +253,139 @@
 	}
 </script>
 	
+	
+	
+	<script>
+	
+//	手机号失去焦点
+	$(".phoneNum").blur(function(){
+    	
+    var phoneNum = $.trim($('.phoneNum').val());
+	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+	var nikename = $.trim($('.nikeName').val());
+	var imgCode = $.trim($('.imgCode').val());
+
+	//手机号码验证
+	if($.trim(phoneNum) == ""){
+				$(".phone_warn").text('手机号不能为空');
+				$(".phone_warn").css('display','block');
+				return false;
+		}else if(!phonePass.test(phoneNum)){
+		$(".phone_warn").text('手机号格式不正确')
+		$(".phone_warn").css('display','block');
+		return false;
+			}else{
+				$(".phone_warn").css('display','none');
+			}
+  	});
+  	
+  	
+//	昵称失去焦点
+  	$(".nikeName").blur(function(){
+    	
+	var phoneNum = $.trim($('.phoneNum').val());
+	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+	var nikename = $.trim($('.nikeName').val());
+	var imgCode = $.trim($('.imgCode').val());
+
+
+		//昵称验证
+		if(nikename == '' ||  nikename.length > 20){
+			$(".nikeName_warn").css('display','block');
+			return false;
+		}else if(nikename.length < 4 ){
+			$(".nikeName_warn").text('长度只能在20个字符之内');
+			$(".nikeName_warn").css('display','block');
+			return false;
+		}{
+			$(".nikeName_warn").css('display','none');
+		}
+  	});
+  	
+  	
+  	
+  	$(".imgCode").blur(function(){
+    	
+	  
+		var phoneNum = $.trim($('.phoneNum').val());
+		var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+		var nikename = $.trim($('.nikeName').val());
+		var imgCode = $.trim($('.imgCode').val());
+
+		//图形验证码
+		if(imgCode == ''){
+			$(".imgVertifyCode_warn").text('请输入图形动态码')
+			$(".imgVertifyCode_warn").css('display','block');
+			return false;
+		}else{
+			$(".imgVertifyCode_warn").css('display','none');
+		}
+			
+  	});
+  	
+  	
+  	
+  	$(".code").blur(function(){
+	  	var phoneNum = $.trim($('.phoneNum').val());
+		var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+		var nikename = $.trim($('.nikeName').val());
+		var imgCode = $.trim($('.imgCode').val());
+		
+		var msgCode = $.trim($('.code').val());
+
+	  	//短信验证码
+		if(msgCode == ''){
+			$(".my_code_warn").text('请输入短信验证码')
+			$(".my_code_warn").css('display','block');
+			return false;
+		}else{
+			$(".my_code_warn").css('display','none');
+		}
+  	
+	});
+	
+	
+	$(".my_password").blur(function(){
+		//密码验证
+		if($.trim($('.my_password').val()).length < 6){
+//			$(".my_different").css('display','none');
+			$('.my_pwd').text('请输入6-18位数密码');
+			$(".my_pwd").css('display','block');
+			return false;
+		}else if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+			$(".my_pwd").css('display','none');
+			$(".my_different").text('您两次输入的密码不一致')
+//			$(".my_different").css('display','block');
+			return false;
+		}else{
+			$(".my_pwd").css('display','none');
+//			$(".my_different").css('display','none');
+		}
+	
+	});
+	
+	
+	
+	$(".sure_password").blur(function(){
+		var passWord = $.trim($('.sure_password').val());
+		if(passWord == ''){
+//			$(".my_pwd").css('display','none');
+			$(".my_different").text('请输入6-18位数密码111')
+			$(".my_different").css('display','block');
+			return false;
+		}else{
+//			$(".my_pwd").css('display','none');
+			$(".my_different").css('display','none');
+		}
+	
+	});
+	
+	
+</script>
+	
+	
+	
+	
+	
 	</body>
 </html>
