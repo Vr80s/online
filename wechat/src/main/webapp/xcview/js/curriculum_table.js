@@ -74,7 +74,11 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		/**
 		 * 动态生成滑动的效果
 		 */
-		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div></li>"; //代表全部的
+		
+		// $(".no_class").addClass("no_class"+index+"");
+
+		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class_one'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"; //代表全部的
+
 		for (var int = 0; int < data.resultObject[0].length; int++) {
 			var obj = data.resultObject[0][int];
 			var index=int+1;
@@ -377,45 +381,17 @@ function queryDataByParams(params,data_type){
 				$(id).html(data1);
 				
 
-				/*var aBtn=$('.box01_list li');
-				for(i=0;i<aBtn.length;i++){
-            
-		            $(aBtn[i]).click(function(){
-		              for(i=0;i<aBtn.length;i++){
-		                $(aBtn[i]).removeClass('active5');
-		                $(aBtn[i]).addClass('li li1');
-		              }
-		              $(this).removeClass();
-		              $(this).addClass('active5');
-		            })
-
-		        }*/
-
-
-		        /*if(data.resultObject.length<=0){
-					$(".li_list_main").css("background","#f8f8f8");
-					$(".find_nav_cur .no_class").show();
-				}else{
-					$(".li_list_main").css("background","#fff");
-					$(".find_nav_cur .no_class").hide();
-				}*/
-
-
+				// 判断有无数据显示隐藏背景图
 				var index = $(".find_nav_cur a").attr("data-title");
 				if(data.resultObject.length<=0){
 					$(".li_list_main").css("background","#f8f8f8");
 					$(".no_class"+index).show();
-					/*$(".li_list_main").addClass("li_listss1");
-					$(".li_list_main").removeClass("li_listss2");*/
+					$(".no_class_one").show();
 				}else{
 					$(".li_list_main").css("background","#fff");
-					$(".no_class"+index).hide();
+					$(".no_class_one").hide();
 					
-					/*$(".li_list_main").removeClass("li_listss1");
-					$(".li_list_main").addClass("li_listss2");*/
 				}
-
-
 
 
 				for (var int = 0; int < data.resultObject.length; int++) {

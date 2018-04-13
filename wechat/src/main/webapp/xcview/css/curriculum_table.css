@@ -575,6 +575,30 @@ header{
 /*筛选滑动结束*/
 
 /*默认背景图开始*/
+.no_class_one{
+    direction: down;
+    text-align: center;
+    line-height: 0;
+    /*position: fixed;*/
+    top: 50%;
+    left: 50%;
+    /*margin-left: -1.44rem;*/
+    /*margin-top: -3rem;*/
+    margin-top: -8rem;
+    z-index: -1;
+    display: none;
+}
+.no_class_one img {
+    width: 2.5rem;
+}
+.no_class_one p {
+    color: #999;
+    font-size: 0.28rem;
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+
 .no_class {
     direction: down;
     text-align: center;
@@ -584,7 +608,7 @@ header{
     left: 50%;
     /*margin-left: -1.44rem;*/
     /*margin-top: -3rem;*/
-    margin-top: -10rem;
+    margin-top: -8rem;
     z-index: -1;
     display: none;
 }
