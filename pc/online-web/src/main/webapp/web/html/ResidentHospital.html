@@ -703,7 +703,7 @@
 												</td>
 												<td>
 													<a href="javascript:;" class="notice_btn_see" onclick="notice_btn_see({{i}})">预览</a>
-													<a href="javascript:;" class="notice_btn_delete">删除</a>
+													<a href="javascript:;" class="notice_btn_delete" data-id({{item.id}}) onclick="notice_btn_delete(this)">删除</a>
 												</td>
 											</tr>
 											{{/each}}

@@ -1,6 +1,7 @@
+ var checkedType="video";
 $(function(){
     showCourseAttribute(1);
-    var checkedType="video";
+   
    
     $('#anchorWorkbench').css('color','#00bc12');
     //进入页面定位之前位置
@@ -1349,6 +1350,7 @@ function uploadFile() {
             "width": "0%"
         })
         $("#ziyuan_bottom .resource_uploading").show();
+        $("#mask").removeClass('hide')
         $("#ziyuan_bottom .uploadfinish").hide();
         $("#ziyuan_bottom .updataSuccess").hide();
         xmx(0,"1",filemd5,"","","")
@@ -1405,6 +1407,7 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
                 $("#ccId").val(result.resultObject[0]);
                 var fileName = obj_file.name.substring(0,obj_file.name.lastIndexOf("."));
                 $("#ziyuan_bottom .resource_uploading").hide();
+                $("#mask").addClass('hide')
                 $("#ziyuan_bottom .uploadfinish").show();
                 $("#ziyuan_bottom .updataSuccess").show();
                 var title = $("#ziyuan_bottom .zhuanlan_title").val();
