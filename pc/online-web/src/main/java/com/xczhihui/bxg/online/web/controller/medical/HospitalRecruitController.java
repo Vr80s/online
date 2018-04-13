@@ -37,8 +37,8 @@ public class HospitalRecruitController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseObject list(@RequestParam String hospitalId, @RequestParam(value = "keyword", required = false) String keyword,
-                               @RequestParam(defaultValue = "1") int current, @RequestParam(defaultValue = "10") int size) {
-        return ResponseObject.newSuccessResponseObject(medicalHospitalRecruitBusinessService.listByPage(hospitalId, keyword, current, size));
+                               @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseObject.newSuccessResponseObject(medicalHospitalRecruitBusinessService.listByPage(hospitalId, keyword, page, size));
     }
 
     @RequestMapping(method = RequestMethod.POST)
