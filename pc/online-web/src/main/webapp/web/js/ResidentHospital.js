@@ -713,25 +713,65 @@ $("#news_Administration_tabBtn").click(function(){
 		$(".Notice_top button").click();
 	}
 })
-//公告部分接口调用
+//公告发布接口调用
 $("#notice-release-btn").click(function(){
 	var  $notice_text = $.trim($("#notice-text").val());
 	if($notice_text == ''){
 		$(".warning-notice").show();
 	}else{
-		RequestService("/hospital/"+ +"/announcement", "POST", {
+		RequestService("/hospital/announcement", "POST", {
 			"content" : $notice_text
 		}, function(data) {
-			
+			showTip("发布成功");
+			$("#notice-text").val("")
+			$(".warning-notice").hide();
+			setTimeout(function(){
+				$("#news_Administration_tabBtn").click();
+			},2000)
 		})
 	}
 
 })
 
+var announcementList;
+//公告管理列表接口调用
+RequestService("/hospital/announcement","GET",{
+	"pages":5,
+	"size":2
+},function(data){
+	for(var i=0;i<data.resultObject.records.length;i++){		
+			data.resultObject.records[i].Nownum=getNo(i);
+		}
+	announcementList=data.resultObject.records;
+	$('#notice_tbody_wrap').html(template('notice_tbody', {items:data.resultObject.records}));
 
+})
+function getNo(i){
+		i++;
+		return i;
+	}
 
-
-
+//function courseVodList(current) {
+//		RequestService("/hospital/announcement?size=3&page=" + current, "get", null, function(data) {
+//			//每次请求完数据就去渲染分页部分
+//			if(data.resultObject.pages > 1) { //分页判断
+//				$(".not-data").remove();
+//				$(" .pages").removeClass("hide");
+//				$(" .pages .searchPage .allPage").text(data.resultObject.pages);
+//				$("#Pagination").pagination(data.resultObject.pages, {
+//					num_edge_entries: 1, //边缘页数
+//					num_display_entries: 4, //主体页数
+//					current_page: current - 1,
+//					callback: function(page) { //翻页功能
+//						courseVodList(page + 1);
+//						// alert(page);
+//					}
+//				});
+//			} else {
+//				$(".pages").addClass("hide");
+//			}
+//		});
+//	}
 //公告部分结束
 //医师管理部分
 //顶部点击切换底部内容功能
@@ -916,10 +956,15 @@ $(".recruit_preview_content img").click(function(){
 //招聘管理部分结束
 
 //公告管理部分，点击预览--------------------------------------------------------------
-$(".notice_btn_see").click(function(){
+
+
+function notice_btn_see(i){
+	var announcementText = announcementList[i];	
+	$(".notice_namage_text").text(announcementText.content);
+	$(".notice_time").text("发布时间："+announcementText.createTime);
 	$(".notice_namage_see").show();
 	$(".recruit_preview_bg").show();
-})
+}
 $(".notice_preview_content img").click(function(){
 	$(".notice_namage_see").hide();
 	$(".recruit_preview_bg").hide();

@@ -48,6 +48,7 @@
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js">
 		</script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+		<script src="../js/common_msg.js"></script>
 	</head>
 
 	<body>
@@ -669,7 +670,7 @@
 									<div class="neirong">
 										<span><em>*</em> 公告内容</span>
 										<textarea name="" id="notice-text" cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
-										<p class="warning warning-notice" style="display: none;">专栏内容不能为空</p>
+										<p class="warning warning-notice" style="display: none;padding-left: 0;">专栏内容不能为空</p>
 									</div>
 	
 									<div class="baocun" style="padding-left: 116px;">
@@ -687,24 +688,39 @@
 												<td>操作</td>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="notice_tbody_wrap">
+											<script  type="text/template" id="notice_tbody">
+												{{each items as item i}}
 											<tr>
 												<td>
-													1
+													{{item.Nownum}}
 												</td>
 												<td>
-													中医药席卷全球成独特风景，发展热情被彻底点燃
+													{{item.content}}
 												</td>											
 												<td>
-													2017.11.12
+													{{item.createTime}}
 												</td>
 												<td>
-													<a href="javascript:;" class="notice_btn_see">预览</a>
+													<a href="javascript:;" class="notice_btn_see" onclick="notice_btn_see({{i}})">预览</a>
 													<a href="javascript:;" class="notice_btn_delete">删除</a>
 												</td>
-											</tr>						
+											</tr>
+											{{/each}}
+											</script>
 										</tbody>
 									</table>
+									
+									<!--分页部分-->
+									<div class="pages hide" style="margin-top: 20px;">
+										<div id="Pagination"></div>
+										<div class="searchPage">
+											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+											<a href="javascript:;" class="page-btn">确定</a>
+										</div>
+									</div>
+									
 								</div>
 							</div>
 					</div>
@@ -1253,6 +1269,8 @@
 			return this._bkGetActionUrl.call(this, action);
 		}
 	}
+	
+	
 	
 </script>
 

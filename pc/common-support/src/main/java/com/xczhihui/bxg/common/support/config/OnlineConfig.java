@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 public class OnlineConfig {
 
 	//CC视频USERID
-	@Value("${CC_USER_ID}")
+	@Value("${cc.user.id}")
 	public String ccuserId;
 	//CC直播USERID
 //	@Value("${cc.live.user.id}")

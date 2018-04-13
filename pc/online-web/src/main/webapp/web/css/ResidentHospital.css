@@ -70,7 +70,7 @@ a {
     line-height: 30px;
     text-indent: 20px;
     background: url(../images/icons/tanhao.png) no-repeat left center;
-    /*padding-left: 20px;*/
+    padding-left: 20px;
 }
 .container {
   padding: 0;
@@ -1337,7 +1337,7 @@ margin-right: 5px;
 #Notice_Administration .Notice_bottom2 table thead > tr > td:nth-child(2),
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:nth-child(2){
 	/*width: 364px;*/
-	width: 550px;
+	width: 540px;
 	padding: 10px;
 	white-space: nowrap;
   text-overflow: ellipsis;
@@ -1345,7 +1345,7 @@ margin-right: 5px;
 }
 #Notice_Administration .Notice_bottom2 table thead > tr > td:nth-child(3),
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:nth-child(3){
-	width: 150px;
+	width: 160px;
 }
 #Notice_Administration .Notice_bottom2 table thead > tr > td:nth-child(4),
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:nth-child(4){
