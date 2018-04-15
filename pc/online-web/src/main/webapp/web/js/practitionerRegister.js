@@ -40,7 +40,7 @@ $(function(){
 	$('.practitioner_settled').on('click','.register',function(){
 	//此处进行验证
 	var phoneNum = $.trim($('.phoneNum').val());
-	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+	var phonePass =  /^1[3,4,5,6,7,8]\d{9}$/gi;
 	var nikename = $.trim($('.nikeName').val());
 	var imgCode = $.trim($('.imgCode').val());
 	var msgCode = $.trim($('.code').val());
