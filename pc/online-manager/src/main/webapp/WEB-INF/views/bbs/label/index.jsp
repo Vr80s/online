@@ -60,7 +60,7 @@
 
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="details">标签详情: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="details">*标签详情: </label>
             <div class="col-sm-6">
                 <input type="text" name="details" id="details" maxlength="50"
                        class="col-xs-10 col-sm-12 {required:true}">
@@ -106,7 +106,7 @@
 
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="details">标签详情: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="details">*标签详情: </label>
             <div class="col-sm-6">
                 <input type="text" name="details" id="J_edit_details" maxlength="50"
                        class="col-xs-10 col-sm-12 {required:true}">

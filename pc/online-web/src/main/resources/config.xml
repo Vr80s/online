@@ -155,6 +155,9 @@
     <!--医师-->
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService"
                      id="medicalDoctorBusinessServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <!--医师著作-->
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService"
+                     id="medicalDoctorWritingServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
     <!--医师入驻-->
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService"

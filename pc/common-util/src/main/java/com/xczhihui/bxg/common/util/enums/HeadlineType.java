@@ -3,6 +3,7 @@ package com.xczhihui.bxg.common.util.enums;
 /**
  * Description：头条类型
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/4/2 0002 上午 11:59
  **/
