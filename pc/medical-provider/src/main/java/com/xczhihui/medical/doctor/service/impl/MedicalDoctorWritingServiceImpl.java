@@ -84,12 +84,15 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
     @Override
     public boolean update(String id, String doctorId, MedicalWriting medicalWriting) {
         MedicalWriting oldMedicalWriting = medicalWritingMapper.selectById(id);
+        if (oldMedicalWriting == null) {
+            throw new IllegalArgumentException("著作未找到");
+        }
         oldMedicalWriting.setRemark(medicalWriting.getRemark());
         oldMedicalWriting.setTitle(medicalWriting.getTitle());
         oldMedicalWriting.setStatus(medicalWriting.getStatus());
         oldMedicalWriting.setImgPath(medicalWriting.getImgPath());
         oldMedicalWriting.setBuyLink(medicalWriting.getBuyLink());
-        oldMedicalWriting.setUpdatePerson(oldMedicalWriting.getCreatePerson());
+        oldMedicalWriting.setUpdatePerson(medicalWriting.getCreatePerson());
         oldMedicalWriting.setUpdateTime(new Date());
         medicalWritingMapper.updateById(oldMedicalWriting);
 
