@@ -2,9 +2,7 @@ package com.xczhihui.wechat.course.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.wechat.course.mapper.MobileBannerMapper;
 import com.xczhihui.wechat.course.mapper.OfflineCityMapper;
-import com.xczhihui.wechat.course.model.MobileBanner;
 import com.xczhihui.wechat.course.model.OfflineCity;
 import com.xczhihui.wechat.course.service.IOfflineCityService;
 import org.springframework.beans.factory.annotation.Autowired;
