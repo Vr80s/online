@@ -638,10 +638,11 @@ table{
 	border: 1px solid #00BC12;
     color: #00BC12;
     border-radius: 5px;
+    overflow: hidden;
 }
 #btn_width{
 	position: absolute;
-	left: 0;
+	right: 0;
 	top: 0;
 	line-height: 28px;
 	font-size: 14px;
@@ -650,16 +651,25 @@ table{
 	/*border: 1px solid #00BC12;*/
 	background: #fff;
 	outline: none;
-	width: 120px;
+
 	opacity: 0;
 	cursor: pointer;
+	z-index: 1;
+}
+.fileUp{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: 5;
+	left: 0;
+	top: 0;
 }
 
 
 
 
-
-/*新加资源上传*/
+/*新加资源上传结束*/
 
 
 

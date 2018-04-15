@@ -250,7 +250,7 @@
 
 
 		<div class="form-group " style="margin-top:50px;margin-bottom:30px">
-			<label class="control-label no-padding-right my-set-leftTitle z" >主播介绍：</label>
+			<label class="control-label no-padding-right my-set-leftTitle z" >主讲人介绍：</label>
 			<div class="col-lg-10 my-setallContent" style="padding-left: 0;">
 				<div class="clearfix" style="width: 1000px;">
 					<p>${courseApplyInfo.lecturerDescription}</p>

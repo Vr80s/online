@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -40,17 +39,14 @@ public class PostServiceImpl implements IPostService {
     public Page<PostVO> list(int page, Integer labelId, String type) {
         Page<PostVO> postVOPage = new Page<>(page, 10);
         List<PostVO> postVOList;
-        if (StringUtils.isBlank(type)) {
-            postVOList = postMapper.listByLabelId(postVOPage, null);
-        } else if (PostFilterType.LABEL.getValue().equals(type)) {
-            postVOList = postMapper.listByLabelId(postVOPage, labelId);
-        } else if (PostFilterType.GOOD.getValue().equals(type)) {
-            postVOList = postMapper.listGood(postVOPage);
+        Boolean good = null;
+        Boolean hot = null;
+        if (PostFilterType.GOOD.getValue().equals(type)) {
+            good = true;
         } else if (PostFilterType.HOT.getValue().equals(type)) {
-            postVOList = postMapper.listHot(postVOPage);
-        } else {
-            throw new IllegalArgumentException("非法的类型参数");
+            hot = true;
         }
+        postVOList = postMapper.listByLabelId(postVOPage, labelId, good, hot);
         return postVOPage.setRecords(postVOList);
     }
 

@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
+import static com.xczhihui.bxg.common.util.bean.ResponseObject.newErrorResponseObject;
 import static com.xczhihui.bxg.common.util.bean.ResponseObject.newSuccessResponseObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +60,7 @@ public class DoctorWritingController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject save(HttpServletRequest request, @RequestBody @Valid MedicalDoctorWritingBody medicalDoctorWritingBody) {
+    public ResponseObject save(@RequestBody @Valid MedicalDoctorWritingBody medicalDoctorWritingBody, HttpServletRequest request) {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         medicalDoctorWritingService.save(doctorId, medicalDoctorWritingBody.build(userId), userId);
@@ -68,7 +69,7 @@ public class DoctorWritingController extends AbstractController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseObject update(HttpServletRequest request, @PathVariable String id, @RequestBody @Valid MedicalDoctorWritingBody medicalDoctorWritingBody) {
+    public ResponseObject update(@PathVariable String id, @RequestBody @Valid MedicalDoctorWritingBody medicalDoctorWritingBody, HttpServletRequest request) {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         medicalDoctorWritingService.update(id, doctorId, medicalDoctorWritingBody.build(userId));
@@ -80,7 +81,10 @@ public class DoctorWritingController extends AbstractController {
     public ResponseObject updateStatus(@PathVariable String id, @PathVariable boolean status, HttpServletRequest request) {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
-        medicalDoctorWritingService.updateStatus(doctorId, id, status);
-        return newSuccessResponseObject();
+        if (medicalDoctorWritingService.updateStatus(doctorId, id, status)) {
+            return newSuccessResponseObject();
+        } else {
+            return newErrorResponseObject("状态修改失败");
+        }
     }
 }

@@ -44,9 +44,8 @@ public class BBSPostController {
 
     @RequestMapping(value = "changeDelete", method = RequestMethod.POST)
     @ResponseBody
-    public int changeDeleteStatus(@RequestParam List<Integer> ids,
-                                  @RequestParam boolean deleted) {
-        return bbsPostService.updateDeleteStatus(ids, deleted);
+    public int changeDeleteStatus(@RequestParam List<Integer> ids) {
+        return bbsPostService.updateDeleteStatus(ids);
     }
 
     @RequestMapping(value = "changeHot", method = RequestMethod.POST)
