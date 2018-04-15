@@ -35,7 +35,7 @@ public class OeCommonDao extends HibernateDao {
 		sql.append(" SELECT c.id AS id,c.`val` AS name,c.key as _key,c.val as _value FROM oe_common c ");
 		sql.append(" WHERE c.is_delete = 0");
 		sql.append(" AND c.group =:group ");
-		sql.append(" ORDER BY c.sort ");
+		sql.append(" ORDER BY c.answer_status asc ,c.create_time desc");
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("group", group);
 		return this.getNamedParameterJdbcTemplate().query(sql.toString(),
