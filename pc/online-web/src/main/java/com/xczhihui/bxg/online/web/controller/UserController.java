@@ -6,7 +6,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.RandomUtil;
+import com.xczhihui.bxg.common.util.RandomUtil;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserUtil;

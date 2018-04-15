@@ -3,6 +3,7 @@ package com.xczhihui.wechat.course.model;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Date;
  * @since 2018-04-13
  */
 @TableName("oe_order")
+@Data
 public class Order extends Model<Order> {
 
     private static final long serialVersionUID = 1L;
@@ -86,159 +88,19 @@ public class Order extends Model<Order> {
 	@TableField("is_count_brokerage")
 	private Integer isCountBrokerage;
 
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getCreatePerson() {
-		return createPerson;
-	}
-
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+	@TableField(exist = false)
+	private Double price;
 
 	public Boolean getDelete() {
 		return isDelete;
 	}
 
-	public void setDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
-	}
-
-	public Integer getSort() {
-		return sort;
-	}
-
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
-
-	public String getOrderNo() {
-		return orderNo;
-	}
-
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
-
-	public Double getPreferentyMoney() {
-		return preferentyMoney;
-	}
-
-	public void setPreferentyMoney(Double preferentyMoney) {
-		this.preferentyMoney = preferentyMoney;
-	}
-
-	public Double getActualPay() {
-		return actualPay;
-	}
-
-	public void setActualPay(Double actualPay) {
-		this.actualPay = actualPay;
-	}
-
-	public String getPayAccount() {
-		return payAccount;
-	}
-
-	public void setPayAccount(String payAccount) {
-		this.payAccount = payAccount;
-	}
-
-	public String getPurchaser() {
-		return purchaser;
-	}
-
-	public void setPurchaser(String purchaser) {
-		this.purchaser = purchaser;
-	}
-
-	public Integer getPayType() {
-		return payType;
-	}
-
-	public void setPayType(Integer payType) {
-		this.payType = payType;
-	}
-
-	public Date getPayTime() {
-		return payTime;
-	}
-
-	public void setPayTime(Date payTime) {
-		this.payTime = payTime;
-	}
-
-	public Integer getOrderStatus() {
-		return orderStatus;
-	}
-
-	public void setOrderStatus(Integer orderStatus) {
-		this.orderStatus = orderStatus;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public Integer getOrderFrom() {
-		return orderFrom;
-	}
-
-	public void setOrderFrom(Integer orderFrom) {
-		this.orderFrom = orderFrom;
-	}
-
-	public Integer getIsCountBrokerage() {
-		return isCountBrokerage;
-	}
-
-	public void setIsCountBrokerage(Integer isCountBrokerage) {
-		this.isCountBrokerage = isCountBrokerage;
+	public void setDelete(Boolean delete) {
+		isDelete = delete;
 	}
 
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
-	}
-
-	@Override
-	public String toString() {
-		return "OeOrder{" +
-			", id=" + id +
-			", createPerson=" + createPerson +
-			", createTime=" + createTime +
-			", isDelete=" + isDelete +
-			", sort=" + sort +
-			", orderNo=" + orderNo +
-			", preferentyMoney=" + preferentyMoney +
-			", actualPay=" + actualPay +
-			", payAccount=" + payAccount +
-			", purchaser=" + purchaser +
-			", payType=" + payType +
-			", payTime=" + payTime +
-			", orderStatus=" + orderStatus +
-			", userId=" + userId +
-			", orderFrom=" + orderFrom +
-			", isCountBrokerage=" + isCountBrokerage +
-			"}";
 	}
 }

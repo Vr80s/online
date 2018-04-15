@@ -2,16 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://code.alibabatech.com/schema/dubbo
-        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
-       http://www.springframework.org/schema/util
-       http://www.springframework.org/schema/util/spring-util.xsd">
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- 引入属性文件 -->
     <context:property-placeholder location="classpath:config.properties"/>
@@ -42,4 +39,7 @@
     
     <!-- 微博、qq第三方登录数据存储接口 -->
     <dubbo:service interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService" ref="threePartiesLoginServiceImpl" timeout="${dubbo.consumer.timeout}"  />	
+
+    <!--订单服务-->
+    <dubbo:service interface="com.xczhihui.wechat.course.service.IOrderService" ref="orderServiceImpl" timeout="${dubbo.consumer.timeout}"  />
 </beans>

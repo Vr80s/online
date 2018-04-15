@@ -46,5 +46,10 @@
 		<artifactId>json</artifactId>
 		<version>20180130</version>
 	</dependency>
+      <!--lombok-->
+      <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+      </dependency>
   </dependencies>
 </project>

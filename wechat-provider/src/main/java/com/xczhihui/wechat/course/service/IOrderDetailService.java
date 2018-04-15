@@ -12,5 +12,6 @@ import com.xczhihui.wechat.course.model.OrderDetail;
  * @since 2018-04-13
  */
 public interface IOrderDetailService extends IService<OrderDetail> {
-	
+
+    void saveOrderDetail(OrderDetail orderDetail);
 }

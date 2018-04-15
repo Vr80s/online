@@ -3,6 +3,8 @@
  */
 package com.xczhihui.bxg.common.util;
 
+import java.util.UUID;
+
 /**
  * 字符串相关的工具。
  *
@@ -29,4 +31,9 @@ public final class IStringUtil {
         }
         return text;
     }
+
+    public static String getUuid(){
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
 }

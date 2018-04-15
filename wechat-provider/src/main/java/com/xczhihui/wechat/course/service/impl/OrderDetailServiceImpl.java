@@ -16,5 +16,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, OrderDetail> implements IOrderDetailService {
-	
+
+    @Override
+    public void saveOrderDetail(OrderDetail orderDetail){
+        this.baseMapper.insert(orderDetail);
+    }
 }

@@ -13,5 +13,7 @@ import com.xczhihui.wechat.course.model.Order;
  */
 public interface IOrderService extends IService<Order> {
 
-    String saveOrder(int courseId, String userId, Integer orderFrom);
+    public Order createOrder(String userId, int courseId, Integer orderFrom);
+
+
 }
