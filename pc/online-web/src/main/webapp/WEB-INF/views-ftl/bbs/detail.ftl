@@ -93,7 +93,7 @@
                             <a class="jie-user" href="javascript:;">
                                 <img src="${reply.smallHeadPhoto!''}" alt="">
                                 <cite style="color:#666">
-                                    <i style="font-weight:700">${reply.name}</i>&nbsp;&nbsp;发表于
+                                    <i style="font-weight:700">${reply.name!''}</i>&nbsp;&nbsp;发表于
                                     <i>${reply.initTime?string('yyyy-MM-dd HH:mm:ss')}</i>
                                 </cite>
                             </a>
@@ -134,9 +134,9 @@
                 </#list>
 
                 <#if replies.total == 0>
-                    <li class="fly-none">暂无任何回复</li>
+                    <li class="fly-none" style="border-bottom:1px none #DFDFDF">暂无任何回复</li>
                 </#if>
-                <#assign pageUrl = "/bbs/${post.id}?"/>
+                <#assign pageUrl = "${webUrl}/bbs/${post.id}?"/>
                 <@cast.page pageNo=replies.current totalPage=replies.pages showPages=5 callUrl="${pageUrl}&page="/>
                 </ul>
             </div>
@@ -175,7 +175,7 @@
         <p style="font-size:14px">RE:<span>${post.title}</span></p>
         <p style="font-size:14px;color:#666"><span id="replyName">${post.name!''}</span>&nbsp;发表于
             <span id="replyTime">${post.initTime?string('yyyy-MM-dd HH:mm:ss')}</span></p>
-        <p id="replyContent" style="font-size:14px;color:#666;overflow: auto;max-height: 100px;margin: 10px;">
+        <p id="replyContent" style="font-size:14px;color:#666;overflow: auto;max-height: 60px;margin: 10px;">
         </p>
         <div>
             <span class="cancel_reply">X</span>

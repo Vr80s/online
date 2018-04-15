@@ -132,8 +132,8 @@ $(function () {
             if (!valid) {
                 return false;
             }
-            confirmInfo('确认删除标签？', function () {
-                if (ids.length > 0) {
+            if (ids.length > 0) {
+                confirmInfo('确认删除标签？', function () {
                     $.ajax({
                         'url': basePath + "/bbs/label/delete",
                         'method': 'POST',
@@ -144,10 +144,10 @@ $(function () {
                             console.log(resp);
                         }
                     })
-                } else {
-                    layer.msg("至少去选择一个标签");
-                }
-            });
+                });
+            } else {
+                alertInfo("至少选择一个标签");
+            }
         });
 
         /**
@@ -158,8 +158,8 @@ $(function () {
             $("input[type=checkbox]:checked").each(function (index, e) {
                 ids[index] = $(this).val();
             });
-            confirmInfo('确认进行此操作？', function () {
-                if (ids.length > 0) {
+            if (ids.length > 0) {
+                confirmInfo('确认进行此操作？', function () {
                     $.ajax({
                         'url': basePath + "/bbs/label/changeStatus",
                         'method': 'POST',
@@ -170,8 +170,10 @@ $(function () {
                             console.log(resp);
                         }
                     })
-                }
-            })
+                })
+            } else {
+                alertInfo("至少选择一条数据");
+            }
         });
 
         /**

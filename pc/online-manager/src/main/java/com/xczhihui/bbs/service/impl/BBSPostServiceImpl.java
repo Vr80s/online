@@ -82,9 +82,9 @@ public class BBSPostServiceImpl implements BBSPostService {
     }
 
     @Override
-    public int updateDeleteStatus(List<Integer> ids, boolean deleted) {
+    public int updateDeleteStatus(List<Integer> ids) {
         synchronized (POST_DELETE_LOCK) {
-            int updateCnt = bbsPostDao.changeDeleteStatus(ids, deleted);
+            int updateCnt = bbsPostDao.changeDeleteStatus(ids);
             updateLabelPostCount(ids);
             return updateCnt;
         }

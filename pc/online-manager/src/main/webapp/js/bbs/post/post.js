@@ -70,8 +70,8 @@ $(function () {
         $("input[type=checkbox]:checked").each(function (index, e) {
             ids[index] = $(this).val();
         });
-        confirmInfo('确认进行此操作？', function () {
-            if (ids.length > 0) {
+        if (ids.length > 0) {
+            confirmInfo('确认进行此操作？', function () {
                 mask();
                 $.ajax({
                     'url': basePath + "/bbs/post/changeTop",
@@ -83,8 +83,10 @@ $(function () {
                         unmask();
                     }
                 })
-            }
-        })
+            })
+        } else {
+            alertInfo("至少选择一条数据");
+        }
     });
 
     /**
@@ -95,8 +97,8 @@ $(function () {
         $("input[type=checkbox]:checked").each(function (index, e) {
             ids[index] = $(this).val();
         });
-        confirmInfo('确认进行此操作？', function () {
-            if (ids.length > 0) {
+        if (ids.length > 0) {
+            confirmInfo('确认进行此操作？', function () {
                 mask();
                 $.ajax({
                     'url': basePath + "/bbs/post/changeGood",
@@ -108,8 +110,10 @@ $(function () {
                         unmask();
                     }
                 })
-            }
-        })
+            })
+        } else {
+            alertInfo("至少选择一条数据");
+        }
     });
 
     /**
@@ -120,21 +124,23 @@ $(function () {
         $("input[type=checkbox]:checked").each(function (index, e) {
             ids[index] = $(this).val();
         });
-        confirmInfo('确认进行此操作？', function () {
-            if (ids.length > 0) {
+        if (ids.length > 0) {
+            confirmInfo('确认进行此操作？', function () {
                 mask();
                 $.ajax({
                     'url': basePath + "/bbs/post/changeDelete",
                     'method': 'POST',
-                    'data': {"ids": ids.join(','), "deleted" : true},
+                    'data': {"ids": ids.join(','), "deleted": true},
                     'dataType': 'json',
                     'success': function (resp) {
                         freshTable(postTable);
                         unmask();
                     }
                 })
-            }
-        })
+            })
+        } else {
+            alertInfo("至少选择一条数据");
+        }
     });
 
     /**
@@ -145,8 +151,8 @@ $(function () {
         $("input[type=checkbox]:checked").each(function (index, e) {
             ids[index] = $(this).val();
         });
-        confirmInfo('确认进行此操作？', function () {
-            if (ids.length > 0) {
+        if (ids.length > 0) {
+            confirmInfo('确认进行此操作？', function () {
                 mask();
                 $.ajax({
                     'url': basePath + "/bbs/post/changeHot",
@@ -158,11 +164,14 @@ $(function () {
                         unmask();
                     }
                 })
-            }
-        })
+            })
+        } else {
+            alertInfo("至少选择一条数据");
+        }
     });
 
 });
+
 function search() {
     searchButton(postTable, searchJson);
 }
