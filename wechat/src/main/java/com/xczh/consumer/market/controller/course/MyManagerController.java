@@ -142,11 +142,13 @@ public class MyManagerController {
 				//申请的医师信息
 				map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(user.getId()));
 			}
+			map.put("tokenVaild",1);
 		} else {
 			map.put("xmbCount", 0);
 			map.put("user", "");
 			map.put("courseCount", 0); 
 			map.put("hostPermissions",0);
+			map.put("tokenVaild",0);
 		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
@@ -328,12 +330,13 @@ public class MyManagerController {
 		 */
 		String xmbye = userCoinService.getSettlementBalanceByUserId(user.getId());
 		double d_xmbye = Double.valueOf(xmbye);
-		if(d_xmbye>=1){
-			int i = (int)d_xmbye;    
-			map.put("xmbNumber",i);// 熊猫币数量
-		}else{
-			map.put("xmbNumber",d_xmbye);// 熊猫币数量
-		}
+		map.put("xmbNumber",d_xmbye);
+//		if(d_xmbye>=1){
+//			int i = (int)d_xmbye;    
+//			map.put("xmbNumber",i+"");// 熊猫币数量
+//		}else{
+//			map.put("xmbNumber",d_xmbye+"");// 熊猫币数量
+//		}
 		map.put("rmbNumber",userCoinService.getEnchashmentBalanceByUserId(userId));
 
 		return ResponseObject.newSuccessResponseObject(map);

@@ -49,6 +49,12 @@
 		</script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 		<script src="../js/common_msg.js"></script>
+		
+		<style type="text/css">
+			.warning{
+				display: -webkit-inline-box;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -703,7 +709,7 @@
 												</td>
 												<td>
 													<a href="javascript:;" class="notice_btn_see" onclick="notice_btn_see({{i}})">预览</a>
-													<a href="javascript:;" class="notice_btn_delete">删除</a>
+													<a href="javascript:;" class="notice_btn_delete" data-id({{item.id}}) onclick="notice_btn_delete(this)">删除</a>
 												</td>
 											</tr>
 											{{/each}}

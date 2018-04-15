@@ -356,6 +356,17 @@ $(document).ready(function() {
         //如果活动开始了
         //$(".video_end_top0").hide();
     });
+
+    
+    
+    VHALL_SDK.on('publishStart', function(msg) {
+        //alert('活动开始推流'+msg);
+        //如果活动开始了
+        //$(".video_end_top0").hide();
+    });
+    
+    
+    
     
     var userInfo = "";
     VHALL_SDK.on('vhall_live_history_chat_msg', function(res) {
@@ -453,9 +464,27 @@ $(document).ready(function() {
     });
    
     
+    /**
+	 * 获取自定义消息的通知
+	 */
+    VHALL_SDK.on('customEvent', function(res) {
+       
+    	console.log(res);
+    });
+    
+    
+    
+    
     $("#sendChat").click(function() {
 	    var text = $("#mywords").val();
 	    giftDsPuTong(text);
+	    
+	    
+	    //  自定义消息的使用  sendCustomEvent(data)
+	    VHALL_SDK.sendCustomEvent({
+		      name: "yangxuan",sex:"男"
+		});
+	    
     });
     
     /**

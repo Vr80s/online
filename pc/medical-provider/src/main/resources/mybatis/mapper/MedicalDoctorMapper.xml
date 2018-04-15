@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper">
 
-	<resultMap type="com.xczhihui.medical.doctor.vo.MedicalWritingsVO" id="MedicalWritingsResult">
+	<resultMap type="com.xczhihui.medical.doctor.vo.MedicalWritingVO" id="MedicalWritingsResult">
 		<id column="id" property="id" />
 		<id column="articleId" property="articleId" />
 		<id column="title" property="title" />
@@ -169,7 +169,7 @@
 		and mdd.doctor_id = #{doctorId}
 	</select>
 
-	<select id="getWritingsByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">
+	<select id="getWritingsByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingVO">
 		SELECT
 		  mw.id,
 		  mw.`title`,
@@ -189,7 +189,7 @@
 	ORDER BY mw.`create_time` desc
 	</select>
 
-	<select id="getRecentlyWritings" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">
+	<select id="getRecentlyWritings" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingVO">
 		SELECT
 		  mw.id,
 		  mw.`title`,
@@ -210,13 +210,13 @@
 	limit 0, 5
 	</select>
 
-	<select id="getWritingsByPage" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">
+	<select id="getWritingsByPage" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingVO">
 		SELECT
 		  mw.id,
 		  mw.`title`,
 		  mw.`author`,
 		  oba.`img_path` imgPath,
-		  oba.content
+		  mw.`remark
 		FROM
 		  `medical_writings` mw
 		  LEFT JOIN `oe_bxs_article` oba
@@ -239,7 +239,7 @@
 		  mw.`author`,
 		  mw.`buy_link` buyLink,
 		  oba.`img_path` imgPath,
-		  oba.`content` ,
+		  mw.`remark` ,
 		  md.id did,
 		  md.`name` dname,
 		  md.`province`,

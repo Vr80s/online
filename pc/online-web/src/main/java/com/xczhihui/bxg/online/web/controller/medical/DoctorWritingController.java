@@ -1,0 +1,86 @@
+package com.xczhihui.bxg.online.web.controller.medical;
+
+import static com.xczhihui.bxg.common.util.bean.ResponseObject.newSuccessResponseObject;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.web.body.doctor.MedicalDoctorWritingBody;
+import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
+import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
+
+/**
+ * 医师著作
+ *
+ * @author hejiwei
+ */
+@Controller
+@RequestMapping("doctor/writing")
+public class DoctorWritingController extends AbstractController {
+
+    @Autowired
+    private IMedicalDoctorWritingService medicalDoctorWritingService;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject listByDoctorId(@RequestParam(defaultValue = "1") int page,
+                                         @RequestParam(defaultValue = "10") int size,
+                                         @RequestParam(required = false) String doctorId, HttpServletRequest request) {
+        //不传医师id时，查询自己的著作列表
+        if (StringUtils.isBlank(doctorId)) {
+            doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId(request));
+        }
+        return newSuccessResponseObject(medicalDoctorWritingService.list(page, size, doctorId));
+    }
+
+    @RequestMapping(value = "public", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject list(@RequestParam(defaultValue = "1") int page,
+                               @RequestParam(defaultValue = "10") int size) {
+        return newSuccessResponseObject(medicalDoctorWritingService.list(page, size));
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject get(@PathVariable String id, HttpServletRequest request) {
+        MedicalWritingVO medicalWritingVO = medicalDoctorWritingService.get(id);
+        return newSuccessResponseObject(medicalWritingVO);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject save(HttpServletRequest request, @RequestBody @Valid MedicalDoctorWritingBody medicalDoctorWritingBody) {
+        String userId = getUserId(request);
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+        medicalDoctorWritingService.save(doctorId, medicalDoctorWritingBody.build(userId), userId);
+        return newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseObject update(HttpServletRequest request, @PathVariable String id, @RequestBody @Valid MedicalDoctorWritingBody medicalDoctorWritingBody) {
+        String userId = getUserId(request);
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+        medicalDoctorWritingService.update(id, doctorId, medicalDoctorWritingBody.build(userId));
+        return newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseObject updateStatus(@PathVariable String id, @PathVariable boolean status, HttpServletRequest request) {
+        String userId = getUserId(request);
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+        medicalDoctorWritingService.updateStatus(doctorId, id, status);
+        return newSuccessResponseObject();
+    }
+}
