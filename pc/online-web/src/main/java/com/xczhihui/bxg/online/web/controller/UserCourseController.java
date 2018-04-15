@@ -6,16 +6,12 @@ import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.CourseService;
-import com.xczhihui.bxg.online.web.service.LecturerService;
 import com.xczhihui.bxg.online.web.service.MenuService;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.LecturVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 用户课程控制器
@@ -31,8 +27,6 @@ public class UserCourseController {
 
     @Autowired
     private CourseService courseService;
-    @Autowired
-    private LecturerService lecturerService;
 
     /**
      * 查询所有菜单

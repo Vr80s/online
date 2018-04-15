@@ -32,7 +32,7 @@ import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.ItcastUser;
 
 /**
- *   LecturerServiceImpl:公开直播课业务层接口实现类
+ *   公开直播课业务层接口实现类
  *   @author Rongcai Kang
  */
 @Service
