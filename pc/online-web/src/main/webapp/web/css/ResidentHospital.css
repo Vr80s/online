@@ -1369,9 +1369,18 @@ margin-right: 5px;
     color: #fff;
     font-size: 14px;
     margin-right: 20px;
-
-
-
+}
+.notice_notext_icon{
+	display: none;
+	padding: 89px 0;
+}
+.notice_notext_icon img{
+	
+}
+.notice_notext_icon p{
+	    font-size: 16px;
+    color: #999;
+    margin-top: 35px;
 }
 /*公告管理预览效果*/
 .notice_namage_see{
