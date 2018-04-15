@@ -1,7 +1,7 @@
 var userPic = $('.userPic').css('background')
 
 RequestService("/online/user/isAlive", "get", null, function(data) {
-	//头像预览
+	//头像预览	
 	if(data.resultObject.smallHeadPhoto) {
 		$('.doctor_inf>img').attr('src', data.resultObject.smallHeadPhoto);
 		$('.doctor_inf>h4').text(data.resultObject.name);
@@ -728,8 +728,9 @@ $("#notice-release-btn").click(function(){
 			setTimeout(function(){
 				$("#news_Administration_tabBtn").click();
 //				重新渲染一遍
-				announcementMethod()
-			},2000)
+
+			},2000);
+			announcementMethod()
 		})
 	}
 
@@ -746,12 +747,15 @@ RequestService("/hospital/announcement","GET",{
 			data.resultObject.records[i].Nownum=getNo(i);
 		}
 	announcementList=data.resultObject.records;
-//	if(announcementList.length == 0 || announcementList.length == null){
-//		
-//	}else{
-		$('#notice_tbody_wrap').html(template('notice_tbody', {items:data.resultObject.records}));
-//	}
-	
+	if(announcementList.length==0 || announcementList==null){
+		$("#Notice_bottom2 table").hide();
+		$(".notice_notext_icon").show();
+	}else{
+		$("#Notice_bottom2 table").show();
+		$(".notice_notext_icon").hide();
+		$('#notice_tbody_wrap').html(template('notice_tbody', {items:data.resultObject.records}));		
+	}
+
 	
 	//每次请求完数据就去渲染分页部分
 //      if (data.resultObject.pages > 1) { //分页判断

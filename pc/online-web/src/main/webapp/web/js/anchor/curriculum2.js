@@ -1417,8 +1417,8 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
                 uploadfinished=true;
                 //alert('上传完成!');
                 //告诉后台上传完成后合并文件                            //返回上传文件的存放路径
-            	$(".propress-file").css({"border":"0"})          
-            	$("#btn_width").css({"opacity":"1","width":"auto"})
+            	$(".propress-file").css({"border":"0","overflow":"inherit"})          
+            	$("#btn_width").css({"opacity":"1","width":"auto","z-index":"100","left":"0"})
             }else{
                 xmx(start,"2","",ccid,metaurl,chunkUrl);        // 上传字节不等与或大于总字节数，继续上传
             }
