@@ -205,7 +205,7 @@
 					$('.phone_warn').text('该手机号已注册，请直接登录进入医馆认证！');
 					$('.my_code .my_code_warn').css('display','none');
 					$('.phone_warn').css('display','block');
-					
+					$(".phoneNum").addClass("border_hide");
 						return false;
 				}else if(data.errorMessage == "验证码错误"){
 //					$('#tip').text('动态码错误');
