@@ -41,20 +41,13 @@
 		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
 
-		<script src="/web/js/jquery.pagination.js"></script>
+		<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 
 		<!--富文本需要的js-->
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js">
 		</script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-		<script src="../js/common_msg.js"></script>
-		
-		<style type="text/css">
-			.warning{
-				display: -webkit-inline-box;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -709,23 +702,27 @@
 												</td>
 												<td>
 													<a href="javascript:;" class="notice_btn_see" onclick="notice_btn_see({{i}})">预览</a>
-													<a href="javascript:;" class="notice_btn_delete" data-id({{item.id}}) onclick="notice_btn_delete(this)">删除</a>
+													<a href="javascript:;" class="notice_btn_delete" data-id="{{item.id}}" onclick="notice_btn_delete(this)">删除</a>
 												</td>
 											</tr>
 											{{/each}}
 											</script>
 										</tbody>
 									</table>
-									
+									<!--无列表显示的默认图-->
+									<div class="">
+										
+									</div>
 									<!--分页部分-->
-									<div class="pages hide" style="margin-top: 20px;">
-										<div id="Pagination"></div>
+									<!--<div class="pages notice_pages">
+										<div id="Pagination_noticeList"  class="pagination-pages"></div>
 										<div class="searchPage">
 											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
 											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
 											<a href="javascript:;" class="page-btn">确定</a>
 										</div>
-									</div>
+									</div>-->
+					
 									
 								</div>
 							</div>
@@ -1279,6 +1276,7 @@
 	
 	
 </script>
+<script src="../js/common_msg.js"></script>
 
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
