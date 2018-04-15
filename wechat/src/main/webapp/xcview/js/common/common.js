@@ -367,6 +367,8 @@ function commonLocalStorageRemoveItem(data){
 	localStorage.removeItem("occupationOther");
 	localStorage.removeItem("occupationText");
 	
+	//localStorage.setItem("openid", openId);
+	localStorage.removeItem("openid");
 
 	//删除  登录时用到的cookie
 	cookie.delete1("_uc_t_");

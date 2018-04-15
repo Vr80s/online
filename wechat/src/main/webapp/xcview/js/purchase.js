@@ -209,6 +209,11 @@ function  goPay() {
         if(stringnull(openId)){
         	strparam+="&openId="+openId;
         }
+        
+        /*
+         * 如果检测到这个openId没有，那么请让登录下
+         * 	 
+         */
         jmpPayPage("/xczh/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse,false));
     }
 }

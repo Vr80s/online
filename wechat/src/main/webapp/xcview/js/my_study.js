@@ -92,13 +92,13 @@ var all_history="";
 //即将直播
 	$(".paly_ing_all_now").click(function(){
 			var courseId_now=$(this).attr("data-ppdnow");
-			requestService("/xczh/history/add",
-			{courseId:courseId_now}
-			,function(data) {
-
-			})	
-			location.href="details.html?courseId="+courseId_now
-		})
+//			requestService("/xczh/history/add",
+//			{courseId:courseId_now}
+//			,function(data) {
+//			})	
+			//location.href="details.html?courseId="+courseId_now
+		 location.href="/xcview/html/live_play.html?my_study="+courseId_now;	
+	})
 	})	
 	
 //我关注的主播
