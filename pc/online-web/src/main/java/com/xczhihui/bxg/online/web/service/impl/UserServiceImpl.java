@@ -260,7 +260,7 @@ public class UserServiceImpl implements UserService {
 		initSystemVariate();
 		
 		//验证超时
-		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 1000 * 60
+		if (System.currentTimeMillis() - codes.get(0).getCreateTime().getTime() > 1000 * 60
 				* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 			return "此链接已超时，请重新注册！";
 		}
@@ -314,7 +314,7 @@ public class UserServiceImpl implements UserService {
 		initSystemVariate();
 		
 		//动态码超时
-		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 1000 * 60
+		if (System.currentTimeMillis() - codes.get(0).getCreateTime().getTime() > 1000 * 60
 				* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 			throw new RuntimeException ("动态码超时，请重新发送！");
 		}
@@ -407,7 +407,7 @@ public class UserServiceImpl implements UserService {
 		initSystemVariate();
 		
 		//验证超时，如果超时删除验证码
-		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 1000 * 60
+		if (System.currentTimeMillis() - codes.get(0).getCreateTime().getTime() > 1000 * 60
 				* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 			dao.delete(codes.get(0));
 			return "验证超时，请重新发送！";

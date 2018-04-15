@@ -376,6 +376,15 @@ $('#deleteTip .confirm-sure').click(function(){
 		})
 
 	})
+	
+	$(".hos_name").blur(function(){
+		
+		$(".hide").show();
+		
+	});
+	
+	
+	
 
 	// 可是我点击验证效果
 	var arr = [];

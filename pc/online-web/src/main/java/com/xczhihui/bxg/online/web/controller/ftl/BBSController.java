@@ -11,15 +11,14 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
@@ -65,8 +64,9 @@ public class BBSController extends AbstractController {
         Page<PostVO> list = postService.list(page, labelId, type);
         list.getRecords().forEach(post -> post.setContent(HtmlUtil.getTextFromHtml(post.getContent())));
         modelAndView.addObject("posts", list);
-        modelAndView.addObject("top3Labels", labels.size() >= 3 ? labels.subList(0, 3) : labels);
-        modelAndView.addObject("otherLabels", labels.size() > 3 ? labels.subList(3, labels.size()) : new ArrayList<>());
+        int labelSize = labels.size();
+        modelAndView.addObject("top3Labels",  labelSize >= 3 ? labels.subList(0, 3) : labels);
+        modelAndView.addObject("otherLabels", labelSize > 3 ? labels.subList(3, labelSize >= 6 ? 6 : labelSize) : new ArrayList<>());
         modelAndView.addObject("hots", postService.listHot());
         modelAndView.addObject("type", type);
         modelAndView.addObject("labelId", labelId);

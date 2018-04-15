@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
+import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -32,15 +32,15 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
     List<MedicalFieldVO> selectMedicalFieldsByDoctorId(String doctorId);
 
-    List<MedicalWritingsVO> getWritingsByDoctorId(String doctorId);
+    List<MedicalWritingVO> getWritingsByDoctorId(String doctorId);
 
-    MedicalWritingsVO getWritingsDetailsById(String writingsId);
+    MedicalWritingVO getWritingsDetailsById(String writingsId);
 
-    List<MedicalWritingsVO> getRecentlyWritings();
+    List<MedicalWritingVO> getRecentlyWritings();
 
     List<MedicalDoctorVO> getHotSpecialColumnAuthor(String specialColumn);
 
-    List<MedicalWritingsVO> getWritingsByPage(Page<MedicalWritingsVO> page);
+    List<MedicalWritingVO> getWritingsByPage(Page<MedicalWritingVO> page);
 
     void insertSelective(@Param("medicalDoctor") MedicalDoctor medicalDoctor);
 

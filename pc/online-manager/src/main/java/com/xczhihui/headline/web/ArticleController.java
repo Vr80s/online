@@ -32,7 +32,7 @@ import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.utils.Group;
 
 /**
- * 博学社文章管理控制层实现类
+ * 文章管理
  * 
  * @author yxd
  */

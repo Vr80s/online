@@ -2,32 +2,31 @@
  * Created by admin on 2017/1/3.
  */
 $(function () {
-	
-	
-	//顶部医师字体变色
-	$('.forum').css('color','#000');
-	$('.path .doctor').addClass('select');
-	
-	//登入之后进行判断 右侧医师入驻入口是否有
-	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-	  	if(data.success == true){
-	  		//判断
-	  		if(data.resultObject == 1 ){
-	  			//医师认证成功
-	  			$('.forum-hosJoin').addClass('hide');
-	  		}else{
-	  			$('.forum-hosJoin').removeClass('hide');
-	  		}
-	  	}else if(data.success == false && data.errorMessage == "请登录！" ){
-	  		$('.forum-hosJoin').removeClass('hide');
-	  	}
-	  });
-	
-	
-	
+
+
+    //顶部医师字体变色
+    $('.forum').css('color', '#000');
+    $('.path .doctor').addClass('select');
+
+    //登入之后进行判断 右侧医师入驻入口是否有
+    RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
+        if (data.success == true) {
+            //判断
+            if (data.resultObject == 1) {
+                //医师认证成功
+                $('.forum-hosJoin').addClass('hide');
+            } else {
+                $('.forum-hosJoin').removeClass('hide');
+            }
+        } else if (data.success == false && data.errorMessage == "请登录！") {
+            $('.forum-hosJoin').removeClass('hide');
+        }
+    });
+
+
     /*相关课程*/
-    $(".path a").each(function(){
-        if($(this).text()=="博学社"){
+    $(".path a").each(function () {
+        if ($(this).text() == "博学社") {
             $(this).addClass("select").siblings().removeClass("select");
         }
     });
@@ -40,18 +39,18 @@ $(function () {
         }
         return str;
     });
-    template.helper("plainContent",function(content){
+    template.helper("plainContent", function (content) {
         return $(content).text();
     });
-    template.helper("tagGroup",function(tagName,tagId){
-        tagName=JSON.parse(tagName);
-        tagId=JSON.parse(tagId);
-        var str="";
-        for(var i=0;i<tagName.length;i++){
-            if(i==tagName.length-1){
-                str+='<a href="/web/html/forumBiaoqian.html?tagId='+tagId[i]+'" target="_blank">'+tagName[i]+'</a>';
-            }else{
-                str+='<a href="/web/html/forumBiaoqian.html?tagId='+tagId[i]+'" target="_blank">'+tagName[i]+'</a>'+"<span style='color:#999;margin:0 3px'>,</span>";
+    template.helper("tagGroup", function (tagName, tagId) {
+        tagName = JSON.parse(tagName);
+        tagId = JSON.parse(tagId);
+        var str = "";
+        for (var i = 0; i < tagName.length; i++) {
+            if (i == tagName.length - 1) {
+                str += '<a href="/web/html/forumBiaoqian.html?tagId=' + tagId[i] + '" target="_blank">' + tagName[i] + '</a>';
+            } else {
+                str += '<a href="/web/html/forumBiaoqian.html?tagId=' + tagId[i] + '" target="_blank">' + tagName[i] + '</a>' + "<span style='color:#999;margin:0 3px'>,</span>";
             }
         }
         return str;
@@ -62,27 +61,27 @@ $(function () {
         "<div class='no-title'>暂无数据</div>" +
         "</div>";
     var articleBanner = '{{each articleBanner}}' +
-            '{{if $index==0}}'+
+        '{{if $index==0}}' +
         '<li style="z-index: 2">' +
         '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center;background-size:100% 100%">' +
         // '<div class="banner-info">' +
         // '<span class="banner-type">{{$value.name}}</span>' +
         // '<span class="banner-title">{{$value.title}}</span>' +
         // '</div>' +
-        '<div class="image-overlay"></div>'+
+        '<div class="image-overlay"></div>' +
         '</a>' +
         '</li>' +
-        '{{else}}'+
+        '{{else}}' +
         '<li>' +
         '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
         // '<div class="banner-info">' +
         // '<span class="banner-type">{{$value.name}}</span>' +
         // '<span class="banner-title">{{$value.title}}</span>' +
         // '</div>' +
-        '<div class="image-overlay"></div>'+
+        '<div class="image-overlay"></div>' +
         '</a>' +
         '</li>' +
-            '{{/if}}'+
+        '{{/if}}' +
         '{{#selector($index)}}' +
         '{{/each}}';
     var hotArticle = '{{each hotArticle}}' +
@@ -94,27 +93,27 @@ $(function () {
         '<li><a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><em>{{$index+1}}</em><span title="{{$value.title}}">{{$value.title}}</span></li></a>' +
         '{{/if}}' +
         '{{/each}}';
-    var articleType='{{each articleType}}'+
-            '{{if $index==0}}'+
-            '<li class="select" data-articleId="{{$value.id}}"><em class="select"></em>{{$value.name}}</li>'+
-            '{{else}}'+
-            '<li data-articleId="{{$value.id}}"><em class="select1"></em>{{$value.name}}</li>'+
-            '{{/if}}'+
-            '{{/each}}';
-    var articlePaper='{{each articlePaper}}'+
-            '<div class="forum-info clearfix">'+
-            '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>'+
-            '<div class="forum-info-right">'+
-            '<div class="forum-info-title"><a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank">{{$value.title}}</a></div>'+
-            '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>'+
-            '<div class="forum-info-tags">'+
-            '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}'+
-            '<span>{{$value.name}}<em></em>{{dataSub($value.create_time)}}</span>'+
-            '</div></div></div>'+
-            '{{/each}}';
-    var hotTag='{{each hotTag}}'+
-            '<li><a href="/web/html/practitionerListing.html?name=&departmentId={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
-            '{{/each}}';
+    var articleType = '{{each articleType}}' +
+        '{{if $index==0}}' +
+        '<li class="select" data-articleId="{{$value.id}}"><em class="select"></em>{{$value.name}}</li>' +
+        '{{else}}' +
+        '<li data-articleId="{{$value.id}}"><em class="select1"></em>{{$value.name}}</li>' +
+        '{{/if}}' +
+        '{{/each}}';
+    var articlePaper = '{{each articlePaper}}' +
+        '<div class="forum-info clearfix">' +
+        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>' +
+        '<div class="forum-info-right">' +
+        '<div class="forum-info-title"><a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank">{{$value.title}}</a></div>' +
+        '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>' +
+        '<div class="forum-info-tags">' +
+        '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}' +
+        '<span>{{$value.name}}<em></em>{{dataSub($value.create_time)}}</span>' +
+        '</div></div></div>' +
+        '{{/each}}';
+    var hotTag = '{{each hotTag}}' +
+        '<li><a href="/web/html/practitionerListing.html?name=&departmentId={{$value.id}}" target="_blank">{{$value.name}}</a></li>' +
+        '{{/each}}';
     var relativeCourse = '{{each item as $value i}}' +
         "<li>" +
         '{{#indexHref($value.description_show,$value.is_free,$value.id,$value.name)}}' +
@@ -137,7 +136,7 @@ $(function () {
         "</li>" +
         '{{/each}}';
     //请求轮播图部分banner
-    RequestService("/banner/getBannerList", "GET", {type:6}, function (data) {
+    RequestService("/banner/getBannerList", "GET", {type: 6}, function (data) {
         $(".slider").html(template.compile(articleBanner)({
             articleBanner: data.resultObject
         }));
@@ -146,7 +145,7 @@ $(function () {
         }
         init();
     });
-    
+
     //直播课程部分 hot-article
 //    RequestService("/bxs/article/getHotArticle", "GET", null, function (data) {
 //        if(data.resultObject.length==0){
@@ -157,12 +156,12 @@ $(function () {
 //            }));
 //        }
 //    });
-    
-    
+
+
     //文章
-    var list={
-        pageNumber:1,
-        pageSize:6
+    var list = {
+        pageNumber: 1,
+        pageSize: 6
     };
     var articleTypeHeight;
 //    RequestService('/bxs/article/getArticleType',"GET",null,function(data){
@@ -198,14 +197,14 @@ $(function () {
 //        })
 //    });
     //医馆搜索中的热门标签
-    RequestService("/medical/doctor/getHotDepartment","GET",null,function(data){
-        if(data.resultObject.length==0){
+    RequestService("/medical/doctor/getHotDepartment", "GET", null, function (data) {
+        if (data.resultObject.length == 0) {
 //          $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
-			$('.forum-hot-tag > p').html('');
-			$(".forum-hot-tagGround").html('');
-        }else{
+            $('.forum-hot-tag > p').html('');
+            $(".forum-hot-tagGround").html('');
+        } else {
             $(".forum-hot-tagGround").html(template.compile(hotTag)({
-                hotTag:data.resultObject
+                hotTag: data.resultObject
             }))
         }
     });
@@ -267,26 +266,25 @@ $(function () {
 //                css("left", "0").animate({"left": "100%"});
 //        }
 //    });
-    
-    
-    
+
+
     //获取文章列表
-    function paperArticle(){
-        RequestService("/bxs/article/getPaperArticle",'GET',list,function(data){
-            if(data.resultObject.items.length==0){
+    function paperArticle() {
+        RequestService("/bxs/article/getPaperArticle", 'GET', list, function (data) {
+            if (data.resultObject.items.length == 0) {
                 $(".forum-content-info").html(template.compile(emptyDefaul))
-            }else{
+            } else {
                 $(".forum-content-info").html(template.compile(articlePaper)({
-                    articlePaper:data.resultObject.items
+                    articlePaper: data.resultObject.items
                 }));
-                if(data.resultObject.totalPageCount > 1){
+                if (data.resultObject.totalPageCount > 1) {
                     $(".pages").css("display", "block");
-                    if(data.resultObject.currentPage>1){
+                    if (data.resultObject.currentPage > 1) {
                         $(document).scrollTop(articleTypeHeight);
                     }
-                    if(data.resultObject.currentPage == 1) {
+                    if (data.resultObject.currentPage == 1) {
                         $("#Pagination").pagination(data.resultObject.totalPageCount, {
-                            callback: function(page) { //翻页功能
+                            callback: function (page) { //翻页功能
                                 list.pageNumber = (page + 1);
                                 paperArticle();
                             }
@@ -298,6 +296,7 @@ $(function () {
             }
         });
     }
+
     //banner
     function init() {
         var $sliders = $('#slider li');
@@ -311,7 +310,8 @@ $(function () {
         function autoChange() {
             if (step === $sliders.length) {
                 step = 0;
-            };
+            }
+            ;
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
             $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
             step++;
@@ -359,147 +359,142 @@ $(function () {
             timer = window.setInterval(autoChange, 2000);
         })
     }
+
     addSelectedMenu();
-    
-    
-    
+
+
     //初始化请求数据
 //  window.hospitalId = null;
-	window.type = "";
-	window.name = "";
+    window.type = "";
+    window.name = "";
     window.current = 1;
-   	window.size = 4;
-    
-    
-    	//国医大师渲染
-	    RequestService("/medical/doctor/getDoctors","GET",{
-			type:4,
-			current:current,
-			size:size
-	    },function(data){
-	        if(data.resultObject.records.length == 0){
-	        	//没有数据处理
-	        	$('#doc_lis1').css('display','none');
+    window.size = 4;
+
+
+    //国医大师渲染
+    RequestService("/medical/doctor/getDoctors", "GET", {
+        type: 4,
+        current: current,
+        size: size
+    }, function (data) {
+        if (data.resultObject.records.length == 0) {
+            //没有数据处理
+            $('#doc_lis1').css('display', 'none');
 //	           alert("国医大师没有数据")
-	        }else{
-	        	//获取到数据渲染
-	           $('#guoyi').html(template('guoyiTpl',{doctor:data.resultObject.records}));
-	        }
-	    });
-    
-    
-    
-		//名老中医
-	    RequestService("/medical/doctor/getDoctors","GET",{
-			type:2,
-			current:current,
-			size:size
-	    },function(data){
-	        if(data.resultObject.records.length == 0){
-	        	//没有数据处理
-	        	$('#doc_lis2').css('display','none');
-	        	
+        } else {
+            //获取到数据渲染
+            $('#guoyi').html(template('guoyiTpl', {doctor: data.resultObject.records}));
+        }
+    });
+
+
+    //名老中医
+    RequestService("/medical/doctor/getDoctors", "GET", {
+        type: 2,
+        current: current,
+        size: size
+    }, function (data) {
+        if (data.resultObject.records.length == 0) {
+            //没有数据处理
+            $('#doc_lis2').css('display', 'none');
+
 //	           alert("名老中医没有数据")
-	        }else{
-	        	//获取到数据渲染
-	           $('#minglao').html(template('minglaoTpl',{doctor:data.resultObject.records}));
-	        }
-	    });
-	    
-	    //名青中医
-	    RequestService("/medical/doctor/getDoctors","GET",{
-			type:1,
-			current:current,
-			size:size
-	    },function(data){
-	        if(data.resultObject.records.length == 0){
-	        	//没有数据处理
-	        	$('#doc_lis3').css('display','none');
-	        	
+        } else {
+            //获取到数据渲染
+            $('#minglao').html(template('minglaoTpl', {doctor: data.resultObject.records}));
+        }
+    });
+
+    //名青中医
+    RequestService("/medical/doctor/getDoctors", "GET", {
+        type: 1,
+        current: current,
+        size: size
+    }, function (data) {
+        if (data.resultObject.records.length == 0) {
+            //没有数据处理
+            $('#doc_lis3').css('display', 'none');
+
 //	           alert("名老中医没有数据")
-	        }else{
-	        	//获取到数据渲染
-	           $('#mingqing').html(template('mingqingTpl',{doctor:data.resultObject.records}));
-	        }
-	    });
-	    
-	    //古中医
-	    RequestService("/medical/doctor/getDoctors","GET",{
-			type:5,
-			current:current,
-			size:size
-	    },function(data){
-	        if(data.resultObject.records.length == 0){
-	        	//没有数据处理
-	        	$('#doc_lis4').css('display','none');
-	        	
+        } else {
+            //获取到数据渲染
+            $('#mingqing').html(template('mingqingTpl', {doctor: data.resultObject.records}));
+        }
+    });
+
+    //古中医
+    RequestService("/medical/doctor/getDoctors", "GET", {
+        type: 5,
+        current: current,
+        size: size
+    }, function (data) {
+        if (data.resultObject.records.length == 0) {
+            //没有数据处理
+            $('#doc_lis4').css('display', 'none');
+
 //	           alert("名老中医没有数据")
-	        }else{
-	        	//获取到数据渲染
-	           $('#guzhongyi').html(template('guzhongyiTpl',{doctor:data.resultObject.records}));
-	        }
-	    });
-    
-     	//少数民族中医
-	    RequestService("/medical/doctor/getDoctors","GET",{
-			type:3,
-			current:current,
-			size:size
-	    },function(data){
-	        if(data.resultObject.records.length == 0){
-	        	//没有数据处理
-	        	$('#doc_lis5').css('display','none');
-	        	
+        } else {
+            //获取到数据渲染
+            $('#guzhongyi').html(template('guzhongyiTpl', {doctor: data.resultObject.records}));
+        }
+    });
+
+    //少数民族中医
+    RequestService("/medical/doctor/getDoctors", "GET", {
+        type: 3,
+        current: current,
+        size: size
+    }, function (data) {
+        if (data.resultObject.records.length == 0) {
+            //没有数据处理
+            $('#doc_lis5').css('display', 'none');
+
 //	           alert("名老中医没有数据")
-	        }else{
-	        	//获取到数据渲染
-	           $('#shaoshu').html(template('shaoshuTpl',{doctor:data.resultObject.records}));
-	           
-	        }
-	    });
-    
-    
+        } else {
+            //获取到数据渲染
+            $('#shaoshu').html(template('shaoshuTpl', {doctor: data.resultObject.records}));
+
+        }
+    });
+
+
     //点击搜索按钮
-    $('.search_hos_btn').click(function(){
-    	//编码
-    	var name = jQuery.trim($('.search_hos').val());
-    	console.log(name)
-    	var searchUrl =encodeURI('/web/html/practitionerListing.html?name='+name);  
+    $('.search_hos_btn').click(function () {
+        //编码
+        var name = jQuery.trim($('.search_hos').val());
+        var searchUrl = encodeURI('/web/html/practitionerListing.html?name=' + name);
 //  	window.open('/web/html/doctor_list.html?name='+name); 
-  		window.location.href =searchUrl;
+        window.location.href = searchUrl;
     })
-    
-    
+
+
 //      名医报道
-	    RequestService("/medical/doctor/getRecentlyNewsReports","GET",null,function(data){
-	        if(data.success==false||data.resultObject.length == 0){
-	        	//没有数据处理
+    RequestService("/medical/doctor/getRecentlyNewsReports", "GET", null, function (data) {
+        if (data.success == false || data.resultObject.length == 0) {
+            //没有数据处理
+            $('.school_teacher').addClass('hide')
+        } else {
+            //获取到数据渲染
+            console.log(data)
+            $('#doctor_baodao').html(template('doctor_baodaoTpl', {doctor: data.resultObject}));
+        }
+    });
+
+
+    //      名医书籍
+    RequestService("/medical/doctor/getRecentlyWritings", "GET", null, function (data) {
+        if (data.success == false || data.resultObject.length == 0) {
+            //没有数据处理
 //	           alert("名医推荐没有数据")
-	           $('.school_teacher').addClass('hide')
-	        }else{
-	        	//获取到数据渲染
-	        	console.log(data)
-	           $('#doctor_baodao').html(template('doctor_baodaoTpl',{doctor:data.resultObject}));
-	        }
-	    });
-	    
-	    
-	    
-	    //      名医书籍
-	    RequestService("/medical/doctor/getRecentlyWritings","GET",null,function(data){
-	        if(data.success==false || data.resultObject.length == 0){
-	        	//没有数据处理
-//	           alert("名医推荐没有数据")
-	           $('.teacher_books').addClass('hide')
-	        }else{
-	        	//获取到数据渲染
-	        	console.log(data)
-	           $('#boos_list').html(template('doctor_bookTpl',{book:data.resultObject}));
-	        }
-	    });
-    
-    
-    
+            $('.teacher_books').addClass('hide')
+        } else {
+            //获取到数据渲染
+            console.log(data)
+            $('#boos_list').html(template('doctor_bookTpl', {book: data.resultObject}));
+        }
+    });
+
+
     //医师入驻跳转页面
 //  $('#toDocJoin').click(function(){
 //  	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
@@ -537,54 +532,53 @@ $(function () {
 //	       }
 //	    });
 //  })
-    
-    
+
+
     //医师页面的医师入驻入口点击跳转效果
-    $('#toDocJoin').click(function(){
-    	 RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-    	 	if(data.success == true){
-    	 		//请求数据成功进行判断 
-    	 		if($('.login').css('display') == 'block' && data.resultObject == 2 ){
-    	 			//登录并且入驻了医馆了
-    	 			$('#tip').text('您已完成了医馆认证，不能进行医师认证！');
-	       			$('#tip').toggle();
-	       			setTimeout(function(){
-	       				$('#tip').toggle();
-	       			},2000)
-    	 		}else if($('.login').css('display') == 'block' && data.resultObject == 1){
-    	 			//注册医师成功
-    	 			window.location.href = "/web/html/anchors_resources.html";
-    	 		}else if($('.login').css('display') == 'block' && data.resultObject == 7 ){
-    	 			//登录了并且都没有注册过
-    	 			window.location.href = "/web/html/ResidentDoctor.html";
-    	 		}else if($('.login').css('display') == 'block' && data.resultObject == 3  || data.resultObject == 5 || data.resultObject == 6){
-    	 			//登录了 并且注册了没有通过的
-    	 			window.location.href = "/web/html/ResidentDoctor.html";
-    	 		}else if(data.resultObject == 4 ){
+    $('#toDocJoin').click(function () {
+        RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
+            if (data.success == true) {
+                //请求数据成功进行判断
+                if ($('.login').css('display') == 'block' && data.resultObject == 2) {
+                    //登录并且入驻了医馆了
+                    $('#tip').text('您已完成了医馆认证，不能进行医师认证！');
+                    $('#tip').toggle();
+                    setTimeout(function () {
+                        $('#tip').toggle();
+                    }, 2000)
+                } else if ($('.login').css('display') == 'block' && data.resultObject == 1) {
+                    //注册医师成功
+                    window.location.href = "/web/html/anchors_resources.html";
+                } else if ($('.login').css('display') == 'block' && data.resultObject == 7) {
+                    //登录了并且都没有注册过
+                    window.location.href = "/web/html/ResidentDoctor.html";
+                } else if ($('.login').css('display') == 'block' && data.resultObject == 3 || data.resultObject == 5 || data.resultObject == 6) {
+                    //登录了 并且注册了没有通过的
+                    window.location.href = "/web/html/ResidentDoctor.html";
+                } else if (data.resultObject == 4) {
                     //登录并且入驻了医馆了
                     $('#tip').text('您已提交医馆认证，暂时不能进行医师认证！');
                     $('#tip').toggle();
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $('#tip').toggle();
-                    },2000)
+                    }, 2000)
                 }
-    	 	}else if(data.success == false && data.errorMessage == "请登录！"){
-    	 		window.location.href = "/web/html/practitionerRegister.html";
-    	 	}else{
-    	 		//请求数据有误
-    	 		$('#tip').text('服务器繁忙');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},2000)
-    	 	}
-    	 });
+            } else if (data.success == false && data.errorMessage == "请登录！") {
+                window.location.href = "/web/html/practitionerRegister.html";
+            } else {
+                //请求数据有误
+                $('#tip').text('服务器繁忙');
+                $('#tip').toggle();
+                setTimeout(function () {
+                    $('#tip').toggle();
+                }, 2000)
+            }
+        });
     })
-    
-    
- 
+
+
 });
 
-function addSelectedMenu(){
-	$(".forum").addClass("select");
+function addSelectedMenu() {
+    $(".forum").addClass("select");
 }
