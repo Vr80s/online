@@ -377,10 +377,40 @@ $('#deleteTip .confirm-sure').click(function(){
 
 	})
 	
+//	医馆名称失焦
 	$(".hos_name").blur(function(){
-		
-		$(".hide").show();
-		
+		if($(".hos_name").val() == ""){
+			$(".hosName_warn").removeClass("hide");
+		}else{
+			$(".hosName_warn").addClass("hide");
+		};
+	});
+	
+//	所属公司失焦
+	$(".doc_name").blur(function(){
+		if($(".hos_name").val() == ""){
+			$(".company_warn").removeClass("hide");
+		}else{
+			$(".company_warn").addClass("hide");
+		};
+	});
+	
+//	统一社会信用代码失焦
+	$(".doc_Idnum").blur(function(){
+		if($(".doc_Idnum").val() == ""){
+			$(".zhizhaoNum_warn").removeClass("hide");
+		}else{
+			$(".zhizhaoNum_warn").addClass("hide");
+		};
+	});
+	
+//	药品经营许可证失焦
+	$(".doc_zhicheng").blur(function(){
+		if($(".doc_zhicheng").val() == ""){
+			$(".xukeNum_warn").removeClass("hide");
+		}else{
+			$(".xukeNum_warn").addClass("hide");
+		};
 	});
 	
 	

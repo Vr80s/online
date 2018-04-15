@@ -80,7 +80,7 @@
 				<div class="practitioner_input">
 					<ul>
 						<form action="" method="post">
-							<li><input type="text" name="" id="" value="" class="phoneNum" placeholder="请输入正确的手机号"/><span class="phone_warn warning" style="margin-left: 0;">请输入手机号</span></li>
+							<li><input type="text" name="" id="" value="" class="phoneNum" placeholder="请输入正确的手机号" maxlength="11"/><span class="phone_warn warning" style="margin-left: 0;">请输入手机号</span></li>
 							<li><input type="text" name="" id="" value="" class="nikeName" placeholder="请输入昵称" maxlength="20"/><span class="nikeName_warn warning" style="margin-left: 0px;width: 480px;">支持中文、字母、数字、'-'、'_'的组合，20个字符内</span></li>
 							<li class="imgVertifyCode"><input type="text" name="" id="" value="" class="imgCode" placeholder="请输入动态码"/><img src="/online/verificationCode/vcode?t=" style="height: 36px;margin-left: 20px;"><span class="imgVertifyCode_warn warning" style="margin-left: 0;">请输入手机号</span></li>
 							<li class="my_code"><input type="text" name="" id="" value="" class="code" placeholder="请输入验证码"/><button type="button" onclick="btn_cade()">获取验证码</button><span class="my_code_warn warning" style="margin-left: 0;">请输入手机号</span></li>
@@ -162,7 +162,7 @@
 	if(nikename == '' ||  nikename.length > 20){
 		$(".nikeName_warn").css('display','block');
 		return false;
-	}else if(nikename.length < 4 ){
+	}else if(nikename.length < 0 ){
 		$(".nikeName_warn").text('长度只能在20个字符之内');
 		$(".nikeName_warn").css('display','block');
 		return false;
@@ -282,7 +282,6 @@
   	
 //	昵称失去焦点
   	$(".nikeName").blur(function(){
-    	
 	var phoneNum = $.trim($('.phoneNum').val());
 	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
 	var nikename = $.trim($('.nikeName').val());
@@ -293,7 +292,7 @@
 		if(nikename == '' ||  nikename.length > 20){
 			$(".nikeName_warn").css('display','block');
 			return false;
-		}else if(nikename.length < 4 ){
+		}else if(nikename.length < 0 ){
 			$(".nikeName_warn").text('长度只能在20个字符之内');
 			$(".nikeName_warn").css('display','block');
 			return false;
@@ -305,8 +304,6 @@
   	
   	
   	$(".imgCode").blur(function(){
-    	
-	  
 		var phoneNum = $.trim($('.phoneNum').val());
 		var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
 		var nikename = $.trim($('.nikeName').val());
@@ -320,17 +317,13 @@
 		}else{
 			$(".imgVertifyCode_warn").css('display','none');
 		}
-			
   	});
-  	
-  	
   	
   	$(".code").blur(function(){
 	  	var phoneNum = $.trim($('.phoneNum').val());
 		var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
 		var nikename = $.trim($('.nikeName').val());
 		var imgCode = $.trim($('.imgCode').val());
-		
 		var msgCode = $.trim($('.code').val());
 
 	  	//短信验证码
@@ -343,7 +336,6 @@
 		}
   	
 	});
-	
 	
 	$(".my_password").blur(function(){
 		//密码验证
@@ -361,20 +353,17 @@
 			$(".my_pwd").css('display','none');
 //			$(".my_different").css('display','none');
 		}
-	
 	});
 	
 	
-	
+//	确认密码
 	$(".sure_password").blur(function(){
 		var passWord = $.trim($('.sure_password').val());
 		if(passWord == ''){
-//			$(".my_pwd").css('display','none');
-			$(".my_different").text('请输入6-18位数密码111')
+			$(".my_different").text('请输入6-18位数密码')
 			$(".my_different").css('display','block');
 			return false;
 		}else{
-//			$(".my_pwd").css('display','none');
 			$(".my_different").css('display','none');
 		}
 	

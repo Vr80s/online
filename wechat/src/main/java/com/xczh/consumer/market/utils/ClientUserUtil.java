@@ -231,8 +231,10 @@ public class ClientUserUtil {
 				u.setMenuId(-1);
 				u.setCreateTime(new Date());
 				u.setType(1);
-				String uuid = UUID.randomUUID().toString().replace("-", "");
-				String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(), WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
+
+				String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(), 
+						WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
+				
 				u.setVhallId(weihouUserId);  //微吼id
 				u.setVhallPass(WeihouInterfacesListUtil.MOREN);        //微吼密码
 				//u.setVhallName(u.getId());         //第三方id  
