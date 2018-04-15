@@ -727,6 +727,8 @@ $("#notice-release-btn").click(function(){
 			$(".warning-notice").hide();
 			setTimeout(function(){
 				$("#news_Administration_tabBtn").click();
+//				重新渲染一遍
+				announcementMethod()
 			},2000)
 		})
 	}
@@ -735,24 +737,49 @@ $("#notice-release-btn").click(function(){
 
 var announcementList;
 //公告管理列表接口调用
+announcementMethod(1)
+function announcementMethod(current){
 RequestService("/hospital/announcement","GET",{
-	"pages":5,
-	"size":2
+	"page":current
 },function(data){
 	for(var i=0;i<data.resultObject.records.length;i++){		
 			data.resultObject.records[i].Nownum=getNo(i);
 		}
 	announcementList=data.resultObject.records;
-	$('#notice_tbody_wrap').html(template('notice_tbody', {items:data.resultObject.records}));
-
+//	if(announcementList.length == 0 || announcementList.length == null){
+//		
+//	}else{
+		$('#notice_tbody_wrap').html(template('notice_tbody', {items:data.resultObject.records}));
+//	}
+	
+	
+	//每次请求完数据就去渲染分页部分
+//      if (data.resultObject.pages > 1) { //分页判断
+//          $(".not-data").remove();
+//          $(".notice_pages").css("display", "block");
+//          $(".notice_pages .searchPage .allPage").text(data.resultObject.pages);
+//          $("#Pagination_noticeList").pagination(data.resultObject.pages, {
+//              num_edge_entries: 1, //边缘页数
+//              num_display_entries: 4, //主体页数
+//              current_page:current-1,
+//              callback: function (page) {
+//                  //翻页功能
+//                  announcementMethod(page+1);
+//              }
+//          });
+//      } else {
+//          $(".course_pages").css("display", "none");
+//      }
 })
 function getNo(i){
 		i++;
 		return i;
 	}
-
-//function courseVodList(current) {
+	
+}
+//function courseVodList(current){
 //		RequestService("/hospital/announcement?size=3&page=" + current, "get", null, function(data) {
+//			
 //			//每次请求完数据就去渲染分页部分
 //			if(data.resultObject.pages > 1) { //分页判断
 //				$(".not-data").remove();
@@ -968,7 +995,17 @@ $(".notice_preview_content img").click(function(){
 	$(".recruit_preview_bg").hide();
 })
 //公告管理部分，点击删除--------------------------------------------------------------
-
+function notice_btn_delete(t){
+	var data_id=$(t).attr("data-id");
+	comfirmBox.open("公告","确定删除该条公告吗？",function(closefn){
+		RequestService("/hospital/announcement/"+data_id+"","DELETE",null,function(){
+			closefn();
+			showTip("删除成功");
+//			重新渲染一遍
+			announcementMethod()
+		})
+	});
+}
 
 
 
