@@ -23,23 +23,12 @@ import com.xczh.consumer.market.service.WxcpPayFlowService;
 import com.xczh.consumer.market.service.WxcpWxRedpackService;
 import com.xczh.consumer.market.service.WxcpWxTransService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
 
 @Controller
 @RequestMapping("/xczh/order")
 public class MyOrderController {
 	@Autowired
 	private OnlineOrderService onlineOrderService;
-	@Autowired
-	private OnlineUserService onlineUserService;
-	@Autowired
-	private WxcpClientUserWxMappingService wxService;
-	@Autowired
-	private WxcpPayFlowService wxcpPayFlowService;
-	@Autowired
-	private WxcpWxRedpackService wxcpWxRedpackService;
-	@Autowired
-	private WxcpWxTransService wxcpWxTransService;
 	@Autowired
 	private AppBrowserService appBrowserService;
 	

@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.AppBrowserService;
@@ -41,7 +40,6 @@ import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
@@ -53,6 +51,7 @@ import com.xczhihui.user.center.bean.UserOrigin;
 import com.xczhihui.user.center.bean.UserSex;
 import com.xczhihui.user.center.bean.UserStatus;
 import com.xczhihui.user.center.bean.UserType;
+import com.xczhihui.wechat.course.util.XzStringUtils;
 
 /**
  * 用户controller
@@ -554,7 +553,7 @@ public class OnlineUserController {
         	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
           }
           if(email!=null && !XzStringUtils.checkEmail(email)){
-        	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
+        	  return ResponseObject.newErrorResponseObject("请输入正确的");
           }
           
           userCenterAPI.update(user.getLoginName(),nickname,sex!=null ? Integer.parseInt(sex) : 3,email, null, 10, 10);

@@ -22,12 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.service.MessageService;
 import com.xczh.consumer.market.service.OnlineCourseService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
@@ -39,8 +36,10 @@ import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
+import com.xczhihui.bxg.online.api.service.RechargesService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.wechat.course.service.ICourseService;
+import com.xczhihui.wechat.course.util.XzStringUtils;
 
 /**
  * 通用控制器 ClassName: CommonController.java <br>
@@ -55,18 +54,12 @@ public class XzCommonController {
 
 	@Autowired
 	private OnlineCourseService onlineCourseService;
-	@Autowired
-	private OnlineUserService onlineUserService;
-	@Autowired
-	private FocusService focusService;
+	
 	@Autowired
 	private AppBrowserService appBrowserService;
 
 	@Autowired
 	private GiftService giftService;
-
-	@Autowired
-	private OnlineWebService onlineWebService;
 	
 	@Autowired
 	private VersionService versionService;
@@ -82,6 +75,9 @@ public class XzCommonController {
 
 	@Autowired
 	private ICourseService courseServiceImpl;
+	
+	@Autowired
+	private RechargesService rechargesService;
     
     
 	@Value("${returnOpenidUri}")
@@ -336,8 +332,7 @@ public class XzCommonController {
 			if (mapCourseInfo.get("description") != null) {
 				String description = mapCourseInfo.get("description")
 						.toString();
-				description = com.xczh.consumer.market.utils.XzStringUtils
-						.delHTMLTag(description);
+				description = XzStringUtils.delHTMLTag(description);
 				mapCourseInfo.put("description", description);
 			} else {
 				mapCourseInfo.put("description", "");
@@ -468,6 +463,29 @@ public class XzCommonController {
 			@RequestParam("id")String id) throws Exception {
 		return ResponseObject.newSuccessResponseObject(commonApiService.getProblemAnswer(id));
     }
+
+	
+	
+	/**
+	 * Description：获取充值列表
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="rechargeList")
+	@ResponseBody
+	public ResponseObject rechargeList(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+		
+		return ResponseObject.newSuccessResponseObject(rechargesService.getRecharges());
+    }
+	
+	
+	
+	
 	
 	public String getSign(Map<String, String> signkv) {
 		Set<String> keySet = signkv.keySet();

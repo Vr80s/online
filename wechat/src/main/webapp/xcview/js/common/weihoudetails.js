@@ -113,7 +113,6 @@ $(document).ready(function() {
 	 */
     VHALL_SDK.on('chatMsg', function(msg) {
     	var userName = msg.user_name;
-    	
     	if(msg.role == "host"){ //说明是主播
     		var hostName = sessionStorage.getItem("hostName");
     		userName = "<span class='span_zhubo'>主播</span>"+ (stringnull(hostName) ?  hostName : "");

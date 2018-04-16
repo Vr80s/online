@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineCourseService;
-import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -38,6 +36,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IFocusService;
 import com.xczhihui.wechat.course.service.IMyInfoService;
+import com.xczhihui.wechat.course.util.XzStringUtils;
 import com.xczhihui.wechat.course.vo.CourseLecturVo;
 
 /**
@@ -62,13 +61,7 @@ public class MyManagerController {
 	private OnlineUserService onlineUserService;
 
 	@Autowired
-	private OnlineCourseService onlineCourseService;
-
-	@Autowired
 	private AppBrowserService appBrowserService;
-
-	@Autowired
-	private OnlineOrderService onlineOrderService;
 
 	@Autowired
 	private EnchashmentService enchashmentService;
@@ -600,7 +593,7 @@ public class MyManagerController {
 		if(!StringUtils.isNotBlank(userName)){
 			userName = user.getLoginName();
 		}
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(userName)){
+		if(!XzStringUtils.checkPhone(userName)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/**
@@ -657,7 +650,7 @@ public class MyManagerController {
 		if(!StringUtils.isNotBlank(userName)){
 			userName = user.getLoginName();
 		}
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(userName)){
+		if(!XzStringUtils.checkPhone(userName)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/**

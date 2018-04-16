@@ -56,8 +56,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	//数据字典
 	private Map<String, String> attrs = new HashMap<String, String>();
 	
-	//private String  password = RandomUtil.getCharAndNumr(6);
-	
 	
 	@Override
 	public OnlineUser findUserById(String id) throws SQLException {
@@ -109,7 +107,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		if(!codes.get(0).getVcode().equals(code)){
 			return ResponseObject.newErrorResponseObject("动态码不正确！");
 		}
-		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
+		
+		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 
+		1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
+			
 			return ResponseObject.newErrorResponseObject("动态码超时，请重新发送！");
 		}
 		return ResponseObject.newSuccessResponseObject("动态码正确！");
@@ -254,9 +255,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			return "用户已禁用！";
 		}
 		
-		// 产生随机4位动态码
+		//产生随机4位动态码
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
-		
 		//vcode = "1234";
 		
 		List<VerificationCode> codes = null;
@@ -270,19 +270,23 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				
 			VerificationCode code = codes.get(0);
 			
-			if (new Date().getTime() - code.getCreateTime().getTime() < 1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
+			if (new Date().getTime() - code.getCreateTime().getTime() < 
+					1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
 				//发送，判断邮箱还是手机
 				if (username.contains("@")){
 					return "同一邮箱两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！";
 				}else{
 					return "同一手机号两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！";
 				}
-			} else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60
-					* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
-				code.setVcode(vcode);
-			} else {
-				vcode = code.getVcode();
-			}
+			} 
+//			else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60 
+//					* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
+//				
+//				code.setVcode(vcode);
+//			} else {
+//				vcode = code.getVcode();
+//			}
+			code.setVcode(vcode);
 			code.setCreateTime(new Date());
 			try {
 				onlineUserDao.updateVerificationCode(code);
@@ -499,11 +503,14 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				}else{
 					return "同一手机号两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！";
 				}
-			} else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
-				code.setVcode(vcode);
-			} else {
-				vcode = code.getVcode();
-			}
+			} 
+//			如果十分钟内的话，发送的验证码都一样了。			
+//			else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
+//				code.setVcode(vcode);
+//			} else {
+//				vcode = code.getVcode();
+//			}
+			code.setVcode(vcode);
 			code.setCreateTime(new Date());
 			try {
 				onlineUserDao.updateVerificationCode(code);

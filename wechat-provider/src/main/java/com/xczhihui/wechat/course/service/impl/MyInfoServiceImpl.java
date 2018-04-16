@@ -13,6 +13,7 @@ import com.xczhihui.bxg.common.util.enums.UserSex;
 import com.xczhihui.wechat.course.mapper.MyInfoMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.service.IMyInfoService;
+import com.xczhihui.wechat.course.util.XzStringUtils;
 import com.xczhihui.wechat.course.vo.OnlineUserVO;
 
 /**
@@ -42,31 +43,29 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 
 	@Override
 	public List<Map<String, Object>> selectWithdrawalList(Integer pageNumber,Integer pageSize,String userId) {
-		// TODO Auto-generated method stub
 		return myInfoMapper.selectWithdrawalList(pageNumber,pageSize,userId);
 	}
 
 	@Override
 	public void updateUserSetInfo(OnlineUserVO user) {
-		// TODO Auto-generated method stub
 		
-		//验证信息长度
 		if(user.getSex()!=null && !UserSex.isValid(user.getSex())){
 			throw new RuntimeException("性别不合法,0 女  1男   2 未知");
 		}
 		
 		if(StringUtils.isNotBlank(user.getName()) 
-				&&(user.getName().length()>15 ||user.getName().length()<2)){
-			throw new RuntimeException("用户昵称长度在2-15之间");
+				&&(user.getName().length()>20)){
+			throw new RuntimeException("昵称最多允许输入20个字符");
 		}
 		if(StringUtils.isNotBlank(user.getEmail()) && 
 				 (user.getEmail().length()>32 || user.getEmail().length()<5)){
 			throw new RuntimeException("邮件长度在5-32之间");
         }
 		
-		if(StringUtils.isNotBlank(user.getEmail())){
+		if(!XzStringUtils.checkEmail(user.getEmail())){
 			throw new RuntimeException("邮箱格式有误");
 		}
+		
 		
         myInfoMapper.updateUserSetInfo(user);
 		

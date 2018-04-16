@@ -26,20 +26,17 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.wechat.course.service.IMyInfoService;
+import com.xczhihui.wechat.course.util.XzStringUtils;
 import com.xczhihui.wechat.course.vo.OnlineUserVO;
 
 /**
@@ -55,16 +52,9 @@ public class XzUserSetController {
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
-	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-	@Autowired
 	private UserCenterAPI userCenterAPI;
 	@Autowired
-	private WxcpClientUserService wxcpClientUserService;
-	@Autowired
 	private CacheService cacheService;
-
-	@Autowired
-	private UserCoinService userCoinService;
 	@Autowired
 	private OLAttachmentCenterService service;
 	@Autowired

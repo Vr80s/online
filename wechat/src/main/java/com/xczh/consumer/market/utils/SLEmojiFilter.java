@@ -53,11 +53,13 @@ public class SLEmojiFilter {
 	 * @return
 	 */
 	public static String filterEmoji(String source) {
+		
 		if (source == null) {
 			return null;
 		}
 		source = source.replaceAll(
-				"[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "*");
+				"[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "");
+		
 		if (!containsEmoji(source)) {
 			return source;// 如果不包含，直接返回
 		}
