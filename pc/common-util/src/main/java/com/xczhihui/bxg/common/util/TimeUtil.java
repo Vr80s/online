@@ -1,6 +1,4 @@
-package com.xczhihui.bxg.online.common.utils;
-
-import org.springframework.util.StringUtils;
+package com.xczhihui.bxg.common.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -290,7 +288,7 @@ public class TimeUtil {
 	 * @return
 	 */
 	public static long getTimeLong(String time){
-		if (!StringUtils.hasText(time)) {
+		if (!IStringUtil.isNotBlank(time)) {
 			return 0;
 		}
 		long timeLong = 0;

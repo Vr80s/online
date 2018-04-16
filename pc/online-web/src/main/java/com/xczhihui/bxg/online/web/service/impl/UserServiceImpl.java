@@ -15,7 +15,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.bxg.online.common.utils.RandomUtil;
+import com.xczhihui.bxg.common.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -34,7 +34,6 @@ import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.ImageUtil;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.api.vo.JobVo;
 import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.VerificationCode;

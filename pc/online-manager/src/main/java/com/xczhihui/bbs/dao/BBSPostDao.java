@@ -43,12 +43,12 @@ public class BBSPostDao extends SimpleHibernateDao {
                 mapSqlParameterSource);
     }
 
-    public int changeDeleteStatus(List<Integer> ids, boolean deleted) {
+    public int changeDeleteStatus(List<Integer> ids) {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("ids", ids).addValue("deleted", deleted);
+        mapSqlParameterSource.addValue("ids", ids);
         return this
                 .getNamedParameterJdbcTemplate()
-                .update("UPDATE quark_posts SET is_delete = :deleted WHERE is_delete != :deleted AND id IN (:ids)",
+                .update("UPDATE quark_posts SET is_delete = !is_delete WHERE id IN (:ids)",
                         mapSqlParameterSource);
     }
 

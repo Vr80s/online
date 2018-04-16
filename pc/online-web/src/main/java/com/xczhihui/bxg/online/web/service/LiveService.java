@@ -13,7 +13,6 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
 
 /**
- *   LecturerService:讲师业务层接口类
  * * @author Rongcai Kang
  */
 public interface LiveService {

@@ -764,6 +764,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				u.getId(),
 				WeihouInterfacesListUtil.MOREN,wx.getNickname(),
 				wx.getHeadimgurl());
+		
+		
 		u.setVhallId(weihouUserId);  //微吼id
 		u.setVhallName(wx.getNickname());
 		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码

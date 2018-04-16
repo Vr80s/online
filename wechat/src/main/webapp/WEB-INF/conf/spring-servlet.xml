@@ -217,5 +217,9 @@
     <!-- 附件服务 -->
     <dubbo:reference interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService" id="attachmentCenterService" timeout="12000"/>
 
+    <!--订单服务-->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IOrderService" id="orderService" timeout="12000"/>
+
+
 
 </beans>

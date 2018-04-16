@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.common.utils;
+package com.xczhihui.bxg.common.util;
 
 import java.util.Random;
 

@@ -144,7 +144,6 @@ public class OrderInputController {
                 }
                 v.setOrder_from(Integer.valueOf(row.getCell(3)
                         .getStringCellValue()));
-                service.checkOrderInput(v);
                 v.setCreate_person(ManagerUserUtil.getId());
                 lv.add(v);
             }
@@ -153,13 +152,13 @@ public class OrderInputController {
                 service.addUser(ov.getLogin_name());
                 Thread.sleep(100);
             }
+            service.checkOrderInput(v);
             service.addOrders(lv);
             book.close();
             Gson g = new GsonBuilder().create();
             res.setCharacterEncoding("utf-8");
             res.setContentType("text/html;charset=utf-8");
-            res.getWriter().print(
-                    g.toJson(ResponseObject.newSuccessResponseObject(null)));
+            res.getWriter().print(g.toJson(ResponseObject.newSuccessResponseObject(null)));
         } catch (Exception e) {
             e.printStackTrace();
             Gson g = new GsonBuilder().create();

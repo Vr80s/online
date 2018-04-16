@@ -26,7 +26,7 @@ public class MedicalWritingVO implements Serializable {
     private String imgPath;
     private String remark;
     private boolean status;
-    private Date createTime;
+    private Date updateTime;
     private List<MedicalDoctorVO> medicalDoctors;
 
     public String getId() {
@@ -101,12 +101,12 @@ public class MedicalWritingVO implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
@@ -120,7 +120,7 @@ public class MedicalWritingVO implements Serializable {
                 ", imgPath='" + imgPath + '\'' +
                 ", remark='" + remark + '\'' +
                 ", status=" + status +
-                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 ", medicalDoctors=" + medicalDoctors +
                 '}';
     }

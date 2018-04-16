@@ -1,10 +1,13 @@
 package com.xczh.consumer.market.controller.pay;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.wechat.course.model.Order;
+import com.xczhihui.wechat.course.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,15 +34,7 @@ public class MyOrderController {
 	@Autowired
 	private OnlineOrderService onlineOrderService;
 	@Autowired
-	private OnlineUserService onlineUserService;
-	@Autowired
-	private WxcpClientUserWxMappingService wxService;
-	@Autowired
-	private WxcpPayFlowService wxcpPayFlowService;
-	@Autowired
-	private WxcpWxRedpackService wxcpWxRedpackService;
-	@Autowired
-	private WxcpWxTransService wxcpWxTransService;
+	private IOrderService orderService;
 	@Autowired
 	private AppBrowserService appBrowserService;
 	
@@ -49,8 +44,6 @@ public class MyOrderController {
 	/**
 	 * 生成订单  	订单来源，1：pc 2：h5 3:android 4 ios 5 线下 6 工作人员
 	 * @param req
-	 * @param res
-	 * @param params  
 	 * @return
 	 * @throws Exception
 	 */
@@ -65,14 +58,16 @@ public class MyOrderController {
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
-		return onlineOrderService.addOrder(courseId,user.getId(),orderFrom);
+		Order order = orderService.createOrder(user.getUserId(), courseId, orderFrom);
+		Map returnMap = new HashMap();
+		returnMap.put("orderNo", order.getOrderNo());
+		returnMap.put("orderId",order.getId());
+		return ResponseObject.newSuccessResponseObject(returnMap);
 	}
 	
 	/**
 	 * 根据订单id获取信息
 	 * @param req
-	 * @param res
-	 * @param params
 	 * @return
 	 * @throws Exception
 	 */

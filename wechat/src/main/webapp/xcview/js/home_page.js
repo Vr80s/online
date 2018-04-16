@@ -450,15 +450,16 @@ function jump_play(id){
 //          	localStorage.save_adress=url_adress;
                location.href ="/xcview/html/evpi.html";
             }else{
-            requestService("/xczh/history/add",
-               {
-               	courseId:id,
-               recordType:2
-               }
-               ,function(data) {
-      
-               }) 
-            location.href="/xcview/html/details.html?courseId="+id
+//            requestService("/xczh/history/add",
+//               {
+//               	courseId:id,
+//               recordType:2
+//               }
+//               ,function(data) {
+//      
+//               }) 
+              //location.href="/xcview/html/details.html?courseId="+id
+            	location.href="/xcview/html/live_play.html?my_study="+id;	
             }
          }else if(userPlay.watchState==1 && userPlay.lineState==4){
             if (falg==1002){
@@ -468,12 +469,13 @@ function jump_play(id){
 //             	localStorage.save_adress=url_adress;
                   location.href ="/xcview/html/evpi.html";
                }else{
-                  requestService("/xczh/history/add",
-                     {courseId:id,recordType:2}
-                     ,function(data) {
-            
-                     }) 
-                  location.href="/xcview/html/details.html?courseId="+id  
+//                  requestService("/xczh/history/add",
+//                     {courseId:id,recordType:2}
+//                     ,function(data) {
+//            
+//                     }) 
+//                  location.href="/xcview/html/details.html?courseId="+id 
+            	   location.href="/xcview/html/live_play.html?my_study="+id;	
                }
          }
 //购买后的直播和即将直播跳直播间
@@ -501,12 +503,14 @@ function jump_play(id){
 					})	
 				location.href="/xcview/html/details.html?courseId="+id				
 			}else if(userPlay.watchState==3 && userPlay.lineState==4){
-				requestService("/xczh/history/add",
-					{courseId:id,recordType:2}
-					,function(data) {
-		
-					})	
-				location.href="/xcview/html/details.html?courseId="+id				
+//				requestService("/xczh/history/add",
+//					{courseId:id,recordType:2}
+//					,function(data) {
+//		
+//					})	
+				//location.href="/xcview/html/details.html?courseId="+id				
+			
+				location.href="/xcview/html/live_play.html?my_study="+id;	
 			}
 			else if(userPlay.watchState==1){			
 				location.href="/xcview/html/live_play.html?my_study="+id				

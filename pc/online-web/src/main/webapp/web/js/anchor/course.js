@@ -1312,7 +1312,7 @@ function saveResource(){
                     showTip(data.resultObject);
                     showResourceList();
                 } else {
-                    showTip(data.errorMessage())
+                    showTip(data.errorMessage)
                 }
             }
         });

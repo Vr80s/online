@@ -12,7 +12,7 @@ public interface BBSPostService {
 
     int updateTopStatus(List<Integer> ids);
 
-    int updateDeleteStatus(List<Integer> ids, boolean deleted);
+    int updateDeleteStatus(List<Integer> ids);
 
     int updateHotStatus(List<Integer> ids);
 }

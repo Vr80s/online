@@ -19,6 +19,7 @@
         <dependency>
             <groupId>com.xczhihui</groupId>
             <artifactId>common-util</artifactId>
+            
         </dependency>
 
         <dependency>

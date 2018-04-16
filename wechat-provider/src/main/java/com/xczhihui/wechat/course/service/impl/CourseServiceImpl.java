@@ -1,17 +1,15 @@
 package com.xczhihui.wechat.course.service.impl;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.model.Course;
 import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>

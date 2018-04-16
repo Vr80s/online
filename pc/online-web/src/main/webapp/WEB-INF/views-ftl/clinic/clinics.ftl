@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!--[if IE 9]>
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
-    <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IEedge">
 
     <title>熊猫中医医馆-中医药传承创新平台</title>
@@ -188,7 +185,8 @@
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
     $(function(){
-        $(".hospital-tab").addClass("selected");
+        debugger
+        $(".hospital-tab").addClass("select");
 
         //登入之后进行判断 右侧医师入驻入口是否有
         RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){

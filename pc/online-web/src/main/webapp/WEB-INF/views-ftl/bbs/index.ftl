@@ -39,8 +39,8 @@
             <table class="kinds" id="kinds_id">
                 <tbody>
                 <tr>
-                    <td rowspan='2' style="<#if !(type??) || !(labelId??)>background-color:#e2e2e2</#if>">
-                        <a href='${webUrl}/bbs'>
+                    <td rowspan='2' style="<#if !(labelId??)>background-color:#e2e2e2</#if>">
+                        <a href='${webUrl}/bbs<#if type??>?type=${type}</#if>'>
                             <img style='vertical-align: bottom;' src='../web/images/bbs/all.png' alt=''>
                             <br>
                             <span style='display: inline-block;vertical-align: top;margin-top: -20px;margin-left: 67px;'>
@@ -49,8 +49,8 @@
                         </a>
                     </td>
                 <#list top3Labels as label>
-                    <td style="<#if (type?? && labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
-                        <a href='${webUrl}/bbs?type=label&labelId=${label.id}'>
+                    <td style="<#if (labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
+                        <a href='${webUrl}/bbs?labelId=${label.id}<#if type??>&type=${type}</#if>'>
                             <img style='margin-right:10px' src="${label.labelImgUrl}">${label.name}
                         </a>
                     </td>
@@ -58,8 +58,8 @@
                 </tr>
                 <tr>
                 <#list otherLabels as label>
-                    <td style="<#if (type?? && labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
-                        <a href='${webUrl}/bbs?type=label&labelId=${label.id}'><img style='margin-right:10px'
+                    <td style="<#if (labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
+                        <a href='${webUrl}/bbs?labelId=${label.id}<#if type??>&type=${type}</#if>'><img style='margin-right:10px'
                                                                            src=${label.labelImgUrl}>${label.name}</a>
                     </td>
                 </#list>
@@ -69,9 +69,9 @@
 
             <div class="fly-tab fly-tab-index">
         <span>
-          <a href="${webUrl}/bbs" class="all <#if !(type??) || type=='label'>color</#if>">全部</a>
-          <a href="${webUrl}/bbs?type=hot" class="hot <#if type?? && type=='hot'>color</#if>">热门</a>
-          <a href="${webUrl}/bbs?type=good" class="good <#if type?? && type=='good'>color</#if>">精品</a>
+          <a href="${webUrl}/bbs<#if labelId??>?labelId=${labelId}</#if>" class="all <#if !(type??)>color</#if>">全部</a>
+          <a href="${webUrl}/bbs?type=hot<#if labelId??>&labelId=${labelId}</#if>" class="hot <#if type?? && type=='hot'>color</#if>">热门</a>
+          <a href="${webUrl}/bbs?type=good<#if labelId??>&labelId=${labelId}</#if>" class="good <#if type?? && type=='good'>color</#if>">精品</a>
         </span>
                 <div>
                     <a onclick="addPost()" class="layui-btn jie-add">发布帖子</a>
