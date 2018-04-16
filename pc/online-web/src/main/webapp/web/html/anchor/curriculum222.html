@@ -69,7 +69,7 @@
 	<!--<script src="/web/js/anchor/jquery.citys.js?version=b527ac4aef" type="text/javascript" charset="utf-8"></script> -->
 	<script src="/web/js/anchor/provinces.js?version=d871e22958"></script>
 	<script src="/web/js/anchor/pages/jquery.pagination-course.js?version=3dbe205fda"></script>
-	<script src="/web/js/anchor/course.js?version=ef2e84e136" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/anchor/course2.js?version=ef2e84e136" type="text/javascript" charset="utf-8"></script>
 	<script src="/web/js/anchor/information.js?version=c5973c9608" type="text/javascript" charset="utf-8"></script>
 
 	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js?version=3e304adcb4"></script>
@@ -77,7 +77,7 @@
 	<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js?version=324d921eed"></script>
 
 	<!--修改点击切换隐藏第一二页-->
-	<script src="/web/js/anchor/switchover.js?version=3511cfa7cb" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/anchor/switchover2.js?version=3511cfa7cb" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/web/js/swfobject.js?version=699027eb66"></script>
 	
 	<!--时间插件引入-->
@@ -700,7 +700,7 @@
 		<!--右边课程/直播/资源/div内容-->
 		<div class="wrap_box y">
 			<!--课程-->
-			<div class="little_box hide" id="curriculum">
+			<div class="little_box " id="curriculum">
 	
 				<!--第二页-->
 				<div class="curriculum_one">
@@ -1738,7 +1738,7 @@
 		
 		<!--收益部分-->
 		<div class="myResive" class="hide">
-			<div class="little_box1 hide">
+			<div class="little_box1 ">
 				<!--课程收益部分-->
 				<div  id="kecheng_Resive" >
 					<div class="kecheng_Resive_top">
@@ -1979,7 +1979,8 @@
 		
 		<!--帐号开始  账户有单独的css -->
 		<div class="account" class="hide">   <!--account_mains  这是点击选择右侧div-->
-			<!--医师认证开始-->
+			<div>
+				<!--医师认证开始-->
 			<div class="begin_approve account_main account_mains account_main_message">
 				<!--医师认证开始-->
 				<div class="physician physician_one">
@@ -2058,7 +2059,7 @@
 				</div>
 				<!--医馆认证结束-->
 			</div>
-			<div class="account_main account_main_alter physician_two_two">
+			<div class="account_main account_main_alter physician_two_two hide">
 				<!--医师认证开始-->
 				<div class="physician physician_two hide">
 					<div class="account_main_alter_title">
@@ -2378,9 +2379,11 @@
 				<!--医馆认证结束-->
 			</div>
 			<!--医师认证结束-->
+			</div>
+			
 	
-	
-			<!--个人信息开始-->
+			<div class="hide">
+				<!--个人信息开始-->
 			<div class="account_main account_mains personal_details">
 				<div class="personal_details_title">主播信息</div>
 					<hr style="margin-left: -30px;margin-right: -30px;margin-top: 0px !important;margin-bottom: 30px !important;color:#f0f0f0 !important;">
@@ -2438,7 +2441,7 @@
 					<div class="two" id="detailAddress"></div>
 				</div>
 			</div>
-			<div class="account_main message_return">
+			<div class="account_main message_return hide">
 				<div class="message_title">
 					<div class="one">主播信息修改</div>
 					<div class="two">返回</div>
@@ -2558,6 +2561,8 @@
 			</div>
 	
 	
+			</div>
+			
 		</div>
 		<!--帐号结束-->
 	</div>
