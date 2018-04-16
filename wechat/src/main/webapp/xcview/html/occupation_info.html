@@ -201,14 +201,12 @@ pre:after {
           var yonghuNameLength;
           var nikeName = $("#occupationOther").val().trim();
           if(nickNameReg.test(nikeName)){
-                yonghuNameLength = nickName();
+                //yonghuNameLength = nickName();
             }else{
-                yonghuNameLength=0;
+              webToast("不能为空，内容只能在中文、字母、数字之间","middle",1500);
+              return false;
+                //yonghuNameLength=0;
             }
-	      if(yonghuNameLength > 20 || yonghuNameLength < 4){
-	         webToast("不能为空，长度只能在4-20个字符之间","middle",1500);
-	          return false;
-	      }
 	      
 	        var falg =setuserInfoWechat("occupationOther");
 	        //验证名称的合法性

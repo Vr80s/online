@@ -43,11 +43,11 @@ public class GiftStatementDao extends HibernateDao<Course> {
 				sql.append(" and ou1.name like :giver ");
 			}
 			break;
-		case 3:// 收到人
+		case 3:// 主播账号
 			if (giftStatementVo.getSearchCondition() != null) {
 				paramMap.put("receiver",
 						"%" + giftStatementVo.getSearchCondition() + "%");
-				sql.append(" and ou2.name like :receiver ");
+				sql.append(" and ou2.login_name like :receiver ");
 			}
 			break;
 		case 4:// 订单编号

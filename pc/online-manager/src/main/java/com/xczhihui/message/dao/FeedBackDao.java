@@ -13,6 +13,9 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 意见反馈
  * 
@@ -59,34 +62,37 @@ public class FeedBackDao extends HibernateDao<Menu> {
 	 */
 	public com.xczhihui.bxg.common.util.bean.Page<Message> findPageMessages(
 			MessageVo vo, String orderByName, int pageNumber, int pageSize) {
-		DetachedCriteria dc = DetachedCriteria.forClass(Message.class);
-		dc.add(Restrictions.eq("isDelete", false));
-		dc.add(Restrictions.eq("type", 2));
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder(
+				"select om.id as id,om.user_id as userId,om.title as title,om.type as type,om.context as context," +
+						"om.status as status,om.create_person as createPerson,om.create_time as createTime,om.lasttime as lastTime," +
+						" om.pid as pid,om.readstatus as readstatus,om.answerStatus as answerStatus from oe_message om LEFT JOIN oe_user ou ON ou.id=om.user_id " +
+						"where 1=1 and om.is_delete = 0 and om.type = 2 ");
 		if (StringUtils.isNotEmpty(vo.getTitle())) {
-			dc.add(Restrictions.like("title", "%" + vo.getTitle() + "%"));
+			paramMap.put("title", "%" + vo.getTitle() + "%");
+			sql.append("and om.title like :title ");
+		}
+		if (StringUtils.isNotEmpty(vo.getUserName())) {
+			paramMap.put("userName", "%" + vo.getUserName() + "%");
+			sql.append("and ou.login_name like :userName ");
 		}
 		if (vo.getAnswerStatus() != null && vo.getAnswerStatus() != -1) {
-			if (vo.getAnswerStatus() != 0) {
-				dc.add(Restrictions.eq("answerStatus", vo.getAnswerStatus()));
-			} else {
-				dc.add(Restrictions.or(
-						Restrictions.eq("answerStatus", vo.getAnswerStatus()),
-						Restrictions.isNull("answerStatus")));
-			}
+				paramMap.put("answerStatus", vo.getAnswerStatus());
+				sql.append("and om.answerStatus = :answerStatus ");
 		}
-		if (!StringUtils.isEmpty(vo.getTime_start())) {
-			dc.add(Restrictions.ge("createTime",
-					TimeUtil.parseDate(vo.getTime_start() + " 00:00:00")));
+		if (!org.springframework.util.StringUtils.isEmpty(vo.getTime_start())) {
+			sql.append(" and om.create_time >=:startTime");
+			paramMap.put("startTime",
+					TimeUtil.parseDate(vo.getTime_start() + " 00:00:00"));
 		}
-		if (!StringUtils.isEmpty(vo.getTime_end())) {
-			dc.add(Restrictions.le("createTime",
-					TimeUtil.parseDate(vo.getTime_end() + " 23:59:59")));
+		if (!org.springframework.util.StringUtils.isEmpty(vo.getTime_end())) {
+			sql.append(" and om.create_time <=:endTime");
+			paramMap.put("endTime",
+					TimeUtil.parseDate(vo.getTime_end() + " 23:59:59"));
 		}
-		Order order = Order.asc(orderByName);
-		dc.addOrder(order);
-		Order order1 = Order.desc("createTime");
-		dc.addOrder(order1);
-		return this.findPageByCriteria(dc, pageNumber, pageSize);
+		sql.append(" order by om.answerStatus,om.create_time desc");
+		return this.findPageBySQL(sql.toString(), paramMap,
+				Message.class, pageNumber, pageSize);
 	}
 
 	/**

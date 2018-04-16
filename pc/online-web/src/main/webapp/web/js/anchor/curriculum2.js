@@ -984,7 +984,7 @@ $('#zhuanjis_bottom .baocun #submits').click(function(){
 	
 })
 
-//添加课程为空开始     提交课程
+//添加课程为F空开始     提交课程
 $('#ziyuan_bottom .baocun #submit').click(function(){
 //	添加课程为空
 	var ResourceTitle = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
@@ -1000,12 +1000,12 @@ $('#ziyuan_bottom .baocun #submit').click(function(){
 	}
 	
 	//封面图
-	if(ResourceUploading == ''){
+	/*if(ResourceUploading == ''){
 		$('#ziyuan_bottom .warning1').removeClass('hide');
 		return false;
 	}else{
 		$('#ziyuan_bottom .warning1').addClass('hide');
-	}
+	}*/
 	
 	//上传资源
 	if(resourcePut == ''){
@@ -1342,17 +1342,17 @@ function uploadFile() {
         return false;
     }
     $("#continueUpload").hide();
+    $('.progress-resource').css({
+        "width": "0%"
+    })
+    $("#ziyuan_bottom .resource_uploading").show();
+    $("#mask").removeClass('hide')
+    $("#ziyuan_bottom .uploadfinish").hide();
+    $("#ziyuan_bottom .updataSuccess").hide();
     //获取文件md5
     browserMD5File(obj_file, function (err, md5) {
         filemd5=md5;
         localStorage.setItem("fileMD5", filemd5);
-        $('.progress-resource').css({
-            "width": "0%"
-        })
-        $("#ziyuan_bottom .resource_uploading").show();
-        $("#mask").removeClass('hide')
-        $("#ziyuan_bottom .uploadfinish").hide();
-        $("#ziyuan_bottom .updataSuccess").hide();
         xmx(0,"1",filemd5,"","","")
     });
 }
@@ -1415,7 +1415,6 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
                     $("#ziyuan_bottom .zhuanlan_title").val(fileName);
 				}
                 uploadfinished=true;
-                //alert('上传完成!');
                 //告诉后台上传完成后合并文件                            //返回上传文件的存放路径
             	$(".propress-file").css({"border":"0","overflow":"inherit"})          
             	$("#btn_width").css({"opacity":"1","width":"auto","z-index":"100","left":"0"})
@@ -1424,11 +1423,9 @@ function xmx(begin,first,filemd5,ccid,metaurl,chunkUrl) {
             }
         }else {
             $("#continueUpload").show();
-            //alert('上传失败');
 		}
     }).fail(function() {
         $("#continueUpload").show();
-        //alert('上传失败!');
 
     });
 
@@ -1460,19 +1457,6 @@ function isAccord(filepath) {
             return false;
         }
 	}
-    /*if (ext != ".WMV" && ext != ".WM" && ext != ".ASF" && ext != ".ASX" &&
-		ext != ".RM"&& ext != ".RMVB" && ext != ".RA" && ext != ".RAM" && ext != ".MPG"
-        && ext != ".MPEG" && ext != ".MPE" && ext != ".VOB" && ext != ".DAT"
-        && ext != ".MOV" && ext != ".3GP" && ext != ".MP4" && ext != ".MP4V"
-        && ext != ".M4V" && ext != ".MKV" && ext != ".AVI" && ext != ".FLV"
-        && ext != ".F4V" && ext != ".MTS" && ext != ".MP3" && ext != ".WAV"
-        && ext != ".AIF" && ext != ".AIFF" && ext != ".AU" && ext != ".SND"
-        && ext != ".VOC" && ext != ".RA" && ext != ".MIDRMI" && ext != ".WMA"
-        && ext != ".APE" && ext != ".FLAC" && ext != ".AAC" && ext != ".M4A"
-        && ext != ".VQF" ) {
-        showTip("文件格式有误")
-        return false;
-    }*/
     return true;
 }
 
