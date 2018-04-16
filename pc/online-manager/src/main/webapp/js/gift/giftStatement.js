@@ -31,7 +31,7 @@ function loadOrderList() {
         {title: '单价', "class": "center", "width": "97px", "data": 'price', "sortable": false},
         {title: '数量', "class": "center", "width": "97px", "data": 'count', "sortable": false},
         {title: '赠送人', "class": "center", "width": "8%", "data": 'giver', "sortable": false},
-        {title: '主播账号', "class": "center", "width": "8%", "data": 'loginName', "sortable": false},
+        {title: '主播帐号', "class": "center", "width": "8%", "data": 'loginName', "sortable": false},
         {title: '主播昵称', "class": "center", "width": "8%", "data": 'receiver', "sortable": false},
         {
             title: '支付方式',
@@ -44,7 +44,7 @@ function loadOrderList() {
 //        	if(data == 0){
 //        		payType = "支付宝支付\n"+row.payTime;
 //            }else if(data == 1){
-                payType = "账户余额\n" + row.createTime;
+                payType = "帐户余额\n" + row.createTime;
 //            }else if(data == 2){
 ////            	payType = "网银支付\n"+row.payTime;
 //            }else{

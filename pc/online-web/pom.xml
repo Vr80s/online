@@ -327,6 +327,7 @@
                     <suffixs>
                         <param>html</param>
                         <param>jsp</param>
+                        <param>ftl</param>
                     </suffixs>
                     <!-- 清理html 页面注释-->
                     <clearPageComment>false</clearPageComment>
@@ -349,7 +350,7 @@
                         <filter>src/main/resources/${env}/config.properties</filter>
                     </filters>
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                    <warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes>
+                    <warSourceExcludes>**/*.html,**/*.jsp,**/*.ftl</warSourceExcludes>
                 </configuration>
             </plugin>
         </plugins>

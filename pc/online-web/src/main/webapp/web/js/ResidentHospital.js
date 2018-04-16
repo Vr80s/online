@@ -708,7 +708,7 @@ $(".recruit-save-btn-menuone").click(function(){
 		
 		$.ajax({
 			type:"POST",
-			url:"/medical/hospitalRecruit",
+			url:bath+"/medical/hospitalRecruit",
 			data:JSON.stringify({
 				"position":$recruit_text,
 				"years":dataNumber,
