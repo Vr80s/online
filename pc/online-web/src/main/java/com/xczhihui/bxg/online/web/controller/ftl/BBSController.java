@@ -9,6 +9,7 @@ import java.util.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +32,7 @@ import com.xczhihui.bxg.online.web.body.PostBody;
 import com.xczhihui.bxg.online.web.body.ReplyBody;
 import com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
+import com.xczhihui.bxg.online.web.utils.HttpUtil;
 import com.xczhihui.medical.bbs.model.Label;
 import com.xczhihui.medical.bbs.model.Post;
 import com.xczhihui.medical.bbs.model.Reply;
@@ -58,7 +60,7 @@ public class BBSController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(@RequestParam(required = false) String type, @RequestParam(required = false) Integer labelId,
-                              @RequestParam(defaultValue = "1") int page) {
+                              @RequestParam(defaultValue = "1") int page, HttpServletResponse response) {
         List<Label> labels = postService.getLabels();
         ModelAndView modelAndView = new ModelAndView("bbs/index");
         Page<PostVO> list = postService.list(page, labelId, type);
@@ -71,6 +73,7 @@ public class BBSController extends AbstractController {
         modelAndView.addObject("type", type);
         modelAndView.addObject("labelId", labelId);
 
+        HttpUtil.disableHttpWebCache(response);
         return modelAndView;
     }
 

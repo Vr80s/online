@@ -1,6 +1,7 @@
 package com.xczhihui.medical.hospital.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -43,6 +44,16 @@ public class MedicalHospitalRecruitVO implements Serializable {
     private String jobRequirements;
 
     private Boolean status;
+
+    private Date updateTime;
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public String getCity() {
         return city;

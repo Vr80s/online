@@ -1156,6 +1156,7 @@ color: #999999;
 .recruit-select ul li {
 	line-height: 30px;
 	padding-left: 10px;
+	cursor: pointer;
 }
 
 .recruit-select ul li:hover {
@@ -1191,6 +1192,7 @@ color: #999999;
 	border-radius: 4px;
 	margin-bottom: 60px;
 	cursor: pointer;
+	border: 0;
 }
 /*招聘管理预览*/
 .recruit_preview_bg{
@@ -1370,13 +1372,16 @@ margin-right: 5px;
     font-size: 14px;
     margin-right: 20px;
 }
+.notice_notext_two,
 .notice_notext_icon{
 	display: none;
 	padding: 89px 0;
 }
+.notice_notext_two,
 .notice_notext_icon img{
 	
 }
+.notice_notext_two,
 .notice_notext_icon p{
 	    font-size: 16px;
     color: #999;

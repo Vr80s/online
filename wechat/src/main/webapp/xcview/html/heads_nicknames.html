@@ -95,6 +95,11 @@
 <script src="/xcview/js/common/jquery.photoClip.js"></script>
 
 <script>
+var openId = getQueryString("openId");
+if(stringnull(openId)){
+	localStorage.setItem("openid", openId);
+}
+alert(openId);
 var obUrl = ''
 //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 $("#clipArea").photoClip({

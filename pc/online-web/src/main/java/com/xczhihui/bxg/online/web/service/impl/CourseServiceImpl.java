@@ -7,12 +7,10 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.CourseSubscribeDao;
 import com.xczhihui.bxg.online.web.dao.ScoreTypeDao;
 import com.xczhihui.bxg.online.web.service.CourseService;
-import com.xczhihui.bxg.online.web.service.LecturerService;
 import com.xczhihui.bxg.online.web.vo.*;
 import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
@@ -38,9 +36,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
     @Autowired
     private CourseDao coursedao;
-
-    @Autowired
-    private LecturerService service;
 
     @Autowired
     private CourseSubscribeDao courseSubscribeDao;
@@ -187,17 +182,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     @Override
     public List<CourseLecturVo>  getRecommendedCourse(Integer menuId) {
         List<CourseLecturVo> clvs=  coursedao.getRecommendedCourse(menuId);
-        //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-        if(!CollectionUtils.isEmpty(clvs)){
-            for (CourseLecturVo courseLecturVo :clvs) {
-                List<LecturVo> lecturVos = service.findLecturerById(courseLecturVo.getId());
-                if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() == 1){
-                    courseLecturVo.setName(lecturVos.get(0).getName());
-                }else if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() > 1) {
-                    courseLecturVo.setName(lecturVos.get(0).getName()+"等");
-                }
-            }
-        }
         return clvs;
     }
 
@@ -209,17 +193,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     @Override
     public List<CourseLecturVo> getRecommendCourse (Integer num){
             List<CourseLecturVo> clvs=  coursedao.getRecommendCourse(num);
-            //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-            if(!CollectionUtils.isEmpty(clvs)){
-                for (CourseLecturVo courseLecturVo :clvs) {
-                    List<LecturVo> lecturVos = service.findLecturerById(courseLecturVo.getId());
-                    if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() == 1){
-                        courseLecturVo.setName(lecturVos.get(0).getName());
-                    }else if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() > 1) {
-                        courseLecturVo.setName(lecturVos.get(0).getName()+"等");
-                    }
-                }
-            }
            return  clvs;
     }
 

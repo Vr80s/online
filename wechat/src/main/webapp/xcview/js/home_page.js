@@ -1,12 +1,8 @@
 
-
 var openId = getQueryString("openId");
 if(stringnull(openId)){
     localStorage.setItem("openid",openId);
 }
-
-
-
 
 /**
  * 根据不同的tab进行学堂的分类查询
@@ -24,10 +20,6 @@ function schoolQuery(begin){
         listenSchool();
     }
 }
-
-
-
-
 
 //分类  模块开始 ----------------------------------------
 
@@ -62,9 +54,6 @@ function typeSchool(){
    })
 }
 //分类  模块结束 ============================================
-
-
-
 
 //推荐模块开始 ----------------------------------------
 
@@ -154,14 +143,10 @@ function recommendSchool(){
     //推荐模块结束
 
 }
-
 //推荐模块结束  =====================================================
 
-
 //线下课开始-------------------------------------------------------------------
-
 function lineWork(){
-
     //线下课开始-------------------------------------------------------------------
     requestService("/xczh/bunch/offLine",null,
         function(data) {
@@ -233,12 +218,8 @@ function lineWork(){
 }
 //线下课结束 ================================================
 
-
-
-//直播开始-----------------------------------------------------------
-																						
+//直播开始-----------------------------------------------------------																		
 function liveSchool(){
-
     requestService("/xczh/live/onlineLive",null,
         function(data) {
             if(data.success){
@@ -272,54 +253,23 @@ function liveSchool(){
             })
             //swiper轮播结束
             if(data.success==true){
-                
-//              var sameDay='<p class="p3" style="margin-top: 0.03rem;"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top: 0.08rem;">{{item.startDateStr}}</span></p>'
-//				var noDay='<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>'			
-//              var wrapArrnull=data.resultObject.allCourseList;
-//              for(var i=0;i<wrapArrnull.length;i++){
-//              	var haveData=wrapArrnull[i]
-//              	for(var j=0;j<haveData.courseList.length;j++){
-//              		var haveStatus=haveData.courseList[j]
-//              		if(haveStatus.startDateStr.indexOf(":") == -1){
-//              			haveStatus.timeStr=1
-//              		}else{
-//              			haveStatus.timeStr=0
-//              		}
-//              	}
-//              }
                 $(".newests").html(template('newests',{items:data.resultObject.allCourseList}))
-                /*var myHeight=$(".tjks").height();
-                $(".gieTa").height(myHeight);*/
-
                 $(".newest_title").click(function(){
-
                     var lineState=$(this).attr("lineState");
-
                     window.location.href="/xcview/html/curriculum_table.html?courseType=3&lineState="+lineState+"";
                 })
-
-
             }
-
-
-
         })
 }
 
 //直播结束  ========================================
 
-
-
 //听课开始   --------------------------------------------------
-
 function listenSchool(){
-
     //听课开始
-
     requestService("/xczh/bunch/listenCourse",null,
         function(data) {
             if(data.success){
-
                 //swiper轮播开始
                 var result_listen = data.resultObject.banner.records;
                 var str_listen ="";
@@ -357,10 +307,7 @@ function listenSchool(){
 	            })
 			}
 
-          
-
         })
-
 }
 
 //听课结束 ====================================================
@@ -388,8 +335,6 @@ function listenSchool(){
 //	    spaceBetween: 10
 //	});
 //});
-
-
 
 //})
 //JQ预加载分界线----------------------------------------------------------------
@@ -429,7 +374,7 @@ function listenSchool(){
 //	})
 //}
 //学堂
-//学堂/直播课程跳转
+//学堂/直播课程跳转     0收费    1免费    2已购
 //var url_adress=window.location.href;
 function jump_play(id){
    requestService("/xczh/course/details?courseId="+id,null,function(data) {
@@ -450,16 +395,16 @@ function jump_play(id){
 //          	localStorage.save_adress=url_adress;
                location.href ="/xcview/html/evpi.html";
             }else{
-//            requestService("/xczh/history/add",
-//               {
-//               	courseId:id,
-//               recordType:2
-//               }
-//               ,function(data) {
-//      
-//               }) 
-              //location.href="/xcview/html/details.html?courseId="+id
-            	location.href="/xcview/html/live_play.html?my_study="+id;	
+            requestService("/xczh/history/add",
+               {
+               	courseId:id,
+               recordType:2
+              }
+               ,function(data) {
+      
+               }) 
+              location.href="/xcview/html/details.html?courseId="+id
+            	// location.href="/xcview/html/live_play.html?my_study="+id;	
             }
          }else if(userPlay.watchState==1 && userPlay.lineState==4){
             if (falg==1002){
@@ -519,9 +464,6 @@ function jump_play(id){
 				location.href="/xcview/html/school_play.html?course_id="+id				
 				
 			}
-
- 
- 
 })
    }
 //学堂/推荐/课程跳转结束
@@ -593,7 +535,6 @@ function clickBanner(id){
 
     });
 }
-
 
 //点击学习判断游客
 var falg =authenticationCooKie();

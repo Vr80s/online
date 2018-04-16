@@ -102,6 +102,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	}
 
 	@Override
+	public OnlineUser getUserByLoginName(String loginName) {
+		return dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", loginName);
+	}
+
+	@Override
 	public List<Map<String, Object>> getAllCourseName() {
 		return dao.getAllCourseName();
 	}

@@ -48,6 +48,13 @@
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js">
 		</script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+		
+		<style type="text/css">
+			.border_hide_null{
+				border: 1px solid red !important;
+			}
+		</style>
+		
 	</head>
 
 	<body>
@@ -136,7 +143,7 @@
 
 										<div>
 											<span><em>*</em>医馆名称</span>
-											<input type="text" placeholder="请输入医馆名称" maxlength="20" class="doc_zhicheng" />
+											<input type="text" placeholder="请输入医馆名称" maxlength="20" class="doc_zhicheng doc_zhichengs" />
 											<span class="hosName_warn warning hide" style="margin-left: 0px;">医馆名称不能为空</span>
 										</div>
 
@@ -265,7 +272,7 @@
 
 									<div>
 										<span><em>*</em>药品经营许可证号</span>
-										<input type="text" placeholder="请输入正确的药品经营许可证号" maxlength="18" class="doc_zhicheng" />
+										<input type="text" placeholder="请输入正确的药品经营许可证号" maxlength="18" class="doc_zhicheng doc_zhichengs" />
 										<span class="xukeNum_warn warning hide" style="margin-left: 0px;">请输入正确的药品经营许可证号不能为空</span>
 									</div>
 
@@ -581,77 +588,99 @@
 									<div class="recruit-box-manage">
 										<div class="recruit-wrap-content">
 											<table border="" cellspacing="" cellpadding="" class="recruit-table-list">
-												<tr>
-													<th>招聘职位</th>
-													<th>工作经验</th>
-													<th>状态</th>
-													<th>发布时间</th>
-													<th>操作</th>
-												</tr>
-												
-												<tr>
-													<td>针推医生助理</td>
-													<td>不限</td>
-													<td>已发布</td>
-													<td>2018.08.08  14:00</td>
-													<td>
-														<a href="javascript:;" class="recruit_preview_btn">预览</a>
-														<a href="javascript:;" class="recruit_close_btn">关闭</a>
-														<a href="javascript:;" class="recruit_edit_btn">编辑</a>
-													</td>
-												</tr>
-												
-												<tr>
-													<td>治未病主任医师</td>
-													<td>3~10年</td>
-													<td>已发布</td>
-													<td>2018.08.08  14:00</td>
-													<td>
-														<a href="" >预览</a>
-														<a href="javascript:;">关闭</a>
-														<a href="javascript:;">编辑</a>
-													</td>
-												</tr>
+												<thead>
+													<tr>
+														<th>招聘职位</th>
+														<th>工作经验</th>
+														<th>状态</th>
+														<th>发布时间</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody id="recruitList-wrap">
+													<script type="text/template" id="recruitList-mould">
+
+													{{each items as item i}}
+													<tr>
+														<td>{{item.position}}</td>
+														{{if item.years == 0}}
+															<td>不限</td>
+															{{else if item.years == 1}}
+															<td>0-1年</td>
+															{{else if item.years == 2}}
+															<td>1-3年</td>
+															{{else if item.years == 3}}
+															<td>3-5年</td>
+															{{else if item.years == 4}}
+															<td>5-10年</td>
+															{{else if item.years == 5}}
+															<td>10年以上</td>
+														{{/if}}
+														{{if item.status == true}}
+															<td>已发布</td>
+														{{else}}
+															<td>已关闭</td>														
+														{{/if}}
+														<td>{{item.publicTime}}</td>
+														<td>
+																{{if item.status==true}}
+																<a href="javascript:;" class="recruit_preview_btn" onclick="recruit_preview_btn({{i}})">预览</a>
+																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="0" onclick="recruit_close_btn(this)">关闭</a>
+																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit({{i}})">编辑</a>
+																{{else}}
+																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit({{i}})">编辑</a>
+																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="1" onclick="recruit_close_btn(this)">发布</a>
+																<a href="javascript:;" class="recruit_delete_btn" data-deleteId="{{item.id}}" onclick="delete_recruit_btn(this)">删除</a>
+																{{/if}}
+														</td>
+													</tr>	
+													{{/each}}
+													</script>
+												</tbody>
 											</table>
+										<!--无数据时的背景图-->
+										<div class="notice_notext_two">
+											<img src="../images/notext_icon.png" alt="无数据">
+											<p>暂无招聘信息</p>
+										</div>
 										</div>		
 									</div>
 								<!--新职位-->
 								<div class="recruit-box-newjob" style="display: none;">
+									<input type="hidden" name="" id="recruitId" value="" />
 									<div class="recruit-newjob-inf">
 										<span><em>*</em> 招聘职位</span>
-										<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="20" class="recruit-write" />
-										<span class="warning hide" style="margin-left: 0px;">招聘职位不能为空</span>
+										<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="20" class="recruit-write recruit-isdata" />
+										<span class="warning hide warning-isdata" style="margin-left: 0px;">招聘职位不能为空</span>
 									</div>
 									<div class="recruit-newjob-experience">
 										<span>工作经验</span>
-										<div class="recruit-select" id="nav">
-											<p class="recruit-select-one">请选择工作经验</p>
+										<!--<div class="recruit-select" id="nav">
+											<p class="recruit-select-one recruit-select-exp">请选择工作经验</p>
 											<ul class="recruit-select-lest">
-												<li>1年以内</li>
-												<li>1-2年</li>
-												<li>2-4年</li>
-												<li>4-6年</li>
-												<li>6-8年</li>
-												<li>8-10年</li>
-												<li>10年以上</li>
+												<li data-number="0">不限</li>
+												<li data-number="1">0-1年</li>
+												<li data-number="2">1-3年</li>
+												<li data-number="3">3-5年</li>
+												<li data-number="4">5-10年</li>
+												<li data-number="5">10年以上</li>
 											</ul>
-										</div>
+										</div>-->
 									</div>
 									<div class="recruit-newjob-duty">
 										<span style="float: left;"><em>*</em>岗位职责</span>
 										<div class="recruit-textarea-duty">				
-											<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
-											<span class="warning hide" style="margin-left: 0px;">岗位职责不能为空</span>	
+											<textarea class="recruit-textarea recruit-textarea-isdata"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
+											<span class="warning hide warning-textarea-isdata" style="margin-left: 0px;">岗位职责不能为空</span>	
 										</div>
 									</div>
 									
 									<div class="recruit-newjob-duty">
 										<span style="float: left;"><em>*</em>职位要求</span>
 										<div class="recruit-textarea-duty">				
-											<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
-											<span class="warning hide" style="margin-left: 0px;">职位要求不能为空</span>	
-											
-											<p class="recruit-save-btn">保存</p>
+											<textarea class="recruit-textarea recruit-textarea-duty-isdata"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
+											<span class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</span>	
+											<button class="recruit-save-btn recruit-save-btn-menuone">保存并发布</button>
 										</div>
 									</div>
 								</div>
@@ -668,12 +697,12 @@
 								<div class="Notice_bottom hide" id="Notice_bottom">
 									<div class="neirong">
 										<span><em>*</em> 公告内容</span>
-										<textarea name="" id="notice-text" cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
+										<textarea name="" id="notice-text" maxlength="100" cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
 										<p class="warning warning-notice" style="display: none;padding-left: 0;">专栏内容不能为空</p>
 									</div>
 	
 									<div class="baocun" style="padding-left: 116px;">
-										<input type="submit" value="发布" id="notice-release-btn" />
+										<button type="submit" value="发布" id="notice-release-btn">发布</button>
 									</div>
 								</div>
 								
@@ -828,36 +857,30 @@
 					</div>
 					
 					<div class="recruit_preview_bigBox">			
-						<div class="recruit_wrap_h1">
+						<div class="recruit_wrap_h1" id="recruit_wrap_mune1">
 							<span class="recruit_preview_h1"><em>*</em>招聘职位</span>
 							<p>招前端阿里十年经验</p>
 						</div>
-						<div class="recruit_wrap_h1">
+						<div class="recruit_wrap_h1" id="recruit_wrap_mune2">
 							<span class="recruit_preview_h1">工作经验</span>
 							<p>5-8年</p>
 						</div>
-						<div class="recruit_wrap_h1">
+						<div class="recruit_wrap_h1" id="recruit_wrap_mune3">
 							<span class="recruit_preview_h1"><em>*</em>岗位职责</span>
 							<p>
-								1、负责公司人员绩效管理、入职培训、员工考勤等各项人事管理组织工作。根据公司的发展规划，通过人事管理与
-								开发，激励员工、提升员工的工作绩效，为公司的可持续发展提供人力资源保障。  2、完善、健全公司各项规章制
-								度，推动公司规范化管理, 对公司的生产现场纪律，会议纪律进行监督，提醒记录，组织并宣传公司的企业文化，提
-								高员工的凝聚力，丰富员工的生活，提升员工的素质。
+								
 							</p>
 						</div>
-						<div class="recruit_wrap_h1">
+						<div class="recruit_wrap_h1" id="recruit_wrap_mune4">
 							<span class="recruit_preview_h1"><em>*</em>职位要求</span>
-							<p>1、负责公司人员绩效管理、入职培训、员工考勤等各项人事管理组织工作。根据公司的发展规划，通过人事管理与
-								开发，激励员工、提升员工的工作绩效，为公司的可持续发展提供人力资源保障。  2、完善、健全公司各项规章制
-								度，推动公司规范化管理, 对公司的生产现场纪律，会议纪律进行监督，提醒记录，组织并宣传公司的企业文化，提
-								高员工的凝聚力，丰富员工的生活，提升员工的素质。
+							<p>
 							</p>
 						</div>		
 					</div>
 				</div>
 				<!--招聘管理预览效果结束-->	
 				<!--招聘管理编辑效果开始-->
-				<div class="recruit_edit_box">
+				<!--<div class="recruit_edit_box" id="recruit_edit_box">
 					<div class="recruit_preview_content">
 						<p class="recruit_preview_title">编辑</p>
 						<img src="../images/rili_close.png"/>
@@ -872,32 +895,31 @@
 						<div class="recruit-select" id="nav">
 							<p class="recruit-select-one">请选择工作经验</p>
 							<ul class="recruit-select-lest">
-								<li>1年以内</li>
-								<li>1-2年</li>
-								<li>2-4年</li>
-								<li>4-6年</li>
-								<li>6-8年</li>
-								<li>8-10年</li>
-								<li>10年以上</li>
+								<li data-number="0">不限</li>
+								<li data-number="1">0-1年</li>
+								<li data-number="2">1-3年</li>
+								<li data-number="3">3-5年</li>
+								<li data-number="4">5-10年</li>
+								<li data-number="5">10年以上</li>
 							</ul>
 						</div>
 					</div>
 					<div class="recruit-newjob-duty recruit_edit_inf">
 						<span style="float: left;"><em>*</em>岗位职责</span>
 						<div class="recruit-textarea-duty">				
-							<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
+							<textarea class="recruit-textarea recruit-textarea-mune1"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
 							<span class="warning hide" style="margin-left: 0px;">岗位职责不能为空</span>	
 						</div>
 					</div>
 					<div class="recruit-newjob-duty recruit_edit_inf">
 						<span style="float: left;"><em>*</em>职位要求</span>
 						<div class="recruit-textarea-duty">				
-							<textarea class="recruit-textarea"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
+							<textarea class="recruit-textarea recruit-textarea-mune2"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
 							<span class="warning hide" style="margin-left: 0px;">职位要求不能为空</span>						
 							<p class="recruit-save-btn" style="margin-bottom: 0px;">保存</p>
 						</div>
 					</div>
-				</div>
+				</div>-->
 				<!--招聘管理编辑效果结束-->
 			
 				<!--公告管理预览效果-->

@@ -6,12 +6,11 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.RandomUtil;
+import com.xczhihui.bxg.common.util.RandomUtil;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserUtil;
 import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
-import com.xczhihui.bxg.online.web.service.ActivityTotalService;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.service.impl.OnlineLoginoutCallback;
@@ -47,7 +46,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * 用户相关
@@ -72,8 +70,6 @@ public class UserController extends OnlineBaseController {
 	@Autowired
 	private OnlineLoginoutCallback callback;
 	
-	@Autowired
-	private ActivityTotalService totalService;
 
 	@Value("${domain}")
 	private String domain;
@@ -137,7 +133,7 @@ public class UserController extends OnlineBaseController {
 		//活动统计
 		String cok = CookieUtil.getCookieValue(req, "act_code_from");
 		if (cok != null && !"".equals(cok)) {
-			totalService.addTotalDetail4Reg(cok,username,nikeName);
+			//jilu
 		}
 		try {
 			autoLogin(req,resp,username,password);
@@ -217,7 +213,7 @@ public class UserController extends OnlineBaseController {
 				//活动统计
 				String cok = CookieUtil.getCookieValue(req, "act_code_from");
 				if (cok != null && !"".equals(cok)) {
-					totalService.addTotalDetail4Reg(cok,user.getLoginName(),user.getName());
+					//jilu
 				}
 			}
 			req.setAttribute("msg", msg);

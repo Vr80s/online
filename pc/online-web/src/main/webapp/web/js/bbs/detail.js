@@ -130,5 +130,5 @@ $(function () {
 
     $('.cancel_reply').on('click', function () {
         $('.reply_list').addClass('hide');
-    })
+    });
 });

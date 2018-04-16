@@ -2,6 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css"/>
 <link href="/js/layer/skin/layer.css" type="text/css"/>
+<style>
+    .dataTable > tbody > tr > td {
+        white-space:normal;
+    }
+</style>
 <script type="text/javascript">
     try {
         var scripts = [null, null];

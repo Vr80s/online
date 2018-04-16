@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.dao.OLCourseMapper;
-import com.xczh.consumer.market.dao.OnlineLecturerMapper;
-import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.JdbcUtil;
@@ -32,15 +30,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 	@Autowired
 	private OLCourseMapper wxcpCourseDao;
-	@Autowired
-	private OnlineLecturerMapper onlineLecturerMapper;
 
 	@Autowired
 	private OnlineCourseService onlineCourseService;
 	
-	@Autowired
-	private MenuService menuService;
-
 	@Autowired
 	private IOfflineCityService offlineCityService;
 	
