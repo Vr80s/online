@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Author Fudong.Sun【】
  * @Date 2016/11/8 19:59
@@ -224,5 +226,12 @@ public class HttpUtil {
             }
         }
         return map;
+    }
+
+    public static void disableHttpWebCache(HttpServletResponse response) {
+        response.setHeader("Pragma","No-cache");
+        response.setHeader("Cache-Control","No-cache");
+        response.setDateHeader("Expires", -1);
+        response.setHeader("Cache-Control", "No-store");
     }
 }

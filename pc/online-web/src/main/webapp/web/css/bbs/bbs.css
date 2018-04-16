@@ -451,7 +451,7 @@ body .fly-user-main{position: relative; width: 1085px; min-height: 600px; margin
 .jieda{margin-bottom: 30px;}
 .jieda li{position: relative; padding: 20px 0 10px; border-bottom:1px solid #DFDFDF;}
 /*.jieda li:last-child{border-bottom: none;}*/
-.jieda .fly-none{height: 50px; min-height: 0; padding: 50px 0 0;}
+.jieda .fly-none{height: 50px; min-height: 0; padding: 25px 0 0;}
 .jieda .icon-caina{position:absolute; right:10px; top:15px; font-size:60px; color: #58A571;}
 
 .jieda-body{margin: 25px 0 0; min-height: 0; line-height: 24px; font-size:14px;}

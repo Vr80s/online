@@ -59,8 +59,9 @@
                 <tr>
                 <#list otherLabels as label>
                     <td style="<#if (labelId?? && labelId == label.id)>background-color:#e2e2e2</#if>">
-                        <a href='${webUrl}/bbs?labelId=${label.id}<#if type??>&type=${type}</#if>'><img style='margin-right:10px'
-                                                                           src=${label.labelImgUrl}>${label.name}</a>
+                        <a href='${webUrl}/bbs?labelId=${label.id}<#if type??>&type=${type}</#if>'><img
+                                style='margin-right:10px'
+                                src=${label.labelImgUrl}>${label.name}</a>
                     </td>
                 </#list>
                 </tr>
@@ -70,8 +71,10 @@
             <div class="fly-tab fly-tab-index">
         <span>
           <a href="${webUrl}/bbs<#if labelId??>?labelId=${labelId}</#if>" class="all <#if !(type??)>color</#if>">全部</a>
-          <a href="${webUrl}/bbs?type=hot<#if labelId??>&labelId=${labelId}</#if>" class="hot <#if type?? && type=='hot'>color</#if>">热门</a>
-          <a href="${webUrl}/bbs?type=good<#if labelId??>&labelId=${labelId}</#if>" class="good <#if type?? && type=='good'>color</#if>">精品</a>
+          <a href="${webUrl}/bbs?type=hot<#if labelId??>&labelId=${labelId}</#if>"
+             class="hot <#if type?? && type=='hot'>color</#if>">热门</a>
+          <a href="${webUrl}/bbs?type=good<#if labelId??>&labelId=${labelId}</#if>"
+             class="good <#if type?? && type=='good'>color</#if>">精品</a>
         </span>
                 <div>
                     <a onclick="addPost()" class="layui-btn jie-add">发布帖子</a>
@@ -107,7 +110,8 @@
                     <#--</#list>-->
 
                         <p>
-                            <span class="hide"><a href="${webUrl}/bbs/user/home?id=${post.userId}">${post.name}</a></span>
+                            <span class="hide"><a
+                                    href="${webUrl}/bbs/user/home?id=${post.userId}">${post.name}</a></span>
                             <span>${post.labelName}</span>
                             <span>${post.name}发表于</span>
                             <span>${post.initTime?string('yyyy-MM-dd HH:mm:ss')} </span>
