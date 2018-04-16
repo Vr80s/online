@@ -619,17 +619,19 @@
 														{{if item.status == true}}
 															<td>已发布</td>
 														{{else}}
-															<td>未发布</td>														
+															<td>已关闭</td>														
 														{{/if}}
 														<td>{{item.publicTime}}</td>
 														<td>
-															<a href="javascript:;" class="recruit_preview_btn" onclick="recruit_preview_btn({{i}})">预览</a>
-															{{if item.status==true}}
-															<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="0">关闭</a>
-															{{else}}
-															<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="1">开启</a>
-															{{/if}}
-															<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit_btn({{i}})">编辑</a>
+																{{if item.status==true}}
+																<a href="javascript:;" class="recruit_preview_btn" onclick="recruit_preview_btn({{i}})">预览</a>
+																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="0">关闭</a>
+																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit_btn({{item.id}})">编辑</a>
+																{{else}}
+																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit_btn({{item.id}})">编辑</a>
+																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="1">发布</a>
+																<a href="javascript:;" class="recruit_close_btn" data-deleteId="{{item.id}" onclick="delete_recruit_btn(this)">删除</a>
+																{{/if}}
 														</td>
 													</tr>	
 													{{/each}}
@@ -645,6 +647,7 @@
 									</div>
 								<!--新职位-->
 								<div class="recruit-box-newjob" style="display: none;">
+									<input type="hidden" name="" id="recruitId" value="" />
 									<div class="recruit-newjob-inf">
 										<span><em>*</em> 招聘职位</span>
 										<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="20" class="recruit-write recruit-isdata" />
@@ -878,7 +881,7 @@
 				</div>
 				<!--招聘管理预览效果结束-->	
 				<!--招聘管理编辑效果开始-->
-				<div class="recruit_edit_box" id="recruit_edit_box">
+				<!--<div class="recruit_edit_box" id="recruit_edit_box">
 					<div class="recruit_preview_content">
 						<p class="recruit_preview_title">编辑</p>
 						<img src="../images/rili_close.png"/>
@@ -917,7 +920,7 @@
 							<p class="recruit-save-btn" style="margin-bottom: 0px;">保存</p>
 						</div>
 					</div>
-				</div>
+				</div>-->
 				<!--招聘管理编辑效果结束-->
 			
 				<!--公告管理预览效果-->
