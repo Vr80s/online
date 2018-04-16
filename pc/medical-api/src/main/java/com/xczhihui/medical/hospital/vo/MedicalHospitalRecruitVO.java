@@ -47,6 +47,8 @@ public class MedicalHospitalRecruitVO implements Serializable {
 
     private Date updateTime;
 
+    private Date publicTime;
+
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -101,6 +103,14 @@ public class MedicalHospitalRecruitVO implements Serializable {
 
     public void setYears(String years) {
         this.years = years;
+    }
+
+    public Date getPublicTime() {
+        return publicTime;
+    }
+
+    public void setPublicTime(Date publicTime) {
+        this.publicTime = publicTime;
     }
 
     public String getPostDuties() {

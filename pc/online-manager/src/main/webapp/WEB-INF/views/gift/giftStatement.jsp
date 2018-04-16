@@ -68,8 +68,8 @@
                             <select id="searchType" name="searchType" class="propertyValue1">
                                 <option value="1">礼物名称</option>
                                 <option value="2">赠送人</option>
-                                <option value="3">收到人</option>
-                                <option value="4">订单编号</option>
+                                <option value="3">主播帐号</option>
+                                <option value="4">订单号</option>
                             </select>
                             <input type="hidden" value="searchType" class="propertyName"/>
                         </div>
