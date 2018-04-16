@@ -135,8 +135,6 @@ $(function(){
 			$('#AutList .doc_address .warning').addClass('hide');
 		}
 		
-		
-		
 		//获取页面所有信息
 		var name = $('#doc_Distinguish #AutList .doc_name').val();
 		var cardNum = $('#doc_Distinguish #AutList .doc_Idnum').val();
@@ -194,6 +192,64 @@ $(function(){
 	
 	})
 	
+	//姓名失去焦点
+	$(".doc_name").blur(function(){
+		if($(".doc_name").val() == ""){
+			$(".name_warn").removeClass("hide");
+			$('#AutList .doc_name').addClass('borderColor');
+		}else{
+			$(".name_warn").addClass("hide");
+			$('#AutList .doc_name').removeClass('borderColor');
+		};
+	});
+	
+//	身份证号失去焦点
+	$(".doc_Idnum").blur(function(){
+		if($(".doc_Idnum").val() == ""){
+			$(".idCard_warn").removeClass("hide");
+			$('#AutList .doc_Idnum').addClass('borderColor');
+		}else{
+			$(".idCard_warn").addClass("hide");
+			$('#AutList .doc_Idnum').removeClass('borderColor');
+		};
+	});
+	
+//	昵称失去焦点
+	$(".doc_zhicheng").blur(function(){
+		if($(".doc_zhicheng").val() == ""){
+			$(".doc_zhicheng_null").removeClass("hide");
+			$('#AutList .doc_zhicheng').addClass('borderColor');
+		}else{
+			$(".doc_zhicheng_null").addClass("hide");
+			$('#AutList .doc_zhicheng').removeClass('borderColor');
+		};
+	});
+	
+//	擅长失去焦点	
+	$(".doc_shanchang").blur(function(){
+		if($(".doc_shanchang").val() == ""){
+			$(".doc_shanchang_null").removeClass("hide");
+			$('#AutList .doc_shanchang').addClass('borderColor');
+		}else{
+			$(".doc_shanchang_null").addClass("hide");
+			$('#AutList .doc_shanchang').removeClass('borderColor');
+		};
+	});
+	
+	
+	
+//  个人介绍  view   p
+	/*$(".view p").blur(function(){
+		alert(132);
+		var personInt = UE.getEditor('editor').getContent();
+		
+		if(personInt == ''){
+			$('#AutList .personIntroduct .warning').removeClass('hide');
+			return false;
+		}else {
+			$('#AutList .personIntroduct .warning').addClass('hide');
+		}
+	});*/
 
 	
 	//科室点击验证效果

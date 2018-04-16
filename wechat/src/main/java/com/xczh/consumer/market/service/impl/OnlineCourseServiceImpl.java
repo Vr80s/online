@@ -1,10 +1,8 @@
 package com.xczh.consumer.market.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.dao.BasicSimpleDao;
 import com.xczh.consumer.market.dao.OnlineCourseMapper;
-import com.xczh.consumer.market.dao.OnlineLecturerMapper;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.*;
 import com.xczh.consumer.market.utils.JdbcUtil;
@@ -12,7 +10,6 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.LecturVo;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -37,26 +34,11 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	private OnlineUserMapper onlineUserMapper;
 
 	@Autowired
-	private OnlineLecturerMapper onlineLecturerMapper;
-	
-	@Autowired
 	private OnlineWebService onlineWebService;
 	
 	@Autowired
-	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-
-	
-	@Autowired
-	private OnlineUserService onlineUserService;
-	
-	@Autowired
 	private FocusService focusService;
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public List<CourseLecturVo> findLiveListInfo() throws SQLException {
 		/*

@@ -41,9 +41,11 @@ $('.path .hospital').addClass('select');
 		if(hosName == ''){
 			$('.hos_base_inf .doc_zhicheng').siblings('.hosName_warn').removeClass('hide');
 			$('.hos_base_inf .doc_zhicheng').siblings('.hosName_warn').text('医馆名称不能为空');
+			$(".hos_name").addClass("border_hide_null");
 			return false;
 		}else{
 			$('.hos_base_inf .doc_zhicheng').siblings('.hosName_warn').addClass('hide');
+			$(".hos_name").removeClass("border_hide_null");
 		}
 		
 		//医馆图片判断
@@ -184,22 +186,26 @@ $('.path .hospital').addClass('select');
 		var xukeNum = $.trim($('.hos_renzheng_inf .bottomContent .doc_zhicheng').val());
 		var Number = /^[0-9A-Z]{18}$/;
 		var hosName = $.trim($('.hos_renzheng_inf .bottomContent .hos_name').val());
-//		var xukeNumPass = /^[\u4E00-\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$/;  暂时不限制
+		var xukeNumPass = /^[\u4E00-\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$/;
 		//医馆名称验证
 		if(hosName == ''){
 			$('.hos_renzheng_inf .bottomContent .hosName_warn').removeClass('hide');
+			$(".hos_name").addClass("border_hide_null");
 			return false;
 		}else{
 			$('.hos_renzheng_inf .bottomContent .hosName_warn').addClass('hide');
+			$(".hos_name").removeClass("border_hide_null");
 		}
 		
 		
 		//公司验证
 		if(company == ''){
 			$('.hos_renzheng_inf .bottomContent .company_warn').removeClass('hide');
+			$(".doc_name").addClass("border_hide_null");
 			return false;
 		}else{
 			$('.hos_renzheng_inf .bottomContent .company_warn').addClass('hide');
+			$(".doc_name").removeClass("border_hide_null");
 		}
 		
 		
@@ -207,13 +213,16 @@ $('.path .hospital').addClass('select');
 		if(zhizhaoNum == ''){
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('统一社会信用代码不能为空');
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').removeClass('hide');
+			$(".doc_Idnum").addClass("border_hide_null");
 			return false;
 		}else if(!Number.test(zhizhaoNum)){
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('统一社会信用代码格式错误');
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').removeClass('hide');
+			$(".doc_Idnum").addClass("border_hide_null");
 			return false;
 		}else{
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').addClass('hide');
+			$(".doc_Idnum").removeClass("border_hide_null");
 		}
 		
 		
@@ -230,15 +239,18 @@ $('.path .hospital').addClass('select');
 		if(xukeNum == ''){
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').text('药品经营许可证号不能为空');
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').removeClass('hide');
+			$(".doc_zhicheng").addClass("border_hide_null");
 			return false;
 		}
-//		else if(!xukeNumPass.test(xukeNum)){
-//			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').text('药品经营许可证号格式错误');
-//			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').removeClass('hide');
-//			return false;
-//		}
+		else if(!xukeNumPass.test(xukeNum)){ 
+			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').text('药品经营许可证号格式错误');
+			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').removeClass('hide');
+			$(".doc_zhicheng").addClass("border_hide_null");  /*之前隐藏掉了,郝忠平打开*/
+			return false;
+		}
 		else{
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').addClass('hide');
+			$(".doc_zhicheng").removeClass("border_hide_null");
 		}
 		
 		

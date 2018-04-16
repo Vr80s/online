@@ -64,6 +64,7 @@ var comfirmBox = {
 			    "background-color": "#fff",
 			   "color": "#000"
 		});
+	
 		$(".wxc-remove").css({
 			"display": "block",
     		"float": "right",
@@ -111,7 +112,31 @@ var comfirmBox = {
 	}
 }
 comfirmBox.init()
-
+//鼠标hover效果
+	$(".wxc-confirm").hover(function(){
+		$(".wxc-confirm").css({
+			"background-color":"#00BC12",
+			"cursor":"pointer",
+    		"color": "#fff"
+		});
+	},function(){
+		$(".wxc-confirm").css({
+			"background-color":"#fff",
+    		"color": "#000"
+		});
+	})
+	$(".wxc-remove").hover(function(){
+		$(".wxc-remove").css({
+			"background-color":"#00BC12",
+			"cursor":"pointer",
+    		"color": "#fff"
+		});
+	},function(){
+		$(".wxc-remove").css({
+			"background-color":"#fff",
+    		"color": "#000"
+		});
+	})
 
 
 //comfirmBox.open("标题","内容",function(closefn){

@@ -41,10 +41,10 @@ public class UCCookieUtil {
 			DEFAULT_DOMAIN = properties.getProperty("domain");
 			COOKIE_TOKEN_NAME = properties.getProperty("cookieTokenName");
 
-			System.out.println("读取配置信息成功！");
+			logger.info("读取配置信息成功！");
 		}catch(Exception e){
 			e.printStackTrace();
-			System.out.println("读取配置信息失败！");
+			logger.info("读取配置信息失败！");
 		}finally{
 			if(in != null){
 				try{

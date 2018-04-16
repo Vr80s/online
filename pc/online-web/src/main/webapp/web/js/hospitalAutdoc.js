@@ -377,10 +377,48 @@ $('#deleteTip .confirm-sure').click(function(){
 
 	})
 	
+//	医馆名称失焦
 	$(".hos_name").blur(function(){
-		
-		$(".hide").show();
-		
+		if($(".hos_name").val() == ""){
+			$(".hosName_warn").removeClass("hide");
+			$(".hos_name").addClass("border_hide_null");
+		}else{
+			$(".hosName_warn").addClass("hide");
+			$(".hos_name").removeClass("border_hide_null");
+		};
+	});
+	
+//	所属公司失焦
+	$(".doc_name").blur(function(){
+		if($(".doc_name").val() == ""){
+			$(".company_warn").removeClass("hide");
+			$(".doc_name").addClass("border_hide_null");
+		}else{
+			$(".company_warn").addClass("hide");
+			$(".doc_name").removeClass("border_hide_null");
+		};
+	});
+	
+//	统一社会信用代码失焦
+	$(".doc_Idnum").blur(function(){
+		if($(".doc_Idnum").val() == ""){
+			$(".zhizhaoNum_warn").removeClass("hide");
+			$(".doc_Idnum").addClass("border_hide_null");
+		}else{
+			$(".zhizhaoNum_warn").addClass("hide");
+			$(".doc_Idnum").removeClass("border_hide_null");
+		};
+	});
+	
+//	药品经营许可证失焦
+	$(".doc_zhichengs").blur(function(){
+		if($(".doc_zhichengs").val() == ""){
+			$(".xukeNum_warn").removeClass("hide");
+			$(".doc_zhichengs").addClass("border_hide_null");
+		}else{
+			$(".xukeNum_warn").addClass("hide");
+			$(".doc_zhichengs").removeClass("border_hide_null");
+		};
 	});
 	
 	

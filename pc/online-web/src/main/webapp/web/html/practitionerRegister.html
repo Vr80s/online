@@ -9,6 +9,12 @@
           content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医"/>
     <meta name="description"
           content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。"/>
+          
+      <style type="text/css">
+      	.border_hide{
+      		border: 1px solid red !important;
+      	}
+      </style>
 </head>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
@@ -81,7 +87,7 @@
 				<div class="practitioner_input">
 					<ul>
 						<form action="" method="post">
-							<li><input type="text" name="" id="" value="" class="phoneNum" placeholder="请输入正确的手机号"/><span class="phone_warn warning" style="margin-left: 0;">请输入手机号</span></li>
+							<li><input type="text" name="" id="" value="" class="phoneNum" placeholder="请输入正确的手机号" maxlength="11"/><span class="phone_warn warning" style="margin-left: 0;">请输入手机号</span></li>
 							<li><input type="text" name="" id="" value="" class="nikeName" placeholder="请输入昵称"/><span class="nikeName_warn warning" style="margin-left: 0px;width: 480px;">支持中文、字母、数字、'-'、'_'的组合，20个字符内</span></li>
 							<li class="imgVertifyCode"><input type="text" name="" id="" value="" class="imgCode" placeholder="请输入动态码"/><img src="/online/verificationCode/vcode?t=" style="height: 36px;margin-left: 20px;"><span class="imgVertifyCode_warn warning" style="margin-left: 0;">请输入动态码</span></li>
 							<li class="my_code"><input type="text" name="" id="" value="" class="code" placeholder="请输入验证码"/><button type="button" onclick="btn_cade()">获取验证码</button><span class="my_code_warn warning" style="margin-left: 0;">请输入手机号</span></li>
@@ -119,12 +125,6 @@
 		</div>
 		
 		
-		
-		
-		
-		
-		
-		
 		<script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
 <script src="../js/header.js" type="text/javascript" charset="utf-8"></script>
 <!--<script type="text/javascript" src="../js/personcenter.js?v=1.0.5"></script>-->
@@ -143,41 +143,45 @@
 			
 	//验证图形动态码
 	var phoneNum = $.trim($('.phoneNum').val());
-	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+	var phonePass =  /^1[3,4,5,6,7,8]\d{9}$/gi;
 	var nikename = $.trim($('.nikeName').val());
 	var imgCode = $.trim($('.imgCode').val());
-
-
-	
 	
 	//手机号码验证
 	if($.trim(phoneNum) == ""){
 				$(".phone_warn").text('手机号不能为空');
 				$(".phone_warn").css('display','block');
+				$(".phoneNum").addClass("border_hide");
 				return false;
 		}else if(!phonePass.test(phoneNum)){
 		$(".phone_warn").text('手机号格式不正确')
 		$(".phone_warn").css('display','block');
+		$(".phoneNum").addClass("border_hide");
 		return false;
 			}else{
 				$(".phone_warn").css('display','none');
+				$(".phoneNum").removeClass("border_hide");
 			}
 
 	//昵称验证
 	if(nikename == '' ||  nikename.length > 20){
 		$(".nikeName_warn").css('display','block');
+		$(".nikeName").addClass("border_hide");
 		return false;
 	}else{
 		$(".nikeName_warn").css('display','none');
+		$(".nikeName").removeClass("border_hide");
 	}
 	
 	//图形验证码
 	if(imgCode == ''){
 		$(".imgVertifyCode_warn").text('请输入图形动态码')
 		$(".imgVertifyCode_warn").css('display','block');
+		$(".imgCode").addClass("border_hide");
 		return false;
 	}else{
 		$(".imgVertifyCode_warn").css('display','none');
+		$(".imgCode").removeClass("border_hide");
 	}
 	
 	//全部输入再次获取数据
@@ -187,8 +191,6 @@
 	var imgCode = $.trim($('.imgCode').val());
 	var data = {phone: phoneNum, vtype: 1,vcode:imgCode};	
 		
-		
-		
 		RequestService("/online/verificationCode/sendmessage", "POST", data,function(data){
 			console.log(data);
 			if(data.success == false){
@@ -197,6 +199,8 @@
 					$('.phone_warn').text('该手机号已注册，请直接登录进入医师认证！');
 					$('.my_code .my_code_warn').css('display','none');
 					$('.phone_warn').css('display','block');
+					
+					$('.phoneNum').addClass("border_hide");
 						return false;
 				}else if(data.errorMessage == "验证码错误"){
 //					$('#tip').text('动态码错误');
@@ -206,6 +210,7 @@
 //	       			},1500)
 	       			$(".imgVertifyCode_warn").text('动态码错误')
 					$(".imgVertifyCode_warn").css('display','block');
+					$('.imgCode').addClass("border_hide");
 					return false;
 				}else{
 //					$('.my_code .my_code_warn').text(data.errorMessage);
@@ -214,6 +219,8 @@
 //						return false;
 					$('#tip').text(data.errorMessage);
 	       			$('#tip').toggle();
+	       			$('.imgCode').removeClass("border_hide");
+	       			$('.phoneNum').removeClass("border_hide");
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
 	       			},1500)	
@@ -242,19 +249,141 @@
 				}
 		}		
 				
-				
 			}
 		})
-		
-		
-		
-		
 			
 	}
 </script>
 	
+	<script>
+	
+//	手机号失去焦点
+	$(".phoneNum").blur(function(){
+    	
+    var phoneNum = $.trim($('.phoneNum').val());
+	var phonePass =  /^1[3,4,5,6,7,8]\d{9}$/gi;
+	var nikename = $.trim($('.nikeName').val());
+	var imgCode = $.trim($('.imgCode').val());
 
+	//手机号码验证
+	if($.trim(phoneNum) == ""){
+				$(".phone_warn").text('手机号不能为空');
+				$(".phone_warn").css('display','block');
+				$(".phoneNum").addClass("border_hide");
+				return false;
+		}else if(!phonePass.test(phoneNum)){
+		$(".phone_warn").text('手机号格式不正确')
+		$(".phone_warn").css('display','block');
+		$(".phoneNum").addClass("border_hide");
+		return false;
+			}else{
+				$(".phone_warn").css('display','none');
+				$(".phoneNum").removeClass("border_hide");
+			}
+  	});
+  	
+  	
+//	昵称失去焦点
+  	$(".nikeName").blur(function(){
+	var phoneNum = $.trim($('.phoneNum').val());
+	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+	var nikename = $.trim($('.nikeName').val());
+	var imgCode = $.trim($('.imgCode').val());
+
+		//昵称验证
+		if(nikename == '' ||  nikename.length > 20){
+			$(".nikeName_warn").css('display','block');
+			$(".nikeName").addClass("border_hide");
+			return false;
+		}else if(nikename.length < 0 ){
+			$(".nikeName_warn").text('长度只能在20个字符之内');
+			$(".nikeName_warn").css('display','block');
+			$(".nikeName").addClass("border_hide");
+			return false;
+		}{
+			$(".nikeName_warn").css('display','none');
+			$(".nikeName").removeClass("border_hide");
+		}
+  	});
+  	
+  	
+  	
+  	$(".imgCode").blur(function(){
+		var phoneNum = $.trim($('.phoneNum').val());
+		var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+		var nikename = $.trim($('.nikeName').val());
+		var imgCode = $.trim($('.imgCode').val());
+
+		//图形验证码
+		if(imgCode == ''){
+			$(".imgVertifyCode_warn").text('请输入图形动态码')
+			$(".imgVertifyCode_warn").css('display','block');
+			$(".imgCode").addClass("border_hide");
+			return false;
+		}else{
+			$(".imgVertifyCode_warn").css('display','none');
+			$(".imgCode").removeClass("border_hide");
+		}
+  	});
+  	
+  	$(".code").blur(function(){
+	  	var phoneNum = $.trim($('.phoneNum').val());
+		var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+		var nikename = $.trim($('.nikeName').val());
+		var imgCode = $.trim($('.imgCode').val());
+		var msgCode = $.trim($('.code').val());
+
+	  	//短信验证码
+		if(msgCode == ''){
+			$(".my_code_warn").text('请输入短信验证码')
+			$(".my_code_warn").css('display','block');
+			$(".code").addClass("border_hide");
+			return false;
+		}else{
+			$(".my_code_warn").css('display','none');
+			$(".code").removeClass("border_hide");
+		}
+  	
+	});
+	
+	$(".my_password").blur(function(){
+		//密码验证
+		if($.trim($('.my_password').val()).length < 6){
+//			$(".my_different").css('display','none');
+			$('.my_pwd').text('请输入6-18位数密码');
+			$(".my_pwd").css('display','block');
+			$(".my_password").addClass("border_hide");
+			return false;
+		}else if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+			$(".my_pwd").css('display','none');
+			$(".my_different").text('您两次输入的密码不一致')
+			$(".my_password").removeClass("border_hide");
+//			$(".my_different").css('display','block');
+			return false;
+		}else{
+			$(".my_pwd").css('display','none');
+//			$(".my_different").css('display','none');
+		}
+	});
 	
 	
-	</body>
+//	确认密码
+	$(".sure_password").blur(function(){
+		var passWord = $.trim($('.sure_password').val());
+		if(passWord == ''){
+			$(".my_different").text('请输入6-18位数密码')
+			$(".my_different").css('display','block');
+			$(".sure_password").addClass("border_hide");
+			return false;
+		}else{
+			$(".my_different").css('display','none');
+			$(".sure_password").removeClass("border_hide");
+		}
+	
+	});
+	
+	
+</script>
+
+</body>
 </html>

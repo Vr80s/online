@@ -18,7 +18,6 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.VideoDao;
-import com.xczhihui.bxg.online.web.service.ApplyService;
 import com.xczhihui.bxg.online.web.service.VideoService;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
@@ -32,8 +31,6 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
 
     @Autowired
     private VideoDao videoDao;
-    @Autowired
-    private ApplyService applyService;
     @Autowired
     private CourseDao  courseDao;
 

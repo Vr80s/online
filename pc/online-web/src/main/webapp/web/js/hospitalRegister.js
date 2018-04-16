@@ -65,7 +65,7 @@ $(function(){
 	$('.practitioner_settled').on('click','.register',function(){
 	//此处进行验证
 	var phoneNum = $.trim($('.phoneNum').val());
-	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+	var phonePass =  /^1[3,4,5,6,7,8]\d{9}$/gi;
 	var nikename = $.trim($('.nikeName').val());
 	var imgCode = $.trim($('.imgCode').val());
 	var msgCode = $.trim($('.code').val());
@@ -73,30 +73,37 @@ $(function(){
 	if($.trim(phoneNum) == ""){
 				$(".phone_warn").text('手机号不能为空');
 				$(".phone_warn").css('display','block');
+				$(".phoneNum").addClass("border_hide");
 				return false;
 		}else if(!phonePass.test(phoneNum)){
 		$(".phone_warn").text('手机号格式不正确')
 		$(".phone_warn").css('display','block');
+		$(".phoneNum").addClass("border_hide");
 		return false;
 			}else{
 				$(".phone_warn").css('display','none');
+				$(".phoneNum").removeClass("border_hide");
 			}
 
 	//昵称验证
 	if(nikename == '' || nikename.length > 20){
 		$(".nikeName_warn").css('display','block');
+		$(".nikeName").addClass("border_hide");
 		return false;
 	}else {
 		$(".nikeName_warn").css('display','none');
+		$(".nikeName").removeClass("border_hide");
 	}
 	
 	//图形验证码
 	if(imgCode == ''){
 		$(".imgVertifyCode_warn").text('请输入图形动态码')
 		$(".imgVertifyCode_warn").css('display','block');
+		$(".imgCode").addClass("border_hide");
 		return false;
 	}else{
 		$(".imgVertifyCode_warn").css('display','none');
+		$(".imgCode").removeClass("border_hide");
 	}
 	
 	
@@ -105,9 +112,11 @@ $(function(){
 	if(msgCode == ''){
 		$(".my_code_warn").text('请输入短信验证码')
 		$(".my_code_warn").css('display','block');
+		$(".code").addClass("border_hide");
 		return false;
 	}else{
 		$(".my_code_warn").css('display','none');
+		$(".code").removeClass("border_hide");
 	}
 	
 	
@@ -117,24 +126,27 @@ $(function(){
 		$(".my_different").css('display','none');
 		$('.my_pwd').text('请输入6-18位数密码');
 		$(".my_pwd").css('display','block');
+		$(".my_password").addClass("border_hide");
 		return false;
 	}else if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
 		$(".my_pwd").css('display','none');
 		$(".my_different").text('您两次输入的密码不一致')
 		$(".my_different").css('display','block');
+		$(".sure_password").addClass("border_hide");
 		return false;
 	}else{
 		$(".my_pwd").css('display','none');
 		$(".my_different").css('display','none');
+		$(".my_password").removeClass("border_hide");
 	}
 	
 	
 	var data = {
-                nikeName: $('.nikeName').val().trim(),
-                username: $('.phoneNum').val().trim(),
-                password: $('.my_password').val().trim(),
-                code: $('.code').val().trim()
-            };
+        nikeName: $('.nikeName').val().trim(),
+        username: $('.phoneNum').val().trim(),
+        password: $('.my_password').val().trim(),
+        code: $('.code').val().trim()
+    };
             
             
 	//注册部分的ajax

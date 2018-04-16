@@ -34,15 +34,18 @@ public class MedicalHospitalRecruitBody {
         if (Integer.parseInt(years) < 0 || Integer.parseInt(years) > 5) {
             throw new IllegalArgumentException("years 参数不合法");
         }
-        medicalHospitalRecruit.setCreateTime(new Date());
+        Date time = new Date();
+        medicalHospitalRecruit.setCreateTime(time);
         medicalHospitalRecruit.setDeleted(false);
         medicalHospitalRecruit.setJobRequirements(jobRequirements);
         medicalHospitalRecruit.setPosition(position);
         medicalHospitalRecruit.setPostDuties(postDuties);
         medicalHospitalRecruit.setRecommend(false);
         medicalHospitalRecruit.setYears(years);
-        medicalHospitalRecruit.setStatus(false);
+        //默认发布
+        medicalHospitalRecruit.setStatus(true);
         medicalHospitalRecruit.setHospitalId(hospitalId);
+        medicalHospitalRecruit.setPublicTime(time);
         return medicalHospitalRecruit;
     }
 
