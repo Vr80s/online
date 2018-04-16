@@ -16,6 +16,16 @@ function is_weixin(){
     }
 }
 
+//判断字段空值
+function stringnull(zifu) {
+	if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
+			|| zifu == "null") {
+		return false;
+	}
+	return true;
+
+}
+
 /**
  * 截取url传递的参数
  * @param name 传递 key  得到value 
@@ -23,9 +33,31 @@ function is_weixin(){
  */
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
+    var search = decodeURIComponent(window.location.search);
+    var r = search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
+    
 }
+
+/*
+ * 如果是扫二维码的话
+ *   通过另一个参数来判断。
+ */
+
+var qr_code = getQueryString("qr_code");
+if(stringnull(qr_code)){
+	var wxOrbrower = "wx";
+	if(!is_weixin()){
+		wxOrbrower = "brower";
+	}
+	var searchUrl = window.location.search;
+	location.href = "/xczh/wxlogin/publicWechatAndMobile?searchUrl="+searchUrl+"&wxOrbrower="+wxOrbrower;
+}
+
+
+
+
+
 
 
 var accessCommon = localStorage.access;
@@ -237,15 +269,6 @@ function imgsubstr(imgurl) {
 	var strurl = imgurl;
 	var attrurl = strurl.split(",");
 	return attrurl;
-}
-// 判断字段空值
-function stringnull(zifu) {
-	if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
-			|| zifu == "null") {
-		return false;
-	}
-	return true;
-
 }
 /*
  * 判断字段空值   如果值等于null 或者 undefined 或者 'undefined' 或者 "" 统一返回 ""

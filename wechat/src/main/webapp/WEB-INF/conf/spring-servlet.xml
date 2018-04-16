@@ -220,6 +220,7 @@
     <!--订单服务-->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IOrderService" id="orderService" timeout="12000"/>
 
-
+ 	<!--充值服务 -->
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.RechargesService" id="rechargesService" timeout="12000"/>
 
 </beans>
