@@ -92,6 +92,8 @@ public class MedicalHospitalRecruit extends Model<MedicalHospitalRecruit> {
      */
     private Integer sort;
 
+    @TableField("public_time")
+    private Date publicTime;
 
     public String getId() {
         return id;
@@ -219,6 +221,14 @@ public class MedicalHospitalRecruit extends Model<MedicalHospitalRecruit> {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Date getPublicTime() {
+        return publicTime;
+    }
+
+    public void setPublicTime(Date publicTime) {
+        this.publicTime = publicTime;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.xczhihui.medical.hospital.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -50,14 +51,23 @@ public interface MedicalHospitalRecruitMapper extends BaseMapper<MedicalHospital
     Integer maxSort();
 
     /**
-     * 更新招聘信息的状态
+     * 发布招聘信息
      *
-     * @param id     id
-     * @param status 状态
+     * @param id         id
+     * @param publicTime 发布时间
      * @return 更新的行数
      */
-    @Update("update medical_hospital_recruit set status = #{status} where id = #{id} and deleted = false and status != #{status}")
-    int updateStatus(@Param("id") String id, @Param("status") boolean status);
+    @Update({"update medical_hospital_recruit set status = true, public_time = ${publicTime} where id = #{id} and deleted = false and status != true"})
+    int publicRecruit(@Param("id") String id, @Param("publicTime") Date publicTime);
+
+    /**
+     * 关闭招聘信息
+     *
+     * @param id id
+     * @return 更新的行数
+     */
+    @Update("update medical_hospital_recruit set status = false where id = #{id} and deleted = false and status != false")
+    int closeRecruit(@Param("id") String id);
 
     /**
      * 招聘信息标记删除
