@@ -1136,34 +1136,110 @@ function notice_btn_delete(t){
 
 
 //公告管理部分结束--------------------------------------------------------------
-//自定义下拉select
-$(".recruit-select p").click(function() {
-	var ul = $(".recruit-select-lest");
-	if(ul.css("display") == "none") {
-		ul.slideDown();
-	} else {
-		ul.slideUp();
-	}
-});
+/*下拉框插件 20170416-yuxin  iselect*/
+/*
+使用说明：
+初始化：$("xxx").iselect("init",data),$("xxx")为下拉框所属容器,
+		data为下拉框对应数据,格式如：[{value:1,text:一年},{value:1,text:一年},{value:1,text:一年}]
+刷新：$("xxx").iselect("refresh");
+取值：$("xxx").iselect("val");
+设值：$("xxx").iselect("val",2);
+*/
+$.fn.iselect = function(option, data) {
 
-$(".recruit-select-one").click(function() {
-	var _name = $(this).attr("name");
-	if($("[name=" + _name + "]").length > 1) {
-		$("[name=" + _name + "]").removeClass("select");
-		$(this).addClass("select");
-	} else {
-		if($(this).hasClass("select")) {
-			$(this).removeClass("select");
-		} else {
-			$(this).addClass("select");
+    var iselect = {
+        init : function (that,data){
+            that.data("data",data);
+            this.initDom(that,data);
+            this.initEvent(that);
+        },
+        refresh : function (that){
+            this.initDom(that,that.data("data"));
+            this.initEvent(that);
+        },
+		initDom : function (that,data){
+            that.find(".recruit-select").remove();
+            var str = '<div class="recruit-select" id="">' +
+                '<p class="recruit-select-one recruit-select-exp" >请选择</p>\n' +
+                '<ul class="recruit-select-lest">\n';
+            for(var i=0;i<data.length;i++){
+                str += '<li value="'+data[i].value+'">'+data[i].text+'</li>\n';
+            }
+            str += '</ul></div>';
+            that.append(str);
+        },
+		initEvent : function (that) {
+            //自定义下拉select
+            that.find(".recruit-select p").click(function() {
+                var ul = $(".recruit-select-lest");
+                if(ul.css("display") == "none") {
+                    ul.slideDown();
+                } else {
+                    ul.slideUp();
+                }
+            });
+
+            that.find(".recruit-select-one").click(function() {
+            	debugger
+                var _name = $(this).attr("name");
+                if($("[name=" + _name + "]").length > 1) {
+                    $("[name=" + _name + "]").removeClass("select");
+                    $(this).addClass("select");
+                } else {
+                    if($(this).hasClass("select")) {
+                        $(this).removeClass("select");
+                    } else {
+                        $(this).addClass("select");
+                    }
+                }
+            });
+            that.find(".recruit-select li").click(function() {
+                debugger
+                dataNumber = $(this).attr("value");
+                $(".recruit-select p").html($(this).text());
+                $(".recruit-select p").attr("value",$(this).attr("value"));
+                $(".recruit-select-lest").hide();
+                /*$(".set").css({background:'none'});*/
+                $("p").removeClass("select");
+            });
+        },
+        getVal : function () {
+            return $(".recruit-select p").attr("value");
+        },
+        setVal : function (that,val) {
+			var data = that.data("data");
+            for (var i=0;i<data.length;i++){
+            	if(data[i].value == val){
+                    $(".recruit-select p").html(data[i].text);
+                    $(".recruit-select p").attr("value",data[i].value);
+				}
+			}
+        }
+    }
+
+	if(option=="init"){
+        iselect.init(this,data);
+	}else if(option=="val"){
+        if(data==null){
+        	iselect.getVal();
+		}else{
+            iselect.setVal(this,data);
 		}
-	}
-});
-$(".recruit-select li").click(function() {
-	var li = $(this).text();
-	dataNumber = $(this).attr("data-number");
-	$(".recruit-select p").html(li);
-	$(".recruit-select-lest").hide();
-	/*$(".set").css({background:'none'});*/
-	$("p").removeClass("select");
-});
+    }else if(option=="refresh"){
+        iselect.refresh(this);
+    }
+}
+/*下拉框插件 20170416-yuxin*/
+
+//测试插件代码
+var data=[];
+data[0]={};
+data[0].value=0;
+data[0].text='一年';
+data[1]={};
+data[1].value=1;
+data[1].text='两年';
+data[2]={};
+data[2].value=2;
+data[2].text='三年';
+$(".recruit-box-newjob .recruit-newjob-experience").iselect("init",data);
