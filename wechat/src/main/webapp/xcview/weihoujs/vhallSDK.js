@@ -454,7 +454,7 @@ function(e) {
     }
     function r() {
         var e = "";
-        e = "1" == o.get().isBoard ? s.board_url : s.curr_file && "0" != s.curr_file ? s.doc_url + "/" + s.curr_file + "/" + s.curr_page + ".jpg" : "//cnstatic01.e.vhall.com/static/img/mobile/doc_noloading.png", n(e)
+        e = "1" == o.get().isBoard ? s.board_url : s.curr_file && "0" != s.curr_file ? s.doc_url + "/" + s.curr_file + "/" + s.curr_page + ".jpg" : "/xcview/images/no_class_one.png", n(e)
     }
     var a = i(7),
         o = (i(1), i(2)),
