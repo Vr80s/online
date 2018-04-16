@@ -453,7 +453,7 @@ $(function() {
         $("#zhuanji_bottom2").hide();
         $("#zhuanji_bottom").remove("hide");
     });
-
+})
     function showCourseAttribute(type) {
         $(".special").hide();
         if (type == 1) {
@@ -685,4 +685,3 @@ $(function() {
             $("#btn_width").attr("accept", ".Mp3,.Wav,.aif,.aiff,.au,.snd,.voc,.ra,.midrmi,.wma,.ape,.flac,.aac,.m4a,.vqf");
         }
     }
-})
