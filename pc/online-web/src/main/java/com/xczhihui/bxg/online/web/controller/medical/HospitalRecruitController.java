@@ -69,4 +69,10 @@ public class HospitalRecruitController extends AbstractController {
         medicalHospitalRecruitBusinessService.updateStatus(id, status);
         return ResponseObject.newSuccessResponseObject("状态修改成功");
     }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseObject delete(@PathVariable String id) {
+        medicalHospitalRecruitBusinessService.delete(id);
+        return ResponseObject.newSuccessResponseObject();
+    }
 }

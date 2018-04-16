@@ -29,7 +29,6 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.vo.LecturVo;
@@ -38,6 +37,7 @@ import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IWatchHistoryService;
+import com.xczhihui.wechat.course.util.XzStringUtils;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>

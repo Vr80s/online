@@ -18,23 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import weibo4j.http.HttpClient;
-
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.common.util.enums.SMSCode;
 import com.xczhihui.bxg.common.util.enums.ThirdPartyType;
 import com.xczhihui.bxg.common.util.enums.UserUnitedStateType;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.user.center.bean.UserOrigin;
@@ -44,6 +40,9 @@ import com.xczhihui.user.center.bean.UserType;
 import com.xczhihui.wechat.course.model.QQClientUserMapping;
 import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
 import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.wechat.course.util.XzStringUtils;
+
+import weibo4j.http.HttpClient;
 
 /**
  * 
@@ -80,8 +79,6 @@ public class ThirdPartyCertificationController {
 	@Autowired
 	private UserCoinService userCoinService;
 
-	@Autowired
-	private AppBrowserService appBrowserService;
 
 	// 手机端登录使用
 	@Value("${mobile.authorizeURL}")

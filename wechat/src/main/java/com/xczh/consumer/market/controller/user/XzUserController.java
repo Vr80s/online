@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import nl.bitwalker.useragentutils.OperatingSystem;
-import nl.bitwalker.useragentutils.UserAgent;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +25,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.utils.XzStringUtils;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
-import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.common.util.enums.RegisterForm;
 import com.xczhihui.bxg.common.util.enums.SMSCode;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.wechat.course.util.XzStringUtils;
+
+import nl.bitwalker.useragentutils.OperatingSystem;
+import nl.bitwalker.useragentutils.UserAgent;
 
 /**
  * 用户controller
@@ -63,23 +58,9 @@ public class XzUserController {
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	@Autowired
-	private WxcpClientUserService wxcpClientUserService;
-	@Autowired
 	private CacheService cacheService;
-	
-	@Autowired
-	private UserCoinService userCoinService;
-	@Autowired
-	private OLAttachmentCenterService service;
-	@Autowired
-	private AppBrowserService appBrowserService;
-	
 	@Autowired
 	private IThreePartiesLoginService threePartiesLoginService;
-	
-	
-	@Autowired
-	private CityService cityService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserController.class);
 	
@@ -186,7 +167,7 @@ public class XzUserController {
 			@RequestParam("code")String code,
 			@RequestParam("openId")String openId) throws Exception {
 		
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(username)){
+		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/*
@@ -231,7 +212,7 @@ public class XzUserController {
 			@RequestParam("username") String username,
 			@RequestParam("password") String password) throws Exception {
 		
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(username)){
+		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		Token t = null;

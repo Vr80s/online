@@ -700,7 +700,7 @@
 						<filter>src/main/resources/${env}/config.properties</filter>
 					</filters>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
-					<!-- <warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes> -->
+					<warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes>
 				</configuration>
 			</plugin>
 		</plugins>

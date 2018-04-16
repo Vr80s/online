@@ -34,6 +34,7 @@ import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
+import com.xczhihui.wechat.course.util.XzStringUtils;
 
 /**
  * 通用控制器
@@ -495,7 +496,7 @@ public class CommonController {
 			Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 			if(mapCourseInfo.get("description")!=null){
 				String description = mapCourseInfo.get("description").toString();
-				description = com.xczh.consumer.market.utils.XzStringUtils.delHTMLTag(description);
+				description = XzStringUtils.delHTMLTag(description);
 				mapCourseInfo.put("description", description);
 			}else{
 				mapCourseInfo.put("description", "");
