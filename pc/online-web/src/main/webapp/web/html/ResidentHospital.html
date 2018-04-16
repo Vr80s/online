@@ -625,12 +625,12 @@
 														<td>
 																{{if item.status==true}}
 																<a href="javascript:;" class="recruit_preview_btn" onclick="recruit_preview_btn({{i}})">预览</a>
-																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="0">关闭</a>
-																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit_btn({{item.id}})">编辑</a>
+																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="0" onclick="recruit_close_btn(this)">关闭</a>
+																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit({{i}})">编辑</a>
 																{{else}}
-																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit_btn({{item.id}})">编辑</a>
-																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="1">发布</a>
-																<a href="javascript:;" class="recruit_close_btn" data-deleteId="{{item.id}" onclick="delete_recruit_btn(this)">删除</a>
+																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit({{i}})">编辑</a>
+																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="1" onclick="recruit_close_btn(this)">发布</a>
+																<a href="javascript:;" class="recruit_delete_btn" data-deleteId="{{item.id}}" onclick="delete_recruit_btn(this)">删除</a>
 																{{/if}}
 														</td>
 													</tr>	
@@ -680,7 +680,6 @@
 										<div class="recruit-textarea-duty">				
 											<textarea class="recruit-textarea recruit-textarea-duty-isdata"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
 											<span class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</span>	
-											
 											<button class="recruit-save-btn recruit-save-btn-menuone">保存并发布</button>
 										</div>
 									</div>
@@ -698,7 +697,7 @@
 								<div class="Notice_bottom hide" id="Notice_bottom">
 									<div class="neirong">
 										<span><em>*</em> 公告内容</span>
-										<textarea name="" id="notice-text" cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
+										<textarea name="" id="notice-text" maxlength="100" cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
 										<p class="warning warning-notice" style="display: none;padding-left: 0;">专栏内容不能为空</p>
 									</div>
 	

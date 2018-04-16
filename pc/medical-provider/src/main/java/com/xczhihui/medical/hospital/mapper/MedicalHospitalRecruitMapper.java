@@ -57,7 +57,7 @@ public interface MedicalHospitalRecruitMapper extends BaseMapper<MedicalHospital
      * @param publicTime 发布时间
      * @return 更新的行数
      */
-    @Update({"update medical_hospital_recruit set status = true, public_time = ${publicTime} where id = #{id} and deleted = false and status != true"})
+    @Update({"update medical_hospital_recruit set status = true, public_time = #{publicTime} where id = #{id} and deleted = false and status != true"})
     int publicRecruit(@Param("id") String id, @Param("publicTime") Date publicTime);
 
     /**

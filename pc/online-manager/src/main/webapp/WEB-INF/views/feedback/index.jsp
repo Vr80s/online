@@ -30,6 +30,12 @@
 					<tr>
 						<td>
 							<div class="profile-info-value searchTr">
+								<input type="text"  class="propertyValue1" name="q_name" id="q_name"  placeholder = "创建人" />
+								<input type="hidden" value="q_name" class="propertyName"/>
+							</div>
+						</td>
+						<td>
+							<div class="profile-info-value searchTr">
 								<select class="propertyValue1" id="q_answerStatus">
 								<option value="-1">全部</option>
 								<option value="0" >未回答</option>
