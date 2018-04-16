@@ -186,7 +186,7 @@ $('.path .hospital').addClass('select');
 		var xukeNum = $.trim($('.hos_renzheng_inf .bottomContent .doc_zhicheng').val());
 		var Number = /^[0-9A-Z]{18}$/;
 		var hosName = $.trim($('.hos_renzheng_inf .bottomContent .hos_name').val());
-//		var xukeNumPass = /^[\u4E00-\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$/;  暂时不限制
+		var xukeNumPass = /^[\u4E00-\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$/;
 		//医馆名称验证
 		if(hosName == ''){
 			$('.hos_renzheng_inf .bottomContent .hosName_warn').removeClass('hide');
