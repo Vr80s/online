@@ -54,3 +54,7 @@ bbs pc端整合
 医师管理->著作管理
 
     ALTER TABLE `medical_writings` ADD `img_path` VARCHAR(255)  NULL  DEFAULT NULL  AFTER `sort`;
+
+医馆管理->招聘管理
+
+    ALTER TABLE `medical_hospital_recruit` ADD `public_time` DATETIME DEFAULT NULL COMMENT '发布时间';

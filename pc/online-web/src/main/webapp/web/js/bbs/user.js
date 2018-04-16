@@ -1,4 +1,5 @@
 $(function () {
+
     $('.bbs-tab').addClass("select");
     var list = {'page': 1};
     var postTpl = "{{each posts}}" +
