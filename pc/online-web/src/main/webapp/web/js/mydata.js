@@ -4,8 +4,6 @@ function createData() { //模板加载
 	$(".pages").css("display", "none");
 	$(".view-content-notbodys").html("");
 	layer.closeAll('loading');
-	var videoPage = new createVideoPage();
-	videoPage.setSectionByType("good1", 4);
 	//切换选项卡
 	$(document).click(function(e) {
 		var e = e || event;

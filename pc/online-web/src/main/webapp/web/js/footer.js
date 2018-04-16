@@ -49,12 +49,6 @@ $(".gate li").click(function () {
     top.document.location.href = $(this).attr("data-url");
 });
 
-//v1.1移植gongneng
-//获取底部菜单
-//      RequestService("/otherlink/getOtherLink", "GET", "", function (data) {
-//          $(".link-content").empty();
-//          createOtherLink(data.resultObject);
-//      });
 $("#file1").css("cursor", "pointer");
 
 //头像预览部分
