@@ -694,12 +694,15 @@ $(".recruit-save-btn-menuone").click(function(){
 	$(this).attr("disabled","disabled")
 	if($recruit_text==""){
 		$(".warning-isdata").removeClass("hide");
+		$(".recruit-save-btn-menuone").removeAttr("disabled");
 		return false;
 	}else if($recruit_textarea==""){
 		$(".warning-textarea-isdata").removeClass("hide")
+		$(".recruit-save-btn-menuone").removeAttr("disabled");
 		return false;
 	}else if($recruit_textarea_duty==""){
-		$(".warningtextarea-duty-isdata").removeClass("hide")
+		$(".warningtextarea-duty-isdata").removeClass("hide");
+		$(".recruit-save-btn-menuone").removeAttr("disabled");
 		return false;
 	}else{		
 		
@@ -774,10 +777,19 @@ $("#news_Administration_tabBtn").click(function(){
 	}
 })
 //公告发布接口调用
+//限制长度
+//$("#notice-text").keydown(function(){
+//	var textLength=$("#notice-text").val().length;
+//	if(textLength>10){
+//		textLength=textLength.substring(0,10);
+//		$(this).attr("value",textLength)
+//	}
+//})
 $("#notice-release-btn").click(function(){
 	var  $notice_text = $.trim($("#notice-text").val());
 	$(this).attr("disabled","disabled")
 	if($notice_text == ''){
+		$("#notice-release-btn").removeAttr("disabled","disabled");	
 		$(".warning-notice").show();
 	}else{
 		RequestService("/hospital/announcement", "POST", {
@@ -788,7 +800,7 @@ $("#notice-release-btn").click(function(){
 			$(".warning-notice").hide();
 			setTimeout(function(){
 				$("#news_Administration_tabBtn").click();
-			$("#notice-release-btn").removeAttr("disabled","disabled")				
+			$("#notice-release-btn").removeAttr("disabled","disabled");				
 //				重新渲染一遍
 			},2000);
 			announcementMethod()
@@ -1173,9 +1185,6 @@ function notice_btn_delete(t){
 	});
 }
 
-
-
-
 //公告管理部分结束--------------------------------------------------------------
 /*下拉框插件 20170416-yuxin  iselect*/
 /*
@@ -1276,11 +1285,21 @@ $.fn.iselect = function(option, data) {
 var data=[];
 data[0]={};
 data[0].value=0;
-data[0].text='一年';
+data[0].text='不限';
 data[1]={};
 data[1].value=1;
-data[1].text='两年';
+data[1].text='0-1年';
 data[2]={};
 data[2].value=2;
-data[2].text='三年';
+data[2].text='1-3年';
+data[3]={};
+data[3].value=3;
+data[3].text='3-5年';
+data[4]={};
+data[4].value=4;
+data[4].text='5-10年';
+data[5]={};
+data[5].value=4;
+data[5].text='10年以上';
+
 $(".recruit-box-newjob .recruit-newjob-experience").iselect("init",data);
