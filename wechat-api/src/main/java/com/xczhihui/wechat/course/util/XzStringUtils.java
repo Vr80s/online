@@ -1,10 +1,10 @@
-package com.xczh.consumer.market.utils;
+package com.xczhihui.wechat.course.util;
 
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
+import com.baomidou.mybatisplus.toolkit.StringUtils;
 
 public class XzStringUtils {
 
@@ -27,7 +27,13 @@ public class XzStringUtils {
 		Matcher m_html = p_html.matcher(htmlStr);
 		htmlStr = m_html.replaceAll(""); // 过滤html标签
 
-		if(StringUtils.isNotBlank(htmlStr)){  //过滤掉空格
+//		if(StringUtils.isNotBlank(htmlStr)){  //过滤掉空格
+//			htmlStr = htmlStr.replaceAll("&nbsp;", "");
+//			System.out.println(htmlStr);
+//		}
+		
+		if(htmlStr!=null && !"".equals(htmlStr)
+				&& !"null".equals(htmlStr)) { //过滤掉空格
 			htmlStr = htmlStr.replaceAll("&nbsp;", "");
 			System.out.println(htmlStr);
 		}

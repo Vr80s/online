@@ -1,18 +1,12 @@
 package com.xczh.consumer.market.controller.school;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.service.MenuService;
-import com.xczh.consumer.market.service.OLCourseServiceI;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczh.consumer.market.vo.MenuVo;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.wechat.course.model.MobileBanner;
-import com.xczhihui.wechat.course.model.MobileProject;
-import com.xczhihui.wechat.course.service.IMobileBannerService;
-import com.xczhihui.wechat.course.service.IMobileProjectService;
-import com.xczhihui.wechat.course.service.IMyInfoService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.service.MenuService;
+import com.xczh.consumer.market.service.OLCourseServiceI;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.MenuVo;
+import com.xczhihui.wechat.course.model.MobileBanner;
+import com.xczhihui.wechat.course.model.MobileProject;
+import com.xczhihui.wechat.course.service.IMobileBannerService;
+import com.xczhihui.wechat.course.service.IMobileProjectService;
+import com.xczhihui.wechat.course.service.IMyInfoService;
 
 /**
  * 推荐控制器 ClassName: MobileRecommendController.java <br>
@@ -46,8 +44,6 @@ public class MobileRecommendController {
 	@Autowired
 	private MenuService menuService;
 	
-	@Autowired
-	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
 	@Autowired
 	private IMobileBannerService mobileBannerService;

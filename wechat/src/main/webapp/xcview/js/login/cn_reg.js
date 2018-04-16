@@ -154,7 +154,6 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 			 * @returns
 			 */
 			commonLocalStorageSetItem(data);
-			
 			//是否是微信浏览器
 			if(is_weixin()){
 				 /* 
