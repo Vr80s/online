@@ -1,10 +1,10 @@
 package com.xczhihui.medical.hospital.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.hospital.model.MedicalHospitalRecruit;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
-
-import java.util.List;
 
 /**
  * <p>
@@ -47,17 +47,18 @@ public interface IMedicalHospitalRecruitBusinessService {
 
     /**
      * 新增医馆招聘
-     *20180409--yuxin--修改参数，去除onlineUser
-     * @param medicalHospitalRecruit 招聘信息
-     * @param userId             操作用户
+     * 20180409--yuxin--修改参数，去除onlineUser
      *
+     * @param medicalHospitalRecruit 招聘信息
+     * @param userId                 操作用户
      * @return
      */
     void save(MedicalHospitalRecruit medicalHospitalRecruit, String userId);
 
     /**
      * 更新医馆招聘
-     *20180409--yuxin--修改参数，去除onlineUser
+     * 20180409--yuxin--修改参数，去除onlineUser
+     *
      * @param id                     招聘信息id
      * @param medicalHospitalRecruit 招聘信息
      * @return
