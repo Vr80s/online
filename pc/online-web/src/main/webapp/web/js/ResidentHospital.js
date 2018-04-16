@@ -733,7 +733,7 @@ $(".recruit-save-btn-menuone").click(function(){
 	}
 })
 //招聘管理列表
-var recruit_texts;
+var recruits;
 recruitList()
 function recruitList(){
 	RequestService("/medical/hospitalRecruit","GET",null,function(data){
@@ -741,7 +741,7 @@ function recruitList(){
 			$(".notice_notext_two").show();
 			$(".recruit-box-manage table").hide()
 		}else{
-			recruit_texts=data.resultObject.records;
+			recruits=data.resultObject.records;
 			$("#recruitList-wrap").html(template('recruitList-mould',{items:data.resultObject.records}));		
 		}
 	})
@@ -777,14 +777,6 @@ $("#news_Administration_tabBtn").click(function(){
 	}
 })
 //公告发布接口调用
-//限制长度
-//$("#notice-text").keydown(function(){
-//	var textLength=$("#notice-text").val().length;
-//	if(textLength>10){
-//		textLength=textLength.substring(0,10);
-//		$(this).attr("value",textLength)
-//	}
-//})
 $("#notice-release-btn").click(function(){
 	var  $notice_text = $.trim($("#notice-text").val());
 	$(this).attr("disabled","disabled")
@@ -1010,6 +1002,7 @@ $(".recruit-btn-newjob").click(function() {
 		$(".recruit-wrap-title p").text("招聘管理")
 
 	}
+
 })
 //招聘管理部分,点击后回到第一页
 $("#collect_Administration_tabBtn").click(function(){
@@ -1019,7 +1012,7 @@ $("#collect_Administration_tabBtn").click(function(){
 })
 //招聘管理部分,点击预览
 function recruit_preview_btn(i){
-	var recruit_Text = recruit_texts[i];
+	var recruit_Text = recruits[i];
 	if(recruit_Text.years==0){
 		$("#recruit_wrap_mune2 p").text("不限");	
 	}else if(recruit_Text.years==1){
@@ -1047,18 +1040,16 @@ $(".recruit_preview_content img").click(function(){
 	$(".recruit_preview_box").hide()	
 })
 //招聘管理部分,开启/关闭招聘
-$('#recruitList-wrap').on('click','.recruit_close_btn',function(){
-	var id = $(this).attr('data-id');
-	var status = $(this).attr('data-status');
+function recruit_close_btn(t){
+	var id = $(t).attr('data-id');
+	var status = $(t).attr('data-status');
 	RequestService("/medical/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
 		if(data.success == true){
 			//重新渲染列表
-//			$('.doc_Administration_tabBtn').click();
 			 recruitList();
-		}
-			
+		}			
 	});
-})
+}
 //删除招聘信息，点击删除--------------------------------------------------------------
 function delete_recruit_btn(t){
 	var data_deleteId=$(t).attr("data-deleteId");
@@ -1077,24 +1068,40 @@ function delete_recruit_btn(t){
 //招聘管理部分,点击编辑
 //回显所有数据，id隐藏
 //1.获取所有修改后的值2.校验所有值3.将所有值提交到后台
-//function recruit_edit_btn(recruitId){
-//  if(echoCourse(recruitId)){
-//      $(".curriculum_two").hide();
-//      $(".curriculum_one").show();
-//  }else{
-//      showTip("课程发生变化了，请刷新列表");
-//  }
-//}
-//function getCourse4Update(caiId){
-//  var course;
-//  RequestService("/anchor/course/getCourseApplyById?caiId="+caiId, "get", null, function(data) {
-//      course = data.resultObject;
-//  },false);
-//  return course;
-//}
-//function echoCourse(caiId,passEdit){
-//  var course = getCourse4Update(caiId);
-//}
+function recruit_edit(index){
+	resetRecruitForm(index);
+    echoRecruit(index);
+    $(".recruit-box-manage").hide();
+    $(".recruit-box-newjob").show();
+    $(".recruit-wrap-title p").text("编辑招聘");
+    $(".recruit-btn-newjob").text("返回");
+    
+}
+
+function echoRecruit(index){
+	var recruit_edit = recruits[index];
+	//[{code:0,text:不限}]
+	$("#recruitId").val(recruit_edit.id);
+	$("#recruit_edit_box .recruit-write").val(recruit_edit.position);
+	$(".recruit-box-newjob .recruit-newjob-experience").iselect("val",recruit_edit.years);
+	
+	$("#recruit_edit_box .recruit-textarea-mune1").val(recruit_edit.postDuties);
+	$("#recruit_edit_box .recruit-textarea-mune2").val(recruit_edit.jobRequirements);
+}
+
+
+function resetRecruitForm(index){
+	if(index==null){
+		//新增
+	}else{
+		//编辑
+	}
+	$("#recruitId").val("");
+	$(".recruit-box-newjob .recruit-newjob-experience").iselect("init",data);
+	$("#recruit_edit_box .recruit-write").val("");	
+	$("#recruit_edit_box .recruit-textarea-mune1").val("");
+	$("#recruit_edit_box .recruit-textarea-mune2").val("");
+}
 
 
 
@@ -1102,7 +1109,7 @@ function delete_recruit_btn(t){
 
 
 //function recruit_edit_btn(i){
-//var recruit_edit = recruit_texts[i];
+//var recruit_edit = recruits[i];
 ////[{code:0,text:不限}]
 //$("#recruit_edit_box .recruit-write").val(recruit_edit.position)
 //	if(recruit_edit.years==0){
@@ -1282,6 +1289,7 @@ $.fn.iselect = function(option, data) {
 /*下拉框插件 20170416-yuxin*/
 
 //测试插件代码
+
 var data=[];
 data[0]={};
 data[0].value=0;

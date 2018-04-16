@@ -605,18 +605,6 @@ public class CourseController extends AbstractController {
     }
 
     /**
-     * 同步课程视频信息
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "updateCourseVideoInfo11111111111111111111111111111", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject updateCourseVideoInfo(String id) {
-        return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideoInfo(id));
-    }
-
-    /**
      * 同步CC视频分类
      *
      * @return
@@ -627,58 +615,6 @@ public class CourseController extends AbstractController {
     public ResponseObject updateCategoryInfo(String courseId) throws Exception {
         courseService.updateCategoryInfo(courseId);
         return ResponseObject.newSuccessResponseObject("操作成功！");
-    }
-
-    /**
-     * 老师列表
-     *
-     * @return
-     */
-    //@RequiresPermissions("course:menu:course")
-    @RequestMapping(value = "/teachers", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseObject teachers(String courseId) {
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("roleType1", courseService.lectereListByCourseIdAndRoleType(1, courseId));
-        result.put("roleType2", courseService.lectereListByCourseIdAndRoleType(2, courseId));
-        result.put("roleType3", courseService.lectereListByCourseIdAndRoleType(3, courseId));
-        return ResponseObject.newSuccessResponseObject(result);
-    }
-
-    /**
-     * 增加班级信息
-     *
-     * @return
-     */
-    //@RequiresPermissions("course:menu:grade:teachers:save")
-    @RequestMapping(value = "/teachers/save", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject saveTeachers(HttpServletRequest request, String gradeId, String courseId, String[] roleType1, String[] roleType2, String[] roleType3) {
-        List<String> roleTypes = new ArrayList<String>();
-        if (roleType1 != null) {
-            for (String _roleType1 : roleType1) {
-                if (!"".equals(_roleType1)) {
-                    roleTypes.add(_roleType1);
-                }
-            }
-        }
-        if (roleType2 != null) {
-            for (String _roleType2 : roleType2) {
-                if (!"".equals(_roleType2)) {
-                    roleTypes.add(_roleType2);
-                }
-            }
-        }
-        if (roleType3 != null) {
-            for (String _roleType3 : roleType3) {
-                if (!"".equals(_roleType3)) {
-                    roleTypes.add(_roleType3);
-                }
-
-            }
-        }
-        courseService.saveTeachers(gradeId, courseId, ManagerUserUtil.getName(), roleTypes);
-        return ResponseObject.newSuccessResponseObject(null);
     }
 
     /**
