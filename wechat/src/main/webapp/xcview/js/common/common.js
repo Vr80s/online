@@ -39,16 +39,11 @@ function getQueryString(name) {
     
 }
 
-
-var opendId = getQueryString("openId");
-if(stringnull(opendId)){
-	localStorage.setItem("openid", openId);
-}
-
 /*
  * 如果是扫二维码的话
  *   通过另一个参数来判断。
  */
+
 var qr_code = getQueryString("qr_code");
 if(stringnull(qr_code)){
 	var wxOrbrower = "wx";
@@ -365,6 +360,8 @@ function commonLocalStorageSetItem(data){
 	localStorage.setItem("occupationText",configresult.occupationText);
 }
 
+
+
 /**
  * 公共的移除 localStorage 和cookie 的信息
  * 
@@ -406,6 +403,11 @@ function commonLocalStorageRemoveItem(data){
 	//删除  第三方登录时用到的cookie
 	cookie.delete1("third_party_uc_t_");
 }
+
+
+
+
+
 
 /** * 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)
 可以用 1-2 个占位符 * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) * eg: * (new
@@ -524,25 +526,45 @@ if(!stringnull(userId)){
 	
 }
 
+
+
 /**
  * 公共的分享页面后的跳转
  */
 function common_share_back(){
-	var back = document.referrer;
+var back = document.referrer;
 	if(stringnull(back)){
-		//window.location.href = back;
-		var u = navigator.userAgent;
-		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
-			window.history.back();
-		    // window.location.href = "mobile/index.html";
-		    } else if (u.indexOf('iPhone') > -1) {//苹果手机
-			window.location.href = back;
-		}
-		// window.history.back();
+		
+
+		
+		window.history.back();
+
+
 	}else{
 		window.location.href = "home_page.html";
 	}
 }
+
+function common_share_backs(){
+
+		var back = document.referrer;
+	if(stringnull(back)){
+		var u = navigator.userAgent;
+		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+			//window.history.back();
+			window.location.href = "curriculum_table.html";  /*浏览器上走这个*/
+			//history.go();
+		    } else if (u.indexOf('iPhone') > -1) {//苹果手机
+			window.location.href = back;
+		}
+	}else{
+		window.history.back();  /*微信上走这个*/
+		//window.location.href = "home_page.html";
+	}
+
+
+}
+
 
 /*
 ** randomWord 产生任意长度随机字母数字组合
@@ -564,6 +586,8 @@ function randomWord(randomFlag, min, max){
 	 }
 	 return str;
 }
+
+
 
 /**
  *  h5  ---> 百度统计

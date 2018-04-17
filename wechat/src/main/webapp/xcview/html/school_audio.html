@@ -25,7 +25,7 @@
 	<div class="wrap-header">
 		<div class="header">		
 			<p>课程</p>
-			<div class="arror_return z" onclick="common_share_back()">				
+			<div class="arror_return z" onclick="common_share_backs()">				
 				<img src="../images/back icon.png" />
 			</div>
 			<div class="header_news">
@@ -471,6 +471,28 @@
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <script type="text/javascript" src="../js/school_audio.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="../js/share/share.js?v=wechat_1.1.1"></script>
+
+<script>
+
+window.onload = function(){
+    /*function common_share_back(){
+		var back = document.referrer;
+		if(stringnull(back)){
+			//window.location.href = back;
+			var u = navigator.userAgent;
+			if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+				window.history.back();
+			    } else if (u.indexOf('iPhone') > -1) {//苹果手机
+				alert(111);
+				window.location.href = back;
+			}
+		}else{
+			window.location.href = "home_page.html";
+		}
+	}*/
+};
+	
+</script>
 
 
 <!--详情点击隐藏和显示-->
