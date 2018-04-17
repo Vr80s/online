@@ -303,6 +303,9 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         mv.addObject("env", env);
         mv.addObject("host", host);
         mv.addObject("rate", rate);
+        
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("llala", "llal");
         return mv;
     }
 

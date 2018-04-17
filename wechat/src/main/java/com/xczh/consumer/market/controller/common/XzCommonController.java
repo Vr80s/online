@@ -34,7 +34,7 @@ import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
 import com.xczhihui.bxg.online.api.service.RechargesService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -261,36 +261,28 @@ public class XzCommonController {
 	@ResponseBody
 	public ResponseObject getWeihouSign(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
-		Map<String, String> params = new HashMap<>();
-		params.put("token", req.getParameter("token"));
-		String roomNumber = req.getParameter("video"); // 视频id
+		
+		Map<String,String> params=new HashMap<>();
+		params.put("token",req.getParameter("token"));
+		String roomNumber = req.getParameter("video");  //视频id
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		
-//		String gvhallId1 = user.getVhallId();
-//		LOGGER.info("微吼gvhallId:" + gvhallId);
-		// JSONObject json =
-		// WeihouInterfacesListUtil.getUserinfo(gvhallId,"name,head,id");
-		// String vh_app_key = "71a22e5b4a41483d41d96474511f58f3";
-		
-		String vhName = user.getName();
+		String gvhallId = user.getVhallId();
+		LOGGER.info("微吼gvhallId:"+gvhallId);
 		String email = user.getLoginName();
-		if (email != null && email.indexOf("@") == -1) {
-			email += "@163.com";
+		if(email!=null && email.indexOf("@")==-1){
+			email+="@163.com";
 		}
 		Date d = new Date();
 		String start_time = d.getTime() + "";
 		start_time = start_time.substring(0, start_time.length() - 3);
-
-		Map<String, String> map = new TreeMap<String, String>();
-		map.put("app_key", WeihouInterfacesListUtil.APP_KEY); // 微吼key
-		map.put("signedat", start_time); // 时间戳，精确到秒
-		map.put("email", email); // email 自己写的
-		map.put("roomid", roomNumber); // 视频id
-		map.put("account", user.getId()); // 用户帐号
-		map.put("username", vhName); // 用户名
-		map.put("sign", getSign(map));
-
-		
+		Map<String,String> map = new TreeMap<String,String>();
+		map.put("app_key", WeihouInterfacesListUtil.APP_KEY);  //微吼key
+		map.put("signedat", start_time); //时间戳，精确到秒  
+		map.put("email", email);         //email 自己写的
+		map.put("roomid", roomNumber);   //视频id
+		map.put("account",user.getId());       //用户帐号
+		map.put("username",user.getName());      //用户名
+		map.put("sign", WeihouInterfacesListUtil.getSign(map));
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 

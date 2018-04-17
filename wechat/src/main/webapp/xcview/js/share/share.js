@@ -67,12 +67,14 @@ function getShareId(){
 
 /**
  * 根据分享所处的当前页面 得到分享类型： 
- * @returns {Number}  1：课程  2：主播
+ * @returns {Number}  1：课程  2：主播  3:单个专辑
  */
 function getShareType(){
 	var viewHtml = getCurrentViewHtml();
 	if(viewHtml == "live_personal.html"){
 		return 2;
+	}else if(viewHtml == "live_album.html"){
+		return 3;
 	}else{
 		return 1;
 	}
@@ -206,9 +208,7 @@ document.getElementById('qqShare0').onclick = function(e){
  */
 if(is_weixn()){
 	
-	
 	var shareBack = getQueryString("shareBack");
-	
 	function pushHistory() {
 	    var state = {
 	        title: "title",

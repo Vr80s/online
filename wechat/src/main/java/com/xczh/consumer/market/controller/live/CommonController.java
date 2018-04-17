@@ -424,8 +424,6 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject getWeihouSign(HttpServletRequest req,
 			HttpServletResponse res )throws Exception{
-		Map<String,String> params=new HashMap<>();
-		params.put("token",req.getParameter("token"));
 		String roomNumber = req.getParameter("video");  //视频id
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		String gvhallId = user.getVhallId();
