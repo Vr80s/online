@@ -106,6 +106,8 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
 
     @TableField(exist = false)
     private String type;
+    @TableField(exist = false)
+    private String author;
 
     @Override
     protected Serializable pkVal() {
@@ -270,5 +272,13 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

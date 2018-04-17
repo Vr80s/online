@@ -84,4 +84,14 @@ public interface GiftService {
 	 **/
 	Object getLiveCourseUsersById(String id, String userId, Integer pageNumber, Integer pageSize);
 	
+	
+	/**
+	 * 获取用户礼物榜单
+	 * @param liveId
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 */
+	Object getRankingListByLiveId(String liveId, int pageNumber, int pageSize);
+	
 }

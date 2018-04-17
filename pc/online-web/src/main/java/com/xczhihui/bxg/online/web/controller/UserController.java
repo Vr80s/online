@@ -69,7 +69,6 @@ public class UserController extends OnlineBaseController {
 	
 	@Autowired
 	private OnlineLoginoutCallback callback;
-	
 
 	@Value("${domain}")
 	private String domain;
@@ -77,29 +76,13 @@ public class UserController extends OnlineBaseController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
 		OnlineUser o = service.findUserByLoginName(username);
-//		Token t = null;
-//		if(o!=null) {
-//            t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
-//        }else{
-//			return ResponseObject.newErrorResponseObject("用户未注册");
-//		}
-		Token token = new Token();
-		String ticket = CodeUtil.getRandomUUID();
-		token.setTicket(ticket);
-		token.setLoginName("15936216273");
-		token.setUserId(1054);
-		token.setOrigin("online");
-		long time = System.currentTimeMillis() + 10000 * 1000;
-		token.setExpires(time);
-		token.setMobile("15936216273");
-		token.setType(0);
-		token.setNickName("杨宣");
-		token.setPassWord("bbb5e4d25e3ca96207eb6464bc91d306");
-		token.setUuid(o.getId());
-		token.setHeadPhoto(o.getSmallHeadPhoto());
-		Token t = token;
+		Token t = null;
+		if(o!=null) {
+            t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
+        }else{
+			return ResponseObject.newErrorResponseObject("用户未注册");
+		}
 //		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
-		
 		if (t != null) {
 			if (o != null) {
 				t.setHeadPhoto(o.getSmallHeadPhoto());

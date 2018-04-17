@@ -52,7 +52,7 @@
                     <div class="forum-detail-title">${article.title}</div>
                     <div class="forum-info-tags">
                         <img src="/web/images/studentCount.png">
-                        <span>${article.author}&nbsp;&nbsp;&nbsp;${(article.createTime?string("yyyy-MM-dd"))!}</span>
+                        <span>${article.author!''}&nbsp;&nbsp;&nbsp;${(article.createTime?string("yyyy-MM-dd"))!}</span>
                         <a href="${webUrl}/headline/list/${article.typeId}" style="color: #188EEE;margin-left:20px">${article.type}</a>
                     </div>
                 </div>

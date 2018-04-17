@@ -52,7 +52,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		List<CourseLecturVo> records = iCourseMapper.selectMyFreeCourseList(page,id);
 		
 		return   page.setRecords(records);
-	}	
+	}
+
 	@Override
 	public List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId) {
 		List<CourseLecturVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);

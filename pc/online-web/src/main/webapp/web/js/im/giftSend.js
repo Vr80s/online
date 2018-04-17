@@ -107,7 +107,6 @@ $(document).ready(function() {
     
     function sendMsg(data){
     	autoLogin();
-    	
     	data = JSON.stringify(data);
     	data = JSON.parse(data);
 		// 创建一个<message>元素并发送
@@ -205,6 +204,13 @@ $(document).ready(function() {
 				if(data.success==true){
         			sendMsg(data.resultObject);
         			refreshBalance();
+        		  
+                    //将礼物发送到
+                    msg = VHALL_SDK.sendChat({
+                    	      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
+                    });
+                    $("#chatmsg").append(str);
+        			
 				}else{
 					// if("余额不足"==data.errorMessage){
                         $('.mask3').text(data.errorMessage).fadeIn(400,function(){

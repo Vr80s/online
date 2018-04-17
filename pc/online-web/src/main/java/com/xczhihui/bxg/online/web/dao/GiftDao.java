@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.bxg.online.api.vo.LiveCourseUserVO;
-import com.xczhihui.bxg.online.api.vo.LiveCourseVO;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -14,10 +11,13 @@ import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.domain.Gift;
-import com.xczhihui.bxg.online.common.domain.GiftStatement;
+import com.xczhihui.bxg.online.api.vo.LiveCourseUserVO;
+import com.xczhihui.bxg.online.api.vo.LiveCourseVO;
+import com.xczhihui.bxg.online.api.vo.RankingUserVO;
 import com.xczhihui.bxg.online.api.vo.ReceivedGift;
 import com.xczhihui.bxg.online.api.vo.ReceivedReward;
+import com.xczhihui.bxg.online.common.domain.Gift;
+import com.xczhihui.bxg.online.common.domain.GiftStatement;
 import com.xczhihui.bxg.online.common.domain.Reward;
 
 
@@ -222,6 +222,18 @@ public class GiftDao extends SimpleHibernateDao {
 		paramMap.put("id", id);
 		Page<LiveCourseUserVO> page = this.findPageBySQL(sql.toString(), paramMap, LiveCourseUserVO.class, pageNumber, pageSize);
 		return page;
+	}
+
+	public Object getRankingListByLiveId(String liveId, int pageNumber, int pageSize) {
+		StringBuffer sql = new StringBuffer();
+		sql.append( " SELECT  ou.id userId,ou.`name`, ou.small_head_photo smallHeadPhoto, ogs.create_time, ");
+		sql.append( " CAST(SUM(ogs.`price`) AS SIGNED) giftCount ");
+		sql.append( " FROM oe_gift_statement ogs  INNER JOIN oe_user ou 	ON (ogs.giver = ou.id) ");
+		sql.append( " WHERE ogs.live_id = :live_id 	GROUP BY giver 	ORDER BY giftCount DESC ");
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("live_id", liveId);
+        Page<RankingUserVO> page = this.findPageBySQL(sql.toString(), paramMap, RankingUserVO.class, pageNumber, pageSize);
+		return page.getItems();
 	}
 
 //	public List<Map<String, Object>> getGiftRecord(String courseId) {

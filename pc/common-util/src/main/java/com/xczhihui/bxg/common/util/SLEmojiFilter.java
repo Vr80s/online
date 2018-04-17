@@ -137,8 +137,7 @@ public class SLEmojiFilter {
 	 * @throws UnsupportedEncodingException
 	 *             exception
 	 */
-	public static String emojiRecovery2(String str)
-			throws UnsupportedEncodingException {
+	public static String emojiRecovery2(String str) throws UnsupportedEncodingException {
 		String patternString = "\\[\\[(.*?)\\]\\]";
 
 		Pattern pattern = Pattern.compile(patternString);
@@ -147,10 +146,7 @@ public class SLEmojiFilter {
 		StringBuffer sb = new StringBuffer();
 		while (matcher.find()) {
 			try {
-				
 				matcher.appendReplacement(sb,URLDecoder.decode(matcher.group(1), "UTF-8"));
-				
-				
 			} catch (UnsupportedEncodingException e) {
 				LOGGER.error("emojiRecovery error", e);
 				throw e;

@@ -72,4 +72,10 @@ public class GiftServiceImpl implements GiftService {
 		return giftDao.getLiveCourseUsersById(id,userId,pageNumber,pageSize);
 	}
 
+	@Override
+	public Object getRankingListByLiveId(String liveId, int pageNumber, int pageSize) {
+		
+		return giftDao.getRankingListByLiveId(liveId,pageNumber,pageSize);
+	}
+
 }
