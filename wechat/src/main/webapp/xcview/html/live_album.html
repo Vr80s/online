@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!--<title>消费明细</title>-->
-<title>熊猫中医</title>
+<title></title>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
@@ -15,6 +15,25 @@
 <script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<script>
+	//修改title
+	document.setTitle = function(t) {
+        document.title = t;
+        var i = document.createElement('iframe');
+        // i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+          setTimeout(function(){
+            i.remove();
+          }, 9)
+        }
+        document.body.appendChild(i);
+      }
+      setTimeout(function(){
+        document.setTitle(gradeName);
+      }, 1000);
+</script>
 <style>
 	.all_list ul li:nth-last-child(1) p{
 		border-bottom: 0;
