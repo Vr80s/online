@@ -128,7 +128,6 @@ public class GiftServiceImpl implements GiftService {
 
 	@Override
 	public  List<RankingUserVo>  newRankingList(String liveId, Integer current, Integer size) {
-		// TODO Auto-generated method stub
 		try {
 			return giftStatementMapper.newRankingList(liveId,current,size);
 		} catch (SQLException e) {

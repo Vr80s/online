@@ -142,4 +142,26 @@ public class GiftController {
         }
 		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseUsersById(id,loginUser.getId(), pageNumber, pageSize));
 	}
+	
+	
+	/** 
+	 * Description：接收到的礼物
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 **/
+	@RequestMapping(value = "/getRankingListByLiveId")
+	@ResponseBody
+	public ResponseObject getRankingListByLiveId(HttpServletRequest request,
+			String liveId,
+			Integer pageNumber,Integer pageSize) throws Exception {
+		//获取登录用户
+		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		if(loginUser==null) {
+            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        }
+		return ResponseObject.newSuccessResponseObject(giftService.getRankingListByLiveId(liveId, pageNumber, pageSize));
+	}
+	
+	
 }
