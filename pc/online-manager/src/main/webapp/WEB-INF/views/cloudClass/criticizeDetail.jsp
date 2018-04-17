@@ -89,17 +89,6 @@
 		                    </td>
 		                    <td>
 		                       <div class="profile-info-value searchTr">
-		                            <select name="search_gradeId" id="search_gradeId" class="propertyValue1"  style="width:120px">
-					               		<option value="">班级</option>
-					               		<c:forEach var="grade" items="${gradeList}">
-					                        <option value="${grade.id}">${grade.name}</option>
-					                    </c:forEach>
-					                </select>
-		                            <input type="hidden" value="search_gradeId" class="propertyName"/>
-		                        </div>
-		                    </td>
-		                    <td>
-		                       <div class="profile-info-value searchTr">
 		                            <select name="search_response" id="search_response" class="propertyValue1"  style="width:80px">
 					               		<option value="">回复状态</option>
 					               		<option value="1">已回复</option>

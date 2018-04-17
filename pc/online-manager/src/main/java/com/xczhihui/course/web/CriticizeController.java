@@ -1,31 +1,29 @@
 package com.xczhihui.course.web;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.xczhihui.course.service.CourseService;
-import com.xczhihui.course.service.CriticizeService;
-import com.xczhihui.course.vo.CourseVo;
-import com.xczhihui.course.vo.CriticizeVo;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.CriticizeService;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.CriticizeVo;
 import com.xczhihui.course.vo.LecturerVo;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/cloudClass/criticize")
@@ -196,7 +194,15 @@ public class CriticizeController{
           return tableVo;
 	}
 
-
+    /**
+     *
+     * @return
+     */
+    @RequestMapping(value = "/criticizeDetail")
+    public ModelAndView criticizeDetail(CriticizeVo criticizeVo,HttpServletRequest request){
+        ModelAndView mav=new ModelAndView("/cloudClass/criticizeDetail");
+        return mav;
+    }
 	/**
 	 * 批量逻辑删除
 	 * @param Integer id

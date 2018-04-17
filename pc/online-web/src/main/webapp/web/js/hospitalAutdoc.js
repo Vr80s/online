@@ -23,7 +23,7 @@ $(function() {
 //		}, function(data) {
 //			if(data.success == true){
 				//调用分页部分
-				courseVodList(1)
+				doctorList(1)
 				//医馆列表渲染
 //				$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
 //			}
@@ -43,7 +43,7 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 		if(data.success == true){
 			//重新渲染列表
 			$('.doc_Administration_tabBtn').click();
-			 courseVodList(1);
+			 doctorList(1);
 		}
 			
 	});
@@ -77,7 +77,7 @@ $('#deleteTip .confirm-sure').click(function(){
 		if(data.success == true){
 			//重新渲染列表
 			$('.doc_Administration_tabBtn').click();
-			 courseVodList(1);
+			 doctorList(1);
 			 $('#deleteTip').addClass('hide');
 			$('#mask').addClass('hide');
 		}
@@ -93,26 +93,26 @@ $('#deleteTip .confirm-sure').click(function(){
 	
 	
 	//	分页部分
-	function courseVodList(current) {
+	function doctorList(current){
 		RequestService("/medical/hospital/getDoctors?size=8&current=" + current, "get", null, function(data) {
 			$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
 //			debugger
 			//每次请求完数据就去渲染分页部分
 			if(data.resultObject.pages > 1) { //分页判断
 				$(".not-data").remove();
-				$(" .pages").removeClass("hide");
-				$(" .pages .searchPage .allPage").text(data.resultObject.pages);
-				$("#Pagination").pagination(data.resultObject.pages, {
-					num_edge_entries: 1, //边缘页数
-					num_display_entries: 4, //主体页数
-					current_page: current - 1,
-					callback: function(page) { //翻页功能
-						courseVodList(page + 1);
-						// alert(page);
-					}
-				});
+	            $(".doctors_pages").removeClass("hide");
+	            $(".doctors_pages .searchPage .allPage").text(data.resultObject.pages);
+	            $("#Pagination_doctors").pagination(data.resultObject.pages, {
+	                num_edge_entries: 1, //边缘页数
+	                num_display_entries: 4, //主体页数
+	                current_page:current-1,
+	                callback: function (page) {
+	                    //翻页功能
+	                    doctorList(page+1);
+	                }
+	            });
 			} else {
-				$(".pages").addClass("hide");
+				$(".doctors_pages").addClass("hide");
 			}
 		});
 	}

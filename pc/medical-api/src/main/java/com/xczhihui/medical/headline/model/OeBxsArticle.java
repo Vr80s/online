@@ -99,6 +99,9 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
     @TableField("praise_login_names")
     private String praiseLoginNames;
 
+    @TableField("update_time")
+    private Date updateTime;
+
     @TableField(exist = false)
     private String source;
     @TableField(exist = false)
@@ -123,5 +126,149 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
 
     public void setRecommend(Boolean recommend) {
         isRecommend = recommend;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
+    public String getBannerPath() {
+        return bannerPath;
+    }
+
+    public void setBannerPath(String bannerPath) {
+        this.bannerPath = bannerPath;
+    }
+
+    public Integer getBrowseSum() {
+        return browseSum;
+    }
+
+    public void setBrowseSum(Integer browseSum) {
+        this.browseSum = browseSum;
+    }
+
+    public Integer getPraiseSum() {
+        return praiseSum;
+    }
+
+    public void setPraiseSum(Integer praiseSum) {
+        this.praiseSum = praiseSum;
+    }
+
+    public Integer getCommentSum() {
+        return commentSum;
+    }
+
+    public void setCommentSum(Integer commentSum) {
+        this.commentSum = commentSum;
+    }
+
+    public Integer getBannerStatus() {
+        return bannerStatus;
+    }
+
+    public void setBannerStatus(Integer bannerStatus) {
+        this.bannerStatus = bannerStatus;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getPraiseLoginNames() {
+        return praiseLoginNames;
+    }
+
+    public void setPraiseLoginNames(String praiseLoginNames) {
+        this.praiseLoginNames = praiseLoginNames;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

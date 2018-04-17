@@ -44,7 +44,6 @@ public class CourseDao extends HibernateDao<Course> {
 						+ "  oc.status AS STATUS,\n"
 						+ "  oc.is_free AS isFree, \n"
 						+
-						// "  oc.original_cost AS originalCost,\n" +
 						"  oc.current_price*10 AS currentPrice,\n"
 						+ "  oc.description AS description,\n"
 						+ "  oc.menu_id AS menuId,\n"
@@ -61,8 +60,7 @@ public class CourseDao extends HibernateDao<Course> {
 						+ "  ca.`name` lecturerName,\n"
 						+ "  oc.`lecturer`,\n"
 						+ "  oc.`collection`,\n"
-						+ "  oc.sort_update_time as sortUpdateTime,"
-						+ "  oc.`essence_sort` as essenceSort \n"
+						+ "  oc.sort_update_time as sortUpdateTime "
 						+
 
 						"FROM\n"
@@ -99,11 +97,6 @@ public class CourseDao extends HibernateDao<Course> {
 			paramMap.put("serviceType", courseVo.getServiceType());
 			sql.append("and oc.course_type = :serviceType ");
 		}
-		/*
-		 * if (courseVo.getIsRecommend() != null) { paramMap.put("isRecommend",
-		 * courseVo.getIsRecommend());
-		 * sql.append("and oc.is_recommend = :isRecommend "); }
-		 */
 		if (courseVo.getStatus() != null) {
 			paramMap.put("status", courseVo.getStatus());
 			sql.append("and oc.status = :status ");

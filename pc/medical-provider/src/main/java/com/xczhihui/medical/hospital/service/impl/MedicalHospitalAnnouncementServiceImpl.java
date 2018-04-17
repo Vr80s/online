@@ -21,7 +21,7 @@ public class MedicalHospitalAnnouncementServiceImpl implements IMedicalHospitalA
 
     @Override
     public Page<MedicalHospitalAnnouncementVO> list(int page, String hospitalId) {
-        Page<MedicalHospitalAnnouncementVO> announcementVOPage = new Page<MedicalHospitalAnnouncementVO>();
+        Page<MedicalHospitalAnnouncementVO> announcementVOPage = new Page<>(page, 10);
         announcementVOPage.setRecords(medicalHospitalAnnouncementMapper.list(announcementVOPage, hospitalId));
         return announcementVOPage;
     }

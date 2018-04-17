@@ -32,10 +32,9 @@ public class PublicCourseDao extends HibernateDao<Course> {
 						+ "			    DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time,"
 						+ "    4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status))),c.live_status) "
 						+ "			     AS liveStatus, "
-
 						+ " ABS(timestampdiff(second,current_timestamp,c.start_time)) as recent,"
 						+ "c.grade_name as courseName ,c.sort_update_time as sortUpdateTime,ca.name as lecturerName ,m.name as menuName,c.`course_pwd` coursePwd "
-						+ ",c.live_source as liveSource,c.release_time as releaseTime,c.recommend_sort as recommendSort,c.status as status,c.direct_id as directId,c.`essence_sort` as essenceSort \n"
+						+ ",c.live_source as liveSource,c.release_time as releaseTime,c.recommend_sort as recommendSort,c.status as status,c.direct_id as directId  \n"
 						+ " from oe_course c  LEFT JOIN\n"
 						+ "  oe_menu m ON c.menu_id = m.id \n"
 						+ "  LEFT JOIN \n"
@@ -48,11 +47,6 @@ public class PublicCourseDao extends HibernateDao<Course> {
 			paramMap.put("courseName", "%" + courseVo.getCourseName() + "%");
 			sql.append(" and c.grade_name like :courseName ");
 		}
-		/*
-		 * if(courseVo.getLecturerName() != null){ paramMap.put("lecturerName",
-		 * "%"+courseVo.getLecturerName()+"%");
-		 * sql.append(" and l.name like :lecturerName "); }
-		 */
 
 		if (courseVo.getLecturerName() != null) {
 			paramMap.put("lecturerName", "%" + courseVo.getLecturerName() + "%");
