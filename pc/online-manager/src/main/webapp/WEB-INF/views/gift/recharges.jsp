@@ -128,7 +128,7 @@
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：礼物打赏管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 礼物类型管理 </span>
+	</small> <span> 充值管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -283,7 +283,7 @@
 	<div id="addCourseDialog" class="hide">
 		<form id="addCourse-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
 	        <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
-				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>价格: </label>
+				 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>价格(人民币): </label>
 				 <div class="col-sm-6">
 				 	<input type="text" name="price"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
 	             </div>

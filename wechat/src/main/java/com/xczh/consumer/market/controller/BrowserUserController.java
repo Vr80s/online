@@ -29,7 +29,6 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.utils.CodeUtil;
 import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
@@ -38,7 +37,7 @@ import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -64,8 +63,6 @@ public class BrowserUserController {
 	private OnlineUserService onlineUserService;
 	@Autowired
 	private CacheService cacheService;
-	@Autowired
-	private OnlineCourseService onlineCourseService;
 
 	@Autowired
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
@@ -935,9 +932,9 @@ public class BrowserUserController {
 	public ResponseObject appOnlyOneId(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 
-		String appUniqueId = req.getParameter("appUniqueId");
-		String token = req.getParameter("token");
-		String type = req.getParameter("type");
+//		String appUniqueId = req.getParameter("appUniqueId");
+//		String token = req.getParameter("token");
+//		String type = req.getParameter("type");
 		
 		return ResponseObject.newErrorResponseObject("接口过期");
 		

@@ -14,7 +14,7 @@ import com.xczhihui.bxg.online.common.domain.Recharges;
 public class RechargesServiceDao extends SimpleHibernateDao {
 
 	/** 
-	 * Description：获取所有礼物
+	 * Description：获取所有礼充值记录
 	 * @return
 	 * @return List<Recharges>
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com

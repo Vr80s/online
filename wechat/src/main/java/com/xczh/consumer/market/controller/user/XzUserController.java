@@ -32,7 +32,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.common.util.enums.RegisterForm;
 import com.xczhihui.bxg.common.util.enums.SMSCode;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
