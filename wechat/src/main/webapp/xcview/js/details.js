@@ -34,6 +34,27 @@ requestService("/xczh/course/liveDetails",{
 		},
 		function(data) {
 			if (data.success) {
+
+
+				// 修改title
+				document.setTitle = function(t) {
+			        document.title = t;
+			        var i = document.createElement('iframe');
+			        // i.src = '//m.baidu.com/favicon.ico';
+			        i.style.display = 'none';
+			        i.onload = function() {
+			          setTimeout(function(){
+			            i.remove();
+			          }, 9)
+			        }
+			        document.body.appendChild(i);
+		      	}
+		      	setTimeout(function(){
+		        	document.setTitle(result.gradeName);
+		       		// alert(111);
+		      	}, 1000);
+		      	
+
 				result = data.resultObject;
 				// 视频id
 				videoId = result.directId;
@@ -109,6 +130,9 @@ requestService("/xczh/course/liveDetails",{
 				}
 				
 				lineState = result.lineState;
+
+
+
 				/**
 				 * 直播状态1.直播中，2预告，3直播结束 4 即将直播
 				 */
@@ -158,8 +182,6 @@ requestService("/xczh/course/liveDetails",{
 //					$(".coze_bottom img").css('margin-left','0.3rem');  //微吼表情包
 					
 					$("#sendChat").addClass('importants');  //发送
-					
-					
 					
 
 //					点击表情
@@ -365,9 +387,7 @@ $(".add_follow").click(
 			})
 		});
 		
-		
-		
-		
+	
 
 /**
  * 点击主播头像跳转主播页面

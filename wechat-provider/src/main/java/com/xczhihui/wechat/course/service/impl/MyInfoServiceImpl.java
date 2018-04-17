@@ -62,7 +62,8 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			throw new RuntimeException("邮件长度在5-32之间");
         }
 		
-		if(!XzStringUtils.checkEmail(user.getEmail())){
+		if(StringUtils.isNotBlank(user.getEmail()) && 
+				!XzStringUtils.checkEmail(user.getEmail())){
 			throw new RuntimeException("邮箱格式有误");
 		}
 		

@@ -9,8 +9,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
-
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.controller.OnlineUserController;
@@ -21,13 +19,15 @@ import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.Base64;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.UserOrigin;
 import com.xczhihui.user.center.bean.UserSex;
 import com.xczhihui.user.center.bean.UserStatus;
 import com.xczhihui.user.center.bean.UserType;
+
+import net.sf.json.JSONObject;
 
 public class ClientUserUtil {
 	@SuppressWarnings("static-access")

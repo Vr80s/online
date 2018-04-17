@@ -50,7 +50,7 @@ import com.xczhihui.utils.Group;
 @Controller
 @RequestMapping("realClass/course")
 public class RealCourseController extends AbstractController {
-    protected final static String CLOUD_CLASS_PATH_PREFIX = "/course/";
+    protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
     @Autowired
     private CourseService courseService;
 

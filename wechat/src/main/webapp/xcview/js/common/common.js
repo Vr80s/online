@@ -16,6 +16,16 @@ function is_weixin(){
     }
 }
 
+//判断字段空值
+function stringnull(zifu) {
+	if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
+			|| zifu == "null") {
+		return false;
+	}
+	return true;
+
+}
+
 /**
  * 截取url传递的参数
  * @param name 传递 key  得到value 
@@ -23,9 +33,41 @@ function is_weixin(){
  */
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
+    var search = decodeURIComponent(window.location.search);
+    var r = search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
+    
 }
+
+
+var opendId = getQueryString("openId");
+if(stringnull(opendId)){
+	localStorage.setItem("openid", openId);
+}
+
+/*
+ * 如果是扫二维码的话
+ *   通过另一个参数来判断。
+ */
+var qr_code = getQueryString("qr_code");
+if(stringnull(qr_code)){
+	var wxOrbrower = "wx";
+	if(!is_weixin()){
+		wxOrbrower = "brower";
+	}
+	var searchUrl = window.location.href;
+	var test = window.location.pathname;
+	
+	var int = searchUrl.indexOf("qr_code");
+	searchUrl = searchUrl.substring(0,int-1);
+	//alert(searchUrl);
+	location.href = "/xczh/share/xcCustomQrCode?search_url="+searchUrl+"&wxOrbrower="+wxOrbrower;
+}
+
+
+
+
+
 
 
 var accessCommon = localStorage.access;
@@ -238,15 +280,6 @@ function imgsubstr(imgurl) {
 	var attrurl = strurl.split(",");
 	return attrurl;
 }
-// 判断字段空值
-function stringnull(zifu) {
-	if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
-			|| zifu == "null") {
-		return false;
-	}
-	return true;
-
-}
 /*
  * 判断字段空值   如果值等于null 或者 undefined 或者 'undefined' 或者 "" 统一返回 ""
  *          如果不等于null时，返回真实的值
@@ -332,8 +365,6 @@ function commonLocalStorageSetItem(data){
 	localStorage.setItem("occupationText",configresult.occupationText);
 }
 
-
-
 /**
  * 公共的移除 localStorage 和cookie 的信息
  * 
@@ -375,11 +406,6 @@ function commonLocalStorageRemoveItem(data){
 	//删除  第三方登录时用到的cookie
 	cookie.delete1("third_party_uc_t_");
 }
-
-
-
-
-
 
 /** * 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)
 可以用 1-2 个占位符 * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) * eg: * (new
@@ -498,8 +524,6 @@ if(!stringnull(userId)){
 	
 }
 
-
-
 /**
  * 公共的分享页面后的跳转
  */
@@ -507,12 +531,18 @@ function common_share_back(){
 	var back = document.referrer;
 	if(stringnull(back)){
 		//window.location.href = back;
-		window.history.back();
+		var u = navigator.userAgent;
+		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+			window.history.back();
+		    // window.location.href = "mobile/index.html";
+		    } else if (u.indexOf('iPhone') > -1) {//苹果手机
+			window.location.href = back;
+		}
+		// window.history.back();
 	}else{
 		window.location.href = "home_page.html";
 	}
 }
-
 
 /*
 ** randomWord 产生任意长度随机字母数字组合
@@ -534,8 +564,6 @@ function randomWord(randomFlag, min, max){
 	 }
 	 return str;
 }
-
-
 
 /**
  *  h5  ---> 百度统计

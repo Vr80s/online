@@ -322,17 +322,6 @@ public class CourseVo extends OnlineBaseVo {
 	private String lecturerDescription;
 	private String subtitle;
 
-	// 精品推荐
-	private Integer isEssence;
-
-	// 精品排序
-	private Integer essenceSort; // 不推荐(0)，推荐（1）
-
-	// 分类推荐
-	private Integer isTypeRecommend;
-
-	// 分类排序
-	private Integer typeSort;
 	// 发布时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -349,14 +338,6 @@ public class CourseVo extends OnlineBaseVo {
 
 	public void setSubtitle(String subtitle) {
 		this.subtitle = subtitle;
-	}
-
-	public Integer getEssenceSort() {
-		return essenceSort;
-	}
-
-	public void setEssenceSort(Integer essenceSort) {
-		this.essenceSort = essenceSort;
 	}
 
 	public String getLecturerDescription() {
@@ -1016,30 +997,6 @@ public class CourseVo extends OnlineBaseVo {
 
 	public void setLiveStatus(Integer liveStatus) {
 		this.liveStatus = liveStatus;
-	}
-
-	public Integer getIsEssence() {
-		return isEssence;
-	}
-
-	public void setIsEssence(Integer isEssence) {
-		this.isEssence = isEssence;
-	}
-
-	public Integer getIsTypeRecommend() {
-		return isTypeRecommend;
-	}
-
-	public void setIsTypeRecommend(Integer isTypeRecommend) {
-		this.isTypeRecommend = isTypeRecommend;
-	}
-
-	public Integer getTypeSort() {
-		return typeSort;
-	}
-
-	public void setTypeSort(Integer typeSort) {
-		this.typeSort = typeSort;
 	}
 
 	public Date getReleaseTime() {

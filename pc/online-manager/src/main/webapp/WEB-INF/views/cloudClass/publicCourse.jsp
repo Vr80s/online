@@ -133,47 +133,12 @@
 
 <div style="height: 100%;" class="clearfix">
     <!-- Nav tabs -->
-    <%--<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab" style="margin:0px;">
-        <li role="presentation" class="active">
-            <a href="#home" aria-controls="home" class="kcgl_bx" role="tab" style="padding: 10px 5px;"
-               data-toggle="tab">直播管理</a>
-        </li>
-        &lt;%&ndash;<li role="presentation">&ndash;%&gt;
-            &lt;%&ndash;<a href="#inbox" aria-controls="inbox" class="kctj_bx" role="tab" style="padding: 10px 5px;"&ndash;%&gt;
-               &lt;%&ndash;data-toggle="tab">直播统计</a>&ndash;%&gt;
-        &lt;%&ndash;</li>&ndash;%&gt;
-
-		<li role="presentation">
-            <a href="#liveremon" aria-controls="#liveremon" title="1" class="zbtj_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">直播中推荐</a>
-        </li>
-        
-        <li role="presentation">
-            <a href="#liveremon" aria-controls="#liveremon" title="2"  class="zbtj_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">直播预告推荐</a>
-        </li>
-        
-        <li role="presentation">
-            <a href="#liveremon" aria-controls="#liveremon" title="3" class="zbtj_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">直播结束推荐</a>
-        </li>
-        
-    </ul>--%>
  
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<p class="col-xs-4" style="padding: 0;">
-					<%--<button class="btn btn-sm btn-success add_bx" title="新增课程">--%>
-						<%--<i class="glyphicon glyphicon-plus"></i> 新增课程--%>
-					<%--</button>--%>
-					<%--<button class="btn btn-sm btn-success dele_bx" title="批量删除">
-						<i class="glyphicon glyphicon-trash"></i> 批量删除
-					</button>--%>
-					<%--<button class="btn btn-sm btn-success rec_P" title="设为推荐">
-						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
-					</button>--%>
 				</p>
 			
 			<div class="searchDivClass" id="searchDiv">

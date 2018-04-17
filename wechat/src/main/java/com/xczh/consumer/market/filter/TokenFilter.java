@@ -100,7 +100,8 @@ public class TokenFilter implements Filter {
 	
 	private static String new_controller_pay_the_callback_one =
 			"/xczh/criticize/getCriticizeList,/bxg/ccvideo/commonCourseStatus"
-			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
+			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/rechargeList,"
+			+ "/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
 			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/common/richTextDetails,"
 			+ "/xczh/gift/list,/xczh/message";
 	
