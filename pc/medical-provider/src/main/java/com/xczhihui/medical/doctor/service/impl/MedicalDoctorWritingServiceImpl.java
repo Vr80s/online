@@ -50,7 +50,21 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
 
     @Override
     public boolean updateStatus(String doctorId, String id, boolean status) {
-        return medicalWritingMapper.updateStatus(doctorId, id, status) == 1;
+        if (medicalWritingMapper.updateStatus(doctorId, id, status) == 1) {
+            if (!status) {
+                MedicalWriting medicalWriting = medicalWritingMapper.selectById(id);
+                if (medicalWriting == null) {
+                    throw new IllegalArgumentException("参数非法");
+                }
+
+                OeBxsArticle oeBxsArticle = oeBxsArticleMapper.selectById(medicalWriting.getArticleId());
+                oeBxsArticle.setDelete(true);
+                oeBxsArticleMapper.updateById(oeBxsArticle);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -102,5 +116,19 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         oldOeBxsArticle.setContent(medicalWriting.getRemark());
         oeBxsArticleMapper.updateById(oldOeBxsArticle);
         return true;
+    }
+
+    @Override
+    public void delete(String id, String doctorId) {
+        MedicalWriting medicalWriting = medicalWritingMapper.selectById(id);
+        if (medicalWriting == null) {
+            throw new IllegalArgumentException("参数非法");
+        }
+        medicalWriting.setDeleted(true);
+        medicalWritingMapper.updateById(medicalWriting);
+
+        OeBxsArticle oeBxsArticle = oeBxsArticleMapper.selectById(medicalWriting.getArticleId());
+        oeBxsArticle.setDelete(true);
+        oeBxsArticleMapper.updateById(oeBxsArticle);
     }
 }

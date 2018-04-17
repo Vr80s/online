@@ -567,6 +567,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         return medicalDoctorAccount.getDoctorId();
     }
 
+    @Override
+    public MedicalDoctor get(String id) {
+        return medicalDoctorMapper.selectById(id);
+    }
+
     /**
      * 参数校验
      *

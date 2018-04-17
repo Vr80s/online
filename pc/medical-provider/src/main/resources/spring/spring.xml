@@ -106,6 +106,9 @@
     <!-- 医师著作 -->
     <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService"
                    ref="medicalDoctorWritingServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <!-- 医师文章 -->
+    <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService"
+                   ref="medicalDoctorArticleServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 

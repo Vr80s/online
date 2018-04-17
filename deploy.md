@@ -58,3 +58,17 @@ bbs pc端整合
 医馆管理->招聘管理
 
     ALTER TABLE `medical_hospital_recruit` ADD `public_time` DATETIME DEFAULT NULL COMMENT '发布时间';
+
+医馆管理->专栏管理与媒体报道
+
+    ALTER TABLE `medical_doctor_report` ADD `report_doctor` VARCHAR(255)  NULL  DEFAULT NULL COMMENT '报道的医师';
+
+    CREATE TABLE `medical_doctor_special_column` (
+      `id` varchar(32) NOT NULL DEFAULT '' COMMENT '医师专栏关系表',
+      `doctor_id` varchar(32) NOT NULL DEFAULT '' COMMENT '医师id',
+      `article_id` varchar(32) NOT NULL DEFAULT '' COMMENT '文章id',
+      `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    ALTER TABLE `oe_bxs_article` ADD `update_time` DATETIME  NULL DEFAULT NULL COMMENT '更新时间';
