@@ -1,33 +1,28 @@
 package com.xczh.consumer.market.controller.course;
 
+import java.util.List;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.xczhihui.wechat.course.model.WatchHistory;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IWatchHistoryService;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.wechat.course.service.ICourseService;
+import com.xczhihui.wechat.course.vo.CourseLecturVo;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
@@ -48,9 +43,6 @@ public class CourseController {
 
 	@Autowired
 	private OnlineWebService onlineWebService;
-
-	@Autowired
-	private IWatchHistoryService watchHistoryServiceImpl;
 
 	@Autowired
 	private FocusService focusService;

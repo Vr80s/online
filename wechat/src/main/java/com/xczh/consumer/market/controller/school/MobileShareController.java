@@ -75,11 +75,11 @@ public class MobileShareController {
 	@ResponseBody
 	public ResponseObject courseShare(
 			@RequestParam(value="shareId")String shareId,
-			@RequestParam(value="shareType")Integer shareType)throws Exception{
+			@RequestParam(value="shareType")Integer shareType)
+					throws Exception{
 		try {
 			if(shareType==1){ // 课程分享 
 				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
-				
 				if(courseLectur==null){
 					return ResponseObject.newErrorResponseObject("课程信息有误");
 				}
@@ -96,12 +96,10 @@ public class MobileShareController {
 				if(lectur==null){
 					return ResponseObject.newErrorResponseObject("主播信息有误");
 				}
-				
 				/*
 				 * 课程名增加一个中医好课程  
 				 */
 				lectur.setName("中医好主播:"+lectur.getName());
-				
 				if(lectur.getDescription()!=null){
 					String description = lectur.getDescription();
 					description = XzStringUtils.delHTMLTag(description);
@@ -148,9 +146,7 @@ public class MobileShareController {
 			res.sendRedirect(returnOpenidUri +"/xczh/share/viewUser?shareId="+shareId+"&wxOrbrower=brower"+"&shareType="+shareType);//
 		}
 	}
-	public static void main(String[] args) {
-		System.out.println("============");
-	}
+	
 	/**
 	 * 
 	 * Description：真正的分享后，响应给用户的页面
@@ -219,7 +215,7 @@ public class MobileShareController {
 			 */
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
-			if("1".equals(shareType)){ //课程分享啦
+			if("1".equals(shareType) || "3".equals(shareType)){ //课程分享啦
 				
 				LOGGER.info("shareType:"+shareType);
 				LOGGER.info("shareId:+"+shareId);
@@ -260,7 +256,6 @@ public class MobileShareController {
 							//专辑视频音频播放页
 							res.sendRedirect(returnOpenidUri + "/xcview/html/live_select_album.html?shareBack=1&course_id="+shareId);
 						}else{
-							
 							if("3".equals(shareType)) { //说明是单个专辑
 								//单个视频音频播放
 								res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?shareBack=1&my_study="+shareId);
@@ -406,7 +401,7 @@ public class MobileShareController {
 			}else{
 				ou =  appBrowserService.getOnlineUserByReq(req);
 			}
-			res.sendRedirect(returnOpenidUri +"/"+ realUrl);
+			res.sendRedirect(realUrl);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

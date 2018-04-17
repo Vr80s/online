@@ -9,13 +9,29 @@ var hostName ="";
  * @param videoId
  */
 function chZJ(videoId){
-	
 	//获取开播时间和
-	
     var map;
-    requestService("/bxg/common/getWeihouSign", {video:videoId}, function(data) {
-    	map  = data.resultObject;
-    },false)
+//    requestService("/weihou/getWeihouSign", {videoId:videoId}, function(data) {
+//    	map  = data.resultObject;
+//    },false)
+    
+    $.ajax({
+        url: '/weihou/getWeihouSign',
+        method: 'get',
+        data: {videoId:videoId},
+        dataType: 'json',
+        contentType: 'application/json',
+        async:false,
+        success: function (data) {
+            if (data.success) {
+            	map  = data.resultObject;
+            } else {
+               alert("获取微吼签名信息有误");
+            }
+        }
+    });
+    
+    
     $("#video").html("");
     
     var weihouSignInfo ={
@@ -31,6 +47,7 @@ function chZJ(videoId){
             docContent: "#doc"
     }
     weihouSignInfo.videoContent="#video";
+    
     VHALL_SDK.init(weihouSignInfo);
 }
 

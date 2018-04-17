@@ -30,11 +30,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -42,7 +40,7 @@ import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -68,16 +66,12 @@ public class OnlineUserController {
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	@Autowired
-	private WxcpClientUserService wxcpClientUserService;
-	@Autowired
 	private CacheService cacheService;
 	
 	@Autowired
 	private UserCoinService userCoinService;
 	@Autowired
 	private OLAttachmentCenterService service;
-	@Autowired
-	private AppBrowserService appBrowserService;
 	
 	@Autowired
 	private CityService cityService;

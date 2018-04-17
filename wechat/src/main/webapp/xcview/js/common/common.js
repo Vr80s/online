@@ -39,19 +39,29 @@ function getQueryString(name) {
     
 }
 
+
+var opendId = getQueryString("openId");
+if(stringnull(opendId)){
+	localStorage.setItem("openid", openId);
+}
+
 /*
  * 如果是扫二维码的话
  *   通过另一个参数来判断。
  */
-
 var qr_code = getQueryString("qr_code");
 if(stringnull(qr_code)){
 	var wxOrbrower = "wx";
 	if(!is_weixin()){
 		wxOrbrower = "brower";
 	}
-	var searchUrl = window.location.search;
-	location.href = "/xczh/wxlogin/publicWechatAndMobile?searchUrl="+searchUrl+"&wxOrbrower="+wxOrbrower;
+	var searchUrl = window.location.href;
+	var test = window.location.pathname;
+	
+	var int = searchUrl.indexOf("qr_code");
+	searchUrl = searchUrl.substring(0,int-1);
+	//alert(searchUrl);
+	location.href = "/xczh/share/xcCustomQrCode?search_url="+searchUrl+"&wxOrbrower="+wxOrbrower;
 }
 
 
