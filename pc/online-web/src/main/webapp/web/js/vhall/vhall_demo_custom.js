@@ -39,6 +39,7 @@ $(document).ready(function() {
 	           " <p class='content'>"+obj.content+"</p>"+
 	        "</div>"+
 	      "</li>";
+	    
 	    return aaa;
     }
 	function t(t) {
