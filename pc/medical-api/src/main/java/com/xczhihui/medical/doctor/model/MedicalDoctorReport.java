@@ -40,9 +40,6 @@ public class MedicalDoctorReport extends Model<MedicalDoctorReport> {
     @TableField("create_time")
     private Date createTime;
 
-    @TableField("report_doctor")
-    private String reportDoctor;
-
     public String getId() {
         return id;
     }
@@ -75,14 +72,6 @@ public class MedicalDoctorReport extends Model<MedicalDoctorReport> {
         this.createTime = createTime;
     }
 
-    public String getReportDoctor() {
-        return reportDoctor;
-    }
-
-    public void setReportDoctor(String reportDoctor) {
-        this.reportDoctor = reportDoctor;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -95,7 +84,6 @@ public class MedicalDoctorReport extends Model<MedicalDoctorReport> {
                 ", doctorId='" + doctorId + '\'' +
                 ", articleId='" + articleId + '\'' +
                 ", createTime=" + createTime +
-                ", reportDoctor='" + reportDoctor + '\'' +
                 '}';
     }
 }

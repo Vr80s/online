@@ -23,12 +23,18 @@ public class DoctorArticleBody {
 
     private int status;
 
-    private String reportDoctor;
+    private String author;
+
+    private String url;
 
     public OeBxsArticle build(HeadlineType headlineType, String userId) {
         OeBxsArticle oeBxsArticle = new OeBxsArticle();
-        //实际是医师名称
-        oeBxsArticle.setUserId(userId);
+        //作者
+        if (headlineType.equals(HeadlineType.MYBD)) {
+            oeBxsArticle.setUserId(author);
+        } else {
+            oeBxsArticle.setUserId(userId);
+        }
         oeBxsArticle.setDelete(false);
         oeBxsArticle.setCreateTime(new Date());
         oeBxsArticle.setContent(content);
@@ -40,6 +46,7 @@ public class DoctorArticleBody {
         oeBxsArticle.setTypeId(headlineType.getCode());
         oeBxsArticle.setStatus(status);
         oeBxsArticle.setTitle(title);
+        oeBxsArticle.setUrl(url);
         return oeBxsArticle;
     }
 
@@ -75,11 +82,19 @@ public class DoctorArticleBody {
         this.status = status;
     }
 
-    public String getReportDoctor() {
-        return reportDoctor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setReportDoctor(String reportDoctor) {
-        this.reportDoctor = reportDoctor;
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

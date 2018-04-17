@@ -76,9 +76,8 @@ public interface IMedicalDoctorArticleService {
      *
      * @param doctorId     医师id
      * @param oeBxsArticle 媒体报道数据
-     * @param reportDoctor 报道医师
      */
-    void saveReport(String doctorId, OeBxsArticle oeBxsArticle, String reportDoctor);
+    void saveReport(String doctorId, OeBxsArticle oeBxsArticle);
 
     /**
      * 更新报道
@@ -86,10 +85,9 @@ public interface IMedicalDoctorArticleService {
      * @param doctorId     医师id
      * @param oeBxsArticle 医师报道数据
      * @param id           id
-     * @param reportDoctor 报道医师
      * @return 是否更新成功
      */
-    boolean updateReport(String doctorId, OeBxsArticle oeBxsArticle, String id, String reportDoctor);
+    boolean updateReport(String doctorId, OeBxsArticle oeBxsArticle, String id);
 
     /**
      * 获取报道数据

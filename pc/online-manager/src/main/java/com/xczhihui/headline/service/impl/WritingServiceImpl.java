@@ -31,12 +31,10 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
     WritingDao writingDao;
 
     @Override
-    public Page<MedicalWritings> findCoursePage(WritingVo searchVo,
-                                                int currentPage, int pageSize) {
-        // TODO Auto-generated method stub
-        Page<MedicalWritings> page = writingDao.findCloudClassCoursePage(
+    public Page<MedicalWritings> findWritingsPage(WritingVo searchVo,
+                                                  int currentPage, int pageSize) {
+        return writingDao.findCloudClassCoursePage(
                 searchVo, currentPage, pageSize);
-        return page;
     }
 
     @Override
@@ -148,15 +146,6 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
         param.put("userId", articleVo.getUserId());
         articleDao.getNamedParameterJdbcTemplate().update(sql, param);
 
-		/*
-		 * String
-		 * deleteSql="delete from article_r_tag where article_id=:articleId";
-		 * Map<String,Object> paramDel=new HashMap<String,Object>();
-		 * paramDel.put("articleId",articleVo.getId());
-		 * articleDao.getNamedParameterJdbcTemplate().update(deleteSql,
-		 * paramDel); addArticleTag(articleVo);
-		 */
-
         /**
          * 修改著作信息
          */
@@ -172,43 +161,34 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public void deletes(String[] ids) {
-        // TODO Auto-generated method stub
         for (String id : ids) {
 
             WritingVo wv = findWritingById(id);
 
             // 删除著作
             String deleteSqlwri = "DELETE FROM medical_writings WHERE id=:id";
-            Map<String, Object> paramDelWri = new HashMap<String, Object>();
+            Map<String, Object> paramDelWri = new HashMap<>(16);
             paramDelWri.put("id", id);
             articleDao.getNamedParameterJdbcTemplate().update(deleteSqlwri,
                     paramDelWri);
 
             // 删除文章
             String deleteSqlArt = "DELETE FROM oe_bxs_article WHERE id=:id";
-            Map<String, Object> paramDelArt = new HashMap<String, Object>();
+            Map<String, Object> paramDelArt = new HashMap<>(16);
             paramDelArt.put("id", wv.getArticleId());
             articleDao.getNamedParameterJdbcTemplate().update(deleteSqlArt,
                     paramDelArt);
 
-            // 删除标签
-            // String
-            // deleteSql="delete from article_r_tag where article_id=:articleId";
-            // Map<String,Object> paramDel=new HashMap<String,Object>();
-            // paramDel.put("articleId",id);
-            // articleDao.getNamedParameterJdbcTemplate().update(deleteSql,
-            // paramDel);
-
             // oe_bxs_appraise删除评论
             String deleteSqlAppraise = "DELETE FROM oe_bxs_appraise WHERE article_id=:articleId";
-            Map<String, Object> paramDelAppraise = new HashMap<String, Object>();
+            Map<String, Object> paramDelAppraise = new HashMap<>(16);
             paramDelAppraise.put("articleId", wv.getArticleId());
             articleDao.getNamedParameterJdbcTemplate().update(
                     deleteSqlAppraise, paramDelAppraise);
 
             // 删除关联的信息
             String deleteSqlDocWriting = "DELETE FROM medical_doctor_writings WHERE writings_id=:writingsId";
-            Map<String, Object> paramDelDocWriting = new HashMap<String, Object>();
+            Map<String, Object> paramDelDocWriting = new HashMap<>(16);
             paramDelDocWriting.put("writingsId", id);
             articleDao.getNamedParameterJdbcTemplate().update(
                     deleteSqlDocWriting, paramDelDocWriting);
@@ -225,7 +205,7 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
             wv.setStatus(1);
         }
         String sql = "UPDATE medical_writings SET status =:status  WHERE id =:id";
-        Map<String, Object> param = new HashMap<String, Object>();
+        Map<String, Object> param = new HashMap<>(16);
         param.put("id", wv.getId());
         param.put("status", wv.getStatus());
         writingDao.getNamedParameterJdbcTemplate().update(sql, param);
@@ -234,7 +214,6 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public void addPreArticle(ArticleVo articleVo) {
-        // TODO Auto-generated method stub
         String sql = "INSERT INTO oe_bxs_preview_article (title,content,type_id,img_path,user_id) VALUES "
                 + "(:title,:content,:typeId,:imgPath,:userId) ";
 
@@ -245,51 +224,24 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     @Override
-    public void updateRecommend(Integer id) {
-        // TODO Auto-generated method stub
-
-        // ArticleVo vo=findArticleById(id);
-        // if(vo.getIsRecommend()!=null&&!vo.getIsRecommend()){
-        // vo.setIsRecommend(true);
-        // }else{
-        // throw new IllegalArgumentException("已推荐");
-        // }
-        //
-        // List<ArticleVo> vos=articleDao.findEntitiesByJdbc(ArticleVo.class,
-        // "select * from oe_bxs_article where is_recommend = 1", new
-        // HashMap<String, Object>());
-        // if(vos!=null&&vos.size()>=6){
-        // throw new IllegalArgumentException("最多推荐6个");
-        // }
-        //
-        // String
-        // sql="update oe_bxs_article SET is_recommend =:recommend  where id =:id";
-        // Map<String,Object> param=new HashMap<String,Object>();
-        // param.put("id",vo.getId());
-        // param.put("recommend", vo.getIsRecommend());
-        // articleDao.getNamedParameterJdbcTemplate().update(sql, param);
-    }
-
-    @Override
     public void updateMedicalDoctorWritings(String id, String[] doctorId) {
         List<MedicalDoctorWritings> mhfs = dao.findEntitiesByProperty(
                 MedicalDoctorWritings.class, "writingsId", id);
-        for (int i = 0; i < mhfs.size(); i++) {
-            dao.delete(mhfs.get(i));
+        for (MedicalDoctorWritings mhf : mhfs) {
+            dao.delete(mhf);
         }
         if (doctorId != null) {
-            for (int i = 0; i < doctorId.length; i++) {
+            for (String aDoctorId : doctorId) {
                 MedicalDoctorWritings medicalDoctorWritings = new MedicalDoctorWritings();
 
                 String mid = UUID.randomUUID().toString().replace("-", "");
                 medicalDoctorWritings.setId(mid);
 
-                medicalDoctorWritings.setDoctorId(doctorId[i]);
+                medicalDoctorWritings.setDoctorId(aDoctorId);
                 medicalDoctorWritings.setWritingsId(id);
                 medicalDoctorWritings.setCreateTime(new Date());
                 dao.save(medicalDoctorWritings);
             }
         }
     }
-
 }

@@ -199,7 +199,7 @@
             b.content,
             b.img_path,
             b.create_time,
-            b.`user_id` source,
+            b.`user_id` author,
             b.`type_id`,
             a.`name`    type
         FROM
@@ -220,7 +220,7 @@
             b.content,
             b.img_path,
             b.create_time,
-            b.`user_id` source,
+            b.`user_id` author,
             b.`type_id`,
             a.`name`    type
         FROM

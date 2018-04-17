@@ -61,7 +61,7 @@ public class OeBxsArticleVO implements Serializable {
 
     private Date createTime;
 
-    private String reportDoctor;
+    private String url;
 
     public String getAuthor() {
         return author;
@@ -173,14 +173,6 @@ public class OeBxsArticleVO implements Serializable {
         isRecommend = recommend;
     }
 
-    public String getReportDoctor() {
-        return reportDoctor;
-    }
-
-    public void setReportDoctor(String reportDoctor) {
-        this.reportDoctor = reportDoctor;
-    }
-
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -195,6 +187,14 @@ public class OeBxsArticleVO implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
@@ -212,7 +212,6 @@ public class OeBxsArticleVO implements Serializable {
                 ", commentSum=" + commentSum +
                 ", isRecommend=" + isRecommend +
                 ", createTime=" + createTime +
-                ", reportDoctor='" + reportDoctor + '\'' +
                 ", medicalDoctors=" + medicalDoctors +
                 '}';
     }

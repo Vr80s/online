@@ -102,8 +102,8 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
     @TableField("update_time")
     private Date updateTime;
 
-    @TableField(exist = false)
-    private String source;
+    private String url;
+
     @TableField(exist = false)
     private String type;
 
@@ -256,19 +256,19 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
         this.updateTime = updateTime;
     }
 
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

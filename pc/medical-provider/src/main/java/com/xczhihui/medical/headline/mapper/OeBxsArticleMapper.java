@@ -48,13 +48,13 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @param doctorId 医师id
      * @return 列表数据
      */
-    @Select("select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
-            " oba.`img_path` as imgPath, mdr.report_doctor as reportDoctor, oba.status as status " +
+    @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
             " LEFT JOIN `medical_doctor_report` mdr" +
             " ON oba.`id` = mdr.`article_id` " +
             " where oba.`is_delete`=0 AND mdr.doctor_id = #{doctorId} " +
-            " order by oba.create_time desc")
+            " order by oba.create_time desc"})
     List<OeBxsArticleVO> listReport(Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId);
 
     /**
@@ -64,7 +64,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @return 报道数据
      */
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
-            " oba.`img_path` as imgPath, mdr.report_doctor as reportDoctor, oba.status as status " +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
             " LEFT JOIN `medical_doctor_report` mdr" +
             " ON oba.`id` = mdr.`article_id` " +
@@ -80,7 +80,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @return 列表数据
      */
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
-            " oba.`img_path` as imgPath, oba.status as status " +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
             " LEFT JOIN `medical_doctor_special_column` mdsc" +
             " ON oba.`id` = mdsc.`article_id` " +
@@ -95,7 +95,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @return 专栏数据
      */
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
-            " oba.`img_path` as imgPath, oba.status as status " +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
             " LEFT JOIN `medical_doctor_special_column` mdsc" +
             " ON oba.`id` = mdsc.`article_id` " +
