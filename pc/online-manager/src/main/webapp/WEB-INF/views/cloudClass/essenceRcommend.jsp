@@ -8,22 +8,12 @@
         width: 8%;
         height: 100%;
         float: left;
-        /* overflow: hidden; */
        margin-top: 45px;
     }
  
     .vertical-tab > li {
         text-align: center;
     }
-    
-/*  	.vertical-tab > li > a {
-        border: solid #ccc;
-        border-width: 1px 1px 1px 1px;
-        background-color: #ffffff; 
-         border-right: 1px solid #ffffff; 
-        border-right: 1px solid #ccc;
-        z-index: 2;
-    } */
     
     .vertical-tab > li.active > a, .vertical-tab > li.active > a:focus, .vertical-tab > li.active > a:hover {
         border: solid #ccc;
@@ -34,7 +24,6 @@
     }
  
     .vertical-tab > li > a {
-         /* border-radius: 4px 4px 4px 4px; */
          border-radius: 4px 0px 0px 4px; 
     }
  
@@ -359,15 +348,6 @@
         text-align: center;
     }
     
-/*  	.vertical-tab > li > a {
-        border: solid #ccc;
-        border-width: 1px 1px 1px 1px;
-        background-color: #ffffff; 
-         border-right: 1px solid #ffffff; 
-        border-right: 1px solid #ccc;
-        z-index: 2;
-    } */
-    
     .vertical-tab > li.active > a, .vertical-tab > li.active > a:focus, .vertical-tab > li.active > a:hover {
         border: solid #ccc;
         border-width: 1px 1px 1px 1px;
@@ -484,58 +464,19 @@
             <a href="#home" aria-controls="home" class="all_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程推荐管理</a>
         </li>
-        
-        <%--<li role="presentation">
-            <a href="#home" aria-controls="home" class="jpktj_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">精品推荐管理</a>
-        </li>
-		
-		<li role="presentation">
-			<a href="#home" aria-controls="home" class="flkc_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程分类推荐管理</a>
-		</li>--%>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-        	
-        	
-        		<%--<p class="col-xs-1 all_recommend_course" style="padding: 0;">
-					<button class="btn btn-sm btn-success rec_jp" title="设为精品推荐" data-type="set">
-						<i class="glyphicon glyphicon-cog"></i>设为精品推荐
-					</button>
-				</p>--%>
-				
-				<%--<p class="col-xs-1 all_recommend_course" style="padding: 0;" >
-					<button class="btn btn-sm btn-success rec_fl" title="设为分类推荐" data-type="set">
-						<i class="glyphicon glyphicon-cog"></i> 设为分类推荐
-					</button>
-				</p>--%>
-        	
-        	
-			<%--	<p class="col-xs-1 jp_course" style="padding: 0;">
-					<button class="btn btn-sm btn-success rec_jp" title="取消精品推荐" >
-						<i class="glyphicon glyphicon-trash"></i> 取消精品推荐
-					</button>
-				</p>
-				
-				<p class="col-xs-1 course_menu_id" style="padding: 0;" >
-					<button class="btn btn-sm btn-success rec_fl" title="取消推荐">
-						<i class="glyphicon glyphicon-trash"></i> 取消分类推荐
-					</button>
-				</p>--%>
-				
-				
-				
-					<div class="searchDivClass all_recommend_course" id="search_all">
+					<div class="searchDivClass all_recommend_course" id="searchDiv">
 					<div class="profile-info-row" >
 						<table frame=void >
 							<tr>
 								<!-- 学科 -->
 								<td>
 									<div class="profile-info-value searchTr">
-										<select name="menuName" id="search_menu" value="" class="propertyValue1"  >
+										<select name="search_menu" id="search_menu" value="" class="propertyValue1"  >
 											<option value="">学科</option>
 											<c:forEach var="menus" items="${menuVo}">
 												<option value="${menus.id}">${menus.name}</option>
@@ -555,7 +496,7 @@
 								<!-- 直播大类型 -->
 								<td>
 			                       <div class="profile-info-value searchTr">
-			                            <select name="courseType" id="search_type" value="" class="propertyValue1"  >
+			                            <select name="search_type" id="search_type" value="" class="propertyValue1"  >
 						               		<option value=""> 直播类型</option>
 						               		<option value="1">直播</option>
 						               		<option value="2">视频</option>
@@ -567,7 +508,7 @@
 								<!-- 直播状态 -->
 								<td>
 			                       <div class="profile-info-value searchTr">
-			                            <select name="liveStatus" id="search_liveStatus" value="" class="propertyValue1"  >
+			                            <select name="search_liveStatus" id="search_liveStatus" value="" class="propertyValue1"  >
 						               		<option value="">直播状态</option>
 						               		<option value="1">直播中</option>
 						               		<option value="2">预告</option>
@@ -579,7 +520,7 @@
 								<!-- 媒体类型-->
 								<td>
 			                       <div class="profile-info-value searchTr">
-			                            <select name="multimediaType" id="search_multimediaType" value="" class="propertyValue1"  >
+			                            <select name="search_multimediaType" id="search_multimediaType" value="" class="propertyValue1"  >
 						               		<option value="">媒体类型</option>
 						               		<option value="1">视频</option>
 						               		<option value="2">音频</option>

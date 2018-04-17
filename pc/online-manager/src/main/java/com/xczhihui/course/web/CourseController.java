@@ -710,11 +710,12 @@ public class CourseController extends AbstractController {
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/3/9 14:13
      **/
-    @RequestMapping(value = "updatedefaultStudent", method = RequestMethod.POST)
+    @RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updatedefaultStudent(Integer id, Integer recommendSort) {
+    public ResponseObject updateRecommendSort(Integer id, Integer recommendSort, String recommendTime) {
         ResponseObject responseObject = new ResponseObject();
-        courseService.updatedefaultStudent(id, recommendSort);
+
+        courseService.updateRecommendSort(id, recommendSort, recommendTime);
         responseObject.setSuccess(true);
         responseObject.setResultObject("修改成功!");
         return responseObject;

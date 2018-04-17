@@ -46,18 +46,11 @@ public class EssenceRecommendDao extends HibernateDao<Course> {
 						+ "  ou.`name` lecturerName,\n"
 						+ "  oc.`lecturer`,\n"
 						+
-
 						" if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(  "
 						+ "			    DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time,"
 						+ "    4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() < oc.start_time,5,oc.live_status))),oc.live_status) "
 						+ "			     AS liveStatus, "
-						+
-
-						"  oc.`is_essence` as isEssence,\n"
-						+ "  oc.is_type_recommend as isTypeRecommend, \n"
-						+
-
-						"  oc.type as type \n"
+						+ "  oc.type as type \n"
 						+ "FROM\n"
 						+ "  oe_course oc \n"
 						+ "  LEFT JOIN oe_menu om \n"
@@ -91,21 +84,12 @@ public class EssenceRecommendDao extends HibernateDao<Course> {
 			paramMap.put("multimediaType", courseVo.getMultimediaType());
 			sql.append("and oc.multimedia_type = :multimediaType ");
 		}
-
 		sql.append(" order by oc.status desc,oc.recommend_sort desc,oc.release_time desc ");
 
 		System.out.println(sql);
 		Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap,
 				CourseVo.class, pageNumber, pageSize);
 		return courseVos;
-	}
-
-	public void updateCourseDirectId(Course course) {
-		String sql = "update oe_course set direct_id = :direct_id where  id = :id";
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", course.getId());
-		params.put("direct_id", course.getDirectId());
-		this.getNamedParameterJdbcTemplate().update(sql, params);
 	}
 
 }
