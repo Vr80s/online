@@ -1,21 +1,19 @@
 package com.xczh.consumer.market.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.dao.OnlineWatchHistoryMapper;
 import com.xczh.consumer.market.service.OnlineWatchHistoryService;
 import com.xczh.consumer.market.utils.DateUtil;
 import com.xczh.consumer.market.wxpay.entity.OeWatchHistory;
 import com.xczh.consumer.market.wxpay.util.DateDistance;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class OnlineWatchHistoryServiceImpl implements OnlineWatchHistoryService {

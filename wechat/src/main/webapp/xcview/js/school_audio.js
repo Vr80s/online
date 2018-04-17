@@ -140,9 +140,24 @@ function stripHTML(str){
 		}
 	});
 
-    //传ID courseId为接口的课程ID，评论列表
-    refresh();
-})
+	/*document.setTitle = function(t) {
+        document.title = t;
+        var i = document.createElement('iframe');
+        // i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+          setTimeout(function(){
+            i.remove();
+          }, 9)
+        }
+        document.body.appendChild(i);
+      }
+
+      setTimeout(function(){
+        document.setTitle(gradeName);
+      }, 1000);*/
+
+      
  
 //JQ预加载分界线----------------------------------------------------------------------------------
 //刷新评论列表

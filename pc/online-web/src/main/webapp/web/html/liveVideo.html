@@ -1,43 +1,828 @@
 ﻿<!DOCTYPE html>
 <html>
 
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<meta charset="UTF-8">
-		<title id="title-share">熊猫直播</title>
-		<link rel="shortcut icon" href="../../favicon.ico" />
-		<meta name="keywords" content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医" />
-		<meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。" />
-		<meta name="renderer" content="webkit">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta charset="UTF-8">
+<title id="title-share">熊猫直播</title>
+<link rel="shortcut icon" href="../../favicon.ico" />
+<meta name="keywords"
+	content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医" />
+<meta name="description"
+	content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。" />
+<meta name="renderer" content="webkit">
 
-		<link rel="stylesheet" href="/web/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" href="/web/css/mylogin.css" />
-		<link href="/web/css/header.css" rel="stylesheet" />
-		<link rel="stylesheet" href="/web/css/componet.css" />
-		<link rel="stylesheet" href="/web/font/iconfont.css">
-		<link rel="stylesheet" href="/web/css/sendGift.css?v=ipandatcm_1.3">
-		<link rel="stylesheet" type="text/css" href="/web/css/liveVideo.css?v=ipandatcm_1.3" />
-		<link rel="stylesheet" type="text/css" href="/web/css/dashang.css?v=ipandatcm_1.3" />
-		<link rel="stylesheet" type="text/css" href="/web/css/chongZhi.css?v=ipandatcm_1.3" />
-		<script src="/web/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/js/artTemplate.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="/web/js/bootstrap.js"></script>
-		<script src="/web/js/ajaxfileupload.js"></script>
-		<script src="/web/js/jquery.form.min.js"></script>
-		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
-		
-			<script src="/web/js/dashang.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
-		<!-- <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script> -->
-    	<script src='http://cdn.bootcss.com/strophe.js/1.1.3/strophe.min.js'></script>
-		<script src="/web/js/im/giftSend.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
-	
-		
-		<script>
+<link rel="stylesheet" href="/web/css/bootstrap.min.css">
+<link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/web/css/mylogin.css" />
+<link href="/web/css/header.css" rel="stylesheet" />
+<link rel="stylesheet" href="/web/css/componet.css" />
+<link rel="stylesheet" href="/web/font/iconfont.css">
+<link rel="stylesheet" href="/web/css/sendGift.css?v=ipandatcm_1.3">
+<link rel="stylesheet" type="text/css"
+	href="/web/css/liveVideo.css?v=ipandatcm_1.3" />
+<link rel="stylesheet" type="text/css"
+	href="/web/css/dashang.css?v=ipandatcm_1.3" />
+<link rel="stylesheet" type="text/css"
+	href="/web/css/chongZhi.css?v=ipandatcm_1.3" />
+
+
+<link rel=stylesheet
+	href=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.min.css>
+
+<!-- <script src="/web/js/vhall/vhall_html_css.css" type="text/javascript" charset="utf-8"></script> -->
+<style type=text/css>
+*, body, html {
+	margin: 0;
+	padding: 0;
+	font-family: 'Microsoft Yahei'
+}
+
+.container {
+	width: 100%;
+	position: absolute;
+	box-sizing: border-box;
+	top: 240px;
+	bottom: 0;
+	overflow: hidden;
+	cursor: pointer
+}
+
+.header {
+	position: absolute;
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	top: 0;
+	background-color: #201f25;
+	z-index: 3
+}
+
+.header a {
+	width: 33.33%;
+	float: left;
+	text-align: center;
+	text-decoration: none;
+	color: #ddd
+}
+
+.header a.active {
+	background-color: #f33;
+	color: #fff
+}
+
+.chatmsg-box, .question-msg-box {
+	padding-top: 36px;
+	padding-bottom: 70px;
+	box-sizing: border-box;
+	height: 100%;
+	display: none;
+	overflow-y: auto;
+	background-color: #282830
+}
+
+.notice-msg-box {
+	padding-top: 36px;
+	box-sizing: border-box;
+	height: 100%;
+	display: none;
+	overflow-y: auto;
+	background-color: #282830;
+	color: #bcbcbc;
+	font-size: 14px
+}
+
+.notice-msg-box ul {
+	list-style: none
+}
+
+.notice-msg-box ul>li {
+	padding: 10px 22px
+}
+
+.notice-msg-box ul>li>div {
+	width: 100%;
+	word-wrap: break-word;
+	overflow: hidden
+}
+
+.notice-msg-box ul>li>span {
+	font-size: 12px;
+	color: #6f6f6f
+}
+
+.chatmsg-box.active, .notice-msg-box.active, .question-msg-box.active {
+	display: block
+}
+
+.mCSB_inside>.mCSB_container {
+	margin-right: 0
+}
+
+.send-box {
+	position: absolute;
+	bottom: 0;
+	height: 70px;
+	background: #201f25;
+	width: 100%;
+	color: #bcbcbc
+}
+
+.send-box textarea {
+	height: 40px;
+	width: 100%;
+	resize: none;
+	outline: 0;
+	background-color: #201f25;
+	border: none;
+	padding: 10px;
+	color: #bcbcbc;
+	box-sizing: border-box
+}
+
+.send-box .face {
+	position: absolute;
+	right: 70px;
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	background-color: red;
+	background:
+		url(http://cnstatic01.e.vhall.com/static//images/chat/chat-icon.png)
+		no-repeat 0 -72px;
+	margin-top: 45px
+}
+
+.send-chat {
+	margin-top: 45px;
+	position: absolute;
+	right: 5px;
+	display: inline-block;
+	width: 52px;
+	height: 20px;
+	font-size: 12px;
+	line-height: 20px;
+	vertical-align: middle;
+	background-color: #353540;
+	text-decoration: none;
+	color: #fff;
+	border-radius: 3px;
+	text-align: center
+}
+
+.chatmsg li {
+	overflow: hidden;
+	padding: 10px 22px;
+	text-align: left;
+	list-style: none
+}
+
+.chatmsg li a {
+	text-decoration: none
+}
+
+.chatmsg li img {
+	vertical-align: middle
+}
+
+.chatmsg li .avatar {
+	display: inline-block;
+	float: left;
+	border-radius: 50%;
+	overflow: hidden;
+	line-height: 0;
+	position: absolute;
+	left: 15px
+}
+
+.chatmsg li .msg {
+	float: left;
+	margin-left: 45px
+}
+
+.chatmsg li .msg p {
+	color: #6f6e6e;
+	line-height: 16px;
+	font-size: 12px;
+	margin: 0
+}
+
+.chatmsg li .msg p .tips {
+	display: inline-block;
+	float: left;
+	text-align: center;
+	border: 1px solid #f33;
+	font-size: 12px;
+	width: 42px;
+	height: 16px;
+	line-height: 16px;
+	margin-right: 10px
+}
+
+.chatmsg li .msg p .tips.host {
+	color: #f33;
+	border: 1px solid #f33
+}
+
+.chatmsg li .msg p .tips.guest {
+	color: #a4824b;
+	border: 1px solid #ffc864
+}
+
+.chatmsg li .msg p .tips.assistant {
+	color: #446ea4;
+	border: 1px solid #5da6fc
+}
+
+.chatmsg li .msg p .name {
+	display: inline-block;
+	color: #6f6e6e;
+	width: 128px;
+	line-height: 18px;
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: left
+}
+
+.chatmsg li .msg p .time {
+	float: right
+}
+
+.chatmsg li .msg .content {
+	line-height: 18px;
+	font-size: 14px;
+	color: #bcbcbc;
+	word-wrap: break-word;
+	word-break: break-all;
+	margin-top: 8px
+}
+
+.chatmsg li .msg .content.sys {
+	color: #fff
+}
+
+.chatmsg li .msg .content.sys a {
+	color: #f33
+}
+
+.chatmsg li .msg .content.redp {
+	color: #fff
+}
+
+.chatmsg li .msg .content.redp .name {
+	display: inline-block;
+	color: #fff;
+	width: auto;
+	max-width: 128px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: left
+}
+
+.chatmsg li .msg .content.redi {
+	color: #fbd75a
+}
+
+.question-msg li a {
+	text-decoration: none
+}
+
+.question-msg li {
+	overflow: hidden;
+	padding: 10px 22px;
+	text-align: left;
+	list-style-type: none
+}
+
+.question-msg li .avatar {
+	display: inline-block;
+	float: left;
+	border-radius: 50%;
+	overflow: hidden;
+	line-height: 0
+}
+
+.question-msg li .msg {
+	margin-left: 45px
+}
+
+.question-msg li .msg p {
+	color: #6f6e6e;
+	line-height: 16px;
+	font-size: 12px;
+	margin: 0;
+	padding-right: 10px
+}
+
+.question-msg li .msg p .tips {
+	display: inline-block;
+	float: left;
+	text-align: center;
+	border: 1px solid #f33;
+	font-size: 12px;
+	width: 42px;
+	height: 16px;
+	line-height: 16px;
+	margin-right: 10px
+}
+
+.question-msg li .msg p .tips.host {
+	color: #f33;
+	border: 1px solid #f33
+}
+
+.question-msg li .msg p .tips.guest {
+	color: #a4824b;
+	border: 1px solid #ffc864
+}
+
+.question-msg li .msg p .tips.assistant {
+	color: #446ea4;
+	border: 1px solid #5da6fc
+}
+
+.question-msg li .msg p .name {
+	display: inline-block;
+	color: #6f6e6e;
+	width: 128px;
+	line-height: 18px;
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: left;
+	text-decoration: none
+}
+
+.question-msg li .msg p .time {
+	float: right
+}
+
+.question-msg li .msg .content {
+	line-height: 18px;
+	font-size: 14px;
+	color: #bcbcbc;
+	word-wrap: break-word;
+	word-break: break-all;
+	margin-top: 8px
+}
+
+.question-msg li .answerlist {
+	position: relative;
+	margin-left: 42px;
+	margin-top: 10px;
+	border-radius: 3px;
+	border: 1px solid #393940;
+	background-color: #202026;
+	padding: 10px
+}
+
+.question-msg li .answerlist .triangle {
+	position: absolute;
+	top: -10px;
+	left: 14px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid #37373e;
+	font-size: 0;
+	line-height: 0
+}
+
+.question-msg li .answerlist .triangle div {
+	position: absolute;
+	top: 2px;
+	left: -8.5px;
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 8px solid #202026;
+	font-size: 0;
+	line-height: 0
+}
+
+.question-msg li .answerlist ul li {
+	padding: 0
+}
+
+.question-msg li .answerlist ul li p {
+	font-size: 12px;
+	color: #909090;
+	line-height: 20px;
+	vertical-align: middle
+}
+
+.question-msg li .answerlist ul li p .role {
+	color: #f34b46
+}
+
+.question-msg li .answerlist ul li p .role.host {
+	color: #f33
+}
+
+.question-msg li .answerlist ul li p .role.guest {
+	color: #a4824b
+}
+
+.question-msg li .answerlist ul li p .role.assistant {
+	color: #446ea4
+}
+
+.question-msg li .answerlist ul li p .time {
+	float: right
+}
+
+.question-msg li .answerlist ul li .content {
+	color: #e2e1e1;
+	word-wrap: break-word;
+	word-break: break-all
+}
+
+body, html {
+	height: 100%
+}
+
+.player-container {
+	height: 240px;
+	position: relative;
+	z-index: 3
+}
+
+.video {
+	height: 240px;
+	background: #000
+}
+
+.doc {
+	height: 260px;
+	width: 100%;
+	margin-top: 36px;
+	position: absolute;
+	z-index: 3
+}
+
+.page-pc .player-container {
+	height: 100%;
+	background: #000;
+	margin-right: 320px
+}
+
+.page-pc .container {
+	width: 320px;
+	right: 0;
+	top: 0
+}
+
+.page-pc .video {
+	position: absolute;
+	width: 320px;
+	height: 180px;
+	z-index: 4
+}
+
+.page-pc .doc {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin-top: 0
+}
+
+.page-pc .hideVideo {
+	display: none
+}
+
+.doc.on {
+	display: none
+}
+
+.hideVideo {
+	position: absolute;
+	right: 5px;
+	bottom: 40px
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1001;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #e1e1e1
+}
+
+.modal {
+	box-sizing: border-box;
+	padding: 50px 0
+}
+
+.modal li {
+	line-height: 30px;
+	text-align: center
+}
+
+.modal li.active {
+	color: #f33
+}
+
+.exchange {
+	bottom: 70px
+}
+
+/* .page-pc .layer {
+	width: 500px;
+	margin-left: -250px
+} */
+.page-pc .layer {
+	margin-left: -220px
+}
+
+/* .layer {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 90%;
+	height: 350px;
+	margin-left: -45%;
+	margin-top: -180px;
+	z-index: 10000;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	display: none
+}
+ */
+ 
+ .layer {
+    position: fixed;
+    top: 50%;
+    left: 15%;
+    width: 70%;
+    height: 600px;
+    margin-left: -45%;
+    margin-top: -18%;
+    z-index: 10000;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    display: none;
+  }  
+.layer-header {
+	height: 44px;
+	line-height: 44px;
+	font-size: 14px;
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+	color: #4e4e4e;
+	background-color: #f7f7f7;
+	text-align: center;
+	position: relative
+}
+
+.layer-header img {
+	width: 13px;
+	height: 14px;
+	position: absolute;
+	right: 20px;
+	top: 16px;
+	cursor: pointer
+}
+
+.layer-textarea {
+	width: 80%;
+	height: 200px;
+	margin: auto;
+	display: block;
+	resize: none;
+	outline: 0;
+	margin-top: 20px
+}
+
+.layer-btn {
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+	background-color: #f15c5c;
+	color: #fff;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+	width: 80%;
+	border-radius: 4px;
+	border: 0
+}
+
+.page-pc .sign {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	width: 500px;
+	height: 350px;
+	margin-left: -250px;
+	margin-top: -180px;
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
+	display: none
+}
+
+.page-pc .sign.active {
+	display: block
+}
+
+.sign.active {
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0)
+}
+
+.sign {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 11;
+	background-color: #fff;
+	-webkit-transition: all .3s ease-in-out;
+	transition: all .3s ease-in-out;
+	-webkit-transform: translate(0, 100%);
+	transform: translate(0, 100%);
+	font-size: 12px
+}
+
+.sign.active {
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0)
+}
+
+.sign-header {
+	height: 44px;
+	line-height: 44px;
+	font-size: 14px;
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+	color: #4e4e4e;
+	background-color: #f7f7f7;
+	text-align: center;
+	position: relative
+}
+
+.sign-header img {
+	width: 13px;
+	height: 14px;
+	position: absolute;
+	right: 20px;
+	top: 16px;
+	cursor: pointer
+}
+
+.page-pc .sign-img {
+	display: none
+}
+
+.sign-img {
+	width: 22px;
+	margin: auto;
+	display: block;
+	margin-top: 25px
+}
+
+.page-pc .sign-title {
+	font-size: 20px;
+	color: #333;
+	font-weight: 700;
+	margin-top: 50px
+}
+
+.sign-title {
+	color: #f15c5c;
+	text-align: center;
+	margin-top: 15px
+}
+
+.sign-time {
+	text-align: center;
+	margin-top: 25px;
+	color: #4e4e4e
+}
+
+.sign-time>span {
+	color: #f15c5c
+}
+
+.sign-btn {
+	display: block;
+	margin: auto;
+	margin-top: 50px;
+	background-color: #f15c5c;
+	color: #fff;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+	width: 80%;
+	border-radius: 4px;
+	border: 0
+}
+
+.help-wrap {
+	position: absolute;
+	top: 100px;
+	z-index: 10;
+	right: 0
+}
+
+.page-pc #exchange, .page-pc #hideVideo {
+	display: none
+}
+
+.help-tool {
+	position: absolute;
+	right: 10px;
+	width: 50px;
+	padding: 5px 0;
+	text-align: center;
+	border-radius: 15px;
+	font-size: 12px;
+	color: #3385ff;
+	cursor: pointer;
+	background-color: rgba(255, 255, 255, .6);
+	cursor: pointer
+}
+
+.help-item {
+	position: absolute;
+	width: 115px;
+	background-color: red;
+	right: -10px;
+	font-size: 14px;
+	padding: 5px;
+	text-decoration: none;
+	color: #3385ff;
+	background-color: rgba(255, 255, 255, .6);
+	-webkit-transition: all .3s cubic-bezier(.08, .13, 0, 1.27);
+	transition: all .3s cubic-bezier(.08, .13, 0, 1.27);
+	-webkit-transform: translate(100%, 0);
+	transform: translate(100%, 0)
+}
+
+.help-item.active {
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0)
+}
+
+#userEvent {
+	top: 40px
+}
+
+#userData {
+	top: 80px
+}
+
+#exchange {
+	top: 120px
+}
+
+#hideVideo {
+	top: 160px
+}
+</style>
+
+<script src="/web/js/jquery.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script
+	src=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.concat.min.js></script>
+<script src="/web/js/vhall/vhallSDK.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="/web/js/vhall/vhall_demo_custom.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src=//apps.bdimg.com/libs/underscore.js/1.7.0/underscore-min.js></script>
+
+
+
+<script src="/web/js/artTemplate.js" type="text/javascript"
+	charset="utf-8"></script>
+<script type="text/javascript" src="/web/js/bootstrap.js"></script>
+<script src="/web/js/ajaxfileupload.js"></script>
+<script src="/web/js/jquery.form.min.js"></script>
+<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/jquery.qrcode.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="/web/js/dashang.js?v=ipandatcm_1.3" type="text/javascript"
+	charset="utf-8"></script>
+<!-- <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script> -->
+<script src='http://cdn.bootcss.com/strophe.js/1.1.3/strophe.min.js'></script>
+<!-- <script src="/web/js/im/giftSend.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script> -->
+
+
+<script>
 			(function() {
                 if(document.location.host=='www.ipandatcm.com'){
                     wxurl = "http://m.ipandatcm.com";
@@ -113,52 +898,77 @@
                 }
             })()
 		</script>
-	</head>
+</head>
 
-	<body>
+<body>
 	<!--  充值的时候余额不足提示框 -->
-	<div class='mask3' style='padding:0 20px;bottom: 65px;right: 85px; display: none;position:fixed;text-align: center;color:white;line-height: 60px;height:60px;background:#000;opacity:0.5;z-index:1000;filter:alpha(opacity=30);'></div>
-		
-	
-		
-		<!--   直播区域    -->
-		
-		<div class="livePlayer" style="position:relative">
-		<!--弹幕得div-->
-		<div id='boxDom' style="background-color:transparent;position:absolute;height:100%" ></div>
-			<div class="kick">
-				你已被移出直播间，下次请记得遵守课堂纪律。
-			</div>
-			<!---------提示遮罩层--------->
-			<div class="ms">
-				<div style="position: relative;width: 100%;height: 100%;">
+	<div class='mask3'
+		style='padding: 0 20px; bottom: 65px; right: 85px; display: none; position: fixed; text-align: center; color: white; line-height: 60px; height: 60px; background: #000; opacity: 0.5; z-index: 1000; filter: alpha(opacity = 30);'></div>
 
-				</div>
+
+
+	<!--   直播区域    -->
+
+	<div class="livePlayer" style="position: relative">
+	
+	
+	
+	
+		<!--弹幕得div-->
+		<div id='boxDom'
+			style="background-color: transparent; position: absolute; height: 100%"></div>
+		<div class="kick">你已被移出直播间，下次请记得遵守课堂纪律。</div>
+		<!---------提示遮罩层--------->
+		<div class="ms">
+			<div style="position: relative; width: 100%; height: 100%;"></div>
+		</div>
+		<div class="dialog">
+			<p class="title">
+				<i class="iconfont icon-tanhao"></i>提示
+			</p>
+			<div class="cont">
+				<p class="c1">直播等待中</p>
+				<p class="qq">
+					【直播通知QQ群：<span>1234567890</span>】
+				</p>
 			</div>
-			<div class="dialog">
-				<p class="title"><i class="iconfont icon-tanhao"></i>提示</p>
-				<div class="cont">
-					<p class="c1">直播等待中</p>
-					<p class="qq">【直播通知QQ群：<span>1234567890</span>】</p>
-				</div>
-			</div>
-			<!---------提示遮罩层--------->
-			<div class="liveMess">
-			
-				<marquee class="lb">【正在直播】<span></span></marquee>
-						<div class="QR_code"></div>
-				
-				<span class="liveName"><a href="#"  id="return"><img alt="" src="/web/images/video2/fanhui.png"> 返回课程详情</a>&nbsp;&nbsp;<span id="liveStatus"></span><span id="courseName"></span></span>
-				<div class="share">
-					<ul>
-						<li style="line-height:none;background:none;width:75px;">分享到：</li>
-						<li class="share_li1"><img src="/web/images/video2/weixin.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li1_img"><div id="qrcodeCanvas1"></div></div></li>
-						<li class="share_li2"><img src="/web/images/video2/quan.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li2_img"><div id="qrcodeCanvas2"></div></div></li>
-						<li style="background:none;"><a href="javascript:void(0)" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
-						<li style="background:none;"><a href="javascript:void(0)" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>
+		</div>
+		<!---------提示遮罩层--------->
+		<div class="liveMess">
+
+			<marquee class="lb">
+				【正在直播】<span></span>
+			</marquee>
+			<div class="QR_code"></div>
+
+			<span class="liveName"><a href="#" id="return"><img alt=""
+					src="/web/images/video2/fanhui.png"> 返回课程详情</a>&nbsp;&nbsp;<span
+				id="liveStatus"></span><span id="courseName"></span></span>
+			<div class="share">
+				<ul>
+					<li style="line-height: none; background: none; width: 75px;">分享到：</li>
+					<li class="share_li1"><img src="/web/images/video2/weixin.png"
+						alt="" />
+					<div style="padding: 5px; background-color: #fff;"
+							class="share_li1_img">
+							<div id="qrcodeCanvas1"></div>
+						</div></li>
+					<li class="share_li2"><img src="/web/images/video2/quan.png"
+						alt="" />
+					<div style="padding: 5px; background-color: #fff;"
+							class="share_li2_img">
+							<div id="qrcodeCanvas2"></div>
+						</div></li>
+					<li style="background: none;"><a href="javascript:void(0)"
+						id="weibo_share" target="_blank"><img
+							src="/web/images/video2/weibo.png" alt="" /></a>
+					</script></li>
+					<li style="background: none;"><a href="javascript:void(0)"
+						id="qq_share" target="_blank"><img
+							src="/web/images/video2/Qq.png" alt="" /></a></li>
 				</ul>
-				</div>
-				<!-- 礼物移动下边了
+			</div>
+			<!-- 礼物移动下边了
 				<a href="javascript:;" class="rss-pay">
     				<i></i>
     				<span class="rss-reward-down" style="display: none; margin-top: -10px;">
@@ -166,14 +976,98 @@
     				</span>
 				</a>
 				 -->
-				
-				<span class="liveTime">直播时间：<span></span></span>
-				<!-- <span class="liveMember"></span> -->
-				
+
+			<span class="liveTime">直播时间：<span></span></span>
+			<!-- <span class="liveMember"></span> -->
+
+		</div>
+		<div id="livePlayer">
+			<!-- <iframe id="vhall-video" src="" width="100%" height="100%" style="border-width:0;"></iframe>
+			 -->
+
+		 	<div class=layer id=userCusEvent style="display:block">
+
+				<div class=layer id=userCusEvent style="display:none">
+					<div class=layer-header >
+						测试自定义消息 <img
+							src=http://cnstatic01.e.vhall.com/static/images/mobile/modal-close.png>
+					</div>
+					<div class=layer-content >
+						<textarea class=layer-textarea></textarea>
+						<button class=layer-btn>发送消息</button>
+					</div>
+				</div>
+				<div class=layer id=userinfo>
+					<div class=layer-header>
+						测试更新用户昵称 <img
+							src=http://cnstatic01.e.vhall.com/static/images/mobile/modal-close.png>
+					</div>
+					<div class=layer-content>
+						<textarea class=layer-textarea>新的昵称</textarea>
+						<button class=layer-btn>发送消息</button>
+					</div>
+				</div>
+				<div class=player-container>
+					<div class=video id=video></div>
+					<div class=doc id=doc></div>
+				</div>
+				<div class=container>
+					<div class=help-wrap>
+						<div class=help-tool>小助手</div>
+						<a href=javascript:; class=help-item id=userEvent>测试自定义消息</a> <a
+							href=javascript:; class=help-item id=userData>测试更新用户信息</a> <a
+							href=javascript:; class=help-item id=exchange>切换线或清晰度</a> <a
+							href=javascript:; class=help-item id=hideVideo>隐藏文档</a>
+					</div>
+					<div class=sign>
+						<div class=sign-header>
+							签到 <img
+								src=http://cnstatic01.e.vhall.com/static/images/mobile/modal-close.png>
+						</div>
+						<div class=sign-content>
+							<img class=sign-img
+								src=http://cnstatic01.e.vhall.com/static/images/mobile/sign-icon.png>
+							<div class=sign-title>主持人发起了签到</div>
+							<div class=sign-time>
+								您还有<span class=sign-second>0秒</span>钟签到时间
+							</div>
+							<button class=sign-btn>签到</button>
+						</div>
+					</div>
+					<div class=header>
+						<a href=javascript:; data-target=chatmsg-box class=active>聊天</a> <a
+							href=javascript:; data-target=question-msg-box>问答</a> <a
+							href=javascript:; data-target=notice-msg-box>公告</a>
+					</div>
+					<div class="chatmsg-box tab-pane active">
+						<div class=chatmsg id=chatmsg></div>
+					</div>
+					<div class="question-msg-box tab-pane mCustomScrollbar">
+						<div class=question-msg id=question-msg></div>
+					</div>
+					<div class="notice-msg-box tab-pane mCustomScrollbar">
+						<div class=notice-msg id=notice-msg>
+							<ul>
+							</ul>
+						</div>
+					</div>
+					<div class=send-box>
+						<a id=face href=javascript:; class=face></a> <a id=sendChat
+							href=javascript:; class=send-chat>发送</a>
+						<textarea id=mywords
+							onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)'></textarea>
+					</div>
+				</div>
+				<div class=modal id=modal>
+					<ul id=lines></ul>
+					<ul id=definitions></ul>
+				</div>
+
+
+
 			</div>
-			<div id="livePlayer">
-				<iframe id="vhall-video" src="" width="100%" height="100%" style="border-width:0;"></iframe>
-			</div>
+
+
 		</div>
 		<!--<div id="drawPanel"></div>-->
 		<!-- right start -->
@@ -194,45 +1088,48 @@
 						<div class="active tab">
 							<a data-module="mess" class="jiaoliu">礼物栏</a>
 						</div>
-				</div>
+					</div>
 				</div>
 				<div class="right-con">
 					<div class="mess">
 						<div class="box">
-							<ul id="chat-list" style="padding:0px;">
+							<ul id="chat-list" style="padding: 0px;">
 							</ul>
 							<div class="chat">
 								<div class="right-list">
-								<!-- 添加打赏按钮 -->
-								<!--<a href="javascript:;" class="rss-pay">-->
-    								<!--<i></i>-->
-    						<!--<span class="rss-reward-down" style="display: none; margin-top: 0px;z-index:888">-->
-    						<!--<img class="" src="/web/images/live/reward-pay-down.png">-->
-    						<!--</span>-->
-								<!--</a>-->
-								<!-- 充值-->
-								<a href="javascript:;" class='giftip' style='margin-left:36px;background-color: #fff;cursor: default;'>
-								<i></i>
-								<!--<p style="display:inline-block">充值</p>  -->
-								</a>
+									<!-- 添加打赏按钮 -->
+									<!--<a href="javascript:;" class="rss-pay">-->
+									<!--<i></i>-->
+									<!--<span class="rss-reward-down" style="display: none; margin-top: 0px;z-index:888">-->
+									<!--<img class="" src="/web/images/live/reward-pay-down.png">-->
+									<!--</span>-->
+									<!--</a>-->
+									<!-- 充值-->
+									<a href="javascript:;" class='giftip'
+										style='margin-left: 36px; background-color: #fff; cursor: default;'>
+										<i></i> <!--<p style="display:inline-block">充值</p>  -->
+									</a>
 									<!-- <a class="flower">
 										<div class="send_wait">
 											<p>请在33秒之后再送花</p>
 										</div>
 									</a> -->
-									<p style="float:left";>礼物</p>
-									<form style="position: absolute;z-index: -100;" method="post" action="/online/live/uploadMsgImg" id="xzform">
+									<p style="float: left";>礼物</p>
+									<form style="position: absolute; z-index: -100;" method="post"
+										action="/online/live/uploadMsgImg" id="xzform">
 										<input type="file" id="imgLoad" name="image">
 									</form>
-									
+
 									<div id="restMoney">
-										<span class="enter">账户余额 ：</span><span class="enter balance balanceTotal"  style='margin:0'>0</span>
+										<span class="enter">账户余额 ：</span><span
+											class="enter balance balanceTotal" style='margin: 0'>0</span>
 									</div>
-									
+
 								</div>
 								<div class="right-text">
-								<!-- 里面的遮罩层 -->
-								<div class='mask2' style='display: none;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.3;z-index:1000;filter:alpha(opacity=30);'></div>
+									<!-- 里面的遮罩层 -->
+									<div class='mask2'
+										style='display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; opacity: 0.3; z-index: 1000; filter: alpha(opacity = 30);'></div>
 									<!-- 输入提示 -->
 									<div class="input-tips" id="input-tips">
 										<i></i>
@@ -242,29 +1139,29 @@
 									<!-- <div class="fugai">
 										<span>登录</span>后即可加入交流讨论
 									</div> -->
-									<div class="text chat-send-content" >																										
+									<div class="text chat-send-content">
 										<div class='giftContent'>
-										<ul id='gifList'>
-										</ul>			
-										</div>	
+											<ul id='gifList'>
+											</ul>
+										</div>
 									</div>
 									<div class="tip">
 										<!--<span class="enter">账户余额 ：</span><span class="enter balance balanceTotal"  style='margin:0'>0</span>-->
 										<a href="javascript:;" class="chongZhi">充值</a>
 										<div class='gif-num-small'>
-										<ul class='send-gif-num' style='display:none'>
-										<!-- 其他数量暂时取消 -->
-										    <li data-value='editPayNum' style='display: none'>其他数量</li> 
-											<li data-value='100'>100</li>
-											<li data-value='50'>50</li>
-											<li data-value='10'>10</li>
-											<!--<li data-value='5'>5</li>-->
-											<li data-value='1'>1</li>
-										</ul>
-										
-										<img  src="" alt="" title=''>
-										<em></em>
-										<span class='gif-num' maxlength='5' style='display: inline-block;width: 34px; font-size: 14px;cursor: default;'></span>
+											<ul class='send-gif-num' style='display: none'>
+												<!-- 其他数量暂时取消 -->
+												<li data-value='editPayNum' style='display: none'>其他数量</li>
+												<li data-value='100'>100</li>
+												<li data-value='50'>50</li>
+												<li data-value='10'>10</li>
+												<!--<li data-value='5'>5</li>-->
+												<li data-value='1'>1</li>
+											</ul>
+
+											<img src="" alt="" title=''> <em></em> <span
+												class='gif-num' maxlength='5'
+												style='display: inline-block; width: 34px; font-size: 14px; cursor: default;'></span>
 										</div>
 										<a class="sub" data-send="all" value="发送" id="chat-submit" />发送</a>
 									</div>
@@ -277,121 +1174,142 @@
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 		<!--打赏部分html代码-->
 		<!-- 遮罩层 -->
-	<div class='mask' style='display: none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.3;z-index:1000;filter:alpha(opacity=30);'></div>
-	<!-- 支付栏 -->
-	<div class="popup popup-dialog reward-popup" style="width: 450px; z-index: 1001; margin-left: -250px; margin-top: -188.5px;" id="reward-popup" times="1">
-    <div class="popup-title"><i class="popup-icon reward-icon">
-    </i>打赏</div>
-    <span class="popup-setwin">                               
-     	<a href="javascript:;" class="popup-close"></a>                           
-    </span>
-    <div class="popup-content">
-        <div>
-            <ul id="reward-fee">
-                <li class="on l0" data-val="" style="display:none"></li>
-                <li class="l1" data-val="" style="display:none"></li>
-                <li class="l2" data-val="" style="display:none"></li>
-                <li class="custom-fee" style="display:none"><input type="text" class="jsCheck" name="fee-number" placeholder="打赏其他金额" style="width: 150px;height: 40px;"  ></li>
-            </ul>
-            <!-- <div><input type="text" class="pay-note" placeholder="很精彩，赞一个！" maxlength="15" style="height:40px"></div> -->
-            <div>
-                <div class="reward-type reward-type-zhifubao" id="alipay-div">
-                    	<div class="custom-radio jsChecked" radio-name="reward-radio">
-                   		 	<input type="radio" name="reward-radio" checked="" id="alipay" value="0">
-                    	</div>
-                    <label for="alipay"><img src="/web/images/live/alipay.png" width="32" alt="" class='zhifubao'>支付宝支付</label>
-                    </div>
+		<div class='mask'
+			style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; opacity: 0.3; z-index: 1000; filter: alpha(opacity = 30);'></div>
+		<!-- 支付栏 -->
+		<div class="popup popup-dialog reward-popup"
+			style="width: 450px; z-index: 1001; margin-left: -250px; margin-top: -188.5px;"
+			id="reward-popup" times="1">
+			<div class="popup-title">
+				<i class="popup-icon reward-icon"> </i>打赏
+			</div>
+			<span class="popup-setwin"> <a href="javascript:;"
+				class="popup-close"></a>
+			</span>
+			<div class="popup-content">
+				<div>
+					<ul id="reward-fee">
+						<li class="on l0" data-val="" style="display: none"></li>
+						<li class="l1" data-val="" style="display: none"></li>
+						<li class="l2" data-val="" style="display: none"></li>
+						<li class="custom-fee" style="display: none"><input
+							type="text" class="jsCheck" name="fee-number"
+							placeholder="打赏其他金额" style="width: 150px; height: 40px;"></li>
+					</ul>
+					<!-- <div><input type="text" class="pay-note" placeholder="很精彩，赞一个！" maxlength="15" style="height:40px"></div> -->
+					<div>
+						<div class="reward-type reward-type-zhifubao" id="alipay-div">
+							<div class="custom-radio jsChecked" radio-name="reward-radio">
+								<input type="radio" name="reward-radio" checked="" id="alipay"
+									value="0">
+							</div>
+							<label for="alipay"><img
+								src="/web/images/live/alipay.png" width="32" alt=""
+								class='zhifubao'>支付宝支付</label>
+						</div>
 
-                	<div class="reward-type reward-type-weixin"  id="weixinpay-div">
-                    	<div class="custom-radio " radio-name="reward-radio">
-                   		 	<input type="radio" name="reward-radio" id="weixinpay" value="1">
-                    	</div>
-                    <label for="weixinpay"><img src="/web/images/live/weixin.png" width="32" alt="" class='weixin'>微信支付</label>
-                    </div>
-            </div>
-        </div>
-        <div id="wxpay-qrcode" class="wxpay-qrcode"><img width="180" id="qrcode" height="180" src="/web/images/live/qrcode.png">
-            <div>请用微信扫描二维码</div>
-        </div>
-    </div>
-    <div class="popup-btn"><a class="popup-btn-yes">支付</a></div>
-</div>
-		
-		
-	<!--充值部分 -->
-	<div id='main1'>
-
-	<div class='topbanner'>
-	<span>帐号充值</span><i class="close" style="opacity: 1">X</i>
-	</div>
-	<div id='pay'>
-	<!-- 充值成功页面 -->
-	<div class='pay-success' style="none">
-	<div class="pay-success-top">
-		<img src="/web/images/video2/weixin.png" alt=""><span>充值成功</span>
-	</div>
-		<div class="pay-success-bottom">
-		<p>充值帐号:<span>hanpingwei</span></p>
-		<p>您可获得:<span>10熊猫币</span></p>
-		<p>充值时间:<span>2017-09-16 &nbsp;14:00:17</span></p>
-	</div>
-	<button id='pay-continue'>继续充值</button>
-	</div>
-	<div class='czym'>
-		<!-- 第一个 -->
-		<div class='item_title title_one'>
-			<p>剩余熊猫币</p>
-			<div class='item_content content_one'>
-				<i class="balanceTotal"></i>
-				<!-- <span>个</span> -->
+						<div class="reward-type reward-type-weixin" id="weixinpay-div">
+							<div class="custom-radio " radio-name="reward-radio">
+								<input type="radio" name="reward-radio" id="weixinpay" value="1">
+							</div>
+							<label for="weixinpay"><img
+								src="/web/images/live/weixin.png" width="32" alt=""
+								class='weixin'>微信支付</label>
+						</div>
+					</div>
+				</div>
+				<div id="wxpay-qrcode" class="wxpay-qrcode">
+					<img width="180" id="qrcode" height="180"
+						src="/web/images/live/qrcode.png">
+					<div>请用微信扫描二维码</div>
+				</div>
+			</div>
+			<div class="popup-btn">
+				<a class="popup-btn-yes">支付</a>
 			</div>
 		</div>
-	<!-- 第二个 -->
-		<div class='item_title title_two'>
-			<p>充值帐号</p>
-			<div class='item_content content_two'>
-				<!-- <em>自己</em> -->
-				<span id="account"></span>
+
+
+		<!--充值部分 -->
+		<div id='main1'>
+
+			<div class='topbanner'>
+				<span>帐号充值</span><i class="close" style="opacity: 1">X</i>
 			</div>
-		</div>
-	<!-- 第三个 -->
-		<div class='item_title title_two'>
-			<p>充值数量</p>
-			<div class='item_content content_two'>
-				<ul>
-					<li data-value='5' class='orange dian'>50个
-						<i class="ico i-selector show"></i>
-					</li>
-					<li data-value='10' class="dian">100个
-						<i class="ico i-selector"></i>
-					</li>
-					<li data-value='20' class="dian">200个
-						<i class="ico i-selector"></i>
-					</li>
-					<li data-value='50' class="dian">500个
-						<i class="ico i-selector"></i>
-					</li>
-					<li data-value='100' class="dian">1000个
-						<i class="ico i-selector"></i>
-					</li>
-					<!--<li data-value='0' class='other dian' style="width: 103px">-->
-					<!--<input class="editPayNum" style='width: 60px;' id="editPayNum" id="phone"  onkeyup="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10));showNum()" onafterpaste="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10))" maxLength=6 >-->
-					<!--<label class="inTips" for="editPayNum">其它数量</label>-->
-					<!--<i class="ico i-selector"></i>-->
-					<!--</li>-->
-					<!-- <li class='tip' style="width: 100px;border: none;">
+			<div id='pay'>
+				<!-- 充值成功页面 -->
+				<div class='pay-success' style="">
+					<div class="pay-success-top">
+						<img src="/web/images/video2/weixin.png" alt=""><span>充值成功</span>
+					</div>
+					<div class="pay-success-bottom">
+						<p>
+							充值帐号:<span>hanpingwei</span>
+						</p>
+						<p>
+							您可获得:<span>10熊猫币</span>
+						</p>
+						<p>
+							充值时间:<span>2017-09-16 &nbsp;14:00:17</span>
+						</p>
+					</div>
+					<button id='pay-continue'>继续充值</button>
+				</div>
+				<div class='czym'>
+					<!-- 第一个 -->
+					<div class='item_title title_one'>
+						<p>剩余熊猫币</p>
+						<div class='item_content content_one'>
+							<i class="balanceTotal"></i>
+							<!-- <span>个</span> -->
+						</div>
+					</div>
+					<!-- 第二个 -->
+					<div class='item_title title_two'>
+						<p>充值帐号</p>
+						<div class='item_content content_two'>
+							<!-- <em>自己</em> -->
+							<span id="account"></span>
+						</div>
+					</div>
+					<!-- 第三个 -->
+					<div class='item_title title_two'>
+						<p>充值数量</p>
+						<div class='item_content content_two'>
+							<ul>
+								<li data-value='5' class='orange dian'>50个 <i
+									class="ico i-selector show"></i>
+								</li>
+								<li data-value='10' class="dian">100个 <i
+									class="ico i-selector"></i>
+								</li>
+								<li data-value='20' class="dian">200个 <i
+									class="ico i-selector"></i>
+								</li>
+								<li data-value='50' class="dian">500个 <i
+									class="ico i-selector"></i>
+								</li>
+								<li data-value='100' class="dian">1000个 <i
+									class="ico i-selector"></i>
+								</li>
+								<!--<li data-value='0' class='other dian' style="width: 103px">-->
+								<!--<input class="editPayNum" style='width: 60px;' id="editPayNum" id="phone"  onkeyup="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10));showNum()" onafterpaste="value=(parseInt((value=value.replace(/\D/g,''))==''||parseInt((value=value.replace(/\D/g,''))==0)?'1':value,10))" maxLength=6 >-->
+								<!--<label class="inTips" for="editPayNum">其它数量</label>-->
+								<!--<i class="ico i-selector"></i>-->
+								<!--</li>-->
+								<!-- <li class='tip' style="width: 100px;border: none;">
 						<p class="inputTips" style="visibility: hidden;">1~20w元</p>
 						<p>1元=10个熊猫币</p>
 					</li> -->
-				</ul>
-			</div>
-		</div>
-		<!-- 第四个 -->
-		<!-- <div class='item_title title_three'>
+							</ul>
+						</div>
+					</div>
+					<!-- 第四个 -->
+					<!-- <div class='item_title title_three'>
 			<p>支付方式</p>
 			<div class='item_content content_three'>
 				<ul>
@@ -408,32 +1326,33 @@
 				</ul>
 			</div>
 		</div> -->
-		<!-- 第五个 -->
-		<div class='item_title title_one'>
-			<p>应付金额</p>
-			<div class='item_content content_one'>
-				<em class='number'>5</em>
-				<span>元</span>
+					<!-- 第五个 -->
+					<div class='item_title title_one'>
+						<p>应付金额</p>
+						<div class='item_content content_one'>
+							<em class='number'>5</em> <span>元</span>
+						</div>
+					</div>
+					<!-- 支付 -->
+					<div class='item_title' style="text-align: center;">
+						<a href="javascript:;" class='goPay'>前往支付</a>
+					</div>
+					<!-- 二维码 -->
+					<div class='erweima'
+						style="width: 125px; height: 125px; position: absolute; border: 1px solid #e1e1e1; left: 37%; bottom: 10%; display: none; z-index: 999">
+						<img src="" alt="" style="width: 100%; height: 100%"
+							id="chongzhi_qrcode">
+					</div>
+				</div>
+
+
 			</div>
+
 		</div>
-	<!-- 支付 -->
-	<div class='item_title' style="text-align: center;">
-		<a href="javascript:;" class='goPay'>前往支付</a>
-	</div>
-	<!-- 二维码 -->
-	<div class='erweima' style="width: 125px;height: 125px;position: absolute;border: 1px solid #e1e1e1;left: 37%;bottom: 10%;display: none;z-index:999">
-		<img src="" alt="" style="width: 100%;height: 100%" id="chongzhi_qrcode">
-	</div>
-	</div>
-	
 
-	</div>
 
-</div>	
-		
-		
-		
-		
+
+
 		<!--禁言提示-->
 		<!--模板引擎渲染礼物栏-->
 		<script type='text/template' id='gift_temp'>
@@ -451,11 +1370,8 @@
 		</script>
 
 		<script src="/web/js/liveVideo/liveVideo.js?v=ipandatcm_1.3"></script>
-		
-		
-		
-	</body>
-	<script>
+</body>
+<script>
 			$("body").append('<div class="modal" id="login" data-backdrop="static">' +
 				'<div class="modal-dialog login-module" role="document">' +
 				'<div class="cymylogin" style="height: 410px!important;">' +
@@ -482,10 +1398,12 @@
 	</script>
 </html>
 <script src="/web/js/placeHolder.js"></script>
-<script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript"
+	charset="utf-8"></script>
 <script type="text/javascript">
     $(function() {
 		$('input').placeholder();
 		/* var html = template('',html) */
 	});
 </script>
+

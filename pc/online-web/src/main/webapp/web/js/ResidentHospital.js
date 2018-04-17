@@ -708,7 +708,7 @@ $(".recruit-save-btn-menuone").click(function(){
 		
 		$.ajax({
 			type:"POST",
-			url:"/medical/hospitalRecruit",
+			url:bath+"/medical/hospitalRecruit",
 			data:JSON.stringify({
 				"position":$recruit_text,
 				"years":dataNumber,
@@ -991,6 +991,7 @@ $(function() {
 $(".recruit-btn-newjob").click(function() {
 	var recruit_btn = $(this).text()
 	if(recruit_btn == "新职位") {
+		resetRecruitForm();
 		$(".recruit-box-newjob").show()
 		$(".recruit-box-manage").hide()
 		$(this).text("返回")
@@ -1082,25 +1083,25 @@ function echoRecruit(index){
 	var recruit_edit = recruits[index];
 	//[{code:0,text:不限}]
 	$("#recruitId").val(recruit_edit.id);
-	$("#recruit_edit_box .recruit-write").val(recruit_edit.position);
-	$(".recruit-box-newjob .recruit-newjob-experience").iselect("val",recruit_edit.years);
+	$("#recruit-box-newjob .recruit-isdata").val(recruit_edit.position);
+	$("#recruit-box-newjob .recruit-newjob-experience").iselect("val",recruit_edit.years);
 	
-	$("#recruit_edit_box .recruit-textarea-mune1").val(recruit_edit.postDuties);
-	$("#recruit_edit_box .recruit-textarea-mune2").val(recruit_edit.jobRequirements);
+	$("#recruit-box-newjob .recruit-textarea-isdata").val(recruit_edit.postDuties);
+	$("#recruit-box-newjob .recruit-textarea-duty-isdata").val(recruit_edit.jobRequirements);
 }
 
 
 function resetRecruitForm(index){
-	if(index==null){
-		//新增
-	}else{
-		//编辑
-	}
+//	if(index==null){
+//		//新增
+//	}else{
+//		//编辑
+//	}
 	$("#recruitId").val("");
-	$(".recruit-box-newjob .recruit-newjob-experience").iselect("init",data);
-	$("#recruit_edit_box .recruit-write").val("");	
-	$("#recruit_edit_box .recruit-textarea-mune1").val("");
-	$("#recruit_edit_box .recruit-textarea-mune2").val("");
+	$("#recruit-box-newjob .recruit-newjob-experience").iselect("init",data);
+	$("#recruit-box-newjob .recruit-isdata").val("");	
+	$("#recruit-box-newjob .recruit-textarea-isdata").val("");
+	$("#recruit-box-newjob .recruit-textarea-duty-isdata").val("");
 }
 
 
@@ -1307,7 +1308,7 @@ data[4]={};
 data[4].value=4;
 data[4].text='5-10年';
 data[5]={};
-data[5].value=4;
+data[5].value=5;
 data[5].text='10年以上';
 
 $(".recruit-box-newjob .recruit-newjob-experience").iselect("init",data);

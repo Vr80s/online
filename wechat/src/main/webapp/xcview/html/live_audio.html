@@ -16,7 +16,25 @@
 <link rel="stylesheet" href="/xcview/css/live_audio.css" />
 <link rel="stylesheet" href="/xcview/css/share/share.css" />
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script>
+	//修改title
+	document.setTitle = function(t) {
+        document.title = t;
+        var i = document.createElement('iframe');
+        // i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+          setTimeout(function(){
+            i.remove();
+          }, 9)
+        }
+        document.body.appendChild(i);
+      }
+      setTimeout(function(){
+        document.setTitle(gradeName);
+      }, 1000);
 
+</script>
 </head>
 <style type="text/css">
 	.ccH5playerBox{
