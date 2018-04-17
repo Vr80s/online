@@ -64,7 +64,7 @@ public class DoctorWritingController extends AbstractController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         medicalDoctorWritingService.save(doctorId, doctorWritingBody.build(userId), userId);
-        return newSuccessResponseObject();
+        return newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
@@ -73,7 +73,7 @@ public class DoctorWritingController extends AbstractController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         medicalDoctorWritingService.update(id, doctorId, doctorWritingBody.build(userId));
-        return newSuccessResponseObject();
+        return newSuccessResponseObject("更新成功");
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -82,7 +82,7 @@ public class DoctorWritingController extends AbstractController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         medicalDoctorWritingService.delete(id, doctorId);
-        return newSuccessResponseObject();
+        return newSuccessResponseObject("删除成功");
     }
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
@@ -91,9 +91,9 @@ public class DoctorWritingController extends AbstractController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         if (medicalDoctorWritingService.updateStatus(doctorId, id, status)) {
-            return newSuccessResponseObject();
+            return newSuccessResponseObject("操作成功");
         } else {
-            return newErrorResponseObject("状态修改失败");
+            return newErrorResponseObject("操作失败");
         }
     }
 }
