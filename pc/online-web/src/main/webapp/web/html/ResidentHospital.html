@@ -16,7 +16,10 @@
 		<link rel="stylesheet" href="/web/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="/web/css/mylogin.css" />
+		<!--分页部分start-->
 		<link rel="stylesheet" href="/web/css/componet.css" />
+		<link rel="stylesheet" href="/web/css/componet-pages.css" />
+		<!--分页部分end-->
 		<link rel="stylesheet" href="/web/css/index.css" />
 		<link rel="stylesheet" href="/web/css/header.css" />
 		<link rel="stylesheet" href="/web/css/footer.css" />
@@ -40,9 +43,9 @@
 		<script type="text/javascript" src="/web/js/helpers.js"></script>
 		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-
+		<!--分页部分start-->
 		<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
-
+		<!--分页部分start-->
 		<!--富文本需要的js-->
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>
@@ -564,23 +567,23 @@
 									<div id="noDocList" class="hide" style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到“<span id="searchName" style="color:#00BC12">'+docName+'</span>”相关医师</p></div>
 									
 									
-									<!--分页部分-->
-									<div class="pages hide" style="margin-top: 20px;">
-										<div id="Pagination"></div>
+									<!--分页部分start-->
+									<div class="doctors_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+										<div id="Pagination_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
 										<div class="searchPage">
 											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
 											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
 											<a href="javascript:;" class="page-btn">确定</a>
 										</div>
 									</div>
-	
+									<!--分页部分end-->
 								</div>
 	
 							</div>
 	
 							<!--招聘管理-->
 							<div role="tabpanel" class="tab-pane" id="recruit_Administration">								
-									<div class="recruit-wrap-title">
+									<div class="recruit-wrap-title wrap-title">
 										<p>招聘管理</p>
 										<button class="recruit-btn-newjob">新职位</button>
 									</div>
@@ -642,6 +645,16 @@
 											<img src="../images/notext_icon.png" alt="无数据">
 											<p>暂无招聘信息</p>
 										</div>
+										<!--分页部分start-->
+										<div class="recruits_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+											<div id="Pagination_recruits" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+											<div class="searchPage">
+												<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+												<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+												<a href="javascript:;" class="page-btn">确定</a>
+											</div>
+										</div>
+										<!--分页部分end-->
 										</div>		
 									</div>
 								<!--新职位-->
@@ -679,7 +692,10 @@
 										<div class="recruit-textarea-duty">				
 											<textarea class="recruit-textarea recruit-textarea-duty-isdata"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
 											<span class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</span>	
-											<button class="recruit-save-btn recruit-save-btn-menuone">保存并发布</button>
+										</div>
+										<div class="recruit-save-up">
+												<button class="recruit-save-btn recruit-save-btn-menuone recruit-save-up-toggle" data-id="true">保存并发布</button>
+												<button class="recruit-save-btn recruit-save-btn-menuone recruit-save-toggle" data-id="false">保存</button>
 										</div>
 									</div>
 								</div>
@@ -744,15 +760,16 @@
 									</div>
 									
 									
-									<!--分页部分-->
-									<!--<div class="pages notice_pages">
-										<div id="Pagination_noticeList"  class="pagination-pages"></div>
+									<!--分页部分start-->
+									<div class="notices_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+										<div id="Pagination_notices" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
 										<div class="searchPage">
 											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
 											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
 											<a href="javascript:;" class="page-btn">确定</a>
 										</div>
-									</div>-->
+									</div>
+									<!--分页部分end-->
 					
 									
 								</div>
@@ -877,50 +894,7 @@
 						</div>		
 					</div>
 				</div>
-				<!--招聘管理预览效果结束-->	
-				<!--招聘管理编辑效果开始-->
-				<!--<div class="recruit_edit_box" id="recruit_edit_box">
-					<div class="recruit_preview_content">
-						<p class="recruit_preview_title">编辑</p>
-						<img src="../images/rili_close.png"/>
-					</div>
-					<div class="recruit-newjob-inf recruit_edit_inf">
-						<span><em>*</em> 招聘职位</span>
-						<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="20" class="recruit-write" />
-						<span class="warning hide" style="margin-left: 0px;">招聘职位不能为空</span>
-					</div>
-					<div class="recruit-newjob-experience recruit_edit_inf">
-						<span>工作经验</span>
-						<div class="recruit-select" id="nav">
-							<p class="recruit-select-one">请选择工作经验</p>
-							<ul class="recruit-select-lest">
-								<li data-number="0">不限</li>
-								<li data-number="1">0-1年</li>
-								<li data-number="2">1-3年</li>
-								<li data-number="3">3-5年</li>
-								<li data-number="4">5-10年</li>
-								<li data-number="5">10年以上</li>
-							</ul>
-						</div>
-					</div>
-					<div class="recruit-newjob-duty recruit_edit_inf">
-						<span style="float: left;"><em>*</em>岗位职责</span>
-						<div class="recruit-textarea-duty">				
-							<textarea class="recruit-textarea recruit-textarea-mune1"  name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
-							<span class="warning hide" style="margin-left: 0px;">岗位职责不能为空</span>	
-						</div>
-					</div>
-					<div class="recruit-newjob-duty recruit_edit_inf">
-						<span style="float: left;"><em>*</em>职位要求</span>
-						<div class="recruit-textarea-duty">				
-							<textarea class="recruit-textarea recruit-textarea-mune2"  name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
-							<span class="warning hide" style="margin-left: 0px;">职位要求不能为空</span>						
-							<p class="recruit-save-btn" style="margin-bottom: 0px;">保存</p>
-						</div>
-					</div>
-				</div>-->
-				<!--招聘管理编辑效果结束-->
-			
+				<!--招聘管理预览效果结束-->				
 				<!--公告管理预览效果-->
 				<div class="notice_namage_see">
 					<div class="notice_preview_content">
