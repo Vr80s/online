@@ -227,6 +227,9 @@ public class XzWxPayController {
 		int orderFrom = 0;
 		if(clientType == 3){
 			openId = req.getParameter("openId");
+			if(!StringUtils.isNotBlank("openId")) {
+				return ResponseObject.newErrorResponseObject("尝试下重新登录,或者关注公众号!");
+			}
 			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 			orderFrom = 3;
 		}else if(clientType == 4){

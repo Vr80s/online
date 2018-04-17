@@ -14,6 +14,22 @@ var queue = new Queue();
 
 // 连接状态改变的事件
 function onConnect(status) {
+	
+	
+	  console.log(Strophe.Status.CONNECTING);
+	  console.log(Strophe.Status.DISCONNECTED);
+//    if (status == Strophe.Status.CONNECTING) {  
+//        log('Strophe is connecting.');  
+//        } else if (status == Strophe.Status.CONNFAIL) {  
+//        log('Strophe failed to connect.');  
+//        $('#connect').get(0).value = 'connect';  
+//        } else if (status == Strophe.Status.DISCONNECTING) {  
+//        log('Strophe is disconnecting.');  
+//        } else if (status == Strophe.Status.DISCONNECTED) {  
+//        log('Strophe is disconnected.');  
+//        $('#connect').get(0).value = 'connect';  
+//        } else if (status == Strophe.Status.CONNECTED) {  
+	
     if (status == Strophe.Status.CONNFAIL) {
 //        alert("连接失败！");
         autoLogin();
@@ -90,6 +106,8 @@ $(document).ready(function() {
     });
     
     function sendMsg(data){
+    	autoLogin();
+    	
     	data = JSON.stringify(data);
     	data = JSON.parse(data);
 		// 创建一个<message>元素并发送

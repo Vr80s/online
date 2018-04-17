@@ -84,7 +84,7 @@ function gongzhonghao(url,params,returnUrl){
             var resultpay = data.resultObject;
             var timestamp = resultpay.timeStamp;
             var nonceStr = resultpay.nonceStr;
-            var package = resultpay.package;
+            var package1 = resultpay.package;
             var signType = resultpay.signType;
             var paySign = resultpay.paySign;
             var appId=resultpay.appId;
@@ -94,7 +94,7 @@ function gongzhonghao(url,params,returnUrl){
                     "appId":""+appId+"",     //公众号名称，由商户传入
                     "timeStamp":""+timestamp+"",         //时间戳，自1970年以来的秒数
                     "nonceStr":""+nonceStr+"", //随机串
-                    "package":""+package+"",
+                    "package":""+package1+"",
                     "signType":"MD5",         //微信签名方式：
                     "paySign":""+paySign+"" //微信签名
                 },

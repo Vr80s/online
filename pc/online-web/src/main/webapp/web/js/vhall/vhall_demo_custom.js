@@ -17,37 +17,33 @@ $(document).ready(function() {
         }
     });
 	
-    function liaotiao(){
+    function liaotian(obj){
     	
-    var aaa = "<li uid=' user_id'>"+
-    "<a class='avatar' href='javascript:;' title=' user_name'><img src=' avatar' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
-        "<div class='msg'>"+
-            "<p> <% if (role == 'assistant') { <a class='tips assistant' href='javascript:;'>助理</a> <% } else if (role == 'host') { <a class='tips host' href='javascript:;'>主持人</a> <% } else if (role == 'guest') { <a class='tips guest' href='javascript:;'>嘉宾</a> <% }  <a class='name' href='javascript:;' title=' user_name'>  user_name </a>
-        
-            "</p>"+
-           " <p class='content'> <% print(content)  </p>"+
-        "</div>"+
-      "</li>";
+    	console.log("nnnn:"+obj);
     	
-    if(role == 'assistant'){
-    	
-    	
-    }else if(2==22){
-    	
-    }else if(2==22){
-    	
-    }else if(2==22){
-    	
+        var role_str = "";
+	    var role= obj.role;
+        if(role=='assistant'){
+	    	role_str +="<a class='tips assistant' href='javascript:;'>助理</a>";
+	    } else if(role == 'host'){
+	    	role_str +="<a class='tips host' href='javascript:;'>主持人</a>";
+	    }
+	    else if(role == 'guest'){
+	    	role_str +="<a class='tips guest' href='javascript:;'>嘉宾</a>";
+	    }
+	    role_str+="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
+	    var aaa = "<li uid=' user_id'>"+
+	    "<a class='avatar' href='javascript:;' title=' user_name'><img src='"+obj.avatar+"' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
+	        "<div class='msg'>"+
+	            "<p> " + role_str+"</p>"+
+	           " <p class='content'>"+obj.content+"</p>"+
+	        "</div>"+
+	      "</li>";
+	    return aaa;
     }
-    
-    	
-    }
-	
-	
 	function t(t) {
 		var o = new RegExp("(^|&)" + t + "=([^&]*)(&|$)", "i"),
 			e = window.location.search.substr(1).match(o);
-		
 		return null != e ? decodeURIComponent(e[2]) : ""
 	}
 	(function() {
@@ -118,7 +114,7 @@ $(document).ready(function() {
 		alert(JSON.stringify(t))
 	}), VHALL_SDK.on("chatMsg", function(t) {
 	
-		//$("#chatmsg").append(o(t)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999")
+		$("#chatmsg").append(liaotian(t)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999")
 	
 	
 	}), VHALL_SDK.on("questionMsg", function(t) {
@@ -198,12 +194,17 @@ $(document).ready(function() {
 	}), VHALL_SDK.on("publishStart", function(t) {
 		alert("活动开始推流")
 	}), VHALL_SDK.on("vhall_live_history_chat_msg", function(t) {
-//		if (200 == t.code) {
-//			for (var e = "", n = t.data.length - 1; n >= 0; n--) e += o(t.data[n]);
-//			$("#chatmsg").append(e), setTimeout(function() {
-//				$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
-//			}, 50)
-//		}
+		
+		
+		if (200 == t.code) {
+			for (var e = "", n = t.data.length - 1; n >= 0; n--) e += liaotian(t.data[n]);
+			$("#chatmsg").append(e), setTimeout(function() {
+				$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
+			}, 50)
+		}
+		
+		
+		
 	}), VHALL_SDK.on("vhall_record_history_chat_msg", function(t) {
 //		if (200 == t.code) {
 //			var e = "";
@@ -231,17 +232,16 @@ $(document).ready(function() {
 			}
 		}
 	}), $("#sendChat").click(function() {
-		alert("啦啦啦啦");
+		//alert("啦啦啦啦");
 		var t = $("#mywords").val(),
 			n = null;
 		
-		console.log("nnnn:"+n);
 		
-//		$(".tab-pane.active").hasClass("chatmsg-box") ? ((n = VHALL_SDK.sendChat({
-//			text: t
-//		})) && $("#chatmsg").append(o(n)), $("#mywords").val(""), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")) : ((n = VHALL_SDK.sendQuestion({
-//			text: t
-//		})) && $("#question-msg").append(e(n)), $("#mywords").val(""), $(".question-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999"))
+		$(".tab-pane.active").hasClass("chatmsg-box") ? ((n = VHALL_SDK.sendChat({
+			text: t
+		})) && $("#chatmsg").append(liaotian(n)), $("#mywords").val(""), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")) : ((n = VHALL_SDK.sendQuestion({
+			text: t
+		})) && $("#question-msg").append(e(n)), $("#mywords").val(""), $(".question-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999"))
 	
 	}), VHALL_SDK.on("playerError", function(t) {
 		console.log(t)
