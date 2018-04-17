@@ -715,7 +715,7 @@ function verifyRecruit(data){
 	return true;
 }
 //发布并保存
-$(".recruit-save-btn-menuone").click(function(status){
+$(".recruit-save-btn-menuone").click(function(){
 	var status = $(this).attr("data-id")	
 	var data = {
 				"position":$.trim($(".recruit-isdata").val()),
@@ -770,7 +770,7 @@ function recruitList(pages){
 	            });
 			}
 			else {
-				$(".doctors_pages").addClass("hide");
+				$(".recruits_pages").addClass("hide");
 			}
 //		分页添加结束		
 
@@ -923,35 +923,6 @@ function reset() {
 	//富文本框
 	UE.getEditor('editor').setContent("")
 }
-
-////医师预览功能
-//$('.doc_Administration_bottom2 .preview').click(function(){
-//	$('#mask').removeClass('hide');
-//	$('#doc_Administration_bottom3').addClass('hide');
-//	$('#doc_Administration_bottom4').removeClass('hide');
-//})
-//
-//
-////医师编辑功能
-//$('#doc_Administration_bottom2 .edit').click(function(){
-//	$('#mask').removeClass('hide');
-//	$('#doc_Administration_bottom4').addClass('hide');
-//	$('#doc_Administration_bottom3').removeClass('hide');
-//})
-//
-//
-////医师编辑关闭按钮
-//$('#doc_Administration_bottom4 .close_doc_inf').click(function(){
-//	$('#mask').addClass('hide');
-//	$('#doc_Administration_bottom4').addClass('hide');
-//})
-//
-////医师预览关闭按钮
-//$('#doc_Administration_bottom3 .close_doc_inf').click(function(){
-//	$('#mask').addClass('hide');
-//	$('#doc_Administration_bottom3').addClass('hide');
-//})
-
 //内部医疗领域选择功能
 $('#doc_Administration  .keshi ul li').click(function() {
 	if($(this).hasClass('keshiColor')) {
@@ -1056,6 +1027,7 @@ function recruit_preview_btn(i){
 	else if(recruit_Text.years==5){
 		$("#recruit_wrap_mune2 p").text("10年以上");	
 	}
+	$("#recruit_wrap_mune1 p").text(recruit_Text.position)
 	$("#recruit_wrap_mune3 p").text(recruit_Text.postDuties);
 	$("#recruit_wrap_mune4 p").text(recruit_Text.jobRequirements);
 	$(".recruit_preview_bg").show()
@@ -1100,8 +1072,7 @@ function recruit_edit(index){
     $(".recruit-box-manage").hide();
     $(".recruit-box-newjob").show();
     $(".recruit-wrap-title p").text("编辑招聘");
-    $(".recruit-btn-newjob").text("返回");
-    
+    $(".recruit-btn-newjob").text("返回");   
 }
 function echoRecruit(index){
 	var recruit_edit = recruits[index];
@@ -1111,21 +1082,45 @@ function echoRecruit(index){
 	$("#recruit-box-newjob .recruit-newjob-experience").iselect("val",recruit_edit.years);
 	$("#recruit-box-newjob .recruit-textarea-isdata").val(recruit_edit.postDuties);
 	$("#recruit-box-newjob .recruit-textarea-duty-isdata").val(recruit_edit.jobRequirements);
-	if(recruit_edit.status=="true"){
-		$(".recruit-save-toggle").addClass("hide")
-	}else{
-		$(".recruit-save-up-toggle").addClass("hide")
-		
-	}
+	
+//	if(recruit_edit.status==true){
+//		$(".recruit-save-up").addClass("hide");
+//		$(".recruit-edit-save-up-wrap").removeClass("hide");
+//		$(".recruit-edit-save-up-wrap .recruit-edit-save").hide();
+//		$(".recruit-edit-save-up-wrap .recruit-edit-save-up").show()
+//	}else{
+//		$(".recruit-save-up").addClass("hide");
+//		$(".recruit-edit-save-up-wrap").removeClass("hide");
+//		$(".recruit-edit-save-up-wrap .recruit-edit-save").show();
+//		$(".recruit-edit-save-up-wrap .recruit-edit-save-up").show()
+//	}
+$(".recruit-save-up").addClass("hide");
+$(".recruit-edit-save-up-wrap").removeClass("hide");
 }
+//编辑过后的内容保存
+$(".recruit-edit-btn").click(function(){
+	var edit_id=$("#recruitId").val();
+	$.ajax({
+		type:"PUT",
+		url:bath+"/medical/hospitalRecruit/"+edit_id+"",
+		data:JSON.stringify({
+				"position":$.trim($(".recruit-isdata").val()),
+				"years":$(".recruit-box-newjob .recruit-newjob-experience").iselect("val"),
+				"postDuties":$recruit_textarea = $.trim($(".recruit-textarea-isdata").val()),
+				"jobRequirements":$.trim($(".recruit-textarea-duty-isdata").val()),
 
+			}),
+		contentType: "application/json",
+		success:function(data){
+//			resetRecruitForm();
+				showTip("保存成功");
+				recruitList(1);
+				$("#collect_Administration_tabBtn").click();
+		}
+	});
+})
 
 function resetRecruitForm(index){
-//	if(index==null){
-//		//新增
-//	}else{
-//		//编辑
-//	}
 	$("#recruitId").val("");
 	$("#recruit-box-newjob .recruit-newjob-experience").iselect("init",data);
 	$("#recruit-box-newjob .recruit-newjob-experience").iselect("val",0);
@@ -1133,6 +1128,10 @@ function resetRecruitForm(index){
 	$("#recruit-box-newjob .recruit-textarea-isdata").val("");
 	$("#recruit-box-newjob .recruit-textarea-duty-isdata").val("");
 	$(".recruit-save-btn-menuone").removeAttr("disabled");
+//	新职位的保存-发布按钮显现
+	$(".recruit-edit-save-up-wrap").addClass("hide");
+	$(".recruit-save-up").removeClass("hide");
+//	新职位的保存-发布按钮显现end
 }
 
 
