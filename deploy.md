@@ -61,7 +61,7 @@ bbs pc端整合
 
 医馆管理->专栏管理与媒体报道
 
-    ALTER TABLE `medical_doctor_report` ADD `report_doctor` VARCHAR(255)  NULL  DEFAULT NULL COMMENT '报道的医师';
+    ALTER TABLE `oe_bxs_article` ADD `url` VARCHAR(255)  NULL  DEFAULT NULL COMMENT '文章来源的url';
 
     CREATE TABLE `medical_doctor_special_column` (
       `id` varchar(32) NOT NULL DEFAULT '' COMMENT '医师专栏关系表',

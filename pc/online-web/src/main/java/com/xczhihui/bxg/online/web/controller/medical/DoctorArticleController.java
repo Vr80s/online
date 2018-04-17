@@ -80,7 +80,7 @@ public class DoctorArticleController extends AbstractController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
-        medicalDoctorArticleService.saveReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName), doctorArticleBody.getReportDoctor());
+        medicalDoctorArticleService.saveReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName));
         return ResponseObject.newSuccessResponseObject();
     }
 
@@ -90,7 +90,7 @@ public class DoctorArticleController extends AbstractController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
-        medicalDoctorArticleService.updateReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName), id, doctorArticleBody.getReportDoctor());
+        medicalDoctorArticleService.updateReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName), id);
         return ResponseObject.newSuccessResponseObject();
     }
 

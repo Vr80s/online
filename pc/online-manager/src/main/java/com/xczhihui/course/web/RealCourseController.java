@@ -153,14 +153,6 @@ public class RealCourseController extends AbstractController {
         if (city != null) {
             searchVo.setRealCitys(city.getPropertyValue1().toString());
         }
-        Group searchIsRecommend = groups.findByName("search_isRecommend");
-        if (searchIsRecommend != null) {
-            String isRecommend = searchIsRecommend.getPropertyValue1().toString();
-            if (!isRecommend.equals("2")) {
-                searchVo.setIsRecommend(Integer.parseInt(isRecommend));
-            }
-
-        }
 
         Page<CourseVo> page = courseService.findCoursePage(searchVo, currentPage, pageSize);
         int total = page.getTotalCount();
@@ -333,65 +325,6 @@ public class RealCourseController extends AbstractController {
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
-    /**
-     * 上移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "upMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject upMove(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateSortUpForReal(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
-
-    /**
-     * 上移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "downMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject downMove(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateSortDownForReal(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
-
-    /**
-     * 上移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "upMoveRec", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject upMoveRec(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateSortUpRec(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
-
-    /**
-     * 上移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "downMoveRec", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject downMoveRec(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateSortDownRec(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
 
     @RequestMapping(value = "deletes", method = RequestMethod.POST)
     @ResponseBody

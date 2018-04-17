@@ -42,8 +42,7 @@ public class CourseZyxxController extends AbstractController{
 		//在列表初始化时查找出课程类别
 		List<ScoreType> scoreTypeVos = courseService.getScoreType();
 		request.setAttribute("scoreTypeVo", scoreTypeVos);
-		
-		request.setAttribute("type", 1);
+
 		
 		
 		//查找所有的讲师

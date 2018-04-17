@@ -103,21 +103,20 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
-    public void saveReport(String doctorId, OeBxsArticle oeBxsArticle, String reportDoctor) {
+    public void saveReport(String doctorId, OeBxsArticle oeBxsArticle) {
         oeBxsArticleMapper.insert(oeBxsArticle);
 
         MedicalDoctorReport medicalDoctorReport = new MedicalDoctorReport();
         medicalDoctorReport.setArticleId(String.valueOf(oeBxsArticle.getId()));
         medicalDoctorReport.setCreateTime(new Date());
         medicalDoctorReport.setDoctorId(doctorId);
-        medicalDoctorReport.setReportDoctor(reportDoctor);
         medicalDoctorReport.setId(CodeUtil.getRandomUUID());
         medicalDoctorReportMapper.insert(medicalDoctorReport);
 
     }
 
     @Override
-    public boolean updateReport(String doctorId, OeBxsArticle oeBxsArticle, String id, String reportDoctor) {
+    public boolean updateReport(String doctorId, OeBxsArticle oeBxsArticle, String id) {
         OeBxsArticle oldOeBxsArticle = oeBxsArticle.selectById(id);
         if (oldOeBxsArticle == null || oldOeBxsArticle.getDelete()) {
             return false;
@@ -130,7 +129,6 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
 
         MedicalDoctorReport medicalDoctorReport = medicalDoctorReportMapper.findByArticleIdAndDoctorId(id, doctorId);
         if (medicalDoctorReport != null) {
-            medicalDoctorReport.setReportDoctor(reportDoctor);
             medicalDoctorReportMapper.updateById(medicalDoctorReport);
         }
         return true;

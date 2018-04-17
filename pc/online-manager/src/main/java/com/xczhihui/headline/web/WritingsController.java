@@ -1,21 +1,15 @@
 package com.xczhihui.headline.web;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.support.service.AttachmentType;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
@@ -26,10 +20,7 @@ import com.xczhihui.headline.service.WritingService;
 import com.xczhihui.headline.vo.ArticleVo;
 import com.xczhihui.headline.vo.WritingVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
+import com.xczhihui.utils.*;
 
 /**
  * 著作管理
@@ -41,8 +32,6 @@ import com.xczhihui.utils.Tools;
 @RequestMapping("headline/writing")
 public class WritingsController extends AbstractController {
     protected final static String HEADLINE_PATH_PREFIX = "/headline/";
-    private static final Pattern IMG_PATTERN = Pattern.compile("<img\\s+(?:[^>]*)src\\s*=\\s*([^>]+)",
-            Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
     @Autowired
     private ArticleService articleService;
@@ -51,7 +40,7 @@ public class WritingsController extends AbstractController {
     private WritingService writingService;
 
     @Autowired
-    private AttachmentCenterService att;
+    private AttachmentCenterService attachmentCenterService;
 
     @Value("${online.web.url}")
     private String weburl;
@@ -92,7 +81,7 @@ public class WritingsController extends AbstractController {
                     .getPropertyValue1().toString(), "yyyy-MM-dd"));
         }
 
-        Page<MedicalWritings> page = writingService.findCoursePage(searchVo,
+        Page<MedicalWritings> page = writingService.findWritingsPage(searchVo,
                 currentPage, pageSize);
 
         int total = page.getTotalCount();
@@ -111,14 +100,15 @@ public class WritingsController extends AbstractController {
     /**
      * 添加
      *
-     * @param vo
+     * @param writingVo
+     * @param request
      * @return
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject add(HttpServletRequest request, WritingVo writingVo) {
         String content = writingVo.getContent();
-        content = Base64ToimageURL(content);
+        content = ImageUtils.base64ToimageURL(content, attachmentCenterService);
 
         writingVo.setUserId(ManagerUserUtil.getId());
         writingVo.setContent(content);
@@ -131,14 +121,14 @@ public class WritingsController extends AbstractController {
     /**
      * 预览
      *
-     * @param vo
+     * @param articleVo
      * @return
      */
     @RequestMapping(value = "addPre", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addPre(HttpServletRequest request, ArticleVo articleVo) {
         String content = articleVo.getContent();
-        content = Base64ToimageURL(content);
+        content = ImageUtils.base64ToimageURL(content, attachmentCenterService);
         articleVo.setContent(content);
         articleVo.setUserId(ManagerUserUtil.getId());
         articleService.addPreArticle(articleVo);
@@ -149,42 +139,19 @@ public class WritingsController extends AbstractController {
     /**
      * 修改
      *
-     * @param vo
+     * @param writingVo
      * @return
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject update(HttpServletRequest request, WritingVo writingVo) {
         String content = writingVo.getContent();
-        content = Base64ToimageURL(content);
         writingVo.setUserId(ManagerUserUtil.getId());
-        // articleService.updateWriting(writingVo);
         writingService.updateWriting(writingVo);
 
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
-    public String Base64ToimageURL(String content) {
-
-        Matcher matcher = IMG_PATTERN.matcher(content);
-        while (matcher.find()) {
-            String group = matcher.group(1);
-            if (StringUtils.hasText(group)) {
-                group = group.replaceAll("\"", "");
-                // 存在base64编码的数据，才进行64Toimage转换以及上传
-                if (group.split("base64,").length > 1) {
-                    String str = group.split("base64,")[1];
-                    byte[] b = org.apache.commons.codec.binary.Base64
-                            .decodeBase64(str);
-                    Attachment a = att.addAttachment(ManagerUserUtil.getId(),
-                            AttachmentType.ONLINE, "1.png", b, "image/png");
-                    content = content.replace(group, a.getUrl());
-                }
-
-            }
-        }
-        return content;
-    }
 
     @RequestMapping(value = "toEdit")
     public String toEdit(HttpServletRequest request, String id) {
@@ -206,7 +173,7 @@ public class WritingsController extends AbstractController {
      * Description：增加或者修改关联的信息
      *
      * @param id
-     * @param fieldId
+     * @param doctorId
      * @return ResponseObject
      * @author name：yangxuan <br>
      * email: 15936216273@163.com
@@ -238,7 +205,7 @@ public class WritingsController extends AbstractController {
     /**
      * 修改状态(禁用or启用)
      *
-     * @param id
+     * @param id id
      * @return
      */
     @RequestMapping(value = "updateStatus", method = RequestMethod.POST)
@@ -251,7 +218,7 @@ public class WritingsController extends AbstractController {
     /**
      * 推荐
      *
-     * @param id
+     * @param id id
      * @return
      */
     @RequestMapping(value = "recommend", method = RequestMethod.POST)
