@@ -62,14 +62,16 @@ public class GiftController {
 	 * @throws IllegalAccessException 
 	 **/
 	@RequestMapping(value = "/sendGift")
-	public ResponseObject sendGift(GiftStatement giftStatement,HttpServletRequest request) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException, InterruptedException {
+	public ResponseObject sendGift(GiftStatement giftStatement,
+			HttpServletRequest request) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException, InterruptedException {
 		Map<String,Object> map = new HashMap<String,Object>();
 		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(u!=null) {
         	giftStatement.setGiver(u.getId());
         	giftStatement.setClientType(OrderFrom.PC.getCode());
         	giftStatement.setPayType(Payment.COINPAY.getCode());
-			map = giftService.addGiftStatement(u.getId(),giftStatement.getReceiver(),giftStatement.getGiftId(),OrderFrom.PC,giftStatement.getCount(),giftStatement.getLiveId());
+			map = giftService.addGiftStatement(u.getId(),giftStatement.getReceiver(),
+					giftStatement.getGiftId(),OrderFrom.PC,giftStatement.getCount(),giftStatement.getLiveId());
 		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
@@ -140,4 +142,26 @@ public class GiftController {
         }
 		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseUsersById(id,loginUser.getId(), pageNumber, pageSize));
 	}
+	
+	
+	/** 
+	 * Description：接收到的礼物
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 **/
+	@RequestMapping(value = "/getRankingListByLiveId")
+	@ResponseBody
+	public ResponseObject getRankingListByLiveId(HttpServletRequest request,
+			String liveId,
+			Integer pageNumber,Integer pageSize) throws Exception {
+		//获取登录用户
+		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		if(loginUser==null) {
+            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        }
+		return ResponseObject.newSuccessResponseObject(giftService.getRankingListByLiveId(liveId, pageNumber, pageSize));
+	}
+	
+	
 }

@@ -11,29 +11,27 @@ import com.xczhihui.headline.vo.WritingVo;
 
 public interface WritingService {
 
-	public Page<MedicalWritings> findCoursePage(WritingVo searchVo,
-			int currentPage, int pageSize);
+    Page<MedicalWritings> findWritingsPage(WritingVo searchVo,
+                                         int currentPage, int pageSize);
 
-	public List<ArticleTypeVo> getArticleTypes();
+    List<ArticleTypeVo> getArticleTypes();
 
-	public List<TagVo> getTags();
+    List<TagVo> getTags();
 
-	public void addWriting(WritingVo writingVo);
+    void addWriting(WritingVo writingVo);
 
-	public void addArticleTag(ArticleVo articleVo);
+    void addArticleTag(ArticleVo articleVo);
 
-	public WritingVo findWritingById(String id);
+    WritingVo findWritingById(String id);
 
-	public void updateWriting(WritingVo writingVo);
+    void updateWriting(WritingVo writingVo);
 
-	public void deletes(String[] ids);
+    void deletes(String[] ids);
 
-	public void updateStatus(String id);
+    void updateStatus(String id);
 
-	public void addPreArticle(ArticleVo articleVo);
+    void addPreArticle(ArticleVo articleVo);
 
-	public void updateRecommend(Integer id);
-
-	public void updateMedicalDoctorWritings(String id, String[] doctorId);
+    void updateMedicalDoctorWritings(String id, String[] doctorId);
 
 }

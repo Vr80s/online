@@ -17,19 +17,18 @@ import com.xczhihui.headline.vo.TagVo;
  */
 public interface BxsTagService {
 
-	/**
-	 * 
-	 * @return
-	 */
-	public List<TagVo> findTagVo(TagVo tagVo);
+    /**
+     * @return
+     */
+    List<TagVo> findTagVo(TagVo tagVo);
 
-	public Page<TagVo> findPage(TagVo searchVo, int currentPage, int pageSize);
+    Page<TagVo> findPage(TagVo searchVo, int currentPage, int pageSize);
 
-	public String addTag(TagVo tagVo);
+    String addTag(TagVo tagVo);
 
-	public String deletes(String[] _ids);
+    String deletes(String[] _ids);
 
-	public void updateStatus(String id);
+    void updateStatus(String id);
 
-	public void updateTag(TagVo tagVo);
+    void updateTag(TagVo tagVo);
 }

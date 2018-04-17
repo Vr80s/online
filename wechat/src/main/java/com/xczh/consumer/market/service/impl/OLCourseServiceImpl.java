@@ -275,11 +275,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 				+" o.collection as collection,"
 				+" o.is_free as watchState,"
-				+" o.is_recommend,o.start_time as startTime,"
+				+ " if(o.sort_update_time< now(),0,o.recommend_sort) recommendSort, "
+				+" o.start_time as startTime,"
 				+"'全国课程' as note "
 				+" from oe_course o "
 				+" WHERE o.is_delete=0 and o.status=1 and o.type = 3   "
-				+" ORDER BY o.recommend_sort desc,o.start_time DESC LIMIT 0,6) ";
+				+" ORDER BY recommendSort desc,o.start_time DESC LIMIT 0,6) ";
 
 		if(cityList.size()>0){
 			strsql+= " union all ";
@@ -294,11 +295,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 					+" o.collection as collection,"
 					+" o.is_free as watchState,"
-					+" o.is_recommend,o.start_time as startTime,"
+					+ " if(o.sort_update_time< now(),0,o.recommend_sort) recommendSort, "
+					+" o.start_time as startTime,"
 					+" o.city as note "
 					+" from oe_course o "
 					+" WHERE o.is_delete=0 and o.status=1 and o.type = 3  and o.city = '"+offlineCity.getCityName()+"' "
-					+" ORDER BY o.recommend_sort desc,o.start_time DESC LIMIT 0,4)";
+					+" ORDER BY recommendSort desc,o.start_time DESC LIMIT 0,4)";
 
 				if(i < cityList.size()){
 					strsql+= " union all ";
@@ -444,7 +446,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
 		all.append(" if(oc.is_free =0,0,1) as watchState, ");	
 		all.append(" oc.collection as collection, ");
-
+		all.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");
 
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
@@ -452,7 +454,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" '精品课程' as note ");
 
 		all.append(" from oe_course oc ,oe_user ou ");
-		all.append(" where  oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status=1 order by oc.recommend_sort desc,oc.release_time desc  limit 0,6)");
+		all.append(" where  oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status=1 order by recommendSort desc,oc.release_time desc  limit 0,6)");
 
 
 		all.append("  union all ");
@@ -467,6 +469,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
 		all.append(" if(oc.is_free =0,0,1) as watchState, ");
 		all.append(" oc.collection as collection, ");
+		all.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");
 		
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
@@ -493,6 +496,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			all.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
 			all.append(" if(oc.is_free =0,0,1) as watchState, ");
 			all.append(" oc.collection as collection, ");
+			all.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");
 			
 			all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
@@ -501,7 +505,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			all.append(" from oe_course oc, oe_menu om  ,oe_user ou ");
 			all.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id	and oc.is_delete=0 and oc.status=1 ");
 			all.append(" and om.id  = "+menuVo.getId());
-			all.append("  order by oc.recommend_sort desc,oc.release_time desc limit 0,4 ) ");
+			all.append("  order by recommendSort desc,oc.release_time desc limit 0,4 ) ");
 			
 			if(i < listmv.size()){
 				all.append("  union all ");
@@ -539,7 +543,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" oc.city as city, ");//是否免费
 		commonSql.append(" 1 as querySort, ");//排序
 		commonSql.append(" oc.release_time, ");//上架/下架时间
-		commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
+		commonSql.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");//推荐值
 		//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 		commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 		commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
@@ -605,19 +609,19 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
 				//精品课程排序
 				if(menuType.equals("goodCourse")){
-					commonSql.append("  order by  oc.recommend_sort desc ");
+					commonSql.append("  order by  recommendSort desc ");
 					//最新课程排序
 				}else if(menuType.equals("newCourse")){
 					commonSql.append(" order by  oc.release_time desc ");
 				}else{
-					commonSql.append("  order by  oc.recommend_sort desc,oc.release_time desc ");
+					commonSql.append("  order by  recommendSort desc,oc.release_time desc ");
 				}
 			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==3){
-				commonSql.append("  order by  oc.recommend_sort desc,recent ");
+				commonSql.append("  order by  recommendSort desc,recent ");
 			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==4){
-				commonSql.append("  order by  oc.recommend_sort desc,oc.start_time desc ");
+				commonSql.append("  order by  recommendSort desc,oc.start_time desc ");
 			}else{
-				commonSql.append("  order by  oc.recommend_sort desc,oc.release_time desc ");
+				commonSql.append("  order by  recommendSort desc,oc.release_time desc ");
 			}
 		}else{
 			commonSql.append(") ");
@@ -638,7 +642,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" oc.city as city, ");//是否免费
 			commonSql.append(" 2 as querySort, ");//排序
 			commonSql.append(" oc.release_time, ");//上架/下架时间
-			commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
+			commonSql.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");//推荐值
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
@@ -719,7 +723,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" oc.city as city, ");//是否免费
 			commonSql.append(" 3 as querySort, ");//排序
 			commonSql.append(" oc.release_time, ");//上架/下架时间
-			commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
+			commonSql.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");//推荐值
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
@@ -801,7 +805,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" oc.city as city, ");//是否免费
 			commonSql.append(" 2 as querySort, ");//排序
 			commonSql.append(" oc.release_time, ");//上架/下架时间
-			commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
+			commonSql.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");//推荐值
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");
@@ -882,7 +886,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" oc.city as city, ");//是否免费
 			commonSql.append(" 4 as querySort, ");//排序
 			commonSql.append(" oc.release_time, ");//上架/下架时间
-			commonSql.append(" oc.recommend_sort as recommendSort, ");//推荐值
+			commonSql.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");//推荐值
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time as startTime,");

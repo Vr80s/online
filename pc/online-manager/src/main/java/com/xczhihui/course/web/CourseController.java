@@ -192,53 +192,6 @@ public class CourseController extends AbstractController {
 
     }
 
-    //@RequiresPermissions("course:menu:course")
-    @RequestMapping(value = "recList")
-    @ResponseBody
-    public TableVo recList(TableVo tableVo) {
-
-        int pageSize = tableVo.getiDisplayLength();
-        int index = tableVo.getiDisplayStart();
-        int currentPage = index / pageSize + 1;
-        String params = tableVo.getsSearch();
-        Groups groups = Tools.filterGroup(params);
-        CourseVo searchVo = new CourseVo();
-        Group onlineCourse = groups.findByName("search_onlineCourse");
-
-        if (onlineCourse != null) {
-            searchVo.setOnlineCourse(Integer.valueOf(onlineCourse.getPropertyValue1().toString()));
-        }
-
-        Group city = groups.findByName("search_city");
-
-        if (city != null) {
-            searchVo.setRealCitys(city.getPropertyValue1().toString());
-        }
-
-        Group type = groups.findByName("search_type");
-        if (type != null) {
-            searchVo.setType(Integer.valueOf(type.getPropertyValue1().toString()));
-        }
-
-        Group multimediaType = groups.findByName("search_multimediaType");
-        if (multimediaType != null) {
-            searchVo.setMultimediaType(Integer.valueOf(multimediaType.getPropertyValue1().toString()));
-        }
-
-        Group liveStatus = groups.findByName("search_liveStatus");
-
-        if (liveStatus != null) {
-            searchVo.setLiveStatus(Integer.valueOf(liveStatus.getPropertyValue1().toString()));
-        }
-        Page<CourseVo> page = courseService.findCourseRecPage(searchVo, currentPage, pageSize);
-        int total = page.getTotalCount();
-        tableVo.setAaData(page.getItems());
-        tableVo.setiTotalDisplayRecords(total);
-        tableVo.setiTotalRecords(total);
-        return tableVo;
-
-    }
-
     @RequestMapping(value = "getSecoundMenu", method = RequestMethod.POST)
     @ResponseBody
     public Object getSecoundMenu(String firstMenuNumber) {
@@ -247,30 +200,7 @@ public class CourseController extends AbstractController {
         return menuVo;
     }
 
-    /**
-     * 添加
-     *
-     * @param courseVo
-     * @return
-     */
-    //@RequiresPermissions("course:menu:course")
-    @RequestMapping(value = "addCourse", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject add(CourseVo courseVo) {
-        ResponseObject responseObj = new ResponseObject();
-        if (courseVo.getCurrentPrice() == null) {
-            courseVo.setOriginalCost(0.0);
-            courseVo.setCurrentPrice(0.0);
-        }
-        courseVo.setIsRecommend(0);
-        courseVo.setRecommendSort(0);
-        courseVo.setType(CourseForm.VOD.getCode());
 
-        courseService.addCourse(courseVo);
-        responseObj.setSuccess(true);
-        responseObj.setErrorMessage("新增成功");
-        return responseObj;
-    }
 
     /**
      * 查看
@@ -284,33 +214,6 @@ public class CourseController extends AbstractController {
     public List<CourseVo> findCourseById(Integer id) {
         return courseService.findCourseById(id);
     }
-
-    /**
-     * 编辑
-     *
-     * @param courseVo
-     * @return
-     */
-    //@RequiresPermissions("course:menu:course")
-    @RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject updateCourseById(CourseVo courseVo) {
-        ResponseObject responseObj = new ResponseObject();
-
-        if (courseVo.getCurrentPrice() == null) {
-            courseVo.setCurrentPrice(0.0);
-        }
-
-        if (courseVo.getSmallimgPath() == null || "".equals(courseVo.getSmallimgPath().trim())) {
-            responseObj.setErrorMessage("课程展示图不能为空");
-            return responseObj;
-        }
-        courseService.updateCourse(courseVo);
-        responseObj.setSuccess(true);
-        responseObj.setErrorMessage("修改成功");
-        return responseObj;
-    }
-
 
     /**
      * 修改状态(禁用or启用)
@@ -354,95 +257,7 @@ public class CourseController extends AbstractController {
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
-    /**
-     * 上移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "upMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject upMove(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateSortUp(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
 
-    /**
-     * 下移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "downMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject downMove(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateSortDown(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
-
-    /**
-     * 上移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "upMoveRec", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject upMoveRec(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateSortUpRec(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
-
-    /**
-     * 下移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "downMoveRec", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject downMoveRec(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateSortDownRec(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
-
-    /**
-     * 城市上移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "cityUpMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject cityUpMove(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateCitySortUp(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
-
-    /**
-     * 城市下移
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "cityDownMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject cityDownMove(Integer id) {
-        ResponseObject responseObj = new ResponseObject();
-        courseService.updateCitySortDown(id);
-        responseObj.setSuccess(true);
-        return responseObj;
-    }
 
     @RequestMapping(value = "deletes", method = RequestMethod.POST)
     @ResponseBody
@@ -457,22 +272,6 @@ public class CourseController extends AbstractController {
         return responseObject;
     }
 
-    @RequestMapping(value = "updateRec", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject updateRec(String ids, int isRec) {
-        ResponseObject responseObject = new ResponseObject();
-        if (ids != null) {
-            String[] _ids = ids.split(",");
-            if (courseService.updateRec(_ids, isRec)) {
-                responseObject.setSuccess(true);
-                responseObject.setErrorMessage("操作成功!");
-            } else {
-                responseObject.setSuccess(false);
-                responseObject.setErrorMessage("推荐失败，最多只能推荐4个点播课程！!");
-            }
-        }
-        return responseObject;
-    }
 
     /**
      * 城市推荐
@@ -646,6 +445,24 @@ public class CourseController extends AbstractController {
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/3/9 14:13
      **/
+    @RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateRecommendSort(Integer id, Integer recommendSort, String recommendTime) {
+        ResponseObject responseObject = new ResponseObject();
+
+        courseService.updateRecommendSort(id, recommendSort, recommendTime);
+        responseObject.setSuccess(true);
+        responseObject.setResultObject("修改成功!");
+        return responseObject;
+    }
+
+    /** 更改默认人数
+     * Description：
+     * creed: Talk is cheap,show me the code
+     *
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/3/9 14:13
+     **/
     @RequestMapping(value = "updatedefaultStudent", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updatedefaultStudent(Integer id, Integer recommendSort) {
@@ -655,6 +472,7 @@ public class CourseController extends AbstractController {
         responseObject.setResultObject("修改成功!");
         return responseObject;
     }
+    
 
     
 

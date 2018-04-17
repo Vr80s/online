@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="/js/layer/skin/layer.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />
 <script type="text/javascript" src="js/headline/articleAdd.js"></script>
 <script type="text/javascript">
 	try {
@@ -18,7 +18,7 @@
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
   当前位置：头条管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-			</small> 
+			</small>
 			文章管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 		</small>
   <span>新增文章 </span>
@@ -36,7 +36,7 @@
 				<input name="imgPath" id="add_imgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 			</div>
 		</div>
-		
+
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属分类:</label>
 			<div class="col-sm-3" >
@@ -45,12 +45,12 @@
                         <option  value="" >请选择</option>
                        	<c:forEach var="m" items="${articleTypes}">
                             <option value="${m.id}">${m.name}</option>
-                         </c:forEach> 
+                         </c:forEach>
                     </select>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属标签:</label>
 			<div class="col-sm-3" >
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章标题:</label>
 			<div class="col-sm-3" >
@@ -87,9 +87,9 @@
 				<input type="hidden" name="content"  id="content" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
 			</div>
 		</div>
-	
+
 	</form>
-	
+
 	<div class="col-xs-7" style="text-align: right;margin-top:150px;">
 		<button class="btn btn-sm btn-success" id="previewSaveBtn">
 			预览
@@ -108,9 +108,9 @@
 	<div id="tagDiv" style="margin:0 auto;width:480px">
 		<c:forEach var="tag" items="${tags}" varStatus="status" >
 			<input style="cursor: pointer;" type="checkbox" id="tag${tag.id}" data-tagName="${tag.name}" value="${tag.id}"><label style="cursor: pointer;" for="tag${tag.id}" >${tag.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-			<c:if test="${(status.index+1)%6==0}"></br></c:if>   
-		</c:forEach> 
-	</div>	
+			<c:if test="${(status.index+1)%6==0}"></br></c:if>
+		</c:forEach>
+	</div>
 </div>
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>

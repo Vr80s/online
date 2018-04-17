@@ -517,7 +517,7 @@ public class VideoDao extends SimpleHibernateDao {
     		       	  paramMap.put("courseId",courseId);
     	    	  } 
     	       }
-    	       sql.append(" order by c.createTime desc ");
+    	        sql.append(" order by c.createTime desc ");
 
     	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
     	        

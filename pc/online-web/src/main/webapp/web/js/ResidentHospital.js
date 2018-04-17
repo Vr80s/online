@@ -16,24 +16,6 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 	}
 
 });
-
-////上线下线的按钮点击事件
-//$('#doc_Administration_bottom2').on('click','.downLine',function(){
-//	var id = $(this).attr('data-id');
-//	var status = $(this).attr('data-status');
-//	RequestService("/medical/doctor/update", "post", {
-//		id:id,
-//		status:status
-//	}, function(data) {
-//		if(data.success == true){
-//			//重新渲染列表
-//			$('.doc_Administration_tabBtn').click();
-//			 courseVodList(1);
-//		}
-//			
-//	});
-//})
-
 //获取医馆认证状态控制左侧tab栏
 RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data) {
 	if(data.success == true) {
@@ -273,12 +255,6 @@ $(".hos_point").bind('click',function(){
 		$(".hos_point_icon").addClass("glyphicon-triangle-right")
 	}
 })
-
-
-
-
-
-
 //左侧鼠标移动上去变色效果
 $('#doctor_in_inf .news_nav ul li a').mouseenter(function() {
 	$(this).children('span').css('color', '#00bc12')
@@ -684,59 +660,80 @@ $('#xuke_pic_ipt').on('change', function() {
 	}
 	reader.readAsDataURL(this.files[0])
 })
-//招聘管理部分
-//发布并保存
-$(".recruit-save-btn-menuone").click(function(){
-	var  $recruit_text = $.trim($(".recruit-isdata").val());
-	var  $recruit_exp = $(".recruit-select-exp").text();
-	var  $recruit_textarea = $.trim($(".recruit-textarea-isdata").val());
-	var  $recruit_textarea_duty = $.trim($(".recruit-textarea-duty-isdata").val());
-	$(this).attr("disabled","disabled")
-	if($recruit_text==""){
+
+//招聘管理部分开始
+//招聘管理部分，点击职位下面内容变换
+$(".recruit-btn-newjob").click(function() {
+	var recruit_btn = $(this).text()
+	if(recruit_btn == "新职位") {
+		resetRecruitForm();
+		$(".recruit-box-newjob").show()
+		$(".recruit-box-manage").hide()
+		$(this).text("返回")
+		$(".recruit-wrap-title p").text("新职位")
+	} else {
+		$(".recruit-box-newjob").hide()
+		$(".recruit-box-manage").show()
+		$(this).text("新职位")
+		$(".recruit-wrap-title p").text("招聘管理")
+
+	}
+
+})
+//医馆管理发布并保存
+function verifyRecruit(data){		
+	if(data.position==""){
 		$(".warning-isdata").removeClass("hide");
-		$(".recruit-save-btn-menuone").removeAttr("disabled");
 		return false;
-	}else if($recruit_textarea==""){
-		$(".warning-textarea-isdata").removeClass("hide")
-		$(".recruit-save-btn-menuone").removeAttr("disabled");
+	}else{
+		$(".warning-isdata").addClass("hide");
+	}
+	if(data.postDuties==""){
+		$(".warning-textarea-isdata").removeClass("hide");
 		return false;
-	}else if($recruit_textarea_duty==""){
+	}else{
+		$(".warning-textarea-isdata").addClass("hide");
+	}
+	if(data.jobRequirements==""){
 		$(".warningtextarea-duty-isdata").removeClass("hide");
-		$(".recruit-save-btn-menuone").removeAttr("disabled");
 		return false;
-	}else{		
-		
+	}else{
+		$(".warningtextarea-duty-isdata").addClass("hide");
+	}
+	return true;
+}
+$(".recruit-save-btn-menuone").click(function(){
+	var status = $(this).attr("data-id")	
+	var data = {
+				"position":$.trim($(".recruit-isdata").val()),
+				"years":$(".recruit-box-newjob .recruit-newjob-experience").iselect("val"),
+				"postDuties":$recruit_textarea = $.trim($(".recruit-textarea-isdata").val()),
+				"jobRequirements":$.trim($(".recruit-textarea-duty-isdata").val()),
+				"status":status
+			}
+	if(verifyRecruit(data)){
+		$(this).attr("disabled","disabled")
 		$.ajax({
 			type:"POST",
 			url:bath+"/medical/hospitalRecruit",
-			data:JSON.stringify({
-				"position":$recruit_text,
-				"years":dataNumber,
-				"postDuties":$recruit_textarea,
-				"jobRequirements":$recruit_textarea_duty
-			}),
+			data:JSON.stringify(data),
 			contentType: "application/json",
-			success:function(data){				
+			success:function(data){		
+				resetRecruitForm();
 				showTip("保存成功");
-				recruitList();
-				setTimeout(function(){
-					$(".recruit-isdata").val("");
-					$(".recruit-select-exp").text("请选择工作经验");
-					$(".recruit-textarea-isdata").val("");
-					$(".recruit-textarea-duty-isdata").val("");
-					$("#collect_Administration_tabBtn").click();
-					$(".warning").addClass('hide')
-					$(".recruit-save-btn-menuone").removeAttr("disabled")
-				},2000)	
+				recruitList(1);
+				$("#collect_Administration_tabBtn").click();
 			}
 		});
 	}
 })
 //招聘管理列表
 var recruits;
-recruitList()
-function recruitList(){
-	RequestService("/medical/hospitalRecruit","GET",null,function(data){
+recruitList(1)
+function recruitList(pages){
+	RequestService("/medical/hospitalRecruit","GET",{
+		"page":pages
+	},function(data){
 		if(data.resultObject.records.length=="" || data.resultObject.records == null){
 			$(".notice_notext_two").show();
 			$(".recruit-box-manage table").hide()
@@ -744,9 +741,147 @@ function recruitList(){
 			recruits=data.resultObject.records;
 			$("#recruitList-wrap").html(template('recruitList-mould',{items:data.resultObject.records}));		
 		}
+//分页添加
+		if(data.resultObject.pages > 1) { //分页判断
+				$(".not-data").remove();
+	            $(".recruits_pages").removeClass("hide");
+	            $(".recruits_pages .searchPage .allPage").text(data.resultObject.pages);
+	            $("#Pagination_recruits").pagination(data.resultObject.pages, {
+	                num_edge_entries: 1, //边缘页数
+	                num_display_entries: 4, //主体页数
+	                current_page:pages-1,
+	                callback: function (page) {
+	                    //翻页功能
+	                    recruitList(page+1);
+	                }
+	            });
+			}
+			else {
+				$(".recruits_pages").addClass("hide");
+			}
+//分页添加结束		
 	})
 }
 
+
+//招聘管理部分,点击后回到第一页
+$("#collect_Administration_tabBtn").click(function(){
+	if($('.recruit-btn-newjob').text() == '返回'){
+			$('.recruit-btn-newjob').click()
+		}
+})
+//招聘管理部分,点击预览
+function recruit_preview_btn(i){
+	var recruit_Text = recruits[i];
+	if(recruit_Text.years==0){
+		$("#recruit_wrap_mune2 p").text("不限");	
+	}else if(recruit_Text.years==1){
+		$("#recruit_wrap_mune2 p").text("0-1年");	
+	}
+	else if(recruit_Text.years==2){
+		$("#recruit_wrap_mune2 p").text("1-3年");		
+	}
+	else if(recruit_Text.years==3){		
+		$("#recruit_wrap_mune2 p").text("3-5年");	
+	}
+	else if(recruit_Text.years==4){
+		$("#recruit_wrap_mune2 p").text("5-10年");			
+	}
+	else if(recruit_Text.years==5){
+		$("#recruit_wrap_mune2 p").text("10年以上");	
+	}
+	$("#recruit_wrap_mune1 p").text(recruit_Text.position)
+	$("#recruit_wrap_mune3 p").text(recruit_Text.postDuties);
+	$("#recruit_wrap_mune4 p").text(recruit_Text.jobRequirements);
+	$(".recruit_preview_bg").show()
+	$(".recruit_preview_box").show()	
+}
+$(".recruit_preview_content img").click(function(){
+	$(".recruit_preview_bg").hide()
+	$(".recruit_preview_box").hide()	
+})
+//招聘管理部分,开启/关闭招聘
+function recruit_close_btn(t){
+	var id = $(t).attr('data-id');
+	var status = $(t).attr('data-status');
+	RequestService("/medical/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
+		if(data.success == true){
+			//重新渲染列表
+			 recruitList(1);
+		}			
+	});
+}
+//删除招聘信息，点击删除--------------------------------------------------------------
+function delete_recruit_btn(t){
+	var data_deleteId=$(t).attr("data-deleteId");
+	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
+		RequestService("/medical/hospitalRecruit/"+data_deleteId+"","DELETE",null,function(){
+			closefn();
+			showTip("删除成功");
+//			重新渲染一遍
+			recruitList(1);
+		})
+	});
+}
+
+//招聘管理部分,点击编辑
+//回显所有数据，id隐藏
+//1.获取所有修改后的值2.校验所有值3.将所有值提交到后台
+function recruit_edit(index){
+	resetRecruitForm(index);
+    echoRecruit(index);
+    $(".recruit-box-manage").hide();
+    $(".recruit-box-newjob").show();
+    $(".recruit-wrap-title p").text("编辑招聘");
+    $(".recruit-btn-newjob").text("返回");   
+}
+function echoRecruit(index){
+	var recruit_edit = recruits[index];
+	//[{code:0,text:不限}]
+	$("#recruitId").val(recruit_edit.id);
+	$("#recruit-box-newjob .recruit-isdata").val(recruit_edit.position);
+	$("#recruit-box-newjob .recruit-newjob-experience").iselect("val",recruit_edit.years);
+	$("#recruit-box-newjob .recruit-textarea-isdata").val(recruit_edit.postDuties);
+	$("#recruit-box-newjob .recruit-textarea-duty-isdata").val(recruit_edit.jobRequirements);
+//编辑进来判断按钮
+	$(".recruit-save-up").addClass("hide");
+	$(".recruit-edit-save-up-wrap").removeClass("hide");
+}
+function resetRecruitForm(index){
+	$("#recruitId").val("");
+	$("#recruit-box-newjob .recruit-newjob-experience").iselect("init",data);
+	$("#recruit-box-newjob .recruit-newjob-experience").iselect("val",0);
+	$("#recruit-box-newjob .recruit-isdata").val("");	
+	$("#recruit-box-newjob .recruit-textarea-isdata").val("");
+	$("#recruit-box-newjob .recruit-textarea-duty-isdata").val("");
+	$(".recruit-save-btn-menuone").removeAttr("disabled");
+//	新职位的保存-发布按钮显现
+	$(".recruit-edit-save-up-wrap").addClass("hide");
+	$(".recruit-save-up").removeClass("hide");
+//	新职位的保存-发布按钮显现end
+}
+//编辑过后的内容保存
+$(".recruit-edit-btn").click(function(){
+	var edit_id=$("#recruitId").val();
+	$.ajax({
+		type:"PUT",
+		url:bath+"/medical/hospitalRecruit/"+edit_id+"",
+		data:JSON.stringify({
+				"position":$.trim($(".recruit-isdata").val()),
+				"years":$(".recruit-box-newjob .recruit-newjob-experience").iselect("val"),
+				"postDuties":$recruit_textarea = $.trim($(".recruit-textarea-isdata").val()),
+				"jobRequirements":$.trim($(".recruit-textarea-duty-isdata").val()),
+
+			}),
+		contentType: "application/json",
+		success:function(data){
+//			resetRecruitForm();
+				showTip("保存成功");
+				recruitList(1);
+				$("#collect_Administration_tabBtn").click();
+		}
+	});
+})
 //招聘管理部分结束
 //	公告部分
 //	公告部分点击发布效果
@@ -795,7 +930,7 @@ $("#notice-release-btn").click(function(){
 			$("#notice-release-btn").removeAttr("disabled","disabled");				
 //				重新渲染一遍
 			},2000);
-			announcementMethod()
+			announcementMethod(1)
 		})
 	}
 
@@ -812,6 +947,21 @@ RequestService("/hospital/announcement","GET",{
 			data.resultObject.records[i].Nownum=getNo(i);
 		}
 	announcementList=data.resultObject.records;
+	if(data.resultObject.pages > 1) { //分页判断
+        $(".notices_pages").removeClass("hide");
+        $(".notices_pages .searchPage .allPage").text(data.resultObject.pages);
+        $("#Pagination_notices").pagination(data.resultObject.pages, {
+            num_edge_entries: 1, //边缘页数
+            num_display_entries: 4, //主体页数
+            current_page:current-1,
+            callback: function (page) {
+                //翻页功能
+                announcementMethod(page+1);
+            }
+        });
+	} else {
+		$(".notices_pages").addClass("hide");
+	}
 	if(announcementList.length==0 || announcementList==null){
 		$("#Notice_bottom2 table").hide();
 		$(".notice_notext_icon").show();
@@ -820,31 +970,36 @@ RequestService("/hospital/announcement","GET",{
 		$(".notice_notext_icon").hide();
 		$('#notice_tbody_wrap').html(template('notice_tbody', {items:data.resultObject.records}));		
 	}
-
-	
-	//每次请求完数据就去渲染分页部分
-//      if (data.resultObject.pages > 1) { //分页判断
-//          $(".not-data").remove();
-//          $(".notice_pages").css("display", "block");
-//          $(".notice_pages .searchPage .allPage").text(data.resultObject.pages);
-//          $("#Pagination_noticeList").pagination(data.resultObject.pages, {
-//              num_edge_entries: 1, //边缘页数
-//              num_display_entries: 4, //主体页数
-//              current_page:current-1,
-//              callback: function (page) {
-//                  //翻页功能
-//                  announcementMethod(page+1);
-//              }
-//          });
-//      } else {
-//          $(".course_pages").css("display", "none");
-//      }
 })
 function getNo(i){
 		i++;
 		return i;
-	}
-	
+	}	
+}
+
+//公告管理部分，点击预览--------------------------------------------------------------
+function notice_btn_see(i){
+	var announcementText = announcementList[i];	
+	$(".notice_namage_text").text(announcementText.content);
+	$(".notice_time").text("发布时间："+announcementText.createTime);
+	$(".notice_namage_see").show();
+	$(".recruit_preview_bg").show();
+}
+$(".notice_preview_content img").click(function(){
+	$(".notice_namage_see").hide();
+	$(".recruit_preview_bg").hide();
+})
+//公告管理部分，点击删除--------------------------------------------------------------
+function notice_btn_delete(t){
+	var data_id=$(t).attr("data-id");
+	comfirmBox.open("公告","确定删除该条公告吗？",function(closefn){
+		RequestService("/hospital/announcement/"+data_id+"","DELETE",null,function(){
+			closefn();
+			showTip("删除成功");
+//			重新渲染一遍
+			announcementMethod(1)
+		})
+	});
 }
 //公告部分结束
 //医师管理部分
@@ -898,35 +1053,6 @@ function reset() {
 	//富文本框
 	UE.getEditor('editor').setContent("")
 }
-
-////医师预览功能
-//$('.doc_Administration_bottom2 .preview').click(function(){
-//	$('#mask').removeClass('hide');
-//	$('#doc_Administration_bottom3').addClass('hide');
-//	$('#doc_Administration_bottom4').removeClass('hide');
-//})
-//
-//
-////医师编辑功能
-//$('#doc_Administration_bottom2 .edit').click(function(){
-//	$('#mask').removeClass('hide');
-//	$('#doc_Administration_bottom4').addClass('hide');
-//	$('#doc_Administration_bottom3').removeClass('hide');
-//})
-//
-//
-////医师编辑关闭按钮
-//$('#doc_Administration_bottom4 .close_doc_inf').click(function(){
-//	$('#mask').addClass('hide');
-//	$('#doc_Administration_bottom4').addClass('hide');
-//})
-//
-////医师预览关闭按钮
-//$('#doc_Administration_bottom3 .close_doc_inf').click(function(){
-//	$('#mask').addClass('hide');
-//	$('#doc_Administration_bottom3').addClass('hide');
-//})
-
 //内部医疗领域选择功能
 $('#doc_Administration  .keshi ul li').click(function() {
 	if($(this).hasClass('keshiColor')) {
@@ -987,211 +1113,7 @@ $(function() {
 	})
 })
 
-//招聘管理部分，点击职位下面内容变换
-$(".recruit-btn-newjob").click(function() {
-	var recruit_btn = $(this).text()
-	if(recruit_btn == "新职位") {
-		resetRecruitForm();
-		$(".recruit-box-newjob").show()
-		$(".recruit-box-manage").hide()
-		$(this).text("返回")
-		$(".recruit-wrap-title p").text("新职位")
-	} else {
-		$(".recruit-box-newjob").hide()
-		$(".recruit-box-manage").show()
-		$(this).text("新职位")
-		$(".recruit-wrap-title p").text("招聘管理")
 
-	}
-
-})
-//招聘管理部分,点击后回到第一页
-$("#collect_Administration_tabBtn").click(function(){
-	if($('.recruit-btn-newjob').text() == '返回'){
-			$('.recruit-btn-newjob').click()
-		}
-})
-//招聘管理部分,点击预览
-function recruit_preview_btn(i){
-	var recruit_Text = recruits[i];
-	if(recruit_Text.years==0){
-		$("#recruit_wrap_mune2 p").text("不限");	
-	}else if(recruit_Text.years==1){
-		$("#recruit_wrap_mune2 p").text("0-1年");	
-	}
-	else if(recruit_Text.years==2){
-		$("#recruit_wrap_mune2 p").text("1-3年");		
-	}
-	else if(recruit_Text.years==3){		
-		$("#recruit_wrap_mune2 p").text("3-5年");	
-	}
-	else if(recruit_Text.years==4){
-		$("#recruit_wrap_mune2 p").text("5-10年");			
-	}
-	else if(recruit_Text.years==5){
-		$("#recruit_wrap_mune2 p").text("10年以上");	
-	}
-	$("#recruit_wrap_mune3 p").text(recruit_Text.postDuties);
-	$("#recruit_wrap_mune4 p").text(recruit_Text.jobRequirements);
-	$(".recruit_preview_bg").show()
-	$(".recruit_preview_box").show()	
-}
-$(".recruit_preview_content img").click(function(){
-	$(".recruit_preview_bg").hide()
-	$(".recruit_preview_box").hide()	
-})
-//招聘管理部分,开启/关闭招聘
-function recruit_close_btn(t){
-	var id = $(t).attr('data-id');
-	var status = $(t).attr('data-status');
-	RequestService("/medical/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
-		if(data.success == true){
-			//重新渲染列表
-			 recruitList();
-		}			
-	});
-}
-//删除招聘信息，点击删除--------------------------------------------------------------
-function delete_recruit_btn(t){
-	var data_deleteId=$(t).attr("data-deleteId");
-	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
-		RequestService("/medical/hospitalRecruit/"+data_deleteId+"","DELETE",null,function(){
-			closefn();
-			showTip("删除成功");
-//			重新渲染一遍
-			recruitList();
-		})
-	});
-}
-
-
-
-//招聘管理部分,点击编辑
-//回显所有数据，id隐藏
-//1.获取所有修改后的值2.校验所有值3.将所有值提交到后台
-function recruit_edit(index){
-	resetRecruitForm(index);
-    echoRecruit(index);
-    $(".recruit-box-manage").hide();
-    $(".recruit-box-newjob").show();
-    $(".recruit-wrap-title p").text("编辑招聘");
-    $(".recruit-btn-newjob").text("返回");
-    
-}
-
-function echoRecruit(index){
-	var recruit_edit = recruits[index];
-	//[{code:0,text:不限}]
-	$("#recruitId").val(recruit_edit.id);
-	$("#recruit-box-newjob .recruit-isdata").val(recruit_edit.position);
-	$("#recruit-box-newjob .recruit-newjob-experience").iselect("val",recruit_edit.years);
-	
-	$("#recruit-box-newjob .recruit-textarea-isdata").val(recruit_edit.postDuties);
-	$("#recruit-box-newjob .recruit-textarea-duty-isdata").val(recruit_edit.jobRequirements);
-}
-
-
-function resetRecruitForm(index){
-//	if(index==null){
-//		//新增
-//	}else{
-//		//编辑
-//	}
-	$("#recruitId").val("");
-	$("#recruit-box-newjob .recruit-newjob-experience").iselect("init",data);
-	$("#recruit-box-newjob .recruit-isdata").val("");	
-	$("#recruit-box-newjob .recruit-textarea-isdata").val("");
-	$("#recruit-box-newjob .recruit-textarea-duty-isdata").val("");
-}
-
-
-
-
-
-
-//function recruit_edit_btn(i){
-//var recruit_edit = recruits[i];
-////[{code:0,text:不限}]
-//$("#recruit_edit_box .recruit-write").val(recruit_edit.position)
-//	if(recruit_edit.years==0){
-//		$("#recruit_edit_box .recruit-select-one").text("不限")
-//	}else if(recruit_edit.years==1){
-//		$("#recruit_edit_box .recruit-select-one").text("0-1年");	
-//	}
-//	else if(recruit_edit.years==2){
-//		$("#recruit_edit_box .recruit-select-one").text("1-3年");		
-//	}
-//	else if(recruit_edit.years==3){		
-//		$("#recruit_edit_box .recruit-select-one").text("3-5年");	
-//	}
-//	else if(recruit_edit.years==4){
-//		$("#recruit_edit_box .recruit-select-one").text("5-10年");			
-//	}
-//	else if(recruit_edit.years==5){
-//		$("#recruit_edit_box .recruit-select-one").text("10年以上");	
-//	}
-//$("#recruit_edit_box .recruit-textarea-mune1").val(recruit_edit.postDuties)
-//$("#recruit_edit_box .recruit-textarea-mune2").val(recruit_edit.jobRequirements)
-//
-//	$(".recruit_preview_bg").show()
-//	$(".recruit_edit_box").show()	
-//}
-//编辑保存
-//回显所有数据，id隐藏
-//1.获取所有修改后的值2.校验所有值3.将所有值提交到后台
-//$("#recruit_edit_box .recruit-save-btn").click(function(){
-//	var recruit_text_edit=recruit_texts[i]
-//	$.ajax({
-//		type:"PUT",
-//		url:"/medical/hospitalRecruit",
-//		data:JSON.parse({
-//			"id":recruit_text_edit.id,
-//			"position":recruit_text_edit.position,
-//			"years":recruit_text_edit.years,
-//			"postDuties":recruit_text_edit.postDuties,
-//			"jobRequirements":recruit_text_edit.jobRequirements
-//		}),
-//		success:function(data){
-//			showTip("编辑成功")
-//			recruitList()
-//			setTimeout(function(){
-//				$(".recruit_preview_bg").hide()
-//				$(".recruit_edit_box").hide()
-//			})
-//		}
-//	});
-//})
-//点击X关闭弹窗
-//$(".recruit_preview_content img").click(function(){
-//	$(".recruit_preview_bg").hide()
-//	$(".recruit_edit_box").hide()	
-//})
-//招聘管理部分结束
-
-//公告管理部分，点击预览--------------------------------------------------------------
-function notice_btn_see(i){
-	var announcementText = announcementList[i];	
-	$(".notice_namage_text").text(announcementText.content);
-	$(".notice_time").text("发布时间："+announcementText.createTime);
-	$(".notice_namage_see").show();
-	$(".recruit_preview_bg").show();
-}
-$(".notice_preview_content img").click(function(){
-	$(".notice_namage_see").hide();
-	$(".recruit_preview_bg").hide();
-})
-//公告管理部分，点击删除--------------------------------------------------------------
-function notice_btn_delete(t){
-	var data_id=$(t).attr("data-id");
-	comfirmBox.open("公告","确定删除该条公告吗？",function(closefn){
-		RequestService("/hospital/announcement/"+data_id+"","DELETE",null,function(){
-			closefn();
-			showTip("删除成功");
-//			重新渲染一遍
-			announcementMethod()
-		})
-	});
-}
 
 //公告管理部分结束--------------------------------------------------------------
 /*下拉框插件 20170416-yuxin  iselect*/
@@ -1204,7 +1126,6 @@ function notice_btn_delete(t){
 设值：$("xxx").iselect("val",2);
 */
 $.fn.iselect = function(option, data) {
-
     var iselect = {
         init : function (that,data){
             that.data("data",data);
@@ -1238,7 +1159,6 @@ $.fn.iselect = function(option, data) {
             });
 
             that.find(".recruit-select-one").click(function() {
-            	debugger
                 var _name = $(this).attr("name");
                 if($("[name=" + _name + "]").length > 1) {
                     $("[name=" + _name + "]").removeClass("select");
@@ -1252,24 +1172,23 @@ $.fn.iselect = function(option, data) {
                 }
             });
             that.find(".recruit-select li").click(function() {
-                debugger
-                dataNumber = $(this).attr("value");
-                $(".recruit-select p").html($(this).text());
-                $(".recruit-select p").attr("value",$(this).attr("value"));
-                $(".recruit-select-lest").hide();
+                //dataNumber = $(this).attr("value");
+                that.find(".recruit-select p").html($(this).text());
+                that.find(".recruit-select p").attr("value",$(this).attr("value"));
+                that.find(".recruit-select-lest").hide();
                 /*$(".set").css({background:'none'});*/
-                $("p").removeClass("select");
+                that.find("p").removeClass("select");
             });
         },
-        getVal : function () {
-            return $(".recruit-select p").attr("value");
+        getVal : function (that) {
+            return that.find(".recruit-select p").attr("value");
         },
         setVal : function (that,val) {
 			var data = that.data("data");
             for (var i=0;i<data.length;i++){
             	if(data[i].value == val){
-                    $(".recruit-select p").html(data[i].text);
-                    $(".recruit-select p").attr("value",data[i].value);
+                    that.find(".recruit-select p").html(data[i].text);
+                    that.find(".recruit-select p").attr("value",data[i].value);
 				}
 			}
         }
@@ -1279,7 +1198,7 @@ $.fn.iselect = function(option, data) {
         iselect.init(this,data);
 	}else if(option=="val"){
         if(data==null){
-        	iselect.getVal();
+        	return iselect.getVal(this);
 		}else{
             iselect.setVal(this,data);
 		}

@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -35,23 +33,17 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.bean.WxcpPayFlow;
 import com.xczh.consumer.market.bean.WxcpWxTrans;
-import com.xczh.consumer.market.dao.OnlineOrderMapper;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.RewardService;
 import com.xczh.consumer.market.service.WxcpClientUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.service.WxcpOrderGoodsService;
-import com.xczh.consumer.market.service.WxcpOrderInfoService;
-import com.xczh.consumer.market.service.WxcpOrderPayService;
 import com.xczh.consumer.market.service.WxcpPayFlowService;
 import com.xczh.consumer.market.service.WxcpWxRedpackService;
 import com.xczh.consumer.market.service.WxcpWxTransService;
-import com.xczh.consumer.market.service.iphoneIpaService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.GenerateSequenceUtil;
@@ -72,21 +64,16 @@ import com.xczh.consumer.market.wxpay.util.MD5SignUtil;
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 
+import net.sf.json.JSONObject;
+
 @Controller
 @RequestMapping("/bxg/wxpay")
 public class WxPayController {
-	@Autowired
-	private WxcpOrderGoodsService wxcpOrderGoodsService;
-	@Autowired
-	private WxcpOrderInfoService wxcpOrderInfoService;
-	@Autowired
-	private WxcpOrderPayService wxcpOrderPayService;
 	@Autowired
 	private WxcpClientUserService wxcpClientUserService;
 	@Autowired
@@ -102,10 +89,6 @@ public class WxPayController {
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
-	private OnlineOrderMapper orderMapper;
-	@Autowired
-	private RewardService rewardService;
-	@Autowired
 	private WxcpClientUserWxMappingService wxService;
 	@Autowired
 	private CacheService cacheService;
@@ -113,24 +96,14 @@ public class WxPayController {
 	private OnlineCourseService onlineCourseService;
 	@Autowired
 	private CityService cityService;
-
 	@Autowired
 	private UserCoinService userCoinService;
-	
-	@Autowired
-	private EnchashmentService enchashmentService;
-
     @Autowired
     private AppBrowserService appBrowserService;
-    
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	@Autowired
 	private OnlineUserMapper onlineUserMapper;
-	
-	@Autowired
-	private iphoneIpaService iIpaService;
-	
 	@Autowired
 	private  OrderPayService  orderPayService;
 	
@@ -284,7 +257,6 @@ public class WxPayController {
 			List<WxcpPayFlow> listWxcpPayFlow = wxcpPayFlowService.select(condPayFlow);
 			
 			int paysed_sum = 0;
-	
 			if (listWxcpPayFlow != null && listWxcpPayFlow.size() > 0) {
 				for (int i = 0; i < listWxcpPayFlow.size(); i++) {
 					if (listWxcpPayFlow.get(i).getResult_code() == null|| listWxcpPayFlow.get(i).getResult_code().trim().length() == 0
@@ -322,58 +294,29 @@ public class WxPayController {
 				//打赏支付
 				if(StringUtils.isNotBlank(wxcpPayFlow.getAttach())){
 					String[] attachs=attach.split("&");
-					
 					if(attachs.length>0) {
-						
 						//第二版本考虑打赏
                         if ("reward".equals(attachs[0])) {
-//                            String json = cacheService.get(attachs[1]);
-//                            RewardParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RewardParamVo.class);
-//                            RewardStatement rs = new RewardStatement();
-//                            BeanUtils.copyProperties(rs, rpv);
-//                            rs.setCreateTime(new Date());
-//                            rs.setPayType(Payment.WECHATPAY.getCode());//
-//                            rs.setOrderNo(out_trade_no);
-//                            rs.setPrice((new Double(wxcpPayFlow.getTotal_fee()) / 100));
-//                            rs.setChannel(1);
-//                            rs.setStatus(1);
-//                            //rewardService.insert(rs);
-//                            wxcpPayFlow.setUser_id(rpv.getUserId());
-//                            wxcpPayFlow.setSubject(rpv.getSubject());
-//                            wxcpPayFlowService.insert(wxcpPayFlow);
-//                            userCoinService.updateBalanceForReward(rs);
-//                            res.getWriter().write(tell_ok);
-//                            LOGGER.info("打赏回调打印:" + json);
-                            //	}
+                        	LOGGER.info("打赏:并不考虑");
+                        	
                         } else if ("order".equals(attachs[0])) {
+                        	
                             String json = cacheService.get(attachs[1]);
                             OrderParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, OrderParamVo.class);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
                             LOGGER.info("order回调打印:" + json);
                             wxcpPayFlow.setSubject(rpv.getSubject());
                             wxcpPayFlowService.insert(wxcpPayFlow);
-                            
+                        
                         } else if ("recharge".equals(attachs[0])) {
+                        	
                             String json = cacheService.get(attachs[1]);
                             RechargeParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RechargeParamVo.class);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
                             LOGGER.info("充值回调打印:" + json);
                             wxcpPayFlow.setSubject(rpv.getSubject());
                             wxcpPayFlowService.insert(wxcpPayFlow);
-
 							BigDecimal coin = new BigDecimal(new Double(wxcpPayFlow.getTotal_fee()) / 100 * rate);
-//
-//							UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-//							userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
-//							userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-//							userCoinIncrease.setPayType(Payment.WECHATPAY.getCode());
-//							userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
-//							//熊猫币
-//							userCoinIncrease.setValue(coin);
-//                            userCoinIncrease.setCreateTime(new Date());
-//                            userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
-//                            userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
-							
                             userCoinService.updateBalanceForRecharge(wxcpPayFlow.getUser_id(),Payment.WECHATPAY,coin,
                             		OrderFrom.ANDROID,wxcpPayFlow.getOut_trade_no());
                         }
@@ -381,26 +324,16 @@ public class WxPayController {
 				}
 
 				LOGGER.info("WxPayController->wxNotify->sign success");
-				
 				if (map != null && WxPayConst.recode_success.equals(map.get(WxPayConst.return_code))) {
-					
 					LOGGER.info("WxPayController->wxNotify->good");
-				
 				} else {
 					LOGGER.info("WxPayController->wxNotify->bad");
 				}
 				if("order".equals(attach.split("&")[0])){
 					
-//					boolean onlinePaySuccess = httpOnline(out_trade_no, transaction_id);//普通订单
-					//这里使用doubo服务
-					
 					orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY, transaction_id);
 					
 					LOGGER.info("订单支付成功，订单号:{},用时{}"+out_trade_no);
-					/*
-					 * 为购买用户发送购买成功的消息通知
-					 */
-					//orderService.savePurchaseNotice(weburl, out_trade_no);
 				}
 				res.getWriter().write(tell_ok);
 			} else {

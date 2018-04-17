@@ -70,12 +70,13 @@
 	<script src="/web/js/anchor/provinces.js?version=d871e22958"></script>
 	<script src="/web/js/anchor/pages/jquery.pagination-course.js?version=3dbe205fda"></script>
 	<script src="/web/js/anchor/course2.js?version=ef2e84e136" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/js/anchor/information.js?version=c5973c9608" type="text/javascript" charset="utf-8"></script>
+
 
 	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js?version=3e304adcb4"></script>
 	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
 	<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js?version=324d921eed"></script>
-
+	<script src="/web/js/anchor/information2.js?version=c5973c9608" type="text/javascript" charset="utf-8"></script>
+	
 	<!--修改点击切换隐藏第一二页-->
 	<script src="/web/js/anchor/switchover2.js?version=3511cfa7cb" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/web/js/swfobject.js?version=699027eb66"></script>
@@ -658,16 +659,16 @@
 		
 		
 		<ul id="accordion" class="accordion">
-		<li data-name="menu=1">
+		<li data-name="menu=1-1">
 			<div class="link"><i class="glyphicon glyphicon-book left_range"></i>学堂<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
-				<li><a data-name="menu=1-1" href="javascript:;">课程</a></li>
-				<li><a data-name="menu=1-2" href="javascript:;">专辑</a></li>
-				<li><a data-name="menu=1-3" href="javascript:;">直播</a></li>
-				<li><a data-name="menu=1-4" href="javascript:;">资源</a></li>
+				<li><a onclick="getCourseList()"  data-name="menu=1-1" href="javascript:;">课程</a></li>
+				<li><a onclick="getZhuanjiList()" data-name="menu=1-2" href="javascript:;">专辑</a></li>
+				<li><a onclick="getLiveList()" data-name="menu=1-3" href="javascript:;">直播</a></li>
+				<li><a onclick="getResourceList()" data-name="menu=1-4" href="javascript:;">资源</a></li>
 			</ul>
 		</li>
-		<li  data-name="menu=2">
+		<li  data-name="menu=2-1">
 			<div class="link"><i class="iconfont icon-qianbao left_range"></i>我的资产</div>
 			<ul class="submenu">
 				<!--<li><a href="#">Javascript</a></li>
@@ -675,17 +676,17 @@
 				<li><a href="#">Frameworks javascript</a></li> -->
 			</ul>
 		</li>
-		<li data-name="menu=3">
+		<li data-name="menu=3-1">
 			<div class="link"><i class="glyphicon glyphicon-list-alt left_range ino_color"></i>我的收益<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
-				<li><a data-name="menu=3-1" href="javascript:;">课程收益</a></li>
-				<li><a data-name="menu=3-2" href="javascript:;">礼物收益</a></li>
+				<li><a class="classResive" onclick="getCourseResiveList(1)" data-name="menu=3-1" href="javascript:;">课程收益</a></li>
+				<li><a class="giftResive" onclick="getGiftResiveList(1)" data-name="menu=3-2" href="javascript:;">礼物收益</a></li>
 			</ul>
 		</li>
-		<li data-name="menu=4" ><div class="link"><i class="glyphicon glyphicon-book left_range"></i>账号<i class="fa fa-chevron-down"></i></div>
+		<li data-name="menu=4-1" ><div class="link"><i class="glyphicon glyphicon-book left_range"></i>账号<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
-				<li><a data-name="menu=4-1" href="javascript:;">认证信息</a></li>
-				<li><a data-name="menu=4-2" href="javascript:;">主播信息</a></li>
+				<li><a class="name_news" data-name="menu=4-1" href="javascript:;">认证信息</a></li>
+				<li><a class="name_personage" onclick="showAnchorInfo()" data-name="menu=4-2" href="javascript:;">主播信息</a></li>
 			</ul>
 		</li>
 	
@@ -1738,7 +1739,7 @@
 		
 		<!--收益部分-->
 		<div class="myResive" class="hide">
-			<div class="little_box1 ">
+			<div class="little_box1 hide">
 				<!--课程收益部分-->
 				<div  id="kecheng_Resive" >
 					<div class="kecheng_Resive_top">
@@ -1979,7 +1980,7 @@
 		
 		<!--帐号开始  账户有单独的css -->
 		<div class="account" class="hide">   <!--account_mains  这是点击选择右侧div-->
-			<div>
+			<div class="hide">
 				<!--医师认证开始-->
 			<div class="begin_approve account_main account_mains account_main_message">
 				<!--医师认证开始-->
@@ -2486,7 +2487,8 @@
 					<div class="name">
 						<span><em>*</em>主播介绍</span>
 						<div class="" style="display: inline-block">
-							<script id="anchor_details_editor" type="text/plain" style="width:540px;height:160px;"></script></div>
+							<script id="anchor_details_editor" type="text/plain" style="width:540px;height:160px;"></script>
+						</div>
 						<p class="warning warning_anchor_lecturer_description hide">主播介绍不能为空</p>
 					</div>
 					
@@ -2574,7 +2576,7 @@
 <script src="/web/js/anchor/curriculum222.js?v=ipandatcm_1.2.1&version=5a667d7f1d" type="text/javascript" charset="UTF-8"></script>   <!--主播工作台控制左侧点击事件和判断input为空-->
 <script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1&version=f86e0a6321" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 <script src="/web/js/date.js?version=f25a79a7a5" type="text/javascript" charset="UTF-8"></script>
-<script src="/web/js/anchor/mymoney.js?version=b4643d3927" type="text/javascript" charset="UTF-8"></script>
+<script src="/web/js/anchor/mymoney2.js?version=b4643d3927" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/asset.js?version=2dfaea4731" type="text/javascript" charset="UTF-8"></script>
 <script type="text/javascript" src="/web/js/MD5/browser-md5-file.js?version=b4b59683d1"></script>
 
@@ -2645,35 +2647,6 @@
             $(".resource_popout").hide();
         });
 
-
-        //			默认点击学堂
-//      $(".courseP").click();	
-//      if(!localStorage.AnchorsTbl){
-//      	 $(".school").click();
-//      }else{
-//      	 $("#accordion li[data-name="+localStorage.AnchorsTbl+"]").click();
-//      	  $("#accordion li[data-name="+localStorage.AnchorsTbl+"]").addClass('open');
-//      	  $("#accordion li[data-name="+localStorage.AnchorsTbl+"] submenu").style.display="block";
-//      	 //课程
-//      	 if(localStorage.AnchorsTbl == 'School'){
-//      	 	  if(localStorage.AnchorsTbl_School == 'kecheng') $('.littleBox .courseP ').click();
-//	        	 //专辑
-//	        	  if(localStorage.AnchorsTbl_School == 'zhuanji') $('.littleBox .specialP ').click();
-//	        	  //直播
-//	        	  if(localStorage.AnchorsTbl_School == 'zhibo') $('.littleBox .liveP ').click();
-//	        	  //资源
-//	        	  if(localStorage.AnchorsTbl_School == 'ziyuan') $('.littleBox .resourceP ').click();
-//      	 }else if(localStorage.AnchorsTbl == 'myEarnings'){
-//      	 	//礼物收益
-//      	  if(localStorage.AnchorsTbl_myResive == 'giftResive') $('.littleBoxss .giftResive ').click();
-//      	 }else if(localStorage.AnchorsTbl == 'AccountNumber'){
-//      	 	//认证信息
-////	        	  if(localStorage.AnchorsTbl_accountInf == 'name_news') $('.littleBoxs .name_news ').click();
-//      	 	 //主播信息
-//	        	  if(localStorage.AnchorsTbl_accountInf == 'name_personage') $('.littleBoxs .name_personage ').click();
-//      	 }
-//      }
- 
        
     };
 </script>
@@ -2887,30 +2860,30 @@
 <script>	
 //页面进入之后左侧tab定位
 $(function(){
-        $(".courseP").click();	
+//      $(".courseP").click();	
 
 
-		if(location.hash == "#menu=1" || location.hash == "#menu=1-1" || location.hash == "#menu=1-2" || location.hash == "#menu=1-3" || location.hash == "#menu=1-4"){
-	    	$("#accordion li[data-name='menu=1']").click();
-	    	$("#accordion li[data-name='menu=1']").addClass('open');
-	    	$("#accordion li[data-name='menu=1'] .submenu").css('display','block')
+		if(location.hash == "#menu=1-1" || location.hash == "#menu=1-2" || location.hash == "#menu=1-3" || location.hash == "#menu=1-4"){
+	    	$("#accordion li[data-name='menu=1-1']").click();
+	    	$("#accordion li[data-name='menu=1-1']").addClass('open');
+	    	$("#accordion li[data-name='menu=1-1'] .submenu").css('display','block')
     	}
 
-		if(location.hash == "#menu=2"){
-	    	$("#accordion li[data-name='menu=2']").click();
-	    	$("#accordion li[data-name='menu=2']").addClass('open');
-	    	$("#accordion li[data-name='menu=2'] .submenu").css('display','block')
+		if(location.hash == "#menu=2-1"){
+	    	$("#accordion li[data-name='menu=2-1']").click();
+	    	$("#accordion li[data-name='menu=2-1']").addClass('open');
+	    	$("#accordion li[data-name='menu=2-1'] .submenu").css('display','block')
     	}
-		if(location.hash == "#menu=3" || location.hash == "#menu=3-1" || location.hash == "#menu=3-2"){
-	    	$("#accordion li[data-name='menu=3']").click();
-	    	$("#accordion li[data-name='menu=3']").addClass('open');
-	    	$("#accordion li[data-name='menu=3'] .submenu").css('display','block')
+		if(location.hash == "#menu=3-1" || location.hash == "#menu=3-2"){
+	    	$("#accordion li[data-name='menu=3-1']").click();
+	    	$("#accordion li[data-name='menu=3-1']").addClass('open');
+	    	$("#accordion li[data-name='menu=3-1'] .submenu").css('display','block')
     	}
 		
-		if(location.hash == "#menu=4" || location.hash == "#menu=4-1" || location.hash == "#menu=4-2"){
-	    	$("#accordion li[data-name='menu=4']").click();
-	    	$("#accordion li[data-name='menu=4']").addClass('open');
-	    	$("#accordion li[data-name='menu=4'] .submenu").css('display','block')
+		if(location.hash == "#menu=4-1" || location.hash == "#menu=4-2"){
+	    	$("#accordion li[data-name='menu=4-1']").click();
+	    	$("#accordion li[data-name='menu=4-1']").addClass('open');
+	    	$("#accordion li[data-name='menu=4-1'] .submenu").css('display','block')
     	}
 
 	leftTblSta();

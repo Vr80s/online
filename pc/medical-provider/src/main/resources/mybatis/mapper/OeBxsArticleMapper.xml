@@ -1,232 +1,237 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.headline.mapper.OeBxsArticleMapper">
-	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVO" id="MedicalArticleBaseResult">
-		<id column="id" property="id" />
-		<id column="title" property="title" />
-		<id column="content" property="content" />
-		<id column="create_time" property="createTime" />
-		<id column="img_path" property="imgPath" />
-		<id column="author" property="author" />
-	</resultMap>
+    <resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVO" id="MedicalArticleBaseResult">
+        <id column="id" property="id"/>
+        <id column="title" property="title"/>
+        <id column="content" property="content"/>
+        <id column="create_time" property="createTime"/>
+        <id column="img_path" property="imgPath"/>
+        <id column="author" property="author"/>
+    </resultMap>
 
-	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVO" id="MedicalArticleListResult" extends="MedicalArticleBaseResult">
-		<id column="browse_sum" property="browseSum" />
-		<id column="comment_sum" property="commentSum" />
-		<id column="praise_sum" property="praiseSum" />
-		<collection property="medicalDoctors" ofType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
-			<id column="dId" property="id"/>
-			<id column="dName" property="name"/>
-			<id column="province" property="province"/>
-			<id column="city" property="city"/>
-			<id column="headPortrait" property="headPortrait"/>
-		</collection>
-	</resultMap>
+    <resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVO" id="MedicalArticleListResult"
+               extends="MedicalArticleBaseResult">
+        <id column="browse_sum" property="browseSum"/>
+        <id column="comment_sum" property="commentSum"/>
+        <id column="praise_sum" property="praiseSum"/>
+        <collection property="medicalDoctors" ofType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+            <id column="dId" property="id"/>
+            <id column="dName" property="name"/>
+            <id column="province" property="province"/>
+            <id column="city" property="city"/>
+            <id column="headPortrait" property="headPortrait"/>
+        </collection>
+    </resultMap>
 
-	<select id="getSpecialColumns" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
-		SELECT
-		  oba.id,
-		  oba.`title`,
-		  oba.`content`,
-		  oba.`create_time` createTime,
-		  oba.`img_path` imgPath
-		FROM
-		  `oe_bxs_article` oba
-		  JOIN `medical_doctor_author_article` mdaa
-			ON oba.`id` = mdaa.`article_id`
-		where oba.`is_delete`=0 AND oba.`status`=1
-		<if test="doctorId != null and doctorId!=''">
-		   and mdaa.`doctor_id` = #{doctorId}
-		</if>
-		ORDER BY oba.`create_time` DESC
-	</select>
+    <select id="getSpecialColumns" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
+        SELECT
+        oba.id,
+        oba.`title`,
+        oba.`content`,
+        oba.`create_time` createTime,
+        oba.`img_path` imgPath
+        FROM
+        `oe_bxs_article` oba
+        JOIN `medical_doctor_special_column` mdaa
+        ON oba.`id` = mdaa.`article_id`
+        where oba.`is_delete`=0 AND oba.`status`=1
+        <if test="doctorId != null and doctorId!=''">
+            and mdaa.`doctor_id` = #{doctorId}
+        </if>
+        ORDER BY oba.`create_time` DESC
+    </select>
 
-	<select id="getHotSpecialColumn" resultMap="MedicalArticleListResult">
-		SELECT
-		  oba.id,
-		  oba.`title`,
-		  oba.`browse_sum`,
-		  md.`name` dname,
-		  md.`id` did,
-		  mdai.`head_portrait` headPortrait
-		from
-		  `oe_bxs_article` oba
-		  join `article_type` art
-			on oba.type_id = art.`id`
-		  join `medical_doctor_author_article` mdaa
-			on mdaa.`article_id` = oba.`id`
-		  join `medical_doctor` md
-			on mdaa.`doctor_id` = md.`id`
-		  join `medical_doctor_authentication_information` mdai
-			on mdai.id = md.`authentication_information_id`
-		where oba.`is_delete`=0 AND oba.`status`=1
-		and art.id =  #{specialColumn}
-		order by oba.`browse_sum` desc ,convert(oba.`title` using gbk) ASC
-		limit 0, 6
-	</select>
+    <select id="getHotSpecialColumn" resultMap="MedicalArticleListResult">
+        SELECT
+            oba.id,
+            oba.`title`,
+            oba.`browse_sum`,
+            md.`name`            dname,
+            md.`id`              did,
+            mdai.`head_portrait` headPortrait
+        FROM
+            `oe_bxs_article` oba
+            JOIN `article_type` art
+                ON oba.type_id = art.`id`
+            JOIN `medical_doctor_special_column` mdaa
+                ON mdaa.`article_id` = oba.`id`
+            JOIN `medical_doctor` md
+                ON mdaa.`doctor_id` = md.`id`
+            JOIN `medical_doctor_authentication_information` mdai
+                ON mdai.id = md.`authentication_information_id`
+        WHERE oba.`is_delete` = 0 AND oba.`status` = 1
+              AND art.id = #{specialColumn}
+        ORDER BY oba.`browse_sum` DESC, convert(oba.`title` USING gbk) ASC
+        LIMIT 0, 6
+    </select>
 
-	<select id="getNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
-		SELECT
-		  oba.id,
-		  oba.`title`,
-		  oba.`content`,
-		  oba.`create_time` createTime,
-		  oba.`img_path` imgPath
-		FROM
-		  `oe_bxs_article` oba
-		  JOIN `medical_doctor_report` mdr
-			ON oba.`id` = mdr.`article_id`
-			where oba.`is_delete`=0 AND oba.`status`=1
-		  	and mdr.`doctor_id`= #{doctorId}
-			ORDER BY oba.`create_time` DESC
-	</select>
+    <select id="getNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
+        SELECT
+            oba.id,
+            oba.`title`,
+            oba.`content`,
+            oba.`create_time` createTime,
+            oba.`img_path`    imgPath,
+            mdr.report_doctor as reportDoctor
+        FROM
+            `oe_bxs_article` oba
+            JOIN `medical_doctor_report` mdr
+                ON oba.`id` = mdr.`article_id`
+        WHERE oba.`is_delete` = 0 AND oba.`status` = 1
+              AND mdr.`doctor_id` = #{doctorId}
+        ORDER BY oba.`create_time` DESC
+    </select>
 
-	<select id="getRecentlyNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
-		SELECT
-		  oba.id,
-		  oba.`title`,
-		  oba.`create_time` createTime,
-		  oba.`img_path` imgPath
-		FROM
-		  `oe_bxs_article` oba
-		  LEFT JOIN `medical_doctor_report` mdr
-			ON oba.`id` = mdr.`article_id`
-		WHERE oba.`is_delete` = 0
-		  AND oba.`status` = 1
-		  and oba.type_id =  #{doctorReport}
-		GROUP BY oba.id
-		ORDER BY oba.`is_recommend` DESC , oba.`create_time` DESC
-		LIMIT 0, 7
-	</select>
+    <select id="getRecentlyNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
+        SELECT
+            oba.id,
+            oba.`title`,
+            oba.`create_time` createTime,
+            oba.`img_path`    imgPath,
+            oba.`content`,
+            mdr.report_doctor as reportDoctor
+        FROM
+            `oe_bxs_article` oba
+            LEFT JOIN `medical_doctor_report` mdr
+                ON oba.`id` = mdr.`article_id`
+        WHERE oba.`is_delete` = 0
+              AND oba.`status` = 1
+              AND oba.type_id = #{typeId}
+        GROUP BY oba.id
+        ORDER BY oba.`is_recommend` DESC, oba.`create_time` DESC
+        LIMIT 0, 7
+    </select>
 
-	<select id="getHotArticles" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
-		SELECT
-		  id,
-		  title
-		FROM
-		  oe_bxs_article
-		WHERE is_delete = 0
-		  AND `status` = 1
-		ORDER BY browse_sum DESC
-		LIMIT 0,7
-	</select>
+    <select id="getHotArticles" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
+        SELECT
+            id,
+            title
+        FROM
+            oe_bxs_article
+        WHERE is_delete = 0
+              AND `status` = 1
+        ORDER BY browse_sum DESC
+        LIMIT 0, 7
+    </select>
 
-	<select id="getNewsReportsByPage" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
-		SELECT
-		  oba.id,
-		  oba.`title`,
-		  oba.`content`,
-		  oba.`create_time` createTime,
-		  oba.`img_path` imgPath
-		FROM
-		  `oe_bxs_article` oba
-		 LEFT JOIN `medical_doctor_report` mdr
-			ON oba.`id` = mdr.`article_id`
-		where oba.`is_delete`=0 AND oba.`status`=1
-		and oba.type_id =  #{doctorReport}
-		<if test="doctorId != null and doctorId!=''">
-			and mdr.`doctor_id` = #{doctorId}
-		</if>
-			GROUP BY oba.id
-			ORDER BY oba.`is_recommend` DESC,oba.`create_time` DESC
-	</select>
+    <select id="getNewsReportsByPage" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
+        SELECT
+        oba.id,
+        oba.`title`,
+        oba.`content`,
+        oba.`create_time` createTime,
+        oba.`img_path` imgPath,
+        mdr.report_doctor as reportDoctor
+        FROM
+        `oe_bxs_article` oba
+        LEFT JOIN `medical_doctor_report` mdr
+        ON oba.`id` = mdr.`article_id`
+        where oba.`is_delete`=0 AND oba.`status`=1
+        and oba.type_id = #{typeId}
+        <if test="doctorId != null and doctorId!=''">
+            and mdr.`doctor_id` = #{doctorId}
+        </if>
+        GROUP BY oba.id
+        ORDER BY oba.`is_recommend` DESC,oba.`create_time` DESC
+    </select>
 
-	<select id="getNewsReportByArticleId" resultMap="MedicalArticleListResult">
-		SELECT
-		  oba.id,
-		  oba.`title`,
-		  oba.`content`,
-		  oba.`create_time`,
-		  oba.`img_path`,
-		  oba.`browse_sum`,
-		  oba.`comment_sum`,
-		  oba.`praise_sum`,
-		  oba.user_id author,
-		  md.name dName,
-		  md.`id` dId,
-		  md.`province`,
-		  md.`city`,
-		  mdai.head_portrait headPortrait
-		FROM
-		  `oe_bxs_article` oba
-		  LEFT JOIN `medical_doctor_report` mdr
-			ON oba.`id` = mdr.`article_id`
-		  LEFT JOIN `medical_doctor` md
-			ON md.id = mdr.`doctor_id`
-		  LEFT JOIN `medical_doctor_authentication_information` mdai
-			ON mdai.`id` = md.`authentication_information_id`
-			where oba.id = #{articleId}
-			ORDER BY oba.`create_time` DESC
-	</select>
+    <select id="getNewsReportByArticleId" resultMap="MedicalArticleListResult">
+        SELECT
+            oba.id,
+            oba.`title`,
+            oba.`content`,
+            oba.`create_time`,
+            oba.`img_path`,
+            oba.`browse_sum`,
+            oba.`comment_sum`,
+            oba.`praise_sum`,
+            oba.user_id        author,
+            md.name            dName,
+            md.`id`            dId,
+            md.`province`,
+            md.`city`,
+            mdai.head_portrait headPortrait
+        FROM
+            `oe_bxs_article` oba
+            LEFT JOIN `medical_doctor_report` mdr
+                ON oba.`id` = mdr.`article_id`
+            LEFT JOIN `medical_doctor` md
+                ON md.id = mdr.`doctor_id`
+            LEFT JOIN `medical_doctor_authentication_information` mdai
+                ON mdai.`id` = md.`authentication_information_id`
+        WHERE oba.id = #{articleId}
+        ORDER BY oba.`create_time` DESC
+    </select>
 
-	<select id="getSpecialColumnDetailsById" resultMap="MedicalArticleListResult">
-		SELECT
-		  oba.id,
-		  oba.`title`,
-		  oba.`content`,
-		  oba.`create_time`,
-		  oba.`img_path`,
-		  oba.`browse_sum`,
-		  oba.`comment_sum`,
-		  oba.`praise_sum`,
-		  oba.user_id author,
-		  md.name dName,
-		  md.`id` dId,
-		  md.`province`,
-		  md.`city`,
-		  mdai.head_portrait headPortrait
-		FROM
-		  `oe_bxs_article` oba
-		  LEFT JOIN `medical_doctor_author_article` mdaa
-			ON oba.`id` = mdaa.`article_id`
-		  LEFT JOIN `medical_doctor` md
-			ON md.id = mdaa.`doctor_id`
-		  LEFT JOIN `medical_doctor_authentication_information` mdai
-			ON mdai.`id` = md.`authentication_information_id`
-		WHERE oba.id = #{articleId}
-		ORDER BY oba.`create_time` DESC
-	</select>
+    <select id="getSpecialColumnDetailsById" resultMap="MedicalArticleListResult">
+        SELECT
+            oba.id,
+            oba.`title`,
+            oba.`content`,
+            oba.`create_time`,
+            oba.`img_path`,
+            oba.`browse_sum`,
+            oba.`comment_sum`,
+            oba.`praise_sum`,
+            oba.user_id        author,
+            md.name            dName,
+            md.`id`            dId,
+            md.`province`,
+            md.`city`,
+            mdai.head_portrait headPortrait
+        FROM
+            `oe_bxs_article` oba
+            LEFT JOIN `medical_doctor_author_article` mdaa
+                ON oba.`id` = mdaa.`article_id`
+            LEFT JOIN `medical_doctor` md
+                ON md.id = mdaa.`doctor_id`
+            LEFT JOIN `medical_doctor_authentication_information` mdai
+                ON mdai.`id` = md.`authentication_information_id`
+        WHERE oba.id = #{articleId}
+        ORDER BY oba.`create_time` DESC
+    </select>
 
-	<select id="selectArticlesByPage" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
-		SELECT
-		  b.id,
-		  b.title,
-		  b.content,
-		  b.img_path,
-		  b.create_time,
-		  b.`user_id` source,
-		  b.`type_id`,
-		  a.`name` type
-		FROM
-		  oe_bxs_article b
-		  JOIN `article_type` a
-		   ON  b.`type_id`=a.`id`
-		WHERE  b.is_delete = 0
-		  AND b.status = 1
-		  AND b.type_id = #{type}
-		GROUP BY b.id
-		ORDER BY b.create_time DESC
-	</select>
+    <select id="selectArticlesByPage" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
+        SELECT
+            b.id,
+            b.title,
+            b.content,
+            b.img_path,
+            b.create_time,
+            b.`user_id` author,
+            b.`type_id`,
+            a.`name`    type
+        FROM
+            oe_bxs_article b
+            JOIN `article_type` a
+                ON b.`type_id` = a.`id`
+        WHERE b.is_delete = 0
+              AND b.status = 1
+              AND b.type_id = #{typeId}
+        GROUP BY b.id
+        ORDER BY b.create_time DESC
+    </select>
 
-	<select id="selectArticleById" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
-		SELECT
-		  b.id,
-		  b.title,
-		  b.content,
-		  b.img_path,
-		  b.create_time,
-		  b.`user_id` source,
-		  b.`type_id`,
-		  a.`name` type
-		FROM
-		  oe_bxs_article b
-		  JOIN `article_type` a
-		   ON  b.`type_id`=a.`id`
-		WHERE  b.is_delete = 0
-		  AND b.status = 1
-		  AND b.id = #{id}
-		GROUP BY b.id
-		ORDER BY b.create_time DESC
-	</select>
+    <select id="selectArticleById" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
+        SELECT
+            b.id,
+            b.title,
+            b.content,
+            b.img_path,
+            b.create_time,
+            b.`user_id` author,
+            b.`type_id`,
+            a.`name`    type
+        FROM
+            oe_bxs_article b
+            JOIN `article_type` a
+                ON b.`type_id` = a.`id`
+        WHERE b.is_delete = 0
+              AND b.status = 1
+              AND b.id = #{id}
+        GROUP BY b.id
+        ORDER BY b.create_time DESC
+    </select>
 
 </mapper>

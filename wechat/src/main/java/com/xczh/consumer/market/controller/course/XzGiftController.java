@@ -60,6 +60,7 @@ public class XzGiftController {
 			@RequestParam(value="pageNumber")Integer current,
 			@RequestParam(value="pageSize")Integer size) throws SQLException {
 		
+		
 		return ResponseObject.newSuccessResponseObject(localGiftService.newRankingList(liveId,current,size));
 	}
 	/**

@@ -44,15 +44,13 @@ public class CourseDao extends HibernateDao<Course> {
 						+ "  oc.status AS STATUS,\n"
 						+ "  oc.is_free AS isFree, \n"
 						+
-						// "  oc.original_cost AS originalCost,\n" +
 						"  oc.current_price*10 AS currentPrice,\n"
 						+ "  oc.description AS description,\n"
 						+ "  oc.menu_id AS menuId,\n"
 						+ "  oc.course_type_id AS courseTypeId,\n"
 						+ "  oc.courseType AS courseType,\n"
 						+ "  COUNT(og.id) AS countGradeNum,\n"
-						+ "  oc.is_recommend,\n"
-						+ "  oc.recommend_sort,\n"
+						+ " if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort,"
 						+ "  oc.release_time as releaseTime,\n"
 						+ "  oc.start_time as startTime,\n"
 						+ "  oc.end_time as endTime,\n"
@@ -61,10 +59,8 @@ public class CourseDao extends HibernateDao<Course> {
 						+ "  ca.`name` lecturerName,\n"
 						+ "  oc.`lecturer`,\n"
 						+ "  oc.`collection`,\n"
-						+ "  oc.sort_update_time as sortUpdateTime,"
-						+ "  oc.`essence_sort` as essenceSort \n"
+						+ "  oc.sort_update_time as sortUpdateTime "
 						+
-
 						"FROM\n"
 						+ "  oe_course oc \n"
 						+ "  LEFT JOIN oe_menu om \n"
@@ -99,11 +95,6 @@ public class CourseDao extends HibernateDao<Course> {
 			paramMap.put("serviceType", courseVo.getServiceType());
 			sql.append("and oc.course_type = :serviceType ");
 		}
-		/*
-		 * if (courseVo.getIsRecommend() != null) { paramMap.put("isRecommend",
-		 * courseVo.getIsRecommend());
-		 * sql.append("and oc.is_recommend = :isRecommend "); }
-		 */
 		if (courseVo.getStatus() != null) {
 			paramMap.put("status", courseVo.getStatus());
 			sql.append("and oc.status = :status ");
@@ -132,9 +123,9 @@ public class CourseDao extends HibernateDao<Course> {
 		}
 
 		if (courseVo.getOnlineCourse() == 0) {
-			sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc");
+			sql.append(" group by oc.id  order by oc.status desc,recommendSort desc,oc.release_time desc");
 		} else {
-			sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.start_time desc");
+			sql.append(" group by oc.id  order by oc.status desc,recommendSort desc,oc.start_time desc");
 		}
 
 		Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap,

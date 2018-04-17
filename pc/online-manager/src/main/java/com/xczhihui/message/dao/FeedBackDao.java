@@ -90,7 +90,7 @@ public class FeedBackDao extends HibernateDao<Menu> {
 			paramMap.put("endTime",
 					TimeUtil.parseDate(vo.getTime_end() + " 23:59:59"));
 		}
-		sql.append(" order by om.answerStatus,om.create_time desc");
+		sql.append(" order by om.answerStatus,om.create_time ");
 		return this.findPageBySQL(sql.toString(), paramMap,
 				Message.class, pageNumber, pageSize);
 	}

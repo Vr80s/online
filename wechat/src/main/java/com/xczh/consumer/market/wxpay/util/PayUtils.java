@@ -1,16 +1,20 @@
 package com.xczh.consumer.market.wxpay.util;
 
-import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczh.consumer.market.wxpay.entity.BizOrder;
-import com.xczh.consumer.market.wxpay.entity.PayInfo;
-
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.LoggerFactory;
+
+import com.xczh.consumer.market.wxpay.consts.WxPayConst;
+import com.xczh.consumer.market.wxpay.entity.BizOrder;
+import com.xczh.consumer.market.wxpay.entity.PayInfo;
+
 public class PayUtils {
 
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(PayUtils.class);
+	
 	/**
 	 * 根据业务实体生成支付二维码图片，并返回服务临时路径
 	 * 
@@ -34,9 +38,9 @@ public class PayUtils {
 			MakeQRUtil.outputQRimg(retobj.get(WxPayConst.return_code_url));
 
 			generatedUrl = retobj.get(WxPayConst.return_code_url);// ??
-			// System.out.println("成功!");
+			// LOGGER.info("成功!");
 		} else {
-            System.out.println("失败..." + retobj.get("return_msg"));
+            LOGGER.info("失败..." + retobj.get("return_msg"));
         }
 
 		return generatedUrl;
@@ -59,7 +63,7 @@ public class PayUtils {
 			MakeQRUtil.outputQRimgStream(
 					retobj.get(WxPayConst.return_code_url), stream);
 		} else {
-            System.out.println("失败..." + retobj.get("return_msg"));
+            LOGGER.info("失败..." + retobj.get("return_msg"));
         }
 	}
 
@@ -71,7 +75,7 @@ public class PayUtils {
 
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
-		System.out.println("微信app支付返回:" + retobj.toString());
+		LOGGER.info("微信app支付返回:" + retobj.toString());
 
 		if (retobj != null
 				&& WxPayConst.recode_success.equals(retobj.get("result_code"))) {
@@ -88,7 +92,7 @@ public class PayUtils {
 			param.put("packagev", "Sign=WXPay");
 			return param;
 		} else {
-            System.out.println("失败..." + retobj.get("return_msg"));
+            LOGGER.info("失败..." + retobj.get("return_msg"));
         }
 
 		return null;
@@ -112,7 +116,7 @@ public class PayUtils {
 		testinfo = testinfo.createPayInfo(bo, PayInfo.TRADE_TYPE_JSAPI);
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
-		System.out.println("微信app支付返回:" + retobj.toString());
+		LOGGER.info("微信app支付返回:" + retobj.toString());
 
 		if (retobj != null
 				&& WxPayConst.recode_success.equals(retobj.get("result_code"))) {
@@ -129,7 +133,7 @@ public class PayUtils {
 			param.put("paySign", CommonUtil.getSign(param));
 			return param;
 		} else {
-            System.out.println("失败..." + retobj.get("return_msg"));
+            LOGGER.info("失败..." + retobj.get("return_msg"));
         }
 		return null;
 	}
@@ -151,11 +155,11 @@ public class PayUtils {
 		testinfo = testinfo.createPayInfoH5(bo, PayInfo.TRADE_TYPE_H5, khdip);
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
-		System.out.println("微信app支付返回:" + retobj.toString());
+		LOGGER.info("微信app支付返回:" + retobj.toString());
 		if (retobj != null && WxPayConst.recode_success.equals(retobj.get("result_code"))) {
 			return retobj;
 		} else {
-            System.out.println("失败..." + retobj.get("return_msg"));
+            LOGGER.info("失败..." + retobj.get("return_msg"));
         }
 		return null;
 	}
@@ -176,17 +180,18 @@ public class PayUtils {
 		testinfo = testinfo.createPayInfoApp(bo, PayInfo.TRADE_TYPE_APP, khdip);
 		// 发送请求
 		Map<String, String> retobj = CommonUtil.getPrePayInfos(testinfo);
-		System.out.println("微信app支付返回:" + retobj.toString());
+		LOGGER.info("微信app支付返回:" + retobj.toString());
 		if (retobj != null && WxPayConst.recode_success.equals(retobj.get("result_code"))) {
 			return retobj;
 		} else {
-            System.out.println("失败..." + retobj.get("return_msg"));
+            LOGGER.info("失败..." + retobj.get("return_msg"));
         }
 		return null;
 	}
 	
 	public static Map<String, String> getPrePayInfosCommon(BizOrder bo,
 			String khdip,String tradeType) throws Exception {
+		
 		// 请求实体
 		PayInfo testinfo = new PayInfo();
 		testinfo = testinfo.createPayInfoCommon(bo,tradeType, khdip);
@@ -205,14 +210,14 @@ public class PayUtils {
 				param.put("paySign", CommonUtil.getSign(param));
 				return param;
 			} else {
-                System.out.println("失败..." + retobj.get("return_msg"));
+                LOGGER.info("失败..." + retobj.get("return_msg"));
             }
 		}
-		System.out.println("微信app支付返回:" + retobj.toString());
+		LOGGER.info("微信app支付返回:" + retobj.toString());
 		if (retobj != null && WxPayConst.recode_success.equals(retobj.get("result_code"))) {
 			return retobj;
 		} else {
-            System.out.println("失败..." + retobj.get("return_msg"));
+            LOGGER.info("失败..." + retobj.get("return_msg"));
         }
 		return null;
 	}
