@@ -75,6 +75,7 @@ public class UserController extends OnlineBaseController {
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
+		
 		OnlineUser o = service.findUserByLoginName(username);
 		Token t = null;
 		if(o!=null) {
