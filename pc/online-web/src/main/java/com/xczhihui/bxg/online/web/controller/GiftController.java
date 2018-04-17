@@ -62,14 +62,16 @@ public class GiftController {
 	 * @throws IllegalAccessException 
 	 **/
 	@RequestMapping(value = "/sendGift")
-	public ResponseObject sendGift(GiftStatement giftStatement,HttpServletRequest request) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException, InterruptedException {
+	public ResponseObject sendGift(GiftStatement giftStatement,
+			HttpServletRequest request) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException, InterruptedException {
 		Map<String,Object> map = new HashMap<String,Object>();
 		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(u!=null) {
         	giftStatement.setGiver(u.getId());
         	giftStatement.setClientType(OrderFrom.PC.getCode());
         	giftStatement.setPayType(Payment.COINPAY.getCode());
-			map = giftService.addGiftStatement(u.getId(),giftStatement.getReceiver(),giftStatement.getGiftId(),OrderFrom.PC,giftStatement.getCount(),giftStatement.getLiveId());
+			map = giftService.addGiftStatement(u.getId(),giftStatement.getReceiver(),
+					giftStatement.getGiftId(),OrderFrom.PC,giftStatement.getCount(),giftStatement.getLiveId());
 		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}

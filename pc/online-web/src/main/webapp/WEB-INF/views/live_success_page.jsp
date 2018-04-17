@@ -13,13 +13,16 @@
   var sendTime='<%=request.getAttribute("now")%>';
   
   var room_id='<%=request.getAttribute("roomId")%>';
+  var plan_id='<%=request.getAttribute("planId")%>';
+  var email = '<%=request.getAttribute("email")%>';
+  var name = '<%=request.getAttribute("name")%>';
 </script>
 
 <%@include file="../../web/html/liveVideo.html" %>
 
 
-<%-- <script>
-  var room_id='<%=request.getAttribute("roomId")%>';
+ <script>
+<%--   var room_id='<%=request.getAttribute("roomId")%>';
   var plan_id='<%=request.getAttribute("planId")%>';
   var email = '<%=request.getAttribute("email")%>';
   var name = '<%=request.getAttribute("name")%>';
@@ -30,5 +33,5 @@
 	  vvurl += "&embed=video";
   }
   alert("------------");
-  $("#vhall-video").attr("src",vvurl);
-</script> --%>
+  $("#vhall-video").attr("src",vvurl); --%>
+</script>

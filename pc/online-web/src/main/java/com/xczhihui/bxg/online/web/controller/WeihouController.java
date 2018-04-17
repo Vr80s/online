@@ -77,7 +77,6 @@ public class WeihouController {
 		String roomNumber = req.getParameter("videoId");  //视频id
 		BxgUser sessionLoginUser = UserLoginUtil.getLoginUser(req);
 		if(sessionLoginUser!=null) {
-			
 			OnlineUser user = service.findUserByLoginName(sessionLoginUser.getLoginName());
 			String email = user.getLoginName();
 			if(email!=null && email.indexOf("@")==-1){
@@ -87,30 +86,63 @@ public class WeihouController {
 			String start_time = d.getTime() + "";
 			start_time = start_time.substring(0, start_time.length() - 3);
 			Map<String,String> map = new TreeMap<String,String>();
-			map.put("app_key", "71a22e5b4a41483d41d96474511f58f3");  //微吼key
+			map.put("app_key", WeihouInterfacesListUtil.APP_KEY);  //微吼key
 			map.put("signedat", start_time); //时间戳，精确到秒  
 			map.put("email", email);         //email 自己写的
 			map.put("roomid", roomNumber);   //视频id
 			map.put("account",user.getId());       //用户帐号
 			map.put("username",user.getName());      //用户名
-			map.put("sign",getSign(map));
+			System.out.println(map.toString());
+			String sing = getSign(map);
+			System.out.println(sing);
+			map.put("sign",sing);
 			return ResponseObject.newSuccessResponseObject(map);
 		}
+		
+		
 		return null;
 	}
 	
-	public String getSign(Map<String,String> signkv){
+	public static void main(String[] args) {
+
+		/**
+		 * md5加密一定要统一字符集
+		 */
+		Map<String,String> map = new TreeMap<String,String>();
+		map.put("app_key", "71a22e5b4a41483d41d96474511f58f3");  //微吼key
+		Date d = new Date();
+		String start_time = d.getTime() + "";
+		start_time = start_time.substring(0, start_time.length() - 3);
+		System.out.println(start_time);
+		
+		//map.put("signedat", "1523932395"); //时间戳，精确到秒  
+		map.put("email", "15936216273@163.com");         //email 自己写的
+		map.put("roomid", "929267329");   //视频id
+		map.put("account","ef894375d67146478869ed0b3d7ccd66");       //用户帐号
+		map.put("username","杨宣");      //用户名
+		
+		String sing = getSign(map);
+		System.out.println("sing:"+sing);
+		
+		
+	}
+	
+	public static String getSign(Map<String,String> signkv){
 		Set<String> keySet = signkv.keySet();
         Iterator<String> iter = keySet.iterator();
         StringBuilder sb = new StringBuilder();
-        sb.append("1898130bad871d1bf481823ba1f3ffb1");
+        sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
         while (iter.hasNext()) {
             String key = iter.next();
             sb.append(key + signkv.get(key));
         }
-        sb.append("1898130bad871d1bf481823ba1f3ffb1");
+        sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
+        
+        System.out.println("sb.toString():"+sb.toString());
         return getMD5(sb.toString());
 	}
+	
+	
 	
 	/** 
      * 生成md5 
@@ -122,8 +154,9 @@ public class WeihouController {
 		try {
 			// 1 创建一个提供信息摘要算法的对象，初始化为md5算法对象
 			MessageDigest md = MessageDigest.getInstance("MD5");
+			//md.update(message.getBytes("UTF-8")); 
 			// 2 将消息变成byte数组
-			byte[] input = message.getBytes();
+			byte[] input = message.getBytes("UTF-8");
 			// 3 计算后获得字节数组,这就是那128位了
 			byte[] buff = md.digest(input);
 			// 4 把数组每一字节（一个字节占八位）换成16进制连成md5字符串

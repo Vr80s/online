@@ -146,8 +146,14 @@ function  goPay() {
     }else if(payType==3){ //微信支付
         var openId=   localStorage.getItem("openid");
         var orderForm = 3;
-        if(is_weixn()){   	//公众号
-            orderForm=3;
+        if(is_weixn()){
+            if(!stringnull(openId)){  // 再去重cookie中获取
+            	var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+            	if(stringnull(third_party_uc_t_)){
+            		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
+            		openId = third_party_uc_t_.split(";")[0];
+            	}
+            }
         }else{ //h5
             orderForm=4
         }

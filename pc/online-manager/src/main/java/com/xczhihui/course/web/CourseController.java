@@ -456,6 +456,24 @@ public class CourseController extends AbstractController {
         return responseObject;
     }
 
+    /** 更改默认人数
+     * Description：
+     * creed: Talk is cheap,show me the code
+     *
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/3/9 14:13
+     **/
+    @RequestMapping(value = "updatedefaultStudent", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updatedefaultStudent(Integer id, Integer recommendSort) {
+        ResponseObject responseObject = new ResponseObject();
+        courseService.updatedefaultStudent(id, recommendSort);
+        responseObject.setSuccess(true);
+        responseObject.setResultObject("修改成功!");
+        return responseObject;
+    }
+    
+
     
 
 }

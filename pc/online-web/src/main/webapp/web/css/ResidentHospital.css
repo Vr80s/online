@@ -1193,10 +1193,7 @@ color: #999999;
 	margin-bottom: 60px;
 	cursor: pointer;
 	border: 0;
-	margin-right: 130px;
-}
-.recruit-save-up{
-	margin-left: 122px;
+	margin-right: 120px;
 }
 /*招聘管理预览*/
 .recruit_preview_bg{
@@ -1277,6 +1274,22 @@ margin-right: 5px;
 	margin-left: -480px;
 	display: none;
 }
+.recruit-save-up{
+	margin-left: 122px;
+}
+/*.招聘管理编辑效果开始*/
+.notice_preview_content p{
+	color: #333333;
+	font-size: 16px;
+	float: left;
+}
+.notice_preview_content img{
+	float: right;
+	margin-top: 23px;
+	cursor: pointer;
+}
+
+
 /*公告内容部分*/
 
 #Notice_Administration .Notice_bottom2{
