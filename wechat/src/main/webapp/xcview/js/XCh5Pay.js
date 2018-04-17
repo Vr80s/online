@@ -106,7 +106,7 @@ function gongzhonghao(url,params,returnUrl){
                     	console.log("取消支付");
                     }else if(res.err_msg == "get_brand_wcpay_request:fail"){
                     	//console.log("支付失败");
-                    	alert("请重新登录下试试");
+                    	alert("尝试下重新登录,或者关注公众号!");
                     }  
                 }
             );

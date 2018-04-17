@@ -134,16 +134,13 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		api.updateLoginName(loginName, newLoginName);
 
 		String sql_wx = "DELETE FROM wxcp_client_user_wx_mapping WHERE client_id = ?";
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.update(sql_wx, new Object[] { userId });
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wx, new Object[] { userId });
 
 		String sql_wb = "DELETE FROM weibo_client_user_mapping WHERE user_id = ?";
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.update(sql_wb, new Object[] { userId });
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wb, new Object[] { userId });
 
 		String sql_qq = "DELETE FROM qq_client_user_mapping WHERE user_id = ?";
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.update(sql_qq, new Object[] { userId });
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_qq, new Object[] { userId });
 
 		try {
 			EmailUtil.modifyLoginNameMailBySSL("原账号" + loginName + "==>"

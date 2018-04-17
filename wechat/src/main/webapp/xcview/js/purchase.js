@@ -201,13 +201,11 @@ function  goPay() {
         var openId=   localStorage.getItem("openid");
         var orderForm = 3;
         if(is_weixn()){
-            orderForm=3;
             if(!stringnull(openId)){  // 再去重cookie中获取
             	var third_party_uc_t_ = cookie.get("third_party_uc_t_");
             	if(stringnull(third_party_uc_t_)){
             		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
             		openId = third_party_uc_t_.split(";")[0];
-            		unionId = third_party_uc_t_.split(";")[1];
             	}
             }
         }else{ //h5
