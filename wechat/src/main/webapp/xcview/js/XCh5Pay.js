@@ -63,12 +63,6 @@ function wechatH5(url,params,returnUrl){
         				var unionId =  msg.resultObject.unionId;
         				location.href = "/xcview/html/evpi.html?openId="+openId+"&unionId="+unionId;
         			}else{
-        				//location.replace(params.mweb_url+"&redirect_url="+returnUrl);
-        				/*alert(returnUrl);
-        				alert(encodeURI(returnUrl));
-        				alert(encodeURIComponent(returnUrl));
-        				alert(params.mweb_url);*/
-        				//location.href =params.mweb_url+"&redirect_url="+encodeURIComponent(returnUrl);
         				location.replace(params.mweb_url+"&redirect_url="+encodeURIComponent(returnUrl));
         			}
             	}else{
@@ -106,10 +100,14 @@ function gongzhonghao(url,params,returnUrl){
                 },
                 function(res){
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                    	//alert(returnUrl);
-                        //location.href = returnUrl;//"/bxg/page/wait_money";
+                    	// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                         location.replace(returnUrl);
-                    }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                    }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                    	console.log("取消支付");
+                    }else if(res.err_msg == "get_brand_wcpay_request:fail"){
+                    	//console.log("支付失败");
+                    	alert("请重新登录下试试");
+                    }  
                 }
             );
             if (typeof WeixinJSBridge == "undefined"){

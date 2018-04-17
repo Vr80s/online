@@ -202,17 +202,23 @@ function  goPay() {
         var orderForm = 3;
         if(is_weixn()){
             orderForm=3;
+            if(!stringnull(openId)){  // 再去重cookie中获取
+            	var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+            	if(stringnull(third_party_uc_t_)){
+            		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
+            		openId = third_party_uc_t_.split(";")[0];
+            		unionId = third_party_uc_t_.split(";")[1];
+            	}
+            }
         }else{ //h5
             orderForm=4
         }
         var strparam = "orderFrom="+orderForm+"&orderId="+getQueryString("orderId");
-        if(stringnull(openId)){
+        if(stringnull(openId)){  //获取openid
         	strparam+="&openId="+openId;
         }
-        
         /*
          * 如果检测到这个openId没有，那么请让登录下
-         * 	 
          */
         jmpPayPage("/xczh/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse,false));
     }

@@ -435,6 +435,7 @@ public class CommonController {
 		Date d = new Date();
 		String start_time = d.getTime() + "";
 		start_time = start_time.substring(0, start_time.length() - 3);
+		
 		Map<String,String> map = new TreeMap<String,String>();
 		map.put("app_key", WeihouInterfacesListUtil.APP_KEY);  //微吼key
 		map.put("signedat", start_time); //时间戳，精确到秒  
@@ -446,6 +447,44 @@ public class CommonController {
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 	
+	public static void main(String[] args) {
+		
+		
+//		account
+//		:
+//		"ef894375d67146478869ed0b3d7ccd66"
+//		app_key
+//		:
+//		"71a22e5b4a41483d41d96474511f58f3"
+//		email
+//		:
+//		"15936216273@163.com"
+//		roomid
+//		:
+//		"929267329"
+//		sign
+//		:
+//		"e559c4f4717c62f624710273094b48dc"
+//		signedat
+//		:
+//		"1523930911"
+//		username
+//		:
+//		"杨宣"
+		Map<String,String> map = new TreeMap<String,String>();
+		map.put("app_key", "71a22e5b4a41483d41d96474511f58f3");  //微吼key
+		Date d = new Date();
+		String start_time = d.getTime() + "";
+		start_time = start_time.substring(0, start_time.length() - 3);
+		map.put("signedat", "1523930911"); //时间戳，精确到秒  
+		map.put("email", "15936216273@163.com");         //email 自己写的
+		map.put("roomid", "929267329");   //视频id
+		map.put("account","ef894375d67146478869ed0b3d7ccd66");       //用户帐号
+		map.put("username","杨宣");      //用户名
+		//map.put("sign",getSign(map));
+		
+		System.out.println(getSign(map));
+	}
 	
 	@RequestMapping("h5ShareAfter")
 	@ResponseBody
@@ -628,7 +667,7 @@ public class CommonController {
 	    return l.toString();
 	}
 	
-	public String getSign(Map<String,String> signkv){
+	public static String getSign(Map<String,String> signkv){
 		Set<String> keySet = signkv.keySet();
         Iterator<String> iter = keySet.iterator();
         StringBuilder sb = new StringBuilder();

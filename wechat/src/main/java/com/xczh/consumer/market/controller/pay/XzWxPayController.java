@@ -92,8 +92,6 @@ public class XzWxPayController {
 			@RequestParam("orderFrom")String orderFrom)
 			throws Exception {
 		
-		Map<String, String> retobj = new HashMap<String, String>();
-		retobj.put("ok", "false");
 		
 		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 		if (null == ou ) {
@@ -111,22 +109,19 @@ public class XzWxPayController {
 		LOGGER.info(" 登录的用户id "+userId);
 		/**
 		 * 通过订单id得到订单信息，因为每次微信支付时都把这个订单好变了下，因为如果订单号不变，取消订单后在重复支付会有问题
-		 * 更改订单号，购买失败后，再次购买微信提示订单号一样的信息
-		 *
+		 *    更改订单号，购买失败后，再次购买微信提示订单号一样的信息
 		 */
 		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
-		
-		LOGGER.info(" onlineOrder "+onlineOrder);
-		LOGGER.info(" getOrderNo "+onlineOrder.getOrderNo());
+		LOGGER.info("orderId:"+orderId+",getOrderNo "+onlineOrder.getOrderNo());
 		String newOrderNo=onlineOrderService.updateOrderNo(onlineOrder.getOrderNo());
+		LOGGER.info("newOrderNo : "+newOrderNo);
 		
 		if (null == onlineOrder) {
-			return ResponseObject.newSuccessResponseObject(retobj);
+			return ResponseObject.newErrorResponseObject("未找到订单信息");
 		}
 		if(onlineOrder.getActualPay() < (0.01d)){
 			return ResponseObject.newErrorResponseObject("金额必须大于等于0.01");
 		}
-		
 		Double actualPay = onlineOrder.getActualPay() * 100;
 		int price = actualPay.intValue();
 		
@@ -152,16 +147,17 @@ public class XzWxPayController {
 		OrderParamVo orderParamVo=new OrderParamVo();
 		orderParamVo.setUserId(userId);
 		orderParamVo.setSubject(""+onlineOrderService.getCourseNames(newOrderNo));
-
 		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
 		String extDatas ="order&"+cacheKey;
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString(),7200);
 		LOGGER.info("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
 		
+		Map<String, String> retobj = new HashMap<String, String>();
+		retobj.put("ok", "false");
+		
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(newOrderNo, price,  "订单支付",extDatas, openId, spbill_create_ip, tradeType);
-		
 		if (retpay != null) {
 			retpay.put("ok", "true");
 			/**
