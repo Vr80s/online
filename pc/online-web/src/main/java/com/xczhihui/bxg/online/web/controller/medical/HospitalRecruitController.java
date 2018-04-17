@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.web.body.MedicalHospitalRecruitBody;
+import com.xczhihui.bxg.online.web.body.hospital.HospitalRecruitBody;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
@@ -46,16 +46,16 @@ public class HospitalRecruitController extends AbstractController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseObject create(@RequestBody @Valid MedicalHospitalRecruitBody medicalHospitalRecruitBody, HttpServletRequest request) {
+    public ResponseObject create(@RequestBody @Valid HospitalRecruitBody hospitalRecruitBody, HttpServletRequest request) {
         String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId(request));
-        medicalHospitalRecruitBusinessService.save(medicalHospitalRecruitBody.build(hospitalId), getUserId(request));
+        medicalHospitalRecruitBusinessService.save(hospitalRecruitBody.build(hospitalId), getUserId(request));
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseObject update(@PathVariable String id, @RequestBody @Valid MedicalHospitalRecruitBody medicalHospitalRecruitBody, HttpServletRequest request) {
+    public ResponseObject update(@PathVariable String id, @RequestBody @Valid HospitalRecruitBody hospitalRecruitBody, HttpServletRequest request) {
         String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId(request));
-        medicalHospitalRecruitBusinessService.update(id, medicalHospitalRecruitBody.build(hospitalId));
+        medicalHospitalRecruitBusinessService.update(id, hospitalRecruitBody.build(hospitalId));
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 

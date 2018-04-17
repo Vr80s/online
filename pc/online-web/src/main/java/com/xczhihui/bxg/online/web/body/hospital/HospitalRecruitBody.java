@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.web.body;
+package com.xczhihui.bxg.online.web.body.hospital;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalRecruit;
  *
  * @author hejiwei
  */
-public class MedicalHospitalRecruitBody {
+public class HospitalRecruitBody {
 
     @NotBlank
     private String position;
@@ -29,6 +29,8 @@ public class MedicalHospitalRecruitBody {
     @Length(max = 1000)
     private String jobRequirements;
 
+    private boolean status;
+
     public MedicalHospitalRecruit build(String hospitalId) {
         MedicalHospitalRecruit medicalHospitalRecruit = new MedicalHospitalRecruit();
         if (Integer.parseInt(years) < 0 || Integer.parseInt(years) > 5) {
@@ -43,7 +45,7 @@ public class MedicalHospitalRecruitBody {
         medicalHospitalRecruit.setRecommend(false);
         medicalHospitalRecruit.setYears(years);
         //默认发布
-        medicalHospitalRecruit.setStatus(true);
+        medicalHospitalRecruit.setStatus(status);
         medicalHospitalRecruit.setHospitalId(hospitalId);
         medicalHospitalRecruit.setPublicTime(time);
         return medicalHospitalRecruit;
@@ -79,5 +81,13 @@ public class MedicalHospitalRecruitBody {
 
     public void setJobRequirements(String jobRequirements) {
         this.jobRequirements = jobRequirements;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

@@ -11,7 +11,7 @@ import com.xczhihui.medical.doctor.model.MedicalWriting;
  *
  * @author hejiwei
  */
-public class MedicalDoctorWritingBody {
+public class DoctorWritingBody {
 
     @NotBlank(message = "作者不能为空")
     private String author;

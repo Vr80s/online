@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.web.body;
+package com.xczhihui.bxg.online.web.body.bbs;
 
 import java.util.Date;
 

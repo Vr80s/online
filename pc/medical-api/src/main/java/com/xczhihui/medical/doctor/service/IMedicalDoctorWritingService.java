@@ -66,4 +66,12 @@ public interface IMedicalDoctorWritingService {
      * @return 是否更新成功
      */
     boolean update(String id, String doctorId, MedicalWriting medicalWriting);
+
+    /**
+     * 删除
+     *
+     * @param id       id
+     * @param doctorId 医师id
+     */
+    void delete(String id, String doctorId);
 }
