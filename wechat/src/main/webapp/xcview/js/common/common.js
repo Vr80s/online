@@ -76,7 +76,7 @@ var domain = window.location.host;
 function getServerHost(){
 	var server_domain = sessionStorage.server_domain;
 	if(!stringnull(server_domain)){
-		requestService("/bxg/common/getDomain", null, function(data) {
+		requestService("/xczh/common/getDomain", null, function(data) {
 			if (data.success) {
 				sessionStorage.setItem("server_domain",data.resultObject);
 				server_domain =data.resultObject;

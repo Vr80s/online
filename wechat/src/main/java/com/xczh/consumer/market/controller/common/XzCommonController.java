@@ -410,6 +410,7 @@ public class XzCommonController {
 	public ResponseObject getDomain(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		try {
+			
 			return ResponseObject.newSuccessResponseObject(webdomain);
 		} catch (Exception e) {
 			e.printStackTrace();
