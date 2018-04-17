@@ -33,13 +33,10 @@ function goto_back(){
  * 将上面的url封装为json对象
  */	
 var paramsObj = getUrlParamsReturnJson();
-
 var matching = getQueryString('menuType');
-
 var menuTypeArray = new Array();
 var courseTypeArray = new Array();
 var cityTypeArray = new Array();
-
 
 /**
  * 默认搜索条件
@@ -85,6 +82,7 @@ requestService("/xczh/classify/listScreen",null,function(data){
 			pagenavi1 +="<li><a href='javascript: ;' data-title ="+index+" title="+obj.id+">"+obj.name+"</a></li>";		
 			// box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div><div class='size_show size_show"+index+"' style='font-size:0.2rem;'>我是加载中</div></li>"		
 			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"		
+			// box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div><div class='um-win um-win"+index+"'><div class='um-content'><div class='spinner'><div class='spinner-container container1'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container2'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container3'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div></div></div><div class='um-footer'></div></div></li>"		
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
 		$(".box01_list").html(box01List);
@@ -279,7 +277,6 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	return paramsObj;
 }
 
-
 /**
  * 点击确认按钮获取查询进行查询
  */
@@ -294,10 +291,7 @@ function submit(){
 	var courseType = $(".all_mold2  .all_right_type_one_add").attr("title");
 	var city = $(".all_mold3  .all_right_type_one_add").text();
 	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
-	
-	
 	var queryKey = getQueryString('queryKey');
-	
 	
 /*	paramsObj.pageNumber = num;
 	paramsObj.pageSize = 10;
@@ -370,12 +364,12 @@ function submit(){
 /*var load = {
 	start: function (){
 		var index = $(".find_nav_cur a").attr("data-title");
-		$(".size_show").hide();
-		$(".size_show"+index).show();
+		$(".um-win").hide();
+		$(".um-win"+index).show();
 	},
 	end: function(){
 		var index = $(".find_nav_cur a").attr("data-title");
-		$(".size_show"+index).hide();
+		$(".um-win"+index).hide();
 	}
 }*/
 function queryDataByParams(params,data_type){
@@ -387,10 +381,9 @@ function queryDataByParams(params,data_type){
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
 			//createListInfo(data,data_type)
-			//
+			
 			// 测试加载中
-			// load.end();
-			 
+			load.end();
 			
 			 if(stringnull(data_type)){
 					var id = "#query_list"+data_type;
