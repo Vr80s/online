@@ -1,6 +1,5 @@
 var P_courseTable;//线下课列表
 var M_courseTable;//微课列表
-var PX_courseTable;//课程排序列表
 var courseForm;//添加课程表单
 var updateCourseForm;//修改课程表单
 var studyDayForm;//设置学习计划模板表单
@@ -17,8 +16,6 @@ $(function(){
 	//debugger;
 	/** 线下课列表begin */
     var searchCase_P = new Array();
-    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
-    searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"'+$("#type").val()+'","tempType":undefined}');
 	var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
 		var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
@@ -33,8 +30,6 @@ $(function(){
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {
         return data+"'";
     }},
-    // { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
-    // { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
     { "title": "价格", "class":"center","width":"6%","sortable":false,"mRender":function(data,display,row){
     	data = parseInt(row.currentPrice);
     	return "<span name='coursePrice'>"+data+"</span>"
@@ -42,13 +37,6 @@ $(function(){
     { "title": "开课时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime'},
     { "title": "结束时间", "class":"center","width":"10%", "sortable":false,"data": 'endTime'},
     { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
-    // { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
-    // { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
-    // { "title": "默认报名人数", "class":"center","sortable":false,"data": 'learndCount',"visible":false},
-    // { "title": "实际报名人数", "class":"center","sortable":false,"data": 'actCount',"visible":false},
-	
-	
-	
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
@@ -58,38 +46,19 @@ $(function(){
     } },
     { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
     { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
-    /*{"sortable": false,"class": "center","width":"5%","title":"排序","mRender":function (data, display, row) {
-    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-    		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)" name="up_PX"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-    		'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)" name="down_PX"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-	}},*/
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
                     '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-                    // '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-	    		/*'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-	        	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a>'+*/
-			    // '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
                 '<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '
-				// '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
-//				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,1)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
-//				'<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
-//				'<a class="blue" href="javascript:void(-1);" title="设置学习计划模板" onclick="setPlanTemplate(this);"><i class="ace-icon fa fa-sitemap bigger-130"></i></a></div>';
+
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-	    		/*'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-	        	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a>'+*/
                     '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
                     '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-                    // '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '
-				// '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
-//				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,1)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
-//				'<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
-//				'<a class="blue" href="javascript:void(-1);" title="设置学习计划模板" onclick="setPlanTemplate(this);"><i class="ace-icon fa fa-sitemap bigger-130"></i></a></div>';
 	    	}
 	    } 
 	}];
@@ -100,108 +69,16 @@ debugger;
 		var countNum = data._iRecordsTotal;//总条数
 		pageSize = data._iDisplayLength;//每页显示条数
 		currentPage = iDisplayStart / pageSize +1;//页码
-		/*if(currentPage == 1){//第一页的第一行隐藏向上箭头
-			$("#courseTable tbody tr:first td").eq(7).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}
-		if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
-			$("#courseTable tbody tr:last td").eq(7).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}*/
 		var countPage;
 		if(countNum%pageSize == 0){
 			countPage = parseInt(countNum/pageSize);
 		}else{
 			countPage = parseInt(countNum/pageSize) + 1;
 		}
-		/*if(countPage == currentPage){//隐藏最后一条数据下移
-			$("#courseTable tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}*/
-
-        $("[name='up_PX']").each(function(index){
-            if(index == 0){
-                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
-            }
-        });
-        $("[name='down_PX']").each(function(index){
-            if(index == $("[name='down_PX']").size()-1){
-                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
-            }
-        });
 	});
 	/** 线下课列表end */
-	
-	//TODO
-	
-	/** 课程推荐列表begin */
-	
-    /*var objRecData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
-        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
-    }},
-    { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
-    { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
-    { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
-    { "title": "讲师", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
-    { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
-    { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"width":"8%"},
-    { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
-    	if(data==1){
-    		return data="<span name='zt'>已启用</span>";
-    	}else{
-    		return data="<span name='zt'>已禁用</span>";
-    	}
-    } },
-    { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
-    { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
-    { "title": "推荐值", "class":"center","width":"10%","sortable":false,"data": 'recommendSort' },
-    { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
-		return '<div class="hidden-sm hidden-xs action-buttons">'+
-		'<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,2);">设置推荐值</a> ';
-		}
-    }];
-     debugger;
-     
-     var searchCase_P1 = new Array();
-     searchCase_P1.push('{"tempMatchType":9,"propertyName":"search_onlineCourse","propertyValue1":"1","tempType":Integer}');
-	
-     _courseRecTable = initTables("courseRecTable",basePath+"/cloudclass/course/recList",objRecData,true,true,0,null,searchCase_P1,function(data){
-	
-		debugger;
-		var iDisplayStart = data._iDisplayStart;
-		var countNum = data._iRecordsTotal;//总条数
-		pageSize = data._iDisplayLength;//每页显示条数
-		currentPage = iDisplayStart / pageSize +1;//页码
-		/!*if(currentPage == 1){//第一页的第一行隐藏向上箭头
-			$("#courseRecTable tbody tr:first td").eq(7).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}
-		if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
-			$("#courseRecTable tbody tr:last td").eq(7).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}*!/
-		var countPage;
-		if(countNum%pageSize == 0){
-			countPage = parseInt(countNum/pageSize);
-		}else{
-			countPage = parseInt(countNum/pageSize) + 1;
-		}
-         $("[name='upa_a']").each(function(index){
-             if(index == 0){
-                 $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
-             }
-         });
-         $("[name='downa_a']").each(function(index){
-             if(index == $("[name='downa_a']").size()-1){
-                 $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
-             }
-         });
-		/!*if(countPage == currentPage){//隐藏最后一条数据下移
-			$("#courseRecTable tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}*!/
-		
-		
-	});*/
-	/** 课程推荐列表end */
-	
-	
+
 	/** 城市管理开始 */
-	//TODO
 	var objCityData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
     }},
@@ -214,7 +91,6 @@ debugger;
     		return "暂无图片";    	
     	}
 	}},
-	//TODO
     {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
     	var str;
     	if(row.status ==1 || row.isRecommend == 0){//如果是禁用
@@ -239,7 +115,6 @@ debugger;
 		}
 	}];
      debugger;
-    // P_courseTable = initTables("courseTable",basePath+"/realClass/course/list",objData,true,true,0,null,searchCase_P,function(data){
 	_cityTable = initTables("courseCityTable",basePath+"/realClass/course/courseCityList",objCityData,true,true,0,null,searchCase_P,function(data){
         var iDisplayStart = data._iDisplayStart;
         var countNum = data._iRecordsTotal;//总条数
@@ -264,181 +139,6 @@ debugger;
 		
 	});
 	/** 城市管理结束 */
-	
-	/** 表单验证START */
-	studyDayForm = $("#studyDay-form").validate({
-		messages: {
-			totalDay : {
-				required : "请填写学习计划模板天数"
-			}
-		}
-	});
-	courseForm = $("#addCourse-form").validate({
-		messages: {
-			courseName: {
-				required:"请输入课程名称！",
-				minlength:"课程名称过短，应大于2个字符！",
-				maxlength:"课程名称过长，应小于20个字符！"
-			},
-			classTemplate: {
-				required:"请输入班级名称模板！"
-			},
-			classRatedNum: {
-				required:"请输入班级额定人数！"
-			},
-			menuId: {
-				required:"请选择所属学科！"
-			},
-			courseTypeId: {
-				required:"请选择课程类别！"
-			},
-			courseType: {
-				required:"请选择授课方式！"
-			},
-			courseLength: {
-				required:"请输入课程时长！",
-				digits: "课程时长必须为整数！"
-			},
-			userLecturerId:{
-				required:"选择教师！"
-			},
-			coursePwd: {
-				digits: "课程密码必须为整数！"
-			},
-			currentPrice: {
-				required:"请输入现价格！",
-				number:"请输入合法的数字！",
-				range:"价格范围在0.01到99999.99！"
-			},
-			learndCount: {
-				required:"请填写默认报名人数！",
-				digits: "请输入整数"
-			}
-		}
-	});
-	updateCourseForm = $("#updateCourse-form").validate({
-		messages: {
-			courseName: {
-				required:"请输入课程名称！",
-				minlength:"课程名称过短，应大于2个字符！",
-				maxlength:"课程名称过长，应小于20个字符！"
-			},
-			classTemplate: {
-				required:"请输入班级名称模板！"
-			},
-			classRatedNum: {
-				required:"请输入班级额定人数！"
-			},
-			gradeQQ: {
-				required:"请输入班级QQ群！"
-			},
-			defaultStudentCount: {
-				required:"请输入班级默认报名人数！"
-			},
-			menuId: {
-				required:"请选择所属学科！"
-			},
-			courseTypeId: {
-				required:"请选择课程类别！"
-			},
-			courseType: {
-				required:"请选择授课方式！"
-			},
-			courseLength: {
-				required:"请输入课程时长！",
-				digits: "课程时长必须为整数"
-			},
-			userLecturerId:{
-				required:"选择教师！"
-			},
-			coursePwd: {
-				digits: "课程密码必须为整数！"
-			},
-			originalCost: {
-				required:"请输入原价格！",
-				number:"请输入合法的数字！",
-				range:"价格范围在0.01到99999.99！"
-			},
-			currentPrice: {
-				required:"请输入现价格！",
-				number:"请输入合法的数字！",
-				range:"价格范围在0.01到99999.99！"
-			},
-			learndCount: {
-				required:"请填写默认报名人数！",
-				digits: "请输入整数",
-			},
-			qqno: {
-				required:"请输入咨询QQ！",
-				digits: "请输入合法的QQ号",
-				minlength:"QQ号过短，应大于等于5个字符！"
-			},
-			description : {
-				required : "请输入课程简介!"
-			},
-			descriptionHid : {
-				required : "请输入课程简介!"
-			},
-			cloudClassroom: {
-				required:"课程链接不能为空！"
-			}
-		}
-	});
-	/** 表单验证END */
-
-	
-	//新增根据一级菜单获取相应的二级菜单 暂时用不上，现在没有级联菜单
-	$('#menuName').change(function(){
-		var firstMenuNumber=$(this).children('option:selected').val();//这就是selected的值
-		$.ajax({
-			type:'post',
-			url:basePath+'/cloudclass/course/getSecoundMenu',
-			data:{firstMenuNumber:firstMenuNumber},
-			dataType:'json',
-			success:function(data){
-				var optionstring = "";
-				for (var j = 0; j < data.length; j++) {
-					optionstring += "<option value=\"" + data[j].number + "\" >" + data[j].name + "</option>";
-				}
-				$("#menuNameSecond").html("<option value=''>请选择</option> "+optionstring);
-			}
-		}) ;
-	}) ;
-
-	//编辑根据一级菜单获取相应的二级菜单
-	$('#edid_menuName').change(function () {
-		var firstMenuNumber = $(this).children('option:selected').val();//这就是selected的值
-		$.ajax({
-			type: 'post',
-			url: basePath + '/cloudclass/course/getSecoundMenu',
-			data: {firstMenuNumber: firstMenuNumber},
-			dataType: 'json',
-			success: function (data) {
-				var optionstring = "";
-				for (var j = 0; j < data.length; j++) {
-					optionstring += "<option value=\"" + data[j].number + "\" >" + data[j].name + "</option>";
-				}
-				$("#edid_menuNameSecond").html("<option value=''>请选择</option> " + optionstring);
-			}
-		});
-	});
-
-	$('#search_menu').change(function () {
-		var firstMenuNumber = $(this).children('option:selected').val();//这就是selected的值
-		$.ajax({
-			type: 'post',
-			url: basePath + '/cloudclass/course/getSecoundMenu',
-			data: {firstMenuNumber: firstMenuNumber},
-			dataType: 'json',
-			success: function (data) {
-				var optionstring = "";
-				for (var j = 0; j < data.length; j++) {
-					optionstring += "<option value=\"" + data[j].number + "\" >" + data[j].name + "</option>";
-				}
-				$("#search_scoreType").html("<option value=''>请选择</option> " + optionstring);
-			}
-		});
-	});
 
 	$("#updateRecImg-form").validate({
 		messages: {
@@ -447,45 +147,10 @@ debugger;
 			}
 		}
 	});
-	
-	/*$("#add-originalCost").hide();
-	$("#add-currentPrice").hide();*/
+
 	createDatetimePicker2($(".datetime-picker"),"yy-mm-dd","HH:mm:ss");
 });
 
-
-
-/**
- * 课程排序列表上移
- * @param obj
- */
-function upMove(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = P_courseTable.fnGetData(oo);
-	ajaxRequest(basePath+'/realClass/course/upMove',{"id":aData.id},function(res){
-		if(res.success){
-			freshTable(P_courseTable);
-		}else{
-			layer.msg(res.errorMessage);
-		}
-	});
-};
-
-/**
- * 课程推荐列表上移
- * @param obj
- */
-function upMoveRec(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = _courseRecTable.fnGetData(oo);
-	ajaxRequest(basePath+'/cloudclass/course/upMoveRec',{"id":aData.id},function(res){
-		if(res.success){
-			freshTable(_courseRecTable);
-		}else{
-			layer.msg(res.errorMessage);
-		}
-	});
-};
 /**
  * 城市列表上移
  * @param obj
@@ -511,38 +176,6 @@ function showDetailDialog(obj,status){
 }
 
 /**
- * 课程排序列表下移
- * @param obj
- */
-function downMove(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = P_courseTable.fnGetData(oo);
-	ajaxRequest(basePath+'/realClass/course/downMove',{"id":aData.id},function(res){
-		if(res.success){
-			freshTable(P_courseTable);
-		}else{
-			layer.msg(res.errorMessage);
-		}
-	});
-};
-
-/**
- * 课程推荐列表下移
- * @param obj
- */
-function downMoveRec(obj){
-    var oo = $(obj).parent().parent().parent();
-    var aData = _courseRecTable.fnGetData(oo);
-    ajaxRequest(basePath+'/cloudclass/course/downMoveRec',{"id":aData.id},function(res){
-        if(res.success){
-            freshTable(_courseRecTable);
-        }else{
-            layer.msg(res.errorMessage);
-        }
-    });
-};
-
-/**
  * 城市列表下移
  * @param obj
  */
@@ -557,79 +190,6 @@ function cityDownMove(obj){
         }
     });
 };
-
-/**
- * 添加线下课
- */
-$(".add_P").click(function(){
-
-    createImageUpload($('.uploadImg_add'));//新增弹出框的生成图片编辑器
-	$("input[name='isFree']").eq(1).attr("checked","checked");
-
-	courseForm.resetForm();
-    $("#classRatedNum").attr("disabled",true);
-    $("#gradeStudentSum").hide();
-	$("#classQQ").hide();
-	$("#gradeQQ").attr("disabled",true);
-	$("#defaultStudent").hide();
-	$("#defaultStudentCount").attr("disabled",true);
-
-
-	$("#addCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
-	$("#add_serviceType").val(0);//线下课类型
-	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增线下课",580,600,true,"确定",function(){
-		$("#descriptionHid").val($("#courseDescribe").val());
-        if($("#addCourse-form").valid()){
-			mask();
-			 $("#addCourse-form").attr("action", basePath+"/realClass/course/addCourse");
-	            $("#addCourse-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
-                	unmask();
-	                if(data.success){
-                        $(".ace-file-container").remove();
-	                    $("#addCourseDialog").dialog("close");
-	                    layer.msg(data.errorMessage);
-	                    freshTable(P_courseTable);
-	                    $("html").css("overflow","auto");
-	                }else{
-	                	layer.msg(data.errorMessage);
-	                }
-	            });
-        }
-	});
-});
-
-//新增 -- 当选择付费时，显示原价格和现价格
-$("#is_free").click(function(){
-	$("#add-originalCost").show();
-	$("#add-currentPrice").show();
-	
-	$('#originalCost').attr("disabled",false);
-	$("#currentPrice").attr("disabled",false);
-	$("#originalCost").val("");
-	$("#currentPrice").val("");
-	
-//	$("#originalCost").addClass("col-xs-10 col-sm-12 {required:true,number:true,range:[0,999999.99]}");
-//	$("#currentPrice").addClass("col-xs-10 col-sm-12 {required:true,number:true,range:[0,999999.99]}");
-});
-//新增 -- 当选择免费时，隐藏原价格和现价格
-$("#no_free").click(function(){
-	$("#add-originalCost").hide();
-	$("#add-currentPrice").hide();
-	
-	$("#originalCost").val(1);
-	$("#currentPrice").val(1);
-	$('#originalCost').attr("disabled",true);
-	$("#currentPrice").attr("disabled",true);
-//	$("#originalCost").removeClass("col-xs-10 col-sm-12 {required:true,number:true,range:[0,999999.99]}");
-//	$("#currentPrice").removeClass("col-xs-10 col-sm-12 {required:true,number:true,range:[0,999999.99]}");
-//	$("#originalCost").addClass("col-xs-10 col-sm-12");
-//	$("#currentPrice").addClass("col-xs-10 col-sm-12");
-});
 
 function imgSenBut(){
 	$("#imgAdd").html('<input type="file" name="img" id="smallingPathFile" class="uploadImg"/>');
@@ -896,17 +456,7 @@ function search_P(){
     
 	searchButton(P_courseTable,json);
 };
-//TODO
-/**
- * 线下课推荐
- */
-function search_rec(){
-	
-	var searchCase_P = new Array();
-	searchCase_P.push('{"tempMatchType":9,"propertyName":"search_onlineCourse","propertyValue1":"1","tempType":Integer}');
-	searchCase_P.push('{"tempMatchType":"9","propertyName":"search_city","propertyValue1":"'+$("#search_rec").val()+'","tempType":"String"}');
-	searchButton(_courseRecTable,searchCase_P);
-};
+
 /**
  * 城市推荐管理
  */
@@ -1000,243 +550,6 @@ function previewDialog(obj,status){
 	var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
 };
 
-
-/**
- * 修改表单
- * @param obj
- * @param status（1：线下课，2：微课）
- */
-function toEdit(obj,status){
-    debugger
-
-    createImageUpload($('.uploadImg_edit'));//'修改'弹出框的生成图片编辑器
-
-	updateCourseForm.resetForm();
-
-    // 防止第二次点击编辑的时候 省份没有显示出来
-    $('#edit_province').find("option:selected").attr("selected",false);
-
-	var oo = $(obj).parent().parent().parent();
-	var row;
-	if(status==1) {
-		row = P_courseTable.fnGetData(oo); // get datarow
-        $("#edid_gradeStudentSum").attr("disabled",false);
-        $("#edid_classRatedNum").hide();
-		$("#edid_gradeQQ").attr("disabled",true);
-		$("#edid_classQQ").hide();
-		$("#edid_defaultStudentCount").attr("disabled",false);
-		$("#edid_classDefaultStudent").hide();
-	}else{
-		row = M_courseTable.fnGetData(oo); // get datarow
-        $("#edid_gradeStudentSum").attr("disabled",false);
-        $("#edid_classRatedNum").show();
-		$("#edid_gradeQQ").attr("disabled",false);
-		$("#edid_classQQ").show();
-		$("#edid_defaultStudentCount").attr("disabled",false);
-		$("#edid_classDefaultStudent").show();
-	}
-	$("#updateCourse-form").resetForm();
-	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
-	//根据当前id查找对应的课程信息
-    $.get(basePath+"/realClass/course/findCourseById",{id:row.id}, function(result){
-    	$("#editCourse_id").val(row.id);
-    	//选中一级菜单select
-    	debugger;
-    	//所属学科
-    	for(i=0;i<$("#edid_menuName option").length;i++){
-    		if($("#edid_menuName option").eq(i).text()==result[0].xMenuName){
-    			$("#edid_menuName option").eq(i).attr("select","selected"); 
-    			$("#edid_menuName").val($("#edid_menuName option").eq(i).val());
-    		}
-    	}
-    	 $.ajax({  
-			          type:'post',      
-			          url:basePath+'/realClass/course/getSecoundMenu',  
-			          data:{firstMenuNumber:row.menuId},  
-			          dataType:'json',  
-			          success:function(data){  
-		                     
-		                        var optionstring = "";  
-		                        for (var j = 0; j < data.length; j++) {  
-		                            optionstring += "<option value=\"" + data[j].number + "\" >" + data[j].name + "</option>";  
-		                        }  
-		                        $("#edid_menuNameSecond").html("<option value=''>请选择</option> "+optionstring); 
-		                        
-		                    	//课程类别
-		                    	for(i=0;i<$("#edid_menuNameSecond option").length;i++){
-		                    		
-		                    		if($("#edid_menuNameSecond option").eq(i).text()==result[0].scoreTypeName){
-		                    			$("#edid_menuNameSecond option").eq(i).attr("select","selected"); 
-		                    			$("#edid_menuNameSecond").val($("#edid_menuNameSecond option").eq(i).val());
-		                    		}
-		                    	}
-			          }  
-			      }) ; 
-    	
-    
-//    	 debugger;
-    	//授课方式
-    	for(i=0;i<$("#edid_addCourseType option").length;i++){
-    		
-    		if($("#edid_addCourseType option").eq(i).text()==result[0].teachMethodName){
-    			$("#edid_addCourseType option").eq(i).attr("select","selected"); 
-    			$("#edid_addCourseType").val($("#edid_addCourseType option").eq(i).val());
-    		}
-    	}
-//    	debugger;
-    	for(i=0;i<$("#edid_multimediaType option").length;i++){
-    		
-    		if($("#edid_multimediaType option").eq(i).val()==result[0].multimediaType){
-    			$("#edid_multimediaType option").eq(i).attr("select","selected"); 
-    			$("#edid_multimediaType").val($("#edid_multimediaType option").eq(i).val());
-    		}
-    	}
-    	
-/*    	<select id="edit_province" name="edit_province" onchange="doProvAndCityRelation();" 
-            class="clearfix col-xs-10 col-sm-12 {required:true}" >
-			<option id="edit_choosePro"value="-1">请选择您所在省份</option>
-   </select>
-    <select id="edit_citys" name="edit_city" class="clearfix col-xs-10 col-sm-12 {required:true}">
-			<option id='edit_chooseCity' value='-1'>请选择您所在城市</option>
-	　　</select>*/
-    	
-    	
-    	//省市区
-    	var address = result[0].address;
-    	var p_c_a = address.split("-");
-    	if(p_c_a.length==3){
-    		//省
-    		for(i=0;i<$("#edit_province option").length;i++){
-        		if($("#edit_province option").eq(i).text()==p_c_a[0]){
-        			$("#edit_province option").eq(i).attr("selected",true);
-        			break;
-        		}
-        	}
-    		$("#edit_citys").empty();
-    		$("#edit_county").empty();
-    		
-    		var city = "<option id='10086'>"+p_c_a[1]+"</option>";
-    		$("#edit_citys").append(city);
-    		
-    		var countysDetails = p_c_a[2].split(" ");
-    		
-    		var county = "<option id='10089'>"+countysDetails[0]+"</option>";
-    		$("#edit_county").append(county);
-    		
-    		
-    		$("#edit_realProvince").val(p_c_a[0]);
-    		$("#edit_realCitys").val(p_c_a[1]);
-    		$("#edit_realCounty").val(p_c_a[2]);
-    		
-    		//授课地点
-    		$("#edit_address").val(countysDetails[1]);
-    	}
-
-		// zhuwenbao-2018-0109
-        reviewImage("edid_smallImgPath", result[0].smallimgPath);// 照片回显
-        $('#edid_smallImgPath').val(result[0].smallimgPath);
-
-    	$("#edid_courseName").val(result[0].courseName); //课程名称
-    	$("#edid_classTemplate").val(result[0].classTemplate); //班级名称模板
-    	$("#edid_courseLength").val(result[0].courseLength); //课程时长
-    	$("#edit_userLecturerId").val(result[0].userLecturerId); //作者
-    	$("#edid_coursePwd").val(result[0].coursePwd); //课程时长
-    	$("#edid_qqno").val(result[0].qqno); //咨询QQ
-		$("#edid_gradeQQ").val(result[0].gradeQQ); //班级QQ群
-		$("#edid_defaultStudentCount").val(result[0].defaultStudentCount); //默认报名人数
-
-		debugger
-	    //回显课程讲师
-		for(i=0;i<$("#combobox1 option").length;i++){
-			console.log($("#combobox1 option").eq(i).val()+"==="+result[0].userLecturerId+"==="+$("#combobox1 option").eq(i).text());
-			if($("#combobox1 option").eq(i).val()==result[0].userLecturerId){
-				$("#combobox1 option").eq(i).attr("select","selected"); 
-				$("#combobox1").val($("#combobox1 option").eq(i).val());
-				$("#updateCourse-form #nihao").val($("#combobox1 option").eq(i).text());//yuruixin -20170820
-			}
-		}
-    	$("#edid_originalCost").val(result[0].originalCost); //原价格
-    	$("#edid_currentPrice").val(result[0].currentPrice); //现价格
-		debugger
-    	$("#subtitle_edit").val(result[0].subtitle); //副标题
-    	$("#courseLength_edit").val(result[0].courseLength); //时长
-    	$("#lecturer_edit").val(result[0].lecturer); //主播
-    	$("#edid_courseDescribe").val(result[0].description); //课程简介
-    	$("#edid_cloudClassroom").val(result[0].cloudClassroom); //课程简介
-    	$("#edit_learndCount").val(result[0].learndCount); //课程简介
-        $("#edid_gradeStudentSum").val(result[0].classRatedNum);//班级额定人数
-//        debugger;
-        $("#edit_startTime").val(result[0].startTime);//开始时间
-        $("#edit_endTime").val(result[0].endTime);//结束时间
-      
-    	
-    	var edit_title="修改课程";
-    	if(status ==1){
-			edit_title="修改线下课";
-		}else{
-			edit_title="修改微课程";
-		}
-    	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv",edit_title,580,650,true,"确定",function(){
-    		debugger
-    		$("#edid_descriptionHid").val($("#edid_courseDescribe").val());
-    		if($("#updateCourse-form").valid()){
-                mask();
-                $("#updateCourse-form").attr("action", basePath+"/realClass/course/updateCourseById");
-                $("#updateCourse-form").ajaxSubmit(function(data){
-                	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
-                
-                    unmask();
-                    if(data.success){
-                    	
-                        $("#EditCourseDialog").dialog("close");
-
-                        // 删除这个元素 是因为课程展示图回显后 然后更新课程 没有将回显的div删除 造成弹出框呈现多张课程展示图
-                        $(".ace-file-container").remove();
-                        // 防止第二次点击编辑的时候 省份没有显示出来
-                        $('#edit_province').find("option:selected").attr("selected",false);
-
-                        layer.msg(data.errorMessage);
-                        if(edit_title=='修改线下课'){
-                        	freshTable(P_courseTable);	
-                        }else{
-                        	freshTable(M_courseTable);
-                        }
-                         
-                    }else{
-                    	 layer.msg(data.errorMessage);
-                    }
-                });
-            }
-	    });
-    });
-    
-};
-
-//修改 -- 当选择付费时，显示原价格和现价格
-$("#edit_is_free").click(function(){ 
-	$("#edit-originalCost").show();
-	$("#edit-currentPrice").show();
-	$("#edid_originalCost").val("");
-	$("#edid_currentPrice").val("");
-//	$("#edid_originalCost").addClass("col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}");
-//	$("#edid_currentPrice").addClass("col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}");
-});
-//修改 -- 当选择免费时，隐藏原价格和现价格
-$("#edit_no_free").click(function(){
-	$("#edit-originalCost").hide();
-	$("#edit-currentPrice").hide();
-	$("#edid_originalCost").val(0);
-	$("#edid_currentPrice").val(0);
-//	$("#edid_originalCost").removeClass("col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}");
-//	$("#edid_currentPrice").removeClass("col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}");
-//	$("#edid_originalCost").addClass("col-xs-10 col-sm-12");
-//	$("#edid_currentPrice").addClass("col-xs-10 col-sm-12");
-});
-
 /**
  * 状态修改
  * @param obj
@@ -1258,22 +571,7 @@ function updateStatus(obj,status){
 	});
 };
 
-/**
- * 状态修改
- * @param obj
- */
-function updateRec(obj){
-	var oo = $(obj).parent().parent().parent();
-	var row = _courseRecTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/cloudclass/course/updateRec",{"ids":row.id,"isRec":0},function(data){
-		if(data.success){
-			layer.msg("取消成功！");
-			freshTable(_courseRecTable);
-		}else{
-			layer.msg("取消失败！");
-		}
-	});
-};
+
 
 /**
  * Description：设置推荐值
@@ -1461,96 +759,6 @@ $(".dele_M").click(function(){
     deleteAll(basePath+"/cloudclass/course/deletes",M_courseTable);
 });
 
-/**
- * 线下课批量推荐
- * 
- */
-$(".rec_P").click(function(){
-	var ids = new Array();
-	var trs = $(".dataTable tbody input[type='checkbox']:checked");
-	
-	for(var i = 0;i<trs.size();i++){
-//		if($(trs[i]).parent().parent().find("[name='skfs']").eq("0").text() != "点播")
-//		{
-//			showDelDialog("","","目前只能推荐点播课程！","");
-//			return false;
-//		}
-		
-		if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用")
-		{
-			showDelDialog("","","无法推荐禁用课程！","");
-			return false;
-		}
-		
-		if($(trs[i]).parent().parent().find("[name='sftj']").eq("0").text() == "已推荐")
-		{
-			showDelDialog("","","无法推荐已推荐课程！","");
-			return false;
-		}
-		ids.push($(trs[i]).val());
-	}
-
-
-	if(ids.length>0){ 
-			ajaxRequest(basePath+"/cloudclass/course/updateRec",{'ids':ids.join(","),"isRec":1},function(data){
-				if(!data.success){//如果失败
-					//alertInfo(data.errorMessage);
-					layer.msg(data.errorMessage);
-				}else{
-					if(!isnull(P_courseTable)){
-                        layer.msg("推荐成功！");
-                        //freshDelTable(P_courseTable);
-						search_P();
-					}
-					layer.msg(data.errorMessage);
-				}
-			});
-	}else{
-		showDelDialog("","","请选择推荐课程！","");
-	}
-});
-
-/**
- * 设置为精品推荐
- */
-$(".rec_jp").click(function(){
-	var ids = new Array();
-	var trs = $(".dataTable tbody input[type='checkbox']:checked");
-	
-	for(var i = 0;i<trs.size();i++){
-		
-		if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用")
-		{
-			showDelDialog("","","无法推荐禁用课程！","");
-			return false;
-		}
-		
-		if($(trs[i]).parent().parent().find("[name='jptj']").eq("0").text() == "已推荐")
-		{
-			showDelDialog("","","无法推荐已推荐精品课程！","");
-			return false;
-		}
-		ids.push($(trs[i]).val());
-	}
-	
-	if(ids.length>0){ 
-		ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":1},function(data){
-			if(!data.success){//如果失败
-				layer.msg(data.errorMessage);
-			}else{
-				if(!isnull(P_courseTable)){
-                    layer.msg("精品推荐成功,请到精品课程推荐管理中查看排序！");
-                    //freshDelTable(P_courseTable);
-                    search_menu();
-				}
-				layer.msg(data.errorMessage);
-			}
-		});
-	}else{
-		showDelDialog("","","请选择要推荐精品课程！","");
-	}
-})	
-
 
 /**
  * 城市批量推荐
@@ -1613,58 +821,7 @@ $(".city_qx_rec").click(function(){
         showDelDialog("","","请选择未推荐城市！","");
     }
 });
-/**
- * 微课批量推荐
- *
- */
-$(".rec_M").click(function(){
-    var ids = new Array();
-    var trs = $(".dataTable tbody input[type='checkbox']:checked");
 
-    for(var i = 0;i<trs.size();i++){
-//        if($(trs[i]).parent().parent().find("[name='skfs']").eq("0").text() != "点播")
-//        {
-//            showDelDialog("","","目前只能推荐点播课程！","");
-//            return false;
-//        }
-
-        if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用")
-        {
-            showDelDialog("","","无法推荐禁用课程！","");
-            return false;
-        }
-
-        if($(trs[i]).parent().parent().find("[name='sftj']").eq("0").text() == "已推荐")
-        {
-            showDelDialog("","","无法推荐已推荐课程！","");
-            return false;
-        }
-        ids.push($(trs[i]).val());
-    }
-    if(ids.length > 4)
-    {
-        showDelDialog("","","最多只能推荐4个点播课程！","");
-        return false;
-    }
-
-    if(ids.length>0){
-        ajaxRequest(basePath+"/cloudclass/course/updateRec",{'ids':ids.join(","),"isRec":1},function(data){
-            if(!data.success){//如果失败
-                //alertInfo(data.errorMessage);
-                layer.msg(data.errorMessage);
-            }else{
-                if(!isnull(M_courseTable)){
-                    layer.msg("推荐成功！");
-                    //freshDelTable(M_courseTable);
-                    search_M();
-                }
-                layer.msg(data.errorMessage);
-            }
-        });
-    }else{
-        showDelDialog("","","请选择推荐课程！","");
-    }
-});
 
 /**
  * 展示线下课管理
@@ -1676,17 +833,7 @@ $(".xxpxb_bx").click(function(){
 	$("#courseCityDiv").hide();
 	freshTable(P_courseTable);
 });
-/**
- *>线下课推荐管理
- *
- */
-//TODO
-$(".xxtj_bx").click(function(){
-	$("#courseDiv").hide();
-	$("#courseRecDiv").show();
-	$("#courseCityDiv").hide();
-	freshTable(_courseRecTable);
-});
+
 /**
  * 城市推荐管理
  */
@@ -1698,8 +845,7 @@ $(".city_bx").click(function(){
 	/*
 	 * 点击这个地方时，就要把对应的城市刷新下
 	 */
-	
-	
+
 	freshTable(_cityTable);
 });
 
@@ -1708,408 +854,6 @@ function test(){
 	$(".libox").css("display","block");
 }
 
-function gradeTeacherDialog(obj,flag){
-	var oo = $(obj).parent().parent().parent();
-	if(flag==1) {
-		row = P_courseTable.fnGetData(oo); // get datarow
-	}else{
-		row = M_courseTable.fnGetData(oo); // get datarow
-	}
-	
-    $(".teacher .allTeacher").empty();
-    $(".banzhuren .allTeacher").empty();
-    $(".zhujiao .allTeacher").empty();
-    $("#jiangshiLi").empty();
-    $("#banzhurenLi").empty();
-    $("#zhujiaoLi").empty();
-    //根据当前id查找对应的班级信息
-    $.get(basePath+"/cloudclass/course/teachers",{courseId:row.id}, function(result){
-        $("#teachers_course_id").val(row.id);
-        $("#teachers_courseName").html(row.xMenuName);
-        
-        
-        if(result.resultObject.roleType1!=null&&result.resultObject.roleType1.length>0){
-            for(var i=0;i<result.resultObject.roleType1.length;i++)
-            {
-                if(result.resultObject.roleType1[i]!=null&&result.resultObject.roleType1[i].status==1)
-                {
-                	$(".teacher .allTeacher").append("<div><span data-jiangshiid='"+result.resultObject.roleType1[i].id+"' class='tName'>"+result.resultObject.roleType1[i].name+"</span><img class='allTeacherClose' src='"+basePath+"/images/close01.png'/></div>");
-                	deleteTeacher();
-                }
-            	
-            	$("#jiangshiLi").append("<li data-jiangshiid="+result.resultObject.roleType1[i].id+">"+result.resultObject.roleType1[i].name+"</li>");
-            }
-            for(var i=0;i<result.resultObject.roleType2.length;i++)
-            {
-                if(result.resultObject.roleType2[i]!=null&&result.resultObject.roleType2[i].status==1)
-                {
-                    $(".banzhuren .allTeacher").append("<div><span data-banzhurenid='"+result.resultObject.roleType2[i].id+"' class='tName'>"+result.resultObject.roleType2[i].name+"</span><img class='allTeacherClose' src='"+basePath+"/images/close01.png'/></div>");
-                    deleteTeacher();
-                }
-            	
-            	$("#banzhurenLi").append("<li data-banzhurenid="+result.resultObject.roleType2[i].id+">"+result.resultObject.roleType2[i].name+"</li>");
-            }
-            for(var i=0;i<result.resultObject.roleType3.length;i++)
-            {
-                if(result.resultObject.roleType3[i]!=null&&result.resultObject.roleType3[i].status==1)
-                {
-                     $(".zhujiao .allTeacher").append("<div><span data-zhujiaoid='"+result.resultObject.roleType3[i].id+"' class='tName'>"+result.resultObject.roleType3[i].name+"</span><img class='allTeacherClose' src='"+basePath+"/images/close01.png'/></div>");
-                     deleteTeacher();
-                }
-            	
-            	$("#zhujiaoLi").append("<li data-zhujiaoid="+result.resultObject.roleType3[i].id+">"+result.resultObject.roleType3[i].name+"</li>");
-            }
-        }
-
-        openDialog("gradeTeacherDialog","dialogTeacherGradeDiv","分配老师",550,600,true,"提交",function(){
-        	    var teachersId=[];
-        	    var zhujiaoId=[];
-        	    var banzhurenId=[];
-        	  
-        	    $(".teacher").find("span").each(function(){
-        	    	teachersId.push($(this).attr("data-jiangshiid"));
-        	    })
-        	    $(".zhujiao").find("span").each(function(){
-        	    	 zhujiaoId.push($(this).attr("data-zhujiaoid"));
-        	    })
-        	    $(".banzhuren").find("span").each(function(){
-        	    	 banzhurenId.push($(this).attr("data-banzhurenid"));
-        	    })
-        		$("#jiangshiInput").val(teachersId);
-        	    $("#banzhurenInput").val(banzhurenId);
-        	    $("#zhujiaoInput").val(zhujiaoId);
-        	  
-            $("#grade-teacher-form").attr("action",basePath+"/cloudclass/course/teachers/save");
-            if($("#grade-teacher-form").valid()){
-            	 $("#grade-teacher-form").ajaxSubmit(function(data){
-                     if(data.success){
-                    	 layer.msg("老师分配成功！");
-                         $("#gradeTeacherDialog").dialog("close");
-                         if(flag==1) {
-                        	 freshTable(P_courseTable);
-                     	}else{
-                     		 freshTable(M_courseTable);
-                     	}
-                        
-                     }else{
-                    	 alertInfo("老师分配失败！");
-                         //layer.msg(data.errorMessage);
-                     }
-                 });
-            }
-           
-        });
-    });
-}
-
-//分配老师部分
-//三角切换
-function sanjiaoChangeStatus(target2){
-  $(target2).find("span").toggleClass("caret rotateCaret");
-}
-//搜索
-$(".fenpeiTeacherImg").on("click",function(){
-  var searchValue=$(".fenpeiTeacherSearch").val();
-  $(".list-items2 li").each(function(){
-      var currentValue=$(this).text();
-      if(currentValue===searchValue){
-          $(this).parentsUntil(".xuekeleibei").css("display","block");
-          $(this).addClass("select").siblings().removeClass("select");
-          $(this).parent().prev(".tagname").find("span").removeClass("rotateCaret").addClass("caret");
-          $(this).parent().parent().parent().prev(".tagname").find("span").removeClass("rotateCaret").addClass("caret");
-      }
-  })
-})
-$(".fenpeiTeacherSearch").on("keyup",function(event){
-  if(event.which==13){
-      $(".fenpeiTeacherImg").trigger("click");
-  }
-})
-
-$(".fenpeiTearcherClose").on("click",function(){
-  $("#fenpeiTeacher").css("display","none");
-  $(".zhezhao").css("display","none");
-})
-$(".xuekeleibei").on("click",function(event){
-  event.stopPropagation();
-  var target=event.target;
-//  console.log(target);
-  if($(target).is("span")){
-      $(target).parent().parent().find(".list-items1").toggle();
-      $(target).prev().toggleClass("caret rotateCaret");
-  }
-})
-$("#xuekeleibeiId").unbind().click(function(){
-  	$(this).toggleClass("caret rotateCaret");
-  	$(this).parent().next().toggle();
-  })
-
-$("#jiaoshiSanjiao").unbind().click(function(){
-	$(this).toggleClass("caret rotateCaret");
-	$(this).parent().next().toggle();
-})
-
-$("#zhujiaoSanjiao").unbind().click(function(){
-	$(this).toggleClass("caret rotateCaret");
-	$(this).parent().next().toggle();
-})
-
-$("#banzhurenSanjiao").unbind().click(function(){
-	$(this).toggleClass("caret rotateCaret");
-	$(this).parent().next().toggle();
-})
-$(".list-items1").on("click",function(event){
-  event.stopPropagation();
-  var target2=event.target;
-  if($(target2).is("span")){
-      $(target2).parent().find(".list-items2").toggle();
-      sanjiaoChangeStatus(target2);
-  }
-})
-$(".list-items2").on("click",function(event){
-  event.stopPropagation();
-  var target3=event.target;
-  var parentValue;
-  parentValue=$(target3).parent().prev().text();
-  if($(target3).is("li")){
-      var teacherName=$(target3).text();
-      var jiangshiId=$(target3).attr("data-jiangshiid");
-      var zhujiaoId=$(target3).attr("data-zhujiaoid");
-      var banzhurenId=$(target3).attr("data-banzhurenid");
-      $(target3).addClass("select").siblings().removeClass("select");
-      if(parentValue==="讲师"){
-          $(".row-first").attr({"data-teacherName":teacherName,"data-jiangshiid":jiangshiId});
-      }
-      if(parentValue==="助教"){
-          $(".row-second").attr({"data-teacherName":teacherName,"data-zhujiaoid":zhujiaoId});
-      }
-      if(parentValue==="班主任"){
-          $(".row-third").attr({"data-teacherName":teacherName,"data-banzhurenid":banzhurenId});
-      }
-  }
-})
-$(".fenpeirow").on("click",function(event){
-  event.stopPropagation();
-  var target4=event.target;
-  var rowValue=$(target4).attr("data-teacherName");
-  var jiangshiId=$(target4).attr("data-jiangshiid");
-  var zhujiaoId=$(target4).attr("data-zhujiaoid");
-  var banzhurenId=$(target4).attr("data-banzhurenid");
-  var fenpeiTeacherFlag=false;
-  if($(target4).hasClass("row-first")){
-      if($(".teacher .allTeacher .tName").length==0){
-          fenpeiTeacherFlag=true;
-      }
-      $(".teacher .allTeacher .tName").each(function(){
-          if($(this).text()!=rowValue){
-              fenpeiTeacherFlag=true;
-          }else{
-              fenpeiTeacherFlag=false;
-              return false;
-          }
-      })
-      if(fenpeiTeacherFlag){
-          if($(target4).has("data-teacherName") && rowValue!=undefined){
-              $(".teacher .allTeacher").append("<div><span data-jiangshiid='"+jiangshiId+"' class='tName'>"+rowValue+"</span><img class='allTeacherClose' src='"+basePath+"/images/close01.png'/></div>");
-              $(target4).attr("data-teacherName","");
-              deleteTeacher()
-          }else{
-              return false;
-          }
-      }
-
-  }else  if($(target4).hasClass("row-second")){
-      $(".zhujiao .allTeacher .tName").each(function(){
-          if($(this).text()!=rowValue){
-              fenpeiTeacherFlag=true;
-          }else{
-              fenpeiTeacherFlag=false;
-              return false;
-          }
-      })
-      if($(".zhujiao .allTeacher .tName").length==0){
-          fenpeiTeacherFlag=true;
-      }
-      if(fenpeiTeacherFlag){
-          if($(target4).has("data-teacherName") && rowValue!=undefined){
-              $(".zhujiao .allTeacher").append("<div><span data-zhujiaoid='"+zhujiaoId+"' class='tName'>"+rowValue+"</span><img class='allTeacherClose' src='"+basePath+"/images/close01.png'/></div>");
-              $(target4).attr("data-teacherName","");
-              deleteTeacher();
-          }else{
-              return false;
-          }
-      }
-
-  }else if($(target4).hasClass("row-third")){
-      $(".banzhuren .allTeacher .tName").each(function(){
-          if($(this).text()!=rowValue){
-              fenpeiTeacherFlag=true;
-          }else{
-              fenpeiTeacherFlag=false;
-              return false;
-          }
-      })
-      if($(".banzhuren .allTeacher .tName").length==0){
-          fenpeiTeacherFlag=true;
-      }
-      if(fenpeiTeacherFlag){
-          if($(target4).has("data-teacherName") && rowValue!=undefined){
-              $(".banzhuren .allTeacher").append("<div><span data-banzhurenid='"+banzhurenId+"' class='tName'>"+rowValue+"</span><img class='allTeacherClose' src='"+basePath+"/images/close01.png'/></div>");
-              $(target4).attr("data-teacherName","");
-              deleteTeacher();
-          }else{
-              return false;
-          }
-      }
-
-  }
-})
-//清空
-$(".clear").unbind().on("click",function(){
-  $(this).parent().next(".allTeacher").html("");
-})
-function deleteTeacher(){
-  $(".allTeacherClose").on("click",function(){
-      $(this).parent().remove();
-  })
-}
-
-
-(function() {
-	initTeacher();
-})();
-function initTeacher(){
-	$=jQuery;
-	  $.widget( "custom.combobox", {
-  _create: function() {
-    this.wrapper = $( "<span>" )
-      .addClass( "custom-combobox" )
-      .insertAfter( this.element );
-
-    this.element.hide();
-    this._createAutocomplete();
-    this._createShowAllButton();
-  },
-
-  _createAutocomplete: function() {
-    var selected = this.element.children( ":selected" ),
-      value = selected.val() ? selected.text() : "";
-
-    this.input = $( "<input>" )
-      .appendTo( this.wrapper )
-      .val( value )
-      .attr( "title", "" )
-      .attr( "id", "nihao" )
-      .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
-      .autocomplete({
-        delay: 0,
-        minLength: 0,
-        source: $.proxy( this, "_source" )
-      })
-      .tooltip({
-        tooltipClass: "ui-state-highlight"
-      });
-
-    this._on( this.input, {
-      autocompleteselect: function( event, ui ) {
-        ui.item.option.selected = true;
-        this._trigger( "select", event, {
-          item: ui.item.option
-        });
-      },
-
-      autocompletechange: "_removeIfInvalid"
-    });
-  },
-
-  _createShowAllButton: function() {
-    var input = this.input,
-      wasOpen = false;
-
-    $( "<a>" )
-      .attr( "tabIndex", -1 )
-      .attr( "title", "Show All Items" )
-      .tooltip()
-      .appendTo( this.wrapper )
-      .button({
-        icons: {
-          primary: "ui-icon-triangle-1-s"
-        },
-        text: false
-      })
-      .removeClass( "ui-corner-all" )
-      .addClass( "custom-combobox-toggle ui-corner-right" )
-      .mousedown(function() {
-        wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-      })
-      .click(function() {
-        input.focus();
-
-        // 如果已经可见则关闭
-        if ( wasOpen ) {
-          return;
-        }
-
-        // 传递空字符串作为搜索的值，显示所有的结果
-        input.autocomplete( "search", "" );
-      });
-  },
-
-  _source: function( request, response ) {
-    var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-    response( this.element.children( "option" ).map(function() {
-      var text = $( this ).text();
-      if ( this.value && ( !request.term || matcher.test(text) ) )
-        return {
-          label: text,
-          value: text,
-          option: this
-        };
-    }) );
-  },
-
-  _removeIfInvalid: function( event, ui ) {
-
-    // 选择一项，不执行其他动作
-    if ( ui.item ) {
-      return;
-    }
-
-    // 搜索一个匹配（不区分大小写）
-    var value = this.input.val(),
-      valueLowerCase = value.toLowerCase(),
-      valid = false;
-    this.element.children( "option" ).each(function() {
-      if ( $( this ).text().toLowerCase() === valueLowerCase ) {
-        this.selected = valid = true;
-        return false;
-      }
-    });
-
-    // 找到一个匹配，不执行其他动作
-    if ( valid ) {
-      return;
-    }
-
-    // 移除无效的值
-    this.input
-      .val( "" )
-      .attr( "title", value + " didn't match any item" )
-      .tooltip( "open" );
-    this.element.val( "" );
-    this._delay(function() {
-      this.input.tooltip( "close" ).attr( "title", "" );
-    }, 2500 );
-    this.input.data( "ui-autocomplete" ).term = "";
-  },
-
-  _destroy: function() {
-    this.wrapper.remove();
-    this.element.show();
-  }
-});
-
-}
 
 
 function showCourseInfoDetail(obj, status) {

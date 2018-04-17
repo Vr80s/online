@@ -117,32 +117,6 @@ public class PublicCourseController {
 
 	
 	/**
-	 * 添加
-	 * @param vo
-	 * @return
-	 */
-	//@RequiresPermissions("course:menu：publicClass")
-	@RequestMapping(value = "addCourse", method = RequestMethod.POST)
-	@ResponseBody
-	 public ResponseObject add(CourseVo courseVo){
-		ResponseObject responseObj = new ResponseObject();
-		try{
-			if(courseVo.getCurrentPrice() == null){
-				courseVo.setCurrentPrice(0.0);
-			}
-			courseVo.setType(CourseForm.LIVE.getCode());
-			courseService.addCourse(courseVo);
-            responseObj.setSuccess(true);
-            responseObj.setErrorMessage("新增成功");
-       }catch(Exception e){
-    	   	e.printStackTrace();
-            responseObj.setSuccess(false);
-            responseObj.setErrorMessage("新增失败");
-       }
-        return responseObj;
-    }
-	
-	/**
 	 * 编辑
 	 * @param vo
 	 * @return
@@ -160,99 +134,9 @@ public class PublicCourseController {
 		responseObj.setErrorMessage("修改成功");
 		return responseObj;
 	}
+
 	
-	
-	
-	//@RequiresPermissions("course:menu：publicClass")
-	@RequestMapping(value = "coursesReclist")
-	@ResponseBody
-	public TableVo coursesRec(TableVo tableVo) {
-		int pageSize = tableVo.getiDisplayLength();
-		int index = tableVo.getiDisplayStart();
-		int currentPage = index / pageSize + 1;
-		String params = tableVo.getsSearch();
-		Groups groups = Tools.filterGroup(params);
 
-		CourseVo searchVo = new CourseVo();
-		Group courseName = groups.findByName("search_courseName");
-
-		if (courseName != null) {
-			searchVo.setCourseName(courseName.getPropertyValue1().toString());
-		}
-
-		Group menuId = groups.findByName("search_menu");
-		if (menuId != null) {
-			searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1()
-					.toString()));
-		}
-		
-		Group lecturerName = groups.findByName("search_lecturerName");
-		if (lecturerName != null) {
-			searchVo.setLecturerName(lecturerName.getPropertyValue1().toString());
-		}
-		
-		Group status = groups.findByName("search_status");
-
-		if (status != null) {
-			searchVo.setStatus(status.getPropertyValue1().toString());
-		}
-		
-		Group startTime = groups.findByName("search_startTime");
-
-		if (startTime != null) {
-			searchVo.setStartTime(DateUtil.parseDate(startTime.getPropertyValue1().toString(), "yyyy-MM-dd"));
-		}
-		Group endTime = groups.findByName("search_endTime");
-
-		if (endTime != null) {
-			searchVo.setEndTime(DateUtil.parseDate(endTime.getPropertyValue1().toString(), "yyyy-MM-dd"));
-		}
-		Group liveStatus = groups.findByName("search_liveStatus");
-
-		if (liveStatus != null) {
-			searchVo.setLiveStatus(Integer.valueOf(liveStatus.getPropertyValue1().toString()));
-		}
-
-		Page<CourseVo> page = publicCourseService.findCoursePage(searchVo,
-				currentPage, pageSize);
-		int total = page.getTotalCount();
-		tableVo.setAaData(page.getItems());
-		tableVo.setiTotalDisplayRecords(total);
-		tableVo.setiTotalRecords(total);
-		return tableVo;
-		
-	}
-	
-	
-	/**
-     * 上移
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "upMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject upMove(Integer id) {
-         ResponseObject responseObj = new ResponseObject();
-         publicCourseService.updateSortUp(id);
-         responseObj.setSuccess(true);
-         return responseObj;
-    }
-    
-	/**
-     * 下移
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "downMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject downMove(Integer id) {
-         ResponseObject responseObj = new ResponseObject();
-         publicCourseService.updateSortDown(id);
-         responseObj.setSuccess(true);
-         return responseObj;
-    }
-    
-    
     /** 
      * Description：获取主播的直播地址
      * @param id
