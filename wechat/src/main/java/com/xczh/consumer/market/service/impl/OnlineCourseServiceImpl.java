@@ -598,7 +598,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql.append(" IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 			
 			sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) "); //观看人数
-			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,c.live_status as  lineState  ");
+			sql.append(" + IFNULL(c.default_student_count, 0)) as  learndCount,c.live_status as  lineState  ");
 			
 			sql.append(" from oe_course c,oe_user ou ");
 			sql.append(" where c.user_lecturer_id = ou.id and c.id = ? and c.is_delete=0 and c.status = 1  and  c.type=1  ");
@@ -625,7 +625,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql.append(" IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 			
 			sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) "); //观看人数
-			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,c.description as courseDescription ");
+			sql.append(" + IFNULL(c.default_student_count, 0)) as  learndCount,c.description as courseDescription ");
 			sql.append(" from oe_course c,oe_course_mobile as ocm,oe_user ou ");
 			sql.append(" where c.user_lecturer_id = ou.id and c.id = ? and c.id = ocm.course_id  and c.is_delete=0 and c.status = 1 ");
 			clv = super.query(JdbcUtil.getCurrentConnection(), sql.toString(),

@@ -621,7 +621,7 @@
 		c.start_time as startTime,
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
-		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
+		+ IFNULL(c.default_student_count, 0) ) as  learndCount,
 		
 	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
                              (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
@@ -644,7 +644,7 @@
 		c.start_time as startTime,
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
-		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
+		+ IFNULL(c.default_student_count, 0) ) as  learndCount,
 		
 	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
                              (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
@@ -667,7 +667,7 @@
 		c.start_time as startTime,
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
-		+ IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,
+		+ IFNULL(c.default_student_count, 0) ) as  learndCount,
 		
 	    if(c.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ) or 
                              (DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now() < c.start_time ),4,
@@ -745,6 +745,17 @@
 			( select ca.detail as details from course_anchor ca  where ca.user_id =  #{typeId} )
 		</if>
 		as common_details
+	</select>
+
+
+	<select id="selectCourseIdByCollectionId" resultType="integer">
+		SELECT
+		oc.id
+		FROM
+		`oe_course` oc
+		JOIN `collection_course` cc
+		ON oc.id = cc.`course_id`
+		WHERE oc.`is_delete`=0 AND cc.`collection_id` = #{collectionId}
 	</select>
 	
 </mapper>

@@ -96,4 +96,6 @@ public interface CourseMapper extends BaseMapper<Course> {
      *
      */
 	String selectCourseDescription(@Param("type")Integer type,@Param("typeId")String typeId);
+
+	List<Integer> selectCourseIdByCollectionId(Integer courseId);
 }
