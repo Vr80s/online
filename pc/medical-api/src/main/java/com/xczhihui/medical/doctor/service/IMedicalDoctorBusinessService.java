@@ -119,4 +119,12 @@ public interface IMedicalDoctorBusinessService {
      * @return 医师id
      */
     String getDoctorIdByUserId(String userId);
+
+    /**
+     * 获取医师信息
+     *
+     * @param id id
+     * @return 医师信息
+     */
+    MedicalDoctor get(String id);
 }

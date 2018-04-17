@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.web.body.doctor.MedicalDoctorWritingBody;
+import com.xczhihui.bxg.online.web.body.doctor.DoctorWritingBody;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
@@ -60,19 +60,28 @@ public class DoctorWritingController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject save(@RequestBody @Valid MedicalDoctorWritingBody medicalDoctorWritingBody, HttpServletRequest request) {
+    public ResponseObject save(@RequestBody @Valid DoctorWritingBody doctorWritingBody, HttpServletRequest request) {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
-        medicalDoctorWritingService.save(doctorId, medicalDoctorWritingBody.build(userId), userId);
+        medicalDoctorWritingService.save(doctorId, doctorWritingBody.build(userId), userId);
         return newSuccessResponseObject();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseObject update(@PathVariable String id, @RequestBody @Valid MedicalDoctorWritingBody medicalDoctorWritingBody, HttpServletRequest request) {
+    public ResponseObject update(@PathVariable String id, @RequestBody @Valid DoctorWritingBody doctorWritingBody, HttpServletRequest request) {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
-        medicalDoctorWritingService.update(id, doctorId, medicalDoctorWritingBody.build(userId));
+        medicalDoctorWritingService.update(id, doctorId, doctorWritingBody.build(userId));
+        return newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseObject delete(@PathVariable String id, HttpServletRequest request) {
+        String userId = getUserId(request);
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+        medicalDoctorWritingService.delete(id, doctorId);
         return newSuccessResponseObject();
     }
 

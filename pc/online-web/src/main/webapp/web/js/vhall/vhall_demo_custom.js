@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	
-	alert(room_id);
 	var map;
     $.ajax({
         url: '/weihou/getWeihouSign',
@@ -18,6 +17,31 @@ $(document).ready(function() {
         }
     });
 	
+    function liaotiao(){
+    	
+    var aaa = "<li uid=' user_id'>"+
+    "<a class='avatar' href='javascript:;' title=' user_name'><img src=' avatar' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
+        "<div class='msg'>"+
+            "<p> <% if (role == 'assistant') { <a class='tips assistant' href='javascript:;'>助理</a> <% } else if (role == 'host') { <a class='tips host' href='javascript:;'>主持人</a> <% } else if (role == 'guest') { <a class='tips guest' href='javascript:;'>嘉宾</a> <% }  <a class='name' href='javascript:;' title=' user_name'>  user_name </a>
+        
+            "</p>"+
+           " <p class='content'> <% print(content)  </p>"+
+        "</div>"+
+      "</li>";
+    	
+    if(role == 'assistant'){
+    	
+    	
+    }else if(2==22){
+    	
+    }else if(2==22){
+    	
+    }else if(2==22){
+    	
+    }
+    
+    	
+    }
 	
 	
 	function t(t) {
@@ -72,56 +96,6 @@ $(document).ready(function() {
 		$("#video").toggleClass("on"), $("#doc").toggleClass("on")
 	}),
 	
-/*	VHALL_SDK.init({
-		facedom: "#face",
-		textdom: "#mywords",
-		app_key: t("app_key"),
-		signedat: t("signedat"),
-		sign: t("sign"),
-		email: t("email"),
-		roomid: t("id"),
-		account: t("account"),
-		username: t("username") ? t("username") : "",
-		videoContent: "#video",
-		docContent: "#doc"
-	});*/
-	
-	
-//	account
-//	:
-//	"ef894375d67146478869ed0b3d7ccd66"
-//	app_key
-//	:
-//	"71a22e5b4a41483d41d96474511f58f3"
-//	email
-//	:
-//	"15936216273@163.com"
-//	roomid
-//	:
-//	"942846181"
-//	sign
-//	:
-//	"f680edd17ff9073119344a8b98eadcba"
-//	signedat
-//	:
-//	"1523890950"
-//	username
-//	:
-//	"杨宣"
-
-//	VHALL_SDK.init({
-//		facedom: "#face",
-//		textdom: "#mywords",
-//		app_key: "71a22e5b4a41483d41d96474511f58f3",
-//		signedat:"1523890950",
-//		sign: "f680edd17ff9073119344a8b98eadcba",
-//		email:"15936216273@163.com",
-//		roomid: "942846181",
-//		account: "ef894375d67146478869ed0b3d7ccd66",
-//		username: "杨宣",
-//		videoContent: "#video",
-//		docContent: "#doc"
-//	});
 	
 	VHALL_SDK.init({
 		facedom: "#face",
@@ -257,14 +231,17 @@ $(document).ready(function() {
 			}
 		}
 	}), $("#sendChat").click(function() {
-//		var t = $("#mywords").val(),
-//			n = null;
+		alert("啦啦啦啦");
+		var t = $("#mywords").val(),
+			n = null;
+		
+		console.log("nnnn:"+n);
+		
 //		$(".tab-pane.active").hasClass("chatmsg-box") ? ((n = VHALL_SDK.sendChat({
 //			text: t
 //		})) && $("#chatmsg").append(o(n)), $("#mywords").val(""), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")) : ((n = VHALL_SDK.sendQuestion({
 //			text: t
 //		})) && $("#question-msg").append(e(n)), $("#mywords").val(""), $(".question-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999"))
-	
 	
 	}), VHALL_SDK.on("playerError", function(t) {
 		console.log(t)

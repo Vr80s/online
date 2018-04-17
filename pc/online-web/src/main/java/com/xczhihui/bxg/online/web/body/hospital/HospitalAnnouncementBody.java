@@ -1,11 +1,11 @@
-package com.xczhihui.bxg.online.web.body;
+package com.xczhihui.bxg.online.web.body.hospital;
 
 /**
  * 医馆公告
  *
  * @author hejiwei
  */
-public class MedicalHospitalAnnouncementBody {
+public class HospitalAnnouncementBody {
 
     private String hospitalId;
 
