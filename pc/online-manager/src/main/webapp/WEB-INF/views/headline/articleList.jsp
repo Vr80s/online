@@ -62,16 +62,6 @@
                         	<input type="hidden" value="statusSearch" class="propertyName"/>
                         </div>
                     </td>
-                    <td>
-			            <div class="profile-info-value searchTr">
-			                <select name="search_isRecommend" id="search_isRecommend" value="" class="propertyValue1" >
-						        <option value="">是否推荐</option>
-						        <option value="1">已推荐</option>
-						        <option value="0">未推荐</option>
-						    </select>
-			                <input type="hidden" value="search_isRecommend" class="propertyName"/>
-			            </div>
-			       </td>
                    <td>
                     <div class="profile-info-value searchTr">
                         <input type="text" class="datetime-picker propertyValue1"  id="startTime" name="startTime" placeholder = "开始日期" style="width:130px"/>
@@ -124,6 +114,26 @@
                     <table id="childMenus">
 
                     </table>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 修改推荐值form -->
+    <div id="dialogUpdateRecommendSortDiv"></div>
+    <div id="UpdateRecommendSortDialog" class="hide">
+        <form class="form-horizontal" id="UpdateRecommendSortFrom" method="post" action="" style="margin-top: 15px;">
+            <input type="hidden" name="id" id="UpdateRecommendSort_id">
+            <div class="form-group"  style="margin-top: 18px;" >
+                <label class="col-sm-3 control-label no-padding-right" for="recommendSort"><font color="red">*</font>推荐值: </label>
+                <div class="col-sm-6">
+                    <input type="text" name="recommendSort"  id="recommendSort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
+                </div>
+            </div>
+            <div class="form-group"  style="margin-top: 18px;" >
+                <label class="col-sm-3 control-label no-padding-right" for="recommendTime">推荐时效: </label>
+                <div class="col-sm-6 searchTr">
+                    <input type="text" class="datetime-picker propertyValue1"  id="recommendTime" name="recommendTime" placeholder = "推荐时效" style="width:150px"/>
                 </div>
             </div>
         </form>

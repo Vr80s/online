@@ -175,27 +175,14 @@ public class ArticleServiceImpl implements ArticleService {
         articleVo.setId(kh.getKey().intValue());
     }
 
+
     @Override
-    public void updateRecommend(Integer id) {
-
-        ArticleVo vo = findArticleById(id);
-        if (vo.getIsRecommend() != null && !vo.getIsRecommend()) {
-            vo.setIsRecommend(true);
-        } else if (vo.getIsRecommend() != null && vo.getIsRecommend()) {
-            vo.setIsRecommend(false);
-        }
-
-        // List<ArticleVo> vos=articleDao.findEntitiesByJdbc(ArticleVo.class,
-        // "select * from oe_bxs_article where is_recommend = 1", new
-        // HashMap<String, Object>());
-        // if(vos!=null&&vos.size()>=6){
-        // throw new IllegalArgumentException("最多推荐6个");
-        // }
-
-        String sql = "UPDATE oe_bxs_article SET is_recommend =:recommend  WHERE id =:id";
+    public void updateRecommendSort(Integer id,Integer recommendSort, String recommendTime) {
+        String sql = "UPDATE oe_bxs_article set sort =:recommendSort,recommend_time =:recommendTime where  id =:id";
         Map<String, Object> param = new HashMap<String, Object>();
-        param.put("id", vo.getId());
-        param.put("recommend", vo.getIsRecommend());
+        param.put("id", id);
+        param.put("recommendSort", recommendSort);
+        param.put("recommendTime", recommendTime);
         articleDao.getNamedParameterJdbcTemplate().update(sql, param);
     }
 }
