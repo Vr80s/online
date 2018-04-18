@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.enums.HeadlineType;
 import com.xczhihui.headline.dao.ArticleDao;
 import com.xczhihui.headline.service.ArticleService;
 import com.xczhihui.headline.vo.ArticleTypeVo;
@@ -27,8 +29,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Page<ArticleVo> findArticlePage(ArticleVo articleVo, int currentPage,
                                            int pageSize) {
-        return articleDao.findCloudClassCoursePage(articleVo,
+        Page<ArticleVo> articlePage = articleDao.findArticlePage(articleVo,
                 currentPage, pageSize);
+        articlePage.getItems().forEach(article -> {
+            String typeId = article.getTypeId();
+            if (StringUtils.isNotBlank(typeId)) {
+                Integer articleId = article.getId();
+                if (HeadlineType.DJZL.getCode().equals(typeId)) {
+                    article.setDoctorAuthor(articleDao.getDoctorAuthorByArticleId(articleId));
+                } else if (HeadlineType.MYBD.getCode().equals(typeId)) {
+                    article.setReportDoctor(articleDao.getReportAuthorByArticleId(articleId));
+                }
+            }
+        });
+        return articlePage;
     }
 
     @Override
@@ -52,7 +66,7 @@ public class ArticleServiceImpl implements ArticleService {
                 ArticleVo.class,
                 "select * from oe_bxs_article where title = '"
                         + articleVo.getTitle() + "'",
-                new HashMap<String, Object>());
+                new HashMap<String, Object>(8));
         if (vos != null && vos.size() > 0) {
             throw new IllegalArgumentException("文章名称已存在！");
         }
@@ -177,8 +191,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public void updateRecommendSort(Integer id,Integer recommendSort, String recommendTime) {
-        String sql = "UPDATE oe_bxs_article set sort =:recommendSort,recommend_time =:recommendTime where  id =:id";
+    public void updateRecommendSort(Integer id, Integer recommendSort, String recommendTime) {
+        String sql = "UPDATE oe_bxs_article SET sort =:recommendSort,recommend_time =:recommendTime WHERE  id =:id";
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("id", id);
         param.put("recommendSort", recommendSort);
