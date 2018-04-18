@@ -1,5 +1,7 @@
 package com.xczhihui.bbs.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import com.xczhihui.bbs.service.BBSRestrictionService;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.utils.TableVo;
 
+/**
+ * @author hejiwei
+ */
 @Controller
 @RequestMapping("/bbs/restriction")
 public class BBSRestrictionController {
@@ -32,15 +37,15 @@ public class BBSRestrictionController {
 
     @RequestMapping(value = "changeGags", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject gagsStatusChange(@RequestParam String mobile,
+    public ResponseObject gagsStatusChange(@RequestParam List<String> userIds,
                                            @RequestParam boolean gags, HttpServletRequest request) {
-        return bbsRestrictionService.updateGags(mobile, gags);
+        return bbsRestrictionService.updateGags(userIds, gags);
     }
 
     @RequestMapping(value = "changeBlacklist", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject blacklistStatusChange(@RequestParam String mobile,
+    public ResponseObject blacklistStatusChange(@RequestParam List<String> userIds,
                                                 @RequestParam boolean blacklist, HttpServletRequest request) {
-        return bbsRestrictionService.updateBlacklist(mobile, blacklist);
+        return bbsRestrictionService.updateBlacklist(userIds, blacklist);
     }
 }

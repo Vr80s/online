@@ -2,10 +2,10 @@ $(function(){
 	var hosID;
 //	这是点击课程里面开始
 	//点击左侧课程
-	$(".courseP").click(function() {
-	    $(".curriculum_two").show();
-	    $(".curriculum_one").hide();
-	});
+//	$(".courseP").click(function() {
+//	    $(".curriculum_two").show();
+//	    $(".curriculum_one").hide();
+//	});
 
 	//点击课程--新课程
 	$("#kecheng_bottom2 .button").click(function() {
@@ -45,11 +45,11 @@ $(function(){
 
 
 	//点击左侧专辑
-	$(".specialP").click(function() {
-	    $("#zhuanji_bottom2").show();
-	    $("#zhuanji_bottom").hide();
-	    $("#zhuanjis_bottom").hide();
-	});
+//	$(".specialP").click(function() {
+//	    $("#zhuanji_bottom2").show();
+//	    $("#zhuanji_bottom").hide();
+//	    $("#zhuanjis_bottom").hide();
+//	});
 	
 	//点击第一页,新专辑
 	$("#zhuanji_bottom2 .returns").click(function() {
@@ -84,8 +84,7 @@ $(function(){
 	
 	//这是点击资源开始
 	$(".resourceP").click(function() {
-	    $(".resource_two").show();
-	    $(".resource_one").hide();
+	   
 	});
 	
 	$(".resource_two .zhuanlan_top button").click(function() {
@@ -143,18 +142,18 @@ $(".account_number").click(function() {
 $(".name_news").click(function() {
 //	隐藏认证信息第二页  
 	localStorage.AccountNumber = 'name_news'; 
-	$(".account_main_alter").hide();
+//	$(".account_main_alter").hide();
 	
 //	隐藏个人信息内容
-    $(".message_return").hide();
-    $(".personal_details").hide();
+//  $(".message_return").addClass('hide');
+//  $(".personal_details").addClass('hide');
 });
 
 //点击个人信息  
 $(".name_personage").click(function() {
 	localStorage.AccountNumber = 'name_personage';
-	$('.begin_approve').hide();
-	$('.account_main').hide();
+//	$('.begin_approve').hide();
+//	$('.account_main').hide();
 });
 
 //账户重新认证点击开始
@@ -174,8 +173,8 @@ $(".account_main_alter_title .two").click(function() {
 $(".right_modification").click(function() {
 	//获取资源列表渲染
     initResource(1,true);
-    $(".personal_details").hide();
-    $(".message_return").show();
+    $(".personal_details").addClass('hide');
+    $(".message_return").removeClass('hide');
     
     //获取主播信息回显
     RequestService("/anchor/info", "get", null,function(data){
@@ -278,8 +277,8 @@ $('#demo1 .choosePro').click(function(){
 })
 
 $(".message_return .message_title .two").click(function() {
-    $(".message_return").hide();
-    $(".personal_details").show();
+    $(".message_return").addClass("hide");
+    $(".personal_details").removeClass('hide');
 });
 
 	//进入之后判断账户中主播修改信息的页面结构

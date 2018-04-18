@@ -600,7 +600,7 @@
 
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="years"><font color="red">*</font>工作经验: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="years">工作经验: </label>
             <div class="col-sm-6">
                 <select name="years" id="years">
                     <option value="0">不限</option>
@@ -681,7 +681,7 @@
         </div>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="years"><font color="red">*</font>工作经验: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="years">工作经验: </label>
             <div class="col-sm-6">
                 <select name="years" id="edit_years">
                     <option value="0">不限</option>
