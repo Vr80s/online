@@ -913,7 +913,7 @@
 						</table>
 					</div>
 	
-					<div class="pages course_pages">
+					<div class="pages course_pages" style="display: none;">
 						<div id="Pagination"  class="pagination-pages"></div>
 						<div class="searchPage">
 							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -922,7 +922,7 @@
 						</div>
 					</div>
 	
-					<div class="yes_no" style="display: block1;">
+					<div class="yes_no" style="display: none;">
 						<div class="yes_no_bg"></div>
 						<div class="yes_no_main">
 							<div class="top saleText"></div>
@@ -1718,7 +1718,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="pages coin_transaction_pages pandaTable ">
+				<div class="pages coin_transaction_pages pandaTable " style="display: none;">
 					<div id="Pagination_coinTransaction"  class="pagination-pages"></div>
 					<div class="searchPage">
 						<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -1726,7 +1726,7 @@
 						<a href="javascript:;" class="page-btn">确定</a>
 					</div>
 				</div>
-				<div class="pages rmb_transaction_pages rmbTable">
+				<div class="pages rmb_transaction_pages rmbTable" style="display: none;">
 					<div id="Pagination_rmbTransaction"  class="pagination-pages"></div>
 					<div class="searchPage">
 						<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -1867,7 +1867,7 @@
 						<div class="hide" style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>
 					</div>
 					
-					<div class="pages courseResive_pages">
+					<div class="pages courseResive_pages" style="display: none;">
 						<div id="Pagination_myResive"  class="pagination-pages"></div>
 						<div class="searchPage">
 							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -1929,7 +1929,7 @@
 						<div id="noGiftList" class="hide" style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>
 						
 						<!--礼物收益分页-->
-						<div class="pages giftResive_pages">
+						<div class="pages giftResive_pages" style="display: none;">
 						<div id="Pagination_myGiftResive"  class="pagination-pages"></div>
 						<div class="searchPage">
 							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -1964,7 +1964,7 @@
 							</tbody>
 						</table>
 						
-						<div class="pages RankingList_page">
+						<div class="pages RankingList_page" style="display: none;">
 							<div id="Pagination_RankingList"  class="pagination-pages"></div>
 							<div class="searchPage">
 								<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -2861,8 +2861,12 @@
 //页面进入之后左侧tab定位
 $(function(){
 //      $(".courseP").click();	
-
-
+		
+		
+		var hash = location.hash;
+		if(!hash){
+			getCourseList(1)
+		}
 		if(location.hash == "#menu=1-1" || location.hash == "#menu=1-2" || location.hash == "#menu=1-3" || location.hash == "#menu=1-4"){
 	    	$("#accordion li[data-name='menu=1-1']").click();
 	    	$("#accordion li[data-name='menu=1-1']").addClass('open');
@@ -2888,35 +2892,35 @@ $(function(){
 
 	leftTblSta();
 	function leftTblSta(){
-	if(localStorage.leftTblSta == 'menu=1-1'){
+	if(hash == '#menu=1-1'){
 		location.hash = 'menu=1-1';
 		 $("#accordion a[data-name='menu=1-1']").click();
 	}
-	if(localStorage.leftTblSta == 'menu=1-2'){
+	if(hash == '#menu=1-2'){
 		location.hash = 'menu=1-2';
 		 $("#accordion a[data-name='menu=1-2']").click();
 	}
-	if(localStorage.leftTblSta == 'menu=1-3'){
+	if(hash == '#menu=1-3'){
 		location.hash = 'menu=1-3';
 		 $("#accordion a[data-name='menu=1-3']").click();
 	}
-	if(localStorage.leftTblSta == 'menu=1-4'){
+	if(hash == '#menu=1-4'){
 		location.hash = 'menu=1-4';
 		 $("#accordion a[data-name='menu=1-4']").click();
 	}
-	if(localStorage.leftTblSta == 'menu=3-1'){
+	if(hash == '#menu=3-1'){
 		location.hash = 'menu=3-1';
 		 $("#accordion a[data-name='menu=3-1']").click();
 	}
-	if(localStorage.leftTblSta == 'menu=3-2'){
+	if(hash == '#menu=3-2'){
 		location.hash = 'menu=3-2';
 		 $("#accordion a[data-name='menu=3-2']").click();
 	}
-	if(localStorage.leftTblSta == 'menu=4-1'){
+	if(hash == '#menu=4-1'){
 		location.hash = 'menu=4-1';
 		 $("#accordion a[data-name='menu=4-1']").click();
 	}
-	if(localStorage.leftTblSta == 'menu=4-2'){
+	if(hash == '#menu=4-2'){
 		location.hash = 'menu=4-2';
 		 $("#accordion a[data-name='menu=4-2']").click();
 	}
