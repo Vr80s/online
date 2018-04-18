@@ -24,6 +24,8 @@ $(function(){
 	{ "title": '更新时间', "class": "center","width": "9%","data": 'createTime', "sortable": false},
 	{ "title": '医师作者', "class": "center","width": "9%","data": 'doctorAuthor', "sortable": false},
 	{ "title": '报道医师', "class": "center","width": "9%","data": 'reportDoctor', "sortable": false},
+    { "title": '推荐值', "class": "center","width": "6%","data": 'sort', "sortable": false},
+    { "title": '推荐时效', "class": "center","width": "6%","data": 'recommendTime', "sortable": false},
 	{ "title": "状态", "class": "center","width":"7%","sortable": false,"data":"status","mRender":function (data, display, row) {
     	if(data==1){
     		return data="已启用";
@@ -32,13 +34,7 @@ $(function(){
     	}
     }},
 
-    { "title": "是否推荐", "class": "center","width":"7%","sortable": false,"data":"isRecommend" ,"mRender":function (data, display, row) {
-    	if(data){
-    		return data="推荐";
-    	}else{
-    		return data="未推荐";
-    	}
-    }},
+
 	{ "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
 		var str = "<div class=\"hidden-sm hidden-xs action-buttons\">";
 		if(row.typeName == '大家专栏'){
@@ -59,11 +55,8 @@ $(function(){
             str += '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
             // str += '<a class="blue" href="javascript:void(-1);" title="banner推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
     	}
-        if(!row.isRecommend){
-            str += '<a class="blue" href="javascript:void(-1);" title="推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
-        }else{
-            str += '<a class="gray" href="javascript:void(-1);" title="取消推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
-        }
+            str += '<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this)">设置推荐值</a>';
+
     	return str;
 	}}
 	]
@@ -102,19 +95,38 @@ function updateStatus(obj){
 	});
 }
 
-function recommendDialog(obj){
-	var oo = $(obj).parent().parent().parent();
-	var row = articleTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/headline/article/recommend",{"id":row.id},function(res){
-		if(res.success){
-			layer.msg(res.resultObject);
-			freshTable(articleTable);
-		}else{
-			layer.msg(res.errorMessage);
-		}
-			
-	});
-}
+/**
+ * Description：设置推荐值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateRecommendSort(obj){
+    var oo = $(obj).parent().parent().parent();
+    var row = articleTable.fnGetData(oo); // get datarow
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,300,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/headline/article/updateRecommendSort");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                unmask();
+                if(data.success){
+                    $("#recommendSort").val("");
+                    $("#recommendTime").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    freshTable(articleTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
+};
 
 function search(){
 	var startTime = $("#startTime").val(); //开始时间

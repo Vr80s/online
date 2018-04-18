@@ -143,6 +143,7 @@
 			    height: 100%;
 			    margin-left: 0 !important;
 			    margin-top: 0;
+			    border: 0;
 			}
 			.page-pc .player-container{
 				width: 100%;
@@ -152,19 +153,21 @@
 			}
 			.page-pc .video{
 				width: 100%;
-			    height: 88%;
+			    height: 87.9%;
 			    z-index: 4;
 			    background: red;
 			    border-bottom: 1px solid blue;
 			}
 			
-			/*动画区*/
+			/*视频和文档动画区*/
 			.animation{
 				width: 294px;
 				height: 168px;
 				position: absolute;
-				top: 0;
-				/*right: 320px;*/
+				top: 65px;
+			    right: 311px;
+			    z-index: 4;
+				border: 1px solid #ddd;
 			}
 			.animation-cut{
 				width: 20px;
@@ -178,8 +181,255 @@
 				background: blue;
 				float: right;
 			}
+			
+			/*视频底部区域关注和礼物区*/
+			.video-bottom{
+				width: 100%;
+				height: 110px;
+				background: #444;
+				position: absolute;
+			    bottom: 0;
+			    right: 310px;
+			    z-index: 99;
+			}
+			.concern{
+				min-width: 278px;
+				height: 110px;
+				float: left;
+				margin-left: 324px;
+			}
+			.concern-img{
+				width: 60px;
+				height: 60px;
+				border-radius: 60px;
+				margin-top: 25px;
+				float: left;
+				margin-right: 10px;
+			}
+			.concern-left{
+				float: left;
+				margin-right: 12px;
+			}
+			.concern-name{
+				width: 114px;
+				font-size: 16px;
+				color: #FFFFFF;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				margin-top: 30px;
+			}
+			.concern-number{
+				font-size: 12px;
+				color: #999999;
+				margin-top: 12px;
+			}
+			.concern-number span:first-child{
+				border-right: 2px solid #999;
+			    padding-right: 9px;
+			    margin-right: 5px;
+			}
+			.concern-right{
+				width: 72px;
+				height: 33px;
+				line-height: 33px;
+				background: #00BC12;
+				border-radius: 4px;
+				float: right;
+				margin-top: 38px;
+				font-size: 14px;
+				color: #FFFFFF;
+				text-align: center;
+				cursor: pointer;
+			}
+			/*右侧礼物区*/
+			.surprise{
+				height: 100%;
+				/*background: #3385FF;*/
+				float: right;
+				/*margin-right: 310px;*/
+			}
+			.surprise-top .surprise-mouseover-ul{
+				margin-top: 10px;
+				float: right;
+			}
+			.surprise-top .surprise-mouseover-ul li{
+				position: relative;
+				width: 58px;
+				height: 58px;
+				padding: 4px 0;
+				margin-right: 10px;
+				background: rgba(255,255,255,0.10);
+				border-radius: 4px;
+				float: left;
+				cursor: pointer;
+			}
+			.li-initial-border{
+				border: 2px solid rgba(255,255,255,0.10);
+			}
+			.surprise-top-li-border{
+				border: 2px solid #00BC12;
+			}
+			.surprise-top .surprise-mouseover-ul li img{
+				width: 56px;
+				height: 48px;
+			}
+			/*放上 li显示内容*/
+			.surprise-hide{
+				display: none;
+				/*background: red;*/
+			    width: 500px;
+			    height: 136px;
+			    position: absolute;
+			    top: -138px;
+			    left: -114px;
+				
+			}
+			.surprise-show{
+				/*position: absolute;
+				top: -138px;
+    			left: -112px;*/
+				width: 278px;
+				height: 125px;
+				border: 1px solid #575757;
+				background: #333;
+				border-radius: 4px;
+			}
+			.surprise-show-img{
+				width: 80px;
+			    height: 80;
+			    float: left;
+			    border-radius: 4px;
+			    background: #fff;
+			    margin: 20px 12px 0 20px;
+			}
+			.surprise-show-img img
+				width: 80px !important;
+				height: 64px !important;
+				margin-top: 8px;
+			}
+			.surprise-show-name{
+				width: 150px;
+				margin-left: 110px;
+			}
+			.surprise-show-title{
+				margin: 22px 0 18px 0;
+			}
+			.surprise-show-title .show-name{
+				font-size: 16px;
+				color: #FFFFFF;
+				margin-right: 8px;
+			}
+			.surprise-show-title .show-number{
+				font-size: 12px;
+				color: #00BC12;
+			}
+			.surprise-presented{
+				width: 72px;
+				height: 32px;
+				line-height: 32px;
+				background: #00BC12;
+				border-radius: 100px;
+				font-size: 14px;
+				color: #FFFFFF;
+				text-align: center;
+			}
+			.aspect-down{ 
+				position: absolute;
+			    /*top: -14px;*/
+			    /*left: 17px;*/
+			    /*bottom: -34px;*/
+			    bottom: 2px;
+    			left: 130px;
+		        width:0px; 
+		        height:0px; 
+		        border-left:10px solid transparent; 
+		        border-right:10px solid transparent; 
+		        border-top:10px solid #333; 
+		        font-size:0px; 
+		        line-height:0px; 
+		    }
+		    .bottom-span{
+		    	font-size: 12px;
+		    	color: #fff;
+		    	margin-top: 10px;
+    			float: right;
+		    }
+		    .bottom-span span:last-child{
+		    	display: inline-block;
+		    	text-align: center;
+		    	width: 56px;
+		    	height: 20px;
+		    	line-height: 20px;
+		    	background: #00BC12;
+		    	border-radius: 100px;
+		    	margin-right: 10px;
+		    	margin-left: 20px;
+		    	cursor: pointer;
+		    }
+		    
+			
+			/*处理聊天区值*/
+			.container{
+				padding-left: 10px;
+			}
+			.page-pc .container{
+				z-index: 99;
+			}
+			.div0{
+				display: block !important;
+			}
+			.both{
+				clear: both;
+			}
 		</style>
 		
+		<script type="text/javascript">
+			window.onload = function(){
+				/*点击关注已关注开始*/
+				var Concern = 1;
+			 	$(".concern-click").click(function(){
+			  		if(Concern == 1){
+			  			$(".concern-right").css("background","#bbb");
+			  			$(".concern-right").html("已关注");
+			   			Concern = 0;
+			  		} else{
+			  			$(".concern-right").css("background","#00BC12");
+			   			$(".concern-right").html("加关注");
+			   			Concern = 1;
+			  		}
+			 	});
+			 	/*点击关注已关注结束*/
+			 	
+			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
+		 		$(".video-bottom img").click(function(){
+			 		$("#userCusEvent").show();
+			 	});
+			 	
+			 	/*鼠标礼物img上的效果开始*/
+			 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
+		        for(i=0;i<aBtn.length;i++){
+		            $(aBtn[i]).mouseover(function(){
+		              	for(i=0;i<aBtn.length;i++){
+		                	$(aBtn[i]).removeClass('surprise-top-li-border');
+		                	$(aBtn[i]).addClass('li-initial-border');
+		                	$(this).removeClass('li-initial-border');
+		                	$(this).addClass('surprise-top-li-border');
+		                	
+		                	$(this).find('.surprise-hide').show();
+		              	}
+		            });
+		            $(aBtn[i]).mouseout(function(){
+		              	for(i=0;i<aBtn.length;i++){
+		                	$(aBtn[i]).removeClass('surprise-top-li-border');
+		                	$(this).addClass('li-initial-border');
+		                	$(this).find('.surprise-hide').hide();
+		              	}
+		            });
+		        };
+			 	/*鼠标礼物img上的效果结束*/
+			};
+		</script>
 </head>
 
 <body>
@@ -252,7 +502,6 @@
 			<span class="liveTime">直播时间：<span></span></span>
 		</div>
 		
-		
 		<!-- right start -->
 		<div class="right">
 			
@@ -260,15 +509,9 @@
 			
 		</div>
 		
-		
-		
-		
 		<div id="livePlayer">
 			 <!-- <iframe id="vhall-video" src="" width="100%" height="100%" style="border-width:0;"></iframe> -->
-			
-
-		 	<div class=layer id=userCusEvent style="display:block">
-
+		 	<div class=layer id=userCusEvent style="display:block !important">
 				<div class=layer id=userCusEvent style="display:none">
 					<div class=layer-header >
 						测试自定义消息 <img
@@ -292,7 +535,10 @@
 				<div class=player-container>
 					<div class=video id=video></div>
 					<div class=doc id=doc></div>
+					
 				</div>
+				
+				
 				<div class=container>
 					<div class=help-wrap>
 						<div class=help-tool>小助手</div>
@@ -348,6 +594,129 @@
 
 
 			</div>
+		
+			<!--添加底部礼物区-->
+				<div class="video-bottom">
+					<!--左侧关注-->
+					<div class="concern">
+						<img src="../images/5.jpg" alt="" class="concern-img" />
+						<div class="concern-left">
+							<div class="concern-name">我是超人超人你是谁</div>
+							<div class="concern-number">
+								<span>关注&nbsp;2020</span>
+								<span>粉丝&nbsp;2000</span>
+							</div>
+						</div>
+						<div class="concern-right concern-click">加关注</div>
+					</div>
+					<!--右侧礼物区-->
+					<div class="surprise">
+						<div class="surprise-top">
+							<ul class="surprise-mouseover-ul">
+								<li class="li-initial-border">
+									<img src="../images/04.png" />
+									<div class="surprise-hide">
+										<div class="surprise-show">
+											<div class="surprise-show-img">
+												<img src="../images/1.jpg" style="width: 80px;height: 64px;margin-top: 8px;" />
+											</div>
+											<div class="surprise-show-name" style="width: 150px;margin-left: 110px;">
+												<div class="surprise-show-title">
+													<span class="show-name">杏仁条</span><span class="show-number">0熊猫币</span>
+												</div>
+												<div class="surprise-presented">赠送</div>
+											</div>
+										</div>
+										<div class="aspect-down"></div>
+									</div>
+								</li>
+								<li class="li-initial-border">
+									<img src="../images/04.png" />
+									<div class="surprise-hide">
+										<div class="surprise-show">
+											<div class="surprise-show-img">
+												<img src="../images/1.jpg" style="width: 80px;height: 64px;margin-top: 8px;" />
+											</div>
+											<div class="surprise-show-name" style="width: 150px;margin-left: 110px;">
+												<div class="surprise-show-title">
+													<span class="show-name">杏仁条</span><span class="show-number">0熊猫币</span>
+												</div>
+												<div class="surprise-presented">赠送</div>
+											</div>
+										</div>
+										<div class="aspect-down"></div>
+									</div>
+								</li>
+								<li class="li-initial-border">
+									<img src="../images/04.png" />
+									<div class="surprise-hide">
+										<div class="surprise-show">
+											<div class="surprise-show-img">
+												<img src="../images/1.jpg" style="width: 80px;height: 64px;margin-top: 8px;" />
+											</div>
+											<div class="surprise-show-name" style="width: 150px;margin-left: 110px;">
+												<div class="surprise-show-title">
+													<span class="show-name">杏仁条</span><span class="show-number">0熊猫币</span>
+												</div>
+												<div class="surprise-presented">赠送</div>
+											</div>
+										</div>
+										<div class="aspect-down"></div>
+									</div>
+								</li>
+								<li class="li-initial-border">
+									<img src="../images/04.png" />
+									<div class="surprise-hide">
+										<div class="surprise-show">
+											<div class="surprise-show-img">
+												<img src="../images/1.jpg" style="width: 80px;height: 64px;margin-top: 8px;" />
+											</div>
+											<div class="surprise-show-name" style="width: 150px;margin-left: 110px;">
+												<div class="surprise-show-title">
+													<span class="show-name">杏仁条</span><span class="show-number">0熊猫币</span>
+												</div>
+												<div class="surprise-presented">赠送</div>
+											</div>
+										</div>
+										<div class="aspect-down"></div>
+									</div>
+								</li>
+								<li class="li-initial-border">
+									<img src="../images/1.jpg" />
+									<div class="surprise-hide">
+										<div class="surprise-show">
+											<div class="surprise-show-img">
+												<img src="../images/1.jpg" style="width: 80px;height: 64px;margin-top: 8px;" />
+											</div>
+											<div class="surprise-show-name" style="width: 150px;margin-left: 110px;">
+												<div class="surprise-show-title">
+													<span class="show-name">杏仁条</span><span class="show-number">0熊猫币</span>
+												</div>
+												<div class="surprise-presented">赠送</div>
+											</div>
+										</div>
+										<div class="aspect-down"></div>
+									</div>
+								</li>
+								
+								<!--<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/1.jpg" /></li>-->
+							</ul>
+							<div class="both"></div>
+							<div class="bottom-span">
+								<span>熊猫币 0</span>
+								<span>充值</span>
+							</div
+						</div>
+						<div class="surprise-bottom"></div>
+					</div>
+				</div>
+				
+		
 		</div>
 
 		<!--打赏部分html代码-->

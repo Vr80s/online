@@ -59,16 +59,4 @@ public class BBSUserStatusDao extends SimpleHibernateDao {
         return this.findPageBySQL(sql, params, BBSOnlineUserVo.class,
                 tableVo.getCurrentPage(), tableVo.getiDisplayLength());
     }
-
-    public String findByMobile(String mobile) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("mobile", mobile);
-        String sql = "SELECT u.id FROM oe_user u WHERE u.mobile = :mobile";
-        List<String> onlineUserIds = this.getNamedParameterJdbcTemplate()
-                .queryForList(sql, params, String.class);
-        if (!onlineUserIds.isEmpty()) {
-            return onlineUserIds.get(0);
-        }
-        return null;
-    }
 }

@@ -61,15 +61,17 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         if(tagId==null){
             paramMap.put("type",type);
             sql=" SELECT b.id,b.title,b.content,b.img_path,b.create_time,b.`user_id` name, Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId," +
+                " if(b.recommend_time< now(),0,b.sort) sort,"+
                 "  Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\") tag FROM oe_bxs_article b,article_r_tag ar,oe_bxs_tag t" +
                 " where  b.id= ar.article_id and ar.tag_id=t.id and b.is_delete=0 " +
-                " and b.status=1 and b.type_id=:type  GROUP BY b.id  order by b.create_time desc";
+                " and b.status=1 and b.type_id=:type  GROUP BY b.id  order by sort desc,b.create_time desc";
         }else{
             paramMap.put("tagId",tagId);
             sql=" SELECT b.id,b.title,b.content,b.img_path,b.create_time,b.`user_id` name,  Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\")  tagId," +
+                    " if(b.recommend_time< now(),0,b.sort) sort,"+
                     " Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\")  tag FROM oe_bxs_article b,article_r_tag ar,oe_bxs_tag t" +
                     " where  b.id= ar.article_id and ar.tag_id=t.id and b.is_delete=0 " +
-                    " and b.status=1 and b.id  in (select article_id from article_r_tag  where status=1 and  tag_id=:tagId)  GROUP BY b.id  order by b.create_time desc";
+                    " and b.status=1 and b.id  in (select article_id from article_r_tag  where status=1 and  tag_id=:tagId)  GROUP BY b.id  order by sort desc,b.create_time desc";
         }
         return dao.findPageBySQL(sql, paramMap, ArticleVo.class, pageNumber, pageSize);
     }
@@ -84,7 +86,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("t1", HeadlineType.DJZL.getCode());
         paramMap.put("t2",HeadlineType.MYBD.getCode());
-        String sql="select id, title from oe_bxs_article where is_delete=0 and `status`=1 and browse_sum>0  order by browse_sum desc limit 7";
+        String sql="select id, title from oe_bxs_article where is_delete=0 and `status`=1 and browse_sum>0  order by browse_sum desc limit 20";
         return  dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
     }
 

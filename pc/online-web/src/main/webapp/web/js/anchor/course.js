@@ -12,7 +12,35 @@ $(function(){
     $(".addCourse").click(function(){
         saveCourse();
     });
-    $(".courseP").click(function(){
+    
+    
+  
+   
+    $("input[name='collection_multimedia_type']").change(function(){
+        $(".collection_courses").html("");
+        courseArr=[];
+    });
+    $(".select_time").change(function(){
+//      debugger
+        $(this).val($(this).val());
+    });
+    
+    //课程自动筛选
+    $('#course_type').change(function(){
+    	$('.course_search').click();
+    })
+    
+      //专辑自动筛选
+    $('#course_collection_type').change(function(){
+    	$('.course_collection_search').click();
+    })
+});
+
+
+
+
+  //渲染课程列表方法
+    function getCourseList(){
     	$('#course_name').val('')
     	$("#course_type option:first").prop("selected", 'selected');
         courseList(1);
@@ -49,6 +77,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+              initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -88,6 +118,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+              initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -95,10 +127,17 @@ $(function(){
             imagePopup:false,
             maximumWords:10000       //允许的最大字符数
         });
-    });
-    $(".specialP").click(function(){
-//  	$('#course_collection_type option:first-child').attr('selected','selected')
-		$('#course_collection_name').val('');
+    }
+    
+    
+    
+  //渲染专辑的方法
+  function getZhuanjiList(){
+  		//显示专辑部分，隐藏新专辑部分
+  	 	$("#zhuanji_bottom2").show();
+	    $("#zhuanji_bottom").hide();
+	    
+  		$('#course_collection_name').val('');
     	$("#course_collection_type option:first").prop("selected", 'selected');
         courseCollectionList(1);
         initCourse(1);
@@ -134,6 +173,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+             initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -173,6 +214,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+            initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -212,6 +255,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+            initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -219,33 +264,25 @@ $(function(){
             imagePopup:false,
             maximumWords:10000       //允许的最大字符数
         });
-    });
-    $(".liveP").click(function(){
-        courseLiveList(1);
+  }
+
+
+	//渲染直播方法
+	function getLiveList(){
+		courseLiveList(1);
         initVhallInfo();
-    });
-    $(".resourceP").click(function(){
-        courseResourceList(1);
-    });
-    $("input[name='collection_multimedia_type']").change(function(){
-        $(".collection_courses").html("");
-        courseArr=[];
-    });
-    $(".select_time").change(function(){
-//      debugger
-        $(this).val($(this).val());
-    });
-    
-    //课程自动筛选
-    $('#course_type').change(function(){
-    	$('.course_search').click();
-    })
-    
-      //专辑自动筛选
-    $('#course_collection_type').change(function(){
-    	$('.course_collection_search').click();
-    })
-});
+	}
+
+
+//渲染资源方法
+function getResourceList(){
+	//上传资源隐藏，默认部分显示
+	 $(".resource_two").show();
+	 $(".resource_one").hide();
+	 //资源列表渲染
+	 courseResourceList(1);
+}
+
 
 /**
  * Description：课程列表
@@ -342,7 +379,7 @@ function addCourse(course){
             if(data.success === true) {
                 showTip(data.resultObject);
                 resetCourseForm(true);
-                setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
+                setTimeout(function(){ $(".courseP").click() }, 2000);
             } else {
                 showTip(data.errorMessage)
             }
