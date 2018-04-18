@@ -77,6 +77,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+              initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -116,6 +118,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+              initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
