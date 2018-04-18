@@ -729,7 +729,7 @@ $(".recruit-save-btn-menuone").click(function(){
 })
 //招聘管理列表
 var recruits;
-recruitList(1)
+
 function recruitList(pages){
 	RequestService("/medical/hospitalRecruit","GET",{
 		"page":pages
@@ -766,9 +766,11 @@ function recruitList(pages){
 
 //招聘管理部分,点击后回到第一页
 $("#collect_Administration_tabBtn").click(function(){
+	
 	if($('.recruit-btn-newjob').text() == '返回'){
 			$('.recruit-btn-newjob').click()
 		}
+	recruitList(1)
 })
 //招聘管理部分,点击预览
 function recruit_preview_btn(i){
@@ -800,18 +802,23 @@ $(".recruit_preview_content img").click(function(){
 	$(".recruit_preview_bg").hide()
 	$(".recruit_preview_box").hide()	
 })
-//招聘管理部分,开启/关闭招聘
+//招聘管理部分,开启/关闭招聘按钮
 function recruit_close_btn(t){
 	var id = $(t).attr('data-id');
 	var status = $(t).attr('data-status');
 	RequestService("/medical/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
 		if(data.success == true){
+			if(status==0){
+				showTip("关闭成功");
+			}else{
+				showTip("发布成功");
+			}
 			//重新渲染列表
 			 recruitList(1);
 		}			
 	});
 }
-//删除招聘信息，点击删除--------------------------------------------------------------
+//招聘管理部分，点击删除招聘信息
 function delete_recruit_btn(t){
 	var data_deleteId=$(t).attr("data-deleteId");
 	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
@@ -906,8 +913,8 @@ $(".recruit-edit-btn").click(function(){
 	};
 })
 //招聘管理部分结束
-//	公告部分
-//	公告部分点击发布效果
+//--------------------------------------招聘管理部分结束,招聘公告部分开始---------------------------------------
+//	招聘公告部分，点击发布按钮
 var NoticeCount = 1;
 $('#Notice_Administration .Notice_top button').click(function() {
 	NoticeCount *= -1;
@@ -933,6 +940,7 @@ $("#news_Administration_tabBtn").click(function(){
 	if($(".Notice_top button").text() == '返回'){
 		$(".Notice_top button").click();
 	}
+	announcementMethod(1)
 })
 //公告发布接口调用
 $("#notice-release-btn").click(function(){
@@ -961,7 +969,7 @@ $("#notice-release-btn").click(function(){
 
 var announcementList;
 //公告管理列表接口调用
-announcementMethod(1)
+
 function announcementMethod(current){
 RequestService("/hospital/announcement","GET",{
 	"page":current
