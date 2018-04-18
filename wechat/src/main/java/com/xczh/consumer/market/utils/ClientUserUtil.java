@@ -19,6 +19,7 @@ import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.Base64;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
+import com.xczhihui.bxg.common.util.SLEmojiFilter;
 import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;

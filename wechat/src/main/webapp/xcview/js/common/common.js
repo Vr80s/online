@@ -533,9 +533,11 @@ if(!stringnull(userId)){
  */
 function common_share_back(){
     var back = document.referrer;
-	if(stringnull(back)){
+	if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
+		//alert("1111"+back);
 		window.history.back();
 	}else{
+		//alert("2222"+back);
 		window.location.href = "home_page.html";
 	}
 }

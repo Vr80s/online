@@ -24,17 +24,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.FocusService;
-import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.online.api.service.GiftService;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
-import com.xczhihui.wechat.course.util.XzStringUtils;
 
 /**
  * 通用控制器

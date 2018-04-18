@@ -1,28 +1,23 @@
 package com.xczh.consumer.market.controller.live;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.GiftService;
-import com.xczh.consumer.market.utils.ResponseObject;
-
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import org.jivesoftware.smack.SmackException;
-import org.jivesoftware.smack.XMPPException;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.XMPPException;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.utils.ResponseObject;
 
 
 /**
@@ -36,13 +31,13 @@ import java.util.Map;
 public class GiftController {
 
 
-	@Autowired
-	@Qualifier("giftServiceLocal")
-	private GiftService giftService;
-
-	@Autowired()
-	@Qualifier("giftServiceImpl")
-	private com.xczhihui.bxg.online.api.service.GiftService remoteGiftService;
+//	@Autowired
+//	@Qualifier("giftServiceLocal")
+//	private GiftService giftService;
+//
+//	@Autowired()
+//	@Qualifier("giftServiceImpl")
+//	private com.xczhihui.bxg.online.api.service.GiftService remoteGiftService;
 
 	@Autowired
 	private AppBrowserService appBrowserService;
@@ -65,22 +60,23 @@ public class GiftController {
 	@RequestMapping(value = "/sendGift")
 	public ResponseObject sendGift(HttpServletRequest req,HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
 
-		Map<String, String> params=new HashMap<>();
-		params.put("token",req.getParameter("token"));
-		OnlineUser user =appBrowserService.getOnlineUserByReq(req);
-		if(user==null){
-			return ResponseObject.newErrorResponseObject("登录失效");
-		}
-		LOGGER.info("====================="+user.getId());
-		
-		String giftId = req.getParameter("giftId");
-		String liveId = req.getParameter("liveId");
-		Integer clientType = Integer.valueOf(req.getParameter("clientType"));
-		Integer count = Integer.valueOf(req.getParameter("count"));
-		String receiverId = req.getParameter("receiverId");
-		Map<String,Object> map=null;
-		map=remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
-		return ResponseObject.newSuccessResponseObject(map);
+		return ResponseObject.newErrorResponseObject("请更新最新版本");
+//		Map<String, String> params=new HashMap<>();
+//		params.put("token",req.getParameter("token"));
+//		OnlineUser user =appBrowserService.getOnlineUserByReq(req);
+//		if(user==null){
+//			return ResponseObject.newErrorResponseObject("登录失效");
+//		}
+//		LOGGER.info("====================="+user.getId());
+//		
+//		String giftId = req.getParameter("giftId");
+//		String liveId = req.getParameter("liveId");
+//		Integer clientType = Integer.valueOf(req.getParameter("clientType"));
+//		Integer count = Integer.valueOf(req.getParameter("count"));
+//		String receiverId = req.getParameter("receiverId");
+//		Map<String,Object> map=null;
+//		map=remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
+//		return ResponseObject.newSuccessResponseObject(map);
 	}
 
 	/**
@@ -96,19 +92,21 @@ public class GiftController {
 	public ResponseObject list(HttpServletRequest req,
 							   HttpServletResponse res, Map<String, String> params) throws SQLException {
 
+		
+		return ResponseObject.newErrorResponseObject("请更新最新版本");
 //		OnlineUser user =appBrowserService.getOnlineUserByReq(req, params); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 //		if(user==null){
 //			return ResponseObject.newErrorResponseObject("登录失效");
 //		}
-		int pageNumber = 0;
-		if(null != req.getParameter("pageNumber")){
-			pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
-		}
-		int pageSize = 0;
-		if(null != req.getParameter("pageSize")){
-			pageSize = Integer.valueOf(req.getParameter("pageSize"));
-		}
-		return ResponseObject.newSuccessResponseObject(giftService.listAll(pageNumber,pageSize));
+//		int pageNumber = 0;
+//		if(null != req.getParameter("pageNumber")){
+//			pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
+//		}
+//		int pageSize = 0;
+//		if(null != req.getParameter("pageSize")){
+//			pageSize = Integer.valueOf(req.getParameter("pageSize"));
+//		}
+//		return ResponseObject.newSuccessResponseObject(giftService.listAll(pageNumber,pageSize));
 	}
 
 
@@ -124,7 +122,9 @@ public class GiftController {
 	@RequestMapping(value = "/rankingList")
 	public ResponseObject rankingList(HttpServletRequest req,
 									  HttpServletResponse res) throws SQLException {
-		int pageNumber = 0;
+		
+		return ResponseObject.newErrorResponseObject("请更新最新版本");
+		/*int pageNumber = 0;
 		if(null != req.getParameter("pageNumber")){
 			pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
 		}
@@ -133,6 +133,7 @@ public class GiftController {
 			pageSize = Integer.valueOf(req.getParameter("pageSize"));
 		}
 		return ResponseObject.newSuccessResponseObject(giftService.rankingList(req.getParameter("liveId"),Integer.valueOf(req.getParameter("type")),pageNumber,pageSize));
+	*/
 	}
 
 	/**
@@ -148,6 +149,7 @@ public class GiftController {
 	public ResponseObject userRankingList(HttpServletRequest req,
 										  HttpServletResponse res,String userId) throws SQLException {
 
-		return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
+		return ResponseObject.newErrorResponseObject("请更新最新版本");
+		//return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
 	}
 }

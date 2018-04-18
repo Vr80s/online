@@ -8,9 +8,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,15 +20,16 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.DateUtil;
 import com.xczh.consumer.market.utils.MessageConstant;
 import com.xczh.consumer.market.utils.MessageUtil;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.wxmessage.resp.Article;
 import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
 import com.xczh.consumer.market.wxmessage.resp.TextMessage;
 import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
+import com.xczhihui.bxg.common.util.SLEmojiFilter;
+
+import net.sf.json.JSONObject;
 
 @Service
 public class CoreMessageServiceImpl implements CoreMessageService {

@@ -9,7 +9,6 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,14 +32,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.*;
+import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.Broadcast;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczhihui.bxg.online.api.vo.LiveExamineInfo;
 import com.xczhihui.bxg.online.api.service.LiveExamineInfoService;
+import com.xczhihui.bxg.online.api.vo.LiveExamineInfo;
 
 //import java.util.UUID;
 
@@ -59,23 +56,9 @@ public class LiveController {
     @Autowired
     private OnlineCourseService onlineCourseService;
 
-    @Autowired
-    private FocusService focusService;
-
-    @Autowired
-    private AppBrowserService appBrowserService;
-
-    @Autowired
-    private GiftService giftService;
-
-    @Autowired
-    private OnlineWebService onlineWebService;
 
     @Autowired
     private LiveExamineInfoService liveExamineInfoService;
-
-    @Autowired
-    private OLAttachmentCenterService service;
 
 
     @Value("${gift.im.room.postfix}")
