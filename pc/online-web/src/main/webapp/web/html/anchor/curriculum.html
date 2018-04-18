@@ -788,14 +788,14 @@
 							<div class="select live offline special">
 								<span><em>*</em>开课时间</span>
 								<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择开课时间" readonly="readonly" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time" />-->
-								<input type="text"  id="test04" readonly="readonly" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time">
+								<input type="text"  id="tiemPlu1" readonly="readonly" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time">
 								<p class="warning warning_course_start_time hide">开课时间不能为空</p>
 								<p class="warning warning_course_time1 hide">开课时间应大于当前时间</p>
 							</div>
 	
 							<div class="select offline special">
 								<span><em>*</em>结课时间</span>
-								<input type="text"  id="test05" readonly="readonly" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_end_time">
+								<input type="text"  id="tiemPlu2" readonly="readonly" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_end_time">
 								
 								<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" readonly="readonly" class="select_time course_end_time" />-->
 								<p class="warning warning_course_end_time hide">结课时间不能为空</p>
@@ -1757,10 +1757,10 @@
 								<option value="3">线下</option>
 						</select>
 						<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">-->
-						<input type="text"  id="test06" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
+						<input type="text"  id="tiemPlu3" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
 						至
 						<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">-->
-						<input type="text"  id="test07" readonly="readonly" placeholder="订单时间"  style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
+						<input type="text"  id="tiemPlu4" readonly="readonly" placeholder="订单时间"  style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
 						
 						<button class="order_search_btn" onclick="searchCourseResiveList()">搜索</button>
 					</div>
@@ -1891,11 +1891,11 @@
 					<div class="gift_Resive_mid">
 						<input type="text" placeholder="课程名称" class="search_classIpt giftSearch_Name"/>
 						<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_start_time">-->
-						<input type="text"  id="test08" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_start_time">
+						<input type="text"  id="tiemPlu5" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_start_time">
 						
 						至
 						<!--<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_end_time">-->
-						<input type="text"  id="test09" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_end_time">
+						<input type="text"  id="tiemPlu6" readonly="readonly" placeholder="订单时间" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_end_time">
 						
 						<button class="order_search_btn" onclick="searchgiftResiveList()">搜索</button>
 					</div>
@@ -2734,30 +2734,30 @@
  		var month = data.getMonth() + 1;
  		var day = data.getDate();
 
-		 $("#test04").jeDate({
+		 $("#tiemPlu1").jeDate({
 		        format: "YYYY-MM-DD hh:mm",
 		        minDate: ""+year+"-"+month+"-"+day+" 00:00"
 		   });
 		   
-		   $("#test05").jeDate({
+		   $("#tiemPlu2").jeDate({
 		        format: "YYYY-MM-DD hh:mm",
 		        minDate: ""+year+"-"+month+"-"+day+" 00:00"
 		   });
 		
-		  $("#test06").jeDate({
+		  $("#tiemPlu3").jeDate({
 		        format: "YYYY-MM-DD hh:mm:ss"
 		   });
 	   
 	   
-	   $("#test07").jeDate({
+	   $("#tiemPlu4").jeDate({
 	        format: "YYYY-MM-DD hh:mm:ss"
 	   });
 	   
-	     $("#test08").jeDate({
+	     $("#tiemPlu5").jeDate({
 	        format: "YYYY-MM-DD hh:mm:ss"
 	   });
 	   
-		  $("#test09").jeDate({
+		  $("#tiemPlu6").jeDate({
 		        format: "YYYY-MM-DD hh:mm:ss"
 		   });
 	
@@ -2925,7 +2925,7 @@ $(function(){
 		 $("#accordion a[data-name='menu=4-2']").click();
 	}
 	//定位之后清楚
-	localStorage.leftTblSta = '';	
+//	localStorage.leftTblSta = '';	
 	
 }
 	 
