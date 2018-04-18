@@ -42,8 +42,6 @@
 	charset="utf-8"></script>
 <script src=//apps.bdimg.com/libs/underscore.js/1.7.0/underscore-min.js></script>
 
-
-
 <script src="/web/js/artTemplate.js" type="text/javascript"
 	charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/bootstrap.js"></script>
@@ -137,6 +135,51 @@
                 }
             })()
 		</script>
+		
+		<style type="text/css">
+			.layer{
+				position: inherit;
+			    width: 100%;
+			    height: 100%;
+			    margin-left: 0 !important;
+			    margin-top: 0;
+			}
+			.page-pc .player-container{
+				width: 100%;
+			}
+			.page-pc .doc{
+				height: 88%;
+			}
+			.page-pc .video{
+				width: 100%;
+			    height: 88%;
+			    z-index: 4;
+			    background: red;
+			    border-bottom: 1px solid blue;
+			}
+			
+			/*动画区*/
+			.animation{
+				width: 294px;
+				height: 168px;
+				position: absolute;
+				top: 0;
+				/*right: 320px;*/
+			}
+			.animation-cut{
+				width: 20px;
+				height: 20px;
+				background: red;
+				float: left;
+			}
+			.animation-shrink{
+				width: 20px;
+				height: 20px;
+				background: blue;
+				float: right;
+			}
+		</style>
+		
 </head>
 
 <body>
@@ -145,9 +188,13 @@
 		style='padding: 0 20px; bottom: 65px; right: 85px; display: none; position: fixed; text-align: center; color: white; line-height: 60px; height: 60px; background: #000; opacity: 0.5; z-index: 1000; filter: alpha(opacity = 30);'></div>
 
 	<!--   直播区域    -->
-
 	<div class="livePlayer" style="position: relative">
-	
+		<!--动画代码视频文档小框--右侧-->
+		<div class="animation">
+			<div class="animation-cut"></div>
+			<div class="animation-shrink"></div>
+		</div>
+		
 		<!--弹幕得div-->
 		<div id='boxDom'
 			style="background-color: transparent; position: absolute; height: 100%"></div>

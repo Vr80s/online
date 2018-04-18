@@ -11,9 +11,8 @@ var hostName ="";
 function chZJ(videoId){
 	
 	//获取开播时间和
-	
     var map;
-    requestService("/bxg/common/getWeihouSign", {video:videoId}, function(data) {
+    requestService("/xczh/common/getWeihouSign", {video:videoId}, function(data) {
     	map  = data.resultObject;
     },false)
     $("#video").html("");

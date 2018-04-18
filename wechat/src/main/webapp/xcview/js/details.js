@@ -655,7 +655,7 @@ if (is_weixin()) {
 				$(".weixin_ceng").hide();
 				$(".share").hide();
 				// alert("分享成功");
-			},
+			}, 
 			cancel : function() {
 				// 用户取消分享后执行的回调函数
 				// /alert("取消分享");
