@@ -403,9 +403,6 @@
 			}
 			.aspect-down{ 
 				position: absolute;
-			    /*top: -14px;*/
-			    /*left: 17px;*/
-			    /*bottom: -34px;*/
 			    bottom: 2px;
     			left: 130px;
 		        width:0px; 
@@ -441,9 +438,13 @@
 		    	top: 0;
 		    	right: 0;
 		    	width: 310px;
-		    	height: 176px;
-		    	background: #242424;
+		    	/*height: 176px;*/
+		    	/*background: #242424;*/
 		    	z-index: 100;
+		    }
+		    .toptenreviews-center{
+		    	height: 176px;
+    			background: #242424;
 		    }
 		    .toptenreviews-title{
 		    	width: 100%;
@@ -455,21 +456,47 @@
 	    	    border-bottom: 1px solid #6c6b6b;
 		    }
 		    .toptenreviews-crew{
-		    	margin-top: 12px;
+		    	cursor: pointer;
 		    }
 		    .toptenreviews-crew .billboard-float{
 		     	float: left;
 		    }
+		    .billboard-one-bg{
+		    	width: 48px;
+		    	height: 58px;
+		    	background: url(../images/two.png) no-repeat;
+		    	background-size: 48px 58px;
+		    	margin: 0 auto;
+    			margin-top: 18px;
+		    }
+		    .billboard-two-bg{
+		    	width: 58px;
+		    	height: 68px;
+		    	background: url(../images/one.png) no-repeat;
+		    	background-size: 58px 68px;
+		    	margin: 0 auto;
+    			margin-top: 8px;
+		    }
+		    .billboard-three-bg{
+		    	width: 48px;
+		    	height: 58px;
+		    	background: url(../images/three.png) no-repeat;
+		    	background-size: 48px 58px;
+		    	margin: 0 auto;
+    			margin-top: 18px;
+		    }
 		    .toptenreviews-crew div img{
 		    	width: 40px;
-		    	height: 40px;
-		    	border-radius: 100px;
-		    	margin: 0 auto;
-    			display: block;
+			    height: 40px;
+			    border-radius: 100px;
+			    margin: 0 auto;
+			    margin-top: 14px;
+			    margin-left: 4px;
+			    display: inline-block;
 		    }
 		    .billboard-two img{
-		    	width: 50px;
-		    	height: 50px;
+		    	width: 50px !important;
+		    	height: 50px !important;
 		    }
 		    .toptenreviews-crew .billboard-name{
 		    	width: 100px;
@@ -489,6 +516,57 @@
 				text-align: center;
 				font-size: 12px;
 				color: #F97B49;
+		    }
+		    /*列表*/
+		    .toptenreviews-list{
+		    	position: absolute;
+				top: 176px;
+		    	left: 0;
+		    	width: 100%;
+		    	background: #242424;
+		    	max-height: 500px;
+		    	overflow-y: scroll;
+		    	display: none;
+		    }
+			.toptenreviews-list-center{
+				width: 100%;
+			    height: 30px;
+			    line-height: 30px;
+			    margin-top: 20px;
+			    padding: 0 16px;
+			}		    
+		    .toptenreviews-list-img{
+		    	float: left;
+		    }
+		    .toptenreviews-list-center .number{
+		    	margin-right: 14px;
+		    }
+		    .toptenreviews-list-center span{
+		    	font-size: 12px;
+		    	color: #999;
+		    	display: inline-block;
+		    	float: left;
+		    }
+		    .toptenreviews-list-img img{
+		    	width: 30px;
+		    	height: 30px;
+		    	border-radius: 60px;
+		    	margin-right: 10px;
+		    }
+		    .toptenreviews-list-size{
+		    	width: 117px;
+		    	overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				float: left;
+				font-size: 12px;
+				color: #FFFFFF;
+		    }
+		    .toptenreviews-list-number{
+		    	float: right;
+		    }
+		    .toptenreviews-list-center:last-child{
+		    	padding-bottom: 50px;
 		    }
 		    /*排行榜结束*/
 		    
@@ -539,6 +617,18 @@
 		            });
 		        };
 			 	/*鼠标礼物img上的效果结束*/
+			 	
+			 	/*鼠标放排行榜上查看效果开始*/
+			 	$(".mouseover").mouseover(function(){
+			 		$(".toptenreviews-list").show();
+			 	});
+			 	$(".toptenreviews-list").mouseover(function(){
+			 		$(this).show();
+			 	});
+			 	$(".toptenreviews").mouseout(function(){
+			 		$(".toptenreviews-list").hide();
+			 	});
+			 	/*鼠标放排行榜上查看效果结束*/
 			};
 		</script>
 </head>
@@ -704,28 +794,66 @@
 				
 				<!--排行榜开始-->
 				<div class="toptenreviews">
-					<div class="toptenreviews-center">
+					<div class="toptenreviews-center mouseover">
 						<div class="toptenreviews-title">排行榜</div>
 						<div class="toptenreviews-crew">
 							<div class="billboard-one billboard-float">
-								<div class="billboard-one-bg"><img src="../images/two.png" /></div>
+								<div class="billboard-one-bg"><img src="../images/Android.png" /></div>
 								<p class="billboard-name">我是名字我是名字我是名字</p>
 								<p class="billboard-number">贡献 100</p>
 							</div>
-							<div class="billboard-two billboard-float">
-								<div class="billboard-two-bg"><img src="../images/one.png" /></div>
+							<div class="billboard-two billboard-float mouseover">
+								<div class="billboard-two-bg"><img src="../images/Android.png" /></div>
 								<p class="billboard-name">我是名字我是名字我是名字</p>
 								<p class="billboard-number">贡献 100</p>
 							</div>
-							<div class="billboard-three billboard-float">
-								<div class="billboard-three-bg"><img src="../images/three.png" /></div>
+							<div class="billboard-three billboard-float mouseover">
+								<div class="billboard-three-bg"><img src="../images/Android.png" /></div>
 								<p class="billboard-name">我是名字我是名字我是名字</p>
 								<p class="billboard-number">贡献 100</p>
 							</div>
 							<div class="both"></div>
 						</div>
 					</div>
-					<div class="toptenreviews-list"></div>
+					<div class="toptenreviews-list">
+						<div class="toptenreviews-list-center">
+							<span class="number">4</span>
+							<div class="toptenreviews-list-img"><img src="../images/1.jpg" /></div>
+							<div class="toptenreviews-list-size">我是名字我是名字我是名字</div>
+							<div class="toptenreviews-list-number">
+								<span>贡献&nbsp;&nbsp;</span>
+								<span>1000</span>
+							</div>
+						</div>
+						<div class="toptenreviews-list-center">
+							<span class="number">5</span>
+							<div class="toptenreviews-list-img"><img src="../images/1.jpg" /></div>
+							<div class="toptenreviews-list-size">我是名字我是名字我是名字</div>
+							<div class="toptenreviews-list-number">
+								<span>贡献&nbsp;&nbsp;</span>
+								<span>1000</span>
+							</div>
+						</div>
+						<div class="toptenreviews-list-center">
+							<span class="number">6</span>
+							<div class="toptenreviews-list-img"><img src="../images/1.jpg" /></div>
+							<div class="toptenreviews-list-size">我是名字我是名字我是名字</div>
+							<div class="toptenreviews-list-number">
+								<span>贡献&nbsp;&nbsp;</span>
+								<span>1000</span>
+							</div>
+						</div>
+						<div class="toptenreviews-list-center">
+							<span class="number">7</span>
+							<div class="toptenreviews-list-img"><img src="../images/1.jpg" /></div>
+							<div class="toptenreviews-list-size">我是名字我是名字我是名字</div>
+							<div class="toptenreviews-list-number">
+								<span>贡献&nbsp;&nbsp;</span>
+								<span>1000</span>
+							</div>
+						</div>
+						
+					</div>
 				</div>
 				<!--排行榜结束-->
 
