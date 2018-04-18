@@ -685,7 +685,7 @@
 			<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="tel"><font color="red">*</font>联系电话: </label>
 			<div class="col-sm-6">
-				 <input type="text" name="tel"  id="tel" maxlength="50"  class="col-xs-10 col-sm-12 {required:true}">
+				 <input type="text" name="tel"  id="tel" maxlength="11"  class="col-xs-10 col-sm-12 {required:true}">
 			 </div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;">
@@ -823,7 +823,7 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="tel"><font color="red">*</font>联系电话: </label>
 			<div class="col-sm-6">
-				<input type="text" name="tel"  id="edit_tel" maxlength="20"  class="col-xs-10 col-sm-12 {required:true}">
+				<input type="text" name="tel"  id="edit_tel" maxlength="11"  class="col-xs-10 col-sm-12 {required:true}">
 			</div>
 		</div>
 

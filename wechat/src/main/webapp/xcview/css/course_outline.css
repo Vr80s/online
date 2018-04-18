@@ -114,6 +114,9 @@ header {
     padding: 0.3rem 0;
     word-wrap: break-word;
 }
+.outline_list_ul img{
+    max-height: 15rem;
+}
 /*中间内容结束*/
 
 

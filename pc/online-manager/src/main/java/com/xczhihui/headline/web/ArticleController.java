@@ -79,11 +79,7 @@ public class ArticleController extends AbstractController {
             searchVo.setStatus(Integer.parseInt(status.getPropertyValue1()
                     .toString()));
         }
-        Group isRecommend = groups.findByName("search_isRecommend");
-        if (isRecommend != null && !StringUtils.isBlank(isRecommend.getPropertyValue1().toString())) {
-            searchVo.setIsRecommend("1".equals(isRecommend.getPropertyValue1()
-                    .toString()));
-        }
+
         Group startTime = groups.findByName("startTime");
         if (startTime != null) {
             searchVo.setStartTime(DateUtil.parseDate(startTime
@@ -210,15 +206,18 @@ public class ArticleController extends AbstractController {
     }
 
     /**
-     * 推荐
-     *
-     * @param id id
-     * @return
-     */
-    @RequestMapping(value = "recommend", method = RequestMethod.POST)
+     * Description：设置文章推荐值
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/4/18 10:00
+     **/
+    @RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject recommend(Integer id) {
-        articleService.updateRecommend(id);
-        return ResponseObject.newSuccessResponseObject("操作成功！");
+    public ResponseObject updateRecommendSort(Integer id, Integer recommendSort, String recommendTime) {
+        ResponseObject responseObject = new ResponseObject();
+        articleService.updateRecommendSort(id, recommendSort, recommendTime);
+        responseObject.setSuccess(true);
+        responseObject.setResultObject("修改成功!");
+        return responseObject;
     }
 }

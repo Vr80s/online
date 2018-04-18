@@ -1,9 +1,6 @@
 package com.xczhihui.bbs.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +12,15 @@ import com.xczhihui.bxg.online.common.domain.BBSUserStatus;
 import com.xczhihui.bxg.online.common.domain.Message;
 import com.xczhihui.message.dao.MessageDao;
 import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.user.dao.OnlineUserDao;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
 
+/**
+ * @author hejiwei
+ */
 @Service
 public class BBSRestrictionServiceImpl implements BBSRestrictionService {
 
@@ -34,6 +35,8 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
     private BBSUserStatusDao bbsUserStatusDao;
     @Autowired
     private MessageDao messageDao;
+    @Autowired
+    private OnlineUserDao onlineUserDao;
 
     @Override
     public TableVo list(TableVo tableVo) {
@@ -49,48 +52,48 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
     }
 
     @Override
-    public ResponseObject updateGags(String mobile, boolean gags) {
-        String onlineUserId = bbsUserStatusDao.findByMobile(mobile);
-        if (onlineUserId == null) {
-            return ResponseObject.newErrorResponseObject("用户不存在");
+    public ResponseObject updateGags(List<String> userIds, boolean gags) {
+        for (String userId : userIds) {
+            if (onlineUserDao.find(userId) != null) {
+                checkUserStatus(userId);
+                String message;
+                boolean updated;
+                if (gags) {
+                    updated = bbsUserStatusDao.gags(userId);
+                    message = GAGS_MESSAGE;
+                } else {
+                    updated = bbsUserStatusDao.unGags(userId);
+                    message = UN_GAGS_MESSAGE;
+                }
+                if (updated) {
+                    sendMessage(userId, message);
+                }
+            }
         }
-        checkUserStatus(onlineUserId);
-        String message;
-        boolean updated;
-        if (gags) {
-            updated = bbsUserStatusDao.gags(onlineUserId);
-            message = GAGS_MESSAGE;
-        } else {
-            updated = bbsUserStatusDao.unGags(onlineUserId);
-            message = UN_GAGS_MESSAGE;
-        }
-        if (updated) {
-            sendMessage(onlineUserId, message);
-        }
-        return ResponseObject.newSuccessResponseObject(null);
+
+        return ResponseObject.newSuccessResponseObject("操作成功");
     }
 
     @Override
-    public ResponseObject updateBlacklist(String mobile, boolean blacklist) {
-        String onlineUserId = bbsUserStatusDao.findByMobile(mobile);
-        if (onlineUserId == null) {
-            return ResponseObject.newErrorResponseObject("用户不存在");
-        } else {
-            checkUserStatus(onlineUserId);
-            String message;
-            boolean updated;
-            if (blacklist) {
-                message = BLACKLIST_MESSAGE;
-                updated = bbsUserStatusDao.addBlacklist(onlineUserId);
-            } else {
-                message = CANCEL_BLACKLIST_MESSAGE;
-                updated = bbsUserStatusDao.cancelBlacklist(onlineUserId);
-            }
-            if (updated) {
-                sendMessage(onlineUserId, message);
+    public ResponseObject updateBlacklist(List<String> userIds, boolean blacklist) {
+        for (String userId : userIds) {
+            if (onlineUserDao.find(userId) != null) {
+                checkUserStatus(userId);
+                String message;
+                boolean updated;
+                if (blacklist) {
+                    message = BLACKLIST_MESSAGE;
+                    updated = bbsUserStatusDao.addBlacklist(userId);
+                } else {
+                    message = CANCEL_BLACKLIST_MESSAGE;
+                    updated = bbsUserStatusDao.cancelBlacklist(userId);
+                }
+                if (updated) {
+                    sendMessage(userId, message);
+                }
             }
         }
-        return ResponseObject.newSuccessResponseObject(null);
+        return ResponseObject.newSuccessResponseObject("操作成功");
     }
 
     private void checkUserStatus(String userId) {

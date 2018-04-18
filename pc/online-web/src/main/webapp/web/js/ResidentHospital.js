@@ -661,7 +661,8 @@ $('#xuke_pic_ipt').on('change', function() {
 	reader.readAsDataURL(this.files[0])
 })
 
-//招聘管理部分开始
+//----------------------------------------医师部分结束，招聘管理部分开始,---------------------------------------------------
+
 //招聘管理部分，点击职位下面内容变换
 $(".recruit-btn-newjob").click(function() {
 	var recruit_btn = $(this).text()
@@ -680,6 +681,14 @@ $(".recruit-btn-newjob").click(function() {
 	}
 
 })
+
+//招聘管理部分,点击后回到第一页
+$("#collect_Administration_tabBtn").click(function(){
+	if($('.recruit-btn-newjob').text() == '返回'){	
+			$('.recruit-btn-newjob').click()	
+		}
+	recruitList(1);
+});
 //医馆管理发布并保存
 function verifyRecruit(data){		
 	if(data.position==""){
@@ -718,58 +727,63 @@ $(".recruit-save-btn-menuone").click(function(){
 			url:bath+"/medical/hospitalRecruit",
 			data:JSON.stringify(data),
 			contentType: "application/json",
-			success:function(data){		
-				resetRecruitForm();
-				showTip("保存成功");
-				recruitList(1);
-				$("#collect_Administration_tabBtn").click();
+			success:function(data){
+				if(data.success==true){
+					resetRecruitForm();
+					showTip("保存成功");	
+					recruitList(1);		
+					setTimeout(function(){
+						$("#collect_Administration_tabBtn").click();
+					},2000)							
+				}else{
+					showTip("保存失败");
+				}
 			}
 		});
 	}
 })
 //招聘管理列表
 var recruits;
-recruitList(1)
 function recruitList(pages){
 	RequestService("/medical/hospitalRecruit","GET",{
 		"page":pages
 	},function(data){
-		if(data.resultObject.records.length=="" || data.resultObject.records == null){
-			$(".notice_notext_two").show();
-			$(".recruit-box-manage table").hide()
-		}else{
-			recruits=data.resultObject.records;
-			$("#recruitList-wrap").html(template('recruitList-mould',{items:data.resultObject.records}));		
-		}
-//分页添加
-		if(data.resultObject.pages > 1) { //分页判断
-				$(".not-data").remove();
-	            $(".recruits_pages").removeClass("hide");
-	            $(".recruits_pages .searchPage .allPage").text(data.resultObject.pages);
-	            $("#Pagination_recruits").pagination(data.resultObject.pages, {
-	                num_edge_entries: 1, //边缘页数
-	                num_display_entries: 4, //主体页数
-	                current_page:pages-1,
-	                callback: function (page) {
-	                    //翻页功能
-	                    recruitList(page+1);
-	                }
-	            });
+		if(data.success==true){
+		    if(data.resultObject.records.length=="" || data.resultObject.records == null){
+				$(".notice_notext_two").show();
+				$(".recruit-box-manage table").hide()
+			}else{
+				recruits=data.resultObject.records;
+				$(".notice_notext_two").hide();
+				$(".recruit-box-manage table").show();		
+				$("#recruitList-wrap").html(template('recruitList-mould',{items:data.resultObject.records}));		
 			}
-			else {
-				$(".recruits_pages").addClass("hide");
+	//分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".recruits_pages").removeClass("hide");
+		            $(".recruits_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#Pagination_recruits").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    recruitList(page+1);
+		                }
+		            });
+				}
+				else {
+					$(".recruits_pages").addClass("hide");
+				}
+			}else{
+				showTip("获取数据失败");	
 			}
-//分页添加结束		
+//分页添加结束			
 	})
 }
 
 
-//招聘管理部分,点击后回到第一页
-$("#collect_Administration_tabBtn").click(function(){
-	if($('.recruit-btn-newjob').text() == '返回'){
-			$('.recruit-btn-newjob').click()
-		}
-})
 //招聘管理部分,点击预览
 function recruit_preview_btn(i){
 	var recruit_Text = recruits[i];
@@ -800,26 +814,37 @@ $(".recruit_preview_content img").click(function(){
 	$(".recruit_preview_bg").hide()
 	$(".recruit_preview_box").hide()	
 })
-//招聘管理部分,开启/关闭招聘
+//招聘管理部分,开启/关闭招聘按钮
 function recruit_close_btn(t){
 	var id = $(t).attr('data-id');
 	var status = $(t).attr('data-status');
 	RequestService("/medical/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
 		if(data.success == true){
+			if(status==0){
+				showTip("关闭成功");
+			}else{
+				showTip("发布成功");
+			}
 			//重新渲染列表
 			 recruitList(1);
-		}			
+		}else{
+			showTip("操作失败");
+		}
 	});
 }
-//删除招聘信息，点击删除--------------------------------------------------------------
+//招聘管理部分，点击删除招聘信息
 function delete_recruit_btn(t){
 	var data_deleteId=$(t).attr("data-deleteId");
 	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
 		RequestService("/medical/hospitalRecruit/"+data_deleteId+"","DELETE",null,function(){
-			closefn();
-			showTip("删除成功");
-//			重新渲染一遍
-			recruitList(1);
+			if(data.success == true){
+				closefn();
+				showTip("删除成功");
+//	 重新渲染一遍
+				recruitList(1);
+			}else{
+				showTip("删除失败");
+			}
 		})
 	});
 }
@@ -897,17 +922,21 @@ $(".recruit-edit-btn").click(function(){
 			data:JSON.stringify(data),
 			contentType: "application/json",
 			success:function(data){
+				if(data.success == true){
 	//			resetRecruitForm();
 					showTip("保存成功");
 					recruitList(1);
 					$("#collect_Administration_tabBtn").click();
+				}else{
+					showTip("保存失败");
+				}
 			}
 		});
 	};
 })
 //招聘管理部分结束
-//	公告部分
-//	公告部分点击发布效果
+//--------------------------------------招聘管理部分结束,招聘公告部分开始---------------------------------------
+//	招聘公告部分，点击发布按钮
 var NoticeCount = 1;
 $('#Notice_Administration .Notice_top button').click(function() {
 	NoticeCount *= -1;
@@ -933,6 +962,7 @@ $("#news_Administration_tabBtn").click(function(){
 	if($(".Notice_top button").text() == '返回'){
 		$(".Notice_top button").click();
 	}
+	announcementMethod(1)
 })
 //公告发布接口调用
 $("#notice-release-btn").click(function(){
@@ -945,15 +975,19 @@ $("#notice-release-btn").click(function(){
 		RequestService("/hospital/announcement", "POST", {
 			"content" : $notice_text
 		}, function(data) {
-			showTip("发布成功");
-			$("#notice-text").val("")
-			$(".warning-notice").hide();
-			setTimeout(function(){
-				$("#news_Administration_tabBtn").click();
-			$("#notice-release-btn").removeAttr("disabled","disabled");				
-//				重新渲染一遍
-			},2000);
-			announcementMethod(1)
+			if(data.success == true){
+				showTip("发布成功");
+				$("#notice-text").val("")
+				$(".warning-notice").hide();
+				setTimeout(function(){
+					$("#news_Administration_tabBtn").click();
+				$("#notice-release-btn").removeAttr("disabled","disabled");				
+	//				重新渲染一遍
+				},2000);
+				announcementMethod(1);
+			}else{
+				showTip("发布失败");
+			}
 		})
 	}
 
@@ -961,37 +995,40 @@ $("#notice-release-btn").click(function(){
 
 var announcementList;
 //公告管理列表接口调用
-announcementMethod(1)
 function announcementMethod(current){
 RequestService("/hospital/announcement","GET",{
 	"page":current
 },function(data){
-	for(var i=0;i<data.resultObject.records.length;i++){		
-			data.resultObject.records[i].Nownum=getNo(i);
+	if(data.success == true){
+		for(var i=0;i<data.resultObject.records.length;i++){		
+				data.resultObject.records[i].Nownum=getNo(i);
+			}
+		announcementList=data.resultObject.records;
+		if(data.resultObject.pages > 1) { //分页判断
+	        $(".notices_pages").removeClass("hide");
+	        $(".notices_pages .searchPage .allPage").text(data.resultObject.pages);
+	        $("#Pagination_notices").pagination(data.resultObject.pages, {
+	            num_edge_entries: 1, //边缘页数
+	            num_display_entries: 4, //主体页数
+	            current_page:current-1,
+	            callback: function (page) {
+	                //翻页功能
+	                announcementMethod(page+1);
+	            }
+	        });
+		} else {
+			$(".notices_pages").addClass("hide");
 		}
-	announcementList=data.resultObject.records;
-	if(data.resultObject.pages > 1) { //分页判断
-        $(".notices_pages").removeClass("hide");
-        $(".notices_pages .searchPage .allPage").text(data.resultObject.pages);
-        $("#Pagination_notices").pagination(data.resultObject.pages, {
-            num_edge_entries: 1, //边缘页数
-            num_display_entries: 4, //主体页数
-            current_page:current-1,
-            callback: function (page) {
-                //翻页功能
-                announcementMethod(page+1);
-            }
-        });
-	} else {
-		$(".notices_pages").addClass("hide");
-	}
-	if(announcementList.length==0 || announcementList==null){
-		$("#Notice_bottom2 table").hide();
-		$(".notice_notext_icon").show();
+		if(announcementList.length==0 || announcementList==null){
+			$("#Notice_bottom2 table").hide();
+			$(".notice_notext_icon").show();
+		}else{
+			$("#Notice_bottom2 table").show();
+			$(".notice_notext_icon").hide();
+			$('#notice_tbody_wrap').html(template('notice_tbody', {items:data.resultObject.records}));		
+		}
 	}else{
-		$("#Notice_bottom2 table").show();
-		$(".notice_notext_icon").hide();
-		$('#notice_tbody_wrap').html(template('notice_tbody', {items:data.resultObject.records}));		
+		showTip("获取列表失败");
 	}
 })
 function getNo(i){
@@ -1017,10 +1054,14 @@ function notice_btn_delete(t){
 	var data_id=$(t).attr("data-id");
 	comfirmBox.open("公告","确定删除该条公告吗？",function(closefn){
 		RequestService("/hospital/announcement/"+data_id+"","DELETE",null,function(){
-			closefn();
-			showTip("删除成功");
+			if(data.success == true){
+				closefn();
+				showTip("删除成功");
 //			重新渲染一遍
-			announcementMethod(1)
+				announcementMethod(1)
+			}else{
+				showTip("删除失败");
+			}
 		})
 	});
 }

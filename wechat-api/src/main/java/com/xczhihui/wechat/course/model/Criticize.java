@@ -33,14 +33,6 @@ public class Criticize extends Model<Criticize> {
 	@TableField("is_delete")
 	private Boolean isDelete;
     /**
-     * 1已启用  0已禁用
-     */
-	private Integer status;
-    /**
-     * 排序字段
-     */
-	private Integer sort;
-    /**
      * 评价内容
      */
 	private String content;
@@ -49,16 +41,6 @@ public class Criticize extends Model<Criticize> {
      */
 	@TableField("user_id")
 	private String userId;
-    /**
-     * 章节表ID
-     */
-	@TableField("chapter_id")
-	private String chapterId;
-    /**
-     * 视频ID
-     */
-	@TableField("video_id")
-	private String videoId;
     /**
      * 总体印像--星级
      */
@@ -79,15 +61,6 @@ public class Criticize extends Model<Criticize> {
      */
 	@TableField("course_id")
 	private Integer courseId;
-    /**
-     * 回复
-     */
-	private String response;
-    /**
-     * 回复时间
-     */
-	@TableField("response_time")
-	private Date responseTime;
     /**
      * 节目内容-星级
      */
@@ -116,7 +89,7 @@ public class Criticize extends Model<Criticize> {
     /**
      * 是否点赞 0 未点赞 1 点赞
      */
-	@TableField("is_praise")
+	@TableField(exist = false)
 	private Boolean isPraise;
 
 	@TableField(exist = false)
@@ -171,6 +144,21 @@ public class Criticize extends Model<Criticize> {
 		this.name = name;
 	}
 
+	public Boolean getBuy() {
+		return isBuy;
+	}
+
+	public void setBuy(Boolean buy) {
+		isBuy = buy;
+	}
+
+	public Boolean getPraise() {
+		return isPraise;
+	}
+
+	public void setPraise(Boolean praise) {
+		isPraise = praise;
+	}
 
 	public String getId() {
 		return id;
@@ -204,22 +192,6 @@ public class Criticize extends Model<Criticize> {
 		this.isDelete = isDelete;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Integer getSort() {
-		return sort;
-	}
-
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
-
 	public String getContent() {
 		return content;
 	}
@@ -234,22 +206,6 @@ public class Criticize extends Model<Criticize> {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public String getChapterId() {
-		return chapterId;
-	}
-
-	public void setChapterId(String chapterId) {
-		this.chapterId = chapterId;
-	}
-
-	public String getVideoId() {
-		return videoId;
-	}
-
-	public void setVideoId(String videoId) {
-		this.videoId = videoId;
 	}
 
 	public Float getStarLevel() {
@@ -284,22 +240,6 @@ public class Criticize extends Model<Criticize> {
 		this.courseId = courseId;
 	}
 
-	public String getResponse() {
-		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
-	}
-
-	public Date getResponseTime() {
-		return responseTime;
-	}
-
-	public void setResponseTime(Date responseTime) {
-		this.responseTime = responseTime;
-	}
-
 	public Float getContentLevel() {
 		return contentLevel;
 	}
@@ -332,19 +272,19 @@ public class Criticize extends Model<Criticize> {
 		this.overallLevel = overallLevel;
 	}
 
-	public Boolean getBuy() {
+	public Boolean getIsBuy() {
 		return isBuy;
 	}
 
-	public void setBuy(Boolean isBuy) {
+	public void setIsBuy(Boolean isBuy) {
 		this.isBuy = isBuy;
 	}
 
-	public Boolean getPraise() {
+	public Boolean getIsPraise() {
 		return isPraise;
 	}
 
-	public void setPraise(Boolean isPraise) {
+	public void setIsPraise(Boolean isPraise) {
 		this.isPraise = isPraise;
 	}
 
@@ -355,29 +295,27 @@ public class Criticize extends Model<Criticize> {
 
 	@Override
 	public String toString() {
-		return "OeCriticize{" +
-			", id=" + id +
-			", createPerson=" + createPerson +
-			", createTime=" + createTime +
-			", isDelete=" + isDelete +
-			", status=" + status +
-			", sort=" + sort +
-			", content=" + content +
-			", userId=" + userId +
-			", chapterId=" + chapterId +
-			", videoId=" + videoId +
-			", starLevel=" + starLevel +
-			", praiseSum=" + praiseSum +
-			", praiseLoginNames=" + praiseLoginNames +
-			", courseId=" + courseId +
-			", response=" + response +
-			", responseTime=" + responseTime +
-			", contentLevel=" + contentLevel +
-			", deductiveLevel=" + deductiveLevel +
-			", criticizeLable=" + criticizeLable +
-			", overallLevel=" + overallLevel +
-			", isBuy=" + isBuy +
-			", isPraise=" + isPraise +
-			"}";
+		return "Criticize{" +
+				"id='" + id + '\'' +
+				", createPerson='" + createPerson + '\'' +
+				", createTime=" + createTime +
+				", isDelete=" + isDelete +
+				", content='" + content + '\'' +
+				", userId='" + userId + '\'' +
+				", starLevel=" + starLevel +
+				", praiseSum=" + praiseSum +
+				", praiseLoginNames='" + praiseLoginNames + '\'' +
+				", courseId=" + courseId +
+				", contentLevel=" + contentLevel +
+				", deductiveLevel=" + deductiveLevel +
+				", criticizeLable='" + criticizeLable + '\'' +
+				", overallLevel=" + overallLevel +
+				", isBuy=" + isBuy +
+				", isPraise=" + isPraise +
+				", onlineUser=" + onlineUser +
+				", reply=" + reply +
+				", name='" + name + '\'' +
+				", smallHeadPhoto='" + smallHeadPhoto + '\'' +
+				'}';
 	}
 }

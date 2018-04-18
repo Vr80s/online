@@ -1293,7 +1293,7 @@ margin-right: 5px;
 /*公告内容部分*/
 
 #Notice_Administration .Notice_bottom2{
-	padding: 31px 20px 59px;
+	padding: 30px 20px 60px;
 }
 #Notice_Administration .Notice_bottom2 table{
 	  table-layout: fixed;
@@ -1371,11 +1371,11 @@ margin-right: 5px;
 .notice_notext_icon img{
 	
 }
-.notice_notext_two,
+.notice_notext_two p,
 .notice_notext_icon p{
 	    font-size: 16px;
     color: #999;
-    margin-top: 35px;
+    margin-top: 38px;
 }
 /*公告管理预览效果*/
 .notice_namage_see{

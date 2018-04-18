@@ -1,7 +1,7 @@
 var recruitTable;//招聘信息列表
 var addRecruitForm;//添加招聘表单
 var updateRecruitForm;//修改招聘表单
-
+var years = ["不限", "0-1年", "1-3年", "3-5年", "5-10年", "10年以上"];
 $(function () {
     /** 招聘信息列表begin */
     addRecruitForm = $('#addRecruitForm');
@@ -346,17 +346,5 @@ function getLocalTime(nS) {
 }
 
 function getYears(data) {
-    if (data === 0) {
-        return "不限";
-    } else if (data === 1) {
-        return "0-1年";
-    } else if (data === 2) {
-        return "1-3年";
-    } else if (data === 3) {
-        return "3-5年";
-    } else if (data === 4) {
-        return "5-10年";
-    } else if (data === 5) {
-        return "10年以上";
-    }
+    return years[parseInt(data)];
 }
