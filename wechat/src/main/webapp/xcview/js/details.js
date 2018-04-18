@@ -576,7 +576,7 @@ document.getElementById('qqShare').onclick = function(e) {
  * 如果是微信浏览器的话在进行加载这部分函数
  */
 if (is_weixin()) {
-	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
+	var ccontrollerAddress = "/xczh/wechatJssdk/certificationSign";
 	var urlparm = {
 		url : window.location.href
 	}

@@ -24,7 +24,7 @@ function chZJ(videoId,multimediaType){
 		videoId:videoId,
 		multimedia_type:multimediaType
 	}
-	requestService("/bxg/ccvideo/commonCourseStatus", 
+	requestService("/xczh/ccvideo/palyCode", 
 			dataParams, function(data) {
 		if(data.success){
 			var playCodeStr = data.resultObject;

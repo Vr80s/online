@@ -1,13 +1,10 @@
 package com.xczh.consumer.market.controller.live;
 
-//import java.util.Date;
-//import java.util.LinkedList;
-//import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.*;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+//import java.util.Date;
+//import java.util.LinkedList;
+//import java.util.List;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OnlineCourseService;
+import com.xczh.consumer.market.service.OnlineWebService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczhihui.bxg.online.api.service.GiftService;
 
 //import java.util.UUID;
 
@@ -36,15 +39,6 @@ public class H5AloneController {
 
 	@Autowired
 	private OnlineCourseService onlineCourseService;
-
-	@Autowired
-	private OLCourseServiceI wxcpCourseService;
-	
-	@Autowired
-	private OnlineUserService onlineUserService;
-	
-	@Autowired
-	private FocusService focusService;
 	
 	@Autowired
 	private AppBrowserService appBrowserService;

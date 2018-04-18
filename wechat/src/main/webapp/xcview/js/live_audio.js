@@ -150,7 +150,7 @@ function chZJ(videoId,multimediaType,smallImgPath){
 		multimedia_type:multimediaType
 //		multimedia_type:1
 	}
-	requestService("/bxg/ccvideo/commonCourseStatus", 
+	requestService("/xczh/ccvideo/palyCode", 
 			dataParams, function(data) {
 		if(data.success){
 			var playCodeStr = data.resultObject;

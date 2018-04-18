@@ -22,20 +22,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.GiftService;
+import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.MessageService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
+import com.xczhihui.bxg.common.util.SLEmojiFilter;
 import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
+import com.xczhihui.bxg.online.api.service.GiftService;
 import com.xczhihui.bxg.online.api.service.RechargesService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.wechat.course.service.ICourseService;
@@ -78,6 +78,9 @@ public class XzCommonController {
 	
 	@Autowired
 	private RechargesService rechargesService;
+	
+	@Autowired
+	private CacheService cacheService;
     
     
 	@Value("${returnOpenidUri}")
@@ -286,28 +289,6 @@ public class XzCommonController {
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 
-	@RequestMapping("h5ShareAfter")
-	@ResponseBody
-	public ResponseObject h5ShareLink(HttpServletRequest req,
-			HttpServletResponse res,@RequestParam("courseId")Integer courseId)
-			throws Exception {
-		/*
-		 * 需要判断这个课程是直播呢，还是公开课 因为他们的文案不在一个地方存
-		 */
-		try {
-			Integer type = onlineCourseService.getIsCouseType(courseId);
-			LOGGER.info("type:" + type);
-			CourseLecturVo courseLecturVo = onlineCourseService.h5ShareAfter(courseId, type);
-			if (type == 1) {
-				// 礼物数：
-				courseLecturVo.setGiftCount(giftService.findByUserId(courseLecturVo.getUserId()));
-			}
-			return ResponseObject.newSuccessResponseObject(courseLecturVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("请求有误");
-		}
-	}
 
 	@RequestMapping("shareLink")
 	@ResponseBody
@@ -472,10 +453,41 @@ public class XzCommonController {
 	@ResponseBody
 	public ResponseObject rechargeList(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		
 		return ResponseObject.newSuccessResponseObject(rechargesService.getRecharges());
     }
 	
+	
+	@RequestMapping(value = "checkToken")
+	@ResponseBody
+	public ResponseObject checkToken(HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
+		String token = req.getParameter("token");
+
+		System.out.println();
+		if (null == token) {
+			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
+		}
+		OnlineUser ou = cacheService.get(token);
+		if (null == ou) {
+			return ResponseObject.newErrorResponseObject("已过期", 1002);
+		} else if (null != ou && cacheService.get(ou.getId()) != null
+				&& cacheService.get(ou.getId()).equals(token)) {
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		} else if (ou.getLoginName() != null) {
+			
+//			 String model = cacheService.get(ou.getLoginName());
+//			 if(model!=null){ 
+//				 return  ResponseObject.newErrorResponseObject(model,1005); 
+//			 }else {
+//				 return  ResponseObject.newErrorResponseObject("其他设备",1005);
+//			 } 
+			 //return  ResponseObject.newErrorResponseObject(model,1005); 
+			//暂时有效，为了方便测试使用
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		} else {
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		}
+	}
 	
 	
 	

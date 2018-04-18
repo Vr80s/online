@@ -52,9 +52,6 @@ public class BunchPlanController {
     private OnlineWebService onlineWebService;
 
     @Autowired
-    private GiftService giftService;
-
-    @Autowired
     private MenuService menuService;
 
 
@@ -299,76 +296,5 @@ public class BunchPlanController {
     }
 
 
-    /*****************************************
-     *
-     *
-     * 	新版app关于学堂的接口
-     *
-     *
-     * **************************************
-     */
-
-    /**
-     * 分类
-     */
-    @RequestMapping("schoolClass")
-    @ResponseBody
-    public ResponseObject schoolClass(HttpServletRequest req,
-                                      HttpServletResponse res, Integer id)
-            throws Exception {
-
-        //Map<String, Object> map = new HashMap<String, Object>();
-        List<Object> list11 = new ArrayList<Object>();
-
-        //课程分类
-        //map.put("category", menuService.list());
-        list11.add(menuService.list());
-
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        Map<String, Object> m1 = new HashMap<String, Object>();
-        m1.put("id", "1");
-        m1.put("name", "大师课");
-        Map<String, Object> m2 = new HashMap<String, Object>();
-        m2.put("id", "2");
-        m2.put("name", "经典课");
-        Map<String, Object> m3 = new HashMap<String, Object>();
-        m3.put("id", "3");
-        m3.put("name", "小白课程");
-        Map<String, Object> m4 = new HashMap<String, Object>();
-        m4.put("id", "4");
-        m4.put("name", "免费课程");
-
-        list.add(m1);
-        list.add(m2);
-        list.add(m3);
-        list.add(m4);
-
-        //课程专题   -- 假数据
-        //map.put("project", list);
-        list11.add(list);
-
-        //
-        List<Map<String, Object>> list1 = new ArrayList<Map<String, Object>>();
-        Map<String, Object> m11 = new HashMap<String, Object>();
-        m11.put("id", "1");
-        m11.put("name", "视频课程");
-        Map<String, Object> m21 = new HashMap<String, Object>();
-        m21.put("id", "2");
-        m21.put("name", "音频课程");
-        Map<String, Object> m31 = new HashMap<String, Object>();
-        m31.put("id", "3");
-        m31.put("name", "直播课程");
-        Map<String, Object> m41 = new HashMap<String, Object>();
-        m41.put("id", "4");
-        m41.put("name", "线下课程");
-
-        list1.add(m11);
-        list1.add(m21);
-        list1.add(m31);
-        list1.add(m41);
-        //课程类型
-        //map.put("type", list1);
-        list11.add(list1);
-        return ResponseObject.newSuccessResponseObject(list11);
-    }
+   
 }

@@ -5,51 +5,27 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.OutputStream;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
-import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.user.center.bean.UserOrigin;
-import com.xczhihui.user.center.bean.UserSex;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
-import com.xczhihui.wechat.course.util.XzStringUtils;
 
 /**
  * 用户controller
@@ -62,19 +38,7 @@ public class OnlineUserController {
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
-	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-	@Autowired
-	private UserCenterAPI userCenterAPI;
-	@Autowired
 	private CacheService cacheService;
-	
-	@Autowired
-	private UserCoinService userCoinService;
-	@Autowired
-	private OLAttachmentCenterService service;
-	
-	@Autowired
-	private CityService cityService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OnlineUserController.class);
 	
@@ -82,57 +46,56 @@ public class OnlineUserController {
 	@ResponseBody
 	public ResponseObject login(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
 		
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
-		String openId = req.getParameter("openId");
+		LOGGER.info("老版本方法----》》》》login");
+   	    return ResponseObject.newErrorResponseObject("请使用最新版本");
 		
-		if(null == username || null == password || null == openId){	
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-		Token t = null;
-		try {
-			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
-		} catch (RuntimeException e) {
-			return ResponseObject.newErrorResponseObject("用户名密码错误");
-		}
-		if (t != null) {
-			OnlineUser o = onlineUserService.findUserByLoginName(username);
-			WxcpClientUserWxMapping wxcpClientUserWxMapping =wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
-			if (o != null) {
-				if (o.isDelete() || o.getStatus() == -1){
-					return ResponseObject.newErrorResponseObject("用户已禁用");
-				}
-				if(wxcpClientUserWxMapping!=null && wxcpClientUserWxMapping.getClient_id() == null){
-					wxcpClientUserWxMapping.setClient_id(o.getId());
-					wxcpClientUserWxMappingService.update(wxcpClientUserWxMapping);
-				}
-				o.setTicket(t.getTicket());
-				this.onlogin(req, res, t, o);
-				return ResponseObject.newSuccessResponseObject(o);
-			} else {
-				boolean ise = Pattern.matches("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",username);
-				if (ise) {
-					ItcastUser user = userCenterAPI.getUser(username);
-					OnlineUser newUser = onlineUserService.addUser(username, user.getNike_name(),null,password);
-					WxcpClientUserWxMapping m =
-							wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
-					if(null != m){
-						m.setClient_id(newUser.getId());
-					}
-					wxcpClientUserWxMappingService.update(m);
-					this.onlogin(req, res, t, newUser);
-					return ResponseObject.newSuccessResponseObject(newUser);
-				}
-			}
-			return ResponseObject.newErrorResponseObject("在线系统不存在此用户");
-		} else {
-			return ResponseObject.newErrorResponseObject("用户名密码错误");
-		}
+//		String username = req.getParameter("username");
+//		String password = req.getParameter("password");
+//		String openId = req.getParameter("openId");
+//		
+//		if(null == username || null == password || null == openId){	
+//			return ResponseObject.newErrorResponseObject("参数异常");
+//		}
+//		Token t = null;
+//		try {
+//			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+//		} catch (RuntimeException e) {
+//			return ResponseObject.newErrorResponseObject("用户名密码错误");
+//		}
+//		if (t != null) {
+//			OnlineUser o = onlineUserService.findUserByLoginName(username);
+//			WxcpClientUserWxMapping wxcpClientUserWxMapping =wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
+//			if (o != null) {
+//				if (o.isDelete() || o.getStatus() == -1){
+//					return ResponseObject.newErrorResponseObject("用户已禁用");
+//				}
+//				if(wxcpClientUserWxMapping!=null && wxcpClientUserWxMapping.getClient_id() == null){
+//					wxcpClientUserWxMapping.setClient_id(o.getId());
+//					wxcpClientUserWxMappingService.update(wxcpClientUserWxMapping);
+//				}
+//				o.setTicket(t.getTicket());
+//				this.onlogin(req, res, t, o);
+//				return ResponseObject.newSuccessResponseObject(o);
+//			} else {
+//				boolean ise = Pattern.matches("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",username);
+//				if (ise) {
+//					ItcastUser user = userCenterAPI.getUser(username);
+//					OnlineUser newUser = onlineUserService.addUser(username, user.getNike_name(),null,password);
+//					WxcpClientUserWxMapping m =
+//							wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
+//					if(null != m){
+//						m.setClient_id(newUser.getId());
+//					}
+//					wxcpClientUserWxMappingService.update(m);
+//					this.onlogin(req, res, t, newUser);
+//					return ResponseObject.newSuccessResponseObject(newUser);
+//				}
+//			}
+//			return ResponseObject.newErrorResponseObject("在线系统不存在此用户");
+//		} else {
+//			return ResponseObject.newErrorResponseObject("用户名密码错误");
+//		}
 	}
-	
-	
-	
-	
 	/**
 	 * 登录成功处理
 	 * @param req
@@ -190,39 +153,7 @@ public class OnlineUserController {
 	}
 	
 	
-	/**
-	 * 微信退出登录
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("wechatLogout")
-	public void logoutWechat(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
-		
-	    LOGGER.info("WX return code:" + req.getParameter("code"));
-		ConfigUtil cfg = new ConfigUtil(req.getSession());
-		String returnOpenidUri = cfg.getConfig("returnOpenidUri");
-		try {
-			String code = req.getParameter("code");
-			String code_buffer = CommonUtil.getOpenId(code);
-			net.sf.json.JSONObject jsonObject = net.sf.json.JSONObject.fromObject(code_buffer);//Map<String, Object> access_info =GsonUtils.fromJson(code_buffer, Map.class);
-			String openid = (String)jsonObject.get("openid");
-			
-			UCCookieUtil.clearTokenCookie(res);
-			req.getSession().setAttribute("_user_", null);
-			String token = req.getParameter("token");
-			if(token!=null){
-				cacheService.delete(token);
-			}
-			
-			res.sendRedirect(returnOpenidUri + "/bxg/page/login/1?openid="+openid);
-		} catch (Exception e) {
-			e.printStackTrace();
-			res.sendRedirect(returnOpenidUri + "/bxg/page/login/1?error=error");
-		}
-	}
+	
 	
 	
 	/**
@@ -327,43 +258,27 @@ public class OnlineUserController {
 	@RequestMapping(value="sendCode")
 	@ResponseBody
 	public ResponseObject sendCode(HttpServletRequest req, HttpServletResponse res, Map<String, String> params){
-		ResponseObject response = new ResponseObject();
 		
-//		String appUniqueId = req.getParameter()("appUniqueId");
-//		if(appUniqueId!=null && !"".equals(appUniqueId)){//来自app端的请求
-//			 String imgCode = appUniqueId +"code";
-//			 String vcode = cacheService.get(imgCode);
-//			 if (req.getParameter()("vcode") == null
-//						|| !req.getParameter()("vcode").equals(vcode)) {
-//					return ResponseObject.newErrorResponseObject("图形验证码错误");
-//				}
-//		}else{                                           //来自网页请求
-//			HttpSession session = req.getSession();
-//			if (req.getParameter()("vcode") == null
-//					|| !req.getParameter()("vcode").equals(session.getAttribute("randomCode"))) {
-//				return ResponseObject.newErrorResponseObject("图形验证码错误");
+		LOGGER.info("老版本方法----》》》》sendCode");
+   	    return ResponseObject.newErrorResponseObject("请使用最新版本");
+		
+//		//类型，1注册，2重置密码
+//		String vtype = req.getParameter("vtype") == null ? "1" : req.getParameter("vtype");
+//		//手机号
+//		String username = req.getParameter("username");
+//		try {
+//			String str = onlineUserService.addMessage(username, Integer.parseInt(vtype));
+//			if("发送成功".equals(str)){
+//				return ResponseObject.newSuccessResponseObject(str);
+//			}else{
+//				return ResponseObject.newErrorResponseObject(str);
 //			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			LOGGER.info("获取错误信息啦"+e.getMessage());
+//			return ResponseObject.newErrorResponseObject("发送失败");
 //		}
-		
-		//类型，1注册，2重置密码
-		String vtype = req.getParameter("vtype") == null ? "1" : req.getParameter("vtype");
-		//手机号
-		String username = req.getParameter("username");
-		
-		try {
-			String str = onlineUserService.addMessage(username, Integer.parseInt(vtype));
-			if("发送成功".equals(str)){
-				return ResponseObject.newSuccessResponseObject(str);
-			}else{
-				return ResponseObject.newErrorResponseObject(str);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			LOGGER.info("获取错误信息啦"+e.getMessage());
-			return ResponseObject.newErrorResponseObject("发送失败");
-			
-		}
 	}
 	/**
 	 * 手机提交注册
@@ -377,82 +292,28 @@ public class OnlineUserController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject phoneRegist(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
-		String password = req.getParameter("password");
-		String mobile = req.getParameter("mobile");
-		String openId = req.getParameter("openId");
-		String code = req.getParameter("code");
-		//String vtype = req.getParameter()("vtype");
-		String vtype = "1";
-		
-		if(null == password || null == mobile || null == openId || null == code){
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(mobile, code,Integer.parseInt(vtype));
-		if (!checkCode.isSuccess()) {
-			return checkCode;
-		}
-		return onlineUserService.addPhoneRegist(req, password,mobile,openId);
-	}
-	/**
-	 * 获取shareCode
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("getShareCode")
-	@ResponseBody
-	public ResponseObject getShareCode(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)throws Exception{
-		String id = req.getParameter("id");
-		if(StringUtils.isBlank(id) || "undefined".equals(id)){
-			return ResponseObject.newSuccessResponseObject("");
-		}
-		OnlineUser user = onlineUserService.findUserById(id);
-		if(null == user){
-			ResponseObject.newErrorResponseObject("查询不到用户信息");
-		}
-		return ResponseObject.newSuccessResponseObject(user.getShareCode() == null ? "null" : user.getShareCode());
-	}
-	/**
-	 * 判断用户是否登录着
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return 如果登录着返回当前用户，否则返回错误
-	 * @throws Exception
-	 */
-	@RequestMapping("isLogined")
-	@ResponseBody
-	public ResponseObject isLogined(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)throws Exception{
-		Object ou = req.getSession().getAttribute("_user_");
-		OnlineUser user = null;
-		Token t = UCCookieUtil.readTokenCookie(req);
-		if (ou != null && t != null) { //正常登录着
-			String userId = ((OnlineUser)ou).getId();
-			user = onlineUserService.findUserById(userId);
-		} else if (ou == null) { //session过期了，续期
-			user = onlineUserService.findUserByLoginName(t.getLoginName());
-			req.getSession().setAttribute("_user_", user);
-		} else if (t == null){ //cookie过期了，直接退出
-			req.getSession().setAttribute("_user_", null);
-		}
-		if (user == null) {
-			return ResponseObject.newErrorResponseObject("请登录");
-		}
-		return ResponseObject.newSuccessResponseObject(user);
+
+		LOGGER.info("老版本方法----》》》》phoneRegist");
+   	    return ResponseObject.newErrorResponseObject("请使用最新版本");
+//		String password = req.getParameter("password");
+//		String mobile = req.getParameter("mobile");
+//		String openId = req.getParameter("openId");
+//		String code = req.getParameter("code");
+//		//String vtype = req.getParameter()("vtype");
+//		String vtype = "1";
+//		
+//		if(null == password || null == mobile || null == openId || null == code){
+//			return ResponseObject.newErrorResponseObject("参数异常");
+//		}
+//		//短信验证码
+//		ResponseObject checkCode = onlineUserService.checkCode(mobile, code,Integer.parseInt(vtype));
+//		if (!checkCode.isSuccess()) {
+//			return checkCode;
+//		}
+//		return onlineUserService.addPhoneRegist(req, password,mobile,openId);
 	}
 	
-	@RequestMapping("isSessionTimeout")
-	@ResponseBody
-	public ResponseObject sessionVelidate(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)throws Exception{
-		Object ou = req.getSession().getAttribute("_user_");
-		if(ou==null){
-			return ResponseObject.newSuccessResponseObject(false);
-		}
-		return ResponseObject.newSuccessResponseObject(ou);
-	}
+	
 	
 	/**
 	 * Description：用户中心保存接口
@@ -467,111 +328,114 @@ public class OnlineUserController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject userCenterFormSub(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		//TODO
-        try{
-    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-         MultipartFile fileMul = multipartRequest.getFile("file");  
-         Map<String,String> map = new HashMap<String,String>();
-         if(fileMul!=null && !fileMul.isEmpty()){  
-             // 获得文件名：   
-             String filename = fileMul.getOriginalFilename();   
-             // 获得输入流：   
-             //InputStream input = fileMul.getInputStream();   
-             
-             if(filename!=null && !"".equals(filename.trim())){
-                 filename = filename.toLowerCase();
-     			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
-     					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
-     				return ResponseObject.newErrorResponseObject("文件类型有误");
-     			}
-     			String contentType =  fileMul.getContentType();//文件类型
-     			byte [] bs = fileMul.getBytes();
-     			String projectName="other";
-     			String fileType="1"; //图片类型了
-     			String headImgPath = service.upload(null, //用户中心的用户ID
- 				projectName, filename,contentType, bs,fileType,null);
-     			LOGGER.info("文件路径——path:"+headImgPath);
-     			map.put("smallHeadPhoto", headImgPath);
-             }
-         }  	
-        	
-          String sex= request.getParameter("sex");  
-          String nickname= request.getParameter("nickname");  
-          String email= request.getParameter("email");  
-          
-          String cityName= request.getParameter("cityName");
-          String provinceName= request.getParameter("provinceName");
-          String cityId= request.getParameter("cityId");
-          String provinceId= request.getParameter("provinceId");
-          
-          String info= request.getParameter("info");
-          
-          String occupation= request.getParameter("occupation"); 
-          String occupationOther= request.getParameter("occupationOther"); 
-          String occupationText= request.getParameter("occupationText"); 
-          
-          map.put("sex", sex);
-          map.put("nickname", nickname);
-          map.put("email", email);
-          map.put("cityName", cityName);
-          map.put("provinceName", provinceName);
-      
-          map.put("province", provinceId);
-          map.put("city", cityId);
-          map.put("district", "");
-          map.put("info", info);
-          
-  		
-          
-          
-          //新增 身份信息、职业信息
-          map.put("occupation", occupation);
-          map.put("occupationText", occupationText);
-          
-          map.put("occupationOther", occupationOther);
-          OnlineUser user = new OnlineUser();
-          String token = request.getParameter("token");
-          if(token !=null ){
-        	  user = cacheService.get(token);
-          }else{
-        	  user = (OnlineUser) request.getSession().getAttribute("_user_");
-         }  
-          if(null == user){
-             return ResponseObject.newErrorResponseObject("获取用户信息有误");
-          }
-          if(sex!=null){
-        	  Integer.parseInt(sex);
-          }
-          
-          if(email!=null && email.length()>32){
-        	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
-          }
-          if(email!=null && !XzStringUtils.checkEmail(email)){
-        	  return ResponseObject.newErrorResponseObject("请输入正确的");
-          }
-          
-          userCenterAPI.update(user.getLoginName(),nickname,sex!=null ? Integer.parseInt(sex) : 3,email, null, 10, 10);
-          onlineUserService.updateUserCenterData(user,map);
-          /**
-           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
-           */
-          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
-          cacheService.delete(token);
-          cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());
-          String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,map.get("nickname"),map.get("smallHeadPhoto"));
-          if(weiHouResp == null){
-        	  LOGGER.info("同步微吼昵称，头像失败");
-          }
-          //先这样处理，到时他们在线的时候在给他们说下吧
-       /*   if(map.get("sex").equals("2")){
-        	  map.remove("sex");
-          }*/
-          LOGGER.info(map.toString());
-          return ResponseObject.newSuccessResponseObject(map);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("后台处理流程异常");
-        }
+
+		LOGGER.info("老版本方法----》》》》userCenterFormSub");
+   	    return ResponseObject.newErrorResponseObject("请使用最新版本");
+		
+//        try{
+//    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+//         MultipartFile fileMul = multipartRequest.getFile("file");  
+//         Map<String,String> map = new HashMap<String,String>();
+//         if(fileMul!=null && !fileMul.isEmpty()){  
+//             // 获得文件名：   
+//             String filename = fileMul.getOriginalFilename();   
+//             // 获得输入流：   
+//             //InputStream input = fileMul.getInputStream();   
+//             
+//             if(filename!=null && !"".equals(filename.trim())){
+//                 filename = filename.toLowerCase();
+//     			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
+//     					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
+//     				return ResponseObject.newErrorResponseObject("文件类型有误");
+//     			}
+//     			String contentType =  fileMul.getContentType();//文件类型
+//     			byte [] bs = fileMul.getBytes();
+//     			String projectName="other";
+//     			String fileType="1"; //图片类型了
+//     			String headImgPath = service.upload(null, //用户中心的用户ID
+// 				projectName, filename,contentType, bs,fileType,null);
+//     			LOGGER.info("文件路径——path:"+headImgPath);
+//     			map.put("smallHeadPhoto", headImgPath);
+//             }
+//         }  	
+//        	
+//          String sex= request.getParameter("sex");  
+//          String nickname= request.getParameter("nickname");  
+//          String email= request.getParameter("email");  
+//          
+//          String cityName= request.getParameter("cityName");
+//          String provinceName= request.getParameter("provinceName");
+//          String cityId= request.getParameter("cityId");
+//          String provinceId= request.getParameter("provinceId");
+//          
+//          String info= request.getParameter("info");
+//          
+//          String occupation= request.getParameter("occupation"); 
+//          String occupationOther= request.getParameter("occupationOther"); 
+//          String occupationText= request.getParameter("occupationText"); 
+//          
+//          map.put("sex", sex);
+//          map.put("nickname", nickname);
+//          map.put("email", email);
+//          map.put("cityName", cityName);
+//          map.put("provinceName", provinceName);
+//      
+//          map.put("province", provinceId);
+//          map.put("city", cityId);
+//          map.put("district", "");
+//          map.put("info", info);
+//          
+//  		
+//          
+//          
+//          //新增 身份信息、职业信息
+//          map.put("occupation", occupation);
+//          map.put("occupationText", occupationText);
+//          
+//          map.put("occupationOther", occupationOther);
+//          OnlineUser user = new OnlineUser();
+//          String token = request.getParameter("token");
+//          if(token !=null ){
+//        	  user = cacheService.get(token);
+//          }else{
+//        	  user = (OnlineUser) request.getSession().getAttribute("_user_");
+//         }  
+//          if(null == user){
+//             return ResponseObject.newErrorResponseObject("获取用户信息有误");
+//          }
+//          if(sex!=null){
+//        	  Integer.parseInt(sex);
+//          }
+//          
+//          if(email!=null && email.length()>32){
+//        	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
+//          }
+//          if(email!=null && !XzStringUtils.checkEmail(email)){
+//        	  return ResponseObject.newErrorResponseObject("请输入正确的");
+//          }
+//          
+//          userCenterAPI.update(user.getLoginName(),nickname,sex!=null ? Integer.parseInt(sex) : 3,email, null, 10, 10);
+//          onlineUserService.updateUserCenterData(user,map);
+//          /**
+//           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
+//           */
+//          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
+//          cacheService.delete(token);
+//          cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());
+//          String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,map.get("nickname"),map.get("smallHeadPhoto"));
+//          if(weiHouResp == null){
+//        	  LOGGER.info("同步微吼昵称，头像失败");
+//          }
+//          //先这样处理，到时他们在线的时候在给他们说下吧
+//       /*   if(map.get("sex").equals("2")){
+//        	  map.remove("sex");
+//          }*/
+//          LOGGER.info(map.toString());
+//          return ResponseObject.newSuccessResponseObject(map);
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseObject.newErrorResponseObject("后台处理流程异常");
+//        }
 	}
 	
 	
@@ -590,77 +454,79 @@ public class OnlineUserController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject userCenterFormSub1(HttpServletRequest req, HttpServletResponse response)throws Exception{
-		//TODO
-        try{
-        	
-        	
-          OnlineUser user = new OnlineUser();
-          String token = req.getParameter("token");
-          if(token !=null ){
-        	  user = cacheService.get(token);
-          }else{
-        	  user = (OnlineUser) req.getSession().getAttribute("_user_");
-          }  
-          if(null == user){
-             return ResponseObject.newErrorResponseObject("获取用户信息有误");
-          }
-          Map<String,String> map = new HashMap<String,String>();
-          String sex= req.getParameter("sex");  
-          String nickname= req.getParameter("nickname");  
-          String email= req.getParameter("email");  
-          String info= req.getParameter("info"); 
-          String provinceCityName= req.getParameter("provinceCityName"); 
-          String provinceCityId= req.getParameter("provinceCityId"); 
-          
-          String occupation= req.getParameter("occupation"); 
-          String occupationOther= req.getParameter("occupationOther"); 
-//  		/**
-// 		 * 职业
-// 		 */
-// 		private Integer occupation;
-// 		/**
-// 		 * 职业,其他
-// 		 */
-// 		private String occupationOther;
-          
-          map.put("sex", sex);
-          map.put("nickname", nickname);
-          map.put("email", email);
-          map.put("info", info);
-          map.put("occupation", occupation);
-          map.put("occupationOther", occupationOther);
-          
-          if(StringUtils.isNotBlank(provinceCityName)){
-        	  String [] str =  provinceCityName.split(" ");
-        	  String [] ids =  provinceCityId.split(" ");
-        	  //根据名字得到id，好惨        	  
-        	  if(str.length ==3 && ids.length == 3){
-        		  map.put("provinceName", str[0]);
-        		  map.put("cityName", str[1]);
-           		  map.put("countyName", str[2]);
-        		  
-        		  map.put("province", ids[0]);
-        		  map.put("city", ids[1]);
-        		  map.put("district", ids[2]);
-        	  }
-          }
-          userCenterAPI.update(user.getLoginName(),nickname,org.springframework.util.StringUtils.hasText(sex) ? Integer.parseInt(sex) : 3,email, null, 10, 10);
-          onlineUserService.updateUserCenterData(user,map);
-          String weiHouResp = WeihouInterfacesListUtil.
-        		  updateUser(user.getId(),null,nickname,null);
-          /**
-           * 更新session的值
-           */
-          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
-          req.getSession().setAttribute("_user_",newUser);
-          if(weiHouResp == null){
-        	  LOGGER.info("同步微吼昵称失败");
-          }
-          return ResponseObject.newSuccessResponseObject(map);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("后台处理流程异常");
-        }
+		
+		
+		LOGGER.info("老版本方法----》》》》userCenterFormSub1");
+   	    return ResponseObject.newErrorResponseObject("请使用最新版本");
+   	    
+//        try{
+//          OnlineUser user = new OnlineUser();
+//          String token = req.getParameter("token");
+//          if(token !=null ){
+//        	  user = cacheService.get(token);
+//          }else{
+//        	  user = (OnlineUser) req.getSession().getAttribute("_user_");
+//          }  
+//          if(null == user){
+//             return ResponseObject.newErrorResponseObject("获取用户信息有误");
+//          }
+//          Map<String,String> map = new HashMap<String,String>();
+//          String sex= req.getParameter("sex");  
+//          String nickname= req.getParameter("nickname");  
+//          String email= req.getParameter("email");  
+//          String info= req.getParameter("info"); 
+//          String provinceCityName= req.getParameter("provinceCityName"); 
+//          String provinceCityId= req.getParameter("provinceCityId"); 
+//          
+//          String occupation= req.getParameter("occupation"); 
+//          String occupationOther= req.getParameter("occupationOther"); 
+////  		/**
+//// 		 * 职业
+//// 		 */
+//// 		private Integer occupation;
+//// 		/**
+//// 		 * 职业,其他
+//// 		 */
+//// 		private String occupationOther;
+//          
+//          map.put("sex", sex);
+//          map.put("nickname", nickname);
+//          map.put("email", email);
+//          map.put("info", info);
+//          map.put("occupation", occupation);
+//          map.put("occupationOther", occupationOther);
+//          
+//          if(StringUtils.isNotBlank(provinceCityName)){
+//        	  String [] str =  provinceCityName.split(" ");
+//        	  String [] ids =  provinceCityId.split(" ");
+//        	  //根据名字得到id，好惨        	  
+//        	  if(str.length ==3 && ids.length == 3){
+//        		  map.put("provinceName", str[0]);
+//        		  map.put("cityName", str[1]);
+//           		  map.put("countyName", str[2]);
+//        		  
+//        		  map.put("province", ids[0]);
+//        		  map.put("city", ids[1]);
+//        		  map.put("district", ids[2]);
+//        	  }
+//          }
+//          userCenterAPI.update(user.getLoginName(),nickname,org.springframework.util.StringUtils.hasText(sex) ? Integer.parseInt(sex) : 3,email, null, 10, 10);
+//          onlineUserService.updateUserCenterData(user,map);
+//          String weiHouResp = WeihouInterfacesListUtil.
+//        		  updateUser(user.getId(),null,nickname,null);
+//          /**
+//           * 更新session的值
+//           */
+//          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
+//          req.getSession().setAttribute("_user_",newUser);
+//          if(weiHouResp == null){
+//        	  LOGGER.info("同步微吼昵称失败");
+//          }
+//          return ResponseObject.newSuccessResponseObject(map);
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseObject.newErrorResponseObject("后台处理流程异常");
+//        }
 	}
 	/**
 	 * Description：用户中心保存接口
@@ -675,79 +541,80 @@ public class OnlineUserController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject userCenterFormSub2(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)throws Exception{
-		//TODO
-        try{
-        	
-        	 String base64Data = request.getParameter("base64Data");
-        	 String imageName = request.getParameter("imageName");
-        	 //logger.debug("上传文件的数据："+base64Data);
-             String dataPrix = "";
-             String data = "";
-
-             //logger.debug("对数据进行判断");
-             if(base64Data == null || "".equals(base64Data)){
-                 throw new Exception("上传失败，上传图片数据为空");
-             }else{
-                 String [] d = base64Data.split("base64,");
-                 if(d != null && d.length == 2){
-                     dataPrix = d[0];
-                     data = d[1];
-                 }else{
-                     throw new Exception("上传失败，数据不合法");
-                 }
-             }
-             String suffix = "";
-             if("data:image/jpeg;".equalsIgnoreCase(dataPrix)){//data:image/jpeg;base64,base64编码的jpeg图片数据
-                 suffix = ".jpg";
-             } else if("data:image/x-icon;".equalsIgnoreCase(dataPrix)){//data:image/x-icon;base64,base64编码的icon图片数据
-                 suffix = ".ico";
-             } else if("data:image/gif;".equalsIgnoreCase(dataPrix)){//data:image/gif;base64,base64编码的gif图片数据
-                 suffix = ".gif";
-             } else if("data:image/png;".equalsIgnoreCase(dataPrix)){//data:image/png;base64,base64编码的png图片数据
-                 suffix = ".png";
-             }else{
-                 throw new Exception("上传图片格式不合法");
-             }
-            /* String tempFileName = getRandomFileName() + suffix;
-             logger.debug("生成文件名为："+tempFileName);*/
-
-             //因为BASE64Decoder的jar问题，此处使用spring框架提供的工具包
-            byte[] bs123 = Base64Utils.decodeFromString(data);
-        	
-            String projectName="other";
- 			String fileType="1"; //图片类型了
- 			
- 			Map<String,String> map = new HashMap<String,String>();
- 			String headImgPath = service.upload(null,projectName, imageName, suffix, bs123,fileType,null);
- 			
- 			LOGGER.info("文件路径——path:"+headImgPath);
- 			map.put("smallHeadPhoto",headImgPath);
-        	  
-	        OnlineUser user;
-	        String token = request.getParameter("token");
-	        if(token !=null ){
-	        	user = cacheService.get(token);
-	        }else{
-	        	user = (OnlineUser) request.getSession().getAttribute("_user_");
-	        }  
-	        onlineUserService.updateUserCenterData(user,map);
-	        
-	        String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
-	          
-	          /**
-	           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
-	           */
-	          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
-	          request.getSession().setAttribute("_user_",newUser);
-	          
-	          if(weiHouResp == null){
-	        	  LOGGER.info("同步微吼头像失败");
-	          }
-	          return ResponseObject.newSuccessResponseObject(map);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("后台处理流程异常");
-        }
+		LOGGER.info("老版本方法----》》》》userCenterFormSub2");
+   	    return ResponseObject.newErrorResponseObject("请使用最新版本");
+		//        try{
+//        	
+//        	 String base64Data = request.getParameter("base64Data");
+//        	 String imageName = request.getParameter("imageName");
+//        	 //logger.debug("上传文件的数据："+base64Data);
+//             String dataPrix = "";
+//             String data = "";
+//
+//             //logger.debug("对数据进行判断");
+//             if(base64Data == null || "".equals(base64Data)){
+//                 throw new Exception("上传失败，上传图片数据为空");
+//             }else{
+//                 String [] d = base64Data.split("base64,");
+//                 if(d != null && d.length == 2){
+//                     dataPrix = d[0];
+//                     data = d[1];
+//                 }else{
+//                     throw new Exception("上传失败，数据不合法");
+//                 }
+//             }
+//             String suffix = "";
+//             if("data:image/jpeg;".equalsIgnoreCase(dataPrix)){//data:image/jpeg;base64,base64编码的jpeg图片数据
+//                 suffix = ".jpg";
+//             } else if("data:image/x-icon;".equalsIgnoreCase(dataPrix)){//data:image/x-icon;base64,base64编码的icon图片数据
+//                 suffix = ".ico";
+//             } else if("data:image/gif;".equalsIgnoreCase(dataPrix)){//data:image/gif;base64,base64编码的gif图片数据
+//                 suffix = ".gif";
+//             } else if("data:image/png;".equalsIgnoreCase(dataPrix)){//data:image/png;base64,base64编码的png图片数据
+//                 suffix = ".png";
+//             }else{
+//                 throw new Exception("上传图片格式不合法");
+//             }
+//            /* String tempFileName = getRandomFileName() + suffix;
+//             logger.debug("生成文件名为："+tempFileName);*/
+//
+//             //因为BASE64Decoder的jar问题，此处使用spring框架提供的工具包
+//            byte[] bs123 = Base64Utils.decodeFromString(data);
+//        	
+//            String projectName="other";
+// 			String fileType="1"; //图片类型了
+// 			
+// 			Map<String,String> map = new HashMap<String,String>();
+// 			String headImgPath = service.upload(null,projectName, imageName, suffix, bs123,fileType,null);
+// 			
+// 			LOGGER.info("文件路径——path:"+headImgPath);
+// 			map.put("smallHeadPhoto",headImgPath);
+//        	  
+//	        OnlineUser user;
+//	        String token = request.getParameter("token");
+//	        if(token !=null ){
+//	        	user = cacheService.get(token);
+//	        }else{
+//	        	user = (OnlineUser) request.getSession().getAttribute("_user_");
+//	        }  
+//	        onlineUserService.updateUserCenterData(user,map);
+//	        
+//	        String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
+//	          
+//	          /**
+//	           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
+//	           */
+//	          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
+//	          request.getSession().setAttribute("_user_",newUser);
+//	          
+//	          if(weiHouResp == null){
+//	        	  LOGGER.info("同步微吼头像失败");
+//	          }
+//	          return ResponseObject.newSuccessResponseObject(map);
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseObject.newErrorResponseObject("后台处理流程异常");
+//        }
 	}
 	
 	/**
@@ -767,62 +634,65 @@ public class OnlineUserController {
 	public ResponseObject wxBindAndPhoneNumberIsReg(HttpServletRequest req,
                     HttpServletResponse res, Map<String, String> params)
 			throws Exception {
+		LOGGER.info("老版本方法----》》》》wxBindAndPhoneNumberIsReg");
+   	    return ResponseObject.newErrorResponseObject("请使用最新版本");
 		
-		String username = req.getParameter("username"); //手机号
-		String openId = req.getParameter("openId");     //openId
-		String code = req.getParameter("code");         //验证码
-		if(null == username || null == code || null == openId){
-			return ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
-		}
-		String vtype = "2";
-		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
-		if (!checkCode.isSuccess()) { //如果动态验证码不正确
-			return checkCode;
-		}
-		/*
-		 * 如果正确
-		 *  从wx 记录表中得到用户的信息。然后
-		 */
-		WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.
-				getWxcpClientUserWxMappingByOpenId(openId);
-		if(null == m){
-			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
-		}
-		/**
-		 * 向用户中心添加数据
-		 *  用户名、 密码、昵称、性别、邮箱、手机号
-		 *  第三方登录的用户名和密码是opendi
-		 */
-	    ItcastUser iu = userCenterAPI.getUser(username);
-		if(iu == null){
-			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
-		}
-		/**
-		 * 判断这个用户是否在外面注册过
-		 */
-		OnlineUser ou1 = onlineUserService.findUserByLoginName(username);
 		
-		m.setClient_id(ou1.getId());
-		wxcpClientUserWxMappingService.update(m);
-		
-		if(ou1 !=null ){ //此用户已经注册过了
-			
-			ou1.setUnionId(m.getUnionid());
-			onlineUserService.updateUserUnionidByid(ou1);
-			
-			
-			Token t = userCenterAPI.loginThirdPart(username,iu.getPassword(), TokenExpires.TenDay);
-			ou1.setTicket(t.getTicket());
-			//把用户中心的数据给他  --这些数据是IM的
-			ou1.setUserCenterId(iu.getId());
-			ou1.setPassword(iu.getPassword());
-			
-			this.onlogin(req,res,t,ou1,t.getTicket());
-			return  ResponseObject.newSuccessResponseObject(ou1);
-		}else{
-			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
-		}
+//		String username = req.getParameter("username"); //手机号
+//		String openId = req.getParameter("openId");     //openId
+//		String code = req.getParameter("code");         //验证码
+//		if(null == username || null == code || null == openId){
+//			return ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
+//		}
+//		String vtype = "2";
+//		//短信验证码
+//		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
+//		if (!checkCode.isSuccess()) { //如果动态验证码不正确
+//			return checkCode;
+//		}
+//		/*
+//		 * 如果正确
+//		 *  从wx 记录表中得到用户的信息。然后
+//		 */
+//		WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.
+//				getWxcpClientUserWxMappingByOpenId(openId);
+//		if(null == m){
+//			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
+//		}
+//		/**
+//		 * 向用户中心添加数据
+//		 *  用户名、 密码、昵称、性别、邮箱、手机号
+//		 *  第三方登录的用户名和密码是opendi
+//		 */
+//	    ItcastUser iu = userCenterAPI.getUser(username);
+//		if(iu == null){
+//			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
+//		}
+//		/**
+//		 * 判断这个用户是否在外面注册过
+//		 */
+//		OnlineUser ou1 = onlineUserService.findUserByLoginName(username);
+//		
+//		m.setClient_id(ou1.getId());
+//		wxcpClientUserWxMappingService.update(m);
+//		
+//		if(ou1 !=null ){ //此用户已经注册过了
+//			
+//			ou1.setUnionId(m.getUnionid());
+//			onlineUserService.updateUserUnionidByid(ou1);
+//			
+//			
+//			Token t = userCenterAPI.loginThirdPart(username,iu.getPassword(), TokenExpires.TenDay);
+//			ou1.setTicket(t.getTicket());
+//			//把用户中心的数据给他  --这些数据是IM的
+//			ou1.setUserCenterId(iu.getId());
+//			ou1.setPassword(iu.getPassword());
+//			
+//			this.onlogin(req,res,t,ou1,t.getTicket());
+//			return  ResponseObject.newSuccessResponseObject(ou1);
+//		}else{
+//			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
+//		}
 	}
 	/**
 	 * 微信绑定手机号此用户还没注册
@@ -839,239 +709,184 @@ public class OnlineUserController {
 	@Transactional
 	public ResponseObject wxBindPhoneNumber(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)
 			throws Exception {
-        //TODO
-		String username = req.getParameter("username"); //手机号
-		String password = req.getParameter("password"); //密码
-		String openId = req.getParameter("openId");     //openId
-		String code = req.getParameter("code");         //验证码
-		String appleLogo= req.getParameter("appleLogo"); //苹果标识
 		
-		String appUniqueId = req.getParameter("appUniqueId");
+		LOGGER.info("老版本方法----》》》》wxBindPhoneNumber");
+   	    return ResponseObject.newErrorResponseObject("请使用最新版本");
 		
 		
-		if(null == username || null == code || null == password){
-			return ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
-		}
-		String vtype = "1";
-		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
-		if (!checkCode.isSuccess()) { //如果动态验证码不正确
-			return checkCode;
-		}
-		/*
-		 * 如果正确
-		 *  从wx 记录表中得到用户的信息。然后
-		 */
-		WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.
-				getWxcpClientUserWxMappingByOpenId(openId);
-		if(null == m){
-			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
-		}
-		/**
-		 * 向用户中心添加数据
-		 *  用户名、 密码、昵称、性别、邮箱、手机号
-		 *  第三方登录的用户名和密码是openId
-		 */
-	    ItcastUser iu = userCenterAPI.getUser(username);
-		if(iu == null){
-			userCenterAPI.regist(username, password,m.getNickname(), UserSex.parse(Integer.parseInt(m.getSex())), null,
-					null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
-			iu =  userCenterAPI.getUser(username);
-		}
-		/**
-		 * 判断这个用户是否在外面注册过
-		 */
-		OnlineUser ou1 = onlineUserService.findUserByLoginName(username);
-		if(ou1 !=null ){ //此用户已经注册过了
-			
-			ou1.setUnionId(m.getUnionid());
-			onlineUserService.updateUserUnionidByid(ou1);
-			
-			Token t = userCenterAPI.loginMobile(username,iu.getPassword(), TokenExpires.TenDay);
-			ou1.setTicket(t.getTicket());
-			//把用户中心的数据给他  --这些数据是IM的
-			ou1.setUserCenterId(iu.getId());
-			ou1.setPassword(iu.getPassword());
-			
-			onlogin(req,res,t,ou1,t.getTicket());
-			return  ResponseObject.newSuccessResponseObject(ou1);
-		}else{
-			/**
-			 * 保存用户信息到user表中。保存微信的unionid_如果这个用户表中存在这个id，那么说明已经登录过了！查找用户就ok。
-			 */
-			OnlineUser ou =  onlineUserService.findOnlineUserByUnionid(m.getUnionid());
-			if(ou == null){
-				//apple
-				if(!StringUtils.isNotBlank(appleLogo)){
-					OnlineUser u = new OnlineUser();
-					u.setId(UUID.randomUUID().toString().replace("-", ""));
-					u.setSex(Integer.parseInt(m.getSex()));
-					u.setUnionId(m.getUnionid());
-					u.setStatus(0);
-					u.setCreateTime(new Date());
-					u.setDelete(false);
-					u.setName(m.getNickname());   //微信名字
-					u.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
-					u.setVisitSum(0);
-					u.setStayTime(0);
-					u.setUserType(0);
-					u.setOrigin("weixin");
-					u.setMenuId(-1);
-					u.setCreateTime(new Date());
-					u.setType(1);
-					
-					String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
-					u.setVhallId(weihouUserId);  //微吼id
-					u.setVhallPass(WeihouInterfacesListUtil.MOREN);        //微吼密码
-					u.setVhallName(u.getName());
-					u.setPassword(iu.getPassword()); 
-					u.setUserCenterId(iu.getId());
-					u.setLoginName(username);
-					 /**
-					 * 将从微信获取的省市区信息变为对应的id和name
-					 */
-					LOGGER.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
-					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
-					if(map!=null){
-						Object objId = map.get("cid");
-						int countryId = Integer.parseInt(objId.toString());
-						u.setDistrict(countryId+"");
-						map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
-						if(map!=null){
-							objId = map.get("cid");
-							Object objName = map.get("name");	
-							int provinceId = Integer.parseInt(objId.toString());
-							u.setProvince(provinceId+"");
-							u.setProvinceName(objName.toString());
-							map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
-							if(map!=null){
-								objId = map.get("cid");
-								objName = map.get("name");
-								int cityId = Integer.parseInt(objId.toString());
-								u.setCity(cityId+"");
-								u.setCityName(objName.toString());
-							}
-						}
-					}
-					onlineUserService.addOnlineUser(u);
-					ou = u;
-				
-				}else{
-				    Map<String, Object> map1 = onlineUserService.getAppTouristRecord(appUniqueId);
-				    ou = onlineUserService.findUserById(map1.get("userId").toString());
-					
-				    ou.setSex(Integer.parseInt(m.getSex()));
-				    ou.setUnionId(m.getUnionid());
-				    ou.setName(m.getNickname());   //微信名字
-				    ou.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
-				    ou.setOrigin("weixin");
-				    ou.setVhallName(m.getNickname());
-				    ou.setPassword(iu.getPassword()); 
-				    ou.setUserCenterId(iu.getId());
-				    ou.setLoginName(username);
-					 /**
-					 * 将从微信获取的省市区信息变为对应的id和name
-					 */
-					LOGGER.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
-					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
-					if(map!=null){
-						Object objId = map.get("cid");
-						int countryId = Integer.parseInt(objId.toString());
-						ou.setDistrict(countryId+"");
-						map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
-						if(map!=null){
-							objId = map.get("cid");
-							Object objName = map.get("name");	
-							int provinceId = Integer.parseInt(objId.toString());
-							ou.setProvince(provinceId+"");
-							ou.setProvinceName(objName.toString());
-							map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
-							if(map!=null){
-								objId = map.get("cid");
-								objName = map.get("name");
-								int cityId = Integer.parseInt(objId.toString());
-								ou.setCity(cityId+"");
-								ou.setCityName(objName.toString());
-							}
-						}
-					}
-					onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
-				}
-			}
-			
-			/**
-			 * 初始化一条代币记录
-			 */
-			userCoinService.saveUserCoin(ou.getId());
-			m.setClient_id(ou.getId());
-			wxcpClientUserWxMappingService.update(m);
-			Token t = userCenterAPI.loginThirdPart(username,iu.getPassword(), TokenExpires.TenDay);
-			ou.setTicket(t.getTicket());
-			//把用户中心的数据给他  --这些数据是IM的
-			ou.setUserCenterId(iu.getId());
-			ou.setPassword(iu.getPassword());
-			
-			onlogin(req,res,t,ou,t.getTicket());
-			return  ResponseObject.newSuccessResponseObject(ou);
-		}
+//		String username = req.getParameter("username"); //手机号
+//		String password = req.getParameter("password"); //密码
+//		String openId = req.getParameter("openId");     //openId
+//		String code = req.getParameter("code");         //验证码
+//		String appleLogo= req.getParameter("appleLogo"); //苹果标识
+//		
+//		String appUniqueId = req.getParameter("appUniqueId");
+//		
+//		
+//		if(null == username || null == code || null == password){
+//			return ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
+//		}
+//		String vtype = "1";
+//		//短信验证码
+//		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
+//		if (!checkCode.isSuccess()) { //如果动态验证码不正确
+//			return checkCode;
+//		}
+//		/*
+//		 * 如果正确
+//		 *  从wx 记录表中得到用户的信息。然后
+//		 */
+//		WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.
+//				getWxcpClientUserWxMappingByOpenId(openId);
+//		if(null == m){
+//			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
+//		}
+//		/**
+//		 * 向用户中心添加数据
+//		 *  用户名、 密码、昵称、性别、邮箱、手机号
+//		 *  第三方登录的用户名和密码是openId
+//		 */
+//	    ItcastUser iu = userCenterAPI.getUser(username);
+//		if(iu == null){
+//			userCenterAPI.regist(username, password,m.getNickname(), UserSex.parse(Integer.parseInt(m.getSex())), null,
+//					null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
+//			iu =  userCenterAPI.getUser(username);
+//		}
+//		/**
+//		 * 判断这个用户是否在外面注册过
+//		 */
+//		OnlineUser ou1 = onlineUserService.findUserByLoginName(username);
+//		if(ou1 !=null ){ //此用户已经注册过了
+//			
+//			ou1.setUnionId(m.getUnionid());
+//			onlineUserService.updateUserUnionidByid(ou1);
+//			
+//			Token t = userCenterAPI.loginMobile(username,iu.getPassword(), TokenExpires.TenDay);
+//			ou1.setTicket(t.getTicket());
+//			//把用户中心的数据给他  --这些数据是IM的
+//			ou1.setUserCenterId(iu.getId());
+//			ou1.setPassword(iu.getPassword());
+//			
+//			onlogin(req,res,t,ou1,t.getTicket());
+//			return  ResponseObject.newSuccessResponseObject(ou1);
+//		}else{
+//			/**
+//			 * 保存用户信息到user表中。保存微信的unionid_如果这个用户表中存在这个id，那么说明已经登录过了！查找用户就ok。
+//			 */
+//			OnlineUser ou =  onlineUserService.findOnlineUserByUnionid(m.getUnionid());
+//			if(ou == null){
+//				//apple
+//				if(!StringUtils.isNotBlank(appleLogo)){
+//					OnlineUser u = new OnlineUser();
+//					u.setId(UUID.randomUUID().toString().replace("-", ""));
+//					u.setSex(Integer.parseInt(m.getSex()));
+//					u.setUnionId(m.getUnionid());
+//					u.setStatus(0);
+//					u.setCreateTime(new Date());
+//					u.setDelete(false);
+//					u.setName(m.getNickname());   //微信名字
+//					u.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
+//					u.setVisitSum(0);
+//					u.setStayTime(0);
+//					u.setUserType(0);
+//					u.setOrigin("weixin");
+//					u.setMenuId(-1);
+//					u.setCreateTime(new Date());
+//					u.setType(1);
+//					
+//					String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
+//					u.setVhallId(weihouUserId);  //微吼id
+//					u.setVhallPass(WeihouInterfacesListUtil.MOREN);        //微吼密码
+//					u.setVhallName(u.getName());
+//					u.setPassword(iu.getPassword()); 
+//					u.setUserCenterId(iu.getId());
+//					u.setLoginName(username);
+//					 /**
+//					 * 将从微信获取的省市区信息变为对应的id和name
+//					 */
+//					LOGGER.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+//					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
+//					if(map!=null){
+//						Object objId = map.get("cid");
+//						int countryId = Integer.parseInt(objId.toString());
+//						u.setDistrict(countryId+"");
+//						map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
+//						if(map!=null){
+//							objId = map.get("cid");
+//							Object objName = map.get("name");	
+//							int provinceId = Integer.parseInt(objId.toString());
+//							u.setProvince(provinceId+"");
+//							u.setProvinceName(objName.toString());
+//							map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
+//							if(map!=null){
+//								objId = map.get("cid");
+//								objName = map.get("name");
+//								int cityId = Integer.parseInt(objId.toString());
+//								u.setCity(cityId+"");
+//								u.setCityName(objName.toString());
+//							}
+//						}
+//					}
+//					onlineUserService.addOnlineUser(u);
+//					ou = u;
+//				
+//				}else{
+//				    Map<String, Object> map1 = onlineUserService.getAppTouristRecord(appUniqueId);
+//				    ou = onlineUserService.findUserById(map1.get("userId").toString());
+//					
+//				    ou.setSex(Integer.parseInt(m.getSex()));
+//				    ou.setUnionId(m.getUnionid());
+//				    ou.setName(m.getNickname());   //微信名字
+//				    ou.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
+//				    ou.setOrigin("weixin");
+//				    ou.setVhallName(m.getNickname());
+//				    ou.setPassword(iu.getPassword()); 
+//				    ou.setUserCenterId(iu.getId());
+//				    ou.setLoginName(username);
+//					 /**
+//					 * 将从微信获取的省市区信息变为对应的id和name
+//					 */
+//					LOGGER.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+//					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
+//					if(map!=null){
+//						Object objId = map.get("cid");
+//						int countryId = Integer.parseInt(objId.toString());
+//						ou.setDistrict(countryId+"");
+//						map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
+//						if(map!=null){
+//							objId = map.get("cid");
+//							Object objName = map.get("name");	
+//							int provinceId = Integer.parseInt(objId.toString());
+//							ou.setProvince(provinceId+"");
+//							ou.setProvinceName(objName.toString());
+//							map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
+//							if(map!=null){
+//								objId = map.get("cid");
+//								objName = map.get("name");
+//								int cityId = Integer.parseInt(objId.toString());
+//								ou.setCity(cityId+"");
+//								ou.setCityName(objName.toString());
+//							}
+//						}
+//					}
+//					onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
+//				}
+//			}
+//			
+//			/**
+//			 * 初始化一条代币记录
+//			 */
+//			userCoinService.saveUserCoin(ou.getId());
+//			m.setClient_id(ou.getId());
+//			wxcpClientUserWxMappingService.update(m);
+//			Token t = userCenterAPI.loginThirdPart(username,iu.getPassword(), TokenExpires.TenDay);
+//			ou.setTicket(t.getTicket());
+//			//把用户中心的数据给他  --这些数据是IM的
+//			ou.setUserCenterId(iu.getId());
+//			ou.setPassword(iu.getPassword());
+//			
+//			onlogin(req,res,t,ou,t.getTicket());
+//			return  ResponseObject.newSuccessResponseObject(ou);
+//		}
 	}	
-	
-	
-	
-	
-	/**
-	 * 登录成功处理
-	 * @param req
-	 * @param res
-	 * @param token
-	 * @param user
-	 */
-	@SuppressWarnings("unchecked")
-	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-                        Token token, OnlineUser user, String ticket){
-		
-		String appUniqueId = req.getParameter("appUniqueId");
-		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
-			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
-			String model = req.getParameter("model");
-			if(StringUtils.isNotBlank(model)){
-				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());
-			}else{
-				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
-			}
-		}else{
-			// 用户登录成功
-			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
-			req.getSession().invalidate();
-			// 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
-			// 获得到ServletCOntext中存的Map集合.
-			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext()
-					.getAttribute("userMap");
-			// 判断用户是否已经在map集合中'
-			HttpSession session = userMap.get(user);
-			if(session!=null && userMap.containsKey(user)){
-				/**
-				 *  * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。
-				 * 得到客户端信息
-				 */
-				Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
-				//session.invalidate();
-				session.setAttribute("topOff", mapClientInfo);
-				session.setAttribute("_user_",null);
-			}else if(session!=null){
-				session.setAttribute("topOff",null);
-			}
-			// 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
-			req.getSession().setMaxInactiveInterval(86400);//设置session失效时间
-			req.getSession().setAttribute("_user_", user);
-			/**
-			 * 这是cookie 
-			 */
-			UCCookieUtil.writeTokenCookie(res, token);
-		}
-	}
-	
-	
 }

@@ -220,7 +220,7 @@ if(is_weixn()){
 	if(shareBack == 1){
 		pushHistory();
 	}
-	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
+	var ccontrollerAddress = "/xczh/wechatJssdk/certificationSign";
 	var urlparm = {
 		url: window.location.href
 	}
