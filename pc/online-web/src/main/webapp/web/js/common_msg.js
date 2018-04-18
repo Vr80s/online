@@ -141,6 +141,6 @@ comfirmBox.init()
 
 //comfirmBox.open("标题","内容",function(closefn){
 ////	alert("abc");  执行的逻辑
-//	closefn();
+//	closefn();    关闭弹窗
 //});
 

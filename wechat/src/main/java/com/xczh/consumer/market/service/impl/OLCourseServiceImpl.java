@@ -391,7 +391,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		sql.append("if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  //课程简介
 
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
-		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,live_status as  lineState, ");
+		sql.append(" + IFNULL(c.default_student_count, 0)) as  learndCount,live_status as  lineState, ");
 
 	    sql.append(dateWhere);
 		

@@ -72,8 +72,7 @@
             oba.`title`,
             oba.`content`,
             oba.`create_time` createTime,
-            oba.`img_path`    imgPath,
-            mdr.report_doctor as reportDoctor
+            oba.`img_path`    imgPath
         FROM
             `oe_bxs_article` oba
             JOIN `medical_doctor_report` mdr
@@ -89,8 +88,7 @@
             oba.`title`,
             oba.`create_time` createTime,
             oba.`img_path`    imgPath,
-            oba.`content`,
-            mdr.report_doctor as reportDoctor
+            oba.`content`
         FROM
             `oe_bxs_article` oba
             LEFT JOIN `medical_doctor_report` mdr
@@ -121,8 +119,7 @@
         oba.`title`,
         oba.`content`,
         oba.`create_time` createTime,
-        oba.`img_path` imgPath,
-        mdr.report_doctor as reportDoctor
+        oba.`img_path` imgPath
         FROM
         `oe_bxs_article` oba
         LEFT JOIN `medical_doctor_report` mdr

@@ -56,7 +56,11 @@ public class DoctorArticleController extends AbstractController {
 
     @RequestMapping(value = "specialColumn/{id}", method = RequestMethod.DELETE)
     public ResponseObject deleteSpecialColumn(@PathVariable String id) {
-        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.deleteSpecialColumnById(id));
+        if (medicalDoctorArticleService.deleteSpecialColumnById(id)) {
+            return ResponseObject.newSuccessResponseObject("删除成功");
+        } else {
+            return ResponseObject.newErrorResponseObject("删除失败");
+        }
     }
 
     @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
@@ -69,7 +73,7 @@ public class DoctorArticleController extends AbstractController {
     @RequestMapping(value = "specialColumn/{id}/{status}", method = RequestMethod.PUT)
     public ResponseObject changeStatus(@PathVariable String id, @PathVariable int status) {
         if (medicalDoctorArticleService.updateSpecialColumnStatus(id, status)) {
-            return ResponseObject.newSuccessResponseObject();
+            return ResponseObject.newSuccessResponseObject("操作成功");
         } else {
             return ResponseObject.newErrorResponseObject("更新状态失败");
         }
@@ -81,7 +85,7 @@ public class DoctorArticleController extends AbstractController {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
         medicalDoctorArticleService.saveReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName));
-        return ResponseObject.newSuccessResponseObject();
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "report/{id}", method = RequestMethod.PUT)
@@ -90,8 +94,11 @@ public class DoctorArticleController extends AbstractController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
-        medicalDoctorArticleService.updateReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName), id);
-        return ResponseObject.newSuccessResponseObject();
+        if (medicalDoctorArticleService.updateReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName), id)) {
+            return ResponseObject.newSuccessResponseObject("更新成功");
+        } else {
+            return ResponseObject.newErrorResponseObject("更新失败");
+        }
     }
 
     @RequestMapping(value = "report/{id}", method = RequestMethod.GET)
@@ -101,8 +108,11 @@ public class DoctorArticleController extends AbstractController {
 
     @RequestMapping(value = "report/{id}", method = RequestMethod.DELETE)
     public ResponseObject deleteReport(@PathVariable String id) {
-        medicalDoctorArticleService.deleteReportById(id);
-        return ResponseObject.newSuccessResponseObject();
+        if (medicalDoctorArticleService.deleteReportById(id)) {
+            return ResponseObject.newSuccessResponseObject("删除成功");
+        } else {
+            return ResponseObject.newErrorResponseObject("删除失败");
+        }
     }
 
     @RequestMapping(value = "report", method = RequestMethod.GET)
@@ -118,9 +128,9 @@ public class DoctorArticleController extends AbstractController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         if (medicalDoctorArticleService.updateReportStatus(id, status)) {
-            return ResponseObject.newSuccessResponseObject();
+            return ResponseObject.newSuccessResponseObject("操作成功");
         } else {
-            return ResponseObject.newErrorResponseObject("状态更新失败");
+            return ResponseObject.newErrorResponseObject("操作失败");
         }
     }
 }

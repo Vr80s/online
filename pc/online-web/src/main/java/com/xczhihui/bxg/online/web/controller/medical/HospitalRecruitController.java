@@ -73,6 +73,6 @@ public class HospitalRecruitController extends AbstractController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseObject delete(@PathVariable String id) {
         medicalHospitalRecruitBusinessService.delete(id);
-        return ResponseObject.newSuccessResponseObject();
+        return ResponseObject.newSuccessResponseObject("删除成功");
     }
 }
