@@ -250,25 +250,82 @@
 				float: right;
 				margin-right: 310px;
 			}
-			.surprise-top .surprise-div{
+			.surprise-top .surprise-mouseover-ul{
 				margin-top: 10px;
 				float: right;
 			}
-			.surprise-top .surprise-div .surprise-div-img{
+			.surprise-top .surprise-mouseover-ul li{
+				position: relative;
 				width: 58px;
 				height: 58px;
 				padding: 4px 0;
 				margin-right: 10px;
 				background: rgba(255,255,255,0.10);
-				/*background: darkgoldenrod;*/
-				border: 2px solid rgba(255,255,255,0.10);
 				border-radius: 4px;
 				float: left;
+				cursor: pointer;
 			}
-			.surprise-top .surprise-div .surprise-div-img img{
+			.li-initial-border{
+				border: 2px solid rgba(255,255,255,0.10);
+			}
+			.surprise-top-li-border{
+				border: 2px solid #00BC12;
+			}
+			.surprise-top .surprise-mouseover-ul li img{
 				width: 56px;
 				height: 48px;
 			}
+			/*放上 li显示内容*/
+			.surprise-show{
+				position: absolute;
+				top: -136px;
+    			left: -112px;
+				width: 278px;
+				height: 125px;
+				border: 1px solid #575757;
+				background: #333;
+				border-radius: 4px;
+			}
+			.surprise-show-img{
+				width: 80px;
+			    height: 80;
+			    float: left;
+			    border-radius: 4px;
+			    background: #fff;
+			    margin: 20px 12px 0 20px;
+			}
+			.surprise-show-img img
+				width: 80px !important;
+				height: 64px !important;
+				margin-top: 8px;
+			}
+			.surprise-show-name{
+				width: 150px;
+				margin-left: 110px;
+			}
+			.surprise-show-title{
+				margin: 22px 0 18px 0;
+			}
+			.surprise-show-title .show-name{
+				font-size: 16px;
+				color: #FFFFFF;
+				margin-right: 8px;
+			}
+			.surprise-show-title .show-number{
+				font-size: 12px;
+				color: #00BC12;
+			}
+			.surprise-presented{
+				width: 72px;
+				height: 32px;
+				line-height: 32px;
+				background: #00BC12;
+				border-radius: 100px;
+				font-size: 14px;
+				color: #FFFFFF;
+				text-align: center;
+			}
+			
 			
 			
 			/*处理聊天区值*/
@@ -282,6 +339,7 @@
 				display: block !important;
 			}
 		</style>
+		
 		<script type="text/javascript">
 			window.onload = function(){
 				/*点击关注已关注开始*/
@@ -299,11 +357,30 @@
 			 	});
 			 	/*点击关注已关注结束*/
 			 	
-			 	$(".video-bottom img").click(function(){
+			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
+		 		$(".video-bottom img").click(function(){
 			 		$("#userCusEvent").show();
-			 		$("#userCusEvent").css("display","block");
-			 		$("#userCusEvent").addClass("div0");
 			 	});
+			 	
+			 	/*鼠标礼物img上的效果开始*/
+			 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
+		        for(i=0;i<aBtn.length;i++){
+		            $(aBtn[i]).mouseover(function(){
+		              	for(i=0;i<aBtn.length;i++){
+		                	$(aBtn[i]).removeClass('surprise-top-li-border');
+		                	$(aBtn[i]).addClass('li-initial-border');
+		                	$(this).removeClass('li-initial-border');
+		                	$(this).addClass('surprise-top-li-border');
+		              	}
+		            });
+		            $(aBtn[i]).mouseout(function(){
+		              	for(i=0;i<aBtn.length;i++){
+		                	$(aBtn[i]).removeClass('surprise-top-li-border');
+		                	$(this).addClass('li-initial-border');
+		              	}
+		            });
+		        };
+			 	/*鼠标礼物img上的效果结束*/
 			};
 		</script>
 </head>
@@ -431,26 +508,40 @@
 					<!--右侧礼物区-->
 					<div class="surprise">
 						<div class="surprise-top">
-							<div class="surprise-div">
-								<div class="surprise-div-img"><img src="../images/04.png" /></div>
-								<div class="surprise-div-img"><img src="../images/04.png" /></div>
-								<div class="surprise-div-img"><img src="../images/04.png" /></div>
-								<div class="surprise-div-img"><img src="../images/04.png" /></div>
-								<div class="surprise-div-img"><img src="../images/04.png" /></div>
-								<div class="surprise-div-img"><img src="../images/04.png" /></div>
-								<div class="surprise-div-img"><img src="../images/04.png" /></div>
-								<div class="surprise-div-img"><img src="../images/1.jpg" /></div>
-							</div>
-							<!--<ul>
-								<ol><img src="../images/04.png" alt="" /></ol>
-								<ol><img src="../images/04.png" alt="" /></ol>
-								<ol><img src="../images/04.png" alt="" /></ol>
-								<ol><img src="../images/04.png" alt="" /></ol>
-								<ol><img src="../images/04.png" alt="" /></ol>
-								<ol><img src="../images/04.png" alt="" /></ol>
-								<ol><img src="../images/04.png" alt="" /></ol>
-								<ol><img src="../images/1.jpg" alt="" /></ol>
-							</ul>-->
+							<ul class="surprise-mouseover-ul">
+								<li class="li-initial-border">
+									<img src="../images/04.png" />
+									<div class="surprise-show surprise-hide">
+										<div class="surprise-show-img">
+											<img src="../images/1.jpg" style="width: 80px;height: 64px;margin-top: 8px;" />
+										</div>
+										<div class="surprise-show-name" style="width: 150px;margin-left: 110px;">
+											<div class="surprise-show-title">
+												<span class="show-name">杏仁条</span><span class="show-number">0熊猫币</span>
+											</div>
+											<div class="surprise-presented">赠送</div>
+										</div>
+									</div>
+								</li>
+								<!--<li class="li-initial-border">
+									<img src="../images/04.png" />
+									<div class="surprise-show surprise-hide">
+										<div class="surprise-show-img"><img src="../images/1.jpg"/></div>
+										<div class="surprise-show-name">
+											<div class="surprise-show-title">
+												<span class="show-name">杏仁条</span><span class="show-number">0熊猫币</span>
+											</div>
+											<div class="surprise-presented">赠送</div>
+										</div>
+									</div>
+								</li>-->
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/04.png" /></li>
+								<li class="li-initial-border"><img src="../images/1.jpg" /></li>
+							</ul>
 						</div>
 						<div class="surprise-bottom"></div>
 					</div>
