@@ -190,6 +190,7 @@
     </select>
 
     <select id="selectArticlesByPage" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
+        <![CDATA[
         SELECT
             b.id,
             b.title,
@@ -197,6 +198,7 @@
             b.img_path,
             b.create_time,
             b.`user_id` author,
+            if(b.recommend_time< now(),0,b.sort) sort,
             b.`type_id`,
             a.`name`    type
         FROM
@@ -207,7 +209,8 @@
               AND b.status = 1
               AND b.type_id = #{typeId}
         GROUP BY b.id
-        ORDER BY b.create_time DESC
+        ORDER BY sort desc,b.create_time DESC
+        ]]>
     </select>
 
     <select id="selectArticleById" resultType="com.xczhihui.medical.headline.model.OeBxsArticle">
