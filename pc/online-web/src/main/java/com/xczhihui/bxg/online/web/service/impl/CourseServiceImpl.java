@@ -237,29 +237,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
           return "开始报名";
     }
 
-
-    /**
-     * 获取当前课程下学员评价
-     * @param courseId 课程id
-     * @return
-     */
-    @Override
-    public  Page<CriticizeVo>   findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-        return  coursedao.findStudentCriticize(courseId, pageNumber,  pageSize);
-    }
-
-
-    /**
-     * 获取好评的数量
-     * @param courseId 课程ID
-     * @return
-     */
-    @Override
-    public Integer getGoodCriticizSum(Integer courseId) {
-       return coursedao.getGoodCriticizSum(courseId);
-    }
-
-
     /**
      * 获取课程目录
      * @param courseId
@@ -305,12 +282,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	private CourseVo findOpenCourseById(Integer courseId) {
 		return coursedao.findCourseOrderById(courseId);
 	}
-
-
-	 @Override
-	 public  Page<Criticize>  findUserCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-	      return  coursedao.findUserCriticize(courseId, pageNumber,  pageSize);
-	 }
 
     @Override
     public void updateCourseException() {

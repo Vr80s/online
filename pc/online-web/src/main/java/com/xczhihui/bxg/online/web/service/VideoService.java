@@ -40,18 +40,7 @@ public interface VideoService {
      * @return
      */
     public Page<Criticize> getVideoCriticize(String videoId, Integer name, Integer pageNumber, Integer pageSize, String userId);
-    /**
-     * 提交评论
-     */
-    public void saveCriticize(CriticizeVo criticizeVo) ;
-    /**
-     * 根据ID查询评论
-     */
-    public CriticizeVo findCriticizeById(String id);
-    /**
-     * 点赞、取消点赞
-     */
-    public Map<String, Object> updatePraise(Boolean isPraise,String id,String loginName) ;
+
     /**
      * 修改学员视频学习状态
      */

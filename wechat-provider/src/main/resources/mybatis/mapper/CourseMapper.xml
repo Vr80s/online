@@ -70,16 +70,16 @@
 		oc.course_length as courseLength,
 		oc.current_price*10 as currentPrice,
 		
-		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null 
+		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.create_person is not null
 		  and ( cc.course_id in  ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id  )) ,
-		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.create_person is not null )
+		      (select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.create_person is not null )
 		) as  criticizeCount,
 		
 	    IF(oc.collection = 1,
-   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1  and cc.overall_level !=0  
+   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0  and cc.overall_level !=0
    		    and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or cc.course_id = oc.id ) )
 	      ,
-		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 )
+		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0 )
 		)  as startLevel,
 		
 		
@@ -143,17 +143,17 @@
 		oc.subtitle as subtitle,
 		oc.current_price*10 as currentPrice,
 		
-	    IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.status = 1 and cc.create_person is not null 
+	    IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.create_person is not null
 		  and ( cc.course_id in  ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id  )) ,
-		      (select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.create_person is not null )
+		      (select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.create_person is not null )
 		) as  criticizeCount,
 	
 
 	    IF(oc.collection = 1,
-   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1  and cc.overall_level >0  
+   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0  and cc.overall_level >0
    		    and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or cc.course_id = oc.id ) )
 	      ,
-		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id and cc.overall_level !=0 )
+		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0 )
 		)  as startLevel,
 		
 		oc.lecturer as name,

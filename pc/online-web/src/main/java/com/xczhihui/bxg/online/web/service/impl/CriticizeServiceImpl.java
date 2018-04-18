@@ -110,7 +110,8 @@ public class CriticizeServiceImpl implements CriticizeService {
 	public Map<String, Object> updatePraise(Boolean isPraise,
 			String criticizeId, String loginName) {
 		// TODO Auto-generated method stub
-		return videoService.updatePraise(isPraise, criticizeId, loginName);
+//		return videoService.updatePraise(isPraise, criticizeId, loginName);
+		return null;
 	}
 
 	@Override

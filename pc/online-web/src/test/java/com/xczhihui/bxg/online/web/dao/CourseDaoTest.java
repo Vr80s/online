@@ -28,14 +28,6 @@ public class CourseDaoTest extends TestCase {
     }
 
     @Test
-    public void testGetGoodCriticizSum() throws Exception {
-       int a= dao.getGoodCriticizSum(221);
-
-            System.out.println(a);
-
-    }
-    
-    @Test
     public void testGetCoursesByCollectionId() throws Exception {
        
     	List<Integer> list = videoDao.getCoursesIdListByCollectionId(733);
