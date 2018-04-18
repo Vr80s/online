@@ -729,7 +729,7 @@ $(".recruit-save-btn-menuone").click(function(){
 })
 //招聘管理列表
 var recruits;
-recruitList(1)
+
 function recruitList(pages){
 	RequestService("/medical/hospitalRecruit","GET",{
 		"page":pages
@@ -766,9 +766,11 @@ function recruitList(pages){
 
 //招聘管理部分,点击后回到第一页
 $("#collect_Administration_tabBtn").click(function(){
+	
 	if($('.recruit-btn-newjob').text() == '返回'){
 			$('.recruit-btn-newjob').click()
 		}
+	recruitList(1)
 })
 //招聘管理部分,点击预览
 function recruit_preview_btn(i){
@@ -938,6 +940,7 @@ $("#news_Administration_tabBtn").click(function(){
 	if($(".Notice_top button").text() == '返回'){
 		$(".Notice_top button").click();
 	}
+	announcementMethod(1)
 })
 //公告发布接口调用
 $("#notice-release-btn").click(function(){
@@ -966,7 +969,7 @@ $("#notice-release-btn").click(function(){
 
 var announcementList;
 //公告管理列表接口调用
-announcementMethod(1)
+
 function announcementMethod(current){
 RequestService("/hospital/announcement","GET",{
 	"page":current
