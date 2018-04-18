@@ -143,6 +143,7 @@
 			    height: 100%;
 			    margin-left: 0 !important;
 			    margin-top: 0;
+			    border: 0;
 			}
 			.page-pc .player-container{
 				width: 100%;
@@ -152,19 +153,21 @@
 			}
 			.page-pc .video{
 				width: 100%;
-			    height: 88%;
+			    height: 87.9%;
 			    z-index: 4;
 			    background: red;
 			    border-bottom: 1px solid blue;
 			}
 			
-			/*动画区*/
+			/*视频和文档动画区*/
 			.animation{
 				width: 294px;
 				height: 168px;
 				position: absolute;
-				top: 0;
-				/*right: 320px;*/
+				top: 65px;
+			    right: 311px;
+			    z-index: 4;
+				border: 1px solid #ddd;
 			}
 			.animation-cut{
 				width: 20px;
@@ -178,8 +181,131 @@
 				background: blue;
 				float: right;
 			}
+			
+			/*视频底部区域关注和礼物区*/
+			.video-bottom{
+				width: 100%;
+				height: 110px;
+				/*background: #009688;*/
+				background: #444;
+				position: absolute;
+			    bottom: 0;
+			    z-index: 99;
+			}
+			.concern{
+				min-width: 300px;
+				height: 110px;
+				background: #188EEE;
+				float: left;
+				margin-left: 20px;
+			}
+			.concern-img{
+				width: 60px;
+				height: 60px;
+				border-radius: 60px;
+				margin-top: 25px;
+				float: left;
+				margin-right: 10px;
+			}
+			.concern-left{
+				float: left;
+				margin-right: 12px;
+			}
+			.concern-name{
+				width: 114px;
+				font-size: 16px;
+				color: #FFFFFF;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				margin-top: 30px;
+			}
+			.concern-number{
+				font-size: 12px;
+				color: #999999;
+				margin-top: 12px;
+			}
+			.concern-number span:first-child{
+				border-right: 2px solid #999;
+			    padding-right: 9px;
+			    margin-right: 5px;
+			}
+			.concern-right{
+				width: 72px;
+				height: 33px;
+				line-height: 33px;
+				background: #00BC12;
+				border-radius: 4px;
+				float: right;
+				margin-top: 38px;
+				font-size: 14px;
+				color: #FFFFFF;
+				text-align: center;
+				cursor: pointer;
+			}
+			/*右侧礼物区*/
+			.surprise{
+				height: 100%;
+				/*background: #3385FF;*/
+				float: right;
+				margin-right: 310px;
+			}
+			.surprise-top .surprise-div{
+				margin-top: 10px;
+				float: right;
+			}
+			.surprise-top .surprise-div .surprise-div-img{
+				width: 58px;
+				height: 58px;
+				padding: 4px 0;
+				margin-right: 10px;
+				background: rgba(255,255,255,0.10);
+				/*background: darkgoldenrod;*/
+				border: 2px solid rgba(255,255,255,0.10);
+				border-radius: 4px;
+				float: left;
+			}
+			.surprise-top .surprise-div .surprise-div-img img{
+				width: 56px;
+				height: 48px;
+			}
+			
+			
+			/*处理聊天区值*/
+			.container{
+				padding-left: 10px;
+			}
+			.page-pc .container{
+				z-index: 99;
+			}
+			.div0{
+				display: block !important;
+			}
 		</style>
-		
+		<script type="text/javascript">
+			window.onload = function(){
+				/*点击关注已关注开始*/
+				var Concern = 1;
+			 	$(".concern-click").click(function(){
+			  		if(Concern == 1){
+			  			$(".concern-right").css("background","#bbb");
+			  			$(".concern-right").html("已关注");
+			   			Concern = 0;
+			  		} else{
+			  			$(".concern-right").css("background","#00BC12");
+			   			$(".concern-right").html("加关注");
+			   			Concern = 1;
+			  		}
+			 	});
+			 	/*点击关注已关注结束*/
+			 	
+			 	$(".video-bottom img").click(function(){
+			 		$("#userCusEvent").show();
+			 		$("#userCusEvent").css("display","block");
+			 		$("#userCusEvent").addClass("div0");
+			 	});
+			};
+		</script>
 </head>
 
 <body>
@@ -252,7 +378,6 @@
 			<span class="liveTime">直播时间：<span></span></span>
 		</div>
 		
-		
 		<!-- right start -->
 		<div class="right">
 			
@@ -260,15 +385,9 @@
 			
 		</div>
 		
-		
-		
-		
 		<div id="livePlayer">
 			 <!-- <iframe id="vhall-video" src="" width="100%" height="100%" style="border-width:0;"></iframe> -->
-			
-
-		 	<div class=layer id=userCusEvent style="display:block">
-
+		 	<div class=layer id=userCusEvent style="display:block !important">
 				<div class=layer id=userCusEvent style="display:none">
 					<div class=layer-header >
 						测试自定义消息 <img
@@ -292,7 +411,51 @@
 				<div class=player-container>
 					<div class=video id=video></div>
 					<div class=doc id=doc></div>
+					
 				</div>
+				
+				<!--添加底部礼物区-->
+				<div class="video-bottom">
+					<!--左侧关注-->
+					<div class="concern">
+						<img src="../images/5.jpg" alt="" class="concern-img" />
+						<div class="concern-left">
+							<div class="concern-name">我是超人超人你是谁</div>
+							<div class="concern-number">
+								<span>关注&nbsp;2020</span>
+								<span>粉丝&nbsp;2000</span>
+							</div>
+						</div>
+						<div class="concern-right concern-click">加关注</div>
+					</div>
+					<!--右侧礼物区-->
+					<div class="surprise">
+						<div class="surprise-top">
+							<div class="surprise-div">
+								<div class="surprise-div-img"><img src="../images/04.png" /></div>
+								<div class="surprise-div-img"><img src="../images/04.png" /></div>
+								<div class="surprise-div-img"><img src="../images/04.png" /></div>
+								<div class="surprise-div-img"><img src="../images/04.png" /></div>
+								<div class="surprise-div-img"><img src="../images/04.png" /></div>
+								<div class="surprise-div-img"><img src="../images/04.png" /></div>
+								<div class="surprise-div-img"><img src="../images/04.png" /></div>
+								<div class="surprise-div-img"><img src="../images/1.jpg" /></div>
+							</div>
+							<!--<ul>
+								<ol><img src="../images/04.png" alt="" /></ol>
+								<ol><img src="../images/04.png" alt="" /></ol>
+								<ol><img src="../images/04.png" alt="" /></ol>
+								<ol><img src="../images/04.png" alt="" /></ol>
+								<ol><img src="../images/04.png" alt="" /></ol>
+								<ol><img src="../images/04.png" alt="" /></ol>
+								<ol><img src="../images/04.png" alt="" /></ol>
+								<ol><img src="../images/1.jpg" alt="" /></ol>
+							</ul>-->
+						</div>
+						<div class="surprise-bottom"></div>
+					</div>
+				</div>
+				
 				<div class=container>
 					<div class=help-wrap>
 						<div class=help-tool>小助手</div>
