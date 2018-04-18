@@ -30,6 +30,13 @@ public interface ArticleService {
 
     void addPreArticle(ArticleVo articleVo);
 
-    void updateRecommend(Integer id);
+    /**
+     * Description：
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/4/18 10:03
+     **/
+    void updateRecommendSort(Integer id, Integer recommendSort,
+                             String recommendTime);
 
 }

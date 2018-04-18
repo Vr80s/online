@@ -802,7 +802,7 @@ $(".recruit_preview_content img").click(function(){
 	$(".recruit_preview_bg").hide()
 	$(".recruit_preview_box").hide()	
 })
-//招聘管理部分,开启/关闭招聘
+//招聘管理部分,开启/关闭招聘按钮
 function recruit_close_btn(t){
 	var id = $(t).attr('data-id');
 	var status = $(t).attr('data-status');
@@ -818,7 +818,7 @@ function recruit_close_btn(t){
 		}			
 	});
 }
-//删除招聘信息，点击删除--------------------------------------------------------------
+//招聘管理部分，点击删除招聘信息
 function delete_recruit_btn(t){
 	var data_deleteId=$(t).attr("data-deleteId");
 	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
@@ -913,8 +913,8 @@ $(".recruit-edit-btn").click(function(){
 	};
 })
 //招聘管理部分结束
-//	公告部分
-//	公告部分点击发布效果
+//--------------------------------------招聘管理部分结束,招聘公告部分开始---------------------------------------
+//	招聘公告部分，点击发布按钮
 var NoticeCount = 1;
 $('#Notice_Administration .Notice_top button').click(function() {
 	NoticeCount *= -1;

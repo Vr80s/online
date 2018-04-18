@@ -215,16 +215,4 @@ public class WritingsController extends AbstractController {
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
-    /**
-     * 推荐
-     *
-     * @param id id
-     * @return
-     */
-    @RequestMapping(value = "recommend", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject recommend(Integer id) {
-        articleService.updateRecommend(id);
-        return ResponseObject.newSuccessResponseObject("操作成功！");
-    }
 }
