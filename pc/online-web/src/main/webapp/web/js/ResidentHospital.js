@@ -806,6 +806,11 @@ function recruit_close_btn(t){
 	var status = $(t).attr('data-status');
 	RequestService("/medical/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
 		if(data.success == true){
+			if(status==0){
+				showTip("关闭成功");
+			}else{
+				showTip("发布成功");
+			}
 			//重新渲染列表
 			 recruitList(1);
 		}			
