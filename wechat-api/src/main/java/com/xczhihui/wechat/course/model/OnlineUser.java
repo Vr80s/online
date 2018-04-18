@@ -292,7 +292,7 @@ public class OnlineUser extends  Model<OnlineUser> {
 		this.smallHeadPhoto = smallHeadPhoto;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 

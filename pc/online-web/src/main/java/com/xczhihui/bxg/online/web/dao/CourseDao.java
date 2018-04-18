@@ -557,21 +557,6 @@ public class CourseDao extends SimpleHibernateDao {
     }
 
     /**
-     * 查询购物车中提交的订单
-     * @param courseId  课程id号
-     * @return 返回对应的课程对象
-     */
-    //public  List<Map<String,Object> >   findConfirmOrderById(Integer  courseId){
-    //    String  sql =" select id ,course_type, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ," +
-    //            " current_price as currentPrice, now() as create_time,  FORMAT(original_cost - current_price,2) as preferentyMoney from oe_course  where id =:courseId";
-    //    Map<String,Object> paramMap = new HashMap<>();
-    //    paramMap.put("courseId",courseId);
-    //    List<CourseVo>  courseVos= this.findEntitiesByJdbc(CourseVo.class, sql.toString(), paramMap) ;
-    //    return courseVos.size() > 0 ? courseVos.get(0) : null;
-    //}
-
-
-    /**
      * 购买课程时，进行检测此订单关联的课程是否下架以及是否购买
      * @param
      */
@@ -605,49 +590,6 @@ public class CourseDao extends SimpleHibernateDao {
         }
 
     }
-
-
-    /**
-     * 获取当前课程下学员评价
-     * @param courseId 课程id
-     * @return
-     */
-    public  Page<CriticizeVo>  findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-        pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize = pageSize == null ? 10 : pageSize;
-         if(courseId !=null){
-           /*  String querySql=" select u.small_head_photo smallPhoto,u.`name` userName,c.id,c.content,c.star_level starLevel,c.create_time createTime,c.praise_sum praiseSum," +
-                             " c.response,c.response_time response_time from oe_criticize c ,oe_user u where c.user_id=u.id and c.is_delete=0 and c.`status`=1 and   c.course_id=:courseId";
-             Map<String,Object> paramMap = new HashMap<>();
-             paramMap.put("courseId",courseId);
-             Page<CriticizeVo>  criticizes = this.findPageBySQL(querySql,paramMap,CriticizeVo.class,pageNumber,pageSize);
-             return  criticizes;*/
-        	 String querySql="select c from Criticize c  where c.status = 1 and c.onlineUser.id =:userId ";
-             Map<String,Object> paramMap = new HashMap<>();
-	       	  paramMap.put("userId", "ef823d8ef62b48d89459ac0871953282");
-             //  Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
-             Page<Criticize>  criticizes = this.findPageByHQL(querySql,paramMap,pageNumber,pageSize);
-             System.out.println(criticizes.getItems());
-         }
-         return  null;
-    }
-
-
-    /**
-     * 获取好评的数量
-     * @param courseId 课程ID
-     * @return
-     */
-    public Integer getGoodCriticizSum(Integer courseId) {
-        StringBuffer sql = new StringBuffer();
-        sql.append("SELECT count(c.id) ");
-        sql.append(" from oe_criticize c  where  c.is_delete=0 and c.`status`=1 and c.star_level >=4  and  c.course_id=:courseId ");
-        Map<String,Object> paramMap = new HashMap<>();
-        paramMap.put("courseId",courseId);
-        return  this.getNamedParameterJdbcTemplate().queryForObject(sql.toString(),paramMap,Integer.class);
-
-    }
-
 
     /**
      * 获取课程目录
@@ -818,23 +760,6 @@ public class CourseDao extends SimpleHibernateDao {
          courseVos= this.findEntitiesByJdbc(CourseVo.class, sql.toString(), paramMap);
          return  courseVos.size()>0 ? courseVos.get(0) : null;
      }
-     
-     
-     public  Page<Criticize>  findUserCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-         pageNumber = pageNumber == null ? 1 : pageNumber;
-         pageSize = pageSize == null ? 10 : pageSize;
-          if(courseId !=null){
-         	 String querySql="select c from Criticize c  where c.status = 1 and c.onlineUser.id =:userId ";
-              Map<String,Object> paramMap = new HashMap<>();
- 	       	  paramMap.put("userId", "ef823d8ef62b48d89459ac0871953282");
-              //  Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
-              Page<Criticize>  criticizes = this.findPageByHQL(querySql,paramMap,pageNumber,pageSize);
-              System.out.println(criticizes.getItems());
-              return criticizes;
-          }
-          return  null;
-     }
-
 
     public Course getCourse(Integer courseId) {
         DetachedCriteria dc = DetachedCriteria.forClass(Course.class);

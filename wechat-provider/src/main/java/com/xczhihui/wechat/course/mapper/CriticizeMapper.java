@@ -28,4 +28,6 @@ public interface CriticizeMapper extends BaseMapper<Criticize> {
     List<Criticize> selectCollectionCriticize(@Param("page") Page<Criticize> page, @Param("courseIds") List<Integer> courseIds, @Param("userId") String userId);
 
     List<Criticize> selectAnchorCriticize(@Param("page") Page<Criticize> page, @Param("anchorUserId") String anchorUserId, @Param("userId") String userId);
+
+    Integer hasCriticizeScore(@Param("courseId") Integer courseId, @Param("userId") String userId);
 }

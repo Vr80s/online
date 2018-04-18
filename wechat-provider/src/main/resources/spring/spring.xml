@@ -40,4 +40,6 @@
 
     <!--订单服务-->
     <dubbo:service interface="com.xczhihui.wechat.course.service.IOrderService" ref="orderServiceImpl" timeout="${dubbo.consumer.timeout}"  />
+    <!--评论服务-->
+    <dubbo:service interface="com.xczhihui.wechat.course.service.ICriticizeService" ref="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}"  />
 </beans>

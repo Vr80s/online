@@ -193,7 +193,8 @@ public class CourseController {
      */
     @RequestMapping(value = "/findStudentCriticize")
     public ResponseObject findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-        return  ResponseObject.newSuccessResponseObject(service.findUserCriticize(courseId, pageNumber, pageSize));
+//        return  ResponseObject.newSuccessResponseObject(service.findUserCriticize(courseId, pageNumber, pageSize));
+        return null;
     }
 
     /**
@@ -203,7 +204,8 @@ public class CourseController {
      */
     @RequestMapping(value = "/getGoodCriticizSum")
     public ResponseObject getGoodCriticizSum(Integer courseId) {
-        return  ResponseObject.newSuccessResponseObject(service.getGoodCriticizSum(courseId));
+        return null;
+//        return  ResponseObject.newSuccessResponseObject(service.getGoodCriticizSum(courseId));
     }
 
     /**

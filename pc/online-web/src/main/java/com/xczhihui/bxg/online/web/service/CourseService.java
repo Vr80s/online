@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
-import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
@@ -40,9 +38,6 @@ public interface CourseService {
      */
     public Page<CourseLecturVo>  getCourseAndLecturerlist( Integer type,Integer menuId,String couseTypeId, Integer pageNumber, Integer pageSize);
 
-
-
-
     /**
      * 根据课程ID号，查找对应的课程对象
      * @param courseId 课程id
@@ -51,16 +46,6 @@ public interface CourseService {
      */
     public CourseVo getCourseById(Integer courseId,String path,HttpServletRequest request,OnlineUser ou) throws IOException;
 
-    /**
-     * 根据课程ID号，查找对应的课程对象
-     * @param courseId 课程id
-     * @param ispreview 是否为预览，1为预览
-     * @return Example 分页列表
-     */
-    //public CourseVo getCourseById(Integer courseId,String ispreview,HttpServletRequest request,OnlineUser ou);
-
-    
-    
     public Page<CourseVo> findUserRealCoursePage(String userId,Integer courseStatus, Integer pageNumber, Integer pageSize);
 
     /**
@@ -72,14 +57,12 @@ public interface CourseService {
 
     public Page<CourseVo> findUserPublicCoursePage(String userId,Integer courseStatus,Integer pageNumber, Integer pageSize);
 
-
     /**
      * 根据课程ID号，查找对应的课程对象
      * @param courseId 课程id
      * @return Example 分页列表
      */
     public CourseApplyVo getCourseApplyByCourseId( Integer courseId);
-
 
     /**
      * 查找推荐课程信息
@@ -139,22 +122,6 @@ public interface CourseService {
      */
     public   String   checkCouseInfo(String  orderNo);
 
-
-    /**
-     * 获取当前课程下学员评价
-     * @param courseId 课程id
-     * @return
-     */
-    public  Page<CriticizeVo>  findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize);
-
-
-    /**
-     * 获取好评的数量
-     * @param courseId 课程ID
-     * @return
-     */
-    public Integer getGoodCriticizSum(Integer courseId);
-
     /**
      * 获取课程目录
      * @param courseId
@@ -162,18 +129,9 @@ public interface CourseService {
      */
     public List<Map<String, Object>> getCourseCatalog(Integer courseId);
 
-
-
-
 	public Object getOpenCourseById(Integer courserId, String ispreview,HttpServletRequest request);
 
-
-
-
 	public CourseVo getCourseByCourseId(Integer courseId);
-
-
-
 
 	void updateSentById(Integer id);
 
@@ -184,20 +142,6 @@ public interface CourseService {
      * @param courseId
      */
     ResponseObject insertSubscribe(String userId, String mobile, Integer courseId) throws ClientException ;
-
-
-	/**
-	 * Description：新的评论、回复、用户关系  并且查询
-	 * @param courseId
-	 * @param pageNumber
-	 * @param pageSize
-	 * @return
-	 * @return Page<Criticize>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 */
-	Page<Criticize> findUserCriticize(Integer courseId, Integer pageNumber,
-			Integer pageSize);
-
 
     void updateCourseException();
 

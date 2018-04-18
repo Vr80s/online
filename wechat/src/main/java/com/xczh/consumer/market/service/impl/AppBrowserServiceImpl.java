@@ -6,14 +6,11 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.sql.SQLException;
-import java.util.Map;
 
 @Service
 public class AppBrowserServiceImpl implements AppBrowserService {

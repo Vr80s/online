@@ -96,7 +96,7 @@ public class VideoController {
                 criticizeVo.setCreatePerson(user.getId());
                 criticizeVo.setUserId(cv.getUserLecturerId());
                 criticizeVo.setCreateTime(new Date());
-                videoService.saveCriticize(criticizeVo);
+//                videoService.saveCriticize(criticizeVo);
                 return ResponseObject.newSuccessResponseObject("提交评论成功！");
             }else {
                 return ResponseObject.newErrorResponseObject("用户未登录！");
@@ -113,7 +113,9 @@ public class VideoController {
      */
     @RequestMapping(value = "/findCriticizeById")
     public ResponseObject findCriticizeById(String id){
-        return ResponseObject.newSuccessResponseObject(videoService.findCriticizeById(id));
+
+//        return ResponseObject.newSuccessResponseObject(videoService.findCriticizeById(id));
+        return ResponseObject.newSuccessResponseObject();
     }
 
     /**
@@ -128,8 +130,9 @@ public class VideoController {
         //获取当前登录用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(user!=null) {
-            Map<String, Object> returnMap = videoService.updatePraise(isPraise, criticizeId, user.getLoginName());
-            return ResponseObject.newSuccessResponseObject(returnMap);
+//            Map<String, Object> returnMap = videoService.updatePraise(isPraise, criticizeId, user.getLoginName());
+//            return ResponseObject.newSuccessResponseObject(returnMap);
+            return ResponseObject.newSuccessResponseObject(null);
         }else{
             return ResponseObject.newErrorResponseObject("用户未登录！");
         }

@@ -203,56 +203,6 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     }
 
     @Override
-    public void saveCriticize(CriticizeVo criticizeVo) {
-        videoDao.saveCriticize(criticizeVo);
-    }
-
-    @Override
-    public CriticizeVo findCriticizeById(String id) {
-        if(!StringUtils.hasText(id)){
-            return null;
-        }
-        return videoDao.findCriticizeById(id);
-    }
-
-    @Override
-    public Map<String, Object> updatePraise(Boolean isPraise,String id,String  loginName) {
-        /** 根据id查出当前评论 */
-        CriticizeVo criticizeVo = videoDao.findCriticizeById(id);
-        boolean praise = false;
-        
-        int sum = 0;
-        Map<String,Object> returnMap = new HashMap<>();
-        /** 点赞排除排除已经点赞的，记录点赞人 */
-        if(criticizeVo!=null) {
-            String praiseLoginNames = criticizeVo.getPraiseLoginNames();
-            sum = criticizeVo.getPraiseSum();
-            if (isPraise) {
-                if (!StringUtils.hasText(praiseLoginNames) || !praiseLoginNames.contains(loginName)) {
-                    criticizeVo.setPraiseSum(++ sum);
-                    praise = true;
-                    if(!StringUtils.hasText(praiseLoginNames)) {
-                        criticizeVo.setPraiseLoginNames(loginName);
-                    }else{
-                        criticizeVo.setPraiseLoginNames(praiseLoginNames + "," + loginName);
-                    }
-                    videoDao.praise(criticizeVo);
-                }
-            } else {
-                if (criticizeVo.getPraiseLoginNames().contains(loginName)) {
-                    criticizeVo.setPraiseSum(-- sum);
-                    praiseLoginNames = praiseLoginNames.replace(","+loginName, "").replace(loginName, "");
-                    criticizeVo.setPraiseLoginNames(praiseLoginNames);
-                    videoDao.praise(criticizeVo);
-                }
-            }
-        }
-        //returnMap.put("praise",praise);
-        returnMap.put("praiseSum",sum);
-        return returnMap;
-    }
-
-    @Override
     public void updateStudyStatus(String studyStatus, String videoId, String userId) {
         videoDao.updateStudyStatus(studyStatus, videoId, userId);
     }
