@@ -26,11 +26,6 @@ import java.util.Map;
 @RequestMapping("/bxg/learningCenter")
 public class LearningCenterController {
 
-    @Autowired
-    private OnlineOrderService onlineOrderService;
-
-    @Autowired
-    private OnlineUserService onlineUserService;
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LearningCenterController.class);
     
@@ -46,40 +41,35 @@ public class LearningCenterController {
     @ResponseBody
     public ResponseObject getList(HttpServletRequest req,
                                              HttpServletResponse res, Map<String, String> params)throws Exception{
-        int type = -1;   //支付状态 0:未支付 1:已支付 2:已关闭
-        if(null != req.getParameter("type")){
-            type = Integer.valueOf(req.getParameter("type"));
-        }
-        int pageNumber = 0;
-        if(null != req.getParameter("pageNumber")){
-            pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
-        }
-        int pageSize = 10;
-        if(null != req.getParameter("pageSize")){
-            pageSize = Integer.valueOf(req.getParameter("pageSize"));
-        }
-        String userId =req.getParameter("userId");
-        if(null == userId){
-            return ResponseObject.newErrorResponseObject("参数异常");
-        }
-        List<OnlineCourse> lists = onlineOrderService.listLearningCenter(type, userId, pageNumber,pageSize);
-		for (OnlineCourse onlineCourse : lists) {
-			String city = onlineCourse.getAddress();
-			if(city!=null){
-				String [] citys = city.split("-");
-				onlineCourse.setCity(citys[1]);
-			}
-//			if(type == 3){
-//				boolean falg = TimeUtil.dateCompare(onlineCourse.getEndTime(),Calendar.getInstance(),1);
-//				if(falg){
-//					onlineCourse.setCutoff(0);
-//				}else{
-//					onlineCourse.setCutoff(1);
-//				}
+
+   	    LOGGER.info("老版本方法----》》》》learningCenter");
+        return ResponseObject.newErrorResponseObject("请使用最新版本");
+    	//        int type = -1;   //支付状态 0:未支付 1:已支付 2:已关闭
+//        if(null != req.getParameter("type")){
+//            type = Integer.valueOf(req.getParameter("type"));
+//        }
+//        int pageNumber = 0;
+//        if(null != req.getParameter("pageNumber")){
+//            pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
+//        }
+//        int pageSize = 10;
+//        if(null != req.getParameter("pageSize")){
+//            pageSize = Integer.valueOf(req.getParameter("pageSize"));
+//        }
+//        String userId =req.getParameter("userId");
+//        if(null == userId){
+//            return ResponseObject.newErrorResponseObject("参数异常");
+//        }
+//        List<OnlineCourse> lists = onlineOrderService.listLearningCenter(type, userId, pageNumber,pageSize);
+//		for (OnlineCourse onlineCourse : lists) {
+//			String city = onlineCourse.getAddress();
+//			if(city!=null){
+//				String [] citys = city.split("-");
+//				onlineCourse.setCity(citys[1]);
 //			}
-		}
-		LOGGER.info("list.size():"+lists.size());
-        return ResponseObject.newSuccessResponseObject(lists);
+//		}
+//		LOGGER.info("list.size():"+lists.size());
+//        return ResponseObject.newSuccessResponseObject(lists);
     }
 
 

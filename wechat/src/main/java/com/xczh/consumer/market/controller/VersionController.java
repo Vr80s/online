@@ -44,12 +44,6 @@ public class VersionController {
     
     @Autowired
 	private OLAttachmentCenterService service;
-    
-	@Autowired
-	private OnlineCourseService onlineCourseService;
-	
-	@Autowired
-	private AppBrowserService appBrowserService;
 	
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
@@ -58,7 +52,9 @@ public class VersionController {
 
     @RequestMapping("checkUpdate")
     @ResponseBody
-    public ResponseObject checkUpdate(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception{
+    public ResponseObject checkUpdate(HttpServletRequest req, 
+    		HttpServletResponse res,
+    		Map<String, String> params) throws Exception{
 
 
         String userVersion=req.getParameter("version");
@@ -100,12 +96,6 @@ public class VersionController {
 		try {
 			String content = req.getParameter("content");
 	    	CourseLecturVo cv =  null;
-	    	/*if(courseId!=null){
-	    	   cv = onlineCourseService.get(Integer.parseInt(courseId));
-	    	}
-	    	if(cv==null){
-	    		return ResponseObject.newErrorResponseObject("课程信息有误");
-	    	}*/
 			list = uploadFileList(files,req);
 			String imgStrs = "";
 	    	int i = 0;
@@ -118,13 +108,9 @@ public class VersionController {
 	    		i++;
 			}
 	    	String teacherId =1+"";
-	    	//String userId =appBrowserService.getOnlineUserByReq(req).getId();
 	    	versionService.insertTipOff(content,courseId,label,teacherId,"",imgStrs);
-			//return ResponseObject.newSuccessResponseObject("举报成功");
 	    	String str =  returnOpenidUri + "/xcviews/html/complaint_details.html?label="+label+"&falg=1";
 	    	LOGGER.info(str);
-	    	//req.getRequestDispatcher(str).forward(req,res);
-	    	
 	    	res.sendRedirect("/xcviews/html/complaint_details.html?label="+label+"&falg=1");
 		}catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -936,7 +936,7 @@ public class BrowserUserController {
 //		String token = req.getParameter("token");
 //		String type = req.getParameter("type");
 		
-		return ResponseObject.newErrorResponseObject("接口过期");
+		return ResponseObject.newErrorResponseObject("请使用最新版本");
 		
 //		/**
 //		 * 如果存在这个token。那么说明这个token可以的啦。就不用用appUniqueId来判断了
@@ -1067,37 +1067,6 @@ public class BrowserUserController {
 		// }
 	}
 
-	@RequestMapping(value = "checkToken")
-	@ResponseBody
-	public ResponseObject checkToken(HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
-		String token = req.getParameter("token");
-
-		System.out.println();
-		if (null == token) {
-			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
-		}
-		OnlineUser ou = cacheService.get(token);
-		if (null == ou) {
-			return ResponseObject.newErrorResponseObject("已过期", 1002);
-		} else if (null != ou && cacheService.get(ou.getId()) != null
-				&& cacheService.get(ou.getId()).equals(token)) {
-			return ResponseObject.newSuccessResponseObject("有效", 1000);
-		} else if (ou.getLoginName() != null) {
-			/*
-			 * String model = cacheService.get(ou.getLoginName());
-			 * if(model!=null){ return
-			 * ResponseObject.newErrorResponseObject(model,1003); } return
-			 * ResponseObject.newErrorResponseObject("其他设备",1004);
-			 */
-
-			// 暂时有效，为了方便测试使用
-			return ResponseObject.newSuccessResponseObject("有效", 1000);
-		} else {
-			return ResponseObject.newSuccessResponseObject("有效", 1000);
-		}
-	}
-
 	/**
 	 * apple用户提交注册
 	 * 
@@ -1109,26 +1078,27 @@ public class BrowserUserController {
 	public ResponseObject applePhoneRegist(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 
-		String appUniqueId = req.getParameter("appUniqueId");
-		String password = req.getParameter("password");
-		String username = req.getParameter("username");
-		String code = req.getParameter("code");
-		if (null == password || null == username || null == code) {
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-		String vtype = "1";
-		// 短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,
-				Integer.parseInt(vtype));
-		if (!checkCode.isSuccess()) {
-			return checkCode;
-		}
-		return onlineUserService.updateIPhoneRegist(req, password, username,
-				Integer.parseInt(vtype), appUniqueId);
+		
+		return ResponseObject.newErrorResponseObject("请使用最新版本");
+//		String appUniqueId = req.getParameter("appUniqueId");
+//		String password = req.getParameter("password");
+//		String username = req.getParameter("username");
+//		String code = req.getParameter("code");
+//		if (null == password || null == username || null == code) {
+//			return ResponseObject.newErrorResponseObject("参数异常");
+//		}
+//		String vtype = "1";
+//		// 短信验证码
+//		ResponseObject checkCode = onlineUserService.checkCode(username, code,
+//				Integer.parseInt(vtype));
+//		if (!checkCode.isSuccess()) {
+//			return checkCode;
+//		}
+//		return onlineUserService.updateIPhoneRegist(req, password, username,
+//				Integer.parseInt(vtype), appUniqueId);
 	}
 
 	public static void main(String[] args) {
-
 		int[] arr = { 1, 2, 3, 4 };
 		// 产生0-(arr.length-1)的整数值,也是数组的索引
 		LOGGER.info(Math.random() + "===" + Math.random() * arr.length);

@@ -44,8 +44,6 @@ public class HostController {
 	
 	
 	@Autowired
-	private OnlineCourseService onlineCourseService;
-	@Autowired
 	private OnlineUserService onlineUserService;
 
 	@Autowired

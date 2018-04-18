@@ -9,6 +9,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,15 +33,9 @@ public class OnlineOrderController {
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
-	private WxcpClientUserWxMappingService wxService;
-	@Autowired
-	private WxcpPayFlowService wxcpPayFlowService;
-	@Autowired
-	private WxcpWxRedpackService wxcpWxRedpackService;
-	@Autowired
-	private WxcpWxTransService wxcpWxTransService;
-	@Autowired
 	private AppBrowserService appBrowserService;
+	
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OnlineOrderController.class);
 	/*
 	 * 重新生成订单
 	 */
@@ -50,49 +45,51 @@ public class OnlineOrderController {
 	public ResponseObject saveRegenerate(HttpServletRequest req,
 			  HttpServletResponse res) throws Exception{
 
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
-	    }
-		if(null == req.getParameter("orderFrom")
-				|| null == req.getParameter("orderId")){
-			return ResponseObject.newErrorResponseObject("获取参数有误");
-		}
-		/*
-		 * 根据订单id查询下课程idlist
-		 */
-		String courseIds = onlineOrderService.getCourseIdByOrderId(req.getParameter("orderId"));
-		/**
-		 * 根据订单id得到这个订单中已经存在的课程。
-		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
-		 */
-		Map<String,Object> returnMap = new HashMap<String,Object>();
-		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(courseIds,user.getId());
-		if(ro.isSuccess() && ro.getCode() == 200){//已经存在同样的未支付订单
-			OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(req.getParameter("orderId"));
-			returnMap.put("orderNo", onlineOrder.getOrderNo());
-		    returnMap.put("orderId",onlineOrder.getOrderId());
-		    ro.setResultObject(returnMap);
-			return ro;
-		}
-		/**
-		 * 重新生成订单啦
-		 * 然后保存。保存的时候，他们的订单号是一样了。但是订单id不一样
-		 */
-		String orderNo= TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
-		String orderId =UUID.randomUUID().toString().replace("-", "");
-		String [] courseIdArr = courseIds.split(",");
-		for (String courseId : courseIdArr) {
-			ResponseObject rb = onlineOrderService.regenerateOrder(Integer.parseInt(courseId),orderId,orderNo,user.getId(),
-					Integer.parseInt(req.getParameter("orderFrom")));
-			if(!rb.isSuccess()){
-				return  ResponseObject.newErrorResponseObject("失败啦");
-			}
-		}
-
-		returnMap.put("orderNo", orderNo);
-	    returnMap.put("orderId",orderId);
-		return  ResponseObject.newSuccessResponseObject(returnMap);
+   	 LOGGER.info("老版本方法----》》》》saveRegenerate");
+   	 return ResponseObject.newErrorResponseObject("请使用最新版本");
+//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+//	    if(user==null){
+//	    	return ResponseObject.newErrorResponseObject("登录失效");
+//	    }
+//		if(null == req.getParameter("orderFrom")
+//				|| null == req.getParameter("orderId")){
+//			return ResponseObject.newErrorResponseObject("获取参数有误");
+//		}
+//		/*
+//		 * 根据订单id查询下课程idlist
+//		 */
+//		String courseIds = onlineOrderService.getCourseIdByOrderId(req.getParameter("orderId"));
+//		/**
+//		 * 根据订单id得到这个订单中已经存在的课程。
+//		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
+//		 */
+//		Map<String,Object> returnMap = new HashMap<String,Object>();
+//		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(courseIds,user.getId());
+//		if(ro.isSuccess() && ro.getCode() == 200){//已经存在同样的未支付订单
+//			OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(req.getParameter("orderId"));
+//			returnMap.put("orderNo", onlineOrder.getOrderNo());
+//		    returnMap.put("orderId",onlineOrder.getOrderId());
+//		    ro.setResultObject(returnMap);
+//			return ro;
+//		}
+//		/**
+//		 * 重新生成订单啦
+//		 * 然后保存。保存的时候，他们的订单号是一样了。但是订单id不一样
+//		 */
+//		String orderNo= TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
+//		String orderId =UUID.randomUUID().toString().replace("-", "");
+//		String [] courseIdArr = courseIds.split(",");
+//		for (String courseId : courseIdArr) {
+//			ResponseObject rb = onlineOrderService.regenerateOrder(Integer.parseInt(courseId),orderId,orderNo,user.getId(),
+//					Integer.parseInt(req.getParameter("orderFrom")));
+//			if(!rb.isSuccess()){
+//				return  ResponseObject.newErrorResponseObject("失败啦");
+//			}
+//		}
+//
+//		returnMap.put("orderNo", orderNo);
+//	    returnMap.put("orderId",orderId);
+//		return  ResponseObject.newSuccessResponseObject(returnMap);
 	}
 
 	/**
@@ -142,6 +139,7 @@ public class OnlineOrderController {
 	@ResponseBody
 	public ResponseObject getOnlineOrderList(HttpServletRequest req,
                                              HttpServletResponse res, Map<String, String> params)throws Exception{
+		
 		int status = -1;   //支付状态 0:未支付 1:已支付 2:已关闭 
 		if(null != req.getParameter("status")){
 			status = Integer.valueOf(req.getParameter("status"));
@@ -182,13 +180,16 @@ public class OnlineOrderController {
 	@ResponseBody
 	public ResponseObject updateOnlineOrderStatus(HttpServletRequest req,
                                                   HttpServletResponse res, Map<String, String> params) throws Exception{
-		String orderNo = req.getParameter("orderNo");
+		
+		 LOGGER.info("老版本方法----》》》》updateOnlineOrderStatus");
+	   	 return ResponseObject.newErrorResponseObject("请使用最新版本");
+		/*String orderNo = req.getParameter("orderNo");
 		if(null == req.getParameter("type") || null == orderNo){
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		Integer type = Integer.valueOf(req.getParameter("type"));
 		onlineOrderService.updateOnlineOrderStatus(type, orderNo);
-		return ResponseObject.newSuccessResponseObject("修改成功");
+		return ResponseObject.newSuccessResponseObject("修改成功");*/
 	}
 	/**
 	 * 根据订单号获取信息
@@ -202,11 +203,13 @@ public class OnlineOrderController {
 	@ResponseBody
 	public ResponseObject getOnlineOrderByOrderNo(HttpServletRequest req,
                                                   HttpServletResponse res, Map<String, String> params) throws Exception{
-		String orderNo = req.getParameter("orderNo");
-		if(null == orderNo){
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-		return onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo);
+		 LOGGER.info("老版本方法----》》》》getByOrderNo");
+	   	 return ResponseObject.newErrorResponseObject("请使用最新版本");
+//		String orderNo = req.getParameter("orderNo");
+//		if(null == orderNo){
+//			return ResponseObject.newErrorResponseObject("参数异常");
+//		}
+//		return onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo);
 	}
 	
 	/**
@@ -221,11 +224,13 @@ public class OnlineOrderController {
 	@ResponseBody
 	public ResponseObject getOnlineOrderByOrderId(HttpServletRequest req,
                                                   HttpServletResponse res, Map<String, String> params) throws Exception{
-		String orderId = req.getParameter("orderId");
-		if(null == orderId){
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-		return onlineOrderService.getOnlineOrderByOrderId(orderId);
+		 LOGGER.info("老版本方法----》》》》getByOrderId");
+	   	 return ResponseObject.newErrorResponseObject("请使用最新版本");
+//		String orderId = req.getParameter("orderId");
+//		if(null == orderId){
+//			return ResponseObject.newErrorResponseObject("参数异常");
+//		}
+//		return onlineOrderService.getOnlineOrderByOrderId(orderId);
 	}
 	
 	/**
@@ -241,30 +246,32 @@ public class OnlineOrderController {
 	public ResponseObject consumptionList(HttpServletRequest req,
                                           HttpServletResponse res) throws Exception{
 
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-		if(user==null){
-			return ResponseObject.newErrorResponseObject("登录失效");
-		}
-		int pageNumber = 0;
-		if(null != req.getParameter("pageNumber")){
-			pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
-		}
-		int pageSize = 0;
-		if(null != req.getParameter("pageSize")){
-			pageSize = Integer.valueOf(req.getParameter("pageSize"));
-		}
-		/*
-		 * 消费记录，目前分为两种： 一：购买课程、二、打赏
-		 *   购买课程的在订单表里面有记录，如果是打赏的里面没有记录。
-		 */
-		Integer status = 1;
-		/*
-		 * 这个地方是不是应该查
-		 *  购买课程的消费记录应该以课程为单位进行搞
-		 * List<OnlineOrder> listOrder = onlineOrderService.consumptionList(status,userId, pageNumber,pageSize);
-		 */
-		return ResponseObject.newSuccessResponseObject(
-				onlineOrderService.listPayRecord(user.getId(),pageNumber,pageSize));
+		LOGGER.info("老版本方法----》》》》consumptionList");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+//		if(user==null){
+//			return ResponseObject.newErrorResponseObject("登录失效");
+//		}
+//		int pageNumber = 0;
+//		if(null != req.getParameter("pageNumber")){
+//			pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
+//		}
+//		int pageSize = 0;
+//		if(null != req.getParameter("pageSize")){
+//			pageSize = Integer.valueOf(req.getParameter("pageSize"));
+//		}
+//		/*
+//		 * 消费记录，目前分为两种： 一：购买课程、二、打赏
+//		 *   购买课程的在订单表里面有记录，如果是打赏的里面没有记录。
+//		 */
+//		Integer status = 1;
+//		/*
+//		 * 这个地方是不是应该查
+//		 *  购买课程的消费记录应该以课程为单位进行搞
+//		 * List<OnlineOrder> listOrder = onlineOrderService.consumptionList(status,userId, pageNumber,pageSize);
+//		 */
+//		return ResponseObject.newSuccessResponseObject(
+//				onlineOrderService.listPayRecord(user.getId(),pageNumber,pageSize));
 	}
 	/**
 	 * 消费记录详情
@@ -279,10 +286,13 @@ public class OnlineOrderController {
 	public ResponseObject consumptionItem(HttpServletRequest req,
                                           HttpServletResponse res) throws Exception{
 
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-		if(user==null){
-			return ResponseObject.newErrorResponseObject("登录失效");
-		}
-		return ResponseObject.newSuccessResponseObject(onlineOrderService.listPayRecordItem(req.getParameter("orderNo").toString()));
+		 LOGGER.info("老版本方法----》》》》consumptionItem");
+	   	 return ResponseObject.newErrorResponseObject("请使用最新版本");
+		
+//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+//		if(user==null){
+//			return ResponseObject.newErrorResponseObject("登录失效");
+//		}
+//		return ResponseObject.newSuccessResponseObject(onlineOrderService.listPayRecordItem(req.getParameter("orderNo").toString()));
 	}
 }

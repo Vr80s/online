@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.service.MessageService;
 import com.xczh.consumer.market.service.OnlineCourseService;
@@ -78,6 +79,9 @@ public class XzCommonController {
 	
 	@Autowired
 	private RechargesService rechargesService;
+	
+	@Autowired
+	private CacheService cacheService;
     
     
 	@Value("${returnOpenidUri}")
@@ -472,10 +476,41 @@ public class XzCommonController {
 	@ResponseBody
 	public ResponseObject rechargeList(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		
 		return ResponseObject.newSuccessResponseObject(rechargesService.getRecharges());
     }
 	
+	
+	@RequestMapping(value = "checkToken")
+	@ResponseBody
+	public ResponseObject checkToken(HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
+		String token = req.getParameter("token");
+
+		System.out.println();
+		if (null == token) {
+			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
+		}
+		OnlineUser ou = cacheService.get(token);
+		if (null == ou) {
+			return ResponseObject.newErrorResponseObject("已过期", 1002);
+		} else if (null != ou && cacheService.get(ou.getId()) != null
+				&& cacheService.get(ou.getId()).equals(token)) {
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		} else if (ou.getLoginName() != null) {
+			
+//			 String model = cacheService.get(ou.getLoginName());
+//			 if(model!=null){ 
+//				 return  ResponseObject.newErrorResponseObject(model,1005); 
+//			 }else {
+//				 return  ResponseObject.newErrorResponseObject("其他设备",1005);
+//			 } 
+			 //return  ResponseObject.newErrorResponseObject(model,1005); 
+			//暂时有效，为了方便测试使用
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		} else {
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		}
+	}
 	
 	
 	

@@ -55,14 +55,9 @@ import com.xczhihui.bxg.online.api.service.LiveExamineInfoService;
 @RequestMapping("/bxg/live")
 public class LiveController {
 
+	
     @Autowired
     private OnlineCourseService onlineCourseService;
-
-    @Autowired
-    private OLCourseServiceI wxcpCourseService;
-
-    @Autowired
-    private OnlineUserService onlineUserService;
 
     @Autowired
     private FocusService focusService;
@@ -108,39 +103,40 @@ public class LiveController {
     @RequestMapping("listKeywordQuery")
     @ResponseBody
     public ResponseObject listKeywordQuery(HttpServletRequest req,
-                                           HttpServletResponse res, Map<String, String> params)
+            HttpServletResponse res)
             throws Exception {
 
-
-        try {
-            String queryParam = req.getParameter("keyword");
-            Map<String, Object> allMap = new HashMap<String, Object>();
-            //第一步先让数据显示出来，查询管用！
-            //第二步后续的话在修改程序吧！
-            /**
-             * 查询主播信息   --》 按照关注数来查询主播的
-             */
-            List<Map<String, Object>> mapUserList = onlineUserService.findHotHostByQueryKey(queryParam);
-            /**
-             * 查询直播信息 --》 直播信息按照礼物的多少来排序
-             */
-            List<CourseLecturVo> liveList =
-                    onlineCourseService.findLiveListByQueryKey(0, 3, queryParam);
-            /**
-             * 查询点播信息 --》 这个课程的学习人数
-             */
-            List<CourseLecturVo> bunchlist = wxcpCourseService.courseCategoryXCList1(1, 3, queryParam);
-
-            allMap.put("bozhu", mapUserList);
-            allMap.put("zhibo", liveList);
-            allMap.put("bunch", bunchlist);
-
-            return ResponseObject.newSuccessResponseObject(allMap);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("后台流程异常");
-        }
+    	LOGGER.info("老版本方法：listKeywordQuery");
+    	return ResponseObject.newErrorResponseObject("请使用最新版本");
+//        try {
+//            String queryParam = req.getParameter("keyword");
+//            Map<String, Object> allMap = new HashMap<String, Object>();
+//            //第一步先让数据显示出来，查询管用！
+//            //第二步后续的话在修改程序吧！
+//            /**
+//             * 查询主播信息   --》 按照关注数来查询主播的
+//             */
+//            List<Map<String, Object>> mapUserList = onlineUserService.findHotHostByQueryKey(queryParam);
+//            /**
+//             * 查询直播信息 --》 直播信息按照礼物的多少来排序
+//             */
+//            List<CourseLecturVo> liveList =
+//                    onlineCourseService.findLiveListByQueryKey(0, 3, queryParam);
+//            /**
+//             * 查询点播信息 --》 这个课程的学习人数
+//             */
+//            List<CourseLecturVo> bunchlist = wxcpCourseService.courseCategoryXCList1(1, 3, queryParam);
+//
+//            allMap.put("bozhu", mapUserList);
+//            allMap.put("zhibo", liveList);
+//            allMap.put("bunch", bunchlist);
+//
+//            return ResponseObject.newSuccessResponseObject(allMap);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseObject.newErrorResponseObject("后台流程异常");
+//        }
     }
 
     /**
@@ -159,25 +155,6 @@ public class LiveController {
                                HttpServletResponse res, Map<String, String> params)
             throws Exception {
 
-        LOGGER.info("{}{}{}{}{}{}{}{}{}");
-
-//		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
-//			return ResponseObject.newErrorResponseObject("缺少分页参数");
-//		}
-//		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
-//		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-//		try {
-//			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
-//			LOGGER.info("list.size():"+list.size());
-//			if(list!=null && list.size()>0){
-//				return ResponseObject.newSuccessResponseObject(list);
-//			}else{
-//				return ResponseObject.newErrorResponseObject("数据为空");
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-        LOGGER.info("{}{}{}{}{}{}{}{}{}");
         if (null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")) {
             return ResponseObject.newErrorResponseObject("缺少分页参数");
         }
@@ -212,69 +189,8 @@ public class LiveController {
                                       HttpServletResponse res)
             throws Exception {
 
-        Map<String, String> params = new HashMap<>();
-        params.put("token", req.getParameter("token"));
-        //根据课程id得到这些信息
-        if (null == req.getParameter("course_id")) {
-            return ResponseObject.newErrorResponseObject("缺少参数");
-        }
-        /*
-         * 全部不拦截  --》
-		 */
-        OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-        int course_id = Integer.parseInt(req.getParameter("course_id"));
-        CourseLecturVo courseLecturVo = null;
-        if (null == user) {
-            courseLecturVo = onlineCourseService.
-                    liveDetailsByCourseId(course_id, null); //课程简介
-            if (null == courseLecturVo) {
-                return ResponseObject.newErrorResponseObject("获取课程数据有误");
-            }
-        } else {
-            courseLecturVo = onlineCourseService.
-                    liveDetailsByCourseId(course_id, user.getId()); //课程简介
-
-            if (null == courseLecturVo) {
-                return ResponseObject.newErrorResponseObject("获取课程数据有误");
-            }
-            if (courseLecturVo.getWatchState() == 0) {
-                onlineWebService.saveEntryVideo(course_id, user);
-            } else {
-                if (courseLecturVo.getUserId().equals(user.getId()) ||
-                        onlineWebService.getLiveUserCourse(course_id, user.getId())) {
-                    //LOGGER.info("同学,当前课程您已经报名了!");
-                    courseLecturVo.setWatchState(0);
-                }
-                ;
-            }
-            /**
-             * 是否已经关注了这个主播：0 未关注  1已关注
-             */
-            Integer isFours = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
-            courseLecturVo.setIsfocus(isFours);
-        }
-        /**
-         * 发送广播
-         */
-        if (courseLecturVo.getWatchState() == 0) {
-            /**
-             * 增加浏览次数
-             */
-            onlineCourseService.updateBrowseSum(course_id);
-            Map<String, Object> onlineCount = new HashMap<String, Object>();
-            onlineCount.put("messageType", 2);
-            onlineCount.put("onlineCount", courseLecturVo.getLearndCount());
-            String onlineCountStr = JSONObject.toJSONString(onlineCount);
-            //{"messageType":2,"onlineCount":222}
-            broadcast.loginAndSend(course_id + "", onlineCountStr);
-        }//
-        courseLecturVo.setImRoomId(courseLecturVo.getId() + postfix);
-        courseLecturVo.setGiftCount(giftService.findByUserId(courseLecturVo.getUserId()));
-
-        String moneySum = onlineCourseService.sumMoneyLive(course_id + "");
-        courseLecturVo.setRewardCount(moneySum);
-
-        return ResponseObject.newSuccessResponseObject(courseLecturVo);
+    	LOGGER.info("老版本方法：liveDetails");
+    	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     @InitBinder
@@ -289,29 +205,32 @@ public class LiveController {
                                   HttpServletResponse res, LiveExamineInfo liveExamineInfo, @RequestParam("file") MultipartFile file)
             throws Exception {
 
-        Map<String, String> map = new HashMap<String, String>();
-        String projectName = "other";
-        String fileType = "1"; //图片类型了
-        String headImgPath = service.upload(null, //用户中心的用户ID
-                projectName, file.getOriginalFilename(), file.getContentType(), file.getBytes(), fileType, null);
-
-        //JSONObject json = JSONObject.parseObject(headImgPath);
-        LOGGER.info("文件路径——path:" + headImgPath);
-        //map.put("logo", json.get("url").toString());
-
-        LOGGER.info("req.getParameterprice================" + req.getParameter("price"));
-        if ("1".equals(liveExamineInfo.getSeeMode())) {//付费
-            liveExamineInfo.setPrice(new BigDecimal(req.getParameter("price")));
-        }
-        if ("2".equals(liveExamineInfo.getSeeMode())) {//密码
-            liveExamineInfo.setPassword(req.getParameter("password"));
-        }
-
-        liveExamineInfo.setLogo(headImgPath);
-        String id = liveExamineInfoService.add(liveExamineInfo);
-        Map<String, Object> result = new HashMap<>();
-        result.put("examineId", id);
-        return ResponseObject.newSuccessResponseObject(result);
+    	
+    	LOGGER.info("老版本方法：addLive");
+    	return ResponseObject.newErrorResponseObject("请使用最新版本");
+//        Map<String, String> map = new HashMap<String, String>();
+//        String projectName = "other";
+//        String fileType = "1"; //图片类型了
+//        String headImgPath = service.upload(null, //用户中心的用户ID
+//                projectName, file.getOriginalFilename(), file.getContentType(), file.getBytes(), fileType, null);
+//
+//        //JSONObject json = JSONObject.parseObject(headImgPath);
+//        LOGGER.info("文件路径——path:" + headImgPath);
+//        //map.put("logo", json.get("url").toString());
+//
+//        LOGGER.info("req.getParameterprice================" + req.getParameter("price"));
+//        if ("1".equals(liveExamineInfo.getSeeMode())) {//付费
+//            liveExamineInfo.setPrice(new BigDecimal(req.getParameter("price")));
+//        }
+//        if ("2".equals(liveExamineInfo.getSeeMode())) {//密码
+//            liveExamineInfo.setPassword(req.getParameter("password"));
+//        }
+//
+//        liveExamineInfo.setLogo(headImgPath);
+//        String id = liveExamineInfoService.add(liveExamineInfo);
+//        Map<String, Object> result = new HashMap<>();
+//        result.put("examineId", id);
+//        return ResponseObject.newSuccessResponseObject(result);
     }
 
     @RequestMapping("myList")

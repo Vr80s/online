@@ -532,14 +532,9 @@ if(!stringnull(userId)){
  * 公共的分享页面后的跳转
  */
 function common_share_back(){
-var back = document.referrer;
+    var back = document.referrer;
 	if(stringnull(back)){
-		
-
-		
 		window.history.back();
-
-
 	}else{
 		window.location.href = "home_page.html";
 	}
@@ -547,7 +542,7 @@ var back = document.referrer;
 
 function common_share_backs(){
 
-		var back = document.referrer;
+	var back = document.referrer;
 	if(stringnull(back)){
 		var u = navigator.userAgent;
 		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
@@ -561,8 +556,6 @@ function common_share_backs(){
 		window.history.back();  /*微信上走这个*/
 		//window.location.href = "home_page.html";
 	}
-
-
 }
 
 

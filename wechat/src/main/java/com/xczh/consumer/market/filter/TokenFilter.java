@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xczh.consumer.market.controller.user.XzUserController;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.UCCookieUtil;
@@ -35,45 +37,25 @@ import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 public class TokenFilter implements Filter {
 	
 	
-	 private CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TokenFilter.class);
 	
+	private CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 	/*
 	 * 注册、忘记密码等不需要拦截：
 	 */
 	private static String login_before ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login"
 			+ ",/bxg/user/logout,/bxg/user/phoneRegist,/bxg/bs/forgotPassword,/bxg/bs/checkToken,/bxg/user/forgotPassword,"
-			+ "/bxg/user/login,/bxg/bs/isReg,/bxg/wxjs/h5JSSDK,/bxg/page/verifyLoginStatus,/bxg/wxjs/checkInWx";
+			+ "/bxg/user/login,/bxg/bs/isReg,/bxg/page/verifyLoginStatus,/bxg/wxjs/checkInWx";
 	/*
-	 * 来自分享等不需要拦截。
+	 * 老业务方法
 	 */
-	private static String login_share = "/bxg/common/shareLink,/bxg/common/pcShareLink,/bxg/wxpay/h5GetOpenidForPersonal";
-	
-	/*
-     * 第三方前的登录不需要拦截
-	 */
-	private static String login_three_parties = "/bxg/bs/addGetUserInfoByCode,/bxg/wxpay/h5GetOpenid,"
-			+ "/bxg/wxjs/setWxMenu,/bxg/wxpay/h5BsGetCodeUrlAndBase,/bxg/wxjs/h5BsGetCodeUrl,"
-			+ "/bxg/wxjs/h5BsGetCodeUrlAndBase,/bxg/user/wxBindPhoneNumber,"
-			+ "/bxg/user/wxBindAndPhoneNumberIsReg,/bxg/wxjs/h5BsGetCodeUrlReqParams,"
-			+ "/bxg/user/h5GetOpenidForPersonal,/bxg/bs/appThirdPartyLogin,/bxg/wxpay/h5GetCodeAndUserMobile";
-	
-	/*
-	 * 微信，支付宝支付回调不需要拦截
-	 */
-	private static String pay_the_callback = "/bxg/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/bxg/alipay/pay,/bxg/alipay/rewardPay,/bxg/alipay/payXianXia,"
-			+ "/bxg/alipay/rechargePay,/bxg/common/h5ShareAfter,/bxg/wxjs/h5ShareGetWxOpenId,/bxg/wxpay/h5ShareGetWxUserInfo";
-
-	/*
-	 * 下面是一下具体业务方法不需要拦截
-	 */
-	private static String specific_business_one = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,"
-			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/bs/appLogin,/bxg/focus/myHome,"
+	private static String specific_business_one = 
+			"/bxg/binner/list,/bxg/bunch/offLineClass,"
+			+ "/bxg/live/list,/bxg/bunch/list,"
+			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,"
+			+ "/bxg/live/listKeywordQuery,"
+			+ "/bxg/bs/appLogin,/bxg/focus/myHome,"
 			+ "/bxg/user/appleLogout";
-	
-	private static String specific_business_two = "/bxg/bunch/queryAllCourse,/bxg/bunch/schoolClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop,"
-			+ "/bxg/bunch/offLine,/bxg/live/onlineLive,/bxg/bunch/listenCourse,/bxg/criticize/saveCriticize,/bxg/criticize/updatePraise,"
-			+ "/bxg/criticize/saveReply,/bxg/criticize/getCriticizeList,/bxg/host/hostPageCourse,/bxg/host/hostPageInfo,/bxg/bunch/hotSearch";
-	
 	
 	//原来老版本的
 	private String[] appExcludedPageArray;
@@ -99,11 +81,12 @@ public class TokenFilter implements Filter {
 			+ "/xczh/alipay/pay,/xczh/alipay/rechargePay";
 	
 	private static String new_controller_pay_the_callback_one =
-			"/xczh/criticize/getCriticizeList,/bxg/ccvideo/commonCourseStatus"
-			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/rechargeList,"
+			"/xczh/criticize/getCriticizeList,/xczh/ccvideo/palyCode,/xczh/wechatJssdk/certificationSign,"
+			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,"
+			+ "/xczh/common/rechargeList,/xczh/common/verifyLoginStatus,"
 			+ "/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
 			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/common/richTextDetails,"
-			+ "/xczh/gift/list,/xczh/message";
+			+ "/xczh/gift/list,/xczh/message,/bxg/wxpay/wxNotify";
 	
 	
 	/*
@@ -132,7 +115,7 @@ public class TokenFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
-		String excludedPageStr = login_before+","+login_share+","+login_three_parties+","+pay_the_callback+","+specific_business_one+","+specific_business_two;
+		String excludedPageStr = login_before+","+specific_business_one;
 		
 		if (StringUtils.isNotEmpty(excludedPageStr) ) {   
 		    appExcludedPageArray  = excludedPageStr.split(",");
@@ -155,15 +138,13 @@ public class TokenFilter implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
+		//设置将字符以"UTF-8"编码输出到客户端浏览器
 		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");//设置将字符以"UTF-8"编码输出到客户端浏览器
+		response.setCharacterEncoding("UTF-8");
 
 		boolean isExcludedPage = false;   
+		
 		String currentURL = request.getRequestURI(); // 取得根目录所对应的绝对路径:
-		/**
-		 * 开发的时候用这个
-		 */
-		System.out.println("欢迎欢迎，"+currentURL);
 		/**
 		 * 测试和生产用这个
 		 */
@@ -172,7 +153,8 @@ public class TokenFilter implements Filter {
 				&& new_to_intercept.indexOf(currentURL)==-1){
 			     isExcludedPage = true;     
 		}
-		System.out.println("isExcludedPage，"+isExcludedPage);
+		LOGGER.info("欢迎欢迎，"+currentURL);
+		LOGGER.info("isExcludedPage，"+isExcludedPage);
 		/**
 		 * 拦截ajax请求
 		 */
@@ -190,30 +172,29 @@ public class TokenFilter implements Filter {
 			 */
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
 			String strToken = (String) request.getAttribute("token");
-			String contentType = request.getContentType();//获取请求的content-type
-			if(StringUtils.isNotBlank(contentType) && contentType.contains("multipart/form-data")){//文件上传请求 *特殊请求
+			//获取请求的content-type
+			String contentType = request.getContentType();
+			//文件上传请求 *特殊请求
+			if(StringUtils.isNotBlank(contentType) && contentType.contains("multipart/form-data")){
 	              MultipartHttpServletRequest multiReq = multipartResolver.resolveMultipart(request);
 	              appUniqueId= multiReq.getParameter("appUniqueId");//获取参数中的token
 	              strToken= multiReq.getParameter("token");//获取参数中的token
-	              
 	              request = multiReq;//将转化后的reuqest赋值到过滤链中的参数 *重要
 	        }else{
 	        	  appUniqueId = request.getParameter("appUniqueId");
 	        	  strToken = request.getParameter("token");
 	        }
-			System.out.println("appUniqueId，"+appUniqueId);
+			LOGGER.info("appUniqueId，"+appUniqueId+",token:"+strToken);
 			/*
-			 * 说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
+			 * 说明这个请求的来自浏览器，判断session是否失效了
 			 */
-			if(null == appUniqueId){ 
-				
+			if(null == appUniqueId){ //来自浏览器请求
 				//浏览器的状态
 				int statusFalg = 200;
 				//需要重定向的页面
 				String redirectUrl =  request.getContextPath()+"/xcview/html/enter.html";
 				//转发的url
 				String forwardUrl = "/xczh/common/verifyLoginStatus";
-				
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
 		    		/*
@@ -222,15 +203,6 @@ public class TokenFilter implements Filter {
 		    		chain.doFilter(request, response);
 		    		return;
 		    	}else if(session !=null){
-					/**
-					 * 有三种情况：
-					 *   两种是：1、失效了 
-					 *         --已经绑定的失效   --》登录页面
-					 *         --未绑定的失效       --》 完善信息页面
-					 *   一种是：被顶掉了
-					 * 这里不能直接给用户返回到登录页面，需要一个弹框提示：
-					 *   提示登录ip,登录机型等信息，登录的时间等信息。
-					 */
 		    		Map<String,String> mapClientInfo = (Map<String, String>) session.getAttribute("topOff");//如果存在顶掉的信息，
 		    		if(mapClientInfo!=null){ 
 		    			statusFalg = 1003;		    			
@@ -243,32 +215,22 @@ public class TokenFilter implements Filter {
 		    		statusFalg = 1002;
 		    		redirectUrl = request.getContextPath() + "/xcview/html/enter.html";
 		    	}  
-//		        1002  token过期  --去登录页面
-//		        1003      其他设备登录
-// 				1005  token过期  --去完善信息页面
-		    	
 		    	ThridFalg tf = UCCookieUtil.readThirdPartyCookie(request);
-		    	
-		    	System.out.println("currentURL:"+currentURL+"================================tf.toString():"+tf);
-		    	
+		    	LOGGER.info("currentURL:"+currentURL+"================================tf.toString():"+tf);
 		    	String tfParams = "";
 		    	//如果是没有登录的状态 并且cookie不登录空的话，就去完善信息页面
 		    	if(statusFalg ==1002 && tf!=null && tf.getOpenId()!=null && tf.getUnionId()!=null){
 		    		statusFalg = 1005;
 		    		redirectUrl = request.getContextPath() + "/xcview/html/evpi.html?openId="+tf.getOpenId()+"&unionId="+tf.getUnionId()+"&jump_type=1";
-		    		
 		    		tfParams ="&openId="+tf.getOpenId()+"&unionId="+tf.getUnionId();
 		    	}
-		    	if(isAjax){ //?
-		    		System.out.println("forwardUrl"+forwardUrl+"?statusFalg="+statusFalg+tfParams);
+		    	if(isAjax){
+		    		LOGGER.info("forwardUrl"+forwardUrl+"?statusFalg="+statusFalg+tfParams);
     				req.getRequestDispatcher(forwardUrl+"?statusFalg="+statusFalg+tfParams).forward(request,response);
     			}else{
     				response.sendRedirect(redirectUrl);
     			}
 		    }else{ 
-		    	
-		    	
-		    	
 	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
 		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
 		    	if(code == 1000){

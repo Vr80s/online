@@ -181,7 +181,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         		
 	        		  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
 	                  Article article = new Article();  
-	                  article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
+	                  article.setTitle("欢迎来到熊猫中医!");  
 	                  article.setDescription("");  
 	                  article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
 	                  article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
@@ -290,7 +290,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                   
       		    newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
                 Article article = new Article();  
-                article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
+                article.setTitle("欢迎来到熊猫中医!");  
                 article.setDescription("");  
                 article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
                 article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  

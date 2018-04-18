@@ -447,103 +447,20 @@ public class CommonController {
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 	
-	public static void main(String[] args) {
-		
-		
-//		account
-//		:
-//		"ef894375d67146478869ed0b3d7ccd66"
-//		app_key
-//		:
-//		"71a22e5b4a41483d41d96474511f58f3"
-//		email
-//		:
-//		"15936216273@163.com"
-//		roomid
-//		:
-//		"929267329"
-//		sign
-//		:
-//		"e559c4f4717c62f624710273094b48dc"
-//		signedat
-//		:
-//		"1523930911"
-//		username
-//		:
-//		"杨宣"
-		Map<String,String> map = new TreeMap<String,String>();
-		map.put("app_key", "71a22e5b4a41483d41d96474511f58f3");  //微吼key
-		Date d = new Date();
-		String start_time = d.getTime() + "";
-		start_time = start_time.substring(0, start_time.length() - 3);
-		map.put("signedat", "1523930911"); //时间戳，精确到秒  
-		map.put("email", "15936216273@163.com");         //email 自己写的
-		map.put("roomid", "929267329");   //视频id
-		map.put("account","ef894375d67146478869ed0b3d7ccd66");       //用户帐号
-		map.put("username","杨宣");      //用户名
-		//map.put("sign",getSign(map));
-		
-		System.out.println(getSign(map));
-	}
-	
 	@RequestMapping("h5ShareAfter")
 	@ResponseBody
 	public ResponseObject h5ShareLink(HttpServletRequest req,
 			HttpServletResponse res)throws Exception {
 		
-		
-		String courseId = req.getParameter("course_id");  //视频id
-		if(courseId == null ){
-			return ResponseObject.newErrorResponseObject("获取参数异常");
-		}
-		/*
-		 * 需要判断这个课程是直播呢，还是公开课
-		 *     因为他们的文案不在一个地方存
-		 */
-		try {
-			Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-			LOGGER.info("type:"+type);
-			CourseLecturVo courseLecturVo = onlineCourseService.h5ShareAfter(Integer.parseInt(courseId), type);
-			if(type ==1){
-				//礼物数：
-				courseLecturVo.setGiftCount(giftService.findByUserId(courseLecturVo.getUserId()));
-			}
-			return ResponseObject.newSuccessResponseObject(courseLecturVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("请求有误");
-		}
+		return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
-	
 	
 	@RequestMapping("shareLink")
 	@ResponseBody
 	public ResponseObject shareLink(HttpServletRequest req,
 			HttpServletResponse res)throws Exception{
-		String courseId = req.getParameter("courseId");  //视频id
-		if(courseId == null ){
-			return ResponseObject.newErrorResponseObject("获取参数异常");
-		}
-		/*
-		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
-		 */
-		try {
-			Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-			LOGGER.info("type:"+type);
-			Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
-			if(mapCourseInfo.get("description")!=null){
-				String description = mapCourseInfo.get("description").toString();
-				description = XzStringUtils.delHTMLTag(description);
-				mapCourseInfo.put("description", description);
-			}else{
-				mapCourseInfo.put("description", "");
-			}
-			mapCourseInfo.put("link",returnOpenidUri+"/wx_share.html?courseId="+Integer.parseInt(courseId));
-			return ResponseObject.newSuccessResponseObject(mapCourseInfo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("请求有误");
-		}
+
+		return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	
 	/**
@@ -558,62 +475,9 @@ public class CommonController {
 	 */
 	@RequestMapping("pcShareLink")
 	public void pcShareLink(HttpServletRequest req,HttpServletResponse res)throws Exception{
-		/*
-		 * 难道这里就需要搞下吗。
-		 */
-		//判断这个用户是否已经存在了。
-		/**
-		 * 这里有个问题就是。如果去分享页面的话
-		 */
-		String courseId = req.getParameter("courseId");  //视频id
-		System.out.println("========"+courseId);
-		/*
-		 * 这里需要判断下是不是微信浏览器
-		 */
-		String wxOrbrower = req.getParameter("wxOrbrower");  //视频id
-		System.out.println();
-		if(StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)){
-			String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5ShareGetWxUserInfo?courseId="+courseId+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
-			res.sendRedirect(strLinkHome);
-		}else if(StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)){
-			res.sendRedirect(returnOpenidUri +"/bxg/wxpay/h5ShareGetWxUserInfo?courseId="+courseId+"&wxOrbrower=brower");//
-		}
-		System.out.println("{}{}{}{}{}="+courseId);
-//		if(courseId == null ){
-//			LOGGER.info("参数异常啦");
-//		}
-//        LOGGER.info("===========================================");
-//		String url  ="/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
-		/*
-		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
-		 */
-//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-//		if(user == null){ //直接跳转到分享页面
-//			res.sendRedirect(returnOpenidUri +url);//
-//		}else{
-//			try {
-//				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-//				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
-//				
-//				LOGGER.info("type:"+type);
-//				if(type == 1){ //直播或者预约详情页           
-//					
-//					//1.直播中，2预告，3直播结束
-//					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").toString().equals("2")){  //预告
-//					
-//						url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId);
-//					
-//					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
-//						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId);
-//					}
-//				}else{ //视频音频详情页
-//					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId);
-//				}
-//				res.sendRedirect(returnOpenidUri +url);//
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
+
+	
+		res.sendRedirect(returnOpenidUri +"/xcview/html/home_page.html");//
 	}
 	
 	/**

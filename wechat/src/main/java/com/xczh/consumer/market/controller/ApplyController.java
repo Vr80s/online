@@ -26,17 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("bxg/apply")
 public class ApplyController {
 
-    @Autowired
-    private ApplyService applyService;
-
-
-    @Autowired
-    private AppBrowserService appBrowserService;
-    
-    
-    @Autowired
-    private CityService cityService;
-
     
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApplyController.class);
     
@@ -44,16 +33,20 @@ public class ApplyController {
     @ResponseBody
     public ResponseObject updateBaseInfo(HttpServletRequest request, HttpServletResponse res){
 
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request);
+    	 LOGGER.info("老版本方法----》》》》");
+    	 return ResponseObject.newErrorResponseObject("请使用最新版本");
+    	
+    /*    OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         applyService.saveOrUpdateBaseInfo(user.getId(),request.getParameter("realName"),request.getParameter("phone"));
-        return ResponseObject.newSuccessResponseObject(null);
+        return ResponseObject.newSuccessResponseObject(null);*/
     }
 
     @RequestMapping("updateDetailsInfo")
     @ResponseBody
     public ResponseObject updateDetailsInfo(HttpServletRequest request, HttpServletResponse res, Apply apply){
-
-        if(StringUtils.isBlank(apply.getQq())){
+    	 LOGGER.info("老版本方法----》》》》");
+    	return ResponseObject.newErrorResponseObject("请使用最新版本");
+/*        if(StringUtils.isBlank(apply.getQq())){
             apply.setQq(null);
         }
         if(StringUtils.isBlank(apply.getEmail())){
@@ -69,13 +62,17 @@ public class ApplyController {
 LOGGER.info(apply.toString());
         OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         applyService.updateDetailsInfo(apply);
-        return ResponseObject.newSuccessResponseObject(null);
+        return ResponseObject.newSuccessResponseObject(null);*/
     }
 
     @RequestMapping("get")
     @ResponseBody
     public ResponseObject get(HttpServletRequest request, HttpServletResponse res){
-        String userId=null;
+    	
+    	 LOGGER.info("老版本方法----》》》》");
+    	
+    	return ResponseObject.newErrorResponseObject("请使用最新版本");
+       /* String userId=null;
         if(!StringUtils.isNotBlank(userId=request.getParameter("userId"))){
             OnlineUser user = appBrowserService.getOnlineUserByReq(request);
             userId=user.getId();
@@ -85,7 +82,7 @@ LOGGER.info(apply.toString());
         if(apply!=null && umv !=null){
         	apply.setUserAddressManagerVo(umv);
         }
-        return ResponseObject.newSuccessResponseObject(apply);
+        return ResponseObject.newSuccessResponseObject(apply);*/
     }
 
 }

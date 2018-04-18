@@ -66,6 +66,16 @@ window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
 window.history.forward(1);*/
 
 
+function lastPage(){
+	var last_page = document.referrer;
+	if(stringnull(last_page) && last_page.indexOf("wechat_h5_recharge.html")!=-1){
+		window.history.go(-2);
+	}else{
+		window.history.go(-1);
+	}
+}
+
+
 
 /**
  * 还有可能是从
@@ -75,7 +85,6 @@ $("#determine").click(function(){
 	//点击返回 --》我的天去哪里
 //	location.href = "/xcview/html/recharges.html";
 //$(".success").hide();
-
 	if(is_weixn()){
 		window.history.go(-1);
 	}else{
@@ -139,7 +148,6 @@ function  goPay() {
     		  //alert("");
               /*location.replace("/xcview/html/wechat_alipay.html?userId="+localStorage.userId+"&actualPay="+actualPay+
                       "&redirectUrl="+getRedirectUrl(actualPay)+"&outTradeNo="+outTradeNo);*/
-              
               return;
           }
           jmpPayPage("/xczh/alipay/rechargePay",payType,"actualPay="+actualPay,null);
@@ -157,12 +165,17 @@ function  goPay() {
         }else{ //h5
             orderForm=4
         }
+        // 自定义一个订单号
+        var outTradeNo = (new Date()).pattern("yyMMddHH")+randomWord(true,12,12);
+        
         //clientType= 2 表示微信支付
-        var strparam = "clientType="+orderForm+"&actualPay="+actualPay;
+        var strparam = "clientType="+orderForm+"&actualPay="+actualPay+"&outTradeNo="+outTradeNo;
         if(stringnull(openId)){
         	strparam+="&openId="+openId;
         }
-        jmpPayPage("/xczh/pay/rechargePay",payType,strparam,getRedirectUrl(actualPay));
+        var redirectUrl = getRedirectUrl(actualPay,orderForm,outTradeNo);
+       
+        jmpPayPage("/xczh/pay/rechargePay",payType,strparam,redirectUrl);
     }
 }
 
@@ -171,11 +184,13 @@ function  goPay() {
  * @param allCourse
  * @returns {String}
  */
-function getRedirectUrl(actualPay){
-   /**
-    * 去充值页面的几个途径
-    */	
-	return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
+function getRedirectUrl(actualPay,orderForm,outTradeNo){
+	if(orderForm==4){
+		return "/xcview/html/wechat_h5_recharge.html?type=2&xmbCount="+actualPay+"&outTradeNo="+outTradeNo;;
+	}else{
+		return "/xcview/html/recharges.html?type=2&xmbCount="+actualPay;
+	}
+	
 }
 
 

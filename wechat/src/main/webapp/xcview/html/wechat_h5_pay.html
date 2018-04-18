@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--手机嵌入模板-->
+	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+    <!--<title>支付成功</title>-->
+    <style>
+			#test{
+			width:100%;
+			height:100%;
+		}
+		.test_bg{
+			width: 4.5rem;
+    		text-align: center;
+		    height: 130px;
+		    margin: 0 auto;
+		    margin-top: 1.675rem;
+		    margin-bottom: 10rem;
+		    font-size: 0.4rem;
+		}
+		.test_bg1{
+			width: 3.7rem;
+		    height: 1rem;
+		    margin: 0 auto;
+		}
+		.test_bg1 img{
+			width: 100%;
+			
+		}
+		.test_bg img{
+			margin-right: 0.16rem;
+			/* margin-left: 0.85rem; */
+			vertical-align:middle;
+		}
+	</style>
+</head>
+<body style="background:#Fff;">
+<div id="test">
+	<div class="test_bg">
+	   <div>
+			<span><img src="/xcview/images/examine.png"  /><span id="pay_status">正在处理,请稍等...</span></span><br/>
+		</div>
+	    <span style="margin-top: 0.2rem;display: none;" id="marked_words">2秒为你跳转到购买页面</span>
+	</div>
+	<div class="test_bg1"><img src="/xcview/images/pay020.png" /></div>
+</div>
+</body>
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.2"></script>
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    function is_weixn(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //alert("orderId:"+getQueryString("orderId")+",courseId:"+getQueryString("courseId"));
+    if(is_weixn()){
+    	//alert("微信浏览器直接调转到首页");
+    	location.href="/xcview/html/home_page.html";
+    }else {
+    	//1、1秒后请求
+    	setTimeout(function() {
+    		//setInterval("whileSelectOrderStatus()","1000");
+    		//alert("查看订单状态");
+    		whileSelectOrderStatus();
+    	},2000);
+    }
+    function whileSelectOrderStatus(){
+    	//查询这个订单是否支付成功
+		requestService("/xczh/order/getByOrderId",
+				{orderId:getQueryString("orderId")
+		}, function(data) {
+			 if (data.success) {
+	             var result = data.resultObject;
+	             alert(result.orderStatus);
+	             //支付状态 0:未支付 1:已支付 2:已关闭 
+	             if(result.orderStatus==1){
+	            	 location.replace("/xcview/html/buy_prosperity.html?courseId="+getQueryString("courseId"));
+	             }else{
+	            	 $("#pay_status").html("支付失败");
+	            	 $("#marked_words").show();
+	            	 setTimeout(function() {
+	            		 //支付失败，返回购买页面
+		            	 location.replace("/xcview/html/purchase.html?orderId="+getQueryString("orderId"));
+	             	 },2000);
+	             }
+	         }
+		},false)
+    }
+    var ua = navigator.userAgent.toLowerCase();
+    if (/iphone|ipad|ipod/.test(ua)) {
+    } else if (/android/.test(ua)) {
+        $(".test_top").css("background","#393A3E");
+    }
+</script>
+
+
+</html>
