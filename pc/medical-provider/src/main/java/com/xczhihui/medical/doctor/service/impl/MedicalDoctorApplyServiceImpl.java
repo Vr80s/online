@@ -140,7 +140,6 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         // 若科室不为空 则添加申请关联的科室信息
         if(target.getDepartments() != null && (!target.getDepartments().isEmpty())) {
             target.getDepartments()
-                    .stream()
                     .forEach(department -> this.completeDepartmentField(department, id, now));
             applyDepartmentMapper.batchAdd(target.getDepartments());
         }
