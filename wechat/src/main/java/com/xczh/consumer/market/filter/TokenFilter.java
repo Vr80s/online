@@ -86,8 +86,7 @@ public class TokenFilter implements Filter {
 			+ "/xczh/common/rechargeList,/xczh/common/verifyLoginStatus,"
 			+ "/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
 			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/common/richTextDetails,"
-			+ "/xczh/gift/list,/xczh/message,/bxg/wxpay/wxNotify";
-	
+			+ "/xczh/gift/list,/xczh/message,/bxg/wxpay/wxNotify,/xczh/common/checkToken";
 	
 	/*
 	 * 下面是一下具体业务方法不需要拦截
@@ -231,6 +230,8 @@ public class TokenFilter implements Filter {
     				response.sendRedirect(redirectUrl);
     			}
 		    }else{ 
+		    	
+		    	//chain.doFilter(request, response);
 	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
 		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
 		    	if(code == 1000){
@@ -254,8 +255,7 @@ public class TokenFilter implements Filter {
 		
 		JSONObject obj = new JSONObject();
 		try{
-			String httpUrl = WxPayConst.returnOpenidUri+"/bxg/bs/checkToken?token="+token;
-			
+			String httpUrl = WxPayConst.returnOpenidUri+"/xczh/common/checkToken?token="+token;
 			String str = HttpUtil.sendPostRequest(httpUrl,null);
 			if(null!=str) {
                 obj = JSONObject.parseObject(str);

@@ -331,7 +331,7 @@ public class CourseDao extends SimpleHibernateDao {
                     "      apply_r_grade_course \n" +
                     "    WHERE course_id = c.id),\n" +
                     "    0\n" +
-                    "  ) + IFNULL(default_student_count, 0) + IFNULL(pv, 0) learnd_count,\n" +
+                    "  ) + IFNULL(default_student_count, 0) learnd_count,\n" +
                     "  c.course_length,\n" +
                     "  c.detailimg_path AS detailImgPath,\n" +
                     "  c.bigimg_path AS bigImgPath,\n" +

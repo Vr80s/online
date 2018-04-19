@@ -58,8 +58,6 @@ public class XzCommonController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	@Autowired
-	private GiftService giftService;
 	
 	@Autowired
 	private VersionService versionService;
@@ -463,7 +461,6 @@ public class XzCommonController {
 			HttpServletResponse res) throws Exception {
 		String token = req.getParameter("token");
 
-		System.out.println();
 		if (null == token) {
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}
