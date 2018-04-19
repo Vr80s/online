@@ -234,12 +234,11 @@ public class MobileShareController {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
 					return;
 				}
-				
 				LOGGER.info("cv.getWatchState():+"+cv.getWatchState());
 				LOGGER.info("cv.getType()=:+"+cv.getType());
 				LOGGER.info("cv.getCollection()=:+"+cv.getCollection());
 				
-				if(cv.getWatchState() == 0){
+				if(ou == null) {
 					if(cv.getType()==1 || cv.getType()==2){
 						//视频音频购买
 						res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?shareBack=1&course_id="+shareId);
@@ -250,27 +249,41 @@ public class MobileShareController {
 						//线下课购买
 						res.sendRedirect(returnOpenidUri + "/xcview/html/school_class.html?shareBack=1&course_id="+shareId);
 					}	
-				}else if(cv.getWatchState()==1 || cv.getWatchState() == 2 || cv.getWatchState()==3 ){
-					if(cv.getType()==1||cv.getType()==2){
-						if(cv.getCollection()){
-							//专辑视频音频播放页
-							res.sendRedirect(returnOpenidUri + "/xcview/html/live_select_album.html?shareBack=1&course_id="+shareId);
+				}else {
+					if(cv.getWatchState() == 0){
+						if(cv.getType()==1 || cv.getType()==2){
+							//视频音频购买
+							res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?shareBack=1&course_id="+shareId);
+						}else if(cv.getType()==3){
+							//直播购买
+							res.sendRedirect(returnOpenidUri + "/xcview/html/school_play.html?shareBack=1&course_id="+shareId);
 						}else{
-							if("3".equals(shareType)) { //说明是单个专辑  -->跳转到总专辑那个地方
-								res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?shareBack=1&course_id="+shareId);
-							}else {
-								//单个视频音频播放
-								res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?shareBack=1&my_study="+shareId);
+							//线下课购买
+							res.sendRedirect(returnOpenidUri + "/xcview/html/school_class.html?shareBack=1&course_id="+shareId);
+						}	
+					}else if(cv.getWatchState()==1 || cv.getWatchState() == 2){
+						if(cv.getType()==1||cv.getType()==2){
+							if(cv.getCollection()){
+								//专辑视频音频播放页
+								res.sendRedirect(returnOpenidUri + "/xcview/html/live_select_album.html?shareBack=1&course_id="+shareId);
+							}else{
+								if("3".equals(shareType)) { //说明是单个专辑  -->跳转到总专辑那个地方
+									res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?shareBack=1&course_id="+shareId);
+								}else {
+									//单个视频音频播放
+									res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?shareBack=1&my_study="+shareId);
+								}
 							}
+						}else if(cv.getType()==3){
+							//播放页面
+							res.sendRedirect(returnOpenidUri + "/xcview/html/live_play.html?shareBack=1&my_study="+shareId);
+						}else{
+							//线下课页面
+							res.sendRedirect(returnOpenidUri + "/xcview/html/live_class.html?shareBack=1&my_study="+shareId);
 						}
-					}else if(cv.getType()==3){
-						//播放页面
-						res.sendRedirect(returnOpenidUri + "/xcview/html/live_play.html?shareBack=1&my_study="+shareId);
-					}else{
-						//线下课页面
-						res.sendRedirect(returnOpenidUri + "/xcview/html/live_class.html?shareBack=1&my_study="+shareId);
 					}
 				}
+
 			}else if("2".equals(shareType)){ //主播分享  -->设置下cookie
 				res.sendRedirect(returnOpenidUri + "/xcview/html/live_personal.html?shareBack=1&userLecturerId="+shareId);
 			}

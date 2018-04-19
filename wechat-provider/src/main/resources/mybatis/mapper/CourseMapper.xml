@@ -714,7 +714,7 @@
 				oc.user_lecturer_id as userLecturerId,
 				if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 			
-      			  if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args 
+      			if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args 
       			   where  args.course_id = oc.id  and  args.user_id = #{userId} and args.is_delete=0 ) >0 ,2, 0),1)as watchState,
 				oc.collection as collection,
  				if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
