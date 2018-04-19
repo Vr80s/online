@@ -33,7 +33,7 @@ $(document).ready(function() {
 	    }
 	    role_str+="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
 	    var aaa = "<li uid=' user_id'>"+
-	    "<a class='avatar' href='javascript:;' title=' user_name'><img src='"+obj.avatar+"' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
+	   "<a class='avatar' href='javascript:;' title=' user_name'><img src='"+obj.avatar+"' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
 	        "<div class='msg'>"+
 	            "<p> " + role_str+"</p>"+
 	           " <p class='content'>"+obj.content+"</p>"+
