@@ -5,8 +5,8 @@
  * @param id
  * @returns
  */
-function common_jump_all(id){
-   requestService("/xczh/course/userCurrentCourseStatus?courseId="+id,null,function(data) {
+function common_jump_all(courseId){
+   requestService("/xczh/course/userCurrentCourseStatus?courseId="+courseId,null,function(data) {
 	   
      var userPlay=data.resultObject;
      var falg =authenticationCooKie(); 
@@ -49,11 +49,11 @@ function common_jump_all(id){
  * @param id
  * @returns
  */
-function common_jump_play(watchState,lineState){
+function common_jump_play(id,watchState,lineState){
       //var userPlay=data.resultObject;
           var falg =authenticationCooKie(); 
 //付费的     
-          if(userPlay.watchState==0){
+          if(watchState==0){
              location.href="/xcview/html/school_play.html?course_id="+id 
           }
 //免费的    直播跳转      

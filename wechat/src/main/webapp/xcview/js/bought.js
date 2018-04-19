@@ -39,7 +39,7 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
 
             }
 //          var Ids =  item.id;
-            mui("#refreshContainer").on('tap', '.div1', function (event) {
+            mui("#refreshContainer").on('tap', '.bought_main_list', function (event) {
 				var itemId=$(this).attr("data-jump");
 				common_jump_all(itemId);
 				//location.href = "live_select_album.html?course_id="+itemId;

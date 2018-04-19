@@ -382,8 +382,8 @@ function queryDataByParams(params,data_type){
 		if(data.success==true){
 			//createListInfo(data,data_type)
 			
-			// 测试加载中
-			load.end();
+			 // 测试加载中
+			 //load.end();
 			
 			 if(stringnull(data_type)){
 					var id = "#query_list"+data_type;
@@ -466,7 +466,6 @@ function queryDataByParams(params,data_type){
 				
 				
 				if("免费-直播课程-未直播" == text){
-					
 //					alert(data1);
 				}else{
 					$(id).html(data1);
