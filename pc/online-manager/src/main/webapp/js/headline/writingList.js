@@ -51,7 +51,9 @@ $(function () {
             "mRender": function (data, display, row) {
                 var str = "<div class=\"hidden-sm hidden-xs action-buttons\">";
                 str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
-                str += '<a class="blue" href="javascript:void(-1);" title="关联医师" onclick="openDoctorManage(this)"><i class="glyphicon glyphicon-camera"></i></a>';
+                if (!row.userCreated) {//用户创建的文章不允许在后台关联医师
+                    str += '<a class="blue" href="javascript:void(-1);" title="关联医师" onclick="openDoctorManage(this)"><i class="glyphicon glyphicon-camera"></i></a>';
+                }
 
                 if (row.status == "1") {
                     str += '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';

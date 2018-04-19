@@ -155,16 +155,7 @@ $(".enter_btn").click(function(){
 			 * 添加 所有关于用户的缓存
 			 */
 			commonLocalStorageSetItem(data);
-			/**
-			 * jump_type=1	跳到首页
-			 * jump_type=2	跳到我的页面
-			 */
-			//if(jump_type == 1){
-				//location.href = "/xcview/html/home_page.html?openId="+openId;
-			//}else if(jump_type == 2){
-			 //location.href = "/xcview/html/my_homepage.html?openId="+openId;
-			//}
-			
+		
 			window.history.back(); //返回上一页
 		} else {
 			webToast(data.errorMessage,"middle",1500);

@@ -52,7 +52,7 @@
 		  join `oe_user` ou
 			ON re.`reply_user` = ou.`id`
 		where re.`criticize_id` =  #{criticizeId}
-		ORDER BY c.`create_time` DESC
+		ORDER BY re.`create_time` DESC
 	</select>
 	<select id="hasCourse" resultType="integer">
 		SELECT

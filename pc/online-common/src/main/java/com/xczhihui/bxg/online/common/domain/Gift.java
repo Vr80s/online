@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -77,11 +78,17 @@ public class Gift implements Serializable {
 	@Column(name = "create_time")
 	private Date createTime;
 
+	
+	@Transient
+	private Integer giftId;
+	
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
+		setGiftId(id);
 		this.id = id;
 	}
 
@@ -179,6 +186,14 @@ public class Gift implements Serializable {
 
 	public void setCountinuousCount(int countinuousCount) {
 		this.countinuousCount = countinuousCount;
+	}
+
+	public Integer getGiftId() {
+		return getId();
+	}
+
+	public void setGiftId(Integer giftId) {
+		this.giftId = giftId;
 	}
 	
 	

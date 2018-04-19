@@ -47,6 +47,7 @@ public class DoctorArticleBody {
         oeBxsArticle.setStatus(status);
         oeBxsArticle.setTitle(title);
         oeBxsArticle.setUrl(url);
+        oeBxsArticle.setUserCreated(true);
         return oeBxsArticle;
     }
 

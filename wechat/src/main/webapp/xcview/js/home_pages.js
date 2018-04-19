@@ -429,7 +429,7 @@ function listenSchool(){
 //学堂
 //学堂/直播课程跳转
 //var url_adress=window.location.href;
-function jump_play(id){
+function common_jump_play(id){
    requestService("/xczh/course/details?courseId="+id,null,function(data) {
       var userPlay=data.resultObject;
       var falg =authenticationCooKie();       	       
@@ -535,7 +535,7 @@ function jump_play(id){
 
 
 //学堂/直播课程跳转
-//function jump_play(id){
+//function common_jump_play(id){
 //	requestService("/xczh/course/details?courseId="+id,null,function(data) {
 //			var userPlay=data.resultObject;
 //		if(userPlay.watchState==0 || userPlay.watchState==1){

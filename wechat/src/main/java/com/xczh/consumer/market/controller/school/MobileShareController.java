@@ -78,7 +78,7 @@ public class MobileShareController {
 			@RequestParam(value="shareType")Integer shareType)
 					throws Exception{
 		try {
-			if(shareType==1){ // 课程分享 
+			if(shareType==1 || shareType==3){ // 课程分享 
 				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
 				if(courseLectur==null){
 					return ResponseObject.newErrorResponseObject("课程信息有误");
@@ -89,7 +89,7 @@ public class MobileShareController {
 					description = XzStringUtils.delHTMLTag(description);
 					courseLectur.setDescription(description);
 				}
-				courseLectur.setLink(returnOpenidUri+"/wx_share.html?shareType=1&shareId="+Integer.parseInt(shareId));
+				courseLectur.setLink(returnOpenidUri+"/wx_share.html?shareType="+shareType+"&shareId="+Integer.parseInt(shareId));
 				return ResponseObject.newSuccessResponseObject(courseLectur);
 			}else {			 //  主播分享
 				LecturVo lectur = onlineCourseService.lectureShare(shareId);

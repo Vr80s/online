@@ -40,14 +40,15 @@
 		</script>
 		<script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
 		<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
-
+		<!--上传单个图片插件-->
+		<script src="/web/js/up-picter.js" type="text/javascript" charset="utf-8"></script>		
 		<!-----引用layer------>
 		<script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
 		<!-----引用layer------>
 		<script type="text/javascript" src="/web/js/helpers.js"></script>
 		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-
+		<script src="/web/js/common_msg.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -235,15 +236,15 @@
 						<button class="changeStaBtn">发布</button>
 					</div>
 					<div class="zhuanlan_bottom hide" id="zhuanlan_bottom">
-						<form action="">
+
 							<div>
 								<span><em>*</em>专栏标题</span>
-								<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title" />
-								<p class="warning hide">用户名不能为空</p>
+								<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title column-title" />
+								<p class="warning hide column-title-warning">用户名不能为空</p>
 							</div>
 							<div class="fengmian">
 								<span style="vertical-align: top;"><em>*</em>封面图</span>
-								<span class="fengmian_pic"  onclick="$('#zhuanlan_picIpt').click()">
+								<span class="fengmian_pic colum-picter" onclick="$('#zhuanlan_picIpt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>
 								</span>
@@ -252,20 +253,20 @@
 								<p>支持JPG/PNG等格式图片</p>
 							</span>
 								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuanlan_picIpt" />
-								<p class="warning hide">请上传封面图</p>
+								<p class="warning hide colum-picter-warning">请上传封面图</p>
 							</div>
 
 							<div class="neirong">
 								<span><em>*</em>内容</span>
-								<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入专栏内容"></textarea>
-								<p class="warning hide">专栏内容不能为空</p>
+								<textarea name="" class="column-text" cols="30" rows="10" style="resize: none;" placeholder="请输入专栏内容"></textarea>
+								<p class="warning hide column-text-warning">专栏内容不能为空</p>
 							</div>
 
 							<div class="baocun">
-								<input type="submit" value="保存并发布" id="submit" />
-								<button id="save">保存</button>
+								<button class="save-publish" type="submit" data-status="1">保存并发布</button>
+								<button class="save-publish" type="submit" data-status="0">保存</button>
 							</div>
-						</form>
+
 					</div>
 					<div class="zhuanlan_bottom2" id="zhuanlan_bottom2">
 						<table>
@@ -423,8 +424,8 @@
 						</div>
 
 						<div class="baocun">
-							<input type="submit" value="保存并发布" id="submit" />
-							<button id="save">保存</button>
+							<button class="save-publish" type="submit">保存并发布</button>
+							<button class="only-save" type="submit">保存</button>
 						</div>
 
 					</div>
