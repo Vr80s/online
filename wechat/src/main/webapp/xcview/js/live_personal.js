@@ -500,9 +500,12 @@ var falg =authenticationCooKie();
 	var falg =authenticationCooKie();	
 	
 function go_play(t){
-	var data_id=$(t).attr("data-play");
-	 requestService("/xczh/course/details?courseId="+data_id,null,function(data) {
-	 var userPlay=data.resultObject;
+	var data_id=$(t).attr("data-play");  
+	
+	//requestService("/xczh/course/userCurrentCourseStatus?courseId="+id,null,function(data) {
+	requestService("/xczh/course/userCurrentCourseStatus?courseId="+data_id,null,function(data) {
+		
+		var userPlay=data.resultObject;
 		if (falg==1002){
 			location.href ="/xcview/html/enter.html";	
 		}else if (falg==1005) {

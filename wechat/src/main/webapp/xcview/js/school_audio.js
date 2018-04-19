@@ -10,7 +10,6 @@ var LecturerId="";
 var gradeName = "";
 var smallImgPath ="";
 var description ="";
-$(function(){
 
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -18,7 +17,7 @@ function stripHTML(str){
 }
 //	标签选中变色
 	
-	 $(".select_lable li").click(function(){
+$(".select_lable li").click(function(){
   	 $(this).toggleClass("active_color"); 
   });
   	 //星星五星好评
@@ -302,6 +301,10 @@ function btn_zj_mianfei(){
 	var falg =authenticationCooKie();
 	var data_zj= $(".right_priceBtn").attr("data-zj")
 		if (falg==1002){
+			
+			var current_href = window.location.href;
+			//保存当前页面到缓存
+			localStorage.setItem("order_page_html",current_href);
 			location.href ="/xcview/html/cn_login.html";		
 		}else if (falg==1005) {
 			location.href ="/xcview/html/evpi.html";

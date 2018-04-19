@@ -74,20 +74,17 @@ public class LookHistoryController {
 			}
 			
 			if(recordType!=null){
-				
 				if(recordType == 1){ //增加学习记录
 					if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
 						  onlineWebService.saveEntryVideo(courseId, ou);
 				    }
 				}
-				
 				if(recordType == 2){
 					WatchHistory target = new WatchHistory();
 					target.setCourseId(courseId);
 					target.setUserId(ou.getId());
 					target.setLecturerId(course.getUserLecturerId());
 					target.setCollectionId(collectionId);
-					
 					
 					watchHistoryServiceImpl.addOrUpdate(lockId,target);
 				}

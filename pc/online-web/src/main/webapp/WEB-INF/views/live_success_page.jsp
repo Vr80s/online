@@ -12,6 +12,7 @@
   var BOSH_SERVICE='<%=request.getAttribute("boshService")%>';
   var sendTime='<%=request.getAttribute("now")%>';
   
+  
   var room_id='<%=request.getAttribute("roomId")%>';
   var plan_id='<%=request.getAttribute("planId")%>';
   var email = '<%=request.getAttribute("email")%>';

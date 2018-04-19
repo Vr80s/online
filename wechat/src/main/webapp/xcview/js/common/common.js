@@ -43,7 +43,6 @@ function getQueryString(name) {
  * 如果是扫二维码的话
  *   通过另一个参数来判断。
  */
-
 var qr_code = getQueryString("qr_code");
 if(stringnull(qr_code)){
 	var wxOrbrower = "wx";
@@ -52,17 +51,23 @@ if(stringnull(qr_code)){
 	}
 	var searchUrl = window.location.href;
 	var test = window.location.pathname;
-	
 	var int = searchUrl.indexOf("qr_code");
 	searchUrl = searchUrl.substring(0,int-1);
-	//alert(searchUrl);
 	location.href = "/xczh/share/xcCustomQrCode?search_url="+searchUrl+"&wxOrbrower="+wxOrbrower;
 }
 
+//获取  返回：/xcview/view/home_page.html
 
-
-
-
+var orderPageHtml = sessionStorage.getItem("order_page_html");
+if(stringnull(orderPageHtml)){
+	var pathname = window.location.pathname;
+	if(pathname.indexOf("my_study.html")!=-1 ||
+			pathname.indexOf("discovery.html")!=-1 || 
+			pathname.indexOf("my_homepage.html")!=-1){
+		
+		sessionStorage.setItem("order_page_html","");
+	}
+}
 
 
 var accessCommon = localStorage.access;
@@ -533,30 +538,35 @@ if(!stringnull(userId)){
  */
 function common_share_back(){
     var back = document.referrer;
-	if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
-		//alert("1111"+back);
+    if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
 		window.history.back();
 	}else{
-		//alert("2222"+back);
 		window.location.href = "home_page.html";
 	}
 }
 
-function common_share_backs(){
 
-	var back = document.referrer;
-	if(stringnull(back)){
+function common_share_backs(){
+/*	var back = document.referrer;
+	if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
 		var u = navigator.userAgent;
 		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
 			//window.history.back();
-			window.location.href = "curriculum_table.html";  /*浏览器上走这个*/
+			window.location.href = "curriculum_table.html";  浏览器上走这个
 			//history.go();
-		    } else if (u.indexOf('iPhone') > -1) {//苹果手机
+		} else if (u.indexOf('iPhone') > -1) {//苹果手机
 			window.location.href = back;
 		}
-	}else{
-		window.history.back();  /*微信上走这个*/
+	}else 
+	{
+		window.history.back();  微信上走这个
 		//window.location.href = "home_page.html";
+	}*/
+    var back = document.referrer;
+    if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
+		window.history.back();
+	}else{
+		window.location.href = "home_page.html";
 	}
 }
 

@@ -122,14 +122,19 @@ function login(){
 			if(wxOrbrower == "wx"){
 				 /* 
 				  * 需要获取下用户信息啦，并且需要传递用户名和密码过去
-				  * 
 				  *  entryType 1 表示从登录页面进入首页   2 表示从注册页面进入完善头像页面
 				  */
 				location.href = "/xczh/wxlogin/getCurrentWechatOpenId?entryType=1";
 			}else{
-				/*
-				 * 跳转到分类
-				 */
+				var orderPageHtml = sessionStorage.getItem("order_page_html");
+//				if(stringnull(orderPageHtml)){
+//					alert(orderPageHtml);
+//					sessionStorage.setItem("order_page_html","");
+//					location.replace(orderPageHtml);
+//				}else{
+//					//到登录页面的入口   被拦截后，回到注册页面，然后用户可以注册，
+//					location.href = "/xcview/html/home_page.html";
+//				}
 				location.href = "/xcview/html/home_page.html";
 			}
 		} else {
