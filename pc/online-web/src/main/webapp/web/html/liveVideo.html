@@ -247,6 +247,7 @@
 				height: 20px;
 				background: red;
 				float: left;
+				/*background: url(../../../images/chat/icon.png?v=fO82YEiGkixPBzaYndDn2Q%3D%3D) no-repeat 0 -48px;*/
 			}
 			.animation-shrink{
 				width: 20px;
@@ -254,6 +255,22 @@
 				background: blue;
 				float: right;
 			}
+			/*添加文档class*/
+			.doc-pc{
+				width: 294px;
+			    height: 168px;
+			    right: 0;
+			    position: absolute;
+			    z-index: 9;
+			}
+			.video-pc{
+				width: 294px;
+			    height: 168px;
+			    right: 0;
+			    position: absolute;
+			    z-index: 9;
+			}
+			
 			
 			/*视频底部区域关注和礼物区*/
 			.video-bottom{
@@ -569,9 +586,85 @@
 		    	padding-bottom: 50px;
 		    }
 		    /*排行榜结束*/
-		    
+		   
+		  /* #livePlayer{
+		   	background: none !important;
+		   }
+		   .page-pc .player-container{
+		   	background: none !important;
+		   }
+		   .page-pc .video{
+		   	background: none !important;
+		   	display: none;
+		   }*/
+		  .page-pc .player-container{
+		  	
+		  }
+		   
+		   
+		  	/*处理切换动画开始*/
+		  	.doc-img{
+		  		top: 0;
+			    right: 0;
+			    width: 294px !important;
+			    height: 168px !important;
+			    z-index: 9;
+			    position: absolute !important;
+		  	}
+		  	.company_introduce-one{
+	    		-webkit-animation: righteaseinAnimate-one 3s forwards;
+			}
+			@-webkit-keyframes righteaseinAnimate-one{
+			    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
+			    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+			}
+		
+			.company_introduces-one{
+			    -webkit-animation: righteaseinAnimates-one 3s forwards;
+			}
+			@-webkit-keyframes righteaseinAnimates-one{
+			    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+			    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+			}
 			
+			
+			
+			/*处理向下*/
+			/*.company_introduce-one-hide{
+	    		-webkit-animation: righteaseinAnimate-one-hide 3s forwards;
+			}
+			@-webkit-keyframes righteaseinAnimate-one-hide{
+			    0%{-webkit-transform: translateY(0px); width: 294px;height: 0px;position: absolute;right: 0;}
+			    100%{ -webkit-transform: translateY(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+			}
+		
+			.company_introduces-one-show{
+			    -webkit-animation: righteaseinAnimates-one-show 3s forwards;
+			}
+			@-webkit-keyframes righteaseinAnimates-one-show{
+			    0%{ -webkit-transform: translateY(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+			    100%{ -webkit-transform: translateY(0px);width: 294px;height: 0px;position: absolute;right: 0;}
+			}*/
+		
+		
+			.company_introduce-two{
+			    -webkit-animation: righteaseinAnimate-two 3s forwards;
+			}
+			@-webkit-keyframes righteaseinAnimate-two{
+			    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+			    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+			}
+			
+			.company_introduces-two{
+			    -webkit-animation: righteaseinAnimates-two 3s forwards;
+			}
+			@-webkit-keyframes righteaseinAnimates-two{
+			    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+			    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+			} 
+		  	/*处理切换动画结束*/
 		</style>
+		
 		
 		<script type="text/javascript">
 			window.onload = function(){
@@ -631,6 +724,68 @@
 			 	/*鼠标放排行榜上查看效果结束*/
 			};
 		</script>
+		
+		<script type="text/javascript">
+			window.onload = function(){
+				var num = 1;
+//				$("#doc").addClass("doc-img");
+				$(".animation-cut-click").click(function(){
+					num = -num;
+					if(num == -1){
+						$("#doc").removeClass("company_introduces-one");
+						$("#doc").removeClass("doc-img");
+						$("#doc").addClass("company_introduce-one");
+						
+						/*$("#doc").addClass("company_introduce-one-up");
+						$("#doc").removeClass("company_introduces-one-up");*/
+//						$(".one").css("z-index","0");
+						
+						$("#doc").show();
+						$("#video").removeClass("company_introduces-two");
+						$("#video").addClass("company_introduce-two");
+					}else{
+						$("#doc").removeClass("company_introduce-one");
+						$("#doc").addClass("doc-img");
+						$("#doc").addClass("company_introduces-one");
+						
+						/*$("#doc").removeClass("company_introduce-one-up");
+						$("#doc").addClass("company_introduces-one-up");*/
+//						$("#doc").css("z-index","999");
+		
+						$("#doc").hide();
+						$("#video").addClass("company_introduces-two");
+						$("#video").removeClass("company_introduce-two");
+					}
+		
+				})
+				
+				/*$(".animation-shrink").click(function(){
+				    $("#doc").fadeToggle(3000);
+				}); */   
+				
+				var nums = 1;
+				$(".animation-shrink").click(function(){
+					nums = -nums;
+					if(nums == -1){
+						/*$("#doc").removeClass("company_introduces-one-show");
+						$("#doc").addClass("company_introduce-one-hide");*/
+						$("#doc").hide();
+					}else{
+						/*$("#doc").removeClass("company_introduce-one-hide");
+						$("#doc").addClass("company_introduces-one-show");*/
+						$("#doc").show();
+					}
+				});  
+				
+				
+				
+				
+				
+				
+		
+			};
+		</script>
+		
 </head>
 
 <body>
@@ -642,7 +797,7 @@
 	<div class="livePlayer" style="position: relative">
 		<!--动画代码视频文档小框--右侧-->
 		<div class="animation">
-			<div class="animation-cut"></div>
+			<div class="animation-cut animation-cut-click"></div>
 			<div class="animation-shrink"></div>
 		</div>
 		
@@ -735,7 +890,7 @@
 				</div>
 				<div class=player-container>
 					<div class=video id=video></div>
-					<div class=doc id=doc></div>
+					<div class="doc doc-img" id=doc ></div>
 					
 				</div>
 				
@@ -780,6 +935,7 @@
 						</div>
 					</div>
 					<div class=send-box>
+						<a id=all href=javascript:; class=face style="left: 40px;"></a> 
 						<a id=face href=javascript:; class=face></a> 
 						<div class="chitchat">
 							<a id=sendChat href=javascript:; class=send-chat>发送</a>
@@ -1158,9 +1314,6 @@
 
 		</div>
 
-
-
-
 		<!--禁言提示-->
 		<!--模板引擎渲染礼物栏-->
 		<script type='text/template' id='gift_temp'>
@@ -1214,4 +1367,3 @@
 		/* var html = template('',html) */
 	});
 </script>
-

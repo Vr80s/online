@@ -383,7 +383,7 @@ function queryDataByParams(params,data_type){
 			//createListInfo(data,data_type)
 			
 			// 测试加载中
-			load.end();
+			// load.end();
 			
 			 if(stringnull(data_type)){
 					var id = "#query_list"+data_type;
