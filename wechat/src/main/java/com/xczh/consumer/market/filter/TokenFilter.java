@@ -162,7 +162,6 @@ public class TokenFilter implements Filter {
                  && "XMLHttpRequest".equalsIgnoreCase(request.getHeader("x-requested-with"))) {   
 			isAjax = true;
 		}
-		
 		if(isExcludedPage){ // 直接放行
 			chain.doFilter(request, response);
 		}else{

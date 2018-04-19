@@ -1,21 +1,20 @@
 
 
-
-
-
-
 /**
  * 直播、视频、音频、专辑跳转
  * @param id
  * @returns
  */
-function jump_all(id){
+function common_jump_all(id){
    requestService("/xczh/course/userCurrentCourseStatus?courseId="+id,null,function(data) {
+	   
      var userPlay=data.resultObject;
      var falg =authenticationCooKie(); 
   	 
      var watchState = userPlay.watchState;
      var type = userPlay.type;
+     var collection = userPlay.collection;
+     var lineState = userPlay.lineState;
      if(watchState==1){
 		if(type == 1 || type == 2){
 			//增加学习记录
@@ -27,6 +26,9 @@ function jump_all(id){
 			}else{
 				location.href = "/xcview/html/live_audio.html?my_study="+courseId;
 			}
+		}else if(type == 3){	
+			
+			common_jump_play(watchState,lineState);
 		}else if(type == 4){
 			location.href = "/xcview/html/school_class.html?course_id="+courseId;
 		}
@@ -47,7 +49,7 @@ function jump_all(id){
  * @param id
  * @returns
  */
-function jump_play(watchState,lineState){
+function common_jump_play(watchState,lineState){
       //var userPlay=data.resultObject;
           var falg =authenticationCooKie(); 
 //付费的     
@@ -105,7 +107,7 @@ function jump_play(watchState,lineState){
  * @param courseId
  * @returns
  */
-function jump_school(watchState,type,collection,courseId){
+function common_jump_school(watchState,type,collection,courseId){
 	if(watchState==1){
 		if(type == 1 || type == 2){
 			//增加学习记录

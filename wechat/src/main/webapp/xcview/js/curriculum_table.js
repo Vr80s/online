@@ -441,7 +441,7 @@ function queryDataByParams(params,data_type){
 						//alert(typeStr);
 					}
 					data1+="<div class='li_list_div' >"+
-						       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" data-watchState="+item.watchState+" data-collection="+item.collection+">"+
+						       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" data-watchState="+item.watchState+" data-collection="+item.collection+"   data-lineState="+item.lineState+">"+
 							       "<div class='li_list_one_left'>" +
 //							          "<img src='"+item.smallImgPath +"' class='one' />" + statusImg1 +
 							         "<img src='"+item.smallImgPath+"?imageView2/2/w/212' class='one' />" + statusImg1 +
@@ -475,13 +475,13 @@ function queryDataByParams(params,data_type){
 				/*
 				 * 点击跳转到单个课程
 				 */
-				
 				 $(".li_list_div .li_list_one").click(function(){
 					
 					 var type =$(this).attr("data-title");
 					 var courseId =$(this).attr("data-courseId");
 					 var watchState=$(this).attr("data-watchState");  //收费付费
 					 var collection=$(this).attr("data-collection");  //专辑是否
+					 var lineState=$(this).attr("data-lineState");
 					 
 					if(watchState==1){
 						if(type == 1 || type == 2){
@@ -497,7 +497,7 @@ function queryDataByParams(params,data_type){
 						}else if(type == 4){
 							location.href = "/xcview/html/school_class.html?course_id="+courseId;
 						}else if(type == 3){ //直播
-							jump_play(courseId);
+							common_jump_play(watchState,lineState);
 						}
 					}else{
 						if(type == 1 || type == 2){
@@ -505,7 +505,7 @@ function queryDataByParams(params,data_type){
 						}else if(type == 4){
 							location.href = "/xcview/html/school_class.html?course_id="+courseId;
 						}else if(type == 3){ //直播
-							jump_play(courseId);
+							common_jump_play(watchState,lineState);
 						}
 					}
 				})
