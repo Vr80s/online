@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
 
@@ -36,9 +35,9 @@ import com.xczhihui.bxg.common.util.enums.OrderFrom;
 public class XzGiftController {
 
 	
-	@Autowired
+/*	@Autowired
 	@Qualifier("giftServiceLocal")
-	private GiftService localGiftService;
+	private GiftService localGiftService;*/
 	
 	@Autowired()
 	@Qualifier("giftServiceImpl")
@@ -60,8 +59,7 @@ public class XzGiftController {
 			@RequestParam(value="pageNumber")Integer current,
 			@RequestParam(value="pageSize")Integer size) throws SQLException {
 		
-		
-		return ResponseObject.newSuccessResponseObject(localGiftService.newRankingList(liveId,current,size));
+		return ResponseObject.newSuccessResponseObject(remoteGiftService.getRankingListByLiveId(liveId,current,size));
 	}
 	/**
 	 * 礼物列表
@@ -84,7 +82,7 @@ public class XzGiftController {
 			pageSize = Integer.valueOf(req.getParameter("pageSize"));
 		}
 		pageSize = Integer.MAX_VALUE;
-		return ResponseObject.newSuccessResponseObject(localGiftService.listAll(pageNumber,pageSize));
+		return ResponseObject.newSuccessResponseObject(remoteGiftService.getGift());
 	}
 
 	/**

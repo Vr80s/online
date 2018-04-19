@@ -84,10 +84,10 @@ public class XzUserSetController {
 			@RequestParam("username") String username) throws Exception {
 
 		if (!XzStringUtils.checkPassword(oldPassword)) {
-			return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
+			return ResponseObject.newErrorResponseObject("密码为6-18为英文大小写字母或者阿拉伯数字");
 		}
 		if (!XzStringUtils.checkPassword(newPassword)) {
-			return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
+			return ResponseObject.newErrorResponseObject("密码为6-18为英文大小写字母或者阿拉伯数字");
 		}
 		if (!XzStringUtils.checkPhone(username)) {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");

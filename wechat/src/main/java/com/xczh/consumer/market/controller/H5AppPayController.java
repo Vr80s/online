@@ -54,24 +54,6 @@ import com.xczh.consumer.market.wxpay.util.CommonUtil;
 @RequestMapping("/bxg/pay")
 public class H5AppPayController {
 
-	@Autowired
-	private OnlineOrderService onlineOrderService;
-	@Autowired
-	private WxcpClientUserWxMappingService wxService;
-
-	@Autowired
-	private CacheService cacheService;
-
-	@Autowired
-	private RewardService rewardService;
-	
-	@Autowired
-	private AppBrowserService appBrowserService;
-
-	@Value("${rate}")
-	private int rate;
-	@Value("${minimum_amount}")
-	private Double minimumAmount;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AppPayController.class);
 	
@@ -82,13 +64,13 @@ public class H5AppPayController {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unused")
 	@RequestMapping("wxPay")
 	@ResponseBody
 	@Transactional
 	public ResponseObject appOrderPay(HttpServletRequest req,HttpServletResponse res)
 			throws Exception {
 		
+		LOGGER.info("老版本方法----》》》》wxPay");
 		
 		return ResponseObject.newErrorResponseObject("请使用最新版本");
 		
@@ -202,8 +184,9 @@ public class H5AppPayController {
 	public ResponseObject rewardPay(HttpServletRequest req,
                                     HttpServletResponse res, Map<String, String> params)
 			throws Exception {
-		Map<String, String> retobj = new HashMap<String, String>();
 
+		LOGGER.info("老版本方法----》》》》rewardPay");
+		
 		return ResponseObject.newErrorResponseObject("请使用最新版本");
 		
 		
@@ -339,13 +322,13 @@ public class H5AppPayController {
 	 */
 	@RequestMapping("rechargePay")
 	@ResponseBody
-	public ResponseObject rechargePay(HttpServletRequest req,
-									HttpServletResponse res, Map<String, String> params)
+	public ResponseObject rechargePay(
+			HttpServletRequest req,HttpServletResponse res)
 			throws Exception {
-		Map<String, String> retobj = new HashMap<String, String>();
+		
+		LOGGER.info("老版本方法----》》》》rechargePay");
 
 		return ResponseObject.newErrorResponseObject("请使用最新版本");
-		
 		
 //		Map<String, String> params2=new HashMap<>();
 //		params2.put("token",req.getParameter("token"));
@@ -421,44 +404,5 @@ public class H5AppPayController {
 //		}
 //		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 //		return ResponseObject.newSuccessResponseObject(retobj);
-	}
-
-
-	public static String getIpAddress(HttpServletRequest request) {
-
-		String ipAddress = request.getHeader("x-forwarded-for");
-
-		if (ipAddress == null || ipAddress.length() == 0
-				|| "unknown".equalsIgnoreCase(ipAddress)) {
-			ipAddress = request.getHeader("Proxy-Client-IP");
-		}
-		if (ipAddress == null || ipAddress.length() == 0
-				|| "unknow".equalsIgnoreCase(ipAddress)) {
-			ipAddress = request.getHeader("WL-Proxy-Client-IP");
-		}
-		if (ipAddress == null || ipAddress.length() == 0
-				|| "unknown".equalsIgnoreCase(ipAddress)) {
-			ipAddress = request.getRemoteAddr();
-
-			if ("127.0.0.1".equals(ipAddress)
-					|| "0:0:0:0:0:0:0:1".equals(ipAddress)) {
-				// 根据网卡获取本机配置的IP地址
-				InetAddress inetAddress = null;
-				try {
-					inetAddress = InetAddress.getLocalHost();
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				}
-				ipAddress = inetAddress.getHostAddress();
-			}
-		}
-		// 对于通过多个代理的情况，第一个IP为客户端真实的IP地址，多个IP按照','分割
-		if (null != ipAddress && ipAddress.length() > 15) {
-			// "***.***.***.***".length() = 15
-			if (ipAddress.indexOf(",") > 0) {
-				ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
-			}
-		}
-		return ipAddress;
 	}
 }

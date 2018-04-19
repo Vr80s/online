@@ -63,9 +63,9 @@ public class MyOrderController {
 		Map returnMap = new HashMap();
 		returnMap.put("orderNo", order.getOrderNo());
 		returnMap.put("orderId",order.getId());
+		returnMap.put("currentPrice", order.getPrice());
 		return ResponseObject.newSuccessResponseObject(returnMap);
 	}
-	
 	/**
 	 * 根据订单id获取信息
 	 * @param req
@@ -84,8 +84,9 @@ public class MyOrderController {
 		 * 返回给前台熊猫币
 		 */
 		OnlineOrder order = (OnlineOrder) onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId).getResultObject();
-		order.setActualPay(order.getActualPay()*rate);
-		
+		if(order!=null) {
+			order.setActualPay(order.getActualPay()*rate);
+		}
 		return ResponseObject.newSuccessResponseObject(order);
 	}
 	

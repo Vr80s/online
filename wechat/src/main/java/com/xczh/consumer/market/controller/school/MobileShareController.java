@@ -256,9 +256,8 @@ public class MobileShareController {
 							//专辑视频音频播放页
 							res.sendRedirect(returnOpenidUri + "/xcview/html/live_select_album.html?shareBack=1&course_id="+shareId);
 						}else{
-							if("3".equals(shareType)) { //说明是单个专辑
-								//单个视频音频播放
-								res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?shareBack=1&my_study="+shareId);
+							if("3".equals(shareType)) { //说明是单个专辑  -->跳转到总专辑那个地方
+								res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?shareBack=1&course_id="+shareId);
 							}else {
 								//单个视频音频播放
 								res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?shareBack=1&my_study="+shareId);

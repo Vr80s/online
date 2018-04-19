@@ -78,7 +78,7 @@ String.prototype.replaceAll = function(FindText, RepText) {
 }
 var sendTime;
 if (sendTime == null) {
-    requestService("/bxg/common/getSystemTime", null, function(data) {
+    requestService("/xczh/common/getSystemTime", null, function(data) {
         sendTime = data;
     }, false)
 }

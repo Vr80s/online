@@ -20,6 +20,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.CacheService;
+import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.Token;
+import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.bxg.common.util.SLEmojiFilter;
+import com.xczhihui.bxg.common.util.enums.ThirdPartyType;
+import com.xczhihui.bxg.common.util.enums.UserUnitedStateType;
+import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.user.center.bean.TokenExpires;
+import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
+import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+
 import weibo4j.Oauth;
 import weibo4j.Users;
 import weibo4j.http.AccessToken;
@@ -27,21 +42,6 @@ import weibo4j.http.HttpClient;
 import weibo4j.model.PostParameter;
 import weibo4j.model.WeiboException;
 import weibo4j.util.WeiboConfig;
-
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczhihui.bxg.common.util.enums.ThirdPartyType;
-import com.xczhihui.bxg.common.util.enums.UserUnitedStateType;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
 
 /**
  * 用户controller

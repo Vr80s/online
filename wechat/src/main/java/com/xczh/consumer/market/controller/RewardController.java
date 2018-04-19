@@ -28,7 +28,11 @@ public class RewardController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public ResponseObject list(HttpServletRequest request,
-                               HttpServletResponse response, Map<String, String> params) throws Exception {
+                               HttpServletResponse response,
+                               Map<String, String> params) throws Exception {
+    	
+    	
+    	
         return ResponseObject.newSuccessResponseObject(rewardService.listAll());
     }
 

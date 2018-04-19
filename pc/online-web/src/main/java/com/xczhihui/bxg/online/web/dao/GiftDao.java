@@ -229,19 +229,11 @@ public class GiftDao extends SimpleHibernateDao {
 		sql.append( " SELECT  ou.id userId,ou.`name`, ou.small_head_photo smallHeadPhoto, ogs.create_time, ");
 		sql.append( " CAST(SUM(ogs.`price`) AS SIGNED) giftCount ");
 		sql.append( " FROM oe_gift_statement ogs  INNER JOIN oe_user ou 	ON (ogs.giver = ou.id) ");
-		sql.append( " WHERE ogs.live_id = :live_id 	GROUP BY giver 	ORDER BY giftCount DESC ");
+		sql.append( " WHERE ogs.live_id = :live_id 	GROUP BY giver 	ORDER BY giftCount DESC,userId desc ");
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("live_id", liveId);
         Page<RankingUserVO> page = this.findPageBySQL(sql.toString(), paramMap, RankingUserVO.class, pageNumber, pageSize);
 		return page.getItems();
 	}
 
-//	public List<Map<String, Object>> getGiftRecord(String courseId) {
-//		DetachedCriteria dc = DetachedCriteria.forClass(GiftStatement.class);
-//		dc.add(Restrictions.eq("isDelete", false));
-//		dc.add(Restrictions.eq("status", "1"));
-//		List<GiftStatement> gs = this.findEntities(dc);
-//		return null;
-//	}
-	
 }

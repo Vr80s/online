@@ -69,28 +69,14 @@ public class XzIapController {
 	@Autowired
 	private iphoneIpaService iphoneIpaService;
 
-	@Autowired
-	private OnlineOrderService onlineOrderService;
 
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	@Autowired
-	private EnchashmentService enchashmentService;
-
-	@Autowired
-	private OrderPayService orderPayService;
-
-	@Autowired
-	private UserCoinService userCoinService;
 
 	@Autowired
 	private XmbBuyCouserService xmbBuyCouserService;
 	
-	@Autowired
-	private VersionService versionService;
-	
-
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
 			.getLogger(XzIapController.class);
 
