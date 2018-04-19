@@ -291,9 +291,11 @@ $(function() {
 
 		$(".btn-upload").css("color", "white");
 	})
-
-	//	专栏部分
-	//	专栏部分点击发布效果
+	
+//---------------------------------头像上传部分结束，专栏部分开始-------------------------------------------------
+	
+//	专栏部分
+//	专栏部分，点击发布效果
 	var zhuanlanCount = 1;
 	$('#zhuanlan .zhuanlan_top button').click(function() {
 		zhuanlanCount *= -1;
@@ -313,8 +315,91 @@ $(function() {
 			$('#zhuanlan_bottom').addClass('hide');
 			$('#zhuanlan_bottom2').removeClass('hide');
 		}
-
 	})
+//专栏部分，封面图上传
+function columnUpdown(baseurl, imgname) {
+	RequestService("/medical/common/upload", "post", {
+		image: baseurl,
+	}, function(data) {
+		$('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject +'?imageMogr2/thumbnail/260x147<'+ '" >');
+	})
+}
+$('#zhuanlan_picIpt').on('change', function() {
+	if(this.files[0].size > 2097152) {
+		$('#tip').text('上传图片不能大于2M');
+		$('#tip').toggle();
+		setTimeout(function() {
+			$('#tip').toggle();
+		}, 2000)
+		return false;
+	}
+	if(!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
+		$('#tip').text('图片格式不正确');
+		$('#tip').toggle();
+		setTimeout(function() {
+			$('#tip').toggle();
+		}, 2000)
+		return false;
+	}
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		columnUpdown(reader.result, 'fengmian_pic');
+	}
+	reader.readAsDataURL(this.files[0])
+})
+//点击专栏的发布和保存
+function columnRecruit(data){		
+	if(data.title==""){
+		$(".column-title-warning").removeClass("hide");
+		return false;
+	}else{
+		$(".column-title-warning").addClass("hide");
+	}
+	if($(".colum-picter img").length== 0 ){
+		$(".colum-picter-warning").removeClass("hide");
+		return false;
+	}else{
+		$(".colum-picter-warning").addClass("hide");
+	}
+	if(data.content==""){
+		$(".column-text-warning").removeClass("hide");
+		return false;
+	}else{
+		$(".column-text-warning").addClass("hide");
+	}
+	return true;
+}
+$(".save-publish").click(function(){
+	var columeStatus=$(this).attr("data-status");
+		var data = {
+				"title":$.trim($(".column-title").val()),
+				"imgPath":$(".colum-picter img").attr("src"),
+				"content":$.trim($(".column-text").val()),
+				"status":columeStatus
+			}
+	if(columnRecruit(data)){
+		$.ajax({
+			type:"POST",
+			url:bath+"/doctor/article/specialColumn",
+			data:JSON.stringify(data),
+			contentType: "application/json",
+			success:function(data){
+				if(data.success == true){
+					showTip("保存成功");
+					$(".select_list li").click();
+				}else{
+					showTip("保存失败");
+				}
+			}
+		});
+	};
+})
+
+
+
+
+
+
 
 	//	著作部分
 	//	著作部分点击发布效果

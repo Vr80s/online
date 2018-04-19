@@ -32,7 +32,7 @@ public class DoctorArticleController extends AbstractController {
     public ResponseObject saveSpecialColumn(@Valid @RequestBody DoctorArticleBody doctorArticleBody, HttpServletRequest request) {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
-        String doctorName = medicalDoctorBusinessService.get(userId).getName();
+        String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
         medicalDoctorArticleService.saveSpecialColumn(doctorId, doctorArticleBody.build(HeadlineType.DJZL, doctorName));
         return ResponseObject.newSuccessResponseObject();
     }

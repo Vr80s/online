@@ -231,21 +231,21 @@
         <!--右侧-->
         <div class="main_right ">
             <!--帐号认领-->
-            <div class="import_thing hide">
+            <div class="import_thing">
                 <h2>暂无重要通知</h2>
                 <!--<p>因我馆医疗系统升级，患者需重新登记资料</p>-->
                 <!--<span>2017.11.24</span>-->
             </div>
 
             <!--招募信息-->
-            <div class="employ hide" id="employ">
-                <!--<div class="employ_inf">
-                    <p>薪资面议    <span>|</span>    江苏南京</p>
+            <div class="employ" id="employ">
+                <div class="employ_inf">
+                    <h4>薪资面议    <span>|</span>    江苏南京</h4>
                     <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
                     <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
                 </div>
 
-                <div class="employ_inf">
+                <!--<div class="employ_inf">
                     <p>薪资面议    <span>|</span>    江苏南京</p>
                     <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
                     <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
