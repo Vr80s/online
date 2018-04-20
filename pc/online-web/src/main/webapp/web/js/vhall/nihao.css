@@ -138,7 +138,7 @@
 
 .chatmsg li {
 	overflow: hidden;
-	padding: 10px 22px;
+	padding: 6px 7px;
 	text-align: left;
 	list-style: none
 }
@@ -163,14 +163,18 @@
 
 .chatmsg li .msg {
 	float: left;
-	margin-left: 45px
+	/*margin-left: 45px;*/
+	width: 280px;
 }
 
 .chatmsg li .msg p {
 	color: #6f6e6e;
 	line-height: 16px;
 	font-size: 12px;
-	margin: 0
+	margin: 0;
+	word-wrap: break-word;
+    width: 288px;
+    word-break: break-all;
 }
 
 .chatmsg li .msg p .tips {
@@ -202,14 +206,17 @@
 
 .chatmsg li .msg p .name {
 	display: inline-block;
-	color: #6f6e6e;
-	width: 128px;
-	line-height: 18px;
-	vertical-align: middle;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	text-align: left
+    color: #6f6e6e;
+    /*width: 252px;*/
+    line-height: 18px;
+    vertical-align: middle;
+    text-align: left;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    word-wrap: break-word;
+    margin-top: -1px;
 }
 
 .chatmsg li .msg p .time {

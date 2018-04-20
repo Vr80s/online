@@ -1,4 +1,7 @@
+
 $(function() {
+//	确定,取消弹窗初始化
+	comfirmBox.init();
 	//医师按钮变色效果
 	$('.forum').css('color', '#000');
 	$('.path .doctor').addClass('select');
@@ -46,9 +49,9 @@ $(function() {
 		if($(".select_box").eq($(this).index()).find('.changeStaBtn').text() == '返回') {
 			$(".select_box").eq($(this).index()).find('.changeStaBtn').click();
 		}
-
 		//图标颜色变化
 		$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color")
+
 	})
 
 	$(".select_list .select-ud").bind('click', function(event) {
@@ -296,24 +299,23 @@ $(function() {
 	
 //	专栏部分
 //	专栏部分，点击发布效果
-	var zhuanlanCount = 1;
-	$('#zhuanlan .zhuanlan_top button').click(function() {
-		zhuanlanCount *= -1;
-		//发布
-		if(zhuanlanCount < 0) {
-			//顶部变化
-			$(this).text('返回');
-			$(this).siblings('.title').text('新专栏');
-			//底部变化
+	$('#zhuanlan .zhuanlan_top button').click(function(){
+		var recruit_btn = $(this).text()
+		if(recruit_btn == "发布") {
+			resetColumn();
 			$('#zhuanlan_bottom2').addClass('hide');
 			$('#zhuanlan_bottom').removeClass('hide');
+			$(this).text("返回")
+			$(".recruit-wrap-title p").text("专栏");
+//			保存按钮显现
+			$(".column-new-button").removeClass("hide");
+			$(".column-edit-button").addClass("hide");
+			
 		} else {
-			//取消发布
-			$(this).text('发布');
-			$(this).siblings('.title').text('专栏');
-			//底部变化
-			$('#zhuanlan_bottom').addClass('hide');
 			$('#zhuanlan_bottom2').removeClass('hide');
+			$('#zhuanlan_bottom').addClass('hide');
+			$(this).text("发布")
+			$(".recruit-wrap-title p").text("专栏")	
 		}
 	})
 //专栏部分，封面图上传
@@ -355,11 +357,11 @@ function columnRecruit(data){
 	}else{
 		$(".column-title-warning").addClass("hide");
 	}
-	if($(".colum-picter img").length== 0 ){
-		$(".colum-picter-warning").removeClass("hide");
+	if($(".column-picter img").length== 0 ){
+		$(".column-picter-warning").removeClass("hide");
 		return false;
 	}else{
-		$(".colum-picter-warning").addClass("hide");
+		$(".column-picter-warning").addClass("hide");
 	}
 	if(data.content==""){
 		$(".column-text-warning").removeClass("hide");
@@ -373,7 +375,7 @@ $(".save-publish").click(function(){
 	var columeStatus=$(this).attr("data-status");
 		var data = {
 				"title":$.trim($(".column-title").val()),
-				"imgPath":$(".colum-picter img").attr("src"),
+				"imgPath":$(".column-picter img").attr("src"),
 				"content":$.trim($(".column-text").val()),
 				"status":columeStatus
 			}
@@ -386,14 +388,119 @@ $(".save-publish").click(function(){
 			success:function(data){
 				if(data.success == true){
 					showTip("保存成功");
-					$(".select_list li").click();
+					$("#nav-colume").click();
+					columnList(1)
 				}else{
 					showTip("保存失败");
 				}
 			}
 		});
 	};
+	
 })
+	
+//专栏部分的列表
+columnList(1)
+function columnList(pages){
+	RequestService("/doctor/article/specialColumn","GET",{
+		"page":pages
+	},function(data){
+		if(data.success=true){
+			getData=data.resultObject.records;
+			$("#column-wrap-list").html(template('column-list',{items:data.resultObject.records}));
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".column_pages").removeClass("hide");
+		            $(".column_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#Pagination_column").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    columnList(page+1);
+		                }
+		            });
+				}
+				else {
+					$(".column_pages").addClass("hide");
+				}
+		}else{
+			showTip("获取数据失败");
+		}
+//		上下架执行方法
+		initEvent();
+	})
+}
+//专栏部分的预览  828行
+
+//专栏部分，上架、下线功能
+function initEvent(){
+	$('.fluctuate').click(function(){
+		var id=$(this).attr("data-id"),
+			status=$(this).attr("data-status");
+			RequestService("/doctor/article/specialColumn/"+id+'/'+status,"PUT",null,function(data){
+			if(data.success==true){
+				showTip("操作成功");
+				columnList(1);
+			}else{
+				showTip("操作失败");			
+			}
+		})	
+	});
+//专栏部分，删除
+	$('.column-delete').click(function(){
+		var id=$(this).attr("data-id")
+		comfirmBox.open("专栏","确定删除该条专栏吗？",function(closefn){
+			RequestService("/doctor/article/specialColumn/"+id,"DELETE",null,function(data){
+				if(data.success==true){	
+					showTip("删除成功");								
+					columnList(1);
+				}else{
+					showTip("删除失败");			
+				}
+			})	
+			closefn();   
+		});	
+	});	
+//专栏部分,点击编辑保存
+	$(".save-edit-publish").click(function(){
+		var editId=$("#column-id").val(),
+			editData={
+				"title":$.trim($(".column-title").val()),
+				"imgPath":$(".column-picter img").attr("src"),
+				"content":$.trim($(".column-text").val())
+			};
+		if(columnRecruit(editData)){
+			$.ajax({
+				type:"PUT",
+				url:bath+"/doctor/article/specialColumn/"+editId,
+				contentType:"application/json",
+				data:JSON.stringify(editData),
+				success:function(data){
+					if(data.success==true){
+						showTip("保存成功");
+						columnList(1);
+						setTimeout(function(){
+							$("#nav-colume").click();						
+						},2000)
+	
+					}else{
+						showTip("保存失败");
+					}
+				}
+			});
+
+		}
+	});
+	
+	
+}
+
+
+
+
+
 
 
 
@@ -447,29 +554,6 @@ $(".save-publish").click(function(){
 			$('.media_report_bottom2').removeClass('hide');
 		}
 
-	})
-
-	//资源部分
-	//资源部分点击上传资源
-	var ziyuanCount = 1;
-	$('#resource .zhuanlan_top button').click(function() {
-		ziyuanCount *= -1;
-		//上传
-		if(ziyuanCount < 0) {
-			//顶部变化
-			$(this).text('返回');
-			$(this).siblings('.title').text('新资源');
-			//底部变化
-			$('#ziyuan_bottom2').addClass('hide');
-			$('#ziyuan_bottom').removeClass('hide');
-		} else {
-			//取消上传
-			$(this).text('上传资源');
-			$(this).siblings('.title').text('资源');
-			//底部变化
-			$('#ziyuan_bottom').addClass('hide');
-			$('#ziyuan_bottom2').removeClass('hide');
-		}
 	})
 })
 
@@ -748,71 +832,53 @@ $('#docJoinHos').click(function() {
 
 })
 
-//下架、删除提示的显示和隐藏效果
-
-function showDel() {
-	$('#deleteTip').removeClass('hide');
-	$('#mask').removeClass('hide');
+//-----------------------------------------专栏部分，预览,编辑回显--------------------------------------
+//用html方法清空上传的照片
+var defaultPicter='<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>'+
+				  '<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>';
+								
+//显示预览功能
+var getData;
+function showPreview(index) {
+	var columnPreview=getData[index];
+	$(".preview-column-title").text(columnPreview.title);
+	$(".preview-column-picter img").attr("src",columnPreview.imgPath);
+	$(".preview-column-content").text(columnPreview.content);	
+	$('#preview').removeClass('hide');
+	$('#mask').removeClass('hide')
 }
-
-function hideDel() {
-	$('#deleteTip').addClass('hide');
-	$('#mask').addClass('hide');
-}
-
-//下线功能
-function downLine() {
-	showDel()
-}
-
 //预览关闭功能
 $('.close_preview').click(function() {
 	$('#preview').addClass('hide');
 	$('#mask').addClass('hide')
 
 })
-
-//显示预览功能
-function showPreview() {
-	$('#preview').removeClass('hide');
-	$('#mask').removeClass('hide')
-}
-
-
-//医师媒体报道上传图片调用的接口
-function picUpdown(baseurl, imgname) {
-//	RequestService("/medical/common/upload", "post", {
-//		image: baseurl,
-//	}, function(data) {
-//		$('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
-//	})
-}
-
-
-
-//媒体报道图片上传
-$('#zhuzuo_picIpt').on('change', function() {
-	if(this.files[0].size > 2097152) {
-		$('#tip').text('上传图片不能大于2M');
-		$('#tip').toggle();
-		setTimeout(function() {
-			$('#tip').toggle();
-		}, 2000)
-		return false;
+//专栏部分，	点击编辑
+//回显所有数据，id隐藏
+//1.获取所有修改后的值2.校验所有值3.将所有值提交到后台
+	function columnEdit(index){
+		resetColumn(index)
+		echoColumn(index)
+		$(".zhuanlan_bottom").removeClass("hide");
+		$(".zhuanlan_bottom2").addClass("hide");
+		$('#zhuanlan .zhuanlan_top .title').text('专栏编辑');
+		$('#zhuanlan .zhuanlan_top button').text('返回');			
+//		保存按钮显现
+		$(".column-new-button").addClass("hide");
+		$(".column-edit-button").removeClass("hide");
 	}
-	if(!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
-		$('#tip').text('图片格式不正确');
-		$('#tip').toggle();
-		setTimeout(function() {
-			$('#tip').toggle();
-		}, 2000)
-		return false;
+	function resetColumn(index){
+		$("#column-id").val("");
+		$(".column-title").val("");
+		$(".column-picter").html(defaultPicter)
+		$(".column-text").val("");
+		$(".warning").addClass("hide")
+	}
+	function echoColumn(index){
+		var columnGetdata=getData[index];
+		$("#column-id").val(columnGetdata.id);
+		$(".column-title").val(columnGetdata.title);
+		$(".column-picter").html("<img src="+columnGetdata.imgPath+" />");
+		$(".column-text").val(columnGetdata.content);
 	}
 
-	var reader = new FileReader();
-	reader.onload = function(e) {
-		console.log(reader.result)
-//		picUpdown(reader.result, 'touxiang_pic');
-	}
-	reader.readAsDataURL(this.files[0])
-})

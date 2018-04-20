@@ -1,11 +1,9 @@
 package com.xczhihui.headline.web;
 
 import java.util.List;
-import java.util.regex.Matcher;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.support.service.AttachmentType;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
@@ -170,6 +166,7 @@ public class ArticleController extends AbstractController {
         article.setTagId(tagId);
         article.setTagName(tagName);
         article.setAuthor(author);
+        article.setContent(HtmlUtils.escapeContent(article.getContent()));
         List<ArticleTypeVo> articleTypes = articleService.getArticleTypes();
         List<TagVo> tags = articleService.getTags();
         request.setAttribute("articleTypes", articleTypes);
@@ -208,6 +205,7 @@ public class ArticleController extends AbstractController {
     /**
      * Description：设置文章推荐值
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/4/18 10:00
      **/
