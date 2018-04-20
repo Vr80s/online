@@ -90,4 +90,10 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 			@Param("pageNumber")Integer pageNumber,
 			@Param("pageSize")Integer pageSize,
 			@Param("userId")String userId);
+	/**
+	 * 查看主播信息
+	 * @param userId
+	 * @return
+	 */
+	Map<String, Object> findHostInfoById(@Param("userId")String userId);
 }

@@ -648,21 +648,6 @@
 		
 		<script type="text/javascript">
 			window.onload = function(){
-				/*点击关注已关注开始*/
-				var Concern = 1;
-			 	$(".concern-click").click(function(){
-			  		if(Concern == 1){
-			  			$(".concern-right").css("background","#bbb");
-			  			$(".concern-right").html("已关注");
-			   			Concern = 0;
-			  		} else{
-			  			$(".concern-right").css("background","#00BC12");
-			   			$(".concern-right").html("加关注");
-			   			Concern = 1;
-			  		}
-			 	});
-			 	/*点击关注已关注结束*/
-			 	
 			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
 		 		$(".video-bottom img").click(function(){
 			 		$("#userCusEvent").show();
@@ -900,7 +885,7 @@
 							<div class="billboard-two billboard-float mouseover">
 								<div class="billboard-two-bg"><img src="../images/Android.png" /></div>
 								<p class="billboard-name">我是名字我是名字我是名字</p>
-								<p class="billboard-number">贡献 100</p>
+								<p class="billboard-number">贡献 <span>1000</span></p>
 							</div>
 							<div class="billboard-three billboard-float mouseover">
 								<div class="billboard-three-bg"><img src="../images/Android.png" /></div>
@@ -1070,7 +1055,7 @@
 							<div class="bottom-span">
 								<span>熊猫币 0</span>
 								<span>充值</span>
-							</div
+							</div>
 						</div>
 						<div class="surprise-bottom"></div>
 					</div>
@@ -1270,6 +1255,7 @@
 		</script>
 
 		<script src="/web/js/liveVideo/liveVideo.js?v=ipandatcm_1.3"></script>
+		<script src="/web/js/liveVideo/liveVideoSDK.js?v=ipandatcm_1.3"></script>
 </body>
 <script>
 			$("body").append('<div class="modal" id="login" data-backdrop="static">' +

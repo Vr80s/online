@@ -73,4 +73,14 @@ public interface IMyInfoService {
 	List<Map<String,Object>> hostInfoRec();
 
 	List<Map<String,Object>> findUserWallet(Integer pageNumber,Integer pageSize, String id);
+	
+	
+	/**
+	 * 查询主播信息
+	 * @param userId
+	 * @return
+	 */
+	Map<String,Object> findHostInfoById(String userId);
+	
+	
 }
