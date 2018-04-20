@@ -72,3 +72,4 @@ bbs pc端整合
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     ALTER TABLE `oe_bxs_article` ADD `update_time` DATETIME  NULL DEFAULT NULL COMMENT '更新时间';
+    ALTER TABLE `oe_bxs_article` ADD `user_created` BIT(1)  NULL DEFAULT 0 COMMENT '是否是用户创建的';

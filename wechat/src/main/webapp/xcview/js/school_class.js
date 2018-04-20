@@ -297,7 +297,9 @@ function btn_zj_mianfei(){
 	var falg =authenticationCooKie();
 	var data_zj= $(".right_priceBtn").attr("data-zj")
 		if (falg==1002){
-
+			var current_href = window.location.href;
+			//保存当前页面到缓存
+			sessionStorage.setItem("order_page_html",current_href);
 			location.href ="/xcview/html/cn_login.html";		
 		}else if (falg==1005) {
 

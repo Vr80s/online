@@ -141,20 +141,14 @@ public class ArticleServiceImpl implements ArticleService {
     public void deletes(String[] ids) {
         for (String id : ids) {
             // 删除文章
-            String deleteSqlArt = "DELETE FROM oe_bxs_article WHERE id=:id";
-            Map<String, Object> paramDelArt = new HashMap<>();
+            String deleteSqlArt = "UPDATE oe_bxs_article SET is_delete = TRUE WHERE id=:id";
+            Map<String, Object> paramDelArt = new HashMap<>(1);
             paramDelArt.put("id", id);
             articleDao.getNamedParameterJdbcTemplate().update(deleteSqlArt,
                     paramDelArt);
-            // 删除标签
-            String deleteSql = "DELETE FROM article_r_tag WHERE article_id=:articleId";
-            Map<String, Object> paramDel = new HashMap<>();
-            paramDel.put("articleId", id);
-            articleDao.getNamedParameterJdbcTemplate().update(deleteSql,
-                    paramDel);
             // oe_bxs_appraise删除评论
-            String deleteSqlAppraise = "DELETE FROM oe_bxs_appraise WHERE article_id=:articleId";
-            Map<String, Object> paramDelAppraise = new HashMap<>();
+            String deleteSqlAppraise = "UPDATE oe_bxs_appraise SET is_delete = TRUE WHERE article_id=:articleId";
+            Map<String, Object> paramDelAppraise = new HashMap<>(1);
             paramDelAppraise.put("articleId", id);
             articleDao.getNamedParameterJdbcTemplate().update(
                     deleteSqlAppraise, paramDelAppraise);

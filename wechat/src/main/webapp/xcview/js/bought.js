@@ -38,64 +38,54 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
                 mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
 
             }
-            
 //          var Ids =  item.id;
-            mui("#refreshContainer").on('tap', '.div1', function (event) {
+            mui("#refreshContainer").on('tap', '.bought_main_list', function (event) {
 				var itemId=$(this).attr("data-jump");
-				location.href = "live_select_album.html?course_id="+itemId;
+				common_jump_all(itemId);
+				//location.href = "live_select_album.html?course_id="+itemId;
 			});
 			
-			mui("#refreshContainer").on('tap', '.div2', function (event) {
-				var itemId2=$(this).attr("data-jump");
-	
-				location.href = "live_audio.html?my_study="+itemId2;
-			});
+//			mui("#refreshContainer").on('tap', '.div2', function (event) {
+//				var itemId2=$(this).attr("data-jump");
+//	
+//				location.href = "live_audio.html?my_study="+itemId2;
+//			});
+//			
+//			mui("#refreshContainer").on('tap', '.div3', function (event) {
+//				var itemId3=$(this).attr("data-jump");
+//	
+//				location.href = "live_play.html?my_study="+itemId3;
+//			});
 			
-			mui("#refreshContainer").on('tap', '.div3', function (event) {
-				var itemId3=$(this).attr("data-jump");
-	
-				location.href = "live_play.html?my_study="+itemId3;
-			});
-			
-			mui("#refreshContainer").on('tap', '.div4', function (event) {
-				var itemId4=$(this).attr("data-jump");
-	
-				location.href = "live_play.html?my_study="+itemId4;
-			});
-			
-			mui("#refreshContainer").on('tap', '.div5', function (event) {
-				var itemId5=$(this).attr("data-jump");
-				 requestService("/xczh/history/add",
-               {courseId:itemId5,recordType:2}
-               ,function(data) {
-      
-               }) 
-				location.href = "details.html?courseId="+itemId5;
-			});
-			mui("#refreshContainer").on('tap', '.div5_1', function (event) {
-				var itemId5_1=$(this).attr("data-jump");
-				 requestService("/xczh/history/add",
-               {courseId:itemId5_1,recordType:2}
-               ,function(data) {
-      
-               }) 
-				location.href = "details.html?courseId="+itemId5_1;
-			});
-			mui("#refreshContainer").on('tap', '.div5_2', function (event) {
-				var itemId5_2=$(this).attr("data-jump");
-				location.href = "live_play.html?my_study="+itemId5_2;
-
-			});
-			mui("#refreshContainer").on('tap', '.div6', function (event) {
-				var itemId6=$(this).attr("data-jump");
-	
-				location.href = "live_class.html?my_study="+itemId6;
-			});
-			
-			
-            
-            
-
+//			mui("#refreshContainer").on('tap', '.div4', function (event) {
+//				var itemId4=$(this).attr("data-jump");
+//	
+//				location.href = "live_play.html?my_study="+itemId4;
+//			});
+//			
+//			mui("#refreshContainer").on('tap', '.div5', function (event) {
+//				var itemId5=$(this).attr("data-jump");
+//				 requestService("/xczh/history/add",
+//               {courseId:itemId5,recordType:2}
+//               ,function(data) {}) 
+//				location.href = "details.html?courseId="+itemId5;
+//			});
+//			mui("#refreshContainer").on('tap', '.div5_1', function (event) {
+//				var itemId5_1=$(this).attr("data-jump");
+//				 requestService("/xczh/history/add",
+//               {courseId:itemId5_1,recordType:2}
+//               ,function(data) {}) 
+//				location.href = "details.html?courseId="+itemId5_1;
+//			});
+//			mui("#refreshContainer").on('tap', '.div5_2', function (event) {
+//				var itemId5_2=$(this).attr("data-jump");
+//				location.href = "live_play.html?my_study="+itemId5_2;
+//
+//			});
+//			mui("#refreshContainer").on('tap', '.div6', function (event) {
+//				var itemId6=$(this).attr("data-jump");
+//				location.href = "live_class.html?my_study="+itemId6;
+//			});
         }else{
             alert(data.errorMessage);
         }

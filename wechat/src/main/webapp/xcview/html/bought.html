@@ -23,6 +23,8 @@
 <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <script type="text/javascript" src="/xcview/js/bought.js"></script>
+<!-- 公共跳转的 -->
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
@@ -106,7 +108,7 @@
 				{{if item.collection}}
 			<div class="bought_main_list div1" data-jump="{{item.id}}">
 				<div class="bought_list_left">
-						<img src="../images/zhibo1.jpg" class="img0" />					
+						<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />				
 						{{if item.type==1}}
 							<img src="/xcview/images/tv_auto.png" class="img1" />		
 							{{else}}

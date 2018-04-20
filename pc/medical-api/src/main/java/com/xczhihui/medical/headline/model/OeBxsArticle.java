@@ -102,7 +102,16 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
     @TableField("update_time")
     private Date updateTime;
 
+    /**
+     * 原文来源的url
+     */
     private String url;
+
+    /**
+     * 标识是否是用户创建的
+     */
+    @TableField("user_created")
+    private Boolean userCreated;
 
     @TableField(exist = false)
     private String type;
@@ -280,5 +289,13 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Boolean getUserCreated() {
+        return userCreated;
+    }
+
+    public void setUserCreated(Boolean userCreated) {
+        this.userCreated = userCreated;
     }
 }

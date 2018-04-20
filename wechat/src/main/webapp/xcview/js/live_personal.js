@@ -129,10 +129,10 @@ requestService("/xczh/host/hostPageInfo",{
 	if(data.resultObject.recentCourse=="" || data.resultObject.recentCourse== null){
 			$("#personal_status").hide();
 	}else{
-		    data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,16) //截取日期	
-			$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
-			is_watchState=data.resultObject.recentCourse.watchState;	
-		}
+	    data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,16) //截取日期	
+		$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
+		is_watchState=data.resultObject.recentCourse.watchState;	
+	}
 
 
 //医师精彩致辞
@@ -243,85 +243,6 @@ requestService("/xczh/host/hostPageCourse",{
 });
     refresh();
 });
-//主播课程直播/即将直播跳转	
-
-function jump_play(id){
-   requestService("/xczh/course/details?courseId="+id,null,function(data) {
-      var userPlay=data.resultObject;
-      var falg =authenticationCooKie();       	       
-//付费的直播和即将直播未购买跳购买页    
-         if(userPlay.watchState==0 && userPlay.lineState==1){
-            location.href="school_play.html?course_id="+id 
-         }else if(userPlay.watchState==0 && userPlay.lineState==2){
-            location.href="school_play.html?course_id="+id          
-         }
-//免费的直播和即将直播跳直播间      
-         else if(userPlay.watchState==1 && userPlay.lineState==1){
-            if (falg==1002){
-            location.href ="/xcview/html/cn_login.html";      
-            }else if (falg==1005) {
-               location.href ="/xcview/html/evpi.html";
-            }else{
-            requestService("/xczh/history/add",
-               {courseId:id,recordType:2}
-               ,function(data) {
-      
-               }) 
-            location.href="details.html?courseId="+id
-            }
-         }else if(userPlay.watchState==1 && userPlay.lineState==2){
-            if (falg==1002){
-                  location.href ="/xcview/html/cn_login.html";      
-              }else if (falg==1005) {
-                  location.href ="/xcview/html/evpi.html";
-               }else{
-                  requestService("/xczh/history/add",
-                     {courseId:id,recordType:2}
-                     ,function(data) {
-            
-                     }) 
-                  location.href="details.html?courseId="+id  
-               }
-         }
-//购买后的直播和即将直播跳直播间
-         else if(userPlay.watchState==2 && userPlay.lineState==1){
-            requestService("/xczh/history/add",
-               {courseId:id,recordType:2}
-               ,function(data) {
-      
-               }) 
-            location.href="details.html?courseId="+id           
-         }else if(userPlay.watchState==2 && userPlay.lineState==2){
-            requestService("/xczh/history/add",
-               {courseId:id,recordType:2}
-               ,function(data) {
-      
-               }) 
-            location.href="details.html?courseId="+id  
-           }
-//主播本人自己的直播和即将直播跳直播间			
-			else if(userPlay.watchState==3 && userPlay.lineState==1){
-				requestService("/xczh/history/add",
-					{courseId:id,recordType:2}
-					,function(data) {
-		
-					})	
-				location.href="details.html?courseId="+id				
-			}else if(userPlay.watchState==3 && userPlay.lineState==2){
-				requestService("/xczh/history/add",
-					{courseId:id,recordType:2}
-					,function(data) {
-		
-					})	
-				location.href="details.html?courseId="+id				
-			}
-			else{
-				location.href="school_play.html?course_id="+id				
-			}
-
- }
- )}
-
 
 
 
@@ -497,12 +418,17 @@ var falg =authenticationCooKie();
 
 
 	//判断主播是否在开直播及最近一次直播
-	var falg =authenticationCooKie();	
+var falg =authenticationCooKie();	
 	
 function go_play(t){
-	var data_id=$(t).attr("data-play");
-	 requestService("/xczh/course/details?courseId="+data_id,null,function(data) {
-	 var userPlay=data.resultObject;
+	var data_id=$(t).attr("data-play"); 
+	var watchState=$(t).attr("data-watchState"); 
+	var lineState=$(t).attr("data-lineState"); 
+	
+	//requestService("/xczh/course/userCurrentCourseStatus?courseId="+id,null,function(data) {
+	requestService("/xczh/course/userCurrentCourseStatus?courseId="+data_id,null,function(data) {
+		
+		var userPlay=data.resultObject;
 		if (falg==1002){
 			location.href ="/xcview/html/enter.html";	
 		}else if (falg==1005) {

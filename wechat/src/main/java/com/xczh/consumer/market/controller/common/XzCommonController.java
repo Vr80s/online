@@ -35,7 +35,6 @@ import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.bxg.common.util.SLEmojiFilter;
 import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
-import com.xczhihui.bxg.online.api.service.GiftService;
 import com.xczhihui.bxg.online.api.service.RechargesService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.wechat.course.service.ICourseService;
@@ -58,8 +57,6 @@ public class XzCommonController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	@Autowired
-	private GiftService giftService;
 	
 	@Autowired
 	private VersionService versionService;
@@ -461,20 +458,17 @@ public class XzCommonController {
 	@ResponseBody
 	public ResponseObject checkToken(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
+		
 		String token = req.getParameter("token");
-
-		System.out.println();
-		if (null == token) {
+		if (!StringUtils.isNotBlank(token)) {
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}
 		OnlineUser ou = cacheService.get(token);
 		if (null == ou) {
 			return ResponseObject.newErrorResponseObject("已过期", 1002);
-		} else if (null != ou && cacheService.get(ou.getId()) != null
-				&& cacheService.get(ou.getId()).equals(token)) {
+		} else if (null != ou && cacheService.get(ou.getId()) != null && cacheService.get(ou.getId()).equals(token)) {
 			return ResponseObject.newSuccessResponseObject("有效", 1000);
 		} else if (ou.getLoginName() != null) {
-			
 //			 String model = cacheService.get(ou.getLoginName());
 //			 if(model!=null){ 
 //				 return  ResponseObject.newErrorResponseObject(model,1005); 
