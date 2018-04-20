@@ -61,42 +61,6 @@ function getRankingListByLiveId(){
 getRankingListByLiveId();
 
 
-function getGiftList(){
-	RequestService("/gift/getGift", "GET", {
-	}, function(data) {
-		
-		var gifts ="";
-		
-		for (var i = 0; i < data.resultObject.length; i++) {
-			var item = data.resultObject[i];
-			var  gift = "<li class='li-initial-border'>"+
-			"	<img src='"+item.smallimgPath+"' />"+
-			"	<div class='surprise-hide'>"+
-			"		<div class='surprise-show'>"+
-			"			<div class='surprise-show-img'>"+
-			"				<img src='"+item.smallimgPath+"' style='width: 80px;height: 64px;margin-top: 8px;' />"+
-			"			</div>"+
-			"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
-			"				<div class='surprise-show-title'>"+
-			"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
-			"				</div>"+
-			"				<div class='surprise-presented'>赠送</div>"+
-			"			</div>"+
-			"		</div>"+
-			"		<div class='aspect-down'></div>"+
-			"	</div>"+
-			"</li>";
-		    gifts += gift;
-		}
-		
-		$(".surprise-mouseover-ul").html(gifts);
-	});
-}
-//礼物渲染
-getGiftList();
-
-
-
 
 /**
  * 获取主播信息

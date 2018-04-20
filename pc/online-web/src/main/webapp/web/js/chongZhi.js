@@ -9,7 +9,6 @@ $('.chongZhi').click(function(){
         account = data.resultObject.account;
         balanceTotal = data.resultObject.balanceTotal;
         env = data.resultObject.env;
-
         $("#account").html(account);
         $(".balanceTotal").html(balanceTotal);
     },false);
