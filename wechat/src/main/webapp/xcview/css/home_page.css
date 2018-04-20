@@ -49,7 +49,7 @@ header{
 	position: absolute;
 	top: 0;
 	left: 0;
-	font-size: 0.26rem;
+	font-size: 0.26em;
 	color: #999999;
 }
 .header_seek_main img{
