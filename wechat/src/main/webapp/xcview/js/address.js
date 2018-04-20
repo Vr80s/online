@@ -146,33 +146,6 @@
 			consignee:consignee,
 			phone:phone
 		}
-		
-		
-		/*修改前*/
-		/*var addressId  = $("#address_id").val();
-		var alertStr = "新增成功";
-		
-		var url_address = "/bxg/city/saveAddress";
-		if(stringnull(addressId)){
-			urlparm.id = addressId;
-			url_address = "/bxg/city/updateAddress";
-			alertStr = "修改成功";
-		}
-		
-		requestService(url_address, 
-				urlparm, function(data) {
-			if (data.success) {
-				
-				alert(alertStr);
-				
-				 location.href ='address.html';
-			} else {
-				$("#errorMsg").html(data.errorMessage);
-				$("#errorMsg").show();
-				return false;
-			}
-		});
-	})*/
 	
 	var addressId  = $("#address_id").val();
 		$(".person_prosperity").show();

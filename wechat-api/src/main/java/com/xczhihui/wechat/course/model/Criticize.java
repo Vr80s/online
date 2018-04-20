@@ -99,8 +99,10 @@ public class Criticize extends Model<Criticize> {
 
 	@TableField(exist = false)
 	private String name;
-
-
+	
+	@TableField(exist = false)
+	private String smallHeadPhoto;
+	
 	public String getSmallHeadPhoto() {
 		return smallHeadPhoto;
 	}
@@ -114,7 +116,20 @@ public class Criticize extends Model<Criticize> {
 	}
 
 	@TableField(exist = false)
-	private String smallHeadPhoto;
+	private String loginName;
+	
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		if(this.onlineUser==null){
+			this.onlineUser = new OnlineUser();
+		}
+		this.onlineUser.setLoginName(loginName);
+		this.loginName = loginName;
+	}
 
 	public OnlineUser getOnlineUser() {
 		return onlineUser;
@@ -140,6 +155,7 @@ public class Criticize extends Model<Criticize> {
 		if(this.onlineUser==null){
 			this.onlineUser = new OnlineUser();
 		}
+		this.onlineUser.setId(this.getCreatePerson());
 		this.onlineUser.setName(name);
 		this.name = name;
 	}
@@ -173,6 +189,10 @@ public class Criticize extends Model<Criticize> {
 	}
 
 	public void setCreatePerson(String createPerson) {
+		if(this.onlineUser==null){
+			this.onlineUser = new OnlineUser();
+		}
+		this.onlineUser.setId(createPerson);
 		this.createPerson = createPerson;
 	}
 

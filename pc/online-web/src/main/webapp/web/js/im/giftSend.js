@@ -14,22 +14,6 @@ var queue = new Queue();
 
 // 连接状态改变的事件
 function onConnect(status) {
-	
-	
-	  console.log(Strophe.Status.CONNECTING);
-	  console.log(Strophe.Status.DISCONNECTED);
-//    if (status == Strophe.Status.CONNECTING) {  
-//        log('Strophe is connecting.');  
-//        } else if (status == Strophe.Status.CONNFAIL) {  
-//        log('Strophe failed to connect.');  
-//        $('#connect').get(0).value = 'connect';  
-//        } else if (status == Strophe.Status.DISCONNECTING) {  
-//        log('Strophe is disconnecting.');  
-//        } else if (status == Strophe.Status.DISCONNECTED) {  
-//        log('Strophe is disconnected.');  
-//        $('#connect').get(0).value = 'connect';  
-//        } else if (status == Strophe.Status.CONNECTED) {  
-	
     if (status == Strophe.Status.CONNFAIL) {
 //        alert("连接失败！");
         autoLogin();
@@ -94,6 +78,41 @@ function repalceAll(str,rstr,arstr){
 	return str;
 }
 
+
+function getGiftList(){
+	RequestService("/gift/getGift", "GET", {
+	}, function(data) {
+		
+		var gifts ="";
+		
+		for (var i = 0; i < data.resultObject.length; i++) {
+			var item = data.resultObject[i];
+			var  gift = "<li class='li-initial-border' data-id="+item.id+" data-number="+item.price+">"+
+			"	<img src='"+item.smallimgPath+"' />"+
+			"	<div class='surprise-hide'>"+
+			"		<div class='surprise-show'>"+
+			"			<div class='surprise-show-img'>"+
+			"				<img src='"+item.smallimgPath+"' style='width: 80px;height: 64px;margin-top: 8px;' />"+
+			"			</div>"+
+			"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
+			"				<div class='surprise-show-title'>"+
+			"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
+			"				</div>"+
+			"				<div class='surprise-presented' data-id="+item.id+" data-number="+item.price+">赠送</div>"+
+			"			</div>"+
+			"		</div>"+
+			"		<div class='aspect-down'></div>"+
+			"	</div>"+
+			"</li>";
+		    gifts += gift;
+		}
+		$(".surprise-mouseover-ul").html(gifts);
+	},false);
+}
+//礼物渲染
+getGiftList();
+
+
 $(document).ready(function() {
 
     // 通过BOSH连接XMPP服务器
@@ -106,7 +125,6 @@ $(document).ready(function() {
     });
     
     function sendMsg(data){
-    	autoLogin();
     	data = JSON.stringify(data);
     	data = JSON.parse(data);
 		// 创建一个<message>元素并发送
@@ -204,13 +222,6 @@ $(document).ready(function() {
 				if(data.success==true){
         			sendMsg(data.resultObject);
         			refreshBalance();
-        		  
-                    //将礼物发送到
-                    msg = VHALL_SDK.sendChat({
-                    	      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
-                    });
-                    $("#chatmsg").append(str);
-        			
 				}else{
 					// if("余额不足"==data.errorMessage){
                         $('.mask3').text(data.errorMessage).fadeIn(400,function(){
@@ -235,6 +246,51 @@ $(document).ready(function() {
 			$('.mask').css({'display':'block'})
 		}
 	})
+	
+	
+	
+	//点击发送时候的送礼物效果/充值事件
+	$('.surprise-mouseover-ul li,.surprise-presented').click(function(){
+		var className = $(this).attr("class");
+		var gid = $(this).attr("data-id");
+		var number = $(this).attr("data-number");
+		//判断余额是否足够
+		var balanceTotal = $("#account").html();
+		if(parseInt(number)<= parseInt(balanceTotal) || parseInt(number) ==0){
+			//获取数量
+			var gifNumber =Number($('.gif-num').text()); 
+			var msgJson = {
+					channel:1,
+					giftId:gid,
+					count:1,
+					clientType:1,
+					liveId:course_id,
+					receiver:teacherId,
+					receiverName:teacherName
+			};
+			RequestService("/gift/sendGift", "POST", msgJson, function(data) {
+				if(data.success==true){
+        			sendMsg(data.resultObject);
+        			refreshBalance();
+				}else{
+					// if("余额不足"==data.errorMessage){
+                        $('.mask3').text(data.errorMessage).fadeIn(400,function(){
+                            setTimeout(function(){
+                                $('.mask3').fadeOut()
+                            },1000)
+                        });
+					// }
+				}
+			},false);
+//			$("#chat-content").val('');
+			//获取当前点击时候的id/点击的时间
+			lastGift = myid ;
+			lastTime = new Date();
+		}else{
+			$('.chongZhi').click();
+		}
+	})
+	
 	
 });
 

@@ -168,4 +168,5 @@ public interface UserService {
 	String updateVhallInfo(OnlineUser u);
 
 	Boolean isAnchor(String loginName);
+	OnlineUser findUserById(String userId);
 }

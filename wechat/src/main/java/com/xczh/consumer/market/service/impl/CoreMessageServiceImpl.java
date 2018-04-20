@@ -8,9 +8,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,15 +20,16 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.DateUtil;
 import com.xczh.consumer.market.utils.MessageConstant;
 import com.xczh.consumer.market.utils.MessageUtil;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.wxmessage.resp.Article;
 import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
 import com.xczh.consumer.market.wxmessage.resp.TextMessage;
 import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
+import com.xczhihui.bxg.common.util.SLEmojiFilter;
+
+import net.sf.json.JSONObject;
 
 @Service
 public class CoreMessageServiceImpl implements CoreMessageService {
@@ -181,7 +179,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
         		
 	        		  newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
 	                  Article article = new Article();  
-	                  article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
+	                  article.setTitle("欢迎来到熊猫中医!");  
 	                  article.setDescription("");  
 	                  article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
 	                  article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  
@@ -290,7 +288,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                   
       		    newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);  
                 Article article = new Article();  
-                article.setTitle("欢迎来到熊猫中医,等你很久了,请让我们一起来学习中医!");  
+                article.setTitle("欢迎来到熊猫中医!");  
                 article.setDescription("");  
                 article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");  
                 article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");  

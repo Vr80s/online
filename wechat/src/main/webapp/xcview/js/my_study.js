@@ -82,21 +82,18 @@ var all_history="";
 //直播中
 	$(".paly_ing_all").click(function(){
 			var courseId=$(this).attr("data-ppd");
-			requestService("/xczh/history/add",
-			{courseId:courseId}
-			,function(data) {
-
+			
+			//更新下观看记录
+			requestService("/xczh/history/add",{courseId:courseId,recordType:2},function(data) {
+				console.log();
 			})	
+			
 			location.href="details.html?courseId="+courseId
 		})
 //即将直播
 	$(".paly_ing_all_now").click(function(){
-			var courseId_now=$(this).attr("data-ppdnow");
-//			requestService("/xczh/history/add",
-//			{courseId:courseId_now}
-//			,function(data) {
-//			})	
-			//location.href="details.html?courseId="+courseId_now
+		  var courseId_now=$(this).attr("data-ppdnow");
+
 		 location.href="/xcview/html/live_play.html?my_study="+courseId_now;	
 	})
 	})	
@@ -116,7 +113,13 @@ var all_history="";
 
 })
 
-
+/**
+ * 自专辑播放历史
+ * @param course_id
+ * @param collection_id
+ * @param obj
+ * @returns
+ */
 function go_play_hos_collection(course_id,collection_id,obj){
 	
 	//str+="<li  data-directId ="+item.directId+" data-collectionName ="+item.collectionName+" " +
@@ -131,8 +134,6 @@ function go_play_hos_collection(course_id,collection_id,obj){
  * 搜索历史播放   点击事件
  */
 function go_play_hos(type,lineState,collection,id){
-	
-	
 	if(type ==3 && (lineState ==1 || lineState ==3 || lineState ==4)){ //直播间
 		location.href="details.html?courseId="+id
 	}else if(type ==3 && (lineState ==2 || lineState ==5)){ //预告的、回放的
@@ -142,17 +143,8 @@ function go_play_hos(type,lineState,collection,id){
 	}else if(type ==4){								 //线下培训班
 		location.href="live_class.html?my_study="+id
 	}else if((type ==1 || type ==2) && collection){
-		
-		
 		location.href="live_select_album.html?course_id="+id
-		//location.href="live_album.html?course_id="++"&direct_id="++"&collection_id="++"&name_title="++"&index=0";
 	}
-	
-	
-	//live_album.html?course_id=614&direct_id=4AA53B79D9C043C49C33DC5901307461&collection_id=613&name_title=%E6%96%B0%E7%89%88--%E4%B8%93%E8%BE%91-1&index=0
-	
-	
-	
 }
 //搜索历史播放结束
 

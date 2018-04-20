@@ -43,6 +43,19 @@ public interface MedicalHospitalRecruitMapper extends BaseMapper<MedicalHospital
                                                           Page<MedicalHospitalRecruitVO> page);
 
     /**
+     * 查询医馆全部已发布的招聘信息
+     *
+     * @param hospitalId 医馆id
+     * @return 招聘列表数据
+     */
+    @Select("select * from" +
+            " medical_hospital_recruit" +
+            " where" +
+            " hospital_id = #{hospitalId} and deleted = false and status = true" +
+            " order by publicTime desc")
+    List<MedicalHospitalRecruitVO> selectByHospitalId(@Param("hospitalId") String hospitalId);
+
+    /**
      * 查询当前最大sort值
      *
      * @return max sort

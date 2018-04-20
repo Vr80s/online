@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.pay;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,14 +27,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xczh.consumer.market.bean.AlipayPaymentRecordH5;
 import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
+import com.xczh.consumer.market.bean.WxcpPayFlow;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.RewardService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
+import com.xczh.consumer.market.service.WxcpPayFlowService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.OrderParamVo;
 import com.xczh.consumer.market.vo.RechargeParamVo;
@@ -70,6 +74,9 @@ public class XzWxPayController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
+	@Autowired
+	private  WxcpPayFlowService wxcpPayFlowService;
+	
 	@Value("${rate}")
 	private int rate;
 	@Value("${minimum_amount}")
@@ -199,6 +206,13 @@ public class XzWxPayController {
 			throw new RuntimeException("登录失效");
 		}
 		
+		
+		String out_trade_no =  req.getParameter("outTradeNo");
+		if(!StringUtils.isNotBlank(out_trade_no)){
+			out_trade_no = TimeUtil.getSystemTime()+ RandomUtil.getCharAndNumr(12);
+		}
+		
+		
 		//订单号  支付的钱
 		Double pay = new Double(actualPay) * 100;
 		//需要充值的熊猫币
@@ -257,7 +271,7 @@ public class XzWxPayController {
 		LOGGER.info("充值参数："+extDatas.length());
 		
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
-				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "充值",
+				(out_trade_no, price,  "充值",
 						extDatas, openId, spbill_create_ip, tradeType);
 
 		if (retpay != null) {
@@ -273,6 +287,32 @@ public class XzWxPayController {
 		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
+	
+	
+	/**
+	 * 通过 自定义的订单号来查找微信充值信息
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "queryWechatPayInfoByOutTradeNo")
+	@ResponseBody
+	public ResponseObject queryAlipayPaymentRecordH5ByOutTradeNo(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("outTradeNo")String outTradeNo
+			) throws Exception {
+		
+		LOGGER.info("查询充值订单信息："+outTradeNo);
+		
+		WxcpPayFlow condition = new WxcpPayFlow();
+		condition.setOut_trade_no(outTradeNo);
+		List<WxcpPayFlow> list =  wxcpPayFlowService.select(condition);
+		if(list!=null && list.size()>0){
+			LOGGER.info("list："+list.size());
+			return ResponseObject.newSuccessResponseObject(list.get(0));
+		}
+		return ResponseObject.newErrorResponseObject("未获得充值信息");
+	}	
+	
+	
 	
 	
 	/**

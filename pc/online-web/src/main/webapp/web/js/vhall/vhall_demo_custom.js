@@ -18,28 +18,25 @@ $(document).ready(function() {
     });
 	
     function liaotian(obj){
-    	
     	console.log("nnnn:"+obj);
-    	
         var role_str = "";
 	    var role= obj.role;
         if(role=='assistant'){
 	    	role_str +="<a class='tips assistant' href='javascript:;'>助理</a>";
 	    } else if(role == 'host'){
-	    	role_str +="<a class='tips host' href='javascript:;'>主持人</a>";
+	    	role_str +="<a class='tips host' href='javascript:;'>主播</a>";
 	    }
 	    else if(role == 'guest'){
 	    	role_str +="<a class='tips guest' href='javascript:;'>嘉宾</a>";
 	    }
+//	    头像注释
 	    role_str+="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
 	    var aaa = "<li uid=' user_id'>"+
-	    "<a class='avatar' href='javascript:;' title=' user_name'><img src='"+obj.avatar+"' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
+	    /*聊天区域*/
 	        "<div class='msg'>"+
-	            "<p> " + role_str+"</p>"+
-	           " <p class='content'>"+obj.content+"</p>"+
+	            "<p> " + role_str+"："+obj.content+"</p>"+
 	        "</div>"+
 	      "</li>";
-	    
 	    return aaa;
     }
 	function t(t) {
@@ -108,9 +105,6 @@ $(document).ready(function() {
 		docContent: "#doc"
 	});
 	
-//	var o = _.template($("#chat-template").html()),
-//		e = _.template($("#question-template").html());
-	
 	VHALL_SDK.on("customEvent", function(t) {
 		alert(JSON.stringify(t))
 	}), VHALL_SDK.on("chatMsg", function(t) {
@@ -128,8 +122,15 @@ $(document).ready(function() {
 	}), VHALL_SDK.on("error", function(t) {
 		alert("发生错误: " + JSON.stringify(t))
 	}), VHALL_SDK.on("userOnline", function(t) {
+		
+		//用户上线
+		debugger;
 		console.log(t)
 	}), VHALL_SDK.on("userOffline", function(t) {
+		
+		//用户下线
+		debugger;
+		
 		console.log(t)
 	}), VHALL_SDK.on("sendSign", function(t) {
 		console.log(t)
@@ -195,26 +196,21 @@ $(document).ready(function() {
 	}), VHALL_SDK.on("publishStart", function(t) {
 		alert("活动开始推流")
 	}), VHALL_SDK.on("vhall_live_history_chat_msg", function(t) {
-		
-		
 		if (200 == t.code) {
 			for (var e = "", n = t.data.length - 1; n >= 0; n--) e += liaotian(t.data[n]);
 			$("#chatmsg").append(e), setTimeout(function() {
 				$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
 			}, 50)
 		}
-		
-		
-		
 	}), VHALL_SDK.on("vhall_record_history_chat_msg", function(t) {
-//		if (200 == t.code) {
-//			var e = "";
-//			$("#chatmsg").data("curr_page", t.curr_page);
-//			for (var n = t.data.length - 1; n >= 0; n--) e += o(t.data[n]);
-//			1 == t.curr_page ? ($("#chatmsg").html(e), setTimeout(function() {
-//				$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
-//			}, 50)) : ($("#chatmsg").prepend(e), $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "20px"))
-//		}
+		if (200 == t.code) {
+			var e = "";
+			$("#chatmsg").data("curr_page", t.curr_page);
+			for (var n = t.data.length - 1; n >= 0; n--) e += liaotian(t.data[n]);
+			1 == t.curr_page ? ($("#chatmsg").html(e), setTimeout(function() {
+				$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
+			}, 50)) : ($("#chatmsg").prepend(e), $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "20px"))
+		}
 	}), VHALL_SDK.on("getQuestionList", function(t) {
 //		if (200 == t.code) {
 //			for (var o = "", n = t.data.length - 1; n >= 0; n--) o += e(t.data[n]);
@@ -233,6 +229,11 @@ $(document).ready(function() {
 			}
 		}
 	}), $("#sendChat").click(function() {
+		
+		 var room = VHALL_SDK.getRoominfo();
+		 if (room.type != 1){
+			 return;
+		 }
 		//alert("啦啦啦啦");
 		var t = $("#mywords").val(),
 			n = null;

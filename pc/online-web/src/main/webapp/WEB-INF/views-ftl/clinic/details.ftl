@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->
@@ -30,7 +31,7 @@
 </head>
 <body>
 <header>
-    <#include "../header-body.ftl">
+<#include "../header-body.ftl">
 </header>
 <div class="content_box">
     <div class="content clearfix" id="main">
@@ -56,7 +57,8 @@
                                        -->
                                     <#list clinic.medicalHospitalPictures as picture>
                                         <li>
-                                            <div><img src="${picture.picture}" url="javascript:;" bigimg="${picture.picture}"></div>
+                                            <div><img src="${picture.picture}" url="javascript:;"
+                                                      bigimg="${picture.picture}"></div>
                                         </li>
                                     </#list>
                                     </ul>
@@ -68,24 +70,26 @@
                 <div class="hospital_detail_con">
                     <p>${clinic.description?default('')}</p>
                     <!--<p>新中国成立后，中医药事业得到了很大的发展，为了进一步发扬中医药的特色和优势，发挥离退休专家的余热，解决群众看病难、看专家更难的问题，留住中医的根，由南京中医药大学、江苏省中医院、省人民医院、省中西医结合医院、南大鼓楼医院、东大中大医院、南京市中医院和江苏省中医药学会部分离退休领导干部、专家，国家、省、市级名老中医于2003年7月29日恢复了江苏省国医馆。</p>-->
-                    <#if clinic.filds??>
-                        <div id="hos_inf">
-                            <p>医疗领域：
-                                <#list clinic.fields as field>
-                                    <span>${field.name}&nbsp;</span>
-                                </#list>
-                            </p>
-                        </div>
-                    </#if>
+                <#if clinic.filds??>
+                    <div id="hos_inf">
+                        <p>医疗领域：
+                            <#list clinic.fields as field>
+                                <span>${field.name}&nbsp;</span>
+                            </#list>
+                        </p>
+                    </div>
+                </#if>
 
                 </div>
 
 
                 <div class="hospital_detail_inf_bottom">
                     <p>
-                        <span class="hospital_detail_inf_bottom_tel">联系电话：${clinic.tel}</span>
+                        <span class="hospital_detail_inf_bottom_tel">联系电话：${clinic.tel!''}</span>
                         <span>
-                            地址：<span class="sheng">${clinic.province}</span> <span class="shi">${clinic.city}</span> <span class="detail" title="${clinic.detailedAddress}">${clinic.detailedAddress}</span>
+                            地址：<span class="sheng">${clinic.province!''}</span> <span
+                                class="shi">${clinic.city!''}</span> <span class="detail"
+                                                                           title="${clinic.detailedAddress!''}">${clinic.detailedAddress!''}</span>
                         </span>
                     </p>
                 </div>
@@ -95,20 +99,21 @@
             <div class="hospital_doctor clearfix">
                 <div class="hospital_top">
                     <span>医馆名家-待完成</span>
-                    <a href="${webUrl}/web/html/practitionerListing.html?name=&amp;hospitalId=08a08cf4f87848298576838206653c39" class="hide" id="more_doc">
+                    <a href="${webUrl}/web/html/practitionerListing.html?name=&amp;hospitalId=08a08cf4f87848298576838206653c39"
+                       class="hide" id="more_doc">
                         更多&nbsp;&gt;
                     </a>
                 </div>
                 <ul class="doctor_inf" id="yiguan_mingjia">
-                    <#list doctors.records as doctor>
-                        <li>
-                            <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                            <img src="${doctor.headPortrait}" alt="${doctor.name}">
-                            <h5>${doctor.name}</h5>
-                            <p>${doctor.workTime?default('')}</p>
-                            <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}</p>
-                        </li>
-                    </#list>
+                <#list doctors.records as doctor>
+                    <li>
+                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
+                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                        <h5>${doctor.name}</h5>
+                        <p>${doctor.workTime?default('')}</p>
+                        <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}</p>
+                    </li>
+                </#list>
                 </ul>
             </div>
             <!--课程-->
@@ -231,39 +236,29 @@
         <!--右侧-->
         <div class="main_right ">
             <!--帐号认领-->
-            <div class="import_thing hide">
-                <h2>暂无重要通知</h2>
-                <!--<p>因我馆医疗系统升级，患者需重新登记资料</p>-->
-                <!--<span>2017.11.24</span>-->
+        <#if announcement??>
+            <div class="import_thing">
+                <p class="title" style="font-size: 16px;">重要通知</p>
+                <p>${announcement.content}</p>
+                <span>${announcement.createTime?string('yyyy-MM-dd')}</span>
             </div>
+        </#if>
 
-            <!--招募信息-->
-            <div class="employ hide" id="employ">
-                <!--<div class="employ_inf">
-                    <p>薪资面议    <span>|</span>    江苏南京</p>
-                    <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
-                    <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
-                </div>
+        <#if recruits??&&(recruits?size>0)>
+            <div class="employ" id="employ">
+                <h3 style="font-size: 16px;font-weight: 400;">招聘信息</h3>
 
-                <div class="employ_inf">
-                    <p>薪资面议    <span>|</span>    江苏南京</p>
-                    <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
-                    <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
-                </div>
-
-                <div class="employ_inf">
-                    <p>薪资面议    <span>|</span>    江苏南京</p>
-                    <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
-                    <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
-                </div>
-
-                <div class="employ_inf">
-                    <p>薪资面议    <span>|</span>    江苏南京</p>
-                    <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
-                    <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
-                </div>-->
-
+                <#list recruits as recruit>
+                    <!--招募信息-->
+                    <div class="employ_inf">
+                        <h4>招聘岗位：${recruit.position}</h4>
+                        <p>岗位职责：<br><span>${recruit.postDuties}</span></p>
+                        <p>任职要求：<br><span>${recruit.jobRequirements}</span></p>
+                    </div>
+                </#list>
             </div>
+        </#if>
+
 
             <!--优秀医馆-->
             <div class="good_hospital" id="good_hospital">
@@ -294,7 +289,7 @@
 <script src="/web/js/placeHolder.js"></script>
 <script src="/web/js/slides-1.1.1-min.js"></script>
 <script type="application/javascript">
-    $(function(){
+    $(function () {
         $("hospital-tab").addClass("select");
     });
     //启动轮播图
@@ -305,5 +300,5 @@
         effect: 'fade'
 
     });
-    init();
+    //    init();
 </script>

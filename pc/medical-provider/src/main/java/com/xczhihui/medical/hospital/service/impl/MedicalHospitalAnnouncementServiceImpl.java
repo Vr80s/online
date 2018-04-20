@@ -41,4 +41,9 @@ public class MedicalHospitalAnnouncementServiceImpl implements IMedicalHospitalA
     public MedicalHospitalAnnouncement get(String id) {
         return medicalHospitalAnnouncementMapper.selectById(id);
     }
+
+    @Override
+    public MedicalHospitalAnnouncement findNewestOne(String hospitalId) {
+        return medicalHospitalAnnouncementMapper.findNewestOne(hospitalId);
+    }
 }

@@ -377,13 +377,11 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 			/*
 			 * 这里查看下信息，看是否生成回放
 			 */
-			Timer timer = new Timer();
-			Task task = new Task(changeCallbackVo.getWebinarId(),
-					course.getId());
-
-			System.out.println(DateUtil.formatDate(new Date(), null));
-
-			timer.schedule(task, 30000);
+//			Timer timer = new Timer();
+//			Task task = new Task(changeCallbackVo.getWebinarId(),
+//					course.getId());
+//			System.out.println(DateUtil.formatDate(new Date(), null));
+//			timer.schedule(task, 30000);
 
 			// 休眠这个方法，过了几秒种后，在执行 ---》
 			// System.out.println(VhallUtil.recordList(changeCallbackVo.getWebinarId()));

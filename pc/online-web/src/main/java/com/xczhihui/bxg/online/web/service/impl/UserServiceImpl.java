@@ -635,6 +635,11 @@ public class UserServiceImpl implements UserService {
 	public OnlineUser findUserByLoginName(String loginName) {
 		return dao.findByHQLOne("from OnlineUser where loginName=?", loginName);
 	}
+	
+	@Override
+	public OnlineUser findUserById(String userId) {
+		return dao.findByHQLOne("from OnlineUser where id=?", userId);
+	}
 
 	@Override
 	public String getQQAccessToken(String authorization_code) {

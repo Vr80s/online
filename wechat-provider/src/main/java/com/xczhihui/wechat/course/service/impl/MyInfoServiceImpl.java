@@ -66,11 +66,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 				!XzStringUtils.checkEmail(user.getEmail())){
 			throw new RuntimeException("邮箱格式有误");
 		}
-		
-		
         myInfoMapper.updateUserSetInfo(user);
-		
-		
 	}
 
 	@Override
@@ -89,5 +85,10 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			Integer pageNumber,Integer pageSize, String id) {
 		List<Map<String, Object>>  page1 = 	myInfoMapper.findUserWallet(pageNumber,pageSize,id);
 		return page1;
+	}
+
+	@Override
+	public Map<String, Object> findHostInfoById(String userId) {
+		return myInfoMapper.findHostInfoById(userId);
 	}
 }

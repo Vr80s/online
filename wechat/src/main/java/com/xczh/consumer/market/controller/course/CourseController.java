@@ -142,10 +142,6 @@ public class CourseController {
 			/**
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
-//			if (cv.getUserLecturerId().equals(user.getId())) {
-//				cv.setWatchState(3);
-//				return ResponseObject.newSuccessResponseObject(cv);
-//			}
 			//如果是付费课程，判断这个课程是否已经被购买了
 			if (cv.getWatchState() == 0) { // 付费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
@@ -210,13 +206,6 @@ public class CourseController {
 			if (isFours != 0) {
 				cv.setIsFocus(1);
 			}
-			/**
-			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
-			 */
-//			if (cv.getUserLecturerId().equals(user.getId())) {
-//				cv.setWatchState(3);
-//				return ResponseObject.newSuccessResponseObject(cv);
-//			}
 			if (cv.getWatchState() == 0) {
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);

@@ -269,4 +269,19 @@
     <!-- 充值服务 -->
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService" ref="rechargesService"
                    timeout="${dubbo.consumer.timeout}"/>
+                   
+    <!-- wechat 服务  -->          
+    
+    <!-- 观看记录 -->     
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IWatchHistoryService" id="watchHistoryServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>              
+           
+    <!-- 我的关注，我的粉丝service -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote"
+                     timeout="${dubbo.consumer.timeout}"/>   
+                     
+    <!-- 我的信息管理类 -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl"
+                     timeout="${dubbo.consumer.timeout}" />                             
+                   
 </beans>

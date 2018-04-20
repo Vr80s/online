@@ -117,4 +117,9 @@ public class MedicalHospitalRecruitBusinessServiceImpl implements IMedicalHospit
         }
         return medicalHospitalRecruit;
     }
+
+    @Override
+    public List<MedicalHospitalRecruitVO> listByHospitalId(String hospitalId) {
+        return medicalHospitalRecruitMapper.selectByHospitalId(hospitalId);
+    }
 }

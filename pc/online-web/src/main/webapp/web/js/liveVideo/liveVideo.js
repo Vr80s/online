@@ -1,5 +1,4 @@
 function checkLoginStatus(){
-
     $.ajax({
         type: "get",
         url: bath + "/online/user/loginStatus",
@@ -23,10 +22,10 @@ function checkLoginStatus(){
             }
         }
     });
-
 }
 
-// window.setInterval("checkLoginStatus()",1000*60*5);
+
+
 
 var teacherId;
 var teacherName;
@@ -126,12 +125,12 @@ $(function() {
          * 如果课程名太长的话，可能导致礼物列表的框框变化
          */
         //alert($(".right-header").css("height"));
-		var rightHeaderHeight = $(".right-header").css("height");
+/*		var rightHeaderHeight = $(".right-header").css("height");
 		rightHeaderHeight = rightHeaderHeight.substring(0,rightHeaderHeight.length-2);
 		//alert(rightHeaderHeight);
 		if(rightHeaderHeight>150){
 			$("#chat-list").css("padding-top","60px;");
-		}
+		}*/
 	});
 	
 	//直播间访问量增加
@@ -631,50 +630,44 @@ function refreshBalance(){
 	}, function(data) {
 		var balance = data.resultObject;
 		$(".balanceTotal").html(balance);
+		//熊猫币余额
+		$("#xmb_ye").html("熊猫币"+balance);
 		$("#account").html(balance);
 	});
 }
+refreshBalance();
 //返回按钮
 $("#return").click(function() {
     location.href = "/course/courses/" + course_id;
 });
 
-/**
- * 礼物排行榜
- * @returns
- */
-function getRankingListByLiveId(){
-	//获取个人熊猫币余额
-	
-	//liveId=662&pageSize=10&pageNumber=1
-	/**
-	 * 课程id，分页参数
-	 * @param data
-	 * @returns
-	 */
-	
-	var params = {
-		liveId:course_id,
-		pageSize:10,
-		pageNumber:1	
-	}
-	RequestService("/gift/getRankingListByLiveId", "GET",params, function(data) {
-		var balance = data.resultObject;
+function getGiftListPlayBack(){
+	RequestService("/gift/getGift", "GET", {
+	}, function(data) {
 		
-		if(data.success && data.resultObject!=null && data.resultObject.length>0){
-//			"userId": "ef894375d67146478869ed0b3d7ccd66",
-//			"name": "杨宣",
-//			"smallHeadPhoto": "http://thirdwx.qlogo.cn/mmopen/vi_32/58Z0VIrFy2U5icqOt5UblvGficclFq7JEOV68LVQWP3tlBpE8kqVic9nGN4WIA4QQnaP7ecLzbmWvm4ur6dDfglhQ/132",
-//			"giftCount": "0"
-			var items = data.resultObject;
-			for (var i = 0; i < items.length; i++) {
-				
-				
-				
-			}
+		var gifts ="";
+		
+		for (var i = 0; i < data.resultObject.length; i++) {
+			var item = data.resultObject[i];
+			var  gift = "<li class='li-initial-border' data-id="+item.id+" data-number="+item.price+">"+
+			"	<img src='"+item.smallimgPath+"' />"+
+			"	<div class='surprise-hide'>"+
+			"		<div class='surprise-show'>"+
+			"			<div class='surprise-show-img'>"+
+			"				<img src='"+item.smallimgPath+"' style='width: 80px;height: 64px;margin-top: 8px;' />"+
+			"			</div>"+
+			"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
+			"				<div class='surprise-show-title'>"+
+			"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
+			"				</div>"+
+			"				<div class='surprise-presented' data-id="+item.id+" data-number="+item.price+">赠送</div>"+
+			"			</div>"+
+			"		</div>"+
+			"		<div class='aspect-down'></div>"+
+			"	</div>"+
+			"</li>";
+		    gifts += gift;
 		}
-	});
+		$(".surprise-mouseover-ul").html(gifts);
+	},false);
 }
-
-
-

@@ -101,6 +101,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         Order order = new Order();
         order.setId(IStringUtil.getUuid());
+        order.setPrice(orderDetail.getActualPay());
         order.setActualPay(orderDetail.getActualPay());
         //订单号
         order.setOrderNo(OrderNoUtil.getCourseOrderNo());

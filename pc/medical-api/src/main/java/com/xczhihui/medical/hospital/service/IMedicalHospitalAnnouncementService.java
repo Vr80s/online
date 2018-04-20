@@ -43,4 +43,12 @@ public interface IMedicalHospitalAnnouncementService {
      * @return 公告数据
      */
     MedicalHospitalAnnouncement get(String id);
+
+    /**
+     * 最新的公告
+     *
+     * @param hospitalId 医馆id
+     * @return 公告
+     */
+    MedicalHospitalAnnouncement findNewestOne(String hospitalId);
 }

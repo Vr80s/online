@@ -9,6 +9,7 @@ import com.xczh.consumer.market.service.MessageService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,26 +32,21 @@ import java.util.Map;
 @RequestMapping("/bxg/message")
 public class MessageController {
 
-    @Autowired
-    private MessageService messageService;
-
-    @Autowired
-    private UserCenterAPI userCenterAPI;
-
-	@Autowired
-	private AppBrowserService appBrowserService;
-	
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LearningCenterController.class);
 	
     @RequestMapping("add")
     @ResponseBody
     public ResponseObject binnerList(HttpServletRequest req, HttpServletResponse res) throws Exception{
-    	 OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-    	 if(user!=null){
-    		 messageService.add(req.getParameter("content"),user.getId());
-    	 }else{
-    		 messageService.add(req.getParameter("content"),null);
-    	 }
-         return ResponseObject.newSuccessResponseObject(null);
+    	
+    	 LOGGER.info("老版本方法----》》》》learningCenter");
+         return ResponseObject.newErrorResponseObject("请使用最新版本");
+//    	 OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+//    	 if(user!=null){
+//    		 messageService.add(req.getParameter("content"),user.getId());
+//    	 }else{
+//    		 messageService.add(req.getParameter("content"),null);
+//    	 }
+//         return ResponseObject.newSuccessResponseObject(null);
     }
 
 

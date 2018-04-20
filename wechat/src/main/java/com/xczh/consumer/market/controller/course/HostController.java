@@ -44,8 +44,6 @@ public class HostController {
 	
 	
 	@Autowired
-	private OnlineCourseService onlineCourseService;
-	@Autowired
 	private OnlineUserService onlineUserService;
 
 	@Autowired
@@ -106,15 +104,12 @@ public class HostController {
 		if(lecturerInfo == null){
 			return ResponseObject.newErrorResponseObject("获取医师信息有误");
 		}
-		
-		
 		if(lecturerInfo.get("detail")!=null){
 			//设置富文本的url连接
 			lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
 		}else{
 			lecturerInfo.put("richHostDetailsUrl", null);
 		}
-		
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		MedicalHospital mha = null;
 		
@@ -130,7 +125,7 @@ public class HostController {
 		List<Integer> listff =   focusServiceRemote.selectFocusAndFansCount(lecturerId);
 		mapAll.put("fansCount", listff.get(0));       	   //粉丝总数
 		mapAll.put("focusCount", listff.get(1));   	  	   //关注总数
-		mapAll.put("criticizeCount", listff.get(2));   	  	   //关注总数
+		mapAll.put("criticizeCount", listff.get(2));   	   //总数评论总数
 		/**
 		 * 判断用户是否已经关注了这个主播
 		 */
@@ -141,18 +136,11 @@ public class HostController {
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
 	    }
-	    
 		/**
 		 * 此主播最近一次的直播
 		 */
 		CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId);
 		if(user!=null && cv!=null){
-			/**
-			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
-			 */
-			if(cv.getUserLecturerId().equals(user.getId())){
-			    cv.setWatchState(3);
-		    }
 			if(cv.getWatchState()==1){  //免费的课程啦
 				onlineWebService.saveEntryVideo(cv.getId(), user);
 			}else if(cv.getWatchState()==0){ //付费课程

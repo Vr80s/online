@@ -27,7 +27,7 @@ public class ArticleDao extends HibernateDao<ArticleVo> {
                 "    article.praise_sum,article.comment_sum,article.banner_status,article.status,article.is_delete,article.user_id," +
                 "    article.create_time,article.praise_login_names,article.update_time,article.url,article.recommend_time," +
                 "    arttype.`name` AS typeName, article.`user_id` author, if(article.recommend_time< now(),0,article.sort) sort," +
-                "    art_tag.tagName as tagName, art_tag.tagId as tagId" +
+                "    art_tag.tagName as tagName, art_tag.tagId as tagId, article.user_created as userCreated" +
                 "    FROM oe_bxs_article article" +
                 "       left join (" +
                 "           select GROUP_CONCAT(t.name) as tagName, rt.article_id, group_concat(t.id) as tagId " +
@@ -35,7 +35,7 @@ public class ArticleDao extends HibernateDao<ArticleVo> {
                 "           where rt.tag_id = t.id group by rt.article_id" +
                 "          ) art_tag on article.id = art_tag.article_id" +
                 "      left join article_type arttype on article.type_id = arttype.id " +
-                " where 1 = 1");
+                " where is_delete = false");
         if (articleVo.getTitle() != null) {
             sql.append(" and article.title like :title");
             paramMap.put("title", "%" + articleVo.getTitle() + "%");

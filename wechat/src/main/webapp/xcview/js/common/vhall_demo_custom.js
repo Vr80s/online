@@ -2,9 +2,9 @@ $(document).ready(function() {
 	
 	var map;
     $.ajax({
-        url: '/weihou/getWeihouSign',
+        url: '/xczh/common/getWeihouSign',
         method: 'get',
-        data: {videoId:room_id},
+        data: {videoId:videoId},
         dataType: 'json',
         contentType: 'application/json',
         async:false,
@@ -17,30 +17,37 @@ $(document).ready(function() {
         }
     });
 	
-    function liaotian(obj){
+    function liaotian(msg){
     	
-    	console.log("nnnn:"+obj);
+    	console.log("nnnn:"+msg);
     	
-        var role_str = "";
-	    var role= obj.role;
-        if(role=='assistant'){
-	    	role_str +="<a class='tips assistant' href='javascript:;'>助理</a>";
-	    } else if(role == 'host'){
-	    	role_str +="<a class='tips host' href='javascript:;'>主持人</a>";
-	    }
-	    else if(role == 'guest'){
-	    	role_str +="<a class='tips guest' href='javascript:;'>嘉宾</a>";
-	    }
-	    role_str+="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
-	    var aaa = "<li uid=' user_id'>"+
-	    "<a class='avatar' href='javascript:;' title=' user_name'><img src='"+obj.avatar+"' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
-	        "<div class='msg'>"+
-	            "<p> " + role_str+"</p>"+
-	           " <p class='content'>"+obj.content+"</p>"+
-	        "</div>"+
-	      "</li>";
+//        var role_str = "";
+//	    var role= obj.role;
+//        if(role=='assistant'){
+//	    	role_str +="<a class='tips assistant' href='javascript:;'>助理</a>";
+//	    } else if(role == 'host'){
+//	    	role_str +="<a class='tips host' href='javascript:;'>主持人</a>";
+//	    }
+//	    else if(role == 'guest'){
+//	    	role_str +="<a class='tips guest' href='javascript:;'>嘉宾</a>";
+//	    }
+//	    role_str+="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
+//	    var aaa = "<li uid=' user_id'>"+
+//	    "<a class='avatar' href='javascript:;' title=' user_name'><img src='"+obj.avatar+"' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
+//	        "<div class='msg'>"+
+//	            "<p> " + role_str+"</p>"+
+//	           " <p class='content'>"+obj.content+"</p>"+
+//	        "</div>"+
+//	      "</li>";
+    	
+    	var userName = msg.user_name;
+    	if(msg.role == "host"){ //说明是主播
+    		var hostName = sessionStorage.getItem("hostName");
+    		userName = "<span class='span_zhubo'>主播</span>"+ (stringnull(hostName) ?  hostName : "");
+    	}
+    	var str = "<div class='coze_cen_ri'><div class='coze_cen_bg_ri'><span class='span_name'>"+userName+"：</span>"+msg.content+"</div><div class='both'></div></div>";
 	    
-	    return aaa;
+	    return str;
     }
 	function t(t) {
 		var o = new RegExp("(^|&)" + t + "=([^&]*)(&|$)", "i"),
@@ -115,22 +122,77 @@ $(document).ready(function() {
 		alert(JSON.stringify(t))
 	}), VHALL_SDK.on("chatMsg", function(t) {
 	
-		$("#chatmsg").append(liaotian(t)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999")
-	
+		$("#chatmsg").append(liaotian(t)),
+		$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999")
 	
 	}), VHALL_SDK.on("questionMsg", function(t) {
-	
+		 console.log('问答', msg);
+		
 		//console.log("问答", t), $("#question-msg").append(e(t)), $(".question-msg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999")
 	
 	
 	}), VHALL_SDK.on("ready", function() {
-		VHALL_SDK.vhall_get_history_notice(), 1 == VHALL_SDK.getRoominfo().type ? (VHALL_SDK.vhall_get_live_history_chat_msg(), 1 == VHALL_SDK.getRoominfo().openQuestion && VHALL_SDK.vhall_get_live_history_question_msg()) : VHALL_SDK.vhall_get_record_history_chat_msg()
+		VHALL_SDK.vhall_get_history_notice(), 
+		1 == VHALL_SDK.getRoominfo().type ? (VHALL_SDK.vhall_get_live_history_chat_msg(), 1 == VHALL_SDK.getRoominfo().openQuestion && VHALL_SDK.vhall_get_live_history_question_msg()) : VHALL_SDK.vhall_get_record_history_chat_msg()
+	
+	
 	}), VHALL_SDK.on("error", function(t) {
 		alert("发生错误: " + JSON.stringify(t))
-	}), VHALL_SDK.on("userOnline", function(t) {
-		console.log(t)
-	}), VHALL_SDK.on("userOffline", function(t) {
-		console.log(t)
+	}), VHALL_SDK.on("userOnline", function(msgt) {
+		
+	  	var userName = msg.user_name;
+	  	var content = "退出直播间";
+	
+	    console.log("参与人数："+msg.data.attend_count);
+        console.log("当前在线人数："+msg.data.concurrent_user);
+		
+		var str = "<div class='coze_cen_ri'> "+
+		"  <div class='coze_cen_bg_ri'> "+
+		"<span class='span_name'>"+userName+"：</span>"+   //用户名
+		"	"+content+"  "+
+		" </div> "+
+		" <div class='both'></div></div>";
+    	
+        $("#chatmsg").append(str);
+        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","99999");
+		
+        var learndCount =  sessionStorage.getItem("learndCount");
+        if(stringnull(learndCount) && stringnull(msg.data.attend_count)){
+            learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
+        }
+        /**
+         * 当有人进来房间的时候，学习人数加1
+         */
+		$(".details_size span:eq(0)").html(learndCount);
+		
+		
+	}), VHALL_SDK.on("userOffline", function(msg) {
+		
+		var userName = msg.user_name;
+	  	var content = "退出直播间";
+	
+	    console.log("参与人数："+msg.data.attend_count);
+        console.log("当前在线人数："+msg.data.concurrent_user);
+	  	
+	  	var str = "<div class='coze_cen_ri'> "+
+			"  <div class='coze_cen_bg_ri'> "+
+			"<span class='span_name'>"+userName+"：</span>"+   //用户名
+			"	"+content+"  "+
+			" </div> "+
+			" <div class='both'></div></div>";
+  	
+        $("#chatmsg").append(str);
+        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+        console.log(msg);
+        /**
+         * 当有人进来房间的时候，学习人数加1
+         */
+        var learndCount =  sessionStorage.getItem("learndCount");
+        if(stringnull(learndCount) && stringnull(msg.data.attend_count)){
+            learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
+        }
+        $(".details_size span:eq(0)").html(learndCount);
+		
 	}), VHALL_SDK.on("sendSign", function(t) {
 		console.log(t)
 	}), VHALL_SDK.on("UpdateUser", function(t) {
@@ -195,26 +257,21 @@ $(document).ready(function() {
 	}), VHALL_SDK.on("publishStart", function(t) {
 		alert("活动开始推流")
 	}), VHALL_SDK.on("vhall_live_history_chat_msg", function(t) {
-		
-		
 		if (200 == t.code) {
 			for (var e = "", n = t.data.length - 1; n >= 0; n--) e += liaotian(t.data[n]);
 			$("#chatmsg").append(e), setTimeout(function() {
 				$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
 			}, 50)
 		}
-		
-		
-		
 	}), VHALL_SDK.on("vhall_record_history_chat_msg", function(t) {
-//		if (200 == t.code) {
-//			var e = "";
-//			$("#chatmsg").data("curr_page", t.curr_page);
-//			for (var n = t.data.length - 1; n >= 0; n--) e += o(t.data[n]);
-//			1 == t.curr_page ? ($("#chatmsg").html(e), setTimeout(function() {
-//				$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
-//			}, 50)) : ($("#chatmsg").prepend(e), $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "20px"))
-//		}
+		if (200 == t.code) {
+			var e = "";
+			$("#chatmsg").data("curr_page", t.curr_page);
+			for (var n = t.data.length - 1; n >= 0; n--) e += liaotian(t.data[n]);
+			1 == t.curr_page ? ($("#chatmsg").html(e), setTimeout(function() {
+				$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
+			}, 50)) : ($("#chatmsg").prepend(e), $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "20px"))
+		}
 	}), VHALL_SDK.on("getQuestionList", function(t) {
 //		if (200 == t.code) {
 //			for (var o = "", n = t.data.length - 1; n >= 0; n--) o += e(t.data[n]);
@@ -247,6 +304,13 @@ $(document).ready(function() {
 	}), VHALL_SDK.on("playerError", function(t) {
 		console.log(t)
 	}), VHALL_SDK.on("playerReady", function() {
+		
+		/**
+    	 * 设备准备就绪后
+    	 */
+    	$("video").attr("x5-playsinline", "");
+    	$("video").attr("poster", courseHead);
+		
 		VHALL_SDK.player.on("canPlayLines", function(t) {
 			var o = "";
 			t.forEach(function(t) {
