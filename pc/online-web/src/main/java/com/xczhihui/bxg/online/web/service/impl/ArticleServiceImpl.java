@@ -86,7 +86,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("t1", HeadlineType.DJZL.getCode());
         paramMap.put("t2",HeadlineType.MYBD.getCode());
-        String sql="select id, title,if(recommend_time< now(),0,sort) sort from oe_bxs_article where is_delete=0 and `status`=1  order by sort desc,create_time desc limit 20";
+        String sql="select id, title,if(recommend_time< now(),0,sort) sort from oe_bxs_article where is_delete=0 and `status`=1  order by sort desc,create_time desc limit 10";
         return  dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
     }
 

@@ -10,8 +10,6 @@ package com.xczhihui.bxg.online.web.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
-
 public class HtmlUtil {
 
     private static final Pattern SCRIPT_PATTERN = Pattern.compile("<script[^>]*?>[\\s\\S]*?<\\/script>", Pattern.CASE_INSENSITIVE);
@@ -46,7 +44,9 @@ public class HtmlUtil {
     }
 
     public static String getTextFromHtml(String htmlStr) {
-        if(htmlStr==null){return "";}
+        if (htmlStr == null) {
+            return "";
+        }
         htmlStr = delHTMLTag(htmlStr);
         htmlStr = htmlStr.replaceAll("&nbsp;", "");
         htmlStr = htmlStr.replaceAll("　", "");
