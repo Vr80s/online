@@ -67,6 +67,7 @@ public class Reply extends Model<Reply> {
 		if(this.onlineUser==null){
 			this.onlineUser = new OnlineUser();
 		}
+		this.onlineUser.setId(this.getReplyUser());
 		this.onlineUser.setLoginName(loginName);
 		this.loginName = loginName;
 	}

@@ -136,7 +136,6 @@ public class HostController {
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
 	    }
-	    
 		/**
 		 * 此主播最近一次的直播
 		 */

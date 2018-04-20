@@ -136,6 +136,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 		String code = showapi_res_bodyJson.get("code").toString();
 		String msg = showapi_res_bodyJson.get("msg").toString();
 		if (!"0".equals(code)) {
+			if("5".equals(code)){
+				throw new RuntimeException("持卡人认证失败");
+			}else if("14".equals(code)){
+				throw new RuntimeException("无效卡号");
+			}
 			throw new RuntimeException(msg);
 		}
 		String srb = bankInfoJson.get("showapi_res_body").toString();

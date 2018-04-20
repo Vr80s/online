@@ -6,7 +6,8 @@
 		SELECT
 		  c.id,
 		  c.star_level,
-		  c.is_buy as isBuy,
+		  c.create_person,
+		  c.is_buy,
 		  c.`criticize_lable`,
 		  c.`content`,
 		  c.`create_time`,
@@ -49,6 +50,7 @@
 	<select id="selectReplyByCriticizeId" resultType="com.xczhihui.wechat.course.model.Reply">
 		select
 		  re.`reply_content`,
+		  re.reply_user,
 		  ou.`name`,
 		  ou.`login_name` as loginName,
 		  ou.id as userId 

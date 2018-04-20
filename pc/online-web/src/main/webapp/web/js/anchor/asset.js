@@ -237,8 +237,14 @@ function saveBankCard(){
 //	                hideDel_bank()
 	                initBasaeAssetInfo();
 	            }else {
+	                if(data.errorMessage=="无效卡号"){
+                        $("#content_add_card").focus();
+                    }else if(data.errorMessage=="持卡人认证失败") {
+                        $("#content_add_name").focus();
+                    }
 	                showTip(data.errorMessage);
 //	                hideDel_bank()
+
 	            }
 //	        });
     	})
@@ -380,6 +386,7 @@ function verifyBankCard(data){
     //户名
     if(!isNv(data.acctName)){
         $('.content_add_name_warn').removeClass('hide');
+        $("#content_add_name").focus();
         return false;
     }else{
         $('.content_add_name_warn').addClass('hide');
@@ -388,6 +395,7 @@ function verifyBankCard(data){
     //卡号
     if(!isNv(data.acctPan)){
         $('.content_add_card_warn').removeClass('hide');
+        $("#content_add_card").focus();
         return false;
     }else{
         $('.content_add_card_warn').addClass('hide');
@@ -404,6 +412,7 @@ function verifyBankCard(data){
     //身份证号
     if(!isNv(data.certId)){
         $('.content_add_idCard_warn').removeClass('hide');
+        $("#content_add_idCard").focus();
         return false;
     }else{
         $('.content_add_idCard_warn').addClass('hide');

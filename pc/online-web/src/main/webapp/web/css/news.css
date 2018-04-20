@@ -245,18 +245,17 @@ img {
     word-break: break-all;
     word-wrap: break-word;
 }
+#forum .forum-content .forum-content-right .hot-article-list > li{
+  margin-bottom: 20px;
+}
 #forum .forum-content .forum-content-right .hot-article-list > li > a >span{
 	display: inline-block;
 	height: 19px;
 	line-height: 19px;
-	overflow: hidden;
 	color: #000;
-	margin-bottom: 12px;
 	font-size: 14px;
 	color: #666666;
 	width: 280px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe{
 	    width: 320px;

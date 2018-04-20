@@ -155,6 +155,7 @@ public class Criticize extends Model<Criticize> {
 		if(this.onlineUser==null){
 			this.onlineUser = new OnlineUser();
 		}
+		this.onlineUser.setId(this.getCreatePerson());
 		this.onlineUser.setName(name);
 		this.name = name;
 	}
