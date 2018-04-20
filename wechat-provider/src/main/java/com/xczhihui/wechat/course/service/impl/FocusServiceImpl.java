@@ -35,25 +35,21 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 
 	@Override
 	public List<Integer> selectFocusAndFansCount(String userId) {
-		// TODO Auto-generated method stub
 		return focusMapper.selectFocusAndFansCount(userId);
 	}
 
 	@Override
 	public List<FocusVo> selectFocusList(String userId) {
-		// TODO Auto-generated method stub
 		return focusMapper.selectFocusList(userId);
 	}
 
 	@Override
 	public List<FocusVo> selectFansList(String userId) {
-		// TODO Auto-generated method stub
 		return focusMapper.selectFansList(userId);
 	}
 
 	@Override
 	public Integer isFoursLecturer(String userId, String lecturerId) {
-		// TODO Auto-generated method stub
 		return focusMapper.isFoursLecturer(userId,lecturerId);
 	}
 

@@ -2,6 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.wechat.course.mapper.MyInfoMapper">
 
+
+	<!-- 查找主播的详情    主播详细信息和精彩致辞在course_anchor表中  -->
+	<select id="findHostInfoById" resultType="java.util.Map">
+	    select 
+		    ca.user_id,
+		    ca.name,
+		    ca.profile_photo as small_head_photo,
+		    ca.video,
+		    ca.detail,
+		    ca.type as type
+		 from  oe_user ou 
+		 inner join  course_anchor ca on  ou.id = ca.user_id
+		 where ou.id = #{userId}
+	</select>
+
 	<!-- 查找主播的学员、课程数  -->
 	<select id="selectCollegeCourseXmbNumber" resultType="java.math.BigDecimal">
 		( select count(*) from (select count(*) from apply_r_grade_course where course_id in 

@@ -6,6 +6,7 @@
 		SELECT
 		  c.id,
 		  c.star_level,
+		  c.is_buy as isBuy,
 		  c.`criticize_lable`,
 		  c.`content`,
 		  c.`create_time`,

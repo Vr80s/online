@@ -26,19 +26,21 @@ $(document).ready(function() {
         if(role=='assistant'){
 	    	role_str +="<a class='tips assistant' href='javascript:;'>助理</a>";
 	    } else if(role == 'host'){
-	    	role_str +="<a class='tips host' href='javascript:;'>主持人</a>";
+	    	role_str +="<a class='tips host' href='javascript:;'>主播</a>";
 	    }
 	    else if(role == 'guest'){
 	    	role_str +="<a class='tips guest' href='javascript:;'>嘉宾</a>";
 	    }
+//	    头像注释
 	    role_str+="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
 	    var aaa = "<li uid=' user_id'>"+
 	    
 	    /*聊天区域*/
 //	   "<a class='avatar' href='javascript:;' title=' user_name'><img src='"+obj.avatar+"' width='32' height='32' onerror='this.src='//cnstatic01.e.vhall.com/static/images/watch/head50.png'' class=''></a>"+
 	        "<div class='msg'>"+
-	            "<p> " + role_str+"</p>"+
-	           " <p class='content'>"+obj.content+"</p>"+
+	            "<p> " + role_str+"："+obj.content+"</p>"+
+//	            "<p class='name'>"+obj.user_name+"： "+obj.content+"</p>"+
+//	           " <p class='content'>"+obj.content+"</p>"+
 	        "</div>"+
 	      "</li>";
 	    

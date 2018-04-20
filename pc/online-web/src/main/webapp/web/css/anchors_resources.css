@@ -332,6 +332,7 @@
     margin-right: 20px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom .baocun .save-publish,
+.contentWrap #zhuanlan .zhuanlan_bottom .column-edit-button button,
 .contentWrap #zhuzuo .zhuzuo_bottom .baocun .save-publish,
 .contentWrap #media_report .media_report_bottom .baocun .save-publish{
 	display: inline-block;
@@ -431,7 +432,8 @@
 .contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child img,
 .contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:first-child img,
 .contentWrap #media_report .media_report_bottom2 table tbody > tr > td:first-child img{
-	width: 100%;
+	width: 106px;
+	height: 60px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(2),
 .contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(2),
@@ -1187,6 +1189,9 @@
 	transform: translateX(-50% ) translateY(-0%);
 	background: #fff;
 	width: 960px;
+	height: 772px;
+	padding-bottom: 90px;
+	box-sizing: border-box;
 	z-index: 999;
 }
 #preview .preview_top{
@@ -1222,6 +1227,11 @@
 	padding-top: 20px;
 	padding-bottom: 90px;
 	padding-right: 140px;
+	    overflow-x: hidden;
+    overflow-y: auto;
+    width: 960px;
+    height: 712px;
+    box-sizing: border-box;
 	
 }
 #preview .preview_bottom > table  tr > td:nth-child(2){

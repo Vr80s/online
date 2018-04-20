@@ -1,4 +1,5 @@
 <script>
+  var lecturerId = '<%=request.getAttribute("lecturerId")%>';
   var userId = '<%=request.getAttribute("userId")%>';
   var guId = '<%=request.getAttribute("guId")%>';
   var guPwd = '<%=request.getAttribute("guPwd")%>';
@@ -21,11 +22,11 @@
   var name = '<%=request.getAttribute("name")%>';
   var k = '<%=request.getAttribute("k")%>';
 
-
+/* 
   
   var vvurl = "http://e.vhall.com/webinar/inituser/"+room_id+"?email="+email+"&name="+name+"&k="+k;
   if(name == "" || name == null ||name == "null"){
 	  vvurl += "&embed=video";
   }
-  $("#vhall-video").attr("src",vvurl);
+  $("#vhall-video").attr("src",vvurl); */
 </script>

@@ -78,6 +78,41 @@ function repalceAll(str,rstr,arstr){
 	return str;
 }
 
+
+function getGiftList(){
+	RequestService("/gift/getGift", "GET", {
+	}, function(data) {
+		
+		var gifts ="";
+		
+		for (var i = 0; i < data.resultObject.length; i++) {
+			var item = data.resultObject[i];
+			var  gift = "<li class='li-initial-border' data-id="+item.id+" data-number="+item.price+">"+
+			"	<img src='"+item.smallimgPath+"' />"+
+			"	<div class='surprise-hide'>"+
+			"		<div class='surprise-show'>"+
+			"			<div class='surprise-show-img'>"+
+			"				<img src='"+item.smallimgPath+"' style='width: 80px;height: 64px;margin-top: 8px;' />"+
+			"			</div>"+
+			"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
+			"				<div class='surprise-show-title'>"+
+			"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
+			"				</div>"+
+			"				<div class='surprise-presented' data-id="+item.id+" data-number="+item.price+">赠送</div>"+
+			"			</div>"+
+			"		</div>"+
+			"		<div class='aspect-down'></div>"+
+			"	</div>"+
+			"</li>";
+		    gifts += gift;
+		}
+		$(".surprise-mouseover-ul").html(gifts);
+	},false);
+}
+//礼物渲染
+getGiftList();
+
+
 $(document).ready(function() {
 
     // 通过BOSH连接XMPP服务器
@@ -211,6 +246,51 @@ $(document).ready(function() {
 			$('.mask').css({'display':'block'})
 		}
 	})
+	
+	
+	
+	//点击发送时候的送礼物效果/充值事件
+	$('.surprise-mouseover-ul li,.surprise-presented').click(function(){
+		var className = $(this).attr("class");
+		var gid = $(this).attr("data-id");
+		var number = $(this).attr("data-number");
+		//判断余额是否足够
+		var balanceTotal = $("#account").html();
+		if(parseInt(number)<= parseInt(balanceTotal) || parseInt(number) ==0){
+			//获取数量
+			var gifNumber =Number($('.gif-num').text()); 
+			var msgJson = {
+					channel:1,
+					giftId:gid,
+					count:1,
+					clientType:1,
+					liveId:course_id,
+					receiver:teacherId,
+					receiverName:teacherName
+			};
+			RequestService("/gift/sendGift", "POST", msgJson, function(data) {
+				if(data.success==true){
+        			sendMsg(data.resultObject);
+        			refreshBalance();
+				}else{
+					// if("余额不足"==data.errorMessage){
+                        $('.mask3').text(data.errorMessage).fadeIn(400,function(){
+                            setTimeout(function(){
+                                $('.mask3').fadeOut()
+                            },1000)
+                        });
+					// }
+				}
+			},false);
+//			$("#chat-content").val('');
+			//获取当前点击时候的id/点击的时间
+			lastGift = myid ;
+			lastTime = new Date();
+		}else{
+			$('.chongZhi').click();
+		}
+	})
+	
 	
 });
 
