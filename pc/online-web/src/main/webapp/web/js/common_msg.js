@@ -90,6 +90,31 @@ var comfirmBox = {
 		   "z-index": "888",
 		    "display": "none"
 		})	
+		$(".wxc-confirm").hover(function(){
+			$(".wxc-confirm").css({
+				"background-color":"#00BC12",
+				"cursor":"pointer",
+	    		"color": "#fff"
+			});
+		},function(){
+			$(".wxc-confirm").css({
+				"background-color":"#fff",
+	    		"color": "#000"
+			});
+		})
+		$(".wxc-remove").hover(function(){
+			$(".wxc-remove").css({
+				"background-color":"#00BC12",
+				"cursor":"pointer",
+	    		"color": "#fff"
+			});
+		},function(){
+			$(".wxc-remove").css({
+				"background-color":"#fff",
+	    		"color": "#000"
+			});
+		})
+
 		},
 	//确认框打开
 	open : function (title,content,fn){
@@ -111,34 +136,8 @@ var comfirmBox = {
 		$(".wxc-bgcolor").hide()
 	}
 }
+//用前先初始化
 comfirmBox.init()
-//鼠标hover效果
-	$(".wxc-confirm").hover(function(){
-		$(".wxc-confirm").css({
-			"background-color":"#00BC12",
-			"cursor":"pointer",
-    		"color": "#fff"
-		});
-	},function(){
-		$(".wxc-confirm").css({
-			"background-color":"#fff",
-    		"color": "#000"
-		});
-	})
-	$(".wxc-remove").hover(function(){
-		$(".wxc-remove").css({
-			"background-color":"#00BC12",
-			"cursor":"pointer",
-    		"color": "#fff"
-		});
-	},function(){
-		$(".wxc-remove").css({
-			"background-color":"#fff",
-    		"color": "#000"
-		});
-	})
-
-
 //comfirmBox.open("标题","内容",function(closefn){
 ////	alert("abc");  执行的逻辑
 //	closefn();    关闭弹窗

@@ -836,7 +836,7 @@ function recruit_close_btn(t){
 function delete_recruit_btn(t){
 	var data_deleteId=$(t).attr("data-deleteId");
 	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
-		RequestService("/medical/hospitalRecruit/"+data_deleteId+"","DELETE",null,function(){
+		RequestService("/medical/hospitalRecruit/"+data_deleteId+"","DELETE",null,function(data){
 			if(data.success == true){
 				closefn();
 				showTip("删除成功");
@@ -844,6 +844,7 @@ function delete_recruit_btn(t){
 				recruitList(1);
 			}else{
 				showTip("删除失败");
+				closefn();
 			}
 		})
 	});
