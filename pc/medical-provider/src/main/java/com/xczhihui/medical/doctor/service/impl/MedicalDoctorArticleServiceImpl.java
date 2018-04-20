@@ -1,6 +1,8 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -164,5 +166,15 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Map<String, Object>> listReportDoctorByArticleId(int id) {
+        return oeBxsArticleMapper.listReportDoctorByArticleId(id);
+    }
+
+    @Override
+    public List<Map<String, Object>> listSpecialColumnAuthorByArticleId(int id) {
+        return oeBxsArticleMapper.listSpecialColumnAuthorByArticleId(id);
     }
 }

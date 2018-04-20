@@ -20,6 +20,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalAnnouncementService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
@@ -44,6 +45,8 @@ public class ClinicPageController extends AbstractController {
     private BannerService bannerService;
     @Autowired
     private IMedicalHospitalRecruitBusinessService medicalHospitalRecruitBusinessService;
+    @Autowired
+    private IMedicalHospitalAnnouncementService medicalHospitalAnnouncementService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
@@ -83,6 +86,8 @@ public class ClinicPageController extends AbstractController {
 
         List<MedicalHospitalVo> recClinics = medicalHospitalBusinessServiceImpl.selectRecHospital();
         view.addObject("recClinics", recClinics);
+
+        view.addObject("announcement", medicalHospitalAnnouncementService.findNewestOne(id));
 
         doTitleKeyWords(view, clinic.getName() + "-", clinic.getName() + ",");
 

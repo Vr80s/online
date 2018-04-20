@@ -1,5 +1,8 @@
 package com.xczhihui.medical.doctor.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
@@ -113,4 +116,20 @@ public interface IMedicalDoctorArticleService {
      * @return 是否删除成功
      */
     boolean deleteReportById(String id);
+
+    /**
+     * 获取文章报道的医师
+     *
+     * @param id id
+     * @return
+     */
+    List<Map<String, Object>> listReportDoctorByArticleId(int id);
+
+    /**
+     * 获取专栏作者
+     *
+     * @param id id
+     * @return
+     */
+    List<Map<String, Object>> listSpecialColumnAuthorByArticleId(int id);
 }

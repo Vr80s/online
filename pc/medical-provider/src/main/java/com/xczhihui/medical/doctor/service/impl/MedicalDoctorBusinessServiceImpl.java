@@ -198,7 +198,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public List<OeBxsArticleVO> getRecentlyNewsReports() {
-        return oeBxsArticleMapper.getRecentlyNewsReports(HeadlineType.MYBD.getCode() + "");
+        return oeBxsArticleMapper.getRecentlyNewsReports(HeadlineType.MYBD.getCode());
     }
 
     @Override
@@ -208,19 +208,19 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public Page<OeBxsArticleVO> getNewsReportsByPage(Page<OeBxsArticleVO> page, String doctorId) {
-        List<OeBxsArticleVO> records = oeBxsArticleMapper.getNewsReportsByPage(page, doctorId, HeadlineType.MYBD.getCode() + "");
+        List<OeBxsArticleVO> records = oeBxsArticleMapper.getNewsReportsByPage(page, doctorId, HeadlineType.MYBD.getCode());
         page.setRecords(records);
         return page;
     }
 
     @Override
     public List<OeBxsArticleVO> getHotSpecialColumn() {
-        return oeBxsArticleMapper.getHotSpecialColumn(HeadlineType.DJZL.getCode() + "");
+        return oeBxsArticleMapper.getHotSpecialColumn(HeadlineType.DJZL.getCode());
     }
 
     @Override
     public List<MedicalDoctorVO> getHotSpecialColumnAuthor() {
-        return medicalDoctorMapper.getHotSpecialColumnAuthor(HeadlineType.DJZL.getCode() + "");
+        return medicalDoctorMapper.getHotSpecialColumnAuthor(HeadlineType.DJZL.getCode());
     }
 
     @Override

@@ -28,6 +28,8 @@ public class DoctorWritingBody {
     @NotBlank(message = "内容不能为空")
     private String remark;
 
+    private boolean status;
+
     public MedicalWriting build(String userId) {
         MedicalWriting medicalWriting = new MedicalWriting();
         medicalWriting.setAuthor(author);
@@ -36,7 +38,7 @@ public class DoctorWritingBody {
         medicalWriting.setCreateTime(new Date());
         medicalWriting.setDeleted(false);
         medicalWriting.setImgPath(imgPath);
-        medicalWriting.setStatus(true);
+        medicalWriting.setStatus(status);
         medicalWriting.setTitle(title);
         medicalWriting.setRemark(remark);
         return medicalWriting;
@@ -80,5 +82,13 @@ public class DoctorWritingBody {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

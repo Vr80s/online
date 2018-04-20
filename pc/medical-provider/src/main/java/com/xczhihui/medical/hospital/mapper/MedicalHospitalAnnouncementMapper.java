@@ -38,4 +38,16 @@ public interface MedicalHospitalAnnouncementMapper extends BaseMapper<MedicalHos
      */
     @Update("update medical_hospital_announcement set deleted = true where id = #{id} and hospital_id = #{hospitalId} and deleted = false")
     int markDeleted(@Param("id") String id, @Param("hospitalId") String hospitalId);
+
+    /**
+     * 查询最新的一条公告数据
+     *
+     * @param hospitalId 医馆id
+     * @return 公告
+     */
+    @Select({"select id as id, content as content, create_time as createTime, hospital_id as hospitalId" +
+            " from medical_hospital_announcement" +
+            " where deleted = false and hospital_id = #{hospitalId}" +
+            " order by create_time desc limit 1"})
+    MedicalHospitalAnnouncement findNewestOne(@Param("hospitalId") String hospitalId);
 }

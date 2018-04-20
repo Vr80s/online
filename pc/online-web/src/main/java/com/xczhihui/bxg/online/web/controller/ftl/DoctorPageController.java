@@ -25,6 +25,8 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalAnnouncementService;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
 
 /**
  * Description：医师页面

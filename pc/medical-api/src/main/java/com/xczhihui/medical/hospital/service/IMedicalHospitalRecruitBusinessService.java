@@ -89,4 +89,12 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @return
      */
     MedicalHospitalRecruit get(String id);
+
+    /**
+     * 医馆招聘信息
+     *
+     * @param hospitalId 医馆id
+     * @return 医馆招聘数据
+     */
+    List<MedicalHospitalRecruitVO> listByHospitalId(String hospitalId);
 }

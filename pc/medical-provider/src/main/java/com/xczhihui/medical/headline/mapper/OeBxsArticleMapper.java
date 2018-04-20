@@ -2,6 +2,7 @@ package com.xczhihui.medical.headline.mapper;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -31,7 +32,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
 
     List<OeBxsArticleVO> getRecentlyNewsReports(@Param("typeId") String typeId);
 
-    List<OeBxsArticleVO> getNewsReportsByPage(@Param("page") Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId, @Param("doctorReport") String doctorReport);
+    List<OeBxsArticleVO> getNewsReportsByPage(@Param("page") Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId, @Param("typeId") String typeId);
 
     List<OeBxsArticleVO> getHotSpecialColumn(String specialColumn);
 
@@ -96,9 +97,48 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      */
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
             " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
-            " from `oe_bxs_article` oba" +
-            " LEFT JOIN `medical_doctor_special_column` mdsc" +
-            " ON oba.`id` = mdsc.`article_id` " +
-            " where oba.id = #{id} and oba.`is_delete`=0 AND"})
+            "   from" +
+            "       `oe_bxs_article` oba" +
+            "       LEFT JOIN `medical_doctor_special_column` mdsc" +
+            "       ON oba.`id` = mdsc.`article_id` " +
+            "   where oba.id = #{id} and oba.`is_delete`=0 AND"})
     OeBxsArticleVO getSpecialColumnById(@Param("id") String id);
+
+    /**
+     * 获取文章报道的医师
+     *
+     * @param id id
+     * @return
+     */
+    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city` " +
+            "        FROM" +
+            "            `oe_bxs_article` oba" +
+            "            JOIN `medical_doctor_report` mdr" +
+            "                ON oba.`id` = mdr.`article_id`" +
+            "            JOIN `medical_doctor` md" +
+            "                ON md.id = mdr.`doctor_id`" +
+            "            JOIN `medical_doctor_authentication_information` mdai" +
+            "                ON mdai.`id` = md.`authentication_information_id`" +
+            "        WHERE oba.id = #{id}" +
+            "        ORDER BY oba.`create_time` DESC"})
+    List<Map<String, Object>> listReportDoctorByArticleId(@Param("id") int id);
+
+    /**
+     * 获取专栏作者
+     *
+     * @param id id
+     * @return
+     */
+    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city`" +
+            "        FROM" +
+            "            `oe_bxs_article` oba" +
+            "            JOIN `medical_doctor_special_column` mdsc" +
+            "                ON oba.`id` = mdsc.`article_id`" +
+            "            JOIN `medical_doctor` md" +
+            "                ON md.id = mdsc.`doctor_id`" +
+            "            JOIN `medical_doctor_authentication_information` mdai" +
+            "                ON mdai.`id` = md.`authentication_information_id`" +
+            "        WHERE oba.id = #{id}" +
+            "        ORDER BY oba.`create_time` DESC"})
+    List<Map<String, Object>> listSpecialColumnAuthorByArticleId(int id);
 }
