@@ -16,4 +16,7 @@ public interface IOrderService extends IService<Order> {
     public Order createOrder(String userId, int courseId, Integer orderFrom);
 
 
+    Order getOrderByOrderId(String orderId);
+
+    Order getOrderNo4PayByOrderNo(String orderId);
 }

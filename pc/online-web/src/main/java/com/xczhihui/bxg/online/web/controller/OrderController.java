@@ -47,61 +47,22 @@ public class OrderController {
     private String weburl;
 
     /**
-     * 提交订单的时候，生成订单
+     * 支付页面
      * @param ids
      * @param request
      */
-    @RequestMapping(value = "/{ids}/{orderNo}/saveOrder",method= RequestMethod.GET)
+    @RequestMapping(value = "/{ids}/{orderNo}/payment",method= RequestMethod.GET)
     public  ModelAndView saveOrder( @PathVariable String ids,@PathVariable String orderNo,HttpServletRequest request,RedirectAttributes attr ) throws IOException {
         ModelAndView mav=new ModelAndView();
-        //如果session中不存在此订单号，直接跳转到我的订单页面
-        if(request.getSession().getAttribute(orderNo)==null){
-            mav.setViewName("redirect:/web/html/myStudyCenter.html");
-            return mav;
-        }
-        String[] params=request.getSession().getAttribute(orderNo).toString().split("#");
-        if( !params[1].equals(ids)){
-            throw new RuntimeException("您的订单与所买课程不符合!");
-        }
-        OnlineUser u =  (OnlineUser)request.getSession().getAttribute("_user_");
-        Map mapValues=null;
 
-        if( u != null){
-                //是否已经生成此课程待支付订单 如果未生成:则生成订单,并且限时免费课购买成功
-               Map<String,Object> result=orderService.findOrderByCourseId(ids, u.getId(),orderNo);
-               if("false".equals(result.get("isBuy").toString())) {
-                   mapValues= orderService.saveOrder(orderNo, ids, request);
-                   //限时免费课或总支付为0元，购买成功
-                   if(orderService.findCourseIsFree(ids) || Double.valueOf(mapValues.get("actualPay").toString()) <= 0){
-                       synchronized (lock) {
-                           String transaction_id="activity"+ UUID.randomUUID().toString().replaceAll("-", "").substring(0,22);
-                           orderPayService.addPaySuccess(mapValues.get("orderNo").toString(), Payment.OTHERPAY, transaction_id);
-//                           orderService.addPaySuccess(mapValues.get("orderNo").toString(), 0, transaction_id);
-                           //为购买用户发送购买成功的消息通知
-//                           String path = request.getContextPath();
-//                           String basePath =weburl;
-//                           orderService.savePurchaseNotice(basePath, mapValues.get("orderNo").toString());
-                       }
-                       mav.setViewName("redirect:/web/html/myStudyCenter.html");
-                   } else { //付费课程只是成成
-                       mav.setViewName("PayOrder");
-                       mav.addObject("orderNo", mapValues.get("orderNo"));
-                       mav.addObject("actualPay", String.format("%.2f", Double.valueOf(mapValues.get("actualPay").toString())));
-                       mav.addObject("courseName", mapValues.get("courseName"));
-                       mav.addObject("orderId", orderService.findOrderByOrderNo(mapValues.get("orderNo").toString()).getId());
-                   }
-               }else{
-                   mav.setViewName("PayOrder");
-                   mav.addObject("orderNo", result.get("order_no").toString());
+        Map mapValues = orderService.saveOrder(orderNo, ids, request);
+        mav.setViewName("PayOrder");
+        mav.addObject("orderNo", mapValues.get("orderNo"));
+        mav.addObject("actualPay", String.format("%.2f", Double.valueOf(mapValues.get("actualPay").toString())));
+        mav.addObject("courseName", mapValues.get("courseName"));
+        mav.addObject("orderId", orderService.findOrderByOrderNo(mapValues.get("orderNo").toString()).getId());
 
-                   String orderNo12=result.get("order_no").toString();
-                   mav.addObject("orderId", orderService.findOrderByOrderNo(orderNo12).getId());
-                   mav.addObject("actualPay", String.format("%.2f", Double.valueOf(result.get("actualPay").toString())));
-                   mav.addObject("courseName", result.get("courseName").toString());
-               }
-
-        }
-            return mav;
+        return mav;
     }
 
     /**

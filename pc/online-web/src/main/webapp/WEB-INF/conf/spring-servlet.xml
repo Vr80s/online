@@ -122,6 +122,15 @@
             <mvc:mapping path="/**"/>
             <bean id="webInterceptor" class="com.xczhihui.bxg.online.web.interceptor.WebInterceptor"/>
         </mvc:interceptor>
+        <!-- 对web请求的相关处理-->
+        <mvc:interceptor>
+            <mvc:mapping path="/web/alipay/**"/>
+            <bean id="aliPayInterceptor" class="com.xczhihui.bxg.online.web.interceptor.AliPayInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/web/wxPay/**"/>
+            <bean id="wxPayInterceptor" class="com.xczhihui.bxg.online.web.interceptor.WxPayInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 

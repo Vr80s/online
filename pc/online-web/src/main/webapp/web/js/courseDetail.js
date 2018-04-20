@@ -295,21 +295,12 @@ window.onload = function() {
                     courseId: courserId
                 }, function(data) {
                     //获取其他数据
-                    if(apply == 'true') {
-                        alert("已经购买");
-                    } else if(!data.resultObject.free) {
-                        RequestService("/shoppingCart/join", "post", {
-                            courseId: courserId
-                        }, function(n) {});
-                        RequestService("/video/findVideosByCourseId", "GET", {
-                            courseId: courserId
-                        }, function(data) {
-                            if(data.success == true) {
-                                window.location.href = "/web/html/order.html?courseId=" + courserId;
-                            } else {
-                                rTips(data.errorMessage);
-                            }
-                        });
+                    if(!data.resultObject.free) {
+						if(data.success == true) {
+							window.location.href = "/course/pay/" + courserId;
+						} else {
+							rTips(data.errorMessage);
+						}
                     } else {
                         $("#sign-up-modal").html(template.compile(modal)(data.resultObject));
                         $("#sign-up-modal .sign-up-title img").click(function() {

@@ -17,6 +17,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     @Select("SELECT \n" +
             "  oo.id,\n" +
+            "  oo.`actual_pay`,\n" +
             "  oo.`order_no`,\n" +
             "  ood.`price`\n" +
             "FROM\n" +
@@ -28,4 +29,7 @@ public interface OrderMapper extends BaseMapper<Order> {
             "  AND ood.course_id = #{courseId} \n" +
             "  AND oo.order_status = 0 ")
     Order selectByUserIdAndCourseId(@Param("userId") String userId, @Param("courseId") int courseId);
+
+    @Select("SELECT COUNT(*) FROM `apply_r_grade_course` argc WHERE argc.`user_id`=#{userId} AND argc.`course_id`=#{courseId}")
+    Integer selectCountByUserIdAndCourseId(@Param("userId") String userId, @Param("courseId") String courseId);
 }

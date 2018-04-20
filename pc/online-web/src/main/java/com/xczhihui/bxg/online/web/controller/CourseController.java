@@ -3,6 +3,9 @@ package com.xczhihui.bxg.online.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.wechat.course.model.Order;
+import com.xczhihui.wechat.course.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.CourseService;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * 课程控制层实现类
@@ -31,6 +35,9 @@ public class CourseController {
        private CourseService service;
         @Value("${online.wechat.url}")
         private String wechaturl;
+
+        @Autowired
+        private IOrderService orderService;
 
         @RequestMapping(value = "/scoreList" )
        public Object listAllScoreType(){
@@ -98,6 +105,22 @@ public class CourseController {
         @RequestMapping(value = "/getCourseApplyByCourseId" )
         public ResponseObject getCourseApplyByCourseId(Integer courseId) {
             return ResponseObject.newSuccessResponseObject( service.getCourseApplyByCourseId(courseId));
+        }
+
+        @RequestMapping(value = "/pay/{courseId}" )
+        public ModelAndView pay(@PathVariable Integer courseId,HttpServletRequest request) {
+            OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+
+            Order order = orderService.createOrder(loginUser.getId(), courseId, OrderFrom.PC.getCode());
+            ModelAndView mav=new ModelAndView();
+
+            mav.setViewName("PayOrder");
+            mav.addObject("orderNo", order.getOrderNo());
+            mav.addObject("actualPay", order.getActualPay());
+            mav.addObject("courseName", order.getCourseNames());
+            mav.addObject("orderId", order.getId());
+
+            return mav;
         }
 
 

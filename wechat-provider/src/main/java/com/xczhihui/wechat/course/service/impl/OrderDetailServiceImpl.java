@@ -6,6 +6,8 @@ import com.xczhihui.wechat.course.model.OrderDetail;
 import com.xczhihui.wechat.course.service.IOrderDetailService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -20,5 +22,10 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
     @Override
     public void saveOrderDetail(OrderDetail orderDetail){
         this.baseMapper.insert(orderDetail);
+    }
+
+    @Override
+    public List<OrderDetail> selectOrderDetailsByOrderId(String orderId) {
+        return this.baseMapper.selectOrderDetailsByOrderId(orderId);
     }
 }
