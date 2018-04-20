@@ -1,5 +1,17 @@
+
+
+
+alert(liveStatus);
+if(liveStatus!=1){ //
+	//$('#button').attr('disabled',"true");
+	$("#mywords").attr('disabled',"disabled");
+	$("#mywords").attr('readonly',"readonly");
+}
+
+
+
 /**
- * 礼物排行榜
+* 礼物排行榜
  * @returns
  */
 function getRankingListByLiveId(){
@@ -104,7 +116,6 @@ $(".concern-click").click(function(){
 		}, function(data) {
 			console.log("lalala"+data);
 		});
-		
 		$(".concern-right").css("background","#00BC12");
 		$(".concern-right").html("加关注");
 	}

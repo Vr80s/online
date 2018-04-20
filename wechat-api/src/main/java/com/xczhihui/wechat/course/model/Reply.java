@@ -53,7 +53,25 @@ public class Reply extends Model<Reply> {
 	private OnlineUser onlineUser;
 	@TableField(exist = false)
 	private String name;
+	
 
+	@TableField(exist = false)
+	private String loginName;
+	
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		if(this.onlineUser==null){
+			this.onlineUser = new OnlineUser();
+		}
+		this.onlineUser.setLoginName(loginName);
+		this.loginName = loginName;
+	}
+	
+	
 	public OnlineUser getOnlineUser() {
 		return onlineUser;
 	}
@@ -133,6 +151,10 @@ public class Reply extends Model<Reply> {
 	}
 
 	public void setReplyUser(String replyUser) {
+		if(this.onlineUser==null){
+			this.onlineUser = new OnlineUser();
+		}
+		this.onlineUser.setId(replyUser);
 		this.replyUser = replyUser;
 	}
 

@@ -142,12 +142,6 @@ public class HostController {
 		 */
 		CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId);
 		if(user!=null && cv!=null){
-			/**
-			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
-			 */
-			if(cv.getUserLecturerId().equals(user.getId())){
-			    cv.setWatchState(3);
-		    }
 			if(cv.getWatchState()==1){  //免费的课程啦
 				onlineWebService.saveEntryVideo(cv.getId(), user);
 			}else if(cv.getWatchState()==0){ //付费课程

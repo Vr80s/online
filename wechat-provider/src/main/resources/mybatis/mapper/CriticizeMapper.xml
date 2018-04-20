@@ -16,7 +16,9 @@
 		  c.`deductive_level`,
 		  IF(LOCATE(#{userId},c.`praise_login_names`),TRUE,FALSE) isPraise,
 		  ou.`small_head_photo` smallHeadPhoto,
-		  ou.`name`
+		  ou.`name`,
+		  ou.id as userId,
+		  ou.login_name as loginName
 		FROM
 		  `oe_criticize` c
 		  JOIN `oe_user` ou
@@ -47,7 +49,9 @@
 	<select id="selectReplyByCriticizeId" resultType="com.xczhihui.wechat.course.model.Reply">
 		select
 		  re.`reply_content`,
-		  ou.`name`
+		  ou.`name`,
+		  ou.`login_name` as loginName,
+		  ou.id as userId 
 		from
 		  `oe_reply` re
 		  join `oe_user` ou
