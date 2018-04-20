@@ -173,9 +173,12 @@
         arr.push(UE.getEditor('editor').getContent());
         alert(arr.join("\n"));
     }
+    var content = '${article.content}';
     ue.ready(function() {
-        UE.getEditor('editor').setContent('${article.content}');
-    })
+        if (content) {
+            UE.getEditor('editor').setContent(content);
+        }
+    });
 
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function(action) {
