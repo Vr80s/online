@@ -97,7 +97,29 @@
 			 		<input type="text" name="version"  id="add_name" maxlength="50" class="col-xs-10 col-sm-12 {required:true}">
              </div>
 		</div>
+		
+		<div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>更新介绍: </label>
+			 <div class="col-sm-6">
+               		<div class="clearfix" >
+	                	<textarea name="describe" value="课程观看更加流畅，功能更加完善，给你不一样的学习体验~" id="description"class="{required:true}"
+	                	 cols="39" rows="5">课程观看更加流畅，功能更加完善，给你不一样的学习体验~</textarea>
+	                </div>
+             </div>
+		</div>
+		
 	    <div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>强制更新: </label>
+			 <div class="col-sm-6">
+               		<input type="radio" value="true" name="mustUpdate" class="{required:true}">是
+               		<input type="radio" value="0" name="mustUpdate" class="{required:true}" checked="checked">否
+             </div>
+		</div>
+		
+		
+		<div class="space-4"></div>
 		<div class="form-group"  id ="ad_apk" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
 			 <div class="col-sm-6">
@@ -111,25 +133,6 @@
              </div>
 		</div>
 		
-		
-	    <div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>强制更新: </label>
-			 <div class="col-sm-6">
-               		<input type="radio" value="true" name="mustUpdate" class="{required:true}">是
-               		<input type="radio" value="0" name="mustUpdate" class="{required:true}" checked="checked">否
-             </div>
-		</div>
-	    <div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>更新介绍: </label>
-			 <div class="col-sm-6">
-               		<div class="clearfix" >
-	                	<textarea name="describe" value="课程观看更加流畅，功能更加完善，给你不一样的学习体验~" id="description"class="{required:true}"
-	                	 cols="39" rows="5">课程观看更加流畅，功能更加完善，给你不一样的学习体验~</textarea>
-	                </div>
-             </div>
-		</div>
 	</form>
 </div>
 

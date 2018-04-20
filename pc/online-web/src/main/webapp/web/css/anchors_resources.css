@@ -215,12 +215,12 @@
 .contentWrap #media_report .media_report_bottom {
 	padding: 30px 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form > div,
+.contentWrap #zhuanlan .zhuanlan_bottom > div,
 .contentWrap #zhuzuo .zhuzuo_bottom  > div,
 .contentWrap #media_report .media_report_bottom  > div{
 	margin-bottom: 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form > div >span:first-child,
+.contentWrap #zhuanlan .zhuanlan_bottom > div >span:first-child,
 .contentWrap #zhuzuo .zhuzuo_bottom  > div >span:first-child,
 .contentWrap #media_report .media_report_bottom  > div >span:first-child{
 	display: inline-block;
@@ -231,13 +231,13 @@
 	line-height: 19px;
 	margin-right: 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form > div >span:first-child > em,
+.contentWrap #zhuanlan .zhuanlan_bottom > div >span:first-child > em,
 .contentWrap #zhuzuo .zhuzuo_bottom > div >span:first-child > em,
 .contentWrap #media_report .media_report_bottom > div >span:first-child > em{
 	color: #f40;
 	display: inline;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title,
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title,
 .contentWrap #zhuzuo .zhuzuo_bottom  .zhuzuo_name,
 .contentWrap #media_report .media_report_bottom  .media_report_name{
 	width: 280px;
@@ -247,16 +247,16 @@
 	text-indent: 1em;
 	font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-ms-input-placeholder {
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title::-webkit-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title:-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title::-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title:-ms-input-placeholder {
 	font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian{
+.contentWrap #zhuanlan .zhuanlan_bottom .fengmian{
   	
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian_pic,
+.contentWrap #zhuanlan .zhuanlan_bottom .fengmian_pic,
 .contentWrap #zhuzuo .zhuzuo_bottom  .fengmian_pic,
 .contentWrap #media_report .media_report_bottom  .fengmian_pic{
 	display: inline-block;
@@ -265,8 +265,25 @@
     border: 1px solid #f0f0f0;
     vertical-align: middle;
     margin-right: 30px;
+    position: relative;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian_tip,
+.contentWrap #zhuanlan .zhuanlan_bottom .fengmian_pic img,
+.contentWrap #zhuzuo .zhuzuo_bottom  .fengmian_pic img,
+.contentWrap #media_report .media_report_bottom  .fengmian_pic img{
+	/*position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;*/
+   width: 100%;
+   height: 100%;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom .fengmian_tip,
 .contentWrap #zhuzuo .zhuzuo_bottom .fengmian_tip,
 .contentWrap #media_report .media_report_bottom .fengmian_tip{
 	display: inline-block;
@@ -274,7 +291,7 @@
 	height: 48px;
 	color: #999;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea,
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea,
 .contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea,
 .contentWrap #media_report .media_report_bottom .neirong textarea{
 	vertical-align: text-top;
@@ -286,10 +303,10 @@
 	text-indent: 1em;
 	font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-webkit-input-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-moz-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-moz-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-ms-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea::-webkit-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea:-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea::-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea:-ms-input-placeholder,
 .contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea::-webkit-input-placeholder,
 .contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea:-moz-placeholder,
 .contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea::-moz-placeholder,
@@ -300,7 +317,7 @@
 .contentWrap #media_report .media_report_bottom .neirong textarea:-ms-input-placeholder{
 	font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .baocun #submit,
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun #submit,
 .contentWrap #zhuzuo .zhuzuo_bottom .baocun #submit,
 .contentWrap #media_report .media_report_bottom .baocun #submit{
 	display: inline-block;
@@ -314,7 +331,21 @@
     font-size: 14px;
     margin-right: 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .baocun #save,
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun .save-publish,
+.contentWrap #zhuzuo .zhuzuo_bottom .baocun .save-publish,
+.contentWrap #media_report .media_report_bottom .baocun .save-publish{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun #save,
 .contentWrap #zhuzuo .zhuzuo_bottom .baocun #save,
 .contentWrap #media_report .media_report_bottom .baocun #save{
 	display: inline-block;
@@ -327,7 +358,20 @@
 	color: #00BC12;
     font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .baocun,
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun .only-save,
+.contentWrap #zhuzuo .zhuzuo_bottom .baocun .only-save,
+.contentWrap #media_report .media_report_bottom .baocun .only-save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun,
 .contentWrap #zhuzuo .zhuzuo_bottom .baocun,
 .contentWrap #media_report .media_report_bottom .baocun{
 	padding-left:120px ;
