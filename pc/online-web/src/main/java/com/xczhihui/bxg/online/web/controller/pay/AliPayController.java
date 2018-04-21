@@ -1,14 +1,9 @@
 package com.xczhihui.bxg.online.web.controller.pay;
 
-import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.xczhihui.pay.alipay.AliPayApi;
-import com.xczhihui.pay.alipay.AliPayApiConfig;
-import com.xczhihui.pay.alipay.AliPayBean;
-import com.xczhihui.pay.alipay.controller.AliPayApiController;
 import com.xczhihui.bxg.common.util.OrderNoUtil;
 import com.xczhihui.bxg.common.util.enums.PayOrderType;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
@@ -17,9 +12,13 @@ import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.exception.XcApiException;
 import com.xczhihui.bxg.online.web.service.PayService;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
+import com.xczhihui.pay.alipay.AliPayApi;
+import com.xczhihui.pay.alipay.AliPayApiConfig;
+import com.xczhihui.pay.alipay.AliPayBean;
+import com.xczhihui.pay.alipay.controller.AliPayApiController;
 import com.xczhihui.wechat.course.model.Order;
 import com.xczhihui.wechat.course.service.IOrderService;
-import com.xczhihui.wechat.course.vo.PayMessageVo;
+import com.xczhihui.wechat.course.vo.PayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +77,6 @@ public class AliPayController extends AliPayApiController {
     /**
      * pc统一下单
      *
-     * @param request
      * @param response
      * @param orderNo
      * @throws IOException
@@ -98,11 +96,11 @@ public class AliPayController extends AliPayApiController {
         model.setBody(MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()));
         model.setTimeoutExpress(TIMEOUT_EXPRESS);
 
-        PayMessageVo payMessageVo = new PayMessageVo();
-        payMessageVo.setType(PayOrderType.COURSE_ORDER.getCode());
-        payMessageVo.setUserId(order.getUserId());
+        PayMessage payMessage = new PayMessage();
+        payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
+        payMessage.setUserId(order.getUserId());
 
-        String passbackParams = JSONObject.toJSON(payMessageVo).toString().replaceAll("\"", "|");
+        String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
 
         AliPayApi.tradePage(response,model , weburl+AlipayConfig.notify_url, weburl+AlipayConfig.return_url);
@@ -129,12 +127,12 @@ public class AliPayController extends AliPayApiController {
         model.setBody(MessageFormat.format(BUY_COIN_TEXT,count));
         model.setTimeoutExpress(TIMEOUT_EXPRESS);
 
-        PayMessageVo payMessageVo = new PayMessageVo();
-        payMessageVo.setType(PayOrderType.COIN_ORDER.getCode());
-        payMessageVo.setValue(new BigDecimal(count));
-        payMessageVo.setUserId(loginUser.getId());
+        PayMessage payMessage = new PayMessage();
+        payMessage.setType(PayOrderType.COIN_ORDER.getCode());
+        payMessage.setValue(new BigDecimal(count));
+        payMessage.setUserId(loginUser.getId());
 
-        String passbackParams = JSONObject.toJSON(payMessageVo).toString().replaceAll("\"", "|");
+        String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
 
         AliPayApi.tradePage(response,model , weburl+AlipayConfig.notify_url, weburl+AlipayConfig.recharge_jump_url);

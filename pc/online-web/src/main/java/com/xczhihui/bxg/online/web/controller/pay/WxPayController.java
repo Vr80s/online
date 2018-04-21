@@ -22,7 +22,7 @@ import com.xczhihui.pay.weixin.api.WxPayApi.TradeType;
 import com.xczhihui.pay.weixin.api.WxPayApiConfig.PayModel;
 import com.xczhihui.wechat.course.model.Order;
 import com.xczhihui.wechat.course.service.IOrderService;
-import com.xczhihui.wechat.course.vo.PayMessageVo;
+import com.xczhihui.wechat.course.vo.PayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,11 +96,11 @@ public class WxPayController extends WxPayApiController {
 
 		String totalAmount = order.getActualPay().toString();
 
-		PayMessageVo payMessageVo = new PayMessageVo();
-		payMessageVo.setType(PayOrderType.COURSE_ORDER.getCode());
-		payMessageVo.setUserId(order.getUserId());
+		PayMessage payMessage = new PayMessage();
+		payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
+		payMessage.setUserId(order.getUserId());
 
-		String attach = PayMessageVo.getPayMessage(payMessageVo);
+		String attach = PayMessage.getPayMessage(payMessage);
 		Map<String, String> params = WxPayApiConfigKit.getWxPayApiConfig()
 				.setAttach(attach)
 				.setBody(MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()))
@@ -167,13 +167,13 @@ public class WxPayController extends WxPayApiController {
 			ip = "127.0.0.1";
 		}
 
-		PayMessageVo payMessageVo = new PayMessageVo();
-		payMessageVo.setType(PayOrderType.COIN_ORDER.getCode());
-		payMessageVo.setUserId(loginUser.getId());
-		payMessageVo.setValue(new BigDecimal(count));
+		PayMessage payMessage = new PayMessage();
+		payMessage.setType(PayOrderType.COIN_ORDER.getCode());
+		payMessage.setUserId(loginUser.getId());
+		payMessage.setValue(new BigDecimal(count));
 
 		String orderNo = OrderNoUtil.getCoinOrderNo();
-		String attach = PayMessageVo.getPayMessage(payMessageVo);
+		String attach = PayMessage.getPayMessage(payMessage);
 		Map<String, String> params = WxPayApiConfigKit.getWxPayApiConfig()
 				.setAttach(attach)
 				.setBody(MessageFormat.format(BUY_COIN_TEXT,count))

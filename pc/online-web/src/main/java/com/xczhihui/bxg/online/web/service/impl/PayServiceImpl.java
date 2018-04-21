@@ -1,18 +1,16 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import com.xczhihui.bxg.common.util.enums.PayOrderType;
 import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.service.PayService;
 import com.xczhihui.wechat.course.model.AlipayPaymentRecord;
 import com.xczhihui.wechat.course.model.WxcpPayFlow;
 import com.xczhihui.wechat.course.service.IPaymentRecordService;
-import com.xczhihui.wechat.course.vo.PayMessageVo;
+import com.xczhihui.wechat.course.vo.PayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +42,11 @@ public class PayServiceImpl implements PayService {
     @Override
     public void aliPayBusiness(Map<String, String> params) throws Exception {
         AlipayPaymentRecord apr = paymentRecordService.saveAlipayPaymentRecord(params);
-        PayMessageVo payMessageVo = PayMessageVo.getPayMessageVo(params.get("passback_params"));
+        PayMessage payMessage = PayMessage.getPayMessage(params.get("passback_params"));
         if(apr!=null){
             if (SUCCESS.equals(apr.getTradeStatus())) {
-                String type = payMessageVo.getType();
-                this.business(type,apr.getOutTradeNo(),apr.getTradeNo(),payMessageVo);
+                String type = payMessage.getType();
+                this.business(type,apr.getOutTradeNo(),apr.getTradeNo(),payMessage);
             }else {
                 logger.info("===支付失败===");
                 for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -65,13 +63,12 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public void wxPayBusiness(Map<String, String> params) throws Exception {
-        String payMessage = String.valueOf(params.get("attach"));
-        PayMessageVo payMessageVo = PayMessageVo.getPayMessageVo(payMessage);
+        PayMessage payMessage = PayMessage.getPayMessage(String.valueOf(params.get("attach")));
 
         WxcpPayFlow wxcpPayFlow = paymentRecordService.saveWxPayPaymentRecord(params);
         if(wxcpPayFlow!=null){
-            String type = payMessageVo.getType();
-            this.business(type,wxcpPayFlow.getOutTradeNo().substring(0,20),wxcpPayFlow.getTransactionId(),payMessageVo);
+            String type = payMessage.getType();
+            this.business(type,wxcpPayFlow.getOutTradeNo().substring(0,20),wxcpPayFlow.getTransactionId(),payMessage);
         }else{
             logger.info("===该支付记录已存在===");
             for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -81,7 +78,7 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override
-    public void business(String type, String outTradeNo, String tradeNo, PayMessageVo payMessageVo) throws Exception {
+    public void business(String type, String outTradeNo, String tradeNo, PayMessage payMessage) throws Exception {
         if(PayOrderType.COURSE_ORDER.getCode().equals(type)){
             Integer orderStatus = orderService.getOrderStatus(outTradeNo);
             //付款成功，如果order未完成
@@ -98,7 +95,7 @@ public class PayServiceImpl implements PayService {
                 }
             }
         }else if(PayOrderType.COIN_ORDER.getCode().equals(type)){
-            userCoinService.updateBalanceForRecharge(payMessageVo.getUserId(),Payment.ALIPAY,payMessageVo.getValue(), OrderFrom.PC,outTradeNo);
+            userCoinService.updateBalanceForRecharge(payMessage.getUserId(),Payment.ALIPAY,payMessage.getValue(), OrderFrom.PC,outTradeNo);
         }
     }
 

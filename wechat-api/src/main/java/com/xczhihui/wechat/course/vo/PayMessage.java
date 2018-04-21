@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author yuxin
  * @since 2018-04-13
  */
-public class PayMessageVo {
+public class PayMessage {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,12 +46,12 @@ public class PayMessageVo {
 		this.value = value;
 	}
 
-	public static PayMessageVo getPayMessageVo(String payMessage){
-		return JSONObject.parseObject(payMessage.replace("|", "\""),PayMessageVo.class);
+	public static PayMessage getPayMessage(String payMessage){
+		return JSONObject.parseObject(payMessage.replace("|", "\""),PayMessage.class);
 	}
 
-	public static String getPayMessage(PayMessageVo payMessageVo){
-		return JSONObject.toJSON(payMessageVo).toString().replaceAll("\"", "|");
+	public static String getPayMessage(PayMessage payMessage){
+		return JSONObject.toJSON(payMessage).toString().replaceAll("\"", "|");
 	}
 
 

@@ -8,7 +8,7 @@ import com.xczhihui.wechat.course.model.Order;
 import com.xczhihui.wechat.course.model.WxcpPayFlow;
 import com.xczhihui.wechat.course.service.IOrderService;
 import com.xczhihui.wechat.course.service.IPaymentRecordService;
-import com.xczhihui.wechat.course.vo.PayMessageVo;
+import com.xczhihui.wechat.course.vo.PayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,15 +63,15 @@ public class PaymentRecordServiceImpl implements IPaymentRecordService{
 
         AlipayPaymentRecord alipayPaymentRecord = new AlipayPaymentRecord();
         String userId = null;
-        PayMessageVo payMessageVo = PayMessageVo.getPayMessageVo(params.get("passback_params"));
+        PayMessage payMessage = PayMessage.getPayMessage(params.get("passback_params"));
 
-        if(PayOrderType.COURSE_ORDER.getCode().equals(payMessageVo.getType())){
-            userId = payMessageVo.getUserId();
+        if(PayOrderType.COURSE_ORDER.getCode().equals(payMessage.getType())){
+            userId = payMessage.getUserId();
             Order order = orderService.getOrderNo4PayByOrderNo(params.get("out_trade_no"));
             alipayPaymentRecord.setSubject(MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()));
-        }else if(PayOrderType.COIN_ORDER.getCode().equals(payMessageVo.getType())){
+        }else if(PayOrderType.COIN_ORDER.getCode().equals(payMessage.getType())){
             BigDecimal count = new BigDecimal(params.get("total_amount")).multiply(new BigDecimal(rate));
-            userId = payMessageVo.getUserId();
+            userId = payMessage.getUserId();
             alipayPaymentRecord.setSubject((MessageFormat.format(BUY_COIN_TEXT,count)));
         }
 
@@ -132,16 +132,16 @@ public class PaymentRecordServiceImpl implements IPaymentRecordService{
         WxcpPayFlow wxcpPayFlow = new WxcpPayFlow();
 
         String userId = null;
-        PayMessageVo payMessageVo = PayMessageVo.getPayMessageVo(attach);
+        PayMessage payMessage = PayMessage.getPayMessage(attach);
 
-        if(PayOrderType.COURSE_ORDER.getCode().equals(payMessageVo.getType())){
-            userId = payMessageVo.getUserId();
+        if(PayOrderType.COURSE_ORDER.getCode().equals(payMessage.getType())){
+            userId = payMessage.getUserId();
             Order order = orderService.getOrderNo4PayByOrderNo(out_trade_no.substring(0,20));
             wxcpPayFlow.setSubject(MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()));
-        }else if(PayOrderType.COIN_ORDER.getCode().equals(payMessageVo.getType())){
+        }else if(PayOrderType.COIN_ORDER.getCode().equals(payMessage.getType())){
             //微信金额单位为分
             BigDecimal count = new BigDecimal(total_fee).divide(new BigDecimal(100)).multiply(new BigDecimal(rate));
-            userId = payMessageVo.getUserId();
+            userId = payMessage.getUserId();
             wxcpPayFlow.setSubject((MessageFormat.format(BUY_COIN_TEXT,count)));
         }
 

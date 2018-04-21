@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.service;
 
-import com.xczhihui.wechat.course.vo.PayMessageVo;
+
+import com.xczhihui.wechat.course.vo.PayMessage;
 
 import java.util.Map;
 
@@ -16,5 +17,5 @@ public interface PayService {
 
     void wxPayBusiness(Map<String, String> params) throws Exception;
 
-    void business(String type, String outTradeNo, String tradeNo, PayMessageVo payMessageVo) throws Exception;
+    void business(String type, String outTradeNo, String tradeNo, PayMessage payMessage) throws Exception;
 }
