@@ -12,16 +12,24 @@
   var ROOM_JID='<%=request.getAttribute("roomJId")%>';
   var BOSH_SERVICE='<%=request.getAttribute("boshService")%>';
   var sendTime='<%=request.getAttribute("now")%>';
-</script>
-<%@include file="../../web/html/liveVideo.html" %>
-<script>
+  
   var room_id='<%=request.getAttribute("roomId")%>';
   var plan_id='<%=request.getAttribute("planId")%>';
 
   var email = '<%=request.getAttribute("email")%>';
   var name = '<%=request.getAttribute("name")%>';
   var k = '<%=request.getAttribute("k")%>';
+</script>
+<%@include file="../../web/html/liveVideo.html" %>
+<script>
+<%--   var room_id='<%=request.getAttribute("roomId")%>';
+  var plan_id='<%=request.getAttribute("planId")%>';
 
+  var email = '<%=request.getAttribute("email")%>';
+  var name = '<%=request.getAttribute("name")%>';
+  var k = '<%=request.getAttribute("k")%>'; --%>
+
+  
 /* 
   
   var vvurl = "http://e.vhall.com/webinar/inituser/"+room_id+"?email="+email+"&name="+name+"&k="+k;

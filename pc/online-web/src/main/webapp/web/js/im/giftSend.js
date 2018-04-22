@@ -320,7 +320,7 @@ function createGiftList(data){
 				"</div>" +
 		"</li>")
 		$('#chat-list').append(li);
-		$(".liwu").html(data.giftCount);
+		//$(".liwu").html(data.giftCount);
 		var a = $('#chat-list');
 		a.scrollTop(a[0].scrollHeight);
 		
@@ -455,7 +455,7 @@ function giftShow(gift,f,continuous){
    
     if(gift.messageType==1){
 	    var top=countChange()
-    	gif[f] = $( "<div class='big' id='gift"+f+"' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
+    	gif[f] = $( "<div class='big' id='gift"+f+"' style='width: 500px;height: 46px;line-height: 46px;background: url(/web/images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
     			"<div class='left' style='height: 100%;display: inline-block;vertical-align: top;'>" +
     			"<span>"+gift.senderInfo.userName+"</span>&nbsp;" +
     			"<span>送&nbsp;"+gift.giftInfo.name+"</span>" +
@@ -464,19 +464,17 @@ function giftShow(gift,f,continuous){
     	"</div>")	
     }else if(gift.messageType==0){
     	var top=countChange()
-    	gif[f] = $( "<div class='big' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
+    	gif[f] = $( "<div class='big' style='width: 500px;height: 46px;line-height: 46px;background: url(web/images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
     			"<div class='left' style='height: 100%;display: inline-block;vertical-align: top;'>" +
     			"<span>"+gift.senderInfo.userName+"</span>&nbsp;" +
     			"<span>打赏给主播一个红包</span>" +
-    			"</div><img src='../../../images/hongbao.png' style='width: 54px;height: 54px;margin-left: 10px;'>" +
+    			"</div><img src='web/images/hongbao.png' style='width: 54px;height: 54px;margin-left: 10px;'>" +
     	"</div>")	
     	
     }
 
     //礼物弹幕生成效果
-    	 gif[f].appendTo($("#boxDom"))
-    	   .css("color", colors[Math.floor(Math.random() * 8)])
-    	   .css("left", "-500px")//初始未知
+    	 gif[f].appendTo($("#boxDom")).css("color", colors[Math.floor(Math.random() * 8)]).css("left", "-500px")//初始未知
     	   .animate({// 设置运动
     	       "left": "50px"
     	     }, 500, "linear", function () {
