@@ -564,7 +564,7 @@ function common_share_backs(){
 	}*/
     var back = document.referrer;
     if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
-		window.history.back();
+		window.location.href = back;
 	}else{
 		window.location.href = "home_page.html";
 	}
