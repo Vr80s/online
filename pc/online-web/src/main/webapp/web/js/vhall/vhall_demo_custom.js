@@ -106,7 +106,7 @@ $(document).ready(function() {
 	});
 	
 	VHALL_SDK.on("customEvent", function(t) {
-		alert(JSON.stringify(t))
+		//alert(JSON.stringify(t))
 	}), VHALL_SDK.on("chatMsg", function(t) {
 	
 		$("#chatmsg").append(liaotian(t)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999")

@@ -1,14 +1,11 @@
 
 
 
-alert(liveStatus);
 if(liveStatus!=1){ //
 	//$('#button').attr('disabled',"true");
 	$("#mywords").attr('disabled',"disabled");
 	$("#mywords").attr('readonly',"readonly");
 }
-
-
 
 /**
 * 礼物排行榜
