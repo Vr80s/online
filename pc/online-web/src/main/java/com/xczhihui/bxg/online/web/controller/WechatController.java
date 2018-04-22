@@ -46,7 +46,7 @@ import java.util.*;
  * @Date 2016/11/8 20:03
  */
 @RestController
-@RequestMapping(value = "/web")
+@RequestMapping(value = "/web1")
 public class WechatController {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 

@@ -134,8 +134,27 @@
 
     <!-- aop分布式锁 -->
     <bean id="lockService" class="com.xczhihui.bxg.common.support.lock.LockService"></bean>
+
+    <bean id="aliPayBean" class="com.xczhihui.pay.alipay.AliPayBean">
+        <property name="appId" value="${alipay.app_id}"></property>
+        <property name="privateKey" value="${alipay.merchant_private_key}"></property>
+        <property name="publicKey" value="${alipay.alipay_public_key}"></property>
+        <property name="serverUrl" value="${alipay.url}"></property>
+        <property name="domain" value="${online.web.url}"></property>
+    </bean>
+
+    <bean id="WxPayBean" class="com.xczhihui.pay.weixin.api.WxPayBean">
+        <property name="appId" value="${wechat.app.id}"></property>
+        <property name="appSecret" value="${wechat.api.secret}"></property>
+        <property name="mchId" value="${wechat.mch.id}"></property>
+        <property name="partnerKey" value="${wechat.api.key}"></property>
+        <property name="certPath" value="${wechat.cert.path}"></property>
+        <property name="domain" value="${online.web.url}"></property>
+    </bean>
+
     <!-- 启动对@AspectJ注解的支持  -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
+
 
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
@@ -191,6 +210,30 @@
     <dubbo:reference interface="com.xczhihui.medical.bbs.service.IPostService" id="postServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
 
+    <!--医馆认证信息-->
+    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService"
+                     id="medicalHospitalAuthenticationService" timeout="${dubbo.consumer.timeout}"/>
+    <!--医师认证信息-->
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService"
+                     id="medicalDoctorAuthenticationInformationService" timeout="${dubbo.consumer.timeout}"/>
+    <!--主播-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!--主播控制台：订单-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IGiftOrderService" id="giftOrderService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseOrderService" id="CourseOrderService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!--头条相关-->
+    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsArticleService" id="oeBxsArticleServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!--订单服务-->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IOrderService" id="orderService" timeout="${dubbo.consumer.timeout}"/>
+    <!--支付记录服务-->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IPaymentRecordService" id="paymentRecordServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+
+
+
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl"
                    timeout="${dubbo.consumer.timeout}"/>
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.GiftService" ref="giftServiceImpl"
@@ -209,27 +252,6 @@
                    timeout="${dubbo.consumer.timeout}"/>
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.OrderPayService" ref="orderPayServiceImpl"
                    timeout="${dubbo.consumer.timeout}"/>
-
-    <!--医馆认证信息-->
-    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService"
-                     id="medicalHospitalAuthenticationService" timeout="${dubbo.consumer.timeout}"/>
-    <!--医师认证信息-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService"
-                     id="medicalDoctorAuthenticationInformationService" timeout="${dubbo.consumer.timeout}"/>
-
-    <!--主播-->
-    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoService"
-                     timeout="${dubbo.consumer.timeout}"/>
-
-    <!--主播控制台：订单-->
-    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IGiftOrderService" id="giftOrderService"
-                     timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseOrderService" id="CourseOrderService"
-                     timeout="${dubbo.consumer.timeout}"/>
-
-    <!--头条相关-->
-    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsArticleService" id="oeBxsArticleServiceImpl"
-                     timeout="${dubbo.consumer.timeout}"/>
 
     <!-- 熊猫币购买服务 -->
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"

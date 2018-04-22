@@ -27,4 +27,14 @@ public class OrderNoUtil {
     public static String getCourseOrderNo(){
         return TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
     }
+
+    /**
+     * Description：获取课程购买单号
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/4/15 0015 下午 5:05
+     **/
+    public static String getCoinOrderNo(){
+        return TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
+    }
 }

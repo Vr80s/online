@@ -43,11 +43,16 @@
             <artifactId>user-center-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>wechat-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>common-pay</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>wechat-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -247,9 +252,15 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>alipay</artifactId>
-            <version>12.1</version>
+            <version>12.2</version>
         </dependency>
-
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba</groupId>-->
+            <!--<artifactId>alipay-sdk-java</artifactId>-->
+            <!--<version>alipay-sdk-java20180309170622</version>-->
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${project.basedir}/lib/alipay-sdk-java20180309170622.jar</systemPath>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>

@@ -54,7 +54,7 @@ import com.xczhihui.bxg.online.web.vo.RewardParamVo;
  * @create 2017-08-19 10:33
  **/
 @Controller
-@RequestMapping(value = "/web")
+@RequestMapping(value = "/web1")
 public class AlipayController {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());

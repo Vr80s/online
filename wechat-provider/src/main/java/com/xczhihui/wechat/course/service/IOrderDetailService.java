@@ -3,6 +3,8 @@ package com.xczhihui.wechat.course.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.xczhihui.wechat.course.model.OrderDetail;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -14,4 +16,6 @@ import com.xczhihui.wechat.course.model.OrderDetail;
 public interface IOrderDetailService extends IService<OrderDetail> {
 
     void saveOrderDetail(OrderDetail orderDetail);
+
+    List<OrderDetail> selectOrderDetailsByOrderId(String id);
 }

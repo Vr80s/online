@@ -91,6 +91,10 @@ public class Order extends Model<Order> {
 	@TableField(exist = false)
 	private Double price;
 
+	@TableField(exist = false)
+	private String courseNames;
+
+
 	public Boolean getDelete() {
 		return isDelete;
 	}

@@ -1,5 +1,6 @@
 package com.xczhihui.wechat.course.service.impl;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.common.util.IStringUtil;
 import com.xczhihui.bxg.common.util.OrderNoUtil;
@@ -13,6 +14,8 @@ import com.xczhihui.wechat.course.service.IOrderDetailService;
 import com.xczhihui.wechat.course.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -39,12 +42,54 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if(order!=null && course.getCurrentPrice().compareTo(order.getPrice())!=0){
             order.setOrderStatus(OrderStatus.CLOSED.getCode());
             this.baseMapper.updateById(order);
-            return saveOrder(userId,course,orderFrom);
+            order = saveOrder(userId,course,orderFrom);
         }else if(order==null){
-            return saveOrder(userId,course,orderFrom);
-        }else{
-            return order;
+            order = saveOrder(userId,course,orderFrom);
         }
+        String courseNames = getCourseNames(order);
+        order.setCourseNames(courseNames);
+        return order;
+    }
+
+    @Override
+    public Order getOrderByOrderId(String orderId){
+        Order o = new Order();
+        o.setDelete(false);
+        o.setId(orderId);
+        o.setOrderStatus(0);
+        return this.baseMapper.selectOne(o);
+    }
+
+    @Override
+    public Order getOrderNo4PayByOrderNo(String orderNo){
+        Order order = new Order();
+        order.setDelete(false);
+        order.setOrderNo(orderNo);
+        order.setOrderStatus(0);
+        order = this.baseMapper.selectOne(order);
+        if(order==null){
+            throw new RuntimeException(orderNo+"该单号下不存在订单信息，下单失败");
+        }
+        String courseNames = getCourseNames(order);
+        order.setCourseNames(courseNames);
+        return order;
+    }
+
+    private String getCourseNames(Order order){
+        List<OrderDetail> orderDetailList = this.orderDetailService.selectOrderDetailsByOrderId(order.getId());
+        StringBuilder courseNames = new StringBuilder();
+        orderDetailList.forEach(orderDetail -> {
+            Integer count = this.baseMapper.selectCountByUserIdAndCourseId(order.getUserId(),orderDetail.getCourseId());
+            if(count!=null && count >0){
+                throw new RuntimeException("订单中含有已购课程");
+            }
+            Course course = courseMapper.selectById(orderDetail.getCourseId());
+            if(course.getDelete() || "0".equals(course.getStatus())){
+                throw new RuntimeException("《"+course.getGradeName()+"》已下架");
+            }
+            courseNames.append("《"+course.getGradeName()+"》");
+        });
+        return courseNames.toString();
     }
 
     private Order saveOrder(String userId, Course course, Integer orderFrom) {

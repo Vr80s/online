@@ -30,6 +30,7 @@
         <module>../user-center-api</module>
         <module>../common-util</module>
         <module>../common-support</module>
+        <module>../common-pay</module>
         <module>../common-web</module>
         <module>../online-api</module>
         <module>../online-common</module>

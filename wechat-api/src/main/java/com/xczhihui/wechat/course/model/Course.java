@@ -297,13 +297,22 @@ public class Course extends Model<Course> {
 	
 	@TableField("live_source_type")
 	private  boolean liveSourceType;
-	
+
+	@TableField("is_delete")
+	private Boolean isDelete;
     
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
 	}
 
+	public Boolean getDelete() {
+		return isDelete;
+	}
+
+	public void setDelete(Boolean delete) {
+		isDelete = delete;
+	}
 
 	public Integer getId() {
 		return id;
