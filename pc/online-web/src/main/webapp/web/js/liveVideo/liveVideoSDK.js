@@ -1,14 +1,10 @@
 
 
-
-alert(liveStatus);
 if(liveStatus!=1){ //
 	//$('#button').attr('disabled',"true");
 	$("#mywords").attr('disabled',"disabled");
 	$("#mywords").attr('readonly',"readonly");
 }
-
-
 
 /**
 * 礼物排行榜
@@ -91,9 +87,11 @@ function getHostInfo(){
 		$(".concern-number").find("span").eq(0).html("关注&nbsp;"+obj.focusCount+"");
 		$(".concern-number").find("span").eq(1).html("粉丝&nbsp;"+obj.fansCount+"");
 		if(obj.isFours==1){//已关注
-			$(".concern-click").text("已关注");
+			$(".concern-right").css("background","#bbb");
+			$(".concern-right").html("已关注");
 		}else if(obj.isFours==0){//未关注
-			$(".concern-click").text("未关注");
+			$(".concern-right").css("background","#00BC12");
+			$(".concern-right").html("加关注");
 		}
 	});
 }

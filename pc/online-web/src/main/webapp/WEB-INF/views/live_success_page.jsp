@@ -13,6 +13,7 @@
   var BOSH_SERVICE='<%=request.getAttribute("boshService")%>';
   var sendTime='<%=request.getAttribute("now")%>';
   
+  var liveStatus='<%=request.getAttribute("liveStatus")%>';
   var room_id='<%=request.getAttribute("roomId")%>';
   var plan_id='<%=request.getAttribute("planId")%>';
 
@@ -22,19 +23,19 @@
 </script>
 <%@include file="../../web/html/liveVideo.html" %>
 <script>
-<%--   var room_id='<%=request.getAttribute("roomId")%>';
+   var room_id='<%=request.getAttribute("roomId")%>';
   var plan_id='<%=request.getAttribute("planId")%>';
 
   var email = '<%=request.getAttribute("email")%>';
   var name = '<%=request.getAttribute("name")%>';
-  var k = '<%=request.getAttribute("k")%>'; --%>
+  var k = '<%=request.getAttribute("k")%>'; 
 
   
-/* 
+ 
   
   var vvurl = "http://e.vhall.com/webinar/inituser/"+room_id+"?email="+email+"&name="+name+"&k="+k;
   if(name == "" || name == null ||name == "null"){
 	  vvurl += "&embed=video";
   }
-  $("#vhall-video").attr("src",vvurl); */
+  $("#vhall-video").attr("src",vvurl); 
 </script>
