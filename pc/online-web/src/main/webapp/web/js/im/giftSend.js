@@ -62,7 +62,7 @@ function onMessage(msg) {
 	        var text = Strophe.getText(body);
 	        text = text.replaceAll("&quot;","\"");
         	data = JSON.parse(text);
-        	debugger;
+        	
         	createGiftList(data);
     	}catch(err){
 //        	console.info(err);
@@ -271,6 +271,12 @@ $(document).ready(function() {
 			RequestService("/gift/sendGift", "POST", msgJson, function(data) {
 				if(data.success==true){
         			sendMsg(data.resultObject);
+        			VHALL_SDK.sendChat({
+        				text: data.resultObject.senderInfo.userName+"赠送给主播一个"+data.resultObject.giftInfo.name
+        			})
+        			var json = {user_name:data.resultObject.senderInfo.userName,
+        				content:"赠送给主播一个"+data.resultObject.giftInfo.name};
+        			$("#chatmsg").append(liveGiftList(json)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
         			refreshBalance();
 				}else{
 					// if("余额不足"==data.errorMessage){
@@ -296,14 +302,6 @@ $(document).ready(function() {
 
 function createGiftList(data){
 	if(data.messageType==1){
-
-		debugger;
-		
-/*		<div class="headImg" style="float: left;">
-			<img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2017/09/23/14/0b77783055f44003bb32228eb3549887.png">
-		</div>*/
-		
-		
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +
