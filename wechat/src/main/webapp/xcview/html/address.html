@@ -44,6 +44,16 @@
 		}
 	}(window));
 </script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 <!--弹框引入-->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <!--这段meta代码需要加上，移动端自适应缩放用-->

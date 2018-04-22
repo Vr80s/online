@@ -11,19 +11,6 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!-- 暂时隐藏 -->
-<!-- <meta name="apple-mobile-web-app-capable" content="yes" /> 是否启用 WebApp 全屏模式
-uc强制竖屏
-    <meta name="screen-orientation" content="portrait">
-    QQ强制竖屏
-    <meta name="x5-orientation" content="portrait">
-    UC强制全屏
-    <meta name="full-screen" content="yes">
-    QQ强制全屏
-    <meta name="x5-fullscreen" content="true">
-    UC应用模式
-    <meta name="browsermode" content="application">
-    QQ应用模式
-    <meta name="x5-page-mode" content="app"> -->
 
 <!--手机嵌入模板-->
 <!--<script type="text/javascript" src="/xcview/js/template/layout.js"></script>-->
@@ -43,13 +30,24 @@ uc强制竖屏
 	if(kk>750){
 		kk=750
 	}
-	document.documentElement.style.fontSize=kk/7.5+"px"		
+	document.documentElement.style.fontSize=kk/7.5+"px"	
 </script>
 <!-- <script type="text/javascript" src="/xcview/js/template/layout.js"></script> -->
 
 <link rel="stylesheet" href="/xcview/css/home_pages/home_pages.css">  <!--这是替换css-->
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
+
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
 <body style="background: #F8F8F8;display: none;">
 	<!--头部搜索开始-->

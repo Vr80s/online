@@ -28,7 +28,16 @@
 <link rel="stylesheet" href="/xcview/css/tailor.css">
 <link rel="stylesheet" href="/xcview/css/personCommon.css">
 
-
+<script>
+  // 判断横屏展示时的状态
+  window.onorientationchange=function(){
+      if(window.orientation==90||window.orientation==-90){
+          window.location.reload();  /*横屏状态刷新*/
+      }else{
+          window.location.reload();  /*竖屏状态刷新*/
+      }
+  } 
+</script>
 <style type="text/css">
 .pet_name_right1{
    color: #00bc12;
