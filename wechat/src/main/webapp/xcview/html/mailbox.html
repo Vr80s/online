@@ -18,7 +18,16 @@
 </script>
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
-
+<script>
+  // 判断横屏展示时的状态
+  window.onorientationchange=function(){
+      if(window.orientation==90||window.orientation==-90){
+          window.location.reload();  /*横屏状态刷新*/
+      }else{
+          window.location.reload();  /*竖屏状态刷新*/
+      }
+  } 
+</script>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
