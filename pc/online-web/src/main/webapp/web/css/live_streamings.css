@@ -87,6 +87,10 @@
 	left: 12px;
 	top: 20px;
 }
+.send-box .face:hover{
+	background: url(../images/img-face1.png) no-repeat;
+	background-size: 100% 100%;
+}
 .facebox-pc{
 	top: -247px;
 }
@@ -120,7 +124,12 @@
 	height: 20px;
 	background: red;
 	float: left;
-	/*background: url(../../../images/chat/icon.png?v=fO82YEiGkixPBzaYndDn2Q%3D%3D) no-repeat 0 -48px;*/
+	background: url(../images/icon.png) no-repeat 0 -48px;
+	opacity: 0.6;
+	cursor: pointer;
+}
+.animation-cut:hover{
+	opacity: 1;
 }
 .animation-shrink{
 	width: 20px;
