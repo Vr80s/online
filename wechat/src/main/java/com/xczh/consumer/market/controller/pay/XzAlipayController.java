@@ -13,6 +13,7 @@ import com.xczhihui.bxg.common.util.enums.PayOrderType;
 import com.xczhihui.bxg.online.api.service.PayService;
 import com.xczhihui.pay.alipay.AliPayApi;
 import com.xczhihui.pay.alipay.AliPayApiConfig;
+import com.xczhihui.pay.alipay.AliPayApiConfigKit;
 import com.xczhihui.pay.alipay.AliPayBean;
 import com.xczhihui.pay.alipay.controller.AliPayApiController;
 import com.xczhihui.wechat.course.model.Order;
@@ -92,6 +93,8 @@ public class XzAlipayController extends AliPayApiController {
 	public void pay(HttpServletResponse response,@RequestParam("orderId")String orderId,
 							   @RequestParam(required=false)String formIsWechat) throws Exception {
 
+		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
+
 		Order order = orderService.getOrderNo4PayByOrderId(orderId);
 
 		String returnUrl;
@@ -134,6 +137,8 @@ public class XzAlipayController extends AliPayApiController {
 	@ResponseBody
 	public void rechargePay(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("actualPay")String actualPay) throws Exception {
+
+		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
 
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (null == user) {
@@ -182,6 +187,7 @@ public class XzAlipayController extends AliPayApiController {
 	public ResponseObject getOrderStr(@RequestParam("orderId")String orderId) throws SQLException,
             UnsupportedEncodingException, AlipayApiException {
 
+		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
         Order order = orderService.getOrderNo4PayByOrderId(orderId);
 
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
@@ -212,6 +218,8 @@ public class XzAlipayController extends AliPayApiController {
 	@ResponseBody
 	public ResponseObject rechargeAppPay(HttpServletRequest request,
 			@RequestParam("actualPay")String actualPay) throws SQLException, AlipayApiException {
+
+		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
 
         OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if (null == user) {
@@ -256,6 +264,7 @@ public class XzAlipayController extends AliPayApiController {
 	@Transactional
 	public String alipayNotify(HttpServletRequest request) throws Exception {
             try {
+				AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
                 // 获取支付宝POST过来反馈信息
                 Map<String, String> params = AliPayApi.toMap(request);
                 boolean verify_result = AlipaySignature.rsaCheckV1(params, aliPayBean.getPublicKey(), "UTF-8","RSA2");

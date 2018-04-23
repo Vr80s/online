@@ -83,4 +83,19 @@ public class WxPayBean {
 	public void setPartnerKey4App(String partnerKey4App) {
 		this.partnerKey4App = partnerKey4App;
 	}
+
+	@Override
+	public String toString() {
+		return "WxPayBean{" +
+				"appId4H5='" + appId4H5 + '\'' +
+				", mchId4H5='" + mchId4H5 + '\'' +
+				", partnerKey4H5='" + partnerKey4H5 + '\'' +
+				", appSecret='" + appSecret + '\'' +
+				", certPath='" + certPath + '\'' +
+				", domain='" + domain + '\'' +
+				", appId4App='" + appId4App + '\'' +
+				", mchId4App='" + mchId4App + '\'' +
+				", partnerKey4App='" + partnerKey4App + '\'' +
+				'}';
+	}
 }
