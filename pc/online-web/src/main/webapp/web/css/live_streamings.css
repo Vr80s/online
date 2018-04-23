@@ -83,18 +83,37 @@
 	clear: both;
 }
 .send-box .face{
+	width: 20px;
+	height: 20px;
 	margin-top: 0;
 	left: 12px;
 	top: 20px;
+	/*background: url(../images/chat-icon.png) no-repeat;*/
+	background: url(../images/brow.png) no-repeat;
+	background-size: 20px 20px;
+	z-index: 9999999;
 }
 .send-box .face:hover{
+	width: 20px;
+	height: 20px;
 	background: url(../images/img-face1.png) no-repeat;
-	background-size: 100% 100%;
+	background-size: 20px 20px;
 }
 .facebox-pc{
 	top: -247px;
 }
-
+.lecturer{
+	position: absolute;
+    right: 70px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+	margin-top: 0;
+	left: 12px;
+	top: 20px;
+	background: url(../images/img-filter.png) no-repeat;
+	background-size: 20px 20px;
+}
 /*修改之前引入模板样式结束*/
 /*聊天区模板基础上修改开始*/
 .chatmsg li .msg p .tips.host{
