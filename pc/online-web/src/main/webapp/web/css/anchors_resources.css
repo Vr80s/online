@@ -332,7 +332,6 @@
     margin-right: 20px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom .baocun .save-publish,
-.contentWrap #zhuanlan .zhuanlan_bottom .column-edit-button button,
 .contentWrap #zhuzuo .zhuzuo_bottom .baocun .save-publish,
 .contentWrap #media_report .media_report_bottom .baocun .save-publish{
 	display: inline-block;
@@ -360,6 +359,7 @@
     font-size: 14px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom .baocun .only-save,
+.contentWrap #zhuanlan .zhuanlan_bottom .column-edit-button button,
 .contentWrap #zhuzuo .zhuzuo_bottom .baocun .only-save,
 .contentWrap #media_report .media_report_bottom .baocun .only-save{
 	display: inline-block;
@@ -1184,9 +1184,10 @@
 
 /*预览效果部分样式*/
 #preview{
-	position: absolute;
+	position: fixed;
 	left: 50%;
-	transform: translateX(-50% ) translateY(-0%);
+	top: 50%;
+	transform: translate(-50%,-50%);
 	background: #fff;
 	width: 960px;
 	height: 772px;
@@ -1240,4 +1241,61 @@
 }
 #preview .preview_bottom > table  tr > td{
 	padding-top: 20px;
+}
+
+.common-page{
+	width: 960px;
+	height: 772px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	background: white;
+	padding-bottom: 90px;
+	z-index: 999;
+	box-sizing: border-box;
+}
+.common-top{
+	height: 60px;
+	padding: 20px 40px;
+	border-bottom: 1px solid #f0f0f0;
+	margin-bottom: 20px;
+}   
+.common-top span{
+	font-size: 16px;
+    color: #333333;
+}   
+.common-top img{
+    float: right;
+    color: #666;
+    margin-top: 5px;
+}
+.common-top a{
+	float: right;
+}
+.work-preview-table tr td{
+	padding: 20px 0;
+	vertical-align: top;
+}
+.work-preview-table tr td:nth-child(2){
+	vertical-align: top;
+	padding: 20px;
+}
+.work-preview-table tr td:nth-child(1){
+	width: 110px;
+	text-align: right;
+}
+.work-preview-table tr em{
+	color: red;
+	display: inline-block;
+}
+/*没数据时的样式*/
+.comment-nodata{
+	padding: 89px 0;
+	text-align: center;
+}
+.comment-nodata p{
+	    font-size: 16px;
+    color: #999;
+    margin-top: 38px;
 }
