@@ -38,7 +38,7 @@ public class HospitalAnnouncementController extends AbstractController {
         MedicalHospitalAnnouncement medicalHospitalAnnouncement = new MedicalHospitalAnnouncement(hospitalId, content);
         medicalHospitalAnnouncement.setCreatePerson(userId);
         medicalHospitalAnnouncementService.save(medicalHospitalAnnouncement);
-        return newSuccessResponseObject();
+        return newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -57,7 +57,7 @@ public class HospitalAnnouncementController extends AbstractController {
         if (!medicalHospitalAnnouncementService.deleteById(id, hospitalId)) {
             return newErrorResponseObject("删除失败!");
         } else {
-            return newSuccessResponseObject();
+            return newSuccessResponseObject("删除成功");
         }
     }
 }

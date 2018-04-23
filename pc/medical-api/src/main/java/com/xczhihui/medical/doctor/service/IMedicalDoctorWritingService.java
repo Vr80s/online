@@ -24,11 +24,12 @@ public interface IMedicalDoctorWritingService {
     /**
      * 著作列表
      *
-     * @param page 页码
-     * @param size 每页数量
+     * @param page     页码
+     * @param size     每页数量
+     * @param doctorId 医师id
      * @return 列表数据
      */
-    Page<MedicalWritingVO> list(int page, int size);
+    Page<MedicalWritingVO> listPublic(int page, int size, String doctorId);
 
     /**
      * 获取著作数据
