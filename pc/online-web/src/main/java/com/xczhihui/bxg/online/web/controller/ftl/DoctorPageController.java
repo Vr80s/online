@@ -98,14 +98,14 @@ public class DoctorPageController extends AbstractController {
         Page newsReports = medicalDoctorBusinessService.getNewsReportsByPage(page, id);
         for (Object oeBxsArticleVO : newsReports.getRecords()) {
             OeBxsArticleVO newsReport = (OeBxsArticleVO) oeBxsArticleVO;
-            newsReport.setContent(HtmlUtil.getTextFromHtml(newsReport.getContent().replaceAll("\\<.*?\\>", "")));
+            newsReport.setContent(HtmlUtil.getTextFromHtml(newsReport.getContent()));
         }
         view.addObject("newsReports", newsReports);
 
         Page specialColumns = medicalDoctorBusinessService.getSpecialColumns(page, id);
         for (Object oeBxsArticleVO : specialColumns.getRecords()) {
             OeBxsArticleVO specialColumn = (OeBxsArticleVO) oeBxsArticleVO;
-            specialColumn.setContent(HtmlUtil.getTextFromHtml(specialColumn.getContent().replaceAll("\\<.*?\\>", "")));
+            specialColumn.setContent(HtmlUtil.getTextFromHtml(specialColumn.getContent()));
         }
         view.addObject("specialColumns", specialColumns);
 

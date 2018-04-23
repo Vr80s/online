@@ -47,6 +47,7 @@ public class HtmlUtil {
         if (htmlStr == null) {
             return "";
         }
+        htmlStr = htmlStr.replaceAll("\\<.*?\\>", "");
         htmlStr = delHTMLTag(htmlStr);
         htmlStr = htmlStr.replaceAll("&nbsp;", "");
         htmlStr = htmlStr.replaceAll("　", "");
