@@ -305,7 +305,9 @@ function btn_zj_mianfei(){
 			var current_href = window.location.href;
 			//保存当前页面到缓存
 			localStorage.setItem("order_page_html",current_href);
-			location.href ="/xcview/html/cn_login.html";		
+
+        
+			location.href ="/xcview/html/cn_login.html?course_id="+courseId+"&type="+2;
 		}else if (falg==1005) {
 			location.href ="/xcview/html/evpi.html";
 		}else{
