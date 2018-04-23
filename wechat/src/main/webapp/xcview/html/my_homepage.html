@@ -17,7 +17,16 @@
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <link rel="stylesheet" href="/xcview/css/my_homepage.css" />
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
 <!--公用-->
 <!--y-float:right;  z-float:left;  both-clear:both;-->

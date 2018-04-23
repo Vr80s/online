@@ -20,7 +20,16 @@
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>
 
 <script type="text/javascript" src="/xcview/js/my_study.js?wechat_1.1"></script>
-	
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 	
 	<!--公用弹框 -->
 <!--<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
