@@ -248,6 +248,10 @@
 	width: 270px;
 	height: 152px;
 }
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li > a > .zhuanlan_left >img{
+  width: 270px;
+  height: 152px;
+}
 .content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right {
   float: left;
   width: 530px;
