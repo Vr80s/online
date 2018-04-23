@@ -27,7 +27,7 @@ var onOff = true, isFilter = true;
 	    if(!isFilter && role =="user" ){
 	    	className = "hide";
 	    }
-	    var aaa = "<li uid=' user_id' class="+className+"  data-role="+str_hide+">"+
+	    var aaa = "<li uid=' user_id' data-role="+str_hide+" class="+className+">"+
 	    /*聊天区域*/
 	        "<div class='msg'>"+
 	        "<p> " + role_str+"：<span style='color:#fff;'>"+obj.content+"</span></p >"+
@@ -54,7 +54,7 @@ var onOff = true, isFilter = true;
 	    var aaa = "<li uid=' user_id' data-role='no'  class="+className+" >"+
 	    /*聊天区域*/
 	        "<div class='msg'>"+
-	        	"<p> " + role_str+"：<span style='color:#fff;'>"+obj.content+"</span></p >"+
+	        	"<p> " + role_str+"：<span style='color:#fff;'>"+content+"</span></p >"+
 	        "</div>"+
 	      "</li>";
 	    return aaa;
@@ -307,7 +307,7 @@ $(document).ready(function() {
 	}), 
 	$("#filter-msg").on("click", function() {//只看主办方消息   
 		
-	    if (isFilter) {
+	    if (isFilter) {   //
 	        $(this).addClass("filter-yes").attr("title", "查看全部消息");
 	        for (var i = 0; i < $(".chatmsg li").length; i++) {
 	            var isRole = $(".chatmsg li").eq(i).data("role");
@@ -317,12 +317,18 @@ $(document).ready(function() {
 	        }
 	        $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
 	        
+	        //变成红色
+	        $("#filter-msg").removeClass("lecturer");
+	        $("#filter-msg").addClass("lecturer_filter1");
 	        isFilter = false;
 	    } else {
+	    	
 	        $(this).removeClass("filter-yes").attr("title", "只看主办方消息");
 	        $(".chatmsg li").removeClass("hide");
 	        $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
 	        
+	        $("#filter-msg").removeClass("lecturer_filter1");
+	        $("#filter-msg").addClass("lecturer");
 	        isFilter = true;
 	    }
 	}),

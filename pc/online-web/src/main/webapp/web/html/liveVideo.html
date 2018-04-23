@@ -32,11 +32,6 @@
 <link href="/web/js/vhall/nihao.css" rel="stylesheet" type="text/css" />
 
 <script src="http://cnstatic01.e.vhall.com/3rdlibs/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
-<script src=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.concat.min.js></script>
-<script src="/web/js/vhall/vhallSDK.js" type="text/javascript"
-	charset="utf-8"></script>
-	
-<script src="/web/js/vhall/vhall_demo_custom.js" type="text/javascript" charset="utf-8"></script> 
 <script>
 			(function() {
                 if(document.location.host=='www.ipandatcm.com'){
@@ -185,7 +180,7 @@
 <link rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"/>
 </head>
 
-<body>
+<body style="background: #000!important">
 	<!--  充值的时候余额不足提示框 -->
 	<div class='mask3'
 		style='padding: 0 20px; bottom: 65px; right: 85px; display: none; position: fixed; text-align: center; color: white; line-height: 60px; height: 60px; background: #000; opacity: 0.5; z-index: 1000; filter: alpha(opacity = 30);'></div>
@@ -314,11 +309,11 @@
 						</div>
 					</div>
 					<div class=header>
-						<a href=javascript:; data-target=chatmsg-box class=active>聊天</a> <a
+						<a href=javascript:; data-target=chatmsg-box  class=active>聊天</a> <a
 							href=javascript:; data-target=question-msg-box>问答</a> <a
 							href=javascript:; data-target=notice-msg-box>公告</a>
 					</div>
-					<div class="chatmsg-box tab-pane active">
+					<div class="chatmsg-box  tab-pane active" style="width:310px">
 						<div class=chatmsg id=chatmsg></div>
 					</div>
 					<div class="question-msg-box tab-pane mCustomScrollbar">
@@ -723,7 +718,10 @@
 			</li>
 			{{/each}}
 		</script>
-
+<script src=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.concat.min.js></script>
+<script src="/web/js/vhall/vhallSDK.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="/web/js/vhall/vhall_demo_custom.js" type="text/javascript" charset="utf-8"></script> 
 <script src="/web/js/artTemplate.js" type="text/javascript"
 	charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/bootstrap.js"></script>

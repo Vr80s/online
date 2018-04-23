@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -93,6 +94,8 @@ public class Order extends Model<Order> {
 
 	@TableField(exist = false)
 	private String courseNames;
+	@TableField(exist = false)
+	private List<Integer> courseIds;
 
 
 	public Boolean getDelete() {

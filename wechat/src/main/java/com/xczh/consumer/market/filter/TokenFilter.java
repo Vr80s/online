@@ -86,7 +86,7 @@ public class TokenFilter implements Filter {
 			+ "/xczh/common/rechargeList,/xczh/common/verifyLoginStatus,"
 			+ "/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
 			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/common/richTextDetails,"
-			+ "/xczh/gift/list,/xczh/message,/bxg/wxpay/wxNotify,/xczh/common/checkToken";
+			+ "/xczh/gift/list,/xczh/message,/bxg/wxpay/wxNotify,/xczh/common/checkToken,/xczh/pay/pay_notify,/xczh/alipay/alipayNotifyUrl";
 	
 	/*
 	 * 下面是一下具体业务方法不需要拦截

@@ -15,7 +15,7 @@ public class SingleAccessToken {
         + "grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	
 	
-//	@Value("${wechatpay.gzh_appid}")
+//	@Value("${wechatpay.h5.appid}")
 //	public  String appid;
 //	
 //	@Value("${wechatpay.gzhSecret}")

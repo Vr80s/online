@@ -1,45 +1,15 @@
 package com.xczh.consumer.market.controller;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.xczh.consumer.market.bean.Reward;
-import com.xczh.consumer.market.utils.RandomUtil;
-import com.xczh.consumer.market.utils.TimeUtil;
-import com.xczh.consumer.market.utils.WebUtil;
-
-import net.sf.json.JSONObject;
-
+import com.xczh.consumer.market.utils.ResponseObject;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.bean.OnlineOrder;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.RewardService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.OrderParamVo;
-import com.xczh.consumer.market.vo.RechargeParamVo;
-import com.xczh.consumer.market.vo.RewardParamVo;
-import com.xczh.consumer.market.wxpay.PayFactory;
-import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczh.consumer.market.wxpay.entity.PayInfo;
-import com.xczh.consumer.market.wxpay.util.CommonUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 //import com.xczh.consumer.market.bean.ExampleBean;
 //import com.xczh.consumer.market.service.ExampleLocalService;

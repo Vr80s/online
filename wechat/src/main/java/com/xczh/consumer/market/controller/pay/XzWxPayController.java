@@ -1,54 +1,46 @@
 package com.xczh.consumer.market.controller.pay;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.xczh.consumer.market.bean.Reward;
-import com.xczh.consumer.market.utils.RandomUtil;
-import com.xczh.consumer.market.utils.TimeUtil;
+import com.alibaba.fastjson.JSON;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.bean.WxcpPayFlow;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.WxcpPayFlowService;
+import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.WebUtil;
-
-import net.sf.json.JSONObject;
-
+import com.xczh.consumer.market.wxpay.entity.PayInfo;
+import com.xczhihui.bxg.common.util.IStringUtil;
+import com.xczhihui.bxg.common.util.OrderNoUtil;
+import com.xczhihui.bxg.common.util.enums.PayOrderType;
+import com.xczhihui.bxg.online.api.service.PayService;
+import com.xczhihui.pay.ext.kit.HttpKit;
+import com.xczhihui.pay.ext.kit.IpKit;
+import com.xczhihui.pay.ext.kit.PaymentKit;
+import com.xczhihui.pay.weixin.api.*;
+import com.xczhihui.wechat.course.model.Order;
+import com.xczhihui.wechat.course.service.IOrderService;
+import com.xczhihui.wechat.course.vo.PayMessage;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.bean.AlipayPaymentRecordH5;
-import com.xczh.consumer.market.bean.OnlineOrder;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.bean.WxcpPayFlow;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.RewardService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.service.WxcpPayFlowService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.OrderParamVo;
-import com.xczh.consumer.market.vo.RechargeParamVo;
-import com.xczh.consumer.market.vo.RewardParamVo;
-import com.xczh.consumer.market.wxpay.PayFactory;
-import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczh.consumer.market.wxpay.entity.PayInfo;
-import com.xczh.consumer.market.wxpay.util.CommonUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-//import com.xczh.consumer.market.bean.ExampleBean;
-//import com.xczh.consumer.market.service.ExampleLocalService;
+import static com.xczhihui.pay.alipay.controller.AliPayApiController.BUY_COIN_TEXT;
+import static com.xczhihui.pay.alipay.controller.AliPayApiController.BUY_COURSE_TEXT;
+
 
 /**
  * 
@@ -59,236 +51,266 @@ import com.xczh.consumer.market.wxpay.util.CommonUtil;
 @Controller
 @RequestMapping("/xczh/pay")
 public class XzWxPayController {
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private OnlineOrderService onlineOrderService;
-	@Autowired
-	private WxcpClientUserWxMappingService wxService;
-
-	@Autowired
-	private CacheService cacheService;
-
-	@Autowired
-	private RewardService rewardService;
-	
+	private IOrderService orderService;
 	@Autowired
 	private AppBrowserService appBrowserService;
-
 	@Autowired
 	private  WxcpPayFlowService wxcpPayFlowService;
-	
+	@Autowired
+	private PayService payService;
+	@Autowired
+	WxPayBean wxPayBean;
+
 	@Value("${rate}")
 	private int rate;
 	@Value("${minimum_amount}")
 	private Double minimumAmount;
-	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzWxPayController.class);
-	
+
+	private String notify_url;
+
+	public WxPayApiConfig getApiConfig(boolean appPay) {
+		notify_url = wxPayBean.getDomain().concat("/xczh/pay/pay_notify");
+		if(appPay){
+			log.info("========app=======");
+			log.info("appi"+wxPayBean.getAppId4App());
+			log.info("mchid"+wxPayBean.getMchId4App());
+			log.info("paternerekey"+wxPayBean.getPartnerKey4App());
+			return WxPayApiConfig.New()
+					.setAppId(wxPayBean.getAppId4App())
+					.setMchId(wxPayBean.getMchId4App())
+					.setPaternerKey(wxPayBean.getPartnerKey4App())
+					.setPayModel(WxPayApiConfig.PayModel.BUSINESSMODEL);
+		}
+		log.info("========h5=======");
+		return WxPayApiConfig.New()
+				.setAppId(wxPayBean.getAppId4H5())
+				.setMchId(wxPayBean.getMchId4H5())
+				.setPaternerKey(wxPayBean.getPartnerKey4H5())
+				.setPayModel(WxPayApiConfig.PayModel.BUSINESSMODEL);
+	}
+
+
 	/**
-	 * 微信统一购买课程接口   订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销    4：来自h5   5 来自app  
-	 * @param req
-	 * @param res
-	 * @return
-	 * @throws Exception
-	 */
-	@SuppressWarnings("unused")
+	 * Description：微信支付-购课
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 2018/4/23 0023 下午 5:52
+	 **/
 	@RequestMapping("wxPay")
 	@ResponseBody
-	@Transactional
 	public ResponseObject appOrderPay(HttpServletRequest req,
-			@RequestParam("orderId")String orderId,
-			@RequestParam("orderFrom")String orderFrom)
-			throws Exception {
-		
-		
+									  @RequestParam("orderId")String orderId,
+									  @RequestParam("orderFrom")String orderFrom)throws Exception {
 		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 		if (null == ou) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		String userId = ou.getId();
-		/**
-		 * 根据订单id得到这个订单中已经存在的课程。
-		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
-		 */
-		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(orderId,userId,1);
-		if(!ro.isSuccess()){//存在此订单哈，
-			return ro;
-		}
-		LOGGER.info(" 登录的用户id "+userId);
-		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
-		if (null == onlineOrder) {
-			return ResponseObject.newErrorResponseObject("未找到订单信息");
-		}
-		if(onlineOrder.getActualPay() < (0.01d)){
-			return ResponseObject.newErrorResponseObject("金额必须大于等于0.01");
-		}
-		
-		LOGGER.info("orderId:"+orderId+",getOrderNo "+onlineOrder.getOrderNo());
-		/**
-		 * 更改订单号
-		 */
-		String newOrderNo=onlineOrderService.updateOrderNo(onlineOrder.getOrderNo());
-		LOGGER.info("newOrderNo : "+newOrderNo);
-	
-		Double actualPay = onlineOrder.getActualPay() * 100;
-		int price = actualPay.intValue();
-		
-		/**
-		 * 判断此请求来时h5呢，还是微信公众号，还是app
-		 */
+
+		Order order = orderService.getOrderNo4PayByOrderId(orderId);
+
+		int actualPay = (int) (order.getActualPay() * 100);
+
 		int orderFromI = Integer.parseInt(orderFrom);
-		String spbill_create_ip =WxPayConst.server_ip;
-		if(orderFromI == 4 || orderFromI == 5){
-			spbill_create_ip =getIpAddress(req);
+		boolean appPay = false;
+		if(orderFromI==5){
+			appPay = true;
 		}
-		String tradeType = null; //公众号
-		String openId = null;
-		if(orderFromI == 3){
-			openId = req.getParameter("openId");
-			if(!StringUtils.isNotBlank("openId")) {
-				return ResponseObject.newErrorResponseObject("尝试下重新登录,或者关注公众号!");
-			}
-			tradeType= PayInfo.TRADE_TYPE_JSAPI;
-		}else if(orderFromI == 4){
-			tradeType =PayInfo.TRADE_TYPE_H5;
-		}else if(orderFromI == 5){
-			tradeType =PayInfo.TRADE_TYPE_APP;
+		WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(appPay));
+
+//		String spbill_create_ip =WxPayConst.server_ip;
+		String ip = IpKit.getRealIp(req);
+//		String tradeType = null;
+		String openId = req.getParameter("openId");
+
+		PayMessage payMessage = new PayMessage();
+		payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
+		payMessage.setUserId(order.getUserId());
+		String attach = PayMessage.getPayMessage(payMessage);
+
+		Map<String, String> payParams = getPayParams(orderFromI, order.getOrderNo()+ IStringUtil.getRandomString(), ip, actualPay + "", openId, attach,MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()));
+		for (Map.Entry<String, String> entry : payParams.entrySet()) {
+			log.info(entry.getKey() + " = " + entry.getValue());
 		}
-		// TODO
-		OrderParamVo orderParamVo=new OrderParamVo();
-		orderParamVo.setUserId(userId);
-		orderParamVo.setSubject(""+onlineOrderService.getCourseNames(newOrderNo));
-		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
-		String extDatas ="order&"+cacheKey;
-		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString(),7200);
-		LOGGER.info("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
-		Map<String, String> retobj = new HashMap<String, String>();
-		retobj.put("ok", "false");
-		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
-				(newOrderNo, price,  "订单支付",extDatas, openId, spbill_create_ip, tradeType);
-		if (retpay != null) {
-			retpay.put("ok", "true");
+
+		String xmlResult = WxPayApi.pushOrder(false,payParams);
+		log.info(xmlResult);
+		Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
+
+		String return_code = result.get("return_code");
+		String return_msg = result.get("return_msg");
+		if (!PaymentKit.codeIsOK(return_code)) {
+			log.error("return_code>"+return_code+" return_msg>"+return_msg);
+			throw new RuntimeException(return_msg);
+		}
+		String result_code = result.get("result_code");
+		if (!PaymentKit.codeIsOK(result_code)) {
+			log.error("result_code>"+result_code+" return_msg>"+return_msg);
+			throw new RuntimeException(return_msg);
+		}
+		// 以下字段在return_code 和result_code都为SUCCESS的时候有返回
+
+		String prepay_id = result.get("prepay_id");
+		String mweb_url = result.get("mweb_url");
+
+		log.info("prepay_id:"+prepay_id+" mweb_url:"+mweb_url);
+
+		if (result != null) {
+			result.put("ok", "true");
 			/**
 			 * app支付需要进行二次签名
 			 */
 			if(orderFromI == 5){
-				retpay = CommonUtil.getSignER(retpay);
+				//封装调起微信支付的参数 https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12
+				Map<String, String> packageParams = new HashMap<String, String>();
+				packageParams.put("appid", WxPayApiConfigKit.getWxPayApiConfig().getAppId());
+				packageParams.put("partnerid", WxPayApiConfigKit.getWxPayApiConfig().getMchId());
+				packageParams.put("prepayid", prepay_id);
+				packageParams.put("package", "Sign=WXPay");
+				packageParams.put("noncestr", System.currentTimeMillis() + "");
+				packageParams.put("timestamp", System.currentTimeMillis() / 1000 + "");
+				String packageSign = PaymentKit.createSign(packageParams, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey());
+				packageParams.put("sign", packageSign);
+
+				String jsonStr = JSON.toJSONString(packageParams);
+				System.out.println(jsonStr);
+				return ResponseObject.newSuccessResponseObject(packageParams);
+			}else if(orderFromI == 3){
+				Map<String, String> param = new HashMap<>();
+				param.put("appId", result.get("appid"));
+				param.put("nonceStr", result.get("nonce_str"));
+				String preid = result.get("prepay_id");
+				param.put("timeStamp", String.valueOf(System.currentTimeMillis() / 1000));
+				param.put("package", "prepay_id=" + preid);
+				param.put("signType", "MD5");
+				param.put("paySign", PaymentKit.createSign(param, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey()));
+				return ResponseObject.newSuccessResponseObject(param);
 			}
-			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			LOGGER.info("h5Prepay->jsonObject->\r\n\t"+ jsonObject.toString());// LOGGER.info(jsonObject);
-			return ResponseObject.newSuccessResponseObject(retpay);
+			return ResponseObject.newSuccessResponseObject(result);
 		}
-		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
-		return ResponseObject.newSuccessResponseObject(retobj);
+		return ResponseObject.newErrorResponseObject("请求错误");
 	}
 
 	/**
-	 * 微信统一充值入口
-	 * @param req
-	 * @param res
-	 * @param params
-	 * 1pc,2app,3h5 4微信
-	 * @return
-	 * @throws Exception
-	 */
+	 * Description：微信支付-充值
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 2018/4/23 0023 下午 5:52
+	 **/
 	@RequestMapping("rechargePay")
 	@ResponseBody
-	public ResponseObject rechargePay(HttpServletRequest req,HttpServletResponse res,
-			@RequestParam("clientType")Integer clientType,
-			@RequestParam("actualPay")String actualPay)
-			throws Exception {
-		
-		Map<String, String> retobj = new HashMap<String, String>();
-		retobj.put("ok", "false");
-		
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
-		if ( user== null) {
+	public ResponseObject rechargePay(HttpServletRequest request, HttpServletResponse response,@RequestParam("clientType")Integer clientType,
+									  @RequestParam("actualPay")String actualPay)throws Exception {
+
+		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
+		if (null == user) {
 			throw new RuntimeException("登录失效");
 		}
-		
-		
-		String out_trade_no =  req.getParameter("outTradeNo");
-		if(!StringUtils.isNotBlank(out_trade_no)){
-			out_trade_no = TimeUtil.getSystemTime()+ RandomUtil.getCharAndNumr(12);
-		}
-		
-		
-		//订单号  支付的钱
-		Double pay = new Double(actualPay) * 100;
-		//需要充值的熊猫币
-		Double count = Double.valueOf(pay)*rate;
-		
-		//传递给微信的价格，int类型
-		int price = pay.intValue();
-		
-		if(!WebUtil.isIntegerForDouble(count)){
-			throw new RuntimeException("充值金额"+req.getParameter("actualPay")+"兑换的熊猫币"+count+"不为整数");
-		}
-		if(minimumAmount > Double.valueOf(req.getParameter("actualPay"))){
-			throw new RuntimeException("充值金额低于最低充值金额："+minimumAmount);
-		}
-		/**
-		 * 判断此请求来时h5呢，还是微信公众号，还是app
-		 */
-		
-		String spbill_create_ip =WxPayConst.server_ip;;
-		if(clientType == 4 || clientType == 5){
-			spbill_create_ip =getIpAddress(req);
-		}
-		String tradeType = null; //公众号
-		String openId = null;
-		
-		int orderFrom = 0;
-		if(clientType == 3){
-			openId = req.getParameter("openId");
-			if(!StringUtils.isNotBlank("openId")) {
-				return ResponseObject.newErrorResponseObject("尝试下重新登录,或者关注公众号!");
-			}
-			tradeType= PayInfo.TRADE_TYPE_JSAPI;
-			orderFrom = 3;
-		}else if(clientType == 4){
-			tradeType =PayInfo.TRADE_TYPE_H5;
-			orderFrom = 4;
-		}else if(clientType == 5){
-			tradeType =PayInfo.TRADE_TYPE_APP;
-			orderFrom = 5;
-		}
-		// TODO
-		/*
-		 *封装充值对象 
-		 */
-		RechargeParamVo rechargeParamVo=new RechargeParamVo();
-		rechargeParamVo.setT("2");
-		rechargeParamVo.setClientType(orderFrom+"");  //订单来源
-		rechargeParamVo.setUserId(user.getId());  //充值的用户id
-		rechargeParamVo.setSubject("充值");         
-		
-		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
-		String extDatas ="recharge&"+cacheKey;
-		String passbackParams = com.alibaba.fastjson.JSONObject.toJSON(rechargeParamVo).toString();
-		cacheService.set(cacheKey,passbackParams,7200);
-		
-		LOGGER.info("充值参数："+extDatas.length());
-		
-		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
-				(out_trade_no, price,  "充值",
-						extDatas, openId, spbill_create_ip, tradeType);
 
-		if (retpay != null) {
-			retpay.put("ok", "true");
-			if(orderFrom == 5){
-				retpay = CommonUtil.getSignER(retpay);
-			}
-			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// LOGGER.info(jsonObject);
-			return ResponseObject.newSuccessResponseObject(retpay);
+		Double count = Double.valueOf(actualPay) * rate;
+		if (!WebUtil.isIntegerForDouble(count)) {
+			throw new RuntimeException("充值金额" + actualPay + "兑换的熊猫币" + count + "不为整数");
 		}
-		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
-		return ResponseObject.newSuccessResponseObject(retobj);
+
+		int total = (int) (Double.valueOf(actualPay) * 100);
+
+		int orderFromI = Integer.valueOf(clientType);
+		boolean appPay = false;
+		if(orderFromI==5){
+			appPay = true;
+		}
+		WxPayApiConfig apiConfig = getApiConfig(appPay);
+		log.info("appi"+apiConfig.getAppId());
+		log.info("mchid"+apiConfig.getMchId());
+		log.info("paternerekey"+apiConfig.getPaternerKey());
+		WxPayApiConfigKit.setThreadLocalWxPayApiConfig(apiConfig);
+
+//		String spbill_create_ip =WxPayConst.server_ip;
+		String ip = IpKit.getRealIp(request);
+		String openId = request.getParameter("openId");
+
+		PayMessage payMessage = new PayMessage();
+		payMessage.setType(PayOrderType.COIN_ORDER.getCode());
+		payMessage.setUserId(user.getId());
+		payMessage.setValue(new BigDecimal(count));
+
+		String attach = PayMessage.getPayMessage(payMessage);
+
+		String orderNo = OrderNoUtil.getCoinOrderNo();
+
+		Map<String, String> payParams = getPayParams(orderFromI, orderNo, ip, total + "", openId, attach, MessageFormat.format(BUY_COIN_TEXT,count));
+		for (Map.Entry<String, String> entry : payParams.entrySet()) {
+			log.error(entry.getKey() + " = " + entry.getValue());
+		}
+
+		String xmlResult = WxPayApi.pushOrder(false,payParams);
+		log.info(xmlResult);
+		Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
+
+		String return_code = result.get("return_code");
+		String return_msg = result.get("return_msg");
+		if (!PaymentKit.codeIsOK(return_code)) {
+			log.error("return_code>"+return_code+" return_msg>"+return_msg);
+			throw new RuntimeException(return_msg);
+		}
+		String result_code = result.get("result_code");
+		if (!PaymentKit.codeIsOK(result_code)) {
+			log.error("result_code>"+result_code+" return_msg>"+return_msg);
+			throw new RuntimeException(return_msg);
+		}
+		// 以下字段在return_code 和result_code都为SUCCESS的时候有返回
+
+		String prepay_id = result.get("prepay_id");
+		String mweb_url = result.get("mweb_url");
+
+		log.info("prepay_id:"+prepay_id+" mweb_url:"+mweb_url);
+
+		if (result != null) {
+			result.put("ok", "true");
+			/**
+			 * app支付需要进行二次签名
+			 */
+			if(orderFromI == 5){
+				System.out.println("result"+JSON.toJSONString(result));
+				//封装调起微信支付的参数 https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12
+				Map<String, String> packageParams = new HashMap<String, String>();
+				packageParams.put("appid", WxPayApiConfigKit.getWxPayApiConfig().getAppId());
+				packageParams.put("partnerid", WxPayApiConfigKit.getWxPayApiConfig().getMchId());
+				packageParams.put("prepayid", prepay_id);
+				packageParams.put("package", "Sign=WXPay");
+				packageParams.put("noncestr", result.get("nonce_str"));
+				String timestamp = System.currentTimeMillis() / 1000 + "";
+				packageParams.put("timestamp", timestamp);
+				String packageSign = PaymentKit.createSign(packageParams, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey());
+//				packageParams.put("sign", packageSign);
+
+				result.put("device_info","wxpay");
+				result.put("sign", packageSign);
+				result.put("timestamp", timestamp);
+				String jsonStr = JSON.toJSONString(result);
+				System.out.println("json"+jsonStr);
+				return ResponseObject.newSuccessResponseObject(result);
+			}else if(orderFromI == 3){
+
+
+
+				Map<String, String> param = new HashMap<>();
+				param.put("appId", result.get("appid"));
+				param.put("nonceStr", result.get("nonce_str"));
+				String preid = result.get("prepay_id");
+				param.put("timeStamp", String.valueOf(System.currentTimeMillis() / 1000));
+				param.put("package", "prepay_id=" + preid);
+				param.put("signType", "MD5");
+				param.put("paySign", PaymentKit.createSign(param, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey()));
+				return ResponseObject.newSuccessResponseObject(param);
+			}
+			return ResponseObject.newSuccessResponseObject(result);
+		}
+		return ResponseObject.newErrorResponseObject("请求错误");
 	}
-	
-	
+
 	/**
 	 * 通过 自定义的订单号来查找微信充值信息
 	 * @return
@@ -296,186 +318,92 @@ public class XzWxPayController {
 	 */
 	@RequestMapping(value = "queryWechatPayInfoByOutTradeNo")
 	@ResponseBody
-	public ResponseObject queryAlipayPaymentRecordH5ByOutTradeNo(HttpServletRequest request,
-			HttpServletResponse response,@RequestParam("outTradeNo")String outTradeNo
-			) throws Exception {
-		
-		LOGGER.info("查询充值订单信息："+outTradeNo);
+	public ResponseObject queryAlipayPaymentRecordH5ByOutTradeNo(@RequestParam("outTradeNo")String outTradeNo) throws Exception {
+
+		log.info("查询充值订单信息："+outTradeNo);
 		
 		WxcpPayFlow condition = new WxcpPayFlow();
 		condition.setOut_trade_no(outTradeNo);
 		List<WxcpPayFlow> list =  wxcpPayFlowService.select(condition);
 		if(list!=null && list.size()>0){
-			LOGGER.info("list："+list.size());
+			log.info("list："+list.size());
 			return ResponseObject.newSuccessResponseObject(list.get(0));
 		}
 		return ResponseObject.newErrorResponseObject("未获得充值信息");
-	}	
-	
-	
-	
-	
-	/**
-	 * 微信统一打赏入口
-	 * @param req
-	 * @param res
-	 * @param params
-	 * 1pc,2app,3h5 4微信
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("rewardPay")
+	}
+
+	@RequestMapping(value = "pay_notify")
 	@ResponseBody
-	public ResponseObject rewardPay(HttpServletRequest req,
-                                    HttpServletResponse res, Map<String, String> params)
+	public String wxNotify(HttpServletRequest req, HttpServletResponse res)
 			throws Exception {
-		Map<String, String> retobj = new HashMap<String, String>();
+		// 支付结果通用通知文档: https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_7
 
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		String userId = user.getId();
-		
-		String clientType=req.getParameter("clientType");
-		if ( null == userId) {
-			return ResponseObject.newErrorResponseObject("参数异常");
+		String xmlMsg = HttpKit.readData(req);
+		System.out.println("支付通知="+xmlMsg);
+		Map<String, String> params = PaymentKit.xmlToMap(xmlMsg);
+		String result_code  = params.get("result_code");
+
+		// 交易类型
+		String trade_type = params.get("trade_type");
+		//根据支付类型判断得到--》回调验证签名的key
+		//h5和公众号用的是一样了。
+		//app用的是另一个
+		if(PayInfo.TRADE_TYPE_APP.equals(trade_type)){
+			WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(true));
+		}else{
+			WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(false));
 		}
 
-		//订单号  支付的钱
-		Double actualPay = new Double(req.getParameter("actualPay")) * 100;
-
-		int price = actualPay.intValue();
-		retobj.put("ok", "false");
-		//订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销    4：来自h5   5 来自app
-		/**
-		 * 判断此请求来时h5呢，还是微信公众号，还是app
-		 */
-		int orderFrom = new Integer(clientType);
-		String spbill_create_ip =WxPayConst.server_ip;
-		if(orderFrom == 2 || orderFrom == 3){
-			spbill_create_ip =getIpAddress(req);
-		}
-		String tradeType = null; //公众号
-		String openId = null;
-		
-		if(orderFrom == 4){
-			String openId1 = req.getParameter("openId");
-			if(null == openId1){
-				WxcpClientUserWxMapping wxUser = wxService.getWxcpClientUserWxMappingByUserId(userId);
-				if(wxUser == null){
-					wxUser = wxService.getWxMappingByUserIdOrUnionId(userId);
+		if(PaymentKit.verifyNotify(params, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey())){
+			if (("SUCCESS").equals(result_code)) {
+				log.info("============kaishi===========");
+				for (Map.Entry<String, String> entry : params.entrySet()) {
+					log.error(entry.getKey() + " = " + entry.getValue());
 				}
-				if(wxUser!=null){
-					openId = wxUser.getOpenid();
-				}else{
-					return ResponseObject.newErrorResponseObject("登录失效");
-				}
-			}else{
-				openId = openId1;
+				payService.wxPayBusiness(params);
+				//发送通知等
+				Map<String, String> xml = new HashMap<String, String>();
+				xml.put("return_code", "SUCCESS");
+				xml.put("return_msg", "OK");
+				return PaymentKit.toXml(xml);
 			}
-			tradeType= PayInfo.TRADE_TYPE_JSAPI;
-		}else if(orderFrom == 3){
-			tradeType =PayInfo.TRADE_TYPE_H5;
-		}else if(orderFrom == 2){
-			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
-		// TODO
-		RewardParamVo rewardParamVo=new RewardParamVo();
-		rewardParamVo.setRewardId(req.getParameter("rewardId"));
-		rewardParamVo.setT("1");
-		rewardParamVo.setClientType(orderFrom+"");
-		rewardParamVo.setLiveId(req.getParameter("liveId"));
-		rewardParamVo.setGiver(userId);
-		rewardParamVo.setReceiver(req.getParameter("receiver"));
-		rewardParamVo.setSubject("打赏");
-		rewardParamVo.setUserId(userId);
 
+		return null;
 
-
-		//验证打赏id和价格是否匹配
-		if(Double.valueOf(req.getParameter("actualPay"))<0.01){
-			throw new IllegalArgumentException("打赏金额必须大于0.01");
-		}
-		Reward reward=rewardService.findById(rewardParamVo.getRewardId());
-		if(reward==null){
-			throw new IllegalArgumentException("无此打赏类型");
-		}else if(!reward.getIsFreedom()&&
-				reward.getPrice().doubleValue()!=Double.valueOf(req.getParameter("actualPay")).doubleValue()){
-			throw new IllegalArgumentException("打赏类型与金额不符");
-		}
-//		//根据价格获取giftId
-//		List<Reward> rlist=rewardService.listAll();
-//		Integer nullId=null;
-//		for (Reward r:rlist){
-//			if(r.getPrice()==0.0){
-//				nullId=r.getId();
-//				continue;
-//			}
-//			if(req.getParameter("actualPay").equals(r.getPrice()+"")){
-//				rewardParamVo.setGiftId(r.getId()+"");
-//				break;
-//			}
-//		}
-//		if(rewardParamVo.getGiftId()==null){
-//			rewardParamVo.setGiftId(nullId+"");
-//		}
-		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
-		String extDatas ="reward&"+cacheKey;
-		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(rewardParamVo).toString(),7200);
-		LOGGER.info("打赏参数："+extDatas.length());
-		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
-				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "打赏支付",
-						extDatas, openId, spbill_create_ip, tradeType);
-
-		if (retpay != null) {
-			retpay.put("ok", "true");
-
-			if(orderFrom == 2){
-				retpay = CommonUtil.getSignER(retpay);
-			}
-			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			
-			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// LOGGER.info(jsonObject);
-			return ResponseObject.newSuccessResponseObject(retpay);
-		}
-		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
-		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
-	public static String getIpAddress(HttpServletRequest request) {
-
-		String ipAddress = request.getHeader("x-forwarded-for");
-
-		if (ipAddress == null || ipAddress.length() == 0
-				|| "unknown".equalsIgnoreCase(ipAddress)) {
-			ipAddress = request.getHeader("Proxy-Client-IP");
-		}
-		if (ipAddress == null || ipAddress.length() == 0
-				|| "unknow".equalsIgnoreCase(ipAddress)) {
-			ipAddress = request.getHeader("WL-Proxy-Client-IP");
-		}
-		if (ipAddress == null || ipAddress.length() == 0
-				|| "unknown".equalsIgnoreCase(ipAddress)) {
-			ipAddress = request.getRemoteAddr();
-
-			if ("127.0.0.1".equals(ipAddress)
-					|| "0:0:0:0:0:0:0:1".equals(ipAddress)) {
-				// 根据网卡获取本机配置的IP地址
-				InetAddress inetAddress = null;
-				try {
-					inetAddress = InetAddress.getLocalHost();
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				}
-				ipAddress = inetAddress.getHostAddress();
+	public Map<String, String> getPayParams(Integer orderFromI,String orderNo,String ip,String actualPay,String openId,String attach,String body) {
+		System.out.println(notify_url);
+		WxPayApiConfig wxPayApiConfig = WxPayApiConfigKit.getWxPayApiConfig()
+				.setAttach(attach)
+				.setBody(body)
+				.setSpbillCreateIp(ip)
+				.setTotalFee(actualPay)
+				.setNotifyUrl(notify_url)
+				.setOutTradeNo(orderNo);
+		if(orderFromI == 3){
+			if(!StringUtils.isNotBlank("openId")) {
+				throw new RuntimeException("尝试下重新登录,或者关注公众号!");
 			}
+			Map<String, String> params = wxPayApiConfig.setOpenId(openId).setTradeType(WxPayApi.TradeType.JSAPI).build();
+			return params;
+		}else if(orderFromI == 4){
+			H5ScencInfo sceneInfo = new H5ScencInfo();
+			H5ScencInfo.H5 h5Info = new H5ScencInfo.H5();
+			h5Info.setType("Wap");
+			//此域名必须在商户平台--"产品中心"--"开发配置"中添加
+			h5Info.setWap_url(wxPayBean.getDomain());
+			h5Info.setWap_name("熊猫中医");
+			sceneInfo.setH5_info(h5Info);
+
+			Map<String, String> params = wxPayApiConfig.setTradeType(WxPayApi.TradeType.MWEB).setSceneInfo(h5Info.toString()).build();
+			return params;
+		}else if(orderFromI == 5){
+			Map<String, String> params = wxPayApiConfig.setTradeType(WxPayApi.TradeType.APP).build();
+			return params;
 		}
-		// 对于通过多个代理的情况，第一个IP为客户端真实的IP地址，多个IP按照','分割
-		if (null != ipAddress && ipAddress.length() > 15) {
-			// "***.***.***.***".length() = 15
-			if (ipAddress.indexOf(",") > 0) {
-				ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
-			}
-		}
-		return ipAddress;
+		return null;
 	}
+
 }
