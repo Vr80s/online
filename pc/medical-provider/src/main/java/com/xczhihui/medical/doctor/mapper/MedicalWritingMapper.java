@@ -67,7 +67,6 @@ public interface MedicalWritingMapper extends BaseMapper<MedicalWriting> {
      */
     @Update("update medical_writings mw" +
             " set mw.status = #{status}" +
-            " where mw.id = #{id} and mw.deleted = 0" +
-            " and mw.id = (select mdw.writings_id from medical_doctor_writings mdw where mdw.doctor_id = #{doctorId})")
+            " where mw.id = #{id} and mw.deleted = 0")
     int updateStatus(@Param("doctorId") String doctorId, @Param("id") String id, @Param("status") boolean status);
 }
