@@ -1,4 +1,4 @@
-	/*修改之前引入模板样式开始*/
+	/*淇敼涔嬪墠寮曞叆妯℃澘鏍峰紡寮�濮�*/
 .layer{
 	position: inherit;
     width: 100%;
@@ -61,14 +61,14 @@
 	background: #00BC12;
 	border-radius: 0 4px 4px 0;
 	margin-top: 0;
-	position: unset; /*注意兼容--定位*/
+	position: unset; /*娉ㄦ剰鍏煎--瀹氫綅*/
 	float: right;
 	margin-right: 11px;
 }
 .chatmsg li .msg .content{
 	width: 226px;
 }
-/*处理聊天区值*/
+/*澶勭悊鑱婂ぉ鍖哄��*/
 .container{
 	padding-left: 10px;
 }
@@ -114,8 +114,23 @@
 	background: url(../images/img-filter.png) no-repeat;
 	background-size: 20px 20px;
 }
-/*修改之前引入模板样式结束*/
-/*聊天区模板基础上修改开始*/
+
+.lecturer_filter1 {
+    position: absolute;
+    right: 70px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+    left: 12px;
+    top: 20px;
+    background: url(../images/img-filter1.png) no-repeat;
+    background-size: 20px 20px;
+}
+
+
+/*淇敼涔嬪墠寮曞叆妯℃澘鏍峰紡缁撴潫*/
+/*鑱婂ぉ鍖烘ā鏉垮熀纭�涓婁慨鏀瑰紑濮�*/
 .chatmsg li .msg p .tips.host{
 	width: 44px;
     height: 20px;
@@ -126,9 +141,9 @@
     color: #fff;
 
 }
-/*聊天区模板基础上修改结束*/
+/*鑱婂ぉ鍖烘ā鏉垮熀纭�涓婁慨鏀圭粨鏉�*/
 
-/*视频和文档动画区*/
+/*瑙嗛鍜屾枃妗ｅ姩鐢诲尯*/
 .animation{
 	width: 294px;
 	/*height: 168px;*/
@@ -156,7 +171,7 @@
 	background: blue;
 	float: right;
 }
-/*添加文档class*/
+/*娣诲姞鏂囨。class*/
 .doc-pc{
 	width: 294px;
     height: 168px;
@@ -173,7 +188,7 @@
 }
 
 
-/*视频底部区域关注和礼物区*/
+/*瑙嗛搴曢儴鍖哄煙鍏虫敞鍜岀ぜ鐗╁尯*/
 .video-bottom{
 	width: 100%;
 	height: 110px;
@@ -233,7 +248,7 @@
 	text-align: center;
 	cursor: pointer;
 }
-/*右侧礼物区*/
+/*鍙充晶绀肩墿鍖�*/
 .surprise{
 	height: 100%;
 	float: right;
@@ -263,7 +278,7 @@
 	width: 56px;
 	height: 48px;
 }
-/*放上 li显示内容*/
+/*鏀句笂 li鏄剧ず鍐呭*/
 .surprise-hide{
 	display: none;
     width: 500px;
@@ -350,7 +365,7 @@
 	cursor: pointer;
 }
 
-/*排行榜开始*/
+/*鎺掕姒滃紑濮�*/
 .toptenreviews{
 	position: absolute;
 	top: 0;
@@ -435,7 +450,7 @@
 	font-size: 12px;
 	color: #F97B49;
 }
-/*列表*/
+/*鍒楄〃*/
 .toptenreviews-list{
 	position: absolute;
 	top: 176px;
@@ -491,9 +506,9 @@
     display: none !important;
 }
 
-/*排行榜结束*/
+/*鎺掕姒滅粨鏉�*/
    
-/*处理切换动画开始*/
+/*澶勭悊鍒囨崲鍔ㄧ敾寮�濮�*/
 .doc-img{
 	top: 0;
     right: 0;
@@ -533,5 +548,5 @@
     0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
     100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
 } 
-/*处理切换动画结束*/
+/*澶勭悊鍒囨崲鍔ㄧ敾缁撴潫*/
 
