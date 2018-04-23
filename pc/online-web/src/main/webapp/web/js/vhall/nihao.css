@@ -539,7 +539,7 @@ body, html {
     margin-left: -45%;
     margin-top: -18%;
     z-index: 10000;
-    background-color: #fff;
+    background-color: #000;
     border: 1px solid #e5e5e5;
     display: none;
   }  
