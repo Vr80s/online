@@ -37,9 +37,9 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
     }
 
     @Override
-    public Page<MedicalWritingVO> list(int page, int size) {
+    public Page<MedicalWritingVO> listPublic(int page, int size, String doctorId) {
         Page<MedicalWritingVO> medicalWritingVOPage = new Page<>(page, size);
-        medicalWritingVOPage.setRecords(medicalWritingMapper.listWriting(medicalWritingVOPage));
+        medicalWritingVOPage.setRecords(medicalWritingMapper.listWriting(medicalWritingVOPage, doctorId));
         return medicalWritingVOPage;
     }
 
