@@ -15,7 +15,16 @@
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 <link rel="stylesheet" href="/xcview/css/curriculum_table.css?v=wechat_1.1.1" />
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 <style type="text/css">
 	.header_seek span{
 		margin-top: -0.6rem;

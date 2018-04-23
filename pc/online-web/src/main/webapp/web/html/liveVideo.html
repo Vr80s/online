@@ -31,531 +31,12 @@
 	href=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.min.css>
 <link href="/web/js/vhall/nihao.css" rel="stylesheet" type="text/css" />
 
-<lick rel="stylesheet" type="text/css" href="/web/css/live_streaming/live_streaming.css"></lick>
-<script src="/web/js/jquery.min.js" type="text/javascript"
+<script src="http://cnstatic01.e.vhall.com/3rdlibs/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
+<script src=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.concat.min.js></script>
+<script src="/web/js/vhall/vhallSDK.js" type="text/javascript"
 	charset="utf-8"></script>
-<style>
-	/*修改之前引入模板样式开始*/
-.layer{
-	position: inherit;
-    width: 100%;
-    height: 100%;
-    margin-left: 0 !important;
-    margin-top: 0;
-    border: 0;
-}
-.page-pc .player-container{
-	width: 100%;
-}
-.page-pc .doc{
-	height: 88%;
-}
-.page-pc .video{
-	width: 100%;
-    height: 87.9%;
-    z-index: 4;
-    /*background: red;*/
-    /*border-bottom: 1px solid blue;*/
-}
-.page-pc .container{
-	top: 176px;
-}
-.header{
-	display: none;
-}
-.chatmsg-box{
-	padding-top: 0;
-	padding-bottom: 110px;
-}
-.chatmsg-box, .question-msg-box{
-	background: #000;
-}
-.chitchat{
-	width: 300px;
-	height: 36px;
-	margin: 0 auto;
-	margin-top: 64px;
-}
-.send-box{
-	height: 110px;
-	border-top: 1px solid #444;
-	background: #000;
-}
-.send-box textarea{
-	padding: 0;
-    background: #666;
-    width: 229px;
-    height: 36px;
-    line-height: 36px;
-    overflow: hidden;
-    border-radius: 4px 0 0 4px;
-}
-#sendChat{
-	width: 60px;
-	height: 36px;
-	line-height: 36px;
-	color: #fff;
-	background: #00BC12;
-	border-radius: 0 4px 4px 0;
-	margin-top: 0;
-	position: unset; /*注意兼容--定位*/
-	float: right;
-	margin-right: 11px;
-}
-.chatmsg li .msg .content{
-	width: 226px;
-}
-/*处理聊天区值*/
-.container{
-	padding-left: 10px;
-}
-.page-pc .container{
-	z-index: 99;
-	padding-right: 0;
-}
-.div0{
-	display: block !important;
-}
-.both{
-	clear: both;
-}
-.send-box .face{
-	margin-top: 0;
-	left: 12px;
-	top: 20px;
-}
-.facebox-pc{
-	top: -247px;
-}
-
-/*修改之前引入模板样式结束*/
-
-/*视频和文档动画区*/
-.animation{
-	width: 294px;
-	/*height: 168px;*/
-	position: absolute;
-	top: 65px;
-    right: 311px;
-    z-index: 4;
-	/*border: 1px solid #ddd;*/
-}
-.animation-cut{
-	width: 20px;
-	height: 20px;
-	background: red;
-	float: left;
-	/*background: url(../../../images/chat/icon.png?v=fO82YEiGkixPBzaYndDn2Q%3D%3D) no-repeat 0 -48px;*/
-}
-.animation-shrink{
-	width: 20px;
-	height: 20px;
-	background: blue;
-	float: right;
-}
-/*添加文档class*/
-.doc-pc{
-	width: 294px;
-    height: 168px;
-    right: 0;
-    position: absolute;
-    z-index: 9;
-}
-.video-pc{
-	width: 294px;
-    height: 168px;
-    right: 0;
-    position: absolute;
-    z-index: 9;
-}
-
-
-/*视频底部区域关注和礼物区*/
-.video-bottom{
-	width: 100%;
-	height: 110px;
-	background: #444;
-	position: absolute;
-    bottom: 0;
-    right: 310px;
-    z-index: 99;
-}
-.concern{
-	min-width: 278px;
-	height: 110px;
-	float: left;
-	margin-left: 324px;
-}
-.concern-img{
-	width: 60px;
-	height: 60px;
-	border-radius: 60px;
-	margin-top: 25px;
-	float: left;
-	margin-right: 10px;
-}
-.concern-left{
-	float: left;
-	margin-right: 12px;
-}
-.concern-name{
-	width: 114px;
-	font-size: 16px;
-	color: #FFFFFF;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	margin-top: 30px;
-}
-.concern-number{
-	font-size: 12px;
-	color: #999999;
-	margin-top: 12px;
-}
-.concern-number span:first-child{
-	border-right: 2px solid #999;
-    padding-right: 9px;
-    margin-right: 5px;
-}
-.concern-right{
-	width: 72px;
-	height: 33px;
-	line-height: 33px;
-	background: #00BC12;
-	border-radius: 4px;
-	float: right;
-	margin-top: 38px;
-	font-size: 14px;
-	color: #FFFFFF;
-	text-align: center;
-	cursor: pointer;
-}
-/*右侧礼物区*/
-.surprise{
-	height: 100%;
-	float: right;
-}
-.surprise-top .surprise-mouseover-ul{
-	margin-top: 10px;
-	float: right;
-}
-.surprise-top .surprise-mouseover-ul li{
-	position: relative;
-	width: 58px;
-	height: 58px;
-	padding: 4px 0;
-	margin-right: 10px;
-	background: rgba(255,255,255,0.10);
-	border-radius: 4px;
-	float: left;
-	cursor: pointer;
-}
-.li-initial-border{
-	border: 2px solid rgba(255,255,255,0.10);
-}
-.surprise-top-li-border{
-	border: 2px solid #00BC12;
-}
-.surprise-top .surprise-mouseover-ul li img{
-	width: 56px;
-	height: 48px;
-}
-/*放上 li显示内容*/
-.surprise-hide{
-	display: none;
-    width: 500px;
-    height: 136px;
-    position: absolute;
-    top: -138px;
-    left: -114px;
 	
-}
-.surprise-show{
-	width: 278px;
-	height: 125px;
-	border: 1px solid #575757;
-	background: #333;
-	border-radius: 4px;
-}
-.surprise-show-img{
-	width: 80px;
-    height: 80;
-    float: left;
-    border-radius: 4px;
-    background: #fff;
-    margin: 20px 12px 0 20px;
-}
-.surprise-show-img img
-	width: 80px !important;
-	height: 64px !important;
-	margin-top: 8px;
-}
-.surprise-show-name{
-	width: 150px;
-	margin-left: 110px;
-}
-.surprise-show-title{
-	margin: 22px 0 18px 0;
-}
-.surprise-show-title .show-name{
-	font-size: 16px;
-	color: #FFFFFF;
-	margin-right: 8px;
-}
-.surprise-show-title .show-number{
-	font-size: 12px;
-	color: #00BC12;
-}
-.surprise-presented{
-	width: 72px;
-	height: 32px;
-	line-height: 32px;
-	background: #00BC12;
-	border-radius: 100px;
-	font-size: 14px;
-	color: #FFFFFF;
-	text-align: center;
-}
-.aspect-down{ 
-	position: absolute;
-    bottom: 2px;
-	left: 130px;
-    width:0px; 
-    height:0px; 
-    border-left:10px solid transparent; 
-    border-right:10px solid transparent; 
-    border-top:10px solid #333; 
-    font-size:0px; 
-    line-height:0px; 
-}
-.bottom-span{
-	font-size: 12px;
-	color: #fff;
-	margin-top: 10px;
-	float: right;
-}
-.bottom-span span:last-child{
-	display: inline-block;
-	text-align: center;
-	width: 56px;
-	height: 20px;
-	line-height: 20px;
-	background: #00BC12;
-	border-radius: 100px;
-	margin-right: 10px;
-	margin-left: 20px;
-	cursor: pointer;
-}
-
-/*排行榜开始*/
-.toptenreviews{
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 310px;
-	/*height: 176px;*/
-	/*background: #242424;*/
-	z-index: 100;
-}
-.toptenreviews-center{
-	height: 176px;
-	background: #242424;
-}
-.toptenreviews-title{
-	width: 100%;
-	height: 42px;
-	line-height: 42px;
-	font-size: 14px;
-	color: #999;
-	text-indent: 10px;
-    border-bottom: 1px solid #6c6b6b;
-}
-.toptenreviews-crew{
-	cursor: pointer;
-}
-.toptenreviews-crew .billboard-float{
- 	float: left;
-}
-.billboard-one-bg{
-	width: 48px;
-	height: 58px;
-	background: url(../images/two.png) no-repeat;
-	background-size: 48px 58px;
-	margin: 0 auto;
-	margin-top: 18px;
-}
-.billboard-two-bg{
-	width: 58px;
-	height: 68px;
-	background: url(../images/one.png) no-repeat;
-	background-size: 58px 68px;
-	margin: 0 auto;
-	margin-top: 8px;
-}
-.billboard-three-bg{
-	width: 48px;
-	height: 58px;
-	background: url(../images/three.png) no-repeat;
-	background-size: 48px 58px;
-	margin: 0 auto;
-	margin-top: 18px;
-}
-.toptenreviews-crew div img{
-	width: 40px;
-    height: 40px;
-    border-radius: 100px;
-    margin: 0 auto;
-    margin-top: 14px;
-    margin-left: 4px;
-    display: inline-block;
-}
-.billboard-two img{
-	width: 50px !important;
-	height: 50px !important;
-}
-.toptenreviews-crew .billboard-name{
-	width: 100px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	text-align: center;
-	font-size: 12px;
-	color: #fff;
-	margin: 10px 0 6px 0;
-}
-.toptenreviews-crew .billboard-number{
-	width: 100px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	text-align: center;
-	font-size: 12px;
-	color: #F97B49;
-}
-/*列表*/
-.toptenreviews-list{
-	position: absolute;
-	top: 176px;
-	left: 0;
-	width: 100%;
-	background: #242424;
-	max-height: 500px;
-	overflow-y: scroll;
-	display: none;
-}
-.toptenreviews-list-center{
-	width: 100%;
-    height: 30px;
-    line-height: 30px;
-    margin-top: 20px;
-    padding: 0 16px;
-}		    
-.toptenreviews-list-img{
-	float: left;
-}
-.toptenreviews-list-center .number{
-	margin-right: 14px;
-}
-.toptenreviews-list-center span{
-	font-size: 12px;
-	color: #999;
-	display: inline-block;
-	float: left;
-}
-.toptenreviews-list-img img{
-	width: 30px;
-	height: 30px;
-	border-radius: 60px;
-	margin-right: 10px;
-}
-.toptenreviews-list-size{
-	width: 117px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	float: left;
-	font-size: 12px;
-	color: #FFFFFF;
-}
-.toptenreviews-list-number{
-	float: right;
-}
-.toptenreviews-list-center:last-child{
-	padding-bottom: 50px;
-}
-/*排行榜结束*/
-   
-  /* #livePlayer{
-   	background: none !important;
-   }
-   .page-pc .player-container{
-   	background: none !important;
-   }
-   .page-pc .video{
-   	background: none !important;
-   	display: none;
-   }*/
-  .page-pc .player-container{
-  	
-  }
-   
-   
-  	/*处理切换动画开始*/
-.doc-img{
-	top: 0;
-    right: 0;
-    width: 294px !important;
-    height: 168px !important;
-    z-index: 9;
-    position: absolute !important;
-}
-.company-introduce-one{
-	-webkit-animation: righteaseinAnimate-one 3s forwards;
-}
-@-webkit-keyframes righteaseinAnimate-one{
-    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-}
-
-.company-introduces-one{
-    -webkit-animation: righteaseinAnimates-one 3s forwards;
-}
-@-webkit-keyframes righteaseinAnimates-one{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
-}
-
-.company-introduce-two{
-    -webkit-animation: righteaseinAnimate-two 3s forwards;
-}
-@-webkit-keyframes righteaseinAnimate-two{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
-}
-
-.company-introduces-two{
-    -webkit-animation: righteaseinAnimates-two 3s forwards;
-}
-@-webkit-keyframes righteaseinAnimates-two{
-    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-} 
-/*处理切换动画结束*/
-
-/*聊天区模板基础上修改开始*/
-.chatmsg li .msg p .tips.host{
-	width: 44px;
-    height: 20px;
-    line-height: 20px;
-    background: #00bc12;
-    border: 0;
-    /* border: none; */
-    color: #fff;
-    border-radius: 4px;
-}
-/*聊天区模板基础上修改结束*/
-</style>
-
+<script src="/web/js/vhall/vhall_demo_custom.js" type="text/javascript" charset="utf-8"></script> 
 <script>
 			(function() {
                 if(document.location.host=='www.ipandatcm.com'){
@@ -636,7 +117,11 @@
 		<script type="text/javascript">
 			window.onload = function(){
 			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
-		 		$(".video-bottom img").click(function(){
+		 		$(".video-bottom img").click(function(){  /*礼物图片*/
+			 		$("#userCusEvent").show();
+			 	});
+			 	/*排行榜图片--模板中点击img隐藏掉最大div，此代码让最大div显示*/
+			 	$(".billboard-float img").click(function(){  /*排行榜图片*/
 			 		$("#userCusEvent").show();
 			 	});
 			 	
@@ -695,9 +180,9 @@
 			 	/*鼠标放排行榜上查看效果结束*/
 			};
 		</script>
-		
-		
-		
+<!--新写直播间--css--替换引入微吼css-->
+<!--<lick rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"></lick>-->
+<link rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"/>
 </head>
 
 <body>
@@ -707,6 +192,7 @@
 
 	<!--   直播区域    -->
 	<div class="livePlayer" style="position: relative">
+	
 		<!--动画代码视频文档小框--右侧-->
 		<div class="animation">
 			<div class="animation-cut animation-cut-click"></div>
@@ -714,7 +200,8 @@
 		</div>
 		
 		<!--弹幕得div-->
-		<div id='boxDom' style="background-color: transparent; position: absolute; height: 100%"></div>
+		<div id='boxDom' style="background-color: transparent; 
+		position: absolute; height: 100%;z-index:9"></div>
 		<div class="kick">你已被移出直播间，下次请记得遵守课堂纪律。</div>
 		<!---------提示遮罩层--------->
 		<div class="ms">
@@ -772,8 +259,6 @@
 		<!-- right start -->
 		<div class="right">
 			
-			
-			
 		</div>
 		
 		<div id="livePlayer">
@@ -806,13 +291,13 @@
 				</div>
 				
 				<div class=container>
-					<div class=help-wrap>
+				<!-- 	<div class=help-wrap>
 						<div class=help-tool>小助手</div>
 						<a href=javascript:; class=help-item id=userEvent>测试自定义消息</a> <a
 							href=javascript:; class=help-item id=userData>测试更新用户信息</a> <a
 							href=javascript:; class=help-item id=exchange>切换线或清晰度</a> <a
 							href=javascript:; class=help-item id=hideVideo>隐藏文档</a>
-					</div>
+					</div> -->
 					<div class=sign>
 						<div class=sign-header>
 							签到 <img
@@ -846,7 +331,7 @@
 						</div>
 					</div>
 					<div class=send-box>
-						<a id=all href=javascript:; class=face style="left: 40px;"></a> 
+						<a id=filter-msg href=javascript:; class=lecturer style="left: 40px;"></a> 
 						<a id=face href=javascript:; class=face></a> 
 						<div class="chitchat">
 							<a id=sendChat href=javascript:; class=send-chat>发送</a>
@@ -867,7 +352,7 @@
 							<div class="billboard-one billboard-float">
 								<div class="billboard-one-bg"><img src="../images/Android.png" /></div>
 								<p class="billboard-name">我是名字我是名字我是名字</p>
-								<p class="billboard-number">贡献 100</p>
+								<p class="billboard-number">贡献 <span>100</span></p>
 							</div>
 							<div class="billboard-two billboard-float mouseover">
 								<div class="billboard-two-bg"><img src="../images/Android.png" /></div>
@@ -877,7 +362,7 @@
 							<div class="billboard-three billboard-float mouseover">
 								<div class="billboard-three-bg"><img src="../images/Android.png" /></div>
 								<p class="billboard-name">我是名字我是名字我是名字</p>
-								<p class="billboard-number">贡献 100</p>
+								<p class="billboard-number">贡献 <span>100</span></p>
 							</div>
 							<div class="both"></div>
 						</div>
@@ -1048,7 +533,6 @@
 					</div>
 				</div>
 				
-		
 		</div>
 
 		<!--打赏部分html代码-->
@@ -1107,7 +591,6 @@
 				<a class="popup-btn-yes">支付</a>
 			</div>
 		</div>
-
 
 		<!--充值部分 -->
 		<div id='main1'>
@@ -1219,11 +702,11 @@
 							id="chongzhi_qrcode">
 					</div>
 				</div>
-
-
 			</div>
-
 		</div>
+
+		<ul id="chat-list" style="padding:0px;">
+		</ul>
 
 		<!--禁言提示-->
 		<!--模板引擎渲染礼物栏-->
@@ -1241,31 +724,24 @@
 			{{/each}}
 		</script>
 
-<script
-	src=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.concat.min.js></script>
-<script src="/web/js/vhall/vhallSDK.js" type="text/javascript"
-	charset="utf-8"></script>
-<script src="/web/js/vhall/vhall_demo_custom.js" type="text/javascript"
-	charset="utf-8"></script>
-<script src=//apps.bdimg.com/libs/underscore.js/1.7.0/underscore-min.js></script>
-
 <script src="/web/js/artTemplate.js" type="text/javascript"
 	charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/bootstrap.js"></script>
 <script src="/web/js/ajaxfileupload.js"></script>
 <script src="/web/js/jquery.form.min.js"></script>
-<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/jquery.qrcode.js" type="text/javascript"
 	charset="utf-8"></script>
 <script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
 
-<script src="/web/js/dashang.js?v=ipandatcm_1.3" type="text/javascript"
-	charset="utf-8"></script>
-<!-- <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script> -->
-<script src='http://cdn.bootcss.com/strophe.js/1.1.3/strophe.min.js'></script>
+<script src="/web/js/im/strophe.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src='http://cdn.bootcss.com/strophe.js/1.1.3/strophe.min.js'></script> -->
+<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/im/giftSend.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
+<!-- <script src="/web/js/dashang.js?v=ipandatcm_1.3" type="text/javascript"
+	charset="utf-8"></script> -->
+<!-- <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script> -->
 		<script src="/web/js/liveVideo/liveVideo.js?v=ipandatcm_1.3"></script>
 		<script src="/web/js/liveVideo/liveVideoSDK.js?v=ipandatcm_1.3"></script>
 </body>

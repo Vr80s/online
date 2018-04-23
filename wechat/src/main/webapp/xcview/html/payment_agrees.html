@@ -19,7 +19,16 @@
 <script src="/xcview/js/common/js.js"></script>
 <script src="/xcview//js/jquery-1.8.3.min.js"></script>
 
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 <link rel="stylesheet" href="/xcview/css/css.css">
 <style>
 	.deal_show{

@@ -23,7 +23,16 @@
 <link rel="stylesheet" type="text/css" href="/xcview/css/homepage.css?v=wechat_1.1.1"/>
 
 <!--<script src="/xcview/js/js.js"></script>-->
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 
 <style type="text/css">
 	.swiper-container {

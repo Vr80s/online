@@ -144,7 +144,8 @@
                                 <img src="${reportDoctor.headPortrait}" alt="医师头像">
                                 <div class="report_right_name_p">
                                     <p class="p0"><a
-                                            href="${webUrl}/doctors/${reportDoctor.doctorId}">${reportDoctor.doctorName!""}</a>
+                                            href="${webUrl}/doctors/${reportDoctor.doctorId}"
+                                            style="color: #000;">${reportDoctor.doctorName!""}</a>
                                     </p>
                                     <p class="p1">${reportDoctor.province!""} ${reportDoctor.city!""}</p>
                                 </div>
@@ -157,39 +158,40 @@
             </div>
         </#if>
         <#if authors?? && (authors?size >0)>
-            <div style="background: #fff;">
-                <p class="name" style="padding:20px;padding-bottom: 0px;">文章作者</p>
-            <div>
-                <#list authors as author>
-                    <div class="report_right_doctor clearfix">
-                        <div class="report_right_name">
-                            <img src="${author.headPortrait}" alt="医师头像"
-                                 style="position: absolute;width: 100%;height: 100%;">
-                            <div class="report_right_name_p">
-                                <p class="p0"><a
-                                        href="${webUrl}/doctors/${author.doctorId}">${author.doctorName!""}</a>
-                                </p>
-                                <p class="p1">${author.province!""} ${author.city!""}</p>
+            <div class="report-doctor-list">
+                <div style="background: #fff;">
+                    <p class="name" style="padding:20px;padding-bottom: 0px;">文章作者</p>
+                <div>
+                    <#list authors as author>
+                        <div class="report_right_doctor clearfix">
+                            <div class="report_right_name">
+                                <img src="${author.headPortrait}" alt="医师头像">
+                                <div class="report_right_name_p">
+                                    <p class="p0"><a
+                                            href="${webUrl}/doctors/${author.doctorId}" style="color: #000;">${author.doctorName!""}</a>
+                                    </p>
+                                    <p class="p1">${author.province!""} ${author.city!""}</p>
+                                </div>
                             </div>
+                            <div class="both"></div>
                         </div>
-                        <div class="both"></div>
                     </div>
+                    </#list>
                 </div>
-                </#list>
             </div>
         </#if>
-            <div class="hot-article">
+            <div class="hot-article" style="height: auto">
                 <span class="hot-article-title">推荐阅读</span>
                 <ul class="hot-article-list">
                 <#list suggestedArticles as suggestedArticle>
                     <#if suggestedArticle_index<=2>
                         <li>
-                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
+                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span style="margin-bottom: 20px"
                                     title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
                         </li>
                     <#else>
                         <li>
-                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
+                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span style="margin-bottom: 20px"
                                     title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
                         </li>
                     </#if>

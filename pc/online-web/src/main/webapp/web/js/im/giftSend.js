@@ -62,7 +62,7 @@ function onMessage(msg) {
 	        var text = Strophe.getText(body);
 	        text = text.replaceAll("&quot;","\"");
         	data = JSON.parse(text);
-        	debugger;
+        	
         	createGiftList(data);
     	}catch(err){
 //        	console.info(err);
@@ -271,6 +271,12 @@ $(document).ready(function() {
 			RequestService("/gift/sendGift", "POST", msgJson, function(data) {
 				if(data.success==true){
         			sendMsg(data.resultObject);
+        			VHALL_SDK.sendChat({
+        				text: data.resultObject.senderInfo.userName+"赠送给主播一个"+data.resultObject.giftInfo.name
+        			})
+        			var json = {user_name:data.resultObject.senderInfo.userName,
+        				content:"赠送给主播一个"+data.resultObject.giftInfo.name};
+        			$("#chatmsg").append(liveGiftList(json)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
         			refreshBalance();
 				}else{
 					// if("余额不足"==data.errorMessage){
@@ -296,14 +302,6 @@ $(document).ready(function() {
 
 function createGiftList(data){
 	if(data.messageType==1){
-
-		debugger;
-		
-/*		<div class="headImg" style="float: left;">
-			<img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2017/09/23/14/0b77783055f44003bb32228eb3549887.png">
-		</div>*/
-		
-		
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +
@@ -320,7 +318,7 @@ function createGiftList(data){
 				"</div>" +
 		"</li>")
 		$('#chat-list').append(li);
-		$(".liwu").html(data.giftCount);
+		//$(".liwu").html(data.giftCount);
 		var a = $('#chat-list');
 		a.scrollTop(a[0].scrollHeight);
 		
@@ -455,7 +453,7 @@ function giftShow(gift,f,continuous){
    
     if(gift.messageType==1){
 	    var top=countChange()
-    	gif[f] = $( "<div class='big' id='gift"+f+"' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
+    	gif[f] = $( "<div class='big' id='gift"+f+"' style='width: 500px;height: 46px;line-height: 46px;background: url(/web/images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
     			"<div class='left' style='height: 100%;display: inline-block;vertical-align: top;'>" +
     			"<span>"+gift.senderInfo.userName+"</span>&nbsp;" +
     			"<span>送&nbsp;"+gift.giftInfo.name+"</span>" +
@@ -464,19 +462,17 @@ function giftShow(gift,f,continuous){
     	"</div>")	
     }else if(gift.messageType==0){
     	var top=countChange()
-    	gif[f] = $( "<div class='big' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
+    	gif[f] = $( "<div class='big' style='width: 500px;height: 46px;line-height: 46px;background: url(web/images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
     			"<div class='left' style='height: 100%;display: inline-block;vertical-align: top;'>" +
     			"<span>"+gift.senderInfo.userName+"</span>&nbsp;" +
     			"<span>打赏给主播一个红包</span>" +
-    			"</div><img src='../../../images/hongbao.png' style='width: 54px;height: 54px;margin-left: 10px;'>" +
+    			"</div><img src='web/images/hongbao.png' style='width: 54px;height: 54px;margin-left: 10px;'>" +
     	"</div>")	
     	
     }
 
     //礼物弹幕生成效果
-    	 gif[f].appendTo($("#boxDom"))
-    	   .css("color", colors[Math.floor(Math.random() * 8)])
-    	   .css("left", "-500px")//初始未知
+    	 gif[f].appendTo($("#boxDom")).css("color", colors[Math.floor(Math.random() * 8)]).css("left", "-500px")//初始未知
     	   .animate({// 设置运动
     	       "left": "50px"
     	     }, 500, "linear", function () {

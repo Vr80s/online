@@ -26,7 +26,7 @@ public interface MedicalWritingMapper extends BaseMapper<MedicalWriting> {
     @Select({"SELECT mw.id, mw.`title`, mw.`author`, mw.`img_path` as imgPath, mw.buy_link as buyLink, mw.status as status, mw.create_time as createTime, mw.remark" +
             " FROM `medical_writings` mw" +
             " JOIN `medical_doctor_writings` mdw ON mdw.`writings_id` = mw.`id`" +
-            "WHERE mw.`deleted`=0 AND mw.`status`=1 and mdw.doctor_id = #{doctorId}" +
+            "WHERE mw.`deleted`=0 AND mdw.doctor_id = #{doctorId}" +
             " ORDER BY mw.`create_time` desc"})
     List<MedicalWritingVO> listWritingByDoctorId(Page<MedicalWritingVO> medicalWritingsVOPage, @Param("doctorId") String doctorId);
 
@@ -34,14 +34,15 @@ public interface MedicalWritingMapper extends BaseMapper<MedicalWriting> {
      * 分页查询
      *
      * @param medicalWritingsVOPage 分页参数
+     * @param doctorId              医师id
      * @return 列表数据
      */
     @Select("SELECT mw.id, mw.`title`, mw.`author`, mw.`img_path` as imgPath, mw.buy_link as buyLink, mw.status as status, mw.create_time as createTime, mw.remark" +
             " FROM `medical_writings` mw" +
             " LEFT JOIN `medical_doctor_writings` mdw ON mdw.`writings_id` = mw.`id`" +
-            "WHERE mw.`deleted`=0 AND mw.`status`=1" +
+            "WHERE mw.`deleted`=0 AND mw.`status`=1 AND (#{doctorId} is null OR mdw.doctor_id = #{doctorId})" +
             " ORDER BY mw.`create_time` desc")
-    List<MedicalWritingVO> listWriting(Page<MedicalWritingVO> medicalWritingsVOPage);
+    List<MedicalWritingVO> listWriting(Page<MedicalWritingVO> medicalWritingsVOPage, @Param("doctorId") String doctorId);
 
     /**
      * 获取著作数据
@@ -66,7 +67,6 @@ public interface MedicalWritingMapper extends BaseMapper<MedicalWriting> {
      */
     @Update("update medical_writings mw" +
             " set mw.status = #{status}" +
-            " where mw.id = #{id} and mw.deleted = 0" +
-            " and mw.id = (select mdw.writings_id from medical_doctor_writings mdw where mdw.doctor_id = #{doctorId})")
+            " where mw.id = #{id} and mw.deleted = 0")
     int updateStatus(@Param("doctorId") String doctorId, @Param("id") String id, @Param("status") boolean status);
 }

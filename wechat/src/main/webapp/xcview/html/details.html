@@ -32,7 +32,16 @@ $(function(){
     $("#div").trigger('play');
 });
 </script>
-	
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 <link rel=stylesheet href="/xcview/css/jquery.mCustomScrollbar.min.css">
 <link rel="stylesheet" href="/xcview/css/details.css?version=cdda455964&version=cdda451115964&version=cdda455964">
 <link rel="stylesheet" href="/xcview/css/style.css?version=eede15a77a&version=eede15a11177a&version=eede15a77a">
@@ -574,7 +583,8 @@ $(function(){
 <script type="text/javascript" src="/xcview/js/common/weihoudetails.js?v=wechat_1.2.1&version=4d5a0432ee&version=4d5a0432ee&version=10d52d1975"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1111.1&version=1a72100b6d&version=1a72100b6d&version=1a72100b6d"></script>
 <!-- <script type="text/javascript" src="/xcview/js/XCh5Pay.js?version=70d6efdacc&version=352ea4ec3e&version=352ea4ec3e"></script> -->
-<script type="text/javascript" src="/xcview/js/common/strophe.js?version=1ddc9fdf23&version=1ddc9fdf23&version=1ddc9fdf23"></script>
+<script type="text/javascript"
+	src="/xcview/js/common/strophe.js?version=1ddc9fdf23&version=1ddc9fdf23&version=1ddc9fdf23"></script>
 <script type="text/javascript" src="/xcview/js/im/giftSend.js?version=a069a29eca&version=f3dac6e8b1&version=f30bcb705f"></script>
 <script type="text/javascript" src="/xcview/js/details_change.js?v=wechat_1.11&version=e700156cca&version=e700156cca&version=e700156cca"></script>
 <script type="text/javascript" src="/xcview/js/details.js?v=wechat_1.111&version=f236be0875&version=b47ca11167429&version=6d40e3898a"></script>

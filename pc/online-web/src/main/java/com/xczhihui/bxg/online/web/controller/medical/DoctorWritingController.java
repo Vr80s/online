@@ -6,7 +6,6 @@ import static com.xczhihui.bxg.common.util.bean.ResponseObject.newSuccessRespons
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -35,20 +34,17 @@ public class DoctorWritingController extends AbstractController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject listByDoctorId(@RequestParam(defaultValue = "1") int page,
-                                         @RequestParam(defaultValue = "10") int size,
-                                         @RequestParam(required = false) String doctorId, HttpServletRequest request) {
-        //不传医师id时，查询自己的著作列表
-        if (StringUtils.isBlank(doctorId)) {
-            doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId(request));
-        }
+                                         @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId(request));
         return newSuccessResponseObject(medicalDoctorWritingService.list(page, size, doctorId));
     }
 
     @RequestMapping(value = "public", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject list(@RequestParam(defaultValue = "1") int page,
-                               @RequestParam(defaultValue = "10") int size) {
-        return newSuccessResponseObject(medicalDoctorWritingService.list(page, size));
+                               @RequestParam(defaultValue = "10") int size,
+                               @RequestParam(required = false) String doctorId) {
+        return newSuccessResponseObject(medicalDoctorWritingService.listPublic(page, size, doctorId));
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)

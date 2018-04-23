@@ -1,3 +1,81 @@
+
+
+
+var onOff = true, isFilter = true;
+
+    //聊天消息
+    function liaotian(obj){
+    	console.log("nnnn:"+obj);
+        var role_str = "";
+	    var role= obj.role;
+	    var str_hide = "no";
+        if(role=='assistant'){
+	    	role_str +="<a class='tips assistant' data-role='yes' href='javascript:;'>助理</a>";
+	    	str_hide = "yes";
+	    } else if(role == 'host'){
+	    	role_str +="<a class='tips host' data-role='yes' href='javascript:;'>主播</a>";
+	    	str_hide = "yes";
+	    }
+	    else if(role == 'guest'){
+	    	role_str +="<a class='tips guest' data-role='yes' href='javascript:;'>嘉宾</a>";
+	    	str_hide = "yes";
+	    }
+//	    头像注释
+	    role_str+="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
+	    
+	    var className = "";
+	    if(!isFilter && role =="user" ){
+	    	className = "hide";
+	    }
+	    var aaa = "<li uid=' user_id' class="+className+"  data-role="+str_hide+">"+
+	    /*聊天区域*/
+	        "<div class='msg'>"+
+	        "<p> " + role_str+"：<span style='color:#fff;'>"+obj.content+"</span></p >"+
+	        "</div>"+
+	      "</li>";
+	    return aaa;
+    }
+    
+    //进入直播间
+    function liveToGoOut(obj,falg){
+	  /*  console.log("参与人数："+obj.data.attend_count);
+        console.log("当前在线人数："+obj.data.concurrent_user);*/
+        var content = "进入直播间";
+        if(falg == 1){
+            content = "进入直播间";
+        }else if(falg == 2){
+        	content = "退出直播间";
+        }
+	    var  role_str="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
+	    var className = "";
+	    if(!isFilter){
+	    	className = "hide";
+	    }
+	    var aaa = "<li uid=' user_id' data-role='no'  class="+className+" >"+
+	    /*聊天区域*/
+	        "<div class='msg'>"+
+	        	"<p> " + role_str+"：<span style='color:#fff;'>"+obj.content+"</span></p >"+
+	        "</div>"+
+	      "</li>";
+	    return aaa;
+    }
+    //送礼
+    function liveGiftList(obj){
+  	    var  role_str="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
+	    var className = "";
+	    if(!isFilter){
+	    	className = "hide";
+	    }
+	    var aaa = "<li uid=' user_id' data-role='no'  class="+className+" >"+
+  	    /*聊天区域*/
+  	        "<div class='msg'>"+
+  	        	"<p> " + role_str+"：<span style='color:#fff;'>"+obj.content+"</span></p >"+
+  	        "</div>"+
+  	      "</li>";
+  	    return aaa;
+      }
+
+
 $(document).ready(function() {
 	
 	var map;
@@ -17,28 +95,6 @@ $(document).ready(function() {
         }
     });
 	
-    function liaotian(obj){
-    	console.log("nnnn:"+obj);
-        var role_str = "";
-	    var role= obj.role;
-        if(role=='assistant'){
-	    	role_str +="<a class='tips assistant' href='javascript:;'>助理</a>";
-	    } else if(role == 'host'){
-	    	role_str +="<a class='tips host' href='javascript:;'>主播</a>";
-	    }
-	    else if(role == 'guest'){
-	    	role_str +="<a class='tips guest' href='javascript:;'>嘉宾</a>";
-	    }
-//	    头像注释
-	    role_str+="<a class='name' href='javascript:;' title=' user_name'>"+obj.user_name+" </a>";
-	    var aaa = "<li uid=' user_id'>"+
-	    /*聊天区域*/
-	        "<div class='msg'>"+
-	            "<p> " + role_str+"："+obj.content+"</p>"+
-	        "</div>"+
-	      "</li>";
-	    return aaa;
-    }
 	function t(t) {
 		var o = new RegExp("(^|&)" + t + "=([^&]*)(&|$)", "i"),
 			e = window.location.search.substr(1).match(o);
@@ -106,7 +162,7 @@ $(document).ready(function() {
 	});
 	
 	VHALL_SDK.on("customEvent", function(t) {
-		alert(JSON.stringify(t))
+		//alert(JSON.stringify(t))
 	}), VHALL_SDK.on("chatMsg", function(t) {
 	
 		$("#chatmsg").append(liaotian(t)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999")
@@ -122,16 +178,20 @@ $(document).ready(function() {
 	}), VHALL_SDK.on("error", function(t) {
 		alert("发生错误: " + JSON.stringify(t))
 	}), VHALL_SDK.on("userOnline", function(t) {
-		
 		//用户上线
-		debugger;
-		console.log(t)
+		
+		console.log(t);
+		$("#chatmsg").append(liveToGoOut(t,1));
+		$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999");
+		
 	}), VHALL_SDK.on("userOffline", function(t) {
-		
 		//用户下线
-		debugger;
 		
 		console.log(t)
+		
+		$("#chatmsg").append(liveToGoOut(t,2));
+		$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999");
+		
 	}), VHALL_SDK.on("sendSign", function(t) {
 		console.log(t)
 	}), VHALL_SDK.on("UpdateUser", function(t) {
@@ -228,13 +288,12 @@ $(document).ready(function() {
 				}
 			}
 		}
-	}), $("#sendChat").click(function() {
+	}), $("#sendChat").click(function() { //发送聊天消息
 		
 		 var room = VHALL_SDK.getRoominfo();
 		 if (room.type != 1){
 			 return;
 		 }
-		//alert("啦啦啦啦");
 		var t = $("#mywords").val(),
 			n = null;
 		
@@ -245,7 +304,32 @@ $(document).ready(function() {
 			text: t
 		})) && $("#question-msg").append(e(n)), $("#mywords").val(""), $(".question-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999"))
 	
-	}), VHALL_SDK.on("playerError", function(t) {
+	}), 
+	$("#filter-msg").on("click", function() {//只看主办方消息   
+		
+	    if (isFilter) {
+	        $(this).addClass("filter-yes").attr("title", "查看全部消息");
+	        for (var i = 0; i < $(".chatmsg li").length; i++) {
+	            var isRole = $(".chatmsg li").eq(i).data("role");
+	            if (isRole == "no") {
+	                $(".chatmsg li").eq(i).addClass("hide");
+	            }
+	        }
+	        $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
+	        
+	        isFilter = false;
+	    } else {
+	        $(this).removeClass("filter-yes").attr("title", "只看主办方消息");
+	        $(".chatmsg li").removeClass("hide");
+	        $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
+	        
+	        isFilter = true;
+	    }
+	}),
+	
+	
+	
+	VHALL_SDK.on("playerError", function(t) {
 		console.log(t)
 	}), VHALL_SDK.on("playerReady", function() {
 		VHALL_SDK.player.on("canPlayLines", function(t) {

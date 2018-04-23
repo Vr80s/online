@@ -667,6 +667,7 @@ $('#xuke_pic_ipt').on('change', function() {
 $(".recruit-btn-newjob").click(function() {
 	var recruit_btn = $(this).text()
 	if(recruit_btn == "新职位") {
+		$(".warning").addClass("hide")
 		resetRecruitForm();
 		$(".recruit-box-newjob").show()
 		$(".recruit-box-manage").hide()

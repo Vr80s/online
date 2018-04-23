@@ -19,59 +19,59 @@ public interface ArticleService {
      * 获取博学社banner信息
      * @return
      */
-     public List<Map<String,Object>>   getArticleBanner();
+    List<Map<String,Object>>   getArticleBanner();
 
     /**
      * 获取文章分类
      * @return
      */
-     public  List<Map<String,Object>>  getArticleType();
+    List<Map<String,Object>>  getArticleType();
 
     /**
      * 按分类获取分页后的文章
      * @param type
      * @return
      */
-    public  Page<ArticleVo>  getPaperArticle(Integer pageNumber, Integer pageSize,String type,String tagId);
+    Page<ArticleVo>  getPaperArticle(Integer pageNumber, Integer pageSize, String type, String tagId);
 
     /**
      * 获取热门文章
      * @return
      */
-    public List<Map<String,Object>>  getHotArticle();
+    List<Map<String,Object>>  getHotArticle();
 
     /**
      * 获取热门标签
      * @return
      */
-    public List<Map<String,Object>>  getHotTags();
+    List<Map<String,Object>>  getHotTags();
 
     /**
      * 获取文章信息更具文章id
      * @return
      */
-    public Map<String,Object>  updateBrowseSumAndgetArticleById(Integer articleId,Integer preId,HttpServletRequest request);
+    Map<String,Object>  updateBrowseSumAndgetArticleById(Integer articleId, Integer preId, HttpServletRequest request);
 
     /**
      * 相关推荐
      * @param articleId
      * @return
      */
-    public List<Map<String,Object>> getCorrelationTitle(Integer articleId);
+    List<Map<String,Object>> getCorrelationTitle(Integer articleId);
 
 
     /**
      * 保存评论信息
      * @param appraiseVo
      */
-    public void  saveAppraise(AppraiseVo appraiseVo,HttpServletRequest request);
+    void  saveAppraise(AppraiseVo appraiseVo, HttpServletRequest request);
 
     /**
      * 根据文章id，获取此文章下所有评论
      * @param articleId
      * @return
      */
-    public Page<AppraiseVo>  getAppraiseByArticleId(Integer articleId,Integer pageNumber,Integer pageSize,HttpServletRequest request);
+    Page<AppraiseVo>  getAppraiseByArticleId(Integer articleId, Integer pageNumber, Integer pageSize, HttpServletRequest request);
 
 
     /**
@@ -80,7 +80,7 @@ public interface ArticleService {
      * @param request
      * @return
      */
-    public  Map<String,Object>   updatePraiseSum(Integer articleId,Integer praiseSum,HttpServletRequest request);
+    Map<String,Object>   updatePraiseSum(Integer articleId, Integer praiseSum, HttpServletRequest request);
 
 
     /**
@@ -88,12 +88,12 @@ public interface ArticleService {
      * @param appraiseId
      * @param request
      */
-    public void deleteAppraiseId(String appraiseId, HttpServletRequest request);
+    void deleteAppraiseId(String appraiseId, HttpServletRequest request);
 
 
     /**
      * 获取热门课程
      * @return
      */
-    public List<Map<String,Object>>  getHotCourses();
+    List<Map<String,Object>>  getHotCourses();
 }

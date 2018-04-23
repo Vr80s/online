@@ -208,16 +208,16 @@
             <ul class="zhuanlan_list" id="zhuanlan_list">
                 <#list specialColumns.records as specialColumn>
                     <li class="clearfix">
-                        <a href="${webUrl}/headline/details/${specialColumn.id}">
-                            <div class="zhuanlan_left">
+                        <div class="zhuanlan_left">
+                            <a href="${webUrl}/headline/details/${specialColumn.id}">
                                 <img src="${specialColumn.imgPath}" alt="${specialColumn.title}">
-                            </div>
-                            <div class="zhuanlan_right">
-                                <h3>${specialColumn.title}</h3>
-                                <p>${specialColumn.content}</p>
-                                <span>${(specialColumn.createTime?string("yyyy-MM-dd"))!}</span>
-                            </div>
-                        </a>
+                                <a href="${webUrl}/headline/details/${specialColumn.id}">
+                        </div>
+                        <div class="zhuanlan_right">
+                            <h3><a href="${webUrl}/headline/details/${specialColumn.id}" style="color: #000;">${specialColumn.title}</a></h3>
+                            <p>${specialColumn.content}</p>
+                            <span>${(specialColumn.createTime?string("yyyy-MM-dd"))!}</span>
+                        </div>
                     </li>
                 </#list>
             </ul>
