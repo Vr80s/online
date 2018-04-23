@@ -104,7 +104,6 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         }
         oldMedicalWriting.setRemark(medicalWriting.getRemark());
         oldMedicalWriting.setTitle(medicalWriting.getTitle());
-        oldMedicalWriting.setStatus(medicalWriting.getStatus());
         oldMedicalWriting.setImgPath(medicalWriting.getImgPath());
         oldMedicalWriting.setBuyLink(medicalWriting.getBuyLink());
         oldMedicalWriting.setUpdatePerson(medicalWriting.getCreatePerson());
