@@ -19,4 +19,6 @@ public interface IOrderService extends IService<Order> {
     Order getOrderByOrderId(String orderId);
 
     Order getOrderNo4PayByOrderNo(String orderId);
+
+    Order getOrderNo4PayByOrderId(String orderId);
 }

@@ -39,15 +39,15 @@ public class WxPayConst {
 			properties.load(in);
 			
 			//微信公众号和h5
-			gzh_appid = properties.getProperty("wechatpay.gzh_appid");
-			gzh_mchid = properties.getProperty("wechatpay.gzh_mchid");
-			gzh_ApiKey = properties.getProperty("wechatpay.gzhApiKey");
+			gzh_appid = properties.getProperty("wechatpay.h5.appid");
+			gzh_mchid = properties.getProperty("wechatpay.h5.mchid");
+			gzh_ApiKey = properties.getProperty("wechatpay.h5.apiKey");
 			gzh_Secret = properties.getProperty("wechatpay.gzhSecret");
 			
 			//app使用 微信登录和支付
-			app_appid = properties.getProperty("wechatpay.app_appid");
-			app_mchid = properties.getProperty("wechatpay.app_mchid");
-			app_ApiKey = properties.getProperty("wechatpay.appApiKey");
+			app_appid = properties.getProperty("wechatpay.app.appid");
+			app_mchid = properties.getProperty("wechatpay.app.mchid");
+			app_ApiKey = properties.getProperty("wechatpay.app.apiKey");
 			//app_Secret = properties.getProperty("wechatpay.appSecret");
 			
 			webdomain = properties.getProperty("webdomain");

@@ -47,15 +47,6 @@
         <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
     </bean>
 
-    <!-- 定时器-->
-    <!--	<task:annotation-driven/>
-
-        <bean id="multipartResolver"
-            class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-            <property name="maxUploadSize" value="1073741824" />&lt;!&ndash;1024M &ndash;&gt;
-            <property name="defaultEncoding" value="UTF-8" />
-        </bean>-->
-
     <mvc:annotation-driven>
         <!-- 处理responseBody 里面日期类型 -->
         <mvc:message-converters>
@@ -67,53 +58,11 @@
                                 <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
                             </bean>
                         </property>
-                        
-                        <!-- 
-                            	如果返回的字段是空的话，这里自动转成字符串
-                         <property name="serializerProvider">  
-			                <bean class="com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.Impl">  
-			                    <property name="nullValueSerializer">  
-			                        <bean class="com.xczh.consumer.market.utils.TransferJsonSerializer"></bean>  
-			                    </property>  
-			                </bean>  
-            			</property>  
-            			
-            			 -->
-                        
-                        
-                        
                     </bean>
                 </property>
             </bean>
         </mvc:message-converters>
-        <!--	   <mvc:message-converters>
-                    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                        <property name="supportedMediaTypes">
-                            <list>
-                                <value>text/json;charset=UTF-8</value>
-                            </list>
-                        </property>
-                        <property name="objectMapper">
-                            <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-                                <property name="dateFormat">
-                                    <bean class="java.text.SimpleDateFormat">
-                                        <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
-                                    </bean>
-                                </property>
-                            </bean>
-                        </property>
-                    </bean>
-                </mvc:message-converters>-->
     </mvc:annotation-driven>
-    <!--
-        <bean id="handlerExceptionResolver"
-            class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
-            <property name="exceptionMappings">
-                <props>
-                    <prop key="java.lang.Throwable">common/500</prop>
-                </props>
-            </property>
-        </bean>-->
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -128,10 +77,30 @@
         <property name="redisHost" value="${redis.host}"></property>
         <property name="redisPort" value="${redis.port}"></property>
     </bean>
+
+    <bean id="aliPayBean" class="com.xczhihui.pay.alipay.AliPayBean">
+        <property name="appId" value="${alipay.app.id}"></property>
+        <property name="privateKey" value="${alipay.merchant.private.key}"></property>
+        <property name="publicKey" value="${alipay.alipay.public.key}"></property>
+        <property name="serverUrl" value="${alipay.url}"></property>
+        <property name="domain" value="${domain}"></property>
+    </bean>
+
+    <bean id="WxPayBean" class="com.xczhihui.pay.weixin.api.WxPayBean">
+        <property name="appId4App" value="${wechatpay.app.appid}"></property>
+        <property name="mchId4App" value="${wechatpay.app.mchid}"></property>
+        <property name="partnerKey4App" value="${wechatpay.app.apiKey}"></property>
+        <property name="appId4H5" value="${wechatpay.h5.appid}"></property>
+        <property name="mchId4H5" value="${wechatpay.h5.mchid}"></property>
+        <property name="partnerKey4H5" value="${wechatpay.h5.apiKey}"></property>
+
+
+        <property name="certPath" value="${wechatpay.cert.path}"></property>
+        <property name="domain" value="${domain}"></property>
+    </bean>
+
     <mvc:default-servlet-handler/>
 
-    <!--
-    <bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController" />-->
 
     <dubbo:application name="wechat2"/>
     <dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
@@ -149,8 +118,6 @@
     <!-- 新增公共的接口 -->
     <dubbo:reference id="commonApiServiceImpl" interface="com.xczhihui.bxg.online.api.service.CommonApiService"
                      timeout="5000"/>
-    <!--<dubbo:reference interface="com.xczhihui.bxg.online.api.service.CriticizeService" id="criticizeServiceImpl"-->
-                     <!--timeout="5000"/>-->
     <!-- 医馆 --> <!-- 医馆招聘 --> <!--医师-->
     <dubbo:reference id="medicalHospitalBusinessServiceImpl"
                      interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService" timeout="5000"/>
@@ -222,5 +189,6 @@
  	<!--充值服务 -->
     <dubbo:reference interface="com.xczhihui.bxg.online.api.service.RechargesService" id="rechargesService" timeout="12000"/>
     <dubbo:reference interface="com.xczhihui.wechat.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="12000"/>
-
+    <!-- 支付成功回调服务 -->
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.PayService" id="payService" timeout="12000"/>
 </beans>
