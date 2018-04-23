@@ -1,4 +1,4 @@
-/*修改之前引入模板样式开始*/
+	/*修改之前引入模板样式开始*/
 .layer{
 	position: inherit;
     width: 100%;
@@ -92,6 +92,18 @@
 }
 
 /*修改之前引入模板样式结束*/
+/*聊天区模板基础上修改开始*/
+.chatmsg li .msg p .tips.host{
+	width: 44px;
+    height: 20px;
+    line-height: 20px;
+    background: #00bc12;
+    border: 0;
+    /* border: none; */
+    color: #fff;
+
+}
+/*聊天区模板基础上修改结束*/
 
 /*视频和文档动画区*/
 .animation{
@@ -446,24 +458,14 @@
 .toptenreviews-list-center:last-child{
 	padding-bottom: 50px;
 }
+
+.hide {
+    display: none !important;
+}
+
 /*排行榜结束*/
    
-  /* #livePlayer{
-   	background: none !important;
-   }
-   .page-pc .player-container{
-   	background: none !important;
-   }
-   .page-pc .video{
-   	background: none !important;
-   	display: none;
-   }*/
-  .page-pc .player-container{
-  	
-  }
-   
-   
-  	/*处理切换动画开始*/
+/*处理切换动画开始*/
 .doc-img{
 	top: 0;
     right: 0;
@@ -504,3 +506,4 @@
     100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
 } 
 /*处理切换动画结束*/
+
