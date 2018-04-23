@@ -29,7 +29,6 @@
 		<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
 		<link rel="stylesheet" href="/web/css/iconfont/iconfont.css" />
-
 		<!--分页部分start-->
 		<link rel="stylesheet" href="/web/css/componet.css" />
 		<link rel="stylesheet" href="/web/css/componet-pages.css" />
@@ -40,9 +39,8 @@
 		<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		<!--<script src="/web/bootstrap-select/bootstrap.min.js"></script>-->
-		<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js">
-			<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8">
-		</script>
+		<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
+		<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
 		<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
 		<!--上传单个图片插件-->
@@ -57,6 +55,10 @@
 		<!--分页部分start-->
 		<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 		<!--分页部分start-->
+		<!--富文本需要的js-->
+		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 	</head>
 
 	<body>
@@ -89,6 +91,49 @@
 					<tr>
 						<td><span><em>*</em>内容</span></td>
 						<td class="preview-column-content"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!--著作预览页面-->
+		<div class="common-page work-preview-page hide">
+			<div class="common-top work-preview-top">
+				<span>预览</span>
+				<a href="javascript:;" class="close_preview">
+					<img src="../images/alter-close.png"/ alt="关闭">
+				</a>
+			</div>
+			<div class="common-content">
+				<table class="work-preview-table" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td>
+							<span><em>*</em>书名</span>
+						</td>
+						<td class="preview-work-title">Data</td>
+					</tr>
+					<tr>
+						<td>
+							<span><em>*</em>作者</span>
+						</td>
+						<td class="preview-work-author">Data</td>
+					</tr>
+					<tr>
+						<td>
+							<span><em>*</em>封面图</span>
+						</td>
+						<td class="preview-work-picter"><img src="" style="width: 260px; height: 147px;"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span><em>*</em>著作介绍</span>
+						</td>
+						<td class="preview-work-present">Data</td>
+					</tr>
+					<tr>
+						<td>
+							<span><em>*</em>购买链接</span>
+						</td>
+						<td class="preview-work-link">Data</td>
 					</tr>
 				</table>
 			</div>
@@ -133,8 +178,8 @@
 						<!--<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>-->
 						<li class="setTop docSuccessBtn" data-name="doc_hos" id="docJoinHos"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>所在医馆</span></li>
 						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>
-						<li class="setTop" data-name="doc_book"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
-						<li class="setTop" data-name="doc_media"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>
+						<li class="setTop" id="nav-work" data-name="doc_book"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
+						<li class="setTop" id="nav-media" data-name="doc_media"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>
 						<li class="setTop active" data-name="doc_admit"><span class="icon iconfont icon-msnui-user-auth left_range ino_color" aria-hidden="true"></span><span>医师认证</span></li>
 						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>个人中心</span></li>-->
 					</ul>
@@ -274,11 +319,11 @@
 							</div>
 
 							<div class="baocun column-new-button">
-								<button class="save-publish" type="submit" data-status="1">保存并发布</button>
-								<button class="save-publish" type="submit" data-status="0">保存</button>
+								<button class="save-publish column-sava-publish" type="submit" data-status="1">保存并发布</button>
+								<button class="only-save column-sava-publish" type="submit" data-status="0">保存</button>
 							</div>
 							<div class="column-edit-button hide" style="margin-left: 122px;">
-								<button class="save-edit-publish" type="submit" data-status="0">保存</button>
+								<button class="only-save save-edit-publish" type="submit" data-status="0">保存</button>
 							</div>
 
 					</div>
@@ -331,26 +376,13 @@
 									</tr>					
 									{{/each}}
 								</script>
-								<!--<tr>
-										<td>
-											<img src="/web/images/hospital/hospital_pic.png" alt="" />
-										</td>
-										<td>
-											中医药席卷全球成独特风景，发展热情被彻底点燃
-										</td>
-										<td>
-											已发布
-										</td>
-										<td>
-											2017.11.12
-										</td>
-										<td>
-											<a href="javascript:;" onclick="showPreview()">预览</a>
-											<a href="javascript:;" onclick="showDel()">删除</a>
-										</td>
-									</tr>-->
 							</tbody>
 						</table>
+						<!--没有数据时的展示-->
+							<div class="comment-nodata columnNodata hide">
+								<img src="../images/notext_icon.png" alt="无数据">
+								<p>暂无专栏</p>
+							</div>
 						<!--分页部分start-->
 							<div class="column_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
 								<div id="Pagination_column" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
@@ -371,21 +403,22 @@
 					</div>
 
 					<div class="zhuzuo_bottom hide">
+						<input type="hidden" id="workId" value="" />
 						<div>
 							<span><em>*</em>书名</span>
-							<input type="text" placeholder="请填写书名" class="zhuzuo_name">
-							<p class="warning hide">书名不能为空</p>
+							<input type="text" placeholder="请填写书名" class="zhuzuo_name work-title">
+							<p class="warning hide work-book-warning">书名不能为空</p>
 						</div>
 
 						<div>
 							<span><em>*</em>作者</span>
-							<input type="text" placeholder="请填写作者" class="zhuzuo_name">
-							<p class="warning hide">作者不能为空</p>
+							<input type="text" placeholder="请填写作者" class="zhuzuo_name work-author">
+							<p class="warning hide work-author-warning">作者不能为空</p>
 						</div>
 
 						<div class="fengmian">
 							<span style="vertical-align: top;"><em>*</em>封面图</span>
-							<span class="fengmian_pic"  onclick="$('#zhuzuo_picIpt').click()">
+							<span class="fengmian_pic work-picter"  onclick="$('#zhuzuo_picIpt').click()">
 								<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 								<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>
 							</span>
@@ -394,26 +427,32 @@
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
 							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuzuo_picIpt" />
-							<p class="warning hide">请上传封面图</p>
+							<p class="warning hide work-picter-warning">请上传封面图</p>
 						</div>
 
 						<div class="neirong">
 							<span><em>*</em>著作介绍</span>
-							<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>
-							<p class="warning hide">著作介绍不能为空</p>
+							<textarea name="" class="work-text" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>
+							
+							<!--<div style="display: inline-block;vertical-align: top;">
+								<script id="editor2" type="text/plain" style="width:540px;height:160px;"></script>
+							</div>-->
+							
+							<p class="warning hide work-text-warning">著作介绍不能为空</p>
 						</div>
 
 						<div>
 							<span><em>*</em>购买链接</span>
-							<input type="text" placeholder="请输入购买链接" class="zhuzuo_name">
-							<p class="warning hide">购买链接不能为空</p>
+							<input type="text" placeholder="请输入购买链接" class="zhuzuo_name work-link">
+							<p class="warning hide work-link-warning">购买链接不能为空</p>
 						</div>
-
-						<div class="baocun">
-							<button class="save-publish" type="submit">保存并发布</button>
-							<button class="only-save" type="submit">保存</button>
+						<div class="baocun allWorkSave">
+							<button class="save-publish work-save-publish" type="submit" data-status="true">保存并发布</button>
+							<button class="only-save work-save-publish" type="submit" data-status="false">保存</button>
 						</div>
-
+						<div class="baocun anlyWorSave hide">
+							<button class="only-save only-save-work" type="submit">保存</button>
+						</div>
 					</div>
 
 					<div class="zhuzuo_bottom2">
@@ -428,116 +467,67 @@
 									<td>操作</td>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="" />
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										刘能
-									</td>
-									<td>
-										已发布
-									</td>
-									<td>
-										2017.11.12
-									</td>
-									<td>
-										<a href="javascript:;" onclick="showPreview()">预览</a>
-										<a href="javascript:;">下线</a>
-										<a href="javascript:;">编辑</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="" />
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										刘能
-									</td>
-									<td>
-										已发布
-									</td>
-									<td>
-										2017.11.12
-									</td>
-									<td>
-										<a href="javascript:;" onclick="showPreview()">预览</a>
-										<a href="javascript:;" onclick="showDel()">删除</a>
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
+							<tbody id="work-table">
+								<script type="text/template" id="work-template">
+									{{each items as item i}}
+									<tr>
+										<td>
+											<img src="{{item.imgPath}}" alt="封面图" />
+										</td>
+										<td>
+											{{item.title}}
+										</td>
+										<td>
+											{{item.author}}
+										</td>
+											{{if item.status==true}}
+										<td>
+											已发布
+										</td>
+											{{else}}
+										<td>
+											已下架
+										</td>
+											{{/if}}
+										<td>
+											2017.11.12
+										</td>
+											{{if item.status==true}}
+										<td>
+											<a href="javascript:;" onclick="workPreview({{i}})">预览</a>
+											<a href="javascript:;" class="work-fluctuate" data-status="0" data-id="{{item.id}}">撤下</a>
+											<a href="javascript:;" onclick="workEdit({{i}})">编辑</a>
+										</td>
+											{{else}}
+										<td>
+											<a href="javascript:;" onclick="workPreview({{i}})">预览</a>
+											<a href="javascript:;" class="work-fluctuate" data-status="1" data-id="{{item.id}}">上架</a>
+											<!--<a href="javascript:;" class="work-delete" data-delete="{{item.id}}">删除</a>-->
+											<a href="javascript:;" onclick="workEdit({{i}})">编辑</a>
+										</td>
+											{{/if}}
+									</tr>
+									{{/each}}
+								</script>
+								
 							</tbody>
+							
 						</table>
+						<!--没有数据时的展示-->
+							<div class="comment-nodata workNodata hide">
+								<img src="../images/notext_icon.png" alt="无数据">
+								<p>暂无著作</p>
+							</div>
+						<!--分页部分start-->
+							<div class="works_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+								<div id="Pagination_works" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+								<div class="searchPage">
+									<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+									<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+									<a href="javascript:;" class="page-btn">确定</a>
+								</div>
+							</div>
+						<!--分页部分end-->
 					</div>
 
 				</div>
@@ -549,16 +539,21 @@
 					</div>
 
 					<div class="media_report_bottom hide">
-
 						<div>
 							<span><em>*</em>标题</span>
-							<input type="text" placeholder="请输入报道标题" class="media_report_name">
-							<p class="warning hide">报道标题不能为空</p>
+							<input type="text" placeholder="请输入报道标题" class="media_report_name media-title">
+							<p class="warning hide media-title-warning">报道标题不能为空</p>
+						</div>
+						
+						<div>
+							<span><em>*</em>作者</span>
+							<input type="text" placeholder="请填写作者" class="media_report_name media-author">
+							<p class="warning hide media-author-warning">作者不能为空</p>
 						</div>
 
 						<div class="fengmian">
 							<span style="vertical-align: top;"><em>*</em>封面图</span>
-							<span class="fengmian_pic"  onclick="$('#media_picIpt').click()">
+							<span class="fengmian_pic media-picter"  onclick="$('#media_picIpt').click()">
 								<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 								<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>
 							</span>
@@ -567,41 +562,23 @@
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
 							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="media_picIpt" />
-							<p class="warning hide">请上传封面图</p>
+							<p class="warning hide media-picter-warning">请上传封面图</p>
 						</div>
-						
-						<!--<div class="touxiang_picUpdata">
-								<span style="vertical-align: top;"><em>*</em> 医馆头像</span>
-								<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
-									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
-								</span>
-								<span class="touxiang_pic_tip">
-									<p>推荐使用尺寸120x120</p>
-									<p>请上传清晰头像</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<input name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" type="file">
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
-							<div></div>
-						</div>-->
-
 						<div class="neirong">
 							<span><em>*</em>报道内容</span>
-							<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>
-							<p class="warning hide">著作介绍不能为空</p>
+							<textarea name="" class="media-text" cols="30" rows="10" style="resize: none;" placeholder="请输入媒体报道的具体内容"></textarea>
+							<p class="warning hide media-text-warning">著作介绍不能为空</p>
 						</div>
 
 						<div>
-							<span><em>*</em>报道医师</span>
-							<input type="text" placeholder="请输入被报道医师姓名" class="media_report_name">
-							<p class="warning hide">报道医师不能为空</p>
+							<span><em>*</em>来源URL</span>
+							<input type="text" placeholder="原文链接" class="media_report_name media-link">
+							<p class="warning hide media-url-warning">来源不能为空</p>
 						</div>
 
 						<div class="baocun">
-							<input type="submit" value="保存并发布" id="submit" />
-							<button id="save">保存</button>
+							<button class="save-publish media-save-publish" type="submit" data-status="1">保存并发布</button>
+							<button class="only-save media-save-publish" type="submit" data-status="0">保存</button>
 						</div>
 
 					</div>
@@ -617,102 +594,61 @@
 									<td>操作</td>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="" />
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										已发布
-									</td>
-									<td>
-										2017.11.12
-									</td>
-									<td>
-										<a href="javascript:;" onclick="showPreview()">预览</a>
-										<a href="javascript:;">下线</a>
-										<a href="javascript:;">编辑</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="" />
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										已发布
-									</td>
-									<td>
-										2017.11.12
-									</td>
-									<td>
-										<a href="javascript:;" onclick="showPreview()">预览</a>
-										<a href="javascript:;" onclick="showDel()">删除</a>
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
+							<tbody id="media-table">
+								<script type="text/template" id="media-template"> 
+									{{each items as item i}}
+										<tr>
+											<td>
+												<img src="{{item.imgPath}}" alt="" style="width: 106px; height: 60px;" />
+											</td>
+											<td>
+												{{item.title}}
+											</td>
+												{{if item.status==1}}
+											<td>
+												已发布
+											</td>
+												{{else}}
+											<td>
+												已下架
+											</td>
+												{{/if}}
+											<td>
+												{{item.updateTime}}
+											</td>
+											{{if item.status==1}}
+											<td>
+												<a href="javascript:;">预览</a>
+												<a href="javascript:;" class="media-select" data-status="0">撤下</a>
+												<a href="javascript:;">编辑</a>
+											</td>
+											{{else}}
+											<td>
+												<a href="javascript:;">预览</a>
+												<a href="javascript:;" class="media-select" data-status="1">上架</a>
+												<a href="javascript:;" class="media-delete" data-delete="{{item.id}}">删除</a>
+											</td>
+											{{/if}}
+										</tr>
+									{{/each}}
+								</script>
 							</tbody>
 						</table>
+						<!--没有数据时的展示-->
+							<div class="comment-nodata mediaNodata hide">
+								<img src="../images/notext_icon.png" alt="无数据">
+								<p>暂无专栏</p>
+							</div>
+						<!--分页部分start-->
+							<div class="media_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+								<div id="Pagination_media" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+								<div class="searchPage">
+									<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+									<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+									<a href="javascript:;" class="page-btn">确定</a>
+								</div>
+							</div>
+						<!--分页部分end-->
 					</div>
 
 				</div>

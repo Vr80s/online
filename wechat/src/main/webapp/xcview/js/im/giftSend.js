@@ -83,7 +83,7 @@ if (sendTime == null) {
     }, false)
 }
 function createGiftList(gift) {
-	
+	if(gift.courseId!=course_id)return;   //ios传值
     if(gift.messageType == 2){//直播开始了
     	//当前时间 
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
@@ -136,24 +136,25 @@ var addn = [];
 // 生成礼物
 
 //gift.messageType == 0;
+// var courseId = courseId;
 function giftShow(gift, f,continuous) {
     if(continuous){
         $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime())
         return;
     }
-
     if (gift.messageType == 1) { // 礼物
+
         var bottom = countChange(f)
         gif[f] = $("<li class='animation' id='gift"+f+"' style='position: fixed;top: "
             + bottom
             + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
-            + gift.senderInfo.userName    //userName  用户昵称
+            + courseId+gift.senderInfo.userName    //userName  用户昵称
             + "</p><p class='animation_name_p2'>送出"
-            + gift.giftInfo.name
+            + courseId+gift.giftInfo.name
             + "</p></div><div class='animation_span'>×<span class=addnum"
             + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div><div class='animation_gift'><img src='"
-            + gift.giftInfo.smallimgPath
+            + courseId+gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         try {
         	
@@ -415,6 +416,7 @@ $(document).ready(function() {
                             /**
                              * 发送IM消息
                              */
+                            data.resultObject.courseId=course_id;  /*ios传值--判断是在一个直播间*/
                             sendMsg(data.resultObject);
 
                             var str = "<div class='coze_cen_ri'> "+

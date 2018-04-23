@@ -302,6 +302,7 @@ $(function() {
 	$('#zhuanlan .zhuanlan_top button').click(function(){
 		var recruit_btn = $(this).text()
 		if(recruit_btn == "发布") {
+			$(".column-sava-publish").removeAttr("disabled","disabled");
 			resetColumn();
 			$('#zhuanlan_bottom2').addClass('hide');
 			$('#zhuanlan_bottom').removeClass('hide');
@@ -345,7 +346,7 @@ $('#zhuanlan_picIpt').on('change', function() {
 	}
 	var reader = new FileReader();
 	reader.onload = function(e) {
-		columnUpdown(reader.result, 'fengmian_pic');
+		columnUpdown(reader.result, 'column-picter');
 	}
 	reader.readAsDataURL(this.files[0])
 })
@@ -371,7 +372,7 @@ function columnRecruit(data){
 	}
 	return true;
 }
-$(".save-publish").click(function(){
+$(".column-sava-publish").click(function(){
 	var columeStatus=$(this).attr("data-status");
 		var data = {
 				"title":$.trim($(".column-title").val()),
@@ -380,6 +381,7 @@ $(".save-publish").click(function(){
 				"status":columeStatus
 			}
 	if(columnRecruit(data)){
+		$(this).attr("disabled","disabled");
 		$.ajax({
 			type:"POST",
 			url:bath+"/doctor/article/specialColumn",
@@ -389,7 +391,7 @@ $(".save-publish").click(function(){
 				if(data.success == true){
 					showTip("保存成功");
 					$("#nav-colume").click();
-					columnList(1)
+					columnList(1);
 				}else{
 					showTip("保存失败");
 				}
@@ -407,7 +409,15 @@ function columnList(pages){
 	},function(data){
 		if(data.success=true){
 			getData=data.resultObject.records;
-			$("#column-wrap-list").html(template('column-list',{items:data.resultObject.records}));
+			if(getData.length==0){
+				$(".columnNodata").removeClass("hide");
+				$(".zhuanlan_bottom2 table").addClass("hide");
+			}else{
+				$(".columnNodata").addClass("hide");
+				$(".zhuanlan_bottom2").removeClass("hide");
+				$(".zhuanlan_bottom2 table").removeClass("hide");
+				$("#column-wrap-list").html(template('column-list',{items:data.resultObject.records}));			
+			}
 			if(data.resultObject.pages > 1) { //分页判断
 					$(".not-data").remove();
 		            $(".column_pages").removeClass("hide");
@@ -481,10 +491,7 @@ function initEvent(){
 					if(data.success==true){
 						showTip("保存成功");
 						columnList(1);
-						setTimeout(function(){
-							$("#nav-colume").click();						
-						},2000)
-	
+						$("#nav-colume").click();							
 					}else{
 						showTip("保存失败");
 					}
@@ -492,70 +499,424 @@ function initEvent(){
 			});
 
 		}
-	});
-	
-	
+	});	
 }
 
-
-
-
-
-
-
-
-
-
-
-
-	//	著作部分
-	//	著作部分点击发布效果
-	var zhuzuoCount = 1;
-	$('#zhuzuo .zhuzuo_top button').click(function() {
-		zhuzuoCount *= -1;
-		//发布
-		if(zhuzuoCount < 0) {
-			//顶部变化
-			$(this).text('返回');
-			$(this).siblings('.title').text('著作编辑');
-			//底部变化
+//---------------------------------------专栏部分结束，著作部分开始--------------------------------------
+//	著作部分
+//	著作部分,点击发布切换效果
+	$('#zhuzuo .zhuzuo_top button').click(function(){
+		$(".work-save-publish").removeAttr("disabled");
+		var workSelect = $(this).text()
+		if(workSelect == "发布") {
+			resetWork()
 			$('.zhuzuo_bottom2').addClass('hide');
 			$('.zhuzuo_bottom').removeClass('hide');
+			$(this).text("返回")
+			$(".zhuzuo_top .title").text("新著作");	
+			//		保存按钮显现
+		$(".anlyWorSave").addClass("hide");
+		$(".allWorkSave").removeClass("hide");
 		} else {
-			//取消发布
-			$(this).text('发布');
-			$(this).siblings('.title').text('著作');
-			//底部变化
-			$('.zhuzuo_bottom').addClass('hide');
 			$('.zhuzuo_bottom2').removeClass('hide');
+			$('.zhuzuo_bottom').addClass('hide');
+			$(this).text("发布")
+			$(".zhuzuo_top .title").text("著作")	
 		}
-
+	})
+//	著作部分,封面图上传
+function workUpdown(baseurl, imgname) {
+	RequestService("/medical/common/upload", "post", {
+		image: baseurl,
+	}, function(data) {
+		$('#zhuzuo .zhuzuo_bottom  .' + imgname + '').html('<img src="' + data.resultObject +'?imageMogr2/thumbnail/260x147<'+ '" >');
+	})
+}
+$('#zhuzuo_picIpt').on('change', function() {
+	if(this.files[0].size > 2097152) {
+		$('#tip').text('上传图片不能大于2M');
+		$('#tip').toggle();
+		setTimeout(function() {
+			$('#tip').toggle();
+		}, 2000)
+		return false;
+	}
+	if(!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
+		$('#tip').text('图片格式不正确');
+		$('#tip').toggle();
+		setTimeout(function() {
+			$('#tip').toggle();
+		}, 2000)
+		return false;
+	}
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		workUpdown(reader.result, 'work-picter');
+	}
+	reader.readAsDataURL(this.files[0])
+})
+//	著作部分,点击发布验证文本框
+	function workValidate(workData){
+		if(workData.title==""){
+			$(".work-book-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".work-book-warning").addClass("hide");
+		}
+		if(workData.author=="") {
+			$(".work-author-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".work-author-warning").addClass("hide");
+		}
+		if($(".work-picter img").length=="0") {
+			$(".work-picter-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".work-picter-warning").addClass("hide");
+		}
+		if(workData.remark=="") {
+			$(".work-text-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".work-text-warning").addClass("hide");
+		}
+		if(workData.buyLink=="") {
+			$(".work-link-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".work-link-warning").addClass("hide");
+		}
+		return true;
+	}
+	$(".work-save-publish").click(function(){
+		var worksaveId=$(this).attr("data-status"),
+			workData={
+			"title":$(".work-title").val(),
+			"author":$(".work-author").val(),
+			"imgPath":$(".work-picter img").attr("src"),
+			"remark":$(".work-text").val(),
+			"buyLink":$(".work-link").val(),
+			"status":worksaveId
+		}
+		if(workValidate(workData)){
+			$(this).attr("disabled","disabled");			
+			$.ajax({
+				type:"POST",
+				url:bath+"/doctor/writing",
+				data:JSON.stringify(workData),
+				contentType:"application/json",
+				success:function(data){
+					if(data.success==true){
+						showTip("保存成功");
+						$("#nav-work").click();
+						workList(1);
+					}else{
+						showTip("保存失败");						
+					}
+				}
+			});
+		}
+	});
+//	著作部分,著作列表
+workList(1)
+function workList(pages){
+	RequestService("/doctor/writing","GET",{
+		"page":pages
+	},function(data){
+		getWorkdata=data.resultObject.records;
+		if(getWorkdata.length==0){
+			$(".workNodata").removeClass("hide");
+			$(".zhuzuo_bottom2 table").addClass("hide");
+		}else{
+			$(".workNodata").addClass("hide");
+			$(".zhuzuo_bottom2 table").removeClass("hide");
+			$("#work-table").html(template("work-template",{items:data.resultObject.records}));
+		}
+	//分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".works_pages").removeClass("hide");
+		            $(".works_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#Pagination_works").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    workList(page+1);
+		                }
+		            });
+				}
+				else {
+					$(".works_pages").addClass("hide");
+				}
+		//分页添加结束		
+		initWork()
 	})
 
-	//	媒体报道部分
-	//	媒体报道部分点击发布效果
-	var meitiCount = 1;
-	$('#media_report .media_report_top button').click(function() {
-		meitiCount *= -1;
-		//发布
-		if(meitiCount < 0) {
-			//顶部变化
-			$(this).text('返回');
-			$(this).siblings('.title').text('报道编辑');
-			//底部变化
+}
+//	著作部分,预览
+
+	
+//	著作部分,上、下架
+	function initWork(){
+		$(".work-fluctuate").click(function(){
+			var  workId=$(this).attr("data-id"),
+				 workStatus=$(this).attr("data-status");
+				 RequestService("/doctor/writing/"+workId+"/"+workStatus,"PUT",null,function(data){
+				 	if(data.success== true){
+							showTip("操作成功");					
+						//重新渲染列表
+						workList(1);
+				 	}else{
+						showTip("操作失败");
+				 	}
+				 })
+
+		});
+		
+//	著作部分,删除		
+//		$(".work-delete").click(function(){
+//			var deleteId=$(this).attr("data-delete");
+//			comfirmBox.open("著作","确定删除该条著作吗？",function(closefn){
+//				RequestService("/medical/hospitalRecruit/"+deleteId+"","DELETE",null,function(data){
+//					if(data.success == true){
+//						showTip("删除成功");
+//						workList(1);
+//						closefn();
+//					}else{
+//						showTip("删除失败");
+//						closefn();
+//					}
+//						
+//				})	
+//			})
+//		})
+	}
+//	著作部分,编辑后保存
+	$(".only-save-work").click(function(){
+		var workEditId=$("#workId").val(),
+			editDataWork={
+			"title":$(".work-title").val(),
+			"author":$(".work-author").val(),
+			"imgPath":$(".work-picter img").attr("src"),
+			"remark":$(".work-text").val(),
+			"buyLink":$(".work-link").val(),
+		}
+		if(workValidate(editDataWork)){
+			$(".only-save-work").attr("disabled","disabled");
+			$.ajax({
+				type:"PUT",
+				url:bath+"/doctor/writing/"+workEditId+"",
+				data:JSON.stringify(editDataWork),
+				contentType:"application/json",
+				success:function(data){
+					if(data.success==true){
+						showTip("保存成功");
+						workList(1);
+						$("#nav-work").click();
+					}else{
+						showTip("保存失败");
+					}
+				}
+			});
+		}
+		
+	});
+	
+//---------------------------------------著作部分结束，媒体报道部分开始--------------------------------------
+//	媒体报道部分
+//	媒体报道部分,点击发布切换效果
+	$('#media_report .media_report_top button').click(function(){
+		$(".media-save-publish").removeAttr("disabled");
+		var mediaSelect = $(this).text()
+		if(mediaSelect == "发布") {
+//			resetWork()
 			$('.media_report_bottom2').addClass('hide');
 			$('.media_report_bottom').removeClass('hide');
+			$(this).text("返回")
+//			$(".zhuzuo_top .title").text("媒体报道");	
+			//		保存按钮显现
+//		$(".anlyWorSave").addClass("hide");
+//		$(".allWorkSave").removeClass("hide");
 		} else {
-			//取消发布
-			$(this).text('发布');
-			$(this).siblings('.title').text('媒体报道');
-			//底部变化
-			$('.media_report_bottom').addClass('hide');
 			$('.media_report_bottom2').removeClass('hide');
+			$('.media_report_bottom').addClass('hide');
+			$(this).text("发布")
+//			$(".zhuzuo_top .title").text("著作")	
 		}
-
 	})
+//	媒体报道部分,封面图上传
+function workUpdown(baseurl, imgname) {
+	RequestService("/medical/common/upload", "post", {
+		image: baseurl,
+	}, function(data) {
+		$('#media_report .media_report_bottom  .' + imgname + '').html('<img src="' + data.resultObject +'?imageMogr2/thumbnail/260x147<'+ '" >');
+	})
+}
+$('#media_picIpt').on('change', function() {
+	if(this.files[0].size > 2097152) {
+		$('#tip').text('上传图片不能大于2M');
+		$('#tip').toggle();
+		setTimeout(function() {
+			$('#tip').toggle();
+		}, 2000)
+		return false;
+	}
+	if(!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
+		$('#tip').text('图片格式不正确');
+		$('#tip').toggle();
+		setTimeout(function() {
+			$('#tip').toggle();
+		}, 2000)
+		return false;
+	}
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		workUpdown(reader.result, 'media-picter');
+	}
+	reader.readAsDataURL(this.files[0])
 })
+//	媒体报道部分,点击发布验证文本框
+	function mediaValidate(mediaData){
+		if(mediaData.title==""){
+			$(".media-title-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".media-title-warning").addClass("hide");
+		}
+		if(mediaData.author==""){
+			$(".media-author-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".media-author-warning").addClass("hide");
+		}
+		if($(".media-picter img").length=="0"){
+			$(".media-picter-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".media-picter-warning").addClass("hide");
+		}
+		if(mediaData.content==""){
+			$(".media-text-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".media-text-warning").addClass("hide");
+		}
+		if(mediaData.url==""){
+			$(".media-url-warning").removeClass("hide");
+			return false;
+		}else{
+			$(".media-url-warning").addClass("hide");
+		}
+		return true;
+	}
+	$(".media-save-publish").click(function(){
+		var mediaSaveId=$(this).attr("data-status"),
+			mediaData={
+				"title":$(".media-title").val(),
+				"author":$(".media-author").val(),
+				"imgPath":$(".media-picter img").attr("src"),
+				"content":$(".media-text").val(),
+				"url":$(".media-link").val(),
+				"status":mediaSaveId
+		}
+		if(mediaValidate(mediaData)){
+			$(this).attr("disabled","disabled");			
+			$.ajax({
+				type:"POST",
+				url:bath+"/doctor/article/report",
+				data:JSON.stringify(mediaData),
+				contentType:"application/json",
+				success:function(data){
+					if(data.success==true){
+						showTip("保存成功");
+						$("#nav-media").click();
+						mediaList(1);
+					}else{
+						showTip("保存失败");						
+					}
+				}
+			});
+		}
+	});
+//	媒体报道部分,媒体报道列表	
+mediaList(1)
+function mediaList(pages){
+	RequestService("/doctor/article/report","GET",{
+		"page":pages
+	},function(data){
+		getMediadata=data.resultObject.records;
+		if(getMediadata.length==0){
+			$(".mediaNodata").removeClass("hide");
+			$(".media_bottom2 table").addClass("hide");
+		}else{
+			$(".mediaNodata").addClass("hide");
+			$(".media_bottom2 table").removeClass("hide");
+			$("#media-table").html(template("media-template",{items:data.resultObject.records}));
+		}
+	//分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".media_pages").removeClass("hide");
+		            $(".media_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#Pagination_media").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    mediaList(page+1);
+		                }
+		            });
+				}
+				else {
+					$(".media_pages").addClass("hide");
+				}
+		//分页添加结束		
+		initMedia()
+	})
+};
+function initMedia(){
+
+//媒体报道部分,预览	
+	
+	
+//媒体报道部分,上、下架		
+$(".media-select").click(function(){
+	var mediaFluctuate=$(this).attr("data-status");
+	
+})
+	
+//媒体报道部分,删除		
+$(".media-delete").click(function(){
+	var deleteMediaId=$(this).attr("data-delete");
+	comfirmBox.open("媒体报道","确定删除该条报道吗？",function(closefn){
+		RequestService("/doctor/article/report/"+deleteMediaId+"","DELETE",null,function(data){
+			if(data.success==true){
+				showTip("删除成功");
+				mediaList(1)
+			}else{
+				showTip("删除失败");	
+			}
+		})
+		closefn();   // 关闭弹窗
+	});
+})
+
+
+
+
+
+
+
+
+
+}	
+	
+})
+
 
 //医馆部分
 //点击变色效果
@@ -881,4 +1242,54 @@ $('.close_preview').click(function() {
 		$(".column-picter").html("<img src="+columnGetdata.imgPath+" />");
 		$(".column-text").val(columnGetdata.content);
 	}
-
+//-----------------------------------------著作部分，预览,编辑回显--------------------------------------
+	var getWorkdata;
+	function workPreview(index){
+		var workPreviewData=getWorkdata[index];
+		$(".preview-work-title").text(workPreviewData.title);
+		$(".preview-work-author").text(workPreviewData.author);
+		$(".preview-work-picter img").attr("src",workPreviewData.imgPath);
+		$(".preview-work-present").text(workPreviewData.remark);
+		$(".preview-work-link").text(workPreviewData.buyLink);
+		$(".work-preview-page").removeClass("hide");
+		$("#mask").removeClass("hide")
+	}
+//预览关闭功能
+	$(".common-top img").click(function(){
+		$(".work-preview-page").addClass("hide");
+		$("#mask").addClass("hide")
+		
+	})
+//著作部分，	点击编辑
+//回显所有数据，id隐藏
+//1.获取所有修改后的值2.校验所有值3.将所有值提交到后台
+function workEdit(index){
+	resetWork(index);
+	echoWork(index);
+	$(".zhuzuo_bottom").removeClass("hide");
+	$(".zhuzuo_bottom2").addClass("hide");
+	$('#zhuzuo .zhuzuo_top .title').text('著作编辑');
+	$('#zhuzuo .zhuzuo_top button').text('返回');	
+//		保存按钮显现
+	$(".allWorkSave").addClass("hide");
+	$(".anlyWorSave").removeClass("hide");
+};
+function resetWork(index){
+	$("#workId").val("");
+	$(".work-title").val("");
+	$(".work-author").val("");
+	$(".work-picter").html(defaultPicter);
+	$(".work-text").val("");
+	$(".work-link").val("");
+	$(".warning").addClass("hide");
+	$(".only-save-work").removeAttr("disabled");
+};
+function echoWork(index){
+	var workData=getWorkdata[index];
+	$("#workId").val(workData.id);
+	$(".work-title").val(workData.title);
+	$(".work-author").val(workData.author);
+	$(".work-picter").html("<img src="+workData.imgPath+" />");
+	$(".work-text").val(workData.remark);
+	$(".work-link").val(workData.buyLink);
+};
