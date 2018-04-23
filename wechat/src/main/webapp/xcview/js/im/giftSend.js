@@ -149,12 +149,12 @@ function giftShow(gift, f,continuous) {
         gif[f] = $("<li class='animation' id='gift"+f+"' style='position: fixed;top: "
             + bottom
             + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
-            + courseId+gift.senderInfo.userName    //userName  用户昵称
+            + gift.senderInfo.userName    //userName  用户昵称
             + "</p><p class='animation_name_p2'>送出"
-            + courseId+gift.giftInfo.name
+            + gift.giftInfo.name
             + "</p></div><div class='animation_span'>×<span class=addnum"
             + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div><div class='animation_gift'><img src='"
-            + courseId+gift.giftInfo.smallimgPath
+            + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         try {
         	
