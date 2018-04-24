@@ -15,6 +15,7 @@ import com.xczhihui.wechat.course.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,6 +74,40 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         String courseNames = getCourseNames(order);
         order.setCourseNames(courseNames);
         return order;
+    }
+
+    @Override
+    public Order getOrderNo4PayByOrderId(String orderId){
+        Order order = new Order();
+        order.setDelete(false);
+        order.setId(orderId);
+        order.setOrderStatus(0);
+        order = this.baseMapper.selectOne(order);
+        if(order==null){
+            throw new RuntimeException(orderId+"该单id下不存在订单信息，下单失败");
+        }
+        String courseNames = getCourseNames(order);
+        order.setCourseNames(courseNames);
+        List<Integer> courseIds = getCourseIds(order);
+        order.setCourseIds(courseIds);
+        return order;
+    }
+
+    private List<Integer> getCourseIds(Order order) {
+        List<OrderDetail> orderDetailList = this.orderDetailService.selectOrderDetailsByOrderId(order.getId());
+        List<Integer> courseIds = new ArrayList<>();
+        orderDetailList.forEach(orderDetail -> {
+            Integer count = this.baseMapper.selectCountByUserIdAndCourseId(order.getUserId(),orderDetail.getCourseId());
+            if(count!=null && count >0){
+                throw new RuntimeException("订单中含有已购课程");
+            }
+            Course course = courseMapper.selectById(orderDetail.getCourseId());
+            if(course.getDelete() || "0".equals(course.getStatus())){
+                throw new RuntimeException("《"+course.getGradeName()+"》已下架");
+            }
+            courseIds.add(course.getId());
+        });
+        return courseIds;
     }
 
     private String getCourseNames(Order order){

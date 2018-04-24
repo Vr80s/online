@@ -79,8 +79,10 @@ function wechatH5(url,params,returnUrl){
 }
 
 function gongzhonghao(url,params,returnUrl){
+    alert("returnUrl"+returnUrl)
     requestService(url+"?"+params, null, function(data) {
         if (data.success) {
+            alert(JSON.stringify(data))
             var resultpay = data.resultObject;
             var timestamp = resultpay.timeStamp;
             var nonceStr = resultpay.nonceStr;
@@ -88,6 +90,13 @@ function gongzhonghao(url,params,returnUrl){
             var signType = resultpay.signType;
             var paySign = resultpay.paySign;
             var appId=resultpay.appId;
+            alert("timestamp"+timestamp+";"
+                +"nonceStr"+nonceStr+";"
+                +"package1"+package1+";"
+                +"signType"+signType+";"
+                +"paySign"+paySign+";"
+                +"appId"+appId+";"
+                )
             // 支付成功后的回调函数
             WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {

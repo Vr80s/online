@@ -334,7 +334,7 @@ public class HttpsRequest implements IServiceRequest {
         		String path=strRootDir + "ROOT/WEB-INF/classes" + File.separator + "config.properties";
         		System.out.println("sslPost->path->" + path );
         		ConfigUtil cfg = new ConfigUtil(path);
-        		apiclient_cert= cfg.getConfig("apiclient_cert");
+        		apiclient_cert= cfg.getConfig("wechatpay.cert.path");
         		System.out.println("sslPost->apiclient_cert->" + apiclient_cert );
         	}
         	if(apiclient_cert==null || apiclient_cert.trim().length() == 0) {

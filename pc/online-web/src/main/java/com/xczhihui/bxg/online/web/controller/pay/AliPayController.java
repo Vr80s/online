@@ -10,7 +10,7 @@ import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.exception.XcApiException;
-import com.xczhihui.bxg.online.web.service.PayService;
+import com.xczhihui.bxg.online.api.service.PayService;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.pay.alipay.AliPayApi;
 import com.xczhihui.pay.alipay.AliPayApiConfig;
@@ -44,10 +44,6 @@ import java.util.Map;
 public class AliPayController extends AliPayApiController {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
-    private static final String BUY_COURSE_TEXT = "购买课程{0}";
-    private static final String BUY_COIN_TEXT = "充值熊猫币:{0}个";
-    private static final String PRODUCT_CODE = "FAST_INSTANT_TRADE_PAY";
-    private static final String TIMEOUT_EXPRESS = "24h";
 
     @Autowired
     private IOrderService orderService;
@@ -90,7 +86,7 @@ public class AliPayController extends AliPayApiController {
         AlipayTradePagePayModel model = new AlipayTradePagePayModel();
 
         model.setOutTradeNo(order.getOrderNo());
-        model.setProductCode(PRODUCT_CODE);
+        model.setProductCode(WEB_PRODUCT_CODE);
         model.setTotalAmount(totalAmount);
         model.setSubject(MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()));
         model.setBody(MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()));
@@ -121,7 +117,7 @@ public class AliPayController extends AliPayApiController {
 
         String orderNo = OrderNoUtil.getCoinOrderNo();
         model.setOutTradeNo(orderNo);
-        model.setProductCode(PRODUCT_CODE);
+        model.setProductCode(WEB_PRODUCT_CODE);
         model.setTotalAmount(price);
         model.setSubject(MessageFormat.format(BUY_COIN_TEXT,count));
         model.setBody(MessageFormat.format(BUY_COIN_TEXT,count));
@@ -129,8 +125,8 @@ public class AliPayController extends AliPayApiController {
 
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COIN_ORDER.getCode());
-        payMessage.setValue(new BigDecimal(count));
         payMessage.setUserId(loginUser.getId());
+        payMessage.setValue(new BigDecimal(count));
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);

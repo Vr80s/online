@@ -47,8 +47,10 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
     }
 
     @Override
-    public void saveCriticize(String userId,String anchorUserId,Integer courseId,String content,Float overallLevel,Float deductiveLevel,Float contentLevel,String criticizeLable) throws UnsupportedEncodingException {
-        Criticize criticize = getCriticize(userId,anchorUserId,courseId,content,overallLevel,deductiveLevel,contentLevel,criticizeLable);
+    public void saveCriticize(String userId,String anchorUserId,Integer courseId,String content,
+    		Float overallLevel,Float deductiveLevel,Float contentLevel,String criticizeLable) throws UnsupportedEncodingException {
+        Criticize criticize = getCriticize(userId,anchorUserId,courseId,content,
+        		overallLevel,deductiveLevel,contentLevel,criticizeLable);
         verifyCriticizes(criticize);
         this.baseMapper.insert(criticize);
     }
@@ -126,9 +128,10 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
             content = SLEmojiFilter.emojiConvert1(criticize.getContent());
             criticize.setContent(content);
         }
-
-        Integer userFirstStars = findUserFirstStars(courseId, userId);
-        if(userFirstStars ==1){
+        if((overallLevel != 0 && overallLevel != null)
+        		&& (deductiveLevel != 0 && deductiveLevel != null)
+        		&& (contentLevel != 0 && contentLevel != null)
+        		&& (StringUtils.isNotBlank(criticizeLable))){
             criticize.setOverallLevel(overallLevel);
             criticize.setDeductiveLevel(deductiveLevel);
             criticize.setContentLevel(contentLevel);
@@ -139,12 +142,12 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
                 criticize.setStarLevel(startLevel.floatValue());
             }
         }
+        Integer userFirstStars = findUserIsBuy(courseId, userId);
         if(userFirstStars!=0){
             criticize.setBuy(true);
         }else{
             criticize.setBuy(false);
         }
-
         return criticize;
     }
 
@@ -267,10 +270,26 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
      * @Date: 2018/4/18 0018 下午 12:17
      **/
     private Integer findUserFirstStars(Integer courseId, String userId) {
+    	//如果这个课程是免费的呢。
         if(this.baseMapper.hasCourse(courseId,userId)>0){
             if(this.baseMapper.hasCriticizeScore(courseId, userId)>0){
                 return 2;
             }
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    
+    /**
+     * Description：判断是否有评分权限。返回参数： 0 未购买     1 购买了，但是没有星级评论过     2 购买了，也星级评论了
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/4/18 0018 下午 12:17
+     **/
+    private Integer findUserIsBuy(Integer courseId, String userId) {
+    	//如果这个课程是免费的呢。
+        if(this.baseMapper.hasCourseIsBuy(courseId,userId)>0){
             return 1;
         }else{
             return 0;
