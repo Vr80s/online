@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.common.web.exception;
+package com.xczhihui.common.web.exception;
 
 import com.google.gson.Gson;
 import com.xczhihui.common.util.bean.ResponseObject;

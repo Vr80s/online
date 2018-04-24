@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.common.web.util;
+package com.xczhihui.common.web.util;
 
 import com.xczhihui.common.support.domain.BxgUser;
 import org.slf4j.Logger;

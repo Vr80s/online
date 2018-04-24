@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.vo.MyConsumptionRecords;

@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.common.web.auth.service;
+package com.xczhihui.common.web.auth.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

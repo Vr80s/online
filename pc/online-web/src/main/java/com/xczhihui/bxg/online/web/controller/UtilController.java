@@ -18,7 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.web.util.UserLoginUtil;
 
 /**
  * 工具

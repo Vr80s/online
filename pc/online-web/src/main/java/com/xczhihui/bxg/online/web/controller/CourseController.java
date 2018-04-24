@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.CourseService;
 

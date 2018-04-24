@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.common.web.controller;
+package com.xczhihui.common.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

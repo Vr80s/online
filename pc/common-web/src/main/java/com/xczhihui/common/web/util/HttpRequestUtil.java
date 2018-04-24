@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.common.web.util;
+package com.xczhihui.common.web.util;
 
 import javax.servlet.http.HttpServletRequest;
 

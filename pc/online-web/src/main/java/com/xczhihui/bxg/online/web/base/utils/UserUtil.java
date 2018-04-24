@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.base.utils;
 
 import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
 

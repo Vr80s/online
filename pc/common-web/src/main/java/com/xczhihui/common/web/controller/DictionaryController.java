@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.common.web.controller;
+package com.xczhihui.common.web.controller;
 
 import java.util.List;
 

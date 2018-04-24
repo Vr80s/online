@@ -22,7 +22,7 @@ import org.springframework.util.StringUtils;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
