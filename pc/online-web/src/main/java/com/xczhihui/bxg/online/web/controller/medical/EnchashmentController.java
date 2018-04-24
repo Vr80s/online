@@ -1,10 +1,10 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.common.util.enums.VCodeType;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.VerificationCodeService;
 import org.springframework.beans.factory.annotation.Autowired;

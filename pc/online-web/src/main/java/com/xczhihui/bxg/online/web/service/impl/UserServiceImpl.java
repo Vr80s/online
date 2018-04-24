@@ -15,7 +15,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.bxg.common.util.RandomUtil;
+import com.xczhihui.common.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -24,16 +24,16 @@ import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.domain.SystemVariate;
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.support.service.AttachmentType;
-import com.xczhihui.bxg.common.support.service.SystemVariateService;
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.ImageUtil;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.domain.SystemVariate;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.support.service.AttachmentType;
+import com.xczhihui.common.support.service.SystemVariateService;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.ImageUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.VerificationCode;
@@ -87,9 +87,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserCoinService userCoinService;
 	
-	@Value("${share.course.id:191}")
-	private String shareCourseId;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 	
 	//数据字典
@@ -569,22 +567,7 @@ public class UserServiceImpl implements UserService {
 			if(applys1.size() < 1 || applys2.size() > 0){
 				u.setIsPerfectInformation(false);
 			}
-			//查看是否是老学员
-//			sql="select t1.is_old_user,t2.`name` class_name,t1.old_user_class_name from  oe_apply t1 "
-//					+ " left join oe_menu t2 on t1.old_user_subject_id=t2.id where t1.user_id=:userId";
-//			List<Map<String,Object>>  uApply =  dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-//			if(uApply.size() > 0 ){
-//				u.setIsOldUser(Integer.valueOf(uApply.get(0).get("is_old_user").toString()));
-//				if (uApply.get(0).get("old_user_class_name") != null) {
-//					u.setOldUserClassName(uApply.get(0).get("old_user_class_name").toString());
-//				}
-//				if (uApply.get(0).get("class_name") != null) {
-//					u.setOldUserSubjectName(uApply.get(0).get("class_name").toString());
-//				}
-//			}
-
 		}
-		u.setShareCourseId(shareCourseId);
 		return u;
 	}
 
@@ -609,14 +592,6 @@ public class UserServiceImpl implements UserService {
 		return dao.getNamedParameterJdbcTemplate().query("select id,name from school where city_id= :cityId ",ps,
 				new BeanPropertyRowMapper<SchoolVo>(SchoolVo.class));
 	}
-
-/*	public List<SchoolVo> listSchools(String schoolName) {
-		schoolName = MysqlUtils.replaceESC(schoolName);
-		Map<String, Object> ps = new HashMap<String, Object>();
-		ps.put("schoolName", "%"+schoolName+"%");
-		return dao.getNamedParameterJdbcTemplate().query("select id,name from school where name like :schoolName order by sort asc  limit 6 ",ps,
-				new BeanPropertyRowMapper<SchoolVo>(SchoolVo.class));
-	}*/
 
 	@Override
 	public List<SpecialitiesVo> listSpecialities(String schoolId) {

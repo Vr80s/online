@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.web.dao.AskTagDao;

@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.MenuCourseType;
 import com.xczhihui.bxg.online.common.domain.ScoreType;

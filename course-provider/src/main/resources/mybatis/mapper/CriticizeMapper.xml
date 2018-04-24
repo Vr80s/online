@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.wechat.course.mapper.CriticizeMapper">
+
+	<sql id="selectCriticize">
+		SELECT
+		  c.id,
+		  c.star_level,
+		  c.create_person,
+		  c.is_buy,
+		  c.`criticize_lable`,
+		  c.`content`,
+		  c.`create_time`,
+		  c.`praise_sum`,
+		  c.`overall_level`,
+		  c.`content_level`,
+		  c.`deductive_level`,
+		  if(c.reply_criticize_id!="",(select content from oe_criticize where id=c.reply_criticize_id),"") replyContent,
+		  if(c.reply_criticize_id!="",(select create_time from oe_criticize where id=c.reply_criticize_id),"") replyCreateTime,
+		  IF(LOCATE(#{userId},c.`praise_login_names`),TRUE,FALSE) isPraise,
+		  ou.`small_head_photo` smallHeadPhoto,
+		  ou.`name`,
+		  ou.id as userId,
+		  ou.login_name as loginName,
+		  ous.`name` as replyName,
+		  ous.`small_head_photo` as replySmallHeadPhoto,
+		  ous.login_name as replyLoginName
+		FROM
+		  `oe_criticize` c
+		  JOIN `oe_user` ou
+			ON c.`create_person` = ou.`id`
+		  left join `oe_user` ous
+			ON c.`reply_user` = ous.`id`
+		WHERE c.`is_delete` = 0
+	</sql>
+	<select id="selectCourseCriticize" resultType="com.xczhihui.wechat.course.model.Criticize">
+		<include refid="selectCriticize"/>
+		  AND c.`course_id` = #{courseId}
+		ORDER BY c.`create_time` DESC
+
+	</select>
+
+	<select id="selectCollectionCriticize" resultType="com.xczhihui.wechat.course.model.Criticize">
+		<include refid="selectCriticize"/>
+		  AND c.`course_id` in
+		<foreach collection="courseIds" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		ORDER BY c.`create_time` DESC
+	</select>
+
+	<select id="selectAnchorCriticize" resultType="com.xczhihui.wechat.course.model.Criticize">
+		<include refid="selectCriticize"/>
+		  AND c.`user_id`=#{anchorUserId}
+		ORDER BY c.`create_time` DESC
+	</select>
+	<select id="selectReplyByCriticizeId" resultType="com.xczhihui.wechat.course.model.Reply">
+		select
+		  re.`reply_content`,
+		  re.reply_user,
+		  ou.`name`,
+		  ou.`login_name` as loginName,
+		  ou.id as userId 
+		from
+		  `oe_reply` re
+		  join `oe_user` ou
+			ON re.`reply_user` = ou.`id`
+		where re.`criticize_id` =  #{criticizeId}
+		ORDER BY re.`create_time` DESC
+	</select>
+	<select id="hasCourse" resultType="integer">
+		SELECT
+		  count(*)
+		from
+		  apply_r_grade_course argc
+		where argc.is_delete = 0
+		  and argc.course_id = #{courseId}
+		  and argc.user_id = #{userId}
+	</select>
+	<select id="hasCriticizeScore" resultType="integer">
+		SELECT
+		  COUNT(*)
+		FROM
+		  `oe_criticize` oc
+		WHERE
+		oc.`star_level` !=0 AND oc.`star_level` IS NOT NULL
+		  and oc.course_id = #{courseId}
+		  and oc.create_person = #{userId}
+	</select>
+	
+	 <!--  如果是免费的话，不算购买 -->
+	<select id="hasCourseIsBuy" resultType="integer">
+		SELECT
+		  count(*)+if((select oc.is_free from oe_course as oc where oc.id = #{courseId}) = 0,0,-1)
+		from
+		  apply_r_grade_course argc
+		where argc.is_delete = 0
+		  and argc.course_id = #{courseId}
+		  and argc.user_id = #{userId}
+	</select>
+</mapper>

@@ -1,10 +1,9 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity2;
+import com.xczhihui.common.support.domain.BasicEntity2;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**

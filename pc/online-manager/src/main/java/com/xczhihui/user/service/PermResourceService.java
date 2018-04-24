@@ -3,7 +3,7 @@ package com.xczhihui.user.service;
 import java.util.List;
 import java.util.Set;
 
-import com.xczhihui.bxg.common.support.domain.SystemVariate;
+import com.xczhihui.common.support.domain.SystemVariate;
 import com.xczhihui.bxg.online.common.domain.Resource;
 import com.xczhihui.utils.ZtreeVo;
 

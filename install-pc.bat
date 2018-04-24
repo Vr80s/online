@@ -15,4 +15,7 @@ echo 当前路径：%cd%
 call pc\online-manager\install-online-manager.bat
 cd ..\..\
 echo 当前路径：%cd%
+call course-provider\install-course-provider
+cd ..\..\
+echo 当前路径：%cd%
 pause

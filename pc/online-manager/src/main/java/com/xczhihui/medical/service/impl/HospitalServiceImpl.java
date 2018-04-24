@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalPicture;
@@ -27,7 +27,7 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 
     @Autowired
     private HospitalDao hospitalDao;
-    @Value("${ENV_FLAG}")
+    @Value("${env.flag}")
     private String envFlag;
 
     @Override

@@ -1,15 +1,13 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.Gift;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.GiftStatement;
-import com.xczhihui.bxg.online.api.service.GiftService;
+import com.xczhihui.online.api.service.GiftService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.common.util.enums.Payment;
-import com.xczhihui.bxg.online.web.exception.NotSufficientFundsException;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.Payment;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.util.JsonUtil;
-import com.xczhihui.bxg.common.util.QiniuUtil;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.util.JsonUtil;
+import com.xczhihui.common.util.QiniuUtil;
 import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
 

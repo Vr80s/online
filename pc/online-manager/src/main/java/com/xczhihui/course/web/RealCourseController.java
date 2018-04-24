@@ -24,17 +24,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.support.service.AttachmentType;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.support.service.AttachmentType;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.OffLineCity;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -56,7 +56,7 @@ public class RealCourseController extends AbstractController {
 
     @Autowired
     private AttachmentCenterService att;
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${web.url}")
     private String weburl;
 
     @Autowired

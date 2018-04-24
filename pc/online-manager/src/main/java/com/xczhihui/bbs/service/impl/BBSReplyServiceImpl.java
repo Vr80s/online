@@ -11,7 +11,7 @@ import com.xczhihui.bbs.dao.BBSPostDao;
 import com.xczhihui.bbs.dao.BBSReplyDao;
 import com.xczhihui.bbs.service.BBSReplyService;
 import com.xczhihui.bbs.vo.BBSReplyVo;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;

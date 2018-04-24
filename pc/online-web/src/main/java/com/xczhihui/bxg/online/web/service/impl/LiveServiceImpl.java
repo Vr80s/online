@@ -20,9 +20,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.LiveDao;
@@ -50,7 +50,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 	@Autowired
 	private ApplyGradeCourseDao applyGradeCourseDao;
 	
-	@Value("${ENV_FLAG}")
+	@Value("${env.flag}")
     private String env;
 	@Value("${rate}")
     private int rate;

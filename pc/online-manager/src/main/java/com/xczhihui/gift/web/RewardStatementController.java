@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.gift.service.RewardStatementService;
 import com.xczhihui.gift.vo.RewardStatementVo;
 import com.xczhihui.utils.Group;
@@ -34,7 +34,7 @@ public class RewardStatementController extends AbstractController {
 	private RewardStatementService rewardStatementService;
 	@Autowired()
 	private AttachmentCenterService att;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "index")

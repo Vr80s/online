@@ -1,7 +1,7 @@
 package com.xczhihui.medical.web;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.MedicalField;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.medical.service.FieldService;

@@ -1,11 +1,11 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.support.cc.util.CCUtils;
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.common.util.CodeUtil;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.support.cc.util.CCUtils;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.web.service.VedioService;

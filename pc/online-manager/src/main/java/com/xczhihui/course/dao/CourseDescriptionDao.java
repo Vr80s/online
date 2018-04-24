@@ -1,6 +1,6 @@
 package com.xczhihui.course.dao;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.course.vo.CourseDescriptionVo;
 
 import java.util.HashMap;

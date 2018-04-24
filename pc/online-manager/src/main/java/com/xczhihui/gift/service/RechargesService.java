@@ -3,7 +3,7 @@ package com.xczhihui.gift.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.gift.vo.RechargesVo;
 
 public interface RechargesService {

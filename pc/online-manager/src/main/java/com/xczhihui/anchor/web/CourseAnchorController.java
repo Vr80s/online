@@ -1,8 +1,8 @@
 package com.xczhihui.anchor.web;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.Menu;

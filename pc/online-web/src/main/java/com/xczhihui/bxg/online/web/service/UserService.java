@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.service;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.RegionVo;
 import com.xczhihui.bxg.online.web.vo.SchoolVo;

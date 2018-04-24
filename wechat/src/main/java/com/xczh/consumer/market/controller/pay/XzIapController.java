@@ -16,7 +16,6 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.bxg.common.util.enums.BankCardType;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +30,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.service.iphoneIpaService;
 import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
-import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.api.service.XmbBuyCouserService;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.common.util.enums.Payment;
+import com.xczhihui.online.api.service.XmbBuyCouserService;
 
 @Controller
 @RequestMapping("/xczh/iap")

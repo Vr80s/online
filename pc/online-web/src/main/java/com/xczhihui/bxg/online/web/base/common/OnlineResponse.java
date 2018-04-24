@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.base.common;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 
 /**
  * 页面接口返回的对象。unloginedError=true表示未登录错误。

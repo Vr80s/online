@@ -1,13 +1,12 @@
 package com.xczhihui.course.service.impl;
 
 import com.xczhihui.anchor.service.AnchorService;
-import com.xczhihui.bxg.common.support.cc.util.CCUtils;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.enums.ApplyStatus;
-import com.xczhihui.bxg.common.util.enums.CourseDismissal;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
-import com.xczhihui.bxg.common.util.enums.Multimedia;
+import com.xczhihui.common.support.cc.util.CCUtils;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.ApplyStatus;
+import com.xczhihui.common.util.enums.CourseDismissal;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.course.dao.CourseApplyDao;
@@ -52,11 +51,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 	private CourseDao courseDao;
 	@Autowired
 	private CCUtils ccUtils;
-	@Value("${LIVE_VHALL_USER_ID}")
+	@Value("${vhall.user.id}")
 	private String liveVhallUserId;
-	@Value("${vhall_callback_url}")
+	@Value("${vhall.callback.url}")
 	String vhall_callback_url;
-	@Value("${vhall_private_key}")
+	@Value("${vhall.private.key}")
 	String vhall_private_key;
 
 	@Override

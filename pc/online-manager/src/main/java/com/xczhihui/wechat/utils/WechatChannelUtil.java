@@ -8,12 +8,10 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.user.center.utils.AccessToken;
+import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.user.center.utils.HttpUtil;
 
 

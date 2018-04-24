@@ -1,0 +1,221 @@
+/*大家专栏*/
+* {
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+.content {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.clearfix:after {
+    /*最简方式*/
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.clearfix {
+    /*兼容 IE*/
+    zoom: 1;
+}
+
+.content_box {
+    background-color: #f0f0f0;
+    padding-top: 20px;
+    padding-bottom: 60px;
+}
+
+.content_box #main .main_left {
+    width: 860px;
+    float: left;
+    background-color: #f0f0f0;
+}
+
+.content_box #main .main_left > div {
+    margin-bottom: 20px;
+}
+
+.content_box #main .main_left .doctor_report {
+    /*padding: 20px 0;*/
+    background-color: #fff;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_top {
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_top h3 {
+    font-size: 16px;
+    color: #333333;
+    font-weight: 400;
+    padding-left: 20px;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom {
+    padding: 0px 20px;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom #doctor_report_list li {
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom #doctor_report_list li > div {
+    float: left;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom #doctor_report_list li .doctor_report_inf {
+    width: 530px;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom #doctor_report_list li .doctor_report_inf h4 {
+    font-size: 16px;
+    color: #333333;
+    font-weight: 700;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom #doctor_report_list li .doctor_report_inf span {
+    font-size: 14px;
+    color: #666;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom #doctor_report_list li .doctor_report_inf p {
+    font-size: 14px;
+    color: #666666;
+    line-height: 24px;
+    padding-top: 8px;
+    /*height: 80px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom #doctor_report_list li .doctor_report_left {
+    width: 260px;
+    height: 147px;
+    margin-right: 20px;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_bottom #doctor_report_list li .doctor_report_left img {
+    width: 258px;
+    height: 160px;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_more {
+    text-align: center;
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+.content_box #main .main_left .doctor_report .doctor_report_more button {
+    width: 122px;
+    height: 36px;
+    background-color: #fff;
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    outline: none;
+}
+
+.content_box #main .main_right {
+    width: 320px;
+    float: right;
+    background-color: #f0f0f0;
+}
+
+.content_box #main .main_right > div {
+    margin-bottom: 20px;
+}
+
+.content_box #main .main_right .about_doctor {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.content_box #main .main_right .about_doctor h3 {
+    margin-bottom: 23px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.content_box #main .main_right .about_doctor .about_doctor_list > li {
+    width: 60px;
+    text-align: center;
+    float: left;
+    margin-right: 13px;
+    margin-bottom: 20px;
+}
+
+.content_box #main .main_right .about_doctor .about_doctor_list > li .about_doctor_pic {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.content_box #main .main_right .about_doctor .about_doctor_list > li > p {
+    font-size: 14px;
+    color: #333333;
+    font-weight: 700;
+}
+
+.content_box #main .main_right .about_doctor .about_doctor_list > li .about_doctor_pic img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.content_box #main .main_right .about_doctor .about_doctor_list > li:nth-child(4n) {
+    margin-right: 0;
+}
+
+.both {
+    clear: both;
+}
+
+.report_li img {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    float: left;
+    margin-right: 20px;
+
+}
+
+.report_li_p {
+    float: left;
+    width: 160px;
+}
+
+.report_li_p .p0 {
+    font-size: 14px;
+    color: #333333;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.report_li_p .p1 {
+    font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.about_doctor ul li {
+    margin-top: 10px;
+}
+a {
+    color: #0C0C0C;
+}

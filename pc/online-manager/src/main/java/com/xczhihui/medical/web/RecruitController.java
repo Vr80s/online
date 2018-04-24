@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 import com.xczhihui.medical.service.HospitalRecruitService;
 import com.xczhihui.utils.Group;
@@ -34,7 +34,7 @@ public class RecruitController extends AbstractController {
     @Autowired
     private HospitalRecruitService hospitalRecruitService;
 
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${web.url}")
     private String weburl;
 
     @RequestMapping(value = "list")

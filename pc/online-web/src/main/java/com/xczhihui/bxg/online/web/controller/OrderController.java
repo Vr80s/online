@@ -1,11 +1,10 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
@@ -18,12 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * 订单控制层类
@@ -43,27 +38,9 @@ public class OrderController {
     private CourseService courseService;
     private Object lock = new Object();
 
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
 
-    /**
-     * 支付页面
-     * @param ids
-     * @param request
-     */
-    @RequestMapping(value = "/{ids}/{orderNo}/payment",method= RequestMethod.GET)
-    public  ModelAndView saveOrder( @PathVariable String ids,@PathVariable String orderNo,HttpServletRequest request,RedirectAttributes attr ) throws IOException {
-        ModelAndView mav=new ModelAndView();
-
-        Map mapValues = orderService.saveOrder(orderNo, ids, request);
-        mav.setViewName("PayOrder");
-        mav.addObject("orderNo", mapValues.get("orderNo"));
-        mav.addObject("actualPay", String.format("%.2f", Double.valueOf(mapValues.get("actualPay").toString())));
-        mav.addObject("courseName", mapValues.get("courseName"));
-        mav.addObject("orderId", orderService.findOrderByOrderNo(mapValues.get("orderNo").toString()).getId());
-
-        return mav;
-    }
 
     /**
      * 根据订单号查找订单

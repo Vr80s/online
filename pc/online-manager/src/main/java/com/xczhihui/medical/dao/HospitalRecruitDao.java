@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 import com.xczhihui.common.dao.HibernateDao;
 

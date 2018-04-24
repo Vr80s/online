@@ -3,13 +3,13 @@ package com.xczhihui.message.dao;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.Message;
 import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.message.vo.MessageVo;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.PageVo;
 import com.xczhihui.utils.TimeUtil;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -60,7 +60,7 @@ public class FeedBackDao extends HibernateDao<Menu> {
 	 *            页大小
 	 * @return 分页对象
 	 */
-	public com.xczhihui.bxg.common.util.bean.Page<Message> findPageMessages(
+	public Page<Message> findPageMessages(
 			MessageVo vo, String orderByName, int pageNumber, int pageSize) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder(

@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.dao;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class LiveDao extends SimpleHibernateDao {
 	private GiftDao giftDao;
 	@Autowired
 	private RewardDao rewardDao;
-	@Value("${ENV_FLAG}")
+	@Value("${env.flag}")
 	private String envFlag;
 
     /**

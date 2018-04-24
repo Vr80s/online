@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
 
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.utils.Group;
 
 import com.xczhihui.order.vo.OrderVo;

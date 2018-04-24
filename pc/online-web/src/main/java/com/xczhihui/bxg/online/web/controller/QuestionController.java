@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.controller;/**
  * Created by admin on 2016/8/29.
  */
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Message;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.message.dao.FeedBackDao;
 import com.xczhihui.message.service.FeedbackService;
 import com.xczhihui.message.vo.FeedBackVo;
@@ -44,10 +45,10 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.xczhihui.bxg.common.util.bean.Page<MessageVo> findPageMessages(
+	public Page<MessageVo> findPageMessages(
 			MessageVo vo, int pageNumber, int pageSize)
 			throws InvocationTargetException, IllegalAccessException {
-		com.xczhihui.bxg.common.util.bean.Page<Message> page = this.dao
+		Page<Message> page = this.dao
 				.findPageMessages(vo, "answerStatus", pageNumber, pageSize);
 		List<Message> items = page.getItems();
 		List<MessageVo> itemsVo = new ArrayList<MessageVo>();
@@ -80,7 +81,7 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl implements
 			itemsVo.add(dest);
 		}
 
-		com.xczhihui.bxg.common.util.bean.Page<MessageVo> pageVo = new com.xczhihui.bxg.common.util.bean.Page<MessageVo>(
+		Page<MessageVo> pageVo = new Page<MessageVo>(
 				itemsVo, page.getTotalCount(), page.getPageSize(),
 				page.getCurrentPage());
 		return pageVo;

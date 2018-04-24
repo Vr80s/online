@@ -1,12 +1,12 @@
 package com.xczhihui.course.web;
 
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.util.enums.CourseDismissal;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
-import com.xczhihui.bxg.common.util.enums.Multimedia;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.CourseDismissal;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.Multimedia;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
@@ -46,7 +46,7 @@ public class CourseApplyInfoController extends AbstractController {
     private CourseService courseService;
     @Autowired
     private CourseApplyService courseApplyService;
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
 
     @Autowired

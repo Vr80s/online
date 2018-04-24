@@ -2,8 +2,8 @@ package com.xczhihui.anchor.web;
 
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.anchor.vo.AnchorIncomeVO;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;

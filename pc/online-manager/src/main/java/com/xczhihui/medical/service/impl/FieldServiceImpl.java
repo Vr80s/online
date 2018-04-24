@@ -1,7 +1,7 @@
 package com.xczhihui.medical.service.impl;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
 import com.xczhihui.bxg.online.common.domain.MedicalField;

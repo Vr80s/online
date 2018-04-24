@@ -3,8 +3,7 @@ package com.xczhihui.user.service;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 
 /**

@@ -2,7 +2,7 @@ package com.xczhihui.order.service;
 
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.order.vo.OrderVo;
 
 public interface OrderService {

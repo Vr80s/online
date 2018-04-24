@@ -1,8 +1,8 @@
 package com.xczhihui.medical.web;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
@@ -41,7 +41,7 @@ public class DoctorController extends AbstractController {
 	@Autowired
 	private DoctorService doctorService;
 
-	@Value("${online.web.url:http://www.ixincheng.com}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "index")

@@ -1,11 +1,10 @@
 package com.xczhihui.message.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.common.util.DateUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 

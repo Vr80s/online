@@ -3,7 +3,7 @@ package com.xczhihui.utils;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 
 public class TableVo {
 

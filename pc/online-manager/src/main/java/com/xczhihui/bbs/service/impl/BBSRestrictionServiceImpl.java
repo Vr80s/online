@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.bbs.dao.BBSUserStatusDao;
 import com.xczhihui.bbs.service.BBSRestrictionService;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.BBSUserStatus;
 import com.xczhihui.bxg.online.common.domain.Message;
 import com.xczhihui.message.dao.MessageDao;

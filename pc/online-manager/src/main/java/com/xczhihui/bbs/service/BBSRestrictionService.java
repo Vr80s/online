@@ -2,7 +2,7 @@ package com.xczhihui.bbs.service;
 
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.utils.TableVo;
 
 /**

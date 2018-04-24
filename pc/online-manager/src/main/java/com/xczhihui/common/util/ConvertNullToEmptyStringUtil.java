@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 
 /**
  * 用于将po对象中的字符串类型的属性值从Null值设置成长度为0的字符串

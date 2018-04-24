@@ -1,10 +1,10 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.api.vo.OrderVo;
+import com.xczhihui.online.api.service.OrderPayService;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.common.util.enums.Payment;
+import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.bxg.online.web.dao.OrderDao;
 import com.xczhihui.bxg.online.web.service.OrderService;
 
@@ -35,11 +35,9 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 	@Autowired
 	private OrderDao orderDao;
 
-	@Value("${share.course.id:191}")
-	private String shareCourseId;
 	@Autowired
 	UserCoinService userCoinService;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 	@Autowired
 	private OrderService orderService;

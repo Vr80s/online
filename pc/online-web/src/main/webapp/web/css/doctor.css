@@ -514,14 +514,13 @@ margin-top:0;
 	margin-bottom:10px;
 }
 #forum .forum-content .forum-content-right .teacher_books .book_list li img{
-	position: absolute;
+	/*position: absolute;*/
 	width:80px;
-	/*height:100px;*/
+	height:100px;
 	float:left;
 	margin-right:10px;
 	top: 50%;
-	transform: translateY(-50%);
-	
+	/*transform: translateY(-50%);*/
 }
 #forum .forum-content .forum-content-right .teacher_books .book_list li > div{
 	padding-top:20px;
@@ -618,5 +617,9 @@ margin-top:0;
   color: #188EEE;
   padding-left:0px;
 }
-
+.teacher_books .book_list li img {
+    width: 80px;
+    height: 100px;
+    float: left;
+}
 

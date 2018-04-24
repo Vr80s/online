@@ -1,5 +1,5 @@
 package com.xczhihui.bxg.online.common.domain;
-import com.xczhihui.bxg.common.support.domain.BasicEntity;
+import com.xczhihui.common.support.domain.BasicEntity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;

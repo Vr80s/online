@@ -1016,6 +1016,7 @@ function xmx(begin, first, filemd5, ccid, metaurl, chunkUrl) {
 				//告诉后台上传完成后合并文件                            //返回上传文件的存放路径
 				$(".propress-file").css({
 					"border": "0",
+					"top":"3px",
 					"overflow": "inherit"
 				})
 				$("#btn_width").css({
