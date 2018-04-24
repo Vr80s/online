@@ -15,11 +15,11 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineWatchHistoryService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.wechat.course.model.WatchHistory;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IWatchHistoryService;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
-import com.xczhihui.wechat.course.vo.WatchHistoryVO;
+import com.xczhihui.course.model.WatchHistory;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IWatchHistoryService;
+import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.WatchHistoryVO;
 
 @Controller
 @RequestMapping("/xczh/history")

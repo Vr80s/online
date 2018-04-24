@@ -20,9 +20,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineCourseService;
-import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
@@ -36,9 +34,8 @@ import com.xczh.consumer.market.vo.LecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IWatchHistoryService;
-import com.xczhihui.wechat.course.util.XzStringUtils;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.util.XzStringUtils;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
@@ -221,7 +218,7 @@ public class MobileShareController {
 				LOGGER.info("shareId:+"+shareId);
 				
 				Integer courseId = Integer.parseInt(shareId);
-				com.xczhihui.wechat.course.vo.CourseLecturVo  cv=null;
+				com.xczhihui.course.vo.CourseLecturVo cv=null;
 				
 				//判断这个课程类型啦
 				if(ou!=null){  //说明已经登录了

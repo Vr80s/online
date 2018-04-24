@@ -37,10 +37,10 @@ import com.xczhihui.user.center.bean.UserOrigin;
 import com.xczhihui.user.center.bean.UserSex;
 import com.xczhihui.user.center.bean.UserStatus;
 import com.xczhihui.user.center.bean.UserType;
-import com.xczhihui.wechat.course.model.QQClientUserMapping;
-import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
-import com.xczhihui.wechat.course.util.XzStringUtils;
+import com.xczhihui.course.model.QQClientUserMapping;
+import com.xczhihui.course.model.WeiboClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.util.XzStringUtils;
 
 import weibo4j.http.HttpClient;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xczhihui.wechat.course.mapper.CourseMapper">
-	<resultMap type="com.xczhihui.wechat.course.vo.CourseLecturVo"
+<mapper namespace="com.xczhihui.course.mapper.CourseMapper">
+	<resultMap type="com.xczhihui.course.vo.CourseLecturVo"
 		id="courseBaseResult">
 		<id column="id" property="id" />
 		<id column="description" property="description" />
@@ -38,7 +38,7 @@
 	</select>
 
 	<!-- 课程详情 此详情包括了  不包括礼物等信息   selectCourseDetailsById -->
-	<select id="selectCourseMidileDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectCourseMidileDetailsById" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -98,7 +98,7 @@
 
 	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
 	
-	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectCourseDetailsById" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -168,7 +168,7 @@
 	</select>
 
 	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
-	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		select * from ( SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -241,7 +241,7 @@
 	
 	
 	<!-- 得到已经购买的课程排序 -->
-	<select id="selectMyFreeCourseList" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectMyFreeCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -272,7 +272,7 @@
 		order by argc.create_time desc
 	</select>
 
-	<select id="selectCoursesByCollectionId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectCoursesByCollectionId" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id,
 		oc.`grade_name` gradeName,
@@ -287,7 +287,7 @@
 	</select>
 
 	<!-- 查找讲师距离当前时间最近一次的课程   1.直播中，2预告，3直播结束 -->
-	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -321,7 +321,7 @@
 
 
 	<!-- 通过主播id得到主播的所有课程页面 -->
-	<select id="selectLecturerAllCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectLecturerAllCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -355,7 +355,7 @@
 
 
 	<!-- 未来一周内要直播的课程、最近发布的五个课程 ，条件中判断了是否为存在最近一小时的直播 -->
-	<select id="selectUserConsoleCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectUserConsoleCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		(
 		SELECT
 		oc.id as id,
@@ -437,7 +437,7 @@
 	
 	
 	<!-- 主播控制台  直播间分页  -->
-	<select id="selectUserConsoleCourseLiveByPage" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectUserConsoleCourseLiveByPage" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -478,7 +478,7 @@
 	
 	
     <!-- 猜你喜欢，随机的取出同分类的两个课程 -->
-	<select id="selectMenuTypeAndRandCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectMenuTypeAndRandCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,
@@ -514,7 +514,7 @@
 	
 	
 	<!--  app端我的课程   全部、直播、视频、线下课、音频  -->
-    <select id="selectAppCourseApplyPage" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+    <select id="selectAppCourseApplyPage" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		select 
 			cai.img_path as  smallImgPath,
 			cai.title as gradeName,
@@ -566,7 +566,7 @@
 	</select>
 
 	<!--  查看听课列表  -->
-	<select id="listenCourseList" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="listenCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		<![CDATA[
 		select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,
 		oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
@@ -585,7 +585,7 @@
 		]]>
 	</select>
 	<!--  查看直播课程列表  -->
-	<select id="findLiveListInfo" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="findLiveListInfo" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		<![CDATA[
 		(select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,
 		c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime,
@@ -685,7 +685,7 @@
 	
 	
    <!-- 用户当前课程状态   User current course status. 用户没有登录   -->
-   <select id="selectCurrentCourseStatus" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+   <select id="selectCurrentCourseStatus" resultType="com.xczhihui.course.vo.CourseLecturVo">
        SELECT
 		oc.id as id,
 		oc.start_time as startTime,
@@ -694,9 +694,11 @@
 		if(oc.is_free =0,0,1) as watchState,
 		oc.user_lecturer_id as userLecturerId,
 		oc.collection as collection,
+		
 		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
 		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+		
 		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType
 			FROM
@@ -706,7 +708,7 @@
 	</select>	
 	
 	 <!-- 用户当前课程状态   User current course status. 用户登录了  -->
-	 <select id="selectUserCurrentCourseStatus" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	 <select id="selectUserCurrentCourseStatus" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		    SELECT
 				oc.id as id,
 				oc.start_time as startTime,
@@ -717,10 +719,12 @@
       			if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args 
       			   where  args.course_id = oc.id  and  args.user_id = #{userId} and args.is_delete=0 ) >0 ,2, 0),1)as watchState,
 				oc.collection as collection,
- 				if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
-			 		(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
-    		   			(DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
-    		     		 if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
+				
+ 						
+		        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+                  
 				oc.current_price*10 as currentPrice,
 				oc.live_source_type as liveSourceType
 			FROM

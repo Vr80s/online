@@ -13,7 +13,7 @@ import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.UserService;
-import com.xczhihui.wechat.course.service.IFocusService;
+import com.xczhihui.course.service.IFocusService;
 
 
 /** 

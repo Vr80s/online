@@ -7,6 +7,7 @@
 
 //个人信息市数据渲染
 function getCity1(){
+	debugger;
 	var pid = $('.Province1 option:selected') .val()
 	RequestService("/address/getAllPCC", "get", {}, function(data){
 				console.log(data);
@@ -14,7 +15,6 @@ function getCity1(){
 					//市
 					 $(".City1").html(template("cit1",{item:data.resultObject[pid-1].cityList}));
 					 
-					 //<option value="volvo">--选择市--</option>
 					//县
 					 $(".District1").html(template("dis",{item:null}));
 					 
@@ -56,14 +56,14 @@ function getCity(){
 	var pid = $('.Province option:selected') .val()
 	RequestService("/address/getAllPCC", "get", {}, function(data){
 				console.log(data);
-				if(data.success == true){
-					//市
-					 $(".City").html(template("cit",{item:data.resultObject[pid-1].cityList}));
-					 
-					//县
-					 $(".District").html(template("dis",{item:null}));
-				}
-			})
+		if(data.success == true){
+			//市
+			 $(".City").html(template("cit",{item:data.resultObject[pid-1].cityList}));
+			 
+			//县
+			 $(".District").html(template("dis",{item:null}));
+		}
+	})
 	}
 
 
@@ -148,7 +148,7 @@ function submitAddress_editor(id){
 
 var flag;
 function initAddressBind(){
-
+	debugger;
 	//个人信息请求三级联动数据
 	RequestService("/address/getAllPCC", "get", {}, function(data){
 		//请求成功渲染
@@ -156,7 +156,7 @@ function initAddressBind(){
 			//省
 			$(".Province1").html(template("pro1",{item:data.resultObject}));
 		}
-	})
+	},false)
 	
 	
 	//常用地址请求三级联动数据

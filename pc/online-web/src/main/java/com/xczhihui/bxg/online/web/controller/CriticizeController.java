@@ -5,7 +5,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.online.api.vo.CriticizeVo;
-import com.xczhihui.wechat.course.service.ICriticizeService;
+import com.xczhihui.course.service.ICriticizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

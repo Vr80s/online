@@ -35,9 +35,9 @@ import com.xczhihui.online.api.service.CommonApiService;
 import com.xczhihui.online.api.vo.UserAddressManagerVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.service.IMyInfoService;
-import com.xczhihui.wechat.course.util.XzStringUtils;
-import com.xczhihui.wechat.course.vo.OnlineUserVO;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.course.vo.OnlineUserVO;
 
 /**
  * 用户controller

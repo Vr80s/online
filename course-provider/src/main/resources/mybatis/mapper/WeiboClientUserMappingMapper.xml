@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xczhihui.wechat.course.mapper.WeiboClientUserMappingMapper">
+<mapper namespace="com.xczhihui.course.mapper.WeiboClientUserMappingMapper">
 
 	<!-- 微博用户唯一标识获取  -->
-	<select id="selectWeiboClientUserMappingByUid" resultType="com.xczhihui.wechat.course.model.WeiboClientUserMapping">
+	<select id="selectWeiboClientUserMappingByUid" resultType="com.xczhihui.course.model.WeiboClientUserMapping">
 		SELECT
 			wcum.id as id,
             wcum.user_id as userId,
@@ -35,7 +35,7 @@
 	</select>
 	
 		<!-- 通过熊猫中医用户id获取  -->
-	<select id="selectWeiboClientUserMappingByUserId" resultType="com.xczhihui.wechat.course.model.WeiboClientUserMapping">
+	<select id="selectWeiboClientUserMappingByUserId" resultType="com.xczhihui.course.model.WeiboClientUserMapping">
 		SELECT
 		    wcum.id as id,
             wcum.user_id as userId,
@@ -68,7 +68,7 @@
 	
 	
 	<!-- 通过熊猫中医用户id 和 uid 获取  -->
-	<select id="selectWeiboClientUserMappingByUserIdAndUid" resultType="com.xczhihui.wechat.course.model.WeiboClientUserMapping">
+	<select id="selectWeiboClientUserMappingByUserIdAndUid" resultType="com.xczhihui.course.model.WeiboClientUserMapping">
 		SELECT
 		    wcum.id as id,
             wcum.user_id as userId,

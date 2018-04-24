@@ -21,11 +21,11 @@ import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.MenuVo;
-import com.xczhihui.wechat.course.model.MobileBanner;
-import com.xczhihui.wechat.course.model.MobileProject;
-import com.xczhihui.wechat.course.service.IMobileBannerService;
-import com.xczhihui.wechat.course.service.IMobileProjectService;
-import com.xczhihui.wechat.course.service.IMyInfoService;
+import com.xczhihui.course.model.MobileBanner;
+import com.xczhihui.course.model.MobileProject;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IMobileProjectService;
+import com.xczhihui.course.service.IMyInfoService;
 
 /**
  * 推荐控制器 ClassName: MobileRecommendController.java <br>

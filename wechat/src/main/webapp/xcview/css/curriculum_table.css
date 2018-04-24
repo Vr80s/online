@@ -131,7 +131,7 @@ header{
     top: 0.88rem;
     position: fixed;
     z-index: 99;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #f0f0f0;
 }
 .header{
 	width: 100%;
@@ -237,9 +237,7 @@ header{
 }
 .li_list_main{
 	width: 100%;
-    /*background: #ffffff;*/
    background: none !important;
-    /*padding-top: 0.2rem;*/
     padding-bottom: 0.05rem;
     overflow1: hidden;
 }
@@ -247,7 +245,6 @@ header{
 	width: 100%;
 	height1: 1.25rem;
 	background: #fff;
-	/*background: red;*/
 	padding-bottom1: 0.2rem;
 	padding-top: 0.2rem;
 	clear: both;
@@ -256,16 +253,11 @@ header{
 
 .li_list_one{
 	width: 7.24rem;
-	min-height1: 1.2rem;
-	/*padding-bottom: 0.2rem;*/
-	border-bottom: 1px solid #D8DDE6;
-    /*margin-bottom: 0.2rem;*/
+	border-bottom: 1px solid #f0f0f0;
     float: right;
-    
 }
 .li_list_one_left{
 	width: 2.12rem;
-	/*height: 1.2rem;*/
 	position: relative;
 	float: left;
 	margin-right: 0.2rem;
@@ -286,9 +278,7 @@ header{
     font-size: 0.28rem;
     color: #333;
     overflow: hidden;
-    /*margin-bottom: 0.16rem;*/
     width: 4.7rem;
-    
 }
 .li_list_one_right .p00 .span{
 	font-size: 0.22rem;
@@ -303,9 +293,6 @@ header{
     float: left;
     max-width: 1.578rem;
     min-width: 0.5rem;
-    /*height: 0.3rem;*/
-    /* line-height: 0.2rem !important; */
-    /*line-height: 0.3rem !important;*/
     margin-right: 0.1rem;
 	
 	height: 0.5rem;
@@ -334,8 +321,6 @@ header{
     font-size: 0.24rem;
     color: #999;
     max-width: 2.5rem;
-    /*height: 0.24rem;
-    line-height: 0.2rem;*/
     float: left;
     margin-right: 0.1rem;
 }
@@ -347,18 +332,14 @@ header{
 .li_list_one_right .p1 span {
     color: #999;
     overflow: hidden;
-    /*display: inline-block;*/
     max-width: 1.5rem;
     margin-left: 0.05rem;
     font-size: 0.22rem;
 }
 
 .li_list_one_right .div .p2 {
-    /*height: 0.24rem;*/
     min-width: 1.35rem;
     float: left;
-    /*line-height: 0.24rem;*/
-    /*line-height: 0.31rem;*/
     margin-left: 0.1rem;
 }
 .li_list_one_right .p2 img {
@@ -381,7 +362,6 @@ header{
 .li_list_main .li_list_div:last-child .li_list_one:last-child{
 	border: none;
 }
-
 
 /*筛选条件*/
 .hint{
@@ -438,16 +418,6 @@ header{
 @keyframes myfirst{
 	/*100% {background:red; right:0px; top:0px;}*/
 }
-/*.btn_show_main_close{
-	font-size: 14px;
-	width: 100px;
-	height: 20px;
-	line-height: 20px;
-	text-align: center;
-	cursor: pointer;
-	
-}*/
-
 .div_right0{
 	animation:myfirstss 1s;
 	-moz-animation:myfirstss 1s; /* Firefox */

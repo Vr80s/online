@@ -37,8 +37,8 @@ import com.xczhihui.common.util.enums.RegisterForm;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
-import com.xczhihui.wechat.course.util.XzStringUtils;
+import com.xczhihui.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.util.XzStringUtils;
 
 import nl.bitwalker.useragentutils.OperatingSystem;
 import nl.bitwalker.useragentutils.UserAgent;

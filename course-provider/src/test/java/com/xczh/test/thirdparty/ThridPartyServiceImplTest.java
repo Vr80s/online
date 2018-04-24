@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import test.BaseJunit4Test;
 
-import com.xczhihui.wechat.course.model.QQClientUserMapping;
-import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.model.QQClientUserMapping;
+import com.xczhihui.course.model.WeiboClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
 
 /**
  * 医馆入驻测试类

@@ -22,8 +22,8 @@ import com.xczh.consumer.market.vo.MyCourseVo;
 import com.xczh.consumer.market.vo.WxcpCourseVo;
 import com.xczh.consumer.market.vo.WxcpOeMenuVo;
 import com.xczh.consumer.market.wxpay.typeutil.StringUtil;
-import com.xczhihui.wechat.course.model.OfflineCity;
-import com.xczhihui.wechat.course.service.IOfflineCityService;
+import com.xczhihui.course.model.OfflineCity;
+import com.xczhihui.course.service.IOfflineCityService;
 
 @Service
 public class OLCourseServiceImpl implements OLCourseServiceI {

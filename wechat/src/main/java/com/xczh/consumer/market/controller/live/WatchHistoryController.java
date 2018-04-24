@@ -2,7 +2,6 @@ package com.xczh.consumer.market.controller.live;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,7 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineWatchHistoryService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.entity.OeWatchHistory;
-import com.xczhihui.wechat.course.service.IWatchHistoryService;
+import com.xczhihui.course.service.IWatchHistoryService;
 
 @Controller
 @RequestMapping("/bxg/history")

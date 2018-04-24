@@ -87,6 +87,7 @@
 	.swiper-banner-list span{
 		margin: 0 0.2rem !important;
 		background: #00BC12 !important;
+        margin: 0 0.08rem !important;
 	}
 	.swiper-container-box{
 		padding-bottom: 0;

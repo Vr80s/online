@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.wechat.course.service.IFocusService;
-import com.xczhihui.wechat.course.service.IMyInfoService;
+import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMyInfoService;
 
 
 /** 
