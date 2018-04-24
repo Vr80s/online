@@ -10,7 +10,6 @@ function stripHTML(str){
 		}
 $(function(){
 
-
 //	标签选中变色
 	 $(".select_lable li").click(function(){
   		 $(this).toggleClass("active_color"); 
@@ -95,7 +94,6 @@ $(function(){
 	//	是否购买
 	$("#sure_isBuy").html(template('data_isBuy',data.resultObject));
 
-
 //	直播时间/主播名字	
 		data.resultObject.endTime= data.resultObject.endTime.replace(/-/g,".");
 		data.resultObject.startTime= data.resultObject.startTime.replace(/-/g,".");
@@ -128,8 +126,6 @@ $(function(){
 		}else{
 			$(".zhezhao1").hide()
 			$(".btn1").hide()
-
-			
 		}
 		
 		var h2=$(".wrap").height();
@@ -278,8 +274,6 @@ function btn_allComment(){
     window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
 }
 
-
-
 var courseId = getQueryString('course_id');
 //点击购买后的接口
 //function btn_buy(){
@@ -291,8 +285,6 @@ var courseId = getQueryString('course_id');
 //	});
 //}
 
-
-
 function btn_zj_mianfei(){
 	var falg =authenticationCooKie();
 	var data_zj= $(".right_priceBtn").attr("data-zj")
@@ -300,7 +292,7 @@ function btn_zj_mianfei(){
 			var current_href = window.location.href;
 			//保存当前页面到缓存
 			sessionStorage.setItem("order_page_html",current_href);
-			location.href ="/xcview/html/cn_login.html";		
+			location.href ="/xcview/html/cn_login.html?course_id="+courseId+"&type="+3;		
 		}else if (falg==1005) {
 
 			location.href ="/xcview/html/evpi.html";
@@ -328,17 +320,6 @@ function btn_zj_mianfei(){
 	
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 //点击免费报名后
 //function btn_mianfei(){
 //window.location.href="live_class.html?my_study="+course_id+"";
@@ -347,16 +328,6 @@ function btn_zj_mianfei(){
 //function btn_purchase(){
 //window.location.href="live_class.html?my_study="+course_id+"";
 //}
-
-
-
-
-
-
-
-
-
-
 
 //删除评论状态
 function del(){

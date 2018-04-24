@@ -54,7 +54,7 @@ function common_jump_play(id,watchState,lineState){
           var falg =authenticationCooKie(); 
 //付费的     
           if(watchState==0){
-             location.href="/xcview/html/school_play.html?course_id="+id 
+             location.href="/xcview/html/school_play.html?course_id="+courseId+"&type="+1
           }
 //免费的    直播跳转      
           else if(watchState==1 && lineState==1){  //直播中
@@ -124,9 +124,9 @@ function common_jump_school(watchState,type,collection,courseId){
 		}
 	}else{
 		if(type == 1 || type == 2){
-			location.href = "/xcview/html/school_audio.html?course_id="+courseId;
+			location.href = "/xcview/html/school_audio.html?course_id="+courseId+"&type="+2;
 		}else if(type == 4){
-			location.href = "/xcview/html/school_class.html?course_id="+courseId;
+			location.href = "/xcview/html/school_class.html?course_id="+courseId+"&type="+3;
 		}
 	}
 }
