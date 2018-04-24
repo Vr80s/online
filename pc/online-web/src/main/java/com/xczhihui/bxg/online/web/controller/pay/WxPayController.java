@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,8 +52,6 @@ import java.util.Map;
 public class WxPayController extends WxPayApiController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-	private static final String BUY_COURSE_TEXT = "购买课程{0}";
-	private static final String BUY_COIN_TEXT = "充值熊猫币:{0}个";
 
 	@Autowired
 	WxPay4PcBean wxPayBean;
@@ -67,13 +66,16 @@ public class WxPayController extends WxPayApiController {
 	String notify_url;
 
 	@Override
-	public WxPayApiConfig getApiConfig() {
+	@ModelAttribute
+	public void initWxPayApiConfig() {
+		log.info("init wxpay config");
 		notify_url = wxPayBean.getDomain().concat("/web/wxPay/pay_notify");
-		return WxPayApiConfig.New()
+		WxPayApiConfig wxPayApiConfig = WxPayApiConfig.New()
 				.setAppId(wxPayBean.getAppId())
 				.setMchId(wxPayBean.getMchId())
 				.setPaternerKey(wxPayBean.getPartnerKey())
 				.setPayModel(PayModel.BUSINESSMODEL);
+		WxPayApiConfigKit.setThreadLocalWxPayApiConfig(wxPayApiConfig);
 	}
 
 	/**

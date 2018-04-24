@@ -12,5 +12,5 @@ public abstract class AliPayApiController {
 	public static final String APP_PRODUCT_CODE = "QUICK_MSECURITY_PAY";
 	public static final String TIMEOUT_EXPRESS = "24h";
 
-	public abstract AliPayApiConfig getApiConfig();
+	public abstract void initAliPayApiConfigKit();
 }

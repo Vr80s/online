@@ -24,7 +24,7 @@ public class WxPayInterceptor implements HandlerInterceptor {
 			}
 			
 			try {
-				WxPayApiConfigKit.setThreadLocalWxPayApiConfig(((WxPayController)controller).getApiConfig());
+//				WxPayApiConfigKit.setThreadLocalWxPayApiConfig(((WxPayController)controller).getApiConfig());
 				return true;
 			}
 			finally {

@@ -23,7 +23,7 @@ public class AliPayInterceptor implements HandlerInterceptor {
 			}
 			
 			try {
-				AliPayApiConfigKit.setThreadLocalAliPayApiConfig(((AliPayApiController)controller).getApiConfig());
+//				AliPayApiConfigKit.setThreadLocalAliPayApiConfig(((AliPayApiController)controller).getApiConfig());
 				return true;
 			}
 			finally {

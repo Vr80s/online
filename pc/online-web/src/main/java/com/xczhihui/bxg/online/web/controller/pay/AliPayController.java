@@ -14,6 +14,7 @@ import com.xczhihui.bxg.online.api.service.PayService;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.pay.alipay.AliPayApi;
 import com.xczhihui.pay.alipay.AliPayApiConfig;
+import com.xczhihui.pay.alipay.AliPayApiConfigKit;
 import com.xczhihui.pay.alipay.AliPayBean;
 import com.xczhihui.pay.alipay.controller.AliPayApiController;
 import com.xczhihui.wechat.course.model.Order;
@@ -59,8 +60,10 @@ public class AliPayController extends AliPayApiController {
     private int rate;
 
     @Override
-    public AliPayApiConfig getApiConfig() {
-        return AliPayApiConfig.New()
+    @ModelAttribute
+    public void initAliPayApiConfigKit() {
+        logger.info("init alipay config");
+        AliPayApiConfig aliPayApiConfigKit = AliPayApiConfig.New()
                 .setAppId(aliPayBean.getAppId())
                 .setAlipayPublicKey(aliPayBean.getPublicKey())
                 .setCharset("UTF-8")
@@ -68,6 +71,7 @@ public class AliPayController extends AliPayApiController {
                 .setServiceUrl(aliPayBean.getServerUrl())
                 .setSignType("RSA2")
                 .build();
+        AliPayApiConfigKit.setThreadLocalAliPayApiConfig(aliPayApiConfigKit);
     }
 
     /**
