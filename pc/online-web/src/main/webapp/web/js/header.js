@@ -259,7 +259,7 @@ $(function () {
         '</div>' +
         '</div>',
         weixinErma: '<div class="sideWeixinErma">' +
-        '<img src="/web/images/sideWeixin.png" />' +
+        '<img src="/web/images/sideWeixin.jpg"/>' +
         '<div class="sideSanjiao">' +
         '<img src="/web/images/float_sanjiao.png" />' +
         '</div>' +
