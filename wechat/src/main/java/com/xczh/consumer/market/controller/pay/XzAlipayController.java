@@ -44,12 +44,11 @@ import java.util.Map;
 @RequestMapping("/xczh/alipay")
 public class XzAlipayController extends AliPayApiController {
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static String ALIPAY_NOTIFY_URL = "/xczh/alipay/alipayNotifyUrl";
 
 	@Autowired
 	private AppBrowserService appBrowserService;
-
 	@Autowired
 	private AliPayBean aliPayBean;
 	@Autowired
@@ -66,12 +65,12 @@ public class XzAlipayController extends AliPayApiController {
 	@Value("${minimum_amount}")
 	private Double minimumAmount;
 
-    private static String ALIPAY_NOTIFY_URL = "/xczh/alipay/alipayNotifyUrl";
-//    private static String alipayNotifyUrl = "/xczh/alipay/alipayNotifyUrl";
 
 	@Override
-	public AliPayApiConfig getApiConfig() {
-		return AliPayApiConfig.New()
+	@ModelAttribute
+	public void initAliPayApiConfig() {
+		logger.info("init alipay config");
+		AliPayApiConfig aliPayApiConfigKit = AliPayApiConfig.New()
 				.setAppId(aliPayBean.getAppId())
 				.setAlipayPublicKey(aliPayBean.getPublicKey())
 				.setCharset("UTF-8")
@@ -79,13 +78,9 @@ public class XzAlipayController extends AliPayApiController {
 				.setServiceUrl(aliPayBean.getServerUrl())
 				.setSignType("RSA2")
 				.build();
+		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(aliPayApiConfigKit);
 	}
 
-	@ModelAttribute
-    private final void initResponse(HttpServletResponse response) {
-		logger.info("init alipay config");
-		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
-	}
 
 	/**
 	 * Description：支付宝wap支付，课程下单

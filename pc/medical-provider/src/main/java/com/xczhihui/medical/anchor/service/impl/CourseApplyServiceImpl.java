@@ -2,12 +2,11 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.bxg.common.support.cc.util.CCUtils;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.bxg.common.util.enums.ApplyStatus;
 import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.bxg.common.util.enums.Multimedia;
-import com.xczhihui.bxg.common.support.cc.util.CCUtils;
-import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -26,11 +25,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * <p>

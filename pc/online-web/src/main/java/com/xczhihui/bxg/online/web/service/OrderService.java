@@ -46,7 +46,6 @@ public interface OrderService {
 
     public OrderVo findOrderByOrderId(String orderId);
 
-    public Map<String, Object> addWeixinPayUnifiedorder(String body,String orderNo,String productId,int pay,String attach);
 
     /**
 	 * 检查订单是否被支付

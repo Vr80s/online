@@ -52,17 +52,18 @@ import java.util.Map;
 public class WxPayController extends WxPayApiController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
+	public static final String BUY_COURSE_TEXT = "购买课程{0}";
+	public static final String BUY_COIN_TEXT = "充值熊猫币:{0}个";
 
 	@Autowired
-	WxPay4PcBean wxPayBean;
+	private WxPay4PcBean wxPayBean;
 	@Autowired
-    IOrderService orderService;
+	private IOrderService orderService;
 	@Autowired
-	PayService payService;
+	private PayService payService;
 
 	@Value("${rate}")
 	private int rate;
-
 	String notify_url;
 
 	@Override

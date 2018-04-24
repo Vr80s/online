@@ -1,50 +1,24 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.stereotype.Service;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.MessageDao;
 import com.xczhihui.bxg.online.web.dao.OrderDao;
 import com.xczhihui.bxg.online.web.service.OrderService;
-import com.xczhihui.bxg.online.web.utils.HttpUtil;
-import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
-import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
-import com.xczhihui.bxg.online.web.utils.PayConfigUtil;
-import com.xczhihui.bxg.online.web.utils.XMLUtil;
 import com.xczhihui.bxg.online.web.vo.MessageShortVo;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 订单业务层接口实现类
@@ -63,8 +37,6 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	private CourseDao  courseDao;
 	@Autowired
 	private MessageDao  messageDao;
-	@Autowired
-	private OnlineConfig  onlineConfig;
 	
     /**
      * 获取用户全部订单信息
@@ -143,96 +115,6 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	@Override
     public OrderVo findOrderByOrderNoAndStatus(String orderId,Integer status){
 		return  orderDao.findOrderByOrderNoAndStatus(orderId,status);
-	}
-
-	@Override
-	public Map<String, Object> addWeixinPayUnifiedorder(String body,String orderNo,String productId,int pay,String attach) {
-		Map<String, Object> returnmap = new HashMap<String, Object>();
-		try {
-			SortedMap<Object, Object> packageParams = new TreeMap<>();
-			// APP_ID
-			packageParams.put("appid", onlineConfig.appId);
-			// 商品描述，课程名称
-			packageParams.put("body", body);
-			// 商业号
-			packageParams.put("mch_id", onlineConfig.mchId);
-			// 随机字符串
-			packageParams.put("nonce_str", UUID.randomUUID().toString().replace("-", ""));
-			// 通知回调地址
-			packageParams.put("notify_url",onlineConfig.notifyPay);
-			// 订单号
-			packageParams.put("out_trade_no", orderNo);
-			//附加参数
-			packageParams.put("attach",attach);
-			// 商品id，课程id
-			packageParams.put("product_id", productId);
-			// 发起电脑IP
-			packageParams.put("spbill_create_ip", PayCommonUtil.getIPLocal());
-			packageParams.put("total_fee", pay);
-			// 交易类型，取值如下：JSAPI，NATIVE，APP， 默认NATIVE，详细说明见
-			packageParams.put("trade_type", "NATIVE");
-
-			Calendar c = Calendar.getInstance();
-			c.add(Calendar.DAY_OF_MONTH, 1);
-			packageParams.put("time_expire",new SimpleDateFormat("yyyyMMddHHmmss").format(c.getTime()));
-
-			// 签名
-			String sign = PayCommonUtil.createSign("UTF-8", packageParams, onlineConfig.apiKey);
-			packageParams.put("sign", sign);
-			
-			String requestXML = PayCommonUtil.getRequestXml(packageParams);
-			String resXml = HttpUtil.postData(PayConfigUtil.UNIFIEDORDER_URL, requestXML);
-			Map<String, Object> map = XMLUtil.doXMLParse(resXml);
-			String return_code = String.valueOf(map.get("return_code"));
-			if (map.containsKey("err_code")) {
-				returnmap.put("errorMsg", map.get("err_code_des"));
-				return returnmap;
-			} 
-			if ("SUCCESS".equalsIgnoreCase(return_code)) {
-				returnmap.put("codeimg", encodeQrcode(String.valueOf(map.get("code_url"))));
-				logger.info("微信预支付下单，订单号：{}，回调地址：{}", orderNo,onlineConfig.notifyPay);
-				return returnmap;
-			} else {
-				returnmap.put("errorMsg", "微信预支付下单失败,错误信息：" + map.get("return_msg"));
-				logger.warn("微信预支付下单失败,错误信息：{}", map.get("return_msg"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			returnmap.put("errorMsg", "微信预支付下单失败,错误信息：" + e.getMessage());
-		}
-		
-		return returnmap;
-	}
-	
-	private String encodeQrcode(String urlCode) throws WriterException {
-		int width = 300; // 二维码图片宽度
-		int height = 300; // 二维码图片高度
-
-		Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
-		hints.put(EncodeHintType.CHARACTER_SET, StandardCharsets.UTF_8.name());// 内容所使用字符集编码
-
-		BitMatrix bitMatrix = new MultiFormatWriter().encode(urlCode, BarcodeFormat.QR_CODE, width, height, hints);
-		BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
-
-		ByteArrayOutputStream out = null;
-		// 输出二维码图片流
-		try {
-			out = new ByteArrayOutputStream();
-			ImageIO.write(image, "png", Base64.getEncoder().wrap(out));
-			return "data:image/png;base64,"+out.toString(StandardCharsets.UTF_8.name());
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (out != null) {
-				try {
-					out.close();
-					out = null;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return "";
 	}
 
 	@Override

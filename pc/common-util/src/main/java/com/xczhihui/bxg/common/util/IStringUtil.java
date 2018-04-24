@@ -53,9 +53,4 @@ public final class IStringUtil {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        String a = "18041916RK3B35c2618z"+getRandomString();
-        System.out.println(a);
-        System.out.println(a.substring(0,20));
-    }
 }

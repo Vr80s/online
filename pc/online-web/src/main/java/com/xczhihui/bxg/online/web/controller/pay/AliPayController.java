@@ -61,7 +61,7 @@ public class AliPayController extends AliPayApiController {
 
     @Override
     @ModelAttribute
-    public void initAliPayApiConfigKit() {
+    public void initAliPayApiConfig() {
         logger.info("init alipay config");
         AliPayApiConfig aliPayApiConfigKit = AliPayApiConfig.New()
                 .setAppId(aliPayBean.getAppId())

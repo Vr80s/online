@@ -123,9 +123,4 @@ public class ThirdSystemInterfaceController {
 		return ResponseObject.newSuccessResponseObject(user);
 	}
 	
-	@RequestMapping(value = "sendVerificationCode")
-	public ResponseObject sendVerificationCode(HttpServletRequest req,HttpServletResponse res) throws Exception{
-		service.addSendVerificationCode(req,res);
-		return ResponseObject.newSuccessResponseObject("OK");
-	}
 }

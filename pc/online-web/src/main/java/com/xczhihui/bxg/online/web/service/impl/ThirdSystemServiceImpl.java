@@ -2,33 +2,19 @@ package com.xczhihui.bxg.online.web.service.impl;/**
  * Created by admin on 2016/9/19.
  */
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.xczhihui.bxg.common.util.HttpUtil;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.dao.ThirdSystemDao;
+import com.xczhihui.bxg.online.web.service.ThirdSystemService;
+import com.xczhihui.user.center.utils.CodeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.util.HttpUtil;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.online.web.dao.ThirdSystemDao;
-import com.xczhihui.bxg.online.web.service.ThirdSystemService;
-import com.xczhihui.bxg.online.web.service.VerificationCodeService;
-import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
-import com.xczhihui.bxg.online.web.utils.XMLUtil;
-import com.xczhihui.user.center.utils.CodeUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 第三方系统接口提供
@@ -39,12 +25,7 @@ import com.xczhihui.user.center.utils.CodeUtil;
 public class ThirdSystemServiceImpl extends OnlineBaseServiceImpl implements ThirdSystemService {
 	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	@Autowired
-	private VerificationCodeService vs;
-	@Autowired
-	private OnlineConfig onlineConfig;
-	
+
 	private static Map<String, String> KEY = new HashMap<String, String>();
 	static {
 		KEY.put("univ", "Sj2Yd6Djkgqp3ouiDy3ks6fjDdj5ljhsf62mM1MsI");
@@ -99,36 +80,4 @@ public class ThirdSystemServiceImpl extends OnlineBaseServiceImpl implements Thi
 		return dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", loginName);
 	}
 
-	@Override
-	public void addSendVerificationCode(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Map<String, String> m = this.check(req);
-		vs.addMessage(m.get("mobile"), m.get("vtype"));
-	}
-	
-	private Map<String, String> check(HttpServletRequest req) throws Exception{
-		InputStream inputStream = req.getInputStream();
-		StringBuffer sb = new StringBuffer();
-		String str = null;
-		BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-		while ((str = in.readLine()) != null) {
-			sb.append(str);
-		}
-		in.close();
-		inputStream.close();
-		// 解析xml成map
-		Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
-		if (m != null && !m.isEmpty()) {
-			// 过滤空 设置 TreeMap
-			SortedMap<Object, Object> packageParams = new TreeMap<>();
-			for (Map.Entry<String, String> e : m.entrySet()) {
-				if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
-					packageParams.put(e.getKey(), e.getValue());
-				}
-			}
-			if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, onlineConfig.wechatApiId)) {
-				return m;
-			}
-		}
-		throw new RuntimeException("签名错误");
-	}
 }

@@ -666,10 +666,6 @@ public class CourseDao extends SimpleHibernateDao {
                          " from "+courseTableName+" c join oe_menu m  join score_type s  join  teach_method t where c.course_type_id = s.id  and c.courseType = t.id  and c.menu_id = m.id and c.is_delete=0 and c.status=1  and  c.id=?";
             List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{courseId,courseId}, BeanPropertyRowMapper.newInstance(CourseVo.class));
             courseVo = courseVoList.size() > 0 ? courseVoList.get(0) : courseVo;
-            if(courseVo != null){
-                //成为分享大使课程的id，购买此课程可成为分享大使
-                courseVo.setShareCourseId(shareCourseId);
-            }
 
             //获取登录用户
             BxgUser loginUser = UserLoginUtil.getLoginUser(request);
