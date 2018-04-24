@@ -28,7 +28,7 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
 
 	@Autowired
 	private DoctorDao doctorDao;
-	@Value("${ENV_FLAG}")
+	@Value("${env.flag}")
 	private String envFlag;
 
 	@Override

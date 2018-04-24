@@ -39,7 +39,7 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 
 	@Value("${wechatpay.h5.appid}")
 	public  String appid;
-	@Value("${wechatpay.gzhSecret}")
+	@Value("${wechatpay.h5.secret}")
 	public  String appsecret;
 	
 	@Override

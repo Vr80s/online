@@ -27,7 +27,7 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 
     @Autowired
     private HospitalDao hospitalDao;
-    @Value("${ENV_FLAG}")
+    @Value("${env.flag}")
     private String envFlag;
 
     @Override

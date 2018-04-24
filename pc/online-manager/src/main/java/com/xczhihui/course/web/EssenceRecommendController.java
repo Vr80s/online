@@ -37,12 +37,6 @@ public class EssenceRecommendController {
 	@Autowired
 	private EssenceRecommendService ssenceRecommenedService;
 	
-	
-	@Value("${online.web.publiccloud.courseType}")
-	private String courseType;
-	@Value("${online.web.publiccloud.courseTypeId}")
-	private String courseTypeId;
-	
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 

@@ -52,11 +52,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 	private CourseDao courseDao;
 	@Autowired
 	private CCUtils ccUtils;
-	@Value("${LIVE_VHALL_USER_ID}")
+	@Value("${vhall.user.id}")
 	private String liveVhallUserId;
-	@Value("${vhall_callback_url}")
+	@Value("${vhall.callback.url}")
 	String vhall_callback_url;
-	@Value("${vhall_private_key}")
+	@Value("${vhall.private.key}")
 	String vhall_private_key;
 
 	@Override

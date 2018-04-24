@@ -54,16 +54,16 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
 	@Autowired
 	private OnlineUserService onlineUserService;
 
-	@Value("${course.anchor.vod_divide}")
+	@Value("${course.anchor.vod.divide}")
 	private BigDecimal vodDivide;
 
-	@Value("${course.anchor.live_divide}")
+	@Value("${course.anchor.live.divide}")
 	private BigDecimal liveDivide;
 
-	@Value("${course.anchor.offline_divide}")
+	@Value("${course.anchor.offline.divide}")
 	private BigDecimal offlineDivide;
 
-	@Value("${course.anchor.gift_divide}")
+	@Value("${course.anchor.gift.divide}")
 	private BigDecimal giftDivide;
 
 	/**
