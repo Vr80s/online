@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.service.NotesService;
 import com.xczhihui.bxg.online.web.vo.NotesCommentVo;
 import com.xczhihui.bxg.online.web.vo.NotesVo;

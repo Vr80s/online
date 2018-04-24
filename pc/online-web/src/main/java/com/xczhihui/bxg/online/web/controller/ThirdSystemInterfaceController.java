@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.xczhihui.bxg.common.util.HttpUtil;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.HttpUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ThirdSystemService;
 
@@ -123,9 +123,4 @@ public class ThirdSystemInterfaceController {
 		return ResponseObject.newSuccessResponseObject(user);
 	}
 	
-	@RequestMapping(value = "sendVerificationCode")
-	public ResponseObject sendVerificationCode(HttpServletRequest req,HttpServletResponse res) throws Exception{
-		service.addSendVerificationCode(req,res);
-		return ResponseObject.newSuccessResponseObject("OK");
-	}
 }

@@ -75,4 +75,12 @@ public interface IMedicalDoctorWritingService {
      * @param doctorId 医师id
      */
     void delete(String id, String doctorId);
+
+    /**
+     * 通过文章id获取著作数据
+     *
+     * @param articleId articleId
+     * @return 著作
+     */
+    MedicalWriting findByArticleId(int articleId);
 }

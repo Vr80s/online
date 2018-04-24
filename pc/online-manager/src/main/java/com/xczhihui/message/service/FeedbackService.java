@@ -1,6 +1,7 @@
 package com.xczhihui.message.service;
 
 import com.xczhihui.bxg.online.common.domain.Message;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.message.vo.FeedBackVo;
 import com.xczhihui.message.vo.MessageVo;
 import com.xczhihui.utils.Groups;
@@ -63,7 +64,7 @@ public interface FeedbackService {
 	 *            页大小
 	 * @return 分页对象
 	 */
-	public com.xczhihui.bxg.common.util.bean.Page<MessageVo> findPageMessages(
+	public Page<MessageVo> findPageMessages(
 			MessageVo vo, int pageNumber, int pageSize)
 			throws InvocationTargetException, IllegalAccessException;
 

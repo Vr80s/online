@@ -3,7 +3,7 @@ package com.xczhihui.common.web;
 import java.util.Date;
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.common.util.DateUtil;
 
 public class UserVo {
 

@@ -1,6 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.course.dao.EssenceRecommendDao;
 import com.xczhihui.course.service.EssenceRecommendService;
@@ -15,13 +15,13 @@ public class EssenceRecommendServiceImpl extends OnlineBaseServiceImpl
 	@Autowired
 	private EssenceRecommendDao essenceRecommendDao;
 
-	@Value("${ENV_FLAG}")
+	@Value("${env.flag}")
 	private String envFlag;
-	@Value("${LIVE_VHALL_USER_ID}")
+	@Value("${vhall.user.id}")
 	private String liveVhallUserId;
-	@Value("${vhall_callback_url}")
+	@Value("${vhall.callback.url}")
 	String vhall_callback_url;
-	@Value("${vhall_private_key}")
+	@Value("${vhall.private.key}")
 	String vhall_private_key;
 
 	@Override

@@ -7,7 +7,7 @@ import com.xczhihui.utils.Groups;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Otherlink;
 import com.xczhihui.common.dao.HibernateDao;
 import com.xczhihui.system.vo.OtherLinkVo;

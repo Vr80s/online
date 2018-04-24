@@ -1,9 +1,9 @@
 package com.xczhihui.user.web;
 
-import com.xczhihui.bxg.common.support.service.SystemVariateService;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.support.service.SystemVariateService;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.Role;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.support.shiro.ManagerUserUtil;

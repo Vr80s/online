@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.common.util.CodeUtil;
-import com.xczhihui.bxg.common.util.enums.HeadlineType;
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorReportMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalSpecialColumnMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorReport;
@@ -100,18 +99,6 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
-    public List<Map<String, Object>> listHotSpecialColumnAuthor(String doctorId) {
-        return oeBxsArticleMapper.listSpecialColumnAuthorByDoctorId(doctorId);
-    }
-
-    @Override
-    public Page<OeBxsArticleVO> listPublicSpecialColumn(int page, String doctorId) {
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
-        oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.getSpecialColumns(oeBxsArticleVOPage, doctorId));
-        return oeBxsArticleVOPage;
-    }
-
-    @Override
     public Page<OeBxsArticleVO> listReport(int page, String doctorId) {
         Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
         oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listReport(oeBxsArticleVOPage, doctorId));
@@ -185,29 +172,46 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
-    public List<Map<String, Object>> listReportDoctorByArticleId(int id) {
-        return oeBxsArticleMapper.listReportDoctorByArticleId(id);
+    public List<Map<String, Object>> listReportDoctor(int size) {
+        return oeBxsArticleMapper.listReportDoctor(size);
     }
 
     @Override
-    public List<Map<String, Object>> listSpecialColumnAuthorByArticleId(int id) {
-        return oeBxsArticleMapper.listSpecialColumnAuthorByArticleId(id);
+    public List<Map<String, Object>> listWritingAuthor(int size) {
+        return oeBxsArticleMapper.listWritingAuthor(size);
     }
 
     @Override
-    public List<Map<String, Object>> listReportDoctor(String doctorId) {
-        return oeBxsArticleMapper.listReportDoctorByDoctorId(doctorId);
+    public List<Map<String, Object>> listHotSpecialColumnAuthor(int size) {
+        return oeBxsArticleMapper.listSpecialColumnAuthor(size);
     }
 
     @Override
-    public Page<OeBxsArticleVO> listPublicReport(int page, String doctorId) {
+    public List<Map<String, Object>> listWritingAuthorByArticleId(int articleId) {
+        return oeBxsArticleMapper.listWritingAuthorByArticleId(articleId);
+    }
+
+    @Override
+    public List<Map<String, Object>> listReportDoctorByArticleId(int articleId) {
+        return oeBxsArticleMapper.listReportDoctorByArticleId(articleId);
+    }
+
+    @Override
+    public List<Map<String, Object>> listHotSpecialColumnAuthorByArticleId(int articleId) {
+        return oeBxsArticleMapper.listSpecialColumnAuthorByArticleId(articleId);
+    }
+
+    @Override
+    public Page<OeBxsArticleVO> listPublicArticle(int page, String typeId) {
         Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
-        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.getNewsReportsByPage(oeBxsArticleVOPage, doctorId, HeadlineType.MYBD.getCode()));
+        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listPublicArticle(oeBxsArticleVOPage, typeId));
     }
 
     @Override
-    public Page<OeBxsArticleVO> listPublicWriting(int page, String doctorId) {
+    public Page<OeBxsArticleVO> listPublicWritings(int page) {
         Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
-        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listPublicWriting(oeBxsArticleVOPage, doctorId));
+        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listPublicWritings(oeBxsArticleVOPage));
     }
+
+
 }

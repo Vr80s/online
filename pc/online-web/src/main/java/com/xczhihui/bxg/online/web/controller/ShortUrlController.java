@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.xczhihui.bxg.common.util.HttpUtil;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.HttpUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 
 /**
  * 短链接转换
@@ -26,7 +26,7 @@ import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 @RequestMapping(value = "/short")
 public class ShortUrlController {
 	
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 	
     /**

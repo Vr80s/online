@@ -6,8 +6,8 @@ import java.util.Map;
 import com.xczhihui.headline.vo.ArticleVo;
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.bean.Page;
 
 @Repository
 public class BannerDao extends SimpleHibernateDao {

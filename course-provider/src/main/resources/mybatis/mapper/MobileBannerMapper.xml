@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.course.mapper.MobileBannerMapper">
+	<resultMap type="com.xczhihui.course.model.MobileBanner" id="MobileBannerBaseResult">
+		<id column="id" property="id" />
+		<id column="name" property="name" />
+		<id column="url" property="url" />
+		<id column="click_sum" property="clickSum" />
+		<id column="create_person" property="createPerson" />
+		<id column="create_time" property="createTime" />
+		<id column="status" property="status" />
+		<id column="seq" property="seq" />
+		<id column="img_path" property="imgPath" />
+		<id column="link_type" property="linkType" />
+		<id column="link_condition" property="linkCondition" />
+		<id column="banner_type" property="bannerType" />
+	</resultMap>
+	<select id="selectMobileBannerPage" resultMap="MobileBannerBaseResult">
+		SELECT
+		  ocmb.*
+		FROM
+		  oe_course_mobile_banner ocmb
+		WHERE ocmb.status = 1
+		<if test="type != null and type != ''">
+			and ocmb.banner_type = #{type}
+		</if>
+		ORDER BY ocmb.seq desc
+
+	</select>
+	<update id="addClickNum">
+		UPDATE
+		oe_course_mobile_banner
+		SET click_sum = click_sum+1
+		WHERE id = #{id}
+	</update>
+</mapper>

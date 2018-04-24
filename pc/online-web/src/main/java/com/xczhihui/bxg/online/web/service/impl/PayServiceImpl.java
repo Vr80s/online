@@ -1,16 +1,16 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.common.util.enums.PayOrderType;
-import com.xczhihui.bxg.common.util.enums.Payment;
-import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.PayOrderType;
+import com.xczhihui.common.util.enums.Payment;
+import com.xczhihui.online.api.service.OrderPayService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.web.service.OrderService;
-import com.xczhihui.bxg.online.api.service.PayService;
-import com.xczhihui.wechat.course.model.AlipayPaymentRecord;
-import com.xczhihui.wechat.course.model.WxcpPayFlow;
-import com.xczhihui.wechat.course.service.IPaymentRecordService;
-import com.xczhihui.wechat.course.vo.PayMessage;
+import com.xczhihui.online.api.service.PayService;
+import com.xczhihui.course.model.AlipayPaymentRecord;
+import com.xczhihui.course.model.WxcpPayFlow;
+import com.xczhihui.course.service.IPaymentRecordService;
+import com.xczhihui.course.vo.PayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

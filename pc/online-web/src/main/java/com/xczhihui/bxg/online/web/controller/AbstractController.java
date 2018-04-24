@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 
 /**

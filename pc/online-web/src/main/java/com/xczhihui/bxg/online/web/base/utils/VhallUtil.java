@@ -11,10 +11,9 @@ import java.util.*;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.xczhihui.bxg.common.util.HttpUtil;
+import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.bxg.online.base.bean.Webinar;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.utils.MD5Util;
 import com.xczhihui.user.center.utils.CodeUtil;
 
 /**

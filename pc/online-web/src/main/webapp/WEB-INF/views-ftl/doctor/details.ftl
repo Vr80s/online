@@ -214,7 +214,8 @@
                                 <a href="${webUrl}/headline/details/${specialColumn.id}">
                         </div>
                         <div class="zhuanlan_right">
-                            <h3><a href="${webUrl}/headline/details/${specialColumn.id}" style="color: #000;">${specialColumn.title}</a></h3>
+                            <h3><a href="${webUrl}/headline/details/${specialColumn.id}"
+                                   style="color: #000;">${specialColumn.title}</a></h3>
                             <p>${specialColumn.content}</p>
                             <span>${(specialColumn.createTime?string("yyyy-MM-dd"))!}</span>
                         </div>
@@ -228,7 +229,7 @@
         <div class="zhuanlan clearfix" id="media_report">
             <div class="class_top">
                 <span>媒体报道</span>
-                <a href="${webUrl}/doctors/${doctor.id}/report"
+                <a href="${webUrl}/doctors/report"
                    class="more_madia_report">
                     更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </a>
@@ -256,6 +257,7 @@
     </#if>
 
 
+    <#if (writings?size>0)>
         <!--右侧-->
         <div class="main_right">
             <!--帐号认领-->
@@ -264,23 +266,26 @@
                 <a href="javascript:;">认领</a>
             </div>
             <!--著作-->
+
             <div class="zhuzuo clearfix">
                 <div class="zhuzuo_title">
                     <h3>著作</h3>
-                    <a href="${webUrl}/doctors/${doctor.id}/writing"><span
+                    <a href="${webUrl}/doctors/writing"><span
                             class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 </div>
 
                 <div id="zhuzuo_list">
-                <#list writings as writing>
-                    <div class="zhuzuo_left">
-                        <img src="${writing.imgPath}" alt="">
-                        <p>${writing.title}</p>
-                    </div>
-                </#list>
+                    <#list writings as writing>
+                        <a href="/headline/details/${writing.articleId}" style="color: #0C0C0C">
+                            <div class="zhuzuo_left">
+                                <img src="${writing.imgPath}" alt="">
+                                <p>${writing.title}</p>
+                            </div>
+                        </a>
+                    </#list>
                 </div>
-
             </div>
+
             <!--相关医师-->
             <div class="about_doctor hide">
                 <h3>相关医师</h3>
@@ -336,6 +341,7 @@
                 </ul>
             </div>
         </div>
+    </#if>
     </div>
 </div>
 <#include "../footer.ftl">

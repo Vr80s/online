@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.xczhihui.bbs.dao.BBSLabelDao;
 import com.xczhihui.bbs.service.BBSLabelService;
 import com.xczhihui.bbs.vo.BBSLabelVo;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.BBSLabel;
 import com.xczhihui.utils.TableVo;
 

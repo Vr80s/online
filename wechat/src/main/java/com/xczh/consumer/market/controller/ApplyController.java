@@ -1,16 +1,9 @@
 package com.xczh.consumer.market.controller;
 
 import com.xczh.consumer.market.bean.Apply;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.ApplyService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

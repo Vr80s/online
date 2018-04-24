@@ -433,12 +433,12 @@ function verifyAnchorInfo(data){
 	}
 //	
 //	//医师所在省市填写
-//	if(data.province == '-1' ||  data.city == '-1'){
-//		$('.return_warning6').removeClass('hide');
-//		return false;
-//	}else {
-//		 $('.return_warning6').addClass('hide');
-//	}
+	if(data.province == '-1' ||  data.city == '-1'){
+		$('.return_warning6').removeClass('hide');
+		return false;
+	}else {
+		 $('.return_warning6').addClass('hide');
+	}
 
     return true;
 }
@@ -491,11 +491,29 @@ function verifyAnchorInfo2(data){
     	$('.return_warning8').addClass('hide');
     }
 
+	//	//医师所在省市填写
+	if(data.province == '请选择省' ||  data.city == '请选择市'){
+		$('.return_warning6').removeClass('hide');
+		return false;
+	}else {
+		 $('.return_warning6').addClass('hide');
+	}
+	
+	 if(data.detailAddress == ''){
+        $('.return_warning5 ').removeClass('hide');
+        return false;
+    }else{
+        $('.return_warning5 ').addClass('hide');
+    }
+
     return true;
 }
 
 //主播信息渲染
 function showAnchorInfo() {
+	if($('.personal_details').hasClass('hide')){
+		$(".message_return .message_title .two").click()
+	}
     $.ajax({
         type:"GET",
         url: "/anchor/info",

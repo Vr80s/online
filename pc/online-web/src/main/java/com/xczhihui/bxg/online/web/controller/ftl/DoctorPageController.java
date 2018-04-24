@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.common.util.enums.DoctorType;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
+import com.xczhihui.common.util.enums.DoctorType;
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
@@ -112,9 +113,7 @@ public class DoctorPageController extends AbstractController {
             specialColumn.setContent(HtmlUtil.getTextFromHtml(specialColumn.getContent()));
         }
         view.addObject("specialColumns", specialColumns);
-
-        List<MedicalWritingVO> writings = medicalDoctorBusinessService.getWritingsByDoctorId(id);
-        view.addObject("writings", writings);
+        view.addObject("writings", medicalDoctorWritingService.listPublic(1, 5, id).getRecords());
 
         doTitleKeyWords(view, doctor.getName() + "-", doctor.getName() + ",");
 
@@ -175,27 +174,39 @@ public class DoctorPageController extends AbstractController {
         return view;
     }
 
-    @RequestMapping(value = "{id}/specialColumn", method = RequestMethod.GET)
-    public ModelAndView getPublicSpecialColumnByDoctorId(@PathVariable String id, @RequestParam(defaultValue = "1") int page) {
+    @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
+    public ModelAndView getPublicSpecialColumnByDoctorId(@RequestParam(defaultValue = "1") int page) {
         ModelAndView modelAndView = new ModelAndView("doctor/special-column");
-        modelAndView.addObject("specialColumns", medicalDoctorArticleService.listPublicSpecialColumn(page, id));
-        modelAndView.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthor(id));
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicArticle(page, HeadlineType.DJZL.getCode());
+        oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
+            oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
+        });
+        modelAndView.addObject("specialColumns", oeBxsArticleVOPage);
+        modelAndView.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthor(10));
         return modelAndView;
     }
 
-    @RequestMapping(value = "{id}/report", method = RequestMethod.GET)
-    public ModelAndView getPublicReportByDoctorId(@PathVariable String id, @RequestParam(defaultValue = "1") int page) {
+    @RequestMapping(value = "report", method = RequestMethod.GET)
+    public ModelAndView getPublicReportByDoctorId(@RequestParam(defaultValue = "1") int page) {
         ModelAndView modelAndView = new ModelAndView("doctor/report");
-        modelAndView.addObject("reports", medicalDoctorArticleService.listPublicReport(page, id));
-        modelAndView.addObject("doctors", medicalDoctorArticleService.listReportDoctor(id));
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicArticle(page, HeadlineType.MYBD.getCode());
+        oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
+            oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
+        });
+        modelAndView.addObject("reports", oeBxsArticleVOPage);
+        modelAndView.addObject("doctors", medicalDoctorBusinessService.selectRecDoctor());
         return modelAndView;
     }
 
-    @RequestMapping(value = "{id}/writing", method = RequestMethod.GET)
-    public ModelAndView getPublicWritingByDoctorId(@PathVariable String id, @RequestParam(defaultValue = "1") int page) {
-        ModelAndView modelAndView = new ModelAndView("doctor/report");
-        modelAndView.addObject("writings", medicalDoctorArticleService.listPublicSpecialColumn(page, id));
-        modelAndView.addObject("doctors", medicalDoctorArticleService.listReportDoctor(id));
+    @RequestMapping(value = "writing", method = RequestMethod.GET)
+    public ModelAndView getPublicWritingByDoctorId(@RequestParam(defaultValue = "1") int page) {
+        ModelAndView modelAndView = new ModelAndView("doctor/writing");
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicWritings(page);
+        oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
+            oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
+        });
+        modelAndView.addObject("writings", oeBxsArticleVOPage);
+        modelAndView.addObject("doctors", medicalDoctorBusinessService.selectRecDoctor());
         return modelAndView;
     }
 }

@@ -44,7 +44,7 @@
     </mvc:annotation-driven>
 
     <bean id="handlerExceptionResolver"
-          class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
+          class="com.xczhihui.common.web.exception.DubboMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="java.lang.Throwable">common/500</prop>
@@ -123,17 +123,9 @@
             <bean id="webInterceptor" class="com.xczhihui.bxg.online.web.interceptor.WebInterceptor"/>
         </mvc:interceptor>
         <!-- 对web请求的相关处理-->
-        <mvc:interceptor>
-            <mvc:mapping path="/web/alipay/**"/>
-            <bean id="aliPayInterceptor" class="com.xczhihui.bxg.online.web.interceptor.AliPayInterceptor"/>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/web/wxPay/**"/>
-            <bean id="wxPayInterceptor" class="com.xczhihui.bxg.online.web.interceptor.WxPayInterceptor"/>
-        </mvc:interceptor>
     </mvc:interceptors>
 
 
-    <bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController"/>
+    <bean id="attachmentCenterController" class="com.xczhihui.common.web.controller.AttachmentCenterController"/>
 
 </beans>

@@ -1,9 +1,8 @@
 package com.xczhihui.bxg.online.web.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.web.vo.AppraiseVo;
 import com.xczhihui.bxg.online.web.vo.ArticleVo;
-import com.xczhihui.medical.headline.model.OeBxsArticle;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

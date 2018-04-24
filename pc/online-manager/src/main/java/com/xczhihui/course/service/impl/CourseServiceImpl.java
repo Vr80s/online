@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.common.support.config.OnlineConfig;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
-import com.xczhihui.bxg.common.util.enums.Multimedia;
-import com.xczhihui.bxg.common.support.cc.bean.CategoryBean;
-import com.xczhihui.bxg.common.support.cc.config.Config;
-import com.xczhihui.bxg.common.support.cc.util.APIServiceFunction;
-import com.xczhihui.bxg.common.support.cc.util.CCUtils;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.Multimedia;
+import com.xczhihui.common.support.cc.bean.CategoryBean;
+import com.xczhihui.common.support.cc.config.Config;
+import com.xczhihui.common.support.cc.util.APIServiceFunction;
+import com.xczhihui.common.support.cc.util.CCUtils;
 
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
@@ -37,7 +37,7 @@ import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
@@ -64,13 +64,13 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Autowired
 	private CCUtils CCUtils;
 
-	@Value("${ENV_FLAG}")
+	@Value("${env.flag}")
 	private String envFlag;
-	@Value("${LIVE_VHALL_USER_ID}")
+	@Value("${vhall.user.id}")
 	private String liveVhallUserId;
-	@Value("${vhall_callback_url}")
+	@Value("${vhall.callback.url}")
 	String vhall_callback_url;
-	@Value("${vhall_private_key}")
+	@Value("${vhall.private.key}")
 	String vhall_private_key;
     
     @Override

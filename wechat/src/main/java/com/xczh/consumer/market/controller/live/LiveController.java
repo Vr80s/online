@@ -36,8 +36,8 @@ import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.Broadcast;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczhihui.bxg.online.api.service.LiveExamineInfoService;
-import com.xczhihui.bxg.online.api.vo.LiveExamineInfo;
+import com.xczhihui.online.api.service.LiveExamineInfoService;
+import com.xczhihui.online.api.vo.LiveExamineInfo;
 
 //import java.util.UUID;
 

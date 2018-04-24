@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.body.hospital.HospitalRecruitBody;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;

@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.online.api.dto.ProgressDto;
-import com.xczhihui.bxg.online.api.vo.ExamineProgressVo;
-import com.xczhihui.bxg.online.api.vo.LiveExamineInfo;
-import com.xczhihui.bxg.online.api.vo.LiveExamineInfoVo;
-import com.xczhihui.bxg.online.api.service.LiveExamineInfoService;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.online.api.dto.ProgressDto;
+import com.xczhihui.online.api.vo.ExamineProgressVo;
+import com.xczhihui.online.api.vo.LiveExamineInfo;
+import com.xczhihui.online.api.vo.LiveExamineInfoVo;
+import com.xczhihui.online.api.service.LiveExamineInfoService;
 
 
 /**

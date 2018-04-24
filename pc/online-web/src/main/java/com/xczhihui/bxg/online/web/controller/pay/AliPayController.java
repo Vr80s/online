@@ -4,21 +4,22 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.xczhihui.bxg.common.util.OrderNoUtil;
-import com.xczhihui.bxg.common.util.enums.PayOrderType;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.PayOrderType;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.exception.XcApiException;
-import com.xczhihui.bxg.online.api.service.PayService;
+import com.xczhihui.online.api.service.PayService;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.pay.alipay.AliPayApi;
 import com.xczhihui.pay.alipay.AliPayApiConfig;
+import com.xczhihui.pay.alipay.AliPayApiConfigKit;
 import com.xczhihui.pay.alipay.AliPayBean;
 import com.xczhihui.pay.alipay.controller.AliPayApiController;
-import com.xczhihui.wechat.course.model.Order;
-import com.xczhihui.wechat.course.service.IOrderService;
-import com.xczhihui.wechat.course.vo.PayMessage;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.service.IOrderService;
+import com.xczhihui.course.vo.PayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,14 +54,16 @@ public class AliPayController extends AliPayApiController {
     @Autowired
     private AliPayBean aliPayBean;
 
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
     @Value("${rate}")
     private int rate;
 
     @Override
-    public AliPayApiConfig getApiConfig() {
-        return AliPayApiConfig.New()
+    @ModelAttribute
+    public void initAliPayApiConfig() {
+        logger.info("init alipay config");
+        AliPayApiConfig aliPayApiConfigKit = AliPayApiConfig.New()
                 .setAppId(aliPayBean.getAppId())
                 .setAlipayPublicKey(aliPayBean.getPublicKey())
                 .setCharset("UTF-8")
@@ -68,6 +71,7 @@ public class AliPayController extends AliPayApiController {
                 .setServiceUrl(aliPayBean.getServerUrl())
                 .setSignType("RSA2")
                 .build();
+        AliPayApiConfigKit.setThreadLocalAliPayApiConfig(aliPayApiConfigKit);
     }
 
     /**

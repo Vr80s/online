@@ -4,7 +4,7 @@
 
     <groupId>com.xczhihui</groupId>
     <artifactId>root-pom</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>root-pom</name>
@@ -35,7 +35,7 @@
         <module>../online-api</module>
         <module>../online-common</module>
         <module>../medical-api</module>
-        <module>../../wechat-api</module>
+        <module>../../course-api</module>
     </modules>
 
     <dependencyManagement>
@@ -441,25 +441,25 @@
             <dependency>
                 <groupId>com.xczhihui</groupId>
                 <artifactId>common-util</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>2.0.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.xczhihui</groupId>
                 <artifactId>common-support</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>2.0.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.xczhihui</groupId>
                 <artifactId>common-web</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>2.0.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.xczhihui</groupId>
                 <artifactId>online-common</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>2.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

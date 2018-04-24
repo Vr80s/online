@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.wechat.course.model.Order;
-import com.xczhihui.wechat.course.service.IOrderService;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,13 +20,7 @@ import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.service.WxcpPayFlowService;
-import com.xczh.consumer.market.service.WxcpWxRedpackService;
-import com.xczh.consumer.market.service.WxcpWxTransService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
 
 @Controller
 @RequestMapping("/xczh/order")

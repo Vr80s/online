@@ -25,19 +25,19 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.common.util.enums.SMSCode;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.SMSCode;
+import com.xczhihui.online.api.service.EnchashmentService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IFocusService;
-import com.xczhihui.wechat.course.service.IMyInfoService;
-import com.xczhihui.wechat.course.util.XzStringUtils;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
  * 我的信息管理页面 ClassName: MyManagerController.java <br>

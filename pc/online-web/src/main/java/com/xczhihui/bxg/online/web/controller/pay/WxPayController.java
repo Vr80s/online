@@ -5,13 +5,13 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.xczhihui.bxg.common.util.IStringUtil;
-import com.xczhihui.bxg.common.util.OrderNoUtil;
-import com.xczhihui.bxg.common.util.enums.PayOrderType;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.PayOrderType;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
-import com.xczhihui.bxg.online.api.service.PayService;
+import com.xczhihui.online.api.service.PayService;
 import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
 import com.xczhihui.pay.ext.kit.HttpKit;
 import com.xczhihui.pay.ext.kit.IpKit;
@@ -20,14 +20,15 @@ import com.xczhihui.pay.ext.kit.StrKit;
 import com.xczhihui.pay.weixin.api.*;
 import com.xczhihui.pay.weixin.api.WxPayApi.TradeType;
 import com.xczhihui.pay.weixin.api.WxPayApiConfig.PayModel;
-import com.xczhihui.wechat.course.model.Order;
-import com.xczhihui.wechat.course.service.IOrderService;
-import com.xczhihui.wechat.course.vo.PayMessage;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.service.IOrderService;
+import com.xczhihui.course.vo.PayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,29 +52,31 @@ import java.util.Map;
 public class WxPayController extends WxPayApiController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-	private static final String BUY_COURSE_TEXT = "购买课程{0}";
-	private static final String BUY_COIN_TEXT = "充值熊猫币:{0}个";
+	public static final String BUY_COURSE_TEXT = "购买课程{0}";
+	public static final String BUY_COIN_TEXT = "充值熊猫币:{0}个";
 
 	@Autowired
-	WxPay4PcBean wxPayBean;
+	private WxPay4PcBean wxPayBean;
 	@Autowired
-    IOrderService orderService;
+	private IOrderService orderService;
 	@Autowired
-	PayService payService;
+	private PayService payService;
 
 	@Value("${rate}")
 	private int rate;
-
 	String notify_url;
 
 	@Override
-	public WxPayApiConfig getApiConfig() {
+	@ModelAttribute
+	public void initWxPayApiConfig() {
+		log.info("init wxpay config");
 		notify_url = wxPayBean.getDomain().concat("/web/wxPay/pay_notify");
-		return WxPayApiConfig.New()
+		WxPayApiConfig wxPayApiConfig = WxPayApiConfig.New()
 				.setAppId(wxPayBean.getAppId())
 				.setMchId(wxPayBean.getMchId())
 				.setPaternerKey(wxPayBean.getPartnerKey())
 				.setPayModel(PayModel.BUSINESSMODEL);
+		WxPayApiConfigKit.setThreadLocalWxPayApiConfig(wxPayApiConfig);
 	}
 
 	/**

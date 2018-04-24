@@ -2,9 +2,9 @@ package com.xczh.consumer.market.service.impl;
 
 import java.math.BigDecimal;
 
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.common.util.enums.Payment;
-import com.xczhihui.bxg.common.support.lock.Lock;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.Payment;
+import com.xczhihui.common.support.lock.Lock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import com.xczh.consumer.market.service.iphoneIpaService;
 import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.UserCoinService;
 
 /**
  * @author liutao

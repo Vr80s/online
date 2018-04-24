@@ -4,7 +4,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.dao.BasicSimpleDao;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.online.api.vo.CriticizeVo;
 
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;

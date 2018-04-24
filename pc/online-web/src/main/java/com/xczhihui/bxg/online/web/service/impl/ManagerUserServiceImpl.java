@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.service.impl;/**
  * Created by admin on 2016/10/13.
  */
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import org.springframework.beans.factory.annotation.Autowired;

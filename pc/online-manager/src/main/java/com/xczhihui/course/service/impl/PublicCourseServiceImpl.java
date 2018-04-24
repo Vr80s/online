@@ -16,15 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.service.LiveCallbackService;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.online.api.service.LiveCallbackService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.course.util.Task;
 import com.xczhihui.course.vo.ChangeCallbackVo;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -49,13 +47,13 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
     private LiveCallbackService liveCallbackService;
 
 
-    @Value("${ENV_FLAG}")
+    @Value("${env.flag}")
     private String envFlag;
-    @Value("${LIVE_VHALL_USER_ID}")
+    @Value("${vhall.user.id}")
     private String liveVhallUserId;
-    @Value("${vhall_callback_url}")
+    @Value("${vhall.callback.url}")
     String vhall_callback_url;
-    @Value("${vhall_private_key}")
+    @Value("${vhall.private.key}")
     String vhall_private_key;
 
     @Override

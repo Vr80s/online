@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.course.mapper.OnlineUserMapper">
+	<resultMap type="com.xczhihui.course.vo.OnlineUserVO" id="courseBaseResult">
+		<id column="id" property="id"  />
+	    <id column="name" property="name"  />
+	    <id column="login_name" property="loginName"  />
+	    <id column="password" property="password"  />
+	    <id column="sex" property="sex"  />
+	    <id column="mobile" property="mobile"  />
+	    <id column="email" property="email"  />
+	    <id column="is_delete" property="isDelete"  />
+	    <id column="small_head_photo" property="smallHeadPhoto"  />
+	    <id column="big_head_photo" property="bigHeadPhoto"  />
+	    <id column="create_person" property="createPerson"  />
+	    <id column="create_time" property="createTime"  />
+	    <id column="status" property="status"  />
+	    <id column="last_login_ip" property="lastLoginIp"  />
+	    <id column="last_login_date" property="lastLoginDate"  />
+	    <id column="visit_sum" property="visitSum"  />
+	    <id column="stay_time" property="stayTime"  />
+	    <id column="info" property="info"  />
+	    <id column="jobyears" property="jobyears"  />
+	    <id column="occupation" property="occupation"  />
+	    <id column="region_id" property="regionId"  />
+	    <id column="region_area_id" property="regionAreaId"  />
+	    <id column="region_city_id" property="regionCityId"  />
+	    <id column="occupation_other" property="occupationOther"  />
+	    <id column="target" property="target"  />
+	    <id column="is_apply" property="isApply"  />
+	    <id column="full_address" property="fullAddress"  />
+	    <id column="menu_id" property="menuId"  />
+	    <id column="union_id" property="unionId"  />
+	    <id column="user_type" property="userType"  />
+	    <id column="ref_id" property="refId"  />
+	    <id column="parent_id" property="parentId"  />
+	    <id column="share_code" property="shareCode"  />
+	    <id column="change_time" property="changeTime"  />
+	    <id column="origin" property="origin"  />
+	    <id column="type" property="type"  />
+	    <id column="is_lecturer" property="isLecturer"  />
+	    <id column="room_number" property="roomNumber"  />
+	    <id column="vhall_id" property="vhallId"  />
+	    <id column="vhall_pass" property="vhallPass"  />
+	    <id column="vhall_name" property="vhallName"  />
+	    <id column="province_name" property="provinceName"  />
+	    <id column="city_name" property="cityName"  />
+	    <id column="individuality_signature" property="individualitySignature"  />
+	    <id column="blacklist" property="blacklist"  />
+	    <id column="gag" property="gag"  />
+	    <id column="county_name" property="countyName"  />
+	</resultMap>
+
+	<!-- 根据用户id查找用户信息 -->
+	<select id="selectCourseById" resultMap="courseBaseResult">
+		SELECT
+		oc.*
+		FROM
+		oe_course oc where oc.id = #{courseId}
+	</select>
+
+	
+
+
+	
+</mapper>

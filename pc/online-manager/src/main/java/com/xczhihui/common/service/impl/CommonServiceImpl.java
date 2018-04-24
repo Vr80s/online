@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.support.domain.SystemVariate;
-import com.xczhihui.bxg.common.support.service.SystemVariateService;
+import com.xczhihui.common.support.domain.SystemVariate;
+import com.xczhihui.common.support.service.SystemVariateService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.common.domain.Common;
 import com.xczhihui.common.service.CommonService;

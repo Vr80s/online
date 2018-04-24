@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.web.UserVo;
 import com.xczhihui.order.vo.MessageShortVo;
 import org.apache.commons.lang.StringUtils;
@@ -38,7 +39,7 @@ public class MessageDao extends HibernateDao<Menu> {
 	 *            页大小
 	 * @return 页对象
 	 */
-	public com.xczhihui.bxg.common.util.bean.Page<Message> findPageMessages(
+	public Page<Message> findPageMessages(
 			String vNameOrCreater, String orderByName, int pageNumber,
 			int pageSize) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Message.class);
@@ -66,7 +67,7 @@ public class MessageDao extends HibernateDao<Menu> {
 	 *            页大小
 	 * @return 页对象
 	 */
-	public com.xczhihui.bxg.common.util.bean.Page<Message> findPageMessages(
+	public Page<Message> findPageMessages(
 			MessageVo vo, String orderByName, int pageNumber, int pageSize) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Message.class);
 		dc.add(Restrictions.eq("isDelete", false));
@@ -107,7 +108,7 @@ public class MessageDao extends HibernateDao<Menu> {
 	 *            页大小
 	 * @return 分页对象
 	 */
-	public com.xczhihui.bxg.common.util.bean.Page<Message> findPageMessagesByUser(
+	public Page<Message> findPageMessagesByUser(
 			UserVo userVo, String vNameOrCreater, String orderByName,
 			int pageNumber, int pageSize) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Message.class);

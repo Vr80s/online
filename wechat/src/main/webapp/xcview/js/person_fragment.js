@@ -69,27 +69,35 @@ requestService("/xczh/common/richTextDetails",{
 	
 	if(type ==1 ){ // 展示页面  课程详情
 		if(data.resultObject==''||data.resultObject==null){
-			$("#jieshao").hide()			
+			$("#jieshao").hide();
+			$(".no").show();
 		}else{
+			$(".no").hide();
 			$(".user_mywrite").html(data.resultObject);
 		}
 	}else if(type == 2){ //主讲人  --》 直播间主讲人
 		if(data.resultObject==''||data.resultObject==null){
-			$("#jieshao").hide()			
+			$("#jieshao").hide();
+			$(".no_one").show();	
 		}else{
 			$(".user_mywrite").html(data.resultObject);
+			$(".no_one").hide();
 		}
 	}else if(type == 3){  //展示页面  主讲人
 		if(data.resultObject==''||data.resultObject==null){
-			$("#jieshao").hide()			
+			$("#jieshao").hide();
+			$(".no").show();
 		}else{
 			$(".user_mywrite").html(data.resultObject);
+			$(".no").hide();
 		}
 	}else if(type == 4){  //主播详情页面 --》 介绍 
 		if(data.resultObject==''||data.resultObject==null){
-			$("#jieshao").hide()			
+			$("#jieshao").hide();
+			$(".no").show();
 		}else{
 			$(".user_mywrite").html(data.resultObject);
+			$(".no").hide();
 		}
 	}
 	

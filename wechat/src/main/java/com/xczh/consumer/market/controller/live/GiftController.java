@@ -37,7 +37,7 @@ public class GiftController {
 //
 //	@Autowired()
 //	@Qualifier("giftServiceImpl")
-//	private com.xczhihui.bxg.online.api.service.GiftService remoteGiftService;
+//	private GiftService remoteGiftService;
 
 	@Autowired
 	private AppBrowserService appBrowserService;

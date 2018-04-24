@@ -29,15 +29,15 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczhihui.bxg.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.service.CommonApiService;
-import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
+import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.online.api.service.CityService;
+import com.xczhihui.online.api.service.CommonApiService;
+import com.xczhihui.online.api.vo.UserAddressManagerVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.service.IMyInfoService;
-import com.xczhihui.wechat.course.util.XzStringUtils;
-import com.xczhihui.wechat.course.vo.OnlineUserVO;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.course.vo.OnlineUserVO;
 
 /**
  * 用户controller

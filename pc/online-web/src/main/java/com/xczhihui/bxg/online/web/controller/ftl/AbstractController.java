@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import org.springframework.web.servlet.ModelAndView;
 

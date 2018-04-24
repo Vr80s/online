@@ -51,11 +51,6 @@ function sanfangLogin(){
 	location.href = "/xczh/wxlogin/publicWechatAndMobile";
 }
 
-
-
-
-
-
 /*******  新的接口  *************/
 
 /**
@@ -135,11 +130,24 @@ function login(){
 //					//到登录页面的入口   被拦截后，回到注册页面，然后用户可以注册，
 //					location.href = "/xcview/html/home_page.html";
 //				}
-				location.href = "/xcview/html/home_page.html";
+				
+				var type = getQueryString('type');
+				getQueryString(type);
+
+				if(type=='1'){
+					location.href="/xcview/html/school_play.html?course_id="+courseId+"&type="+1;
+				}else if(type=='2'){
+					location.href ="/xcview/html/school_audio.html?course_id="+courseId+"&type="+2;
+				}else if(type=='3'){
+					ocation.href ="/xcview/html/school_class.html?course_id="+courseId+"&type="+3;
+				}else{
+					location.href = "/xcview/html/home_page.html";
+				}
+				
+				// location.href = "/xcview/html/home_page.html";
+
 			}
 		} else {
-//			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>帐号或密码错误</div></div></div>";
-//			setTimeout(function(){$(".vanish").hide();},1500);
 			webToast(data.errorMessage,"middle",1500);
 		}
 	});

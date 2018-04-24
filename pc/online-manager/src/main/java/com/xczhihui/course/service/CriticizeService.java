@@ -1,6 +1,6 @@
 package com.xczhihui.course.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.CriticizeVo;
 
