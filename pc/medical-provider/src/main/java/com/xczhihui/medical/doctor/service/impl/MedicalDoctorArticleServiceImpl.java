@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.CodeUtil;
+import com.xczhihui.bxg.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorReportMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalSpecialColumnMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorReport;
@@ -59,6 +60,7 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         oldOeBxsArticle.setTitle(oeBxsArticle.getTitle());
         oldOeBxsArticle.setContent(oeBxsArticle.getContent());
         oldOeBxsArticle.setImgPath(oeBxsArticle.getImgPath());
+        oldOeBxsArticle.setUserId(oeBxsArticle.getUserId());
         oeBxsArticleMapper.updateById(oldOeBxsArticle);
         return true;
     }
@@ -98,6 +100,18 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
+    public List<Map<String, Object>> listHotSpecialColumnAuthor(String doctorId) {
+        return oeBxsArticleMapper.listSpecialColumnAuthorByDoctorId(doctorId);
+    }
+
+    @Override
+    public Page<OeBxsArticleVO> listPublicSpecialColumn(int page, String doctorId) {
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
+        oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.getSpecialColumns(oeBxsArticleVOPage, doctorId));
+        return oeBxsArticleVOPage;
+    }
+
+    @Override
     public Page<OeBxsArticleVO> listReport(int page, String doctorId) {
         Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
         oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listReport(oeBxsArticleVOPage, doctorId));
@@ -127,6 +141,8 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         oldOeBxsArticle.setTitle(oeBxsArticle.getTitle());
         oldOeBxsArticle.setContent(oeBxsArticle.getContent());
         oldOeBxsArticle.setImgPath(oeBxsArticle.getImgPath());
+        oldOeBxsArticle.setUrl(oeBxsArticle.getUrl());
+        oldOeBxsArticle.setUserId(oeBxsArticle.getUserId());
         oeBxsArticleMapper.updateById(oldOeBxsArticle);
 
         MedicalDoctorReport medicalDoctorReport = medicalDoctorReportMapper.findByArticleIdAndDoctorId(id, doctorId);
@@ -176,5 +192,22 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     @Override
     public List<Map<String, Object>> listSpecialColumnAuthorByArticleId(int id) {
         return oeBxsArticleMapper.listSpecialColumnAuthorByArticleId(id);
+    }
+
+    @Override
+    public List<Map<String, Object>> listReportDoctor(String doctorId) {
+        return oeBxsArticleMapper.listReportDoctorByDoctorId(doctorId);
+    }
+
+    @Override
+    public Page<OeBxsArticleVO> listPublicReport(int page, String doctorId) {
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
+        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.getNewsReportsByPage(oeBxsArticleVOPage, doctorId, HeadlineType.MYBD.getCode()));
+    }
+
+    @Override
+    public Page<OeBxsArticleVO> listPublicWriting(int page, String doctorId) {
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
+        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listPublicWriting(oeBxsArticleVOPage, doctorId));
     }
 }

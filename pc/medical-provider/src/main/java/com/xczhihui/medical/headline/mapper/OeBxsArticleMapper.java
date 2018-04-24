@@ -141,4 +141,58 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             "        WHERE oba.id = #{id}" +
             "        ORDER BY oba.`create_time` DESC"})
     List<Map<String, Object>> listSpecialColumnAuthorByArticleId(int id);
+
+    /**
+     * 获取文章报道的医师
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city` " +
+            "        FROM" +
+            "            `oe_bxs_article` oba" +
+            "            JOIN `medical_doctor_report` mdr" +
+            "                ON oba.`id` = mdr.`article_id`" +
+            "            JOIN `medical_doctor` md" +
+            "                ON md.id = mdr.`doctor_id`" +
+            "            JOIN `medical_doctor_authentication_information` mdai" +
+            "                ON mdai.`id` = md.`authentication_information_id`" +
+            "        WHERE md.id = #{doctorId}" +
+            "        ORDER BY oba.`create_time` DESC"})
+    List<Map<String, Object>> listReportDoctorByDoctorId(@Param("doctorId") String doctorId);
+
+    /**
+     * 获取专栏作者
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city`" +
+            "        FROM" +
+            "            `oe_bxs_article` oba" +
+            "            JOIN `medical_doctor_special_column` mdsc" +
+            "                ON oba.`id` = mdsc.`article_id`" +
+            "            JOIN `medical_doctor` md" +
+            "                ON md.id = mdsc.`doctor_id`" +
+            "            JOIN `medical_doctor_authentication_information` mdai" +
+            "                ON mdai.`id` = md.`authentication_information_id`" +
+            "        WHERE oba.id = #{id}" +
+            "        ORDER BY oba.`create_time` DESC"})
+    List<Map<String, Object>> listSpecialColumnAuthorByDoctorId(@Param("doctorId") String doctorId);
+
+    /**
+     * 查询医师关联的著作
+     *
+     * @param page     分页参数
+     * @param doctorId 医师id
+     * @return 列表数据
+     */
+    @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
+            " from `oe_bxs_article` oba" +
+            " LEFT JOIN `medical_doctor_writings` mdw" +
+            " ON oba.`id` = mdw.`article_id` " +
+            " where oba.`is_delete`= 0 and oba.status = 1 and mdw.doctor_id = #{doctorId} " +
+            " order by oba.create_time desc"})
+    List<OeBxsArticleVO> listPublicWriting(Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId);
 }
