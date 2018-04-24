@@ -291,7 +291,7 @@ $(function() {
 
 	//---------------------------------头像上传部分结束，专栏部分开始-------------------------------------------------
 
-var ue = UE.getEditor('editor2', {
+var ue = UE.getEditor('column-content', {
 		toolbars: [
 			[
 				'undo', //撤销
@@ -415,7 +415,7 @@ var ue = UE.getEditor('editor2', {
 			"title": $.trim($(".column-title").val()),
 			"imgPath": $(".column-picter img").attr("src"),
 //			"content": $.trim($(".column-text").val()),
-			"content": UE.getEditor('editor2').getContent(),
+			"content": UE.getEditor('column-content').getContent(),
 			"status": columeStatus
 		}
 		if(columnRecruit(data)) {
@@ -523,7 +523,7 @@ var ue = UE.getEditor('editor2', {
 				editData = {
 					"title": $.trim($(".column-title").val()),
 					"imgPath": $(".column-picter img").attr("src"),
-					"content": UE.getEditor('editor2').getContent()
+					"content": UE.getEditor('column-content').getContent()
 				};
 			if(columnRecruit(editData)) {
 				$.ajax({
@@ -1405,7 +1405,7 @@ var ue = UE.getEditor('editor2', {
 		$(".column-picter").html(defaultPicter)
 		$(".column-text").val("");
 		$(".warning").addClass("hide");
-		UE.getEditor('editor2').setContent("");
+		UE.getEditor('column-content').setContent("");
 	}
 
 	function echoColumn(index) {
@@ -1414,7 +1414,7 @@ var ue = UE.getEditor('editor2', {
 		$(".column-title").val(columnGetdata.title);
 		$(".column-picter").html("<img src=" + columnGetdata.imgPath + " />");
 //		$(".column-text").val(columnGetdata.content);
-		UE.getEditor('editor2').setContent(columnGetdata.content);
+		UE.getEditor('column-content').setContent(columnGetdata.content);
 	}
 	//-----------------------------------------著作部分，预览,编辑回显--------------------------------------
 	var getWorkdata;
