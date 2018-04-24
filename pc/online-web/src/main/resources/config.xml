@@ -169,9 +169,7 @@
                    timeout="${dubbo.provider.timeout}"/>
     <dubbo:service interface="com.xczhihui.online.api.service.LiveExamineInfoService"
                    ref="liveExamineInfoServiceImpl" timeout="${dubbo.provider.timeout}"/>
-    <!-- 评论使用 -->
-    <dubbo:service interface="com.xczhihui.online.api.service.CriticizeService" ref="criticizeServiceImpl"
-                   timeout="${dubbo.provider.timeout}"/>
+
     <!-- 公共的使用 -->
     <dubbo:service interface="com.xczhihui.online.api.service.CommonApiService" ref="commonApiServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
@@ -278,6 +276,8 @@
     <!-- 我的信息管理类 -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl"
                      timeout="${dubbo.consumer.timeout}" />
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+
     <!--=============================================消费者end============================================-->
 
 </beans>
