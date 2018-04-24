@@ -361,7 +361,7 @@ var ue = UE.getEditor('column-content', {
 		RequestService("/medical/common/upload", "post", {
 			image: baseurl,
 		}, function(data) {
-			$('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >');
+			$('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 		})
 	}
 	$('#zhuanlan_picIpt').on('change', function() {
@@ -618,7 +618,7 @@ var ue = UE.getEditor('column-content', {
 		RequestService("/medical/common/upload", "post", {
 			image: baseurl,
 		}, function(data) {
-			$('#zhuzuo .zhuzuo_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >');
+			$('#zhuzuo .zhuzuo_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 		})
 	}
 	$('#zhuzuo_picIpt').on('change', function() {
@@ -890,7 +890,7 @@ var ue = UE.getEditor('column-content', {
 			RequestService("/medical/common/upload", "post", {
 				image: baseurl,
 			}, function(data) {
-				$('#media_report .media_report_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >');
+				$('#media_report .media_report_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 			})
 		}
 		$('#media_picIpt').on('change', function() {
