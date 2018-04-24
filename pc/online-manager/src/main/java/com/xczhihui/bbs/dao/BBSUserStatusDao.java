@@ -1,15 +1,13 @@
 package com.xczhihui.bbs.dao;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bbs.vo.BBSOnlineUserVo;
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.utils.TableVo;
 
 @Repository

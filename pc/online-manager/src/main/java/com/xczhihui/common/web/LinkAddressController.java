@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.utils.TimeUtil;
 
 /**

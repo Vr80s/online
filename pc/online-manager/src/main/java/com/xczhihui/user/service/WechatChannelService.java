@@ -3,7 +3,7 @@ package com.xczhihui.user.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.user.vo.WechatChannelVo;
 
 public interface WechatChannelService {

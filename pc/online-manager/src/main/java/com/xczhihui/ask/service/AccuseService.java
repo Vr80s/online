@@ -4,7 +4,7 @@ package com.xczhihui.ask.service;
  * Created by admin on 2016/8/29.
  */
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.ask.vo.AccuseVo;
 
 /**

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.TimerTask;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.xczhihui.bxg.common.util.SmsUtil;
+import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.course.dao.CourseSubscribeDao;
 import com.xczhihui.course.service.CourseService;

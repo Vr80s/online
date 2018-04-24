@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.online.api.service.GiftService;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.OrderFrom;
 
 
 /**
@@ -41,7 +42,7 @@ public class XzGiftController {
 	
 	@Autowired()
 	@Qualifier("giftServiceImpl")
-	private com.xczhihui.bxg.online.api.service.GiftService remoteGiftService;
+	private GiftService remoteGiftService;
 	
 	@Autowired
 	private AppBrowserService appBrowserService;

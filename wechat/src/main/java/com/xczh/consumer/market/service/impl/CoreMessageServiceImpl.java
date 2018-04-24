@@ -27,7 +27,7 @@ import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
-import com.xczhihui.bxg.common.util.SLEmojiFilter;
+import com.xczhihui.common.util.SLEmojiFilter;
 
 import net.sf.json.JSONObject;
 

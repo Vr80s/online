@@ -41,6 +41,11 @@ $(function(){
 
   //渲染课程列表方法
     function getCourseList(){
+    	//控制页面返回课程列表页
+    	if($('#curriculum .curriculum_one .zhuanlan_top .button').text() == "返回"){
+    		$('#curriculum .curriculum_one .zhuanlan_top .button').click();
+    	}
+    	
     	$('#course_name').val('')
     	$("#course_type option:first").prop("selected", 'selected');
         courseList(1);

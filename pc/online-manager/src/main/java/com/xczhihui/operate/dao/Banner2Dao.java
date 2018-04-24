@@ -1,7 +1,7 @@
 package com.xczhihui.operate.dao;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.operate.vo.Banner2Vo;
 
 import java.util.HashMap;

@@ -16,7 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Chapter;
 import com.xczhihui.bxg.online.common.domain.UserRVideo;
 import com.xczhihui.bxg.online.common.domain.Video;

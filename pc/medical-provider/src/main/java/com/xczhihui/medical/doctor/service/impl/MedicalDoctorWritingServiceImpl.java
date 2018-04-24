@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.common.util.CodeUtil;
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorWritingMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalWritingMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorWriting;

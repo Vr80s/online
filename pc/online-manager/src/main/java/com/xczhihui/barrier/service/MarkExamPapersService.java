@@ -2,7 +2,7 @@ package com.xczhihui.barrier.service;
 
 import com.xczhihui.barrier.vo.MarkGradeVo;
 import com.xczhihui.barrier.vo.MarkRecordVo;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.barrier.vo.MarkBarrierVo;
 import com.xczhihui.course.vo.CourseVo;
 

@@ -1,8 +1,8 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.common.util.IDCard;
-import com.xczhihui.bxg.common.support.lock.Lock;
+import com.xczhihui.common.util.IDCard;
+import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
@@ -13,7 +13,6 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
-import com.xczhihui.utils.RedisShardLockUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

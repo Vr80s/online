@@ -3,11 +3,10 @@ package com.xczhihui.bxg.online.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.wechat.course.model.Order;
 import com.xczhihui.wechat.course.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,13 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.CourseService;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * 课程控制层实现类
@@ -33,8 +31,6 @@ public class CourseController {
 
        @Autowired
        private CourseService service;
-        @Value("${online.wechat.url}")
-        private String wechaturl;
 
         @Autowired
         private IOrderService orderService;
@@ -239,17 +235,6 @@ public class CourseController {
     @RequestMapping(value = "/getCourseCatalog")
     public ResponseObject getCourseCatalog(Integer courseId) {
         return  ResponseObject.newSuccessResponseObject(service.getCourseCatalog(courseId));
-    }
-
-    /**
-     * Description：返回当前环境对应的微信环境域名
-     * creed: Talk is cheap,show me the code
-     * @author name：yuxin <br>email: yuruixin@ixincheng.com
-     * @Date: 下午 8:52 2017/9/28 0028
-     **/
-    @RequestMapping(value = "/wechaturl")
-    public ResponseObject getWechaturl() {
-        return  ResponseObject.newSuccessResponseObject(wechaturl);
     }
 
     /**

@@ -12,7 +12,7 @@
 
     <context:component-scan base-package="com.xczhihui.**.web"/>
 
-    <!--<bean class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController"/>-->
+    <!--<bean class="AttachmentCenterController"/>-->
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -38,7 +38,7 @@
     </mvc:annotation-driven>
 
     <bean id="handlerExceptionResolver"
-          class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
+          class="com.xczhihui.common.web.exception.DubboMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="java.lang.Throwable">common/500</prop>

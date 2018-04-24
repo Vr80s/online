@@ -1,6 +1,6 @@
 package com.xczhihui.medical.dao;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalField;
 import com.xczhihui.common.dao.HibernateDao;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

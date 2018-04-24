@@ -213,13 +213,21 @@ $(".right_modification").click(function() {
 			    //精彩致辞的选中状态
 			    $('.speech_resource').selectpicker('val',(data.resultObject.resourceId));
     
-		    	}
-    			
-    		}else if(localStorage.AccountStatus == '2'){
+		    }else if(localStorage.AccountStatus == '2'){
     			//医馆自己的模板渲染
+    			//电话
+    			if(data.resultObject.tel){
+    				$('#u_hospital_tel').val(data.resultObject.tel)
+    			}
+    			//城市
+    			if(!data.resultObject.province){
+					$('#demo1 .choosePro option:selected').text('请选择省');
+					$('#demo1 .chooseCity option:selected').text('请选择市');
+    			}
     			
     		}
 			$('#u_detailAddress').val(data.resultObject.detailAddress)
+		}
     })
 });
 

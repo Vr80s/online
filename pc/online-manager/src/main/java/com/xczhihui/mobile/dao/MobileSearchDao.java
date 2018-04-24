@@ -1,6 +1,6 @@
 package com.xczhihui.mobile.dao;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.dao.HibernateDao;
 import com.xczhihui.mobile.vo.MobileSearchVo;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

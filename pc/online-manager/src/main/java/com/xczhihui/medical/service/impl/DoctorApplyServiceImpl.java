@@ -1,12 +1,12 @@
 package com.xczhihui.medical.service.impl;
 
 import com.xczhihui.anchor.dao.AnchorDao;
-import com.xczhihui.bxg.common.support.lock.RedissonUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.support.lock.RedissonUtil;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.common.util.enums.AnchorType;
+import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.medical.dao.*;
 import com.xczhihui.medical.service.DoctorApplyService;
 import com.xczhihui.user.dao.UserDao;
@@ -62,16 +62,16 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 	@Autowired
 	private RedissonUtil redissonUtil;
 
-	@Value("${course.anchor.vod_divide}")
+	@Value("${course.anchor.vod.divide}")
 	private BigDecimal vodDivide;
 
-	@Value("${course.anchor.live_divide}")
+	@Value("${course.anchor.live.divide}")
 	private BigDecimal liveDivide;
 
-	@Value("${course.anchor.offline_divide}")
+	@Value("${course.anchor.offline.divide}")
 	private BigDecimal offlineDivide;
 
-	@Value("${course.anchor.gift_divide}")
+	@Value("${course.anchor.gift.divide}")
 	private BigDecimal giftDivide;
 
 	/**

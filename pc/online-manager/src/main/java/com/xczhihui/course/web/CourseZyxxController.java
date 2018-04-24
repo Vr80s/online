@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 
@@ -27,7 +27,7 @@ public class CourseZyxxController extends AbstractController{
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
 	@Autowired
 	private CourseService courseService;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 	
 	@Autowired

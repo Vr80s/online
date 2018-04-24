@@ -1,13 +1,13 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.online.common.domain.Gift;
 import com.xczhihui.bxg.online.common.domain.GiftStatement;
-import com.xczhihui.bxg.online.api.service.GiftSendService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.GiftSendService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.common.support.lock.Lock;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.bxg.online.web.dao.GiftDao;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import org.apache.commons.beanutils.BeanUtils;

@@ -20,13 +20,7 @@ import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.service.WxcpPayFlowService;
-import com.xczh.consumer.market.service.WxcpWxRedpackService;
-import com.xczh.consumer.market.service.WxcpWxTransService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
 
 @Controller
 @RequestMapping("/xczh/order")

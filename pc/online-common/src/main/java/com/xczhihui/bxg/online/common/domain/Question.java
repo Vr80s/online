@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.common.domain;/**
  * Created by admin on 2016/8/29.
  */
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity;
+import com.xczhihui.common.support.domain.BasicEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

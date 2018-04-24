@@ -11,22 +11,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseForm;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
-import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
@@ -45,11 +42,6 @@ public class CourseDao extends SimpleHibernateDao {
     private  VideoDao  videoDao;
     @Autowired
     private  ApplyGradeCourseDao  applyGradeCourseDao;
-
-    //成为分享大使课程的id，购买此课程可成为分享大使
-    @Value("${share.course.id:191}")
-    private String shareCourseId;
-
 
     /**
      * 首页中医课堂列表
@@ -671,10 +663,6 @@ public class CourseDao extends SimpleHibernateDao {
                          " from "+courseTableName+" c join oe_menu m  join score_type s  join  teach_method t where c.course_type_id = s.id  and c.courseType = t.id  and c.menu_id = m.id and c.is_delete=0 and c.status=1  and  c.id=?";
             List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{courseId,courseId}, BeanPropertyRowMapper.newInstance(CourseVo.class));
             courseVo = courseVoList.size() > 0 ? courseVoList.get(0) : courseVo;
-            if(courseVo != null){
-                //成为分享大使课程的id，购买此课程可成为分享大使
-                courseVo.setShareCourseId(shareCourseId);
-            }
 
             //获取登录用户
             BxgUser loginUser = UserLoginUtil.getLoginUser(request);

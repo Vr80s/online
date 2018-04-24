@@ -8,9 +8,9 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.WebUtil;
-import com.xczhihui.bxg.common.util.OrderNoUtil;
-import com.xczhihui.bxg.common.util.enums.PayOrderType;
-import com.xczhihui.bxg.online.api.service.PayService;
+import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.PayOrderType;
+import com.xczhihui.online.api.service.PayService;
 import com.xczhihui.pay.alipay.AliPayApi;
 import com.xczhihui.pay.alipay.AliPayApiConfig;
 import com.xczhihui.pay.alipay.AliPayApiConfigKit;
@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,12 +44,11 @@ import java.util.Map;
 @RequestMapping("/xczh/alipay")
 public class XzAlipayController extends AliPayApiController {
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static String ALIPAY_NOTIFY_URL = "/xczh/alipay/alipayNotifyUrl";
 
 	@Autowired
 	private AppBrowserService appBrowserService;
-
 	@Autowired
 	private AliPayBean aliPayBean;
 	@Autowired
@@ -65,12 +65,12 @@ public class XzAlipayController extends AliPayApiController {
 	@Value("${minimum_amount}")
 	private Double minimumAmount;
 
-    private static String ALIPAY_NOTIFY_URL = "/xczh/alipay/alipayNotifyUrl";
-//    private static String alipayNotifyUrl = "/xczh/alipay/alipayNotifyUrl";
 
 	@Override
-	public AliPayApiConfig getApiConfig() {
-		return AliPayApiConfig.New()
+	@ModelAttribute
+	public void initAliPayApiConfig() {
+		logger.info("init alipay config");
+		AliPayApiConfig aliPayApiConfigKit = AliPayApiConfig.New()
 				.setAppId(aliPayBean.getAppId())
 				.setAlipayPublicKey(aliPayBean.getPublicKey())
 				.setCharset("UTF-8")
@@ -78,7 +78,9 @@ public class XzAlipayController extends AliPayApiController {
 				.setServiceUrl(aliPayBean.getServerUrl())
 				.setSignType("RSA2")
 				.build();
+		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(aliPayApiConfigKit);
 	}
+
 
 	/**
 	 * Description：支付宝wap支付，课程下单
@@ -92,8 +94,6 @@ public class XzAlipayController extends AliPayApiController {
 	@ResponseBody
 	public void pay(HttpServletResponse response,@RequestParam("orderId")String orderId,
 							   @RequestParam(required=false)String formIsWechat) throws Exception {
-
-		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
 
 		Order order = orderService.getOrderNo4PayByOrderId(orderId);
 
@@ -137,8 +137,6 @@ public class XzAlipayController extends AliPayApiController {
 	@ResponseBody
 	public void rechargePay(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("actualPay")String actualPay) throws Exception {
-
-		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
 
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (null == user) {
@@ -187,7 +185,6 @@ public class XzAlipayController extends AliPayApiController {
 	public ResponseObject getOrderStr(@RequestParam("orderId")String orderId) throws SQLException,
             UnsupportedEncodingException, AlipayApiException {
 
-		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
         Order order = orderService.getOrderNo4PayByOrderId(orderId);
 
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
@@ -218,8 +215,6 @@ public class XzAlipayController extends AliPayApiController {
 	@ResponseBody
 	public ResponseObject rechargeAppPay(HttpServletRequest request,
 			@RequestParam("actualPay")String actualPay) throws SQLException, AlipayApiException {
-
-		AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
 
         OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if (null == user) {
@@ -264,7 +259,6 @@ public class XzAlipayController extends AliPayApiController {
 	@Transactional
 	public String alipayNotify(HttpServletRequest request) throws Exception {
             try {
-				AliPayApiConfigKit.setThreadLocalAliPayApiConfig(getApiConfig());
                 // 获取支付宝POST过来反馈信息
                 Map<String, String> params = AliPayApi.toMap(request);
                 boolean verify_result = AlipaySignature.rsaCheckV1(params, aliPayBean.getPublicKey(), "UTF-8","RSA2");

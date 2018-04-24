@@ -1,8 +1,8 @@
 package com.xczhihui.ask.dao;
 
 import com.xczhihui.ask.vo.QuestionVo;
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.bean.Page;
 
 import java.util.HashMap;
 import java.util.Map;

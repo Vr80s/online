@@ -1,15 +1,13 @@
 package com.xczhihui.order.web;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
+import com.xczhihui.common.support.config.OnlineConfig;
+import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.order.service.OrderInputService;
 import com.xczhihui.order.vo.OrderInputVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -31,9 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.user.center.utils.CodeUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
 
 /**
  * 线下订单录入
@@ -44,7 +41,7 @@ import com.xczhihui.user.center.utils.CodeUtil;
 @RequestMapping(value = "/order/input")
 public class OrderInputController {
 
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${web.url}")
     private String weburl;
 
     @Autowired
