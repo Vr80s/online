@@ -11,7 +11,10 @@
 		  u.small_head_photo smallHeadPhoto,
 		  ba.user_id,
 		  us.name nickName,
-		  IF(ba.user_id = #{userId}, 1, 0) isMySelf
+		  us.small_head_photo replySmallHeadPhoto,
+		  IF(ba.user_id = #{userId}, 1, 0) isMySelf,
+		  if(ba.reply_comment_id!="",(select content from oe_bxs_appraise where id=ba.reply_comment_id),"") replyContent,
+		  if(ba.reply_comment_id!="",(select create_time from oe_bxs_appraise where id=ba.reply_comment_id),"") replyCreateTime
 		FROM
 		  oe_bxs_appraise ba
 		  LEFT JOIN oe_user us

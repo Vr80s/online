@@ -29,12 +29,7 @@ public class DoctorArticleBody {
 
     public OeBxsArticle build(HeadlineType headlineType, String userId) {
         OeBxsArticle oeBxsArticle = new OeBxsArticle();
-        //作者
-        if (headlineType.equals(HeadlineType.MYBD)) {
-            oeBxsArticle.setUserId(author);
-        } else {
-            oeBxsArticle.setUserId(userId);
-        }
+        oeBxsArticle.setUserId(author);
         oeBxsArticle.setDelete(false);
         oeBxsArticle.setCreateTime(new Date());
         oeBxsArticle.setContent(content);

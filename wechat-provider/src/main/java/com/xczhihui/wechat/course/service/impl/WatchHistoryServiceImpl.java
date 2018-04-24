@@ -3,7 +3,6 @@ package com.xczhihui.wechat.course.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.xczhihui.bxg.common.support.lock.Lock;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.wechat.course.mapper.CourseMapper;
+import com.xczhihui.bxg.common.support.lock.Lock;
 import com.xczhihui.wechat.course.mapper.WatchHistoryMapper;
 import com.xczhihui.wechat.course.model.WatchHistory;
 import com.xczhihui.wechat.course.service.IWatchHistoryService;
@@ -57,6 +56,9 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Lock(lockName = "addOrUpdateLock",waitTime = 5,effectiveTime = 8)
 	public void addOrUpdate(String lockId, WatchHistory target) {
+		
+		
+		
 		try {
 		  /**
 		   * 判断这个记录有没有添加进去，如果有添加进去，需要做更新操作	
@@ -73,19 +75,26 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		 }
 		  if(watchHistory!=null){
 			  watchHistory.setCreateTime(new Date());
+			  
+			  LOGGER.info("{}{}{}{}{}"
+			  		+ "courseId:"+watchHistory.getCourseId()
+			  		+ "collectionId"+watchHistory.getCollectionId());
 			  watchHistoryMapper.updateById(watchHistory);
 		  }else{
 			  try {
+				  LOGGER.info("{}{}{}{}{}"
+				  		+ "courseId:"+target.getCourseId()
+				  		+ "collectionId"+target.getCollectionId());
 				  watchHistoryMapper.insert(target);
 			  } catch (Exception e) {
 					e.printStackTrace();
+					throw new RuntimeException("保存失败!");
 			  }
 		  }
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("操作过于频繁!");
 		}
-	
 	}
 
 	@Override

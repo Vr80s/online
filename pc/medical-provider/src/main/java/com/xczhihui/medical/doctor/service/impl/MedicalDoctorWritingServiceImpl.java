@@ -73,11 +73,10 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         oeBxsArticle.setTitle(medicalWriting.getTitle());
         oeBxsArticle.setImgPath(medicalWriting.getImgPath());
         oeBxsArticle.setContent(medicalWriting.getRemark());
-        oeBxsArticle.setUserId(userId);
+        oeBxsArticle.setUserId(medicalWriting.getAuthor());
         oeBxsArticle.setCreateTime(new Date());
         oeBxsArticle.setDelete(false);
-        oeBxsArticle.setStatus(0);
-        oeBxsArticle.setUserId(userId);
+        oeBxsArticle.setStatus(medicalWriting.getStatus() ? 1 : 0);
         oeBxsArticle.setUserCreated(true);
         oeBxsArticleMapper.insert(oeBxsArticle);
         Integer articleId = oeBxsArticle.getId();
@@ -108,12 +107,14 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         oldMedicalWriting.setBuyLink(medicalWriting.getBuyLink());
         oldMedicalWriting.setUpdatePerson(medicalWriting.getCreatePerson());
         oldMedicalWriting.setUpdateTime(new Date());
+        oldMedicalWriting.setAuthor(medicalWriting.getAuthor());
         medicalWritingMapper.updateById(oldMedicalWriting);
 
         OeBxsArticle oldOeBxsArticle = oeBxsArticleMapper.selectById(oldMedicalWriting.getArticleId());
         oldOeBxsArticle.setTitle(medicalWriting.getTitle());
-        oldOeBxsArticle.setImgPath(medicalWriting.getImgPath());
         oldOeBxsArticle.setContent(medicalWriting.getRemark());
+        oldOeBxsArticle.setImgPath(medicalWriting.getImgPath());
+        oldOeBxsArticle.setUserId(medicalWriting.getAuthor());
         oeBxsArticleMapper.updateById(oldOeBxsArticle);
         return true;
     }
