@@ -166,8 +166,8 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         appraiseVo.setUser_id(loginUser.getId());
         appraiseVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        String sql = "insert into oe_bxs_appraise (id,article_id,content,user_id,target_user_id) "
-                   + "values (:id,:article_id,:content,:user_id,:target_user_id)";
+        String sql = "insert into oe_bxs_appraise (id,article_id,content,user_id,target_user_id,reply_comment_id) "
+                   + "values (:id,:article_id,:content,:user_id,:target_user_id,:reply_comment_id)";
          dao.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(appraiseVo));
 
         Map<String,Object> paramMap = new HashMap<String,Object>();
