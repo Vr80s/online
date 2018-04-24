@@ -62,6 +62,10 @@ public class AppraiseVo {
      * 是否自己评论  0:非自己评论 1:自己评论
      */
     private Boolean  isMySelf;
+    /**
+     * 回复的评论的id
+     */
+    private String reply_comment_id;
 
     public Integer getArticle_id() {
         return article_id;
@@ -143,5 +147,11 @@ public class AppraiseVo {
         this.isMySelf = isMySelf;
     }
 
+    public String getReply_comment_id() {
+        return reply_comment_id;
+    }
 
+    public void setReply_comment_id(String reply_comment_id) {
+        this.reply_comment_id = reply_comment_id;
+    }
 }

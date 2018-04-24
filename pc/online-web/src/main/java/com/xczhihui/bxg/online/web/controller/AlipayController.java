@@ -74,11 +74,11 @@ public class AlipayController {
     @Value("${online.web.url}")
     private String weburl;
     
-    @Value("${alipay.app_id}")
+    @Value("${alipay.app.id}")
     private String app_id;
-    @Value("${alipay.merchant_private_key}")
+    @Value("${alipay.merchant.private.key}")
     private String merchant_private_key;
-    @Value("${alipay.alipay_public_key}")
+    @Value("${alipay.alipay.public.key}")
     private String alipay_public_key;
     @Value("${alipay.url}")
     private String gatewayUrl;

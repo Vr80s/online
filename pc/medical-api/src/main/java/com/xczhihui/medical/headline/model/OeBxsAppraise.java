@@ -47,6 +47,11 @@ public class OeBxsAppraise extends Model<OeBxsAppraise> {
      */
 	@TableField("target_user_id")
 	private String targetUserId;
+	/**
+	 * 回复的评论的id
+	 */
+	@TableField("reply_comment_id")
+	private String replyCommentId;
 
 	@TableField(exist = false)
 	private Boolean isMySelf;
@@ -59,6 +64,15 @@ public class OeBxsAppraise extends Model<OeBxsAppraise> {
 
 	@TableField(exist = false)
 	private String nickName;
+
+	@TableField(exist = false)
+	private String replySmallHeadPhoto;
+
+	@TableField(exist = false)
+	private String replyContent;
+
+	@TableField(exist = false)
+	private Date replyCreateTime;
 
 	@Override
 	protected Serializable pkVal() {

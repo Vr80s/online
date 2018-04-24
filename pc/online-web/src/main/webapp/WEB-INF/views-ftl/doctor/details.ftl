@@ -198,8 +198,8 @@
     <#if specialColumns.total gt 0>
         <div class="zhuanlan clearfix" id="zhuanlan">
             <div class="class_top">
-                <span>专栏-待完成</span>
-                <a href="${webUrl}/web/html/columnListing.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199"
+                <span>专栏</span>
+                <a href="${webUrl}/doctors/${doctor.id}/specialColumn"
                    id="more_zhuanlan">
                     更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </a>
@@ -227,8 +227,8 @@
         <!--媒体报道-->
         <div class="zhuanlan clearfix" id="media_report">
             <div class="class_top">
-                <span>媒体报道-待完成</span>
-                <a href="${webUrl}/web/html/practitioneNews.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199"
+                <span>媒体报道</span>
+                <a href="${webUrl}/doctors/${doctor.id}/report"
                    class="more_madia_report">
                     更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </a>
@@ -257,25 +257,21 @@
 
 
         <!--右侧-->
-        <div class="main_right hide">
+        <div class="main_right">
             <!--帐号认领-->
             <div class="renling hide">
                 <p>若您是李辅仁本人，可以认领此帐号</p>
                 <a href="javascript:;">认领</a>
             </div>
             <!--著作-->
-            <div class="zhuzuo clearfix hide">
+            <div class="zhuzuo clearfix">
                 <div class="zhuzuo_title">
-                    <h3>著作-待完成</h3>
-                    <a href="${webUrl}/web/html/pubs.html?doctorId=9e9bd074e0e2461eb44a77da6b9b8199"><span
+                    <h3>著作</h3>
+                    <a href="${webUrl}/doctors/${doctor.id}/writing"><span
                             class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 </div>
 
                 <div id="zhuzuo_list">
-                    <!--<div class="zhuzuo_left">
-                        <img src="../images/doctor_detail/book2.png" alt="">
-                        <p>施今墨对药</p>
-                    </div>-->
                 <#list writings as writing>
                     <div class="zhuzuo_left">
                         <img src="${writing.imgPath}" alt="">
@@ -365,7 +361,6 @@
             if (step === $sliders.length) {
                 step = 0;
             }
-            ;
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
             $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
             step++;

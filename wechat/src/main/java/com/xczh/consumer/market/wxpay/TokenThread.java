@@ -18,7 +18,7 @@ public class TokenThread implements Runnable {
 	        + "grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	
 	// 微信公众号的凭证和秘钥
-//	@Value("${wechatpay.gzh_appid}")
+//	@Value("${wechatpay.h5.appid}")
 //	public  String appid;
 //	@Value("${wechatpay.gzhSecret}")
 //	public  String appsecret;
@@ -38,7 +38,7 @@ public class TokenThread implements Runnable {
 			properties.load(in);
 			
 			//微信公众号和h5
-			appid = properties.getProperty("wechatpay.gzh_appid");
+			appid = properties.getProperty("wechatpay.h5.appid");
 			appsecret = properties.getProperty("wechatpay.gzhSecret");
 			
 			System.out.println("读取配置信息成功！"+appid+"====="+appsecret);

@@ -171,29 +171,4 @@ public class OrderInputController {
 
     }
 
-    private void docallback(String order_no) throws Exception {
-        // 生成课程
-        String s = "out_trade_no=" + order_no + "&result_code=SUCCESS&key="
-                + onlineConfig.wechatApiId;
-        String mysign = CodeUtil.MD5Encode(s).toLowerCase();
-
-        String resXml = "<xml>" + "<out_trade_no><![CDATA[" + order_no
-                + "]]></out_trade_no>"
-                + "<result_code><![CDATA[SUCCESS]]></result_code>"
-                + "<sign><![CDATA[" + mysign + "]]></sign>" + " </xml> ";
-
-        // URL url = new URL(weburl+"/web/weixin_pay_notify");
-        URL url = new URL(weburl + "/web/pay_notify_wechat");
-        HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-        urlConn.setRequestProperty("Content-type", "application/xml");
-        urlConn.setRequestMethod("POST");
-        urlConn.setConnectTimeout(15000);// （单位：毫秒）jdk
-        urlConn.setReadTimeout(15000);// （单位：毫秒）jdk 1.5换成这个,读操作超时
-        urlConn.setDoOutput(true);
-        byte[] b = resXml.toString().getBytes();
-        urlConn.getOutputStream().write(b, 0, b.length);
-        urlConn.getOutputStream().flush();
-        urlConn.getOutputStream().close();
-        urlConn.getInputStream();
-    }
 }

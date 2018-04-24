@@ -96,7 +96,7 @@
 			</div>
 		</div>
 		<!--著作预览页面-->
-		<div class="common-page work-preview-page hide">
+		<div class="common-page work-preview-page hide" id="work-preview-page">
 			<div class="common-top work-preview-top">
 				<span>预览</span>
 				<a href="javascript:;" class="close_preview">
@@ -134,6 +134,50 @@
 							<span><em>*</em>购买链接</span>
 						</td>
 						<td class="preview-work-link">Data</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!--媒体报道预览页面-->
+		<div class="common-page hide" id="media-preview">
+			<div class="common-top media-preview-top">
+				<span>预览</span>
+				<a href="javascript:;" class="close_preview">
+					<img src="../images/alter-close.png"/ alt="关闭">
+				</a>
+			</div>
+			<div class="common-content">
+				<table class="work-preview-table" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td>
+							<span><em>*</em>标题</span>
+						</td>
+						<td class="preview-media-title">Data</td>
+					</tr>
+					<tr>
+						<td>
+							<span><em>*</em>作者</span>
+						</td>
+						<td class="preview-media-author">Data</td>
+					</tr>
+					<tr>
+						<td>
+							<span><em>*</em>封面图</span>
+						</td>
+						<td class="preview-media-picter"><img src="" style="width: 260px; height: 147px;"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span><em>*</em>报道内容</span>
+						</td>
+						<td class="preview-media-present">Data</td>
+					</tr>
+					<tr>
+						<td>
+							<span><em>*</em>来源URL</span>
+						</td>
+						<td class="preview-media-link">Data</td>
 					</tr>
 				</table>
 			</div>
@@ -314,7 +358,11 @@
 
 							<div class="neirong">
 								<span><em>*</em>内容</span>
-								<textarea name="" class="column-text" cols="30" rows="10" style="resize: none;" placeholder="请输入专栏内容"></textarea>
+								<!--<textarea name="" class="column-text" cols="30" rows="10" style="resize: none;" placeholder="请输入专栏内容"></textarea>-->
+							
+								<div style="display: inline-block;vertical-align: top;">
+									<script id="editor2" type="text/plain" style="width:540px;height:160px;"></script>
+								</div>
 								<p class="warning hide column-text-warning">专栏内容不能为空</p>
 							</div>
 
@@ -539,6 +587,7 @@
 					</div>
 
 					<div class="media_report_bottom hide">
+						<input type="hidden" id="mediaId" value="" />
 						<div>
 							<span><em>*</em>标题</span>
 							<input type="text" placeholder="请输入报道标题" class="media_report_name media-title">
@@ -576,11 +625,13 @@
 							<p class="warning hide media-url-warning">来源不能为空</p>
 						</div>
 
-						<div class="baocun">
+						<div class="baocun media-save-allwrap">
 							<button class="save-publish media-save-publish" type="submit" data-status="1">保存并发布</button>
 							<button class="only-save media-save-publish" type="submit" data-status="0">保存</button>
 						</div>
-
+						<div class="baocun media-save-wrap hide">
+							<button class="only-save media-only-save" type="submit">保存</button>
+						</div>
 					</div>
 
 					<div class="media_report_bottom2">
@@ -618,14 +669,14 @@
 											</td>
 											{{if item.status==1}}
 											<td>
-												<a href="javascript:;">预览</a>
-												<a href="javascript:;" class="media-select" data-status="0">撤下</a>
-												<a href="javascript:;">编辑</a>
+												<a href="javascript:;" onclick="mediaRreview({{i}})">预览</a>
+												<a href="javascript:;" class="media-select" data-status="0" data-id="{{item.id}}">撤下</a>
+												<a href="javascript:;" onclick="mediaEditId({{i}})">编辑</a>
 											</td>
 											{{else}}
 											<td>
-												<a href="javascript:;">预览</a>
-												<a href="javascript:;" class="media-select" data-status="1">上架</a>
+												<a href="javascript:;" onclick="mediaRreview({{i}})">预览</a>
+												<a href="javascript:;" class="media-select" data-status="1" data-id="{{item.id}}">上架</a>
 												<a href="javascript:;" class="media-delete" data-delete="{{item.id}}">删除</a>
 											</td>
 											{{/if}}
