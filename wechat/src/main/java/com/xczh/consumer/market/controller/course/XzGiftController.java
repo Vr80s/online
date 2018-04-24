@@ -61,6 +61,11 @@ public class XzGiftController {
 		
 		return ResponseObject.newSuccessResponseObject(remoteGiftService.getRankingListByLiveId(liveId,current,size));
 	}
+	
+	
+	
+	
+	
 	/**
 	 * 礼物列表
 	 * @param req
@@ -72,6 +77,8 @@ public class XzGiftController {
 	@ResponseBody
 	@RequestMapping(value = "/list")
 	public ResponseObject list(HttpServletRequest req,HttpServletResponse res) throws SQLException {
+		
+		
 		
 		int pageNumber = 0;
 		if(null != req.getParameter("pageNumber")){
