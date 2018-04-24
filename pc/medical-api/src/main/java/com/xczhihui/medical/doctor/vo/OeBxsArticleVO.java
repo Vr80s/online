@@ -63,6 +63,8 @@ public class OeBxsArticleVO implements Serializable {
 
     private String url;
 
+    private String buyLink;
+
     public String getAuthor() {
         return author;
     }
@@ -195,6 +197,14 @@ public class OeBxsArticleVO implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getBuyLink() {
+        return buyLink;
+    }
+
+    public void setBuyLink(String buyLink) {
+        this.buyLink = buyLink;
     }
 
     @Override

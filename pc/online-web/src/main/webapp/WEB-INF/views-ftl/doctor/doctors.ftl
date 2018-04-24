@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IEedge">
 
     <title>熊猫中医名医-中医药传承创新平台</title>
@@ -35,7 +36,7 @@
     </div>
 </div>
 <header>
-    <#include "../header-body.ftl">
+<#include "../header-body.ftl">
 </header>
 
 <div id="tip" style="display: none;">
@@ -50,15 +51,17 @@
             <#list banners as banner>
                 <#if banner_index==0>
                 <li style="z-index: 2;">
-                    <a href="${banner.imgHref}" target="_blank" style="background:url(${banner.imgPath})no-repeat top center;background-size:100% 100%">
-                 <#else>
+                <a href="${banner.imgHref}" target="_blank"
+                   style="background:url(${banner.imgPath})no-repeat top center;background-size:100% 100%">
+                <#else>
                 <li>
-                    <a href="${banner.imgHref}" target="_blank" style="background:url(${banner.imgPath})no-repeat top center;%">
+                <a href="${banner.imgHref}" target="_blank"
+                   style="background:url(${banner.imgPath})no-repeat top center;%">
                 </#if>
-                        <div class="image-overlay">
-                        </div>
-                    </a>
-                </li>
+                <div class="image-overlay">
+                </div>
+            </a>
+            </li>
             </#list>
             </ul>
             <div id="left">
@@ -89,7 +92,9 @@
                         <li class="appointment_doc_address"><span>黑龙江</span><span>哈尔滨</span></li>
                         <li class="appointment_doc_school"><em></em>哈尔滨中医药大学</li>
                         <li class="appointment_time"><em></em>2017.12.12下午</li>
-                        <li class="appointment_btn"><button>免费预约</button></li>
+                        <li class="appointment_btn">
+                            <button>免费预约</button>
+                        </li>
                     </ul>
                 </div>
 
@@ -104,9 +109,12 @@
                         <li class="appointment_doc_address"><span>黑龙江</span><span>哈尔滨</span></li>
                         <li class="appointment_doc_school"><em></em>哈尔滨中医药大学</li>
                         <li class="appointment_time"><em></em>2017.12.12下午</li>
-                        <li class="appointment_btn"><button>免费预约</button></li>
+                        <li class="appointment_btn">
+                            <button>免费预约</button>
+                        </li>
                     </ul>
-                </div> </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="forum-content clearfix">
@@ -114,15 +122,16 @@
             <!-- TODO -->
             <div class="doctor_list clearfix" id="doc_lis1">
                 <h2>国医大师</h2>
-                <a href="${webUrl}/doctors/list?type=4" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="${webUrl}/doctors/list?type=4" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
+                                                                                aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="guoyi">
-                    <#--<li>-->
-                        <#--<a href="/doctors/bd753d68f1cf4558a4d56cc39676c8dd" target="_blank"></a>-->
-                        <#--<img src="./熊猫中医-名医_files/6d07a4d683b844918077dc044ffb59e6.jpg" alt="">-->
-                        <#--<h5>邓铁涛&nbsp;<span>主任医师</span></h5>-->
-                        <#--<p>暂无</p>-->
-                        <#--<p>广东省&nbsp;广州市&nbsp; </p>-->
-                    <#--</li>-->
+                <#--<li>-->
+                <#--<a href="/doctors/bd753d68f1cf4558a4d56cc39676c8dd" target="_blank"></a>-->
+                <#--<img src="./熊猫中医-名医_files/6d07a4d683b844918077dc044ffb59e6.jpg" alt="">-->
+                <#--<h5>邓铁涛&nbsp;<span>主任医师</span></h5>-->
+                <#--<p>暂无</p>-->
+                <#--<p>广东省&nbsp;广州市&nbsp; </p>-->
+                <#--</li>-->
                 <#list doctors4.records as doctor>
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
@@ -138,7 +147,8 @@
 
             <div class="doctor_list clearfix" id="doc_lis2">
                 <h2>名老中医</h2>
-                <a href="${webUrl}/doctors/list?type=2" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="${webUrl}/doctors/list?type=2" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
+                                                                                aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="minglao">
                 <#list doctors2.records as doctor>
                     <li>
@@ -154,7 +164,8 @@
 
             <div class="doctor_list clearfix" id="doc_lis3">
                 <h2>名青年中医</h2>
-                <a href="${webUrl}/doctors/list?type=1" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="${webUrl}/doctors/list?type=1" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
+                                                                                aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="mingqing">
                 <#list doctors1.records as doctor>
                     <li>
@@ -171,7 +182,8 @@
 
             <div class="doctor_list clearfix" id="doc_lis4">
                 <h2>家传中医</h2>
-                <a href="${webUrl}/doctors/list?type=5" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="${webUrl}/doctors/list?type=5" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
+                                                                                aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="guzhongyi">
                 <#list doctors5.records as doctor>
                     <li>
@@ -188,7 +200,8 @@
 
             <div class="doctor_list clearfix" id="doc_lis5">
                 <h2>少数民族中医</h2>
-                <a href="${webUrl}/doctors/list?type=3" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="${webUrl}/doctors/list?type=3" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
+                                                                                aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="shaoshu">
                 <#list doctors3.records as doctor>
                     <li>
@@ -212,7 +225,6 @@
             </div>
 
 
-
             <div class="forum-hot-tag">
                 <div class="forum-hot-tag-title">医师搜索</div>
                 <div class="search_hos_box clearfix">
@@ -225,7 +237,8 @@
                 <ul class="forum-hot-tagGround">
                 <#list hotDepartments as hotDepartment>
                     <li>
-                        <a href="${webUrl}/doctors/list?departmentId=${hotDepartment.id}" target="_blank">${hotDepartment.name}</a>
+                        <a href="${webUrl}/doctors/list?departmentId=${hotDepartment.id}"
+                           target="_blank">${hotDepartment.name}</a>
                     </li>
                 </#list>
                 </ul>
@@ -236,7 +249,8 @@
             <div class="school_teacher ">
                 <div>
                     <h4>名医报道</h4>
-                    <a href="${webUrl}/headline/list/7"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                    <a href="${webUrl}/headline/list/7"><span class="glyphicon glyphicon-menu-right"
+                                                              aria-hidden="true"></span></a>
                 </div>
 
                 <ul class="teacher_picList clearfix" id="doctor_baodao">
@@ -252,7 +266,9 @@
             <div class="teacher_books">
                 <div id="">
                     <h4>名医著作</h4>
-                    <a href="${webUrl}/doctors/writings"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                    <a href="${webUrl}/doctors/writing">
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
                 </div>
 
                 <ul class="book_list clearfix" id="boos_list">
@@ -260,10 +276,13 @@
                     <li>
                         <img src="${recentlyWriting.imgPath}" alt="">
                         <div>
-                            <span class="book_name">${recentlyWriting.title}</span>
-                            <h5 class="book_author">${recentlyWriting.author}</h5>
+                            <a href="/headline/details/${recentlyWriting.articleId}" style="color: #0C0C0C">
+                                <span class="book_name">${recentlyWriting.title}</span>
+                                <h5 class="book_author">${recentlyWriting.author}</h5>
+                            </a>
                         </div>
                     </li>
+
                 </#list>
                 </ul>
 
@@ -277,58 +296,59 @@
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
-    $(function(){
+    $(function () {
         $(".doctor-tab").addClass("select");
 
         //登入之后进行判断 右侧医师入驻入口是否有
-        RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-            if(data.success == true){
+        RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
+            if (data.success == true) {
                 //判断
-                if(data.resultObject == 1 ){
+                if (data.resultObject == 1) {
                     //医师认证成功
                     $('.forum-hosJoin').addClass('hide');
-                }else{
+                } else {
                     $('.forum-hosJoin').removeClass('hide');
                 }
-            }else if(data.success == false){
+            } else if (data.success == false) {
                 $('.forum-hosJoin').removeClass('hide');
             }
         });
         //医师页面的医师入驻入口点击跳转效果
-        $('#toDocJoin').click(function(){
-            RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-                if(data.success == true){
+        $('#toDocJoin').click(function () {
+            RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
+                if (data.success == true) {
                     //请求数据成功进行判断
-                    if($('.login').css('display') == 'block' && data.resultObject == 2 ){
+                    if ($('.login').css('display') == 'block' && data.resultObject == 2) {
                         //登录并且入驻了医馆了
                         $('#tip').text('您已完成了医馆认证，不能进行医师认证！');
                         $('#tip').toggle();
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $('#tip').toggle();
-                        },2000)
-                    }else if($('.login').css('display') == 'block' && data.resultObject == 1){
+                        }, 2000)
+                    } else if ($('.login').css('display') == 'block' && data.resultObject == 1) {
                         //注册医师成功
                         window.location.href = "/web/html/anchors_resources.html";
-                    }else if($('.login').css('display') == 'block' && data.resultObject == 7 ){
+                    } else if ($('.login').css('display') == 'block' && data.resultObject == 7) {
                         //登录了并且都没有注册过
                         window.location.href = "/web/html/ResidentDoctor.html";
-                    }else if($('.login').css('display') == 'block' && data.resultObject == 3  || data.resultObject == 5 || data.resultObject == 6){
+                    } else if ($('.login').css('display') == 'block' && data.resultObject == 3 || data.resultObject == 5 || data.resultObject == 6) {
                         //登录了 并且注册了没有通过的
                         window.location.href = "/web/html/ResidentDoctor.html";
-                    }else if(data.resultObject == 4 ){
+                    } else if (data.resultObject == 4) {
                         //登录并且入驻了医馆了
                         $('#tip').text('您已提交医馆认证，暂时不能进行医师认证！');
                         $('#tip').toggle();
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $('#tip').toggle();
-                        },2000)
+                        }, 2000)
                     }
-                }else if(data.success == false){
+                } else if (data.success == false) {
                     window.location.href = "/web/html/practitionerRegister.html";
                 }
             });
         })
     });
+
     //banner
     function init() {
         var $sliders = $('#slider li');
@@ -342,7 +362,8 @@
         function autoChange() {
             if (step === $sliders.length) {
                 step = 0;
-            };
+            }
+            ;
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
             $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
             step++;
@@ -390,6 +411,7 @@
             timer = window.setInterval(autoChange, 2000);
         })
     }
+
     init();
 
 

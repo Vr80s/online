@@ -23,6 +23,7 @@ import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.model.OeBxsAppraise;
@@ -50,12 +51,13 @@ public class HeadlinePageController extends AbstractController {
     private IOeBxsArticleService oeBxsArticleService;
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
+    @Autowired
+    private IMedicalDoctorWritingService medicalDoctorWritingService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
         List<Map<String, Object>> articleType = articleService.getArticleType();
-        ModelAndView view = new ModelAndView("redirect:headline/" + articleType.get(0).get("id"));
-        return view;
+        return new ModelAndView("redirect:headline/" + articleType.get(0).get("id"));
     }
 
     @RequestMapping(value = "{type}", method = RequestMethod.GET)
@@ -118,10 +120,9 @@ public class HeadlinePageController extends AbstractController {
     }
 
     @RequestMapping(value = "details/{id}", method = RequestMethod.GET)
-    public ModelAndView details(HttpServletRequest request, @RequestParam(value = "page", required = false) Integer current, Integer size, @PathVariable Integer id) {
+    public ModelAndView details(HttpServletRequest request, @RequestParam(value = "page", required = false, defaultValue = "1") Integer current,
+                                @RequestParam(defaultValue = "10") Integer size, @PathVariable Integer id) {
         ModelAndView view = new ModelAndView("headline/details");
-        current = current == null ? 1 : current;
-        size = size == null ? 10 : size;
         OeBxsArticle article = oeBxsArticleService.selectArticleById(id);
         view.addObject("article", article);
 
@@ -130,19 +131,25 @@ public class HeadlinePageController extends AbstractController {
 
         Page<OeBxsAppraise> appraises = oeBxsArticleService.selectArticleAppraiseById(new Page(current, size), id, userId);
         view.addObject("appraises", appraises);
-
-        if (article.getTypeId().equals(HeadlineType.MYBD.getCode())) {
-            List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
-            view.addObject("suggestedArticles", recentlyNewsReports);
+        String typeId = article.getTypeId();
+        if (typeId == null) {
+            view.addObject("writing", medicalDoctorWritingService.findByArticleId(id));
+//            view.addObject("writings", medicalDoctorWritingService.)
         } else {
-            List<Map<String, Object>> hotArticles = articleService.getHotArticle();
-            view.addObject("suggestedArticles", hotArticles);
+            if (HeadlineType.MYBD.getCode().equals(typeId)) {
+                List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
+                view.addObject("suggestedArticles", recentlyNewsReports);
+            } else {
+                List<Map<String, Object>> hotArticles = articleService.getHotArticle();
+                view.addObject("suggestedArticles", hotArticles);
+            }
         }
+
         //名医报道
-        if (HeadlineType.MYBD.getCode().equals(article.getTypeId())) {
+        if (HeadlineType.MYBD.getCode().equals(typeId)) {
             view.addObject("reportDoctors", medicalDoctorArticleService.listReportDoctorByArticleId(id));
-        } else if (HeadlineType.DJZL.getCode().equals(article.getTypeId())) {
-            view.addObject("authors", medicalDoctorArticleService.listSpecialColumnAuthorByArticleId(id));
+        } else if (HeadlineType.DJZL.getCode().equals(typeId)) {
+            view.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthorByArticleId(id));
         }
 
         Map echoMap = new HashMap();
