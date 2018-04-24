@@ -153,15 +153,6 @@
             <div class="about_doctor">
                 <h3>名医推荐</h3>
                 <ul class="about_doctor_list clearfix" id="doc_rec">
-                    <#--<li>-->
-                        <#--<a href="/web/html/practitionerDetails.html?Id=8356a18d548e400d8e8b9b8aaa9d03db"></a>-->
-                        <#--<span class="about_doctor_pic">-->
-            <#--<img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/30/10/496ed54d9282454d957035460ee63dd6.jpg" alt="暂无图片">-->
-        <#--</span>-->
-                        <#--<p>林超岱</p>-->
-
-                    <#--</li>-->
-
                     <#list recDoctors as doctor>
                         <li>
                             <a href="${webUrl}/doctors/${doctor.id}"></a>

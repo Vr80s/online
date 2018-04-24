@@ -225,7 +225,7 @@
             a.`name`    type
         FROM
             oe_bxs_article b
-            JOIN `article_type` a
+            LEFT JOIN `article_type` a
                 ON b.`type_id` = a.`id`
         WHERE b.is_delete = 0
               AND b.status = 1

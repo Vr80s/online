@@ -132,4 +132,9 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         oeBxsArticle.setDelete(true);
         oeBxsArticleMapper.updateById(oeBxsArticle);
     }
+
+    @Override
+    public MedicalWriting findByArticleId(int articleId) {
+        return medicalWritingMapper.findByArticleId(articleId);
+    }
 }
