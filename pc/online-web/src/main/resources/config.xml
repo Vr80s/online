@@ -46,7 +46,7 @@
         <property name="packagesToScan">
             <list>
                 <value>com.xczhihui.bxg.online.**.domain</value>
-                <value>com.xczhihui.bxg.online.api.po</value>
+                <!--<value>com.xczhihui.online.api.po</value>-->
             </list>
         </property>
         <property name="annotatedClasses">

@@ -8,11 +8,11 @@
 		<relativePath>../pc/parent-pom</relativePath>
  </parent>
 
-  <artifactId>wechat-api</artifactId>
+  <artifactId>course-api</artifactId>
   <packaging>jar</packaging>
   <version>2.0.0-SNAPSHOT</version>
   
-  <name>wechat-api</name>
+  <name>course-api</name>
   <url>http://maven.apache.org</url>
 
   <properties>
