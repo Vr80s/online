@@ -41,7 +41,7 @@ public class DoctorController extends AbstractController {
 	@Autowired
 	private DoctorService doctorService;
 
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "index")

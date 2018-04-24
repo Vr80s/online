@@ -35,7 +35,7 @@ public class AccuseController {
 	@Autowired
 	private AccuseService accuseService;
 
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	/**

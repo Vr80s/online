@@ -34,7 +34,7 @@ public class RecruitController extends AbstractController {
     @Autowired
     private HospitalRecruitService hospitalRecruitService;
 
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
 
     @RequestMapping(value = "list")

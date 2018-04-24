@@ -46,7 +46,7 @@ public class QuestionController {
 	@Autowired
 	private TagService tagService;
 
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	/**

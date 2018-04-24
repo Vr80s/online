@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserCoinService userCoinService;
 	
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 	
 	//数据字典

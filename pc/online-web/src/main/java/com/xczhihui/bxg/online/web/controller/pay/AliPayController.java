@@ -54,7 +54,7 @@ public class AliPayController extends AliPayApiController {
     @Autowired
     private AliPayBean aliPayBean;
 
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
     @Value("${rate}")
     private int rate;

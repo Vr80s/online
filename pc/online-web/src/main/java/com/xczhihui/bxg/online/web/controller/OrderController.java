@@ -43,7 +43,7 @@ public class OrderController {
     private CourseService courseService;
     private Object lock = new Object();
 
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
 
 

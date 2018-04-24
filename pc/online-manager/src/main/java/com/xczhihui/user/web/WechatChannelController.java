@@ -41,7 +41,7 @@ public class WechatChannelController extends AbstractController {
 	private WechatChannelService WechatChannelService;
 	@Autowired
 	private AttachmentCenterService att;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "index")

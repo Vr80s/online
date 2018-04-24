@@ -35,7 +35,7 @@ public class GiftStatementController extends AbstractController {
 	private GiftStatementService giftStatementService;
 	@Autowired
 	private AttachmentCenterService att;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "index")

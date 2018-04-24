@@ -40,7 +40,7 @@ public class RechargesController extends AbstractController {
 	private RechargesService rechargesService;
 	@Autowired
 	private AttachmentCenterService att;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "index")

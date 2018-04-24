@@ -67,7 +67,7 @@ public class WechatController {
 	@Autowired
     private UserCoinService userCoinService;
 
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 	
     @Value("${rate}")

@@ -37,7 +37,7 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 
 	@Autowired
 	UserCoinService userCoinService;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 	@Autowired
 	private OrderService orderService;

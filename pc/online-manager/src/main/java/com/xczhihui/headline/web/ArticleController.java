@@ -39,7 +39,7 @@ public class ArticleController extends AbstractController {
     @Autowired
     private AttachmentCenterService attachmentCenterService;
 
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
 
     @RequestMapping(value = "index")

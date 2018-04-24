@@ -46,7 +46,7 @@ public class CourseApplyInfoController extends AbstractController {
     private CourseService courseService;
     @Autowired
     private CourseApplyService courseApplyService;
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
 
     @Autowired

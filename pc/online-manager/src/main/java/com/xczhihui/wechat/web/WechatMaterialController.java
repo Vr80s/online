@@ -43,7 +43,7 @@ public class WechatMaterialController extends AbstractController {
 	private com.xczhihui.wechat.service.WechatMaterialService WechatMaterialService;
 	@Autowired
 	private AttachmentCenterService att;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "material")

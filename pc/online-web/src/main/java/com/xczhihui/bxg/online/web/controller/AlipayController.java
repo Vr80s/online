@@ -71,7 +71,7 @@ public class AlipayController {
     @Autowired
     private UserCoinService userCoinService;
 
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
     
     @Value("${alipay.app.id}")

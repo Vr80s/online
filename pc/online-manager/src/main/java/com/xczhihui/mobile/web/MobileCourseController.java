@@ -38,7 +38,7 @@ public class MobileCourseController extends AbstractController {
 	private MobileCourseService mobileCourseService;
 	@Autowired
 	private AttachmentCenterService att;
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "/index")

@@ -41,7 +41,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 	//数据字典
 	private Map<String, String> attrs = new HashMap<String, String>();
 	
-	@Value("${online.web.url}")
+	@Value("${web.url}")
 	private String weburl;
 
 	@Override
