@@ -8,6 +8,7 @@ import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.mapper.CriticizeMapper;
 import com.xczhihui.wechat.course.mapper.ReplyMapper;
 import com.xczhihui.wechat.course.model.Criticize;
+import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.model.Reply;
 import com.xczhihui.wechat.course.service.ICriticizeService;
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +51,7 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
     @Override
     public void saveCriticize(String userId,String anchorUserId,Integer courseId,String content,
     		Float overallLevel,Float deductiveLevel,Float contentLevel,String criticizeLable) throws UnsupportedEncodingException {
-        Criticize criticize = getCriticize(userId,anchorUserId,courseId,content,
+        Criticize criticize = getCriticize(userId,anchorUserId,courseId,content,"","",
         		overallLevel,deductiveLevel,contentLevel,criticizeLable);
         verifyCriticizes(criticize);
         this.baseMapper.insert(criticize);
@@ -61,14 +63,7 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         if(criticize==null){
             throw new RuntimeException("被回复评论找不到了~");
         }
-        String cId = saveCriticize(userId, criticize.getUserId(), criticize.getCourseId(), content);
-        Reply reply = new Reply();
-        reply.setId(IStringUtil.getUuid());
-        reply.setCreatePerson(userId);
-        reply.setReplyContent(criticize.getContent());
-        reply.setReplyUser(criticize.getCreatePerson());
-        reply.setCriticizeId(cId);
-        replyMapper.insert(reply);
+        saveCriticize(userId, criticize.getUserId(), criticize.getCourseId(), content,criticizeId,criticize.getCreatePerson());
     }
 
     @Override
@@ -105,38 +100,40 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         return returnMap;
     }
 
-    public String saveCriticize(String userId, String anchorUserId,Integer courseId,String content) throws UnsupportedEncodingException {
-        Criticize criticize = getCriticize(userId,anchorUserId,courseId,content);
+    public String saveCriticize(String userId, String anchorUserId,Integer courseId,String content,String criticizeId,String createPerson) throws UnsupportedEncodingException {
+        Criticize criticize = getCriticize(userId,anchorUserId,courseId,content,criticizeId,createPerson);
         verifyCriticizes(criticize);
         this.baseMapper.insert(criticize);
         return criticize.getId();
     }
 
-    private Criticize getCriticize(String userId, String anchorUserId, Integer courseId, String content) throws UnsupportedEncodingException {
-        return getCriticize(userId,anchorUserId,courseId,content,null,null,null,null);
+    private Criticize getCriticize(String userId, String anchorUserId, Integer courseId, String content,String criticizeId,String createPerson) throws UnsupportedEncodingException {
+        return getCriticize(userId,anchorUserId,courseId,content,criticizeId,createPerson,null,null,null,null);
     }
 
-    private Criticize getCriticize(String userId, String anchorUserId, Integer courseId, String content, Float overallLevel, Float deductiveLevel, Float contentLevel, String criticizeLable) throws UnsupportedEncodingException {
+    private Criticize getCriticize(String userId, String anchorUserId, Integer courseId, String content,String criticizeId,String createPerson, Float overallLevel, Float deductiveLevel, Float contentLevel, String criticizeLable) throws UnsupportedEncodingException {
         Criticize criticize = new Criticize();
         criticize.setId(IStringUtil.getUuid());
         criticize.setCreatePerson(userId);
         criticize.setUserId(anchorUserId);
         criticize.setCourseId(courseId);
         criticize.setContent(content);
+        criticize.setReplyUser(createPerson);
+        criticize.setReplyCriticizeId(criticizeId);
 
         if(StringUtils.isNotBlank(criticize.getContent())){
             content = SLEmojiFilter.emojiConvert1(criticize.getContent());
             criticize.setContent(content);
         }
-        if((overallLevel != 0 && overallLevel != null)
-        		&& (deductiveLevel != 0 && deductiveLevel != null)
-        		&& (contentLevel != 0 && contentLevel != null)
+        if((overallLevel != null && overallLevel != 0)
+        		&& (deductiveLevel != null && deductiveLevel != 0)
+        		&& (contentLevel != null && contentLevel != 0)
         		&& (StringUtils.isNotBlank(criticizeLable))){
             criticize.setOverallLevel(overallLevel);
             criticize.setDeductiveLevel(deductiveLevel);
             criticize.setContentLevel(contentLevel);
             criticize.setCriticizeLable(criticizeLable);
-            boolean hasLevel = (overallLevel != 0 && overallLevel != null) && (deductiveLevel != 0 && deductiveLevel != null) && (contentLevel != 0 && contentLevel != null);
+            boolean hasLevel = (overallLevel != null && overallLevel != 0) && (deductiveLevel != null && deductiveLevel != 0) && (contentLevel != null && contentLevel != 0);
             if(hasLevel){
                 Double startLevel = getCriticizeStartLevel(criticize);
                 criticize.setStarLevel(startLevel.floatValue());
@@ -229,7 +226,22 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         }
 
         criticizeList.forEach(criticize ->
-            criticize.setReply(this.baseMapper.selectReplyByCriticizeId(criticize.getId()))
+                {
+                    List<Reply> lr = new ArrayList<>();
+                    if(criticize.getReplyContent()!=null&&!criticize.getReplyContent().equals("")){
+                        Reply r = new Reply();
+                        OnlineUser ou =new OnlineUser();
+                        ou.setLoginName(criticize.getReplyLoginName());
+                        ou.setName(criticize.getReplyName());
+                        ou.setSmallHeadPhoto(criticize.getReplySmallHeadPhoto());
+                        r.setReplyContent(criticize.getReplyContent());
+                        r.setCreateTime(criticize.getReplyCreateTime());
+                        r.setOnlineUser(ou);
+                        lr.add(r);
+                    }
+                    criticize.setReply(lr);
+                }
+
         );
         for(Criticize criticize:criticizeList){
             /*

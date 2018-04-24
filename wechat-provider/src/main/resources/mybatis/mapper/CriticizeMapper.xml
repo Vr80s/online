@@ -15,15 +15,22 @@
 		  c.`overall_level`,
 		  c.`content_level`,
 		  c.`deductive_level`,
+		  if(c.reply_criticize_id!="",(select content from oe_criticize where id=c.reply_criticize_id),"") replyContent,
+		  if(c.reply_criticize_id!="",(select create_time from oe_criticize where id=c.reply_criticize_id),"") replyCreateTime,
 		  IF(LOCATE(#{userId},c.`praise_login_names`),TRUE,FALSE) isPraise,
 		  ou.`small_head_photo` smallHeadPhoto,
 		  ou.`name`,
 		  ou.id as userId,
-		  ou.login_name as loginName
+		  ou.login_name as loginName,
+		  ous.`name` as replyName,
+		  ous.`small_head_photo` as replySmallHeadPhoto,
+		  ous.login_name as replyLoginName
 		FROM
 		  `oe_criticize` c
 		  JOIN `oe_user` ou
 			ON c.`create_person` = ou.`id`
+		  left join `oe_user` ous
+			ON c.`reply_user` = ous.`id`
 		WHERE c.`is_delete` = 0
 	</sql>
 	<select id="selectCourseCriticize" resultType="com.xczhihui.wechat.course.model.Criticize">

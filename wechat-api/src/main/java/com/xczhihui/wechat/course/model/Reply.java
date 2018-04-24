@@ -16,7 +16,6 @@ import java.io.Serializable;
  * @author yuxin
  * @since 2018-04-13
  */
-@TableName("oe_reply")
 public class Reply extends Model<Reply> {
 
     private static final long serialVersionUID = 1L;
@@ -25,37 +24,26 @@ public class Reply extends Model<Reply> {
      * 评论回复表
      */
 	private String id;
-	@TableField("is_delete")
 	private Boolean isDelete;
-	@TableField("create_person")
 	private String createPerson;
-	@TableField("create_time")
 	private Date createTime;
 	private Integer sort;
 	private Integer status;
     /**
      * 回复内容
      */
-	@TableField("reply_content")
 	private String replyContent;
     /**
      * 回复人id
      */
-	@TableField("reply_user")
 	private String replyUser;
     /**
      * 评论id
      */
-	@TableField("criticize_id")
 	private String criticizeId;
 
-	@TableField(exist = false)
 	private OnlineUser onlineUser;
-	@TableField(exist = false)
 	private String name;
-	
-
-	@TableField(exist = false)
 	private String loginName;
 	
 
