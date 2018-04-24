@@ -72,8 +72,6 @@ public class WechatController {
 	
     @Value("${rate}")
     private int rate;
-    @Value("${minimum_amount}")
-    private Double minimumAmount;
     
 	/**
 	 * 微信支付统一下单，获取二维码
@@ -218,9 +216,6 @@ public class WechatController {
 			
 			if(!WebUtil.isIntegerForDouble(count)){
 				throw new RuntimeException("充值金额"+price+"兑换的熊猫币"+count+"不为整数");
-			}
-			if(minimumAmount > Double.valueOf(price)){
-				throw new RuntimeException("充值金额低于最低充值金额："+minimumAmount);
 			}
 			
 			UserCoinIncrease uci = new  UserCoinIncrease();

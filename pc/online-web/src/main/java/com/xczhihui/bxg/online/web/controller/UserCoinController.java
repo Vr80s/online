@@ -43,10 +43,8 @@ public class UserCoinController {
 
     @Value("${rate}")
     private int rate;
-    @Value("${ENV_FLAG}")
+    @Value("${env.flag}")
     private String env;
-    @Value("${minimum_amount}")
-    private Double minimumAmount;
     
 	/** 
 	 * Description：获取用户余额
@@ -102,9 +100,6 @@ public class UserCoinController {
         Double count = Double.valueOf(price)*rate; 
 		if(!WebUtil.isIntegerForDouble(count)){
 			throw new RuntimeException("充值金额"+price+"兑换的熊猫币"+count+"不为整数");
-		}
-		if(minimumAmount > Double.valueOf(price)){
-			throw new RuntimeException("充值金额低于最低充值金额："+minimumAmount);
 		}
         
         OnlineUser u =  (OnlineUser)request.getSession().getAttribute("_user_");

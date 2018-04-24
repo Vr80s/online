@@ -39,7 +39,7 @@ public class HospitalController extends AbstractController {
 	@Autowired
 	private HospitalService hospitalService;
 
-	@Value("${online.web.url:http://www.ixincheng.com}")
+	@Value("${online.web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "index")

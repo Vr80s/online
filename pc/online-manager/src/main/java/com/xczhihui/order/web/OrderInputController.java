@@ -44,7 +44,7 @@ import com.xczhihui.user.center.utils.CodeUtil;
 @RequestMapping(value = "/order/input")
 public class OrderInputController {
 
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${online.web.url}")
     private String weburl;
 
     @Autowired

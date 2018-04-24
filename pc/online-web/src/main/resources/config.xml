@@ -115,9 +115,6 @@
         <constructor-arg name="maxIdle" value="${reids.maxIdle}"/>
         <constructor-arg name="maxTotal" value="${reids.maxTotal}"/>
         <constructor-arg name="timeout" value="${reids.timeout}"/>
-        <!--
-        <constructor-arg name="password" value="${redis.password}" />
-         -->
     </bean>
     <!-- 附件中心 -->
     <bean id="attachmentCenterService"
@@ -145,7 +142,7 @@
 
     <bean id="WxPayBean" class="com.xczhihui.pay.weixin.api.WxPay4PcBean">
         <property name="appId" value="${wechat.app.id}"></property>
-        <property name="appSecret" value="${wechat.api.secret}"></property>
+        <!--<property name="appSecret" value="${wechat.api.secret}"></property>-->
         <property name="mchId" value="${wechat.mch.id}"></property>
         <property name="partnerKey" value="${wechat.api.key}"></property>
         <property name="certPath" value="${wechat.cert.path}"></property>
@@ -161,6 +158,48 @@
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
 
+    <!--=============================================生产者start============================================-->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.GiftService" ref="giftServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.EnchashmentService" ref="enchashmentServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CityService" ref="cityServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService"
+                   ref="liveExamineInfoServiceImpl" timeout="${dubbo.provider.timeout}"/>
+    <!-- 评论使用 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CriticizeService" ref="criticizeServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+    <!-- 公共的使用 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CommonApiService" ref="commonApiServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.OrderPayService" ref="orderPayServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+
+    <!-- 熊猫币购买服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+
+    <!-- 开始直播通知服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" ref="liveCallbackServiceImpl"
+                   timeout="${dubbo.provider.timeout}"/>
+
+    <!-- 附件服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService"
+                   ref="attachmentCenterService"
+                   timeout="${dubbo.provider.timeout}"/>
+
+    <!-- 充值服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService" ref="rechargesService"
+                   timeout="${dubbo.provider.timeout}"/>
+    <!-- 支付成功回调服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.PayService" ref="payService"
+                   timeout="${dubbo.provider.timeout}"/>
+    <!--=============================================生产者end============================================-->
+
+    <!--=============================================消费者start============================================-->
     <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
                      timeout="${dubbo.consumer.timeout}"/>
     <!-- 医馆 -->
@@ -197,7 +236,6 @@
     <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalAnnouncementService"
                      id="medicalHospitalAnnouncementService"
                      timeout="${dubbo.consumer.timeout}"/>
-
     <!--医馆主播课程-->
     <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
@@ -209,7 +247,6 @@
     <!-- BBS -->
     <dubbo:reference interface="com.xczhihui.medical.bbs.service.IPostService" id="postServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
-
     <!--医馆认证信息-->
     <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService"
                      id="medicalHospitalAuthenticationService" timeout="${dubbo.consumer.timeout}"/>
@@ -232,59 +269,15 @@
     <!--支付记录服务-->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IPaymentRecordService" id="paymentRecordServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
-
-
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.GiftService" ref="giftServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.EnchashmentService" ref="enchashmentServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CityService" ref="cityServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService"
-                   ref="liveExamineInfoServiceImpl" timeout="${dubbo.consumer.timeout}"/>
-    <!-- 评论使用 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CriticizeService" ref="criticizeServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-    <!-- 公共的使用 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CommonApiService" ref="commonApiServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.OrderPayService" ref="orderPayServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-
-    <!-- 熊猫币购买服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-
-    <!-- 开始直播通知服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" ref="liveCallbackServiceImpl"
-                   timeout="${dubbo.consumer.timeout}"/>
-
-    <!-- 附件服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService"
-                   ref="attachmentCenterService"
-                   timeout="${dubbo.consumer.timeout}"/>
-
-    <!-- 充值服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService" ref="rechargesService"
-                   timeout="${dubbo.consumer.timeout}"/>
-    <!-- 支付成功回调服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.PayService" ref="payService"
-                   timeout="${dubbo.consumer.timeout}"/>
-                   
-    <!-- wechat 服务  -->          
-    
-    <!-- 观看记录 -->     
+    <!-- 观看记录 -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IWatchHistoryService" id="watchHistoryServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>              
-           
     <!-- 我的关注，我的粉丝service -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote"
                      timeout="${dubbo.consumer.timeout}"/>   
-                     
     <!-- 我的信息管理类 -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl"
-                     timeout="${dubbo.consumer.timeout}" />                             
-                   
+                     timeout="${dubbo.consumer.timeout}" />
+    <!--=============================================消费者end============================================-->
+
 </beans>

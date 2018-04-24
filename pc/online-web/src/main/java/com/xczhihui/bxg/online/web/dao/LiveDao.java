@@ -29,7 +29,7 @@ public class LiveDao extends SimpleHibernateDao {
 	private GiftDao giftDao;
 	@Autowired
 	private RewardDao rewardDao;
-	@Value("${ENV_FLAG}")
+	@Value("${env.flag}")
 	private String envFlag;
 
     /**

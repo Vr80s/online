@@ -85,9 +85,6 @@ public class AlipayController {
 
     @Value("${rate}")
     private int rate;
-    @Value("${minimum_amount}")
-    private Double minimumAmount;
-//    private final int RATE=10;
 
     /**
      * pc统一下单

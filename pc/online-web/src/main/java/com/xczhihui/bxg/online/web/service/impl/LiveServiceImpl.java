@@ -50,7 +50,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 	@Autowired
 	private ApplyGradeCourseDao applyGradeCourseDao;
 	
-	@Value("${ENV_FLAG}")
+	@Value("${env.flag}")
     private String env;
 	@Value("${rate}")
     private int rate;

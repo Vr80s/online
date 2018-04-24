@@ -33,8 +33,6 @@ public class CourseController {
 
        @Autowired
        private CourseService service;
-        @Value("${online.wechat.url}")
-        private String wechaturl;
 
         @Autowired
         private IOrderService orderService;
@@ -239,17 +237,6 @@ public class CourseController {
     @RequestMapping(value = "/getCourseCatalog")
     public ResponseObject getCourseCatalog(Integer courseId) {
         return  ResponseObject.newSuccessResponseObject(service.getCourseCatalog(courseId));
-    }
-
-    /**
-     * Description：返回当前环境对应的微信环境域名
-     * creed: Talk is cheap,show me the code
-     * @author name：yuxin <br>email: yuruixin@ixincheng.com
-     * @Date: 下午 8:52 2017/9/28 0028
-     **/
-    @RequestMapping(value = "/wechaturl")
-    public ResponseObject getWechaturl() {
-        return  ResponseObject.newSuccessResponseObject(wechaturl);
     }
 
     /**

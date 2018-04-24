@@ -56,7 +56,7 @@ public class RealCourseController extends AbstractController {
 
     @Autowired
     private AttachmentCenterService att;
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${online.web.url}")
     private String weburl;
 
     @Autowired

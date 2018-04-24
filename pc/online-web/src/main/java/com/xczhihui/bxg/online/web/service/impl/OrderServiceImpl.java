@@ -66,20 +66,6 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	@Autowired
 	private OnlineConfig  onlineConfig;
 	
-	@Value("${share.course.id:191}")
-	private String shareCourseId;
-
-	
-    /**
-     * 提交订单的时候，生成订单
-     * @param ids
-     * @param request
-     */
-    @Override
-    public Map<String,String> saveOrder(String orderNo, String ids, HttpServletRequest request){
-        return orderDao.saveOrder(orderNo,ids,request);
-    }
-
     /**
      * 获取用户全部订单信息
      * @return 所有订单信息
@@ -92,133 +78,6 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
         }
         return  null;
     }
-
-    /**
-     * 姜海成16-12-11，将支付成功的业务整合在一个方法。
-     */
-    @Override
-    public void addPaySuccess(String orderNo,Integer payType,String transaction_id) {
-    	String sql = "";
-    	String id = "";
-    	Map<String, Object> paramMap = new HashMap<String, Object>();
-    	
-    	//查未支付的订单
-    	sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id from oe_order o,oe_order_detail od "
-    			+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
-    	List<OrderVo> orders = orderDao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
-    	if (orders.size() > 0) {
-    		//更新订单表
-			sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+transaction_id+"' where order_no='"+orderNo+"' ";
-			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-    		
-    		//写用户报名信息表，如果有就不写了
-			String apply_id = UUID.randomUUID().toString().replace("-", "");
-			sql = "select a.id from oe_apply a where  a.user_id='"+orders.get(0).getUser_id()+"' ";
-			List<Map<String, Object>> applies = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-			if (applies.size() > 0) {
-				apply_id = applies.get(0).get("id").toString();
-			} else {
-				sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
-						+ " values ('"+apply_id+"','"+orders.get(0).getUser_id()+"',now(),0,'"+orders.get(0).getCreate_person()+"')";
-				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-			}
-			
-			//更新用户is_apply为true（报过课）
-			sql = "update oe_user set is_apply=1 where id='"+orders.get(0).getUser_id()+"' and is_apply=0";
-			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-    		
-			for (OrderVo order : orders){
-				int  gradeId = 0;
-				String qqno="";
-				//区分课程是微课还是职业课
-				sql="select course_type,class_template,grade_student_sum,ifnull(grade_qq,0) grade_qq from oe_course  where id="+order.getCourse_id();
-				List<Map<String, Object>> courses = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-				//如果微课，获取已报名人数少于额定人数的班级，如果没有此种班级，自动生成班级
-//				if(Integer.valueOf(courses.get(0).get("course_type").toString())==1){
-//					qqno=courses.get(0).get("grade_qq").toString();
-//					sql="select id from oe_grade where is_delete=0 and grade_status = 1 and course_id ='"+order.getCourse_id()+"' and curriculum_time is null  and "+
-//						"  ifnull(student_count+default_student_count,0)< student_amount order by create_time  limit 1 ";
-//					List<Map<String, Object>> grades = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-//					//存在报名未结束的班级
-//					if (grades.size() > 0) {
-//						gradeId = Integer.valueOf(grades.get(0).get("id").toString());
-//					}else {
-//						//查看上一个班级是第几期，要在这期上面加1
-//						sql="select count(id)+1 number,(select AUTO_INCREMENT gradeId FROM information_schema.TABLES WHERE  TABLE_NAME ='oe_grade' and TABLE_SCHEMA='online') id  from oe_grade  where course_id="+order.getCourse_id();
-//						List<Map<String, Object>> gradeInfos= orderDao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-//						Map<String, Object> gradeInfo=gradeInfos.get(0);
-//						//生成班级
-//						sql=" insert into oe_grade (create_time,is_delete,course_id,name,qqno,status,sort,grade_status,student_amount) " +
-//							" values (now(),0,"+order.getCourse_id()+",'"+courses.get(0).get("class_template").toString()+Integer.valueOf(gradeInfo.get("number").toString())+"期','"+
-//							 courses.get(0).get("grade_qq")+"',1,1,1,"+courses.get(0).get("grade_student_sum")+")";
-//						orderDao.getNamedParameterJdbcTemplate().update(sql,paramMap);
-//						gradeId=Integer.valueOf(gradeInfo.get("id").toString());
-//					}
-//				}else{
-					String class_id = orders.get(0).getClass_id();//报名可以选择班级
-					if (class_id == null || "".equals(class_id.trim())) {
-						//如果是职业课，获取报名人数少于额定人数而且当前时间小于报名截止日期，如果没有此班级就将学院挂在虚拟班级(班级id=0)
-						sql="select id,ifnull(qqno,0) qqno  from oe_grade where is_delete=0 and grade_status = 1 and course_id ='"+order.getCourse_id()+"' and "+
-								" unix_timestamp(now()) <= unix_timestamp(curriculum_time) and  ifnull(student_count+default_student_count,0)<student_amount order by curriculum_time limit 1 ";
-						List<Map<String, Object>> grades = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-						if (grades.size() > 0) {
-							gradeId = Integer.valueOf(grades.get(0).get("id").toString());
-//							qqno=grades.get(0).get("qqno").toString();
-						}
-					} else {
-						gradeId = Integer.valueOf(class_id.trim());
-					}
-//				}
-
-				//写用户、报名、课程中间表
-				id = UUID.randomUUID().toString().replace("-", "");
-				sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id="+gradeId;
-				Integer no = orderDao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Integer.class);
-				String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
-				sql = "insert into apply_r_grade_course (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number)"
-						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
-								+ " '"+sno+"')";
-				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-
-				//写用户视频表
-//				sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,apply_id,course_id,status) "
-//						+ " select uuid(),'"+order.getCreate_person()+"',sort,id,'"+order.getUser_id()+"','"+apply_id+"',course_id,status "
-//								+ "from oe_video where course_id="+order.getCourse_id()+" and is_delete=0 ";
-//				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-
-				//更新班级报名人数
-				if (gradeId != 0) {
-					sql = "update oe_grade o set o.student_count=ifnull(o.student_count,0)+1 where o.id="+gradeId;
-					orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-				}
-
-				//写入用户课程关卡信息
-				sql= "insert into oe_barrier_user (id,user_id,barrier_id,lock_status,course_id) "
-						+ " select  replace(uuid(),'-',''),'"+order.getUser_id()+"',t.id,if(t.parent_id is null or t.parent_id='',1,0), "
-								+ " course_id  from oe_barrier t where t.course_id='"+order.getCourse_id()+"' and t.status=1 ";
-				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-
-				//如果是限时免费课程，不参与分销，业务到此结束
-				if(Double.valueOf(order.getActual_pay())==0){
-					continue;
-				}
-
-				//如果是购买大使课，成为分享大使
-				if (shareCourseId.trim().equals(order.getCourse_id().toString().trim())) {
-					id = UUID.randomUUID().toString().replace("-", "");
-					orderDao.getNamedParameterJdbcTemplate().update("update oe_user set share_code='"+id+"' "
-							+ "where share_code is null and id='"+order.getUser_id()+"' ", paramMap);
-				}
-
-				//如果是微课参与分销，如果购买人有上级，此订单更新为分销订单
-//				if("1".equals(courses.get(0).get("course_type").toString())){
-					sql = "update oe_order o set o.order_from=1 where o.order_no='"+orderNo+"' "
-							+ " and o.user_id=(select id from oe_user where parent_id is not null and parent_id != '' and id = o.user_id);";
-					orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-//				}
-			}
-		}
-	}
 
 	/**
 	 * 为购买用户发送消息通知
@@ -276,41 +135,14 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
     	throw new RuntimeException("找不到订单"+orderNo+"信息！");
 	}
 
-    /**
-     * 根据订单号查找订单
-     * @param orderNo  订单号
-     * @return
-     */
-    @Override
-    public OrderVo findOrderByOrderNo(String orderNo){
-         return  orderDao.findOrderByOrderNo(orderNo);
-    }
-
 	@Override
     public OrderVo findOrderByOrderId(String orderId){
 		return  orderDao.findOrderByOrderId(orderId);
 	}
 
-	
 	@Override
     public OrderVo findOrderByOrderNoAndStatus(String orderId,Integer status){
 		return  orderDao.findOrderByOrderNoAndStatus(orderId,status);
-	}
-	
-	
-    @Override
-    public Map<String,Object>  findOrderByCourseId(String ids, String userId, String orderNo){
-        return orderDao.findOrderByCourseId(ids, userId,orderNo);
-    }
-
-	/**
-	 * 获取购买课程现价总和
-	 * @param ids  课程id号
-	 * @return
-	 */
-	@Override
-    public Boolean findCourseIsFree(String ids){
-		return   orderDao.findCourseIsFree(ids);
 	}
 
 	@Override

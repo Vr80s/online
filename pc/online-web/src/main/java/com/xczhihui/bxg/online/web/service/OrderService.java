@@ -17,12 +17,6 @@ import com.xczhihui.bxg.online.web.vo.OrderVo;
  * @create 2016-11-02 19:21
  */
 public interface OrderService {
-    /**
-     * 提交订单的时候，生成订单
-     * @param ids
-     * @param request
-     */
-    public Map<String,String> saveOrder(String orderNo,String ids,HttpServletRequest request);
 
     /**
      * 获取用户全部订单信息
@@ -30,17 +24,12 @@ public interface OrderService {
      * @return 所有订单信息
      */
     public Page<OrderVo> getMyAllOrder(Integer  orderStatus,Integer timeQuantum,Integer pageNumber, Integer pageSize,HttpServletRequest request);
-    /**
-     * 处理支付成功
-     * @param orderNo 订单号
-     * @param transaction_id 微信支付订单号
-     */
-    public void addPaySuccess(String orderNo,Integer payType,String transaction_id);
 
     /**
      * 为购买用户发送消息通知
      */
     public  void  savePurchaseNotice(String basePath,String orderNo);
+
     /**
      * 返回当前订单支付状态
      */
@@ -55,30 +44,8 @@ public interface OrderService {
      */
     public Map<String, Object> checkPayInfo(String orderNo);
 
-    /**
-     * 根据订单号查找订单
-     * @param orderNo  订单号
-     * @return
-     */
-    public OrderVo findOrderByOrderNo(String orderNo);
-
     public OrderVo findOrderByOrderId(String orderId);
 
-    public Map<String,Object>   findOrderByCourseId(String ids,String userId,String orderNo);
-
-    /**
-     * 获取购买课程现价总和
-     * @param ids  课程id号
-     * @return
-     */
-    public Boolean findCourseIsFree(String ids);
-
-    /**
-     * 活动课程购买接口,现在必须为0，原价必须大于0的情况(例如：原价是1000，现在为0时，这种课程就调用这个接口)
-     * @param courseId
-     */
-    /* public void activityCoursePay(Integer courseId,HttpServletRequest request);*/
-    
     public Map<String, Object> addWeixinPayUnifiedorder(String body,String orderNo,String productId,int pay,String attach);
 
     /**

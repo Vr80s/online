@@ -46,11 +46,6 @@ public class CourseDao extends SimpleHibernateDao {
     @Autowired
     private  ApplyGradeCourseDao  applyGradeCourseDao;
 
-    //成为分享大使课程的id，购买此课程可成为分享大使
-    @Value("${share.course.id:191}")
-    private String shareCourseId;
-
-
     /**
      * 首页中医课堂列表
      * @param menuId      学科ID号（小类型）

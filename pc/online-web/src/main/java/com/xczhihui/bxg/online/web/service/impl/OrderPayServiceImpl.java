@@ -35,8 +35,6 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 	@Autowired
 	private OrderDao orderDao;
 
-	@Value("${share.course.id:191}")
-	private String shareCourseId;
 	@Autowired
 	UserCoinService userCoinService;
 	@Value("${online.web.url}")

@@ -46,24 +46,6 @@ public class OrderController {
     @Value("${online.web.url}")
     private String weburl;
 
-    /**
-     * 支付页面
-     * @param ids
-     * @param request
-     */
-    @RequestMapping(value = "/{ids}/{orderNo}/payment",method= RequestMethod.GET)
-    public  ModelAndView saveOrder( @PathVariable String ids,@PathVariable String orderNo,HttpServletRequest request,RedirectAttributes attr ) throws IOException {
-        ModelAndView mav=new ModelAndView();
-
-        Map mapValues = orderService.saveOrder(orderNo, ids, request);
-        mav.setViewName("PayOrder");
-        mav.addObject("orderNo", mapValues.get("orderNo"));
-        mav.addObject("actualPay", String.format("%.2f", Double.valueOf(mapValues.get("actualPay").toString())));
-        mav.addObject("courseName", mapValues.get("courseName"));
-        mav.addObject("orderId", orderService.findOrderByOrderNo(mapValues.get("orderNo").toString()).getId());
-
-        return mav;
-    }
 
     /**
      * 根据订单号查找订单

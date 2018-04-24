@@ -39,7 +39,7 @@ public class GiftController extends AbstractController {
 	private GiftService giftService;
 	@Autowired
 	private AttachmentCenterService att;
-	@Value("${online.web.url:http://www.ixincheng.com}")
+	@Value("${online.web.url}")
 	private String weburl;
 
 	@RequestMapping(value = "index")
