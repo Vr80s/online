@@ -48,14 +48,36 @@
 
     <div class="forum-content clearfix">
         <div class="forum-content-left">
+        <#if writing??>
+            <div class="writing-buy-link hide">
+                <div>
+                    <img src="${writing.imgPath}">
+                    <p>${writing.title}</p>
+                </div>
+                <a class="" href="${writing.buyLink}">
+                    <button> 去购买</button>
+                </a>
+            </div>
+        </#if>
             <div class="forum-detailInfo">
                 <div class="forum-detail">
                     <div class="forum-detail-title">${article.title}</div>
                     <div class="forum-info-tags">
                         <img src="/web/images/studentCount.png">
                         <span>${article.author!''}&nbsp;&nbsp;&nbsp;${(article.createTime?string("yyyy-MM-dd"))!}</span>
-                        <a href="${webUrl}/headline/list/${article.typeId}"
-                           style="color: #188EEE;margin-left:20px">${article.type}</a>
+                        <#if article.typeId??>
+                            <#if article.type == '大家专栏'>
+                                <a href="${webUrl}/doctors/specialColumn"
+                                   style="color: #188EEE;margin-left:20px">大家专栏</a>
+                            <#else>
+                                <a href="${webUrl}/headline/list/${article.typeId}"
+                                   style="color: #188EEE;margin-left:20px">${article.type}</a>
+                            </#if>
+                        <#else>
+                            <a href="${webUrl}/doctors/writing"
+                               style="color: #188EEE;margin-left:20px">医师著作</a>
+                        </#if>
+
                     </div>
                 </div>
                 <div class="forum-detail-content">${article.content}</div>
@@ -185,26 +207,28 @@
                 </div>
             </div>
         </#if>
+        <#if suggestedArticles??>
             <div class="hot-article" style="height: auto">
                 <span class="hot-article-title">推荐阅读</span>
                 <ul class="hot-article-list">
-                <#list suggestedArticles as suggestedArticle>
-                    <#if suggestedArticle_index<=2>
-                        <li>
-                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
-                                    style="margin-bottom: 20px"
-                                    title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
-                        </li>
-                    <#else>
-                        <li>
-                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
-                                    style="margin-bottom: 20px"
-                                    title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
-                        </li>
-                    </#if>
-                </#list>
+                    <#list suggestedArticles as suggestedArticle>
+                        <#if suggestedArticle_index<=2>
+                            <li>
+                                <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
+                                        style="margin-bottom: 20px"
+                                        title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
+                            </li>
+                        <#else>
+                            <li>
+                                <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
+                                        style="margin-bottom: 20px"
+                                        title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
+                            </li>
+                        </#if>
+                    </#list>
                 </ul>
             </div>
+        </#if>
         <#--<div class="forum-hot-tag hide">-->
         <#--<div class="forum-hot-tag-title">热门标签</div>-->
         <#--<ul class="forum-hot-tagGround">-->

@@ -65,24 +65,6 @@ public interface IMedicalDoctorArticleService {
     boolean deleteSpecialColumnById(String id);
 
     /**
-     * 热门专栏作者
-     *
-     * @param doctorId 医师id
-     * @return 热门专栏作者
-     */
-    List<Map<String, Object>> listHotSpecialColumnAuthor(String doctorId);
-
-    /**
-     * 获取医师的已发布的专栏
-     *
-     * @param page     分页参数
-     * @param doctorId 医师id
-     * @return
-     */
-    Page<OeBxsArticleVO> listPublicSpecialColumn(int page, String doctorId);
-
-
-    /**
      * 媒体报道列表
      *
      * @param page     分页参数
@@ -135,44 +117,67 @@ public interface IMedicalDoctorArticleService {
     boolean deleteReportById(String id);
 
     /**
-     * 获取文章报道的医师
+     * 获取头条列表数据
      *
-     * @param id id
+     * @param page   分页参数
+     * @param typeId typeId
      * @return
      */
-    List<Map<String, Object>> listReportDoctorByArticleId(int id);
+    Page<OeBxsArticleVO> listPublicArticle(int page, String typeId);
 
     /**
-     * 获取专栏作者
+     * 名医著作
      *
-     * @param id id
-     * @return
+     * @param page 分页参数
+     * @return 名医著作
      */
-    List<Map<String, Object>> listSpecialColumnAuthorByArticleId(int id);
+    Page<OeBxsArticleVO> listPublicWritings(int page);
+
+    /**
+     * 名医推荐
+     *
+     * @param size size
+     * @return 名医推荐
+     */
+    List<Map<String, Object>> listWritingAuthor(int size);
+
+    /**
+     * 名医推荐
+     *
+     * @param size size
+     * @return 名医推荐
+     */
+    List<Map<String, Object>> listReportDoctor(int size);
+
+    /**
+     * 专栏作者
+     *
+     * @param size size
+     * @return 专栏作者
+     */
+    List<Map<String, Object>> listHotSpecialColumnAuthor(int size);
+
+    /**
+     * 著作作者
+     *
+     * @param articleId articleId
+     * @return 著作作者
+     */
+    List<Map<String, Object>> listWritingAuthorByArticleId(int articleId);
 
     /**
      * 媒体报道名医
      *
-     * @param doctorId 医师id
+     * @param articleId articleId
+     * @return 媒体报道名医
+     */
+    List<Map<String, Object>> listReportDoctorByArticleId(int articleId);
+
+    /**
+     * 热门专栏作者
+     *
+     * @param articleId articleId
      * @return 热门专栏作者
      */
-    List<Map<String, Object>> listReportDoctor(String doctorId);
-
-    /**
-     * 获取医师的已发布的报道
-     *
-     * @param page     分页参数
-     * @param doctorId 医师id
-     * @return
-     */
-    Page<OeBxsArticleVO> listPublicReport(int page, String doctorId);
-
-    /**
-     * 获取医师的已发布的著作
-     *
-     * @param page     分页参数
-     * @param doctorId 医师id
-     * @return
-     */
-    Page<OeBxsArticleVO> listPublicWriting(int page, String doctorId);
+    List<Map<String, Object>> listHotSpecialColumnAuthorByArticleId(int articleId);
 }

@@ -639,6 +639,7 @@ table{
     color: #00BC12;
     border-radius: 5px;
     overflow: hidden;
+    top: 13px;
 }
 #btn_width{
 	position: absolute;

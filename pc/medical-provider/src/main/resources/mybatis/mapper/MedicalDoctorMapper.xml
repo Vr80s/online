@@ -175,7 +175,8 @@
             mw.id,
             mw.`title`,
             mw.`author`,
-            oba.`img_path` imgPath
+            oba.`img_path` imgPath,
+            mw.article_id as articleId
         FROM
             `medical_writings` mw
             LEFT JOIN `oe_bxs_article` oba
@@ -195,7 +196,8 @@
             mw.id,
             mw.`title`,
             mw.`author`,
-            oba.`img_path` imgPath
+            oba.`img_path` imgPath,
+            mw.article_id as articleId
         FROM
             `medical_writings` mw
             LEFT JOIN `oe_bxs_article` oba
