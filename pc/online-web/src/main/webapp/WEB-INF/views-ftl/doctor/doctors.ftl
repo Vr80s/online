@@ -248,25 +248,14 @@
                 </ul>
             </div>
 
-
-
-
             <!-- 名医书籍 -->
-            <div class="teacher_books  hide">
+            <div class="teacher_books">
                 <div id="">
-                    <h4>名医著作-待完成</h4>
-                    <a href="http://dev.ixincheng.com/web/html/pubs.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                    <h4>名医著作</h4>
+                    <a href="${webUrl}/doctors/writings"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
                 </div>
 
                 <ul class="book_list clearfix" id="boos_list">
-                    <!-- TODO -->
-                    <!--<li>
-                        <img src="../images/books.png" alt="">
-                        <div>
-                        <span class="book_name">药房里买得到的传世名方</span>
-                        <h5 class="book_author">佟彤</h5>
-                        </div>
-                    </li>-->
                 <#list recentlyWritings as recentlyWriting>
                     <li>
                         <img src="${recentlyWriting.imgPath}" alt="">

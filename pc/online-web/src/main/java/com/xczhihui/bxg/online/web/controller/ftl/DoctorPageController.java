@@ -21,12 +21,12 @@ import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalAnnouncementService;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
 
 /**
  * Description：医师页面
@@ -45,6 +45,10 @@ public class DoctorPageController extends AbstractController {
     private BannerService bannerService;
     @Autowired
     private IMedicalDepartmentService medicalDepartmentService;
+    @Autowired
+    private IMedicalDoctorWritingService medicalDoctorWritingService;
+    @Autowired
+    private IMedicalDoctorArticleService medicalDoctorArticleService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
@@ -169,5 +173,29 @@ public class DoctorPageController extends AbstractController {
         doConditionEcho(view, echoMap);
 
         return view;
+    }
+
+    @RequestMapping(value = "{id}/specialColumn", method = RequestMethod.GET)
+    public ModelAndView getPublicSpecialColumnByDoctorId(@PathVariable String id, @RequestParam(defaultValue = "1") int page) {
+        ModelAndView modelAndView = new ModelAndView("doctor/special-column");
+        modelAndView.addObject("specialColumns", medicalDoctorArticleService.listPublicSpecialColumn(page, id));
+        modelAndView.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthor(id));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "{id}/report", method = RequestMethod.GET)
+    public ModelAndView getPublicReportByDoctorId(@PathVariable String id, @RequestParam(defaultValue = "1") int page) {
+        ModelAndView modelAndView = new ModelAndView("doctor/report");
+        modelAndView.addObject("reports", medicalDoctorArticleService.listPublicReport(page, id));
+        modelAndView.addObject("doctors", medicalDoctorArticleService.listReportDoctor(id));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "{id}/writing", method = RequestMethod.GET)
+    public ModelAndView getPublicWritingByDoctorId(@PathVariable String id, @RequestParam(defaultValue = "1") int page) {
+        ModelAndView modelAndView = new ModelAndView("doctor/report");
+        modelAndView.addObject("writings", medicalDoctorArticleService.listPublicSpecialColumn(page, id));
+        modelAndView.addObject("doctors", medicalDoctorArticleService.listReportDoctor(id));
+        return modelAndView;
     }
 }

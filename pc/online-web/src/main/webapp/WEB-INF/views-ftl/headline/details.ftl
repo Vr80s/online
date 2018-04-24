@@ -87,12 +87,15 @@
                                         <em></em>
                                         <span class="comment-time">${(appraise.createTime?string("yyyy-MM-dd hh:mm"))!}</span>
                                     </div>
+                                    <div class="comment-info">${appraise.content}</div>
                                     <#if appraise.nickName??>
-                                        <div class="comment-info"><span>回复&nbsp;&nbsp;<span
-                                                class="replyName">${appraise.nickName}：</span></span>${appraise.content}
+                                        <div class="comment-info">
+                                            <div class="img"><img src="${appraise.replySmallHeadPhoto}"/></div>
+                                            <span
+                                                    class="replyName">${appraise.nickName}</span>
+                                            <span class="comment-time">${(appraise.replyCreateTime?string("yyyy-MM-dd hh:mm"))!}</span>
                                         </div>
-                                    <#else>
-                                        <div class="comment-info">${appraise.content}</div>
+                                        <div class="comment-info">${appraise.replyContent}</div>
                                     </#if>
                                     <div class="reply-comment">
                                         <i class="iconfont icon-huifu"></i>
@@ -115,7 +118,8 @@
                                         </div>
                                         <div class="reply-btn">
                                             <div class="cancle">取消</div>
-                                            <div class="reply" data-targetId="${appraise.userId}">
+                                            <div class="reply" data-targetId="${appraise.userId}"
+                                                 data-replyCommentId="${appraise.id}">
                                                 回复
                                             </div>
                                         </div>
@@ -168,7 +172,8 @@
                                 <img src="${author.headPortrait}" alt="医师头像">
                                 <div class="report_right_name_p">
                                     <p class="p0"><a
-                                            href="${webUrl}/doctors/${author.doctorId}" style="color: #000;">${author.doctorName!""}</a>
+                                            href="${webUrl}/doctors/${author.doctorId}"
+                                            style="color: #000;">${author.doctorName!""}</a>
                                     </p>
                                     <p class="p1">${author.province!""} ${author.city!""}</p>
                                 </div>
@@ -186,12 +191,14 @@
                 <#list suggestedArticles as suggestedArticle>
                     <#if suggestedArticle_index<=2>
                         <li>
-                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span style="margin-bottom: 20px"
+                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
+                                    style="margin-bottom: 20px"
                                     title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
                         </li>
                     <#else>
                         <li>
-                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span style="margin-bottom: 20px"
+                            <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
+                                    style="margin-bottom: 20px"
                                     title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
                         </li>
                     </#if>
@@ -218,6 +225,8 @@
 </body>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>
+<script src="/web/js/modal.js"></script>
+<script src="/web/js/common_msg.js"></script>
 <script type="application/javascript">
     var articleId = ${echoMap.id}
             $(function () {
@@ -306,25 +315,17 @@
         //删除
         $(".reply-delete").each(function () {
             $(this).click(function () {
-                $("#quxiaoshoucang").paymentModal("reply-delete");
-                $(".tipType").text("确定要删除吗？");
                 var commentId = $(this).attr("data-commentId");
-                $("#quxiaoshoucang .modalFooter .yesBtn").off().click(function () {
+                comfirmBox.open("评论", "确定要删除吗？", function (closefn) {
                     RequestService('/bxs/article/deleteAppraiseId', "POST", {
                         appraiseId: commentId
                     }, function (data) {
                         if (data.success == true) {
-                            $(".payment-modal-close").trigger("click");
-                            var commentCount = $(".articleCommCoun").text();
-                            commentCount--;
-                            $(".articleCommCoun").text(commentCount);
-                            allComment();
+                            window.location.href = "/headline/details/" + articleId;
                         }
                     });
+                    closefn();
                 });
-                $("#quxiaoshoucang .modalFooter .notBtn").click(function () {
-                    $(".payment-modal-close").trigger("click");
-                })
             })
         });
 
@@ -359,13 +360,15 @@
                     } else {
                         var replayCon = forumThs.parent().parent().find(".reply-input").val().trim();
                         var targetId = forumThs.attr("data-targetid");
+                        var replyCommentId = forumThs.attr("data-replyCommentId");
                         if (replayCon == "") {
                             $(".replay-box .emptyHit").show();
                         } else {
                             RequestService("/bxs/article/saveAppraise", "POST", {
                                 article_id: articleId,
                                 content: replayCon,
-                                target_user_id: targetId
+                                target_user_id: targetId,
+                                reply_comment_id: replyCommentId
                             }, function (data) {
                                 if (data.success) {
                                     window.location.href = "/headline/details/" + articleId;
