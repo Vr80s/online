@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 import com.xczhihui.medical.dao.HospitalRecruitDao;
 import com.xczhihui.medical.service.HospitalRecruitService;

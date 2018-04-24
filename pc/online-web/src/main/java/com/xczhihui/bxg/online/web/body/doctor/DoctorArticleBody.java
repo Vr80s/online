@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.xczhihui.bxg.common.util.enums.HeadlineType;
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
 
 /**

@@ -2,7 +2,7 @@ package com.xczhihui.operate.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.operate.vo.InformationVo;
 import com.xczhihui.operate.vo.TypeVo;
 

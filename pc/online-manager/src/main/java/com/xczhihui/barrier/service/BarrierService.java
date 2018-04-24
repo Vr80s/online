@@ -2,7 +2,7 @@ package com.xczhihui.barrier.service;
 
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.barrier.vo.BarrierVo;
 import com.xczhihui.course.vo.CourseVo;
 

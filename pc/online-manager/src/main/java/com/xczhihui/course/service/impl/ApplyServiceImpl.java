@@ -1,6 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.course.dao.ApplyDao;
 import com.xczhihui.course.service.ApplyService;

@@ -1,13 +1,11 @@
 package com.xczhihui.common.domain;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity;
+import com.xczhihui.common.support.domain.BasicEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * oe_common表实体类

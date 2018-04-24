@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.xczhihui.bxg.common.support.domain.SystemVariate;
-import com.xczhihui.bxg.online.api.vo.JobVo;
+import com.xczhihui.common.support.domain.SystemVariate;
+import com.xczhihui.online.api.vo.JobVo;
 
 import java.util.Date;
 import java.util.List;

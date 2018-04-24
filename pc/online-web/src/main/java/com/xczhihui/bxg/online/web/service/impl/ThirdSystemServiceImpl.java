@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.service.impl;/**
  * Created by admin on 2016/9/19.
  */
 
-import com.xczhihui.bxg.common.util.HttpUtil;
+import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.ThirdSystemDao;
@@ -39,7 +39,7 @@ public class ThirdSystemServiceImpl extends OnlineBaseServiceImpl implements Thi
 	@Override
 	public String sendMobileMessage(String systemName,String mobile, String content,long timestamp, String sign) {
 		String key = KEY.get(systemName);
-		String md5Upper = com.xczhihui.bxg.common.util.CodeUtil.md5Upper(systemName+mobile+content+timestamp+key);
+		String md5Upper = com.xczhihui.common.util.CodeUtil.md5Upper(systemName+mobile+content+timestamp+key);
 		if (!md5Upper.equals(sign)) {
 			logger.warn("sendMobileMessage api 签名错误！");
 			return "sendMobileMessage api 签名错误！";
@@ -68,7 +68,7 @@ public class ThirdSystemServiceImpl extends OnlineBaseServiceImpl implements Thi
 	@Override
 	public OnlineUser getUserInfo(String systemName, String loginName, long timestamp, String sign) {
 		String key = KEY.get(systemName);
-		String md5Upper = com.xczhihui.bxg.common.util.CodeUtil.md5Upper(systemName+loginName+timestamp+key);
+		String md5Upper = com.xczhihui.common.util.CodeUtil.md5Upper(systemName+loginName+timestamp+key);
 		if (!md5Upper.equals(sign)) {
 			logger.warn("sendMobileMessage api 签名错误！");
 			throw new RuntimeException("sendMobileMessage api 签名错误！");

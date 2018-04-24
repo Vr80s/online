@@ -1,13 +1,12 @@
 package com.xczhihui.course.service.impl;
 
 import com.xczhihui.anchor.service.AnchorService;
-import com.xczhihui.bxg.common.support.cc.util.CCUtils;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.enums.ApplyStatus;
-import com.xczhihui.bxg.common.util.enums.CourseDismissal;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
-import com.xczhihui.bxg.common.util.enums.Multimedia;
+import com.xczhihui.common.support.cc.util.CCUtils;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.ApplyStatus;
+import com.xczhihui.common.util.enums.CourseDismissal;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.course.dao.CourseApplyDao;

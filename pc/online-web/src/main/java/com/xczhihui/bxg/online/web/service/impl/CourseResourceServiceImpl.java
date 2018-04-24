@@ -10,8 +10,8 @@ import javax.annotation.Resource;
 import org.pegdown.PegDownProcessor;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.HttpUtil;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.web.service.CourseResourceService;
 

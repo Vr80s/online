@@ -3,7 +3,7 @@ package com.xczhihui.course.service;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Grade;
 import com.xczhihui.bxg.online.common.domain.Menu;

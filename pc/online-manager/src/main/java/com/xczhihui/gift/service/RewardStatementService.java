@@ -1,6 +1,6 @@
 package com.xczhihui.gift.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.gift.vo.RewardStatementVo;
 
 public interface RewardStatementService {

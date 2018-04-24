@@ -11,22 +11,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseForm;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
-import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;

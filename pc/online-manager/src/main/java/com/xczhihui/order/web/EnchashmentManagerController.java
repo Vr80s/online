@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.xczhihui.bxg.online.common.domain.EnchashmentApplyInfo;
-import com.xczhihui.bxg.common.util.enums.EnchashmentDismissal;
+import com.xczhihui.common.util.enums.EnchashmentDismissal;
 import com.xczhihui.order.service.EnchashmentService;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,17 +1,13 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.online.web.vo.CourseSubscribeVo;
-
-import javax.print.DocFlavor;
 
 /**
  * 课程预约底层实现类

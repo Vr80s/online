@@ -1,15 +1,15 @@
 @echo off
-echo ÇëÑ¡Ôñ´ò°ü»·¾³
+echo ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 set /p env=1.dev 2.test 3.prod 0.local-dev:
-if %env% == 0 ( set envName=ÄãÑ¡ÔñµÄÊÇ£º±¾µØ¿ª·¢»·¾³) else if %env% == 1 (set envName= ÄãÑ¡ÔñµÄÊÇ£º¿ª·¢»·¾³) else if %env% == 2 (set envName= ÄãÑ¡ÔñµÄÊÇ£º²âÊÔ»·¾³) else if %env% == 3 (set envName= ÄãÑ¡ÔñµÄÊÇ£ºÉú²ú»·¾³) else (echo »·¾³±äÁ¿Ñ¡ÔñÓÐÎó)
+if %env% == 0 ( set envName=ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) else if %env% == 1 (set envName= ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) else if %env% == 2 (set envName= ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½) else if %env% == 3 (set envName= ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) else (echo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 echo %envName%
-call wechat-api\install-wechat-api.bat
+call course-api\install-course-api.bat
 cd ..\
-echo µ±Ç°Â·¾¶£º%cd%
-call wechat-provider\install-wechat-provider.bat
+echo ï¿½ï¿½Ç°Â·ï¿½ï¿½ï¿½ï¿½%cd%
+call course-provider\install-course-provider.bat
 cd ..\
-echo µ±Ç°Â·¾¶£º%cd%
+echo ï¿½ï¿½Ç°Â·ï¿½ï¿½ï¿½ï¿½%cd%
 call wechat\install-wechat.bat
 cd ..\
-echo µ±Ç°Â·¾¶£º%cd%
+echo ï¿½ï¿½Ç°Â·ï¿½ï¿½ï¿½ï¿½%cd%
 pause

@@ -3,7 +3,7 @@ package com.xczhihui.course.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;

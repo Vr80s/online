@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.service;/**
  * Created by admin on 2016/9/19.
  */
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;

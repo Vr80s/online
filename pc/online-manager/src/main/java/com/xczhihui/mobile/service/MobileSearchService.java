@@ -1,6 +1,6 @@
 package com.xczhihui.mobile.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.mobile.vo.MobileSearchVo;
 
 public interface MobileSearchService {

@@ -5,17 +5,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
-import com.xczhihui.bxg.common.util.IStringUtil;
-import com.xczhihui.bxg.common.util.OrderNoUtil;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-//import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.api.vo.OrderVo;
-import com.xczhihui.bxg.common.util.enums.Payment;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.online.api.service.UserCoinService;
+//import UserCoinService;
+import com.xczhihui.online.api.vo.OrderVo;
+import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.vhall.VhallUtil;
 
@@ -28,9 +27,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.BeanUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.BeanUtil;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.UserCoin;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;

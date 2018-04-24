@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.headline.service.ArticleService;
 import com.xczhihui.headline.vo.ArticleTypeVo;
 import com.xczhihui.headline.vo.TagVo;

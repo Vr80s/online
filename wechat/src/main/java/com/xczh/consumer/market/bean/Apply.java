@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
+import com.xczhihui.online.api.vo.UserAddressManagerVo;
 
 import java.util.Date;
 

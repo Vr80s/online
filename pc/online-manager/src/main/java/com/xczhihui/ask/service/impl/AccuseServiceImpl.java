@@ -4,7 +4,7 @@ package com.xczhihui.ask.service.impl;
  * Created by admin on 2016/8/29.
  */
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.ask.dao.AccuseDao;
 import com.xczhihui.ask.service.AccuseService;

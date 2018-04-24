@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.common.util.CodeUtil;
-import com.xczhihui.bxg.common.util.enums.HeadlineType;
+import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorReportMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalSpecialColumnMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorReport;

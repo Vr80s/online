@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.xczhihui.bxg.online.common.domain.Criticize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.CourseDao;

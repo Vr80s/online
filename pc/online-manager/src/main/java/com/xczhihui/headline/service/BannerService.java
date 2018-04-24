@@ -1,6 +1,6 @@
 package com.xczhihui.headline.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.headline.vo.ArticleVo;
 
 public interface BannerService {

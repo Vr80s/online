@@ -1,12 +1,12 @@
 package com.xczhihui.medical.service.impl;
 
 import com.xczhihui.anchor.dao.AnchorDao;
-import com.xczhihui.bxg.common.support.lock.RedissonUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.support.lock.RedissonUtil;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.common.util.enums.AnchorType;
+import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.medical.dao.*;
 import com.xczhihui.medical.service.HospitalApplyService;
 import com.xczhihui.user.dao.UserDao;

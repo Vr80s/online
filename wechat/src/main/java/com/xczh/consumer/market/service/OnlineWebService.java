@@ -1,7 +1,7 @@
 package com.xczh.consumer.market.service;
 
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.online.api.vo.CriticizeVo;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -2,8 +2,8 @@ package com.xczhihui.bxg.online.web.service.impl;/**
  * Created by admin on 2016/9/19.
  */
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;

@@ -14,13 +14,13 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.service.CommonApiService;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
-import com.xczhihui.bxg.online.api.service.GiftService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.api.vo.ReceivedGift;
-import com.xczhihui.bxg.online.api.vo.RechargeRecord;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.online.api.service.CommonApiService;
+import com.xczhihui.online.api.service.EnchashmentService;
+import com.xczhihui.online.api.service.GiftService;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.online.api.vo.ReceivedGift;
+import com.xczhihui.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
 /**

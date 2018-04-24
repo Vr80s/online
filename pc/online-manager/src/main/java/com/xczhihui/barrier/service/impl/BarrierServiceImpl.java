@@ -2,7 +2,7 @@ package com.xczhihui.barrier.service.impl;
 
 import com.xczhihui.barrier.service.BarrierService;
 import com.xczhihui.barrier.vo.BarrierVo;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Barrier;
 import com.xczhihui.bxg.online.common.domain.BarrierStrategy;

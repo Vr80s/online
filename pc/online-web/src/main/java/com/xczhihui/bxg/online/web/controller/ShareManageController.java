@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ShareManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.text.ParseException;
 
-import static com.xczhihui.bxg.common.util.bean.ResponseObject.newSuccessResponseObject;
+import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObject;
 
 /**
  * 分销管理模块控制层代码

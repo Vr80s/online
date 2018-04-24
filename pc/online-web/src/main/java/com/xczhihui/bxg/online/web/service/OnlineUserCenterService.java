@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.web.service;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.online.api.vo.*;
+import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.ApplyVo;
 import com.xczhihui.bxg.online.web.vo.CityVo;

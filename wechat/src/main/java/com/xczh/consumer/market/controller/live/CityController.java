@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
+import com.xczhihui.online.api.service.CityService;
+import com.xczhihui.online.api.vo.UserAddressManagerVo;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>

@@ -3,7 +3,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity;
+import com.xczhihui.common.support.domain.BasicEntity;
 
 
 @Entity
