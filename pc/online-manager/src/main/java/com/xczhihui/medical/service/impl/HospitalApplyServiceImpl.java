@@ -1,7 +1,7 @@
 package com.xczhihui.medical.service.impl;
 
 import com.xczhihui.anchor.dao.AnchorDao;
-import com.xczhihui.bxg.common.support.lock.RedissonUtil;
+import com.xczhihui.common.support.lock.RedissonUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;

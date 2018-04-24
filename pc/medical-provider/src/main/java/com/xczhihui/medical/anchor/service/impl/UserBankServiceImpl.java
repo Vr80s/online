@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.common.util.enums.BankCardType;
 import com.xczhihui.bxg.common.util.IDCard;
-import com.xczhihui.bxg.common.support.lock.Lock;
+import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.UserBankMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;

@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.support.domain.SystemVariate;
-import com.xczhihui.bxg.common.support.service.SystemVariateService;
+import com.xczhihui.common.support.domain.SystemVariate;
+import com.xczhihui.common.support.service.SystemVariateService;
 import com.xczhihui.bxg.online.common.domain.Resource;
 import com.xczhihui.user.dao.PermResourceDao;
 import com.xczhihui.user.dao.RoleDao;

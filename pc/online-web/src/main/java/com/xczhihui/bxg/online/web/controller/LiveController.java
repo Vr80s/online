@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.FileUtil;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;

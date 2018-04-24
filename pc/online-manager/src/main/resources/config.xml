@@ -64,8 +64,8 @@
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>com.xczhihui.bxg.common.support.domain.SystemVariate</value>
-                <value>com.xczhihui.bxg.common.support.domain.Attachment</value>
+                <value>com.xczhihui.common.support.domain.SystemVariate</value>
+                <value>com.xczhihui.common.support.domain.Attachment</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -107,11 +107,11 @@
                      pointcut="execution(* com.xczhihui..service..*.*(..))"/>
     </aop:config>
 
-    <bean id="simpleHibernateDao" class="com.xczhihui.bxg.common.support.dao.SimpleHibernateDao"/>
-    <bean id="systemVariateService" class="com.xczhihui.bxg.common.support.service.impl.SystemVariateServiceImpl"/>
+    <bean id="simpleHibernateDao" class="com.xczhihui.common.support.dao.SimpleHibernateDao"/>
+    <bean id="systemVariateService" class="com.xczhihui.common.support.service.impl.SystemVariateServiceImpl"/>
     <!-- 附件中心 -->
     <bean id="attachmentCenterService"
-          class="com.xczhihui.bxg.common.support.service.impl.AttachmentCenterServiceImpl"/>
+          class="com.xczhihui.common.support.service.impl.AttachmentCenterServiceImpl"/>
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
@@ -127,11 +127,11 @@
     <import resource="shiro.xml"/>
 
     <!--RedissonUtil配置-->
-    <bean id="redissonUtil" class="com.xczhihui.bxg.common.support.lock.RedissonUtil">
+    <bean id="redissonUtil" class="com.xczhihui.common.support.lock.RedissonUtil">
         <property name="redisHost" value="${redis.host}"></property>
         <property name="redisPort" value="${redis.port}"></property>
     </bean>
 
-    <bean id="onlineConfig" class="com.xczhihui.bxg.common.support.config.OnlineConfig"></bean>
-    <bean id="CCUtils" class="com.xczhihui.bxg.common.support.cc.util.CCUtils"></bean>
+    <bean id="onlineConfig" class="com.xczhihui.common.support.config.OnlineConfig"></bean>
+    <bean id="CCUtils" class="com.xczhihui.common.support.cc.util.CCUtils"></bean>
 </beans>

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xczhihui.bxg.common.support.service.DictionaryService;
+import com.xczhihui.common.support.service.DictionaryService;
 import com.xczhihui.bxg.common.util.bean.DictionaryVo;
 /**
  * 数据字典，取下拉列表、把value翻译成name

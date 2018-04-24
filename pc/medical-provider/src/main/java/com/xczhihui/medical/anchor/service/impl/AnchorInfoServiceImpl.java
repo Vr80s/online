@@ -7,8 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.xczhihui.bxg.common.support.cc.util.CCUtils;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.common.support.cc.util.CCUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.medical.anchor.enums.AuchorTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;

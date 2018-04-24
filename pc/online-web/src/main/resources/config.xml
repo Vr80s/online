@@ -51,8 +51,8 @@
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>com.xczhihui.bxg.common.support.domain.SystemVariate</value>
-                <value>com.xczhihui.bxg.common.support.domain.Attachment</value>
+                <value>com.xczhihui.common.support.domain.SystemVariate</value>
+                <value>com.xczhihui.common.support.domain.Attachment</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -99,7 +99,7 @@
     <!-- 开启事务控制的注解支持 20180302-->
     <tx:annotation-driven transaction-manager="txManager"/>
 
-    <!-- <bean id="simpleHibernateDao" class="com.xczhihui.bxg.common.support.dao.SimpleHibernateDao" /> -->
+    <!-- <bean id="simpleHibernateDao" class="SimpleHibernateDao" /> -->
     <bean id="broadcast" class="com.xczhihui.bxg.online.web.base.common.Broadcast"/>
 
     <bean id="emailService" class="com.xczhihui.bxg.online.web.service.impl.EmailService">
@@ -109,7 +109,7 @@
         <property name="password" value="${email.password}"/>
     </bean>
 
-    <bean id="cacheService" class="com.xczhihui.bxg.common.support.service.impl.RedisCacheService">
+    <bean id="cacheService" class="com.xczhihui.common.support.service.impl.RedisCacheService">
         <constructor-arg name="host" value="${redis.host}"/>
         <constructor-arg name="port" value="${redis.port}"/>
         <constructor-arg name="maxIdle" value="${reids.maxIdle}"/>
@@ -118,19 +118,19 @@
     </bean>
     <!-- 附件中心 -->
     <bean id="attachmentCenterService"
-          class="com.xczhihui.bxg.common.support.service.impl.AttachmentCenterServiceImpl"/>
-    <bean id="systemVariateService" class="com.xczhihui.bxg.common.support.service.impl.SystemVariateServiceImpl"/>
+          class="com.xczhihui.common.support.service.impl.AttachmentCenterServiceImpl"/>
+    <bean id="systemVariateService" class="com.xczhihui.common.support.service.impl.SystemVariateServiceImpl"/>
 
     <!--RedissonUtil配置-->
-    <bean id="redissonUtil" class="com.xczhihui.bxg.common.support.lock.RedissonUtil">
+    <bean id="redissonUtil" class="com.xczhihui.common.support.lock.RedissonUtil">
         <property name="redisHost" value="${redis.host}"></property>
         <property name="redisPort" value="${redis.port}"></property>
     </bean>
-    <bean id="onlineConfig" class="com.xczhihui.bxg.common.support.config.OnlineConfig"></bean>
-    <bean id="CCUtils" class="com.xczhihui.bxg.common.support.cc.util.CCUtils"></bean>
+    <bean id="onlineConfig" class="com.xczhihui.common.support.config.OnlineConfig"></bean>
+    <bean id="CCUtils" class="com.xczhihui.common.support.cc.util.CCUtils"></bean>
 
     <!-- aop分布式锁 -->
-    <bean id="lockService" class="com.xczhihui.bxg.common.support.lock.LockService"></bean>
+    <bean id="lockService" class="com.xczhihui.common.support.lock.LockService"></bean>
 
     <bean id="aliPayBean" class="com.xczhihui.pay.alipay.AliPayBean">
         <property name="appId" value="${alipay.app.id}"></property>
@@ -187,7 +187,7 @@
                    timeout="${dubbo.provider.timeout}"/>
 
     <!-- 附件服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService"
+    <dubbo:service interface="com.xczhihui.common.support.service.AttachmentCenterService"
                    ref="attachmentCenterService"
                    timeout="${dubbo.provider.timeout}"/>
 

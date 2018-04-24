@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.common.support.lock.Lock;
+import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.wechat.course.mapper.FocusMapper;
 import com.xczhihui.wechat.course.model.Focus;
 import com.xczhihui.wechat.course.service.IFocusService;

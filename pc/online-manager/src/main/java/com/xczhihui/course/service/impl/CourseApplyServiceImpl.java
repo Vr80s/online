@@ -1,8 +1,7 @@
 package com.xczhihui.course.service.impl;
 
 import com.xczhihui.anchor.service.AnchorService;
-import com.xczhihui.bxg.common.support.cc.util.CCUtils;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.enums.ApplyStatus;
 import com.xczhihui.bxg.common.util.enums.CourseDismissal;

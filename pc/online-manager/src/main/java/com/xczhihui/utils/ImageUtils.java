@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.support.service.AttachmentType;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 
 /**

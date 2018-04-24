@@ -1,6 +1,6 @@
 package com.xczhihui.ask.dao;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.ask.vo.AccuseVo;
 

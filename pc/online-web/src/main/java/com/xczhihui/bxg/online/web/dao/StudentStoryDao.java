@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.dao;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.online.common.domain.StudentStory;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import org.hibernate.criterion.DetachedCriteria;

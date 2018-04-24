@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import com.xczhihui.bxg.common.util.enums.Payment;
-import com.xczhihui.bxg.common.support.lock.Lock;
+import com.xczhihui.common.support.lock.Lock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.common.util.BeanUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.enums.*;
@@ -9,7 +9,7 @@ import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.common.util.OrderNoUtil;
-import com.xczhihui.bxg.common.support.lock.Lock;
+import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.EnchashmentApplyDao;
 import com.xczhihui.bxg.online.web.dao.UserCoinDao;

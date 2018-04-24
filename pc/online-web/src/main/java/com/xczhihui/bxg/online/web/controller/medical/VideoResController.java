@@ -2,10 +2,10 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.xczhihui.bxg.common.support.cc.config.Config;
-import com.xczhihui.bxg.common.support.cc.util.APIServiceFunction;
-import com.xczhihui.bxg.common.support.cc.util.Md5Encrypt;
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.common.support.cc.config.Config;
+import com.xczhihui.common.support.cc.util.APIServiceFunction;
+import com.xczhihui.common.support.cc.util.Md5Encrypt;
+import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;

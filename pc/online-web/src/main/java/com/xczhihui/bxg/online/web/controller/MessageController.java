@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.controller;
 
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;

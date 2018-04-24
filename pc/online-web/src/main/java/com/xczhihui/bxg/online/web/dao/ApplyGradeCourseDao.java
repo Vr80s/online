@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.dao;/**
  * Created by admin on 2016/8/31.
  */
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.interceptor;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.dao.ASKQuestionListDao;

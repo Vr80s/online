@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity;
+import com.xczhihui.common.support.domain.BasicEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

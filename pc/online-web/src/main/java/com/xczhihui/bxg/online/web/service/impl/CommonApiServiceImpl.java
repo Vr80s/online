@@ -5,11 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.support.domain.SystemVariate;
-import com.xczhihui.bxg.common.support.service.SystemVariateService;
+import com.xczhihui.common.support.service.SystemVariateService;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
 import com.xczhihui.bxg.online.api.vo.JobVo;
 import com.xczhihui.bxg.online.web.dao.UserCenterDao;

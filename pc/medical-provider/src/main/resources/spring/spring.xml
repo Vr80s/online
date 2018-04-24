@@ -21,7 +21,7 @@
           class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="corePoolSize" value="2"></property>
     </bean>
-    <bean id="cacheService" class="com.xczhihui.bxg.common.support.service.impl.RedisCacheService">
+    <bean id="cacheService" class="com.xczhihui.common.support.service.impl.RedisCacheService">
         <constructor-arg name="host" value="${redis.host}"/>
         <constructor-arg name="port" value="${redis.port}"/>
         <constructor-arg name="maxIdle" value="${reids.maxIdle}"/>
@@ -29,7 +29,7 @@
         <constructor-arg name="timeout" value="${reids.timeout}"/>
     </bean>
     <!-- aop -->
-    <bean id="lockService" class="com.xczhihui.bxg.common.support.lock.LockService"></bean>
+    <bean id="lockService" class="com.xczhihui.common.support.lock.LockService"></bean>
     <!-- 启动对@AspectJ注解的支持  -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
@@ -136,12 +136,12 @@
 
 
     <!--RedissonUtil配置-->
-    <bean id="redissonUtil" class="com.xczhihui.bxg.common.support.lock.RedissonUtil">
+    <bean id="redissonUtil" class="com.xczhihui.common.support.lock.RedissonUtil">
         <property name="redisHost" value="${redis.host}"></property>
         <property name="redisPort" value="${redis.port}"></property>
     </bean>
 
-    <bean id="onlineConfig" class="com.xczhihui.bxg.common.support.config.OnlineConfig"></bean>
-    <bean id="CCUtils" class="com.xczhihui.bxg.common.support.cc.util.CCUtils"></bean>
+    <bean id="onlineConfig" class="com.xczhihui.common.support.config.OnlineConfig"></bean>
+    <bean id="CCUtils" class="com.xczhihui.common.support.cc.util.CCUtils"></bean>
 
 </beans>

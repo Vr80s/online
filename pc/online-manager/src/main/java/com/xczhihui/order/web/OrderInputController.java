@@ -1,14 +1,12 @@
 package com.xczhihui.order.web;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.common.util.enums.OrderFrom;
 import com.xczhihui.order.service.OrderInputService;
 import com.xczhihui.order.vo.OrderInputVo;
@@ -33,7 +31,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.user.center.utils.CodeUtil;
 
 /**
  * 线下订单录入

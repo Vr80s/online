@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.xczhihui.bxg.common.support.config.OnlineConfig;
+import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.common.util.enums.CourseForm;
 import com.xczhihui.bxg.common.util.enums.Multimedia;
-import com.xczhihui.bxg.common.support.cc.bean.CategoryBean;
-import com.xczhihui.bxg.common.support.cc.config.Config;
-import com.xczhihui.bxg.common.support.cc.util.APIServiceFunction;
-import com.xczhihui.bxg.common.support.cc.util.CCUtils;
+import com.xczhihui.common.support.cc.bean.CategoryBean;
+import com.xczhihui.common.support.cc.config.Config;
+import com.xczhihui.common.support.cc.util.APIServiceFunction;
+import com.xczhihui.common.support.cc.util.CCUtils;
 
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;

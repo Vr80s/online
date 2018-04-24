@@ -2,7 +2,7 @@ package com.xczhihui.barrier.dao;
 
 import com.xczhihui.barrier.vo.ExamPaperVo;
 import com.xczhihui.barrier.vo.PaperInfoVo;
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.common.web.util;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.common.support.domain.BxgUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,7 +1,7 @@
 package com.xczhihui.barrier.dao;
 
 import com.xczhihui.barrier.vo.BarrierVo;
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
 import com.xczhihui.course.vo.CourseVo;
