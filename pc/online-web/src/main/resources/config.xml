@@ -136,14 +136,14 @@
     <bean id="lockService" class="com.xczhihui.bxg.common.support.lock.LockService"></bean>
 
     <bean id="aliPayBean" class="com.xczhihui.pay.alipay.AliPayBean">
-        <property name="appId" value="${alipay.app_id}"></property>
-        <property name="privateKey" value="${alipay.merchant_private_key}"></property>
-        <property name="publicKey" value="${alipay.alipay_public_key}"></property>
+        <property name="appId" value="${alipay.app.id}"></property>
+        <property name="privateKey" value="${alipay.merchant.private.key}"></property>
+        <property name="publicKey" value="${alipay.alipay.public.key}"></property>
         <property name="serverUrl" value="${alipay.url}"></property>
         <property name="domain" value="${online.web.url}"></property>
     </bean>
 
-    <bean id="WxPayBean" class="com.xczhihui.pay.weixin.api.WxPayBean">
+    <bean id="WxPayBean" class="com.xczhihui.pay.weixin.api.WxPay4PcBean">
         <property name="appId" value="${wechat.app.id}"></property>
         <property name="appSecret" value="${wechat.api.secret}"></property>
         <property name="mchId" value="${wechat.mch.id}"></property>
@@ -268,6 +268,9 @@
 
     <!-- 充值服务 -->
     <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService" ref="rechargesService"
+                   timeout="${dubbo.consumer.timeout}"/>
+    <!-- 支付成功回调服务 -->
+    <dubbo:service interface="com.xczhihui.bxg.online.api.service.PayService" ref="payService"
                    timeout="${dubbo.consumer.timeout}"/>
                    
     <!-- wechat 服务  -->          

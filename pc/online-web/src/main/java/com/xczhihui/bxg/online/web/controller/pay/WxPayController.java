@@ -11,7 +11,7 @@ import com.xczhihui.bxg.common.util.enums.PayOrderType;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
-import com.xczhihui.bxg.online.web.service.PayService;
+import com.xczhihui.bxg.online.api.service.PayService;
 import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
 import com.xczhihui.pay.ext.kit.HttpKit;
 import com.xczhihui.pay.ext.kit.IpKit;
@@ -55,7 +55,7 @@ public class WxPayController extends WxPayApiController {
 	private static final String BUY_COIN_TEXT = "充值熊猫币:{0}个";
 
 	@Autowired
-	WxPayBean wxPayBean;
+	WxPay4PcBean wxPayBean;
 	@Autowired
     IOrderService orderService;
 	@Autowired

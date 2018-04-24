@@ -31,14 +31,10 @@ import com.xczhihui.wechat.course.vo.WatchHistoryVO;
 @Service
 public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,WatchHistory> implements IWatchHistoryService {
 
-	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WatchHistoryServiceImpl.class);
 	
 	@Autowired
 	private WatchHistoryMapper watchHistoryMapper;
-	
-	@Autowired
-	private CourseMapper courseMapper;
 
 	@Override
 	public Page<WatchHistoryVO> selectWatchHistory(Page<WatchHistoryVO> page,
@@ -65,10 +61,10 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		  /**
 		   * 判断这个记录有没有添加进去，如果有添加进去，需要做更新操作	
 		   */
-		  
 		 WatchHistory watchHistory =null;	
 		 if(target.getCollectionId()!=null && target.getCollectionId() !=0 ){
-			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(target.getUserId(),target.getCollectionId());	
+			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(target.getUserId(),
+					 target.getCollectionId());	
 			 if(watchHistory!=null){
 				 watchHistory.setCourseId(target.getCourseId());
 			 }

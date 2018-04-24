@@ -655,6 +655,7 @@ $('.nav-tabs a').click(function(){
 	var aa = $(this).prop('class');
 	window.localStorage.findStyle = aa;
 //	return $(this).parent().find("a").click();
+//	$('#Pagination').addClass('hide')
 })
 
 

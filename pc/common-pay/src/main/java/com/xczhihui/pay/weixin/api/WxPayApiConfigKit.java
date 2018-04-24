@@ -10,7 +10,8 @@ import com.xczhihui.pay.ext.kit.StrKit;
  * 2017年5月22日
  */
 public class WxPayApiConfigKit {
-private static final ThreadLocal<String> TL = new ThreadLocal<String>();
+
+    private static final ThreadLocal<String> TL = new ThreadLocal<String>();
 	
 	private static final Map<String, WxPayApiConfig> CFG_MAP = new ConcurrentHashMap<String, WxPayApiConfig>();
 	private static final String DEFAULT_CFG_KEY = "_default_ijpay_key_";
@@ -28,6 +29,7 @@ private static final ThreadLocal<String> TL = new ThreadLocal<String>();
     }
 	
 	public static WxPayApiConfig setThreadLocalWxPayApiConfig(WxPayApiConfig wxPayApiConfig) {
+        setThreadLocalAppId(wxPayApiConfig.getAppId());
         return putApiConfig(wxPayApiConfig);
     }
 

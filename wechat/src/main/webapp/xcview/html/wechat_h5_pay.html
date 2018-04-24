@@ -92,8 +92,7 @@
 		}, function(data) {
 			 if (data.success) {
 	             var result = data.resultObject;
-	             alert(result.orderStatus);
-	             //支付状态 0:未支付 1:已支付 2:已关闭 
+	             //支付状态 0:未支付 1:已支付 2:已关闭
 	             if(result.orderStatus==1){
 	            	 location.replace("/xcview/html/buy_prosperity.html?courseId="+getQueryString("courseId"));
 	             }else{

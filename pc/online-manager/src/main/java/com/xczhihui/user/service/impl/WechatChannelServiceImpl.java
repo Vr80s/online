@@ -37,7 +37,7 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
 	@Autowired
 	private WechatChannelDao wechatChannelDao;
 
-	@Value("${wechatpay.gzh_appid}")
+	@Value("${wechatpay.h5.appid}")
 	public  String appid;
 	@Value("${wechatpay.gzhSecret}")
 	public  String appsecret;

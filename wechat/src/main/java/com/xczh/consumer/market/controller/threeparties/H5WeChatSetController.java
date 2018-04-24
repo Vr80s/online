@@ -60,7 +60,7 @@ public class H5WeChatSetController {
 	private String returnOpenidUri;
 	
 	
-	@Value("${wechatpay.gzh_appid}")
+	@Value("${wechatpay.h5.appid}")
 	private String gzh_appid;
 	
 	
