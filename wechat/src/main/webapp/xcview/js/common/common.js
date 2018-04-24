@@ -56,20 +56,6 @@ if(stringnull(qr_code)){
 	location.href = "/xczh/share/xcCustomQrCode?search_url="+searchUrl+"&wxOrbrower="+wxOrbrower;
 }
 
-//获取  返回：/xcview/view/home_page.html
-
-var orderPageHtml = sessionStorage.getItem("order_page_html");
-if(stringnull(orderPageHtml)){
-	var pathname = window.location.pathname;
-	if(pathname.indexOf("my_study.html")!=-1 ||
-			pathname.indexOf("discovery.html")!=-1 || 
-			pathname.indexOf("my_homepage.html")!=-1){
-		
-		sessionStorage.setItem("order_page_html","");
-	}
-}
-
-
 var accessCommon = localStorage.access;
 var current = window.location.search;
 //当前域名
