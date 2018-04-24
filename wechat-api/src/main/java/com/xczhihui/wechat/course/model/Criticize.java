@@ -86,6 +86,16 @@ public class Criticize extends Model<Criticize> {
      */
 	@TableField("is_buy")
 	private Boolean isBuy;
+	/**
+	 * 回复人id
+	 */
+	@TableField("reply_user")
+	private String replyUser;
+	/**
+	 * 回复评论id
+	 */
+	@TableField("reply_criticize_id")
+	private String replyCriticizeId;
     /**
      * 是否点赞 0 未点赞 1 点赞
      */
@@ -117,6 +127,21 @@ public class Criticize extends Model<Criticize> {
 
 	@TableField(exist = false)
 	private String loginName;
+
+	@TableField(exist = false)
+	private String replyName;
+
+	@TableField(exist = false)
+	private String replyLoginName;
+
+	@TableField(exist = false)
+	private String replyContent;
+
+	@TableField(exist = false)
+	private Date replyCreateTime;
+
+	@TableField(exist = false)
+	private String replySmallHeadPhoto;
 	
 
 	public String getLoginName() {
@@ -308,6 +333,62 @@ public class Criticize extends Model<Criticize> {
 		this.isPraise = isPraise;
 	}
 
+	public String getReplyUser() {
+		return replyUser;
+	}
+
+	public void setReplyUser(String replyUser) {
+		this.replyUser = replyUser;
+	}
+
+	public String getReplyCriticizeId() {
+		return replyCriticizeId;
+	}
+
+	public void setReplyCriticizeId(String replyCriticizeId) {
+		this.replyCriticizeId = replyCriticizeId;
+	}
+
+	public String getReplyName() {
+		return replyName;
+	}
+
+	public void setReplyName(String replyName) {
+		this.replyName = replyName;
+	}
+
+	public String getReplyLoginName() {
+		return replyLoginName;
+	}
+
+	public void setReplyLoginName(String replyLoginName) {
+		this.replyLoginName = replyLoginName;
+	}
+
+	public String getReplyContent() {
+		return replyContent;
+	}
+
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
+
+	public Date getReplyCreateTime() {
+		return replyCreateTime;
+	}
+
+	public void setReplyCreateTime(Date replyCreateTime) {
+		this.replyCreateTime = replyCreateTime;
+	}
+
+	public String getReplySmallHeadPhoto() {
+		return replySmallHeadPhoto;
+	}
+
+	public void setReplySmallHeadPhoto(String replySmallHeadPhoto) {
+		this.replySmallHeadPhoto = replySmallHeadPhoto;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -331,11 +412,19 @@ public class Criticize extends Model<Criticize> {
 				", criticizeLable='" + criticizeLable + '\'' +
 				", overallLevel=" + overallLevel +
 				", isBuy=" + isBuy +
+				", replyUser='" + replyUser + '\'' +
+				", replyCriticizeId='" + replyCriticizeId + '\'' +
 				", isPraise=" + isPraise +
 				", onlineUser=" + onlineUser +
 				", reply=" + reply +
 				", name='" + name + '\'' +
 				", smallHeadPhoto='" + smallHeadPhoto + '\'' +
+				", loginName='" + loginName + '\'' +
+				", replyName='" + replyName + '\'' +
+				", replyLoginName='" + replyLoginName + '\'' +
+				", replyContent='" + replyContent + '\'' +
+				", replyCreateTime=" + replyCreateTime +
+				", replySmallHeadPhoto='" + replySmallHeadPhoto + '\'' +
 				'}';
 	}
 }
