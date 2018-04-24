@@ -18,7 +18,7 @@
 
     <context:property-placeholder location="classpath:config.properties"/>
     <context:component-scan
-            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.bxg.common.support.**, com.xczhihui.bxg.online.web.support.*"/>
+            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.common.support.**, com.xczhihui.bxg.online.web.support.*"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">

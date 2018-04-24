@@ -24,7 +24,7 @@
             base-package="com.xczhihui.**.dao,
                             com.xczhihui.**.service,
                             com.xczhihui.support.**,
-                            com.xczhihui.bxg.common.support.config"/>
+                            com.xczhihui.common.support.config"/>
 
     <task:annotation-driven/>
 
