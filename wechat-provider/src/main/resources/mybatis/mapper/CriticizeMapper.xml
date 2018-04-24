@@ -80,4 +80,15 @@
 		  and oc.course_id = #{courseId}
 		  and oc.create_person = #{userId}
 	</select>
+	
+	 <!--  如果是免费的话，不算购买 -->
+	<select id="hasCourseIsBuy" resultType="integer">
+		SELECT
+		  count(*)+if((select oc.is_free from oe_course as oc where oc.id = #{courseId}) = 0,0,-1)
+		from
+		  apply_r_grade_course argc
+		where argc.is_delete = 0
+		  and argc.course_id = #{courseId}
+		  and argc.user_id = #{userId}
+	</select>
 </mapper>

@@ -2,6 +2,7 @@ package com.wetcher;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +22,13 @@ import com.xczh.consumer.market.utils.cc.APIServiceFunction;
 public class TestCCVideo {
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CCVideoController.class);
-	
+
+	@Test
+	public void testTime(){
+		System.out.println(String.valueOf(new Date().getTime() / 1000));
+		System.out.println(System.currentTimeMillis() / 1000);
+	}
+
 	
 	/**
 	 * 获取播放代码

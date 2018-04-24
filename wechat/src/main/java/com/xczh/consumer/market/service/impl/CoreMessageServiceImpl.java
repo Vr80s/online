@@ -40,7 +40,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
-	@Value("${wechatpay.gzh_appid}")
+	@Value("${wechatpay.h5.appid}")
 	private String gzh_appid;
 	
 	@Autowired

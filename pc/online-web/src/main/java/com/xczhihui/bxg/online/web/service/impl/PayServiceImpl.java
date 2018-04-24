@@ -6,7 +6,7 @@ import com.xczhihui.bxg.common.util.enums.Payment;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.web.service.OrderService;
-import com.xczhihui.bxg.online.web.service.PayService;
+import com.xczhihui.bxg.online.api.service.PayService;
 import com.xczhihui.wechat.course.model.AlipayPaymentRecord;
 import com.xczhihui.wechat.course.model.WxcpPayFlow;
 import com.xczhihui.wechat.course.service.IPaymentRecordService;
@@ -24,7 +24,7 @@ import java.util.Map;
  * @author: name：yuxin <br>email: yuruixin@ixincheng.com <br>
  * Create Time:  2018/4/19 0019-下午 3:04<br>
  */
-@Service
+@Service("payService")
 public class PayServiceImpl implements PayService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -42,11 +42,12 @@ public class PayServiceImpl implements PayService {
     @Override
     public void aliPayBusiness(Map<String, String> params) throws Exception {
         AlipayPaymentRecord apr = paymentRecordService.saveAlipayPaymentRecord(params);
-        PayMessage payMessage = PayMessage.getPayMessage(params.get("passback_params"));
+        String payMessageStr = params.get("passback_params");
+        PayMessage payMessage = PayMessage.getPayMessage(payMessageStr);
         if(apr!=null){
             if (SUCCESS.equals(apr.getTradeStatus())) {
                 String type = payMessage.getType();
-                this.business(type,apr.getOutTradeNo(),apr.getTradeNo(),payMessage);
+                this.business(type,apr.getOutTradeNo(),apr.getTradeNo(),payMessageStr);
             }else {
                 logger.info("===支付失败===");
                 for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -63,12 +64,13 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public void wxPayBusiness(Map<String, String> params) throws Exception {
-        PayMessage payMessage = PayMessage.getPayMessage(String.valueOf(params.get("attach")));
+        String payMessageStr = params.get("attach");
+        PayMessage payMessage = PayMessage.getPayMessage(String.valueOf(payMessageStr));
 
         WxcpPayFlow wxcpPayFlow = paymentRecordService.saveWxPayPaymentRecord(params);
         if(wxcpPayFlow!=null){
             String type = payMessage.getType();
-            this.business(type,wxcpPayFlow.getOutTradeNo().substring(0,20),wxcpPayFlow.getTransactionId(),payMessage);
+            this.business(type,wxcpPayFlow.getOutTradeNo().substring(0,20),wxcpPayFlow.getTransactionId(),payMessageStr);
         }else{
             logger.info("===该支付记录已存在===");
             for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -78,7 +80,7 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override
-    public void business(String type, String outTradeNo, String tradeNo, PayMessage payMessage) throws Exception {
+    public void business(String type, String outTradeNo, String tradeNo, String payMessageStr) throws Exception {
         if(PayOrderType.COURSE_ORDER.getCode().equals(type)){
             Integer orderStatus = orderService.getOrderStatus(outTradeNo);
             //付款成功，如果order未完成
@@ -95,6 +97,7 @@ public class PayServiceImpl implements PayService {
                 }
             }
         }else if(PayOrderType.COIN_ORDER.getCode().equals(type)){
+            PayMessage payMessage = PayMessage.getPayMessage(String.valueOf(payMessageStr));
             userCoinService.updateBalanceForRecharge(payMessage.getUserId(),Payment.ALIPAY,payMessage.getValue(), OrderFrom.PC,outTradeNo);
         }
     }
