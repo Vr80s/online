@@ -1288,13 +1288,13 @@
 									<input type="file" value="点击上传资源" name="file" style="cursor:pointer;" id="btn_width" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts"/>
 	
 								</div>
-								<span class="uploadfinish" style="display:none;margin-left: 112px;display: block;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
+								<span class="uploadfinish" style="display:none;margin-left: 112px;display: block;top: 3px;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
 								<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
 								<p class="warning warning1 hide">请先上传资源文件</p >
 							</div>
 	
 							<div class="resource_uploading" style="display:none;">
-								<p>资源上传中,请稍后...</p >
+								<p>资源上传中,请稍候...</p >
 								<span id="uploadProgress">
 									<div class="progress progress-striped active">
 										<div class="progress-bar progress-bar-success progress-resource" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
@@ -1305,7 +1305,7 @@
 								<a id="cancalUpdata1" onclick="cancalUpdata1()" style="cursor:pointer;">取消上传</a>
 								<a id="continueUpload" onclick="continueUpload()" style="display:none;cursor:pointer;">继续上传</a>
 							</div>
-							<div class="baocun">
+							<div class="baocun" style="padding: 20px 0 0 113px;">
 								<input type="button" value="保存" id="submit" />
 							</div>
 						</form>
@@ -2692,7 +2692,7 @@
         document.getElementById('addResource').reset();
         //$("#btn_width").val('点击上传资源');
         $("#ccName").hide();
-        $(".propress-file").css({"border":"1px solid green","overflow":"hidden"})          
+        $(".propress-file").css({"border":"1px solid green","overflow":"hidden","top":"13px",})          
         $("#btn_width").css({"opacity":"0","left":"-100%"})
 	}
 	$(function(){
