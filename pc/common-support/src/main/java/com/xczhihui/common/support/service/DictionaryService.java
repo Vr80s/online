@@ -2,7 +2,7 @@ package com.xczhihui.common.support.service;
 
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.DictionaryVo;
+import com.xczhihui.common.util.bean.DictionaryVo;
 
 /**
  * 数据字典中心

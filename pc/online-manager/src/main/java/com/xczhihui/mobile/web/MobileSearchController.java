@@ -1,7 +1,7 @@
 package com.xczhihui.mobile.web;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.mobile.service.MobileSearchService;
 import com.xczhihui.mobile.vo.MobileSearchVo;

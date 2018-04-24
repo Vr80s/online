@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.common.util.enums.UserSex;
+import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.wechat.course.mapper.MyInfoMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.service.IMyInfoService;

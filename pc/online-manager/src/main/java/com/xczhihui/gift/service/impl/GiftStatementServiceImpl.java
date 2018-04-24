@@ -3,7 +3,7 @@ package com.xczhihui.gift.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.gift.dao.GiftStatementDao;
 import com.xczhihui.gift.service.GiftStatementService;

@@ -1,6 +1,6 @@
 package com.xczhihui.course.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.vo.ApplyVo;
 
 public interface ApplyService {

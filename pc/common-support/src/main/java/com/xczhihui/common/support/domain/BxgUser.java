@@ -1,6 +1,6 @@
 package com.xczhihui.common.support.domain;
 
-import com.xczhihui.bxg.common.util.enums.UserSex;
+import com.xczhihui.common.util.enums.UserSex;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

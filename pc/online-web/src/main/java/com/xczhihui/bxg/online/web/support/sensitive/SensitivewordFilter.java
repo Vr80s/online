@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.xczhihui.bxg.common.util.EmailUtil;
+import com.xczhihui.common.util.EmailUtil;
 
 /**
  * @version 1.0

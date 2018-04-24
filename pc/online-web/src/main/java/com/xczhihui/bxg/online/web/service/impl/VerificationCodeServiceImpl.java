@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Resource;
 
-import com.xczhihui.bxg.common.util.enums.VCodeType;
+import com.xczhihui.common.util.enums.VCodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.SystemVariate;
-import com.xczhihui.bxg.common.util.SmsUtil;
+import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.VerificationCode;
 import com.xczhihui.bxg.online.web.service.VerificationCodeService;

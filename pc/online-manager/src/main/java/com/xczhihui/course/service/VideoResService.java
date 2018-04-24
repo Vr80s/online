@@ -2,7 +2,7 @@ package com.xczhihui.course.service;
 
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Chapter;
 import com.xczhihui.bxg.online.common.domain.Video;
 import com.xczhihui.course.vo.LibraryVo;

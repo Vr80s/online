@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.Message;

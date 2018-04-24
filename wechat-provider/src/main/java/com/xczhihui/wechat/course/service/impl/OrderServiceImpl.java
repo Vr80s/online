@@ -1,10 +1,9 @@
 package com.xczhihui.wechat.course.service.impl;
 
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.common.util.IStringUtil;
-import com.xczhihui.bxg.common.util.OrderNoUtil;
-import com.xczhihui.bxg.common.util.enums.OrderStatus;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.OrderStatus;
 import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.mapper.OrderMapper;
 import com.xczhihui.wechat.course.model.Course;

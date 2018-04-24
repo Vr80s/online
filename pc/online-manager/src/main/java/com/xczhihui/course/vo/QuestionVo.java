@@ -2,7 +2,7 @@ package com.xczhihui.course.vo;
 
 import java.util.Date;
 
-import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.common.util.DateUtil;
 
 /**
  * @author snow

@@ -11,7 +11,7 @@ import com.xczhihui.common.support.service.DictionaryService;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.DictionaryVo;
+import com.xczhihui.common.util.bean.DictionaryVo;
 
 @Service("dictionaryService")
 public class DictionaryServiceImpl implements DictionaryService {

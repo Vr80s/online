@@ -3,7 +3,7 @@ package com.xczhihui.common.support.service;
 import java.util.List;
 
 import com.xczhihui.common.support.domain.SystemVariate;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 
 /**
  * 系统变量，处理系统的数据字典、配置等。

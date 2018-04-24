@@ -2,7 +2,7 @@ package com.xczhihui.headline.service;
 
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalWritings;
 import com.xczhihui.headline.vo.ArticleTypeVo;
 import com.xczhihui.headline.vo.ArticleVo;

@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
 
 import org.springframework.beans.factory.annotation.Autowired;

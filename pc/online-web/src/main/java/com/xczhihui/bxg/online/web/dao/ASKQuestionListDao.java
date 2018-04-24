@@ -3,7 +3,7 @@ package com.xczhihui.bxg.online.web.dao;/**
  */
 
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.base.utils.MysqlUtils;

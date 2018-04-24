@@ -1,18 +1,18 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.common.util.BeanUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.enums.*;
+import com.xczhihui.common.util.BeanUtil;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.common.util.OrderNoUtil;
+import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.EnchashmentApplyDao;
 import com.xczhihui.bxg.online.web.dao.UserCoinDao;
+import com.xczhihui.common.util.enums.*;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import org.apache.commons.lang.StringUtils;
 import org.jivesoftware.smack.SmackException;

@@ -3,7 +3,7 @@ package com.xczhihui.message.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Message;
 import com.xczhihui.bxg.online.common.domain.MessageRecord;
 import com.xczhihui.common.web.UserVo;

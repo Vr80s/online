@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.util.enums.OrderFrom;
-import com.xczhihui.bxg.common.util.enums.PayOrderType;
-import com.xczhihui.bxg.common.util.enums.Payment;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.PayOrderType;
+import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.web.service.OrderService;

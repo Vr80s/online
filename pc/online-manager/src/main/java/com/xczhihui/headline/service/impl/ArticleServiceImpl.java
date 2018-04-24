@@ -12,8 +12,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.enums.HeadlineType;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.headline.dao.ArticleDao;
 import com.xczhihui.headline.service.ArticleService;
 import com.xczhihui.headline.vo.ArticleTypeVo;

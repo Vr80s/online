@@ -1,6 +1,6 @@
 package com.xczhihui.medical.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 
 /**

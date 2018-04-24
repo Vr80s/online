@@ -1,6 +1,6 @@
 package com.xczhihui.order.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.order.vo.OrderInputVo;
 
 import java.util.List;

@@ -12,7 +12,7 @@ import com.xczhihui.bbs.dao.BBSLabelDao;
 import com.xczhihui.bbs.dao.BBSPostDao;
 import com.xczhihui.bbs.service.BBSPostService;
 import com.xczhihui.bbs.vo.BBSPostVo;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.BBSPost;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;

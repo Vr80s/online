@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.common.util.CodeUtil;
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalRecruitMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;

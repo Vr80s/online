@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.xczhihui.common.support.config.OnlineConfig;
-import com.xczhihui.bxg.common.util.DateUtil;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
-import com.xczhihui.bxg.common.util.enums.Multimedia;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.common.support.cc.bean.CategoryBean;
 import com.xczhihui.common.support.cc.config.Config;
 import com.xczhihui.common.support.cc.util.APIServiceFunction;
@@ -37,7 +37,7 @@ import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;

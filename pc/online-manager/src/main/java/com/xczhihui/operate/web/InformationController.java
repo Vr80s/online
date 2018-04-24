@@ -21,8 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xczhihui.common.support.domain.SystemVariate;
 import com.xczhihui.common.support.service.SystemVariateService;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.operate.vo.InformationVo;
 import com.xczhihui.operate.vo.TypeVo;
 

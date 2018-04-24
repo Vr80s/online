@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.controller;/**
  * Created by admin on 2016/9/19.
  */
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.AskQuestionListService;

@@ -21,9 +21,9 @@ import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.support.support.AttachmentBusinessType;
-import com.xczhihui.bxg.common.util.CodeUtil;
-import com.xczhihui.bxg.common.util.HttpUtil;
-import com.xczhihui.bxg.common.util.JsonUtil;
+import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.HttpUtil;
+import com.xczhihui.common.util.JsonUtil;
 
 /**
  * 附件上传统一处理

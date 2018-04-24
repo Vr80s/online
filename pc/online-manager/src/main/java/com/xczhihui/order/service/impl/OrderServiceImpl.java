@@ -1,7 +1,7 @@
 package com.xczhihui.order.service.impl;
 
 import com.xczhihui.common.support.service.SystemVariateService;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Order;
 

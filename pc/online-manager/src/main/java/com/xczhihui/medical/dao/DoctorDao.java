@@ -1,6 +1,6 @@
 package com.xczhihui.medical.dao;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.common.dao.HibernateDao;
 import org.hibernate.criterion.DetachedCriteria;

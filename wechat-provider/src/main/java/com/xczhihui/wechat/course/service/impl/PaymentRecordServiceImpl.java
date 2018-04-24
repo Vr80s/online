@@ -1,6 +1,6 @@
 package com.xczhihui.wechat.course.service.impl;
 
-import com.xczhihui.bxg.common.util.enums.PayOrderType;
+import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.wechat.course.mapper.AlipayPaymentRecordMapper;
 import com.xczhihui.wechat.course.mapper.WxcpPayFlowMapper;
 import com.xczhihui.wechat.course.model.AlipayPaymentRecord;

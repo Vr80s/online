@@ -5,7 +5,7 @@ package com.xczhihui.ask.service.impl;
  */
 
 import com.xczhihui.ask.vo.QuestionVo;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.ask.dao.QuestionDao;
 import com.xczhihui.ask.service.QuestionService;

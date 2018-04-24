@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.util.enums.CourseForm;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.ShoppingCartDao;
 import com.xczhihui.bxg.online.web.dao.VideoDao;

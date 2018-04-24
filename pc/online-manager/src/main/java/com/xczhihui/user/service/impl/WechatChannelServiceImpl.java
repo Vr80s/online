@@ -10,14 +10,12 @@ import java.util.Map;
 import com.xczhihui.user.center.utils.HttpUtil;
 import com.xczhihui.user.dao.WechatChannelDao;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.WechatChannel;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.WechatChannelService;

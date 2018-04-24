@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.api.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.xczhihui.bxg.common.util.enums.Payment;
+import com.xczhihui.common.util.enums.Payment;
 
 import java.io.Serializable;
 import java.util.Date;

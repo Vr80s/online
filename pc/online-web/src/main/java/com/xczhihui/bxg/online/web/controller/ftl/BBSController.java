@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
-import static com.xczhihui.bxg.common.util.bean.ResponseObject.newErrorResponseObject;
-import static com.xczhihui.bxg.common.util.bean.ResponseObject.newSuccessResponseObject;
+import static com.xczhihui.common.util.bean.ResponseObject.newErrorResponseObject;
+import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObject;
 import static com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter.MAX_MATCH_TYPE;
 
 import java.text.MessageFormat;
@@ -23,9 +23,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.util.IStringUtil;
-import com.xczhihui.bxg.common.util.JsonUtil;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.JsonUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.body.bbs.PostBody;

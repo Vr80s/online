@@ -5,7 +5,7 @@ package com.xczhihui.ask.service;
  */
 
 import com.xczhihui.ask.vo.QuestionVo;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 
 /**
  * 问答管理业务层接口类

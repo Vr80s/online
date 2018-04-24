@@ -1,16 +1,16 @@
 package com.xczhihui.order.service.impl;
 
-import com.xczhihui.bxg.common.util.BeanUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.BeanUtil;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.EnchashmentApplyInfo;
 import com.xczhihui.bxg.online.common.domain.UserCoin;
 import com.xczhihui.bxg.online.common.domain.UserCoinConsumption;
 import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.common.util.enums.ApplyStatus;
-import com.xczhihui.bxg.common.util.enums.BalanceType;
-import com.xczhihui.bxg.common.util.enums.EnchashmentDismissal;
-import com.xczhihui.bxg.common.util.enums.IncreaseChangeType;
+import com.xczhihui.common.util.enums.ApplyStatus;
+import com.xczhihui.common.util.enums.BalanceType;
+import com.xczhihui.common.util.enums.EnchashmentDismissal;
+import com.xczhihui.common.util.enums.IncreaseChangeType;
 import com.xczhihui.message.dao.MessageDao;
 import com.xczhihui.order.dao.EnchashmentDao;
 import com.xczhihui.order.service.EnchashmentService;

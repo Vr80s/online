@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.common.web.exception;
 
 import com.google.gson.Gson;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.util.EmailUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.EmailUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;

@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.api.service;
 
-import com.xczhihui.bxg.common.util.enums.Payment;
+import com.xczhihui.common.util.enums.Payment;
 
 /**
  * Description：订单支付处理业务类

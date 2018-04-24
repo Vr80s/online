@@ -6,8 +6,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.util.enums.HeadlineType;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.body.doctor.DoctorArticleBody;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;

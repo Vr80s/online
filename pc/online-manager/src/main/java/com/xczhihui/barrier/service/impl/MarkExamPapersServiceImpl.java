@@ -4,7 +4,7 @@ import com.alibaba.dubbo.common.utils.StringUtils;
 import com.xczhihui.barrier.dao.MarkExamPapersDao;
 import com.xczhihui.barrier.service.MarkExamPapersService;
 import com.xczhihui.barrier.vo.*;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.course.vo.CourseVo;
 import org.springframework.beans.factory.annotation.Autowired;

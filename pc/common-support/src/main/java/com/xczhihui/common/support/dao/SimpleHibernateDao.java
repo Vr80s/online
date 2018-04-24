@@ -29,7 +29,7 @@ import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 
 /**
  * 完成基本操作的DAO。使用该类前请确保已通过setDataSource和setSessionFactory方法注入必须的属性。

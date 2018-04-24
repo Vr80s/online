@@ -2,8 +2,8 @@ package com.xczhihui.wechat.course.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.common.util.IStringUtil;
-import com.xczhihui.bxg.common.util.SLEmojiFilter;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.mapper.CriticizeMapper;
 import com.xczhihui.wechat.course.mapper.ReplyMapper;

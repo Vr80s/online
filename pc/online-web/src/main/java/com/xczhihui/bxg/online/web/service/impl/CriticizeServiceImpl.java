@@ -12,8 +12,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.SLEmojiFilter;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.SLEmojiFilter;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.Criticize;
