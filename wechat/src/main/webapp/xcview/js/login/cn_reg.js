@@ -174,21 +174,32 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 	
 });
 
-
-
 /*document.getElementById("enter_btn").addEventListener("tap", function() {
 	
-	
-	
-	
 })*/
-
 
 /*
  * 返回登录页
  */
 $(".enroll,.return").click(function(){
-	location.href = "/xcview/html/enter.html";
+	
+	var type = getQueryString('type');
+	getQueryString(type);
+
+	if(type=='1'){
+		location.href="/xcview/html/enter.html?course_id="+courseId+"&type="+1;
+	}else if(type=='2'){
+		location.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+2;
+	}else if(type=='3'){
+		ocation.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+3;
+	}else{
+		location.href = "/xcview/html/enter.html";
+	}
+
+	// location.href = "/xcview/html/enter.html";
+
+	// location.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+2;
+// location.href="/xcview/html/school_play.html?course_id="+courseId+"&type="+1;
 })
 
 //$(".check02_a").click(function(){

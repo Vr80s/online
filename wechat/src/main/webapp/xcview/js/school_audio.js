@@ -307,7 +307,8 @@ function btn_zj_mianfei(){
 			localStorage.setItem("order_page_html",current_href);
 
         
-			location.href ="/xcview/html/cn_login.html?course_id="+courseId+"&type="+2;
+            location.href ="/xcview/html/evpi.html?course_id="+courseId+"&type="+2;  //完善信息
+			// location.href ="/xcview/html/cn_login.html?course_id="+courseId+"&type="+2; 注册页
 		}else if (falg==1005) {
 			location.href ="/xcview/html/evpi.html";
 		}else{

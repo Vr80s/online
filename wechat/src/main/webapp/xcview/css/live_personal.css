@@ -258,7 +258,7 @@ color: #999999;
 }
 .user_mywrite p{
 	margin-top: 0.2rem;
-	text-indent: 2em;
+	/*text-indent: 2em;*/
 	text-align: justify;
 }
 .user_mywrite img{
