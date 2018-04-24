@@ -263,20 +263,20 @@
     <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsArticleService" id="oeBxsArticleServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
     <!--订单服务-->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IOrderService" id="orderService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IOrderService" id="orderService" timeout="${dubbo.consumer.timeout}"/>
     <!--支付记录服务-->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IPaymentRecordService" id="paymentRecordServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IPaymentRecordService" id="paymentRecordServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
     <!-- 观看记录 -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IWatchHistoryService" id="watchHistoryServiceImpl"
+    <dubbo:reference interface="com.xczhihui.course.service.IWatchHistoryService" id="watchHistoryServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>              
     <!-- 我的关注，我的粉丝service -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote"
+    <dubbo:reference interface="com.xczhihui.course.service.IFocusService" id="focusServiceRemote"
                      timeout="${dubbo.consumer.timeout}"/>   
     <!-- 我的信息管理类 -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl"
+    <dubbo:reference interface="com.xczhihui.course.service.IMyInfoService" id="myInfoServiceImpl"
                      timeout="${dubbo.consumer.timeout}" />
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
     <!--=============================================消费者end============================================-->
 

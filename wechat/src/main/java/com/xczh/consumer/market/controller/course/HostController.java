@@ -20,17 +20,14 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.FocusService;
-import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.medical.anchor.service.IAnchorInfoService;
-import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IFocusService;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.vo.CourseLecturVo;
 /**
  * 
  * ClassName: HostController.java <br>

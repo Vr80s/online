@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.wechat.course.mapper.CourseMapper;
-import com.xczhihui.wechat.course.service.IWatchHistoryService;
-import com.xczhihui.wechat.course.util.DateDistance;
-import com.xczhihui.wechat.course.util.DateUtil;
-import com.xczhihui.wechat.course.vo.WatchHistoryVO;
+import com.xczhihui.course.mapper.CourseMapper;
+import com.xczhihui.course.service.IWatchHistoryService;
+import com.xczhihui.course.util.DateDistance;
+import com.xczhihui.course.util.DateUtil;
+import com.xczhihui.course.vo.WatchHistoryVO;
 
 /**
  * 医馆入驻测试类

@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.wechat.course.model.Order;
-import com.xczhihui.wechat.course.service.IOrderService;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

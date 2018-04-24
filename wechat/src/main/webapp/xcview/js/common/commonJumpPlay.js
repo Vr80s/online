@@ -54,7 +54,7 @@ function common_jump_play(id,watchState,lineState){
           var falg =authenticationCooKie(); 
 //付费的     
           if(watchState==0){
-             location.href="/xcview/html/school_play.html?course_id="+courseId+"&type="+1
+             location.href="/xcview/html/school_play.html?course_id="+id+"&type="+1
           }
 //免费的    直播跳转      
           else if(watchState==1 && lineState==1){  //直播中

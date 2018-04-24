@@ -31,9 +31,9 @@ import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.model.QQClientUserMapping;
-import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.model.QQClientUserMapping;
+import com.xczhihui.course.model.WeiboClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
 
 /**
  * 

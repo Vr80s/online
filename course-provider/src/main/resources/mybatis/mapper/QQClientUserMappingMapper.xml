@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xczhihui.wechat.course.mapper.QQClientUserMappingMapper">
+<mapper namespace="com.xczhihui.course.mapper.QQClientUserMappingMapper">
 
      <!-- qq用户唯一标识获取 -->
-	<select id="selectQQClientUserMappingByOpenId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
+	<select id="selectQQClientUserMappingByOpenId" resultType="com.xczhihui.course.model.QQClientUserMapping">
 		SELECT
 		    qcum.id as id,
             qcum.user_id as userId,
@@ -25,7 +25,7 @@
 	</select>
 	
 	<!-- 通过熊猫中医用户id 和  unionId 获取  -->
-	<select id="selectQQClientUserMappingByUserIdAndUniondId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
+	<select id="selectQQClientUserMappingByUserIdAndUniondId" resultType="com.xczhihui.course.model.QQClientUserMapping">
 		SELECT
 			qcum.id as id,
             qcum.user_id as userId,
@@ -48,7 +48,7 @@
 	
 	
 	<!-- 通过熊猫中医用户id 和 openId 获取  -->
-	<select id="selectQQClientUserMappingByUserIdAndOpenId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
+	<select id="selectQQClientUserMappingByUserIdAndOpenId" resultType="com.xczhihui.course.model.QQClientUserMapping">
 		SELECT
 			qcum.id as id,
             qcum.user_id as userId,
@@ -73,7 +73,7 @@
 	
 	
     <!-- 通过熊猫中医uniondid获取  -->
-	<select id="selectQQClientUserMappingByUnionId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
+	<select id="selectQQClientUserMappingByUnionId" resultType="com.xczhihui.course.model.QQClientUserMapping">
 		SELECT
 			qcum.id as id,
             qcum.user_id as userId,
@@ -96,7 +96,7 @@
 	
 	
 	<!-- 用户 id请求 QQClientUser 用户 -->
-	<select id="selectQQClientUserMappingByUserId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
+	<select id="selectQQClientUserMappingByUserId" resultType="com.xczhihui.course.model.QQClientUserMapping">
 		SELECT
 		    qcum.id as id,
             qcum.user_id as userId,

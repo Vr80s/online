@@ -127,20 +127,20 @@
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService"
                      id="medicalDoctorBusinessServiceImpl" timeout="5000"/>
 
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.ICourseService" id="courseServiceImpl"
+    <dubbo:reference interface="com.xczhihui.course.service.ICourseService" id="courseServiceImpl"
                      timeout="5000"/>
     <!--学堂-->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileBannerService" id="mobileBannerServiceImpl"
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileBannerService" id="mobileBannerServiceImpl"
                      timeout="5000"/>
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileProjectService" id="mobileProjectServiceImpl"
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileProjectService" id="mobileProjectServiceImpl"
                      timeout="5000"/>
     <!--观看记录 -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IWatchHistoryService" id="watchHistoryServiceImpl"
+    <dubbo:reference interface="com.xczhihui.course.service.IWatchHistoryService" id="watchHistoryServiceImpl"
                      timeout="5000"/>
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IOfflineCityService" id="offlineCityServiceImpl"
+    <dubbo:reference interface="com.xczhihui.course.service.IOfflineCityService" id="offlineCityServiceImpl"
                      timeout="5000"/>
     <!-- 我的关注，我的粉丝service -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote"
+    <dubbo:reference interface="com.xczhihui.course.service.IFocusService" id="focusServiceRemote"
                      timeout="5000"/>
     <!--医师入驻-->
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService"
@@ -160,7 +160,7 @@
                      timeout="5000"/>
 
     <!-- 我的信息管理类 -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl"
+    <dubbo:reference interface="com.xczhihui.course.service.IMyInfoService" id="myInfoServiceImpl"
                      timeout="5000"/>
 
     <!-- 支付服务后回调服务 -->
@@ -168,7 +168,7 @@
                      timeout="5000"/>
 
     <!-- 微博、qq第三方登录数据存储接口 -->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService"
+    <dubbo:reference interface="com.xczhihui.course.service.IThreePartiesLoginService"
                      id="threePartiesLoginServiceImpl" timeout="5000"/>
 
     <!-- 熊猫币购买接口 -->
@@ -183,12 +183,12 @@
     <dubbo:reference interface="com.xczhihui.common.support.service.AttachmentCenterService" id="attachmentCenterService" timeout="12000"/>
 
     <!--订单服务-->
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.IOrderService" id="orderService" timeout="12000"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IOrderService" id="orderService" timeout="12000"/>
 
 
  	<!--充值服务 -->
     <dubbo:reference interface="com.xczhihui.online.api.service.RechargesService" id="rechargesService" timeout="12000"/>
-    <dubbo:reference interface="com.xczhihui.wechat.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="12000"/>
+    <dubbo:reference interface="com.xczhihui.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="12000"/>
     <!-- 支付成功回调服务 -->
     <dubbo:reference interface="com.xczhihui.online.api.service.PayService" id="payService" timeout="12000"/>
 </beans>

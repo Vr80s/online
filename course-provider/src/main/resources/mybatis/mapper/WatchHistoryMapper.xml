@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xczhihui.wechat.course.mapper.WatchHistoryMapper">
+<mapper namespace="com.xczhihui.course.mapper.WatchHistoryMapper">
 
-	<select id="selectWatchHistory" resultType="com.xczhihui.wechat.course.vo.WatchHistoryVO">
+	<select id="selectWatchHistory" resultType="com.xczhihui.course.vo.WatchHistoryVO">
 		SELECT
 		  owh.course_id as id,
 		  owh.course_id as courseId,
@@ -37,7 +37,7 @@
 	</select>		  
 	
 <!-- 	@Param("userId") Integer type, @Param("courseId") -->
-	<select id="findWatchHistoryByUserIdAndCourseId" resultType="com.xczhihui.wechat.course.model.WatchHistory" >
+	<select id="findWatchHistoryByUserIdAndCourseId" resultType="com.xczhihui.course.model.WatchHistory" >
 		SELECT
 		  *
 		FROM
@@ -47,7 +47,7 @@
 	
 	
 	
-	<select id="findWatchHistoryByUserIdAndCollectionId" resultType="com.xczhihui.wechat.course.model.WatchHistory" >
+	<select id="findWatchHistoryByUserIdAndCollectionId" resultType="com.xczhihui.course.model.WatchHistory" >
 		SELECT
 		  *
 		FROM
@@ -56,7 +56,7 @@
 	</select>
 	
 	
-    <select id="findWatchHistoryByUserId" resultType="com.xczhihui.wechat.course.model.WatchHistory" >
+    <select id="findWatchHistoryByUserId" resultType="com.xczhihui.course.model.WatchHistory" >
 		SELECT
 		  *
 		FROM

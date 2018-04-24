@@ -43,8 +43,8 @@ import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.model.QQClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.model.QQClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
 
 /**
  * 用户controller

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.wechat.course.mapper.CourseMapper;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.course.mapper.CourseMapper;
+import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
  * 医馆入驻测试类
