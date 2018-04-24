@@ -10,7 +10,6 @@ function stripHTML(str){
 		}
 $(function(){
 
-
 //	标签选中变色
 	 $(".select_lable li").click(function(){
   		 $(this).toggleClass("active_color"); 
@@ -95,7 +94,6 @@ $(function(){
 	//	是否购买
 	$("#sure_isBuy").html(template('data_isBuy',data.resultObject));
 
-
 //	直播时间/主播名字	
 		data.resultObject.endTime= data.resultObject.endTime.replace(/-/g,".");
 		data.resultObject.startTime= data.resultObject.startTime.replace(/-/g,".");
@@ -128,8 +126,6 @@ $(function(){
 		}else{
 			$(".zhezhao1").hide()
 			$(".btn1").hide()
-
-			
 		}
 		
 		var h2=$(".wrap").height();
@@ -278,8 +274,6 @@ function btn_allComment(){
     window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
 }
 
-
-
 var courseId = getQueryString('course_id');
 //点击购买后的接口
 //function btn_buy(){
@@ -290,8 +284,6 @@ var courseId = getQueryString('course_id');
 //		window.location.href="purchase.html?orderId="+data.resultObject.orderId+"";
 //	});
 //}
-
-
 
 function btn_zj_mianfei(){
 	var falg =authenticationCooKie();
@@ -328,17 +320,6 @@ function btn_zj_mianfei(){
 	
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 //点击免费报名后
 //function btn_mianfei(){
 //window.location.href="live_class.html?my_study="+course_id+"";
@@ -347,16 +328,6 @@ function btn_zj_mianfei(){
 //function btn_purchase(){
 //window.location.href="live_class.html?my_study="+course_id+"";
 //}
-
-
-
-
-
-
-
-
-
-
 
 //删除评论状态
 function del(){

@@ -291,6 +291,49 @@ $(function() {
 
 	//---------------------------------头像上传部分结束，专栏部分开始-------------------------------------------------
 
+var ue = UE.getEditor('column-content', {
+		toolbars: [
+			[
+				'undo', //撤销
+				'redo', //重做
+				'bold', //加粗
+				'forecolor', //字体颜色
+				'backcolor', //背景色
+				'indent', //首行缩进
+				'removeformat', //清除格式
+				'formatmatch', //格式刷
+				'blockquote', //引用
+				'fontfamily', //字体
+				'fontsize', //字号
+				'paragraph', //段落格式
+				'italic', //斜体
+				'underline', //下划线
+				'strikethrough', //删除线
+				'superscript', //上标
+				'subscript', //下标
+				'touppercase', //字母大写
+				'tolowercase', //字母小写
+				'justifyleft', //居左对齐
+				'justifyright', //居右对齐
+				'justifycenter', //居中对齐
+				'justifyjustify', //两端对齐
+				'link', //超链接
+				'unlink', //取消链接
+				'simpleupload', //单图上传
+				// 'insertimage', //多图上传
+				//				'emotion', //表情
+				'fullscreen'
+			]
+		],
+		initialFrameWidth: 540,
+        initialFrameHeight:220,
+		elementPathEnabled: false,
+		autoHeightEnabled: false,
+		autoFloatEnabled: true,
+		enableAutoSave: false,
+		imagePopup: false,
+		maximumWords: 10000 //允许的最大字符数
+	});
 	//	专栏部分
 	//	专栏部分，点击发布效果
 	$('#zhuanlan .zhuanlan_top button').click(function() {
@@ -371,7 +414,8 @@ $(function() {
 		var data = {
 			"title": $.trim($(".column-title").val()),
 			"imgPath": $(".column-picter img").attr("src"),
-			"content": $.trim($(".column-text").val()),
+//			"content": $.trim($(".column-text").val()),
+			"content": UE.getEditor('column-content').getContent(),
 			"status": columeStatus
 		}
 		if(columnRecruit(data)) {
@@ -479,7 +523,7 @@ $(function() {
 				editData = {
 					"title": $.trim($(".column-title").val()),
 					"imgPath": $(".column-picter img").attr("src"),
-					"content": $.trim($(".column-text").val())
+					"content": UE.getEditor('column-content').getContent()
 				};
 			if(columnRecruit(editData)) {
 				$.ajax({
@@ -503,13 +547,58 @@ $(function() {
 	}
 
 	//---------------------------------------专栏部分结束，著作部分开始--------------------------------------
+	var ue = UE.getEditor('work-suggest', {
+		toolbars: [
+			[
+				'undo', //撤销
+				'redo', //重做
+				'bold', //加粗
+				'forecolor', //字体颜色
+				'backcolor', //背景色
+				'indent', //首行缩进
+				'removeformat', //清除格式
+				'formatmatch', //格式刷
+				'blockquote', //引用
+				'fontfamily', //字体
+				'fontsize', //字号
+				'paragraph', //段落格式
+				'italic', //斜体
+				'underline', //下划线
+				'strikethrough', //删除线
+				'superscript', //上标
+				'subscript', //下标
+				'touppercase', //字母大写
+				'tolowercase', //字母小写
+				'justifyleft', //居左对齐
+				'justifyright', //居右对齐
+				'justifycenter', //居中对齐
+				'justifyjustify', //两端对齐
+				'link', //超链接
+				'unlink', //取消链接
+				'simpleupload', //单图上传
+				// 'insertimage', //多图上传
+				//				'emotion', //表情
+				'fullscreen'
+			]
+		],
+		initialFrameWidth: 540,
+        initialFrameHeight:220,
+		elementPathEnabled: false,
+		autoHeightEnabled: false,
+		autoFloatEnabled: true,
+		enableAutoSave: false,
+		imagePopup: false,
+		maximumWords: 10000 //允许的最大字符数
+	});
+	
+	
 	//	著作部分
 	//	著作部分,点击发布切换效果
 	$('#zhuzuo .zhuzuo_top button').click(function() {
 		$(".work-save-publish").removeAttr("disabled");
 		var workSelect = $(this).text()
 		if(workSelect == "发布") {
-			resetWork()
+			resetWork();
 			$('.zhuzuo_bottom2').addClass('hide');
 			$('.zhuzuo_bottom').removeClass('hide');
 			$(this).text("返回")
@@ -595,7 +684,7 @@ $(function() {
 				"title": $(".work-title").val(),
 				"author": $(".work-author").val(),
 				"imgPath": $(".work-picter img").attr("src"),
-				"remark": $(".work-text").val(),
+				"remark": UE.getEditor('work-suggest').getContent(),
 				"buyLink": $(".work-link").val(),
 				"status": worksaveId
 			}
@@ -706,7 +795,7 @@ $(function() {
 					"title": $(".work-title").val(),
 					"author": $(".work-author").val(),
 					"imgPath": $(".work-picter img").attr("src"),
-					"remark": $(".work-text").val(),
+					"remark": UE.getEditor('work-suggest').getContent(),
 					"buyLink": $(".work-link").val(),
 				}
 			if(workValidate(editDataWork)) {
@@ -731,7 +820,51 @@ $(function() {
 		});
 
 		//---------------------------------------著作部分结束，媒体报道部分开始--------------------------------------
-		//	媒体报道部分
+	var ue = UE.getEditor('media-context', {
+		toolbars: [
+			[
+				'undo', //撤销
+				'redo', //重做
+				'bold', //加粗
+				'forecolor', //字体颜色
+				'backcolor', //背景色
+				'indent', //首行缩进
+				'removeformat', //清除格式
+				'formatmatch', //格式刷
+				'blockquote', //引用
+				'fontfamily', //字体
+				'fontsize', //字号
+				'paragraph', //段落格式
+				'italic', //斜体
+				'underline', //下划线
+				'strikethrough', //删除线
+				'superscript', //上标
+				'subscript', //下标
+				'touppercase', //字母大写
+				'tolowercase', //字母小写
+				'justifyleft', //居左对齐
+				'justifyright', //居右对齐
+				'justifycenter', //居中对齐
+				'justifyjustify', //两端对齐
+				'link', //超链接
+				'unlink', //取消链接
+				'simpleupload', //单图上传
+				// 'insertimage', //多图上传
+				//				'emotion', //表情
+				'fullscreen'
+			]
+		],
+		initialFrameWidth: 540,
+        initialFrameHeight:220,
+		elementPathEnabled: false,
+		autoHeightEnabled: false,
+		autoFloatEnabled: true,
+		enableAutoSave: false,
+		imagePopup: false,
+		maximumWords: 10000 //允许的最大字符数
+	});
+	
+	//	媒体报道部分
 		//	媒体报道部分,点击发布切换效果
 		$('#media_report .media_report_top button').click(function() {
 			$(".media-save-publish").removeAttr("disabled");
@@ -823,7 +956,7 @@ $(function() {
 					"title": $(".media-title").val(),
 					"author": $(".media-author").val(),
 					"imgPath": $(".media-picter img").attr("src"),
-					"content": $(".media-text").val(),
+					"content": UE.getEditor('media-context').getContent(),
 					"url": $(".media-link").val(),
 					"status": mediaSaveId
 				}
@@ -931,7 +1064,7 @@ $(function() {
 						"title": $(".media-title").val(),
 						"author": $(".media-author").val(),
 						"imgPath": $(".media-picter img").attr("src"),
-						"content": $(".media-text").val(),
+						"content": UE.getEditor('media-context').getContent(),
 						"url": $(".media-link").val(),
 					};
 				if(mediaValidate(editDataMedia)) {
@@ -1246,7 +1379,7 @@ $(function() {
 		var columnPreview = getData[index];
 		$(".preview-column-title").text(columnPreview.title);
 		$(".preview-column-picter img").attr("src", columnPreview.imgPath);
-		$(".preview-column-content").text(columnPreview.content);
+		$(".preview-column-content").html(columnPreview.content);
 		$('#preview').removeClass('hide');
 		$('#mask').removeClass('hide')
 	}
@@ -1271,7 +1404,8 @@ $(function() {
 		$(".column-title").val("");
 		$(".column-picter").html(defaultPicter)
 		$(".column-text").val("");
-		$(".warning").addClass("hide")
+		$(".warning").addClass("hide");
+		UE.getEditor('column-content').setContent("");
 	}
 
 	function echoColumn(index) {
@@ -1279,7 +1413,8 @@ $(function() {
 		$("#column-id").val(columnGetdata.id);
 		$(".column-title").val(columnGetdata.title);
 		$(".column-picter").html("<img src=" + columnGetdata.imgPath + " />");
-		$(".column-text").val(columnGetdata.content);
+//		$(".column-text").val(columnGetdata.content);
+		UE.getEditor('column-content').setContent(columnGetdata.content);
 	}
 	//-----------------------------------------著作部分，预览,编辑回显--------------------------------------
 	var getWorkdata;
@@ -1288,7 +1423,7 @@ $(function() {
 		$(".preview-work-title").text(workPreviewData.title);
 		$(".preview-work-author").text(workPreviewData.author);
 		$(".preview-work-picter img").attr("src", workPreviewData.imgPath);
-		$(".preview-work-present").text(workPreviewData.remark);
+		$(".preview-work-present").html(workPreviewData.remark);
 		$(".preview-work-link").text(workPreviewData.buyLink);
 		$("#work-preview-page").removeClass("hide");
 		$("#mask").removeClass("hide")
@@ -1314,7 +1449,8 @@ function resetWork(index) {
 	$(".work-title").val("");
 	$(".work-author").val("");
 	$(".work-picter").html(defaultPicter);
-	$(".work-text").val("");
+//	$(".work-text").val("");
+ 	UE.getEditor('work-suggest').setContent(""),
 	$(".work-link").val("");
 	$(".warning").addClass("hide");
 	$(".only-save-work").removeAttr("disabled");
@@ -1326,7 +1462,8 @@ function echoWork(index) {
 	$(".work-title").val(workData.title);
 	$(".work-author").val(workData.author);
 	$(".work-picter").html("<img src=" + workData.imgPath + " />");
-	$(".work-text").val(workData.remark);
+//	$(".work-text").val(workData.remark);
+	UE.getEditor('work-suggest').setContent(workData.remark),
 	$(".work-link").val(workData.buyLink);
 };
 //-----------------------------------------媒体报道部分，预览,编辑回显--------------------------------------
@@ -1338,7 +1475,7 @@ function mediaRreview(index) {
 	$(".preview-media-title").text(previewData.title);
 	$(".preview-media-author").text(previewData.author);
 	$(".preview-media-picter img").attr("src", previewData.imgPath);
-	$(".preview-media-present").text(previewData.content);
+	$(".preview-media-present").html(previewData.content);
 	$(".preview-media-link").text(previewData.url);
 	//		预览弹窗
 	$("#media-preview").removeClass("hide");
@@ -1362,7 +1499,8 @@ function resetMedia(index) {
 	$(".media-title").val("");
 	$(".media-author").val("");
 	$(".media-picter").html(defaultPicter);
-	$(".media-text").val("");
+//	$(".media-text").val("");
+	UE.getEditor('media-context').setContent(""),
 	$(".media-link").val("");
 	$(".warning").addClass("hide");
 	$(".media-only-save").removeAttr("disabled");
@@ -1374,6 +1512,7 @@ function echoMedia(index) {
 	$(".media-title").val(mediaData.title);
 	$(".media-author").val(mediaData.author);
 	$(".media-picter").html("<img src=" + mediaData.imgPath + " />");
-	$(".media-text").val(mediaData.content);
+//	$(".media-text").val(mediaData.content);
+	UE.getEditor('media-context').setContent(mediaData.content),
 	$(".media-link").val(mediaData.url);
 }

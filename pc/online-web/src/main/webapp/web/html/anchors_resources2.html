@@ -361,7 +361,7 @@
 								<!--<textarea name="" class="column-text" cols="30" rows="10" style="resize: none;" placeholder="请输入专栏内容"></textarea>-->
 							
 								<div style="display: inline-block;vertical-align: top;">
-									<script id="editor2" type="text/plain" style="width:540px;height:160px;"></script>
+									<script id="column-content" type="text/plain" style="width:540px;height:160px;"></script>
 								</div>
 								<p class="warning hide column-text-warning">专栏内容不能为空</p>
 							</div>
@@ -480,11 +480,11 @@
 
 						<div class="neirong">
 							<span><em>*</em>著作介绍</span>
-							<textarea name="" class="work-text" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>
+							<!--<textarea name="" class="work-text" cols="30" rows="10" style="resize: none;" placeholder="请输入著作介绍"></textarea>-->
 							
-							<!--<div style="display: inline-block;vertical-align: top;">
-								<script id="editor2" type="text/plain" style="width:540px;height:160px;"></script>
-							</div>-->
+							<div style="display: inline-block;vertical-align: top;">
+								<script id="work-suggest" type="text/plain" style="width:540px;height:160px;"></script>
+							</div>
 							
 							<p class="warning hide work-text-warning">著作介绍不能为空</p>
 						</div>
@@ -615,7 +615,10 @@
 						</div>
 						<div class="neirong">
 							<span><em>*</em>报道内容</span>
-							<textarea name="" class="media-text" cols="30" rows="10" style="resize: none;" placeholder="请输入媒体报道的具体内容"></textarea>
+							<!--<textarea name="" class="media-text" cols="30" rows="10" style="resize: none;" placeholder="请输入媒体报道的具体内容"></textarea>-->
+							<div style="display: inline-block;vertical-align: top;">
+								<script id="media-context" type="text/plain" style="width:540px;height:160px;"></script>
+							</div>
 							<p class="warning hide media-text-warning">著作介绍不能为空</p>
 						</div>
 
@@ -873,7 +876,7 @@
 		<option value={{item.id}}>{{item.name}}</option>
 		{{/each}}
 	</script>
-
+	
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
