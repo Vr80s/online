@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.online.api.service.GiftService;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,7 @@ public class XzGiftController {
 	
 	@Autowired()
 	@Qualifier("giftServiceImpl")
-	private com.xczhihui.bxg.online.api.service.GiftService remoteGiftService;
+	private GiftService remoteGiftService;
 	
 	@Autowired
 	private AppBrowserService appBrowserService;

@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
+import com.xczhihui.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.VCodeType;

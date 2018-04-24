@@ -3,8 +3,8 @@ package com.xczhihui.bxg.online.web.controller;
 
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
+import com.xczhihui.online.api.service.CityService;
+import com.xczhihui.online.api.vo.UserAddressManagerVo;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

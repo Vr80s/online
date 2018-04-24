@@ -29,7 +29,7 @@ import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.enums.SMSCode;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.UserOrigin;
 import com.xczhihui.user.center.bean.UserSex;

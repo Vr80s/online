@@ -159,31 +159,31 @@
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
 
     <!--=============================================生产者start============================================-->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.UserCoinService" ref="userCoinServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.GiftService" ref="giftServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.GiftService" ref="giftServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.EnchashmentService" ref="enchashmentServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.EnchashmentService" ref="enchashmentServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CityService" ref="cityServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.CityService" ref="cityServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService"
+    <dubbo:service interface="com.xczhihui.online.api.service.LiveExamineInfoService"
                    ref="liveExamineInfoServiceImpl" timeout="${dubbo.provider.timeout}"/>
     <!-- 评论使用 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CriticizeService" ref="criticizeServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.CriticizeService" ref="criticizeServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
     <!-- 公共的使用 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.CommonApiService" ref="commonApiServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.CommonApiService" ref="commonApiServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.OrderPayService" ref="orderPayServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.OrderPayService" ref="orderPayServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
 
     <!-- 熊猫币购买服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.XmbBuyCouserService" ref="xmbBuyCourseServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
 
     <!-- 开始直播通知服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveCallbackService" ref="liveCallbackServiceImpl"
+    <dubbo:service interface="com.xczhihui.online.api.service.LiveCallbackService" ref="liveCallbackServiceImpl"
                    timeout="${dubbo.provider.timeout}"/>
 
     <!-- 附件服务 -->
@@ -192,10 +192,10 @@
                    timeout="${dubbo.provider.timeout}"/>
 
     <!-- 充值服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.RechargesService" ref="rechargesService"
+    <dubbo:service interface="com.xczhihui.online.api.service.RechargesService" ref="rechargesService"
                    timeout="${dubbo.provider.timeout}"/>
     <!-- 支付成功回调服务 -->
-    <dubbo:service interface="com.xczhihui.bxg.online.api.service.PayService" ref="payService"
+    <dubbo:service interface="com.xczhihui.online.api.service.PayService" ref="payService"
                    timeout="${dubbo.provider.timeout}"/>
     <!--=============================================生产者end============================================-->
 

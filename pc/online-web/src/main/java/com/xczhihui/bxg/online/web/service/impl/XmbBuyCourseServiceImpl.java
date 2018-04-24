@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.api.service.XmbBuyCouserService;
+import com.xczhihui.online.api.service.OrderPayService;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.XmbBuyCouserService;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.common.support.lock.Lock;

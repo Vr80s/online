@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.EnchashmentService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.common.util.enums.OrderFrom;
 import org.springframework.beans.factory.annotation.Autowired;

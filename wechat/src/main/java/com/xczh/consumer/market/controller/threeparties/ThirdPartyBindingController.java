@@ -27,7 +27,7 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;

@@ -33,7 +33,7 @@ import com.xczhihui.common.support.service.SystemVariateService;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.ImageUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.VerificationCode;

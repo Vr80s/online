@@ -31,7 +31,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.bxg.online.api.service.GiftService;
+import com.xczhihui.online.api.service.GiftService;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 /**

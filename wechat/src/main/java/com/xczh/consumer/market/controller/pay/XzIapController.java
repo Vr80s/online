@@ -35,7 +35,7 @@ import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
-import com.xczhihui.bxg.online.api.service.XmbBuyCouserService;
+import com.xczhihui.online.api.service.XmbBuyCouserService;
 
 @Controller
 @RequestMapping("/xczh/iap")

@@ -11,7 +11,7 @@ import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
-import com.xczhihui.bxg.online.api.service.PayService;
+import com.xczhihui.online.api.service.PayService;
 import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
 import com.xczhihui.pay.ext.kit.HttpKit;
 import com.xczhihui.pay.ext.kit.IpKit;

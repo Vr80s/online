@@ -11,9 +11,9 @@ import javax.annotation.Resource;
 
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-//import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.api.vo.OrderVo;
+import com.xczhihui.online.api.service.UserCoinService;
+//import UserCoinService;
+import com.xczhihui.online.api.vo.OrderVo;
 import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.vhall.VhallUtil;

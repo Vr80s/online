@@ -21,7 +21,7 @@ import com.xczh.consumer.market.wxpay.util.Base64;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.bxg.online.api.service.CityService;
+import com.xczhihui.online.api.service.CityService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.UserOrigin;
 import com.xczhihui.user.center.bean.UserSex;

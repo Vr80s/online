@@ -30,7 +30,7 @@ import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.user.center.bean.UserOrigin;

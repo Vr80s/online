@@ -17,7 +17,7 @@ import com.xczh.consumer.market.service.iphoneIpaService;
 import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.UserCoinService;
 
 /**
  * @author liutao

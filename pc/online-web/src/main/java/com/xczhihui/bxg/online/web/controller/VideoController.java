@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.AskTagService;
 import com.xczhihui.bxg.online.web.service.VideoService;

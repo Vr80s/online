@@ -22,7 +22,7 @@ import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczhihui.bxg.online.api.service.GiftService;
+import com.xczhihui.online.api.service.GiftService;
 
 //import java.util.UUID;
 

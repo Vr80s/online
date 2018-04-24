@@ -20,7 +20,7 @@ import org.springframework.util.StringUtils;
 
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;

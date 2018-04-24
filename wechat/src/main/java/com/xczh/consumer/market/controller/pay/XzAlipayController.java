@@ -10,7 +10,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.WebUtil;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.enums.PayOrderType;
-import com.xczhihui.bxg.online.api.service.PayService;
+import com.xczhihui.online.api.service.PayService;
 import com.xczhihui.pay.alipay.AliPayApi;
 import com.xczhihui.pay.alipay.AliPayApiConfig;
 import com.xczhihui.pay.alipay.AliPayApiConfigKit;

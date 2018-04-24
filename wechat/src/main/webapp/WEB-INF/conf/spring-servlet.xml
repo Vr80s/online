@@ -107,16 +107,16 @@
 
 
     <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="5000"/>
-    <dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.bxg.online.api.service.UserCoinService"
+    <dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.online.api.service.UserCoinService"
                      timeout="5000"/>
-    <dubbo:reference id="giftServiceImpl" interface="com.xczhihui.bxg.online.api.service.GiftService" timeout="5000"/>
-    <dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.bxg.online.api.service.EnchashmentService"
+    <dubbo:reference id="giftServiceImpl" interface="com.xczhihui.online.api.service.GiftService" timeout="5000"/>
+    <dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.online.api.service.EnchashmentService"
                      timeout="5000"/>
-    <dubbo:reference id="cityServiceImpl" interface="com.xczhihui.bxg.online.api.service.CityService" timeout="5000"/>
+    <dubbo:reference id="cityServiceImpl" interface="com.xczhihui.online.api.service.CityService" timeout="5000"/>
     <dubbo:reference id="liveExamineInfoServiceImpl"
-                     interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" timeout="5000"/>
+                     interface="com.xczhihui.online.api.service.LiveExamineInfoService" timeout="5000"/>
     <!-- 新增公共的接口 -->
-    <dubbo:reference id="commonApiServiceImpl" interface="com.xczhihui.bxg.online.api.service.CommonApiService"
+    <dubbo:reference id="commonApiServiceImpl" interface="com.xczhihui.online.api.service.CommonApiService"
                      timeout="5000"/>
     <!-- 医馆 --> <!-- 医馆招聘 --> <!--医师-->
     <dubbo:reference id="medicalHospitalBusinessServiceImpl"
@@ -164,7 +164,7 @@
                      timeout="5000"/>
 
     <!-- 支付服务后回调服务 -->
-    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.OrderPayService" id="orderPayServiceImpl"
+    <dubbo:reference interface="com.xczhihui.online.api.service.OrderPayService" id="orderPayServiceImpl"
                      timeout="5000"/>
 
     <!-- 微博、qq第三方登录数据存储接口 -->
@@ -172,7 +172,7 @@
                      id="threePartiesLoginServiceImpl" timeout="5000"/>
 
     <!-- 熊猫币购买接口 -->
-    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl"
+    <dubbo:reference interface="com.xczhihui.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl"
                      timeout="5000"/>
 
     <!--主播详情-->
@@ -187,8 +187,8 @@
 
 
  	<!--充值服务 -->
-    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.RechargesService" id="rechargesService" timeout="12000"/>
+    <dubbo:reference interface="com.xczhihui.online.api.service.RechargesService" id="rechargesService" timeout="12000"/>
     <dubbo:reference interface="com.xczhihui.wechat.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="12000"/>
     <!-- 支付成功回调服务 -->
-    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.PayService" id="payService" timeout="12000"/>
+    <dubbo:reference interface="com.xczhihui.online.api.service.PayService" id="payService" timeout="12000"/>
 </beans>

@@ -11,7 +11,7 @@ import com.xczh.consumer.market.wxpay.entity.PayInfo;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.enums.PayOrderType;
-import com.xczhihui.bxg.online.api.service.PayService;
+import com.xczhihui.online.api.service.PayService;
 import com.xczhihui.pay.ext.kit.HttpKit;
 import com.xczhihui.pay.ext.kit.IpKit;
 import com.xczhihui.pay.ext.kit.PaymentKit;

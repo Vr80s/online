@@ -10,7 +10,7 @@ import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.exception.XcApiException;
-import com.xczhihui.bxg.online.api.service.PayService;
+import com.xczhihui.online.api.service.PayService;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.pay.alipay.AliPayApi;
 import com.xczhihui.pay.alipay.AliPayApiConfig;

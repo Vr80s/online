@@ -1,9 +1,9 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import com.xczhihui.bxg.online.common.domain.Gift;
-import com.xczhihui.bxg.online.api.service.GiftSendService;
-import com.xczhihui.bxg.online.api.service.GiftService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.online.api.service.GiftSendService;
+import com.xczhihui.online.api.service.GiftService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.bxg.online.web.dao.GiftDao;
 

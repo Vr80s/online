@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
-import com.xczhihui.bxg.online.api.vo.MyConsumptionCoinRecords;
+import com.xczhihui.online.api.vo.MyConsumptionCoinRecords;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -13,7 +13,7 @@ import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.UserCoin;
 import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
-import com.xczhihui.bxg.online.api.vo.RechargeRecord;
+import com.xczhihui.online.api.vo.RechargeRecord;
 
 
 /** 

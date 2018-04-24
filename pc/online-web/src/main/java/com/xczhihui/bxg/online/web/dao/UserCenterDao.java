@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.online.api.vo.*;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.CityVo;
 import com.xczhihui.bxg.online.web.vo.JobYearVo;
@@ -10,6 +9,7 @@ import com.xczhihui.bxg.online.web.vo.RegionVo;
 import com.xczhihui.bxg.online.web.vo.UserCenterVo;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 
+import com.xczhihui.online.api.vo.JobVo;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
