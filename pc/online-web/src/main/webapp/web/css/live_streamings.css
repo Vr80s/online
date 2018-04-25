@@ -1,4 +1,4 @@
-	/*淇敼涔嬪墠寮曞叆妯℃澘鏍峰紡寮�濮�*/
+	/*修改模板开始*/
 .layer{
 	position: inherit;
     width: 100%;
@@ -17,8 +17,6 @@
 	width: 100%;
     height: 87.9%;
     z-index: 4;
-    /*background: red;*/
-    /*border-bottom: 1px solid blue;*/
 }
 .page-pc .container{
 	top: 176px;
@@ -61,14 +59,14 @@
 	background: #00BC12;
 	border-radius: 0 4px 4px 0;
 	margin-top: 0;
-	position: unset; /*娉ㄦ剰鍏煎--瀹氫綅*/
+	position: unset; /*注意兼容行--定位*/
 	float: right;
 	margin-right: 11px;
 }
 .chatmsg li .msg .content{
 	width: 226px;
 }
-/*澶勭悊鑱婂ぉ鍖哄��*/
+/*修改模板开始结束*/
 .container{
 	padding-left: 10px;
 }
@@ -88,7 +86,6 @@
 	margin-top: 0;
 	left: 12px;
 	top: 20px;
-	/*background: url(../images/chat-icon.png) no-repeat;*/
 	background: url(../images/brow.png) no-repeat;
 	background-size: 20px 20px;
 	z-index: 9999999;
@@ -100,7 +97,7 @@
 	background-size: 20px 20px;
 }
 .facebox-pc{
-	top: -247px;
+	top: -243px !important;
 }
 .lecturer{
 	position: absolute;
@@ -128,30 +125,23 @@
     background-size: 20px 20px;
 }
 
-
-/*淇敼涔嬪墠寮曞叆妯℃澘鏍峰紡缁撴潫*/
-/*鑱婂ぉ鍖烘ā鏉垮熀纭�涓婁慨鏀瑰紑濮�*/
 .chatmsg li .msg p .tips.host{
 	width: 44px;
     height: 20px;
     line-height: 20px;
     background: #00bc12;
     border: 0;
-    /* border: none; */
     color: #fff;
-
 }
-/*鑱婂ぉ鍖烘ā鏉垮熀纭�涓婁慨鏀圭粨鏉�*/
 
-/*瑙嗛鍜屾枃妗ｅ姩鐢诲尯*/
+
+/*动画开始*/
 .animation{
 	width: 294px;
-	/*height: 168px;*/
 	position: absolute;
 	top: 65px;
     right: 311px;
     z-index: 4;
-	/*border: 1px solid #ddd;*/
 }
 .animation-cut{
 	width: 20px;
@@ -171,7 +161,7 @@
 	background: blue;
 	float: right;
 }
-/*娣诲姞鏂囨。class*/
+/*动画结束*/
 .doc-pc{
 	width: 294px;
     height: 168px;
@@ -188,7 +178,6 @@
 }
 
 
-/*瑙嗛搴曢儴鍖哄煙鍏虫敞鍜岀ぜ鐗╁尯*/
 .video-bottom{
 	width: 100%;
 	height: 110px;
@@ -248,7 +237,7 @@
 	text-align: center;
 	cursor: pointer;
 }
-/*鍙充晶绀肩墿鍖�*/
+
 .surprise{
 	height: 100%;
 	float: right;
@@ -278,7 +267,7 @@
 	width: 56px;
 	height: 48px;
 }
-/*鏀句笂 li鏄剧ず鍐呭*/
+
 .surprise-hide{
 	display: none;
     width: 500px;
@@ -286,7 +275,6 @@
     position: absolute;
     top: -138px;
     left: -114px;
-	
 }
 .surprise-show{
 	width: 278px;
@@ -365,14 +353,11 @@
 	cursor: pointer;
 }
 
-/*鎺掕姒滃紑濮�*/
 .toptenreviews{
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 310px;
-	/*height: 176px;*/
-	/*background: #242424;*/
 	z-index: 100;
 }
 .toptenreviews-center{
@@ -393,6 +378,19 @@
 }
 .toptenreviews-crew .billboard-float{
  	float: left;
+ 	position: absolute;
+}
+.billboard-one{
+	top: 43px;
+    left: 0;
+}
+.billboard-two{
+	top: 36px;
+    left: 40px;
+}
+.billboard-three{
+	top: 43px;
+    right: 0;
 }
 .billboard-one-bg{
 	width: 48px;
@@ -450,7 +448,7 @@
 	font-size: 12px;
 	color: #F97B49;
 }
-/*鍒楄〃*/
+
 .toptenreviews-list{
 	position: absolute;
 	top: 176px;
@@ -506,9 +504,7 @@
     display: none !important;
 }
 
-/*鎺掕姒滅粨鏉�*/
-   
-/*澶勭悊鍒囨崲鍔ㄧ敾寮�濮�*/
+/*设置文档和视频的动画切换开始*/
 .doc-img{
 	top: 0;
     right: 0;
@@ -517,36 +513,86 @@
     z-index: 9;
     position: absolute !important;
 }
+ 
 .company-introduce-one{
-	-webkit-animation: righteaseinAnimate-one 3s forwards;
+	-webkit-animation: righteaseinAnimate-one 1.5s forwards;
+}
+@-ms-keyframes righteaseinAnimate-one{
+    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+}
+@-moz-keyframes righteaseinAnimate-one{
+    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
 }
 @-webkit-keyframes righteaseinAnimate-one{
     0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
     100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
 }
+@-o-keyframes righteaseinAnimate-one{
+    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+}
 
 .company-introduces-one{
-    -webkit-animation: righteaseinAnimates-one 3s forwards;
+    -webkit-animation: righteaseinAnimates-one 1.5s forwards;
+}
+ 
+@-ms-keyframes righteaseinAnimates-one{
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+}
+@-moz-keyframes righteaseinAnimates-one{
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
 }
 @-webkit-keyframes righteaseinAnimates-one{
     0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
     100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
 }
+@-o-keyframes righteaseinAnimates-one{
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+}
 
 .company-introduce-two{
-    -webkit-animation: righteaseinAnimate-two 3s forwards;
+    -webkit-animation: righteaseinAnimate-two 1.5s forwards;
+}  
+@-ms-keyframes righteaseinAnimate-two{
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+}
+@-moz-keyframes righteaseinAnimate-two{
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
 }
 @-webkit-keyframes righteaseinAnimate-two{
     0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
     100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
 }
+@-o-keyframes righteaseinAnimate-two{
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+}
 
 .company-introduces-two{
-    -webkit-animation: righteaseinAnimates-two 3s forwards;
+    -webkit-animation: righteaseinAnimates-two 1.5s forwards;
 }
+@-ms-keyframes righteaseinAnimates-two{
+    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+} 
+@-moz-keyframes righteaseinAnimates-two{
+    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+} 
 @-webkit-keyframes righteaseinAnimates-two{
     0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
     100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
 } 
-/*澶勭悊鍒囨崲鍔ㄧ敾缁撴潫*/
+@-o-keyframes righteaseinAnimates-two{
+    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+} 
+/*设置文档和视频的动画切换结束*/
 
