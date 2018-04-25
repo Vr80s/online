@@ -63,50 +63,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		return token;
 	}
 
-	
-	@Override
-	public void registBatch(List<List<Map<String, Object>>> users) {
-		for (int i = 0 ; i <   users.size() ; i++ ) {
-			for ( Map<String, Object>  map : users.get(i) ) {
-				if ( map.get("loginName") == null  ||   map.get("password") == null ) {
-					throw new RuntimeException("用户名、密码不允许为空！");
-				}
-				String   opSign = map.get("opSign").toString();
-				//2==新增操作,1==更新操作
-				if("1".equals(opSign)){
-					this.update(map.get("loginName")+"" , map.get("name")+"", Integer.valueOf(map.get("sex")+""), map.get("email")+"" ,map.get("mobile")+"" , UserType.STUDENT.getValue() ,0);
-				}else{
-					ItcastUser u = this.getUser(map.get("loginName").toString());
-					//如果用户存在了，则判断是否是双元过去的用户
-					if (u != null ){
-						if("dual".equals(u.getOrigin())) {//online在线，dual双元，bxg院校，ask问答精灵
-							throw new RuntimeException("第"+ (i+2) +"行  的手机号'" + u.getLoginName() + "'已在用户中心存在");
-						}else{
-							//非双元过来的用户，不作处理
-						}
-					}else{
-						ItcastUser user = new ItcastUser();
-						user.setLoginName(map.get("loginName").toString());
-						user.setPassword(map.get("password").toString());
-						this.proccessPassword(user, true);
-						user.setNikeName(map.get("name")+"");
-						user.setSex( Integer.valueOf(map.get("sex")+""));
-						user.setEmail(map.get("email") == null ?null:map.get("email")+"");
-						user.setMobile(map.get("mobile")+"");
-						user.setType(((UserType)map.get("type")).getValue());
-						user.setOrigin(((UserOrigin)map.get("origin")).toString().toLowerCase());
-						user.setStatus( Integer.valueOf(map.get("status")+""));
-						user.setRegistDate(new Date());
-						this.itcastUserDao.addItcastUser(user);
-						Token token = this.tokenManager.createToken(user);
-						
-					}
-				}
- 
-			}
-		}
-	}
-	
 	@Override
 	public ItcastUser deleteUser(String loginName) {
 		ItcastUser user = this.getUser(loginName);
@@ -330,16 +286,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		return this.itcastUserDao.getUsersByLoginNames(loginNames);
 	}
 
-//	@Autowired
-//	public void setItcastUserDao(ItcastUserDao itcastUserDao) {
-//		this.itcastUserDao = itcastUserDao;
-//	}
-//
-//	@Autowired
-//	public void setLoginLimitDao(LoginLimitDao loginLimitDao) {
-//		this.loginLimitDao = loginLimitDao;
-//	}
-//
 	@Autowired
 	public void setCacheService(CacheService cacheService) {
 		this.cacheService = cacheService;
@@ -444,17 +390,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		return false;
 	}
 
-
-
-	@Override
-	public Token loginForLimit(String loginName, String password, TokenExpires tokenExpires, int clientType, String info) {
-		Token t = login(loginName,password,tokenExpires);
-		if(t!=null){
-			updateLoginLimit(loginName,clientType,info);
-			return t;
-		}
-		return null;
-	}
 
 	@Override
 	public void updateLoginLimit(String loginName, int clientType, String info) {

@@ -1,6 +1,7 @@
 package com.xczhihui.medical.hospital.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.exception.MedicalException;
 import com.xczhihui.medical.hospital.mapper.*;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
@@ -36,7 +37,7 @@ public class MedicalHospitalAuthenticationServiceImpl extends ServiceImpl<Medica
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(userId);
 
         if(hospitalAccount == null){
-            throw new RuntimeException("您尚未拥有医馆");
+            throw new MedicalException("您尚未拥有医馆");
         }
 
         // 根据医馆id获取医馆的认证信息id

@@ -2,7 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.medical.anchor.enums.CourseTypeEnum;
+import com.xczhihui.common.exception.AnchorWorkException;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
@@ -46,7 +46,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             }
             if(StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(endTime)){
                 if(end.isBefore(start)){
-                    throw new RuntimeException("起始时间不应大于终止时间");
+                    throw new AnchorWorkException("起始时间不应大于终止时间");
                 }
             }
 
@@ -74,7 +74,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
         }catch (DateTimeParseException e){
 
-            throw new RuntimeException("时间格式错误");
+            throw new AnchorWorkException("时间格式错误");
 
         }
     }
@@ -87,7 +87,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
     public Page<UserCoinIncreaseVO> sort(String liveId, String userId, Page<UserCoinIncreaseVO> page) {
 
         if(StringUtils.isBlank(liveId)){
-            throw new RuntimeException("请选择课程");
+            throw new AnchorWorkException("请选择课程");
         }
 
         // ranking ：用来显示排序时的数字
@@ -105,22 +105,6 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
                 // 获取熊猫币
                 vo.setValue(userCoinIncreaseMapper.sumValue(vo.getGiver(), liveId));
-
-//                // 获取主播的信息
-//                CourseAnchor courseAnchor = new CourseAnchor();
-//                courseAnchor.setUserId(userId);
-//                CourseAnchor anchor = anchorMapper.selectOne(courseAnchor);
-//
-//                // 根据课程类型获取分成比例
-//                if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
-//                    vo.setPercent(anchor.getLiveDivide().toString().substring(0,2) + "%");
-//                }
-//                if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
-//                    vo.setPercent(anchor.getVodDivide().toString().substring(0,2) + "%");
-//                }
-//                if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
-//                    vo.setPercent(anchor.getOfflineDivide().toString().substring(0,2) + "%");
-//                }
             }
         }
 

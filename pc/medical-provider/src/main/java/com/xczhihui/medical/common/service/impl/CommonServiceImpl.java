@@ -1,5 +1,6 @@
 package com.xczhihui.medical.common.service.impl;
 
+import com.xczhihui.common.exception.MedicalException;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;
@@ -8,7 +9,6 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
-import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.hospital.enums.MedicalHospitalApplyEnum;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalApplyMapper;
@@ -153,7 +153,7 @@ public class CommonServiceImpl implements ICommonService {
                     if(authHospitalResult.equals(CommonEnum.HOSPITAL_APPLYING.getCode()) ||
                             authHospitalResult.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
                         log.error("---------------userId = {} auth doctor , also auth hospital" , userId);
-                        throw new MedicalException(MedicalExceptionEnum.USER_DATA_ERROR);
+                        throw new MedicalException("不能同时认证医师和医馆");
                     }else{
                         return authDoctorResult;
                     }
@@ -179,7 +179,7 @@ public class CommonServiceImpl implements ICommonService {
                     if(authDoctorResult.equals(CommonEnum.DOCTOR_APPLYING.getCode()) ||
                             authDoctorResult.equals(CommonEnum.AUTH_DOCTOR.getCode())){
                         log.warn("-------------userId = {} auth doctor , also auth hospital" , userId);
-                        throw new MedicalException(MedicalExceptionEnum.USER_DATA_ERROR);
+                        throw new MedicalException("不能同时认证医师和医馆");
                     }else{
                         return authHospitalResult;
                     }
@@ -201,9 +201,9 @@ public class CommonServiceImpl implements ICommonService {
 
         }catch (MedicalException e) {
             log.error("---------------throw exception in user : {} auth doctor or hospital ,exception is {}", userId, e.getMessage());
-            throw new RuntimeException(MedicalExceptionEnum.USER_DATA_ERROR.getMsg());
+            throw new MedicalException(MedicalExceptionEnum.USER_DATA_ERROR.getMsg());
         } catch (Exception e) {
-            throw new RuntimeException("哎呦喂，网络不给力啊，请再试一次");
+            throw new MedicalException("哎呦喂，网络不给力啊，请再试一次");
         }finally {
             // 防止死锁
             Long count = countDownLatch.getCount();

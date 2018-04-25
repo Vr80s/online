@@ -79,11 +79,11 @@ public class UserController extends OnlineBaseController {
 		OnlineUser o = service.findUserByLoginName(username);
 		Token t = null;
 		if(o!=null) {
-            t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
+            t = userCenterAPI.login(username, password, TokenExpires.Year);
+//            t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
         }else{
 			return ResponseObject.newErrorResponseObject("用户未注册");
 		}
-//		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
 		if (t != null) {
 			if (o != null) {
 				t.setHeadPhoto(o.getSmallHeadPhoto());
@@ -385,31 +385,6 @@ public class UserController extends OnlineBaseController {
 		return ResponseObject.newSuccessResponseObject(service.checkNickName(nickName, u));
 	}
 
-	/**
-	 * 删除用户
-	 * @param username
-	 * @return
-	 */
-/*	@RequestMapping(value = "deleteUser")
-		 @ResponseBody
-		 public ResponseObject deleteUser(String username) {
-		return ResponseObject.newSuccessResponseObject(service.deleteUser(username));
-	}*/
-
-	/**
-	 * 删除用户
-	 * @param username
-	 * @return
-	 */
-//	@RequestMapping(value = "updateUser")
-//	@ResponseBody
-//	public ResponseObject updateUser(String username,HttpServletRequest request,HttpServletResponse response) {
-//		OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
-//		service.update(username, loginUser);
-//		UserLoginUtil.onLogout(request,response);
-//		return ResponseObject.newSuccessResponseObject("成功");
-//	}
-
 	/***
 	 * 获取用户资料
 	 * @return
@@ -476,12 +451,6 @@ public class UserController extends OnlineBaseController {
 				"occupation");
 		String occupationOther = ServletRequestUtils.getStringParameter(request,
 				"occupationOther");
-//		Integer jobyearId = ServletRequestUtils.getIntParameter(request,
-//				"jobyearId");
-//		String company = ServletRequestUtils.getStringParameter(request,
-//				"company");
-//		String posts = ServletRequestUtils.getStringParameter(request,
-//				"posts");
 		String province = ServletRequestUtils.getStringParameter(request,
 				"province");
 		String city = ServletRequestUtils.getStringParameter(request,
@@ -589,40 +558,6 @@ public class UserController extends OnlineBaseController {
 	}
 
 	/**
-	 * 修改密码
-	 * @param userId
-	 * @param pwd
-	 * @return
-	 */
-/*	@RequestMapping(value="updatePassword",method=RequestMethod.POST)
-	@ResponseBody
-	public OnlineResponse updatePassword(String userId,String pwd){
-		boolean isOk = userCenterService.updatePassword(userId, pwd);
-		if(isOk){
-			return OnlineResponse.newSuccessOnlineResponse(true);
-		}else{
-			return OnlineResponse.newErrorOnlineResponse("密码修改失败");
-		}
-	}*/
-
-
-	/**
-	 * 获取顶部用户资料
-	 * @param userId
-	 * @return
-	 */
-/*	@RequestMapping(value="getUserInfoTop",method=RequestMethod.GET)
-	@ResponseBody
-	public OnlineResponse getUserInfoTop(String userId){
-			UserCenterVo userCenterVo=userCenterService.getUserInfo(userId);
-			if(userCenterVo!=null&&(userCenterVo.getName()==null||StringUtils.isEmpty(userCenterVo.getName()))){
-				userCenterVo.setName(Constant._NICKNAME);
-			}
-			return OnlineResponse.newSuccessOnlineResponse(userCenterVo);
-
-	}*/
-
-	/**
 	 * 修改头像
 	 * @param request
 	 * @return
@@ -643,9 +578,9 @@ public class UserController extends OnlineBaseController {
 		byte[] image = Base64.getDecoder().decode(content);
 		service.updateHeadPhoto(user.getId(), image);
 
-
 		return this.isAlive(request);
 	}
+
 	/**
 	 * 联动显示省
 	 * @param
@@ -656,6 +591,7 @@ public class UserController extends OnlineBaseController {
 	public ResponseObject listProvinces() {
 		return ResponseObject.newSuccessResponseObject(service.listProvinces());
 	}
+
 	/**
 	 * 联动显示市
 	 * @param
@@ -667,6 +603,7 @@ public class UserController extends OnlineBaseController {
 	public ResponseObject listCities(String provinceId) {
 		return ResponseObject.newSuccessResponseObject(service.listCities(provinceId));
 	}
+
 	/**
 	 * 联动显示院校
 	 * @param cityId
@@ -678,16 +615,6 @@ public class UserController extends OnlineBaseController {
 		return ResponseObject.newSuccessResponseObject(service.listSchools(cityId));
 	}
 
-	/**
-	 * 联动显示院校
-	 * @param schoolNname
-	 * @return
-	 */
-	//@RequestMapping(value = "listSchools")
-	//@ResponseBody
-	//public ResponseObject listSchools(String schoolNname) {
-	//	return ResponseObject.newSuccessResponseObject(service.listSchools(schoolNname));
-	//}
 	/**
 	 * 联动显示专业
 	 * @param schoolId
@@ -791,6 +718,7 @@ public class UserController extends OnlineBaseController {
 		param.put("state", state);
 		response.sendRedirect("https://open.weixin.qq.com/connect/qrconnect" + "?" + HttpUtil.createQueryString(param));
 	}
+
 	/**
 	 * 微信登录授权成功后回调
 	 * @param request
@@ -817,6 +745,7 @@ public class UserController extends OnlineBaseController {
 			System.out.print("没有获取到响应参数");
 		}
 	}
+
 	/**
 	 * 三方登录帐号绑定手机或邮箱帐号
 	 * @param request
