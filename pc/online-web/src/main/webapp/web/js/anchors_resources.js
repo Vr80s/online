@@ -361,7 +361,7 @@ var ue = UE.getEditor('column-content', {
 		RequestService("/medical/common/upload", "post", {
 			image: baseurl,
 		}, function(data) {
-			$('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >');
+			$('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 		})
 	}
 	$('#zhuanlan_picIpt').on('change', function() {
@@ -618,7 +618,7 @@ var ue = UE.getEditor('column-content', {
 		RequestService("/medical/common/upload", "post", {
 			image: baseurl,
 		}, function(data) {
-			$('#zhuzuo .zhuzuo_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >');
+			$('#zhuzuo .zhuzuo_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 		})
 	}
 	$('#zhuzuo_picIpt').on('change', function() {
@@ -646,13 +646,13 @@ var ue = UE.getEditor('column-content', {
 	})
 	//	著作部分,点击发布验证文本框
 	function workValidate(workData) {
-		if(workData.title == "") {
+		if(workData.title == ""){
 			$(".work-book-warning").removeClass("hide");
 			return false;
 		} else {
 			$(".work-book-warning").addClass("hide");
 		}
-		if(workData.author == "") {
+		if(workData.author == ""){
 			$(".work-author-warning").removeClass("hide");
 			return false;
 		} else {
@@ -664,13 +664,13 @@ var ue = UE.getEditor('column-content', {
 		} else {
 			$(".work-picter-warning").addClass("hide");
 		}
-		if(workData.remark == "") {
+		if(workData.remark == ""){
 			$(".work-text-warning").removeClass("hide");
 			return false;
 		} else {
 			$(".work-text-warning").addClass("hide");
 		}
-		if(workData.buyLink == "") {
+		if(workData.buyLink == ""){
 			$(".work-link-warning").removeClass("hide");
 			return false;
 		} else {
@@ -678,7 +678,7 @@ var ue = UE.getEditor('column-content', {
 		}
 		return true;
 	}
-	$(".work-save-publish").click(function() {
+	$(".work-save-publish").click(function(){
 		var worksaveId = $(this).attr("data-status"),
 			workData = {
 				"title": $(".work-title").val(),
@@ -890,7 +890,7 @@ var ue = UE.getEditor('column-content', {
 			RequestService("/medical/common/upload", "post", {
 				image: baseurl,
 			}, function(data) {
-				$('#media_report .media_report_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >');
+				$('#media_report .media_report_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 			})
 		}
 		$('#media_picIpt').on('change', function() {

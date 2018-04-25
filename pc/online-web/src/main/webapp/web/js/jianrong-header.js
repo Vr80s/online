@@ -142,7 +142,7 @@ $(function () {
             '</div>'+
         '</div>',
         weixinErma:'<div class="sideWeixinErma">'+
-        '<img src="/web/images/sideWeixin.png" />'+
+        '<img src="/web/images/sideWeixin.jpg" />'+
         '<div class="sideSanjiao">'+
         '<img src="/web/images/float_sanjiao.png" />'+
         '</div>'+
@@ -154,7 +154,7 @@ $(function () {
         '</div>'+
         '</a>',
         weiboErma:'<div class="sideWeiboErma">'+
-        '<img src="/web/images/sideWeibopng.png" />'+
+        '<img src="/web/images/sideWeibopng.jpg" />'+
         '<div class="sideSanjiao1">'+
         '<img src="/web/images/float_sanjiao.png" />'+
         '</div>'+

@@ -1,8 +1,8 @@
 package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.anchor.enums.CourseTypeEnum;
-import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
+import com.xczhihui.common.exception.AnchorWorkException;
+import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
 import com.xczhihui.medical.anchor.service.ICourseOrderService;
@@ -15,15 +15,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Optional;
 
 @Service("courseOrderServiceImpl")
 public class CourseOrderServiceImpl implements ICourseOrderService {
 
     @Autowired
     private UserCoinIncreaseMapper userCoinIncreaseMapper;
-    @Autowired
-    private CourseAnchorMapper anchorMapper;
 
     /**
      * 获取用户的课程订单列表
@@ -38,9 +35,7 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
     public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page,
                                          String gradeName, String startTime, String endTime,
                                          Integer courseForm, Integer multimediaType) {
-
         try {
-
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime start = null, end = null;
 
@@ -52,13 +47,13 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
             }
             if(StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(endTime)){
                 if(end.isBefore(start)){
-                    throw new RuntimeException("起始时间不应大于终止时间");
+                    throw new AnchorWorkException("起始时间不应大于终止时间");
                 }
             }
 
-            if(courseForm != null && courseForm == 2){
+            if(courseForm != null && courseForm == CourseForm.VOD.getCode()){
                 if(multimediaType == null){
-                    throw new RuntimeException("请选择多媒体类型");
+                    throw new AnchorWorkException("请选择多媒体类型");
                 }
             }else{
                 multimediaType = null;
@@ -67,50 +62,16 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
             // 获取主播的信息：分成比例
             CourseAnchor anchor = new CourseAnchor();
             anchor.setUserId(userId);
-//            CourseAnchor target = anchorMapper.selectOne(anchor);
             String startTimeStr = start==null ? null:start.toString();
             String endTimeStr = end==null ? null:end.toString();
             // 获取课程订单的订单号，课程名称，支付时间，支付用户，实际支付的价格
             List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page, gradeName, startTimeStr, endTimeStr, courseForm, multimediaType);
 
-            // 根据课程id获取：苹果扣除的总数，分成比例，课程获得总熊猫币
-//            Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional = Optional.ofNullable(userCoinIncreaseVOList);
-//            userCoinIncreaseVOListOptional.ifPresent(userCoinIncreaseVOs ->
-//                    userCoinIncreaseVOs.stream()
-//                            .filter(vo -> StringUtils.isNotBlank(vo.getCourseId()))
-//                            .forEach(vo -> this.processUserCoinIncreaseVOList(vo, target))
-//            );
-
             page.setRecords(userCoinIncreaseVOList);
-
             return page;
-
         }catch (DateTimeParseException e){
-
-            throw new RuntimeException("时间格式错误");
-
+            throw new AnchorWorkException("时间格式错误");
         }
-    }
-
-    private void processUserCoinIncreaseVOList(UserCoinIncreaseVO vo, CourseAnchor target){
-
-        // 苹果扣除的总数
-        vo.setIosBrokerageValue(userCoinIncreaseMapper.sumIosBrokerageValueByCourseId(vo.getCourseId()));
-
-        // 课程获得总熊猫币
-//        vo.setValue(userCoinIncreaseMapper.sumValueByCourseByUciId(vo.getId()));
-        vo.setValue(userCoinIncreaseMapper.sumValueByCourse(vo.getCourseId()));
-
-        // 根据课程类型获取分成比例
-//        if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
-//            vo.setPercent(target.getLiveDivide().toString().substring(0,2) + "%");
-//        }
-//        if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
-//            vo.setPercent(target.getVodDivide().toString().substring(0,2) + "%");
-//        }
-//        if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
-//            vo.setPercent(target.getOfflineDivide().toString().substring(0,2) + "%");
-//        }
     }
 
 }

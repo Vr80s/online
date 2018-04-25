@@ -93,7 +93,7 @@
 
     <aop:config proxy-target-class="true">
         <aop:advisor advice-ref="txAdvice"
-                     pointcut="execution(* com.xczhihui.bxg..service..*.*(..))"/>
+                     pointcut="execution(* com.xczhihui..service..*.*(..))"/>
     </aop:config>
 
     <!-- 开启事务控制的注解支持 20180302-->

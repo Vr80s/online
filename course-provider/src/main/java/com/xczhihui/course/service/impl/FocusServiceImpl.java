@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.xczhihui.common.exception.FansException;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Focus;
 import com.xczhihui.course.service.IFocusService;
@@ -62,9 +63,7 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 			Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid,lecturerId);
 			if(type !=null && type == 1){//增加关注
 				if(f!=null){
-					//return "你已经关注过了";
-					throw new RuntimeException("你已经关注过了!");
-					//return "你已经关注过了";
+					throw new FansException("你已经关注过了!");
 				}
 				f= new Focus();
 				f.setId(UUID.randomUUID().toString().replace("-", ""));
@@ -74,14 +73,13 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 				focusMapper.insert(f);
 			}else if(type !=null && type == 2){
 				if(f==null){
-					//return "你还未关注此主播";
-					throw new RuntimeException("你还未关注此主播!");
+					throw new FansException("你还未关注此主播!");
 				}
 				focusMapper.deleteById(f.getId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("操作过于频繁!");
+			throw new FansException("操作过于频繁!");
 		}
 	}
 }

@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.exception.AnchorWorkException;
 import com.xczhihui.common.util.enums.BankCardType;
 import com.xczhihui.common.util.IDCard;
 import com.xczhihui.common.support.lock.Lock;
@@ -94,7 +95,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 		UserBank ub = selectUserBankByUserIdAndAcctPan(userBank.getUserId(),
 				userBank.getAcctPan(), userBank.getCertId());
 		if (ub != null) {
-			throw new RuntimeException("此卡已添加");
+			throw new AnchorWorkException("此卡已添加");
 		}
 		String host = "https://ali-bankcard4.showapi.com";
 		String path = "/bank3";
@@ -124,7 +125,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 			bankInfo = EntityUtils.toString(response.getEntity());
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("添加失败");
+			throw new AnchorWorkException("添加失败");
 		}
 		logger.info("银行卡校验返回信息：{}", bankInfo);
 		JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
@@ -137,11 +138,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 		String msg = showapi_res_bodyJson.get("msg").toString();
 		if (!"0".equals(code)) {
 			if("5".equals(code)){
-				throw new RuntimeException("持卡人认证失败");
+				throw new AnchorWorkException("持卡人认证失败");
 			}else if("14".equals(code)){
-				throw new RuntimeException("无效卡号");
+				throw new AnchorWorkException("无效卡号");
 			}
-			throw new RuntimeException(msg);
+			throw new AnchorWorkException(msg);
 		}
 		String srb = bankInfoJson.get("showapi_res_body").toString();
 		JSONObject srbJson = JSONObject.parseObject(srb);
@@ -218,26 +219,26 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 
 	private void validateUserBank(UserBank userBank) {
 		if (StringUtils.isBlank(userBank.getUserId())) {
-			throw new RuntimeException("用户id不可为空");
+			throw new AnchorWorkException("用户id不可为空");
 		}
 		if (StringUtils.isBlank(userBank.getAcctName())) {
-			throw new RuntimeException("户名不可为空");
+			throw new AnchorWorkException("户名不可为空");
 		}
 		if (StringUtils.isBlank(userBank.getAcctPan())) {
-			throw new RuntimeException("卡号不可为空");
+			throw new AnchorWorkException("卡号不可为空");
 		}
 
 		// if(StringUtils.isBlank(userBank.getCertId())){
-		// throw new RuntimeException("身份证号不可为空");
+		// throw new AnchorWorkException("身份证号不可为空");
 		// }else if(!IDCard.validator(userBank.getCertId())){
-		// throw new RuntimeException("身份证号不正确");
+		// throw new AnchorWorkException("身份证号不正确");
 		// }
 	}
 
 	private void validateUserBankCertId(UserBank userBank) {
 
 		if (!IDCard.validator(userBank.getCertId())) {
-			throw new RuntimeException("身份证号不正确");
+			throw new AnchorWorkException("身份证号不正确");
 		}
 
 	}
@@ -261,7 +262,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 		anchorInfoService.validateAnchorPermission(userId);
 
 		if (!MatchLuhn.matchLuhn(acctPan)) {
-			throw new RuntimeException("银行卡格式有误");
+			throw new AnchorWorkException("银行卡格式有误");
 		}
 		boolean verifyBank  = false;
 		String yzcx = BankCardType.getBankCard(Integer.valueOf(tel));
@@ -274,7 +275,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 		}
 		
 		if (!verifyBank) {
-			throw new RuntimeException("银行卡号与银行不匹配");
+			throw new AnchorWorkException("银行卡号与银行不匹配");
 		}
 		UserBank userBank = new UserBank();
 		userBank.setUserId(userId);
@@ -299,7 +300,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 		        courseAnchor.setStatus(true);
 		        CourseAnchor ca = courseAnchorMapper.selectOne(courseAnchor);
 		        if(ca == null ){
-		        	 throw new RuntimeException("不具备主播权限或主播权限被禁用");
+		        	 throw new AnchorWorkException("不具备主播权限或主播权限被禁用");
 		        }
 				if(ca.getType() == 1){
 					/**
