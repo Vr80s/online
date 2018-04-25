@@ -58,7 +58,7 @@
         <property name="packagesToScan">
             <list>
                 <value>com.xczhihui.bxg.online.**.domain</value>
-                <value>com.xczhihui.bxg.online.api.po</value>
+                <!--<value>com.xczhihui.online.api.po</value>-->
                 <value>com.xczhihui.mobile.vo</value>
             </list>
         </property>
@@ -107,24 +107,13 @@
                      pointcut="execution(* com.xczhihui..service..*.*(..))"/>
     </aop:config>
 
+    <import resource="shiro.xml"/>
+
     <bean id="simpleHibernateDao" class="com.xczhihui.common.support.dao.SimpleHibernateDao"/>
     <bean id="systemVariateService" class="com.xczhihui.common.support.service.impl.SystemVariateServiceImpl"/>
     <!-- 附件中心 -->
     <bean id="attachmentCenterService"
           class="com.xczhihui.common.support.service.impl.AttachmentCenterServiceImpl"/>
-    <!-- dubbo -->
-    <dubbo:application name="${dubbo.app.name}"/>
-    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
-    <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
-                     timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="userCoinService" interface="com.xczhihui.online.api.service.UserCoinService"
-                     timeout="${dubbo.consumer.timeout}"/>
-
-    <!-- 注入接口 开始直播通知服务 -->
-    <dubbo:reference id="liveCallbackServiceImpl" interface="com.xczhihui.online.api.service.LiveCallbackService"
-                     timeout="${dubbo.consumer.timeout}"/>
-
-    <import resource="shiro.xml"/>
 
     <!--RedissonUtil配置-->
     <bean id="redissonUtil" class="com.xczhihui.common.support.lock.RedissonUtil">
@@ -134,4 +123,15 @@
 
     <bean id="onlineConfig" class="com.xczhihui.common.support.config.OnlineConfig"></bean>
     <bean id="CCUtils" class="com.xczhihui.common.support.cc.util.CCUtils"></bean>
+
+    <!-- dubbo -->
+    <dubbo:application name="${dubbo.app.name}"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
+    <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="userCoinService" interface="com.xczhihui.online.api.service.UserCoinService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!-- 注入接口 开始直播通知服务 -->
+    <dubbo:reference id="liveCallbackServiceImpl" interface="com.xczhihui.online.api.service.LiveCallbackService"
+                     timeout="${dubbo.consumer.timeout}"/>
 </beans>
