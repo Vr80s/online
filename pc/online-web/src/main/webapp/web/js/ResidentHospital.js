@@ -339,6 +339,8 @@ $('#hos_base_inf').click(function() {
 				'fullscreen'
 			]
 		],
+		initialFrameWidth: 540,
+        initialFrameHeight:220,
 		elementPathEnabled: false,
 		autoHeightEnabled: false,
 		autoFloatEnabled: true,
