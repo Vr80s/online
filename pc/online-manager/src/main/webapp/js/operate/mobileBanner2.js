@@ -267,6 +267,12 @@ function search(){
 
 //新增框
 $(".add_bx").click(function(){
+	
+	$("#yqti_div").hide();
+	$("#yqti_textarea").val("");
+	$("#add_url").attr("placeholder","");
+	
+	//hhahahahhah(3);
 	debugger;
 	mobileBannerForm.resetForm();
 	//$(".remove").trigger("click");
@@ -294,6 +300,9 @@ $(".add_bx").click(function(){
 	                    layer.msg(data.resultObject);
 	                    freshTable(mobileBannerTable);
 	                }else{
+	                	if(data.errorMessage.indexOf("expected")!=-1){
+	                		alertInfo("加入的信息有误");
+	                	}
 	                	alertInfo(data.errorMessage);
 	               }
 	         });
@@ -303,27 +312,153 @@ $(".add_bx").click(function(){
 	});
 });
 
+
+function linkTypeChange(obj){
+	$("#yqti_div").show();
+	var linkTypeValue = $(obj).val();
+	if(linkTypeValue == 1 || linkTypeValue == 2){ //
+		$("#yqti_textarea").val("提示：暂不支持活动和专题");
+	}else if(linkTypeValue == 3){ //
+		$("#yqti_textarea").val("提示：可在云课程管理中的直播、点播、线下课管理中找到对应的课程id");
+		$("#add_url").attr("placeholder","请填写课程id");
+	}else if(linkTypeValue == 4){ //
+		$("#yqti_textarea").val("提示：可在主播管理中复制主播id");
+		$("#add_url").attr("placeholder","请填写主播id");
+	}else if(linkTypeValue == 5){ //
+		$("#yqti_textarea").val("提示：在文件管理中，下载连接说明文档。如有疑问，询问开发");
+	}
+}
+
+function hhahahahhah(linkTypeValue){
+	if(linkTypeValue == 1 || linkTypeValue == 2){ //
+		$("#yqti_textarea").val("提示：暂不支持活动和专题");
+	}else if(linkTypeValue == 3){ //
+		$("#yqti_textarea").val("提示：可在云课程管理中的直播、点播、线下课管理中找到对应的课程id");
+		$("#add_url").attr("placeholder","请填写课程id");
+	}else if(linkTypeValue == 4){ //
+		$("#yqti_textarea").val("提示：可在主播管理中复制主播id");
+		$("#add_url").attr("placeholder","请填写主播id");
+	}else if(linkTypeValue == 5){ //
+		$("#yqti_textarea").val("提示：在文件管理中，下载连接说明文档。如有疑问，询问开发");
+	}
+}
+
+
+function linkTypeChangeEdit(obj){
+	$("#yqti_div_edit").show();
+	var linkTypeValue = $(obj).val();
+	lalalalalalala(linkTypeValue);
+}
+
+
+function lalalalalalala(linkTypeValue){
+	if(linkTypeValue == 1 || linkTypeValue == 2){ //
+		$("#yqti_textarea_edit").val("提示：暂不支持活动和专题");
+	}else if(linkTypeValue == 3){ //
+		$("#yqti_textarea_edit").val("提示：可在云课程管理中的直播、点播、线下课管理中找到对应的课程id");
+		$("#update_url").attr("placeholder","请填写课程id");
+	}else if(linkTypeValue == 4){ //
+		$("#yqti_textarea_edit").val("提示：可在主播管理中复制主播id");
+		$("#update_url").attr("placeholder","请填写主播id");
+	}else if(linkTypeValue == 5){ //
+		$("#yqti_textarea_edit").val("提示：在文件管理中，下载连接说明文档。如有疑问，询问开发");
+	}
+}
+
+
+/**
+ * 通过key 得到value  course_id=100 通过course_id 得到 100
+ * @param search
+ * @param name
+ * @returns
+ */
+function getValueByStr(search,name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = search.match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+/*
+ * 点击banner跳转
+ */
+function bannerJump(type,params){
+	
+	if(!stringnull(params)){
+		console.error("banner参数不可以是空的");
+		return;
+	}
+	//1：活动页、2：专题页、3：课程:4：主播:5：课程列表
+	if(type == 1 || type == 2){
+		console.error("暂时不支持活动和专题");
+		return;
+	}else if(type == 3){
+		
+		var courseId = getValueByStr(params,"course_id");
+		//alert("courseId:"+courseId);
+		//课程跳转
+		common_jump_all(courseId);
+		
+	}else if(type == 4){
+		//主播跳转
+		var userLecturerId = getValueByStr(params,"userLecturerId");
+		//alert("userLecturerId:"+userLecturerId);
+		location.href="/xcview/html/live_personal.html?userLecturerId="+userLecturerId;
+	}else if(type == 5){
+		//var userLecturerId = getValueByStr(params,"userLecturerId");
+		//alert("params:"+params);
+		location.href="/xcview/html/curriculum_table.html?"+params;
+	}else{
+		console.error("banner类型有误");
+		return;
+	}
+}
+
+
+
+
 function updateMobileBanner(obj){
+	
+	$("#yqti_div_edit").hide();
+	$("#yqti_textarea_edit").val("");
+	$("#update_url").attr("placeholder","");
+	
 	var oo = $(obj).parent().parent().parent();
 	var row = mobileBannerTable.fnGetData(oo); // get datarow
 	mobileBannerFormEdit.resetForm();
 	$("#update_name").val(row.name);
-	$("#update_url").val(row.url);
 	$("#update_imgPath").val(row.imgPath);
 	$("#update_id").val(row.id);
-
+	
 	var linkType = row.linkType;
+	
+	var params = row.url;
+	
+	//把这个伟大的url截取一下
+    if(linkType == 3){
+		var courseId = getValueByStr(params,"course_id");
+		$("#update_url").val(courseId);
+    }else if(linkType == 4){
+    	var userLecturerId = getValueByStr(params,"userLecturerId");
+    	$("#update_url").val(userLecturerId);
+    }
+    lalalalalalala(linkType);
+	
 	/**
 	 *  跳转
 	 */
 	for(i=0;i<$("#update_linkType option").length;i++){
 		if($("#update_linkType option").eq(i).val()==linkType){
 			//$("#show_userLecturerId").text($("#view_mapList option").eq(i).text());
-		
 			$("#update_linkType option").eq(i).attr("select","selected"); 
 			$("#update_linkType").val(linkType);
 		}
     }
+	
+	
+	
+	
+	
+	
+	
 	reviewImage("update_imgPath_file",row.imgPath);
 	
 	var dialog = openDialog("updateMobileBannerDialog","dialogUpdateMobileBannerDiv","修改",580,500,true,"确定",function(){
