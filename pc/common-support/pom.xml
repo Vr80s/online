@@ -19,7 +19,11 @@
         <dependency>
             <groupId>com.xczhihui</groupId>
             <artifactId>common-util</artifactId>
-            
+        </dependency>
+
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>common-exception</artifactId>
         </dependency>
 
         <dependency>

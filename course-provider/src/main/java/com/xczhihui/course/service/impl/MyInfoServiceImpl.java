@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.common.exception.UserInfoException;
 import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.util.XzStringUtils;
@@ -50,21 +51,21 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 	public void updateUserSetInfo(OnlineUserVO user) {
 		
 		if(user.getSex()!=null && !UserSex.isValid(user.getSex())){
-			throw new RuntimeException("性别不合法,0 女  1男   2 未知");
+			throw new UserInfoException("性别不合法,0 女  1男   2 未知");
 		}
 		
 		if(StringUtils.isNotBlank(user.getName()) 
 				&&(user.getName().length()>20)){
-			throw new RuntimeException("昵称最多允许输入20个字符");
+			throw new UserInfoException("昵称最多允许输入20个字符");
 		}
 		if(StringUtils.isNotBlank(user.getEmail()) && 
 				 (user.getEmail().length()>32 || user.getEmail().length()<5)){
-			throw new RuntimeException("邮件长度在5-32之间");
+			throw new UserInfoException("邮件长度在5-32之间");
         }
 		
 		if(StringUtils.isNotBlank(user.getEmail()) && 
 				!XzStringUtils.checkEmail(user.getEmail())){
-			throw new RuntimeException("邮箱格式有误");
+			throw new UserInfoException("邮箱格式有误");
 		}
         myInfoMapper.updateUserSetInfo(user);
 	}

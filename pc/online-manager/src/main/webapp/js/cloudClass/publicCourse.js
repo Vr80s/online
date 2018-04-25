@@ -15,13 +15,15 @@ $(function(){
 	
 	/** 直播课管理 begin */
 	var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
-		var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
-        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
+	var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
     }},
-    {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
+    { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
+/*    {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},*/
 	{"title": "封面图", "class": "center", "width": "12%", "sortable": false, "data": 'smallimgPath',"mRender":function(data){
 		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
 	}},
+	
 	{ "title": "直播名称", "class":"center","width":"8%","sortable":false,"data": 'courseName' },
 	{ "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
 		debugger;
@@ -88,7 +90,7 @@ $(function(){
 	}];
 
 	//TODO
-	_courseTable = initTables("courseTable",basePath+"/publiccloudclass/course/list",objData,true,true,2,null,searchCase,function(data){
+	_courseTable = initTables("courseTable",basePath+"/publiccloudclass/course/list",objData,true,true,0,null,searchCase,function(data){
 		var texts = $("[name='courseNameList']");
 	    for (var i = 0; i < texts.length; i++) {
 	            texts.eq(i).parent().attr("title",texts.eq(i).text());

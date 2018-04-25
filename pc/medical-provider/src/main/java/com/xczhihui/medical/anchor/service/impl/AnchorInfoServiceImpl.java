@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.xczhihui.common.exception.AnchorException;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -191,7 +192,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     @Override
     public void validateAnchorPermission(String userId) {
         if(userId==null){
-            throw new RuntimeException("用户id不为空");
+            throw new AnchorException("用户id不为空");
         }
         CourseAnchor courseAnchor = new CourseAnchor();
         courseAnchor.setUserId(userId);
@@ -202,7 +203,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         if(ca == null){
             ca = courseAnchorMapper.selectOne(courseAnchor);
             if(ca == null) {
-                throw new RuntimeException("不具备主播权限或主播权限被禁用");
+                throw new AnchorException("不具备主播权限或主播权限被禁用");
             }else{
                 //缓存数据1分钟
                 cacheService.set(key,ca,60);
@@ -230,7 +231,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
 
     private void updateHospitalDetail(CourseAnchorVO target) {
         if(StringUtils.isNotBlank(target.getDetailAddress())&&target.getDetailAddress().length()>100){
-            throw new RuntimeException("详细地址长度不可超过100字");
+            throw new AnchorException("详细地址长度不可超过100字");
         }
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(target.getUserId());
 
@@ -249,7 +250,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private void updateDoctorDetail(CourseAnchorVO target) {
 
         if(StringUtils.isBlank(target.getHospitalId())){
-            throw new RuntimeException("请选择医馆");
+            throw new AnchorException("请选择医馆");
         }
 
         // 根据用户id获取其医师id
@@ -295,22 +296,22 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private void validate(CourseAnchorVO target) {
 
         if(target == null){
-            throw new RuntimeException("参数不能为空");
+            throw new AnchorException("参数不能为空");
         }
         if(StringUtils.isBlank(target.getName())){
-            throw new RuntimeException("主播昵称不能为空");
+            throw new AnchorException("主播昵称不能为空");
         }
         if(StringUtils.isBlank(target.getProfilePhoto())){
-            throw new RuntimeException("主播头像不能为空");
+            throw new AnchorException("主播头像不能为空");
         }
         if(StringUtils.isBlank(target.getDetail())){
-            throw new RuntimeException("主播个人介绍不能为空");
+            throw new AnchorException("主播个人介绍不能为空");
         }
         if(StringUtils.isBlank(target.getProvince())){
-            throw new RuntimeException("主播省份不能为空");
+            throw new AnchorException("主播省份不能为空");
         }
         if(StringUtils.isBlank(target.getCity())){
-            throw new RuntimeException("主播省份不能为空");
+            throw new AnchorException("主播省份不能为空");
         }
 
     }

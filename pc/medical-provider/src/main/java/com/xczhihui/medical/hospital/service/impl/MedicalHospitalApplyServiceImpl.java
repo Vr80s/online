@@ -2,6 +2,7 @@ package com.xczhihui.medical.hospital.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.common.exception.MedicalException;
 import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
@@ -77,7 +78,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         // 如果用户是认证医师或者医师认证中 不让其认证医馆
         if(result.equals(CommonEnum.AUTH_DOCTOR.getCode()) ||
                 result.equals(CommonEnum.DOCTOR_APPLYING .getCode())){
-            throw new RuntimeException("您已经认证了医师，不能再认证医馆");
+            throw new MedicalException("您已经认证了医师，不能再认证医馆");
         }
 
         // 如果用户认证医馆中
@@ -121,14 +122,14 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
         MedicalHospitalApply medicalHospitalApply = applyMapper.findByName(hospitalName);
         if(medicalHospitalApply != null && !(medicalHospitalApply.getUserId().equals(userId))){
-            throw new RuntimeException("医馆名称已经在认证中");
+            throw new MedicalException("医馆名称已经在认证中");
         }
 
         MedicalHospital hospital = hospitalMapper.findByName(hospitalName);
 
         // status = 1 时 无需考虑hospital表中的医馆名是否就已经属于他的
         if(status == 1 && hospital != null){
-            throw new RuntimeException("医馆名称已经被占用");
+            throw new MedicalException("医馆名称已经被占用");
         }
 
         // status = 2 时 需要考虑hospital表中的医馆名是否属于他
@@ -141,7 +142,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
             // 通过doctor_id和account_id查询不到数据 表示该医馆名不属于他的
             if(CollectionUtils.isEmpty(list)){
-                throw new RuntimeException("医馆名称已经被占用");
+                throw new MedicalException("医馆名称已经被占用");
             }
         }
 
@@ -183,43 +184,43 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     private void validate(MedicalHospitalApply target) {
 
         if(StringUtils.isBlank(target.getName())){
-            throw new RuntimeException("医馆名称不能为空");
+            throw new MedicalException("医馆名称不能为空");
         }else{
             if(target.getName().length() > 32){
-                throw new RuntimeException("医馆名称应保持在32字以内");
+                throw new MedicalException("医馆名称应保持在32字以内");
             }
         }
 
         if(StringUtils.isBlank(target.getCompany())){
-            throw new RuntimeException("医馆所属公司不能为空");
+            throw new MedicalException("医馆所属公司不能为空");
         }else{
             if(target.getCompany().length() > 32){
-                throw new RuntimeException("医馆所属公司名应保持在32字以内");
+                throw new MedicalException("医馆所属公司名应保持在32字以内");
             }
         }
 
         if(StringUtils.isBlank(target.getBusinessLicenseNo())){
-            throw new RuntimeException("营业执照号码不能为空");
+            throw new MedicalException("营业执照号码不能为空");
         }else{
             if(target.getBusinessLicenseNo().length() > 32){
-                throw new RuntimeException("营业执照号码应保持在32字以内");
+                throw new MedicalException("营业执照号码应保持在32字以内");
             }
         }
 
         if(StringUtils.isBlank(target.getBusinessLicensePicture())){
-            throw new RuntimeException("请上传营业执照");
+            throw new MedicalException("请上传营业执照");
         }
 
         if(StringUtils.isBlank(target.getLicenseForPharmaceuticalTrading())){
-            throw new RuntimeException("药品经营许可证号码不能为空");
+            throw new MedicalException("药品经营许可证号码不能为空");
         }else{
             if(target.getLicenseForPharmaceuticalTrading().length() > 32){
-                throw new RuntimeException("药品经营许可证号码应保持在32字以内");
+                throw new MedicalException("药品经营许可证号码应保持在32字以内");
             }
         }
 
         if(StringUtils.isBlank(target.getLicenseForPharmaceuticalTradingPicture())){
-            throw new RuntimeException("请上传药品经营许可证照片");
+            throw new MedicalException("请上传药品经营许可证照片");
         }
 
     }

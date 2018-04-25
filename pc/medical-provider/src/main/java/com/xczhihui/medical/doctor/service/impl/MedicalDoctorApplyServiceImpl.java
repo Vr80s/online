@@ -1,6 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.exception.MedicalException;
 import com.xczhihui.common.util.IDCard;
 import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
@@ -74,7 +75,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
                 result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
 
             // 如果用户是认证医馆 表示用户走错路了
-            throw new RuntimeException("您已经认证了医馆，不能再认证医师");
+            throw new MedicalException("您已经认证了医馆，不能再认证医师");
         }
 
         // 如果用户认证医师中 表示其重新提交认证信息
@@ -159,33 +160,33 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private void validate(MedicalDoctorApply target) {
 
         if(StringUtils.isBlank(target.getName())){
-            throw new RuntimeException("请填写真实姓名");
+            throw new MedicalException("请填写真实姓名");
         }else{
             if(target.getName().length() > 32){
-                throw new RuntimeException("真实姓名应保持在32字以内");
+                throw new MedicalException("真实姓名应保持在32字以内");
             }
         }
         if(StringUtils.isBlank(target.getCardNum())){
-            throw new RuntimeException("请填写身份证号");
+            throw new MedicalException("请填写身份证号");
         }else{
             if(!IDCard.validator(target.getCardNum())){
-                throw new RuntimeException("身份证号不正确");
+                throw new MedicalException("身份证号不正确");
             }
         }
         if(StringUtils.isBlank(target.getCardPositive())){
-            throw new RuntimeException("请上传身份证正面");
+            throw new MedicalException("请上传身份证正面");
         }
         if(StringUtils.isBlank(target.getCardNegative())){
-            throw new RuntimeException("请上传身份证反面");
+            throw new MedicalException("请上传身份证反面");
         }
         if(StringUtils.isBlank(target.getQualificationCertificate())){
-            throw new RuntimeException("请上传医师资格证");
+            throw new MedicalException("请上传医师资格证");
         }
         if(StringUtils.isBlank(target.getProfessionalCertificate())){
-            throw new RuntimeException("请上传执业资格证");
+            throw new MedicalException("请上传执业资格证");
         }
         if(StringUtils.isNotBlank(target.getField()) && target.getField().length() >32){
-            throw new RuntimeException("擅长领域内容应保持在32字以内");
+            throw new MedicalException("擅长领域内容应保持在32字以内");
         }
     }
 }

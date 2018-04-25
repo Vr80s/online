@@ -2,6 +2,7 @@ package com.xczhihui.medical.hospital.service.impl;
 
 import java.util.*;
 
+import com.xczhihui.common.exception.MedicalException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,7 +85,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         // 根据userId获取他的认证医馆信息
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(userId);
         if (hospitalAccount == null) {
-            throw new RuntimeException("您没有认证医馆");
+            throw new MedicalException("您没有认证医馆");
         }
 
         List<MedicalDoctor> medicalDoctorList =
@@ -114,7 +115,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(uid);
 
         if (hospitalAccount == null) {
-            throw new RuntimeException("您尚未拥有医馆");
+            throw new MedicalException("您尚未拥有医馆");
         }
 
         return medicalHospitalMapper.selectHospitalByIdAndStatus(hospitalAccount.getDoctorId(), null);
@@ -136,7 +137,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             MedicalHospitalAccount hospitalAccount =
                     hospitalAccountMapper.getByUserId(uid);
             if (hospitalAccount == null || StringUtils.isBlank(hospitalAccount.getDoctorId())) {
-                throw new RuntimeException("您尚为认证医馆，请认证后再添加");
+                throw new MedicalException("您尚为认证医馆，请认证后再添加");
             }
 
             Map<String, Object> columnMap = new HashMap<>();
@@ -194,7 +195,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
                 hospitalAccountMapper.getByUserId(medicalHospital.getUpdatePerson());
 
         if (hospitalAccount == null) {
-            throw new RuntimeException("您尚未拥有医馆");
+            throw new MedicalException("您尚未拥有医馆");
         }
 
         medicalHospital.setId(hospitalAccount.getDoctorId());
@@ -268,37 +269,37 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     private void validate(MedicalHospital medicalHospital) {
 
         if (medicalHospital == null) {
-            throw new RuntimeException("请选择要修改的医馆");
+            throw new MedicalException("请选择要修改的医馆");
         }
 
         if (StringUtils.isBlank(medicalHospital.getHeadPortrait())) {
-            throw new RuntimeException("请上传医馆头像");
+            throw new MedicalException("请上传医馆头像");
         }
 
         if (CollectionUtils.isEmpty(medicalHospital.getPictures())) {
-            throw new RuntimeException("请上传医馆图片");
+            throw new MedicalException("请上传医馆图片");
         }
 
         if (CollectionUtils.isEmpty(medicalHospital.getFieldIds())) {
-            throw new RuntimeException("请选择医疗领域");
+            throw new MedicalException("请选择医疗领域");
         }
 
         if (StringUtils.isBlank(medicalHospital.getDescription())) {
-            throw new RuntimeException("请填写医馆介绍");
+            throw new MedicalException("请填写医馆介绍");
         }
 
         if (StringUtils.isBlank(medicalHospital.getContactor())) {
-            throw new RuntimeException("请填写医馆联系人");
+            throw new MedicalException("请填写医馆联系人");
         } else if (medicalHospital.getContactor().length() > 16) {
-            throw new RuntimeException("联系人姓名不能超过16个字");
+            throw new MedicalException("联系人姓名不能超过16个字");
         }
 
         if (StringUtils.isBlank(medicalHospital.getProvince())) {
-            throw new RuntimeException("请选择医馆所在省份");
+            throw new MedicalException("请选择医馆所在省份");
         }
 
         if (StringUtils.isBlank(medicalHospital.getCity())) {
-            throw new RuntimeException("请填写医馆所在城市");
+            throw new MedicalException("请填写医馆所在城市");
         }
     }
 }
