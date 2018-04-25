@@ -167,7 +167,8 @@ function rankList(liveId) {
 
 //排行榜分页列表
 
-function getRankingList(current, liveId) {
+function getRankingList(current, liveId) {	
+	
 	RequestService("/medical/order/gift/rankingList?size=10&current=" + current + "&liveId=" + liveId, "get", null, function(data) {
 		for(var i = 0; i < data.resultObject.records.length; i++) {
 			if(data.resultObject.records[i].VALUE > 0) {
@@ -194,6 +195,7 @@ function getRankingList(current, liveId) {
 			$(".RankingList_page").css("display", "none");
 		}
 	});
+	
 }
 
 //课程收益列表
@@ -279,6 +281,12 @@ function getCourseResiveList(current, gradeName, startTime, endTime) {
 //	 礼物收益列表
 //	getGiftResiveList (1);
 function getGiftResiveList(current, gradeName, startTime, endTime) {
+		if($(".toRankingList").text()=="返回"){
+			$(".toRankingList").addClass('hide');
+    		$('.gift_Resive_mid').addClass('hide');
+			$('.gift_Resive_bottom').removeClass('hide');
+			$('.gift_Resive_bottom2').addClass('hide');
+    	}
 	if(gradeName == undefined) {
 		gradeName = ''
 	}
@@ -333,6 +341,7 @@ function getGiftResiveList(current, gradeName, startTime, endTime) {
 			$(".giftResive_pages").css("display", "none");
 		}
 	});
+
 }
 
 //条件搜索课程收益列表
