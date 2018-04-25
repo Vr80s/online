@@ -32,8 +32,8 @@ import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.model.WeiboClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
 
 import weibo4j.Oauth;
 import weibo4j.Users;

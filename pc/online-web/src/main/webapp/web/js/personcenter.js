@@ -294,8 +294,8 @@ $(function() {
 				$(".my-personcenter-nav-2 a").text("我的资料");
 				$(".view-content-content").empty();
 				$(".view-content-content").html(template.compile(mydata));
-				createData();
 				initAddressBind();
+				createData();
 			}
 			if($(evt.target).hasClass("mynews")) {
 				$(".view-content-content").empty();
@@ -440,7 +440,7 @@ $(function() {
 	        
 	        //省
 	        '<select class="Province1" onchange="getCity1()"> ' +
-	        '<option value="volvo">--选择省--</option> ' +
+	        '<option value="volvo">--选择省--</option> ' + 
 //	        '<option value="saab">Saab</option> ' +
 //	        '<option value="opel">Opel</option> ' +
 //	        '<option value="audi">Audi</option> ' +
@@ -454,7 +454,7 @@ $(function() {
 	        '</select> ' +
 	        
 	        //区
-	        '<select class="District1 hide"> ' +
+	        '<select class="District1"> ' +
 	        '<option value="volvo">--选择区/县--</option> ' +
 //	        '<option value="saab">Saab</option> ' +
 //	        '<option value="opel">Opel</option> ' +

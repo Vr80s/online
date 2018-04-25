@@ -37,8 +37,8 @@ import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.online.api.service.CommonApiService;
 import com.xczhihui.online.api.service.RechargesService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.util.XzStringUtils;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.util.XzStringUtils;
 
 /**
  * 通用控制器 ClassName: CommonController.java <br>

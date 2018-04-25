@@ -33,11 +33,11 @@ import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IFocusService;
-import com.xczhihui.wechat.course.service.IMyInfoService;
-import com.xczhihui.wechat.course.util.XzStringUtils;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
  * 我的信息管理页面 ClassName: MyManagerController.java <br>

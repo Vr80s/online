@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xczhihui.wechat.course.mapper.CriticizeMapper">
+<mapper namespace="com.xczhihui.course.mapper.CriticizeMapper">
 
 	<sql id="selectCriticize">
 		SELECT
@@ -33,14 +33,14 @@
 			ON c.`reply_user` = ous.`id`
 		WHERE c.`is_delete` = 0
 	</sql>
-	<select id="selectCourseCriticize" resultType="com.xczhihui.wechat.course.model.Criticize">
+	<select id="selectCourseCriticize" resultType="com.xczhihui.course.model.Criticize">
 		<include refid="selectCriticize"/>
 		  AND c.`course_id` = #{courseId}
 		ORDER BY c.`create_time` DESC
 
 	</select>
 
-	<select id="selectCollectionCriticize" resultType="com.xczhihui.wechat.course.model.Criticize">
+	<select id="selectCollectionCriticize" resultType="com.xczhihui.course.model.Criticize">
 		<include refid="selectCriticize"/>
 		  AND c.`course_id` in
 		<foreach collection="courseIds" index="index" item="item" open="(" separator="," close=")">
@@ -49,12 +49,12 @@
 		ORDER BY c.`create_time` DESC
 	</select>
 
-	<select id="selectAnchorCriticize" resultType="com.xczhihui.wechat.course.model.Criticize">
+	<select id="selectAnchorCriticize" resultType="com.xczhihui.course.model.Criticize">
 		<include refid="selectCriticize"/>
 		  AND c.`user_id`=#{anchorUserId}
 		ORDER BY c.`create_time` DESC
 	</select>
-	<select id="selectReplyByCriticizeId" resultType="com.xczhihui.wechat.course.model.Reply">
+	<select id="selectReplyByCriticizeId" resultType="com.xczhihui.course.model.Reply">
 		select
 		  re.`reply_content`,
 		  re.reply_user,

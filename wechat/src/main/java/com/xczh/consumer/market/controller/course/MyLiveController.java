@@ -1,9 +1,7 @@
 package com.xczh.consumer.market.controller.course;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,8 +13,8 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IFocusService;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IFocusService;
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
  * Description: <br>

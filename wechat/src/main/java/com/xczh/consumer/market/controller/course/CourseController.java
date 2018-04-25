@@ -21,8 +21,8 @@ import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>

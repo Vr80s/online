@@ -1,7 +1,7 @@
 package com.xczh.consumer.market.service;
 
 import com.xczh.consumer.market.vo.*;
-import com.xczhihui.wechat.course.model.OfflineCity;
+import com.xczhihui.course.model.OfflineCity;
 
 import java.sql.SQLException;
 import java.util.List;
