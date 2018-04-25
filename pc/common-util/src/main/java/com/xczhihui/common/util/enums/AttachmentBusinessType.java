@@ -1,4 +1,4 @@
-package com.xczhihui.common.support.support;
+package com.xczhihui.common.util.enums;
 
 /**
  * @author hejiwei

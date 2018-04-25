@@ -44,9 +44,9 @@ $(function(){
 								'<a class="blue" href="javascript:void(-1);" title="修改" onclick="editDialog(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+*/
 							   // '<a class="blue" href="javascript:void(-1);" title="关联课程类别" onclick="openMenuManage(this)"><i class="glyphicon glyphicon-wrench"></i></a>';
 					   			if(row.yunStatus==1) {
-									buttons+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
+									buttons+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);">禁用</a> ';
 								}else{
-									buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ';
+									buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);">启用</a> ';
 								};
 								return buttons;
 //	            	   		}else {

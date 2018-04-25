@@ -2,6 +2,8 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import java.util.*;
 
+import com.xczhihui.common.exception.MedicalException;
+import com.xczhihui.common.exception.MedicalException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -241,7 +243,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         // 判断用户是否为医师
         MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountMapper.getByUserId(medicalDoctor.getUserId());
         if (medicalDoctorAccount == null) {
-            throw new RuntimeException("您不是医师，不能加入医馆");
+            throw new MedicalException("您不是医师，不能加入医馆");
         }
 
         String doctorId = medicalDoctorAccount.getDoctorId();
@@ -397,7 +399,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                             medicalDoctorAuthenticationInformationMapper.updateById(authenticationInformation);
                             authenticationInformation.setUpdateTime(now);
                         } else {
-                            throw new RuntimeException("该医师没有认证信息，不能修改其头像，职称证明等信息");
+                            throw new MedicalException("该医师没有认证信息，不能修改其头像，职称证明等信息");
                         }
                     }
 
@@ -414,7 +416,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException("修改失败");
+            throw new MedicalException("修改失败");
         }
     }
 
@@ -425,7 +427,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     public MedicalDoctor selectDoctorByIdV2(String doctorId) {
 
         if (StringUtils.isBlank(doctorId)) {
-            throw new RuntimeException("请选择你要查看的医师");
+            throw new MedicalException("请选择你要查看的医师");
         }
 
         MedicalDoctor medicalDoctor = medicalDoctorMapper.selectById(doctorId);
@@ -470,11 +472,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         MedicalHospitalAccount hospitalAccount =
                 hospitalAccountMapper.getByUserId(medicalDoctor.getUserId());
         if (hospitalAccount == null) {
-            throw new RuntimeException("您尚为认证医馆，请认证后再添加");
+            throw new MedicalException("您尚为认证医馆，请认证后再添加");
         }
         // 判断医馆是否认证
         if (!medicalHospitalMapper.getAuthenticationById(hospitalAccount.getDoctorId())) {
-            throw new RuntimeException("医馆尚未认证，请认证后再添加");
+            throw new MedicalException("医馆尚未认证，请认证后再添加");
         }
 
         String doctorId = UUID.randomUUID().toString().replace("-", "");
@@ -527,7 +529,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         // 根据用户id获取其医师id
         MedicalDoctorAccount doctorAccount = medicalDoctorAccountMapper.getByUserId(uid);
         if (doctorAccount == null) {
-            throw new RuntimeException("您不是医师，无法获取医馆信息");
+            throw new MedicalException("您不是医师，无法获取医馆信息");
         }
 
         // 根据医师id获取其所在的医馆
@@ -583,64 +585,64 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         if (type == 1) {
 
             if (medicalDoctor == null) {
-                throw new RuntimeException("请求参数不能为空");
+                throw new MedicalException("请求参数不能为空");
             }
 
             if (StringUtils.isBlank(medicalDoctor.getHospitalId())) {
-                throw new RuntimeException("请选择医馆");
+                throw new MedicalException("请选择医馆");
             }
 
             if (StringUtils.isBlank(medicalDoctor.getWorkTime())) {
-                throw new RuntimeException("请选择坐诊时间");
+                throw new MedicalException("请选择坐诊时间");
             }
         }
 
         if (type == 2) {
             if (StringUtils.isBlank(medicalDoctor.getId())) {
-                throw new RuntimeException("请选择要修改的医师");
+                throw new MedicalException("请选择要修改的医师");
             }
 
             if (StringUtils.isNotBlank(medicalDoctor.getName()) && medicalDoctor.getName().length() > 32) {
-                throw new RuntimeException("医师名字不能超过32个字");
+                throw new MedicalException("医师名字不能超过32个字");
             }
             if (StringUtils.isNotBlank(medicalDoctor.getTitle()) && medicalDoctor.getTitle().length() > 100) {
-                throw new RuntimeException("职称不能超过100个字");
+                throw new MedicalException("职称不能超过100个字");
             }
             if (StringUtils.isNotBlank(medicalDoctor.getFieldText()) && medicalDoctor.getFieldText().length() > 100) {
-                throw new RuntimeException("擅长领域不能超过100个字");
+                throw new MedicalException("擅长领域不能超过100个字");
             }
         }
 
         if (type == 3) {
             if (StringUtils.isBlank(medicalDoctor.getName())) {
-                throw new RuntimeException("医师名字不能为空");
+                throw new MedicalException("医师名字不能为空");
             }
 
             if (StringUtils.isBlank(medicalDoctor.getHeadPortrait())) {
-                throw new RuntimeException("医师头像不能为空");
+                throw new MedicalException("医师头像不能为空");
             }
 
             if (StringUtils.isBlank(medicalDoctor.getTitle())) {
-                throw new RuntimeException("医师职称不能为空");
+                throw new MedicalException("医师职称不能为空");
             }
 
             if (medicalDoctor.getTitleProve() == null) {
-                throw new RuntimeException("请上传职称证明");
+                throw new MedicalException("请上传职称证明");
             }
 
             if (StringUtils.isBlank(medicalDoctor.getFieldText())) {
-                throw new RuntimeException("擅长不能为空");
+                throw new MedicalException("擅长不能为空");
             }
 
             if (CollectionUtils.isEmpty(medicalDoctor.getDepartmentIds())) {
-                throw new RuntimeException("请选择科室");
+                throw new MedicalException("请选择科室");
             }
 
             if (StringUtils.isBlank(medicalDoctor.getDescription())) {
-                throw new RuntimeException("医师介绍不能为空");
+                throw new MedicalException("医师介绍不能为空");
             }/*else{
                 if(medicalDoctor.getDescription().length() > 500){
-                    throw new RuntimeException("医师介绍字数应在500字以内");
+                    throw new MedicalException("医师介绍字数应在500字以内");
                 }
             }*/
         }

@@ -1,6 +1,7 @@
 package com.xczhihui.course.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.exception.OrderException;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.enums.OrderStatus;
@@ -37,7 +38,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public Order createOrder(String userId, int courseId, Integer orderFrom) {
         Course course = courseMapper.selectById(courseId);
         if(course==null){
-            throw new RuntimeException("课程已下架");
+            throw new OrderException("课程已下架");
         }
         //获取该用户该课程的未支付订单
         Order order = this.baseMapper.selectByUserIdAndCourseId(userId,courseId);
@@ -71,7 +72,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setOrderStatus(0);
         order = this.baseMapper.selectOne(order);
         if(order==null){
-            throw new RuntimeException(orderNo+"该单号下不存在订单信息，下单失败");
+            throw new OrderException(orderNo+"该单号下不存在订单信息，下单失败");
         }
         String courseNames = getCourseNames(order);
         order.setCourseNames(courseNames);
@@ -86,7 +87,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setOrderStatus(0);
         order = this.baseMapper.selectOne(order);
         if(order==null){
-            throw new RuntimeException(orderId+"该单id下不存在订单信息，下单失败");
+            throw new OrderException(orderId+"该单id下不存在订单信息，下单失败");
         }
         String courseNames = getCourseNames(order);
         order.setCourseNames(courseNames);
@@ -101,11 +102,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderDetailList.forEach(orderDetail -> {
             Integer count = this.baseMapper.selectCountByUserIdAndCourseId(order.getUserId(),orderDetail.getCourseId());
             if(count!=null && count >0){
-                throw new RuntimeException("订单中含有已购课程");
+                throw new OrderException("订单中含有已购课程");
             }
             Course course = courseMapper.selectById(orderDetail.getCourseId());
             if(course.getDelete() || "0".equals(course.getStatus())){
-                throw new RuntimeException("《"+course.getGradeName()+"》已下架");
+                throw new OrderException("《"+course.getGradeName()+"》已下架");
             }
             courseIds.add(course.getId());
         });
@@ -118,11 +119,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderDetailList.forEach(orderDetail -> {
             Integer count = this.baseMapper.selectCountByUserIdAndCourseId(order.getUserId(),orderDetail.getCourseId());
             if(count!=null && count >0){
-                throw new RuntimeException("订单中含有已购课程");
+                throw new OrderException("订单中含有已购课程");
             }
             Course course = courseMapper.selectById(orderDetail.getCourseId());
             if(course.getDelete() || "0".equals(course.getStatus())){
-                throw new RuntimeException("《"+course.getGradeName()+"》已下架");
+                throw new OrderException("《"+course.getGradeName()+"》已下架");
             }
             courseNames.append("《"+course.getGradeName()+"》");
         });

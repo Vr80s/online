@@ -1,6 +1,7 @@
 package com.xczhihui.common.support.service;
 
 import com.xczhihui.common.support.domain.Attachment;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 附件中心
@@ -34,6 +35,8 @@ public interface AttachmentCenterService {
      * @throws Exception
      */
     String upload(String createUserId, String projectName, String fileName, String contentType, byte[] fileData, String fileType) throws Exception;
+
+    Attachment addAttachmentRecord(String createUserId, AttachmentType type, String fileName, byte[] fileData, String originName);
 
     /**
      * 获得一个附件的json字符串

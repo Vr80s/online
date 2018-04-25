@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.exception.AnchorWorkException;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.util.enums.ApplyStatus;
@@ -158,7 +159,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private void validateCourseName(CourseApplyInfo courseApplyInfo) {
         Integer caiCount = courseApplyInfoMapper.selectCourseApplyForValidate(courseApplyInfo.getTitle(),courseApplyInfo.getOldApplyInfoId());
         if(caiCount>0){
-            throw new RuntimeException("课程标题被占用");
+            throw new AnchorWorkException("课程标题被占用");
         }else{
             List<Integer> ids = new ArrayList<>();
             ids.add(courseApplyInfo.getId());
@@ -168,7 +169,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             }
             Integer cCount = courseApplyInfoMapper.selectCourseForValidate(courseApplyInfo.getTitle(),ids);
             if(cCount>0){
-                throw new RuntimeException("课程标题被占用");
+                throw new AnchorWorkException("课程标题被占用");
             }
         }
     }
@@ -267,7 +268,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         anchorInfoService.validateAnchorPermission(userId);
         int i = courseApplyInfoMapper.updateSaleState(userId,courseApplyId,state);
         if(i<1){
-            throw new RuntimeException("更新课程上架状态失败");
+            throw new AnchorWorkException("更新课程上架状态失败");
         }
     }
 
@@ -311,7 +312,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         anchorInfoService.validateAnchorPermission(userId);
         CourseApplyInfo courseApplyInfo = courseApplyInfoMapper.selectCourseApplyById(userId, caiId);
         if(courseApplyInfo == null){
-            throw new RuntimeException("课程不存在");
+            throw new AnchorWorkException("课程不存在");
         }
         if(courseApplyInfo.getCollection()){
             List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCourseApplyByCollectionId(courseApplyInfo.getId());
@@ -325,18 +326,18 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         anchorInfoService.validateAnchorPermission(courseApplyInfo.getUserId());
         CourseApplyInfo cai = selectCourseApplyById(courseApplyInfo.getUserId(), courseApplyInfo.getId());
         if(cai==null){
-            throw new RuntimeException("课程申请不存在");
+            throw new AnchorWorkException("课程申请不存在");
         }
         if(courseApplyInfo.getPrice()==0&&cai.getPrice()>0){
-            throw new RuntimeException("课程不可由付费变为免费");
+            throw new AnchorWorkException("课程不可由付费变为免费");
         }
         if(courseApplyInfo.getPrice()>0&&cai.getPrice()==0){
-            throw new RuntimeException("课程不可由免费变为付费");
+            throw new AnchorWorkException("课程不可由免费变为付费");
         }
         if(cai.getStatus()==ApplyStatus.PASS.getCode()){
             String status = courseApplyInfoMapper.selectCourseStastusByApplyId(courseApplyInfo.getId());
             if("1".equals(status)){
-                throw new RuntimeException("课程上架状态下，不能进行修改操作");
+                throw new AnchorWorkException("课程上架状态下，不能进行修改操作");
             }
         }
         //删除之前申请
@@ -351,15 +352,15 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     public void deleteCourseApplyById(String userId, Integer caiId) {
         CourseApplyInfo cai = selectCourseApplyById(userId, caiId);
         if(cai==null){
-            throw new RuntimeException("操作的申请记录不存在");
+            throw new AnchorWorkException("操作的申请记录不存在");
         }
         //仅通过的申请不删除
         if(cai.getStatus()==ApplyStatus.PASS.getCode()){
-            throw new RuntimeException("该条申请记录暂不允许删除");
+            throw new AnchorWorkException("该条申请记录暂不允许删除");
         }
         List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCollectionApplyByCourseApplyId(caiId);
         if(courseApplyInfos.size()>0){
-            throw new RuntimeException("该课程正在被其他专辑引用，暂时不可删除");
+            throw new AnchorWorkException("该课程正在被其他专辑引用，暂时不可删除");
         }
         courseApplyInfoMapper.deleteCourseApplyById(caiId);
     }
@@ -368,11 +369,11 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     public void updateCollectionApply(CourseApplyInfo collectionApplyInfo) {
         CourseApplyInfo collection = selectCourseApplyById(collectionApplyInfo.getUserId(), collectionApplyInfo.getId());
         if(collection==null){
-            throw new RuntimeException("专辑不存在");
+            throw new AnchorWorkException("专辑不存在");
         }
         /*else if(cai.getStatus()!= ApplyStatus.UNTREATED.getCode()){
             //防止后台管理操作与主播同时操作该课程出现问题
-            throw new RuntimeException("课程审核状态已经发生变化");
+            throw new AnchorWorkException("课程审核状态已经发生变化");
         }*/
         //删除之前申请
         courseApplyInfoMapper.deleteCourseApplyById(collectionApplyInfo.getId());
@@ -390,15 +391,15 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     private void validateCourseApplyResource(CourseApplyResource courseApplyResource) {
         if(StringUtils.isBlank(courseApplyResource.getTitle())){
-            throw new RuntimeException("资源标题不可为空");
+            throw new AnchorWorkException("资源标题不可为空");
         }else if(courseApplyResource.getTitle().length()>32){
-            throw new RuntimeException("资源标题长度不可超过32个字");
+            throw new AnchorWorkException("资源标题长度不可超过32个字");
         }
         if(StringUtils.isBlank(courseApplyResource.getResource())){
-            throw new RuntimeException("资源不可为空");
+            throw new AnchorWorkException("资源不可为空");
         }
         if(courseApplyResource.getMultimediaType()==null || (courseApplyResource.getMultimediaType()!= Multimedia.AUDIO.getCode() && courseApplyResource.getMultimediaType()!=Multimedia.VIDEO.getCode())){
-            throw new RuntimeException("媒体类型参数有误");
+            throw new AnchorWorkException("媒体类型参数有误");
         }
         validateCourseApplyResourceName(courseApplyResource);
     }
@@ -411,7 +412,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         car.setUserId(courseApplyResource.getUserId());
         courseApplyResource = courseApplyResourceMapper.selectOne(car);
         if(courseApplyResource != null){
-            throw new RuntimeException("已存在同名媒体资源");
+            throw new AnchorWorkException("已存在同名媒体资源");
         }
     }
 
@@ -423,49 +424,49 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     private void validateCollectionApply(CourseApplyInfo courseApplyInfo) {
         if(!courseApplyInfo.getCollection()){
-            throw new RuntimeException("该方法仅支持专辑课程");
+            throw new AnchorWorkException("该方法仅支持专辑课程");
         }
         if(StringUtils.isBlank(courseApplyInfo.getTitle())){
-            throw new RuntimeException("专辑标题不可为空");
+            throw new AnchorWorkException("专辑标题不可为空");
         }else if(courseApplyInfo.getTitle().length()>32){
-            throw new RuntimeException("专辑标题长度不可超过32");
+            throw new AnchorWorkException("专辑标题长度不可超过32");
         }
         if(StringUtils.isBlank(courseApplyInfo.getSubtitle())){
-            throw new RuntimeException("专辑副标题不可为空");
+            throw new AnchorWorkException("专辑副标题不可为空");
         }else if(courseApplyInfo.getSubtitle().length()>32){
-            throw new RuntimeException("专辑副标题长度不可超过32");
+            throw new AnchorWorkException("专辑副标题长度不可超过32");
         }
         if(StringUtils.isBlank(courseApplyInfo.getLecturer())){
-            throw new RuntimeException("主播不可为空");
+            throw new AnchorWorkException("主播不可为空");
         }else if(courseApplyInfo.getLecturer().length()>30){
-            throw new RuntimeException("主播名称长度不可超过30");
+            throw new AnchorWorkException("主播名称长度不可超过30");
         }
         if(StringUtils.isBlank(courseApplyInfo.getLecturerDescription())){
-            throw new RuntimeException("主播介绍不可为空");
+            throw new AnchorWorkException("主播介绍不可为空");
         }
 
         if(StringUtils.isBlank(courseApplyInfo.getCourseMenu())){
-            throw new RuntimeException("课程分类不可为空");
+            throw new AnchorWorkException("课程分类不可为空");
         }
         if(courseApplyInfo.getCourseNumber()==null){
-            throw new RuntimeException("总集数不可为空");
+            throw new AnchorWorkException("总集数不可为空");
         }
         if(courseApplyInfo.getCourseForm()==null){
-            throw new RuntimeException("课程形式不可为空");
+            throw new AnchorWorkException("课程形式不可为空");
         }
         if(courseApplyInfo.getPrice()==null){
-            throw new RuntimeException("专辑总价不可为空");
+            throw new AnchorWorkException("专辑总价不可为空");
         }
         if(courseApplyInfo.getPrice()<0){
-            throw new RuntimeException("专辑单价不可小于0");
+            throw new AnchorWorkException("专辑单价不可小于0");
         }
         if(courseApplyInfo.getPrice()!=courseApplyInfo.getPrice().intValue()){
-            throw new RuntimeException("专辑单价必须为整数");
+            throw new AnchorWorkException("专辑单价必须为整数");
         }
 
         //当专辑为点播视频时
         if(courseApplyInfo.getCourseForm() != CourseForm.VOD.getCode()){
-            throw new RuntimeException("暂不支持点播以外的专辑课程");
+            throw new AnchorWorkException("暂不支持点播以外的专辑课程");
         }
         validateCourseName(courseApplyInfo);
     }
@@ -479,47 +480,47 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private void validateCourseApply(CourseApplyInfo courseApplyInfo) {
         validateCourseUsed(courseApplyInfo);
         if(StringUtils.isBlank(courseApplyInfo.getUserId())){
-            throw new RuntimeException("用户id不可为空");
+            throw new AnchorWorkException("用户id不可为空");
         }
         if(StringUtils.isBlank(courseApplyInfo.getTitle())){
-            throw new RuntimeException("课程标题不可为空");
+            throw new AnchorWorkException("课程标题不可为空");
         }else if(courseApplyInfo.getTitle().length()>30){
-            throw new RuntimeException("课程标题长度不可超过30");
+            throw new AnchorWorkException("课程标题长度不可超过30");
         }
         if(StringUtils.isBlank(courseApplyInfo.getSubtitle())){
-            throw new RuntimeException("课程副标题不可为空");
+            throw new AnchorWorkException("课程副标题不可为空");
         }else if(courseApplyInfo.getSubtitle().length()>30){
-            throw new RuntimeException("课程副标题长度不可超过30");
+            throw new AnchorWorkException("课程副标题长度不可超过30");
         }
         if(StringUtils.isBlank(courseApplyInfo.getLecturer())){
-            throw new RuntimeException("主播不可为空");
+            throw new AnchorWorkException("主播不可为空");
         }else if(courseApplyInfo.getLecturer().length()>30){
-            throw new RuntimeException("主播名称长度不可超过30");
+            throw new AnchorWorkException("主播名称长度不可超过30");
         }
         if(StringUtils.isBlank(courseApplyInfo.getCourseMenu())){
-            throw new RuntimeException("课程分类不可为空");
+            throw new AnchorWorkException("课程分类不可为空");
         }
         if(courseApplyInfo.getCourseForm()==null){
-            throw new RuntimeException("课程形式不可为空");
+            throw new AnchorWorkException("课程形式不可为空");
         }
         if(courseApplyInfo.getPrice()==null){
-            throw new RuntimeException("课程单价不可为空");
+            throw new AnchorWorkException("课程单价不可为空");
         }
         if(courseApplyInfo.getPrice()<0){
-            throw new RuntimeException("课程单价不可小于0");
+            throw new AnchorWorkException("课程单价不可小于0");
         }
         if(courseApplyInfo.getPrice()!=courseApplyInfo.getPrice().intValue()){
-            throw new RuntimeException("课程单价必须为整数");
+            throw new AnchorWorkException("课程单价必须为整数");
         }
 
         //当课程为点播视频时
         if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
             if(courseApplyInfo.getMultimediaType()==null){
-                throw new RuntimeException("媒体类型不为空");
+                throw new AnchorWorkException("媒体类型不为空");
             }
             Integer resourceId = courseApplyInfo.getResourceId();
             if(resourceId == null){
-                throw new RuntimeException("课程资源不存在");
+                throw new AnchorWorkException("课程资源不存在");
             }
             CourseApplyResource resource = new CourseApplyResource();
             resource.setId(resourceId);
@@ -527,27 +528,27 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             resource.setUserId(courseApplyInfo.getUserId());
             CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(resource);
             if(courseApplyResource==null || StringUtils.isBlank(courseApplyResource.getResource())){
-                throw new RuntimeException("课程未发现视频资源");
+                throw new AnchorWorkException("课程未发现视频资源");
             }
         }else if(courseApplyInfo.getCourseForm()== CourseForm.OFFLINE.getCode()){
             if(StringUtils.isBlank(courseApplyInfo.getAddress())){
-                throw new RuntimeException("授课地址不为空");
+                throw new AnchorWorkException("授课地址不为空");
             }
             if(StringUtils.isBlank(courseApplyInfo.getCity())){
-                throw new RuntimeException("授课地址不为空");
+                throw new AnchorWorkException("授课地址不为空");
             }
             if(courseApplyInfo.getStartTime()==null){
-                throw new RuntimeException("开课时间不为空");
+                throw new AnchorWorkException("开课时间不为空");
             }
             if(courseApplyInfo.getEndTime()==null){
-                throw new RuntimeException("结课时间不为空");
+                throw new AnchorWorkException("结课时间不为空");
             }
         }else if(courseApplyInfo.getCourseForm()== CourseForm.LIVE.getCode()){
             if(courseApplyInfo.getStartTime()==null){
-                throw new RuntimeException("开课时间不为空");
+                throw new AnchorWorkException("开课时间不为空");
             }
         }else{
-            throw new RuntimeException("课程形式有误");
+            throw new AnchorWorkException("课程形式有误");
         }
         validateCourseName(courseApplyInfo);
     }
@@ -556,7 +557,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if((courseApplyInfo.getCollection()==null||!courseApplyInfo.getCollection()) && courseApplyInfo.getOldApplyInfoId()!=null){
             List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCollectionApplyByCourseApplyId(courseApplyInfo.getOldApplyInfoId());
             if(courseApplyInfos.size()>0){
-                throw new RuntimeException("该课程正在被其他专辑引用，暂时不可更新");
+                throw new AnchorWorkException("该课程正在被其他专辑引用，暂时不可更新");
             }
         }
     }
