@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 
 import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.user.center.utils.HttpUtil;
 
 
 @Component

@@ -15,29 +15,6 @@ public class TestToken1 {
 
 	public static void main(String[] args) {
 
-		//String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-		//System.out.println("token"+token);
-/*		Map<String,String>  description = new HashMap<String,String>();
-		description.put("title", "杨宣");
-		description.put("introduction", "测试");
-		
-		System.out.println(description.toString());
-		String  targatUrl = "https://api.weixin.qq.com/cgi-bin/media/uploadimg";
-		targatUrl ="https://api.weixin.qq.com/cgi-bin/material/add_material";
-		Map<String,String>  map = new HashMap<String,String>();
-		map.put("access_token", "8_0W8Wzd1B0JhO0OSDSHTlpLIdjmEejE3kN1SKnfhAhZ4v_0b8DEMX4W_JvlDyUDFiG5fRorm8DWUjL3L75ZVfu5IT6dTXmbcPOxeudPzNgwkIQYk7nrImbkJHNNtVQ8XPoozyNAbOlMyf3AHaBIXiAJANUJ");
-		map.put("type", "video");
-		map.put("description","{\"title\":\"111\", \"introduction\":\"111\"}");
-		*//**
-		 * 上传文件
-		 *//*
-		 byte[] buffer = getBytes("F:\\Desktop\\1.mp4");
-		 String str = HttpUtil.uploadFile(targatUrl, map,
-				"media",
-				"1.mp4",
-				buffer);
-		 System.out.println("就看你了，兄弟："+str);*/
-		 
 		 String title ="测试.....";
 		 String thumb_media_id ="6y0EBrCsG4Si29EjR7_uAA0zZmaUa37VIAAqNDbrjQE";
 		 String content_source_url ="http://www.ixincheng.com";

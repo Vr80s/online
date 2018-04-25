@@ -362,76 +362,6 @@ public class WxPayController {
 		
 		
 		return ResponseObject.newErrorResponseObject("请使用最新版本");
-//		try {
-//			/*
-//			 * 传递过来一个订单号
-//			 */
-//			String order_no = req.getParameter("order_no");
-//			ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
-//    		if(null == orderDetails.getResultObject()){
-//    			return ResponseObject.newErrorResponseObject("未找到订单信息");
-//    		}
-//			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
-//			//订单金额
-//    		Double actualPrice = order.getActualPay();
-//    		double  xmb = actualPrice * rate;
-//    		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-//    		if(user == null) {
-//    	         return ResponseObject.newErrorResponseObject("登录失效");
-//    	    }
-//    		
-//    		//String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
-//    		String userYE = userCoinService.getBalanceByUserId(user.getId());
-//    		double d = Double.valueOf(userYE);
-//    		LOGGER.info("要消费余额:"+xmb);
-//    		LOGGER.info("当前用户余额:"+d);
-//    		if(xmb>d){
-//    			return ResponseObject.newErrorResponseObject("余额不足,请到个人账户充值！");
-//			}
-//			/**
-//			 * 然后你那边加下密
-//			 */
-//			String transaction_id = CodeUtil.getRandomUUID();
-//			String s = "out_trade_no=" + order_no + "&result_code=SUCCESS"
-//					+ "&transaction_id="+transaction_id+"&key=" + onlinekey;
-//			
-//			String mysign = CodeUtil.MD5Encode(s).toLowerCase();
-//			String resXml = "<xml>" + "<out_trade_no><![CDATA[" + order_no
-//					+ "]]></out_trade_no>"
-//					+ "<result_code><![CDATA[SUCCESS]]></result_code>"
-//					+ "<transaction_id>"+transaction_id+"<![CDATA[]]></transaction_id>"
-//					+ "<sign><![CDATA[" + mysign
-//					+ "]]></sign>" + " </xml> ";
-//			
-//			LOGGER.info("请求web端的  ios   内购成功回调  pay_notify_iosiap");
-//			
-//			String msg = HttpUtil.sendDataRequest(pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml.toString().getBytes());
-//			
-//			LOGGER.info("msg  >>>  " + msg);
-//			Gson g = new GsonBuilder().create();
-//			Map<String, Object> mp = g.fromJson(msg, Map.class);
-//			boolean falg =  Boolean.valueOf(mp.get("success").toString());
-//	        if(falg){
-//	        	/**
-//	    		 * 获取订单详情
-//	    		 */
-//	    		String courderName ="";
-//	    		if(order.getAllCourse().size()>0){
-//	    			courderName =order.getAllCourse().get(0).getGradeName();
-//	    		}
-//	    		/**
-//	    		 * 记录下ios支付成功后的记录
-//	    		 */
-//	    		ResponseObject finalResult = iIpaService.iapOrder(order.getUserId(), xmb, order_no, actualPrice+"",courderName);
-//	    		return finalResult;
-//	        }else{
-//	        	return ResponseObject.newErrorResponseObject("签名有误");
-//	        }
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//			return ResponseObject.newErrorResponseObject("服务器有误");
-//		}
 	}
 	
 	/**
@@ -480,10 +410,8 @@ public class WxPayController {
 			if (openid != null && !openid.isEmpty()) {
 				JSONObject jsonObject = JSONObject.fromObject(openid);
 				res.sendRedirect(returnCodeUri + "/bxg/page/index/"
-						+ jsonObject.get("openid") + "/" + code);// res.sendRedirect(returnCodeUri+"?code="+code);
-			} else
-				// res.getWriter().write(openid);
-            {
+						+ jsonObject.get("openid") + "/" + code);
+			} else{
                 res.sendRedirect(returnCodeUri + "/bxg/page/index/" + openid
                         + "/" + code);
             }
