@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->
@@ -38,28 +39,30 @@
     </div>
 </div>
 <header>
-    <#include "../header-body.ftl">
+<#include "../header-body.ftl">
 </header>
 
 <div id="forum" class="clearfix">
     <div class="forum-banner ">
         <div class="banner">
             <ul id="slider" class="slider">
-                <#list banners as banner>
-                    <#if banner_index==0>
-                        <li style="z-index: 2">
-                            <a href="${banner.imgHref}" target="_blank" style="background:url(${banner.imgPath})no-repeat top center">
-                                <div class="image-overlay"></div>
-                            </a>
-                        </li>
-                    <#else >
-                        <li>
-                            <a href="${banner.imgHref}" target="_blank" style="background:url(${banner.imgPath})no-repeat top center">
-                                <div class="image-overlay"></div>
-                            </a>
-                        </li>
-                    </#if>
-                </#list>
+            <#list banners as banner>
+                <#if banner_index==0>
+                    <li style="z-index: 2">
+                        <a href="${banner.imgHref}" target="_blank"
+                           style="background:url(${banner.imgPath})no-repeat top center">
+                            <div class="image-overlay"></div>
+                        </a>
+                    </li>
+                <#else >
+                    <li>
+                        <a href="${banner.imgHref}" target="_blank"
+                           style="background:url(${banner.imgPath})no-repeat top center">
+                            <div class="image-overlay"></div>
+                        </a>
+                    </li>
+                </#if>
+            </#list>
             </ul>
             <div id="left"><em></em></div>
             <div id="right"><em></em></div>
@@ -76,122 +79,63 @@
         <div class="hot-article hide">
             <span class="hot-article-title">推荐阅读</span>
             <ul class="hot-article-list">
-                <#list hotArticle as ha>
-                    <#if ha_index <=2>
-                        <li>
-                            <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
-                                <span title="${ha.title}">${ha.title}</span>
-                            </a>
-                        </li>
-                    <#else >
-                        <li>
-                            <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
-                                <span title="${ha.title}">${ha.title}</span>
-                            </a>
-                        </li>
-                    </#if>
-                </#list>
+            <#list hotArticle as ha>
+                <#if ha_index <=2>
+                    <li>
+                        <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
+                            <span title="${ha.title}">${ha.title}</span>
+                        </a>
+                    </li>
+                <#else >
+                    <li>
+                        <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
+                            <span title="${ha.title}">${ha.title}</span>
+                        </a>
+                    </li>
+                </#if>
+            </#list>
             </ul>
         </div>
-
-        <div class="dajia_zhuanlan hide" id="dajia_bigbox">
-            <h4>大家专栏</h4>
-            <div id="dajia_zhuanlan_list">
-                <ul id="dajia_zhuanlan_list2">
-                    <!--<li class="clearfix">
-                        <div class="touxiang">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="dajia_inf">
-                            <span>朱春苏</span>
-                            <p>温中行气化湿的啥人</p>
-                        </div>
-                    </li>
-
-                    <li  class="clearfix">
-                        <div class="touxiang">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="dajia_inf">
-                            <span>朱春苏</span>
-                            <p>温中行气化湿的啥人</p>
-                        </div>
-                    </li>
-
-                    <li  class="clearfix">
-                        <div class="touxiang">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="dajia_inf">
-                            <span>朱春苏</span>
-                            <p>温中行气化湿的啥人</p>
-                        </div>
-                    </li>
-
-                    <li  class="clearfix">
-                        <div class="touxiang">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="dajia_inf">
-                            <span>朱春苏</span>
-                            <p>温中行气化湿的啥人</p>
-                        </div>
-                    </li>
-
-                    <li  class="clearfix">
-                        <div class="touxiang">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="dajia_inf">
-                            <span>朱春苏</span>
-                            <p>温中行气化湿的啥人</p>
-                        </div>
-                    </li>-->
-
-                </ul>
-            </div>
-
-        </div>
-
-
-
-
 
     </div>
     <div class="forum-content clearfix">
         <div class="forum-content-left">
             <div class="forum-type" style="height:62px;">
                 <ul class="forum-content-tag clearfix">
-                    <#list articleType as at>
-                        <#if at.id==echoMap.type>
-                            <a href="${webUrl}/headline/${at.id}" style="display: block;"><li class="select" ><em class="select"></em>${at.name}</li></a>
-                        <#else >
-                            <a href="${webUrl}/headline/${at.id}" style="display: block;"><li ><em class="select1"></em>${at.name}</li></a>
-                        </#if>
-                    </#list>
+                <#list articleType as at>
+                    <#if at.id==echoMap.type>
+                        <a href="${webUrl}/headline/${at.id}" style="display: block;">
+                            <li class="select"><em class="select"></em>${at.name}</li>
+                        </a>
+                    <#else >
+                        <a href="${webUrl}/headline/${at.id}" style="display: block;">
+                            <li><em class="select1"></em>${at.name}</li>
+                        </a>
+                    </#if>
+                </#list>
                 </ul>
             </div>
             <div class="forum-content-info">
-                <#list articles.records as article>
-                    <div class="forum-info clearfix">
-                        <a href="${webUrl}/headline/details/${article.id}" target="_blank">
-                            <img class="forum-info-left" src="${article.imgPath}" alt=""/>
-                        </a>
-                        <div class="forum-info-right">
-                            <div class="forum-info-title">
-                                <a href="${webUrl}/headline/details/${article.id}" target="_blank">${article.title}</a>
-                            </div>
-                            <div class="forum-info-content dot-ellipsis">
-                            ${article.content}
-                            </div>
-                            <div class="forum-info-tags">
-                                <span>${article.author!''}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>
-                            </div>
+            <#list articles.records as article>
+                <div class="forum-info clearfix">
+                    <a href="${webUrl}/headline/details/${article.id}" target="_blank">
+                        <img class="forum-info-left" src="${article.imgPath}" alt=""/>
+                    </a>
+                    <div class="forum-info-right">
+                        <div class="forum-info-title">
+                            <a href="${webUrl}/headline/details/${article.id}" target="_blank">${article.title}</a>
+                        </div>
+                        <div class="forum-info-content dot-ellipsis">
+                        ${article.content}
+                        </div>
+                        <div class="forum-info-tags">
+                            <span>${article.author!''}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>
                         </div>
                     </div>
-                </#list>
+                </div>
+            </#list>
             </div>
-                <a href="${webUrl}/headline/list/${echoMap.type}" class="more-news">更多</a>
+            <a href="${webUrl}/headline/list/${echoMap.type}" class="more-news">更多</a>
         </div>
         <div class="forum-content-right" style="position: absolute; left: 880px;">
             <!--推荐专栏作者-->
@@ -239,21 +183,38 @@
                     </li>-->
                 </ul>
             </div>
-
-
-            <div class="hot-article">
-                <span class="hot-article-title">推荐阅读</span>
-                <ul class="hot-article-list">
-                    <#list hotArticle as ha>
-                        <li>
-                            <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
-                                <span title="${ha.title}">${ha.title}</span>
-                            </a>
+        <#if (hotSpecialColumnAuthors?size > 0)>
+            <div class="zhuanlan_zuozhe" id="zhuanlan_bigbox">
+                <h4>大家专栏</h4>
+                <ul id="zhuanlan_zuozhe">
+                    <#list hotSpecialColumnAuthors as hotSpecialColumnAuthor>
+                        <li class="clearfix">
+                            <div class="touxiang">
+                                <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
+                            </div>
+                            <div class="zuozhe_inf">
+                                <span><a
+                                        href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C">${hotSpecialColumnAuthor.doctorName} </a></span>
+                                <p>${hotSpecialColumnAuthor.province} ${hotSpecialColumnAuthor.city}</p>
+                            </div>
                         </li>
                     </#list>
                 </ul>
             </div>
+        </#if>
 
+            <div class="hot-article">
+                <span class="hot-article-title">推荐阅读</span>
+                <ul class="hot-article-list">
+                <#list hotArticle as ha>
+                    <li>
+                        <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
+                            <span title="${ha.title}">${ha.title}</span>
+                        </a>
+                    </li>
+                </#list>
+                </ul>
+            </div>
 
 
         </div>
@@ -264,9 +225,10 @@
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
-    $(function(){
+    $(function () {
         $(".headline").addClass("select");
     });
+
     //banner
     function init() {
         var $sliders = $('#slider li');
@@ -280,7 +242,8 @@
         function autoChange() {
             if (step === $sliders.length) {
                 step = 0;
-            };
+            }
+            ;
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
             $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
             step++;
@@ -328,10 +291,11 @@
             timer = window.setInterval(autoChange, 5000);
         })
     }
+
     init();
-//头条tap栏的长度判断最多为7个
-var headTab=$(".forum-content-tag a").length;
-if (headTab>7) {
-	$(".forum-content-tag a:gt(6)").remove();
-}
+    //头条tap栏的长度判断最多为7个
+    var headTab = $(".forum-content-tag a").length;
+    if (headTab > 7) {
+        $(".forum-content-tag a:gt(6)").remove();
+    }
 </script>

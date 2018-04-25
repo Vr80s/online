@@ -125,13 +125,6 @@
                 <a href="${webUrl}/doctors/list?type=4" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
                                                                                 aria-hidden="true"></span></a>
                 <ul class="doctor_inf" id="guoyi">
-                <#--<li>-->
-                <#--<a href="/doctors/bd753d68f1cf4558a4d56cc39676c8dd" target="_blank"></a>-->
-                <#--<img src="./熊猫中医-名医_files/6d07a4d683b844918077dc044ffb59e6.jpg" alt="">-->
-                <#--<h5>邓铁涛&nbsp;<span>主任医师</span></h5>-->
-                <#--<p>暂无</p>-->
-                <#--<p>广东省&nbsp;广州市&nbsp; </p>-->
-                <#--</li>-->
                 <#list doctors4.records as doctor>
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
@@ -265,7 +258,7 @@
             <!-- 名医书籍 -->
             <div class="teacher_books">
                 <div id="">
-                    <h4>名医著作</h4>
+                    <h4>名医书籍</h4>
                     <a href="${webUrl}/doctors/writing">
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </a>
@@ -276,9 +269,9 @@
                     <li>
                         <img src="${recentlyWriting.imgPath}" alt="">
                         <div>
-                            <a href="/headline/details/${recentlyWriting.articleId}" style="color: #0C0C0C">
-                                <span class="book_name">${recentlyWriting.title}</span>
-                                <h5 class="book_author">${recentlyWriting.author}</h5>
+                            <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C">
+                                <span class="book_name">${recentlyWriting.title!""}</span>
+                                <h5 class="book_author">${recentlyWriting.author!""}</h5>
                             </a>
                         </div>
                     </li>

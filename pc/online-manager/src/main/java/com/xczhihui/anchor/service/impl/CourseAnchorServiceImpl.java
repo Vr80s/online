@@ -53,6 +53,7 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements
 		return anchorDao.findCourseAnchorByUserId(userId);
 	}
 
+	
 	@Override
 	public void updateCourseAnchor(CourseAnchor courseAnchor) {
 		CourseAnchor ca = dao.findOneEntitiyByProperty(CourseAnchor.class,
