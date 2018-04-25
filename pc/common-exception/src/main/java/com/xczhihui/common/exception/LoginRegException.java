@@ -21,7 +21,6 @@ public class LoginRegException extends IpandaTcmException implements Serializabl
     public static final LoginRegException NOT_LOGGED_IN = new LoginRegException("未登录",true);
 
 
-
     public LoginRegException(String msg, boolean alarm) {
         super(msg);
         this.msg = msg;

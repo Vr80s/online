@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Date;
 
+import com.xczhihui.common.util.HttpUtil;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;

@@ -186,7 +186,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		return null;
 	}
 	
-	
 	@Override
 	public Token login(String loginName, String password, TokenExpires tokenExpires) {
 		if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
@@ -214,6 +213,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		}
 		return null;
 	}
+
 	@Override
 	public Token login4BBS(String loginName, String password, String smallHeadPhoto, String uuid, TokenExpires tokenExpires) {
 		if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
