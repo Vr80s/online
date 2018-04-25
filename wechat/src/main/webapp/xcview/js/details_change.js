@@ -328,8 +328,6 @@ $(document)
 							$(".share").hide();
 						});
 						
-						
-						
 	//					点击微信显示黑色指示
 						/*$(".share_to_one").click(function() {
 							$(".weixin_ceng").show();

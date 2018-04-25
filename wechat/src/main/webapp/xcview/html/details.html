@@ -32,16 +32,6 @@ $(function(){
     $("#div").trigger('play');
 });
 </script>
-<script>
-	// 判断横屏展示时的状态
-	window.onorientationchange=function(){
-	    if(window.orientation==90||window.orientation==-90){
-	        window.location.reload();  /*横屏状态刷新*/
-	    }else{
-	        window.location.reload();  /*竖屏状态刷新*/
-	    }
-	}	
-</script>
 <link rel=stylesheet href="/xcview/css/jquery.mCustomScrollbar.min.css">
 <link rel="stylesheet" href="/xcview/css/details.css?version=cdda455964&version=cdda451115964&version=cdda455964">
 <link rel="stylesheet" href="/xcview/css/style.css?version=eede15a77a&version=eede15a11177a&version=eede15a77a">
@@ -85,6 +75,12 @@ $(function(){
 		});
 		$(".details1").click(function(){
 			$(".send_gifts").hide();
+		});
+
+		// 点击发送
+		$(".send_img").click(function(){
+			alert(123);
+			$(".coze_bottom").css("bottom", "0rem");
 		});
 		
 	};
