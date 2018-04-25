@@ -707,25 +707,21 @@ function addgetdata() { //回填数据
 	
 	//省份渲染 无奈之举
 	var num = 1;
-	setInterval(function(){
-		num += 1;
-		if(num<80){
-			if(data.resultObject.province != ''&&data.resultObject.city != null){
-				
-//			$('.Province1 option:selected').val(data.resultObject.province);	
-//			$('.Province1 option:selected').text(data.resultObject.provinceName)
-//			console.log(data.resultObject.province )
-			$(".Province1 option[name="+data.resultObject.provinceName+"]").attr('selected','selected');
-			
-			}
-		}
-	},100)
+//	setInterval(function(){
+//		num += 1;
+//		if(num<80){
+//			if(data.resultObject.province != ''&&data.resultObject.city != null){
+//				$(".Province1 option[name="+data.resultObject.provinceName+"]").attr('selected','selected');
+//			}
+//		}
+//	},100)
+	debugger;
 	
+	if(data.resultObject.province != ''&&data.resultObject.city != null){
+		$(".Province1 option[name="+data.resultObject.provinceName+"]").attr('selected','selected');
+	}
 	
-	
-	
-	
-		//城市渲染
+	//城市渲染
 	if(data.resultObject.city != ''&&data.resultObject.city != null){
 		$('.City1 option:selected').val(data.resultObject.city);
 		$('.City1 option:selected').text(data.resultObject.cityName);
@@ -1951,10 +1947,10 @@ function geren() {
 			provinceName: $('.Province1  option:selected').text(),
 //			district: $(".City1").attr("value"),
 			cityName: $('.City1  option:selected').text(),
-//			countyName: $('.District1  option:selected').text(),
-			countyName: ' ',
+			countyName: $('.District1  option:selected').text(),
+//			countyName: ' ',
 			
-			province : $('.Province1  option:selected').val(),
+			province : $('.Province1  option:selected').val(), 
 			city : $('.City1  option:selected').val(),
 			district :  $('.District1  option:selected').val(),
 			

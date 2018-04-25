@@ -384,7 +384,7 @@ function addCourse(course){
             if(data.success === true) {
                 showTip(data.resultObject);
                 resetCourseForm(true);
-                setTimeout(function(){ $(".courseP").click() }, 2000);
+                setTimeout(function(){ getCourseList() }, 2000);
             } else {
                 showTip(data.errorMessage)
             }
@@ -404,7 +404,7 @@ function updateCourse(course){
             if(data.success === true) {
                 showTip(data.resultObject);
                 resetCourseForm(false);
-                setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
+                setTimeout(function(){ getCourseList()  }, 2000);
             } else {
                 showTip(data.errorMessage)
             }
