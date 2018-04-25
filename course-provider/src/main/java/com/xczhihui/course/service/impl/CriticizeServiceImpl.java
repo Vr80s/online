@@ -2,14 +2,14 @@ package com.xczhihui.course.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.exception.CriticizeException;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.SLEmojiFilter;
-import com.xczhihui.course.model.OnlineUser;
-import com.xczhihui.course.model.Reply;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.CriticizeMapper;
-import com.xczhihui.course.mapper.ReplyMapper;
 import com.xczhihui.course.model.Criticize;
+import com.xczhihui.course.model.OnlineUser;
+import com.xczhihui.course.model.Reply;
 import com.xczhihui.course.service.ICriticizeService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +35,6 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
 
     @Autowired
     private CourseMapper iCourseMapper;
-    @Autowired
-    private ReplyMapper replyMapper;
 
     @Override
     public Map<String, Object> getCourseCriticizes(Page<Criticize> page, Integer courseId, String userId) throws UnsupportedEncodingException {
@@ -61,7 +59,7 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
     public void saveReply(String userId, String content, String criticizeId) throws UnsupportedEncodingException {
         Criticize criticize = this.baseMapper.selectById(criticizeId);
         if(criticize==null){
-            throw new RuntimeException("被回复评论找不到了~");
+            throw new CriticizeException("被回复评论找不到了~");
         }
         saveCriticize(userId, criticize.getUserId(), criticize.getCourseId(), content,criticizeId,criticize.getCreatePerson());
     }
@@ -71,7 +69,7 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         //根据id查出当前评论
         Criticize criticize = this.baseMapper.selectById(criticizeId);
         if(criticize==null){
-            throw new RuntimeException("评论走丢了~");
+            throw new CriticizeException("评论走丢了~");
         }
 
         Map<String,Object> returnMap = new HashMap<>();
@@ -177,21 +175,21 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
 
     private void verifyCriticizes(Criticize criticize) {
         if(StringUtils.isBlank(criticize.getCreatePerson())){
-            throw new RuntimeException("用户id不为空");
+            throw new CriticizeException("用户id不为空");
         }
         if(StringUtils.isBlank(criticize.getUserId())){
-            throw new RuntimeException("主播用户id不为空");
+            throw new CriticizeException("主播用户id不为空");
         }
         if(StringUtils.isBlank(criticize.getContent())){
-            throw new RuntimeException("评论内容不为空");
+            throw new CriticizeException("评论内容不为空");
         }
         if(criticize.getContent().length()>200){
-            throw new RuntimeException("评论内容不超过200字");
+            throw new CriticizeException("评论内容不超过200字");
         }
         boolean b = ((cheackLevel(criticize.getContentLevel())&&cheackLevel(criticize.getContentLevel())&&cheackLevel(criticize.getContentLevel()))
                 ||!(cheackLevel(criticize.getContentLevel())&&cheackLevel(criticize.getContentLevel())&&cheackLevel(criticize.getContentLevel())));
         if(!b) {
-            throw new RuntimeException("评价等级有误");
+            throw new CriticizeException("评价等级有误");
         }
     }
 
@@ -199,7 +197,7 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         if(f==null||f==0){
             return false;
         }else if(f<1||f>5){
-            throw new RuntimeException("评价等级有误");
+            throw new CriticizeException("评价等级有误");
         }else{
             return true;
         }

@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.common.exception.MedicalException;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
@@ -70,7 +71,7 @@ public class MedicalDoctorDepartmentServiceImpl extends ServiceImpl<MedicalDocto
         // 根据用户id获取其医馆
         MedicalDoctorAccount doctorAccount = doctorAccountMapper.getByUserId(userId);
         if(doctorAccount == null){
-            throw new RuntimeException("您暂不是医师，请认证后再来");
+            throw new MedicalException("您暂不是医师，请认证后再来");
         }
 
         // 根据医师id获取其科室

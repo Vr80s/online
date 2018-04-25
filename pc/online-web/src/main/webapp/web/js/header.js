@@ -271,7 +271,7 @@ $(function () {
         '</div>' +
         '</a>',
         weiboErma: '<div class="sideWeiboErma">' +
-        '<img src="/web/images/sideWeibopng.png" />' +
+        '<img src="/web/images/sideWeibopng.jpg" />' +
         '<div class="sideSanjiao1">' +
         '<img src="/web/images/float_sanjiao.png" />' +
         '</div>' +

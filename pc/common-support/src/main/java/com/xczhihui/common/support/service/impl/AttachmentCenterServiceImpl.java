@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.qiniu.http.Response;
@@ -20,7 +21,7 @@ import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
-import com.xczhihui.common.support.support.AttachmentBusinessType;
+import com.xczhihui.common.util.enums.AttachmentBusinessType;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.common.util.JsonUtil;
@@ -93,7 +94,8 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
         }
     }
 
-    private Attachment addAttachmentRecord(String createUserId, AttachmentType type, String fileName, byte[] fileData, String originName) {
+    @Override
+    public Attachment addAttachmentRecord(String createUserId, AttachmentType type, String fileName, byte[] fileData, String originName) {
         //加前缀避免重复链接覆盖
         String filePath = DateFormatUtils.format(new Date(), DATE_FORMAT);
         Attachment attachment = new Attachment();
