@@ -64,7 +64,7 @@ public class DoctorPageController extends AbstractController {
         List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
         view.addObject("recentlyNewsReports", recentlyNewsReports);
 
-        List<MedicalWritingVO> recentlyWritings = medicalDoctorBusinessService.getRecentlyWritings();
+        List<OeBxsArticleVO> recentlyWritings = medicalDoctorArticleService.listPublicWritings(1, 3).getRecords();
         view.addObject("recentlyWritings", recentlyWritings);
 
         Page<MedicalDoctorVO> page = new Page<>();
@@ -174,34 +174,10 @@ public class DoctorPageController extends AbstractController {
         return view;
     }
 
-    @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
-    public ModelAndView getPublicSpecialColumnByDoctorId(@RequestParam(defaultValue = "1") int page) {
-        ModelAndView modelAndView = new ModelAndView("doctor/special-column");
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicArticle(page, HeadlineType.DJZL.getCode());
-        oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
-            oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
-        });
-        modelAndView.addObject("specialColumns", oeBxsArticleVOPage);
-        modelAndView.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthor(10));
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "report", method = RequestMethod.GET)
-    public ModelAndView getPublicReportByDoctorId(@RequestParam(defaultValue = "1") int page) {
-        ModelAndView modelAndView = new ModelAndView("doctor/report");
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicArticle(page, HeadlineType.MYBD.getCode());
-        oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
-            oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
-        });
-        modelAndView.addObject("reports", oeBxsArticleVOPage);
-        modelAndView.addObject("doctors", medicalDoctorBusinessService.selectRecDoctor());
-        return modelAndView;
-    }
-
     @RequestMapping(value = "writing", method = RequestMethod.GET)
     public ModelAndView getPublicWritingByDoctorId(@RequestParam(defaultValue = "1") int page) {
         ModelAndView modelAndView = new ModelAndView("doctor/writing");
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicWritings(page);
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicWritings(page, 10);
         oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
             oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
         });

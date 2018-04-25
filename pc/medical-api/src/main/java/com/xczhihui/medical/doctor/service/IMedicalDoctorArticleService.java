@@ -129,9 +129,10 @@ public interface IMedicalDoctorArticleService {
      * 名医著作
      *
      * @param page 分页参数
+     * @param size size
      * @return 名医著作
      */
-    Page<OeBxsArticleVO> listPublicWritings(int page);
+    Page<OeBxsArticleVO> listPublicWritings(int page, int size);
 
     /**
      * 名医推荐
