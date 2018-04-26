@@ -1235,3 +1235,6 @@ function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/, ' ');
 }
 
+$('.J-announcement').on('click', function() {
+    window.location.href="/home#hospital/announcement/index";
+});
