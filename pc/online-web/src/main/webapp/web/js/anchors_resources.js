@@ -1403,6 +1403,7 @@ var ue = UE.getEditor('column-content', {
 		$("#column-id").val("");
 		$(".column-title").val("");
 		$(".column-picter").html(defaultPicter)
+		$("#zhuanlan_picIpt").val("");
 		$(".column-text").val("");
 		$(".warning").addClass("hide");
 		UE.getEditor('column-content').setContent("");
@@ -1449,6 +1450,7 @@ function resetWork(index) {
 	$(".work-title").val("");
 	$(".work-author").val("");
 	$(".work-picter").html(defaultPicter);
+	$("#zhuzuo_picIpt").val("");
 //	$(".work-text").val("");
  	UE.getEditor('work-suggest').setContent(""),
 	$(".work-link").val("");
@@ -1499,6 +1501,7 @@ function resetMedia(index) {
 	$(".media-title").val("");
 	$(".media-author").val("");
 	$(".media-picter").html(defaultPicter);
+	$("#media_picIpt").val("");
 //	$(".media-text").val("");
 	UE.getEditor('media-context').setContent(""),
 	$(".media-link").val("");
