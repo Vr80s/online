@@ -19,15 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 /**
  * 
  * ClassName: HostController.java <br>
@@ -46,9 +45,6 @@ public class HostController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	@Autowired
-	@Qualifier("focusServiceImpl")
-	private FocusService focusService;
 	
 	@Autowired
 	@Qualifier("focusServiceRemote")
@@ -130,7 +126,7 @@ public class HostController {
 	    if(user==null){
 	    	mapAll.put("isFours", 0); 
 	    }else{
-			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
+	    	Integer isFours  = focusServiceRemote.isFoursLecturer(user.getId(), lecturerId);
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
 	    }
 		/**
