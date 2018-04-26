@@ -117,14 +117,14 @@ var course='';
 				select_directId=data.resultObject[i].directId;
 				data.resultObject[i].collectionId=courseId;
 			}
-			course=data.resultObject[0];
+			course=data.resultObject[0];   //获取专辑id第一个
 			$("#select_album").html(template('data_select_album',{items:data.resultObject}));		
 		}
 	})
 //点击视频默认第一个视频ID
 		
-	function btn_album_page(){
-		location.replace("live_album.html?course_id="+courseId+"&direct_id="+course.directId+"&collection_id="+courseId+"&name_title="+name_title);
+	function btn_album_page(){                       //下面id是获取专辑id
+		location.replace("live_album.html?course_id="+course.id+"&direct_id="+course.directId+"&collection_id="+courseId+"&name_title="+name_title+"&index=0");
 	}
 //选集视频跳转
 function jump_album_my(e,selectId,selectDirectId){
