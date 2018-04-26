@@ -78,10 +78,10 @@ requestService("/xczh/common/richTextDetails",{
 	}else if(type == 2){ //主讲人  --》 直播间主讲人
 		if(data.resultObject==''||data.resultObject==null){
 			$("#jieshao").hide();
-			$(".no_one").show();	
+			$(".no_referral").show();	
 		}else{
 			$(".user_mywrite").html(data.resultObject);
-			$(".no_one").hide();
+			$(".no_referral").hide();
 		}
 	}else if(type == 3){  //展示页面  主讲人
 		if(data.resultObject==''||data.resultObject==null){
@@ -110,8 +110,7 @@ requestService("/xczh/common/richTextDetails",{
 	
 	//alert(aa+"========"+scrollHeight+"======="+aaa);
 
-
-	var aa= $("body").height();
+	var aa= $("#jieshao").height();
 	//alert(aa+"0413");
 	//alert(aa);
 	loadURL(aa);
