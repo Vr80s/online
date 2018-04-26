@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineWatchHistoryService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.model.WatchHistory;
@@ -25,8 +24,6 @@ import com.xczhihui.course.vo.WatchHistoryVO;
 @RequestMapping("/xczh/history")
 public class LookHistoryController {
 
-	@Autowired
-	public OnlineWatchHistoryService onlineWatchHistoryService;
 	
 	@Autowired
 	public IWatchHistoryService watchHistoryServiceImpl;

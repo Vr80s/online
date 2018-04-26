@@ -36,23 +36,6 @@ public class BunchPlanController {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BunchPlanController.class);
 
-    @Autowired
-    private OLCourseServiceI wxcpCourseService;
-
-    @Autowired
-    private OnlineCourseService onlineCourseService;
-
-    @Autowired
-    private FocusService focusService;
-
-    @Autowired
-    private AppBrowserService appBrowserService;
-
-    @Autowired
-    private OnlineWebService onlineWebService;
-
-    @Autowired
-    private MenuService menuService;
 
 
     @Value("${gift.im.room.postfix}")
@@ -68,7 +51,8 @@ public class BunchPlanController {
     public ResponseObject categoryXCList(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)
             throws Exception {
 
-        return ResponseObject.newSuccessResponseObject(wxcpCourseService.categoryXCList());
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     // 新增点播课程list
@@ -77,31 +61,9 @@ public class BunchPlanController {
     public ResponseObject courseXCList(HttpServletRequest req,
                                        HttpServletResponse res, Map<String, String> params)
             throws Exception {
-        //多媒体类型1视频2音频
-        String menid = req.getParameter("menu_id");
-        String s = req.getParameter("pageNumber");
-        String e = req.getParameter("pageSize");
-        LOGGER.info("pageNumber:" + s + "===========================pageSize:" + e);
-        String multimedia_type = req.getParameter("multimedia_type");
-        if ("".equals(menid) || menid == null || "null".equals(menid)) {
-            return ResponseObject.newErrorResponseObject("分类id不能为空");
-        }
-        if ("".equals(multimedia_type) || multimedia_type == null || "null".equals(multimedia_type)) {
-            return ResponseObject.newErrorResponseObject("媒体类型不能为空");
-        }
-        int number = 0;
-        if (!"".equals(s) && s != null && !"null".equals(s)) {
-            number = Integer.valueOf(s);
-        }
-        int pageSize = 0;
-        if ("".equals(e) || e == null || "null".equals(e)) {
-            pageSize = 6;
-        } else {
-            pageSize = Integer.valueOf(e);
-        }
-        List<CourseLecturVo> list = wxcpCourseService.courseXCListByCategory(menid, number, pageSize, Integer.parseInt(multimedia_type));
-        LOGGER.info("list.size():" + list.size());
-        return ResponseObject.newSuccessResponseObject(list);
+        
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     /***
@@ -118,96 +80,12 @@ public class BunchPlanController {
     public ResponseObject courseDetail(HttpServletRequest req,
                                        HttpServletResponse res)
             throws Exception {
-        String courseid = req.getParameter("course_id");
-        if ("".equals(courseid) || courseid == null || "null".equals(courseid)) {
-            return ResponseObject.newErrorResponseObject("课程ID是空的");
-        }
-        OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-        CourseLecturVo courseLecturVo = wxcpCourseService.bunchDetailsByCourseId(Integer.parseInt(courseid));
-
-
-        if (courseLecturVo == null) {
-            return ResponseObject.newSuccessResponseObject("获取课程异常");
-        }
-        LOGGER.info("getWatchState:" + courseLecturVo.getWatchState());
-        if (user != null) {
-            Integer isFours = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
-            courseLecturVo.setIsfocus(isFours);
-
-            if (courseLecturVo.getWatchState() == 0) {
-                onlineWebService.saveEntryVideo(Integer.parseInt(courseid), user);
-            } else {
-
-                LOGGER.info("getUserId:" + courseLecturVo.getUserId() + "======" + user.getId());
-
-                if (courseLecturVo.getUserId().equals(user.getId()) ||
-                        onlineWebService.getLiveUserCourse(Integer.parseInt(courseid), user.getId())) {
-                    //LOGGER.info("同学,当前课程您已经报名了!");
-                    courseLecturVo.setWatchState(0);
-                }
-                ;
-            }
-        }
-        /*
-		 * 我的粉丝总数
-		 */
-        Integer countFans = focusService.findMyFansCount(courseLecturVo.getUserId());
-        courseLecturVo.setCountFans(countFans);
-		/*
-		 * 我的礼物总数 
-		 */
-        //做下播放的兼容性
-        String flag = req.getParameter("flag");//传递一个参数
-        String newflag = req.getParameter("newflag");//传递一个参数
-        if (StringUtils.isNotBlank(newflag)) {
-            flag = newflag;
-        }
-        String appUniqueId = req.getParameter("appUniqueId");
-        LOGGER.info("flag:" + flag);
-        LOGGER.info("appUniqueId:" + appUniqueId);
-        LOGGER.info("liveid:" + courseLecturVo.getDirectId());
-
-        if ((!StringUtils.isNotBlank(flag) && StringUtils.isNotBlank(appUniqueId))) { //等于null的是以前的版本需要判断是否需要获取视频id
-            courseLecturVo = changeLiveId(courseLecturVo);
-            LOGGER.info("liveid:" + courseLecturVo.getDirectId());
-        }
-        return ResponseObject.newSuccessResponseObject(courseLecturVo);
+    	
+    	
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
-    public CourseLecturVo changeLiveId(CourseLecturVo courseLecturVo) {
-//		姚老师：
-//		562965798    238481982   598747364
-//		王老师
-//		340273573    337055289    362080337
-//		郝万山
-//		265106673    593193792   814649885
-        Map<Integer, String> map = new HashMap<Integer, String>();
-        // key 课程id   value  对应的视频id
-        map.put(611, "562965798");
-        map.put(612, "238481982");
-        map.put(613, "598747364");
-
-        map.put(614, "340273573");
-        map.put(615, "337055289");
-        map.put(616, "362080337");
-
-        map.put(608, "265106673");
-        map.put(609, "593193792");
-        map.put(610, "814649885");
-/*		map.put(4, "340273573");
-		map.put(5, "337055289");
-		map.put(6, "362080337");
-		map.put(7, "265106673");
-		map.put(8, "593193792");
-		map.put(9, "814649885");*/
-        for (Integer key : map.keySet()) {
-            System.out.println("key= " + key + " and value= " + map.get(key));
-            if (key.equals(new Integer(courseLecturVo.getId()))) {
-                courseLecturVo.setDirectId(map.get(key));
-            }
-        }
-        return courseLecturVo;
-    }
 
     /**
      * 线下培训班
@@ -217,26 +95,9 @@ public class BunchPlanController {
     public ResponseObject offLineClass(HttpServletRequest req,
                                        HttpServletResponse res, Map<String, String> params)
             throws Exception {
-        //多媒体类型1视频2音频
-        String keyWord = req.getParameter("keyWord");
-        String s = req.getParameter("pageNumber");
-        String e = req.getParameter("pageSize");
-        LOGGER.info("pageNumber:" + s + "===========================pageSize:" + e);
-        int number = 0;
-        if (!"".equals(s) && s != null && !"null".equals(s)) {
-            number = Integer.valueOf(s);
-        }
-        int pageSize = 0;
-        if ("".equals(e) || e == null || "null".equals(e)) {
-            pageSize = 6;
-        } else {
-            pageSize = Integer.valueOf(e);
-        }
 
-
-        List<CourseLecturVo> list = wxcpCourseService.offLineClass(keyWord, number, pageSize);
-        LOGGER.info("list.size():" + list.size());
-        return ResponseObject.newSuccessResponseObject(list);
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     /**
@@ -247,28 +108,9 @@ public class BunchPlanController {
     public ResponseObject offLineClassList(HttpServletRequest req,
                                            HttpServletResponse res, Map<String, String> params)
             throws Exception {
-        //多媒体类型1视频2音频
-        String s = req.getParameter("pageNumber");
-        String e = req.getParameter("pageSize");
-        LOGGER.info("pageNumber:" + s + "===========================pageSize:" + e);
-        int number = 1;
-        if (!"".equals(s) && s != null && !"null".equals(s)) {
-            number = Integer.valueOf(s);
-        }
-        int pageSize = 0;
-        if ("".equals(e) || e == null || "null".equals(e)) {
-            pageSize = 6;
-        } else {
-            pageSize = Integer.valueOf(e);
-        }
-        List<CourseLecturVo> list = wxcpCourseService.offLineClassListOld(number, pageSize);
-        for (CourseLecturVo courseLecturVo : list) {
-            String city = courseLecturVo.getAddress();
-            String[] citys = city.split("-");
-            courseLecturVo.setCity(citys[1]);
-        }
-        LOGGER.info("list.size():" + list.size());
-        return ResponseObject.newSuccessResponseObject(list);
+  
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     /**
@@ -280,19 +122,8 @@ public class BunchPlanController {
                                            HttpServletResponse res, Integer id)
             throws Exception {
 
-        String userId = req.getParameter("userId");
-        CourseLecturVo courseLecturVo = wxcpCourseService.offLineClassItem(id, userId);
-        if (userId != null) {
-            OnlineUser onlineUser = new OnlineUser();
-            onlineUser.setId(userId);
-            ResponseObject resp = onlineCourseService.courseIsBuy(onlineUser, id);
-            if (resp.isSuccess()) {//已经付过费了
-                courseLecturVo.setWatchState(0);
-            } else {
-
-            }
-        }
-        return ResponseObject.newSuccessResponseObject(courseLecturVo);
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
 
