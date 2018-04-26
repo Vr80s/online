@@ -385,8 +385,8 @@
     left: 0;
 }
 .billboard-two{
-	top: 36px;
-    left: 40px;
+	top: 43px;
+    left: 105px;
 }
 .billboard-three{
 	top: 43px;
@@ -507,7 +507,7 @@
 /*设置文档和视频的动画切换开始*/
 .doc-img{
 	top: 0;
-    right: 0;
+    right: -3px;
     width: 294px !important;
     height: 168px !important;
     z-index: 9;
@@ -518,20 +518,20 @@
 	-webkit-animation: righteaseinAnimate-one 1.5s forwards;
 }
 @-ms-keyframes righteaseinAnimate-one{
-    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
 }
 @-moz-keyframes righteaseinAnimate-one{
-    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
 }
 @-webkit-keyframes righteaseinAnimate-one{
-    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
 }
 @-o-keyframes righteaseinAnimate-one{
-    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    0%{-webkit-transform: translateX(0px); width: 294px;height: 168px;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
 }
 
 .company-introduces-one{
@@ -539,60 +539,60 @@
 }
  
 @-ms-keyframes righteaseinAnimates-one{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
 }
 @-moz-keyframes righteaseinAnimates-one{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
 }
 @-webkit-keyframes righteaseinAnimates-one{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
 }
 @-o-keyframes righteaseinAnimates-one{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
 }
 
 .company-introduce-two{
     -webkit-animation: righteaseinAnimate-two 1.5s forwards;
 }  
 @-ms-keyframes righteaseinAnimate-two{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
 }
 @-moz-keyframes righteaseinAnimate-two{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
 }
 @-webkit-keyframes righteaseinAnimate-two{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
 }
 @-o-keyframes righteaseinAnimate-two{
-    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
 }
 
 .company-introduces-two{
     -webkit-animation: righteaseinAnimates-two 1.5s forwards;
 }
 @-ms-keyframes righteaseinAnimates-two{
-    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
 } 
 @-moz-keyframes righteaseinAnimates-two{
-    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
 } 
 @-webkit-keyframes righteaseinAnimates-two{
-    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
 } 
 @-o-keyframes righteaseinAnimates-two{
-    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: 0;}
-    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: 0;}
+    0%{ -webkit-transform: translateX(0px);width: 294px;height: 168px;position: absolute;right: -3px;}
+    100%{ -webkit-transform: translateX(0px);width: 100%;height: 88%;position: absolute;right: -3px;}
 } 
 /*设置文档和视频的动画切换结束*/
 

@@ -364,7 +364,7 @@ var ue = UE.getEditor('column-content', {
 			$('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 		})
 	}
-	$('#zhuanlan_picIpt').on('change', function() {
+	$('#zhuanlan_picIpt').on('change', function() {		
 		if(this.files[0].size > 2097152) {
 			$('#tip').text('上传图片不能大于2M');
 			$('#tip').toggle();
@@ -386,7 +386,7 @@ var ue = UE.getEditor('column-content', {
 			columnUpdown(reader.result, 'column-picter');
 		}
 		reader.readAsDataURL(this.files[0])
-	})
+	});
 	//点击专栏的发布和保存
 	function columnRecruit(data) {
 		if(data.title == "") {
@@ -1403,6 +1403,7 @@ var ue = UE.getEditor('column-content', {
 		$("#column-id").val("");
 		$(".column-title").val("");
 		$(".column-picter").html(defaultPicter)
+		$("#zhuanlan_picIpt").val("");
 		$(".column-text").val("");
 		$(".warning").addClass("hide");
 		UE.getEditor('column-content').setContent("");
@@ -1449,6 +1450,7 @@ function resetWork(index) {
 	$(".work-title").val("");
 	$(".work-author").val("");
 	$(".work-picter").html(defaultPicter);
+	$("#zhuzuo_picIpt").val("");
 //	$(".work-text").val("");
  	UE.getEditor('work-suggest').setContent(""),
 	$(".work-link").val("");
@@ -1499,6 +1501,7 @@ function resetMedia(index) {
 	$(".media-title").val("");
 	$(".media-author").val("");
 	$(".media-picter").html(defaultPicter);
+	$("#media_picIpt").val("");
 //	$(".media-text").val("");
 	UE.getEditor('media-context').setContent(""),
 	$(".media-link").val("");
