@@ -141,11 +141,11 @@ $('.goPay').click(function(){
 	// 	}
 	// }
 	
-	window.open("/userCoin/recharge/pay?price="+price);
+//	window.open("/userCoin/recharge/pay?price="+price);
+	location.href="/userCoin/recharge/pay?price="+price;
 		setTimeout(function (){
 			closeCz()
-		},1000
-		);
+		},1000);
 })
 
 

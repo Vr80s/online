@@ -151,7 +151,7 @@ $(function() {
 		location.href="/web/html/personcenter.html"
 		localStorage.setItem("personcenter","mymoney ");
 		localStorage.setItem("findStyle","profile ");
-		window.open('/web/html/personcenter.html')
+//		window.open('/web/html/personcenter.html')
 	});
 	//支付结果页面2
 	$(".pay-result2-btn").click(function() {
