@@ -1,4 +1,6 @@
-package com.xczhihui.common.exception;
+package com.xczhihui.bxg.user.center.exception;
+
+import com.xczhihui.common.exception.IpandaTcmException;
 
 import java.io.Serializable;
 
@@ -23,14 +25,12 @@ public class LoginRegException extends IpandaTcmException implements Serializabl
 
     public LoginRegException(String msg, boolean alarm) {
         super(msg);
-        this.msg = msg;
         this.alarm = alarm;
     }
 
 
     public LoginRegException(String msg) {
         super(msg);
-        this.msg = msg;
         this.alarm = false;
     }
 

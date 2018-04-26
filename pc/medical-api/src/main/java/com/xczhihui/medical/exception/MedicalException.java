@@ -1,4 +1,6 @@
-package com.xczhihui.common.exception;
+package com.xczhihui.medical.exception;
+
+import com.xczhihui.common.exception.IpandaTcmException;
 
 import java.io.Serializable;
 
@@ -12,13 +14,11 @@ public class MedicalException extends IpandaTcmException implements Serializable
 
     public MedicalException(String msg, boolean alarm) {
         super(msg);
-        this.msg = msg;
         this.alarm = alarm;
     }
 
     public MedicalException(String msg) {
         super(msg);
-        this.msg = msg;
         this.alarm = false;
     }
 

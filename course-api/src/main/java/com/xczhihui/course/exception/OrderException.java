@@ -1,4 +1,6 @@
-package com.xczhihui.common.exception;
+package com.xczhihui.course.exception;
+
+import com.xczhihui.common.exception.IpandaTcmException;
 
 import java.io.Serializable;
 
@@ -12,14 +14,12 @@ public class OrderException extends IpandaTcmException implements Serializable {
 
     public OrderException(String msg, boolean alarm) {
         super(msg);
-        this.msg = msg;
         this.alarm = alarm;
     }
 
 
     public OrderException(String msg) {
         super(msg);
-        this.msg = msg;
 //        订单异常发送告警邮件
         this.alarm = true;
 //        this.alarm = false;

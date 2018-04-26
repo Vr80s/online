@@ -1,4 +1,4 @@
-package com.xczhihui.common.exception;
+package com.xczhihui.medical.exception;
 
 import java.io.Serializable;
 
@@ -12,13 +12,11 @@ public class AnchorException extends IpandaTcmException implements Serializable 
 
     public AnchorException(String msg, boolean alarm) {
         super(msg);
-        this.msg = msg;
         this.alarm = alarm;
     }
 
     public AnchorException(String msg) {
         super(msg);
-        this.msg = msg;
         this.alarm = false;
     }
 

@@ -3,7 +3,7 @@ package com.xczhihui.bxg.user.center.service.impl;
 import java.util.*;
 
 import com.xczhihui.bxg.user.center.dao.LoginLimitDao;
-import com.xczhihui.common.exception.LoginRegException;
+import com.xczhihui.bxg.user.center.exception.LoginRegException;
 import com.xczhihui.user.center.bean.*;
 
 import org.slf4j.Logger;

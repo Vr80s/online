@@ -1,7 +1,7 @@
 package com.xczhihui.medical.hospital.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.common.exception.MedicalException;
+import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.hospital.mapper.*;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;

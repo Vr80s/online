@@ -10,7 +10,6 @@ import java.io.Serializable;
  **/
 public class IpandaTcmException extends RuntimeException implements Serializable{
 
-    protected String msg;
     protected boolean alarm;
 
     public IpandaTcmException() {
@@ -19,12 +18,15 @@ public class IpandaTcmException extends RuntimeException implements Serializable
 
     public IpandaTcmException(String msg) {
         super(msg);
-        this.msg = msg;
         this.alarm = false;
     }
 
-    public String getMsg() {
-        return msg;
+    public boolean isAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(boolean alarm) {
+        this.alarm = alarm;
     }
 
     /**

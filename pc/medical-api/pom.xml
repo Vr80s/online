@@ -35,5 +35,9 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>com.xczhihui</groupId>
+			<artifactId>common-exception</artifactId>
+		</dependency>
+	</dependencies>
 </project>

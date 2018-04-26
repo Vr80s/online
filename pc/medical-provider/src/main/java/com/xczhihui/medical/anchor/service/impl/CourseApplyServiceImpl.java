@@ -2,7 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.common.exception.AnchorWorkException;
+import com.xczhihui.medical.exception.AnchorWorkException;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.util.enums.ApplyStatus;

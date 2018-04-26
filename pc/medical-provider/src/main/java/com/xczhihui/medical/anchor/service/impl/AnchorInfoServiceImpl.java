@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.xczhihui.common.exception.AnchorException;
+import com.xczhihui.medical.exception.AnchorException;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import lombok.extern.slf4j.Slf4j;
 

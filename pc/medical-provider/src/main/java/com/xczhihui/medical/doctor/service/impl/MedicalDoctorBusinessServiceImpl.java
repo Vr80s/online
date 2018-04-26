@@ -2,8 +2,7 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import java.util.*;
 
-import com.xczhihui.common.exception.MedicalException;
-import com.xczhihui.common.exception.MedicalException;
+import com.xczhihui.medical.exception.MedicalException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

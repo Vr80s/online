@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.xczhihui.common.exception.FansException;
+import com.xczhihui.course.exception.FansException;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Focus;
 import com.xczhihui.course.service.IFocusService;
