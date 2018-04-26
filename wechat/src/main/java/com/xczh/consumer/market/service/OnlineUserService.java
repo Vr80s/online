@@ -46,7 +46,7 @@ public interface OnlineUserService {
 	 * @return
 	 * @throws Exception
 	 */
-	public OnlineUser addUser(String mobile, String username, String shareCode, String password) throws Exception;
+	public OnlineUser addUser(String mobile, String userName,String shareCode, String password) throws Exception;
 	
 	/**
 	 * 

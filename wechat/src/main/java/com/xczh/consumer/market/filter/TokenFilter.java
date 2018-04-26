@@ -22,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.controller.user.XzUserController;
 import com.xczh.consumer.market.utils.HttpUtil;
+import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
@@ -40,12 +41,7 @@ public class TokenFilter implements Filter {
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TokenFilter.class);
 	
 	private CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-	/*
-	 * 注册、忘记密码等不需要拦截：
-	 */
-	private static String login_before ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login"
-			+ ",/bxg/user/logout,/bxg/user/phoneRegist,/bxg/bs/forgotPassword,/bxg/bs/checkToken,/bxg/user/forgotPassword,"
-			+ "/bxg/user/login,/bxg/bs/isReg,/bxg/page/verifyLoginStatus,/bxg/wxjs/checkInWx";
+
 	/*
 	 * 老业务方法
 	 */
@@ -53,9 +49,7 @@ public class TokenFilter implements Filter {
 			"/bxg/binner/list,/bxg/bunch/offLineClass,"
 			+ "/bxg/live/list,/bxg/bunch/list,"
 			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,"
-			+ "/bxg/live/listKeywordQuery,"
-			+ "/bxg/bs/appLogin,/bxg/focus/myHome,"
-			+ "/bxg/user/appleLogout";
+			+ "/bxg/live/listKeywordQuery";
 	
 	//原来老版本的
 	private String[] appExcludedPageArray;
@@ -86,7 +80,7 @@ public class TokenFilter implements Filter {
 			+ "/xczh/common/rechargeList,/xczh/common/verifyLoginStatus,"
 			+ "/xczh/common/getProblemAnswer,/xczh/common/checkUpdate,"
 			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/common/richTextDetails,"
-			+ "/xczh/gift/list,/xczh/message,/bxg/wxpay/wxNotify,/xczh/common/checkToken,/xczh/pay/pay_notify,/xczh/alipay/alipayNotifyUrl";
+			+ "/xczh/gift/list,/xczh/message,/xczh/common/checkToken,/xczh/pay/pay_notify,/xczh/alipay/alipayNotifyUrl";
 	
 	/*
 	 * 下面是一下具体业务方法不需要拦截
@@ -113,13 +107,10 @@ public class TokenFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
-		String excludedPageStr = login_before+","+specific_business_one;
-		
+		String excludedPageStr = specific_business_one;
 		if (StringUtils.isNotEmpty(excludedPageStr) ) {   
 		    appExcludedPageArray  = excludedPageStr.split(",");
 		}     
-		
 		//新的
 		String newExcludedControllerStr = new_controller_login_before+","+new_controller_share_before+","+
 				new_controller_login_three_parties+","+new_controller_specific_business_one+","+new_controller_specific_business_two;
@@ -127,13 +118,11 @@ public class TokenFilter implements Filter {
 		if (StringUtils.isNotEmpty(newExcludedControllerStr)) {   
 			newInterfaceFilter  = newExcludedControllerStr.split(",");
 		}  
-		
 	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
@@ -229,18 +218,29 @@ public class TokenFilter implements Filter {
     				response.sendRedirect(redirectUrl);
     			}
 		    }else{ 
+		    	response.setContentType("application/json; charset=utf-8");  
 		    	
-		    	//chain.doFilter(request, response);
-	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
-		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
-		    	if(code == 1000){
-		    	    chain.doFilter(request, response);
-		    	}else{
-		    	    response.setContentType("application/json; charset=utf-8");  
+		    	if(currentURL.indexOf("/bxg")!=-1) { //以前接口
+		    		
+		    		ResponseObject obj = new ResponseObject();
+		    		obj.setSuccess(false);
+		    		obj.setErrorMessage("请使用最新版本app!");
+		    		
 		    		PrintWriter out = response.getWriter();//获取PrintWriter输出流
-		    		out.println(mapApp);
+		    		out.println(obj);
 		    		out.flush();
 		            out.close();
+		    	}else {
+		    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
+			    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
+			    	if(code == 1000){
+			    	    chain.doFilter(request, response);
+			    	}else{
+			    		PrintWriter out = response.getWriter();//获取PrintWriter输出流
+			    		out.println(mapApp);
+			    		out.flush();
+			            out.close();
+			    	}
 		    	}
 		    }
 		}
@@ -267,9 +267,9 @@ public class TokenFilter implements Filter {
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
+		
+		
 	}
-	
-	
 	/**
 	 * 
 	 * Description：使用循环会更加的高效  --》这个用来判断数组中的元素是否相等于这个字符串
@@ -278,7 +278,6 @@ public class TokenFilter implements Filter {
 	 * @return
 	 * @return boolean
 	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
 	 */
 	public static boolean useLoopContains(String[] arr,String targetValue){
 		if(new_controller_pay_the_callback.indexOf(targetValue)!=-1
@@ -293,7 +292,6 @@ public class TokenFilter implements Filter {
 	    }  
 	    return false;
 	}
-	
 	/**
 	 * 
 	 * Description：使用循环会更加的高效  --》这个用来判断数组中的元素是否包含这个字符串
