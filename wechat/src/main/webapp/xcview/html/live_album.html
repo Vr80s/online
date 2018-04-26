@@ -82,11 +82,8 @@
 	.play_video img{
 		/*z-index: 1;*/
 	}
-	/*
-	.ccH5FullsBtn{
-		display: none;
-	}*/
 </style>
+
 </head>
     
 <body style="background:#F8F8F8;">
@@ -94,8 +91,11 @@
 	<div class="wrap-header">
 		<div class="header">		
 			<p>课程</p>
+			<div class="arror_return z">
+			<!-- <div class="arror_return z" onclick="getQueryString()"> -->
+			<!-- <div class="arror_return z" onclick="window.history.go(-1)"> -->
 			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
-			<div class="arror_return z" onclick="gotoLiveSelectAlbum();">
+			<!-- <div class="arror_return z" onclick="gotoLiveSelectAlbum();"> -->
 			<!-- <div class="arror_return z" onclick="common_share_back();"> -->
 				<img src="../images/back icon.png"/>
 			</div>
@@ -586,5 +586,26 @@ $.fn.toggle = function( fn, fn2 ) {
 		    })*/
 		};
 	</script>
+<script>
+window.onload = function(){
+	$(".arror_return").click(function(){
+		//html获取链接上面的参数
+		function getQueryString(name){
+		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if (r!=null) return r[2];else return'';
+		}
+		var type = getQueryString('type');
+		if(type=='1'){
+			location.replace("/xcview/html/my_study.html");
+		}else if(type=='2'){
+			location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+		}else{
+			location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+		}
+		getQueryString('name');
+	});
+};
+</script>
 
 

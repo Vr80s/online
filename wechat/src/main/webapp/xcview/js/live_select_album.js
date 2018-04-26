@@ -107,6 +107,7 @@ $(".my_details li").click(function(){
 
 var courseId = getQueryString('course_id');
 var course='';
+var collections="";
 	requestService("/xczh/course/getCoursesByCollectionId",{
 		collectionId : courseId	
 	},function(data) {
@@ -117,20 +118,26 @@ var course='';
 				select_directId=data.resultObject[i].directId;
 				data.resultObject[i].collectionId=courseId;
 			}
-			course=data.resultObject[0];
+			course=data.resultObject[0];   //获取专辑id第一个
+            collections=data.resultObject;  //获取所有专辑
 			$("#select_album").html(template('data_select_album',{items:data.resultObject}));		
 		}
 	})
-//点击视频默认第一个视频ID
-		
-	function btn_album_page(){
-		location.replace("live_album.html?course_id="+courseId+"&direct_id="+course.directId+"&collection_id="+courseId+"&name_title="+name_title);
+//点击视频默认第一个视频ID	
+	function btn_album_page(){                       
+        var courseIndex = localStorage.getItem("course"+courseId);
+        if (courseIndex==null||courseIndex =="") {
+            courseIndex=0
+        }
+        var collection = collections[courseIndex];                                                                                                                         //新加type判断跳转
+		location.replace("live_album.html?course_id="+collection.id+"&direct_id="+collection.directId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+courseIndex+"&type=2");
 	}
 //选集视频跳转
 function jump_album_my(e,selectId,selectDirectId){
 	//alert(e.target)
 	var index = e.parentNode.value
-	location.replace("live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index);
+    localStorage.setItem('course'+courseId, index);
+	location.replace("live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index+"&type=2");
 }
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{

@@ -521,6 +521,21 @@ if(!stringnull(userId)){
 /**
  * 公共的分享页面后的跳转
  */
+
+function gotoLiveSelectAlbum(){
+	
+	//window.location="/xcview/html/live_select_album.html?course_id="+collectionId;
+	var back = document.referrer;
+    if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
+		window.history.back();
+	}else{
+		location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+	}
+	
+	
+	// location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+}
+
 function common_share_back(){
     var back = document.referrer;
     if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
