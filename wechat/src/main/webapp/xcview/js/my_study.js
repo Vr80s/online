@@ -127,7 +127,7 @@ function go_play_hos_collection(course_id,collection_id,obj){
 	var direct_id = $(obj).attr("data-directId");
 	var name_title = $(obj).attr("data-collectionName");
 	
-	location.href="live_album.html?course_id="+course_id+"&direct_id="+direct_id+"&collection_id="+collection_id+"&name_title="+name_title;
+	location.href="live_album.html?course_id="+course_id+"&direct_id="+direct_id+"&collection_id="+collection_id+"&name_title="+name_title+"&type=1";
 }
 
 /*

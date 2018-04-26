@@ -1,0 +1,28 @@
+*{margin: 0; padding: 0;}
+body{ 
+	font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-size: 14px;
+	background: #F8F8F8;
+}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px; margin: 0 auto;}
+.wrap-left{
+	width: 860px;
+	height: 500px;
+
+	margin-top: 20px;
+}
+.wrap-right{
+	width: 320px;
+	height: 500px;
+	margin-top: 20px;	
+	border: 1px solid;
+}
+.wrap-banner,
+.wrap-banner img
+{
+	display: block;
+	width: 860px;
+	height: 346px;
+}

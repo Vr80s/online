@@ -371,6 +371,7 @@ var ue = UE.getEditor('column-content', {
 			setTimeout(function() {
 				$('#tip').toggle();
 			}, 2000)
+//			showTip("上传图片不能大于2M");
 			return false;
 		}
 		if(!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
@@ -547,6 +548,7 @@ var ue = UE.getEditor('column-content', {
 	}
 
 	//---------------------------------------专栏部分结束，著作部分开始--------------------------------------
+	//	著作部分,富文本设置
 	var ue = UE.getEditor('work-suggest', {
 		toolbars: [
 			[
