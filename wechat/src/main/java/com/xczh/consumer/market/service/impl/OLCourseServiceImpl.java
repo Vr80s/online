@@ -13,8 +13,8 @@ import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.MenuVo;
-import com.xczhihui.wechat.course.model.OfflineCity;
-import com.xczhihui.wechat.course.service.IOfflineCityService;
+import com.xczhihui.course.model.OfflineCity;
+import com.xczhihui.course.service.IOfflineCityService;
 
 @Service
 public class OLCourseServiceImpl implements OLCourseServiceI {

@@ -37,9 +37,11 @@ import com.xczh.consumer.market.wxpay.consts.WxPayConst;
  */
 public class TokenFilter implements Filter {
 	
+	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TokenFilter.class);
 	
 	private CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+
 	/*
 	 * 老业务方法
 	 */

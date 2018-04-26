@@ -8,7 +8,7 @@ import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczhihui.bxg.common.util.SLEmojiFilter;
+import com.xczhihui.common.util.SLEmojiFilter;
 
 import net.sf.json.JSONObject;
 
