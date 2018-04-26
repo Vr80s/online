@@ -102,7 +102,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.utils.OnlineInterceptor"/>
+            <bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.interceptor.OnlineInterceptor"/>
         </mvc:interceptor>
 
         <!--发送系统消息拦截器-->

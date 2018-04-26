@@ -38,56 +38,13 @@ import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
  */
 @RestController
 @RequestMapping(value = "online/live")
-public class LiveController {
+public class LiveController extends AbstractController{
 
 
 	@Autowired
 	private LiveService  service;
 	@Autowired
 	private Broadcast broadcast;
-	/**
-	 * 上传聊天图片
-	 * 
-	 * @param request
-	 * @param response
-	 * @return 图片地址
-	 * @throws IOException 
-	 */
-	@RequestMapping(value = "/uploadMsgImg", method = RequestMethod.POST)
-	public ResponseObject findChapterInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		BxgUser u = UserLoginUtil.getLoginUser(request);
-		if (u == null) {
-			return ResponseObject.newErrorResponseObject("请登录！");
-		}
-		
-		// 获得文件
-		MultipartFile attachmentFile = null;
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		Iterator<String> item = multipartRequest.getFileNames();
-		while (item.hasNext()) {
-			attachmentFile = multipartRequest.getFile(item.next());
-		}
-		if (attachmentFile == null || attachmentFile.getSize() <= 0) {
-			return ResponseObject.newErrorResponseObject("请上传图片！");
-		}
-
-		// 图片允许上传的文件扩展名
-		String extname = attachmentFile.getOriginalFilename();
-		String lowerCase = extname.toLowerCase();
-		if (!lowerCase.endsWith("image") && !lowerCase.endsWith("gif") && !lowerCase.endsWith("jpg")
-				&& !lowerCase.endsWith("png") && !lowerCase.endsWith("bmp")) {
-			return ResponseObject.newErrorResponseObject("不支持的图片类型：“" + lowerCase + "”！");
-		}
-		
-		if (attachmentFile.getSize() > 1024*1024) {
-			return ResponseObject.newErrorResponseObject("图片不能超过1M！");
-		}
-		
-		String name = "/online/live/image/"+UUID.randomUUID().toString().replace("-", "")+"bxgliveimage.png";
-		FileUtil.writeToFile(name, attachmentFile.getBytes());
-		return ResponseObject.newSuccessResponseObject(name);
-	}
 
 	/**
 	 * 首页获取公开直播课
@@ -105,7 +62,7 @@ public class LiveController {
 	 */
 	@RequestMapping(value = "/getLiveTrailer")
 	public ResponseObject getLiveTrailer(HttpServletRequest request){
-		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		OnlineUser user = getCurrentUser();
 		String userId = null;
 		if(user != null) {
             userId = user.getId();
@@ -149,41 +106,8 @@ public class LiveController {
 	 */
 	@RequestMapping(value = "/getOpenCourseById")
 	public ResponseObject getOpenCourseById(Integer courseId,HttpServletRequest request) {
-		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		OnlineUser user = getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.getOpenCourseById(courseId,user));
 	}
 
-
-	/**
-	 * 更新在线人数
-	 * @param courseId  课程id
-	 * @param personNumber 当前在线人数
-	 */
-	@RequestMapping(value = "/saveOnUserCount")
-	public ResponseObject  saveOnUserCount(Integer courseId,Integer personNumber){
-            service.saveOnUserCount(courseId,personNumber);
-		    return  ResponseObject.newSuccessResponseObject("操作成功");
-	}
-
-	/**
-	 * 检测每个用户送花时间距离上次送花时间的差距是否是30秒
-	 *
-	 * @param roomId  房间号
-	 * @return true:可以送花，false：不可以送花
-	 */
-	@RequestMapping(value = "/checkTime")
-	public ResponseObject checkTime(String roomId,HttpSession s){
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
-		return  ResponseObject.newSuccessResponseObject(service.checkTime(roomId,u));
-	}
-
-
-	/**
-	 * 获取一周的课程表数据
-	 * @param currentTime 前端传过来的时间
-	 */
-	@RequestMapping(value = "/getCourseTimetable")
-	public ResponseObject   getCourseTimetable(long currentTime){
-		return  ResponseObject.newSuccessResponseObject(service.getCourseTimetable(currentTime));
-	}
 }

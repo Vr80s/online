@@ -35,7 +35,7 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 				//未认证
 				//	       			$('#docNoPass_tip').removeClass('hide');
 				//拒绝情况
-				RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+				RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
 					if(data.resultObject.status == 0){
 						seeAutStatus();
 						$('#docAut_tip').removeClass('hide');
@@ -297,7 +297,7 @@ function Autagain() {
 	$('#AutStatus').addClass('hide');
 	//医师认证状态回显示
 	
-	RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+	RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
 		if( data.success == true && data.resultObject != null){
 			console.log(data);
 			var result = data.resultObject;
@@ -358,7 +358,7 @@ showAutStatus();
 
 function showAutStatus() {
 	//医师认证状态和认证信息显示
-	RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+	RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
 		//头像预览
 		console.log(data);
 		if(data.resultObject != null) {
@@ -376,7 +376,7 @@ function showAutStatus() {
 }
 
 //获取科室内容渲染页面
-RequestService("/medical/doctor/apply/listDepartment/0", "get", null, function(data) {
+RequestService("/doctor/apply/listDepartment/0", "get", null, function(data) {
 	console.log(data);
 	//				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 	$('#keshiList').html(template('keshiTpl', {

@@ -22,7 +22,7 @@ import java.util.Set;
  */
 @Controller
 @RequestMapping(value = "/shoppingCart")
-public class ShoppingCartController {
+public class ShoppingCartController extends AbstractController{
 
     @Autowired
     private ShoppingCartService service;
@@ -35,10 +35,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/findCourseNum" )
     @ResponseBody
     public ResponseObject findCourseNum(HttpServletRequest req) {
-        BxgUser user = UserLoginUtil.getLoginUser(req);
-        if (user == null) {
-            return ResponseObject.newErrorResponseObject("请登录！");
-        }
+        BxgUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(service.findCourseNum(user.getId()));
     }
 
@@ -51,7 +48,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject join(HttpServletRequest req, Integer courseId) {
-        BxgUser user = UserLoginUtil.getLoginUser(req);
+        BxgUser user = getCurrentUser();
         if (user == null) {
             return ResponseObject.newErrorResponseObject("请登录！");
         }
@@ -68,10 +65,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/batchJoin", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject batchJoin(HttpServletRequest req, String courseIds,String rule_id) {
-        BxgUser user = UserLoginUtil.getLoginUser(req);
-        if (user == null) {
-            return ResponseObject.newErrorResponseObject("请登录！");
-        }
+        BxgUser user = getCurrentUser();
         String[] ids = courseIds==null? new String[]{} : courseIds.split(",");
         return service.addCourseToCart(user.getId(),ids,rule_id);
     }
@@ -84,10 +78,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/lists" )
     @ResponseBody
     public ResponseObject lists(HttpServletRequest req) {
-        BxgUser user = UserLoginUtil.getLoginUser(req);
-        if (user == null) {
-            return ResponseObject.newErrorResponseObject("请登录！");
-        }
+        BxgUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(service.lists(user.getId()));
     }
     /**
@@ -99,10 +90,7 @@ public class ShoppingCartController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject delete(HttpServletRequest req,String idStrs) {
-        BxgUser user = UserLoginUtil.getLoginUser(req);
-        if (user == null) {
-            return ResponseObject.newErrorResponseObject("请登录！");
-        }
+        BxgUser user = getCurrentUser();
         if(StringUtils.isBlank(idStrs)){
             return ResponseObject.newErrorResponseObject("参数错误!");
         }else {

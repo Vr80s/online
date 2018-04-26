@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.user.dao.WechatChannelDao;
 
 import org.springframework.beans.factory.annotation.Autowired;

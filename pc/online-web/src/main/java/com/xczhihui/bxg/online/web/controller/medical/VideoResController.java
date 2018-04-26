@@ -36,7 +36,7 @@ import java.util.TreeMap;
  * Create Time: 下午 5:06 2018/1/20 0020<br>
  */
 @RestController
-@RequestMapping("videoRes")
+@RequestMapping("/videoRes")
 public class VideoResController extends AbstractController{
 
     @Autowired
@@ -53,7 +53,7 @@ public class VideoResController extends AbstractController{
      */
     @RequestMapping(value = "getUploadUrl", method = RequestMethod.GET)
     public String getUploadUrl(HttpServletRequest request,String title) {
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         Map<String,String> paramsMap = new HashMap<String,String>();
         paramsMap.put("userid", onlineConfig.ccuserId);
         paramsMap.put("title", title);

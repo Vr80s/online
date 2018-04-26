@@ -40,7 +40,7 @@ public class CommonController extends AbstractController{
     public ResponseObject upload(HttpServletRequest request) throws ServletRequestBindingException, IOException {
 
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = getCurrentUser();
         if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
@@ -68,7 +68,7 @@ public class CommonController extends AbstractController{
     @RequestMapping(value = "/isDoctorOrHospital", method = RequestMethod.GET)
     public ResponseObject isDoctorOrHospital(HttpServletRequest request) throws ServletRequestBindingException, IOException {
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         Integer result = commonService.isDoctorOrHospital(currentUser.getUid());
         return ResponseObject.newSuccessResponseObject(result);

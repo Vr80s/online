@@ -45,7 +45,7 @@ public class AssetController extends AbstractController{
         Page<Map> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(assetService.getCoinTransactionPage(page,user.getId()));
     }
 
@@ -60,7 +60,7 @@ public class AssetController extends AbstractController{
         Page<Map> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(assetService.getRmbTransactionPage(page,user.getId()));
     }
 
@@ -72,13 +72,13 @@ public class AssetController extends AbstractController{
      **/
     @RequestMapping(value = "/getBankCardList",method= RequestMethod.GET)
     public ResponseObject getBankCardList(HttpServletRequest request,boolean complate){
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(userBankService.selectUserBankByUserId(user.getId(),complate));
     }
 
     @RequestMapping(value = "/getPhoneNumber",method= RequestMethod.GET)
     public ResponseObject getPhoneNumber(HttpServletRequest request){
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(user.getLoginName());
     }
 
@@ -90,21 +90,21 @@ public class AssetController extends AbstractController{
      **/
     @RequestMapping(value = "/saveBankCard")
     public ResponseObject saveBankCard(HttpServletRequest request,String acctName,String acctPan,String certId,String tel){
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
         return ResponseObject.newSuccessResponseObject("新增银行卡成功！");
     }
 
     @RequestMapping(value = "/deleteBankCard")
     public ResponseObject deleteBankCard(HttpServletRequest request,Integer id){
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         userBankService.deleteBankCard(user.getId(),id);
         return ResponseObject.newSuccessResponseObject("移除银行卡成功！");
     }
 
     @RequestMapping(value = "/setDefaultBankCard")
     public ResponseObject setDefaultBankCard(HttpServletRequest request,Integer id){
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         userBankService.updateDefault(user.getId(),id);
         return ResponseObject.newSuccessResponseObject("设置默认成功！");
     }
@@ -117,7 +117,7 @@ public class AssetController extends AbstractController{
      **/
     @RequestMapping(value = "/getBaseAssetInfo")
     public ResponseObject getBaseAssetInfo(HttpServletRequest request){
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         int bankCount = userBankService.getBankCount(user.getId());
         String coinBalance = userCoinService.getSettlementBalanceByUserId(user.getId());
         String rmb = userCoinService.getEnchashmentBalanceByUserId(user.getId());

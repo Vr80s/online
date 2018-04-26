@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author zhuwenbao
  */
 @RestController
-@RequestMapping("/medical/order/gift")
+@RequestMapping("/anchor/order/gift")
 public class GiftOrderController extends AbstractController{
 
     @Autowired
@@ -68,7 +68,7 @@ public class GiftOrderController extends AbstractController{
      * 获取用户id
      */
     private String getCurrentUserId(HttpServletRequest request){
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         return loginUser.getId();
     }
 
