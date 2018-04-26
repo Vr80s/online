@@ -286,13 +286,13 @@ $('.all_list_ul').on('click','li',function(){
     var index = $(this).index(); 
     localStorage.setItem('course'+collectionId, index);   
     //初始化视频资源
-    location.replace("/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index);
+    location.replace("/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index+"&type=2");
     
 })
 
 
 
-function gotoLiveSelectAlbum(){
+function gotoLiveSelectAlbum1(){
 	
 	//window.location="/xcview/html/live_select_album.html?course_id="+collectionId;
 	
