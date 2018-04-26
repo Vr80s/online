@@ -244,8 +244,8 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
             " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url, mdw.buy_link as buyLink" +
             " from `oe_bxs_article` oba" +
-            " LEFT JOIN `medical_writings` mdw" +
+            " JOIN `medical_writings` mdw" +
             " ON oba.`id` = mdw.`article_id` " +
-            " where oba.`is_delete`=0 and oba.status = 0"})
+            " where oba.`is_delete`=0 and oba.status = 1"})
     List<OeBxsArticleVO> listPublicWritings(Page<OeBxsArticleVO> page);
 }

@@ -2,7 +2,20 @@ var P_courseTable;//主播列表
 var anchorRecTable;//推荐主播列表
 var courseForm;//添加课程表单
 
+function hahaha(obj){
+	var text = $(obj).text();
+    var input = document.getElementById("input_hahaha");
+    input.value = text; // 修改文本框的内容
+    input.select(); // 选中文本
+    document.execCommand("copy"); // 执行浏览器复制命令
+    alert("复制成功");
+}
+	
+
 $(function() {
+	
+	
+
     createDatePicker($(".datetime-picker"),"yy-mm-dd");
     document.onkeydown = function (event) {
         if (event.keyCode == 13) {
@@ -16,6 +29,9 @@ $(function() {
     var objData = [
         { "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
             return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
+        }},
+        { "title": "主播ID", "class": "center","width":"12%","title":"主播(Id)点击复制","sortable": false,"data":"userId","mRender": function (data, display, row) {
+              return "<a onclick='hahaha(this)' style='color:blue;' >"+data+"</a>";
         }},
         {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
         {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
@@ -71,7 +87,15 @@ $(function() {
     var recData = [
         { "title": checkboxRec,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
             return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
-        }},{"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+            
+        }},
+        
+        { "title": "主播ID", "class": "center","width":"12%","title":"主播(Id)点击复制","sortable": false,"data":"userId","mRender": function (data, display, row) {
+            return "<a onclick='hahaha(this)' style='color:blue;' >"+data+"</a>";
+        }},
+        
+        
+        {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
         {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.type==1){

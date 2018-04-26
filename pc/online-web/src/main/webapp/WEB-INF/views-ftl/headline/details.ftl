@@ -49,39 +49,43 @@
     <div class="forum-content clearfix">
         <div class="forum-content-left">
         <#if writing??>
-            <div class="writing-buy-link hide">
-                <div>
-                    <img src="${writing.imgPath}">
-                    <p>${writing.title}</p>
+            <div class="forum-detailInfo">
+                <div class="writing-buy-link">
+                    <div>
+                        <img src="${writing.imgPath}">
+                    </div>
+                    <div class="writing-author-info">
+                        <div class="writing-author-name">
+                            <p class="title">${writing.title}</p>
+                            <p class="name">作者: ${writing.author}</p>
+                        </div>
+                        <#if writing.buyLink??>
+                            <div class="writing-go-buy">
+                                <button class="text">
+                                    <a href="${writing.buyLink}" target="_blank">
+                                        去购买
+                                    </a>
+                                </button>
+                            </div>
+                        </#if>
+                    </div>
                 </div>
-                <a class="" href="${writing.buyLink}">
-                    <button> 去购买</button>
-                </a>
+                <div class="forum-detail-content">${article.content}</div>
             </div>
-        </#if>
+        <#else>
             <div class="forum-detailInfo">
                 <div class="forum-detail">
                     <div class="forum-detail-title">${article.title}</div>
                     <div class="forum-info-tags">
                         <img src="/web/images/studentCount.png">
                         <span>${article.author!''}&nbsp;&nbsp;&nbsp;${(article.createTime?string("yyyy-MM-dd"))!}</span>
-                        <#if article.typeId??>
-                            <#if article.type == '大家专栏'>
-                                <a href="${webUrl}/doctors/specialColumn"
-                                   style="color: #188EEE;margin-left:20px">大家专栏</a>
-                            <#else>
-                                <a href="${webUrl}/headline/list/${article.typeId}"
-                                   style="color: #188EEE;margin-left:20px">${article.type}</a>
-                            </#if>
-                        <#else>
-                            <a href="${webUrl}/doctors/writing"
-                               style="color: #188EEE;margin-left:20px">医师著作</a>
-                        </#if>
-
+                        <a href="${webUrl}/headline/list/${article.typeId}"
+                           style="color: #188EEE;margin-left:20px">${article.type}</a>
                     </div>
                 </div>
                 <div class="forum-detail-content">${article.content}</div>
             </div>
+        </#if>
             <div class="forum-community clearfix">
                 <div class="forum-community-title">参与讨论</div>
                 <div class="forum-community-loginHit" style="display: none;">
@@ -153,6 +157,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!-- 使用该标签 -->
         <@cast.page pageNo=appraises.current totalPage=appraises.pages showPages=5 callUrl="${webUrl}/headline/details/"+echoMap.id?default("")+"?page="/>
@@ -229,6 +234,33 @@
                 </ul>
             </div>
         </#if>
+        <#if writings?? && (writings.total gt 0)>
+            <!-- 名医书籍 -->
+            <div class="teacher_books">
+                <div id="">
+                    <h4>名医著作</h4>
+                    <a href="${webUrl}/doctors/writing">
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <ul class="book_list clearfix" id="boos_list">
+                    <#list writings.getRecords() as writing>
+                        <li>
+                            <img src="${writing.imgPath}" alt="">
+                            <div>
+                                <a href="/headline/details/${writing.id}" style="color: #0C0C0C">
+                                    <span class="book_name">${writing.title}</span>
+                                    <h5 class="book_author">${writing.author}</h5>
+                                </a>
+                            </div>
+                        </li>
+
+                    </#list>
+                </ul>
+
+            </div>
+        </#if>
         <#--<div class="forum-hot-tag hide">-->
         <#--<div class="forum-hot-tag-title">热门标签</div>-->
         <#--<ul class="forum-hot-tagGround">-->
@@ -271,7 +303,6 @@
             if (step === $sliders.length) {
                 step = 0;
             }
-            ;
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
             $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
             step++;

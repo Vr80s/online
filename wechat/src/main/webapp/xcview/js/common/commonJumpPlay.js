@@ -28,13 +28,15 @@ function common_jump_all(courseId){
 			}
 		}else if(type == 3){	
 			
-			common_jump_play(watchState,lineState);
+			common_jump_play(courseId,watchState,lineState);
 		}else if(type == 4){
 			location.href = "/xcview/html/school_class.html?course_id="+courseId;
 		}
 	 }else{
 		if(type == 1 || type == 2){
 			location.href = "/xcview/html/school_audio.html?course_id="+courseId;
+		}else if(type == 3){	
+			common_jump_play(courseId,watchState,lineState);
 		}else if(type == 4){
 			location.href = "/xcview/html/school_class.html?course_id="+courseId;
 		}

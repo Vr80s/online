@@ -633,4 +633,8 @@
 		</div>
 	</form>
 </div>
+
+ <textarea id="input_hahaha" style="diaplay:none;">这是幕后黑手</textarea>
+
+
 <script type="text/javascript" src="/js/anchor/courseAnchor.js?v=ipandatcm_1.3"></script>

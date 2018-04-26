@@ -3,9 +3,6 @@ if(stringnull(openId)){
     localStorage.setItem("openid",openId);
 }
 
-
-
-
 /**
  * 根据不同的tab进行学堂的分类查询
  */

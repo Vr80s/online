@@ -199,7 +199,7 @@
         <div class="zhuanlan clearfix" id="zhuanlan">
             <div class="class_top">
                 <span>专栏</span>
-                <a href="${webUrl}/doctors/${doctor.id}/specialColumn"
+                <a href="${webUrl}/headline/list/4"
                    id="more_zhuanlan">
                     更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </a>
@@ -211,11 +211,11 @@
                         <div class="zhuanlan_left">
                             <a href="${webUrl}/headline/details/${specialColumn.id}">
                                 <img src="${specialColumn.imgPath}" alt="${specialColumn.title}">
-                                <a href="${webUrl}/headline/details/${specialColumn.id}">
+                                <a href="${webUrl}/headline/details/${specialColumn.id}" target="_blank">
                         </div>
                         <div class="zhuanlan_right">
                             <h3><a href="${webUrl}/headline/details/${specialColumn.id}"
-                                   style="color: #000;">${specialColumn.title}</a></h3>
+                                   style="color: #000;" target="_blank">${specialColumn.title}</a></h3>
                             <p>${specialColumn.content}</p>
                             <span>${(specialColumn.createTime?string("yyyy-MM-dd"))!}</span>
                         </div>
@@ -229,7 +229,7 @@
         <div class="zhuanlan clearfix" id="media_report">
             <div class="class_top">
                 <span>媒体报道</span>
-                <a href="${webUrl}/doctors/report"
+                <a href="${webUrl}/headline/list/7"
                    class="more_madia_report">
                     更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </a>
@@ -239,12 +239,12 @@
                 <#list newsReports.records as newsReport>
                     <li class="clearfix">
                         <div class="zhuanlan_left">
-                            <a href="${webUrl}/headline/details/${newsReport.id}"><img src="${newsReport.imgPath}"
+                            <a href="${webUrl}/headline/details/${newsReport.id}" target="_blank"><img src="${newsReport.imgPath}"
                                                                                        alt="${newsReport.title}"></a>
                         </div>
                         <div class="zhuanlan_right">
                             <h3><a href="${webUrl}/headline/details/${newsReport.id}"
-                                   style="color: #000;">${newsReport.title}</a></h3>
+                                   style="color: #000;" target="_blank">${newsReport.title}</a></h3>
                             <p>${newsReport.content}</p>
                             <span>${(newsReport.createTime?string("yyyy-MM-dd"))!}</span>
                         </div>
@@ -276,7 +276,7 @@
 
                 <div id="zhuzuo_list">
                     <#list writings as writing>
-                        <a href="/headline/details/${writing.articleId}" style="color: #0C0C0C">
+                        <a href="/headline/details/${writing.articleId}" style="color: #0C0C0C" target="_blank">
                             <div class="zhuzuo_left">
                                 <img src="${writing.imgPath}" alt="">
                                 <p>${writing.title}</p>

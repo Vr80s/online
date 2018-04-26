@@ -650,10 +650,11 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>连接类型: </label>
 			 <div class="col-sm-6">
-               <select name="linkType" id="linkType" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >
+               <select name="linkType" id="linkType"  onchange="linkTypeChange(this)" class="clearfix col-xs-10 col-sm-12 {required:true}" >
               <!--  连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件） -->
-               		<option value="1">活动页</option>
-               		<option value="2">专题页</option>
+               		<!-- <option value="1">活动页</option>
+               		<option value="2">专题页</option> -->
+               		<option value="">请选择</option>
                		<option value="3">课程</option>
                		<option value="4">主播</option>
                		<option value="5">课程列表</option>
@@ -661,12 +662,25 @@
              </div>
 		</div>
 		
+		<!-- 友情提示：  -->
+		<div class="form-group"  id="yqti_div"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="description"></label>
+			 <div class="col-sm-6">
+	<!-- 		 	<div id="yqts_kecheng">在云课堂管理-》直播管理</div>
+			 	<div id="yqts_zhubo"></div>
+			 	<div id="yqts_liebiao"></div> -->
+			 	<textarea  id="yqti_textarea" rows="2" cols="20" value="提示：可在云课程管理中的直播、点播、线下课管理中找到对应的课程id"
+			 	  style="color:blue" readonly="readonly" disabled="disabled"
+			 			class="col-xs-10 col-sm-12">
+               	</textarea>
+             </div>
+		</div>
 	    <div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>链接地址: </label>
+			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>链接条件: </label>
 			 <div class="col-sm-6">
-               		<textarea  name="url"  id="add_url" rows="6" cols="20"  class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
-               		</textarea>
+               		<textarea  name="url" placeholder="请填写课程id" id="add_url" rows="6"
+               		 cols="20"  class="col-xs-10 col-sm-12 {required:true,maxlength:225}"></textarea>
              </div>
 		</div>
 		<input type="hidden" name="bannerType" id="bannerType" >
@@ -695,6 +709,34 @@
 					<input name="imgPath" id="update_imgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
              </div>
 		</div>
+		
+		<div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>链接条件: </label>
+			 <div class="col-sm-6">
+               <select name="linkType" id="update_linkType" value=""  onchange="linkTypeChangeEdit(this)" class="clearfix col-xs-10 col-sm-12 {required:true}" >
+              <!--  连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件） -->
+               		<!-- <option value="1">活动页</option>
+               		<option value="2">专题页</option> -->
+               		<option value="3">课程</option>
+               		<option value="4">主播</option>
+               		<option value="5">课程列表</option>
+               </select>
+             </div>
+		</div>
+		
+		
+		<!-- 友情提示：  -->
+		<div class="form-group"  id="yqti_div_edit"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="description"></label>
+			 <div class="col-sm-6">
+			 	<textarea  id="yqti_textarea_edit" rows="2" cols="20" 
+			 	 style="color:blue" readonly="readonly" disabled="disabled"
+			 			class="col-xs-10 col-sm-12"></textarea>
+             </div>
+		</div>
+		
+		
 	    <div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="imgHref"><font color="red">*</font>链接地址: </label>
@@ -703,24 +745,9 @@
                		</textarea>
              </div>
 		</div>
-		
-		<div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>连接类型: </label>
-			 <div class="col-sm-6">
-               <select name="linkType" id="update_linkType" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >
-              <!--  连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件） -->
-               		<option value="1">活动页</option>
-               		<option value="2">专题页</option>
-               		<option value="3">课程</option>
-               		<option value="4">主播</option>
-               		<option value="5">课程列表</option>
-               </select>
-             </div>
-		</div>
+
 		 <input type="hidden" name="bannerType" id="upload_bannerType" >
-		
-		
 	</form>
 </div>
+
 <script type="text/javascript" src="/js/operate/mobileBanner2.js?v=ipandatcm_1.3"></script>

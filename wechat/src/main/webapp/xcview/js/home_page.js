@@ -3,6 +3,57 @@ var openId = getQueryString("openId");
 if(stringnull(openId)){
     localStorage.setItem("openid",openId);
 }
+/**
+ * 通过key 得到value  course_id=100 通过course_id 得到 100
+ * @param search
+ * @param name
+ * @returns
+ */
+function getValueByStr(search,name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = search.match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+/*
+ * 点击banner跳转
+ */
+function bannerJump(type,params){
+	
+	if(!stringnull(params)){
+		console.error("banner参数不可以是空的");
+		return;
+	}
+	//1：活动页、2：专题页、3：课程:4：主播:5：课程列表
+	if(type == 1 || type == 2){
+		console.error("暂时不支持活动和专题");
+		return;
+	}else if(type == 3){
+		
+		var courseId = getValueByStr(params,"course_id");
+		alert("courseId:"+courseId);
+		//课程跳转
+		common_jump_all(courseId);
+		
+	}else if(type == 4){
+		//主播跳转
+		var userLecturerId = getValueByStr(params,"userLecturerId");
+		alert("userLecturerId:"+userLecturerId);
+		location.href="/xcview/html/live_personal.html?userLecturerId="+userLecturerId;
+	}else if(type == 5){
+		//var userLecturerId = getValueByStr(params,"userLecturerId");
+		alert("params:"+params);
+		location.href="/xcview/html/curriculum_table.html?"+params;
+	}else{
+		console.error("banner类型有误");
+		return;
+	}
+	
+	
+}
+
+
+
+
 
 /**
  * 根据不同的tab进行学堂的分类查询
@@ -80,7 +131,7 @@ function recommendSchool(){
                 for (var int = 0; int < result.length; int++) {
                     var wb = result[int];
                     str+="<div class='swiper-slide swiper-banner swiper-banner-btn'>"+
-                        "<img src='"+wb.imgPath+"?imageView2/2/w/750' data_id='"+wb.id+"' data_img='"+wb.url+"'>"+
+                        "<img src='"+wb.imgPath+"?imageView2/2/w/750' date_type='"+wb.linkType+"' data_id='"+wb.id+"' data_url='"+wb.url+"'>"+
                         "</div>";
                 }
                 $("#wrapper-box").html(str);
@@ -98,9 +149,14 @@ function recommendSchool(){
 
             $(".swiper-banner-btn").click(function(){
                 var  data_id=$(this).find("img").attr("data_id");
+                //增加banner的点击量
                 clickBanner(data_id);
-                var  data_img=$(this).find("img").attr("data_img");
-                location.href=data_img;
+                //页面跳转
+                var  data_url=$(this).find("img").attr("data_url");
+                var  date_type=$(this).find("img").attr("date_type");
+                
+                bannerJump(date_type,data_url);                 
+               // location.href=data_img;
             })
             //swiper轮播结束
             //小白班跳转
@@ -168,9 +224,9 @@ function lineWork(){
 	                var result_class = data.resultObject.banner.records;
 	                var str_class ="";
 	                for (var int = 0; int < result_class.length; int++) {
-	                    var wb_class = result_class[int];
+	                	 var wb = result_class[int];
 	                    str_class+="<div class='swiper-slide swiper-banner swiper-banner-class'>"+
-	                        "<img src='"+wb_class.imgPath+"?imageView2/2/w/750' data_id='"+wb_class.id+"' data_class='"+wb_class.url+"'>"+
+	                        "<img src='"+wb.imgPath+"?imageView2/2/w/750' date_type='"+wb.linkType+"' data_id='"+wb.id+"' data_url='"+wb.url+"'>"+
 	                        "</div>";
 	                }
 	                $("#wrapper-box-class").html(str_class);
@@ -189,8 +245,14 @@ function lineWork(){
             $(".swiper-banner-class").click(function(){
                 var  data_id=$(this).find("img").attr("data_id");
                 clickBanner(data_id);
-                var  data_class=$(this).find("img").attr("data_class");
-                location.href=data_class;
+                
+                
+                //页面跳转
+                var  data_url=$(this).find("img").attr("data_url");
+                var  date_type=$(this).find("img").attr("date_type");
+                bannerJump(date_type,data_url);      
+                
+                
             })
             //swiper轮播结束
             //swiper线下课省滑动
@@ -228,9 +290,9 @@ function liveSchool(){
                 var result_play = data.resultObject.banner.records;
                 var str_play ="";
                 for (var int = 0; int < result_play.length; int++) {
-                    var wb_play = result_play[int];
+                	var wb = result_play[int];
                     str_play+="<div class='swiper-slide swiper-banner swiper-banner-play'>"+
-                        "<img src='"+wb_play.imgPath+"?imageView2/2/w/750' data_id='"+wb_play.id+"' data_play='"+wb_play.url+"' style='width: 7.5rem;height:3.2rem;' />"+
+                        "<img src='"+wb.imgPath+"?imageView2/2/w/750'  date_type='"+wb.linkType+"' data_id='"+wb.id+"' data_url='"+wb.url+"' style='width: 7.5rem;height:3.2rem;' />"+
                         "</div>";
                 }
                 $("#wrapper-box-play").html(str_play);
@@ -248,8 +310,10 @@ function liveSchool(){
             $(".swiper-banner-play").click(function(){
                 var  data_id=$(this).find("img").attr("data_id");
                 clickBanner(data_id);
-                var  data_play=$(this).find("img").attr("data_play");
-                location.href=data_play;
+                //页面跳转
+                var  data_url=$(this).find("img").attr("data_url");
+                var  date_type=$(this).find("img").attr("date_type");
+                bannerJump(date_type,data_url);    
             })
             //swiper轮播结束
             if(data.success==true){
@@ -274,9 +338,9 @@ function listenSchool(){
                 var result_listen = data.resultObject.banner.records;
                 var str_listen ="";
                 for (var int = 0; int < result_listen.length; int++) {
-                    var wb_listen = result_listen[int];
+                    var wb = result_listen[int];
                     str_listen+="<div class='swiper-slide swiper-banner swiper-banner-listen'>"+
-                        "<img src='"+wb_listen.imgPath+"?imageView2/2/w/750' data_id='"+wb_listen.id+"' data_listen='"+wb_listen.url+"'>"+
+                        "<img src='"+wb.imgPath+"?imageView2/2/w/750' date_type='"+wb.linkType+"' data_id='"+wb.id+"' data_url='"+wb.url+"' >"+
                         "</div>";
                 }
                 $("#wrapper-box-listen").html(str_listen);
@@ -294,8 +358,10 @@ function listenSchool(){
             $(".swiper-banner-listen").click(function(){
                 var  data_id=$(this).find("img").attr("data_id");
                 clickBanner(data_id);
-                var  data_listen=$(this).find("img").attr("data_listen");
-                location.href=data_listen;
+                //页面跳转
+                var  data_url=$(this).find("img").attr("data_url");
+                var  date_type=$(this).find("img").attr("date_type");
+                bannerJump(date_type,data_url);    
             })
             //swiper轮播结束
 			if(data.resultObject.listenCourseList.length==0 || data.resultObject.listenCourseList.length== null){
