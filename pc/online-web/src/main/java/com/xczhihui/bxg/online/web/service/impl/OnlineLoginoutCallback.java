@@ -1,28 +1,24 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.web.auth.service.LoginoutCallback;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.web.utils.CookieUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+
 @Service("onlineLoginoutCallbackService")
 public class OnlineLoginoutCallback implements LoginoutCallback {
 	
-	//private static Map<String, SingletonUserLogin> logins = new HashMap<String, SingletonUserLogin>();
-
 	@Resource(name = "simpleHibernateDao")
 	private SimpleHibernateDao dao;
-	@Autowired
-	private UserCenterAPI api;
+
 	/**
 	 * 记录最后登录时间、IP、访问次数
 	 */

@@ -106,7 +106,7 @@ $('#u_workTime  li').click(function(){
 	//选择医师列表
 	$('#speech_select1').change(function(){
 	var hosID = $('#speech_select1').val();
-	 RequestService("/medical/hospital/getHospitalById", "get", {
+	 RequestService("/hospital/getHospitalById", "get", {
         id: hosID,
     },function(data){
     	$(' #tel').val(data.resultObject.tel);
@@ -123,7 +123,7 @@ $('#u_workTime  li').click(function(){
 
 //初始化主播是医师信息
 function initAuthentication (){
-    RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+    RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
         if(data.resultObject==null)return;
         data = data.resultObject;
         $(".anchor_name").html(data.name);
@@ -137,7 +137,7 @@ function initAuthentication (){
 //初始化主播是医馆信息
 
 function initAuthenticationHos (){
-    RequestService("/medical/hospital/authentication/get", "get", null, function(data) {
+    RequestService("/hospital/authentication/get", "get", null, function(data) {
         if(data.resultObject==null)return;
         data = data.resultObject;
         console.log(data);
@@ -156,7 +156,7 @@ function initAuthenticationHos (){
 function savePhysicianApply(){
     var physician = getPhysicianData();
     if(verifyPhysician(physician)){
-        RequestService("/medical/doctor/apply", "post", physician, function(data) {
+        RequestService("/doctor/apply", "post", physician, function(data) {
             alert(data)
         },false);
     }
@@ -233,7 +233,7 @@ function verifyPhysician(data){
 function saveClinicsApply(){
     var clinics = getClinicsData();
     if(verifyClinics(clinics)){
-        RequestService("/medical/doctor/apply", "post", clinics, function(data) {
+        RequestService("/doctor/apply", "post", clinics, function(data) {
             alert(data)
         },false);
     }

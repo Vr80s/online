@@ -3,6 +3,7 @@ package com.xczhihui.bxg.user.center.service.impl;
 import java.util.*;
 
 import com.xczhihui.bxg.user.center.dao.LoginLimitDao;
+import com.xczhihui.bxg.user.center.exception.LoginRegException;
 import com.xczhihui.user.center.bean.*;
 
 import org.slf4j.Logger;
@@ -37,11 +38,11 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 	public Token regist( String loginName,String password, 	String nikeName, 	UserSex sex, String email,
 			String mobile, 	UserType type, 		UserOrigin origin, UserStatus status) {
 		if (!StringUtils.hasText(loginName) || !StringUtils.hasText(password)) {
-			throw new RuntimeException("用户名、密码不允许为空！");
+			throw new LoginRegException("用户名、密码不允许为空！");
 		}
 		ItcastUser u = this.getUser(loginName);
 		if (u != null) {
-			throw new RuntimeException("用户名'" + u.getLoginName() + "'已被注册");
+			throw new LoginRegException("用户名'" + u.getLoginName() + "'已被注册");
 		}
 		ItcastUser itcastUser = new ItcastUser();
 		itcastUser.setLoginName(loginName);
@@ -121,7 +122,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		}
 		if(oldPassword!=null && newPassword!=null && oldPassword.equals(newPassword)){
 			logger.info("newPassword:{},oldPassword:{}", newPassword, oldPassword);
-			throw new RuntimeException("新密码不能与旧密码相同");
+			throw new LoginRegException("新密码不能与旧密码相同");
 		}
 		
 		if (StringUtils.hasText(oldPassword)) {
@@ -129,14 +130,12 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			String actual = CodeUtil.encodePassword(oldPassword, user.getSalt());
 			if (!expect.equals(actual)) {
 				logger.info("actual:{},expect:{}", actual, expect);
-				throw new RuntimeException("原密码错误");
+				throw new LoginRegException("原密码错误");
 			}
 		} else {
 			logger.warn("重置密码");
 		}
-		
-		
-		
+
 		user.setPassword(newPassword);
 		this.proccessPassword(user, false);
 		this.itcastUserDao.updatePassword(user.getId(), user.getPassword());
@@ -149,7 +148,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		}
 		ItcastUser user = this.getUser(newLoginName);
 		if (user != null) {
-			throw new RuntimeException("登录名'" + newLoginName + "'已存在.");
+			throw new LoginRegException("登录名'" + newLoginName + "'已存在.");
 		}
 		this.itcastUserDao.updateLoginName(oldLoginName, newLoginName);
 	}
@@ -164,10 +163,10 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
 			ItcastUser user = this.getUser(loginName);
 			if (user == null) {
-				throw new RuntimeException("手机号暂未注册");
+				throw new LoginRegException("手机号暂未注册");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("账号被禁用");
+				throw new LoginRegException("账号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -178,7 +177,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			if (!expect.equals(actual)) {
 				logger.info("actual:{}", actual);
 				logger.info("expect:{}", expect);
-				throw new RuntimeException("用户名或密码错误");
+				throw new LoginRegException("用户名或密码错误");
 			}
 			this.updateLastLoginDate(user);
 			Token token = this.tokenManager.createTokenMobile(user, tokenExpires.getExpires());
@@ -187,16 +186,15 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		return null;
 	}
 	
-	
 	@Override
 	public Token login(String loginName, String password, TokenExpires tokenExpires) {
 		if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
 			ItcastUser user = this.getUser(loginName);
 			if (user == null) {
-				throw new RuntimeException("手机号暂未注册");
+				throw new LoginRegException("手机号暂未注册");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("帐号被禁用");
+				throw new LoginRegException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -207,7 +205,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			if (!expect.equals(actual)) {
 				logger.info("actual:{}", actual);
 				logger.info("expect:{}", expect);
-				throw new RuntimeException("用户名或密码错误");
+				throw new LoginRegException("用户名或密码错误");
 			}
 			this.updateLastLoginDate(user);
 			Token token = this.tokenManager.createToken(user, tokenExpires.getExpires());
@@ -215,15 +213,16 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		}
 		return null;
 	}
+
 	@Override
 	public Token login4BBS(String loginName, String password, String smallHeadPhoto, String uuid, TokenExpires tokenExpires) {
 		if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
 			ItcastUser user = this.getUser(loginName);
 			if (user == null) {
-				throw new RuntimeException("手机号暂未注册");
+				throw new LoginRegException("手机号暂未注册");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("帐号被禁用");
+				throw new LoginRegException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -234,7 +233,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			if (!expect.equals(actual)) {
 				logger.info("actual:{}", actual);
 				logger.info("expect:{}", expect);
-				throw new RuntimeException("用户名或密码错误");
+				throw new LoginRegException("用户名或密码错误");
 			}
 			this.updateLastLoginDate(user);
 			user.setUuid(uuid);
@@ -332,14 +331,14 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 	@Override
 	public Token loginThirdPart(String loginName, String password, TokenExpires tokenExpires) throws Exception {
 		if (!StringUtils.hasText(loginName) || !StringUtils.hasText(password)) {
-			throw new RuntimeException("参数错误！");
+			throw new LoginRegException("参数错误！");
 		}
 		ItcastUser user = this.getUser(loginName);
 		if (user == null) {
-			throw new RuntimeException("用户名或密码错误");
+			throw new LoginRegException("用户名或密码错误");
 		}
 		if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-			throw new RuntimeException("帐号被禁用");
+			throw new LoginRegException("帐号被禁用");
 		}
 		String salt = user.getSalt();
 		if (salt == null) {
@@ -350,7 +349,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		if (!password.equals(actual)) {
 			logger.info("actual:{}", actual);
 			logger.info("expect:{}", password);
-			throw new RuntimeException("用户名或密码错误");
+			throw new LoginRegException("用户名或密码错误");
 		}
 		this.updateLastLoginDate(user);
 		return this.tokenManager.createTokenMobile(user, tokenExpires.getExpires());
@@ -369,10 +368,10 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			
 			ItcastUser user = this.getUser(loginName);
 			if (user == null) {
-				throw new RuntimeException("用户名或密码错误");
+				throw new LoginRegException("用户名或密码错误");
 			}
 			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new RuntimeException("帐号被禁用");
+				throw new LoginRegException("帐号被禁用");
 			}
 			String salt = user.getSalt();
 			if (salt == null) {
@@ -383,7 +382,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			if (!expect.equals(actual)) {
 				logger.info("actual:{}", actual);
 				logger.info("expect:{}", expect);
-				throw new RuntimeException("用户名或密码错误");
+				throw new LoginRegException("用户名或密码错误");
 			}
 			return true;
 		}

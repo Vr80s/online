@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public class UserUtil {
+
 	public static void setSessionCookie(HttpServletRequest request, HttpServletResponse response, BxgUser user,
 			Token token) {
 		UserLoginUtil.setLoginUser(request, user);
@@ -25,4 +26,5 @@ public class UserUtil {
 		UserLoginUtil.setLoginUser(request, null);
 		UCCookieUtil.clearTokenCookie(response);
 	}
+
 }

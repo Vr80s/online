@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "/gift")
-public class GiftController {
+public class GiftController extends AbstractController{
 
 	@Autowired
 	private GiftService giftService;
@@ -62,7 +62,7 @@ public class GiftController {
 	public ResponseObject sendGift(GiftStatement giftStatement,
 			HttpServletRequest request) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException, InterruptedException {
 		Map<String,Object> map = new HashMap<String,Object>();
-		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		OnlineUser u = getCurrentUser();
         if(u!=null) {
         	giftStatement.setGiver(u.getId());
         	giftStatement.setClientType(OrderFrom.PC.getCode());

@@ -82,48 +82,13 @@ function on_click_msg(msg_id, msg_link) {
     }, false);
 };
 
-//$("<script src='http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js'></script>").appendTo('head');
-
-//$("<meta http-equiv='X-UA-Compatible' content='IE=edge' > ").appendTo('head');
-
-
 $(function () {
-
-    /*$(document).ajaxSend(function(event, request, settings) {
-        //pc端多端登录限制
-        if((settings.url.indexOf("/online/user/isAlive")>=0)){
-                    $.ajax({
-                    type: "get",
-                    url: bath + "/online/user/loginStatus",
-                    async: false,
-                    success: function(data) {
-                        console.log(data);
-                        if(data.success === true) {
-                            if(data.resultObject==0){
-                                //alert("当前已登录");
-                             }else if(data.resultObject==1){
-                                //alert("未登录状态");
-                            }else if(data.resultObject==2){
-                                //alert("被顶掉！");
-                                window.location.href=bath+"/otherDevice.html"
-                            }
-
-                        } else {
-
-                        }
-                    }
-                });
-        }
-    });*/
-
 
     /**
      * Created by admin on 2016/9/14.
      */
-        //==========================================================================================
     var headersIndex = {
             navtop: '<div class="head-top"><div class="content"><ul><li class="first-li"><a href="/web/html/aboutUs.html">关于我们</a></li>' +
-
             '<li>' +
             '<div class="loginGroup">' +
             ' <div class="login" style="display:none;">' +
@@ -135,7 +100,6 @@ $(function () {
             ' </div>' +
             '<ul class="dropdownmenu" aria-labelledby="dLabel">' +
             '<div class="pointer"></div>' +
-//        '<li><a data-id="mynews"><i class="iconfont icon-ziyuan myNews" style="font-size:12px"></i>我的消息</a></li>'+
             '<li><a data-id="mydata"><i class="iconfont icon-xueyuan"></i>我的资料</a></li>' +
             '<li><a data-id="idea"><i class="iconfont icon-yijianfankui"></i>意见反馈</a></li>' +
             '<li><a data-id="mymoney"><i class="iconfont icon-qianbao"></i>我的资产</a></li>' +
@@ -154,31 +118,13 @@ $(function () {
             '<li><a href="/App.html" class="appDown">APP下载</a></li>' +
 
             '<li>' +
-//    	语言选择连接暂时隐藏
-//    	'<a href="javascript:;">语言选择</a>'+
-
             '</li>' +
             '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>' +
-            // '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>'+
             '</ul></div></div>',
             nav:
 
-//        	开始
             '<div class="header_right">' +
             '<a href="/index.html"><img src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>' +
-//        '<a href="javascript:;" class="studentCenterBox">学习中心</a>'+
-//        '<div class="shoppingBox">' +
-//             '<a href="javascript:;" data-id="" class="shoppingCar">购物车</a>'+
-//             '<span class="shopping"><em></em></span>'+
-//        '</div>'+
-//        '<div class="messageBox">' +
-//             '<a href="javascript:;" data-id="mynews" class="message">消息</a>'+
-//             '<span class="messageCount"><em></em></span>'+
-//        '</div>'+
-//        '<span class="lineBetween">|</span>'+
-
-//        '<a class="btn-login btn-link" data-toggle="modal" data-target="#login" data-backdrop="static">登录</a>'+
-//        ' <a class="btn-register btn-link" href="/web/html/login.html?ways=register">注册</a>'+
 
             '</div>' +
             '<div class="header_left">' +
@@ -218,13 +164,6 @@ $(function () {
         '<a class="atOnceRegister" href="/web/html/login.html?ways=register">立即注册</a>'+
         '<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码？</a>'+
         '</div>'+
-       /* ' <div class="other-login-box">'+
-        ' <span>其它方式登录</span>'+
-        '<div class="other-login-ways clearfix">'+
-        '<div class="qq-login"></div>'+
-        ' <div class="weixin-login"></div>'+
-        '</div>'+
-        '</div>'+*/
         '</div></div></div></div>',
         oldStudent:'<div class="oldModal" id="old">'+
         '<div class="oldBody">'+
@@ -282,16 +221,6 @@ $(function () {
         '<img src="/web/images/top.png" alt=""/><span class="h_top_s">top</span>' +
         '</span></div>'
     }
-    //域名切换提示
-//  var friend = '<div class="friendSee"><div class="friendSee-Body">' +
-//  '<div class="friendSee-Body-left"><p style="margin-top:10px;">' + 
-//  '<img src="web/images/laba.png"/>' + 
-//  '<span class="friendSee-Body-title">域名切换通知</span>' +
-//  '</p>' +
-//  '<p class="friendSee-Body-text">温馨提示：各位院校合作的老师请注意，当前&nbsp;www.ixincheng.com&nbsp;已切换为【熊猫中医云课堂】使用，【熊猫中医院校】请访问地址&nbsp;yx.ixincheng.com</p>' +
-//  '</div><div class="friendSee-Body-right"><a href="http://yx.ixincheng.com" target="_blank">点此过去</a></div>' + 
-//  '<div class="closeSee"><img src="web/images/close.png"></div>' +
-//  '</div></div>';
 
     var header = $('<header><div class="header_body"></div></header>');
     $(header).find(".header_body").before(template.compile(headersIndex.navtop));//首页头部顶部
@@ -487,16 +416,6 @@ $(function () {
     } else if (myBrowser() == "IE7") {
         window.location.href = "/web/html/Download.html";
     }
-    /*else if (myBrowser() == "IE8") {
-        window.location.href = "/web/html/Download.html";
-    }else if(myBrowser() == "IE9"){
-        window.location.href = "/web/html/Download.html";
-    }else if(myBrowser() == "QQ"){
-        window.location.href = "/web/html/Download.html";
-    }*/
-    /*$(".browserBody .browserBody-text img").on("click",function(){
-        $(".browserBody").css("display","none");
-    });*/
     $(".cyinput1").on("input", function () {
         var val = $(this).val();
         if (val == "") {
@@ -515,16 +434,6 @@ $(function () {
         }
         return false;
     });
-    /*云课堂和博问答切换*/
-//  $(".path a").on('click', function () {
-//      $(this).addClass('select').siblings().removeClass('select');
-//  })
-    /*点击头像和用户名跳转到个人中心*/
-//  $(".userPic,#dLabel").on('click', function () {
-//      var id = "personcenter";
-//      window.localStorage.personcenter = "myanswer";
-//      location.href = "/web/html/personcenter.html";
-//  });
     /*个人中心点击立即登录后，当前用户退出登录*/
     $(".pLogin").on("click", function () {
         $(".loginGroup .logout").css("display", "block");
@@ -545,12 +454,8 @@ $(function () {
     /*登录注册字体颜色和箭头方向的改变*/
     $("#myDropdown").hover(function () {
         $("#myDropdown").addClass("open");
-//      $("#dLabel span:first-child").toggleClass("select");
-//      $("#dLabel span:last-child").toggleClass("select1");
     }, function () {
         $("#myDropdown").removeClass("open");
-//      $("#dLabel span:first-child").toggleClass("select");
-//      $("#dLabel span:last-child").toggleClass("select1");
     });
     initLogin();
     /*按回车键进行登录*/
@@ -841,14 +746,5 @@ $(function () {
 
         });
     }
-
-//    if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
-//    	alert("shouji");
-//    	alert(navigator.userAgent);
-//    }else{
-//    	alert("pc");
-//    	alert(navigator.userAgent);
-//    }
-
 
 });

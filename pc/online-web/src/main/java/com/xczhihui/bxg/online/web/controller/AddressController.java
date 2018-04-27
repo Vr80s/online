@@ -1,11 +1,10 @@
 package com.xczhihui.bxg.online.web.controller;
 
 
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.online.api.service.CityService;
 import com.xczhihui.online.api.vo.UserAddressManagerVo;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +26,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/address")
-public class AddressController {
+public class AddressController extends AbstractController{
 
 	@Autowired
 	private CityService cityService;
@@ -40,16 +39,14 @@ public class AddressController {
 	public ResponseObject getAddressAll(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		//获取当前登录用户信息
-		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(req);
-		if(u==null) {
-            throw new RuntimeException("未登录");
-        }
+		OnlineUser u = getCurrentUser();
 		/**
 		 * 获取所有的省份
 		 */
 		List<UserAddressManagerVo> list = cityService.getAddressAll(u.getId());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
+
 	/**
 	 * 保存编辑的地址
 	 */
@@ -59,7 +56,7 @@ public class AddressController {
 			HttpServletResponse res,@ModelAttribute UserAddressManagerVo udm)
 			throws Exception {
 		//获取当前登录用户信息
-		OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser(req);
+		OnlineUser ou = getCurrentUser();
 		if(ou==null) {
             throw new RuntimeException("未登录");
         }
@@ -85,7 +82,7 @@ public class AddressController {
 	public ResponseObject updateIsAcquies(HttpServletRequest req, HttpServletResponse res) throws SQLException {
 		String newId = req.getParameter("newId");
 		//获取当前登录用户信息
-		OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser(req);
+		OnlineUser ou = getCurrentUser();
 		cityService.updateIsAcquies(newId, ou.getId());
 		return ResponseObject.newSuccessResponseObject("修改成功");
 	}
@@ -98,7 +95,7 @@ public class AddressController {
 	public ResponseObject deleteAddressById(HttpServletRequest req, HttpServletResponse res) throws SQLException {
 		String id = req.getParameter("id");
 		//获取当前登录用户信息
-		OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser(req);
+		OnlineUser ou = getCurrentUser();
 		cityService.deleteAddressById(id, ou.getId());
 		return ResponseObject.newSuccessResponseObject("删除成功");
 	}

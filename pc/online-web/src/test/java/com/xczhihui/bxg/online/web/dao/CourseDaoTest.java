@@ -1,6 +1,8 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 
@@ -35,5 +37,6 @@ public class CourseDaoTest extends TestCase {
 
     	System.out.println(list.size());
     }
-    
+
+
 }

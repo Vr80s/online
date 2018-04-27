@@ -1,39 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import static com.xczhihui.bxg.online.web.utils.HttpUtil.sendGet;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import com.xczhihui.common.util.RandomUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.common.support.domain.Attachment;
-import com.xczhihui.common.support.domain.SystemVariate;
-import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.common.support.service.AttachmentType;
-import com.xczhihui.common.support.service.SystemVariateService;
-import com.xczhihui.common.util.DateUtil;
-import com.xczhihui.common.util.ImageUtil;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.VerificationCode;
@@ -47,14 +15,34 @@ import com.xczhihui.bxg.online.web.utils.HttpUtil;
 import com.xczhihui.bxg.online.web.utils.ThirdConnectionConfig;
 import com.xczhihui.bxg.online.web.vo.RegionVo;
 import com.xczhihui.bxg.online.web.vo.SchoolVo;
-import com.xczhihui.bxg.online.web.vo.SpecialitiesVo;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.UserOrigin;
-import com.xczhihui.user.center.bean.UserSex;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.domain.SystemVariate;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.support.service.AttachmentType;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.ImageUtil;
+import com.xczhihui.common.util.RandomUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.user.center.bean.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+
+import static com.xczhihui.bxg.online.web.utils.HttpUtil.sendGet;
 
 /**
  * 用户相关
@@ -67,17 +55,13 @@ public class UserServiceImpl implements UserService {
 	private UserCenterAPI userCenterAPI;
 
 	@Autowired
-	public UserCenterDao userCenterDao;//DAO
+	public UserCenterDao userCenterDao;
 
     @Autowired
     ShareManageService shareManageService;
 
-
 	private SimpleHibernateDao dao;
 
-	@Autowired
-	private SystemVariateService systemVariateService;
-	
 	@Autowired
 	private VerificationCodeService verificationCodeService;
 	
@@ -141,20 +125,11 @@ public class UserServiceImpl implements UserService {
 		u.setMenuId(-1);
 		u.setIsLecturer(0);
 		u.setRoomNumber(0);
-//		String uuid = CodeUtil.getRandomUUID();
-//		String vhallId = VhallUtil.createUser(u,password);
-//		u.setVhallId(vhallId);
-//		u.setVhallPass(password);
         u = shareManageService.saveShareRelation(req,u);
 		dao.save(u);
 		/*初始化用户账户--20170911--yuruixin*/
 		userCoinService.saveUserCoin(u.getId());
 		if(u.getVhallId()==null){
-			String vhallPassword = RandomUtil.getCharAndNumr(6);
-			String vhallId = VhallUtil.createUser(u,vhallPassword);
-			u.setVhallId(vhallId);
-			u.setVhallPass(vhallPassword);
-			u.setVhallName(u.getId());
 			updateVhallInfo(u);
 		}
 
@@ -165,14 +140,11 @@ public class UserServiceImpl implements UserService {
 			userCenterAPI.regist(u.getLoginName(), password, u.getName(), UserSex.UNKNOWN, null,
 					u.getLoginName(), UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
 		}
-		
 		//删除动态码
 		dao.delete(codes.get(0));
 		
 		return "注册成功！";
 	}
-
-
 
 	@Override
 	public String addEmailRegist(HttpServletRequest req,String username, String password,String nikeName) {
@@ -236,8 +208,7 @@ public class UserServiceImpl implements UserService {
 		if (!StringUtils.hasText(vcode)) {
 			return ("链接不正确！");
 		}
-		
-		
+
 		String[] codestring = vcode.split("!@!");
 		if (codestring.length < 2) {
 			return ("链接不正确！");
@@ -335,41 +306,6 @@ public class UserServiceImpl implements UserService {
 	}
     
 	@Override
-	public String deleteUser(String username) {
-		//删除订单
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-			.update("delete from oe_order_detail where order_id in "
-				+ " (select id from oe_order where user_id=(select id from oe_user where login_name='"+username+"'))");
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-			.update("delete from oe_order where user_id=(select id from oe_user where login_name='"+username+"')");
-		
-		//删除报名信息
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-		.update("delete from apply_r_grade_course "
-				+ " where apply_id=(select id from oe_apply where user_id="
-					+ "(select id from oe_user where login_name='"+username+"'))");
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-			.update("delete from oe_apply where user_id=(select id from oe_user where login_name='"+username+"')");
-		
-		//删除视频信息
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-			.update("delete from user_r_video where user_id=(select id from oe_user where login_name='"+username+"')");
-		
-		//删除关卡信息
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-			.update("delete from oe_barrier_record where user_id=(select id from oe_user where login_name='"+username+"')");
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-			.update("delete from oe_barrier_user where user_id=(select id from oe_user where login_name='" + username + "')");
-		
-		//删除用户
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-			.update("delete from oe_user where login_name='"+username+"'");
-		
-		userCenterAPI.deleteUser(username);
-		return "删除成功！";
-	}
-
-	@Override
 	public String update(String username,OnlineUser u) {
 		OnlineUser user = dao.findOneEntitiyByProperty(OnlineUser.class, "id", u.getId());
 		user.setLoginName(username);
@@ -461,16 +397,6 @@ public class UserServiceImpl implements UserService {
 		    vo.setBirthdayStr(DateUtil.formatDate(vo.getBirthday(), DateUtil.FORMAT_DAY));
 			//设置职位
 			vo.setJob(userCenterDao.getJob("occupation"));
-			//学习目标
-//			vo.setStudyTarget(userCenterDao.getJob("target"));
-			//设置工作年限
-//			vo.setJobyear(userCenterDao.getJobYear());
-
-			//返回学历
-//			vo.setEducation(systemVariateService.getSystemVariatesByParentValue("education"));
-
-			//返回专业
-//			vo.setMajor(systemVariateService.getSystemVariatesByParentValue("major"));
 
 			// 获取用户报名信息
 			Apply  app=  dao.findOneEntitiyByProperty(Apply.class, "userId", loginUser.getId());
@@ -591,14 +517,6 @@ public class UserServiceImpl implements UserService {
 		ps.put("cityId", cityId);
 		return dao.getNamedParameterJdbcTemplate().query("select id,name from school where city_id= :cityId ",ps,
 				new BeanPropertyRowMapper<SchoolVo>(SchoolVo.class));
-	}
-
-	@Override
-	public List<SpecialitiesVo> listSpecialities(String schoolId) {
-		Map<String, Object> ps = new HashMap<String, Object>();
-		ps.put("schoolId", schoolId);
-		return dao.getNamedParameterJdbcTemplate().query("select id,name from oe_specialities where school_id= :schoolId ",ps,
-				new BeanPropertyRowMapper<SpecialitiesVo>(SpecialitiesVo.class));
 	}
 
 	@Override
@@ -801,12 +719,15 @@ public class UserServiceImpl implements UserService {
 			return ResponseObject.newErrorResponseObject("要绑定的帐号未注册！");
 		}
 	}
-	
 
 	@Override
-	public String updateVhallInfo(OnlineUser u) {
-		dao.update(u);
-		return "修改成功！";
+	public void updateVhallInfo(OnlineUser o) {
+		String vhallPassword = RandomUtil.getCharAndNumr(6);
+		String vhallId = VhallUtil.createUser(o,vhallPassword);
+		o.setVhallId(vhallId);
+		o.setVhallPass(vhallPassword);
+		o.setVhallName(o.getId());
+		dao.update(o);
 	}
 
 	@Override

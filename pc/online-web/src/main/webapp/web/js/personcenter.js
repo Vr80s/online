@@ -677,54 +677,7 @@ $(function() {
 		'<span class="email-warn warning">邮箱不能为空</span>' +
 		'</div>' +
 		
-		
-		
-		
 
-//		'<div class="111">' +
-//		'<div class="bue"><i class="red">*</i>学历:</div>' +
-//		'<span name="food2" class="rq-college" >' +
-//		'<p class="select-xiala" id="record">请选择</p>' +
-//		'<div class="xiala" id="recordxl" style="top:37px">' +
-//
-//		'</div>' +
-//		'</span>' +
-//		'<span class="college-warn warning">请选择学历</span>' +
-//		'</div>' +
-		
-		
-
-//		'<div class="222">' +
-//		'<div class="buer">毕业院校:</div>' +
-//		//      		'<input type="text" maxlength="18" class="daxue ipt"/>'+
-//		'<div class="address-right">' +
-//		'<div>' +
-//		'	<p  id="rq_province" class="select-xiala">请选择</p>' +
-//		'	<div class="xiala yearxl" id="rqsxl">                ' +
-//		'	</div>' +
-//		'</div>' +
-//		'<div>' +
-//		'	<p id="rq_city" class="select-xiala">请选择</p>' +
-//		'	<div class="xiala monthxl" id="rqcxl"> ' +
-//		'	</div>' +
-//		'</div>' +
-//		'<div>' +
-//		'<p id="rq_college" class="select-xiala">请选择</p>' +
-//		'<div class="xiala dayxl" id="rqdxxl">        ' +
-//		'</div>' +
-//		'</div>' +
-//		' </div>' +
-//		'</div>' +
-//
-//		'<div class="000">' +
-//		'<div class="bue">专业:</div>' +
-//		'<span name="food2" class="rq-college" >' +
-//		'<p class="select-xiala" id="major">请选择</p>' +
-//		'<div class="xiala" id="majorxl" style="top:37px">' +
-//		'</div>' +
-//		'</span>' +
-//		'</div>' +
-		
 		'<div class="000">' +
 		'<div class="buer"><i class="red"></i>职业:</div>' +
 		'<input type="text" maxlength="15" class="profession ipt"/>' +

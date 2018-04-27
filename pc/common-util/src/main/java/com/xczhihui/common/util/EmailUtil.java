@@ -31,7 +31,7 @@ public class EmailUtil {
     public static final String SMTP = getValue("email.host");
     public static final String USERNAME = getValue("email.user");
     public static final String PASSWORD = getValue("email.password");
-    public static final String ENV = getValue("ENV_FLAG");
+    public static final String ENV = getValue("env.flag");
     public static final String TOUSER = "system@ixincheng.com";
     public static final String MODIFYLOGINNAMETOUSER = "yuruixin@ixincheng.com";
 

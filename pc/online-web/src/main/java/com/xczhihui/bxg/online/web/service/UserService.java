@@ -54,12 +54,7 @@ public interface UserService {
 	 * @return
 	 */
 	public String updateUserPassword(String username,String password, String code);
-	/**
-	 * 删除用户
-	 * @param username
-	 * @return
-	 */
-	public String deleteUser(String username);
+
 	/**
 	 * 邮箱重置密码，验证
 	 * @param vcode
@@ -100,12 +95,14 @@ public interface UserService {
 	 * @return
 	 */
 	public List<RegionVo> listProvinces();
+
 	/**
 	 * 联动显示市
 	 * @param provinceId
 	 * @return
 	 */
 	public List<RegionVo> listCities(String provinceId);
+
 	/**
 	 * 联动显示学校
 	 * @param
@@ -113,14 +110,6 @@ public interface UserService {
 	 */
 	public List<SchoolVo> listSchools(String cityId);
 
-
-	/*public List<SchoolVo> listSchools(String schoolName);*/
-	/**
-	 * 联动显示专业
-	 * @param schoolId
-	 * @return
-	 */
-	public List<SpecialitiesVo> listSpecialities(String schoolId);
 	public OnlineUser findUserByLoginName(String loginName);
 	public void addUser(OnlineUser user);
 
@@ -165,7 +154,7 @@ public interface UserService {
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	String updateVhallInfo(OnlineUser u);
+	void updateVhallInfo(OnlineUser u);
 
 	Boolean isAnchor(String loginName);
 	OnlineUser findUserById(String userId);

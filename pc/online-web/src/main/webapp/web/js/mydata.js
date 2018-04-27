@@ -1,5 +1,3 @@
-
-
 function createData() { //模板加载
 	$(".pages").css("display", "none");
 	$(".view-content-notbodys").html("");
@@ -1180,243 +1178,23 @@ function college(data) {
 	$("#rqsxl").empty();
 	$("#rqcxl").empty();
 	$("#rqdxxl").empty();
-	//		$("#majorxl").empty();
 	$("#rqsxl").append("<span>请选择</span>");
 	$("#rqcxl").append("<span>请选择</span>");
 	$("#rqdxxl").append("<span>请选择</span>");
-	//		$("#majorxl").append("<span>请选择</span>");
 	if(data.resultObject.applyProvince == "" && data.resultObject.appCity == "") {
-		//		RequestService("/online/user/listProvinces", "GET", "", function(t) {
-		//			$("#rq_province").html("请选择");
-		//			$("#rq_city").html("请选择");
-		//			$("#rq_college").html("请选择");
-		//			$("#rqsxl").empty()
-		//			$("#rqcxl").empty()
-		//			$("#rqdxxl").empty()
-		//			$("#rqcxl").append("<span>请选择</span>")
-		//			$("#rq_college").append("<span>请选择</span>")
-		//			for(var i = 0; i < t.resultObject.length; i++) {
-		//				$("#rqsxl").append("<span id=" + t.resultObject[i].id + " title=" + t.resultObject[i].name + ">" + t.resultObject[i].name + "</span>")
-		//			}
-		//			$("#rqsxl span").on("click", function() {
-		//				var text = $(this).html();
-		//				$(this).parent().siblings().html(text);
-		//				$(".xiala").css("display", "none");
-		//				if($(this).attr("id") != undefined) {
-		//					$(this).parent().siblings().attr({
-		//						"data-id": $(this).attr("id"),
-		//						"title": $(this).html()
-		//					});
-		//				}
-		//				RequestService("/online/user/listCities", "GET", {
-		//					provinceId: $("#rq_province").attr("data-id")
-		//				}, function(data) {
-		//					for(var i = 0; i < data.resultObject.length; i++) {
-		//						$("#rqcxl").append("<span id=" + data.resultObject[i].id + " title=" + data.resultObject[i].name + ">" + data.resultObject[i].name + "</span>")
-		//					}
-		//					//省份修改专用赋值事件
-		//					$("#rqcxl span").on("click", function() {
-		//						var text = $(this).html();
-		//						$(this).parent().siblings().html(text);
-		//						$(".xiala").css("display", "none");
-		//						if($(this).attr("id") != undefined) {
-		//							$(this).parent().siblings().attr({
-		//								"data-id": $(this).attr("id"),
-		//								"title": $(this).html()
-		//							});
-		//						}
-		//					})
-		//				})
-		//			})
-		//		})
 		sheng();
 	} else if(data.resultObject.applyProvince == undefined && data.resultObject.appCity == undefined) {
-		//		RequestService("/online/user/listProvinces", "GET", "", function(t) {
-		//			$("#rq_province").html("请选择");
-		//			$("#rq_city").html("请选择");
-		//			$("#rq_county").html("请选择");
-		//			$("#rqsxl").empty()
-		//			$("#rqcxl").empty()
-		//			$("#rqdxxl").empty()
-		//			$("#rqsxl").append("<span>请选择</span>")
-		//			$("#rqcxl").append("<span>请选择</span>")
-		//			$("#rqdxxl").append("<span>请选择</span>")
-		//			for(var i = 0; i < t.resultObject.length; i++) {
-		//				$("#rqsxl").append("<span id=" + t.resultObject[i].id + " title=" + t.resultObject[i].name + ">" + t.resultObject[i].name + "</span>")
-		//			}
-		//			$("#rqsxl span").on("click", function() {
-		//				var text = $(this).html();
-		//				$(this).parent().siblings().html(text);
-		//				$(".xiala").css("display", "none");
-		//				if($(this).attr("id") != undefined) {
-		//					$(this).parent().siblings().attr({
-		//						"data-id": $(this).attr("id"),
-		//						"title": $(this).html()
-		//					});
-		//				}
-		//				RequestService("/online/user/listCities", "GET", {
-		//					provinceId: $("#rq_province").attr("data-id")
-		//				}, function(data) {
-		//					$("#rqcxl").empty();
-		//					for(var i = 0; i < data.resultObject.length; i++) {
-		//						$("#rqcxl").append("<span id=" + data.resultObject[i].id + " title=" + data.resultObject[i].name + ">" + data.resultObject[i].name + "</span>")
-		//					}
-		//					//省份修改专用赋值事件
-		//					$("#rqcxl span").on("click", function() {
-		//						var text = $(this).html();
-		//						$(this).parent().siblings().html(text);
-		//						$(".xiala").css("display", "none");
-		//						if($(this).attr("id") != undefined) {
-		//							$(this).parent().siblings().attr({
-		//								"data-id": $(this).attr("id"),
-		//								"title": $(this).html()
-		//							});
-		//						}
-		//					})
-		//				})
-		//			})
-		//		})
 		sheng();
 	} else {
 		$("#rq_province").html("请选择").attr("data-id", "");
 		$("#rq_city").html("请选择").attr("data-id", "");
 		$("#rq_college").html("请选择").attr("data-id", "");
-		//		$("#major").html("请选择").attr("data-id","");
 		$("#rqsxl").empty();
 		$("#rqcxl").empty();
 		$("#rqdxxl").empty();
-		//		$("#majorxl").empty();
 		$("#rqsxl").append("<span>请选择</span>");
 		$("#rqcxl").append("<span>请选择</span>");
 		$("#rqdxxl").append("<span>请选择</span>");
-		//		$("#majorxl").append("<span>请选择</span>");
-
-		//		RequestService("/online/user/listProvinces", "GET", "", function(t) {
-		//			for(var i = 0; i < t.resultObject.length; i++) {
-		//				$("#rqsxl").append("<span id=" + t.resultObject[i].id + " title=" + t.resultObject[i].name + ">" + t.resultObject[i].name + "</span>");
-		//				if(t.resultObject[i].id == data.resultObject.province) {
-		//					$("#rq_province").html(t.resultObject[i].name).attr({
-		//						"data-id": t.resultObject[i].id,
-		//						"title": t.resultObject[i].name
-		//					});
-		//				}
-		//			}
-		//			$("#rqsxl span").on("click", function() {
-		//				var text = $(this).html();
-		//				$(this).parent().siblings().html(text);
-		//				$(".xiala").css("display", "none");
-		//				if($(this).attr("id") != undefined) {
-		//					$(this).parent().siblings().attr({
-		//						"data-id": $(this).attr("id"),
-		//						"title": $(this).html()
-		//					});
-		//				};
-		//				RequestService("/online/user/listCities", "GET", {
-		//					provinceId: $("#rq_province").attr("data-id")
-		//				}, function(data) {
-		//					$("#rqcxl").empty();
-		//					$("#rqcxl").append("<span>请选择</span>")
-		//					$("#rqdxxl").append("<span>请选择</span>")
-		//					for(var i = 0; i < data.resultObject.length; i++) {
-		//						$("#rqcxl").append("<span id=" + data.resultObject[i].id + " title=" + data.resultObject[i].name + ">" + data.resultObject[i].name + "</span>")
-		//					}
-		//					//省份修改专用赋值事件
-		//					$("#rqcxl span").on("click", function() {
-		//						var text = $(this).html();
-		//						$(this).parent().siblings().html(text);
-		//						$(".xiala").css("display", "none");
-		//						if($(this).attr("id") != undefined) {
-		//							$(this).parent().siblings().attr({
-		//								"data-id": $(this).attr("id"),
-		//								"title": $(this).html()
-		//							});
-		//						}
-		//						$("#rqcxl").append("<span>请选择</span>")
-		//			RequestService("/online/user/listCities", "GET", {
-		//				provinceId: $("#rq_province").attr("data-id")
-		//			}, function(y) {
-		//				$("#rqcxl").empty()
-		//				$("#rqdxxl").empty()
-		//				for(var i = 0; i < y.resultObject.length; i++) {
-		//					$("#rqcxl").append("<span id=" + y.resultObject[i].id + " title=" + y.resultObject[i].name + ">" + y.resultObject[i].name + "</span>");
-		//					if(y.resultObject[i].id == data.resultObject.district) {
-		//						$("#rq_city").html(y.resultObject[i].name).
-		//						attr({
-		//							"data-id": y.resultObject[i].id,
-		//							"title": y.resultObject[i].name
-		//						});
-		//					}
-		//				}
-		//				$("#rqcxl span").on("click", function() {
-		//					var text = $(this).html();
-		//					$(this).parent().siblings().html(text);
-		//					$(".xiala").css("display", "none");
-		//					if($(this).attr("id") != undefined) {
-		//						$(this).parent().siblings().attr({
-		//							"data-id": $(this).attr("id"),
-		//							"title": $(this).html()
-		//						});
-		//					};
-		//					RequestService("/online/user/listSchools", "GET", {
-		//						cityId: $("#rq_city").attr("data-id")
-		//					}, function(data) {
-		//						for(var i = 0; i < data.resultObject.length; i++) {
-		//							$("#rqdxxl").append("<span id=" + data.resultObject[i].id + " title=" + data.resultObject[i].name + ">" + data.resultObject[i].name + "</span>")
-		//						}
-		//					})
-		//				})
-		//				$("#rqdxxl").append("<span>请选择</span>")
-		//				RequestService("/online/user/listSchools", "GET", {
-		//					cityId: $("#rq_city").attr("data-id")
-		//				}, function(u) {
-		//					$("#rqdxxl").empty()
-		//					for(var i = 0; i < u.resultObject.length; i++) {
-		//						$("#rqdxxl").append("<span id=" + u.resultObject[i].id + " title=" + u.resultObject[i].name + ">" + u.resultObject[i].name + "</span>");
-		//						if(u.resultObject[i].id == data.resultObject.city) {
-		//							$("#rq_college").html(u.resultObject[i].name).attr({
-		//								"data-id": u.resultObject[i].id,
-		//								"title": u.resultObject[i].name
-		//							});
-		//						}
-		//					}
-		//					$("#rqdxxl span").on("click", function() {
-		//						var text = $(this).html();
-		//						$(this).parent().siblings().html(text);
-		//						$(".xiala").css("display", "none");
-		//						if($(this).attr("id") != undefined) {
-		//							$(this).parent().siblings().attr({
-		//								"data-id": $(this).attr("id"),
-		//								"title": $(this).html()
-		//							});
-		//						}
-		//						RequestService("/online/user/listSpecialities", "GET", {
-		//							schoolId: $("#rq_college").attr("data-id")
-		//						}, function(data) {
-		//							$("#majorxl").html("");
-		//							$("#majorxl").append("<span>请选择</span>")
-		//							for(var i = 0; i < data.resultObject.length; i++) {
-		//								$("#majorxl").append("<span id=" + data.resultObject[i].id + " title=" + data.resultObject[i].name + ">" + data.resultObject[i].name + "</span>")
-		//							};
-		//							$("#majorxl span").on("click", function() {
-		//								var text = $(this).html();
-		//								$(this).parent().siblings().html(text);
-		//								$(".xiala").css("display", "none");
-		//								if($(this).attr("id") != undefined) {
-		//									$(this).parent().siblings().attr({
-		//										"data-id": $(this).attr("id"),
-		//										"title": $(this).html()
-		//									});
-		//								}
-		//							});	
-		//						})
-		//					})
-		//				})
-		//			});
-		//					});
-		//				})
-		//			})
-		/////////////////////////////////////////////
-		//		});
 		sheng();
 	}
 
@@ -1479,7 +1257,6 @@ function college(data) {
 					});
 				}
 			}
-			daxue($("#rq_city").attr("data-id"));
 			$("#rqcxl span").on("click", function() {
 				var text = $(this).html();
 				$(this).parent().siblings().html(text);
@@ -1495,141 +1272,10 @@ function college(data) {
 						"title": ""
 					});
 				};
-				daxue($("#rq_city").attr("data-id"));
 			});
 		});
 	}
 
-	function daxue(id) {
-		RequestService("/online/user/listSchools", "GET", {
-				cityId: id
-			}, function(u) {
-				$("#rq_college").html("请选择").attr({
-					"data-id": "",
-					"title": ""
-				});
-				//					$("#major").html("请选择").attr("data-id","");
-				$("#rqdxxl").empty();
-				$("#rqdxxl").append("<span>请选择</span>")
-				for(var i = 0; i < u.resultObject.length; i++) {
-					$("#rqdxxl").append("<span id=" + u.resultObject[i].id + " title=" + u.resultObject[i].name + ">" + u.resultObject[i].name + "</span>");
-					if(u.resultObject[i].id == data.resultObject.schoolId) {
-						$("#rq_college").html(u.resultObject[i].name).attr({
-							"data-id": u.resultObject[i].id,
-							"title": u.resultObject[i].name
-						});
-					}
-				}
-				$("#rqdxxl span").on("click", function() {
-					var text = $(this).html();
-					$(this).parent().siblings().html(text);
-					$(".xiala").css("display", "none");
-					if($(this).attr("id") != undefined) {
-						$(this).parent().siblings().attr({
-							"data-id": $(this).attr("id"),
-							"title": $(this).html()
-						});
-					} else {
-						$(this).parent().siblings().attr({
-							"data-id": "",
-							"title": ""
-						});
-					};
-					//专业四级联动1.2.3版本
-					//						RequestService("/online/user/listSpecialities", "GET", {
-					//							schoolId: $("#rq_college").attr("data-id")
-					//						}, function(m) {
-					//							$("#major").html("请选择").attr("data-id","");
-					//							$("#majorxl").html("");
-					//							$("#majorxl").append("<span>请选择</span>")
-					//							for(var i = 0; i < m.resultObject.length; i++) {
-					//								$("#majorxl").append("<span id=" + m.resultObject[i].id + " title=" + m.resultObject[i].name + ">" + m.resultObject[i].name + "</span>");
-					//								if(m.resultObject[i].id == data.resultObject.majorId) {
-					//									$("#major").html(m.resultObject[i].name).attr({
-					//										"data-id": m.resultObject[i].id,
-					//										"title": m.resultObject[i].name
-					//									});
-					//								}
-					//							};
-					//							$("#majorxl span").on("click", function() {
-					//								var text = $(this).html();
-					//								$(this).parent().siblings().html(text);
-					//								$(".xiala").css("display", "none");
-					//								if($(this).attr("id") != undefined) {
-					//									$(this).parent().siblings().attr({
-					//										"data-id": $(this).attr("id"),
-					//										"title": $(this).html()
-					//									});
-					//								}else{
-					//									$(this).parent().siblings().attr({
-					//										"data-id": "",
-					//										"title": ""
-					//									});
-					//								};
-					//							});	
-					//						});
-				});
-				//专业四级联动1.2.3版本
-				//					RequestService("/online/user/listSpecialities", "GET", {
-				//							schoolId: $("#rq_college").attr("data-id")
-				//						}, function(m) {
-				//							$("#majorxl").html("");
-				//							$("#majorxl").append("<span>请选择</span>")
-				//							for(var i = 0; i < m.resultObject.length; i++) {
-				//								$("#majorxl").append("<span id=" + m.resultObject[i].id + " title=" + m.resultObject[i].name + ">" + m.resultObject[i].name + "</span>");
-				//								if(m.resultObject[i].id == data.resultObject.majorId) {
-				//									$("#major").html(m.resultObject[i].name).attr({
-				//										"data-id": m.resultObject[i].id,
-				//										"title": m.resultObject[i].name
-				//									});
-				//								}
-				//							};
-				//							$("#majorxl span").on("click", function() {
-				//								var text = $(this).html();
-				//								$(this).parent().siblings().html(text);
-				//								$(".xiala").css("display", "none");
-				//								if($(this).attr("id") != undefined) {
-				//									$(this).parent().siblings().attr({
-				//										"data-id": $(this).attr("id"),
-				//										"title": $(this).html()
-				//									});
-				//								}else{
-				//									$(this).parent().siblings().attr({
-				//										"data-id": "",
-				//										"title": ""
-				//									});
-				//								};
-				//							});	
-				//					});
-			})
-			//专业四级联动
-			//		RequestService("/online/user/listSpecialities", "GET", {
-			//			schoolId: $("#rq_college").attr("data-id")
-			//		}, function(m) {
-			//			$("#majorxl").html("");
-			//			$("#majorxl").append("<span>请选择</span>")
-			//			for(var i = 0; i < m.resultObject.length; i++) {
-			//				$("#majorxl").append("<span id=" + m.resultObject[i].id + " title=" + m.resultObject[i].name + ">" + m.resultObject[i].name + "</span>");
-			//				if(m.resultObject[i].id == data.resultObject.majorId) {
-			//					$("#major").html(m.resultObject[i].name).attr({
-			//						"data-id": m.resultObject[i].id,
-			//						"title": m.resultObject[i].name
-			//					});
-			//				}
-			//			};
-			//			$("#majorxl span").on("click", function() {
-			//				var text = $(this).html();
-			//				$(this).parent().siblings().html(text);
-			//				$(".xiala").css("display", "none");
-			//				if($(this).attr("id") != undefined) {
-			//					$(this).parent().siblings().attr({
-			//						"data-id": $(this).attr("id"),
-			//						"title": $(this).html()
-			//					});
-			//				}
-			//			});	
-			//		});
-	}
 }
 
 function shijian() { //调用时间
@@ -2083,82 +1729,7 @@ function save() {
 		});
 		college = false;
 	};
-	//	var year = $("#year").html();
-	//	var month = $("#month").html();
-	//	var day = $("#day").html();
-	//验证是否为老学员
-//	if(name && iden) {
-//		RequestService("/online/apply/isOldUser", "get", {
-//				realName: $.trim($(".kecheng .truename").val()),
-//				idCardNumber: $.trim($(".cardNumber").val()),
-//				lot_no:17001
-//			},
-//			function(m) {
-//				if(m.success == true) {
-//					if(name && sex && phone && email && QQ && college && iden) {
-//						RequestService("/online/user/updateApply", "POST", {
-//							userId: localStorage.userid,
-//							realName: $.trim($(".kecheng .truename").val()),
-//							sex: Number($('.cy-myprofile-myfom-dv-radio-zu input[name="gender"]:checked').val()),
-//							//			birthday: "" + parseInt(year) + "-" + parseInt(month) + "-" + parseInt(day)+" "+"00:00:00",
-//							//真实手机      
-//							mobile: $(".phonenumber").val(),
-//							//真实email 
-//							email: $(".emailname").val(),
-//							//身份证号
-//							idCardNo: $.trim($(".cardNumber").val()),
-//							//真实QQ 
-//							qq: $(".QQnumber").val(),
-//							province: $("#rq_province").attr("data-id"),
-//							city: $("#rq_city").attr("data-id"),
-//							schoolId: $("#rq_college").attr("data-id"),
-//							educationId: $("#record").attr("data-id"),
-//							majorId: $("#major").attr("data-id")
-//						}, function(data) {
-//
-//							if(data.resultObject.updateState == "修改成功") {
-//								//1为老学员0为非老学员
-//								if(data.resultObject.isOldUser == 1) {
-//									$(".cardNumber").attr("disabled", "disabled").css("background","#fafafa");
-//									$(".truename").attr("disabled", "disabled").css("background","#fafafa");
-//									$(".cardMark").css("display", "inline-block");
-//								};
-//								if(m.resultObject == true) {
-//									$(".cardNumber").attr("disabled", "disabled").css("background","#fafafa");
-//									$(".kecheng .truename").attr("disabled", "disabled").css("background","#fafafa");
-//									$(".cardMark").css("display", "inline-block");
-//								};
-//								$(".personBack").hide();
-//								$(".rrrTips").html("保存成功").css("display", "block");
-//								setTimeout(function() {
-//									$(".rrrTips").css("display", "none");
-//								}, 1500)
-//							} else {
-//								$(".rrTips").html("系统繁忙，请稍后再试 !").css("display", "block");
-//								setTimeout(function() {
-//									$(".rrTips").css("display", "none");
-//								}, 1500)
-//							}
-//						}, false);
-//					} else {
-//						return false;
-//					}
-//				} else {
-//					$(".card-warn").text("该身份证号已被填写").css("display", "inline-block");
-//					return false;
-//				}
-//			},
-//			false);
-//	};
-//	
-//	
-	
-	
 };
-
-
-
-
 
 function kecheng() {
 	var name = true;

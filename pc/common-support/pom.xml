@@ -22,11 +22,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.xczhihui</groupId>
-            <artifactId>common-exception</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency><dependency>

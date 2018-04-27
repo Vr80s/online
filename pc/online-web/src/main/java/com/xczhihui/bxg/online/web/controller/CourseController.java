@@ -1,8 +1,9 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.aliyuncs.exceptions.ClientException;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.IOrderService;
@@ -13,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aliyuncs.exceptions.ClientException;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.service.CourseService;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -27,7 +24,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(value = "/course")
-public class CourseController {
+public class CourseController extends AbstractController{
 
        @Autowired
        private CourseService service;
@@ -66,7 +63,7 @@ public class CourseController {
          */
         @RequestMapping(value = "/getCourseById" )
         public ResponseObject getCourseById(Integer courserId,HttpServletRequest request) throws IOException {
-        	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+        	OnlineUser loginUser = getCurrentUser();
             String path = request.getServletContext().getRealPath("/template");
             return ResponseObject.newSuccessResponseObject(service.getCourseById(courserId, path, request,loginUser));
         }
@@ -105,7 +102,7 @@ public class CourseController {
 
         @RequestMapping(value = "/pay/{courseId}" )
         public ModelAndView pay(@PathVariable Integer courseId,HttpServletRequest request) {
-            OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+            OnlineUser loginUser = getCurrentUser();
 
             Order order = orderService.createOrder(loginUser.getId(), courseId, OrderFrom.PC.getCode());
             ModelAndView mav=new ModelAndView();
@@ -245,7 +242,7 @@ public class CourseController {
      */
     @RequestMapping(value = "/subscribe")
     public ResponseObject subscribe(String mobile, Integer courseId, HttpSession session) throws ClientException {
-        OnlineUser u =  (OnlineUser)session.getAttribute("_user_");
+        OnlineUser u =  getCurrentUser();
         if(u==null) {
             return ResponseObject.newErrorResponseObject("用户未登录");
         }

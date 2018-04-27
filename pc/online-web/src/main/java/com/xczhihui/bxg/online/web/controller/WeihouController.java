@@ -64,8 +64,8 @@ public class WeihouController {
 	}
 	
 	/**
-	 * 
-	 * @param req获取微吼签名啦
+	 * 获取微吼签名啦
+	 * @param req
 	 * @param response
 	 * @return
 	 * @throws Exception

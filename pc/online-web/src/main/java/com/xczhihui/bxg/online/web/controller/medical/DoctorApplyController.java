@@ -26,7 +26,7 @@ import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
  * @author zhuwenbao
  */
 @RestController
-@RequestMapping(value = "/medical/doctor/apply")
+@RequestMapping(value = "/doctor/apply")
 public class DoctorApplyController extends AbstractController {
 
     @Autowired
@@ -50,7 +50,7 @@ public class DoctorApplyController extends AbstractController {
         }
 
         // 获取发起申请的医师的id
-        target.setUserId(getOnlineUser(request).getId());
+        target.setUserId(getCurrentUser().getId());
         applyService.add(target);
 
         return ResponseObject.newSuccessResponseObject("入驻申请信息提交成功");
@@ -63,7 +63,7 @@ public class DoctorApplyController extends AbstractController {
     public ResponseObject getLastOne(HttpServletRequest request) {
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(applyService.getLastOne(userService.getUserData(loginUser).getUid()));
     }
 

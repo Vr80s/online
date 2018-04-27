@@ -35,7 +35,7 @@ import com.xczhihui.bxg.online.web.base.utils.WebUtil;
  */
 @RestController
 @RequestMapping(value = "/userCoin")
-public class UserCoinController {
+public class UserCoinController extends AbstractController{
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -58,7 +58,7 @@ public class UserCoinController {
 	@ResponseBody
 	public ResponseObject balance(HttpServletRequest request) throws Exception {
 		//获取登录用户
-        BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+        BxgUser loginUser = getCurrentUser();
         if(loginUser==null) {
             return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
         }
@@ -71,7 +71,7 @@ public class UserCoinController {
 	@ResponseBody
 	public ResponseObject userCoinIncreaseRecord(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
 		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		BxgUser loginUser = getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(userCoinService.getUserCoinIncreaseRecord(loginUser.getId(), pageNumber, pageSize));
 	}
 
@@ -79,7 +79,7 @@ public class UserCoinController {
 	@ResponseBody
 	public ResponseObject userCoinConsumptionRecord(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
 		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		BxgUser loginUser = getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(userCoinService.getUserCoinConsumptionRecord(loginUser.getId(), pageNumber, pageSize));
 	}
 
@@ -87,7 +87,7 @@ public class UserCoinController {
 	@ResponseBody
 	public ResponseObject getRchargeOrderNo(HttpServletRequest request) throws Exception {
 		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		BxgUser loginUser = getCurrentUser();
 		if(loginUser!=null) {
             return ResponseObject.newSuccessResponseObject(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12));
         }
@@ -102,7 +102,7 @@ public class UserCoinController {
 			throw new RuntimeException("充值金额"+price+"兑换的熊猫币"+count+"不为整数");
 		}
         
-        OnlineUser u =  (OnlineUser)request.getSession().getAttribute("_user_");
+        OnlineUser u =  getCurrentUser();
         if( u != null){
             mav.setViewName("rechargePay");
             mav.addObject("actualPay", price);
@@ -121,10 +121,7 @@ public class UserCoinController {
 
 	@RequestMapping(value = "/userDataForRecharge")
 	public ResponseObject getUserDataForRecharge(HttpServletRequest request,EnchashmentApplication ea) {
-		OnlineUser u =  (OnlineUser)request.getSession().getAttribute("_user_");
-		if(u==null) {
-            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
-        }
+		OnlineUser u =  getCurrentUser();
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("balanceTotal", userCoinService.getBalanceByUserId(u.getId()));
 		m.put("account", u.getLoginName());

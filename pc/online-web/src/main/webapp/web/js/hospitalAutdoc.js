@@ -17,7 +17,7 @@ $(function() {
 		}
 		$('.search_teacher_ipt').val('');
 		$('.search_teacher_btn').click()
-//		RequestService("/medical/hospital/getDoctors", "get", {
+//		RequestService("/hospital/getDoctors", "get", {
 //			current: currentPage,
 //			size: size,
 //		}, function(data) {
@@ -71,7 +71,7 @@ $('#deleteTip #cancalDel').click(function(){
 var delid;
 //点击确认删除
 $('#deleteTip .confirm-sure').click(function(){
-	RequestService("/medical/hospital/deleteDoctor", "post", {
+	RequestService("/hospital/deleteDoctor", "post", {
 		doctorId:delid,
 	}, function(data) {
 		if(data.success == true){
@@ -94,7 +94,7 @@ $('#deleteTip .confirm-sure').click(function(){
 	
 	//	分页部分
 	function doctorList(current){
-		RequestService("/medical/hospital/getDoctors?size=8&current=" + current, "get", null, function(data) {
+		RequestService("/hospital/getDoctors?size=8&current=" + current, "get", null, function(data) {
 			$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
 //			debugger
 			//每次请求完数据就去渲染分页部分
@@ -122,7 +122,7 @@ $('#deleteTip .confirm-sure').click(function(){
 
 		var docName = $('.doc_Administration_top .search_teacher_ipt').val();
 //		alert(docName)
-		RequestService("/medical/hospital/getDoctors", "get", {
+		RequestService("/hospital/getDoctors", "get", {
 			current:1,
 			size:8,
 			doctorName: docName
