@@ -371,6 +371,7 @@ var ue = UE.getEditor('column-content', {
 			setTimeout(function() {
 				$('#tip').toggle();
 			}, 2000)
+//			showTip("上传图片不能大于2M");
 			return false;
 		}
 		if(!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
@@ -547,6 +548,7 @@ var ue = UE.getEditor('column-content', {
 	}
 
 	//---------------------------------------专栏部分结束，著作部分开始--------------------------------------
+	//	著作部分,富文本设置
 	var ue = UE.getEditor('work-suggest', {
 		toolbars: [
 			[
@@ -774,7 +776,7 @@ var ue = UE.getEditor('column-content', {
 			//		$(".work-delete").click(function(){
 			//			var deleteId=$(this).attr("data-delete");
 			//			comfirmBox.open("著作","确定删除该条著作吗？",function(closefn){
-			//				RequestService("/medical/hospitalRecruit/"+deleteId+"","DELETE",null,function(data){
+			//				RequestService("/hospitalRecruit/"+deleteId+"","DELETE",null,function(data){
 			//					if(data.success == true){
 			//						showTip("删除成功");
 			//						workList(1);
@@ -1104,7 +1106,7 @@ var ue = UE.getEditor('column-content', {
 	})
 
 	//医师认证状态和认证信息显示
-	RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(data) {
+	RequestService("/doctor/apply/listHospital/0", "get", null, function(data) {
 		//头像预览
 		console.log(data);
 
@@ -1150,7 +1152,7 @@ var ue = UE.getEditor('column-content', {
 
 		//	alert(hosID);
 		//获取对应的医馆信息渲染到页面上
-		RequestService("/medical/hospital/getHospitalById", "get", {
+		RequestService("/hospital/getHospitalById", "get", {
 			id: hosID,
 		}, function(data) {
 			console.log(data);
@@ -1332,7 +1334,7 @@ var ue = UE.getEditor('column-content', {
 		})
 	} else {
 		//医师认证状态和认证信息显示
-		RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+		RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
 			//头像预览
 			console.log(data);
 			$('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));

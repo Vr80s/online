@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.body.hospital.HospitalRecruitBody;
-import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
+import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
 
 @RestController
-@RequestMapping(value = "/medical/hospitalRecruit")
-public class HospitalRecruitController extends AbstractController {
+@RequestMapping(value = "/hospitalRecruit")
+public class HospitalRecruitController extends AbstractFtlController {
 
     @Autowired
     private IMedicalHospitalRecruitBusinessService medicalHospitalRecruitBusinessService;

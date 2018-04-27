@@ -22,62 +22,10 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "online/vedio")
-public class VedioController {
+public class VedioController extends AbstractController{
 
 	@Autowired
 	private VedioService service;
-
-	/**
-	 * 获得验证码
-	 * 
-	 * @param req
-	 * @param video_id
-	 * @return
-	 */
-	@RequestMapping(value = "getCcVerificationCode", method = RequestMethod.POST)
-	public ResponseObject getCcVerificationCode(HttpServletRequest req, String video_id,String id) {
-
-		BxgUser loginUser = UserLoginUtil.getLoginUser(req);
-		if (loginUser == null) {
-			return ResponseObject.newErrorResponseObject("请登录！");
-		}
-
-		Map<String, String> mp = new HashMap<String, String>();
-		mp.put("verificationcode", service.getCcVerificationCode(loginUser.getId(), video_id,id));
-		return ResponseObject.newSuccessResponseObject(mp);
-	}
-
-	/**
-	 * 获得视频播放验证信息
-	 * 
-	 * @param reg
-	 * @param video_id
-	 * @param verificationcode
-	 * @return
-	 */
-	@RequestMapping(value = "checkAuth", method = RequestMethod.POST)
-	public Map<String, Object> checkAuth(HttpServletRequest req, String vid, String verificationcode) {
-		Map<String, Object> mp = new HashMap<String, Object>();
-		mp.put("response", service.checkAuth(vid, verificationcode));
-		return mp;
-	}
-
-	/**
-	 * 研发环境用，所有视频都可以播放
-	 * 
-	 * @param req
-	 * @param vid
-	 * @param verificationcode
-	 * @return
-	 */
-	@RequestMapping(value = "checkAuthDev", method = RequestMethod.POST)
-	public Map<String, Object> checkAuthDev(HttpServletRequest req, String vid, String verificationcode) {
-		VedioAuthVo vo = new VedioAuthVo();
-		vo.setEnable(1);
-		Map<String, Object> mp = new HashMap<String, Object>();
-		mp.put("response", vo);
-		return mp;
-	}
 
 	/**
 	 * 获得播放代码
@@ -108,39 +56,5 @@ public class VedioController {
 		
 		return ResponseObject.newSuccessResponseObject(service.getCCVideoInfo(paramsMap));
 	}
-
-//	/**
-//	 * 获得上传路径
-//	 * 
-//	 * @param req
-//	 * @param title
-//	 * @param description
-//	 * @param tag
-//	 * @param categoryid
-//	 * @return
-//	 */
-////	@RequestMapping(value = "getUploadUrl", method = RequestMethod.GET)
-////	public String getUploadUrl(HttpServletRequest req, String title, String description, String tag,
-////			String categoryid) {
-////		return service.getUploadUrl(title, description, tag, categoryid);
-////	}
-//
-//	/**
-//	 * 视频处理完成的回调
-//	 * 
-//	 * @param videoid
-//	 * @param status
-//	 * @param duration
-//	 * @param image
-//	 * @throws IOException
-//	 */
-//	@RequestMapping(value = "uploadSuccessCallback", method = RequestMethod.GET)
-//	public void uploadSuccessCallback(HttpServletResponse res, String duration, String image, String status,
-//			String videoid, String time, String hash) throws IOException {
-//		service.uploadSuccessCallback(duration, image, status, videoid, time, hash);
-//		res.setCharacterEncoding("UTF-8");
-//		res.setContentType("text/xml; charset=utf-8");
-//		res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>OK</video>");
-//	}
 
 }

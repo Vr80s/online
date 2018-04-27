@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.common.exception.UserInfoException;
+import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.util.XzStringUtils;

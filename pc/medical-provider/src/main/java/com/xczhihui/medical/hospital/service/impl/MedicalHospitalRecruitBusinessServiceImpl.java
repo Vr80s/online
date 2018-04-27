@@ -3,7 +3,7 @@ package com.xczhihui.medical.hospital.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.xczhihui.common.exception.MedicalException;
+import com.xczhihui.medical.exception.MedicalException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

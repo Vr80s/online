@@ -1,4 +1,4 @@
-package com.xczhihui.common.exception;
+package com.xczhihui.course.exception;
 
 import java.io.Serializable;
 
@@ -12,13 +12,11 @@ public class CriticizeException extends IpandaTcmException implements Serializab
 
     public CriticizeException(String msg, boolean alarm) {
         super(msg);
-        this.msg = msg;
         this.alarm = alarm;
     }
 
     public CriticizeException(String msg) {
         super(msg);
-        this.msg = msg;
         this.alarm = false;
     }
 

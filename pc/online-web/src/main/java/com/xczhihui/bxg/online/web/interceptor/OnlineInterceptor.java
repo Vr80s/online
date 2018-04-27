@@ -1,10 +1,11 @@
-package com.xczhihui.bxg.online.web.utils;
+package com.xczhihui.bxg.online.web.interceptor;
 
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
@@ -34,10 +35,11 @@ import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
 /**
- * 拦截器
- * 
- * @author Haicheng Jiang
- */
+ * Description：权限拦截
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: yuruixin@ixincheng.com
+ * @Date: 2018/4/26 0026 上午 10:56
+ **/
 public class OnlineInterceptor implements HandlerInterceptor {
 
 	private SimpleHibernateDao dao;
@@ -81,16 +83,17 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		Token t = UCCookieUtil.readTokenCookie(request);
 		
 		//session里没有用户，cookie里有用户，以cookie为准设置session
-		//这种情况是从其他系统跳过来的或者session失效了
+		//这种情况是session失效了
 		if (u == null && t != null) {
 			String userRedisKey="tuk_"+t.getUserId();
 			Serializable serializable = cacheService.get(userRedisKey);
-			ItcastUser user = api.getUser(t.getLoginName());
+//			ItcastUser user = api.getUser(t.getLoginName());
 			//验证票和用户中心，验证不通过清空cookie
-			if (serializable != null && user != null) {
-				UserLoginUtil.setLoginUser(request, this.addUserIfHasNo(user, t));
+			if (serializable != null) {
+				UserLoginUtil.setLoginUser(request, this.getUser(t));
 			} else {
-				UCCookieUtil.clearTokenCookie(response);//20171214若无票据 清理cookies
+				//20171214若无票据 清理cookies
+				UCCookieUtil.clearTokenCookie(response);
 			}
 		}
 		
@@ -99,27 +102,28 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		if (u != null && t != null && !u.getLoginName().equals(t.getLoginName())) {
 			ItcastUser user = api.getUser(t.getLoginName());
 			if(user != null){
-				UserLoginUtil.setLoginUser(request, this.addUserIfHasNo(user, t));
+				UserLoginUtil.setLoginUser(request, this.getUser(t));
 			}
 		}
 		
 		//没登录，但是调用了必须登录才可以调的接口
-		if ((UserLoginUtil.getLoginUser(request) == null || UCCookieUtil.readTokenCookie(request) == null) && checkuris.contains(request.getRequestURI())) {
+		boolean b = (UserLoginUtil.getLoginUser(request) == null || UCCookieUtil.readTokenCookie(request) == null) && checkUris(request.getRequestURI());
+		if (b) {
 			Gson gson = new GsonBuilder().create();
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("application/json");
 			response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("请登录！")));
 			return false;
+		}else{
+			OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+			//设置当前用户
+			com.xczhihui.bxg.online.web.controller.AbstractController.setCurrentUser(user);
 		}
 
 		//已经登录，但是调用了主播角色才可以调的接口
-		if (checkanchoruris.contains(request.getRequestURI())) {
+		if (checkAnchoruris(request.getRequestURI())) {
 			BxgUser user = UserLoginUtil.getLoginUser(request);
-//			if(user.getAnchor()==null){
-				Boolean anchor = userService.isAnchor(user.getLoginName());
-//				user.setAnchor(anchor);
-//				UserLoginUtil.setLoginUser(request,user);
-//			}
+			Boolean anchor = userService.isAnchor(user.getLoginName());
 			if(!anchor){
 				response.sendRedirect("/");
 				return false;
@@ -133,31 +137,37 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		
 		return true;
 	}
-	
-	private OnlineUser addUserIfHasNo(ItcastUser user,Token t){
-		OnlineUser o = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", t.getLoginName());
-		if (o == null) {
-			boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$",t.getLoginName());
-			boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",t.getLoginName());
-			if (ism  || ise) {
-				o = new OnlineUser();
-				o.setLoginName(user.getLoginName());
-				o.setName(user.getNikeName());
-				o.setEmail(user.getEmail());
-				o.setMobile(user.getMobile());
-				o.setCreateTime(new Date());
-				o.setDelete(false);
-				o.setStatus(0);
-				o.setVisitSum(0);
-				o.setStayTime(0);
-				o.setSmallHeadPhoto("/web/images/defaultHeadImg.jpg");
-				o.setUserType(0);
-				o.setMenuId(-1);
-				o.setOrigin(user.getOrigin());
-    			o.setType(user.getType());
-				userService.addUser(o);
+
+	private boolean checkAnchoruris(String uri) {
+		for (int i = 0; i < checkanchoruris.size(); i++) {
+			String checkuri =  checkanchoruris.get(i);
+			Pattern pattern = Pattern.compile(checkuri);
+			Matcher matcher = pattern.matcher(uri);
+			if(matcher.matches()) {
+				System.out.println("exp:"+checkuri);
+				System.out.println("uri:"+uri);
+				return true;
 			}
 		}
+		return false;
+	}
+
+	private boolean checkUris(String uri) {
+		for (int i = 0; i < checkuris.size(); i++) {
+			String checkuri =  checkuris.get(i);
+			Pattern pattern = Pattern.compile(checkuri);
+			Matcher matcher = pattern.matcher(uri);
+			if(matcher.matches()) {
+				System.out.println("anchor-exp:"+checkuri);
+				System.out.println("anchor-uri:"+uri);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private OnlineUser getUser(Token t){
+		OnlineUser o = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", t.getLoginName());
 		return o;
 	}
 

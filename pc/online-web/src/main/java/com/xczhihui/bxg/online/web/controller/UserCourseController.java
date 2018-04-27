@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping(value = "/userCourse")
-public class UserCourseController {
+public class UserCourseController extends AbstractController{
 
     @Autowired
     private MenuService menuService;
@@ -34,10 +34,7 @@ public class UserCourseController {
      */
     @RequestMapping(value = "/menus",method= RequestMethod.GET)
     public ResponseObject menus(HttpServletRequest   request){
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(menuService.findUserCourseMenus(loginUser.getId()));
     }
 
@@ -52,7 +49,7 @@ public class UserCourseController {
     @RequestMapping(value="courses/{courseStatus}/{pageNumber}/{pageSize}",method=RequestMethod.GET)
     @ResponseBody
     public ResponseObject courses(HttpServletRequest request,@PathVariable Integer courseStatus,@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
-        OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = getCurrentUser();
         if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
@@ -77,7 +74,7 @@ public class UserCourseController {
     @RequestMapping(value="publicCourses/{courseStatus}/{pageNumber}/{pageSize}",method=RequestMethod.GET)
     @ResponseBody
     public ResponseObject publicCourses(HttpServletRequest request,@PathVariable Integer courseStatus,@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
-    	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+    	OnlineUser loginUser = getCurrentUser();
     	if (loginUser == null) {
     		return OnlineResponse.newErrorOnlineResponse("请登录！");
     	}
@@ -102,7 +99,7 @@ public class UserCourseController {
     @RequestMapping(value="realCourses/{courseStatus}/{pageNumber}/{pageSize}",method=RequestMethod.GET)
     @ResponseBody
     public ResponseObject realCourses(HttpServletRequest request,@PathVariable Integer courseStatus,@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
-    	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+    	OnlineUser loginUser = getCurrentUser();
     	if (loginUser == null) {
     		return OnlineResponse.newErrorOnlineResponse("请登录！");
     	}

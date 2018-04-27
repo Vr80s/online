@@ -123,17 +123,6 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 			throw new RuntimeException ("动态码类型错误！1注册2.重置密码3.提现");
 		}
 		
-		//拼参数
-		/*Map<String, String> param = new HashMap<String, String>();
-		param.put("cpid",attrs.get("message_provider_cpid"));
-		param.put("password",CodeUtil.MD5Encode(attrs.get("message_provider_password")+"_"+(System.currentTimeMillis()/1000L)+"_topsky"));
-		param.put("timestamp",String.valueOf(System.currentTimeMillis()/1000L));
-		param.put("channelid",attrs.get("message_provider_channelid"));
-		param.put("msg",attrs.get("message_provider_message").replace("${code}",vcode));
-		param.put("tele",phone);
-		logger.info("sms9平台发送短信："+phone);
-		//发短信
-		String msg = HttpUtil.sendPostRequest("http://admin.sms9.net/houtai/sms.php", param);*/
 		//判断发送结果
 		SendSmsResponse response = null;
 		try {
@@ -145,21 +134,6 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 			throw new RuntimeException ("发送动态码失败！");
 		}
 		
-//		int result=new java.util.Random().nextInt(11);// 返回[0,10]集合中的整数
-//		if (result >= 5) {
-//		} else {
-//			Map<String, String> p = new HashMap<String, String>();
-//			p.put("appid", "12606");
-//			p.put("project", "vgYvV4");
-//			p.put("signature", "348063946029a8da3e3b3f7246c9556e");
-//			p.put("to", phone);
-//			p.put("vars", "{\"code\":\""+vcode+"\"}");
-//			logger.info("submail发送短信："+phone);
-//			String msg = HttpUtil.sendPostRequest("http://api.submail.cn/message/xsend.json", p);
-//			if (!StringUtils.hasText(msg) || msg.contains("error")) {
-//				throw new RuntimeException ("发送动态码失败！"+msg);
-//			}
-//		}
 	}
 	
 	private void sendEmail(String email,String vcode, String vtype){

@@ -3,9 +3,8 @@ package com.xczhihui.bxg.online.web.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.online.api.vo.CriticizeVo;
 import com.xczhihui.course.service.ICriticizeService;
+import com.xczhihui.online.api.vo.CriticizeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/criticize")
-public class CriticizeController {
+public class CriticizeController extends AbstractController{
 
 	@Autowired
 	private ICriticizeService criticizeService;
@@ -33,7 +32,7 @@ public class CriticizeController {
 			throws Exception {
 
 		//获取当前登录用户信息
-		OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser(req);
+		OnlineUser ou = getCurrentUser();
 		if(ou == null){
 			return ResponseObject.newSuccessResponseObject("登录失效");
 		}
@@ -55,7 +54,7 @@ public class CriticizeController {
 			)throws Exception {
 
 		//获取当前登录用户信息
-		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(req);
+		OnlineUser user = getCurrentUser();
 		Map<String,Object> map = null;
 		if(courseId != null){
 			map = criticizeService.getCourseCriticizes(new Page<>(pageNumber,pageSize),courseId,user!= null ? user.getId() :null);
@@ -78,7 +77,7 @@ public class CriticizeController {
     		@RequestParam("criticizeId")String criticizeId,
     		@RequestParam("praise")Boolean praise) {
         //获取当前登录用户信息
-		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		OnlineUser user = getCurrentUser();
         if(user!=null) {
             Map<String, Object> returnMap = criticizeService.updatePraise(praise, criticizeId, user.getId());
             return ResponseObject.newSuccessResponseObject(returnMap);
@@ -104,7 +103,7 @@ public class CriticizeController {
     		@RequestParam("criticizeId")String criticizeId,
     		@RequestParam(required=false)Integer collectionId) throws UnsupportedEncodingException {
         //获取当前登录用户信息
-		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		OnlineUser user = getCurrentUser();
         if(user!=null) {
 			criticizeService.saveReply(user.getId(),content,criticizeId);
             return ResponseObject.newSuccessResponseObject("回复成功！");

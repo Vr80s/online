@@ -2,7 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.common.exception.AnchorWorkException;
+import com.xczhihui.medical.exception.AnchorWorkException;
 import com.xczhihui.common.util.enums.BankCardType;
 import com.xczhihui.common.util.IDCard;
 import com.xczhihui.common.support.lock.Lock;

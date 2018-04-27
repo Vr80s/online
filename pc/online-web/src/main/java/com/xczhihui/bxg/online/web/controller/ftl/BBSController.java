@@ -44,7 +44,7 @@ import com.xczhihui.medical.bbs.vo.PostVO;
  */
 @Controller
 @RequestMapping("bbs")
-public class BBSController extends AbstractController {
+public class BBSController extends AbstractFtlController {
 
     private static final String POST_SENSITIVE_EMAIL_TEMPLATE = "熊猫中医BBS帖子发现疑似违规内容:</br>标题：{0}</br>" +
             "用户ID：{1}</br>内容：{2}<br>内容中包含敏感词的个数为：{3}。包含：{4}</br>内容被和谐后，变为：{5}";
@@ -80,7 +80,7 @@ public class BBSController extends AbstractController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject save(@RequestBody @Valid PostBody postBody, HttpServletRequest request) {
-        String userId = getOnlineUser(request).getId();
+        String userId = getCurrentUser().getId();
         if (postService.isBlacklist(userId)) {
             return newErrorResponseObject("您已被拉入黑名单");
         }
@@ -97,14 +97,14 @@ public class BBSController extends AbstractController {
     @RequestMapping(value = "reply", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject reply(@RequestBody @Valid ReplyBody replyBody, HttpServletRequest request) {
-        String userId = getOnlineUser(request).getId();
+        String userId = getCurrentUser().getId();
         if (postService.isBlacklist(userId)) {
             return newErrorResponseObject("您已被拉入黑名单");
         }
         if (postService.isGags(userId)) {
             return newErrorResponseObject("您已被禁言");
         }
-        Reply reply = replyBody.build(getOnlineUser(request).getId());
+        Reply reply = replyBody.build(getCurrentUser().getId());
         reply.setContent(handleReplySensitiveWord(reply, reply.getContent()));
         postService.addReply(reply);
         return newSuccessResponseObject();
@@ -134,7 +134,7 @@ public class BBSController extends AbstractController {
     @RequestMapping(value = "upload", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
-        String upload = attachmentCenterService.upload(getOnlineUser(request).getId(), "online", file.getOriginalFilename(), "image", file.getBytes(), "1");
+        String upload = attachmentCenterService.upload(getCurrentUser().getId(), "online", file.getOriginalFilename(), "image", file.getBytes(), "1");
         Attachment attachment = JsonUtil.getBaseGson().fromJson(upload, Attachment.class);
         Map<String, Object> uploadResult = new HashMap<>(3);
         uploadResult.put("code", attachment.getError());
@@ -148,21 +148,21 @@ public class BBSController extends AbstractController {
 
     @RequestMapping(value = "user", method = RequestMethod.GET)
     public ModelAndView user(@RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
-        OnlineUser onlineUser = getOnlineUser(request);
+        OnlineUser onlineUser = getCurrentUser();
         return new ModelAndView("bbs/user").addObject("user", onlineUser);
     }
 
     @RequestMapping(value = "myPosts", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject myPosts(@RequestParam(defaultValue = "0") int page, HttpServletRequest request) {
-        String userId = getOnlineUser(request).getId();
+        String userId = getCurrentUser().getId();
         return ResponseObject.newSuccessResponseObject(postService.listMyPosts(userId, page));
     }
 
     @RequestMapping(value = "myReplies", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject myReplies(@RequestParam(defaultValue = "0") int page, HttpServletRequest request) {
-        String userId = getOnlineUser(request).getId();
+        String userId = getCurrentUser().getId();
         return ResponseObject.newSuccessResponseObject(postService.listMyReplies(userId, page));
     }
 

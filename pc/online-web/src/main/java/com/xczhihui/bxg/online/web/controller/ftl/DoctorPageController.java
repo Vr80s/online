@@ -18,7 +18,6 @@ import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.common.util.enums.DoctorType;
-import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
@@ -26,7 +25,6 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 
 /**
@@ -38,7 +36,7 @@ import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
  **/
 @Controller
 @RequestMapping(value = "/doctors")
-public class DoctorPageController extends AbstractController {
+public class DoctorPageController extends AbstractFtlController {
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;

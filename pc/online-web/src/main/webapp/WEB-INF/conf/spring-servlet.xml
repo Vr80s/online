@@ -44,7 +44,7 @@
     </mvc:annotation-driven>
 
     <bean id="handlerExceptionResolver"
-          class="com.xczhihui.common.web.exception.DubboMappingExceptionResolver">
+          class="com.xczhihui.bxg.online.web.interceptor.ExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="java.lang.Throwable">common/500</prop>
@@ -102,7 +102,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.utils.OnlineInterceptor"/>
+            <bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.interceptor.OnlineInterceptor"/>
         </mvc:interceptor>
 
         <!--发送系统消息拦截器-->
