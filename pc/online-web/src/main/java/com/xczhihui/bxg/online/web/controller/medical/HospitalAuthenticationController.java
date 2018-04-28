@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author zhuwenbao
  */
 @RestController
-@RequestMapping(value = "/medical/hospital/authentication")
+@RequestMapping(value = "/hospital/authentication")
 public class HospitalAuthenticationController extends AbstractController{
 
     @Autowired
@@ -36,7 +36,7 @@ public class HospitalAuthenticationController extends AbstractController{
     public ResponseObject getHospitalAuthentication(HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(hospitalAuthenticationService.selectHospitalAuthentication(currentUser.getUid()));
     }

@@ -39,7 +39,7 @@ import com.xczhihui.medical.headline.service.IOeBxsArticleService;
  **/
 @Controller
 @RequestMapping(value = "/headline")
-public class HeadlinePageController extends AbstractController {
+public class HeadlinePageController extends AbstractFtlController {
 
     @Autowired
     private BannerService bannerService;

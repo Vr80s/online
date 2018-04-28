@@ -2,7 +2,7 @@ package com.xczhihui.course.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.common.exception.CriticizeException;
+import com.xczhihui.course.exception.CriticizeException;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.course.mapper.CourseMapper;

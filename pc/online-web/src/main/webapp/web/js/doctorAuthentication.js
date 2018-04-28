@@ -150,7 +150,7 @@ $(function(){
 		var province = $('#AutList #choosePro option:selected').text();
 		var city = $('#AutList #citys option:selected').text();
 		//发送认证请求
-		RequestService("/medical/doctor/apply", "post", {
+		RequestService("/doctor/apply", "post", {
 				name:name,
 				cardNum:cardNum,
 				cardPositive:cardPositive,

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping(value = "/ask/my")
-public class AskMyAskController {
+public class AskMyAskController extends AbstractController{
 
 	@Autowired
 	private AskMyAskService service;
@@ -29,7 +29,7 @@ public class AskMyAskController {
 	 */
 	@RequestMapping(value = "/findMyQuestions")
 	public ResponseObject findMyQuestions(String status, Integer pageNumber,Integer pageSize,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.findMyQuestions(u, status, pageNumber, pageSize));
 	}
 	/**
@@ -41,7 +41,7 @@ public class AskMyAskController {
 	 */
 	@RequestMapping(value = "/findMyAnswers")
 	public ResponseObject findMyAnswers(Boolean accepted, Integer pageNumber, Integer pageSize,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		accepted = accepted == null ? false : accepted;
 		return ResponseObject.newSuccessResponseObject(service.findMyAnswers(accepted, u, pageNumber, pageSize));
 	}
@@ -54,7 +54,7 @@ public class AskMyAskController {
 	 */
 	@RequestMapping(value = "/findMyCollections")
 	public ResponseObject findMyCollections(String status, Integer pageNumber,Integer pageSize,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.findMyCollections(u, status, pageNumber, pageSize));
 	}
 

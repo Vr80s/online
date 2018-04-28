@@ -34,7 +34,7 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 				//未认证
 				//	       			$('#docNoPass_tip').removeClass('hide');
 				//拒绝的情况
-				RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+				RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
 					if(data.resultObject.status == 0) {
 						$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
 						$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
@@ -350,7 +350,7 @@ $('#hos_base_inf').click(function() {
 	});
 
 	//调用医馆详细信息借口数据
-	RequestService("/medical/hospital/getHospitalByUserId", "get", null, function(data) {
+	RequestService("/hospital/getHospitalByUserId", "get", null, function(data) {
 		//				console.log(data);
 		if(data.success == true && data.resultObject == null) {
 			//清空
@@ -469,7 +469,7 @@ $('#hos_renzhneg_inf').click(function() {
 })
 
 //获取医疗领域数据
-RequestService("/medical/hospital/getFields/0", "get", null, function(data) {
+RequestService("/hospital/getFields/0", "get", null, function(data) {
 	$('#areaList').html(template('areaTpl', {
 		item: data.resultObject.records
 	}));
@@ -727,7 +727,7 @@ $(".recruit-save-btn-menuone").click(function(){
 		$(this).attr("disabled","disabled")
 		$.ajax({
 			type:"POST",
-			url:bath+"/medical/hospitalRecruit",
+			url:bath+"/hospitalRecruit",
 			data:JSON.stringify(data),
 			contentType: "application/json",
 			success:function(data){
@@ -748,7 +748,7 @@ $(".recruit-save-btn-menuone").click(function(){
 //招聘管理列表
 var recruits;
 function recruitList(pages){
-	RequestService("/medical/hospitalRecruit","GET",{
+	RequestService("/hospitalRecruit","GET",{
 		"page":pages
 	},function(data){
 		if(data.success==true){
@@ -821,7 +821,7 @@ $(".recruit_preview_content img").click(function(){
 function recruit_close_btn(t){
 	var id = $(t).attr('data-id');
 	var status = $(t).attr('data-status');
-	RequestService("/medical/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
+	RequestService("/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
 		if(data.success == true){
 			if(status==0){
 				showTip("关闭成功");
@@ -839,7 +839,7 @@ function recruit_close_btn(t){
 function delete_recruit_btn(t){
 	var data_deleteId=$(t).attr("data-deleteId");
 	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
-		RequestService("/medical/hospitalRecruit/"+data_deleteId+"","DELETE",null,function(data){
+		RequestService("/hospitalRecruit/"+data_deleteId+"","DELETE",null,function(data){
 			if(data.success == true){
 				closefn();
 				showTip("删除成功");
@@ -922,7 +922,7 @@ $(".recruit-edit-btn").click(function(){
 	if(verifyRecruit(data)){
 		$.ajax({
 			type:"PUT",
-			url:bath+"/medical/hospitalRecruit/"+edit_id+"",
+			url:bath+"/hospitalRecruit/"+edit_id+"",
 			data:JSON.stringify(data),
 			contentType: "application/json",
 			success:function(data){
@@ -1137,7 +1137,7 @@ function hosAgainAut() {
 	$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
 
 	//	医馆提交的数组回显
-	RequestService("/medical/hospital/apply/getLastOne", "GET", null, function(data) {
+	RequestService("/hospital/apply/getLastOne", "GET", null, function(data) {
 		console.log(data);
 		if(data.success == true && data.resultObject != null) {
 			var result = data.resultObject;

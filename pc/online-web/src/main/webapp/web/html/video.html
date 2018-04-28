@@ -674,29 +674,6 @@
 		});
 	</script>
 	<script type="text/javascript">
-		/* function get_cc_verification_code(video_id) {
-			var verificationcode;
-			$.ajax({
-				url: '/online/vedio/getCcVerificationCode',
-				type: 'POST',
-				async: false,
-				data: {
-					video_id: video_id,
-					id: $.getUrlParam("vId")
-				},
-				success: function(data) {
-					if(data.success) {
-						verificationcode = data.resultObject.verificationcode;
-					} else {
-//						alert(data.errorMessage)
-						if(data.errorMessage == "请登录！") {
-							$('#login').modal('show');
-						}
-					}
-				}
-			});
-			return verificationcode;
-		}; */
 		$.getUrlParam = function(name) {
 			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 			var r = window.location.search.substr(1).match(reg);

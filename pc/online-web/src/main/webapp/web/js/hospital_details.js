@@ -18,7 +18,7 @@ $(function(){
 	var id = getQueryString('Id');
 	console.log(id);
 	
-	 RequestService("/medical/hospital/getHospitalById", "GET", {
+	 RequestService("/hospital/getHospitalById", "GET", {
 	 	id:id
 	 }, function (data) {
        $('title').text('熊猫中医 - '+data.resultObject.name);
@@ -119,7 +119,7 @@ $(function(){
 
 	
 	//医馆招聘信息
-	    RequestService("/medical/hospitalRecruit/getHospitalRecruitById","GET",{
+	    RequestService("/hospitalRecruit/getHospitalRecruitById","GET",{
 			hospitalId:id
 	    },function(data){
 	    	//更多给名医添加id
@@ -136,7 +136,7 @@ $(function(){
 	
 	
 	  //优秀医馆部分 hot-article
-    RequestService("/medical/hospital/getRecHospitals", "GET", null, function (data) {
+    RequestService("/hospital/getRecHospitals", "GET", null, function (data) {
         if(data.resultObject.length==0){
             $("#good_hospital").html(' ');
         }else{

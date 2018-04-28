@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
+import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAnnouncement;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalAnnouncementService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
@@ -21,9 +21,9 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
  *
  * @author hejiwei
  */
-@RequestMapping("hospital/announcement")
+@RequestMapping("/hospital/announcement")
 @Controller
-public class HospitalAnnouncementController extends AbstractController {
+public class HospitalAnnouncementController extends AbstractFtlController {
 
     @Autowired
     private IMedicalHospitalAnnouncementService medicalHospitalAnnouncementService;

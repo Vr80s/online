@@ -1,4 +1,6 @@
-package com.xczhihui.common.exception;
+package com.xczhihui.course.exception;
+
+import com.xczhihui.common.exception.IpandaTcmException;
 
 import java.io.Serializable;
 
@@ -12,13 +14,11 @@ public class FansException extends IpandaTcmException implements Serializable {
 
     public FansException(String msg, boolean alarm) {
         super(msg);
-        this.msg = msg;
         this.alarm = alarm;
     }
 
     public FansException(String msg) {
         super(msg);
-        this.msg = msg;
         this.alarm = false;
     }
 

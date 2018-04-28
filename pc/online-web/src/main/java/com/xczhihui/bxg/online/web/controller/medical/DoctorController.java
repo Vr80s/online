@@ -22,7 +22,7 @@ import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 
 @RestController
-@RequestMapping(value = "/medical/doctor")
+@RequestMapping(value = "/doctor")
 public class DoctorController extends AbstractController {
 
     @Autowired
@@ -244,7 +244,7 @@ public class DoctorController extends AbstractController {
     @RequestMapping(value = "joinHospital", method = RequestMethod.POST)
     public ResponseObject joinHospital(MedicalDoctor medicalDoctor, HttpServletRequest request) {
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctor.setUserId(currentUser.getUid());
         medicalDoctorBusinessService.joinHospital(medicalDoctor);
@@ -259,7 +259,7 @@ public class DoctorController extends AbstractController {
     @RequestMapping(value = "getWorkTime", method = RequestMethod.GET)
     public ResponseObject getWorkTime(Integer type, HttpServletRequest request) {
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         String workTime = medicalDoctorBusinessService.getWorkTimeById(currentUser.getUid(), type);
         return ResponseObject.newSuccessResponseObject(workTime);
@@ -274,7 +274,7 @@ public class DoctorController extends AbstractController {
     public ResponseObject update(MedicalDoctor doctor, HttpServletRequest request) {
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctorBusinessService.update(currentUser.getUid(), doctor);
         return ResponseObject.newSuccessResponseObject("修改成功");
@@ -294,7 +294,7 @@ public class DoctorController extends AbstractController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request) {
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctor.setUserId(currentUser.getUid());
         medicalDoctorBusinessService.add(medicalDoctor);
@@ -307,7 +307,7 @@ public class DoctorController extends AbstractController {
     @RequestMapping(value = "getHospital", method = RequestMethod.GET)
     public ResponseObject getHospital(HttpServletRequest request) {
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHospital(currentUser.getUid()));
     }

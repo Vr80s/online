@@ -1,7 +1,7 @@
 package com.xczhihui.course.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.common.exception.OrderException;
+import com.xczhihui.course.exception.OrderException;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.enums.OrderStatus;

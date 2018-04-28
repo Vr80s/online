@@ -22,25 +22,24 @@
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}" />
 
 
-	<dubbo:service interface="com.xczhihui.course.service.ICourseService" ref="courseServiceImpl" timeout="${dubbo.consumer.timeout}" />
+	<dubbo:service interface="com.xczhihui.course.service.ICourseService" ref="courseServiceImpl" timeout="${dubbo.provider.timeout}" />
     <!--app学堂 -->
-    <dubbo:service interface="com.xczhihui.course.service.IMobileBannerService" ref="mobileBannerServiceImpl" timeout="${dubbo.consumer.timeout}" />
-    <dubbo:service interface="com.xczhihui.course.service.IMobileProjectService" ref="mobileProjectServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.course.service.IMobileBannerService" ref="mobileBannerServiceImpl" timeout="${dubbo.provider.timeout}" />
+    <dubbo:service interface="com.xczhihui.course.service.IMobileProjectService" ref="mobileProjectServiceImpl" timeout="${dubbo.provider.timeout}" />
     <!--观看记录 -->
-    <dubbo:service interface="com.xczhihui.course.service.IWatchHistoryService" ref="watchHistoryServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.course.service.IWatchHistoryService" ref="watchHistoryServiceImpl" timeout="${dubbo.provider.timeout}" />
     <!-- 我的关注，我的粉丝service -->
-    <dubbo:service interface="com.xczhihui.course.service.IFocusService" ref="focusServiceRemote" timeout="${dubbo.consumer.timeout}" />
-    <dubbo:service interface="com.xczhihui.course.service.IOfflineCityService" ref="offlineCityServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.course.service.IFocusService" ref="focusServiceRemote" timeout="${dubbo.provider.timeout}" />
+    <dubbo:service interface="com.xczhihui.course.service.IOfflineCityService" ref="offlineCityServiceImpl" timeout="${dubbo.provider.timeout}" />
     <!-- 我的信息管理类 -->
-    <dubbo:service interface="com.xczhihui.course.service.IMyInfoService" ref="myInfoServiceImpl" timeout="${dubbo.consumer.timeout}"  />
-    
+    <dubbo:service interface="com.xczhihui.course.service.IMyInfoService" ref="myInfoServiceImpl" timeout="${dubbo.provider.timeout}"  />
     <!-- 微博、qq第三方登录数据存储接口 -->
-    <dubbo:service interface="com.xczhihui.course.service.IThreePartiesLoginService" ref="threePartiesLoginServiceImpl" timeout="${dubbo.consumer.timeout}"  />
+    <dubbo:service interface="com.xczhihui.course.service.IThreePartiesLoginService" ref="threePartiesLoginServiceImpl" timeout="${dubbo.provider.timeout}"  />
 
     <!--订单服务-->
-    <dubbo:service interface="com.xczhihui.course.service.IOrderService" ref="orderServiceImpl" timeout="${dubbo.consumer.timeout}"  />
+    <dubbo:service interface="com.xczhihui.course.service.IOrderService" ref="orderServiceImpl" timeout="${dubbo.provider.timeout}"  />
     <!--评论服务-->
-    <dubbo:service interface="com.xczhihui.course.service.ICriticizeService" ref="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}"  />
+    <dubbo:service interface="com.xczhihui.course.service.ICriticizeService" ref="criticizeServiceImpl" timeout="${dubbo.provider.timeout}"  />
 <!--评论服务-->
-    <dubbo:service interface="com.xczhihui.course.service.IPaymentRecordService" ref="paymentRecordServiceImpl" timeout="${dubbo.consumer.timeout}"  />
+    <dubbo:service interface="com.xczhihui.course.service.IPaymentRecordService" ref="paymentRecordServiceImpl" timeout="${dubbo.provider.timeout}"  />
 </beans>

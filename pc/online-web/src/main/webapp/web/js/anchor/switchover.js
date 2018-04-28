@@ -241,7 +241,7 @@ $('#speech_select1').change(function(){
         return false;
     }
     //获取对应的医馆信息渲染到页面上
-    RequestService("/medical/hospital/getHospitalById", "get", {
+    RequestService("/hospital/getHospitalById", "get", {
         id: hosID,
     }, function(data) {
         console.log(data);
@@ -321,7 +321,7 @@ $(".message_return .message_title .two").click(function() {
 
 	//主播修改信息的时候获取医馆信息渲染医馆列表
 	if(localStorage.AccountStatus == 1){
-		RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(data) {
+		RequestService("/doctor/apply/listHospital/0", "get", null, function(data) {
 			//列表渲染
 			$('#speech_select1').append('<option value="-1">请选择医馆</option>')
 			$('#speech_select1').append(template('hosListTpl', {item:data.resultObject.records}));

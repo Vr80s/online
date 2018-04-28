@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @RestController
-@RequestMapping(value = "/medical/hospital")
+@RequestMapping(value = "/hospital")
 public class HospitalController extends AbstractController{
 
     @Autowired
@@ -96,7 +96,7 @@ public class HospitalController extends AbstractController{
         }
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalHospital.setUpdatePerson(currentUser.getUid());
         medicalHospitalBusinessServiceImpl.update(medicalHospital);
@@ -115,7 +115,7 @@ public class HospitalController extends AbstractController{
     public ResponseObject getDoctors(Integer current,Integer size,String doctorName, HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
 
         // 分页信息
@@ -135,7 +135,7 @@ public class HospitalController extends AbstractController{
     public ResponseObject getHospitalByUserId(Integer current,Integer size,String doctorName, HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalByUserId(currentUser.getUid()));
     }
@@ -147,7 +147,7 @@ public class HospitalController extends AbstractController{
     @RequestMapping(value = "deleteDoctor", method = RequestMethod.POST)
     public ResponseObject delete(HttpServletRequest request, String doctorId){
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalHospitalBusinessServiceImpl.deleteDoctor(currentUser.getUid(), doctorId);
         return ResponseObject.newSuccessResponseObject("删除成功");

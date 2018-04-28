@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/banner")
-public class BannerController {
+public class BannerController extends AbstractController{
 
     @Autowired
     private BannerService  service;

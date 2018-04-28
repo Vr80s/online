@@ -21,7 +21,7 @@ import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObj
  */
 @RestController
 @RequestMapping(value = "/share")
-public class ShareManageController {
+public class ShareManageController extends AbstractController{
     @Autowired
     ShareManageService shareManageService;
 
@@ -34,7 +34,7 @@ public class ShareManageController {
     @RequestMapping(value = "/order_subsidies")
     public ResponseObject findSubsidies(HttpServletRequest request){
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getCurrentUser();
         if(user!=null) {
             return newSuccessResponseObject(shareManageService.findSubsidies(user.getId()));
         }else{
@@ -54,7 +54,7 @@ public class ShareManageController {
     @RequestMapping(value = "/order_shareOrders")
     public ResponseObject findShareOrders(HttpServletRequest request,Integer searchCase,String searchContent,Integer level,String startTime,String endTime,Integer pageNumber, Integer pageSize){
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getCurrentUser();
         if(user!=null) {
             return newSuccessResponseObject(shareManageService.findShareOrders(user.getId(),searchCase,searchContent,level,startTime,endTime,pageNumber,pageSize));
         }else{
@@ -98,7 +98,7 @@ public class ShareManageController {
     @RequestMapping(value = "/saveShareRelation")
     public ResponseObject saveShareRelation(HttpServletRequest req){
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(req);
+        OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(shareManageService.saveShareRelation(req,user));
     }
     /**

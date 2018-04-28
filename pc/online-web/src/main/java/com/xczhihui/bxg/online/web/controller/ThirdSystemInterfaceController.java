@@ -97,14 +97,8 @@ public class ThirdSystemInterfaceController {
 			cookiesmap.put(cookie.getName(), cookie.getValue());
 		}
 		
-//		String msg = HttpUtil.sendPostRequestWithCookies(req.getParameter("thirdUrl"), params, cookiesmap);
 		String msg = null;//20170724----yuruixin
-		/*if (msg != null && msg.contains("success")) {
-			Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-			ResponseObject r = g.fromJson(msg, ResponseObject.class);
-			return r;
-		}*/
-		
+
 		return ResponseObject.newSuccessResponseObject(msg);
 	}
 	

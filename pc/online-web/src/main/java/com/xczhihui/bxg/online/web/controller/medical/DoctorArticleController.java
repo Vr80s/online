@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.body.doctor.DoctorArticleBody;
-import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
+import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
@@ -20,8 +20,8 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
  * @author hejiwei
  */
 @RestController
-@RequestMapping("doctor/article")
-public class DoctorArticleController extends AbstractController {
+@RequestMapping("/doctor/article")
+public class DoctorArticleController extends AbstractFtlController {
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;

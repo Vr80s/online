@@ -18,7 +18,7 @@
 <script type="text/javascript" src="/xcview/js/common/js.js?version=b35e3bdc111ab&version=b35e3bdcab&version=b35e3bdcab"></script>
 <!-- 图片引入放大缩小 -->
 <script type="text/javascript" src="/xcview/js/common/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/underscore.js?version=9d2dc1d44f&version=9d2dc1d44f&version=9d2dc1d44f"></script>
+<script type="text/javascript" src="/xcview/js/common/underscore.js"></script>
 <script type="text/javascript" src="/xcview/js/common/pinchzoom.js?version=1b3192f6cb&version=1b3192f6cb&version=1b3192f6cb"></script>
 
 
@@ -50,6 +50,10 @@ $(function(){
 
 <script>
 	window.onload = function(){
+
+		// 课件获取高度
+		var school_height=$(window).height()-$(".details_cen1").height();
+		$(".pinch-zoom-container").height(school_height);
 		
 		  /*礼物模块其他区域隐藏*/
 		$("#video").click(function(){
@@ -628,9 +632,7 @@ $(function(){
 		});
 
 
-		// 课件获取高度
-		var school_height=$(window).height()-$(".details_cen1").height();
-		$(".pinch-zoom-container").height(school_height);
+		
 	
 		
 	};
