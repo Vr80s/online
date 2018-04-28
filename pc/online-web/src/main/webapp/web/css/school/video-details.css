@@ -1,0 +1,13 @@
+*{margin: 0; padding: 0;}
+body{ 
+	font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-size: 14px;
+	background: #F8F8F8;
+	color: #333;
+}
+ul{margin: 0;}
+p{margin: 0;}
+a:hover{text-decoration: none;}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px; margin: 0 auto;}

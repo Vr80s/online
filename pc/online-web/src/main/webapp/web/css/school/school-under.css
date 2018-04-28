@@ -26,45 +26,14 @@ a:hover{text-decoration: none;}
 	width: 860px;
 	height: 346px;
 }
-.physic-type{
-	width: 100%;
-	height: 100px;
-	padding-top: 1px;
-	box-sizing: border-box;
-	margin-bottom: 20px;
-	background: white;
-}
-.physic-type ul {
-	margin: 0;
-	margin-top: 24px;
-}
-.physic-type ul li{
-	float: left;
-	border-right: 1px solid #dedede;
-		width: 214px;
-	height: 52px;
-	text-align: center;
-}
 
-.physic-type ul li:last-child{
-	border-right: 0;
-}
-.physic-type ul li p{
-	display: inline-block;
-	margin-right: 5px;
-}
-.physic-type ul li span{
-	font-size: 18px;
-	color: #333333;
-	font-weight: bold;
-}
 /*精品,免费,最新,养生课程*/
 .main{
-	width: 100%;
+	    width: 100%;
     background: white;
     overflow: hidden;
-    padding: 0 20px 27px 20px;
-    margin-bottom: 20px;
+    padding: 0 20px 7px 20px;
+    margin-top: 20px;
 }
 .main .content-class{
 	width: 860px;
@@ -97,6 +66,7 @@ a:hover{text-decoration: none;}
 }
 .main .content-class .course {
     margin-right: 20px;
+    margin-bottom: 23px;
     position: relative;
     width: 260px;
     float: left;
@@ -198,55 +168,11 @@ a:hover{text-decoration: none;}
     float: right;
 }
 /*右侧,成为主播*/
-.wrap-anchor{
-	width: 100%;
-	height: 115px;
-	background: white;
-	padding: 20px;
-	box-sizing: border-box;
-	text-align: center;
-	margin-bottom: 20px;
-}
-.wrap-anchor span{
-	width: 92px;
-	height: 36px;
-	text-align: center;
-	line-height: 36px;
-	background: #00BC12;
-	color: white;
-	display: inline-block;
-	border-radius: 4px;
-	cursor: pointer;
-	margin-top: 9px;
-}
-.hot-search{
-	width: 100%;
-	padding: 20px 0;
-	box-sizing: border-box;
-	background: white;
-	overflow: hidden;
-	margin-bottom: 20px;
-}
-.hot-search p{
-	font-size: 16px;
-	margin-left: 20px;
-	margin-bottom: 0;
-}
-.hot-search ul{
-	margin: 0;
-}
-.hot-search ul li{
-	margin-left: 20px;
-	float: left;
-	color: #188EEE;
-	margin-top: 10px;
-}
 .wrap-docter{
 	width: 100%;
 	padding: 20px 0 20px 20px;
 	background: white;
 	overflow: hidden;
-
 }
 .wrap-docter span{
 	font-size: 16px;
