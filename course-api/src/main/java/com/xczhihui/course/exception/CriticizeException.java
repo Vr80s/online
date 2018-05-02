@@ -2,6 +2,8 @@ package com.xczhihui.course.exception;
 
 import java.io.Serializable;
 
+import com.xczhihui.common.exception.IpandaTcmException;
+
 /**
  * Description：评论相关异常
  * creed: Talk is cheap,show me the code
