@@ -82,6 +82,8 @@ public class MobileOffLineController {
 
 		LOGGER.info( ocl.getRecords().size()+"");
 		
+		
+		
 		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());
 
 
