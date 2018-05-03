@@ -95,7 +95,7 @@ $(function(){
 	
 	
 	//医馆医师
-	    RequestService("/medical/doctor/getDoctors","GET",{
+	    RequestService("/doctor/getDoctors","GET",{
 			current:1,
 			size:4,
 			hospitalId:id

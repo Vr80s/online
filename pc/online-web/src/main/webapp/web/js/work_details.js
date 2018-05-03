@@ -145,7 +145,7 @@ $(function(){
         "</li>" +
         '{{/each}}';
     //文章详情
-    RequestService("/medical/doctor/getWritingsByWritingsId",'GET',{writingsId:articleId},function(data){
+    RequestService("/doctor/getWritingsByWritingsId",'GET',{writingsId:articleId},function(data){
     	 //顶部书籍简介
 	    $('#book_inf_top').html(template('book_inf_topTpl',data.resultObject));
     	
@@ -375,7 +375,7 @@ $(function(){
     
     
      //渲染右侧推荐书籍列表
-	        RequestService("/medical/doctor/getRecentlyWritings","GET",null,function(data){
+	        RequestService("/doctor/getRecentlyWritings","GET",null,function(data){
 				console.log(data);
 				if(data.success == false || data.resultObject == null){
 					$('.work_dtails_book').addClass('hdie');
