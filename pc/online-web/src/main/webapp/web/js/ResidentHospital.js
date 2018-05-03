@@ -983,6 +983,7 @@ $("#notice-release-btn").click(function(){
 				showTip("发布成功");
 				$("#notice-text").val("")
 				$(".warning-notice").hide();
+				$(".word-number").text('剩余'+100+'字');
 				setTimeout(function(){
 					$("#news_Administration_tabBtn").click();
 				$("#notice-release-btn").removeAttr("disabled","disabled");				
@@ -996,7 +997,16 @@ $("#notice-release-btn").click(function(){
 	}
 
 })
-
+  //公告部分，多行文本输入框剩余字数计算  
+    function checkMaxInput(obj, maxLen) {   
+        if (obj.value.length > maxLen) { //如果输入的字数超过了限制  
+            obj.value = obj.value.substring(0, maxLen); //就去掉多余的字            	
+        	 $(".word-number").text('剩余'+(maxLen - obj.value.length)+'字');
+        }
+        else {  
+        	$(".word-number").text('剩余'+(maxLen - obj.value.length)+'字');  		
+        }
+    } 
 var announcementList;
 //公告管理列表接口调用
 function announcementMethod(current){

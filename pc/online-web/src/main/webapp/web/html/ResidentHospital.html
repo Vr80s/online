@@ -687,7 +687,7 @@
 									<div class="recruit-newjob-duty">
 										<span style="float: left;"><em>*</em>岗位职责</span>
 										<div class="recruit-textarea-duty">				
-											<textarea class="recruit-textarea recruit-textarea-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写岗位职责"></textarea>
+											<textarea class="recruit-textarea recruit-textarea-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写岗位职责 (500字以内)"></textarea>
 											<span class="warning hide warning-textarea-isdata" style="margin-left: 0px;">岗位职责不能为空</span>	
 										</div>
 									</div>
@@ -695,7 +695,7 @@
 									<div class="recruit-newjob-duty">
 										<span style="float: left;"><em>*</em>职位要求</span>
 										<div class="recruit-textarea-duty">				
-											<textarea class="recruit-textarea recruit-textarea-duty-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写职位要求"></textarea>
+											<textarea class="recruit-textarea recruit-textarea-duty-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写职位要求 (500字以内)"></textarea>
 											<span class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</span>	
 										</div>
 										<div class="recruit-save-up">
@@ -720,8 +720,9 @@
 								<div class="Notice_bottom hide" id="Notice_bottom">
 									<div class="neirong">
 										<span><em>*</em> 公告内容</span>
-										<textarea name="" id="notice-text" maxlength="100" cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
-										<p class="warning warning-notice" style="display: none;padding-left: 0;">专栏内容不能为空</p>
+										<textarea name="" id="notice-text" onkeydown="checkMaxInput(this,100)" onkeyup="checkMaxInput(this,100)" onfocus="checkMaxInput(this,100)"  cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
+										<p class="warning warning-notice" style="display: none;padding-left: 0;">公告内容不能为空</p>
+										<p class="word-number">剩余100字</p>
 									</div>
 	
 									<div class="baocun" style="padding-left: 116px;">
