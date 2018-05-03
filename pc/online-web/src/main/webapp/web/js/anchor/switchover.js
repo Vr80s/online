@@ -206,7 +206,7 @@ $(".right_modification").click(function() {
 		        }
 		        
 		         //医馆列表的选中效果
-			    RequestService("/medical/doctor/getHospital", "get", null, function(data) {
+			    RequestService("/doctor/getHospital", "get", null, function(data) {
 			    	 $('.workHos_select').selectpicker('val',(data.resultObject.id));
 			    })
 			    

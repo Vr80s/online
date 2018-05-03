@@ -484,7 +484,7 @@ $('.path .hospital').addClass('select');
 	var description = UE.getEditor('editor').getContent();
 	var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
 	//医师数据上传
-	RequestService("/medical/doctor/add", "post", {
+	RequestService("/doctor/add", "post", {
 				name: name,
 				headPortrait:headPortrait,
 				title:title,

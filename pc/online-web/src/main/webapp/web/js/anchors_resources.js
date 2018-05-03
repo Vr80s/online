@@ -1287,7 +1287,7 @@ var ue = UE.getEditor('column-content', {
 			$('#hospital_bottom .hospital_worktime_warn  ').addClass('hide');
 		}
 
-		RequestService("/medical/doctor/joinHospital", "post", {
+		RequestService("/doctor/joinHospital", "post", {
 			workTime: workTime,
 			hospitalId: hosID
 		}, function(data) {
@@ -1313,7 +1313,7 @@ var ue = UE.getEditor('column-content', {
 	})
 
 	if(localStorage.AccountStatus == 1) {
-		RequestService("/medical/doctor/authentication/get", "get", {}, function(data) {
+		RequestService("/doctor/authentication/get", "get", {}, function(data) {
 			console.log(data);
 			if(data.success == false) {
 				//				alert('获取认证状态数据失败');
@@ -1345,7 +1345,7 @@ var ue = UE.getEditor('column-content', {
 
 	//如果入驻了医馆进入获取数据
 	$('#docJoinHos').click(function() {
-		RequestService("/medical/doctor/getHospital", "get", null, function(data) {
+		RequestService("/doctor/getHospital", "get", null, function(data) {
 			if(data.success == true) {
 				//入住过医馆
 				//头像预览

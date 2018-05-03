@@ -76,6 +76,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" oc.collection as collection, ");
 		all.append(" if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, ");
 		
+		
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
 		all.append(" oc.start_time as startTime, ");
@@ -570,7 +571,44 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 	@Override
 	public List<CourseLecturVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String strsql="(select  o.id,o.grade_name as gradeName,o.current_price*10 as currentPrice,4 as type,"
+				+" o.smallimg_path as smallImgPath,o.lecturer as name,o.address as address,"
+				+" o.city as city,DATE_FORMAT(o.start_time,'%m.%d') as startDateStr,"
+				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = o.id),0) + IFNULL(o.default_student_count, 0) learndCount,"
+				+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
+				+" o.collection as collection,"
+				+" o.is_free as watchState,"
+				+ " if(o.sort_update_time< now(),0,o.recommend_sort) recommendSort, "
+				+" o.start_time as startTime,"
+				+"'全国课程' as note "
+				+" from oe_course o "
+				+" WHERE o.is_delete=0 and o.status=1 and o.type = 3   "
+				+" ORDER BY recommendSort desc,o.start_time DESC LIMIT 0,6) ";
+
+		if(cityList.size()>0){
+			strsql+= " union all ";
+		}
+		int i = 0;
+		for (OfflineCity offlineCity : cityList) {
+				i++;
+			strsql+="(select  o.id,o.grade_name as gradeName,o.current_price*10 as currentPrice,4 as type,"
+					+" o.smallimg_path as smallImgPath,o.lecturer as name,o.address as address,"
+					+" o.city as city,DATE_FORMAT(o.start_time,'%m.%d') as startDateStr,"
+					+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = o.id),0) + IFNULL(o.default_student_count, 0) learndCount,"
+					+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
+					+" o.collection as collection,"
+					+" o.is_free as watchState,"
+					+ " if(o.sort_update_time< now(),0,o.recommend_sort) recommendSort, "
+					+" o.start_time as startTime,"
+					+" o.city as note "
+					+" from oe_course o "
+					+" WHERE o.is_delete=0 and o.status=1 and o.type = 3  and o.city = '"+offlineCity.getCityName()+"' "
+					+" ORDER BY recommendSort desc,o.start_time DESC LIMIT 0,4)";
+
+				if(i < cityList.size()){
+					strsql+= " union all ";
+				}
+		}
+		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),strsql,new BeanListHandler<>(CourseLecturVo.class));
 	}
 }

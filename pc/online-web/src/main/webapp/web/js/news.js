@@ -386,7 +386,7 @@ $(function () {
     
     
     //头条右侧大家专栏部分
-	    RequestService("/medical/doctor/getHotSpecialColumn","GET",null,function(data){
+	    RequestService("/doctor/getHotSpecialColumn","GET",null,function(data){
 	        if(data.success==false || data.resultObject.length == 0){
 	           $('#dajia_bigbox').addClass('hide');
 	           $('.forum-content-right').css({'position':'absolute','left':'880px'})
@@ -398,7 +398,7 @@ $(function () {
 	    });
 	    
      //头条右侧热门作者
-	    RequestService("/medical/doctor/getHotSpecialColumnAuthor","GET",null,function(data){
+	    RequestService("/doctor/getHotSpecialColumnAuthor","GET",null,function(data){
 	        if(data.success==false || data.resultObject.length == 0){
 	           $('#zhuanlan_bigbox').addClass('hide')
 	        }else{

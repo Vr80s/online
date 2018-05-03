@@ -50,7 +50,7 @@ $(function(){
 	
 	//渲染医师列表方法
 	function getHostipalList(current,size,name,type,departmentId){
-	    RequestService("/medical/doctor/getDoctors","GET",{ 
+	    RequestService("/doctor/getDoctors","GET",{
 	    	current:current,
 	    	size:size,
 	    	name:name,
@@ -133,7 +133,7 @@ $(function(){
 	    
 	    
 	    //名师推荐部分
-	     RequestService("/medical/doctor/getRecDoctors","GET",null,function(data){
+	     RequestService("/doctor/getRecDoctors","GET",null,function(data){
 	       if(data.resultObject == null || data.resultObject.length == 0){
 	       	$('.about_doctor').addClass('hide');
 	       }else{
@@ -157,7 +157,7 @@ $(function(){
 	    
 	    
 	    //名医筛选条件的分类
-	    RequestService("/medical/doctor/getDoctorType","GET",null,function(data){
+	    RequestService("/doctor/getDoctorType","GET",null,function(data){
 	       if(data.resultObject == null || data.resultObject.length == 0){
 	       		alert('未获取到筛选中的分类')
 	       }else{

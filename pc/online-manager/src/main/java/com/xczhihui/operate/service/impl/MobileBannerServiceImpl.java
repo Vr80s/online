@@ -91,7 +91,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
 
 	@Override
 	public void updateSortUp(String id) {
-		String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
+		/*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
 		Integer mobileBannerPreSort = dao.queryForInt(sqlPre,
 				new Object[] { id });
 
@@ -107,7 +107,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
 				.getJdbcOperations()
 				.update(sql,
 						new Object[] { mobileBannerPreSort,
-								map.get("id").toString() });
+								map.get("id").toString() });*/
 
 
 		String hqlPre="from MobileBanner where  status=1 and id = ?";
@@ -126,7 +126,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
 
 	@Override
 	public void updateSortDown(String id) {
-		String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
+		/*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
 		Integer mobileBannerPreSort = dao.queryForInt(sqlPre,
 				new Object[] { id });
 
@@ -142,6 +142,21 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
 				.getJdbcOperations()
 				.update(sql,
 						new Object[] { mobileBannerPreSort,
-								map.get("id").toString() });
+								map.get("id").toString() });*/
+
+
+
+		String hqlPre="from MobileBanner where  status=1 and id = ?";
+		MobileBanner Pre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		Integer PreSort=Pre.getSeq();
+		Integer bannerType=Pre.getBannerType();
+		String hqlNext="from MobileBanner where seq < (select seq from MobileBanner where id= ? )  and status=1 and bannerType = ? order by seq desc";
+		MobileBanner courseNext= dao.findByHQLOne(hqlNext,new Object[] {id,bannerType});
+		Integer courseNextSort=courseNext.getSeq();
+		Pre.setSeq(courseNextSort);
+		courseNext.setSeq(PreSort);
+
+		dao.update(Pre);
+		dao.update(courseNext);
 	}
 }
