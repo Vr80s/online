@@ -366,17 +366,6 @@ $(function () {
                         }
                     }
                 });
-                //首页购物车数量
-                RequestService("/shoppingCart/findCourseNum", "GET", null, function (data) {
-                    if (data.success == true && data.resultObject != 0) {
-                        $(".shopping").css("display", "block");
-                        if (data.resultObject <= 99) {
-                            $(".shopping em").text(data.resultObject);
-                        } else {
-                            $(".shopping em").text(99);
-                        }
-                    }
-                });
                 showDOrH();
             } else {
                 $('#login').css("display", "none");
