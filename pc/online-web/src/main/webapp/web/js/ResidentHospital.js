@@ -1057,7 +1057,7 @@ $(".notice_preview_content img").click(function(){
 function notice_btn_delete(t){
 	var data_id=$(t).attr("data-id");
 	comfirmBox.open("公告","确定删除该条公告吗？",function(closefn){
-		RequestService("/hospital/announcement/"+data_id+"","DELETE",null,function(){
+		RequestService("/hospital/announcement/"+data_id+"","DELETE",null,function(data){
 			if(data.success == true){
 				closefn();
 				showTip("删除成功");
