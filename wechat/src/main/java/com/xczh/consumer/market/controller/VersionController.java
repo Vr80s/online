@@ -46,7 +46,7 @@ public class VersionController {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WxJSController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(VersionController.class);
 
     @RequestMapping("checkUpdate")
     @ResponseBody

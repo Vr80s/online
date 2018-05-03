@@ -9,11 +9,10 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,10 +31,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.xczh.consumer.market.service.OnlineCourseService;
-import com.xczh.consumer.market.utils.Broadcast;
+import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczhihui.online.api.service.LiveExamineInfoService;
 import com.xczhihui.online.api.vo.LiveExamineInfo;
 
@@ -52,13 +49,11 @@ import com.xczhihui.online.api.vo.LiveExamineInfo;
 @RequestMapping("/bxg/live")
 public class LiveController {
 
-	
-    @Autowired
-    private OnlineCourseService onlineCourseService;
-
-
     @Autowired
     private LiveExamineInfoService liveExamineInfoService;
+
+    @Autowired
+    private OLAttachmentCenterService service;
 
 
     @Value("${gift.im.room.postfix}")
@@ -67,9 +62,6 @@ public class LiveController {
     private String boshService;//im服务地址
     @Value("${gift.im.host}")
     private String host;
-
-    @Autowired
-    private Broadcast broadcast;
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LiveController.class);
 
@@ -86,40 +78,11 @@ public class LiveController {
     @RequestMapping("listKeywordQuery")
     @ResponseBody
     public ResponseObject listKeywordQuery(HttpServletRequest req,
-            HttpServletResponse res)
+                                           HttpServletResponse res, Map<String, String> params)
             throws Exception {
 
-    	LOGGER.info("老版本方法：listKeywordQuery");
-    	return ResponseObject.newErrorResponseObject("请使用最新版本");
-//        try {
-//            String queryParam = req.getParameter("keyword");
-//            Map<String, Object> allMap = new HashMap<String, Object>();
-//            //第一步先让数据显示出来，查询管用！
-//            //第二步后续的话在修改程序吧！
-//            /**
-//             * 查询主播信息   --》 按照关注数来查询主播的
-//             */
-//            List<Map<String, Object>> mapUserList = onlineUserService.findHotHostByQueryKey(queryParam);
-//            /**
-//             * 查询直播信息 --》 直播信息按照礼物的多少来排序
-//             */
-//            List<CourseLecturVo> liveList =
-//                    onlineCourseService.findLiveListByQueryKey(0, 3, queryParam);
-//            /**
-//             * 查询点播信息 --》 这个课程的学习人数
-//             */
-//            List<CourseLecturVo> bunchlist = wxcpCourseService.courseCategoryXCList1(1, 3, queryParam);
-//
-//            allMap.put("bozhu", mapUserList);
-//            allMap.put("zhibo", liveList);
-//            allMap.put("bunch", bunchlist);
-//
-//            return ResponseObject.newSuccessResponseObject(allMap);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseObject.newErrorResponseObject("后台流程异常");
-//        }
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     /**
@@ -138,23 +101,8 @@ public class LiveController {
                                HttpServletResponse res, Map<String, String> params)
             throws Exception {
 
-        if (null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")) {
-            return ResponseObject.newErrorResponseObject("缺少分页参数");
-        }
-        int pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-        int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-        try {
-            List<CourseLecturVo> list = onlineCourseService.findLiveListInfoOld(pageNumber, pageSize, null);
-            LOGGER.info("list.size():" + list.size());
-            if (list != null && list.size() > 0) {
-                return ResponseObject.newSuccessResponseObject(list);
-            } else {
-                return ResponseObject.newErrorResponseObject("数据为空");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseObject.newErrorResponseObject(null);
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     /**
@@ -172,8 +120,8 @@ public class LiveController {
                                       HttpServletResponse res)
             throws Exception {
 
-    	LOGGER.info("老版本方法：liveDetails");
-    	return ResponseObject.newErrorResponseObject("请使用最新版本");
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     @InitBinder
@@ -188,32 +136,29 @@ public class LiveController {
                                   HttpServletResponse res, LiveExamineInfo liveExamineInfo, @RequestParam("file") MultipartFile file)
             throws Exception {
 
-    	
-    	LOGGER.info("老版本方法：addLive");
-    	return ResponseObject.newErrorResponseObject("请使用最新版本");
-//        Map<String, String> map = new HashMap<String, String>();
-//        String projectName = "other";
-//        String fileType = "1"; //图片类型了
-//        String headImgPath = service.upload(null, //用户中心的用户ID
-//                projectName, file.getOriginalFilename(), file.getContentType(), file.getBytes(), fileType, null);
-//
-//        //JSONObject json = JSONObject.parseObject(headImgPath);
-//        LOGGER.info("文件路径——path:" + headImgPath);
-//        //map.put("logo", json.get("url").toString());
-//
-//        LOGGER.info("req.getParameterprice================" + req.getParameter("price"));
-//        if ("1".equals(liveExamineInfo.getSeeMode())) {//付费
-//            liveExamineInfo.setPrice(new BigDecimal(req.getParameter("price")));
-//        }
-//        if ("2".equals(liveExamineInfo.getSeeMode())) {//密码
-//            liveExamineInfo.setPassword(req.getParameter("password"));
-//        }
-//
-//        liveExamineInfo.setLogo(headImgPath);
-//        String id = liveExamineInfoService.add(liveExamineInfo);
-//        Map<String, Object> result = new HashMap<>();
-//        result.put("examineId", id);
-//        return ResponseObject.newSuccessResponseObject(result);
+        Map<String, String> map = new HashMap<String, String>();
+        String projectName = "other";
+        String fileType = "1"; //图片类型了
+        String headImgPath = service.upload(null, //用户中心的用户ID
+                projectName, file.getOriginalFilename(), file.getContentType(), file.getBytes(), fileType, null);
+
+        //JSONObject json = JSONObject.parseObject(headImgPath);
+        LOGGER.info("文件路径——path:" + headImgPath);
+        //map.put("logo", json.get("url").toString());
+
+        LOGGER.info("req.getParameterprice================" + req.getParameter("price"));
+        if ("1".equals(liveExamineInfo.getSeeMode())) {//付费
+            liveExamineInfo.setPrice(new BigDecimal(req.getParameter("price")));
+        }
+        if ("2".equals(liveExamineInfo.getSeeMode())) {//密码
+            liveExamineInfo.setPassword(req.getParameter("password"));
+        }
+
+        liveExamineInfo.setLogo(headImgPath);
+        String id = liveExamineInfoService.add(liveExamineInfo);
+        Map<String, Object> result = new HashMap<>();
+        result.put("examineId", id);
+        return ResponseObject.newSuccessResponseObject(result);
     }
 
     @RequestMapping("myList")
@@ -330,11 +275,8 @@ public class LiveController {
     @RequestMapping("/getMoneySum")
     @ResponseBody
     public ResponseObject getLiveMoneySum(String id) {
-        String moneySum = onlineCourseService.sumMoneyLive(id);
-        if (moneySum == null) {
-            moneySum = "0";
-        }
-        return ResponseObject.newSuccessResponseObject(moneySum);
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     @RequestMapping("/getPreLiveCount")
@@ -349,15 +291,7 @@ public class LiveController {
     @RequestMapping("/liveIsAvailable")
     @ResponseBody
     public ResponseObject liveIsAvailable(Integer id) {
-        try {
-            CourseLecturVo courseVo = onlineCourseService.get(id);
-            if (courseVo == null) {
-                return ResponseObject.newErrorResponseObject("该直播已被删除");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return ResponseObject.newSuccessResponseObject(null);
+    	LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 }

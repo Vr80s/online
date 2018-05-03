@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
@@ -45,7 +46,8 @@ public class CourseController {
 	private OnlineWebService onlineWebService;
 
 	@Autowired
-	private FocusService focusService;
+	@Qualifier("focusServiceRemote")
+	private IFocusService focusServiceRemote;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
 			.getLogger(CourseController.class);
@@ -135,7 +137,7 @@ public class CourseController {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user != null) {
 			// 是否关注
-			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
+			Integer isFours = focusServiceRemote.isFoursLecturer(user.getId(),cv.getUserLecturerId());
 			if (isFours != 0) {
 				cv.setIsFocus(1);
 			}
@@ -201,7 +203,7 @@ public class CourseController {
 		if (user != null) {
 			
 			// 是否关注
-			Integer isFours = focusService.myIsFourslecturer(user.getId(),
+			Integer isFours = focusServiceRemote.isFoursLecturer(user.getId(),
 					cv.getUserLecturerId());
 			if (isFours != 0) {
 				cv.setIsFocus(1);

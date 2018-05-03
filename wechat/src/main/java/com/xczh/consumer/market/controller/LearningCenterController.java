@@ -1,21 +1,16 @@
 package com.xczh.consumer.market.controller;
 
-import com.xczh.consumer.market.bean.OnlineCourse;
-import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.utils.ResponseObject;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.List;
-import java.util.Map;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xczh.consumer.market.utils.ResponseObject;
 
 /**
  * 学习中心

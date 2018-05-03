@@ -65,8 +65,8 @@ public class XzAlipayControllerbak {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	@Autowired
-	private RewardService rewardService;
+//	@Autowired
+//	private RewardService rewardService;
 
 	@Autowired
 	private UserCoinService userCoinService;
@@ -1006,7 +1006,8 @@ public class XzAlipayControllerbak {
 		if (Double.valueOf(ap) < 0.01) {
 			throw new IllegalArgumentException("打赏金额必须大于0.01");
 		}
-		Reward reward = rewardService.findById(rewardParamVo.getRewardId());
+		//Reward reward = rewardService.findById(rewardParamVo.getRewardId());
+		Reward reward = new Reward();
 		if (reward == null) {
 			throw new IllegalArgumentException("无此打赏类型");
 		} else if (!reward.getIsFreedom()

@@ -60,28 +60,28 @@ public class TokenThread implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
-			try {
-				System.out.println("读取配置信息成功！"+appid+"====="+appsecret);
-				// 调用工具类获取access_token(每日最多获取100000次，每次获取的有效期为7200秒)
-				String requestUrl=access_token_url.replace("APPID",appid).replace("APPSECRET", appsecret);
-				String token = HttpUtil.sendGetRequest(requestUrl);
-		        JSONObject jsonObject = JSONObject.fromObject(token);
-				String  access_token = (String)jsonObject.get("access_token");
-				Integer expires_in = (Integer)jsonObject.get("expires_in");
-				if (null != access_token) {
-					
-					accessToken = access_token;
-					
-					System.out.println("accessToken获取成功："+expires_in+"===="+access_token);
-					// 7000秒之后重新进行获取
-					Thread.sleep((expires_in - 200) * 1000);
-				} else {
-					System.out.println("accessToken获取失败："+jsonObject.toString());
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+//		while (true) {
+//			try {
+//				System.out.println("读取配置信息成功！"+appid+"====="+appsecret);
+//				// 调用工具类获取access_token(每日最多获取100000次，每次获取的有效期为7200秒)
+//				String requestUrl=access_token_url.replace("APPID",appid).replace("APPSECRET", appsecret);
+//				String token = HttpUtil.sendGetRequest(requestUrl);
+//		        JSONObject jsonObject = JSONObject.fromObject(token);
+//				String  access_token = (String)jsonObject.get("access_token");
+//				Integer expires_in = (Integer)jsonObject.get("expires_in");
+//				if (null != access_token) {
+//
+//					accessToken = access_token;
+//
+//					System.out.println("accessToken获取成功："+expires_in+"===="+access_token);
+//					// 7000秒之后重新进行获取
+//					Thread.sleep((expires_in - 200) * 1000);
+//				} else {
+//					System.out.println("accessToken获取失败："+jsonObject.toString());
+//				}
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 }

@@ -1,29 +1,23 @@
 package com.xczh.consumer.market.controller.live;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineWatchHistoryService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.wxpay.entity.OeWatchHistory;
 import com.xczhihui.course.service.IWatchHistoryService;
 
 @Controller
 @RequestMapping("/bxg/history")
 public class WatchHistoryController {
 
-	@Autowired
-	public OnlineWatchHistoryService onlineWatchHistoryService;
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WatchHistoryController.class);
 	
 	@Autowired
 	public IWatchHistoryService watchHistoryServiceImpl;
@@ -33,33 +27,9 @@ public class WatchHistoryController {
 
 	@RequestMapping("list")
 	@ResponseBody
-	public ResponseObject getWatchHistoryList(HttpServletRequest req,
-											  HttpServletResponse res) {
-		if(null == req.getParameter("pageNumber") || null == req.getParameter("pageSize")||null == req.getParameter("type")){
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-		String appUniqueId = req.getParameter("appUniqueId");
-		String ouStrId = "";
-		if(ou==null){
-			ouStrId = appUniqueId;
-		}else{
-			ouStrId = ou.getId();
-		}
-		int pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-		String type = req.getParameter("type");
-		System.err.println("pageNumber:"+pageNumber+"=============="+"pageSize:"+pageSize);
-		try {
-		List<OeWatchHistory> list = onlineWatchHistoryService.getOeWatchHistotyList(pageNumber,
-					pageSize,ouStrId, type,ou);
-		System.err.println("type:"+type+",list.size():"+list.size());
-		  return ResponseObject.newSuccessResponseObject(list);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		  return ResponseObject.newErrorResponseObject("查询有误");
-		}
+	public ResponseObject getWatchHistoryList(HttpServletRequest req, HttpServletResponse res) {
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
     /**
      * Description：添加观看记录
@@ -74,36 +44,8 @@ public class WatchHistoryController {
 	@ResponseBody
 	public ResponseObject add(HttpServletRequest req,
 			HttpServletResponse res) {
-		try {
-			String courseId = req.getParameter("course_id");
-			String type = req.getParameter("type");
-			String appUniqueId = req.getParameter("appUniqueId");
-			
-			if(null == courseId && null == type){
-				return ResponseObject.newErrorResponseObject("缺少参数");
-			}
-			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-			String ouStrId = "";
-			if(ou==null){
-				ouStrId = appUniqueId;
-			   //return ResponseObject.newErrorResponseObject("登录失效");
-			}else{
-				ouStrId = ou.getId();
-			}
-			Integer isWatchHistory = onlineWatchHistoryService.findOnlineWatchHistory(ouStrId, courseId);
-			if(isWatchHistory>0){
-				onlineWatchHistoryService.updateOnlineWatchHistory(ouStrId,courseId);
-				return ResponseObject.newSuccessResponseObject("保存成功");
-			}else{
-				onlineWatchHistoryService.saveOnlineWatchHistory1(ouStrId,courseId,type);
-				return ResponseObject.newSuccessResponseObject("保存成功");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("保存失败");
-		}
-		//return null;
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	/**
 	 * Description：清空观看记录
@@ -119,25 +61,7 @@ public class WatchHistoryController {
 	@ResponseBody
 	public ResponseObject empty(HttpServletRequest req,
 			HttpServletResponse res) {
-		try {
-			if(null == req.getParameter("type")){
-				return ResponseObject.newErrorResponseObject("缺少参数");
-			}
-			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-			String appUniqueId = req.getParameter("appUniqueId");
-			String ouStrId = "";
-			if(ou==null){
-				ouStrId = appUniqueId;
-			}else{
-				ouStrId = ou.getId();
-			}
-			String type = req.getParameter("type");
-			onlineWatchHistoryService.deleteOnlineWatchHistoryByUserIdAndType(ouStrId,type);
-			return ResponseObject.newSuccessResponseObject("清空成功");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("清空有误");
-		}
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 }

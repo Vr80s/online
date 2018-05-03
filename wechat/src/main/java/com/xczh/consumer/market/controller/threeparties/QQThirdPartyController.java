@@ -128,7 +128,7 @@ public class QQThirdPartyController {
 		             
 		             qq.setId(UUID.randomUUID().toString().replace("-", ""));
 		             qq.setOpenId(openID);
-		            // 防止表情名字
+		             //防止表情名字
 		 			 String nickname_ = SLEmojiFilter.filterEmoji(userInfoBean.getNickname());
 		             qq.setNickname(nickname_);
 		             qq.setGender(userInfoBean.getGender());
@@ -177,7 +177,6 @@ public class QQThirdPartyController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
 		 	//重定向到推荐首页
 			res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
 			//throw new RuntimeException(e.getMessage());
@@ -215,6 +214,7 @@ public class QQThirdPartyController {
 		    LOGGER.info("绑定呢还是解除绑定呢： "+ userId);
 	        long tokenExpireIn = 0L;
 	        Map<String,String> mapRequest = new HashMap<String,String>();
+	        
 	        mapRequest.put("type",ThirdPartyType.QQ.getCode()+"");
 	        
 			if (accessToken ==null ) {
@@ -227,16 +227,16 @@ public class QQThirdPartyController {
 			 
 	             /**
 	              * 获取qq unionId   --  目前
+	              * 
+	              * 
 	              */
 	             //String unionId = this.getQQUnionIdByOpenIdAndAccessToken(accessToken);
-	             
-	        // LOGGER.info("qq用户unionId   ============"+unionId);
-	             
-			 
+			 	 // LOGGER.info("qq用户unionId   ============"+unionId);
  				 QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByOpenId(openId);
 	            	             
 	             if(qqUser==null){   //保存qq用户
-	            	 LOGGER.info("第一次存入qq用户信息");
+	            	 
+LOGGER.info("第一次存入qq用户信息");
 	            	 
 	            	 // 利用获取到的accessToken 去获取当前用户的openid --------- end
 		             //UserInfo qzoneUserInfo = new UserInfo(accessToken, openId); 
@@ -441,8 +441,6 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		 */
 		
 		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			//设置登录标识
-			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
 			String model = req.getParameter("model");

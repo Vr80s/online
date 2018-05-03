@@ -64,7 +64,6 @@ public class H5WeChatSetController {
 	private String gzh_appid;
 	
 	
-	
 	/**
 	 * 
 	 * Description：设置微信公众号下的菜单
@@ -161,9 +160,7 @@ public class H5WeChatSetController {
 				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 				return;
 			}
-			
 			LOGGER.info(" ==========================  " + req.getParameter("code"));
-			
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
@@ -171,25 +168,19 @@ public class H5WeChatSetController {
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 			
 			if(StringUtils.isNotBlank(wxw.getClient_id())){    //如果绑定过了，就直接ok了。
-				
 			    //这里回调的时候不能默认登录
-				
 				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
-				
 				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
-				
 				LOGGER.info("getLoginName===="+ou.getLoginName());
 				
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
-				
 				/**
 				 * 清除这个cookie
 				 */
 				UCCookieUtil.clearThirdPartyCookie(res);
-				
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 				} else{
@@ -202,7 +193,6 @@ public class H5WeChatSetController {
 				 */
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
 				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=2");
-			
 				/**
 				 * 写入这个cookie
 				 */
@@ -212,9 +202,7 @@ public class H5WeChatSetController {
 				tf.setNickName(wxw.getNickname());
 				tf.setHeadImg(wxw.getHeadimgurl());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
-				
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
-				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 			}
 		} catch (Exception e) {

@@ -190,11 +190,11 @@ $(function() {
 			'</div>' +
 			'<div class="header_left">' +
 				'<div class="path" style="width:95%">' +
-					'<a href="/index.html" class="home">推荐</a>' +
-					'<a href="/headline/1" class="forum">线下课</a>' +
-					'<a href="/classroom.html" class="classroom">直播</a>' +
-					'<a href="/doctors" class="doctor">听课</a>' +
-					'<a href="/clinics" class="hospital">下载APP</a>' +
+					'<a href="/web/html/school/school-recommend.html" class="recommend">推荐</a>' +
+					'<a href="/web/html/school/school-under.html" class="under">线下课</a>' +
+					'<a href="/web/html/school/school-live.html" class="broadcast">直播</a>' +
+					'<a href="/doctors" class="listen">听课</a>' +
+					'<a href="/web/html/Apprentice.html" class="download-app">下载APP</a>' +
 				'</div>' +
 			' </div>' +
 			'<div class="search-wrap">'+

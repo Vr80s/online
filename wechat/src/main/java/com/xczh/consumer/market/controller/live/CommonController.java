@@ -1,11 +1,8 @@
 package com.xczh.consumer.market.controller.live;
 
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -13,7 +10,6 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,16 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.FocusService;
-import com.xczh.consumer.market.service.OnlineCourseService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SmsUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.online.api.service.GiftService;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 /**
  * 通用控制器
@@ -46,19 +34,7 @@ import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 public class CommonController {
 
 	@Autowired
-	private OnlineCourseService onlineCourseService;
-	@Autowired
-	private OnlineUserService onlineUserService;
-	@Autowired
-	private FocusService focusService;
-	@Autowired
 	private AppBrowserService appBrowserService;
-
-	@Autowired
-	private GiftService giftService;
-	
-	@Autowired
-	private OnlineWebService onlineWebService;
 
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
@@ -84,80 +60,79 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject userHomePage(HttpServletRequest req,
 									   HttpServletResponse res)throws Exception {
-		//用户主页   -- 》接口
-		//关注人数         用户头像
-		//直播的课程     传递一个讲师id 就ok了... 得到讲师下的所有课程，得到讲师下的所有粉丝，得到讲师的
 		
-		String lecturerId = req.getParameter("lecturerId");
-		
-		Map<String,Object> mapAll = new HashMap<String,Object>();
-		/**
-		 * 得到讲师   主要是房间号，缩略图的信息啦
-		 */
-		Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
-		/**
-		 * 粉丝总数 
-		 */
-		Integer fansCount  = focusService.findMyFansCount(lecturerId);
-		/**
-		 * 关注总数 
-		 */
-		Integer focusCount  = focusService.findMyFocusCount(lecturerId);
-		
-		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-		mapAll.put("fansCount", fansCount);       		   //粉丝总数
-		mapAll.put("focusCount", focusCount);   	  	   //关注总数
-		
-		//讲师的精彩简介  
-		mapAll.put("videoId", "F89D83B02BCE744D9C33DC5901307461");  //
-		//坐诊医馆
-		MedicalHospitalVo   mh = new MedicalHospitalVo();
-		mh.setDetailedAddress("北京市丰台区开阳路一号瀚海花园大厦一层底商 北京海淀区中关村南大街19号院");
-		mh.setTel("010-68412758");
-		mh.setVisitTime("周一到周五");
-		mh.setCertificationType(1);
-		//认证的主播 还是 医馆
-		mapAll.put("hospital",mh);
-		/**
-		 * 关注讲师的粉丝  显示六个
-		 */
-		//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
-		/**
-		 * 得到讲师下面的所有课程数  ---》如果是视频数的话客户会比较蒙
-		 */
-		//Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
-		/**
-		 * 得到这个讲师的所有   礼物数
-		 */
-		//Integer giftAll = giftService.findByUserId(lecturerId);
-		/**
-         * 得到判断这个主播有没有正在直播的课程啦	
-         */
-		//Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
-		
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+//		String lecturerId = req.getParameter("lecturerId");
+//		
+//		Map<String,Object> mapAll = new HashMap<String,Object>();
+//		/**
+//		 * 得到讲师   主要是房间号，缩略图的信息啦
+//		 */
+//		Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
+//		/**
+//		 * 粉丝总数 
+//		 */
+//		Integer fansCount  = focusService.findMyFansCount(lecturerId);
+//		/**
+//		 * 关注总数 
+//		 */
+//		Integer focusCount  = focusService.findMyFocusCount(lecturerId);
+//		
 //		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-//		//mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
-//		mapAll.put("fansCount", fansCount);       //粉丝总数
-//		mapAll.put("focusCount", focusCount);   	  // 关注总数
-		//mapAll.put("giftAll", giftAll);           // 礼物数 
-		//mapAll.put("courseAll", courseAll);       // 课程数 
-		//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
-		//主播最近一次直播
-		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-		if(null == lecturerId){  //讲师id
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-	    if(user==null){
-	    	mapAll.put("isFours", 0); 
-	    }else{
-	    	/**
-			 * 是否已经关注了这个主播：0 未关注  1已关注
-			 */
-			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
-			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
-	    }
-	    return ResponseObject.newSuccessResponseObject(mapAll);
+//		mapAll.put("fansCount", fansCount);       		   //粉丝总数
+//		mapAll.put("focusCount", focusCount);   	  	   //关注总数
+//		
+//		//讲师的精彩简介  
+//		mapAll.put("videoId", "F89D83B02BCE744D9C33DC5901307461");  //
+//		//坐诊医馆
+//		MedicalHospitalVo   mh = new MedicalHospitalVo();
+//		mh.setDetailedAddress("北京市丰台区开阳路一号瀚海花园大厦一层底商 北京海淀区中关村南大街19号院");
+//		mh.setTel("010-68412758");
+//		mh.setVisitTime("周一到周五");
+//		mh.setCertificationType(1);
+//		//认证的主播 还是 医馆
+//		mapAll.put("hospital",mh);
+//		/**
+//		 * 关注讲师的粉丝  显示六个
+//		 */
+//		//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
+//		/**
+//		 * 得到讲师下面的所有课程数  ---》如果是视频数的话客户会比较蒙
+//		 */
+//		//Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
+//		/**
+//		 * 得到这个讲师的所有   礼物数
+//		 */
+//		//Integer giftAll = giftService.findByUserId(lecturerId);
+//		/**
+//         * 得到判断这个主播有没有正在直播的课程啦	
+//         */
+//		//Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
+//		
+////		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
+////		//mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
+////		mapAll.put("fansCount", fansCount);       //粉丝总数
+////		mapAll.put("focusCount", focusCount);   	  // 关注总数
+//		//mapAll.put("giftAll", giftAll);           // 礼物数 
+//		//mapAll.put("courseAll", courseAll);       // 课程数 
+//		//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
+//		//主播最近一次直播
+//		
+//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+//		if(null == lecturerId){  //讲师id
+//			return ResponseObject.newErrorResponseObject("缺少参数");
+//		}
+//	    if(user==null){
+//	    	mapAll.put("isFours", 0); 
+//	    }else{
+//	    	/**
+//			 * 是否已经关注了这个主播：0 未关注  1已关注
+//			 */
+//			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
+//			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
+//	    }
+//	    return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 	/**
 	 * Description：用户主页    -- 课程列表
@@ -175,24 +150,8 @@ public class CommonController {
 			HttpServletResponse res, Map<String,String> params)throws Exception {
 		
 		
-		String lecturerId = req.getParameter("lecturerId");
-		String pageNumberS = req.getParameter("pageNumber");
-		String pageSizeS = req.getParameter("pageSize");
-		String type = req.getParameter("type"); 
-		if(null == type || null == lecturerId || null == pageNumberS || null == pageSizeS){  //讲师id
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		//根据讲师id得到下面的所有课程啊，包括点播，包括直播....... 直播的在前面
-		//后期音频增加上的话，还需要增加音频了
-		int pageNumber =Integer.parseInt(pageNumberS);
-		int pageSize = Integer.parseInt(pageSizeS);
-		try {
-			List<CourseLecturVo> list = onlineCourseService.liveAndBunchAndAudio(lecturerId,pageNumber,pageSize,type!=null ? Integer.parseInt(type):1);
-			return ResponseObject.newSuccessResponseObject(list);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("后台数据异常");
-		}
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	
 	/**
@@ -211,15 +170,17 @@ public class CommonController {
 	public ResponseObject judgeUserIsTeacher(HttpServletRequest req,
 			HttpServletResponse res, Map<String,String> params)throws Exception {
 		
-		String userId = req.getParameter("userId");
-		//是否是讲师：0,用户，1既是用户也是讲师  is_lecturer
-	    Map<String,Object>  map =  onlineUserService.judgeUserIsTeacher(userId);
-	    LOGGER.info("map.get(is_lecturer)"+map.get("is_lecturer"));
-	    if(null !=map && "0".equals(map.get("is_lecturer").toString())){
-	    	return ResponseObject.newErrorResponseObject(map.get("is_lecturer").toString());
-	    }else{
-	    	return ResponseObject.newSuccessResponseObject(map);
-	    }
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+//		String userId = req.getParameter("userId");
+//		//是否是讲师：0,用户，1既是用户也是讲师  is_lecturer
+//	    Map<String,Object>  map =  onlineUserService.judgeUserIsTeacher(userId);
+//	    LOGGER.info("map.get(is_lecturer)"+map.get("is_lecturer"));
+//	    if(null !=map && "0".equals(map.get("is_lecturer").toString())){
+//	    	return ResponseObject.newErrorResponseObject(map.get("is_lecturer").toString());
+//	    }else{
+//	    	return ResponseObject.newSuccessResponseObject(map);
+//	    }
 	}
 	
 	
@@ -239,16 +200,8 @@ public class CommonController {
 	public ResponseObject courseIsBuy(HttpServletRequest req,
 			HttpServletResponse res)throws Exception {
 		
-	    OnlineUser ou =  appBrowserService.getOnlineUserByReq(req);
-	    if(ou==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
-	    }
-		if(null == req.getParameter("course_id")){
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		int course_id =Integer.parseInt(req.getParameter("course_id"));
-		
-		return onlineCourseService.courseIsBuy(ou,course_id);
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	/**
 	 * 判断当前用户针对这个课程是否还需要密码确认  
@@ -266,24 +219,8 @@ public class CommonController {
 	public ResponseObject courseIsConfirmPwd(HttpServletRequest req,
 			HttpServletResponse res)throws Exception {
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
-	    }
-		if(null == req.getParameter("course_id")){
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		int course_id =Integer.parseInt(req.getParameter("course_id"));
-		
-		//onlineCourseService.
-		//course_id
-		
-		if(user.getId().equals(onlineCourseService.getlecturerIdByCourseId(course_id)) || onlineWebService.getLiveUserCourse(course_id,user.getId())){
-			return ResponseObject.newSuccessResponseObject("认证通过");
-		}else{
-			return ResponseObject.newErrorResponseObject("需要进行密码认证");
-		}
-		//return onlineCourseService.courseIsConfirmPwd(user,course_id);
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	
 	/**
@@ -302,15 +239,8 @@ public class CommonController {
 	public ResponseObject courseStatus(HttpServletRequest req,
 			HttpServletResponse res)throws Exception {
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
-	    }
-		if(null == req.getParameter("course_id")){
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		int course_id =Integer.parseInt(req.getParameter("course_id"));
-		return onlineCourseService.courseStatus(user,course_id);
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	
 	
@@ -329,16 +259,8 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject coursePwdConfirm(HttpServletRequest req,
 			HttpServletResponse res)throws Exception {
-		if(null == req.getParameter("course_pwd") && null == req.getParameter("course_id")){
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		int course_id =Integer.parseInt(req.getParameter("course_id"));
-		String course_pwd =req.getParameter("course_pwd");
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
-	    }
-		return onlineCourseService.saveCoursePwdAndConfirm(user,course_id,course_pwd);
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	/**
 	 * 预约接口
@@ -355,30 +277,9 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject subscribe(HttpServletRequest req,
 			HttpServletResponse res)throws Exception {
-		String mobile =req.getParameter("mobile");
-		String course_id =req.getParameter("course_id");
-	    if(course_id==null){
-	    	return ResponseObject.newErrorResponseObject("缺少参数");
-	    }
-		//获取用户信息
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
-	    }
-	    int isSubscribeInfo =  onlineCourseService.selectSubscribeInfoIs(Integer.parseInt(course_id),user.getId());
-	    if(isSubscribeInfo>0){
-	    	return ResponseObject.newErrorResponseObject("你已经预约过了");
-	    }
-		CourseLecturVo courseVo =onlineCourseService.get(Integer.parseInt(course_id));
-		SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日 HH时mm分");
-		String start = sdf.format(courseVo.getStartTime());
 		
-		if(!StringUtils.isNotBlank(mobile)){
-			mobile = user.getLoginName();
-		}
-		//发送短信
-		SmsUtil.sendSmsSubscribe(mobile, courseVo.getGradeName(), start, null, true);
-		return onlineCourseService.addSubscribeInfo(user,mobile,Integer.parseInt(course_id));
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	
 	/**
@@ -398,15 +299,8 @@ public class CommonController {
 			HttpServletResponse res)throws Exception {
 		
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
-	    }
-		if(null == req.getParameter("course_id")){
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		int course_id =Integer.parseInt(req.getParameter("course_id"));
-		return onlineCourseService.courseStatus(user,course_id);
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	
 	/**
@@ -493,18 +387,8 @@ public class CommonController {
 	public ResponseObject shareJump(HttpServletRequest req,
 			HttpServletResponse res)throws Exception{
 		String courseId = req.getParameter("courseId");  //视频id
-		if(courseId == null ){
-			return ResponseObject.newErrorResponseObject("获取参数异常");
-		}
-		//type 1 直播  2其他
-		//state  0 直播已结束	 1 直播还未开始	 2 正在直播
-		try {
-			Map<String,Object> map = onlineCourseService.shareJump(Integer.parseInt(courseId));
-			return ResponseObject.newSuccessResponseObject(map);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("请求有误");
-		}
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	
 	@RequestMapping("getDomain")
