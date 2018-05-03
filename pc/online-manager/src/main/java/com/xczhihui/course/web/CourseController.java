@@ -469,7 +469,36 @@ public class CourseController extends AbstractController {
         responseObject.setResultObject("修改成功!");
         return responseObject;
     }
-    
+
+    /**
+     * 城市上移
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "cityUpMove", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject cityUpMove(Integer id) {
+        ResponseObject responseObj = new ResponseObject();
+        courseService.updateCitySortUp(id);
+        responseObj.setSuccess(true);
+        return responseObj;
+    }
+
+    /**
+     * 城市下移
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "cityDownMove", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject cityDownMove(Integer id) {
+        ResponseObject responseObj = new ResponseObject();
+        courseService.updateCitySortDown(id);
+        responseObj.setSuccess(true);
+        return responseObj;
+    }
 
     
 
