@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.web.interceptor;
+package com.xczhihui.bxg.online.web.exception;
 
 import com.google.gson.Gson;
 import com.xczhihui.common.exception.IpandaTcmException;
@@ -36,8 +36,6 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
 		if((ex instanceof IpandaTcmException)&&((IpandaTcmException) ex).isAlarm()){
 			try {
 				String subject = "业务异常";
-				System.out.println(ex.getMessage());
-				System.out.println(printStackTraceToString(ex));
 				EmailUtil.sendExceptionMailBySSL("pc端",subject,printStackTraceToString(ex));
 			} catch (MessagingException e) {
 				e.printStackTrace();

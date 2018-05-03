@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.user.center.bean.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +25,12 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.user.center.bean.UserOrigin;
-import com.xczhihui.user.center.bean.UserSex;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
 import com.xczhihui.course.model.QQClientUserMapping;
 import com.xczhihui.course.model.WeiboClientUserMapping;
 import com.xczhihui.course.service.IThreePartiesLoginService;
@@ -90,9 +84,8 @@ public class ThirdPartyCertificationController {
 	 * 
 	 * @param req
 	 * @param res
-	 * @param username
 	 *            手机号
-	 * @param openId
+	 * @param unionId
 	 *            第三方唯一标识（微信的、微博的、qq的）
 	 * @param code
 	 *            短信验证码
@@ -195,7 +188,6 @@ public class ThirdPartyCertificationController {
 	 * 
 	 * @param req
 	 * @param res
-	 * @param params
 	 * @throws Exception
 	 * @return void
 	 * @author name：yangxuan <br>
@@ -362,7 +354,6 @@ public class ThirdPartyCertificationController {
 	 * Description：验证-->手机号 是否已经绑定了微信号、qq 或者 微博号
 	 * 
 	 * @param req
-	 * @param userId
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>
@@ -425,7 +416,6 @@ public class ThirdPartyCertificationController {
 	 * Description：h5 绑定手机号，更换用户信息（手机号）
 	 * 
 	 * @param req
-	 * @param userId
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>

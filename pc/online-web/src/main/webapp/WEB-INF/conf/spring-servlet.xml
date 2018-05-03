@@ -44,7 +44,7 @@
     </mvc:annotation-driven>
 
     <bean id="handlerExceptionResolver"
-          class="com.xczhihui.bxg.online.web.interceptor.ExceptionResolver">
+          class="com.xczhihui.bxg.online.web.exception.ExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="java.lang.Throwable">common/500</prop>
