@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,7 +18,9 @@ import java.util.Date;
 public class MobileBanner  implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+	@GenericGenerator(name = "idGenerator", strategy = "uuid")
+	@GeneratedValue(generator = "idGenerator")
+	@Id
 	private String id;
 
 	/**
