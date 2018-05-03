@@ -1,8 +1,5 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 
 /**
@@ -13,11 +10,14 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
  */
 public class AbstractController {
 
-    public OnlineUser getOnlineUser(HttpServletRequest request) {
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (user == null) {
-            throw new RuntimeException("未登录");
-        }
-        return user;
+    private static final ThreadLocal<OnlineUser> CURRENT_USER = new ThreadLocal<OnlineUser>();
+
+    public static void setCurrentUser(OnlineUser user) {
+        CURRENT_USER.set(user);
     }
+
+    public static OnlineUser getCurrentUser() {
+        return CURRENT_USER.get();
+    }
+
 }

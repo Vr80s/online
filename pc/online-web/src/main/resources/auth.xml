@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <checkuris>
-	<!-- 保存学员信息，并且对中间表生成数据 -->
-	<uri>/online/apply/saveApply</uri>
-	<!-- 验证登录用户是否是老学员 -->
-	<uri>/online/apply/isOldUser</uri>
-
 	<!-- 保存文章评论 -->
 	<uri>/bxs/article/saveAppraise</uri>
 	<!--更新文章点赞数-->
@@ -24,8 +19,8 @@
 	<uri>/ask/answer/praiseAnswer</uri>
 	<!--收藏/取消收藏-->
 	<uri>/ask/answer/collection</uri>
-	<!--删除回答信息--><!-- yuruixin-20170901 -->
-	<!-- <uri>/ask/answer/deleteAnswerById</uri> -->
+	<!--删除回答信息-->
+	 <uri>/ask/answer/deleteAnswerById</uri>
 
 	<!--查找评论/回复-->
 	<uri>/ask/comment/findComments</uri>
@@ -37,52 +32,16 @@
 	<uri>/ask/comment/praiseComment</uri>
 
 	<!--我的提问-->
-	<uri>/ask/my/findMyQuestions</uri>
-	<!--我的回答-->
-	<uri>/ask/my/findMyAnswers</uri>
-	<!--我的收藏-->
-	<uri>/ask/my/findMyCollections</uri>
+	<uri>/ask/my/.*</uri>
 
 	<!--添加提问信息-->
 	<uri>/online/questionlist/saveQuestion</uri>
 	<!--删除问题信息--><!-- yuruixin-20170901 -->
-	<!-- <uri>/online/questionlist/deleteQuestionById</uri> -->
+	<uri>/online/questionlist/deleteQuestionById</uri>
 	<!--视频下问题-->
 	<uri>/online/questionlist/findVideoQuestion</uri>
 	<!--修改视频问题信息-->
 	<uri>/online/questionlist/updateQuestion</uri>
-
-	<!--获取关卡基本信息-->
-	<uri>/barrier/getBarrierBasicInfo</uri>
-	<!--获取当前用户考试卷，如果没有就创建-->
-	<uri>/barrier/createUserTestPaper</uri>
-	<!--保存我的回答-->
-	<uri>/barrier/updateQuestionById</uri>
-	<!--提交试卷-->
-	<uri>/barrier/submitPaper</uri>
-	<!--获得试卷-->
-	<uri>/barrier/getCurrentPaper</uri>
-	<!--获取最新一次闯关关卡基本信息-->
-	<uri>/barrier/getNewBarrierBasicInfo</uri>
-
-	<!--获取相关课程下的所有章节信息-->
-	<uri>/online/chapter/findChapterInfo</uri>
-	<!--获取章下面的节以及知识点(树形结构)-->
-	<uri>/online/chapter/findChapterByChapterId</uri>
-	<!--查找最后播放未完成的视频(点击继续播放调用)-->
-	<uri>/online/chapter/findLastPayVideo</uri>
-
-	<!--课程资源目录树-->
-	<uri>/course/resource/getChapterTree</uri>
-	<!--教案MD格式转换-->
-	<uri>/course/resource/previewmd</uri>
-
-	<!--上传聊天图片-->
-	<uri>/online/live/uploadMsgImg</uri>
-	<!--修改鲜花数-->
-	<uri>/online/live/updateFlowersNumber</uri>
-	<!--检测每个用户送花时间距离上次送花时间的差距是否是30秒-->
-	<uri>/online/live/checkTime</uri>
 
 	<!--博文答提问时获取有权限学科以及学科下的标签-->
 	<uri>/online/menutag/getQuestionMenuTags</uri>
@@ -90,54 +49,14 @@
 	<uri>/online/menutag/saveAccuse</uri>
 
 	<!--添加用户反馈-->
-	<uri>/online/message/addFeedBack</uri>
-	<!--获取当前用户的系统消息-->
-	<uri>/online/message/getMessageList</uri>
-	<!--删除消息-->
-	<uri>/online/message/deleteMessage</uri>
-	<!--全部消息设置已读状态-->
-	<uri>/online/message/readMessage</uri>
-	<!--将某条消息标志已读状态-->
-	<uri>/online/message/updateReadStatusById</uri>
-	<!--获取未读消息总数-->
-	<uri>/online/message/findMessageCount</uri>
+	<uri>/online/message/.*</uri>
 
-	<!-- 保存或修改笔记 -->
-	<uri>/notes/saveOrUpdate</uri>
-	<!-- 我的笔记列表、全部笔记列表 -->
-	<uri>/notes/findNotes</uri>
-	<!-- 删除笔记 -->
-	<uri>/notes/deleteNotes</uri>
-	<!--  点赞、取消点赞 -->
-	<uri>/notes/updatePraise</uri>
-	<!--  收藏、取消收藏 -->
-	<uri>/notes/updateCollect</uri>
-	<!--   保存评论/回复 -->
-	<uri>/notes/saveComment</uri>
-	<!--   删除评论/回复 -->
-	<uri>/notes/deleteComment</uri>
-	<!--   生成订单 -->
-	<uri>/web/courseId/saveOrder</uri>
 	<!-- 获取我的订单 -->
 	<uri>/web/getMyAllOrder</uri>
 	<!-- 检查订单是否已支付 -->
 	<uri>/web/checkOrder</uri>
 	<!-- 取消订单或删除订单 -->
 	<uri>/web/updateOrderStatu</uri>
-	<!--  获取用户此课程学习计划 -->
-	<uri>/bxs/plan/getUserLearPlan</uri>
-	<!--  查询用户各等级学费补贴 -->
-	<uri>/share/order_subsidies</uri>
-	<!--  根据条件查询分享订单 -->
-	<uri>/share/order_shareOrders</uri>
-	<!--  查询用户各级别用户人数 -->
-	<uri>/share/findUserCount</uri>
-	<!-- 获取当前登录用户的所有一级分享用户-->
-	<uri>/share/findOneLevelUser</uri>
-	<!--保存登录用户分享关系 -->
-	<uri>/share/saveShareRelation</uri>
-	<!--检查是否修改登录用户的分享关系 -->
-	<uri>/share/checkShareRelation</uri>
 	<!--获取短链接 -->
 	<uri>/short/url</uri>
 	<!-- 获取用户信息-->
@@ -156,16 +75,8 @@
 	<uri>/online/user/updateHeadPhoto</uri>
 	<!--查询所有菜单 -->
 	<uri>/userCourse/menus</uri>
-	<!-- 查询当前用户所有课程-->
-	<uri>/userCourse/courses/courseStatus/pageNumber/pageSize</uri>
 	<!--收藏/取消收藏 -->
 	<uri>/online/util/upload4Simditor</uri>
-	<!--  获得验证码 -->
-	<uri>/online/vedio/getCcVerificationCode</uri>
-	<!-- 根据节Id查询节下的所有视频列表 -->
-	<uri>/video/getVideos</uri>
-	<!--v.新版本要求查询课程中所有章、节、知识点下的视频列表 -->
-	<uri>/video/getvideos</uri>
 	<!--提交评论 -->
 	<uri>/video/saveCriticize/</uri>
 	<!--  点赞、取消点赞 -->
@@ -174,43 +85,25 @@
 	<uri>/video/updateStudyStatus</uri>
 	<!-- 免费课程 用户报名时，将课程下所有视频插入用户视频中间表中-->
 	<uri>/video/saveEntryVideo</uri>
-	<!-- 获取所有对该视频的评论 -->
-	<!--<uri>/video/getVideoCriticize</uri>-->
+
 
     <!-- 获取用户信息-->
 	<uri>/online/user/isAlive</uri>
 
-	<!-- 查询购物车课程数-->
-	<uri>/shoppingCart/findCourseNum</uri>
-	<!-- 课程加入购物车-->
-	<uri>/shoppingCart/join</uri>
-	<!-- 课程批量加入购物车-->
-	<uri>/shoppingCart/batchJoin</uri>
-	<!-- 我的购物车课程列表-->
-	<uri>/shoppingCart/lists</uri>
-	<!-- 删除购物车课程-->
-	<uri>/shoppingCart/delete</uri>
-	
-	<!-- 查询我的优惠码-->
-	<uri>/fcode/findMyFcode</uri>
-	<!-- 领取优惠码-->
-	<uri>/fcode/addUserFcode</uri>
+	<uri>/shoppingCart/.*</uri>
 
-	<!-- 获取用户所有作业 -->
-	<uri>/paper/findMyCurrentPage</uri>
-	<!-- 获取用户历史作业 -->
-	<uri>/paper/findMyHistoryPage</uri>
-	<!-- 获取我的未完成作业试卷页面试题信息 -->
-	<uri>/paper/getMyPaper</uri>
-	<!-- 提交作业 -->
-	<uri>/paper/submitPaper</uri>
-	<!-- 查看我的试卷或成绩-->
-	<uri>/paper/findMyPaperOrScore</uri>
-	<!-- 保存我的回答 -->
-	<uri>/paper/updateQuestionById</uri>
+	<uri>/address/.*</uri>
+
+	<uri>/medical/common/.*</uri>
+	<uri>/doctor/.*</uri>
+	<uri>/hospital/.*</uri>
+
+	<anchoruri>/anchor/.*</anchoruri>
+	<anchoruri>/videoRes/.*</anchoruri>
 
 	<anchoruri>/web/html/anchor/curriculum.html</anchoruri>
-	<!--<anchoruri>/web/html/anchors_resources.html</anchoruri>-->
-	<!--<anchoruri>/web/html/anchors_resources.html</anchoruri>-->
 
+
+
+	<anonuri></anonuri>
 </checkuris>

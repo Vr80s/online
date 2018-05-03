@@ -2,7 +2,7 @@ package com.xczhihui.medical.hospital.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.common.exception.MedicalException;
+import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;

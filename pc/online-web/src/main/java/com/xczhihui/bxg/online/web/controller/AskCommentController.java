@@ -19,20 +19,19 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping(value = "/ask/comment")
-public class AskCommentController {
+public class AskCommentController extends AbstractController{
 
 	@Autowired
 	private AskCommentService service;
 	/**
 	 * 查找评论/回复
-	 * @param question_id
 	 * @param pageNumber
 	 * @param pageSize
 	 * @return
 	 */
 	@RequestMapping(value = "/findComments")
 	public ResponseObject findComments(String answer_id,Integer pageNumber,Integer pageSize,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.findComments(u,answer_id, pageNumber, pageSize));
 	}
 	/**
@@ -42,7 +41,7 @@ public class AskCommentController {
 	 */
 	@RequestMapping(value = "/addComment")
 	public ResponseObject addAnswer(AskCommentVo vo,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		vo.setCreate_person(u.getLoginName());
 		vo.setCreate_head_img(u.getSmallHeadPhoto());
 		vo.setCreate_nick_name(u.getName());
@@ -69,7 +68,7 @@ public class AskCommentController {
 	 */
 	@RequestMapping(value = "/praiseComment")
 	public ResponseObject praiseComment(String comment_id,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.addPraiseComment(u,comment_id));
 	}
 

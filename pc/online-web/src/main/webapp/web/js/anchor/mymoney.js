@@ -167,8 +167,9 @@ function rankList(liveId) {
 
 //排行榜分页列表
 
-function getRankingList(current, liveId) {
-	RequestService("/medical/order/gift/rankingList?size=10&current=" + current + "&liveId=" + liveId, "get", null, function(data) {
+function getRankingList(current, liveId) {	
+	
+	RequestService("/anchor/order/gift/rankingList?size=10&current=" + current + "&liveId=" + liveId, "get", null, function(data) {
 		for(var i = 0; i < data.resultObject.records.length; i++) {
 			if(data.resultObject.records[i].VALUE > 0) {
 				data.resultObject.records[i].VALUE = "+" + data.resultObject.records[i].VALUE;
@@ -194,6 +195,7 @@ function getRankingList(current, liveId) {
 			$(".RankingList_page").css("display", "none");
 		}
 	});
+	
 }
 
 //课程收益列表
@@ -222,7 +224,7 @@ function getCourseResiveList(current, gradeName, startTime, endTime) {
 		courseForm = 2;
 		multimediaType = 2;
 	}
-	var url = "/medical/order/course/list?size=10&current=" + current + "&gradeName=" + gradeName + "&startTime=" + startTime + "&endTime=" + endTime;
+	var url = "/anchor/order/course/list?size=10&current=" + current + "&gradeName=" + gradeName + "&startTime=" + startTime + "&endTime=" + endTime;
 	if(courseForm != null) {
 		url += "&courseForm=" + courseForm;
 	}
@@ -279,6 +281,12 @@ function getCourseResiveList(current, gradeName, startTime, endTime) {
 //	 礼物收益列表
 //	getGiftResiveList (1);
 function getGiftResiveList(current, gradeName, startTime, endTime) {
+		if($(".toRankingList").text()=="返回"){
+			$(".toRankingList").addClass('hide');
+    		$('.gift_Resive_mid').addClass('hide');
+			$('.gift_Resive_bottom').removeClass('hide');
+			$('.gift_Resive_bottom2').addClass('hide');
+    	}
 	if(gradeName == undefined) {
 		gradeName = ''
 	}
@@ -288,7 +296,7 @@ function getGiftResiveList(current, gradeName, startTime, endTime) {
 	if(endTime == undefined) {
 		endTime = ''
 	}
-	RequestService("/medical/order/gift/list?size=10&current=" + current + "&gradeName=" + gradeName + "&startTime=" + startTime + "&endTime=" + endTime, "get", null, function(data) {
+	RequestService("/anchor/order/gift/list?size=10&current=" + current + "&gradeName=" + gradeName + "&startTime=" + startTime + "&endTime=" + endTime, "get", null, function(data) {
 		if(data.success == false) {
 			$('#blackTip').text(data.errorMessage);
 			$('#blackTip').toggle();
@@ -333,6 +341,7 @@ function getGiftResiveList(current, gradeName, startTime, endTime) {
 			$(".giftResive_pages").css("display", "none");
 		}
 	});
+
 }
 
 //条件搜索课程收益列表

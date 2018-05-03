@@ -35,7 +35,7 @@ import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
  **/
 @Controller
 @RequestMapping(value = "/clinics")
-public class ClinicPageController extends AbstractController {
+public class ClinicPageController extends AbstractFtlController {
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.body.doctor.DoctorWritingBody;
-import com.xczhihui.bxg.online.web.controller.ftl.AbstractController;
+import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
@@ -23,8 +23,8 @@ import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
  * @author hejiwei
  */
 @Controller
-@RequestMapping("doctor/writing")
-public class DoctorWritingController extends AbstractController {
+@RequestMapping("/doctor/writing")
+public class DoctorWritingController extends AbstractFtlController {
 
     @Autowired
     private IMedicalDoctorWritingService medicalDoctorWritingService;

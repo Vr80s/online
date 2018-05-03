@@ -37,8 +37,7 @@ public class EssenceRecommendDao extends HibernateDao<Course> {
 						+ "  oc.menu_id AS menuId,\n"
 						+ "  oc.course_type_id AS courseTypeId,\n"
 						+ "  oc.courseType AS courseType,\n"
-						+ "  oc.is_recommend,\n"
-						+ "  oc.recommend_sort,\n"
+						+ "  if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, "
 						+ "  oc.release_time,\n"
 						+ "  oc.sort_update_time as sortUpdateTime,\n"
 						+ "  oc.course_type AS serviceType,\n"
@@ -84,7 +83,7 @@ public class EssenceRecommendDao extends HibernateDao<Course> {
 			paramMap.put("multimediaType", courseVo.getMultimediaType());
 			sql.append("and oc.multimedia_type = :multimediaType ");
 		}
-		sql.append(" order by oc.status desc,oc.recommend_sort desc,oc.release_time desc ");
+		sql.append(" order by oc.status desc,recommendSort desc,oc.release_time desc ");
 
 		System.out.println(sql);
 		Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap,

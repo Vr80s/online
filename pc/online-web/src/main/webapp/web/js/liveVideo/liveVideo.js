@@ -1,32 +1,3 @@
-function checkLoginStatus(){
-    $.ajax({
-        type: "get",
-        url: bath + "/online/user/loginStatus",
-        async: false,
-        success: function(data) {
-            console.log(data);
-            if(data.success === true) {
-                if(data.resultObject==0){
-                    //alert("当前已登录");
-                }else if(data.resultObject==1){
-                	alert("请登录后观看！");
-                    window.location.href=bath+"/web/html/login.html"
-                    //alert("未登录状态");
-                }else if(data.resultObject==2){
-                    //alert("被顶掉！");
-                    // window.location.href=bath+"/otherDevice.html"
-                }
-
-            } else {
-
-            }
-        }
-    });
-}
-
-
-
-
 var teacherId;
 var teacherName;
 $(function() {

@@ -151,7 +151,7 @@ $('.path .hospital').addClass('select');
 		//发送认证请求
         $.ajax({
             type: "post",
-            url: "/medical/hospital/update",
+            url: "/hospital/update",
             data:JSON.stringify(data),
             contentType:"application/json",
             async: false,
@@ -272,7 +272,7 @@ $('.path .hospital').addClass('select');
 		var licenseForPharmaceuticalTradingPicture = $('.hos_renzheng_inf .bottomContent .zhicheng_pic img').attr('src');
 		
 		//提交医馆认证数据
-		RequestService("/medical/hospital/apply", "post", {
+		RequestService("/hospital/apply", "post", {
 				name:name,
 				company:company,
 				businessLicenseNo:businessLicenseNo,
@@ -302,7 +302,7 @@ $('.path .hospital').addClass('select');
 	})
 	
 	//添加医师里头的医疗领域部分数据获取   改成了科室
-		RequestService("/medical/doctor/apply/listDepartment/0", "get", {			
+		RequestService("/doctor/apply/listDepartment/0", "get", {
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
@@ -320,7 +320,7 @@ $('.path .hospital').addClass('select');
 	
 	//医馆信息的回显数据渲染
 	if(localStorage.AccountStatus == 2){
-		RequestService("/medical/hospital/authentication/get", "get", {			
+		RequestService("/hospital/authentication/get", "get", {
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
@@ -338,7 +338,7 @@ $('.path .hospital').addClass('select');
 
 		})
 	}else{
-			RequestService("/medical/hospital/apply/getLastOne", "get", {			
+			RequestService("/hospital/apply/getLastOne", "get", {
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){

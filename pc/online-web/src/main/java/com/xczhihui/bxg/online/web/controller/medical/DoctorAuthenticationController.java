@@ -36,7 +36,7 @@ public class DoctorAuthenticationController extends AbstractController{
     public ResponseObject getHospitalAuthentication(HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(medicalDoctorAuthenticationInformationService.selectDoctorAuthenticationVO(currentUser.getUid()));
     }

@@ -24,7 +24,7 @@ import com.xczhihui.course.service.IFocusService;
  */
 @RestController
 @RequestMapping(value = "/focus")
-public class FocusController {
+public class FocusController extends AbstractController{
 
 	@Autowired
 	private IFocusService focusService;
@@ -63,7 +63,7 @@ public class FocusController {
 		/**
 		 * 判断用户是否已经关注了这个主播
 		 */
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		BxgUser loginUser = getCurrentUser();
 	    if(loginUser==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }

@@ -18,7 +18,6 @@ import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.common.util.enums.DoctorType;
-import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
@@ -26,7 +25,6 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 
 /**
@@ -38,7 +36,7 @@ import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
  **/
 @Controller
 @RequestMapping(value = "/doctors")
-public class DoctorPageController extends AbstractController {
+public class DoctorPageController extends AbstractFtlController {
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
@@ -64,7 +62,7 @@ public class DoctorPageController extends AbstractController {
         List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
         view.addObject("recentlyNewsReports", recentlyNewsReports);
 
-        List<MedicalWritingVO> recentlyWritings = medicalDoctorBusinessService.getRecentlyWritings();
+        List<OeBxsArticleVO> recentlyWritings = medicalDoctorArticleService.listPublicWritings(1, 3).getRecords();
         view.addObject("recentlyWritings", recentlyWritings);
 
         Page<MedicalDoctorVO> page = new Page<>();
@@ -174,34 +172,10 @@ public class DoctorPageController extends AbstractController {
         return view;
     }
 
-    @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
-    public ModelAndView getPublicSpecialColumnByDoctorId(@RequestParam(defaultValue = "1") int page) {
-        ModelAndView modelAndView = new ModelAndView("doctor/special-column");
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicArticle(page, HeadlineType.DJZL.getCode());
-        oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
-            oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
-        });
-        modelAndView.addObject("specialColumns", oeBxsArticleVOPage);
-        modelAndView.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthor(10));
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "report", method = RequestMethod.GET)
-    public ModelAndView getPublicReportByDoctorId(@RequestParam(defaultValue = "1") int page) {
-        ModelAndView modelAndView = new ModelAndView("doctor/report");
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicArticle(page, HeadlineType.MYBD.getCode());
-        oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
-            oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
-        });
-        modelAndView.addObject("reports", oeBxsArticleVOPage);
-        modelAndView.addObject("doctors", medicalDoctorBusinessService.selectRecDoctor());
-        return modelAndView;
-    }
-
     @RequestMapping(value = "writing", method = RequestMethod.GET)
     public ModelAndView getPublicWritingByDoctorId(@RequestParam(defaultValue = "1") int page) {
         ModelAndView modelAndView = new ModelAndView("doctor/writing");
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicWritings(page);
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = medicalDoctorArticleService.listPublicWritings(page, 10);
         oeBxsArticleVOPage.getRecords().forEach(oeBxsArticleVO -> {
             oeBxsArticleVO.setContent(HtmlUtil.getTextFromHtml(oeBxsArticleVO.getContent()));
         });

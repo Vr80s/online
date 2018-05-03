@@ -147,7 +147,7 @@ $(function(){
 	    
 	    
 	      //名医筛选条件的科室
-	    RequestService("/medical/doctor/apply/listDepartment/0","GET",null,function(data){
+	    RequestService("/doctor/apply/listDepartment/0","GET",null,function(data){
 	       if(data.resultObject == null || data.resultObject.records.length == 0){
 	   			alert('未获取到筛选中的科室')
 	       }else{

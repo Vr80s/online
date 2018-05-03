@@ -552,11 +552,6 @@ public class HttpUtil {
         Matcher matcher =pattern.matcher(req.getHeader("User-Agent"));    */
         String model =getMobileType(req.getHeader("User-Agent"));  
         System.out.println("model:"+model);//手机型号    
-        /*if(matcher.find()) {    
-            model = matcher.group(1).trim();   
-            System.out.println("model:"+model);//手机型号    
-        }  
-        System.out.println("IP地址:"+HttpUtil.getIpAddress(req));*/
         map.put("browserName", browser.getName());
         map.put("systemName", os.getName());
         map.put("model", model);

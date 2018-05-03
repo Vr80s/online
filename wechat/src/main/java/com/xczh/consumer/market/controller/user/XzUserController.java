@@ -468,7 +468,6 @@ public class XzUserController {
 			
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
 			String model = req.getParameter("model");
 			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());

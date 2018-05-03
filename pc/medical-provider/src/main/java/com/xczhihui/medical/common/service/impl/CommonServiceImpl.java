@@ -1,6 +1,6 @@
 package com.xczhihui.medical.common.service.impl;
 
-import com.xczhihui.common.exception.MedicalException;
+import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;

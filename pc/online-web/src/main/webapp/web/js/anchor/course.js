@@ -1457,7 +1457,6 @@ function picUpdown(baseurl,imgname){
     RequestService("/medical/common/upload", "post", {
         image: baseurl,
     }, function(data) {
-        console.log(data);
         $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
     	$(".row_size").hide()
     })

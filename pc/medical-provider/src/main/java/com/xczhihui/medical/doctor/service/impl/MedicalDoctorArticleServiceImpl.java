@@ -208,10 +208,8 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
-    public Page<OeBxsArticleVO> listPublicWritings(int page) {
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
+    public Page<OeBxsArticleVO> listPublicWritings(int page, int size) {
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, size);
         return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listPublicWritings(oeBxsArticleVOPage));
     }
-
-
 }

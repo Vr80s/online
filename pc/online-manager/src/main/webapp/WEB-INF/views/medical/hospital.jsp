@@ -524,7 +524,7 @@
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
             <div class="mainrighttab tabresourse bordernone" id="courseDiv">
-                <p class="col-xs-4" style="padding: 0;">
+                <p class="col-xs-8" style="padding: 0;">
                     <button class="btn btn-sm btn-success add_P" title="新增">
                         <i class="glyphicon glyphicon-plus"></i> 新增
                     </button>
@@ -533,6 +533,9 @@
                     </button>
                     <button class="btn btn-sm btn-success rec_P" title="设为推荐">
                         <i class="glyphicon glyphicon-cog"></i> 设为推荐
+                    </button>
+                    <button class="btn btn-sm btn-success J-announcement" title="公告管理">
+                        公告管理
                     </button>
                 </p>
 

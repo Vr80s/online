@@ -1,20 +1,17 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMyInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.course.service.IFocusService;
-import com.xczhihui.course.service.IMyInfoService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /** 
@@ -25,7 +22,7 @@ import com.xczhihui.course.service.IMyInfoService;
  */
 @RestController
 @RequestMapping(value = "/host")
-public class HostController {
+public class HostController extends AbstractController{
 
 
 	@Autowired
@@ -54,7 +51,7 @@ public class HostController {
 		/**
 		 * 判断用户是否已经关注了这个主播
 		 */
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		BxgUser loginUser = getCurrentUser();
 	    if(loginUser==null){
 	    	mapAll.put("isFours", 0); 
 	    }else{

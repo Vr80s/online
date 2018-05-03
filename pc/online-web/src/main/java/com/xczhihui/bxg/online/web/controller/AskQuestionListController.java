@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping(value = "/online/questionlist")
-public class AskQuestionListController {
+public class AskQuestionListController extends AbstractController{
 
     @Autowired
     private AskQuestionListService questionListService;
@@ -44,7 +44,7 @@ public class AskQuestionListController {
      */
     @RequestMapping(value = "/getQuestionList",method= RequestMethod.GET)
     public ResponseObject getQuestionList(Integer pageNumber, Integer pageSize,Integer menuId, String status, String tag, String title, String text, String content,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
         return ResponseObject.newSuccessResponseObject(questionListService.findListQuestion(u,pageNumber,pageSize,menuId,status,tag,title,text,content));
     }
 
@@ -136,7 +136,7 @@ public class AskQuestionListController {
     public ResponseObject deleteQuestionById(String  questionId,HttpServletRequest request) {
 
         //获取当前登录用户信息
-        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser u = getCurrentUser();
         return    ResponseObject.newSuccessResponseObject(questionListService.deleteQuestionById(request,u,questionId));
     }
 

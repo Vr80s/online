@@ -1,7 +1,7 @@
 package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.exception.AnchorWorkException;
+import com.xczhihui.medical.exception.AnchorWorkException;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;

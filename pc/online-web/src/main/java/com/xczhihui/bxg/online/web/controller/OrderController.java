@@ -28,15 +28,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping(value = "/web")
-public class OrderController {
+public class OrderController extends AbstractController{
 
     @Autowired
     private OrderService  orderService;
-    @Autowired
-    private OrderPayService orderPayService;
-    @Autowired
-    private CourseService courseService;
-    private Object lock = new Object();
 
     @Value("${web.url}")
     private String weburl;
@@ -101,7 +96,7 @@ public class OrderController {
     @RequestMapping(value = "/checkOrder")
     @ResponseBody
     public ResponseObject checkOrder(String orderNo,HttpServletRequest req){
-        BxgUser user = UserLoginUtil.getLoginUser(req);
+        BxgUser user = getCurrentUser();
     	if (user == null) {
 			return ResponseObject.newErrorResponseObject("请登录！");
 		}
@@ -116,10 +111,7 @@ public class OrderController {
     @RequestMapping(value = "/updateOrderStatu", method= RequestMethod.POST)
     @ResponseBody
     public ResponseObject  updateOrderStatu(Integer type,String orderNo,HttpServletRequest request){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (user == null) {
-            return ResponseObject.newErrorResponseObject("请登录！");
-        }
+        OnlineUser user = getCurrentUser();
         orderService.updateOrderStatu(type,orderNo,user);
         return  ResponseObject.newSuccessResponseObject("操作成功!");
     }
@@ -179,7 +171,7 @@ public class OrderController {
     @RequestMapping(value = "/consumptionList", method= RequestMethod.GET)
     @ResponseBody
     public ResponseObject consumptionList(HttpServletRequest request,Integer pageNumber, Integer pageSize){
-    	BxgUser user = UserLoginUtil.getLoginUser(request);
+    	BxgUser user = getCurrentUser();
     	if (user == null) {
 			return ResponseObject.newErrorResponseObject("请登录！");
 		}

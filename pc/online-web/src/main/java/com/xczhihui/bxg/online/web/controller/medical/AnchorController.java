@@ -59,13 +59,13 @@ public class AnchorController extends AbstractController{
      * @return
      */
     private String getCurrentUserId(HttpServletRequest request){
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         return loginUser.getId();
     }
 
     @RequestMapping("hasPower")
     public ResponseObject hasPower(HttpServletRequest request){
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         try {
             anchorInfoService.validateAnchorPermission(loginUser.getId());
         }catch (Exception e){

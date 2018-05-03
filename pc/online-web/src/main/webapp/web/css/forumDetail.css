@@ -166,7 +166,7 @@ img {
 }
 
 #forum .forum-content .forum-content-left .forum-detailInfo .forum-detail-content {
-    margin-top: 23px;
+    margin-top: 50px;
     word-break: break-all;
     word-wrap: break-word;
 }
@@ -229,6 +229,7 @@ img {
 
 #forum .forum-content .forum-content-left .forum-community {
     position: relative;
+    margin-top: 40px;
 }
 
 #forum .forum-content .forum-content-left .forum-community .emptyHit {
@@ -306,7 +307,7 @@ img {
 }
 
 #forum .forum-content .forum-content-left .all-comment {
-    margin-top: 17px;
+    margin-top: 40px;
 }
 
 #forum .forum-content .forum-content-left .all-comment .all-comment-title span:first-child {
@@ -942,3 +943,93 @@ img {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.teacher_books{
+    background-color:#fff;
+    padding:20px;
+}
+.teacher_books >div{
+    position: relative;
+}
+.teacher_books >div>h4{
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.teacher_books >div > a{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #000;
+}
+.teacher_books .book_list li{
+    height:100px;
+    margin-bottom:10px;
+}
+.teacher_books .book_list li img{
+    width:80px;
+    height:100px;
+    float:left;
+    margin-right:10px;
+    top: 50%;
+}
+.teacher_books .book_list li > div{
+    padding-top:20px;
+    padding-left: 100px;
+}
+.teacher_books .book_list li .book_name{
+    font-size:14px;
+}
+.teacher_books .book_list li .book_author{
+    font-size:14px;
+    font-weight:700;
+}
+
+.writing-buy-link {
+    display: flex;
+}
+.writing-author-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.writing-buy-link img {
+    width: 100px;
+    height:140px;
+}
+.writing-author-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 610px;
+    padding-left: 20px;
+}
+.writing-author-name .title {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 21px;
+}
+.writing-author-name .name {
+    font-size: 14px;
+    line-height: 19px;
+}
+.writing-author-info .writing-go-buy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.writing-go-buy .text {
+    width: 90px;
+    height: 36px;
+    background-color: white;
+    border-color: #00BC12;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.writing-go-buy .text a {
+    color: #00BC12;
+}
+
+

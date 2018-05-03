@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,16 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.model.OeBxsAppraise;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
@@ -39,7 +39,7 @@ import com.xczhihui.medical.headline.service.IOeBxsArticleService;
  **/
 @Controller
 @RequestMapping(value = "/headline")
-public class HeadlinePageController extends AbstractController {
+public class HeadlinePageController extends AbstractFtlController {
 
     @Autowired
     private BannerService bannerService;
@@ -56,7 +56,7 @@ public class HeadlinePageController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
-        List<Map<String, Object>> articleType = articleService.getArticleType();
+        List<Map<String, Object>> articleType = this.getArticleTypes();
         return new ModelAndView("redirect:headline/" + articleType.get(0).get("id"));
     }
 
@@ -70,12 +70,10 @@ public class HeadlinePageController extends AbstractController {
         view.addObject("banners", banners);
         List<Map<String, Object>> hotArticle = articleService.getHotArticle();
         view.addObject("hotArticle", hotArticle);
-        List<OeBxsArticleVO> hotSpecialColumn = medicalDoctorBusinessService.getHotSpecialColumn();
-        view.addObject("hotSpecialColumn", hotSpecialColumn);
-        List<MedicalDoctorVO> hotSpecialColumnAuthor = medicalDoctorBusinessService.getHotSpecialColumnAuthor();
-        view.addObject("hotSpecialColumnAuthor", hotSpecialColumnAuthor);
-        List<Map<String, Object>> articleType = articleService.getArticleType();
-        view.addObject("articleType", articleType);
+        view.addObject("hotSpecialColumnAuthors", medicalDoctorArticleService.listHotSpecialColumnAuthor(6));
+        List<Map<String, Object>> articleTypes = this.getArticleTypes();
+
+        view.addObject("articleType", articleTypes);
 
         Page<OeBxsArticle> articles = oeBxsArticleService.selectArticlesByPage(new Page(current, size), type);
         view.addObject("articles", articles);
@@ -97,11 +95,11 @@ public class HeadlinePageController extends AbstractController {
         size = size == null ? 10 : size;
         List<Map<String, Object>> hotArticle = articleService.getHotArticle();
         view.addObject("hotArticle", hotArticle);
-        List<Map<String, Object>> articleType = articleService.getArticleType();
-        view.addObject("articleType", articleType);
-        type = type == null ? (String) articleType.get(0).get("id") : type;
+        List<Map<String, Object>> articleTypes = this.getArticleTypes();
+        view.addObject("articleType", articleTypes);
+        type = type == null ? (String) articleTypes.get(0).get("id") : type;
         String typeText = null;
-        for (Map<String, Object> map : articleType) {
+        for (Map<String, Object> map : articleTypes) {
             if (map.get("id").equals(type)) {
                 typeText = (String) map.get("name");
             }
@@ -134,7 +132,7 @@ public class HeadlinePageController extends AbstractController {
         String typeId = article.getTypeId();
         if (typeId == null) {
             view.addObject("writing", medicalDoctorWritingService.findByArticleId(id));
-//            view.addObject("writings", medicalDoctorWritingService.)
+            view.addObject("writings", medicalDoctorArticleService.listPublicWritings(1, 6));
         } else {
             if (HeadlineType.MYBD.getCode().equals(typeId)) {
                 List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
@@ -164,4 +162,15 @@ public class HeadlinePageController extends AbstractController {
         return view;
     }
 
+    private List<Map<String, Object>> getArticleTypes() {
+        List<OeBxsArticleVO> hotSpecialColumns = medicalDoctorBusinessService.getHotSpecialColumn();
+        List<Map<String, Object>> articleTypes = articleService.getArticleType();
+        //没有专栏，不返回大家专栏的这个分类
+        if (hotSpecialColumns.size() == 0) {
+            articleTypes = articleTypes.stream()
+                    .filter(articleType -> (Integer.parseInt(articleType.get("id").toString())) != Integer.parseInt(HeadlineType.DJZL.getCode()))
+                    .collect(Collectors.toList());
+        }
+        return articleTypes;
+    }
 }

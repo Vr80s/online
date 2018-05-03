@@ -1,23 +1,25 @@
 package com.xczhihui.medical.anchor.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.common.exception.AnchorWorkException;
-import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
-import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
-import com.xczhihui.medical.anchor.model.CourseAnchor;
-import com.xczhihui.medical.anchor.service.IGiftOrderService;
-import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.medical.exception.AnchorWorkException;
+import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
+import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
+import com.xczhihui.medical.anchor.model.CourseAnchor;
+import com.xczhihui.medical.anchor.service.IGiftOrderService;
+import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 
 @Service("giftOrderServiceImpl")
 public class GiftOrderServiceImpl implements IGiftOrderService {
@@ -29,6 +31,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
     /**
      * 获取用户所有收到过礼物的课程
+     *
      * @param userId 用户id
      */
     @Override
@@ -38,10 +41,10 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime start = null, end = null;
 
-            if(StringUtils.isNotBlank(startTime)){
+            if (StringUtils.isNotBlank(startTime)) {
                 start = LocalDateTime.parse(startTime, dateTimeFormatter);
             }
-            if(StringUtils.isNotBlank(endTime)){
+            if (StringUtils.isNotBlank(endTime)) {
                 end = LocalDateTime.parse(endTime, dateTimeFormatter);
             }
             if(StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(endTime)){
@@ -54,8 +57,8 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             CourseAnchor courseAnchor = new CourseAnchor();
             courseAnchor.setUserId(userId);
             CourseAnchor anchor = anchorMapper.selectOne(courseAnchor);
-            String startTimeStr = start==null ? null:start.toString();
-            String endTimeStr = end==null ? null:end.toString();
+            String startTimeStr = start == null ? null : start.toString();
+            String endTimeStr = end == null ? null : end.toString();
             // 获取礼物订单的课程名称，直播时间
             List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listGiftOrder(userId, page, gradeName, startTimeStr, endTimeStr);
 
@@ -72,7 +75,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
             return page.setRecords(result);
 
-        }catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
 
             throw new AnchorWorkException("时间格式错误");
 
@@ -81,6 +84,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
     /**
      * 礼物订单排行榜
+     *
      * @param userId 用户id
      */
     @Override
@@ -95,13 +99,13 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
         // 礼物排行榜 总贡献值排序
         List<UserCoinIncreaseVO> result = userCoinIncreaseMapper.rankGiftList(liveId, page);
-        if(CollectionUtils.isNotEmpty(result)){
-            for (UserCoinIncreaseVO vo: result){
+        if (CollectionUtils.isNotEmpty(result)) {
+            for (UserCoinIncreaseVO vo : result) {
 
                 vo.setRanking(ranking++);
 
                 // 获取平台扣除
-                vo.setIosBrokerageValue(userCoinIncreaseMapper.sumGiverIosBrokerageValueByLiveId(liveId,vo.getGiver()));
+                vo.setIosBrokerageValue(userCoinIncreaseMapper.sumGiverIosBrokerageValueByLiveId(liveId, vo.getGiver()));
 
                 // 获取熊猫币
                 vo.setValue(userCoinIncreaseMapper.sumValue(vo.getGiver(), liveId));
@@ -112,7 +116,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
     }
 
-    private UserCoinIncreaseVO processUserCoinIncreaseVOList(UserCoinIncreaseVO vo, CourseAnchor anchor){
+    private UserCoinIncreaseVO processUserCoinIncreaseVOList(UserCoinIncreaseVO vo, CourseAnchor anchor) {
 
         // 获取直播的礼物总价
         vo.setGiftTotalPrice(userCoinIncreaseMapper.sumGiftTotalPriceByLiveId(vo.getLiveId()));
@@ -124,9 +128,9 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
         vo.setIosBrokerageValue(userCoinIncreaseMapper.sumIosBrokerageValueByLiveId(vo.getLiveId()));
 
         // 根据礼物分成比例
-        vo.setPercent(anchor.getGiftDivide().toString().substring(0,2) + "%");
+        BigDecimal giftDivide = anchor.getGiftDivide();
+        vo.setPercent(giftDivide != null ? giftDivide.intValue() + "%" : "0%");
 
         return vo;
-
     }
 }
