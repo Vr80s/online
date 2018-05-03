@@ -963,6 +963,16 @@ height: 100%;
 	height: 48px;
 	color: #999;
 }
+#Notice_Administration .Notice_bottom .neirong{
+	position: relative;
+}
+
+.tip-write{
+	position: absolute;
+	top: 134px;
+	left: 574px;
+	color: #999999;
+}
 #Notice_Administration .Notice_bottom .neirong textarea{
 	vertical-align: text-top;
 	width: 540px;
