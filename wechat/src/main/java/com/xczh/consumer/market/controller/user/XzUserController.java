@@ -85,7 +85,6 @@ public class XzUserController {
 		//类型，1注册，  2重置密码   3 完善信息
 		vtype = vtype == null ? SMSCode.RETISTERED.getCode() : vtype;
 		try {
-			
 			if(!XzStringUtils.checkPhone(username)){
 				return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 			}
@@ -97,7 +96,6 @@ public class XzUserController {
 				return ResponseObject.newErrorResponseObject(str);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
@@ -215,15 +213,11 @@ public class XzUserController {
 		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
-		Token t = null;
-			//存储在redis中了，有效期为10天。
-			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+		//存储在redis中了，有效期为10天。
+		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		
 		if (t != null) {
 			OnlineUser o = onlineUserService.findUserByLoginName(username);
-			if (o.isDelete() || o.getStatus() == -1){
-				return ResponseObject.newErrorResponseObject("用户已禁用");
-			}
 			if (o != null) {
 				if (o.isDelete() || o.getStatus() == -1){
 					return ResponseObject.newErrorResponseObject("用户已禁用");
@@ -231,9 +225,10 @@ public class XzUserController {
 				/*
 				 * 判断是否存在微吼信息,不存在创建，因为app端需要根据创建的信息进行播放
 				 */
-				if(o.getVhallId()==null || "".equals(o.getVhallId())){
+				if(o.getVhallId()==null || "".equals(o.getVhallId()) ){
 					
-					String weihouId = WeihouInterfacesListUtil.createUser(o.getId(),
+					String weihouId = WeihouInterfacesListUtil.createUser(
+							o.getId(),
 							WeihouInterfacesListUtil.MOREN, 
 							o.getName(),o.getSmallHeadPhoto());
 					

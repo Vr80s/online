@@ -337,8 +337,6 @@ public class XzUserSetController {
 						projectName, filename, contentType, bs, fileType, null);
 				LOGGER.info("文件路径——path:" + headImgPath);
 
-				// JSONObject cardNegativeJson =
-				// JSONObject.parseObject(headImgPath);
 				user.setSmallHeadPhoto(headImgPath);
 			}
 		}

@@ -2,6 +2,8 @@ package com.xczh.consumer.market.controller;
 
 import com.xczh.consumer.market.service.RewardService;
 import com.xczh.consumer.market.utils.ResponseObject;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,7 @@ import java.util.Map;
 @RequestMapping("/bxg/reward")
 public class RewardController {
 
-
-    @Autowired
-    private RewardService rewardService;
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(RewardController.class);
 
 
     @RequestMapping(value = "/list")
@@ -31,9 +31,9 @@ public class RewardController {
                                HttpServletResponse response,
                                Map<String, String> params) throws Exception {
     	
-    	
-    	
-        return ResponseObject.newSuccessResponseObject(rewardService.listAll());
+    	LOGGER.info("老版本方法----》》》》wxPay");
+		return ResponseObject.newErrorResponseObject("请使用最新版本");
+       // return ResponseObject.newSuccessResponseObject(rewardService.listAll());
     }
 
 }

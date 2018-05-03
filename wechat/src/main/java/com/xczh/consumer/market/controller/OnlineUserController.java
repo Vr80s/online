@@ -147,8 +147,6 @@ public class OnlineUserController {
 			cacheService.delete(token);
 		}
 		String appUniqueId = req.getParameter("appUniqueId");
-		//设置登录标识
-		onlineUserService.updateAppleTourisrecord(appUniqueId,0);
 		return ResponseObject.newSuccessResponseObject("退出成功");
 	}
 	

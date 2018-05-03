@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -169,7 +170,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	}
 	
 	@Override
-	public OnlineUser addUser(String mobile, String username, 
+	public OnlineUser addUser(String mobile, String userName,
 			String origin, String password) throws Exception {
 		
 		OnlineUser u = new OnlineUser();
@@ -199,10 +200,12 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				WeihouInterfacesListUtil.MOREN,mobile, 
 				u.getSmallHeadPhoto(),mobile);
 		
-		u.setVhallId(weihouUserId);  //微吼id
-		u.setVhallName(mobile);
-		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
 		
+		if(StringUtils.isNotBlank(weihouUserId)) {
+			u.setVhallId(weihouUserId);  //微吼id
+			u.setVhallName(mobile);
+			u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
+		}
 		onlineUserDao.addOnlineUser(u);
 		return u;
 	}
