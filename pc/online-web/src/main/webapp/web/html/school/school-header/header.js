@@ -601,28 +601,6 @@ $(function() {
 				$(".nickname").text(data.resultObject.name).attr("title", data.resultObject.name);
 				$(".anchor_info").show();
 
-				//首页未读消息总数
-//				RequestService("/online/message/findMessageCount", "GET", null, function(data) {
-//					if(data.success == true && data.resultObject.count != 0) {
-//						$(".messageCount").css("display", "block");
-//						if(data.resultObject.count <= 99) {
-//							$(".messageCount em").text(data.resultObject.count);
-//						} else {
-//							$(".messageCount em").text(99);
-//						}
-//					}
-//				});
-				//首页购物车数量
-				RequestService("/shoppingCart/findCourseNum", "GET", null, function(data) {
-					if(data.success == true && data.resultObject != 0) {
-						$(".shopping").css("display", "block");
-						if(data.resultObject <= 99) {
-							$(".shopping em").text(data.resultObject);
-						} else {
-							$(".shopping em").text(99);
-						}
-					}
-				});
 				showDOrH();
 			} else {
 				$('#login').css("display", "none");

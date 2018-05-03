@@ -290,7 +290,7 @@
 <script src="/web/js/slides-1.1.1-min.js"></script>
 <script type="application/javascript">
     $(function () {
-        $("hospital-tab").addClass("select");
+        $(".hospital-tab").addClass("select");
     });
     //启动轮播图
     $('.succesny').olvSlides({
