@@ -71,8 +71,13 @@
                 <em></em>
             </div>
             <div id="selector" class="selector">
-                <span class="cur"></span>
-                <span class=""></span>
+            <#list banners as banner>
+                <#if banner_index==0>
+                    <span class="cur"></span>
+                <#else>
+                    <span class=""></span>
+                </#if>
+            </#list>
             </div>
         </div>
         <div class="hot-article hide">

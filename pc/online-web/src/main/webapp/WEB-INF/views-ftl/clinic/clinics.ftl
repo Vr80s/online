@@ -64,8 +64,14 @@
             <div id="left"><em></em></div>
             <div id="right"><em></em></div>
             <div id="selector" class="selector">
-
-                <span class="cur"></span><span class=""></span></div>
+            <#list banners as banner>
+                <#if banner_index==0>
+                    <span class="cur"></span>
+                <#else>
+                    <span class=""></span>
+                </#if>
+            </#list>
+            </div>
         </div>
         <div class="hot-article">
             <span class="hot-article-title">优秀医馆</span>
