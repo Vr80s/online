@@ -103,5 +103,6 @@
 <script type="text/javascript">
     $(function () {
         $('input').placeholder();
+        $(".doctor-tab").css({"background":"#2cb82c"})
     });
 </script>

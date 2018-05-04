@@ -649,6 +649,7 @@ var ue = UE.getEditor('column-content', {
 	})
 	//	著作部分,点击发布验证文本框
 	function workValidate(workData) {
+		var urlHttp=/^http:\/\//;
 		if(workData.title == ""){
 			$(".work-book-warning").removeClass("hide");
 			return false;
@@ -675,9 +676,17 @@ var ue = UE.getEditor('column-content', {
 		}
 		if(workData.buyLink == ""){
 			$(".work-link-warning").removeClass("hide");
+			$(".work-link2-warning").addClass("hide");
 			return false;
-		} else {
+		}else {
 			$(".work-link-warning").addClass("hide");
+		}
+		if(!urlHttp.test(workData.buyLink)){
+			$(".work-link2-warning").removeClass("hide");
+			return false;	
+		}else{
+			$(".work-link2-warning").addClass("hide");
+
 		}
 		return true;
 	}

@@ -33,8 +33,19 @@ public class HospitalDao extends HibernateDao<MedicalHospital> {
 			paramMap.put("status", medicalHospital.getStatus());
 			sql.append("and status = :status ");
 		}
-
-		sql.append(" order by status desc,create_time desc");
+		if (medicalHospital.getAuthenticationNum()!=null) {
+			paramMap.put("authentication", medicalHospital.isAuthentication());
+			sql.append("and authentication = :authentication ");
+		}
+		if (medicalHospital.getScore()!=null) {
+			if(medicalHospital.getScore()==0){
+				sql.append("and score is null ");
+			} else {
+				paramMap.put("score", medicalHospital.getScore());
+				sql.append("and score = :score ");
+			}
+		}
+		sql.append(" order by authentication desc ,score desc,enable_time desc");
 
 		Page<MedicalHospital> medicalHospitals = this.findPageBySQL(
 				sql.toString(), paramMap, MedicalHospital.class, pageNumber,

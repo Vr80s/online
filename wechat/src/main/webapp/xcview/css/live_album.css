@@ -600,7 +600,7 @@ textarea::-webkit-input-placeholder {
 	display: inline-block;
 }
 .all_returned_num p{
-	color: #ddd;
+	color: #999;
 	font-size: 0.24rem;
 	margin-top: -0.1rem;
 	 overflow: hidden;

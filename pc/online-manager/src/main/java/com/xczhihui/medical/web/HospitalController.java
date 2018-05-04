@@ -82,6 +82,8 @@ public class HospitalController extends AbstractController {
 		MedicalHospital searchVo = new MedicalHospital();
 		Group medicalHospitalName = groups.findByName("search_courseName");
 		Group medicalHospitalStatus = groups.findByName("search_status");
+		Group medicalHospitalAuthentication = groups.findByName("search_authentication");
+		Group medicalHospitalScore = groups.findByName("search_score");
 		if (medicalHospitalName != null) {
 			searchVo.setName(medicalHospitalName.getPropertyValue1().toString());
 		}
@@ -93,6 +95,17 @@ public class HospitalController extends AbstractController {
 			} else {
 				searchVo.setStatus(false);
 			}
+		}
+		if (medicalHospitalAuthentication != null) {
+			searchVo.setAuthenticationNum(Integer.valueOf(medicalHospitalAuthentication.getPropertyValue1().toString()));
+			if (searchVo.getAuthenticationNum() == 1) {
+				searchVo.setAuthentication(true);
+			} else {
+				searchVo.setAuthentication(false);
+			}
+		}
+		if (medicalHospitalScore != null) {
+			searchVo.setScore(Double.valueOf(medicalHospitalScore.getPropertyValue1().toString()));
 		}
 		Page<MedicalHospital> page = hospitalService.findMedicalHospitalPage(
 				searchVo, currentPage, pageSize);

@@ -369,6 +369,7 @@ body .fly-user-main{position: relative; width: 1085px; min-height: 600px; margin
 .detail-about span,
 .jie-about span,
 .detail-about .jie-user{margin-right:10px; display:inline-block; *display:inline; *zoom:1; vertical-align:top; font-size:12px;float:left}
+.publishInf{margin-top: 10px;}
 .detail-about .jie-status, .detail-about .jie-status-ok{color:#fff;}
 .detail-about .fly-jing{padding:0 6px; background-color:#c00; color:#fff;}
 .detail-about .jie-user{position:relative;}
@@ -381,7 +382,7 @@ body .fly-user-main{position: relative; width: 1085px; min-height: 600px; margin
 .detail-hits .layui-btn+.layui-btn{margin-left: 5px;}
 .detail-hits .jie-admin{margin-right: 1px;}
 .detail-body{margin: 0px 0 50px;line-height:26px; font-size:16px; word-wrap: break-word;color: #666;}
-.detail-body p{margin-bottom:15px;font-size: 16.0pt;font-family: FangSong;}
+.detail-body p{margin-bottom:15px;font-size: 12pt;font-family: "微软雅黑";color: #333;}
 .detail-body a{color:#4f99cf;}
 .detail-body img{display:block;max-width: 600px; max-height: 400px;cursor: pointer;}
 .replay img{max-width:140px;display:block}
@@ -500,7 +501,7 @@ body .fly-user-main{position: relative; width: 1085px; min-height: 600px; margin
 .fly-list-li h2{line-height: 26px; font-size: 0;}
 .fly-list-li h2 *{display: inline-block; *display: inline; *zoom: 1; vertical-align: top;}
 .fly-list-li h2 a{max-width: 86%; margin-right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 16px;color: #333;font-weight: bold;}
-.fly-list-li h2 span{position: relative; top: 3px; margin-left: 5px;border-radius: 4px;}
+.fly-list-li h2 span{position: relative; top: 3px; margin-left: 5px;border-radius: 2px;}
 
 .fly-list-li a:hover{color: #2cb82c;}
 .fly-list-li p{position: relative; line-height: 22px; font-size: 14px; color: #666;}
@@ -517,8 +518,8 @@ body .fly-user-main{position: relative; width: 1085px; min-height: 600px; margin
 /* 单行列表 */
 .fly-list-one{margin-bottom: 15px; padding: 0 0 10px;}
 .fly-list-one dd{padding-left:13px;margin: 15px 15px; line-height: 26px; white-space: nowrap; overflow: hidden; list-style: decimal-leading-zero inside; *list-style-type: decimal inside; color: #009E94;}
-.fly-list-one dd .topNum{display: inline-block;width: 18px;height: 18px;border: 1px solid;text-align: center;line-height: 18px;border-radius: 5px;background-color: #2cb82c;color: #fff;}
-.fly-list-one dd .botNum{display: inline-block;width: 18px;height: 18px;border: 1px solid;text-align: center;line-height: 18px;border-radius: 5px;background-color: #fff;color: #ccc;border:1px solid #ccc}
+.fly-list-one dd .topNum{display: inline-block;margin-right: 10px;width: 20px;height: 20px;border: 1px solid #2cb82c;text-align: center;line-height: 18px;border-radius: 5px;background-color: #2cb82c;color: #fff;}
+.fly-list-one dd .botNum{display: inline-block;margin-right: 10px;width: 20px;height: 20px;border: 1px solid #2cb82c;text-align: center;line-height: 18px;border-radius: 5px;background-color: #fff;color: #ccc;border:1px solid #ccc}
 .fly-list-one dd a,
 .fly-list-one dd span{display: inline-block; *display: inline; *zoom: 1; vertical-align: top; font-style: normal}
 .fly-list-one dd a{max-width: 80%; margin-right: 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;}

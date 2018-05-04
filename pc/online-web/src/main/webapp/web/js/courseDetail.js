@@ -522,6 +522,9 @@ window.onload = function() {
 
 	//点击提交评价
 	$(".getRelease").click(function() {
+		if($.trim($(".videoBody-bottom-left-release textarea").val()) == ""){
+			return false;
+		}
 		RequestService("/online/user/isAlive", "POST", null, function(data) {
 			if(!data.success) {
 				$('#login').modal('show');
@@ -546,8 +549,8 @@ window.onload = function() {
 					$(".getRelease").attr("star", 5);
 					$(".tipRelease").hide();
 				};
-				RequestService("/video/saveCriticize", "POST", {
-					videoId: courserId,
+				RequestService("/criticize/saveCriticize", "POST", {
+					//videoId: courserId,
 					//					chapterId: chapterId,
 					content: releaseTxt,
 					//					starLevel: starLenth,
@@ -602,8 +605,8 @@ window.onload = function() {
 	function givecriticize() {
 		console.log(courserId, list.pageNumber, list.pageSize)
 		//获取评价列表
-		RequestService("/video/getVideoCriticize", "POST", {
-			videoId: courserId,
+		RequestService("/criticize/getCriticizeList", "POST", {
+            courseId: courserId,
 			pageNumber: list.pageNumber,
 			pageSize: list.pageSize
 		}, function(data) {
