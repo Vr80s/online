@@ -426,7 +426,7 @@ img {
 }
 #forum .forum-content .forum-content-left .forum-content-info {
   padding: 0 30px;
-  min-height: 443px;
+  min-height: 200px;
 }
 #forum .forum-content .forum-content-left .forum-content-info .page-no-result {
   padding-top: 140px;
