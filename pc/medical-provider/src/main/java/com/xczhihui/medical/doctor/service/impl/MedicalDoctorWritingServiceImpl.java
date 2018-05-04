@@ -30,9 +30,9 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
     private MedicalDoctorWritingMapper medicalDoctorWritingMapper;
 
     @Override
-    public Page<MedicalWritingVO> list(int page, int size, String doctorId) {
+    public Page<MedicalWritingVO> list(int page, int size, String userId) {
         Page<MedicalWritingVO> medicalWritingVOPage = new Page<>(page, size);
-        medicalWritingVOPage.setRecords(medicalWritingMapper.listWritingByDoctorId(medicalWritingVOPage, doctorId));
+        medicalWritingVOPage.setRecords(medicalWritingMapper.listWritingByUserId(medicalWritingVOPage, userId));
         return medicalWritingVOPage;
     }
 
@@ -84,6 +84,7 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         oeBxsArticleMapper.updateById(oeBxsArticle);
 
         medicalWriting.setArticleId(articleId);
+        medicalWriting.setCreatePerson(doctorId);
         medicalWriting.setId(CodeUtil.getRandomUUID());
         medicalWritingMapper.insert(medicalWriting);
 

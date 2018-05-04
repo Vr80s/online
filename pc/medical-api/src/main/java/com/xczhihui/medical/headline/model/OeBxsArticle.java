@@ -103,6 +103,12 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
     private Date updateTime;
 
     /**
+     * 创建者id
+     */
+    @TableField("create_person")
+    private String createPerson;
+
+    /**
      * 原文来源的url
      */
     private String url;
@@ -297,5 +303,13 @@ public class OeBxsArticle extends Model<OeBxsArticle> {
 
     public void setUserCreated(Boolean userCreated) {
         this.userCreated = userCreated;
+    }
+
+    public String getCreatePerson() {
+        return createPerson;
+    }
+
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
     }
 }

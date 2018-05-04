@@ -13,6 +13,7 @@ import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.headline.model.OeBxsArticle;
 
 /**
  * 医师专栏与报道
@@ -33,7 +34,9 @@ public class DoctorArticleController extends AbstractFtlController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
-        medicalDoctorArticleService.saveSpecialColumn(doctorId, doctorArticleBody.build(HeadlineType.DJZL, doctorName));
+        OeBxsArticle bxsArticle = doctorArticleBody.build(HeadlineType.DJZL, doctorName);
+        bxsArticle.setCreatePerson(userId);
+        medicalDoctorArticleService.saveSpecialColumn(doctorId, bxsArticle);
         return ResponseObject.newSuccessResponseObject();
     }
 
@@ -66,8 +69,7 @@ public class DoctorArticleController extends AbstractFtlController {
     @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
     public ResponseObject listSpecialColumn(@RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
         String userId = getUserId(request);
-        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
-        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listSpecialColumn(page, doctorId));
+        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listSpecialColumn(page, userId));
     }
 
     @RequestMapping(value = "specialColumn/{id}/{status}", method = RequestMethod.PUT)
@@ -84,7 +86,9 @@ public class DoctorArticleController extends AbstractFtlController {
         String userId = getUserId(request);
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
-        medicalDoctorArticleService.saveReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName));
+        OeBxsArticle bxsArticle = doctorArticleBody.build(HeadlineType.MYBD, doctorName);
+        bxsArticle.setCreatePerson(userId);
+        medicalDoctorArticleService.saveReport(doctorId, bxsArticle);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
@@ -118,8 +122,7 @@ public class DoctorArticleController extends AbstractFtlController {
     @RequestMapping(value = "report", method = RequestMethod.GET)
     public ResponseObject listReport(@RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
         String userId = getUserId(request);
-        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
-        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listReport(page, doctorId));
+        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listReport(page, userId));
     }
 
     @RequestMapping(value = "report/{id}/{status}", method = RequestMethod.PUT)

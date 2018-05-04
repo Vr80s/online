@@ -70,7 +70,7 @@
     <#if doctor.medicalHospital??>
         <div id="doc_hospital">
             <div class="hospital clearfix">
-                <a class="to_hospital_detail"></a>
+                <a class="to_hospital_detail" href="${webUrl}/clinics/${doctor.medicalHospital.id}" target="_blank"></a>
                 <h3>坐诊医馆</h3>
                 <div class="hospital_pic">
                     <img src="${doctor.medicalHospital.medicalHospitalPictures[0].picture}"

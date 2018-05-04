@@ -28,7 +28,7 @@ public class MedicalDoctorDepartment implements Serializable {
 	private String departmentId;
 
 	@Column(name="deleted")
-	private boolean deleted;
+	private Boolean deleted;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_time")
