@@ -108,7 +108,7 @@
                             </div>
 
                             <!-- 杨宣新增被回复的回复信息    -->
-                            <div style="padding: 0 30px;background-color: #f9f9f9;" class="replay">
+                            <div style="padding: 0 30px;background-color: #f9f9f9;margin-top: 20px;" class="replay">
                                 <p>
                                     <span>"</span>${reply.toReply.name!""}&nbsp;<span>发表于<span>&nbsp;<span>${reply.toReply.initTime?string('yyyy-MM-dd HH:mm:ss')}</span>
                                 </p>

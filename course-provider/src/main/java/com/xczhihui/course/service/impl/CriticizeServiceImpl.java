@@ -138,7 +138,7 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
             }
         }
         Integer userFirstStars = findUserIsBuy(courseId, userId);
-        if(userFirstStars!=0){
+        if(userFirstStars!=0 &&  courseId !=null && courseId !=0){
             criticize.setBuy(true);
         }else{
             criticize.setBuy(false);
