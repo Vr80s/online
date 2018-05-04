@@ -104,6 +104,13 @@ public class MedicalHospital implements Serializable {
     @Column(name = "head_portrait")
     private String headPortrait;
 
+    /**
+     * 启用时间
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "enable_time")
+    private Date enableTime;
+
     public MedicalHospital() {
     }
 
@@ -355,4 +362,11 @@ public class MedicalHospital implements Serializable {
         this.statusnum = statusnum;
     }
 
+    public Date getEnableTime() {
+        return enableTime;
+    }
+
+    public void setEnableTime(Date enableTime) {
+        this.enableTime = enableTime;
+    }
 }
