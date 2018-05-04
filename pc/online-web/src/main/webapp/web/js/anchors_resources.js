@@ -777,7 +777,7 @@ var ue = UE.getEditor('column-content', {
 			//		$(".work-delete").click(function(){
 			//			var deleteId=$(this).attr("data-delete");
 			//			comfirmBox.open("著作","确定删除该条著作吗？",function(closefn){
-			//				RequestService("/hospitalRecruit/"+deleteId+"","DELETE",null,function(data){
+			//				RequestService("/hospital/recruit/"+deleteId+"","DELETE",null,function(data){
 			//					if(data.success == true){
 			//						showTip("删除成功");
 			//						workList(1);
