@@ -93,10 +93,8 @@
         <property name="appId4H5" value="${wechatpay.h5.appid}"></property>
         <property name="mchId4H5" value="${wechatpay.h5.mchid}"></property>
         <property name="partnerKey4H5" value="${wechatpay.h5.apiKey}"></property>
-
-
         <property name="certPath" value="${wechatpay.cert.path}"></property>
-        <property name="domain" value="${domain}"></property>
+        <property name="domain" value="${notify.domain}"></property>
     </bean>
 
     <mvc:default-servlet-handler/>

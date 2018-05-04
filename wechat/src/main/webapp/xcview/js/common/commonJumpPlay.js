@@ -15,7 +15,9 @@ function common_jump_all(courseId){
      var type = userPlay.type;
      var collection = userPlay.collection;
      var lineState = userPlay.lineState;
-     if(watchState==1){
+     
+     
+     if(watchState==1 || watchState==2){
 		if(type == 1 || type == 2){
 			//增加学习记录
 			requestService("/xczh/history/add",{courseId:courseId, recordType:1},function(data) {
@@ -32,7 +34,7 @@ function common_jump_all(courseId){
 		}else if(type == 4){
 			location.href = "/xcview/html/school_class.html?course_id="+courseId;
 		}
-	 }else{
+	 }else {
 		if(type == 1 || type == 2){
 			location.href = "/xcview/html/school_audio.html?course_id="+courseId;
 		}else if(type == 3){	

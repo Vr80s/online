@@ -61,7 +61,8 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         if(criticize==null){
             throw new CriticizeException("被回复评论找不到了~");
         }
-        saveCriticize(userId, criticize.getUserId(), criticize.getCourseId(), content,criticizeId,criticize.getCreatePerson());
+        saveCriticize(userId, criticize.getUserId(), criticize.getCourseId(),
+        		content,criticizeId,criticize.getCreatePerson());
     }
 
     @Override
@@ -109,8 +110,9 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         return getCriticize(userId,anchorUserId,courseId,content,criticizeId,createPerson,null,null,null,null);
     }
 
-    private Criticize getCriticize(String userId, String anchorUserId, Integer courseId, String content,String criticizeId,String createPerson, Float overallLevel, Float deductiveLevel, Float contentLevel, String criticizeLable) throws UnsupportedEncodingException {
-        Criticize criticize = new Criticize();
+    private Criticize getCriticize(String userId, String anchorUserId, Integer courseId, 
+    		String content,String criticizeId,String createPerson, Float overallLevel, Float deductiveLevel, Float contentLevel, String criticizeLable) throws UnsupportedEncodingException {
+    	Criticize criticize = new Criticize();
         criticize.setId(IStringUtil.getUuid());
         criticize.setCreatePerson(userId);
         criticize.setUserId(anchorUserId);
@@ -127,6 +129,7 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         		&& (deductiveLevel != null && deductiveLevel != 0)
         		&& (contentLevel != null && contentLevel != 0)
         		&& (StringUtils.isNotBlank(criticizeLable))){
+        	
             criticize.setOverallLevel(overallLevel);
             criticize.setDeductiveLevel(deductiveLevel);
             criticize.setContentLevel(contentLevel);
@@ -137,8 +140,13 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
                 criticize.setStarLevel(startLevel.floatValue());
             }
         }
-        Integer userFirstStars = findUserIsBuy(courseId, userId);
-        if(userFirstStars!=0 &&  courseId !=null && courseId !=0){
+        Integer userFirstStars = 0;
+        if(courseId!=null && courseId>0) {
+        	userFirstStars = findUserIsBuy(courseId, userId);
+        }else {
+        	userFirstStars = hasUserAllCourseIsBuy(userId,anchorUserId);
+        }
+        if(userFirstStars!=0){
             criticize.setBuy(true);
         }else{
             criticize.setBuy(false);
@@ -305,5 +313,23 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
             return 0;
         }
     }
+    /**
+     * 判断这个用户有没有购买过这个主播的任意一个付费课程
+     * @param userId
+     * @param userLecturerId
+     * @return
+     */
+    private Integer hasUserAllCourseIsBuy(String userId, String userLecturerId) {
+        if(this.baseMapper.hasUserAllCourseIsBuy(userId,userLecturerId)>0){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    
+    
+    
+    
+    
 
 }

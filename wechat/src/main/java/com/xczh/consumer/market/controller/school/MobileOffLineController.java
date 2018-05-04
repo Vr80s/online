@@ -82,11 +82,7 @@ public class MobileOffLineController {
 
 		LOGGER.info( ocl.getRecords().size()+"");
 		
-		
-		
 		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());
-
-
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 
 		Map<String,Object> mapTj = new HashMap<String, Object>();

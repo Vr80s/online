@@ -98,4 +98,12 @@
 		  and argc.course_id = #{courseId}
 		  and argc.user_id = #{userId}
 	</select>
+	
+	<select id="hasUserAllCourseIsBuy" resultType="integer">
+			select count(*) from apply_r_grade_course as argc  
+		   where argc.is_delete = 0
+				  and argc.user_id = #{userId}
+		      and argc.course_id in 
+		      ( select id from oe_course as oc where oc.user_lecturer_id  = #{userLecturerId} and oc.is_free = 0 )
+	</select>
 </mapper>
