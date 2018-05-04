@@ -727,7 +727,7 @@ $(".recruit-save-btn-menuone").click(function(){
 		$(this).attr("disabled","disabled")
 		$.ajax({
 			type:"POST",
-			url:bath+"/hospitalRecruit",
+			url:bath+"/hospital/recruit",
 			data:JSON.stringify(data),
 			contentType: "application/json",
 			success:function(data){
@@ -748,7 +748,7 @@ $(".recruit-save-btn-menuone").click(function(){
 //招聘管理列表
 var recruits;
 function recruitList(pages){
-	RequestService("/hospitalRecruit","GET",{
+	RequestService("/hospital/recruit","GET",{
 		"page":pages
 	},function(data){
 		if(data.success==true){
@@ -821,7 +821,7 @@ $(".recruit_preview_content img").click(function(){
 function recruit_close_btn(t){
 	var id = $(t).attr('data-id');
 	var status = $(t).attr('data-status');
-	RequestService("/hospitalRecruit/"+id+"/"+status, "PUT", null, function(data) {
+	RequestService("/hospital/recruit/"+id+"/"+status, "PUT", null, function(data) {
 		if(data.success == true){
 			if(status==0){
 				showTip("关闭成功");
@@ -839,7 +839,7 @@ function recruit_close_btn(t){
 function delete_recruit_btn(t){
 	var data_deleteId=$(t).attr("data-deleteId");
 	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
-		RequestService("/hospitalRecruit/"+data_deleteId+"","DELETE",null,function(data){
+		RequestService("/hospital/recruit/"+data_deleteId+"","DELETE",null,function(data){
 			if(data.success == true){
 				closefn();
 				showTip("删除成功");
@@ -922,7 +922,7 @@ $(".recruit-edit-btn").click(function(){
 	if(verifyRecruit(data)){
 		$.ajax({
 			type:"PUT",
-			url:bath+"/hospitalRecruit/"+edit_id+"",
+			url:bath+"/hospital/recruit/"+edit_id+"",
 			data:JSON.stringify(data),
 			contentType: "application/json",
 			success:function(data){

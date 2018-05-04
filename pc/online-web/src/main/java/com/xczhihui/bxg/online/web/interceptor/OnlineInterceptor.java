@@ -1,17 +1,18 @@
 package com.xczhihui.bxg.online.web.interceptor;
 
-import java.io.Serializable;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.service.UserService;
+import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -19,20 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.service.UserService;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Description：权限拦截
@@ -55,6 +51,8 @@ public class OnlineInterceptor implements HandlerInterceptor {
 	
 	private List<String> checkuris = new ArrayList<String>();
 	private List<String> checkanchoruris = new ArrayList<String>();
+	private List<String> checkanonuris = new ArrayList<String>();
+	private List<String> checkanonanchoruris = new ArrayList<String>();
 
 	public OnlineInterceptor(){
 		try {
@@ -69,6 +67,16 @@ public class OnlineInterceptor implements HandlerInterceptor {
 			for (Element e : anchoruris) {
 				checkuris.add(e.getStringValue());
 				checkanchoruris.add(e.getStringValue());
+			}
+			//新增无需登录鉴权2018-02-06
+			List<Element> anonuris = doc.selectNodes("//checkuris/anonuri");
+			for (Element e : anonuris) {
+				checkanonuris.add(e.getStringValue());
+			}
+			//新增无需主播鉴权2018-02-06
+			List<Element> anonanchoruris = doc.selectNodes("//checkuris/anonanchoruri");
+			for (Element e : anonuris) {
+				checkanonanchoruris.add(e.getStringValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,28 +146,52 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		return true;
 	}
 
+	private boolean checkUris(String uri) {
+		if(!checkanonUris(uri)) {
+			for (int i = 0; i < checkuris.size(); i++) {
+				String checkuri = checkuris.get(i);
+				Pattern pattern = Pattern.compile(checkuri);
+				Matcher matcher = pattern.matcher(uri);
+				if (matcher.matches()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	private boolean checkAnchoruris(String uri) {
-		for (int i = 0; i < checkanchoruris.size(); i++) {
-			String checkuri =  checkanchoruris.get(i);
-			Pattern pattern = Pattern.compile(checkuri);
+		if(!checkanonanchorUris(uri)) {
+			for (int i = 0; i < checkanchoruris.size(); i++) {
+				String checkuri = checkanchoruris.get(i);
+				Pattern pattern = Pattern.compile(checkuri);
+				Matcher matcher = pattern.matcher(uri);
+				if (matcher.matches()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean checkanonUris(String uri) {
+		for (int i = 0; i < checkanonuris.size(); i++) {
+			String checkanonuri =  checkanonuris.get(i);
+			Pattern pattern = Pattern.compile(checkanonuri);
 			Matcher matcher = pattern.matcher(uri);
 			if(matcher.matches()) {
-				System.out.println("exp:"+checkuri);
-				System.out.println("uri:"+uri);
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private boolean checkUris(String uri) {
-		for (int i = 0; i < checkuris.size(); i++) {
-			String checkuri =  checkuris.get(i);
-			Pattern pattern = Pattern.compile(checkuri);
+	private boolean checkanonanchorUris(String uri) {
+		for (int i = 0; i < checkanonanchoruris.size(); i++) {
+			String checkanonanchoruri =  checkanonanchoruris.get(i);
+			Pattern pattern = Pattern.compile(checkanonanchoruri);
 			Matcher matcher = pattern.matcher(uri);
 			if(matcher.matches()) {
-				System.out.println("anchor-exp:"+checkuri);
-				System.out.println("anchor-uri:"+uri);
 				return true;
 			}
 		}

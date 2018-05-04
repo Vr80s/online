@@ -98,12 +98,20 @@
 	<uri>/doctor/.*</uri>
 	<uri>/hospital/.*</uri>
 
+	<!--需要具有主播权限-->
 	<anchoruri>/anchor/.*</anchoruri>
 	<anchoruri>/videoRes/.*</anchoruri>
 
 	<anchoruri>/web/html/anchor/curriculum.html</anchoruri>
 
+	<!--不需要登录鉴权-->
+	<!--<anonuri>/doctor/apply.*</anonuri>-->
+
+	<!--不需要主播鉴权-->
+	<!--<anonanchoruri>/doctor/apply.*</anonanchoruri>-->
+	<!--<anonanchoruri>/hospital/apply.*</anonanchoruri>-->
+	<anonanchoruri>/anchor/info/hasPower</anonanchoruri>
 
 
-	<anonuri></anonuri>
+
 </checkuris>
