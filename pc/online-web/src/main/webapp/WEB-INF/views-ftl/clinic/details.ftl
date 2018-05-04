@@ -98,11 +98,12 @@
             <!--医馆名家-->
             <div class="hospital_doctor clearfix">
                 <div class="hospital_top">
-                    <span>医馆名家-待完成</span>
-                    <a href="${webUrl}/web/html/practitionerListing.html?name=&amp;hospitalId=08a08cf4f87848298576838206653c39"
-                       class="hide" id="more_doc">
+                    <span>医馆名家</span>
+                    <#if doctors.pages gt 1>
+                    <a href="${webUrl}/clinics/${clinic.id}/doctors" id="more_doc" target="_blank">
                         更多&nbsp;&gt;
                     </a>
+                    </#if>
                 </div>
                 <ul class="doctor_inf" id="yiguan_mingjia">
                 <#list doctors.records as doctor>

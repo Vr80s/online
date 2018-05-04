@@ -29,11 +29,11 @@ $(function () {
             return '<input type="checkbox" value=' + data + ' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>' + row.teachMethodName + '</span>';
         }
     },
-        {"title": "医馆名", "class": "center", "width": "9%", "sortable": false, "data": 'name'},
+        {"title": "医馆名", "class": "center", "width": "7%", "sortable": false, "data": 'name'},
         {
             "title": "评分",
             "class": "center",
-            "width": "6%",
+            "width": "4%",
             "sortable": false,
             "data": 'score',
             "visible": true,
@@ -154,6 +154,13 @@ $(function () {
                     return data = "<span name='zt'>已禁用</span>";
                 }
             }
+        },
+        {
+            "title": "启用时间",
+            "class": "center",
+            "width": "8%",
+            "sortable": false,
+            "data": 'enableTime'
         },
         {
             "sortable": false,

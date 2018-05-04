@@ -2,6 +2,8 @@ package com.xczhihui.bxg.online.web.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.online.api.vo.CriticizeVo;
@@ -22,6 +24,8 @@ public class CriticizeController extends AbstractController{
 
 	@Autowired
 	private ICriticizeService criticizeService;
+	@Autowired
+	private CourseService courseService;
 	/**
 	 * 添加评论
 	 */
@@ -36,8 +40,8 @@ public class CriticizeController extends AbstractController{
 		if(ou == null){
 			return ResponseObject.newSuccessResponseObject("登录失效");
 		}
-
-		criticizeService.saveCriticize(ou.getId(),criticize.getUserId(),criticize.getCourseId(),criticize.getContent()
+		CourseApplyVo cv = courseService.getCourseApplyByCourseId(criticize.getCourseId());
+		criticizeService.saveCriticize(ou.getId(),cv.getUserLecturerId(),criticize.getCourseId(),criticize.getContent()
 				,criticize.getOverallLevel(),criticize.getDeductiveLevel(),criticize.getContentLevel(),criticize.getCriticizeLable());
 		return ResponseObject.newSuccessResponseObject("评论成功");
 	}
