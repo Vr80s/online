@@ -97,12 +97,13 @@ public class HostController {
 		if(lecturerInfo == null){
 			return ResponseObject.newErrorResponseObject("获取医师信息有误");
 		}
-		if(lecturerInfo.get("detail")!=null){
-			//设置富文本的url连接
-			lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
-		}else{
-			lecturerInfo.put("richHostDetailsUrl", null);
-		}
+//		if(lecturerInfo.get("detail")!=null){
+//			//设置富文本的url连接
+//			lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
+//		}else{
+//			lecturerInfo.put("richHostDetailsUrl", null);
+//		}
+		lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		MedicalHospital mha = null;
 		

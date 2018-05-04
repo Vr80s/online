@@ -229,7 +229,6 @@ public class H5WeChatSetController {
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
 				return;
 			}
-			
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
