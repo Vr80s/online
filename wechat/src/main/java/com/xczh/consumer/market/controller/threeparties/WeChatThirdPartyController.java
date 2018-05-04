@@ -31,10 +31,10 @@ import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.ThridFalg;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.user.center.bean.ThridFalg;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
@@ -486,8 +486,6 @@ public class WeChatThirdPartyController {
 		 */
 
 		if (StringUtils.isNotBlank(appUniqueId)) { // 表示是app登录
-			// 设置登录标识
-			onlineUserService.updateAppleTourisrecord(appUniqueId, 1);
 			cacheService.set(ticket, user, TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(), ticket,
 					TokenExpires.TenDay.getExpires());

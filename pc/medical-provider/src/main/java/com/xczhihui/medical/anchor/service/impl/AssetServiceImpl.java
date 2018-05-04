@@ -1,6 +1,7 @@
 package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.util.enums.EnchashmentDismissal;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.IAssetService;
@@ -40,6 +41,13 @@ public class AssetServiceImpl  implements IAssetService {
         anchorInfoService.validateAnchorPermission(userId);
         List<Map> records;
         records = courseApplyInfoMapper.selectRmbTransactionPage(page, userId);
+        for(int i= 0;i<records.size();i++){
+            if(records.get(i).containsKey("dismissal")){
+                String dismissal = records.get(i).get("dismissal").toString();
+                String value = EnchashmentDismissal.getDismissal(Integer.parseInt(dismissal));
+                records.get(i).put("dismissal",value);
+            }
+        }
         page.setRecords(records);
         return page;
     }

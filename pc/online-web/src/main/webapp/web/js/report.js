@@ -145,7 +145,7 @@ $(function(){
         "</li>" +
         '{{/each}}';
     //文章详情
-    RequestService("/medical/doctor/getNewsReportByArticleId",'GET',{articleId:articleId},function(data){
+    RequestService("/doctor/getNewsReportByArticleId",'GET',{articleId:articleId},function(data){
     	
     	//左侧报道内容渲染
         $(".forum-detailInfo").html(template.compile(articleDetail)(data.resultObject));
@@ -184,7 +184,7 @@ $(function(){
     });
     
     	//右侧热门作者
-	    RequestService("/medical/doctor/getRecentlyNewsReports","GET",null,function(data){
+	    RequestService("/doctor/getRecentlyNewsReports","GET",null,function(data){
 	        if(data.success==false || data.resultObject.length == 0){
 	           $('.report_right_read').addClass('hide')
 	        }else{

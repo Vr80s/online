@@ -11,7 +11,12 @@ if(stringnull(openId)){
  */
 function getValueByStr(search,name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = search.match(reg);
+    var r = "";
+    if(search.indexOf("?")!=-1){
+       r = search.substr(search.indexOf("?")+1).match(reg);
+    }else{
+       r = search.match(reg);
+    }
     if (r != null) return unescape(r[2]); return null;
 }
 /*
@@ -30,18 +35,18 @@ function bannerJump(type,params){
 	}else if(type == 3){
 		
 		var courseId = getValueByStr(params,"course_id");
-		alert("courseId:"+courseId);
+		//alert("courseId:"+courseId);
 		//课程跳转
 		common_jump_all(courseId);
 		
 	}else if(type == 4){
 		//主播跳转
 		var userLecturerId = getValueByStr(params,"userLecturerId");
-		alert("userLecturerId:"+userLecturerId);
+		//alert("userLecturerId:"+userLecturerId);
 		location.href="/xcview/html/live_personal.html?userLecturerId="+userLecturerId;
 	}else if(type == 5){
 		//var userLecturerId = getValueByStr(params,"userLecturerId");
-		alert("params:"+params);
+		//alert("params:"+params);
 		location.href="/xcview/html/curriculum_table.html?"+params;
 	}else{
 		console.error("banner类型有误");

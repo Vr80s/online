@@ -30,9 +30,6 @@ import java.util.Map;
 @RequestMapping("/xczh/bunch")
 public class MobileOffLineController {
 
-	
-	
-	
 	@Autowired
 	private OLCourseServiceI wxcpCourseService;
 
@@ -85,6 +82,8 @@ public class MobileOffLineController {
 
 		LOGGER.info( ocl.getRecords().size()+"");
 		
+		
+		
 		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());
 
 
@@ -93,9 +92,11 @@ public class MobileOffLineController {
 		Map<String,Object> mapTj = new HashMap<String, Object>();
 
 		List<CourseLecturVo> listqg = new ArrayList<CourseLecturVo>();
-		for (CourseLecturVo courseLecturVo : list) {
-			if("全国课程".equals(courseLecturVo.getNote())){
-				listqg.add(courseLecturVo);
+		if(list!=null){
+			for (CourseLecturVo courseLecturVo : list) {
+				if("全国课程".equals(courseLecturVo.getNote())){
+					listqg.add(courseLecturVo);
+				}
 			}
 		}
 		if(listqg.size()>0){
@@ -103,22 +104,23 @@ public class MobileOffLineController {
 			mapTj.put("courseList",listqg);
 			mapCourseList.add(mapTj);
 		}
-
 		for (OfflineCity oc : ocl.getRecords()) {
 			Map<String,Object> mapMenu = new HashMap<String, Object>();
 			List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
-			for (CourseLecturVo courseLecturVo : list) {
-				if(oc.getCityName().equals(courseLecturVo.getNote())){
-					listMenu.add(courseLecturVo);
+			if(list!=null){
+				for (CourseLecturVo courseLecturVo : list) {
+					if(oc.getCityName().equals(courseLecturVo.getNote())){
+						listMenu.add(courseLecturVo);
+					}
 				}
 			}
+
 			if(listMenu.size()>0){
 				mapMenu.put("title", oc.getCityName());
 				mapMenu.put("courseList", listMenu);
 				mapCourseList.add(mapMenu);
 			}
 		}
-
 		mapAll.put("allCourseList",mapCourseList);
 
 		return ResponseObject.newSuccessResponseObject(mapAll);

@@ -36,7 +36,7 @@
 <div class="header" id="doctor_detail_header">
     <div class="header_inf content">
         <div class="header_inf_left">
-            <img src="${doctor.headPortrait}" alt="${doctor.name}">
+            <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
             <!--<img src=../images/doctor_detail/xunzhang.png alt="">-->
         </div>
         <div class="header_inf_right">

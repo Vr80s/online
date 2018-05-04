@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +33,6 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.enums.RegisterForm;
 import com.xczhihui.common.util.enums.SMSCode;
@@ -85,7 +86,6 @@ public class XzUserController {
 		//类型，1注册，  2重置密码   3 完善信息
 		vtype = vtype == null ? SMSCode.RETISTERED.getCode() : vtype;
 		try {
-			
 			if(!XzStringUtils.checkPhone(username)){
 				return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 			}
@@ -97,7 +97,6 @@ public class XzUserController {
 				return ResponseObject.newErrorResponseObject(str);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
@@ -198,7 +197,6 @@ public class XzUserController {
 	 * Description：浏览器端登录
 	 * @param req
 	 * @param res
-	 * @param params
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -215,15 +213,11 @@ public class XzUserController {
 		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
-		Token t = null;
-			//存储在redis中了，有效期为10天。
-			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+		//存储在redis中了，有效期为10天。
+		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		
 		if (t != null) {
 			OnlineUser o = onlineUserService.findUserByLoginName(username);
-			if (o.isDelete() || o.getStatus() == -1){
-				return ResponseObject.newErrorResponseObject("用户已禁用");
-			}
 			if (o != null) {
 				if (o.isDelete() || o.getStatus() == -1){
 					return ResponseObject.newErrorResponseObject("用户已禁用");
@@ -231,9 +225,10 @@ public class XzUserController {
 				/*
 				 * 判断是否存在微吼信息,不存在创建，因为app端需要根据创建的信息进行播放
 				 */
-				if(o.getVhallId()==null || "".equals(o.getVhallId())){
+				if(o.getVhallId()==null || "".equals(o.getVhallId()) ){
 					
-					String weihouId = WeihouInterfacesListUtil.createUser(o.getId(),
+					String weihouId = WeihouInterfacesListUtil.createUser(
+							o.getId(),
 							WeihouInterfacesListUtil.MOREN, 
 							o.getName(),o.getSmallHeadPhoto());
 					
@@ -267,7 +262,7 @@ public class XzUserController {
 					ItcastUser user = userCenterAPI.getUser(username);
 					//这个地方会返回这个用户的微吼id和名字
 					OnlineUser newUser = onlineUserService.addUser(username, 
-							user.getNike_name(),getRegiserFormByReq(req),password);
+							user.getNikeName(),getRegiserFormByReq(req),password);
 					newUser.setPassword(user.getPassword());
 					//把这个票给前端
 					newUser.setTicket(t.getTicket());

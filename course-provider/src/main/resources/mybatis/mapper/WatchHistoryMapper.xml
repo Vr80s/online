@@ -13,9 +13,8 @@
 		  if(owh.collectionId is not null and owh.collectionId >0,1,oc.collection) as collection,
 		  oc.grade_name as gradeName,
 		  if(owh.collectionId is not null and owh.collectionId>0,
-		  		( select ca.name from oe_course oc  
-		  		     inner join course_anchor ca on oc.user_lecturer_id = ca.user_id  
-		  		     where oc.id = owh.collectionId ),ou.name) 
+		  		( select oc.lecturer from oe_course oc  
+		  		     where oc.id = owh.collectionId ),oc.lecturer) 
 		  		as lecturerName,
 		  owh.create_time as watchTime,
 		  oc.live_source_type as liveSourceType,

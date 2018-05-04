@@ -27,8 +27,8 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.online.api.service.CityService;
 import com.xczhihui.online.api.service.CommonApiService;
@@ -337,8 +337,6 @@ public class XzUserSetController {
 						projectName, filename, contentType, bs, fileType, null);
 				LOGGER.info("文件路径——path:" + headImgPath);
 
-				// JSONObject cardNegativeJson =
-				// JSONObject.parseObject(headImgPath);
 				user.setSmallHeadPhoto(headImgPath);
 			}
 		}

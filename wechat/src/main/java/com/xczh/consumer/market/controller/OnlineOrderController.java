@@ -1,12 +1,10 @@
 package com.xczh.consumer.market.controller;
 
-import com.xczh.consumer.market.bean.OnlineOrder;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.*;
-import com.xczh.consumer.market.utils.CookieUtil;
-import com.xczh.consumer.market.utils.RandomUtil;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.TimeUtil;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -16,14 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.xczh.consumer.market.bean.OnlineOrder;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.OnlineOrderService;
+import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.utils.ResponseObject;
 
 @Controller
 @RequestMapping("/bxg/order")
@@ -32,8 +27,6 @@ public class OnlineOrderController {
 	private OnlineOrderService onlineOrderService;
 	@Autowired
 	private OnlineUserService onlineUserService;
-	@Autowired
-	private AppBrowserService appBrowserService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OnlineOrderController.class);
 	/*

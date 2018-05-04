@@ -11,6 +11,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.user.center.bean.ItcastUser;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,8 @@ import com.xczh.consumer.market.service.MessageService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.ThridFalg;
+import com.xczhihui.user.center.bean.ThridFalg;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.SLEmojiFilter;
@@ -38,7 +38,6 @@ import com.xczhihui.online.api.service.CommonApiService;
 import com.xczhihui.online.api.service.RechargesService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.util.XzStringUtils;
 
 /**
  * 通用控制器 ClassName: CommonController.java <br>
@@ -287,36 +286,6 @@ public class XzCommonController {
 	}
 
 
-	@RequestMapping("shareLink")
-	@ResponseBody
-	public ResponseObject shareLink(HttpServletRequest req,
-			HttpServletResponse res,@RequestParam("courseId")Integer courseId)
-			throws Exception {
-		/*
-		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
-		 */
-		try {
-			Integer type = onlineCourseService.getIsCouseType(courseId);
-			LOGGER.info("type:" + type);
-			Map<String, Object> mapCourseInfo = onlineCourseService.shareLink(courseId, type);
-			if (mapCourseInfo.get("description") != null) {
-				String description = mapCourseInfo.get("description")
-						.toString();
-				description = XzStringUtils.delHTMLTag(description);
-				mapCourseInfo.put("description", description);
-			} else {
-				mapCourseInfo.put("description", "");
-			}
-			// mapCourseInfo.put("link",returnOpenidUri+"/bxg/common/pcShareLink?courseId="+Integer.parseInt(courseId));
-			// wx_share.html
-			mapCourseInfo.put("link", returnOpenidUri+ "/wx_share.html?courseId=" +courseId);
-			return ResponseObject.newSuccessResponseObject(mapCourseInfo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("请求有误");
-		}
-	}
-
 	/**
 	 * Description：pc端分享
 	 * 
@@ -355,33 +324,6 @@ public class XzCommonController {
 		}
 	}
 
-	/**
-	 * Description：根据课程id得到判断此课程是：直播呢，还是点播呢，还是预约呢？
-	 * 
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>
-	 *         email: 15936216273@163.com
-	 */
-	@RequestMapping("shareJump")
-	@ResponseBody
-	public ResponseObject shareJump(HttpServletRequest req,
-			HttpServletResponse res,@RequestParam("courseId")Integer courseId)
-			throws Exception {
-		// type 1 直播 2其他
-		// state 0 直播已结束 1 直播还未开始 2 正在直播
-		try {
-			Map<String, Object> map = onlineCourseService.shareJump(courseId);
-			return ResponseObject.newSuccessResponseObject(map);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("请求有误");
-		}
-	}
 
 	@RequestMapping("getDomain")
 	@ResponseBody

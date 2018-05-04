@@ -95,7 +95,7 @@ $(function(){
 	
 	
 	//医馆医师
-	    RequestService("/medical/doctor/getDoctors","GET",{
+	    RequestService("/doctor/getDoctors","GET",{
 			current:1,
 			size:4,
 			hospitalId:id
@@ -119,7 +119,7 @@ $(function(){
 
 	
 	//医馆招聘信息
-	    RequestService("/hospitalRecruit/getHospitalRecruitById","GET",{
+	    RequestService("/hospital/recruit/getHospitalRecruitById","GET",{
 			hospitalId:id
 	    },function(data){
 	    	//更多给名医添加id

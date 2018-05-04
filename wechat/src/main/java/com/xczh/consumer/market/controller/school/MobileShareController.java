@@ -25,17 +25,17 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.ThridFalg;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczhihui.user.center.bean.ThridFalg;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczh.consumer.market.vo.LecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.user.center.bean.TokenExpires;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
@@ -218,7 +218,7 @@ public class MobileShareController {
 				LOGGER.info("shareId:+"+shareId);
 				
 				Integer courseId = Integer.parseInt(shareId);
-				com.xczhihui.course.vo.CourseLecturVo cv=null;
+				com.xczhihui.course.vo.CourseLecturVo  cv=null;
 				
 				//判断这个课程类型啦
 				if(ou!=null){  //说明已经登录了

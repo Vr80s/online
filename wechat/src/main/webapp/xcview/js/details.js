@@ -105,9 +105,11 @@ requestService("/xczh/course/liveDetails",{
 					/*$(".no_data1").show();
 					$(".btn1").hide();*/
 					$(".anchor_center01").hide();
+					$(".null_anchor").show();
 				}else{
 					// $(".anchor_center").html(data.resultObject.lecturerDescription)
 					$(".anchor_center01").show();
+					$(".null_anchor").hide();
 				}
 
 				/**

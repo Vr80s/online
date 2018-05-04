@@ -197,7 +197,7 @@ $(function () {
 //        })
 //    });
     //医馆搜索中的热门标签
-    RequestService("/medical/doctor/getHotDepartment", "GET", null, function (data) {
+    RequestService("/doctor/getHotDepartment", "GET", null, function (data) {
         if (data.resultObject.length == 0) {
 //          $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
             $('.forum-hot-tag > p').html('');
@@ -372,7 +372,7 @@ $(function () {
 
 
     //国医大师渲染
-    RequestService("/medical/doctor/getDoctors", "GET", {
+    RequestService("/doctor/getDoctors", "GET", {
         type: 4,
         current: current,
         size: size
@@ -389,7 +389,7 @@ $(function () {
 
 
     //名老中医
-    RequestService("/medical/doctor/getDoctors", "GET", {
+    RequestService("/doctor/getDoctors", "GET", {
         type: 2,
         current: current,
         size: size
@@ -406,7 +406,7 @@ $(function () {
     });
 
     //名青中医
-    RequestService("/medical/doctor/getDoctors", "GET", {
+    RequestService("/doctor/getDoctors", "GET", {
         type: 1,
         current: current,
         size: size
@@ -423,7 +423,7 @@ $(function () {
     });
 
     //古中医
-    RequestService("/medical/doctor/getDoctors", "GET", {
+    RequestService("/doctor/getDoctors", "GET", {
         type: 5,
         current: current,
         size: size
@@ -440,7 +440,7 @@ $(function () {
     });
 
     //少数民族中医
-    RequestService("/medical/doctor/getDoctors", "GET", {
+    RequestService("/doctor/getDoctors", "GET", {
         type: 3,
         current: current,
         size: size
@@ -469,7 +469,7 @@ $(function () {
 
 
 //      名医报道
-    RequestService("/medical/doctor/getRecentlyNewsReports", "GET", null, function (data) {
+    RequestService("/doctor/getRecentlyNewsReports", "GET", null, function (data) {
         if (data.success == false || data.resultObject.length == 0) {
             //没有数据处理
             $('.school_teacher').addClass('hide')
@@ -482,7 +482,7 @@ $(function () {
 
 
     //      名医书籍
-    RequestService("/medical/doctor/getRecentlyWritings", "GET", null, function (data) {
+    RequestService("/doctor/getRecentlyWritings", "GET", null, function (data) {
         if (data.success == false || data.resultObject.length == 0) {
             //没有数据处理
 //	           alert("名医推荐没有数据")

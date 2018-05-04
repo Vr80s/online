@@ -36,7 +36,7 @@ $(function() {
 $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	var id = $(this).attr('data-id');
 	var status = $(this).attr('data-status');
-	RequestService("/medical/doctor/update", "post", {
+	RequestService("/doctor/update", "post", {
 		id:id,
 		status:status
 	}, function(data) {
@@ -147,7 +147,7 @@ $('#deleteTip .confirm-sure').click(function(){
 	$('.doc_Administration_bottom2').on('click','.preview',function() {
 		changeDocId = $(this).attr('data-id');
 		//获取预览的数据渲染
-		RequestService("/medical/doctor/get", "get", {
+		RequestService("/doctor/get", "get", {
 			doctorId: changeDocId,
 		}, function(data) {
 //			console.log(data)
@@ -167,7 +167,7 @@ $('#deleteTip .confirm-sure').click(function(){
 //			alert(111)
 //		}
 //		医师数据上传
-//		RequestService("/medical/doctor/update", "post", {
+//		RequestService("/doctor/update", "post", {
 //			id:
 //			status:
 //		}, function(data) {
@@ -185,7 +185,7 @@ $('#deleteTip .confirm-sure').click(function(){
 		$('#doc_Administration_bottom3').removeClass('hide');
 		$('#doc_Administration_bottom3').css('visibility','visible');
 		//数据回显
-		RequestService("/medical/doctor/get", "get", {
+		RequestService("/doctor/get", "get", {
 			doctorId: changeDocId,
 		}, function(data) {
 //			console.log(data);
@@ -354,7 +354,7 @@ $('#deleteTip .confirm-sure').click(function(){
 		var description =  UE.getEditor('editor1').getContent();
 		var field = $('#doc_Administration_bottom3 .doc_shanchangIpt').val();
 		//医师数据上传
-		RequestService("/medical/doctor/update", "post", {
+		RequestService("/doctor/update", "post", {
 			id:changeDocId,
 			name: name,
 			headPortrait: headPortrait,

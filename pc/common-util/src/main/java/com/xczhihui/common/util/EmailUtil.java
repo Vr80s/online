@@ -35,8 +35,10 @@ public class EmailUtil {
     public static final String TOUSER = "system@ixincheng.com";
     public static final String MODIFYLOGINNAMETOUSER = "yuruixin@ixincheng.com";
 
+    
+    
     public static void sendExceptionMailBySSL(String server,String subject,String content) throws MessagingException {
-        if((ENV.equals("test")||ENV.equals("prod"))&&containFilter(content)){
+        if(ENV != null && (ENV.equals("test")||ENV.equals("prod"))){
             sendMailBySSL(SMTP,USERNAME,PASSWORD,TOUSER,server+":"+ENV+"环境异常:"+subject,content);
         }
     }
@@ -45,15 +47,6 @@ public class EmailUtil {
             sendMailBySSL(SMTP,USERNAME,PASSWORD,MODIFYLOGINNAMETOUSER,"工作人员操作:用户名更换",content);
     }
 
-    public static boolean containFilter(String content){
-        if(content.contains("未登录")){
-            return false;
-        }
-        if(content.contains("密码")){
-            return false;
-        }
-        return true;
-    }
     public static boolean sendMailBySSL(String smtp,String username,String password,String tousername,String subject,String content) throws MessagingException {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";

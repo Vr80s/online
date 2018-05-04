@@ -4,22 +4,21 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.utils.WebUtil;
+import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.utils.WebUtil;
-import com.xczhihui.bxg.online.web.exception.XcApiException;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.service.IOrderService;
+import com.xczhihui.course.vo.PayMessage;
 import com.xczhihui.online.api.service.PayService;
-import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.pay.alipay.AliPayApi;
 import com.xczhihui.pay.alipay.AliPayApiConfig;
 import com.xczhihui.pay.alipay.AliPayApiConfigKit;
 import com.xczhihui.pay.alipay.AliPayBean;
 import com.xczhihui.pay.alipay.controller.AliPayApiController;
-import com.xczhihui.course.model.Order;
-import com.xczhihui.course.service.IOrderService;
-import com.xczhihui.course.vo.PayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +82,7 @@ public class AliPayController extends AliPayApiController {
      * @throws AlipayApiException
      */
     @RequestMapping(value = "/alipay/unifiedorder/{orderNo}", method = RequestMethod.GET)
-    public void pay(HttpServletResponse response, @PathVariable String orderNo) throws XcApiException, IOException, AlipayApiException {
+    public void pay(HttpServletResponse response, @PathVariable String orderNo) throws IOException, AlipayApiException {
         Order order = orderService.getOrderNo4PayByOrderNo(orderNo);
         String totalAmount = order.getActualPay().toString();
 
@@ -107,7 +106,7 @@ public class AliPayController extends AliPayApiController {
     }
 
     @RequestMapping(value = "/alipay/recharge/{price}", method = RequestMethod.GET)
-    public void recharge(HttpServletRequest request, HttpServletResponse response,@PathVariable String price) throws XcApiException, IOException, AlipayApiException {
+    public void recharge(HttpServletRequest request, HttpServletResponse response,@PathVariable String price) throws IOException, AlipayApiException {
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(loginUser==null){
             throw new RuntimeException("充值需登录后进行");
