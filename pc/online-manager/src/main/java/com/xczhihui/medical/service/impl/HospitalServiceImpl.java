@@ -65,6 +65,11 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
         String hql = "from MedicalHospital where 1=1 and deleted=0 and id = ?";
         MedicalHospital medicalHospital = dao.findByHQLOne(hql, new Object[]{id});
         medicalHospital.setStatus(!medicalHospital.getStatus());
+        if(medicalHospital.getStatus()){
+            medicalHospital.setEnableTime(new Date());
+        }else {
+            medicalHospital.setEnableTime(null);
+        }
         dao.update(medicalHospital);
     }
 
