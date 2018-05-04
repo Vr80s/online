@@ -36,6 +36,7 @@ public class UCCookieUtil {
 	 */
 	private static String COOKIE_TOKEN_NAME;
 
+	
 
 	static{
 		InputStream in = null;

@@ -43,6 +43,7 @@ public class GlobalExceptionHandlerAdvice {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+        
 
 //                ex.getMessage():BIZ_RUNTIME_EXCEPTION_MESSAGE
 //        if(ex.getMessage()!=null){
