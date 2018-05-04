@@ -561,6 +561,30 @@
                                     </div>
                                 </td>
                                 <td>
+                                    <div class="profile-info-value searchTr">
+                                        <select name="search_authentication" id="search_authentication" value="" class="propertyValue1">
+                                            <option value="">是否已认证</option>
+                                            <option value="1">已认证</option>
+                                            <option value="0">未认证</option>
+                                        </select>
+                                        <input type="hidden" value="search_authentication" class="propertyName"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="profile-info-value searchTr">
+                                        <select name="search_score" id="search_score" value="" class="propertyValue1">
+                                            <option value="">星级评分</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        <input type="hidden" value="search_score" class="propertyName"/>
+                                    </div>
+                                </td>
+                                <td>
                                     <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
                                             onclick="search_P();">
                                         <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>

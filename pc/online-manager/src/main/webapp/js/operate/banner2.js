@@ -26,7 +26,7 @@ function loadBanner2List(){
         	return "<div style='white-space:normal;'><a href='"+data+"' target='blank'>"+data+"</a></div>";
         }},
         {title: '点击量', "class": "center", "width": "6%","height":"68px","data": 'clickCount', "sortable": false},
-        {title: '展示时间段', "class": "center", "width": "180px","height":"68px","data": 'startTime', "sortable": false,"mRender":function(data,display,row){
+        /*{title: '展示时间段', "class": "center", "width": "180px","height":"68px","data": 'startTime', "sortable": false,"mRender":function(data,display,row){
         	var dayCount;
         	if(row.startTime==null&&row.endTime==null){//新添加banner
         		return null
@@ -39,8 +39,8 @@ function loadBanner2List(){
         	}else{
         		return "数据异常";
         	}
-        }},
-        {title: '创建人', "class": "center", "width": "6%","height":"68px","data": 'createPersonName', "sortable": false},
+        }},*/
+        {title: '创建人', "class": "center", "width": "8%","height":"68px","data": 'createPersonName', "sortable": false},
         {title: '状态', "class": "center", "width": "6%","height":"68px", "data": 'status', "sortable": false,"mRender":function(data,display,row){
         	var status ;
         	if(data == 1){
@@ -61,7 +61,7 @@ function loadBanner2List(){
         	}
         	return '<div class="hidden-sm hidden-xs action-buttons">'+str;
         }},
-        {title:"操作","class": "center","width":"6%","height":"34px","data":"id","sortable": false,"mRender":function (data, display, row) {
+        {title:"操作","class": "center","width":"8%","height":"34px","data":"id","sortable": false,"mRender":function (data, display, row) {
 
                 var buttons= '<div class="hidden-sm hidden-xs action-buttons"><a class="blue" href="javascript:void(-1);" title="修改" onclick="updateBanner2(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
 	   			if(row.status==1) {

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Type;
 
 
@@ -107,9 +108,12 @@ public class MedicalHospital implements Serializable {
     /**
      * 启用时间
      */
-    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     @Column(name = "enable_time")
     private Date enableTime;
+
+    @Transient
+    private Integer authenticationNum;
 
     public MedicalHospital() {
     }
@@ -368,5 +372,13 @@ public class MedicalHospital implements Serializable {
 
     public void setEnableTime(Date enableTime) {
         this.enableTime = enableTime;
+    }
+
+    public Integer getAuthenticationNum() {
+        return authenticationNum;
+    }
+
+    public void setAuthenticationNum(Integer authenticationNum) {
+        this.authenticationNum = authenticationNum;
     }
 }
