@@ -2,7 +2,7 @@ package com.xczh.consumer.market.controller.live;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
 import org.slf4j.LoggerFactory;

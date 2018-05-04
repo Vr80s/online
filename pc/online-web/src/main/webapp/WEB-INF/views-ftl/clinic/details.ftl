@@ -108,7 +108,7 @@
                 <#list doctors.records as doctor>
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                        <img src="${doctor.headPortrait?default('')}" alt="${doctor.name}">
                         <h5>${doctor.name}</h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}</p>

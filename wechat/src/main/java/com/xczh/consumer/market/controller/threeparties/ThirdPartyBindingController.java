@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.user.center.bean.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
+
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -130,26 +131,6 @@ public class ThirdPartyBindingController {
 				WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(), unionId);
 				m.setClient_id("");
 				wxcpClientUserWxMappingService.update(m);
-				
-				
-			/*	ItcastUser user = userCenterAPI.getUser(ou.getLoginName());
-				*//**
-				 * 更换过来这个微信号
-				 *//*
-			    userCenterAPI.updatePasswordAndLoginName(user.getId(),unionId,WeihouInterfacesListUtil.MOREN_USER_PASSWORD);
-				ou.setLoginName(unionId);
-				onlineUserService.updateOnlineUserAddPwdAndUserName(ou);*/
-				/**
-				 * 写入这个cookie
-				 */
-//				ThridFalg tf = new ThridFalg(); 
-/*				tf.setOpenId(m.getOpenid());
-				tf.setUnionId(m.getUnionid());
-				tf.setNickName(m.getNickname());
-				tf.setHeadImg(m.getHeadimgurl());
-				UCCookieUtil.writeThirdPartyCookie(res,tf);*/
-				
-				
 			}else if(type==ThirdPartyType.QQ.getCode()){
 				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserIdAndOpenId(ou.getId(), unionId);
 		    	qq.setUserId("");
@@ -219,7 +200,7 @@ public class ThirdPartyBindingController {
 	 */
 	@SuppressWarnings("unchecked")
 	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-                        Token token, OnlineUser user, String ticket) throws SQLException{
+						Token token, OnlineUser user, String ticket) throws SQLException{
 		
 		LOGGER.info("用户普通登录----》ticket"+ticket);
 		/**

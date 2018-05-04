@@ -21,8 +21,8 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 
@@ -36,6 +36,7 @@ import com.xczhihui.user.center.bean.TokenExpires;
 @Controller
 @RequestMapping(value = "/bxg/bs")
 public class BrowserUserController {
+
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	@Autowired
@@ -235,73 +236,6 @@ public class BrowserUserController {
 
 		LOGGER.info("老版本方法----》》》》");
 	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
-//		ResponseObject rob = new ResponseObject();
-//		String username = req.getParameter("username");
-//		Map<String, String> mapReq = new HashMap<String, String>();
-//		try {
-//			ItcastUser user = userCenterAPI.getUser(username);
-//			int code = 202;
-//			if (null == user) {
-//				code = 200;
-//			} else {
-//				/**
-//				 * 需要查询下这个onlineuser表中是否存在unionid 如果存在那么就说明这个你这个用户已经绑定过了。
-//				 */
-//				OnlineUser ou = onlineUserService.findUserByLoginName(username);
-//				if (null != ou) {
-//					String unionId = ou.getUnionId();
-//					if (null != unionId && !"".equals(unionId)) {
-//						code = 201;
-//					} else {
-//						code = 202;
-//					}
-//				} else {
-//					/**
-//					 * 当用户中心有用户信息时，但是用户表中没有信息，那么就有问题啦。 这里做下容错处理。
-//					 */
-//					boolean ise = Pattern.matches(
-//							"^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",
-//							username);
-//					if (ise) {
-//						// 如果是正常的手机号
-//						// 这个地方会返回这个用户的微吼id和名字
-//						OnlineUser newUser = onlineUserService.addUser(
-//								username, user.getNike_name(), null,
-//								user.getPassword());
-//						code = 202;
-//					}
-//				}
-//			}
-//			if (code == 200) {
-//				rob.setCode(200);
-//				rob.setSuccess(true);
-//				mapReq.put("code", 200 + "");
-//				mapReq.put("errorMessage", "此用户不存在");
-//				rob.setResultObject(mapReq);
-//				return rob;
-//			} else if (code == 201) {
-//				rob.setCode(201);
-//				rob.setSuccess(true);
-//				mapReq.put("code", 201 + "");
-//				mapReq.put("errorMessage", "该手机号已经绑定其他微信帐号");
-//				rob.setResultObject(mapReq);
-//				return rob;
-//			} else {
-//				rob.setCode(202);
-//				rob.setSuccess(true);
-//				mapReq.put("code", 202 + "");
-//				mapReq.put("errorMessage", "此手机号存在，可绑定微信号");
-//				rob.setResultObject(mapReq);
-//				return rob;
-//			}
-//		} catch (Exception e) {
-//			rob.setCode(200);
-//			rob.setSuccess(true);
-//			mapReq.put("code", 202 + "");
-//			mapReq.put("errorMessage", "服务器异常");
-//			rob.setResultObject(mapReq);
-//			return rob;
-//		}
 	}
 
 	/**
@@ -324,114 +258,11 @@ public class BrowserUserController {
 
 		LOGGER.info("老版本方法----》》》》");
 	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
-		//		String username = req.getParameter("username");
-//		String password = req.getParameter("password");
-//		/**
-//		 * 如果是微信浏览器普通登录的话，那么就需要自动获取下他的openId了
-//		 */
-//		if (null == username || null == password) {
-//			return ResponseObject.newErrorResponseObject("参数异常");
-//		}
-//		Token t = null;
-//		try {
-//			// 存储在redis中了，有效期为10天。
-//			t = userCenterAPI.loginMobile(username, password,
-//					TokenExpires.TenDay);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResponseObject.newErrorResponseObject("用户名密码有误");
-//		}
-//		if (t != null) {
-//			OnlineUser o = onlineUserService.findUserByLoginName(username);
-//			if (o != null) {
-//				// 判断是否存在微吼信息
-//				if (o.getVhallId() == null || "".equals(o.getVhallId())) {
-//					String weihouId = WeihouInterfacesListUtil.createUser(
-//							o.getId(), WeihouInterfacesListUtil.MOREN,
-//							o.getName(), o.getSmallHeadPhoto());
-//					onlineUserService.updateVhallIdOnlineUser(weihouId,
-//							WeihouInterfacesListUtil.MOREN, o.getName(),
-//							o.getId());
-//					o.setVhallId(weihouId);
-//					o.setVhallPass(WeihouInterfacesListUtil.MOREN);
-//					o.setVhallName(o.getName());
-//				}
-//				ItcastUser user = userCenterAPI.getUser(username);
-//				if (o.isDelete() || o.getStatus() == -1) {
-//					return ResponseObject.newErrorResponseObject("用户已禁用");
-//				}
-//				// 把用户中心的数据给他 这里im都要用到
-//				o.setUserCenterId(user.getId());
-//				o.setPassword(user.getPassword());
-//				// 把这个票给前端
-//				o.setTicket(t.getTicket());
-//
-//				this.onlogin(req, res, t, o, t.getTicket());
-//				// 这个也存放在redis中吧
-//				return ResponseObject.newSuccessResponseObject(o);
-//			} else {
-//				boolean ise = Pattern
-//						.matches(
-//								"^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$",
-//								username);
-//				if (ise) {
-//					ItcastUser user = userCenterAPI.getUser(username);
-//					// 这个地方会返回这个用户的微吼id和名字
-//					OnlineUser newUser = onlineUserService.addUser(username,
-//							user.getNike_name(), null, password);
-//					newUser.setPassword(user.getPassword());
-//					// 把这个票给前端
-//					newUser.setTicket(t.getTicket());
-//					// 把用户中心的数据给他
-//					newUser.setUserCenterId(user.getId());
-//					newUser.setPassword(user.getPassword());
-//					this.onlogin(req, res, t, newUser, t.getTicket());
-//					return ResponseObject.newSuccessResponseObject(newUser);
-//				}
-//			}
-//			return ResponseObject.newErrorResponseObject("在线系统不存在此用户");
-//		} else {
-//			return ResponseObject.newErrorResponseObject("用户名密码错误");
-//		}
 	}
 
 	@RequestMapping(value = "/index")
 	public void index(HttpServletRequest req, HttpServletResponse res)
 			throws Exception {
-
-//		Cookie[] c = req.getCookies();
-//		for (Cookie cookie : c) {
-//			LOGGER.info("cookieName+" + cookie.getName());
-//		}
-//		Cookie cookie = new Cookie("nihao", "nihao");
-//		cookie.setDomain("localhost");
-//		cookie.setPath("/");
-//		cookie.setMaxAge(60 * 60);
-//		// 应该改变来修改浏览器的cookie
-//		res.addCookie(cookie);
-//
-//		cookie = CookieUtil.getCookie(req, "nihao");
-//		if (cookie != null) {
-//			LOGGER.info("cookie:" + cookie.getValue());
-//		}
-
-		// req.setAttribute("access", "brower");
-		// //存储redis
-		// Token token = new Token();
-		// // 票的生成策略用UUID
-		// String ticket = CodeUtil.getRandomUUID();
-		// token.setTicket(ticket);
-		// token.setEmail("453099975");
-		// long time = System.currentTimeMillis() + 10 * 1000;
-		// token.setExpires(time);
-		// cacheService.set(ticket, token, 1*1000);
-		// LOGGER.info("存储成功");
-		// token = cacheService.get(token.getTicket());
-		// LOGGER.info(token.getEmail());
-		// String str = cacheService.get("123");
-		// LOGGER.info("str:"+str);
-		// LOGGER.info("取数据成功");
-		// req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
 	}
 
 	/**
@@ -666,61 +497,7 @@ public class BrowserUserController {
 	public ResponseObject appOnlyOneId(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 
-//		String appUniqueId = req.getParameter("appUniqueId");
-//		String token = req.getParameter("token");
-//		String type = req.getParameter("type");
-		
 		return ResponseObject.newErrorResponseObject("请使用最新版本");
-		
-//		/**
-//		 * 如果存在这个token。那么说明这个token可以的啦。就不用用appUniqueId来判断了
-//		 * 直接中缓存中得到这个token。如果这个token没有或者失效了。那么就中数据库中取下。 在从数据库中去的时候
-//		 */
-//		// cacheService.delete("ba525056ebfa48dfb33974e7ab92d7a5");
-//		OnlineUser ou = new OnlineUser();
-//		if (token != null && cacheService.get(token) != null) {
-//			ou = cacheService.get(token);
-//			return ResponseObject.newSuccessResponseObject(ou);
-//		}
-//		/*
-//		 * 1、判断是游客登录呢，还是普通用户登录
-//		 */
-//		Map<String, Object> map = onlineUserService
-//				.getAppTouristRecord(appUniqueId);
-//		if (map == null) { // 第一次进来
-//			ou = onlineUserService.addYkUser(appUniqueId);
-//			LOGGER.info("用户中心id:" + ou.getUserCenterId());
-//			// 也需要保存这个信息啦
-//			onlineUserService.saveAppTouristRecord(ou, appUniqueId);
-//		} else {
-//			/**
-//			 * 1、点击退出的时候，在数据库中变化一个值 如果这个值是1，说明它是退出登录了。在进入的时候我返回他一些基本的信息。
-//			 * 如果这个是是0,。进入的时候我返回他更过的信息。 2、当登录的时候，在增加这个标识符为0:
-//			 */
-//			Boolean regis = (Boolean) map.get("isRegis");
-//			LOGGER.info("userCenterId;" + map.get("userCenterId"));
-//			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
-//			if (!regis || "1".equals(type)) { // 返回用户基本信息 --主要是不返回loginName
-//				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get(
-//						"userId").toString());
-//			} else { // 返回用户信息 -- 包括loginName
-//				ou = onlineUserService.findUserById(map.get("userId")
-//						.toString());
-//			}
-//			if (iu != null) {
-//				ou.setUserCenterId(iu.getId());
-//				ou.setPassword(iu.getPassword());
-//			}
-//		}
-//
-//		/**
-//		 * 游客身份进入后，存缓存到redis中。也就是这个票 通过这个票进行各种身份通过，对出登录删除这个票就行了。
-//		 * 在以游客的身份过来的话，就判断这个票有效无效。如果无效就在生成这个票。如果有效，就还用这个票吧。
-//		 */
-//		String ticket = CodeUtil.getRandomUUID();
-//		ou.setTicket(ticket);
-//		cacheService.set(ticket, ou, TokenExpires.Day.getExpires());
-//		return ResponseObject.newSuccessResponseObject(ou);
 	}
 
 	public void appleOnlogin(HttpServletRequest req, HttpServletResponse res,

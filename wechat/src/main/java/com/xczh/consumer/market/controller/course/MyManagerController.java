@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.user.center.bean.ItcastUser;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.online.api.service.EnchashmentService;
@@ -52,10 +52,6 @@ public class MyManagerController {
 
 	@Autowired
 	private ICourseService courseService;
-
-	@Autowired
-	@Qualifier("focusServiceRemote")
-	private IFocusService ifocusService;
 
 	@Autowired
 	private OnlineUserService onlineUserService;
@@ -92,7 +88,6 @@ public class MyManagerController {
 	 * Description：进入我的页面显示几个初始化数据
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -149,7 +144,6 @@ public class MyManagerController {
 	/**
 	 * Description：我已购买课程的不包含免费的接口
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -231,16 +225,7 @@ public class MyManagerController {
 			
 		}
 	}
-	public static void main(String[] args) {
-		
-		  double d  = Double.valueOf("0.5");    
-		  if(d>=1){
-			  int i  = (int)d;   
-			  System.out.println(i);   
-		  }
-		 
-	      
-	}
+
     /**
      * 
      * Description：获取 主播控制台  人民币
@@ -267,7 +252,6 @@ public class MyManagerController {
 	 * Description：我的钱包接口
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -295,7 +279,6 @@ public class MyManagerController {
 	 * Description：主播控制台 -- 显示上面的数量级
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -324,12 +307,6 @@ public class MyManagerController {
 		String xmbye = userCoinService.getSettlementBalanceByUserId(user.getId());
 		double d_xmbye = Double.valueOf(xmbye);
 		map.put("xmbNumber",d_xmbye);
-//		if(d_xmbye>=1){
-//			int i = (int)d_xmbye;    
-//			map.put("xmbNumber",i+"");// 熊猫币数量
-//		}else{
-//			map.put("xmbNumber",d_xmbye+"");// 熊猫币数量
-//		}
 		map.put("rmbNumber",userCoinService.getEnchashmentBalanceByUserId(userId));
 
 		return ResponseObject.newSuccessResponseObject(map);
@@ -339,7 +316,6 @@ public class MyManagerController {
 	 * Description：主播控制台 -- 显示主播的课程
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -386,7 +362,6 @@ public class MyManagerController {
 	/**
 	 * Description：主播控制台 -- 直播间的课程
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -420,7 +395,6 @@ public class MyManagerController {
 	 * Description：主播控制台 我的课程（app端我的课程 全部、直播、视频、线下课、音频） 包括审批的包括没有审批的
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -468,7 +442,6 @@ public class MyManagerController {
 	/**
 	 * Description：资产--->结算tab记录 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -494,7 +467,6 @@ public class MyManagerController {
 	/**
 	 * Description：资产---> 提现tab记录
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -520,7 +492,6 @@ public class MyManagerController {
 	/**
 	 * Description：结算 --- 扣减熊猫币增加人民币
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -546,7 +517,6 @@ public class MyManagerController {
 	/**
 	 * Description：提现前-- 验证银行卡信息时候正确
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -571,7 +541,6 @@ public class MyManagerController {
 	/**
 	 * Description：提现   --- 发送短信验证码  
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -625,7 +594,6 @@ public class MyManagerController {
 	 * Description：提现 得到银行卡号，提现的额度
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject

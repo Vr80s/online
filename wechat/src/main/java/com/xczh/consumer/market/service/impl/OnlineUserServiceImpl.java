@@ -26,7 +26,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.online.api.service.UserCoinService;

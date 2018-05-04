@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author zhuwenbao
  */
 @RestController
-@RequestMapping(value = "/medical/doctor/authentication")
+@RequestMapping(value = "/doctor/authentication")
 public class DoctorAuthenticationController extends AbstractController{
 
     @Autowired

@@ -19,7 +19,7 @@ $(function(){
 	
 	//获取医师的id值
 	var id = getQueryString('Id');
-	 RequestService("/medical/doctor/getDoctorById", "GET", {
+	 RequestService("/doctor/getDoctorById", "GET", {
 	 	id:id,
 	 }, function (data) {
        console.log(data);
@@ -90,7 +90,7 @@ $(function(){
     
     
     
-//  RequestService("/medical/doctor/getDoctorById", "GET", {
+//  RequestService("/doctor/getDoctorById", "GET", {
 //	 	id:id
 //	 }, function (data) {
 //	        if(!data.resultObject){
@@ -105,7 +105,7 @@ $(function(){
 //	    });
 	
 	//获取医师对应的媒体报道
-	  RequestService("/medical/doctor/getNewsReportsByPage", "GET", {
+	  RequestService("/doctor/getNewsReportsByPage", "GET", {
 	  	current:current,
 	  	size:size,
 	 	doctorId:id
@@ -122,7 +122,7 @@ $(function(){
 	
 	
 	//获取医师对应的专栏列表
-	  RequestService("/medical/doctor/getSpecialColumnsByPage", "GET", {
+	  RequestService("/doctor/getSpecialColumnsByPage", "GET", {
 	  	current:current,
 	  	size:size,
 	 	doctorId:id
@@ -147,7 +147,7 @@ $(function(){
 	      $('.zhuzuo_title a').attr('href','/web/html/pubs.html?doctorId='+id+'')
 	     
 	    //医师详情页面的著作部分
-	      RequestService("/medical/doctor/getWritingsByDoctorId", "GET", {
+	      RequestService("/doctor/getWritingsByDoctorId", "GET", {
 	 	doctorId:id
 	 }, function (data) {
 	        if(data.resultObject.length == 0){

@@ -1,10 +1,6 @@
-package com.xczh.consumer.market.utils;
+package com.xczhihui.user.center.bean;
 
-import org.apache.hadoop.io.Writable;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -14,7 +10,7 @@ import java.io.Serializable;
  * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
  * Create Time: 2018年2月26日<br>
  */
-public class ThridFalg implements Serializable,Writable {
+public class ThridFalg implements Serializable {
 	
 	private static final long serialVersionUID = 7175888406581656483L;
 	
@@ -60,13 +56,4 @@ public class ThridFalg implements Serializable,Writable {
 				+ ", nickName=" + nickName + ", headImg=" + headImg + "]";
 	}
 
-	@Override
-	public void write(DataOutput out) throws IOException {
-		
-	}
-
-	@Override
-	public void readFields(DataInput in) throws IOException {
-		
-	}
 }

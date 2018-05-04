@@ -963,6 +963,16 @@ height: 100%;
 	height: 48px;
 	color: #999;
 }
+#Notice_Administration .Notice_bottom .neirong{
+	position: relative;
+}
+
+.word-number{
+	position: absolute;
+	top: 134px;
+	left: 574px;
+	color: #999999;
+}
 #Notice_Administration .Notice_bottom .neirong textarea{
 	vertical-align: text-top;
 	width: 540px;
@@ -1193,7 +1203,12 @@ color: #999999;
 	margin-bottom: 60px;
 	cursor: pointer;
 	border: 0;
-	margin-right: 120px;
+	margin-right: 50px;
+}
+.recruit-save-toggle{
+	background: white;
+	border: 1px solid #00BC12;
+	color: #00BC12;
 }
 /*招聘管理预览*/
 .recruit_preview_bg{

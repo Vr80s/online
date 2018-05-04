@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +33,6 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.enums.RegisterForm;
 import com.xczhihui.common.util.enums.SMSCode;
@@ -196,7 +197,6 @@ public class XzUserController {
 	 * Description：浏览器端登录
 	 * @param req
 	 * @param res
-	 * @param params
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -262,7 +262,7 @@ public class XzUserController {
 					ItcastUser user = userCenterAPI.getUser(username);
 					//这个地方会返回这个用户的微吼id和名字
 					OnlineUser newUser = onlineUserService.addUser(username, 
-							user.getNike_name(),getRegiserFormByReq(req),password);
+							user.getNikeName(),getRegiserFormByReq(req),password);
 					newUser.setPassword(user.getPassword());
 					//把这个票给前端
 					newUser.setTicket(t.getTicket());
