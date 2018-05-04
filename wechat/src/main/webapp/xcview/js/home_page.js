@@ -9,11 +9,14 @@ if(stringnull(openId)){
  * @param name
  * @returns
  */
-
-
 function getValueByStr(search,name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = search.match(reg);
+    var r = "";
+    if(search.indexOf("?")!=-1){
+       r = search.substr(search.indexOf("?")+1).match(reg);
+    }else{
+       r = search.match(reg);
+    }
     if (r != null) return unescape(r[2]); return null;
 }
 /*
