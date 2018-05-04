@@ -9,6 +9,8 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.user.center.bean.ThridFalg;
+import com.xczhihui.user.center.bean.TokenExpires;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +25,18 @@ public class UCCookieUtil {
 
 	static Logger logger = LoggerFactory.getLogger(UCCookieUtil.class);
 
+	/**
+	 * cookie名,用户判断第三方账户是否绑定了用户信息
+	 */
+	private final static String  THIRD_PARTY_COOKIE_TOKEN_NAME = "third_party_uc_t_";
+
 	private  static String DEFAULT_DOMAIN ;
 	/**
 	 * 用户中心token cookie名
 	 */
 	private static String COOKIE_TOKEN_NAME;
 
+	
 
 	static{
 		InputStream in = null;
@@ -150,6 +158,71 @@ public class UCCookieUtil {
 		long age = maxAge - System.currentTimeMillis();
 		age = age / 1000;
 		CookieUtil.setCookie(response, name, value, DEFAULT_DOMAIN, "/", (int) age);
+	}
+
+	/**
+	 * 清除cookie中的token信息。 -- 第三方cookie
+	 */
+	public static void clearThirdPartyCookie(HttpServletResponse response) {
+		clearBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME);
+	}
+
+	/**
+	 * 将token中的信息写入cookie。  -- 第三方cookie
+	 *
+	 * @param response
+	 */
+	public static void writeThirdPartyCookie(HttpServletResponse response, ThridFalg tf) {
+		String str;
+		try {
+			//加码
+			String openId = tf.getOpenId();
+			String unionId = tf.getUnionId();
+			String nickName = tf.getNickName();
+			String headImg = tf.getHeadImg();
+
+			String v = String.format("%s;%s;%s;%s", openId, unionId,nickName,headImg);
+			str = URLEncoder.encode(v, "UTF-8");
+
+			writeBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME, str, TokenExpires.TenDay.getExpires());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 从cookie构造token   -- 第三方cookie
+	 *
+	 * @param request
+	 * @return cookie没有信息时返回null
+	 */
+	public static ThridFalg readThirdPartyCookie(HttpServletRequest request) {
+		String str = CookieUtil.getCookieValue(request, THIRD_PARTY_COOKIE_TOKEN_NAME);
+		if (str == null || str.length() < 1) {// 没有token信息
+			return null;
+		}
+		try {
+			//解码
+			str = URLDecoder.decode(str, "UTF-8");
+			String[] strs = str.split(";");
+			String openId =strs[0].trim();
+			String unionId = strs[1].trim();
+			String nickName = strs[2].trim();
+			String headImg = strs[3].trim();
+
+			ThridFalg tf = new ThridFalg();
+			tf.setOpenId(openId);
+			tf.setUnionId(unionId);
+			tf.setNickName(nickName);
+			tf.setHeadImg(headImg);
+
+			return tf;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 }

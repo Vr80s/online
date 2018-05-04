@@ -150,9 +150,9 @@ if(current.indexOf("course_id")!=-1 ||
 function requestService(url, param, callback, ac) {
 	if (ac == null)
 		ac = true;// 默认异步
-   if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
-       url = "/apis"+url;
-   }
+	//   if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
+	//       url = "/apis"+url;
+	//   }
 	mui.ajax({
 		url : url,
 		type : "post",
@@ -349,9 +349,6 @@ function commonLocalStorageSetItem(data){
 	localStorage.setItem("occupationOther",configresult.occupationOther);
 	localStorage.setItem("occupationText",configresult.occupationText);
 }
-
-
-
 /**
  * 公共的移除 localStorage 和cookie 的信息
  * 

@@ -184,7 +184,7 @@
 		  uci.`create_time` createTime,
 		  NULL AS form,
 		  NULL AS acctPan,
-		  NULL AS `status`,
+		  3 AS `status`,
 		  NULL AS `dismissal`,
 		  NULL AS dismissalRemark
 		FROM

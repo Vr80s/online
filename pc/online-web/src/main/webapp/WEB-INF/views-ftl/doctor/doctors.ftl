@@ -128,7 +128,7 @@
                 <#list doctors4.records as doctor>
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -146,7 +146,7 @@
                 <#list doctors2.records as doctor>
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -163,7 +163,7 @@
                 <#list doctors1.records as doctor>
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -181,7 +181,7 @@
                 <#list doctors5.records as doctor>
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -199,7 +199,7 @@
                 <#list doctors3.records as doctor>
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait}" alt="${doctor.name}">
+                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('暂无')}</p>
                         <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}&nbsp; </p>

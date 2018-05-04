@@ -20,11 +20,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xczh.consumer.market.controller.user.XzUserController;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.ThridFalg;
-import com.xczh.consumer.market.utils.UCCookieUtil;
+import com.xczhihui.user.center.bean.ThridFalg;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 
 /**

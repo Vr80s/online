@@ -398,7 +398,7 @@
 			{{else if coinTransaction.status==1}}
 			<span>待发放</span>
 			{{else if coinTransaction.status==2}}
-			<span>待审核</span>
+			<span>审核中</span>
 			{{else if coinTransaction.status==3}}
 			<span>成功</span>
 			{{else}}
@@ -407,11 +407,11 @@
 		</td>
 		<td>
 			{{if coinTransaction.status==0}}
-			<span>{{coinTransaction.dismissalRemark}}</span>
+			<span>{{coinTransaction.dismissal}},{{coinTransaction.dismissalRemark}}</span>
 			{{else if coinTransaction.status==1}}
-			<span>1-3个工作日内发放成功</span>
+			<span>审核成功，1-3个工作日内发放</span>
 			{{else if coinTransaction.status==2}}
-			<span>1-3个工作日内审核</span>
+			<span>审核中，1-3个工作日审核完成</span>
 			{{else if coinTransaction.status==3}}
 			<span>无</span>
 			{{else}}

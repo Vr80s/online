@@ -209,7 +209,7 @@ $(function () {
     
     
      //医馆坐诊医生招募
-    RequestService("/hospitalRecruit/getRecHospitalRecruits","GET",null,function(data){
+    RequestService("/hospital/recruit/getRecHospitalRecruits","GET",null,function(data){
         if(data.resultObject.length == 0){ 
             $('.forum-hot-course ').addClass('hide');
         }else{

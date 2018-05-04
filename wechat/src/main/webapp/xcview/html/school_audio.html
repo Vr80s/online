@@ -90,7 +90,7 @@
 	</div>
 	<!--主播/时间-->
 	<div class="wrap_playTime" id="wrap_playTime">
-		<script type="text/html" id="data_name">
+		<script type="text/template" id="data_name">
 			<ul class="playTime z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
 				<li><img src="../images/population.png"/><span>{{heir}}</span></li>
 				<li>
@@ -175,7 +175,7 @@
 		</span>
 	</div>
 	<div class="wrap_all_returned">  <!--渲染存放盒子-->
-		<script type="text/html" id="wrap_people_comment">
+		<script type="text/template" id="wrap_people_comment">
 			{{each items as item i}}
 		<div class="wrap_people_comment">
 			<div class="wrap_comment_text">
