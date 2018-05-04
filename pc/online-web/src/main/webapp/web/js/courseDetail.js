@@ -463,11 +463,12 @@ window.onload = function() {
 		// RequestService("/course/getCourseById", "POST", {
 		// 	courserId: courserId
 		// }, function(data) {
-			if(courseDetail.type == 3) {
+        givecriticize();
+			/*if(courseDetail.type == 3) {
 				givecriticize();
 			} else {
 				Evalutation();
-			}
+			}*/
 	});
 
 	//授课老师
@@ -645,8 +646,8 @@ window.onload = function() {
 						var criticizeId = $this.attr("data-criticizeId");
 						if($this.attr("data-isPraise") == 0) {
 							var updatePraise = true;
-							RequestService("/video/updatePraise", "POST", {
-								isPraise: updatePraise,
+							RequestService("/criticize/updatePraise", "POST", {
+								praise: updatePraise,
 								criticizeId: criticizeId
 							}, function(data) {
 								$this.attr("data-isPraise", "1");
@@ -655,8 +656,8 @@ window.onload = function() {
 							});
 						} else {
 							var updatePraise = false;
-							RequestService("/video/updatePraise", "POST", {
-								isPraise: updatePraise,
+							RequestService("/criticize/updatePraise", "POST", {
+								praise: updatePraise,
 								criticizeId: criticizeId
 							}, function(data) {
 								$this.attr("data-isPraise", "0");
