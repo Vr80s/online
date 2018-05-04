@@ -32,7 +32,7 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
                 " LEFT JOIN `medical_department` md " +
                 " ON mdd.`department_id` = md.id  where  (mdd.deleted is null OR mdd.deleted  = true)" +
                 " group by mdd.`doctor_id`) dpn on m.`id` = dpn.doctor_id " +
-                " WHERE m.deleted = 0 ");
+                " WHERE m.deleted = 0 and mhd.deleted = '0'");
         if (medicalDoctor.getName() != null) {
             paramMap.put("name", "%" + medicalDoctor.getName() + "%");
             sql.append("and m.name like :name ");
