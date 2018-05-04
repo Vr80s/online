@@ -85,10 +85,12 @@ public class CourseController {
 		CourseLecturVo cv = null;
 		if (user != null) {
 			cv = courseServiceImpl.selectUserCurrentCourseStatus(courseId,user.getId());
+			
+			
 			/*
 			 * 如果是免费的  判断是否学习过
 			 */
-			if (cv.getWatchState() == 1) { // 免费课程
+			if (cv!=null && cv.getWatchState() == 1) { // 免费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 如果购买过返回true 如果没有购买返回false
 					cv.setLearning(1);
 				}

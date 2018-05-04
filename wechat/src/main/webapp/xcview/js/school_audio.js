@@ -160,6 +160,7 @@ $(".select_lable li").click(function(){
  
 //JQ预加载分界线----------------------------------------------------------------------------------
 //刷新评论列表
+refresh()
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
@@ -173,7 +174,7 @@ function refresh(){
 			$(".quie_pic").hide();
 			$(".wrap_all_returned").css({"margin-bottom":"1.2rem"})
 		}
-    	
+    	console.log(data)
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
         //	回复弹窗
@@ -201,6 +202,7 @@ function refresh(){
     });
 }
 //评论
+
 function reportComment() {
 
     var arr=new Array();

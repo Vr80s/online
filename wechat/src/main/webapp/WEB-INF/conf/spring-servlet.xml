@@ -83,7 +83,7 @@
         <property name="privateKey" value="${alipay.merchant.private.key}"></property>
         <property name="publicKey" value="${alipay.alipay.public.key}"></property>
         <property name="serverUrl" value="${alipay.url}"></property>
-        <property name="domain" value="${domain}"></property>
+        <property name="domain" value="${notify.domain}"></property>
     </bean>
 
     <bean id="WxPayBean" class="com.xczhihui.pay.weixin.api.WxPayBean">
