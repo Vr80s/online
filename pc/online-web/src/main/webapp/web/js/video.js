@@ -619,6 +619,9 @@ $(function() {
 	};
 	//点击提交评价
 	$(".getRelease").click(function() {
+		if($.trim($(".videoBody-bottom-left-release textarea").val()) == ""){
+			return false;
+		}
 		RequestService("/online/user/isAlive", "POST", null, function(data) {
 			if(!data.success) {
 				$('#login').modal('show');
@@ -739,8 +742,8 @@ $(function() {
 						var criticizeId = $this.attr("data-criticizeId");
 						if($this.attr("data-isPraise") == 0) {
 							var updatePraise = true;
-							RequestService("/video/updatePraise", "POST", {
-								isPraise: updatePraise,
+							RequestService("/criticize/updatePraise", "POST", {
+                                praise: updatePraise,
 								criticizeId: criticizeId
 							}, function(data) {
 								$this.attr("data-isPraise", "1");
@@ -749,8 +752,8 @@ $(function() {
 							});
 						} else {
 							var updatePraise = false;
-							RequestService("/video/updatePraise", "POST", {
-								isPraise: updatePraise,
+							RequestService("/criticize/updatePraise", "POST", {
+                                praise: updatePraise,
 								criticizeId: criticizeId
 							}, function(data) {
 								$this.attr("data-isPraise", "0");

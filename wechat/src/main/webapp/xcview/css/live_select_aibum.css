@@ -262,8 +262,8 @@ overflow: hidden;
 	height: 100%;
 }
 .limit_height{
-	min-height: 1.3rem;
-	max-height: 8rem;
+	/* min-height: 1.3rem;
+	max-height: 8rem; */
 	background: white;
 	overflow-x: auto;
 	overflow-y: 0;
