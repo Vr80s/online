@@ -130,4 +130,23 @@ public class ClinicPageController extends AbstractFtlController {
 
         return view;
     }
+
+
+    @RequestMapping(value = "{id}/doctors", method = RequestMethod.GET)
+    public ModelAndView doctors(@PathVariable String id) {
+        ModelAndView view = new ModelAndView("clinic/doctors");
+
+        MedicalHospitalVo clinic = medicalHospitalBusinessServiceImpl.selectHospitalById(id);
+        view.addObject("clinic", clinic);
+
+        List<MedicalDoctorVO> recDoctors = medicalDoctorBusinessService.selectRecDoctor();
+        view.addObject("recDoctors", recDoctors);
+
+        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page<>(1, 10), null, id, null, null, null);
+        view.addObject("doctors", doctors);
+
+        doTitleKeyWords(view, clinic.getName() + "-", clinic.getName() + ",");
+
+        return view;
+    }
 }
