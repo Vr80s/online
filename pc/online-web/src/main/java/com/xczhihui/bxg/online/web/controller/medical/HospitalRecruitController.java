@@ -13,7 +13,7 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
 
 @RestController
-@RequestMapping(value = "/hospitalRecruit")
+@RequestMapping(value = "/hospital/recruit")
 public class HospitalRecruitController extends AbstractFtlController {
 
     @Autowired

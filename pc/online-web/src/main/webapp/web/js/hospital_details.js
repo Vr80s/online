@@ -119,7 +119,7 @@ $(function(){
 
 	
 	//医馆招聘信息
-	    RequestService("/hospitalRecruit/getHospitalRecruitById","GET",{
+	    RequestService("/hospital/recruit/getHospitalRecruitById","GET",{
 			hospitalId:id
 	    },function(data){
 	    	//更多给名医添加id

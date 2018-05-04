@@ -50,12 +50,8 @@ $(function(){
 
 <script>
 	window.onload = function(){
-
-		// 课件获取高度
-		var school_height=$(window).height()-$(".details_cen1").height();
-		$(".pinch-zoom-container").height(school_height);
 		
-		  /*礼物模块其他区域隐藏*/
+		/*礼物模块其他区域隐藏*/
 		$("#video").click(function(){
 			$(".send_gifts").hide();
 		});
@@ -626,15 +622,15 @@ $(function(){
 			$("#doc").css("display","none");
 		}
 
-
 		$(".give_a1").click(function(){
 			$("#attention").hide();
 		});
 
-
-		
-	
-		
+		$(".li4").click(function(){
+			// 课件获取高度
+			var school_height=$(window).height()-$(".details_cen1").height();
+			$(".pinch-zoom-container").height(school_height);
+		});
 	};
 </script>
 </html>
