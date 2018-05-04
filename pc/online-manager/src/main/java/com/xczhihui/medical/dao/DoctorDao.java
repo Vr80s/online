@@ -30,7 +30,7 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
                 " ON mhd.`hospital_id`=mh.`id`" +
                 " LEFT JOIN (select  GROUP_CONCAT(md.`name`) as name, mdd.`doctor_id`  from `medical_doctor_department` mdd " +
                 " LEFT JOIN `medical_department` md " +
-                " ON mdd.`department_id` = md.id  where  (mdd.deleted is null OR mdd.deleted  = true)" +
+                " ON mdd.`department_id` = md.id  where  (mdd.deleted is null OR mdd.deleted = false)" +
                 " group by mdd.`doctor_id`) dpn on m.`id` = dpn.doctor_id " +
                 " WHERE m.deleted = 0 and mhd.deleted = '0'");
         if (medicalDoctor.getName() != null) {
