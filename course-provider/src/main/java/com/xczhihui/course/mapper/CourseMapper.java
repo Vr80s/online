@@ -27,7 +27,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 	 
 	 CourseLecturVo selectCourseDetailsById(@Param("courseId") Integer  courseId);
 	 
-	 List<CourseLecturVo> selectLearningCourseListByUserId(@Param("userId")String userId);
+	 List<CourseLecturVo> selectLearningCourseListByUserId(@Param("pageSize")Integer pageSize,@Param("userId")String userId);
 
 	Integer selectMyFreeCourseListCount(@Param("userId")String userId);
 
@@ -98,4 +98,8 @@ public interface CourseMapper extends BaseMapper<Course> {
 	String selectCourseDescription(@Param("type")Integer type,@Param("typeId")String typeId);
 
 	List<Integer> selectCourseIdByCollectionId(Integer courseId);
+
+	List<CourseLecturVo> myCourseType(@Param("pageNumber")Integer pageNumber, 
+			@Param("pageSize")Integer pageSize, @Param("userId")String userId,
+			@Param("type")Integer type);
 }

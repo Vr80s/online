@@ -64,7 +64,7 @@ var all_history="";
 //已购课程/结束课程	
 
 //	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
-	requestService("/xczh/myinfo/list",null,function(data) {
+	requestService("/xczh/myinfo/list",{pageSize:5},function(data) {
 
 //			if(data.resultObject[0].courseList.startTime!="" || data.resultObject[0].courseList.startTime!=null){
 //				data.resultObject[0].courseList.startTime=data.resultObject[0].courseList.startTime.replace(/-/g,".")

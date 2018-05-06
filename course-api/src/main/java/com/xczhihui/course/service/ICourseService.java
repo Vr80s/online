@@ -27,7 +27,7 @@ public interface ICourseService {
 	   * @return List<CourseLecturVo>
 	   * @author name：yangxuan <br>email: 15936216273@163.com
 	   */
-	  public List<CourseLecturVo> selectLearningCourseListByUserId(String userId);
+	  public List<CourseLecturVo> selectLearningCourseListByUserId(Integer pageSize,String userId);
 	  
 	  /**
 	   * 
@@ -157,4 +157,14 @@ public interface ICourseService {
 
 
 	public String selectCourseDescription(Integer type, String typeId);
+
+	/**
+	 * 我的课程类别查询  type 1 查询我的课程  2 查询已结束课程
+	 * @param num
+	 * @param pageSize
+	 * @param id
+	 * @param type
+	 * @return
+	 */
+	public List<CourseLecturVo> myCourseType(Integer num, Integer pageSize, String id, Integer type);
 }
