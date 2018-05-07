@@ -54,6 +54,8 @@ public class WeihouInterfacesListUtil {
 	
 	public static final String APP_SECRET_KEY = "1898130bad871d1bf481823ba1f3ffb1";
 	
+	
+	
 	public static final String MOREN = RandomUtil.getCharAndNumr(6);//第三方登录默认微吼密码
 	
 	public static final String MOREN_USER_PASSWORD = "123456";//第三方登录默认用户密码

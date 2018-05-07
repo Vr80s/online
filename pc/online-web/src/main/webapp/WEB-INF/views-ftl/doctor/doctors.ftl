@@ -155,8 +155,6 @@
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -174,8 +172,6 @@
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -194,8 +190,6 @@
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>

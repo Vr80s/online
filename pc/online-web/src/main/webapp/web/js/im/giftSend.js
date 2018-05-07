@@ -199,7 +199,7 @@ $(document).ready(function() {
 		var gid = $(this).attr("data-id");
 		var number = $(this).attr("data-number");
 		//判断余额是否足够
-		var balanceTotal = $("#account").html();
+		var balanceTotal = $("#balanceTotal").html();
 		if(parseInt(number)<= parseInt(balanceTotal) || parseInt(number) ==0){
 			//获取数量
 			var gifNumber =Number($('.gif-num').text()); 
