@@ -314,7 +314,7 @@ window.onload = function() {
                         });
                         $(".gotengxun").click(function() {
 //             增加学习记录         	
-                        	RequestService("/xczh/history/add", "POST", {
+                        	RequestService("/learnWatch/add", "POST", {
                                 courseId: courserId,
                                 recordType: 1
                             }, function(data) {
@@ -370,7 +370,7 @@ window.onload = function() {
 	}
 //	增加观看记录
 	$(".add-history").click(function(){
-		RequestService("/xczh/history/add", "POST", {
+		RequestService("/learnWatch/add", "POST", {
             courseId: courserId,
             recordType: 2
         }, function(data) {
