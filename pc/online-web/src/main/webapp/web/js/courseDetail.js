@@ -369,7 +369,7 @@ window.onload = function() {
         });
 	}
 //	增加观看记录
-	$(".purchase").click(function(){
+	$(".add-history").click(function(){
 		RequestService("/xczh/history/add", "POST", {
             courseId: courserId,
             recordType: 2

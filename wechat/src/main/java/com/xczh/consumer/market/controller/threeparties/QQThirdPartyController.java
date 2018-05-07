@@ -211,6 +211,7 @@ public class QQThirdPartyController {
 		    		return	ResponseObject.newErrorResponseObject("获取用户信息有误");
 		    	}
 		    }
+		    
 		    LOGGER.info("绑定呢还是解除绑定呢： "+ userId);
 	        long tokenExpireIn = 0L;
 	        Map<String,String> mapRequest = new HashMap<String,String>();
@@ -260,7 +261,6 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		             qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
 		             qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
 		             //qq.setUnionId(unionId);
-		           
 		            //用户id不等于null时，就判定用户第三方登录是通过手机号来绑定 第三方登录信息的
 		             if(StringUtils.isNotBlank(userId)){  // 绑定成功
 		            	 qq.setUserId(userId);	
