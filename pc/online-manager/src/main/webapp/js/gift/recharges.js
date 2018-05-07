@@ -122,11 +122,7 @@ $(".add_bx").click(function(){
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/recharges/addRecharges");
 	            $("#addCourse-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+                    data = getJsonData(data);
                 	unmask();
 	                if(data.success){
 	                    $("#addCourseDialog").dialog("close");
@@ -159,11 +155,7 @@ function toEdit(obj){
 			mask();
             $("#updateCourse-form").attr("action", basePath+"/recharges/updateRechargesById");
             $("#updateCourse-form").ajaxSubmit(function(data){
-            	try{
-            		data = jQuery.parseJSON(jQuery(data).text());
-            	}catch(e) {
-            		data = data;
-            	  }
+            	data = getJsonData(data);
             
                 unmask();
                 if(data.success){

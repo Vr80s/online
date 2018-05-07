@@ -174,11 +174,7 @@ $(".add_bx").click(function(){
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/gift/addGift");
 	            $("#addCourse-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+	            	data = getJsonData(data);
                 	unmask();
 	                if(data.success){
 	                    $("#addCourseDialog").dialog("close");
@@ -300,11 +296,7 @@ function toEdit(obj){
 			mask();
             $("#updateCourse-form").attr("action", basePath+"/gift/updateGiftById");
             $("#updateCourse-form").ajaxSubmit(function(data){
-            	try{
-            		data = jQuery.parseJSON(jQuery(data).text());
-            	}catch(e) {
-            		data = data;
-            	  }
+            	data = getJsonData(data);
             
                 unmask();
                 if(data.success){
@@ -499,11 +491,7 @@ function setBrokerage(url,dataTable,title,content,btnName){
 			if($("#updateBrokerage-form").valid()){
 	            $("#updateBrokerage-form").attr("action", basePath+"/gift/updateBrokerage");
 	            $("#updateBrokerage-form").ajaxSubmit(function(data){
-	            	try{
-	            		data = jQuery.parseJSON(jQuery(data).text());
-	            	}catch(e) {
-	            		data = data;
-	            	  }
+	            	data = getJsonData(data);
 	                unmask();
 	                if(data.success){
 	                	debugger

@@ -153,11 +153,7 @@ function loadBanner2List(){
  			 mask();
  			 $("#addBanner2-form").attr("action", basePath+"/message/messagePush/save");
  	            $("#addBanner2-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+                    data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#addBanner2Dialog").dialog("close");

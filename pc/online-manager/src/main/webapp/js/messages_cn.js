@@ -23,9 +23,13 @@ jQuery.extend(jQuery.validator.messages, {
 });
 
 function getJsonData(data){
+    unmask();
     try{
         data = jQuery.parseJSON(jQuery(data).text());
     }catch(e) {
+    	if(data.success!=null){
+    		return data;
+		}
         layer.alert("登录信息已失效");
         throw new Error("登录信息已失效");
     }

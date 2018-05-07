@@ -651,11 +651,7 @@ $(".save_bx2").on("click",function(){
 		$("#updateExamPaper-form").attr("action", basePath+"/exam/examPaper/updateExamPaperById");
         $("#updateExamPaper-form").ajaxSubmit(function(data){
         	backupAndRestore(1);
-        	try{
-        		data = jQuery.parseJSON(jQuery(data).text());
-        	}catch(e) {
-        		data = data;
-        	}
+        	data = getJsonData(data);
         	unmask();
             if(data.success){
                 layer.msg(data.resultObject);

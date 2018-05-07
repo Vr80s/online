@@ -109,11 +109,7 @@ $(".add_bx").click(function () {
             mask();
             $("#addTag-form").attr("action", basePath + "/headline/tag/addTag");
             $("#addTag-form").ajaxSubmit(function (data) {
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 unmask();
                 if (data.success) {
                     $("#addTagDialog").dialog("close");

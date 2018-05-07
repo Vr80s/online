@@ -265,11 +265,7 @@ $(".add_bx").click(function(){
 			 mask();
  			 $("#fcode-form").attr("action", basePath+"/factivity/fcode/addFcodeRule");
 	 		 $("#fcode-form").ajaxSubmit(function(data){
-		            	try{
-	             		data = jQuery.parseJSON(jQuery(data).text());
-	             	}catch(e) {
-	             		data = data;
-	             	}
+                 data = getJsonData(data);
 		                unmask();
 		                if(data.success){
 		                    $("#addFcodeDialog").dialog("close");
@@ -381,11 +377,7 @@ function editFcodeDialog (obj){
 			 mask();
  			 $("#editfcode-form").attr("action", basePath+"/factivity/fcode/updateFcodeRule");
 	 		 $("#editfcode-form").ajaxSubmit(function(data){
-		            	try{
-	             		data = jQuery.parseJSON(jQuery(data).text());
-	             	}catch(e) {
-	             		data = data;
-	             	}
+		            	data = getJsonData(data);
 		                unmask();
 		                if(data .success){
 		                    $("#editFcodeDialog").dialog("close");

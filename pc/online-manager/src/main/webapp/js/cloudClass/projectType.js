@@ -159,11 +159,7 @@ function loadBanner2List(){
  			 mask();
  			 $("#addBanner2-form").attr("action", basePath+"/cloudClass/projectType/add");
  	            $("#addBanner2-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#addBanner2Dialog").dialog("close");
@@ -196,11 +192,7 @@ function updateBanner2(obj){
  			 mask();
  			 $("#updateBanner2-form").attr("action", basePath+"/cloudClass/projectType/update");
  	            $("#updateBanner2-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateBanner2Dialog").dialog("close");

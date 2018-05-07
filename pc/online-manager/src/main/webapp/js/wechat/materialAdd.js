@@ -108,11 +108,7 @@ $("#saveBtn").click(function(){
 		mask();
 		 $("#addArticle-form").attr("action", basePath+"/headline/writing/add");
 		 $("#addArticle-form").ajaxSubmit(function(data){
-			 try{
-         		data = jQuery.parseJSON(jQuery(data).text());
-         	}catch(e) {
-         		data = data;
-         	  }
+			 data = getJsonData(data);
 			 if(data.success){
 				 layer.msg(data.resultObject);
 				 turnPage(basePath+'/home#headline/writing/index');
@@ -139,11 +135,7 @@ $("#previewSaveBtn").click(function(){
 		mask();
 		 $("#addArticle-form").attr("action", basePath+"/headline/article/addPre");
 		 $("#addArticle-form").ajaxSubmit(function(data){
-			 try{
-         		data = jQuery.parseJSON(jQuery(data).text());
-         	}catch(e) {
-         		data = data;
-         	  }
+			 data = getJsonData(data);
 			 if(data.success){
 				 window.open(weburl+"/web/html/forumDetailPreview.html?preId="+data.resultObject);
 			 }else{

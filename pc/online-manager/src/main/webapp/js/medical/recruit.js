@@ -188,11 +188,7 @@ $(".add-recruit").click(function () {
             mask();
             addRecruitForm.attr("action", basePath + "/medical/recruit/add");
             addRecruitForm.ajaxSubmit(function (data) {
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    console.log(e);
-                }
+                data = getJsonData(data);
                 unmask();
                 if (data.success) {
                     $("#addRecruitDialog").dialog("close");
@@ -278,11 +274,7 @@ function toEdit(obj) {
                 mask();
                 updateRecruitForm.attr("action", basePath + "/medical/recruit/updateMedicalHospitalRecruitById");
                 updateRecruitForm.ajaxSubmit(function (data) {
-                    try {
-                        data = jQuery.parseJSON(jQuery(data).text());
-                    } catch (e) {
-                        data = data;
-                    }
+                    data = getJsonData(data);
 
                     unmask();
                     if (data.success) {
