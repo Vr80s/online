@@ -82,9 +82,7 @@ function repalceAll(str,rstr,arstr){
 function getGiftList(){
 	RequestService("/gift/getGift", "GET", {
 	}, function(data) {
-		
 		var gifts ="";
-		
 		for (var i = 0; i < data.resultObject.length; i++) {
 			var item = data.resultObject[i];
 			var  gift = "<li class='li-initial-border' data-id="+item.id+" data-number="+item.price+">"+
@@ -112,9 +110,7 @@ function getGiftList(){
 //礼物渲染
 getGiftList();
 
-
 $(document).ready(function() {
-
     // 通过BOSH连接XMPP服务器
     $('#btn-login').click(function() {
         if(!connected) {
@@ -299,9 +295,16 @@ $(document).ready(function() {
 	
 	
 });
-
 function createGiftList(data){
-	if(data.messageType==1){
+	
+	if(data.messageType==2){
+	  	//当前时间 
+    	if(parseInt(sendTime) < parseInt(data.sendTime)){
+        	console.log("开始直播了，建议再次刷新页面   >>>>");
+        	//刷新页面 --》在观看
+        	location.reload();
+    	}
+	}else if(data.messageType==1){
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +
