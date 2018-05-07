@@ -226,10 +226,11 @@ public class GiftDao extends SimpleHibernateDao {
 
 	public Object getRankingListByLiveId(String liveId, int pageNumber, int pageSize) {
 		StringBuffer sql = new StringBuffer();
+
 		sql.append( " SELECT  ou.id userId,ou.`name`, ou.small_head_photo smallHeadPhoto, ogs.create_time, ");
 		sql.append( " CAST(SUM(ogs.`price`) AS SIGNED) giftCount ");
 		sql.append( " FROM oe_gift_statement ogs  INNER JOIN oe_user ou 	ON (ogs.giver = ou.id) ");
-		sql.append( " WHERE ogs.live_id = :live_id 	GROUP BY giver 	ORDER BY giftCount DESC,userId desc ");
+		sql.append( " WHERE ogs.live_id = :live_id 	GROUP BY giver HAVING SUM(ogs.`price`)>0 ORDER BY giftCount DESC,userId desc ");
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("live_id", liveId);
         Page<RankingUserVO> page = this.findPageBySQL(sql.toString(), paramMap, RankingUserVO.class, pageNumber, pageSize);
