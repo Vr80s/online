@@ -187,10 +187,7 @@ $(function () {
                     mask();
                     labelForm.attr("action", basePath + "/bbs/label/create");
                     labelForm.ajaxSubmit(function (data) {
-                        try {
-                            data = jQuery.parseJSON(jQuery(data).text());
-                        } catch (e) {
-                        }
+                        data = getJsonData(data);
                         if (data) {
                             dialog.dialog("close");
                             location.reload();

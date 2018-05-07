@@ -139,11 +139,7 @@ $('#okbt').on('click',function(){
 		$("#courseDetailForm").attr("action", basePath+"/mobile/partner/saveOrUpdate");
 		$("#courseDetailForm").ajaxSubmit(function(data) {
 			unmask();
-			try {
-				data = jQuery.parseJSON(jQuery(data).text());
-			} catch (e) {
-				data = data;
-			}
+			data = getJsonData(data);
 			if (data.success) {
 				alertInfo("保存成功！");
 				$("html").eq(0).css("overflow", "scroll");

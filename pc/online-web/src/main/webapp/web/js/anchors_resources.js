@@ -100,7 +100,6 @@ $(function() {
 					//个性签名
 					$('.doctor_inf>p').text(data.resultObject.info)
 				}
-				$('.')
 			} else {
 
 			}
@@ -1180,8 +1179,9 @@ var ue = UE.getEditor('column-content', {
 				$('#detail_address').val(data.resultObject.detailedAddress)
 			}
 			//医馆封面
-			if(data.frontImg) {
-				$('#hospital .fengmian_pic').html('<img src=' + frontImg + ' alt="">')
+			if(data.resultObject.medicalHospitalPictures!="") {
+					var pictureData=data.resultObject.medicalHospitalPictures[0];					
+				$('#hospital .fengmian_pic').html('<img src=' + pictureData.picture + ' alt="">')
 			}
 			//电话号码
 			if(data.resultObject.tel) {
@@ -1199,7 +1199,7 @@ var ue = UE.getEditor('column-content', {
 		//详细地址清空
 		$('#detail_address').val('')
 		//封面清空
-		$('#hospital .fengmian_pic').html('	<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;"></p>');
+		$('#hospital .fengmian_pic').html('	<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;">暂无医馆封面图</p>');
 		//电话清空
 		$('#hospital .hosTel').val('');
 		//坐诊时间

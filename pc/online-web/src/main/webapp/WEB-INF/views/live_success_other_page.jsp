@@ -35,7 +35,7 @@
   var course_id='<%=request.getAttribute("courseId")%>';
   var page = '<%=request.getAttribute("page")%>';
   var description = '<%=request.getAttribute("description")%>';
-  
+  var liveStatus = '<%=request.getAttribute("liveStatus")%>';
   
   var env = '<%=request.getAttribute("env")%>';
   var host = '<%=request.getAttribute("host")%>';

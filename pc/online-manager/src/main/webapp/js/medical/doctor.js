@@ -448,11 +448,7 @@ $(".add_P").click(function(){
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/medical/doctor/add");
 	            $("#addCourse-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+                    data = getJsonData(data);
                 	unmask();
 	                if(data.success){
 	                    $("#addCourseDialog").dialog("close");
@@ -837,11 +833,7 @@ function toEdit(obj,status){
                 mask();
                 $("#updateCourse-form").attr("action", basePath+"/medical/doctor/updateMedicalDoctorById");
                 $("#updateCourse-form").ajaxSubmit(function(data){
-                	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+                	data = getJsonData(data);
                 
                     unmask();
                     if(data.success){
@@ -914,11 +906,7 @@ function updateRecImg(obj){
  			 mask();
  			 $("#updateRecImg-form").attr("action", basePath+"/cloudclass/course/updateRecImgPath");
  	            $("#updateRecImg-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+                    data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateRecImgDialog").dialog("close");
@@ -1055,11 +1043,7 @@ function openFieldManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -1130,11 +1114,7 @@ function openHospitalManage(obj){
 
             $("#hospital-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#hospitalDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -1281,11 +1261,7 @@ function openDepartmentManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);

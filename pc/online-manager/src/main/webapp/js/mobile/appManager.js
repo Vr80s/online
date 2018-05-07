@@ -191,11 +191,7 @@ function loadMobileBannerList(){
  			 mask();
  			 $("#addMobileBanner-form").attr("action", basePath+"/operate/appManager/addAppManager");
  	            $("#addMobileBanner-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#addMobileBannerDialog").dialog("close");
@@ -221,11 +217,7 @@ function loadMobileBannerList(){
  			 mask();
  			 $("#dialogAddIosDiv-form").attr("action", basePath+"/operate/appManager/addAppManager");
  	            $("#dialogAddIosDiv-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#dialogAddIosDivDialog").dialog("close");
@@ -268,11 +260,7 @@ function updateMobileBanner(obj){
  			 mask();
  			 $("#updateMobileBanner-form").attr("action", basePath+"/operate/appManager/updateAppVersionInfoById");
  	            $("#updateMobileBanner-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateMobileBannerDialog").dialog("close");

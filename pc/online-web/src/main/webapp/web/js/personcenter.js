@@ -971,6 +971,7 @@ $(function() {
 //                    '<li><span>125064050</span><span>-300</span><span>2017.08.28</span><span>支付宝</span><span>支付失败</span></li>'+
                 '</ul>'+
             '</div>'+
+            
             '<div role="tabpanel" class="tab-pane" id="messages">'+
                 '<ul id="txjl">'+
                     '<li><span style="flex: 3;">订单号</span><span style="flex: 2;">金额</span><span style="flex: 3;">时间</span><span style="flex: 1;">提现方式</span><span style="flex: 2;">支付结果</span></li>'+
@@ -978,24 +979,28 @@ $(function() {
 //                    '<li> <span>125064033</span><span>-3600</span><span>2017.08.28</span><span>支付宝</span><span>已到账</span></li>'+
                ' </ul>'+
             '</div>'+
+            
             '<div role="tabpanel" class="tab-pane" id="settings">'+
                 '<ul id="sdlw">'+
                    ' <li><span>订单号</span><span>礼物</span><span>礼物数量</span><span>熊猫币</span><span style="flex: 3;">时间</span><span>赠送人</span></li>'+
 //                    '<li><span>125064022</span><span>一个礼物</span><span>+3000</span><span>2017.08.28</span><span>我就是我不一样的烟火</span></li>'+
                 '</ul>'+
             '</div>'+
+            
             '<div role="tabpanel" class="tab-pane " id="reward">'+
                 '<ul id="dsjl" >'+
                     '<li><span>订单号</span><span>打赏金额</span><span>熊猫币</span><span>时间</span><span>赠送人</span></li>'+
 //                    '<li><span>125064050</span><span>-300</span><span>2017.08.28</span><span>我就是我不一样的烟火</span></li>'+
                ' </ul>'+
             '</div>'+
+            
              '<div role="tabpanel" class="tab-pane " id="lecturer">'+
                 '<ul id="jiangshi" >'+
                     '<li><span>直播课程名称</span><span>直播开始时间</span><span>直播报名人数</span><span>直播报名总金额</span><span>单价</span><span>操作</span></li>'+
 //                     '<li><span>黄飞虎</span><span>赵日天</span><span>元婴期</span><span>赵日天</span><span>2017-12-05</span><span onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>'+
                ' </ul>'+
             '</div>'+
+            '<div id="noResult" class="hide" style=" text-align: center;padding-top: 150px;color: #ccc;"><img src="/web/images/nobank.png" alt="" "><p>暂无相关记录</p></div>'+
         '</div>'+
         '</div>'+
     	

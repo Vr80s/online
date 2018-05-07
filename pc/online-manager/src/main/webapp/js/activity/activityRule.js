@@ -306,11 +306,7 @@ function loadActivityRuleList(){
  			 mask();
  			 $("#addActivityRule-form").attr("action", basePath+"/activity/activityRule/addActivityRule");
  	            $("#addActivityRule-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#addActivityRuleDialog").dialog("close");
@@ -434,11 +430,7 @@ function updateActivityRule(obj){
  			 mask();
  			 $("#updateActivityRule-form").attr("action", basePath+"/activity/activityRule/updateActivityRuleById");
  	            $("#updateActivityRule-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateActivityRuleDialog").dialog("close");

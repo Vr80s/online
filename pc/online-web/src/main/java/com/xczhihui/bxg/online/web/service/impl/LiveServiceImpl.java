@@ -165,7 +165,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         }else{
             mv = new ModelAndView("live_success_other_page");
         }*/
-        ModelAndView  mv = new ModelAndView("live_success_page");
+        ModelAndView  mv = null;
         
         if(liveStatus==1 || liveStatus==3){ // 直播中和直播回放去这个页面
             mv = new ModelAndView("live_success_page");
