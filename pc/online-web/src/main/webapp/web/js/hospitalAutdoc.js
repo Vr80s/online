@@ -177,13 +177,29 @@ $('#deleteTip .confirm-sure').click(function(){
 //	})
 	
 
+//	//医师编辑功能
+//	$('#doc_Administration_bottom2').on('click','.edit',function() {
+//		changeDocId = $(this).attr('data-id');
+//		$('#mask').removeClass('hide');
+//		$('#doc_Administration_bottom4').addClass('hide');
+//		$('#doc_Administration_bottom3').removeClass('hide');
+//		$('#doc_Administration_bottom3').css('visibility','visible');
+//		//数据回显
+//		RequestService("/doctor/get", "get", {
+//			doctorId: changeDocId,
+//		}, function(data) {
+////			console.log(data);
+////			$('#doc_Administration_bottom3 .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+//			ediotrInf(data.resultObject.name,data.resultObject.medicalDoctorAuthenticationInformation.headPortrait,data.resultObject.title,
+//				data.resultObject.medicalDoctorAuthenticationInformation.titleProve,data.resultObject.departments,data.resultObject.fieldText,data.resultObject.description);
+//		})
+//		
+//	})
+
 	//医师编辑功能
 	$('#doc_Administration_bottom2').on('click','.edit',function() {
 		changeDocId = $(this).attr('data-id');
-		$('#mask').removeClass('hide');
-		$('#doc_Administration_bottom4').addClass('hide');
-		$('#doc_Administration_bottom3').removeClass('hide');
-		$('#doc_Administration_bottom3').css('visibility','visible');
+		$('#doc_Administration .add_newTeacher').click();
 		//数据回显
 		RequestService("/doctor/get", "get", {
 			doctorId: changeDocId,
@@ -427,6 +443,7 @@ $('#deleteTip .confirm-sure').click(function(){
 	// 可是我点击验证效果
 	var arr = [];
 	var keshiStr;
+	debugger
 	$('#doc_Administration_bottom3  .keshi ').on('click', '#shanChangList2>li', function() {
 		if($(this).hasClass('keshiColor')) {
 			//删除第二次选中的

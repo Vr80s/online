@@ -35,8 +35,7 @@ public class DoctorWritingController extends AbstractFtlController {
     @ResponseBody
     public ResponseObject listByDoctorId(@RequestParam(defaultValue = "1") int page,
                                          @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
-        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId(request));
-        return newSuccessResponseObject(medicalDoctorWritingService.list(page, size, doctorId));
+        return newSuccessResponseObject(medicalDoctorWritingService.list(page, size, getUserId(request)));
     }
 
     @RequestMapping(value = "public", method = RequestMethod.GET)

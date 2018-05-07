@@ -1,4 +1,4 @@
-package com.xczhihui.common;
+package com.xczhihui.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

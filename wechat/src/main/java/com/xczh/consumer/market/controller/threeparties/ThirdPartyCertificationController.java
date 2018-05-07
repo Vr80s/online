@@ -374,6 +374,7 @@ public class ThirdPartyCertificationController {
 			if (null == user && null == ou) {
 				code = UserUnitedStateType.PNHONE_NOT_THERE_ARE.getCode();
 			} else {
+				
 				Object obj = null;
 				/*
 				 * 已注册手机号,判断手机号是否已经绑定了。
@@ -388,15 +389,12 @@ public class ThirdPartyCertificationController {
 							.getWxcpClientUserWxMappingByUserId(ou.getId());
 
 				} else if (type == ThirdPartyType.QQ.getCode()) {// QQ
-
 					obj = threePartiesLoginService
 							.selectQQClientUserMappingByUserId(ou.getId());
-
 				} else if (type == ThirdPartyType.WEIBO.getCode()) {// 微博
 
 					obj = threePartiesLoginService
 							.selectWeiboClientUserMappingByUserId(ou.getId());
-
 				}
 				LOGGER.info("obj    " + obj);
 				if (obj == null) { // 已注册手机号,但是未绑定,可进行判断操作
@@ -405,8 +403,7 @@ public class ThirdPartyCertificationController {
 					code = UserUnitedStateType.PNHONE_BINDING.getCode();
 				}
 			}
-			return ResponseObject.newSuccessResponseObject(
-					UserUnitedStateType.valueOf(code), code);
+			return ResponseObject.newSuccessResponseObject(UserUnitedStateType.valueOf(code), code);
 		} catch (Exception e) {
 			return ResponseObject.newErrorResponseObject("数据有误");
 		}

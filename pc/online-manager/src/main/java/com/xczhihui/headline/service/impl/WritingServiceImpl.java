@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
@@ -68,9 +69,6 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
                 "select * from oe_bxs_article where title = '"
                         + articleVo.getTitle() + "'",
                 new HashMap<String, Object>());
-        if (vos != null && vos.size() > 0) {
-            throw new IllegalArgumentException("文章名称已存在！");
-        }
 
         String sql = "INSERT INTO oe_bxs_article (title,content,type_id,img_path,user_id) VALUES "
                 + "(:title,:content,:typeId,:imgPath,:userId) ";
@@ -91,8 +89,8 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
         String id = UUID.randomUUID().toString().replace("-", "");
         writingVo.setId(id);
         writingVo.setArticleId(articleVo.getId() + "");
-        String sqlWritingVo = "INSERT INTO medical_writings (id,author,title,buy_link,article_id) VALUES "
-                + "(:id,:author,:title,:buyLink,:articleId) ";
+        String sqlWritingVo = "INSERT INTO medical_writings (id,author,title,buy_link,article_id, img_path, remark) VALUES "
+                + "(:id,:author,:title,:buyLink,:articleId, :imgPath, :content) ";
         writingDao.getNamedParameterJdbcTemplate().update(sqlWritingVo,
                 new BeanPropertySqlParameterSource(writingVo), kh);
 
@@ -133,9 +131,6 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
                 "select * from oe_bxs_article where id!=" + articleVo.getId()
                         + " and title = '" + articleVo.getTitle() + "'",
                 new HashMap<String, Object>());
-        if (vos != null && vos.size() > 0) {
-            throw new IllegalArgumentException("文章名称已存在！");
-        }
 
         String sql = "UPDATE oe_bxs_article SET title =:title ,content =:content,img_path =:imgPath,user_id =:userId WHERE id =:id";
         Map<String, Object> param = new HashMap<String, Object>();
@@ -149,12 +144,13 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
         /**
          * 修改著作信息
          */
-        String sqlWriting = "UPDATE medical_writings SET author =:author ,title =:title,buy_link =:buyLink WHERE id =:id";
+        String sqlWriting = "UPDATE medical_writings SET author =:author ,title =:title,buy_link =:buyLink, remark = :remark WHERE id =:id";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", writingVo.getId());
         params.put("title", writingVo.getTitle());
         params.put("author", writingVo.getAuthor());
         params.put("buyLink", writingVo.getBuyLink());
+        params.put("remark", writingVo.getContent());
         articleDao.getNamedParameterJdbcTemplate().update(sqlWriting, params);
 
     }
@@ -209,7 +205,9 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
         param.put("id", wv.getId());
         param.put("status", wv.getStatus());
         writingDao.getNamedParameterJdbcTemplate().update(sql, param);
-
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("status", wv.getStatus()).addValue("id", wv.getArticleId());
+        articleDao.getNamedParameterJdbcTemplate().update("update oe_bxs_article set status = :status where id = :id", mapSqlParameterSource);
     }
 
     @Override

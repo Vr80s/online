@@ -532,9 +532,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
 
         // 根据医师id获取其所在的医馆
-        Map<String, Object> columnMap = new HashMap<>();
-        columnMap.put("doctor_id", doctorAccount.getDoctorId());
-        List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
+        List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByDoctorId(doctorAccount.getDoctorId());
         if (CollectionUtils.isEmpty(hospitalDoctors)) {
             return null;
         }

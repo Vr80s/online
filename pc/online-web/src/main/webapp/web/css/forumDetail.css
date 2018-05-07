@@ -80,7 +80,7 @@ img {
 
 #forum .forum-content .forum-content-left {
     width: 860px;
-    min-height: 956px;
+    /*min-height: 956px;*/
     float: left;
     background-color: #fff;
     padding: 25px 30px 58px;

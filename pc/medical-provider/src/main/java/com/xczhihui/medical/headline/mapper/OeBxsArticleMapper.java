@@ -45,18 +45,16 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
     /**
      * 查询医师关联的媒体报道
      *
-     * @param page     分页参数
-     * @param doctorId 医师id
+     * @param page   分页参数
+     * @param userId 用户id
      * @return 列表数据
      */
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
             " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
-            " LEFT JOIN `medical_doctor_report` mdr" +
-            " ON oba.`id` = mdr.`article_id` " +
-            " where oba.`is_delete`=0 AND mdr.doctor_id = #{doctorId} " +
+            " where oba.`is_delete`=0 AND oba.create_person = #{userId} and type_id = '7'" +
             " order by oba.create_time desc"})
-    List<OeBxsArticleVO> listReport(Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId);
+    List<OeBxsArticleVO> listReport(Page<OeBxsArticleVO> page, @Param("userId") String userId);
 
     /**
      * 查询媒体报道
@@ -76,18 +74,16 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
     /**
      * 查询医师关联的专栏
      *
-     * @param page     分页参数
-     * @param doctorId 医师id
+     * @param page   分页参数
+     * @param userId 用户id
      * @return 列表数据
      */
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
             " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
-            " LEFT JOIN `medical_doctor_special_column` mdsc" +
-            " ON oba.`id` = mdsc.`article_id` " +
-            " where oba.`is_delete`=0 and mdsc.doctor_id = #{doctorId} " +
+            " where oba.`is_delete`=0 and oba.create_person = #{userId} and oba.type_id = '4'" +
             " order by oba.create_time desc"})
-    List<OeBxsArticleVO> listSpecialColumn(Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId);
+    List<OeBxsArticleVO> listSpecialColumn(Page<OeBxsArticleVO> page, @Param("userId") String userId);
 
     /**
      * 查询专栏

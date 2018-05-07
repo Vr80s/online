@@ -14,12 +14,12 @@ public interface IMedicalDoctorWritingService {
     /**
      * 医师的著作列表
      *
-     * @param page     页码
-     * @param size     每页数量
-     * @param doctorId 医师id
+     * @param page   页码
+     * @param size   每页数量
+     * @param userId 用户id
      * @return 列表数据
      */
-    Page<MedicalWritingVO> list(int page, int size, String doctorId);
+    Page<MedicalWritingVO> list(int page, int size, String userId);
 
     /**
      * 著作列表

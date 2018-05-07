@@ -21,6 +21,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.MyCourseType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -66,14 +67,19 @@ public class MyInfoController {
 	 */
 	@RequestMapping("list")
 	@ResponseBody
-	public ResponseObject categoryXCList(HttpServletRequest req,
-			HttpServletResponse res)
+	public ResponseObject list(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam(value="pageSize",required=false) Integer pageSize)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user == null){
 			ResponseObject.newErrorResponseObject("登录失效");
 		}
-		List<CourseLecturVo>  listAll  = courseServiceImpl.selectLearningCourseListByUserId(user.getId());
+		if(pageSize ==null || pageSize == 0 ) {
+			pageSize =Integer.MAX_VALUE;
+		}
+		List<CourseLecturVo>  listAll  = courseServiceImpl
+				.selectLearningCourseListByUserId(pageSize,user.getId());
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> mapTj = new HashMap<String, Object>();
 		Map<String,Object> mapNw = new HashMap<String, Object>();
@@ -146,5 +152,34 @@ public class MyInfoController {
 		
 		ifocusService.updateFocus(lockId,lecturerId,onlineUser.getId(),type);
 		return ResponseObject.newSuccessResponseObject("操作成功");
+	}
+	
+	/**
+	 * 我的课程和已结束课程
+	 * @param req
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("myCourseType")
+	@ResponseBody
+	public ResponseObject myCourseType(HttpServletRequest req,
+			@RequestParam("pageNumber") Integer pageNumber,
+			@RequestParam("pageSize") Integer pageSize,
+			@RequestParam("type") Integer type) throws Exception {
+
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if (user == null) {
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		
+		String myCourseType = MyCourseType.getTypeText(type);
+		if(myCourseType == null) {
+			return ResponseObject.newErrorResponseObject("我的课程类型有误："+MyCourseType.getAllToString());
+		}
+		int num = (pageNumber - 1) * pageSize;
+		num = num < 0 ? 0 : num;
+		return ResponseObject.newSuccessResponseObject(courseServiceImpl.myCourseType(num,pageSize, user.getId(),type));
 	}
 }

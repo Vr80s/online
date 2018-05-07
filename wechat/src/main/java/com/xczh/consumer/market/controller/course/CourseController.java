@@ -130,7 +130,7 @@ public class CourseController {
 		//}
 		
 		//if(StringUtils.isNotBlank(cv.getLecturerDescription())){
-			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=3&typeId="+courseId);
 		//}
 		
 		/**
@@ -190,7 +190,7 @@ public class CourseController {
 		//}
 		
 		//if(StringUtils.isNotBlank(cv.getLecturerDescription())){
-			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=3&typeId="+courseId);
 		//}
 		
 		//判断点钱在线人数

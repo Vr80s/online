@@ -31,4 +31,6 @@ public interface CriticizeMapper extends BaseMapper<Criticize> {
     Integer hasCriticizeScore(@Param("courseId") Integer courseId, @Param("userId") String userId);
 
 	Integer hasCourseIsBuy(@Param("courseId")Integer courseId, @Param("userId")String userId);
+	
+	Integer hasUserAllCourseIsBuy(@Param("userId")String userId, @Param("userLecturerId")String userLecturerId);
 }

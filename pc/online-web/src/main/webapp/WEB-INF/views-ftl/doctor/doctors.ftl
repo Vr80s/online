@@ -153,8 +153,8 @@
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
+                        <p>${doctor.workTime?default('')}</p>
+                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -170,8 +170,8 @@
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
+                        <p>${doctor.workTime?default('')}</p>
+                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -188,8 +188,8 @@
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
+                        <p>${doctor.workTime?default('')}</p>
+                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -244,6 +244,7 @@
 
 
             <!-- 名师报道 -->
+        <#if (recentlyWritings?size gt 0)>
             <div class="school_teacher ">
                 <div>
                     <h4>名医报道</h4>
@@ -252,14 +253,16 @@
                 </div>
 
                 <ul class="teacher_picList clearfix" id="doctor_baodao">
-                <#list recentlyNewsReports as recentlyNewsReport>
-                    <li>
-                        <a href="${webUrl}/headline/details/${recentlyNewsReport.id}">${recentlyNewsReport.title}</a>
-                    </li>
-                </#list>
+                    <#list recentlyNewsReports as recentlyNewsReport>
+                        <li>
+                            <a href="${webUrl}/headline/details/${recentlyNewsReport.id}">${recentlyNewsReport.title}</a>
+                        </li>
+                    </#list>
                 </ul>
             </div>
+        </#if>
 
+        <#if (recentlyWritings?size gt 0)>
             <!-- 名医书籍 -->
             <div class="teacher_books">
                 <div id="">
@@ -270,23 +273,24 @@
                 </div>
 
                 <ul class="book_list clearfix" id="boos_list">
-                <#list recentlyWritings as recentlyWriting>
-                    <li>
-                        <img src="${recentlyWriting.imgPath}" alt="">
-                        <div>
-                            <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C">
-                                <span class="book_name">${recentlyWriting.title!""}</span>
-                                <h5 class="book_author">${recentlyWriting.author!""}</h5>
-                            </a>
-                        </div>
-                    </li>
+                    <#list recentlyWritings as recentlyWriting>
+                        <li>
+                            <img src="${recentlyWriting.imgPath}" alt="">
+                            <div>
+                                <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C">
+                                    <span class="book_name">${recentlyWriting.title!""}</span>
+                                    <h5 class="book_author">${recentlyWriting.author!""}</h5>
+                                </a>
+                            </div>
+                        </li>
 
-                </#list>
+                    </#list>
                 </ul>
 
             </div>
-
+        </#if>
         </div>
+
     </div>
 </div>
 <#include "../footer.ftl">

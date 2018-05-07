@@ -229,7 +229,7 @@
 											{{/if}}	
 		                    			{{else if item.type == 3}}   
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-													onclick="common_jump_play({{item.id}},{{item.watchState}},{{item.lineState}})"></a>
+													onclick="common_jump_all({{item.id}})"></a>
 		                    			{{else if item.type == 4}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
 												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
@@ -240,7 +240,7 @@
 												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
 		                    			{{else if item.type == 3}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-						onclick="common_jump_play({{item.id}},{{item.watchState}},{{item.lineState}})"></a>
+						onclick="common_jump_all({{item.id}})"></a>
 		                    			{{else if item.type == 4}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
 												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
@@ -398,7 +398,7 @@
 	                					{{if item.type == 1 || item.type == 2}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
 		                    			{{else if item.type == 3}}   
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_play({{item.id}},{{item.watchState}},{{item.lineState}})"></a>
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
 		                    			{{else if item.type == 4}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
 		                    			{{/if}}	
@@ -407,7 +407,7 @@
 		                    			{{if item.type == 1 || item.type == 2}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
 		                    			{{else if item.type == 3}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_play({{item.id}},{{item.watchState}},{{item.lineState}})"></a>
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
 		                    			{{else if item.type == 4}}
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
 		                    			
@@ -480,7 +480,7 @@
 											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
 										{{/if}}	
 	                    			{{else if item.type == 3}}   
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_play({{item.id}},{{item.watchState}},{{item.lineState}})"></a>
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
 	                    			{{else if item.type == 4}}
 		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
 	                    			{{/if}}	
@@ -489,7 +489,7 @@
 	                    			{{if item.type == 1 || item.type == 2}}
 		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
 	                    			{{else if item.type == 3}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_play({{item.id}},{{item.watchState}},{{item.lineState}})"></a>
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
 	                    			{{else if item.type == 4}}
 		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
 	                    			

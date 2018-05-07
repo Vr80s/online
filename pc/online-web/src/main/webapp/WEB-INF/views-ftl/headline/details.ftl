@@ -102,7 +102,7 @@
                     <span class="community-count">${appraises.total}条</span>
                 </div>
                 <div class="forum-communitybox">
-                    <div class="forum-community-content">
+                    <div class="forum-community-content" style="border: 0;">
                     <#list appraises.records as appraise>
                         <div class="forum-community-content">
                             <div class="forum-comment-content clearfix">

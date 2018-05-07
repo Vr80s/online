@@ -23,7 +23,6 @@ function getValueByStr(search,name) {
  * 点击banner跳转
  */
 function bannerJump(type,params){
-	
 	if(!stringnull(params)){
 		console.error("banner参数不可以是空的");
 		return;
@@ -35,25 +34,19 @@ function bannerJump(type,params){
 	}else if(type == 3){
 		
 		var courseId = getValueByStr(params,"course_id");
-		//alert("courseId:"+courseId);
 		//课程跳转
 		common_jump_all(courseId);
 		
 	}else if(type == 4){
 		//主播跳转
 		var userLecturerId = getValueByStr(params,"userLecturerId");
-		//alert("userLecturerId:"+userLecturerId);
 		location.href="/xcview/html/live_personal.html?userLecturerId="+userLecturerId;
 	}else if(type == 5){
-		//var userLecturerId = getValueByStr(params,"userLecturerId");
-		//alert("params:"+params);
 		location.href="/xcview/html/curriculum_table.html?"+params;
 	}else{
 		console.error("banner类型有误");
 		return;
 	}
-	
-	
 }
 
 
