@@ -620,6 +620,7 @@ $(function() {
 	//点击提交评价
 	$(".getRelease").click(function() {
 		if($.trim($(".videoBody-bottom-left-release textarea").val()) == ""){
+            showTip("评论内容不能为空")
 			return false;
 		}
 		RequestService("/online/user/isAlive", "POST", null, function(data) {
@@ -646,7 +647,7 @@ $(function() {
 					$(".getRelease").attr("star", 5);
 					$(".tipRelease").hide();
 				};
-				RequestService("/video/saveCriticize", "POST", {
+				RequestService("/criticize/saveCriticize", "POST", {
 					videoId: courseId,
 					chapterId: chapterId,
 					content: releaseTxt,
@@ -700,8 +701,8 @@ $(function() {
 
 	function givecriticize() {
 		//获取评价列表
-		RequestService("/video/getVideoCriticize", "POST", {
-			videoId: courseId,
+		RequestService("/criticize/getCriticizeList", "POST", {
+            courseId: courseId,
 			pageNumber: pageNumber,
 			pageSize: pageSize
 		}, function(data) {

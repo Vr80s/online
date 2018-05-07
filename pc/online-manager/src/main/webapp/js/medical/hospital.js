@@ -634,11 +634,7 @@ $(".add_P").click(function () {
             mask();
             $("#addCourse-form").attr("action", basePath + "/medical/hospital/add");
             $("#addCourse-form").ajaxSubmit(function (data) {
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 unmask();
                 if (data.success) {
                     $("#addCourseDialog").dialog("close");
@@ -959,11 +955,7 @@ function toEdit(obj, status) {
                 mask();
                 $("#updateCourse-form").attr("action", basePath + "/medical/hospital/updateMedicalHospitalById");
                 $("#updateCourse-form").ajaxSubmit(function (data) {
-                    try {
-                        data = jQuery.parseJSON(jQuery(data).text());
-                    } catch (e) {
-                        data = data;
-                    }
+                    data = getJsonData(data);
 
                     unmask();
                     if (data.success) {
@@ -1123,11 +1115,7 @@ function openFieldManage(obj) {
 
             $("#childMenu-form").ajaxSubmit(function (data) {
                 unmask();
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if (data.success) {
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);

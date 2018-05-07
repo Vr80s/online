@@ -18,9 +18,12 @@ import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.common.util.enums.DoctorType;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
@@ -48,6 +51,8 @@ public class DoctorPageController extends AbstractFtlController {
     private IMedicalDoctorWritingService medicalDoctorWritingService;
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
+    @Autowired
+    private ICourseService courseService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
@@ -62,7 +67,7 @@ public class DoctorPageController extends AbstractFtlController {
         List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
         view.addObject("recentlyNewsReports", recentlyNewsReports);
 
-        List<OeBxsArticleVO> recentlyWritings = medicalDoctorArticleService.listPublicWritings(1, 3).getRecords();
+        List<OeBxsArticleVO> recentlyWritings = medicalDoctorArticleService.listPublicWritings(1, 5).getRecords();
         view.addObject("recentlyWritings", recentlyWritings);
 
         Page<MedicalDoctorVO> page = new Page<>();
@@ -112,6 +117,10 @@ public class DoctorPageController extends AbstractFtlController {
         }
         view.addObject("specialColumns", specialColumns);
         view.addObject("writings", medicalDoctorWritingService.listPublic(1, 5, id).getRecords());
+        MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(id);
+        if (medicalDoctorAccount != null) {
+            view.addObject("courses", courseService.selectLecturerAllCourse(new Page<CourseLecturVo>(1, 6), medicalDoctorAccount.getAccountId()).getRecords());
+        }
 
         doTitleKeyWords(view, doctor.getName() + "-", doctor.getName() + ",");
 

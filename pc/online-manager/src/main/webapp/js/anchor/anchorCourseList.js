@@ -175,11 +175,7 @@ function updateDefaultStudentCount(obj){
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updatedefaultStudent");
             $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 unmask();
                 if(data.success){
                     $("#recommendSort").val("");

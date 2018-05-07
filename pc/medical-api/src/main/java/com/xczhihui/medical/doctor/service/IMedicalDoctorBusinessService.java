@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
@@ -127,4 +128,12 @@ public interface IMedicalDoctorBusinessService {
      * @return 医师信息
      */
     MedicalDoctor get(String id);
+
+    /**
+     * 通过医师id 查看医师账号信息
+     *
+     * @param doctorId 医师id
+     * @return 医师账号
+     */
+    MedicalDoctorAccount getByDoctorId(String doctorId);
 }

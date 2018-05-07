@@ -147,11 +147,7 @@ $(function() {
 			mask();
 			$("#addBarrierDetail-form").attr("action", basePath+"/barrier/barrier/addBarrier");
 	        $("#addBarrierDetail-form").ajaxSubmit(function(data){
-	        	try{
-	        		data = jQuery.parseJSON(jQuery(data).text());
-	        	}catch(e) {
-	        		data = data;
-	        	}
+	        	data = getJsonData(data);
 	        	unmask();
 	            if(data.success){
 	                layer.msg(data.resultObject);

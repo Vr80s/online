@@ -19,22 +19,22 @@ $(function () {
         {
             "title": "文章标题",
             "class": "center",
-            "width": "15%",
+            "width": "12%",
             "sortable": false,
             "data": "title",
             "mRender": function (data, display, row) {
                 return data.replace(/</g, '&lt;').replace(/>/g, '&gt;');
             }
         },
-        {"title": "分类", "class": "center", "width": "8%", "sortable": false, "data": "typeName"},
+        {"title": "分类", "class": "center", "width": "6%", "sortable": false, "data": "typeName"},
         {"title": "引用的标签", "class": "center", "width": "10%", "sortable": false, "data": "tagName"},
         {"title": "作者", "class": "center", "width": "8%", "sortable": false, "data": "author"},
         {"title": "阅读量", "class": "center", "width": "6%", "sortable": false, "data": "browseSum"},
         {"title": "点赞数", "class": "center", "width": "6%", "sortable": false, "data": "praiseSum"},
         {"title": "评论数", "class": "center", "width": "6%", "sortable": false, "data": "commentSum"},
-        {"title": '更新时间', "class": "center", "width": "9%", "data": 'createTime', "sortable": false},
-        {"title": '医师作者', "class": "center", "width": "9%", "data": 'doctorAuthor', "sortable": false},
-        {"title": '报道医师', "class": "center", "width": "9%", "data": 'reportDoctor', "sortable": false},
+        {"title": '更新时间', "class": "center", "width": "8%", "data": 'createTime', "sortable": false},
+        {"title": '医师作者', "class": "center", "width": "8%", "data": 'doctorAuthor', "sortable": false},
+        {"title": '报道医师', "class": "center", "width": "8%", "data": 'reportDoctor', "sortable": false},
         {"title": '推荐值', "class": "center", "width": "6%", "data": 'sort', "sortable": false},
         {"title": '推荐时效', "class": "center", "width": "6%", "data": 'recommendTime', "sortable": false},
         {
@@ -54,7 +54,7 @@ $(function () {
         {
             "sortable": false,
             "class": "center",
-            "width": "8%",
+            "width": "15%",
             "title": "操作",
             "mRender": function (data, display, row) {
                 var str = "<div class=\"hidden-sm hidden-xs action-buttons\">";
@@ -128,11 +128,7 @@ function updateRecommendSort(obj) {
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath + "/headline/article/updateRecommendSort");
             $("#UpdateRecommendSortFrom").ajaxSubmit(function (data) {
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 unmask();
                 if (data.success) {
                     $("#recommendSort").val("");
@@ -217,11 +213,7 @@ function openAuthorManage(obj) {
 
             $("#childMenu-form").ajaxSubmit(function (data) {
                 unmask();
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if (data.success) {
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -253,11 +245,7 @@ function openReportManage(obj) {
 
             $("#childMenu-form").ajaxSubmit(function (data) {
                 unmask();
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if (data.success) {
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);

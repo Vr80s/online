@@ -275,7 +275,9 @@
                 <ul class="book_list clearfix" id="boos_list">
                     <#list recentlyWritings as recentlyWriting>
                         <li>
-                            <img src="${recentlyWriting.imgPath}" alt="">
+                            <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C;display: inline;">                       	
+                        		<img src="${recentlyWriting.imgPath}" alt="">
+                           </a>
                             <div>
                                 <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C">
                                     <span class="book_name">${recentlyWriting.title!""}</span>

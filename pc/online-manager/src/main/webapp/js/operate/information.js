@@ -154,11 +154,7 @@ function loadInfoList(){
 			 mask();
 			 $("#addInfo-form").attr("action", basePath+"/operate/information/addInfo");
 			  $("#addInfo-form").ajaxSubmit(function(data){
-	            	try{
-              		data = jQuery.parseJSON(jQuery(data).text());
-              	}catch(e) {
-              		data = data;
-              	  }
+	            	data = getJsonData(data);
 	                unmask();
 	                if(data.success){
 	                    $("#addInfoDialog").dialog("close");
@@ -360,11 +356,7 @@ $(".add_type").click(function(){
 			 mask();
 			 $("#addTypefo-form").attr("action", basePath+"/operate/information/updateTypes");
 			 $("#addTypefo-form").ajaxSubmit(function(data){
-				 try{
-					 data = jQuery.parseJSON(jQuery(data).text());
-				 }catch(e) {
-					 data = data;
-				 }
+				 data = getJsonData(data);
 				 unmask();
 				 if(data.success){
 					 layer.msg('操作成功！');
