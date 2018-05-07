@@ -540,7 +540,7 @@ public class CourseDao extends SimpleHibernateDao {
      * @return 返回对应的课程对象
      */
     public  CourseVo   findCourseOrderById(Integer  courseId){
-         String  sql =" select id ,is_free isFree, course_type,collection,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
+         String  sql =" select id ,is_free isFree,user_lecturer_id userLecturerId, course_type,collection,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
                       " current_price as currentPrice, now() as create_time, type, FORMAT(original_cost - current_price,2) as preferentyMoney from oe_course  where id =:courseId";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId",courseId);

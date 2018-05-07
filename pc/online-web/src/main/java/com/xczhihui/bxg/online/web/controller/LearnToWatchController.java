@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.bxg.online.web.vo.CourseVo;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.enums.MyCourseType;
 import com.xczhihui.common.util.enums.UserRecordType;
 import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.course.model.WatchHistory;
-import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IWatchHistoryService;
-import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.WatchHistoryVO;
 
 /**
@@ -34,8 +33,8 @@ public class LearnToWatchController extends AbstractController{
 	@Autowired
 	public IWatchHistoryService watchHistoryServiceImpl;
 
-	@Autowired
-	private ICourseService courseServiceImpl;
+	 @Autowired
+     private CourseService service;
 	
 	/**
      * Description：增加观看记录
@@ -64,7 +63,7 @@ public class LearnToWatchController extends AbstractController{
 				 throw new RuntimeException("记录类型有误："+UserRecordType.getAllToString());
 			}
 			
-			CourseLecturVo course =  courseServiceImpl.selectCurrentCourseStatus(courseId);
+			CourseVo course =  service.findCourseOrderById(courseId);
 			if(course == null){
 		          throw new RuntimeException("课程信息有误");
 		    }
@@ -76,8 +75,8 @@ public class LearnToWatchController extends AbstractController{
 			}
 			if(recordType!=null){
 				if(recordType == 1){ //增加学习记录
-					if(course.getWatchState() == 1 || 
-					   course.getUserLecturerId().equals(ou.getId())){
+					if(course.isFree()||  course.getUserLecturerId().equals(ou.getId())){
+						
 						watchHistoryServiceImpl.addLearnRecord(lockId, courseId, ou.getId(), ou.getLoginName());
 				    }
 				}
@@ -94,7 +93,7 @@ public class LearnToWatchController extends AbstractController{
 			return ResponseObject.newSuccessResponseObject("保存成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("保存失败");
+			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}
 	}
 
