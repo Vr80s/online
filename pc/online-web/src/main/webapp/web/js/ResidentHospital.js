@@ -1082,36 +1082,57 @@ function notice_btn_delete(t){
 //公告部分结束
 //医师管理部分
 //顶部点击切换底部内容功能
-var newTeacehr = 1;
-$('#doc_Administration .add_newTeacher').click(function() {
-	newTeacehr *= -1;
-	//发布
-	if(newTeacehr < 0) {
-		//顶部变化
-		$(this).text('返回');
-		$(this).siblings('.title').text('新医师');
-		//底部变化
-		$('#doc_Administration_bottom2').addClass('hide');
-		$('#doc_Administration_bottom').removeClass('hide');
-		//搜索部分隐藏
-		$('.search_teacher_ipt').addClass('hide');
-		$('.search_teacher_btn').addClass('hide');
-		//内容制空功能
+//var newTeacehr = 1;
+//$('#doc_Administration .add_newTeacher').click(function() {
+//	newTeacehr *= -1;
+//	//发布
+//	if(newTeacehr < 0) {
+//		//顶部变化
+//		$(this).text('返回');
+//		$(this).siblings('.title').text('新医师');
+//		//底部变化
+//		$('#doc_Administration_bottom2').addClass('hide');
+//		$('#doc_Administration_bottom').removeClass('hide');
+//		//搜索部分隐藏
+//		$('.search_teacher_ipt').addClass('hide');
+//		$('.search_teacher_btn').addClass('hide');
+//		//内容制空功能
+//		reset();
+//	} else {
+//		//取消发布
+//		$(this).text('新医师');
+//		$(this).siblings('.title').text('医师管理');
+//		//底部变化
+//		$('#doc_Administration_bottom').addClass('hide');
+//		$('#doc_Administration_bottom2').removeClass('hide');
+//		//搜索部分显示
+//		$('.search_teacher_ipt').removeClass('hide');
+//		$('.search_teacher_btn').removeClass('hide');
+//	}
+//
+//})
+	$('#doc_Administration .add_newTeacher').click(function() {
+		var workSelect = $(this).text()
+		if(workSelect == "新医师") {
+			$('#doc_Administration_bottom2').addClass('hide');
+			$('#doc_Administration_bottom').removeClass('hide');
+			$(this).siblings('.title').text('新医师');
+			$(this).text("返回")
+//		搜索部分隐藏
+			$('.search_teacher_ipt').addClass('hide');
+			$('.search_teacher_btn').addClass('hide');
+//		内容制空功能
 		reset();
-	} else {
-		//取消发布
-		$(this).text('新医师');
-		$(this).siblings('.title').text('医师管理');
-		//底部变化
-		$('#doc_Administration_bottom').addClass('hide');
-		$('#doc_Administration_bottom2').removeClass('hide');
-		//搜索部分显示
+		} else {
+			$('#doc_Administration_bottom').addClass('hide');
+			$('#doc_Administration_bottom2').removeClass('hide');
+			$(this).siblings('.title').text('医师管理');			
+			$(this).text("新医师");
+			//		//搜索部分显示
 		$('.search_teacher_ipt').removeClass('hide');
 		$('.search_teacher_btn').removeClass('hide');
-	}
-
-})
-
+		}
+	})
 function reset() {
 	//姓名
 	$('#doc_Administration_bottom .doc_name').val('');

@@ -308,6 +308,15 @@ window.onload = function() {
                             $("#sign-up-modal").css("display", "none");
                         });
                         $(".gotengxun").click(function() {
+//             增加学习记录         	
+                        	RequestService("/xczh/history/add", "POST", {
+                                courseId: courserId,
+                                recordType: 1
+                            }, function(data) {
+                            	console.log("添加学习记录");
+                            });
+                        	
+                        	
                             RequestService("/video/saveEntryVideo", "POST", {
                                 courseId: courserId,
                                 free: free
@@ -354,6 +363,16 @@ window.onload = function() {
             }
         });
 	}
+//	增加观看记录
+	$(".purchase").click(function(){
+		RequestService("/xczh/history/add", "POST", {
+            courseId: courserId,
+            recordType: 2
+        }, function(data) {
+        	console.log("添加观看记录");
+        });
+	})
+//	增加观看记录结束
 	function rTips(errorMessage) {
 		$(".rTips").text(errorMessage);
 		$(".rTips").css("display", "block");
