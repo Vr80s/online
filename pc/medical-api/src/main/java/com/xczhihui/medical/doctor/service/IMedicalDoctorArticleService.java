@@ -15,11 +15,11 @@ public interface IMedicalDoctorArticleService {
     /**
      * 专栏列表
      *
-     * @param page     分页参数
-     * @param doctorId 医师id
+     * @param page   分页参数
+     * @param userId 用户id
      * @return 列表数据
      */
-    Page<OeBxsArticleVO> listSpecialColumn(int page, String doctorId);
+    Page<OeBxsArticleVO> listSpecialColumn(int page, String userId);
 
     /**
      * 创建专栏
@@ -67,11 +67,11 @@ public interface IMedicalDoctorArticleService {
     /**
      * 媒体报道列表
      *
-     * @param page     分页参数
-     * @param doctorId 医师id
+     * @param page   分页参数
+     * @param userId 用户id
      * @return 列表数据
      */
-    Page<OeBxsArticleVO> listReport(int page, String doctorId);
+    Page<OeBxsArticleVO> listReport(int page, String userId);
 
     /**
      * 创建媒体报道

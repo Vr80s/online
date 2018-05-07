@@ -20,15 +20,14 @@ public interface MedicalWritingMapper extends BaseMapper<MedicalWriting> {
      * 分页查询
      *
      * @param medicalWritingsVOPage 分页参数
-     * @param doctorId              医师id
+     * @param userId                用户id
      * @return 列表数据
      */
     @Select({"SELECT mw.id, mw.`title`, mw.`author`, mw.`img_path` as imgPath, mw.buy_link as buyLink, mw.status as status, mw.update_time as updateTime, mw.remark" +
             " FROM `medical_writings` mw" +
-            " JOIN `medical_doctor_writings` mdw ON mdw.`writings_id` = mw.`id`" +
-            "WHERE mw.`deleted`=0 AND mdw.doctor_id = #{doctorId}" +
+            " WHERE mw.`deleted`=0 AND mw.create_person = #{userId}" +
             " ORDER BY mw.`create_time` desc"})
-    List<MedicalWritingVO> listWritingByDoctorId(Page<MedicalWritingVO> medicalWritingsVOPage, @Param("doctorId") String doctorId);
+    List<MedicalWritingVO> listWritingByUserId(Page<MedicalWritingVO> medicalWritingsVOPage, @Param("userId") String userId);
 
     /**
      * 分页查询

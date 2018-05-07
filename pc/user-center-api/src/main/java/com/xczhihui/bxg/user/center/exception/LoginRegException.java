@@ -12,17 +12,6 @@ import java.io.Serializable;
  **/
 public class LoginRegException extends IpandaTcmException implements Serializable {
 
-    /**
-     * Token 验证不通过
-     */
-    public static final LoginRegException TOKEN_IS_ILLICIT = new LoginRegException("Token 验证非法");
-
-    /**
-     * 未登录
-     */
-    public static final LoginRegException NOT_LOGGED_IN = new LoginRegException("未登录",true);
-
-
     public LoginRegException(String msg, boolean alarm) {
         super(msg);
         this.alarm = alarm;

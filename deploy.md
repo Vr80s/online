@@ -74,3 +74,4 @@ bbs pc端整合
     ALTER TABLE `oe_bxs_article` ADD `update_time` DATETIME  NULL DEFAULT NULL COMMENT '更新时间';
     ALTER TABLE `oe_bxs_article` ADD `user_created` BIT(1)  NULL DEFAULT 0 COMMENT '是否是用户创建的';
     UPDATE article_type SET status = 1,sort = 1 WHERE id = 4;
+    ALTER TABLE `oe_bxs_article` ADD `create_person` VARCHAR(32) NULL DEFAULT NULL COMMENT '创建者id';

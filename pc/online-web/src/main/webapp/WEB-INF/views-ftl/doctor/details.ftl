@@ -48,13 +48,15 @@
             </#if>
                 <span class="dizhi"><em></em>${doctor.city}</span>
             </div>
+        <#if (doctor.fields??)&&(doctor.fields?size gt 0)>
             <div class="doctor_inf2">
                 <p>主治：
-                <#list doctor.fields as field>
-                    <span>${field.name}</span>
-                </#list>
+                    <#list doctor.fields as field>
+                        <span>${field.name}</span>
+                    </#list>
                 </p>
             </div>
+        </#if>
         </div>
     </div>
 </div>
@@ -70,7 +72,7 @@
     <#if doctor.medicalHospital??>
         <div id="doc_hospital">
             <div class="hospital clearfix">
-                <a class="to_hospital_detail"></a>
+                <a class="to_hospital_detail" href="${webUrl}/clinics/${doctor.medicalHospital.id}" target="_blank"></a>
                 <h3>坐诊医馆</h3>
                 <div class="hospital_pic">
                     <img src="${doctor.medicalHospital.medicalHospitalPictures[0].picture}"
@@ -80,7 +82,7 @@
                     <p>${doctor.medicalHospital.name}</p>
                     <p>预约电话：<span>${doctor.medicalHospital.tel?default('暂无')}</span></p>
                     <p>坐诊时间：<span
-                            style="vertical-align: text-top;display: inline-block;width: 455px;">${doctor.medicalHospital.workTime?default('暂无')}</span>
+                            style="vertical-align: text-top;display: inline-block;width: 455px;">${doctor.workTime?default('暂无')}</span>
                     </p>
                     <p>地 &nbsp;&nbsp;&nbsp;&nbsp; 址：
                         <span style="vertical-align: text-top;display: inline-block;width: 455px;">
@@ -239,8 +241,9 @@
                 <#list newsReports.records as newsReport>
                     <li class="clearfix">
                         <div class="zhuanlan_left">
-                            <a href="${webUrl}/headline/details/${newsReport.id}" target="_blank"><img src="${newsReport.imgPath}"
-                                                                                       alt="${newsReport.title}"></a>
+                            <a href="${webUrl}/headline/details/${newsReport.id}" target="_blank"><img
+                                    src="${newsReport.imgPath}"
+                                    alt="${newsReport.title}"></a>
                         </div>
                         <div class="zhuanlan_right">
                             <h3><a href="${webUrl}/headline/details/${newsReport.id}"

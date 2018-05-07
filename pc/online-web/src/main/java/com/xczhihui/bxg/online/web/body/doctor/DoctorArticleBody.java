@@ -27,7 +27,7 @@ public class DoctorArticleBody {
 
     private String url;
 
-    public OeBxsArticle build(HeadlineType headlineType, String userId) {
+    public OeBxsArticle build(HeadlineType headlineType, String author) {
         OeBxsArticle oeBxsArticle = new OeBxsArticle();
         oeBxsArticle.setUserId(author);
         oeBxsArticle.setDelete(false);

@@ -37,8 +37,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	}
 
 	@Override
-	public List<CourseLecturVo> selectLearningCourseListByUserId(String id) {
-		List<CourseLecturVo> listAll = iCourseMapper.selectLearningCourseListByUserId(id);
+	public List<CourseLecturVo> selectLearningCourseListByUserId(Integer pageSize,String id) {
+		List<CourseLecturVo> listAll = iCourseMapper.selectLearningCourseListByUserId(pageSize,id);
 		return listAll;
 	}
 	
@@ -128,6 +128,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public String selectCourseDescription(Integer type,String typeId) {
 		return iCourseMapper.selectCourseDescription(type,typeId);
+	}
+
+	@Override
+	public List<CourseLecturVo> myCourseType(Integer num, Integer pageSize, String userId, Integer type) {
+		return iCourseMapper.myCourseType(num,pageSize,userId,type);
 	}
 
 
