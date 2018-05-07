@@ -131,6 +131,9 @@
   color: #333333;
   line-height: 24px;
 }
+.content_box #main .main_left .doctor_int img {
+ max-width: 200px;
+}
 .content_box #main .main_left .hospital > h3 {
   margin-bottom: 10px;
   font-size: 20px;
