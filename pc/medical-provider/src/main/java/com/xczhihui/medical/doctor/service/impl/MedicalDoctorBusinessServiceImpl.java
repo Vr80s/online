@@ -576,6 +576,17 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         return medicalDoctorAccountMapper.getByDoctorId(doctorId);
     }
 
+    @Override
+    public List<MedicalDoctorVO> listRandomByType(String type, int size) {
+        int count = medicalDoctorMapper.countByType(type);
+        int offset = 0;
+        if (count > size) {
+            Random random = new Random();
+            offset = random.nextInt(count - size);
+        }
+        return medicalDoctorMapper.selectRandomDoctorByType(type, offset, size);
+    }
+
     /**
      * 参数校验
      *

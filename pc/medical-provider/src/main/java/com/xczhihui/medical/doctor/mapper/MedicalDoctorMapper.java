@@ -1,6 +1,11 @@
 package com.xczhihui.medical.doctor.mapper;
 
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
@@ -8,13 +13,10 @@ import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin
@@ -46,6 +48,7 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
     /**
      * 获取医师的坐诊时间
+     *
      * @author zhuwenbao
      */
     String getWorkTimeById(String doctorId);
@@ -63,4 +66,28 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
     List<MedicalDoctorVO> selectDoctorList4Random(@Param("type") Integer type, @Param("offset") int offset, @Param("rows") int rows);
 
     List<MedicalDoctorVO> selectDoctorRecommendList4Random(@Param("type") Integer type, @Param("offset") int offset, @Param("rows") int rows);
+
+    /**
+     * 通过类型查询医师数量
+     *
+     * @param type 类型
+     * @return 数量
+     */
+    @Select("select count(*) from medical_doctor where deleted = 0 AND status = 1 and (#{type} is null OR type = #{type})")
+    int countByType(@Param("type") String type);
+
+    /**
+     * 随机查询医师
+     *
+     * @param type   类型
+     * @param offset 起始
+     * @param row    行数
+     * @return 数量
+     */
+    @Select({"select md.*, mdai.head_portrait headPortrait" +
+            " FROM medical_doctor md" +
+            " LEFT JOIN `medical_doctor_authentication_information` mdai" +
+            " on md.`authentication_information_id` = mdai.`id`" +
+            " where md.deleted = 0 AND md.status = 1 and (#{type} is null OR md.type = #{type}) limit #{offset},#{row}"})
+    List<MedicalDoctorVO> selectRandomDoctorByType(@Param("type") String type, @Param("offset") int offset, @Param("row") int row);
 }
