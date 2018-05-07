@@ -203,4 +203,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 		return  dao.getOpenCourse(num,id);
 	}
 
+	//查看学习记录是否存在
+	
+	
 }
