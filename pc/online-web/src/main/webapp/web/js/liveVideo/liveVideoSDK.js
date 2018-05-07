@@ -78,7 +78,6 @@ function getHostInfo(){
 	RequestService("/host/getHostInfoById", "GET", {
 		lecturerId:lecturerId
 	}, function(data) {
-		
 		var obj = data.resultObject;
 		var lecturerInfo =  obj.lecturerInfo;
 		$(".concern-img").attr("src",lecturerInfo.small_head_photo);

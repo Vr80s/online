@@ -159,10 +159,17 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         }
         description=description.replaceAll("\n", "");
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        ModelAndView mv = null;
-        if(liveStatus==1){
+        //ModelAndView mv = null;
+       /* if(liveStatus==1){
             mv = new ModelAndView("live_success_page");
         }else{
+            mv = new ModelAndView("live_success_other_page");
+        }*/
+        ModelAndView  mv = null;
+        
+        if(liveStatus==1 || liveStatus==3){ // 直播中和直播回放去这个页面
+            mv = new ModelAndView("live_success_page");
+        }else if(liveStatus==2){			  //直播还没 	
             mv = new ModelAndView("live_success_other_page");
         }
         //oc.user_lecturer_id as userLecturerId
