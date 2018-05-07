@@ -175,8 +175,12 @@ function getBankCardList(){
                 bankCardId = data.resultObject[i].id;
             }
         }
+
+	
         $("#bank_card_list").html(template('bank_card_list_tpl', data));
         $("#bank_card").html(template('bank_card_tpl', data));
+
+
         
 //      绑定结果为空
 		if(data.resultObject.length == 0 || !data.resultObject	){

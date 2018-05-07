@@ -431,10 +431,11 @@
 			{{bankcard.acctName}}
 		</td>
 		<td>
-			{{bankcard.acctPan}}
+      
+			{{bankcard.acctPan.replace(/\s/g,'').replace(/(\d{3})\d+(\d{3})$/, "$1* **** **** **** *$2")}}
 		</td>
 		<td>
-			{{bankcard.certId}}
+			{{bankcard.certId.replace(/\s/g,'').replace(/(\w{3})(?=\w)/g,"$1 ")}}
 		</td>
 		<td>
 			<a href="javascript:;" onclick="deleteBankCard({{bankcard.id}})">移除</a>
