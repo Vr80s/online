@@ -261,11 +261,7 @@ function toEdit(obj,status){
                 mask();
                 $("#updateCourse-form").attr("action", basePath+"/anchor/courseAnchor/updateCourseById");
                 $("#updateCourse-form").ajaxSubmit(function(data){
-                    try{
-                        data = jQuery.parseJSON(jQuery(data).text());
-                    }catch(e) {
-                        data = data;
-                    }
+                    data = getJsonData(data);
                     unmask();
                     if(data.success){
                         $("#EditCourseDialog").dialog("close");
@@ -367,11 +363,7 @@ function updateRecommendSort(obj){
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath+"/anchor/courseAnchor/updateRecommendSort");
             $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 unmask();
                 if(data.success){
                     $("#recommendSort").val("");

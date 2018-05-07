@@ -17,7 +17,7 @@ a:hover {
   text-decoration: none !important;
 }
 .main-content {
-  width: 1200px;
+  /*width: 1200px;*/
   margin: 0 auto;
 }
 .header {
@@ -30,7 +30,7 @@ a:hover {
 }
 #main .main-content {
   height: 665px;
-}
+}\n
 #main .main-content #main-left {
   height: 100%;
   width: 200px;
@@ -65,7 +65,7 @@ a:hover {
 #main .main-content #main-right {
   padding: 25px 0px;
   height: 100%;
-  width: 920px;
+  width: 890px;
 }
 #main .main-content #main-right .main-right-top {
   position: relative;

@@ -1623,7 +1623,8 @@ function(e) {
         p = i(10),
         g = i(7);
     window.VHALL_SDK = window.VHALL_SDK || {}, VHALL_SDK.Version = "2.0.0", VHALL_SDK.on = a.listen, VHALL_SDK.remove = a.remove, VHALL_SDK.init = r, VHALL_SDK.getRoominfo = o.get, VHALL_SDK.getUserinfo = s.get, VHALL_SDK.vhall_get_live_history_chat_msg = function(e) {
-        c.getLiveChatMsg(e)
+        //c.getLiveChatMsg(e)
+    	 c.getRecordChatMsg(e)
     }, VHALL_SDK.vhall_get_live_history_question_msg = function(e) {
         c.getQuestionlist(e)
     }, VHALL_SDK.vhall_get_record_history_chat_msg = function(e) {

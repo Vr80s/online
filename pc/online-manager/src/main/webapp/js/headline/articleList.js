@@ -128,11 +128,7 @@ function updateRecommendSort(obj) {
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath + "/headline/article/updateRecommendSort");
             $("#UpdateRecommendSortFrom").ajaxSubmit(function (data) {
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 unmask();
                 if (data.success) {
                     $("#recommendSort").val("");
@@ -217,11 +213,7 @@ function openAuthorManage(obj) {
 
             $("#childMenu-form").ajaxSubmit(function (data) {
                 unmask();
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if (data.success) {
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -253,11 +245,7 @@ function openReportManage(obj) {
 
             $("#childMenu-form").ajaxSubmit(function (data) {
                 unmask();
-                try {
-                    data = jQuery.parseJSON(jQuery(data).text());
-                } catch (e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if (data.success) {
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);

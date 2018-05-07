@@ -102,7 +102,6 @@
                     <span class="community-count">${appraises.total}条</span>
                 </div>
                 <div class="forum-communitybox">
-
                     <#list appraises.records as appraise>
                         <div class="forum-community-content">
                             <div class="forum-comment-content clearfix">
@@ -247,7 +246,9 @@
                 <ul class="book_list clearfix" id="boos_list">
                     <#list writings.getRecords() as writing>
                         <li>
-                            <img src="${writing.imgPath}" alt="">
+                                <a href="/headline/details/${writing.id}" style="color: #0C0C0C;display: inline;">
+                           			<img src="${writing.imgPath}" alt="">
+                               </a>
                             <div>
                                 <a href="/headline/details/${writing.id}" style="color: #0C0C0C">
                                     <span class="book_name">${writing.title}</span>

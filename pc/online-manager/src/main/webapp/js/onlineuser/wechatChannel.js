@@ -144,11 +144,7 @@ $(".add_bx").click(function(){
 	            	
 	            	debugger;
 	            	
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+	            	data = getJsonData(data);
                 	unmask();
 	                if(data.success){
 	                    $("#addCourseDialog").dialog("close");
@@ -258,11 +254,7 @@ function toEdit(obj){
 			mask();
             $("#updateCourse-form").attr("action", basePath+"/wechatChannel/updateWechatChannelById");
             $("#updateCourse-form").ajaxSubmit(function(data){
-            	try{
-            		data = jQuery.parseJSON(jQuery(data).text());
-            	}catch(e) {
-            		data = data;
-            	  }
+            	data = getJsonData(data);
             
                 unmask();
                 if(data.success){

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
 
-	<property name="logPath" value="/tmp/logs/wechat_provider" />
+	<property name="logPath" value="/tmp/logs/course_provider" />
 
 	<appender name="stdout_appender" class="ch.qos.logback.core.ConsoleAppender">
 		<Target>System.out</Target>
@@ -13,12 +13,12 @@
 
 	<appender name="file"
 			  class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${logPath}/wechat_server.log</File>
+		<File>${logPath}/course_server.log</File>
 		<encoder>
 			<pattern>%n%msg%n%date [%level] [%thread] %logger{80} %line%n</pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logPath}/medical_server.log_%d{yyyy-MM-dd}</fileNamePattern>
+			<fileNamePattern>${logPath}/course_server.log_%d{yyyy-MM-dd}</fileNamePattern>
 		</rollingPolicy>
 	</appender>
 

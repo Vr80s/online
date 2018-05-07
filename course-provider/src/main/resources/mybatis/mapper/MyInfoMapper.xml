@@ -30,27 +30,22 @@
    <select id="selectSettlementList" resultType="java.util.Map">
 		
 	select	* from  (	
-	
 	  (	select (select course.grade_name from oe_course course where course.id = ood.course_id) as gradeName,
        		CONCAT('+',format(uci.value,2)) as value,uci.create_time as createTime,'课程' as label,"熊猫币" as unit 
    	    from user_coin_increase uci 
     	   inner join oe_order_detail ood on uci.order_no_course = ood.id
-   				 where  uci.change_type =7 and ood.course_id in (select id from oe_course as oc where oc.user_lecturer_id =#{userId} )  )
-   				 
+   				 where  uci.change_type =7  and value > 0
+   				 	and ood.course_id in (select id from oe_course as oc where oc.user_lecturer_id =#{userId} )  )
 		UNION ALL
-		
 	  (	select  (select course.grade_name from oe_course course where course.id = ogs.live_id) as gradeName,
 	      	 CONCAT('+',format(uci.value,2)) as value,max(ogs.create_time) as createTime,'直播礼物' as label,"熊猫币" as unit  
 	    from user_coin_increase uci
 	    	inner join oe_gift_statement ogs on uci.order_no_gift = ogs.id
-	   			 where uci.change_type = 3  and  ogs.receiver =  #{userId} group by ogs.live_id  )
-		
+	   			 where uci.change_type = 3  and value > 0 
+	   			 	 and  ogs.receiver =  #{userId} group by ogs.live_id  )
 		UNION ALL
-		
 	  ( select '' as gradeName,format(ucc.value,2) as value,ucc.create_time as createTime,'结算' as label,"熊猫币" as unit  from  user_coin_consumption as ucc  where 
 	         ucc.change_type = 5  and ucc.user_id = #{userId}	 )
-		
-	  		
 	  ) as  jiesuan order by jiesuan.createTime desc  limit #{pageNumber},#{pageSize}	
 	  		
 	</select>	

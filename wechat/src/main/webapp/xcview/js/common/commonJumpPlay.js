@@ -45,9 +45,6 @@ function common_jump_all(courseId){
 	 }
 })
 }
-
-
-
 /**
  * 公众的根据直播状态判断跳转
  * @param id

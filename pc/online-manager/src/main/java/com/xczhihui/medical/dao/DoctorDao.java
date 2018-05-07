@@ -24,7 +24,7 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
         StringBuilder sql = new StringBuilder("SELECT m.*, mh.`name` hospital,dpn.name as department" +
                 " FROM" +
                 " medical_doctor m " +
-                " LEFT JOIN `medical_hospital_doctor` mhd" +
+                " LEFT JOIN (select *  from `medical_hospital_doctor` where deleted = '0' ) mhd" +
                 " ON mhd.`doctor_id`=m.`id`" +
                 " LEFT JOIN `medical_hospital` mh" +
                 " ON mhd.`hospital_id`=mh.`id`" +
@@ -32,7 +32,7 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
                 " LEFT JOIN `medical_department` md " +
                 " ON mdd.`department_id` = md.id  where  (mdd.deleted is null OR mdd.deleted = false)" +
                 " group by mdd.`doctor_id`) dpn on m.`id` = dpn.doctor_id " +
-                " WHERE m.deleted = 0 and mhd.deleted = '0'");
+                " WHERE m.deleted = 0");
         if (medicalDoctor.getName() != null) {
             paramMap.put("name", "%" + medicalDoctor.getName() + "%");
             sql.append("and m.name like :name ");

@@ -112,7 +112,7 @@ function createGiftList(gift) {
         if (parseInt(sendTime) > parseInt(time))
             return;
 
-        //TODO  将礼物添加到队列中  ---》 这时可能会有很多多来的，依次存放哎队列中
+        //将礼物添加到队列中  ---》 这时可能会有很多多来的，依次存放哎队列中
         // queue.push(gift);
         if($("#"+data.senderInfo.userId+data.giftInfo.giftId).length>0){
             giftShow(data,$("#"+data.senderInfo.userId+data.giftInfo.giftId).attr("xh"),true);

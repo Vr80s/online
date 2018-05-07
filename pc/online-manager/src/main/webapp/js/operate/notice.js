@@ -115,11 +115,7 @@ function loadNoticeList(){
  			 mask();
  			 $("#addNotice-form").attr("action", basePath+"/operate/notice/addNotice");
  	            $("#addNotice-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+                    data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#addNoticeDialog").dialog("close");
@@ -152,11 +148,7 @@ function updateNotice(obj){
  			 mask();
  			 $("#updateNotice-form").attr("action", basePath+"/operate/notice/updateNoticeById");
  	            $("#updateNotice-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateNoticeDialog").dialog("close");

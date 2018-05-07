@@ -26,20 +26,19 @@ function getRankingListByLiveId(){
 		var balance = data.resultObject;
 		if(data.success && data.resultObject!=null && data.resultObject.length>0){
 			var small_items = [];
-			
 			var items = data.resultObject;
 			for (var i = 0; i < items.length; i++) {
 				var item = items[i];
 				if(i==0){
-					$(".billboard-two").find("img").attr("src",item.smallHeadPhoto);
+					$(".billboard-two-bg").html("<img src='"+item.smallHeadPhoto+"' />");
 					$(".billboard-two").find(".billboard-name").html(item.name);
 					$(".billboard-two").find("span").html(item.giftCount);
 				}else if(i==1){
-					$(".billboard-one").find("img").attr("src",item.smallHeadPhoto);
+					$(".billboard-one-bg").html("<img src='"+item.smallHeadPhoto+"' />");
 					$(".billboard-one").find(".billboard-name").html(item.name);
 					$(".billboard-one").find("span").html(item.giftCount);
 				}else if(i==2){
-					$(".billboard-three").find("img").attr("src",item.smallHeadPhoto);
+					$(".billboard-three-bg").html("<img src='"+item.smallHeadPhoto+"' />");
 					$(".billboard-three").find(".billboard-name").html(item.name);
 					$(".billboard-three").find("span").html(item.giftCount);
 				}else{

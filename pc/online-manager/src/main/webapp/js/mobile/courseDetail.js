@@ -205,11 +205,7 @@ $('#okbt,#previewbt').on('click',function(e){
 		$("#courseDetailForm").attr("action", basePath+"/mobile/course/"+methodName);
 		$("#courseDetailForm").ajaxSubmit(function(data){
 			unmask();
-			try{
-				data = jQuery.parseJSON(jQuery(data).text());
-			}catch(e) {
-				data = data;
-			}
+			data = getJsonData(data);
 			if(data.success){
 				alertInfo("保存成功！");
 				$("html").eq(0).css("overflow","scroll");

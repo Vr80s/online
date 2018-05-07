@@ -155,8 +155,6 @@
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -174,8 +172,6 @@
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -194,8 +190,6 @@
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                        <p>${doctor.workTime}</p>
-                        <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
                     </li>
                 </#list>
                 </ul>
@@ -281,7 +275,9 @@
                 <ul class="book_list clearfix" id="boos_list">
                     <#list recentlyWritings as recentlyWriting>
                         <li>
-                            <img src="${recentlyWriting.imgPath}" alt="">
+                            <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C;display: inline;">                       	
+                        		<img src="${recentlyWriting.imgPath}" alt="">
+                           </a>
                             <div>
                                 <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C">
                                     <span class="book_name">${recentlyWriting.title!""}</span>

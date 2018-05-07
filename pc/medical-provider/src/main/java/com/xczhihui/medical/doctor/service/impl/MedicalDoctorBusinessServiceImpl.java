@@ -2,7 +2,6 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import java.util.*;
 
-import com.xczhihui.medical.exception.MedicalException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +30,7 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
@@ -569,6 +569,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Override
     public MedicalDoctor get(String id) {
         return medicalDoctorMapper.selectById(id);
+    }
+
+    @Override
+    public MedicalDoctorAccount getByDoctorId(String doctorId) {
+        return medicalDoctorAccountMapper.getByDoctorId(doctorId);
     }
 
     /**

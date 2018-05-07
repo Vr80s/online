@@ -121,11 +121,7 @@ function updateRecImg(obj){
  			 mask();
  			 $("#updateRecImg-form").attr("action", basePath+"/headline/banner/updateBannerPath");
  	            $("#updateRecImg-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+                    data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateRecImgDialog").dialog("close");
