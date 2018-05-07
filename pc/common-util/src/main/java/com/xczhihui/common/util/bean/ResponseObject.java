@@ -15,10 +15,11 @@ public class ResponseObject implements Serializable {
     private String errorMessage;
 
     private Object resultObject;
+    
+    private Integer code;
 
     /**
      * 构造一个错误响应对象
-     *
      * @param errorMessage
      * @return
      */
@@ -29,6 +30,14 @@ public class ResponseObject implements Serializable {
         return res;
     }
 
+    public static ResponseObject newErrorResponseObject(String errorMessage,Integer code) {
+        ResponseObject res = new ResponseObject();
+        res.setSuccess(false);
+        res.setCode(code);
+        res.setErrorMessage(errorMessage);
+        return res;
+    }
+    
     /**
      * 构造一个成功响应对象
      *
@@ -38,6 +47,14 @@ public class ResponseObject implements Serializable {
     public static ResponseObject newSuccessResponseObject(Object resultObject) {
         ResponseObject res = new ResponseObject();
         res.setSuccess(true);
+        res.setResultObject(resultObject);
+        return res;
+    }
+    
+    public static ResponseObject newSuccessResponseObject(Object resultObject,Integer code) {
+        ResponseObject res = new ResponseObject();
+        res.setSuccess(true);
+        res.setCode(code);
         res.setResultObject(resultObject);
         return res;
     }
@@ -76,5 +93,13 @@ public class ResponseObject implements Serializable {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
+	public Integer getCode() {
+		return code;
+	}
+
+	public void setCode(Integer code) {
+		this.code = code;
+	}
 
 }

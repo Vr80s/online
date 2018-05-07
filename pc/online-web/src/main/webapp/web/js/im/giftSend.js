@@ -241,8 +241,6 @@ $(document).ready(function() {
 			$('.chongZhi').click();
 		}
 	})
-	
-	
 });
 
 function createGiftList(data){
