@@ -2,7 +2,8 @@
 <#import "../page.ftl" as cast/>
 <!DOCTYPE html>
 <html>
-<head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->
@@ -33,7 +34,7 @@
 </head>
 <body>
 <header>
-    <#include "../header-body.ftl">
+<#include "../header-body.ftl">
 </header>
 
 <div id="forum" class="clearfix">
@@ -53,19 +54,22 @@
                     <div class="hos_search_area" style="position: relative;">
                         <span>医疗领域：</span>
                         <ul class="clearfix" id="hos_search_area" style="height: 73px;overflow: hidden;">
-                            <#if !(echoMap.field??)>
+                        <#if !(echoMap.field??)>
                             <li><a href="javascript:;" class="color">全部</a></li>
-                            <#else >
+                        <#else >
                             <li><a href="${webUrl}/clinics/list?page=1&name=${echoMap.name?default("")}">全部</a></li>
-                            </#if>
+                        </#if>
 
-                            <#list fields.records as field>
-                                <#if echoMap.field?? && field.id == echoMap.field>
-                                    <li><a class="color" href="javascript:;" data-fileid="${field.id}">${field.name}</a></li>
-                                <#else >
-                                    <li><a href="${webUrl}/clinics/list?page=1&field=${field.id}&name=${echoMap.name?default("")}" data-fileid="${field.id}">${field.name}</a></li>
-                                </#if>
-                            </#list>
+                        <#list fields.records as field>
+                            <#if echoMap.field?? && field.id == echoMap.field>
+                                <li><a class="color" href="javascript:;" data-fileid="${field.id}">${field.name}</a>
+                                </li>
+                            <#else >
+                                <li>
+                                    <a href="${webUrl}/clinics/list?page=1&field=${field.id}&name=${echoMap.name?default("")}"
+                                       data-fileid="${field.id}">${field.name}</a></li>
+                            </#if>
+                        </#list>
                         </ul>
                         <button class="more_areaBtn">更多</button>
                     </div>
@@ -73,60 +77,73 @@
                     <div class="hos_search_condition">
                         <span>筛选条件：</span>
                         <ul class="clearfix">
-                            <#if echoMap.field??>
-                                <li id="hos_search_condition1">
-                                    <div style="display: inline-block;">
-                                        <span style="color: #00BC12 ;margin-left: 5px;" data-fileid="echoMap.field">${echoMap.fieldText}</span>
-                                    </div>
-                                    <a href="${webUrl}/clinics/list?page=1&name=${echoMap.name?default("")}" style="color: #2cb82c;margin: 0 5px;"></a>
-                                </li>
-                            <#else >
-                                <li id="hos_search_condition3" style="border:none;color: #999;" >暂无筛选条件</li>
-                            </#if>
+                        <#if echoMap.field??>
+                            <li id="hos_search_condition1">
+                                <div style="display: inline-block;">
+                                    <span style="color: #00BC12 ;margin-left: 5px;"
+                                          data-fileid="echoMap.field">${echoMap.fieldText}</span>
+                                </div>
+                                <a href="${webUrl}/clinics/list?page=1&name=${echoMap.name?default("")}"
+                                   style="color: #2cb82c;margin: 0 5px;"></a>
+                            </li>
+                        <#else >
+                            <li id="hos_search_condition3" style="border:none;color: #999;">暂无筛选条件</li>
+                        </#if>
                         </ul>
                     </div>
                 </div>
                 <div style="height: 20px;background-color:#f7f7f7 ;"></div>
                 <div id="hospital_list">
                     <div style="border-bottom: 1px solid #ccc;padding: 20px 20px;margin-bottom: 20px;">
-                    共找到${clinics.total}家医馆
+                        共找到${clinics.total}家医馆
                     </div>
-                <#list clinics.records as clinic>
-                    <div class="hospitals">
-                        <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
-                        <#if clinic.medicalHospitalPictures[0]??>
-                            <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;" alt="${clinic.name}">
-                        <#else >
-                            <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;" alt="${clinic.name}">
-                        </#if>
-
-                        <div class="hospital_inf">
-                            <span class="hospital_name">${clinic.name}</span>
-                            <#if clinic.authentication==true>
-                                <span class="hospital_pass">已认证</span>
+                <#if clinics.total gt 0>
+                    <#list clinics.records as clinic>
+                        <div class="hospitals">
+                            <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
+                            <#if clinic.medicalHospitalPictures[0]??>
+                                <img src="${clinic.medicalHospitalPictures[0].picture}"
+                                     style="width: 100%;height: 147px;" alt="${clinic.name}">
+                            <#else >
+                                <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;"
+                                     alt="${clinic.name}">
                             </#if>
-                            <div class="hospital_address"><em></em>
-                                <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
-                            </div>
-                            <div class="hospital_star">
-                                <#if clinic.score??>
-                                    <#list 1..clinic.score/1 as t>
-                                        <em class="full_star"></em>
-                                    </#list>
-                                    <#if (5-(clinic.score/1)) gt 0>
-                                        <#list 1..(5-(clinic.score/1)) as t>
-                                            <em class="gray_star"></em>
+
+                            <div class="hospital_inf">
+                                <span class="hospital_name">${clinic.name}</span>
+                                <#if clinic.authentication==true>
+                                    <span class="hospital_pass">已认证</span>
+                                </#if>
+                                <div class="hospital_address"><em></em>
+                                    <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
+                                </div>
+                                <div class="hospital_star">
+                                    <#if clinic.score??>
+                                        <#list 1..clinic.score/1 as t>
+                                            <em class="full_star"></em>
                                         </#list>
-                                    </#if>
+                                        <#if (5-(clinic.score/1)) gt 0>
+                                            <#list 1..(5-(clinic.score/1)) as t>
+                                                <em class="gray_star"></em>
+                                            </#list>
+                                        </#if>
                                     <#else >
                                         <#list 1..5 as t>
                                             <em class="gray_star"></em>
                                         </#list>
-                                </#if>
+                                    </#if>
+                                </div>
                             </div>
                         </div>
+                    </#list>
+                <#else>
+                    <div style="padding-top:100px;text-align:center">
+                        <img src="/web/images/nosearch.png" alt="">
+                        <p style="font-size:16px;color:#999">抱歉，没有找到“
+                            <span style="color:#00BC12">${echoMap.name?default('')}</span>”相关医馆
+                        </p>
                     </div>
-                </#list>
+                </#if>
                 </div>
             </div>
             <!-- 使用该标签 -->
@@ -140,19 +157,19 @@
 </body>
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
-    $(function(){
+    $(function () {
         $(".hospital-tab").addClass("select");
         var areaStatus = 1;
-        $('.more_areaBtn').click(function(){
+        $('.more_areaBtn').click(function () {
             areaStatus *= -1;
-            if(areaStatus < 0){
+            if (areaStatus < 0) {
                 $(this).text('收起')
-                $('#hos_search_area').attr('style','height:auto')
-                $(this).attr('style','background:url(/web/images/up_arrow.png) 55px center no-repeat')
-            }else{
+                $('#hos_search_area').attr('style', 'height:auto')
+                $(this).attr('style', 'background:url(/web/images/up_arrow.png) 55px center no-repeat')
+            } else {
                 $(this).text('更多')
-                $('#hos_search_area').attr('style','height:73px;overflow: hidden;')
-                $(this).attr('style','background:url(/web/images/down_arr.png) 55px center no-repeat')
+                $('#hos_search_area').attr('style', 'height:73px;overflow: hidden;')
+                $(this).attr('style', 'background:url(/web/images/down_arr.png) 55px center no-repeat')
             }
 
         })

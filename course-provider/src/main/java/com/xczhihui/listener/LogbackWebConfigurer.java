@@ -1,4 +1,4 @@
-package com.xczhihui.common;
+package com.xczhihui.listener;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;

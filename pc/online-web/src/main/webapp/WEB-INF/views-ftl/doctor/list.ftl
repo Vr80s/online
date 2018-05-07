@@ -1,7 +1,9 @@
 <!-- 导入自定义ftl -->
 <#import "../page.ftl" as cast/>
 <!DOCTYPE html>
-<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if IE 9]>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
     <![endif]-->
@@ -32,7 +34,7 @@
 </head>
 <body>
 <header>
-    <#include "../header-body.ftl">
+<#include "../header-body.ftl">
 </header>
 
 <div class="content_box">
@@ -61,13 +63,18 @@
                         <#if echoMap.type?default("")?trim?length == 0>
                             <li><a href="javascript:;" class="color">全部</a></li>
                         <#else >
-                            <li><a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}" >全部</a></li>
+                            <li>
+                                <a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}">全部</a>
+                            </li>
                         </#if>
                         <#list doctorTypeList as doctorType>
                             <#if echoMap.type?? && doctorType.code == echoMap.type>
-                                <li><a href="javascript:;" data-type="${doctorType.code}" class="color">${doctorType.value}</a></li>
+                                <li><a href="javascript:;" data-type="${doctorType.code}"
+                                       class="color">${doctorType.value}</a></li>
                             <#else>
-                                <li><a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&type=${doctorType.code?default("")}&departmentId=${echoMap.departmentId?default("")}" data-type="${doctorType.code}">${doctorType.value}</a></li>
+                                <li>
+                                    <a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&type=${doctorType.code?default("")}&departmentId=${echoMap.departmentId?default("")}"
+                                       data-type="${doctorType.code}">${doctorType.value}</a></li>
                             </#if>
                         </#list>
                         </ul>
@@ -78,13 +85,18 @@
                         <#if echoMap.departmentId?default("")?trim?length == 0>
                             <li><a href="javascript:;" class="color">全部</a></li>
                         <#else >
-                            <li><a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"  >全部</a></li>
+                            <li>
+                                <a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}">全部</a>
+                            </li>
                         </#if>
                         <#list departments.records as department>
                             <#if echoMap.departmentId?? &&department.id == echoMap.departmentId>
-                                <li><a href="javascript:;" class="color" data-id="${department.id}">${department.name}</a></li>
+                                <li><a href="javascript:;" class="color"
+                                       data-id="${department.id}">${department.name}</a></li>
                             <#else>
-                                <li><a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}&departmentId=${department.id?default("")}" data-id="${department.id}">${department.name}</a></li>
+                                <li>
+                                    <a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}&departmentId=${department.id?default("")}"
+                                       data-id="${department.id}">${department.name}</a></li>
                             </#if>
                         </#list>
                         </ul>
@@ -92,15 +104,23 @@
                     <div class="doctor_search_condition">
                         <span>筛选条件：</span>
                         <ul class="clearfix">
-                            <#if echoMap.type??>
-                                <li id="doctor_search_condition1" class="">分类：<div style="display: inline-block;"><span data-type="${echoMap.type}">${echoMap.typeText}</span></div><a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}"></a></li>
-                            </#if>
-                            <#if echoMap.departmentId??>
-                                <li id="doctor_search_condition2" class="">科室：<div style="display: inline-block;"><span data-id="${echoMap.departmentId}">${echoMap.departmentText}</span></div><a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"></a></li>
-                            </#if>
-                            <#if !(echoMap.departmentId?? || echoMap.type??)>
-                                <li id="doctor_search_condition3" style="border:none;color: #999;" class="">暂无筛选条件</li>
-                            </#if>
+                        <#if echoMap.type??>
+                            <li id="doctor_search_condition1" class="">分类：
+                                <div style="display: inline-block;"><span
+                                        data-type="${echoMap.type}">${echoMap.typeText}</span></div>
+                                <a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&departmentId=${echoMap.departmentId?default("")}"></a>
+                            </li>
+                        </#if>
+                        <#if echoMap.departmentId??>
+                            <li id="doctor_search_condition2" class="">科室：
+                                <div style="display: inline-block;"><span
+                                        data-id="${echoMap.departmentId}">${echoMap.departmentText}</span></div>
+                                <a href="${webUrl}/doctors/list?page=1&name=${echoMap.name?default("")}&type=${echoMap.type?default("")}"></a>
+                            </li>
+                        </#if>
+                        <#if !(echoMap.departmentId?? || echoMap.type??)>
+                            <li id="doctor_search_condition3" style="border:none;color: #999;" class="">暂无筛选条件</li>
+                        </#if>
                         </ul>
                     </div>
                 </div>
@@ -108,38 +128,37 @@
 
             <!--名医列表展示-->
             <div class="doctor_list">
-                <div id="search_num" style="height: 60px;line-height: 60px;border-bottom: 1px solid #f0f0f0;">共找到${doctors.total}位名医</div>
+                <div id="search_num" style="height: 60px;line-height: 60px;border-bottom: 1px solid #f0f0f0;">
+                    共找到${doctors.total}位名医
+                </div>
                 <ul id="doctor_list">
-                    <!--<li class="clearfix">
-                        <div class="doctor_pic">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="doctor_inf">
-                            <h4>施小墨&nbsp;&nbsp;胡庆余堂国医馆&nbsp;&nbsp; 广东&nbsp;广州</h4>
-                            <span></span>
-                            <p>科室： <span>中医内科/儿科/肿瘤科</span></p>
-                            <p>擅长：<span>中西医结合治肿瘤、脾胃病、血液病、睡眠障碍、糖尿病、内科杂病等。</span> </p>
-
-                        </div>
-                    </li>-->
-                <#list doctors.records as doctor>
-                    <li class="clearfix">
-                        <a href="${webUrl}/doctors/${doctor.id}" id="${doctor.id}"></a>
-                        <div class="doctor_pic">
-                            <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        </div>
-                        <div class="doctor_inf">
-                            <h4>${doctor.name}&nbsp;&nbsp;&nbsp;&nbsp;
-                            ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
-                            </h4>
-                            <span>${doctor.title?default('暂无')}</span>
-                            <!--<p>科室： <span>中医内科/儿科/肿瘤科</span></p>-->
-                        </div>
-                    </li>
-                </#list>
+                <#if doctors.total gt 0>
+                    <#list doctors.records as doctor>
+                        <li class="clearfix">
+                            <a href="${webUrl}/doctors/${doctor.id}" id="${doctor.id}"></a>
+                            <div class="doctor_pic">
+                                <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+                            </div>
+                            <div class="doctor_inf">
+                                <h4>${doctor.name}&nbsp;&nbsp;&nbsp;&nbsp;
+                                ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
+                                </h4>
+                                <span>${doctor.title?default('暂无')}</span>
+                                <!--<p>科室： <span>中医内科/儿科/肿瘤科</span></p>-->
+                            </div>
+                        </li>
+                    </#list>
+                <#else>
+                    <div style="padding-top:100px;text-align:center">
+                        <img src="/web/images/nosearch.png" alt="">
+                        <p style="font-size:16px;color:#999">抱歉，没有找到“
+                            <span style="color:#00BC12">${echoMap.name?default('')}</span>”相关医师
+                        </p>
+                    </div>
+                </#if>
                 </ul>
                 <!-- 使用该标签 -->
-                <@cast.page pageNo=doctors.current totalPage=doctors.pages showPages=5 callUrl="${webUrl}/doctors/list?name="+echoMap.name?default("")+"&type="+echoMap.type?default("")+"&departmentId="+echoMap.departmentId?default("")+"&page="/>
+            <@cast.page pageNo=doctors.current totalPage=doctors.pages showPages=5 callUrl="${webUrl}/doctors/list?name="+echoMap.name?default("")+"&type="+echoMap.type?default("")+"&departmentId="+echoMap.departmentId?default("")+"&page="/>
             </div>
 
 
@@ -153,15 +172,15 @@
             <div class="about_doctor">
                 <h3>名医推荐</h3>
                 <ul class="about_doctor_list clearfix" id="doc_rec">
-                    <#list recDoctors as doctor>
-                        <li>
-                            <a href="${webUrl}/doctors/${doctor.id}"></a>
-                            <span class="about_doctor_pic">
+                <#list recDoctors as doctor>
+                    <li>
+                        <a href="${webUrl}/doctors/${doctor.id}"></a>
+                        <span class="about_doctor_pic">
                                 <img src="${doctor.headPortrait!''}" alt="暂无图片">
                             </span>
-                            <p>${doctor.name}</p>
-                        </li>
-                    </#list>
+                        <p>${doctor.name}</p>
+                    </li>
+                </#list>
                 </ul>
             </div>
         </div>
@@ -172,7 +191,7 @@
 </body>
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
-    $(function() {
+    $(function () {
         $(".doctor-tab").addClass("select");
     });
 </script>
