@@ -44,16 +44,14 @@
             <div class="doctor_inf1">
                 <span class="zhiwu"><em></em>${doctor.title?default('暂无')}</span>
             <#if doctor.medicalHospitalVo ??>
-                <span class="yiguan"><em></em>${doctor.medicalHospitalVo.name}</span>
+                <span class="yiguan"><em></em>${doctor.medicalHospitalVo.name!''}</span>
             </#if>
-                <span class="dizhi"><em></em>${doctor.city}</span>
+                <span class="dizhi"><em></em>${doctor.city!''}</span>
             </div>
-        <#if (doctor.fields??)&&(doctor.fields?size gt 0)>
+        <#if (doctor.fieldText??)>
             <div class="doctor_inf2">
                 <p>主治：
-                    <#list doctor.fields as field>
-                        <span>${field.name}</span>
-                    </#list>
+                    <span>${doctor.fieldText}</span>
                 </p>
             </div>
         </#if>
@@ -95,106 +93,48 @@
     </#if>
 
         <!--课程-->
-        <div class="class clearfix hide">
+    <#if courses?? && courses?size gt 0>
+        <div class="class clearfix">
             <div class="class_top">
                 <span>课程</span>
-                <a href="javascript:;">
+                <a href="${webUrl}/classroom.html">
                     更多&nbsp;&gt;
                 </a>
             </div>
 
             <div class="class_bottom">
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
+                <#list courses as course>
 
+                    <div class="class_inf">
+                        <a href="${webUrl}/web/html/courseDetail.html?courseId=${course.id}" style="color: #0C0C0C">
+                            <div class="class_inf_pic">
+                                <img src="${course.smallImgPath}" alt="">
+                            </div>
+                            <div class="class_inf_bottom">
+                                <p class="class_title">${course.gradeName!''}</p>
+                                <#if course.city??><p class="class_address"><em></em>${course.city!''}</p></#if>
+                                <p class="class_pirce_person">
 
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
+                                    <#if course.currentPrice?? && course.currentPrice gt 0>
+                                        <span class="class_pirce">
+                                        ${course.currentPrice!''}
+                                        </span>
+                                        熊猫币
+                                    <#else>
+                                        <span style="color: green">免费</span>
+                                    </#if>
 
+                                    <span class="class_person class_Studycount"><em></em>${course.learndCount!''}</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
 
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
-
+                </#list>
             </div>
 
         </div>
+    </#if>
 
         <!--专栏-->
     <#if specialColumns.total gt 0>
