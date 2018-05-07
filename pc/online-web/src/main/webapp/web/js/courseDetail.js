@@ -523,6 +523,7 @@ window.onload = function() {
 	//点击提交评价
 	$(".getRelease").click(function() {
 		if($.trim($(".videoBody-bottom-left-release textarea").val()) == ""){
+            showTip("评论内容不能为空")
 			return false;
 		}
 		RequestService("/online/user/isAlive", "POST", null, function(data) {
