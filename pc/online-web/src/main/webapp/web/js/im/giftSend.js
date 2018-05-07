@@ -217,7 +217,7 @@ $(document).ready(function() {
                     data.resultObject.courseId=course_id;
         			sendMsg(data.resultObject);
         			VHALL_SDK.sendChat({
-        				text: data.resultObject.senderInfo.userName+"赠送给主播一个"+data.resultObject.giftInfo.name
+        				text: "赠送给主播一个"+data.resultObject.giftInfo.name
         			})
         			var json = {user_name:data.resultObject.senderInfo.userName,
         				content:"赠送给主播一个"+data.resultObject.giftInfo.name};
