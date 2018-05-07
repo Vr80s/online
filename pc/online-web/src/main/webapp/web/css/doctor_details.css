@@ -101,6 +101,12 @@
   background-image: url(../images/doctor_detail/address.png);
   background-position: center center; 
 }
+.header .header_inf .header_inf_right .doctor_inf1 .department em {
+  width: 13px;
+  height: 15px;
+  background-image: url(../images/doctor_detail/address.png);
+  background-position: center center;
+}
 .header .header_inf .header_inf_right .doctor_inf2 {
   padding-top: 10px;
 }

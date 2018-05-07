@@ -43,10 +43,12 @@
             <span>${doctor.name}  </span><span>${doctor.title?default('暂无')}</span>
             <div class="doctor_inf1">
                 <span class="zhiwu"><em></em>${doctor.title?default('暂无')}</span>
-            <#if doctor.medicalHospitalVo ??>
-                <span class="yiguan"><em></em>${doctor.medicalHospitalVo.name!''}</span>
+            <#if doctor.medicalHospital ??>
+                <span class="yiguan"><em></em>${doctor.medicalHospital.name!''}</span>
             </#if>
                 <span class="dizhi"><em></em>${doctor.city!''}</span>
+                <#if doctor.departmentText??>
+                    <span class="department"><em></em>${doctor.departmentText!''}</span></#if>
             </div>
         <#if (doctor.fieldText??)>
             <div class="doctor_inf2">

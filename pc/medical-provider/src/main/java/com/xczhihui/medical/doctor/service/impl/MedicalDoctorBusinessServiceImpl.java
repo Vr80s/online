@@ -1,6 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -134,6 +135,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         MedicalDoctorVO medicalDoctorVO = medicalDoctorMapper.selectDoctorById(id);
         List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(medicalDoctorVO.getId());
         medicalDoctorVO.setFields(medicalFields);
+
         if (medicalDoctorVO.getHospitalId() != null) {
             MedicalHospitalVo medicalHospital = iMedicalHospitalBusinessService.selectHospitalById(medicalDoctorVO.getHospitalId());
             medicalDoctorVO.setMedicalHospital(medicalHospital);
@@ -141,6 +143,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         if (medicalDoctorVO.getAuthenticationInformationId() != null) {
             MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformationMapper.selectByDoctorId(medicalDoctorVO.getAuthenticationInformationId());
             medicalDoctorVO.setMedicalDoctorAuthenticationInformation(medicalDoctorAuthenticationInformation);
+        }
+        List<MedicalDepartmentVO> medicalDepartments = medicalDoctorMapper.selectMedicalDepartmentsByDoctorId(id);
+        if (medicalDepartments != null) {
+            medicalDoctorVO.setDepartmentText(medicalDepartments.stream().map(MedicalDepartmentVO::getName).collect(Collectors.joining("/")));
         }
         return medicalDoctorVO;
     }
