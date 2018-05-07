@@ -119,13 +119,18 @@ window.onload = function() {
 		'<div class="videoBody-bottom-listRelease">' +
 		'<div class="videoBody-bottom-listRelease-left">' +
 		'<img src="{{#headImg(e.onlineUser.smallHeadPhoto)}}"/>' +
-		'<p title="{{e.onlineUser.name}}">{{e.onlineUser.name}}</p>' +
 		'</div>' +
 		'<div class="videoBody-bottom-listRelease-right">' +
 		// '<p class="releaseStar">{{#stars2(e.starLevel)}}</p>' +
+        '<p title="{{e.onlineUser.name}}" class="releaseTime">{{e.onlineUser.name}} <span class="releaseTime">{{removeSecond(e.createTime)}}</span></p>' +
 		'<p class="releaseText" style="word-wrap: break-word;">{{e.content}}</p>' +
+        '{{if e.reply.length > 0}}' +
+        '<div style="background: #FAFAFA;margin-top: 50px"><p style="word-wrap: break-word;">' +
+        '<img src="{{#headImg(e.replySmallHeadPhoto)}}" style="width: 36px;height: 36px;border-radius:60px;margin: 10px;font-size: 14px;"/>' +
+        '{{e.replyName}} {{e.replyCreateTime}}</p>' +
+        '<p style="margin-left: 60px;font-size: 14px">{{e.replyContent}}</p></div>'+
+        '{{/if}}' +
 		'<div class="releaseGood clearfix" data-criticizeId="{{e.id}}" data-isPraise="{{e.isPraise}}">' +
-		'<span class="releaseTime">{{removeSecond(e.createTime)}}</span>' +
 		'<p class="wqz">' +
 		'{{if e.isPraise == 0}}' +
 		'<img src="../../web/images/video/good_normal.png" style="cursor:pointer;padding-right:5px;margin-top:-3px;"/>' +
@@ -308,6 +313,15 @@ window.onload = function() {
                             $("#sign-up-modal").css("display", "none");
                         });
                         $(".gotengxun").click(function() {
+//             增加学习记录         	
+                        	RequestService("/xczh/history/add", "POST", {
+                                courseId: courserId,
+                                recordType: 1
+                            }, function(data) {
+                            	console.log("添加学习记录");
+                            });
+                        	
+                        	
                             RequestService("/video/saveEntryVideo", "POST", {
                                 courseId: courserId,
                                 free: free
@@ -354,6 +368,16 @@ window.onload = function() {
             }
         });
 	}
+//	增加观看记录
+	$(".add-history").click(function(){
+		RequestService("/xczh/history/add", "POST", {
+            courseId: courserId,
+            recordType: 2
+        }, function(data) {
+        	console.log("添加观看记录");
+        });
+	})
+//	增加观看记录结束
 	function rTips(errorMessage) {
 		$(".rTips").text(errorMessage);
 		$(".rTips").css("display", "block");
@@ -523,6 +547,7 @@ window.onload = function() {
 	//点击提交评价
 	$(".getRelease").click(function() {
 		if($.trim($(".videoBody-bottom-left-release textarea").val()) == ""){
+            showTip("评论内容不能为空")
 			return false;
 		}
 		RequestService("/online/user/isAlive", "POST", null, function(data) {

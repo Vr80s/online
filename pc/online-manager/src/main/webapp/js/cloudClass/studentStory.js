@@ -188,11 +188,7 @@ $(".add_bx").click(function(){
 			
 			 $("#addStudentStory-form").attr("action", basePath+"/cloudclass/studentStory/addStudentStory");
 	            $("#addStudentStory-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+	            	data = getJsonData(data);
 	                unmask();
 	                if(data.success){
 	                    $("#addStudentStoryDialog").dialog("close");
@@ -318,11 +314,7 @@ function toEdit(obj){
 	    			
 	    			 $("#editStudentStory-form").attr("action", basePath+"/cloudclass/studentStory/updateStudentStoryById");
 	    	            $("#editStudentStory-form").ajaxSubmit(function(data){
-	    	            	try{
-	                    		data = jQuery.parseJSON(jQuery(data).text());
-	                    	}catch(e) {
-	                    		data = data;
-	                    	  }
+	    	            	data = getJsonData(data);
 	    	                unmask();
 	    	                if(data.success){
 	    	                    $("#editStudentStoryDialog").dialog("close");

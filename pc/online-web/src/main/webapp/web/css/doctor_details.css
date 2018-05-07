@@ -131,6 +131,9 @@
   color: #333333;
   line-height: 24px;
 }
+.content_box #main .main_left .doctor_int img {
+ max-width: 200px;
+}
 .content_box #main .main_left .hospital > h3 {
   margin-bottom: 10px;
   font-size: 20px;
@@ -219,6 +222,13 @@
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_person {
   float: right;
+}
+.class_person em {
+  display: inline-block;
+  width: 11px;
+  height: 13px;
+  background:url('/web/images/studentCount.png') 0 0 no-repeat;
+  margin-right: 5px;
 }
 .content_box #main .main_left .class .class_bottom .class_inf:nth-child(3n) {
   margin-right: 0;

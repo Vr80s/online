@@ -92,11 +92,7 @@ function openDoctorManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -220,11 +216,7 @@ function openAuthorManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -259,11 +251,7 @@ function openReportManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);

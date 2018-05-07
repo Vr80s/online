@@ -331,12 +331,12 @@
                  
                  {{if collection == false}}
                  	{{if type ==3}}
-	                    <a class="purchase" style="background-color:#ccc;border-radius:4px">已报名</a>
+	                    <a class="purchase add-history" style="background-color:#ccc;border-radius:4px">已报名</a>
 	                {{else}}
 	                    {{if type==1}}
-	                        <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/livepage/{{id}}" >立即学习</a>
+	                        <a class="purchase add-history" data-apply="true" data-id="{{id}}" href="/web/livepage/{{id}}" >立即学习</a>
 	                    {{else if type==2}}
-                        <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
+                        <a class="purchase add-history" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
                     	{{/if}}
 	                {{/if}}
                  {{else }}
@@ -400,7 +400,7 @@
 <script src="../js/header.js" type="text/javascript" charset="utf-8"></script>
 <script src="../js/helpers.js" type="text/javascript" charset="utf-8"></script>
 <script src="../js/html5.js" type="text/javascript" charset="utf-8"></script>
-
+<script src="../js/common_msg.js"></script>
 
 
 

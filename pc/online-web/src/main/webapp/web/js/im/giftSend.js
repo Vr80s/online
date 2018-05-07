@@ -192,70 +192,14 @@ $(document).ready(function() {
 		})			
 	});
 	
-		//点击发送时候的送礼物效果/充值事件
-	$('#chat-submit').click(function(){
-		//判断发送和充值时候出发的不同的事件
-		if($(this).text()=='发送' ){
-			if(myid==null)return;
-			for(var i in giftList){
-        		if(giftList[i].id == myid){
-        			selectGift=giftList[i];
-        			if(isContinuous){
-        				selectGift.count=selectGift.countinuousCount;
-        			}else{
-        				selectGift.count=1;
-        			}
-        		}
-			}
-			//获取数量
-			var gifNumber =Number($('.gif-num').text()); 
-			var msgJson = {
-					channel:1,
-					giftId:selectGift.id,
-					count:1,
-					clientType:1,
-					liveId:course_id,
-					receiver:teacherId,
-					receiverName:teacherName
-			};
-			RequestService("/gift/sendGift", "POST", msgJson, function(data) {
-				if(data.success==true){
-        			sendMsg(data.resultObject);
-        			refreshBalance();
-				}else{
-					// if("余额不足"==data.errorMessage){
-                        $('.mask3').text(data.errorMessage).fadeIn(400,function(){
-                            setTimeout(function(){
-                                $('.mask3').fadeOut()
-                            },1000)
-                        });
-					// }
-				}
-			},false);
-//			$("#chat-content").val('');
 
-			//获取当前点击时候的id/点击的时间
-			lastGift = myid ;
-			lastTime = new Date();
-			
-		}else if($(this).text() == '充值'){
-			//用户的充值事件写在这里/充值状态不能够发送礼物
-			price=100/rate;//初始化为10元
-			$('.number').text(price);
-			$('#main1').addClass('show')
-			$('.mask').css({'display':'block'})
-		}
-	})
-	
-	
-	
 	//点击发送时候的送礼物效果/充值事件
 	$('.surprise-mouseover-ul li,.surprise-presented').click(function(){
 		var className = $(this).attr("class");
 		var gid = $(this).attr("data-id");
 		var number = $(this).attr("data-number");
 		//判断余额是否足够
-		var balanceTotal = $("#account").html();
+		var balanceTotal = $("#balanceTotal").html();
 		if(parseInt(number)<= parseInt(balanceTotal) || parseInt(number) ==0){
 			//获取数量
 			var gifNumber =Number($('.gif-num').text()); 
@@ -270,6 +214,7 @@ $(document).ready(function() {
 			};
 			RequestService("/gift/sendGift", "POST", msgJson, function(data) {
 				if(data.success==true){
+                    data.resultObject.courseId=course_id;
         			sendMsg(data.resultObject);
         			VHALL_SDK.sendChat({
         				text: data.resultObject.senderInfo.userName+"赠送给主播一个"+data.resultObject.giftInfo.name
@@ -296,12 +241,19 @@ $(document).ready(function() {
 			$('.chongZhi').click();
 		}
 	})
-	
-	
 });
 
 function createGiftList(data){
-	if(data.messageType==1){
+    if(data.courseId!=course_id)return;   //ios传值
+    
+    if(data.messageType==2 && liveStatus == 2){  //直播开始通知
+	  	//当前时间 
+    	if(parseInt(sendTime) < parseInt(data.sendTime)){
+        	console.log("开始直播了，建议再次刷新页面   >>>>");
+        	//刷新页面 --》在观看
+        	location.reload();
+    	}
+	}else if(data.messageType==1){
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +

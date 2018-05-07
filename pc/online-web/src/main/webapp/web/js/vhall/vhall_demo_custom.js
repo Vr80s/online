@@ -179,16 +179,14 @@ $(document).ready(function() {
 		alert("发生错误: " + JSON.stringify(t))
 	}), VHALL_SDK.on("userOnline", function(t) {
 		//用户上线
-		
 		console.log(t);
 		$("#chatmsg").append(liveToGoOut(t,1));
 		$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999");
 		
 	}), VHALL_SDK.on("userOffline", function(t) {
+		
 		//用户下线
-		
 		console.log(t)
-		
 		$("#chatmsg").append(liveToGoOut(t,2));
 		$(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999");
 		
@@ -282,7 +280,8 @@ $(document).ready(function() {
 		scrollInertia: 200,
 		callbacks: {
 			onTotalScrollBack: function() {
-				if ("1" != VHALL_SDK.room.type) {
+				var room  = VHALL_SDK.getRoominfo();
+				if ("1" == room.type || "3" ==room.type) {
 					var t = parseInt($("#chatmsg").data("curr_page"));
 					VHALL_SDK.vhall_get_record_history_chat_msg(t + 1)
 				}

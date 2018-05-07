@@ -126,11 +126,7 @@ function updateRecommendSort(obj,key){
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updateRecommendSort");
             $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 unmask();
                 if(data.success){
                     $("#recommendSort").val("");
@@ -179,11 +175,7 @@ function updateRecImg(obj){
  			 mask();
  			 $("#updateRecImg-form").attr("action", basePath+"/cloudclass/course/updateRecImgPath");
  	            $("#updateRecImg-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateRecImgDialog").dialog("close");

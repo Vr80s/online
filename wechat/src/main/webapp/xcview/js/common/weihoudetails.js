@@ -9,7 +9,6 @@ var hostName ="";
  * @param videoId
  */
 function chZJ(videoId){
-	
 	//获取开播时间和
     var map;
     requestService("/xczh/common/getWeihouSign", {video:videoId}, function(data) {
@@ -144,9 +143,8 @@ $(document).ready(function() {
 		 * 用户信息
 		 */
         console.log(VHALL_SDK.getRoominfo());
-        
         var room  = VHALL_SDK.getRoominfo();
-        if(room.type  == 3 ){
+        if(room.type  == 3 || room.type  == 1){
             $(".chatmsg-box").mCustomScrollbar({
                 scrollInertia: 200,
             	theme:"dark",
@@ -157,46 +155,13 @@ $(document).ready(function() {
                 onTotalScrollOffset:"100px",
                 callbacks: {
                     onTotalScrollBack: function() {
-                        //if (VHALL_SDK.room.type != '1') {
-                            var curr_page = parseInt($('#chatmsg').data('curr_page'));
-                            if(falg==1){
-                            	curr_page++;
-                            	falg++;
-                            }
-                            VHALL_SDK.vhall_get_record_history_chat_msg(falg+1);
-                        //}
+                        var curr_page = parseInt($('#chatmsg').data('curr_page'));
+                    	var curr_page = parseInt($("#chatmsg").data("curr_page"));
+                        VHALL_SDK.vhall_get_record_history_chat_msg(curr_page+1);
                     }
                 }
             });
-            $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
-        }else if(room.type == 1){
-        	$(".chatmsg-box").mCustomScrollbar({
-                scrollInertia: 200,
-            	theme:"dark",
-                axis:"y",
-                onTotalScroll:"50px",
-                alwaysTriggerOffsets:false,
-                onTotalScrollBackOffse:"100px",
-                onTotalScrollOffset:"100px",
-                callbacks: {
-                    onTotalScrollBack: function() {
-                    	
-                       /* 
-                        * 直播的不用管，因为直播的是把数据全部请求过来了
-                        * if (VHALL_SDK.room.type != '1') {
-                            var curr_page = parseInt($('#chatmsg').data('curr_page'));
-                            if(falg==1){
-                            	curr_page++;
-                            	falg++;
-                            }
-                            VHALL_SDK.vhall_get_live_history_chat_msg(falg+1);
-                        }*/
-                    }
-                }
-            });
-        	$(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
         } 
-        
     });
     /**
 	 * [用户上线]
@@ -365,9 +330,6 @@ $(document).ready(function() {
         //$(".video_end_top0").hide();
     });
     
-    
-    
-    
     var userInfo = "";
     VHALL_SDK.on('vhall_live_history_chat_msg', function(res) {
     	if(userInfo ==""){
@@ -407,44 +369,31 @@ $(document).ready(function() {
     		userInfo = VHALL_SDK.getUserinfo();
     	}
     	if (res.code == 200 ) {
-    		
     		var Name = localStorage.name;
-            var str = '';
+            var e = '';
             
             $("#chatmsg").data('curr_page', res.curr_page);
             for (var i = res.data.length - 1; i >= 0; i--) {
-            	
             	var item = res.data[i];
             	var userName = item.user_name;
             	if(item.role == "host"){ //说明是主播
             		var hostName = sessionStorage.getItem("hostName");
             		userName = "<span class='span_zhubo'>主播</span>"+ (stringnull(hostName) ?  hostName : "");
             	}
-        		 str += "<div class='coze_cen_ri'> "+
+        		 e += "<div class='coze_cen_ri'> "+
     			"  <div class='coze_cen_bg_ri'> "+
     			"<span class='span_name'>"+userName+"：</span>"+   //用户名
     			"	"+item.content+"  "+
     			" </div> "+
     			" <div class='both'></div></div>";
             }
-            if (res.curr_page == 0){
-            	$("#chatmsg").html(str);
-                setTimeout(function(){
-                    $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
-                },50);
-            }else{
-            	if(res.curr_page == 1){
-            		$("#chatmsg").html(str);
-            		 setTimeout(function(){
-            			 $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
-            		 },50);
-            	}else{
-            		$("#chatmsg").prepend(str);
-            		setTimeout(function() {
-            		   $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","-=500");
-            		 },100)   
-            	}
-            }
+            
+			1 == res.curr_page 
+			? ($("#chatmsg").html(e), 
+					setTimeout(function() {
+				       $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
+					}, 50)) 
+			: ($("#chatmsg").prepend(e), $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "20px"))
         }
     });
     /**
@@ -471,9 +420,6 @@ $(document).ready(function() {
        
     	console.log(res);
     });
-    
-    
-    
     
     $("#sendChat").click(function() {
         $(".coze_bottom").css("bottom", "0rem");  //这是输入框在最底部,添加到其他文件不起作用

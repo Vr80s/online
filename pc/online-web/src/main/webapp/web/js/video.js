@@ -129,13 +129,18 @@ $(function() {
 		'<div class="videoBody-bottom-listRelease">' +
 		'<div class="videoBody-bottom-listRelease-left">' +
 		'<img src="{{#headImg(e.onlineUser.smallHeadPhoto)}}"/>' +
-		'<p title="{{e.onlineUser.name}}">{{e.onlineUser.name}}</p>' +
 		'</div>' +
 		'<div class="videoBody-bottom-listRelease-right">' +
 		// '<p class="releaseStar">{{#stars2(e.starLevel)}}</p>' +
+        '<p title="{{e.onlineUser.name}}" class="releaseTime">{{e.onlineUser.name}} <span class="releaseTime">{{removeSecond(e.createTime)}}</span></p>' +
 		'<p class="releaseText" style="word-wrap: break-word;">{{e.content}}</p>' +
+        '{{if e.reply.length > 0}}' +
+		'<div style="background: #FAFAFA;margin-top: 50px"><p style="word-wrap: break-word;">' +
+		'<img src="{{#headImg(e.replySmallHeadPhoto)}}" style="width: 36px;height: 36px;border-radius:60px;margin: 10px;font-size: 14px;"/>' +
+		'{{e.replyName}} {{e.replyCreateTime}}</p>' +
+		'<p style="margin-left: 60px;font-size: 14px">{{e.replyContent}}</p></div>'+
+        '{{/if}}' +
 		'<div class="releaseGood clearfix" data-criticizeId="{{e.id}}" data-isPraise="{{e.isPraise}}">' +
-		'<span class="releaseTime">{{removeSecond(e.createTime)}}</span>' +
 		'<p class="wqz">' +
 		'{{if e.isPraise == 0}}' +
 		'<img src="../../web/images/video/good_normal.png" style="cursor:pointer;padding-right:5px;margin-top:-3px;"/>' +
@@ -620,6 +625,7 @@ $(function() {
 	//点击提交评价
 	$(".getRelease").click(function() {
 		if($.trim($(".videoBody-bottom-left-release textarea").val()) == ""){
+            showTip("评论内容不能为空")
 			return false;
 		}
 		RequestService("/online/user/isAlive", "POST", null, function(data) {
@@ -646,7 +652,7 @@ $(function() {
 					$(".getRelease").attr("star", 5);
 					$(".tipRelease").hide();
 				};
-				RequestService("/video/saveCriticize", "POST", {
+				RequestService("/criticize/saveCriticize", "POST", {
 					videoId: courseId,
 					chapterId: chapterId,
 					content: releaseTxt,
@@ -700,8 +706,8 @@ $(function() {
 
 	function givecriticize() {
 		//获取评价列表
-		RequestService("/video/getVideoCriticize", "POST", {
-			videoId: courseId,
+		RequestService("/criticize/getCriticizeList", "POST", {
+            courseId: courseId,
 			pageNumber: pageNumber,
 			pageSize: pageSize
 		}, function(data) {

@@ -149,12 +149,11 @@ public class WeChatThirdPartyController {
 				UCCookieUtil.clearTokenCookie(res);
 				req.getSession().setAttribute("_user_", null);
 			}
-
+			LOGGER.info("{}{}{}{}{}{}{}{}{}{}{}{}======userId:"+userId);
 			/**
 			 * 通过code获取微信信息
 			 */
 			String code = req.getParameter("code");
-
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,
 					wxcpClientUserWxMappingService);
 			if (wxw == null) {

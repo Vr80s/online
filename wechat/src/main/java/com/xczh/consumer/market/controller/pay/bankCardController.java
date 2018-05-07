@@ -57,7 +57,6 @@ public class bankCardController {
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-		System.out.println("tel==================="+tel);
 		/**
 		 * 数据验证
 		 */

@@ -103,6 +103,6 @@
 <script type="text/javascript">
     $(function () {
         $('input').placeholder();
-        $(".doctor-tab").css({"background":"#2cb82c"})
+        $(".doctor-tab").css({"color":"#2cb82c"})
     });
 </script>

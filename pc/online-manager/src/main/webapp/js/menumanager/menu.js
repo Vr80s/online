@@ -368,11 +368,7 @@ function openMenuManage(obj){
 				
 				$("#childMenu-form").ajaxSubmit(function(data){
 					unmask();
-					try{
-	            		data = jQuery.parseJSON(jQuery(data).text());
-	            	}catch(e) {
-	            		data = data;
-	            	  }
+                    data = getJsonData(data);
 					if(data.success){
 						$("#childMenuDialog").dialog("close");
 						layer.msg(data.errorMessage);

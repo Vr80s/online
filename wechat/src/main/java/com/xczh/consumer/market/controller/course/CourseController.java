@@ -85,8 +85,6 @@ public class CourseController {
 		CourseLecturVo cv = null;
 		if (user != null) {
 			cv = courseServiceImpl.selectUserCurrentCourseStatus(courseId,user.getId());
-			
-			
 			/*
 			 * 如果是免费的  判断是否学习过
 			 */
@@ -130,7 +128,7 @@ public class CourseController {
 		//}
 		
 		//if(StringUtils.isNotBlank(cv.getLecturerDescription())){
-			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=3&typeId="+courseId);
 		//}
 		
 		/**
@@ -190,7 +188,7 @@ public class CourseController {
 		//}
 		
 		//if(StringUtils.isNotBlank(cv.getLecturerDescription())){
-			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=3&typeId="+courseId);
 		//}
 		
 		//判断点钱在线人数

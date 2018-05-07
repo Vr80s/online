@@ -211,9 +211,10 @@ public class WeiBoThirdPartyController {
 		    	}
 		    }
 			
+		    LOGGER.info("{}{}{}{}{}{}{}{}{}{}{}{}======userId:"+userId);
+		    
 			Map<String,String> mapRequest = new HashMap<String,String>();
 			mapRequest.put("type",ThirdPartyType.WEIBO.getCode()+"");
-			
 			
 //			Oauth oauth = new Oauth();
 			/**
@@ -296,9 +297,7 @@ public class WeiBoThirdPartyController {
 				}else if(!StringUtils.isNotBlank(wcum.getUserId())){
 					
 					LOGGER.info("没有绑定了用户信息了"+wcum.getUserId());
-					
-					
-					if(userId!=null){  // 绑定成功
+					if(StringUtils.isNotBlank(userId)){  // 绑定成功
 		            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
 		            	 /**
 		            	  * 更改qq信息	--》增加用户id
@@ -308,10 +307,8 @@ public class WeiBoThirdPartyController {
 		 			}else{
 		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 		 			}
-					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 					mapRequest.put("unionId",uId+"");
-					
-					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
+					return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 				}
 			} catch (Exception  e) {
 				e.printStackTrace();

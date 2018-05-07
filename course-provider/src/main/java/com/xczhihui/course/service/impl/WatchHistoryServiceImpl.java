@@ -2,6 +2,7 @@ package com.xczhihui.course.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.xczhihui.course.model.WatchHistory;
 import com.xczhihui.course.util.DateUtil;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.lock.Lock;
+import com.xczhihui.course.mapper.CriticizeMapper;
 import com.xczhihui.course.mapper.WatchHistoryMapper;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.util.DateDistance;
@@ -34,6 +36,9 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	
 	@Autowired
 	private WatchHistoryMapper watchHistoryMapper;
+	
+	@Autowired
+	private CriticizeMapper criticizeMapper;
 
 	@Override
 	public Page<WatchHistoryVO> selectWatchHistory(Page<WatchHistoryVO> page,
@@ -61,8 +66,7 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		   */
 		 WatchHistory watchHistory =null;	
 		 if(target.getCollectionId()!=null && target.getCollectionId() !=0 ){
-			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(target.getUserId(),
-					 target.getCollectionId());	
+			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(target.getUserId(),target.getCollectionId());	
 			 if(watchHistory!=null){
 				 watchHistory.setCourseId(target.getCourseId());
 			 }
@@ -88,6 +92,22 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	public void deleteBatch(String userId) {
 		watchHistoryMapper.deleteWatchHistoryByUserId(userId);
 	}
+	
+	
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Lock(lockName = "addOrUpdateLearnLock",waitTime = 5,effectiveTime = 8)
+	public void addLearnRecord(String lockId, Integer courseId,String userId,String loginName) {
+		Integer hasCourse = criticizeMapper.hasCourse(courseId, userId);
+		if(hasCourse!=null && hasCourse == 0) {
+			String id = UUID.randomUUID().toString().replace("-", "");
+			watchHistoryMapper.insertApplyRGradeCourse(id,courseId,userId,loginName);
+			
+		}
+	}
+	
+	
+	
 	
 	
 }
