@@ -253,6 +253,7 @@ window.onload = function() {
 	var free;
 	var courseDetail;
 
+	
 	$(".baomingSucces").attr("href", "/web/html/video.html?courseId=" + courserId);
 	RequestService("/course/getCourseById", "POST", {
 		courserId: courserId
@@ -318,11 +319,10 @@ window.onload = function() {
                         });
                         
                         $(".gotengxun").click(function() {
-                        	
                         	debugger;
                             RequestService("/video/saveEntryVideo", "POST", {
-                                courseId: courserId,
-                                free: free
+                                courseId: 659,
+                                free: true
                             }, function(data) {
                                 if(data.success == true) {
                                     if(data.resultObject == "报名成功") {
