@@ -13,6 +13,8 @@ for(i = 0; i < apams.length; i++) {
 	var apam = apams[i].split("=");
 	arr[i] = apam[1];
 	var courserId = arr[0];
+	
+	
 	var courseType = arr[1];
 	var fre = arr[2];
 };
@@ -321,8 +323,8 @@ window.onload = function() {
                         $(".gotengxun").click(function() {
                         	debugger;
                             RequestService("/video/saveEntryVideo", "POST", {
-                                courseId: 659,
-                                free: true
+                                courseId: courserId,
+                                free: free
                             }, function(data) {
                                 if(data.success == true) {
                                     if(data.resultObject == "报名成功") {

@@ -223,7 +223,7 @@ public class LiveDao extends SimpleHibernateDao {
                     "  c.grade_name AS courseName,\n" +
                     "  c.smallimg_path,\n" +
                     "  c.direct_id,\n" +
-                    " if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort," +
+                    "  if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort," +
                     "  IFNULL(\n" +
                     "    (SELECT \n" +
                     "      COUNT(*) \n" +
@@ -242,7 +242,7 @@ public class LiveDao extends SimpleHibernateDao {
                     "    ON c.user_lecturer_id = ou.id \n" +
                     "WHERE c.type = 1 \n" +
                     "  AND c.is_delete = 0 \n" +
-                    "  AND c.status = 1 \n" +
+                    "  AND c.status = 1 \n" + 
                     "ORDER BY broadcastState asc, recommendSort desc," +
                     "  c.start_time asc");
         } else {
@@ -253,7 +253,7 @@ public class LiveDao extends SimpleHibernateDao {
                     "  c.grade_name AS courseName,\n" +
                     "  c.smallimg_path,\n" +
                     "  c.direct_id,\n" +
-                    " if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort," +
+                    "  if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort," +
                     "  IFNULL(\n" +
                     "    (SELECT \n" +
                     "      COUNT(*) \n" +

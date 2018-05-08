@@ -85,8 +85,6 @@ requestService("/xczh/course/liveDetails",{
 				$(".guanz_headImg").attr("src", result.headImg);
 				$(".main_title").find('.p0').html(result.heir);
 				
-//				即将播放时间
-				$(".initiation_span").html(result.startTime.slice(0,16));
 				
 				$(".details_chat1").attr("src", result.headImg);
 				var children = $("#zhiboxiangqing [class='p1']").text(
@@ -141,6 +139,7 @@ requestService("/xczh/course/liveDetails",{
 				if(lineState == 3){
 					$(".history_span").text("直播回放");
 					
+					$(".coze_center .coze_cen_ri:last-child").css("margin-bottom","0");
 					$(".coze_bottom").addClass("coze_bottom_hide");
 
 					$(".mCustomScrollbar").css("padding-bottom","0");
@@ -282,12 +281,19 @@ requestService("/xczh/course/liveDetails",{
 
 				// 点击直播回放时的input mywords
 				$("#mywords").click(function() {
+					return;
 				});
 
 				var jjzb =  result.lineState;
 				var startTime = result.startTime;
 				
+//				即将播放时间
+				$(".initiation_span").html(result.startTime.slice(0,16));
+				
 				if(jjzb == 4){  //即将直播的
+					$(".initiation_span").html(result.startTime.slice(0,16));
+					$("#initiation_gradename").html(result.gradeName);
+					
 					$(".video_end_top0").show();
 					$(".cover").show();  //显示即将直播时候--聊天区域添加的遮盖层
 					timer(new Date(startTime).getTime(),parseInt(sendTime));
