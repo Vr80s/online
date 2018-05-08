@@ -375,6 +375,14 @@ public class WeihouInterfacesListUtil {
 		
 		return null;
 	}
+	
+	
+	public static void main(String[] args) {
+		
+		
+		System.out.println(recordList("834656549"));
+		System.out.println(recordTime("834656549"));
+	}
 
 	/**
 	 * Description：查看直播信息

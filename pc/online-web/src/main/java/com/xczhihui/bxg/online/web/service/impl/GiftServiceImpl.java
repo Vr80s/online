@@ -37,6 +37,7 @@ public class GiftServiceImpl implements GiftService {
 		Map<String, Object> map = giftSendService.addGiftStatement4Lock(liveId, giverId, receiverId, giftId, orderFrom, count, liveId);
 		map.put("giftCount",findByLiveId(Integer.valueOf(liveId)));
 		map.put("balanceTotal",userCoinService.getBalanceByUserId(giverId));
+		map.put("ranking",getRankingListByLiveId(liveId, 1, 10));
 		return map;
 	}
 

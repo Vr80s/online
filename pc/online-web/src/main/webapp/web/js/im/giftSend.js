@@ -238,6 +238,7 @@ function createGiftList(data){
         	location.reload();
     	}
 	}else if(data.messageType==1){
+        createRanking(data.ranking);
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +
@@ -254,7 +255,6 @@ function createGiftList(data){
 				"</div>" +
 		"</li>")
 		$('#chat-list').append(li);
-		//$(".liwu").html(data.giftCount);
 		var a = $('#chat-list');
 		a.scrollTop(a[0].scrollHeight);
 		

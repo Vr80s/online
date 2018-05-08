@@ -159,6 +159,17 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
 			setBalance(courseAnchorIncome, userId);
 			setEnchashmentTotal(courseAnchorIncome, userId);
 			setEnchashmentCount(courseAnchorIncome, userId);
+
+			DecimalFormat df = new DecimalFormat("0.00");
+			String total="";
+			if(courseAnchorIncome.getTotal().equals("0")){
+				total="0.00";
+			}else {
+				Double d = Double.parseDouble(courseAnchorIncome.getTotal());
+				total=df.format(d);
+			}
+			courseAnchorIncome.setTotal(total);
+
 		}
 		return courseAnchors;
 	}
@@ -255,7 +266,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
 				+ "    ON ca.`user_id` = uci.`user_id` \n"
 				+ "    AND uci.`change_type` = 7\n"
 				+ "  LEFT JOIN `oe_order_detail` ood\n"
-				+ "    ON ood.id = uci.`order_no_course`\n"
+				+ "    ON ood.id = uci.`correlation_id`\n"
 				+ "  LEFT JOIN `oe_course` oc\n"
 				+ "    ON oc.id = ood.`course_id`\n" + "  WHERE ou.`id`= ?"
 				+ "  AND oc.type = ?";

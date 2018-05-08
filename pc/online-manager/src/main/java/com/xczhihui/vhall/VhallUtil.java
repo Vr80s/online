@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.util.enums.PlayBackType;
 import com.xczhihui.vhall.bean.Webinar;
 
 /**
@@ -474,8 +475,9 @@ public class VhallUtil {
 	 * @author name：yangxuan <br>
 	 *         email: 15936216273@163.com
 	 */
-	public static String recordList(String videoId) {
+	public static Integer recordList(String videoId) {
 
+		
 		Map<String, String> parameters = new TreeMap<String, String>();
 
 		/* 公共参数 */
@@ -497,24 +499,55 @@ public class VhallUtil {
 			 */
 			js = (JSONObject) js.get("data");
 			JSONArray jsonArray = (JSONArray) js.get("lists");
+			//回访列表中的所有回访集合
 			Integer countDuration = 0;
+			//回访生产失败标记
+			Integer failure_statusFlag = 0;
+			//回访生成中标记
+			Integer generating_statusFlag = 0;
+			
+			//回放个数长度
+			Integer count =jsonArray.size();
+			
 			for (Object jobj : jsonArray) {
 				JSONObject jsonObject = (JSONObject) jobj;
-				System.out.println(jsonObject.get("duration").toString());
-				countDuration += Integer.parseInt(jsonObject.get("duration")
-						.toString());
+				//回访时间相加
+				countDuration += Integer.parseInt(jsonObject.get("duration").toString());
+				String status = jsonObject.get("status").toString();
+				//回访生产失败次数相加
+				if("2".equals(status)) {
+					failure_statusFlag++;
+				}
+				//回访生产中次数相加
+				if("0".equals(status)) {
+					generating_statusFlag++;
+				}
 			}
 			System.out.println("回放时长：countDuration:" + countDuration);
-			return "ok";
+			
+			
+			System.out.println("回放个数count:"+count+
+					",回访生产失败标记failure_statusFlag:"+failure_statusFlag+
+					",回访生产失败标记generating_statusFlag:"+generating_statusFlag);
+			
+			if(countDuration==0) {
+				return PlayBackType.GENERATION_FAILURE.getCode();
+			}else if( failure_statusFlag == count) {
+				return PlayBackType.GENERATION_FAILURE.getCode();
+			}else if(generating_statusFlag == count) {
+				return PlayBackType.GENERATION.getCode();
+			}
+			//回放生成状态，0表示生成中，1表示生成成功，2表示生成失败
+			return PlayBackType.GENERATION_SUCCESS.getCode();
 		} else {
-			return "error";
+			return PlayBackType.GENERATION_FAILURE.getCode();
 		}
 	}
 
 	// 测试
 	public static void main(String[] args) {
 
-		recordList("583374408");
+		recordList("834656549");
 	}
 
 }

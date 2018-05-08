@@ -33,14 +33,14 @@
 	  (	select (select course.grade_name from oe_course course where course.id = ood.course_id) as gradeName,
        		CONCAT('+',format(uci.value,2)) as value,uci.create_time as createTime,'课程' as label,"熊猫币" as unit 
    	    from user_coin_increase uci 
-    	   inner join oe_order_detail ood on uci.order_no_course = ood.id
+    	   inner join oe_order_detail ood on uci.correlation_id = ood.id
    				 where  uci.change_type =7  and value > 0
    				 	and ood.course_id in (select id from oe_course as oc where oc.user_lecturer_id =#{userId} )  )
 		UNION ALL
 	  (	select  (select course.grade_name from oe_course course where course.id = ogs.live_id) as gradeName,
 	      	 CONCAT('+',format(uci.value,2)) as value,max(ogs.create_time) as createTime,'直播礼物' as label,"熊猫币" as unit  
 	    from user_coin_increase uci
-	    	inner join oe_gift_statement ogs on uci.order_no_gift = ogs.id
+	    	inner join oe_gift_statement ogs on uci.correlation_id = ogs.id
 	   			 where uci.change_type = 3  and value > 0 
 	   			 	 and  ogs.receiver =  #{userId} group by ogs.live_id  )
 		UNION ALL
