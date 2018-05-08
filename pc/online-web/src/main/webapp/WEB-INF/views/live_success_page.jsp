@@ -20,19 +20,14 @@
   var email = '<%=request.getAttribute("email")%>';
   var name = '<%=request.getAttribute("name")%>';
   var k = '<%=request.getAttribute("k")%>';
+  
+  var vhallName = '<%=request.getAttribute("vhallName")%>';
+
+  
 </script>
 <%@include file="../../web/html/liveVideo.html" %>
 <script>
-   var room_id='<%=request.getAttribute("roomId")%>';
-  var plan_id='<%=request.getAttribute("planId")%>';
 
-  var email = '<%=request.getAttribute("email")%>';
-  var name = '<%=request.getAttribute("name")%>';
-  var k = '<%=request.getAttribute("k")%>'; 
-
-  
- 
-  
   var vvurl = "http://e.vhall.com/webinar/inituser/"+room_id+"?email="+email+"&name="+name+"&k="+k;
   if(name == "" || name == null ||name == "null"){
 	  vvurl += "&embed=video";

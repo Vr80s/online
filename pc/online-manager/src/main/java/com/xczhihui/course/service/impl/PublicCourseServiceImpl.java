@@ -380,9 +380,10 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 //					course.getId());
 //			System.out.println(DateUtil.formatDate(new Date(), null));
 //			timer.schedule(task, 30000);
-
 			// 休眠这个方法，过了几秒种后，在执行 ---》
 			// System.out.println(VhallUtil.recordList(changeCallbackVo.getWebinarId()));
+			
+			
 			/*
 			 * 更改直播开始结束时间,更改直播当前状态
 			 */
@@ -394,7 +395,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 					+ course.getId() + ",type:" + type);
 
 			liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
-
 			if (startOrEnd != "") {
 				String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
 				Map<String, Object> find = new HashMap<String, Object>();

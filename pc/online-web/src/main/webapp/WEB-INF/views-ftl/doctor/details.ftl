@@ -46,9 +46,12 @@
             <#if doctor.medicalHospital ??>
                 <span class="yiguan"><em></em>${doctor.medicalHospital.name!''}</span>
             </#if>
-                <span class="dizhi"><em></em>${doctor.city!''}</span>
+                <#if doctor.city??>
+                    <span class="dizhi"><em></em>${doctor.city!''}</span>
+                </#if>
                 <#if doctor.departmentText??>
-                    <span class="department"><em></em>${doctor.departmentText!''}</span></#if>
+                    <span class="department"><em></em>${doctor.departmentText!''}</span>
+                </#if>
             </div>
         <#if (doctor.fieldText??)>
             <div class="doctor_inf2">

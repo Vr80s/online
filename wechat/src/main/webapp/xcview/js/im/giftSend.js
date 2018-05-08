@@ -83,7 +83,6 @@ if (sendTime == null) {
     }, false)
 }
 function createGiftList(gift) {
-	if(gift.courseId!=course_id)return;   //ios传值
     if(gift.messageType == 2){//直播开始了
     	//当前时间 
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
@@ -105,6 +104,7 @@ function createGiftList(gift) {
     	} 
     	return;
     }
+    if(gift.courseId!=course_id)return;   //ios传值
     if (gift.messageType == 0 || gift.messageType == 1) {
         var time = data.giftInfo == null ? data.rewardInfo.time: data.giftInfo.time
         if (time == null)
