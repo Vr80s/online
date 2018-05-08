@@ -229,7 +229,7 @@ $(function(){
                         $(".resetUsernameCode .resetVificationHit").css("display","none");
                         $(btn).addClass("enable");
                         var oldval = $(".cyResetPasswordbutton").val();
-                        var second = 90;
+                        var second = 60;
                         var timer = setInterval(function () {
                             $(btn).text(second-- + "s");
                             $(btn).addClass("btndisabled");
