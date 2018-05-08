@@ -1,9 +1,7 @@
 package com.xczhihui.course.util;
 
-import java.util.Date;
 import java.util.TimerTask;
 
-import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.enums.PlayBackType;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.vhall.VhallUtil;

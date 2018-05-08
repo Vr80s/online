@@ -374,13 +374,8 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 				Integer taskTime = timeDifference(startTime,currentTime);
 				System.out.println("taskTime:"+taskTime);
 				Timer timer = new Timer();
-				Task task = new Task(changeCallbackVo.getWebinarId(),
-						course.getId(),courseService);
+				Task task = new Task(changeCallbackVo.getWebinarId(),course.getId(),courseService);
 				timer.schedule(task, taskTime);
-				
-				//生成回放中
-				course.setMultimediaType(3);
-				
 				break;
 			default:
 				break;
@@ -463,33 +458,71 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
      * @return
      */
     public Integer timeDifference(Date startTime,Date currentTime) {
+
+
     	long start = startTime.getTime();
     	long current = currentTime.getTime();
-    	long timeDifference = current-start;
-    	long oneHour = 60*60*1000;
-    	long oneFen = 60*60*60*1000;
     	
-    	long hourDecimal =  timeDifference / oneHour;
-    	long fenDecimal =  timeDifference / oneFen;
     	
-    	if(fenDecimal>30) {
-    		hourDecimal++;
+    	long nd = 1000 * 24 * 60 * 60;
+	    long nh = 1000 * 60 * 60;
+	    long nm = 1000 * 60;
+	    // long ns = 1000;
+	    // 获得两个时间的毫秒时间差异
+	    long diff = current-start;
+	    // 计算差多少天
+	    long day = diff / nd;
+	    // 计算差多少小时
+	    long hour = diff % nd / nh;
+	    // 计算差多少分钟
+	    long min = diff % nd % nh / nm;
+    	
+	    System.out.println(day + "天" + hour + "小时" + min + "分钟");
+    	if(min>30) {
+    		hour++;
     	}
     	
-    	if(hourDecimal==0 || hourDecimal==1) {
+    	if(hour==0 || hour==1) {
     		return 30000; //30秒
-    	}else if(hourDecimal==2){
+    	}else if(hour==2){
     		return 60000; //一分钟
-    	}else if( hourDecimal==3){
+    	}else if( hour==3){
     		return 120000; //二分钟
-    	}else if( hourDecimal==4 || hourDecimal==5){
+    	}else if( hour==4){
     		return 240000; //4分钟
     	}else {
     		return 600000; //10分钟
     	}
     }
     public static void main(String[] args) {
-    	System.out.println(1/2);
+    	
+    	//yyyy-MM-dd HH:mm:ss
+    	Date startTime = DateUtil.parseDate("2018-05-08 18:00:00", null);
+    	
+    	long start = startTime.getTime();
+    	long current = new Date().getTime();
+    	
+    	
+    	long nd = 1000 * 24 * 60 * 60;
+	    long nh = 1000 * 60 * 60;
+	    long nm = 1000 * 60;
+	    // long ns = 1000;
+	    // 获得两个时间的毫秒时间差异
+	    long diff = current-start;
+	    // 计算差多少天
+	    long day = diff / nd;
+	    // 计算差多少小时
+	    long hour = diff % nd / nh;
+	    // 计算差多少分钟
+	    long min = diff % nd % nh / nm;
+    	
+	    System.out.println(day + "天" + hour + "小时" + min + "分钟");
+    	if(min>30) {
+    		hour++;
+    	}
+    	System.out.println(hour);
+    	
+    	
 	}
 
     
