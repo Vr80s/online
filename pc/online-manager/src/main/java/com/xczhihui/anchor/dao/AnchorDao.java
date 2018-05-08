@@ -159,6 +159,17 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
 			setBalance(courseAnchorIncome, userId);
 			setEnchashmentTotal(courseAnchorIncome, userId);
 			setEnchashmentCount(courseAnchorIncome, userId);
+
+			DecimalFormat df = new DecimalFormat("0.00");
+			String total="";
+			if(courseAnchorIncome.getTotal().equals("0")){
+				total="0.00";
+			}else {
+				Double d = Double.parseDouble(courseAnchorIncome.getTotal());
+				total=df.format(d);
+			}
+			courseAnchorIncome.setTotal(total);
+
 		}
 		return courseAnchors;
 	}
