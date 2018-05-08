@@ -1,4 +1,4 @@
-var init_city_picker = [{
+var provinces = [{
 	value: '110000',
 	text: '北京市',
 	children: [{

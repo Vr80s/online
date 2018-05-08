@@ -439,16 +439,16 @@ $(function() {
 	        '<p class="buer"><span></span>所在地区:</p> ' +
 	        
 	        //省
-	        '<select class="Province1" onchange="getCity1()"> ' +
+	        '<select class="province"> ' +
 	        '<option value="volvo">--选择省--</option> ' + 
 	        '</select> ' +
 	        //市
-	        '<select class="City1" onchange="getDistrict1()"> ' +
+	        '<select class="city"> ' +
 	        '<option value="volvo" >--选择市--</option> ' +
 	        '</select> ' +
 	        
 	        //区
-	        '<select class="District1"> ' +
+	        '<select class="district"> ' +
 	        '<option value="volvo">--选择区/县--</option> ' +
 	        '</select> ' +
 
@@ -564,9 +564,9 @@ $(function() {
 	        '<div class="address-main"> ' +
 	        '<span class="address-main-close">X</span> ' +
 	        '<div class="address-maim-top clearfix"><p>天天&nbsp;&nbsp;</p></div> ' +
-	        '<div class="clearfix"><p>收货人: <span>天天</span></p><p>手机: <span>139****6940</span></p></div> ' +
-	        '<div class="clearfix"><p>所在地区: <span>海南海口市美兰区演丰镇</span></p><p>详细地址: <span>心承志会大厦201</span></p></div> ' +
-	        '<div class="clearfix"><p>邮编: <span>115100</span></p></div> ' +
+	        '<div class="clearfix"><p>收货人: <span></span></p><p>手机: <span></span></p></div> ' +
+	        '<div class="clearfix"><p>所在地区: <span></span></p><p>详细地址: <span></span></p></div> ' +
+	        '<div class="clearfix"><p>邮编: <span></span></p></div> ' +
 	        '<div class="clearfix"><a href="javascript:;">编辑</a><a href="javascript:;">设为默认</a></div> ' +
 	        '</div> ' +
 	        '</div> ' +
@@ -582,39 +582,12 @@ $(function() {
 	        '<div class="address-info2"> ' +
 	        '<p><span>*</span>所在地区:</p> ' +
 	        
-	        
-//	        //省
-//	        '<select class="Province" onchange="getCity()"> ' +
-//	        '<option value="volvo">--选择省--</option> ' +
-////	        '<option value="saab">Saab</option> ' +
-////	        '<option value="opel">Opel</option> ' +
-////	        '<option value="audi">Audi</option> ' +
-//	        '</select> ' +
-//	        //市
-//	        '<select class="City"  onchange="getDistrict()"> ' +
-//	        '<option value="volvo" >--选择市--</option> ' +
-////	        '<option value="saab">Saab</option> ' +
-////	        '<option value="opel">Opel</option> ' +
-////	        '<option value="audi">Audi</option> ' +
-//	        '</select> ' +
-//	        
-//	        //区
-//	        '<select class="District"> ' +
-//	        '<option value="volvo">--选择区/县--</option> ' +
-////	        '<option value="saab">Saab</option> ' +
-////	        '<option value="opel">Opel</option> ' +
-////	        '<option value="audi">Audi</option> ' +
-//	        '</select> ' +
-	        
-			'<select name="" id="choosePro" onchange="doProvAndCityRelation(),doCityAndCountyRelation()">'+
-			'<option id="choose" value="-1">请选择省</option><option value="110000">北京市</option><option value="120000">天津市</option><option value="130000">河北省</option><option value="140000">山西省</option><option value="150000">内蒙古自治区</option><option value="210000">辽宁省</option><option value="220000">吉林省</option><option value="230000">黑龙江省</option><option value="310000">上海市</option><option value="320000">江苏省</option><option value="330000">浙江省</option><option value="340000">安徽省</option><option value="350000">福建省</option><option value="360000">江西省</option><option value="370000">山东省</option><option value="410000">河南省</option><option value="420000">湖北省</option><option value="430000">湖南省</option><option value="440000">广东省</option><option value="450000">广西壮族自治区</option><option value="460000">海南省</option><option value="500000">重庆市</option><option value="510000">四川省</option><option value="520000">贵州省</option><option value="530000">云南省</option><option value="540000">西藏自治区</option><option value="610000">陕西省</option><option value="620000">甘肃省</option><option value="630000">青海省</option><option value="640000">宁夏回族自治区</option><option value="650000">新疆维吾尔自治区</option>'+
-			
+
+			'<select class="province">'+
 			'</select>'+
-			'<select name="" id="citys" onchange="doCityAndCountyRelation()">'+
-			'<option id="chooseCity" value="-1">请选择市</option>'+
+			'<select class="city" >'+
 			'</select>'+
-			'<select name="" id="county">'+
-			'<option id="chooseCounty" value="-1">请选择区/县</option>'+
+			'<select class="district">'+
 			'</select>'+
 	        
 	        

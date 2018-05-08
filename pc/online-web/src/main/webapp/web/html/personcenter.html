@@ -587,9 +587,9 @@
 <div class="clearfix"><p>所在地区: <span class="notdetaileAaddress"><span class="sheng">{{item.provinces}}</span><span class="shi">{{item.city}}</span><span class="xiang">{{item.county}}</span></span></p><p>详细地址: <span class="detailedAddress">{{item.detailedAddress}}</span></p></div>
 <div class="clearfix"><p>邮编: <span class="postalCode">{{item.postalCode}}</span></p></div>
 {{if item.isAcquiescence == 1 }}
-<div class="clearfix"><a href="javascript:;" class="editor" >编辑</a><a href="javascript:;" class="setAsaddress" style="color: white;padding: 2px 10px;background-color: #2cb82c;">默认地址</a></div>
+<div class="clearfix"><a href="javascript:;" class="editor" data-index="{{i}}">编辑</a><a href="javascript:;" class="setAsaddress" style="color: white;padding: 2px 10px;background-color: #2cb82c;">默认地址</a></div>
 {{else if item.isAcquiescence == 0 }}
-<div class="clearfix"><a href="javascript:;" class="editor" >编辑</a><a href="javascript:;" class="setAsaddress">设为默认</a></div>
+<div class="clearfix"><a href="javascript:;" class="editor"  data-index="{{i}}">编辑</a><a href="javascript:;" class="setAsaddress">设为默认</a></div>
 {{/if}}
 </div>
 {{/each}}
@@ -622,7 +622,8 @@
 <script src='../js/PersonAsset.js?v=ipandatcm_1.3.1'></script>
 <script src="/web/js/chongZhi.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/usualAddress.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
-<script src="/web/js/mydataProvinces.js"></script>
+<script src="/web/js/common/data.provinces.js"></script>
+<script src="/web/js/common/provinces-selector.js"></script>
 <script type="text/javascript">
     $(function () {
         $('input').placeholder();

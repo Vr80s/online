@@ -1,81 +1,15 @@
 /**
  * Created by suixin on 2017/9/19.
  */
-//$(function(){
-
-
-
-//个人信息市数据渲染
-function getCity1(){
-	debugger;
-	var pid = $('.Province1 option:selected') .val()
-	RequestService("/address/getAllPCC", "get", {}, function(data){
-				console.log(data);
-				if(data.success == true){
-					//市
-					 $(".City1").html(template("cit1",{item:data.resultObject[pid-1].cityList}));
-					 
-					//县
-					 $(".District1").html(template("dis",{item:null}));
-					 
-				}
-			})
-	}
-
-//区县渲染
-function getDistrict1(){
-	var pid = $('.Province1 option:selected').val()
-	var cid =  $('.City1 option:selected').val()
-	console.log(cid)
-	RequestService("/address/getAllPCC", "get", {}, function(data){
-		if(data.success == true){
-			//区县
-			 $(".District1").html(template("dis",{item:data.resultObject[pid-1].cityList[cid].disList}));
-		}
-	})
-}
-
-
-//区县渲染
-function getDistrict(){
-	var pid = $('.Province option:selected').val()
-	var cid =  $('.City option:selected').val()
-	console.log(cid)
-	RequestService("/address/getAllPCC", "get", {}, function(data){
-		if(data.success == true){
-			//区县
-			 $(".District").html(template("dis",{item:data.resultObject[pid-1].cityList[cid].disList}));
-		}
-	})
-}
-
-
-
-//市数据渲染
-function getCity(){
-	var pid = $('.Province option:selected') .val()
-	RequestService("/address/getAllPCC", "get", {}, function(data){
-				console.log(data);
-		if(data.success == true){
-			//市
-			 $(".City").html(template("cit",{item:data.resultObject[pid-1].cityList}));
-			 
-			//县
-			 $(".District").html(template("dis",{item:null}));
-		}
-	})
-	}
-
-
-
-
+var addressList;
 //请求常用地址数据渲染到页面中
 function getAddressList(){
 	RequestService("/address/getAddressAll", "get", {}, function(data){
 		//请求成功渲染
 		if(data.success == true){
 			console.log(data);
-			 $(".address-list").html(template("addressTem",{item:data.resultObject}));
+			addressList = data.resultObject;
+			 $(".address-list").html(template("addressTem",{item:addressList}));
 			 var addNum = data.resultObject.length
 			 //已经创建的地址数量显示
 			 $('.addNum').text(addNum)
@@ -86,28 +20,28 @@ function getAddressList(){
 
 //清空添加表单
 function clearAddressList(){
-	$('.add-address #choosePro').val('-1');
-	$('.add-address #citys').val('-1');
-	$('.add-address #county').val('-1');
-	$('.add-address #choosePro  option:selected').text('请选择省');
+	// $('.add-address #choosePro').val('-1');
+	// $('.add-address #citys').val('-1');
+	// $('.add-address #county').val('-1');
+	// $('.add-address #choosePro  option:selected').text('请选择省');
+	debugger
+    $(".add-address").iProvincesSelect("init");
 	$('.add-address .detailedAddress').val('');
 	$('.add-address .postalCode').val('');
 	$('.add-address .phone').val('');
 	$('.add-address .consignee').val('');
 }
 
-
-
-
 //点击保存地函数
 function submitAddress_add(){
+    var pcd = $(".add-address").iProvincesSelect("val");
 	$('.add-address').addClass('hide');
 	$('.address-list').removeClass('hide');
 		//获取当前的表单填入信息
 		RequestService("/address/saveAddress", "post", {
-			provinces:$('.add-address #choosePro  option:selected').text(),
-			city:$('.add-address #citys  option:selected').text(),
-			county:$('.add-address #county  option:selected').text(),
+			provinces:pcd.province,
+			city:pcd.city,
+			county:pcd.district,
 			detailedAddress:$('.add-address .detailedAddress').val(),
 			postalCode:$('.add-address .postalCode').val(),
 			consignee:$('.add-address .consignee').val(),
@@ -148,36 +82,14 @@ function submitAddress_editor(id){
 
 var flag;
 function initAddressBind(){
-	debugger;
-	//个人信息请求三级联动数据
-	RequestService("/address/getAllPCC", "get", {}, function(data){
-		//请求成功渲染
-		if(data.success == true){
-			//省
-			$(".Province1").html(template("pro1",{item:data.resultObject}));
-		}
-	},false)
-	
-	
-	//常用地址请求三级联动数据
-	RequestService("/address/getAllPCC", "get", {}, function(data){
-		//请求成功渲染
-		if(data.success == true){
-			//省
-			 $(".Province").html(template("pro",{item:data.resultObject}));
-		}
-	})
-		
 	//渲染常用地址列表
 	getAddressList();
-	
 	
 	//添加常用地址
 	$('.add-addressBtn').click(function(){
 		$('.add-address input').attr('placeholder','')
 		//警告清空
 		$('.address_warn').css('display','none');
-//		console.log($('.address-list').children().length)
 		if($('.address-list').children().length == 20){
 			$('.mask2').html("常用地址数量已满").fadeIn(400,function(){
 				setTimeout(function(){
@@ -213,9 +125,7 @@ function initAddressBind(){
 		var phone_pass = /^1[3,4,5,7,8]\d{9}$/gi;
 		var postalCode = $('.add-address .postalCode').val();
 		var postalCode_pass = /^[1-9][0-9]{5}$/;
-		var sheng = $('.add-address #choosePro  option:selected').text();
-		var shi = $('.add-address #citys  option:selected').text();
-		var qu = $('.add-address #county  option:selected').text();
+
 		if(flag==0){
 			//姓名验证
 			if($.trim(name) == ""){
@@ -227,15 +137,7 @@ function initAddressBind(){
 				$(".add-address .consignee").attr('placeholder','姓名格式不正确')
 				return false;
 			}
-			//地址验证
-			console.log(sheng)
-			if(sheng == '--选择省--'||shi == '--选择市--'||qu == '--选择区/县--'){
-				$('.address_warn').css('display','block')
-				console.log(7777)
-				return false;
-			}else{
-				$('.address_warn').css('display','none')
-			}
+
 			//详细地址验证
 			if(!detailedAddress){
 				$(".add-address .detailedAddress").attr('placeholder','详细地址不能为空')
@@ -262,8 +164,7 @@ function initAddressBind(){
 				$(".add-address .postalCode").attr('placeholder','邮编格式不正确')
 				return false;
 			}
-			
-			console.log('添加')
+
 			submitAddress_add();
 		}else{
 			//姓名验证
@@ -291,13 +192,6 @@ function initAddressBind(){
 				$(".add-address .phone").attr('placeholder','手机号格式不正确')
 				return false;
 			}
-			//地址验证
-			console.log(sheng)
-			if(sheng == '请选择省'||shi == '请选择市'||qu == '请选择区/县'){
-				$('.address_warn').css('display','block')
-				console.log(7777)
-				return false;
-			}
 			//邮编验证
 			if($.trim(postalCode) == ""){
 				$(".add-address .postalCode").attr('placeholder','邮编不能为空')
@@ -308,8 +202,6 @@ function initAddressBind(){
 				$(".add-address .postalCode").attr('placeholder','邮编格式不正确')
 				return false;
 			}
-			
-			console.log('编辑')
 			submitAddress_editor(id);
 		}
 	})
@@ -326,29 +218,26 @@ function initAddressBind(){
 	$('.address-list').on('click','.editor',function(){
 		
 		flag = 1;
-//		$(this).css('color','red')
 		$(this).parent().parent().find('span').prop('contenteditable','true')
 		  
 		$('.address-list').addClass('hide');
 		$('.add-address').removeClass('hide');
 		$('.style_title').text('编辑地址')
 		//将内容填写到表中
-		console.log($(this).parent().parent().find('.consignee').text())
+        var address = addressList[$(this).attr("data-index")];
 		//收货人
-		$('.add-address .consignee').val($(this).parent().parent().find('.consignee').text());
+		$('.add-address .consignee').val(address.consignee);
 		//详细地址
-		$('.add-address .detailedAddress').val($(this).parent().parent().find('.detailedAddress').text());
+		$('.add-address .detailedAddress').val(address.detailedAddress);
 		//手机号码
-		$('.add-address .phone').val($(this).parent().parent().find('.phone').text());
+		$('.add-address .phone').val(address.phone);
 		//邮编
-		$('.add-address .postalCode').val($(this).parent().parent().find('.postalCode').text());
-		//省
-		$('.add-address #choosePro  option:selected').text($(this).parent().parent().find('.sheng').text())
-		//市
-		$('.add-address #citys  option:selected').text($(this).parent().parent().find('.shi').text())
-		//区
-		$('.add-address #county  option:selected').text($(this).parent().parent().find('.xiang').text())
-		
+		$('.add-address .postalCode').val(address.postalCode);
+		var pcd = {};
+		pcd.province=address.provinces;
+		pcd.city=address.city;
+		pcd.district=address.county;
+        $(".add-address").iProvincesSelect("init",pcd);
 		
 		//此时生成id值
 	    id = $(this).parent().parent().attr('data-id');
@@ -360,27 +249,10 @@ function initAddressBind(){
 	$('.address-list').on('click','.address-main-close',function(){
 		$('#delTip').removeClass('hide');
 		$('.mask').css('display','block');
-		
-//		if(confirm("确定删除该项地址么？")){
-//		 id = $(this).parent().attr('data-id');
-//		console.log(id);
-//		RequestService("/address/deleteAddressById", "get", {
-//			id:id
-//		}, function(data){
-//			if(data.success == true){
-//				$(this).parent().remove();	
-//				//重新渲染页面				
-//				getAddressList();
-//
-//			}
-//		})
-//	}	
 
 //点击确认删除
 	id = $(this).parent().attr('data-id');
 	$('.delAddress').click(function(){
-		
-		console.log(id);
 		RequestService("/address/deleteAddressById", "get", {
 			id:id
 		}, function(data){
@@ -422,65 +294,5 @@ function initAddressBind(){
 		})
 		
 	})
-	
-	
-	
 		
 }
-
-
-
-
-
-
-//    var html =
-//        '<div class="address-title clearfix">' +
-//        '<button class="add-addressBtn">常用地址添加</button>' +
-//        '<p>您已常创建 <span>1</span>个收货地址，最多可以常见 <span>20</span>个</p> ' +
-//        '</div> ' +
-//        // <!--常用地址列表-->
-//        '<div class="address-list"> ' +
-//        '<div class="address-main"> ' +
-//        '<span class="address-main-close">X</span> ' +
-//        '<div class="address-maim-top clearfix"><p>天天</p></div> ' +
-//        '<div class="clearfix"><p>收货人: <span>天天</span></p><p>邮编: <span>115100</span></p></div> ' +
-//        '<div class="clearfix"><p>所在地址: <span>海南海口市美兰区演丰镇</span></p><p>地址: <span>心承志会大厦201</span></p></div> ' +
-//        '<div class="clearfix"><p>手机: <span>139****6940</span></p></div> ' +
-//        '<div class="clearfix"><a href="javascript:;">编辑</a><a href="javascript:;">设为默认</a></div> ' +
-//        '</div> ' +
-//        '</div> ' +
-//        // <!--隐藏的添加地址的输入列表-->
-//
-//        '<div class="add-address hide"> ' +
-//        '<div class="add-address-title"><h5>常用地址添加</h5><span class="add-address-close">x</span></div> ' +
-//        '<div class="address-info1"> ' +
-//        '<p><span>*</span>收货人:</p> ' +
-//        '<input type="text"> ' +
-//        '</div> ' +
-//        '<div class="address-info2"> ' +
-//        '<p><span>*</span>所在地区:</p> ' +
-//        '<select> ' +
-//        '<option value="volvo">Volvo</option> ' +
-//        '<option value="saab">Saab</option> ' +
-//        '<option value="opel">Opel</option> ' +
-//        '<option value="audi">Audi</option> ' +
-//        '</select> ' +
-//        '</div> ' +
-//        '<div class="address-info3"> ' +
-//        '<p><span>*</span>详细地址:</p> ' +
-//        '<input type="text"> ' +
-//        '</div> ' +
-//        '<div class="address-info4 clearfix"> ' +
-//        '<div class="address-info4-left"> ' +
-//        '<p><span>*</span>手机号码:</p> ' +
-//        '<input type="text"> ' +
-//        '</div> ' +
-//        '<div class="address-info4-right"> ' +
-//        '<p>邮编:</p> ' +
-//        '<input type="text"> ' +
-//        '</div> ' +
-//        '</div> ' +
-//        '<button class="submit-address">保存收货地址</button> ' +
-//        '</div>'
-
-//})
