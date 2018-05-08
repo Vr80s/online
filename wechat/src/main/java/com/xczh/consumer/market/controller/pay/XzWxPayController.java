@@ -185,6 +185,8 @@ public class XzWxPayController {
 				param.put("package", "prepay_id=" + preid);
 				param.put("signType", "MD5");
 				param.put("paySign", PaymentKit.createSign(param, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey()));
+				
+				
 				return ResponseObject.newSuccessResponseObject(param);
 			}
 			return ResponseObject.newSuccessResponseObject(result);
@@ -283,14 +285,17 @@ public class XzWxPayController {
 				String timestamp = System.currentTimeMillis() / 1000 + "";
 				packageParams.put("timestamp", timestamp);
 				String packageSign = PaymentKit.createSign(packageParams, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey());
-//				packageParams.put("sign", packageSign);
-
-				result.put("device_info","wxpay");
-				result.put("sign", packageSign);
-				result.put("timestamp", timestamp);
-				String jsonStr = JSON.toJSONString(result);
+				packageParams.put("sign", packageSign);
+				
+//				result.put("device_info","wxpay");
+//				result.put("sign", packageSign);
+//				result.put("timestamp", timestamp);
+//				String jsonStr = JSON.toJSONString(result);
+				
+				String jsonStr = JSON.toJSONString(packageParams);
+				
 				System.out.println("json"+jsonStr);
-				return ResponseObject.newSuccessResponseObject(result);
+				return ResponseObject.newSuccessResponseObject(packageParams);
 			}else if(orderFromI == 3){
 
 

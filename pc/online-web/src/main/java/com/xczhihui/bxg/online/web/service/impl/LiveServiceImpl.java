@@ -149,8 +149,11 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         }
 
         List<Map<String, Object>> courses = dao.getNamedParameterJdbcTemplate()
-                .queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,"
-                		+ "direct_id,live_status liveStatus,user_lecturer_id as userLecturerId  from oe_course where id=:courseId", paramMap);
+                .queryForList("select oc.type,oc.is_free,oc.description, IF(ISNULL(oc.`course_pwd`), 0, 1) coursePwd,ou.name as  vhallName,"
+                		+ "oc.direct_id,oc.live_status liveStatus,oc.user_lecturer_id as userLecturerId "
+                		+ " from oe_course as oc"
+                		+ "  inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id"
+                		+ " where oc.id=:courseId and oc.is_delete=0", paramMap);
         Map<String, Object> course =  courses.get(0);
         String description = (String) course.get("description");
         Integer liveStatus = (Integer) course.get("liveStatus");
@@ -174,6 +177,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
         }
         //oc.user_lecturer_id as userLecturerId
         mv.addObject("lecturerId",course.get("userLecturerId"));
+        mv.addObject("vhallName",course.get("vhallName"));
+        
         mv.addObject("userId",u.getId());
         mv.addObject("courseId",courseId);
         mv.addObject("liveStatus",liveStatus);

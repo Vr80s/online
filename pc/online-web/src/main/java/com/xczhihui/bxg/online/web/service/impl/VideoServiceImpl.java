@@ -222,7 +222,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     @Override
     public  String saveEntryVideo(Integer  courseId, String password, HttpServletRequest request){
            CourseApplyVo courseApplyVo= courseDao.getCourseApplyByCourseId(courseId);
-//           if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getOriginalCost())==0 && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
+//         if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getOriginalCost())==0 && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
 //    	   if(courseApplyVo.getCoursePwd()!=null&&!"".equals(courseApplyVo.getCoursePwd().trim())){
 //    		   if(password==null || !password.equals(courseApplyVo.getCoursePwd())) {
 //                   return "密码错误";
