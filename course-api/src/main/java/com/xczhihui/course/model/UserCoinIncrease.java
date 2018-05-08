@@ -80,41 +80,12 @@ public class UserCoinIncrease extends Model<UserCoinIncrease> {
      */
 	@TableField("balance_type")
 	private Integer balanceType;
-    /**
-     * 1.充值时，充值的平台单号
-     */
-	@TableField("order_no_recharge")
-	private String orderNoRecharge;
-    /**
-     * 2.赠送时，赠送单号
-     */
-	@TableField("order_no_largess")
-	private String orderNoLargess;
-    /**
-     * 3.接收礼物时，礼物流水id
-     */
-	@TableField("order_no_gift")
-	private String orderNoGift;
-    /**
-     * 4.接收打赏时，打赏流水id
-     */
-	@TableField("order_no_reward")
-	private String orderNoReward;
-    /**
-     * 5.平台提现驳回退回，提现申请的id
-     */
-	@TableField("order_no_reject")
-	private String orderNoReject;
-    /**
-     * 6.结算（人民币余额增加）
-     */
-	@TableField("order_no_settlement")
-	private String orderNoSettlement;
+
     /**
      * 7.卖课所得
      */
-	@TableField("order_no_course")
-	private String orderNoCourse;
+	@TableField("correlation_id")
+	private String correlationId;
 	private String version;
 	@TableField("create_time")
 	private Date createTime;
@@ -241,60 +212,12 @@ public class UserCoinIncrease extends Model<UserCoinIncrease> {
 		this.balanceType = balanceType;
 	}
 
-	public String getOrderNoRecharge() {
-		return orderNoRecharge;
+	public String getCorrelationId() {
+		return correlationId;
 	}
 
-	public void setOrderNoRecharge(String orderNoRecharge) {
-		this.orderNoRecharge = orderNoRecharge;
-	}
-
-	public String getOrderNoLargess() {
-		return orderNoLargess;
-	}
-
-	public void setOrderNoLargess(String orderNoLargess) {
-		this.orderNoLargess = orderNoLargess;
-	}
-
-	public String getOrderNoGift() {
-		return orderNoGift;
-	}
-
-	public void setOrderNoGift(String orderNoGift) {
-		this.orderNoGift = orderNoGift;
-	}
-
-	public String getOrderNoReward() {
-		return orderNoReward;
-	}
-
-	public void setOrderNoReward(String orderNoReward) {
-		this.orderNoReward = orderNoReward;
-	}
-
-	public String getOrderNoReject() {
-		return orderNoReject;
-	}
-
-	public void setOrderNoReject(String orderNoReject) {
-		this.orderNoReject = orderNoReject;
-	}
-
-	public String getOrderNoSettlement() {
-		return orderNoSettlement;
-	}
-
-	public void setOrderNoSettlement(String orderNoSettlement) {
-		this.orderNoSettlement = orderNoSettlement;
-	}
-
-	public String getOrderNoCourse() {
-		return orderNoCourse;
-	}
-
-	public void setOrderNoCourse(String orderNoCourse) {
-		this.orderNoCourse = orderNoCourse;
+	public void setCorrelationId(String correlationId) {
+		this.correlationId = correlationId;
 	}
 
 	public String getVersion() {
@@ -389,13 +312,7 @@ public class UserCoinIncrease extends Model<UserCoinIncrease> {
 			", brokerageValue=" + brokerageValue +
 			", payType=" + payType +
 			", balanceType=" + balanceType +
-			", orderNoRecharge=" + orderNoRecharge +
-			", orderNoLargess=" + orderNoLargess +
-			", orderNoGift=" + orderNoGift +
-			", orderNoReward=" + orderNoReward +
-			", orderNoReject=" + orderNoReject +
-			", orderNoSettlement=" + orderNoSettlement +
-			", orderNoCourse=" + orderNoCourse +
+			", correlationId=" + correlationId +
 			", version=" + version +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +

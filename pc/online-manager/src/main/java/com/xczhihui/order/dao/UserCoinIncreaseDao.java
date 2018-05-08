@@ -17,7 +17,7 @@ public class UserCoinIncreaseDao extends SimpleHibernateDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder("SELECT \n"
 				+ "  ou.`login_name` userId,\n"
-				+ "  uci.`order_no_recharge` orderNoRecharge,\n"
+				+ "  uci.`correlationId` orderNoRecharge,\n"
 				+ "  uci.`value`,\n" + "  uci.`create_time`,\n"
 				+ "  uci.`order_from`,\n" + "  uci.`pay_type` \n" + "FROM\n"
 				+ "  `user_coin_increase` uci \n" + "  LEFT JOIN oe_user ou \n"
@@ -44,9 +44,9 @@ public class UserCoinIncreaseDao extends SimpleHibernateDao {
 			paramMap.put("orderFrom", orderVo.getOrderFrom());
 		}
 
-		if (orderVo.getOrderNoRecharge() != null) {
-			sql.append(" and uci.order_no_recharge like :orderNo ");
-			paramMap.put("orderNo", "%" + orderVo.getOrderNoRecharge() + "%");
+		if (orderVo.getCorrelationId() != null) {
+			sql.append(" and uci.correlationId like :orderNo ");
+			paramMap.put("orderNo", "%" + orderVo.getCorrelationId() + "%");
 		}
 
 		if (orderVo.getUserId() != null) {

@@ -301,6 +301,15 @@ public class Course extends Model<Course> {
 	@TableField("is_delete")
 	private Boolean isDelete;
     
+	
+	
+	/**
+	 * 回放状态类型
+	 */
+	@TableField("play_back_type")
+	private Integer playBackType;
+	
+	
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -863,6 +872,16 @@ public class Course extends Model<Course> {
 		this.liveSourceType = liveSourceType;
 	}
 
+	public Integer getPlayBackType() {
+		return playBackType;
+	}
+
+	public void setPlayBackType(Integer playBackType) {
+		this.playBackType = playBackType;
+	}
+
+	
+	
 		
 
 }

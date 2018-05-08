@@ -70,7 +70,7 @@ public class RechargeController {
 		}
 
 		if (orderNoGroup != null) {
-			searchVo.setOrderNoRecharge(orderNoGroup.getPropertyValue1()
+			searchVo.setCorrelationId(orderNoGroup.getPropertyValue1()
 					.toString());
 		}
 

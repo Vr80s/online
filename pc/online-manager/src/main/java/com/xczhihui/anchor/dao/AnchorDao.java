@@ -266,7 +266,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
 				+ "    ON ca.`user_id` = uci.`user_id` \n"
 				+ "    AND uci.`change_type` = 7\n"
 				+ "  LEFT JOIN `oe_order_detail` ood\n"
-				+ "    ON ood.id = uci.`order_no_course`\n"
+				+ "    ON ood.id = uci.`correlation_id`\n"
 				+ "  LEFT JOIN `oe_course` oc\n"
 				+ "    ON oc.id = ood.`course_id`\n" + "  WHERE ou.`id`= ?"
 				+ "  AND oc.type = ?";
