@@ -242,14 +242,20 @@ function saveBankCard() {
 			} else if(!data.success && data.code == 201) {
 				$('#addBankCard .confirm-content').text('您填写的身份信息与主播认证信息不一致，是否继续添加？')
 				showDel_bank()
+				
+				var falg = true
 				$('#sureDel_bank').click(function() {
+					if(!falg){
+						return;
+					}
+					falg = false;
 					savedata.code = 1;
 					RequestService("/anchor/asset/saveBankCard", "post", savedata, function(data) {
+						falg = true;
 						if(data.success) {
 							showTip(data.resultObject);
 							initBasaeAssetInfo();
 							hideDel_bank()
-
 						} else {
 							if(data.errorMessage == "无效卡号") {
 								$("#content_add_card").focus();
@@ -259,7 +265,7 @@ function saveBankCard() {
 							showTip(data.errorMessage);
 							hideDel_bank()
 						}
-					})
+					},false)
 				})
 
 				//	            	  var r=confirm("填写的为其他人的身份证,是否还添加银行卡") 
