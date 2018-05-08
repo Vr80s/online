@@ -31,7 +31,7 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo> {
 						+ "  cai.`price`*10 as price,\n"
 						+ "  cai.lecturer,\n"
 						+ "  cai.create_time,cai.status,cai.review_time,cai.collection,IF(cai.`status`=2,1,cai.`status`) ostatus,"
-						+ "om.`name` menuName,ca.name userName FROM `course_apply_info` cai JOIN `oe_menu` om ON om.id=cai.`course_menu` "
+						+ "om.`name` menuName,ca.name userName, cai.multimedia_type FROM `course_apply_info` cai JOIN `oe_menu` om ON om.id=cai.`course_menu` "
 						+ " LEFT JOIN `oe_user` ou ON cai.`user_id`=ou.`id` "
 						+ " left join course_anchor as ca on cai.user_id = ca.user_id WHERE cai.`is_delete`=0 ");
 		if (courseApplyInfo.getTitle() != null) {

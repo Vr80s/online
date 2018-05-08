@@ -86,13 +86,13 @@
 .header .header_inf .header_inf_right .doctor_inf1 .zhiwu em {
   width: 14px;
   height: 14px;
-  background-image: url(../images/doctor_detail/zhicheng.png);
+  background-image: url(../images/doctor_detail/title.png);
   background-position: center center; 
 }
 .header .header_inf .header_inf_right .doctor_inf1 .yiguan em {
   width: 14px;
   height: 13px;
-  background-image: url(../images/doctor_detail/yiguan.png);
+  background-image: url(../images/doctor_detail/hospital.png);
   background-position: center center; 
 }
 .header .header_inf .header_inf_right .doctor_inf1 .dizhi em {
@@ -104,7 +104,7 @@
 .header .header_inf .header_inf_right .doctor_inf1 .department em {
   width: 13px;
   height: 15px;
-  background-image: url(../images/doctor_detail/address.png);
+  background-image: url(../images/doctor_detail/department.png);
   background-position: center center;
 }
 .header .header_inf .header_inf_right .doctor_inf2 {
