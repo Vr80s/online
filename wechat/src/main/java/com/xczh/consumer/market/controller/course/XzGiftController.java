@@ -63,10 +63,6 @@ public class XzGiftController {
 		return ResponseObject.newSuccessResponseObject(remoteGiftService.getRankingListByLiveId(liveId,current,size));
 	}
 	
-	
-	
-	
-	
 	/**
 	 * 礼物列表
 	 * @param req

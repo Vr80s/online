@@ -295,8 +295,7 @@ public class DoctorController extends AbstractController {
     public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request) {
         // 获取当前用户
         OnlineUser loginUser = getCurrentUser();
-        UserDataVo currentUser = userService.getUserData(loginUser);
-        medicalDoctor.setUserId(currentUser.getUid());
+        medicalDoctor.setUserId(loginUser.getId());
         medicalDoctorBusinessService.add(medicalDoctor);
         return ResponseObject.newSuccessResponseObject("添加成功");
     }

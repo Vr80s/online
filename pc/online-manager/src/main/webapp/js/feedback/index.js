@@ -21,18 +21,18 @@ $(function(){
        { "title": "创建时间", "class":"center","sortable":false,"data": 'createTimeStr' },
        { "title": "回复时间", "class":"center","sortable":false,"data": 'lastTimeStr' },
        { "title": "创建人", "class":"center","sortable":false,"data": 'userName' },
-       { "title": "回答状态", "class":"center","sortable":false,"data": 'answerStatus',"mRender":function (data, display, row) {
-    	   if(row.answerStatus != "1"){
-    		   return "未回答";
-    	   }else{
-    		   return "已回答";
-    	   }
-       }},
+       // { "title": "回答状态", "class":"center","sortable":false,"data": 'answerStatus',"mRender":function (data, display, row) {
+    	//    if(row.answerStatus != "1"){
+    	// 	   return "未回答";
+    	//    }else{
+    	// 	   return "已回答";
+    	//    }
+       // }},
        { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 		   var replyBtn="<a style='visibility:hidden'><i class='ace-icon fa fa-comment-o bigger-130'></i></a>";
-		   if(row.answerStatus != '1' && row.userId !=null ){
-			   replyBtn="<a class='blue' href='javascript:void(-1);' title='回复' onclick='addContext(this)'><i class='ace-icon fa fa-comment-o bigger-130'></i></a>";
-		   }
+		   // if(row.answerStatus != '1' && row.userId !=null ){
+			//    replyBtn="<a class='blue' href='javascript:void(-1);' title='回复' onclick='addContext(this)'><i class='ace-icon fa fa-comment-o bigger-130'></i></a>";
+		   // }
 
     	   return '<div class="hidden-sm hidden-xs action-buttons">'+
 		   '<a class="blue" href="javascript:void(-1);" title="查看" onclick="feedbackDialog(this)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
