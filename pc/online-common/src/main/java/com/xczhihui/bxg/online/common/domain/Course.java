@@ -1,12 +1,20 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.xczhihui.common.support.domain.BasicEntity2;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
+
+import com.xczhihui.common.support.domain.BasicEntity2;
 
 /**
  *  课程实体类
@@ -321,6 +329,12 @@ public class Course extends BasicEntity2 implements Serializable {
 	@Column(name = "sort_update_time")
 	private Date sortUpdateTime;
 	
+	
+	/**
+	 * 回放状态类型
+	 */
+	@Column(name = "play_back_type")
+	private Integer playBackType;
 	
 	
 	@Transient
@@ -910,4 +924,14 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setSortUpdateTime(Date sortUpdateTime) {
 		this.sortUpdateTime = sortUpdateTime;
 	}
+
+	public Integer getPlayBackType() {
+		return playBackType;
+	}
+
+	public void setPlayBackType(Integer playBackType) {
+		this.playBackType = playBackType;
+	}
+	
+	
 }

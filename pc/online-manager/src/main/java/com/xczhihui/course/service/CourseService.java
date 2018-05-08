@@ -416,4 +416,11 @@ public interface CourseService {
 	 */
     void updatedefaultStudent(Integer id, Integer recommendSort);
 
+    /**
+     * 更改回放状态
+     * @param courseId
+     * @param i
+     */
+	public void updatePlaybackState(Integer courseId, int i);
+
 }

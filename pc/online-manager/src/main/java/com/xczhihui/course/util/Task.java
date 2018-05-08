@@ -4,20 +4,22 @@ import java.util.Date;
 import java.util.TimerTask;
 
 import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.enums.PlayBackType;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.vhall.VhallUtil;
 
 public class Task extends TimerTask {
 
-	CourseService courseService;
+	private CourseService courseService;
 
 	private String videoId;
 
 	private Integer courseId;
 
-	public Task(String videoId, Integer courseId) {
+	public Task(String videoId, Integer courseId,CourseService courseService) {
 		this.videoId = videoId;
 		this.courseId = courseId;
+		this.courseService = courseService;
 	}
 
 	/*
@@ -27,17 +29,13 @@ public class Task extends TimerTask {
 	 */
 	@Override
 	public void run() {
-
-		System.out.println("}{}{}{}{}{}"
-				+ DateUtil.formatDate(new Date(), null));
-
-		System.out.println("{}{}{}{}{}{}  这个伟大的直播是否生成回访了   开始  ");
-
-		courseService.updateStatus(courseId);
-
-		VhallUtil.recordList(videoId);
-
-		System.out.println("{}{}{}{}{}{}  这个伟大的直播是否生成回访了  结束  ");
+		System.out.println("定时时间到了：判断回放是否生产成功");
+		System.out.println(courseId+"courseId  {}{}{}{}  videoId："+videoId);
+		Integer result = VhallUtil.recordList(videoId);
+		System.out.println("回放状态："+PlayBackType.getTypeText(result));
+		//回放生产成功
+		courseService.updatePlaybackState(courseId,result);
+		
 	}
 
 }
