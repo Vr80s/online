@@ -126,9 +126,10 @@ var collections="";
 //点击视频默认第一个视频ID	
 	function btn_album_page(){                       
         var courseIndex = localStorage.getItem("course"+courseId);
-        /*if (courseIndex==null||courseIndex =="") {
+        if (courseIndex==null||courseIndex =="") {
             courseIndex=0
-        }*/  /*默认第一条专辑*/
+        }  /*默认第一条专辑*/
+        localStorage.setItem('course'+courseId, courseIndex);  /*取缓存列表*/
         var collection = collections[courseIndex];                                                                                                                             //判断跳转添加
 		location.replace("live_album.html?course_id="+collection.id+"&direct_id="+collection.directId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+courseIndex+"&type=2");
 	}

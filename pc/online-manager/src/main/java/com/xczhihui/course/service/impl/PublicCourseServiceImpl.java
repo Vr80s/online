@@ -7,6 +7,7 @@ import com.xczhihui.course.dao.CourseSubscribeDao;
 import com.xczhihui.course.dao.PublicCourseDao;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.PublicCourseService;
+import com.xczhihui.course.util.Task;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.utils.subscribe.Subscribe;
 import com.xczhihui.vhall.VhallUtil;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.online.api.service.LiveCallbackService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
@@ -346,8 +348,7 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	public void updateLiveStatus(ChangeCallbackVo changeCallbackVo) {
 
 		String hql = "from Course where direct_id = ?";
-		Course course = dao.findByHQLOne(hql,
-				new Object[] { changeCallbackVo.getWebinarId() });
+		Course course = dao.findByHQLOne(hql,new Object[] { changeCallbackVo.getWebinarId() });
 
 		System.out.println("course livestate " + course);
 		System.out.println("change CallbackVo" + changeCallbackVo.toString());
@@ -367,23 +368,18 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 				course.setLiveStatus(3);
 				course.setEndTime(new Date());
 				type = 3;
+				
+				Date startTime = course.getStartTime();
+				Date currentTime = new Date();
+				Integer taskTime = timeDifference(startTime,currentTime);
+				System.out.println("taskTime:"+taskTime);
+				Timer timer = new Timer();
+				Task task = new Task(changeCallbackVo.getWebinarId(),course.getId(),courseService);
+				timer.schedule(task, taskTime);
 				break;
 			default:
 				break;
 			}
-
-			/*
-			 * 这里查看下信息，看是否生成回放
-			 */
-//			Timer timer = new Timer();
-//			Task task = new Task(changeCallbackVo.getWebinarId(),
-//					course.getId());
-//			System.out.println(DateUtil.formatDate(new Date(), null));
-//			timer.schedule(task, 30000);
-			// 休眠这个方法，过了几秒种后，在执行 ---》
-			// System.out.println(VhallUtil.recordList(changeCallbackVo.getWebinarId()));
-			
-			
 			/*
 			 * 更改直播开始结束时间,更改直播当前状态
 			 */
@@ -391,8 +387,7 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 			/*
 			 * 发送直播开始通知广播
 			 */
-			System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"
-					+ course.getId() + ",type:" + type);
+			System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"+ course.getId() + ",type:" + type);
 
 			liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
 			if (startOrEnd != "") {
@@ -456,5 +451,81 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         return course;
     }
 
+    /**
+     * 设置多长时间去查看回放是否生产
+     * @param startTime   直播开始
+     * @param currentTime 当前
+     * @return
+     */
+    public Integer timeDifference(Date startTime,Date currentTime) {
 
+
+    	long start = startTime.getTime();
+    	long current = currentTime.getTime();
+    	
+    	
+    	long nd = 1000 * 24 * 60 * 60;
+	    long nh = 1000 * 60 * 60;
+	    long nm = 1000 * 60;
+	    // long ns = 1000;
+	    // 获得两个时间的毫秒时间差异
+	    long diff = current-start;
+	    // 计算差多少天
+	    long day = diff / nd;
+	    // 计算差多少小时
+	    long hour = diff % nd / nh;
+	    // 计算差多少分钟
+	    long min = diff % nd % nh / nm;
+    	
+	    System.out.println(day + "天" + hour + "小时" + min + "分钟");
+    	if(min>30) {
+    		hour++;
+    	}
+    	
+    	if(hour==0 || hour==1) {
+    		return 30000; //30秒
+    	}else if(hour==2){
+    		return 60000; //一分钟
+    	}else if( hour==3){
+    		return 120000; //二分钟
+    	}else if( hour==4){
+    		return 240000; //4分钟
+    	}else {
+    		return 600000; //10分钟
+    	}
+    }
+    public static void main(String[] args) {
+    	
+    	//yyyy-MM-dd HH:mm:ss
+    	Date startTime = DateUtil.parseDate("2018-05-08 18:00:00", null);
+    	
+    	long start = startTime.getTime();
+    	long current = new Date().getTime();
+    	
+    	
+    	long nd = 1000 * 24 * 60 * 60;
+	    long nh = 1000 * 60 * 60;
+	    long nm = 1000 * 60;
+	    // long ns = 1000;
+	    // 获得两个时间的毫秒时间差异
+	    long diff = current-start;
+	    // 计算差多少天
+	    long day = diff / nd;
+	    // 计算差多少小时
+	    long hour = diff % nd / nh;
+	    // 计算差多少分钟
+	    long min = diff % nd % nh / nm;
+    	
+	    System.out.println(day + "天" + hour + "小时" + min + "分钟");
+    	if(min>30) {
+    		hour++;
+    	}
+    	System.out.println(hour);
+    	
+    	
+	}
+
+    
+   
+    
 }
