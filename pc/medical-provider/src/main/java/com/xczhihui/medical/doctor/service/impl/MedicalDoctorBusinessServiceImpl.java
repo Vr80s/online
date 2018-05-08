@@ -477,6 +477,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         if (!medicalHospitalMapper.getAuthenticationById(hospitalAccount.getDoctorId())) {
             throw new MedicalException("医馆尚未认证，请认证后再添加");
         }
+        MedicalHospital medicalHospital = medicalHospitalMapper.selectById(hospitalAccount.getDoctorId());
 
         String doctorId = UUID.randomUUID().toString().replace("-", "");
         String doctorAuthenticationId = UUID.randomUUID().toString().replace("-", "");
@@ -489,7 +490,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         medicalDoctor.setCreatePerson(medicalDoctor.getUserId());
         medicalDoctor.setAuthenticationInformationId(doctorAuthenticationId);
         medicalDoctor.setCreateTime(now);
-        medicalDoctorMapper.insertSelective(medicalDoctor);
+
+        medicalDoctor.setCity(medicalHospital.getCity());
+        medicalDoctor.setProvince(medicalHospital.getProvince());
+        medicalDoctor.setDetailedAddress(medicalHospital.getDetailedAddress());
+        medicalDoctorMapper.insert(medicalDoctor);
 
         // 将医师的头像,职称证明添加到认证表上：medical_doctor_authentication_information
         MedicalDoctorAuthenticationInformation authenticationInformation =

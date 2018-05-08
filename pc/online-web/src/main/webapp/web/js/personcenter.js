@@ -441,113 +441,23 @@ $(function() {
 	        //省
 	        '<select class="Province1" onchange="getCity1()"> ' +
 	        '<option value="volvo">--选择省--</option> ' + 
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
 	        //市
 	        '<select class="City1" onchange="getDistrict1()"> ' +
 	        '<option value="volvo" >--选择市--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
 	        
 	        //区
 	        '<select class="District1"> ' +
 	        '<option value="volvo">--选择区/县--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
-	        
-	        
-	        //后修改的三级联动
-//	        '<select name="" id="choosePro2" onchange="doProvAndCityRelation2()">'+
-//			'<option id="choose" value="-1">请选择省</option><option value="110000">北京市</option><option value="120000">天津市</option><option value="130000">河北省</option><option value="140000">山西省</option><option value="150000">内蒙古自治区</option><option value="210000">辽宁省</option><option value="220000">吉林省</option><option value="230000">黑龙江省</option><option value="310000">上海市</option><option value="320000">江苏省</option><option value="330000">浙江省</option><option value="340000">安徽省</option><option value="350000">福建省</option><option value="360000">江西省</option><option value="370000">山东省</option><option value="410000">河南省</option><option value="420000">湖北省</option><option value="430000">湖南省</option><option value="440000">广东省</option><option value="450000">广西壮族自治区</option><option value="460000">海南省</option><option value="500000">重庆市</option><option value="510000">四川省</option><option value="520000">贵州省</option><option value="530000">云南省</option><option value="540000">西藏自治区</option><option value="610000">陕西省</option><option value="620000">甘肃省</option><option value="630000">青海省</option><option value="640000">宁夏回族自治区</option><option value="650000">新疆维吾尔自治区</option>'+
-//			'</select>'+
-//			'<select name="" id="citys2">'+
-//			'<option id="chooseCity" value="-1">请选择市</option>'+
-//			'</select>'+
+
 	        
 	        '<p class="address_warn  warning" style="display:none;color:red">请填写所在地区信息</p>'+
 	        '</div> ' +
 	        
-	     
-		
-		
-		
-//		' <div class="cy-myprofile-myfom-dv-radio-zu2">' +
-//		'    <div class="buer">职业:</div>' +
-//		'   <label style="margin-left:-3px"><div class="radio-cover"><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio0" name="job" value="19"/><span>学生</span></input></label>' +
-//		'  <label><div class="radio-cover "><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio1" name="job" value="20"/><span>程序员</span></input></label>' +
-//		' <label><div class="radio-cover "><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio2" name="job" value="21"/><span>创业者</span></input></label>' +
-//		'<label><div class="radio-cover "><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio3" name="job" value="22"/><span>待业者</span></input></label>' +
-//		'<label><div class="radio-cover "><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio4" name="job" value="23"/><span>讲师</span></input></label>' +
-//		'<label><div class="radio-cover "><em></em></div><input type="radio" class="cy-myprofile-myfom-dv-radio myradio5" name="job" value="24"/><span>其他</span></input>' +
-//		'  <!--<input type="text" maxlength="15" class="myjob ipt1 myradioipt"/>-->' +
-//		' </label>' +
-//		'</div>' +
-		
-//		'<div>' +
-//		'<div class="buer" style="margin-top:10px">工作年限:</div>' +
-//		'<span name="food2" class="cy-myprofile-myfom-dv-select-4" >' +
-//		'	<p class="select-xiala" id="food4">请选择</p>' +
-//		'<div class="xiala q-1">' +
-//		'<span>请选择</span>' +
-//		'<span>在校生</span>' +
-//		'<span>应届生</span>' +
-//		'<span>1年以下</span>' +
-//		'<span>1~3年</span>' +
-//		'<span>3~5年</span>' +
-//		'<span>5年以上</span>' +
-//		'</div>' +
-//		'</span>' +
-//		'</div>' +
-		//                  '<div>'+
-		//                      '<div class="buer">公司/学校</div>'+
-		//                      '<input type="text" maxlength="30" class="mycompany ipt"/>'+
-		//                  '</div>'+
-		
-//		'<div>' +
-//		'<div class="buer">学习方向:</div>' +
-//		'<span name="food2" class="cy-myprofile-myfom-dv-select-5" >' +
-//		'<p class="select-xiala" id="food5">请选择</p>' +
-//		'<div class="xiala q-1" id="food5xl">' +
-//		'</div>' +
-//		'  </span>' +
-//		'</div>' +
-		
-		
-		
-		//三级联动
-//		 '<div class="address">' +
-//		 '<div class="buer">现居住地:</div>     ' +
-//		 '<div class="address-right">' +
-//		 '<div>' +
-//		 '	<p  id="s_province" class="select-xiala">请选择</p>' +
-//		 '	<div class="xiala yearxl" id="shengxl">                ' +
-//		 '	</div>' +
-//		 '</div>' +
-//		 '<div>' +
-//		 '	<p id="s_city" class="select-xiala">请选择</p>' +
-//		 '	<div class="xiala monthxl" id="shixl"> ' +
-//		 '	</div>' +
-//		 '</div>' +
-//		 '<div>' +
-//		 '<p id="s_county" class="select-xiala">请选择</p>' +
-//		 '<div class="xiala dayxl" id="xianxl">        ' +
-//		 '</div>' +
-//		 '</div>' +
-//		 ' </div>' +
-//		 '</div>' +
-
-		
-
-
 		'<div>' +
 		'<div class="buer"></div>' +
-		// '<textarea class="menpaihao" maxlength="29" onchange="this.value=this.value.substring(0, 29)" onkeydown="this.value=this.value.substring(0, 29)" onkeyup="this.value=this.value.substring(0, 29)" placeholder="请填写详细地址，例如街道名称等"></textarea>' +
 		'</div>' +
 		'<div>' +
 		'  <div class="buer"></div>' +
@@ -555,47 +465,8 @@ $(function() {
 		//		'<button class="btn2" id="cancel">取消</button>' +
 		'</div>' +
 		'</div>' +
-		//第二模块
-//		'<div class="zhanghu">'+
-//			'<div class="yanzheng">'+
-//				'<div class="idenContent">'+
-//					'<p class="tip">如果您是法律在线（面授、双元、熊猫中医职业课程）的学员，请在证件号中输入您的身份证号验证您的身份（针对老学员会有优惠）；</p>'+
-//					'<div class="name clearfix">'+
-//						'<p class="fL"><i>*</i><span>真实姓名：</span></p>'+
-//						'<p class="fR"><input type="text" name="" id="" value="" placeholder="请输入真实姓名" class="truename" / maxlength="7">'+
-//							'<span class="warning name-warn">真实姓名不能为空</span>'+
-//						'</p>'+
-//					'</div>'+
-//					'<div class="shenfen clearfix">'+
-//						'<p class="fL"><i>*</i><span>身份证号：</span></p>'+
-//						'<p class="fR"><input type="text" name="" id="" value="" placeholder="请输入身份证号" class="truecard" / maxlength="18">'+
-//							'<span class="warning shenfen-warn">身份证号格式不正确</span>'+
-//						'</p>'+
-//					'</div>'+
-//					'<span class="startIden">'+
-//					'开始认证'+
-//				'</span>'+
-//				'</div>'+
-//			'</div>'+
-//			'<div class="yiyanzheng">'+
-//				'<div class="symbol">恭喜您已经成功认证为老学员身份</div>'+
-//				'<div class="findMess">'+
-//					'<p>帮您找回以下信息</p>'+
-//					'<p class="xueke">学科：<span>UI学科</span></p>'+
-//					'<p class="banji">班级：<span>（面授）-UI设计就业班</span></p>'+
-//				'</div>'+
-//				'<div class="tt">'+
-//				'下一次我们将为您找回共同经历过的小伙伴，一同回忆，一起怀念！'+
-//				'</div>'+
-//			'</div>'+
-//		'</div>'+
-//		
-		
-		
-		
-		
+
 		//第三模块
-		
 		'<div class="kecheng">' +
 //		'<p class="warn">职业课程需要填写报名信息，只需填写一次，适应于其他所有课程；</br>此信息不公开显示，只是为了方便老师通知课程信息，提供优质课程服务；</br>如果您是法律在线（面授、双元、熊猫中医职业课程）的学员，请在证件号中输入您的身份证号验证您的身份（针对老学员会有优惠）；</p>' +
 		'<div class="cy-myprofile-myfom-dv-1" style="margin-bottom:12px">' +
@@ -605,33 +476,7 @@ $(function() {
 		'</div>' +
 		
 		
-//		'<div id="birthday_container">' +
-//		'<div class="buer"><i class="red">*</i>出生年月:</div>' +
-//		'<div class="birth-right">' +
-//		'<div>' +
-//		'<p name="year" id="year" class="select-xiala"></p>' +
-//		'<div class="xiala yearxl" id="yearxl">' +
-//		'</div>' +
-//		'</div>' +
-//		'<div>' +
-//		'<p name="month" id="month" class="select-xiala">1月</p>' +
-//		'<div class="xiala monthxl" id="monthxl">' +
-//		'</div>' +
-//		'</div>' +
-//		'<div>' +
-//		'<p name="day" id="day" class="select-xiala">1日</p>' +
-//		'<div class="xiala dayxl" id="dayxl">' +
-//		'</div>' +
-//		'</div>' +
-//		'</div>' +
-//		'<span class="birthday-warn warning" style="float:right;margin-right:210px">请选择出生年月</span>' +
-//		'<script>$("#birthday_container").birthday();</script>' +
-//		'</div>' +
-		
-		
-		
-		
-		
+
 		'<div>' +
 		'<div class="buer"><i class="red">*</i>手机号:</div>' +
 		'<input type="text" maxlength="11" class="phonenumber ipt"/>' +
