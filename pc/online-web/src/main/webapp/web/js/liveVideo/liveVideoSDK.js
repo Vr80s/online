@@ -24,52 +24,54 @@ function getRankingListByLiveId(){
 	}
 	RequestService("/gift/getRankingListByLiveId", "GET",params, function(data) {
 		if(data.success && data.resultObject!=null && data.resultObject.length>0){
-			var small_items = [];
-			var items = data.resultObject;
-			for (var i = 0; i < items.length; i++) {
-				var item = items[i];
-				if(i==0){
-                    $(".billboard-two").removeClass("hide");
-					$(".billboard-two-bg").html("<img src='"+item.smallHeadPhoto+"' />");
-					$(".billboard-two").find(".billboard-name").html(item.name);
-					$(".billboard-two").find("span").html(item.giftCount);
-				}else if(i==1){
-                    $(".billboard-one").removeClass("hide");
-					$(".billboard-one-bg").html("<img src='"+item.smallHeadPhoto+"' />");
-					$(".billboard-one").find(".billboard-name").html(item.name);
-					$(".billboard-one").find("span").html(item.giftCount);
-				}else if(i==2){
-                    $(".billboard-three").removeClass("hide");
-					$(".billboard-three-bg").html("<img src='"+item.smallHeadPhoto+"' />");
-					$(".billboard-three").find(".billboard-name").html(item.name);
-					$(".billboard-three").find("span").html(item.giftCount);
-				}else{
-					small_items.push(item);
-				}
-			}
-			var gifts ="";
-			for (var i = 0; i < small_items.length; i++) {
-				var item = small_items[i];
-				var bank = i+4;
-				var gift = "<div class='toptenreviews-list-center'>"+
-					"	<span class='number'>"+bank+"</span>"+
-					"	<div class='toptenreviews-list-img'><img src='"+item.smallHeadPhoto+"' /></div>"+
-					"	<div class='toptenreviews-list-size'>"+item.name+"</div>"+
-					"	<div class='toptenreviews-list-number'>"+
-					"		<span>贡献&nbsp;&nbsp;</span>"+
-					"		<span>"+item.giftCount+"</span>"+
-					"	</div>"+
-					"</div>";
-				gifts += gift;
-			}
-			$(".toptenreviews-list").html(gifts);
+            createRanking(data.resultObject);
 	     }
 	});
 }
 //排行榜渲染
 getRankingListByLiveId();
 
-
+function createRanking(ranking){
+    var small_items = [];
+    var items = ranking;
+    for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if(i==0){
+            $(".billboard-two").removeClass("hide");
+            $(".billboard-two-bg").html("<img src='"+item.smallHeadPhoto+"' />");
+            $(".billboard-two").find(".billboard-name").html(item.name);
+            $(".billboard-two").find("span").html(item.giftCount);
+        }else if(i==1){
+            $(".billboard-one").removeClass("hide");
+            $(".billboard-one-bg").html("<img src='"+item.smallHeadPhoto+"' />");
+            $(".billboard-one").find(".billboard-name").html(item.name);
+            $(".billboard-one").find("span").html(item.giftCount);
+        }else if(i==2){
+            $(".billboard-three").removeClass("hide");
+            $(".billboard-three-bg").html("<img src='"+item.smallHeadPhoto+"' />");
+            $(".billboard-three").find(".billboard-name").html(item.name);
+            $(".billboard-three").find("span").html(item.giftCount);
+        }else{
+            small_items.push(item);
+        }
+    }
+    var gifts ="";
+    for (var i = 0; i < small_items.length; i++) {
+        var item = small_items[i];
+        var bank = i+4;
+        var gift = "<div class='toptenreviews-list-center'>"+
+            "	<span class='number'>"+bank+"</span>"+
+            "	<div class='toptenreviews-list-img'><img src='"+item.smallHeadPhoto+"' /></div>"+
+            "	<div class='toptenreviews-list-size'>"+item.name+"</div>"+
+            "	<div class='toptenreviews-list-number'>"+
+            "		<span>贡献&nbsp;&nbsp;</span>"+
+            "		<span>"+item.giftCount+"</span>"+
+            "	</div>"+
+            "</div>";
+        gifts += gift;
+    }
+    $(".toptenreviews-list").html(gifts);
+}
 
 /**
  * 获取主播信息
