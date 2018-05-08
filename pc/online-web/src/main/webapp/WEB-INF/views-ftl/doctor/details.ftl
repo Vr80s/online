@@ -126,7 +126,7 @@
                                         </span>
                                         熊猫币
                                     <#else>
-                                        <span style="color: green">免费</span>
+                                        <span style="color: #F97B49">免费</span>
                                     </#if>
 
                                     <span class="class_person class_Studycount"><em></em>${course.learndCount!''}</span>
