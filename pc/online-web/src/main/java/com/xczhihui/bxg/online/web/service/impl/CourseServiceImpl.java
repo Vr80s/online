@@ -127,16 +127,18 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         CourseVo courseVo =  coursedao.getCourseById(courseId,request);
         File f = new File(path+File.separator+"/course_common_problem.html");
         courseVo.setCommonProblem(FileUtil.readAsString(f));
+        
+        //20180508 杨宣 需求变动
         //如果此课程存在,再根据课程ID 查找此课程下的老师
-        if(courseVo != null){
-            OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
-            if(onlineUser!=null){
-                // 20170105---杨宣
-                if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){
-                    courseVo.setSelfCourse(true);
-                }
-            }
-        }
+//        if(courseVo != null){
+//            OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
+//            if(onlineUser!=null){
+//                // 20170105---杨宣,这里不这样搞了
+////                if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){
+////                    courseVo.setSelfCourse(true);
+////                }
+//            }
+//        }
         return  courseVo;
     }
     

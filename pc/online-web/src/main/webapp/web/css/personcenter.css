@@ -352,7 +352,7 @@ textarea::-webkit-input-placeholder {
   width: 220px;
   display: block;
   height: 100%;
-  min-height: 520px;
+  /*min-height: 520px;*/
   background-color: #fff;
   float: left;
 }

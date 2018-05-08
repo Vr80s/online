@@ -51,16 +51,14 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
     @Override
     public boolean updateStatus(String doctorId, String id, boolean status) {
         if (medicalWritingMapper.updateStatus(doctorId, id, status) == 1) {
-            if (!status) {
-                MedicalWriting medicalWriting = medicalWritingMapper.selectById(id);
-                if (medicalWriting == null) {
-                    throw new IllegalArgumentException("参数非法");
-                }
-
-                OeBxsArticle oeBxsArticle = oeBxsArticleMapper.selectById(medicalWriting.getArticleId());
-                oeBxsArticle.setDelete(true);
-                oeBxsArticleMapper.updateById(oeBxsArticle);
+            MedicalWriting medicalWriting = medicalWritingMapper.selectById(id);
+            if (medicalWriting == null) {
+                throw new IllegalArgumentException("参数非法");
             }
+
+            OeBxsArticle oeBxsArticle = oeBxsArticleMapper.selectById(medicalWriting.getArticleId());
+            oeBxsArticle.setStatus(status ? 1 : 0);
+            oeBxsArticleMapper.updateById(oeBxsArticle);
             return true;
         } else {
             return false;

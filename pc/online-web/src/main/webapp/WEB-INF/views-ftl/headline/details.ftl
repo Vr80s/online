@@ -49,6 +49,7 @@
     <div class="forum-content clearfix">
         <div class="forum-content-left">
         <#if writing??>
+            <input type="hidden" value="1" id="J-page-flag">
             <div class="forum-detailInfo">
                 <div class="writing-buy-link">
                     <div>
@@ -102,7 +103,6 @@
                     <span class="community-count">${appraises.total}条</span>
                 </div>
                 <div class="forum-communitybox">
-                    <div class="forum-community-content" style="border: 0;">
                     <#list appraises.records as appraise>
                         <div class="forum-community-content">
                             <div class="forum-comment-content clearfix">
@@ -154,7 +154,7 @@
                             </div>
                         </div>
                     </#list>
-                    </div>
+
                 </div>
             </div>
 
@@ -247,7 +247,9 @@
                 <ul class="book_list clearfix" id="boos_list">
                     <#list writings.getRecords() as writing>
                         <li>
-                            <img src="${writing.imgPath}" alt="">
+                            <a href="/headline/details/${writing.id}" style="color: #0C0C0C;display: inline;">
+                                <img src="${writing.imgPath}" alt="">
+                            </a>
                             <div>
                                 <a href="/headline/details/${writing.id}" style="color: #0C0C0C">
                                     <span class="book_name">${writing.title}</span>
@@ -284,10 +286,15 @@
 <script src="/web/js/modal.js"></script>
 <script src="/web/js/common_msg.js"></script>
 <script type="application/javascript">
-    var articleId = ${echoMap.id}
-            $(function () {
-                $(".headline").addClass("select");
-            });
+    var articleId = ${echoMap.id};
+
+    $(function () {
+        if ($("#J-page-flag") && $("#J-page-flag").val()) {
+            $(".doctor-tab").addClass("select");
+        } else {
+            $(".headline").addClass("select");
+        }
+    });
 
     //banner
     function init() {

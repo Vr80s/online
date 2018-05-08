@@ -43,17 +43,17 @@
             <span>${doctor.name}  </span><span>${doctor.title?default('暂无')}</span>
             <div class="doctor_inf1">
                 <span class="zhiwu"><em></em>${doctor.title?default('暂无')}</span>
-            <#if doctor.medicalHospitalVo ??>
-                <span class="yiguan"><em></em>${doctor.medicalHospitalVo.name}</span>
+            <#if doctor.medicalHospital ??>
+                <span class="yiguan"><em></em>${doctor.medicalHospital.name!''}</span>
             </#if>
-                <span class="dizhi"><em></em>${doctor.city}</span>
+                <span class="dizhi"><em></em>${doctor.city!''}</span>
+                <#if doctor.departmentText??>
+                    <span class="department"><em></em>${doctor.departmentText!''}</span></#if>
             </div>
-        <#if (doctor.fields??)&&(doctor.fields?size gt 0)>
+        <#if (doctor.fieldText??)>
             <div class="doctor_inf2">
-                <p>主治：
-                    <#list doctor.fields as field>
-                        <span>${field.name}</span>
-                    </#list>
+                <p>擅长：
+                    <span>${doctor.fieldText}</span>
                 </p>
             </div>
         </#if>
@@ -95,106 +95,48 @@
     </#if>
 
         <!--课程-->
-        <div class="class clearfix hide">
+    <#if courses?? && courses?size gt 0>
+        <div class="class clearfix">
             <div class="class_top">
                 <span>课程</span>
-                <a href="javascript:;">
+                <a href="${webUrl}/classroom.html">
                     更多&nbsp;&gt;
                 </a>
             </div>
 
             <div class="class_bottom">
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
+                <#list courses as course>
 
+                    <div class="class_inf">
+                        <a href="${webUrl}/web/html/courseDetail.html?courseId=${course.id}" style="color: #0C0C0C">
+                            <div class="class_inf_pic">
+                                <img src="${course.smallImgPath}" alt="">
+                            </div>
+                            <div class="class_inf_bottom">
+                                <p class="class_title">${course.gradeName!''}</p>
+                                <#if course.city??><p class="class_address"><em></em>${course.city!''}</p></#if>
+                                <p class="class_pirce_person">
 
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
+                                    <#if course.currentPrice?? && course.currentPrice gt 0>
+                                        <span class="class_pirce">
+                                        ${course.currentPrice!''}
+                                        </span>
+                                        熊猫币
+                                    <#else>
+                                        <span style="color: green">免费</span>
+                                    </#if>
 
+                                    <span class="class_person class_Studycount"><em></em>${course.learndCount!''}</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
 
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="class_inf">
-                    <div class="class_inf_pic">
-                        <img src="../images/doctor_detail/hospital_pic.png" alt="">
-                    </div>
-                    <div class="class_inf_bottom">
-                        <p class="class_title">冯世纶：中医外治四期班第二季</p>
-                        <p class="class_address"><em></em>北京</p>
-                        <p class="class_pirce_person">
-                            <span class="class_pirce">￥400</span>
-                            <span class="class_person"><em></em>30</span>
-                        </p>
-                    </div>
-                </div>
-
+                </#list>
             </div>
 
         </div>
+    </#if>
 
         <!--专栏-->
     <#if specialColumns.total gt 0>
@@ -256,96 +198,58 @@
             </ul>
         </div>
 
-    </div>
     </#if>
+    </div>
 
-
+    <!--右侧-->
+    <div class="main_right">
+        <!--帐号认领-->
+        <div class="renling hide">
+            <p>若您是李辅仁本人，可以认领此帐号</p>
+            <a href="javascript:;">认领</a>
+        </div>
+        <!--著作-->
     <#if (writings?size>0)>
-        <!--右侧-->
-        <div class="main_right">
-            <!--帐号认领-->
-            <div class="renling hide">
-                <p>若您是李辅仁本人，可以认领此帐号</p>
-                <a href="javascript:;">认领</a>
-            </div>
-            <!--著作-->
-
-            <div class="zhuzuo clearfix">
-                <div class="zhuzuo_title">
-                    <h3>著作</h3>
-                    <a href="${webUrl}/doctors/writing"><span
-                            class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
-                </div>
-
-                <div id="zhuzuo_list">
-                    <#list writings as writing>
-                        <a href="/headline/details/${writing.articleId}" style="color: #0C0C0C" target="_blank">
-                            <div class="zhuzuo_left">
-                                <img src="${writing.imgPath}" alt="">
-                                <p>${writing.title}</p>
-                            </div>
-                        </a>
-                    </#list>
-                </div>
+        <div class="zhuzuo clearfix">
+            <div class="zhuzuo_title">
+                <h3>著作</h3>
+                <a href="${webUrl}/doctors/writing"><span
+                        class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
             </div>
 
-            <!--相关医师-->
-            <div class="about_doctor hide">
-                <h3>相关医师</h3>
-                <ul class="about_doctor_list clearfix">
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏</p>
-
-                    </li>
-
-                    <li>
-                        <span class="about_doctor_pic">
-                             <img src="../images/doctor_detail/touxiang.png" alt="">
-                        </span>
-                        <p>朱春苏1</p>
-
-                    </li>
-
-                </ul>
+            <div id="zhuzuo_list">
+                <#list writings as writing>
+                    <a href="/headline/details/${writing.articleId}" style="color: #0C0C0C" target="_blank">
+                        <div class="zhuzuo_left">
+                            <img src="${writing.imgPath}" alt="">
+                            <p>${writing.title}</p>
+                        </div>
+                    </a>
+                </#list>
             </div>
         </div>
     </#if>
+
+    <#if (relationDoctors?size>0)>
+        <!--相关医师-->
+        <div class="about_doctor">
+            <h3>相关医师</h3>
+            <ul class="about_doctor_list clearfix">
+                <#list relationDoctors as doctor>
+                    <li>
+                        <span class="about_doctor_pic">
+                            <a href="/doctors/${doctor.id}" target="_blank">
+                             <img src="${doctor.headPortrait!''}" alt="" style="border-radius: 60px">
+                            </a>
+                        </span>
+                        <p><a href="/doctors/${doctor.id}" target="_blank" style="color: #0C0C0C">${doctor.name!''} </a></p>
+                    </li>
+                </#list>
+            </ul>
+        </div>
+    </#if>
     </div>
+
 </div>
 <#include "../footer.ftl">
 </body>

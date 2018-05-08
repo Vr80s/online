@@ -229,7 +229,15 @@ $(document).ready(function() {
 
 function createGiftList(data){
     if(data.courseId!=course_id)return;   //ios传值
-	if(data.messageType==1){
+    
+    if(data.messageType==2 && liveStatus == 2){  //直播开始通知
+	  	//当前时间 
+    	if(parseInt(sendTime) < parseInt(data.sendTime)){
+        	console.log("开始直播了，建议再次刷新页面   >>>>");
+        	//刷新页面 --》在观看
+        	location.reload();
+    	}
+	}else if(data.messageType==1){
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +

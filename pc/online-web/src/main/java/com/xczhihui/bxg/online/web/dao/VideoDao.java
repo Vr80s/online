@@ -292,9 +292,9 @@ public class VideoDao extends SimpleHibernateDao {
              throw new RuntimeException("对不起,您要报的课程已下架!");
          }
          //查看用户是否已经报过此课程
-         if( this.getUserCourse(courseId,u.getId()).size()>0){
-             throw new RuntimeException("同学,您已经报名了!");
-         };
+//         if( this.getUserCourse(courseId,u.getId()).size()>0){
+//             throw new RuntimeException("同学,您已经报名了!");
+//         };
         //1、查看当前课程下的所有视频
         String  querySql="select id as video_id  from oe_video where course_id=:courseId and is_delete=0 and status=1";
         List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
@@ -311,29 +311,31 @@ public class VideoDao extends SimpleHibernateDao {
         String apply_id = UUID.randomUUID().toString().replace("-", "");
         sql = "select id from oe_apply where user_id=:userId ";
         List<Map<String, Object>> applies = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-        if (applies.size() > 0) {
-            apply_id = applies.get(0).get("id").toString();
-        } else {
+      
+        try {
+    	   if (applies.size() > 0) {
+               apply_id = applies.get(0).get("id").toString();
+           } else {
 
-            sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
-                    + " values ('"+apply_id+"',:userId,now(),0,:loginName)";
-            orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-        }
+               sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
+                       + " values ('"+apply_id+"',:userId,now(),0,:loginName)";
+               orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+           }
 
-        //写用户报名中间表
-        String id = UUID.randomUUID().toString().replace("-", "");
-        sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id=-1";
-        Integer no = orderDao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Integer.class);
-        String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
-        sql = "insert into apply_r_grade_course (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number)"
-                + " values('"+id+"',:courseId,-1,'"+apply_id+"',0,:loginName,:userId,now(),0,'"+sno+"')";
-        orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+           //写用户报名中间表
+           String id = UUID.randomUUID().toString().replace("-", "");
+           sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id=-1";
+           Integer no = orderDao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Integer.class);
+           String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
+           sql = "insert into apply_r_grade_course (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number)"
+                   + " values('"+id+"',:courseId,-1,'"+apply_id+"',0,:loginName,:userId,now(),0,'"+sno+"')";
+           orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+        	
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("网络有点忙,请稍等!");
+		}
 
-        //写用户视频表
-//        sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
-//                + " select uuid(),'"+u.getLoginName()+"',sort,id,'"+u.getId()+"',course_id "
-//                + "from oe_video where course_id=:courseId and is_delete=0 and status=1 ";
-//        orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
     }
 
 

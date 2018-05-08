@@ -11,6 +11,8 @@
 		</encoder>
 	</appender>
 
+
+
 	<appender name="file"
 			  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<File>${logPath}/wechat_server.log</File>
@@ -33,7 +35,7 @@
 	</logger>
 
 	<root>
-		<level value="warn" />
+		<level value="info" />
 		<appender-ref ref="stdout_appender" />
 		<appender-ref ref="file"/>
 	</root>

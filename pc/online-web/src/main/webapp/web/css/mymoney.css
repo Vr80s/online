@@ -26,11 +26,11 @@ a:hover {
   margin-bottom: 24px;
 }
 #main {
-  height: 783px;
+  /*height: 783px;*/
 }
 #main .main-content {
   height: 665px;
-}\n
+}
 #main .main-content #main-left {
   height: 100%;
   width: 200px;

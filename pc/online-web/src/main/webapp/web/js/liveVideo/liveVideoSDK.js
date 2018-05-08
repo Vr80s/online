@@ -80,7 +80,6 @@ function getHostInfo(){
 	RequestService("/host/getHostInfoById", "GET", {
 		lecturerId:lecturerId
 	}, function(data) {
-		
 		var obj = data.resultObject;
 		var lecturerInfo =  obj.lecturerInfo;
 		$(".concern-img").attr("src",lecturerInfo.small_head_photo);
@@ -109,6 +108,7 @@ $(".concern-click").click(function(){
 		});
 		$(".concern-right").css("background","#bbb");
 		$(".concern-right").html("已关注");
+		getHostInfo();
 	} else{
 		RequestService("/focus/updateFocus", "GET", {
 			lecturerId:lecturerId,type:2
@@ -117,6 +117,7 @@ $(".concern-click").click(function(){
 		});
 		$(".concern-right").css("background","#00BC12");
 		$(".concern-right").html("加关注");
+		getHostInfo();
 	}
 });
 /*点击关注已关注结束*/

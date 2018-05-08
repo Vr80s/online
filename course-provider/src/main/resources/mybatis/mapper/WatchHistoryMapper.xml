@@ -74,5 +74,18 @@
         delete  from  oe_watch_history1  where user_id = #{userId}
 	</delete >
 	
+	<update id="insertApplyRGradeCourse" >
+		INSERT INTO apply_r_grade_course(
+			id, course_id,is_payment,cost, create_person, user_id, create_time
+		) VALUES
+			( #{id},
+			 #{courseId},
+			 0,
+			 0,
+			 #{loginName},
+			 #{userId},
+			 now())
+	</update>
+	
 	
 </mapper>

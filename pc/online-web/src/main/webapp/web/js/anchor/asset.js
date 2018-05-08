@@ -175,8 +175,12 @@ function getBankCardList(){
                 bankCardId = data.resultObject[i].id;
             }
         }
+
+	
         $("#bank_card_list").html(template('bank_card_list_tpl', data));
         $("#bank_card").html(template('bank_card_tpl', data));
+
+
         
 //      绑定结果为空
 		if(data.resultObject.length == 0 || !data.resultObject	){
@@ -223,28 +227,48 @@ function saveSettlement(){
 }
 
 function saveBankCard(){
-    var data = {};
-    data.acctName = $.trim($('.content_add #content_add_name').val());
-    data.acctPan = $.trim($('.content_add #content_add_card').val());
-    data.tel = $.trim($('.content_add #content_add_bank').val());
-    data.certId = $.trim($('.content_add #content_add_idCard').val());
-    if(verifyBankCard(data)){
+    var savedata = {};
+    savedata.acctName = $.trim($('.content_add #content_add_name').val());
+    savedata.acctPan = $.trim($('.content_add #content_add_card').val());
+    savedata.tel = $.trim($('.content_add #content_add_bank').val());
+    savedata.certId = $.trim($('.content_add #content_add_idCard').val());
+    if(verifyBankCard(savedata)){
 //  	showDel_bank();
 //  	$('#sureDel_bank').click(function(){
-	    	 RequestService("/anchor/asset/saveBankCard", "post", data, function(data) {
+	    	 RequestService("/anchor/asset/saveBankCard", "post", savedata, function(data) {
 	            if(data.success){
 	                showTip(data.resultObject);
 //	                hideDel_bank()
 	                initBasaeAssetInfo();
-	            }else {
-	                if(data.errorMessage=="无效卡号"){
+	            }else if(!data.success && data.code == 201){
+	            	  var r=confirm("填写的为其他人的身份证,是否还添加银行卡")
+	            	  if (r==true){
+	            		  savedata.code=1;
+	            		  RequestService("/anchor/asset/saveBankCard", "post", savedata, function(data) {
+	          	            if(data.success){
+	          	            	 showTip(data.resultObject);
+	         	                 initBasaeAssetInfo();
+	          	            }else{
+	          	            	 if(data.errorMessage=="无效卡号"){
+	                                 $("#content_add_card").focus();
+	                             }else if(data.errorMessage=="持卡人认证失败") {
+	                                 $("#content_add_name").focus();
+	                             }
+	         	                 showTip(data.errorMessage);
+	          	            }
+	            		  }) 
+	            	  } else{
+	            		  $("#content_add_name").focus();
+	            		  //alert("更改账号信息");
+	            	  }
+	            }else{
+            	    if(data.errorMessage=="无效卡号"){
                         $("#content_add_card").focus();
                     }else if(data.errorMessage=="持卡人认证失败") {
                         $("#content_add_name").focus();
                     }
 	                showTip(data.errorMessage);
-//	                hideDel_bank()
-
+//		                hideDel_bank()
 	            }
 //	        });
     	})

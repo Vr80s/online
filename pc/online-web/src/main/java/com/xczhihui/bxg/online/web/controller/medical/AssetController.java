@@ -11,6 +11,7 @@ import com.xczhihui.medical.anchor.service.IUserBankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,9 +90,21 @@ public class AssetController extends AbstractController{
      * @Date: 上午 11:54 2018/2/2 0002
      **/
     @RequestMapping(value = "/saveBankCard")
-    public ResponseObject saveBankCard(HttpServletRequest request,String acctName,String acctPan,String certId,String tel){
+    public ResponseObject saveBankCard(HttpServletRequest request,String acctName,
+    		String acctPan,String certId,String tel,
+    		@RequestParam(required=false)Integer code){
         OnlineUser user = getCurrentUser();
-        userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
+        
+        //userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
+        /**
+		 * 数据验证
+		 */
+		Integer devCode =  userBankService.validateBankInfo(user.getId(),acctName,acctPan,certId,tel,code);
+		if(devCode == 201){ //说明身份证号不一致 
+			return  ResponseObject.newErrorResponseObject("提示填写的为其他人的身份证，是否还添加银行卡:"+devCode,
+					devCode);
+		}
+		userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
         return ResponseObject.newSuccessResponseObject("新增银行卡成功！");
     }
 

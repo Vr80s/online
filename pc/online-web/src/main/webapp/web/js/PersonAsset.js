@@ -280,10 +280,14 @@
 			//请求消费记录数据
 			RequestService("/web/consumptionList?pageNumber="+pageNumber+"&pageSize=6", "get", null, function(data) {
 //				console.log(data)
-				if(data.resultObject.totalPageCount==0){
+				if(data.resultObject.totalPageCount==0||data.resultObject.totalCount<=6){
 					$('.pagination').css({'display':'none'});
 					$("#xfjl").html(template("list1",{item:data.resultObject.items}));
+
+					
+					if(data.resultObject.totalPageCount==0){$('#noResult').removeClass('hide')};
 				}else{
+					$('#noResult').addClass('hide');
 					$('.pagination').css({'display':'block'});
 					//渲染到页面中
 					 $("#xfjl").html(template("list1",{item:data.resultObject.items}));
@@ -308,7 +312,9 @@
 					if(data.resultObject.totalCount==0||data.resultObject.totalCount<=6){
 						$('.pagination').css({'display':'none'});
 						$("#xfjl").html(template("list1",{item:data.resultObject.items}));
+						 if(data.resultObject.totalCount==0){$('#noResult').removeClass('hide')};
 					}else{
+						$('#noResult').addClass('hide')
 						$('.pagination').css({'display':'block'});
 						 $("#xfjl").html(template("list1",{item:data.resultObject.items}));
 							fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
@@ -348,7 +354,9 @@
 					if(data.resultObject.totalCount==0||data.resultObject.totalCount<=6){
 						$('.pagination').css({'display':'none'});
 						 $("#pandaMondy").html(template("list6",{item:data.resultObject.items}));
+						 if(data.resultObject.totalCount==0){$('#noResult').removeClass('hide')};
 					}else{
+						$('#noResult').addClass('hide');
 						$('.pagination').css({'display':'block'});
 						 $("#pandaMondy").html(template("list6",{item:data.resultObject.items}));
 							fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
@@ -393,10 +401,12 @@
 					if(data.resultObject.totalCount==0||data.resultObject.totalCount<=6){
 						$('.pagination').css({'display':'none'});
 						 $("#payMoney").html(template("list2",{item:data.resultObject.items}));
+						 if(data.resultObject.totalCount==0){$('#noResult').removeClass('hide')};
 					}else{
+						$('#noResult').addClass('hide')
 						$('.pagination').css({'display':'block'});
 						 $("#payMoney").html(template("list2",{item:data.resultObject.items}));
-							fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
+						fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
 					}
 					
 				})
@@ -448,8 +458,10 @@
 					if(data.resultObject.totalCount==0||data.resultObject.totalCount<=6){
 						$('.pagination').css({'display':'none'});
 						 $("#txjl").html(template("list3",{item:data.resultObject.items}));
+						 if(data.resultObject.totalCount==0){$('#noResult').removeClass('hide')};
+						 
 					}else{
-//						console.log(data);
+						$('#noResult').addClass('hide')
 						$('.pagination').css({'display':'block'});
 						 $("#txjl").html(template("list3",{item:data.resultObject.items}));
 							fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
@@ -489,7 +501,9 @@
 					if(data.resultObject.totalCount==0||data.resultObject.totalCount<=6){
 						$('.pagination').css({'display':'none'});
 						 $("#sdlw").html(template("list4",{item:data.resultObject.items}));
+						 if(data.resultObject.totalCount==0){$('#noResult').removeClass('hide')};
 					}else{
+						$('#noResult').addClass('hide')
 						$('.pagination').css({'display':'block'});
 						 $("#sdlw").html(template("list4",{item:data.resultObject.items}));
 							fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
@@ -530,7 +544,10 @@
 					if(data.resultObject.totalCount==0||data.resultObject.totalCount<=6){
 						$('.pagination').css({'display':'none'});
 						 $("#dsjl").html(template("list5",{item:data.resultObject.items}));
+						 if(data.resultObject.totalCount==0){$('#noResult').removeClass('hide')};
+						 
 					}else{
+						$('#noResult').addClass('hide')
 						$('.pagination').css({'display':'block'});
 						 $("#dsjl").html(template("list5",{item:data.resultObject.items}));
 							fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
@@ -597,7 +614,10 @@
 						$('.pagination').css({'display':'none'});
 						
 						 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
+						 if(data.resultObject.totalCount==0){$('#noResult').removeClass('hide')};
+						 
 					}else{
+						$('#noResult').addClass('hide');
 						$('.pagination').css({'display':'block'});
 						 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
 							fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);

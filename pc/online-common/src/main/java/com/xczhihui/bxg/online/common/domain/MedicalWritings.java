@@ -31,7 +31,7 @@ public class MedicalWritings implements Serializable {
 	@Column(name="article_id")
 	private String articleId;
 
-	
+	@Column(columnDefinition = "text")
 	private String remark;
 
 	private boolean status;

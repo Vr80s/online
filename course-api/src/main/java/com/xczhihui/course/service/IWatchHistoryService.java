@@ -34,5 +34,7 @@ public interface IWatchHistoryService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	void deleteBatch(String userId);
+
+	void addLearnRecord(String lockId, Integer courseId, String userId, String loginName);
 	
 }

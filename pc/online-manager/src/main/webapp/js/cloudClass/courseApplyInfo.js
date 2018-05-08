@@ -11,18 +11,8 @@ $(function() {
     /** 职业课列表begin */
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_status","propertyValue1":"2","tempType":"String"}');
-    // searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"' + $("#type").val() + '","tempType":undefined}');
     var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
-    var objData = [/*{
-        "title": checkbox,
-        "class": "center",
-        "width": "3%",
-        "sortable": false,
-        "data": 'id',
-        "mRender": function (data, display, row) {
-            return '<input type="checkbox" value=' + data + ' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>' + row.teachMethodName + '</span>';
-        }
-    },*/
+    var objData = [
         {"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'imgPath',"mRender":function(data){
             return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
         }},
@@ -78,9 +68,9 @@ $(function() {
                     return "直播";
                 } else if (data == 2) {
                     if(row.multimediaType==1){
-                        return '点播';
+                        return '视频';
                     }else{
-                        return '点播';
+                        return '音频';
                     }
                 }
                 return '线下课';
