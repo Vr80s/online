@@ -292,9 +292,9 @@ public class VideoDao extends SimpleHibernateDao {
              throw new RuntimeException("对不起,您要报的课程已下架!");
          }
          //查看用户是否已经报过此课程
-//         if( this.getUserCourse(courseId,u.getId()).size()>0){
-//             throw new RuntimeException("同学,您已经报名了!");
-//         };
+         if( this.getUserCourse(courseId,u.getId()).size()>0){
+             throw new RuntimeException("同学,您已经报名了!");
+         };
         //1、查看当前课程下的所有视频
         String  querySql="select id as video_id  from oe_video where course_id=:courseId and is_delete=0 and status=1";
         List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
