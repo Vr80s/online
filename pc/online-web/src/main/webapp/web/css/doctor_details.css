@@ -102,7 +102,7 @@
   background-position: center center; 
 }
 .header .header_inf .header_inf_right .doctor_inf1 .department em {
-  width: 13px;
+  width: 14px;
   height: 15px;
   background-image: url(../images/doctor_detail/department.png);
   background-position: center center;
@@ -215,6 +215,7 @@
 	    width: 240px;
     position: absolute;
     bottom: 0;
+    color: #999999;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_title {
   font-size: 14px;
@@ -222,6 +223,9 @@
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 1;
 overflow: hidden;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_address{
+	color: #666666;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_address em {
   display: inline-block;
