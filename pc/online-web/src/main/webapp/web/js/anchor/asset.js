@@ -240,6 +240,7 @@ function saveBankCard() {
 				//	                hideDel_bank()
 				initBasaeAssetInfo();
 			} else if(!data.success && data.code == 201) {
+				$('#addBankCard .confirm-content').text('您填写的身份信息与主播认证信息不一致，是否继续添加？')
 				showDel_bank()
 				$('#sureDel_bank').click(function() {
 					savedata.code = 1;
