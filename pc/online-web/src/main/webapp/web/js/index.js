@@ -475,6 +475,7 @@ getData(1,1);
 function fenye(currentPage,numberOfPages,totalPages){
 			if(numberOfPages>5){
 				numberOfPages = 5;
+                $('.zhongyi').removeClass('hide');
 			}else if(numberOfPages <= 1){
 				$('.zhongyi').addClass('hide');
 			}else{
