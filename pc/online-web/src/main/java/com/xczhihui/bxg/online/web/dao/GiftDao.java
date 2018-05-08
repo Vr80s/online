@@ -77,7 +77,7 @@ public class GiftDao extends SimpleHibernateDao {
 				"FROM\n" +
 				"  `user_coin_increase` uci\n" +
 				"   JOIN oe_gift_statement ogs \n" +
-				"    ON uci.order_no_gift = ogs.id \n" +
+				"    ON uci.correlation_id = ogs.id \n" +
 				"WHERE uci.change_type = 3 \n" +
 				"  AND ogs.live_id ="+liveId+" ";
 		return (int) this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(sql, Integer.class);
@@ -98,7 +98,7 @@ public class GiftDao extends SimpleHibernateDao {
 //				+ "FROM `oe_gift_statement` ogs LEFT JOIN oe_user ou ON ou.`id`=ogs.`giver` "
 //				+ "WHERE ogs.`receiver`=:userId order by ogs.`create_time` desc";
 		String sql="SELECT ogs.id orderNo,ogs.`gift_name` giftName,ogs.`count`,ogs.`create_time` createTime,ou.`name` ,ROUND(ifnull(uci.`value`,0),2) gain"
-				+ " FROM `oe_gift_statement` ogs left join `user_coin_consumption` ucc on ucc.`order_no_gift`=ogs.`id` left join `user_coin_increase` uci on uci.`order_no_gift`=ucc.`order_no_gift` AND uci.change_type=3  LEFT JOIN oe_user ou ON ou.`id` = ogs.`giver`"
+				+ " FROM `oe_gift_statement` ogs left join `user_coin_consumption` ucc on ucc.`correlation_id`=ogs.`id` left join `user_coin_increase` uci on uci.`correlation_id`=ucc.`correlation_id` AND uci.change_type=3  LEFT JOIN oe_user ou ON ou.`id` = ogs.`giver`"
 				+ "WHERE ogs.`receiver`=:userId ORDER BY ogs.`create_time` DESC ";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);
@@ -119,7 +119,7 @@ public class GiftDao extends SimpleHibernateDao {
 	public Object getReceivedReward(String userId, Integer pageNumber,
 			Integer pageSize) {
 		String sql="SELECT ors.`order_no` orderNo,ors.`price`,ou.`name`,ors.`create_time` createTime,ROUND(ifnull(uci.`value`,0),2) gain FROM `oe_reward_statement` ors LEFT JOIN oe_user ou "
-				+ "ON ou.`id`=ors.`giver` left join `user_coin_increase` uci on uci.`order_no_reward`=ors.`id` and uci.`change_type`=4 "
+				+ "ON ou.`id`=ors.`giver` left join `user_coin_increase` uci on uci.`correlation_id`=ors.`id` and uci.`change_type`=4 "
 				+ "WHERE ors.`receiver`= :userId  order by ors.`create_time` desc";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);

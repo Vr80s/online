@@ -112,7 +112,7 @@
 		  FROM
 			`user_coin_increase` uci
 			JOIN `oe_gift_statement` ogs
-			  ON ogs.id = uci.order_no_gift
+			  ON ogs.id = uci.correlation_id
 			JOIN `oe_course` oc
 			  ON ogs.`live_id` = oc.`id`
 		  WHERE uci.`change_type` = 3
@@ -126,7 +126,7 @@
 		  FROM
 			`user_coin_increase` uci
 			JOIN `oe_order_detail` ood
-			  ON ood.`id` = uci.`order_no_course`
+			  ON ood.`id` = uci.`correlation_id`
 			JOIN `oe_course` oc
 			  ON ood.`course_id` = oc.`id`
 		  WHERE uci.`change_type` = 7
@@ -160,7 +160,7 @@
 		FROM
 		  `user_coin_consumption` ucc
 		  JOIN `enchashment_apply_info` eai
-			ON ucc.`order_no_enchashment` = eai.`id`
+			ON ucc.`correlation_id` = eai.`id`
 		  JOIN `oe_user_bank_card` oubc
 			ON eai.`bank_card_id` = oubc.`id`
 		WHERE ucc.`change_type` = 6 AND ucc.`user_id`=#{userId}

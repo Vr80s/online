@@ -101,7 +101,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         userCoinIncrease.setValue(coin);
         userCoinIncrease.setCreateTime(new Date());
         userCoinIncrease.setOrderFrom(orderFrom.getCode());
-        userCoinIncrease.setOrderNoRecharge(orderNo);
+        userCoinIncrease.setCorrelationId(orderNo);
 
         this.updateBalanceForIncrease(userCoinIncrease);
     }
@@ -229,7 +229,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setUserId(userId);
         ucc.setOrderFrom(orderFrom.getCode());
         ucc.setValue(coin.negate());
-        ucc.setOrderNoConsume(orderNo);
+        ucc.setCorrelationId(orderNo);
         ucc.setBalanceType(BalanceType.BALANCE.getCode());
         ucc.setChangeType(ConsumptionChangeType.COURSE.getCode());
         UserCoinConsumption userCoinConsumption = this.updateBalanceForConsumption(ucc);
@@ -266,7 +266,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setChangeType(ConsumptionChangeType.GIFT.getCode());
         ucc.setUserId(giftStatement.getGiver());
         //记录礼物流水id
-        ucc.setOrderNoGift(giftStatement.getId().toString());
+        ucc.setCorrelationId(giftStatement.getId().toString());
         ucc.setBalanceType(BalanceType.BALANCE.getCode());
         ucc.setOrderFrom(giftStatement.getClientType());
         //扣除用户熊猫币余额
@@ -304,7 +304,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setRatio(ratio);
 
         //记录礼物流水id
-        uci.setOrderNoGift(giftStatement.getId().toString());
+        uci.setCorrelationId(giftStatement.getId().toString());
         //礼物统一支付方式为空
         uci.setPayType(null);
         //订单来源:1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
@@ -357,7 +357,7 @@ public class UserCoinServiceImpl implements UserCoinService {
             //主播分成比例
             uci.setRatio(ratio);
             //记录订单
-            uci.setOrderNoCourse(orderVo.getOrderDetailId());
+            uci.setCorrelationId(orderVo.getOrderDetailId());
             //支付方式
             uci.setPayType(orderVo.getPayment().getCode());
             uci.setBalanceType(BalanceType.ANCHOR_BALANCE.getCode());
@@ -445,7 +445,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setBalanceRewardGift(BigDecimal.ZERO);
         ucc.setOrderFrom(orderFrom.getCode());
         ucc.setRmb(ucc.getValue());
-        ucc.setOrderNoEnchashment(enchashmentApplyId);
+        ucc.setCorrelationId(enchashmentApplyId);
         ucc.setCreateTime(new Date());
         ucc.setDeleted(false);
         ucc.setStatus(true);
@@ -523,7 +523,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setUserId(userId);
         uci.setOrderFrom(orderFrom.getCode());
         //结算扣币的流水id
-        uci.setOrderNoSettlement(ucc.getId().toString());
+        uci.setCorrelationId(ucc.getId().toString());
         //人民币余额变动 = 结算熊猫币/兑换比例
         uci.setValue(value.negate().divide(new BigDecimal(rate)));
 

@@ -61,26 +61,8 @@ public class UserCoinIncrease implements Serializable {
 	@Column(name="order_from")
 	private Integer orderFrom;
 
-	@Column(name="order_no_gift")
-	private String orderNoGift;
-
-	@Column(name="order_no_largess")
-	private String orderNoLargess;
-
-	@Column(name="order_no_recharge")
-	private String orderNoRecharge;
-
-	@Column(name="order_no_reject")
-	private String orderNoReject;
-
-	@Column(name="order_no_reward")
-	private String orderNoReward;
-
-	@Column(name="order_no_settlement")
-	private String orderNoSettlement;
-
-	@Column(name="order_no_course")
-	private String orderNoCourse;
+	@Column(name="correlation_id")
+	private String correlationId;
 
 	@Column(name="pay_type")
 	private Integer payType;
@@ -146,22 +128,6 @@ public class UserCoinIncrease implements Serializable {
 
 	public void setRmb(BigDecimal rmb) {
 		this.rmb = rmb;
-	}
-
-	public String getOrderNoSettlement() {
-		return orderNoSettlement;
-	}
-
-	public void setOrderNoSettlement(String orderNoSettlement) {
-		this.orderNoSettlement = orderNoSettlement;
-	}
-
-	public String getOrderNoCourse() {
-		return orderNoCourse;
-	}
-
-	public void setOrderNoCourse(String orderNoCourse) {
-		this.orderNoCourse = orderNoCourse;
 	}
 
 	public Integer getId() {
@@ -234,46 +200,6 @@ public class UserCoinIncrease implements Serializable {
 
 	public void setOrderFrom(Integer orderFrom) {
 		this.orderFrom = orderFrom;
-	}
-
-	public String getOrderNoGift() {
-		return this.orderNoGift;
-	}
-
-	public void setOrderNoGift(String orderNoGift) {
-		this.orderNoGift = orderNoGift;
-	}
-
-	public String getOrderNoLargess() {
-		return this.orderNoLargess;
-	}
-
-	public void setOrderNoLargess(String orderNoLargess) {
-		this.orderNoLargess = orderNoLargess;
-	}
-
-	public String getOrderNoRecharge() {
-		return this.orderNoRecharge;
-	}
-
-	public void setOrderNoRecharge(String orderNoRecharge) {
-		this.orderNoRecharge = orderNoRecharge;
-	}
-
-	public String getOrderNoReject() {
-		return this.orderNoReject;
-	}
-
-	public void setOrderNoReject(String orderNoReject) {
-		this.orderNoReject = orderNoReject;
-	}
-
-	public String getOrderNoReward() {
-		return this.orderNoReward;
-	}
-
-	public void setOrderNoReward(String orderNoReward) {
-		this.orderNoReward = orderNoReward;
 	}
 
 	public Integer getPayType() {
@@ -364,4 +290,11 @@ public class UserCoinIncrease implements Serializable {
 		this.stopTime = stopTime;
 	}
 
+	public String getCorrelationId() {
+		return correlationId;
+	}
+
+	public void setCorrelationId(String correlationId) {
+		this.correlationId = correlationId;
+	}
 }
