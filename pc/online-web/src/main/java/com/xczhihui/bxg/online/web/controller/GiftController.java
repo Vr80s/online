@@ -82,12 +82,8 @@ public class GiftController extends AbstractController{
 	@RequestMapping(value = "/receivedGift")
 	@ResponseBody
 	public ResponseObject receivedGift(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
-		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null) {
-            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
-        }
-		return ResponseObject.newSuccessResponseObject(giftService.getReceivedGift(loginUser.getId(), pageNumber, pageSize));
+		OnlineUser u = getCurrentUser();
+		return ResponseObject.newSuccessResponseObject(giftService.getReceivedGift(u.getId(), pageNumber, pageSize));
 	}
 	
 	/** 
@@ -99,12 +95,8 @@ public class GiftController extends AbstractController{
 	@RequestMapping(value = "/receivedReward")
 	@ResponseBody
 	public ResponseObject receivedReward(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
-		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null) {
-            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
-        }
-		return ResponseObject.newSuccessResponseObject(giftService.getReceivedReward(loginUser.getId(), pageNumber, pageSize));
+		OnlineUser u = getCurrentUser();
+		return ResponseObject.newSuccessResponseObject(giftService.getReceivedReward(u.getId(), pageNumber, pageSize));
 	}
 
 	/**
@@ -116,12 +108,8 @@ public class GiftController extends AbstractController{
 	@RequestMapping(value = "/getLiveCourseByUserId")
 	@ResponseBody
 	public ResponseObject getLiveCourseByUserId(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
-		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null) {
-            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
-        }
-		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseByUserId(loginUser.getId(), pageNumber, pageSize));
+		OnlineUser u = getCurrentUser();
+		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseByUserId(u.getId(), pageNumber, pageSize));
 	}
 	/**
 	 * Description：获取直播课程对应的课程报名情况
@@ -132,12 +120,8 @@ public class GiftController extends AbstractController{
 	@RequestMapping(value = "/getLiveCourseUsersById")
 	@ResponseBody
 	public ResponseObject getLiveCourseUsersById(HttpServletRequest request,String id,Integer pageNumber,Integer pageSize) throws Exception {
-		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null) {
-            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
-        }
-		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseUsersById(id,loginUser.getId(), pageNumber, pageSize));
+		OnlineUser u = getCurrentUser();
+		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseUsersById(id,u.getId(), pageNumber, pageSize));
 	}
 	
 	
@@ -152,11 +136,6 @@ public class GiftController extends AbstractController{
 	public ResponseObject getRankingListByLiveId(HttpServletRequest request,
 			String liveId,
 			Integer pageNumber,Integer pageSize) throws Exception {
-		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null) {
-            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
-        }
 		return ResponseObject.newSuccessResponseObject(giftService.getRankingListByLiveId(liveId, pageNumber, pageSize));
 	}
 	

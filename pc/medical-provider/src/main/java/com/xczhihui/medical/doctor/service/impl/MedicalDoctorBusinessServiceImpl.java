@@ -1,6 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -134,6 +135,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         MedicalDoctorVO medicalDoctorVO = medicalDoctorMapper.selectDoctorById(id);
         List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(medicalDoctorVO.getId());
         medicalDoctorVO.setFields(medicalFields);
+
         if (medicalDoctorVO.getHospitalId() != null) {
             MedicalHospitalVo medicalHospital = iMedicalHospitalBusinessService.selectHospitalById(medicalDoctorVO.getHospitalId());
             medicalDoctorVO.setMedicalHospital(medicalHospital);
@@ -141,6 +143,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         if (medicalDoctorVO.getAuthenticationInformationId() != null) {
             MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformationMapper.selectByDoctorId(medicalDoctorVO.getAuthenticationInformationId());
             medicalDoctorVO.setMedicalDoctorAuthenticationInformation(medicalDoctorAuthenticationInformation);
+        }
+        List<MedicalDepartmentVO> medicalDepartments = medicalDoctorMapper.selectMedicalDepartmentsByDoctorId(id);
+        if (medicalDepartments != null) {
+            medicalDoctorVO.setDepartmentText(medicalDepartments.stream().map(MedicalDepartmentVO::getName).collect(Collectors.joining("/")));
         }
         return medicalDoctorVO;
     }
@@ -477,6 +483,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         if (!medicalHospitalMapper.getAuthenticationById(hospitalAccount.getDoctorId())) {
             throw new MedicalException("医馆尚未认证，请认证后再添加");
         }
+        MedicalHospital medicalHospital = medicalHospitalMapper.selectById(hospitalAccount.getDoctorId());
 
         String doctorId = UUID.randomUUID().toString().replace("-", "");
         String doctorAuthenticationId = UUID.randomUUID().toString().replace("-", "");
@@ -489,7 +496,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         medicalDoctor.setCreatePerson(medicalDoctor.getUserId());
         medicalDoctor.setAuthenticationInformationId(doctorAuthenticationId);
         medicalDoctor.setCreateTime(now);
-        medicalDoctorMapper.insertSelective(medicalDoctor);
+
+        medicalDoctor.setCity(medicalHospital.getCity());
+        medicalDoctor.setProvince(medicalHospital.getProvince());
+        medicalDoctor.setDetailedAddress(medicalHospital.getDetailedAddress());
+        medicalDoctorMapper.insert(medicalDoctor);
 
         // 将医师的头像,职称证明添加到认证表上：medical_doctor_authentication_information
         MedicalDoctorAuthenticationInformation authenticationInformation =
@@ -574,6 +585,17 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Override
     public MedicalDoctorAccount getByDoctorId(String doctorId) {
         return medicalDoctorAccountMapper.getByDoctorId(doctorId);
+    }
+
+    @Override
+    public List<MedicalDoctorVO> listRandomByType(String type, int size) {
+        int count = medicalDoctorMapper.countByType(type);
+        int offset = 0;
+        if (count > size) {
+            Random random = new Random();
+            offset = random.nextInt(count - size);
+        }
+        return medicalDoctorMapper.selectRandomDoctorByType(type, offset, size);
     }
 
     /**

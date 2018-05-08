@@ -1116,6 +1116,8 @@ function notice_btn_delete(t){
 		if(workSelect == "新医师") {
 			$('#doc_Administration_bottom2').addClass('hide');
 			$('#doc_Administration_bottom').removeClass('hide');
+			$(".new-doctorbtn").removeClass("hide");
+			$(".wrap-save").addClass("hide");
 			$(this).siblings('.title').text('新医师');
 			$(this).text("返回")
 //		搜索部分隐藏

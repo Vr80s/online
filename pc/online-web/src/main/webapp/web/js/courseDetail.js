@@ -253,6 +253,7 @@ window.onload = function() {
 	var free;
 	var courseDetail;
 
+	
 	$(".baomingSucces").attr("href", "/web/html/video.html?courseId=" + courserId);
 	RequestService("/course/getCourseById", "POST", {
 		courserId: courserId
@@ -283,6 +284,8 @@ window.onload = function() {
 
 	function signUp(){
         var apply = $(this).attr("data-apply");
+        
+        //验证是否登录
         RequestService("/online/user/isAlive", "GET", "", function(data) {
             if(!data.success) {
                 localStorage.username = null;
@@ -299,38 +302,35 @@ window.onload = function() {
                 RequestService("/course/getCourseApplyByCourseId", "GET", {
                     courseId: courserId
                 }, function(data) {
-                    //获取其他数据
-                    if(!data.resultObject.free) {
+                	
+                    //是否收费 --》 收费的去支付
+                    if(!data.resultObject.free) { 
 						if(data.success == true) {
 							window.location.href = "/course/pay/" + courserId;
 						} else {
 							rTips(data.errorMessage);
 						}
                     } else {
-                        $("#sign-up-modal").html(template.compile(modal)(data.resultObject));
+                        
+                    	$("#sign-up-modal").html(template.compile(modal)(data.resultObject));
                         $("#sign-up-modal .sign-up-title img").click(function() {
                             $(".background-big").css("display", "none");
                             $("#sign-up-modal").css("display", "none");
                         });
+                        
                         $(".gotengxun").click(function() {
-//             增加学习记录         	
-                        	RequestService("/xczh/history/add", "POST", {
-                                courseId: courserId,
-                                recordType: 1
-                            }, function(data) {
-                            	console.log("添加学习记录");
-                            });
-                        	
-                        	
+                        	debugger;
                             RequestService("/video/saveEntryVideo", "POST", {
-                                courseId: courserId,
-                                free: free
+                                courseId: 659,
+                                free: true
                             }, function(data) {
                                 if(data.success == true) {
                                     if(data.resultObject == "报名成功") {
-                                        if(courseDetail.type == 3){
+                                    	//线下课刷新当前页面
+                                        if(courseDetail.type == 3){  
                                             window.location.reload();
                                         }
+                                        
                                         if(!collection) {
                                             $(".sign-up-body,.gotengxun").css("display", "none");
                                             $(".sign-up-success,.baomingSucces").css("display", "block");
@@ -368,9 +368,10 @@ window.onload = function() {
             }
         });
 	}
+	
 //	增加观看记录
 	$(".add-history").click(function(){
-		RequestService("/xczh/history/add", "POST", {
+		RequestService("/learnWatch/add", "POST", {
             courseId: courserId,
             recordType: 2
         }, function(data) {

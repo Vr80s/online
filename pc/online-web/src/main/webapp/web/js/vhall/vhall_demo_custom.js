@@ -1,6 +1,6 @@
 
 
-
+//  alert("vhallName"+vhallName);
 var onOff = true, isFilter = true;
 
     //聊天消息
@@ -12,9 +12,12 @@ var onOff = true, isFilter = true;
         if(role=='assistant'){
 	    	role_str +="<a class='tips assistant' data-role='yes' href='javascript:;'>助理</a>";
 	    	str_hide = "yes";
+	    	
 	    } else if(role == 'host'){
 	    	role_str +="<a class='tips host' data-role='yes' href='javascript:;'>主播</a>";
 	    	str_hide = "yes";
+	    	
+	    	obj.user_name =vhallName;
 	    }
 	    else if(role == 'guest'){
 	    	role_str +="<a class='tips guest' data-role='yes' href='javascript:;'>嘉宾</a>";

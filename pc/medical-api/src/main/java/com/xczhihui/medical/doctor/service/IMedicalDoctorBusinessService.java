@@ -136,4 +136,13 @@ public interface IMedicalDoctorBusinessService {
      * @return 医师账号
      */
     MedicalDoctorAccount getByDoctorId(String doctorId);
+
+    /**
+     * 随机查询同分类下医师
+     *
+     * @param type 分类
+     * @param size 大小
+     * @return 列表
+     */
+    List<MedicalDoctorVO> listRandomByType(String type, int size);
 }
