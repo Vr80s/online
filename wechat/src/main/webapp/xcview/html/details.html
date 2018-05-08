@@ -42,7 +42,6 @@ $(function(){
 .leaderboard .leaderboard_list:last-child{
 	border-bottom: none;
 }
-
 #chatmsg{
 	padding-top: 0.4rem;
 }
@@ -124,7 +123,8 @@ $(function(){
 		color: #fff;
 	}
 .mCustomScrollBox{
-	height: 14rem;
+	height1: 14rem;
+	height: 100%;
 }
 .coze_bottom_hide{
 	display: none !important;
@@ -133,11 +133,17 @@ $(function(){
     padding-top: 0.4rem;
 }
 .mCustomScrollbar{
-	    padding-bottom: 2.5rem;
+	    padding-bottom1: 2.5rem;
 }
 .coze{
 	position: absolute;
     top: 10.5rem;
+}
+.coze_cen_ri:last-child{
+	margin-bottom: 2.5rem;
+}
+.coze_cen_ris{
+	margin-bottom: 0rem !important;
 }
 </style>
 </head>
@@ -160,7 +166,7 @@ $(function(){
 	</div>
 
 	<!-- 头部开始 -->
-	<header style="padding-top: 0rem;">
+	<header style="padding-top: 0rem;" class="header">
 		<div class="grabble">
 			<div class="grabble_top">
 				
@@ -268,7 +274,7 @@ $(function(){
 	<div class="footer_k" style="height: 10.6rem;"></div>
 	<!-- 详情聊天开始 -->
 	
-	<div class="coze" style="height: 14rem">
+	<div class="coze" style="height1: 14rem">
 		<!--关注开始-->
 		<div class="attention" id="attention">
 			<div class="main_img">
@@ -292,7 +298,7 @@ $(function(){
 		
 		<div class=""></div>
 		<div style="height: 0rem;"></div>
-		<div class="chatmsg-box" style="height: 14rem;margin-top: 0.25rem;">
+		<div class="chatmsg-box" style="height1: 14rem;margin-top: 0.25rem;">
 			<div class="coze_center" id="chatmsg" style="overflow: auto;">
 				<!-- <div class="footer_k" style="height: 3.6rem;"></div> -->
 			</div>
@@ -632,6 +638,14 @@ $(function(){
 			$(".pinch-zoom-container").height(school_height);
 		});
 	};
+</script>
+
+
+<script>
+	//		聊天区高度
+		var school_height=$(window).height()-$(".header").height();
+		$(".chatmsg-box").height(school_height);
+		// alert(school_height);
 </script>
 </html>
 

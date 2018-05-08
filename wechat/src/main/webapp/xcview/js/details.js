@@ -139,6 +139,7 @@ requestService("/xczh/course/liveDetails",{
 				if(lineState == 3){
 					$(".history_span").text("直播回放");
 					
+					$(".coze_center .coze_cen_ri:last-child").css("margin-bottom","0");
 					$(".coze_bottom").addClass("coze_bottom_hide");
 
 					$(".mCustomScrollbar").css("padding-bottom","0");
