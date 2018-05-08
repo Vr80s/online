@@ -140,7 +140,6 @@ public class CourseDao extends SimpleHibernateDao {
         } else {
             sqlSb.append(" order by recommendSort desc, cou.release_time desc");
         }
-        System.out.println(sqlSb.toString());
         Page<CourseLecturVo> page = this.findPageBySQL(sqlSb.toString(), paramMap, CourseLecturVo.class, pageNumber, pageSize);
         return page;
     }
@@ -273,6 +272,7 @@ public class CourseDao extends SimpleHibernateDao {
                 sqlSb.append(" and  menu_id = :menuId ");
                 break;
         }
+        String orderSql = "";
         if (type == 1 || type == 2 || type == 3) {
             paramMap.put("type", type);
             sqlSb.append(" AND om.type = :type ");
@@ -285,7 +285,13 @@ public class CourseDao extends SimpleHibernateDao {
             sqlSb = "0".equals(couseTypeId) ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
             sqlSb.append(" AND cou.type = 2 ");
         }
-        sqlSb.append(" order by recommendSort desc, cou.release_time desc");
+        sqlSb.append(" order by recommendSort desc");
+        //线下课按照排序值 + 开课时间排序
+        if (type == 4) {
+            sqlSb.append(", cou.start_time desc");
+        } else {
+            sqlSb.append(", cou.release_time desc");
+        }
         Page<CourseLecturVo> page = this.findPageBySQL(sqlSb.toString(), paramMap, CourseLecturVo.class, pageNumber, pageSize);
         return page;
     }
@@ -546,12 +552,12 @@ public class CourseDao extends SimpleHibernateDao {
      * @param courseId 课程id号
      * @return 返回对应的课程对象
      */
-    public  CourseVo   findCourseOrderById(Integer  courseId){
-         String  sql =" select id ,is_free isFree,user_lecturer_id userLecturerId, course_type,collection,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
-                      " current_price as currentPrice, now() as create_time, type, FORMAT(original_cost - current_price,2) as preferentyMoney from oe_course  where id =:courseId";
-        Map<String,Object> paramMap = new HashMap<>();
-        paramMap.put("courseId",courseId);
-        List<CourseVo>  courseVos= this.findEntitiesByJdbc(CourseVo.class, sql.toString(), paramMap) ;
+    public CourseVo findCourseOrderById(Integer courseId) {
+        String sql = " select id ,is_free isFree,user_lecturer_id userLecturerId, course_type,collection,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
+                " current_price as currentPrice, now() as create_time, type, FORMAT(original_cost - current_price,2) as preferentyMoney from oe_course  where id =:courseId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("courseId", courseId);
+        List<CourseVo> courseVos = this.findEntitiesByJdbc(CourseVo.class, sql.toString(), paramMap);
         return courseVos.size() > 0 ? courseVos.get(0) : null;
     }
 

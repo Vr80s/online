@@ -206,12 +206,22 @@
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom {
   height: 97px;
   padding: 10px;
+  position: relative;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom > p {
   margin-bottom: 10px;
 }
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_pirce_person{
+	    width: 240px;
+    position: absolute;
+    bottom: 0;
+}
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_title {
   font-size: 14px;
+  display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 1;
+overflow: hidden;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_address em {
   display: inline-block;
