@@ -488,7 +488,7 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
     		return 60000; //一分钟
     	}else if( hour==3){
     		return 120000; //二分钟
-    	}else if( hour==4 || hour==5){
+    	}else if( hour==4){
     		return 240000; //4分钟
     	}else {
     		return 600000; //10分钟
