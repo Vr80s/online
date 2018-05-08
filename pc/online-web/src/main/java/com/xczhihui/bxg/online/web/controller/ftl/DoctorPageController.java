@@ -121,6 +121,7 @@ public class DoctorPageController extends AbstractFtlController {
         if (medicalDoctorAccount != null) {
             view.addObject("courses", courseService.selectLecturerAllCourse(new Page<CourseLecturVo>(1, 6), medicalDoctorAccount.getAccountId()).getRecords());
         }
+        view.addObject("relationDoctors", medicalDoctorBusinessService.listRandomByType(doctor.getType(), 8));
 
         doTitleKeyWords(view, doctor.getName() + "-", doctor.getName() + ",");
 

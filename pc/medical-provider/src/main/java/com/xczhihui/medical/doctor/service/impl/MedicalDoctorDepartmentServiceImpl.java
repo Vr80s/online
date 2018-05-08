@@ -43,6 +43,7 @@ public class MedicalDoctorDepartmentServiceImpl extends ServiceImpl<MedicalDocto
         doctorDepartment.setDoctorId(doctorId);
         doctorDepartment.setDepartmentId(departmentId);
         doctorDepartment.setCreateTime(createTime);
+        doctorDepartment.setDeleted(false);
         doctorDepartmentMapper.insert(doctorDepartment);
     }
 
@@ -53,11 +54,7 @@ public class MedicalDoctorDepartmentServiceImpl extends ServiceImpl<MedicalDocto
      */
     @Override
     public List<MedicalDoctorDepartment> selectByDoctorId(String doctorId) {
-        Map<String,Object> columnMap = new HashMap<>();
-        columnMap.put("doctor_id", doctorId);
-        columnMap.put("deleted", 0);
-        List<MedicalDoctorDepartment> doctorDepartments =  doctorDepartmentMapper.selectByMap(columnMap);
-        return doctorDepartments;
+        return doctorDepartmentMapper.selectByDoctorId(doctorId);
     }
 
     /**
@@ -78,11 +75,9 @@ public class MedicalDoctorDepartmentServiceImpl extends ServiceImpl<MedicalDocto
         List<MedicalDoctorDepartment> doctorDepartments = this.selectByDoctorId(doctorAccount.getDoctorId());
 
         if(CollectionUtils.isNotEmpty(doctorDepartments)){
-            List<String> ids = doctorDepartments.stream().map(doctorDepartment -> doctorDepartment.getDepartmentId()).collect(Collectors.toList());
+            List<String> ids = doctorDepartments.stream().map(MedicalDoctorDepartment::getDepartmentId).collect(Collectors.toList());
 
-            List<MedicalDepartment> departments = departmentMapper.selectBatchIds(ids);
-
-            return departments;
+            return departmentMapper.selectBatchIds(ids);
 
         }
 
