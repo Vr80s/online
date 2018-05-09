@@ -90,7 +90,8 @@
     				<li>
     					<div class="boutique_main_one">
 				
-							<div class="boutique_one_img" onclick="guesYouLike({{item.type}},{{item.id}})">	
+							<div class="boutique_one_img" onclick="common_jump_all({{item.id}})">
+	
     							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
     						</div>			
 								{{if item.type == 1}}
@@ -150,6 +151,7 @@
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <script type="text/javascript" src="/xcview/js/buy_prosperity.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?v=wechat_1.1.111"></script>
 
 <!--点击更多隐藏显示结束-->
 <script type="text/javascript">
@@ -180,18 +182,4 @@
 		
 	};
 </script>
-<script>
-	function guesYouLike(type,courseId){
-	
-	if(type == 1 ||type ==2){ //课程
-		location.href="school_audio.html?course_id="+courseId
-	}else if(type ==3){ // 直播
-		location.href="school_play.html?course_id="+courseId
-	}else if(type ==4){ // 线下班
-		location.href="school_class.html?course_id="+courseId
-	}
-		
-}
-</script>
-
 </html>

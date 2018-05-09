@@ -88,7 +88,7 @@ window.onload = function () {
     var mycourse = '<div class="box clearfix">' +
         '{{each items as $value i }}' +
         '<div class="course" data-url="{{#zhibohref($value.id,$value.collection)}}">' +
-        '<a href="javascript:;"   data-videoId="{{$value.id}}">' +
+        '<a href="javascript:;" data-videoId="{{$value.id}}">' +
         '{{#hasImg($value.smallImgPath)}}' +
         '<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +
         // '<div class="range clearfix">' +
