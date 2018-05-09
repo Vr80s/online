@@ -165,7 +165,14 @@ function getBankList() {
 		$("#content_add_bank").html(str);
 	}
 }
-
+//function templateNumber(data){
+//	for(var i = 0; i < data.resultObject.length; i++) {
+//		data.resultObject[i].acctPan = data.resultObject[i].acctPan.replace(/\s/g,'').replace(/(\d{4})/g,"$1 ");
+//		var idCardfront = data.resultObject[i].certId.substring(0,6).replace(/\s/g,'').replace(/(\d{3})/g,"$1 ");
+//		var idCardafter = data.resultObject[i].certId.substring(6,17).replace(/\s/g,'').replace(/(\d{4})/g,"$1 ");
+//		data.resultObject[i].certId = idCardfront +" "+ idCardafter;
+//	}
+//}
 function getBankCardList() {
 	RequestService("/anchor/asset/getBankCardList?complate=true", "get", null, function(data) {
 		for(var i = 0; i < data.resultObject.length; i++) {
@@ -173,8 +180,15 @@ function getBankCardList() {
 			if(data.resultObject[i].default) {
 				$("#userNameIpt").val(data.resultObject[i].acctName);
 				bankCardId = data.resultObject[i].id;
-			}
+			}			
+			data.resultObject[i].acctPan = data.resultObject[i].acctPan.replace(/\s/g,'').replace(/(\d{4})/g,"$1 ");
+			var idCardfront = data.resultObject[i].certId.substring(0,6).replace(/\s/g,'').replace(/(\d{3})/g,"$1 ");
+			var idCardafter = data.resultObject[i].certId.substring(6,19).replace(/\s/g,'').replace(/(\d{4})/g,"$1 ");
+			data.resultObject[i].certId = idCardfront + idCardafter
 		}
+
+		
+		
 
 		$("#bank_card_list").html(template('bank_card_list_tpl', data));
 		$("#bank_card").html(template('bank_card_tpl', data));

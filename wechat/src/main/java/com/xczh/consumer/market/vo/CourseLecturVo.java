@@ -1,9 +1,9 @@
 package com.xczh.consumer.market.vo;
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import com.alibaba.fastjson.JSONObject;
 
 
 /**

@@ -128,7 +128,8 @@ var collections="";
         var courseIndex = localStorage.getItem("course"+courseId);
         if (courseIndex==null||courseIndex =="") {
             courseIndex=0
-        }
+        }  /*默认第一条专辑*/
+        localStorage.setItem('course'+courseId, courseIndex);  /*取缓存列表*/
         var collection = collections[courseIndex];                                                                                                                             //判断跳转添加
 		location.replace("live_album.html?course_id="+collection.id+"&direct_id="+collection.directId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+courseIndex+"&type=2");
 	}

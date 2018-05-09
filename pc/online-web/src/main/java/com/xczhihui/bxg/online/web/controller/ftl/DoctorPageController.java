@@ -116,7 +116,7 @@ public class DoctorPageController extends AbstractFtlController {
             specialColumn.setContent(HtmlUtil.getTextFromHtml(specialColumn.getContent()));
         }
         view.addObject("specialColumns", specialColumns);
-        view.addObject("writings", medicalDoctorWritingService.listPublic(1, 5, id).getRecords());
+        view.addObject("writings", medicalDoctorWritingService.listPublic(1, 6, id).getRecords());
         MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(id);
         if (medicalDoctorAccount != null) {
             view.addObject("courses", courseService.selectLecturerAllCourse(new Page<CourseLecturVo>(1, 6), medicalDoctorAccount.getAccountId()).getRecords());

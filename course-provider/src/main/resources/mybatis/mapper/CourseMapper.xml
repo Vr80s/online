@@ -112,7 +112,7 @@
 		if(oc.type =1,(select vhall_id from oe_user where id = oc.user_lecturer_id),0) as vhallId,
 		ou.name as vhallName,
 		if(oc.type =1,ifnull((SELECT SUM(ogs.price) FROM user_coin_increase uci  JOIN oe_gift_statement ogs  
-		 ON uci.order_no_gift = ogs.id WHERE uci.change_type = 3  AND ogs.live_id = oc.id ),0),0) as giftCount,
+		 ON uci.correlation_id = ogs.id WHERE uci.change_type = 3  AND ogs.live_id = oc.id ),0),0) as giftCount,
 		 
 		if(oc.type=1,ifnull(( select count(*) from oe_focus of 
 		     inner join course_anchor as ou on of.lecturer_id = ou.user_id

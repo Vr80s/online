@@ -432,7 +432,7 @@
 		</td>
 		<td>
       
-			{{bankcard.acctPan.replace(/\s/g,'').replace(/(\d{4})/g,"$1 ")}}
+			{{bankcard.acctPan}}
 		</td>
 		<td>
 			{{bankcard.certId}}
@@ -2919,6 +2919,16 @@ $(function(){
 	
 }
 	 
+})
+
+$(".course_number").blur(function(){
+	var qq=$(this).val();
+	var aabb=/[a-zA-Z]+$/;
+	if(aabb.test(qq)){
+		var uu =qq.replace(/[^\d]/g,'') 
+		$(".course_number").val(uu)
+
+	}
 })
 
 </script>

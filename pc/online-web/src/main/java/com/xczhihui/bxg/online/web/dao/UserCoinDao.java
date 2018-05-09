@@ -51,18 +51,18 @@ public class UserCoinDao extends SimpleHibernateDao {
 	public Page<RechargeRecord> getUserCoinIncreaseRecord(String userId,
 			Integer pageNumber, Integer pageSize) {
 		
-		String sql="select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,apr.`total_amount` total,uci.`balance` as balance"
-				+ " from `user_coin_increase` uci ,`alipay_payment_record` apr where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = apr.`out_trade_no`"
+		String sql="select uci.`correlation_id` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,apr.`total_amount` total,uci.`balance` as balance"
+				+ " from `user_coin_increase` uci ,`alipay_payment_record` apr where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`correlation_id` = apr.`out_trade_no`"
 				+ " union "
-				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,aprh.`total_amount` total,uci.`balance` as balance"
-				+ " from `user_coin_increase` uci ,`alipay_payment_record_h5` aprh where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = aprh.`out_trade_no`"
+				+ "select uci.`correlation_id` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,aprh.`total_amount` total,uci.`balance` as balance"
+				+ " from `user_coin_increase` uci ,`alipay_payment_record_h5` aprh where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`correlation_id` = aprh.`out_trade_no`"
 				+ " union "
-				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'微信' as payType , CAST((wpf.`total_fee`/100) AS DECIMAL(18,2)) AS total,uci.`balance` as balance"
-				+ " from `user_coin_increase` uci ,`wxcp_pay_flow` wpf where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = wpf.`out_trade_no`"
+				+ "select uci.`correlation_id` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'微信' as payType , CAST((wpf.`total_fee`/100) AS DECIMAL(18,2)) AS total,uci.`balance` as balance"
+				+ " from `user_coin_increase` uci ,`wxcp_pay_flow` wpf where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`correlation_id` = wpf.`out_trade_no`"
 
 				+ " union "
-				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'applePay' as payType , ii.actual_price AS total,uci.`balance` as balance"
-				+ " from `user_coin_increase` uci ,`iphone_iap` ii where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = ii.`order_no`"
+				+ "select uci.`correlation_id` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'applePay' as payType , ii.actual_price AS total,uci.`balance` as balance"
+				+ " from `user_coin_increase` uci ,`iphone_iap` ii where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`correlation_id` = ii.`order_no`"
 
 				+ " ORDER BY `create_time` DESC";
         Map<String,Object> paramMap = new HashMap<>();
@@ -73,7 +73,7 @@ public class UserCoinDao extends SimpleHibernateDao {
 
 	public UserCoinIncrease getUserCoinIncreaseRecordByOrder(String orderNo) {
 		DetachedCriteria dc = DetachedCriteria.forClass(UserCoinIncrease.class);
-		dc.add(Restrictions.eq("orderNoRecharge", orderNo));
+		dc.add(Restrictions.eq("correlationId", orderNo));
 		UserCoinIncrease uc = this.findEntity(dc);
 		return uc;
 	}
@@ -95,7 +95,7 @@ public class UserCoinDao extends SimpleHibernateDao {
 				"  FROM\n" +
 				"    `user_coin_consumption` ucc,\n" +
 				"    `oe_gift_statement` ogs \n" +
-				"  WHERE ucc.`order_no_gift` = ogs.`id` \n" +
+				"  WHERE ucc.`correlation_id` = ogs.`id` \n" +
 				"    AND ucc.`change_type` = 8 \n" +
 				"    AND ucc.user_id = :userId \n" +
 				"  UNION\n" +
@@ -114,7 +114,7 @@ public class UserCoinDao extends SimpleHibernateDao {
 				"    `oe_order` oo,\n" +
 				"    `oe_order_detail` ood,\n" +
 				"    `oe_course` oc \n" +
-				"  WHERE ucc.`order_no_consume` = oo.order_no \n" +
+				"  WHERE ucc.`correlation_id` = oo.order_no \n" +
 				"    AND ood.order_id = oo.id \n" +
 				"    AND ood.course_id = oc.id \n" +
 				"    AND ucc.`change_type` = 10 \n" +

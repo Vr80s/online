@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.common.util.enums.Multimedia;
+import com.xczhihui.common.util.enums.PlayBackType;
 import com.xczhihui.common.support.cc.bean.CategoryBean;
 import com.xczhihui.common.support.cc.config.Config;
 import com.xczhihui.common.support.cc.util.APIServiceFunction;
@@ -1667,5 +1670,20 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
             dao.update(course);
         }
     }
+	@Override
+	public void updatePlaybackState(Integer courseId, int i) {
+		 String hql="from Course where 1=1 and isDelete=0 and id = ?";
+         Course course= dao.findByHQLOne(hql, new Object[]{courseId});
+         course.setReleaseTime(new Date());
+         course.setPlayBackType(i);
+         if(i==PlayBackType.GENERATION_FAILURE.getCode()) { //回放生产失败
+        	 course.setStatus("0");
+        	 System.out.println("回放生产失败");
+         }else if(i==PlayBackType.GENERATION_SUCCESS.getCode()){ //回放生产成功
+        	 course.setStatus("1");
+        	 System.out.println("回放生产成功");
+         }
+         dao.update(course);
+	}
 	
 }

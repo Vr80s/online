@@ -50,17 +50,9 @@ public class UserCoinConsumption implements Serializable {
 
 	private boolean deleted;
 
-	@Column(name="order_no_consume")
-	private String orderNoConsume;
+	@Column(name="correlation_id")
+	private String correlationId;
 
-	@Column(name="order_no_enchashment")
-	private String orderNoEnchashment;
-
-	@Column(name="order_no_gift")
-	private String orderNoGift;
-
-	@Column(name="order_no_overdue")
-	private String orderNoOverdue;
 	@Column(name="order_from")
 	private Integer orderFrom;
 
@@ -167,38 +159,6 @@ public class UserCoinConsumption implements Serializable {
 		this.deleted = deleted;
 	}
 
-	public String getOrderNoConsume() {
-		return this.orderNoConsume;
-	}
-
-	public void setOrderNoConsume(String orderNoConsume) {
-		this.orderNoConsume = orderNoConsume;
-	}
-
-	public String getOrderNoEnchashment() {
-		return this.orderNoEnchashment;
-	}
-
-	public void setOrderNoEnchashment(String orderNoEnchashment) {
-		this.orderNoEnchashment = orderNoEnchashment;
-	}
-
-	public String getOrderNoGift() {
-		return this.orderNoGift;
-	}
-
-	public void setOrderNoGift(String orderNoGift) {
-		this.orderNoGift = orderNoGift;
-	}
-
-	public String getOrderNoOverdue() {
-		return this.orderNoOverdue;
-	}
-
-	public void setOrderNoOverdue(String orderNoOverdue) {
-		this.orderNoOverdue = orderNoOverdue;
-	}
-
 	public String getRemark() {
 		return this.remark;
 	}
@@ -255,4 +215,11 @@ public class UserCoinConsumption implements Serializable {
 		this.version = version;
 	}
 
+	public String getCorrelationId() {
+		return correlationId;
+	}
+
+	public void setCorrelationId(String correlationId) {
+		this.correlationId = correlationId;
+	}
 }
