@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.model.WatchHistory;
 import com.xczhihui.course.service.ICourseService;
@@ -32,13 +31,10 @@ public class LookHistoryController {
 	private AppBrowserService appBrowserService;
 	
 	@Autowired
-	private OnlineWebService onlineWebService;
-	
-	@Autowired
 	private ICourseService courseServiceImpl;
 	
 	/**
-     * Description：增加观看记录
+     * Description：增加观看或者学习记录
      * @param req
      * @param res
      * @param params
@@ -104,6 +100,12 @@ public class LookHistoryController {
 		}
 	}
 
+	/**
+	 * 观看记录列表
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("list")
 	@ResponseBody
 	public ResponseObject list(HttpServletRequest req,
@@ -126,6 +128,12 @@ public class LookHistoryController {
 		}
 	}
 	
+	/**
+	 * 清空观看记录
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("empty")
 	@ResponseBody
 	public ResponseObject empty(HttpServletRequest req,HttpServletResponse res) {

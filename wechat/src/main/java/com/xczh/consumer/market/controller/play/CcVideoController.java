@@ -1,8 +1,5 @@
-package com.xczh.consumer.market.controller.live;
+package com.xczh.consumer.market.controller.play;
 
-//import java.util.Date;
-//import java.util.LinkedList;
-//import java.util.List;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -13,16 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.cc.APIServiceFunction;
 
-//import java.util.UUID;
 
 /**
  * 直播控制器
@@ -32,16 +26,14 @@ import com.xczh.consumer.market.utils.cc.APIServiceFunction;
  * Create Time: 2017年8月10日<br>
  */
 @Controller
-@RequestMapping("/bxg/ccvideo")
-public class CCVideoController {
+@RequestMapping("/xczh/ccvideo")
+public class CcVideoController {
 
-	@Autowired
-	private OnlineCourseService onlineCourseService;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CCVideoController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CcVideoController.class);
 	
 	/**
-	 * 这个方法暂时先这样提供，能用到的就用呗
+	 * 获取cc视频h5播放代码
 	 * 
 	 * 只需要得到这个课程的状态集合,用户判断前台的页面跳转
 	 * watchState 观看状态  0 免费观看  1 需要付费  2 需要密码
@@ -49,24 +41,22 @@ public class CCVideoController {
 	 * type: 1直播  2点播 3音频 
 	 * multimedia_type：1 视频 2 音频
 	 */
-	@RequestMapping("commonCourseStatus")
+	@RequestMapping("palyCode")
 	@ResponseBody
 	public ResponseObject commonCourseStatus(HttpServletRequest req,
 											 HttpServletResponse res)throws Exception {
-		//http://spark.bokecc.com/api/video/playcode
+		
 		String playerwidth = req.getParameter("playerwidth");
 		String playerheight = req.getParameter("playerheight");
 		String videoId = req.getParameter("videoId");
 		String multimedia_type = req.getParameter("multimedia_type");
 		String smallImgPath = req.getParameter("smallImgPath");
-		boolean autoplay = true;
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", "B5E673E55C702C42");
 		paramsMap.put("videoid", videoId);
 		paramsMap.put("auto_play", "false");
 		paramsMap.put("player_width", playerwidth);
 		
-		//cc_A9067DA7F5AA34C39C33DC5901307461    A9067DA7F5AA34C39C33DC5901307461
 		BigDecimal decimal = new BigDecimal(playerheight);
 		BigDecimal setScale = decimal.setScale(0,BigDecimal.ROUND_HALF_DOWN);
 		paramsMap.put("player_height",setScale+"");

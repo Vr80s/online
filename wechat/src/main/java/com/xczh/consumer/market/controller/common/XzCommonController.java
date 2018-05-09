@@ -1,18 +1,13 @@
 package com.xczh.consumer.market.controller.common;
 
-import java.security.MessageDigest;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.user.center.bean.ItcastUser;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,19 +20,16 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.MessageService;
-import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.user.center.bean.ThridFalg;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.VersionInfoVo;
-import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczhihui.common.util.SLEmojiFilter;
-import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.online.api.service.CommonApiService;
-import com.xczhihui.online.api.service.RechargesService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.online.api.service.CommonApiService;
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.user.center.bean.ThridFalg;
 
 /**
  * 通用控制器 ClassName: CommonController.java <br>
@@ -49,13 +41,9 @@ import com.xczhihui.course.service.ICourseService;
 @Controller
 @RequestMapping("/xczh/common")
 public class XzCommonController {
-
-	@Autowired
-	private OnlineCourseService onlineCourseService;
 	
 	@Autowired
 	private AppBrowserService appBrowserService;
-
 	
 	@Autowired
 	private VersionService versionService;
@@ -72,8 +60,7 @@ public class XzCommonController {
 	@Autowired
 	private ICourseService courseServiceImpl;
 	
-	@Autowired
-	private RechargesService rechargesService;
+
 	
 	@Autowired
 	private CacheService cacheService;
@@ -88,12 +75,11 @@ public class XzCommonController {
 	@Value("${gift.im.room.postfix}")
 	private String postfix;
 	@Value("${gift.im.boshService}")
-	private String boshService;//im服务地址
+	private String boshService;
 	@Value("${gift.im.host}")
 	private  String host;
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory
-			.getLogger(XzCommonController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(XzCommonController.class);
 	
 	
 	/**
@@ -142,6 +128,42 @@ public class XzCommonController {
 	}
 	
 	
+	/**
+	 * app端 tokenfilter 验证token是否有效
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "checkToken")
+	@ResponseBody
+	public ResponseObject checkToken(HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
+		
+		String token = req.getParameter("token");
+		if (!StringUtils.isNotBlank(token)) {
+			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
+		}
+		OnlineUser ou = cacheService.get(token);
+		if (null == ou) {
+			return ResponseObject.newErrorResponseObject("已过期", 1002);
+		} else if (null != ou && cacheService.get(ou.getId()) != null && cacheService.get(ou.getId()).equals(token)) {
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		} else if (ou.getLoginName() != null) {
+//			 String model = cacheService.get(ou.getLoginName());
+//			 if(model!=null){ 
+//				 return  ResponseObject.newErrorResponseObject(model,1005); 
+//			 }else {
+//				 return  ResponseObject.newErrorResponseObject("其他设备",1005);
+//			 } 
+			 //return  ResponseObject.newErrorResponseObject(model,1005); 
+			//暂时有效，为了方便测试使用
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		} else {
+			return ResponseObject.newSuccessResponseObject("有效", 1000);
+		}
+	}
+	
 	
    /**
     * Description：获取IM服务连接配置信息
@@ -171,7 +193,13 @@ public class XzCommonController {
 		}
    }
 		
-	
+   /**
+    * 意见反馈接口
+    * @param req
+    * @param content
+    * @return
+    * @throws Exception
+    */
    @RequestMapping("addOpinion")
    @ResponseBody
    public ResponseObject addOpinion(HttpServletRequest req,
@@ -234,8 +262,9 @@ public class XzCommonController {
 
 		return ResponseObject.newSuccessResponseObject(newVer);
 	}
+	
+	
 	public static void main(String[] args) {
-		
 		String userVersion = "2.2.1";
 		String newVersion = "2.2.2";
 		int diff = VersionCompareUtil.compareVersion(newVersion, userVersion);
@@ -246,91 +275,17 @@ public class XzCommonController {
 		}
 	}
 	/**
-	 * Description：微吼签名认证得到微吼的视频播放权
-	 * 
+	 * 获取 同环境下的 pc端主域名
 	 * @param req
 	 * @param res
 	 * @return
 	 * @throws Exception
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>
-	 *         email: 15936216273@163.com
 	 */
-	@RequestMapping("getWeihouSign")
-	@ResponseBody
-	public ResponseObject getWeihouSign(HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
-		
-		Map<String,String> params=new HashMap<>();
-		params.put("token",req.getParameter("token"));
-		String roomNumber = req.getParameter("video");  //视频id
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		String gvhallId = user.getVhallId();
-		LOGGER.info("微吼gvhallId:"+gvhallId);
-		String email = user.getLoginName();
-		if(email!=null && email.indexOf("@")==-1){
-			email+="@163.com";
-		}
-		Date d = new Date();
-		String start_time = d.getTime() + "";
-		start_time = start_time.substring(0, start_time.length() - 3);
-		Map<String,String> map = new TreeMap<String,String>();
-		map.put("app_key", WeihouInterfacesListUtil.APP_KEY);  //微吼key
-		map.put("signedat", start_time); //时间戳，精确到秒  
-		map.put("email", email);         //email 自己写的
-		map.put("roomid", roomNumber);   //视频id
-		map.put("account",user.getId());       //用户帐号
-		map.put("username",user.getName());      //用户名
-		map.put("sign", WeihouInterfacesListUtil.getSign(map));
-		return ResponseObject.newSuccessResponseObject(map);
-	}
-
-
-	/**
-	 * Description：pc端分享
-	 * 
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>
-	 *         email: 15936216273@163.com
-	 */
-	@RequestMapping("pcShareLink")
-	public void pcShareLink(HttpServletRequest req, HttpServletResponse res,
-			@RequestParam("courseId")Integer courseId) throws Exception {
-		/*
-		 * 这里需要判断下是不是微信浏览器
-		 */
-		String wxOrbrower = req.getParameter("wxOrbrower"); // 视频id
-		if (StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)) {
-			String strLinkHome = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="
-					+ WxPayConst.gzh_appid
-					+ "&redirect_uri="
-					+ returnOpenidUri
-					+ "/bxg/wxpay/h5ShareGetWxUserInfo?courseId="
-					+ courseId
-					+ "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
-							.replace("appid=APPID", "appid="
-									+ WxPayConst.gzh_appid);
-			res.sendRedirect(strLinkHome);
-		} else if (StringUtils.isNotBlank(wxOrbrower)
-				&& "brower".equals(wxOrbrower)) {
-			res.sendRedirect(returnOpenidUri
-					+ "/bxg/wxpay/h5ShareGetWxUserInfo?courseId=" + courseId
-					+ "&wxOrbrower=brower");//
-		}
-	}
-
-
 	@RequestMapping("getDomain")
 	@ResponseBody
 	public ResponseObject getDomain(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		try {
-			
 			return ResponseObject.newSuccessResponseObject(webdomain);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -338,6 +293,13 @@ public class XzCommonController {
 		}
 	}
 
+	/**
+	 * 得到服务器当前时间的毫秒值
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("getSystemTime")
 	@ResponseBody
 	public String getSystemTime(HttpServletRequest req, HttpServletResponse res)
@@ -347,7 +309,7 @@ public class XzCommonController {
 		return l.toString();
 	}
 	/**
-	 * Description：获取问题
+	 * Description：获取 所有问题
 	 * @param req
 	 * @param res
 	 * @return
@@ -357,7 +319,7 @@ public class XzCommonController {
 	 */
 	@RequestMapping(value="getProblems")
 	@ResponseBody
-	public ResponseObject JobVo(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ResponseObject getProblems(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		return ResponseObject.newSuccessResponseObject(commonApiService.getProblems("common_problems"));
     }
 	
@@ -372,123 +334,9 @@ public class XzCommonController {
 	 */
 	@RequestMapping(value="getProblemAnswer")
 	@ResponseBody
-	public ResponseObject JobVo(HttpServletRequest req, HttpServletResponse res,
+	public ResponseObject getProblemAnswer(HttpServletRequest req, HttpServletResponse res,
 			@RequestParam("id")String id) throws Exception {
 		return ResponseObject.newSuccessResponseObject(commonApiService.getProblemAnswer(id));
     }
-
 	
-	
-	/**
-	 * Description：获取充值列表
-	 * @param req
-	 * @param res
-	 * @return
-	 * @throws Exception
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 */
-	@RequestMapping(value="rechargeList")
-	@ResponseBody
-	public ResponseObject rechargeList(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		
-		return ResponseObject.newSuccessResponseObject(rechargesService.getRecharges());
-    }
-	
-	
-	@RequestMapping(value = "checkToken")
-	@ResponseBody
-	public ResponseObject checkToken(HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
-		
-		String token = req.getParameter("token");
-		if (!StringUtils.isNotBlank(token)) {
-			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
-		}
-		OnlineUser ou = cacheService.get(token);
-		if (null == ou) {
-			return ResponseObject.newErrorResponseObject("已过期", 1002);
-		} else if (null != ou && cacheService.get(ou.getId()) != null && cacheService.get(ou.getId()).equals(token)) {
-			return ResponseObject.newSuccessResponseObject("有效", 1000);
-		} else if (ou.getLoginName() != null) {
-//			 String model = cacheService.get(ou.getLoginName());
-//			 if(model!=null){ 
-//				 return  ResponseObject.newErrorResponseObject(model,1005); 
-//			 }else {
-//				 return  ResponseObject.newErrorResponseObject("其他设备",1005);
-//			 } 
-			 //return  ResponseObject.newErrorResponseObject(model,1005); 
-			//暂时有效，为了方便测试使用
-			return ResponseObject.newSuccessResponseObject("有效", 1000);
-		} else {
-			return ResponseObject.newSuccessResponseObject("有效", 1000);
-		}
-	}
-	
-	
-	
-	
-	public String getSign(Map<String, String> signkv) {
-		Set<String> keySet = signkv.keySet();
-		Iterator<String> iter = keySet.iterator();
-		StringBuilder sb = new StringBuilder();
-		// String APP_SECRET_KEY = "1898130bad871d1bf481823ba1f3ffb1";
-		sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
-		while (iter.hasNext()) {
-			String key = iter.next();
-			// LOGGER.info(key + ":" + signkv.get(key));
-			sb.append(key + signkv.get(key));
-		}
-		sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
-		// LOGGER.info(sb.toString());
-		// LOGGER.info(getMD5(sb.toString()));
-		return getMD5(sb.toString());
-	}
-
-	/**
-	 * 生成md5
-	 * 
-	 * @param message
-	 * @return
-	 */
-	public static String getMD5(String message) {
-		String md5str = "";
-		try {
-			// 1 创建一个提供信息摘要算法的对象，初始化为md5算法对象
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			// 2 将消息变成byte数组
-			byte[] input = message.getBytes();
-			// 3 计算后获得字节数组,这就是那128位了
-			byte[] buff = md.digest(input);
-			// 4 把数组每一字节（一个字节占八位）换成16进制连成md5字符串
-			md5str = bytesToHex(buff);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return md5str.toLowerCase();
-	}
-
-	/**
-	 * 二进制转十六进制
-	 * 
-	 * @param bytes
-	 * @return
-	 */
-	public static String bytesToHex(byte[] bytes) {
-		StringBuffer md5str = new StringBuffer();
-		// 把数组每一字节换成16进制连成md5字符串
-		int digital;
-		for (int i = 0; i < bytes.length; i++) {
-			digital = bytes[i];
-
-			if (digital < 0) {
-				digital += 256;
-			}
-			if (digital < 16) {
-				md5str.append("0");
-			}
-			md5str.append(Integer.toHexString(digital));
-		}
-		return md5str.toString().toUpperCase();
-	}
 }

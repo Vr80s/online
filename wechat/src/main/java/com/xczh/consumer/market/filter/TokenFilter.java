@@ -55,8 +55,8 @@ public class TokenFilter implements Filter {
 		
 	/***************************************************
 	 * 
-	 * 
 	 * 	上面的是以前的拦截和不应该拦截的方法
+	 * 
 	 * 
 	 * **************************************************
 	 */
@@ -67,7 +67,8 @@ public class TokenFilter implements Filter {
 	private static String new_controller_share_before ="/xczh/share";
 	
 	//各种第三方前的登录不需要拦截
-	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,/xczh/weibo,/xczh/third,/xczh/wxpublic";
+	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,"
+			+ "/xczh/weibo,/xczh/third,/xczh/wxpublic";
 	
 	//微信，支付宝支付回调、评论列表不需要拦截 -- 这个是直接等于的  
 	private static String new_controller_pay_the_callback ="/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,"
@@ -93,7 +94,6 @@ public class TokenFilter implements Filter {
 	 */
 	private static String new_controller_specific_business_two
 	  = "/xczh/host,/xczh/course";
-	
 	
 	/**
 	 * 这个可以写特殊强调的要拦截的啊
@@ -221,11 +221,9 @@ public class TokenFilter implements Filter {
 		    	response.setContentType("application/json; charset=utf-8");  
 		    	
 		    	if(currentURL.indexOf("/bxg")!=-1) { //以前接口
-		    		
 		    		ResponseObject obj = new ResponseObject();
 		    		obj.setSuccess(false);
 		    		obj.setErrorMessage("请使用最新版本app!");
-		    		
 		    		PrintWriter out = response.getWriter();//获取PrintWriter输出流
 		    		out.println(obj);
 		    		out.flush();

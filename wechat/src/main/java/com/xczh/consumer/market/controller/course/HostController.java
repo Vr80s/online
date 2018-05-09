@@ -45,13 +45,9 @@ public class HostController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	
 	@Autowired
 	@Qualifier("focusServiceRemote")
 	private IFocusService focusServiceRemote;
-	
-	@Autowired
-	private OnlineWebService onlineWebService;
 	
 	@Autowired
 	private IMedicalHospitalApplyService medicalHospitalApplyService;
@@ -97,12 +93,7 @@ public class HostController {
 		if(lecturerInfo == null){
 			return ResponseObject.newErrorResponseObject("获取医师信息有误");
 		}
-//		if(lecturerInfo.get("detail")!=null){
-//			//设置富文本的url连接
-//			lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
-//		}else{
-//			lecturerInfo.put("richHostDetailsUrl", null);
-//		}
+
 		lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		MedicalHospital mha = null;
@@ -128,7 +119,7 @@ public class HostController {
 	    	mapAll.put("isFours", 0); 
 	    }else{
 	    	Integer isFours  = focusServiceRemote.isFoursLecturer(user.getId(), lecturerId);
-			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
+			mapAll.put("isFours", isFours); 
 	    }
 		/**
 		 * 此主播最近一次的直播
@@ -163,7 +154,7 @@ public class HostController {
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("后台数据异常");
+			return ResponseObject.newErrorResponseObject("网络开小差");
 		}
 	}
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.online.api.service.GiftService;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.online.api.service.GiftService;
 
 
 /**
@@ -35,10 +35,6 @@ import com.xczhihui.common.util.enums.OrderFrom;
 @RequestMapping(value = "/xczh/gift")
 public class XzGiftController {
 
-	
-/*	@Autowired
-	@Qualifier("giftServiceLocal")
-	private GiftService localGiftService;*/
 	
 	@Autowired()
 	@Qualifier("giftServiceImpl")
@@ -75,17 +71,6 @@ public class XzGiftController {
 	@RequestMapping(value = "/list")
 	public ResponseObject list(HttpServletRequest req,HttpServletResponse res) throws SQLException {
 		
-		
-		
-		int pageNumber = 0;
-		if(null != req.getParameter("pageNumber")){
-			pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
-		}
-		int pageSize = 10;
-		if(null != req.getParameter("pageSize")){
-			pageSize = Integer.valueOf(req.getParameter("pageSize"));
-		}
-		pageSize = Integer.MAX_VALUE;
 		return ResponseObject.newSuccessResponseObject(remoteGiftService.getGift());
 	}
 
@@ -104,12 +89,10 @@ public class XzGiftController {
 	@RequestMapping(value = "/sendGift")
 	public ResponseObject sendGift(HttpServletRequest req,
 			HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
-
 		OnlineUser user =appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		
 		LOGGER.info("====================="+user.getId());
 		String giftId = req.getParameter("giftId");
 		String liveId = req.getParameter("liveId");
