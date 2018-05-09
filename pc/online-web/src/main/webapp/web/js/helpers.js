@@ -553,11 +553,11 @@
     		a+='<a href="'+url+'" class="reser-btn" ><img src="/web/images/yugao/guankan.png" alt="" />直播中</a>\n';
     	}else{
             url='/course/courses/'+id;
-    		if(isSubscribe==1){
-    			a+='<a href="javascript:;" class="reser-btn"><img src="/web/images/yugao/yuyue.png" alt="" />已预约</a>\n'
-    		}else{
-    			a+='<a href="javascript:;" class="reser-btn dianwo" subscribeId="'+id+'" startTime="'+showFormatDateString+'"><img src="/web/images/yugao/yuyue.png" alt="" />预约</a>\n' ;
-    		}
+    		// if(isSubscribe==1){
+    			a+='<a href="'+url+'" class="reser-btn"><img src="/web/images/yugao/yuyue.png" alt="" />预告</a>\n'
+    		// }else{
+    		// 	a+='<a href="javascript:;" class="reser-btn dianwo" subscribeId="'+id+'" startTime="'+showFormatDateString+'"><img src="/web/images/yugao/yuyue.png" alt="" />预约</a>\n' ;
+    		// }
     	}
     	return a+ '<span class="cover poi" onclick="jump(\''+url+'\')">\n' +
         '<span class="cover_img">\n' +

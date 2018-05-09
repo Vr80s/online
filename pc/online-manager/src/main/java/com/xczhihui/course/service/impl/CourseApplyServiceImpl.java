@@ -13,6 +13,7 @@ import com.xczhihui.course.dao.CourseApplyDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.service.CourseApplyService;
 import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.MessageRemindingService;
 import com.xczhihui.message.dao.MessageDao;
 import com.xczhihui.order.vo.MessageShortVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -51,6 +52,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 	private CourseDao courseDao;
 	@Autowired
 	private CCUtils ccUtils;
+	@Autowired
+	private MessageRemindingService messageRemindingService;
+
 	@Value("${vhall.user.id}")
 	private String liveVhallUserId;
 	@Value("${vhall.callback.url}")
@@ -385,6 +389,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 			course.setCreateTime(new Date());
 			dao.save(course);
 		}
+		savecourseMessageReminding(course);
 		return course;
 	}
 
@@ -438,4 +443,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 		webinar.setLayout(entity.getDirectSeeding()+"");
 		return VhallUtil.updateWebinar(webinar);
 	}
+
+	void savecourseMessageReminding(Course course){
+		if(course.getType().equals(CourseForm.LIVE.getCode())){
+			messageRemindingService.saveCourseMessageReminding(course);
+		}
+	}
+
 }
