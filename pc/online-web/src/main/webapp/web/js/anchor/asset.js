@@ -258,8 +258,12 @@ function saveBankCard() {
 							hideDel_bank()
 						} else {
 							if(data.errorMessage == "无效卡号") {
+                                $("#content_add_name").css("border","1px solid #F0F0F0");
+                                $("#content_add_card").css("border","2px solid red");
 								$("#content_add_card").focus();
 							} else if(data.errorMessage == "持卡人认证失败") {
+                                $("#content_add_name").css("border","2px solid red");
+                                $("#content_add_card").css("border","1px solid #F0F0F0");
 								$("#content_add_name").focus();
 							}
 							showTip(data.errorMessage);
@@ -290,8 +294,16 @@ function saveBankCard() {
 				//	            	  }
 			} else {
 				if(data.errorMessage == "无效卡号") {
+                    $("#content_add_name").css("border","1px solid #F0F0F0");
+                    $("#content_add_card").css("border","1px solid #FF4012");
+                    $('.content_add_card_error').removeClass('hide');
+                    $('.content_add_name_error').addClass('hide');
 					$("#content_add_card").focus();
 				} else if(data.errorMessage == "持卡人认证失败") {
+                    $("#content_add_name").css("border","1px solid #FF4012");
+                    $("#content_add_card").css("border","1px solid #F0F0F0");
+                    $('.content_add_name_error').removeClass('hide');
+                    $('.content_add_card_error').addClass('hide');
 					$("#content_add_name").focus();
 				}
 				showTip(data.errorMessage);
