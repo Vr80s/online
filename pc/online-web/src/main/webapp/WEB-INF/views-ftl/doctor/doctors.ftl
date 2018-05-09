@@ -266,7 +266,7 @@
             <!-- 名医书籍 -->
             <div class="teacher_books">
                 <div id="">
-                    <h4>名医书籍</h4>
+                    <h4>名医著作</h4>
                     <a href="${webUrl}/doctors/writing">
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </a>
