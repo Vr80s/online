@@ -43,7 +43,7 @@ public class CcVideoController {
 	 */
 	@RequestMapping("palyCode")
 	@ResponseBody
-	public ResponseObject commonCourseStatus(HttpServletRequest req,
+	public ResponseObject palyCode(HttpServletRequest req,
 											 HttpServletResponse res)throws Exception {
 		
 		String playerwidth = req.getParameter("playerwidth");
