@@ -78,6 +78,8 @@ public class CourseController {
 			HttpServletResponse res, 
 			@RequestParam("courseId") Integer courseId)
 			throws Exception {
+		
+		
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -276,7 +278,6 @@ public class CourseController {
 	 *
 	 */
 	public Double criticizeStartLevel(Double startLevel) {
-
 		if (startLevel != null && startLevel != 0) { // 不等于0
 			String b = startLevel.toString();
 			if (b.length() > 1
@@ -303,12 +304,4 @@ public class CourseController {
 		System.out.println(r.nextInt(3));
 		System.out.println((int)(30*Math.random()));
 	}
-	
-	
-	public static void nihao (){
-		
-	}
-	
-	
-
 }

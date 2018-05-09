@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	var map;
     $.ajax({
-        url: '/xczh/common/getWeihouSign',
+        url: '/xczh/vhall/vhallJssdkVerify',
         method: 'get',
         data: {videoId:videoId},
         dataType: 'json',
