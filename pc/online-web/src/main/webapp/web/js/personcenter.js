@@ -347,7 +347,7 @@ $(function() {
 		"<div class='form-group '>" +
 		"<label class='fl control-label'><span class='required_01'>*</span>标题</label>" +
 		"<div class='col-sm-7'>" +
-		"<input  type='text' class='view_01 text-title  require idea-title' placeholder='5-50字之间' maxlength='50'  id='title'>" +
+		"<input  type='text' class='view_01 text-title  require idea-title' autocomplete='off' placeholder='5-50字之间' maxlength='50'  id='title'>" +
 		"</div>" +
 		"<label for='miaoshu' class='control-label error-msg'><img src='../images/tanhao.png'><span>标题5~50字之间</span></label>" +
 		"</div>" +
