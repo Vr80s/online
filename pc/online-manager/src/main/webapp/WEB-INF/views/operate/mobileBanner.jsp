@@ -739,10 +739,9 @@
 		
 	    <div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="imgHref"><font color="red">*</font>链接地址: </label>
+			 <label class="col-sm-3 control-label no-padding-right" for="imgHref"><font color="red">*</font>链接条件: </label>
 			 <div class="col-sm-6">
-               		<textarea name="url"  id="update_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
-               		</textarea>
+               		<textarea name="url"  id="update_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}"></textarea>
              </div>
 		</div>
 

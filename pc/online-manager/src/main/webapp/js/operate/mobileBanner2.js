@@ -272,6 +272,7 @@ $(".add_bx").click(function(){
 	$("#yqti_textarea").val("");
 	$("#add_url").attr("placeholder","");
 	
+	
 	//hhahahahhah(3);
 	debugger;
 	mobileBannerForm.resetForm();
@@ -369,51 +370,23 @@ function lalalalalalala(linkTypeValue){
  * @returns
  */
 function getValueByStr(search,name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = search.match(reg);
+//    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+//    var r = search.match(reg);
+//    if (r != null) return unescape(r[2]); return null;
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = "";
+    if(search.indexOf("?")!=-1){
+       r = search.substr(search.indexOf("?")+1).match(reg);
+    }else{
+       r = search.match(reg);
+    }
     if (r != null) return unescape(r[2]); return null;
 }
-/*
- * 点击banner跳转
- */
-function bannerJump(type,params){
-	
-	if(!stringnull(params)){
-		console.error("banner参数不可以是空的");
-		return;
-	}
-	//1：活动页、2：专题页、3：课程:4：主播:5：课程列表
-	if(type == 1 || type == 2){
-		console.error("暂时不支持活动和专题");
-		return;
-	}else if(type == 3){
-		
-		var courseId = getValueByStr(params,"course_id");
-		//alert("courseId:"+courseId);
-		//课程跳转
-		common_jump_all(courseId);
-		
-	}else if(type == 4){
-		//主播跳转
-		var userLecturerId = getValueByStr(params,"userLecturerId");
-		//alert("userLecturerId:"+userLecturerId);
-		location.href="/xcview/html/live_personal.html?userLecturerId="+userLecturerId;
-	}else if(type == 5){
-		//var userLecturerId = getValueByStr(params,"userLecturerId");
-		//alert("params:"+params);
-		location.href="/xcview/html/curriculum_table.html?"+params;
-	}else{
-		console.error("banner类型有误");
-		return;
-	}
-}
-
-
-
 
 function updateMobileBanner(obj){
 	
-	$("#yqti_div_edit").hide();
+	debugger;
+	//$("#yqti_div_edit").hide();
 	$("#yqti_textarea_edit").val("");
 	$("#update_url").attr("placeholder","");
 	
@@ -428,6 +401,8 @@ function updateMobileBanner(obj){
 	
 	var params = row.url;
 	
+	
+	debugger;
 	//把这个伟大的url截取一下
     if(linkType == 3){
 		var courseId = getValueByStr(params,"course_id");
@@ -435,6 +410,8 @@ function updateMobileBanner(obj){
     }else if(linkType == 4){
     	var userLecturerId = getValueByStr(params,"userLecturerId");
     	$("#update_url").val(userLecturerId);
+    }else if(linkType == 4){
+    	$("#update_url").val(params);
     }
     lalalalalalala(linkType);
 	
@@ -448,13 +425,7 @@ function updateMobileBanner(obj){
 			$("#update_linkType").val(linkType);
 		}
     }
-	
-	
-	
-	
-	
-	
-	
+
 	reviewImage("update_imgPath_file",row.imgPath);
 	
 	var dialog = openDialog("updateMobileBannerDialog","dialogUpdateMobileBannerDiv","修改",580,500,true,"确定",function(){
