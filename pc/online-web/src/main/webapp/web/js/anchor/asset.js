@@ -271,16 +271,38 @@ function saveBankCard() {
 							initBasaeAssetInfo();
 							hideDel_bank()
 						} else {
-							if(data.errorMessage == "无效卡号") {
+                            if(data.errorMessage == "无效卡号") {
                                 $("#content_add_name").css("border","1px solid #F0F0F0");
-                                $("#content_add_card").css("border","2px solid red");
-								$("#content_add_card").focus();
-							} else if(data.errorMessage == "持卡人认证失败") {
-                                $("#content_add_name").css("border","2px solid red");
+                                $("#content_add_card").css("border","1px solid #FF4012");
+                                $('.content_add_card_error').removeClass('hide');
+                                $('.content_add_name_error').addClass('hide');
+                                $('.content_add_card_format_error').addClass('hide');
+                                $('.content_add_card_allerror').addClass('hide');
+                                $("#content_add_card").focus();
+                            } else if(data.errorMessage == "持卡人认证失败") {
+                                $("#content_add_name").css("border","1px solid #FF4012");
                                 $("#content_add_card").css("border","1px solid #F0F0F0");
-								$("#content_add_name").focus();
-							}
-							showTip(data.errorMessage);
+                                $('.content_add_name_error').removeClass('hide');
+                                $('.content_add_card_error').addClass('hide');
+                                $('.content_add_card_format_error').addClass('hide');
+                                $('.content_add_card_allerror').addClass('hide');
+                                $("#content_add_name").focus();
+                            } else if(data.errorMessage == "银行卡格式有误"){
+                                $("#content_add_name").css("border","1px solid #F0F0F0");
+                                $("#content_add_card").css("border","1px solid #FF4012");
+                                $('.content_add_card_format_error').removeClass('hide');
+                                $('.content_add_card_error').addClass('hide');
+                                $('.content_add_name_error').addClass('hide');
+                                $('.content_add_card_allerror').addClass('hide');
+                                $("#content_add_card").focus();
+                            } else {
+                                $(".content_add_card_allerror").html(data.errorMessage)
+                                $('.content_add_card_allerror').removeClass('hide');
+                                $('.content_add_name_error').addClass('hide');
+                                $('.content_add_card_error').addClass('hide');
+                                $('.content_add_card_format_error').addClass('hide');
+
+                            }
 							hideDel_bank()
 						}
 					},false)
@@ -312,15 +334,33 @@ function saveBankCard() {
                     $("#content_add_card").css("border","1px solid #FF4012");
                     $('.content_add_card_error').removeClass('hide');
                     $('.content_add_name_error').addClass('hide');
+                    $('.content_add_card_format_error').addClass('hide');
+                    $('.content_add_card_allerror').addClass('hide');
 					$("#content_add_card").focus();
 				} else if(data.errorMessage == "持卡人认证失败") {
                     $("#content_add_name").css("border","1px solid #FF4012");
                     $("#content_add_card").css("border","1px solid #F0F0F0");
                     $('.content_add_name_error').removeClass('hide');
                     $('.content_add_card_error').addClass('hide');
+                    $('.content_add_card_format_error').addClass('hide');
+                    $('.content_add_card_allerror').addClass('hide');
 					$("#content_add_name").focus();
+				} else if(data.errorMessage == "银行卡格式有误"){
+                    $("#content_add_name").css("border","1px solid #F0F0F0");
+                    $("#content_add_card").css("border","1px solid #FF4012");
+                    $('.content_add_card_format_error').removeClass('hide');
+                    $('.content_add_card_error').addClass('hide');
+                    $('.content_add_name_error').addClass('hide');
+                    $('.content_add_card_allerror').addClass('hide');
+                    $("#content_add_card").focus();
+				} else {
+                    $(".content_add_card_allerror").html(data.errorMessage)
+                    $('.content_add_card_allerror').removeClass('hide');
+                    $('.content_add_name_error').addClass('hide');
+                    $('.content_add_card_error').addClass('hide');
+                    $('.content_add_card_format_error').addClass('hide');
+
 				}
-				showTip(data.errorMessage);
 				//		                hideDel_bank()
 			}
 			//	        });
@@ -472,42 +512,53 @@ function verifyBankCard(data) {
 	//户名
 	if(!isNv(data.acctName)) {
 		$('.content_add_name_warn').removeClass('hide');
+        $("#content_add_name").css("border","1px solid #FF4012");
 		$("#content_add_name").focus();
 		return false;
 	} else {
+        $("#content_add_name").css("border","1px solid #F0F0F0");
 		$('.content_add_name_warn').addClass('hide');
 	}
 
 	//卡号
 	if(!isNv(data.acctPan)) {
 		$('.content_add_card_warn').removeClass('hide');
+        $("#content_add_card").css("border","1px solid #FF4012");
 		$("#content_add_card").focus();
 		return false;
 	} else {
+        $("#content_add_card").css("border","1px solid #F0F0F0");
 		$('.content_add_card_warn').addClass('hide');
 	}
 
 	//选择银行
 	if(!isNv(data.tel)) {
 		$('.content_add_bank_warn').removeClass('hide');
+        $("#content_add_bank").css("border","1px solid #FF4012");
 		return false;
 	} else {
+        $("#content_add_bank").css("border","1px solid #F0F0F0");
 		$('.content_add_bank_warn').addClass('hide');
 	}
 
 	//身份证号
 	if(!isNv(data.certId)) {
 		$('.content_add_idCard_warn').removeClass('hide');
+        $("#content_add_idCard").css("border","1px solid #FF4012");
 		$("#content_add_idCard").focus();
 		return false;
 	} else {
+        $("#content_add_idCard").css("border","1px solid #F0F0F0");
 		$('.content_add_idCard_warn').addClass('hide');
 	}
 	//身份证号
 	if(!isCardID(data.certId)) {
 		$('.content_add_idCard_gs_warn').removeClass('hide');
+        $("#content_add_idCard").css("border","1px solid #FF4012");
+        $("#content_add_idCard").focus();
 		return false;
 	} else {
+        $("#content_add_idCard").css("border","1px solid #F0F0F0");
 		$('.content_add_idCard_gs_warn').addClass('hide');
 	}
 	return true;

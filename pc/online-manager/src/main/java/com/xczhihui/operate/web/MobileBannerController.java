@@ -86,6 +86,23 @@ public class MobileBannerController {
 	public ResponseObject addMobileBanner(MobileBannerVo mobileBannerVo,
 			HttpServletRequest request) {
 		mobileBannerVo.setCreatePerson(ManagerUserUtil.getUsername());
+		
+		
+//		  if(linkType == 3){
+//				var courseId = getValueByStr(params,"course_id");
+//				$("#update_url").val(courseId);
+//		    }else if(linkType == 4){tl
+//		    	var userLecturerId = getValueByStr(params,"userLecturerId");
+//		    	$("#update_url").val(userLecturerId);
+//		    }
+		//课程
+		if(mobileBannerVo.getLinkType().equals(3)) {
+			mobileBannerVo.setUrl("course_id="+mobileBannerVo.getUrl());
+		//主讲人	
+		}else if(mobileBannerVo.getLinkType().equals(4)) {
+			mobileBannerVo.setUrl("userLecturerId="+mobileBannerVo.getUrl());
+		}
+		
 		mobileBannerService.addMobileBanner(mobileBannerVo);
 		return ResponseObject.newSuccessResponseObject("新增成功!");
 	}
@@ -100,6 +117,15 @@ public class MobileBannerController {
 	@RequestMapping(value = "updateMobileBannerById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateMobileBannerById(MobileBannerVo mobileBannerVo) {
+		
+		//课程
+		if(mobileBannerVo.getLinkType().equals(3)) {
+			mobileBannerVo.setUrl("course_id="+mobileBannerVo.getUrl());
+		//主讲人	
+		}else if(mobileBannerVo.getLinkType().equals(4)) {
+			mobileBannerVo.setUrl("userLecturerId="+mobileBannerVo.getUrl());
+		}
+		
 		mobileBannerService.updateMobileBanner(mobileBannerVo);
 		return ResponseObject.newSuccessResponseObject("修改成功!");
 	}

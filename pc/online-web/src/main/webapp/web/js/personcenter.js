@@ -818,7 +818,7 @@ $(function() {
 //                     '<li><span>黄飞虎</span><span>赵日天</span><span>元婴期</span><span>赵日天</span><span>2017-12-05</span><span onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>'+
                ' </ul>'+
             '</div>'+
-            '<div id="noResult" class="hide" style=" text-align: center;padding-top: 150px;color: #ccc;"><img src="/web/images/nobank.png" alt="" "><p>暂无相关记录</p></div>'+
+            '<div id="noResult" class="hide" style=" text-align: center;padding-top: 60px;color: #ccc;"><img src="/web/images/nobank.png" alt="" "><p>暂无相关记录</p></div>'+
         '</div>'+
         '</div>'+
     	

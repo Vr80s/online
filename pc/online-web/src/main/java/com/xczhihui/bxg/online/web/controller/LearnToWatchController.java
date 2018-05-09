@@ -30,8 +30,8 @@ import com.xczhihui.course.vo.WatchHistoryVO;
 @RequestMapping("/learnWatch")
 public class LearnToWatchController extends AbstractController{
 
-	@Autowired
-	public IWatchHistoryService watchHistoryServiceImpl;
+	 @Autowired
+	 public IWatchHistoryService watchHistoryServiceImpl;
 
 	 @Autowired
      private CourseService service;
