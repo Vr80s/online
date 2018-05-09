@@ -51,9 +51,10 @@ public class BBSUserStatusDao extends SimpleHibernateDao {
 
     public Page<BBSOnlineUserVo> list(Map<String, Object> params,
                                       TableVo tableVo) {
-        String sql = "select u.id as id, u.name as nickname, u.mobile as mobile, s.is_gag as gags, s.is_blacklist as blacklist"
-                + " from oe_user u, bbs_user_status s"
-                + " where u.id = s.user_id and (:mobile is null OR u.mobile = :mobile)";
+        String sql = "select u.id as id, u.name as nickname, u.mobile as mobile, IFNULL(s.is_gag,0) AS gags,"
+                + " IFNULL(s.is_blacklist,0) AS blacklist "
+                + " from oe_user u left join bbs_user_status s on u.id = s.user_id"
+                + " where (:mobile is null OR u.mobile = :mobile)";
         return this.findPageBySQL(sql, params, BBSOnlineUserVo.class,
                 tableVo.getCurrentPage(), tableVo.getiDisplayLength());
     }
