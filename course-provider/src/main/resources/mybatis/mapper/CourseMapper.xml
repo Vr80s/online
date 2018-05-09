@@ -275,6 +275,7 @@
 	<select id="selectCoursesByCollectionId" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		oc.id,
+		oc.subtitle as subtitle,
 		oc.`grade_name` gradeName,
 		oc.`course_length` courseLength,
 		oc.`direct_id`  directId,
