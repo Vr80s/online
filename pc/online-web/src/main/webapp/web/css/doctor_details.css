@@ -219,10 +219,10 @@
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_title {
   font-size: 14px;
-  display: -webkit-box;
--webkit-box-orient: vertical;
--webkit-line-clamp: 1;
-overflow: hidden;
+  max-width: 240px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_address{
 	color: #666666;
