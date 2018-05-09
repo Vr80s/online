@@ -124,6 +124,7 @@ function createData() { //模板加载
 					geren();
 					
 				} else {
+
 					$('#login').modal('show');
 					$('#login').css("display", "block");
 					$(".loginGroup .logout").css("display", "block");
@@ -357,11 +358,11 @@ function geren() {
 			occupationOther:$('.zhiYe').val(),
 			occupation:$('.shenFen option:selected').attr('value'),
 		}, function(data) {
-			if(data.resultObject == "修改成功") {
-				$('.rTips').html('保存成功').fadeIn(500,function(){
-					$('.rTips').fadeOut(500)
-				});
-				
+			if(data.success == false){
+				showTip(data.errorMessage)			
+			}
+			if(data.success == true) {
+				showTip(data.resultObject)			
 				$(".intro .msg").remove();
 				$(".intro").append("<div class='msg' data-maxlengts='11'></div>");
 				$(".intro .name").text($(".firsname").val()).attr("title", $(".firsname").val())
