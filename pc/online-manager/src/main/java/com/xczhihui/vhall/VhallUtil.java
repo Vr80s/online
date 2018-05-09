@@ -508,7 +508,6 @@ public class VhallUtil {
 			
 			//回放个数长度
 			Integer count =jsonArray.size();
-			
 			for (Object jobj : jsonArray) {
 				JSONObject jsonObject = (JSONObject) jobj;
 				//回访时间相加
@@ -530,14 +529,14 @@ public class VhallUtil {
 					",回访生产失败标记failure_statusFlag:"+failure_statusFlag+
 					",回访生产失败标记generating_statusFlag:"+generating_statusFlag);
 			
+			//回放生成状态，0表示生成中，1表示生成成功，2表示生成失败
 			if(countDuration==0) {
 				return PlayBackType.GENERATION_FAILURE.getCode();
-			}else if( failure_statusFlag == count) {
+			}else if(failure_statusFlag.equals(count)) {
 				return PlayBackType.GENERATION_FAILURE.getCode();
-			}else if(generating_statusFlag == count) {
+			}else if(generating_statusFlag.equals(count)) {
 				return PlayBackType.GENERATION.getCode();
 			}
-			//回放生成状态，0表示生成中，1表示生成成功，2表示生成失败
 			return PlayBackType.GENERATION_SUCCESS.getCode();
 		} else {
 			return PlayBackType.GENERATION_FAILURE.getCode();
