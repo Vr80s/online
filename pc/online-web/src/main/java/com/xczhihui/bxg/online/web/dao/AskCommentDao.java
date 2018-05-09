@@ -60,14 +60,14 @@ public class AskCommentDao extends SimpleHibernateDao {
 	/**
 	 * 删除评论/回复
 	 * @param comment_id
+	 * @param user
 	 */
-	public void deleteComment(HttpServletRequest request,OnlineUser u,String comment_id){
+	public void deleteComment(OnlineUser u, String comment_id, User user){
 		String sql = "select create_person,answer_id,user_id from oe_ask_comment where id = ? and is_delete =0";
 		List<Map<String, Object>> check = this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql, comment_id);
 		if (check == null || check.size() <= 0) {
 			throw new RuntimeException(String.format("不存在"));
 		}
-		User user= (User) request.getSession().getAttribute("_adminUser_");
 		if(user == null){ //非管理员
 			if(!check.get(0).get("user_id").toString().equals(u.getId())){
 				throw new RuntimeException("您不是此评论的评论者，无权删除！");

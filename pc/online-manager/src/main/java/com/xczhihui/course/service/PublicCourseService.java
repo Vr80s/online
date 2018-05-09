@@ -39,15 +39,6 @@ public interface PublicCourseService {
 	void updateLiveStatus(ChangeCallbackVo changeCallbackVo);
 
 	/**
-	 * Description：初始化短信预约
-	 * 
-	 * @return void
-	 * @author name：yuxin <br>
-	 *         email: yuruixin@ixincheng.com
-	 **/
-	public void saveOpenCourseToSend();
-
-	/**
 	 * Description：通过申请id得到课程id
 	 * 
 	 * @param id

@@ -422,21 +422,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		}
 	}
 
-    /* (non-Javadoc)
-     * @see CourseService#initOpenCourseToSend()
-     */
-    @Override
-    public void saveOpenCourseToSend() {
-        List<Course> courseList = courseDao.getOpenCourseToSend();
-        for (Course course : courseList) {
-            if (!"dev".equals(envFlag)) {
-                Subscribe.setting(course.getId(), courseService, courseSubscribeDao);
-            }
-        }
-        System.out.println("======================初始化" + courseList.size() + "个直播课程预约======================");
-    }
-
-
     @Override
     public Course findCourseVoByLiveExanmineId(Integer id) {
         String hql = "from Course where examine_id = ?";
