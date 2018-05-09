@@ -513,7 +513,7 @@ textarea::-webkit-input-placeholder {
   float: right;
   vertical-align: top;
   padding: 0 30px;
-  min-height: 520px;
+  /*min-height: 520px;*/
   background-color: #fff;
   padding-bottom: 50px;
   /*.my-course {padding: 0px 8px;}*/
