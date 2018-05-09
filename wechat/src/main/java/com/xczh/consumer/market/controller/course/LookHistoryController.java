@@ -72,8 +72,8 @@ public class LookHistoryController {
 			
 			if(recordType!=null){
 				if(recordType == 1){ //增加学习记录
-					if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
-						  onlineWebService.saveEntryVideo(courseId, ou);
+					if(course.getWatchState() == 1){
+						  watchHistoryServiceImpl.addLearnRecord(lockId, courseId, ou.getId(), ou.getLoginName());
 				    }
 				}
 				if(recordType == 2){
@@ -82,7 +82,6 @@ public class LookHistoryController {
 					target.setUserId(ou.getId());
 					target.setLecturerId(course.getUserLecturerId());
 					target.setCollectionId(collectionId);
-					
 					watchHistoryServiceImpl.addOrUpdate(lockId,target);
 				}
 			
@@ -94,8 +93,8 @@ public class LookHistoryController {
 					target.setLecturerId(course.getUserLecturerId());
 					watchHistoryServiceImpl.addOrUpdate(lockId,target);
 				}
-				if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
-				   onlineWebService.saveEntryVideo(courseId, ou);
+				if(course.getWatchState() == 1){
+					 watchHistoryServiceImpl.addLearnRecord(lockId, courseId, ou.getId(), ou.getLoginName());
 				}
 			}
 			return ResponseObject.newSuccessResponseObject("保存成功");

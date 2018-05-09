@@ -144,15 +144,16 @@ public class CourseController {
 			/**
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
+			
+			Boolean falg = onlineWebService.getLiveUserCourse(courseId, user.getId());
 			//如果是付费课程，判断这个课程是否已经被购买了
 			if (cv.getWatchState() == 0) { // 付费课程
-				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
+				if (falg) {
 					cv.setWatchState(2);
 				}
-			}
-			//如果是免费的  判断是否学习过
-			if (cv.getWatchState() == 1) { // 付费课程
-				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 如果购买过返回true 如果没有购买返回false
+			//如果是免费的  判断是否学习过	
+			}else  if (cv.getWatchState() == 1) { // 付费课程
+				if (falg) {
 					cv.setLearning(1);
 				}
 			}
@@ -208,14 +209,16 @@ public class CourseController {
 			if (isFours != 0) {
 				cv.setIsFocus(1);
 			}
-			if (cv.getWatchState() == 0) {
-				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
+			
+			Boolean falg = onlineWebService.getLiveUserCourse(courseId, user.getId());
+			//如果是付费课程，判断这个课程是否已经被购买了
+			if (cv.getWatchState() == 0) { // 付费课程
+				if (falg) {
 					cv.setWatchState(2);
 				}
-			}
-			//如果是免费的  判断是否学习过
-			if (cv.getWatchState() == 1) {
-				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 如果购买过返回true 如果没有购买返回false
+			//如果是免费的  判断是否学习过	
+			}else  if (cv.getWatchState() == 1) { // 付费课程
+				if (falg) {
 					cv.setLearning(1);
 				}
 			}
