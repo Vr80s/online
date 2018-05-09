@@ -9,7 +9,6 @@ import java.util.Map;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
-import com.xczh.consumer.market.controller.live.CCVideoController;
 import com.xczh.consumer.market.utils.cc.APIServiceFunction;
 
 /**
@@ -21,7 +20,7 @@ import com.xczh.consumer.market.utils.cc.APIServiceFunction;
  */
 public class TestCCVideo {
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CCVideoController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TestCCVideo.class);
 
 	@Test
 	public void testTime(){
