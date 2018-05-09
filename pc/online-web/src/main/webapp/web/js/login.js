@@ -722,6 +722,7 @@ $(function () {
     }
 
     /*注册结束*/
+   //   点击忘记密码，把值存在缓存
 	$(".forgetPassword").click(function(){
 		var userPhone=$(".usernameBox .userName").val(),		
 			phoneNumber=/^[1][3,4,5,6,7,8][0-9]{9}$/;

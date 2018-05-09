@@ -737,4 +737,15 @@ $(function () {
         });
     }
 
+//   点击忘记密码，把值存在缓存
+	$(".atOnceResetPassword").click(function(){
+		var userPhone=$(".cyinput1").val(),		
+			phoneNumber=/^[1][3,4,5,6,7,8][0-9]{9}$/;
+		if(phoneNumber.test(userPhone) || userPhone==""){
+			localStorage.setPhone=userPhone;
+		}else{
+			localStorage.removeItem("setPhone")
+		}
+	})
+
 });
