@@ -220,8 +220,9 @@ public class TokenFilter implements Filter {
 		    }else{ 
 		    	response.setContentType("application/json; charset=utf-8");  
 		    	
-		    	if(currentURL.indexOf("/bxg")!=-1) { //以前接口
+		    	if(currentURL.indexOf("/bxg")!=-1) { 		 //以前接口
 		    		ResponseObject obj = new ResponseObject();
+		    		obj.setCode(1002);
 		    		obj.setSuccess(false);
 		    		obj.setErrorMessage("请使用最新版本app!");
 		    		PrintWriter out = response.getWriter();//获取PrintWriter输出流
