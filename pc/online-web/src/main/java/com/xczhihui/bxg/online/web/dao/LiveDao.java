@@ -244,7 +244,7 @@ public class LiveDao extends SimpleHibernateDao {
                     "  AND c.is_delete = 0 \n" +
                     "  AND c.status = 1 \n" + 
                     "ORDER BY broadcastState asc, recommendSort desc," +
-                    "  c.start_time asc");
+                    "  c.start_time desc");
         } else {
             sqlbf.append("SELECT \n" +
                     "  c.id,\n" +
@@ -278,12 +278,11 @@ public class LiveDao extends SimpleHibernateDao {
                     "  AND c.is_delete = 0 \n" +
                     "  AND c.status = 1 \n" +
                     "ORDER BY broadcastState asc, recommendSort desc,\n" +
-                    "  c.start_time asc");
+                    "  c.start_time desc");
         }
 
-
         if (num != null && num != 0) {
-            sqlbf.append("limit ").append(num);
+            sqlbf.append(" limit ").append(num);
         }
         return this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sqlbf.toString(), BeanPropertyRowMapper.newInstance(OpenCourseVo.class));
     }

@@ -5,11 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import com.xczh.consumer.market.bean.OnlineCourse;
 import com.xczh.consumer.market.bean.OnlineOrder;
-import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.dao.OnlineOrderMapper;
 import com.xczh.consumer.market.dao.PayRecordMapper;
 import com.xczh.consumer.market.service.OnlineOrderService;
@@ -28,9 +25,7 @@ import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.PayRecordVo;
-import com.xczh.consumer.market.vo.WxcpCourseVo;
 
 @Service
 public class OnlineOrderServiceImpl implements OnlineOrderService {

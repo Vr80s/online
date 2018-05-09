@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.model.WatchHistory;
 import com.xczhihui.course.service.ICourseService;
@@ -32,13 +31,10 @@ public class LookHistoryController {
 	private AppBrowserService appBrowserService;
 	
 	@Autowired
-	private OnlineWebService onlineWebService;
-	
-	@Autowired
 	private ICourseService courseServiceImpl;
 	
 	/**
-     * Description：增加观看记录
+     * Description：增加观看或者学习记录
      * @param req
      * @param res
      * @param params
@@ -72,8 +68,8 @@ public class LookHistoryController {
 			
 			if(recordType!=null){
 				if(recordType == 1){ //增加学习记录
-					if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
-						  onlineWebService.saveEntryVideo(courseId, ou);
+					if(course.getWatchState() == 1){
+						  watchHistoryServiceImpl.addLearnRecord(lockId, courseId, ou.getId(), ou.getLoginName());
 				    }
 				}
 				if(recordType == 2){
@@ -82,7 +78,6 @@ public class LookHistoryController {
 					target.setUserId(ou.getId());
 					target.setLecturerId(course.getUserLecturerId());
 					target.setCollectionId(collectionId);
-					
 					watchHistoryServiceImpl.addOrUpdate(lockId,target);
 				}
 			
@@ -94,8 +89,8 @@ public class LookHistoryController {
 					target.setLecturerId(course.getUserLecturerId());
 					watchHistoryServiceImpl.addOrUpdate(lockId,target);
 				}
-				if(course.getWatchState() == 1 || course.getUserLecturerId().equals(ou.getId())){
-				   onlineWebService.saveEntryVideo(courseId, ou);
+				if(course.getWatchState() == 1){
+					 watchHistoryServiceImpl.addLearnRecord(lockId, courseId, ou.getId(), ou.getLoginName());
 				}
 			}
 			return ResponseObject.newSuccessResponseObject("保存成功");
@@ -105,6 +100,12 @@ public class LookHistoryController {
 		}
 	}
 
+	/**
+	 * 观看记录列表
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("list")
 	@ResponseBody
 	public ResponseObject list(HttpServletRequest req,
@@ -127,6 +128,12 @@ public class LookHistoryController {
 		}
 	}
 	
+	/**
+	 * 清空观看记录
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("empty")
 	@ResponseBody
 	public ResponseObject empty(HttpServletRequest req,HttpServletResponse res) {

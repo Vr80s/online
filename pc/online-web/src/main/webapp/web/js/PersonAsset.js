@@ -319,15 +319,16 @@ function initBind() {
 					$('.pagination').css({
 						'display': 'none'
 					});
-					$("#xfjl").html(template("list1", {
-						item: data.resultObject.items
-					}));
 					if(data.resultObject.totalCount == 0) {
 						$('#noResult').removeClass('hide')
 					}
 					if(1 <= data.resultObject.totalCount && data.resultObject.totalCount <= 6) {
 						$('#noResult').addClass('hide')
 					}
+					$("#xfjl").html(template("list1", {
+						item: data.resultObject.items
+					}));
+					
 				} else {
 					$('#noResult').addClass('hide')
 					$('.pagination').css({

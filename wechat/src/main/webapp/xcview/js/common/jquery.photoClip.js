@@ -613,16 +613,33 @@ var imgsource ='';
 			});
 			if ($container.css("position") == "static") $container.css("position", "relative");
 
+			
+			var jsonObj = {
+					"position": "absolute",
+					"left": "50%",
+					"top": "50%",
+					"width": clipWidth,
+					"height": clipHeight,
+					"margin-left": -clipWidth/2,
+					"margin-top": -clipHeight/2
+				};
+			
+			var smallHeadPhoto = localStorage.getItem("smallHeadPhoto");
+			if(smallHeadPhoto){
+				jsonObj= {
+						"position": "absolute",
+						"left": "50%",
+						"top": "50%",
+						"width": clipWidth,
+						"height": clipHeight,
+						"margin-left": -clipWidth/2,
+						"margin-top": -clipHeight/2,
+						'background-image':"url("+smallHeadPhoto+")"
+				};
+			}
+			
 			// 创建裁剪视图层
-			$clipView = $("<div class='photo-clip-view'>").css({
-				"position": "absolute",
-				"left": "50%",
-				"top": "50%",
-				"width": clipWidth,
-				"height": clipHeight,
-				"margin-left": -clipWidth/2,
-				"margin-top": -clipHeight/2
-			}).appendTo($container);
+			$clipView = $("<div class='photo-clip-view'>").css(jsonObj).appendTo($container);
 
 			$moveLayer = $("<div class='photo-clip-moveLayer'>").appendTo($clipView);
 

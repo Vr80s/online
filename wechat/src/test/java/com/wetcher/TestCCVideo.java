@@ -1,15 +1,11 @@
 package com.wetcher;
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.slf4j.LoggerFactory;
 
-import com.xczh.consumer.market.controller.live.CCVideoController;
 import com.xczh.consumer.market.utils.cc.APIServiceFunction;
 
 /**
@@ -21,7 +17,6 @@ import com.xczh.consumer.market.utils.cc.APIServiceFunction;
  */
 public class TestCCVideo {
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CCVideoController.class);
 
 	@Test
 	public void testTime(){
@@ -49,9 +44,9 @@ public class TestCCVideo {
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-		LOGGER.info(requestURL);
+		System.out.println(requestURL);
 		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-		LOGGER.info(responsestr);
+		System.out.println(responsestr);
 		
 	}
 	
@@ -70,9 +65,9 @@ public class TestCCVideo {
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-		LOGGER.info(requestURL);
+		System.out.println(requestURL);
 		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/v3?" + requestURL);
-		LOGGER.info(responsestr);
+		System.out.println(responsestr);
 	}
 
 	/**
@@ -91,13 +86,12 @@ public class TestCCVideo {
 		
 		
 		
-		
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-		LOGGER.info(requestURL);
+		System.out.println(requestURL);
 		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/v3?" + requestURL);
-		LOGGER.info(responsestr);
+		System.out.println(responsestr);
 	}
 	
 	

@@ -157,8 +157,7 @@ function giftShow(gift, f,continuous) {
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         try {
-        	
-            $("#liveGiftCount").html(gift.giftCount);
+           
         } catch (error) {
             // 此处是负责例外处理的语句
         } finally {
@@ -425,6 +424,7 @@ $(document).ready(function() {
             				" </div> "+
             			    "<div class='both'></div></div>";
                             
+                            
                             //将礼物发送到
                             var msg = null;
                             msg = VHALL_SDK.sendChat({
@@ -432,6 +432,9 @@ $(document).ready(function() {
                             });
                             $("#chatmsg").append(str);
                            
+                            //显示礼物总数
+                            $("#liveGiftCount").html(data.resultObject.giftCount);
+                            
                             // createGiftShow();
                             
                             setTimeout(function(){

@@ -10,6 +10,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -161,6 +162,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
 			setEnchashmentCount(courseAnchorIncome, userId);
 
 			DecimalFormat df = new DecimalFormat("0.00");
+			df.setRoundingMode(RoundingMode.DOWN);
 			String total="";
 			if(courseAnchorIncome.getTotal().equals("0")){
 				total="0.00";

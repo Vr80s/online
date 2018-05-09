@@ -1,4 +1,4 @@
-package com.xczh.consumer.market.controller.live;
+package com.xczh.consumer.market.controller.common;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/xczh/criticize")
-public class CriticizeController {
+public class XzCriticizeController {
 
 
 	@Autowired
