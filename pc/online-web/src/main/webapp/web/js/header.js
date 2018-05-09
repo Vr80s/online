@@ -157,7 +157,8 @@ $(function () {
         '<div class="cymylogin-bottom form-login">'+
         '<input type="text" class="cyinput1 form-control" maxlength="30" placeholder="请输入手机号" autocomplete="off"/>'+
         '<div class="cymyloginclose1"></div>'+
-        '<input type="password" class="cyinput2 form-control" maxlength="18" placeholder="请输入6-18位密码" autocomplete="off"/>'+
+//      '<input type="password" style="display:none"/>'+
+        '<input type="password" class="cyinput2 form-control" maxlength="18" autocomplete="new-password" placeholder="请输入6-18位密码" autocomplete="off"/>'+
         '<div class="cymyloginclose2"></div>'+
         '<button class="cymyloginbutton">登<em></em>录</button>'+
         '<div class="cymyloginpassword">'+
