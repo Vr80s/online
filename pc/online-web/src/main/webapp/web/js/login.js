@@ -601,7 +601,7 @@ $(function () {
                     } else {
                         cymregBox.css("display", "none");
                         $(btn).addClass("enable");
-                        var second = 90;
+                        var second = 60;
                         var oldval = $(btn).val();
                         cymCodeInput.css("border", "");
                         cymCodeBox.css("display", "none");
