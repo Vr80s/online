@@ -218,37 +218,25 @@
                 					
                 					<!--watchState，1免费、0收费-type，1-视频、2-音频、3-直播、4-线下培训班   collection:1-专辑   -->
                 					
-                					{{if item.watchState == 1}}
-	                					{{if item.type == 1 || item.type == 2}}
-											{{if item.collection == 1}}
-												<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-														 onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})" ></a>
-												{{else}}
-												<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;"
-												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})" ></a>
-											{{/if}}	
-		                    			{{else if item.type == 3}}   
+	                    			
+			          	{{if item.type == 1 || item.type == 2 || item.type == 4}}
+	                					 
 			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
 													onclick="common_jump_all({{item.id}})"></a>
-		                    			{{else if item.type == 4}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
-		                    			{{/if}}	
-		                    		{{else if item.watchState == 0}}
-		                    			{{if item.type == 1 || item.type == 2}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
-		                    			{{else if item.type == 3}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-						onclick="common_jump_all({{item.id}})"></a>
-		                    			{{else if item.type == 4}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+
+<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
 												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
 		                    			
-		                    			{{/if}}
+		                    		{{else if item.type == 3}}
+		                    			
+		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+													onclick="common_jump_all({{item.id}})"></a>
+		                    			
+		                    			
 		                    			
                 					{{/if}}
-	                    			
+
+
                 					<div class="boutique_main_one">
                 						<div class="boutique_one_img">
                 							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
@@ -338,7 +326,8 @@
                 				{{each item.courseList as item i}}
                 				<li class="offlineCourseList" data-jump="{{item.id}}">
 
-									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
 
                 					<div class="boutique_main_four">
                 						<div class="boutique_four_img">
@@ -394,26 +383,9 @@
 								<!--即将直播-->
 								<li style="position: relative;">
 									
-									{{if item.watchState == 1}}
-	                					{{if item.type == 1 || item.type == 2}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
-		                    			{{else if item.type == 3}}   
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
-		                    			{{else if item.type == 4}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
-		                    			{{/if}}	
-		                    			
-		                    		{{else if item.watchState == 0}}
-		                    			{{if item.type == 1 || item.type == 2}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
-		                    			{{else if item.type == 3}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
-		                    			{{else if item.type == 4}}
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
-		                    			
-		                    			{{/if}}
-		                    			
-	            					{{/if}}
+							
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;"
+onclick="common_jump_all({{item.id}})" ></a>
 
 									<div class="newest_main_two">
 										<div class="newest_two_img">
@@ -472,31 +444,9 @@
             				<script type="text/html" id="lectures">
             				{{each items as item i}}
             				<li class="listenCourseList" data-jump="{{item.id}}">
-        						{{if item.watchState == 1}}
-                					{{if item.type == 1 || item.type == 2}}
-		                    			{{if item.collection == 1}}
-											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_select_album.html?course_id={{item.id}}"></a>
-											{{else}}
-											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/live_audio.html?my_study={{item.id}}"></a>
-										{{/if}}	
-	                    			{{else if item.type == 3}}   
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
-	                    			{{else if item.type == 4}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
-	                    			{{/if}}	
-	                    			
-	                    		{{else if item.watchState == 0}}
-	                    			{{if item.type == 1 || item.type == 2}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
-	                    			{{else if item.type == 3}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
-	                    			{{else if item.type == 4}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
-	                    			
-	                    			{{/if}}
-	                    			
-            					{{/if}}
-            					
+        					
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
             					
             					<div class="lectures_main_one">
             						<div class="lectures_one_img">
