@@ -15,7 +15,6 @@ function common_jump_all(courseId){
      var collection = userPlay.collection;
      var lineState = userPlay.lineState;
      
-     
      if(watchState==1 || watchState==2){
 		if(type == 1 || type == 2){
 			//增加学习记录
@@ -108,27 +107,23 @@ function common_jump_play(id,watchState,lineState){
  * @returns
  */
 function common_jump_school(watchState,type,collection,courseId){
-	 var falg =authenticationCooKie(); 
+	
+	var falg =authenticationCooKie(); 
 	if(watchState==1){
+		//增加学习记录
+		requestService("/xczh/history/add",{courseId:courseId, recordType:1},function(data) {
+			 console.log("增加学习记录");
+		}) 
+		
 		if(type == 1 || type == 2){
-			//增加学习记录
-			requestService("/xczh/history/add",{courseId:courseId, recordType:1},function(data) {
-				 console.log("增加学习记录");
-			}) 
 			if(collection==1){
-
 				if (falg==1002){
-
-                   location.href ="/xcview/html/cn_login.html";      
+                    location.href ="/xcview/html/cn_login.html";      
                 }else if (falg==1005) {
-                   location.href ="/xcview/html/evpi.html";
+                    location.href ="/xcview/html/evpi.html";
                 }else{
                 	location.href = "/xcview/html/live_select_album.html?course_id="+courseId;
                 }
-				
-
-
-
 			}else{
 				location.href = "/xcview/html/live_audio.html?my_study="+courseId;
 			}

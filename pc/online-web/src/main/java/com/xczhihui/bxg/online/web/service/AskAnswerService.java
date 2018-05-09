@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.service;
 
+import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.AskAnswerVo;
@@ -82,9 +83,10 @@ public interface AskAnswerService {
 	/**
 	 * 删除回答信息
 	 * @param answerId 回答信息的id号
+	 * @param user
 	 * @return
 	 */
-	public String deleteAnswerById(HttpServletRequest request,OnlineUser u,String  answerId);
+	public String deleteAnswerById(OnlineUser u, String answerId, User user);
 
 
 	/**

@@ -1,6 +1,7 @@
 package com.xczhihui.common.support.service;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * 缓存接口
@@ -26,6 +27,11 @@ public interface CacheService {
 	public final static int ONE_DAY = ONE_HOUR * 24;
 
 	/**
+	 * 一年的秒数
+	 */
+	public final static int ONE_YEAR = ONE_DAY * 365;
+
+	/**
 	 * 存入缓存
 	 * 
 	 * @param key
@@ -49,6 +55,8 @@ public interface CacheService {
 	 */
 	public void delete(String key);
 
+	void set(String key, Serializable obj);
+
 	/**
 	 * 增加缓存中数值。
 	 * 
@@ -66,4 +74,5 @@ public interface CacheService {
 	 */
 	public int getInt(final String key);
 
+	Set<String> getKeys(String cMRKey);
 }

@@ -20,14 +20,14 @@
 	<!--收藏/取消收藏-->
 	<uri>/ask/answer/collection</uri>
 	<!--删除回答信息-->
-	 <uri>/ask/answer/deleteAnswerById</uri>
+	 <!--<uri>/ask/answer/deleteAnswerById</uri>-->
 
 	<!--查找评论/回复-->
-	<uri>/ask/comment/findComments</uri>
+	<!--<uri>/ask/comment/findComments</uri>-->
 	<!--新增评论/回复-->
 	<uri>/ask/comment/addComment</uri>
 	<!--删除评论/回复-->
-	<uri>/ask/comment/deleteComment</uri>
+	<!--<uri>/ask/comment/deleteComment</uri>-->
 	<!--点赞评论-->
 	<uri>/ask/comment/praiseComment</uri>
 
@@ -37,7 +37,7 @@
 	<!--添加提问信息-->
 	<uri>/online/questionlist/saveQuestion</uri>
 	<!--删除问题信息--><!-- yuruixin-20170901 -->
-	<uri>/online/questionlist/deleteQuestionById</uri>
+	<!--<uri>/online/questionlist/deleteQuestionById</uri>-->
 	<!--视频下问题-->
 	<uri>/online/questionlist/findVideoQuestion</uri>
 	<!--修改视频问题信息-->

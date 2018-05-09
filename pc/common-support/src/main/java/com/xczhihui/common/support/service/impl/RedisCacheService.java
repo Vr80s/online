@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Set;
 
 import com.xczhihui.common.support.service.CacheService;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,7 @@ public class RedisCacheService implements CacheService {
 	}
 
 	@Override
-    public void set(final String key, final Serializable obj, final int seconds) {
+	public void set(final String key, final Serializable obj, final int seconds) {
 		Jedis jedis = null;
 		try {
 			jedis = this.getJedis();
@@ -67,6 +68,11 @@ public class RedisCacheService implements CacheService {
 		} finally {
 			this.release(jedis);
 		}
+	}
+
+	@Override
+	public void set(final String key, final Serializable obj) {
+		set(key,obj,ONE_YEAR);
 	}
 
 	@Override
@@ -96,6 +102,19 @@ public class RedisCacheService implements CacheService {
 			this.release(jedis);
 		}
 		return count;
+	}
+
+	@Override
+	public Set<String> getKeys(String prefix) {
+		Jedis jedis = null;
+		Set<String> keys = null;
+		try {
+			jedis = this.getJedis();
+			keys = jedis.keys(prefix + "*");
+		} finally {
+			this.release(jedis);
+		}
+		return keys;
 	}
 
 	@Override
