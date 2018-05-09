@@ -5,17 +5,25 @@
  * Created by admin on 2016/9/19.
  */
 window.onload = function() {
-	var ourl = document.location.search;
-	var apams = ourl.substring(1).split("&");
-	var arr = [];
-	for(var i = 0; i < apams.length; i++) {
-		var apam = apams[i].split("=");
-		arr[i] = apam[1];
-		var qid = arr[0];
-	};
-	if(qid == undefined) {
-		qid = "a8c4ae2f13fa4d13a56f9dacab047c9e";
-	}
+    String.prototype.getQuery = function(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = this.substr(this.indexOf("\?")+1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return  '';
+    }
+
+    var ln=window.location.toString().getQuery('ln');
+    var qid=window.location.toString().getQuery('qid');
+
+	// var ourl = document.location.search;
+	// var apams = ourl.substring(1).split("&");
+	// var arr = [];
+	// for(var i = 0; i < apams.length; i++) {
+	// 	var apam = apams[i].split("=");
+	// 	arr[i] = apam[1];
+	// 	debugger
+	// 	var qid = arr[0];
+	// };
 	var self = false; //是否本人提问
 	var pageCount = 0; //自定义总页数
 	var relative_mentId; //相关课程的Id
@@ -176,7 +184,7 @@ window.onload = function() {
 	/*相似问题*/
 	template.helper('glhref', function(num) {
 		if(num != "") {
-			return '' + bath + '/web/html/qusAndAnsDetailGuanLi.html?qid=' + num;
+			return '' + bath + '/web/html/qusAndAnsDetailGuanLi.html?qid=' + num + "&ln=" + ln;
 		} else {
 			return 'javascript:;';
 		}
@@ -480,7 +488,8 @@ window.onload = function() {
 			$("#quxiaoshoucang .modalFooter .yesBtn").unbind().click(function() {
 				var id = $this.attr("data-id");
 				RequestService('/online/questionlist/deleteQuestionById', "POST", {
-					questionId: id
+					questionId: id,
+                    ln:ln
 				}, function(data) {
 					$(".payment-modal-close").trigger("click");
 //					location.href = "/web/html/ansAndQus.html"
@@ -688,9 +697,9 @@ window.onload = function() {
 
 			//精彩回答
 			var items = $.makeArray(data.resultObject)
-			$(".goodAnswercontent").html(template.compile(good_answer)({
-				items: items
-			}));
+			// $(".goodAnswercontent").html(template.compile(good_answer)({
+			// 	items: items
+			// }));
 			$(".answer-comment").each(function(){
 				if($(this).attr("data-sum")==0){
 					$(this).attr("style","cursor:default");
@@ -731,7 +740,7 @@ window.onload = function() {
 				$("#quxiaoshoucang").paymentModal("qingjian1");
 				$(".tipType").text("确定要删除吗？");
 				$("#quxiaoshoucang .modalFooter .yesBtn").unbind().click(function() {
-					RequestService('/ask/answer/deleteAnswerById?answerId=' + $this.attr("data-delectId"), "GET", "", function(data) {
+					RequestService('/ask/answer/deleteAnswerById?answerId=' + $this.attr("data-delectId")+"&ln="+ln, "GET", "", function(data) {
 						$(".payment-modal-close").trigger("click");
 						if(data.resultObject=="操作成功"){
 							$this.parents(".good-answer-content").remove();
@@ -1049,7 +1058,8 @@ window.onload = function() {
 							$(".tipType").text("确定删除吗？");
 							$("#quxiaoshoucang .modalFooter .yesBtn").unbind().click(function() {
 								RequestService('/ask/comment/deleteComment', "POST", {
-									comment_id: $this.attr("data-deleteId")
+									comment_id: $this.attr("data-deleteId"),
+									ln:ln
 								}, function(data) {
 									$(".payment-modal-close").trigger("click");
 									$this.parent().parent().parent().remove();
@@ -1263,7 +1273,7 @@ window.onload = function() {
 				$("#quxiaoshoucang").paymentModal("qingjian1");
 				$(".tipType").text("确定删除吗？");
 				$("#quxiaoshoucang .modalFooter .yesBtn").unbind().click(function() {
-					RequestService('/ask/answer/deleteAnswerById?answerId=' + $this.attr("data-delectId"), "GET", "", function(data) {
+					RequestService('/ask/answer/deleteAnswerById?answerId=' + $this.attr("data-delectId")+"&ln="+ln, "GET", "", function(data) {
 						$(".payment-modal-close").trigger("click");
 						if(data.resultObject=="操作成功"){
 							$this.parents(".good-answer-content").remove();
@@ -1584,7 +1594,8 @@ window.onload = function() {
 								$(".payment-modal-close").trigger("click");
 								$this.parent().parent().parent().remove();
 								RequestService('/ask/comment/deleteComment', "POST", {
-									comment_id: $this.attr("data-deleteId")
+									comment_id: $this.attr("data-deleteId"),
+									ln:ln
 								}, function(data) {
 									$(".payment-modal-close").trigger("click");
 									$this.parent().parent().parent().remove();

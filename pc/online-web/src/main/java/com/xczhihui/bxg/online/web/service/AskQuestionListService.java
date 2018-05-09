@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.service;/**
  * Created by admin on 2016/9/19.
  */
 
+import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
@@ -84,9 +85,10 @@ public interface AskQuestionListService {
     /**
      * 删除问题信息
      * @param questionId 问题id号
+     * @param user
      * @return
      */
-    public String deleteQuestionById(HttpServletRequest request,OnlineUser u,String  questionId) ;
+    public String deleteQuestionById( OnlineUser u, String questionId, User user) ;
 
     /**
      * 管理员获取问题数据，根据问题ID号

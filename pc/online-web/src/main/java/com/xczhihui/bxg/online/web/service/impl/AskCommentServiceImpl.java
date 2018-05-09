@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.AskCommentDao;
@@ -8,7 +9,6 @@ import com.xczhihui.bxg.online.web.vo.AskCommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -36,7 +36,7 @@ public class AskCommentServiceImpl implements AskCommentService {
 	}
 
 	@Override
-	public void deleteComment(HttpServletRequest request,OnlineUser u,String comment_id) {
-		dao.deleteComment(request,u,comment_id);
+	public void deleteComment(OnlineUser u, String comment_id, User user) {
+		dao.deleteComment(u,comment_id,user);
 	}
 }

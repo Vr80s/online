@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.web.controller;
 
+import com.xczhihui.bxg.online.common.domain.User;
+import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -24,6 +26,8 @@ public class AskAnswerController extends AbstractController{
 
 	@Autowired
 	private AskAnswerService service;
+	@Autowired
+	private ManagerUserService managerUserService;
 
     /**
      * 添加问题的官方回答
@@ -152,10 +156,11 @@ public class AskAnswerController extends AbstractController{
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteAnswerById",method= RequestMethod.GET)
-	public ResponseObject deleteAnswerById(String  answerId,HttpServletRequest request) {
+	public ResponseObject deleteAnswerById(String answerId,String ln,HttpServletRequest request) {
 		//获取当前登录用户信息
 		OnlineUser u = getCurrentUser();
-		return ResponseObject.newSuccessResponseObject(service.deleteAnswerById(request, u, answerId));
+		User user=managerUserService.findUserByLoginName(ln);
+		return ResponseObject.newSuccessResponseObject(service.deleteAnswerById( u, answerId,user));
 	}
 
 

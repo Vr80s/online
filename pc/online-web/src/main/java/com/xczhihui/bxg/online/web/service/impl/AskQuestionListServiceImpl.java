@@ -284,14 +284,15 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * 删除问题信息
      *
      * @param questionId 问题id号
+     * @param user
      * @return
      */
     @Override
-    public String deleteQuestionById(HttpServletRequest request, OnlineUser u, String questionId) {
+    public String deleteQuestionById(OnlineUser u, String questionId, User user) {
         //再删除问题信息
-        questionListDao.deleteQuestionById(request, questionId, u);
+        questionListDao.deleteQuestionById(questionId, u,user);
         //先去删除回答及评论信息
-        answerDao.deleteAnswerById(request, u, "", questionId);
+        answerDao.deleteAnswerById(u, "", questionId, user);
 
         return "操作成功！";
     }

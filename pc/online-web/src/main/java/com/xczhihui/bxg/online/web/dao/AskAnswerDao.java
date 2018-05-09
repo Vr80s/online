@@ -349,12 +349,13 @@ public class AskAnswerDao extends SimpleHibernateDao {
 	 *            回答信息的id号
 	 * @param questionId
 	 *            问题信息的id号
+	 * @param user
 	 * @return
 	 */
-	public String deleteAnswerById(HttpServletRequest request,OnlineUser u,String answerId, String questionId) {
+	public String deleteAnswerById(OnlineUser u, String answerId, String questionId, User user) {
 
 		//查看当前用户是管理员否,不为空是管理员，否则，普通用户
-		User user= (User) request.getSession().getAttribute("_adminUser_");
+
 		String deleteSql = "";
 		// 删除某条回答信息及次回答下的所有评论信息
 		if (!StringUtils.hasText(questionId)) {
