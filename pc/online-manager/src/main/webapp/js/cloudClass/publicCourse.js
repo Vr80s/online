@@ -3,7 +3,7 @@ var searchCase;
 var courseForm;
 var teacherArray=new Array();
 var _courseRecTable;
-debugger;
+;
 $(function(){
 
 	document.onkeydown=function(event){
@@ -26,7 +26,7 @@ $(function(){
 	
 	{ "title": "直播名称", "class":"center","width":"8%","sortable":false,"data": 'courseName' },
 	{ "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
-		debugger;
+		;
 			if(data==1 ){  //直播状态1.直播中，2预告，3直播结束
 				return "直播中";
 			}else if(data== 2){
@@ -537,7 +537,7 @@ function createWebinar(obj){
 };
 
 function showCourseInfoDetail(obj, status) {
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var aData;
     if (status == 1) {

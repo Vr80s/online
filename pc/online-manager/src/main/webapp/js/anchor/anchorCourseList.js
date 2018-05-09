@@ -3,7 +3,7 @@ var anchorRecTable;//推荐主播列表
 var courseForm;//添加课程表单
 
 $(function() {
-    debugger;
+    ;
     createDatePicker($(".datetime-picker"),"yy-mm-dd");
     document.onkeydown = function (event) {
         if (event.keyCode == 13) {
@@ -94,7 +94,7 @@ $(function() {
     ];
 
     P_courseTable = initTables("courseTable", basePath + "/anchor/courseAnchor/courseList", objData, true, true, 0, null, searchCase_P, function (data) {
-        debugger;
+        ;
         var iDisplayStart = data._iDisplayStart;
         var countNum = data._iRecordsTotal;//总条数
         pageSize = data._iDisplayLength;//每页显示条数
@@ -165,7 +165,7 @@ function updateStatus(obj){
  * @Date: 2018/3/9 14:11
  **/
 function updateDefaultStudentCount(obj){
-	debugger;
+	;
     var oo = $(obj).parent().parent().parent();
     var row = P_courseTable.fnGetData(oo);
     

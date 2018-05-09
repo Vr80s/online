@@ -91,7 +91,7 @@ public class Broadcast {
 						.setCompressionEnabled(false).setResource(UUID.randomUUID().toString().replaceAll("-", ""))
 						.setUsernameAndPassword(account,password)
 						// 开启调试模式
-						.setDebuggerEnabled(false).build();
+						.setEnabled(false).build();
 				connection = new XMPPTCPConnection(config);
 				connection.connect();
 			}

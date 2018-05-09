@@ -73,7 +73,7 @@ function toEdit(obj){
  */
 function openDoctorManage(obj){
 
-	debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = articleTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -81,7 +81,7 @@ function openDoctorManage(obj){
     $("#child_MenuName").html(row.title);
     var courseCount = row.courseCount
     ajaxRequest(basePath+"/medical/doctor/getMedicalDoctor",{'writingsId':row.id,'type':2},function(data) {
-    	debugger
+
         drawMenusPage(data);
 
         $("#childMenu-form").attr("action", basePath+"/headline/writing/updateMedicalDoctorWritings");
@@ -198,7 +198,7 @@ function drawReportPage(data){
 
 function openAuthorManage(obj){
 
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = articleTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -206,7 +206,7 @@ function openAuthorManage(obj){
     $("#child_MenuName").html(row.title);
     var courseCount = row.courseCount
     ajaxRequest(basePath+"/medical/doctor/allListForArticle",{'articleId':row.id},function(data) {
-        debugger
+
         drawMenusPage(data);
 
         $("#childMenu-form").attr("action", basePath+"/medical/doctor/addDoctorAuthorArticle");
@@ -233,7 +233,7 @@ function openAuthorManage(obj){
 
 function openReportManage(obj){
 
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = articleTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -241,7 +241,7 @@ function openReportManage(obj){
     $("#child_MenuName").html(row.title);
     var courseCount = row.courseCount
     ajaxRequest(basePath+"/medical/doctor/allListForReport",{'articleId':row.id},function(data) {
-        debugger
+
         drawReportPage(data);
 
         $("#childMenu-form").attr("action", basePath+"/medical/doctor/addDoctorReport");

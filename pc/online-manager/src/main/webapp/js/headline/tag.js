@@ -125,7 +125,7 @@ $(".add_bx").click(function () {
 
 
 function deleteBatch() {
-    debugger
+
     var aa = $("#tagTable tbody input[type=checkbox]:checked").length;
     for (var i = 0; i < $("#tagTable tbody input[type=checkbox]:checked").length; i++) {
         var oo = $("#tagTable tbody input[type=checkbox]:checked").eq(i).parent().parent();

@@ -191,7 +191,7 @@
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
     $(function(){
-        debugger
+
         $(".hospital-tab").addClass("select");
 
         //登入之后进行判断 右侧医师入驻入口是否有

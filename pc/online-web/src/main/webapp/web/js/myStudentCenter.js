@@ -22,7 +22,7 @@ window.onload = function () {
         }
     });
     template.helper('zhibohref', function (id, collection) {
-        debugger
+
         if (collection) {
             return "/course/courses?courseId=" + id
         }

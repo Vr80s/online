@@ -25,13 +25,13 @@ $("#addword-form").on("change","#imgPath_file",function(){
 		this.value="";
 		return;
 	}
- 	debugger
+
     mask();
  	ajaxFileUpload(this.id,basePath+"/link/word/upload", function(data){
  		unmask();
  		//alert(data.success);
  		if (data.error == 0) {
- 			debugger
+
  			alert("上传成功");
  		}else {
  			alert(data.message);
@@ -60,13 +60,13 @@ $("#addExcel-form").on("change","#excel_file",function(){
 //		this.value="";
 //		return;
 //	}
- 	debugger
+
     mask();
  	ajaxFileUpload(this.id,basePath+"/link/word/importExcel", function(data){
  		unmask();
  		//alert(data.success);
  		if (data.error == 0) {
- 			debugger
+
  			layer.alert(data.excel_error);
  		}else {
  			alert(data.message);

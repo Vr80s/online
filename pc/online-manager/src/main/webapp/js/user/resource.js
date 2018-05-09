@@ -21,7 +21,7 @@ function reLoadTreeGrid(url){
 	                { text : '名称', dataField : 'name', width : '10%', align : 'center',cellsalign : 'center' }, 
 	                { text : '状态', dataField : 'delete', width : '10%', align : 'center', cellsalign : 'center',	cellsRenderer: function (id, column, value) {
 //	                		alertInfo("id:" + id + " columnName:" + column + " value:" + value);
-//	                	debugger
+//
 	                		return value?"禁用":"启用"
 	                	}}, 
 	                { text : '权限代码', dataField : 'permission', width : '20%', align : 'center', cellsalign : 'center' }, 
@@ -62,7 +62,7 @@ $(function(){
 		var row = args.row;
 		var key = args.key;
 		var children = row.children;
-		//debugger;
+		//;
 		var children = row.children;
 		if(!isnull(children)){
 			for(var i=0;i<children.length;i++){
@@ -76,7 +76,7 @@ $(function(){
 		var row = args.row;
 		var key = args.key;
 		var children = row.children;
-		//debugger;
+		//;
 		if(!isnull(children)){
 			for(var i=0;i<children.length;i++){
 		    		$("#treeGrid").jqxTreeGrid('uncheckRow', children[i].id);
@@ -181,7 +181,7 @@ function editResourceDialog(id){
 	$("#icon").val(aData.icon);
 	$("#displayOrder").val(aData.displayOrder);
 	$("#description").val(aData.description);
-//	debugger;
+//	;
 	if(aData.delete){
 		$("#delete_true").prop("checked", "checked");
 		$("#delete_false").prop("checked", "");

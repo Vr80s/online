@@ -292,7 +292,7 @@ $(function () {
 
 		if(first)
 		list.pageNumber = 1;
-//  	debugger;
+//  	;
         RequestService("/bxs/article/getPaperArticle",'GET',list,function(data){
             if(data.resultObject.items.length==0){
                 $(".forum-content-info").html(template.compile(emptyDefaul))

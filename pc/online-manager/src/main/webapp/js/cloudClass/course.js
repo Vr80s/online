@@ -225,7 +225,7 @@ function showImg(rowId,rowDescription,rowImgPath){
 
 
 function showCourseInfoDetail(obj, status) {
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var aData, page;
     if (status == 1) {

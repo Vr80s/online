@@ -34,7 +34,7 @@ function loadOrderList(){
         {title: '充值数量', "class": "center", "width": "8%","data": 'value',"sortable":false},
         {title: '订单来源', "class": "center", "width": "8%","data": 'orderFrom', "sortable": false,"mRender":function(data,display,row){
         	var orderForm = "";//1.pc 2.h5 3.android 4.ios
-        	debugger;
+        	;
         	if(data == 1){
         		orderForm = "pc";
         	}else if(data == 2){

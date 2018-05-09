@@ -97,7 +97,7 @@ $('#deleteTip .confirm-sure').click(function(){
 	function doctorList(current){
 		RequestService("/hospital/getDoctors?size=8&current=" + current, "get", null, function(data) {
 			$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
-//			debugger
+//
 			//每次请求完数据就去渲染分页部分
 			if(data.resultObject.pages > 1) { //分页判断
 				$(".not-data").remove();

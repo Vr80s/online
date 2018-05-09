@@ -32,7 +32,7 @@ $(function() {
 			data:{authenticationInformationId:mdaiId},
 			success:function(data){
 				if (data.success) {
-					debugger;
+					;
 					var obj = data.resultObject;
 					
 					$('#edit_smallImgPath').val(obj.headPortrait);
@@ -215,7 +215,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file5",function(){
 $('#okbt,#previewbt').on('click',function(e){
     var id = $(e.currentTarget).attr('id');
     // var methodName = 'updateCourseDetail';
-	debugger
+
     var validate = $("#courseDetailForm").valid();
     if(validate){
         mask();

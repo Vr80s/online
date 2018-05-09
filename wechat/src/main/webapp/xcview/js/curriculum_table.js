@@ -377,7 +377,7 @@ function queryDataByParams(params,data_type){
 	// 测试加载中
 	// load.start();
 	
-	// debugger
+	// 
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
 			//createListInfo(data,data_type)

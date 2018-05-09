@@ -3255,7 +3255,7 @@ $(function() {
         sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
       }
     });
-  debugger
+
   $("#province").append(sb.toString());
   $("#edit_province").append(sb.toString());
   // $("#choosePro").after(sb.toString());
@@ -3271,7 +3271,7 @@ $(function() {
 // 省值变化时 处理市
 function doProvAndCityRelation() {
   var city = $("#citys");
-debugger
+
   // if (city.children().length > 1) {
     city.empty();
   // }
@@ -3332,7 +3332,7 @@ function doCityAndCountyRelation() {
  * 修改使用
  */
 function doProvAndCityRelationEdit() {
-    debugger
+
   var city = $("#edit_citys");
   //if (city.children().length > 1) {
    city.empty();
@@ -3359,7 +3359,7 @@ function doProvAndCityRelationEdit() {
  * 市选择产生变化
  */
 function onchangeCityAdd(){
-    debugger
+
 	var province =$("#citys").find("option:selected").text();
 	$("#realCitys").val(province);
 }

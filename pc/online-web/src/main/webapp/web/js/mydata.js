@@ -271,7 +271,7 @@ function addgetdata() { //回填数据
 	if(data.resultObject.occupationOther !=''&&data.resultObject.occupationOther != null){
 		$('.zhiYe').val(data.resultObject.occupationOther);
 	}
-	debugger
+
 	var pcd = {};
         pcd.province=data.resultObject.provinceName;
         pcd.city=data.resultObject.cityName;

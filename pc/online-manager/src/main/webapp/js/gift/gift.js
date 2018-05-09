@@ -91,13 +91,13 @@ $(function(){
 				countPage = parseInt(countNum/pageSize) + 1;
 			}
 			$("[name='upa']").each(function(index){
-//				debugger;
+//				;
 				if(index == 0){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
 			});
 			$("[name='downa']").each(function(index){
-//				debugger;
+//				;
 				if(index == $("[name='downa']").size()-1){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
@@ -270,7 +270,7 @@ function toEdit(obj){
 
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	
-//	debugger;
+//	;
 	$("#editCourse_id").val(row.id); //礼物名称
 	$("#giftName_edit").val(row.name); //礼物名称
 	$("#price_edit").val(row.price); //礼物时常
@@ -503,7 +503,7 @@ function setBrokerage(url,dataTable,title,content,btnName){
 	            	data = getJsonData(data);
 	                unmask();
 	                if(data.success){
-	                	debugger
+
 	                    $("#FcDialog").dialog("close");
 	                    layer.msg(data.resultObject);
 	                     freshTable(_courseTable);

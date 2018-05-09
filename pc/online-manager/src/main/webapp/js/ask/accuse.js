@@ -122,7 +122,7 @@ function loadQuerstionList(){
 	        success:function(data){
 	        	if(data.success == false){//未解决
 	        		var newTab=window.open('about:blank');
-	        		debugger;
+	        		;
 		       		 newTab.location.href = weburl+"/web/jumpMethod/"+questionId+"/2/"+mname;
 	        	}else{//已解决
 	        		alertInfo(data.errorMessage);
