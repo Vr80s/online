@@ -1383,7 +1383,9 @@ var ue = UE.getEditor('column-content', {
 	//用html方法清空上传的照片
 	var defaultPicter = '<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>' +
 		'<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>';
-
+	
+	var defaultWoekPicter = '<p style="font-size: 56px;height: 75px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>' +
+		'<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面</p>';
 	//显示预览功能
 	var getData;
 
@@ -1461,7 +1463,7 @@ function resetWork(index) {
 	$("#workId").val("");
 	$(".work-title").val("");
 	$(".work-author").val("");
-	$(".work-picter").html(defaultPicter);
+	$(".work-picter").html(defaultWoekPicter);
 	$("#zhuzuo_picIpt").val("");
 //	$(".work-text").val("");
  	UE.getEditor('work-suggest').setContent(""),

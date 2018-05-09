@@ -722,5 +722,13 @@ $(function () {
     }
 
     /*注册结束*/
-
+	$(".forgetPassword").click(function(){
+		var userPhone=$(".usernameBox .userName").val(),		
+			phoneNumber=/^[1][3,4,5,6,7,8][0-9]{9}$/;
+		if(phoneNumber.test(userPhone) || userPhone==""){
+			localStorage.setPhone=userPhone;
+		}else{
+			localStorage.removeItem("setPhone")
+		}
+	})
 });
