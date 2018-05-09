@@ -45,13 +45,9 @@ public class HostController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	
 	@Autowired
 	@Qualifier("focusServiceRemote")
 	private IFocusService focusServiceRemote;
-	
-	@Autowired
-	private OnlineWebService onlineWebService;
 	
 	@Autowired
 	private IMedicalHospitalApplyService medicalHospitalApplyService;
@@ -97,12 +93,7 @@ public class HostController {
 		if(lecturerInfo == null){
 			return ResponseObject.newErrorResponseObject("获取医师信息有误");
 		}
-//		if(lecturerInfo.get("detail")!=null){
-//			//设置富文本的url连接
-//			lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
-//		}else{
-//			lecturerInfo.put("richHostDetailsUrl", null);
-//		}
+
 		lecturerInfo.put("richHostDetailsUrl", returnOpenidUri+"/xcview/html/person_fragment.html?type=4&typeId="+lecturerId);
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		MedicalHospital mha = null;
@@ -128,21 +119,12 @@ public class HostController {
 	    	mapAll.put("isFours", 0); 
 	    }else{
 	    	Integer isFours  = focusServiceRemote.isFoursLecturer(user.getId(), lecturerId);
-			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
+			mapAll.put("isFours", isFours); 
 	    }
 		/**
 		 * 此主播最近一次的直播
 		 */
 		CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId);
-		if(user!=null && cv!=null){
-			if(cv.getWatchState()==1){  //免费的课程啦
-				onlineWebService.saveEntryVideo(cv.getId(), user);
-			}else if(cv.getWatchState()==0){ //付费课程
-				if(onlineWebService.getLiveUserCourse(cv.getId(),user.getId())){  //大于零--》用户购买过
-					cv.setWatchState(2);
-				}
-			}
-		}
 		mapAll.put("recentCourse", cv);
 	    return ResponseObject.newSuccessResponseObject(mapAll);
 	}
@@ -172,7 +154,7 @@ public class HostController {
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("后台数据异常");
+			return ResponseObject.newErrorResponseObject("网络开小差");
 		}
 	}
 }

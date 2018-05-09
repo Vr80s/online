@@ -916,51 +916,6 @@ pre:after {
 		
 		location.href="address.html";
 	}
-
-/* <p id="szd_cityP" onclick="szd_picker2()">请选择</p>    */
-
-    /* 选择省市区插件    -- 初始化所在地这个地方啦 */
-/*     function szd_picker2() {
-        var nowValue = document.getElementById('nowValue');
-        new Picker({
-            "title": '请选择',//标题(可选)
-            "defaultValue": "",//默认值-多个以空格分开（可选）
-            "type": 3,//需要联动级数[1、2、3]（可选）
-            "data": cityData,//数据(必传)
-            "keys": {
-                "id": "Code",
-                "value": "Name",
-                "childData": "level"//最多3级联动
-            },//数组内的键名称(必传，id、text、data)
-            "callBack": function (val) {
-                //回调函数（val为选择的值）
-				$("#szd_cityP").html(val);
-				setuserInfoWechat("provinceCityName");
-            }
-        });
-    }; */
-
-    /* 选择省市区插件    -- 初始化新增地址这个地方啦 */
-/*     function picker2() {
-        //var nowValue = document.getElementById('nowValue');
-        new Picker({
-            "title": '请选择',//标题(可选)
-            "defaultValue": "内蒙古自治区 呼和浩特市 赛罕区",//默认值-多个以空格分开（可选）
-            "type": 3,//需要联动级数[1、2、3]（可选）
-            "data": cityData,//数据(必传)
-            "keys": {
-                "id": "Code",
-                "value": "Name",
-                "childData": "level"//最多3级联动
-            },//数组内的键名称(必传，id、text、data)
-            "callBack": function (val) {
-                //回调函数（val为选择的值）
-				$("#cityP").html(val);
-				//setuserInfoWechat();
-            }
-        });
-    }; */
-
 </script>
 
 <script type="text/javascript">
@@ -1228,6 +1183,8 @@ function setImagePreview() {
   			$("#dpage").hide();
   		});
   		$("#logoBox").click(function(){
+  			
+  			
   			$("#dpage").show();
   		});
 	};

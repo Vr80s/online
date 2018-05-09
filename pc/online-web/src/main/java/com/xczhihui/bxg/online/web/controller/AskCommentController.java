@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.web.controller;
 
+import com.xczhihui.bxg.online.common.domain.User;
+import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -23,6 +25,8 @@ public class AskCommentController extends AbstractController{
 
 	@Autowired
 	private AskCommentService service;
+	@Autowired
+	private ManagerUserService managerUserService;
 	/**
 	 * 查找评论/回复
 	 * @param pageNumber
@@ -55,10 +59,11 @@ public class AskCommentController extends AbstractController{
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteComment")
-	public ResponseObject deleteComment(String comment_id,HttpServletRequest request) {
+	public ResponseObject deleteComment(String comment_id,String ln,HttpServletRequest request) {
 		//获取当前登录用户信息
-		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		service.deleteComment(request,u,comment_id);
+		OnlineUser u = getCurrentUser();
+		User user = managerUserService.findUserByLoginName(ln);
+		service.deleteComment(u,comment_id,user);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
 	/**

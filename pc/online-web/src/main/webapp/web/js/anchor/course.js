@@ -37,8 +37,6 @@ $(function(){
 });
 
 
-
-
   //渲染课程列表方法
     function getCourseList(){
     	//控制页面返回课程列表页
@@ -988,6 +986,7 @@ function downCourse2Collection(collectionCourseSort){
     arr.courseArr=courseArr;
     $(".collection_courses").html(template('collection_course_list_tpl', arr));
 }
+
 function saveCollection(){
     var collection = getCollectionData();
     // debugger

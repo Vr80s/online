@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.AskAnswerDao;
@@ -103,11 +104,12 @@ public class AskAnswerServiceImpl implements AskAnswerService {
 	/**
 	 * 删除回答信息
 	 * @param answerId 回答信息的id号
+	 * @param user
 	 * @return
 	 */
 	@Override
-    public String deleteAnswerById(HttpServletRequest request, OnlineUser u, String  answerId){
-		return  dao.deleteAnswerById(request,u,answerId,"");
+    public String deleteAnswerById(OnlineUser u, String answerId, User user){
+		return  dao.deleteAnswerById(u,answerId,"",user);
 	}
 
 	/**

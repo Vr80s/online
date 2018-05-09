@@ -68,8 +68,6 @@ public class WeihouInterfacesListUtil {
 		parameters.put("account", "v19624388");
 		
 		//{head=123, webinar_id=1, password=xinchengzhihui, pass=123, webinar_id=985221, third_user_id=1111, name=yangxuan}
-		
-		
 		return parameters;
 	}
 	

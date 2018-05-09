@@ -1,10 +1,10 @@
 package com.xczhihui.bxg.online.web.service;
 
+import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.AskCommentVo;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -28,8 +28,9 @@ public interface AskCommentService {
 	/**
 	 * 删除评论/回复
 	 * @param comment_id
+     * @param user
 	 */
-	public void deleteComment(HttpServletRequest request,OnlineUser u,String comment_id);
+	public void deleteComment(OnlineUser u, String comment_id, User user);
 	/**
 	 * 点赞评论
 	 * @param comment_id

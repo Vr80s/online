@@ -274,4 +274,20 @@ public class CourseDao extends HibernateDao<Course> {
 		return this.getNamedParameterJdbcTemplate().query(sql, params,
 				BeanPropertyRowMapper.newInstance(Course.class));
 	}
+
+	public List<OnlineUser> getUsersByCourseId(Integer courseId) {
+		String sql = "SELECT \n" +
+				"  ou.*,\n" +
+				"  argc.`course_id` \n" +
+				"FROM\n" +
+				"  `apply_r_grade_course` argc \n" +
+				"  JOIN `oe_user` ou \n" +
+				"    ON argc.`user_id` = ou.`id` \n" +
+				"WHERE argc.`course_id` = :courseId \n" +
+				"GROUP BY ou.id ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("courseId",courseId);
+		return this.getNamedParameterJdbcTemplate().query(sql, params,
+				BeanPropertyRowMapper.newInstance(OnlineUser.class));
+	}
 }

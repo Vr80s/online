@@ -346,12 +346,28 @@ function getGiftResiveList(current, gradeName, startTime, endTime) {
 
 //条件搜索课程收益列表
 function searchCourseResiveList() {
-	//	console.log($('.search_classIpt').val(),$('.Order_start_time').val(),$('.Order_end_time').val())
-	getCourseResiveList(1, $('.classSearch_Name').val(), $('.Order_start_time').val(), $('.Order_end_time').val());
+	var searchCourse = {};
+	 	searchCourse.stratTime = $.trim($("#classOrderStarTime").val());
+		searchCourse.endTime = $.trim($("#classOrderEndTime").val());	
+    if(searchCourse.stratTime>searchCourse.endTime){
+    	showTip("开始时间不能大于结束时间")
+    	return false
+    }else{
+		getCourseResiveList(1, $('.classSearch_Name').val(), $('.Order_start_time').val(), $('.Order_end_time').val());
+    }
 }
 
 //条件搜索礼物收益列表
 function searchgiftResiveList() {
+	var searchGift = {};
+	 	searchGift.stratTime = $.trim($("#giftOrderStarTime").val());
+		searchGift.endTime = $.trim($("#giftOrderEndTime").val());	
+    if(searchGift.stratTime>searchGift.endTime){
+    	showTip("开始时间不能大于结束时间")
+    	return false
+    }else{
+		getGiftResiveList(1, $('.giftSearch_Name').val(), $('.Gift_start_time').val(), $('.Gift_end_time').val());   	
+    }
 	//	console.log($('.search_classIpt').val(),$('.Order_start_time').val(),$('.Order_end_time').val())
-	getGiftResiveList(1, $('.giftSearch_Name').val(), $('.Gift_start_time').val(), $('.Gift_end_time').val());
+
 }

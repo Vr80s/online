@@ -532,6 +532,12 @@ margin-top:0;
 #forum .forum-content .forum-content-right .teacher_books .book_list li .book_author{
 	font-size:14px;
 	font-weight:700;
+	    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    word-wrap: break-word;
+    width: 180px;
 }
 #forum .forum-content .forum-content-right .forum-hot-tag {
   background-color: #fff;

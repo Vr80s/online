@@ -583,4 +583,8 @@ $(function(){
 //      $(".resetUsernameCode .resetVificationHit").css("display","none");
          $(".resetVificationHit ").css("display","none");
     })
+     
+//   找回密码的手机号码回显
+	var getPhone = localStorage.setPhone;//获取值
+	$(".have-phone").val(getPhone)
 });
