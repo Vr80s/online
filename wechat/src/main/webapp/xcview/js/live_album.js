@@ -101,7 +101,8 @@ function stripHTML(str){
                     //alert("最后一个");
                     var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
                     var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
-                    var index = $(".all_list_ul_li").next("li").index();    
+                    var index = $(".all_list_ul_li").next("li").index();
+                    localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                     $('.all_list_ul li').eq(0).click();
@@ -110,7 +111,8 @@ function stripHTML(str){
                     //alert("第一个");
                     var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
                     var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
-                    var index = $(".all_list_ul_li").next("li").index();    
+                    var index = $(".all_list_ul_li").next("li").index();
+                    localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                                  
@@ -120,7 +122,8 @@ function stripHTML(str){
 
                     var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
                     var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
-                    var index = $(".all_list_ul_li").next("li").index();    
+                    var index = $(".all_list_ul_li").next("li").index();
+                    localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                              
