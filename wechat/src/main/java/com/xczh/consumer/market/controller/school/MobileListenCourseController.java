@@ -32,9 +32,6 @@ import java.util.Map;
 public class MobileListenCourseController {
 
 	@Autowired
-	private ListenCourseService listenCourseService;
-
-	@Autowired
 	private IMobileBannerService mobileBannerService;
 
 	@Autowired
@@ -58,11 +55,9 @@ public class MobileListenCourseController {
 		MobileBannerPage.setSize(100);
 		int bannerType = 4;
 		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,bannerType));
-
 		//听课课程列表
 		List<CourseLecturVo> listenCourseList = courseService.listenCourseList();
 		mapAll.put("listenCourseList",listenCourseList);
-
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 

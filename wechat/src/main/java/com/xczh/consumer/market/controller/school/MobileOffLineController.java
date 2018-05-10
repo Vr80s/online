@@ -61,11 +61,8 @@ public class MobileOffLineController {
 		Page<MobileBanner> MobileBannerPage = new Page<>();
 		MobileBannerPage.setCurrent(current);
 		MobileBannerPage.setSize(size);
-		int bannerType = 2;
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,bannerType));
-
+		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,2));
 		//城市
-
 		Page<OfflineCity> OfflineCityPage = new Page<>();
 		OfflineCityPage.setCurrent(current);
 		OfflineCityPage.setSize(size);

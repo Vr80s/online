@@ -32,9 +32,6 @@ import java.util.Map;
 public class MobileLiveController {
 
 	@Autowired
-	private OnlineCourseService onlineCourseService;
-
-	@Autowired
 	private IMobileBannerService mobileBannerService;
 
 	@Autowired
@@ -59,12 +56,9 @@ public class MobileLiveController {
 		Page<MobileBanner> MobileBannerPage = new Page<>();
 		MobileBannerPage.setCurrent(current);
 		MobileBannerPage.setSize(size);
-		int bannerType = 3;
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,bannerType));
-
+		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,3));
 		//直播 中的课程
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
-
 		Map<String,Object> mapTj = new HashMap<String, Object>();
 		Map<String,Object> mapNw = new HashMap<String, Object>();
 		Map<String,Object> mapZz = new HashMap<String, Object>();
@@ -118,7 +112,6 @@ public class MobileLiveController {
 			mapHf.put("courseList",listHf);
 			mapCourseList.add(mapHf);
 		}
-
 		mapAll.put("allCourseList",mapCourseList);
 
 		return ResponseObject.newSuccessResponseObject(mapAll);

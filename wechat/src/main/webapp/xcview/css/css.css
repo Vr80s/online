@@ -3461,42 +3461,42 @@ footer{
 	position: relative;
 }
 	
-.call_popup_cen{
+.call_popup_cen {
     position: absolute;
-    top: 2rem;
-    left: 2rem;
-	width: 12rem;
-	height: 9.3rem;
-	background: #fff;
-	margin: 0 auto;
+    top: 0rem;
+    left: 0.8rem;
+    width: 6rem;
+    height: 5rem;
+    background: #fff;
+    margin: 0 auto;
     border-radius: 6px;
     margin: 0 auto;
     text-align: center;
 }
-.call_popup_cen img{
-	width: 5.25rem;
-	margin-top: 1.3rem;
-	margin-bottom: 1.1rem;
+.call_popup_cen img {
+    width: 2.25rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
 }
 .call_popup_size1{
-	font-size: 0.5rem;
+	font-size: 0.28rem;
     color: #999;
     margin-bottom: 0.2rem;
 }
 .call_popup_size2{
-	font-size: 0.7rem;
+	font-size: 0.28rem;
     color: #333;
 }
-.call_popup_btn{
-	width: 10.75rem;
-    height: 1.55rem;
+.call_popup_btn {
+    width: 5.5rem;
+    height: 0.78rem;
     background: #00bc12;
-    line-height: 1.55rem;
+    line-height: 0.78rem;
     color: #fff;
     margin: 0 auto;
     border-radius: 6px;
-    margin-top: 1rem;
-    font-size: 0.75rem;
+    margin-top: 0.6rem;
+    font-size: 0.3rem;
 }
 /* 更换手机号结束*/
 /* 管理地址 开始*/
