@@ -634,8 +634,8 @@ public class MyManagerController {
 		ResponseObject rob = onlineUserService.changeMobileCheckCode(userName, smsCode, SMSCode.WITHDRAWAL.getCode());
 		//短信验证码成功
 		if(rob.isSuccess()){
-					enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber,bankCardId, OrderFrom.valueOf(orderFrom));
-				return ResponseObject.newSuccessResponseObject("提现成功");
+			enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber,bankCardId, OrderFrom.valueOf(orderFrom));
+			return ResponseObject.newSuccessResponseObject("提现成功");
 		}else{
 			return rob;
 		}
