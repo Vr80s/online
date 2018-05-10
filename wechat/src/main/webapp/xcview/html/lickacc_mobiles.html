@@ -30,6 +30,14 @@
 	    }
 	}	
 </script>
+<style>
+	.email_one{
+		height: 0.94rem;
+	}
+	.email_one .div0{
+		border: 0;
+	}
+</style>
 </head>
 <body style="background:#efefef;">
 	<!-- 头部开始 -->
@@ -48,24 +56,17 @@
 	<div class="email">
 		<div class="email_title">注册帐号</div>
 		<div class="email_one">
-			<div class="div0" data-title="mobile" onclick="check_login(this)">
-				<span class="span0">手机号</span>
+			<div class="div0">
+				<span class="span0">微信</span>
 				<img src="../images/account05.png" alt="" />
 				<span class="span1" id="mobileShow">15054054532</span>
 				
 			</div>
-			<div class="div0" data-title="password" style="border: 0;" onclick="check_login(this)">
-				<span class="span0">密码</span>
-				<img src="../images/account05.png" alt="" />
-				<span class="span1">修改密码</span>
-				
-			</div>
 		</div>
-		
 		<div class="email_title">其他登录方式</div>
 		<div class="email_one" style="height: 0.94rem;">
-			<div class="div0 div0_show" style="border: none;">
-				<span class="span0">微信</span>
+			<div class="div0 div0_show" style="border: none;" data-title="mobile">
+				<span class="span0">手机号</span>
 				<img src="../images/account05.png" alt="" />
 				<span class="span1" id="weixin_bind">去绑定</span>
 				
@@ -102,7 +103,7 @@
 <!-- <script src="/xcviews/js/common/swiper.jquery.min-1.11.2.js" type="text/javascript" charset="utf-8"></script> -->
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=57bd78e86e"></script>
-<script type="text/javascript" src="/xcview/js/lickacc_mobile.js?v=wechat_1.1.1&version=f30e932daf"></script>
+<script type="text/javascript" src="/xcview/js/lickacc_mobiles.js?v=wechat_1.1.1&version=f30e932daf"></script>
 <!--处理分辨率-->
 
 

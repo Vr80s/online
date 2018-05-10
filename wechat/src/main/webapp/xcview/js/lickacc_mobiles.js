@@ -1,7 +1,7 @@
 var mobile = "";
 //获取手机号
 mobile = localStorage.getItem("username");
-$("#mobileShow").html(mobile);
+$("#weixin_bind").html(mobile);
 
 
 var type = getUrlParam("type");
@@ -19,14 +19,14 @@ requestService("/xczh/bind/userBindingInfo", null, function(data) {
 	if (data.success) {
 		var item = data.resultObject;
 
-		$("#weixin_bind").attr("data-title",item.wxUnionId);   
-		$("#weixin_bind").html(item.wxName);   
+		$("#mobileShow").attr("data-title",item.wxUnionId);   
+		$("#mobileShow").html(item.wxName);   
 	}
 })	
 
 
 $(".email_one .div0_show").click(function(){
-	var unionId = $("#weixin_bind").attr("data-title");
+	var unionId = $("#mobileShow").attr("data-title");
 	
 	if(stringnull(unionId)){ //已经绑定了，这个是解除绑定
 		$(".success").show();
@@ -49,18 +49,18 @@ $(".success .three .three_btn1").click(function(){
  */
 function removeBind(){
 	
-	var unionId = $("#weixin_bind").attr("data-title");
+	var unionId = $("#mobileShow").attr("data-title");
 	if(stringnull(type) && type == 1){
 		$(".success").hide();
 	}else{
-		var unionId = $("#weixin_bind").attr("data-title");
+		var unionId = $("#mobileShow").attr("data-title");
 		requestService("/xczh/bind/removeBinding", {
 			type:1,
 			unionId:unionId
 		}, function(data) {
 			if (data.success) {
 				//刷新下页面
-				location.href="/xcview/html/lickacc_mobile.html";
+				location.href="/xcview/html/lickacc_mobiles.html";
 			}
 		})	
 	}
