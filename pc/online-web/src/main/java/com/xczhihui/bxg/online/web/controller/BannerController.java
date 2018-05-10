@@ -24,8 +24,7 @@ public class BannerController extends AbstractController{
      */
     @RequestMapping(value = "/getBannerList",method= RequestMethod.GET)
     public ResponseObject listBanner(Integer type){
-//        return ResponseObject.newSuccessResponseObject(service.list(null,null,type));
-        return ResponseObject.newSuccessResponseObject("nb");
+        return ResponseObject.newSuccessResponseObject(service.list(null,null,type));
     }
 
     /**
