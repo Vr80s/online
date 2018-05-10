@@ -185,18 +185,21 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 	public void deleteBankCard(String userId, Integer id) {
 		anchorInfoService.validateAnchorPermission(userId);
 		UserBank ub = userBankMapper.getCardById(id);
-		// 判断删除的是否是默认的
-		if (ub.isDefault()) {
-			userBankMapper.deleteBankCard(id);
-			List<UserBank> list = userBankMapper.selectUserBankByUserId(userId);
-			if (list.size() > 0) {
-				UserBank u = list.get(0);
-				updateDefault(userId, u.getId());
+		if(ub!=null) {
+			// 判断删除的是否是默认的
+			if (ub.isDefault()) {
+				userBankMapper.deleteBankCard(id);
+				List<UserBank> list = userBankMapper.selectUserBankByUserId(userId);
+				if (list.size() > 0) {
+					UserBank u = list.get(0);
+					updateDefault(userId, u.getId());
+				}
+			} else {
+				userBankMapper.deleteBankCard(id);
 			}
-		} else {
-			userBankMapper.deleteBankCard(id);
+		}else {
+			throw new AnchorWorkException("银行卡信息出错!");
 		}
-
 	}
 
 	@Override
