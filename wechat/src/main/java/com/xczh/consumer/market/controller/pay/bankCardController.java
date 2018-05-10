@@ -98,7 +98,7 @@ public class bankCardController {
 	@RequestMapping(value = "deleteBankCard")
 	@ResponseBody
 	public ResponseObject deleteBankCard(HttpServletRequest req,
-										 @RequestParam("id")Integer id) throws Exception{
+			@RequestParam("id")Integer id) throws Exception{
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
