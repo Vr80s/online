@@ -48,7 +48,7 @@ function submit() {
  					    cookie.delete1("_uc_t_");
  					    //删除  第三方登录时用到的cookie
  					    cookie.delete1("third_party_uc_t_");
- 	                    window.location.href="enter.html";
+ 	                    window.location.href="lickacc_mobile.html";
  	                }
  	            });
         	},2000)

@@ -2,6 +2,8 @@ package com.xczhihui.course.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.enums.LiveStatus;
+import com.xczhihui.common.util.enums.PayStatus;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
@@ -9,7 +11,10 @@ import com.xczhihui.course.vo.CourseLecturVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -133,6 +138,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public List<CourseLecturVo> myCourseType(Integer num, Integer pageSize, String userId, Integer type) {
 		return iCourseMapper.myCourseType(num,pageSize,userId,type);
+	}
+
+	@Override
+	public List<Map<String, Object>> getLiveStatusList() {
+		List<Map<String, Object>>  list  = LiveStatus.getLiveStatusList();
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getPayStatusList() {
+		List<Map<String, Object>>  list  = PayStatus.getPayStatusList();
+		return list;
 	}
 
 

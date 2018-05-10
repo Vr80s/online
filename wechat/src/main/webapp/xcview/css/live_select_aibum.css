@@ -1064,3 +1064,6 @@ color: #888888;
 	text-align: center;
 	color: white;
 }
+.hide_discuss{
+	display: none;
+}

@@ -89,7 +89,8 @@ $(function(){
 $(".my_details li").click(function(){
 	$(".my_details li span").removeClass("spanActive");
 	$(this).find("span").addClass("spanActive");
-	$(".my_details_content").hide().eq($(this).index()).show()
+	$(".my_details_content").hide().eq($(this).index()).show();
+    $(".hide_discuss").hide().eq($(this).index()).show();
 	
 })
 //评论刷新
