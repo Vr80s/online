@@ -56,10 +56,6 @@ public class XzAlipayController extends AliPayApiController {
 	@Autowired
 	private PayService payService;
 
-	@Value("${online.weburl}")
-	private String pcUrl;
-	@Value("${onlinekey}")
-	private String onlinekey;
 	@Value("${rate}")
 	private int rate;
 	@Value("${minimum_amount}")
