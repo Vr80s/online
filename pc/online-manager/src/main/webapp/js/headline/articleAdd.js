@@ -67,7 +67,7 @@ function openTagDiv(){
 	
 	$("#tagDiv :input").removeAttr("checked");
 	if($("#tagId").val()!=""&&$("#tagId").val()!=null){
-		debugger;
+		;
 		var seleTag=$("#tagId").val().split(",");
 		for(var i=0;i<seleTag.length;i++){
 			$("#tagDiv input").each(function(){

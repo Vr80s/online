@@ -36,7 +36,7 @@ $(function(){
     	}
     } },
     {"sortable": false,"class": "center","width":"8%","title":"排序","mRender":function (data, display, row) {
-//    	debugger;
+//    	;
     	if(row.status ==1){//如果是禁用
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
     		'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
@@ -83,13 +83,13 @@ $(function(){
 				countPage = parseInt(countNum/pageSize) + 1;
 			}
 			$("[name='upa']").each(function(index){
-//				debugger;
+//				;
 				if(index == 0){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
 			});
 			$("[name='downa']").each(function(index){
-//				debugger;
+//				;
 				if(index == $("[name='downa']").size()-1){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
@@ -261,7 +261,7 @@ function toEdit(obj){
 
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	
-//	debugger;
+//	;
 	$("#editCourse_id").val(row.id); //礼物名称
 	$("#price_edit").val(row.price); //礼物时常
 	$("#brokerage_edit").val(row.brokerage); //图片字段赋值
@@ -470,7 +470,7 @@ function setBrokerage(url,dataTable,title,content,btnName){
                     data = getJsonData(data);
 	                unmask();
 	                if(data.success){
-	                	debugger
+
 	                    $("#FcDialog").dialog("close");
 	                    layer.msg(data.resultObject);
 	                     freshTable(_courseTable);

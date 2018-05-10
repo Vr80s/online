@@ -2132,7 +2132,7 @@ function previewDialog(obj){
 		}
 		
 	})*/;
-	//debugger;
+	//;
 	//课程名
 	$("#ksystemName").text($("#courseName").val());
 	//知识点名称
@@ -2250,7 +2250,7 @@ function previewDialog(obj){
 	}
 
 	if (question.questionType == '3') {
-		//debugger
+		//
 		content2 += eval(question.answerText.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/[\r\n]/g,""));
 	}
 	

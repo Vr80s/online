@@ -19,7 +19,7 @@ $(function(){
         { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
         { "title": "所属学科", "class":"center","width":"6%","sortable":false,"data": 'xMenuName' },
         { "title": "课程大分类", "class":"center","width":"6%","sortable":false,"data": 'type' ,"mRender":function (data, display, row) {
-    		debugger
+
     			if(data==1 ){  //课程分类 1:公开直播课（1.直播2.点播3.线下课）
     				return "直播课";
     			}else if(data== 2){
@@ -38,7 +38,7 @@ $(function(){
         		}
             }},
         { "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
-    		debugger
+
     		
     			if(row.type == 1){
     				if(data==1 ){  //直播状态1.直播中，2预告，3直播结束

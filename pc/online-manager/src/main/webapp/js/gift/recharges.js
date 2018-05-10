@@ -78,13 +78,13 @@ $(function(){
 				countPage = parseInt(countNum/pageSize) + 1;
 			}
 			$("[name='upa']").each(function(index){
-//				debugger;
+//				;
 				if(index == 0){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
 			});
 			$("[name='downa']").each(function(index){
-//				debugger;
+//				;
 				if(index == $("[name='downa']").size()-1){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
@@ -145,7 +145,7 @@ function toEdit(obj){
 
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	
-//	debugger;
+//	;
 	$("#editCourse_id").val(row.id); //充值id
 	$("#price_edit").val(row.price); //充值价格
 

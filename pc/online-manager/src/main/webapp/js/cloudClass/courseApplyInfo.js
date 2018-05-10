@@ -111,7 +111,7 @@ $(function() {
     /** 职业课列表end */
 
     function showDetailDialog(obj, status) {
-        debugger
+
         var oo = $(obj).parent().parent().parent();
         var aData, page;
         if (status == 1) {
@@ -126,7 +126,7 @@ $(function() {
      * 添加职业课
      */
     $(".add_P").click(function () {
-        debugger
+
 
         createImageUpload($('.uploadImg_add'));//'新增职业课'弹出框的生成图片编辑器
 
@@ -326,7 +326,7 @@ $(function() {
 
     function updateCourseVideo(id) {
         mask();
-        debugger
+
         ajaxRequest(basePath + "/cloudclass/course/updateCourseVideo", "id=" + id, function (data) {
             unmask();
             if (data.success) {

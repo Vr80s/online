@@ -7,7 +7,7 @@ $(function() {
 	nowTime=show();
     $("#addProjectType").val(1);
     $("#updateProjectType").val(1);
-	debugger
+
     searchJson.push('{"tempMatchType":1,"propertyName":"search_type","propertyValue1":"1","tempType":Integer}');
     loadBanner2List();
 });

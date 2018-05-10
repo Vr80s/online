@@ -45,7 +45,7 @@ function removePhoto(){
 }
 
 function updatePersonInfo(){
-	//debugger;
+	//;
 	//alertInfo("保存");
 	if($("#person-info-form").valid()){
 		mask();

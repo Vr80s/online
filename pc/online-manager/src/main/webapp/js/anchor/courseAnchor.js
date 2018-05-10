@@ -136,7 +136,7 @@ $(function() {
     });
     /**主播推荐列表结束**/
     $(".recAnchor").click(function () {
-        debugger;
+        ;
         recAnchorTable();
     });
     $(".rec_P").click(function () {
@@ -230,7 +230,7 @@ function upMoveRec(obj){
  * @param obj
  */
 function downMoveRec(obj){
-    debugger;
+    ;
     var oo = $(obj).parent().parent().parent();
     var aData = anchorRecTable.fnGetData(oo);
     ajaxRequest(basePath+'/anchor/courseAnchor/downMoveRec',{"id":aData.id},function(res){
@@ -248,7 +248,7 @@ function toEdit(obj,status){
     //根据当前id查找对应的课程信息
     $("#id").val(row.id);
     $.get(basePath+"/anchor/courseAnchor/findCourseAnchorById",{id:row.id}, function(result){
-        debugger
+
         $("#name").val(result.name);
         $("#vod").val(result.vodDivide);
         $("#live").val(result.liveDivide);
@@ -256,7 +256,7 @@ function toEdit(obj,status){
         $("#gift").val(result.giftDivide);
 
         var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","设置分成比例",500,500,true,"确定",function(){
-            debugger
+
             if($("#updateCourse-form").valid()){
                 mask();
                 $("#updateCourse-form").attr("action", basePath+"/anchor/courseAnchor/updateCourseById");
@@ -343,7 +343,7 @@ function setUserLecturer(obj,op){
  * @Date: 2018/3/15 21:16
  **/
 function showCourseListDialog(obj) {
-    debugger;
+    ;
     var oo = $(obj).parent().parent().parent();
     var aData = P_courseTable.fnGetData(oo); // get datarow
     window.location.href = basePath + '/home#anchor/courseAnchor/anchorCourse?userId=' + aData.userId+'&anchorNname='+aData.name+'&loginName='+aData.loginName;

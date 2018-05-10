@@ -159,7 +159,7 @@ function loadTreeDynomic(objId,url,callback,addTree,updateTree,deleteTree,copyTr
 					}  	
 				},
 				onAsyncSuccess: function(event, treeId, treeNode, msg){
-					//debugger;
+					//;
 					layer.closeAll();
 					if(!isnull(callback)){
 						callback(treeNode);
@@ -321,7 +321,7 @@ function loadTreeDynomicBarrier(objId,url,callback,addTree,updateTree,deleteTree
 					}  	
 				},
 				onAsyncSuccess: function(event, treeId, treeNode, msg){
-					//debugger;
+					//;
 					layer.closeAll();
 					if(!isnull(callback)){
 						callback(treeNode);
@@ -460,7 +460,7 @@ function moveTreeNode(zTree1, zTree2){
 	var nodes = zTree1.getCheckedNodes();	//获取选中需要移动的数据
 	//console.log(nodes);
 	//console.log(nodes.length);
-	//debugger;
+	//;
 	for(var i=0;i<nodes.length;i++){		//把选中的数据从根开始一条一条往右添加
 		var node = nodes[i];
 		/*if(!node.isParent && node.type!="4"){
