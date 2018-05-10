@@ -73,7 +73,7 @@ function add(obj){
 }
 
 function importOrders (obj){
-    debugger;
+    ;
 	  $("#orderImportForm").resetForm();
 	  openDialog("orderImportDialog","dialogOrderImportDiv","线下订单导入",350,200,true,"提交",function(){
 		  var file = $('#excelFile').val();
@@ -88,7 +88,7 @@ function importOrders (obj){
 			  	console.info(data);
 				  data = $.parseJSON(data);
 				  unmask();
-				  debugger;
+				  ;
 				  if(data.success){
 					  $("#orderImportDialog").dialog("close");
 					  layer.msg('操作成功！');

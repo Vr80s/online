@@ -452,7 +452,7 @@ $(function() {
 		var objId = "treeDemo_"+$("#courseId").val();
 		var treeUrl = $("#getTree").html();
 		isUpdateClickForCourseSystem = true;
-		//debugger;
+		//;
 	    if(treeNode.checked){//选中
 	    	if(treeUrl.indexOf(objId)==-1){
 	    		$("#getTree").append('<ul id="'+objId+'" class="ztree" style="font-size: 13px; font-weight: bold;width: 250px;"></ul>');

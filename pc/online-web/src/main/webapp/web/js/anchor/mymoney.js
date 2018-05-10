@@ -176,7 +176,7 @@ function getRankingList(current, liveId) {
 			}
 		}
 		$("#myRanking_list").html(template('myRanking_list_Tpl', data.resultObject));
-		// debugger
+		//
 		//每次请求完数据就去渲染分页部分
 		if(data.resultObject.pages > 1) { //分页判断
 			$(".not-data").remove();
@@ -257,7 +257,7 @@ function getCourseResiveList(current, gradeName, startTime, endTime) {
 			$('.kecheng_Resive_bottom > table').removeClass('hide')
 		}
 
-		// debugger
+		//
 		//每次请求完数据就去渲染分页部分
 		if(data.resultObject.pages > 1) { //分页判断
 			$(".not-data").remove();
@@ -322,7 +322,7 @@ function getGiftResiveList(current, gradeName, startTime, endTime) {
 			$('#noGiftList').addClass('hide');
 			$('.gift_Resive_bottom > table').removeClass('hide');
 		}
-		// debugger
+		//
 		//每次请求完数据就去渲染分页部分
 		if(data.resultObject.pages > 1) { //分页判断
 			$(".not-data").remove();

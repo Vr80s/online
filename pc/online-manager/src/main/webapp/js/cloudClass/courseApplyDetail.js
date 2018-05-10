@@ -1,12 +1,12 @@
 function pass(){
-	debugger
+
     $.ajax({
         type:'post',
         url:basePath+'/cloudclass/courseApply/pass?courseApplyId='+courseApplyId,
         dataType:'json',
         async:false,
         success:function(data){
-            debugger
+
             alertInfo(data.errorMessage,function(){
                 if(data.success){
                     window.location.reload();
@@ -16,7 +16,7 @@ function pass(){
     }) ;
 }
 function notPass(){
-    debugger
+
     var cadata = {};
     cadata.id=courseApplyId;
     cadata.dismissal=$("#dismissal").val();

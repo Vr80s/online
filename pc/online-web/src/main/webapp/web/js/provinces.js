@@ -3282,7 +3282,7 @@ function doProvAndCityRelation() {
   $("#realProvince").val(province);
   
   city.append(sb.toString());
-//debugger;
+//;
   var county = $("#county");
   var countyVal = "";
   if(county!=null && county!=undefined){
@@ -3377,7 +3377,7 @@ var cityVal = $("#citys").val();
  * 修改使用
  */
 function doProvAndCityRelationEdit() {
-//  debugger
+//
   var city = $("#edit_citys");
   //if (city.children().length > 1) {
    city.empty();
@@ -3502,7 +3502,7 @@ function doProvAndCountyRelationEdit(){
  * 市选择产生变化
  */
 function onchangeCityAdd(){
-//  debugger
+//
 	var province =$("#citys").find("option:selected").text();
 	$("#realCitys").val(province);
 }

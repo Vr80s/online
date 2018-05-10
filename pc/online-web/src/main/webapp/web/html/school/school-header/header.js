@@ -742,7 +742,7 @@ $(function() {
 					 * 获取当前页面
 					 */
 					var current = location.href;
-					//                  debugger;
+					//                  ;
 					if(current.indexOf("otherDevice.html") != -1) {
 
 						window.location.href = "/index.html";

@@ -323,7 +323,7 @@ window.onload = function() {
                         });
                         
                         $(".gotengxun").click(function() {
-                        	debugger;
+                        	;
                             RequestService("/video/saveEntryVideo", "POST", {
                                 courseId: courserId,
                                 free: free

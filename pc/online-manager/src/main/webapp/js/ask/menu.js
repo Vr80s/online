@@ -508,7 +508,7 @@ function configResource(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = cloudClassMenuTable.fnGetData(oo); // get datarow
 	//alertInfo("配置" + aData.name + "权限");
-	//debugger;
+	//;
 	var roleId = aData.id;
 	initCommonZtrees("resource","resource2","user/resource/role/tree",{"roleId":roleId},"right",function(){//左右两边都加载
 			initCommonZtrees("resource","resource2","user/resource/tree",{},"left");

@@ -21,7 +21,7 @@ window.onload = function() {
 	// for(var i = 0; i < apams.length; i++) {
 	// 	var apam = apams[i].split("=");
 	// 	arr[i] = apam[1];
-	// 	debugger
+	//
 	// 	var qid = arr[0];
 	// };
 	var self = false; //是否本人提问

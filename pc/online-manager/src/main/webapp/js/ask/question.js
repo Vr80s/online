@@ -174,7 +174,7 @@ function loadQuerstionList(){
  //删除页面
  function showQuestionPage(questionId){
 	 var newTab=window.open('about:blank');
-	 debugger;
+	 ;
 	 newTab.location.href = weburl+"/web/jumpMethod/"+questionId+"/1/"+mname;
 	
 }

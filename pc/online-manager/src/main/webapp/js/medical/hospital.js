@@ -13,7 +13,7 @@ $(function () {
             return false;
         }
     }
-    //debugger;
+    //;
     /** 医馆列表begin */
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
@@ -209,7 +209,7 @@ $(function () {
         }];
 
     P_courseTable = initTables("courseTable", basePath + "/medical/hospital/list", objData, true, true, 0, null, searchCase_P, function (data) {
-        // debugger;
+        // ;
         // var iDisplayStart = data._iDisplayStart;
         // var countNum = data._iRecordsTotal;//总条数
         // pageSize = data._iDisplayLength;//每页显示条数
@@ -249,7 +249,7 @@ $(function () {
             "data": 'detailedAddress',
             "visible": true,
             "mRender": function (data, display, row) {
-                debugger
+
                 return row.province + "-" + row.city + "-" + row.detailedAddress;
             }
         }, {
@@ -623,7 +623,7 @@ $(".add_P").click(function () {
      */
 // $("input[name='isFree']").eq(1).attr("checked","checked");
     courseForm.resetForm();
-    debugger
+
 
     $("#province option:first").prop("selected", 'selected');
     var dialog = openDialog("addCourseDialog", "dialogAddCourseDiv", "新增医馆", 580, 600, true, "确定", function () {
@@ -853,7 +853,7 @@ function previewDialog(obj, status) {
     // 	row = M_courseTable.fnGetData(oo); // get datarow
     // }
 
-    // debugger
+    //
     // //根据当前id查找对应的课程信息
     // $.get(basePath+"/medical/hospital/findMedicalHospitalById",{id:row.id}, function(result){
     //
@@ -894,7 +894,7 @@ function previewDialog(obj, status) {
  * @param status（1：医馆，2：微课）
  */
 function toEdit(obj, status) {
-    debugger
+
     updateCourseForm.resetForm();
 
     var oo = $(obj).parent().parent().parent();
@@ -904,7 +904,7 @@ function toEdit(obj, status) {
     //根据当前id查找对应的课程信息
     $.get(basePath + "/medical/hospital/findMedicalHospitalById", {id: row.id}, function (result) {
         $("#editHospital_id").val(row.id);
-        debugger;
+        ;
         //省
         $("#edit_citys").empty();
 
@@ -946,7 +946,7 @@ function toEdit(obj, status) {
 
         var edit_title = "修改医馆";
         var dialog = openDialog("EditCourseDialog", "dialogEditCourseDiv", edit_title, 580, 650, true, "确定", function () {
-            debugger
+
             $("#edit_realProvince").val($("#edit_province").find("option:selected").text());
             $("#edit_realCitys").val($("#edit_citys").find("option:selected").text());
 
@@ -1093,7 +1093,7 @@ $(".list-items1").on("click", function (event) {
  */
 function openFieldManage(obj) {
 
-    // debugger
+    //
     var oo = $(obj).parent().parent().parent();
     var row = P_courseTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -1101,7 +1101,7 @@ function openFieldManage(obj) {
     $("#child_MenuName").html(row.name);
     var courseCount = row.courseCount;
     ajaxRequest(basePath + "/medical/field/alllist", {'id': row.id, 'type': 1}, function (data) {
-        // debugger
+        //
         drawMenusPage(data);
 
         if (row.courseCount == 0) {
@@ -1155,7 +1155,7 @@ function drawMenusPage(data) {
  * @param obj
  */
 function updateRec(obj) {
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = PX_courseTable.fnGetData(oo); // get datarow
     ajaxRequest(basePath + "/medical/hospital/updateRec", {"ids": row.id, "isRec": 0}, function (data) {
@@ -1213,7 +1213,7 @@ $(".kctj_bx").click(function () {
 
 
 function showRecruit(obj, status) {
-    debugger;
+    ;
     var oo = $(obj).parent().parent().parent();
     var aData, page;
     if (status == 1) {

@@ -13,7 +13,7 @@ $(function(){
        { "title": "意见编号", "class":"center","bVisible": false,"sortable":false,"data": 'id',"width":"80px"  },
        { "title": "用户编号", "class":"center","bVisible": false,"sortable":false,"data": 'userId',"width":"80px"  },
        { "title": "意见内容", "class":"center","sortable":false,"data": 'title' ,"mRender":function (data, display, row) {
-       	// debugger
+       	//
     		// titleArray[row.id]=data.replace(/[\r\n]/g,"");
             // return "<span class='titleSpan' id='"+row.id+"'></span>";//data.replace(/[\r\n]/g,"");
         	return "<span>"+row.context+"</span>";//data.replace(/[\r\n]/g,"");
@@ -188,7 +188,7 @@ function feedbackDialog(obj){
 			replytitle=res.resultObject.title;
 			replycreateTimeStr=res.resultObject.createTimeStr;
 		}
-		debugger;
+		;
         replytext = replytext.replace('<font color=\"#2cb82c\">意见反馈：</font>',"");
 		$("#show_replytext").val(replytext);
 		$("#show_replytitle").val(replytitle);
