@@ -4,21 +4,21 @@ $(function () {
         [
             'undo', //撤销
             'redo', //重做
-//          'bold', //加粗
-//          'forecolor', //字体颜色
-//          'backcolor', //背景色
+            'bold', //加粗
+            'forecolor', //字体颜色
+            'backcolor', //背景色
             'indent', //首行缩进
             'removeformat', //清除格式
             'formatmatch', //格式刷
             'blockquote', //引用
-//          'fontfamily', //字体
-//          'fontsize', //字号
+            'fontfamily', //字体
+            'fontsize', //字号
             'paragraph', //段落格式
-//          'italic', //斜体
-//          'underline', //下划线
-//          'strikethrough', //删除线
-//          'superscript', //上标
-//          'subscript', //下标
+            'italic', //斜体
+            'underline', //下划线
+            'strikethrough', //删除线
+            'superscript', //上标
+            'subscript', //下标
             'touppercase', //字母大写
             'tolowercase', //字母小写
             'justifyleft', //居左对齐
@@ -42,7 +42,8 @@ $(function () {
         maximumWords: 10000
     };
 
-    var replyContentEditor = UE.getEditor('replyContentEditor', options);
+	var replyContentEditor=$('#replyContentEditor');
+//  var replyContentEditor = UE.getEditor('replyContentEditor', options);
     var toReplyContentEditor;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
@@ -57,7 +58,8 @@ $(function () {
     //回复帖子
     $('.J-reply-submit').on('click', function (e) {
         e.preventDefault();
-        var content = replyContentEditor.getContent();
+//      var content = replyContentEditor.getContent();
+        var content = replyContentEditor.val()
         if (!content) {
             tip("输入的内容不能为空");
             return false;

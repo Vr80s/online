@@ -9,11 +9,11 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 		$('.doctor_inf>img').attr('src', "/web/images/defaultHeadImg.jpg");
 	}
 
-	if(data.resultObject.info) {
-		$('.doctor_inf>p').text(data.resultObject.info)
-	} else {
-		$('.doctor_inf>p').text('说点什么来彰显你的个性吧……')
-	}
+//	if(data.resultObject.info) {
+//		$('.doctor_inf>p').text(data.resultObject.info)
+//	} else {
+//		$('.doctor_inf>p').text('说点什么来彰显你的个性吧……')
+//	}
 
 });
 //获取医馆认证状态控制左侧tab栏

@@ -74,7 +74,7 @@
 
                 <div class="layui-form-item layui-form-text">
                     <div class="layui-input-block">
-                        <textarea id="J_content" name="content" placeholder="请输入内容" style="height: 260px; display: none;"></textarea>
+                        <textarea id="J_content" name="content" placeholder="说点什么吧..." style="height: 260px; display: none;"></textarea>
                     </div>
                     <label for="L_content" class="layui-form-label hide" style="top: -2px;">描述</label>
                 </div>

@@ -634,7 +634,8 @@ var imgsource ='';
 						"height": clipHeight,
 						"margin-left": -clipWidth/2,
 						"margin-top": -clipHeight/2,
-						'background-image':"url("+smallHeadPhoto+")"
+						'background-image':"url("+smallHeadPhoto+")",
+						'background-size': '100%'
 				};
 			}
 			

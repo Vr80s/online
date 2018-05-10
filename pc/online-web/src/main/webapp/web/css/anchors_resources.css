@@ -430,10 +430,13 @@
 	padding: 10px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child img,
-.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:first-child img,
 .contentWrap #media_report .media_report_bottom2 table tbody > tr > td:first-child img{
 	width: 106px;
 	height: 60px;
+}
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:first-child img{
+	width: 66px;
+	height: 92px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(2),
 .contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(2),

@@ -142,7 +142,7 @@
             </div>
 
 
-            <p style="text-align: right;"><a href="javascript:;" onclick="goBack()">返回列表</a></p>
+            <p style="text-align: right;margin-bottom: 10px;"><a href="javascript:;" onclick="goBack()">返回列表</a></p>
 
             <div class="layui-form layui-form-pane" style="position: relative;">
             <#--<div class="layui-form-abso" style="display:none;">-->
@@ -154,8 +154,8 @@
                 <div class="layui-form-item layui-form-text">
                     <div class="layui-input-block">
                                 <textarea id="replyContentEditor" name="content"
-                                          placeholder=""
-                                          style="height: 150px;"></textarea>
+                                          placeholder="说点什么吧..." 
+                                          style="height: 150px;width: 890px;resize: none;padding: 10px;border: 1px solid #ccc;"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
