@@ -96,10 +96,10 @@ $(function() {
 				//名字
 				$('.doctor_inf>h4').text(data.resultObject.name);
 
-				if(data.resultObject.info) {
-					//个性签名
-					$('.doctor_inf>p').text(data.resultObject.info)
-				}
+//				if(data.resultObject.info) {
+//					//个性签名
+//					$('.doctor_inf>p').text(data.resultObject.info)
+//				}
 			} else {
 
 			}

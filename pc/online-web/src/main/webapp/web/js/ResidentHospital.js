@@ -1009,16 +1009,21 @@ $("#notice-release-btn").click(function(){
     } 
 var announcementList;
 //公告管理列表接口调用
+var setPage;
 function announcementMethod(current){
 RequestService("/hospital/announcement","GET",{
 	"page":current
 },function(data){
 	if(data.success == true){
+		
+		setPage = data.resultObject.current;   //序号
 		for(var i=0;i<data.resultObject.records.length;i++){		
 				data.resultObject.records[i].Nownum=getNo(i);
-			}
+				
+		}
 		announcementList=data.resultObject.records;
-		if(data.resultObject.pages > 1) { //分页判断
+		if(data.resultObject.pages > 1) {
+			debugger //分页判断
 	        $(".notices_pages").removeClass("hide");
 	        $(".notices_pages .searchPage .allPage").text(data.resultObject.pages);
 	        $("#Pagination_notices").pagination(data.resultObject.pages, {
@@ -1028,11 +1033,12 @@ RequestService("/hospital/announcement","GET",{
 	            callback: function (page) {
 	                //翻页功能
 	                announcementMethod(page+1);
+
 	            }
 	        });
 		} else {
 			$(".notices_pages").addClass("hide");
-		}
+		}		
 		if(announcementList.length==0 || announcementList==null){
 			$("#Notice_bottom2 table").hide();
 			$(".notice_notext_icon").show();
@@ -1047,7 +1053,8 @@ RequestService("/hospital/announcement","GET",{
 })
 function getNo(i){
 		i++;
-		return i;
+		var j=(setPage-1)*10+i;
+		return j;
 	}	
 }
 
