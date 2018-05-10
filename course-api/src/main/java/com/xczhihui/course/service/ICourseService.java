@@ -1,6 +1,7 @@
 package com.xczhihui.course.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -23,7 +24,6 @@ public interface ICourseService {
     /**
      * Description：学习中心中的课程
      *
-     * @param id
      * @return List<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
@@ -32,7 +32,6 @@ public interface ICourseService {
     /**
      * Description：查询用户已购买课程的数量
      *
-     * @param id
      * @return Integer
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
@@ -42,7 +41,7 @@ public interface ICourseService {
      * Description：分页查询用于已购买课程列表
      *
      * @param page
-     * @param id
+     * @param userId
      * @return Page<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
@@ -159,4 +158,18 @@ public interface ICourseService {
      * @return
      */
     public List<CourseLecturVo> myCourseType(Integer num, Integer pageSize, String id, Integer type);
+    /**
+     * Description：获取直播状态列表
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/5/10 14:33
+     **/
+    public List<Map<String, Object>> getLiveStatusList();
+    /** 是否付费
+     * Description：
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/5/10 14:42
+     **/
+    public List<Map<String, Object>> getPayStatusList();
 }
