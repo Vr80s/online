@@ -194,6 +194,7 @@
   margin-right: 20px;
   float: left;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_pic {
   width: 260px;

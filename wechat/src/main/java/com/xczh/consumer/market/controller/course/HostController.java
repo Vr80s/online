@@ -58,8 +58,6 @@ public class HostController {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
-	@Value("${webdomain}")
-	private String webdomain;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(HostController.class);
 	
