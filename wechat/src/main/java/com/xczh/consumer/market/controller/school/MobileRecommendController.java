@@ -43,7 +43,6 @@ public class MobileRecommendController {
 	
 	@Autowired
 	private MenuService menuService;
-	
 
 	@Autowired
 	private IMobileBannerService mobileBannerService;

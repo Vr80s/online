@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.model.OfflineCity;
@@ -33,24 +34,18 @@ import java.util.Map;
 @Controller
 @RequestMapping("/xczh/classify")
 public class MobileClassifyController {
-
-	@Autowired
-	private OLCourseServiceI wxcpCourseService;
 	
 	@Autowired
 	private MenuService menuService;
-	
-	@Autowired
-	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
-
-	@Autowired
-	private IMobileBannerService mobileBannerService;
 
 	@Autowired
 	private IMobileProjectService mobileProjectService;
 
 	@Autowired
 	private IOfflineCityService offlineCityService;
+
+	@Autowired
+	private ICourseService courseService;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileClassifyController.class);
 
@@ -63,42 +58,19 @@ public class MobileClassifyController {
 									  HttpServletResponse res)
 			throws Exception {
 
-		List<Object> list11 = new ArrayList<Object>();
-
+		List<Object> list = new ArrayList<Object>();
 		//课程分类
-		list11.add(menuService.list());
-
+		list.add(menuService.list());
 		//课程专题
 		Page<MobileProject> MobileProjectPage = new Page<>();
 		MobileProjectPage.setCurrent(1);
 		MobileProjectPage.setSize(100);
-		int projectType = 2;
-		Page<MobileProject> mplist = mobileProjectService.selectMobileProjectPage(MobileProjectPage,projectType);
-		list11.add(mplist.getRecords());
-
-
-		//
-		List<Map<String, Object>>  list1  = new ArrayList<Map<String,Object>>();
-		Map<String, Object> m11 = new HashMap<String, Object>();
-		m11.put("id", "1");
-		m11.put("name", "视频课程");
-		Map<String, Object> m21 = new HashMap<String, Object>();
-		m21.put("id", "2");
-		m21.put("name", "音频课程");
-		Map<String, Object> m31 = new HashMap<String, Object>();
-		m31.put("id", "3");
-		m31.put("name", "直播课程");
-		Map<String, Object> m41 = new HashMap<String, Object>();
-		m41.put("id", "4");
-		m41.put("name", "线下课程");
-
-		list1.add(m11);
-		list1.add(m21);
-		list1.add(m31);
-		list1.add(m41);
+		Page<MobileProject> mplist = mobileProjectService.selectMobileProjectPage(MobileProjectPage,2);
+		list.add(mplist.getRecords());
 		//课程类型
-		list11.add(list1);
-		return ResponseObject.newSuccessResponseObject(list11);
+		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
+		list.add(getCourseTypeList);
+		return ResponseObject.newSuccessResponseObject(list);
 	}
 
 	/**
@@ -111,46 +83,15 @@ public class MobileClassifyController {
 			throws Exception {
 
 		List<Object> list11 = new ArrayList<Object>();
-
 		//课程分类
 		list11.add(menuService.list());
-
 		//是否付费
-		List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
-		Map<String, Object> m1 = new HashMap<String, Object>();
-		m1.put("id", "1");
-		m1.put("name", "免费");
-		Map<String, Object> m2 = new HashMap<String, Object>();
-		m2.put("id", "0");
-		m2.put("name", "付费");
-		list.add(m1);
-		list.add(m2);
-
-		list11.add(list);
-
-
+		List<Map<String, Object>> getPayStatusList = courseService.getPayStatusList();
+		list11.add(getPayStatusList);
 		//课程类型
-		List<Map<String, Object>>  list1  = new ArrayList<Map<String,Object>>();
-		Map<String, Object> m11 = new HashMap<String, Object>();
-		m11.put("id", "1");
-		m11.put("name", "视频课程");
-		Map<String, Object> m21 = new HashMap<String, Object>();
-		m21.put("id", "2");
-		m21.put("name", "音频课程");
-		Map<String, Object> m31 = new HashMap<String, Object>();
-		m31.put("id", "3");
-		m31.put("name", "直播课程");
-		Map<String, Object> m41 = new HashMap<String, Object>();
-		m41.put("id", "4");
-		m41.put("name", "线下课程");
-
-		list1.add(m11);
-		list1.add(m21);
-		list1.add(m31);
-		list1.add(m41);
-		list11.add(list1);
+		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
+		list11.add(getCourseTypeList);
 		//城市
-
 		Page<OfflineCity> OfflineCityPage = new Page<>();
 		OfflineCityPage.setCurrent(1);
 		OfflineCityPage.setSize(5);
@@ -166,20 +107,8 @@ public class MobileClassifyController {
 		}
 		list11.add(oclist);
 		//直播状态
-		List<Map<String, Object>>  list2  = new ArrayList<Map<String,Object>>();
-		Map<String, Object> zz1 = new HashMap<String, Object>();
-		zz1.put("id", "1");
-		zz1.put("name", "直播中");
-		Map<String, Object> zz2 = new HashMap<String, Object>();
-		zz2.put("id", "2");
-		zz2.put("name", "未直播");
-		Map<String, Object> zz3 = new HashMap<String, Object>();
-		zz3.put("id", "3");
-		zz3.put("name", "精彩回放");
-		list2.add(zz1);
-		list2.add(zz2);
-		list2.add(zz3);
-		list11.add(list2);
+		List<Map<String, Object>> getLiveStatusList = courseService.getLiveStatusList();
+		list11.add(getLiveStatusList);
 		return ResponseObject.newSuccessResponseObject(list11);
 	}
 
