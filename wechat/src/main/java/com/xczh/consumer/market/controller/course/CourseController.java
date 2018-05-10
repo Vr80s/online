@@ -6,7 +6,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,15 +48,10 @@ public class CourseController {
 	@Qualifier("focusServiceRemote")
 	private IFocusService focusServiceRemote;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory
-			.getLogger(CourseController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
 
 	@Value("${gift.im.room.postfix}")
 	private String postfix;
-
-	@Value("${live.preheating}")
-	private Integer livePreheating;
-	
 	
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;

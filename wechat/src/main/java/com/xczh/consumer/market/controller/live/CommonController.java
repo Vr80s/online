@@ -40,9 +40,6 @@ public class CommonController {
 	private String returnOpenidUri;
 	
 	
-	@Value("${webdomain}")
-	private String webdomain;
-	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CommonController.class);
 	
 	
@@ -395,12 +392,8 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject getDomain(HttpServletRequest req,
 			HttpServletResponse res)throws Exception{
-		try {
-			return ResponseObject.newSuccessResponseObject(webdomain);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("请求有误");
-		}
+		LOGGER.info("老版本方法----》》》》");
+	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
 	}
 	
 	
