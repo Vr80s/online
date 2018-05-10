@@ -255,7 +255,6 @@ window.onload = function() {
 	var free;
 	var courseDetail;
 
-	
 	$(".baomingSucces").attr("href", "/web/html/video.html?courseId=" + courserId);
 	RequestService("/course/getCourseById", "POST", {
 		courserId: courserId
@@ -263,6 +262,9 @@ window.onload = function() {
 		$("#NoShowIntroduct").css("display", "block");
 		courseDetail = data.resultObject;
 		collection = data.resultObject.collection;
+		
+		//alert("collection:"+collection);
+		
 		if(data.resultObject && data.resultObject.collection == true) {
 			$('.course-outline').removeClass('hide')
 			$('.collection-course').removeClass('hide')
@@ -346,6 +348,8 @@ window.onload = function() {
                                             $("#payCourseSlider .baomingSucces").css("display", "block");
                                             $(".sign-up").unbind("click");
                                         } else {
+                                        	
+                                        	
                                             $(".background-big").css("display", "none");
                                             $("#sign-up-modal").css("display", "none");
                                             $(".sign-up").css("display", "none");
@@ -372,15 +376,23 @@ window.onload = function() {
 	}
 	
 //	增加观看记录
-	$(".add-history").click(function(){
-		RequestService("/learnWatch/add", "POST", {
-            courseId: courserId,
-            recordType: 2
-        }, function(data) {
-        	console.log("添加观看记录");
-        });
-	})
+//	$(".add-history").click(function(){
+//		var jsonObj = {
+//			courseId: courserId,
+//		    recordType: 2
+//		}
+//		if(collection){
+//			jsonObj.collectionId=courserId;
+//		}
+//		RequestService("/learnWatch/add", "POST", {
+//			jsonObj
+//        }, function(data) {
+//        	console.log("添加观看记录");
+//        });
+//	})
 //	增加观看记录结束
+	
+	
 	function rTips(errorMessage) {
 		$(".rTips").text(errorMessage);
 		$(".rTips").css("display", "block");
