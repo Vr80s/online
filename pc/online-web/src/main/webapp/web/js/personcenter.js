@@ -20,7 +20,7 @@ $(function() {
 				$(".intro").html(template('namePic', {
 					img: path,
 					name: result.name ? result.name : "博小白",
-					info: result.info ? result.info : "说点什么来彰显你的个性吧……"
+//					info: result.info ? result.info : "说点什么来彰显你的个性吧……"
 				}));
 				if(window.localStorage.personcenter!=""&&window.localStorage.personcenter!="undefined") {
 					$(".personcenterPage .left-nav ." + window.localStorage.personcenter).click();
@@ -393,11 +393,11 @@ $(function() {
 		'<span class="nick-warn-name warning">用户名不能为空</span>' +
 		'</div>' +
 		
-		'<div>' +
-		'<div class="buer cy-myprofile-myfom-dv-span">个性签名:</div>' +
-		'<textarea class="mycytextarea" style="overflow:hidden" maxlength="15" placeholder="说点什么来彰显你的个性吧……" onchange="this.value=this.value.substring(0, 30)" onkeydown="this.value=this.value.substring(0, 30)" onkeyup="this.value=this.value.substring(0, 30)"></textarea>' +
-		'<span class="text-warn warning">个性签名不得超过30个字符</span>' +
-		'</div>' +
+//		'<div>' +
+//		'<div class="buer cy-myprofile-myfom-dv-span">个性签名:</div>' +
+//		'<textarea class="mycytextarea" style="overflow:hidden" maxlength="15" placeholder="说点什么来彰显你的个性吧……" onchange="this.value=this.value.substring(0, 30)" onkeydown="this.value=this.value.substring(0, 30)" onkeyup="this.value=this.value.substring(0, 30)"></textarea>' +
+//		'<span class="text-warn warning">个性签名不得超过30个字符</span>' +
+//		'</div>' +
 		'<div>' +
 		'<div class="buer">帐号:</div>' +
 		'<input type="text" disabled="disabled" readonly="readonly"  class="username ipt"/>' +

@@ -96,7 +96,7 @@ table{
     background-color: #fff;
     float: left;
     margin-top: 20px;
-    padding-bottom: 39px;
+    /*padding-bottom: 39px;*/
 }
 .doctor_inf{
 	text-align: center;

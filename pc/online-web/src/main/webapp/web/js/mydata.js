@@ -174,11 +174,11 @@ function addgetdata() { //回填数据
 		} else {
 			$(".firsname").val(data.resultObject.nickName);
 		};
-		if(data.resultObject.autograph == undefined) {
-			$(".mycytextarea").val("");
-		} else {
-			$(".mycytextarea").val(data.resultObject.autograph);
-		};
+//		if(data.resultObject.autograph == undefined) {
+//			$(".mycytextarea").val("");
+//		} else {
+//			$(".mycytextarea").val(data.resultObject.autograph);
+//		};
 		//如果没数据就提示填写信息
 		if(data.resultObject.realName == "" || data.resultObject.realName == null) {
 			$(".personBack").show();
@@ -343,7 +343,7 @@ function geren() {
 		RequestService("/online/user/updateUser", "POST", {
 			userId: localStorage.userid,
 			nickName: $(".firsname").val(),
-			autograph: $(".mycytextarea").val(),
+//			autograph: $(".mycytextarea").val(),
 			loginName: $(".username").val(),
 			// jobyearId: shijian(),
 			target: $("#food5").attr("data-id"),
@@ -366,11 +366,11 @@ function geren() {
 				$(".intro .msg").remove();
 				$(".intro").append("<div class='msg' data-maxlengts='11'></div>");
 				$(".intro .name").text($(".firsname").val()).attr("title", $(".firsname").val())
-				if($.trim($(".mycytextarea").val()) != "") {
-					$(".intro .msg0").text($.trim($(".mycytextarea").val())).attr("title", $.trim($(".mycytextarea").val()))
-				} else {
-					$(".intro .msg0").text("说点什么来彰显你的个性吧……").attr("title", "说点什么来彰显你的个性吧……")
-				}
+//				if($.trim($(".mycytextarea").val()) != "") {
+//					$(".intro .msg0").text($.trim($(".mycytextarea").val())).attr("title", $.trim($(".mycytextarea").val()))
+//				} else {
+//					$(".intro .msg0").text("说点什么来彰显你的个性吧……").attr("title", "说点什么来彰显你的个性吧……")
+//				}
 
 				$(".block-center:eq(1)").text("保存成功");
 				$(".loginGroup .name").text($(".firsname").val()).attr("title", $(".firsname").val())
