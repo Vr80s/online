@@ -154,4 +154,6 @@
     <dubbo:reference interface="com.xczhihui.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!-- 支付成功回调服务 -->
     <dubbo:reference interface="com.xczhihui.online.api.service.PayService" id="payService" timeout="${dubbo.consumer.timeout}"/>
+    <!-- 热门搜索服务 -->
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 </beans>

@@ -1,7 +1,7 @@
 package com.xczh.consumer.market.controller.school;
 
-import com.xczh.consumer.market.service.HotSearchService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.course.service.IMobileHotSearchService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,12 +25,12 @@ import java.util.Map;
 public class MobileHotSearchController {
 
 	@Autowired
-	private HotSearchService hotSearchService;
+	private IMobileHotSearchService mobileHotSearchService;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileHotSearchController.class);
 
 	/**
-	 * 听课
+	 * 热门搜索列表
 	 */
 	@RequestMapping("hotSearch")
 	@ResponseBody
@@ -39,11 +39,10 @@ public class MobileHotSearchController {
 			throws Exception {
 
 		Map<String, Object> mapAll = new HashMap<String, Object>();
-		//听课banner
-		mapAll.put("defaultSearch",hotSearchService.SearchList(1));
-
-		mapAll.put("hotSearch",hotSearchService.SearchList(2));
-
+		//默认搜索框
+		mapAll.put("defaultSearch",mobileHotSearchService.HotSearchList(1));
+		//热门搜索
+		mapAll.put("hotSearch",mobileHotSearchService.HotSearchList(2));
 
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
