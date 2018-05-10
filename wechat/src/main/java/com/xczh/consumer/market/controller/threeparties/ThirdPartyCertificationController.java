@@ -26,6 +26,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.common.util.enums.CommonEnumsType;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
@@ -113,8 +114,7 @@ public class ThirdPartyCertificationController {
 		/*
 		 * 验证短信验证码
 		 */
-		ResponseObject checkCode = onlineUserService.checkCode(userName, code,
-				vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(userName, code,vtype);
 		if (!checkCode.isSuccess()) { // 如果动态验证码不正确
 			return checkCode;
 		}
@@ -135,8 +135,14 @@ public class ThirdPartyCertificationController {
 
 			LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微信");
 
-			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService
-					.getWxcpClientUserByUnionId(unionId);
+			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
+		
+			if(m==null) {
+				return ResponseObject.newErrorResponseObject
+						(CommonEnumsType.WEIBO_USERINFO_NOFOUND.getText(),
+								CommonEnumsType.WEIBO_USERINFO_NOFOUND.getCode());
+			}
+			
 			m.setClient_id(ou.getId());
 			wxcpClientUserWxMappingService.update(m);
 
@@ -148,8 +154,14 @@ public class ThirdPartyCertificationController {
 
 			LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
 
-			QQClientUserMapping qq = threePartiesLoginService
-					.selectQQClientUserMappingByOpenId(unionId);
+			QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByOpenId(unionId);
+			
+			if(qq==null) {
+				return ResponseObject.newErrorResponseObject
+						(CommonEnumsType.QQ_USERINFO_NOFOUND.getText(),
+								CommonEnumsType.QQ_USERINFO_NOFOUND.getCode());
+			}
+			
 			qq.setUserId(ou.getId());
 			threePartiesLoginService.updateQQInfoAddUserId(qq);
 			break;
@@ -159,6 +171,13 @@ public class ThirdPartyCertificationController {
 
 			WeiboClientUserMapping weibo = threePartiesLoginService
 					.selectWeiboClientUserMappingByUid(unionId);
+			
+			if(weibo==null) {
+				return ResponseObject.newErrorResponseObject
+						(CommonEnumsType.WEIBO_USERINFO_NOFOUND.getText(),
+								CommonEnumsType.WEIBO_USERINFO_NOFOUND.getCode());
+			}
+			
 			weibo.setUserId(ou.getId());
 			threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
 			break;
@@ -456,8 +475,14 @@ public class ThirdPartyCertificationController {
 		/**
 		 * 微信连接这个用户
 		 */
-		WxcpClientUserWxMapping wxw = wxcpClientUserWxMappingService
-				.getWxcpClientUserByUnionId(unionId);
+		WxcpClientUserWxMapping wxw = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
+		if(wxw==null) {
+			return ResponseObject.newErrorResponseObject
+					(CommonEnumsType.WECHAT_USERINFO_NOFOUND.getText(),
+							CommonEnumsType.WECHAT_USERINFO_NOFOUND.getCode());
+		}
+		
+		
 		wxw.setClient_id(ou.getId());
 		wxcpClientUserWxMappingService.update(wxw);
 		/**

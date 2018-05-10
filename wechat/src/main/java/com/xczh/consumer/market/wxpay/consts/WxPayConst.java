@@ -28,7 +28,6 @@ public class WxPayConst {
 
 	public static String returnOpenidUri;
 	public static String server_ip;
-	public static String webdomain;
 	
 	
 	static{
@@ -50,7 +49,6 @@ public class WxPayConst {
 			app_ApiKey = properties.getProperty("wechatpay.app.apiKey");
 			//app_Secret = properties.getProperty("wechatpay.appSecret");
 			
-			webdomain = properties.getProperty("webdomain");
 			returnOpenidUri = properties.getProperty("returnOpenidUri");
 			server_ip = properties.getProperty("server_ip");
 			

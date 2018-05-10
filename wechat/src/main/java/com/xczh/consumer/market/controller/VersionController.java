@@ -85,8 +85,6 @@ public class VersionController {
 								  HttpServletResponse res, LiveExamineInfo liveExamineInfo,
 								  @RequestParam MultipartFile [] files) throws IOException, SQLException, ServletException{
     	
-    /*	ConfigUtil cfg = new ConfigUtil(req.getSession());
-		String returnCodeUri = cfg.getConfig("returnCodeUri");*/
     	List<String> list;
     	String courseId = req.getParameter("courseId");
     	String label = req.getParameter("label");

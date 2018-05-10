@@ -565,14 +565,14 @@ window.onload = function () {
 
             var atime;
             $(".account .mess .name").html(data.resultObject.name);
-            if (data.resultObject.info) {
-                $(".account .mess .msg").html(data.resultObject.info);
-                $(".account .mess .msg").attr("title", data.resultObject.info);
-            } else {
-                $(".account .mess .msg").html("说点什么来彰显你的个性吧……");
-                $(".account .mess .msg").attr("title", "说点什么来彰显你的个性吧……");
-            }
-            ;
+//          if (data.resultObject.info) {
+//              $(".account .mess .msg").html(data.resultObject.info);
+//              $(".account .mess .msg").attr("title", data.resultObject.info);
+//          } else {
+//              $(".account .mess .msg").html("说点什么来彰显你的个性吧……");
+//              $(".account .mess .msg").attr("title", "说点什么来彰显你的个性吧……");
+//          };
+            
             loginName = data.resultObject.loginName;
             if (data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
                 path = data.resultObject.smallHeadPhoto;

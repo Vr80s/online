@@ -30,11 +30,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.service.iphoneIpaService;
 import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
+import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczhihui.online.api.service.XmbBuyCouserService;
 
 @Controller
@@ -45,32 +47,24 @@ public class XzIapController {
 	@Value("${iphone.iap.url}")
 	private String certificateUrl;
 
-	// 现在这里做下记录
-	@Value("${iphone.version}")
-	private String iphoneVersion;
 
 	@Value("${rate}")
 	private Integer rate;
 
-	@Value("${onlinekey}")
-	private String onlinekey;
-
-	@Value("${online.weburl}")
-	private String pcUrl;
 
 	@Autowired
 	private iphoneIpaService iphoneIpaService;
 
-
 	@Autowired
 	private AppBrowserService appBrowserService;
-
 
 	@Autowired
 	private XmbBuyCouserService xmbBuyCouserService;
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory
-			.getLogger(XzIapController.class);
+	@Autowired
+	private VersionService versionService;
+	
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzIapController.class);
 
 	
 	
@@ -111,23 +105,22 @@ public class XzIapController {
 		
 		}else{
 			/*
-			 * 正式环境需要区分下：是否在审核中，审核中需要是沙箱环境，审核后我们上线需要是正式环境
-			 * 
+			 * 正式环境需要区分下：
+			 *  是否在审核中，审核中需要是沙箱环境，审核后我们上线需要是正式环境
 			 *  需要注意的一点，如果ios进行上架后，后台需要立即更新这个状态app版本状态
 			 */
+			VersionInfoVo newVer = versionService.getNewVersion(1);
+			String newVersion = newVer.getVersion()+".1";
 			
-//			VersionInfoVo newVer = versionService.getNewVersion(1);
-			
-//			String newVersion = newVer.getVersion()+".1";
-			LOGGER.info("newVersion:" + iphoneVersion);
+			LOGGER.info("newVersion:" + newVersion);
 			LOGGER.info("currentVersion:" + version);
 			
-			int diff = VersionCompareUtil.compareVersion(iphoneVersion, version);
+			int diff = VersionCompareUtil.compareVersion(newVersion, version);
 			if (diff > 0) {   
 				LOGGER.info("{}{}{}{}{}-----》当前版本小于最新版本，说明是老版本  ");
 				url = "https://buy.itunes.apple.com/verifyReceipt";
 			} else {        // 当前版本大于等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境
-				LOGGER.info("{}{}{}{}{}-----》当前版本等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境");
+				LOGGER.info("{}{}{}{}{}-----》当前版本等于大于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境");
 				url = "https://sandbox.itunes.apple.com/verifyReceipt";
 			}
 		}
