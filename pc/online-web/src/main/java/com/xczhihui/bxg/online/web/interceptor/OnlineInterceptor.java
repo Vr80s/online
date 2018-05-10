@@ -107,7 +107,8 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		
 		//session与cookie都有，但是不是同一个用户的，以cookie为准重新设置session
 		//这种情况可能是先登录了一个用户，然后用另一个用户从其他系统登录再跳过来
-		if (u != null && t != null && !u.getLoginName().equals(t.getLoginName())) {
+//		if (u != null && t != null && !u.getLoginName().equals(t.getLoginName())) {
+		if (u != null && t != null) {
 			ItcastUser user = api.getUser(t.getLoginName());
 			if(user != null){
 				UserLoginUtil.setLoginUser(request, this.getUser(t));
