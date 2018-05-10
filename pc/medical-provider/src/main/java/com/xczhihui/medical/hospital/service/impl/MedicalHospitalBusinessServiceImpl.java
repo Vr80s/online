@@ -1,26 +1,32 @@
 package com.xczhihui.medical.hospital.service.impl;
 
+import java.util.*;
+
+import com.xczhihui.medical.exception.MedicalException;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.medical.field.mapper.MedicalFieldMapper;
+import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.mapper.*;
-import com.xczhihui.medical.hospital.model.*;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
+import com.xczhihui.medical.hospital.model.MedicalHospitalField;
+import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 /**
  * <p>
- *  医馆业务接口类
+ * 医馆业务接口类
  * </p>
  *
  * @author yuxin
@@ -41,11 +47,13 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     private MedicalHospitalFieldMapper hospitalFieldMapper;
     @Autowired
     private MedicalHospitalDoctorMapper hospitalDoctorMapper;
+    @Autowired
+    private MedicalFieldMapper medicalFieldMapper;
 
     @Override
     public Page<MedicalHospitalVo> selectHospitalPage(Page<MedicalHospitalVo> page, String name, String field) {
         List<String> mhIds = medicalHospitalMapper.selectHospitalIdList(page, name, field);
-        if(mhIds.size()>0){
+        if (mhIds.size() > 0) {
             List<MedicalHospitalVo> medicalHospitals = medicalHospitalMapper.selectHospitalAndPictureList(mhIds);
             page.setRecords(medicalHospitals);
         }
@@ -65,9 +73,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     /**
      * 获取医馆的医师列表
-     * @param page 分页封装
+     *
+     * @param page       分页封装
      * @param doctorName 医师名字
-     * @param userId 医馆id
+     * @param userId     医馆id
      * @author zhuwenbao
      */
     @Override
@@ -75,18 +84,18 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
         // 根据userId获取他的认证医馆信息
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(userId);
-        if(hospitalAccount == null){
-            throw new RuntimeException("您没有认证医馆");
+        if (hospitalAccount == null) {
+            throw new MedicalException("您没有认证医馆");
         }
 
         List<MedicalDoctor> medicalDoctorList =
                 medicalHospitalMapper.selectDoctorList(page, doctorName, hospitalAccount.getDoctorId());
-        if(CollectionUtils.isNotEmpty(medicalDoctorList)){
-            for(MedicalDoctor doctor : medicalDoctorList){
+        if (CollectionUtils.isNotEmpty(medicalDoctorList)) {
+            for (MedicalDoctor doctor : medicalDoctorList) {
                 // 根据id获取医师头像
                 MedicalDoctorAuthenticationInformation authenticationInformation =
                         doctorAuthenticationInformationMapper.selectById(doctor.getAuthenticationInformationId());
-                if(authenticationInformation != null){
+                if (authenticationInformation != null) {
                     doctor.setHeadPortrait(authenticationInformation.getHeadPortrait());
                 }
             }
@@ -96,6 +105,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     /**
      * 根据用户id获取其医馆详情
+     *
      * @author zhuwenbao
      */
     @Override
@@ -104,8 +114,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         // 根据用户id获取其医馆id
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(uid);
 
-        if(hospitalAccount == null){
-            throw new RuntimeException("您尚未拥有医馆");
+        if (hospitalAccount == null) {
+            throw new MedicalException("您尚未拥有医馆");
         }
 
         return medicalHospitalMapper.selectHospitalByIdAndStatus(hospitalAccount.getDoctorId(), null);
@@ -113,6 +123,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     /**
      * 删除医馆里面的医师
+     *
      * @param doctorId 医师id
      * @author zhuwenbao
      */
@@ -125,8 +136,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             // 获取用户的医馆
             MedicalHospitalAccount hospitalAccount =
                     hospitalAccountMapper.getByUserId(uid);
-            if(hospitalAccount == null || StringUtils.isBlank(hospitalAccount.getDoctorId())){
-                throw new RuntimeException("您尚为认证医馆，请认证后再添加");
+            if (hospitalAccount == null || StringUtils.isBlank(hospitalAccount.getDoctorId())) {
+                throw new MedicalException("您尚为认证医馆，请认证后再添加");
             }
 
             Map<String, Object> columnMap = new HashMap<>();
@@ -139,12 +150,27 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     }
 
     @Override
+    public MedicalField getFieldById(String fieldId) {
+        return medicalFieldMapper.selectById(fieldId);
+    }
+
+    @Override
+    public String getHospitalIdByUserId(String userId) {
+        MedicalHospitalAccount medicalHospitalAccount = hospitalAccountMapper.getByUserId(userId);
+        if (medicalHospitalAccount == null || medicalHospitalAccount.getDoctorId() == null) {
+            throw new IllegalArgumentException("参数非法");
+        }
+        return medicalHospitalAccount.getDoctorId();
+    }
+
+    @Override
     public List<MedicalFieldVO> getHotField() {
         return medicalHospitalMapper.getHotField();
     }
 
     /**
      * 获取医疗领域（分页）
+     *
      * @param page 分页对象
      * @return 医疗领域列表
      */
@@ -156,6 +182,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     /**
      * 修改医馆信息
+     *
      * @author zhuwenbao
      */
     @Override
@@ -167,8 +194,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         MedicalHospitalAccount hospitalAccount =
                 hospitalAccountMapper.getByUserId(medicalHospital.getUpdatePerson());
 
-        if(hospitalAccount == null){
-            throw new RuntimeException("您尚未拥有医馆");
+        if (hospitalAccount == null) {
+            throw new MedicalException("您尚未拥有医馆");
         }
 
         medicalHospital.setId(hospitalAccount.getDoctorId());
@@ -176,7 +203,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         medicalHospital.setUpdateTime(now);
 
         // 如果用户修改医馆照片
-        if(CollectionUtils.isNotEmpty(medicalHospital.getPictures())){
+        if (CollectionUtils.isNotEmpty(medicalHospital.getPictures())) {
 
             // 删除之前的医馆照片
             hospitalPictureMapper.updateDeletedByHospitalId(hospitalAccount.getDoctorId(), true);
@@ -186,10 +213,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
             Integer version = 1;  // 用于图片的排序
             List<MedicalHospitalPicture> hospitalPictures = new ArrayList<>();
-            for(String hospitalPictureUrl :hospitalPictureUrlList){
-                if(StringUtils.isNotBlank(hospitalPictureUrl)){
+            for (String hospitalPictureUrl : hospitalPictureUrlList) {
+                if (StringUtils.isNotBlank(hospitalPictureUrl)) {
                     MedicalHospitalPicture hospitalPicture = new MedicalHospitalPicture();
-                    hospitalPicture.setId(UUID.randomUUID().toString().replace("-",""));
+                    hospitalPicture.setId(UUID.randomUUID().toString().replace("-", ""));
                     hospitalPicture.setHospitalId(medicalHospital.getId());
                     hospitalPicture.setPicture(hospitalPictureUrl);
                     hospitalPicture.setDeleted(false);
@@ -201,13 +228,13 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             }
 
 
-            if(CollectionUtils.isNotEmpty(hospitalPictures)){
+            if (CollectionUtils.isNotEmpty(hospitalPictures)) {
                 hospitalPictureMapper.insertBatch(hospitalPictures);
             }
         }
 
         // 如果用户修改医馆领域
-        if(CollectionUtils.isNotEmpty(medicalHospital.getFieldIds())){
+        if (CollectionUtils.isNotEmpty(medicalHospital.getFieldIds())) {
 
             // 删除之前的医馆领域
             hospitalFieldMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
@@ -216,10 +243,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             List<String> fieldIds = medicalHospital.getFieldIds();
             List<MedicalHospitalField> hospitalFields = new ArrayList<>();
 
-            for (String fieldId : fieldIds){
+            for (String fieldId : fieldIds) {
 
                 MedicalHospitalField hospitalField = new MedicalHospitalField();
-                hospitalField.setId(UUID.randomUUID().toString().replace("-",""));
+                hospitalField.setId(UUID.randomUUID().toString().replace("-", ""));
                 hospitalField.setHospitalId(medicalHospital.getId());
                 hospitalField.setFieldId(fieldId);
                 hospitalField.setDeleted(false);
@@ -236,42 +263,43 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     /**
      * 参数校验
+     *
      * @param medicalHospital 被校验的参数
      */
     private void validate(MedicalHospital medicalHospital) {
 
-        if(medicalHospital == null){
-            throw new RuntimeException("请选择要修改的医馆");
+        if (medicalHospital == null) {
+            throw new MedicalException("请选择要修改的医馆");
         }
 
-        if(StringUtils.isBlank(medicalHospital.getHeadPortrait())){
-            throw new RuntimeException("请上传医馆头像");
+        if (StringUtils.isBlank(medicalHospital.getHeadPortrait())) {
+            throw new MedicalException("请上传医馆头像");
         }
 
-        if(CollectionUtils.isEmpty(medicalHospital.getPictures())){
-            throw new RuntimeException("请上传医馆图片");
+        if (CollectionUtils.isEmpty(medicalHospital.getPictures())) {
+            throw new MedicalException("请上传医馆图片");
         }
 
-        if(CollectionUtils.isEmpty(medicalHospital.getFieldIds())){
-            throw new RuntimeException("请选择医疗领域");
+        if (CollectionUtils.isEmpty(medicalHospital.getFieldIds())) {
+            throw new MedicalException("请选择医疗领域");
         }
 
-        if(StringUtils.isBlank(medicalHospital.getDescription())){
-            throw new RuntimeException("请填写医馆介绍");
+        if (StringUtils.isBlank(medicalHospital.getDescription())) {
+            throw new MedicalException("请填写医馆介绍");
         }
 
-        if(StringUtils.isBlank(medicalHospital.getContactor())){
-            throw new RuntimeException("请填写医馆联系人");
-        }else if(medicalHospital.getContactor().length()>16){
-            throw new RuntimeException("联系人姓名不能超过16个字");
+        if (StringUtils.isBlank(medicalHospital.getContactor())) {
+            throw new MedicalException("请填写医馆联系人");
+        } else if (medicalHospital.getContactor().length() > 16) {
+            throw new MedicalException("联系人姓名不能超过16个字");
         }
 
-        if(StringUtils.isBlank(medicalHospital.getProvince())){
-            throw new RuntimeException("请选择医馆所在省份");
+        if (StringUtils.isBlank(medicalHospital.getProvince())) {
+            throw new MedicalException("请选择医馆所在省份");
         }
 
-        if(StringUtils.isBlank(medicalHospital.getCity())){
-            throw new RuntimeException("请填写医馆所在城市");
+        if (StringUtils.isBlank(medicalHospital.getCity())) {
+            throw new MedicalException("请填写医馆所在城市");
         }
     }
 }

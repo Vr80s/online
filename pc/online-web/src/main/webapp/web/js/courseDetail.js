@@ -13,6 +13,8 @@ for(i = 0; i < apams.length; i++) {
 	var apam = apams[i].split("=");
 	arr[i] = apam[1];
 	var courserId = arr[0];
+	
+	
 	var courseType = arr[1];
 	var fre = arr[2];
 };
@@ -119,13 +121,18 @@ window.onload = function() {
 		'<div class="videoBody-bottom-listRelease">' +
 		'<div class="videoBody-bottom-listRelease-left">' +
 		'<img src="{{#headImg(e.onlineUser.smallHeadPhoto)}}"/>' +
-		'<p title="{{e.onlineUser.name}}">{{e.onlineUser.name}}</p>' +
 		'</div>' +
 		'<div class="videoBody-bottom-listRelease-right">' +
 		// '<p class="releaseStar">{{#stars2(e.starLevel)}}</p>' +
+        '<p title="{{e.onlineUser.name}}" class="releaseTime">{{e.onlineUser.name}} <span class="releaseTime">{{removeSecond(e.createTime)}}</span></p>' +
 		'<p class="releaseText" style="word-wrap: break-word;">{{e.content}}</p>' +
+        '{{if e.reply.length > 0}}' +
+        '<div style="background: #FAFAFA;margin-top: 50px"><p style="word-wrap: break-word;">' +
+        '<img src="{{#headImg(e.replySmallHeadPhoto)}}" style="width: 36px;height: 36px;border-radius:60px;margin: 10px;font-size: 14px;"/>' +
+        '{{e.replyName}} {{e.replyCreateTime}}</p>' +
+        '<p style="margin-left: 60px;font-size: 14px">{{e.replyContent}}</p></div>'+
+        '{{/if}}' +
 		'<div class="releaseGood clearfix" data-criticizeId="{{e.id}}" data-isPraise="{{e.isPraise}}">' +
-		'<span class="releaseTime">{{removeSecond(e.createTime)}}</span>' +
 		'<p class="wqz">' +
 		'{{if e.isPraise == 0}}' +
 		'<img src="../../web/images/video/good_normal.png" style="cursor:pointer;padding-right:5px;margin-top:-3px;"/>' +
@@ -252,10 +259,12 @@ window.onload = function() {
 	RequestService("/course/getCourseById", "POST", {
 		courserId: courserId
 	}, function(data) {
-//		classType = data.resultObject.type;
 		$("#NoShowIntroduct").css("display", "block");
 		courseDetail = data.resultObject;
 		collection = data.resultObject.collection;
+		
+		//alert("collection:"+collection);
+		
 		if(data.resultObject && data.resultObject.collection == true) {
 			$('.course-outline').removeClass('hide')
 			$('.collection-course').removeClass('hide')
@@ -272,8 +281,6 @@ window.onload = function() {
             signUp();
 		});
 		$(".myClassName").text(data.resultObject.courseName);
-		$(".myClassName").attr("href", "/web/html/courseIntroductionPage.html?id=" + courserId + '&courseType=' + courseType + '&free=' + fre);
-		$(".enter-class").attr("href", data.resultObject.cloudClassroom);
 		$(".table-title-inset .course-details").click();
 		//省略号
 		$('.bigpic-body-text').dotdotdot();
@@ -281,6 +288,8 @@ window.onload = function() {
 
 	function signUp(){
         var apply = $(this).attr("data-apply");
+        
+        //验证是否登录
         RequestService("/online/user/isAlive", "GET", "", function(data) {
             if(!data.success) {
                 localStorage.username = null;
@@ -297,38 +306,35 @@ window.onload = function() {
                 RequestService("/course/getCourseApplyByCourseId", "GET", {
                     courseId: courserId
                 }, function(data) {
-                    //获取其他数据
-                    if(apply == 'true') {
-                        alert("已经购买");
-                    } else if(!data.resultObject.free) {
-                        RequestService("/shoppingCart/join", "post", {
-                            courseId: courserId
-                        }, function(n) {});
-                        RequestService("/video/findVideosByCourseId", "GET", {
-                            courseId: courserId
-                        }, function(data) {
-                            if(data.success == true) {
-                                window.location.href = "/web/html/order.html?courseId=" + courserId;
-                            } else {
-                                rTips(data.errorMessage);
-                            }
-                        });
+                	
+                    //是否收费 --》 收费的去支付
+                    if(!data.resultObject.free) { 
+						if(data.success == true) {
+							window.location.href = "/course/pay/" + courserId;
+						} else {
+							rTips(data.errorMessage);
+						}
                     } else {
-                        $("#sign-up-modal").html(template.compile(modal)(data.resultObject));
+                        
+                    	$("#sign-up-modal").html(template.compile(modal)(data.resultObject));
                         $("#sign-up-modal .sign-up-title img").click(function() {
                             $(".background-big").css("display", "none");
                             $("#sign-up-modal").css("display", "none");
                         });
+                        
                         $(".gotengxun").click(function() {
+                        	;
                             RequestService("/video/saveEntryVideo", "POST", {
                                 courseId: courserId,
                                 free: free
                             }, function(data) {
                                 if(data.success == true) {
                                     if(data.resultObject == "报名成功") {
-                                        if(courseDetail.type == 3){
+                                    	//线下课刷新当前页面
+                                        if(courseDetail.type == 3){  
                                             window.location.reload();
                                         }
+                                        
                                         if(!collection) {
                                             $(".sign-up-body,.gotengxun").css("display", "none");
                                             $(".sign-up-success,.baomingSucces").css("display", "block");
@@ -342,6 +348,8 @@ window.onload = function() {
                                             $("#payCourseSlider .baomingSucces").css("display", "block");
                                             $(".sign-up").unbind("click");
                                         } else {
+                                        	
+                                        	
                                             $(".background-big").css("display", "none");
                                             $("#sign-up-modal").css("display", "none");
                                             $(".sign-up").css("display", "none");
@@ -366,6 +374,25 @@ window.onload = function() {
             }
         });
 	}
+	
+//	增加观看记录
+//	$(".add-history").click(function(){
+//		var jsonObj = {
+//			courseId: courserId,
+//		    recordType: 2
+//		}
+//		if(collection){
+//			jsonObj.collectionId=courserId;
+//		}
+//		RequestService("/learnWatch/add", "POST", {
+//			jsonObj
+//        }, function(data) {
+//        	console.log("添加观看记录");
+//        });
+//	})
+//	增加观看记录结束
+	
+	
 	function rTips(errorMessage) {
 		$(".rTips").text(errorMessage);
 		$(".rTips").css("display", "block");
@@ -475,11 +502,12 @@ window.onload = function() {
 		// RequestService("/course/getCourseById", "POST", {
 		// 	courserId: courserId
 		// }, function(data) {
-			if(courseDetail.type == 3) {
+        givecriticize();
+			/*if(courseDetail.type == 3) {
 				givecriticize();
 			} else {
 				Evalutation();
-			}
+			}*/
 	});
 
 	//授课老师
@@ -533,6 +561,10 @@ window.onload = function() {
 
 	//点击提交评价
 	$(".getRelease").click(function() {
+		if($.trim($(".videoBody-bottom-left-release textarea").val()) == ""){
+            showTip("评论内容不能为空")
+			return false;
+		}
 		RequestService("/online/user/isAlive", "POST", null, function(data) {
 			if(!data.success) {
 				$('#login').modal('show');
@@ -557,8 +589,8 @@ window.onload = function() {
 					$(".getRelease").attr("star", 5);
 					$(".tipRelease").hide();
 				};
-				RequestService("/video/saveCriticize", "POST", {
-					videoId: courserId,
+				RequestService("/criticize/saveCriticize", "POST", {
+					//videoId: courserId,
 					//					chapterId: chapterId,
 					content: releaseTxt,
 					//					starLevel: starLenth,
@@ -613,8 +645,8 @@ window.onload = function() {
 	function givecriticize() {
 		console.log(courserId, list.pageNumber, list.pageSize)
 		//获取评价列表
-		RequestService("/video/getVideoCriticize", "POST", {
-			videoId: courserId,
+		RequestService("/criticize/getCriticizeList", "POST", {
+            courseId: courserId,
 			pageNumber: list.pageNumber,
 			pageSize: list.pageSize
 		}, function(data) {
@@ -657,8 +689,8 @@ window.onload = function() {
 						var criticizeId = $this.attr("data-criticizeId");
 						if($this.attr("data-isPraise") == 0) {
 							var updatePraise = true;
-							RequestService("/video/updatePraise", "POST", {
-								isPraise: updatePraise,
+							RequestService("/criticize/updatePraise", "POST", {
+								praise: updatePraise,
 								criticizeId: criticizeId
 							}, function(data) {
 								$this.attr("data-isPraise", "1");
@@ -667,8 +699,8 @@ window.onload = function() {
 							});
 						} else {
 							var updatePraise = false;
-							RequestService("/video/updatePraise", "POST", {
-								isPraise: updatePraise,
+							RequestService("/criticize/updatePraise", "POST", {
+								praise: updatePraise,
 								criticizeId: criticizeId
 							}, function(data) {
 								$this.attr("data-isPraise", "0");

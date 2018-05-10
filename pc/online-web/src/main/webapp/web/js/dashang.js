@@ -83,7 +83,7 @@ $(function(){
 		}
 		// 微信支付
 		if(selected==1){
-			RequestService("/web/weixin_pay_unifiedorder/reward", "GET", {
+			RequestService("/web/wxPay/reward", "GET", {
 				rewardId:rewardId,
 				actualPay:price,
 				receiver:teacherId,

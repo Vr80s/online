@@ -1,11 +1,12 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.service.GiftSendService;
-import com.xczhihui.bxg.online.api.service.GiftService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.domain.Gift;
+import com.xczhihui.online.api.service.GiftSendService;
+import com.xczhihui.online.api.service.GiftService;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.bxg.online.web.dao.GiftDao;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class GiftServiceImpl implements GiftService {
 		Map<String, Object> map = giftSendService.addGiftStatement4Lock(liveId, giverId, receiverId, giftId, orderFrom, count, liveId);
 		map.put("giftCount",findByLiveId(Integer.valueOf(liveId)));
 		map.put("balanceTotal",userCoinService.getBalanceByUserId(giverId));
+		map.put("ranking",getRankingListByLiveId(liveId, 1, 10));
 		return map;
 	}
 
@@ -70,4 +72,11 @@ public class GiftServiceImpl implements GiftService {
 	public Object getLiveCourseUsersById(String id, String userId, Integer pageNumber, Integer pageSize) {
 		return giftDao.getLiveCourseUsersById(id,userId,pageNumber,pageSize);
 	}
+
+	@Override
+	public Object getRankingListByLiveId(String liveId, int pageNumber, int pageSize) {
+		
+		return giftDao.getRankingListByLiveId(liveId,pageNumber,pageSize);
+	}
+
 }

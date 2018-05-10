@@ -150,6 +150,20 @@ $(document)
 					$(".li4")
 							.click(
 									function() {
+										if( $('#doc img').attr('src') ){
+									    	 $(".fd_img").css("display","none");
+									    	$(".pinch-zoom-container").css("display","black");
+									    	// $(".document").css("display","black");
+									   // 不为空
+
+										}else{
+											 $(".fd_img").css("display","black");
+											$(".pinch-zoom-container").css("display","none");
+											// $(".document").css("display","none");
+										// 为空
+
+										}
+
 										$(this).addClass('details');
 										$(this).parent().addClass('details01');
 
@@ -313,8 +327,6 @@ $(document)
 						$(".share_cancel").click(function() {
 							$(".share").hide();
 						});
-						
-						
 						
 	//					点击微信显示黑色指示
 						/*$(".share_to_one").click(function() {

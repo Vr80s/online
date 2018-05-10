@@ -9,6 +9,7 @@
         height: 100%;
         float: left;
         /* overflow: hidden; */
+           margin-top: 45px;
     }
  
     .vertical-tab > li {

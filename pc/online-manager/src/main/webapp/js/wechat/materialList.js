@@ -51,21 +51,21 @@ $(function(){
 	}}
 	]
 	
-	articleTable = initTables("articleTable",basePath+"/boxueshe/writing/list",objData,true,true,0,null,searchCase,function(data){
+	articleTable = initTables("articleTable",basePath+"/headline/writing/list",objData,true,true,0,null,searchCase,function(data){
 		
 	})
 });
 
 //新增框
 $(".add_bx").click(function(){
-	turnPage(basePath+'/home#boxueshe/writing/toAdd');
+	turnPage(basePath+'/home#headline/writing/toAdd');
 })
 
 //修改页面
 function toEdit(obj){
 	var oo = $(obj).parent().parent().parent();
 	var row = articleTable.fnGetData(oo); // get datarow
-	turnPage(basePath+'/home#boxueshe/writing/toEdit?id='+row.id+"");
+	turnPage(basePath+'/home#headline/writing/toEdit?id='+row.id+"");
 }
 /**
  * 著作关联医师
@@ -73,7 +73,7 @@ function toEdit(obj){
  */
 function openDoctorManage(obj){
 
-	debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = articleTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -81,10 +81,10 @@ function openDoctorManage(obj){
     $("#child_MenuName").html(row.title);
     var courseCount = row.courseCount
     ajaxRequest(basePath+"/medical/doctor/getMedicalDoctor",{'writingsId':row.id,'type':2},function(data) {
-    	debugger
+
         drawMenusPage(data);
 
-        $("#childMenu-form").attr("action", basePath+"/boxueshe/writing/updateMedicalDoctorWritings");
+        $("#childMenu-form").attr("action", basePath+"/headline/writing/updateMedicalDoctorWritings");
         
         openDialog("childMenuDialog","childMenuDialogDiv","关联的医师",580,450,true,"提交",function(){
             $("input:checkbox").removeAttr("disabled");
@@ -92,11 +92,7 @@ function openDoctorManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -118,7 +114,7 @@ function openDoctorManage(obj){
  * 
  */
 $(".dele_bx").click(function(){
-	deleteAll(basePath+"/boxueshe/writing/deletes",articleTable);
+	deleteAll(basePath+"/headline/writing/deletes",articleTable);
 });
 
 /**
@@ -128,7 +124,7 @@ $(".dele_bx").click(function(){
 function updateStatus(obj){
 	var oo = $(obj).parent().parent().parent();
 	var row = articleTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/boxueshe/writing/updateStatus",{"id":row.id},function(){
+	ajaxRequest(basePath+"/headline/writing/updateStatus",{"id":row.id},function(){
 			freshTable(articleTable);
 	});
 }
@@ -136,7 +132,7 @@ function updateStatus(obj){
 function recommendDialog(obj){
 	var oo = $(obj).parent().parent().parent();
 	var row = articleTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/boxueshe/article/recommend",{"id":row.id},function(res){
+	ajaxRequest(basePath+"/headline/article/recommend",{"id":row.id},function(res){
 		if(res.success){
 			layer.msg(res.resultObject);
 			freshTable(articleTable);
@@ -202,7 +198,7 @@ function drawReportPage(data){
 
 function openAuthorManage(obj){
 
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = articleTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -210,7 +206,7 @@ function openAuthorManage(obj){
     $("#child_MenuName").html(row.title);
     var courseCount = row.courseCount
     ajaxRequest(basePath+"/medical/doctor/allListForArticle",{'articleId':row.id},function(data) {
-        debugger
+
         drawMenusPage(data);
 
         $("#childMenu-form").attr("action", basePath+"/medical/doctor/addDoctorAuthorArticle");
@@ -220,11 +216,7 @@ function openAuthorManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -241,7 +233,7 @@ function openAuthorManage(obj){
 
 function openReportManage(obj){
 
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = articleTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -249,7 +241,7 @@ function openReportManage(obj){
     $("#child_MenuName").html(row.title);
     var courseCount = row.courseCount
     ajaxRequest(basePath+"/medical/doctor/allListForReport",{'articleId':row.id},function(data) {
-        debugger
+
         drawReportPage(data);
 
         $("#childMenu-form").attr("action", basePath+"/medical/doctor/addDoctorReport");
@@ -259,11 +251,7 @@ function openReportManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);

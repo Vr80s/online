@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ShareManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.text.ParseException;
 
-import static com.xczhihui.bxg.common.util.bean.ResponseObject.newSuccessResponseObject;
+import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObject;
 
 /**
  * 分销管理模块控制层代码
@@ -21,7 +21,7 @@ import static com.xczhihui.bxg.common.util.bean.ResponseObject.newSuccessRespons
  */
 @RestController
 @RequestMapping(value = "/share")
-public class ShareManageController {
+public class ShareManageController extends AbstractController{
     @Autowired
     ShareManageService shareManageService;
 
@@ -34,7 +34,7 @@ public class ShareManageController {
     @RequestMapping(value = "/order_subsidies")
     public ResponseObject findSubsidies(HttpServletRequest request){
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getCurrentUser();
         if(user!=null) {
             return newSuccessResponseObject(shareManageService.findSubsidies(user.getId()));
         }else{
@@ -54,7 +54,7 @@ public class ShareManageController {
     @RequestMapping(value = "/order_shareOrders")
     public ResponseObject findShareOrders(HttpServletRequest request,Integer searchCase,String searchContent,Integer level,String startTime,String endTime,Integer pageNumber, Integer pageSize){
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = getCurrentUser();
         if(user!=null) {
             return newSuccessResponseObject(shareManageService.findShareOrders(user.getId(),searchCase,searchContent,level,startTime,endTime,pageNumber,pageSize));
         }else{
@@ -98,7 +98,7 @@ public class ShareManageController {
     @RequestMapping(value = "/saveShareRelation")
     public ResponseObject saveShareRelation(HttpServletRequest req){
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(req);
+        OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(shareManageService.saveShareRelation(req,user));
     }
     /**

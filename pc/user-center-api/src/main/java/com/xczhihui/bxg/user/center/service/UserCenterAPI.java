@@ -42,13 +42,6 @@ public interface UserCenterAPI {
 			UserOrigin origin,
 			UserStatus status);
 
-
-	/**
-	 * 批量导入的时候调用，批量增加用户
-	 * @param users
-	 */
-	public void registBatch(List<List<Map<String,Object>>> users);
-
 	/**
 	 * 物理删除用户
 	 * @param loginName
@@ -107,7 +100,6 @@ public interface UserCenterAPI {
 
 	public Token login4BBS(String loginName, String password, String smallHeadPhoto, String id, TokenExpires tokenExpires);
 
-	public Token loginForLimit(String loginName, String password, TokenExpires tokenExpires,int clientType,String info);
 	/**
 	 * 登录
 	 * @param loginName 登录名

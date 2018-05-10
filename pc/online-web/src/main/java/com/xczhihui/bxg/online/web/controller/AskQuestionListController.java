@@ -2,11 +2,12 @@ package com.xczhihui.bxg.online.web.controller;/**
  * Created by admin on 2016/9/19.
  */
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.service.AskQuestionListService;
+import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,12 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping(value = "/online/questionlist")
-public class AskQuestionListController {
+public class AskQuestionListController extends AbstractController{
 
     @Autowired
     private AskQuestionListService questionListService;
+    @Autowired
+    private ManagerUserService managerUserService;
 
     /**
      * 获取问题列表信息
@@ -44,7 +47,7 @@ public class AskQuestionListController {
      */
     @RequestMapping(value = "/getQuestionList",method= RequestMethod.GET)
     public ResponseObject getQuestionList(Integer pageNumber, Integer pageSize,Integer menuId, String status, String tag, String title, String text, String content,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
         return ResponseObject.newSuccessResponseObject(questionListService.findListQuestion(u,pageNumber,pageSize,menuId,status,tag,title,text,content));
     }
 
@@ -133,11 +136,11 @@ public class AskQuestionListController {
      * @return
      */
     @RequestMapping(value = "/deleteQuestionById",method= RequestMethod.POST)
-    public ResponseObject deleteQuestionById(String  questionId,HttpServletRequest request) {
-
+    public ResponseObject deleteQuestionById(String questionId,String ln,HttpServletRequest request) {
         //获取当前登录用户信息
-        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        return    ResponseObject.newSuccessResponseObject(questionListService.deleteQuestionById(request,u,questionId));
+        OnlineUser u = getCurrentUser();
+        User user = managerUserService.findUserByLoginName(ln);
+        return    ResponseObject.newSuccessResponseObject(questionListService.deleteQuestionById(u,questionId,user));
     }
 
 
@@ -151,7 +154,7 @@ public class AskQuestionListController {
      */
     @RequestMapping(value = "/findVideoQuestion",method= RequestMethod.GET)
     public ResponseObject findVideoQuestion(String videoId,Integer type,Integer pageNumber, Integer pageSize,HttpServletRequest request) {
-        return    ResponseObject.newSuccessResponseObject(questionListService.findVideoQuestion(videoId, type, pageNumber, pageSize, request));
+        return ResponseObject.newSuccessResponseObject(questionListService.findVideoQuestion(videoId, type, pageNumber, pageSize, request));
     }
 
 
@@ -162,6 +165,6 @@ public class AskQuestionListController {
     @RequestMapping(value = "/updateQuestion",method= RequestMethod.POST)
     public ResponseObject updateQuestion(AskQuestionVo  questionVo){
          questionListService.updateQuestion(questionVo);
-         return  ResponseObject.newSuccessResponseObject("操作成功");
+         return ResponseObject.newSuccessResponseObject("操作成功");
     }
 }

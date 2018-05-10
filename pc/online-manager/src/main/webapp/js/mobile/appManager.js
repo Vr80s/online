@@ -27,7 +27,7 @@ function loadMobileBannerList(){
         }},
         {title: '版本', "class": "center","width": "10%","data": 'version', "sortable": false},
         {title: 'app类型', "class": "center","width": "10%","data": 'type', "sortable": false,"mRender":function(data,display,row){
-        	debugger;
+        	;
         	if(data == 1){
         		return "ios";
         	}else if(data == 2){
@@ -42,7 +42,7 @@ function loadMobileBannerList(){
         	}
         }},
         {title: '强制更新', "class": "center", "width": "6%","height":"68px", "data": 'mustUpdate', "sortable": false,"mRender":function(data,display,row){
-        	debugger;
+        	;
         	if(data == true){
         		return "是";
         	}else{
@@ -191,11 +191,7 @@ function loadMobileBannerList(){
  			 mask();
  			 $("#addMobileBanner-form").attr("action", basePath+"/operate/appManager/addAppManager");
  	            $("#addMobileBanner-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#addMobileBannerDialog").dialog("close");
@@ -221,11 +217,7 @@ function loadMobileBannerList(){
  			 mask();
  			 $("#dialogAddIosDiv-form").attr("action", basePath+"/operate/appManager/addAppManager");
  	            $("#dialogAddIosDiv-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#dialogAddIosDivDialog").dialog("close");
@@ -268,11 +260,7 @@ function updateMobileBanner(obj){
  			 mask();
  			 $("#updateMobileBanner-form").attr("action", basePath+"/operate/appManager/updateAppVersionInfoById");
  	            $("#updateMobileBanner-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateMobileBannerDialog").dialog("close");
@@ -322,7 +310,7 @@ $("#addMobileBanner-form").on("change","#imgPath_file",function(){
  	ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=2", function(data){
  		unmask();
  		if (data.error == 0) {
- 			debugger
+
  			$("#add_imgPath").val(data.url);
  			
  			$("#kewudeie").show();
@@ -346,7 +334,7 @@ $("#addMobileBanner-form").on("change","#imgPath_file",function(){
 
 //图片上传统一上传到附件中心---- 修改  列表页
 $("#updateMobileBanner-form").on("change","#update_imgPath_file",function(){
-	debugger
+
 	alert(1);
  	var v = this.value.split(".")[1].toUpperCase();
  	if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){

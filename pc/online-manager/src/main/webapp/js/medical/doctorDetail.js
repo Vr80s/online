@@ -32,7 +32,7 @@ $(function() {
 			data:{authenticationInformationId:mdaiId},
 			success:function(data){
 				if (data.success) {
-					debugger;
+					;
 					var obj = data.resultObject;
 					
 					$('#edit_smallImgPath').val(obj.headPortrait);
@@ -215,18 +215,14 @@ $("#courseDetailForm").on("change","#smallImgPath_file5",function(){
 $('#okbt,#previewbt').on('click',function(e){
     var id = $(e.currentTarget).attr('id');
     // var methodName = 'updateCourseDetail';
-	debugger
+
     var validate = $("#courseDetailForm").valid();
     if(validate){
         mask();
         $("#courseDetailForm").attr("action", basePath+"/medical/doctor/updateMedicalDoctorDetail");
         $("#courseDetailForm").ajaxSubmit(function(data){
             unmask();
-            try{
-                data = jQuery.parseJSON(jQuery(data).text());
-            }catch(e) {
-                data = data;
-            }
+            data = getJsonData(data);
             if(data.success){
                     alertInfo("保存成功！");
                 $("html").eq(0).css("overflow","scroll");

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,16 +31,16 @@ import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
-import com.xczh.consumer.market.utils.ThridFalg;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.user.center.bean.ThridFalg;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
-import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
-import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
+import com.xczhihui.common.util.SLEmojiFilter;
+import com.xczhihui.common.util.enums.ThirdPartyType;
+import com.xczhihui.common.util.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 
@@ -148,12 +149,11 @@ public class WeChatThirdPartyController {
 				UCCookieUtil.clearTokenCookie(res);
 				req.getSession().setAttribute("_user_", null);
 			}
-
+			LOGGER.info("{}{}{}{}{}{}{}{}{}{}{}{}======userId:"+userId);
 			/**
 			 * 通过code获取微信信息
 			 */
 			String code = req.getParameter("code");
-
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,
 					wxcpClientUserWxMappingService);
 			if (wxw == null) {
@@ -391,7 +391,7 @@ public class WeChatThirdPartyController {
 	 * 
 	 * @param req
 	 * @param res
-	 * @param params
+	 * @param params  entryType 微信公众号入口，entryType 1 表示从登录页面进入首页   2 表示从注册页面进入完善头像页面
 	 * @throws Exception
 	 * @return void
 	 * @author name：yangxuan <br>
@@ -399,13 +399,17 @@ public class WeChatThirdPartyController {
 	 */
 	@RequestMapping("getCurrentWechatOpenId")
 	public void getCurrentWechatOpenId(HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
+			HttpServletResponse res,
+			@RequestParam("entryType")Integer entryType) throws Exception {
 
+		if(entryType == null || entryType == 0 ) {
+			entryType = 1;
+		}
 		String strLinkHome = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="
 				+ WxPayConst.gzh_appid
 				+ "&redirect_uri="
 				+ returnOpenidUri
-				+ "/xczh/wxlogin/getCurrentWechatOpenIdCallback"
+				+ "/xczh/wxlogin/getCurrentWechatOpenIdCallback?entryType="+entryType
 				+ "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
 
 		LOGGER.info("strLinkHome:" + strLinkHome);
@@ -430,20 +434,31 @@ public class WeChatThirdPartyController {
 	public void getCurrentWechatOpenIdCallback(HttpServletRequest req,
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
+		
+		
 		ConfigUtil cfg = new ConfigUtil(req.getSession());
 		String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 		/**
 		 * 微信回调后，获取微信信息。
 		 */
 		String code = req.getParameter("code");
+		String entryType = req.getParameter("entryType");
 		LOGGER.info("WX return code:" + code);
+		LOGGER.info("WX return zidingyi entryType:" + entryType);
 		/*
 		 * 获取当前微信信息
 		 */
 		WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,
 				wxcpClientUserWxMappingService);
-		res.sendRedirect(returnOpenidUri
-				+ "/xcview/html/home_page.html?openId=" + wxw.getOpenid());
+		
+		if(entryType!=null && entryType.equals("2")) {
+			res.sendRedirect(returnOpenidUri+ "/xcview/html/heads_nicknames.html?openId="+ wxw.getOpenid());
+		}else {
+			res.sendRedirect(returnOpenidUri+ "/xcview/html/home_page.html?openId="
+					+ wxw.getOpenid());
+		}
+		
+	
 	}
 
 	/**
@@ -470,13 +485,9 @@ public class WeChatThirdPartyController {
 		 */
 
 		if (StringUtils.isNotBlank(appUniqueId)) { // 表示是app登录
-			// 设置登录标识
-			onlineUserService.updateAppleTourisrecord(appUniqueId, 1);
 			cacheService.set(ticket, user, TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(), ticket,
 					TokenExpires.TenDay.getExpires());
-			// Map<String,String> mapClientInfo =
-			// com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
 			String model = req.getParameter("model");
 			if (StringUtils.isNotBlank(model) && user.getLoginName() != null) {
 				cacheService.set(user.getLoginName(), model,
@@ -516,5 +527,15 @@ public class WeChatThirdPartyController {
 			UCCookieUtil.writeTokenCookie(res, token);
 		}
 	}
-
+	
+	   /**
+     * 初始化获取微信token
+     */
+    @PostConstruct
+    public void initTokenFiter(){
+    	
+    	LOGGER.info("初始化token:");
+    	
+    	new Thread(new TokenThread()).start();
+    }
 }

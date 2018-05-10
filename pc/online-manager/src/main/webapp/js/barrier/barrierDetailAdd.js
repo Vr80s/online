@@ -147,11 +147,7 @@ $(function() {
 			mask();
 			$("#addBarrierDetail-form").attr("action", basePath+"/barrier/barrier/addBarrier");
 	        $("#addBarrierDetail-form").ajaxSubmit(function(data){
-	        	try{
-	        		data = jQuery.parseJSON(jQuery(data).text());
-	        	}catch(e) {
-	        		data = data;
-	        	}
+	        	data = getJsonData(data);
 	        	unmask();
 	            if(data.success){
 	                layer.msg(data.resultObject);
@@ -397,7 +393,7 @@ $(function() {
 		var objId = "treeDemo_"+$("#courseId").val();
 		var treeUrl = $("#getTree").html();
 		isUpdateClickForCourseSystem = true;
-		//debugger;
+		//;
 	    if(treeNode.checked){//选中
 	    	if(treeUrl.indexOf(objId)==-1){
 	    		$("#getTree").append('<ul id="'+objId+'" class="ztree" style="font-size: 13px; font-weight: bold;width: 250px;"></ul>');

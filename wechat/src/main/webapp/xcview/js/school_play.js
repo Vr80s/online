@@ -87,7 +87,7 @@ requestService("/xczh/course/details",{
 		}
 
 	var school_img = document.createElement("img");
-		school_img.src = data.resultObject.smallImgPath;
+		school_img.src = data.resultObject.smallImgPath + '?imageView2/2/w/750';
 		$(".play_video").append(school_img)
     //获取讲师id
     LecturerId=data.resultObject.userLecturerId;
@@ -302,7 +302,8 @@ function btn_zj_mianfei(){
 	var data_zj= $(".right_priceBtn").attr("data-zj")
 		if (falg==1002){
 
-			location.href ="/xcview/html/cn_login.html";		
+			// location.href ="/xcview/html/cn_login.html";	
+            location.href ="/xcview/html/cn_login.html?course_id="+courseId+"&type="+1; 	
 		}else if (falg==1005) {
 
 			location.href ="/xcview/html/evpi.html";
@@ -328,6 +329,8 @@ function btn_zj_mianfei(){
 		}
 	
 	}
+
+var courseId = getQueryString('course_id');
 
 
 

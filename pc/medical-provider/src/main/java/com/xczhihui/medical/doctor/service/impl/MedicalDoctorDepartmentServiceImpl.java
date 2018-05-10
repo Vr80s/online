@@ -2,12 +2,13 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
+import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorDepartmentMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ public class MedicalDoctorDepartmentServiceImpl extends ServiceImpl<MedicalDocto
         doctorDepartment.setDoctorId(doctorId);
         doctorDepartment.setDepartmentId(departmentId);
         doctorDepartment.setCreateTime(createTime);
+        doctorDepartment.setDeleted(false);
         doctorDepartmentMapper.insert(doctorDepartment);
     }
 
@@ -52,11 +54,7 @@ public class MedicalDoctorDepartmentServiceImpl extends ServiceImpl<MedicalDocto
      */
     @Override
     public List<MedicalDoctorDepartment> selectByDoctorId(String doctorId) {
-        Map<String,Object> columnMap = new HashMap<>();
-        columnMap.put("doctor_id", doctorId);
-        columnMap.put("deleted", 0);
-        List<MedicalDoctorDepartment> doctorDepartments =  doctorDepartmentMapper.selectByMap(columnMap);
-        return doctorDepartments;
+        return doctorDepartmentMapper.selectByDoctorId(doctorId);
     }
 
     /**
@@ -70,18 +68,16 @@ public class MedicalDoctorDepartmentServiceImpl extends ServiceImpl<MedicalDocto
         // 根据用户id获取其医馆
         MedicalDoctorAccount doctorAccount = doctorAccountMapper.getByUserId(userId);
         if(doctorAccount == null){
-            throw new RuntimeException("您暂不是医师，请认证后再来");
+            throw new MedicalException("您暂不是医师，请认证后再来");
         }
 
         // 根据医师id获取其科室
         List<MedicalDoctorDepartment> doctorDepartments = this.selectByDoctorId(doctorAccount.getDoctorId());
 
         if(CollectionUtils.isNotEmpty(doctorDepartments)){
-            List<String> ids = doctorDepartments.stream().map(doctorDepartment -> doctorDepartment.getDepartmentId()).collect(Collectors.toList());
+            List<String> ids = doctorDepartments.stream().map(MedicalDoctorDepartment::getDepartmentId).collect(Collectors.toList());
 
-            List<MedicalDepartment> departments = departmentMapper.selectBatchIds(ids);
-
-            return departments;
+            return departmentMapper.selectBatchIds(ids);
 
         }
 

@@ -1,11 +1,8 @@
 package com.xczhihui.medical.anchor.service;
 
 import com.xczhihui.medical.anchor.vo.UserBank;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IUserBankService {
 
@@ -64,4 +61,7 @@ public interface IUserBankService {
 	   * @Date: 2018/2/10 0010 下午 3:56
 	   **/
 	  int getBankCount(String id);
+
+	public Integer validateBankInfo(String id, String acctName, String acctPan,
+			String certId, String tel, Integer code);
 }

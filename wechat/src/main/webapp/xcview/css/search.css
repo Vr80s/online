@@ -43,6 +43,7 @@ header{
 	top: 0;
 	left: 0.35rem;
 	font-size: 0.553rem;
+	/*font-size: 0.636rem;*/
 	color: #999999;
 	pointer-events: none;
 }
@@ -84,6 +85,7 @@ header{
     background: none;
     margin-right: 0.15rem;
     outline: none;
+    font-size: 0.636rem;
 }
 .header_cancel{
 	float: right;
@@ -118,7 +120,10 @@ header{
 	/*height: 100%;*/
 }
 .search_hot_main_one{
-
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 14rem;
     height: 1.149rem;
     line-height: 1.149rem;
     text-align: center;

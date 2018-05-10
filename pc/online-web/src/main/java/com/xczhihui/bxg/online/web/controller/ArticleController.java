@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.vo.AppraiseVo;
+import com.xczhihui.common.util.bean.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +30,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/getArticleBanner",method= RequestMethod.GET)
     public ResponseObject  getArticleBanner() {
-         return ResponseObject.newSuccessResponseObject(service.getArticleBanner());
+        return ResponseObject.newSuccessResponseObject(service.getArticleBanner());
     }
 
     /**
@@ -67,7 +67,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/getHotTags",method= RequestMethod.GET)
     public ResponseObject getHotTags() {
-         return  ResponseObject.newSuccessResponseObject(service.getHotTags());
+        return  ResponseObject.newSuccessResponseObject(service.getHotTags());
     }
 
 
@@ -88,7 +88,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/getCorrelationTitle",method= RequestMethod.GET)
     public ResponseObject getCorrelationTitle(Integer articleId){
-       return ResponseObject.newSuccessResponseObject(service.getCorrelationTitle(articleId));
+        return ResponseObject.newSuccessResponseObject(service.getCorrelationTitle(articleId));
     }
 
     /**
@@ -97,8 +97,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/saveAppraise",method= RequestMethod.POST)
     public ResponseObject  saveAppraise(AppraiseVo appraiseVo,HttpServletRequest request){
-         service.saveAppraise(appraiseVo, request);
-         return ResponseObject.newSuccessResponseObject("评论成功!");
+        service.saveAppraise(appraiseVo, request);
+        return ResponseObject.newSuccessResponseObject("评论成功!");
     }
 
 
@@ -120,7 +120,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/updatePraiseSum",method= RequestMethod.GET)
     public ResponseObject updatePraiseSum(Integer articleId,Integer praiseSum,HttpServletRequest request){
-         return   ResponseObject.newSuccessResponseObject(service.updatePraiseSum(articleId,praiseSum,request));
+        return   ResponseObject.newSuccessResponseObject(service.updatePraiseSum(articleId,praiseSum,request));
     }
 
     /**
@@ -130,8 +130,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/deleteAppraiseId",method= RequestMethod.POST)
     public  ResponseObject   deleteAppraiseId(String appraiseId,HttpServletRequest request){
-         service.deleteAppraiseId(appraiseId, request);
-         return  ResponseObject.newSuccessResponseObject("删除成功");
+        service.deleteAppraiseId(appraiseId, request);
+        return  ResponseObject.newSuccessResponseObject("删除成功");
     }
 
     /**

@@ -3,10 +3,10 @@ package com.xczh.consumer.market.controller.school;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.ListenCourseService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.wechat.course.model.MobileBanner;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IMobileBannerService;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.course.model.MobileBanner;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.vo.CourseLecturVo;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,9 +32,6 @@ import java.util.Map;
 public class MobileListenCourseController {
 
 	@Autowired
-	private ListenCourseService listenCourseService;
-
-	@Autowired
 	private IMobileBannerService mobileBannerService;
 
 	@Autowired
@@ -58,15 +55,9 @@ public class MobileListenCourseController {
 		MobileBannerPage.setSize(100);
 		int bannerType = 4;
 		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,bannerType));
-
-		//听课课程
-		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
-
-		Map<String,Object> mapTj = new HashMap<String, Object>();
-		//List<CourseLecturVo> list = listenCourseService.listenCourseList();
+		//听课课程列表
 		List<CourseLecturVo> listenCourseList = courseService.listenCourseList();
 		mapAll.put("listenCourseList",listenCourseList);
-
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 

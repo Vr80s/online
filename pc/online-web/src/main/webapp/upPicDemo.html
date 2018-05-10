@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		<div class="fengmian_pic">
+			这里放图片
+		</div>
+		<input type="file" id="fengmian_picIpt"/>
+		
+		<script>
+			$(function(){
+				//调用上传图片方法
+				upPic('#fengmian_picIpt','fengmian_pic')
+				
+				
+				//上传图片方法
+				function upPic(iptName,boxName){
+					//医师-医馆封面上传图片调用的接口
+					function picUpdown(baseurl, imgname) {
+						RequestService("/medical/common/upload", "post", {
+							image: baseurl,
+						}, function(data) {
+							console.log(data);
+							$('.' + imgname + '').html('<img src="' + data.resultObject + '" >');
+						})
+					}
+				
+					//医馆封面上传
+					$(iptName).on('change', function() {
+							if(this.files[0].size > 2097152) {
+							$('#tip').text('上传图片不能大于2M');
+							$('#tip').toggle();
+							setTimeout(function() {
+								$('#tip').toggle();
+							}, 2000)
+							return false;
+						}
+						if(!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
+							$('#tip').text('图片格式不正确');
+							$('#tip').toggle();
+							setTimeout(function() {
+								$('#tip').toggle();
+							}, 2000)
+							return false;
+						}
+						var reader = new FileReader();
+						reader.onload = function(e) {
+							picUpdown(reader.result, boxName);
+						}
+						reader.readAsDataURL(this.files[0])
+					})
+				}
+				
+				
+			})
+		</script>
+	</body>
+</html>

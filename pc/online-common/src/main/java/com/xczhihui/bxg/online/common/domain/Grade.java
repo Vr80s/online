@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity2;
+import com.xczhihui.common.support.domain.BasicEntity2;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 

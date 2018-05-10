@@ -3,7 +3,7 @@ package com.xczhihui.bxg.online.common.domain;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity2;
+import com.xczhihui.common.support.domain.BasicEntity2;
 
 /**
  * 短信动态码

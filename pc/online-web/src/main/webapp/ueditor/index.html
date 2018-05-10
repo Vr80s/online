@@ -11,16 +11,31 @@
     <script type="text/javascript" charset="utf-8" src="lang/zh-cn/zh-cn.js"></script>
 
     <style type="text/css">
-        div{
+        /*div{
             width:100%;
+        }*/
+        
+        
+        
+        #editor{
+        	width: 1000px !important;
+        }
+        #edui1{
+        	/*width: 800px !important;*/
         }
     </style>
 </head>
 <body>
-<div>
-    <h1>完整demo</h1>
-    <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
-</div>
+	<div class="" style="width: 1000px;">
+		<div class="" style="font-size: 22px;float: left;">我是标题</div>
+		<div style="    float: right;">
+		    <!--<h1>完整demo--测试</h1>-->
+		    <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+		</div>
+	</div>
+
+
+
 <div id="btns">
     <div>
         <button onclick="getAllHtml()">获得整个html的内容</button>

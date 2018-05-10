@@ -1,25 +1,21 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.xczhihui.bxg.common.util.SmsUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.common.util.SmsUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.CourseSubscribeDao;
 import com.xczhihui.bxg.online.web.dao.ScoreTypeDao;
 import com.xczhihui.bxg.online.web.service.CourseService;
-import com.xczhihui.bxg.online.web.service.LecturerService;
 import com.xczhihui.bxg.online.web.vo.*;
 import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -38,9 +34,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
     @Autowired
     private CourseDao coursedao;
-
-    @Autowired
-    private LecturerService service;
 
     @Autowired
     private CourseSubscribeDao courseSubscribeDao;
@@ -134,16 +127,18 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         CourseVo courseVo =  coursedao.getCourseById(courseId,request);
         File f = new File(path+File.separator+"/course_common_problem.html");
         courseVo.setCommonProblem(FileUtil.readAsString(f));
+        
+        //20180508 杨宣 需求变动
         //如果此课程存在,再根据课程ID 查找此课程下的老师
-        if(courseVo != null){
-            OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
-            if(onlineUser!=null){
-                // 20170105---杨宣
-                if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){
-                    courseVo.setSelfCourse(true);
-                }
-            }
-        }
+//        if(courseVo != null){
+//            OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
+//            if(onlineUser!=null){
+//                // 20170105---杨宣,这里不这样搞了
+////                if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){
+////                    courseVo.setSelfCourse(true);
+////                }
+//            }
+//        }
         return  courseVo;
     }
     
@@ -187,17 +182,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     @Override
     public List<CourseLecturVo>  getRecommendedCourse(Integer menuId) {
         List<CourseLecturVo> clvs=  coursedao.getRecommendedCourse(menuId);
-        //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-        if(!CollectionUtils.isEmpty(clvs)){
-            for (CourseLecturVo courseLecturVo :clvs) {
-                List<LecturVo> lecturVos = service.findLecturerById(courseLecturVo.getId());
-                if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() == 1){
-                    courseLecturVo.setName(lecturVos.get(0).getName());
-                }else if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() > 1) {
-                    courseLecturVo.setName(lecturVos.get(0).getName()+"等");
-                }
-            }
-        }
         return clvs;
     }
 
@@ -209,17 +193,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     @Override
     public List<CourseLecturVo> getRecommendCourse (Integer num){
             List<CourseLecturVo> clvs=  coursedao.getRecommendCourse(num);
-            //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-            if(!CollectionUtils.isEmpty(clvs)){
-                for (CourseLecturVo courseLecturVo :clvs) {
-                    List<LecturVo> lecturVos = service.findLecturerById(courseLecturVo.getId());
-                    if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() == 1){
-                        courseLecturVo.setName(lecturVos.get(0).getName());
-                    }else if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() > 1) {
-                        courseLecturVo.setName(lecturVos.get(0).getName()+"等");
-                    }
-                }
-            }
            return  clvs;
     }
 
@@ -263,29 +236,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
           coursedao.checkCouseInfo(orderId);
           return "开始报名";
     }
-
-
-    /**
-     * 获取当前课程下学员评价
-     * @param courseId 课程id
-     * @return
-     */
-    @Override
-    public  Page<CriticizeVo>   findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-        return  coursedao.findStudentCriticize(courseId, pageNumber,  pageSize);
-    }
-
-
-    /**
-     * 获取好评的数量
-     * @param courseId 课程ID
-     * @return
-     */
-    @Override
-    public Integer getGoodCriticizSum(Integer courseId) {
-       return coursedao.getGoodCriticizSum(courseId);
-    }
-
 
     /**
      * 获取课程目录
@@ -332,12 +282,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	private CourseVo findOpenCourseById(Integer courseId) {
 		return coursedao.findCourseOrderById(courseId);
 	}
-
-
-	 @Override
-	 public  Page<Criticize>  findUserCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-	      return  coursedao.findUserCriticize(courseId, pageNumber,  pageSize);
-	 }
 
     @Override
     public void updateCourseException() {

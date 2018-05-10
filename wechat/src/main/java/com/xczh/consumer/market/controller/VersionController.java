@@ -20,16 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.VersionInfoVo;
-import com.xczhihui.bxg.online.api.po.LiveExamineInfo;
+import com.xczhihui.online.api.vo.LiveExamineInfo;
 
 /**
  * @author liutao
@@ -45,21 +42,17 @@ public class VersionController {
     
     @Autowired
 	private OLAttachmentCenterService service;
-    
-	@Autowired
-	private OnlineCourseService onlineCourseService;
-	
-	@Autowired
-	private AppBrowserService appBrowserService;
 	
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WxJSController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(VersionController.class);
 
     @RequestMapping("checkUpdate")
     @ResponseBody
-    public ResponseObject checkUpdate(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception{
+    public ResponseObject checkUpdate(HttpServletRequest req, 
+    		HttpServletResponse res,
+    		Map<String, String> params) throws Exception{
 
 
         String userVersion=req.getParameter("version");
@@ -87,26 +80,11 @@ public class VersionController {
         return ResponseObject.newSuccessResponseObject(newVer);
     }
 
-
-
-    public static void main(String[] args) {
-//    	int diff = VersionCompareUtil.compareVersion("1.0.40","1.0.31");
-//    	LOGGER.info(diff);
-//        if (diff <= 0) {
-//           LOGGER.info("=========一样了");
-//        }else{
-//        	LOGGER.info("=========新了");
-//        }
-	}
-    
-    
     @RequestMapping("addTipOff")
 	public void addTipOff(HttpServletRequest req,
 								  HttpServletResponse res, LiveExamineInfo liveExamineInfo,
 								  @RequestParam MultipartFile [] files) throws IOException, SQLException, ServletException{
     	
-    /*	ConfigUtil cfg = new ConfigUtil(req.getSession());
-		String returnCodeUri = cfg.getConfig("returnCodeUri");*/
     	List<String> list;
     	String courseId = req.getParameter("courseId");
     	String label = req.getParameter("label");
@@ -114,12 +92,6 @@ public class VersionController {
 		try {
 			String content = req.getParameter("content");
 	    	CourseLecturVo cv =  null;
-	    	/*if(courseId!=null){
-	    	   cv = onlineCourseService.get(Integer.parseInt(courseId));
-	    	}
-	    	if(cv==null){
-	    		return ResponseObject.newErrorResponseObject("课程信息有误");
-	    	}*/
 			list = uploadFileList(files,req);
 			String imgStrs = "";
 	    	int i = 0;
@@ -132,13 +104,9 @@ public class VersionController {
 	    		i++;
 			}
 	    	String teacherId =1+"";
-	    	//String userId =appBrowserService.getOnlineUserByReq(req).getId();
 	    	versionService.insertTipOff(content,courseId,label,teacherId,"",imgStrs);
-			//return ResponseObject.newSuccessResponseObject("举报成功");
 	    	String str =  returnOpenidUri + "/xcviews/html/complaint_details.html?label="+label+"&falg=1";
 	    	LOGGER.info(str);
-	    	//req.getRequestDispatcher(str).forward(req,res);
-	    	
 	    	res.sendRedirect("/xcviews/html/complaint_details.html?label="+label+"&falg=1");
 		}catch (Exception e) {
 			// TODO Auto-generated catch block

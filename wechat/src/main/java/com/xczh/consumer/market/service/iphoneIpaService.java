@@ -43,11 +43,12 @@ public interface iphoneIpaService {
 	 * @param multiply
 	 * @param resp
 	 * @param actualPrice
+	 * @param merchantOrderNo  商户订单号
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	void increaseNew(String userId, BigDecimal multiply, String resp,
-			BigDecimal actualPrice);
+	void increaseNew(String merchantOrderNo,String userId, BigDecimal multiply, String resp,
+			BigDecimal actualPrice,String transactionId);
 
 }

@@ -1,7 +1,7 @@
 package com.xczhihui.medical.doctor.service;
 
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
 import com.xczhihui.medical.department.model.MedicalDepartment;
+import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
 
 import java.util.Date;
 import java.util.List;

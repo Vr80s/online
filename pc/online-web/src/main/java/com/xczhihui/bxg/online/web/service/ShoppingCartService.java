@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.service;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
 
 import java.util.List;
 import java.util.Map;

@@ -12,7 +12,38 @@ $(function(){
     $(".addCourse").click(function(){
         saveCourse();
     });
-    $(".courseP").click(function(){
+    
+    
+  
+   
+    $("input[name='collection_multimedia_type']").change(function(){
+        $(".collection_courses").html("");
+        courseArr=[];
+    });
+    $(".select_time").change(function(){
+//
+        $(this).val($(this).val());
+    });
+    
+    //课程自动筛选
+    $('#course_type').change(function(){
+    	$('.course_search').click();
+    })
+    
+      //专辑自动筛选
+    $('#course_collection_type').change(function(){
+    	$('.course_collection_search').click();
+    })
+});
+
+
+  //渲染课程列表方法
+    function getCourseList(){
+    	//控制页面返回课程列表页
+    	if($('#curriculum .curriculum_one .zhuanlan_top .button').text() == "返回"){
+    		$('#curriculum .curriculum_one .zhuanlan_top .button').click();
+    	}
+    	
     	$('#course_name').val('')
     	$("#course_type option:first").prop("selected", 'selected');
         courseList(1);
@@ -49,6 +80,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+              initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -88,6 +121,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+              initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -95,10 +130,17 @@ $(function(){
             imagePopup:false,
             maximumWords:10000       //允许的最大字符数
         });
-    });
-    $(".specialP").click(function(){
-//  	$('#course_collection_type option:first-child').attr('selected','selected')
-		$('#course_collection_name').val('');
+    }
+    
+    
+    
+  //渲染专辑的方法
+  function getZhuanjiList(){
+  		//显示专辑部分，隐藏新专辑部分
+  	 	$("#zhuanji_bottom2").show();
+	    $("#zhuanji_bottom").hide();
+	    
+  		$('#course_collection_name').val('');
     	$("#course_collection_type option:first").prop("selected", 'selected');
         courseCollectionList(1);
         initCourse(1);
@@ -134,6 +176,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+             initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -173,6 +217,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+            initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -212,6 +258,8 @@ $(function(){
                 'emotion', //表情
                 'fullscreen'
             ] ],
+            initialFrameWidth: 540,
+        	initialFrameHeight:220,
             elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -219,33 +267,25 @@ $(function(){
             imagePopup:false,
             maximumWords:10000       //允许的最大字符数
         });
-    });
-    $(".liveP").click(function(){
-        courseLiveList(1);
+  }
+
+
+	//渲染直播方法
+	function getLiveList(){
+		courseLiveList(1);
         initVhallInfo();
-    });
-    $(".resourceP").click(function(){
-        courseResourceList(1);
-    });
-    $("input[name='collection_multimedia_type']").change(function(){
-        $(".collection_courses").html("");
-        courseArr=[];
-    });
-    $(".select_time").change(function(){
-//      debugger
-        $(this).val($(this).val());
-    });
-    
-    //课程自动筛选
-    $('#course_type').change(function(){
-    	$('.course_search').click();
-    })
-    
-      //专辑自动筛选
-    $('#course_collection_type').change(function(){
-    	$('.course_collection_search').click();
-    })
-});
+	}
+
+
+//渲染资源方法
+function getResourceList(){
+	//上传资源隐藏，默认部分显示
+	 $(".resource_two").show();
+	 $(".resource_one").hide();
+	 //资源列表渲染
+	 courseResourceList(1);
+}
+
 
 /**
  * Description：课程列表
@@ -253,6 +293,7 @@ $(function(){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/2 0002 下午 9:09
  **/
+
 function courseList(current){
     var courseForm;
     var multimediaType;
@@ -279,7 +320,7 @@ function courseList(current){
     if(courseName!=null){
         url += "&title="+courseName;
     }
-//  debugger
+//
     RequestService(url, "get", null, function(data) {
 
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
@@ -291,7 +332,7 @@ function courseList(current){
         	$('#kecheng_list').removeClass('hide')
         }
         $("#course_list").html(template('course_list_tpl', data.resultObject));
-//      debugger
+//
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
@@ -320,7 +361,7 @@ function courseList(current){
  **/
 function saveCourse(){
     var course = getCourseData();
-//  debugger
+//
     if(verifyCourse(course)) {
         if(course.id==null||course.id=='') {
             addCourse(course);
@@ -341,7 +382,7 @@ function addCourse(course){
             if(data.success === true) {
                 showTip(data.resultObject);
                 resetCourseForm(true);
-                setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
+                setTimeout(function(){ getCourseList() }, 2000);
             } else {
                 showTip(data.errorMessage)
             }
@@ -361,7 +402,7 @@ function updateCourse(course){
             if(data.success === true) {
                 showTip(data.resultObject);
                 resetCourseForm(false);
-                setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
+                setTimeout(function(){ getCourseList()  }, 2000);
             } else {
                 showTip(data.errorMessage)
             }
@@ -625,7 +666,7 @@ function verifyCourse(course){
         $('.warning_course_end_time').addClass('hide');
     }
     if(course.startTime != ''&&course.endTime != ''&&course.endTime != null){
-//      debugger
+//
         var startTime =  new Date(course.startTime.replace(/-/g,"/"));
         var endTime =  new Date(course.endTime.replace(/-/g,"/"));
         if(startTime>endTime){
@@ -705,7 +746,7 @@ function confirmCourseSale(state,courseId){
                 closefn();
                 console.log(data);
                 if(data.success === true) {
-//                  debugger
+//
                     courseList(1);
                     showTip(data.resultObject);
                 } else {
@@ -750,7 +791,7 @@ function confirmCollection(state,courseId){
  **/
 function courseLiveList(current){
     var url ="/anchor/course/getLiveApplyList?size=10&current="+current;
-//  debugger
+//
     RequestService(url, "get", null, function(data) {
         $("#course_live_list").html(template('course_live_tpl', data.resultObject));
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
@@ -759,7 +800,7 @@ function courseLiveList(current){
         }else{
         	$('.live_streaming_table').removeClass('hide')
         }
-//      debugger
+//
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
@@ -791,6 +832,12 @@ function startLive(id) {
         window.open(data.resultObject);
     });
 }
+
+function startGuestLive(id) {
+    RequestService("/anchor/course/getWebinarGuestUrl?webinarId="+id, "get", null, function(data) {
+        window.open(data.resultObject);
+    });
+}
 function previewLive(id) {
     window.open("http://e.vhall.com/"+id);
 }
@@ -811,7 +858,7 @@ function courseCollectionList(current){
     if(courseName!=null && courseName!=""){
         url += "&title="+courseName;
     }
-//  debugger
+//
     RequestService(url, "get", null, function(data) {
 
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
@@ -824,7 +871,7 @@ function courseCollectionList(current){
         }
         $("#collection_list").html(template('course_collection_list_tpl', data.resultObject));
         
-//      debugger
+//
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) {
             //分页判断
@@ -939,9 +986,10 @@ function downCourse2Collection(collectionCourseSort){
     arr.courseArr=courseArr;
     $(".collection_courses").html(template('collection_course_list_tpl', arr));
 }
+
 function saveCollection(){
     var collection = getCollectionData();
-    // debugger
+    //
     if(verifyCollection(collection)){
         if($("#collectionId").val()==null||$("#collectionId").val()==''){
             addCollection(collection);
@@ -1162,12 +1210,12 @@ function verifyCollection(collection){
     }else{
         $('.warning_course').addClass('hide');
     }
-    if(collection.courseNumber != collection.courseApplyInfos.length){
-        $('.warning_course_count').removeClass('hide');
-        return false;
-    }else{
-        $('.warning_course_count').addClass('hide');
-    }
+    // if(collection.courseNumber != collection.courseApplyInfos.length){
+    //     $('.warning_course_count').removeClass('hide');
+    //     return false;
+    // }else{
+    //     $('.warning_course_count').addClass('hide');
+    // }
     return true;
 }
 function resetCollectionForm(){
@@ -1211,7 +1259,7 @@ function initCourseSelect(){
  **/
 function courseResourceList(current){
     var url ="/anchor/course/getCourseResourceList?size=10&current="+current;
-    // debugger
+    //
     RequestService(url, "get", null, function(data) {
         $("#resource_list").html(template('course_resource_list_tpl', data.resultObject));
         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
@@ -1226,7 +1274,7 @@ function courseResourceList(current){
 //      	 $('#ziyuan_bottom2').removeClass('hide')
         }
 
-        // debugger
+        //
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) {
             //分页判断
@@ -1288,7 +1336,7 @@ $(function () {
 
 function saveResource(){
     if(validateResource()){
-        // debugger
+        //
         var data = {};
         data.title = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
         data.resource = $.trim($('#ccId').val());
@@ -1305,7 +1353,7 @@ function saveResource(){
                     showTip(data.resultObject);
                     showResourceList();
                 } else {
-                    showTip(data.errorMessage())
+                    showTip(data.errorMessage)
                 }
             }
         });
@@ -1403,14 +1451,13 @@ function initVhallInfo(){
         $("#vhallPassword").html(data.resultObject.password);
     });
 }
-
 //上传图片调用的接口
 function picUpdown(baseurl,imgname){
     RequestService("/medical/common/upload", "post", {
         image: baseurl,
     }, function(data) {
-        console.log(data);
         $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
+    	$(".row_size").hide()
     })
 }
 
@@ -1422,7 +1469,7 @@ $(function(){
      * @Date: 2018/2/2 0002 下午 9:12
      **/
     $('#courseImgPath').on('change',function(){
-        // debugger
+        //
     	if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
@@ -1438,7 +1485,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#collectionImgPath').on('change',function(){
-        // debugger
+        //
         if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
@@ -1454,7 +1501,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#cardPositiveImgPath').on('change',function(){
-        // debugger
+        //
         if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
@@ -1470,7 +1517,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#cardNegativeImgPath').on('change',function(){
-        // debugger
+        //
         if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
@@ -1486,7 +1533,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#qualificationCertificateImgPath').on('change',function(){
-        // debugger
+        //
         if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
@@ -1502,7 +1549,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#professionalCertificateImgPath').on('change',function(){
-        // debugger
+        //
         if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
@@ -1518,7 +1565,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#businessLicensePictureImgPath').on('change',function(){
-        // debugger
+        //
         if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
@@ -1534,7 +1581,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#licenseForPharmaceuticalTradingPictureImgPath').on('change',function(){
-        // debugger
+        //
         if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
@@ -1550,7 +1597,7 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
     $('#profilePhotoImgPath').on('change',function(){
-        // debugger
+        //
         if(this.files[0].size > 2097152){
         	showTip('上传图片不能大于2M')
 			return false;

@@ -9,7 +9,6 @@ $('.chongZhi').click(function(){
         account = data.resultObject.account;
         balanceTotal = data.resultObject.balanceTotal;
         env = data.resultObject.env;
-
         $("#account").html(account);
         $(".balanceTotal").html(balanceTotal);
     },false);
@@ -142,11 +141,11 @@ $('.goPay').click(function(){
 	// 	}
 	// }
 	
-	window.open("/userCoin/recharge/pay?price="+price);
+//	window.open("/userCoin/recharge/pay?price="+price);
+	location.href="/userCoin/recharge/pay?price="+price;
 		setTimeout(function (){
 			closeCz()
-		},1000
-		);
+		},1000);
 })
 
 

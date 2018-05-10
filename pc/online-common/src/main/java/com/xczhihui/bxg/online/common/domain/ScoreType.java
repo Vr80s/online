@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity;
+import com.xczhihui.common.support.domain.BasicEntity;
 
 /**
  * 授课方式表

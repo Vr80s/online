@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.service;
 
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.ShareOrderVo;
 import com.xczhihui.bxg.online.web.vo.ShareUserVo;

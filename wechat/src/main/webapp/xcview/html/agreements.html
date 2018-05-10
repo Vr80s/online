@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="/xcview/css/cn_login.css?version=6a75a54bdc">
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 <style type="text/css">
 	.enter_btns{
@@ -27,7 +27,16 @@
 			display: block;*/
 	}
 </style>
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
 <body style="background:#fff;">
 	

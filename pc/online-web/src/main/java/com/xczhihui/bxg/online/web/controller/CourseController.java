@@ -1,22 +1,21 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.aliyuncs.exceptions.ClientException;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aliyuncs.exceptions.ClientException;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.service.CourseService;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -25,12 +24,13 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(value = "/course")
-public class CourseController {
+public class CourseController extends AbstractController{
 
        @Autowired
        private CourseService service;
-        @Value("${online.wechat.url}")
-        private String wechaturl;
+
+        @Autowired
+        private IOrderService orderService;
 
         @RequestMapping(value = "/scoreList" )
        public Object listAllScoreType(){
@@ -63,7 +63,7 @@ public class CourseController {
          */
         @RequestMapping(value = "/getCourseById" )
         public ResponseObject getCourseById(Integer courserId,HttpServletRequest request) throws IOException {
-        	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+        	OnlineUser loginUser = getCurrentUser();
             String path = request.getServletContext().getRealPath("/template");
             return ResponseObject.newSuccessResponseObject(service.getCourseById(courserId, path, request,loginUser));
         }
@@ -98,6 +98,22 @@ public class CourseController {
         @RequestMapping(value = "/getCourseApplyByCourseId" )
         public ResponseObject getCourseApplyByCourseId(Integer courseId) {
             return ResponseObject.newSuccessResponseObject( service.getCourseApplyByCourseId(courseId));
+        }
+
+        @RequestMapping(value = "/pay/{courseId}" )
+        public ModelAndView pay(@PathVariable Integer courseId,HttpServletRequest request) {
+            OnlineUser loginUser = getCurrentUser();
+
+            Order order = orderService.createOrder(loginUser.getId(), courseId, OrderFrom.PC.getCode());
+            ModelAndView mav=new ModelAndView();
+
+            mav.setViewName("PayOrder");
+            mav.addObject("orderNo", order.getOrderNo());
+            mav.addObject("actualPay", order.getActualPay());
+            mav.addObject("courseName", order.getCourseNames());
+            mav.addObject("orderId", order.getId());
+
+            return mav;
         }
 
 
@@ -193,7 +209,8 @@ public class CourseController {
      */
     @RequestMapping(value = "/findStudentCriticize")
     public ResponseObject findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-        return  ResponseObject.newSuccessResponseObject(service.findUserCriticize(courseId, pageNumber, pageSize));
+//        return  ResponseObject.newSuccessResponseObject(service.findUserCriticize(courseId, pageNumber, pageSize));
+        return null;
     }
 
     /**
@@ -203,7 +220,8 @@ public class CourseController {
      */
     @RequestMapping(value = "/getGoodCriticizSum")
     public ResponseObject getGoodCriticizSum(Integer courseId) {
-        return  ResponseObject.newSuccessResponseObject(service.getGoodCriticizSum(courseId));
+        return null;
+//        return  ResponseObject.newSuccessResponseObject(service.getGoodCriticizSum(courseId));
     }
 
     /**
@@ -217,17 +235,6 @@ public class CourseController {
     }
 
     /**
-     * Description：返回当前环境对应的微信环境域名
-     * creed: Talk is cheap,show me the code
-     * @author name：yuxin <br>email: yuruixin@ixincheng.com
-     * @Date: 下午 8:52 2017/9/28 0028
-     **/
-    @RequestMapping(value = "/wechaturl")
-    public ResponseObject getWechaturl() {
-        return  ResponseObject.newSuccessResponseObject(wechaturl);
-    }
-
-    /**
      * 预约
      * @param courseId
      * @return
@@ -235,7 +242,7 @@ public class CourseController {
      */
     @RequestMapping(value = "/subscribe")
     public ResponseObject subscribe(String mobile, Integer courseId, HttpSession session) throws ClientException {
-        OnlineUser u =  (OnlineUser)session.getAttribute("_user_");
+        OnlineUser u =  getCurrentUser();
         if(u==null) {
             return ResponseObject.newErrorResponseObject("用户未登录");
         }

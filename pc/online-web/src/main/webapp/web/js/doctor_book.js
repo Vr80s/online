@@ -1,7 +1,7 @@
 $(function(){
 	
 	//右侧名医推荐部分
-	     RequestService("/medical/doctor/getRecDoctors","GET",null,function(data){
+	     RequestService("/doctor/getRecDoctors","GET",null,function(data){
 	       if(data.success == false){
 	       	$('.about_doctor').addClass('hide')
 	       }
@@ -33,7 +33,7 @@ $(function(){
 	
 	//没有条件的进行列表渲染
 	function getReportList(current,size,doctorId){
-		RequestService("/medical/doctor/getWritingsByPage","GET",{
+		RequestService("/doctor/getWritingsByPage","GET",{
 			current:current,
 			size:size,
 			doctorId:doctorId

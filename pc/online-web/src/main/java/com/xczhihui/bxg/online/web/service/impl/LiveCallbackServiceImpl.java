@@ -1,12 +1,9 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.slf4j.Logger;
@@ -15,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xczhihui.bxg.online.api.service.LiveCallbackService;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.online.api.service.LiveCallbackService;
 import com.xczhihui.bxg.online.web.base.common.Broadcast;
 
 @Service

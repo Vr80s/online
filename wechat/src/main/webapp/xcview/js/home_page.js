@@ -1,7 +1,54 @@
+
 var openId = getQueryString("openId");
 if(stringnull(openId)){
     localStorage.setItem("openid",openId);
 }
+/**
+ * 通过key 得到value  course_id=100 通过course_id 得到 100
+ * @param search
+ * @param name
+ * @returns
+ */
+function getValueByStr(search,name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = "";
+    if(search.indexOf("?")!=-1){
+       r = search.substr(search.indexOf("?")+1).match(reg);
+    }else{
+       r = search.match(reg);
+    }
+    if (r != null) return unescape(r[2]); return null;
+}
+/*
+ * 点击banner跳转
+ */
+function bannerJump(type,params){
+	if(!stringnull(params)){
+		console.error("banner参数不可以是空的");
+		return;
+	}
+	//1：活动页、2：专题页、3：课程:4：主播:5：课程列表
+	if(type == 1 || type == 2){
+		console.error("暂时不支持活动和专题");
+		return;
+	}else if(type == 3){
+		
+		var courseId = getValueByStr(params,"course_id");
+		//课程跳转
+		common_jump_all(courseId);
+		
+	}else if(type == 4){
+		//主播跳转
+		var userLecturerId = getValueByStr(params,"userLecturerId");
+		location.href="/xcview/html/live_personal.html?userLecturerId="+userLecturerId;
+	}else if(type == 5){
+		location.href="/xcview/html/curriculum_table.html?"+params;
+	}else{
+		console.error("banner类型有误");
+		return;
+	}
+}
+
 
 
 
@@ -22,10 +69,6 @@ function schoolQuery(begin){
         listenSchool();
     }
 }
-
-
-
-
 
 //分类  模块开始 ----------------------------------------
 
@@ -61,9 +104,6 @@ function typeSchool(){
 }
 //分类  模块结束 ============================================
 
-
-
-
 //推荐模块开始 ----------------------------------------
 
 function recommendSchool(){
@@ -89,7 +129,7 @@ function recommendSchool(){
                 for (var int = 0; int < result.length; int++) {
                     var wb = result[int];
                     str+="<div class='swiper-slide swiper-banner swiper-banner-btn'>"+
-                        "<img src='"+wb.imgPath+"' alt='Concept for children game' data_id='"+wb.id+"' data_img='"+wb.url+"'>"+
+                        "<img src='"+wb.imgPath+"?imageView2/2/w/750' date_type='"+wb.linkType+"' data_id='"+wb.id+"' data_url='"+wb.url+"'>"+
                         "</div>";
                 }
                 $("#wrapper-box").html(str);
@@ -107,9 +147,14 @@ function recommendSchool(){
 
             $(".swiper-banner-btn").click(function(){
                 var  data_id=$(this).find("img").attr("data_id");
+                //增加banner的点击量
                 clickBanner(data_id);
-                var  data_img=$(this).find("img").attr("data_img");
-                location.href=data_img;
+                //页面跳转
+                var  data_url=$(this).find("img").attr("data_url");
+                var  date_type=$(this).find("img").attr("date_type");
+                
+                bannerJump(date_type,data_url);                 
+               // location.href=data_img;
             })
             //swiper轮播结束
             //小白班跳转
@@ -152,14 +197,10 @@ function recommendSchool(){
     //推荐模块结束
 
 }
-
 //推荐模块结束  =====================================================
 
-
 //线下课开始-------------------------------------------------------------------
-
 function lineWork(){
-
     //线下课开始-------------------------------------------------------------------
     requestService("/xczh/bunch/offLine",null,
         function(data) {
@@ -181,9 +222,9 @@ function lineWork(){
 	                var result_class = data.resultObject.banner.records;
 	                var str_class ="";
 	                for (var int = 0; int < result_class.length; int++) {
-	                    var wb_class = result_class[int];
+	                	 var wb = result_class[int];
 	                    str_class+="<div class='swiper-slide swiper-banner swiper-banner-class'>"+
-	                        "<img src='"+wb_class.imgPath+"' alt='Concept for children game' data_id='"+wb_class.id+"' data_class='"+wb_class.url+"'>"+
+	                        "<img src='"+wb.imgPath+"?imageView2/2/w/750' date_type='"+wb.linkType+"' data_id='"+wb.id+"' data_url='"+wb.url+"'>"+
 	                        "</div>";
 	                }
 	                $("#wrapper-box-class").html(str_class);
@@ -202,8 +243,14 @@ function lineWork(){
             $(".swiper-banner-class").click(function(){
                 var  data_id=$(this).find("img").attr("data_id");
                 clickBanner(data_id);
-                var  data_class=$(this).find("img").attr("data_class");
-                location.href=data_class;
+                
+                
+                //页面跳转
+                var  data_url=$(this).find("img").attr("data_url");
+                var  date_type=$(this).find("img").attr("date_type");
+                bannerJump(date_type,data_url);      
+                
+                
             })
             //swiper轮播结束
             //swiper线下课省滑动
@@ -231,12 +278,8 @@ function lineWork(){
 }
 //线下课结束 ================================================
 
-
-
-//直播开始-----------------------------------------------------------
-																						
+//直播开始-----------------------------------------------------------																		
 function liveSchool(){
-
     requestService("/xczh/live/onlineLive",null,
         function(data) {
             if(data.success){
@@ -245,9 +288,9 @@ function liveSchool(){
                 var result_play = data.resultObject.banner.records;
                 var str_play ="";
                 for (var int = 0; int < result_play.length; int++) {
-                    var wb_play = result_play[int];
+                	var wb = result_play[int];
                     str_play+="<div class='swiper-slide swiper-banner swiper-banner-play'>"+
-                        "<img src='"+wb_play.imgPath+"' alt='Concept for children game' data_id='"+wb_play.id+"' data_play='"+wb_play.url+"'>"+
+                        "<img src='"+wb.imgPath+"?imageView2/2/w/750'  date_type='"+wb.linkType+"' data_id='"+wb.id+"' data_url='"+wb.url+"' style='width: 7.5rem;height:3.2rem;' />"+
                         "</div>";
                 }
                 $("#wrapper-box-play").html(str_play);
@@ -265,66 +308,37 @@ function liveSchool(){
             $(".swiper-banner-play").click(function(){
                 var  data_id=$(this).find("img").attr("data_id");
                 clickBanner(data_id);
-                var  data_play=$(this).find("img").attr("data_play");
-                location.href=data_play;
+                //页面跳转
+                var  data_url=$(this).find("img").attr("data_url");
+                var  date_type=$(this).find("img").attr("date_type");
+                bannerJump(date_type,data_url);    
             })
             //swiper轮播结束
             if(data.success==true){
-                
-//              var sameDay='<p class="p3" style="margin-top: 0.03rem;"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top: 0.08rem;">{{item.startDateStr}}</span></p>'
-//				var noDay='<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>'			
-//              var wrapArrnull=data.resultObject.allCourseList;
-//              for(var i=0;i<wrapArrnull.length;i++){
-//              	var haveData=wrapArrnull[i]
-//              	for(var j=0;j<haveData.courseList.length;j++){
-//              		var haveStatus=haveData.courseList[j]
-//              		if(haveStatus.startDateStr.indexOf(":") == -1){
-//              			haveStatus.timeStr=1
-//              		}else{
-//              			haveStatus.timeStr=0
-//              		}
-//              	}
-//              }
                 $(".newests").html(template('newests',{items:data.resultObject.allCourseList}))
-                /*var myHeight=$(".tjks").height();
-                $(".gieTa").height(myHeight);*/
-
                 $(".newest_title").click(function(){
-
                     var lineState=$(this).attr("lineState");
-
-                    window.location.href="/xcview/html/curriculum_table.html?lineState="+lineState+"";
+                    window.location.href="/xcview/html/curriculum_table.html?courseType=3&lineState="+lineState+"";
                 })
-
-
             }
-
-
-
         })
 }
 
 //直播结束  ========================================
 
-
-
 //听课开始   --------------------------------------------------
-
 function listenSchool(){
-
     //听课开始
-
     requestService("/xczh/bunch/listenCourse",null,
         function(data) {
             if(data.success){
-
                 //swiper轮播开始
                 var result_listen = data.resultObject.banner.records;
                 var str_listen ="";
                 for (var int = 0; int < result_listen.length; int++) {
-                    var wb_listen = result_listen[int];
+                    var wb = result_listen[int];
                     str_listen+="<div class='swiper-slide swiper-banner swiper-banner-listen'>"+
-                        "<img src='"+wb_listen.imgPath+"' alt='Concept for children game' data_id='"+wb_listen.id+"' data_listen='"+wb_listen.url+"'>"+
+                        "<img src='"+wb.imgPath+"?imageView2/2/w/750' date_type='"+wb.linkType+"' data_id='"+wb.id+"' data_url='"+wb.url+"' >"+
                         "</div>";
                 }
                 $("#wrapper-box-listen").html(str_listen);
@@ -342,8 +356,10 @@ function listenSchool(){
             $(".swiper-banner-listen").click(function(){
                 var  data_id=$(this).find("img").attr("data_id");
                 clickBanner(data_id);
-                var  data_listen=$(this).find("img").attr("data_listen");
-                location.href=data_listen;
+                //页面跳转
+                var  data_url=$(this).find("img").attr("data_url");
+                var  date_type=$(this).find("img").attr("date_type");
+                bannerJump(date_type,data_url);    
             })
             //swiper轮播结束
 			if(data.resultObject.listenCourseList.length==0 || data.resultObject.listenCourseList.length== null){
@@ -355,10 +371,7 @@ function listenSchool(){
 	            })
 			}
 
-          
-
         })
-
 }
 
 //听课结束 ====================================================
@@ -386,8 +399,6 @@ function listenSchool(){
 //	    spaceBetween: 10
 //	});
 //});
-
-
 
 //})
 //JQ预加载分界线----------------------------------------------------------------
@@ -426,140 +437,7 @@ function listenSchool(){
 //		}
 //	})
 //}
-//学堂
-//学堂/直播课程跳转
-//var url_adress=window.location.href;
-function jump_play(id){
-   requestService("/xczh/course/details?courseId="+id,null,function(data) {
-      var userPlay=data.resultObject;
-      var falg =authenticationCooKie();       	       
-//付费的直播和即将直播未购买跳购买页    
-         if(userPlay.watchState==0 && userPlay.lineState==1){
-            location.href="/xcview/html/school_play.html?course_id="+id 
-         }else if(userPlay.watchState==0 && userPlay.lineState==4){
-            location.href="/xcview/html/school_play.html?course_id="+id          
-         }
-//免费的直播和即将直播跳直播间      
-         else if(userPlay.watchState==1 && userPlay.lineState==1){
-            if (falg==1002){
-//          	localStorage.save_adress=url_adress;
-            location.href ="/xcview/html/cn_login.html";      
-            }else if (falg==1005) {
-//          	localStorage.save_adress=url_adress;
-               location.href ="/xcview/html/evpi.html";
-            }else{
-            requestService("/xczh/history/add",
-               {
-               	courseId:id,
-               recordType:2
-               }
-               ,function(data) {
-      
-               }) 
-            location.href="/xcview/html/details.html?courseId="+id
-            }
-         }else if(userPlay.watchState==1 && userPlay.lineState==4){
-            if (falg==1002){
-//          	localStorage.save_adress=url_adress;
-                  location.href ="/xcview/html/cn_login.html";      
-               }else if (falg==1005) {
-//             	localStorage.save_adress=url_adress;
-                  location.href ="/xcview/html/evpi.html";
-               }else{
-                  requestService("/xczh/history/add",
-                     {courseId:id,recordType:2}
-                     ,function(data) {
-            
-                     }) 
-                  location.href="/xcview/html/details.html?courseId="+id  
-               }
-         }
-//购买后的直播和即将直播跳直播间
-         else if(userPlay.watchState==2 && userPlay.lineState==1){
-            requestService("/xczh/history/add",
-               {courseId:id,recordType:2}
-               ,function(data) {
-      
-               }) 
-            location.href="/xcview/html/details.html?courseId="+id           
-         }else if(userPlay.watchState==2 && userPlay.lineState==4){
-            requestService("/xczh/history/add",
-               {courseId:id,recordType:2}
-               ,function(data) {
-      
-               }) 
-            location.href="/xcview/html/details.html?courseId="+id  
-           }
-//主播本人自己的直播和即将直播跳直播间			
-			else if(userPlay.watchState==3 && userPlay.lineState==1){
-				requestService("/xczh/history/add",
-					{courseId:id,recordType:2}
-					,function(data) {
-		
-					})	
-				location.href="/xcview/html/details.html?courseId="+id				
-			}else if(userPlay.watchState==3 && userPlay.lineState==4){
-				requestService("/xczh/history/add",
-					{courseId:id,recordType:2}
-					,function(data) {
-		
-					})	
-				location.href="/xcview/html/details.html?courseId="+id				
-			}
-			else{
-				location.href="/xcview/html/school_play.html?course_id="+id				
-			}
-
- 
- 
-})
-   }
-//学堂/推荐/课程跳转结束
-//学堂/线下课课程跳转
-//function jump_class(id){
-//	requestService("/xczh/course/details?courseId="+id,null,function(data) {
-//			var userClass=data.resultObject;
-//		if(userClass.watchState==0 || userClass.watchState==1){
-//			location.href="school_class.html?course_id="+id
-//		}else if(userClass.watchState==2 || userClass.watchState==3){
-//			location.href="live_class.html?my_study="+id
-//
-//		}
-//
-//	})
-//}
-
-
-//学堂/直播课程跳转
-//function jump_play(id){
-//	requestService("/xczh/course/details?courseId="+id,null,function(data) {
-//			var userPlay=data.resultObject;
-//		if(userPlay.watchState==0 || userPlay.watchState==1){
-//			location.href="school_play.html?course_id="+id
-//		}else if(userPlay.watchState==2 || userPlay.watchState==3){
-//			location.href="live_play.html?my_study="+id
-//
-//		}
-//
-//	})
-//}
-
-//学堂/听课课程跳转
-//function jump_listen(id){
-//	requestService("/xczh/course/details?courseId="+id,null,function(data) {
-//			var userListen=data.resultObject;
-//		if(userListen.watchState==0 || userListen.watchState==1){
-//			location.href="school_audio.html?course_id="+id
-//		}else if(userListen.watchState == 2||userListen.watchState == 3){
-//			if(userListen.collection){
-//				location.href="live_select_album.html?course_id="+id
-//			}else{
-//				location.href="live_audio.html?my_study="+id
-//			}
-//		}
-//	})
-//}
-
+//视频-音频-专辑跳转  watchState，1免费、0收费-type，1-视频、2-音频、3-直播、4-线下培训班   collection:1-专辑 
 //搜索历史开始
 $(function(){
     requestService("/xczh/bunch/hotSearch",null,
@@ -583,7 +461,6 @@ function clickBanner(id){
 
     });
 }
-
 
 //点击学习判断游客
 var falg =authenticationCooKie();

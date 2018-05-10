@@ -175,20 +175,26 @@
 
 
 
-/*右侧专栏内容*/
-.contentWrap #zhuanlan .zhuanlan_top{
+/*右侧专栏 著作 媒体报道内容*/
+.contentWrap #zhuanlan .zhuanlan_top,
+.contentWrap #zhuzuo .zhuzuo_top,
+.contentWrap #media_report .media_report_top{
 	height: 60px;
 	line-height: 60px;
 	border-bottom: 1px solid #F0F0F0;
 	position: relative;
 }
-.contentWrap #zhuanlan .zhuanlan_top .title{
+.contentWrap #zhuanlan .zhuanlan_top .title,
+.contentWrap #zhuzuo .zhuzuo_top .title,
+.contentWrap #media_report .media_report_top .title{
 	font-size: 16px;
     color: #333333;
     position: absolute;
     left: 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_top button{
+.contentWrap #zhuanlan .zhuanlan_top button,
+.contentWrap #zhuzuo .zhuzuo_top button,
+.contentWrap #media_report .media_report_top button{
 	display: inline-block;
     width: 92px;
     height: 36px;
@@ -204,13 +210,19 @@
     right: 20px;
     top: 12px; 
 }
-.contentWrap #zhuanlan .zhuanlan_bottom {
+.contentWrap #zhuanlan .zhuanlan_bottom ,
+.contentWrap #zhuzuo .zhuzuo_bottom,
+.contentWrap #media_report .media_report_bottom {
 	padding: 30px 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form > div {
+.contentWrap #zhuanlan .zhuanlan_bottom > div,
+.contentWrap #zhuzuo .zhuzuo_bottom  > div,
+.contentWrap #media_report .media_report_bottom  > div{
 	margin-bottom: 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form > div >span:first-child{
+.contentWrap #zhuanlan .zhuanlan_bottom > div >span:first-child,
+.contentWrap #zhuzuo .zhuzuo_bottom  > div >span:first-child,
+.contentWrap #media_report .media_report_bottom  > div >span:first-child{
 	display: inline-block;
 	width: 89px;
 	text-align: right;
@@ -219,11 +231,15 @@
 	line-height: 19px;
 	margin-right: 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form > div >span:first-child > em{
+.contentWrap #zhuanlan .zhuanlan_bottom > div >span:first-child > em,
+.contentWrap #zhuzuo .zhuzuo_bottom > div >span:first-child > em,
+.contentWrap #media_report .media_report_bottom > div >span:first-child > em{
 	color: #f40;
 	display: inline;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title{
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title,
+.contentWrap #zhuzuo .zhuzuo_bottom  .zhuzuo_name,
+.contentWrap #media_report .media_report_bottom  .media_report_name{
 	width: 280px;
 	height: 36px;
 	border: 1px solid #F0F0F0;
@@ -231,30 +247,53 @@
 	text-indent: 1em;
 	font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-ms-input-placeholder {
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title::-webkit-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title:-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title::-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .zhuanlan_title:-ms-input-placeholder {
 	font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian{
+.contentWrap #zhuanlan .zhuanlan_bottom .fengmian{
   	
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian_pic{
+.contentWrap #zhuanlan .zhuanlan_bottom .fengmian_pic,
+.contentWrap #zhuzuo .zhuzuo_bottom  .fengmian_pic,
+.contentWrap #media_report .media_report_bottom  .fengmian_pic{
 	display: inline-block;
     width: 260px;
     height: 147px;
     border: 1px solid #f0f0f0;
     vertical-align: middle;
     margin-right: 30px;
+    position: relative;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian_tip{
+.contentWrap #zhuanlan .zhuanlan_bottom .fengmian_pic img,
+.contentWrap #zhuzuo .zhuzuo_bottom  .fengmian_pic img,
+.contentWrap #media_report .media_report_bottom  .fengmian_pic img{
+	/*position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;*/
+   width: 100%;
+   height: 100%;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom .fengmian_tip,
+.contentWrap #zhuzuo .zhuzuo_bottom .fengmian_tip,
+.contentWrap #media_report .media_report_bottom .fengmian_tip{
 	display: inline-block;
 	width: 159px;
 	height: 48px;
 	color: #999;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea{
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea,
+.contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea,
+.contentWrap #media_report .media_report_bottom .neirong textarea{
 	vertical-align: text-top;
 	width: 540px;
 	height: 160px;
@@ -264,13 +303,23 @@
 	text-indent: 1em;
 	font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-webkit-input-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-moz-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-moz-placeholder,
-.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-ms-input-placeholder{
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea::-webkit-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea:-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea::-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom .neirong textarea:-ms-input-placeholder,
+.contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea::-webkit-input-placeholder,
+.contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea:-moz-placeholder,
+.contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea::-moz-placeholder,
+.contentWrap #zhuzuo .zhuzuo_bottom .neirong textarea:-ms-input-placeholder,
+.contentWrap #media_report .media_report_bottom .neirong textarea::-webkit-input-placeholder,
+.contentWrap #media_report .media_report_bottom .neirong textarea:-moz-placeholder,
+.contentWrap #media_report .media_report_bottom .neirong textarea::-moz-placeholder,
+.contentWrap #media_report .media_report_bottom .neirong textarea:-ms-input-placeholder{
 	font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .baocun #submit{
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun #submit,
+.contentWrap #zhuzuo .zhuzuo_bottom .baocun #submit,
+.contentWrap #media_report .media_report_bottom .baocun #submit{
 	display: inline-block;
 	width: 120px;
 	height: 36px;
@@ -282,7 +331,23 @@
     font-size: 14px;
     margin-right: 20px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .baocun #save{
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun .save-publish,
+.contentWrap #zhuzuo .zhuzuo_bottom .baocun .save-publish,
+.contentWrap #media_report .media_report_bottom .baocun .save-publish{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun #save,
+.contentWrap #zhuzuo .zhuzuo_bottom .baocun #save,
+.contentWrap #media_report .media_report_bottom .baocun #save{
 	display: inline-block;
 	width: 120px;
 	height: 36px;
@@ -293,7 +358,23 @@
 	color: #00BC12;
     font-size: 14px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom form .baocun{
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun .only-save,
+.contentWrap #zhuanlan .zhuanlan_bottom .column-edit-button button,
+.contentWrap #zhuzuo .zhuzuo_bottom .baocun .only-save,
+.contentWrap #media_report .media_report_bottom .baocun .only-save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom .baocun,
+.contentWrap #zhuzuo .zhuzuo_bottom .baocun,
+.contentWrap #media_report .media_report_bottom .baocun{
 	padding-left:120px ;
 }
 .warning{
@@ -305,53 +386,123 @@
      margin-left: 120px;
 }
 
-/*专栏列表内容部分*/
-.contentWrap #zhuanlan .zhuanlan_bottom2{
+/*专栏 著作 媒体报道 列表内容部分*/
+.contentWrap #zhuanlan .zhuanlan_bottom2,
+.contentWrap #zhuzuo .zhuzuo_bottom2,
+.contentWrap #media_report .media_report_bottom2{
 	padding: 31px 20px 59px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tr td {
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tr td,
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tr td,
+.contentWrap #media_report .media_report_bottom2 table tr td{
 	text-align: center;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom2 table thead {
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead,
+.contentWrap #zhuzuo .zhuzuo_bottom2 table thead,
+.contentWrap #media_report .media_report_bottom2 table thead{
 	height: 40px;line-height: 40px;
 	background: #F0F0F0;
 	font-size: 14px;
 	color: #666666;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody{
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody,
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody,
+.contentWrap #media_report .media_report_bottom2 table tbody{
 	font-size: 14px;
 	color: #333;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody tr{
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody tr,
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody tr,
+.contentWrap #media_report .media_report_bottom2 table tbody tr{
 	height: 80px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:first-child,
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child{
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child,
+.contentWrap #zhuzuo .zhuzuo_bottom2 table thead > tr > td:first-child,
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:first-child,
+.contentWrap #media_report .media_report_bottom2 table thead > tr > td:first-child,
+.contentWrap #media_report .media_report_bottom2 table tbody > tr > td:first-child{
 	width: 126px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child{
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child,
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:first-child,
+.contentWrap #media_report .media_report_bottom2 table tbody > tr > td:first-child{
 	padding: 10px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child img{
-	width: 100%;
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:first-child img,
+.contentWrap #media_report .media_report_bottom2 table tbody > tr > td:first-child img{
+	width: 106px;
+	height: 60px;
+}
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:first-child img{
+	width: 66px;
+	height: 92px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(2),
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(2){
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(2),
+.contentWrap #media_report .media_report_bottom2 table thead > tr > td:nth-child(2),
+.contentWrap #media_report .media_report_bottom2 table tbody > tr > td:nth-child(2){
 	width: 364px;
 }
+.contentWrap #zhuzuo .zhuzuo_bottom2 table thead > tr > td:nth-child(2),
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:nth-child(2){
+	width: 238px;
+}
+
+
+
 .contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(3),
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(3),
+.contentWrap #media_report .media_report_bottom2 table thead > tr > td:nth-child(3),
+.contentWrap #media_report .media_report_bottom2 table tbody > tr > td:nth-child(3){
 	width: 105px;
 }
+
+.contentWrap #zhuzuo .zhuzuo_bottom2 table thead > tr > td:nth-child(3),
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:nth-child(3){
+	width: 125px;
+}
+
+
+
 .contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(4),
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(4){
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(4),
+.contentWrap #media_report .media_report_bottom2 table thead > tr > td:nth-child(4),
+.contentWrap #media_report .media_report_bottom2 table tbody > tr > td:nth-child(4){
 	width: 121px;
 }
+
+.contentWrap #zhuzuo .zhuzuo_bottom2 table thead > tr > td:nth-child(4),
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:nth-child(4){
+	width: 105px;
+}
+
+
+
+
 .contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(5),
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(5){
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(5),
+.contentWrap #media_report .media_report_bottom2 table thead > tr > td:nth-child(5),
+.contentWrap #media_report .media_report_bottom2 table tbody > tr > td:nth-child(5){
 	width: 200px;
 }
-.contentWrap #zhuanlan .zhuanlan_bottom2 table tr,.contentWrap #zhuanlan .zhuanlan_bottom2 table td{
+
+.contentWrap #zhuzuo .zhuzuo_bottom2 table thead > tr > td:nth-child(5),
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:nth-child(5){
+	width: 121px;
+}
+
+
+.contentWrap #zhuzuo .zhuzuo_bottom2 table thead > tr > td:nth-child(6),
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tbody > tr > td:nth-child(6){
+	width: 200px;
+}
+
+
+
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tr,.contentWrap #zhuanlan .zhuanlan_bottom2 table td,
+.contentWrap #zhuzuo .zhuzuo_bottom2 table tr,.contentWrap #zhuzuo .zhuzuo_bottom2 table td,
+.contentWrap #media_report .media_report_bottom2 table tr,.contentWrap #media_report .media_report_bottom2 table td{
 	border: 1px solid #DEDEDE;
 }
 
@@ -982,3 +1133,173 @@
 	width: 100%;
 	height: 100%;
 }
+
+
+
+/*著作部分内容*/
+
+
+
+/*删除 下架 提示框*/
+#deleteTip {
+    width: 400px;
+    height: 200px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999;
+    text-align: center;
+    padding: 30px 65px;
+    background-color: #fff;
+}
+#deleteTip h4 {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+#deleteTip p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 40px;
+}
+#deleteTip button{
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    outline: none;
+    background-color: #fff;
+    color: #000;
+}
+#deleteTip #sureDel {
+    float: left;
+}
+#deleteTip #cancalDel {
+    float: right;
+}
+#deleteTip button:hover {
+    background-color: #00BC12;
+    color: #fff;
+}
+
+
+/*预览效果部分样式*/
+#preview{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	background: #fff;
+	width: 960px;
+	height: 772px;
+	padding-bottom: 90px;
+	box-sizing: border-box;
+	z-index: 999;
+}
+#preview .preview_top{
+	height: 60px;
+    height: 60px;	
+    padding: 20px 40px;
+    border-bottom: 1px solid #f0f0f0;
+}
+#preview .preview_top > span{
+	font-size: 16px;
+	color: #333333;
+}
+#preview .preview_top > a{
+	float: right;
+	color: #666;
+}
+#preview .preview_bottom > table  tr > td:first-child{
+	width: 110px;
+	text-align: right;
+	vertical-align: top;
+}
+#preview .preview_bottom > table  tr {
+	margin-bottom: 20px;
+}
+#preview .preview_bottom > table  tr > td:first-child > span{
+	display: inline-block;
+}
+#preview .preview_bottom > table  tr > td:first-child > span >em{
+	display: inline-block;
+	color: red;
+}
+#preview .preview_bottom {
+	padding-top: 20px;
+	padding-bottom: 90px;
+	padding-right: 140px;
+	    overflow-x: hidden;
+    overflow-y: auto;
+    width: 960px;
+    height: 712px;
+    box-sizing: border-box;
+	
+}
+#preview .preview_bottom > table  tr > td:nth-child(2){
+	padding-left: 20px;
+
+}
+#preview .preview_bottom > table  tr > td{
+	padding-top: 20px;
+}
+
+.common-page{
+	width: 960px;
+	height: 772px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	background: white;
+	padding-bottom: 90px;
+	z-index: 999;
+	box-sizing: border-box;
+}
+.common-top{
+	height: 60px;
+	padding: 20px 40px;
+	border-bottom: 1px solid #f0f0f0;
+	margin-bottom: 20px;
+}   
+.common-top span{
+	font-size: 16px;
+    color: #333333;
+}   
+.common-top img{
+    float: right;
+    color: #666;
+    margin-top: 5px;
+}
+.common-top a{
+	float: right;
+}
+.work-preview-table tr td{
+	padding: 20px 0;
+	vertical-align: top;
+}
+.work-preview-table tr td:nth-child(2){
+	vertical-align: top;
+	padding: 20px;
+}
+.work-preview-table tr td:nth-child(1){
+	width: 110px;
+	text-align: right;
+}
+.work-preview-table tr em{
+	color: red;
+	display: inline-block;
+}
+/*没数据时的样式*/
+.comment-nodata{
+	padding: 89px 0;
+	text-align: center;
+}
+.comment-nodata p{
+	    font-size: 16px;
+    color: #999;
+    margin-top: 38px;
+}
+

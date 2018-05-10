@@ -34,7 +34,7 @@
 		FROM
 		  `user_coin_increase` uci
 		  JOIN `oe_order_detail` ood
-			ON uci.`order_no_course` = ood.`id`
+			ON uci.`correlation_id` = ood.`id`
 		  JOIN `oe_order` oo
 			ON ood.`order_id` = oo.`id`
 		    <if test="startTime != null">
@@ -71,7 +71,7 @@
 		FROM
 		  `user_coin_increase` uci
 		  JOIN `oe_gift_statement` ogs
-			ON uci.`order_no_gift` = ogs.id
+			ON uci.`correlation_id` = ogs.id
 			<if test="startTime != null">
 				<![CDATA[ and ogs.`create_time` >= #{startTime}]]>
 			</if>
@@ -94,7 +94,7 @@
 		FROM
 		  `user_coin_increase` uci
 		  JOIN `oe_order_detail` ood
-			ON uci.`order_no_course` = ood.`id`
+			ON uci.`correlation_id` = ood.`id`
 			AND ood.`course_id` = #{courseId}
 	</select>
 
@@ -104,7 +104,7 @@
 		FROM
 			`user_coin_increase` uci
 		JOIN `oe_gift_statement` ogs
-			ON uci.`order_no_gift` = ogs.`id`
+			ON uci.`correlation_id` = ogs.`id`
 			AND ogs.`live_id` = #{liveId}
 	</select>
 
@@ -114,7 +114,7 @@
 		FROM
 			`user_coin_increase` uci
 		JOIN `oe_gift_statement` ogs
-			ON uci.`order_no_gift` = ogs.`id`
+			ON uci.`correlation_id` = ogs.`id`
 			AND ogs.`live_id` = #{liveId}
 			AND ogs.`giver` = #{giver}
 	</select>
@@ -125,7 +125,7 @@
 		FROM
 		  `user_coin_increase` uci
 		  JOIN `oe_order_detail` ood
-			ON uci.`order_no_course` = ood.`id`
+			ON uci.`correlation_id` = ood.`id`
 			AND ood.`course_id` = #{courseId}
 		WHERE uci.`change_type`=7
 	</select>
@@ -136,7 +136,7 @@
 		FROM
 		  `user_coin_increase` uci
 		  JOIN `oe_gift_statement` ogs
-			ON uci.`order_no_gift` = ogs.id
+			ON uci.`correlation_id` = ogs.id
 			WHERE ogs.`live_id`= #{liveId}
 	</select>
 
@@ -162,7 +162,7 @@
 		  JOIN `oe_course` oc
 			ON ogs.`live_id` = oc.`id`
 		  JOIN `user_coin_increase` uci
-			ON uci.`order_no_gift` = ogs.id
+			ON uci.`correlation_id` = ogs.id
 		WHERE ogs.`live_id` = #{liveId}
 		GROUP BY ou.id
 		ORDER BY total desc
@@ -176,7 +176,7 @@
 		  join `oe_user` ou
 			on ogs.`giver` = ou.id
 		   join `user_coin_increase` uci
-		   on uci.`order_no_gift` = ogs.id
+		   on uci.`correlation_id` = ogs.id
 		where ogs.`giver`= #{giver}
 		and ogs.`live_id` = #{liveId}
 	</select>
@@ -187,7 +187,7 @@
 		FROM
 		`user_coin_increase` uci
 		JOIN `oe_order_detail` ood
-		ON uci.`order_no_course` = ood.`id`
+		ON uci.`correlation_id` = ood.`id`
 		AND uci.`id` = #{id}
 		WHERE uci.`change_type`=7
 	</select>

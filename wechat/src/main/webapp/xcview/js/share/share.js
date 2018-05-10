@@ -42,32 +42,39 @@ function getCurrentViewHtml(){
 function getShareId(){
 	
 	var viewHtml = getCurrentViewHtml();
+	
 	if(viewHtml == "live_personal.html"){
 		
 		return getQueryString("userLecturerId");
-		
+	
 	}else if(viewHtml == "live_audio.html" || 
 			viewHtml == "live_play.html"){
+		
 		return getQueryString("my_study");
 		
 	}else if(viewHtml == "school_audio.html"|| 
 			viewHtml == "school_play.html"|| 
 			viewHtml == "school_class.html"|| 
 			viewHtml == "live_select_album.html"){
-		
 		return getQueryString("course_id");
+
+	}else if(viewHtml == "live_album.html"){
+		return getQueryString("collection_id");
 	}
+
 }
 
 
 /**
  * 根据分享所处的当前页面 得到分享类型： 
- * @returns {Number}  1：课程  2：主播
+ * @returns {Number}  1：课程  2：主播  3:单个专辑
  */
 function getShareType(){
 	var viewHtml = getCurrentViewHtml();
 	if(viewHtml == "live_personal.html"){
 		return 2;
+	}else if(viewHtml == "live_album.html"){
+		return 3;
 	}else{
 		return 1;
 	}
@@ -93,36 +100,14 @@ if(is_weixin()){
 		$(".weixin_ceng").show();
 	});
 	
-	
-	
-	
 }else{
 	
 $(".header_news").click(function(){
-
-	var shareType = getShareType();
-	var shareId = getShareId();
+	shareType = getShareType();
+	shareId = getShareId();
 	
-//	requestService("/xczh/share/courseShare",{
-//		shareId : shareId,
-//		shareType:shareType
-//	},function(data) {
-//		
-//		if(data.success){
-//			
-//			description = data.description.stripHTML();
-//			link = data.link;
-//			
-//			if(shareType==1){
-//				gradeName = data.gradeName;
-//				smallImgPath = data.smallImgPath;
-//			}else if(shareType==2){
-//				gradeName = data.name;
-//				smallImgPath = data.headImg;
-//			}
-//		}
-//	})
-		$(".share").show();	
+	
+    $(".share").show();	
 });
 
 $(".share_cancel").click(function(){
@@ -157,7 +142,7 @@ $(".weixin_ceng").click(function(){
 document.getElementById('weiboShare').onclick = function(e){
 	    var  p = {
 	        url: link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-	        title :shareType == 1 ? '中医好课程：'  + gradeName  : '中医好主播：' + gradeName,/*分享标题(可选)*/
+	        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
 	        pic : smallImgPath /*分享图片(可选)*/
 	    };
 	    var s = [];
@@ -171,11 +156,10 @@ document.getElementById('weiboShare').onclick = function(e){
 //qq分享 
 document.getElementById('qqShare').onclick = function(e){
 	
-	
 	    var  p = {
 	        url:link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
 	        desc: '熊猫中医', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
-	        title :shareType == 1 ? '中医好课程：'  + gradeName  : '中医好主播：' + gradeName,/*分享标题(可选)*/
+	        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
 	        summary : description,/*分享描述(可选)*/
 	        pics : smallImgPath  /*分享图片(可选)*/
 	    };
@@ -193,7 +177,7 @@ document.getElementById('qqShare0').onclick = function(e){
 	    var  p = {
 		        url:link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
 		        desc: '熊猫中医', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
-		        title :shareType == 1 ? '中医好课程：'  + gradeName  : '中医好主播：' + gradeName,/*分享标题(可选)*/
+		        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
 		        summary : description,/*分享描述(可选)*/
 		        pics : smallImgPath  /*分享图片(可选)*/
 		 };
@@ -224,9 +208,7 @@ document.getElementById('qqShare0').onclick = function(e){
  */
 if(is_weixn()){
 	
-	
 	var shareBack = getQueryString("shareBack");
-	
 	function pushHistory() {
 	    var state = {
 	        title: "title",
@@ -238,7 +220,7 @@ if(is_weixn()){
 	if(shareBack == 1){
 		pushHistory();
 	}
-	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
+	var ccontrollerAddress = "/xczh/wechatJssdk/certificationSign";
 	var urlparm = {
 		url: window.location.href
 	}
@@ -277,8 +259,7 @@ if(is_weixn()){
 		
 		 var d1 = description.replace(/&nbsp;/g,"");
 		
-		 console.log(d1);
-		 
+
 		 //如果聊天记录里面点击过来的话，点击返回--》回调聊天窗口
 		 
 		 if(shareBack == 1){
@@ -292,9 +273,13 @@ if(is_weixn()){
 				  });
 			 }
 		 }
+		 
+		 
+		 
+		 
 		//发送到朋友
 		wx.onMenuShareAppMessage({
-			  title :shareType == 1 ? '中医好课程：'  + gradeName  : '中医好主播：' + gradeName,/*分享标题(可选)*/
+			title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
 		    desc: d1, // 分享描述
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
@@ -313,7 +298,7 @@ if(is_weixn()){
 		});
 		//发送到朋友圈
 		wx.onMenuShareTimeline({
-			  title :shareType == 1 ? '中医好课程：'  + gradeName  : '中医好主播：' + gradeName,/*分享标题(可选)*/
+			  title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
 		    success: function () {
@@ -331,7 +316,7 @@ if(is_weixn()){
 		});
 	    //发送到qq  
 		wx.onMenuShareQQ({
-			  title :shareType == 1 ? '中医好课程：'  + gradeName  : '中医好主播：' + gradeName,/*分享标题(可选)*/
+			  title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
 		    desc: d1, // 分享描述
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标

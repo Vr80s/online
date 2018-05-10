@@ -3,8 +3,8 @@
 <div class="footer">
 	<div class="footer-inner">
 		<!-- #section:basics/footer -->
-		<div class="footer-content">
-			<span class="bigger-120"> <span class="blue bolder"></span>
+		<div class="footer-content" style="line-height: normal;">
+			<span class="bigger-120" style="display: block;"> <span class="blue bolder"></span>
 				熊猫中医.在线教育  2017-2018
 			</span> &nbsp; &nbsp; <!-- <span class="action-buttons"> <a href="#">
 					<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>

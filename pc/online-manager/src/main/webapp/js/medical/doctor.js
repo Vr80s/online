@@ -13,7 +13,7 @@ $(function(){
      //        return false;
      //    }
 	// }
-	//debugger;
+	//;
 	/** 医师列表begin */
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
@@ -75,7 +75,7 @@ $(function(){
                 if(row.sourceId === null){
                     return '<div class="hidden-sm hidden-xs action-buttons">'+
                         '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-                        '<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
@@ -94,7 +94,7 @@ $(function(){
 	}];
 	
 	P_courseTable = initTables("courseTable",basePath+"/medical/doctor/list",objData,true,true,0,null,searchCase_P,function(data){
-		// debugger;
+		// ;
 		// var iDisplayStart = data._iDisplayStart;
 		// var countNum = data._iRecordsTotal;//总条数
 		// pageSize = data._iDisplayLength;//每页显示条数
@@ -125,7 +125,7 @@ $(function(){
         // { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
         { "title": "坐诊时间", "class":"center","width":"6%", "sortable":false,"data": 'workTime',"visible":true},
         { "title": "所在地", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {
-            debugger
+
             return row.province+"-"+row.city;
         }}, { "title": "医师类别", "class":"center","width":"8%","sortable":false,"data": 'type','mRender':function(data){
             return doctorType(data);}},
@@ -158,7 +158,7 @@ $(function(){
     ];
     
     $(".kctj_bx").click(function(){
-    	debugger
+
         freshTable(PX_courseTable1());
     });
     
@@ -437,7 +437,7 @@ $(".add_P").click(function(){
      */
 // $("input[name='isFree']").eq(1).attr("checked","checked");
     courseForm.resetForm();
-    debugger
+
 
 	$("#province option:first").prop("selected", 'selected');
 	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增医师",580,600,true,"确定",function(){
@@ -448,11 +448,7 @@ $(".add_P").click(function(){
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/medical/doctor/add");
 	            $("#addCourse-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+                    data = getJsonData(data);
                 	unmask();
 	                if(data.success){
 	                    $("#addCourseDialog").dialog("close");
@@ -719,7 +715,7 @@ function previewDialog(obj,status){
 	// 	row = M_courseTable.fnGetData(oo); // get datarow
 	// }
 	//
-	// debugger
+	//
 	// //根据当前id查找对应的课程信息
     // $.get(basePath+"/medical/doctor/findMedicalDoctorById",{id:row.id}, function(result){
     //
@@ -766,7 +762,7 @@ function toEdit(obj,status){
     $.get(basePath+"/medical/doctor/findMedicalDoctorById",{id:row.id}, function(result){
 
     	$("#editHospital_id").val(row.id);
-    	debugger;
+    	;
 
     	//省
 		$("#edit_citys").empty();
@@ -804,6 +800,7 @@ function toEdit(obj,status){
 		// $("#edit_email").val(result.email);
 		// $("#edit_city").val(result.city);
 		// $("#edit_detailedAddress").val(result.detailedAddress);
+       
 		$("#edit_description").html(result.description); //课程简介
 
 		// 如果是用户自己认证成的医馆 不能修改其信息
@@ -827,7 +824,7 @@ function toEdit(obj,status){
 
     	var edit_title="修改医师";
     	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv",edit_title,580,650,true,"确定",function(){
-    		debugger
+
             $("#edit_realProvince").val($("#edit_province").find("option:selected").text());
             $("#edit_realCitys").val($("#edit_citys").find("option:selected").text());
 
@@ -836,11 +833,7 @@ function toEdit(obj,status){
                 mask();
                 $("#updateCourse-form").attr("action", basePath+"/medical/doctor/updateMedicalDoctorById");
                 $("#updateCourse-form").ajaxSubmit(function(data){
-                	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+                	data = getJsonData(data);
                 
                     unmask();
                     if(data.success){
@@ -913,11 +906,7 @@ function updateRecImg(obj){
  			 mask();
  			 $("#updateRecImg-form").attr("action", basePath+"/cloudclass/course/updateRecImgPath");
  	            $("#updateRecImg-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+                    data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateRecImgDialog").dialog("close");
@@ -1036,7 +1025,7 @@ $(".list-items1").on("click",function(event){
 
 function openFieldManage(obj){
 
-	debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = P_courseTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -1044,7 +1033,7 @@ function openFieldManage(obj){
     $("#child_MenuName").html(row.name);
     var courseCount = row.courseCount
     ajaxRequest(basePath+"/medical/field/alllist",{'id':row.id,'type':2},function(data) {
-    	debugger
+
         drawMenusPage(data);
 
         $("#childMenu-form").attr("action", basePath+"/medical/field/addDoctorField");
@@ -1054,11 +1043,7 @@ function openFieldManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -1110,7 +1095,7 @@ function doctorType(data){
 
 function openHospitalManage(obj){
 
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = P_courseTable.fnGetData(oo); // get datarow
     rowId = row.id;
@@ -1118,22 +1103,18 @@ function openHospitalManage(obj){
     $("#child_MenuName1").html(row.name);
     var courseCount = row.courseCount
     ajaxRequest(basePath+"/medical/doctor/getMedicalHospital",{'id':row.id},function(data) {
-        debugger
+
         drawHospitalPage(data);
 
         $("#hospital-form").attr("action", basePath+"/medical/doctor/updateMedicalHospitalDoctor");
         openDialog("hospitalDialog","hospitalDialogDiv","关联医馆",580,450,true,"提交",function(){
-        	debugger
+
             $("input:checkbox").removeAttr("disabled");
             mask();
 
             $("#hospital-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#hospitalDialog").dialog("close");
                     layer.msg(data.resultObject);
@@ -1152,7 +1133,7 @@ function openHospitalManage(obj){
  * @param obj
  */
 function updateRec(obj){
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var row = PX_courseTable.fnGetData(oo); // get datarow
     ajaxRequest(basePath+"/medical/doctor/updateRec",{"ids":row.id,"isRec":0},function(data){
@@ -1280,11 +1261,7 @@ function openDepartmentManage(obj){
 
             $("#childMenu-form").ajaxSubmit(function(data){
                 unmask();
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);

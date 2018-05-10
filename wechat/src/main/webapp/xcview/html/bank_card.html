@@ -9,12 +9,12 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../js/template.js"></script>
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="../js/bank_card.js"></script> <!--银行卡选择-->
 <script type="text/javascript" src="../js/common/data.city.js"></script>
 <script type="text/javascript" src="../js/common/mui.picker.min.js"></script><!--银行卡选择-->
@@ -22,6 +22,16 @@
 <link rel="stylesheet" href="../css/mui.css" /><!--银行卡选择-->
 <link rel="stylesheet" href="../css/choice.css" /><!--银行卡选择-->
 <link rel="stylesheet" href="../css/bank_card.css" />
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
 <!--公用-->
 <!--y--float:right;  z--float:left;  both--clear:both;-->

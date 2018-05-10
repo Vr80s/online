@@ -1,0 +1,282 @@
+*{margin: 0; padding: 0;}
+body{ 
+	font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-size: 14px;
+	background: #F8F8F8;
+}
+a:hover{text-decoration: none;}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px; margin: 0 auto;}
+.wrap-left{
+	width: 860px;
+
+	margin-top: 20px;
+}
+.wrap-right{
+	width: 320px;
+	height: 500px;
+	margin-top: 20px;	
+
+}
+.wrap-banner,
+.wrap-banner img
+{
+	display: block;
+	width: 860px;
+	height: 346px;
+}
+.physic-type{
+	width: 100%;
+	height: 100px;
+	padding-top: 1px;
+	box-sizing: border-box;
+	margin-bottom: 20px;
+	background: white;
+}
+.physic-type ul {
+	margin: 0;
+	margin-top: 24px;
+}
+.physic-type ul li{
+	float: left;
+	border-right: 1px solid #dedede;
+		width: 214px;
+	height: 52px;
+	text-align: center;
+}
+
+.physic-type ul li:last-child{
+	border-right: 0;
+}
+.physic-type ul li p{
+	display: inline-block;
+	margin-right: 5px;
+}
+.physic-type ul li span{
+	font-size: 18px;
+	color: #333333;
+	font-weight: bold;
+}
+/*精品,免费,最新,养生课程*/
+.main{
+	width: 100%;
+    background: white;
+    overflow: hidden;
+    padding: 0 20px 27px 20px;
+    margin-bottom: 20px;
+}
+.main .content-class{
+	width: 860px;
+}
+.wrap-title{
+	width: 820px;
+	height: 66px;
+	line-height: 66px;
+}
+.wrap-title p{
+	float: right;	
+	font-size: 14px;
+	margin-bottom: 0;
+	cursor: pointer;
+}
+.wrap-title p a{
+	color: #333333;
+}
+.wrap-title p img{
+	margin: -3px 0 0 10px;
+	transform: scale(.8);
+}
+
+.wrap-title span{
+
+		font-size: 20px;
+	font-weight: bold;
+
+	display: inline-block;
+}
+.main .content-class .course {
+    margin-right: 20px;
+    position: relative;
+    width: 260px;
+    float: left;
+    height: 253px;
+}
+.main .content-class > div > a {
+    background: white;
+    width: 260px;
+    float: left;
+    margin-right: 24px;
+    margin-bottom: 24px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ECECEC;
+    -moz-box-shadow: 1px 1px 2px 1px #ECECEC;
+    box-shadow: 1px 1px 2px 1px #ECECEC;
+}
+.main .content-class .course .img{
+	text-align: center;
+    line-height: 161px;
+    width: 260px;
+    height: 161px;
+    background-color: #f0f0f0;
+    background-image: url(../../images/load26.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}	  
+.main .content-class .course .img img{
+	 -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+.main .content-class .course .img img:hover{
+	transform: scale(1.2);
+}
+.main .content-class .course .img img{
+	width: 100%;
+	height: 100%;
+}
+.main .content-class .course .classCategory {
+    height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}
+.main .content-class > div > a .detail {
+    width: 261px;
+    height: 99px;
+    padding: 10px 10px 15px;
+    border: 1px solid #e4e4e4;
+    border-top: none;
+    box-sizing: content-class-box;
+    overflow: hidden;
+}
+.main .content-class > div > a .detail .title {
+    max-width: 260px;
+    /* height: 30px; */
+    display: inline-block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.main .content-class > div > a .detail .timeAndTeac {
+    display: block;
+    margin: 2px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.main .content-class > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.main .content-class > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.main .content-class > div > a .detail .info > span:nth-child(1) {
+    float: left;
+}
+.main .content-class > div > a .detail .info .price {
+    display: inline-block;
+    margin: 0 3px 0 0;
+    font-size: 16px;
+    color: #F97B49;
+}
+.main .content-class > div > a .detail span {
+    color: #999;
+}
+.main .content-class > div > a .detail .info > span:nth-child(2) {
+    float: right;
+}
+/*右侧,成为主播*/
+.wrap-anchor{
+	width: 100%;
+	height: 115px;
+	background: white;
+	padding: 20px;
+	box-sizing: border-box;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.wrap-anchor span{
+	width: 92px;
+	height: 36px;
+	text-align: center;
+	line-height: 36px;
+	background: #00BC12;
+	color: white;
+	display: inline-block;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-top: 9px;
+}
+.hot-search{
+	width: 100%;
+	padding: 20px 0;
+	box-sizing: border-box;
+	background: white;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.hot-search p{
+	font-size: 16px;
+	margin-left: 20px;
+	margin-bottom: 0;
+}
+.hot-search ul{
+	margin: 0;
+}
+.hot-search ul li{
+	margin-left: 20px;
+	float: left;
+	color: #188EEE;
+	margin-top: 10px;
+}
+.wrap-docter{
+	width: 100%;
+	padding: 20px 0 20px 20px;
+	background: white;
+	overflow: hidden;
+
+}
+.wrap-docter span{
+	font-size: 16px;
+	margin-bottom: 0;
+}
+.wrap-docter ul{
+	margin: 0;
+	margin-top: 10px;
+}
+.wrap-docter ul li{
+	float: left;
+	width: 60px;
+	height: 90px;
+	margin-right: 13px;
+	text-align: center;
+	cursor: pointer;
+	margin-top: 10px;
+}
+.wrap-docter ul li:nth-child(4n){
+	margin-right: 0;
+}
+.wrap-docter ul li img{
+	width: 60px;
+	height: 60px;
+}
+.wrap-docter ul li p{
+overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;	
+ margin-top: 10px;
+ margin-bottom: 0;
+}
+ 

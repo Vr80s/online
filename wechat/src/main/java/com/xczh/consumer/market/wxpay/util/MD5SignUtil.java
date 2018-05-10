@@ -72,23 +72,4 @@ public class MD5SignUtil {
 		return WXPayUtil.isSignatureValid(content,key);
 	}
 	
-	public static void main(String[] args) {
-		
-		String signStr="appid=wx915cc99ba18cacef&bank_type=CFT&cash_fee=1&device_info=pc127&fee_type=CNY&is_subscribe=N&mch_id=1340482901&nonce_str=TbOulYFUfBziaJs3&openid=o4pRAwazfh2Gy-FDRuEfJA2InWQk&out_trade_no=201605062350090000&total_fee=1&trade_type=NATIVE&transaction_id=4009162001201605125768588762&key=wx915cc99ba18cacef";
-		String calculateSign = MD5Util.MD5(signStr).toUpperCase();
-		System.out.println(calculateSign);
-		
-		String emptyStr = new String("");
-		if("" == emptyStr) {
-			System.out.println("good?");
-		} else {
-			System.out.println("good!");
-		}
-		
-		if("".equals(emptyStr)) {
-			System.out.println("good!");
-		} else {
-			System.out.println("good?");
-		}
-	}
 }

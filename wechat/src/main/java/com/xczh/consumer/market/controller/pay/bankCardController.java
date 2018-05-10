@@ -3,9 +3,10 @@ package com.xczh.consumer.market.controller.pay;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.common.enums.BankCardType;
+import com.xczhihui.common.util.enums.BankCardType;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.List;
 import java.util.Map;
 
@@ -46,20 +48,24 @@ public class bankCardController {
 	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,
 										 @RequestParam("acctName")String acctName,
 										 @RequestParam("acctPan")String acctPan,
-										 @RequestParam("certId")String certId,
-										 @RequestParam("tel")String tel){
+										 @RequestParam(required=false)String certId,
+										 @RequestParam("tel")String tel,
+										 @RequestParam(required=false)Integer code)throws Exception{
+		
+		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-
-		try {
-			userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
-		} catch (Exception e) {
-			return ResponseObject.newErrorResponseObject(e.getMessage());
+		/**
+		 * 数据验证
+		 */
+		Integer devCode =  userBankService.validateBankInfo(user.getId(),acctName,acctPan,certId,tel,code);
+		if(devCode == 201){ //说明身份证号不一致 
+			return  ResponseObject.newErrorResponseObject("您填写的身份信息与主播认证信息不一致，是否继续添加?",devCode);
 		}
+		userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
 		return  ResponseObject.newSuccessResponseObject("添加成功");
-
 	}
 	/**
 	 * 获取银行卡列表
@@ -92,7 +98,7 @@ public class bankCardController {
 	@RequestMapping(value = "deleteBankCard")
 	@ResponseBody
 	public ResponseObject deleteBankCard(HttpServletRequest req,
-										 @RequestParam("id")Integer id) throws Exception{
+			@RequestParam("id")Integer id) throws Exception{
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");

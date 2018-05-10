@@ -1,9 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  *  @date 2018-01-17
  */
 @RestController
-@RequestMapping(value = "/medical/hospital/apply")
+@RequestMapping(value = "/hospital/apply")
 public class HospitalApplyController extends AbstractController{
 
     @Autowired
@@ -46,7 +44,7 @@ public class HospitalApplyController extends AbstractController{
         }
 
         // 获取发起申请的用户id
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
 
         target.setUserId(currentUser.getUid());
@@ -65,7 +63,7 @@ public class HospitalApplyController extends AbstractController{
     public ResponseObject getLastOne(HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
 
         return ResponseObject.newSuccessResponseObject(applyService.getLastOne(currentUser.getUid()));

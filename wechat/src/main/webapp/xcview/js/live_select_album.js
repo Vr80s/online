@@ -33,7 +33,7 @@ $(function(){
 		}
 	//详情页的banner
 	var school_img = document.createElement("img");
-	school_img.src = data.resultObject.smallImgPath;
+	school_img.src = data.resultObject.smallImgPath + '?imageView2/2/w/750';
 	$(".play_video").append(school_img);
         //获取讲师id
         LecturerId=data.resultObject.userLecturerId;
@@ -89,7 +89,8 @@ $(function(){
 $(".my_details li").click(function(){
 	$(".my_details li span").removeClass("spanActive");
 	$(this).find("span").addClass("spanActive");
-	$(".my_details_content").hide().eq($(this).index()).show()
+	$(".my_details_content").hide().eq($(this).index()).show();
+    $(".hide_discuss").hide().eq($(this).index()).show();
 	
 })
 //评论刷新
@@ -107,6 +108,7 @@ $(".my_details li").click(function(){
 
 var courseId = getQueryString('course_id');
 var course='';
+var collections="";
 	requestService("/xczh/course/getCoursesByCollectionId",{
 		collectionId : courseId	
 	},function(data) {
@@ -117,18 +119,27 @@ var course='';
 				select_directId=data.resultObject[i].directId;
 				data.resultObject[i].collectionId=courseId;
 			}
-			course=data.resultObject[0];
+			course=data.resultObject[0];   //获取专辑id第一个
+            collections=data.resultObject;  //获取所有专辑
 			$("#select_album").html(template('data_select_album',{items:data.resultObject}));		
 		}
 	})
-//点击视频默认第一个视频ID
-		
-	function btn_album_page(){
-		window.location.href="live_album.html?course_id="+courseId+"&direct_id="+course.directId+"&collection_id="+courseId+"&name_title="+name_title;
+//点击视频默认第一个视频ID	
+	function btn_album_page(){                       
+        var courseIndex = localStorage.getItem("course"+courseId);
+        if (courseIndex==null||courseIndex =="") {
+            courseIndex=0
+        }  /*默认第一条专辑*/
+        localStorage.setItem('course'+courseId, courseIndex);  /*取缓存列表*/
+        var collection = collections[courseIndex];                                                                                                                             //判断跳转添加
+		location.replace("live_album.html?course_id="+collection.id+"&direct_id="+collection.directId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+courseIndex+"&type=2");
 	}
 //选集视频跳转
-function jump_album_my(){
-		window.location.href="live_album.html?course_id="+select_id+"&direct_id="+select_directId+"&collection_id="+courseId+"&name_title="+name_title;	
+function jump_album_my(e,selectId,selectDirectId){
+	//alert(e.target)
+	var index = e.parentNode.value
+    localStorage.setItem('course'+courseId, index);                                                                                                         //判断跳转添加
+	location.replace("live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index+"&type=2");
 }
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
@@ -340,7 +351,8 @@ function reportComment() {
         criticizeLable:str,
         content:comment_detailed,
         courseId : course_id,
-        userId:LecturerId
+        userId:LecturerId,
+        collectionId:course_id
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
@@ -384,7 +396,8 @@ function replyComment() {
 // 手机自带表情添加判断结束
     requestService("/xczh/criticize/saveReply",{
         content:comment_detailed,
-        criticizeId : criticize_id
+        criticizeId : criticize_id,
+        collectionId:course_id
     },function(data) {
         if(data.success==true){
             webToast("回复成功","middle",1500);
@@ -414,7 +427,8 @@ function updatePraise(id,isPraise) {
 }
 //点击所有评论跳转
 function btn_allComment(){
-    window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
+	
+    window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+""+"&collection_id="+course_id;
 }
 
 

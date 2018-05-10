@@ -34,6 +34,27 @@ requestService("/xczh/course/liveDetails",{
 		},
 		function(data) {
 			if (data.success) {
+
+
+				// 修改title
+				document.setTitle = function(t) {
+			        document.title = t;
+			        var i = document.createElement('iframe');
+			        // i.src = '//m.baidu.com/favicon.ico';
+			        i.style.display = 'none';
+			        i.onload = function() {
+			          setTimeout(function(){
+			            i.remove();
+			          }, 9)
+			        }
+			        document.body.appendChild(i);
+		      	}
+		      	setTimeout(function(){
+		        	document.setTitle(result.gradeName);
+		       		// alert(111);
+		      	}, 1000);
+		      	
+
 				result = data.resultObject;
 				// 视频id
 				videoId = result.directId;
@@ -48,13 +69,15 @@ requestService("/xczh/course/liveDetails",{
 				courseHead = result.smallImgPath;
 
 				$(".details_size span:eq(1)").html(result.giftCount);
+				
 				$(".details_size span:eq(0)").html(result.learndCount);
-
+				//学习人数
+				sessionStorage.setItem("learndCount",result.learndCount);
+				
 				// 关注数
 				$(".n_guanzhu").html(result.focusCount);
 				// 粉丝数
 				$(".n_fensi").html(result.fansCount);
-
 				/**
 				 * 为详情页面添加数据
 				 */
@@ -62,8 +85,6 @@ requestService("/xczh/course/liveDetails",{
 				$(".guanz_headImg").attr("src", result.headImg);
 				$(".main_title").find('.p0').html(result.heir);
 				
-//				即将播放时间
-				$(".initiation_span").html(result.startTime.slice(0,16));
 				
 				$(".details_chat1").attr("src", result.headImg);
 				var children = $("#zhiboxiangqing [class='p1']").text(
@@ -75,7 +96,19 @@ requestService("/xczh/course/liveDetails",{
 				var children = $("#zhibopinglun [class='p2']")
 						.text(result.name);
 
-				$(".anchor_center").html(result.lecturerDescription);
+				$(".anchor_center").html(result.lecturerDescription);//主播简介
+
+				//	主播简介判断为空
+				if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
+					/*$(".no_data1").show();
+					$(".btn1").hide();*/
+					$(".anchor_center01").hide();
+					$(".null_anchor").show();
+				}else{
+					// $(".anchor_center").html(data.resultObject.lecturerDescription)
+					$(".anchor_center01").show();
+					$(".null_anchor").hide();
+				}
 
 				/**
 				 * 关注 0 未关注 1 关注
@@ -97,12 +130,16 @@ requestService("/xczh/course/liveDetails",{
 				}
 				
 				lineState = result.lineState;
+
+
+
 				/**
 				 * 直播状态1.直播中，2预告，3直播结束 4 即将直播
 				 */
 				if(lineState == 3){
 					$(".history_span").text("直播回放");
 					
+					$(".coze_center .coze_cen_ri:last-child").css("margin-bottom","0");
 					$(".coze_bottom").addClass("coze_bottom_hide");
 
 					$(".mCustomScrollbar").css("padding-bottom","0");
@@ -146,8 +183,6 @@ requestService("/xczh/course/liveDetails",{
 //					$(".coze_bottom img").css('margin-left','0.3rem');  //微吼表情包
 					
 					$("#sendChat").addClass('importants');  //发送
-					
-					
 					
 
 //					点击表情
@@ -246,12 +281,19 @@ requestService("/xczh/course/liveDetails",{
 
 				// 点击直播回放时的input mywords
 				$("#mywords").click(function() {
+					return;
 				});
 
 				var jjzb =  result.lineState;
 				var startTime = result.startTime;
 				
+//				即将播放时间
+				$(".initiation_span").html(result.startTime.slice(0,16));
+				
 				if(jjzb == 4){  //即将直播的
+					$(".initiation_span").html(result.startTime.slice(0,16));
+					$("#initiation_gradename").html(result.gradeName);
+					
 					$(".video_end_top0").show();
 					$(".cover").show();  //显示即将直播时候--聊天区域添加的遮盖层
 					timer(new Date(startTime).getTime(),parseInt(sendTime));
@@ -353,9 +395,7 @@ $(".add_follow").click(
 			})
 		});
 		
-		
-		
-		
+	
 
 /**
  * 点击主播头像跳转主播页面
@@ -544,7 +584,7 @@ document.getElementById('qqShare').onclick = function(e) {
  * 如果是微信浏览器的话在进行加载这部分函数
  */
 if (is_weixin()) {
-	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
+	var ccontrollerAddress = "/xczh/wechatJssdk/certificationSign";
 	var urlparm = {
 		url : window.location.href
 	}
@@ -623,7 +663,7 @@ if (is_weixin()) {
 				$(".weixin_ceng").hide();
 				$(".share").hide();
 				// alert("分享成功");
-			},
+			}, 
 			cancel : function() {
 				// 用户取消分享后执行的回调函数
 				// /alert("取消分享");

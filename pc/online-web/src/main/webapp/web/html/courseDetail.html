@@ -9,9 +9,9 @@
     <title></title>
     <link rel="shortcut icon" href="../../favicon.ico"/>
     <meta name="keywords"
-          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
+          content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医"/>
     <meta name="description"
-          content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。"/>
+          content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。"/>
     <meta name="renderer" content="webkit">
 
     <script src="../js/courseJumpMobile.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
@@ -25,16 +25,7 @@
     <link rel="stylesheet" href="../css/freeCourseDetailPage.css">
     <link rel="stylesheet" href="../css/footer.css">
 
-    <script src="../js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/artTemplate.js"></script>
-    <script type="text/javascript" src="../js/jquery.dotdotdot.js"></script>
-    <script type="text/javascript" src="../layer-v2.1/layer/layer.js"></script>
-    <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/header.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/helpers.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/html5.js" type="text/javascript" charset="utf-8"></script>
+   
 
 </head>
 <body>
@@ -340,12 +331,12 @@
                  
                  {{if collection == false}}
                  	{{if type ==3}}
-	                    <a class="purchase" style="background-color:#ccc;border-radius:4px">已报名</a>
+	                    <a class="purchase add-history" style="background-color:#ccc;border-radius:4px">已报名</a>
 	                {{else}}
 	                    {{if type==1}}
-	                        <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/livepage/{{id}}" >立即学习</a>
+	                        <a class="purchase add-history" data-apply="true" data-id="{{id}}" href="/web/livepage/{{id}}" >立即学习</a>
 	                    {{else if type==2}}
-                        <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
+                        <a class="purchase add-history" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
                     	{{/if}}
 	                {{/if}}
                  {{else }}
@@ -397,8 +388,24 @@
         </li>
         {{/each}}
     </ul>
-
 </script>
+
+<script src="../js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/artTemplate.js"></script>
+<script type="text/javascript" src="../js/jquery.dotdotdot.js"></script>
+<script type="text/javascript" src="../layer-v2.1/layer/layer.js"></script>
+<script src="../js/jquery.pagination.js"></script>
+<script src="../js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/header.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/helpers.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/html5.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/common_msg.js"></script>
+
+
+
+
+
 <script src="../js/courseDetail.js" type="text/javascript" charset="utf-8"></script>
 <script src="../js/footer.js" type="text/javascript"></script>
 <script src="/web/js/placeHolder.js"></script>

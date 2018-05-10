@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.user.center.bean.ItcastUser;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,24 +23,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineCourseService;
-import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.SMSCode;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.SMSCode;
+import com.xczhihui.online.api.service.EnchashmentService;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IFocusService;
-import com.xczhihui.wechat.course.service.IMyInfoService;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
  * 我的信息管理页面 ClassName: MyManagerController.java <br>
@@ -56,20 +54,10 @@ public class MyManagerController {
 	private ICourseService courseService;
 
 	@Autowired
-	@Qualifier("focusServiceRemote")
-	private IFocusService ifocusService;
-
-	@Autowired
 	private OnlineUserService onlineUserService;
 
 	@Autowired
-	private OnlineCourseService onlineCourseService;
-
-	@Autowired
 	private AppBrowserService appBrowserService;
-
-	@Autowired
-	private OnlineOrderService onlineOrderService;
 
 	@Autowired
 	private EnchashmentService enchashmentService;
@@ -85,8 +73,8 @@ public class MyManagerController {
 	
 	@Autowired
 	private IMedicalDoctorApplyService medicalDoctorApplyService;
-	@Autowired
-	private RedissonUtil redissonUtil;
+
+	
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	
@@ -100,7 +88,6 @@ public class MyManagerController {
 	 * Description：进入我的页面显示几个初始化数据
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -143,11 +130,13 @@ public class MyManagerController {
 				//申请的医师信息
 				map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(user.getId()));
 			}
+			map.put("tokenVaild",1);
 		} else {
 			map.put("xmbCount", 0);
 			map.put("user", "");
 			map.put("courseCount", 0); 
 			map.put("hostPermissions",0);
+			map.put("tokenVaild",0);
 		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
@@ -155,7 +144,6 @@ public class MyManagerController {
 	/**
 	 * Description：我已购买课程的不包含免费的接口
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -225,9 +213,19 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newSuccessResponseObject(0);
 		} else {
-			return ResponseObject.newSuccessResponseObject(userCoinService.getSettlementBalanceByUserId(user.getId()));
+			
+			String xmbye = userCoinService.getSettlementBalanceByUserId(user.getId());
+			double d_xmbye = Double.valueOf(xmbye);
+			if(d_xmbye>=1){
+				int i = (int)d_xmbye;    
+				return ResponseObject.newSuccessResponseObject(i);
+			}else{
+				return ResponseObject.newSuccessResponseObject(d_xmbye);
+			}
+			
 		}
 	}
+
     /**
      * 
      * Description：获取 主播控制台  人民币
@@ -254,7 +252,6 @@ public class MyManagerController {
 	 * Description：我的钱包接口
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -282,7 +279,6 @@ public class MyManagerController {
 	 * Description：主播控制台 -- 显示上面的数量级
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -308,10 +304,10 @@ public class MyManagerController {
 		/*
 		 * 熊猫币数量和人民币数量，
 		 */
-		map.put("xmbNumber",
-				userCoinService.getSettlementBalanceByUserId(userId));// 熊猫币数量
-		map.put("rmbNumber",
-				userCoinService.getEnchashmentBalanceByUserId(userId));
+		String xmbye = userCoinService.getSettlementBalanceByUserId(user.getId());
+		double d_xmbye = Double.valueOf(xmbye);
+		map.put("xmbNumber",d_xmbye);
+		map.put("rmbNumber",userCoinService.getEnchashmentBalanceByUserId(userId));
 
 		return ResponseObject.newSuccessResponseObject(map);
 	}
@@ -320,7 +316,6 @@ public class MyManagerController {
 	 * Description：主播控制台 -- 显示主播的课程
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -367,7 +362,6 @@ public class MyManagerController {
 	/**
 	 * Description：主播控制台 -- 直播间的课程
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -401,7 +395,6 @@ public class MyManagerController {
 	 * Description：主播控制台 我的课程（app端我的课程 全部、直播、视频、线下课、音频） 包括审批的包括没有审批的
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -449,7 +442,6 @@ public class MyManagerController {
 	/**
 	 * Description：资产--->结算tab记录 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -475,7 +467,6 @@ public class MyManagerController {
 	/**
 	 * Description：资产---> 提现tab记录
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -501,7 +492,6 @@ public class MyManagerController {
 	/**
 	 * Description：结算 --- 扣减熊猫币增加人民币
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -517,23 +507,16 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		try {
-			/**
-			 * 结算服务
-			 */
-			enchashmentService.saveSettlement(user.getId(), xmbNumber,OrderFrom.valueOf(orderFrom));
-			return ResponseObject.newSuccessResponseObject("结算成功");
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return ResponseObject.newSuccessResponseObject(e.getMessage());
-		}
+		/**
+		 * 结算服务
+		 */
+		enchashmentService.saveSettlement(user.getId(), xmbNumber,OrderFrom.valueOf(orderFrom));
+		return ResponseObject.newSuccessResponseObject("结算成功");
 	}
 
 	/**
 	 * Description：提现前-- 验证银行卡信息时候正确
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -558,7 +541,6 @@ public class MyManagerController {
 	/**
 	 * Description：提现   --- 发送短信验证码  
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -580,7 +562,7 @@ public class MyManagerController {
 		if(!StringUtils.isNotBlank(userName)){
 			userName = user.getLoginName();
 		}
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(userName)){
+		if(!XzStringUtils.checkPhone(userName)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/**
@@ -612,7 +594,6 @@ public class MyManagerController {
 	 * Description：提现 得到银行卡号，提现的额度
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -637,7 +618,7 @@ public class MyManagerController {
 		if(!StringUtils.isNotBlank(userName)){
 			userName = user.getLoginName();
 		}
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(userName)){
+		if(!XzStringUtils.checkPhone(userName)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/**
@@ -653,8 +634,8 @@ public class MyManagerController {
 		ResponseObject rob = onlineUserService.changeMobileCheckCode(userName, smsCode, SMSCode.WITHDRAWAL.getCode());
 		//短信验证码成功
 		if(rob.isSuccess()){
-					enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber,bankCardId, OrderFrom.valueOf(orderFrom));
-				return ResponseObject.newSuccessResponseObject("提现成功");
+			enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber,bankCardId, OrderFrom.valueOf(orderFrom));
+			return ResponseObject.newSuccessResponseObject("提现成功");
 		}else{
 			return rob;
 		}

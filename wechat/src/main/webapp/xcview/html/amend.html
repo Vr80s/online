@@ -11,20 +11,20 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-
-<!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
-
-<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js"></script>
-<!--公用弹框 -->
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>
-
 <link rel="stylesheet" href="/xcview/css/amend.css">
-<script type="text/javascript" src="/xcview/js/amend.js"></script>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 
 </head>
 <body style="background:#fff;">
@@ -65,6 +65,15 @@
 		
 	</div>
 </body>
+<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+
+
+<script type="text/javascript" src="/xcview/js/amend.js"></script>
 
 <script type="text/javascript">
 	window.onload = function(){

@@ -3,20 +3,13 @@ package com.xczh.consumer.market.controller.course;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
-import org.redisson.Redisson;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.online.api.service.GiftService;
 
 
 /**
@@ -43,18 +36,12 @@ import com.xczhihui.bxg.online.common.enums.OrderFrom;
 public class XzGiftController {
 
 	
-	@Autowired
-	@Qualifier("giftServiceLocal")
-	private GiftService localGiftService;
-	
 	@Autowired()
 	@Qualifier("giftServiceImpl")
-	private com.xczhihui.bxg.online.api.service.GiftService remoteGiftService;
+	private GiftService remoteGiftService;
 	
 	@Autowired
 	private AppBrowserService appBrowserService;
-	@Autowired
-	private RedissonUtil redissonUtil;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzGiftController.class);
 
@@ -69,8 +56,9 @@ public class XzGiftController {
 			@RequestParam(value="pageNumber")Integer current,
 			@RequestParam(value="pageSize")Integer size) throws SQLException {
 		
-		return ResponseObject.newSuccessResponseObject(localGiftService.newRankingList(liveId,current,size));
+		return ResponseObject.newSuccessResponseObject(remoteGiftService.getRankingListByLiveId(liveId,current,size));
 	}
+	
 	/**
 	 * 礼物列表
 	 * @param req
@@ -83,16 +71,7 @@ public class XzGiftController {
 	@RequestMapping(value = "/list")
 	public ResponseObject list(HttpServletRequest req,HttpServletResponse res) throws SQLException {
 		
-		int pageNumber = 0;
-		if(null != req.getParameter("pageNumber")){
-			pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
-		}
-		int pageSize = 10;
-		if(null != req.getParameter("pageSize")){
-			pageSize = Integer.valueOf(req.getParameter("pageSize"));
-		}
-		pageSize = Integer.MAX_VALUE;
-		return ResponseObject.newSuccessResponseObject(localGiftService.listAll(pageNumber,pageSize));
+		return ResponseObject.newSuccessResponseObject(remoteGiftService.getGift());
 	}
 
 	/**
@@ -110,7 +89,6 @@ public class XzGiftController {
 	@RequestMapping(value = "/sendGift")
 	public ResponseObject sendGift(HttpServletRequest req,
 			HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
-
 		OnlineUser user =appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");

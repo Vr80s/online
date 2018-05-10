@@ -9,14 +9,17 @@
 		<meta charset="UTF-8">
 		<title>熊猫中医云课堂 - 线上中医教育</title>
 		<link rel="shortcut icon" href="/favicon.ico" />
-		<meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医" />
-		<meta name="description" content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。" />
+		<meta name="keywords" content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医" />
+		<meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。" />
 		<meta name="renderer" content="webkit">
 		<meta name="baidu-site-verification" content="UHaAQAeAQF" />
 		<link rel="stylesheet" href="/web/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="/web/css/mylogin.css" />
+		<!--分页部分start-->
 		<link rel="stylesheet" href="/web/css/componet.css" />
+		<link rel="stylesheet" href="/web/css/componet-pages.css" />
+		<!--分页部分end-->
 		<link rel="stylesheet" href="/web/css/index.css" />
 		<link rel="stylesheet" href="/web/css/header.css" />
 		<link rel="stylesheet" href="/web/css/footer.css" />
@@ -40,14 +43,20 @@
 		<script type="text/javascript" src="/web/js/helpers.js"></script>
 		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-
-		<script src="/web/js/jquery.pagination.js"></script>
-
+		<!--分页部分start-->
+		<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
+		<!--分页部分start-->
 		<!--富文本需要的js-->
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js">
-		</script>
+		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+		
+		<!--<style type="text/css">
+			.border_hide_null{
+				border: 1px solid red !important;
+			}
+		</style>-->
+		
 	</head>
 
 	<body>
@@ -78,34 +87,35 @@
 								<img src="" alt="">
 								<!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
 								<h4></h4>
-								<p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding: 0 20px;"></p>
+								<!--<p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding: 0 20px;"></p>-->
 							</li>
-							<li class="active">
-								<a href="#hos_Administration" aria-controls="doc_talk" role="tab" data-toggle="tab" class="luntan color"><span class="icon iconfont icon-02_dianpuguanli color" aria-hidden="true" style="margin-left: 33px;"></span>医馆管理
+							<li class="active hos_point">
+								<a href="#hos_Administration" aria-controls="doc_talk" data-name="hosAdm" role="tab" data-toggle="tab" class="luntan color"><span class="icon iconfont icon-02_dianpuguanli color" aria-hidden="true" style="margin-left: 33px;"></span>医馆管理
 									<div class="luntan_list" style="display: block;">
 										<div>
-											<a href="javascript:;" id="hos_base_inf" class="hide">医馆基础信息</a>
+											<a href="javascript:;" data-name="hos_base_inf" id="hos_base_inf" class="hide">医馆基础信息</a>
 										</div>
 										<div>
-											<a href="javascript:;" id="hos_renzhneg_inf" class="">医馆认证信息</a>
+											<a href="javascript:;" data-name="hos_renzhneg_inf" id="hos_renzhneg_inf" class="">医馆认证信息</a>
 										</div>
 									</div>
 								</a>
+								<span class="glyphicon glyphicon-triangle-bottom hos_point_icon" aria-hidden="true"></span>
 							</li>
 							<li class="hide" id="doc_Administration_tabBtn">
-								<a href="#doc_Administration" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>医师管理</a>
+								<a href="#doc_Administration" data-name="docAdm" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>医师管理</a>
 							</li>
-							<li class="hide">
-								<a href="#recruit_Administration" aria-controls="doc_idCard" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>招聘管理</a>
+							<li class="hide" id="collect_Administration_tabBtn">
+								<a href="#recruit_Administration" data-name="colAdm" aria-controls="doc_idCard" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>招聘管理</a>
 							</li>
-							<li class="hide">
-								<a href="#Notice_Administration" aria-controls="doc_Distinguish" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>公告管理</a>
-							</li>
+							<li class="hide" id="news_Administration_tabBtn">
+								<a href="#Notice_Administration" data-name="newAdm" aria-controls="doc_Distinguish" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>公告管理</a>
+							</li>							
 						</ul>
 					</div>
 
 					<!--右侧内容部分-->
-					<div class=" text-center">
+					<div class="text-center">
 						<div class="tab-content">
 
 							<!--医馆管理部分-->
@@ -135,7 +145,7 @@
 
 										<div>
 											<span><em>*</em>医馆名称</span>
-											<input type="text" placeholder="请输入医馆名称" maxlength="20" class="doc_zhicheng" />
+											<input type="text" placeholder="请输入医馆名称" maxlength="20" class="doc_zhicheng doc_zhichengs" />
 											<span class="hosName_warn warning hide" style="margin-left: 0px;">医馆名称不能为空</span>
 										</div>
 
@@ -199,11 +209,15 @@
 
 									<div class="doc_address">
 										<span><em>*</em>城市</span>
-										<select name="" id="choosePro" onchange="doProvAndCityRelation()">
+										<select name="" id="choosePro" onchange="doProvAndCityRelation(),doCityAndCountyRelation()">
 
 										</select>
 
-										<select name="" id="citys">
+										<select name="" id="citys" onchange="doCityAndCountyRelation()">
+
+										</select>
+										
+										<select name="" id="county">
 
 										</select>
 										<p class="cityWarn warning hide" style="margin-left:110px;padding-left: 0px;">所在城市地址不能为空</p>
@@ -245,7 +259,7 @@
 
 									<div class="teacher_picUpdata">
 										<span style="vertical-align: top;"><em>*</em>营业执照</span>
-										<span class="teacher_pic" onclick="$('#zhizhao_pic_ipt').click()">
+										<span class="teacher_pic" style="position: relative;" onclick="$('#zhizhao_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传营业执照图片</p>
 								</span>
@@ -260,13 +274,13 @@
 
 									<div>
 										<span><em>*</em>药品经营许可证号</span>
-										<input type="text" placeholder="请输入正确的药品经营许可证号" maxlength="18" class="doc_zhicheng" />
+										<input type="text" placeholder="请输入正确的药品经营许可证号" maxlength="18" class="doc_zhicheng doc_zhichengs" />
 										<span class="xukeNum_warn warning hide" style="margin-left: 0px;">请输入正确的药品经营许可证号不能为空</span>
 									</div>
 
 									<div class="zhicheng_picUpdata">
 										<span style="vertical-align: top;"><em>*</em>药品经营许可证</span>
-										<span class="zhicheng_pic" onclick="$('#xuke_pic_ipt').click()">
+										<span class="zhicheng_pic" style="position: relative;" onclick="$('#xuke_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传药品经营许可证图片</p>
 								</span>
@@ -337,471 +351,582 @@
 
 							</div>
 						</div>
-
-						<!--医师管理-->
-						<div role="tabpanel" class="tab-pane" id="doc_Administration">
-							<!--<div class="topTitle">
-							<h3>医师管理</h3>
-						</div>-->
-							<div class="doc_Administration_top">
-								<span class="title">医师管理</span>
-								<input type="text" name="" id="" placeholder="搜索医师名字添加" class="search_teacher_ipt" /><button class="search_teacher_btn">搜索</button>
-								<button class="add_newTeacher">新医师</button>
-							</div>
-
-							<div class="bottomContent " id="doc_Administration_bottom">
-
-								<div>
-									<span><em>*</em> 医师姓名</span>
-									<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="20" class="doc_name" />
-									<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
+	
+							<!--医师管理-->
+							<div role="tabpanel" class="tab-pane" id="doc_Administration">
+								<!--<div class="topTitle">
+								<h3>医师管理</h3>
+							</div>-->
+								<div class="doc_Administration_top">
+									<span class="title">医师管理</span>
+									<input type="text" name="" id="" placeholder="搜索医师名字添加" class="search_teacher_ipt" /><button class="search_teacher_btn">搜索</button>
+									<button class="add_newTeacher">新医师</button>
 								</div>
-
-								<div class="touxiang_picUpdata">
-									<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
-									<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
-									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
-								</span>
-									<span class="touxiang_pic_tip">
-									<p>推荐使用尺寸120x120</p>
-									<p>请上传清晰头像</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-									<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png"/>
-									<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
-								</div>
-
-								<div class="zhicheng_name">
-									<span><em>*</em> 医师职称</span>
-									<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng" />
-									<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
-								</div>
-
-								<div class="zhicheng_picUpdata">
-									<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-									<span class="zhicheng_pic" style="padding-left: 0px !important;" onclick="$('#zhicheng_pic_ipt').click()">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
-								</span>
-									<span class="zhicheng_pic_tip">
-									<p>推荐使用尺寸620x343</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-									<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
-									<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
-								</div>
-
-								<div class="keshi">
-									<span><em>*</em> 科室</span>
-									<ul id="shanChangList">
-										<!--<li>中医内科</li>
-									<li>中医内科</li>
-									<li>妇科</li>
-									<li>儿科</li>
-									<li>小儿科</li>
-									<li>胃病</li>
-									<li>心脏病</li>
-									<li>癌症</li>
-									<li>绝症</li>
-									<li>肝病</li>-->
-									</ul>
-									<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
-								</div>
-
-								<div class="shanchang_name">
-									<span><em>*</em> 擅长</span>
-									<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt" />
-									<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
-								</div>
-
-								<div class="personIntroduct">
-									<span><em>*</em>  医师介绍</span>
-									<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
-									<div style="display: inline-block;vertical-align: top;">
-										<script id="editor" type="text/plain" style="width:540px;height:160px;"></script>
+	
+								<div class="bottomContent " id="doc_Administration_bottom">
+	
+									<div>
+										<span><em>*</em> 医师姓名</span>
+										<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="20" class="doc_name" />
+										<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
 									</div>
-									<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
+	
+									<div class="touxiang_picUpdata">
+										<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
+										<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
+										<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+										<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
+									</span>
+										<span class="touxiang_pic_tip">
+										<p>推荐使用尺寸120x120</p>
+										<p>请上传清晰头像</p>
+										<p>文件小于2M</p>
+										<p>支持JPG/PNG等格式图片</p>
+									</span>
+										<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png"/>
+										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+									</div>
+	
+									<div class="zhicheng_name">
+										<span><em>*</em> 医师职称</span>
+										<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng" />
+										<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
+									</div>
+	
+									<div class="zhicheng_picUpdata">
+										<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+										<span class="zhicheng_pic" style="padding-left: 0px !important;" onclick="$('#zhicheng_pic_ipt').click()">
+										<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+										<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
+									</span>
+										<span class="zhicheng_pic_tip">
+										<p>推荐使用尺寸620x343</p>
+										<p>文件小于2M</p>
+										<p>支持JPG/PNG等格式图片</p>
+									</span>
+										<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
+										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+									</div>
+	
+									<div class="keshi">
+										<span><em>*</em> 科室</span>
+										<ul id="shanChangList">
+											<!--<li>中医内科</li>
+										<li>中医内科</li>
+										<li>妇科</li>
+										<li>儿科</li>
+										<li>小儿科</li>
+										<li>胃病</li>
+										<li>心脏病</li>
+										<li>癌症</li>
+										<li>绝症</li>
+										<li>肝病</li>-->
+										</ul>
+										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
+									</div>
+	
+									<div class="shanchang_name">
+										<span><em>*</em> 擅长</span>
+										<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt" />
+										<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
+									</div>
+	
+									<div class="personIntroduct">
+										<span><em>*</em>  医师介绍</span>
+										<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
+										<div style="display: inline-block;vertical-align: top;">
+											<script id="editor" type="text/plain" style="width:540px;height:160px;"></script>
+										</div>
+										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
+									</div>
+	
+									<div class="baocun new-doctorbtn">
+										<input type="submit" value="保存" id="submit" />
+									</div>
+									<div class="wrap-save hide" style="margin-left: 120px;">
+										<input type="submit" value="保存" id="doctor-save" />
+									</div>
+	
 								</div>
-
-								<div class="baocun">
-									<input type="submit" value="保存" id="submit" />
+	
+								<!--医师管理部分列表-->
+								<div class="doc_Administration_bottom2" id="doc_Administration_bottom2">
+									<table>
+										<thead>
+											<tr>
+												<td>头像</td>
+												<td>姓名</td>
+												<td>职称</td>
+												<td>擅长领域</td>
+												<td>状态</td>
+												<td>操作</td>
+											</tr>
+										</thead>
+										<tbody id="hosDocList">
+											<!--<tr>
+												<td>
+													<img src="/web/images/hospital/hospital_pic.png" alt="" />
+												</td>
+												<td>
+													施今墨
+												</td>
+	
+												<td>
+													主任医师
+												</td>
+	
+												<td>
+													胃病、针灸、养生食疗
+												</td>
+	
+												<td>
+													上线
+												</td>
+	
+												<td>
+													<a href="javascript:;" class="preview">预览</a>
+													<a href="javascript:;" class="downLine">下线</a>
+													<a href="javascript:;" class="edit">编辑</a>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<img src="/web/images/hospital/hospital_pic.png" alt="" />
+												</td>
+												<td>
+													施今墨
+												</td>
+	
+												<td>
+													主任医师
+												</td>
+	
+												<td>
+													胃病、针灸、养生食疗
+												</td>
+	
+												<td>
+													上线
+												</td>
+	
+												<td>
+													<a href="javascript:;">预览</a>
+													<a href="javascript:;">下线</a>
+													<a href="javascript:;">编辑</a>
+												</td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>-->
+										</tbody>
+									</table>
+									
+									<!--医师管理列表没有数据默认样式-->
+									<div id="noDocList" class="hide" style="padding-top:100px;text-align:center">
+										<img src="/web/images/nosearch.png" alt="" />
+										<!--<p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到“<span id="searchName" style="color:#00BC12">'+docName+'</span>”相关医师</p>-->
+										<p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到相关医师</p>
+										
+									</div>
+									
+									
+									<!--分页部分start-->
+									<div class="doctors_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+										<div id="Pagination_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+										<div class="searchPage">
+											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+											<a href="javascript:;" class="page-btn">确定</a>
+										</div>
+									</div>
+									<!--分页部分end-->
 								</div>
-
+	
 							</div>
+	
+							<!--招聘管理-->
+							<div role="tabpanel" class="tab-pane" id="recruit_Administration">								
+									<div class="recruit-wrap-title wrap-title">
+										<p>招聘管理</p>
+										<button class="recruit-btn-newjob">新职位</button>
+									</div>
+									<div class="recruit-box-manage">
+										<div class="recruit-wrap-content">
+											<table border="" cellspacing="" cellpadding="" class="recruit-table-list">
+												<thead>
+													<tr>
+														<th>招聘职位</th>
+														<th>工作经验</th>
+														<th>状态</th>
+														<th>发布时间</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody id="recruitList-wrap">
+													<script type="text/template" id="recruitList-mould">
 
-							<!--医师管理部分列表-->
-							<div class="doc_Administration_bottom2" id="doc_Administration_bottom2">
-								<table>
-									<thead>
-										<tr>
-											<td>头像</td>
-											<td>姓名</td>
-											<td>职称</td>
-											<td>擅长领域</td>
-											<td>状态</td>
-											<td>操作</td>
-										</tr>
-									</thead>
-									<tbody id="hosDocList">
-										<!--<tr>
-											<td>
-												<img src="/web/images/hospital/hospital_pic.png" alt="" />
-											</td>
-											<td>
-												施今墨
-											</td>
-
-											<td>
-												主任医师
-											</td>
-
-											<td>
-												胃病、针灸、养生食疗
-											</td>
-
-											<td>
-												上线
-											</td>
-
-											<td>
-												<a href="javascript:;" class="preview">预览</a>
-												<a href="javascript:;" class="downLine">下线</a>
-												<a href="javascript:;" class="edit">编辑</a>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<img src="/web/images/hospital/hospital_pic.png" alt="" />
-											</td>
-											<td>
-												施今墨
-											</td>
-
-											<td>
-												主任医师
-											</td>
-
-											<td>
-												胃病、针灸、养生食疗
-											</td>
-
-											<td>
-												上线
-											</td>
-
-											<td>
-												<a href="javascript:;">预览</a>
-												<a href="javascript:;">下线</a>
-												<a href="javascript:;">编辑</a>
-											</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>-->
-									</tbody>
-								</table>
-								
-								<!--医师管理列表没有数据默认样式-->
-								<div id="noDocList" class="hide" style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到“<span id="searchName" style="color:#00BC12">'+docName+'</span>”相关医师</p></div>
-								
-								
-								<!--分页部分-->
-								<div class="pages hide" style="margin-top: 20px;">
-									<div id="Pagination"></div>
-									<div class="searchPage">
-										<span class="page-sum">共<strong class="allPage">0</strong>页</span>
-										<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
-										<a href="javascript:;" class="page-btn">确定</a>
+													{{each items as item i}}
+													<tr>
+														<td>{{item.position}}</td>
+														{{if item.years == 0}}
+															<td>不限</td>
+															{{else if item.years == 1}}
+															<td>0-1年</td>
+															{{else if item.years == 2}}
+															<td>1-3年</td>
+															{{else if item.years == 3}}
+															<td>3-5年</td>
+															{{else if item.years == 4}}
+															<td>5-10年</td>
+															{{else if item.years == 5}}
+															<td>10年以上</td>
+														{{/if}}
+														{{if item.status == true}}
+															<td>已发布</td>
+														{{else}}
+															<td>已关闭</td>														
+														{{/if}}
+														<td>{{item.publicTime}}</td>
+														<td>
+																{{if item.status==true}}
+																<a href="javascript:;" class="recruit_preview_btn" onclick="recruit_preview_btn({{i}})">预览</a>
+																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="0" onclick="recruit_close_btn(this)">关闭</a>
+																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit({{i}})">编辑</a>
+																{{else}}
+																<a href="javascript:;" class="recruit_edit_btn" onclick="recruit_edit({{i}})">编辑</a>
+																<a href="javascript:;" class="recruit_close_btn" data-id="{{item.id}}" data-status="1" onclick="recruit_close_btn(this)">发布</a>
+																<a href="javascript:;" class="recruit_delete_btn" data-deleteId="{{item.id}}" onclick="delete_recruit_btn(this)">删除</a>
+																{{/if}}
+														</td>
+													</tr>	
+													{{/each}}
+													</script>
+												</tbody>
+											</table>
+										<!--无数据时的背景图-->
+										<div class="notice_notext_two">
+											<img src="../images/notext_icon.png" alt="无数据">
+											<p>暂无招聘信息</p>
+										</div>
+										<!--分页部分start-->
+										<div class="recruits_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+											<div id="Pagination_recruits" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+											<div class="searchPage">
+												<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+												<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+												<a href="javascript:;" class="page-btn">确定</a>
+											</div>
+										</div>
+										<!--分页部分end-->
+										</div>		
+									</div>
+								<!--新职位-->
+								<div class="recruit-box-newjob" id="recruit-box-newjob" style="display: none;">
+									<input type="hidden" name="" id="recruitId" value="" />
+									<div class="recruit-newjob-inf">
+										<span><em>*</em> 招聘职位</span>
+										<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="30" class="recruit-write recruit-isdata" onkeyup="value=value.replace(/[^A-Za-z\u4e00-\u9fa5]/g,'') " />
+										<span class="warning hide warning-isdata" style="margin-left: 0px;">招聘职位不能为空</span>
+									</div>
+									<div class="recruit-newjob-experience">
+										<span>工作经验</span>
+										<!--<div class="recruit-select" id="nav">
+											<p class="recruit-select-one recruit-select-exp">请选择工作经验</p>
+											<ul class="recruit-select-lest">
+												<li data-number="0">不限</li>
+												<li data-number="1">0-1年</li>
+												<li data-number="2">1-3年</li>
+												<li data-number="3">3-5年</li>
+												<li data-number="4">5-10年</li>
+												<li data-number="5">10年以上</li>
+											</ul>
+										</div>-->
+									</div>
+									<div class="recruit-newjob-duty">
+										<span style="float: left;"><em>*</em>岗位职责</span>
+										<div class="recruit-textarea-duty">				
+											<textarea class="recruit-textarea recruit-textarea-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写岗位职责 (500字以内)"></textarea>
+											<span class="warning hide warning-textarea-isdata" style="margin-left: 0px;">岗位职责不能为空</span>	
+										</div>
+									</div>
+									
+									<div class="recruit-newjob-duty">
+										<span style="float: left;"><em>*</em>职位要求</span>
+										<div class="recruit-textarea-duty">				
+											<textarea class="recruit-textarea recruit-textarea-duty-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写职位要求 (500字以内)"></textarea>
+											<span class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</span>	
+										</div>
+										<div class="recruit-save-up">
+												<button class="recruit-save-btn recruit-save-btn-menuone recruit-save-up-toggle" data-id="true">保存并发布</button>
+												<button class="recruit-save-btn recruit-save-btn-menuone recruit-save-toggle" data-id="false">保存</button>
+										</div>
+										<div class="recruit-edit-save-up-wrap hide" style="margin-left: 122px;">
+												<button class="recruit-save-btn recruit-edit-save recruit-edit-btn">保存</button>	
+										</div>
 									</div>
 								</div>
-
 							</div>
-
-						</div>
-
-						<!--招聘管理-->
-						<div role="tabpanel" class="tab-pane hide" id="recruit_Administration">
-							招聘管理
-						</div>
-
-						<!--公告管理-->
-						<div role="tabpanel" class="tab-pane" id="Notice_Administration">
-							<div class="Notice_top">
-								<span class="title">公告</span>
-								<button>新公告</button>
+						
+							
+							<!--公告管理-->
+							<div role="tabpanel" class="tab-pane" id="Notice_Administration">
+								<div class="Notice_top">
+									<span class="title">公告</span>
+									<button>新公告</button>
+								</div>
+								
+								<div class="Notice_bottom hide" id="Notice_bottom">
+									<div class="neirong">
+										<span><em>*</em> 公告内容</span>
+										<textarea name="" id="notice-text" onkeydown="checkMaxInput(this,100)" onkeyup="checkMaxInput(this,100)" onfocus="checkMaxInput(this,100)"  cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
+										<p class="warning warning-notice" style="display: none;padding-left: 0;">公告内容不能为空</p>
+										<p class="word-number">剩余100字</p>
+									</div>
+	
+									<div class="baocun" style="padding-left: 116px;">
+										<button type="submit" value="发布" id="notice-release-btn">发布</button>
+									</div>
+								</div>
+								
+								<div class="Notice_bottom2" id="Notice_bottom2">
+									<table>
+										<thead>
+											<tr>
+												<td>序号</td>
+												<td>内容</td>
+												<td>发布时间</td>
+												<td>操作</td>
+											</tr>
+										</thead>
+										<tbody id="notice_tbody_wrap">
+											<script  type="text/template" id="notice_tbody">
+												{{each items as item i}}
+											<tr>
+												<td>
+													{{item.Nownum}}
+												</td>
+												<td>
+													{{item.content}}
+												</td>											
+												<td>
+													{{item.createTime}}
+												</td>
+												<td>
+													<a href="javascript:;" class="notice_btn_see" onclick="notice_btn_see({{i}})">预览</a>
+													<a href="javascript:;" class="notice_btn_delete" data-id="{{item.id}}" onclick="notice_btn_delete(this)">删除</a>
+												</td>
+											</tr>
+											{{/each}}
+											</script>
+										</tbody>
+									</table>
+									<!--无数据时的背景图-->
+									<div class="notice_notext_icon">
+										<img src="../images/notext_icon.png" alt="无数据">
+										<p>暂无公告</p>
+									</div>
+									
+									
+									<!--分页部分start-->
+									<div class="notices_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+										<div id="Pagination_notices" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+										<div class="searchPage">
+											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+											<a href="javascript:;" class="page-btn">确定</a>
+										</div>
+									</div>
+									<!--分页部分end-->
+					
+									
+								</div>
 							</div>
-							<div class="Notice_bottom hide" id="Notice_bottom">
-
-								<div class="hide">
-									<span><em>*</em>专栏标题</span>
-									<input type="text" placeholder="请填写您的专栏标题" class="Notice_title" />
-									<p class="warning hide">用户名不能为空</p>
-								</div>
-								<div class="fengmian hide">
-
-									<span><em>*</em>封面图</span>
-									<span class="fengmian_pic">点击上传封面图片</span>
-									<span class="fengmian_tip">
-								<p>推荐使用尺寸620x343</p>
-								<p>文件小于2M</p>
-								<p>支持JPG/PNG等格式图片</p>
-							</span>
-									<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt" accept="image/gif,image/jpeg,image/jpg,image/png"/>
-									<p class="warning hide">请上传封面图</p>
-								</div>
-
-								<div class="neirong">
-									<span><em>*</em> 公告内容</span>
-									<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
-									<p class="warning hide">专栏内容不能为空</p>
-								</div>
-
-								<div class="baocun">
-									<input type="submit" value="发布" id="submit" />
-									<!--<button id="save">保存</button>-->
-								</div>
-
-							</div>
-							<div class="Notice_bottom2" id="Notice_bottom2">
-								<table>
-									<thead>
-										<tr>
-											<td>封面图</td>
-											<td>标题</td>
-											<td>状态</td>
-											<td>编辑时间</td>
-											<td>操作</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												<img src="/web/images/hospital/hospital_pic.png" alt="" />
-											</td>
-											<td>
-												中医药席卷全球成独特风景，发展热情被彻底点燃
-											</td>
-											<td>
-												已发布
-											</td>
-											<td>
-												2017.11.12
-											</td>
-											<td>
-												<a href="javascript:;">预览</a>
-												<a href="javascript:;">下线</a>
-												<a href="javascript:;">编辑</a>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<img src="/web/images/hospital/hospital_pic.png" alt="" />
-											</td>
-											<td>
-												中医药席卷全球成独特风景，发展热情被彻底点燃
-											</td>
-											<td>
-												已发布
-											</td>
-											<td>
-												2017.11.12
-											</td>
-											<td>
-												<a href="javascript:;">预览</a>
-												<a href="javascript:;">删除</a>
-											</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-						</div>
-
 					</div>
 				</div>
 
 			</div>
-
-			<!--医师隐藏的模态框部分-->
-			<div class="bottomContent " id="doc_Administration_bottom3" style="visibility: hidden;">
-
-				<div style="position: relative;">
-					<span><em>*</em> 医师姓名</span>
-					<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="15" class="doc_name">
-					<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
-					<span class="close_doc_inf">关闭</span>
-				</div>
-
-				<div class="touxiang_picUpdata">
-					<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
-					<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
-									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
-								</span>
-					<span class="touxiang_pic_tip">
-									<p>推荐使用尺寸120x120</p>
-									<p>请上传清晰头像</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-					<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
-				</div>
-
-				<div class="zhicheng_name">
-					<span><em>*</em> 医师职称</span>
-					<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng">
-					<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
-				</div>
-
-				<div class="zhicheng_picUpdata">
-					<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-					<span class="zhicheng_pic" onclick="$('#zhicheng_pic_ipt').click()">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
-								</span>
-					<span class="zhicheng_pic_tip">
-									<p>推荐使用尺寸620x343</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-					<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
-				</div>
-
-				<div class="keshi">
-					<span><em>*</em> 科室</span>
-					<ul id="shanChangList2">
-						<!--<li data-id="0f4df242c3294902a87b8bc0a0ffe4d8">科室3</li>
-
-						<li data-id="3dde4a0a3c6b4d4cbef7a2c501eee373">科室1</li>
-
-						<li data-id="bd252be6ecf24eb9965d5c8f88aa3747">科室2</li>-->
-					</ul>
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
-				</div>
-
-				<div class="shanchang_name">
-					<span><em>*</em> 擅长</span>
-					<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt">
-					<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
-				</div>
-
-				<div class="personIntroduct">
-					<span><em>*</em>  医师介绍</span>
-					<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
-					<div style="display: inline-block;vertical-align: top;">
-						<script id="editor1" type="text/plain" style="width:540px;height:160px;"></script>
+	
+				<!--医师隐藏的模态框部分-->
+				<div class="bottomContent " id="doc_Administration_bottom3" style="visibility: hidden;">
+	
+					<div style="position: relative;">
+						<span><em>*</em> 医师姓名</span>
+						<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="15" class="doc_name">
+						<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
+						<span class="close_doc_inf">关闭</span>
 					</div>
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
+	
+					<div class="touxiang_picUpdata">
+						<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
+						<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
+										<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+										<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
+									</span>
+						<span class="touxiang_pic_tip">
+										<p>推荐使用尺寸120x120</p>
+										<p>请上传清晰头像</p>
+										<p>文件小于2M</p>
+										<p>支持JPG/PNG等格式图片</p>
+									</span>
+						<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
+						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+					</div>
+	
+					<div class="zhicheng_name">
+						<span><em>*</em> 医师职称</span>
+						<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng">
+						<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
+					</div>
+	
+					<div class="zhicheng_picUpdata">
+						<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+						<span class="zhicheng_pic" onclick="$('#zhicheng_pic_ipt').click()">
+										<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+										<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
+									</span>
+						<span class="zhicheng_pic_tip">
+										<p>推荐使用尺寸620x343</p>
+										<p>文件小于2M</p>
+										<p>支持JPG/PNG等格式图片</p>
+									</span>
+						<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
+						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+					</div>
+	
+					<div class="keshi">
+						<span><em>*</em> 科室</span>
+						<ul id="shanChangList2">
+							<!--<li data-id="0f4df242c3294902a87b8bc0a0ffe4d8">科室3</li>
+	
+							<li data-id="3dde4a0a3c6b4d4cbef7a2c501eee373">科室1</li>
+	
+							<li data-id="bd252be6ecf24eb9965d5c8f88aa3747">科室2</li>-->
+						</ul>
+						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
+					</div>
+	
+					<div class="shanchang_name">
+						<span><em>*</em> 擅长</span>
+						<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt">
+						<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
+					</div>
+	
+					<div class="personIntroduct">
+						<span><em>*</em>  医师介绍</span>
+						<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
+						<div style="display: inline-block;vertical-align: top;">
+							<script id="editor1" type="text/plain" style="width:540px;height:160px;"></script>
+						</div>
+						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
+					</div>
+	
+					<div class="baocun">
+						<input type="submit" value="保存" id="submit">
+					</div>
+	
 				</div>
-
-				<div class="baocun">
-					<input type="submit" value="保存" id="submit">
+	
+				<!--医师信息 预览效果-->
+				<div class="bottomContent hide" id="doc_Administration_bottom4">
+							<!--TODO-->
+					
 				</div>
-
+				<!--招聘管理预览效果-->
+				<div class="recruit_preview_bg"></div>
+				<div class="recruit_preview_box">
+					<div class="recruit_preview_content">
+						<p class="recruit_preview_title">预览</p>
+						<img src="../images/rili_close.png"/>
+					</div>
+					
+					<div class="recruit_preview_bigBox">			
+						<div class="recruit_wrap_h1" id="recruit_wrap_mune1">
+							<span class="recruit_preview_h1"><em>*</em>招聘职位</span>
+							<p>招前端阿里十年经验</p>
+						</div>
+						<div class="recruit_wrap_h1" id="recruit_wrap_mune2">
+							<span class="recruit_preview_h1">工作经验</span>
+							<p>5-8年</p>
+						</div>
+						<div class="recruit_wrap_h1" id="recruit_wrap_mune3">
+							<span class="recruit_preview_h1"><em>*</em>岗位职责</span>
+							<p>
+								
+							</p>
+						</div>
+						<div class="recruit_wrap_h1" id="recruit_wrap_mune4">
+							<span class="recruit_preview_h1"><em>*</em>职位要求</span>
+							<p>
+							</p>
+						</div>		
+					</div>
+				</div>
+				<!--招聘管理预览效果结束-->				
+				<!--公告管理预览效果-->
+				<div class="notice_namage_see">
+					<div class="notice_preview_content">
+						<p class="recruit_preview_title">预览</p>
+						<img src="../images/rili_close.png"/>
+					</div>
+					<div class="recruit_preview_bigBox">
+						<div class="recruit_wrap_h1">
+								<span class="recruit_preview_h1"><em>*</em>公告内容</span>
+							<p class="notice_namage_text">招前端阿里十年经验</p>
+						</div>
+						<div class="notice_time">
+							<p>发布时间:2017.11.02</p>
+						</div>
+					</div>
+				</div>
+				<!--公告管理预览效果结束-->
 			</div>
-
-			<!--医师信息 预览效果-->
-			<div class="bottomContent hide" id="doc_Administration_bottom4">
-						<!--TODO-->
-				
-			</div>
-
 		</div>
-
-		</div>
-
+		<!--头像预览裁剪-->
 		<div class="mask"></div>
 		<div id="headImg" class="clearfix">
 			<div class="container1 clearfix">
@@ -838,7 +963,7 @@
 				</div>
 			</div>
 		</div>
-
+		<!--头像预览裁剪-->
 	</body>
 
 </html>
@@ -1086,6 +1211,8 @@
 	'fullscreen'
 			]
 		],
+		initialFrameWidth: 540,
+        initialFrameHeight:220,
 		elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -1094,7 +1221,7 @@
             maximumWords:10000   
 	});
 
-	var ue = UE.getEditor('editor1', {
+	var ue = UE.getEditor('editor2', {
 		toolbars: [
 			[
 				'undo', //撤销
@@ -1128,6 +1255,8 @@
 				'fullscreen'
 			]
 		],
+		initialFrameWidth: 540,
+        initialFrameHeight:220,
 		elementPathEnabled:false,
             autoHeightEnabled: false,
             autoFloatEnabled: true,
@@ -1158,7 +1287,11 @@
 		}
 	}
 	
+	
+	
 </script>
+<!--公共弹窗-->
+<script src="../js/common_msg.js"></script>
 
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>

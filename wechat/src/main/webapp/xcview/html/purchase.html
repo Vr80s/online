@@ -13,14 +13,22 @@
 <script src="/xcview/js/js.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/purchase.css" />
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
 			<!--<div class="header_return"  onclick="purchaseBack()">-->
-			<div class="header_return"  onclick="window.history.go(-1)">
-				
+			<div class="header_return"  onclick="lastPage()">
 				<img src="/xcview/images/back icon.png">
 			</div>
 			<div class="header_title">购买</div>
@@ -137,11 +145,11 @@
 
 
 <script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
-<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
   <script type="text/javascript" src="/xcview/js/XCh5Pay.js?v=wechat_1111.1.1"></script>
-<script type="text/javascript" src="../js/purchase.js?v=wecha111t_111.1.1"></script>
+<script type="text/javascript" src="../js/purchase.js?v=wecha111t_1111111.1.1"></script>
 <!--点击更多隐藏显示结束-->
 <script type="text/javascript">
 	window.onload = function(){

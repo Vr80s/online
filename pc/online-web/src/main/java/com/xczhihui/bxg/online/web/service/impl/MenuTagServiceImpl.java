@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.vo.*;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.OnlineBaseService;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.MenuTag;

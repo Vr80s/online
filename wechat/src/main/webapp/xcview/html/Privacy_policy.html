@@ -18,6 +18,16 @@
 		text-align: justify;
 	}
 </style>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
 <body>
 <div><p style="background-color: #00bc12;font-size: 16pt;margin: 0pt 0pt 10pt 0;text-align: center;padding: 2rem 0;width: 100%;color: #fff;"><span style="color:#fff; font-family:微软雅黑; font-size:16pt; font-weight:bold">隐私政策</span>

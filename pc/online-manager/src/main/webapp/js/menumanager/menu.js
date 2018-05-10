@@ -368,11 +368,7 @@ function openMenuManage(obj){
 				
 				$("#childMenu-form").ajaxSubmit(function(data){
 					unmask();
-					try{
-	            		data = jQuery.parseJSON(jQuery(data).text());
-	            	}catch(e) {
-	            		data = data;
-	            	  }
+                    data = getJsonData(data);
 					if(data.success){
 						$("#childMenuDialog").dialog("close");
 						layer.msg(data.errorMessage);
@@ -493,7 +489,7 @@ function configResource(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = cloudClassMenuTable.fnGetData(oo); // get datarow
 	//alertInfo("配置" + aData.name + "权限");
-	//debugger;
+	//;
 	var roleId = aData.id;
 	console.log("roleId:" + roleId);
 	initCommonZtrees("resource","resource2","user/resource/role/tree",{"roleId":roleId},"right",function(){//左右两边都加载

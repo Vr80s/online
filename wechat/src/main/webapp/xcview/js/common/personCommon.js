@@ -167,7 +167,7 @@ function setuserInfoWechat(saveFalg){
 			}
 		} else {
 			falg = false;
-			webToast(data.errorMessage,"middle",1500);	
+			webToast(data.errorMessage,"middle",1500);
 		}
 	},false);
 	return falg;

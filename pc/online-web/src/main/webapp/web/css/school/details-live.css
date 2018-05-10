@@ -1,0 +1,609 @@
+*{margin: 0; padding: 0;}
+body{ 
+	font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-size: 14px;
+	background: #F8F8F8;
+	color: #666666;
+}
+ul{margin: 0;}
+p{margin: 0;}
+a:hover{text-decoration: none;}
+.cl{clear: both;}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px; margin: 0 auto;}
+.selected{
+	color: #00BC12;
+}
+.wrap-buy{
+	width: 100%;
+	background: white;
+	overflow: hidden;
+	padding: 30px 20px;
+	margin-top: 20px;
+}
+.left-cover{
+	width: 462px;
+	height: 260px;
+	position: relative;
+}
+.left-cover span{
+	height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}
+.left-cover img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.right-details{
+	width: 677px;
+	height: 260px;
+	position: relative;
+}
+.right-details h4{
+	font-size: 22px;
+	color: #333333;
+}
+.right-details .subtitle{
+	font-size: 14px;
+color: #666666;
+padding-bottom: 10px;
+}
+.right-details .author-inf{
+	overflow: hidden;
+	margin-bottom: 13px;
+}
+.right-details .author-inf li {
+	float: left;
+	color: #999999;
+}
+.right-details .author-inf li img{
+
+	display: block;
+	float: left;
+}
+.right-details .author-inf .grade{	
+	margin: -2px 5px 0 30px;
+}
+.display-price{
+	width: 667px;
+	background: #FFF6F3;
+	clear: both;
+	padding: 7px 10px;
+	box-sizing: border-box;
+	color: #999999;
+}
+.display-price .live-price{
+	width: 56px;
+	display: inline-block;
+}
+.display-price .live-price span:nth-child(odd){
+	float: left;
+}
+.display-price .live-price span:nth-child(even){
+	float: right;
+}
+.display-price p{
+
+	margin-left: 16px;
+	display: inline-block;
+}
+.display-price p span{
+	font-size: 22px;
+	color: #FF4012;
+	margin-right: 5px;
+}
+.display-price ul{
+	overflow: hidden;
+	padding-top: 5px;
+}
+.display-price ul li{
+	float: left;
+	color: #333333;
+}
+.display-price ul li:nth-child(1){
+	color: #999999;
+	margin-right: 20px;
+}
+.immediately-buy{
+	width: 180px;
+	height: 46px;
+	background: #F97B49;
+	border: 0;
+	outline: 0;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	border-radius: 4px;
+	color: white;
+	font-size: 20px;
+}
+/*详情/评价/常见问题*/
+
+.main{
+	margin-top: 20px;
+
+	overflow: hidden;
+}
+.content-inf{
+	width: 860px;
+}
+.wrap-sidebar{
+	height: 60px;
+	width: 100%;
+	border-bottom: 1px solid #f0f0f0;
+	line-height: 60px;
+	overflow: hidden;
+	background: white;
+	
+}
+.wrap-sidebar ul li:nth-child(1){
+	padding: 0 65px;
+	margin-left: 0;
+
+}
+.wrap-sidebar ul li{
+	float: left;
+	padding-bottom: 10px ;
+	border-bottom: 3px solid transparent;
+	padding: 0 36px;
+
+	cursor: pointer;
+	height: 59px;
+	font-size: 16px;
+}
+.wrap-sidebar ul .active-footer{
+	border-bottom: 3px solid #00BC12;
+	color: #00BC12;
+}
+.sidebar-content{
+	background: white;
+	width: 100%;
+	padding:30px 20px 20px;
+	overflow: hidden;
+}
+.author-introduce{
+	border-left: 3px solid #00BC12;
+	padding-left: 10px;
+	color: #00BC12;
+	line-height: 1;
+	font-size: 20px;
+}
+.author-content{
+	margin-top: 10px;
+}
+.impression-content{
+	width: 100%;
+	position: relative;
+	border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+.impression-content .impression-list li{
+	list-style: none;
+	float: left;
+	font-size: 18px;
+	margin-right: 30px;
+}
+.impression-content .impression-list li img{
+	margin-top: -4px;
+	margin-left: 7px;
+}
+.want-evaluate{
+	width: 92px;
+	height: 36px;
+	text-align: center;
+	line-height: 36px;
+	background: #00BC12;
+	color: white;
+	position: absolute;
+	top: -6px;
+    right: 0;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.impression-content .impression-write{
+	padding-top: 20px;
+	overflow: hidden;
+}
+.impression-content .impression-write li{
+	float: left;
+	padding: 10px;
+	background: #f0f0f0;
+	font-size: 12px;
+	margin-right: 20px;
+	line-height: 1;
+	border-radius: 4px;
+}
+.container-comment{
+	padding: 20px 0;
+	border-bottom: 1px solid #f0f0f0;
+	overflow: hidden;
+}
+.wrap-portrait{
+	width: 60px;
+	height: 90px;	
+}
+.header-img{
+	width: 60px;
+	height: 60px;
+}
+.header-img img{
+	width: 100%;
+	height: 100%;
+}
+.wrap-portrait p{
+	width: 50px;
+	height: 18px;
+	text-align: center;
+	line-height: 18px;
+	font-size: 12px;
+	background: #00BC12;
+	color: white;
+	text-align: center;
+	margin: 10px 0 0 5px;
+	border-radius: 4px;
+}
+.right-comment{
+	width: 750px;
+	margin-top: 20px;
+	
+}
+.user-name li{
+	float: left;
+}
+.user-name li:nth-child(1){
+	font-weight: bold;
+}
+.user-name li:nth-child(2){
+	margin: 0 20px 0 5px;
+	color: #999999;
+}
+.user-name li:nth-child(3) img{
+	    width: 95px;
+    display: block;
+}
+.right-comment .write-text{
+	padding: 20px 0;
+word-wrap:break-word; 
+word-break:break-all;
+}
+.wrap-reply{
+	width: 750px;
+	background: #fafafa;
+	padding: 10px;
+	margin-bottom: 25px;
+}
+.header-reply{
+	width: 36px;
+	height: 36px;
+}
+.header-reply img{
+	width: 100%;
+	height: 100%;
+}
+.content-reply{
+	width: 684px;
+	margin-top: 8px;
+}
+.name-reply li{
+	float: left;
+}
+.name-reply li:nth-child(1){
+	font-weight: bold;
+}
+.name-reply li:nth-child(2){
+	color: #666666;
+	margin-left: 5px;
+}
+.reply-text{
+	padding-top: 10px;
+	word-wrap:break-word; 
+	word-break:break-all;
+}
+.operation-reply{
+	float: right;
+}
+.operation-reply li{
+	float: left;
+	cursor: pointer;
+}
+.operation-reply li:nth-child(2){
+	margin-left: 20px;
+}
+.wrap-input{
+	padding-top: 20px;
+	overflow: hidden;
+}
+.header-input{
+	width: 36px;
+	height: 36px;
+}
+.header-input img{
+	width: 100%;
+	height: 100%;
+}
+.input-write{
+	width: 592px;
+	height: 34px;
+	border: 1px solid #DEDEDE;
+	margin-left: 10px;
+	text-align: left;
+	line-height: 34px;
+	overflow: hidden;
+}
+.input-write p{
+	color: #999999;
+	padding-left: 10px;
+}
+.input-write p span{
+	color: #00BC12;
+	cursor: pointer;
+}
+.wrap-input .no-login{
+	background: rgba(0,188,18,0.30);
+	border-radius: 4px;
+	color: white;
+	width: 92px;
+	height: 36px;
+	border: 0;
+	outline: none;
+}
+.wrap-input .login{
+	background: #00BC12;
+	border-radius: 4px;
+	color: white;
+	width: 92px;
+	height: 36px;
+	border: 0;
+	outline: none;
+}
+.input-write input{
+	width: 100%;
+	height: 100%;
+	padding-left: 10px;
+	border: 0;
+	outline: none;
+}
+/*常见问题*/
+.often-problem li{
+	margin-bottom: 50px;
+}
+.often-problem li h5{
+	font-weight: bold;
+	font-size: 18px;
+	margin-top: 0;
+}
+.often-problem li p{
+	font-size: 16px;
+}
+
+
+
+
+
+
+/*右侧推荐课程*/
+.wrap-recommend{
+	width: 320px;
+
+	background: white;
+	padding: 20px;
+}
+.wrap-recommend h3{
+	margin-bottom: 0;
+}
+/*视频样式*/
+.wrap-recommend .course {
+    position: relative;
+    width: 280px;
+    float: left;
+    height: 253px;
+    margin-top: 20px;
+}
+.wrap-recommend .course:nth-child(4n){
+    margin-right: 0px;
+}
+.wrap-recommend > div > a {
+    background: white;
+    width: 280px;
+    float: left;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ECECEC;
+    -moz-box-shadow: 1px 1px 2px 1px #ECECEC;
+    box-shadow: 1px 1px 2px 1px #ECECEC;
+}
+.wrap-recommend .course .img{
+	text-align: center;
+    line-height: 161px;
+    width: 280px;
+    height: 161px;
+    background-color: #f0f0f0;
+    background-image: url(../../images/load26.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}	  
+.wrap-recommend .course .img img{
+	 -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+.wrap-recommend .course .img img:hover{
+	transform: scale(1.2);
+}
+.wrap-recommend .course .img img{
+	width: 100%;
+	height: 100%;
+}
+.wrap-recommend .course .classCategory {
+    height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}
+.wrap-recommend > div > a .detail {
+    width: 281px;
+    height: 90px;
+    padding: 10px 10px 15px;
+    border: 1px solid #e4e4e4;
+    border-top: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.wrap-recommend > div > a .detail .title {
+    max-width: 260px;
+    /* height: 30px; */
+    display: inline-block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-recommend > div > a .detail .timeAndTeac {
+    display: block;
+    margin: 2px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-recommend > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.wrap-recommend > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.wrap-recommend > div > a .detail .info > span:nth-child(1) {
+    float: left;
+}
+.wrap-recommend > div > a .detail .info .price {
+    display: inline-block;
+    margin: 0 3px 0 0;
+    font-size: 16px;
+    color: #F97B49;
+}
+.wrap-recommend > div > a .detail span {
+    color: #999;
+}
+.wrap-recommend > div > a .detail .info > span:nth-child(2) {
+    float: right;
+}
+/*视频样式结束*/
+
+
+
+
+
+
+
+
+
+/*模态框*/
+.bg-modal{
+	position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    opacity: 0.3;
+    z-index: 888;	
+} 
+ .wrap-modal{
+ 	width: 400px;
+    padding: 20px 30px 30px;
+    background: white;
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    position: fixed;
+ } 
+ .wrap-modal .close-impression {
+ 	text-align: right;
+ 	padding-bottom: 10px;
+ 	cursor: pointer;
+ }
+.wrap-modal h4{
+	text-align: center;
+	margin: 0;
+	padding-bottom: 20px;
+	font-size: 20px;
+}
+
+.impression-comment{
+	margin-bottom: 20px;
+}
+.impression-comment span{
+	margin-left: 30px;
+	position: relative;
+	top: 2px;
+}
+.impression-comment p{
+	display: inline-block;
+	color: #666666;
+	margin-right: 30px;
+}
+.impression-comment img{
+	width: 30px;
+	cursor: pointer;
+}
+.impression-setlist{
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.impression-setlist li{
+	float: left;
+	margin-right: 20px;
+	padding: 5px 10px;
+	border-radius: 4px;
+	background: #f0f0f0;
+	margin-bottom: 10px;
+	border: 1px solid #f0f0f0;
+	cursor: pointer;
+}
+.impression-setlist .impression-active{
+	border: 1px solid #00BC12;
+	color: #00BC12;
+	background: #E9FFEB;
+	
+}
+.impression-text{
+	width: 340px;
+	height: 110px;
+	border: 1px solid #dedede;
+	outline: none;
+	resize: none;
+	padding: 5px;
+	margin-bottom: 20px;
+}
+.submission{
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	color: white;
+	border: 0;
+	border-radius: 4px;
+	margin-left: 110px;
+	outline: none;
+}

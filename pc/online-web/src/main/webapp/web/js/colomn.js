@@ -24,7 +24,7 @@ $(function(){
 	
 	//没有条件的进行列表渲染
 	function getReportList(current,size,doctorId){
-		RequestService("/medical/doctor/getSpecialColumnsByPage","GET",{
+		RequestService("/doctor/getSpecialColumnsByPage","GET",{
 			current:current,
 			size:size,
 			doctorId:doctorId
@@ -56,7 +56,7 @@ $(function(){
 	
 	
 	//右侧名医推荐部分
-	     RequestService("/medical/doctor/getHotSpecialColumnAuthor","GET",null,function(data){
+	     RequestService("/doctor/getHotSpecialColumnAuthor","GET",null,function(data){
 	       
 	        console.log(data);
 	        $('#about_doctorList').html(template('zhuanlan_zuozheTpl',{doc:data.resultObject}));

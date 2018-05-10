@@ -2,24 +2,22 @@ package com.xczh.consumer.market.controller.threeparties;
 
 import java.sql.SQLException;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.user.center.bean.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import weibo4j.http.HttpClient;
-import weibo4j.util.WeiboConfig;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
@@ -28,24 +26,15 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.ThridFalg;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.SMSCode;
-import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
-import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
+
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.user.center.bean.UserOrigin;
-import com.xczhihui.user.center.bean.UserSex;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
-import com.xczhihui.wechat.course.model.QQClientUserMapping;
-import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.model.QQClientUserMapping;
+import com.xczhihui.course.model.WeiboClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
 
 /**
  * 
@@ -142,26 +131,6 @@ public class ThirdPartyBindingController {
 				WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(), unionId);
 				m.setClient_id("");
 				wxcpClientUserWxMappingService.update(m);
-				
-				
-			/*	ItcastUser user = userCenterAPI.getUser(ou.getLoginName());
-				*//**
-				 * 更换过来这个微信号
-				 *//*
-			    userCenterAPI.updatePasswordAndLoginName(user.getId(),unionId,WeihouInterfacesListUtil.MOREN_USER_PASSWORD);
-				ou.setLoginName(unionId);
-				onlineUserService.updateOnlineUserAddPwdAndUserName(ou);*/
-				/**
-				 * 写入这个cookie
-				 */
-//				ThridFalg tf = new ThridFalg(); 
-/*				tf.setOpenId(m.getOpenid());
-				tf.setUnionId(m.getUnionid());
-				tf.setNickName(m.getNickname());
-				tf.setHeadImg(m.getHeadimgurl());
-				UCCookieUtil.writeThirdPartyCookie(res,tf);*/
-				
-				
 			}else if(type==ThirdPartyType.QQ.getCode()){
 				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserIdAndOpenId(ou.getId(), unionId);
 		    	qq.setUserId("");
@@ -231,7 +200,7 @@ public class ThirdPartyBindingController {
 	 */
 	@SuppressWarnings("unchecked")
 	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-                        Token token, OnlineUser user, String ticket) throws SQLException{
+						Token token, OnlineUser user, String ticket) throws SQLException{
 		
 		LOGGER.info("用户普通登录----》ticket"+ticket);
 		/**
@@ -245,11 +214,8 @@ public class ThirdPartyBindingController {
 		 */
 		
 		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			//设置登录标识
-			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
 			String model = req.getParameter("model");
 			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());

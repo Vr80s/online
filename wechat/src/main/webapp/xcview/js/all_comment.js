@@ -5,6 +5,7 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
+var collectionId = "";
 $(function(){
 
     	//获取课程ID跳转相应页面页面
@@ -13,6 +14,9 @@ $(function(){
     course_id = courseId;
     var Lecturer = getQueryString('LecturerId');
     LecturerId = Lecturer;
+    
+    var collection_id = getQueryString('collection_id');
+    collectionId  = collection_id;
 	refresh(1,10,'down');
 });
 
@@ -254,15 +258,21 @@ function reportComment() {
     if(my_impression3!=""){
         contentLevel = parseInt(my_impression3)+1
     }
-    requestService("/xczh/criticize/saveCriticize",{
-        overallLevel:overallLevel,
-        deductiveLevel:deductiveLevel,
-        contentLevel:contentLevel,
-        criticizeLable:str,
-        content:comment_detailed,
-        courseId : course_id,
-        userId:LecturerId
-    },function(data) {
+    
+    var paramsCriticize ={
+            overallLevel:overallLevel,
+            deductiveLevel:deductiveLevel,
+            contentLevel:contentLevel,
+            criticizeLable:str,
+            content:comment_detailed,
+            courseId : course_id,
+            userId:LecturerId
+    }
+    if(stringnull(collectionId)){
+    	paramsCriticize.collectionId = collectionId;
+    }
+    
+    requestService("/xczh/criticize/saveCriticize",paramsCriticize,function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
             webToast("评论成功","middle",1500);
@@ -298,11 +308,18 @@ function replyComment() {
 //   $(".return_btn").css("opacity","0.3");
 //	 return false;
 //	 }
+    
+    var paramsReply ={
+    	    content:comment_detailed,
+            criticizeId : criticize_id
+    }
+    if(stringnull(collectionId)){
+    	paramsReply.collectionId = collectionId;
+    }
+    
+    
 // 手机自带表情添加判断结束
-    requestService("/xczh/criticize/saveReply",{
-        content:comment_detailed,
-        criticizeId : criticize_id
-    },function(data) {
+    requestService("/xczh/criticize/saveReply",paramsReply,function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
             webToast("回复成功","middle",1500);

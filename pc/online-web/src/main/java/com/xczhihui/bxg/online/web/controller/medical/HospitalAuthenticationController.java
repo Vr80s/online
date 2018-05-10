@@ -1,9 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
@@ -21,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author zhuwenbao
  */
 @RestController
-@RequestMapping(value = "/medical/hospital/authentication")
+@RequestMapping(value = "/hospital/authentication")
 public class HospitalAuthenticationController extends AbstractController{
 
     @Autowired
@@ -38,7 +36,7 @@ public class HospitalAuthenticationController extends AbstractController{
     public ResponseObject getHospitalAuthentication(HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(hospitalAuthenticationService.selectHospitalAuthentication(currentUser.getUid()));
     }

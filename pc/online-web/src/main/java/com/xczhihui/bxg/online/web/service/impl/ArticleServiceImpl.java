@@ -1,13 +1,13 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.vo.AppraiseVo;
 import com.xczhihui.bxg.online.web.vo.ArticleVo;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +23,6 @@ import java.util.UUID;
  */
 @Service
 public class ArticleServiceImpl extends OnlineBaseServiceImpl implements ArticleService {
-
-    @Value("${specialColumn}")
-    private String specialColumn;
-    @Value("${doctorReport}")
-    private String doctorReport;
 
     /**
      * 获取博学社banner信息
@@ -66,15 +61,17 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         if(tagId==null){
             paramMap.put("type",type);
             sql=" SELECT b.id,b.title,b.content,b.img_path,b.create_time,b.`user_id` name, Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId," +
+                " if(b.recommend_time< now(),0,b.sort) sort,"+
                 "  Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\") tag FROM oe_bxs_article b,article_r_tag ar,oe_bxs_tag t" +
                 " where  b.id= ar.article_id and ar.tag_id=t.id and b.is_delete=0 " +
-                " and b.status=1 and b.type_id=:type  GROUP BY b.id  order by b.create_time desc";
+                " and b.status=1 and b.type_id=:type  GROUP BY b.id  order by sort desc,b.create_time desc";
         }else{
             paramMap.put("tagId",tagId);
             sql=" SELECT b.id,b.title,b.content,b.img_path,b.create_time,b.`user_id` name,  Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\")  tagId," +
+                    " if(b.recommend_time< now(),0,b.sort) sort,"+
                     " Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\")  tag FROM oe_bxs_article b,article_r_tag ar,oe_bxs_tag t" +
                     " where  b.id= ar.article_id and ar.tag_id=t.id and b.is_delete=0 " +
-                    " and b.status=1 and b.id  in (select article_id from article_r_tag  where status=1 and  tag_id=:tagId)  GROUP BY b.id  order by b.create_time desc";
+                    " and b.status=1 and b.id  in (select article_id from article_r_tag  where status=1 and  tag_id=:tagId)  GROUP BY b.id  order by sort desc,b.create_time desc";
         }
         return dao.findPageBySQL(sql, paramMap, ArticleVo.class, pageNumber, pageSize);
     }
@@ -87,9 +84,9 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
     @Override
     public List<Map<String,Object>>  getHotArticle(){
         Map<String,Object> paramMap = new HashMap<String,Object>();
-        paramMap.put("t1",specialColumn);
-        paramMap.put("t2",doctorReport);
-        String sql="select id, title from oe_bxs_article where is_delete=0 and `status`=1 and browse_sum>0 and type_id !=:t1 and type_id !=:t2   order by browse_sum desc limit 7";
+        paramMap.put("t1", HeadlineType.DJZL.getCode());
+        paramMap.put("t2",HeadlineType.MYBD.getCode());
+        String sql="select id, title,if(recommend_time< now(),0,sort) sort from oe_bxs_article where is_delete=0 and `status`=1 and type_id is not null order by sort desc,create_time desc limit 10";
         return  dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
     }
 
@@ -137,13 +134,12 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
             paramMap.put("articleId",preId);
         }
         String  sql=" SELECT ba.title,ba.content,ba.img_path,ba.create_time,ba.browse_sum,ba.praise_sum,ba.comment_sum,ba.`user_id` name,at.name typeName,Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\")  tag , " +
-                    "Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId, if(find_in_set(:loginName,ba.praise_login_names)>0,1,0)  as isPraise from "+tableName+",article_type at,article_r_tag ar,oe_bxs_tag t "+
-                    " where ba.type_id=at.id and ba.id =ar.article_id and ar.tag_id=t.id and " +
-                    "  ba.is_delete=0 "+status+" and ba.id=:articleId ";
+                "Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId, if(find_in_set(:loginName,ba.praise_login_names)>0,1,0)  as isPraise from "+tableName+",article_type at,article_r_tag ar,oe_bxs_tag t "+
+                " where ba.type_id=at.id and ba.id =ar.article_id and ar.tag_id=t.id and " +
+                "  ba.is_delete=0 "+status+" and ba.id=:articleId ";
         List< Map<String,Object>> articles=  dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
         return  articles.size() > 0 ? articles.get(0) : null;
     }
-
 
     /**
      * 相关推荐
@@ -170,8 +166,8 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         appraiseVo.setUser_id(loginUser.getId());
         appraiseVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        String sql = "insert into oe_bxs_appraise (id,article_id,content,user_id,target_user_id) "
-                   + "values (:id,:article_id,:content,:user_id,:target_user_id)";
+        String sql = "insert into oe_bxs_appraise (id,article_id,content,user_id,target_user_id,reply_comment_id) "
+                   + "values (:id,:article_id,:content,:user_id,:target_user_id,:reply_comment_id)";
          dao.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(appraiseVo));
 
         Map<String,Object> paramMap = new HashMap<String,Object>();

@@ -10,13 +10,33 @@
 <meta name="description" content="" />
 
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
-<link rel="stylesheet" href="../css/animate.css" />
-<link rel="stylesheet" href="../css/live_audio.css" />
-<link rel="stylesheet" href="../css/share/share.css" />
+<link rel="stylesheet" href="/xcview/css/animate.css" />
+<link rel="stylesheet" href="/xcview/css/live_audio.css" />
+<link rel="stylesheet" href="/xcview/css/share/share.css" />
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script>
+	//修改title
+	document.setTitle = function(t) {
+        document.title = t;
+        var i = document.createElement('iframe');
+        // i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+          setTimeout(function(){
+            i.remove();
+          }, 9)
+        }
+        document.body.appendChild(i);
+      }
+      setTimeout(function(){
+        document.setTitle(gradeName);
+      }, 1000);
 
+</script>
+	
 </head>
 <style type="text/css">
 	.ccH5playerBox{
@@ -60,7 +80,8 @@
 	<div class="wrap-header">
 		<div class="header">		
 			<p>课程</p>
-			<div class="arror_return z" onclick="javascript:history.go(-1);">
+			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
+			<div class="arror_return z" onclick="common_share_back();">
 				<img src="../images/back icon.png"/>
 			</div>
 			<div class="header_news">
@@ -130,7 +151,7 @@
 	<div class="wrap_playTime" id="wrap_playTime">
 		<script type="text/html" id="data_name">
 			<ul class="playTime z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
-				<li><img src="../images/population.png"/><span>{{heir}}</span></li>
+				<li><img src="../images/outline_bg.png"/><span>{{heir}}</span></li>
 				<li>
 					<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
 					<a href="javascript: ;">
@@ -457,16 +478,15 @@
 </body>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/template.js"></script>
+
 <script type="text/javascript" src="../js/live_audio.js"></script>
 <!--分享-->
 <script type="text/javascript" src="/xcview/js/share/share.js"></script>
 <!--公用弹框 -->
-
-<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
 
 <script>
 	//分享的信息
@@ -524,10 +544,17 @@ $.fn.toggle = function( fn, fn2 ) {
 			    $(".btn1 a").html('点击收起');
 			     $(".wrap1").removeClass("pp1");
 //			     $(".wrap1").attr("style");
-			 })
-			  
+			 }) 
+/*
+			  	$('.ccH5FullsBtn').click(function(){
+					alert(123);
+				});*/
 			  
 		 })
+
+
+
+		
 //	点击视频或音频按钮
 	/*$("#video_v").click(function(){
 		$(".play_video img").css("display","none");

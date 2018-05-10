@@ -3,10 +3,10 @@ package com.xczh.consumer.market.controller.school;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.wechat.course.model.MobileBanner;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IMobileBannerService;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.course.model.MobileBanner;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.vo.CourseLecturVo;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,9 +30,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/xczh/live")
 public class MobileLiveController {
-
-	@Autowired
-	private OnlineCourseService onlineCourseService;
 
 	@Autowired
 	private IMobileBannerService mobileBannerService;
@@ -59,12 +56,9 @@ public class MobileLiveController {
 		Page<MobileBanner> MobileBannerPage = new Page<>();
 		MobileBannerPage.setCurrent(current);
 		MobileBannerPage.setSize(size);
-		int bannerType = 3;
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,bannerType));
-
+		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,3));
 		//直播 中的课程
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
-
 		Map<String,Object> mapTj = new HashMap<String, Object>();
 		Map<String,Object> mapNw = new HashMap<String, Object>();
 		Map<String,Object> mapZz = new HashMap<String, Object>();
@@ -74,8 +68,7 @@ public class MobileLiveController {
 		List<CourseLecturVo> listZz = new ArrayList<CourseLecturVo>();
 		List<CourseLecturVo> listHf = new ArrayList<CourseLecturVo>();
 
-
-		//List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
+		//获取直播课程列表
 		List<CourseLecturVo> list = courseService.findLiveListInfo();
 		for (CourseLecturVo courseLecturVo : list) {
 			if("正在直播".equals(courseLecturVo.getNote())){
@@ -119,7 +112,6 @@ public class MobileLiveController {
 			mapHf.put("courseList",listHf);
 			mapCourseList.add(mapHf);
 		}
-
 		mapAll.put("allCourseList",mapCourseList);
 
 		return ResponseObject.newSuccessResponseObject(mapAll);

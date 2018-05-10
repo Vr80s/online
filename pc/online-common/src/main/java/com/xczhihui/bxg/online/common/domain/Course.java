@@ -1,12 +1,20 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity2;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
+
+import com.xczhihui.common.support.domain.BasicEntity2;
 
 /**
  *  课程实体类
@@ -314,15 +322,6 @@ public class Course extends BasicEntity2 implements Serializable {
 	
 	@Column(name = "city")
 	private String city;
-	
-	@Column(name = "type_sort")
-	private Integer typeSort;
-	
-	@Column(name = "is_essence")
-	private Integer isEssence;
-	
-	@Column(name = "is_type_recommend")
-	private Integer isTypeRecommend;
 
 	/**
 	 * 排序更新时间
@@ -330,6 +329,12 @@ public class Course extends BasicEntity2 implements Serializable {
 	@Column(name = "sort_update_time")
 	private Date sortUpdateTime;
 	
+	
+	/**
+	 * 回放状态类型
+	 */
+	@Column(name = "play_back_type")
+	private Integer playBackType;
 	
 	
 	@Transient
@@ -395,12 +400,6 @@ public class Course extends BasicEntity2 implements Serializable {
 	 */
 	@Column(name = "live_source_type")
 	private boolean  liveSourceType;
-	/**
-	 * 直播源类型
-	 */
-	@Column(name = "essence_sort")
-	private Integer  essenceSort;
-
 
 	@Transient
 	private List<Course> courseInfoList;
@@ -902,14 +901,6 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.liveSourceType = liveSourceType;
 	}
 
-	public Integer getEssenceSort() {
-		return essenceSort;
-	}
-
-	public void setEssenceSort(Integer essenceSort) {
-		this.essenceSort = essenceSort;
-	}
-
 	public String getExamineId() {
 		return examineId;
 	}
@@ -926,30 +917,6 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.releaseTime = releaseTime;
 	}
 
-	public Integer getTypeSort() {
-		return typeSort;
-	}
-
-	public void setTypeSort(Integer typeSort) {
-		this.typeSort = typeSort;
-	}
-
-	public Integer getIsEssence() {
-		return isEssence;
-	}
-
-	public void setIsEssence(Integer isEssence) {
-		this.isEssence = isEssence;
-	}
-
-	public Integer getIsTypeRecommend() {
-		return isTypeRecommend;
-	}
-
-	public void setIsTypeRecommend(Integer isTypeRecommend) {
-		this.isTypeRecommend = isTypeRecommend;
-	}
-
 	public Date getSortUpdateTime() {
 		return sortUpdateTime;
 	}
@@ -957,4 +924,14 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setSortUpdateTime(Date sortUpdateTime) {
 		this.sortUpdateTime = sortUpdateTime;
 	}
+
+	public Integer getPlayBackType() {
+		return playBackType;
+	}
+
+	public void setPlayBackType(Integer playBackType) {
+		this.playBackType = playBackType;
+	}
+	
+	
 }

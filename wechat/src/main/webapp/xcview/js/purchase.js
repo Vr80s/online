@@ -9,6 +9,16 @@ function is_weixn(){
     }
 }
 
+
+function lastPage(){
+	var last_page = document.referrer;
+	if(stringnull(last_page) && last_page.indexOf("wechat_h5_pay.html")!=-1){
+		window.history.go(-2);
+	}else{
+		window.history.go(-1);
+	}
+}
+
 var orderNo = "";
 var type =""; //判断课程类别，支付使用
 
@@ -21,7 +31,6 @@ var orderId = getQueryString('orderId');
  *  要返回到，课程展示页面
  */
 var  before_address= document.referrer;
-//alert(before_address);
 if(!(before_address.indexOf("recharges.html") !=-1 || 
 		   before_address.indexOf("buy_prosperity.html")!=-1 ||
 		   before_address.indexOf("purchase.html")!=-1 )		   
@@ -201,15 +210,25 @@ function  goPay() {
         var openId=   localStorage.getItem("openid");
         var orderForm = 3;
         if(is_weixn()){
-            orderForm=3;
+            if(!stringnull(openId)){  // 再去重cookie中获取
+            	var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+            	if(stringnull(third_party_uc_t_)){
+            		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
+            		openId = third_party_uc_t_.split(";")[0];
+            	}
+            }
         }else{ //h5
             orderForm=4
         }
         var strparam = "orderFrom="+orderForm+"&orderId="+getQueryString("orderId");
-        if(stringnull(openId)){
+        if(stringnull(openId)){  //获取openid
         	strparam+="&openId="+openId;
         }
-        jmpPayPage("/xczh/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse,false));
+        /*
+         * 如果检测到这个openId没有，那么请让登录下
+         */
+        var redirectUrl = getgetRedirectUrl(allCourse,orderForm);
+        jmpPayPage("/xczh/pay/wxPay",payType,strparam,redirectUrl);
     }
 }
 /**
@@ -219,6 +238,11 @@ function  goPay() {
  */
 function getgetRedirectUrl(allCourse,falg){
 	var c=allCourse[0];
-	return "/xcview/html/buy_prosperity.html?recharges_blck=2&courseId="+c.id;
+	if(falg==3){ //h5支付
+		return "/xcview/html/buy_prosperity.html?recharges_blck=2&courseId="+c.id;
+	}else{
+		return "/xcview/html/wechat_h5_pay.html?courseId="+c.id+"&orderId="+getQueryString("orderId");
+	}
+	
 }
 

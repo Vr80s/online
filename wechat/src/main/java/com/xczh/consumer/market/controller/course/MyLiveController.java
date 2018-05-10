@@ -1,9 +1,7 @@
 package com.xczh.consumer.market.controller.course;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -11,12 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineCourseService;
-import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.wechat.course.service.ICourseService;
-import com.xczhihui.wechat.course.service.IFocusService;
+import com.xczhihui.course.service.IFocusService;
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
  * Description: <br>
@@ -28,21 +23,14 @@ import com.xczhihui.wechat.course.service.IFocusService;
 @RequestMapping("/xczh/mylive")
 public class MyLiveController {
 
-	@Autowired
-	private ICourseService courseServiceImpl;
 
 	@Autowired
 	@Qualifier("focusServiceRemote")
 	private IFocusService ifocusService;
 	
 	@Autowired
-	private OnlineUserService onlineUserService;
-	
-	@Autowired
 	private OnlineCourseService onlineCourseService;
 	
-	@Autowired
-	private AppBrowserService appBrowserService;
 	
 	/**
 	 * Description：开始直播时调用，因为要区分这个直播来自app直播呢，还是pc端直播了。

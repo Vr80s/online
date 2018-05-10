@@ -1,34 +1,29 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserUtil;
-import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
-import com.xczhihui.bxg.online.web.service.ActivityTotalService;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.service.impl.OnlineLoginoutCallback;
 import com.xczhihui.bxg.online.web.utils.HttpUtil;
 import com.xczhihui.bxg.online.web.utils.MD5Util;
 import com.xczhihui.bxg.online.web.utils.ThirdConnectionConfig;
-import com.xczhihui.bxg.online.web.vo.ApplyVo;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.bxg.online.web.vo.UserVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczhihui.user.center.bean.Token;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.user.center.utils.CodeUtil;
 import com.xczhihui.user.center.web.utils.CookieUtil;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -43,11 +38,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.*;
-import java.util.regex.Pattern;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 用户相关
@@ -71,23 +66,20 @@ public class UserController extends OnlineBaseController {
 	
 	@Autowired
 	private OnlineLoginoutCallback callback;
-	
-	@Autowired
-	private ActivityTotalService totalService;
 
 	@Value("${domain}")
 	private String domain;
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
+		
 		OnlineUser o = service.findUserByLoginName(username);
-		Token t = null;
+		Token t;
 		if(o!=null) {
-            t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
+            t = userCenterAPI.login(username, password, TokenExpires.Year);
         }else{
 			return ResponseObject.newErrorResponseObject("用户未注册");
 		}
-//		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
 		if (t != null) {
 			if (o != null) {
 				t.setHeadPhoto(o.getSmallHeadPhoto());
@@ -96,11 +88,6 @@ public class UserController extends OnlineBaseController {
 					return ResponseObject.newErrorResponseObject("用户已禁用");
 				}
 				if(o.getVhallId()==null){
-					String vhallPassword = RandomUtil.getCharAndNumr(6);
-					String vhallId = VhallUtil.createUser(o,vhallPassword);
-					o.setVhallId(vhallId);
-					o.setVhallPass(vhallPassword);
-					o.setVhallName(o.getId());
 					service.updateVhallInfo(o);
 				}
 			} else {
@@ -137,7 +124,7 @@ public class UserController extends OnlineBaseController {
 		//活动统计
 		String cok = CookieUtil.getCookieValue(req, "act_code_from");
 		if (cok != null && !"".equals(cok)) {
-			totalService.addTotalDetail4Reg(cok,username,nikeName);
+			//jilu
 		}
 		try {
 			autoLogin(req,resp,username,password);
@@ -203,21 +190,16 @@ public class UserController extends OnlineBaseController {
 				OnlineUser user = this.userCenterService.getUserByLoginName(vcode.split("!@!")[0]);
 				
 				if(user.getVhallId()==null){
-					String vhallPassword = RandomUtil.getCharAndNumr(6);
-					String vhallId = VhallUtil.createUser(user,vhallPassword );
-					user.setVhallId(vhallId);
-					user.setVhallPass(vhallPassword);
-					user.setVhallName(user.getId());
 					service.updateVhallInfo(user);
 				}
 				req.getSession().setAttribute("_token_", token);
 				req.getSession().setAttribute("_user_", user);
 				UCCookieUtil.writeTokenCookie(res, token);
-			CookieUtil.setCookie(res, "first_login", "1", domain, "/", 10);;
+				CookieUtil.setCookie(res, "first_login", "1", domain, "/", 10);
 				//活动统计
 				String cok = CookieUtil.getCookieValue(req, "act_code_from");
 				if (cok != null && !"".equals(cok)) {
-					totalService.addTotalDetail4Reg(cok,user.getLoginName(),user.getName());
+					//jilu
 				}
 			}
 			req.setAttribute("msg", msg);
@@ -337,30 +319,17 @@ public class UserController extends OnlineBaseController {
 
 		}
 
-		//code=0 已登录状态
-		//code=1 无需任何操作 未登录状态
-		//code=2 异地登录过 跳转到被顶掉页面
-		//code==3 异地修改密码
-
-
-		//session没数据
-		//从cookie里获取
-		//cookie里没有就是没有登录过
-		//cookie里有就检测是否有效 有效直接登录 无效就提示被顶掉（其他地方登录过）
-		//session里有数据就直接是登录状态
 		if(sessionLoginUser==null) {
 			if (cookieToken == null) {
 				code = "1";
 			} else {
-				if (redisToken != null) { //？ 不可能存在非空情况 因为被顶掉就清空redis了
-
-
+				if (redisToken != null) {
 					if (!redisToken.getTicket().equals(cookieToken.getTicket())) {
 						code = "2";
 					}else{
 						//放到session 自动登录
 						//ItcastUser user = api.getUser(redisToken.getLoginName());
-						//UserLoginUtil.setLoginUser(request,user);
+//						UserLoginUtil.setLoginUser(request,user);
 					}
 
 				} else { //自动登录？
@@ -369,11 +338,7 @@ public class UserController extends OnlineBaseController {
 				}
 
 			}
-
-
 		}
-
-
 		return OnlineResponse.newSuccessOnlineResponse(code);
 	}
 
@@ -388,31 +353,6 @@ public class UserController extends OnlineBaseController {
 		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
 		return ResponseObject.newSuccessResponseObject(service.checkNickName(nickName, u));
 	}
-
-	/**
-	 * 删除用户
-	 * @param username
-	 * @return
-	 */
-/*	@RequestMapping(value = "deleteUser")
-		 @ResponseBody
-		 public ResponseObject deleteUser(String username) {
-		return ResponseObject.newSuccessResponseObject(service.deleteUser(username));
-	}*/
-
-	/**
-	 * 删除用户
-	 * @param username
-	 * @return
-	 */
-//	@RequestMapping(value = "updateUser")
-//	@ResponseBody
-//	public ResponseObject updateUser(String username,HttpServletRequest request,HttpServletResponse response) {
-//		OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
-//		service.update(username, loginUser);
-//		UserLoginUtil.onLogout(request,response);
-//		return ResponseObject.newSuccessResponseObject("成功");
-//	}
 
 	/***
 	 * 获取用户资料
@@ -480,12 +420,6 @@ public class UserController extends OnlineBaseController {
 				"occupation");
 		String occupationOther = ServletRequestUtils.getStringParameter(request,
 				"occupationOther");
-//		Integer jobyearId = ServletRequestUtils.getIntParameter(request,
-//				"jobyearId");
-//		String company = ServletRequestUtils.getStringParameter(request,
-//				"company");
-//		String posts = ServletRequestUtils.getStringParameter(request,
-//				"posts");
 		String province = ServletRequestUtils.getStringParameter(request,
 				"province");
 		String city = ServletRequestUtils.getStringParameter(request,
@@ -538,28 +472,6 @@ public class UserController extends OnlineBaseController {
 	}
 
 	/**
-	 * 修改用户课程信息
-	 * @param applyVo
-	 * @return
-	 */
-	@RequestMapping(value="updateApply",method=RequestMethod.POST)
-	@ResponseBody
-	public OnlineResponse updateApply(ApplyVo applyVo,HttpServletRequest request) {
-		return OnlineResponse.newSuccessOnlineResponse(userCenterService.updateApply(applyVo,request));
-	}
-
-	/**
-	 * 获取所有省份
-	 * @param
-	 * @return
-	 */
-	@RequestMapping(value="getAllProvinceCity")
-	@ResponseBody
-	public OnlineResponse getAllProvinceCity(HttpServletRequest request) throws SQLException {
-		return OnlineResponse.newSuccessOnlineResponse(userCenterService.getAllProvinceCity());
-	}
-
-	/**
 	 * 修改用户头像
 	 * @param request
 	 * @param
@@ -593,40 +505,6 @@ public class UserController extends OnlineBaseController {
 	}
 
 	/**
-	 * 修改密码
-	 * @param userId
-	 * @param pwd
-	 * @return
-	 */
-/*	@RequestMapping(value="updatePassword",method=RequestMethod.POST)
-	@ResponseBody
-	public OnlineResponse updatePassword(String userId,String pwd){
-		boolean isOk = userCenterService.updatePassword(userId, pwd);
-		if(isOk){
-			return OnlineResponse.newSuccessOnlineResponse(true);
-		}else{
-			return OnlineResponse.newErrorOnlineResponse("密码修改失败");
-		}
-	}*/
-
-
-	/**
-	 * 获取顶部用户资料
-	 * @param userId
-	 * @return
-	 */
-/*	@RequestMapping(value="getUserInfoTop",method=RequestMethod.GET)
-	@ResponseBody
-	public OnlineResponse getUserInfoTop(String userId){
-			UserCenterVo userCenterVo=userCenterService.getUserInfo(userId);
-			if(userCenterVo!=null&&(userCenterVo.getName()==null||StringUtils.isEmpty(userCenterVo.getName()))){
-				userCenterVo.setName(Constant._NICKNAME);
-			}
-			return OnlineResponse.newSuccessOnlineResponse(userCenterVo);
-
-	}*/
-
-	/**
 	 * 修改头像
 	 * @param request
 	 * @return
@@ -647,9 +525,9 @@ public class UserController extends OnlineBaseController {
 		byte[] image = Base64.getDecoder().decode(content);
 		service.updateHeadPhoto(user.getId(), image);
 
-
 		return this.isAlive(request);
 	}
+
 	/**
 	 * 联动显示省
 	 * @param
@@ -660,6 +538,7 @@ public class UserController extends OnlineBaseController {
 	public ResponseObject listProvinces() {
 		return ResponseObject.newSuccessResponseObject(service.listProvinces());
 	}
+
 	/**
 	 * 联动显示市
 	 * @param
@@ -670,37 +549,6 @@ public class UserController extends OnlineBaseController {
 	@ResponseBody
 	public ResponseObject listCities(String provinceId) {
 		return ResponseObject.newSuccessResponseObject(service.listCities(provinceId));
-	}
-	/**
-	 * 联动显示院校
-	 * @param cityId
-	 * @return
-	 */
-	@RequestMapping(value = "listSchools")
-	@ResponseBody
-	public ResponseObject listSchools(String cityId) {
-		return ResponseObject.newSuccessResponseObject(service.listSchools(cityId));
-	}
-
-	/**
-	 * 联动显示院校
-	 * @param schoolNname
-	 * @return
-	 */
-	//@RequestMapping(value = "listSchools")
-	//@ResponseBody
-	//public ResponseObject listSchools(String schoolNname) {
-	//	return ResponseObject.newSuccessResponseObject(service.listSchools(schoolNname));
-	//}
-	/**
-	 * 联动显示专业
-	 * @param schoolId
-	 * @return
-	 */
-	@RequestMapping(value = "listSpecialities")
-	@ResponseBody
-	public ResponseObject listSpecialities(String schoolId) {
-		return ResponseObject.newSuccessResponseObject(service.listSpecialities(schoolId));
 	}
 
 	Token createToken(ItcastUser user, int expires) {
@@ -795,6 +643,7 @@ public class UserController extends OnlineBaseController {
 		param.put("state", state);
 		response.sendRedirect("https://open.weixin.qq.com/connect/qrconnect" + "?" + HttpUtil.createQueryString(param));
 	}
+
 	/**
 	 * 微信登录授权成功后回调
 	 * @param request
@@ -821,6 +670,7 @@ public class UserController extends OnlineBaseController {
 			System.out.print("没有获取到响应参数");
 		}
 	}
+
 	/**
 	 * 三方登录帐号绑定手机或邮箱帐号
 	 * @param request

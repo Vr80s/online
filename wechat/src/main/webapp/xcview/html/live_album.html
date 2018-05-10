@@ -3,17 +3,86 @@
 <head>
 <meta charset="utf-8">
 <!--<title>消费明细</title>-->
-<title>熊猫中医</title>
+<title></title>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link rel="stylesheet" href="../css/animate.css" />
-<link rel="stylesheet" href="../css/live_album.css" />
-<link rel="stylesheet" href="../css/share/share.css" />
+<link rel="stylesheet" href="/xcview/css/animate.css" />
+<link rel="stylesheet" href="/xcview/css/live_album.css" />
+<link rel="stylesheet" href="/xcview/css/share/share.css" />
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<script>
+	//修改title
+	document.setTitle = function(t) {
+        document.title = t;
+        var i = document.createElement('iframe');
+        // i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+          setTimeout(function(){
+            i.remove();
+          }, 9)
+        }
+        document.body.appendChild(i);
+      }
+      setTimeout(function(){
+        document.setTitle(gradeName);
+      }, 1000);
+</script>
+<style>
+	.all_list ul li:nth-last-child(1) p{
+		border-bottom: 0;
+	}
+	.video_prompt_open{
+		display:none;
+	}
+	.ccH5AudioBg{
+		display: none !important;
+	}
+	.play_video img{
+		width: 7.5rem;
+	    height: 4.24rem;
+	    position: absolute;
+	    top: 0;
+	    z-index: 9;
+	}
+</style>
+<style type="text/css">
+	.ccH5playerBox{
+	    height: 4.24rem !important;
+	}
+	.ccH5playerBox section{
+ 		/*background: red;*/
+	    bottom: -1rem;
+	    z-index: 999999;
+	    opacity: 1;
+ 	}
+ 	.ccH5playerBox{
+ 		overflow: auto;
+ 	}
+ 	.ccH5AudioBg img{
+ 		display: block !important;
+ 	}
+ 	#video_vs .ccH5playerBox video{
+ 		opacity: 0;
+    	z-index: -1;
+    	display: none;
+ 	}
+ 	#video_vs .ccH5playerBox{
+ 		background: none;
+ 	}
+ 	.hide{
+		display: none !important;
+	}
+	.play_video img{
+		/*z-index: 1;*/
+	}
+</style>
 
 </head>
     
@@ -22,7 +91,12 @@
 	<div class="wrap-header">
 		<div class="header">		
 			<p>课程</p>
-			<div class="arror_return z" onclick="javascript:history.go(-1);">
+			<div class="arror_return z">
+			<!-- <div class="arror_return z" onclick="getQueryString()"> -->
+			<!-- <div class="arror_return z" onclick="window.history.go(-1)"> -->
+			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
+			<!-- <div class="arror_return z" onclick="gotoLiveSelectAlbum();"> -->
+			<!-- <div class="arror_return z" onclick="common_share_back();"> -->
 				<img src="../images/back icon.png"/>
 			</div>
 			<div class="header_news">
@@ -31,7 +105,8 @@
 		</div>
 	</div>
 	<!--视频-->
-	<div class="play_video" id="video_box">
+	<div class="play_video">
+		<div id="video_box"></div>
 				<!--<div id="video_v"></div>-->
 		<!--<div class="video_prompt">
 			暂未开播
@@ -265,7 +340,7 @@
 	<div class="quie_pic">
 		<img src="../images/no_comment.png"/>	
 		<p>还没有评价？快来抢沙发呀~</p>
-		<span onclick="btn_allComment()">去评价</span>
+		<!-- <span onclick="btn_allComment()">去评价</span> -->
 	</div>
 	
 	
@@ -428,14 +503,15 @@
 	<!--分享结束-->
 
 </body>
-<script src="../js/jquery-2.1.1.min.js"></script>
+<!-- <script src="/xcview/js/jquery-2.1.1.min.js"></script> -->
+<script type="text/javascript" src="../js/common/jquery.min-2.1.1.js"></script>  <!-- 测试专辑分享引入jq -->
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <script type="text/javascript" src="../js/live_album.js"></script>
 <!--公用弹框 -->
-<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
 <script type="text/javascript" src="../js/share/share.js"></script>
 <script>
 		//分享的信息
@@ -502,4 +578,34 @@ $.fn.toggle = function( fn, fn2 ) {
 	
 
 
-</html>
+	<script>
+		window.onload = function(){
+			/*var md=document.getElementsByTagName("video")[0];
+		    md.addEventListener("ended",function(){
+		         alert("播放结束");
+		    })*/
+		};
+	</script>
+<script>
+window.onload = function(){
+	$(".arror_return").click(function(){
+		//html获取链接上面的参数
+		function getQueryString(name){
+		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if (r!=null) return r[2];else return'';
+		}
+		var type = getQueryString('type');
+		if(type=='1'){
+			location.replace("/xcview/html/my_study.html");
+		}else if(type=='2'){
+			location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+		}else{
+			location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+		}
+		getQueryString('name');
+	});
+};
+</script>
+
+

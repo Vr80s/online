@@ -1,10 +1,10 @@
 package com.xczhihui.bxg.online.web.controller;
 
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.MessageService;
@@ -26,7 +26,7 @@ import java.text.ParseException;
  */
 @Controller
 @RequestMapping(value = "/online/message/")
-public class MessageController  {
+public class MessageController  extends AbstractController{
 
     @Autowired
     private MessageService messageService;
@@ -39,7 +39,7 @@ public class MessageController  {
     @RequestMapping(value="addFeedBack")
     @ResponseBody
     public OnlineResponse addFeedBack(String title,String describe,HttpServletRequest request){
-        messageService.addFeedBack(UserLoginUtil.getLoginUser(request).getId(), title, describe);
+        messageService.addFeedBack(getCurrentUser().getId(), title, describe);
         return OnlineResponse.newSuccessOnlineResponse("success");
     }
 
@@ -54,7 +54,7 @@ public class MessageController  {
     @RequestMapping(path="getMessageList",method= RequestMethod.GET)
     @ResponseBody
     public ResponseObject getMessageList(HttpSession s,Integer  type, Integer pageSize, Integer pageNumber) {
-        OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+        OnlineUser u =  getCurrentUser();
         Page<MessageShortVo> page=messageService.findMessagePage(u, type, pageSize, pageNumber);
         return ResponseObject.newSuccessResponseObject(page);
 
@@ -73,7 +73,7 @@ public class MessageController  {
     @ResponseBody
     public ResponseObject deleteMessage(HttpSession s,String id) throws ParseException, InvocationTargetException, IllegalAccessException {
 
-        OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+        OnlineUser u =  getCurrentUser();
         if(u == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录!");
         }
@@ -89,7 +89,7 @@ public class MessageController  {
     @RequestMapping(path="readMessage",method= RequestMethod.POST)
     @ResponseBody
     public ResponseObject readMessage(HttpServletRequest request,Integer type) throws ParseException, InvocationTargetException, IllegalAccessException {
-    	BxgUser user = UserLoginUtil.getLoginUser(request);
+    	BxgUser user = getCurrentUser();
         if(user == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录!");
         }
@@ -104,7 +104,7 @@ public class MessageController  {
     @RequestMapping(path="updateReadStatusById",method= RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateReadStatusById(String id, HttpServletRequest request) {
-        BxgUser user = UserLoginUtil.getLoginUser(request);
+        BxgUser user = getCurrentUser();
         if(user == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录!");
         }
@@ -120,7 +120,7 @@ public class MessageController  {
     @RequestMapping(path="findMessageCount",method= RequestMethod.GET)
     @ResponseBody
     public ResponseObject findMessageCount(HttpSession s){
-        OnlineUser user =  (OnlineUser)s.getAttribute("_user_");
+        OnlineUser user =  getCurrentUser();
         if(user == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录!");
         }
@@ -133,7 +133,7 @@ public class MessageController  {
     @RequestMapping(path="findNewestNotice",method= RequestMethod.GET)
     @ResponseBody
     public ResponseObject findNewestNotice(HttpSession s){
-        OnlineUser user =  (OnlineUser)s.getAttribute("_user_");
+        OnlineUser user =  getCurrentUser();
         return OnlineResponse.newSuccessOnlineResponse(messageService.findNewestNotice(user));
     }
 

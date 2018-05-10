@@ -141,7 +141,7 @@ $(function(){
         "</li>" +
         '{{/each}}';
     //文章详情
-    RequestService("/medical/doctor/getSpecialColumnDetailsById",'GET',{articleId:articleId},function(data){
+    RequestService("/doctor/getSpecialColumnDetailsById",'GET',{articleId:articleId},function(data){
     	
     	//左侧报道内容渲染
         $(".forum-detailInfo").html(template.compile(articleDetail)(data.resultObject));

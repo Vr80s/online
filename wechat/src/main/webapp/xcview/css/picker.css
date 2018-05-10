@@ -174,12 +174,25 @@ ul {
 .edit_one_put p{
 	text-align: right;
     font-size: 0.65rem;
-    width: 11.8rem;
+    width: 5.6rem;
     overflow: hidden;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 .edit_one_put{
-	margin-right: 0 !important;
+	margin-right: 0.26rem !important;
+}
+#detailed_address{
+	text-align: left;
+	font-size:0.28rem;
+	width: 100%;
+	float: right;
+	height: 2.8rem;
+	border: 0;
+	outline: none;
+	resize: none;
+	margin-top: 0.2rem;
+	color: #999;
+	background: #fff;
 }

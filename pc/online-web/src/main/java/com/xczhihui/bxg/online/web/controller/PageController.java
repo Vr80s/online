@@ -6,8 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,13 +37,6 @@ public class PageController {
     	mav.addObject("courserId",courserId);
     	return mav;
     }
-    //课程详情预览
-    @RequestMapping(value = "/courseDetailPreview/{courserId}",method= RequestMethod.GET)
-    public ModelAndView courseDetailPreview(@PathVariable String courserId,HttpServletRequest request,HttpServletResponse response){
-        ModelAndView mav=new ModelAndView("CourseDetailPreview");
-        mav.addObject("courserId",courserId);
-        return mav;
-    }
 
     @RequestMapping(value = "/storyDetail/{id}",method= RequestMethod.GET)
     public ModelAndView storyDetail(@PathVariable String id,HttpServletRequest request,HttpServletResponse response){
@@ -67,15 +58,15 @@ public class PageController {
         //Token token=  UCCookieUtil.readTokenCookie(request);
         //在manager端和web端再查看一下当前用户是否存在
         User user=managerUserService.findUserByLoginName(loginname);
-        request.getSession().setAttribute("_adminUser_",user);
+//        request.getSession().setAttribute("_adminUser_",user);
         //如果浏览器中获取有用户登录，接着在库里面查询此用户是管理员还是普通用户
-        if(user !=null){  //是管理员
-              if(type==1) //博问答管理员
-              {
-                  response.sendRedirect("/web/html/qusAndAnsDetailGuanLi.html?qid=" + qid);
-              } else {
-                  response.sendRedirect("/web/html/qusAndAnsDetailTouSu.html?qid=" + qid);
-              }
+        if(user !=null){
+            //管理
+            if(type==1){
+              response.sendRedirect("/web/html/qusAndAnsDetailGuanLi.html?qid=" + qid + "&ln=" + loginname);
+            } else {//投诉
+              response.sendRedirect("/web/html/qusAndAnsDetailTouSu.html?qid=" + qid + "&ln=" + loginname);
+            }
         }else{
            throw new RuntimeException("您不是管理员！");
             // response.sendRedirect("/web/html/404.html");

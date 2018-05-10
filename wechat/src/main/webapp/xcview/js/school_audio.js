@@ -10,7 +10,6 @@ var LecturerId="";
 var gradeName = "";
 var smallImgPath ="";
 var description ="";
-$(function(){
 
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -18,7 +17,7 @@ function stripHTML(str){
 }
 //	标签选中变色
 	
-	 $(".select_lable li").click(function(){
+$(".select_lable li").click(function(){
   	 $(this).toggleClass("active_color"); 
   });
   	 //星星五星好评
@@ -90,8 +89,8 @@ function stripHTML(str){
 		}
 	//  详情页的banner
 		var school_img = document.createElement("img");
-		school_img.src = data.resultObject.smallImgPath;
-		$(".play_video").append(school_img)
+		school_img.src = data.resultObject.smallImgPath + '?imageView2/2/w/750';
+		$(".play_video").append(school_img);
 	//  获取讲师id
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
@@ -104,9 +103,9 @@ function stripHTML(str){
 		if(data.resultObject.description == null || data.resultObject.description == ''){
 			$(".no_data").show();
 			$(".btn").hide()
-			$(".zhezhao").hide()
+			$(".zhezhao").hide();
 		}else{
-			$(".wrap p").html(data.resultObject.description)
+			$(".wrap p").html(data.resultObject.description);
 	
 		}
 	//	主讲人
@@ -120,39 +119,48 @@ function stripHTML(str){
 //判断简介的字长度
 		var h=$(".wrap1").height();
 		if(h>200){
-			$(".zhezhao1").hide()
-			$(".btn1").show()
-			$(".line_xian").hide()
+			$(".zhezhao1").hide();
+			$(".btn1").show();
+			$(".line_xian").hide();
 //			$(".wrap1").css({"height":"2rem","overflow":"hidden"})
 		}else{
-			$(".zhezhao1").hide()
-			$(".btn1").hide()
+			$(".zhezhao1").hide();
+			$(".btn1").hide();
 		}
 		
 		var h2=$(".wrap").height();
 		if(h2>200){
-			$(".zhezhao").hide()
-			$(".btn").show()
+			$(".zhezhao").hide();
+			$(".btn").show();
 //			$(".wrap").css({"height":"2rem","overflow":"hidden"})
 		}else{
-			$(".zhezhao").hide()
-			$(".btn").hide()
+			$(".zhezhao").hide();
+			$(".btn").hide();
 		}
 	});
 
-    //传ID courseId为接口的课程ID，评论列表
-    refresh();
+	/*document.setTitle = function(t) {
+        document.title = t;
+        var i = document.createElement('iframe');
+        // i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+          setTimeout(function(){
+            i.remove();
+          }, 9)
+        }
+        document.body.appendChild(i);
+      }
 
+      setTimeout(function(){
+        document.setTitle(gradeName);
+      }, 1000);*/
 
-    
-})
+      
  
-
-
 //JQ预加载分界线----------------------------------------------------------------------------------
-
-
 //刷新评论列表
+refresh()
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
@@ -161,13 +169,12 @@ function refresh(){
     },function(data) {
 //  	判断有无评论显示默认图片
 		if(data.resultObject.items.length==0){
-			$(".quie_pic").show()
+			$(".quie_pic").show();
 		}else{
-			$(".quie_pic").hide()
+			$(".quie_pic").hide();
 			$(".wrap_all_returned").css({"margin-bottom":"1.2rem"})
 		}
-    	
-    	
+    	console.log(data)
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
         //	回复弹窗
@@ -195,6 +202,7 @@ function refresh(){
     });
 }
 //评论
+
 function reportComment() {
 
     var arr=new Array();
@@ -208,7 +216,7 @@ function reportComment() {
     //var s = $('.active_color').val();
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        alert("内容不能为空")
+        alert("内容不能为空");
         return
     }
 
@@ -237,10 +245,9 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        alert("内容不能为空")
+        alert("内容不能为空");
         return
     }
-
     requestService("/xczh/criticize/saveReply",{
 
         content:comment_detailed,
@@ -296,7 +303,14 @@ function btn_zj_mianfei(){
 	var falg =authenticationCooKie();
 	var data_zj= $(".right_priceBtn").attr("data-zj")
 		if (falg==1002){
-			location.href ="/xcview/html/cn_login.html";		
+			
+			var current_href = window.location.href;
+			//保存当前页面到缓存
+			localStorage.setItem("order_page_html",current_href);
+
+        
+            location.href ="/xcview/html/evpi.html?course_id="+courseId+"&type="+2;  //完善信息
+			// location.href ="/xcview/html/cn_login.html?course_id="+courseId+"&type="+2; 注册页
 		}else if (falg==1005) {
 			location.href ="/xcview/html/evpi.html";
 		}else{
@@ -341,9 +355,23 @@ function btn_zj_mianfei(){
 	
 	}
 	
-	
-	
-	
+	//删除评论状态
+	function del(){
+	    //星星
+	    var star='../images/xing1.png';
+	    $('.my_impression1 img').attr('src',star);
+	    //主播演绎
+	    var star1='../images/face0.png';
+	    $('.my_impression2 img').attr('src',star1);
+	    //节目内容
+	    var star2='../images/face0.png';
+	    $('.my_impression3 img').attr('src',star2);
+	    //很赞
+	    $(".select_lable li").removeClass("active_color");
+	    my_impression1="";
+	    my_impression2="";
+	    my_impression3=""
+	}
 //	
 //	
 ////	<!--无专辑免费-->
@@ -421,27 +449,3 @@ function btn_zj_mianfei(){
 //function btn_purchase_myhave(){
 //	window.location.href="live_select_album.html?course_id="+course_id+"";
 //}
-
-
-
-
-
-
-
-//删除评论状态
-function del(){
-    //星星
-    var star='../images/xing1.png';
-    $('.my_impression1 img').attr('src',star);
-    //主播演绎
-    var star1='../images/face0.png';
-    $('.my_impression2 img').attr('src',star1);
-    //节目内容
-    var star2='../images/face0.png';
-    $('.my_impression3 img').attr('src',star2);
-    //很赞
-    $(".select_lable li").removeClass("active_color");
-    my_impression1="";
-    my_impression2="";
-    my_impression3=""
-}

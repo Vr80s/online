@@ -361,18 +361,4 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 	    }
 	}
 	
-	
-	
-	
-	public static void main(String[] args)
-    {
-        Calendar calendar = Calendar.getInstance();
-        Date date = new Date();
-        calendar.setTime(date);
-//        calendar.add(Calendar.WEEK_OF_YEAR, -1);
-        calendar.add(Calendar.YEAR, 1);
-        date = calendar.getTime();
-    }
-	
-	
 }

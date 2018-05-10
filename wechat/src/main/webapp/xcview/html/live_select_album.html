@@ -8,23 +8,22 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link rel="stylesheet" href="../css/animate.css" />
-<link rel="stylesheet" href="../css/live_select_aibum.css" />
-<link rel="stylesheet" href="../css/share/share.css" />
+<link rel="stylesheet" href="/xcview/css/animate.css" />
+<link rel="stylesheet" href="/xcview/css/live_select_aibum.css" />
+<link rel="stylesheet" href="/xcview/css/share/share.css" />
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
-
-	
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 </head>
     
 <body style="background:#F8F8F8;">
 <div class="wp">
 	<div class="wrap-header">
 		<div class="header">		
-			<p>课程</p>
+			<p>专辑</p>
 			<div class="arror_return z" onclick="javascript:history.go(-1);">
+			<!-- <div class="arror_return z" onclick="common_share_back();"> -->
 				<img src="../images/back icon.png"/>
 			</div>
 			<div class="header_news">
@@ -38,7 +37,7 @@
 			暂未开播
 		</div>-->
 		<div class="video_prompt_open">
-			<img src="../images/play_btn.png"/>
+			<img src="../images/play_btn.png" style="display: block;" />
 		</div>
 	</div>
 	<!--主讲人-->
@@ -100,11 +99,11 @@
 	</div>
 <!--详情开始-->
 	<ul class="my_details">
-		<li><span class="spanActive">详情</span><p></p></li>
-		<li><span>选集</span></li>
+		<li><span>详情</span><p></p></li>
+		<li><span class="spanActive">选集</span></li>
 	</ul>
 	<!--简介-->
-	<div class="my_details_content" style="display: block;">
+	<div class="my_details_content">
 		<div class="wrap_synopsis">	
 			<div class="my_synopsis">
 				<ul>
@@ -154,13 +153,13 @@
 			</div>		
 		</div>
 	<!--专辑选集-->
-		<div class="my_details_content limit_height">
+		<div class="my_details_content limit_height"  style="display: block;">
 			<ul id="select_album">
 				<script type="text/html" id="data_select_album">
 				{{each items as item i}}
-					<li>
+					<li value={{i}}>
 						<!--<a href="live_album.html?course_id={{item.id}}&direct_id={{item.directId}}&collection_id={{item.collectionId}}"></a>-->
-							<a href="javascript:;" onclick="jump_album_my()"></a>
+							<a href="javascript:;" onclick="jump_album_my(this,'{{item.id}}','{{item.directId}}')"></a>
 						<div class="limit_play_img z">
 							<img src="../images/play_img.png"/>
 						</div>
@@ -178,6 +177,7 @@
 		
 		</div>
 <!--详情结束-->
+ <div class="hide_discuss" style="display1: none !important;">
 	<!--评论-->
 	<div class="wrap_comment_title" onclick="btn_allComment()">
 		<p>评论</p>
@@ -316,7 +316,6 @@
 	</div>
 	<!--评论弹出框-->
 	<div class="bg_modal"></div>
-
 	<div class="wrapAll_comment">
 		<script type="text/html" id="id_show_xingxing">
 			<p class="set_title">发布评论</p>
@@ -373,6 +372,7 @@
 			</ul>
 		</script>
 	</div>	
+ </div>
 </div>
 	
 	<!--分享开始-->
@@ -418,17 +418,17 @@
 	<!--分享结束-->	
 
 </body>
-<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <!--<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>-->
-<script type="text/javascript" src="../js/live_select_album.js"></script>
+<script type="text/javascript" src="/xcview/js/live_select_album.js"></script>
 <!--公用弹框 -->
-<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
-<script type="text/javascript" src="../js/share/share.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/share/share.js"></script>
 <script>
 		//分享的信息
 var gradeName = "";

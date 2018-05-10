@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.xczhihui</groupId>
-    <artifactId>bxg-root-pom</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>root-pom</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>bxg-root-pom</name>
+    <name>root-pom</name>
     <url>http://www.ixincheng.com</url>
 
     <properties>
@@ -18,7 +18,7 @@
         <testFailureIgnore>false</testFailureIgnore>
 
         <spring-version>4.2.2.RELEASE</spring-version>
-        <jackson.version>2.4.4</jackson.version>
+        <jackson.version>2.8.0</jackson.version>
         <shrio-version>1.2.4</shrio-version>
         <dom4j-version>1.4-dev-8</dom4j-version>
         <commons-dbutils-version>1.6</commons-dbutils-version>
@@ -26,15 +26,17 @@
 
     <!-- 待聚合模块 -->
     <modules>
+        <module>../common-exception</module>
         <module>../user-center-common</module>
         <module>../user-center-api</module>
-        <module>../bxg-common-util</module>
-        <module>../bxg-common-support</module>
-        <module>../bxg-common-web</module>
+        <module>../common-util</module>
+        <module>../common-support</module>
+        <module>../common-pay</module>
+        <module>../common-web</module>
         <module>../online-api</module>
         <module>../online-common</module>
         <module>../medical-api</module>
-        <module>../../wechat-api</module>
+        <module>../../course-api</module>
     </modules>
 
     <dependencyManagement>
@@ -430,23 +432,40 @@
                 <version>4.1.1</version>
             </dependency>
             <!-- im相关 -->
-
+            <!--lombok-->
             <dependency>
-                <groupId>com.xczhihui</groupId>
-                <artifactId>bxg-common-util</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.18</version>
             </dependency>
 
             <dependency>
                 <groupId>com.xczhihui</groupId>
-                <artifactId>bxg-common-support</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <artifactId>common-util</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.xczhihui</groupId>
-                <artifactId>bxg-common-web</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <artifactId>common-support</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>common-web</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>online-common</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>common-exception</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

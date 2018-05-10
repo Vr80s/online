@@ -56,9 +56,5 @@ public class FatherToChildUtils {
         String out=head.toUpperCase()+in.substring(1,in.length()); 
         return out; 
     } 
-    
-    public static void main(String[] args) {
-    	
-	}
 
 }

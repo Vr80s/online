@@ -12,7 +12,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 <link rel="stylesheet" href="/xcview/css/help.css">
 <!--这段meta代码需要加上，移动端自适应缩放用-->
@@ -21,12 +21,21 @@
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 <!-- 刷新引入js -->
 <script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
-<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js"></script>
-<script type="text/javascript" src="/xcview/js/template.js"></script>
+<!-- <script src="/xcviews/js/common/swiper.jquery.min-1.11.2.js" type="text/javascript" charset="utf-8"></script> -->
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <script type="text/javascript" src="/xcview/js/help.js"></script>
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 
 </head>
 <body style="background:#efefef;">

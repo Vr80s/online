@@ -22,7 +22,8 @@
 	<!-- dubbo -->
 	<dubbo:application name="${dubbo.app.name}" />
 	<dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}" />
-	<dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}" />
+	<dubbo:protocol name="dubbo" host="${dubbo.protocol.host}"
+		port="${dubbo.protocol.port}" />
 	<dubbo:service interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
 		ref="userCenterAPI" timeout="${dubbo.consumer.timeout}" />
 

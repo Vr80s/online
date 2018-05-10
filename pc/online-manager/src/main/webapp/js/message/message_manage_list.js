@@ -163,7 +163,7 @@ function keyListener(e){
  */
 var result = true;
 function saveMessage(){
-//	debugger
+//
 	var content=$("#message_content").html();
 	
 	var subject=$("#subject").val();

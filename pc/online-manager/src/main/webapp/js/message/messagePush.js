@@ -7,7 +7,7 @@ $(function() {
 	nowTime=show();
     $("#addMobileSearch").val(1);
     $("#updateMobileSearch").val(1);
-	debugger
+
     searchJson.push('{"tempMatchType":1,"propertyName":"search_type","propertyValue1":"1","tempType":Integer}');
     loadBanner2List();
     createDatetimePicker2($(".datetime-picker"),"yy-mm-dd","HH:mm:ss");
@@ -153,11 +153,7 @@ function loadBanner2List(){
  			 mask();
  			 $("#addBanner2-form").attr("action", basePath+"/message/messagePush/save");
  	            $("#addBanner2-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+                    data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#addBanner2Dialog").dialog("close");

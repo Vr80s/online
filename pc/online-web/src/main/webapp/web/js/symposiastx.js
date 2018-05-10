@@ -26,7 +26,7 @@ $(function(){
 	
 	
 	    // 报道详情页面数据请求
-	    RequestService("/medical/doctor/getSpecialColumnsByPage","GET",{
+	    RequestService("/doctor/getSpecialColumnsByPage","GET",{
 	    	current:current,
 	    	size:size,
 	    	doctorId:doctorId
@@ -45,7 +45,7 @@ $(function(){
 	    
 	    
 	     // 获取热门专栏作者
-	    RequestService("/medical/doctor/getHotSpecialColumnAuthor","GET",null,function(data){
+	    RequestService("/doctor/getHotSpecialColumnAuthor","GET",null,function(data){
 	        if(data.success==false ||data.resultObject==null|| data.resultObject.length == 0){
 	           $('#doctor_book_list').addClass('hide')
 	        }else{
@@ -56,7 +56,7 @@ $(function(){
 	    
 	    
 	    //获取作者医师信息
-	     RequestService("/medical/doctor/getDoctorById","GET",{
+	     RequestService("/doctor/getDoctorById","GET",{
 	     	id:doctorId
 	     },function(data){
 	    	console.log(data);

@@ -6,7 +6,7 @@ import java.util.List;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 
-import com.xczhihui.bxg.online.api.po.RewardStatement;
+import com.xczhihui.bxg.online.common.domain.RewardStatement;
 import com.xczhihui.bxg.online.common.domain.Reward;
 
 public interface RewardService {

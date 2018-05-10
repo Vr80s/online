@@ -1,6 +1,5 @@
 package com.xczh.consumer.market.service;
 
-import com.sun.jersey.json.impl.provider.entity.JSONArrayProvider;
 import com.xczh.consumer.market.bean.Apply;
 
 /**

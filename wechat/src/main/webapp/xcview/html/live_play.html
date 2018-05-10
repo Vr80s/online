@@ -9,12 +9,21 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!--<link rel="stylesheet" href="../css/animate.css" />-->
-<link rel="stylesheet" href="../css/live_paly.css" />
-<link rel="stylesheet" href="../css/share/share.css" />
+<link rel="stylesheet" href="/xcview/css/live_paly.css" />
+<link rel="stylesheet" href="/xcview/css/share/share.css" />
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
-
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
     
 <body style="background:#F8F8F8;">
@@ -22,7 +31,8 @@
 	<div class="wrap-header">
 		<div class="header">		
 			<p>直播</p>
-			<div class="arror_return z" onclick="javascript:history.go(-1);">
+			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
+			<div class="arror_return z" onclick="common_share_back();">
 				<img src="../images/back icon.png"/>
 			</div>
 			<div class="header_news">
@@ -418,15 +428,15 @@
 	<!--分享结束-->	
 
 </body>
-<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
 
 <!--公用弹框 -->
 
-<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
 <script type="text/javascript" src="../js/share/share.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="../js/live_play.js"></script>
 <script>

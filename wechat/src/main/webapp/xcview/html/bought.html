@@ -13,22 +13,34 @@
 <meta name="description" content="" />
 
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 
 <link rel="stylesheet" href="/xcview/css/bought.css">
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="/xcview/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="/xcview/js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <script type="text/javascript" src="/xcview/js/bought.js"></script>
+<!-- 公共跳转的 -->
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
 <!--刷新 -->
 <link rel="stylesheet" href="/xcview/css/mescroll.min.css">
-<script type="text/javascript" src="/xcview/js/mescroll.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mescroll.min.js"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 	<style type="text/css">
 		
 		.bought{
@@ -106,7 +118,7 @@
 				{{if item.collection}}
 			<div class="bought_main_list div1" data-jump="{{item.id}}">
 				<div class="bought_list_left">
-						<img src="../images/zhibo1.jpg" class="img0" />					
+						<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />				
 						{{if item.type==1}}
 							<img src="/xcview/images/tv_auto.png" class="img1" />		
 							{{else}}
@@ -124,7 +136,7 @@
 				{{else}}
 				<div class="bought_main_list div2" data-jump="{{item.id}}">
 					<div class="bought_list_left">
-						<img src="{{item.smallImgPath}}" class="img0" />
+						<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />
 						{{if item.type==1}}
 							<img src="/xcview/images/tv_auto.png" class="img1" />		
 							{{else}}
@@ -141,7 +153,7 @@
 			{{else if item.type==3 && item.lineState==3}}
 			<div class="bought_main_list div3" data-jump="{{item.id}}">
 				<div class="bought_list_left">
-					<img src="{{item.smallImgPath}}" class="img0" />
+					<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />
 		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />
 				</div>
 				<div class="bought_list_right">
@@ -155,7 +167,7 @@
 			{{else if item.type==3 && item.lineState==2}}
 			<div class="bought_main_list div4" data-jump="{{item.id}}">
 				<div class="bought_list_left">
-					<img src="{{item.smallImgPath}}" class="img0" />
+					<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />
 		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />					
 				</div>
 				<div class="bought_list_right">
@@ -169,7 +181,7 @@
 				{{else if item.type==3 && item.lineState==1}}
 				<div class="bought_main_list div5" data-jump="{{item.id}}">
 					<div class="bought_list_left">
-						<img src="{{item.smallImgPath}}" class="img0" />
+						<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />
 		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
 					</div>
 					<div class="bought_list_right">
@@ -182,7 +194,7 @@
 				{{else if item.type==3 && item.lineState==4}}
 				<div class="bought_main_list div5_1" data-jump="{{item.id}}">
 					<div class="bought_list_left">
-						<img src="{{item.smallImgPath}}" class="img0" />
+						<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />
 		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
 					</div>
 					<div class="bought_list_right">
@@ -195,7 +207,7 @@
 				{{else if item.type==3 && item.lineState==5}}
 				<div class="bought_main_list div5_2" data-jump="{{item.id}}">
 					<div class="bought_list_left">
-						<img src="{{item.smallImgPath}}" class="img0" />
+						<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />
 		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
 					</div>
 					<div class="bought_list_right">
@@ -208,7 +220,7 @@
 				{{else }}
 				<div class="bought_main_list div6" data-jump="{{item.id}}">
 					<div class="bought_list_left">
-						<img src="{{item.smallImgPath}}" class="img0" />
+						<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img0" />
 		                 <img src="/xcview/images/offline.png" alt="" class="img1" />
 
 					</div>

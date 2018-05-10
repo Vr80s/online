@@ -1,12 +1,11 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.Focus;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.FocusDao;
 import com.xczhihui.bxg.online.web.service.FocusService;
-import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

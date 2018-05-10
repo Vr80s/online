@@ -113,7 +113,7 @@ function loadCourseAndTree(courseUrl,url,callback){
 var courseId;
 var courseLists = new Array();
 function loadTreeByCourse(obj,cId,courseName,level,url){
-	//debugger;
+	//;
 	courseId = cId;
 	/* var objId = "treeDemo_"+courseId;
 	var treeUrl = $("#getTree").html();
@@ -209,7 +209,7 @@ function zTreeOnCheck(event, treeId, treeNode) {
 	var objId = "treeDemo_"+courseId;
 	var treeUrl = $("#getTree").html();
 	isUpdateClickForCourseSystem = true;
-	//debugger;
+	//;
     if(treeNode.checked){//选中
     	if(treeUrl.indexOf(objId)==-1){
     		$("#getTree").append('<ul id="'+objId+'" class="ztree" style="font-size: 13px; font-weight: bold;width: 250px;"></ul>');

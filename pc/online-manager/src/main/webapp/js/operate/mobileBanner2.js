@@ -15,7 +15,7 @@ $(function(){
             return false;
         }
 	}
-	//debugger;
+	//;
 	/** 职业课列表begin */
     var searchCase_P = new Array();
     
@@ -131,7 +131,7 @@ $(function(){
 		
 		var banneType =  $(this).attr("title");
 		
-		debugger;
+		;
 	
 		$("#bannerType").val(banneType);
 		
@@ -209,13 +209,13 @@ $("#addword-form").on("change","#imgPath_file",function(){
 		this.value="";
 		return;
 	}
- 	debugger
+
     mask();
  	ajaxFileUpload(this.id,basePath+"/link/word/upload", function(data){
  		unmask();
  		//alert(data.success);
  		if (data.error == 0) {
- 			debugger
+
  			alert("上传成功");
  		}else {
  			alert(data.message);
@@ -244,13 +244,13 @@ $("#addExcel-form").on("change","#excel_file",function(){
 //		this.value="";
 //		return;
 //	}
- 	debugger
+
     mask();
  	ajaxFileUpload(this.id,basePath+"/link/word/importExcel", function(data){
  		unmask();
  		//alert(data.success);
  		if (data.error == 0) {
- 			debugger
+
  			layer.alert(data.excel_error);
  		}else {
  			alert(data.message);
@@ -267,7 +267,14 @@ function search(){
 
 //新增框
 $(".add_bx").click(function(){
-	debugger;
+	
+	$("#yqti_div").hide();
+	$("#yqti_textarea").val("");
+	$("#add_url").attr("placeholder","");
+	
+	
+	//hhahahahhah(3);
+	;
 	mobileBannerForm.resetForm();
 	//$(".remove").trigger("click");
 	$(".clearfixAdd").remove();
@@ -278,22 +285,21 @@ $(".add_bx").click(function(){
 
 	var dialog = openDialog("addMobileBannerDialog","dialogAddMobileBannerDiv","新增",580,500,true,"确定",function(){
 		
-		debugger;
+		;
 		if($("#addMobileBanner-form").valid()){
 			 mask();
 			 $("#addMobileBanner-form").attr("action", basePath+"/operate/mobileBanner/addMobileBanner");
 	            $("#addMobileBanner-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	}
+	            	data = getJsonData(data);
 	                unmask();
 	                if(data.success){
 	                    $("#addMobileBannerDialog").dialog("close");
 	                    layer.msg(data.resultObject);
 	                    freshTable(mobileBannerTable);
 	                }else{
+	                	if(data.errorMessage.indexOf("expected")!=-1){
+	                		alertInfo("加入的信息有误");
+	                	}
 	                	alertInfo(data.errorMessage);
 	               }
 	         });
@@ -303,27 +309,123 @@ $(".add_bx").click(function(){
 	});
 });
 
+
+function linkTypeChange(obj){
+	$("#yqti_div").show();
+	var linkTypeValue = $(obj).val();
+	if(linkTypeValue == 1 || linkTypeValue == 2){ //
+		$("#yqti_textarea").val("提示：暂不支持活动和专题");
+	}else if(linkTypeValue == 3){ //
+		$("#yqti_textarea").val("提示：可在云课程管理中的直播、点播、线下课管理中找到对应的课程id");
+		$("#add_url").attr("placeholder","请填写课程id");
+	}else if(linkTypeValue == 4){ //
+		$("#yqti_textarea").val("提示：可在主播管理中复制主播id");
+		$("#add_url").attr("placeholder","请填写主播id");
+	}else if(linkTypeValue == 5){ //
+		$("#yqti_textarea").val("提示：在文件管理中，下载连接说明文档。如有疑问，询问开发");
+	}
+}
+
+function hhahahahhah(linkTypeValue){
+	if(linkTypeValue == 1 || linkTypeValue == 2){ //
+		$("#yqti_textarea").val("提示：暂不支持活动和专题");
+	}else if(linkTypeValue == 3){ //
+		$("#yqti_textarea").val("提示：可在云课程管理中的直播、点播、线下课管理中找到对应的课程id");
+		$("#add_url").attr("placeholder","请填写课程id");
+	}else if(linkTypeValue == 4){ //
+		$("#yqti_textarea").val("提示：可在主播管理中复制主播id");
+		$("#add_url").attr("placeholder","请填写主播id");
+	}else if(linkTypeValue == 5){ //
+		$("#yqti_textarea").val("提示：在文件管理中，下载连接说明文档。如有疑问，询问开发");
+	}
+}
+
+
+function linkTypeChangeEdit(obj){
+	$("#yqti_div_edit").show();
+	var linkTypeValue = $(obj).val();
+	lalalalalalala(linkTypeValue);
+}
+
+
+function lalalalalalala(linkTypeValue){
+	if(linkTypeValue == 1 || linkTypeValue == 2){ //
+		$("#yqti_textarea_edit").val("提示：暂不支持活动和专题");
+	}else if(linkTypeValue == 3){ //
+		$("#yqti_textarea_edit").val("提示：可在云课程管理中的直播、点播、线下课管理中找到对应的课程id");
+		$("#update_url").attr("placeholder","请填写课程id");
+	}else if(linkTypeValue == 4){ //
+		$("#yqti_textarea_edit").val("提示：可在主播管理中复制主播id");
+		$("#update_url").attr("placeholder","请填写主播id");
+	}else if(linkTypeValue == 5){ //
+		$("#yqti_textarea_edit").val("提示：在文件管理中，下载连接说明文档。如有疑问，询问开发");
+	}
+}
+
+
+/**
+ * 通过key 得到value  course_id=100 通过course_id 得到 100
+ * @param search
+ * @param name
+ * @returns
+ */
+function getValueByStr(search,name) {
+//    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+//    var r = search.match(reg);
+//    if (r != null) return unescape(r[2]); return null;
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = "";
+    if(search.indexOf("?")!=-1){
+       r = search.substr(search.indexOf("?")+1).match(reg);
+    }else{
+       r = search.match(reg);
+    }
+    if (r != null) return unescape(r[2]); return null;
+}
+
 function updateMobileBanner(obj){
+	
+	;
+	//$("#yqti_div_edit").hide();
+	$("#yqti_textarea_edit").val("");
+	$("#update_url").attr("placeholder","");
+	
 	var oo = $(obj).parent().parent().parent();
 	var row = mobileBannerTable.fnGetData(oo); // get datarow
 	mobileBannerFormEdit.resetForm();
 	$("#update_name").val(row.name);
-	$("#update_url").val(row.url);
 	$("#update_imgPath").val(row.imgPath);
 	$("#update_id").val(row.id);
-
+	
 	var linkType = row.linkType;
+	
+	var params = row.url;
+	
+	
+	;
+	//把这个伟大的url截取一下
+    if(linkType == 3){
+		var courseId = getValueByStr(params,"course_id");
+		$("#update_url").val(courseId);
+    }else if(linkType == 4){
+    	var userLecturerId = getValueByStr(params,"userLecturerId");
+    	$("#update_url").val(userLecturerId);
+    }else if(linkType == 4){
+    	$("#update_url").val(params);
+    }
+    lalalalalalala(linkType);
+	
 	/**
 	 *  跳转
 	 */
 	for(i=0;i<$("#update_linkType option").length;i++){
 		if($("#update_linkType option").eq(i).val()==linkType){
 			//$("#show_userLecturerId").text($("#view_mapList option").eq(i).text());
-		
 			$("#update_linkType option").eq(i).attr("select","selected"); 
 			$("#update_linkType").val(linkType);
 		}
     }
+
 	reviewImage("update_imgPath_file",row.imgPath);
 	
 	var dialog = openDialog("updateMobileBannerDialog","dialogUpdateMobileBannerDiv","修改",580,500,true,"确定",function(){
@@ -331,11 +433,7 @@ function updateMobileBanner(obj){
 			 mask();
 			 $("#updateMobileBanner-form").attr("action", basePath+"/operate/mobileBanner/updateMobileBannerById");
 	            $("#updateMobileBanner-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	}
+	            	data = getJsonData(data);
 	                unmask();
 	                if(data.success){
 	                    $("#updateMobileBannerDialog").dialog("close");

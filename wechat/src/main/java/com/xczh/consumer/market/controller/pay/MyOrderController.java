@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.pay;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,14 +18,9 @@ import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.service.WxcpPayFlowService;
-import com.xczh.consumer.market.service.WxcpWxRedpackService;
-import com.xczh.consumer.market.service.WxcpWxTransService;
-import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.service.IOrderService;
 
 @Controller
 @RequestMapping("/xczh/order")
@@ -32,25 +28,16 @@ public class MyOrderController {
 	@Autowired
 	private OnlineOrderService onlineOrderService;
 	@Autowired
-	private OnlineUserService onlineUserService;
-	@Autowired
-	private WxcpClientUserWxMappingService wxService;
-	@Autowired
-	private WxcpPayFlowService wxcpPayFlowService;
-	@Autowired
-	private WxcpWxRedpackService wxcpWxRedpackService;
-	@Autowired
-	private WxcpWxTransService wxcpWxTransService;
+	private IOrderService orderService;
 	@Autowired
 	private AppBrowserService appBrowserService;
 	
 	@Value("${rate}")
 	private int rate;
+
 	/**
 	 * 生成订单  	订单来源，1：pc 2：h5 3:android 4 ios 5 线下 6 工作人员
 	 * @param req
-	 * @param res
-	 * @param params  
 	 * @return
 	 * @throws Exception
 	 */
@@ -58,21 +45,24 @@ public class MyOrderController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject saveOnlineOrder(HttpServletRequest req,
-			@RequestParam("courseId")Integer courseId,@RequestParam("orderFrom")Integer orderFrom
+			@RequestParam("courseId")Integer courseId,
+			@RequestParam("orderFrom")Integer orderFrom
 			)throws Exception{
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
-		return onlineOrderService.addOrder(courseId,user.getId(),orderFrom);
+		Order order = orderService.createOrder(user.getUserId(), courseId, orderFrom);
+		Map returnMap = new HashMap();
+		returnMap.put("orderNo", order.getOrderNo());
+		returnMap.put("orderId",order.getId());
+		returnMap.put("currentPrice", order.getPrice());
+		return ResponseObject.newSuccessResponseObject(returnMap);
 	}
-	
 	/**
 	 * 根据订单id获取信息
 	 * @param req
-	 * @param res
-	 * @param params
 	 * @return
 	 * @throws Exception
 	 */
@@ -88,8 +78,9 @@ public class MyOrderController {
 		 * 返回给前台熊猫币
 		 */
 		OnlineOrder order = (OnlineOrder) onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId).getResultObject();
-		order.setActualPay(order.getActualPay()*rate);
-		
+		if(order!=null) {
+			order.setActualPay(order.getActualPay()*rate);
+		}
 		return ResponseObject.newSuccessResponseObject(order);
 	}
 	
@@ -143,7 +134,6 @@ public class MyOrderController {
 	@ResponseBody
 	public ResponseObject consumptionItem(HttpServletRequest req,
                                           HttpServletResponse res) throws Exception{
-
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");

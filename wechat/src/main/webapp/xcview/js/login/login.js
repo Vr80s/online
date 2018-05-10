@@ -51,11 +51,6 @@ function sanfangLogin(){
 	location.href = "/xczh/wxlogin/publicWechatAndMobile";
 }
 
-
-
-
-
-
 /*******  新的接口  *************/
 
 /**
@@ -112,7 +107,6 @@ function login(){
 			 * 添加 所有关于用户的缓存
 			 */
 			commonLocalStorageSetItem(data);
-			
 			/**
 			 * 	  判断用户是否存在unindid，
 			 * 		如果存在说明绑定了微信号。
@@ -123,50 +117,37 @@ function login(){
 			if(wxOrbrower == "wx"){
 				 /* 
 				  * 需要获取下用户信息啦，并且需要传递用户名和密码过去
+				  *  entryType 1 表示从登录页面进入首页   2 表示从注册页面进入完善头像页面
 				  */
-				location.href = "/xczh/wxlogin/getCurrentWechatOpenId?username="+number;
+				location.href = "/xczh/wxlogin/getCurrentWechatOpenId?entryType=1";
 			}else{
-				/*
-				 * 跳转到分类
-				 */
-
-				location.href = "/xcview/html/home_page.html";
-				
-				/**
-				 * 如果是分享页面的话，就去分享页面了
-				 */
-//				var share =  sessionStorage.getItem("share");
-//				var shareCourseId =  sessionStorage.getItem("shareCourseId");
-//				
-//				
-//				 /**
-//				  * 需要获取当前微信的openId,并且传递要跳转页面的参数
-//				  */
-//				if(access == "brower"){
-//					if(stringnull(share) && share == "liveDetails"){  //liveDetails bunchDetails
-//						sessionStorage.removeItem("share");
-//						location.href = "/bxg/xcpage/courseDetails?courseId="+shareCourseId;
-//						return;
-//					}else if(stringnull(share) && share == "bunchDetails"){  //xcviews/html/particulars.html?courseId=299
-//						sessionStorage.removeItem("share");
-//						location.href = "/xcviews/html/particulars.html?courseId=" + shareCourseId;
-//						return;
-//					}else if(stringnull(share) && share == "foresshow"){
-//						sessionStorage.removeItem("share");
-//						location.href = "/xcviews/html/foreshow.html?course_id=" + shareCourseId;
-//						return;
-//					}
-//				}else if(access == "wx"){
-//					sessionStorage.removeItem("share");
-//					sessionStorage.removeItem("shareCourseId");
-//					location.href = "/bxg/wxjs/h5BsGetCodeUrlAndBase" +
-//					"?share="+share+"&courseid="+courseid+"" +
-//					"&shareCourseId="+shareCourseId;
+				var orderPageHtml = sessionStorage.getItem("order_page_html");
+//				if(stringnull(orderPageHtml)){
+//					alert(orderPageHtml);
+//					sessionStorage.setItem("order_page_html","");
+//					location.replace(orderPageHtml);
+//				}else{
+//					//到登录页面的入口   被拦截后，回到注册页面，然后用户可以注册，
+//					location.href = "/xcview/html/home_page.html";
 //				}
+				
+				var type = getQueryString('type');
+				getQueryString(type);
+
+				if(type=='1'){
+					location.href="/xcview/html/school_play.html?course_id="+courseId+"&type="+1;
+				}else if(type=='2'){
+					location.href ="/xcview/html/school_audio.html?course_id="+courseId+"&type="+2;
+				}else if(type=='3'){
+					ocation.href ="/xcview/html/school_class.html?course_id="+courseId+"&type="+3;
+				}else{
+					location.href = "/xcview/html/home_page.html";
+				}
+				
+				// location.href = "/xcview/html/home_page.html";
+
 			}
 		} else {
-//			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>帐号或密码错误</div></div></div>";
-//			setTimeout(function(){$(".vanish").hide();},1500);
 			webToast(data.errorMessage,"middle",1500);
 		}
 	});

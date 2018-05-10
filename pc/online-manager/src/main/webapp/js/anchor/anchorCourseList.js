@@ -3,7 +3,7 @@ var anchorRecTable;//推荐主播列表
 var courseForm;//添加课程表单
 
 $(function() {
-    debugger;
+    ;
     createDatePicker($(".datetime-picker"),"yy-mm-dd");
     document.onkeydown = function (event) {
         if (event.keyCode == 13) {
@@ -26,6 +26,7 @@ $(function() {
         { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
         { "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
         { "title": "价格", "class":"center","width":"8%","sortable":false,"data": 'price'},
+        { "title": "默认学习人数", "class":"center","width":"10%","sortable":false,"data": 'defaultStudentCount'},
         { "title": "直播时间", "class": "center", "width": "10%","sortable":false,"data": 'startTime',"mRender":function(data,display,row){
             if(data!=null&&data!=""){
                 return getLocalTime(data);
@@ -80,18 +81,20 @@ $(function() {
         { "sortable": false,"class": "center","width":"9%","title":"操作","mRender":function (data, display, row) {
                 if(row.status=="1"&&row.applyStatus=="1"){
                     var str = '<div class="hidden-sm hidden-xs action-buttons">'+
+                    '<a class="blue" href="javascript:void(-1);" title="设置默认学习人数" onclick="updateDefaultStudentCount(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a></div> ';
 
                     return str;
                 }else if(row.status=="0"&&row.applyStatus=="1"){
                     return '<div class="hidden-sm hidden-xs action-buttons">'+
+                    '<a class="blue" href="javascript:void(-1);" title="设置默认学习人数" onclick="updateDefaultStudentCount(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a></div> '
                 }
             }}
     ];
 
     P_courseTable = initTables("courseTable", basePath + "/anchor/courseAnchor/courseList", objData, true, true, 0, null, searchCase_P, function (data) {
-        debugger;
+        ;
         var iDisplayStart = data._iDisplayStart;
         var countNum = data._iRecordsTotal;//总条数
         pageSize = data._iDisplayLength;//每页显示条数
@@ -138,3 +141,53 @@ function updateStatus(obj){
         freshTable(P_courseTable);
     });
 };
+
+
+/**
+ * 修改默认学习人数。啊啊啊啊啊
+ * @param obj
+ */
+function updateStatus(obj){
+
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo); // get datarow
+    ajaxRequest(basePath+"/cloudclass/course/updateStatus",{"id":row.courseId},function(data){
+        console.log(data);
+        if(data.success==false){
+            layer.msg(data.errorMessage);
+        }
+        freshTable(P_courseTable);
+    });
+};
+
+/**
+ * Description：修改默认值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateDefaultStudentCount(obj){
+	;
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo);
+    
+    $("#UpdateRecommendSort_id").val(row.courseId);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","设置默认学习人数",350,300,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/cloudclass/course/updatedefaultStudent");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                data = getJsonData(data);
+                unmask();
+                if(data.success){
+                    $("#recommendSort").val("");
+                    $("#recommendTime").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    freshTable(P_courseTable);
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
+};
+

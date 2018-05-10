@@ -134,8 +134,6 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 		
 		return false;
 	} 
-	
-    
     
     var urlparm = {
 		username : number,
@@ -151,9 +149,24 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 	 */
 	requestService(access_url, urlparm, function(data) {
 		if (data.success) {
+			/**
+			 * 添加信息
+			 * @returns
+			 */
 			commonLocalStorageSetItem(data);
-			
-			location.href = "/xcview/html/heads_nicknames.html";
+			//是否是微信浏览器
+			if(is_weixin()){
+				 /* 
+				  * 需要获取下用户信息啦，并且需要传递用户名和密码过去
+				  * 	entryType 1 表示从登录页面进入首页   2 表示从注册页面进入完善头像页面
+				  */
+				location.href = "/xczh/wxlogin/getCurrentWechatOpenId?entryType=2";
+			}else{
+				/*
+				 * 跳转到分类
+				 */
+				location.href = "/xcview/html/heads_nicknames.html";
+			}	
 		} else {
 			webToast(data.errorMessage,"middle",1500);				
 		}
@@ -161,21 +174,32 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
 	
 });
 
-
-
 /*document.getElementById("enter_btn").addEventListener("tap", function() {
 	
-	
-	
-	
 })*/
-
 
 /*
  * 返回登录页
  */
 $(".enroll,.return").click(function(){
-	location.href = "/xcview/html/enter.html";
+	
+	var type = getQueryString('type');
+	getQueryString(type);
+
+	if(type=='1'){
+		location.href="/xcview/html/enter.html?course_id="+courseId+"&type="+1;
+	}else if(type=='2'){
+		location.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+2;
+	}else if(type=='3'){
+		ocation.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+3;
+	}else{
+		location.href = "/xcview/html/enter.html";
+	}
+
+	// location.href = "/xcview/html/enter.html";
+
+	// location.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+2;
+// location.href="/xcview/html/school_play.html?course_id="+courseId+"&type="+1;
 })
 
 //$(".check02_a").click(function(){

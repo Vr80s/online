@@ -1,6 +1,8 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 
@@ -28,14 +30,6 @@ public class CourseDaoTest extends TestCase {
     }
 
     @Test
-    public void testGetGoodCriticizSum() throws Exception {
-       int a= dao.getGoodCriticizSum(221);
-
-            System.out.println(a);
-
-    }
-    
-    @Test
     public void testGetCoursesByCollectionId() throws Exception {
        
     	List<Integer> list = videoDao.getCoursesIdListByCollectionId(733);
@@ -43,5 +37,6 @@ public class CourseDaoTest extends TestCase {
 
     	System.out.println(list.size());
     }
-    
+
+
 }

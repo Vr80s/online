@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.beanutils.BeanUtils;
+import com.xczhihui.user.center.bean.ItcastUser;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -21,29 +21,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.CacheService;
+import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.common.util.SLEmojiFilter;
+import com.xczhihui.common.util.enums.ThirdPartyType;
+import com.xczhihui.common.util.enums.UserUnitedStateType;
+import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import com.xczhihui.user.center.bean.TokenExpires;
+import com.xczhihui.course.model.WeiboClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
+
 import weibo4j.Oauth;
 import weibo4j.Users;
 import weibo4j.http.AccessToken;
 import weibo4j.http.HttpClient;
 import weibo4j.model.PostParameter;
-import weibo4j.model.User;
 import weibo4j.model.WeiboException;
 import weibo4j.util.WeiboConfig;
-
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
-import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
 
 /**
  * 用户controller
@@ -213,9 +211,10 @@ public class WeiBoThirdPartyController {
 		    	}
 		    }
 			
+		    LOGGER.info("{}{}{}{}{}{}{}{}{}{}{}{}======userId:"+userId);
+		    
 			Map<String,String> mapRequest = new HashMap<String,String>();
 			mapRequest.put("type",ThirdPartyType.WEIBO.getCode()+"");
-			
 			
 //			Oauth oauth = new Oauth();
 			/**
@@ -298,9 +297,7 @@ public class WeiBoThirdPartyController {
 				}else if(!StringUtils.isNotBlank(wcum.getUserId())){
 					
 					LOGGER.info("没有绑定了用户信息了"+wcum.getUserId());
-					
-					
-					if(userId!=null){  // 绑定成功
+					if(StringUtils.isNotBlank(userId)){  // 绑定成功
 		            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
 		            	 /**
 		            	  * 更改qq信息	--》增加用户id
@@ -310,10 +307,8 @@ public class WeiBoThirdPartyController {
 		 			}else{
 		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 		 			}
-					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 					mapRequest.put("unionId",uId+"");
-					
-					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
+					return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 				}
 			} catch (Exception  e) {
 				e.printStackTrace();
@@ -354,11 +349,8 @@ public class WeiBoThirdPartyController {
 		 */
 		
 		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			//设置登录标识
-			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
 			String model = req.getParameter("model");
 			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());

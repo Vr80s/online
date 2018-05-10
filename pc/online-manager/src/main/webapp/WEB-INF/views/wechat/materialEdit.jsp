@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
 <link href="/js/layer/skin/layer.css" type="text/css" />	
-<script type="text/javascript" src="js/boxueshe/writingEdit.js"></script>
+<script type="text/javascript" src="js/headline/writingEdit.js"></script>
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];

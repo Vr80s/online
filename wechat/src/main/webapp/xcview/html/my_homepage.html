@@ -12,15 +12,24 @@
 <!--弹框引入-->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-<link rel="stylesheet" href="../css/my_homepage.css" />
-
+<link rel="stylesheet" href="/xcview/css/my_homepage.css" />
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
 <!--公用-->
-<!--y--float:right;  z--float:left;  both--clear:both;-->
+<!--y-float:right;  z-float:left;  both-clear:both;-->
 <body style="background:#F8F8F8;">
 	
 	<!--头部开始-->
@@ -33,9 +42,7 @@
 					主播工作台 &nbsp;>
 				</div>
 				<div class="both"></div>
-				<img src="" alt="" class="img0"
-						 onclick="location.href ='persons.html'"
-						 id="smallHeadPhoto" />
+				<img src="" alt="" class="img0" onclick="location.href ='persons.html'" id="smallHeadPhoto" />
 				<p class="p" id="p_name"></p>
 				<!-- </script> -->
 			</div>
@@ -47,7 +54,7 @@
 	<div class="my_main">
 		<ul>
 
-			<li>
+			<li onclick="go_cnlogin()">
 				<p class="p0" id="xmbNumber">0</p>
 
 				<p class="p1">熊猫币</p>
@@ -145,7 +152,7 @@
 				<p>学习</p>
 			</li>
 			<li>
-				<a href="discovery.html" class="footer_three"></a>
+				<a href="discovery.html" class="footer_three" style="height: 0.42rem;margin-top: 0.13rem;background: url(../images/discovery_three.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-bottom: 0.04rem;"></a>
 				<p>发现</p>
 			</li>
 			<li>
@@ -158,11 +165,11 @@
 
 
 </body>
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
-<script type="text/javascript" src="/xcview/js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <script type="text/javascript" src="/xcview/js/my_homepage.js?v=wechat_1.11111.1"></script>
 
 

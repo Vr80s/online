@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlipayConfig {
 	// 商户appid
-	@Value("${alipay.appid}")
+	@Value("${alipay.app.id}")
 	public  String APPID;
 	// 私钥 pkcs8格式的
-	@Value("${alipay.rsaprivate_key}")
+	@Value("${alipay.merchant.private.key}")
 	public  String RSA_PRIVATE_KEY;
 	// 服务器异步通知页面路径 需http://或者https://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
 	@Value("${alipay.notify_url}")
@@ -28,7 +28,7 @@ public class AlipayConfig {
 	// 返回格式
 	public  String FORMAT = "json";
 	// 支付宝公钥
-	@Value("${alipay.alipay_public_key}")
+	@Value("${alipay.alipay.public.key}")
 	public  String ALIPAY_PUBLIC_KEY ;
 	// 日志记录目录
 	public  String log_path = "/log";

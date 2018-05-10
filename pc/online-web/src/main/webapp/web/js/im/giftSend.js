@@ -62,7 +62,7 @@ function onMessage(msg) {
 	        var text = Strophe.getText(body);
 	        text = text.replaceAll("&quot;","\"");
         	data = JSON.parse(text);
-        	debugger;
+        	
         	createGiftList(data);
     	}catch(err){
 //        	console.info(err);
@@ -77,6 +77,41 @@ function repalceAll(str,rstr,arstr){
 	}
 	return str;
 }
+
+
+function getGiftList(){
+	RequestService("/gift/getGift", "GET", {
+	}, function(data) {
+		
+		var gifts ="";
+		
+		for (var i = 0; i < data.resultObject.length; i++) {
+			var item = data.resultObject[i];
+			var  gift = "<li class='li-initial-border' data-id="+item.id+" data-number="+item.price+">"+
+			"	<img src='"+item.smallimgPath+"' />"+
+			"	<div class='surprise-hide'>"+
+			"		<div class='surprise-show'>"+
+			"			<div class='surprise-show-img'>"+
+			"				<img src='"+item.smallimgPath+"' style='width: 80px;height: 64px;margin-top: 8px;' />"+
+			"			</div>"+
+			"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
+			"				<div class='surprise-show-title'>"+
+			"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
+			"				</div>"+
+			"				<div class='surprise-presented' data-id="+item.id+" data-number="+item.price+">赠送</div>"+
+			"			</div>"+
+			"		</div>"+
+			"		<div class='aspect-down'></div>"+
+			"	</div>"+
+			"</li>";
+		    gifts += gift;
+		}
+		$(".surprise-mouseover-ul").html(gifts);
+	},false);
+}
+//礼物渲染
+getGiftList();
+
 
 $(document).ready(function() {
 
@@ -103,9 +138,7 @@ $(document).ready(function() {
 	autoLogin();
 	
 	var lastGift=null;
-	var selectGift=null;
 	var lastTime = new Date();
-	var isContinuous=false;
 	var myid =null;
 	//获取右侧底部的礼物数据
 	RequestService("/gift/getGift", "GET", {
@@ -143,40 +176,23 @@ $(document).ready(function() {
 				$('#chat-submit').text("发送")
 			}
 			$('.gif-num-small em').text('x')
-			//30秒内 /可连击/最后一次发送与本次点击相同
-//			if(parseInt(newtime - lastTime)/1000 <=30 && $(this).attr('data-iscontinuous')=='1' && $(this).attr('data-id') == lastGift){
-//				$('.gif-num').text($(this).attr('data-countinuousCount'));
-//				isContinuous = true;
-//			}else{
-//				$('.gif-num').text('1')
-//				isContinuous = false;
-//			}
-				$('.gif-num').text('1')
+			$('.gif-num').text('1')
 			//获取当前点击的li的id后面使用
 			myid =  $(this).attr('data-id');
 		})			
 	});
 	
-		//点击发送时候的送礼物效果/充值事件
-	$('#chat-submit').click(function(){
-		//判断发送和充值时候出发的不同的事件
-		if($(this).text()=='发送' ){
-			if(myid==null)return;
-			for(var i in giftList){
-        		if(giftList[i].id == myid){
-        			selectGift=giftList[i];
-        			if(isContinuous){
-        				selectGift.count=selectGift.countinuousCount;
-        			}else{
-        				selectGift.count=1;
-        			}
-        		}
-			}
-			//获取数量
-			var gifNumber =Number($('.gif-num').text()); 
+
+	//点击发送时候的送礼物效果/充值事件
+	$('.surprise-mouseover-ul li .surprise-presented').click(function(){
+		var gid = $(this).attr("data-id");
+		var number = $(this).attr("data-number");
+		//判断余额是否足够
+		var balanceTotal = $("#balanceTotal").html();
+		if(parseInt(number)<= parseInt(balanceTotal) || parseInt(number) ==0){
 			var msgJson = {
 					channel:1,
-					giftId:selectGift.id,
+					giftId:gid,
 					count:1,
 					clientType:1,
 					liveId:course_id,
@@ -185,45 +201,44 @@ $(document).ready(function() {
 			};
 			RequestService("/gift/sendGift", "POST", msgJson, function(data) {
 				if(data.success==true){
+                    data.resultObject.courseId=course_id;
         			sendMsg(data.resultObject);
+        			VHALL_SDK.sendChat({
+        				text: "赠送给主播一个"+data.resultObject.giftInfo.name
+        			})
+        			var json = {user_name:data.resultObject.senderInfo.userName,
+        				content:"赠送给主播一个"+data.resultObject.giftInfo.name};
+        			$("#chatmsg").append(liveGiftList(json)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
         			refreshBalance();
 				}else{
-					// if("余额不足"==data.errorMessage){
-                        $('.mask3').text(data.errorMessage).fadeIn(400,function(){
-                            setTimeout(function(){
-                                $('.mask3').fadeOut()
-                            },1000)
-                        });
-					// }
+					$('.mask3').text(data.errorMessage).fadeIn(400,function(){
+						setTimeout(function(){
+							$('.mask3').fadeOut()
+						},1000)
+					});
 				}
 			},false);
-//			$("#chat-content").val('');
-
 			//获取当前点击时候的id/点击的时间
 			lastGift = myid ;
 			lastTime = new Date();
-			
-		}else if($(this).text() == '充值'){
-			//用户的充值事件写在这里/充值状态不能够发送礼物
-			price=100/rate;//初始化为10元
-			$('.number').text(price);
-			$('#main1').addClass('show')
-			$('.mask').css({'display':'block'})
+		}else{
+			$('.chongZhi').click();
 		}
 	})
-	
 });
 
 function createGiftList(data){
-	if(data.messageType==1){
-
-		debugger;
-		
-/*		<div class="headImg" style="float: left;">
-			<img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2017/09/23/14/0b77783055f44003bb32228eb3549887.png">
-		</div>*/
-		
-		
+    if(data.courseId!=course_id)return;   //ios传值
+    
+    if(data.messageType==2 && liveStatus == 2){  //直播开始通知
+	  	//当前时间 
+    	if(parseInt(sendTime) < parseInt(data.sendTime)){
+        	console.log("开始直播了，建议再次刷新页面   >>>>");
+        	//刷新页面 --》在观看
+        	location.reload();
+    	}
+	}else if(data.messageType==1){
+        createRanking(data.ranking);
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +
@@ -240,7 +255,6 @@ function createGiftList(data){
 				"</div>" +
 		"</li>")
 		$('#chat-list').append(li);
-		$(".liwu").html(data.giftCount);
 		var a = $('#chat-list');
 		a.scrollTop(a[0].scrollHeight);
 		
@@ -253,35 +267,7 @@ function createGiftList(data){
             queue.push(data);
             createGiftShow();
 		}
-
-
-	}else if(data.messageType==0){//打赏
-	//右侧生成打赏得礼物
-	// 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
-	// 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;' >" +
-	// 				"<div class='headImg' style='float: left;'>" +
-	// 			 	"  <img style ='width:54px;height:54px;border-radius: 60px;margin-right: 10px;' src='"+data.senderInfo.avatar+"'>" +
-	// 			    " </div>" +
-	// 				"<div class='sender-gif'>" +
-	// 				"<p>"+data.senderInfo.userName+"：</p>" +
-	// 				"<span>打赏给主播&nbsp;&nbsp;红包</span>&nbsp;&nbsp;" +
-	// 				"</div>" +
-	// 				"<div class='imgNum'><img src='../../../images/hongbao.png' style='position: absolute;width: 54px;height: 54px;right: 25px;'>" +
-	// 				"</div>" +
-	// 		"</li>")
-	// 		$('#chat-list').append(li);
-	// 		var a = $('#chat-list');
-	// 		a.scrollTop(a[0].scrollHeight);
-	// 	console.info("打赏："+data)
-	// 	if(parseInt(sendTime)>parseInt(data.rewardInfo.time))return;
-     //    $(".dashang").html(data.rewardTotal);
-	// 	queue.push(data);
-	// 	createGiftShow();
-	// 	if(data.senderInfo.userId==userId){
-	// 		rewardClose();
-	// 	}
 	}
-    //console.log(gift)
 }
 
 
@@ -345,29 +331,10 @@ function countChange(){
 var gif=[];    
 var num=[];	
 var min=[];	
-// var addn=[];
 var sto=[];
-function clearGift(f){
-    gif[f].remove();
-    $("#gift"+f).remove();
-    if(f == 1){
-        f1 = true;
-    }else if(f == 2){
-        f2 = true;
-    }else if(f == 3){
-        f3 = true;
-    }else{
-        f4 = true;
-    }
-}
 function giftShow(gift,f,continuous){
     if(continuous){
         $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
-        // clearTimeout(sto[f]);
-        // $("#gift"+f).appendTo($("#boxDom"));
-        // sto[f] = setTimeout(function (){
-        //     clearGift(f);
-        // },3000);
         $('.addnum'+f).data("sto",new Date().getTime())
         return;
     }
@@ -375,55 +342,32 @@ function giftShow(gift,f,continuous){
    
     if(gift.messageType==1){
 	    var top=countChange()
-    	gif[f] = $( "<div class='big' id='gift"+f+"' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
+    	gif[f] = $( "<div class='big' id='gift"+f+"' style='width: 500px;height: 46px;line-height: 46px;background: url(/web/images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
     			"<div class='left' style='height: 100%;display: inline-block;vertical-align: top;'>" +
     			"<span>"+gift.senderInfo.userName+"</span>&nbsp;" +
     			"<span>送&nbsp;"+gift.giftInfo.name+"</span>" +
     			"</div><img src="+gift.giftInfo.smallimgPath+" style='height: 54px;width:54px;margin-left: 10px;'>" +
     			"<span class='' style='height: 100%;display: inline-block;vertical-align: top;margin-left: 10px;color: white;font-size: 24px;'>x<i class='addnum"+f+"' style='font-size: 30px;font-weight: 700;' id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"'>"+gift.giftInfo.continuousCount+"</i></span>" +
     	"</div>")	
-    }else if(gift.messageType==0){
-    	var top=countChange()
-    	gif[f] = $( "<div class='big' style='width: 500px;height: 46px;line-height: 46px;background: url(../../../images/456.png) no-repeat;padding-left: 10px;position: absolute;bottom: "+top+"px;'>" +
-    			"<div class='left' style='height: 100%;display: inline-block;vertical-align: top;'>" +
-    			"<span>"+gift.senderInfo.userName+"</span>&nbsp;" +
-    			"<span>打赏给主播一个红包</span>" +
-    			"</div><img src='../../../images/hongbao.png' style='width: 54px;height: 54px;margin-left: 10px;'>" +
-    	"</div>")	
-    	
     }
 
     //礼物弹幕生成效果
-    	 gif[f].appendTo($("#boxDom"))
-    	   .css("color", colors[Math.floor(Math.random() * 8)])
-    	   .css("left", "-500px")//初始未知
+    	 gif[f].appendTo($("#boxDom")).css("color", colors[Math.floor(Math.random() * 8)]).css("left", "-500px")//初始未知
     	   .animate({// 设置运动
     	       "left": "50px"
     	     }, 500, "linear", function () {
     	    	 if(f==1){
                      $('.addnum'+f).html(gift.giftInfo.continuousCount);
                      $('.addnum'+f).data("sto",new Date().getTime())
-                     // sto[1] = setTimeout(function (){
-                     //     clearGift(f);
-                     // },3000);
     	    	 }else if(f==2){
                      $('.addnum'+f).html(gift.giftInfo.continuousCount);
                      $('.addnum'+f).data("sto",new Date().getTime())
-                     // sto[2] = setTimeout(function (){
-                     //     clearGift(f);
-                     // },3000);
                  }else if(f==3){
                      $('.addnum'+f).html(gift.giftInfo.continuousCount);
                      $('.addnum'+f).data("sto",new Date().getTime())
-                     // sto[3] = setTimeout(function (){
-                     //     clearGift(f);
-                     // },3000);
                  }else{
                      $('.addnum'+f).html(gift.giftInfo.continuousCount);
                      $('.addnum'+f).data("sto",new Date().getTime())
-                     // sto[4] = setTimeout(function (){
-                     //     clearGift(f);
-                     // },3000);
     	    	 }
     	     });
 
@@ -465,54 +409,7 @@ function Queue(size) {
         return list;
     }
 }
-//编辑送礼物的数量
-//$(document).on('click','.gif-num',function(){
-//	console.log(11)
-//	//遮罩层出现
-//	$(".mask2").css({'display':'block'});
-//	//列表出现
-//	$('.send-gif-num').css({'display':'block'});
-//	//点击切换数量
-//	$('.send-gif-num li:nth-last-child(-n+5)').click(function(){
-//		var a = $(this).attr('data-value')
-//		$('.gif-num').text(a) ;
-//		$(".mask2").css({'display':'none'});
-//		$('.send-gif-num').css({'display':'none'});
-//		$('.gif-num').attr('contenteditable','false')
-//	})
-//	//点击其他数量进行编辑
-//	$('.send-gif-num li:first-child()').click(function(){
-//		$(".mask2").css({'display':'none'});
-//		$('.send-gif-num').css({'display':'none'});
-//		$('.gif-num').attr('contenteditable','true')
-//		$('.gif-num').text('')
-//		$('.gif-num').focus();
-//		//输入数字
-//		$('.gif-num').keyup(function(e){
-//			$(this).selectionEnd = $(this).text().length;
-//			//限制输入整数 不能又小数点
-//			 if((!Number($(this).text()*1))||($(this).text()).indexOf('.')!==-1){
-//				 $(this).text('')
-//			 }
-//			 //输入回车
-//			var keycode = e.which;
-//			if(keycode == 13&&($(this).text()!='')){
-//				 $(this).text( $(this).text())
-////				 $('.sub').click();
-//				 $('.gif-num').attr('contenteditable','false')
-//				 
-//			}
-//			 //限制输入4位数
-//			 if($(this).text().length>4){
-//				 $(this).text('')
-//			 }
-//			 
-//			 //将输入的数量传到后台的代码可以写在这里
-//		 
-//		})
-//	
-//	})
-//})
+
 $(function () {
     setInterval(function(){
         for(var i=1;i<5;i++){

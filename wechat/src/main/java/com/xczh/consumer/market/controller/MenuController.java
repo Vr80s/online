@@ -30,11 +30,7 @@ public class MenuController {
     @RequestMapping("list")
     @ResponseBody
     public ResponseObject list(HttpServletRequest req, HttpServletResponse res) {
-    /*	Map<String,Object> params=new HashMap<String,Object>();
-		String sql="SELECT id,name FROM oe_menu where is_delete = 0 and name <> '全部' and status=1 and yun_status = 1";
-		dao.findEntitiesByJdbc(MenuVo.class, sql, params);*/
         try {
-        	
         	String type = req.getParameter("type");
         	List<MenuVo> list = new ArrayList<MenuVo>();
         	if(type == null || !"1".equals(type)){
@@ -50,7 +46,6 @@ public class MenuController {
 			return ResponseObject.newErrorResponseObject("错误");
 		}
     }
-    
     @RequestMapping("offlineCity")
     @ResponseBody
     public ResponseObject offlineCity(HttpServletRequest req, HttpServletResponse res) {

@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/banner")
-public class BannerController {
+public class BannerController extends AbstractController{
 
     @Autowired
     private BannerService  service;

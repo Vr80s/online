@@ -12,7 +12,16 @@
 <meta name="description" content="" />
 <script src="/xcview/js/js.js"></script>
 <link rel="stylesheet" type="text/css" href="/xcview/css/recharges.css" />
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
@@ -20,7 +29,7 @@
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
-			 <div class="header_return" onclick="window.history.go(-1)">
+			 <div class="header_return" onclick="lastPage()">
 			<!-- <div class="header_return" > -->
 				<img src="/xcview/images/back icon.png">
 			</div>
@@ -60,10 +69,10 @@
 						<p class="p1">￥<span>100</span>元</p>
 					</li>
 					
-				<!-- 	<li class="li">
+					<li class="li">
 						<p class="p0"><span>1</span>熊猫币</p>
 						<p class="p1">￥<span>0.1</span>元</p>
-					</li> -->
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -208,8 +217,8 @@
 </script>
 
 <script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.2"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.2"></script>
 <script type="text/javascript" src="/xcview/js/XCh5Pay.js?v=we1ddd1111111111111111c1111111ha11t_1111111.1.2"></script>
 <script src="/xcview/js/recharges.js?v=wechat_1111.111111111.211111"></script>
 

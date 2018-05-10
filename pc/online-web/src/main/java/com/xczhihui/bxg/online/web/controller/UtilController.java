@@ -15,10 +15,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.web.util.UserLoginUtil;
 
 /**
  * 工具

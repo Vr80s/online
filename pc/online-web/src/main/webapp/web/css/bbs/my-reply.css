@@ -1,0 +1,173 @@
+html{background: #f7f7f7;	}
+body{font-size: 12px;font-family: "Microsoft Yahei","Baskerville Old Face","Hiragino Sans GB", sans-serif !important;}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px;margin: 0 auto;}
+.route{
+    color: #999999;
+    padding: 10px 0;
+}
+.route a{
+    color: #999999;
+}
+.route a:hover{
+    color: #2cb82c;
+}
+
+.wrap-myPost{
+    width: 100%;
+    display: block;
+    vertical-align: top;
+    padding: 0 30px;
+    min-height: 732px;
+    background-color: #fff;
+    padding-bottom: 70px;
+    box-sizing: border-box;
+
+}
+.wrap-header{
+    height: 150px;
+    width: 100%;
+    border-bottom: 1px solid #dddddd;
+    padding-top: 1px;
+    box-sizing: border-box;
+}
+.head-portrait{
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.head-portrait img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.wrap-header .userName{
+    text-align: center;
+    font-size: 16px;
+    color: #666666;
+}
+/*论坛回复开始*/
+.post-reply li{
+    list-style: none;
+    float: left;
+    padding: 23px 15px 15px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: -1px;
+    cursor: pointer;
+}
+.post-reply .post-active{
+    color: #30b730;
+    border-bottom: 1px solid #30b730;
+
+}
+.mytabbar{
+    border-bottom: 1px solid #e4e4e4;
+    width: 100%;
+    height: 62px;
+    position: relative;
+    margin-bottom: 30px;
+
+}
+/*我的帖子*/
+.content-post{
+    width: 100%;
+    font-family: "Microsoft Yahei", "微软雅黑";
+
+}
+.content-post table{
+    width: 100%;
+    font-size: 14px;
+    border: 0;
+    table-layout:fixed;
+    white-space: nowrap;
+
+}
+/*我的回复*/
+.content-reply{
+    width: 100%;
+    font-family: "Microsoft Yahei", "微软雅黑";
+}
+.content-reply table{
+    width: 100%;
+    font-size: 14px;
+    border: 0;
+    table-layout:fixed;
+    white-space: nowrap;
+}
+.list-title tr{
+    width: 100%;
+    background: #f0f0f0;
+}
+.list-title td{
+    padding: 13px 15px;
+    border: 0;
+    font-weight: 600;
+    color: #666666;
+    text-align: center;
+    font-size: 16px;
+}
+.list-title td:nth-child(1){
+    text-align: left;
+    width:63%;
+}
+.list-title td:nth-child(2){
+    text-align: center;
+    width: 20%;
+}
+.list-title td:nth-child(3){
+    text-align: center;
+    width: 17%;
+}
+.mytable{
+    width: 100%;
+}
+.mytable td{
+    text-align: center;
+    padding: 15px;
+    border: 0;
+    font-weight: 600;
+    color: #666666;
+}
+.mytable td a{
+    color: #666666;
+    font-size: 15px;
+}
+.mytable td a:hover{
+    color: #2cb82c;
+}
+.mytable td:nth-child(1){
+    text-align: left;
+    width: 63%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.mytable td:nth-child(3){
+    width: 17%;
+}
+.mytable02 td{
+    padding: 7px 15px 15px ;
+    border: 0px;
+    border-bottom: 1px solid #dddddd;
+    color: #999999;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+/*分页*/
+.reply-paging{
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+/*我的帖子/回复切换*/
+.contro{
+    display: none;
+}
+/*底部*/
+#mybottom{
+    width: 100%;
+    height: 88px;
+}

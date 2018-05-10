@@ -145,7 +145,7 @@ $(function () {
         init();
     });
     //优秀医馆部分 hot-article
-    RequestService("/medical/hospital/getRecHospitals", "GET", null, function (data) {
+    RequestService("/hospital/getRecHospitals", "GET", null, function (data) {
         if(data.resultObject.length==0){
             $(".hot-article-list").html(template.compile(emptyDefaul));
         }else{
@@ -194,7 +194,7 @@ $(function () {
 //        })
 //    });
     //医馆搜索中的热门标签
-    RequestService("/medical/hospital/getHotField","GET",null,function(data){
+    RequestService("/hospital/getHotField","GET",null,function(data){
         if(data.resultObject.length==0){
             $(".forum-hot-tag > p").html('')
         	
@@ -209,7 +209,7 @@ $(function () {
     
     
      //医馆坐诊医生招募
-    RequestService("/medical/hospitalRecruit/getRecHospitalRecruits","GET",null,function(data){
+    RequestService("/hospitalRecruit/getRecHospitalRecruits","GET",null,function(data){
         if(data.resultObject.length == 0){ 
             $('.forum-hot-course ').addClass('hide');
         }else{
@@ -385,7 +385,7 @@ $(function () {
 	var pages;
 	//渲染医馆列表方法
 	function getHostipalList(current,size,name){
-	    RequestService("/medical/hospital/getHospitals","GET",{
+	    RequestService("/hospital/getHospitals","GET",{
 	    	current:current,
 	    	size:size,
 	    	name:name

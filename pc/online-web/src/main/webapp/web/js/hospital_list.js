@@ -44,7 +44,7 @@ $(function(){
 	
 	//渲染医馆列表方法
 	function getHostipalList(current,size,name,field){
-	    RequestService("/medical/hospital/getHospitals","GET",{
+	    RequestService("/hospital/getHospitals","GET",{
 	    	current:current,
 	    	size:size,
 	    	name:name,
@@ -99,7 +99,7 @@ $(function(){
 		current=1;
 		$('#doctor_list').html('');
 		  console.log(name)
-//		   RequestService("/medical/hospital/getHospitals","GET",{
+//		   RequestService("/hospital/getHospitals","GET",{
 //	    	current:current,
 //	    	size:size,
 //	    	name:name,
@@ -144,7 +144,7 @@ $(function(){
 	    
 	    
 	    //医馆筛选领域列表渲染
-	    RequestService("/medical/hospital/getFields/0","GET",null,function(data){
+	    RequestService("/hospital/getFields/0","GET",null,function(data){
 	       if(data.resultObject == null || data.resultObject.records.length == 0){
 	       		alert('未获取到筛选中的分类')
 	       }else{

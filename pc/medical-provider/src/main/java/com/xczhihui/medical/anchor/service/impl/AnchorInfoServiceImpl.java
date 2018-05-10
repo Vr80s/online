@@ -1,9 +1,25 @@
 package com.xczhihui.medical.anchor.service.impl;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
+import com.xczhihui.medical.exception.AnchorException;
+import com.xczhihui.common.support.cc.util.CCUtils;
+import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.medical.anchor.enums.AuchorTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -23,15 +39,6 @@ import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * 主播工作台资产业务接口实现层
@@ -65,6 +72,9 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private CourseApplyResourceMapper courseApplyResourceMapper;
     @Autowired
     private RedisCacheService cacheService;
+
+    @Autowired
+    private CCUtils ccUtils;
 
     /**
      * 获取主播详情
@@ -182,17 +192,18 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     @Override
     public void validateAnchorPermission(String userId) {
         if(userId==null){
-            throw new RuntimeException("用户id不为空");
+            throw new AnchorException("用户id不为空");
         }
         CourseAnchor courseAnchor = new CourseAnchor();
         courseAnchor.setUserId(userId);
         courseAnchor.setStatus(true);
         String key = VALIDATE_ANCHOR_PERMISSION_CACHE + userId;
         CourseAnchor ca = cacheService.get(key);
+        
         if(ca == null){
             ca = courseAnchorMapper.selectOne(courseAnchor);
             if(ca == null) {
-                throw new RuntimeException("不具备主播权限或主播权限被禁用");
+                throw new AnchorException("不具备主播权限或主播权限被禁用");
             }else{
                 //缓存数据1分钟
                 cacheService.set(key,ca,60);
@@ -220,7 +231,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
 
     private void updateHospitalDetail(CourseAnchorVO target) {
         if(StringUtils.isNotBlank(target.getDetailAddress())&&target.getDetailAddress().length()>100){
-            throw new RuntimeException("详细地址长度不可超过100字");
+            throw new AnchorException("详细地址长度不可超过100字");
         }
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(target.getUserId());
 
@@ -239,7 +250,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private void updateDoctorDetail(CourseAnchorVO target) {
 
         if(StringUtils.isBlank(target.getHospitalId())){
-            throw new RuntimeException("请选择医馆");
+            throw new AnchorException("请选择医馆");
         }
 
         // 根据用户id获取其医师id
@@ -285,22 +296,22 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private void validate(CourseAnchorVO target) {
 
         if(target == null){
-            throw new RuntimeException("参数不能为空");
+            throw new AnchorException("参数不能为空");
         }
         if(StringUtils.isBlank(target.getName())){
-            throw new RuntimeException("主播昵称不能为空");
+            throw new AnchorException("主播昵称不能为空");
         }
         if(StringUtils.isBlank(target.getProfilePhoto())){
-            throw new RuntimeException("主播头像不能为空");
+            throw new AnchorException("主播头像不能为空");
         }
         if(StringUtils.isBlank(target.getDetail())){
-            throw new RuntimeException("主播个人介绍不能为空");
+            throw new AnchorException("主播个人介绍不能为空");
         }
         if(StringUtils.isBlank(target.getProvince())){
-            throw new RuntimeException("主播省份不能为空");
+            throw new AnchorException("主播省份不能为空");
         }
         if(StringUtils.isBlank(target.getCity())){
-            throw new RuntimeException("主播省份不能为空");
+            throw new AnchorException("主播省份不能为空");
         }
 
     }
@@ -381,28 +392,10 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         }
 
         CourseApplyResource resource = courseApplyResourceMapper.selectById(resourceId);
+
         if(resource != null){
             String courseResource = resource.getResource();
-
-            String src = "https://p.bokecc.com/flash/single/" + OnlineConfig.CC_USER_ID+"_" + courseResource
-                    + "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + "/player.swf";
-            String uuid = UUID.randomUUID().toString().replace("-", "");
-            String playCode = "";
-            playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-            playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-            playCode+="		width=\"600\" ";
-            playCode+="		height=\"490\" ";
-            playCode+="		id=\""+uuid+"\">";
-            playCode+="		<param name=\"movie\" value=\""+src+"\" />";
-            playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
-            playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
-            playCode+="		<param value=\"transparent\" name=\"wmode\" />";
-            playCode+="		<embed src=\""+src+"\" ";
-            playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
-            playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-            playCode+="			type=\"application/x-shockwave-flash\"/> ";
-            playCode+="	</object>";
-
+            String playCode = ccUtils.getPlayCode(courseResource, "");
             return playCode;
         }
 

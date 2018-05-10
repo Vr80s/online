@@ -1,22 +1,14 @@
 package com.xczhihui.bxg.online.web.base.common;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.online.common.domain.CourseApplyResource;
-import com.xczhihui.bxg.online.web.dao.CourseDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.online.web.dao.OrderDao;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.MessageService;
-import com.xczhihui.bxg.online.web.vo.OrderVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by admin on 2016/11/11.
@@ -35,7 +27,7 @@ public class MyTask extends SimpleHibernateDao{
     @Autowired
     private CourseService courseService;
     
-    @Value("${online.web.url}")
+    @Value("${web.url}")
 	private String weburl;
     /**
      * 每半个小时执行一次

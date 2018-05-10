@@ -35,16 +35,16 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
-import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.common.util.SLEmojiFilter;
+import com.xczhihui.common.util.enums.ThirdPartyType;
+import com.xczhihui.common.util.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.model.QQClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.model.QQClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
 
 /**
  * 用户controller
@@ -83,11 +83,12 @@ public class QQThirdPartyController {
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @throws IOException 
 	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value="evokeQQRedirect")
 	public void evokeQQRedirect(HttpServletRequest request,
-			HttpServletResponse res){
+			HttpServletResponse res) throws IOException{
 		try {
 			LOGGER.info("进入	qq回调函数   ============：qq_connect_state");
 
@@ -127,7 +128,7 @@ public class QQThirdPartyController {
 		             
 		             qq.setId(UUID.randomUUID().toString().replace("-", ""));
 		             qq.setOpenId(openID);
-		            // 防止表情名字
+		             //防止表情名字
 		 			 String nickname_ = SLEmojiFilter.filterEmoji(userInfoBean.getNickname());
 		             qq.setNickname(nickname_);
 		             qq.setGender(userInfoBean.getGender());
@@ -175,9 +176,10 @@ public class QQThirdPartyController {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
+		 	//重定向到推荐首页
+			res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
+			//throw new RuntimeException(e.getMessage());
 		}
 	}
 	
@@ -189,6 +191,7 @@ public class QQThirdPartyController {
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value="appEvokeQQRedirect")
@@ -197,8 +200,8 @@ public class QQThirdPartyController {
 			HttpServletResponse res,
 			@RequestParam("accessToken")String accessToken,
 			@RequestParam("openId")String openId,
-			@RequestParam("model")String model){
-		try {
+			@RequestParam("model")String model) throws Exception{
+		
 			LOGGER.info("进入	qq回调函数   ============：qq_connect_state");
 			
 			String userId = request.getParameter("userId");
@@ -208,9 +211,11 @@ public class QQThirdPartyController {
 		    		return	ResponseObject.newErrorResponseObject("获取用户信息有误");
 		    	}
 		    }
+		    
 		    LOGGER.info("绑定呢还是解除绑定呢： "+ userId);
 	        long tokenExpireIn = 0L;
 	        Map<String,String> mapRequest = new HashMap<String,String>();
+	        
 	        mapRequest.put("type",ThirdPartyType.QQ.getCode()+"");
 	        
 			if (accessToken ==null ) {
@@ -223,16 +228,16 @@ public class QQThirdPartyController {
 			 
 	             /**
 	              * 获取qq unionId   --  目前
+	              * 
+	              * 
 	              */
 	             //String unionId = this.getQQUnionIdByOpenIdAndAccessToken(accessToken);
-	             
-	        // LOGGER.info("qq用户unionId   ============"+unionId);
-	             
-			 
+			 	 // LOGGER.info("qq用户unionId   ============"+unionId);
  				 QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByOpenId(openId);
 	            	             
 	             if(qqUser==null){   //保存qq用户
-	            	 LOGGER.info("第一次存入qq用户信息");
+	            	 
+LOGGER.info("第一次存入qq用户信息");
 	            	 
 	            	 // 利用获取到的accessToken 去获取当前用户的openid --------- end
 		             //UserInfo qzoneUserInfo = new UserInfo(accessToken, openId); 
@@ -256,7 +261,6 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		             qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
 		             qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
 		             //qq.setUnionId(unionId);
-		           
 		            //用户id不等于null时，就判定用户第三方登录是通过手机号来绑定 第三方登录信息的
 		             if(StringUtils.isNotBlank(userId)){  // 绑定成功
 		            	 qq.setUserId(userId);	
@@ -318,11 +322,6 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 				}
 				return ResponseObject.newSuccessResponseObject("");
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-		}
 	}
 	/**
 	 * 
@@ -442,11 +441,8 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		 */
 		
 		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			//设置登录标识
-			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
 			String model = req.getParameter("model");
 			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());

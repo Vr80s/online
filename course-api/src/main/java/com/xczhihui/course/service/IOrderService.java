@@ -1,0 +1,24 @@
+package com.xczhihui.course.service;
+
+import com.baomidou.mybatisplus.service.IService;
+import com.xczhihui.course.model.Order;
+
+/**
+ * <p>
+ *  服务类
+ * </p>
+ *
+ * @author yuxin
+ * @since 2018-04-13
+ */
+public interface IOrderService extends IService<Order> {
+
+    public Order createOrder(String userId, int courseId, Integer orderFrom);
+
+
+    Order getOrderByOrderId(String orderId);
+
+    Order getOrderNo4PayByOrderNo(String orderId);
+
+    Order getOrderNo4PayByOrderId(String orderId);
+}

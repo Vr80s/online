@@ -1,13 +1,12 @@
 package com.xczhihui.medical.doctor.vo;
 
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -17,170 +16,213 @@ public class OeBxsArticleVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	private Integer id;
+    private Integer id;
     /**
      * 文章标题
      */
-	private String title;
+    private String title;
     /**
      * 文章内容
      */
-	private String content;
+    private String content;
     /**
      * 文章类型,外键引用
      */
-	private String typeId;
+    private String typeId;
     /**
      * 图片
      */
-	private String imgPath;
+    private String imgPath;
     /**
      * banner图片
      */
-	private String bannerPath;
-	private String author;
+    private String bannerPath;
+    private String author;
+    private Date updateTime;
+
+    private Integer status;
+
     /**
      * 阅读量
      */
-	private Integer browseSum;
+    private Integer browseSum;
     /**
      * 点赞数
      */
-	private Integer praiseSum;
+    private Integer praiseSum;
     /**
      * 评论数
      */
-	private Integer commentSum;
+    private Integer commentSum;
     /**
      * 是否推荐，1推荐，0不推荐
      */
-	private Boolean isRecommend;
+    private Boolean isRecommend;
 
-	private Date createTime;
+    private Date createTime;
 
-	public String getAuthor() {
-		return author;
-	}
+    private String url;
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    private String buyLink;
 
-	private List<MedicalDoctorVO> medicalDoctors;
+    public String getAuthor() {
+        return author;
+    }
 
-	public List<MedicalDoctorVO> getMedicalDoctors() {
-		return medicalDoctors;
-	}
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-	public void setMedicalDoctors(List<MedicalDoctorVO> medicalDoctors) {
-		this.medicalDoctors = medicalDoctors;
-	}
+    private List<MedicalDoctorVO> medicalDoctors;
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public List<MedicalDoctorVO> getMedicalDoctors() {
+        return medicalDoctors;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setMedicalDoctors(List<MedicalDoctorVO> medicalDoctors) {
+        this.medicalDoctors = medicalDoctors;
+    }
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getTypeId() {
-		return typeId;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setTypeId(String typeId) {
-		this.typeId = typeId;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public String getImgPath() {
-		return imgPath;
-	}
+    public String getTypeId() {
+        return typeId;
+    }
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
 
-	public String getBannerPath() {
-		return bannerPath;
-	}
+    public String getImgPath() {
+        return imgPath;
+    }
 
-	public void setBannerPath(String bannerPath) {
-		this.bannerPath = bannerPath;
-	}
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
 
-	public Integer getBrowseSum() {
-		return browseSum;
-	}
+    public String getBannerPath() {
+        return bannerPath;
+    }
 
-	public void setBrowseSum(Integer browseSum) {
-		this.browseSum = browseSum;
-	}
+    public void setBannerPath(String bannerPath) {
+        this.bannerPath = bannerPath;
+    }
 
-	public Integer getPraiseSum() {
-		return praiseSum;
-	}
+    public Integer getBrowseSum() {
+        return browseSum;
+    }
 
-	public void setPraiseSum(Integer praiseSum) {
-		this.praiseSum = praiseSum;
-	}
+    public void setBrowseSum(Integer browseSum) {
+        this.browseSum = browseSum;
+    }
 
-	public Integer getCommentSum() {
-		return commentSum;
-	}
+    public Integer getPraiseSum() {
+        return praiseSum;
+    }
 
-	public void setCommentSum(Integer commentSum) {
-		this.commentSum = commentSum;
-	}
+    public void setPraiseSum(Integer praiseSum) {
+        this.praiseSum = praiseSum;
+    }
 
-	public Boolean getRecommend() {
-		return isRecommend;
-	}
+    public Integer getCommentSum() {
+        return commentSum;
+    }
 
-	public void setRecommend(Boolean recommend) {
-		isRecommend = recommend;
-	}
+    public void setCommentSum(Integer commentSum) {
+        this.commentSum = commentSum;
+    }
 
-	@Override
-	public String toString() {
-		return "OeBxsArticle{" +
-			", id=" + id +
-			", title=" + title +
-			", content=" + content +
-			", typeId=" + typeId +
-			", imgPath=" + imgPath +
-			", bannerPath=" + bannerPath +
-			", browseSum=" + browseSum +
-			", praiseSum=" + praiseSum +
-			", commentSum=" + commentSum +
-			", isRecommend=" + isRecommend +
-			"}";
-	}
+    public Boolean getRecommend() {
+        return isRecommend;
+    }
+
+    public void setRecommend(Boolean recommend) {
+        isRecommend = recommend;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getBuyLink() {
+        return buyLink;
+    }
+
+    public void setBuyLink(String buyLink) {
+        this.buyLink = buyLink;
+    }
+
+    @Override
+    public String toString() {
+        return "OeBxsArticleVO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", typeId='" + typeId + '\'' +
+                ", imgPath='" + imgPath + '\'' +
+                ", bannerPath='" + bannerPath + '\'' +
+                ", author='" + author + '\'' +
+                ", browseSum=" + browseSum +
+                ", praiseSum=" + praiseSum +
+                ", commentSum=" + commentSum +
+                ", isRecommend=" + isRecommend +
+                ", createTime=" + createTime +
+                ", medicalDoctors=" + medicalDoctors +
+                '}';
+    }
 }

@@ -6,8 +6,6 @@ import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

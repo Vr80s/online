@@ -106,6 +106,9 @@ public class CourseApplyInfo implements Serializable {
 	private Integer applyStatus; //审核状态  0未通过 1通过 2未审核
 	@Transient
 	private Date releaseTime;
+	
+	@Transient
+    private Integer defaultStudentCount;
 
 	public Integer getOldApplyInfoId() {
 		return oldApplyInfoId;
@@ -462,5 +465,15 @@ public class CourseApplyInfo implements Serializable {
 	public void setIsDelete(Boolean delete) {
 		isDelete = delete;
 	}
+
+    public Integer getDefaultStudentCount() {
+        return defaultStudentCount;
+    }
+
+    public void setDefaultStudentCount(Integer defaultStudentCount) {
+        this.defaultStudentCount = defaultStudentCount;
+    }
+	
+	
 
 }

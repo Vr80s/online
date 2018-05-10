@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.xczhihui.bxg.common.support.domain.BasicEntity2;
+import com.xczhihui.common.support.domain.BasicEntity2;
 
 import java.io.Serializable;
 import java.lang.Integer;

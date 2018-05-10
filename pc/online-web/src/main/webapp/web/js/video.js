@@ -129,13 +129,18 @@ $(function() {
 		'<div class="videoBody-bottom-listRelease">' +
 		'<div class="videoBody-bottom-listRelease-left">' +
 		'<img src="{{#headImg(e.onlineUser.smallHeadPhoto)}}"/>' +
-		'<p title="{{e.onlineUser.name}}">{{e.onlineUser.name}}</p>' +
 		'</div>' +
 		'<div class="videoBody-bottom-listRelease-right">' +
 		// '<p class="releaseStar">{{#stars2(e.starLevel)}}</p>' +
+        '<p title="{{e.onlineUser.name}}" class="releaseTime">{{e.onlineUser.name}} <span class="releaseTime">{{removeSecond(e.createTime)}}</span></p>' +
 		'<p class="releaseText" style="word-wrap: break-word;">{{e.content}}</p>' +
+        '{{if e.reply.length > 0}}' +
+		'<div style="background: #FAFAFA;margin-top: 50px"><p style="word-wrap: break-word;">' +
+		'<img src="{{#headImg(e.replySmallHeadPhoto)}}" style="width: 36px;height: 36px;border-radius:60px;margin: 10px;font-size: 14px;"/>' +
+		'{{e.replyName}} {{e.replyCreateTime}}</p>' +
+		'<p style="margin-left: 60px;font-size: 14px">{{e.replyContent}}</p></div>'+
+        '{{/if}}' +
 		'<div class="releaseGood clearfix" data-criticizeId="{{e.id}}" data-isPraise="{{e.isPraise}}">' +
-		'<span class="releaseTime">{{removeSecond(e.createTime)}}</span>' +
 		'<p class="wqz">' +
 		'{{if e.isPraise == 0}}' +
 		'<img src="../../web/images/video/good_normal.png" style="cursor:pointer;padding-right:5px;margin-top:-3px;"/>' +
@@ -330,15 +335,6 @@ $(function() {
 	//时间格式处理
 	function timeChange(num) {
 		return '' + num + "分钟";
-		//		var hour = parseInt(num / 60);
-		//		var min = parseInt(num % 60);
-		//		if(hour < 10) {
-		//			hour = "" + "0" + hour;
-		//		}
-		//		if(min < 10) {
-		//			min = "" + "0" + min;
-		//		}
-		//		return hour + ":" + min;
 	};
 	//获取视频信息接口
 	RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
@@ -628,6 +624,10 @@ $(function() {
 	};
 	//点击提交评价
 	$(".getRelease").click(function() {
+		if($.trim($(".videoBody-bottom-left-release textarea").val()) == ""){
+            showTip("评论内容不能为空")
+			return false;
+		}
 		RequestService("/online/user/isAlive", "POST", null, function(data) {
 			if(!data.success) {
 				$('#login').modal('show');
@@ -652,7 +652,7 @@ $(function() {
 					$(".getRelease").attr("star", 5);
 					$(".tipRelease").hide();
 				};
-				RequestService("/video/saveCriticize", "POST", {
+				RequestService("/criticize/saveCriticize", "POST", {
 					videoId: courseId,
 					chapterId: chapterId,
 					content: releaseTxt,
@@ -706,8 +706,8 @@ $(function() {
 
 	function givecriticize() {
 		//获取评价列表
-		RequestService("/video/getVideoCriticize", "POST", {
-			videoId: courseId,
+		RequestService("/criticize/getCriticizeList", "POST", {
+            courseId: courseId,
 			pageNumber: pageNumber,
 			pageSize: pageSize
 		}, function(data) {
@@ -748,8 +748,8 @@ $(function() {
 						var criticizeId = $this.attr("data-criticizeId");
 						if($this.attr("data-isPraise") == 0) {
 							var updatePraise = true;
-							RequestService("/video/updatePraise", "POST", {
-								isPraise: updatePraise,
+							RequestService("/criticize/updatePraise", "POST", {
+                                praise: updatePraise,
 								criticizeId: criticizeId
 							}, function(data) {
 								$this.attr("data-isPraise", "1");
@@ -758,8 +758,8 @@ $(function() {
 							});
 						} else {
 							var updatePraise = false;
-							RequestService("/video/updatePraise", "POST", {
-								isPraise: updatePraise,
+							RequestService("/criticize/updatePraise", "POST", {
+                                praise: updatePraise,
 								criticizeId: criticizeId
 							}, function(data) {
 								$this.attr("data-isPraise", "0");
@@ -816,405 +816,7 @@ $(function() {
 			);
 		});
 	}
-	//笔记部分
-	function note() {
-		$(".nav-note .note2").height($(".nav-note").height() - $(".nav-note .note1").height() - 95);
-		$(".videoBody-list .nav-note").show().siblings().hide();
-		//是否分享
-		$(".nav-note .note1 .share").off().on("click", function() {
-			if($(this).find("em").hasClass("hov")) {
-				$(this).find("em").removeClass("hov");
-				$(".nav-note .sub .bt").attr("isshare", "0");
-			} else {
-				$(this).find("em").addClass("hov");
-				$(".nav-note .sub .bt").attr("isshare", "1");
-			};
-		});
-		$(".nav-note .note1 .richText textarea").off().on("focus", function() {
-			$(".nav-note .note1 .warning").hide();
-		});
-		//提交笔记
-		$(".nav-note .sub .bt").off("click").on("click", function() {
-			var $this = $(this);
-			$.ajax({
-				type: "get",
-				url: bath + "/online/user/isAlive",
-				async: false,
-				success: function(data) {
-					if(data.success === true) {
-						if($.trim($(".nav-note .note1 .richText textarea").val()) == "") {
-							$(".nav-note .note1 .warning").text("请输入笔记内容").show();
-							return false;
-						} else {
-							$(".nav-note .note1 .warning").hide();
-							RequestService("/notes/saveOrUpdate", "post", {
-								course_id: courseId,
-								video_id: vId,
-								is_share: $this.attr("isshare"),
-								content: $.trim($(".nav-note .note1 .richText textarea").val()),
-								chapter_id: chapterId
-							}, function(data) {
-								if(data.success == true) {
-									$(".nav-note .note1 .richText textarea").val("");
-									$(".nav-note .share em").removeClass("hov");
-									$this.attr("isshare", "0");
-									note();
-								}
-							}, false);
-						};
-					} else {
-						$('#login').modal('show');
-						$('#login').css("display", "block");
-						$(".loginGroup .logout").css("display", "block");
-						$(".loginGroup .login").css("display", "none");
-						return false;
-					};
-				}
-			});
 
-		});
-		//笔记列表加载
-		RequestService("/notes/findNotes", "get", {
-			videoId: vId,
-			type: 1,
-			pageNumber: 1,
-			pageSize: 4
-		}, function(data) {
-			$(".videoBody-list .nav-note .note2 .note2-con").html(template.compile(rightNote)({
-				item: data.resultObject.items
-			}));
-			//删除问题
-			$(".videoBody-list .nav-note .note2 .note2-con .tool .delete").off().on("click", function() {
-				var $this = $(this);
-				$.ajax({
-					type: "get",
-					url: bath + "/online/user/isAlive",
-					async: false,
-					success: function(data) {
-						if(data.success === true) {
-
-							$(".videoBody-list .nav-note .tips").show();
-							$(".videoBody-list .nav-note .tips .no").off().on("click", function() {
-								$(".videoBody-list .nav-note .tips").hide();
-							});
-							//删除笔记
-							$(".videoBody-list .nav-note .tips .ok").off().on("click", function() {
-								$(".videoBody-list .nav-note .tips").hide();
-								RequestService("/notes/deleteNotes", "post", {
-									notes_id: $this.attr("data-id")
-								}, function(data) {
-									if(data.success == true) {
-										$this.parent().parent().parent().remove();
-									}
-								}, false);
-							});
-						} else {
-							$('#login').modal('show');
-							$('#login').css("display", "block");
-							$(".loginGroup .logout").css("display", "block");
-							$(".loginGroup .login").css("display", "none");
-							return false;
-						}
-					}
-				});
-
-			});
-			//修改笔记是否分享
-			$(".nav-note .note2 .share").off().on("click", function() {
-				if($(this).find("em").hasClass("hov")) {
-					$(this).find("em").removeClass("hov");
-					$(this).siblings(".sure").attr("isshare", "0");
-				} else {
-					$(this).find("em").addClass("hov");
-					$(this).siblings(".sure").attr("isshare", "1");
-				};
-			});
-			//切换修改笔记内容
-			$(".videoBody-list .nav-note .tool .bianji").off().on("click", function() {
-				var $par = $(this).parent().parent().parent();
-				$.ajax({
-					type: "get",
-					url: bath + "/online/user/isAlive",
-					async: false,
-					success: function(data) {
-						if(data.success === true) {
-							$par.find(".con1-top").hide().siblings().show();
-						} else {
-							$('#login').modal('show');
-							$('#login').css("display", "block");
-							$(".loginGroup .logout").css("display", "block");
-							$(".loginGroup .login").css("display", "none");
-							return false;
-						}
-					}
-				});
-
-			});
-			//修改编辑
-			$(".videoBody-list .nav-note .con1-bottom .quit").off().on("click", function() {
-				var $this = $(this);
-				$.ajax({
-					type: "get",
-					url: bath + "/online/user/isAlive",
-					async: false,
-					success: function(data) {
-						if(data.success === true) {
-							$this.parent().parent().hide().siblings().show();
-							$(".videoBody-list .nav-note .con1-bottom .warning").hide();
-						} else {
-							$('#login').modal('show');
-							$('#login').css("display", "block");
-							$(".loginGroup .logout").css("display", "block");
-							$(".loginGroup .login").css("display", "none");
-							return false;
-						}
-					}
-				});
-
-			});
-			$(".videoBody-list .nav-note .con1-bottom .text").off().on("focus", function() {
-				$(".videoBody-list .nav-note .con1-bottom .warning").hide();
-			});
-			$(".videoBody-list .nav-note .con1-bottom .sure").off().on("click", function() {
-				var $par = $(this).parent().parent();
-				var $this = $(this);
-				if($.trim($par.find(".text").val()) != "") {
-					$.ajax({
-						type: "get",
-						url: bath + "/online/user/isAlive",
-						async: false,
-						success: function(data) {
-							if(data.success === true) {
-								$par.find(".warning").hide();
-								RequestService("/notes/saveOrUpdate", "post", {
-									id: $this.attr("data-id"),
-									course_id: courseId,
-									video_id: vId,
-									is_share: $this.attr("isshare"),
-									content: $.trim($par.find(".text").val())
-								}, function(m) {
-									if(m.success == true) {
-										$this.attr("isshare", "0");
-										note();
-									}
-								}, false);
-							} else {
-								$('#login').modal('show');
-								$('#login').css("display", "block");
-								$(".loginGroup .logout").css("display", "block");
-								$(".loginGroup .login").css("display", "none");
-								return false;
-							}
-						}
-					});
-
-				} else {
-					$par.find(".warning").text("请输入笔记内容").show();
-				};
-			});
-			$('.nav-note  .note2').niceScroll({
-				cursorcolor: "#999", //#CC0071 光标颜色 
-				cursoropacitymax: 0.5, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
-				touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
-				cursorwidth: "5px", //像素光标的宽度 
-				cursorborder: "0", //     游标边框css定义 
-				cursorborderradius: "5px", //以像素为光标边界半径 
-				autohidemode: true //是否隐藏滚动条 
-			});
-		});
-	};
-	//下面部分笔记数据
-	function buttomBiji(type, num) {
-		$(".pages").hide();
-		RequestService("/notes/findNotes", "get", {
-			videoId: vId,
-			type: type ? type : 0,
-			pageNumber: num ? num : 1,
-			pageSize: 10
-		}, function(data) {
-			if(data.success == true) {
-				if(data.resultObject.totalCount == 0) {
-					$(".biji-content").html(emptyDefaul);
-				} else if(data.resultObject.totalPageCount == 1 && data.resultObject.totalCount != 0) {
-					$(".biji-content").html(template.compile(bottomNote)({
-						item: data.resultObject.items
-					}));
-				} else if(data.resultObject.totalPageCount >= 1) {
-					$(".biji-content").html(template.compile(bottomNote)({
-						item: data.resultObject.items
-					}));
-					if(data.resultObject.currentPage == 1) {
-						$(".pages .searchPage .allPage").text(data.resultObject.totalPageCount);
-						$("#Pagination").pagination(data.resultObject.totalPageCount, {
-							callback: function(page) { //翻页功能
-								page = page + 1;
-								buttomBiji(type, page);
-							}
-						});
-					};
-					$(".pages").show();
-				};
-				shenglve("biji_01");
-				//点赞列表笔记
-				$(".biji-content .biji_01 .zan").off().on("click", function() {
-					var $this = $(this);
-					$.ajax({
-						type: "get",
-						url: bath + "/online/user/isAlive",
-						async: false,
-						success: function(data) {
-							if(data.success === true) {
-
-								RequestService("/notes/updatePraise", "post", {
-									notes_id: $this.attr("data-id")
-								}, function(data) {
-									if(data.success == true) {
-										if(data.resultObject.isPraise == true) {
-											$this.addClass("act");
-											$this.find("em").html(data.resultObject.praise_sum);
-										} else {
-											$this.removeClass("act");
-											$this.find("em").html(data.resultObject.praise_sum);
-										}
-									}
-								}, false);
-							} else {
-								$('#login').modal('show');
-								$('#login').css("display", "block");
-								$(".loginGroup .logout").css("display", "block");
-								$(".loginGroup .login").css("display", "none");
-								return false;
-							}
-						}
-					});
-
-				});
-				//收藏笔记列表
-				$(".biji-content .biji_01 .shoucang").off().on("click", function() {
-					var $this = $(this);
-					$.ajax({
-						type: "get",
-						url: bath + "/online/user/isAlive",
-						async: false,
-						success: function(data) {
-							if(data.success === true) {
-
-								RequestService("/notes/updateCollect", "post", {
-									notes_id: $this.attr("data-id")
-								}, function(data) {
-									if(data.success == true) {
-										if(data.resultObject == true) {
-											$this.addClass("act");
-											$this.find("em").html("已收藏");
-										} else {
-											$this.removeClass("act");
-											$this.find("em").html("收藏");
-										}
-									}
-								}, false);
-							} else {
-								$('#login').modal('show');
-								$('#login').css("display", "block");
-								$(".loginGroup .logout").css("display", "block");
-								$(".loginGroup .login").css("display", "none");
-								return false;
-							}
-						}
-					});
-
-				});
-				//删除列表笔记
-				$(".biji-content .biji_01 .shanchu").off().on("click", function() {
-					var $this = $(this);
-					$.ajax({
-						type: "get",
-						url: bath + "/online/user/isAlive",
-						async: false,
-						success: function(data) {
-							if(data.success === true) {
-
-								$(".mask").show();
-								$(".biji .tips").show();
-								$(".biji .tips .no").off().on("click", function() {
-									$(".biji .tips").hide();
-									$(".mask").hide();
-								});
-								//删除笔记
-								$(".biji .tips .ok").off().on("click", function() {
-									isAlive0();
-									$(".biji .tips").hide();
-									$(".mask").hide();
-									RequestService("/notes/deleteNotes", "post", {
-										notes_id: $this.attr("data-id")
-									}, function(data) {
-										if(data.success == true) {
-											buttomBiji(type, num);
-										}
-									}, false);
-								});
-							} else {
-								$('#login').modal('show');
-								$('#login').css("display", "block");
-								$(".loginGroup .logout").css("display", "block");
-								$(".loginGroup .login").css("display", "none");
-								return false;
-							}
-						}
-					});
-
-				});
-				$(".biji-content .biji_01 .text").off().on("focus", function() {
-					$(".biji-content .biji_01 .warning").hide();
-				});
-				//编辑笔记
-				$(".biji-content .biji_01 .bianji").off().on("click", function() {
-					var $par = $(this).parent().parent().parent();
-					$.ajax({
-						type: "get",
-						url: bath + "/online/user/isAlive",
-						async: false,
-						success: function(data) {
-							if(data.success === true) {
-
-								$par.find(".reInput").show().siblings().hide();
-								$par.find(".qx").off().on("click", function() {
-									$par.find(".reInput").hide().siblings().show();
-									$par.find(".warning").hide();
-								});
-								$par.find(".qd").off().on("click", function() {
-									var $this = $(this);
-									if($.trim($par.find(".text").val()) != "") {
-										isAlive0();
-										$par.find(".warning").hide();
-										RequestService("/notes/saveOrUpdate", "post", {
-											id: $this.attr("data-id"),
-											course_id: courseId,
-											video_id: vId,
-											is_share: $this.attr("isshare"),
-											content: $.trim($par.find(".text").val())
-										}, function(m) {
-											if(m.success == true) {
-												buttomBiji(0, 1);
-											}
-										}, false);
-									} else {
-										$par.find(".warning").text("请输入笔记内容").show();
-									};
-								});
-							} else {
-								$('#login').modal('show');
-								$('#login').css("display", "block");
-								$(".loginGroup .logout").css("display", "block");
-								$(".loginGroup .login").css("display", "none");
-								return false;
-							}
-						}
-					});
-
-				});
-			}
-		});
-	};
 	//问答部分
 	function wenda() {
 		//问答标签获取

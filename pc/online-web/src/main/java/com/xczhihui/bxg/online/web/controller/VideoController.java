@@ -1,24 +1,20 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import java.util.Date;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.service.AskTagService;
 import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.bxg.online.web.service.VideoService;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.online.api.vo.CriticizeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.service.AskTagService;
-import com.xczhihui.bxg.online.web.service.VideoService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * 视频相关页面控制层
@@ -27,7 +23,7 @@ import com.xczhihui.bxg.online.web.service.VideoService;
  */
 @RestController
 @RequestMapping(value = "/video")
-public class VideoController {
+public class VideoController extends AbstractController{
     @Autowired
     private VideoService videoService;
     @Autowired
@@ -36,35 +32,6 @@ public class VideoController {
     private CourseService courseService;
     private Object lock = new Object();
 
-    /**
-     * 根据节Id查询节下的所有视频列表
-     * v.新版本要求查询课程中所有章、节、知识点下的视频列表
-     * @param sectionId 节Id
-     * @return
-     */
-    @RequestMapping(value = "/getVideos")
-    public ResponseObject getVideos(HttpServletRequest request,String sectionId,String courseId,Boolean isTryLearn) {
-        //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        return ResponseObject.newSuccessResponseObject(videoService.getVideos(sectionId, courseId,user,isTryLearn));
-    }
-
-    /**
-     * v.新版本要求查询课程中所有章、节、知识点下的视频列表
-     * @param request
-     * @param courseId
-     * @return
-     */
-    @RequestMapping(value = "/getvideos")
-    public ResponseObject getvideos(HttpServletRequest request,Integer courseId,Boolean isTryLearn) {
-        //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        String userId = "";
-        if(user!=null){
-            userId = user.getId();
-        }
-        return ResponseObject.newSuccessResponseObject(videoService.getvideos(courseId, userId, isTryLearn));
-    }
 
     /**
      * 获取所有对该视频的评论
@@ -74,9 +41,7 @@ public class VideoController {
     @RequestMapping(value = "/getVideoCriticize")
     public ResponseObject getVideoCriticize(HttpServletRequest request,Integer videoId,Integer pageNumber,Integer pageSize) {
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-//        String userName = user==null? "" : user.getLoginName();
-//        CourseApplyVo cv = courseService.getCourseApplyByCourseId(videoId);
+        OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(videoService.getVideoCriticize(null, videoId, pageNumber, pageSize,user!= null ? user.getId() :null));
     }
 
@@ -90,13 +55,12 @@ public class VideoController {
     public ResponseObject saveCriticize(HttpServletRequest request,CriticizeVo criticizeVo){
         try {
             //获取当前登录用户信息
-            OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+            OnlineUser user = getCurrentUser();
             if(user!=null) {
                 CourseApplyVo cv = courseService.getCourseApplyByCourseId(criticizeVo.getCourseId());
                 criticizeVo.setCreatePerson(user.getId());
                 criticizeVo.setUserId(cv.getUserLecturerId());
                 criticizeVo.setCreateTime(new Date());
-                videoService.saveCriticize(criticizeVo);
                 return ResponseObject.newSuccessResponseObject("提交评论成功！");
             }else {
                 return ResponseObject.newErrorResponseObject("用户未登录！");
@@ -106,6 +70,7 @@ public class VideoController {
             return ResponseObject.newErrorResponseObject("提交评论失败！");
         }
     }
+
     /**
      * 根据ID查询评论
      * @param id
@@ -113,27 +78,9 @@ public class VideoController {
      */
     @RequestMapping(value = "/findCriticizeById")
     public ResponseObject findCriticizeById(String id){
-        return ResponseObject.newSuccessResponseObject(videoService.findCriticizeById(id));
+        return ResponseObject.newSuccessResponseObject();
     }
 
-    /**
-     * 点赞、取消点赞
-     * @param request
-     * @param isPraise
-     * @param criticizeId
-     * @return
-     */
-    @RequestMapping(value = "/updatePraise",method = RequestMethod.POST)
-    public ResponseObject updatePraise(HttpServletRequest request,Boolean isPraise, String criticizeId) {
-        //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user!=null) {
-            Map<String, Object> returnMap = videoService.updatePraise(isPraise, criticizeId, user.getLoginName());
-            return ResponseObject.newSuccessResponseObject(returnMap);
-        }else{
-            return ResponseObject.newErrorResponseObject("用户未登录！");
-        }
-    }
     /**
      * 学员学习状态修改
      * @param request
@@ -144,7 +91,7 @@ public class VideoController {
     public ResponseObject updateStudyStatus(HttpServletRequest request,String studyStatus,String videoId) {
         try {
             //获取当前登录用户信息
-            OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+            OnlineUser user = getCurrentUser();
             if(user!=null) {
                 videoService.updateStudyStatus(studyStatus, videoId, user.getId());
                 return ResponseObject.newSuccessResponseObject("修改成功！");
@@ -209,3 +156,7 @@ public class VideoController {
         return ResponseObject.newSuccessResponseObject(askTagService.getTagsByMenuId(menuId));
     }
 }
+
+
+
+

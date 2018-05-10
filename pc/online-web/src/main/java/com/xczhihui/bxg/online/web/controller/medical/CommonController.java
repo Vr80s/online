@@ -1,10 +1,10 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.support.service.AttachmentType;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.support.service.AttachmentType;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
@@ -40,7 +40,7 @@ public class CommonController extends AbstractController{
     public ResponseObject upload(HttpServletRequest request) throws ServletRequestBindingException, IOException {
 
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = getCurrentUser();
         if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
@@ -68,7 +68,7 @@ public class CommonController extends AbstractController{
     @RequestMapping(value = "/isDoctorOrHospital", method = RequestMethod.GET)
     public ResponseObject isDoctorOrHospital(HttpServletRequest request) throws ServletRequestBindingException, IOException {
         // 获取当前用户
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         Integer result = commonService.isDoctorOrHospital(currentUser.getUid());
         return ResponseObject.newSuccessResponseObject(result);

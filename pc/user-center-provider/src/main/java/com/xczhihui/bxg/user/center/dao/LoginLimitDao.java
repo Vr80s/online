@@ -1,8 +1,10 @@
 package com.xczhihui.bxg.user.center.dao;
 
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.LoginLimit;
-import com.xczhihui.user.center.bean.TableVo;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,12 +13,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-import java.util.*;
-
+import com.xczhihui.user.center.bean.LoginLimit;
 
 @Repository
 public class LoginLimitDao {

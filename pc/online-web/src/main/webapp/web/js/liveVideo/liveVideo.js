@@ -1,38 +1,7 @@
-function checkLoginStatus(){
-
-    $.ajax({
-        type: "get",
-        url: bath + "/online/user/loginStatus",
-        async: false,
-        success: function(data) {
-            console.log(data);
-            if(data.success === true) {
-                if(data.resultObject==0){
-                    //alert("当前已登录");
-                }else if(data.resultObject==1){
-                	alert("请登录后观看！");
-                    window.location.href=bath+"/web/html/login.html"
-                    //alert("未登录状态");
-                }else if(data.resultObject==2){
-                    //alert("被顶掉！");
-                    window.location.href=bath+"/otherDevice.html"
-                }
-
-            } else {
-
-            }
-        }
-    });
-
-}
-
-window.setInterval("checkLoginStatus()",1000*60*5);
-
 var teacherId;
 var teacherName;
 $(function() {
 	var roomid = room_id;
-//	var userid=cc_live_user_id;
 	var username;
 	RequestService("/online/user/isAlive", "GET", null, function(data) {
 		if(!data.success) {
@@ -127,12 +96,12 @@ $(function() {
          * 如果课程名太长的话，可能导致礼物列表的框框变化
          */
         //alert($(".right-header").css("height"));
-		var rightHeaderHeight = $(".right-header").css("height");
+/*		var rightHeaderHeight = $(".right-header").css("height");
 		rightHeaderHeight = rightHeaderHeight.substring(0,rightHeaderHeight.length-2);
 		//alert(rightHeaderHeight);
 		if(rightHeaderHeight>150){
 			$("#chat-list").css("padding-top","60px;");
-		}
+		}*/
 	});
 	
 	//直播间访问量增加
@@ -632,10 +601,44 @@ function refreshBalance(){
 	}, function(data) {
 		var balance = data.resultObject;
 		$(".balanceTotal").html(balance);
+		//熊猫币余额
+		$("#xmb_ye").html("熊猫币"+balance);
 		$("#account").html(balance);
 	});
 }
+refreshBalance();
 //返回按钮
 $("#return").click(function() {
     location.href = "/course/courses/" + course_id;
 });
+
+function getGiftListPlayBack(){
+	RequestService("/gift/getGift", "GET", {
+	}, function(data) {
+		
+		var gifts ="";
+		
+		for (var i = 0; i < data.resultObject.length; i++) {
+			var item = data.resultObject[i];
+			var  gift = "<li class='li-initial-border' data-id="+item.id+" data-number="+item.price+">"+
+			"	<img src='"+item.smallimgPath+"' />"+
+			"	<div class='surprise-hide'>"+
+			"		<div class='surprise-show'>"+
+			"			<div class='surprise-show-img'>"+
+			"				<img src='"+item.smallimgPath+"' style='width: 80px;height: 64px;margin-top: 8px;' />"+
+			"			</div>"+
+			"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
+			"				<div class='surprise-show-title'>"+
+			"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
+			"				</div>"+
+			"				<div class='surprise-presented' data-id="+item.id+" data-number="+item.price+">赠送</div>"+
+			"			</div>"+
+			"		</div>"+
+			"		<div class='aspect-down'></div>"+
+			"	</div>"+
+			"</li>";
+		    gifts += gift;
+		}
+		$(".surprise-mouseover-ul").html(gifts);
+	},false);
+}

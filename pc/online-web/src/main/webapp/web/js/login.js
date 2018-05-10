@@ -601,7 +601,7 @@ $(function () {
                     } else {
                         cymregBox.css("display", "none");
                         $(btn).addClass("enable");
-                        var second = 90;
+                        var second = 60;
                         var oldval = $(btn).val();
                         cymCodeInput.css("border", "");
                         cymCodeBox.css("display", "none");
@@ -722,5 +722,14 @@ $(function () {
     }
 
     /*注册结束*/
-
+   //   点击忘记密码，把值存在缓存
+	$(".forgetPassword").click(function(){
+		var userPhone=$(".usernameBox .userName").val(),		
+			phoneNumber=/^[1][3,4,5,6,7,8][0-9]{9}$/;
+		if(phoneNumber.test(userPhone) || userPhone==""){
+			localStorage.setPhone=userPhone;
+		}else{
+			localStorage.removeItem("setPhone")
+		}
+	})
 });

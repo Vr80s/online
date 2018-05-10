@@ -117,7 +117,7 @@ $(function() {
 	//0 支付宝 1 微信  2 银联
 	$(".order-pay-btn").click(function() {
 		RequestService("/course/checkCouseInfo", "GET", {
-			orderId: getQueryString("orderId")==null?orderId:getQueryString("orderId")
+			orderId: orderId
 		}, function(data) {
 			if(data.success == true) {
 				RequestService("/share/checkShareRelation", "GET", null, function(result) {
@@ -134,10 +134,10 @@ $(function() {
 						});
 						if(payType == 0) {
 							$(".pay-result1").css("display", "block");
-                            window.open("/web/alipay/unifiedorder/"+orderNo+"?orderId="+(getQueryString("orderId")==null?orderId:getQueryString("orderId")));
+                            window.open("/web/alipay/unifiedorder/"+orderNo);
 						} else if(payType == 1) {
 							$(".pay-result1").css("display", "block");
-							window.open("/web/weixin_pay_unifiedorder/" + (getQueryString("orderId")==null?orderId:getQueryString("orderId")));
+							window.open("/web/wxPay/" + orderNo);
 						} else {
 
 						}
@@ -157,18 +157,18 @@ $(function() {
 		}, false);
 		$(".userShip").css("display", "none");
 		$(".pay-result1").css("display", "block");
-		window.open("/web/weixin_pay_unifiedorder/" + (getQueryString("orderId")==null?orderId:getQueryString("orderId")));
+		window.open("/web/wxPay/" + orderId);
 	});
 	//取消按钮
 	$(".userShip-cancleBtn").click(function() {
 		$(".userShip").css("display", "none");
 		$(".pay-result1").css("display", "block");
-		window.open("/web/weixin_pay_unifiedorder/" + (getQueryString("orderId")==null?orderId:getQueryString("orderId")));
+		window.open("/web/wxPay/" + orderId);
 	});
 	//支付结果页面1
 	$(".pay-success-btn").click(function() {
 		RequestService("/web/getOrderStatusById", "GET", {
-            orderId: getQueryString("orderId")==null?orderId:getQueryString("orderId")
+            orderId: orderId
 		}, function(data) {
 			if(data.resultObject == 1) {
 				$(".pay-result1").css("display", "none");

@@ -86,13 +86,13 @@
 .header .header_inf .header_inf_right .doctor_inf1 .zhiwu em {
   width: 14px;
   height: 14px;
-  background-image: url(../images/doctor_detail/zhicheng.png);
+  background-image: url(../images/doctor_detail/title.png);
   background-position: center center; 
 }
 .header .header_inf .header_inf_right .doctor_inf1 .yiguan em {
   width: 14px;
   height: 13px;
-  background-image: url(../images/doctor_detail/yiguan.png);
+  background-image: url(../images/doctor_detail/hospital.png);
   background-position: center center; 
 }
 .header .header_inf .header_inf_right .doctor_inf1 .dizhi em {
@@ -100,6 +100,12 @@
   height: 15px;
   background-image: url(../images/doctor_detail/address.png);
   background-position: center center; 
+}
+.header .header_inf .header_inf_right .doctor_inf1 .department em {
+  width: 14px;
+  height: 15px;
+  background-image: url(../images/doctor_detail/department.png);
+  background-position: center center;
 }
 .header .header_inf .header_inf_right .doctor_inf2 {
   padding-top: 10px;
@@ -130,6 +136,9 @@
   font-size: 14px;
   color: #333333;
   line-height: 24px;
+}
+.content_box #main .main_left .doctor_int img {
+ max-width: 200px;
 }
 .content_box #main .main_left .hospital > h3 {
   margin-bottom: 10px;
@@ -185,6 +194,7 @@
   margin-right: 20px;
   float: left;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_pic {
   width: 260px;
@@ -197,12 +207,26 @@
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom {
   height: 97px;
   padding: 10px;
+  position: relative;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom > p {
   margin-bottom: 10px;
 }
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_pirce_person{
+	    width: 240px;
+    position: absolute;
+    bottom: 0;
+    color: #999999;
+}
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_title {
   font-size: 14px;
+  max-width: 240px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_address{
+	color: #666666;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_address em {
   display: inline-block;
@@ -219,6 +243,13 @@
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_person {
   float: right;
+}
+.class_person em {
+  display: inline-block;
+  width: 11px;
+  height: 13px;
+  background:url('/web/images/studentCount.png') 0 0 no-repeat;
+  margin-right: 5px;
 }
 .content_box #main .main_left .class .class_bottom .class_inf:nth-child(3n) {
   margin-right: 0;
@@ -247,6 +278,10 @@
 .content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_left >a >img{
 	width: 270px;
 	height: 152px;
+}
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li > a > .zhuanlan_left >img{
+  width: 270px;
+  height: 152px;
 }
 .content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right {
   float: left;

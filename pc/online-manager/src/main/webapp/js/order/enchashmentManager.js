@@ -52,7 +52,7 @@ $(function(){
             return "<a href='jvascript:void(0);' style='color: blue;cursor: pointer' onclick='previewDialog(this);return false;'>查看</a>";
         }},
         { "sortable": false,"class": "center","width":"7%","title":"操作","mRender":function (data, display, row) {
-        	debugger
+
                 if(row.status==2){
                     return "<a  style='color: blue;cursor: pointer' onclick='dakuan(\""+row.id+"\",1)'>通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a  style='color: blue;cursor: pointer' onclick='bohui(\""+row.id+"\")'>驳回</a>";
                 }else if(row.status == 1){
@@ -84,7 +84,7 @@ $(function(){
 });
 
 function yfk(obj){
-    debugger;
+    ;
     var oo = $(obj).parent().parent().parent();
     var row = orderTable.fnGetData(oo);
 	console.info(row.realName);
@@ -96,7 +96,7 @@ function yfk(obj){
 }
 
 function ybh(obj){
-	debugger;
+	;
 	var oo = $(obj).parent().parent().parent();
 	var row = orderTable.fnGetData(oo);
 
@@ -136,7 +136,7 @@ Date.prototype.Format = function(fmt) { //author: meizz
 
 //修改
 function dakuan(id,status){
-	debugger
+
     $("#dakuanStatus").val(status);
 	var str = ";"
 	if(status==1){
@@ -172,11 +172,7 @@ function dakuan(id,status){
 			mask();
             $("#dakuan-form").attr("action", basePath+"/order/enchashmentManager/handleEnchashment");
             $("#dakuan-form").ajaxSubmit(function(data){
-            	try{
-            		data = jQuery.parseJSON(jQuery(data).text());
-            	}catch(e) {
-            		data = data;
-            	  }
+            	data = getJsonData(data);
             
                 unmask();
                 if(data.success){
@@ -199,11 +195,7 @@ function bohui(id){
 			mask();
 			$("#bohui-form").attr("action", basePath+"/order/enchashmentManager/handleEnchashment");
 			$("#bohui-form").ajaxSubmit(function(data){
-				try{
-					data = jQuery.parseJSON(jQuery(data).text());
-				}catch(e) {
-					data = data;
-				}
+				data = getJsonData(data);
 				
 				unmask();
 				if(data.success){
@@ -251,7 +243,7 @@ $("#selType").on("change",function(){
 
 //查看
 function previewDialog(obj){
-	debugger;
+	;
 	var oo = $(obj).parent().parent();
 	var row = orderTable.fnGetData(oo); // get datarow
 	$("#acctName").html(row.acctName);

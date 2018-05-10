@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.dao;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.online.common.domain.MenuTag;
 import com.xczhihui.bxg.online.web.vo.AskAccuseVo;
 import com.xczhihui.bxg.online.web.vo.AskAnswerVo;

@@ -1,17 +1,15 @@
 package com.xczh.test.wechat;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import test.BaseJunit4Test;
+
 import com.xczhihui.bxg.online.common.domain.WechatMaterial;
 import com.xczhihui.bxg.online.common.domain.WechatMediaManager;
-import com.xczhihui.bxg.online.manager.wechat.dao.WechatMaterialDao;
 import com.xczhihui.bxg.online.manager.wechat.service.WechatMaterialService;
-
-import test.BaseJunit4Test;
 
 /**
  * 医馆入驻测试类

@@ -7,6 +7,17 @@ var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
 var memory_data="";
+
+/**
+ * 当cc初始化成功后，会主动调用这个方法
+ * @returns {String}
+ */
+function get_custom_id(){
+	var custom_id ="123456789";
+	return custom_id;
+}
+
+
 $(function(){
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -50,7 +61,7 @@ function stripHTML(str){
 		}
 		//详情页的banner
 		var school_img = document.createElement("img");
-		school_img.src = data.resultObject.smallImgPath;
+		school_img.src = data.resultObject.smallImgPath + '?imageView2/2/w/750';
 		$(".play_video").append(school_img)
 //	CC视频ID
 	    var	videoId = data.resultObject.directId;
@@ -139,7 +150,7 @@ function chZJ(videoId,multimediaType,smallImgPath){
 		multimedia_type:multimediaType
 //		multimedia_type:1
 	}
-	requestService("/bxg/ccvideo/commonCourseStatus", 
+	requestService("/xczh/ccvideo/palyCode", 
 			dataParams, function(data) {
 		if(data.success){
 			var playCodeStr = data.resultObject;
@@ -151,6 +162,7 @@ function chZJ(videoId,multimediaType,smallImgPath){
 	    	 */
 	    	//getVideoCriticize(1,vid);
 	    	
+			
 		}else{
     		$(".video_prompt").show();
 		}

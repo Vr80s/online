@@ -34,7 +34,7 @@ function loadOrderList(){
         {title: '充值数量', "class": "center", "width": "8%","data": 'value',"sortable":false},
         {title: '订单来源', "class": "center", "width": "8%","data": 'orderFrom', "sortable": false,"mRender":function(data,display,row){
         	var orderForm = "";//1.pc 2.h5 3.android 4.ios
-        	debugger;
+        	;
         	if(data == 1){
         		orderForm = "pc";
         	}else if(data == 2){
@@ -46,7 +46,7 @@ function loadOrderList(){
             }
         	return orderForm;
         }},
-        {title: '充值者(用户名)', "class": "center", "width": "8%","data": 'userId', "sortable": false},
+        {title: '用户名', "class": "center", "width": "8%","data": 'userId', "sortable": false},
         {title: '支付方式', "class": "center", "width": "10%","data": 'payType', "sortable": false,"mRender":function(data,display,row){
         	var payType ;// 0.支付宝1.微信2.苹果
         	if(data == 0){

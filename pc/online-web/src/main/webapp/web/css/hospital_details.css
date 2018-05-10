@@ -293,10 +293,10 @@
 /*重要通知*/
 .content_box #main .main_right .import_thing{
     width: 320px;
-    height: 229px;
     background-color: #fff;
     padding: 20px;
     padding-top: 60px;
+    overflow: hidden;
 }
 .content_box #main .main_right .import_thing>h2{
     margin-bottom: 20px;

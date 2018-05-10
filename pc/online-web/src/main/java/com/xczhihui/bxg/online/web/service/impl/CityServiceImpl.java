@@ -16,8 +16,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
+import com.xczhihui.online.api.service.CityService;
+import com.xczhihui.online.api.vo.UserAddressManagerVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 
 @Service

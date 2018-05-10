@@ -1,10 +1,10 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.VCodeType;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.VerificationCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class EnchashmentController extends AbstractController{
      **/
     @RequestMapping(value = "/settlement")
     public ResponseObject settlement(HttpServletRequest request,Integer amount){
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         enchashmentService.saveSettlement(user.getId(),amount, OrderFrom.PC);
         return ResponseObject.newSuccessResponseObject("结算成功！");
     }
@@ -49,7 +49,7 @@ public class EnchashmentController extends AbstractController{
      **/
     @RequestMapping(value = "/enchashment")
     public ResponseObject enchashment(HttpServletRequest request, BigDecimal amount,Integer bankCardId,String code){
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         verificationCodeService.checkCode(user.getLoginName(),code);
         enchashmentService.saveEnchashmentApplyInfo(user.getId(),amount,bankCardId,OrderFrom.PC);
         return ResponseObject.newSuccessResponseObject("提现成功！");
@@ -63,7 +63,7 @@ public class EnchashmentController extends AbstractController{
      **/
     @RequestMapping(value = "sendVerificationCode")
     public ResponseObject sendVerificationCode(HttpServletRequest request) {
-        OnlineUser user = getOnlineUser(request);
+        OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(verificationCodeService.addMessage(user.getLoginName(), VCodeType.ENCHASHMENT.getCode()+""));
     }
 }

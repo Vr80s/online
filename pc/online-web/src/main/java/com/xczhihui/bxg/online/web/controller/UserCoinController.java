@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.EnchashmentApplication;
+import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
@@ -36,7 +35,7 @@ import com.xczhihui.bxg.online.web.base.utils.WebUtil;
  */
 @RestController
 @RequestMapping(value = "/userCoin")
-public class UserCoinController {
+public class UserCoinController extends AbstractController{
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -44,10 +43,8 @@ public class UserCoinController {
 
     @Value("${rate}")
     private int rate;
-    @Value("${ENV_FLAG}")
+    @Value("${env.flag}")
     private String env;
-    @Value("${minimum_amount}")
-    private Double minimumAmount;
     
 	/** 
 	 * Description：获取用户余额
@@ -61,7 +58,7 @@ public class UserCoinController {
 	@ResponseBody
 	public ResponseObject balance(HttpServletRequest request) throws Exception {
 		//获取登录用户
-        BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+        BxgUser loginUser = getCurrentUser();
         if(loginUser==null) {
             return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
         }
@@ -74,7 +71,7 @@ public class UserCoinController {
 	@ResponseBody
 	public ResponseObject userCoinIncreaseRecord(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
 		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		BxgUser loginUser = getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(userCoinService.getUserCoinIncreaseRecord(loginUser.getId(), pageNumber, pageSize));
 	}
 
@@ -82,7 +79,7 @@ public class UserCoinController {
 	@ResponseBody
 	public ResponseObject userCoinConsumptionRecord(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
 		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		BxgUser loginUser = getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(userCoinService.getUserCoinConsumptionRecord(loginUser.getId(), pageNumber, pageSize));
 	}
 
@@ -90,7 +87,7 @@ public class UserCoinController {
 	@ResponseBody
 	public ResponseObject getRchargeOrderNo(HttpServletRequest request) throws Exception {
 		//获取登录用户
-		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		BxgUser loginUser = getCurrentUser();
 		if(loginUser!=null) {
             return ResponseObject.newSuccessResponseObject(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12));
         }
@@ -104,11 +101,8 @@ public class UserCoinController {
 		if(!WebUtil.isIntegerForDouble(count)){
 			throw new RuntimeException("充值金额"+price+"兑换的熊猫币"+count+"不为整数");
 		}
-		if(minimumAmount > Double.valueOf(price)){
-			throw new RuntimeException("充值金额低于最低充值金额："+minimumAmount);
-		}
         
-        OnlineUser u =  (OnlineUser)request.getSession().getAttribute("_user_");
+        OnlineUser u =  getCurrentUser();
         if( u != null){
             mav.setViewName("rechargePay");
             mav.addObject("actualPay", price);
@@ -127,10 +121,7 @@ public class UserCoinController {
 
 	@RequestMapping(value = "/userDataForRecharge")
 	public ResponseObject getUserDataForRecharge(HttpServletRequest request,EnchashmentApplication ea) {
-		OnlineUser u =  (OnlineUser)request.getSession().getAttribute("_user_");
-		if(u==null) {
-            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
-        }
+		OnlineUser u =  getCurrentUser();
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("balanceTotal", userCoinService.getBalanceByUserId(u.getId()));
 		m.put("account", u.getLoginName());

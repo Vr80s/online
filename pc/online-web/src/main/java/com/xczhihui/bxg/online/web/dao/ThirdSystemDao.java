@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 
 /**
  * 第三方系统接口提供

@@ -4,20 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.bxg.online.api.vo.LiveCourseUserVO;
-import com.xczhihui.bxg.online.api.vo.LiveCourseVO;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.GiftStatement;
-import com.xczhihui.bxg.online.api.vo.ReceivedGift;
-import com.xczhihui.bxg.online.api.vo.ReceivedReward;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.online.api.vo.LiveCourseUserVO;
+import com.xczhihui.online.api.vo.LiveCourseVO;
+import com.xczhihui.online.api.vo.RankingUserVO;
+import com.xczhihui.online.api.vo.ReceivedGift;
+import com.xczhihui.online.api.vo.ReceivedReward;
+import com.xczhihui.bxg.online.common.domain.Gift;
+import com.xczhihui.bxg.online.common.domain.GiftStatement;
 import com.xczhihui.bxg.online.common.domain.Reward;
 
 
@@ -77,7 +77,7 @@ public class GiftDao extends SimpleHibernateDao {
 				"FROM\n" +
 				"  `user_coin_increase` uci\n" +
 				"   JOIN oe_gift_statement ogs \n" +
-				"    ON uci.order_no_gift = ogs.id \n" +
+				"    ON uci.correlation_id = ogs.id \n" +
 				"WHERE uci.change_type = 3 \n" +
 				"  AND ogs.live_id ="+liveId+" ";
 		return (int) this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(sql, Integer.class);
@@ -98,7 +98,7 @@ public class GiftDao extends SimpleHibernateDao {
 //				+ "FROM `oe_gift_statement` ogs LEFT JOIN oe_user ou ON ou.`id`=ogs.`giver` "
 //				+ "WHERE ogs.`receiver`=:userId order by ogs.`create_time` desc";
 		String sql="SELECT ogs.id orderNo,ogs.`gift_name` giftName,ogs.`count`,ogs.`create_time` createTime,ou.`name` ,ROUND(ifnull(uci.`value`,0),2) gain"
-				+ " FROM `oe_gift_statement` ogs left join `user_coin_consumption` ucc on ucc.`order_no_gift`=ogs.`id` left join `user_coin_increase` uci on uci.`order_no_gift`=ucc.`order_no_gift` AND uci.change_type=3  LEFT JOIN oe_user ou ON ou.`id` = ogs.`giver`"
+				+ " FROM `oe_gift_statement` ogs left join `user_coin_consumption` ucc on ucc.`correlation_id`=ogs.`id` left join `user_coin_increase` uci on uci.`correlation_id`=ucc.`correlation_id` AND uci.change_type=3  LEFT JOIN oe_user ou ON ou.`id` = ogs.`giver`"
 				+ "WHERE ogs.`receiver`=:userId ORDER BY ogs.`create_time` DESC ";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);
@@ -119,7 +119,7 @@ public class GiftDao extends SimpleHibernateDao {
 	public Object getReceivedReward(String userId, Integer pageNumber,
 			Integer pageSize) {
 		String sql="SELECT ors.`order_no` orderNo,ors.`price`,ou.`name`,ors.`create_time` createTime,ROUND(ifnull(uci.`value`,0),2) gain FROM `oe_reward_statement` ors LEFT JOIN oe_user ou "
-				+ "ON ou.`id`=ors.`giver` left join `user_coin_increase` uci on uci.`order_no_reward`=ors.`id` and uci.`change_type`=4 "
+				+ "ON ou.`id`=ors.`giver` left join `user_coin_increase` uci on uci.`correlation_id`=ors.`id` and uci.`change_type`=4 "
 				+ "WHERE ors.`receiver`= :userId  order by ors.`create_time` desc";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);
@@ -224,12 +224,17 @@ public class GiftDao extends SimpleHibernateDao {
 		return page;
 	}
 
-//	public List<Map<String, Object>> getGiftRecord(String courseId) {
-//		DetachedCriteria dc = DetachedCriteria.forClass(GiftStatement.class);
-//		dc.add(Restrictions.eq("isDelete", false));
-//		dc.add(Restrictions.eq("status", "1"));
-//		List<GiftStatement> gs = this.findEntities(dc);
-//		return null;
-//	}
-	
+	public Object getRankingListByLiveId(String liveId, int pageNumber, int pageSize) {
+		StringBuffer sql = new StringBuffer();
+
+		sql.append( " SELECT  ou.id userId,ou.`name`, ou.small_head_photo smallHeadPhoto, ogs.create_time, ");
+		sql.append( " CAST(SUM(ogs.`price`) AS SIGNED) giftCount ");
+		sql.append( " FROM oe_gift_statement ogs  INNER JOIN oe_user ou 	ON (ogs.giver = ou.id) ");
+		sql.append( " WHERE ogs.live_id = :live_id 	GROUP BY giver HAVING SUM(ogs.`price`)>0 ORDER BY giftCount DESC,userId desc ");
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("live_id", liveId);
+        Page<RankingUserVO> page = this.findPageBySQL(sql.toString(), paramMap, RankingUserVO.class, pageNumber, pageSize);
+		return page.getItems();
+	}
+
 }

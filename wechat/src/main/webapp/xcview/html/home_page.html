@@ -10,10 +10,10 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<!-- 暂时隐藏 -->
+
 <!--手机嵌入模板-->
-<!--<script type="text/javascript" src="/xcview/js/template/template.js"></script>-->
-
-
+<!--<script type="text/javascript" src="/xcview/js/template/layout.js"></script>-->
 
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>
@@ -23,32 +23,31 @@
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1.1"/>
 
-
-
-<!--没有用上面js模板，手机上加载的太慢。会出错误-缩小放大效果-->
-<script type="text/javascript">
+<!--手机嵌入模板-->
+<script>
+		// 整体代码响应式处理
 	var kk=document.documentElement.clientWidth;
 	if(kk>750){
 		kk=750
 	}
-	document.documentElement.style.fontSize=kk/7.5+"px"		
-
+	document.documentElement.style.fontSize=kk/7.5+"px";
 </script>
-
-
-<script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
-<script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
-<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>
-<script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
-<!--新滑动引入-->
-<script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1"></script>
+<!-- <script type="text/javascript" src="/xcview/js/template/layout.js"></script> -->
 
 <link rel="stylesheet" href="/xcview/css/home_pages/home_pages.css">  <!--这是替换css-->
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
+
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
 <body style="background: #F8F8F8;display: none;">
 	<!--头部搜索开始-->
@@ -91,6 +90,7 @@
 	    </div>
 	</div>
 	<div class="top_height"></div>
+	
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
 		<!--<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">-->
@@ -169,7 +169,7 @@
 								{{each items as item i}}
 									<div class="slide_one_div swiper-slide">
 										<a href="javascript:;">
-											<img src="{{item.icon}}" class="slide_one_artist"  data-div="{{item.linkCondition}}" />
+											<img src="{{item.icon}}?imageView2/2/w/72" class="slide_one_artist"  data-div="{{item.linkCondition}}" />
 											<p>{{item.name}}</p>
 										</a>
 									</div>
@@ -190,7 +190,7 @@
 					            	
 					            	<div class="teacher_slider_ul_div teacherRecommend" data-jump="{{item.userId}}">
 					            		<a style="color: #333;" href="/xcview/html/live_personal.html?userLecturerId={{item.userId}}">
-                    						<img src="{{item.headPortrait}}" />
+                    						<img src="{{item.headPortrait}}?imageView2/2/w/72" />
                     						<span style="font-size: 0.22rem;">{{item.name}}</span>
                     					</a>
                     				</div>
@@ -215,18 +215,31 @@
             				<!--视频-->
             				{{each item.courseList as item i}}                  					
                 				<li style="position: relative;" class="goodCourseList" data-id="{{item.id}}" data-type="{{item.type}}">
-		                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump({{item.id}})"></a>-->
-	                    			{{if item.type == 1 || item.type == 2}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
-	                    			{{else if item.type == 3}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
-	                    			{{else if item.type == 4}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+                					
+                					<!--watchState，1免费、0收费-type，1-视频、2-音频、3-直播、4-线下培训班   collection:1-专辑   -->
+                					
 	                    			
-	                    			{{/if}}
+			          	{{if item.type == 1 || item.type == 2 || item.type == 4}}
+	                					 
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+													onclick="common_jump_all({{item.id}})"></a>
+
+<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
+		                    			
+		                    		{{else if item.type == 3}}
+		                    			
+		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+													onclick="common_jump_all({{item.id}})"></a>
+		                    			
+		                    			
+		                    			
+                					{{/if}}
+
+
                 					<div class="boutique_main_one">
                 						<div class="boutique_one_img">
-                							<img src="{{item.smallImgPath}}" alt="" />
+                							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
                 						</div>
                 							{{if item.type == 1}}
                 								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
@@ -237,10 +250,9 @@
 											{{else if item.type == 4}}
                 								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
                 							{{/if}}
-                						<!--<div class="boutique_main_one_title"><span>{{item.name}}&nbsp;{{item.gradeName}}</span></div>-->
                 						<div class="boutique_main_one_title">
                 							<div class="div">{{item.gradeName}}</div>
-                							<div class="span0">{{item.name}}</div>
+                							<div class="span0" style="margin-bottom: 0rem;">{{item.name}}</div>
                 						</div>
                 						<div class="boutique_main_one_size">
                 							{{if item.watchState == 1}}
@@ -255,7 +267,7 @@
                 							   {{else if item.startDateStr.indexOf('.')==-1}}
                 								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p              						   
                 								{{else}}
-                								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p>
+                								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;margin-top: -0.02rem;">{{item.startDateStr}}</span></p>
                 								{{/if}}
                 						
                 						{{else if item.type == 4}}
@@ -291,7 +303,7 @@
                 			{{each items as item i}}
 				            <div class="swiper-slide">
 				            	<div class="teacher_slider_ul_div go_search">
-                						<img src="{{item.icon}}" />
+                						<img src="{{item.icon}}?imageView2/2/w/72" style="width: 0.72rem;height: 0.72rem;" />
                 						<span style="font-size: 0.22rem;">{{item.cityName}}</span>
                 				</div>
 				            </div>
@@ -314,19 +326,16 @@
                 				{{each item.courseList as item i}}
                 				<li class="offlineCourseList" data-jump="{{item.id}}">
 
-									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
+									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection}},{{item.id}})"></a>
 
                 					<div class="boutique_main_four">
                 						<div class="boutique_four_img">
-                							<img src="{{item.smallImgPath}}" alt="" />
+                							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
                 						</div >
-            							<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
                 						<div class="boutique_main_four_title">
                 							<div class="div">{{item.gradeName}}</div>
-                							<div class="span">{{item.name}}</div>
-                							
-                							<!--<span></span><br />
-                							<span class="span"></span>-->
+                							<div class="span">{{item.name}}</d
                 						</div>
                 						<div class="boutique_main_four_size">
                 							{{if item.watchState == 1}}
@@ -346,10 +355,8 @@
                 		</div>
                 	</div>
             		{{/each}}
-            		
             	</script>
             	
-            		
             	<!--全国课程结束-->
 			</li>
 			<!--线下课结束-->
@@ -376,24 +383,14 @@
 								<!--即将直播-->
 								<li style="position: relative;">
 									
-									<!--<script type="text/html" id="data_video">
-										{{if watchState == 1}}
-											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" data-memory="{{id}}" href="details.html?courseId={{id}}"></a>
-										
-										{{else if watchState == 3}}
-										
-											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
-										
-										{{/if}}
-									</script>-->
-									
-									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="jump_play({{item.id}})"></a>
+							
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;"
+onclick="common_jump_all({{item.id}})" ></a>
 
 									<div class="newest_main_two">
 										<div class="newest_two_img">
-											<img src="{{item.smallImgPath}}" alt="" />
+											<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
 										</div>
-										<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_two_img_type" />-->
 										<div class="newest_main_two_title">
 											<div class="div">{{item.gradeName}}</div>
 											<div class="span">{{item.name}}</div>
@@ -403,17 +400,15 @@
 											<p style="margin-top: -0.01rem;"><span>免费</span></p>
 											
 											{{else}}
-											<p style="margin-top1: 0.03rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
+											<p style="font-size: 0.22rem;margin-top: 0.03rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 											{{/if}}
 											<p class="p2"><img src="/xcview/images/population.png" alt=""  /><span style="margin-top1: 0.03rem;">{{item.learndCount}}</span></p>
-											<!--<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
-
 											{{if itemls.lineState == 1}}
-												<p class="zhibo_play" style="margin-top1: -0.05rem;">直播中</p>
+												<p class="zhibo_play">直播中</p>
 											{{else if item.startDateStr.indexOf('.')==-1}}
-												<p class="p3" style="margin-top1: 0.03rem;"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top1: 0.08rem;">{{item.startDateStr}}</span></p>
+												<p class="p3"><img src="/xcview/images/Sinatv_time.png" alt="" /><span style="margin-top1: 0.08rem;">{{item.startDateStr}}</span></p>
 											{{else}}
-												<p class="p3"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="font-size: 0.22rem;">{{item.startDateStr}}</span></p>			
+												<p class="p3" style="margin-right: 0.03rem;margin-top: 0.03rem;"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;margin-top: 0.01rem;" /><span style="font-size: 0.22rem;">{{item.startDateStr}}</span></p>			
 											{{/if}}
 											
 										</div>
@@ -441,8 +436,6 @@
 				</div>
 				<!--swiper轮播图滑动结束-->
 
-
-				
             	<!--听课推荐开始-->
             	<div class="lectures">
             		<div class="lectures_title" >听课推荐<img src="/xcview/images/video_review.png" alt="" style="width: 0.15rem;margin-right: 0.26rem;float: right;margin-top: 0.08rem;" /></div>
@@ -451,18 +444,17 @@
             				<script type="text/html" id="lectures">
             				{{each items as item i}}
             				<li class="listenCourseList" data-jump="{{item.id}}">
-								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
+        					
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
+            					
             					<div class="lectures_main_one">
             						<div class="lectures_one_img">
-            							<img src="{{item.smallImgPath}}" alt="" />
+            							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
             						</div>
-            						<!--<img src="/xcview/images/tv_auto.png" alt="" class="lectures_main_one_img_type" />-->
             						<div class="lectures_main_one_title">
             							<div class="div">{{item.gradeName}}</div>
             							<div class="span">{{item.name}}</div>
-            							
-            							<!--<span></span><br />
-            							<span class="span"></span>-->
             						</div>
             						<div class="lectures_main_one_size">
             							{{if item.watchState == 1}}
@@ -488,19 +480,14 @@
 		</ul>
 			<!--</div>
 		</div>-->
-
 	</div>
-	
-	
-	
 	
 	<!--底部旋转开始-->
 	<div class="rotation_bottom">
-		<img src="/xcview/images/120.jpg" />
+		<img src="/xcview/images/default_pic.png" />
 	</div>
 	<!--底部旋转结束-->
 	
-
 	<!--底部开始-->
 	<div class="footer_perch" style="1display: none;"></div>
 	<div class="footer" style="display: none1;">
@@ -514,7 +501,7 @@
 				<p>学习</p>
 			</li>
 			<li>
-				<a href="/xcview/html/discovery.html" class="footer_three" style="background-size: 0.4rem 0.4rem;"></a>
+				<a href="/xcview/html/discovery.html" class="footer_three" style="background-size: 0.42rem 0.42rem;height: 0.42rem;margin-bottom: 0.04rem;"></a>
 				<p>发现</p>
 			</li>
 			<li>
@@ -526,22 +513,19 @@
 	<!--底部结束-->
 	
 </body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>
+<!-- 公共跳转的 -->
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
 
-<!--js滑动引入开始-->
-
-<!--<script type="text/javascript">
-		$(function(){
-			app.TabSlider('#tabSlider2',{type:'line'});
-		});
-</script>-->
-<!--js滑动引入结束-->
-
-    <!--学堂4个轮播引入-->
-    <!--<script src="http://www.5iweb.com.cn/statics/js/jquery.1.7.1.min.js" type="text/javascript"></script>-->
-    <!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>  <!-- 名师推荐滑动引入 -->
+<!--新滑动引入-->
+<script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1"></script>
 
 <script type="text/javascript">
-
 // 给li定义高度，配合css使li独立滚动
 var $window = $(window);
 var initialWindowHeight = null;
@@ -557,8 +541,6 @@ function sliderHeight(){
 }
 sliderHeight();
 
-
-
 $(".find_nav_list").css("left",1);
 $(".find_nav_list li").each(function(){
    $(".find_nav_list li").eq(1).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
@@ -568,26 +550,6 @@ var nav_w=$(".find_nav_list li").first().width();
 $(".sideline").width(nav_w);
 
 $("body").show();
-/* $(".find_nav_list li").on('click', function(){
-	nav_w=$(this).width();
-	$(".sideline").stop(true);
-	$(".sideline").animate({left:$(this).position().left},300);
-	$(".sideline").animate({width:nav_w});
-	$(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
-	var fn_w = ($(".find_nav").width() - nav_w) / 2;
-	var fnl_l;
-	var fnl_x = parseInt($(this).position().left);
-	if (fnl_x <= fn_w) {
-		fnl_l = 0;
-	} else if (fn_w - fnl_x <= flb_w - fl_w) {
-		fnl_l = flb_w - fl_w;
-	} else {
-		fnl_l = fn_w - fnl_x;
-	}
-	$(".find_nav_list").animate({
-		"left" : fnl_l
-	}, 300);
-});	 */
 
 var fl_w=$(".find_nav_list").width();
 var flb_w=$(".find_nav_left").width();
@@ -692,7 +654,6 @@ tt.slide(parseInt(school_index), 600);
 function slide(begin){
 	tt.slide(begin, 600);
 }
-
 
 for(var i=0;i<as.length;i++){
 	(function(){

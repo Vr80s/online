@@ -2,7 +2,20 @@ var P_courseTable;//主播列表
 var anchorRecTable;//推荐主播列表
 var courseForm;//添加课程表单
 
+function hahaha(obj){
+	var text = $(obj).text();
+    var input = document.getElementById("input_hahaha");
+    input.value = text; // 修改文本框的内容
+    input.select(); // 选中文本
+    document.execCommand("copy"); // 执行浏览器复制命令
+    alert("复制成功");
+}
+	
+
 $(function() {
+	
+	
+
     createDatePicker($(".datetime-picker"),"yy-mm-dd");
     document.onkeydown = function (event) {
         if (event.keyCode == 13) {
@@ -16,6 +29,9 @@ $(function() {
     var objData = [
         { "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
             return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
+        }},
+        { "title": "主播ID", "class": "center","width":"12%","title":"主播(Id)点击复制","sortable": false,"data":"userId","mRender": function (data, display, row) {
+              return "<a onclick='hahaha(this)' style='color:blue;' >"+data+"</a>";
         }},
         {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
         {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
@@ -71,7 +87,15 @@ $(function() {
     var recData = [
         { "title": checkboxRec,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
             return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
-        }},{"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+            
+        }},
+        
+        { "title": "主播ID", "class": "center","width":"12%","title":"主播(Id)点击复制","sortable": false,"data":"userId","mRender": function (data, display, row) {
+            return "<a onclick='hahaha(this)' style='color:blue;' >"+data+"</a>";
+        }},
+        
+        
+        {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
         {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.type==1){
@@ -112,7 +136,7 @@ $(function() {
     });
     /**主播推荐列表结束**/
     $(".recAnchor").click(function () {
-        debugger;
+        ;
         recAnchorTable();
     });
     $(".rec_P").click(function () {
@@ -206,7 +230,7 @@ function upMoveRec(obj){
  * @param obj
  */
 function downMoveRec(obj){
-    debugger;
+    ;
     var oo = $(obj).parent().parent().parent();
     var aData = anchorRecTable.fnGetData(oo);
     ajaxRequest(basePath+'/anchor/courseAnchor/downMoveRec',{"id":aData.id},function(res){
@@ -224,7 +248,7 @@ function toEdit(obj,status){
     //根据当前id查找对应的课程信息
     $("#id").val(row.id);
     $.get(basePath+"/anchor/courseAnchor/findCourseAnchorById",{id:row.id}, function(result){
-        debugger
+
         $("#name").val(result.name);
         $("#vod").val(result.vodDivide);
         $("#live").val(result.liveDivide);
@@ -232,16 +256,12 @@ function toEdit(obj,status){
         $("#gift").val(result.giftDivide);
 
         var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","设置分成比例",500,500,true,"确定",function(){
-            debugger
+
             if($("#updateCourse-form").valid()){
                 mask();
                 $("#updateCourse-form").attr("action", basePath+"/anchor/courseAnchor/updateCourseById");
                 $("#updateCourse-form").ajaxSubmit(function(data){
-                    try{
-                        data = jQuery.parseJSON(jQuery(data).text());
-                    }catch(e) {
-                        data = data;
-                    }
+                    data = getJsonData(data);
                     unmask();
                     if(data.success){
                         $("#EditCourseDialog").dialog("close");
@@ -323,7 +343,7 @@ function setUserLecturer(obj,op){
  * @Date: 2018/3/15 21:16
  **/
 function showCourseListDialog(obj) {
-    debugger;
+    ;
     var oo = $(obj).parent().parent().parent();
     var aData = P_courseTable.fnGetData(oo); // get datarow
     window.location.href = basePath + '/home#anchor/courseAnchor/anchorCourse?userId=' + aData.userId+'&anchorNname='+aData.name+'&loginName='+aData.loginName;
@@ -343,11 +363,7 @@ function updateRecommendSort(obj){
             mask();
             $("#UpdateRecommendSortFrom").attr("action", basePath+"/anchor/courseAnchor/updateRecommendSort");
             $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
-                try{
-                    data = jQuery.parseJSON(jQuery(data).text());
-                }catch(e) {
-                    data = data;
-                }
+                data = getJsonData(data);
                 unmask();
                 if(data.success){
                     $("#recommendSort").val("");

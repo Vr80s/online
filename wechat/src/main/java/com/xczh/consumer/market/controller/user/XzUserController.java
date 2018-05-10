@@ -15,9 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import nl.bitwalker.useragentutils.OperatingSystem;
-import nl.bitwalker.useragentutils.UserAgent;
 
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +29,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.utils.UCCookieUtil;
-import com.xczh.consumer.market.utils.XzStringUtils;
-import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
-import com.xczhihui.bxg.online.api.service.CityService;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.enums.RegisterForm;
-import com.xczhihui.bxg.online.common.enums.SMSCode;
+import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.enums.RegisterForm;
+import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.service.IThreePartiesLoginService;
+import com.xczhihui.course.util.XzStringUtils;
+
+import nl.bitwalker.useragentutils.OperatingSystem;
+import nl.bitwalker.useragentutils.UserAgent;
 
 /**
  * 用户controller
@@ -63,23 +59,9 @@ public class XzUserController {
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	@Autowired
-	private WxcpClientUserService wxcpClientUserService;
-	@Autowired
 	private CacheService cacheService;
-	
-	@Autowired
-	private UserCoinService userCoinService;
-	@Autowired
-	private OLAttachmentCenterService service;
-	@Autowired
-	private AppBrowserService appBrowserService;
-	
 	@Autowired
 	private IThreePartiesLoginService threePartiesLoginService;
-	
-	
-	@Autowired
-	private CityService cityService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserController.class);
 	
@@ -104,7 +86,6 @@ public class XzUserController {
 		//类型，1注册，  2重置密码   3 完善信息
 		vtype = vtype == null ? SMSCode.RETISTERED.getCode() : vtype;
 		try {
-			
 			if(!XzStringUtils.checkPhone(username)){
 				return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 			}
@@ -116,7 +97,6 @@ public class XzUserController {
 				return ResponseObject.newErrorResponseObject(str);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
@@ -141,7 +121,7 @@ public class XzUserController {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		if(!XzStringUtils.checkPassword(password)){
-			return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
+			return ResponseObject.newErrorResponseObject("密码为6-18为英文大小写字母或者阿拉伯数字");
 		}
 		/*
 		 * 验证短信验证码
@@ -186,7 +166,7 @@ public class XzUserController {
 			@RequestParam("code")String code,
 			@RequestParam("openId")String openId) throws Exception {
 		
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(username)){
+		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		/*
@@ -217,7 +197,6 @@ public class XzUserController {
 	 * Description：浏览器端登录
 	 * @param req
 	 * @param res
-	 * @param params
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -231,23 +210,14 @@ public class XzUserController {
 			@RequestParam("username") String username,
 			@RequestParam("password") String password) throws Exception {
 		
-		if(!com.xczh.consumer.market.utils.XzStringUtils.checkPhone(username)){
+		if(!XzStringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
-		Token t = null;
-		try {
-			//存储在redis中了，有效期为10天。
-			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}
+		//存储在redis中了，有效期为10天。
+		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		
 		if (t != null) {
 			OnlineUser o = onlineUserService.findUserByLoginName(username);
-			if (o.isDelete() || o.getStatus() == -1){
-				return ResponseObject.newErrorResponseObject("用户已禁用");
-			}
 			if (o != null) {
 				if (o.isDelete() || o.getStatus() == -1){
 					return ResponseObject.newErrorResponseObject("用户已禁用");
@@ -255,9 +225,10 @@ public class XzUserController {
 				/*
 				 * 判断是否存在微吼信息,不存在创建，因为app端需要根据创建的信息进行播放
 				 */
-				if(o.getVhallId()==null || "".equals(o.getVhallId())){
+				if(o.getVhallId()==null || "".equals(o.getVhallId()) ){
 					
-					String weihouId = WeihouInterfacesListUtil.createUser(o.getId(),
+					String weihouId = WeihouInterfacesListUtil.createUser(
+							o.getId(),
 							WeihouInterfacesListUtil.MOREN, 
 							o.getName(),o.getSmallHeadPhoto());
 					
@@ -291,7 +262,7 @@ public class XzUserController {
 					ItcastUser user = userCenterAPI.getUser(username);
 					//这个地方会返回这个用户的微吼id和名字
 					OnlineUser newUser = onlineUserService.addUser(username, 
-							user.getNike_name(),getRegiserFormByReq(req),password);
+							user.getNikeName(),getRegiserFormByReq(req),password);
 					newUser.setPassword(user.getPassword());
 					//把这个票给前端
 					newUser.setTicket(t.getTicket());
@@ -330,7 +301,7 @@ public class XzUserController {
 		}
 		
 		if (!XzStringUtils.checkPassword(password)) {
-			return ResponseObject.newErrorResponseObject("请输入6~18位的密码");
+			return ResponseObject.newErrorResponseObject("密码为6-18为英文大小写字母或者阿拉伯数字");
 		}
 		
 		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();
@@ -492,7 +463,6 @@ public class XzUserController {
 			
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
 			String model = req.getParameter("model");
 			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());

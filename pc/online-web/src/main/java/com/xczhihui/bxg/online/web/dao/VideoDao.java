@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +8,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseForm;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +18,15 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.service.ApplyService;
 import com.xczhihui.bxg.online.web.vo.ChapterLevelVo;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.UserVideoVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
  * 视频相关功能数据访问层
@@ -41,11 +37,7 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 public class VideoDao extends SimpleHibernateDao {
 
     @Autowired
-    private ApplyService applyService;
-    @Autowired
     private CourseDao courseDao;
-    @Autowired
-    private UserCenterDao userCenter;//DAO
     @Autowired
     private  OrderDao  orderDao;
     
@@ -319,29 +311,31 @@ public class VideoDao extends SimpleHibernateDao {
         String apply_id = UUID.randomUUID().toString().replace("-", "");
         sql = "select id from oe_apply where user_id=:userId ";
         List<Map<String, Object>> applies = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-        if (applies.size() > 0) {
-            apply_id = applies.get(0).get("id").toString();
-        } else {
+      
+        try {
+    	   if (applies.size() > 0) {
+               apply_id = applies.get(0).get("id").toString();
+           } else {
 
-            sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
-                    + " values ('"+apply_id+"',:userId,now(),0,:loginName)";
-            orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-        }
+               sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
+                       + " values ('"+apply_id+"',:userId,now(),0,:loginName)";
+               orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+           }
 
-        //写用户报名中间表
-        String id = UUID.randomUUID().toString().replace("-", "");
-        sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id=-1";
-        Integer no = orderDao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Integer.class);
-        String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
-        sql = "insert into apply_r_grade_course (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number)"
-                + " values('"+id+"',:courseId,-1,'"+apply_id+"',0,:loginName,:userId,now(),0,'"+sno+"')";
-        orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+           //写用户报名中间表
+           String id = UUID.randomUUID().toString().replace("-", "");
+           sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id=-1";
+           Integer no = orderDao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Integer.class);
+           String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
+           sql = "insert into apply_r_grade_course (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number)"
+                   + " values('"+id+"',:courseId,-1,'"+apply_id+"',0,:loginName,:userId,now(),0,'"+sno+"')";
+           orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+        	
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("网络有点忙,请稍等!");
+		}
 
-        //写用户视频表
-//        sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
-//                + " select uuid(),'"+u.getLoginName()+"',sort,id,'"+u.getId()+"',course_id "
-//                + "from oe_video where course_id=:courseId and is_delete=0 and status=1 ";
-//        orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
     }
 
 
@@ -421,7 +415,7 @@ public class VideoDao extends SimpleHibernateDao {
 			throw new RuntimeException("保存失败！");
 		}
 	}
-	public void saveReply(String content, String userId,String criticizeId) {
+	public void saveReply(String content, String userId,String criticizeId,Integer collectionId) {
 		
 		try {
 			
@@ -450,7 +444,8 @@ public class VideoDao extends SimpleHibernateDao {
 			/**
 			 * 如果这个是免费的就没有必要的
 			 */
-			boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(), userId);
+			
+			boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(),userId,collectionId);
 			criticizeVo.setIsBuy(isbuy);
 			
 			this.saveNewCriticize(criticizeVo);
@@ -524,7 +519,7 @@ public class VideoDao extends SimpleHibernateDao {
     		       	  paramMap.put("courseId",courseId);
     	    	  } 
     	       }
-    	       sql.append(" order by c.createTime desc ");
+    	        sql.append(" order by c.createTime desc ");
 
     	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
     	        
@@ -582,18 +577,7 @@ public class VideoDao extends SimpleHibernateDao {
 		}
         return  null;
     }
-    
-    
-    public static void main(String[] args) throws IllegalAccessException {
-		
-      	 BigDecimal totalAmount = new BigDecimal(5.0);  
-      	 totalAmount =totalAmount.add(new BigDecimal(3.0));
-      	 totalAmount =totalAmount.add(new BigDecimal(3.0));
 
-      	System.err.println(divCount(totalAmount.doubleValue(),3d,1));
-      	 
-   	}
-    
 	/**
 	 * Description：求平均值，并且把小数点的都截取到5，或者大于5的
 	 * @param value1
@@ -645,7 +629,6 @@ public class VideoDao extends SimpleHibernateDao {
     /**
      * Description：判断这个星级用户是否购买过这个课程以及判断是否已经星级评论了一次此课程
      * @param courseId
-     * @param userId
      * @return
      * @return Integer  返回参数： 0 未购买     1 购买了，但是没有星级评论过     2 购买了，也星级评论了
      * @author name：yangxuan <br>email: 15936216273@163.com
@@ -697,64 +680,6 @@ public class VideoDao extends SimpleHibernateDao {
         }
         
         return isViewStars;
-        
-        
-//        Course c =  courseDao.getCourse(courseId);
-//        String str = " is_buy = 1 ";
-//        if(c.isFree()){ //免费
-//        	str = " ( is_buy is null or is_buy = 0 ) ";
-//        }
-//        sql.append("select criticize_lable ");
-//        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and  "+ str);
-//        List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
-//        Integer isViewStars = 0;
-        
-        //如果这个课程是付费的
-//        if(c.isFree()){ 
-//        	 if(list!=null && list.size()>0){//免费   --》判断是否星级评论过
-//        		 isViewStars =2;
-//        	 }else{
-//        		 isViewStars =1;
-//        	 }
-//        }else{  		
-//        	//付费   --》  如果是购买了，但是没有评论过，返回 ： 1
-//        	//       如果是 
-//            boolean isComment=false;
-//            if(list.size()>0){ //评论过
-//            	
-//            	System.out.println("-======================");
-//            	
-//                for(int i=0;i<list.size();i++){  
-//                    if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
-//                        isComment=true;
-//                        isViewStars=2;
-//                        break;
-//                    }
-//                }
-//                if(!isComment){ //购买过没有评论
-//                    isViewStars=1;
-//                }
-//            }else{  
-//            	
-//            	System.out.println("--------------------------");
-//            	
-//            	StringBuffer sqlStr = new StringBuffer();
-//            	sqlStr.append(" SELECT count(*) as count from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
-//            	sqlStr.append(" and argc.user_id=:createPerson  ");
-//            	List<Map<String, Object>> listArgs= this.getNamedParameterJdbcTemplate().queryForList(sqlStr.toString(), paramMap);
-//            	 //没有评论过，但是购买过
-//                if(listArgs.size()>0){
-//                    String  count = listArgs.get(0).get("count").toString();
-//                    int s =Integer.parseInt(count);
-//                    if(s>0){
-//                        isViewStars=1;
-//                    }
-//                }
-//
-//
-//            }
-//        }
-//        return isViewStars;
     }
     
     
@@ -762,7 +687,6 @@ public class VideoDao extends SimpleHibernateDao {
      * 
      * Description：通过课程id得到这个专辑的信息
      * @param courseId
-     * @param userId
      * @return
      * @return List<Integer>
      * @author name：yangxuan <br>email: 15936216273@163.com
@@ -793,13 +717,22 @@ public class VideoDao extends SimpleHibernateDao {
      * @author name：yangxuan <br>email: 15936216273@163.com
      *
      */
-    public Boolean  checkUserIsBuyCourse(Integer courseId,String userId) {
+    public Boolean  checkUserIsBuyCourse(Integer courseId,String userId,Integer collectionId) {
         StringBuffer sql = new StringBuffer();
-        sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =?");
-        sql.append(" and argc.user_id=?  and argc.order_no is not null limit 1 ");
-        Object [] obj  ={courseId,userId};
-        int count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
-        		sql.toString(),Integer.class,obj);
+   	    sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 "
+ 	 		+ "and argc.course_id = ?  ");
+       sql.append(" and argc.user_id=?  and argc.order_no is not null limit 1 ");
+        
+        int count = 0;
+        if(collectionId!=null){
+        	 Object [] obj  ={collectionId,userId};
+             count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
+             		sql.toString(),Integer.class,obj);
+        }else{
+        	 Object [] obj  ={courseId,userId};
+             count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
+             		sql.toString(),Integer.class,obj);
+        }
         if(count>0){
         	return true;
         }else{

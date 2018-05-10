@@ -28,7 +28,6 @@ function loadCriticizeList(){
 	      }},
 	      { "title": "点赞数", "class":"center","width":"8%","sortable":false,"data": 'praiseSum' },
 	      { "title": "作者/用户昵称", "class":"center","width":"12%","sortable":false,"data": 'createPersonName'},
-	      { "title": "所属班级", "class":"center","width":"15%","sortable":false,"data": 'gradeName'},
 	      { "title": "回复状态", "class":"center","width":"10%","sortable":false,"data": 'response',"mRender":function (data, display, row) {
 	    	  if(data && data.length > 0){
 	    		  return '已回复';

@@ -229,7 +229,7 @@ $(function(){
                         $(".resetUsernameCode .resetVificationHit").css("display","none");
                         $(btn).addClass("enable");
                         var oldval = $(".cyResetPasswordbutton").val();
-                        var second = 90;
+                        var second = 60;
                         var timer = setInterval(function () {
                             $(btn).text(second-- + "s");
                             $(btn).addClass("btndisabled");
@@ -583,4 +583,8 @@ $(function(){
 //      $(".resetUsernameCode .resetVificationHit").css("display","none");
          $(".resetVificationHit ").css("display","none");
     })
+     
+//   找回密码的手机号码回显
+	var getPhone = localStorage.setPhone;//获取值
+	$(".have-phone").val(getPhone)
 });

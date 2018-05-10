@@ -91,13 +91,13 @@ $(function(){
 				countPage = parseInt(countNum/pageSize) + 1;
 			}
 			$("[name='upa']").each(function(index){
-//				debugger;
+//				;
 				if(index == 0){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
 			});
 			$("[name='downa']").each(function(index){
-//				debugger;
+//				;
 				if(index == $("[name='downa']").size()-1){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
@@ -183,11 +183,7 @@ $(".add_bx").click(function(){
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/gift/addGift");
 	            $("#addCourse-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
+	            	data = getJsonData(data);
                 	unmask();
 	                if(data.success){
 	                    $("#addCourseDialog").dialog("close");
@@ -274,7 +270,7 @@ function toEdit(obj){
 
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	
-//	debugger;
+//	;
 	$("#editCourse_id").val(row.id); //礼物名称
 	$("#giftName_edit").val(row.name); //礼物名称
 	$("#price_edit").val(row.price); //礼物时常
@@ -309,11 +305,7 @@ function toEdit(obj){
 			mask();
             $("#updateCourse-form").attr("action", basePath+"/gift/updateGiftById");
             $("#updateCourse-form").ajaxSubmit(function(data){
-            	try{
-            		data = jQuery.parseJSON(jQuery(data).text());
-            	}catch(e) {
-            		data = data;
-            	  }
+            	data = getJsonData(data);
             
                 unmask();
                 if(data.success){
@@ -508,14 +500,10 @@ function setBrokerage(url,dataTable,title,content,btnName){
 			if($("#updateBrokerage-form").valid()){
 	            $("#updateBrokerage-form").attr("action", basePath+"/gift/updateBrokerage");
 	            $("#updateBrokerage-form").ajaxSubmit(function(data){
-	            	try{
-	            		data = jQuery.parseJSON(jQuery(data).text());
-	            	}catch(e) {
-	            		data = data;
-	            	  }
+	            	data = getJsonData(data);
 	                unmask();
 	                if(data.success){
-	                	debugger
+
 	                    $("#FcDialog").dialog("close");
 	                    layer.msg(data.resultObject);
 	                     freshTable(_courseTable);

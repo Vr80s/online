@@ -33,13 +33,10 @@ function goto_back(){
  * 将上面的url封装为json对象
  */	
 var paramsObj = getUrlParamsReturnJson();
-
 var matching = getQueryString('menuType');
-
 var menuTypeArray = new Array();
 var courseTypeArray = new Array();
 var cityTypeArray = new Array();
-
 
 /**
  * 默认搜索条件
@@ -70,16 +67,22 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		/**
 		 * 动态生成分类
 		 */
-		var pagenavi1 ="<li class='find_nav_cur'><a href='javascript: ;' class='' title='0'>全部</a></li>";
+		var pagenavi1 ="<li class='find_nav_cur'><a href='javascript: ;' data-title ='0' class='' title='0'>全部</a></li>";
 		/**
 		 * 动态生成滑动的效果
 		 */
-		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div></li>"; //代表全部的
+		
+		// $(".no_class").addClass("no_class"+index+"");
+
+		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class no_class_one no_class_ones no_class0'><img src='../images/no_class.png'/><p>呀！什么也没有，快试试别的吧~</p></div></li>"; //代表全部的
+
 		for (var int = 0; int < data.resultObject[0].length; int++) {
 			var obj = data.resultObject[0][int];
 			var index=int+1;
 			pagenavi1 +="<li><a href='javascript: ;' data-title ="+index+" title="+obj.id+">"+obj.name+"</a></li>";		
-			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div></li>"		
+			// box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div><div class='size_show size_show"+index+"' style='font-size:0.2rem;'>我是加载中</div></li>"		
+			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>呀！什么也没有，快试试别的吧~</p></div></li>"		
+			// box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div><div class='um-win um-win"+index+"'><div class='um-content'><div class='spinner'><div class='spinner-container container1'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container2'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container3'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div></div></div><div class='um-footer'></div></div></li>"		
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
 		$(".box01_list").html(box01List);
@@ -274,7 +277,6 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	return paramsObj;
 }
 
-
 /**
  * 点击确认按钮获取查询进行查询
  */
@@ -289,10 +291,7 @@ function submit(){
 	var courseType = $(".all_mold2  .all_right_type_one_add").attr("title");
 	var city = $(".all_mold3  .all_right_type_one_add").text();
 	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
-	
-	
 	var queryKey = getQueryString('queryKey');
-	
 	
 /*	paramsObj.pageNumber = num;
 	paramsObj.pageSize = 10;
@@ -361,12 +360,30 @@ function submit(){
 	}
 }
 
-
+// 测试加载中
+/*var load = {
+	start: function (){
+		var index = $(".find_nav_cur a").attr("data-title");
+		$(".um-win").hide();
+		$(".um-win"+index).show();
+	},
+	end: function(){
+		var index = $(".find_nav_cur a").attr("data-title");
+		$(".um-win"+index).hide();
+	}
+}*/
 function queryDataByParams(params,data_type){
+
+	// 测试加载中
+	// load.start();
 	
+	// 
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
 			//createListInfo(data,data_type)
+			
+			 // 测试加载中
+			 //load.end();
 			
 			 if(stringnull(data_type)){
 					var id = "#query_list"+data_type;
@@ -375,14 +392,18 @@ function queryDataByParams(params,data_type){
 				}
 				var data1 ="";
 				$(id).html(data1);
-				
+
+				// 判断有无数据显示隐藏背景图
+				var index = $(".find_nav_cur a").attr("data-title");
 				if(data.resultObject.length<=0){
 					$(".li_list_main").css("background","#f8f8f8");
-					$(".no_class").show();
+					$(".no_class").hide();
+					$(".no_class"+index).show();
 				}else{
 					$(".li_list_main").css("background","#fff");
 					$(".no_class").hide();
 				}
+
 				for (var int = 0; int < data.resultObject.length; int++) {
 					var item = data.resultObject[int];
 					
@@ -420,35 +441,11 @@ function queryDataByParams(params,data_type){
 						//alert(typeStr);
 					}
 					data1+="<div class='li_list_div' >"+
-						       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" >"+
+						       "<div class='li_list_one' data-courseId = "+item.id+" data-title="+item.type+" data-watchState="+item.watchState+" data-collection="+item.collection+"   data-lineState="+item.lineState+">"+
 							       "<div class='li_list_one_left'>" +
-							          "<img src='"+item.smallImgPath+"' class='one' />" + statusImg1 +
+//							          "<img src='"+item.smallImgPath +"' class='one' />" + statusImg1 +
+							         "<img src='"+item.smallImgPath+"?imageView2/2/w/212' class='one' />" + statusImg1 +
 							      "</div>" +
-							      
-							      
-							      	
-							      	/*"<div class='li_list_one_right'>" +
-							           "<p class='p00'>" +
-							           "<span>我是测试</span><br />" +
-							           "<span class='span'>我是测试</span></p>" +
-							           "<div class='div'>我是测试<p class='p1'><img src='/xcview/images/population.png' alt=''>" +
-							             "<span>我是测试</span></p>我是测试</div>" +
-						            "</div>" +*/
-							      	
-							      
-							      
-							      
-							       /*"<div class='li_list_one_right'>" +
-							           
-							            "<div>"+
-							           		"<p style='font-size: 0.2rem;'>" + item.gradeName + "</p>"+
-							           		"<p style='font-size: 0.2rem;'>" + item.name + "</p>"+
-							            "</div>"+
-							            
-							            "<div>"+ isFreeStr +"<img src='/xcview/images/population.png' alt='' style='width: 0.25rem;' />" +
-							             "<span style='font-size: 0.2rem;'>"+item.learndCount+"</span>"+typeStr+"</div>"
-						            "</div>" +*/
-							      
 							      
 							      
 						           "<div class='li_list_one_right'>" +
@@ -469,7 +466,6 @@ function queryDataByParams(params,data_type){
 				
 				
 				if("免费-直播课程-未直播" == text){
-					
 //					alert(data1);
 				}else{
 					$(id).html(data1);
@@ -481,21 +477,37 @@ function queryDataByParams(params,data_type){
 				 $(".li_list_div .li_list_one").click(function(){
 					
 					 var type =$(this).attr("data-title");
-					
-					 var id =$(this).attr("data-courseId");
+					 var courseId =$(this).attr("data-courseId");
+					 var watchState=$(this).attr("data-watchState");  //收费付费
+					 var collection=$(this).attr("data-collection");  //专辑是否
+					 var lineState=$(this).attr("data-lineState");
 					 
-					if(type==1||type==2){
-		//					视频音频购买
-						location.href="school_audio.html?course_id="+id
-					}else if(type==3){
-						aa(id)
+					if(watchState==1){
+						if(type == 1 || type == 2){
+							//增加学习记录
+							requestService("/xczh/history/add",{courseId:courseId, recordType:1},function(data) {
+								 console.log("增加学习记录");
+							}) 
+							if(collection==1){
+								location.href = "/xcview/html/live_select_album.html?course_id="+courseId;
+							}else{
+								location.href = "/xcview/html/live_audio.html?my_study="+courseId;
+							}
+						}else if(type == 4){
+							location.href = "/xcview/html/school_class.html?course_id="+courseId;
+						}else if(type == 3){ //直播
+							common_jump_all(courseId,watchState,lineState);
+						}
 					}else{
-		//					线下课购买
-						location.href="school_class.html?course_id="+id
-					}	
+						if(type == 1 || type == 2){
+							location.href = "/xcview/html/school_audio.html?course_id="+courseId;
+						}else if(type == 4){
+							location.href = "/xcview/html/school_class.html?course_id="+courseId;
+						}else if(type == 3){ //直播
+							common_jump_all(courseId);
+						}
+					}
 				})
-			
-			
 		}else{
 			$(".no_class").show();
 			$(".li_list_main").css("background","#f8f8f8");
@@ -504,86 +516,7 @@ function queryDataByParams(params,data_type){
 	})
 }
 
-//function createListInfo(data,data_type){
-//		
-//}
 
-//判断是否购买过以及主播本人
-function aa(id){
-	  requestService("/xczh/course/details?courseId="+id,null,function(data) {
-      var userPlay=data.resultObject;
-      var falg =authenticationCooKie();       	       
-//付费的直播和即将直播未购买跳购买页    
-         if(userPlay.watchState==0 && userPlay.lineState==1){
-            location.href="school_play.html?course_id="+id 
-        }else if(userPlay.watchState==0 && userPlay.lineState==4){
-            location.href="school_play.html?course_id="+id          
-         }
-//免费的直播和即将直播跳直播间      
-         else if(userPlay.watchState==1 && userPlay.lineState==1){
-            if (falg==1002){
-            location.href ="/xcview/html/cn_login.html";      
-            }else if (falg==1005) {
-               location.href ="/xcview/html/evpi.html";
-            }else{
-            requestService("/xczh/history/add",
-               {courseId:id}
-               ,function(data) {
-      
-               }) 
-            location.href="details.html?courseId="+id
-            }
-         }else if(userPlay.watchState==1 && userPlay.lineState==4){
-            if (falg==1002){
-                 location.href ="/xcview/html/cn_login.html";      
-               }else if (falg==1005) {
-                 location.href ="/xcview/html/evpi.html";
-               }else{
-                  requestService("/xczh/history/add",
-                     {courseId:id}
-                     ,function(data) {
-            
-                     }) 
-                  location.href="details.html?courseId="+id  
-               }
-         }
-//购买后的直播和即将直播跳直播间
-         else if(userPlay.watchState==2 && userPlay.lineState==1){
-            requestService("/xczh/history/add",
-               {courseId:id}
-               ,function(data) {
-      
-               }) 
-            location.href="details.html?courseId="+id           
-         }else if(userPlay.watchState==2 && userPlay.lineState==4){
-            requestService("/xczh/history/add",
-               {courseId:id}
-              ,function(data) {
-      
-               }) 
-            location.href="details.html?courseId="+id  
-           }
-//主播本人自己的直播和即将直播跳直播间			
-			else if(userPlay.watchState==3 && userPlay.lineState==1){
-				requestService("/xczh/history/add",
-					{courseId:id}
-					,function(data) {
-		
-					})	
-				location.href="details.html?courseId="+id				
-			}else if(userPlay.watchState==3 && userPlay.lineState==4){
-				requestService("/xczh/history/add",
-					{courseId:id}
-					,function(data) {
-		
-					})	
-				location.href="details.html?courseId="+id				
-			}
-			else{
-				location.href="school_play.html?course_id="+id				
-			}
-		})
-	  }
 /**
  * 这里先请求出所有的
  */

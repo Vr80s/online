@@ -20,7 +20,7 @@ $(function() {
 				$(".intro").html(template('namePic', {
 					img: path,
 					name: result.name ? result.name : "博小白",
-					info: result.info ? result.info : "说点什么来彰显你的个性吧……"
+//					info: result.info ? result.info : "说点什么来彰显你的个性吧……"
 				}));
 				if(window.localStorage.personcenter!=""&&window.localStorage.personcenter!="undefined") {
 					$(".personcenterPage .left-nav ." + window.localStorage.personcenter).click();
@@ -294,8 +294,8 @@ $(function() {
 				$(".my-personcenter-nav-2 a").text("我的资料");
 				$(".view-content-content").empty();
 				$(".view-content-content").html(template.compile(mydata));
-				createData();
 				initAddressBind();
+				createData();
 			}
 			if($(evt.target).hasClass("mynews")) {
 				$(".view-content-content").empty();
@@ -347,7 +347,7 @@ $(function() {
 		"<div class='form-group '>" +
 		"<label class='fl control-label'><span class='required_01'>*</span>标题</label>" +
 		"<div class='col-sm-7'>" +
-		"<input  type='text' class='view_01 text-title  require idea-title' placeholder='5-50字之间' maxlength='50'  id='title'>" +
+		"<input  type='text' class='view_01 text-title  require idea-title' autocomplete='off' placeholder='5-50字之间' maxlength='50'  id='title'>" +
 		"</div>" +
 		"<label for='miaoshu' class='control-label error-msg'><img src='../images/tanhao.png'><span>标题5~50字之间</span></label>" +
 		"</div>" +
@@ -393,11 +393,11 @@ $(function() {
 		'<span class="nick-warn-name warning">用户名不能为空</span>' +
 		'</div>' +
 		
-		'<div>' +
-		'<div class="buer cy-myprofile-myfom-dv-span">个性签名:</div>' +
-		'<textarea class="mycytextarea" style="overflow:hidden" maxlength="15" placeholder="说点什么来彰显你的个性吧……" onchange="this.value=this.value.substring(0, 30)" onkeydown="this.value=this.value.substring(0, 30)" onkeyup="this.value=this.value.substring(0, 30)"></textarea>' +
-		'<span class="text-warn warning">个性签名不得超过30个字符</span>' +
-		'</div>' +
+//		'<div>' +
+//		'<div class="buer cy-myprofile-myfom-dv-span">个性签名:</div>' +
+//		'<textarea class="mycytextarea" style="overflow:hidden" maxlength="15" placeholder="说点什么来彰显你的个性吧……" onchange="this.value=this.value.substring(0, 30)" onkeydown="this.value=this.value.substring(0, 30)" onkeyup="this.value=this.value.substring(0, 30)"></textarea>' +
+//		'<span class="text-warn warning">个性签名不得超过30个字符</span>' +
+//		'</div>' +
 		'<div>' +
 		'<div class="buer">帐号:</div>' +
 		'<input type="text" disabled="disabled" readonly="readonly"  class="username ipt"/>' +
@@ -437,104 +437,27 @@ $(function() {
 		//三级联动
 		 '<div class="address-info2 cy-myprofile-myfom-dv-1"> ' +
 	        '<p class="buer"><span></span>所在地区:</p> ' +
+	        
 	        //省
-	        '<select class="Province1" onchange="getCity1()"> ' +
-	        '<option value="volvo">--选择省--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
+	        '<select class="province"> ' +
+	        '<option value="volvo">--选择省--</option> ' + 
 	        '</select> ' +
 	        //市
-	        '<select class="City1" onchange="getDistrict1()"> ' +
+	        '<select class="city"> ' +
 	        '<option value="volvo" >--选择市--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
 	        
 	        //区
-	        '<select class="District1 hide"> ' +
+	        '<select class="district"> ' +
 	        '<option value="volvo">--选择区/县--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
+
+	        
 	        '<p class="address_warn  warning" style="display:none;color:red">请填写所在地区信息</p>'+
 	        '</div> ' +
-		
-		
-		
-//		' <div class="cy-myprofile-myfom-dv-radio-zu2">' +
-//		'    <div class="buer">职业:</div>' +
-//		'   <label style="margin-left:-3px"><div class="radio-cover"><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio0" name="job" value="19"/><span>学生</span></input></label>' +
-//		'  <label><div class="radio-cover "><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio1" name="job" value="20"/><span>程序员</span></input></label>' +
-//		' <label><div class="radio-cover "><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio2" name="job" value="21"/><span>创业者</span></input></label>' +
-//		'<label><div class="radio-cover "><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio3" name="job" value="22"/><span>待业者</span></input></label>' +
-//		'<label><div class="radio-cover "><em></em></div><input type="radio"  class="cy-myprofile-myfom-dv-radio myradio4" name="job" value="23"/><span>讲师</span></input></label>' +
-//		'<label><div class="radio-cover "><em></em></div><input type="radio" class="cy-myprofile-myfom-dv-radio myradio5" name="job" value="24"/><span>其他</span></input>' +
-//		'  <!--<input type="text" maxlength="15" class="myjob ipt1 myradioipt"/>-->' +
-//		' </label>' +
-//		'</div>' +
-		
-//		'<div>' +
-//		'<div class="buer" style="margin-top:10px">工作年限:</div>' +
-//		'<span name="food2" class="cy-myprofile-myfom-dv-select-4" >' +
-//		'	<p class="select-xiala" id="food4">请选择</p>' +
-//		'<div class="xiala q-1">' +
-//		'<span>请选择</span>' +
-//		'<span>在校生</span>' +
-//		'<span>应届生</span>' +
-//		'<span>1年以下</span>' +
-//		'<span>1~3年</span>' +
-//		'<span>3~5年</span>' +
-//		'<span>5年以上</span>' +
-//		'</div>' +
-//		'</span>' +
-//		'</div>' +
-		//                  '<div>'+
-		//                      '<div class="buer">公司/学校</div>'+
-		//                      '<input type="text" maxlength="30" class="mycompany ipt"/>'+
-		//                  '</div>'+
-		
-//		'<div>' +
-//		'<div class="buer">学习方向:</div>' +
-//		'<span name="food2" class="cy-myprofile-myfom-dv-select-5" >' +
-//		'<p class="select-xiala" id="food5">请选择</p>' +
-//		'<div class="xiala q-1" id="food5xl">' +
-//		'</div>' +
-//		'  </span>' +
-//		'</div>' +
-		
-		
-		
-		//三级联动
-//		 '<div class="address">' +
-//		 '<div class="buer">现居住地:</div>     ' +
-//		 '<div class="address-right">' +
-//		 '<div>' +
-//		 '	<p  id="s_province" class="select-xiala">请选择</p>' +
-//		 '	<div class="xiala yearxl" id="shengxl">                ' +
-//		 '	</div>' +
-//		 '</div>' +
-//		 '<div>' +
-//		 '	<p id="s_city" class="select-xiala">请选择</p>' +
-//		 '	<div class="xiala monthxl" id="shixl"> ' +
-//		 '	</div>' +
-//		 '</div>' +
-//		 '<div>' +
-//		 '<p id="s_county" class="select-xiala">请选择</p>' +
-//		 '<div class="xiala dayxl" id="xianxl">        ' +
-//		 '</div>' +
-//		 '</div>' +
-//		 ' </div>' +
-//		 '</div>' +
-
-		
-
-
+	        
 		'<div>' +
 		'<div class="buer"></div>' +
-		// '<textarea class="menpaihao" maxlength="29" onchange="this.value=this.value.substring(0, 29)" onkeydown="this.value=this.value.substring(0, 29)" onkeyup="this.value=this.value.substring(0, 29)" placeholder="请填写详细地址，例如街道名称等"></textarea>' +
 		'</div>' +
 		'<div>' +
 		'  <div class="buer"></div>' +
@@ -542,47 +465,8 @@ $(function() {
 		//		'<button class="btn2" id="cancel">取消</button>' +
 		'</div>' +
 		'</div>' +
-		//第二模块
-//		'<div class="zhanghu">'+
-//			'<div class="yanzheng">'+
-//				'<div class="idenContent">'+
-//					'<p class="tip">如果您是法律在线（面授、双元、熊猫中医职业课程）的学员，请在证件号中输入您的身份证号验证您的身份（针对老学员会有优惠）；</p>'+
-//					'<div class="name clearfix">'+
-//						'<p class="fL"><i>*</i><span>真实姓名：</span></p>'+
-//						'<p class="fR"><input type="text" name="" id="" value="" placeholder="请输入真实姓名" class="truename" / maxlength="7">'+
-//							'<span class="warning name-warn">真实姓名不能为空</span>'+
-//						'</p>'+
-//					'</div>'+
-//					'<div class="shenfen clearfix">'+
-//						'<p class="fL"><i>*</i><span>身份证号：</span></p>'+
-//						'<p class="fR"><input type="text" name="" id="" value="" placeholder="请输入身份证号" class="truecard" / maxlength="18">'+
-//							'<span class="warning shenfen-warn">身份证号格式不正确</span>'+
-//						'</p>'+
-//					'</div>'+
-//					'<span class="startIden">'+
-//					'开始认证'+
-//				'</span>'+
-//				'</div>'+
-//			'</div>'+
-//			'<div class="yiyanzheng">'+
-//				'<div class="symbol">恭喜您已经成功认证为老学员身份</div>'+
-//				'<div class="findMess">'+
-//					'<p>帮您找回以下信息</p>'+
-//					'<p class="xueke">学科：<span>UI学科</span></p>'+
-//					'<p class="banji">班级：<span>（面授）-UI设计就业班</span></p>'+
-//				'</div>'+
-//				'<div class="tt">'+
-//				'下一次我们将为您找回共同经历过的小伙伴，一同回忆，一起怀念！'+
-//				'</div>'+
-//			'</div>'+
-//		'</div>'+
-//		
-		
-		
-		
-		
+
 		//第三模块
-		
 		'<div class="kecheng">' +
 //		'<p class="warn">职业课程需要填写报名信息，只需填写一次，适应于其他所有课程；</br>此信息不公开显示，只是为了方便老师通知课程信息，提供优质课程服务；</br>如果您是法律在线（面授、双元、熊猫中医职业课程）的学员，请在证件号中输入您的身份证号验证您的身份（针对老学员会有优惠）；</p>' +
 		'<div class="cy-myprofile-myfom-dv-1" style="margin-bottom:12px">' +
@@ -592,33 +476,7 @@ $(function() {
 		'</div>' +
 		
 		
-//		'<div id="birthday_container">' +
-//		'<div class="buer"><i class="red">*</i>出生年月:</div>' +
-//		'<div class="birth-right">' +
-//		'<div>' +
-//		'<p name="year" id="year" class="select-xiala"></p>' +
-//		'<div class="xiala yearxl" id="yearxl">' +
-//		'</div>' +
-//		'</div>' +
-//		'<div>' +
-//		'<p name="month" id="month" class="select-xiala">1月</p>' +
-//		'<div class="xiala monthxl" id="monthxl">' +
-//		'</div>' +
-//		'</div>' +
-//		'<div>' +
-//		'<p name="day" id="day" class="select-xiala">1日</p>' +
-//		'<div class="xiala dayxl" id="dayxl">' +
-//		'</div>' +
-//		'</div>' +
-//		'</div>' +
-//		'<span class="birthday-warn warning" style="float:right;margin-right:210px">请选择出生年月</span>' +
-//		'<script>$("#birthday_container").birthday();</script>' +
-//		'</div>' +
-		
-		
-		
-		
-		
+
 		'<div>' +
 		'<div class="buer"><i class="red">*</i>手机号:</div>' +
 		'<input type="text" maxlength="11" class="phonenumber ipt"/>' +
@@ -664,54 +522,7 @@ $(function() {
 		'<span class="email-warn warning">邮箱不能为空</span>' +
 		'</div>' +
 		
-		
-		
-		
 
-//		'<div class="111">' +
-//		'<div class="bue"><i class="red">*</i>学历:</div>' +
-//		'<span name="food2" class="rq-college" >' +
-//		'<p class="select-xiala" id="record">请选择</p>' +
-//		'<div class="xiala" id="recordxl" style="top:37px">' +
-//
-//		'</div>' +
-//		'</span>' +
-//		'<span class="college-warn warning">请选择学历</span>' +
-//		'</div>' +
-		
-		
-
-//		'<div class="222">' +
-//		'<div class="buer">毕业院校:</div>' +
-//		//      		'<input type="text" maxlength="18" class="daxue ipt"/>'+
-//		'<div class="address-right">' +
-//		'<div>' +
-//		'	<p  id="rq_province" class="select-xiala">请选择</p>' +
-//		'	<div class="xiala yearxl" id="rqsxl">                ' +
-//		'	</div>' +
-//		'</div>' +
-//		'<div>' +
-//		'	<p id="rq_city" class="select-xiala">请选择</p>' +
-//		'	<div class="xiala monthxl" id="rqcxl"> ' +
-//		'	</div>' +
-//		'</div>' +
-//		'<div>' +
-//		'<p id="rq_college" class="select-xiala">请选择</p>' +
-//		'<div class="xiala dayxl" id="rqdxxl">        ' +
-//		'</div>' +
-//		'</div>' +
-//		' </div>' +
-//		'</div>' +
-//
-//		'<div class="000">' +
-//		'<div class="bue">专业:</div>' +
-//		'<span name="food2" class="rq-college" >' +
-//		'<p class="select-xiala" id="major">请选择</p>' +
-//		'<div class="xiala" id="majorxl" style="top:37px">' +
-//		'</div>' +
-//		'</span>' +
-//		'</div>' +
-		
 		'<div class="000">' +
 		'<div class="buer"><i class="red"></i>职业:</div>' +
 		'<input type="text" maxlength="15" class="profession ipt"/>' +
@@ -753,9 +564,9 @@ $(function() {
 	        '<div class="address-main"> ' +
 	        '<span class="address-main-close">X</span> ' +
 	        '<div class="address-maim-top clearfix"><p>天天&nbsp;&nbsp;</p></div> ' +
-	        '<div class="clearfix"><p>收货人: <span>天天</span></p><p>手机: <span>139****6940</span></p></div> ' +
-	        '<div class="clearfix"><p>所在地区: <span>海南海口市美兰区演丰镇</span></p><p>详细地址: <span>心承志会大厦201</span></p></div> ' +
-	        '<div class="clearfix"><p>邮编: <span>115100</span></p></div> ' +
+	        '<div class="clearfix"><p>收货人: <span></span></p><p>手机: <span></span></p></div> ' +
+	        '<div class="clearfix"><p>所在地区: <span></span></p><p>详细地址: <span></span></p></div> ' +
+	        '<div class="clearfix"><p>邮编: <span></span></p></div> ' +
 	        '<div class="clearfix"><a href="javascript:;">编辑</a><a href="javascript:;">设为默认</a></div> ' +
 	        '</div> ' +
 	        '</div> ' +
@@ -770,28 +581,17 @@ $(function() {
 	        
 	        '<div class="address-info2"> ' +
 	        '<p><span>*</span>所在地区:</p> ' +
-	        //省
-	        '<select class="Province" onchange="getCity()"> ' +
-	        '<option value="volvo">--选择省--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
-	        '</select> ' +
-	        //市
-	        '<select class="City"  onchange="getDistrict()"> ' +
-	        '<option value="volvo" >--选择市--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
-	        '</select> ' +
 	        
-	        //区
-	        '<select class="District"> ' +
-	        '<option value="volvo">--选择区/县--</option> ' +
-//	        '<option value="saab">Saab</option> ' +
-//	        '<option value="opel">Opel</option> ' +
-//	        '<option value="audi">Audi</option> ' +
-	        '</select> ' +
+
+			'<select class="province">'+
+			'</select>'+
+			'<select class="city" >'+
+			'</select>'+
+			'<select class="district">'+
+			'</select>'+
+	        
+	        
+	        
 	        '<p class="address_warn" style="display:none;color:red">请填写所在地区信息</p>'+
 	        '</div> ' +
 	        '<div class="address-info3"> ' +
@@ -989,6 +789,7 @@ $(function() {
 //                    '<li><span>125064050</span><span>-300</span><span>2017.08.28</span><span>支付宝</span><span>支付失败</span></li>'+
                 '</ul>'+
             '</div>'+
+            
             '<div role="tabpanel" class="tab-pane" id="messages">'+
                 '<ul id="txjl">'+
                     '<li><span style="flex: 3;">订单号</span><span style="flex: 2;">金额</span><span style="flex: 3;">时间</span><span style="flex: 1;">提现方式</span><span style="flex: 2;">支付结果</span></li>'+
@@ -996,24 +797,28 @@ $(function() {
 //                    '<li> <span>125064033</span><span>-3600</span><span>2017.08.28</span><span>支付宝</span><span>已到账</span></li>'+
                ' </ul>'+
             '</div>'+
+            
             '<div role="tabpanel" class="tab-pane" id="settings">'+
                 '<ul id="sdlw">'+
                    ' <li><span>订单号</span><span>礼物</span><span>礼物数量</span><span>熊猫币</span><span style="flex: 3;">时间</span><span>赠送人</span></li>'+
 //                    '<li><span>125064022</span><span>一个礼物</span><span>+3000</span><span>2017.08.28</span><span>我就是我不一样的烟火</span></li>'+
                 '</ul>'+
             '</div>'+
+            
             '<div role="tabpanel" class="tab-pane " id="reward">'+
                 '<ul id="dsjl" >'+
                     '<li><span>订单号</span><span>打赏金额</span><span>熊猫币</span><span>时间</span><span>赠送人</span></li>'+
 //                    '<li><span>125064050</span><span>-300</span><span>2017.08.28</span><span>我就是我不一样的烟火</span></li>'+
                ' </ul>'+
             '</div>'+
+            
              '<div role="tabpanel" class="tab-pane " id="lecturer">'+
                 '<ul id="jiangshi" >'+
                     '<li><span>直播课程名称</span><span>直播开始时间</span><span>直播报名人数</span><span>直播报名总金额</span><span>单价</span><span>操作</span></li>'+
 //                     '<li><span>黄飞虎</span><span>赵日天</span><span>元婴期</span><span>赵日天</span><span>2017-12-05</span><span onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>'+
                ' </ul>'+
             '</div>'+
+            '<div id="noResult" class="hide" style=" text-align: center;padding-top: 60px;color: #ccc;"><img src="/web/images/nobank.png" alt="" "><p>暂无相关记录</p></div>'+
         '</div>'+
         '</div>'+
     	

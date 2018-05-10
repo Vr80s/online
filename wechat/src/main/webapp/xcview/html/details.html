@@ -11,18 +11,15 @@
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link rel="stylesheet" href="/xcview/css/css.css?version=96a0f827c0&version=96a0f827c0&version=96a0f827c0">
+<link rel="stylesheet" href="/xcview/css/css.css?version=96a0f827c11110&version=96a0f827c0&version=96a0f827c0">
 
 
 <!-- 网页自适应JS代码引入 -->
-<script type="text/javascript" src="/xcview/js/common/js.js?version=b35e3bdcab&version=b35e3bdcab&version=b35e3bdcab"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js?version=b35e3bdcab&version=b35e3bdcab&version=b35e3bdcab"></script>
-
+<script type="text/javascript" src="/xcview/js/common/js.js?version=b35e3bdc111ab&version=b35e3bdcab&version=b35e3bdcab"></script>
 <!-- 图片引入放大缩小 -->
-<script type="text/javascript" src="/xcview/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="/xcview/js/underscore.js?version=9d2dc1d44f&version=9d2dc1d44f&version=9d2dc1d44f"></script>
-<script type="text/javascript" src="/xcview/js/pinchzoom.js?version=1b3192f6cb&version=1b3192f6cb&version=1b3192f6cb"></script>
-
+<script type="text/javascript" src="/xcview/js/common/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/underscore.js"></script>
+<script type="text/javascript" src="/xcview/js/common/pinchzoom.js?version=1b3192f6cb&version=1b3192f6cb&version=1b3192f6cb"></script>
 
 
 <!-- 双击图片变大缩小 -->
@@ -35,18 +32,16 @@ $(function(){
     $("#div").trigger('play');
 });
 </script>
-	
 <link rel=stylesheet href="/xcview/css/jquery.mCustomScrollbar.min.css">
-<link rel="stylesheet" href="/xcview/css/details.css?version=cdda455964&version=cdda455964&version=cdda455964">
-<link rel="stylesheet" href="/xcview/css/style.css?version=eede15a77a&version=eede15a77a&version=eede15a77a">
+<link rel="stylesheet" href="/xcview/css/details.css?version=cdda455964&version=cdda451115964&version=cdda455964">
+<link rel="stylesheet" href="/xcview/css/style.css?version=eede15a77a&version=eede15a11177a&version=eede15a77a">
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css?version=55329d52d7&version=55329d52d7&version=55329d52d7"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css?version=55321119d52d7&version=55329d52d7&version=55329d52d7"/>
 <style>
 
 .leaderboard .leaderboard_list:last-child{
 	border-bottom: none;
 }
-
 #chatmsg{
 	padding-top: 0.4rem;
 }
@@ -55,7 +50,7 @@ $(function(){
 <script>
 	window.onload = function(){
 		
-		  /*礼物模块其他区域隐藏*/
+		/*礼物模块其他区域隐藏*/
 		$("#video").click(function(){
 			$(".send_gifts").hide();
 		});
@@ -79,6 +74,12 @@ $(function(){
 		});
 		$(".details1").click(function(){
 			$(".send_gifts").hide();
+		});
+
+		// 点击发送
+		$(".send_img").click(function(){
+			alert(123);
+			$(".coze_bottom").css("bottom", "0rem");
 		});
 		
 	};
@@ -122,7 +123,8 @@ $(function(){
 		color: #fff;
 	}
 .mCustomScrollBox{
-	height: 14rem;
+	height1: 14rem;
+	height: 100%;
 }
 .coze_bottom_hide{
 	display: none !important;
@@ -131,11 +133,17 @@ $(function(){
     padding-top: 0.4rem;
 }
 .mCustomScrollbar{
-	    padding-bottom: 2.5rem;
+	    padding-bottom1: 2.5rem;
 }
 .coze{
 	position: absolute;
     top: 10.5rem;
+}
+.coze_cen_ri:last-child{
+	margin-bottom: 2.5rem;
+}
+.coze_cen_ris{
+	margin-bottom: 0rem !important;
 }
 </style>
 </head>
@@ -158,7 +166,7 @@ $(function(){
 	</div>
 
 	<!-- 头部开始 -->
-	<header style="padding-top: 0rem;">
+	<header style="padding-top: 0rem;" class="header">
 		<div class="grabble">
 			<div class="grabble_top">
 				
@@ -183,9 +191,9 @@ $(function(){
 		
 		<!--即将开始提示-->
 		<div class="video_end_top0" style="display: none;">
-			<p>即将直播：姚春龄中医脉诊</p>
+			<p>即将直播：<span id="initiation_gradename"></span></p>
 			
-			<div class="initiation">开播时间：<span class="initiation_span">12:00</span></div>
+			<div class="initiation">开播时间：<span class="initiation_span"></span></div>
 			<!--<div align="center" style="width:100%; margin:0 auto">
 				<div class="time-item">
 					<strong id="minute_show">0分</strong>
@@ -194,7 +202,6 @@ $(function(){
 			</div>-->
 		</div>
 		<!--即将开始提示-->
-		
 		<!--直播已结束提示-->
 		<div class="video_end_top">
 			<div class="video_end"></div>
@@ -267,7 +274,7 @@ $(function(){
 	<div class="footer_k" style="height: 10.6rem;"></div>
 	<!-- 详情聊天开始 -->
 	
-	<div class="coze" style="height: 14rem">
+	<div class="coze" style="height1: 14rem">
 		<!--关注开始-->
 		<div class="attention" id="attention">
 			<div class="main_img">
@@ -291,7 +298,7 @@ $(function(){
 		
 		<div class=""></div>
 		<div style="height: 0rem;"></div>
-		<div class="chatmsg-box" style="height: 14rem;margin-top: 0.25rem;">
+		<div class="chatmsg-box" style="height1: 14rem;margin-top: 0.25rem;">
 			<div class="coze_center" id="chatmsg" style="overflow: auto;">
 				<!-- <div class="footer_k" style="height: 3.6rem;"></div> -->
 			</div>
@@ -316,7 +323,8 @@ $(function(){
 			</div>
 			
 			<!-- 打赏 -->
-			<span class="face give_a1_span02" style="display: none;"><img src="/xcview/images/give.png" style="margin-top: -0.2rem;" /></span>
+			<span class="face give_a1_span02" style="display: none;">
+			<img src="" style="margin-top: -0.2rem;" /></span>
              <!-- 礼物 -->     
 			<a href="javascript: ;" class="give_a1"><img
 				src="/xcview/images/gaft.png" alt="" class="give_a1_img" style="" /></a>
@@ -374,39 +382,7 @@ $(function(){
 	</div>
 	<!--分享结束-->
 
-
-
-
-	<!-- 直播分享页开始   之前版本， -->
-	<!--<div class="share1" style="display: none !important;">
-		<div class="share_bg"></div>
-		<div class="share_footer">
-			<ul>
-				<li style="margin-left1: 2.8rem;" class="weixin_li"><a
-					href="javascript: ;"><img src="/xcview/images/share01.png"
-						alt="" />
-					<p>微信</p></a></li>
-		  	
-			<li id="qqShare">
-			   <a href="javascript:;" target="_blank">
-			   <img src="/xcview/images/share04.png" alt="" data-bd-imgshare-binded="1"><p>qq好友</p></a>
-			</li>
-			<li id="qqShare0">
-			   <a href="javascript:;" target="_blank">
-			   <img src="/xcview/images/icon_qqkongjian_yellow.png" alt="" data-bd-imgshare-binded="1"><p>qq空间</p></a>
-			</li>
-			<li id="weiboShare">
-		 	   <a href="javascript:;" target="_blank">
-		 	   <img src="/xcview/images/share03.png" alt="" data-bd-imgshare-binded="1"><p>新浪微博</p></a>
-		 	 </li>
-			
-			</ul>
-			<div class="both"></div>
-			<div class="share_footer_call">取消</div>
-		</div>
-	</div>-->
-
-	<script src="/xcview/js/main.js?version=405566b7bf&version=405566b7bf&version=405566b7bf"></script>
+	<script src="/xcview/js/common/main.js?version=405566b7bf&version=405566b7bf&version=405566b7bf"></script>
 	<!-- 直播分享页结束 -->
 	<!-- 点击微信-->
 	<div class="weixin_ceng">
@@ -467,30 +443,10 @@ $(function(){
 
 	<!-- 详情主播开始 -->
 	<div class="details1">
-		<!--<div class="details_anchor" style="margin-top:0.3rem;height: 2.6rem;top: 0.1rem;">
-			<div class="details_anchor_center" style="">
-				<img src="/xcview/images/touxiang.png" id="headImg" alt="" onclick="userIndex()"
-					class="details_portrait" style="margin-top: 0.2rem;" />
-				<div class="details_anchor_attention" id="zhiboxiangqing"
-					style="width: 8rem;">
-					<p class="p1"></p>
-					<p class="p2">
-						播&nbsp;&nbsp;&nbsp;主：<span></span>
-					</p>
-				</div>
-				<div class="details_attention" style="background: none; margin-right: 3rem; float: left;margin-left: 1.8rem;">
-					<p id="guanzhu2" class="guanzhu1"style="width: 3.025rem;height: 1.2rem;background: url(../images/attention02.png) no-repeat;background-size: 100% 100%; border-radius: 6px;margin-top: -1rem;"></p>
-					<p class="guanzhu2" style="background: url(../images/attention03.png) no-repeat;background-size: 100% 100%;width: 3.025rem;height: 1.2rem; line-height: 1.2rem; border-radius: 6px; margin-top: -1rem;"></p>
-				</div>
-			</div>
-			<div class="both"></div>
-		</div>-->
-		
-		
 		<!--关注开始-->
 		<div class="attention">
 			<div class="main_img">
-				<img src="../images/120.jpg" alt="" class="guanz_headImg"/>
+				<img src="" alt="" class="guanz_headImg"/>
 			</div>
 			<div class="main_title" style="width: 9.15rem;">
 				<p class="p0">测试（主播名）</p>
@@ -512,7 +468,7 @@ $(function(){
 		<div class="attention" style="display: none;">
 			
 			<div class="main_img">
-				<img src="../images/120.jpg" alt="" id=""/>
+				<img src="" alt="" id=""/>
 			</div>
 			<div class="main_title" style="width: 8.45rem;">
 				<p class="p0">测试（主播名）</p>
@@ -527,7 +483,8 @@ $(function(){
 			</div>
 		</div>
 		<!--关注结束-->
-		
+
+		<div class="null_anchor" style="font-size: 0.59rem;display: none;background: #fff;margin-top: 3.4rem;padding: 0.4rem 0;text-align: center;">暂无主讲人介绍</div>
 		<div class="anchor_center01" style="margin-top: 3.4rem;">
 			<div class="anchor_center">
 				
@@ -551,11 +508,10 @@ $(function(){
 	<!-- 排行榜结束 -->
 	<!-- 文档开始 -->
 	<div class="document" style="margin-top: 0.47rem;">
-		<div class="fd_img">
+		<!-- <div class="fd_img">
 			<div class="fd_img_bg"></div>
-			<!--<img src="/xcview/images/null13.png" alt="" />-->
 			<p>此课程还没课件</p>
-		</div>
+		</div> -->
 		<div class="document_ceneter" id="doc">
 			
 			<div class="both"></div>
@@ -616,23 +572,24 @@ $(function(){
 </body>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <!-- <link rel="stylesheet" href="/xcview/css/yangxuan.css"> -->
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script> -->
 
-<script src="/xcview/weihoujs/vhallSDK.js?version=8c159d7822&version=8c159d7822&version=8c159d7822"></script>
+<script src="/xcview/weihoujs/vhallSDK.js?version=8c159d711182211111111&version=8c159d7822&version=8c159d7822"></script>
 <script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="/xcview/weihoujs/underscore-min.js?version=963bd48ea8&version=963bd48ea8&version=963bd48ea8"></script>
-<script type="text/javascript" src="/xcview/newjs/weihoudetails.js?v=wechat_1.2.1&version=4d5a0432ee&version=4d5a0432ee&version=10d52d1975"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1111.1&version=1a72100b6d&version=1a72100b6d&version=1a72100b6d"></script>
+<script type="text/javascript" src="/xcview/js/common/weihoudetails.js?v=wechat_1.2.1&version=4d5a0432ee&version=4d5a0432ee&version=10d52d1975"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1111.1&version=1a72100b6d&version=1a72100b6d&version=1a72100b6d"></script>
 <!-- <script type="text/javascript" src="/xcview/js/XCh5Pay.js?version=70d6efdacc&version=352ea4ec3e&version=352ea4ec3e"></script> -->
-<script type="text/javascript" src="/xcview/js/strophe.js?version=1ddc9fdf23&version=1ddc9fdf23&version=1ddc9fdf23"></script>
-<script type="text/javascript" src="/xcview/js/im/giftSend.js?version=a069a29eca&version=f3dac6e8b1&version=f30bcb705f"></script>
+<script type="text/javascript"
+	src="/xcview/js/common/strophe.js?version=1ddc9fdf23&version=1ddc9fdf23&version=1ddc9fdf23"></script>
+<script type="text/javascript" src="/xcview/js/im/giftSend.js?version=a069a29e1111ca&version=f3dac6e8b1&version=f30bcb705f"></script>
 <script type="text/javascript" src="/xcview/js/details_change.js?v=wechat_1.11&version=e700156cca&version=e700156cca&version=e700156cca"></script>
-<script type="text/javascript" src="/xcview/js/details.js?v=wechat_1.111&version=f236be0875&version=b47ca67429&version=6d40e3898a"></script>
+<script type="text/javascript" src="/xcview/js/details.js?v=wechat_1.111&version=f236b1111e0875&version=b47ca11167429&version=6d40e3898a"></script>
 
 
 <script type="text/javascript">
@@ -664,28 +621,31 @@ $(function(){
 			$(".send_gifts").hide();
 		});
 		
-//		点击主讲人
-		/*$(".details_footer_width .click_li").click(function(){
-			
-			$("#attention .close").hide();
-			$("#attention .main_title").css("width","9.15rem");
-			$("#attention").css("display","block !important;");
-		});*/
-		
-		if($("#doc img").attr("src").length==0){
-			$(".pinch-zoom-container").css("display","none");
-			$(".fd_img").css("display","black");
+
+		if( $('#doc img').attr('src') ){
+	    	$("#doc").css("display","black");
 		}else{
-			$(".pinch-zoom-container").css("display","block");
-			$(".fd_img").css("display","none");
+			$("#doc").css("display","none");
 		}
-		
-		
+
 		$(".give_a1").click(function(){
 			$("#attention").hide();
 		});
-		
+
+		$(".li4").click(function(){
+			// 课件获取高度
+			var school_height=$(window).height()-$(".details_cen1").height();
+			$(".pinch-zoom-container").height(school_height);
+		});
 	};
+</script>
+
+
+<script>
+	//		聊天区高度
+		var school_height=$(window).height()-$(".header").height();
+		$(".chatmsg-box").height(school_height);
+		// alert(school_height);
 </script>
 </html>
 

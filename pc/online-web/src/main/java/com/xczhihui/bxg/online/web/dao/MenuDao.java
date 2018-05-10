@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.dao;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.online.web.vo.MenuVo;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;

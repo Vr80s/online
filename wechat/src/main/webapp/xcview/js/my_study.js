@@ -24,8 +24,16 @@ var all_history="";
 			for (var int = 0; int < data.resultObject.records.length; int++) {
 				
 				var item = data.resultObject.records[int];
-				str+="<li onclick='go_play_hos("+item.type+","+item.lineState+","+item.collection+","+item.courseId+")'>";
-				str+="<p>"+item.lecturerName+"： "+item.gradeName+"</p>";
+			
+				if(item.collection){ 
+					str+="<li  data-directId ="+item.directId+" data-collectionName ="+item.collectionName+" " +
+							"onclick='go_play_hos_collection("+item.courseId+","+item.collectionId+",this)'>";
+					str+="<p>"+item.lecturerName+"： "+item.collectionName+"</p>";
+				}else{
+					str+="<li onclick='go_play_hos("+item.type+","+item.lineState+","+item.collection+","+item.courseId+")'>";
+					str+="<p>"+item.lecturerName+"： "+item.gradeName+"</p>";
+				}
+				
 				str+="<span>"+item.timeDifference+"</span>";
 				str+="</li>";
 			}
@@ -56,6 +64,8 @@ var all_history="";
 //已购课程/结束课程	
 
 //	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
+	// requestService("/xczh/myinfo/list",{pageSize:5},function(data) {  备份之前接口
+	// requestService("/xczh/myinfo/myCourseType",{pageNumber:1,pageSize:500,type:1},function(data) {    备份新接口
 	requestService("/xczh/myinfo/list",null,function(data) {
 
 //			if(data.resultObject[0].courseList.startTime!="" || data.resultObject[0].courseList.startTime!=null){
@@ -74,23 +84,20 @@ var all_history="";
 //直播中
 	$(".paly_ing_all").click(function(){
 			var courseId=$(this).attr("data-ppd");
-			requestService("/xczh/history/add",
-			{courseId:courseId}
-			,function(data) {
-
+			
+			//更新下观看记录
+			requestService("/xczh/history/add",{courseId:courseId,recordType:2},function(data) {
+				console.log();
 			})	
+			
 			location.href="details.html?courseId="+courseId
 		})
 //即将直播
 	$(".paly_ing_all_now").click(function(){
-			var courseId_now=$(this).attr("data-ppdnow");
-			requestService("/xczh/history/add",
-			{courseId:courseId_now}
-			,function(data) {
+		  var courseId_now=$(this).attr("data-ppdnow");
 
-			})	
-			location.href="details.html?courseId="+courseId_now
-		})
+		 location.href="/xcview/html/live_play.html?my_study="+courseId_now;	
+	})
 	})	
 	
 //我关注的主播
@@ -108,6 +115,22 @@ var all_history="";
 
 })
 
+/**
+ * 自专辑播放历史
+ * @param course_id
+ * @param collection_id
+ * @param obj
+ * @returns
+ */
+function go_play_hos_collection(course_id,collection_id,obj){
+	
+	//str+="<li  data-directId ="+item.directId+" data-collectionName ="+item.collectionName+" " +
+
+	var direct_id = $(obj).attr("data-directId");
+	var name_title = $(obj).attr("data-collectionName");
+	
+	location.href="live_album.html?course_id="+course_id+"&direct_id="+direct_id+"&collection_id="+collection_id+"&name_title="+name_title+"&type=1";
+}
 
 /*
  * 搜索历史播放   点击事件

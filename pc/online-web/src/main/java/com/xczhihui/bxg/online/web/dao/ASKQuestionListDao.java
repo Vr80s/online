@@ -2,8 +2,8 @@ package com.xczhihui.bxg.online.web.dao;/**
  * Created by admin on 2016/9/19.
  */
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.base.utils.MysqlUtils;
@@ -360,15 +360,16 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
      * 删除问题信息
      *
      * @param questionId 问题id号
+     * @param user
      * @return
      */
-    public void deleteQuestionById(HttpServletRequest request, String questionId, OnlineUser u) {
+    public void deleteQuestionById(String questionId, OnlineUser u, User user) {
         String sql = "select user_id, create_person from oe_ask_question where id = ? and is_delete = 0";
         List<Map<String, Object>> check = this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql, questionId);
         if (check == null || check.size() <= 0) {
             throw new RuntimeException(String.format("不存在"));
         }
-        User user = (User) request.getSession().getAttribute("_adminUser_");
+
         String deleteSql = "";
         if (user == null) { //非管理员
             if (!check.get(0).get("user_id").toString().equals(u.getId())) {

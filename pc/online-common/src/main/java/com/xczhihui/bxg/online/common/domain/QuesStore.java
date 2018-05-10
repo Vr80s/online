@@ -1,14 +1,13 @@
 package com.xczhihui.bxg.online.common.domain;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.xczhihui.bxg.common.support.domain.BasicEntity;
+import com.xczhihui.common.support.domain.BasicEntity;
 /**
  *  视屏实体类
  * @author yxd

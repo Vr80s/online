@@ -28,7 +28,6 @@ public class WxPayConst {
 
 	public static String returnOpenidUri;
 	public static String server_ip;
-	public static String webdomain;
 	
 	
 	static{
@@ -39,18 +38,17 @@ public class WxPayConst {
 			properties.load(in);
 			
 			//微信公众号和h5
-			gzh_appid = properties.getProperty("wechatpay.gzh_appid");
-			gzh_mchid = properties.getProperty("wechatpay.gzh_mchid");
-			gzh_ApiKey = properties.getProperty("wechatpay.gzhApiKey");
+			gzh_appid = properties.getProperty("wechatpay.h5.appid");
+			gzh_mchid = properties.getProperty("wechatpay.h5.mchid");
+			gzh_ApiKey = properties.getProperty("wechatpay.h5.apiKey");
 			gzh_Secret = properties.getProperty("wechatpay.gzhSecret");
 			
 			//app使用 微信登录和支付
-			app_appid = properties.getProperty("wechatpay.app_appid");
-			app_mchid = properties.getProperty("wechatpay.app_mchid");
-			app_ApiKey = properties.getProperty("wechatpay.appApiKey");
+			app_appid = properties.getProperty("wechatpay.app.appid");
+			app_mchid = properties.getProperty("wechatpay.app.mchid");
+			app_ApiKey = properties.getProperty("wechatpay.app.apiKey");
 			//app_Secret = properties.getProperty("wechatpay.appSecret");
 			
-			webdomain = properties.getProperty("webdomain");
 			returnOpenidUri = properties.getProperty("returnOpenidUri");
 			server_ip = properties.getProperty("server_ip");
 			
@@ -77,7 +75,7 @@ public class WxPayConst {
 
 	public final static String CODE_URL_3 ="https://open.weixin.qq.com/connect/oauth2/authorize";//没有参数的
 	
-	// openid获取URL
+	// openid获取URL  
 	public final static String OAUTH_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 
 	//获取用户信息URL；

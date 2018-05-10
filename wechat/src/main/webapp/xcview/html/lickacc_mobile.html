@@ -12,7 +12,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
@@ -20,7 +20,16 @@
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 <link rel="stylesheet" href="/xcview/css/lickacc_mobile.css">
 
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 </head>
 <body style="background:#efefef;">
 	<!-- 头部开始 -->
@@ -76,23 +85,23 @@
 	</div>
 	
 	<!-- 中间内容结束 -->
-	<div class="success">
+	 <!--<div class="success">
 		<div class="success_bg"></div>
 		<div class="success_main">	
 			<div class="one">确定要解除绑定吗?</div>
 			<div class="three">
-				 <!--<div class="three_btn0 tishi">确定</div>--> 
+				<div class="three_btn0 tishi">确定</div> 
 				<div class="three_btn0" onclick="removeBind()">确定</div>
 				<div class="three_btn1">取消</div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 </body>
 <!-- 刷新引入js -->
 <script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
-<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<!-- <script src="/xcviews/js/common/swiper.jquery.min-1.11.2.js" type="text/javascript" charset="utf-8"></script> -->
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/lickacc_mobile.js?v=wechat_1.1.1"></script>
 <!--处理分辨率-->
 

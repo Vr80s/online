@@ -3,8 +3,6 @@ package com.xczhihui.medical.hospital.service;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>

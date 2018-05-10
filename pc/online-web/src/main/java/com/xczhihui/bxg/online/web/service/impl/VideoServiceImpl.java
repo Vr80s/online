@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,15 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import com.xczhihui.bxg.online.common.domain.Criticize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.VideoDao;
-import com.xczhihui.bxg.online.web.service.ApplyService;
 import com.xczhihui.bxg.online.web.service.VideoService;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
@@ -32,8 +28,6 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
 
     @Autowired
     private VideoDao videoDao;
-    @Autowired
-    private ApplyService applyService;
     @Autowired
     private CourseDao  courseDao;
 
@@ -206,56 +200,6 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     }
 
     @Override
-    public void saveCriticize(CriticizeVo criticizeVo) {
-        videoDao.saveCriticize(criticizeVo);
-    }
-
-    @Override
-    public CriticizeVo findCriticizeById(String id) {
-        if(!StringUtils.hasText(id)){
-            return null;
-        }
-        return videoDao.findCriticizeById(id);
-    }
-
-    @Override
-    public Map<String, Object> updatePraise(Boolean isPraise,String id,String  loginName) {
-        /** 根据id查出当前评论 */
-        CriticizeVo criticizeVo = videoDao.findCriticizeById(id);
-        boolean praise = false;
-        
-        int sum = 0;
-        Map<String,Object> returnMap = new HashMap<>();
-        /** 点赞排除排除已经点赞的，记录点赞人 */
-        if(criticizeVo!=null) {
-            String praiseLoginNames = criticizeVo.getPraiseLoginNames();
-            sum = criticizeVo.getPraiseSum();
-            if (isPraise) {
-                if (!StringUtils.hasText(praiseLoginNames) || !praiseLoginNames.contains(loginName)) {
-                    criticizeVo.setPraiseSum(++ sum);
-                    praise = true;
-                    if(!StringUtils.hasText(praiseLoginNames)) {
-                        criticizeVo.setPraiseLoginNames(loginName);
-                    }else{
-                        criticizeVo.setPraiseLoginNames(praiseLoginNames + "," + loginName);
-                    }
-                    videoDao.praise(criticizeVo);
-                }
-            } else {
-                if (criticizeVo.getPraiseLoginNames().contains(loginName)) {
-                    criticizeVo.setPraiseSum(-- sum);
-                    praiseLoginNames = praiseLoginNames.replace(","+loginName, "").replace(loginName, "");
-                    criticizeVo.setPraiseLoginNames(praiseLoginNames);
-                    videoDao.praise(criticizeVo);
-                }
-            }
-        }
-        //returnMap.put("praise",praise);
-        returnMap.put("praiseSum",sum);
-        return returnMap;
-    }
-
-    @Override
     public void updateStudyStatus(String studyStatus, String videoId, String userId) {
         videoDao.updateStudyStatus(studyStatus, videoId, userId);
     }
@@ -278,12 +222,12 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     @Override
     public  String saveEntryVideo(Integer  courseId, String password, HttpServletRequest request){
            CourseApplyVo courseApplyVo= courseDao.getCourseApplyByCourseId(courseId);
-//           if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getOriginalCost())==0 && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
-    	   if(courseApplyVo.getCoursePwd()!=null&&!"".equals(courseApplyVo.getCoursePwd().trim())){
-    		   if(password==null || !password.equals(courseApplyVo.getCoursePwd())) {
-                   return "密码错误";
-               }
-    	   }
+//         if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getOriginalCost())==0 && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
+//    	   if(courseApplyVo.getCoursePwd()!=null&&!"".equals(courseApplyVo.getCoursePwd().trim())){
+//    		   if(password==null || !password.equals(courseApplyVo.getCoursePwd())) {
+//                   return "密码错误";
+//               }
+//    	   }
            if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
                videoDao.saveEntryVideo(courseId,request);
                return "报名成功";

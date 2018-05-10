@@ -61,7 +61,4 @@ target/
 *.iws
 
 /.settings
-workspace/
-workspace-test/
-*.zip
-*.rar
+pc/online-manager/src/main/resources/rebel.xml

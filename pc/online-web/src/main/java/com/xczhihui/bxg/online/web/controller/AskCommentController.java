@@ -1,7 +1,9 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.User;
+import com.xczhihui.bxg.online.web.service.ManagerUserService;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.AskCommentService;
 import com.xczhihui.bxg.online.web.vo.AskCommentVo;
@@ -19,20 +21,21 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping(value = "/ask/comment")
-public class AskCommentController {
+public class AskCommentController extends AbstractController{
 
 	@Autowired
 	private AskCommentService service;
+	@Autowired
+	private ManagerUserService managerUserService;
 	/**
 	 * 查找评论/回复
-	 * @param question_id
 	 * @param pageNumber
 	 * @param pageSize
 	 * @return
 	 */
 	@RequestMapping(value = "/findComments")
 	public ResponseObject findComments(String answer_id,Integer pageNumber,Integer pageSize,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.findComments(u,answer_id, pageNumber, pageSize));
 	}
 	/**
@@ -42,7 +45,7 @@ public class AskCommentController {
 	 */
 	@RequestMapping(value = "/addComment")
 	public ResponseObject addAnswer(AskCommentVo vo,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		vo.setCreate_person(u.getLoginName());
 		vo.setCreate_head_img(u.getSmallHeadPhoto());
 		vo.setCreate_nick_name(u.getName());
@@ -56,10 +59,11 @@ public class AskCommentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteComment")
-	public ResponseObject deleteComment(String comment_id,HttpServletRequest request) {
+	public ResponseObject deleteComment(String comment_id,String ln,HttpServletRequest request) {
 		//获取当前登录用户信息
-		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		service.deleteComment(request,u,comment_id);
+		OnlineUser u = getCurrentUser();
+		User user = managerUserService.findUserByLoginName(ln);
+		service.deleteComment(u,comment_id,user);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
 	/**
@@ -69,7 +73,7 @@ public class AskCommentController {
 	 */
 	@RequestMapping(value = "/praiseComment")
 	public ResponseObject praiseComment(String comment_id,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.addPraiseComment(u,comment_id));
 	}
 

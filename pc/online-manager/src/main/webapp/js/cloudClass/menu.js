@@ -44,9 +44,9 @@ $(function(){
 								'<a class="blue" href="javascript:void(-1);" title="修改" onclick="editDialog(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+*/
 							   // '<a class="blue" href="javascript:void(-1);" title="关联课程类别" onclick="openMenuManage(this)"><i class="glyphicon glyphicon-wrench"></i></a>';
 					   			if(row.yunStatus==1) {
-									buttons+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
+									buttons+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);">禁用</a> ';
 								}else{
-									buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ';
+									buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);">启用</a> ';
 								};
 								return buttons;
 //	            	   		}else {
@@ -243,11 +243,7 @@ function childrenMenusUpMove(id,courseCount){
 				$("#childMenu-form").attr("action", basePath+"/cloudClass/menu/updateMenuCourseType");
 				$("#childMenu-form").ajaxSubmit(function(data){
 					unmask();
-					try{
-	            		data = jQuery.parseJSON(jQuery(data).text());
-	            	}catch(e) {
-	            		data = data;
-	            	  }
+					data = getJsonData(data);
 					if(data.success){
 						$("#childMenuDialog").dialog("close");
 						layer.msg(data.errorMessage);
@@ -285,11 +281,7 @@ function childrenMenusDownMove(id,courseCount){
 				$("#childMenu-form").attr("action", basePath+"/cloudClass/menu/updateMenuCourseType");
 				$("#childMenu-form").ajaxSubmit(function(data){
 					unmask();
-					try{
-	            		data = jQuery.parseJSON(jQuery(data).text());
-	            	}catch(e) {
-	            		data = data;
-	            	  }
+					data = getJsonData(data);
 					if(data.success){
 						$("#childMenuDialog").dialog("close");
 						layer.msg(data.errorMessage);
@@ -424,11 +416,7 @@ function openMenuManage(obj){
 				
 				$("#childMenu-form").ajaxSubmit(function(data){
 					unmask();
-					try{
-	            		data = jQuery.parseJSON(jQuery(data).text());
-	            	}catch(e) {
-	            		data = data;
-	            	  }
+					data = getJsonData(data);
 					if(data.success){
 						$("#childMenuDialog").dialog("close");
 						layer.msg(data.errorMessage);
@@ -545,7 +533,7 @@ function configResource(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = cloudClassMenuTable.fnGetData(oo); // get datarow
 	//alertInfo("配置" + aData.name + "权限");
-	//debugger;
+	//;
 	var roleId = aData.id;
 	console.log("roleId:" + roleId);
 	initCommonZtrees("resource","resource2","user/resource/role/tree",{"roleId":roleId},"right",function(){//左右两边都加载

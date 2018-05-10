@@ -46,8 +46,16 @@ a {
 	margin-right: 0;
 }
 #hos_pic>div>img{
-	width: 100%;
-	height: 100%;
+ position:absolute;
+ max-width:100%;
+ max-height:100%;
+ width:auto;
+ height:auto;
+ top:0;
+ left:0;
+ bottom:0;
+ right:0;
+ margin:auto;
 }
 .color{
 	color: #00bc12 !important;
@@ -69,7 +77,9 @@ a {
   width: 1200px;
   padding-bottom: 60px;
   margin: 0 auto;
-  min-height: 738px;
+  /*min-height: 738px;*/
+  min-height: 818px;
+  
 }
 .container .row {
   margin: 0;
@@ -83,6 +93,15 @@ a {
   float: left;
   background-color: #fff;
   position: relative;
+}
+#doctor_in_inf .news_nav .hos_point{
+	position: relative;
+}
+#doctor_in_inf .news_nav .hos_point .hos_point_icon{
+    position: absolute;
+    right: 32px;
+    top: 28px;
+    color: #cacbcb;
 }
 #doctor_in_inf .news_nav ul .doctor_inf img {
   width: 80px;
@@ -272,10 +291,22 @@ a {
 	background-color: #f0f0f0;
 	vertical-align: middle;
 	margin-right: 20px;
+	position: relative;
 }
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic > img{
-	width: 100%;
-	height: 100%;
+ /*position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;*/
+   
+   width: 100%;
+   height: 100%;
 }
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
 	cursor: pointer;
@@ -344,7 +375,18 @@ a {
     margin-right: 20px;
 }
 
-
+#doctor-save{
+	  display: inline-block;
+    width: 120px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
 
 
 /*医馆认证信息*/
@@ -409,8 +451,16 @@ a {
 } 
 #hos_Administration .hos_renzheng_inf .bottomContent >.teacher_picUpdata .teacher_pic img,
 #hos_Administration .hos_renzheng_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic img{
-	width: 100%;
-	height: 100%;
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
 }
 #hos_Administration .hos_renzheng_inf .bottomContent >.teacher_picUpdata .teacher_pic:hover,
 #hos_Administration .hos_renzheng_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic:hover{
@@ -520,11 +570,20 @@ a {
 	background-color: #f0f0f0;
 	margin-right: 20px;
 	vertical-align: middle;
+	position: relative;
 } 
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic > img,
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic > img{
-	width: 100%;
-	height: 100%;
+	 position:absolute;
+ max-width:100%;
+ max-height:100%;
+ width:auto;
+ height:auto;
+ top:0;
+ left:0;
+ bottom:0;
+ right:0;
+ margin:auto;
 }
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic:hover,
 #hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic:hover{
@@ -698,8 +757,8 @@ a {
 }
 #doc_Administration .bottomContent >.touxiang_picUpdata .touxiang_pic > img,
 #doc_Administration .bottomContent >.zhicheng_picUpdata .zhicheng_pic > img{
-	width: 100%;
-	height: 100%;
+width: 100%;
+height: 100%;
 }
 
 #doc_Administration .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
@@ -915,6 +974,16 @@ a {
 	height: 48px;
 	color: #999;
 }
+#Notice_Administration .Notice_bottom .neirong{
+	position: relative;
+}
+
+.word-number{
+	position: absolute;
+	top: 134px;
+	left: 574px;
+	color: #999999;
+}
 #Notice_Administration .Notice_bottom .neirong textarea{
 	vertical-align: text-top;
 	width: 540px;
@@ -966,9 +1035,295 @@ a {
      margin-left: 120px;
 }
 
+/*招聘管理部分*/
+.recruit-wrap-title{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	text-align: left;
+	border-bottom: 1px solid #F0F0F0;
+}
+.recruit-wrap-title p{
+	font-size: 16px;
+	color: #333333;
+  margin-left: 20px;
+  float: left;
+}
+.recruit-btn-newjob{
+	  display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    float: right;
+    margin: 12px 20px 0 0;
+}
+.recruit-wrap-content{
+	padding: 30px 20px 60px;
+}
+.recruit-wrap-content .recruit-table-list{
+	width: 100%;
+}
+.recruit-wrap-content .recruit-table-list th{
+	background: #F0F0F0;
+	font-size: 14px;
+	color: #666666;
+	border: 1px solid #DEDEDE;
+	height: 40px;
+	text-align: center;
+}
+.recruit-wrap-content .recruit-table-list td{
+	border: 1px solid #DEDEDE;
+	height: 80px;
+	padding: 10px;
+}
+
+.recruit-wrap-content .recruit-table-list tr td:nth-child(1){
+	width: 218px;
+}
+
+.recruit-wrap-content .recruit-table-list tr td:nth-child(2){
+	width:130px;
+}
+
+.recruit-wrap-content .recruit-table-list tr td:nth-child(3){
+	width: 115px;
+}
+
+.recruit-wrap-content .recruit-table-list tr td:nth-child(4){
+	width: 246px;
+}
+.recruit-wrap-content .recruit-table-list tr td:nth-child(5){
+	width: 209px;
+}
+.recruit-box-newjob{
+		text-align: left;
+}
+.recruit-box-newjob > div > span:first-child{
+	    display: inline-block;
+    width: 96px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+}
+.recruit-box-newjob > div > span:first-child em{
+	color: #f40;
+    display: inline;
+}
+.recruit-newjob-inf{
+	margin-top: 30px;
+}
+.recruit-write{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+}
+/*工作经验*/
+.recruit-write-experience{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+    position: relative;
+}
+
+.recruit-select {
+margin-top: 20px;
+display: inline-block;
+}
+
+.recruit-select p {
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    margin-right: 10px;
+    font-size: 14px;
+    line-height: 36px;
+    text-indent: 1em;
+color: #999999;
+}
+
+.recruit-select-one {
+	background: url(../images/down.png) 247px 14px no-repeat;
+}
+
+.select{
+	background: url(../images/up.png) 247px 14px no-repeat;
+}
+
+.recruit-select-lest{
+    width: 280px;
+    position: absolute;
+    border: 1px solid #f0f0f0;
+    background: white;
+	display: none;
+}
+
+.recruit-select ul li {
+	line-height: 30px;
+	padding-left: 10px;
+	cursor: pointer;
+}
+
+.recruit-select ul li:hover {
+	background: #CCC;
+	color: #FFF;
+}
+/*岗位职责*/
+.recruit-newjob-duty{
+	margin-top: 20px;
+}
+
+.recruit-textarea{
+	width: 540px;
+	height: 188px;
+	resize: none;
+	border: 1px solid #f0f0f0;
+	outline: none;
+	    padding: 10px;
+}
+.recruit-textarea-duty{
+		width: 540px;
+	display: inline-block;
+	margin-left: 5px;
+}
+.recruit-save-btn{
+	width: 120px;
+	height: 36px;
+	background:#00BC12;
+	color: white;
+	text-align: center;
+	line-height: 36px;
+	margin-top: 20px;
+	border-radius: 4px;
+	margin-bottom: 60px;
+	cursor: pointer;
+	border: 0;
+	margin-right: 50px;
+}
+.recruit-save-toggle{
+	background: white;
+	border: 1px solid #00BC12;
+	color: #00BC12;
+}
+/*招聘管理预览*/
+.recruit_preview_bg{
+	  position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    opacity: 0.3;
+    display: none;
+}
+.recruit_preview_box{
+	width: 960px;
+	height: 634px;
+	background: white;
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 100px;
+	margin-left: -480px;
+}
+.recruit_preview_bigBox{
+	width: 960px;
+	height: 570px;
+		overflow-x:hidden;
+  overflow-y:auto;
+}
+.recruit_preview_content{
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	line-height: 60px;
+	padding: 0 40px;
+	box-sizing: border-box;
+
+}
+.recruit_preview_content p{
+	color: #333333;
+	font-size: 16px;
+	float: left;
+}
+.recruit_preview_content img{
+	float: right;
+	margin-top: 23px;
+	cursor: pointer;
+}
+.recruit_preview_wrap{
+	
+}
+.recruit_preview_h1{
+	width: 96px;
+	display: inline-block;
+	text-align: right;
+	float: left;
+}
+.recruit_preview_h1 em{
+	color: red;
+display: inline;
+margin-right: 5px;
+}
+.recruit_wrap_h1 p{
+	width: 679px;
+	display: inline;
+	padding-left: 20px;
+	display: inline-block;
+}
+.recruit_wrap_h1{
+	margin-top: 28px;
+}
+.recruit_edit_box{
+	width: 960px;
+	height: 695px;
+	background: white;
+	position: absolute;
+	left: 50%;
+	top: 100px;
+	margin-left: -480px;
+	display: none;
+}
+.recruit-save-up{
+	margin-left: 122px;
+}
+/*.招聘管理编辑效果开始*/
+.notice_preview_content p{
+	color: #333333;
+	font-size: 16px;
+	float: left;
+}
+.notice_preview_content img{
+	float: right;
+	margin-top: 23px;
+	cursor: pointer;
+}
+
+
 /*公告内容部分*/
+
 #Notice_Administration .Notice_bottom2{
-	padding: 31px 20px 59px;
+	padding: 30px 20px 60px;
+}
+#Notice_Administration .Notice_bottom2 table{
+	  table-layout: fixed;
+    width: 100%;
 }
 #Notice_Administration .Notice_bottom2 table tr td {
 	text-align: center;
@@ -988,7 +1343,8 @@ a {
 }
 #Notice_Administration .Notice_bottom2 table thead > tr > td:first-child,
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:first-child{
-	width: 126px;
+	/*width: 126px;*/
+	width: 90px;
 }
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:first-child{
 	padding: 10px;
@@ -998,15 +1354,20 @@ a {
 }
 #Notice_Administration .Notice_bottom2 table thead > tr > td:nth-child(2),
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:nth-child(2){
-	width: 364px;
+	/*width: 364px;*/
+	width: 540px;
+	padding: 10px;
+	white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 #Notice_Administration .Notice_bottom2 table thead > tr > td:nth-child(3),
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:nth-child(3){
-	width: 105px;
+	width: 160px;
 }
 #Notice_Administration .Notice_bottom2 table thead > tr > td:nth-child(4),
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:nth-child(4){
-	width: 121px;
+	width: 128px;
 }
 #Notice_Administration .Notice_bottom2 table thead > tr > td:nth-child(5),
 #Notice_Administration .Notice_bottom2 table tbody > tr > td:nth-child(5){
@@ -1015,8 +1376,61 @@ a {
 #Notice_Administration .Notice_bottom2 table tr,#Notice_Administration .Notice_bottom2 table td{
 	border: 1px solid #DEDEDE;
 }
+#notice-release-btn{
+		display: inline-block;
+    width: 120px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.notice_notext_two,
+.notice_notext_icon{
+	display: none;
+	padding: 89px 0;
+}
+.notice_notext_two,
+.notice_notext_icon img{
+	
+}
+.notice_notext_two p,
+.notice_notext_icon p{
+	    font-size: 16px;
+    color: #999;
+    margin-top: 38px;
+}
+/*公告管理预览效果*/
+.notice_namage_see{
+	width: 960px;
+	height: 634px;
+	background: white;
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 100px;
+	margin-left: -480px;
+}
+.notice_preview_content{
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	line-height: 60px;
+	padding: 0 40px;
+	box-sizing: border-box;
+}
+.notice_time{
+	float: right;
+	padding: 108px;
+}
 
 
+
+
+/*公告管理预览效果结束*/
 /*医师信息查看隐藏的模态框编辑*/
 #doc_Administration_bottom3,
 #doc_Administration_bottom4{

@@ -9,21 +9,29 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/template/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 <link rel="stylesheet" href="../css/discovery.css" />
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="/xcview/js/template.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <script type="text/javascript" src="/xcview/js/discovery.js?v=wechat_1.1.1"></script>
 
-
-
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
 	
 </head>
     
@@ -61,7 +69,7 @@
 				<p>学习</p>
 			</li>
 			<li>
-				<a href="discovery.html" class="footer_three" style="margin-top: 0.13rem; margin-bottom: 0.07rem;background: url(../images/discovery_threes.png) no-repeat center;background-size: 0.4rem 0.41rem;"></a>
+				<a href="discovery.html" class="footer_three" style="height: 0.42rem;margin-top: 0.13rem; margin-bottom: 0.07rem;background: url(../images/discovery_threes.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-bottom: 0.04rem;"></a>
 				<p style="color: #00BC12;">发现</p>
 			</li>
 			<li>

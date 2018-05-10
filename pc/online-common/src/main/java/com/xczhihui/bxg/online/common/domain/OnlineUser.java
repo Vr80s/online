@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.common.support.domain.BxgUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;

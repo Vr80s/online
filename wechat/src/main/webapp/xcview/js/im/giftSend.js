@@ -78,12 +78,11 @@ String.prototype.replaceAll = function(FindText, RepText) {
 }
 var sendTime;
 if (sendTime == null) {
-    requestService("/bxg/common/getSystemTime", null, function(data) {
+    requestService("/xczh/common/getSystemTime", null, function(data) {
         sendTime = data;
     }, false)
 }
 function createGiftList(gift) {
-	
     if(gift.messageType == 2){//直播开始了
     	//当前时间 
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
@@ -98,13 +97,14 @@ function createGiftList(gift) {
     	return;
     }else if(gift.messageType == 3){ //直播结束了
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
-	    	 console.log("直播结束了，建议再次刷新页面   >>>>");
+	    	 console.log("直播结束了，去学习中心 >>>>");
 			 $("#video").html("");
 			 $(".video_end_top0").hide();
 			 $(".video_end_top").show(); 
     	} 
     	return;
     }
+    if(gift.courseId!=course_id)return;   //ios传值
     if (gift.messageType == 0 || gift.messageType == 1) {
         var time = data.giftInfo == null ? data.rewardInfo.time: data.giftInfo.time
         if (time == null)
@@ -112,7 +112,7 @@ function createGiftList(gift) {
         if (parseInt(sendTime) > parseInt(time))
             return;
 
-        //TODO  将礼物添加到队列中  ---》 这时可能会有很多多来的，依次存放哎队列中
+        //将礼物添加到队列中  ---》 这时可能会有很多多来的，依次存放哎队列中
         // queue.push(gift);
         if($("#"+data.senderInfo.userId+data.giftInfo.giftId).length>0){
             giftShow(data,$("#"+data.senderInfo.userId+data.giftInfo.giftId).attr("xh"),true);
@@ -136,14 +136,15 @@ var addn = [];
 // 生成礼物
 
 //gift.messageType == 0;
+// var courseId = courseId;
 function giftShow(gift, f,continuous) {
     if(continuous){
         $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime())
         return;
     }
-
     if (gift.messageType == 1) { // 礼物
+
         var bottom = countChange(f)
         gif[f] = $("<li class='animation' id='gift"+f+"' style='position: fixed;top: "
             + bottom
@@ -156,8 +157,7 @@ function giftShow(gift, f,continuous) {
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         try {
-        	
-            $("#liveGiftCount").html(gift.giftCount);
+           
         } catch (error) {
             // 此处是负责例外处理的语句
         } finally {
@@ -415,6 +415,7 @@ $(document).ready(function() {
                             /**
                              * 发送IM消息
                              */
+                            data.resultObject.courseId=course_id;  /*ios传值--判断是在一个直播间*/
                             sendMsg(data.resultObject);
 
                             var str = "<div class='coze_cen_ri'> "+
@@ -423,6 +424,7 @@ $(document).ready(function() {
             				" </div> "+
             			    "<div class='both'></div></div>";
                             
+                            
                             //将礼物发送到
                             var msg = null;
                             msg = VHALL_SDK.sendChat({
@@ -430,6 +432,9 @@ $(document).ready(function() {
                             });
                             $("#chatmsg").append(str);
                            
+                            //显示礼物总数
+                            $("#liveGiftCount").html(data.resultObject.giftCount);
+                            
                             // createGiftShow();
                             
                             setTimeout(function(){
@@ -502,7 +507,7 @@ $(function () {
     setInterval(function(){
         for(var i=1;i<5;i++){
 //             console.info(i+":"+$('.addnum'+i).data("sto"));
-            // debugger
+            // 
             var t = new Date().getTime()-$('.addnum'+i).data("sto");
             if(t>3000){
                 var f = $('.addnum'+i).attr("xh");

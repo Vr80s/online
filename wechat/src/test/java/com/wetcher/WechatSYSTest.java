@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
-import com.xczhihui.user.center.utils.HttpUtil;
 
 public class WechatSYSTest {
 
@@ -30,24 +29,24 @@ public class WechatSYSTest {
 	
 	/**
 	 * 
-	 * Description：获取永久素材   
+	 * Description：获取永久素材   列表
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@Test
 	public void testGET_PERMANENT_MATERISL() {
-	/*	String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-		System.out.println(token);*/
-		String url = GET_PERMANENT_MATERISL.replace("APPSECRET", "8_ESe5hkkvBWRLO-6W5YJdQ-RQUuq8SYq-JY54r2j41KFbsQX3NGFspHUk55ulY3JHvJujCrLP7XVmpa1EG4cnoTtqsJAEIUsjRNhSvOEDuyTHRG1hUOkiRCR-r-FMo24VE25kxfF3zZWcmgkqNPWhAJAHJQ");
-		
-		Map<String,String> parameters = new HashMap<String,String>();
-		parameters.put("type", "news");
-		parameters.put("offset", "0");
-		parameters.put("count", "10");
-		
-		String str ="{\"type\":\"news\",\"offset\":0,\"count\":10}";
-		String hehe =  HttpsRequest.doHttpsPost(url, str);
-		System.out.println(hehe);
+//		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+//		System.out.println(token);
+//		String url = GET_PERMANENT_MATERISL.replace("APPSECRET",token);
+//		
+//		Map<String,String> parameters = new HashMap<String,String>();
+//		parameters.put("type", "news");
+//		parameters.put("offset", "0");
+//		parameters.put("count", "10");
+//		
+//		String str ="{\"type\":\"news\",\"offset\":0,\"count\":10}";
+//		String hehe =  HttpsRequest.doHttpsPost(url, str);
+//		System.out.println("token============"+hehe);
 	}
 	
 	/**
@@ -59,13 +58,20 @@ public class WechatSYSTest {
 	 */
 	@Test
 	public void testSYS() {
-		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-		System.out.println(token);
-		String url = OBTAIN_MERCHANT_INFORMATION.replace("APPSECRET", "8_UTNb4a2W81yG5oOmRu7vqZPT8l90ipITfkBFfoqf93u9OhY9Ily4uEuCDsTthxNRNMYG9YedckziFBqQMlSlDwpe9dTjbtExgq8BvIvjxEu7x9Toyfq-y2EdGXtSo-aMz5GWCS8kWrAqfpvcJJAcABAAAR");
-		String goods_info  = HttpUtil.doGet(url);
-		System.out.println(goods_info);
+//		String token =SingleAccessToken.getInstance().getAccessToken().getToken();
+//		System.out.println(token);
+//		String url = OBTAIN_MERCHANT_INFORMATION.replace("APPSECRET", "8_UTNb4a2W81yG5oOmRu7vqZPT8l90ipITfkBFfoqf93u9OhY9Ily4uEuCDsTthxNRNMYG9YedckziFBqQMlSlDwpe9dTjbtExgq8BvIvjxEu7x9Toyfq-y2EdGXtSo-aMz5GWCS8kWrAqfpvcJJAcABAAAR");
+//		String goods_info  = HttpUtil.doGet(url);
+//		System.out.println(goods_info);
 	}
 	
+	
+	/**
+	 * 获取二维码的票据
+	 * Description：
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
 	@Test
 	public void testEWMTicket() {
 		
@@ -79,16 +85,22 @@ public class WechatSYSTest {
 		
 	}
 	
+	/**
+	 * 通过获得的二维码票据  --》得到二维码
+	 * Description：
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@Test
 	public void testEWM() {
 		//String token =SingleAccessToken.getInstance().getAccessToken().getToken();
 		//System.out.println(token);
 		String url = QR_CODE_IMG.replace("TICKETS", "gQGr7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyaEhqZ1pSdTFlRWkxQTRaVGhxY3cAAgTIfLdaAwQ8AAAA");
-		String hehe = HttpUtil.doGet(url);
-		System.out.println(hehe);
+//		String hehe = HttpUtil.doGet(url);
+//		System.out.println(hehe);
 		
 	}
 	
 	//{"ticket":"gQGr7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyaEhqZ1pSdTFlRWkxQTRaVGhxY3cAAgTIfLdaAwQ8AAAA","expire_seconds":60,"url":"http:\/\/weixin.qq.com\/q\/02hHjgZRu1eEi1A4ZThqcw"}
-
 }

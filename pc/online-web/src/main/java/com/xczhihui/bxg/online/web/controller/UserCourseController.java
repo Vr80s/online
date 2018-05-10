@@ -1,21 +1,17 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.CourseService;
-import com.xczhihui.bxg.online.web.service.LecturerService;
 import com.xczhihui.bxg.online.web.service.MenuService;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.LecturVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 用户课程控制器
@@ -24,15 +20,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/userCourse")
-public class UserCourseController {
+public class UserCourseController extends AbstractController{
 
     @Autowired
     private MenuService menuService;
 
     @Autowired
     private CourseService courseService;
-    @Autowired
-    private LecturerService lecturerService;
 
     /**
      * 查询所有菜单
@@ -40,10 +34,7 @@ public class UserCourseController {
      */
     @RequestMapping(value = "/menus",method= RequestMethod.GET)
     public ResponseObject menus(HttpServletRequest   request){
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(menuService.findUserCourseMenus(loginUser.getId()));
     }
 
@@ -58,7 +49,7 @@ public class UserCourseController {
     @RequestMapping(value="courses/{courseStatus}/{pageNumber}/{pageSize}",method=RequestMethod.GET)
     @ResponseBody
     public ResponseObject courses(HttpServletRequest request,@PathVariable Integer courseStatus,@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
-        OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = getCurrentUser();
         if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
@@ -83,7 +74,7 @@ public class UserCourseController {
     @RequestMapping(value="publicCourses/{courseStatus}/{pageNumber}/{pageSize}",method=RequestMethod.GET)
     @ResponseBody
     public ResponseObject publicCourses(HttpServletRequest request,@PathVariable Integer courseStatus,@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
-    	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+    	OnlineUser loginUser = getCurrentUser();
     	if (loginUser == null) {
     		return OnlineResponse.newErrorOnlineResponse("请登录！");
     	}
@@ -108,7 +99,7 @@ public class UserCourseController {
     @RequestMapping(value="realCourses/{courseStatus}/{pageNumber}/{pageSize}",method=RequestMethod.GET)
     @ResponseBody
     public ResponseObject realCourses(HttpServletRequest request,@PathVariable Integer courseStatus,@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
-    	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+    	OnlineUser loginUser = getCurrentUser();
     	if (loginUser == null) {
     		return OnlineResponse.newErrorOnlineResponse("请登录！");
     	}

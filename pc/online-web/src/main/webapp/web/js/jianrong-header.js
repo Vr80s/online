@@ -64,7 +64,6 @@ $(function () {
         '<a href="#">国医馆</a>'+
         '<a href="/web/html/forum.html" class="forum">书房斋</a>'+
         '<a href="/web/html/ansAndQus.html" class="ansAndQus">问答</a>'+
-//        '<a href="/web/html/Exhibition.html" target="_blank">作品展</a>'+
         '</div>'+
         ' </div>'+
         '<div class="header_right">'+
@@ -143,7 +142,7 @@ $(function () {
             '</div>'+
         '</div>',
         weixinErma:'<div class="sideWeixinErma">'+
-        '<img src="/web/images/sideWeixin.png" />'+
+        '<img src="/web/images/sideWeixin.jpg" />'+
         '<div class="sideSanjiao">'+
         '<img src="/web/images/float_sanjiao.png" />'+
         '</div>'+
@@ -155,7 +154,7 @@ $(function () {
         '</div>'+
         '</a>',
         weiboErma:'<div class="sideWeiboErma">'+
-        '<img src="/web/images/sideWeibopng.png" />'+
+        '<img src="/web/images/sideWeibopng.jpg" />'+
         '<div class="sideSanjiao1">'+
         '<img src="/web/images/float_sanjiao.png" />'+
         '</div>'+
@@ -475,17 +474,6 @@ $(function () {
                             $(".messageCount em").text(data.resultObject.count);
                         }else{
                             $(".messageCount em").text(99);
-                        }
-                    }
-                });
-                //首页购物车数量
-                RequestService("/shoppingCart/findCourseNum","GET",null,function(data){
-                    if(data.success==true && data.resultObject!=0){
-                        $(".shopping").css("display","block");
-                        if(data.resultObject<=99){
-                            $(".shopping em").text(data.resultObject);
-                        }else{
-                            $(".shopping em").text(99);
                         }
                     }
                 });

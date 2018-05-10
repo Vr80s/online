@@ -1,8 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.medical.anchor.service.IGiftOrderService;
@@ -13,14 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 订单控制层
  * @author zhuwenbao
  */
 @RestController
-@RequestMapping("/medical/order/gift")
+@RequestMapping("/anchor/order/gift")
 public class GiftOrderController extends AbstractController{
 
     @Autowired
@@ -70,7 +68,7 @@ public class GiftOrderController extends AbstractController{
      * 获取用户id
      */
     private String getCurrentUserId(HttpServletRequest request){
-        OnlineUser loginUser = getOnlineUser(request);
+        OnlineUser loginUser = getCurrentUser();
         return loginUser.getId();
     }
 

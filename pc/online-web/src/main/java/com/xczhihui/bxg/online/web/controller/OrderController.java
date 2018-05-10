@@ -1,11 +1,10 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.enums.Payment;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
@@ -18,12 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * 订单控制层类
@@ -33,76 +28,14 @@ import java.util.UUID;
  */
 @Controller
 @RequestMapping(value = "/web")
-public class OrderController {
+public class OrderController extends AbstractController{
 
     @Autowired
     private OrderService  orderService;
-    @Autowired
-    private OrderPayService orderPayService;
-    @Autowired
-    private CourseService courseService;
-    private Object lock = new Object();
 
-    @Value("${online.web.url}")
+    @Value("${web.url}")
     private String weburl;
 
-    /**
-     * 提交订单的时候，生成订单
-     * @param ids
-     * @param request
-     */
-    @RequestMapping(value = "/{ids}/{orderNo}/saveOrder",method= RequestMethod.GET)
-    public  ModelAndView saveOrder( @PathVariable String ids,@PathVariable String orderNo,HttpServletRequest request,RedirectAttributes attr ) throws IOException {
-        ModelAndView mav=new ModelAndView();
-        //如果session中不存在此订单号，直接跳转到我的订单页面
-        if(request.getSession().getAttribute(orderNo)==null){
-            mav.setViewName("redirect:/web/html/myStudyCenter.html");
-            return mav;
-        }
-        String[] params=request.getSession().getAttribute(orderNo).toString().split("#");
-        if( !params[1].equals(ids)){
-            throw new RuntimeException("您的订单与所买课程不符合!");
-        }
-        OnlineUser u =  (OnlineUser)request.getSession().getAttribute("_user_");
-        Map mapValues=null;
-
-        if( u != null){
-                //是否已经生成此课程待支付订单 如果未生成:则生成订单,并且限时免费课购买成功
-               Map<String,Object> result=orderService.findOrderByCourseId(ids, u.getId(),orderNo);
-               if("false".equals(result.get("isBuy").toString())) {
-                   mapValues= orderService.saveOrder(orderNo, ids, request);
-                   //限时免费课或总支付为0元，购买成功
-                   if(orderService.findCourseIsFree(ids) || Double.valueOf(mapValues.get("actualPay").toString()) <= 0){
-                       synchronized (lock) {
-                           String transaction_id="activity"+ UUID.randomUUID().toString().replaceAll("-", "").substring(0,22);
-                           orderPayService.addPaySuccess(mapValues.get("orderNo").toString(), Payment.OTHERPAY, transaction_id);
-//                           orderService.addPaySuccess(mapValues.get("orderNo").toString(), 0, transaction_id);
-                           //为购买用户发送购买成功的消息通知
-//                           String path = request.getContextPath();
-//                           String basePath =weburl;
-//                           orderService.savePurchaseNotice(basePath, mapValues.get("orderNo").toString());
-                       }
-                       mav.setViewName("redirect:/web/html/myStudyCenter.html");
-                   } else { //付费课程只是成成
-                       mav.setViewName("PayOrder");
-                       mav.addObject("orderNo", mapValues.get("orderNo"));
-                       mav.addObject("actualPay", String.format("%.2f", Double.valueOf(mapValues.get("actualPay").toString())));
-                       mav.addObject("courseName", mapValues.get("courseName"));
-                       mav.addObject("orderId", orderService.findOrderByOrderNo(mapValues.get("orderNo").toString()).getId());
-                   }
-               }else{
-                   mav.setViewName("PayOrder");
-                   mav.addObject("orderNo", result.get("order_no").toString());
-
-                   String orderNo12=result.get("order_no").toString();
-                   mav.addObject("orderId", orderService.findOrderByOrderNo(orderNo12).getId());
-                   mav.addObject("actualPay", String.format("%.2f", Double.valueOf(result.get("actualPay").toString())));
-                   mav.addObject("courseName", result.get("courseName").toString());
-               }
-
-        }
-            return mav;
-    }
 
     /**
      * 根据订单号查找订单
@@ -163,7 +96,7 @@ public class OrderController {
     @RequestMapping(value = "/checkOrder")
     @ResponseBody
     public ResponseObject checkOrder(String orderNo,HttpServletRequest req){
-        BxgUser user = UserLoginUtil.getLoginUser(req);
+        BxgUser user = getCurrentUser();
     	if (user == null) {
 			return ResponseObject.newErrorResponseObject("请登录！");
 		}
@@ -178,10 +111,7 @@ public class OrderController {
     @RequestMapping(value = "/updateOrderStatu", method= RequestMethod.POST)
     @ResponseBody
     public ResponseObject  updateOrderStatu(Integer type,String orderNo,HttpServletRequest request){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (user == null) {
-            return ResponseObject.newErrorResponseObject("请登录！");
-        }
+        OnlineUser user = getCurrentUser();
         orderService.updateOrderStatu(type,orderNo,user);
         return  ResponseObject.newSuccessResponseObject("操作成功!");
     }
@@ -241,7 +171,7 @@ public class OrderController {
     @RequestMapping(value = "/consumptionList", method= RequestMethod.GET)
     @ResponseBody
     public ResponseObject consumptionList(HttpServletRequest request,Integer pageNumber, Integer pageSize){
-    	BxgUser user = UserLoginUtil.getLoginUser(request);
+    	BxgUser user = getCurrentUser();
     	if (user == null) {
 			return ResponseObject.newErrorResponseObject("请登录！");
 		}

@@ -1,7 +1,9 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.User;
+import com.xczhihui.bxg.online.web.service.ManagerUserService;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.AskAnswerService;
 import com.xczhihui.bxg.online.web.vo.AskAnswerVo;
@@ -20,11 +22,12 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping(value = "/ask/answer")
-public class AskAnswerController {
+public class AskAnswerController extends AbstractController{
 
 	@Autowired
 	private AskAnswerService service;
-
+	@Autowired
+	private ManagerUserService managerUserService;
 
     /**
      * 添加问题的官方回答
@@ -34,7 +37,7 @@ public class AskAnswerController {
      */
     @RequestMapping(value = "/addOfficialAnswer",method = RequestMethod.POST)
     public ResponseObject addOfficialAnswer(AskAnswerVo askAnswerVo,HttpSession s) {
-        OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+        OnlineUser u =  getCurrentUser();
         if(u!=null) {
             askAnswerVo.setCreate_person(u.getLoginName());
 			askAnswerVo.setUser_id(u.getId());
@@ -42,6 +45,7 @@ public class AskAnswerController {
         service.addOfficialAnswer(askAnswerVo,u);
         return ResponseObject.newSuccessResponseObject("添加成功！");
     }
+
 	/**
 	 * 查询问题的官方回答
 	 * @param question_id
@@ -49,11 +53,12 @@ public class AskAnswerController {
 	 */
 	@RequestMapping(value = "/findOfficialAnswer")
 	public ResponseObject findOfficialAnswer(String question_id,String menu_id,HttpSession s) {
-        OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+        OnlineUser u =  getCurrentUser();
 		String userId= u!=null ? u.getId() : "";
 		return ResponseObject.newSuccessResponseObject(service.findOfficialAnswer(question_id,menu_id,userId));
 
 	}
+
 	/**
 	 * 修改问题的官方回答
 	 * @param id
@@ -64,6 +69,7 @@ public class AskAnswerController {
         service.updateOfficialAnswer(id,content);
 		return ResponseObject.newSuccessResponseObject("修改成功！");
 	}
+
 	/**
 	 * 查找精彩回答
 	 * @param question_id
@@ -71,9 +77,10 @@ public class AskAnswerController {
 	 */
 	@RequestMapping(value = "/findNiceAnswers")
 	public ResponseObject findNiceAnswers(String question_id,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.findNiceAnswers(u,question_id));
 	}
+
 	/**
 	 * 查找最近回答
 	 * @param vo
@@ -83,7 +90,7 @@ public class AskAnswerController {
 	 */
 	@RequestMapping(value = "/findLatestAnswers")
 	public ResponseObject findLatestAnswers(AskAnswerVo vo,Integer pageNumber,Integer pageSize,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.findAnswers(u, vo, "create_time", "desc", pageNumber, pageSize));
 	}
 	/**
@@ -102,7 +109,7 @@ public class AskAnswerController {
 	 */
 	@RequestMapping(value = "/addAnswer")
 	public ResponseObject addAnswer(AskAnswerVo vo,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 
 		vo.setCreate_person(u.getLoginName());
 		vo.setCreate_head_img(u.getSmallHeadPhoto());
@@ -118,7 +125,7 @@ public class AskAnswerController {
 	 */
 	@RequestMapping(value = "/acceptAnswer")
 	public ResponseObject  acceptAnswer(String answer_id,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.addAcceptAnswer(answer_id,u.getId()));
 	}
 	/**
@@ -128,7 +135,7 @@ public class AskAnswerController {
 	 */
 	@RequestMapping(value = "/praiseAnswer")
 	public ResponseObject  praiseAnswer(String answer_id,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.addPraiseAnswer(answer_id, u.getLoginName()));
 	}
 	/**
@@ -138,7 +145,7 @@ public class AskAnswerController {
 	 */
 	@RequestMapping(value = "/collection")
 	public ResponseObject collection(String question_id,HttpSession s) {
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u =  getCurrentUser();
 		return ResponseObject.newSuccessResponseObject(service.addCollection(question_id, u.getLoginName(),u.getId()));
 	}
 
@@ -149,10 +156,11 @@ public class AskAnswerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteAnswerById",method= RequestMethod.GET)
-	public ResponseObject deleteAnswerById(String  answerId,HttpServletRequest request) {
+	public ResponseObject deleteAnswerById(String answerId,String ln,HttpServletRequest request) {
 		//获取当前登录用户信息
-		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		return ResponseObject.newSuccessResponseObject(service.deleteAnswerById(request, u, answerId));
+		OnlineUser u = getCurrentUser();
+		User user=managerUserService.findUserByLoginName(ln);
+		return ResponseObject.newSuccessResponseObject(service.deleteAnswerById( u, answerId,user));
 	}
 
 

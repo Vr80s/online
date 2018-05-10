@@ -155,11 +155,7 @@ function loadMobileBannerList(){
  			 mask();
  			 $("#addMobileBanner-form").attr("action", basePath+"/operate/mobileBanner/addMobileBanner");
  	            $("#addMobileBanner-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#addMobileBannerDialog").dialog("close");
@@ -198,11 +194,7 @@ function updateMobileBanner(obj){
  			 mask();
  			 $("#updateMobileBanner-form").attr("action", basePath+"/operate/mobileBanner/updateMobileBannerById");
  	            $("#updateMobileBanner-form").ajaxSubmit(function(data){
- 	            	try{
-                 		data = jQuery.parseJSON(jQuery(data).text());
-                 	}catch(e) {
-                 		data = data;
-                 	}
+ 	            	data = getJsonData(data);
  	                unmask();
  	                if(data.success){
  	                    $("#updateMobileBannerDialog").dialog("close");

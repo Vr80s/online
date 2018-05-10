@@ -8,7 +8,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.common.web.controller.AbstractController;
 /**
  * 所有controller均继承于此
  * @author Haicheng Jiang
