@@ -74,8 +74,7 @@ public class MobileLiveController {
 		List<CourseLecturVo> listZz = new ArrayList<CourseLecturVo>();
 		List<CourseLecturVo> listHf = new ArrayList<CourseLecturVo>();
 
-
-		//List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
+		//获取直播课程列表
 		List<CourseLecturVo> list = courseService.findLiveListInfo();
 		for (CourseLecturVo courseLecturVo : list) {
 			if("正在直播".equals(courseLecturVo.getNote())){

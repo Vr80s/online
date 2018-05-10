@@ -72,8 +72,6 @@ public class MobileOffLineController {
 		Page<OfflineCity> oclist = offlineCityService.selectOfflineRecommendedCityPage(OfflineCityPage);
 		mapAll.put("cityList",oclist);
 
-
-		
 		Page<OfflineCity> OfflineCity = new Page<>();
 		OfflineCity.setCurrent(1);
 		OfflineCity.setSize(4);

@@ -26,13 +26,11 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper,Mobi
 	
 	@Override
     public Page<MobileBanner> selectMobileBannerPage(Page<MobileBanner> page, Integer type) {
-		// TODO Auto-generated method stub
 		List<MobileBanner> records = iMobileBannerMapper.selectMobileBannerPage(page,type);
 		return   page.setRecords(records);
 	}
 	@Override
 	public void addClickNum(String id) {
-		// TODO Auto-generated method stub
 		   iMobileBannerMapper.addClickNum(id);
 	}
 }
