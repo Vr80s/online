@@ -227,9 +227,9 @@
 				</div>
 			</div>
 			<div class="form-group"  style="margin-top: 18px;" >
-				<label class="col-sm-3 control-label no-padding-right" for="recommendTime">推荐时效: </label>
+				<label class="col-sm-3 control-label no-padding-right" for="recommendTime"><font color="red">*</font>推荐时效: </label>
 				<div class="col-sm-6 searchTr">
-					<input type="text" class="datetime-picker propertyValue1"  id="recommendTime" name="recommendTime" placeholder = "推荐时效" style="width:150px"/>
+					<input type="text" class="datetime-picker propertyValue1 {required:true}"  id="recommendTime" name="recommendTime" placeholder = "推荐时效" style="width:150px"/>
 				</div>
 			</div>
 		</form>
