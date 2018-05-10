@@ -7,7 +7,7 @@ $(function() {
 	nowTime=show();
     $("#addMobileSearch").val(1);
     $("#updateMobileSearch").val(1);
-	debugger
+
     searchJson.push('{"tempMatchType":1,"propertyName":"search_type","propertyValue1":"1","tempType":Integer}');
     loadBanner2List();
     createDatetimePicker2($(".datetime-picker"),"yy-mm-dd","HH:mm:ss");

@@ -112,7 +112,7 @@ var ueEditccpe_commonProblem_content =  UE.getEditor('commonProblem_content',{
 });
 
 $(function() {
-	debugger
+
 	$('#myTab a').click(function (e) {
 	  e.preventDefault();
 	  $(this).tab('show');
@@ -170,7 +170,7 @@ $(function() {
 		data:{courseId:$('#courseId').val()},
 		success:function(data){
 			if (data.success) {
-				debugger;
+				;
 				if(data.resultObject.smallImgPath && data.resultObject.smallImgPath != ''){
 					$('#edit_smallImgPath').val(data.resultObject.smallImgPath);
 					reviewImage("edit_smallImgPath", data.resultObject.smallImgPath);
@@ -189,7 +189,7 @@ $(function() {
 					$('#edit_detailImgPath').val(data.resultObject.detailImgPath);
 					reviewImage("edit_detailImgPath", data.resultObject.detailImgPath);
 				}
-				debugger
+
 				if(data.resultObject.lecturerDescription && data.resultObject.lecturerDescription != ''){
 //					$('#courseDetail_content').html(data.resultObject.courseDetail);
                     ueEditccpe_lecturer.ready(function(){
@@ -330,7 +330,7 @@ $('#okbt,#previewbt').on('click',function(e){
 	$('#courseDetail').val(ueEditccpe_content.getContent());
 	$('#lecturerDescription').val(ueEditccpe_lecturer.getContent());
 	$('#commonProblem').val(ueEditccpe_commonProblem_content.getContent());
-	debugger
+
 	var validate = id=='previewbt' ? true : $("#courseDetailForm").valid();
 	if(validate){
 		mask();

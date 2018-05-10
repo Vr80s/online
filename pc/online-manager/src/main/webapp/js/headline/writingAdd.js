@@ -67,7 +67,7 @@ function openTagDiv(){
 	
 	$("#tagDiv :input").removeAttr("checked");
 	if($("#tagId").val()!=""&&$("#tagId").val()!=null){
-		debugger;
+		;
 		var seleTag=$("#tagId").val().split(",");
 		for(var i=0;i<seleTag.length;i++){
 			$("#tagDiv input").each(function(){
@@ -107,7 +107,7 @@ $("#saveBtn").click(function(){
 		mask();
 		 $("#addArticle-form").attr("action", basePath+"/headline/writing/add");
 		 $("#addArticle-form").ajaxSubmit(function(data){
-		 	debugger
+
 			 data = getJsonData(data);
 			 if(data.success){
 				 layer.msg(data.resultObject);

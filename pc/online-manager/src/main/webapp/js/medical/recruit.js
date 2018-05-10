@@ -102,7 +102,7 @@ $(function () {
         }];
 
     recruitTable = initTables("recruitTable", basePath + "/medical/recruit/list", objData, true, true, 0, null, searchCase_P, function (data) {
-        debugger;
+        ;
         var iDisplayStart = data._iDisplayStart;
         var countNum = data._iRecordsTotal;//总条数
         pageSize = data._iDisplayLength;//每页显示条数

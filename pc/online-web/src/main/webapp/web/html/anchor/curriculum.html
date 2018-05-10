@@ -2805,7 +2805,7 @@
             uploadProgress.innerHTML = "上传出错：" + progress;
         } else if(progress == 100) {
             $("#btn_width").val('点击重新上传');
-            debugger
+
             $("#ccName").val($("#videofile").val());
             $("#ccId").val($("#videoId").val());
             $('#mask').addClass('hide');
@@ -2852,7 +2852,7 @@
             async: false,
             data:{title:filename},
             success:function(data){
-                debugger
+
                 url = data;
             }
         });
@@ -2868,7 +2868,7 @@
 <script>	
 //页面进入之后左侧tab定位
 $(function(){
-		debugger
+
 		if(!location.hash){
         	location.hash = "#menu=1-1";
 		}

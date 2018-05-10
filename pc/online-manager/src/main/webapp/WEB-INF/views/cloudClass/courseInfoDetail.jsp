@@ -41,7 +41,7 @@
 	} catch (e) {
 		
 	}
-	debugger
+
 	var courseForm = "${courseForm}";
 </script>
 <script src="/js/layer/layer.js"></script>

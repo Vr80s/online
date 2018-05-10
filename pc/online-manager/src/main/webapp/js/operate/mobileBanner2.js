@@ -15,7 +15,7 @@ $(function(){
             return false;
         }
 	}
-	//debugger;
+	//;
 	/** 职业课列表begin */
     var searchCase_P = new Array();
     
@@ -131,7 +131,7 @@ $(function(){
 		
 		var banneType =  $(this).attr("title");
 		
-		debugger;
+		;
 	
 		$("#bannerType").val(banneType);
 		
@@ -209,13 +209,13 @@ $("#addword-form").on("change","#imgPath_file",function(){
 		this.value="";
 		return;
 	}
- 	debugger
+
     mask();
  	ajaxFileUpload(this.id,basePath+"/link/word/upload", function(data){
  		unmask();
  		//alert(data.success);
  		if (data.error == 0) {
- 			debugger
+
  			alert("上传成功");
  		}else {
  			alert(data.message);
@@ -244,13 +244,13 @@ $("#addExcel-form").on("change","#excel_file",function(){
 //		this.value="";
 //		return;
 //	}
- 	debugger
+
     mask();
  	ajaxFileUpload(this.id,basePath+"/link/word/importExcel", function(data){
  		unmask();
  		//alert(data.success);
  		if (data.error == 0) {
- 			debugger
+
  			layer.alert(data.excel_error);
  		}else {
  			alert(data.message);
@@ -274,7 +274,7 @@ $(".add_bx").click(function(){
 	
 	
 	//hhahahahhah(3);
-	debugger;
+	;
 	mobileBannerForm.resetForm();
 	//$(".remove").trigger("click");
 	$(".clearfixAdd").remove();
@@ -285,7 +285,7 @@ $(".add_bx").click(function(){
 
 	var dialog = openDialog("addMobileBannerDialog","dialogAddMobileBannerDiv","新增",580,500,true,"确定",function(){
 		
-		debugger;
+		;
 		if($("#addMobileBanner-form").valid()){
 			 mask();
 			 $("#addMobileBanner-form").attr("action", basePath+"/operate/mobileBanner/addMobileBanner");
@@ -385,7 +385,7 @@ function getValueByStr(search,name) {
 
 function updateMobileBanner(obj){
 	
-	debugger;
+	;
 	//$("#yqti_div_edit").hide();
 	$("#yqti_textarea_edit").val("");
 	$("#update_url").attr("placeholder","");
@@ -402,7 +402,7 @@ function updateMobileBanner(obj){
 	var params = row.url;
 	
 	
-	debugger;
+	;
 	//把这个伟大的url截取一下
     if(linkType == 3){
 		var courseId = getValueByStr(params,"course_id");

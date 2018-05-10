@@ -1,6 +1,6 @@
 //如果有链接的点击事件
 	function on_click_msg(msg_id, msg_link, orderNo) {
-		debugger;
+		;
 		var e=window.event || arguments.callee.caller.arguments[0];
 		RequestService("/online/message/updateReadStatusById", "post", {
 			id: msg_id

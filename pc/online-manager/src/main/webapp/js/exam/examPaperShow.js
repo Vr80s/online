@@ -306,7 +306,7 @@ function changeQuestion(obj){
 	}
 
 	ajaxRequest(basePath+"/cloudclass/videores/showTreeExamPaperAdd",{"courseId":$("#courseId").val(),"courseName":$("#courseName").val()},function(zNodes){
-		debugger
+
 		initSelectTree(zNodes);//初始化选择知识点
 	})
 	var dialog = openDialog("changeQuestionDialog","dialogChangeQuestionDiv","更换试题",1000,700,true,"确定",function(){
@@ -466,7 +466,7 @@ function showQuestion(obj){
 	var row = questionTable.fnGetData(oo); // get datarow
 	var htmlStr = "";//预览试题
 	var k = $("#search_kNum").val();
-	debugger
+
 	if(row.questionType == 0){//单选题
 			questionNum ++;
 			var question = row;

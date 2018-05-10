@@ -42,7 +42,7 @@ $(function(){
 	if(lecturerStatus == 1){
 		$("#isTeacher").prop("checked",true);
 	}
-	debugger;
+	;
 });
 
 
@@ -54,13 +54,13 @@ $("#saveBtn").click(function(){
 		content="";
 	}
 	$("#description").val(content);
-	debugger;
+	;
 	
 	if($("#addArticle-form").valid()){
 		mask();
 		 $("#addArticle-form").attr("action", basePath+"/onlineuser/updateUserLecturer");
 		 $("#addArticle-form").ajaxSubmit(function(data){
-			 debugger;
+			 ;
 //			 try{
 //         		data = jQuery.parseJSON(jQuery(data).text());
 //         	}catch(e) {

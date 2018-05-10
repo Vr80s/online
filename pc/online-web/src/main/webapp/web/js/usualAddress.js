@@ -24,7 +24,7 @@ function clearAddressList(){
 	// $('.add-address #citys').val('-1');
 	// $('.add-address #county').val('-1');
 	// $('.add-address #choosePro  option:selected').text('请选择省');
-	debugger
+
     $(".add-address").iProvincesSelect("init");
 	$('.add-address .detailedAddress').val('');
 	$('.add-address .postalCode').val('');

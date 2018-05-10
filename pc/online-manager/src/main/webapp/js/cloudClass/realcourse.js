@@ -13,7 +13,7 @@ $(function(){
             return false;
         }
 	}
-	//debugger;
+	//;
 	/** 线下课列表begin */
     var searchCase_P = new Array();
 	var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
@@ -62,9 +62,9 @@ $(function(){
 	    	}
 	    } 
 	}];
-debugger;
+;
 	P_courseTable = initTables("courseTable",basePath+"/realClass/course/list",objData,true,true,0,null,searchCase_P,function(data){
-		debugger;
+		;
 		var iDisplayStart = data._iDisplayStart;
 		var countNum = data._iRecordsTotal;//总条数
 		pageSize = data._iDisplayLength;//每页显示条数
@@ -114,7 +114,7 @@ debugger;
 		'<a class="blue" href="javascript:void(-1);" title="设置图片" onclick="updateRecImg(this);">设置图片</a> </div>';
 		}
 	}];
-     debugger;
+     ;
 	_cityTable = initTables("courseCityTable",basePath+"/realClass/course/courseCityList",objCityData,true,true,0,null,searchCase_P,function(data){
         var iDisplayStart = data._iDisplayStart;
         var countNum = data._iRecordsTotal;//总条数
@@ -481,7 +481,7 @@ function previewDialog(obj,status){
 		row = M_courseTable.fnGetData(oo); // get datarow
 	}
 	
-	debugger
+
 	//根据当前id查找对应的课程信息
     $.get(basePath+"/cloudclass/course/findCourseById",{id:row.id}, function(result){
         $("#show_gradeStudentSum").text(result[0].classRatedNum); //班级额定人数
@@ -616,7 +616,7 @@ function updateRecommendSort(obj,key){
  * @param obj
  */
 function updateRecImg(obj){
-	debugger; //TODO
+	; //TODO
 	var oo = $(obj).parent().parent().parent();
 	var row = _cityTable.fnGetData(oo); // get datarow
 	
@@ -641,7 +641,7 @@ function updateRecImg(obj){
  	            $("#updateRecImg-form").ajaxSubmit(function(data){
  	            	data = getJsonData(data);
  	                unmask();
- 	                debugger;
+ 	                ;
  	                if(data.success){
  	                    $("#updateRecImgDialog").dialog("close");
  	                    layer.msg("修改成功");
@@ -849,7 +849,7 @@ function test(){
 
 
 function showCourseInfoDetail(obj, status) {
-    debugger
+
     var oo = $(obj).parent().parent().parent();
     var aData;
     if (status == 1) {

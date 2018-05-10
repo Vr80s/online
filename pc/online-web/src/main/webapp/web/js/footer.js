@@ -810,7 +810,7 @@ $("#qusForm .myquiz-btn").click(function (evt) {
 
 });
 $("#tiForm .tiForm-btn").click(function (evt) { //提交模态表单
-    debugger;
+    ;
     evt.preventDefault();
     var value = $("#tiForm .title").val(); // 获取值
     value = $.trim(value); // 用jQuery的trim方法删除前后空格

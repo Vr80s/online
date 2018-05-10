@@ -6,7 +6,7 @@ var _courseRecTable;
 
 
 $.validator.addMethod("mobile", function(value, element) {
-    debugger
+
     return this.optional(element) || (/^1(3|4|5|6|7|8)\d{9}$/.test(value))  || (/^0\d{2,3}-?\d{7,8}$/.test(value) );
 }, "请输入正确的手机号");
 
@@ -85,13 +85,13 @@ $(function(){
 				countPage = parseInt(countNum/pageSize) + 1;
 			}
 			$("[name='upa']").each(function(index){
-//				debugger;
+//				;
 				if(index == 0){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
 			});
 			$("[name='downa']").each(function(index){
-//				debugger;
+//				;
 				if(index == $("[name='downa']").size()-1){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
@@ -142,7 +142,7 @@ $(".add_bx").click(function(){
 			 $("#addCourse-form").attr("action", basePath+"/wechatChannel/addWechatChannel");
 	            $("#addCourse-form").ajaxSubmit(function(data){
 	            	
-	            	debugger;
+	            	;
 	            	
 	            	data = getJsonData(data);
                 	unmask();
@@ -183,7 +183,7 @@ function getDateTimeFormat(data){
 
 //修改
 function toEdit(obj){
-	debugger;
+	;
 	updateCourseForm.resetForm();
 	var oo = $(obj).parent().parent().parent();
 	var row = _courseTable.fnGetData(oo); // get datarow
@@ -193,7 +193,7 @@ function toEdit(obj){
 	//<input type="hidden" id="editChannel_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
 	$("#editChannel_id").val(row.id); //充值id
 	
-//	debugger;
+//	;
 	$("#editName_id").val(row.name); //充值id
 	$("#editContact_id").val(row.contact); //充值价格
 	$("#editMobile_id").val(row.mobile); //充值价格
