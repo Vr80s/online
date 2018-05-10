@@ -79,11 +79,11 @@ $(function() {
 			$('.doctor_inf>img').attr('src', "/web/images/defaultHeadImg.jpg");
 		}
 
-		if(data.resultObject.info) {
-			$('.doctor_inf>p').text(data.resultObject.info)
-		} else {
-			$('.doctor_inf>p').text('说点什么来彰显你的个性吧……')
-		}
+//		if(data.resultObject.info) {
+//			$('.doctor_inf>p').text(data.resultObject.info)
+//		} else {
+//			$('.doctor_inf>p').text('说点什么来彰显你的个性吧……')
+//		}
 	});
 
 	$(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
