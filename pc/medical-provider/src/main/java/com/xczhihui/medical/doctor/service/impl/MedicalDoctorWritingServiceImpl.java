@@ -76,13 +76,13 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         oeBxsArticle.setDelete(false);
         oeBxsArticle.setStatus(medicalWriting.getStatus() ? 1 : 0);
         oeBxsArticle.setUserCreated(true);
+        oeBxsArticle.setCreatePerson(userId);
         oeBxsArticleMapper.insert(oeBxsArticle);
         Integer articleId = oeBxsArticle.getId();
         oeBxsArticle.setSort(articleId);
         oeBxsArticleMapper.updateById(oeBxsArticle);
 
         medicalWriting.setArticleId(articleId);
-        medicalWriting.setCreatePerson(doctorId);
         medicalWriting.setId(CodeUtil.getRandomUUID());
         medicalWritingMapper.insert(medicalWriting);
 
