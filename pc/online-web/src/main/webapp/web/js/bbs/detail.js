@@ -42,7 +42,8 @@ $(function () {
         maximumWords: 10000
     };
 
-    var replyContentEditor = UE.getEditor('replyContentEditor', options);
+	var replyContentEditor=$('#replyContentEditor');
+//  var replyContentEditor = UE.getEditor('replyContentEditor', options);
     var toReplyContentEditor;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
@@ -57,7 +58,8 @@ $(function () {
     //回复帖子
     $('.J-reply-submit').on('click', function (e) {
         e.preventDefault();
-        var content = replyContentEditor.getContent();
+//      var content = replyContentEditor.getContent();
+        var content = replyContentEditor.val()
         if (!content) {
             tip("输入的内容不能为空");
             return false;

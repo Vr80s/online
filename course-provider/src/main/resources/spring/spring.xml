@@ -40,6 +40,8 @@
     <dubbo:service interface="com.xczhihui.course.service.IOrderService" ref="orderServiceImpl" timeout="${dubbo.provider.timeout}"  />
     <!--评论服务-->
     <dubbo:service interface="com.xczhihui.course.service.ICriticizeService" ref="criticizeServiceImpl" timeout="${dubbo.provider.timeout}"  />
-<!--评论服务-->
+    <!--评论服务-->
     <dubbo:service interface="com.xczhihui.course.service.IPaymentRecordService" ref="paymentRecordServiceImpl" timeout="${dubbo.provider.timeout}"  />
+    <!--热门搜索服务-->
+    <dubbo:service interface="com.xczhihui.course.service.IMobileHotSearchService" ref="mobileHotSearchServiceImpl" timeout="${dubbo.provider.timeout}"  />
 </beans>
