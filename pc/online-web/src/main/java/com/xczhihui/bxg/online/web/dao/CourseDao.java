@@ -810,7 +810,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "  c.lecturer teacherName,\n" +
                 "  c.smallimg_path AS smallimgPath,\n" +
                 "  c.multimedia_type multimediaType,\n" +
-                "  c.recommend_sort recommendSort,\n" +
+                " if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort,"+
                 "  IFNULL(\n" +
                 "    (SELECT \n" +
                 "      COUNT(*) \n" +
@@ -828,7 +828,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "  `oe_course` c \n" +
                 "WHERE c.`is_delete` = 0 \n" +
                 "  AND c.`status` = 1 \n" +
-                "  AND c.`type` = ? ORDER BY c.recommend_sort DESC LIMIT 0,3 ";
+                "  AND c.`type` = ? ORDER BY recommendSort DESC LIMIT 0,3 ";
         List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, BeanPropertyRowMapper.newInstance(CourseVo.class), type);
         return courseVoList;
     }
