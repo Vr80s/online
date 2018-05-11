@@ -217,19 +217,19 @@
                 <span class="hot-article-title">推荐阅读</span>
                 <ul class="hot-article-list">
                     <#list suggestedArticles as suggestedArticle>
-                        <#if suggestedArticle_index<=2>
+                     
+                     			
                             <li>
-                                <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
-                                        style="margin-bottom: 20px"
-                                        title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
+                                <a href="${webUrl}/headline/details/${suggestedArticle.id}">
+                                	<#if suggestedArticle_index <= 2>
+	                                <p class="setSelect">${suggestedArticle_index+1}</p>
+	                            	<#else>
+	                                <p>${suggestedArticle_index+1}</p>
+	                            	</#if>
+                                	<span style="margin-bottom: 20px" title="${suggestedArticle.title}">${suggestedArticle.title}</span>
+                                </a>
                             </li>
-                        <#else>
-                            <li>
-                                <a href="${webUrl}/headline/details/${suggestedArticle.id}"><span
-                                        style="margin-bottom: 20px"
-                                        title="${suggestedArticle.title}">${suggestedArticle.title}</span></a>
-                            </li>
-                        </#if>
+                      
                     </#list>
                 </ul>
             </div>
