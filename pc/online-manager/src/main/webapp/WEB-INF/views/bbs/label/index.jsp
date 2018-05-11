@@ -21,18 +21,18 @@
 </div>
 
 <div class="mainrighttab tabresourse bordernone">
-    <button class="btn btn-sm btn-success add_bx" title="新增">
-        <i class="glyphicon glyphicon-plus"></i> 新增
-    </button>
-    <button class="btn btn-sm btn-danger delete_bx" title="删除">
-        <i class="glyphicon glyphicon-trash"></i> 删除
-    </button>
+    <%--<button class="btn btn-sm btn-success add_bx" title="新增">--%>
+        <%--<i class="glyphicon glyphicon-plus"></i> 新增--%>
+    <%--</button>--%>
+    <%--<button class="btn btn-sm btn-danger delete_bx" title="删除">--%>
+        <%--<i class="glyphicon glyphicon-trash"></i> 删除--%>
+    <%--</button>--%>
     <button class="btn btn-sm btn-primary edit_bx" title="编辑">
         <i class="glyphicon glyphicon-plus"></i> 编辑
     </button>
-    <button class="btn btn-sm btn-danger status_bx" title="禁用/启用">
-        <i class="glyphicon glyphicon-trash"></i> 禁用/启用
-    </button>
+    <%--<button class="btn btn-sm btn-danger status_bx" title="禁用/启用">--%>
+        <%--<i class="glyphicon glyphicon-trash"></i> 禁用/启用--%>
+    <%--</button>--%>
 
     <!-- 标签列表 -->
     <div class="row">

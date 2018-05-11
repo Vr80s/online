@@ -61,8 +61,14 @@ $(function(){
         { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
         { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
-        { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
-        { "title": "推荐值", "class":"center","width":"6%", "sortable":false,"data": 'recommendSort' },
+        { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime',"mRender":function (data, display, row) {
+            if(row.recommendSort == null||row.recommendSort == 0)return null;
+            return data;
+        }},
+        { "title": "推荐值", "class":"center","width":"5%", "sortable":false,"data": 'recommendSort',"mRender":function (data, display, row) {
+            if(data == null)return 0;
+            return data;
+        }},
         
         { "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			return row.status=="1"?"已启用":"已禁用";
