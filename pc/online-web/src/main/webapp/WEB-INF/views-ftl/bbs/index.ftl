@@ -145,28 +145,30 @@
         <@cast.page pageNo=posts.current totalPage=posts.pages showPages=5 callUrl="${pageUrl}&page="/>
         </div>
     </div>
+<#if (hots?? && hots?size gt 0)>
     <div class="edge">
         <dl class="fly-panel fly-list-one">
             <dt class="fly-panel-title">热门帖子</dt>
-        <#assign index = 0>
-        <#list hots as hot>
-            <#if index < 3>
-                <dd>
-                    <i class="topNum">${index+1}</i>
-                    <a href="${webUrl}/bbs/${hot.id}">${hot.title}</a>
-                    <span class="hide"><i class="iconfont">&#xe60c;</i></span>
-                </dd>
-            <#else >
-                <dd>
-                    <i class="botNum">${index+1}</i>
-                    <a href="${webUrl}/bbs/${hot.id}">${hot.title}</a>
-                    <span class="hide"><i class="iconfont">&#xe60c;</i></span>
-                </dd>
-            </#if>
-            <#assign index = index + 1>
-        </#list>
+            <#assign index = 0>
+            <#list hots as hot>
+                <#if index < 3>
+                    <dd>
+                        <i class="topNum">${index+1}</i>
+                        <a href="${webUrl}/bbs/${hot.id}">${hot.title}</a>
+                        <span class="hide"><i class="iconfont">&#xe60c;</i></span>
+                    </dd>
+                <#else >
+                    <dd>
+                        <i class="botNum">${index+1}</i>
+                        <a href="${webUrl}/bbs/${hot.id}">${hot.title}</a>
+                        <span class="hide"><i class="iconfont">&#xe60c;</i></span>
+                    </dd>
+                </#if>
+                <#assign index = index + 1>
+            </#list>
         </dl>
     </div>
+</#if>
 </div>
 <#include "../footer.ftl">
 <script>
