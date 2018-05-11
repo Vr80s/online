@@ -311,6 +311,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 		String token = TokenThread.accessToken;
  		String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
  		JSONObject jsonObject = JSONObject.fromObject(user_buffer);
+ 		LOGGER.info("accessToken jsonObject"+jsonObject.toString());
  		if(jsonObject.get("openid") == null){
  			LOGGER.info("失效了这个token");
  			//说明这个token失效了
@@ -319,6 +320,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
  			jsonObject = JSONObject.fromObject(user_buffer);
  			
  			new Thread(new TokenThread()).start();
+ 		}else {
+ 			LOGGER.info("token没有失效呢");
  		}
 		return jsonObject;
 	}
