@@ -209,6 +209,11 @@
                 <#list hotArticle as ha>
                     <li>
                         <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
+                       		 	<#if ha_index <= 2>
+                                <p class="setSelect">${ha_index+1}</p>
+                            	<#else>
+                                <p>${ha_index+1}</p>
+                            	</#if>
                             <span title="${ha.title}">${ha.title}</span>
                         </a>
                     </li>
