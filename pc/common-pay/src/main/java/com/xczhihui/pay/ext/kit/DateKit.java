@@ -82,7 +82,4 @@ public class DateKit {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		return sdf.format(date.getTime()+time);
 	}
-	public static void main(String[] args) {
-		System.out.println(toStr(new Date(), UnionDateStampPattern));
-	}
 }

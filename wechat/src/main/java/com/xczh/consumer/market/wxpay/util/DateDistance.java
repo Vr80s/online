@@ -186,16 +186,4 @@ public class DateDistance {
 			return "很久很久以前";
 		}
 	}
-	
-	public static void main(String[] args) {
-			
-		String watch = DateUtil.formatDate(new Date(), DateUtil.FORMAT_DAY_TIME);
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println(watch);
-		watch = "2018-01-11 17:28:06";
-		String current = DateUtil.formatDate(new Date(),DateUtil.FORMAT_DAY_TIME);
-		String distance = DateDistance.getNewDistanceTime(watch,current);
-		System.out.println(distance);
-			
-	}
 }

@@ -48,30 +48,4 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	public LecturVo lectureShare(String lecturerId) throws SQLException {
 		return courseMapper.lectureShare(lecturerId);
 	}
-
-	public static void main(String[] args) {
-
-		List<String> list = new ArrayList<String>();
-		list.add("1");
-		list.add("2");
-		list.add("3");
-		list.add("4");
-		list.add("5");
-		list.add("6");
-		list.add("7");
-
-		List<String> newlist = new ArrayList<String>();
-		for (int i = 0; i < list.size(); i++) {
-			String string = list.get(i);
-			if ("1".equals(string) || "3".equals(string) || "5".equals(string)) {
-				newlist.add(string);
-				list.remove(i);
-			}
-		}
-		newlist.addAll(list);
-		for (String string : newlist) {
-			System.out.println(string);
-		}
-	}
-
 }

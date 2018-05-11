@@ -479,38 +479,4 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
     		return 600000; //10分钟
     	}
     }
-    public static void main(String[] args) {
-    	
-    	//yyyy-MM-dd HH:mm:ss
-    	Date startTime = DateUtil.parseDate("2018-05-08 18:00:00", null);
-    	
-    	long start = startTime.getTime();
-    	long current = new Date().getTime();
-    	
-    	
-    	long nd = 1000 * 24 * 60 * 60;
-	    long nh = 1000 * 60 * 60;
-	    long nm = 1000 * 60;
-	    // long ns = 1000;
-	    // 获得两个时间的毫秒时间差异
-	    long diff = current-start;
-	    // 计算差多少天
-	    long day = diff / nd;
-	    // 计算差多少小时
-	    long hour = diff % nd / nh;
-	    // 计算差多少分钟
-	    long min = diff % nd % nh / nm;
-    	
-	    System.out.println(day + "天" + hour + "小时" + min + "分钟");
-    	if(min>30) {
-    		hour++;
-    	}
-    	System.out.println(hour);
-    	
-    	
-	}
-
-    
-   
-    
 }

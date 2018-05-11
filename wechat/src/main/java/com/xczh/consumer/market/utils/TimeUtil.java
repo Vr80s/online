@@ -384,14 +384,6 @@ public class TimeUtil {
 		return isTrue;
 	}
 	
-	
-	
-	public static void main(String[] args) {
-		
-		System.out.println(dateCompare(new Date(),Calendar.getInstance(),1));
-	
-	}
-	
 	/**
 	 * Description：参数时间与   当前时间 比较，也可以与当前时间的前x天或后x天比较。   
 	 * @param startDate  传入的变量时间

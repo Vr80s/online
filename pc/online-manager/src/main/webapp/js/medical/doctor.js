@@ -216,10 +216,6 @@ $(function(){
                 minlength:"医师名称过短，应大于2个字符！",
                 maxlength:"医师名称过长，应小于20个字符！"
             },
-            tel: {
-                required:"请输入联系方式！",
-                tel:"请输入正确的联系方式！"
-            },
 			email: {
                 email: "请输入正确的邮箱！"
             },
@@ -255,11 +251,6 @@ $(function(){
 				minlength:"医师名称过短，应大于2个字符！",
 				maxlength:"医师名称过长，应小于20个字符！"
 			},
-            tel: {
-				required:"请输入联系方式！",
-				tel:"请输入正确的联系方式！"
-			},
-
             email: {
                 email: "请输入正确的邮箱！"
 			},

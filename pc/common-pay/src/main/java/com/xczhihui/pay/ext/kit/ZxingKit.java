@@ -119,15 +119,4 @@ public class ZxingKit {
 			return bool;
 		}
 	}
-
-	public static void main(String[] args) {
-		String saveImgFilePath = "D://zxing.png";
-		Boolean encode = encode("我是Javen205", BarcodeFormat.QR_CODE, 3, ErrorCorrectionLevel.H, "png", 200, 200,
-				saveImgFilePath);
-		if (encode) {
-			Result result = decode(saveImgFilePath);
-			String text = result.getText();
-			System.out.println(text);
-		}
-	}
 }

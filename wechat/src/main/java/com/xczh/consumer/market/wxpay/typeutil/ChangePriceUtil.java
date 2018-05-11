@@ -47,12 +47,4 @@ public class ChangePriceUtil {
 		}
 		return pric;
 	}
-
-	public static void main(String[] args) {
-		double aa = 3.9;
-		Integer aaa = ChangePrice(aa);
-		System.out.println(aaa);
-		String bb = DoubleUtils.formatDouble(aa);
-		System.out.println(bb);
-	}
 }
