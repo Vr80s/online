@@ -229,18 +229,4 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		order.setAllCourse(lists);
 		return ResponseObject.newSuccessResponseObject(order);
 	}
-	
-
-	public static void main(String[] args) {
-		 String [] array1 = {"1","2","3"};
-         String [] array2 = {"3","2","1"};
-         Arrays.sort(array1);
-         Arrays.sort(array2);
-         if (Arrays.equals(array1, array2)) {
-                 System.out.println("两个数组中的元素值相同");
-         } else {
-                 System.out.println("两个数组中的元素值不相同");
-         }
-		//System.out.println(list.size());
-	}
 }

@@ -46,15 +46,4 @@ public class MailBySSL{
 		  System.out.println("Message sent.");
 		  return true;
 		 }
-
-	public static void main(String[] args) {
-		List<String> list = Arrays.asList("yuruixin");
-		list.forEach(name -> {
-			try {
-				sendMailBySSL(name, UUID.randomUUID().toString());
-			} catch (MessagingException e) {
-				e.printStackTrace();
-			}
-		});
-	}
 }

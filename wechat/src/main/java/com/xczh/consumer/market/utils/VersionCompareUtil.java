@@ -33,9 +33,4 @@ public class VersionCompareUtil {
         diff = (diff != 0) ? diff : versionArray1.length - versionArray2.length;
         return diff;
     }
-    
-    public static void main(String[] args) {
-		
-    	System.out.println(compareVersion("1.1.1","1.1.2"));
-	}
 }

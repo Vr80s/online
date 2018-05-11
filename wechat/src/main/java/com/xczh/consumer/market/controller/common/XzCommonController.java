@@ -262,18 +262,7 @@ public class XzCommonController {
 
 		return ResponseObject.newSuccessResponseObject(newVer);
 	}
-	
-	
-	public static void main(String[] args) {
-		String userVersion = "2.2.1";
-		String newVersion = "2.2.2";
-		int diff = VersionCompareUtil.compareVersion(newVersion, userVersion);
-		if (diff <= 0) {
-			System.out.println("已经是最新版本");
-		}else{
-			System.out.println("需要更新了啊");
-		}
-	}
+
 	/**
 	 * 获取 同环境下的 pc端主域名
 	 * @param req

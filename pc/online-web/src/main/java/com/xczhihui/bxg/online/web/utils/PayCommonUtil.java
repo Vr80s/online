@@ -159,11 +159,4 @@ public class PayCommonUtil {
         InetAddress ia = InetAddress.getLocalHost();
         return ia.getHostAddress();
     }
-
-    public static void main(String[] args) {
-        SortedMap<Object, Object> packageParams;
-//        String sign = PayCommonUtil.createSign("UTF-8", packageParams, onlineConfig.apiKey);
-
-    }
-
 }

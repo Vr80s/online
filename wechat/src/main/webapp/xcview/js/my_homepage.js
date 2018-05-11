@@ -3,6 +3,18 @@ var status;
  * 获取目前cookie的值
  */
 var falg =authenticationCooKie();
+/*
+ * 更新下用户信息
+ */
+if(falg == 1000){
+	requestService("/xczh/set/isLogined", null, function(data) {
+		if (data.success) {
+			commonLocalStorageSetItem(data);
+		}else{
+			alert("网络异常");
+		}
+	},false)
+}
 
 
 //yx_新增
@@ -11,8 +23,6 @@ var opendId = getQueryString("openId");
 if(stringnull(opendId)){
 	localStorage.setItem("openid", opendId);
 }
-
-
 
 function balance() {
     requestService("/xczh/manager/home",{

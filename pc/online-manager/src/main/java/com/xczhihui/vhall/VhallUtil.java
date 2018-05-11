@@ -542,11 +542,4 @@ public class VhallUtil {
 			return PlayBackType.GENERATION_FAILURE.getCode();
 		}
 	}
-
-	// 测试
-	public static void main(String[] args) {
-
-		recordList("834656549");
-	}
-
 }
