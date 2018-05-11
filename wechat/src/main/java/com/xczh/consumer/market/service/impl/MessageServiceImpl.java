@@ -1,18 +1,15 @@
 package com.xczh.consumer.market.service.impl;
 
-import com.xczh.consumer.market.dao.BasicSimpleDao;
-import com.xczh.consumer.market.service.MessageService;
-import com.xczh.consumer.market.utils.JdbcUtil;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
-
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.xczh.consumer.market.dao.BasicSimpleDao;
+import com.xczh.consumer.market.service.MessageService;
+import com.xczh.consumer.market.utils.JdbcUtil;
 
 /**
  * @author liutao
