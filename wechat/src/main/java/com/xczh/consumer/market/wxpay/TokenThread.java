@@ -54,7 +54,7 @@ public class TokenThread implements Runnable {
 	@Override
 	public void run() {
 		
-		if(returnOpenidUri.indexOf("dev")!=-1) { //说明是开发环境，就不请求access_token了
+		if(returnOpenidUri.indexOf("dev") == -1) { //说明是开发环境，就不请求access_token了
 			while (true) {
 				try {
 					System.out.println("读取配置信息成功！"+appid+"====="+appsecret);

@@ -151,9 +151,7 @@
                 <#else>
                     <div style="padding-top:100px;text-align:center;padding-bottom: 100px;">
                         <img src="/web/images/nosearch.png" alt="">
-                        <p style="font-size:16px;color:#999">抱歉，没有找到“
-                            <span style="color:#00BC12">${echoMap.name?default('')}</span>”相关医师
-                        </p>
+                        <p style="font-size:16px;color:#999">抱歉，没有找到相关医师</p>
                     </div>
                 </#if>
                 </ul>
