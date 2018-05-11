@@ -63,7 +63,9 @@ public class WechatJSSDKControllder {
 		String js_ticket_access_token = cacheService.get("js_ticket");
 		if(cache_access_token ==null || js_ticket_access_token==null ||
                 "js_ticket".equals(js_ticket_access_token)){
-			String strLinkHome 	= "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET"
+			
+			
+			String strLinkHome 	=WxPayConst.QUERY_ACCESS_TOKEN+"?grant_type=client_credential&appid=APPID&secret=APPSECRET"
 					.replace("appid=APPID", "appid="+ WxPayConst.gzh_appid).replace("secret=APPSECRET", "secret="+ WxPayConst.gzh_Secret);
 			
 			LOGGER.info("strLinkHome:"+strLinkHome);
@@ -74,7 +76,7 @@ public class WechatJSSDKControllder {
 			
 			JSONObject jsonObject = JSONObject.fromObject(buffer.toString());//Map<String, Object> access_info =GsonUtils.fromJson(code_buffer, Map.class);
 			String access_token = (String)jsonObject.get("access_token");
-			strLinkHome = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi".replace("access_token=ACCESS_TOKEN","access_token="+access_token);
+			strLinkHome = WxPayConst.QUERY_JSSDK_TICKET+"?access_token=ACCESS_TOKEN&type=jsapi".replace("access_token=ACCESS_TOKEN","access_token="+access_token);
 			buffer = HttpsRequest.httpsRequest(strLinkHome, "GET", out);
 			jsonObject = JSONObject.fromObject(buffer.toString());
 			js_ticket_access_token = (String)jsonObject.get("ticket");

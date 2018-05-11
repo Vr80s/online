@@ -92,9 +92,12 @@ public class WxPayConst {
 	//查询订单URL
 	public static final String QUERY_URL ="https://api.mch.weixin.qq.com/pay/orderquery";
 
-	//access_token
+	//access_token  -- 有次数限制
 	public static final String QUERY_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=appid&secret=secret";
 
+	// 获取jssdk的票据
+	public static final String QUERY_JSSDK_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
+	
 	
 
 	public static String return_code="return_code";
