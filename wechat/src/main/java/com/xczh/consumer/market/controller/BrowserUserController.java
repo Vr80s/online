@@ -608,14 +608,4 @@ public class BrowserUserController {
 //		return onlineUserService.updateIPhoneRegist(req, password, username,
 //				Integer.parseInt(vtype), appUniqueId);
 	}
-
-	public static void main(String[] args) {
-		int[] arr = { 1, 2, 3, 4 };
-		// 产生0-(arr.length-1)的整数值,也是数组的索引
-		LOGGER.info(Math.random() + "===" + Math.random() * arr.length);
-		int index = (int) (Math.random() * arr.length);
-		LOGGER.info(index + "");
-		int rand = arr[index];
-		LOGGER.info(rand + "");
-	}
 }

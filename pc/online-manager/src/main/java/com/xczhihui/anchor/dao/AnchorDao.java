@@ -276,10 +276,4 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
 		DecimalFormat df = new DecimalFormat("0.00");
 		return inconme == 0 ? "0.00" : df.format(inconme);
 	}
-
-	public static void main(String[] args) {
-		DecimalFormat df = new DecimalFormat("0.00");
-		double rmb = 0;
-		System.out.println(df.format(rmb));
-	}
 }

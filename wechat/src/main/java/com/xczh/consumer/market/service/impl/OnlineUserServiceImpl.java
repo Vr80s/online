@@ -489,16 +489,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			throw new RuntimeException ("发送失败");
 		}
 	}
-	
-	public static void main(String[] args) {
-		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
-		System.out.println(vcode);
-		double 	vcode1 = Math.random()*9000+1000;
-		System.out.println(vcode1);
-		System.out.println((int)((Math.random()*9+1)*1000));
-	}
-	
-	
+
 	@Override
 	public void updateUserLoginName(OnlineUser o) throws SQLException {
 		onlineUserDao.updateUserLoginName(o);

@@ -189,11 +189,4 @@ public class DateDistance {
 			return "很久很久以前";
 		}
 	}
-	public static void main(String[] args) {
-		//2015-12-14 05:15:31
-		//2015-12-14 05:15:31
-		System.out.println(getNewDistanceTime("2015-12-14 05:15:31","2015-12-14 06:15:31"));
-	}
-	
-	
 }

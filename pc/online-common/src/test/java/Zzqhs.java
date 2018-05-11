@@ -10,19 +10,6 @@ import java.util.List;
  **/
 public class Zzqhs {
     public static long j=0;
-    public static void main(String[] args) {
-
-//        String forderPath = "E:\\hainan-code\\pc\\attachment-center-server\\src\\main\\java";
-        String forderPath = "E:\\hainan-code\\pc\\online-web\\src\\main\\java";
-        List<String> resultList = new ArrayList<>();
-        ergodic(new File(forderPath), resultList);
-        for (int i = 0; i < resultList.size(); i++) {
-            System.out.println(resultList.get(i));
-//            if(j<45*60)
-            cr(resultList.get(i),"C:\\yu.doc");
-        }
-        System.out.println(j);
-    }
 
     private static List<String> ergodic(File file, List<String> resultFileName){
         File[] files = file.listFiles();

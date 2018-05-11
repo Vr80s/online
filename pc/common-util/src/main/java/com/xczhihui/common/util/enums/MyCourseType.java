@@ -61,9 +61,4 @@ public enum MyCourseType {
         public String toString() {
             return this.code + ":" + this.text;
         }
-		public static void main(String[] args) {
-			System.out.println(getTypeText(3));
-			System.out.println(MyCourseType.getAllToString());
-		}
-		
 }

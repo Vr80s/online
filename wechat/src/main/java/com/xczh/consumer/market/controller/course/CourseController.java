@@ -289,13 +289,4 @@ public class CourseController {
 		}
 		return startLevel;
 	}
-
-	public static void main(String[] args) {
-
-		Random r = new Random();
-		float floatNumber = r.nextFloat();
-		System.out.println(floatNumber/10);
-		System.out.println(r.nextInt(3));
-		System.out.println((int)(30*Math.random()));
-	}
 }
