@@ -1,0 +1,81 @@
+*{margin: 0; padding: 0;}
+body{ 
+	font-family:"Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-size: 14px;
+	background: #F8F8F8;
+	
+}
+a:hover{text-decoration: none;}
+p{margin-bottom: 0;}
+.cl{clear: both;}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px; margin: 0 auto; color: #999999;}
+.main-top{
+	width: 100%;
+	background: white;
+	padding: 30px;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin-top: 20px;
+}
+.main-top h4{
+	color: #333333;
+	margin-top: 0;
+}
+.order-number{
+	margin: 20px 0;
+}
+.class-details{
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+.class-details li{
+	float: left;
+	height: 60px;
+	line-height: 60px;
+	
+}
+.class-details li img{
+	width: 106px;
+	height: 60px;
+	margin-right: 8px;
+}
+.pay-money span{
+	font-size: 20px;
+	color: #F97B49;	
+	margin-right: 5px;
+}
+.main-bottom{
+	width: 100%;
+	background: white;
+	padding: 30px;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin-top: 20px;
+}
+.main-bottom h4{
+	color: #333333;	
+	margin: 0 0 20px;
+}
+.select-pay li{
+	width: 120px;
+	height: 50px;
+	border: 1px solid #DEDEDE;
+	color: #666666;
+	line-height: 50px;
+	position: relative;
+}
+.select-pay .pay-logo{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+}
+.select-pay .pay-logo img{
+	width: 30px;
+	height: 30px;
+	display: block;
+}
+.select-pay p{
+	text-align: center;
+}
