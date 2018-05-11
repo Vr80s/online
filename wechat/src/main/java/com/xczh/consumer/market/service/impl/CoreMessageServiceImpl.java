@@ -26,7 +26,6 @@ import com.xczh.consumer.market.wxmessage.resp.TextMessage;
 import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
 import com.xczhihui.common.util.SLEmojiFilter;
 
 import net.sf.json.JSONObject;
@@ -312,11 +311,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 		String token = TokenThread.accessToken;
  		String  user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
  		JSONObject jsonObject = JSONObject.fromObject(user_buffer);
- 		
  		if(jsonObject.get("openid") == null){
  			LOGGER.info("失效了这个token");
  			//说明这个token失效了
- 			token = SingleAccessToken.getInstance();
+ 			token = TokenThread.getInstance();
  			user_buffer =  CommonUtil.getUserManagerGetInfo(token,fromUserName);
  			jsonObject = JSONObject.fromObject(user_buffer);
  			
