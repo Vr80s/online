@@ -9,7 +9,7 @@ function showTip(contant,fn){
     $('#blackTip').text(contant).show();
     setTimeout(function(){
         $('#blackTip').text(contant).hide();
-        $("#blackTip").remove()
+        $("#blackTip").remove();
         if(fn!=null)fn();
     },2000)
 }	
