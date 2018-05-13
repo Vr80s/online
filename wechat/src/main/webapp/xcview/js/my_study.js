@@ -64,9 +64,9 @@ var all_history="";
 //已购课程/结束课程	
 
 //	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
-	// requestService("/xczh/myinfo/list",{pageSize:5},function(data) {  备份之前接口
+	 requestService("/xczh/myinfo/list",{pageSize:5},function(data) {  //备份之前接口
 	// requestService("/xczh/myinfo/myCourseType",{pageNumber:1,pageSize:500,type:1},function(data) {    备份新接口
-	requestService("/xczh/myinfo/list",null,function(data) {
+	//requestService("/xczh/myinfo/list",null,function(data) {
 
 //			if(data.resultObject[0].courseList.startTime!="" || data.resultObject[0].courseList.startTime!=null){
 //				data.resultObject[0].courseList.startTime=data.resultObject[0].courseList.startTime.replace(/-/g,".")
@@ -79,6 +79,21 @@ var all_history="";
 				$("#my_class_box").hide()
 				$(".wrap_noClass").show();
 			}
+
+			/*$(".my_class_title").click(function(){
+				console.log(data.resultObject);
+				console.log(data.resultObject[0]['title']);
+				return false;
+				if(data.resultObject[0]){
+					window.location='/xcview/html/my_study_course.html'
+				}else{
+					window.location='/xcview/html/end_the_course.html'
+				};
+				if(data.resultObject[1]){
+					window.location='/xcview/html/end_the_course.html'
+				}
+
+			});*/
 			
 //点击播放视频后才开始记录播放历史	
 //直播中
@@ -100,6 +115,17 @@ var all_history="";
 	})
 	})	
 	
+/*requestService("/xczh/myinfo/myCourseType",{'pageSize':5,'pageNumber':1,'type':2},function(data) {
+	$(".my_class_title").click(function(){
+		if(data.resultObject.type==2){
+			window.location='/xcview/html/my_study_course.html'
+		}else{
+			window.location='/xcview/html/end_the_course.html'
+		};
+
+	});
+})*/
+
 //我关注的主播
 		requestService("/xczh/myinfo/myFocus",null,function(data) {
 			if(data.resultObject.length=='' || data.resultObject.length==0 ){
