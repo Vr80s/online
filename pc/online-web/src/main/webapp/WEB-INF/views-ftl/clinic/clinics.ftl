@@ -184,7 +184,7 @@
                             <#list recruits as recruit>
                                 <li>
                                     <h4><a href="${webUrl}/clinics/${recruit.hospitalId}"
-                                           style="color: #000;">${recruit.position}</a></h4>
+                                           style="color: #000;" target="_blank">${recruit.position}</a></h4>
                                     <a href="${webUrl}/clinics/${recruit.hospitalId}" target="_blank">${recruit.city}
                                         &nbsp;&nbsp;${recruit.hospitalName}</a>
                                 </li>
