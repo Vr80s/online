@@ -32,6 +32,7 @@ function getRankingListByLiveId(){
 getRankingListByLiveId();
 
 function createRanking(ranking){
+	if(ranking==null)return;
     var small_items = [];
     var items = ranking;
     for (var i = 0; i < items.length; i++) {
