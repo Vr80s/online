@@ -101,6 +101,7 @@ getHostInfo();
 
 /*点击关注已关注开始*/
 $(".concern-click").click(function(){
+	$(".concern-click").attr("disabled","disabled");
 	var lalal = $(".concern-click").text();
 	if(lalal == "加关注"){
 		RequestService("/focus/updateFocus", "GET", {
@@ -110,8 +111,13 @@ $(".concern-click").click(function(){
 		});
 		$(".concern-right").css("background","#bbb");
 		$(".concern-right").html("已关注");
+		
+		setTimeout(function(){
+			$(".concern-click").removeAttr("disabled");
+		},5000)
 		getHostInfo();
 	} else{
+		$(".concern-click").attr("disabled","disabled");
 		RequestService("/focus/updateFocus", "GET", {
 			lecturerId:lecturerId,type:2
 		}, function(data) {
@@ -119,7 +125,11 @@ $(".concern-click").click(function(){
 		});
 		$(".concern-right").css("background","#00BC12");
 		$(".concern-right").html("加关注");
-		getHostInfo();
+	
+		setTimeout(function(){
+			$(".concern-click").removeAttr("disabled");
+		},5000)
+			getHostInfo();
 	}
 });
 /*点击关注已关注结束*/
