@@ -448,14 +448,11 @@ $(document).ready(function() {
                             // 更新余额
                             $("#xmbShowSpan").html(data.resultObject.balanceTotal);
                         } else {
-                        	
                             if ("余额不足" == data.errorMessage) { //当余额不足时去充值页面
                                var courseId = getQueryString("courseId");
                                location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
                             }else{ //否则弹出初五信息
-                            	
 //                             alert(data.errorMessage);
-                               
                                webToast(data.errorMessage,"middle",1500);
                             }
                             
