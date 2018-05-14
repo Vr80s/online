@@ -130,16 +130,174 @@ p{margin-bottom: 0;}
 	padding:30px 20px 20px;
 	overflow: hidden;
 }
-.author-introduce{
-	border-left: 3px solid #00BC12;
-	padding-left: 10px;
-	color: #00BC12;
-	line-height: 1;
+/*课程视频*/
+/*视频样式*/
+.wrap-class .course {
+    position: relative;
+    width: 260px;
+    float: left;
+    height: 253px;
+    margin-left: 20px;
+    margin-top: 25px;
+}
+.wrap-class .course:nth-child(4n){
+    margin-right: 0px;
+}
+.wrap-class > div > a {
+    background: white;
+    width: 260px;
+    float: left;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ECECEC;
+    -moz-box-shadow: 1px 1px 2px 1px #ECECEC;
+    box-shadow: 1px 1px 2px 1px #ECECEC;
+}
+.wrap-class .course .img{
+	text-align: center;
+    line-height: 161px;
+    width: 260px;
+    height: 161px;
+    background-color: #f0f0f0;
+    background-image: url(../../images/load26.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}	  
+.wrap-class .course .img img{
+	 -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+.wrap-class .course .img img:hover{
+	transform: scale(1.2);
+}
+.wrap-class .course .img img{
+	width: 100%;
+	height: 100%;
+}
+.wrap-class .course .classCategory {
+    height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}
+.wrap-class > div > a .detail {
+    width: 261px;
+    height: 90px;
+    padding: 10px 10px 15px;
+    border: 1px solid #e4e4e4;
+    border-top: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.wrap-class > div > a .detail .title {
+    max-width: 260px;
+    /* height: 30px; */
+    display: inline-block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-class > div > a .detail .timeAndTeac {
+    display: block;
+    margin: 2px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-class > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.wrap-class > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.wrap-class > div > a .detail .info > span:nth-child(1) {
+    float: left;
+}
+.wrap-class > div > a .detail .info .price {
+    display: inline-block;
+    margin: 0 3px 0 0;
+    font-size: 16px;
+    color: #F97B49;
+}
+.wrap-class > div > a .detail span {
+    color: #999;
+}
+.wrap-class > div > a .detail .info > span:nth-child(2) {
+    float: right;
+}
+/*视频样式结束*/
+/*介绍*/
+.anchor-introduce{
+	background: white;
+	padding: 30px 20px 20px;
+}
+.anchor-hospital{
+	padding: 20px;
+	background: white;
+	margin-top: 20px;
+	overflow: hidden;
+	
+}
+.anchor-hospital h5{
+	font-weight: bold;
 	font-size: 20px;
+	margin: 0 0 20px;
 }
-.author-content{
-	margin-top: 10px;
+.hospital-img{
+	width: 270px;
+	height: 152px;
 }
+.hospital-img img{
+	width: 100%;
+	height: 100%;
+}
+.hospital-inf {
+	width: 530px;
+	color: #666666;
+}
+.hospital-status p{
+	margin-bottom: 10px;
+}
+.hospital-inf .address{
+	width: 70px;
+}
+.address-box .address span:nth-child(odd){
+	float: left;
+}
+.address-box .address span:nth-child(even){
+	float: right;
+}
+.address-box .address-text{
+	width: 455px;
+}
+.anchor-video{
+	width: 100%;
+	background: white;
+	padding: 20px;
+	margin-top: 20px;
+}
+.anchor-video h5{
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0 0 20px;
+}
+.save-video{
+	width: 463px;
+	height: 260px;
+}
+/*评价*/
 .impression-content{
 	width: 100%;
 	position: relative;
@@ -333,20 +491,6 @@ word-break:break-all;
 	border: 0;
 	outline: none;
 }
-/*常见问题*/
-.often-problem li{
-	margin-bottom: 50px;
-}
-.often-problem li h5{
-	font-weight: bold;
-	font-size: 18px;
-	margin-top: 0;
-}
-.often-problem li p{
-	font-size: 16px;
-}
-
-
 
 /*右侧推荐课程*/
 .wrap-recommend{
