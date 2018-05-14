@@ -134,7 +134,7 @@ header{
 }
 .record_course:last-child{
 	border-bottom: 1px solid #D8DDE6;
-	padding-bottom: 0;
+	padding-bottom1: 0rem;
 }
 .record_course_left .span0{
 	font-size: 0.28rem;
@@ -251,11 +251,10 @@ header{
 	color: #333333;
 }
 .record_course:last-child{
-	border: none !important;
-	border: 0 !important;
+	/*border: none !important;
+	border: 0 !important;*/
 }
 /*交易记录结束*/
-
 
 /*添加银行卡弹框开始*/
 .bank_card{
@@ -317,10 +316,7 @@ header{
 	color: #00BC12;
 	border-left: 1px solid  #D8DDE6;
 }
-
-
-		
 .record_main_div .record_course:last-child{
-	border-bottom: none;
+	border-bottom1: none;
 }
 /*添加银行卡弹框结束*/

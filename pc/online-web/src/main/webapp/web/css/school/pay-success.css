@@ -81,3 +81,127 @@ p{margin-bottom: 0;}
 .class-list a{
 	color: #20c530;	
 }
+/*猜你喜欢*/
+.main-bottom{
+	width: 100%;
+	padding: 30px 0;
+	background: white;
+	overflow: hidden;
+	margin-top: 20px;
+}
+.video-title{
+	font-size: 16px;
+	margin: 0 0 15px 30px;
+	margin-left: 30px;
+}
+/*视频开始*/
+.main-bottom .course {
+    margin-left: 33px;
+
+    position: relative;
+    width: 260px;
+    float: left;
+    height: 253px;
+}
+.main-bottom .course:nth-child(1){
+	margin-left: 30px;
+}
+.main-bottom > div > a {
+    background: white;
+    width: 260px;
+    float: left;
+    margin-right: 24px;
+    margin-bottom: 24px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ECECEC;
+    -moz-box-shadow: 1px 1px 2px 1px #ECECEC;
+    box-shadow: 1px 1px 2px 1px #ECECEC;
+}
+.main-bottom .course .img{
+	text-align: center;
+    line-height: 161px;
+    width: 260px;
+    height: 161px;
+    background-color: #f0f0f0;
+    background-image: url(../../images/load26.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}	  
+.main-bottom .course .img img{
+	 -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+.main-bottom .course .img img:hover{
+	transform: scale(1.2);
+}
+.main-bottom .course .img img{
+	width: 100%;
+	height: 100%;
+}
+/*.main-bottom .course .classCategory {
+    height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}*/
+.main-bottom > div > a .detail {
+    width: 261px;
+    height: 90px;
+    padding: 10px 10px 15px;
+    border: 1px solid #e4e4e4;
+    border-top: none;
+    box-sizing: content-class-box;
+    overflow: hidden;
+}
+.main-bottom > div > a .detail .title {
+    max-width: 260px;
+    /* height: 30px; */
+    display: inline-block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.main-bottom > div > a .detail .timeAndTeac {
+    display: block;
+    margin: 2px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.main-bottom > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.main-bottom > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.main-bottom > div > a .detail .info > span:nth-child(1) {
+    float: left;
+}
+.main-bottom > div > a .detail .info .price {
+    display: inline-block;
+    margin: 0 3px 0 0;
+    font-size: 16px;
+    color: #F97B49;
+}
+.main-bottom > div > a .detail span {
+    color: #999;
+}
+.main-bottom > div > a .detail .info > span:nth-child(2) {
+    float: right;
+}
+.main-bottom .studentCou{
+	float: right;
+	margin-top: 1px;
+}
