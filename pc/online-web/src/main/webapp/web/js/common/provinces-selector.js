@@ -81,6 +81,11 @@ $.fn.iProvincesSelect = function(option, data) {
         	pcd.province = that.find(".province").val();
         	pcd.city = that.find(".city").val();
         	pcd.district = that.find(".district").val();
+        	
+        	pcd.provinceText = that.find(".province option:selected").text();
+        	pcd.cityText = that.find(".city option:selected").text();
+        	pcd.districtText = that.find(".district option:selected").text();
+        	
             return pcd;
         },
         setVal : function (that,data) {
