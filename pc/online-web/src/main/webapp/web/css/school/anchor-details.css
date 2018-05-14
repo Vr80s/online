@@ -1,131 +1,90 @@
 *{margin: 0; padding: 0;}
 body{ 
-	font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-family:"Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
 	font-size: 14px;
 	background: #F8F8F8;
-	color: #666666;
+	
 }
-ul{margin: 0;}
-p{margin: 0;}
+a:link{text-decoration:none; } 
 a:hover{text-decoration: none;}
+ul{margin: 0;}
+p{margin-bottom: 0;}
 .cl{clear: both;}
 .z{float: left;}
 .y{float: right;}
-.wp{width: 1200px; margin: 0 auto;}
+.wp{width: 1200px; margin: 0 auto; color: #333333;}
 .selected{
 	color: #00BC12;
 }
-.wrap-buy{
+.wrap-top{
 	width: 100%;
+	padding: 20px 0;
 	background: white;
 	overflow: hidden;
-	padding: 30px 20px;
 	margin-top: 20px;
 }
-.left-cover{
-	width: 462px;
-	height: 260px;
-	position: relative;
+.main-top{
+	width: 1200px; 
+	margin: 0 auto;
+	overflow: hidden;
 }
-.left-cover span{
-	height: 22px;
-    padding: 0 5px;
-    text-align: center;
-    line-height: 22px;
-    color: white;
-    background: #2cb82c url(../../images/index/label.png) no-repeat left top;
-    position: absolute;
-    right: 18px;
-    font-size: 12px;
-    top: -2px;
+.head-portrait{
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 25px;
 }
-.left-cover img{
+.head-portrait img{
 	width: 100%;
 	height: 100%;
-	display: block;
 }
-.right-details{
-	width: 677px;
-	height: 260px;
-	position: relative;
-}
-.right-details h4{
-	font-size: 22px;
-	color: #333333;
-}
-.right-details .subtitle{
-	font-size: 14px;
-color: #666666;
-padding-bottom: 10px;
-}
-.right-details .author-inf{
+.anchor-status {
+	width: 800px;
 	overflow: hidden;
-	margin-bottom: 13px;
+	margin-top: 20px;
 }
-.right-details .author-inf li {
+.anchor-status h2{
+	font-size: 20px;
+    margin: 0;
+    float: left;
+    font-weight: bold;
+}
+.anchor-status h4{
 	float: left;
+	margin: 0;
+    margin-top: 4px;
+    margin-left: 20px;
+    font-size: 16px;
+}
+.follow-box{
+	overflow: hidden;
+	padding: 16px 0;	
+}
+.follow-box li{
+	float: left;
+	margin-right: 15px;
 	color: #999999;
 }
-.right-details .author-inf li img{
-
-	display: block;
-	float: left;
+.anchor-status button{
+	width: 102px;
+	height: 36px;
+	background: #00BC12;
+	color: white;
+	border: 0;
+	border-radius: 4px;
+	outline: none;
+	border: 1px solid #00BC12;
 }
-.right-details .author-inf .grade{	
-	margin: -2px 5px 0 30px;
-}
-.display-price{
-	width: 667px;
-	background: #FFF6F3;
-	clear: both;
-	padding: 7px 10px;
-	box-sizing: border-box;
-	color: #999999;
-}
-.display-price .live-price{
-	width: 56px;
-	display: inline-block;
-}
-.display-price .live-price span:nth-child(odd){
-	float: left;
-}
-.display-price .live-price span:nth-child(even){
-	float: right;
-}
-.display-price p{
-
-	margin-left: 16px;
-	display: inline-block;
-}
-.display-price p span{
-	font-size: 22px;
-	color: #FF4012;
+.isAdd-follow img{
+	width: 22px;
+	height: 22px;
 	margin-right: 5px;
 }
-.display-price ul{
-	overflow: hidden;
-	padding-top: 5px;
-}
-.display-price ul li{
-	float: left;
-	color: #333333;
-}
-.display-price ul li:nth-child(1){
-	color: #999999;
-	margin-right: 20px;
-}
-.immediately-buy{
-	width: 180px;
-	height: 46px;
-	background: #F97B49;
-	border: 0;
-	outline: 0;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	border-radius: 4px;
-	color: white;
-	font-size: 20px;
+.anchor-status .isAdd-active{
+	color: #4c4c4c;
+	background: white;
+	border: 1px solid #dedede;
 }
 /*详情/评价/常见问题*/
 
@@ -389,9 +348,6 @@ word-break:break-all;
 
 
 
-
-
-
 /*右侧推荐课程*/
 .wrap-recommend{
 	width: 320px;
@@ -510,12 +466,6 @@ word-break:break-all;
     float: right;
 }
 /*视频样式结束*/
-
-
-
-
-
-
 
 
 
