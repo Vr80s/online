@@ -57,13 +57,15 @@ function submitAddress_add(){
 }
 
 function submitAddress_editor(id){
+	var pcd = $(".add-address").iProvincesSelect("val");
+	
 	$('.add-address').addClass('hide');
 	$('.address-list').removeClass('hide');
 		RequestService("/address/updateAddress", "post", {
 				id:id,
-				provinces:$('.add-address #choosePro  option:selected').text(),
-				city:$('.add-address #citys  option:selected').text(),
-				county:$('.add-address #county  option:selected').text(),
+				provinces:pcd.province,
+				city:pcd.city,
+				county:pcd.district,
 				detailedAddress:$('.add-address .detailedAddress').val(),
 				postalCode:$('.add-address .postalCode').val(),
 				consignee:$('.add-address .consignee').val(),
@@ -237,7 +239,9 @@ function initAddressBind(){
 		pcd.province=address.provinces;
 		pcd.city=address.city;
 		pcd.district=address.county;
-        $(".add-address").iProvincesSelect("init",pcd);
+		
+		
+        $(".add-address").iProvincesSelect("init",pcd,false);
 		
 		//此时生成id值
 	    id = $(this).parent().parent().attr('data-id');

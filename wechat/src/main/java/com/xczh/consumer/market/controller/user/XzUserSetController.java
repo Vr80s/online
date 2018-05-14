@@ -254,13 +254,17 @@ public class XzUserSetController {
 		Object ou = req.getSession().getAttribute("_user_");
 		OnlineUser user = null;
 		Token t = UCCookieUtil.readTokenCookie(req);
+		
 		if (ou != null && t != null) { // 正常登录着
+			LOGGER.info(" 正常登录着");
 			String userId = ((OnlineUser) ou).getId();
 			user = onlineUserService.findUserById(userId);
-		} else if (ou == null) { // session过期了，续期
+		} else if (ou == null) { 	// session过期了，续期
+			LOGGER.info("session过期了，续期");
 			user = onlineUserService.findUserByLoginName(t.getLoginName());
 			req.getSession().setAttribute("_user_", user);
-		} else if (t == null) { // cookie过期了，直接退出
+		} else if (t == null) { 	// cookie过期了，直接退出
+			LOGGER.info("cookie过期了，直接退出");
 			req.getSession().setAttribute("_user_", null);
 		}
 		if (user == null) {
