@@ -16,37 +16,41 @@ p{margin-bottom: 0;}
 .main-top{
 	width: 100%;
 	background: white;
-	padding: 30px;
-	box-sizing: border-box;
 	overflow: hidden;
 	margin-top: 20px;
+	padding-bottom: 30px;
 }
-.main-top h4{
-	color: #333333;
-	margin-top: 0;
-}
-.order-number{
-	margin: 20px 0;
-}
-.class-details{
-	margin-bottom: 20px;
+.recharge-explain{
+	padding: 20px;
 	overflow: hidden;
+	border-bottom: 1px solid #f0f0f0;
+
 }
-.class-details li{
+.recharge-explain .explain{
+	color: #333333;
+}
+.recharge-explain .explain span{
+	color: #999999;
+}
+.recharge-explain .balance{
+	color: #666666;
+}
+.select-pay-money ul li{
 	float: left;
-	height: 60px;
-	line-height: 60px;
-	
+	border: 1px solid #DEDEDE;
+	text-align: center;
+	margin: 20px 0 0 20px;
+	color: #666666;
+	padding: 10px 0;
+	width: 125px;
+	cursor: pointer;
 }
-.class-details li img{
-	width: 106px;
-	height: 60px;
-	margin-right: 8px;
+.select-pay-money .select-money{
+	color: #F97B49;
+	border: 1px solid #F97B49;
 }
-.pay-money span{
-	font-size: 20px;
-	color: #F97B49;	
-	margin-right: 5px;
+.select-pay-money ul li p:nth-child(1){
+	margin-bottom: 7px;
 }
 .main-bottom{
 	width: 100%;
@@ -96,61 +100,16 @@ p{margin-bottom: 0;}
 	bottom: 0;
 
 }
-
 .select-pay .select-confirm{
 	border: 1px solid #F97B49;
 }
-.main-bottom .balance{
-	padding-top: 20px;
-}
 .recharge-box button{
-	padding: 10px;
+	padding: 10px 60px;
 	color: white;
 	background: #F97B49;
 	border: 0;
 	outline: none;
 	font-size: 20px;
 	margin-top: 30px;
-	
+	border-radius: 4px;
 }
-.pay-box button{
-	padding: 10px 50px;
-	color: white;
-	background: #F97B49;
-	border: 0;
-	outline: none;
-	font-size: 20px;
-	margin-top: 30px;
-}
-.agreement-box{
-	margin-top: 20px;
-}
-.agreement-box p {
-	display: inline-block;
-}
-.agreement-box p span{
-	display: inline-block;
-    vertical-align: middle;
-    margin-top: -6px;
-    cursor: pointer;
-    margin-left: 5px;
-}
-   
-.agreement-box p em{
-	    display: inline-block;
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-    background: url(../../images/130/select14_click.png) no-repeat;
-}   
-.agreement-box .agreement-content{
-	vertical-align: middle;
-    margin-top: -7px;
-    display: inline-block;
-    display: -webkit-inline-box;
-
-}
-.agreement-box .agreement-content a{
-	color: #00a7ff;
-}
-    
