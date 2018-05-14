@@ -75,7 +75,11 @@
 	<script type="text/html" id="data_my_class">
 		
 			<div class="wrap_class">
-				<p class="my_class_title">{{items.title}}</p>
+				{{if items.title=="我的课程"}}
+				<p class="my_class_title"><a href="my_study_course.html">{{items.title}}</a></p>
+				{{else}}
+				<p class="my_class_title"><a href="end_the_course.html">{{items.title}}</a></p>
+				{{/if}}
 					{{each items.courseList as item i}}
 					<div class="my_class_text" style="position: relative;">
 						{{if item.type == 1 || item.type == 2 }}
