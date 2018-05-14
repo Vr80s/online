@@ -9979,12 +9979,22 @@ var mucityData = [ {
 		value : "460300",
 		text : "三沙市",
 		code : "460000",
-		children : []
+		children : [ {
+			value : "460301",
+			text : "三沙市",
+			code : "460300"
+		  }		
+		]
 	}, {
 		value : "460400",
 		text : "儋州市",
 		code : "460000",
-		children : []
+		children : [{
+			value : "460401",
+			text : "儋州市",
+			code : "460400"
+		  }	
+		]
 	}, {
 		value : "469000",
 		text : "省直辖县级行政区划",
