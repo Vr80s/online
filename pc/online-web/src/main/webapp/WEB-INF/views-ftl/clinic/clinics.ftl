@@ -161,7 +161,7 @@
             <div class="forum-hot-tag">
                 <div class="forum-hot-tag-title">医馆搜索</div>
                 <div class="search_hos_box clearfix">
-                    <form action="/clinics/list" method="get">
+                    <form action="/clinics/list" method="get" target="_blank">
                         <input type="text" placeholder="输入名字搜索医馆" name="name" value=""/>
                         <button type="submit">搜索</button>
                     </form>
