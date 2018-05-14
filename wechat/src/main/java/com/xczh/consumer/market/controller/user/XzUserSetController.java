@@ -733,25 +733,4 @@ public class XzUserSetController {
 		List<Map<String, Object>> list = cityService.getAllProvinceCity();
 		return ResponseObject.newSuccessResponseObject(list);
 	}
-
-	/**
-	 * 得到省下面的市
-	 */
-	@RequestMapping("getCity")
-	@ResponseBody
-	public ResponseObject getCity(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
-			throws Exception {
-		String province_id = req.getParameter("province_id");
-		if (province_id == null) {
-			ResponseObject.newErrorResponseObject("参数异常");
-		}
-		/**
-		 * 获取所有的省份
-		 */
-		List<Map<String, Object>> list = cityService.getCity(Integer
-				.parseInt(province_id));
-		return ResponseObject.newSuccessResponseObject(list);
-	}
-
 }

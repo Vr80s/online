@@ -1,4 +1,4 @@
-var mucityData = [ {
+var provinces = [ {
 	value : "110000",
 	text : "北京市",
 	children : [ {
@@ -9979,23 +9979,12 @@ var mucityData = [ {
 		value : "460300",
 		text : "三沙市",
 		code : "460000",
-
-		children : [ {
-			value : "460301",
-			text : "三沙市",
-			code : "460300"
-		  }		
-		]
+		children : []
 	}, {
 		value : "460400",
 		text : "儋州市",
 		code : "460000",
-		children : [{
-			value : "460401",
-			text : "儋州市",
-			code : "460400"
-		  }	
-		]
+		children : []
 	}, {
 		value : "469000",
 		text : "省直辖县级行政区划",
@@ -14403,13 +14392,13 @@ var mucityData = [ {
 	value : "820000",
 	text : "澳门特别行政区",
 	children : [ {
-		value : "820100",
+		value : "820200",
 		text : "澳门特别行政区",
 		code : "820000",
 		children : [ {
-			value : "820101",
+			value : "820201",
 			text : "澳门特别行政区",
-			code : "820100"
+			code : "820200"
 		} ]
 	} ]
 } ]

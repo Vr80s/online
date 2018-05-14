@@ -2,7 +2,6 @@
  * 一些通用方法
  */
 (function(exports) {
-    
     /**
      * 将string字符串转为html对象,默认创一个div填充
      * 因为很常用，所以单独提取出来了
