@@ -3,6 +3,32 @@ var status;
  * 获取目前cookie的值
  */
 var falg =authenticationCooKie();
+var opendId = getQueryString("openId");
+if(stringnull(opendId)){
+	localStorage.setItem("openid", opendId);
+}
+
+if(opendId == "ovE_owyUT1bUmVuGS7NDBPr8gy28"){
+	alert("雪灵专用---》falg"+falg);
+}
+
+//点击学习判断游客
+function go_study(){
+	if(opendId == "ovE_owyUT1bUmVuGS7NDBPr8gy28"){
+		alert("雪灵专用---》falg"+falg);
+	}
+	if (falg==1002){
+		location.href ="/xcview/html/cn_login.html";		
+	}else if (falg==1005) {
+		location.href ="/xcview/html/evpi.html";
+	}else{
+		location.href ="/xcview/html/my_study.html";			
+	}
+}
+
+
+
+
 /*
  * 更新下用户信息
  */
@@ -11,11 +37,10 @@ if(falg == 1000){
 		if (data.success) {
 			commonLocalStorageSetItem(data);
 		}else{
-			alert("网络异常");
+			location.href ="/xcview/html/cn_login.html";
 		}
 	},false)
 }
-
 
 //yx_新增
 //var openId = getQueryString("openId");
@@ -58,8 +83,8 @@ function balance() {
 		
 		var third_party_uc_t_ = cookie.get("third_party_uc_t_");
 			
-			//alert(third_party_uc_t_);
-			//alert(decodeURI(third_party_uc_t_));
+		//alert(third_party_uc_t_);
+		//alert(decodeURI(third_party_uc_t_));
 		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
 		
 		var nickName = third_party_uc_t_.split(";")[2];
@@ -114,7 +139,7 @@ function go_cnlogin(){
 	}else if (falg==1005) {
 			location.href ="/xcview/html/evpi.html";
 	}else{
-	window.location.href="/xcview/html/my_wallet.html";		
+		window.location.href="/xcview/html/my_wallet.html";		
 	}
 }
 		
@@ -137,17 +162,6 @@ function go_cnlogin(){
 $(".my_anchor").click(function(){
 	location.href="down_load.html"
 })
-
-//点击学习判断游客
-function go_study(){
-		if (falg==1002){
-			location.href ="/xcview/html/cn_login.html";		
-		}else if (falg==1005) {
-			location.href ="/xcview/html/evpi.html";
-		}else{
-			location.href ="/xcview/html/my_study.html";			
-		}
-}
 
 
 
