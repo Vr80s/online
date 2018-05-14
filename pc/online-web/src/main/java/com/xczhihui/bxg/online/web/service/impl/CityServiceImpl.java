@@ -16,37 +16,13 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.online.api.service.CityService;
 import com.xczhihui.online.api.vo.UserAddressManagerVo;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 
 @Service
 public class CityServiceImpl  extends OnlineBaseServiceImpl implements CityService {
 
-	@Override
-	public List<Map<String, Object>> getNation() throws SQLException {
-		//String sql = "select province_id,province_name from place_province";
-		String sql = "select cid,name,code from ht_location where level = 2";
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-		return dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-	}
-	
-	@Override
-	public List<Map<String, Object>> getProvince(int parseInt) throws SQLException {
-		//String sql = "select city_id,city_name from place_city where province_id = ?";
-		String sql = "select cid,name,code from ht_location where level = 3 and lin = :pi";
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-		paramMap.put("pi",parseInt);
-		return dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-	}
-	@Override
-	public List<Map<String, Object>> getCity(int parseInt) throws SQLException {
-		//String sql = "select city_id,city_name from place_city where province_id = ?";
-		String sql = "select cid,name,code from ht_location where level = 4 and lin = ? ";
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-		paramMap.put("pi",parseInt);
-		return dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-	}
 
 	@Override
 	public List<Map<String, Object>> getAllProvinceCity() throws SQLException{
@@ -80,13 +56,13 @@ public class CityServiceImpl  extends OnlineBaseServiceImpl implements CityServi
 		 /*
 		  * sql 一下字查完。然后在进行拼接，得到中国下的省份。
 		  */
-		 String sql1 = "select province_id as pid,province_name as pname from place_province";
+		 String sql1 = "select code_p as pid,name as pname from place_province";
 		 List<Map<String, Object>> listProven = dao.getNamedParameterJdbcTemplate().queryForList(sql1,new HashMap<>());
 		 
-		 String sql2 = "select city_id as cid,city_name as cname,province_id as pid from place_city";
+		 String sql2 = "select code_c as cid,name as cname,code_p as pid from place_city";
 		 List<Map<String, Object>> listCity =  dao.getNamedParameterJdbcTemplate().queryForList(sql2,new HashMap<>());
 		 
-		 String sql3 = "select district_id as did,district_name as dname,city_id as  cid from place_district";
+		 String sql3 = "select code_a as did,name as dname,code_c as  cid from place_area";
 		 List<Map<String, Object>> listDistrict =  dao.getNamedParameterJdbcTemplate().queryForList(sql3,new HashMap<>());
 		 
 		 /**
