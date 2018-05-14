@@ -65,16 +65,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 	}
 
 	@Override
-	public ItcastUser deleteUser(String loginName) {
-		ItcastUser user = this.getUser(loginName);
-		if (user != null) {
-			this.itcastUserDao.delItcastUser(loginName);
-			logger.warn("delete user:{}", user);
-		}
-		return user;
-	}
-	
-	@Override
 	public ItcastUser deleteUserLogic(String loginName) {
 		this.updateStatus(loginName, UserStatus.DISABLE.getValue());
 		return this.getUser(loginName);
@@ -245,24 +235,8 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 	}
 
 	@Override
-	public boolean destoryTicket(String ticket) {
-		Token token = this.tokenManager.deleteTicket(ticket);
-		return token != null ? true : false;
-	}
-
-	@Override
-	public Token reflushTicket(String ticket) {
-		return this.reflushTicket(ticket, TokenExpires.Hour);
-	}
-	
-	@Override
 	public Token reflushTicket(String ticket, TokenExpires tokenExpires) {
 		return this.tokenManager.reflushTicket(ticket, tokenExpires.getExpires());
-	}
-
-	@Override
-	public Token validateTicket(String ticket) {
-		return this.tokenManager.getTicket(ticket);
 	}
 
 	@Override
@@ -271,18 +245,8 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 	}
 
 	@Override
-	public List<ItcastUser> getUsersByIds(Set<Integer> ids) {
-		return this.itcastUserDao.getUsersByIds(ids);
-	}
-
-	@Override
 	public ItcastUser getUser(String loginName) {
 		return this.itcastUserDao.getItcastUser(loginName);
-	}
-
-	@Override
-	public List<ItcastUser> getUsersByLoginNames(Set<String> loginNames) {
-		return this.itcastUserDao.getUsersByLoginNames(loginNames);
 	}
 
 	@Autowired
@@ -307,26 +271,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		itcastUser.setPassword(encPassord);
 	}
 
-	@Override
-    public TableVo getUsers(TableVo vo) {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		if(!StringUtils.isEmpty(vo.getsSearch())){
-			Gson gson = new Gson();
-			List<Map<String, Object>> paramList = gson.fromJson(vo.getsSearch(),new TypeToken<List<Map<String, Object>>>() {}.getType());
-			if (paramList.size() > 0) {
-				for (Map<String, Object> item : paramList) {
-					paramMap.put((String) item.get("propertyName"),item.get("propertyValue1"));
-				}
-			}
-		}
-		
-		String search = paramMap.get("search") == null ? null : paramMap.get("search").toString();
-		String origin = paramMap.get("origin") == null ? null : paramMap.get("origin").toString();
-		Object statusobj = paramMap.get("status");
-		int status = statusobj == null ? 100 : Integer.valueOf(statusobj.toString());
-		return itcastUserDao.getUsers(search,origin,status,
-				vo.getiDisplayStart() / vo.getiDisplayLength() + 1,vo.getiDisplayLength());
-	}
 
 	@Override
 	public Token loginThirdPart(String loginName, String password, TokenExpires tokenExpires) throws Exception {
@@ -355,75 +299,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		return this.tokenManager.createTokenMobile(user, tokenExpires.getExpires());
 	}
 
-	@Override
-	public Token wechatLogin(String loginName) throws Exception {
-		ItcastUser user = this.getUser(loginName);
-		this.updateLastLoginDate(user);
-		return this.tokenManager.createToken(user, TokenExpires.TenDay.getExpires());
-	}
-	
-	@Override
-	public boolean checkPassword(String loginName,String password) {
-		if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
-			
-			ItcastUser user = this.getUser(loginName);
-			if (user == null) {
-				throw new LoginRegException("用户名或密码错误");
-			}
-			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-				throw new LoginRegException("帐号被禁用");
-			}
-			String salt = user.getSalt();
-			if (salt == null) {
-				salt = "";
-			}
-			String expect = CodeUtil.encodePassword(password, salt);
-			String actual = user.getPassword();
-			if (!expect.equals(actual)) {
-				logger.info("actual:{}", actual);
-				logger.info("expect:{}", expect);
-				throw new LoginRegException("用户名或密码错误");
-			}
-			return true;
-		}
-		return false;
-	}
-
-
-	@Override
-	public void updateLoginLimit(String loginName, int clientType, String info) {
-		LoginLimit ll = loginLimitDao.getLoginLimitByLoginName(loginName);
-		if(ll==null){
-			ll = new LoginLimit();
-			ll.setLoginName(loginName);
-		}
-		String sign = UUID.randomUUID().toString().replaceAll("-", "");;
-		Date lastTime = new Date();
-		switch (clientType){
-			case 1:
-				ll.setPcSign(sign);
-				ll.setPcInfo(info);
-				ll.setPcLastTime(lastTime);
-				break;
-			case 2:
-				ll.setH5Sign(sign);
-				ll.setH5Info(info);
-				ll.setH5LastTime(lastTime);
-				break;
-			case 3:
-				ll.setAppSign(sign);
-				ll.setAppInfo(info);
-				ll.setAppLastTime(lastTime);
-				break;
-			default:
-				break;
-		}
-		if(ll.getId()==null){
-			loginLimitDao.addLoginList(ll);
-		}else{
-			loginLimitDao.updateLoginLimit(ll);
-		}
-	}
 	@Override
 	public void updatePasswordAndLoginName(int id, String userName,
 			String passWord) {

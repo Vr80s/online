@@ -417,24 +417,6 @@ public class XzUserController {
 	}
 	
 	
-   @RequestMapping("emptyAccount")
-   @ResponseBody
-   public ResponseObject emptyAccount(HttpServletRequest req,
-		   @RequestParam("userName")String userName) throws Exception{
-	   OnlineUser ou =  onlineUserService.findUserByLoginName(userName);
-	   if(ou!=null){
-		   
-		   
-		   threePartiesLoginService.deleteAccount(ou.getId());
-		   wxcpClientUserWxMappingService.deleteAccount(ou.getId());
-		   userCenterAPI.deleteUser(userName);
-		   onlineUserService.emptyAccount(userName);
-		   return ResponseObject.newSuccessResponseObject("清理成功");
-	   }
-       return ResponseObject.newSuccessResponseObject("未找到该用户");
-   }
-	
-	
 	/**
 	 * 登录成功处理
 	 * @param req

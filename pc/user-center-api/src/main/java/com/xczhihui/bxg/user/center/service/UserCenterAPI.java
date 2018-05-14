@@ -1,17 +1,6 @@
 package com.xczhihui.bxg.user.center.service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.TableVo;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.user.center.bean.UserOrigin;
-import com.xczhihui.user.center.bean.UserSex;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
+import com.xczhihui.user.center.bean.*;
 
 /**
  * 用户中心API
@@ -42,12 +31,6 @@ public interface UserCenterAPI {
 			UserOrigin origin,
 			UserStatus status);
 
-	/**
-	 * 物理删除用户
-	 * @param loginName
-	 * @return 返回被删除的用户，如果没有找到对应的用户，返回NULL
-	 */
-	public ItcastUser deleteUser(String loginName);
 
 	/**
 	 * 逻辑删除用户
@@ -113,30 +96,14 @@ public interface UserCenterAPI {
 	 * @return
 	 */
 	public ItcastUser getUser(int id);
-	/**
-	 * 根据ID获取一批用户
-	 * @param ids
-	 * @return
-	 */
-	public List<ItcastUser> getUsersByIds(Set<Integer> ids);
+
 	/**
 	 * 根据登录名查找用户
 	 * @param loginName
 	 * @return
 	 */
 	public ItcastUser getUser(String loginName);
-	/**
-	 * 根据登录名获取一批用户
-	 * @param loginNames
-	 * @return
-	 */
-	public List<ItcastUser> getUsersByLoginNames(Set<String> loginNames);
-	/**
-	 * 查询用户
-	 * @param vo
-	 * @return
-	 */
-	public TableVo getUsers(TableVo vo);
+
 	/**
 	 * 延长票的有效期。
 	 * @param ticket
@@ -144,43 +111,9 @@ public interface UserCenterAPI {
 	 * @return
 	 */
 	public Token reflushTicket(String ticket, TokenExpires tokenExpires);
-	/**
-	 * 延长票的有效期。
-	 * @param ticket
-	 * @return
-	 */
-	public Token reflushTicket(String ticket);
-	/**
-	 * 校验票是否有效
-	 * @param ticket
-	 * @return ticket无效返回NULL
-	 */
-	public Token validateTicket(String ticket);
-	/**
-	 * 销毁票
-	 * @param ticket
-	 * @return true:销毁成功；false:票无效。
-	 */
-	public boolean destoryTicket(String ticket);
 
-	public Token wechatLogin(String loginName) throws Exception;
 	Token loginThirdPart(String loginName, String password,
 						 TokenExpires tokenExpires) throws Exception;
-
-
-	/**
-	 * 
-	 * Description：验证新密码和老密码是否一致
-	 * @param loginName
-	 * @param password
-	 * @return
-	 * @return boolean
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public boolean checkPassword(String loginName, String password);
-
-	public void updateLoginLimit(String name, int clientType, String loginName);
 
 
 	public Token loginMobile(String loginName, String password, TokenExpires tokenExpires);

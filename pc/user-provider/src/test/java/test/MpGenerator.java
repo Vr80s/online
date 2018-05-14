@@ -95,7 +95,7 @@ public class MpGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.xczhihui.user");
+        pc.setParent("com.xczhihui.medical");
         pc.setModuleName("model");
         mpg.setPackageInfo(pc);
 
