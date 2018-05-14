@@ -140,7 +140,7 @@ $(function () {
         '</a></div>',
         phone_consult: '<div class="phone_consult">' +
         '<div class="phone_consult_box"><img src="/web/images/tel.gif" alt=""/><span class="dianhuazixun">电话咨询</span></div>' +
-        '<span class="phone_number">0898-32881833</span>' +
+        '<span class="phone_number">0898-32881934</span>' +
         ' </div>',
         weixin: '<div class="sideWeixinBox">' +
         '<div class="sideWeixin">' +
