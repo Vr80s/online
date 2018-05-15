@@ -15,7 +15,9 @@ img{display: block;}
 :-moz-placeholder { 
     color: #888888;  
 }
-
+.both{
+	clear: both;
+}
 ::-moz-placeholder { 
     color: #888888;
 }
@@ -176,7 +178,10 @@ margin-top: -0.28rem;
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-	border-bottom: 1px solid #D8DDE6;
+	/*border-bottom: 1px solid #D8DDE6;*/
+}
+.playTimes{
+	padding: 0.4rem 0 0 0;
 }
 .playTime img{
 	display: inline-block;
@@ -608,7 +613,7 @@ color: white;
 
 }
 .wrap_input{
-	width: 5.7rem;
+	width: 7rem;
 	height: 0.6rem;
 	background: #f0f0f0;
 	margin-top: 0.2rem;
