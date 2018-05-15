@@ -1,131 +1,90 @@
 *{margin: 0; padding: 0;}
 body{ 
-	font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-family:"Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
 	font-size: 14px;
 	background: #F8F8F8;
-	color: #666666;
+	
 }
-ul{margin: 0;}
-p{margin: 0;}
+a:link{text-decoration:none; } 
 a:hover{text-decoration: none;}
+ul{margin: 0;}
+p{margin-bottom: 0;}
 .cl{clear: both;}
 .z{float: left;}
 .y{float: right;}
-.wp{width: 1200px; margin: 0 auto;}
+.wp{width: 1200px; margin: 0 auto; color: #333333;}
 .selected{
 	color: #00BC12;
 }
-.wrap-buy{
+.wrap-top{
 	width: 100%;
+	padding: 20px 0;
 	background: white;
 	overflow: hidden;
-	padding: 30px 20px;
 	margin-top: 20px;
 }
-.left-cover{
-	width: 462px;
-	height: 260px;
-	position: relative;
+.main-top{
+	width: 1200px; 
+	margin: 0 auto;
+	overflow: hidden;
 }
-.left-cover span{
-	height: 22px;
-    padding: 0 5px;
-    text-align: center;
-    line-height: 22px;
-    color: white;
-    background: #2cb82c url(../../images/index/label.png) no-repeat left top;
-    position: absolute;
-    right: 18px;
-    font-size: 12px;
-    top: -2px;
+.head-portrait{
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 25px;
 }
-.left-cover img{
+.head-portrait img{
 	width: 100%;
 	height: 100%;
-	display: block;
 }
-.right-details{
-	width: 677px;
-	height: 260px;
-	position: relative;
-}
-.right-details h4{
-	font-size: 22px;
-	color: #333333;
-}
-.right-details .subtitle{
-	font-size: 14px;
-color: #666666;
-padding-bottom: 10px;
-}
-.right-details .author-inf{
+.anchor-status {
+	width: 800px;
 	overflow: hidden;
-	margin-bottom: 13px;
+	margin-top: 20px;
 }
-.right-details .author-inf li {
+.anchor-status h2{
+	font-size: 20px;
+    margin: 0;
+    float: left;
+    font-weight: bold;
+}
+.anchor-status h4{
 	float: left;
+	margin: 0;
+    margin-top: 4px;
+    margin-left: 20px;
+    font-size: 16px;
+}
+.follow-box{
+	overflow: hidden;
+	padding: 16px 0;	
+}
+.follow-box li{
+	float: left;
+	margin-right: 15px;
 	color: #999999;
 }
-.right-details .author-inf li img{
-
-	display: block;
-	float: left;
+.anchor-status button{
+	width: 102px;
+	height: 36px;
+	background: #00BC12;
+	color: white;
+	border: 0;
+	border-radius: 4px;
+	outline: none;
+	border: 1px solid #00BC12;
 }
-.right-details .author-inf .grade{	
-	margin: -2px 5px 0 30px;
-}
-.display-price{
-	width: 667px;
-	background: #FFF6F3;
-	clear: both;
-	padding: 7px 10px;
-	box-sizing: border-box;
-	color: #999999;
-}
-.display-price .live-price{
-	width: 56px;
-	display: inline-block;
-}
-.display-price .live-price span:nth-child(odd){
-	float: left;
-}
-.display-price .live-price span:nth-child(even){
-	float: right;
-}
-.display-price p{
-
-	margin-left: 16px;
-	display: inline-block;
-}
-.display-price p span{
-	font-size: 22px;
-	color: #FF4012;
+.isAdd-follow img{
+	width: 22px;
+	height: 22px;
 	margin-right: 5px;
 }
-.display-price ul{
-	overflow: hidden;
-	padding-top: 5px;
-}
-.display-price ul li{
-	float: left;
-	color: #333333;
-}
-.display-price ul li:nth-child(1){
-	color: #999999;
-	margin-right: 20px;
-}
-.immediately-buy{
-	width: 180px;
-	height: 46px;
-	background: #F97B49;
-	border: 0;
-	outline: 0;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	border-radius: 4px;
-	color: white;
-	font-size: 20px;
+.anchor-status .isAdd-active{
+	color: #4c4c4c;
+	background: white;
+	border: 1px solid #dedede;
 }
 /*详情/评价/常见问题*/
 
@@ -171,16 +130,174 @@ padding-bottom: 10px;
 	padding:30px 20px 20px;
 	overflow: hidden;
 }
-.author-introduce{
-	border-left: 3px solid #00BC12;
-	padding-left: 10px;
-	color: #00BC12;
-	line-height: 1;
+/*课程视频*/
+/*视频样式*/
+.wrap-class .course {
+    position: relative;
+    width: 260px;
+    float: left;
+    height: 253px;
+    margin-left: 20px;
+    margin-top: 25px;
+}
+.wrap-class .course:nth-child(4n){
+    margin-right: 0px;
+}
+.wrap-class > div > a {
+    background: white;
+    width: 260px;
+    float: left;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ECECEC;
+    -moz-box-shadow: 1px 1px 2px 1px #ECECEC;
+    box-shadow: 1px 1px 2px 1px #ECECEC;
+}
+.wrap-class .course .img{
+	text-align: center;
+    line-height: 161px;
+    width: 260px;
+    height: 161px;
+    background-color: #f0f0f0;
+    background-image: url(../../images/load26.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}	  
+.wrap-class .course .img img{
+	 -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+.wrap-class .course .img img:hover{
+	transform: scale(1.2);
+}
+.wrap-class .course .img img{
+	width: 100%;
+	height: 100%;
+}
+.wrap-class .course .classCategory {
+    height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}
+.wrap-class > div > a .detail {
+    width: 261px;
+    height: 90px;
+    padding: 10px 10px 15px;
+    border: 1px solid #e4e4e4;
+    border-top: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.wrap-class > div > a .detail .title {
+    max-width: 260px;
+    /* height: 30px; */
+    display: inline-block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-class > div > a .detail .timeAndTeac {
+    display: block;
+    margin: 2px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-class > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.wrap-class > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.wrap-class > div > a .detail .info > span:nth-child(1) {
+    float: left;
+}
+.wrap-class > div > a .detail .info .price {
+    display: inline-block;
+    margin: 0 3px 0 0;
+    font-size: 16px;
+    color: #F97B49;
+}
+.wrap-class > div > a .detail span {
+    color: #999;
+}
+.wrap-class > div > a .detail .info > span:nth-child(2) {
+    float: right;
+}
+/*视频样式结束*/
+/*介绍*/
+.anchor-introduce{
+	background: white;
+	padding: 30px 20px 20px;
+}
+.anchor-hospital{
+	padding: 20px;
+	background: white;
+	margin-top: 20px;
+	overflow: hidden;
+	
+}
+.anchor-hospital h5{
+	font-weight: bold;
 	font-size: 20px;
+	margin: 0 0 20px;
 }
-.author-content{
-	margin-top: 10px;
+.hospital-img{
+	width: 270px;
+	height: 152px;
 }
+.hospital-img img{
+	width: 100%;
+	height: 100%;
+}
+.hospital-inf {
+	width: 530px;
+	color: #666666;
+}
+.hospital-status p{
+	margin-bottom: 10px;
+}
+.hospital-inf .address{
+	width: 70px;
+}
+.address-box .address span:nth-child(odd){
+	float: left;
+}
+.address-box .address span:nth-child(even){
+	float: right;
+}
+.address-box .address-text{
+	width: 455px;
+}
+.anchor-video{
+	width: 100%;
+	background: white;
+	padding: 20px;
+	margin-top: 20px;
+}
+.anchor-video h5{
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0 0 20px;
+}
+.save-video{
+	width: 463px;
+	height: 260px;
+}
+/*评价*/
 .impression-content{
 	width: 100%;
 	position: relative;
@@ -374,23 +491,6 @@ word-break:break-all;
 	border: 0;
 	outline: none;
 }
-/*常见问题*/
-.often-problem li{
-	margin-bottom: 50px;
-}
-.often-problem li h5{
-	font-weight: bold;
-	font-size: 18px;
-	margin-top: 0;
-}
-.often-problem li p{
-	font-size: 16px;
-}
-
-
-
-
-
 
 /*右侧推荐课程*/
 .wrap-recommend{
@@ -510,12 +610,6 @@ word-break:break-all;
     float: right;
 }
 /*视频样式结束*/
-
-
-
-
-
-
 
 
 
