@@ -207,9 +207,9 @@ margin-top: -0.28rem;
 	font-size: 0.2rem;
 	border-radius: 3px;
 }
-.playTime li:nth-last-child(1){
+/* .playTime li:nth-last-child(1){
 	float: right;
-}
+} */
 /*详情开始*/
 .my_details{
 	margin-top: 0.2rem;
@@ -227,14 +227,22 @@ margin-top: -0.28rem;
 	padding-top: 0.2rem;
 }
 .my_synopsis{
-	width: 2.36rem;
+	/*width: 2.36rem;*/
 	height: 0.43rem;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 
 }
 .my_synopsis ul li{
 	float: left;
 	
+}
+.my_synopsis ul .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
 }
 .my_synopsis ul li p{
 	width: 0.6rem;
@@ -242,9 +250,9 @@ margin-top: -0.28rem;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
-.my_synopsis ul li:nth-child(2){
+/* .my_synopsis ul li:nth-child(2){
 	margin-left: 0.3rem;
-}
+} */
 /*内容*/
 .wrap{
 	width: 100%;
@@ -318,12 +326,20 @@ word-break:break-all;
 	overflow: hidden;
 }
 .main_speak{
-	width: 2.64rem;
-	margin: 0 auto;
+	/*width: 2.64rem;*/
+	/*margin: 0 auto;*/
 	overflow: hidden;
 	padding-top: 0.2rem;
 }
-.main_speak p:nth-child(1){
+.wrap_speak .main_speak .border {
+    width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
+}
+/* .main_speak p:nth-child(1){
 	float: left;
 	width: 0.6rem;
 	height: 1px;
@@ -340,7 +356,7 @@ word-break:break-all;
 	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
-}
+} */
 /*内容*/
 .wrap1{
 	width: 100%;
@@ -414,6 +430,14 @@ word-break:break-all;
 	float: left;
 	font-size: 0.32rem;
 
+}
+.wrap_comment_title .border {
+    width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0rem;
+    border-radius: 100px;
 }
 .wrap_comment_title span{
 	float: right;
