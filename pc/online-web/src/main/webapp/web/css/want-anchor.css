@@ -1,0 +1,91 @@
+*{margin: 0; padding: 0;}
+body{ 
+	font-family:"Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-size: 14px;
+	background: #F8F8F8;
+	
+}
+a:link{text-decoration:none; } 
+a:hover{text-decoration: none;}
+ul{margin: 0;}
+p{margin-bottom: 0;}
+.cl{clear: both;}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px; margin: 0 auto; color: #333333;}
+.wrap-bg{
+	background: #ECF6ED;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 117px 0;
+}
+.physician-prov{
+	width: 236px;
+	text-align: center;
+}
+.physician-img{
+	width: 140px;
+	height: 140px;
+	overflow: hidden;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+.physician-prov h5{
+	font-size: 20px;
+	margin: 20px 0;
+}
+.physician-prov p{
+	color: #999999;
+	font-size: 16px;
+}
+.physician-prov a{
+	display: block;
+	width: 160px;
+	height: 48px;
+	border-radius: 100px;
+	background: #00BC12;
+	margin: 30px auto 0;
+	cursor: pointer;
+	line-height: 48px;
+	color: white;
+	font-size: 18px;
+}
+
+.line-division{
+	background: #DEDEDE;
+	width: 1px;
+	height: 306px;
+	margin: 0 126px 0 136px;
+	
+}
+/*平台优势*/
+.main-bottom{
+	display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 80px;
+}
+h4{
+	font-size: 32px;
+	margin: 60px 0 0;
+	text-align: center;
+}
+.mune-list{
+	width: 200px;
+	text-align: center;
+	margin: 0 50px;
+}
+.mune-img{
+	width: 140px;
+	height: 140px;
+	overflow: hidden;
+
+	margin: 0 auto 30px;
+}
+.mune-list p{
+
+font-size: 20px;
+color: #666666;
+
+}
