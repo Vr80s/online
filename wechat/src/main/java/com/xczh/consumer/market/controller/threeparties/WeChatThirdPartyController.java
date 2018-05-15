@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.common.util.enums.TokenExpires;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.ThridFalg;
+import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +37,12 @@ import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.user.center.bean.ThridFalg;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
-import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
 
 /**
  * 用户controller
@@ -64,7 +64,7 @@ public class WeChatThirdPartyController {
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 
 	@Autowired
 	private CacheService cacheService;
@@ -177,15 +177,11 @@ public class WeChatThirdPartyController {
 
 				} else { // 直接登录
 
-					OnlineUser ou = onlineUserService.findUserById(wxw
-							.getClient_id());
-					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),
-							iu.getPassword(), TokenExpires.TenDay);
+					OnlineUser ou = onlineUserService.findUserById(wxw.getClient_id());
+					Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 
 					// 把用户中心的数据给他 这里im都要用到
-					ou.setUserCenterId(iu.getId());
-					ou.setPassword(iu.getPassword());
+					ou.setUserCenterId(ou.getId());
 					ou.setTicket(t.getTicket());
 					onlogin(req, res, t, ou, t.getTicket());
 					/**
@@ -193,8 +189,7 @@ public class WeChatThirdPartyController {
 					 */
 					UCCookieUtil.clearThirdPartyCookie(res);
 
-					res.sendRedirect(returnOpenidUri
-							+ "/xcview/html/home_page.html?openId=" + openId);
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId=" + openId);
 					return;
 				}
 
@@ -347,12 +342,9 @@ public class WeChatThirdPartyController {
 
 				OnlineUser ou = onlineUserService
 						.findUserById(m.getClient_id());
-				ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),
-						iu.getPassword(), TokenExpires.TenDay);
+				Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 				// 把用户中心的数据给他 --这些数据是IM的
-				ou.setUserCenterId(iu.getId());
-				ou.setPassword(iu.getPassword());
+				ou.setUserCenterId(ou.getId());
 				ou.setTicket(t.getTicket());
 				/**
 				 * 直接让登录了 返回状态值：200

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.Token;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +26,6 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
 /**
  * 用户controller

@@ -1,25 +1,5 @@
 package com.xczh.consumer.market.controller.course;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.xczhihui.user.center.bean.ItcastUser;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
@@ -27,17 +7,31 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.SMSCode;
-import com.xczhihui.online.api.service.EnchashmentService;
-import com.xczhihui.online.api.service.UserCoinService;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.medical.anchor.service.IUserBankService;
-import com.xczhihui.medical.anchor.vo.UserBank;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.anchor.service.IUserBankService;
+import com.xczhihui.medical.anchor.vo.UserBank;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
+import com.xczhihui.online.api.service.EnchashmentService;
+import com.xczhihui.online.api.service.UserCoinService;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 我的信息管理页面 ClassName: MyManagerController.java <br>
@@ -74,11 +68,6 @@ public class MyManagerController {
 	@Autowired
 	private IMedicalDoctorApplyService medicalDoctorApplyService;
 
-	
-	@Autowired
-	private UserCenterAPI userCenterAPI;
-	
-
 	@Value("${rate}")
 	private int rate;
 
@@ -114,10 +103,8 @@ public class MyManagerController {
 			if(ou == null){
 				return ResponseObject.newErrorResponseObject("token过期",1002);
 			}
-			ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-			ou.setUserCenterId(iu.getId());
-			ou.setPassword(iu.getPassword());
-			
+			ou.setUserCenterId(ou.getId());
+
 			map.put("user", ou);
 			// 查找购买的课程数
 			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));

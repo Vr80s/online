@@ -1,18 +1,7 @@
 package com.xczh.consumer.market.controller.live;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.online.api.service.CommonApiService;
@@ -21,7 +10,14 @@ import com.xczhihui.online.api.service.GiftService;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.online.api.vo.ReceivedGift;
 import com.xczhihui.online.api.vo.RechargeRecord;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 用户调用这个接口，进入h5页面模式
@@ -33,20 +29,13 @@ import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 @Controller
 @RequestMapping(value = "/bxg/oa")
 public class OnlineApiController {
-	@Autowired
-	private UserCenterAPI userCenterAPI;
-	@Autowired
-	private OnlineUserService onlineUserService;
-	@Autowired
-	private CacheService cacheService;
+
 	@Autowired
 	private UserCoinService userCoinService; //充值service
 	@Autowired
 	private GiftService giftService;  //礼物service
 	@Autowired
 	private AppBrowserService appBrowserService;
-	@Autowired
-	private EnchashmentService enchashmentService;
 
 	@Autowired
 	private CommonApiService commonApiService;
@@ -57,7 +46,6 @@ public class OnlineApiController {
 	 * Description：得到用户充值列表
 	 * @param req
 	 * @param res
-	 * @param params
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject

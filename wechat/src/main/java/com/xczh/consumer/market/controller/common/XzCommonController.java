@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.ThridFalg;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +27,9 @@ import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.VersionInfoVo;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.online.api.service.CommonApiService;
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.ThridFalg;
 
 /**
  * 通用控制器 ClassName: CommonController.java <br>
@@ -52,7 +52,7 @@ public class XzCommonController {
     private MessageService messageService;
     
     @Autowired
-    private UserCenterAPI userCenterAPI;
+    private UserCenterService userCenterService;
 
     @Autowired
     private CommonApiService commonApiService;
@@ -86,7 +86,6 @@ public class XzCommonController {
 	 * 查询单个详情
 	 * @param req
 	 * @param res
-	 * @param params
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/richTextDetails")
@@ -181,7 +180,7 @@ public class XzCommonController {
 	    Map<String,Object> map = new HashMap<String, Object>();
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user!=null){
-			ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
+			OeUserVO iu = userCenterService.getUserVO(user.getLoginName());
 			map.put("guId", iu.getId());
 			map.put("guPwd",iu.getPassword());
 			map.put("host", host);
