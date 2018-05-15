@@ -246,6 +246,10 @@ p{margin-bottom: 0;}
 .wrap-class > div > a .detail .info > span:nth-child(2) {
     float: right;
 }
+.wrap-class .stuCount .studentCou{
+	float: right;
+	margin-top: 1px;
+}
 /*视频样式结束*/
 /*介绍*/
 .anchor-introduce{
@@ -617,6 +621,10 @@ word-break:break-all;
 }
 .wrap-recommend > div > a .detail .info > span:nth-child(2) {
     float: right;
+}
+.wrap-recommend .stuCount .studentCou{
+	float: right;
+	margin-top: 1px;
 }
 /*视频样式结束*/
 
