@@ -18,7 +18,7 @@
 		<!--登陆的bootstrap样式-->
 			<link rel="stylesheet" href="/web/css/mylogin.css" />
 			<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
-			<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
+
 		<!--登陆的bootstrap样式-->
 			<link rel="stylesheet" href="/web/css/school/details-album.css"  />
 	</head>
@@ -64,14 +64,45 @@
 		<!--nav-->
 					<div class="wrap-sidebar">
 						<ul>
+						<!--未购买-->
 							<li class="active-footer">详情</li>
 							<li>课程大纲</li>
+						<!--已购买-->
+							<!--<li class="active-footer">选集</li>
+							<li>详情</li>-->
 							<li>评价（200）</li>
 							<li>常见问题</li>
 						</ul>
 					</div>
 		<!--content-->
-		<!--主讲人-->
+		<!--选集-->
+					<!--<div class="sidebar-content" style="padding: 0;">
+						<div class="wrap-anthology">
+							<ul>
+								<li>
+									<div class="play-img z">
+										<img src="../../images/icon-play.png"/>
+									</div>
+									<div class="play-album z">
+										<p>郝万山 《伤寒论》讲解</p>
+										<p>120分钟</p>
+									</div>
+									
+								</li>
+								<li>
+									<div class="play-img z">
+										<img src="../../images/icon-play.png"/>
+									</div>
+									<div class="play-album z">
+										<p>郝万山 《伤寒论》讲解</p>
+										<p>120分钟</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>-->
+		
+		<!--详情-->
 					<div class="sidebar-content">
 						<div class="author-introduce">
 							主讲人
@@ -101,7 +132,8 @@
 						</div>
 					</div>
 		
-		<!--课程大纲-->		
+		<!--课程大纲-->
+				
 					<div class="sidebar-content hide">
 						
 					</div>
@@ -184,17 +216,17 @@
 										</div>
 										<div class="input-write z">
 				<!--未登录-->
-											<p class="hide">
+											<p class="">
 												写下你的评论，请先
 												<span>登陆</span>
 											</p>
 				<!--已登陆-->
-											<input class="" type="text" name="" value="" />
+											<input class="hide" type="text" name="" value="" />
 										</div>
 				<!--未登录按钮-->
-										<button class="no-login y hide" type="button">回复</button>
+										<button class="no-login y" type="button">回复</button>
 				<!--已登陆按钮-->
-										<button class="login y" type="button">回复</button>										
+										<button class="login y hide" type="button">回复</button>										
 									</div>
 								</div>
 							</div>
@@ -324,9 +356,7 @@
 			<script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript" src="/web/js/footer.js"></script>
 		<!--公共头部和底部结束-->
-		<!--登陆-->
-			<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
-			<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+
 		<!--登陆结束-->	
 			<script src="/web/js/school/details-album.js" type="text/javascript" charset="utf-8"></script>
 			

@@ -119,7 +119,7 @@ a:hover{text-decoration: none;}
 }
 .main .content-class > div > a .detail {
     width: 261px;
-    height: 99px;
+    height: 90px;
     padding: 10px 10px 15px;
     border: 1px solid #e4e4e4;
     border-top: none;
@@ -135,6 +135,7 @@ a:hover{text-decoration: none;}
     color: #333;
     white-space: nowrap;
     text-overflow: ellipsis;
+    margin-bottom: 0;
 }
 .main .content-class > div > a .detail .timeAndTeac {
     display: block;
