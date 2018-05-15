@@ -8,11 +8,11 @@
 		<relativePath>../parent-pom</relativePath>
 	</parent>
 
-	<artifactId>user-api</artifactId>
+	<artifactId>user-center-api</artifactId>
 	<packaging>jar</packaging>
 	<version>2.0.0-SNAPSHOT</version>
 
-	<name>user-api</name>
+	<name>user-center-api</name>
 	<url>http://www.ixincheng.com</url>
 
 	<properties>

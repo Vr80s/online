@@ -1,27 +1,21 @@
 package com.xczhihui.order.service.impl;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.common.util.enums.UserOrigin;
-import com.xczhihui.common.util.enums.UserSex;
+import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.online.api.vo.OrderVo;
-import com.xczhihui.common.util.enums.Payment;
-import com.xczhihui.user.center.service.UserCenterService;
-import com.xczhihui.user.service.OnlineUserService;
-import com.xczhihui.vhall.VhallUtil;
-
 import com.xczhihui.order.service.OrderInputService;
 import com.xczhihui.order.vo.OrderInputVo;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.service.OnlineUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +23,12 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.common.util.BeanUtil;
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.domain.UserCoin;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.course.dao.CourseDao;
-import com.xczhihui.utils.RandomUtil;
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 
 /**
@@ -50,7 +41,6 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 		OrderInputService {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-	private static String DEFAULT_HEAD = "https://file.ipandatcm.com//image/jpg/defaultHead.png";
 
 	@Resource(name = "simpleHibernateDao")
 	private SimpleHibernateDao dao;

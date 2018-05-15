@@ -26,7 +26,7 @@ import java.util.*;
  * @author duanqh
  *
  */
-@Service
+@Service("userCenterServiceImpl")
 public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements OnlineUserCenterService {
 
 	@Autowired
