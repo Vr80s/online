@@ -238,10 +238,12 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @return
      */
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
-            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url, mdw.buy_link as buyLink" +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url, mdw.buy_link as buyLink," +
+            " if(oba.recommend_time< now(),0,oba.sort) as sort" +
             " from `oe_bxs_article` oba" +
             " JOIN `medical_writings` mdw" +
             " ON oba.`id` = mdw.`article_id` " +
-            " where oba.`is_delete`=0 and oba.status = 1"})
+            " where oba.`is_delete`=0 and oba.status = 1 and oba.sort > 0 and (oba.recommend_time is null or oba.recommend_time > now()) " +
+            " order by oba.sort desc, oba.create_time desc"})
     List<OeBxsArticleVO> listPublicWritings(Page<OeBxsArticleVO> page);
 }

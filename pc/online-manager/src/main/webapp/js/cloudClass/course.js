@@ -53,8 +53,14 @@ $(function(){
     		return "<span name='zt'>未上架</span>";
     	}
     } },
-    { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime'},
-    { "title": "推荐值", "class":"center","width":"8%","sortable":false,"data": 'recommendSort'},
+	{ "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime',"mRender":function (data, display, row) {
+		if(row.recommendSort == null||row.recommendSort == 0)return null;
+		return data;
+	}},
+	{ "title": "推荐值", "class":"center","width":"5%", "sortable":false,"data": 'recommendSort',"mRender":function (data, display, row) {
+		if(data == null)return 0;
+		return data;
+	}},
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+

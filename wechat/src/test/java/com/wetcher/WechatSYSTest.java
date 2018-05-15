@@ -1,12 +1,7 @@
 package com.wetcher;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
-
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
-import com.xczh.consumer.market.wxpay.util.SingleAccessToken;
+import org.junit.Test;
 
 public class WechatSYSTest {
 

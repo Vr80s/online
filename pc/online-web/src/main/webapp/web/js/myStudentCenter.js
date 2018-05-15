@@ -1024,13 +1024,13 @@ window.onload = function () {
                                 $('.loadrr').css("display", "none");
                                 $(".main-right .mycourse-live .right-course .course1-live").css("display", "none");
                                 $(".main-right .mycourse-live .right-course .course0-live").css("display", "block");
-                                $(".main-right .mycourse-live .right-course .course0-live").html(template.compile(mycourse)({
+                                $(".main-right .mycourse-live .right-course .course0-live").html(template.compile(mycourse_live)({
                                     items: data.resultObject.items
                                 }));
                             } else if (courseStatus == 1) {
                                 $('.loadrr').css("display", "none");
                                 $(".main-right .mycourse-live .right-course .course1-live").css("display", "block");
-                                $(".main-right .mycourse-live .right-course .course1-live").html(template.compile(mycourse)({
+                                $(".main-right .mycourse-live .right-course .course1-live").html(template.compile(mycourse_live)({
                                     items: data.resultObject.items
                                 }));
                             }

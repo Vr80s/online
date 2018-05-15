@@ -26,6 +26,8 @@ public interface CacheService {
 	 */
 	public final static int ONE_DAY = ONE_HOUR * 24;
 
+	public final static int ONE_MONTH = ONE_DAY * 30;
+
 	/**
 	 * 一年的秒数
 	 */

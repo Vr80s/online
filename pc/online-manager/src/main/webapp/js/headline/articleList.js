@@ -35,8 +35,14 @@ $(function () {
         {"title": '更新时间', "class": "center", "width": "8%", "data": 'createTime', "sortable": false},
         {"title": '医师作者', "class": "center", "width": "8%", "data": 'doctorAuthor', "sortable": false},
         {"title": '报道医师', "class": "center", "width": "8%", "data": 'reportDoctor', "sortable": false},
-        {"title": '推荐值', "class": "center", "width": "6%", "data": 'sort', "sortable": false},
-        {"title": '推荐时效', "class": "center", "width": "6%", "data": 'recommendTime', "sortable": false},
+        { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'recommendTime',"mRender":function (data, display, row) {
+            if(row.sort == null||row.sort == 0)return null;
+            return data;
+        }},
+        { "title": "推荐值", "class":"center","width":"5%", "sortable":false,"data": 'sort',"mRender":function (data, display, row) {
+            if(data == null)return 0;
+            return data;
+        }},
         {
             "title": "状态",
             "class": "center",
