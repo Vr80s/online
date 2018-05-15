@@ -212,7 +212,7 @@
                 </div>
             </div>
         </#if>
-        <#if suggestedArticles??>
+        <#if suggestedArticles?? && suggestedArticles?size gt 0>
             <div class="hot-article" style="height: auto">
                 <span class="hot-article-title">推荐阅读</span>
                 <ul class="hot-article-list">
