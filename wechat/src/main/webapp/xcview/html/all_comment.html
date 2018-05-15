@@ -106,6 +106,12 @@
 						<div class="user_text">
 							<div class="wrap_userName">
 								<p class="z">{{item.onlineUser.name}}</p>
+								<!--购买者显示-->
+								{{if item.isBuy}}
+								<div class="wrap_purchaser">
+									<p>已购</p>
+								</div>
+								{{/if}}
 								{{if item.starLevel == 1}}
 								<img class="z" src="../images/xing1_0.png"/>
 								{{else if item.starLevel == 1.5}}
@@ -127,7 +133,10 @@
 								{{/if}}
 		
 							</div>
-							<!--很赞/干货很多-->
+							
+							<div class="both"></div>
+						</div>
+						<!--很赞/干货很多-->
 							<div class="uesr_lable">
 								{{if item.criticizeLable !=null}}
 								<ul>
@@ -177,14 +186,6 @@
 		
 								</ul>
 							</div>
-							<div class="both"></div>
-						</div>
-						<!--购买者显示-->
-						{{if item.isBuy}}
-						<div class="wrap_purchaser">
-							<p>购买者</p>
-						</div>
-						{{/if}}
 						<div class="both"></div>
 					</div>
 					<div class="both"></div>

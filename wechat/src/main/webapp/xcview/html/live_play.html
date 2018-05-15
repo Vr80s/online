@@ -64,7 +64,7 @@
 			</div>
 			{{else if lineState == 2 || lineState == 5}}
 			<div class="video_prompt">
-				暂未开播
+				敬请期待
 			</div>
 			{{/if}}
 		</script>
@@ -102,7 +102,7 @@
 						{{else if startLevel == 5}}
 						<img src="../images/xing5.png"/>
 						{{/if}}
-						<a href="javascript:;"><span id="criticizeCountId">{{criticizeCount}}</span>评论</a>
+						<a href="javascript:;">共<span id="criticizeCountId">{{criticizeCount}}</span>条评论</a>
 						<img class="jiantou" src="../images/video_review.png"/>
 					</li>
 				</ul>
@@ -113,7 +113,7 @@
 	<!--主播/时间-->
 		<div class="wrap_playTime" id="wrap_playTime">
 			<script type="text/html" id="data_name">			
-				<ul class="playTime z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
+				<ul class="playTime playTimes z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
 					<li><img src="../images/population.png"/><span>{{heir}}</span></li>
 					<li>
 						<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
@@ -122,12 +122,18 @@
 						</a>
 					</li>
 				</ul>
-				<ul class="playTime z" style="border-bottom: 0;">
+				<ul class="playTime z" style="border-bottom: 0;padding: 0.22rem 0 0.22rem 0;">
 					<li style="float: left;">
 						<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
 						<span>直播时间：{{startTime.slice(0,16)}}&nbsp;&nbsp;</span>
 						{{if lineState == 1}}
 						<p>直播中</p>
+						{{/if}}
+						{{if lineState == 2}}
+						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">预告</p>
+						{{/if}}
+						{{if lineState == 3}}
+						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">回放</p>
 						{{/if}}
 					</li>
 				</ul>

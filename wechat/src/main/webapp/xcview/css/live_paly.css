@@ -132,22 +132,17 @@ margin-top: -0.28rem;
 }
 .speak_title{
 	font-size: 0.32rem;
-color: #333333;
-text-align: center;
-padding-bottom: 0.17rem;
+	color: #333333;
+	padding-bottom: 0.17rem;
 }
 
 .wrap_grade{
-	width: 3.5rem;
 	height: 0.33rem;
-	margin: 0 auto;
-	text-align: center;
 }
 .speak-text{
 	font-size: 0.26rem;
-color: #666666;
-text-align: center;
-padding-bottom: 0.17rem;
+	color: #666666;
+	padding-bottom: 0.17rem;
 }
 .grade_pic{
 	margin-top: 0.05rem;
@@ -197,14 +192,15 @@ padding-bottom: 0.17rem;
 	margin-left: 0.1rem;
 }
 .playTime li p{
-	width: 0.98rem;
+	width: 0.92rem;
 	height: 0.32rem;
 	border: 1px solid #F97B49;
 	text-align: center;
 	line-height: 0.32rem;
 	float: left;
 	color: #F97B49;
-	font-size: 0.26rem;
+	font-size: 0.2rem;
+	border-radius: 3px;
 }
 .playTime li:nth-last-child(1){
 	float: right;
