@@ -232,7 +232,8 @@
 
 <script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
 
-<script src="/xcview/js/city.js"></script>
+<!-- <script src="/xcview/js/city.js"></script> -->
+<script src="/xcview/js/mui_city.js"></script>
 <script src="/xcview/js/common/picker.min.js"></script>
 </html>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
@@ -242,7 +243,6 @@
 <script src="/xcview/js/common/iscroll-zoom.js"></script>
 <script src="/xcview/js/common/hammer.js"></script>
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
-
 <script type="text/javascript" src="/xcview/js/address.js"></script>  
 <!--<script src="/xcview/js/common/js.js"></script>-->
 
@@ -254,11 +254,11 @@ function picker2() {
         "title": '请选择',//标题(可选)
         "defaultValue": "北京市 北京市 东城区",//默认值-多个以空格分开（可选）
         "type": 3,//需要联动级数[1、2、3]（可选）
-        "data": cityData,//数据(必传)
+        "data": mucityData,//数据(必传)
         "keys": {
-            "id": "Code",
-            "value": "Name",
-            "childData": "level"//最多3级联动
+            "id": "value",
+            "value": "text",
+            "childData": "children"//最多3级联动
         },//数组内的键名称(必传，id、text、data)
         "callBack": function (val) {
             //回调函数（val为选择的值）
