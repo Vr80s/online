@@ -134,11 +134,23 @@ a:hover{text-decoration: none;}
 	cursor: pointer;
 }
 .tab-price{
-	width: 50px;
+	width: 45px;
 	height: 39px;
-	background: #dedede;
+
 	position: relative;
 	cursor: pointer;
+}
+.tab-price .tab-top{
+	    position: absolute;
+    top: 8px;
+    right: 0;
+    font-size: 12px;
+}
+.tab-price .tab-bottom{
+	    position: absolute;
+    top: 20px;
+    right: 0;
+    font-size: 12px;
 }
 /*视频样式*/
 .wrap-video{
@@ -252,5 +264,9 @@ a:hover{text-decoration: none;}
 }
 .main .wrap-video > div > a .detail .info > span:nth-child(2) {
     float: right;
+}
+.main .stuCount .studentCou{
+	float: right;
+	margin-top: 1px;
 }
 /*视频样式结束*/

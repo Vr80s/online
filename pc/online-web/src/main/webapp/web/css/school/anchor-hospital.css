@@ -32,8 +32,8 @@ p{margin-bottom: 0;}
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
-	position: relative;
 	margin-right: 25px;
+	position: relative;
 }
 .head-portrait img{
 	width: 100%;
@@ -53,18 +53,13 @@ p{margin-bottom: 0;}
 	overflow: hidden;
 	margin-top: 20px;
 }
-.anchor-status h2{
-	font-size: 20px;
-    margin: 0;
-    float: left;
-    font-weight: bold;
-}
 .anchor-status h4{
 	float: left;
 	margin: 0;
     margin-top: 4px;
-    margin-left: 20px;
-    font-size: 16px;
+
+    font-size: 20px;
+    font-weight: bold;
 }
 .follow-box{
 	overflow: hidden;
