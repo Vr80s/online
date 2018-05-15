@@ -1,21 +1,5 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -23,11 +7,21 @@ import com.xczhihui.bxg.online.web.dao.ApplyGradeCourseDao;
 import com.xczhihui.bxg.online.web.dao.LiveDao;
 import com.xczhihui.bxg.online.web.service.LiveService;
 import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.user.center.bean.ItcastUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 公开直播课业务层接口实现类
@@ -41,11 +35,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
 
     @Autowired
     private LiveDao dao;
-    @Resource(name = "cacheService")
-    private RedisCacheService cacheService;
 
-    @Autowired
-    private UserCenterAPI userCenterAPI;
     @Autowired
     private ApplyGradeCourseDao applyGradeCourseDao;
 
@@ -185,9 +175,8 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         mv.addObject("email", user == null ? null : user.getId() + "@xczh.com");
         mv.addObject("name", user == null ? null : user.getName());
         mv.addObject("k", "yrxk");//TODO 此处暂时写死
-        ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
-        mv.addObject("guId", iu.getId());
-        mv.addObject("guPwd", iu.getPassword());
+        mv.addObject("guId", user.getId());
+        mv.addObject("guPwd", user.getPassword());
 
         mv.addObject("env", env);
         mv.addObject("host", host);

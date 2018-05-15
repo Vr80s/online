@@ -58,7 +58,7 @@ class TokenManager {
 		token.setUuid(user.getUuid());
 		token.setHeadPhoto(user.getHeadPhoto());
 
-		String userRedisKey="tuk_"+user.getId();
+		String userRedisKey="t_u_k_"+user.getId();
 		this.cacheService.set(userRedisKey, token, expires);
 		return token;
 	}
@@ -135,7 +135,7 @@ class TokenManager {
 		token.setPassWord(user.getPassword());
 		token.setUuid(user.getUuid());
 		token.setHeadPhoto(user.getHeadPhoto());
-		/*String userRedisKey="tuk_"+user.getId();
+		/*String userRedisKey="t_u_k_"+user.getId();
 		this.cacheService.set(userRedisKey, token, expires);*/
 		return token;
 	}

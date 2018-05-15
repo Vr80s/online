@@ -4,15 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.UserService;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.Token;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -41,7 +41,7 @@ public class OnlineInterceptor implements HandlerInterceptor {
 	private SimpleHibernateDao dao;
 	
 	@Autowired
-	private UserCenterAPI api;
+	private UserCenterService userCenterService;
 	
 	@Autowired
 	private RedisCacheService cacheService;
@@ -93,9 +93,8 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		//session里没有用户，cookie里有用户，以cookie为准设置session
 		//这种情况是session失效了
 		if (u == null && t != null) {
-			String userRedisKey="tuk_"+t.getUserId();
+			String userRedisKey="t_u_k_"+t.getUserId();
 			Serializable serializable = cacheService.get(userRedisKey);
-//			ItcastUser user = api.getUser(t.getLoginName());
 			//验证票和用户中心，验证不通过清空cookie
 			if (serializable != null) {
 				UserLoginUtil.setLoginUser(request, this.getUser(t));
@@ -107,10 +106,9 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		
 		//session与cookie都有，但是不是同一个用户的，以cookie为准重新设置session
 		//这种情况可能是先登录了一个用户，然后用另一个用户从其他系统登录再跳过来
-//		if (u != null && t != null && !u.getLoginName().equals(t.getLoginName())) {
 		if (u != null && t != null) {
-			ItcastUser user = api.getUser(t.getLoginName());
-			if(user != null){
+			OeUserVO userVO = userCenterService.getUserVO(t.getLoginName());
+			if(userVO != null){
 				UserLoginUtil.setLoginUser(request, this.getUser(t));
 			}
 		}

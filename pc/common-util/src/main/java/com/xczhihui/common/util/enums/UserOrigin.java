@@ -14,10 +14,10 @@ public enum UserOrigin {
 	IOS(4, "ios"),
 	IMPORT(5, "导入");
 
-	public static OrderFrom getOrderFrom(int code){
-		for (OrderFrom orderFrom : OrderFrom.values()) {
-			if(orderFrom.getCode() == code){
-				return orderFrom;
+	public static UserOrigin getUserOrigin(int code) {
+		for (UserOrigin userOrigin : UserOrigin.values()) {
+			if (userOrigin.getCode() == code) {
+				return userOrigin;
 			}
 		}
 		return null;
@@ -32,5 +32,9 @@ public enum UserOrigin {
 	private UserOrigin(int code, String text) {
 		this.text = text;
 		this.code = code;
+	}
+
+	public int getCode() {
+		return code;
 	}
 }

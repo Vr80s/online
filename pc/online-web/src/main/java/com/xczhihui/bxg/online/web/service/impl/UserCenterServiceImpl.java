@@ -1,21 +1,5 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.Message;
@@ -23,14 +7,19 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.dao.UserCenterDao;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
-import com.xczhihui.bxg.online.web.vo.ApplyVo;
-import com.xczhihui.bxg.online.web.vo.CityVo;
-import com.xczhihui.bxg.online.web.vo.ProvinceVo;
-import com.xczhihui.bxg.online.web.vo.UserCenterVo;
-import com.xczhihui.bxg.online.web.vo.UserDataVo;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
+import com.xczhihui.bxg.online.web.vo.*;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.vo.OeUserVO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * 用户中心显示内容
@@ -41,59 +30,21 @@ import com.xczhihui.user.center.bean.UserType;
 public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements OnlineUserCenterService {
 
 	@Autowired
-	public UserCenterDao userCenter;//DAO
+	public UserCenterDao userCenter;
 	
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 	
 	@Override
-	public boolean updateUser(UserDataVo user) {
-			OnlineUser u = dao.get(user.getUid(), OnlineUser.class);
-			String oldNikeName = u.getName();
-			OnlineUser u2 = dao.findOneEntitiyByProperty(OnlineUser.class, "name", user.getNickName());
-			if (u2 != null && !u2.getName().equals(oldNikeName)) {
-				throw new RuntimeException("用户名重复，请重新输入");
-			}
-			//存本地
-			u.setName(user.getNickName());
-			u.setInfo(user.getAutograph());
-			
-			u.setProvinceName(user.getProvinceName());
-			u.setCityName(user.getCityName());
-			u.setCountyName(user.getCountyName());
-			
-			u.setProvince(user.getProvince());
-			u.setCity(user.getCity());
-			u.setDistrict(user.getDistrict());
-			
-			
-		    u.setLoginName(user.getLoginName());
-			u.setTarget(user.getTarget());
-			u.setSex(user.getSex());
-			u.setOccupationOther(user.getOccupationOther());
-			if (user.getOccupation() != null && user.getOccupation() > 0) {
-                u.setOccupation(user.getOccupation());
-            }
-			if (user.getJobyearId() != null && user.getJobyearId() > 0) {
-                u.setJobyears(user.getJobyearId());
-            }
-			dao.update(u);
-			
-			//存用户中心
-			int status = u.isDelete() ? UserStatus.DISABLE.getValue() : UserStatus.NORMAL.getValue();
-			userCenterAPI.update(u.getLoginName(),u.getName(),u.getSex(),u.getEmail(),u.getMobile(),UserType.STUDENT.getValue(),status);
-			
-			/**
-			 * 更新博问答相关用户信息
-			 */
-			if (user.getNickName() != null && !user.getNickName().equals(oldNikeName)) {
-				userCenter.updateAskUserInfo(u.getId(),u.getName(),u.getSmallHeadPhoto());
-			}
-			
-			return true;
+	public void updateUser(OeUserVO user, HttpServletRequest request) {
+		OnlineUser u= (OnlineUser) request.getSession().getAttribute(Constant.LOGINUSER);
+		if (u == null){
+			throw new RuntimeException("请登录!");
+		}
+		user.setLoginName(null);
+		user.setId(u.getId());
+		userCenterService.update(user);
 	}
-
-
 
 	@Override
     public Map<String,String>  updateApply(ApplyVo applyVo, HttpServletRequest request) {
@@ -151,7 +102,7 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 	public boolean updatePassword(String userId, String pwd) {
 		OnlineUser user = dao.get(userId, OnlineUser.class);
 		//修改用户中心密码
-		userCenterAPI.updatePassword(user.getLoginName(),null, pwd);
+		userCenterService.updatePassword(user.getLoginName(),null, pwd);
 		return true;
 	}
 

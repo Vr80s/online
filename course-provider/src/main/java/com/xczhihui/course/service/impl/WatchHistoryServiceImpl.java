@@ -54,7 +54,7 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 			LOGGER.info("distance:"+distance);
 			watchHistoryVO.setTimeDifference(distance);
 		}
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.web.auth.service.LoginoutCallback;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.user.center.web.utils.CookieUtil;
+import com.xczhihui.user.center.utils.CookieUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,16 +26,12 @@ public class OnlineLoginoutCallback implements LoginoutCallback {
 	public void onLogin(HttpServletRequest request, HttpServletResponse response) {
 		OnlineUser ou = (OnlineUser)UserLoginUtil.getLoginUser(request);
 		OnlineUser u = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName",ou.getLoginName());
-		Date last = u.getLastLoginDate();
-		//如果是第一次登录，写一个cookie给前端
-		if (last == null) {
-			CookieUtil.setCookie(response, "first_login", "1", "ixincheng.com", "/", 5);
-		}
 		u.setLastLoginDate(new Date());
 		u.setVisitSum(u.getVisitSum() + 1);
 		u.setLastLoginIp(this.getIpAddress(request));
 		dao.update(u);
 	}
+
 	/**
 	 * 记录停留时间，当前时间 - 最后登录时间
 	 */
@@ -45,7 +41,6 @@ public class OnlineLoginoutCallback implements LoginoutCallback {
 		//清空分享码cookie
 		CookieUtil.setCookie(response, "_usercode_", "", "ixincheng.com", "/", 0);
 		if (user != null) {
-			//logins.remove(user.getId());
 			OnlineUser u = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName",user.getLoginName());
 			if (u != null) {
 				Date login = u.getLastLoginDate();

@@ -342,7 +342,7 @@ function geren() {
 //		保存个人信息数据
 		RequestService("/online/user/updateUser", "POST", {
 			userId: localStorage.userid,
-			nickName: $(".firsname").val(),
+			name: $(".firsname").val(),
 //			autograph: $(".mycytextarea").val(),
 			loginName: $(".username").val(),
 			// jobyearId: shijian(),

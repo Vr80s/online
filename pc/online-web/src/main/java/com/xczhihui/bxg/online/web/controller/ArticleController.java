@@ -120,7 +120,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/updatePraiseSum",method= RequestMethod.GET)
     public ResponseObject updatePraiseSum(Integer articleId,Integer praiseSum,HttpServletRequest request){
-        return   ResponseObject.newSuccessResponseObject(service.updatePraiseSum(articleId,praiseSum,request));
+        return ResponseObject.newSuccessResponseObject(service.updatePraiseSum(articleId,praiseSum,request));
     }
 
     /**

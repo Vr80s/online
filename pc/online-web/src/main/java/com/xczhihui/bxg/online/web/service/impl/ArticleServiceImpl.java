@@ -153,7 +153,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         String sql= " select a.id,a.title from article_r_tag  art,oe_bxs_article a where art.article_id= a.id  and a.is_delete=0 and a.status=1 and a.id !=:articleId  and art.tag_id in (" +
                     " SELECT t.id from oe_bxs_article ba,article_r_tag ar,oe_bxs_tag t  where ba.id =ar.article_id and ar.tag_id=t.id " +
                     " and ba.is_delete=0 and ba.`status`=1  and ba.id=:articleId) group by art.article_id  order by a.browse_sum desc limit 7 ";
-        return   dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
+        return dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
     }
 
     /**
@@ -274,7 +274,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
                      " if(c.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=c.id),"+
                      " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=c.id  and is_delete=0 and status=1)) learnd_count"+
                      " from oe_course c,teach_method tm  where c.courseType=tm.id and c.is_delete=0 and c.`status`=1 and type=2  order by learnd_count desc limit 5";
-         return   dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
+         return dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
     }
 
 }

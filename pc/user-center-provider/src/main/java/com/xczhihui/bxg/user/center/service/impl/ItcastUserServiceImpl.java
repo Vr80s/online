@@ -278,9 +278,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			throw new LoginRegException("参数错误！");
 		}
 		ItcastUser user = this.getUser(loginName);
-		if (user == null) {
-			throw new LoginRegException("用户名或密码错误");
-		}
 		if (user.getStatus() == UserStatus.DISABLE.getValue()) {
 			throw new LoginRegException("帐号被禁用");
 		}

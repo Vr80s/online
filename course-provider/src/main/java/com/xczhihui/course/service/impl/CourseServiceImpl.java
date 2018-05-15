@@ -11,8 +11,6 @@ import com.xczhihui.course.vo.CourseLecturVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
 		List<CourseLecturVo> records = iCourseMapper.selectCoursePage(page);
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 
 	@Override
@@ -49,14 +47,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	
 	@Override
     public Integer selectMyFreeCourseListCount(String id) {
-		return   iCourseMapper.selectMyFreeCourseListCount(id);
+		return iCourseMapper.selectMyFreeCourseListCount(id);
 	}
 	
 	@Override
     public Page<CourseLecturVo> selectMyFreeCourseList(Page<CourseLecturVo> page,String id) {
 		List<CourseLecturVo> records = iCourseMapper.selectMyFreeCourseList(page,id);
 		
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 
 	@Override
@@ -74,7 +72,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	public Page<CourseLecturVo> selectLecturerAllCourse(
 			Page<CourseLecturVo> page, String lecturerId) {
 		List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page,lecturerId);
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 
 	@Override
@@ -85,14 +83,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public Page<CourseLecturVo> selectMenuTypeAndRandCourse(Page<CourseLecturVo> page,Integer menuId){
 		List<CourseLecturVo> records = iCourseMapper.selectMenuTypeAndRandCourse(page,menuId);
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 
 	@Override
 	public Page<CourseLecturVo> selectAppCourseApplyPage(Page<CourseLecturVo> page, String userId, Integer courseForm,Integer multimediaType) {
 		List<CourseLecturVo> records = iCourseMapper.selectAppCourseApplyPage(page, userId,courseForm,multimediaType);
 		page.setRecords(records);
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 
 	@Override

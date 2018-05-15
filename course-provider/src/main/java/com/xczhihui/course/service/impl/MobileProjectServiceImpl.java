@@ -31,7 +31,7 @@ public class MobileProjectServiceImpl extends ServiceImpl<MobileProjectMapper,Mo
 	@Override
     public Page<MobileProject> selectMobileProjectPage(Page<MobileProject> page, Integer type) {
 		List<MobileProject> records = iMobileProjectMapper.selectMobileProjectPage(page,type);
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 
 	@Override

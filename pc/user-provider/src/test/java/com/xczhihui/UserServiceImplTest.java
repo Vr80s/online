@@ -1,13 +1,8 @@
 package com.xczhihui;
 
-
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.xczhihui.user.mapper.ItcastUserMapper;
-import com.xczhihui.user.mapper.OeUserMapper;
-import com.xczhihui.user.model.ItcastUser;
-import com.xczhihui.user.model.OeUser;
-import com.xczhihui.user.service.IOeUserService;
-import com.xczhihui.user.service.impl.ItcastUserServiceImpl;
+import com.xczhihui.user.center.mapper.ItcastUserMapper;
+import com.xczhihui.user.center.model.ItcastUser;
+import com.xczhihui.user.center.service.IOeUserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;

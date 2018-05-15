@@ -97,13 +97,13 @@
         <!--配置逻辑删除结束-->
 
         <property name="metaObjectHandler">
-            <bean class="com.xczhihui.common.MyMetaObjectHandler" />
+            <bean class="com.xczhihui.user.center.common.MyMetaObjectHandler" />
         </property>
 	</bean>
 
     <!-- MyBatis 动态扫描  -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.xczhihui.user.mapper"/>
+        <property name="basePackage" value="com.xczhihui.user.center.mapper"/>
     </bean>
 
     <!-- 配置事务管理 -->
@@ -125,6 +125,8 @@
             <tx:method name="remove*" propagation="REQUIRED"/>
             <tx:method name="repair" propagation="REQUIRED"/>
             <tx:method name="join*" propagation="REQUIRED"/>
+            <tx:method name="login*" propagation="REQUIRED"/>
+            <tx:method name="regist*" propagation="REQUIRED"/>
 
             <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
@@ -138,7 +140,7 @@
 
     <!-- 配置切面 -->
     <aop:config>
-        <aop:pointcut id="transactionPointcut" expression="execution(* com.xczhihui.user.service..*.*(..))"/>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.xczhihui.user.center.service.*.*(..))"/>
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice"/>
     </aop:config>
 

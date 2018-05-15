@@ -14,7 +14,7 @@
     <!-- 引入属性文件 -->
     <context:property-placeholder location="classpath:config.properties"/>
     <!-- Service包(自动注入) -->
-    <context:component-scan base-package="com.xczhihui.user.service"/>
+    <context:component-scan base-package="com.xczhihui.user.center.service"/>
     <import resource="classpath:spring/spring-mybatis.xml"/>
 
     <bean id="commonThreadPoolTaskExecutor"
@@ -35,7 +35,8 @@
     <dubbo:application name="${dubbo.app.name}"/>
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
-
+    <dubbo:service interface="com.xczhihui.user.center.service.UserCenterService"
+                   ref="userCenterService" timeout="${dubbo.consumer.timeout}" />
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 
