@@ -30,7 +30,7 @@
 <div class="wp">
 	<div class="wrap-header">
 		<div class="header">		
-			<p>直播</p>
+			<p>直播课程</p>
 			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
 			<div class="arror_return z" onclick="common_share_back();">
 				<img src="../images/back icon.png"/>
@@ -211,6 +211,12 @@
 					<div class="user_text">
 						<div class="wrap_userName">
 							<p class="z">{{item.onlineUser.name}}</p>
+							<!--购买者显示-->
+							{{if item.isBuy  }}
+							<div class="wrap_purchaser">
+								<p>购买者</p>
+							</div>
+							{{/if}}
 							{{if item.starLevel == 1}}
 							<img class="z" src="../images/xing1_0.png"/>
 							{{else if item.starLevel == 1.5}}
@@ -232,7 +238,10 @@
 							{{/if}}
 
 						</div>
-						<!--很赞/干货很多-->
+						
+					</div>
+
+					<!--很赞/干货很多-->
 						<div class="uesr_lable">
 							{{if item.criticizeLable !=null}}
 							<ul>
@@ -282,14 +291,7 @@
 
 							</ul>
 						</div>
-					</div>
 
-					<!--购买者显示-->
-					{{if item.isBuy  }}
-					<div class="wrap_purchaser">
-						<p>购买者</p>
-					</div>
-					{{/if}}
 				</div>
 
 			</div>
