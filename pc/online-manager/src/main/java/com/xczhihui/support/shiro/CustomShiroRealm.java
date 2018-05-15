@@ -2,6 +2,7 @@ package com.xczhihui.support.shiro;
 
 import java.util.Set;
 
+import com.xczhihui.common.util.CodeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.user.service.UserService;
-import com.xczhihui.user.center.utils.CodeUtil;
 
 @Component
 public class CustomShiroRealm extends AuthorizingRealm {

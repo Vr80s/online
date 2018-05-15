@@ -27,8 +27,7 @@
     <!-- 待聚合模块 -->
     <modules>
         <module>../common-exception</module>
-        <module>../user-center-common</module>
-        <module>../user-center-api</module>
+        <module>../user-api</module>
         <module>../common-util</module>
         <module>../common-support</module>
         <module>../common-pay</module>

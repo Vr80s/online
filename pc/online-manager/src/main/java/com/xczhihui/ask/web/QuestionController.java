@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.xczhihui.ask.service.TagService;
 import com.xczhihui.ask.vo.QuestionVo;
 import com.xczhihui.ask.vo.TagVo;
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.course.service.CloudClassMenuService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.utils.Group;
@@ -26,7 +27,6 @@ import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.ask.service.QuestionService;
 import com.xczhihui.course.vo.MenuVo;
-import com.xczhihui.user.center.utils.CodeUtil;
 
 /**
  * 问答管理
