@@ -8,6 +8,9 @@ a:hover{text-decoration: none;}
 .z{float: left;}
 .y{float: right;}
 .wp{width: 1200px; margin: 0 auto;}
+.carousel-indicators{
+	bottom: 2px;
+}
 .wrap-left{
 	width: 860px;
 
