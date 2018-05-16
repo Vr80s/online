@@ -108,6 +108,7 @@ public class MobileRecommendController {
 		 */
 	    List<MenuVo> listmv = menuService.list();
 	    
+	    
 		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(listmv);
 		
 		LOGGER.info(listAll.size()+"");
@@ -157,7 +158,6 @@ public class MobileRecommendController {
 				mapMenu.put("courseList", listMenu);
 				mapCourseList.add(mapMenu);
 			}
-
 		}
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}

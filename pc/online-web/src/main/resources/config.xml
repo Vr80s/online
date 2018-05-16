@@ -289,6 +289,9 @@
     <dubbo:reference interface="com.xczhihui.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!-- 默认关键字、搜索热门接口 -->
     <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    
+     <!-- 城市接口 -->
+    <dubbo:reference interface="com.xczhihui.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
 
     <!--=============================================消费者end============================================-->

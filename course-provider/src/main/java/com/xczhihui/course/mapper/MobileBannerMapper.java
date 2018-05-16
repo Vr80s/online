@@ -3,6 +3,7 @@ package com.xczhihui.course.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.MobileBanner;
+import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
 
@@ -25,5 +26,13 @@ public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 	 
 	 void addClickNum(@Param("id") String id);
 
-	List<CourseLecturVo> recommendCourseList(@Param("cateGoryList")List<MenuVo> menuList,@Param("pageSize") int pageSize);
+	 List<CourseLecturVo> recommendCourseList(@Param("cateGoryList")List<MenuVo> menuList,
+			@Param("pageSizeUp")Integer pageSizeUp,@Param("pageSizeDown")Integer pageSizeDown);
+
+	 List<CourseLecturVo> realCourseList(@Param("cityList")List<OfflineCity> cityList,
+			 @Param("pageSizeUp")Integer pageSizeUp, @Param("pageSizeDown")Integer pageSizeDown);
+
+	List<CourseLecturVo> liveCourseList(@Param("pageSizeUp")Integer pageSizeUp,
+			@Param("pageSizeDown")Integer pageSizeDown);
+	 
 }
