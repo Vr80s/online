@@ -109,20 +109,14 @@ textarea::-webkit-input-placeholder {
 .speak_title{
 	font-size: 0.32rem;
 color: #333333;
-text-align: center;
 padding-bottom: 0.17rem;
 }
-
 .wrap_grade{
-	width: 3.5rem;
 	height: 0.33rem;
-	margin: 0 auto;
-	text-align: center;
 }
 .speak-text{
 	font-size: 0.26rem;
 color: #666666;
-text-align: center;
 padding-bottom: 0.17rem;
 }
 .grade_pic{
