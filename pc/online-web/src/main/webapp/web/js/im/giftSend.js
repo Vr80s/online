@@ -211,11 +211,12 @@ $(document).ready(function() {
         			$("#chatmsg").append(liveGiftList(json)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
         			refreshBalance();
 				}else{
-					$('.mask3').text(data.errorMessage).fadeIn(400,function(){
-						setTimeout(function(){
-							$('.mask3').fadeOut()
-						},1000)
-					});
+                    showTip(data.errorMessage);
+					// $('.mask3').text(data.errorMessage).fadeIn(400,function(){
+					// 	setTimeout(function(){
+					// 		$('.mask3').fadeOut()
+					// 	},1000)
+					// });
 				}
 			},false);
 			//获取当前点击时候的id/点击的时间

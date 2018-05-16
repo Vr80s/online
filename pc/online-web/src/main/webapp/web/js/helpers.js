@@ -547,14 +547,14 @@
         '<span class="time1"><strong></strong>&nbsp;'+showFormatDateString.split(" ")[0]+'</span>\n';
     	if(broadcastState == 3){
     		url='/course/courses/'+id;
-    		a+='<a href="'+url+'" class="reser-btn" ><img src="/web/images/yugao/turn.png" alt="" />回放</a>\n';
+    		a+='<a href="'+url+'" class="reser-btn" target="_blank"><img src="/web/images/yugao/turn.png" alt="" />回放</a>\n';
     	}else if(broadcastState == 1){
             url='/course/courses/'+id;
-    		a+='<a href="'+url+'" class="reser-btn" ><img src="/web/images/yugao/guankan.png" alt="" />直播中</a>\n';
+    		a+='<a href="'+url+'" class="reser-btn" target="_blank"><img src="/web/images/yugao/guankan.png" alt="" />直播中</a>\n';
     	}else{
             url='/course/courses/'+id;
     		// if(isSubscribe==1){
-    			a+='<a href="'+url+'" class="reser-btn"><img src="/web/images/yugao/yuyue.png" alt="" />预告</a>\n'
+    			a+='<a href="'+url+'" class="reser-btn" target="_blank"><img src="/web/images/yugao/yuyue.png" alt="" />预告</a>\n'
     		// }else{
     		// 	a+='<a href="javascript:;" class="reser-btn dianwo" subscribeId="'+id+'" startTime="'+showFormatDateString+'"><img src="/web/images/yugao/yuyue.png" alt="" />预约</a>\n' ;
     		// }
@@ -571,5 +571,6 @@
     	
     });
     function jump(url){
-    	window.location.href=url;
+//  	window.location.href=url;
+    	window.open(url);
     }

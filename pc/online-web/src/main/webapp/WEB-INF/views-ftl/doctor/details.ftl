@@ -111,7 +111,7 @@
                 <#list courses as course>
 
                     <div class="class_inf">
-                        <a href="${webUrl}/web/html/courseDetail.html?courseId=${course.id}" style="color: #0C0C0C">
+                        <a href="${webUrl}/web/html/courseDetail.html?courseId=${course.id}" style="color: #0C0C0C" target="_blank">
                             <div class="class_inf_pic">
                                 <img src="${course.smallImgPath}" alt="">
                             </div>
@@ -156,7 +156,7 @@
                 <#list specialColumns.records as specialColumn>
                     <li class="clearfix">
                         <div class="zhuanlan_left">
-                            <a href="${webUrl}/headline/details/${specialColumn.id}">
+                            <a href="${webUrl}/headline/details/${specialColumn.id}" target="_blank">
                                 <img src="${specialColumn.imgPath}" alt="${specialColumn.title}">
                                 <a href="${webUrl}/headline/details/${specialColumn.id}" target="_blank">
                         </div>

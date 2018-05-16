@@ -76,7 +76,6 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         return dao.findPageBySQL(sql, paramMap, ArticleVo.class, pageNumber, pageSize);
     }
 
-
     /**
      * 获取热门文章
      * @return
@@ -86,7 +85,12 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("t1", HeadlineType.DJZL.getCode());
         paramMap.put("t2",HeadlineType.MYBD.getCode());
-        String sql="select id, title,if(recommend_time< now(),0,sort) sort from oe_bxs_article where is_delete=0 and `status`=1 and type_id is not null order by sort desc,create_time desc limit 10";
+        String sql="select id, title,if(recommend_time< now(),0,sort) sort" +
+                " from oe_bxs_article" +
+                " where" +
+                " is_delete=0 and `status`=1 and type_id is not null and sort > 0 and (recommend_time is null or recommend_time > now())" +
+                " order by sort desc, create_time desc" +
+                " limit 10";
         return  dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
     }
 
