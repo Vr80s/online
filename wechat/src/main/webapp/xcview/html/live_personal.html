@@ -237,7 +237,7 @@
    <!--评论-->	
 	<!--评论-->
 	<div class="wrap_comment_title" onclick="btn_user_allComment()">
-		<p>评论</p>
+		<p>评价</p>
 		<span>
 			<img src="../images/video_review.png" />
 		</span>
@@ -255,6 +255,12 @@
 					<div class="user_text">
 						<div class="wrap_userName">
 							<p class="z">{{item.onlineUser.name}}</p>
+							<!--购买者显示-->
+							{{if item.isBuy  }}
+							<div class="wrap_purchaser">
+								<p>购买者</p>
+							</div>
+							{{/if}}
 							{{if item.starLevel == 1}}
 							<img class="z" src="../images/xing1_0.png"/>
 							{{else if item.starLevel == 1.5}}
@@ -276,7 +282,9 @@
 							{{/if}}
 
 						</div>
-						<!--很赞/干货很多-->
+						
+					</div>
+					<!--很赞/干货很多-->
 						<div class="uesr_lable">
 							{{if item.criticizeLable !=null}}
 							<ul>
@@ -326,14 +334,6 @@
 
 							</ul>
 						</div>
-					</div>
-
-					<!--购买者显示-->
-					{{if item.isBuy  }}
-					<div class="wrap_purchaser">
-						<p>购买者</p>
-					</div>
-					{{/if}}
 				</div>
 
 			</div>
@@ -351,10 +351,6 @@
 		<div class="wrap_input z">
 			<img src="../images/inp_retured.png"/>
 			<span>来点儿神聊</span>
-		</div>
-		<div class="all_returned_num y">
-			<img src="../images/returned.png"/>
-			<p onclick="btn_user_allComment()">评论<span id="criticizeCount"></span></p>
 		</div>
 	</div>
 	<!--评论用户弹出框-->
