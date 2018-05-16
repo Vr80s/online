@@ -52,8 +52,19 @@
 					$("#address_id").val(umv.id);
 				    $("#consignee").val(umv.consignee);
 				    $("#phone").val(umv.phone);
-//				    var cityp = umv.provinces+" "+ umv.city+" "+umv.county
-				    var cityp = umv.provinces+" "+ umv.city
+				    
+				    //
+				    var cityp = "";
+				    if(stringnull(umv.provinces)){
+				    	cityp+=umv.provinces+" ";
+				    }
+				    if(stringnull(umv.city)){
+				    	cityp+=umv.city+" ";
+				    }
+				    if(stringnull(umv.county)){
+				    	cityp+=umv.county;
+				    }
+				    //var cityp = umv.provinces+" "+ umv.city
 				    $("#cityP").text(cityp);
 					$("#detailed_address").val(umv.detailedAddress);
 				/*	$("#postal_code").val(umv.postalCode);*/
@@ -204,8 +215,19 @@
 					 * 目前暂时不显示街道
 					 */
 //					var a_all = result.provinces + result.city+ result.county + result.street +result.detailedAddress;
-					var a_all = result.provinces + result.city+ result.county  +result.detailedAddress;
-
+					var a_all = "";
+				    if(stringnull(result.provinces)){
+				    	a_all+=result.provinces+"";
+				    }
+				    if(stringnull(result.city)){
+				    	a_all+=result.city+"";
+				    }
+				    if(stringnull(result.county)){
+				    	a_all+=result.county+" ";
+				    }
+				    if(stringnull(result.detailedAddress)){
+				    	a_all+=result.detailedAddress;
+				    }
 					/*
 					 * 是否默认地址
 					 */
