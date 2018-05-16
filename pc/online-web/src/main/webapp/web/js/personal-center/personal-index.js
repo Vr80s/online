@@ -30,11 +30,17 @@ $(function() {
 //			判断若是有下拉子菜单,则给第一个菜单加点击
 			if($(this).siblings(".submenu").find("li").length>0){
 				$(this).siblings(".submenu").find("li").first().click();
-				$next.slideToggle();	
+				$next.slideToggle();
+//				小箭头方向
+				$el.find('.submenu').not($next).parent().find("span").removeClass('glyphicon-triangle-bottom');			
+				$this.parent().find("span").toggleClass('glyphicon-triangle-bottom');
+			}else{
+				$el.find('.submenu').not($next).parent().find("span").removeClass('glyphicon-triangle-bottom');			
 			}
 			$this.parent().toggleClass('open');
 			if (!e.data.multiple) {
 				$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+//				子菜单加颜色
 				$el.find('.submenu').not($next).slideUp().parent().find(".submenu").find("a").removeClass("mune-active")
 				
 			};

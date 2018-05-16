@@ -73,7 +73,15 @@ a:hover{text-decoration: none;}
 	-o-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 }
-
+.accordion li span{
+	    float: right;
+    margin-right: 15px;
+    margin-top: 2px;
+    color: #CACBCB;
+}
+.accordion li.open span {
+	color: #00BC12;
+}
 .accordion li i.fa-chevron-down {
 	right: 12px;
 	left: auto;
