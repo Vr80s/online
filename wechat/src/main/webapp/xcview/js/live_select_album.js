@@ -38,12 +38,13 @@ $(function(){
         //获取讲师id
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
-		$("#speak_people").html(template('data_people',data.resultObject));
+        $("#speak_people").html(template('data_people',data.resultObject));
+		$(".data_name").html(template('data_name',data.resultObject));
        	$(".all_returned_num span").html(data.resultObject.criticizeCount);
        	name_title=$(".speak_title").text()
 		
 	//	直播时间/主播名字
-		$("#wrap_playTime").html(template('data_name',data.resultObject));
+		// $("#wrap_playTime").html(template('data_name',data.resultObject));
 
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){

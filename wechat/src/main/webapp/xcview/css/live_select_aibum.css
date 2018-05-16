@@ -14,7 +14,9 @@ img{display: block;}
 :-moz-placeholder { 
     color: #888888;  
 }
-
+.both{
+	clear: both;
+}
 ::-moz-placeholder { 
     color: #888888;
 }
@@ -109,20 +111,22 @@ margin-top: -0.28rem;
 }
 /*视频开播*/
 .video_prompt_open{
-	width: 1.2rem;
-	height: 1.2rem;	
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	border-radius: 50%;
-	margin-left: -0.6rem;
-	margin-top: -0.6rem;
-	overflow: hidden;
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    /* margin-left: -0.6rem; */
+    /* margin-top: -0.6rem; */
+    overflow: hidden;
 }
 .video_prompt_open img{
-	width: 100%;
-	height: 100%;
-	display: none;
+	width: 1.2rem;
+    height: 1.2rem;
+    display: none;
+    margin-top: 1.5rem;
+    margin-left: 3.2rem;
 }
 .speak_people{
 	width: 100%;
@@ -132,30 +136,26 @@ margin-top: -0.28rem;
 	position: relative;
 }
 .speak_title{
-	width: 5rem;
 	margin: 0 auto;
 	font-size: 0.32rem;
-color: #333333;
-text-align: center;
-margin-bottom: 0.17rem;
-display: -webkit-box;
--webkit-box-orient: vertical;
--webkit-line-clamp: 2;
-overflow: hidden;
+	color: #333333;
+	margin-bottom: 0.17rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
 }
 
 .wrap_grade{
-	width: 3.5rem;
+	/*width: 3.5rem;*/
 	height: 0.33rem;
-	margin: 0 auto;
-	text-align: center;
+	/*margin: 0 auto;*/
+	/*text-align: center;*/
 }
 .speak-text{
-	width: 5rem;
 	margin: 0 auto;
 	font-size: 0.26rem;
 color: #666666;
-text-align: center;
 margin-bottom: 0.17rem;
 display: -webkit-box;
 -webkit-box-orient: vertical;
@@ -186,8 +186,8 @@ overflow: hidden;
 .wrap_playTime{
 	width: 100%;
 	background: white;
-	margin-top: 0.2rem;
-	padding: 0 0 0 0.26rem;
+	/*margin-top: 0.2rem;*/
+	/*padding: 0 0 0 0.26rem;*/
     box-sizing: border-box;
     overflow: hidden;
     
@@ -197,6 +197,14 @@ overflow: hidden;
 	padding: 0.22rem 0;
 	width: 100%;
     border-bottom: 1px solid #D8DDE6;
+}
+.playTimes{
+
+}
+.playTime_z{
+	margin: 0.2rem 0;
+	border: 0;
+	background: #fff;
 }
 .playTime img{
 	display: inline-block;
@@ -211,19 +219,7 @@ overflow: hidden;
 	margin-top: -0.02rem;
 	margin-left: 0.1rem;
 }
-/*.playTime li p{
-	width: 0.98rem;
-	height: 0.32rem;
-	border: 1px solid #F97B49;
-	text-align: center;
-	line-height: 0.32rem;
-	float: left;
-	color: #F97B49;
-	font-size: 0.26rem;
-}*/
-.playTime li:nth-last-child(1){
-	float: right;
-}
+
 /*详情开始*/
 .my_details{
 	width: 100%;
@@ -260,6 +256,24 @@ overflow: hidden;
 	width: 100%;
 	clear: both;
 	display: none;
+}
+.play_to{
+	width: 100%;
+	height: 0.64rem;
+	line-height: 0.64rem;
+	background: rgba(249,123,73,0.10);
+	margin-left: -0.26rem;
+    padding-right: 0.26rem;
+}
+.play_top_size{
+	width: 7rem;
+	margin: 0 auto;
+	font-size: 0.24rem;
+	color: #F97B49;
+	margin-left: 0.26rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 /*专辑选集*/
 .limit_height .limit_play_img{
@@ -326,7 +340,7 @@ overflow: hidden;
 	padding-top: 0.2rem;
 }
 .my_synopsis{
-	width: 2.36rem;
+	/*width: 2.36rem;*/
 	height: 0.43rem;
 	margin: 0 auto;
 
@@ -341,8 +355,13 @@ overflow: hidden;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
-.my_synopsis ul li:nth-child(2){
-	margin-left: 0.3rem;
+.my_synopsis ul .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
 }
 /*内容*/
 .wrap{
@@ -416,28 +435,18 @@ word-break:break-all;
 	overflow: hidden;
 }
 .main_speak{
-	width: 2.64rem;
+	/*width: 2.64rem;*/
 	margin: 0 auto;
 	overflow: hidden;
 	padding-top: 0.2rem;
 }
-.main_speak p:nth-child(1){
-	float: left;
-	width: 0.6rem;
-	height: 1px;
-	background: #D8DDE6;
-	margin-top: 0.2rem;
-}
-.main_speak p:nth-child(2){
-	float: left;
-	margin-left: 0.3rem;
-}
-.main_speak p:nth-child(3){
-	float: right;
-	width: 0.6rem;
-	height: 1px;
-	background: #D8DDE6;
-	margin-top: 0.2rem;
+.wrap_speak .main_speak .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
 }
 /*内容*/
 .wrap1{
@@ -506,6 +515,14 @@ word-break:break-all;
 	font-size: 0.32rem;
 
 }
+.wrap_comment_title .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0rem;
+    border-radius: 100px;
+}
 .wrap_comment_title span{
 	float: right;
 margin-top: 0.1rem;
@@ -549,11 +566,12 @@ margin-top: 0.1rem;
 .user_text{
 	width: 5.85rem;
 	min-height: 0.98rem;
-
+	smargin-top: 0.3rem;
 	float: right;
 }
 .wrap_userName{
 	width: 100%;
+	margin-top: 0.3rem;
 }
 .wrap_userName img{
 	    width: 1.5rem;
@@ -574,23 +592,25 @@ margin-top: 0.1rem;
 }
 .uesr_lable ul li{
 	padding: 0.08rem 0.2rem;
-	background: #00BC12;
-border-radius: 8px;
-color: white;
-margin-right: 0.2rem;
-font-size: 0.28rem;
-float: left;
-margin-top: 0.1rem;
+    background: #f0f0f0;
+    border-radius: 100px;
+    color: white;
+    margin-right: 0.2rem;
+    font-size: 0.28rem;
+    float: left;
+    margin-top: 0.1rem;
+    color: #666;
 }
 /*被恢复的内容-灰色部分*/
 .uesr_returned{
-	box-sizing: border-box;
-	width: 100%;
-	padding: 0.2rem;
-	background: #F0F0F0;
-	border-radius: 0.04rem;
-	margin-top: 0.2rem;
-	overflow: hidden;
+	    width: 100%;
+    padding: 0.2rem;
+    margin-top: 0.2rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #FAFAFA;
+    border: 1px solid #F0F0F0;
+    border-radius: 4px;
 }
 .returned_id{
 color: #666666;
@@ -623,16 +643,16 @@ color: #666666;
 	float: left;
 }
 .wrap_purchaser{
-	float:left;
-	width: 0.98rem;
-	height: 0.32rem;
-	text-align: center;
-	line-height: 0.32rem;
-	color: #F97B49;
-	border: 0.01rem solid #F97B49;
-	font-size: 0.25rem;
-	margin-top: 0.1rem;
-	border-radius: 4px;
+	    float: left;
+    width: 0.56rem;
+    height: 0.28rem;
+    text-align: center;
+    line-height: 0.32rem;
+    color: #fff;
+    background: #00bc12;
+    font-size: 0.16rem;
+    margin: 0.04rem 0rem 0 0.1rem;
+    border-radius: 4px;
 }
 .wrap_purchaser p{
 	font-size: 0.22rem !important;
@@ -667,7 +687,7 @@ color: #666666;
 	box-sizing: border-box;
 }
 .wrap_input{
-	width: 5.7rem;
+	width: 7rem;
 	height: 0.6rem;
 	background: #f0f0f0;
 	margin-top: 0.2rem;

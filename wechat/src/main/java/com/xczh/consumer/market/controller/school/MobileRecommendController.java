@@ -63,21 +63,20 @@ public class MobileRecommendController {
 	@RequestMapping("recommendTop")
 	@ResponseBody
 	public ResponseObject recommendTop() throws Exception {
-		Integer current = 1;
-		Integer size = 100;
+//		Integer current = 1;
+//		Integer size = 100;
 		Map<String, Object> mapAll = new HashMap<String, Object>();
 		//课程banner
 		Page<MobileBanner> MobileBannerPage = new Page<>();
-		MobileBannerPage.setCurrent(current);
-		MobileBannerPage.setSize(size);
+//		MobileBannerPage.setCurrent(current);
+//		MobileBannerPage.setSize(size);
 		int bannerType = 1;
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,bannerType));
+		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(bannerType));
 
 		//课程专题
-
 		Page<MobileProject> MobileProjectPage = new Page<>();
-		MobileProjectPage.setCurrent(current);
-		MobileProjectPage.setSize(size);
+//		MobileProjectPage.setCurrent(current);
+//		MobileProjectPage.setSize(size);
 		int projectType = 1;
 		mapAll.put("project",mobileProjectService.selectMobileProjectPage(MobileProjectPage,projectType));
 		
@@ -108,6 +107,7 @@ public class MobileRecommendController {
 		 * 古书经典
 		 */
 	    List<MenuVo> listmv = menuService.list();
+	    
 	    
 		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(listmv);
 		
@@ -158,7 +158,6 @@ public class MobileRecommendController {
 				mapMenu.put("courseList", listMenu);
 				mapCourseList.add(mapMenu);
 			}
-
 		}
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}

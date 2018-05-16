@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IEedge" />
 		<meta charset="UTF-8">
@@ -20,7 +19,7 @@
 			<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 
 		<!--登陆的bootstrap样式-->
-			<link rel="stylesheet" href="/web/css/school/school-live.css"  />
+			<link rel="stylesheet" href="/web/css/school/school-recommend.css"  />
 	</head>
 	<body>
 <!--左侧精品、免费、最新、养生课程-->		
@@ -29,102 +28,149 @@
 				<div class="wrap-banner">
 					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
-					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+					    
+					     <#list bannerList as banner>
+					     	<#if banner_index == 0 >
+					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}" class="active"></li>
+					     	<#else>
+					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}"></li>
+					     	</#if>
+						</#list>
+
 					  </ol>
 					  <div class="carousel-inner" role="listbox">
-					    <div class="item active">
-					    	<a href="">
-					     		<img src="../../images/banner-wrap.jpg" alt="广告图">
-					     	</a>
-					    </div>
-					    <div class="item">
-					     	<a href="">
-					     		<img src="../../images/banner-wrap.jpg" alt="广告图">
-					     	</a>
-					    </div>
+					  	<#list bannerList as banner>
+					     	<#if banner_index == 0 >
+					     		<div class="item active">
+					     	<#else>
+					     		<div class="item">
+					     	</#if>
+								<a href="">
+						     		<img src="${banner.url}" alt="广告图">
+						     	</a>
+						    </div>	
+						</#list>
 					  </div>	
 					</div>
-				</div>		
+				</div>
+				<div class="physic-type">
+					<ul>
+						<#list bannerList as banner>
+					     	<#if banner_index lt 4 >
+					     	 <li>
+					     		<a href="">
+									<p><img src="${projectList.icon}" alt="${projectList.name}" /></p>
+									<span>${projectList.name}</span>
+							    </a>
+							  </li>  
+					        </#if>
+						</#list>
+					</ul>
+				</div>
 <!--精品课程、免费课程、最新课程、养生课程、-->			
 				<div class="main">
 					<div class="content-class">	
+		<#-- 	 
+			menuType: 200,
+            courseList: [
+            ],
+            title: "针灸疗法"  -->
+						<#list courseList as courseItem>
+						</#list>
 						<div class="wrap-title">
-							<span>最新课程</span>
-							<p><a href="/web/html/school/curriculum-list.html">更多</a><img src="../../images/rili_icon.png" alt="箭头" /> </p>
-						</div>
-						<div class="course clearfix">
-							<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
-							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-								<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-									<p class="timeAndTeac"><span class="teacher">雪灵</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-									</p>
-								</div>
-							</a>
-						</div>		
-						<div class="course clearfix">
-							<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
-							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-								<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-									<p class="timeAndTeac"><span class="teacher">雪灵</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-									</p>
-								</div>
-							</a>
-						</div>
+								<span>最新课程</span>
+								<#-- 课程列表 页跳转  带上跳转条件 -->
+								<p><a href="/web/html/school/curriculum-list.html">更多</a><img src="../../images/rili_icon.png" alt="箭头" /> </p>
+							</div>
+							<div class="course clearfix">
+								<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
+								<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+									<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
+									<div class="detail">
+										<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
+										<p class="timeAndTeac">
+											<span class="teacher">雪灵</span>
+	
+										</p>
+										<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
+										</p>
+									</div>
+								</a>
+							</div>
 						<div class="course clearfix">
 							<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
 							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
 								<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
 								<div class="detail">
 									<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-									<p class="timeAndTeac"><span class="teacher">雪灵</span>
+									<p class="timeAndTeac">
+										<span class="teacher">雪灵</span>
 									</p>
 									<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
 									</p>
 								</div>
 							</a>
 						</div>
-					</div>					
-				</div>					
+						<div class="course clearfix">
+							<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
+							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+								<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
+								<div class="detail">
+									<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
+									<p class="timeAndTeac">
+										<span class="teacher">雪灵</span>
+									</p>
+									<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
+									</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>			
 			</div>
 	
 <!--右侧成为主播、搜索、名师推荐-->
-			<div class="wrap-right y">				
+			<div class="wrap-right y">
+				<div class="wrap-anchor">
+					<p>期待有志于传承和发展中医药的医师加入</p>
+					<span>成为主播</span>
+				</div>
+				<div class="hot-search">
+					<p>热门搜索</p>
+					<ul>
+				    <#list hotList as hot>
+                        <li data-id="hot.id">
+							${hot.name}
+						</li> 
+                    </#list>
+					<#-- 
+					     <li>热门搜索</li>
+					-->     	
+						
+																		
+					</ul>
+				</div>
 				<div class="wrap-docter">
 					<span>名师推荐</span>
 					<ul>
-						<li>
-							<img src="../../images/teacher_big_pic.png"/>
-							<p>朱小宝</p>
-						</li>
-						<li>
-							<img src="../../images/teacher_big_pic.png"/>
-							<p>朱小宝</p>
-						</li>
-						<li>
-							<img src="../../images/teacher_big_pic.png"/>
-							<p>朱小宝</p>
-						</li>
-						<li>
-							<img src="../../images/teacher_big_pic.png"/>
-							<p>朱小宝</p>
-						</li>
-						<li>
-							<img src="../../images/teacher_big_pic.png"/>
-							<p>朱小宝</p>
-						</li>
-						<li>
-							<img src="../../images/teacher_big_pic.png"/>
-							<p>朱小宝</p>
-						</li>
+ 					<#list doctorList as doctorInfo>
+                        <li>
+							<img src="${doctorInfo.headPortrait}" alt="名医头像"/>
+							<p data-id = "${doctorInfo.id}">${doctorInfo.name}</p>
+						</li> 
+                    </#list>
+					 <#-- 
+					     <li>热门搜索</li>
+					 
+					 	    ca.profile_photo as headPortrait,
+					    	ca.name,
+							ca.user_id as userId
+						 <li>
+								<img src="../../images/teacher_big_pic.png"/>
+								<p>朱小宝</p>
+							</li> 
+					 -->	
+					</ul>
 					</ul>
 				</div>
 			</div>
@@ -135,13 +181,13 @@
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		
 		<!--公共头部和底部-->
-			<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-			<script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
-			<script type="text/javascript" src="/web/js/footer.js"></script>
+		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/web/js/footer.js"></script>
 		<!--公共头部和底部结束-->
 
 		<!--登陆结束-->	
-			<script src="/web/js/school/school-live.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/school/school-recommend.js" type="text/javascript" charset="utf-8"></script>
 			
 	</body>
 		

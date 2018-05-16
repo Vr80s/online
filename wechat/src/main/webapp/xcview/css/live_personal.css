@@ -436,6 +436,7 @@ margin-top: 0.1rem;
 }
 .wrap_userName{
 	width: 100%;
+	margin-top: 0.3rem;
 }
 .wrap_userName img{
 	    width: 1.5rem;
@@ -467,12 +468,13 @@ margin-top: 0.1rem;
 /*被恢复的内容-灰色部分*/
 .uesr_returned{
 	width: 100%;
-	padding: 0.2rem;
-	background: #F0F0F0;
-	border-radius: 0.04rem;
-	margin-top: 0.2rem;
-	box-sizing: border-box;
-	overflow: hidden;
+    padding: 0.2rem;
+    margin-top: 0.2rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #FAFAFA;
+    border: 1px solid #F0F0F0;
+    border-radius: 4px;
 }
 .returned_id{
 color: #666666;
@@ -557,7 +559,7 @@ color: #666666;
 	box-sizing: border-box;
 }
 .wrap_input{
-	width: 5.7rem;
+	width: 7rem;
 	height: 0.6rem;
 	background: #f0f0f0;
 	margin-top: 0.2rem;

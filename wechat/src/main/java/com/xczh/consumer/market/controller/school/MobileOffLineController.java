@@ -61,7 +61,7 @@ public class MobileOffLineController {
 		Page<MobileBanner> MobileBannerPage = new Page<>();
 		MobileBannerPage.setCurrent(current);
 		MobileBannerPage.setSize(size);
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,2));
+		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(2));
 		//城市
 		Page<OfflineCity> OfflineCityPage = new Page<>();
 		OfflineCityPage.setCurrent(current);
@@ -78,6 +78,7 @@ public class MobileOffLineController {
 		LOGGER.info( ocl.getRecords().size()+"");
 		
 		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());
+		
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 
 		Map<String,Object> mapTj = new HashMap<String, Object>();

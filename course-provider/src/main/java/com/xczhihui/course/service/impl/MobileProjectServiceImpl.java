@@ -6,6 +6,8 @@ import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.course.mapper.MobileProjectMapper;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.service.IMobileProjectService;
+import com.xczhihui.course.vo.MenuVo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +40,10 @@ public class MobileProjectServiceImpl extends ServiceImpl<MobileProjectMapper,Mo
 	public List<Map<String, Object>> getCourseType() {
 		List<Map<String, Object>>  list  = CourseType.getCourseType();
 		return list;
+	}
+
+	@Override
+	public List<MenuVo> selectMenuVo() {
+		return iMobileProjectMapper.selectMenuVo();
 	}
 }
