@@ -56,7 +56,7 @@ public class MobileLiveController {
 		Page<MobileBanner> MobileBannerPage = new Page<>();
 		MobileBannerPage.setCurrent(current);
 		MobileBannerPage.setSize(size);
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,3));
+		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(3));
 		//直播 中的课程
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> mapTj = new HashMap<String, Object>();

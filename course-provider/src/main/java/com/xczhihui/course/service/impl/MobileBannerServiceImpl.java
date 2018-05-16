@@ -1,14 +1,16 @@
 package com.xczhihui.course.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.course.mapper.MobileBannerMapper;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.service.IMobileBannerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.MenuVo;
 
 /**
  * <p>
@@ -25,12 +27,17 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper,Mobi
 	private MobileBannerMapper iMobileBannerMapper;
 	
 	@Override
-    public Page<MobileBanner> selectMobileBannerPage(Page<MobileBanner> page, Integer type) {
-		List<MobileBanner> records = iMobileBannerMapper.selectMobileBannerPage(page,type);
-		return   page.setRecords(records);
+    public List<MobileBanner> selectMobileBannerPage(Integer type) {
+		List<MobileBanner> records = iMobileBannerMapper.selectMobileBannerPage(type);
+		return   records;
 	}
 	@Override
 	public void addClickNum(String id) {
 		   iMobileBannerMapper.addClickNum(id);
+	}
+	@Override
+	public List<CourseLecturVo> recommendCourseList(List<MenuVo> menuList,int pageSize) {
+		
+		return iMobileBannerMapper.recommendCourseList(menuList,pageSize);
 	}
 }

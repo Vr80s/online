@@ -1,7 +1,10 @@
 package com.xczhihui.course.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import java.util.List;
+
 import com.xczhihui.course.model.MobileBanner;
+import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.MenuVo;
 
 public interface IMobileBannerService {
 
@@ -11,7 +14,7 @@ public interface IMobileBannerService {
 	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
 	 * @Date: 2018/5/10 11:25
 	 **/
-	  public Page<MobileBanner> selectMobileBannerPage(Page<MobileBanner> page, Integer type);
+	  public List<MobileBanner> selectMobileBannerPage(Integer type);
 
 	  /**
 	   * Description：增加点击次数
@@ -20,4 +23,6 @@ public interface IMobileBannerService {
 	   * @Date: 2018/5/10 11:25
 	   **/
 	  void  addClickNum(String id);
+
+	  public List<CourseLecturVo> recommendCourseList(List<MenuVo> menuList,int pageSize);
 }

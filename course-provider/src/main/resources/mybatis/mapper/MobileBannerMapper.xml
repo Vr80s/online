@@ -15,6 +15,67 @@
 		<id column="link_condition" property="linkCondition" />
 		<id column="banner_type" property="bannerType" />
 	</resultMap>
+	
+	<sql id="selectCourse">
+		oc.id,
+		oc.grade_name as gradeName,
+		oc.current_price*10 as currentPrice,
+		oc.city as city,
+        oc.smallimg_path as smallImgPath,
+        oc.lecturer as name,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,	
+		oc.collection as collection,
+		if(oc.sort_update_time&lt; now(),0,oc.recommend_sort) recommendSort,
+		oc.start_time as startTime,
+		if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),
+		if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+		 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+		 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+		 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+		 	
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState, 	
+		 	
+		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
+		 + IFNULL(oc.default_student_count, 0)) as  learndCount,
+	</sql>
+	
+	<select id="recommendCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+		( 
+		  select 
+		  <include refid="selectCourse"/>
+		    '精品课程' as note
+			from  oe_course oc ,oe_user ou
+			where  oc.user_lecturer_id = ou.id and oc.is_delete=0 
+			and oc.status=1 order by recommendSort desc,oc.release_time desc  limit 0,#{pageSize} 
+        )
+        union all
+        ( select 
+		  <include refid="selectCourse"/>
+		    '最新课程' as note
+			from  oe_course oc ,oe_user ou
+			where  oc.user_lecturer_id = ou.id and oc.is_delete=0 
+			and oc.status=1 order by recommendSort desc,oc.release_time desc  limit 0,#{pageSize} 
+        )
+		<if test="cateGoryList !=null ">  
+			union all
+			<foreach item="cateGory" collection="cateGoryList" index="index"  separator="union all">  
+	             ( 
+	               select 
+					 <include refid="selectCourse"/>
+				    om.name as note
+					from  oe_course oc, oe_menu om ,oe_user ou
+					where  oc.user_lecturer_id = ou.id and oc.is_delete=0 
+					and oc.status=1 and om.id  = #{cateGory.id}
+					order by recommendSort desc,oc.release_time desc limit 0,#{pageSize}
+	    		 )
+	        </foreach>  
+     	 </if>     
+	</select>
+	
+	
 	<select id="selectMobileBannerPage" resultMap="MobileBannerBaseResult">
 		SELECT
 		  ocmb.*

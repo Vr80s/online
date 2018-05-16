@@ -134,7 +134,7 @@ $(function () {
 //        '<a href="#">师承有道</a>'+
 //        '<a href="#">国医馆</a>'+
             '<a href="/headline/1" class="forum" target="_blank">头条</a>' +
-            '<a href="/classroom.html" class="classroom" target="_blank">学堂</a>' +
+            '<a href="/web/html/school/school-recommend.html" class="classroom" target="_blank">学堂</a>' +
             '<a href="/doctors" class="doctor" target="_blank">名医</a>'+
         '<a href="/clinics" class="hospital" target="_blank">医馆</a>'+
         '<a href="/web/html/ansAndQus.html" class="ansAndQus" target="_blank">问道</a>'+
