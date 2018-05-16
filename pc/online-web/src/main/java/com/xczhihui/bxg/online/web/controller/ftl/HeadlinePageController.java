@@ -134,13 +134,8 @@ public class HeadlinePageController extends AbstractFtlController {
             view.addObject("writing", medicalDoctorWritingService.findByArticleId(id));
             view.addObject("writings", medicalDoctorArticleService.listPublicWritings(1, 6));
         } else {
-            if (HeadlineType.MYBD.getCode().equals(typeId)) {
-                List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
-                view.addObject("suggestedArticles", recentlyNewsReports);
-            } else {
-                List<Map<String, Object>> hotArticles = articleService.getHotArticle();
-                view.addObject("suggestedArticles", hotArticles);
-            }
+            List<Map<String, Object>> hotArticles = articleService.getHotArticle();
+            view.addObject("suggestedArticles", hotArticles);
         }
 
         //名医报道
