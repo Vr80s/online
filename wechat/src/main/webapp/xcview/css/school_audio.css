@@ -11,6 +11,7 @@ outline:none;
 p{font-size: 0.28rem;}
 img{display: block;}
 .wp{width: 7.5rem;margin: 0 auto;position: relative;}
+.both{clear: both;}
 :-moz-placeholder { 
     color: #888888;  
 }
@@ -141,7 +142,7 @@ padding-bottom: 0.17rem;
 .wrap_playTime{
 	width: 100%;
 	background: white;
-	margin-top: 0.2rem;
+	margin: 0.2rem 0;
 	padding: 0 0 0 0.26rem;
     box-sizing: border-box;
     overflow: hidden;
@@ -150,7 +151,9 @@ padding-bottom: 0.17rem;
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-
+}
+.playTimes{
+	padding: 0.4rem 0 0 0;
 }
 .playTime img{
 	display: inline-block;
@@ -208,10 +211,16 @@ padding-bottom: 0.17rem;
 	padding-top: 0.2rem;
 }
 .my_synopsis{
-	width: 2.36rem;
 	height: 0.43rem;
-	margin: 0 auto;
 
+}
+.my_synopsis ul .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
 }
 .my_synopsis ul li{
 	float: left;
@@ -222,9 +231,6 @@ padding-bottom: 0.17rem;
 	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
-}
-.my_synopsis ul li:nth-child(2){
-	margin-left: 0.3rem;
 }
 /*内容*/
 .wrap{
@@ -298,28 +304,16 @@ word-break:break-all;
 	overflow: hidden;
 }
 .main_speak{
-	width: 2.64rem;
-	margin: 0 auto;
 	overflow: hidden;
 	padding-top: 0.2rem;
 }
-.main_speak p:nth-child(1){
-	float: left;
-	width: 0.6rem;
-	height: 1px;
-	background: #D8DDE6;
-	margin-top: 0.2rem;
-}
-.main_speak p:nth-child(2){
-	float: left;
-	margin-left: 0.3rem;
-}
-.main_speak p:nth-child(3){
-	float: right;
-	width: 0.6rem;
-	height: 1px;
-	background: #D8DDE6;
-	margin-top: 0.2rem;
+.wrap_speak .main_speak .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
 }
 /*内容*/
 .wrap1{
@@ -385,6 +379,14 @@ word-break:break-all;
 	box-sizing: border-box;
     
 }
+.wrap_comment_title .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0rem;
+    border-radius: 100px;
+}
 .wrap_comment_title p{
 	float: left;
 	font-size: 0.32rem;
@@ -441,6 +443,7 @@ margin-top: 0.1rem;
 }
 .wrap_userName{
 	width: 100%;
+	margin-top: 0.3rem;
 }
 .wrap_userName img{
 	    width: 1.5rem;
@@ -489,13 +492,14 @@ word-wrap:break-word;
 }
 .uesr_lable ul li{
 	padding: 0.08rem 0.2rem;
-	background: #00BC12;
-border-radius: 8px;
-color: white;
-margin-right: 0.2rem;
-font-size: 0.28rem;
-float: left;
-margin-top: 0.1rem;
+    background: #f0f0f0;
+    border-radius: 100px;
+    color: white;
+    margin-right: 0.2rem;
+    font-size: 0.28rem;
+    float: left;
+    margin-top: 0.1rem;
+    color: #666;
 }
 /*被恢复的内容-灰色部分*/
 .uesr_returned{
@@ -538,17 +542,16 @@ color: #666666;
 	float: left;
 }
 .wrap_purchaser{
-	float:left;
-	width: 0.98rem;
-	height: 0.32rem;
-	text-align: center;
-	line-height: 0.32rem;
-	color: #F97B49;
-	border: 0.01rem solid #F97B49;
-	font-size: 0.25rem;
-	margin-top: 0.1rem;
-	border-radius: 4px;
-	overflow: hidden;
+	    float: left;
+    width: 0.56rem;
+    height: 0.28rem;
+    text-align: center;
+    line-height: 0.32rem;
+    color: #fff;
+    background: #00bc12;
+    font-size: 0.16rem;
+    margin: 0.04rem 0rem 0 0.1rem;
+    border-radius: 4px;
 }
 .wrap_purchaser p{
 	font-size: 0.22rem !important;
