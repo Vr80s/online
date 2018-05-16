@@ -216,8 +216,6 @@
 					 */
 //					var a_all = result.provinces + result.city+ result.county + result.street +result.detailedAddress;
 					var a_all = "";
-
-				    var a_all = "";
 				    if(stringnull(result.provinces)){
 				    	a_all+=result.provinces+"";
 				    }
