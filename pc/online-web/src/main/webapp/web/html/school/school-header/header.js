@@ -158,7 +158,7 @@ $(function() {
 								'</div>' +
 						'</li>' +
 //						'<li><a href="/App.html" class="appDown">APP下载</a></li>' +
-						'<li><a href="/App.html" class="">我要当主播</a></li>' +
+						'<li><a href="/web/html/want-anchor.html" class="" target="_blank">我要当主播</a></li>' +
 //						'<li>' +
 //							'<div class="messageBox">'+
 //								'<a href="javascript:;" data-id="mynews" class="message">消息</a>'+
