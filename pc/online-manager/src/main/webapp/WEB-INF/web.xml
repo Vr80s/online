@@ -61,6 +61,23 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+    
+    
+    	<!-- 拦截静态资源  -->
+	<filter>
+		<filter-name>PageVisitFilter</filter-name>
+		<filter-class>com.xczhihui.filter.PageVisitFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PageVisitFilter</filter-name>
+		<!-- html、js、css 静态资源  -->
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.html</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+    
+    
 
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>

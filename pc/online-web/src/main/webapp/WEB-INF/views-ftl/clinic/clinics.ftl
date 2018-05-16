@@ -82,7 +82,7 @@
             <ul class="hot-article-list">
                 <#list recClinics as recClinic>
                     <li>
-                        <a href="${webUrl}/clinics/${recClinic.id}">
+                        <a href="${webUrl}/clinics/${recClinic.id}" target="_blank">
                             <#if recClinic_index <= 2>
                                 <em class="select">${recClinic_index+1}</em>
                             <#else>
@@ -184,8 +184,8 @@
                             <#list recruits as recruit>
                                 <li>
                                     <h4><a href="${webUrl}/clinics/${recruit.hospitalId}"
-                                           style="color: #000;">${recruit.position}</a></h4>
-                                    <a href="${webUrl}/clinics/${recruit.hospitalId}">${recruit.city}
+                                           style="color: #000;" target="_blank">${recruit.position}</a></h4>
+                                    <a href="${webUrl}/clinics/${recruit.hospitalId}" target="_blank">${recruit.city}
                                         &nbsp;&nbsp;${recruit.hospitalName}</a>
                                 </li>
                             </#list>

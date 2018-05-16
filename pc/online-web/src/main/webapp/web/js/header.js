@@ -88,7 +88,7 @@ $(function () {
      * Created by admin on 2016/9/14.
      */
     var headersIndex = {
-            navtop: '<div class="head-top"><div class="content"><ul><li class="first-li"><a href="/web/html/aboutUs.html">关于我们</a></li>' +
+            navtop: '<div class="head-top"><div class="content"><ul><li class="first-li"><a href="/web/html/aboutUs.html" target="_blank">关于我们</a></li>' +
             '<li>' +
             '<div class="loginGroup">' +
             ' <div class="login" style="display:none;">' +
@@ -115,11 +115,11 @@ $(function () {
             '</li>' +
 
 
-            '<li><a href="/App.html" class="appDown">APP下载</a></li>' +
+            '<li><a href="/App.html" class="appDown" target="_blank">APP下载</a></li>' +
 
             '<li>' +
             '</li>' +
-            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>' +
+            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message" target="_blank">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox" target="_blank">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos" target="_blank">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench" target="_blank">主播工作台</a></li>' +
             '</ul></div></div>',
             nav:
 
@@ -129,16 +129,16 @@ $(function () {
             '</div>' +
             '<div class="header_left">' +
             '<div class="path" style="width:95%">' +
-            '<a href="/index.html" class="home">首页</a>' +
+            '<a href="/index.html" class="home" target="_blank">首页</a>' +
 
 //        '<a href="#">师承有道</a>'+
 //        '<a href="#">国医馆</a>'+
-            '<a href="/headline/1" class="forum">头条</a>' +
-            '<a href="/classroom.html" class="classroom">学堂</a>' +
-            '<a href="/doctors" class="doctor">名医</a>'+
-        '<a href="/clinics" class="hospital">医馆</a>'+
-        '<a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>'+
-        '<a href="/bbs">论坛</a>'+
+            '<a href="/headline/1" class="forum" target="_blank">头条</a>' +
+            '<a href="/classroom.html" class="classroom" target="_blank">学堂</a>' +
+            '<a href="/doctors" class="doctor" target="_blank">名医</a>'+
+        '<a href="/clinics" class="hospital" target="_blank">医馆</a>'+
+        '<a href="/web/html/ansAndQus.html" class="ansAndQus" target="_blank">问道</a>'+
+        '<a href="/bbs" target="_blank">论坛</a>'+
         
         
         '</div>'+
@@ -190,7 +190,7 @@ $(function () {
         '</a></div>',
         phone_consult: '<div class="phone_consult">' +
         '<div class="phone_consult_box"><img src="/web/images/tel.gif" alt=""/><span class="dianhuazixun">电话咨询</span></div>' +
-        '<span class="phone_number">0898-32881833</span>' +
+        '<span class="phone_number">0898-32881934</span>' +
         ' </div>',
         weixin: '<div class="sideWeixinBox">' +
         '<div class="sideWeixin">' +
@@ -316,7 +316,8 @@ $(function () {
                 localStorage.myStudyCenter = "1";
                 $('#login').modal('show');
             } else {
-                window.location.href = "/web/html/myStudyCenter.html";
+//              window.location.href = "/web/html/myStudyCenter.html";
+                window.open("/web/html/myStudyCenter.html");
             }
         })
     });
@@ -349,7 +350,8 @@ $(function () {
                 $("#login").modal("show");
             } else {
                 window.localStorage.personcenter = $(this).attr("data-id");
-                window.location.href = "/web/html/personcenter.html";
+//              window.location.href = "/web/html/personcenter.html";
+				window.open("/web/html/personcenter.html")
             }
         })
     });

@@ -102,7 +102,7 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public Page<ReplyVO> listByPostId(int postId, int page) {
-        Page<ReplyVO> replyVOPage = new Page<>(page, 3);
+        Page<ReplyVO> replyVOPage = new Page<>(page, 10);
         List<ReplyVO> replyVOs = replyMapper.listByPostId(replyVOPage, postId);
         //查询回复的回复数据
         replyVOs.forEach(replyVO -> {
