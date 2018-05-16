@@ -14,19 +14,194 @@
 		<link rel="stylesheet" href="/web/html/personal-center/center-header/header.css" />
 		<link rel="stylesheet" href="/web/css/footer.css" />
 		<link rel="stylesheet" href="/web/font/iconfont.css" />
+
+		<!--头像预览CSS-->
+		<link rel="stylesheet" href="/web/html/preview-head/preview-head.css">		
+		<link rel="stylesheet" href="/web/css/style.css" />
+		<!--头像预览CSS-->
 		
-		<!--登陆的bootstrap样式-->
+		<!--登陆的样式-->
 		<link rel="stylesheet" href="/web/css/mylogin.css" />
-		<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
-
-
-
+		<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">		
+		<link rel="stylesheet" href="/web/css/personal-center/personal-index.css">		
 	</head>
 
 	<body>
-
+			<div class="wp">
+				<div class="main-left z">			
+<!--头像设置开始-->
+					<div id="doctor_in_inf">
+						<!--左侧按钮部分-->
+						<div class="news_nav">
+							<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
+								<i class="iconfont icon-xiangji"></i>
+							</div>
 	
-	</body>
+							<ul class="hos_left_list">
+								<li class="doctor_inf">
+									<img src="" alt="">
+									<!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
+									<h4></h4>
+									<!--<p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding: 0 20px;"></p>-->
+								</li>				
+							</ul>
+						</div>
+					</div>
+					<!--头像预览裁剪-->
+					<div class="mask"></div>
+					<div id="headImg" class="clearfix">
+						<div class="container1 clearfix">
+							<div class="img-title">
+								<p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
+							<div class="img-box1">
+								<a href="javascript:void(0)" class="upload-img">
+									<p onclick="fileClick()"><span>+</span>选择图片</p>
+								</a>
+			
+								<p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
+							</div>
+							<div class="imageBox">
+								<div class="thumbBox"></div>
+								<div class="spinner" style="display: none"></div>
+							</div>
+							<div class="action clearfix">
+								<div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
+								<div class="new-contentarea tc">
+									<div class="bbox clearfix">
+										<span>滚动鼠标可调整头像大小</span>
+										<a href="javascript:void(0)" class="upload-img reclick">
+											<p onclick="fileClick()">重新上传</p>
+										</a>
+									</div>
+									<input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg" accept="image/gif,image/jpeg,image/jpg,image/png"/>
+								</div>
+								<span class="btn-upload bbtn">确定</span>
+								<a href="javascript:;" class="btn-quit bbtn">取消</a>
+							</div>
+							<div class="cropped">
+								<div class="cropTitle">预览</div>
+								<div class="cropped-con"></div>
+							</div>
+						</div>
+					</div>
+				<!--头像预览裁剪-->	
+<!--头像设置结束-->
+<!--左边nav开始-->
+					<div id="left-tab">
+					<!-- Contenedor -->
+						<ul id="accordion" class="accordion">
+							<li>
+								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>学习中心<i class="fa fa-chevron-down"></i></div>
+								<ul class="submenu">
+									<li><a href="javascript:;">我的课程</a></li>
+									<li><a href="javascript:;">关注的主播</a></li>
+								</ul>
+							</li>
+							<li>
+								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>问答与论坛<i></i></div>
+								<ul class="submenu">
+									<li><a href="#">我的问答</a></li>
+									<li><a href="#">我的论坛</a></li>
+
+								</ul>
+							</li>
+							<li>
+								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>我的订单<i class="fa fa-chevron-down"></i></div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">课程收益</a></li>
+									<li><a href="javascript:;">礼物收益</a></li>-->
+								</ul>
+							</li>
+							<li>
+								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>我的钱包<i class="fa fa-chevron-down"></i></div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">认证信息</a></li>
+									<li><a href="javascript:;">主播信息</a></li>-->
+								</ul>
+							</li>
+							<li>
+								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>个人资料<i class="fa fa-chevron-down"></i></div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">认证信息</a></li>
+									<li><a href="javascript:;">主播信息</a></li>-->
+								</ul>
+							</li>
+							<li>
+								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>消息<i class="fa fa-chevron-down"></i></div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">认证信息</a></li>
+									<li><a href="javascript:;">主播信息</a></li>-->
+								</ul>
+							</li>
+							<li>
+								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>意见反馈<i class="fa fa-chevron-down"></i></div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">认证信息</a></li>
+									<li><a href="javascript:;">主播信息</a></li>-->
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+<!--右侧内容盒子-->				
+					<div class="main-right y">
+						<!-- 右侧内容的盒子 -->
+						<div id="right-content">
+							<div class="content1" >
+								<div class="mune1-1">内容1-1</div>
+								<div class="mune1-2 hide">内容1-2</div>
+								<div class="mune1-3 hide">内容1-3</div>
+								<div class="mune1-4 hide">内容1-4</div>
+							</div>
+							<div class="content2 hide" >
+								<div class="mune2-1">内容2-1</div>
+								<div class="mune2-2 hide">内容2-2</div>
+								<div class="mune2-3 hide">内容2-3</div>
+							</div>
+							<div class="content3 hide" >
+								<div>内容3-1</div>
+								<!--<div class="hide">内容3-2</div>-->
+							</div>
+							<div class="content4 hide" >
+								<div>内容4-1</div>
+								<!--<div class="hide">内容4-2</div>-->
+							</div>
+						</div>
+					</div>
+				
+				
+				
+				
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>	
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
@@ -37,5 +212,13 @@
 		<script type="text/javascript" src="/web/js/footer.js"></script>
 		<!--公共头部和底部结束-->
 
-		<!--登陆结束-->
+
+		<!--头像预览JS-->
+		<script type="text/javascript" src="/web/js/cropbox.js"></script>
+		<script src="/web/html/preview-head/preview-head.js"></script>
+		<!--头像预览需要的JS-->
+		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>
+	
+		
+	</body>	
 </html>

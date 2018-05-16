@@ -157,8 +157,8 @@ $(function() {
 									'<a class="btn-register btn-link" href="/web/html/login.html?ways=register">注册</a>' +
 								'</div>' +
 						'</li>' +
-//						'<li><a href="/App.html" class="appDown">APP下载</a></li>' +
-						'<li><a href="/web/html/want-anchor.html" class="" target="_blank">我要当主播</a></li>' +
+						'<li><a href="/App.html" class="appDown">APP下载</a></li>' +
+//						'<li><a href="/web/html/want-anchor.html" class="" target="_blank">我要当主播</a></li>' +
 //						'<li>' +
 //							'<div class="messageBox">'+
 //								'<a href="javascript:;" data-id="mynews" class="message">消息</a>'+
@@ -185,29 +185,29 @@ $(function() {
 			'<div class="header_right">' +
 				'<a href="/index.html">' +
 				'<img src="/web/images/logos.png" alt=""  style="float:left">' +
-				'<span>学堂</span>'+
+				'<span>个人中心</span>'+
 				'</a>' +
 			'</div>' +
-			'<div class="header_left">' +
-				'<div class="path" style="width:95%">' +
-					'<a href="/web/html/school/school-recommend.html" class="recommend" target="_blank">推荐</a>' +
-					'<a href="/web/html/school/school-under.html" class="under" target="_blank">线下课</a>' +
-					'<a href="/web/html/school/school-live.html" class="broadcast" target="_blank">直播</a>' +
-					'<a href="/web/html/school/school-video.html" class="listen" target="_blank">听课</a>' +
-					'<a href="/App.html" class="download-app" target="_blank">下载APP</a>' +
-				'</div>' +
-			' </div>' +
-			'<div class="search-wrap">'+
-				'<div class="search-icon">'+
-					'<img src="/web/images/search.png" alt="搜索">' +
-				'</div>'+
-				'<div class="search-input">' +
-					'<input type="text" name="" id="" value="" />' +
-				'</div>' +
-				'<div class="search-button">' +
-					'<button type="button">搜索</button>' +
-				'</div>' +
-			'</div>'+
+//			'<div class="header_left">' +
+//				'<div class="path" style="width:95%">' +
+//					'<a href="/web/html/school/school-recommend.html" class="recommend" target="_blank">推荐</a>' +
+//					'<a href="/web/html/school/school-under.html" class="under" target="_blank">线下课</a>' +
+//					'<a href="/web/html/school/school-live.html" class="broadcast" target="_blank">直播</a>' +
+//					'<a href="/web/html/school/school-video.html" class="listen" target="_blank">听课</a>' +
+//					'<a href="/App.html" class="download-app" target="_blank">下载APP</a>' +
+//				'</div>' +
+//			' </div>' +
+//			'<div class="search-wrap">'+
+//				'<div class="search-icon">'+
+//					'<img src="/web/images/search.png" alt="搜索">' +
+//				'</div>'+
+//				'<div class="search-input">' +
+//					'<input type="text" name="" id="" value="" />' +
+//				'</div>' +
+//				'<div class="search-button">' +
+//					'<button type="button">搜索</button>' +
+//				'</div>' +
+//			'</div>'+
 			'</div>',
 		login: '<div class="modal" id="login" data-backdrop="static">' +
 			'<div class="modal-dialog login-module" role="document">' +
