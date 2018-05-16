@@ -52,8 +52,20 @@
 					$("#address_id").val(umv.id);
 				    $("#consignee").val(umv.consignee);
 				    $("#phone").val(umv.phone);
-//				    var cityp = umv.provinces+" "+ umv.city+" "+umv.county
-				    var cityp = umv.provinces+" "+ umv.city
+				    
+				    //
+				    var cityp = umv.provinces+" "+ umv.city+" "+umv.county;
+				    if(stringnull(umv.provinces)){
+				    	cityp+=umv.provinces+" ";
+				    }
+				    if(stringnull(umv.city)){
+				    	cityp+=umv.city+" ";
+				    }
+				    if(stringnull(umv.county)){
+				    	cityp+=umv.county;
+				    }
+				   
+				    //var cityp = umv.provinces+" "+ umv.city
 				    $("#cityP").text(cityp);
 					$("#detailed_address").val(umv.detailedAddress);
 				/*	$("#postal_code").val(umv.postalCode);*/
