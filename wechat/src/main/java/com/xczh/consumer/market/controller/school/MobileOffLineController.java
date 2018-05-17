@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.IMobileBannerService;
@@ -59,9 +61,8 @@ public class MobileOffLineController {
 		Map<String, Object> mapAll = new HashMap<String, Object>();
 		//线下课banner
 		Page<MobileBanner> MobileBannerPage = new Page<>();
-		MobileBannerPage.setCurrent(current);
-		MobileBannerPage.setSize(size);
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(2));
+		MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode()));
+		mapAll.put("banner",MobileBannerPage);
 		//城市
 		Page<OfflineCity> OfflineCityPage = new Page<>();
 		OfflineCityPage.setCurrent(current);
@@ -77,44 +78,43 @@ public class MobileOffLineController {
 
 		LOGGER.info( ocl.getRecords().size()+"");
 		
-		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());
 		
-		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
-
-		Map<String,Object> mapTj = new HashMap<String, Object>();
-
-		List<CourseLecturVo> listqg = new ArrayList<CourseLecturVo>();
-		if(list!=null){
-			for (CourseLecturVo courseLecturVo : list) {
-				if("全国课程".equals(courseLecturVo.getNote())){
-					listqg.add(courseLecturVo);
-				}
-			}
-		}
-		if(listqg.size()>0){
-			mapTj.put("title","全国课程");
-			mapTj.put("courseList",listqg);
-			mapCourseList.add(mapTj);
-		}
-		for (OfflineCity oc : ocl.getRecords()) {
-			Map<String,Object> mapMenu = new HashMap<String, Object>();
-			List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
-			if(list!=null){
-				for (CourseLecturVo courseLecturVo : list) {
-					if(oc.getCityName().equals(courseLecturVo.getNote())){
-						listMenu.add(courseLecturVo);
-					}
-				}
-			}
-
-			if(listMenu.size()>0){
-				mapMenu.put("title", oc.getCityName());
-				mapMenu.put("courseList", listMenu);
-				mapCourseList.add(mapMenu);
-			}
-		}
+//		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());
+//		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+//		Map<String,Object> mapTj = new HashMap<String, Object>();
+//		List<CourseLecturVo> listqg = new ArrayList<CourseLecturVo>();
+//		if(list!=null){
+//			for (CourseLecturVo courseLecturVo : list) {
+//				if("全国课程".equals(courseLecturVo.getNote())){
+//					listqg.add(courseLecturVo);
+//				}
+//			}
+//		}
+//		if(listqg.size()>0){
+//			mapTj.put("title","全国课程");
+//			mapTj.put("courseList",listqg);
+//			mapCourseList.add(mapTj);
+//		}
+//		for (OfflineCity oc : ocl.getRecords()) {
+//			Map<String,Object> mapMenu = new HashMap<String, Object>();
+//			List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
+//			if(list!=null){
+//				for (CourseLecturVo courseLecturVo : list) {
+//					if(oc.getCityName().equals(courseLecturVo.getNote())){
+//						listMenu.add(courseLecturVo);
+//					}
+//				}
+//			}
+//
+//			if(listMenu.size()>0){
+//				mapMenu.put("title", oc.getCityName());
+//				mapMenu.put("courseList", listMenu);
+//				mapCourseList.add(mapMenu);
+//			}
+//		}
+		List<Map<String,Object>> mapCourseList =  mobileBannerService.realCourseList(ocl.getRecords(),PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
+				 PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue());
 		mapAll.put("allCourseList",mapCourseList);
-
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 

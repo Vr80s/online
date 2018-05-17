@@ -1,6 +1,5 @@
 package com.xczh.consumer.market.controller.school;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +19,15 @@ import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczh.consumer.market.vo.MenuVo;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.common.util.enums.PagingFixedType;
+import com.xczhihui.common.util.enums.ProjectType;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.vo.MenuVo;
 
 /**
  * 推荐控制器 ClassName: MobileRecommendController.java <br>
@@ -68,25 +70,16 @@ public class MobileRecommendController {
 		Map<String, Object> mapAll = new HashMap<String, Object>();
 		//课程banner
 		Page<MobileBanner> MobileBannerPage = new Page<>();
-//		MobileBannerPage.setCurrent(current);
-//		MobileBannerPage.setSize(size);
-		int bannerType = 1;
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(bannerType));
+		MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode()));
+		mapAll.put("banner",MobileBannerPage);
 
 		//课程专题
 		Page<MobileProject> MobileProjectPage = new Page<>();
-//		MobileProjectPage.setCurrent(current);
-//		MobileProjectPage.setSize(size);
-		int projectType = 1;
-		mapAll.put("project",mobileProjectService.selectMobileProjectPage(MobileProjectPage,projectType));
+		mapAll.put("project",mobileProjectService.selectMobileProjectPage(
+				MobileProjectPage,ProjectType.PROJECT.getCode()));
 		
-		//名师推荐 名师推荐,没有按照排序做，或者按照这个讲师的课程数来排序呗
-//		Page<MedicalDoctorVO> page = new Page<>();
-//	    page.setCurrent(1);
-//	    page.setSize(10);
-	    
+		//名医推荐
 	    mapAll.put("doctorList",myInfoService.hostInfoRec());
-		
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 	
@@ -99,66 +92,63 @@ public class MobileRecommendController {
 	public ResponseObject recommendBunch(HttpServletRequest req,
 										   HttpServletResponse res)
 			throws Exception {
-		
 		/**
 		 * 精品课程 按照推荐值来排序。
 		 * 最新课程 课程的时间排序
 		 * 针灸课程
 		 * 古书经典
 		 */
-	    List<MenuVo> listmv = menuService.list();
-	    
-	    
-		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(listmv);
-		
-		LOGGER.info(listAll.size()+"");
-		
-		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
-		
-		Map<String,Object> mapTj = new HashMap<String, Object>();
-		Map<String,Object> mapNw = new HashMap<String, Object>();
-		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
-		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
-
-		for (CourseLecturVo courseLecturVo : listAll) {
-			if("精品课程".equals(courseLecturVo.getNote())){
-				listTj.add(courseLecturVo);
-			}
-			if("最新课程".equals(courseLecturVo.getNote())){
-				listNw.add(courseLecturVo);
-			}
-		}
-
-		if(listTj.size()>0){
-			mapTj.put("menuType","goodCourse");
-			mapTj.put("title","精品课程");
-			mapTj.put("courseList",listTj);
-			mapCourseList.add(mapTj);
-		}
-		if(listNw.size()>0){
-			mapNw.put("menuType","newCourse");
-			mapNw.put("title","最新课程");
-			mapNw.put("courseList",listNw);
-			mapCourseList.add(mapNw);
-		}
-
-
-		//定义好这
-		for (MenuVo menuVo : listmv) {
-			Map<String,Object> mapMenu = new HashMap<String, Object>();
-			List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
-			for (CourseLecturVo courseLecturVo : listAll) {
-				if(menuVo.getName().equals(courseLecturVo.getNote())){
-					listMenu.add(courseLecturVo);
-				}
-			}
-			if(listMenu.size()>0){
-				mapMenu.put("menuType", menuVo.getId());
-				mapMenu.put("title", menuVo.getName());
-				mapMenu.put("courseList", listMenu);
-				mapCourseList.add(mapMenu);
-			}
-		}
+	    //List<MenuVo> listmv = menuService.list();
+//		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(listmv);
+//		LOGGER.info(listAll.size()+"");
+//		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+//		Map<String,Object> mapTj = new HashMap<String, Object>();
+//		Map<String,Object> mapNw = new HashMap<String, Object>();
+//		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
+//		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
+//
+//		for (CourseLecturVo courseLecturVo : listAll) {
+//			if("精品课程".equals(courseLecturVo.getNote())){
+//				listTj.add(courseLecturVo);
+//			}
+//			if("最新课程".equals(courseLecturVo.getNote())){
+//				listNw.add(courseLecturVo);
+//			}
+//		}
+//
+//		if(listTj.size()>0){
+//			mapTj.put("menuType","goodCourse");
+//			mapTj.put("title","精品课程");
+//			mapTj.put("courseList",listTj);
+//			mapCourseList.add(mapTj);
+//		}
+//		if(listNw.size()>0){
+//			mapNw.put("menuType","newCourse");
+//			mapNw.put("title","最新课程");
+//			mapNw.put("courseList",listNw);
+//			mapCourseList.add(mapNw);
+//		}
+//
+//
+//		//定义好这
+//		for (MenuVo menuVo : listmv) {
+//			Map<String,Object> mapMenu = new HashMap<String, Object>();
+//			List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
+//			for (CourseLecturVo courseLecturVo : listAll) {
+//				if(menuVo.getName().equals(courseLecturVo.getNote())){
+//					listMenu.add(courseLecturVo);
+//				}
+//			}
+//			if(listMenu.size()>0){
+//				mapMenu.put("menuType", menuVo.getId());
+//				mapMenu.put("title", menuVo.getName());
+//				mapMenu.put("courseList", listMenu);
+//				mapCourseList.add(mapMenu);
+//			}
+//		}
+		List<MenuVo> listMenu  = mobileProjectService.selectMenuVo();
+	    List<Map<String,Object>> mapCourseList =  mobileBannerService.recommendCourseList(listMenu,PagingFixedType.RECOMMENDATION_PAGETYPE_UP.getValue(),
+	    				PagingFixedType.RECOMMENDATION_PAGETYPE_DOWN.getValue());
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
 
