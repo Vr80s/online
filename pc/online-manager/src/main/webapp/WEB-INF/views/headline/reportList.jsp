@@ -10,6 +10,7 @@
             });
     } catch (e) {
     }
+    var weburl = '${weburl}';
 </script>
 <script type="text/javascript" src="/js/headline/reportList.js?v=ipandatcm_1.3"></script>
 <script src="/js/layer/layer.js"></script>

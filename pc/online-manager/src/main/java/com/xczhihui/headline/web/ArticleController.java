@@ -48,6 +48,7 @@ public class ArticleController extends AbstractController {
         List<TagVo> tags = articleService.getTags();
         request.setAttribute("articleTypes", articleTypes);
         request.setAttribute("tags", tags);
+        request.setAttribute("weburl", weburl);
         return HEADLINE_PATH_PREFIX + "/articleList";
     }
 
@@ -74,6 +75,10 @@ public class ArticleController extends AbstractController {
         if (status != null) {
             searchVo.setStatus(Integer.parseInt(status.getPropertyValue1()
                     .toString()));
+        }
+        Group isRecommend = groups.findByName("search_isRecommend");
+        if (isRecommend != null) {
+            searchVo.setIsRecommend(Integer.parseInt(isRecommend.getPropertyValue1().toString())==1);
         }
 
         Group startTime = groups.findByName("startTime");

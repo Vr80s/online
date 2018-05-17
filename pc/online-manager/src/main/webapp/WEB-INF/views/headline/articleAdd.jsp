@@ -44,7 +44,9 @@
 					<select   name="typeId"   id="typeId"   class="col-xs-12 col-sm-12 {required:true}" >
                         <option  value="" >请选择</option>
                        	<c:forEach var="m" items="${articleTypes}">
+							<c:if test="${m.id!= 4 && m.id!= 7}">
                             <option value="${m.id}">${m.name}</option>
+							</c:if>
                          </c:forEach>
                     </select>
 				</div>
