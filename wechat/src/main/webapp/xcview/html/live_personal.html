@@ -34,7 +34,8 @@
 	.add_follow p{
 	    margin-top: 0;
     	display: block;
-    	padding: 0.1rem 0;
+    	/*padding: 0.1rem 0;*/
+    	font-size: 0.24rem;
 	}
 </style>
 
@@ -42,16 +43,18 @@
 <body style="background:#F8F8F8;">
 <div class="wp">
 	<div class="wrap-header">
+		<script type="text/html" id="wrap-header">
 		<div class="header">		
-			<p>主播</p>
+			<p>{{lecturerInfo.name}}</p>
 			 <!--<div class="arror_return z"  onClick="javascript :history.back(-1);">--> 
 			<div class="arror_return z"  onClick="common_share_back()">
-				<img src="../images/back icon.png"/>
+				<img src="../images/anchorj.png"/>
 			</div>
 			<div class="header_news">
-				<img src="/xcview/images/share_img.png" alt="">
+				<img src="/xcview/images/anchorf.png" alt="">
 			</div>
 		</div>
+		</script>
 	</div>
 	<!--头像背景-->
 	<div class="personal_bg" id="personal_bg">
@@ -59,15 +62,8 @@
 			<div class="personal_header">
 				<img src="{{lecturerInfo.small_head_photo}}"/>
 			</div>
-			<!--主播等级-->
-			<!--<div class="grade">
-				<p>LV9</p>
-			</div>-->
-		</script>
-	</div>
-	<!--主播名字/粉丝数量-->
-	<div class="wrap_wrapPersonal" id="wrap_wrapPersonal">
-		<script type="text/html" id="data_number">
+			<!--主播名字/粉丝数量-->
+	<div class="wrap_wrapPersonal">
 				<div class="wrapPersonal_id">
 					<p class="personal_name">{{lecturerInfo.name}}</p>
 					<div class="person_follow">
@@ -80,22 +76,28 @@
 						</div>
 					</div>
 						{{if isFours==0 }}					
-							<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.user_id}}" >
+							<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.user_id}}" style="background: #fff;border: none;" >
 							<img src="../images/append1_icon.png"/>
 							<p>加关注</p>
 						{{else}}
-							<div style="border: 1px solid #BBB;" class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.user_id}}" >
+							<div style="background: #fff;" class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.user_id}}">
 							<img src="../images/append2_icon.png"/>
 							<p class="aaa" style="color: #BBB;">已关注</p>
 						{{/if}}
 					</div>
 				</div>
+	</div>
 		</script>
 	</div>
+	
 	<!--主播状态-->	
 	<div class="personal_status" id="personal_status">
 		<script type="text/html" id="data_status">
 			<a data-play="{{id}}" onclick="common_jump_all({{id}})" style="overflow: hidden;display: block;color: #333333;">
+				<div class="title">
+					<p class="title_border"></p>
+					<p class="title_size">最近直播</p>
+				</div>
 				<div class="wrap_img z">
 					<img src="{{smallImgPath}}?imageView2/2/w/212"/>
 				</div>
@@ -107,9 +109,9 @@
 					{{if lineState == 1}}
 					<p>直播中</p>
 					{{else if lineState == 2}}
-					<p>直播预告</p>	
+					<p>预告</p>	
 					{{else if lineState == 3}}
-					<p>直播回放</p>			
+					<p>回放</p>			
 					{{/if}}
 				</div>
 			</a>
@@ -258,9 +260,10 @@
 							<!--购买者显示-->
 							{{if item.isBuy  }}
 							<div class="wrap_purchaser">
-								<p>购买者</p>
+								<p>已购</p>
 							</div>
 							{{/if}}
+							
 							{{if item.starLevel == 1}}
 							<img class="z" src="../images/xing1_0.png"/>
 							{{else if item.starLevel == 1.5}}
@@ -476,4 +479,3 @@
 <!--分享引入js-->
 <!--<script type="text/javascript" src="/xcview/js/details.js?version=c7095270c8"></script>-->
 </html>
-

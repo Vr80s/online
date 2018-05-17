@@ -41,8 +41,8 @@ textarea::-webkit-input-placeholder {
 	line-height: 0.88rem;
 	overflow: hidden;
 	position: fixed;
-	border-bottom: 1px solid #d8dde6;	
-	background: white;
+	/*border-bottom: 1px solid #d8dde6;	*/
+	/*background: white;*/
 	z-index: 999999;
 }
 .header p{
@@ -75,22 +75,24 @@ textarea::-webkit-input-placeholder {
 }
 .personal_bg{
 	width: 100%;
-	height: 2.3rem;
-	background: url(../images/toptub.jpg) no-repeat;
+	height: 4.1rem;
+	background: url(../images/anchorbg.png) no-repeat;
 	background-size: cover;
 	position: relative;
+    margin-top: -0.88rem;
 }
 .personal_header{
 	position: absolute;
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.2rem;
+    height: 1.2rem;
     background: white;
     left: 50%;
     border-radius: 50%;
-    bottom: -0.8rem;
-    margin-left: -0.8rem;
+    /*bottom: -0.8rem;*/
+    margin-left: -0.6rem;
     overflow: hidden;
     border: 2px solid #fff;
+    margin-top: 0.84rem;
 }
 .personal_header img{
 	width: 100%;
@@ -112,8 +114,9 @@ textarea::-webkit-input-placeholder {
 }
 .wrap_wrapPersonal{
 	width: 100%;
-	background: white;
+	/*background: white;*/
 	overflow: hidden;
+	padding-top: 0.88rem;
 }
 .wrapPersonal_id{
 	width: 6.5rem;
@@ -124,7 +127,8 @@ textarea::-webkit-input-placeholder {
 .personal_name{
 	text-align: center;
 	font-size: 0.32rem;
-	padding-top: 1.05rem;
+	padding-top: 1.3rem;
+	color: #fff;
 }
 .person_follow{
 	width: 6rem;
@@ -132,11 +136,12 @@ textarea::-webkit-input-placeholder {
 	position: relative;
 	margin-top: 0.16rem;
 	overflow: hidden;
+	color: #fff;
 }
 .separate{
 	width: 0.03rem;
     height: 0.3rem;
-    background: #999999;
+    background: #fff;
     position: absolute;
     left: 50%;
     top: 0.05rem;
@@ -153,11 +158,12 @@ textarea::-webkit-input-placeholder {
 }
 /*加关注*/
 .add_follow{
-	width: 1.8rem;
+	width: 1.6rem;
     height: 0.56rem;
-    border: 1px solid #00BC12;
+    line-height: 0.56rem;
+    /*border: 1px solid #00BC12;*/
     border-radius: 100px;
-    font-size: 24px;
+    font-size: 0.24rem;
     color: #00BC12;
     /*line-height: 0.56rem;*/
     position: relative;
@@ -173,7 +179,7 @@ textarea::-webkit-input-placeholder {
     margin-left: 0.06rem;
 }
 .add_follow p{
-	margin-left: 0.78rem;
+	margin-left: 0.64rem;
 	margin-top: 0.07rem;
 }
 /*主播状态*/
@@ -187,6 +193,21 @@ textarea::-webkit-input-placeholder {
 	background: white;
 	margin-top: 0.2rem;
 	overflow: hidden;
+}
+.personal_status .title{
+	margin-bottom: 0.26rem;
+}
+.title_border{
+	width: 0.06rem;
+	height: 0.28rem;
+	border-radius: 100px;
+	background: #00bc12;
+	float: left;
+	margin-right: 0.08rem;
+}
+.title_size{
+	font-size: 0.28rem;
+	color: #333333;
 }
 .wrap_img{
 	width: 2.12rem;
@@ -457,13 +478,14 @@ margin-top: 0.1rem;
 }
 .uesr_lable ul li{
 	padding: 0.08rem 0.2rem;
-	background: #00BC12;
-border-radius: 8px;
-color: white;
-margin-right: 0.2rem;
-font-size: 0.28rem;
-float: left;
-margin-top: 0.1rem;
+    background: #f0f0f0;
+    border-radius: 100px;
+    color: white;
+    margin-right: 0.2rem;
+    font-size: 0.24rem;
+    float: left;
+    margin-top: 0.1rem;
+    color: #666;
 }
 /*被恢复的内容-灰色部分*/
 .uesr_returned{
@@ -479,6 +501,7 @@ margin-top: 0.1rem;
 .returned_id{
 color: #666666;
     padding-bottom: 0.1rem;
+    font-size: 0.26rem;
 }
 .returned_text{
 	font-size: 0.26rem;
@@ -507,15 +530,16 @@ color: #666666;
 	float: left;
 }
 .wrap_purchaser{
-	float:left;
-	width: 0.98rem;
-	height: 0.32rem;
-	text-align: center;
-	line-height: 0.32rem;
-	color: #F97B49;
-	border: 1px solid #F97B49;
-	margin-top: 0.1rem;
-	border-radius: 4px;
+	float: left;
+    width: 0.56rem;
+    height: 0.28rem;
+    text-align: center;
+    line-height: 0.32rem;
+    color: #fff;
+    background: #00bc12;
+    font-size: 0.16rem;
+    margin: 0.04rem 0rem 0 0.1rem;
+    border-radius: 4px;
 }
 .wrap_purchaser p{
 	

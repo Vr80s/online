@@ -485,7 +485,7 @@ textarea::-webkit-input-placeholder {
 	border-radius: 8px;
 	color: white;
 	margin-right: 0.2rem;
-	font-size: 0.28rem;
+	font-size: 0.24rem;
 	float: left;
 	margin-top: 0.1rem;
 }
@@ -503,6 +503,7 @@ textarea::-webkit-input-placeholder {
 .returned_id{
 	color: #666666;
     padding-bottom: 0.1rem;
+    font-size: 0.26rem;
 }
 .returned_text{
 	font-size: 0.26rem;
