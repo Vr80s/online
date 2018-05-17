@@ -48,8 +48,8 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl implements
 	public Page<MessageVo> findPageMessages(
 			MessageVo vo, int pageNumber, int pageSize)
 			throws InvocationTargetException, IllegalAccessException {
-		Page<Message> page = this.dao
-				.findPageMessages(vo, "answerStatus", pageNumber, pageSize);
+		Page<Message> page = this.dao.findPageMessages(vo, "answerStatus", pageNumber, pageSize);
+		
 		List<Message> items = page.getItems();
 		List<MessageVo> itemsVo = new ArrayList<MessageVo>();
 		for (Message q : items) {
@@ -81,8 +81,7 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl implements
 			itemsVo.add(dest);
 		}
 
-		Page<MessageVo> pageVo = new Page<MessageVo>(
-				itemsVo, page.getTotalCount(), page.getPageSize(),
+		Page<MessageVo> pageVo = new Page<MessageVo>(itemsVo, page.getTotalCount(), page.getPageSize(),
 				page.getCurrentPage());
 		return pageVo;
 	}

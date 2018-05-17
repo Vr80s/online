@@ -66,8 +66,7 @@ public class MedicalDoctorApplyController {
 			@RequestParam("professionalCertificateFile") MultipartFile professionalCertificateFile)
 			throws Exception {
 
-		LOGGER.info("--------------------医师认证开始"
-				+ professionalCertificateFile.getOriginalFilename());
+		LOGGER.info("--------------------医师认证开始");
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
@@ -76,25 +75,32 @@ public class MedicalDoctorApplyController {
 		// 循环获取file数组中得文件
 		String projectName = "other";
 		String fileType = "1"; // 图片类型了
+		
+		LOGGER.info("身份证正面:bytes():"+cardPositiveFile.getBytes().length
+		+",filename:"+cardPositiveFile.getOriginalFilename());
 		// 身份证正面
 		String cardPositive = service.upload(null, projectName,
 				cardPositiveFile.getOriginalFilename(),
 				cardPositiveFile.getContentType(), cardPositiveFile.getBytes(),
 				fileType, null);
 		medicalDoctorApply.setCardPositive(cardPositive);
+		
+		LOGGER.info("身份证反面:bytes():"+cardNegativeFile.getBytes().length+",filename:"+cardNegativeFile.getOriginalFilename());
 		// 身份证反面
 		String cardNegative = service.upload(null, projectName,
 				cardNegativeFile.getOriginalFilename(),
 				cardNegativeFile.getContentType(), cardNegativeFile.getBytes(),
 				fileType, null);
 		medicalDoctorApply.setCardNegative(cardNegative);
+		
+		LOGGER.info("医师资格证:bytes():"+qualificationCertificateFile.getBytes().length+",filename:"+qualificationCertificateFile.getOriginalFilename());
 		// 医师资格证
 		String qualificationCertificate = service.upload(null, projectName,
 				qualificationCertificateFile.getOriginalFilename(),
 				qualificationCertificateFile.getContentType(),
 				qualificationCertificateFile.getBytes(), fileType, null);
-		medicalDoctorApply
-				.setQualificationCertificate(qualificationCertificate);
+		medicalDoctorApply.setQualificationCertificate(qualificationCertificate);
+		LOGGER.info("医师执业证书:bytes():"+professionalCertificateFile.getBytes().length+",filename:"+professionalCertificateFile.getOriginalFilename());
 		// 医师执业证书
 		String professionalCertificate = service.upload(null, projectName,
 				professionalCertificateFile.getOriginalFilename(),
@@ -106,7 +112,6 @@ public class MedicalDoctorApplyController {
 		medicalDoctorApplyService.add(medicalDoctorApply);
 		return ResponseObject.newSuccessResponseObject("创建成功");
 	}
-
 	/**
 	 * 医师认证
 	 */

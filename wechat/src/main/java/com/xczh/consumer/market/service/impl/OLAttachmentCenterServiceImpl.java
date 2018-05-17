@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.medical.exception.MedicalException;
 
 @Service
 public class OLAttachmentCenterServiceImpl implements OLAttachmentCenterService {

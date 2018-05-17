@@ -30,7 +30,7 @@
 		if(document.location.host == 'www.ipandatcm.com' || document.location.host == 'www.ixincheng.com' || document.location.host == 'ipandatcm.com' || document.location.host == 'ixincheng.com') {
 			wxurl = "http://m.ipandatcm.com";
 		} else {
-			wxurl = "http://test-wx.ixincheng.com";
+			wxurl = "http://test-wx.xczhihui.com";
 		}
 		window.location = wxurl;
 	}
@@ -840,13 +840,4 @@ $(function() {
 
 		});
 	}
-
-	//    if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
-	//    	alert("shouji");
-	//    	alert(navigator.userAgent);
-	//    }else{
-	//    	alert("pc");
-	//    	alert(navigator.userAgent);
-	//    }
-
 });

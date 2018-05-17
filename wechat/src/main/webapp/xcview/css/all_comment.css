@@ -176,9 +176,9 @@ margin-top: 0.1rem;
 border-radius: 100px;
 color: white;
 margin-right: 0.2rem;
-font-size: 0.28rem;
+font-size: 0.24rem;
 float: left;
-margin-top: 0.1rem;
+margin-top: 0.2rem;
 color: #666;
 }
 /*被恢复的内容-灰色部分*/
@@ -195,6 +195,7 @@ color: #666;
 .returned_id{
 color: #666666;
     padding-bottom: 0.1rem;
+    font-size: 0.26rem;
 }
 .returned_text{
 	font-size: 0.26rem;

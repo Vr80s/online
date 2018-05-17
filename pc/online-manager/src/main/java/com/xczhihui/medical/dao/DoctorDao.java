@@ -35,16 +35,16 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
                 " WHERE m.deleted = 0");
         if (medicalDoctor.getName() != null) {
             paramMap.put("name", "%" + medicalDoctor.getName() + "%");
-            sql.append("and m.name like :name ");
+            sql.append(" and m.name like :name ");
         }
         if (medicalDoctor.getType() != null
                 && !"".equals(medicalDoctor.getType())) {
             paramMap.put("type", medicalDoctor.getType());
-            sql.append("and m.type = :type ");
+            sql.append(" and m.type = :type ");
         }
         if (medicalDoctor.getStatusnum() != null) {
             paramMap.put("status", medicalDoctor.getStatus());
-            sql.append("and m.status = :status ");
+            sql.append(" and m.status = :status ");
         }
 
         sql.append(" ORDER BY m.status DESC,\n"
