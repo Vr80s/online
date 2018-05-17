@@ -10,16 +10,16 @@
 		<meta name="renderer" content="webkit">
 		<meta name="baidu-site-verification" content="UHaAQAeAQF" />
 		<!--公共头部和底部样式-->
-			<link rel="stylesheet" href="/web/html/school/school-header/header.css" />
-			<link rel="stylesheet" href="/web/css/footer.css" />
-			<link rel="stylesheet" href="/web/font/iconfont.css" />
+			<link rel="stylesheet" href="/web/html/school/school-header/header.css?version=b504aa0ea9" />
+			<link rel="stylesheet" href="/web/css/footer.css?version=c40fece58d" />
+			<link rel="stylesheet" href="/web/font/iconfont.css?version=62fcddd84e" />
 		<!--公共头部和底部样式结束-->
 		<!--登陆的bootstrap样式-->
-			<link rel="stylesheet" href="/web/css/mylogin.css" />
+			<link rel="stylesheet" href="/web/css/mylogin.css?version=61637524d6" />
 			<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 
 		<!--登陆的bootstrap样式-->
-			<link rel="stylesheet" href="/web/css/school/school-recommend.css"  />
+			<link rel="stylesheet" href="/web/css/school/school-recommend.css?version=6b7f0ba64e"  />
 	</head>
 	<body>
 <!--左侧精品、免费、最新、养生课程-->		
@@ -46,7 +46,7 @@
 					     		<div class="item">
 					     	</#if>
 								<a href="">
-						     		<img src="${banner.url}" alt="广告图">
+						     		<img src="${banner.imgPath}" alt="广告图">
 						     	</a>
 						    </div>	
 						</#list>
@@ -56,7 +56,7 @@
 				<div class="physic-type">
 					<ul>
 						<#list projectList as project>
-					     	<#if banner_index lt 4 >
+					     	<#if project_index lt 4 >
 					     	 <li>
 					     		<a href="">
 									<p><img src="${project.icon}" alt="${project.name}" /></p>
@@ -67,66 +67,44 @@
 						</#list>
 					</ul>
 				</div>
-<!--精品课程、免费课程、最新课程、养生课程、-->			
-				<div class="main">
-					<div class="content-class">	
+<!--精品课程、免费课程、最新课程、养生课程、-->	
+
 		<#-- 	 
 			menuType: 200,
             courseList: [
             ],
             title: "针灸疗法"  -->
-						<#list courseList as courseItem>
-						</#list>
-						<div class="wrap-title">
-								<span>最新课程</span>
+		
+				<#list courseTypeList as courseTypeItem>
+					<div class="main">
+						<div class="content-class">	
+							<div class="wrap-title">
+							    <#-- 课程的小标题--> 
+								<span>${courseTypeItem.title}</span>
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								<p><a href="/web/html/school/curriculum-list.html">更多</a><img src="../../images/rili_icon.png" alt="箭头" /> </p>
 							</div>
-							<div class="course clearfix">
-								<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
-								<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-									<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
-									<div class="detail">
-										<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-										<p class="timeAndTeac">
-											<span class="teacher">雪灵</span>
-	
-										</p>
-										<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-										</p>
-									</div>
-								</a>
-							</div>
-						<div class="course clearfix">
-							<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
-							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-								<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-									<p class="timeAndTeac">
-										<span class="teacher">雪灵</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-									</p>
+							<#list courseTypeItem.courseList as courseItem>
+								<div class="course clearfix">
+									<#-- 推荐课程的标记  -->
+									<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
+									<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+										<div class="img"><img src="${courseItem.smallImgPath}"></div><span class="classCategory">音频</span>
+										<div class="detail">
+											<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
+											<p class="timeAndTeac">
+												<span class="teacher">${courseItem.name}</span>
+											</p>
+											<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span><span class="stuCount">
+											<img src="/web/images/studentCount.png" alt=""><span class="studentCou">${courseItem.learndCount}</span></span>
+											</p>
+										</div>
+									</a>
 								</div>
-							</a>
-						</div>
-						<div class="course clearfix">
-							<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
-							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-								<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-									<p class="timeAndTeac">
-										<span class="teacher">雪灵</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-									</p>
-								</div>
-							</a>
-						</div>
-					</div>
-				</div>			
+							</#list>	
+					   </div>
+				   </div>				
+				</#list>
 			</div>
 	
 <!--右侧成为主播、搜索、名师推荐-->
@@ -146,8 +124,6 @@
 					<#-- 
 					     <li>热门搜索</li>
 					-->     	
-						
-																		
 					</ul>
 				</div>
 				<div class="wrap-docter">
@@ -156,12 +132,11 @@
  					<#list doctorList as doctorInfo>
                         <li>
 							<img src="${doctorInfo.headPortrait}" alt="名医头像"/>
-							<p data-id = "${doctorInfo.id}">${doctorInfo.name}</p>
+							<p data-id ="${doctorInfo.userId}">${doctorInfo.name}</p>
 						</li> 
                     </#list>
 					 <#-- 
 					     <li>热门搜索</li>
-					 
 					 	    ca.profile_photo as headPortrait,
 					    	ca.name,
 							ca.user_id as userId
@@ -176,18 +151,18 @@
 			</div>
 		</div>
 
-		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="/web/js/artTemplate.js"></script>	
-		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/jquery-1.12.1.js?version=da6deec5d1" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/web/js/artTemplate.js?version=8ba0d405af"></script>	
+		<script src="/web/js/bootstrap.js?version=32941860bf" type="text/javascript" charset="utf-8"></script>
 		
 		<!--公共头部和底部-->
-		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="/web/js/footer.js"></script>
+		<script src="/web/js/ajax.js?version=b9420555ff" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/html/school/school-header/header.js?version=1fead7f563" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/web/js/footer.js?version=355911bda4"></script>
 		<!--公共头部和底部结束-->
 
 		<!--登陆结束-->	
-		<script src="/web/js/school/school-recommend.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/school/school-recommend.js?version=ff165246cb" type="text/javascript" charset="utf-8"></script>
 			
 	</body>
 		
