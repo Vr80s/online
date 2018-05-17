@@ -100,18 +100,16 @@ public class SchoolController extends AbstractFtlController {
 	@RequestMapping(value = "real", method = RequestMethod.GET)
     public ModelAndView real() {
 		 ModelAndView view = new ModelAndView("school/real");
-		
 		 //线下课banner
 		 view.addObject("bannerList",mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode()));
-		 
 		 //线下培训班课程
 		 Page<OfflineCity> OfflineCity = new Page<>();
 		 OfflineCity.setCurrent(1);
 		 OfflineCity.setSize(4);
 		 Page<OfflineCity> ocl = offlineCityService.selectOfflineRecommendedCityPage(OfflineCity);
 		 
-		 view.addObject("courseList",mobileBannerService.realCourseList(ocl.getRecords(),PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
-				 PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue()));
+		 view.addObject("courseList",mobileBannerService.realCourseList(ocl.getRecords(),PagingFixedType.REAL_PAGETYPE_UP.getValue(),
+				 PagingFixedType.REAL_PAGETYPE_DOWN.getValue()));
 		 //名医推荐
 		 view.addObject("doctorList",myInfoService.hostInfoRec());
 		 return view;
