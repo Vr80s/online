@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
+import com.xczhihui.common.util.enums.ProjectType;
 import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.model.OfflineCity;
@@ -58,8 +59,7 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "recommendation", method = RequestMethod.GET)
     public ModelAndView recommendation() {
-		
-        ModelAndView view = new ModelAndView("school/recommend");
+        ModelAndView view = new ModelAndView("school/school_index");
         /**
          * banner图
          */
@@ -77,9 +77,8 @@ public class SchoolController extends AbstractFtlController {
 		 * 课程专题啦
 		 */
 		//课程专题
-		Page<MobileProject> MobileProjectPage = new Page<>();
-		int projectType = 1;
-		view.addObject("projectList",mobileProjectService.selectMobileProjectPage(MobileProjectPage,projectType));
+		view.addObject("projectList",mobileProjectService.selectMobileProjectPage(
+				ProjectType.PROJECT.getCode()));
 		
 		/**
          * 课程分类 

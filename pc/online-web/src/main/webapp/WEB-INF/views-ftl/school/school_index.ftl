@@ -55,12 +55,12 @@
 				</div>
 				<div class="physic-type">
 					<ul>
-						<#list bannerList as banner>
+						<#list projectList as project>
 					     	<#if banner_index lt 4 >
 					     	 <li>
 					     		<a href="">
-									<p><img src="${projectList.icon}" alt="${projectList.name}" /></p>
-									<span>${projectList.name}</span>
+									<p><img src="${project.icon}" alt="${project.name}" /></p>
+									<span>${project.name}</span>
 							    </a>
 							  </li>  
 					        </#if>

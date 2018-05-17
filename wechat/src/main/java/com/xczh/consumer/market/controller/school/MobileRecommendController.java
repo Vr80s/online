@@ -75,9 +75,9 @@ public class MobileRecommendController {
 
 		//课程专题
 		Page<MobileProject> MobileProjectPage = new Page<>();
-		mapAll.put("project",mobileProjectService.selectMobileProjectPage(
-				MobileProjectPage,ProjectType.PROJECT.getCode()));
-		
+		List<MobileProject> listMobileProject = mobileProjectService.
+				selectMobileProjectPage(ProjectType.PROJECT.getCode());
+		mapAll.put("project",MobileProjectPage.setRecords(listMobileProject));
 		//名医推荐
 	    mapAll.put("doctorList",myInfoService.hostInfoRec());
 		return ResponseObject.newSuccessResponseObject(mapAll);

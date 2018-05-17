@@ -6,6 +6,7 @@ import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.common.util.enums.ProjectType;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.IMobileBannerService;
@@ -62,11 +63,11 @@ public class MobileClassifyController {
 		//课程分类
 		list.add(menuService.list());
 		//课程专题
-		Page<MobileProject> MobileProjectPage = new Page<>();
-		MobileProjectPage.setCurrent(1);
-		MobileProjectPage.setSize(100);
-		Page<MobileProject> mplist = mobileProjectService.selectMobileProjectPage(MobileProjectPage,2);
-		list.add(mplist.getRecords());
+//		Page<MobileProject> MobileProjectPage = new Page<>();
+//		MobileProjectPage.setCurrent(1);
+//		MobileProjectPage.setSize(100);
+		List<MobileProject> mplist = mobileProjectService.selectMobileProjectPage(ProjectType.PROJECT_CATEGORY.getCode());
+		list.add(mplist);
 		//课程类型
 		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
 		list.add(getCourseTypeList);
