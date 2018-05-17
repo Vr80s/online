@@ -297,9 +297,9 @@ public class CourseController extends AbstractController{
      * @return ResponseObject
      * @author wangyishuai
      **/
-    @RequestMapping(value = "/getCoursesByCollectionId")
+    @RequestMapping(value = "/newGetCoursesByCollectionId")
     @ResponseBody
-    public ResponseObject getCoursesByCollectionId(HttpServletRequest request, @RequestParam("collectionId") Integer collectionId) {
+    public ResponseObject newGetCoursesByCollectionId(HttpServletRequest request, @RequestParam("collectionId") Integer collectionId) {
         try {
             List<CourseLecturVo> courses = courseServiceImpl.selectCoursesByCollectionId(collectionId);
             return ResponseObject.newSuccessResponseObject(courses);
