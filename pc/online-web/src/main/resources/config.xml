@@ -276,9 +276,25 @@
     <!-- 我的信息管理类 -->
     <dubbo:reference interface="com.xczhihui.course.service.IMyInfoService" id="myInfoServiceImpl"
                      timeout="${dubbo.consumer.timeout}" />
+    <!--  我的评论  -->                 
     <dubbo:reference interface="com.xczhihui.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    
+    <!--  我的课程 -->
     <dubbo:reference interface="com.xczhihui.course.service.ICourseService" id="courseService" timeout="${dubbo.consumer.timeout}"/>
 
+
+    <!-- banner 管理类 -->
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileBannerService" id="mobileBannerServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <!-- 专题接口  -->                 
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <!-- 默认关键字、搜索热门接口 -->
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    
+     <!-- 城市接口 -->
+    <dubbo:reference interface="com.xczhihui.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+
+
     <!--=============================================消费者end============================================-->
+
 
 </beans>

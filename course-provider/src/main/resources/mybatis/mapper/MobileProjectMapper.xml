@@ -29,6 +29,13 @@
 			and op.type = #{type}
 		</if>
 		ORDER BY op.sort ASC
-
+	</select>		
+	
+	<select id="selectMenuVo" resultType="com.xczhihui.course.vo.MenuVo">
+		SELECT 
+		id,name,id as menu_id 
+		FROM oe_menu where is_delete = 0 
+		and name != '全部' 
+		and status=1 and yun_status = 1 order by  yun_sort desc
 	</select>		  
 </mapper>

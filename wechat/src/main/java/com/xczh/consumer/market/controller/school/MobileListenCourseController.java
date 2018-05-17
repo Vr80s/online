@@ -54,7 +54,7 @@ public class MobileListenCourseController {
 		MobileBannerPage.setCurrent(1);
 		MobileBannerPage.setSize(100);
 		int bannerType = 4;
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,bannerType));
+		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(bannerType));
 		//听课课程列表
 		List<CourseLecturVo> listenCourseList = courseService.listenCourseList();
 		mapAll.put("listenCourseList",listenCourseList);
