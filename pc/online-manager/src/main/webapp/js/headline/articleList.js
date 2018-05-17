@@ -74,7 +74,13 @@ $(function () {
                 } else {
                     str += '<a class="gray" href="javascript:void(-1);" title="报道医师" ><i class="glyphicon glyphicon-camera"></i></a>';
                 }
-                str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+                debugger
+                if(row.typeId!=4&&row.typeId!=7){
+                    str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+                }else{
+                    str += '<a class="blue" href="javascript:void(-1);" title="查看" onclick="toShow(this)"><i class="ace-icon fa fa-search bigger-130"></i></a>';
+                }
+
                 if (row.status == "1") {
                     str += '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
                 } else {
@@ -104,6 +110,11 @@ function toEdit(obj) {
     turnPage(basePath + '/home#headline/article/toEdit?id=' + row.id + "&typeId=" + row.typeId + "&typeName=" + row.typeName + "&tagId=" + row.tagId + "&author=" + row.author + "&tagName=" + encodeURIComponent(row.tagName));
 }
 
+function toShow(obj) {
+    var oo = $(obj).parent().parent().parent();
+    var row = articleTable.fnGetData(oo); // get datarow
+    window.open(weburl + '/headline/details/' + row.id,'_blank')
+}
 /**
  * 批量删除
  *

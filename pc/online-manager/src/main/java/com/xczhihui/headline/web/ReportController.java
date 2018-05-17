@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,7 +25,8 @@ import com.xczhihui.headline.vo.TagVo;
 @RequestMapping("headline/report")
 public class ReportController extends AbstractController {
     protected final static String HEADLINE_PATH_PREFIX = "/headline/";
-
+    @Value("${web.url}")
+    private String weburl;
     @Autowired
     private ArticleService articleService;
 
@@ -34,6 +36,7 @@ public class ReportController extends AbstractController {
         List<TagVo> tags = articleService.getTags();
         request.setAttribute("articleTypes", articleTypes);
         request.setAttribute("tags", tags);
+        request.setAttribute("weburl", weburl);
         return HEADLINE_PATH_PREFIX + "/reportList";
     }
 }

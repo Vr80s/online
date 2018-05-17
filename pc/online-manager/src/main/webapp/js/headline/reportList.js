@@ -72,17 +72,17 @@ $(function () {
             "title": "操作",
             "mRender": function (data, display, row) {
                 var str = "<div class=\"hidden-sm hidden-xs action-buttons\">";
-                str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+                str += '<a class="blue" href="javascript:void(-1);" title="查看" onclick="toShow(this)"><i class="ace-icon fa fa-search bigger-130"></i></a>';
                 if (row.status == "1") {
                     str += '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
                 } else {
                     str += '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
                 }
-                if (!row.isRecommend) {
-                    str += '<a class="blue" href="javascript:void(-1);" title="推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
-                } else {
-                    str += '<a class="gray" href="javascript:void(-1);" title="取消推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
-                }
+                // if (!row.isRecommend) {
+                //     str += '<a class="blue" href="javascript:void(-1);" title="推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
+                // } else {
+                //     str += '<a class="gray" href="javascript:void(-1);" title="取消推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
+                // }
                 return str;
             }
         }
@@ -99,10 +99,10 @@ $(".add_bx").click(function () {
 });
 
 //修改页面
-function toEdit(obj) {
+function toShow(obj) {
     var oo = $(obj).parent().parent().parent();
     var row = articleTable.fnGetData(oo); // get datarow
-    turnPage(basePath + '/home#headline/article/toEdit?id=' + row.id + "&typeId=" + row.typeId + "&typeName=" + row.typeName + "&tagId=" + row.tagId + "&author=" + row.author + "&tagName=" + encodeURIComponent(row.tagName));
+    window.open(weburl + '/headline/details/' + row.id,'_blank')
 }
 
 /**

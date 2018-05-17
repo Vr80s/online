@@ -31,7 +31,9 @@
  	}
  	
  </style>
- 
+ <script>
+ 	alert(123);
+ </script>
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
 <div class="wp">
@@ -88,10 +90,10 @@
     				<script type="text/html" id="lectures">
 	                {{each items as item i}}
     				<li>
-    					<div class="boutique_main_one">
-				
-							<div class="boutique_one_img" onclick="common_jump_all({{item.id}})">
-	
+    					<a href="javascript: ;"  onclick="common_jump_all({{item.id}})">
+
+    						<div class="boutique_main_one">
+							<div class="boutique_one_img">
     							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
     						</div>			
 								{{if item.type == 1}}
@@ -130,6 +132,8 @@
     					</div>
     				</div>
     			</div>
+
+    					</a>	
     					
     				</li>
 					{{/each}}
