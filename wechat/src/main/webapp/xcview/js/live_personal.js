@@ -99,6 +99,9 @@ requestService("/xczh/host/hostPageInfo",{
     $(".all_returned_num span").html(data.resultObject.criticizeCount);
 //	直播头像/主播名字
 	$(".personal_bg").html(template('personal_header',data.resultObject));
+
+	// 改变title--名字
+	$(".wrap-header").html(template('wrap-header',data.resultObject));
 //<!--主播名字/粉丝数量-->
 	$("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
 // 打开页面判断是否已关注
@@ -112,14 +115,14 @@ requestService("/xczh/host/hostPageInfo",{
             $(".add_follow").find('img').attr('src','../images/append2_icon.png');
             $(".add_follow").find('p').html("已关注");
             $(".add_follow").find('p').css("color","#bbb");
-			$(".add_follow").css("border","1px solid #bbb");
+			// $(".add_follow").css("border","1px solid #bbb");
             $(".right_personal").find('span').html(parseInt(p)+1);
             my_follow(lecturerId,1);
         }else{
             $(".add_follow").find('img').attr('src','../images/append1_icon.png');
             $(".add_follow").find('p').html("加关注");
             $(".add_follow").find('p').css("color","#00bc12");
-            $(".add_follow").css("border","1px solid #00bc12");
+            // $(".add_follow").css("border","1px solid #00bc12");
             $(".right_personal").find('span').html(parseInt(p)-1);
             my_follow(lecturerId,2);
         }
@@ -452,14 +455,3 @@ function on_cc_h5player_init(){
 	var oV = document.getElementsByTagName('video')[0];
 	oV.setAttribute("x5-playsinline","");
 }
-
-
-
-
-
-
-
-
-
-
-
