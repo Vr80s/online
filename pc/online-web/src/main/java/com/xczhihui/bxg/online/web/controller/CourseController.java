@@ -6,17 +6,19 @@ import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.course.model.Order;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IOrderService;
+import com.xczhihui.course.vo.CourseLecturVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 课程控制层实现类
@@ -31,6 +33,9 @@ public class CourseController extends AbstractController{
 
         @Autowired
         private IOrderService orderService;
+
+        @Autowired
+        private ICourseService courseServiceImpl;
 
         @RequestMapping(value = "/scoreList" )
        public Object listAllScoreType(){
@@ -265,5 +270,42 @@ public class CourseController extends AbstractController{
     @RequestMapping(value = "/courses/recommend/{type}")
     public ResponseObject coursesRecommend(@PathVariable Integer type) throws ClientException {
         return ResponseObject.newSuccessResponseObject(service.getCoursesRecommendByType(type));
+    }
+
+    /**
+     * Description:课程详情（展示页面）页面
+     * @return ResponseObject
+     * @author wangyishuai
+     **/
+    @RequestMapping(value = "/courseDetails")
+    @ResponseBody
+    public ResponseObject courseDetails(HttpServletRequest request, @RequestParam("courseId") Integer courseId) {
+        try {
+            CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+            if (cv == null) {
+                return ResponseObject.newErrorResponseObject("课程信息有误");
+            }
+            return ResponseObject.newSuccessResponseObject(cv);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseObject.newErrorResponseObject("获取课程信息有误");
+        }
+    }
+
+    /**
+     * Description:通过合辑id获取合辑中的课程
+     * @return ResponseObject
+     * @author wangyishuai
+     **/
+    @RequestMapping(value = "/getCoursesByCollectionId")
+    @ResponseBody
+    public ResponseObject getCoursesByCollectionId(HttpServletRequest request, @RequestParam("collectionId") Integer collectionId) {
+        try {
+            List<CourseLecturVo> courses = courseServiceImpl.selectCoursesByCollectionId(collectionId);
+            return ResponseObject.newSuccessResponseObject(courses);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseObject.newErrorResponseObject("获取合辑列表有误");
+        }
     }
 }

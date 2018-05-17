@@ -1,17 +1,20 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.MenuService;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.MyCourseType;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.vo.CourseLecturVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 用户课程控制器
@@ -27,6 +30,9 @@ public class UserCourseController extends AbstractController{
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private ICourseService courseServiceImpl;
 
     /**
      * 查询所有菜单
@@ -111,5 +117,56 @@ public class UserCourseController extends AbstractController{
         }
     	Page<CourseVo> courseVoPage=courseService.findUserRealCoursePage(loginUser.getId(),courseStatus, pageNumber, pageSize);
     	return ResponseObject.newSuccessResponseObject(courseVoPage);
+    }
+
+    /**
+     * Description:我的课程和已结束课程
+     * @return ResponseObject
+     * @author wangyishuai
+     **/
+    @RequestMapping(value = "/myCourseType")
+    @ResponseBody
+    public ResponseObject getHostInfoById(HttpServletRequest request,Integer pageNumber, Integer pageSize,Integer type) {
+        try {
+            OnlineUser u =  getCurrentUser();
+            if(u==null) {
+                return ResponseObject.newErrorResponseObject("用户未登录");
+            }
+            String myCourseType = MyCourseType.getTypeText(type);
+            if(myCourseType == null) {
+                return ResponseObject.newErrorResponseObject("我的课程类型有误："+MyCourseType.getAllToString());
+            }
+            int num = (pageNumber - 1) * pageSize;
+            num = num < 0 ? 0 : num;
+            List<CourseLecturVo> list = courseServiceImpl.myCourseType(num,pageSize, u.getId(),type);
+            return ResponseObject.newSuccessResponseObject(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseObject.newErrorResponseObject("获取数据失败");
+        }
+    }
+
+    /**
+     * Description:我已购买课程的不包含免费的
+     * @return ResponseObject
+     * @author wangyishuai
+     **/
+    @RequestMapping(value = "/freeCourseList")
+    @ResponseBody
+    public ResponseObject freeCourseList(HttpServletRequest request,Integer pageNumber, Integer pageSize) {
+        try {
+            com.baomidou.mybatisplus.plugins.Page<CourseLecturVo> page = new com.baomidou.mybatisplus.plugins.Page<>();
+            page.setCurrent(pageNumber);
+            page.setSize(pageSize);
+            OnlineUser u =  getCurrentUser();
+            if(u==null) {
+                return ResponseObject.newErrorResponseObject("用户未登录");
+            }
+            com.baomidou.mybatisplus.plugins.Page<CourseLecturVo> list=courseServiceImpl.selectMyFreeCourseList(page, u.getId());
+            return ResponseObject.newSuccessResponseObject(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseObject.newErrorResponseObject("获取数据失败");
+        }
     }
 }
