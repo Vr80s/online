@@ -18,6 +18,5 @@ public interface IPaymentRecordService {
 
     public AlipayPaymentRecord saveAlipayPaymentRecord(Map<String, String> params);
 
-
     WxcpPayFlow saveWxPayPaymentRecord(Map<String, String> params) throws ParseException;
 }
