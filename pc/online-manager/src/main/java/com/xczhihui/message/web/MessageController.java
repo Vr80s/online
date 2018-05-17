@@ -5,19 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.course.service.CourseService;
-import com.xczhihui.course.vo.CourseVo;
-import com.xczhihui.common.web.UserVo;
-import com.xczhihui.message.service.MessageService;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +19,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.service.CommonService;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.UserVo;
+import com.xczhihui.course.enums.MessageTypeEnum;
+import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.ICommonMessageService;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.message.service.MessageService;
 import com.xczhihui.message.vo.MessageVo;
+import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.UserService;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 
 /**
@@ -69,6 +72,9 @@ public class MessageController {
      */
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private ICommonMessageService commonMessageService;
 
     /**
      * PATH属性
@@ -260,7 +266,7 @@ public class MessageController {
     /**
      * 保存消息推送信息
      *
-     * @param message 消息对象
+     * @param messageVo 消息对象
      * @return 响应对象
      * @throws InvocationTargetException
      * @throws IllegalAccessException
@@ -286,29 +292,18 @@ public class MessageController {
             if (gradeIdsStr.length() > 0) {
                 users = userService.findAllUserByGrade(gradeIdsStr.substring(0, gradeIdsStr.length() - 1));
             }
-
-            for (UserVo userVo : users) {
-                String id = UUID.randomUUID().toString().replace("-", "");
-                Message message = new Message();
-                //BeanUtils.copyProperties(messageVo, message);
-                message.setId(id);
-                message.setContext(messageVo.getContext().replaceAll(regEx, "<a href=\"javascript:void(0);\" onclick=\'on_click_msg\\(\"" + id + "\",").replaceAll(regEx2, "\")\'>"));
-                message.setCreateTime(new Date());
-                message.setCreatePerson(ManagerUserUtil.getName());
-                message.setType(0);
-                message.setReadstatus(Short.valueOf("0"));
-                message.setStatus((short) 1);
-                message.setUserId(userVo.getId());
-                messageService.saveMessage(message);
-
-            }
             if (users.size() == 0) {
                 responseObj.setSuccess(false);
                 responseObj.setErrorMessage("没有学员，请重试！");
                 return responseObj;
             }
+            for (UserVo userVo : users) {
+                commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                        .buildWeb(messageVo.getContext())
+                        .build(userVo.getId(), RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
+            }
+
             MessageRecord messageRecord = new MessageRecord();
-            //BeanUtils.copyProperties(messageVo, messageRecord);
             messageRecord.setContext(messageVo.getContext());
             messageRecord.setSubject(messageVo.getSubjectName());
             messageRecord.setCourse(messageVo.getCourseName());
@@ -337,18 +332,9 @@ public class MessageController {
             }
 
             for (UserVo userVo : users) {
-                String id = UUID.randomUUID().toString().replace("-", "");
-                Message message = new Message();
-                //BeanUtils.copyProperties(messageVo, message);
-                message.setId(id);
-                message.setContext(messageVo.getContext().replaceAll(regEx, "<a href=\"javascript:void(0);\" onclick=\'on_click_msg\\(\"" + id + "\",").replaceAll(regEx2, "\")\'>"));
-                message.setCreateTime(new Date());
-                message.setCreatePerson(ManagerUserUtil.getName());
-                message.setType(0);
-                message.setReadstatus(Short.valueOf("0"));
-                message.setStatus((short) 1);
-                message.setUserId(userVo.getId());
-                messageService.saveMessage(message);
+                commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                        .buildWeb(messageVo.getContext())
+                        .build(userVo.getId(), RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
             }
 
             if (users.size() == 0) {
@@ -358,7 +344,6 @@ public class MessageController {
             }
 
             MessageRecord messageRecord = new MessageRecord();
-            //BeanUtils.copyProperties(messageVo, messageRecord);
             messageRecord.setContext(messageVo.getContext());
             messageRecord.setSubject(messageVo.getSubjectName());
             messageRecord.setCourse(messageVo.getCourseName());
@@ -394,25 +379,15 @@ public class MessageController {
                 users = userService.findAllUserByGrade(gradeIdsStr.substring(0, gradeIdsStr.length() - 1));
             }
 
-            for (UserVo userVo : users) {
-                String id = UUID.randomUUID().toString().replace("-", "");
-                Message message = new Message();
-                //BeanUtils.copyProperties(messageVo, message);
-                message.setId(id);
-                message.setContext(messageVo.getContext().replaceAll(regEx, "<a href=\"javascript:void(0);\" onclick=\'on_click_msg\\(\"" + id + "\",").replaceAll(regEx2, "\")\'>"));
-                message.setCreateTime(new Date());
-                message.setCreatePerson(ManagerUserUtil.getName());
-                message.setType(0);
-                message.setReadstatus(Short.valueOf("0"));
-                message.setStatus((short) 1);
-                message.setUserId(userVo.getId());
-                messageService.saveMessage(message);
-            }
-
             if (users.size() == 0) {
                 responseObj.setSuccess(false);
                 responseObj.setErrorMessage("没有学员，请重试！");
                 return responseObj;
+            }
+            for (UserVo userVo : users) {
+                commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                        .buildWeb(messageVo.getContext())
+                        .build(userVo.getId(), RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
             }
 
             MessageRecord messageRecord = new MessageRecord();
@@ -432,31 +407,20 @@ public class MessageController {
         if ("-1".equals(messageVo.getSubject()) && "-1".equals(messageVo.getGrade()) && "-1".equals(messageVo.getCourse())) {
             //发给所有用户
             List<UserVo> users = userService.findAll();
-            if (users != null && users.size() > 0) {
-                for (UserVo userVo : users) {
-                    String id = UUID.randomUUID().toString().replace("-", "");
-                    Message message = new Message();
-                    //BeanUtils.copyProperties(messageVo, message);
-                    message.setId(id);
-                    message.setContext(messageVo.getContext().replaceAll(regEx, "<a href=\"javascript:void(0);\" onclick=\'on_click_msg\\(\"" + id + "\",").replaceAll(regEx2, "\")\'>"));
-                    message.setCreateTime(new Date());
-                    message.setCreatePerson(ManagerUserUtil.getName());
-                    message.setType(0);
-                    message.setReadstatus(Short.valueOf("0"));
-                    message.setStatus((short) 1);
-                    message.setUserId(userVo.getId());
-                    messageService.saveMessage(message);
-                }
-            }
-
             if (users.size() == 0) {
                 responseObj.setSuccess(false);
                 responseObj.setErrorMessage("没有学员，请重试！");
                 return responseObj;
             }
+            if (users != null && users.size() > 0) {
+                for (UserVo userVo : users) {
+                    commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                            .buildWeb(messageVo.getContext())
+                            .build(userVo.getId(), RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
+                }
+            }
 
             MessageRecord messageRecord = new MessageRecord();
-            //BeanUtils.copyProperties(messageVo, messageRecord);
             messageRecord.setContext(messageVo.getContext());
             messageRecord.setSubject(messageVo.getSubjectName());
             messageRecord.setCourse(messageVo.getCourseName());

@@ -31,6 +31,7 @@ import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczhihui.user.center.bean.TokenExpires;
 
+import me.chanjar.weixin.mp.api.WxMpService;
 import net.sf.json.JSONObject;
 
 /**
@@ -55,6 +56,8 @@ public class H5WeChatSetController {
 	
 	@Autowired
 	private AppBrowserService appBrowserService;
+	@Autowired
+	private WxMpService wxMpService;
 	
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
@@ -80,10 +83,7 @@ public class H5WeChatSetController {
 	@ResponseBody
 	public ResponseObject setWxMenu (HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
 		
-		String accessToken_buffer =  CommonUtil.getAccessToken();
-		JSONObject jsonObject1 = JSONObject.fromObject(accessToken_buffer);
-		System.out.println("access_token:"+jsonObject1.get("access_token"));
-		String access_token = (String) jsonObject1.get("access_token");
+		String access_token = wxMpService.getAccessToken();
 		LOGGER.info("access_token:"+access_token);
 		if(access_token == null || access_token.isEmpty()) {
             return null;

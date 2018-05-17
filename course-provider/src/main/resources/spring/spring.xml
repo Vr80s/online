@@ -44,4 +44,6 @@
     <dubbo:service interface="com.xczhihui.course.service.IPaymentRecordService" ref="paymentRecordServiceImpl" timeout="${dubbo.provider.timeout}"  />
     <!--热门搜索服务-->
     <dubbo:service interface="com.xczhihui.course.service.IMobileHotSearchService" ref="mobileHotSearchServiceImpl" timeout="${dubbo.provider.timeout}"  />
+    <!--消息服务-->
+    <dubbo:service interface="com.xczhihui.course.service.ICommonMessageService" ref="commonMessageServiceImpl" timeout="${dubbo.provider.timeout}"  />
 </beans>

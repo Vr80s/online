@@ -1,18 +1,11 @@
 package com.xczhihui.message.web;
 
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.Message;
-import com.xczhihui.bxg.online.common.domain.MessageRecord;
-import com.xczhihui.common.web.UserVo;
-import com.xczhihui.message.service.MessageService;
-import com.xczhihui.message.vo.MessageVo;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.user.service.UserService;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +17,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import com.xczhihui.bxg.online.common.domain.MessageRecord;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.UserVo;
+import com.xczhihui.course.enums.MessageTypeEnum;
+import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.ICommonMessageService;
+import com.xczhihui.message.service.MessageService;
+import com.xczhihui.message.vo.MessageVo;
+import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.user.service.UserService;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 /**
  * 消息管理控制器
@@ -51,6 +55,9 @@ public class MessagePushController {
      */
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ICommonMessageService commonMessageService;
 
     /**
      * 跳转到页面
@@ -201,25 +208,13 @@ public class MessagePushController {
     @ResponseBody
     public ResponseObject save(HttpServletRequest request, MessageVo messageVo) throws IllegalAccessException, InvocationTargetException {
         ResponseObject responseObj = new ResponseObject();
-
-        String regEx = "<a.+?href=";
-        String regEx2 = "\">";
-
         String userIdList = messageVo.getUserIdList();
         String[] strs = userIdList.split(",");
         for (int i = 0, len = strs.length; i < len; i++) {
             String userId = strs[i];
-            String id = UUID.randomUUID().toString().replace("-", "");
-            Message message = new Message();
-            message.setId(id);
-            message.setContext(messageVo.getContext().replaceAll(regEx, "<a href=\"javascript:void(0);\" onclick=\'on_click_msg\\(\"" + id + "\",").replaceAll(regEx2, "\")\'>"));
-            message.setCreateTime(new Date());
-            message.setCreatePerson(ManagerUserUtil.getName());
-            message.setType(0);
-            message.setReadstatus(Short.valueOf("0"));
-            message.setStatus((short) 1);
-            message.setUserId(userId);
-            messageService.saveMessage(message);
+            commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                    .buildWeb(messageVo.getContext())
+                    .build(userId, RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
         }
         if (strs.length == 0) {
             responseObj.setSuccess(false);
@@ -240,7 +235,5 @@ public class MessagePushController {
         responseObj.setSuccess(true);
         responseObj.setErrorMessage("操作成功");
         return responseObj;
-
     }
-
 }

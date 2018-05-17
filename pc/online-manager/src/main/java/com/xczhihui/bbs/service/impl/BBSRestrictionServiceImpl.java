@@ -1,16 +1,20 @@
 package com.xczhihui.bbs.service.impl;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bbs.dao.BBSUserStatusDao;
 import com.xczhihui.bbs.service.BBSRestrictionService;
-import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.BBSUserStatus;
-import com.xczhihui.bxg.online.common.domain.Message;
-import com.xczhihui.message.dao.MessageDao;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.course.enums.MessageTypeEnum;
+import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.dao.OnlineUserDao;
 import com.xczhihui.utils.Group;
@@ -34,9 +38,9 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
     @Autowired
     private BBSUserStatusDao bbsUserStatusDao;
     @Autowired
-    private MessageDao messageDao;
-    @Autowired
     private OnlineUserDao onlineUserDao;
+    @Autowired
+    private ICommonMessageService commonMessageService;
 
     @Override
     public TableVo list(TableVo tableVo) {
@@ -66,7 +70,10 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
                     message = UN_GAGS_MESSAGE;
                 }
                 if (updated) {
-                    sendMessage(userId, message);
+                    commonMessageService.saveMessage(
+                            new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                                    .buildWeb(message)
+                                    .build(userId, RouteTypeEnum.NONE, ManagerUserUtil.getId()));
                 }
             }
         }
@@ -89,7 +96,10 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
                     updated = bbsUserStatusDao.cancelBlacklist(userId);
                 }
                 if (updated) {
-                    sendMessage(userId, message);
+                    commonMessageService.saveMessage(
+                            new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                                    .buildWeb(message)
+                                    .build(userId, RouteTypeEnum.NONE, ManagerUserUtil.getId()));
                 }
             }
         }
@@ -108,18 +118,5 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
                 bbsUserStatusDao.saveOrUpdate(bbsUserStatus);
             }
         }
-    }
-
-    private void sendMessage(String userId, String msgText) {
-        Message message = new Message();
-        message.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        message.setContext(msgText);
-        message.setUserId(userId);
-        message.setType(0);
-        message.setStatus((short) 1);
-        message.setReadstatus((short) 0);
-        message.setCreatePerson(ManagerUserUtil.getId());
-        message.setCreateTime(new Date());
-        messageDao.save(message);
     }
 }

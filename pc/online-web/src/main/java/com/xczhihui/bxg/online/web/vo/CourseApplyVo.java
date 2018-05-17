@@ -2,6 +2,8 @@ package com.xczhihui.bxg.online.web.vo;/**
  * Created by admin on 2016/8/30.
  */
 
+import java.util.Date;
+
 /**
  * 课程表名详细信息返回封装类
  *
@@ -12,53 +14,53 @@ public class CourseApplyVo {
 
     private Integer id;
     /**
-     *课程名称
+     * 课程名称
      */
-    private String  courseName;
+    private String courseName;
 
     /**
-     *课程是否免费状态:true:免费  false:付费
+     * 课程是否免费状态:true:免费  false:付费
      */
-    private boolean  isFree;
+    private boolean isFree;
 
     /**
-     *课程图片
+     * 课程图片
      */
-    private String  bigImgPath;
+    private String bigImgPath;
 
     /**
-     *云课堂跳转地址
+     * 云课堂跳转地址
      */
-    private  String cloudClassroom;
+    private String cloudClassroom;
 
     /**
-     *课程描述信息
+     * 课程描述信息
      */
-    private  String  description;
+    private String description;
 
 
     /**
-     *课程原价
+     * 课程原价
      */
     private String originalCost;
 
 
     /**
-     *课程当前价格
+     * 课程当前价格
      */
-    private  String  currentPrice;
+    private String currentPrice;
 
     /**
      * 授课方式：直播  点播  。。。。
      */
-    private  String  courseType;
+    private String courseType;
 
     /**
      * 用户登录账号
      */
-    private  String  userId;
+    private String userId;
 
-    private  String  coursePwd;
+    private String coursePwd;
 
     private Integer type;
     private Boolean collection;
@@ -67,7 +69,9 @@ public class CourseApplyVo {
 
     private String directId;
     //主播id
-    private  String userLecturerId;
+    private String userLecturerId;
+
+    private Date startTime;
 
     public Boolean getCollection() {
         return collection;
@@ -86,30 +90,30 @@ public class CourseApplyVo {
     }
 
     public String getCoursePwd() {
-		return coursePwd;
-	}
+        return coursePwd;
+    }
 
-	public void setCoursePwd(String coursePwd) {
-		this.coursePwd = coursePwd;
-	}
+    public void setCoursePwd(String coursePwd) {
+        this.coursePwd = coursePwd;
+    }
 
-	public int getOnlineCourse() {
-		return onlineCourse;
-	}
+    public int getOnlineCourse() {
+        return onlineCourse;
+    }
 
-	public void setOnlineCourse(int onlineCourse) {
-		this.onlineCourse = onlineCourse;
-	}
+    public void setOnlineCourse(int onlineCourse) {
+        this.onlineCourse = onlineCourse;
+    }
 
-	public Integer getType() {
-		return type;
-	}
+    public Integer getType() {
+        return type;
+    }
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -196,5 +200,17 @@ public class CourseApplyVo {
 
     public void setUserLecturerId(String userLecturerId) {
         this.userLecturerId = userLecturerId;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setFree(boolean free) {
+        isFree = free;
     }
 }

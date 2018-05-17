@@ -1,13 +1,14 @@
 package com.xczhihui.task;
 
-import com.aliyuncs.exceptions.ClientException;
-import com.xczhihui.course.service.CourseService;
-import com.xczhihui.course.service.MessageRemindingService;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import com.aliyuncs.exceptions.ClientException;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.MessageRemindingService;
 
 /**
  * @ClassName: TimedTaskJob
@@ -19,20 +20,24 @@ import java.util.Date;
 @Component
 public class TimedTaskJob {
 
-	@Autowired
-	private CourseService courseService;
-	@Autowired
-	private MessageRemindingService messageRemindingService;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private MessageRemindingService messageRemindingService;
 
-	public void courSerecommendAging() {
-		System.out.println("work done----------" + new Date());
-		courseService.updateDefaultSort();
+    public void courSerecommendAging() {
+        System.out.println("work done----------" + new Date());
+        courseService.updateDefaultSort();
 
-	}
+    }
 
-	@Scheduled(cron = "0/10 * * * * ? ")
-	public void courseMessage() throws ClientException {
-		messageRemindingService.checkCourseMessageReminding();
-	}
+    @Scheduled(cron = "0/10 * * * * ? ")
+    public void liveCourseMessage() throws ClientException {
+        messageRemindingService.liveCourseMessageReminding();
+    }
 
+    //	@Scheduled(cron = "0/10 * * * * ? ")
+    public void offlineCourseMessage() throws ClientException {
+        messageRemindingService.offlineCourseMessageReminding();
+    }
 }
