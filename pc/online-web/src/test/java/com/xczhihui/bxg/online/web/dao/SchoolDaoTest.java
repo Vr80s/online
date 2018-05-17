@@ -125,19 +125,16 @@ public class SchoolDaoTest extends TestCase {
     @Test
     public void live() throws Exception {
 
-
 		 Page<OfflineCity> OfflineCity = new Page<>();
 		 OfflineCity.setCurrent(1);
 		 OfflineCity.setSize(4);
 		 Page<OfflineCity> ocl = offlineCityService.selectOfflineRecommendedCityPage(OfflineCity);
-		 
-		 
 		 List<Map<String, Object>>   listCourse =  mobileBannerService.realCourseList(ocl.getRecords(),PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
 				 PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue());
-    	
+		 
+		 
 		 System.out.println(listCourse.size());
     }
-    
     
 
 }
