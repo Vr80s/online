@@ -46,8 +46,17 @@ textarea::-webkit-input-placeholder {
 	z-index: 999999;
 }
 .header p{
+	display: none;
+}
+.header p{
 	font-size: 0.36rem;
-	color: #333333;	
+    color: #333333;
+    width: 5.6rem;
+    text-align: center;
+    margin: 0 auto;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .header_news{
 	width: 0.42rem;
@@ -79,7 +88,6 @@ textarea::-webkit-input-placeholder {
 	background: url(../images/anchorbg.png) no-repeat;
 	background-size: cover;
 	position: relative;
-    margin-top: -0.88rem;
 }
 .personal_header{
 	position: absolute;
@@ -858,3 +866,104 @@ color: #888888;
 .little_comment{
 	padding-bottom: 0.2rem;
 }
+
+/*固定导航--渐变title开始*/
+#header {
+	position: fixed;
+    width: 100%;
+    top: 0px;
+	color: #000;
+    z-index: 9;
+}
+#main {
+	height:20px;
+	color:#000;
+}
+#header ul li {
+	float:left;
+	width:100%;
+	text-align:center;
+	list-style:none;
+}
+
+#wrapper {
+	width:100%;
+	position:relative;
+}
+#container {
+	width:100%;
+	position:relative;
+	background:#303030;
+	z-index:-5;
+}
+header.home {
+	max-width:760px;
+	position:relative;
+	margin:0 auto;
+	text-align:center;
+}
+header.home img {
+	max-width:300px;
+	margin:0 auto;
+	position:relative;
+	text-align:center;
+}
+.home-title {
+	font-size:3em;
+	color:white;
+	margin:10px 0px 20px 0px;
+}
+.home-desc {
+	font-size:1.8em;
+	color:white;
+	margin:0px 0px 20px 0px;
+	line-height:1.3em;
+}
+#top_intro {
+	width:100%;
+}
+.le-background {
+	position:fixed;
+	top:0px;
+	left:0;
+	bottom:0;
+	right:0;
+	width:100%;
+	z-index:-2;
+	opacity:0.6;
+	background:#303030;
+	background-size:cover !important;
+	background-position:center;
+	background-repeat:no-repeat no-repeat;
+}
+.blurred {
+	opacity:0;
+}
+#mainMenuBar {
+	width:100%;
+	background-color:white;
+	z-index:100;
+}
+#content {
+	width:100%;
+	position:relative;
+	background-color:white;
+	padding-top:20px;
+}
+#content p {
+	font-size:1.2em;
+	font-family:"proxima-nova";
+	font-weight:100;
+	max-width:640px;
+	margin:0 auto;
+	line-height:1.4em;
+	padding:10px 0px 10px 0px;
+}
+.stick {
+	position:fixed;
+	top:0.9rem;
+}
+.home {
+	background:#d7c4b4;
+}
+/*固定导航--渐变title结束*/

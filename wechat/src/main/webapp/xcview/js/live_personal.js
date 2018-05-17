@@ -235,7 +235,7 @@ requestService("/xczh/host/hostPageInfo",{
 requestService("/xczh/host/hostPageCourse",{
 	lecturerId: userLecturerId,
 	pageNumber:1,
-	pageSize:6
+	pageSize:500
 },function(data){
 	if(data.resultObject.records.length==0 ||data.resultObject.records == ""){
 		$("#my_class").hide();
@@ -279,7 +279,7 @@ var falg =authenticationCooKie();
         requestService("/xczh/criticize/getCriticizeList",{
             userId : userLecturerId,
             pageNumber:1,
-            pageSize:6
+            pageSize:20000
         },function(data) {
         	//  	判断有无评论显示默认图片
 		if(data.resultObject.items.length==0){

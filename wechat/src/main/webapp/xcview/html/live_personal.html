@@ -42,7 +42,7 @@
 </head>
 <body style="background:#F8F8F8;">
 <div class="wp">
-	<div class="wrap-header">
+	<div class="wrap-header" id="header">
 		<script type="text/html" id="wrap-header">
 		<div class="header">		
 			<p>{{lecturerInfo.name}}</p>
@@ -91,7 +91,8 @@
 	</div>
 	<!-- 头像背景结束 -->
 	<!-- 固定头部tab开始 -->
-	<div class="anchor_navigation">
+	<div id="mainMenuBarAnchor"></div>
+	<div class="anchor_navigation" id="mainMenuBar">
 		<ul>
 			<li class="li li_data li_color">资料</li>
 			<li class="li li_course">课程</li>
@@ -539,4 +540,48 @@
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js?v=wechat_1.1.1"></script>
 <!--分享引入js-->
 <!--<script type="text/javascript" src="/xcview/js/details.js?version=c7095270c8"></script>-->
+<!-- 导航渐变 -->
+<script>
+$(window).bind("scroll", function() {
+    var $header = $("#header");
+    var t = 200,
+        m = Math.min(document.documentElement.scrollTop || document.body.scrollTop, t) / t;
+    $header.css("background", "rgba(255, 255, 255, " + m + ")");
+
+    // 判断滚动条显示隐藏title
+	var top = $(document).scrollTop();
+    if(top < 40){
+    	$(".header p").hide();
+    	$(".arror_return img").attr("src","/xcview/images/anchorj.png");
+    	$(".header_news img").attr("src","/xcview/images/anchorf.png");
+    	$("#header").css("border-bottom","0px solid #d8dde6");
+    }else if(top > 40){
+    	$(".arror_return img").attr("src","/xcview/images/back icon.png");
+    	$(".header_news img").attr("src","/xcview/images/share_img.png");
+    	$(".header p").show();
+    	$("#header").css("border-bottom","1px solid #d8dde6");
+    }
+});
+</script>
+<!-- 头部固定 -->
+<script>
+ $(document).ready(function() {
+     var $window = $(window),
+         $mainMenuBar = $('#mainMenuBar'),
+         $mainMenuBarAnchor = $('#mainMenuBarAnchor');
+     $window.scroll(function() {
+         //scrollTop()方法返回或设置匹配元素的滚动条的垂直位置
+         var window_top = $window.scrollTop();
+         //javascript用offsetTop();jquery用offset().top;
+         var div_top = $mainMenuBarAnchor.offset().top;
+         if (window_top > div_top) {
+             $mainMenuBar.addClass('stick');
+             $mainMenuBarAnchor.height($mainMenuBar.height());
+         } else {
+             $mainMenuBar.removeClass('stick');
+             $mainMenuBarAnchor.height(0);
+         }
+     });
+ });
+</script>
 </html>
