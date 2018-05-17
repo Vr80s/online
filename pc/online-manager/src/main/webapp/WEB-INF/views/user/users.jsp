@@ -188,17 +188,6 @@
 			</div>
 		</div>
 
-		<div class="clean"></div>
-		<div class="form-group">
-			<label class="col-sm-1 control-label no-padding-right">手机: </label>
-			<div class="col-sm-4">
-				<p id="uiMobile" class="paddingtop7px padding7"></p>
-			</div>
-			<label class="col-sm-2 control-label no-padding-right">身份证: </label>
-			<div class="col-sm-4">
-				<p id="uiIdentity" class="hg paddingtop7px padding7"></p>
-			</div>
-		</div>
 		<div class="space-4"></div>
 		<div class="form-group">
 			<label class="col-sm-1 control-label no-padding-right">邮箱: </label>
@@ -212,11 +201,7 @@
 		</div>
 		<div class="cleanfix"></div>
 		<div class="form-group">
-			<label class="col-sm-1 control-label no-padding-right">学历: </label>
-			<div class="col-sm-4">
-				<p id="uiEducation" class="paddingtop7px padding7"></p>
-			</div>
-			<label class="col-sm-2 control-label no-padding-right"> 状态: </label>
+			<label class="col-sm-1 control-label no-padding-right"> 状态: </label>
 			<div class="col-sm-4">
 				<p id="uiDelete" class="hg paddingtop7px padding7"></p>
 			</div>

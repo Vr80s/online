@@ -10,6 +10,7 @@
             });
     } catch (e) {
     }
+    var weburl = '${weburl}';
 </script>
 <script type="text/javascript" src="/js/headline/writingList.js?v=ipandatcm_1.3"></script>
 <script src="/js/layer/layer.js"></script>
@@ -23,9 +24,9 @@
 
 <div class="mainrighttab tabresourse bordernone">
     <p class="col-xs-3" style="padding: 0;width:20%">
-        <button class="btn btn-sm btn-success add_bx" title="新增文章">
-            <i class="glyphicon glyphicon-plus"></i> 新增著作
-        </button>
+        <%--<button class="btn btn-sm btn-success add_bx" title="新增文章">--%>
+            <%--<i class="glyphicon glyphicon-plus"></i> 新增著作--%>
+        <%--</button>--%>
         <button class="btn btn-sm btn-success dele_bx" title="批量删除">
             <i class="glyphicon glyphicon-trash"></i> 批量删除
         </button>
