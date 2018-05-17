@@ -90,6 +90,9 @@
                 <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
                 <prop key="date_format">yyyy-MM-dd</prop>
                 <prop key="number_format">#.##</prop>
+                
+                <prop key ="template_exception_handler">com.xczhihui.bxg.online.web.exception.FreemarkerExceptionHandler</prop>  
+                
             </props>
         </property>
     </bean>

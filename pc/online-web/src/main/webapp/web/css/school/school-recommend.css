@@ -27,7 +27,7 @@ a:hover{text-decoration: none;}
 {
 	display: block;
 	width: 860px;
-	height: 346px;
+	height: 346px !important;
 }
 .physic-type{
 	width: 100%;

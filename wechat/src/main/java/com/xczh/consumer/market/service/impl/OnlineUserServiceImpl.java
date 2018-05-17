@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.SystemVariate;
 import com.xczh.consumer.market.bean.VerificationCode;
+import com.xczh.consumer.market.controller.user.XzUserController;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.dao.WxcpClientUserWxMappingMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
@@ -28,6 +30,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.enums.AliSMSServiceMessageType;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -38,6 +41,10 @@ import com.xczhihui.user.center.bean.UserType;
 
 @Service
 public class OnlineUserServiceImpl implements OnlineUserService {
+	
+	
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OnlineUserServiceImpl.class);
+	
 	@Autowired
 	public OnlineUserMapper onlineUserDao;
 	@Autowired
@@ -266,7 +273,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	}
 	
 	private void sendPhone(String phone, String vcode,Integer vtype){
-		
 		if (SMSCode.RETISTERED.getCode() !=vtype && SMSCode.FORGOT_PASSWORD.getCode()!=vtype &&
 				SMSCode.WITHDRAWAL.getCode() != vtype ) {
 			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码  5 为提现使用");
@@ -278,10 +284,40 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		if (response==null || !"OK".equals(response.getCode())) {
-			throw new RuntimeException ("发送动态码失败！");
+		if (response!=null && AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL.getCode().
+				equals(response.getCode())) {
+			
+			if(response.getMessage().
+					indexOf(AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL_DAYS.getMessage())!=-1) {
+				
+				throw new RuntimeException (AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL_DAYS.getMessage());
+			}
+			if(response.getMessage().
+					indexOf(AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL_HOURS.getMessage())!=-1) {
+				
+				throw new RuntimeException (AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL_HOURS.getMessage());
+			}
+			throw new RuntimeException (AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL.getMessage());
+		}else if(response!=null && !AliSMSServiceMessageType.OK.getCode().equals(response.getCode())){
+			throw new RuntimeException ("发送失败");
 		}
 	}
+	
+	public static void main(String[] args) {
+		//判断发送结果
+		SendSmsResponse response = null;
+		try {
+			response = SmsUtil.sendSms("15054054532", "测试呢");
+			System.out.println(response.getMessage());
+			System.out.println(response.getCode());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		//isv.BUSINESS_LIMIT_CONTROL  强求次数过多
+	}
+	
+	
+	
 	/**
 	 * 微信端注册
 	 */
@@ -485,7 +521,18 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		if (response==null || !"OK".equals(response.getCode())) {
+		if (response!=null && AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL.getCode().
+				equals(response.getCode())) {
+			if(response.getMessage().
+					indexOf(AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL_DAYS.getMessage())!=-1) {
+				throw new RuntimeException (AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL_DAYS.getMessage());
+			}
+			if(response.getMessage().
+					indexOf(AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL_HOURS.getMessage())!=-1) {
+				throw new RuntimeException (AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL_HOURS.getMessage());
+			}
+			throw new RuntimeException (AliSMSServiceMessageType.BUSINESS_LIMIT_CONTROL.getMessage());
+		}else if(response!=null && !AliSMSServiceMessageType.OK.getCode().equals(response.getCode())){
 			throw new RuntimeException ("发送失败");
 		}
 	}
