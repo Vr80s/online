@@ -27,7 +27,7 @@ a:hover{text-decoration: none;}
 {
 	display: block;
 	width: 860px;
-	height: 346px;
+	height: 346px !important;
 }
 /*精品,免费,最新,养生课程*/
 .main{

@@ -29,7 +29,7 @@
 				<div class="wrap-banner">
 					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
-					    <#list bannerList as banner>
+					     <#list bannerList as banner>
 					     	<#if banner_index == 0 >
 					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}" class="active"></li>
 					     	<#else>
@@ -38,7 +38,7 @@
 						</#list>
 					  </ol>
 					  <div class="carousel-inner" role="listbox">
-					    <#list bannerList as banner>
+					     <#list bannerList as banner>
 					     	<#if banner_index == 0 >
 					     		<div class="item active">
 					     	<#else>
@@ -52,30 +52,35 @@
 					  </div>	
 					</div>
 				</div>
-<!--全国课程-->			
+<!-- 听课推荐 -->		
+
+	
 				<div class="main">
 					<div class="content-class">	
 						<div class="wrap-title">
 							<span>听课推荐</span>
 							<p><a href="/web/html/school/curriculum-list.html">更多</a><img src="../../images/rili_icon.png" alt="箭头" /> </p>
 						</div>
+						
+					<#list courseList as courseItem>
 						<div class="course clearfix">
 							<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
 							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-								<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
+								<div class="img"><img src="${courseItem.smallImgPath}"></div><span class="classCategory">音频</span>
 								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
+									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 									<p class="timeAndTeac">
-										<span class="teacher">雪灵</span>
+										<span class="teacher">${courseItem.name}</span>
 									</p>
-									<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
+									<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
+									<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
+									<span class="studentCou">${courseItem.learndCount}</span></span>
 									</p>
 								</div>
 							</a>
-						</div>		
-					
-					
-						
+						</div>	
+					</#list>s	
+							
 					</div>
 				</div>			
 			</div>
@@ -85,7 +90,7 @@
 				<div class="wrap-docter">
 					<span>名师推荐</span>
 					<ul>
-					   <#list doctorList as doctorInfo>
+						<#list doctorList as doctorInfo>
 	                        <li>
 								<img src="${doctorInfo.headPortrait}" alt="名医头像"/>
 								<p data-id ="${doctorInfo.userId}">${doctorInfo.name}</p>
@@ -95,6 +100,17 @@
 				</div>
 			</div>
 		</div>
+	
+	
+
+
+
+
+
+
+
+
+
 
 
 			<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
