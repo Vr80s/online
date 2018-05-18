@@ -3,18 +3,12 @@ package com.xczhihui.bxg.online.web.service;
 import java.util.Map;
 
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.vo.MessageShortVo;
+import com.xczhihui.bxg.online.web.vo.MessageVo;
 import com.xczhihui.common.util.bean.Page;
 
-/**
- * 意见反馈
- *
- * @author majian
- * @date 2016-8-11 18:48:49
- */
 public interface MessageService {
 
-    Page<MessageShortVo> findMessagePage(OnlineUser u, Integer type, Integer pageSize, Integer pageNumber);
+    Page<MessageVo> findMessagePage(OnlineUser u, Integer type, Integer pageSize, Integer pageNumber);
 
     /**
      * 根据ID删除

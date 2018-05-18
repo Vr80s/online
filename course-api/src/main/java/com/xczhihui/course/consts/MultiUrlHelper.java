@@ -6,6 +6,11 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 import com.xczhihui.course.enums.RouteTypeEnum;
 
+/**
+ * 多端消息url处理类
+ *
+ * @author hejiwei
+ */
 public class MultiUrlHelper {
 
     public static final String URL_TYPE_APP = "app";
@@ -13,11 +18,27 @@ public class MultiUrlHelper {
     public static final String URL_TYPE_MOBILE = "mobile";
 
     private static Map<String, Map<String, String>> urlMap = new HashMap<>();
+    private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?courseId={0}";
+    private static final String WEB_COURSE_DETAIL = "/web/html/courseDetail.html?courseId={0}";
 
-    private static Map<String, String> courseDetailUrlMap = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/courseDetail?courseId={0}",
-            URL_TYPE_WEB, "/web/html/courseDetail.html?courseId={0}",
-            URL_TYPE_MOBILE, "");
+    private static Map<String, String> collectionCourseDetailUrlMap = ImmutableMap.of(
+            URL_TYPE_APP, APP_COURSE_DETAIL,
+            URL_TYPE_WEB, WEB_COURSE_DETAIL,
+            URL_TYPE_MOBILE, "/xcview/html/live_select_album.html?course_id={0}");
+    private static Map<String, String> liveCourseDetailUrlMap = ImmutableMap.of(
+            URL_TYPE_APP, APP_COURSE_DETAIL,
+            URL_TYPE_WEB, WEB_COURSE_DETAIL,
+            URL_TYPE_MOBILE, "/xcview/html/live_play.html?my_study={0}");
+    private static Map<String, String> offlineCourseDetailUrlMap = ImmutableMap.of(
+            URL_TYPE_APP, APP_COURSE_DETAIL,
+            URL_TYPE_WEB, WEB_COURSE_DETAIL,
+            URL_TYPE_MOBILE, "/xcview/html/school_class.html?course_id={0}");
+    private static Map<String, String> videoAudioCourseDetailUrlMap = ImmutableMap.of(
+            URL_TYPE_APP, APP_COURSE_DETAIL,
+            URL_TYPE_WEB, WEB_COURSE_DETAIL,
+            URL_TYPE_MOBILE, "/xcview/html/live_audio.html?my_study={0}");
+
+
     private static Map<String, String> doctorApproveUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorDoctorApprove",
             URL_TYPE_WEB, "/web/html/anchors_resources.html",
@@ -56,7 +77,10 @@ public class MultiUrlHelper {
             URL_TYPE_MOBILE, "");
 
     static {
-        urlMap.put(RouteTypeEnum.COURSE_DETAIL_PAGE.name(), courseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COLLECTION_COURSE_DETAIL_PAGE.name(), collectionCourseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.LIVE_COURSE_DETAIL_PAGE.name(), liveCourseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.OFFLINE_COURSE_DETAIL_PAGE.name(), offlineCourseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.VIDEO_AUDIO_COURSE_DETAIL_PAGE.name(), videoAudioCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.DOCTOR_APPROVE_PAGE.name(), doctorApproveUrlMap);
         urlMap.put(RouteTypeEnum.HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
         urlMap.put(RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE.name(), workTableUrlMap);
@@ -75,27 +99,5 @@ public class MultiUrlHelper {
         } else {
             return null;
         }
-    }
-
-    private static final String COLLECTION_COURSE_DETAIL = "/xcview/html/live_select_album.html?course_id={0}";
-    private static final String LIVE_COURSE_DETAIL = "/xcview/html/live_play.html?my_study={0}";
-    private static final String OFFLINE_COURSE_DETAIL = "/xcview/html/school_class.html?course_id={0}";
-    private static final String AUDIO_VIDEO_COURSE_DETAIL = "/xcview/html/live_audio.html?my_study={0}";
-
-    public static String getMobileCourseDetailUrl(boolean collection, int courseType) {
-        //专辑
-        if (collection) {
-            return COLLECTION_COURSE_DETAIL;
-        } else if (courseType == 1) {
-            //直播
-            return LIVE_COURSE_DETAIL;
-        } else if (courseType == 2) {
-            //视频音频
-            return AUDIO_VIDEO_COURSE_DETAIL;
-        } else if (courseType == 3) {
-            //线下课
-            return OFFLINE_COURSE_DETAIL;
-        }
-        return null;
     }
 }

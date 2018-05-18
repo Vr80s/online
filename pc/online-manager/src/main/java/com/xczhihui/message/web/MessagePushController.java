@@ -214,7 +214,7 @@ public class MessagePushController {
             String userId = strs[i];
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                     .buildWeb(messageVo.getContext())
-                    .build(userId, RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
+                    .build(userId, RouteTypeEnum.NONE, ManagerUserUtil.getId()));
         }
         if (strs.length == 0) {
             responseObj.setSuccess(false);

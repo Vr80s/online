@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.vo.MessageShortVo;
+import com.xczhihui.bxg.online.web.vo.MessageVo;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.bean.Page;
 
@@ -25,19 +25,21 @@ public class MessageDao extends SimpleHibernateDao {
      * @param pageSize
      * @return
      */
-    public Page<MessageShortVo> getMessageList(OnlineUser u, Integer type, Integer pageNumber, Integer pageSize) {
+    public Page<MessageVo> getMessageList(OnlineUser u, Integer type, Integer pageNumber, Integer pageSize) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("userId", u.getId());
         String sql = "";
         if (type == null) {
-            sql = " select id, context,create_time,readstatus from oe_message where  type !=2 and user_id =:userId  order by create_time desc";
+            sql = " select id, context,create_time,readstatus," +
+                    " route_type as routeType, detail_id as detailId from oe_message where type !=2 and user_id =:userId and is_delete = 0 order by create_time desc";
         } else {
             paramMap.put("type", type);
-            sql = " select id, context,create_time,readstatus from oe_message where user_id =:userId and type=:type order by create_time desc";
+            sql = " select id, context,create_time,readstatus," +
+                    " route_type as routeType, detail_id as detailId from oe_message where user_id =:userId and type=:type and is_delete = 0 order by create_time desc";
         }
-        return this.findPageBySQL(sql, paramMap, MessageShortVo.class, pageNumber, pageSize);
+        return this.findPageBySQL(sql, paramMap, MessageVo.class, pageNumber, pageSize);
     }
 
 
@@ -51,7 +53,7 @@ public class MessageDao extends SimpleHibernateDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         params.addValue("userId", userId);
-        String sql = "DELETE FROM  oe_message  WHERE id =:id  AND  user_id=:userId";
+        String sql = "UPDATE oe_message SET is_delete = 1 WHERE id =:id AND user_id=:userId";
         this.getNamedParameterJdbcTemplate().update(sql, params);
     }
 
@@ -63,9 +65,9 @@ public class MessageDao extends SimpleHibernateDao {
     public void updateReadStatus(String userId, Integer type) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("userId", userId);
-        String sql = "";
+        String sql;
         if (type == null) {
-            sql = "UPDATE oe_message SET readstatus=1 WHERE readstatus =0 AND type !=2  AND user_id=:userId   ";
+            sql = "UPDATE oe_message SET readstatus=1 WHERE readstatus =0 AND type !=2  AND user_id=:userId";
         } else {
             params.addValue("type", type);
             sql = "UPDATE oe_message SET readstatus=1 WHERE readstatus =0  AND type =:type  AND user_id=:userId ";

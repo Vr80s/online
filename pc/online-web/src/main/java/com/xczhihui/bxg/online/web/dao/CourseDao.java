@@ -651,7 +651,7 @@ public class CourseDao extends SimpleHibernateDao {
         String sql = "SELECT \n" +
                 "  o.user_id,\n" +
                 "  ood.course_id,\n" +
-                "  oc.grade_name course_name, oc.start_time as startTime \n" +
+                "  oc.grade_name course_name, oc.start_time as startTime, oc.collection, oc.type \n" +
                 "FROM\n" +
                 "  oe_order o\n" +
                 "  JOIN oe_order_detail ood\n" +

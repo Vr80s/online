@@ -467,6 +467,13 @@ body div .cy-data li .rqj-article a {
   padding: 0 5px;
   display: inline!important;
 }
+body div .cy-data li .rqj-article span {
+  text-decoration: none;
+  color: #2CB82C;
+  margin: 0 5px;
+  padding: 0 5px;
+  display: inline!important;
+}
 html div .cy-data li .rqj-article b,
 body div .cy-data li .rqj-article b {
   font-weight: normal;

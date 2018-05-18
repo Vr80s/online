@@ -24,10 +24,11 @@ import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.enums.MessageTypeEnum;
-import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.util.CourseUtil;
+import com.xczhihui.course.util.TextStyleUtil;
 import com.xczhihui.course.vo.FocusVo;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
@@ -47,7 +48,8 @@ public class CourseApplyController extends AbstractController {
 
     private static final Logger logger = LoggerFactory.getLogger(CourseApplyController.class);
 
-    private static final String WEB_COURSE_ONLINE_MESSAGE_TIPS = "{0}您好，{1}老师《{2}》{3}{4}，准时开始！";
+    private static final String WEB_COURSE_ONLINE_MESSAGE_TIPS = "{0}您好，{1}老师《" + TextStyleUtil.LEFT_TAG + "{2}"
+            + TextStyleUtil.RIGHT_TAG + "》{3}{4}，准时开始！";
     private static final String APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS = "春天来了，我们认为你需要这个~";
 
     @Autowired
@@ -343,7 +345,8 @@ public class CourseApplyController extends AbstractController {
             if (!focusVos.isEmpty()) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Course course = courseService.findByApplyId(courseApplyId);
-                String content = MessageFormat.format(WEB_COURSE_ONLINE_MESSAGE_TIPS, user.getName(), course.getLecturer(), course.getGradeName(), sdf.format(course.getStartTime()));
+                String content = MessageFormat.format(WEB_COURSE_ONLINE_MESSAGE_TIPS, user.getName(),
+                        course.getLecturer(), course.getGradeName(), sdf.format(course.getStartTime()));
                 for (FocusVo focusVo : focusVos) {
                     String fansId = focusVo.getUserId();
                     //不给自己推送
@@ -351,7 +354,7 @@ public class CourseApplyController extends AbstractController {
                         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                                 .buildAppPush(APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS)
                                 .buildWeb(content)
-                                .build(focusVo.getUserId(), RouteTypeEnum.COURSE_DETAIL_PAGE, userId));
+                                .build(focusVo.getUserId(), CourseUtil.getRouteType(course.getCollection(), course.getType()), userId));
                     }
                 }
             }

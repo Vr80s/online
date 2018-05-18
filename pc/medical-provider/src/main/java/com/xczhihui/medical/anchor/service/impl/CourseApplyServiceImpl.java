@@ -23,9 +23,11 @@ import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
+import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyUpdateDateMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
 import com.xczhihui.medical.anchor.model.CollectionCourseApply;
+import com.xczhihui.medical.anchor.model.CollectionCourseApplyUpdateDate;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
@@ -55,6 +57,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private ICourseApplyService courseApplyService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    private CollectionCourseApplyUpdateDateMapper collectionCourseApplyUpdateDateMapper;
     @Autowired
     private CCUtils CCUtils;
 
@@ -211,6 +214,16 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         courseApplyInfo.setPrice(courseApplyInfo.getPrice() / 10);
         courseApplyInfo.setCreateTime(new Date());
         courseApplyInfoMapper.insert(courseApplyInfo);
+
+        //专辑的更新时间
+        if (courseApplyInfo.getUpdateDates() != null && !courseApplyInfo.getUpdateDates().isEmpty()) {
+            for (int date : courseApplyInfo.getUpdateDates()) {
+                CollectionCourseApplyUpdateDate collectionCourseApplyUpdateDate = new CollectionCourseApplyUpdateDate();
+                collectionCourseApplyUpdateDate.setCollectionApplyId(courseApplyInfo.getId());
+                collectionCourseApplyUpdateDate.setDate(date);
+                collectionCourseApplyUpdateDateMapper.insert(collectionCourseApplyUpdateDate);
+            }
+        }
         //当专辑为点播视频时
         for (CourseApplyInfo applyInfo : courseApplyInfo.getCourseApplyInfos()) {
             CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
@@ -377,7 +390,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 
     @Override
     public void updateCollectionApply(CourseApplyInfo collectionApplyInfo) {
-        CourseApplyInfo collection = selectCourseApplyById(collectionApplyInfo.getUserId(), collectionApplyInfo.getId());
+        Integer collectionApplyInfoId = collectionApplyInfo.getId();
+        CourseApplyInfo collection = selectCourseApplyById(collectionApplyInfo.getUserId(), collectionApplyInfoId);
         if (collection == null) {
             throw new AnchorWorkException("专辑不存在");
         }
@@ -388,8 +402,10 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         //删除之前申请
         courseApplyInfoMapper.deleteCourseApplyById(collectionApplyInfo.getId());
         //记录原申请id
-        collectionApplyInfo.setOldApplyInfoId(collectionApplyInfo.getId());
+        collectionApplyInfo.setOldApplyInfoId(collectionApplyInfoId);
         collectionApplyInfo.setId(null);
+        //删除更新时间
+        collectionCourseApplyUpdateDateMapper.deleteByCollectionApplyId(collectionApplyInfo.getId());
         courseApplyService.saveCollectionApply(collectionApplyInfo);
     }
 

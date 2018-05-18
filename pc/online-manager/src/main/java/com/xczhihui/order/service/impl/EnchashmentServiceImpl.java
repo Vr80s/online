@@ -2,6 +2,8 @@ package com.xczhihui.order.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -121,9 +123,12 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
             smsCode = enchashmentNotPassSmsCode;
         }
 
+        Map<String, String> params = new HashMap<>(2);
+        params.put("orderNo", orderNo);
+        params.put("reason", reason);
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildAppPush(content)
-                .buildSms(smsCode, ImmutableMap.of("orderNo", orderNo, "reason", reason))
+                .buildSms(smsCode, params)
                 .buildWeb(content)
                 .build(e.getUserId(), RouteTypeEnum.ANCHOR_PROPERTY_MONEY_PAGE, operator));
     }

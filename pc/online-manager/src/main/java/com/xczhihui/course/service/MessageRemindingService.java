@@ -20,4 +20,6 @@ public interface MessageRemindingService {
     void liveCourseMessageReminding();
 
     void offlineCourseMessageReminding();
+
+    void collectionUpdateRemind();
 }

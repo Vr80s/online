@@ -300,7 +300,7 @@ public class MessageController {
             for (UserVo userVo : users) {
                 commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                         .buildWeb(messageVo.getContext())
-                        .build(userVo.getId(), RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
+                        .build(userVo.getId(), RouteTypeEnum.NONE, ManagerUserUtil.getId()));
             }
 
             MessageRecord messageRecord = new MessageRecord();
@@ -334,7 +334,7 @@ public class MessageController {
             for (UserVo userVo : users) {
                 commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                         .buildWeb(messageVo.getContext())
-                        .build(userVo.getId(), RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
+                        .build(userVo.getId(), RouteTypeEnum.NONE, ManagerUserUtil.getId()));
             }
 
             if (users.size() == 0) {
@@ -387,7 +387,7 @@ public class MessageController {
             for (UserVo userVo : users) {
                 commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                         .buildWeb(messageVo.getContext())
-                        .build(userVo.getId(), RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
+                        .build(userVo.getId(), RouteTypeEnum.NONE, ManagerUserUtil.getId()));
             }
 
             MessageRecord messageRecord = new MessageRecord();
@@ -416,7 +416,7 @@ public class MessageController {
                 for (UserVo userVo : users) {
                     commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                             .buildWeb(messageVo.getContext())
-                            .build(userVo.getId(), RouteTypeEnum.COURSE_DETAIL_PAGE, ManagerUserUtil.getId()));
+                            .build(userVo.getId(), RouteTypeEnum.NONE, ManagerUserUtil.getId()));
                 }
             }
 

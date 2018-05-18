@@ -9,7 +9,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.MessageDao;
 import com.xczhihui.bxg.online.web.service.MessageService;
-import com.xczhihui.bxg.online.web.vo.MessageShortVo;
+import com.xczhihui.bxg.online.web.vo.MessageVo;
 import com.xczhihui.common.util.bean.Page;
 
 /**
@@ -30,7 +30,7 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl implements Message
      * @return
      */
     @Override
-    public Page<MessageShortVo> findMessagePage(OnlineUser u, Integer type, Integer pageSize, Integer pageNumber) {
+    public Page<MessageVo> findMessagePage(OnlineUser u, Integer type, Integer pageSize, Integer pageNumber) {
         return messageDao.getMessageList(u, type, pageNumber, pageSize);
     }
 

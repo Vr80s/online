@@ -50,13 +50,8 @@ public class BaseMessage implements Serializable {
             return this;
         }
 
-        public Builder buildWeb(String... content) {
-            if (content.length > 0) {
-                this.baseMessage.webMessage = new SubMessage(content[0]);
-            }
-            if (content.length > 1) {
-                this.baseMessage.webMessage.setLinkContent(content[1]);
-            }
+        public Builder buildWeb(String content) {
+            this.baseMessage.webMessage = new SubMessage(content);
             return this;
         }
 //

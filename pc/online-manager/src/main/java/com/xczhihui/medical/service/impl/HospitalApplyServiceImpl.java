@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.ImmutableMap;
 import com.xczhihui.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
@@ -26,6 +27,7 @@ import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
+import com.xczhihui.course.util.TextStyleUtil;
 import com.xczhihui.medical.dao.*;
 import com.xczhihui.medical.service.HospitalApplyService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -42,8 +44,10 @@ import com.xczhihui.vhall.VhallUtil;
 public class HospitalApplyServiceImpl implements HospitalApplyService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private static final String APPROVE_PASS_MESSAGE = "您的{0}申请已于{1}通过认证，现在您已经是一名主播了，快去发布课程吧~如需帮助请联系客服0898-32881833。";
-    private static final String APPROVE_NOT_PASS_MESSAGE = "您的{0}认证未能通过，原因: {1}，如有疑问请联系客服0898-32881833。";
+    private static final String APPROVE_PASS_MESSAGE = "您的{0}申请已于{1}通过认证，现在您已经是一名主播了，" +
+            "快去发布课程吧~如需帮助请联系客服0898-32881833。" + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
+    private static final String APPROVE_NOT_PASS_MESSAGE = "您的{0}认证未能通过，原因: {1}，如有疑问请联系客服0898-32881833。"
+            + TextStyleUtil.LEFT_TAG  + "查看详情" + TextStyleUtil.RIGHT_TAG;
 
     @Value("${sms.anchor.approve.pass.code}")
     private String smsAnchorApprovePassCode;
@@ -316,10 +320,13 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         String type = "医馆";
         String dateStr = simpleDateFormat.format(new Date());
         String content = MessageFormat.format(APPROVE_PASS_MESSAGE, type, dateStr);
+        Map<String, String> params = new HashMap<>(2);
+        params.put("type", type);
+        params.put("date", dateStr);
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                .buildWeb(content, "去看看>>")
+                .buildWeb(content)
                 .buildAppPush(content)
-                .buildSms(smsAnchorApprovePassCode, ImmutableMap.of("type", type, "date", dateStr))
+                .buildSms(smsAnchorApprovePassCode, params)
                 .build(courseAnchor.getUserId(), RouteTypeEnum.HOSPITAL_APPROVE_PAGE, ManagerUserUtil.getId()));
     }
 
@@ -334,10 +341,13 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         //FIXME
         String reason = "信息不准确";
         String content = MessageFormat.format(APPROVE_NOT_PASS_MESSAGE, type, reason);
+        Map<String, String> params = new HashMap<>(2);
+        params.put("type", type);
+        params.put("reason", reason);
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                .buildWeb(content, "查看详情")
+                .buildWeb(content)
                 .buildAppPush(content)
-                .buildSms(smsAnchorApproveNotPassCode, ImmutableMap.of("type", type, "reason", reason))
+                .buildSms(smsAnchorApproveNotPassCode, params)
                 .build(apply.getUserId(), RouteTypeEnum.HOSPITAL_APPROVE_PAGE, ManagerUserUtil.getId()));
     }
 

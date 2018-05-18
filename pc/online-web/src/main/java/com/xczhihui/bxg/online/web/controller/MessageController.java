@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.MessageService;
-import com.xczhihui.bxg.online.web.vo.MessageShortVo;
+import com.xczhihui.bxg.online.web.vo.MessageVo;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.course.consts.MultiUrlHelper;
 
 /**
  * 用户反馈
@@ -45,11 +46,15 @@ public class MessageController extends AbstractController {
     @ResponseBody
     public ResponseObject getMessageList(HttpSession s, Integer type, Integer pageSize, Integer pageNumber) {
         OnlineUser u = getCurrentUser();
-        Page<MessageShortVo> page = messageService.findMessagePage(u, type, pageSize, pageNumber);
+        Page<MessageVo> page = messageService.findMessagePage(u, type, pageSize, pageNumber);
+        page.getItems().forEach(messageVo -> {
+            String routeType = messageVo.getRouteType();
+            if (routeType != null) {
+                messageVo.setUrl(MultiUrlHelper.getUrl(routeType, MultiUrlHelper.URL_TYPE_WEB));
+            }
+        });
         return ResponseObject.newSuccessResponseObject(page);
-
     }
-
 
     /**
      * 删除消息

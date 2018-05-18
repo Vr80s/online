@@ -11,9 +11,9 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.ImmutableMap;
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
@@ -33,6 +33,7 @@ import com.xczhihui.course.service.CourseApplyService;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.MessageRemindingService;
+import com.xczhihui.course.util.TextStyleUtil;
 import com.xczhihui.message.dao.MessageDao;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
@@ -47,7 +48,6 @@ import com.xczhihui.vhall.bean.Webinar;
 @Service
 public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         CourseApplyService {
-
     /**
      * 直播课程审核通过文案
      */
@@ -56,7 +56,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private static final String APP_PUSH_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             "您申请的{0}课程《{1}》已通过系统审核，可以上架啦！";
     private static final String APP_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
-            "【课程审核通知】您申请的{0}课程《{1}》已通过系统审核，可以上架啦！去看看>>";
+            "【课程审核通知】您申请的{0}课程" + "《{1}》" + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
     private static final String WEB_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             APP_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS;
 
@@ -66,7 +66,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private static final String APP_PUSH_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             "您申请的{0}课程《{1}》已通过系统审核，可以上架啦！";
     private static final String APP_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
-            "【课程审核通知】您申请的${0}课程《{1}》已通过系统审核，可以上架啦！去看看>>";
+            "【课程审核通知】您申请的{0}课程《{1}》已通过系统审核，可以上架啦！" + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
     private static final String WEB_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             APP_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS;
 
@@ -174,8 +174,26 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                 // 保存专辑-课程关系
                 saveCollectionCourse(course, subCourse);
             }
+            //如果专辑课程已经更新完，需要标识
+            if (course.getCourseNumber() != null && Integer.compare(courseApplyInfos.size(), course.getCourseNumber()) >= 0) {
+                course.setCollectionUploadFinish(true);
+                courseDao.update(course);
+                messageRemindingService.deleteCourseMessageReminding(course, RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
+            } else {
+                messageRemindingService.saveCourseMessageReminding(course, RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
+            }
+            saveCollectionUpdateCollectionId(courseApplyId, course.getId());
         }
         sendCoursePassMessage(course, createPerson);
+    }
+
+    private void saveCollectionUpdateCollectionId(Integer collectionApplyId, Integer collectionId) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("collectionApplyId", collectionApplyId).addValue("collectionId", collectionId);
+        this.getDao().getNamedParameterJdbcTemplate()
+                .update("UPDATE collection_course_apply_update_date" +
+                        " SET collection_id = :collectionId" +
+                        " WHERE collection_apply_id = :collectionApplyId", mapSqlParameterSource);
     }
 
     /**
@@ -211,10 +229,13 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                     routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
                 }
             }
+            Map<String, String> params = new HashMap<>();
+            params.put("type", typeText);
+            params.put("courseName", title);
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                     .buildWeb(MessageFormat.format(isLiveCourse ? WEB_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : WEB_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title))
                     .buildAppPush(MessageFormat.format(isLiveCourse ? APP_PUSH_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : APP_PUSH_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title))
-                    .buildSms(isLiveCourse ? liveCourseApplyPassCode : notLiveCourseApplyPassCode, ImmutableMap.of("type", typeText, "courseName", title))
+                    .buildSms(isLiveCourse ? liveCourseApplyPassCode : notLiveCourseApplyPassCode, params)
                     .build(userId, routeTypeEnum, createPerson));
         } catch (Exception e) {
             e.printStackTrace();
@@ -259,7 +280,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         courseApply.setDismissal(courseApplyInfo.getDismissal());
         courseApply.setDismissalRemark(courseApplyInfo.getDismissalRemark());
         saveNotPassCourse(courseApply, userId);
-        sendCourseNotPassMessage(courseApplyInfo, userId);
+        sendCourseNotPassMessage(courseApply, userId);
     }
 
     private void sendCourseNotPassMessage(CourseApplyInfo courseApplyInfo, String createPerson) {
@@ -285,9 +306,13 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
         }
 
+        Map<String, String> params = new HashMap<>();
+        params.put("type", n);
+        params.put("courseName", title);
+        params.put("reason", reason);
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                 .buildWeb(MessageFormat.format(WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, reason))
-                .buildSms(courseApplyNotPassCode, ImmutableMap.of("type", n, "courseName", title, "reason", reason))
+                .buildSms(courseApplyNotPassCode, params)
                 .buildAppPush(MessageFormat.format(APP_PUSH_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, reason))
                 .build(courseApplyInfo.getUserId(), routeTypeEnum, createPerson)
         );

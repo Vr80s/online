@@ -31,13 +31,18 @@ public class TimedTaskJob {
 
     }
 
-    @Scheduled(cron = "0/10 * * * * ? ")
+    @Scheduled(cron = "0/1 * * * * ?")
     public void liveCourseMessage() throws ClientException {
         messageRemindingService.liveCourseMessageReminding();
     }
 
-    //	@Scheduled(cron = "0/10 * * * * ? ")
+    @Scheduled(cron = "0 8 0/1 * * ?")
     public void offlineCourseMessage() throws ClientException {
         messageRemindingService.offlineCourseMessageReminding();
+    }
+
+    @Scheduled(cron = "0 8 0/1 * * ?")
+    public void remindCollectionUpdate() {
+
     }
 }

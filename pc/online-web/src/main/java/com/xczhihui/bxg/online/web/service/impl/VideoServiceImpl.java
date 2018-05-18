@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.ImmutableMap;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
@@ -30,6 +31,7 @@ import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
+import com.xczhihui.course.util.CourseUtil;
 
 /**
  * @Author Fudong.Sun【】
@@ -261,7 +263,6 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     private void sendApplySuccessMessage(CourseApplyVo courseApplyVo) {
         try {
             String messageId = CodeUtil.getRandomUUID();
-            String route = RouteTypeEnum.COURSE_DETAIL_PAGE.name();
             String courseId = String.valueOf(courseApplyVo.getId());
             String courseName = courseApplyVo.getCourseName();
             Date startTime = courseApplyVo.getStartTime();
@@ -273,7 +274,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
                             .buildWeixin(weixinApplySuccessMessageCode, ImmutableMap.of("first", content, "keyword1",
                                     courseName, "keyword2", startTime != null ? TimeUtil.getYearMonthDayHHmm(startTime) : "", "remark", "点击查看"))
                             .detailId(courseId)
-                            .build(userId, RouteTypeEnum.COURSE_DETAIL_PAGE, userId));
+                            .build(userId, CourseUtil.getRouteType(courseApplyVo.getCollection(), courseApplyVo.getType()), userId));
         } catch (Exception e) {
             logger.error("报名成功时，推送消息异常: courseId: {}", courseApplyVo.getId());
             e.printStackTrace();

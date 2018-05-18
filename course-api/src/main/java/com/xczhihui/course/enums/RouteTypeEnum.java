@@ -2,8 +2,14 @@ package com.xczhihui.course.enums;
 
 public enum RouteTypeEnum {
 
-    //课程详情页
-    COURSE_DETAIL_PAGE,
+    //专辑课程详情页
+    COLLECTION_COURSE_DETAIL_PAGE,
+    //直播课程详情页
+    LIVE_COURSE_DETAIL_PAGE,
+    //线下课课程详情页
+    OFFLINE_COURSE_DETAIL_PAGE,
+    //音视频课程详情页
+    VIDEO_AUDIO_COURSE_DETAIL_PAGE,
     //医师认证页
     DOCTOR_APPROVE_PAGE,
     //医馆认证页

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,9 @@ import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.enums.MessageTypeEnum;
-import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
+import com.xczhihui.course.util.CourseUtil;
 
 /**
  * 订单业务层接口实现类
@@ -76,7 +77,8 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
             if (courses.size() > 0) {
                 for (Map<String, Object> course : courses) {
                     String messageId = CodeUtil.getRandomUUID();
-                    String route = RouteTypeEnum.COURSE_DETAIL_PAGE.name();
+                    Boolean collection = MapUtils.getBoolean(course, "collection");
+                    int type = MapUtils.getIntValue(course, "type");
                     String courseId = course.get("course_id").toString();
                     String courseName = course.get("course_name").toString();
                     String startTimeStr = TimeUtil.getYearMonthDayHHmm(new Date());
@@ -88,7 +90,7 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
                                     .buildWeixin(weixinPayMessageCode,
                                             ImmutableMap.of("first", content, "keyword1", courseName, "keyword2", startTimeStr, "remark", "点击查看"))
                                     .detailId(courseId)
-                                    .build(userId, RouteTypeEnum.COURSE_DETAIL_PAGE, userId));
+                                    .build(userId, CourseUtil.getRouteType(collection, type), userId));
                 }
             }
             logger.info("发送课程消息通知" + orderNo);

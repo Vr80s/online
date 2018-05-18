@@ -1,25 +1,18 @@
 package com.xczhihui.bxg.online.web.interceptor;
 
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.User;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.xczhihui.bxg.online.web.dao.ASKQuestionListDao;
 import com.xczhihui.bxg.online.web.dao.AskAnswerDao;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.service.MessageService;
-import com.xczhihui.bxg.online.web.vo.MessageShortVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 
 /**
  * @Author Fudong.Sun【】
@@ -40,8 +33,10 @@ public class MessageInterceptor extends SimpleHibernateDao implements HandlerInt
 
     @Value("${web.url}")
     private String weburl;
+
     /**
      * 在Controller方法前进行拦截
+     *
      * @param request
      * @param response
      * @param o
@@ -55,6 +50,7 @@ public class MessageInterceptor extends SimpleHibernateDao implements HandlerInt
 
     /**
      * 在Controller方法后进行拦截
+     *
      * @param request
      * @param response
      * @param o
@@ -68,6 +64,7 @@ public class MessageInterceptor extends SimpleHibernateDao implements HandlerInt
 
     /**
      * 在页面渲染完成之后进行拦截
+     *
      * @param request
      * @param response
      * @param o
