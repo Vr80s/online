@@ -34,7 +34,6 @@
 	.add_follow p{
 	    margin-top: 0;
     	display: block;
-    	/*padding: 0.1rem 0;*/
     	font-size: 0.24rem;
 	}
 </style>
@@ -262,7 +261,10 @@
 			</ul>
 			
 		</div>
-
+		<div class="quie_pics">
+			<img src="../images/no_class.png"/>	
+			<p>该主播暂未发布课程~</p>
+		</div>
 	</div>
 	<!-- 主播课程结束 -->
 	
@@ -475,7 +477,7 @@
 	// 导航  固定和点击切换事件
 	window.onload = function(){
 		$(".li_data").click(function(){
-			$(".anchor_navigation .border").css("left","0.9rem");
+			$(".anchor_navigation .border").css("left","1.04rem");
 			$(".li_data").addClass("li_color");
 			$(".li_course").removeClass("li_color");
 			$(".li_evaluate").removeClass("li_color");
@@ -493,7 +495,7 @@
 			$(".li_evaluate_hide").addClass("hide");
 		});
 		$(".li_evaluate").click(function(){
-			$(".anchor_navigation .border").css("left","6.05rem");
+			$(".anchor_navigation .border").css("left","5.94rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").removeClass("li_color");
 			$(".li_evaluate").addClass("li_color");
@@ -502,6 +504,17 @@
 			$(".li_evaluate_hide").removeClass("hide");
 		});
 		$(".li_data").click();
+
+		//		点击微信出现提示框
+		$(".header_news").click(function(){
+			$(".weixin_ceng").show();
+		});
+		
+		$(".weixin_ceng").click(function(){
+			$(".weixin_ceng").hide();
+		});
+
+
 	};
 /* 	window.onload = function(){
 		//		点击分享share

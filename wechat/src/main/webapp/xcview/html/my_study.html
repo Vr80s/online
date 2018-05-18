@@ -92,9 +92,9 @@
 		
 			<div class="wrap_class">
 				{{if items.title=="我的课程"}}
-				<p class="my_class_title"><a href="my_study_course.html" style="color: #000;">{{items.title}}</a></p>
+				<p class="my_class_title"><a href="my_study_course.html" style="color: #000;width: 100%;display: inline-block;">{{items.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.15rem;margin-right: 0.26rem;float: right;margin-top: 0.08rem;"></a></p>
 				{{else}}
-				<p class="my_class_title"><a href="end_the_course.html" style="color: #000;">{{items.title}}</a></p>
+				<p class="my_class_title"><a href="end_the_course.html" style="color: #000;width: 100%;display: inline-block;">{{items.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.15rem;margin-right: 0.26rem;float: right;margin-top: 0.08rem;"></a></p>
 				{{/if}}
 					{{each items.courseList as item i}}
 					<div class="my_class_text" style="position: relative;">
@@ -227,35 +227,6 @@
 		<img src="/xcview/images/01_03.png" />
 	</div>
 	<!--底部旋转结束-->
-
 </div>
-	
-
 </body>
-<script>
-//			var kk=document.documentElement.clientWidth;
-//			if(kk>750){
-//				kk=750
-//			}
-//			
-//			document.documentElement.style.fontSize=kk/7.5+"px";
-			
-//$(".paly_ing").click(function(event){
-//alert("我是小div");
-////event.stopPropagation(); // 阻止事件冒泡
-//return false;
-// });
-		</script>
-		
-		
-		<script type="text/javascript">
-			/*window.onload = function(){
-				
-				$(".header_news").click(function(){
-					webToast("敬请期待...","middle",1500);
-				});
-				
-			};*/
-		</script>
-
 </html>

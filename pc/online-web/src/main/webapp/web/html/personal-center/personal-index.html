@@ -16,8 +16,10 @@
 		
 		<link rel="stylesheet" href="/web/html/personal-center/center-header/header.css" />
 		<link rel="stylesheet" href="/web/css/footer.css" />
+		<!--两种字体图标-->
 		<link rel="stylesheet" href="/web/font/iconfont.css" />
-
+		<link rel="stylesheet" href="/web/fonts/style.css" />
+		<!--两种字体图标-->
 		<!--头像预览CSS-->
 		<link rel="stylesheet" href="/web/html/preview-head/preview-head.css">		
 		<link rel="stylesheet" href="/web/css/style.css" />
@@ -95,14 +97,14 @@
 					<!-- Contenedor -->
 						<ul id="accordion" class="accordion">
 							<li>
-								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>学习中心<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></div>
+								<div class="link"><i class="icomoon-icon-xuexi"></i>学习中心<span class="" aria-hidden="true"></span></div>
 								<ul class="submenu">
 									<li><a href="javascript:;">我的课程</a></li>
 									<li><a href="javascript:;">关注的主播</a></li>
 								</ul>
 							</li>
 							<li>
-								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>问答与论坛<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></div>
+								<div class="link"><i class="icomoon-icon-wenda"></i>问答与论坛<span class="" aria-hidden="true"></span></div>
 								<ul class="submenu">
 									<li><a href="#">我的问答</a></li>
 									<li><a href="#">我的论坛</a></li>
@@ -110,35 +112,35 @@
 								</ul>
 							</li>
 							<li>
-								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>我的订单</div>
+								<div class="link"><i class="icomoon-icon-dingdan"></i>我的订单</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">课程收益</a></li>
 									<li><a href="javascript:;">礼物收益</a></li>-->
 								</ul>
 							</li>
 							<li>
-								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>我的钱包</div>
+								<div class="link"><i class="icomoon-icon-zichan"></i>我的钱包</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
 							<li>
-								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>个人资料</div>
+								<div class="link"><i class="icomoon-icon-ziliao"></i>个人资料</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
 							<li>
-								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>消息</div>
+								<div class="link"><i class="iconfont icon-ziyuan" style="font-size: 14px;top: 26px;"></i>消息</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
 							<li>
-								<div class="link"><i class="iconfont icon-zaixiankecheng"></i>意见反馈</div>
+								<div class="link"><i class="iconfont icon-yijianfankui"style="top: 23px;"></i>意见反馈</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
@@ -151,34 +153,153 @@
 					<div class="main-right y">
 						<!-- 右侧内容的盒子 -->
 						<div id="right-content">
-							<div class="content1" >
-								<div class="mune1-1">内容1-1</div>
-								<div class="mune1-2 hide">内容1-2</div>
-								<div class="mune1-3 hide">内容1-3</div>
-								<div class="mune1-4 hide">内容1-4</div>
+						<!--学习中心-->
+							<div class="content" >
+								<div class="mune1-1">
+									<div class="my-class-nav">
+										<ul>
+											<li class="class-active">播放历史</li>
+											<li>已购课程</li>
+											<li>结束课程</li>
+										</ul>
+									</div>
+									<!--播放历史-->
+									<div class="save-class">
+										<button type="button" class="clear-history">清除记录</button>
+										<div class="course clearfix">
+											<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+												<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
+												<div class="detail">
+													<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
+													<p class="timeAndTeac">
+														<span class="teacher">雪灵</span>
+														<span class="y"></span>
+													</p>
+													<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
+													</p>
+												</div>
+											</a>
+										</div>	
+										<!--无视频时背景图-->
+										<div class="sava-nodata nodata-history"></div>	
+									</div>
+									<!--已购课程-->
+									<div class="save-class hide">
+										<div class="course clearfix">
+											<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+												<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
+												<div class="detail">
+													<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
+													<p class="timeAndTeac">
+														<span class="teacher">雪灵</span>
+														<span class="y">上海</span>
+													</p>
+													<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
+													</p>
+												</div>
+											</a>
+										</div>
+										<!--无视频时背景图-->
+										<div class="sava-nodata nodata-buyclass"></div>										
+									</div>
+									<!--结束课程-->
+									<div class="save-class hide">
+										<div class="course clearfix">
+											<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+												<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
+												<div class="detail">
+													<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
+													<p class="timeAndTeac">
+														<span class="teacher">雪灵</span>
+														<span class="y">上海</span>
+													</p>
+													<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
+													</p>
+												</div>
+											</a>
+										</div>
+										<!--无视频时背景图-->
+										<div class="sava-nodata nodata-endclass"></div>	
+									</div>
+								</div>
+								<div class="mune1-2 hide">
+									<div class="my-class-nav">
+										<h5 class="anchor-follow">关注的主播</h5>
+									</div>
+									<div class="anchor-list">
+										<div class="anchor-wrap">
+											<div class="head-doctor z">
+												<img src="../../images/teacher_big_pic.png"/>
+											</div>
+											<div class="doctor-details y">
+												<h5>王老板</h5>
+												<p class="doctor-text">
+													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播
+													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播
+													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播												
+												</p>
+											</div>
+										</div>										
+									</div>
+								</div>	
 							</div>
-							<div class="content2 hide" >
-								<div class="mune2-1">内容2-1</div>
+						<!--问答与论坛-->
+							<div class="content hide" >
+								<div class="mune2-1">
+									<div class="question-forum">
+										<ul>
+											<li class="mune-active">我的提问</li>
+											<li>我的回答</li>
+										</ul>
+									</div>
+									<div class="question-wrap">
+										<div class="question-list-wrap">
+											<div class="head-name-who z">
+												<div class="head-img">
+													<img src="../../images/head_03.png"/ alt="头像">
+												</div>
+												<p class="user-name">小宝宝</p>
+											</div>
+											<div class="source-text y">
+												<p class="source-title">来自学科：各家综合</p>
+												<div class="question-status-wrap">
+													<span>未解决</span>
+													<p>不懂就要问</p>
+												</div>
+												<p class="list-Answer-right-text dot5 is-truncated" style="height: 40px; word-wrap: break-word;">
+													红血丝主要表现为毛细血管明显呈现密集红色细条状或者网纹状，当遇到稍微变化的外界刺激后毛细血管扩张，密集的红血丝就会明显出现，它也是敏感肌肤的
+													一种表现。最根本的解决办法是改善面部毛细血管的弹性，恢复血管的正常收缩与
+													一种表现。最根本的解决办法是改善面部毛细血管的弹性，恢复血管的正常收缩与
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="question-wrap hide">
+										2
+									</div>
+								</div>
 								<div class="mune2-2 hide">内容2-2</div>
 								<div class="mune2-3 hide">内容2-3</div>
 							</div>
-							<div class="content3 hide" >
+						<!--我的订单-->
+							<div class="content hide" >
 								<div>内容3-1</div>
 								<!--<div class="hide">内容3-2</div>-->
 							</div>
-							<div class="content4 hide" >
+						<!--我的钱包-->
+							<div class="content hide" >
 								<div>内容4-1</div>
 								<!--<div class="hide">内容4-2</div>-->
 							</div>
-							<div class="content5 hide" >
+							<div class="content hide" >
 								<div>内容5-1</div>
 								<!--<div class="hide">内容4-2</div>-->
 							</div>
-							<div class="content6 hide" >
+							<div class="content hide" >
 								<div>内容6-1</div>
 								<!--<div class="hide">内容4-2</div>-->
 							</div>
-							<div class="content7 hide" >
+							<div class="content hide" >
 								<div>内容7-1</div>
 								<!--<div class="hide">内容4-2</div>-->
 							</div>
@@ -219,6 +340,8 @@
 			
 			
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>
+		
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>	
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		
@@ -234,6 +357,7 @@
 		<script src="/web/html/preview-head/preview-head.js"></script>
 		<!--头像预览需要的JS-->
 		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>
+
 	
 		
 	</body>	
