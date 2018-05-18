@@ -296,7 +296,7 @@
 	</profiles>
 
 	<build>
-		<finalName>medical-provider</finalName>
+		<finalName>user-center-provider</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

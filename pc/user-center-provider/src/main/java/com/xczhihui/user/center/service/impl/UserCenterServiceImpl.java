@@ -243,8 +243,7 @@ public class UserCenterServiceImpl implements UserCenterService {
 
     @Override
     public Token loginThirdPart(String userId, TokenExpires tokenExpires) throws Exception {
-
-        OeUser user = this.oeUserMapper.selectById(userId);
+        OeUser user = this.oeUserMapper.selectByLoginName(userId);
         if (user == null) {
             throw new LoginRegException("用户不存在");
         }
