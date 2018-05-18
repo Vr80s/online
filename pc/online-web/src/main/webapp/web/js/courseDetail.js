@@ -418,7 +418,7 @@ window.onload = function() {
                 for(var i in data.resultObject){
                     data.resultObject[i].currentPrice = parseInt(data.resultObject[i].currentPrice);
                 }
-				if(data.success == true && data.resultObject){
+				if(data.success == true && data.resultObject.length != 0){
 					$('.sidebar-body').removeClass('hide');
 					//渲染
 			    	$('.RecommendClass_list').html(template('RecommendClass_list_Tpl',{item:data.resultObject}));
@@ -432,7 +432,7 @@ window.onload = function() {
 			for(var i in data.resultObject){
 				data.resultObject[i].currentPrice = parseInt(data.resultObject[i].currentPrice);
 			}
-			if(data.success == true && data.resultObject){
+			if(data.success == true && data.resultObject != 0){
 				$('.sidebar-body').removeClass('hide');
 					//渲染
 		    	$('.RecommendClass_list').html(template('RecommendClass_list_Tpl2',{item:data.resultObject}));

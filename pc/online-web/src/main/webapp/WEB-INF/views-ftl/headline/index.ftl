@@ -137,7 +137,9 @@
                 </div>
             </#list>
             </div>
+            <#if articles.total gt 6>
             <a href="${webUrl}/headline/list/${echoMap.type}" class="more-news">更多</a>
+            </#if>
         </div>
     <div class="forum-content-right" style="position: absolute; left: 880px;">
         <!--推荐专栏作者-->
@@ -192,7 +194,9 @@
                 <#list hotSpecialColumnAuthors as hotSpecialColumnAuthor>
                     <li class="clearfix">
                         <div class="touxiang">
+                        	<a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"target="_blank">
                             <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
+                            </a>
                         </div>
                         <div class="zuozhe_inf">
                                 <span><a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"
