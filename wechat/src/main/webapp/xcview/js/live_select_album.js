@@ -96,7 +96,8 @@ $(".my_details li").click(function(){
 })
 //评论刷新
     refresh();
-	
+
+
 	
 })
 //判断普通浏览器时,去点微信分享  
@@ -124,6 +125,12 @@ var collections="";
             collections=data.resultObject;  //获取所有专辑
 			$("#select_album").html(template('data_select_album',{items:data.resultObject}));		
 		}
+
+        //获取上次观看课程名
+        var lookCourseName = localStorage.getItem("courseName"+courseId);
+		if(lookCourseName!=null && lookCourseName!=""){
+            $('.play_top_size').html('上次播放至：'+lookCourseName);
+        }
 	})
 //点击视频默认第一个视频ID	
 	function btn_album_page(){                       
@@ -136,10 +143,11 @@ var collections="";
 		location.replace("live_album.html?course_id="+collection.id+"&direct_id="+collection.directId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+courseIndex+"&type=2");
 	}
 //选集视频跳转
-function jump_album_my(e,selectId,selectDirectId){
+function jump_album_my(e,selectId,selectDirectId,courseName){
 	//alert(e.target)
 	var index = e.parentNode.value
-    localStorage.setItem('course'+courseId, index);                                                                                                         //判断跳转添加
+    localStorage.setItem('course'+courseId, index);
+	localStorage.setItem('courseName'+courseId, courseName);                                                                                                      //判断跳转添加
 	location.replace("live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index+"&type=2");
 }
 function refresh(){

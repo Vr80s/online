@@ -165,14 +165,14 @@
 	<!--专辑选集-->
 		<div class="my_details_content limit_height"  style="display: block;">
 			<div class="play_to">
-				<div class="play_top_size">上次播放至：02朱小宝中医外治交流会-感冒的预防和治疗（适适适适适适适适适适适适</div>
+				<div class="play_top_size"></div>
 			</div>
 			<ul id="select_album">
 				<script type="text/html" id="data_select_album">
 				{{each items as item i}}
 					<li value={{i}}>
 						<!--<a href="live_album.html?course_id={{item.id}}&direct_id={{item.directId}}&collection_id={{item.collectionId}}"></a>-->
-							<a href="javascript:;" onclick="jump_album_my(this,'{{item.id}}','{{item.directId}}')"></a>
+							<a href="javascript:;" onclick="jump_album_my(this,'{{item.id}}','{{item.directId}}','{{item.gradeName}}')"></a>
 						<div class="limit_play_img z">
 							<img src="../images/play_img.png"/>
 						</div>

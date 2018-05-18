@@ -91,7 +91,7 @@
 	<div class="wrap-header">
 		<div class="header">		
 			<p>专辑课程</p>
-			<div class="arror_return z">
+			<div class="arror_return z" nclick="javascript:history.go(-1);">
 			<!-- <div class="arror_return z" onclick="getQueryString()"> -->
 			<!-- <div class="arror_return z" onclick="window.history.go(-1)"> -->
 			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
@@ -172,7 +172,7 @@
 				<script type="text/html" id="all_list_ul">
 				{{each items as item i}}
 				
-			        <li data-myvideo="{{item.directId}}" data-courseId="{{item.id}}">
+			        <li data-myvideo="{{item.directId}}" data-courseId="{{item.id}}" data-courseName="{{item.gradeName}}">
 						<p class='all_list_ul_li_p'>{{item.no}}&nbsp;{{item.gradeName}}</p>
 					</li>
 				
