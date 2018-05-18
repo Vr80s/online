@@ -144,16 +144,17 @@ textarea::-webkit-input-placeholder {
 	height: 0.8rem;
 }
 .anchor_navigation ul .li{
-	width: 0.56rem;
-	height: 0.8rem;
-	line-height: 0.8rem;
-	font-size: 0.28rem;
-	color: #666666;
-	float: left;
-	margin: 0 0.9rem;
+	    width: 2.3rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    font-size: 0.28rem;
+    color: #666666;
+    float: left;
+    margin: 0 0.15rem;
+    text-align: center;
 }
 .anchor_navigation ul .li_course{
-	margin: 0 1.11rem;
+	margin: 0 0rem;
 }
 .li_color{
 	color: #00bc12 !important;
@@ -417,13 +418,16 @@ color:  #999999;
 	color: #F97B49;
 }
 .zhibo_play{
-	    border: 1px solid #F97B49;
     float: left;
     font-size: 0.22rem !important;
     padding: 0rem 0.1rem;
-    color: #F97B49 !important;
     margin-left: 0.1rem;
     border-radius: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #F97B49;
+    color: #fff !important;
 }
 .more_people{
 overflow: hidden;
@@ -873,7 +877,7 @@ color: #888888;
     width: 100%;
     top: 0px;
 	color: #000;
-    z-index: 9;
+    z-index: 999999;
 }
 #main {
 	height:20px;
@@ -942,7 +946,7 @@ header.home img {
 #mainMenuBar {
 	width:100%;
 	background-color:white;
-	z-index:100;
+	z-index:999999;
 }
 #content {
 	width:100%;
