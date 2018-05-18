@@ -13,6 +13,7 @@ a:hover{text-decoration: none;}
 .wp{width: 1200px; margin: 0 auto;}
 .main-left{
 	width: 220px;
+	margin-top: 20px;
 }
  .clearfix:after{  /*最简方式*/  
      content: '';
@@ -35,6 +36,7 @@ a:hover{text-decoration: none;}
  }
 .main-right{
 	width: 960px;	
+	margin-top: 20px;
 }
  #right-content{
 	width: 960px;
@@ -50,7 +52,7 @@ a:hover{text-decoration: none;}
 .accordion .link {
 	cursor: pointer;
 	display: block;
-	padding: 15px 15px 15px 64px;
+	padding: 20px 15px 20px 64px;
 	color: #4D4D4D;
 	font-size: 16px;
 	position: relative;
@@ -65,7 +67,7 @@ a:hover{text-decoration: none;}
 
 .accordion li i {
 	position: absolute;
-	top: 16px;
+	top: 20px;
 	left: 30px;
 	font-size: 18px;
 	color: #595959;
@@ -75,12 +77,21 @@ a:hover{text-decoration: none;}
 }
 .accordion li span{
 	    float: right;
-    margin-right: 15px;
+    /*margin-right: 15px;
     margin-top: 2px;
-    color: #CACBCB;
+    color: #CACBCB;*/
+   width: 8px;
+   height: 14px;
+   overflow: hidden;
+   margin: 5px;
+   background: url(../../images/icon-select-right.png) no-repeat;
+
 }
 .accordion li.open span {
-	color: #00BC12;
+	width: 14px;
+   height: 8px;
+	background: url(../../images/icon-select-down.png) no-repeat;	
+
 }
 .accordion li i.fa-chevron-down {
 	right: 12px;
@@ -114,8 +125,8 @@ a:hover{text-decoration: none;}
  	display: block;
  	text-decoration: none;
  	color: #2A2A2A;
- 	padding: 12px;
- 	padding-left: 42px;
+ 	padding: 20px;
+ 	padding-left: 63px;
  	-webkit-transition: all 0.25s ease;
  	-o-transition: all 0.25s ease;
  	transition: all 0.25s ease;
@@ -126,4 +137,334 @@ a:hover{text-decoration: none;}
  }
 .submenu .mune-active{
 	color: #00BC12;
+}
+
+/*学习中心*/
+#right-content .content{
+	background: white;
+	width: 100%;
+}
+.my-class-nav{
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #f0f0f0;
+	overflow: hidden;
+}
+.my-class-nav li{
+	float: left;
+	border-bottom: 2px solid transparent;
+	padding: 20px 20px 15px;
+	cursor: pointer;
+	font-size: 16px;
+}
+.my-class-nav .class-active{
+	border-bottom: 2px solid #00bc12;
+	color: #00bc12;
+}
+.save-class{
+	min-height: 625px;
+	background: white;
+	width: 100%;
+	padding: 20px 0 20px 0;
+	overflow: hidden;
+}
+.save-class .clear-history{
+	background: #F0F0F0;
+border-radius: 2px;
+background: #f0f0f0;
+width: 76px;
+height: 30px;
+border: 0;
+outline: none;
+color: #666666;
+display: block;
+margin-left: 20px;
+}
+/*视频样式开始*/
+.save-class .course {
+    margin-right: 20px;
+    position: relative;
+    width: 215px;
+    float: left;
+    height: 216px;
+    margin: 20px 0 0 20px;
+}
+
+.save-class > div > a {
+    background: white;
+    width: 215px;
+    float: left;
+    /*margin-right: 24px;*/
+    /*margin-bottom: 24px;*/
+    -webkit-box-shadow: 1px 1px 2px 1px #ECECEC;
+    -moz-box-shadow: 1px 1px 2px 1px #ECECEC;
+    box-shadow: 1px 1px 2px 1px #ECECEC;
+}
+.save-class .course .img{
+	text-align: center;
+    line-height: 120px;
+    width: 215px;
+    height: 120px;
+    background-color: #f0f0f0;
+    background-image: url(../../images/load26.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}	  
+.save-class .course .img img{
+	 -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+.save-class .course .img img:hover{
+	transform: scale(1.2);
+}
+.save-class .course .img img{
+	width: 100%;
+	height: 100%;
+}
+.save-class .course .classCategory {
+    height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}
+.save-class > div > a .detail {
+    width: 215px;
+    height: 90px;
+    padding: 10px 10px 15px;
+    border: 1px solid #e4e4e4;
+    border-top: none;
+    box-sizing: content-class-box;
+    overflow: hidden;
+}
+.save-class > div > a .detail .title {
+    max-width: 260px;
+    /* height: 30px; */
+    display: inline-block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+.save-class > div > a .detail .timeAndTeac {
+    display: block;
+    margin: 2px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.save-class > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+}
+.save-class > div > a .detail .timeAndTeac span {
+    font-size: 12px;
+    color: #999;
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.save-class > div > a .detail .info > span:nth-child(1) {
+    float: left;
+}
+.save-class > div > a .detail .info .price {
+    display: inline-block;
+    margin: 0 3px 0 0;
+    font-size: 16px;
+    color: #F97B49;
+}
+.save-class > div > a .detail span {
+    color: #999;
+}
+.save-class > div > a .detail .info > span:nth-child(2) {
+    float: right;
+}
+.save-class .stuCount .studentCou{
+	float: right;
+	margin-top: 1px;
+}
+/*视频样式结束*/
+.sava-nodata{
+font-size: 13px;
+color: #999999;
+margin: 190px auto 0;
+text-align: center;
+}
+.sava-nodata .no-data-img {
+	margin: 0 auto 10px;
+	width: 63px;
+	height: 70px;
+	
+}
+/*关注的主播*/
+.my-class-nav .anchor-follow{
+	font-size: 16px;
+	line-height: 60px;
+	padding-left: 20px;
+	margin: 0;
+}
+.anchor-list{
+	width: 100%;
+	min-height: 625px;
+	padding-bottom: 20px;
+}
+.anchor-list .anchor-wrap{
+	width: 400px;
+	height: 110px;
+	padding: 20px 10px;
+	margin: 20px 0 0 20px;
+	float: left;
+	transition: all 0.5s;
+}
+.anchor-list .anchor-wrap:hover{
+-moz-box-shadow: 0px 3px 5px rgba(0,0,0,.1); 
+box-shadow: 0px 3px 5px rgba(0,0,0,.1);
+cursor: pointer;
+
+}
+.anchor-list .anchor-wrap:nth-child(even){
+	margin: 20px 0 0 80px;
+	
+}
+.head-doctor{
+	width: 70px;
+	height: 70px;
+	border-radius:50%;
+	overflow: hidden;	
+}
+.head-doctor img{
+	width: 100%;
+	height: 100%;
+}
+.doctor-details{
+	width: 300px;
+	height: 70px;
+	
+}
+.doctor-details h5{
+	margin: 0 0 10px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.doctor-details .doctor-text{
+	width: 295px;
+	height: 48px;
+	color: #666666;
+	position: relative;
+	line-height: 24px;
+	overflow: hidden;
+}
+.doctor-details .doctor-text::after {
+	content: "...";
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding-left: 40px;
+}
+
+/*问答与论坛*/
+.question-forum{
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #f0f0f0;
+	overflow: hidden;
+}
+.question-forum ul li{
+	float: left;
+	border-bottom: 2px solid transparent;
+	padding: 20px 20px 15px;
+	cursor: pointer;
+	font-size: 16px;
+}
+.question-forum .mune-active{
+	border-bottom: 2px solid #00BC12;	
+	color: #00BC12;
+}
+.question-wrap{
+	min-height: 625px;
+	background: white;
+	padding: 20px 0 0 20px;
+}
+.question-list-wrap{
+	width: 820px;
+	overflow: hidden;
+	border-bottom: 1px solid#000000;
+	padding-bottom: 20px;
+	color: #666666;
+}
+.head-name-who{
+	width: 70px;
+	text-align: center;
+}
+.head-name-who .head-img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.head-name-who .head-img img{
+	width: 100%;
+	height: 100%;
+}
+.head-name-who p{
+	max-width: 70px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.question-status-wrap{
+	margin: 10px 0;
+}
+.question-list-wrap .source-text{
+	width: 730px;
+	background: skyblue;
+
+}
+.question-status-wrap span{
+	display: inline-block;
+	width: 56px;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	background: #F97B49;
+	border-radius: 4px;
+	color: white;
+}
+.question-status-wrap p{
+	display: inline-block;
+	color: #333333;
+	font-size: 16px;
+	font-weight: bold;
+}
+.list-Answer-right-text{
+	  font-size: 13px;
+    color: #666;
+    word-break: break-all;
+    word-wrap: break-word;
+    margin: 0;
+}
+.toggle .closes{
+     display: none;
+    color: #2CB82C !important;
+    font-size: 13px;
+    text-decoration: none;
+}
+.toggle .opens {
+  color: #2CB82C !important;
+    font-size: 13px;
+    text-decoration: none;
 }
