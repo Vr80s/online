@@ -96,9 +96,10 @@
         WHERE oba.`is_delete` = 0
               AND oba.`status` = 1
               AND oba.type_id = #{typeId}
+              and oba.sort > 0 and (oba.recommend_time is null or oba.recommend_time > now())
         GROUP BY oba.id
-        ORDER BY oba.`is_recommend` DESC, oba.`create_time` DESC
-        LIMIT 0, 7
+        ORDER BY oba.`sort` DESC, oba.`create_time` DESC
+        LIMIT 0, 5
     </select>
 
     <select id="getHotArticles" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">

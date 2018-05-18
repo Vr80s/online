@@ -190,9 +190,10 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 long seconds = Duration.between(now, startTime).getSeconds();
                 if (seconds <= (60 * 10 + 30)) {
                     long minute = seconds / 60;
-                    if (minute <= 0) {
-                        loggger.info("课程提醒未发送");
-                    } else {
+                    if(minute <=0){
+                        loggger.info("课程{}提醒未发送,开播时间{}",course.getId(),course.getStartTime());
+                        deleteCourseMessageReminding(course, RedisKeyConstant.LIVE_COURSE_REMIND_KEY);
+                    }else{
                         //发送提醒
                         List<OnlineUser> users = getUsersByCourseId(course.getId());
                         for (OnlineUser user : users) {

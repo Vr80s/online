@@ -148,11 +148,15 @@ public class H5WeChatSetController {
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			String openid = wxw.getOpenid();
 			
-			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+			/**
+			 * 因为没有退出登录了，所以残留的是上一个用户的coke
+			 */
+/*			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
 			if(currentOnlineUser !=null){
 				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 				return;
-			}
+			}*/
+			
 			LOGGER.info(" ==========================  " + req.getParameter("code"));
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
@@ -224,11 +228,11 @@ public class H5WeChatSetController {
 			LOGGER.info("wxw===="+wxw);
 			String openid = wxw.getOpenid();
 			
-			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
-			if(currentOnlineUser !=null){
-				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
-				return;
-			}
+//			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+//			if(currentOnlineUser !=null){
+//				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
+//				return;
+//			}
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
@@ -270,7 +274,6 @@ public class H5WeChatSetController {
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
-				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {
@@ -297,11 +300,11 @@ public class H5WeChatSetController {
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			LOGGER.info("wxw===="+wxw);
 			String openid = wxw.getOpenid();
-			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
-			if(currentOnlineUser !=null){
-				res.sendRedirect(returnOpenidUri + "/xcview/html/my_study.html?openId="+openid);
-				return;
-			}
+//			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+//			if(currentOnlineUser !=null){
+//				res.sendRedirect(returnOpenidUri + "/xcview/html/my_study.html?openId="+openid);
+//				return;
+//			}
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
@@ -373,11 +376,11 @@ public class H5WeChatSetController {
 			LOGGER.info("wxw===="+wxw);
 			String openid = wxw.getOpenid();
 			
-			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
-			if(currentOnlineUser !=null){
-				res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&menuType="+menuType);
-				return;
-			}
+//			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
+//			if(currentOnlineUser !=null){
+//				res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&menuType="+menuType);
+//				return;
+//			}
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */

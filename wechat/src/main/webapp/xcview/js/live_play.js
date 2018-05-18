@@ -29,6 +29,8 @@ requestService("/xczh/course/liveDetails",{
 		}else{
 			description = data.resultObject.description.stripHTML();
 		}
+// 判断title
+        $(".headers").html(template('headers',data.resultObject));
 //	视频直播/回放/未开播状态判断
 	$(".play_video").html(template('data_video',data.resultObject));
 	

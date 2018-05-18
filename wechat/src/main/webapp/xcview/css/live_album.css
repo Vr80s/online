@@ -8,6 +8,9 @@ text-decoration: none;
 outline:none;
 -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
+.both{
+	clear: both;
+}
 p{font-size: 0.28rem;}
 img{display: block;}
 .wp{width: 7.5rem;margin: 0 auto;position: relative;}
@@ -74,6 +77,10 @@ textarea::-webkit-input-placeholder {
 	height: 100%;
 	display: block;
 }
+.play_video_fiexd{
+	position: fixed;
+	z-index: 1;
+}
 .play_video{
 	width: 100%;
 	height: 4.24rem;
@@ -82,6 +89,11 @@ textarea::-webkit-input-placeholder {
 .play_video img{
 	width: 100%;
 	height: 100%;
+}
+.hide_height{
+	width: 100%;
+	height: 4.24rem;
+	opacity: 0;
 }
 .video_prompt{
 	width: 1.76rem;
@@ -121,11 +133,9 @@ textarea::-webkit-input-placeholder {
 	position: relative;
 }
 .speak_title{
-	width: 5rem;
 	margin: 0 auto;
 	font-size: 0.32rem;
 	color: #333333;
-	text-align: center;
 	margin-bottom: 0.17rem;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
@@ -134,17 +144,12 @@ textarea::-webkit-input-placeholder {
 }
 
 .wrap_grade{
-	width: 3.5rem;
 	height: 0.33rem;
-	margin: 0 auto;
-	text-align: center;
 }
 .speak-text{
-	width: 5rem;
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
-	text-align: center;
 	margin-bottom: 0.17rem;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
@@ -219,6 +224,9 @@ textarea::-webkit-input-placeholder {
 .playTime li:nth-last-child(1){
 	float: right;
 }
+.playTimes{
+	padding:0.4rem 0 0 0;
+}
 /*详情开始*/
 .my_details{
 	margin-top: 0.2rem;
@@ -236,9 +244,7 @@ textarea::-webkit-input-placeholder {
 	padding-top: 0.2rem;
 }
 .my_synopsis{
-	width: 2.36rem;
 	height: 0.43rem;
-	margin: 0 auto;
 }
 .my_synopsis ul li{
 	float: left;
@@ -249,8 +255,13 @@ textarea::-webkit-input-placeholder {
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
-.my_synopsis ul li:nth-child(2){
-	margin-left: 0.3rem;
+.my_synopsis ul .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
 }
 /*内容*/
 .wrap{
@@ -321,28 +332,15 @@ textarea::-webkit-input-placeholder {
 	overflow: hidden;
 }
 .main_speak{
-	width: 2.64rem;
-	margin: 0 auto;
-	overflow: hidden;
 	padding-top: 0.2rem;
 }
-.main_speak p:nth-child(1){
-	float: left;
-	width: 0.6rem;
-	height: 1px;
-	background: #D8DDE6;
-	margin-top: 0.2rem;
-}
-.main_speak p:nth-child(2){
-	float: left;
-	margin-left: 0.3rem;
-}
-.main_speak p:nth-child(3){
-	float: right;
-	width: 0.6rem;
-	height: 1px;
-	background: #D8DDE6;
-	margin-top: 0.2rem;
+.wrap_speak .main_speak .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
 }
 /*内容*/
 .wrap1{
@@ -427,6 +425,14 @@ textarea::-webkit-input-placeholder {
     border-bottom: 1px solid #D8DDE6;
     padding-top: 0.2rem;
 }
+.wrap_comment_title .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0rem;
+    border-radius: 100px;
+}
 .wrap_all_returned .wrap_people_comment:nth-last-child(1){
 	border: 0;
 }
@@ -454,6 +460,7 @@ textarea::-webkit-input-placeholder {
 }
 .wrap_userName{
 	width: 100%;
+	margin-top: 0.3rem;
 }
 .wrap_userName img{
 	width: 1.5rem;
@@ -523,16 +530,16 @@ textarea::-webkit-input-placeholder {
 	float: left;
 }
 .wrap_purchaser{
-	float:left;
-	width: 0.98rem;
-	height: 0.32rem;
-	text-align: center;
-	line-height: 0.32rem;
-	color: #F97B49;
-	border: 1px solid #F97B49;
-	font-size: 0.25rem;
-	margin-top: 0.1rem;
-	border-radius: 4px;
+	float: left;
+    width: 0.56rem;
+    height: 0.28rem;
+    text-align: center;
+    line-height: 0.32rem;
+    color: #fff;
+    background: #00bc12;
+    font-size: 0.16rem;
+    margin: 0.04rem 0rem 0 0.1rem;
+    border-radius: 4px;
 }
 .wrap_purchaser p{
 	font-size: 0.22rem !important;
@@ -572,7 +579,7 @@ textarea::-webkit-input-placeholder {
 	box-sizing: border-box;
 }
 .wrap_input{
-	width: 5.7rem;
+	width: 7rem;
 	height: 0.6rem;
 	background: #f0f0f0;
 	margin-top: 0.2rem;
@@ -713,14 +720,15 @@ textarea::-webkit-input-placeholder {
 	background: #00BC12;
 }
 .select_lable li{
-	float: left;
-	background: rgba(0,188,18,0.30);
-	color: white;
-	font-size: 0.28rem;
-	text-align: center;
-	height: 0.56rem;
-	line-height: 0.56rem;
-	margin-right: 0.2rem;
+	padding: 0.08rem 0.2rem;
+    background: #f0f0f0;
+    border-radius: 100px;
+    color: white;
+    margin-right: 0.2rem;
+    font-size: 0.28rem;
+    float: left;
+    margin-top: 0.1rem;
+    color: #666;
 }
 .select_lable li:nth-child(1){
 	width: 1.48rem;
@@ -780,29 +788,13 @@ color: #888888;
 	font-size: 0.28rem;
 }
 /*选集弹出框*/
-.bg_modal02{
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	display: none;
-    top: 0;
-    left: 0;
-	background: rgba(0,0,0,.1);
-	
-}
+
 .wrap_select_list{
 	width: 100%;
-	padding-top: 0.19rem;
+	padding-top: 0.4rem;
 	box-sizing: border-box;
-	background-color: white;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	display: none;
-	z-index: 99;
-	height: 5rem;
-    max-height: 8rem;
-    overflow: scroll;
+	background-color: #fff;
+	border-top: 1px solid #e6e6e6;
 }
 .list_box{
 	overflow: hidden;
@@ -830,26 +822,44 @@ color: #888888;
 }
 .all_list{
 	width: 100%;
-	box-sizing: border-box;
-    margin-top: 0.6rem;
+	/*box-sizing: border-box;*/
+    margin-bottom: 0.2rem;
+    /*white-space: nowrap;*/
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.4rem;
 }
-
+.all_list ul li:first-child{
+	margin-left: 0.26rem;
+}
 .all_list ul li:nth-last-child(1) p{
 	border-bottom: 0;
 }
+.all_list_ul{
+	display: flex;
+}
+.all_list_ul li{
+	width: 2.67rem;
+	height: 1.11rem;
+	/*background: #ab6363;*/
+	background: #F6F6F6;
+	border-radius: 8px;
+	float: left;
+	margin-right: 0.2rem;
+	padding: 0.2rem;
+}
 .all_list ul li p{
-    overflow: hidden;
+	width: 2.67rem;
+	height: 1.11rem;
+    /*overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-	padding-right: 0.26rem;
-	box-sizing: border-box;
-	padding: 0.19rem 0;
-    border-bottom: 1px solid #e6e6e6;
-    padding: 0.19rem 0;
-    margin-left: 0.26rem;
+	box-sizing: border-box;*/
+    
+    
 }
 .all_list_ul_li{
-	background: #F0F0F0;
+	color: #F97B49;
 }
 .little_comment{
 	padding-bottom: 0.2rem;

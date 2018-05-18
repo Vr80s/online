@@ -1,8 +1,7 @@
 package com.wetcher;
 
-import org.junit.Test;
-
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
+import org.junit.Test;
 
 public class WechatSYSTest {
 

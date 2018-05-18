@@ -102,17 +102,28 @@ $(function(){
 			return;
 		}else{
 			$(".wrap-tab li").removeClass("selected").eq($(this).index()).addClass("selected");
-			$(".tab-price").removeClass("selected");
+			$(".tab-price p").removeClass("selected");
+			$(".tab-top").removeClass("selected");
+			$(".tab-bottom").removeClass("selected");
 		}
 
 	});
 	$(".tab-price").click(function(){
-			$(".tab-price").addClass("selected")
-
+			$(".tab-price p").addClass("selected");
+			if($(".tab-top").hasClass("selected")){
+				$(".tab-top").removeClass("selected");
+				$(".tab-bottom").addClass("selected");
+			}else{
+				$(".tab-top").addClass("selected")
+				$(".tab-bottom").removeClass("selected");
+			}
 	});
 	
 	
 });
+
+
+
 //删除分类选项
 function deleteKin(){
 	$("#kindAdd").remove();

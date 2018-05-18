@@ -54,7 +54,7 @@
         <img src="/web/images/tel.gif" alt="">
         <span class="dianhuazixun">电话咨询</span>
     </div>
-    <span class="phone_number">0898-32881833</span>
+    <span class="phone_number">0898-32881934</span>
 </div>
 <div class="sideWeixinBox">
     <div class="sideWeixin">

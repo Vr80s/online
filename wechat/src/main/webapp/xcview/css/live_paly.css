@@ -15,7 +15,9 @@ img{display: block;}
 :-moz-placeholder { 
     color: #888888;  
 }
-
+.both{
+	clear: both;
+}
 ::-moz-placeholder { 
     color: #888888;
 }
@@ -132,22 +134,17 @@ margin-top: -0.28rem;
 }
 .speak_title{
 	font-size: 0.32rem;
-color: #333333;
-text-align: center;
-padding-bottom: 0.17rem;
+	color: #333333;
+	padding-bottom: 0.17rem;
 }
 
 .wrap_grade{
-	width: 3.5rem;
 	height: 0.33rem;
-	margin: 0 auto;
-	text-align: center;
 }
 .speak-text{
 	font-size: 0.26rem;
-color: #666666;
-text-align: center;
-padding-bottom: 0.17rem;
+	color: #666666;
+	padding-bottom: 0.17rem;
 }
 .grade_pic{
 	margin-top: 0.05rem;
@@ -181,7 +178,10 @@ padding-bottom: 0.17rem;
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-	border-bottom: 1px solid #D8DDE6;
+	/*border-bottom: 1px solid #D8DDE6;*/
+}
+.playTimes{
+	padding: 0.4rem 0 0 0;
 }
 .playTime img{
 	display: inline-block;
@@ -197,18 +197,19 @@ padding-bottom: 0.17rem;
 	margin-left: 0.1rem;
 }
 .playTime li p{
-	width: 0.98rem;
+	width: 0.92rem;
 	height: 0.32rem;
 	border: 1px solid #F97B49;
 	text-align: center;
 	line-height: 0.32rem;
 	float: left;
 	color: #F97B49;
-	font-size: 0.26rem;
+	font-size: 0.2rem;
+	border-radius: 3px;
 }
-.playTime li:nth-last-child(1){
+/* .playTime li:nth-last-child(1){
 	float: right;
-}
+} */
 /*详情开始*/
 .my_details{
 	margin-top: 0.2rem;
@@ -226,14 +227,22 @@ padding-bottom: 0.17rem;
 	padding-top: 0.2rem;
 }
 .my_synopsis{
-	width: 2.36rem;
+	/*width: 2.36rem;*/
 	height: 0.43rem;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 
 }
 .my_synopsis ul li{
 	float: left;
 	
+}
+.my_synopsis ul .border{
+	width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
 }
 .my_synopsis ul li p{
 	width: 0.6rem;
@@ -241,9 +250,9 @@ padding-bottom: 0.17rem;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
-.my_synopsis ul li:nth-child(2){
+/* .my_synopsis ul li:nth-child(2){
 	margin-left: 0.3rem;
-}
+} */
 /*内容*/
 .wrap{
 	width: 100%;
@@ -317,12 +326,20 @@ word-break:break-all;
 	overflow: hidden;
 }
 .main_speak{
-	width: 2.64rem;
-	margin: 0 auto;
+	/*width: 2.64rem;*/
+	/*margin: 0 auto;*/
 	overflow: hidden;
 	padding-top: 0.2rem;
 }
-.main_speak p:nth-child(1){
+.wrap_speak .main_speak .border {
+    width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
+}
+/* .main_speak p:nth-child(1){
 	float: left;
 	width: 0.6rem;
 	height: 1px;
@@ -339,7 +356,7 @@ word-break:break-all;
 	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
-}
+} */
 /*内容*/
 .wrap1{
 	width: 100%;
@@ -414,6 +431,14 @@ word-break:break-all;
 	font-size: 0.32rem;
 
 }
+.wrap_comment_title .border {
+    width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0rem;
+    border-radius: 100px;
+}
 .wrap_comment_title span{
 	float: right;
 margin-top: 0.1rem;
@@ -463,6 +488,7 @@ margin-top: 0.1rem;
 }
 .wrap_userName{
 	width: 100%;
+	margin-top: 0.3rem;
 }
 .wrap_userName img{
 	    width: 1.5rem;
@@ -483,23 +509,25 @@ margin-top: 0.1rem;
 }
 .uesr_lable ul li{
 	padding: 0.08rem 0.2rem;
-	background: #00BC12;
-border-radius: 8px;
-color: white;
-margin-right: 0.2rem;
-font-size: 0.28rem;
-float: left;
-margin-top: 0.1rem;
+	background: #f0f0f0;
+	border-radius: 100px;
+	color: white;
+	margin-right: 0.2rem;
+	font-size: 0.28rem;
+	float: left;
+	margin-top: 0.1rem;
+	color: #666;
 }
 /*被恢复的内容-灰色部分*/
 .uesr_returned{
 	width: 100%;
 	padding: 0.2rem;
-	background: #F0F0F0;
-	border-radius: 0.04rem;
 	margin-top: 0.2rem;
 	box-sizing: border-box;
 	overflow: hidden;
+	background: #FAFAFA;
+	border: 1px solid #F0F0F0;
+	border-radius: 4px;
 }
 
 .returned_id{
@@ -609,7 +637,7 @@ color: white;
 
 }
 .wrap_input{
-	width: 5.7rem;
+	width: 7rem;
 	height: 0.6rem;
 	background: #f0f0f0;
 	margin-top: 0.2rem;

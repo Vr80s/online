@@ -112,7 +112,8 @@ $(function() {
 		$(".d2").on("click",function(){
 			var storyId =$(this).attr("data-storyId");
 			if(storyId != $(".detailTop").attr("data-id")){
-				window.open(bath+'/web/storyDetail/' + storyId);
+//				window.open(bath+'/web/storyDetail/' + storyId);
+				window.location.href=bath+'/web/storyDetail/' + storyId;
 			}
 		});
 	});

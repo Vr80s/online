@@ -248,14 +248,15 @@
             <div class="school_teacher ">
                 <div>
                     <h4>名医报道</h4>
-                    <a href="${webUrl}/headline/list/7"><span class="glyphicon glyphicon-menu-right"
-                                                              aria-hidden="true"></span></a>
+                    <a href="${webUrl}/headline/list/7" target="_blank">
+                    	<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
                 </div>
 
                 <ul class="teacher_picList clearfix" id="doctor_baodao">
                     <#list recentlyNewsReports as recentlyNewsReport>
                         <li>
-                            <a href="${webUrl}/headline/details/${recentlyNewsReport.id}">${recentlyNewsReport.title}</a>
+                            <a href="${webUrl}/headline/details/${recentlyNewsReport.id}" target="_blank">${recentlyNewsReport.title}</a>
                         </li>
                     </#list>
                 </ul>
