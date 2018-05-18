@@ -196,6 +196,10 @@ public class CourseLecturVo implements Serializable {
 	
 	private String richHostDetailsUrl;//富文本主讲人详情的html片段url
 	
+	
+	private Integer playBackType; //回放状态：0表示生成中，1表示生成成功，2表示生成失败
+	
+	
 	public String getUdescription() {
 		return udescription;
 	}
@@ -618,6 +622,15 @@ public class CourseLecturVo implements Serializable {
 	public void setVhallName(String vhallName) {
 		this.vhallName = vhallName;
 	}
+
+	public Integer getPlayBackType() {
+		return playBackType;
+	}
+
+	public void setPlayBackType(Integer playBackType) {
+		this.playBackType = playBackType;
+	}
+	
 	
 	
 	

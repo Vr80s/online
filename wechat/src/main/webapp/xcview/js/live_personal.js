@@ -103,7 +103,7 @@ requestService("/xczh/host/hostPageInfo",{
 	// 改变title--名字
 	$(".wrap-header").html(template('wrap-header',data.resultObject));
 //<!--主播名字/粉丝数量-->
-	$("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
+	// $("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
 // 打开页面判断是否已关注
     $(".add_follow").click(function(){
         //评论id

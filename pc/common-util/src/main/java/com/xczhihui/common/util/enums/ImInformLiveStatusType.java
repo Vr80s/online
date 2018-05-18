@@ -2,28 +2,27 @@ package com.xczhihui.common.util.enums;
 
 /**
  * 
- * banner图类型
+ * IM 通知直播间 直播状态枚举
  * 
- * ClassName: ThirdPartyType.java <br>
+ * ClassName: ImInformLiveStatusType.java <br>
  * Description: <br>
  * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
  * Create Time: 2018年2月2日<br>
  */
-public enum BannerType {
+public enum ImInformLiveStatusType {
 
-    	//1 推荐 2 线下课程 3 直播 4 听课 
-	
-		RECOMMENDATION(1, "推荐"),
-		REAL(2, "线下课"),
-		LIVE(3, "直播"),
-		LISTEN(4, "听课");
+		LIVE_START(2, "直播开始"),
+		LIVE_END(3, "直播结束"),
+		PLAYBACK_SUCCES(4, "回放生成成功"),
+		PLAYBACK_FAILURE(5, "回放生产失败");
+		
 		/**
 	     * 描述
 	     **/
 		private int code;
 		private String text;
 			
-	    private BannerType(int code,String text) {
+	    private ImInformLiveStatusType(int code,String text) {
 			this.text = text;
 			this.code = code;
 		}

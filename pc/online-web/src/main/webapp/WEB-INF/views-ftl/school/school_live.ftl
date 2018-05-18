@@ -64,6 +64,8 @@
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								<p><a href="/web/html/school/curriculum-list.html">更多</a><img src="../../images/rili_icon.png" alt="箭头" /> </p>
 							</div>
+							
+						<#list courseTypeItem.courseList as courseItem>	
 							<div class="course clearfix">
 								<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
 								<a style="cursor:pointer" href="/course/courses/611" target="_blank">
@@ -78,7 +80,8 @@
 										</p>
 									</div>
 								</a>
-							</div>		
+							</div>	
+						</#list>	
 						</div>					
 					</div>	
 				</#list>		

@@ -33,7 +33,6 @@ public class Task extends TimerTask {
 		System.out.println("回放状态："+PlayBackType.getTypeText(result));
 		//回放生产成功
 		courseService.updatePlaybackState(courseId,result);
-		
 	}
 
 }
