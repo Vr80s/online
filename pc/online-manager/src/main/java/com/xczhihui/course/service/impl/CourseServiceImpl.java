@@ -14,6 +14,7 @@ import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.ImInformLiveStatusType;
 import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.common.util.enums.PlayBackType;
 import com.xczhihui.common.support.cc.bean.CategoryBean;
@@ -45,6 +46,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.online.api.service.LiveCallbackService;
 
 /**
  *   CourseServiceImpl:课程业务层接口实现类
@@ -66,6 +68,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	private OnlineConfig onlineConfig;
 	@Autowired
 	private CCUtils CCUtils;
+	
+	@Autowired
+	private LiveCallbackService liveCallbackService;
 
 	@Value("${env.flag}")
 	private String envFlag;
@@ -1676,13 +1681,22 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
          Course course= dao.findByHQLOne(hql, new Object[]{courseId});
          course.setReleaseTime(new Date());
          course.setPlayBackType(i);
+         
          if(i==PlayBackType.GENERATION_FAILURE.getCode()) { //回放生产失败
         	 course.setStatus("0");
         	 System.out.println("回放生产失败");
+        	 liveCallbackService.liveCallbackImRadio(course.getId() + "", 
+        			 ImInformLiveStatusType.PLAYBACK_FAILURE.getCode());
          }else if(i==PlayBackType.GENERATION_SUCCESS.getCode()){ //回放生产成功
         	 course.setStatus("1");
+        	 liveCallbackService.liveCallbackImRadio(course.getId() + "", 
+        			 ImInformLiveStatusType.PLAYBACK_SUCCES.getCode());
         	 System.out.println("回放生产成功");
+         
          }
+         
+         
+         
          dao.update(course);
 	}
 	

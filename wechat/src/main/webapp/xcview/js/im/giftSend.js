@@ -83,7 +83,20 @@ if (sendTime == null) {
     }, false)
 }
 function createGiftList(gift) {
-    if(gift.messageType == 2){//直播开始了
+	
+	if(gift.messageType == 5){ //回放生成失败
+		
+	   	if(parseInt(sendTime) < parseInt(gift.sendTime)){
+	   		
+	   		console.info("回放生成失败");
+    	}
+	}else if(gift.messageType == 4){ //回放生成 成功
+		
+	   	if(parseInt(sendTime) < parseInt(gift.sendTime)){
+	   		
+	   		console.info("回放生成成功");
+    	}
+	}else if(gift.messageType == 2){//直播开始了
     	//当前时间 
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
         	console.log("开始直播了，建议再次刷新页面   >>>>");
@@ -531,5 +544,5 @@ $(function () {
                 $("#gift"+i).remove();   /*注释以后,礼物就不会隐藏*/
             }
         }
-    },500)
+    },16)
 });

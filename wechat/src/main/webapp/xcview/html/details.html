@@ -121,9 +121,24 @@ $(function(){
 		z-index: 9999999999;
 	}
 	
-	.initiation{
+	.video_end_top0 .initiation{
 		font-size: 0.68rem;
 		color: #fff;
+	}
+	.video_end_top1 .initiation{
+		font-size: 0.68rem;
+		color: #fff;
+	}
+	.video_end_top2 .initiation{
+		font-size: 0.68rem;
+	    color: #fff;
+	    background: #00BC12;
+	    border-radius: 8px;
+	    /* width: 1.44rem; */
+	    /* height: 0.56rem; */
+	    padding: 0.2rem;
+	    width: 3rem;
+	    margin: 0 auto;
 	}
 .mCustomScrollBox{
 	height1: 14rem;
@@ -205,6 +220,36 @@ $(function(){
 			</div>-->
 		</div>
 		<!--即将开始提示-->
+
+		<!--直播结束查看回放提示-->
+		<div class="video_end_top1" style="display: block;">
+			<p>直播结束，点击查看回放</p>
+			
+			<div class="initiation">点击刷新</div>
+			<!--<div align="center" style="width:100%; margin:0 auto">
+				<div class="time-item">
+					<strong id="minute_show">0分</strong>
+					<strong id="second_show">0秒</strong>
+				</div>
+			</div>-->
+		</div>
+		<!--直播结束查看回放提示-->
+
+		<!--直播结束，正在生成回放提示-->
+		<div class="video_end_top2" style="display: none;">
+			<p>直播结束，正在生成回放…</p>
+			
+			<div class="initiation">学习中心</div>
+			<!--<div align="center" style="width:100%; margin:0 auto">
+				<div class="time-item">
+					<strong id="minute_show">0分</strong>
+					<strong id="second_show">0秒</strong>
+				</div>
+			</div>-->
+		</div>
+		<!--直播结束，正在生成回放提示-->
+
+
 		<!--直播已结束提示-->
 		<div class="video_end_top">
 			<div class="video_end"></div>
