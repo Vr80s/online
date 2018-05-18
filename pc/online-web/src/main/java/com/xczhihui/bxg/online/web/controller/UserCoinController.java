@@ -2,10 +2,12 @@ package com.xczhihui.bxg.online.web.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.course.service.IMyInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,9 @@ public class UserCoinController extends AbstractController{
 
 	@Autowired
 	private UserCoinService userCoinService;
+
+	@Autowired
+	private IMyInfoService myInfoService;
 
     @Value("${rate}")
     private int rate;
@@ -128,5 +133,27 @@ public class UserCoinController extends AbstractController{
 		m.put("rate", rate);
 		m.put("env", env);
 		return ResponseObject.newSuccessResponseObject(m);
+	}
+	/**
+	 * Description:交易记录
+	 * @return ResponseObject
+	 * @author wangyishuai
+	 **/
+	@RequestMapping(value = "/transactionRecords")
+	@ResponseBody
+	public ResponseObject transactionRecords(HttpServletRequest request,Integer pageNumber, Integer pageSize) {
+		try {
+			OnlineUser u =  getCurrentUser();
+			if(u==null) {
+				return ResponseObject.newErrorResponseObject("用户未登录");
+			}
+			int num = (pageNumber - 1) * pageSize;
+			num = num < 0 ? 0 : num;
+			List<Map<String, Object>> list=  myInfoService.findUserWallet(num,pageSize, u.getId());
+			return ResponseObject.newSuccessResponseObject(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("获取数据失败");
+		}
 	}
 }
