@@ -147,7 +147,7 @@
     bottom: 0;
     pointer-events: none;
 }
-.li_list{overflow-y:auto; display: table;}/*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
+.li_list{overflow-y:auto; display: table;-webkit-overflow-scrolling:touch}/*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
 .li_list0{
 	display: -webkit-inline-box !important;
 }
