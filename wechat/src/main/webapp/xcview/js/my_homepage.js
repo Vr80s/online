@@ -26,9 +26,6 @@ function go_study(){
 	}
 }
 
-
-
-
 /*
  * 更新下用户信息
  */
@@ -61,6 +58,7 @@ function balance() {
             	 var item = data.resultObject.user;
             	 $("#smallHeadPhoto").attr("src",item.smallHeadPhoto + '?imageView2/2/w/160');
             	 $("#p_name").html(item.name);
+            	 $("#attentionid").html(item.name);
             }
         }else{        	           
             webToast(data.errorMessage,"middle",1500);

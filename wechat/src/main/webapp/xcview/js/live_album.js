@@ -156,7 +156,7 @@ function stripHTML(str){
         $("#speak_people").html(template('data_people',data.resultObject));
         $(".all_returned_num span").html(data.resultObject.criticizeCount);
     //  直播时间/主播名字
-        $("#wrap_playTime").html(template('data_name',data.resultObject));
+        // $("#wrap_playTime").html(template('data_name',data.resultObject));
         $("#wrap_playTime .title_name").html(name_title)
 
     //  简介/内容
