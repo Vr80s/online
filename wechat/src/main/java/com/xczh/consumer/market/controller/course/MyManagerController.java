@@ -138,6 +138,8 @@ public class MyManagerController {
 				map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(user.getId()));
 			}
 			map.put("tokenVaild",1);
+			
+			
 		} else {
 			map.put("xmbCount", 0);
 			map.put("user", "");
