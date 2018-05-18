@@ -4,7 +4,6 @@ import com.xczh.consumer.market.wxpay.SignAbledBean;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.typeutil.StringUtil;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import net.sf.json.JSONObject;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -190,10 +189,8 @@ public class PayInfo extends SignAbledBean implements Serializable {
 		if(!StringUtil.isEmpty(bizOrder.getOpenId())) {
             payInfo.setOpenid(bizOrder.getOpenId());
         }
-		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());		
 		// 签名
 		payInfo.setSign(CommonUtil.getSign(payInfo));
-		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());
 		return payInfo;
 	}
 	
@@ -231,10 +228,8 @@ public class PayInfo extends SignAbledBean implements Serializable {
             payInfo.setOpenid(bizOrder.getOpenId());
         }
 		
-		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());		
 		// 签名
 		payInfo.setSign(CommonUtil.getSign(payInfo));
-		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());
 		return payInfo;
 	}
 	
@@ -270,10 +265,8 @@ public class PayInfo extends SignAbledBean implements Serializable {
 		if(!StringUtil.isEmpty(bizOrder.getOpenId())) {
             payInfo.setOpenid(bizOrder.getOpenId());
         }
-		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());		
 		// 签名
 		payInfo.setSign(CommonUtil.getSign(payInfo));
-		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());
 		return payInfo;
 	}
 	
@@ -321,9 +314,7 @@ public class PayInfo extends SignAbledBean implements Serializable {
 		if(!StringUtil.isEmpty(bizOrder.getOpenId())) {
             payInfo.setOpenid(bizOrder.getOpenId());
         }
-		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());		
 		payInfo.setSign(CommonUtil.getSign(payInfo,tradeType));
-		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());
 		return payInfo;
 	}
 	

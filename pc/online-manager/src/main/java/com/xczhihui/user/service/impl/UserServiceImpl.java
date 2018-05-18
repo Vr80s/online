@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.enums.UserStatus;
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -22,8 +24,6 @@ import com.xczhihui.common.util.BeanUtil;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.web.UserVo;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.utils.CodeUtil;
 import com.xczhihui.user.dao.UserDao;
 import com.xczhihui.user.service.PermResourceService;
 import com.xczhihui.user.service.RoleService;
@@ -255,8 +255,6 @@ public class UserServiceImpl implements UserService {
         }
         old.setMobile(user.getMobile());
         this.userDao.update(old);
-        int status = old.isDelete() ? UserStatus.DISABLE.getValue()
-                : UserStatus.NORMAL.getValue();
         return old;
     }
 

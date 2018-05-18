@@ -539,7 +539,7 @@ public class OrderDao extends SimpleHibernateDao {
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("orderNo",orderNo);
         paramMap.put("orderId",orderId);
-     return   this.getNamedParameterJdbcTemplate().update(sql,paramMap);
+     return this.getNamedParameterJdbcTemplate().update(sql,paramMap);
     }
 
 }

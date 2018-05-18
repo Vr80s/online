@@ -191,7 +191,7 @@ $(".enroll,.return").click(function(){
 	}else if(type=='2'){
 		location.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+2;
 	}else if(type=='3'){
-		ocation.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+3;
+		location.href ="/xcview/html/enter.html?course_id="+courseId+"&type="+3;
 	}else{
 		location.href = "/xcview/html/enter.html";
 	}

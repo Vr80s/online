@@ -1,24 +1,20 @@
 package com.xczh.consumer.market.controller.user;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.OutputStream;
-import java.sql.SQLException;
-import java.util.Map;
-import java.util.Random;
-import java.util.regex.Pattern;
-
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.CacheService;
+import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.enums.RegisterForm;
+import com.xczhihui.common.util.enums.SMSCode;
+import com.xczhihui.common.util.enums.TokenExpires;
+import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.Token;
+import nl.bitwalker.useragentutils.OperatingSystem;
+import nl.bitwalker.useragentutils.UserAgent;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +24,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.common.util.enums.RegisterForm;
-import com.xczhihui.common.util.enums.SMSCode;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.course.service.IThreePartiesLoginService;
-import com.xczhihui.course.util.XzStringUtils;
-
-import nl.bitwalker.useragentutils.OperatingSystem;
-import nl.bitwalker.useragentutils.UserAgent;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.OutputStream;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.Random;
+import java.util.regex.Pattern;
 
 /**
  * 用户controller
@@ -55,14 +47,10 @@ public class XzUserController {
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
-	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 	@Autowired
 	private CacheService cacheService;
-	@Autowired
-	private IThreePartiesLoginService threePartiesLoginService;
-	
+
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserController.class);
 	
 	/**
@@ -136,7 +124,7 @@ public class XzUserController {
 		 * 注册后默认登录啦
 		 */
 		OnlineUser ou =  onlineUserService.addPhoneRegistByAppH5(req, password,username,vtype);
-		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+		Token t =  userCenterService.loginMobile(username, password, TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 		ou.setUserCenterId(t.getUserId());
 		ou.setPassword(t.getPassWord());
@@ -149,7 +137,6 @@ public class XzUserController {
 		
 		return ResponseObject.newSuccessResponseObject(ou);
 	}
-	
 	
 	/**
 	 * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
@@ -182,7 +169,7 @@ public class XzUserController {
 		 * 注册后默认登录啦
 		 */
 		OnlineUser ou =  onlineUserService.addPhoneRegistByAppH5(req, password,username,vtype);
-		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+		Token t =  userCenterService.loginMobile(username, password, TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 		this.onlogin(req, res, t, ou,t.getTicket());
 		
@@ -214,7 +201,7 @@ public class XzUserController {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		//存储在redis中了，有效期为10天。
-		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+		Token t =  userCenterService.loginMobile(username, password, TokenExpires.TenDay);
 		
 		if (t != null) {
 			OnlineUser o = onlineUserService.findUserByLoginName(username);
@@ -239,7 +226,7 @@ public class XzUserController {
 				}
 				
 				//把用户中心的数据给他   这里im都要用到
-				ItcastUser user = userCenterAPI.getUser(username);
+				OeUserVO user = userCenterService.getUserVO(username);
 				o.setUserCenterId(user.getId());
 				o.setPassword(user.getPassword());
 				//把这个票给前端
@@ -259,10 +246,9 @@ public class XzUserController {
 				 */
 				boolean ise = Pattern.matches("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",username);
 				if (ise) {
-					ItcastUser user = userCenterAPI.getUser(username);
+					OeUserVO user = userCenterService.getUserVO(username);
 					//这个地方会返回这个用户的微吼id和名字
-					OnlineUser newUser = onlineUserService.addUser(username, 
-							user.getNikeName(),getRegiserFormByReq(req),password);
+					OnlineUser newUser = onlineUserService.addUser(username,  user.getName(),getRegiserFormByReq(req),password);
 					newUser.setPassword(user.getPassword());
 					//把这个票给前端
 					newUser.setTicket(t.getTicket());
@@ -312,7 +298,7 @@ public class XzUserController {
 		}
 		//更新用户密码
 		try {
-			userCenterAPI.updatePassword(username, null, password);
+			userCenterService.resetPassword(username,password);
 			return ResponseObject.newSuccessResponseObject("修改密码成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -391,10 +377,6 @@ public class XzUserController {
 		    	break;
 			default:
 				break;
-//			    case 2: randomCode = num1*num2;
-//			    	break;  
-//			    case 3: randomCode = num1/num2;
-//			    	break;    
 	    }
 		String appUniqueId = req.getParameter("appUniqueId");
 		if(appUniqueId!=null && !"".equals(appUniqueId)){//来自app端的请求
@@ -415,24 +397,6 @@ public class XzUserController {
 	    outputStream.flush();
 	    outputStream.close();
 	}
-	
-	
-   @RequestMapping("emptyAccount")
-   @ResponseBody
-   public ResponseObject emptyAccount(HttpServletRequest req,
-		   @RequestParam("userName")String userName) throws Exception{
-	   OnlineUser ou =  onlineUserService.findUserByLoginName(userName);
-	   if(ou!=null){
-		   
-		   
-		   threePartiesLoginService.deleteAccount(ou.getId());
-		   wxcpClientUserWxMappingService.deleteAccount(ou.getId());
-		   userCenterAPI.deleteUser(userName);
-		   onlineUserService.emptyAccount(userName);
-		   return ResponseObject.newSuccessResponseObject("清理成功");
-	   }
-       return ResponseObject.newSuccessResponseObject("未找到该用户");
-   }
 	
 	
 	/**
@@ -521,8 +485,6 @@ public class XzUserController {
 	 * 
 	 * Description：发送短信验证码
 	 * @param req
-	 * @param res
-	 * @param vtype
 	 * @param username
 	 * @return
 	 * @return ResponseObject
@@ -532,8 +494,7 @@ public class XzUserController {
 	 */
 	@RequestMapping(value="verifyPhone")
 	@ResponseBody
-	public ResponseObject sendCode(HttpServletRequest req,
-			@RequestParam("username")String username) throws SQLException{
+	public ResponseObject sendCode(@RequestParam("username")String username) throws SQLException{
 		
 		//类型，1注册，  2重置密码   3 完善信息
 			

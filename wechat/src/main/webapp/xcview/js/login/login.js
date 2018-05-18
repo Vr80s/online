@@ -139,7 +139,7 @@ function login(){
 				}else if(type=='2'){
 					location.href ="/xcview/html/school_audio.html?course_id="+courseId+"&type="+2;
 				}else if(type=='3'){
-					ocation.href ="/xcview/html/school_class.html?course_id="+courseId+"&type="+3;
+					location.href ="/xcview/html/school_class.html?course_id="+courseId+"&type="+3;
 				}else{
 					location.href = "/xcview/html/home_page.html";
 				}

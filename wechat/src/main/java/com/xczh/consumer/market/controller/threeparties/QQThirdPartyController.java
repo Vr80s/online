@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.common.util.enums.TokenExpires;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +39,9 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
-import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.course.model.QQClientUserMapping;
 import com.xczhihui.course.service.IThreePartiesLoginService;
 
@@ -68,7 +67,7 @@ public class QQThirdPartyController {
 	private CacheService cacheService;
 	
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterAPI;
 	
 	
 	 protected HttpClient client = new HttpClient();
@@ -150,12 +149,10 @@ public class QQThirdPartyController {
 				    LOGGER.info("熊猫中医用户id   ============已绑定用户信息"+qqUser.getUserId());
 					
 					OnlineUser ou =  onlineUserService.findUserById(qqUser.getUserId());
-					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-					
-					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+
+					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 					//把用户中心的数据给他  --这些数据是IM的
-					ou.setUserCenterId(iu.getId());
-					ou.setPassword(iu.getPassword());
+					ou.setUserCenterId(ou.getId());
 					ou.setTicket(t.getTicket());
 					/**
 					 *	 直接让登录了  返回状态值：200
@@ -164,7 +161,6 @@ public class QQThirdPartyController {
 					
 					//重定向到推荐首页
 					 res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
-					//return ResponseObject.newSuccessResponseObject(ou,UserUnitedStateType.BINDING.getCode());
 				}else if(StringUtils.isNotBlank(qqUser.getUserId())){
 					
 				    LOGGER.info("熊猫中医用户id 没有绑定用户信息"+qqUser.getUserId());
@@ -283,12 +279,10 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		 			}
 					
 					OnlineUser ou =  onlineUserService.findUserById(qqUser.getUserId());
-					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-					
-					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+
+					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 					//把用户中心的数据给他  --这些数据是IM的
-					ou.setUserCenterId(iu.getId());
-					ou.setPassword(iu.getPassword());
+					ou.setUserCenterId(ou.getId());
 					ou.setTicket(t.getTicket());
 					/**
 					 *	 直接让登录了  返回状态值：200

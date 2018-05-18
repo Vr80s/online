@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.web.vo.CityVo;
 import com.xczhihui.bxg.online.web.vo.ProvinceVo;
 import com.xczhihui.bxg.online.web.vo.UserCenterVo;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
+import com.xczhihui.user.center.vo.OeUserVO;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,7 +47,7 @@ public interface OnlineUserCenterService {
 	 * @param user
 	 * @return
 	 */
-	public boolean updateUser(UserDataVo user);
+	public void updateUser(OeUserVO user, HttpServletRequest request);
 
 	/**
 	 * 修改用户资料

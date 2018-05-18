@@ -8,6 +8,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.common.util.enums.TokenExpires;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +31,10 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.online.api.service.CityService;
 import com.xczhihui.online.api.service.CommonApiService;
 import com.xczhihui.online.api.vo.UserAddressManagerVo;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.OnlineUserVO;
@@ -52,7 +52,7 @@ public class XzUserSetController {
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 	@Autowired
 	private CacheService cacheService;
 	@Autowired
@@ -93,7 +93,7 @@ public class XzUserSetController {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 		}
 		// 更新用户密码
-		userCenterAPI.updatePassword(username, oldPassword, newPassword);
+		userCenterService.updatePassword(username, oldPassword, newPassword);
 		return ResponseObject.newSuccessResponseObject("修改密码成功");
 	}
 
@@ -102,7 +102,6 @@ public class XzUserSetController {
 	 * 如果是4的话，需要判断此要更改的手机号是否绑定，如果绑定就不发短信了。
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -139,7 +138,6 @@ public class XzUserSetController {
 	 * Description：验证是否收到验证码啦
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -168,7 +166,6 @@ public class XzUserSetController {
 	 * Description：更换手机号 --
 	 * 
 	 * @param req
-	 * @param res
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
@@ -199,7 +196,7 @@ public class XzUserSetController {
 			return checkCode;
 		}
 		// 更新用户信息
-		userCenterAPI.updateLoginName(oldUsername, newUsername);
+		userCenterService.updateLoginName(oldUsername, newUsername);
 		// 更新用户表中的密码
 		OnlineUser o = onlineUserService.findUserByLoginName(oldUsername);
 		o.setLoginName(newUsername);
@@ -468,9 +465,6 @@ public class XzUserSetController {
 	/**
 	 * Description：微信端修改头像
 	 * 
-	 * @param req
-	 * @param res
-	 * @param params
 	 * @throws Exception
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>

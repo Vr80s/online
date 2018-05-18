@@ -1,17 +1,12 @@
 package com.xczh.consumer.market.wxpay;
 
-import java.io.InputStream;
-import java.util.Properties;
-
+import com.xczh.consumer.market.utils.HttpUtil;
 import net.sf.json.JSONObject;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.xczh.consumer.market.controller.user.XzUserController;
-import com.xczh.consumer.market.utils.HttpUtil;
-
-
+import java.io.InputStream;
+import java.util.Properties;
 
 @Component
 public class TokenThread implements Runnable {
@@ -96,6 +91,5 @@ public class TokenThread implements Runnable {
  		String access_token = (String)jsonObject.get("access_token");
  		return access_token;
     }
-	
-	
+
 }

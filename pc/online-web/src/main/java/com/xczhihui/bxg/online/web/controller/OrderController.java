@@ -129,7 +129,7 @@ public class OrderController extends AbstractController{
         if(StringUtils.isBlank(ids)){
             return ResponseObject.newErrorResponseObject("参数错误!");
         }
-        return   ResponseObject.newSuccessResponseObject(orderService.findActivityOrder(request,ids));
+        return ResponseObject.newSuccessResponseObject(orderService.findActivityOrder(request,ids));
     }
 
     /**

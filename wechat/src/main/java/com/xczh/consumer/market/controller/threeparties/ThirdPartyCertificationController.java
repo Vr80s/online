@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.user.center.bean.*;
+import com.xczhihui.common.util.enums.*;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +29,7 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
-import com.xczhihui.common.util.enums.CommonEnumsType;
-import com.xczhihui.common.util.enums.SMSCode;
-import com.xczhihui.common.util.enums.ThirdPartyType;
-import com.xczhihui.common.util.enums.UserUnitedStateType;
 import com.xczhihui.online.api.service.UserCoinService;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.course.model.QQClientUserMapping;
 import com.xczhihui.course.model.WeiboClientUserMapping;
 import com.xczhihui.course.service.IThreePartiesLoginService;
@@ -69,11 +67,7 @@ public class ThirdPartyCertificationController {
 	private CacheService cacheService;
 
 	@Autowired
-	private UserCenterAPI userCenterAPI;
-
-	@Autowired
-	private UserCoinService userCoinService;
-
+	private UserCenterService userCenterService;
 
 	// 手机端登录使用
 	@Value("${mobile.authorizeURL}")
@@ -188,13 +182,10 @@ public class ThirdPartyCertificationController {
 
 		LOGGER.info(">>>>>>>>>>>>>>>>>>第三方信息注入用户信息成功");
 
-		ItcastUser iu = userCenterAPI.getUser(userName);
-		Token t = userCenterAPI.loginThirdPart(userName, iu.getPassword(),
-				TokenExpires.TenDay);
+		Token t = userCenterService.loginThirdPart(userName, TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 		// 把用户中心的数据给他 --这些数据是IM的
-		ou.setUserCenterId(iu.getId());
-		ou.setPassword(iu.getPassword());
+		ou.setUserCenterId(ou.getId());
 		this.onlogin(req, res, t, ou, t.getTicket());
 
 		LOGGER.info(">>>>>>>>>>>>>>>>>>绑定信息成功，默认登录");
@@ -336,31 +327,18 @@ public class ThirdPartyCertificationController {
 		/*
 		 * 用户中心的
 		 */
-		ItcastUser iu = userCenterAPI.getUser(userName);
-		if (iu == null) {
-			userCenterAPI.regist(userName, passWord, nickName,
-					UserSex.parse(sex), null, null, UserType.COMMON,
-					UserOrigin.ONLINE, UserStatus.NORMAL);
-			iu = userCenterAPI.getUser(userName);
+		OeUserVO userVO = userCenterService.getUserVO(userName);
+		if (userVO == null) {
+			userCenterService.regist(userName, passWord, nickName, UserOrigin.PC);
+			userVO = userCenterService.getUserVO(userName);
 		}
-		ou.setLoginName(userName);
-		ou.setMobile(userName);
-		ou.setPassword(passWord);
-		ou.setVisitSum(0);
-		ou.setStayTime(0);
 
-		onlineUserService.addOnlineUser(ou);
-		/**
-		 * 初始化一条代币记录
-		 */
-		userCoinService.saveUserCoin(ou.getId());
-		Token t = userCenterAPI.loginThirdPart(userName, iu.getPassword(),
-				TokenExpires.TenDay);
+		Token t = userCenterService.loginThirdPart(userName, TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 
 		// 把用户中心的数据给他 --这些数据是IM的
-		ou.setUserCenterId(iu.getId());
-		ou.setPassword(iu.getPassword());
+		ou.setUserCenterId(userVO.getId());
+		ou.setPassword(userVO.getPassword());
 		/**
 		 * 增加缓存信息
 		 */
@@ -387,10 +365,10 @@ public class ThirdPartyCertificationController {
 
 		try {
 
-			ItcastUser user = userCenterAPI.getUser(userName);
+			OeUserVO userVO = userCenterService.getUserVO(userName);
 			OnlineUser ou = onlineUserService.findUserByLoginName(userName);
-			int code = UserUnitedStateType.PNHONE_NOT_THERE_ARE.getCode();
-			if (null == user && null == ou) {
+			int code;
+			if (null == userVO && null == ou) {
 				code = UserUnitedStateType.PNHONE_NOT_THERE_ARE.getCode();
 			} else {
 				
@@ -426,77 +404,6 @@ public class ThirdPartyCertificationController {
 		} catch (Exception e) {
 			return ResponseObject.newErrorResponseObject("数据有误");
 		}
-	}
-
-	/**
-	 * Description：h5 绑定手机号，更换用户信息（手机号）
-	 * 
-	 * @param req
-	 * @return
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>
-	 *         email: 15936216273@163.com
-	 * @throws Exception 
-	 */
-	@RequestMapping(value = "h5WechatMobile")
-	@ResponseBody
-	public ResponseObject h5WechatMobile(HttpServletRequest req,
-			HttpServletResponse res, @RequestParam("userName") String userName,
-			@RequestParam("passWord") String passWord,
-			@RequestParam("unionId") String unionId,
-			@RequestParam("code") String code,
-			@RequestParam("vtype") Integer vtype) throws Exception {
-
-		ItcastUser user = userCenterAPI.getUser(unionId);
-		OnlineUser ou = onlineUserService.findUserByLoginName(unionId);
-		if (user == null || ou == null) {
-			return ResponseObject.newErrorResponseObject("未找到用户信息");
-		}
-		LOGGER.info("三方绑定已注册手机认证参数信息：" + "username:" + userName + ",unionId:"
-				+ unionId + ",code:" + code + ",type:" + vtype);
-		/*
-		 * 验证短信验证码
-		 */
-		ResponseObject checkCode = onlineUserService.checkCode(userName, code,
-				vtype);
-		if (!checkCode.isSuccess()) { // 如果动态验证码不正确
-			return checkCode;
-		}
-		LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
-
-		/**
-		 * 更改微信的登录名
-		 */
-		userCenterAPI.updatePasswordAndLoginName(user.getId(), userName,
-				passWord);
-
-		ou.setLoginName(userName);
-		onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
-		/**
-		 * 微信连接这个用户
-		 */
-		WxcpClientUserWxMapping wxw = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
-		if(wxw==null) {
-			return ResponseObject.newErrorResponseObject
-					(CommonEnumsType.WECHAT_USERINFO_NOFOUND.getText(),
-							CommonEnumsType.WECHAT_USERINFO_NOFOUND.getCode());
-		}
-		
-		
-		wxw.setClient_id(ou.getId());
-		wxcpClientUserWxMappingService.update(wxw);
-		/**
-		 * 清除这个cookie
-		 */
-		UCCookieUtil.clearThirdPartyCookie(res);
-		/**
-		 * 修改缓存信息
-		 */
-		req.getSession().setAttribute("_user_", ou);
-
-		// 返回用户信息
-		return ResponseObject.newSuccessResponseObject(ou);
-
 	}
 
 	/**

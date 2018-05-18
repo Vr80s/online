@@ -19,8 +19,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
 /**
  * 附件中心客户端Controller
@@ -122,11 +120,6 @@ public class AttachmentCenterController extends AbstractController {
         }
 
         String userId = projectName;
-        //获得登录成功的token
-        Token token = UCCookieUtil.readTokenCookie(request);
-        if (token != null) {
-            userId = String.valueOf(token.getUserId());
-        }
 
         response.getWriter().write(service.upload(
                 userId, //用户中心的用户ID

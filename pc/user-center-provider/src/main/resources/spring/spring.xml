@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 引入属性文件 -->
+    <context:property-placeholder location="classpath:config.properties"/>
+    <!-- Service包(自动注入) -->
+    <context:component-scan base-package="com.xczhihui.user.center.service"/>
+    <import resource="classpath:spring/spring-mybatis.xml"/>
+
+    <bean id="commonThreadPoolTaskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="2"></property>
+    </bean>
+    <bean id="cacheService" class="com.xczhihui.common.support.service.impl.RedisCacheService">
+        <constructor-arg name="host" value="${redis.host}"/>
+        <constructor-arg name="port" value="${redis.port}"/>
+        <constructor-arg name="maxIdle" value="${reids.maxIdle}"/>
+        <constructor-arg name="maxTotal" value="${reids.maxTotal}"/>
+        <constructor-arg name="timeout" value="${reids.timeout}"/>
+    </bean>
+    <!-- 启动对@AspectJ注解的支持  -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- dubbo -->
+    <dubbo:application name="${dubbo.app.name}"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
+    <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
+    <dubbo:service interface="com.xczhihui.user.center.service.UserCenterService"
+                   ref="userCenterService" timeout="${dubbo.consumer.timeout}" />
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
+
+</beans>

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
 @Service("onlineUserService")
 public class OnlineUserServiceImpl implements OnlineUserService {
@@ -26,8 +25,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 
 	@Autowired
 	private OnlineUserDao dao;
-	@Autowired
-	private UserCenterAPI api;
 
 	@Override
 	public Page<OnlineUser> findUserPage(String lastLoginIp,
@@ -47,11 +44,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		if (u != null) {
 			u.setStatus(status);
 			dao.update(u);
-			if (-1 == status) {
-				api.deleteUserLogic(loginName);
-			} else if (0 == status) {
-				api.updateStatus(loginName, status);
-			}
 		}
 	}
 
@@ -130,8 +122,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 		o.setLoginName(newLoginName);
 		dao.update(o);
-		// 更新用户信息
-		api.updateLoginName(loginName, newLoginName);
 
 		String sql_wx = "DELETE FROM wxcp_client_user_wx_mapping WHERE client_id = ?";
 		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wx, new Object[] { userId });

@@ -33,7 +33,7 @@ public class ManagerUserServiceImpl  extends  SimpleHibernateDao  implements Man
         String  sql="select login_name from user t where upper(md5(md5(CONCAT(t.login_name,'WWW.ixincheng.com20161021')))) = upper(?)";
         List<User> user = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,
                 BeanPropertyRowMapper.newInstance(User.class), loginName);
-        return   user.size()> 0 ? user.get(0) : null;
+        return user.size()> 0 ? user.get(0) : null;
 
     }
 

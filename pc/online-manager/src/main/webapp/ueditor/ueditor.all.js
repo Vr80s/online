@@ -12647,7 +12647,7 @@ UE.plugins['paragraph'] = function() {
         doParagraph = function(range,style,attrs,sourceCmdName){
             var bookmark = range.createBookmark(),
                 filterFn = function( node ) {
-                    return   node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' &&  !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace( node );
+                    return node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' &&  !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace( node );
                 },
                 para;
 
@@ -12805,7 +12805,7 @@ UE.plugins['paragraph'] = function() {
             
             var bookmark,
                 filterFn = function( node ) {
-                    return   node.nodeType == 1 ? !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace(node);
+                    return node.nodeType == 1 ? !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace(node);
                 },
 
                 obj = getObj( editor );
@@ -15888,7 +15888,7 @@ UE.plugins['list'] = function () {
                 var me = this,
                     range = this.selection.getRange(),
                     filterFn = function (node) {
-                        return   node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' : !domUtils.isWhitespace(node);
+                        return node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' : !domUtils.isWhitespace(node);
                     },
                     tag = command.toLowerCase() == 'insertorderedlist' ? 'ol' : 'ul',
                     frag = me.document.createDocumentFragment();

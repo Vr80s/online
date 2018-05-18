@@ -4,18 +4,13 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.SystemVariate;
 import com.xczh.consumer.market.bean.VerificationCode;
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczhihui.user.center.bean.UserSex;
-
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
-import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -135,7 +130,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 * 删除验证码
 	 * 
 	 * @param id
-	 * @throws SQLExceptin
 	 */
 	public void deleteVerificationCodeById(Integer id) throws SQLException {
 		String sql = " delete from oe_verification_code where id = ? ";
@@ -190,7 +184,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	/**
 	 * Description：更新用户中心提交的数据
 	 * 
-	 * @param user
 	 * @throws SQLException
 	 * @return void
 	 * @author name：yangxuan <br>
@@ -239,7 +232,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			sb.append(" email = '" + map.get("email") + "',");
 		}
 		if (StringUtils.hasText(map.get("sex"))
-				&& UserSex.isValid(Integer.parseInt(map.get("sex")))
 				&& Integer.parseInt(map.get("sex")) != original.getSex()) {
 			sb.append(" sex =" + Integer.parseInt(map.get("sex")) + ",");
 		}

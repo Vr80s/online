@@ -1,25 +1,21 @@
 package com.xczhihui.order.service.impl;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
-import com.xczhihui.online.api.service.UserCoinService;
-//import UserCoinService;
-import com.xczhihui.online.api.vo.OrderVo;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.Payment;
-import com.xczhihui.user.service.OnlineUserService;
-import com.xczhihui.vhall.VhallUtil;
-
+import com.xczhihui.common.util.enums.UserOrigin;
+import com.xczhihui.course.dao.CourseDao;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.online.api.vo.OrderVo;
 import com.xczhihui.order.service.OrderInputService;
 import com.xczhihui.order.vo.OrderInputVo;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.service.OnlineUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +23,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.common.util.BeanUtil;
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.domain.UserCoin;
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.course.dao.CourseDao;
-import com.xczhihui.utils.RandomUtil;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.UserOrigin;
-import com.xczhihui.user.center.bean.UserSex;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
 
 /**
  * 线下订单录入
@@ -58,13 +46,13 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 	private SimpleHibernateDao dao;
 
 	@Autowired
-	private UserCenterAPI userCenterAPI;
-	@Autowired
 	private CourseDao courseDao;
 	@Autowired
 	UserCoinService userCoinService;
 	@Autowired
 	OnlineUserService onlineUserService;
+	@Autowired
+	UserCenterService userCenterService;
 
 	@Override
 	public Page<OrderInputVo> findOrderInputPage(OrderInputVo orderVo,
@@ -109,69 +97,12 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 			throw new RuntimeException("帐号请输入手机号或邮箱！");
 		}
 
-		String name = ""+(int) (Math.random() * 90000 + 10000);
-		boolean delete = false;
+		String name =  (Math.random() * 90000 + 10000)+"";
 
-		ItcastUser user = userCenterAPI.getUser(loginName);
-		if (user == null) {
-			// 向用户中心注册
-			if (userCenterAPI.getUser(loginName) == null) {
-				userCenterAPI.regist(loginName, loginName, name,
-						UserSex.UNKNOWN, null, loginName, UserType.STUDENT,
-						UserOrigin.ONLINE, UserStatus.NORMAL);
-			}
-		} else {
-			name = user.getNikeName();
-			delete = user.getStatus() == -1 ? true : false;
-		}
-
-		OnlineUser ou = dao.findOneEntitiyByProperty(OnlineUser.class,
-				"loginName", loginName);
+		OnlineUser ou = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", loginName);
 		if (ou == null) {
-
-			// 保存本地库
-			OnlineUser u = new OnlineUser();
-			u.setLoginName(loginName);
-			if (ism) {
-				u.setMobile(u.getLoginName());
-			}
-			if (ise) {
-				u.setEmail(u.getLoginName());
-			}
-			u.setStatus(0);
-			u.setSex(UserSex.UNKNOWN.getValue());
-			u.setCreateTime(new Date());
-			u.setDelete(delete);
-			u.setName(name);
-			u.setSmallHeadPhoto("http://www.ixincheng.com/web/images/defaultHead/"
-					+ (int) (Math.random() * 20 + 1) + ".png");// 时间紧张，暂时写死
-			u.setVisitSum(0);
-			u.setStayTime(0);
-			u.setUserType(0);
-			u.setMenuId(-1);
-			u.setIsLecturer(0);
-			u.setRoomNumber(0);
-			dao.save(u);
-			UserCoin userCoin = new UserCoin();
-			userCoin.setUserId(u.getId());
-			userCoin.setBalance(BigDecimal.ZERO);
-			userCoin.setRmb(BigDecimal.ZERO);
-			userCoin.setBalanceGive(BigDecimal.ZERO);
-			userCoin.setBalanceRewardGift(BigDecimal.ZERO);
-			userCoin.setDeleted(false);
-			userCoin.setCreateTime(new Date());
-			userCoin.setStatus(true);
-			userCoin.setVersion(BeanUtil.getUUID());
-			dao.save(userCoin);
-			Thread.sleep(1000);
-			if (u.getVhallId() == null) {
-				String vhallPassword = RandomUtil.getCharAndNumr(6);
-				String vhallId = VhallUtil.createUser(u, vhallPassword);
-				u.setVhallId(vhallId);
-				u.setVhallPass(vhallPassword);
-				u.setVhallName(u.getId());
-				dao.update(u);
-			}
+			userCenterService.regist(loginName,loginName,name, UserOrigin.IMPORT);
+			Thread.sleep(500);
 		}
 	}
 

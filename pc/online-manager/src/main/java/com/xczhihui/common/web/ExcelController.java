@@ -24,8 +24,6 @@ import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.vo.KindeditorVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
 /**
  * ExcelController
@@ -47,14 +45,14 @@ public class ExcelController {
 			HttpServletResponse response) throws IOException {
 		KindeditorVo kindeditorVo = new KindeditorVo();
 		Gson gson = new Gson();
-		// 获得登录成功的token
-		Token token = UCCookieUtil.readTokenCookie(request);
-		if (token == null) {
-			kindeditorVo.setError(1);
-			kindeditorVo.setMessage("请登录！");
-			response.getWriter().write(gson.toJson(kindeditorVo));
-			return;
-		}
+//		// 获得登录成功的token
+//		Token token = UCCookieUtil.readTokenCookie(request);
+//		if (token == null) {
+//			kindeditorVo.setError(1);
+//			kindeditorVo.setMessage("请登录！");
+//			response.getWriter().write(gson.toJson(kindeditorVo));
+//			return;
+//		}
 
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> it = multipartRequest.getFileNames();

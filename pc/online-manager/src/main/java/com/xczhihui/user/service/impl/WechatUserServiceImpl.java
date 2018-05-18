@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.WechatUser;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
 @Service("WechatUserService")
 public class WechatUserServiceImpl implements WechatUserService {
@@ -22,8 +21,6 @@ public class WechatUserServiceImpl implements WechatUserService {
 
 	@Autowired
 	private WechatUserDao dao;
-	@Autowired
-	private UserCenterAPI api;
 
 	
 	@Override
