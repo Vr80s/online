@@ -84,10 +84,10 @@ public class XzUserSetController {
 			@RequestParam("username") String username) throws Exception {
 
 		if (!XzStringUtils.checkPassword(oldPassword)) {
-			return ResponseObject.newErrorResponseObject("密码为6-18为英文大小写字母或者阿拉伯数字");
+			return ResponseObject.newErrorResponseObject("密码为6-18位英文大小写字母或者阿拉伯数字");
 		}
 		if (!XzStringUtils.checkPassword(newPassword)) {
-			return ResponseObject.newErrorResponseObject("密码为6-18为英文大小写字母或者阿拉伯数字");
+			return ResponseObject.newErrorResponseObject("密码为6-18位英文大小写字母或者阿拉伯数字");
 		}
 		if (!XzStringUtils.checkPhone(username)) {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
@@ -254,13 +254,17 @@ public class XzUserSetController {
 		Object ou = req.getSession().getAttribute("_user_");
 		OnlineUser user = null;
 		Token t = UCCookieUtil.readTokenCookie(req);
+		
 		if (ou != null && t != null) { // 正常登录着
+			LOGGER.info(" 正常登录着");
 			String userId = ((OnlineUser) ou).getId();
 			user = onlineUserService.findUserById(userId);
-		} else if (ou == null) { // session过期了，续期
+		} else if (ou == null) { 	// session过期了，续期
+			LOGGER.info("session过期了，续期");
 			user = onlineUserService.findUserByLoginName(t.getLoginName());
 			req.getSession().setAttribute("_user_", user);
-		} else if (t == null) { // cookie过期了，直接退出
+		} else if (t == null) { 	// cookie过期了，直接退出
+			LOGGER.info("cookie过期了，直接退出");
 			req.getSession().setAttribute("_user_", null);
 		}
 		if (user == null) {
@@ -329,12 +333,19 @@ public class XzUserSetController {
 						&& !filename.endsWith("bmp")) {
 					return ResponseObject.newErrorResponseObject("文件类型有误");
 				}
-				String contentType = fileMul.getContentType();// 文件类型
 				byte[] bs = fileMul.getBytes();
+				
+				LOGGER.info("个人头像:bytes():"+bs.length+
+						",filename:"+filename);
+				
+				
+				String contentType = fileMul.getContentType();// 文件类型
+				
 				String projectName = "other";
 				String fileType = "1"; // 图片类型了
 				String headImgPath = service.upload(null, // 用户中心的用户ID
-						projectName, filename, contentType, bs, fileType, null);
+						projectName, filename, contentType,
+						bs, fileType, null);
 				LOGGER.info("文件路径——path:" + headImgPath);
 
 				user.setSmallHeadPhoto(headImgPath);
@@ -729,25 +740,4 @@ public class XzUserSetController {
 		List<Map<String, Object>> list = cityService.getAllProvinceCity();
 		return ResponseObject.newSuccessResponseObject(list);
 	}
-
-	/**
-	 * 得到省下面的市
-	 */
-	@RequestMapping("getCity")
-	@ResponseBody
-	public ResponseObject getCity(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
-			throws Exception {
-		String province_id = req.getParameter("province_id");
-		if (province_id == null) {
-			ResponseObject.newErrorResponseObject("参数异常");
-		}
-		/**
-		 * 获取所有的省份
-		 */
-		List<Map<String, Object>> list = cityService.getCity(Integer
-				.parseInt(province_id));
-		return ResponseObject.newSuccessResponseObject(list);
-	}
-
 }

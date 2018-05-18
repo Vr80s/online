@@ -258,11 +258,8 @@ if(is_weixn()){
 	wx.ready(function () {
 		
 		 var d1 = description.replace(/&nbsp;/g,"");
-		
-
 		 //如果聊天记录里面点击过来的话，点击返回--》回调聊天窗口
-		 
-		 if(shareBack == 1){
+		if(shareBack == 1){
 			 if (typeof window.addEventListener != "undefined") {
 				  window.addEventListener("popstate", function(e) {
 				  	     wx.closeWindow();
@@ -273,10 +270,6 @@ if(is_weixn()){
 				  });
 			 }
 		 }
-		 
-		 
-		 
-		 
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 			title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
@@ -298,7 +291,7 @@ if(is_weixn()){
 		});
 		//发送到朋友圈
 		wx.onMenuShareTimeline({
-			  title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
+			title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
 		    success: function () {
@@ -316,7 +309,7 @@ if(is_weixn()){
 		});
 	    //发送到qq  
 		wx.onMenuShareQQ({
-			  title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
+			title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
 		    desc: d1, // 分享描述
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
@@ -332,6 +325,25 @@ if(is_weixn()){
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
 		    }
+		});
+		//qq空间	
+		wx.onMenuShareQZone({
+			title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
+		    desc: d1, // 分享描述
+		    link:link, // 分享链接
+		    imgUrl: smallImgPath, // 分享图标
+			success: function () {
+				 // 用户确认分享后执行的回调函数
+		    	$(".weixin_ceng").hide();
+		    	$(".share").hide();
+		    	//alert("分享成功");
+			},
+			cancel: function () {
+				// 用户取消分享后执行的回调函数
+		    	///alert("取消分享");
+		    	$(".weixin_ceng").hide();
+		    	$(".share").hide();
+			}
 		});
 	})    
 }

@@ -274,10 +274,14 @@ function addgetdata() { //回填数据
 	}
 
 	var pcd = {};
-        pcd.province=data.resultObject.provinceName;
+/*        pcd.province=data.resultObject.provinceName;
         pcd.city=data.resultObject.cityName;
-        pcd.district=data.resultObject.countyName;
-	$(".geren .address-info2").iProvincesSelect("init",pcd);
+        pcd.district=data.resultObject.countyName;*/
+        pcd.province=data.resultObject.province;
+        pcd.city=data.resultObject.city;
+        pcd.district=data.resultObject.district;
+        
+	$(".geren .address-info2").iProvincesSelect("init",pcd,true);
 	}, false);
 }
 
@@ -347,9 +351,9 @@ function geren() {
 			loginName: $(".username").val(),
 			// jobyearId: shijian(),
 			target: $("#food5").attr("data-id"),
-			provinceName: pcd.province,
-			cityName: pcd.city,
-			countyName: pcd.district,
+			provinceName: pcd.provinceText,
+			cityName: pcd.cityText,
+			countyName: pcd.districtText,
 			province : pcd.province,
 			city : pcd.city,
 			district :  pcd.district,

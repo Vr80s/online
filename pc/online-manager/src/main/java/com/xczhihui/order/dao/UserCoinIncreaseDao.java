@@ -45,7 +45,7 @@ public class UserCoinIncreaseDao extends SimpleHibernateDao {
 		}
 
 		if (orderVo.getCorrelationId() != null) {
-			sql.append(" and uci.correlationId like :orderNo ");
+			sql.append(" and uci.correlation_id like :orderNo ");
 			paramMap.put("orderNo", "%" + orderVo.getCorrelationId() + "%");
 		}
 

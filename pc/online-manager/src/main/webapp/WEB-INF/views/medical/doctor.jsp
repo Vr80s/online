@@ -511,9 +511,9 @@
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<p class="col-xs-4" style="padding: 0;">
-					<button class="btn btn-sm btn-success add_P" title="新增">
+					<%--<button class="btn btn-sm btn-success add_P" title="新增">
 						<i class="glyphicon glyphicon-plus"></i> 新增
-					</button>
+					</button>--%>
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
@@ -821,9 +821,9 @@
 		<div class="space-4"></div>
 
 		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right" for="tel"><font color="red">*</font>联系电话: </label>
+			<label class="col-sm-3 control-label no-padding-right" for="tel">联系电话: </label>
 			<div class="col-sm-6">
-				<input type="text" name="tel"  id="edit_tel" maxlength="11"  class="col-xs-10 col-sm-12 {required:true}">
+				<input type="text" name="tel"  id="edit_tel" maxlength="11"  class="col-xs-10 col-sm-12">
 			</div>
 		</div>
 

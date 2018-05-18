@@ -14,38 +14,6 @@ import com.xczhihui.online.api.vo.UserAddressManagerVo;
  * Create Time: 2017年8月15日<br>
  */
 public interface CityService {
-    /**
-     * 
-     * Description：得到所有国家
-     * @return
-     * @throws SQLException
-     * @return List<Map<String,Object>>
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     *
-     */
-	public	List<Map<String, Object>> getNation()throws SQLException;
-	/**
-	 * 
-	 * Description：通过国家id得到下面的省份（地区）
-	 * @param parseInt
-	 * @return
-	 * @throws SQLException
-	 * @return List<Map<String,Object>>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public	List<Map<String, Object>> getProvince(int parseInt)throws SQLException;
-	/**
-	 * 
-	 * Description：通过省份id得到下面的市区
-	 * @param parseInt
-	 * @return
-	 * @throws SQLException
-	 * @return List<Map<String,Object>>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public List<Map<String, Object>> getCity(int parseInt)throws SQLException;
 
 
 	/**

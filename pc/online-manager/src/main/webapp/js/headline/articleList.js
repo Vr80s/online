@@ -35,8 +35,14 @@ $(function () {
         {"title": '更新时间', "class": "center", "width": "8%", "data": 'createTime', "sortable": false},
         {"title": '医师作者', "class": "center", "width": "8%", "data": 'doctorAuthor', "sortable": false},
         {"title": '报道医师', "class": "center", "width": "8%", "data": 'reportDoctor', "sortable": false},
-        {"title": '推荐值', "class": "center", "width": "6%", "data": 'sort', "sortable": false},
-        {"title": '推荐时效', "class": "center", "width": "6%", "data": 'recommendTime', "sortable": false},
+        { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'recommendTime',"mRender":function (data, display, row) {
+            if(row.sort == null||row.sort == 0)return null;
+            return data;
+        }},
+        { "title": "推荐值", "class":"center","width":"5%", "sortable":false,"data": 'sort',"mRender":function (data, display, row) {
+            if(data == null)return 0;
+            return data;
+        }},
         {
             "title": "状态",
             "class": "center",
@@ -68,7 +74,13 @@ $(function () {
                 } else {
                     str += '<a class="gray" href="javascript:void(-1);" title="报道医师" ><i class="glyphicon glyphicon-camera"></i></a>';
                 }
-                str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+                debugger
+                if(row.typeId!=4&&row.typeId!=7){
+                    str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+                }else{
+                    str += '<a class="blue" href="javascript:void(-1);" title="查看" onclick="toShow(this)"><i class="ace-icon fa fa-search bigger-130"></i></a>';
+                }
+
                 if (row.status == "1") {
                     str += '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
                 } else {
@@ -98,6 +110,11 @@ function toEdit(obj) {
     turnPage(basePath + '/home#headline/article/toEdit?id=' + row.id + "&typeId=" + row.typeId + "&typeName=" + row.typeName + "&tagId=" + row.tagId + "&author=" + row.author + "&tagName=" + encodeURIComponent(row.tagName));
 }
 
+function toShow(obj) {
+    var oo = $(obj).parent().parent().parent();
+    var row = articleTable.fnGetData(oo); // get datarow
+    window.open(weburl + '/headline/details/' + row.id,'_blank')
+}
 /**
  * 批量删除
  *

@@ -5,21 +5,37 @@
 		data为下拉框对应数据
 		缺省值{ province: '北京市', city: '北京市', district: '朝阳区' }
 取值：$("xxx").iProvincesSelect("val");
+
+
+例如：{value : "110000",
+	text : "北京市",}
+falg : true 时，对应的值的为value。数字
+        false时，对应的值为text。汉字
+
 */
-$.fn.iProvincesSelect = function(option, data) {
+$.fn.iProvincesSelect = function(option, data,falg) {
+	
     var iProvincesSelect = {
         init : function (that,data){
         	if(data==null){
-        		data={
-                    province: '北京市',
-                    city: '北京市',
-                    district: '朝阳区'
-				}
+        		if(falg){
+        			data={
+                            province: '110000',
+                            city: '110100',
+                            district: '110105'
+        			}
+        		}else{
+        			data={
+                            province: '北京市',
+                            city: '市辖区',
+                            district: '朝阳区'
+        			}
+        		}
 			}
             var provinceStr = new StringBuffer();
             $.each(provinces,
                 function(i, val) {
-                    provinceStr.append("<option value='" + val.text + "'>" + val.text + "</option>");
+                    provinceStr.append("<option value='" + (falg ? val.value : val.text) + "'>" + val.text + "</option>");
                 }
             );
             that.find(".province").html(provinceStr.toString());
@@ -33,9 +49,11 @@ $.fn.iProvincesSelect = function(option, data) {
 
             var cityStr = new StringBuffer();
             $.each(provinces, function(i, val) {
-                if(val.text == province){
+            	
+            	var falgVal = (falg ? val.value : val.text);
+                if(falgVal == province){
                     $.each(val.children, function(i, val) {
-                        cityStr.append("<option value='" + val.text + "'>" + val.text + "</option>");
+                        cityStr.append("<option value='" + (falg ? val.value : val.text)  + "'>" + val.text + "</option>");
                     });
                 }
             });
@@ -43,15 +61,16 @@ $.fn.iProvincesSelect = function(option, data) {
 		},
         setCity :function(that,city){
         	that.find(".city").val(city);
-
             var province = that.find(".province").val();
             var districtStr = new StringBuffer();
             $.each(provinces, function(i, val) {
-                if(val.text == province){
+            	var falgValProvince = (falg ? val.value : val.text);
+                if(falgValProvince == province){
                     $.each(val.children, function(i, val) {
-                        if(val.text == city) {
+                    	var falgValCity = (falg ? val.value : val.text);
+                        if(falgValCity == city) {
                             $.each(val.children, function(i, val) {
-                                districtStr.append("<option value='" + val.text + "'>" + val.text + "</option>");
+                                districtStr.append("<option value='" + (falg ? val.value : val.text) + "'>" + val.text + "</option>");
                             });
                         }
                     });
@@ -81,6 +100,11 @@ $.fn.iProvincesSelect = function(option, data) {
         	pcd.province = that.find(".province").val();
         	pcd.city = that.find(".city").val();
         	pcd.district = that.find(".district").val();
+        	
+        	pcd.provinceText = that.find(".province option:selected").text();
+        	pcd.cityText = that.find(".city option:selected").text();
+        	pcd.districtText = that.find(".district option:selected").text();
+        	
             return pcd;
         },
         setVal : function (that,data) {

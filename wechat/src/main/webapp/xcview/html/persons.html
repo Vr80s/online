@@ -178,14 +178,16 @@ pre:after {
 </style>
 <link href="/xcview/css/picker.css" rel="stylesheet" />
 
-<script src="/xcview/js/mui_city.js"></script>
+<script src="/xcview/js/common/mui_city.js"></script>
 
 <!-- 选项卡 -->
 <script type="text/javascript">
 	$(document).ready(function(){
         
 		var jobList =[];
-		requestService("/xczh/set/getUserInfo",{userId:localStorage.getItem("userId")},
+		requestService("/xczh/set/getUserInfo",
+				{userId:localStorage.getItem("userId")
+		},
 				function(data) {
 				if (data.success) {
 					commonLocalStorageSetItem(data);

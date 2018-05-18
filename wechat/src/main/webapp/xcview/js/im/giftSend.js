@@ -122,6 +122,16 @@ function createGiftList(gift) {
             createGiftShow();
             console.info("danji");
         }
+        if(Number.isInteger(gift.giftCount)){
+            try {
+            	//显示礼物总数
+                $("#liveGiftCount").html(gift.giftCount);           
+            } catch (error) {
+                // 此处是负责例外处理的语句
+            } finally {
+                // 此处是出口语句
+            }
+        }
     }
 }
 
@@ -144,7 +154,6 @@ function giftShow(gift, f,continuous) {
         return;
     }
     if (gift.messageType == 1) { // 礼物
-
         var bottom = countChange(f)
         gif[f] = $("<li class='animation' id='gift"+f+"' style='position: fixed;top: "
             + bottom
@@ -156,14 +165,16 @@ function giftShow(gift, f,continuous) {
             + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div><div class='animation_gift'><img src='"
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
+        
         try {
-           
+        	//显示礼物总数
+            $("#liveGiftCount").html(gift.giftCount);           
         } catch (error) {
             // 此处是负责例外处理的语句
         } finally {
             // 此处是出口语句
         }
-
+        
     } else if (gift.messageType == 0) { // 红包
         var bottom = countChange(f)
         gif[f] = $("<li class='animation' style='position: absolute;bottom: "
@@ -432,6 +443,8 @@ $(document).ready(function() {
                             });
                             $("#chatmsg").append(str);
                            
+                            
+                            
                             //显示礼物总数
                             $("#liveGiftCount").html(data.resultObject.giftCount);
                             
@@ -448,14 +461,11 @@ $(document).ready(function() {
                             // 更新余额
                             $("#xmbShowSpan").html(data.resultObject.balanceTotal);
                         } else {
-                        	
                             if ("余额不足" == data.errorMessage) { //当余额不足时去充值页面
                                var courseId = getQueryString("courseId");
                                location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
                             }else{ //否则弹出初五信息
-                            	
 //                             alert(data.errorMessage);
-                               
                                webToast(data.errorMessage,"middle",1500);
                             }
                             

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IEedge">
 
     <title>熊猫中医医馆-中医药传承创新平台</title>
@@ -35,7 +36,7 @@
     </div>
 </div>
 <header>
-    <#include "../header-body.ftl">
+<#include "../header-body.ftl">
 </header>
 
 <div id="tip" style="display: none;">
@@ -47,19 +48,21 @@
     <div class="forum-banner clearfix">
         <div class="banner">
             <ul id="slider" class="slider">
-                <#list banners as banner>
-                    <#if banner_index==0>
-                    <li style="z-index: 2;">
-                        <a href="${banner.imgHref}" target="_blank" style="background:url(${banner.imgPath})no-repeat top center;background-size:100% 100%">
-                        <#else>
-                    <li>
-                        <a href="${banner.imgHref}" target="_blank" style="background:url(${banner.imgPath})no-repeat top center;%">
-                        </#if>
-                        <div class="image-overlay">
-                        </div>
-                        </a>
-                    </li>
-                </#list>
+            <#list banners as banner>
+                <#if banner_index==0>
+                <li style="z-index: 2;">
+                <a href="${banner.imgHref}" target="_blank"
+                   style="background:url(${banner.imgPath})no-repeat top center;background-size:100% 100%">
+                <#else>
+                <li>
+                <a href="${banner.imgHref}" target="_blank"
+                   style="background:url(${banner.imgPath})no-repeat top center;%">
+                </#if>
+                <div class="image-overlay">
+                </div>
+            </a>
+            </li>
+            </#list>
             </ul>
             <div id="left"><em></em></div>
             <div id="right"><em></em></div>
@@ -73,65 +76,70 @@
             </#list>
             </div>
         </div>
+    <#if (recClinics?? && recClinics?size gt 0)>
         <div class="hot-article">
             <span class="hot-article-title">优秀医馆</span>
             <ul class="hot-article-list">
-            <#list recClinics as recClinic>
-                <li>
-                    <a href="${webUrl}/clinics/${recClinic.id}">
-                        <#if recClinic_index <= 2>
-                            <em class="select">${recClinic_index+1}</em>
+                <#list recClinics as recClinic>
+                    <li>
+                        <a href="${webUrl}/clinics/${recClinic.id}" target="_blank">
+                            <#if recClinic_index <= 2>
+                                <em class="select">${recClinic_index+1}</em>
                             <#else>
-                            <em>${recClinic_index+1}</em>
-                        </#if>
-                    ${recClinic.city}&nbsp;&nbsp;${recClinic.name}
-                    </a>
-                </li>
-            </#list>
+                                <em>${recClinic_index+1}</em>
+                            </#if>
+                        ${recClinic.city}&nbsp;&nbsp;${recClinic.name}
+                        </a>
+                    </li>
+                </#list>
             </ul>
         </div>
+    </#if>
     </div>
     <div class="forum-content clearfix">
         <div class="forum-content-left">
             <div class="forum-content-info">
                 <h3 class="hospital_title">医馆</h3>
-				<a href="${webUrl}/clinics/list" target="_blank">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                <a href="${webUrl}/clinics/list" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
+                                                                         aria-hidden="true"></span></a>
                 <div id="hospital_list">
-                    <#list clinics.records as clinic>
-                        <div class="hospitals">
-                            <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
-                            <#if clinic.medicalHospitalPictures[0]??>
-                                <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;" alt="${clinic.name}">
-                            <#else >
-                                <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;" alt="${clinic.name}">
+                <#list clinics.records as clinic>
+                    <div class="hospitals">
+                        <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
+                        <#if clinic.medicalHospitalPictures[0]??>
+                            <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;"
+                                 alt="${clinic.name}">
+                        <#else >
+                            <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;"
+                                 alt="${clinic.name}">
+                        </#if>
+                        <div class="hospital_inf">
+                            <span class="hospital_name">${clinic.name}</span>
+                            <#if clinic.authentication==true>
+                                <span class="hospital_pass">已认证</span>
                             </#if>
-                            <div class="hospital_inf">
-                                <span class="hospital_name">${clinic.name}</span>
-                                <#if clinic.authentication==true>
-                                    <span class="hospital_pass">已认证</span>
-                                </#if>
-                                <div class="hospital_address"><em></em>
-                                    <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
-                                </div>
-                                <div class="hospital_star">
-                                    <#if clinic.score??>
-                                        <#list 1..clinic.score/1 as t>
-                                            <em class="full_star"></em>
-                                        </#list>
-                                        <#if (5-(clinic.score/1)) gt 0>
-                                            <#list 1..(5-(clinic.score/1)) as t>
-                                                <em class="gray_star"></em>
-                                            </#list>
-                                        </#if>
-                                    <#else >
-                                        <#list 1..5 as t>
+                            <div class="hospital_address"><em></em>
+                                <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
+                            </div>
+                            <div class="hospital_star">
+                                <#if clinic.score??>
+                                    <#list 1..clinic.score/1 as t>
+                                        <em class="full_star"></em>
+                                    </#list>
+                                    <#if (5-(clinic.score/1)) gt 0>
+                                        <#list 1..(5-(clinic.score/1)) as t>
                                             <em class="gray_star"></em>
                                         </#list>
                                     </#if>
-                                </div>
+                                <#else >
+                                    <#list 1..5 as t>
+                                        <em class="gray_star"></em>
+                                    </#list>
+                                </#if>
                             </div>
                         </div>
-                    </#list>
+                    </div>
+                </#list>
                 </div>
 
                 <div class="more_hospital">
@@ -153,18 +161,19 @@
             <div class="forum-hot-tag">
                 <div class="forum-hot-tag-title">医馆搜索</div>
                 <div class="search_hos_box clearfix">
-                    <form action="/clinics/list" method="get">
+                    <form action="/clinics/list" method="get" target="_blank">
                         <input type="text" placeholder="输入名字搜索医馆" name="name" value=""/>
                         <button type="submit">搜索</button>
                     </form>
                 </div>
                 <p>按擅长领域搜索</p>
                 <ul class="forum-hot-tagGround">
-                    <#list hotFields as hotField>
-                        <li><a href="${webUrl}/clinics/list?field=${hotField.id}" target="_blank">${hotField.name}</a></li>
-                    </#list>
+                <#list hotFields as hotField>
+                    <li><a href="${webUrl}/clinics/list?field=${hotField.id}" target="_blank">${hotField.name}</a></li>
+                </#list>
                 </ul>
             </div>
+        <#if (recruits?? && recruits?size gt 0)>
             <div class="forum-hot-course ">
                 <div class="forum-hot-course-title">
                     <span>坐诊医生招募</span>
@@ -173,15 +182,18 @@
                     <div id="box" class="slideBox clearfix">
                         <ul class="course boxContent clearfix" id="doctor_recruit_list">
                             <#list recruits as recruit>
-                            <li>
-                                <h4><a href="${webUrl}/clinics/${recruit.hospitalId}" style="color: #000;">${recruit.position}</a></h4>
-                                <a href="${webUrl}/clinics/${recruit.hospitalId}">${recruit.city}&nbsp;&nbsp;${recruit.hospitalName}</a>
-                            </li>
+                                <li>
+                                    <h4><a href="${webUrl}/clinics/${recruit.hospitalId}"
+                                           style="color: #000;" target="_blank">${recruit.position}</a></h4>
+                                    <a href="${webUrl}/clinics/${recruit.hospitalId}" target="_blank">${recruit.city}
+                                        &nbsp;&nbsp;${recruit.hospitalName}</a>
+                                </li>
                             </#list>
                         </ul>
                     </div>
                 </div>
             </div>
+        </#if>
         </div>
     </div>
 </div>
@@ -190,60 +202,61 @@
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="application/javascript">
-    $(function(){
+    $(function () {
 
         $(".hospital-tab").addClass("select");
 
         //登入之后进行判断 右侧医师入驻入口是否有
-        RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-            if(data.success == true){
+        RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
+            if (data.success == true) {
                 //判断
-                if(data.resultObject == 2 ){
+                if (data.resultObject == 2) {
                     //医馆认证成功
                     $('.forum-hosJoin').addClass('hide');
-                }else{
+                } else {
                     $('.forum-hosJoin').removeClass('hide');
                 }
-            }else if(data.success == false){
+            } else if (data.success == false) {
                 $('.forum-hosJoin').removeClass('hide');
             }
         });
 
         //医师页面的医师入驻入口点击跳转效果
-        $('#toHosJoin').click(function(){
-            RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-                if(data.success == true){
+        $('#toHosJoin').click(function () {
+            RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
+                if (data.success == true) {
                     //请求数据成功进行判断
-                    if($('.login').css('display') == 'block' && data.resultObject == 1 ){
+                    if ($('.login').css('display') == 'block' && data.resultObject == 1) {
                         //登录并且入驻了医师了
                         $('#tip').text('您已完成了医师认证，不能进行医馆认证！');
                         $('#tip').toggle();
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $('#tip').toggle();
-                        },2000)
-                    }else if($('.login').css('display') == 'block' && data.resultObject == 2 ){
+                        }, 2000)
+                    } else if ($('.login').css('display') == 'block' && data.resultObject == 2) {
                         //注册医馆成功
                         window.location.href = "/web/html/ResidentHospital.html";
-                    }else if($('.login').css('display') == 'block' && data.resultObject == 7 ){
+                    } else if ($('.login').css('display') == 'block' && data.resultObject == 7) {
                         //登录了并且都没有注册过
                         window.location.href = "/web/html/ResidentHospital.html";
-                    }else if($('.login').css('display') == 'block' && data.resultObject == 3 || data.resultObject == 4  || data.resultObject == 5  || data.resultObject == 6 ){
+                    } else if ($('.login').css('display') == 'block' && data.resultObject == 3 || data.resultObject == 4 || data.resultObject == 5 || data.resultObject == 6) {
                         //登录了 并且注册了没有通过的
                         window.location.href = "/web/html/ResidentHospital.html";
-                    }else if(data.resultObject == 3 ){
+                    } else if (data.resultObject == 3) {
                         //登录并且入驻了医馆了
                         $('#tip').text('您已提交医师认证，暂时不能进行医馆认证！');
                         $('#tip').toggle();
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $('#tip').toggle();
-                        },2000)
+                        }, 2000)
                     }
-                }else if(data.success == false){
+                } else if (data.success == false) {
                     window.location.href = "/web/html/hospitalRegister.html";
                 }
             });
         })
     });
+
     //banner
     function init() {
         var $sliders = $('#slider li');
@@ -257,7 +270,8 @@
         function autoChange() {
             if (step === $sliders.length) {
                 step = 0;
-            };
+            }
+            ;
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
             $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
             step++;
@@ -305,5 +319,6 @@
             timer = window.setInterval(autoChange, 2000);
         })
     }
+
     init();
 </script>

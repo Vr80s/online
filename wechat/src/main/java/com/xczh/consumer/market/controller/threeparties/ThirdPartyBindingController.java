@@ -64,11 +64,6 @@ public class ThirdPartyBindingController {
 	@Autowired
 	private CacheService cacheService;
 	
-	@Autowired
-	private UserCenterAPI userCenterAPI;
-	
-	@Autowired
-	private UserCoinService userCoinService;
 	
 	@Autowired
 	private AppBrowserService appBrowserService;

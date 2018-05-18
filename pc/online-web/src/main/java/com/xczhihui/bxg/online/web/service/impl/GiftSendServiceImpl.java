@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.online.common.domain.Gift;
 import com.xczhihui.bxg.online.common.domain.GiftStatement;
@@ -40,7 +41,11 @@ public class GiftSendServiceImpl implements GiftSendService {
 	@Autowired
 	private RedisCacheService cacheService;
 
-	private static String giftCache = "gift_";
+	private static String GIFT_CACHE = "gift_";
+
+	//礼物缓存时间
+	private static int GIFT_CACHE_TIMEOUT = 60*10;
+	private static int  FREE_GIFT_SEND_MAX = 3;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -60,7 +65,7 @@ public class GiftSendServiceImpl implements GiftSendService {
 		giftStatement.setLiveId(liveId);
 		giftStatement.setCount(count);
 
-		Gift gift = cacheService.get(giftCache+giftStatement.getGiftId());
+		Gift gift = cacheService.get(GIFT_CACHE+giftStatement.getGiftId());
 		if(gift == null){
 			DetachedCriteria dc = DetachedCriteria.forClass(Gift.class);
 			dc.add(Restrictions.eq("isDelete", false));
@@ -70,11 +75,12 @@ public class GiftSendServiceImpl implements GiftSendService {
 				throw new RuntimeException("无对应礼物");
 			}else{
 				//缓存礼物数据10分钟
-				cacheService.set(giftCache+giftStatement.getGiftId(),gift,60*10);
+				cacheService.set(GIFT_CACHE+giftStatement.getGiftId(),gift,GIFT_CACHE_TIMEOUT);
 			}
 		}else{
 			logger.info("取到礼物缓存数据");
 		}
+		freeGiftCheck(gift,liveId,giverId);
 
 		giftStatement.setGiftName(gift.getName());
 		giftStatement.setPrice(gift.getPrice());
@@ -130,9 +136,26 @@ public class GiftSendServiceImpl implements GiftSendService {
 		return map;
 	}
 
+	private void freeGiftCheck(Gift gift, String liveId, String giverId) {
+		String freeGiftSendKey = "f_g_" + liveId+giverId;
+		if(gift.getPrice() == 0){
+			Integer fgsCount = cacheService.get(freeGiftSendKey);
+			if(fgsCount == null){
+				fgsCount = 1;
+				//将赠送的礼物数目存入redis 有效期一个月
+				cacheService.set(freeGiftSendKey,fgsCount, CacheService.ONE_MONTH);
+			}else if(fgsCount < FREE_GIFT_SEND_MAX){
+				fgsCount++;
+				cacheService.set(freeGiftSendKey,fgsCount, CacheService.ONE_MONTH);
+			}else{
+				throw new RuntimeException("免费礼物最多只能送三个");
+			}
+		}
+	}
+
 	private int getContinuousCount(String id, Integer giftId, String liveId) {
 		//用户id+视频Id+礼物id
-		String giftShowTicket = id+"_"+giftId+"_"+liveId;
+		String giftShowTicket = "f_s_"+id+"_"+giftId+"_"+liveId;
 		Integer continuousCount = cacheService.get(giftShowTicket);
 		if(continuousCount == null){
 			continuousCount = 1;

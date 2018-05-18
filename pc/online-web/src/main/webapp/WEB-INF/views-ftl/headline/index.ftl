@@ -43,42 +43,43 @@
 </header>
 
 <div id="forum" class="clearfix">
-    <div class="forum-banner ">
-        <div class="banner">
-            <ul id="slider" class="slider">
-            <#list banners as banner>
-                <#if banner_index==0>
-                    <li style="z-index: 2">
-                        <a href="${banner.imgHref}" target="_blank"
-                           style="background:url(${banner.imgPath})no-repeat top center">
-                            <div class="image-overlay"></div>
-                        </a>
-                    </li>
-                <#else >
-                    <li>
-                        <a href="${banner.imgHref}" target="_blank"
-                           style="background:url(${banner.imgPath})no-repeat top center">
-                            <div class="image-overlay"></div>
-                        </a>
-                    </li>
-                </#if>
-            </#list>
-            </ul>
-            <div id="left"><em></em></div>
-            <div id="right"><em></em></div>
-            <div id="selector" class="selector">
-            <#list banners as banner>
-                <#if banner_index==0>
-                    <span class='cur'></span>
-                <#else >
-                    <span></span>
-                </#if>
-            </#list>
-            </div>
+<div class="forum-banner ">
+    <div class="banner">
+        <ul id="slider" class="slider">
+        <#list banners as banner>
+            <#if banner_index==0>
+                <li style="z-index: 2">
+                    <a href="${banner.imgHref}" target="_blank"
+                       style="background:url(${banner.imgPath})no-repeat top center">
+                        <div class="image-overlay"></div>
+                    </a>
+                </li>
+            <#else >
+                <li>
+                    <a href="${banner.imgHref}" target="_blank"
+                       style="background:url(${banner.imgPath})no-repeat top center">
+                        <div class="image-overlay"></div>
+                    </a>
+                </li>
+            </#if>
+        </#list>
+        </ul>
+        <div id="left"><em></em></div>
+        <div id="right"><em></em></div>
+        <div id="selector" class="selector">
+        <#list banners as banner>
+            <#if banner_index==0>
+                <span class='cur'></span>
+            <#else >
+                <span></span>
+            </#if>
+        </#list>
         </div>
-        <div class="hot-article hide">
-            <span class="hot-article-title">推荐阅读</span>
-            <ul class="hot-article-list">
+    </div>
+<#if hotArticle?? && hotArticle?size gt 0>
+    <div class="hot-article hide">
+        <span class="hot-article-title">推荐阅读</span>
+        <ul class="hot-article-list">
             <#list hotArticle as ha>
                 <#if ha_index <=2>
                     <li>
@@ -94,10 +95,11 @@
                     </li>
                 </#if>
             </#list>
-            </ul>
-        </div>
-
+        </ul>
     </div>
+</div>
+</#if>
+
     <div class="forum-content clearfix">
         <div class="forum-content-left">
             <div class="forum-type" style="height:62px;">
@@ -135,89 +137,97 @@
                 </div>
             </#list>
             </div>
+            <#if articles.total gt 6>
             <a href="${webUrl}/headline/list/${echoMap.type}" class="more-news">更多</a>
+            </#if>
         </div>
-        <div class="forum-content-right" style="position: absolute; left: 880px;">
-            <!--推荐专栏作者-->
-            <div class="zhuanlan_zuozhe hide" id="zhuanlan_bigbox">
-                <h4>推荐专栏作者</h4>
-                <ul id="zhuanlan_zuozhe">
-                    <!--<li class="clearfix">
-                        <div class="zuozhe_touxaing">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
+    <div class="forum-content-right" style="position: absolute; left: 880px;">
+        <!--推荐专栏作者-->
+        <div class="zhuanlan_zuozhe hide" id="zhuanlan_bigbox">
+            <h4>推荐专栏作者</h4>
+            <ul id="zhuanlan_zuozhe">
+                <!--<li class="clearfix">
+                    <div class="zuozhe_touxaing">
+                        <img src="../images/doctor_detail/touxiang.png" alt="" />
+                    </div>
+                    <div class="zuozhe_inf">
+                        <span>鹿明中医</span>
+                        <p>关注中医药发展创业</p>
+                    </div>
+                </li>
+
+                <li class="clearfix">
+                    <div class="zuozhe_touxaing">
+                        <img src="../images/doctor_detail/touxiang.png" alt="" />
+                    </div>
+                    <div class="zuozhe_inf">
+                        <span>鹿明中医</span>
+                        <p>关注中医药发展创业</p>
+                    </div>
+                </li>
+
+                <li class="clearfix">
+                    <div class="zuozhe_touxaing">
+                        <img src="../images/doctor_detail/touxiang.png" alt="" />
+                    </div>
+                    <div class="zuozhe_inf">
+                        <span>鹿明中医</span>
+                        <p>关注中医药发展创业</p>
+                    </div>
+                </li>
+
+                <li class="clearfix">
+                    <div class="zuozhe_touxaing">
+                        <img src="../images/doctor_detail/touxiang.png" alt="" />
+                    </div>
+                    <div class="zuozhe_inf">
+                        <span>鹿明中医</span>
+                        <p>关注中医药发展创业</p>
+                    </div>
+                </li>-->
+            </ul>
+        </div>
+    <#if (hotSpecialColumnAuthors?size > 0)>
+        <div class="zhuanlan_zuozhe" id="zhuanlan_bigbox">
+            <h4>大家专栏</h4>
+            <ul id="zhuanlan_zuozhe">
+                <#list hotSpecialColumnAuthors as hotSpecialColumnAuthor>
+                    <li class="clearfix">
+                        <div class="touxiang">
+                        	<a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"target="_blank">
+                            <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
+                            </a>
                         </div>
                         <div class="zuozhe_inf">
-                            <span>鹿明中医</span>
-                            <p>关注中医药发展创业</p>
+                                <span><a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"
+                                         target="_blank">${hotSpecialColumnAuthor.doctorName} </a></span>
+                            <p>${hotSpecialColumnAuthor.province} ${hotSpecialColumnAuthor.city}</p>
                         </div>
                     </li>
-
-                    <li class="clearfix">
-                        <div class="zuozhe_touxaing">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="zuozhe_inf">
-                            <span>鹿明中医</span>
-                            <p>关注中医药发展创业</p>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="zuozhe_touxaing">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="zuozhe_inf">
-                            <span>鹿明中医</span>
-                            <p>关注中医药发展创业</p>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="zuozhe_touxaing">
-                            <img src="../images/doctor_detail/touxiang.png" alt="" />
-                        </div>
-                        <div class="zuozhe_inf">
-                            <span>鹿明中医</span>
-                            <p>关注中医药发展创业</p>
-                        </div>
-                    </li>-->
-                </ul>
-            </div>
-        <#if (hotSpecialColumnAuthors?size > 0)>
-            <div class="zhuanlan_zuozhe" id="zhuanlan_bigbox">
-                <h4>大家专栏</h4>
-                <ul id="zhuanlan_zuozhe">
-                    <#list hotSpecialColumnAuthors as hotSpecialColumnAuthor>
-                        <li class="clearfix">
-                            <div class="touxiang">
-                                <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
-                            </div>
-                            <div class="zuozhe_inf">
-                                <span><a
-                                        href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C">${hotSpecialColumnAuthor.doctorName} </a></span>
-                                <p>${hotSpecialColumnAuthor.province} ${hotSpecialColumnAuthor.city}</p>
-                            </div>
-                        </li>
-                    </#list>
-                </ul>
-            </div>
-        </#if>
-
-            <div class="hot-article">
-                <span class="hot-article-title">推荐阅读</span>
-                <ul class="hot-article-list">
+                </#list>
+            </ul>
+        </div>
+    </#if>
+    <#if hotArticle?? && hotArticle?size gt 0>
+        <div class="hot-article">
+            <span class="hot-article-title">推荐阅读</span>
+            <ul class="hot-article-list">
                 <#list hotArticle as ha>
                     <li>
                         <a href="${webUrl}/headline/details/${ha.id}" target="_blank">
+                            <#if ha_index <= 2>
+                                <p class="setSelect">${ha_index+1}</p>
+                            <#else>
+                                <p>${ha_index+1}</p>
+                            </#if>
                             <span title="${ha.title}">${ha.title}</span>
                         </a>
                     </li>
                 </#list>
-                </ul>
-            </div>
-
-
+            </ul>
         </div>
+    </div>
+    </#if>
     </div>
 </div>
 <#include "../footer.ftl">

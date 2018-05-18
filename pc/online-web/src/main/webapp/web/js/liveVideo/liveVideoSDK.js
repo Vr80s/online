@@ -32,6 +32,7 @@ function getRankingListByLiveId(){
 getRankingListByLiveId();
 
 function createRanking(ranking){
+	if(ranking==null)return;
     var small_items = [];
     var items = ranking;
     for (var i = 0; i < items.length; i++) {
@@ -106,20 +107,28 @@ $(".concern-click").click(function(){
 		RequestService("/focus/updateFocus", "GET", {
 			lecturerId:lecturerId,type:1
 		}, function(data) {
-			console.log("lalala"+data);
+//			console.log("lalala"+data);
+			getHostInfo();
+			setTimeout(function(){
+				$(".concern-click").removeAttr("disabled");
+			},5000);
 		});
 		$(".concern-right").css("background","#bbb");
 		$(".concern-right").html("已关注");
-		getHostInfo();
 	} else{
 		RequestService("/focus/updateFocus", "GET", {
 			lecturerId:lecturerId,type:2
 		}, function(data) {
-			console.log("lalala"+data);
+//			console.log("lalala"+data);
+			getHostInfo();
+			setTimeout(function(){
+				$(".concern-click").removeAttr("disabled");
+			},5000)
+			
 		});
 		$(".concern-right").css("background","#00BC12");
 		$(".concern-right").html("加关注");
-		getHostInfo();
+
 	}
 });
 /*点击关注已关注结束*/

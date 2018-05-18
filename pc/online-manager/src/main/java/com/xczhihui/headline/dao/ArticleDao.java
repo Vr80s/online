@@ -40,6 +40,10 @@ public class ArticleDao extends HibernateDao<ArticleVo> {
             sql.append(" and article.title like :title");
             paramMap.put("title", "%" + articleVo.getTitle() + "%");
         }
+        if (articleVo.getTitle() != null) {
+            sql.append(" and article.title like :title");
+            paramMap.put("title", "%" + articleVo.getTitle() + "%");
+        }
         if (articleVo.getTypeId() != null) {
             sql.append(" and article.type_id =:typeId");
             paramMap.put("typeId", articleVo.getTypeId());
