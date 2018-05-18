@@ -525,9 +525,9 @@
         <div role="tabpanel" class="tab-pane active" id="home">
             <div class="mainrighttab tabresourse bordernone" id="courseDiv">
                 <p class="col-xs-8" style="padding: 0;">
-                    <button class="btn btn-sm btn-success add_P" title="新增">
-                        <i class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
+                    <%--<button class="btn btn-sm btn-success add_P" title="新增">--%>
+                        <%--<i class="glyphicon glyphicon-plus"></i> 新增--%>
+                    <%--</button>--%>
                     <button class="btn btn-sm btn-success dele_P" title="批量删除">
                         <i class="glyphicon glyphicon-trash"></i> 批量删除
                     </button>

@@ -33,6 +33,26 @@
       setTimeout(function(){
         document.setTitle(gradeName);
       }, 1000);
+
+
+	function goBack(){
+		//html获取链接上面的参数
+		function getQueryString(name){
+		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if (r!=null) return r[2];else return'';
+		}
+		var type = getQueryString('type');
+		if(type=='1'){
+			location.replace("/xcview/html/my_study.html");
+		}else if(type=='2'){
+			location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+		}else{
+			location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+		}
+		getQueryString('name');
+	};
+
 </script>
 <style>
 	.all_list ul li:nth-last-child(1) p{
@@ -91,7 +111,7 @@
 	<div class="wrap-header">
 		<div class="header">		
 			<p>专辑课程</p>
-			<div class="arror_return z">
+			<div class="arror_return z" onclick="goBack()">
 			<!-- <div class="arror_return z" onclick="getQueryString()"> -->
 			<!-- <div class="arror_return z" onclick="window.history.go(-1)"> -->
 			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
@@ -147,7 +167,6 @@
 					
 						{{/if}}
 						<a href="javascript:;">共<span id="criticizeCountId">{{criticizeCount}}</span>条评价</a>
-						<img class="jiantou" src="../images/video_review.png"/>
 					</li>
 				</ul>
 				
@@ -555,27 +574,7 @@ $.fn.toggle = function( fn, fn2 ) {
 		    })*/
 		};
 	</script>
-<script>
-window.onload = function(){
-	$(".arror_return").click(function(){
-		//html获取链接上面的参数
-		function getQueryString(name){
-		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-		    var r = window.location.search.substr(1).match(reg);
-		    if (r!=null) return r[2];else return'';
-		}
-		var type = getQueryString('type');
-		if(type=='1'){
-			location.replace("/xcview/html/my_study.html");
-		}else if(type=='2'){
-			location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
-		}else{
-			location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
-		}
-		getQueryString('name');
-	});
-};
-</script>
+
 <script>
     window.onload = function(){
       //根据class名称获取元素,此案例中之所以要用class获取元素名称,是为了可以控制多个元素( text,text1 )的字符串度.  注释：文字开头必须紧贴div

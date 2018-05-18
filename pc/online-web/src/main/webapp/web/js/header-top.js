@@ -29,7 +29,7 @@
         if (document.location.host == 'www.ipandatcm.com' || document.location.host == 'www.ixincheng.com' || document.location.host == 'ipandatcm.com' || document.location.host == 'ixincheng.com') {
             wxurl = "http://m.ipandatcm.com";
         } else {
-            wxurl = "http://test-wx.ixincheng.com";
+            wxurl = "http://test-wx.xczhihui.com";
         }
         window.location = wxurl;
     }

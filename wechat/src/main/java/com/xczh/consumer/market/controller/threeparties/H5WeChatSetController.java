@@ -147,7 +147,6 @@ public class H5WeChatSetController {
 			
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			String openid = wxw.getOpenid();
-			
 			/**
 			 * 因为没有退出登录了，所以残留的是上一个用户的coke
 			 */

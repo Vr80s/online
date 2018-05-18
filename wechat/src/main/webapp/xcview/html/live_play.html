@@ -35,7 +35,7 @@
 					{{if lineState == 1}}
 						<p>直播课程</p>
 					{{/if}}
-					{{if lineState == 2}}
+					{{if lineState == 4}}
 						<p>直播预告</p>
 					{{/if}}
 					{{if lineState == 3}}
@@ -115,10 +115,12 @@
 						<img src="../images/xing5.png"/>
 						{{/if}}
 						<a href="javascript:;">共<span id="criticizeCountId">{{criticizeCount}}</span>条评价</a>
-						<img class="jiantou" src="../images/video_review.png"/>
 					</li>
 				</ul>
-				<ul class="playTime playTimes z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
+				
+				<div class="both"></div>
+			</div>
+			<ul class="playTime playTimes z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
 					<li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;" /><span style="margin-top: 0.15rem;">{{heir}}</span></li>
 					<li style="margin-top: 0.18rem;float:right;">
 						<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
@@ -127,8 +129,6 @@
 						</a>
 					</li>
 				</ul>
-				<div class="both"></div>
-			</div>
 			<div class="both"></div>
 		</script>
 	</div>
@@ -143,7 +143,7 @@
 						{{if lineState == 1}}
 						<p>直播中</p>
 						{{/if}}
-						{{if lineState == 2}}
+						{{if lineState == 4}}
 						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">预告</p>
 						{{/if}}
 						{{if lineState == 3}}

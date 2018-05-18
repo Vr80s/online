@@ -50,10 +50,10 @@ $(function () {
             "title": "操作",
             "mRender": function (data, display, row) {
                 var str = "<div class=\"hidden-sm hidden-xs action-buttons\">";
-                str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
-                if (!row.userCreated) {//用户创建的文章不允许在后台关联医师
-                    str += '<a class="blue" href="javascript:void(-1);" title="关联医师" onclick="openDoctorManage(this)"><i class="glyphicon glyphicon-camera"></i></a>';
-                }
+                str += '<a class="blue" href="javascript:void(-1);" title="查看" onclick="toShow(this)"><i class="ace-icon fa fa-search bigger-130"></i></a>';
+                // if (!row.userCreated) {//用户创建的文章不允许在后台关联医师
+                //     str += '<a class="blue" href="javascript:void(-1);" title="关联医师" onclick="openDoctorManage(this)"><i class="glyphicon glyphicon-camera"></i></a>';
+                // }
 
                 if (row.status == "1") {
                     str += '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
@@ -76,10 +76,10 @@ $(".add_bx").click(function () {
 });
 
 //修改页面
-function toEdit(obj) {
+function toShow(obj) {
     var oo = $(obj).parent().parent().parent();
     var row = articleTable.fnGetData(oo); // get datarow
-    turnPage(basePath + '/home#headline/writing/toEdit?id=' + row.id + "");
+    window.open(weburl + '/headline/details/' + row.articleId,'_blank')
 }
 
 /**

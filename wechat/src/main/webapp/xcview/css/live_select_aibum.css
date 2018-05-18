@@ -77,13 +77,14 @@ textarea::-webkit-input-placeholder {
 	display: block;
 }
 .play_video_fiexd{
-	position: fixed;
-	z-index: 1;
+	/* position: fixed;
+	z-index: 1; */
 } 
 .hide_height{
 	width: 100%;
 	height: 4.24rem;
 	opacity: 0;
+	display: none;
 }
 .play_video{
 	width: 100%;
@@ -522,6 +523,7 @@ word-break:break-all;
     float: left;
     margin: 0.05rem 0.12rem 0 0rem;
     border-radius: 100px;
+    margin-top: 0.09rem;
 }
 .wrap_comment_title span{
 	float: right;
@@ -571,6 +573,7 @@ margin-top: 0.1rem;
 }
 .wrap_userName{
 	width: 100%;
+	margin-top: 0.3rem;
 }
 .wrap_userName img{
 	    width: 1.5rem;
@@ -595,24 +598,26 @@ margin-top: 0.1rem;
     border-radius: 100px;
     color: white;
     margin-right: 0.2rem;
-    font-size: 0.28rem;
+    font-size: 0.24rem;
     float: left;
-    margin-top: 0.1rem;
+    margin-top: 0.2rem;
     color: #666;
 }
 /*被恢复的内容-灰色部分*/
 .uesr_returned{
-	box-sizing: border-box;
-	width: 100%;
-	padding: 0.2rem;
-	background: #F0F0F0;
-	border-radius: 0.04rem;
-	margin-top: 0.2rem;
-	overflow: hidden;
+	    width: 100%;
+    padding: 0.2rem;
+    margin-top: 0.2rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #FAFAFA;
+    border: 1px solid #F0F0F0;
+    border-radius: 4px;
 }
 .returned_id{
 color: #666666;
     padding-bottom: 0.1rem;
+    font-size: 0.26rem;
 }
 .returned_text{
 	font-size: 0.26rem;

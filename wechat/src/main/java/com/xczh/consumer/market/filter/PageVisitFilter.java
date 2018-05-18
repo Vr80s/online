@@ -41,7 +41,7 @@ public class PageVisitFilter implements Filter {
     	String uri = request.getRequestURI();
     	String ext = FilenameUtils.getExtension(uri);
     	
-    	LOGGER.info("欢迎欢迎，静态资源："+ext);
+    	//LOGGER.info("欢迎欢迎，静态资源："+ext);
     	try{
 //			这里的配置不让有浏览器缓存，不能这样的    		
 //			response.setHeader("Pragma", "No-cache");

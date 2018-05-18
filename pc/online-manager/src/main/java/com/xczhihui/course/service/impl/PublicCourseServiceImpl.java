@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.ImInformLiveStatusType;
 import com.xczhihui.online.api.service.LiveCallbackService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
@@ -352,7 +353,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 
 		System.out.println("course livestate " + course);
 		System.out.println("change CallbackVo" + changeCallbackVo.toString());
-
 		String startOrEnd = "";
 		Integer type = 0;
 		if (course != null) {
@@ -360,15 +360,12 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 			case "start":
 				startOrEnd = "start_time";
 				course.setLiveStatus(1);
-				//course.setStartTime(new Date());
-				type = 2;
+				type = ImInformLiveStatusType.LIVE_START.getCode();
 				break;
 			case "stop":
 				startOrEnd = "end_time";
 				course.setLiveStatus(3);
-				//course.setEndTime(new Date());
-				type = 3;
-				
+				type = ImInformLiveStatusType.LIVE_END.getCode();
 				Date startTime = course.getStartTime();
 				Date currentTime = new Date();
 				Integer taskTime = timeDifference(startTime,currentTime);
@@ -390,6 +387,8 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 			System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"+ course.getId() + ",type:" + type);
 
 			liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
+			
+			
 			if (startOrEnd != "") {
 				String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
 				Map<String, Object> find = new HashMap<String, Object>();

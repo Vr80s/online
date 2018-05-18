@@ -2,7 +2,9 @@ package com.xczhihui.bxg.online.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.course.vo.FocusVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +16,8 @@ import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.course.service.IFocusService;
+
+import java.util.List;
 
 
 /** 
@@ -31,6 +35,11 @@ public class FocusController extends AbstractController{
 	
 	@Autowired
 	private UserService service;
+
+	@Autowired
+	@Qualifier("focusServiceRemote")
+	private IFocusService ifocusService;
+
 	/**
 	 * Description:获取主播信息接口
 	 * @return
@@ -75,7 +84,27 @@ public class FocusController extends AbstractController{
 		focusService.updateFocus(lockId,lecturerId,loginUser.getId(),type);
 		return ResponseObject.newSuccessResponseObject("操作成功");
 	}
-	
+
+	/**
+	 * Description:关注的主播（我的关注）
+	 * @return ResponseObject
+	 * @author wangyishuai
+	 **/
+	@RequestMapping(value = "/myFocus")
+	@ResponseBody
+	public ResponseObject getHostInfoById(HttpServletRequest request) {
+		try {
+			OnlineUser u =  getCurrentUser();
+			if(u==null) {
+                return ResponseObject.newErrorResponseObject("用户未登录");
+            }
+			List<FocusVo> list = ifocusService.selectFocusList(u.getId());
+			return ResponseObject.newSuccessResponseObject(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("获取数据失败");
+		}
+	}
 	
 	
 }

@@ -3,6 +3,8 @@ package com.xczh.consumer.market.controller.school;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IMobileBannerService;
@@ -49,71 +51,73 @@ public class MobileLiveController {
 	public ResponseObject onlineLive(HttpServletRequest req,
 									 HttpServletResponse res)
 			throws Exception {
-		Integer current = 1;
-		Integer size = 100;
+		
+		
 		Map<String, Object> mapAll = new HashMap<String, Object>();
 		//直播banner
 		Page<MobileBanner> MobileBannerPage = new Page<>();
-		MobileBannerPage.setCurrent(current);
-		MobileBannerPage.setSize(size);
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,3));
+		MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode()));
+		mapAll.put("banner",MobileBannerPage);
+		
 		//直播 中的课程
-		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
-		Map<String,Object> mapTj = new HashMap<String, Object>();
-		Map<String,Object> mapNw = new HashMap<String, Object>();
-		Map<String,Object> mapZz = new HashMap<String, Object>();
-		Map<String,Object> mapHf = new HashMap<String, Object>();
-		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
-		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
-		List<CourseLecturVo> listZz = new ArrayList<CourseLecturVo>();
-		List<CourseLecturVo> listHf = new ArrayList<CourseLecturVo>();
-
-		//获取直播课程列表
-		List<CourseLecturVo> list = courseService.findLiveListInfo();
-		for (CourseLecturVo courseLecturVo : list) {
-			if("正在直播".equals(courseLecturVo.getNote())){
-				listTj.add(courseLecturVo);
-			}
-			if("即将直播".equals(courseLecturVo.getNote())){
-				listNw.add(courseLecturVo);
-			}
-			if("直播课程".equals(courseLecturVo.getNote())){
-				listZz.add(courseLecturVo);
-			}
-			if("精彩直播回放".equals(courseLecturVo.getNote())){
-				listHf.add(courseLecturVo);
-			}
-		}
-
-		if(listTj.size()>0){    
-			mapTj.put("title","正在直播");
-			mapTj.put("lineState","1");
-			mapTj.put("courseList",listTj);
-			mapCourseList.add(mapTj);
-		}
-
-		if(listNw.size()>0){
-			mapNw.put("title","即将直播");
-			mapNw.put("lineState","2");
-			mapNw.put("courseList",listNw);
-			mapCourseList.add(mapNw);
-		}
-
-		if(listZz.size()>0){
-			mapZz.put("title","直播课程");
-			mapZz.put("lineState","1234");
-			mapZz.put("courseList",listZz);
-			mapCourseList.add(mapZz);
-		}
-
-		if(listHf.size()>0){
-			mapHf.put("title","精彩直播回放");
-			mapHf.put("lineState","3");
-			mapHf.put("courseList",listHf);
-			mapCourseList.add(mapHf);
-		}
+//		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+//		Map<String,Object> mapTj = new HashMap<String, Object>();
+//		Map<String,Object> mapNw = new HashMap<String, Object>();
+//		Map<String,Object> mapZz = new HashMap<String, Object>();
+//		Map<String,Object> mapHf = new HashMap<String, Object>();
+//		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
+//		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
+//		List<CourseLecturVo> listZz = new ArrayList<CourseLecturVo>();
+//		List<CourseLecturVo> listHf = new ArrayList<CourseLecturVo>();
+//
+//		//获取直播课程列表
+//		List<CourseLecturVo> list = courseService.findLiveListInfo();
+//		for (CourseLecturVo courseLecturVo : list) {
+//			if("正在直播".equals(courseLecturVo.getNote())){
+//				listTj.add(courseLecturVo);
+//			}
+//			if("即将直播".equals(courseLecturVo.getNote())){
+//				listNw.add(courseLecturVo);
+//			}
+//			if("直播课程".equals(courseLecturVo.getNote())){
+//				listZz.add(courseLecturVo);
+//			}
+//			if("精彩直播回放".equals(courseLecturVo.getNote())){
+//				listHf.add(courseLecturVo);
+//			}
+//		}
+//
+//		if(listTj.size()>0){    
+//			mapTj.put("title","正在直播");
+//			mapTj.put("lineState","1");
+//			mapTj.put("courseList",listTj);
+//			mapCourseList.add(mapTj);
+//		}
+//
+//		if(listNw.size()>0){
+//			mapNw.put("title","即将直播");
+//			mapNw.put("lineState","2");
+//			mapNw.put("courseList",listNw);
+//			mapCourseList.add(mapNw);
+//		}
+//
+//		if(listZz.size()>0){
+//			mapZz.put("title","直播课程");
+//			mapZz.put("lineState","1234");
+//			mapZz.put("courseList",listZz);
+//			mapCourseList.add(mapZz);
+//		}
+//
+//		if(listHf.size()>0){
+//			mapHf.put("title","精彩直播回放");
+//			mapHf.put("lineState","3");
+//			mapHf.put("courseList",listHf);
+//			mapCourseList.add(mapHf);
+//		}
+		List<Map<String,Object>> mapCourseList = mobileBannerService.liveCourseList(
+				PagingFixedType.LIVE_PAGETYPE_UP.getValue(),
+				PagingFixedType.LIVE_PAGETYPE_DOWN.getValue());
 		mapAll.put("allCourseList",mapCourseList);
-
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 

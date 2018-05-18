@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.web.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -331,7 +332,14 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public List<CourseVo> getCoursesRecommendByType(Integer type) {
-        return coursedao.getCoursesRecommendByType(type);
+        List<CourseVo> list = coursedao.getCoursesRecommendByType(type);
+        List<CourseVo> courseList =new ArrayList<CourseVo>();
+        for(CourseVo c:list){
+            if(c.getRecommendSort()>0){
+                courseList.add(c);
+            }
+        }
+        return courseList;
     }
 
     @Override

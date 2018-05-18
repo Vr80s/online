@@ -83,7 +83,20 @@ if (sendTime == null) {
     }, false)
 }
 function createGiftList(gift) {
-    if(gift.messageType == 2){//直播开始了
+	
+	if(gift.messageType == 5){ //回放生成失败
+		
+	   	if(parseInt(sendTime) < parseInt(gift.sendTime)){
+	   		
+	   		console.info("回放生成失败");
+    	}
+	}else if(gift.messageType == 4){ //回放生成 成功
+		
+	   	if(parseInt(sendTime) < parseInt(gift.sendTime)){
+	   		
+	   		console.info("回放生成成功");
+    	}
+	}else if(gift.messageType == 2){//直播开始了
     	//当前时间 
     	if(parseInt(sendTime) < parseInt(gift.sendTime)){
         	console.log("开始直播了，建议再次刷新页面   >>>>");
@@ -122,6 +135,16 @@ function createGiftList(gift) {
             createGiftShow();
             console.info("danji");
         }
+        if(Number.isInteger(gift.giftCount)){
+            try {
+            	//显示礼物总数
+                $("#liveGiftCount").html(gift.giftCount);           
+            } catch (error) {
+                // 此处是负责例外处理的语句
+            } finally {
+                // 此处是出口语句
+            }
+        }
     }
 }
 
@@ -144,7 +167,6 @@ function giftShow(gift, f,continuous) {
         return;
     }
     if (gift.messageType == 1) { // 礼物
-
         var bottom = countChange(f)
         gif[f] = $("<li class='animation' id='gift"+f+"' style='position: fixed;top: "
             + bottom
@@ -156,14 +178,16 @@ function giftShow(gift, f,continuous) {
             + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div><div class='animation_gift'><img src='"
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
+        
         try {
-           
+        	//显示礼物总数
+            $("#liveGiftCount").html(gift.giftCount);           
         } catch (error) {
             // 此处是负责例外处理的语句
         } finally {
             // 此处是出口语句
         }
-
+        
     } else if (gift.messageType == 0) { // 红包
         var bottom = countChange(f)
         gif[f] = $("<li class='animation' style='position: absolute;bottom: "
@@ -432,6 +456,8 @@ $(document).ready(function() {
                             });
                             $("#chatmsg").append(str);
                            
+                            
+                            
                             //显示礼物总数
                             $("#liveGiftCount").html(data.resultObject.giftCount);
                             
@@ -518,5 +544,5 @@ $(function () {
                 $("#gift"+i).remove();   /*注释以后,礼物就不会隐藏*/
             }
         }
-    },500)
+    },16)
 });

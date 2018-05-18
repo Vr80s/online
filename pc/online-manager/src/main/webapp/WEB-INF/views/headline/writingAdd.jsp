@@ -21,7 +21,7 @@
 			</small> 
 			著作管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 		</small>
-  <span>新增著作 </span>
+  <%--<span>新增著作 </span>--%>
 </div>
 <!-- 新增 form -->
 <div id="dialogArticleDiv"></div>
