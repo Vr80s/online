@@ -32,6 +32,7 @@ import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
+import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
@@ -74,11 +75,12 @@ public class MyManagerController {
 	@Autowired
 	private IMedicalDoctorApplyService medicalDoctorApplyService;
 
+	@Autowired
+	private ICommonService commonServiceImpl;
 	
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	
-
 	@Value("${rate}")
 	private int rate;
 
@@ -114,18 +116,23 @@ public class MyManagerController {
 			if(ou == null){
 				return ResponseObject.newErrorResponseObject("token过期",1002);
 			}
+			
+			
 			ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 			ou.setUserCenterId(iu.getId());
 			ou.setPassword(iu.getPassword());
-			
 			map.put("user", ou);
 			// 查找购买的课程数
 			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
 			//是否拥有主播权限
-			Integer hostPermissions = myInfoService.getUserHostPermissions(user.getId());
+			Integer hostPermissions = commonServiceImpl.isDoctorOrHospital(user.getId());
 			LOGGER.info(hostPermissions+"");
+			//1：医师认证成功 2：医馆认证成功
+			if(hostPermissions !=null && !hostPermissions.equals(1) && !hostPermissions.equals(2)) {
+				hostPermissions = 0;
+			}
 			// 查看主播权限   -- 并且把主播信息给返回过去
-			map.put("hostPermissions", hostPermissions != null ? hostPermissions :0);
+			map.put("hostPermissions",hostPermissions);
 			if(hostPermissions!=null &&  hostPermissions == 1){
 				//申请的医师信息
 				map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(user.getId()));

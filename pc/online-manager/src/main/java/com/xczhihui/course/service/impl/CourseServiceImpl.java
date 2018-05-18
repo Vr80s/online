@@ -1676,6 +1676,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
          Course course= dao.findByHQLOne(hql, new Object[]{courseId});
          course.setReleaseTime(new Date());
          course.setPlayBackType(i);
+         
          if(i==PlayBackType.GENERATION_FAILURE.getCode()) { //回放生产失败
         	 course.setStatus("0");
         	 System.out.println("回放生产失败");

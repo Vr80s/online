@@ -684,7 +684,7 @@ public class XzUserSetController {
 		/**
 		 * 获取所有的省份
 		 */
-		// List<Map<String, Object>> list = cityService.getProvince();
+		// List<Map<String, Object>> list = cityService.getProvince(\);
 		List<Map<String, Object>> list = cityService.getAllProvinceCityCounty();
 		return ResponseObject.newSuccessResponseObject(list);
 	}
