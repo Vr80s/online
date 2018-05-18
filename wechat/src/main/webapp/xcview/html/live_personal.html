@@ -38,7 +38,9 @@
     	font-size: 0.24rem;
 	}
 </style>
-
+<script>
+	alert(132);
+</script>
 </head>
 <body style="background:#F8F8F8;">
 <div class="wp">
@@ -502,6 +504,15 @@
 			$(".li_evaluate_hide").removeClass("hide");
 		});
 		$(".li_data").click();
+
+		//		点击微信出现提示框
+		$(".share_to_one").click(function(){
+			$(".weixin_ceng").show();
+		});
+		
+		$(".weixin_ceng").click(function(){
+			$(".weixin_ceng").hide();
+		});
 	};
 /* 	window.onload = function(){
 		//		点击分享share
