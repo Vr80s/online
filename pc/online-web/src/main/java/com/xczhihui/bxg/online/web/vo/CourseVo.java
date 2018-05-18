@@ -215,6 +215,10 @@ public class CourseVo{
     private String status;
 
     private String address;
+    /**
+     * 推荐排序
+     */
+    private Integer recommendSort;
 
     public String getAddress() {
         return address;
@@ -649,10 +653,15 @@ public class CourseVo{
 		this.liveStatus = liveStatus;
 	}
 
-	
-	
-	
-	public static String getWeekOfDate(Date dt) {
+    public Integer getRecommendSort() {
+        return recommendSort;
+    }
+
+    public void setRecommendSort(Integer recommendSort) {
+        this.recommendSort = recommendSort;
+    }
+
+    public static String getWeekOfDate(Date dt) {
         String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
         Calendar cal = Calendar.getInstance();
         cal.setTime(dt);

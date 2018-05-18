@@ -47,6 +47,7 @@ public class WritingsController extends AbstractController {
 
     @RequestMapping(value = "index")
     public String index(HttpServletRequest request) {
+        request.setAttribute("weburl", weburl);
         return HEADLINE_PATH_PREFIX + "/writingList";
     }
 

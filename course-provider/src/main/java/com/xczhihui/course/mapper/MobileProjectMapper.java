@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface MobileProjectMapper extends BaseMapper<MobileProject> {
 
-	 List<MobileProject> selectMobileProjectPage(@Param("page") Page<MobileProject> page, @Param("type") Integer type);
+	 List<MobileProject> selectMobileProjectPage(@Param("type") Integer type);
 
 	 List<MenuVo> selectMenuVo();
 }

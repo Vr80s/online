@@ -14,11 +14,13 @@ import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
+import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IMobileHotSearchService;
 import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.service.IOfflineCityService;
+import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
 
 import junit.framework.TestCase;
@@ -45,6 +47,9 @@ public class SchoolDaoTest extends TestCase {
 	  
 	@Autowired
 	private IOfflineCityService offlineCityService;
+	
+	@Autowired
+	private ICourseService courseService;
 
     public void testGetCourseTimetable() throws Exception {
 //
@@ -104,17 +109,15 @@ public class SchoolDaoTest extends TestCase {
      */
     @Test
     public void real() throws Exception {
-
-
 		 Page<OfflineCity> OfflineCity = new Page<>();
 		 OfflineCity.setCurrent(1);
 		 OfflineCity.setSize(4);
-		 Page<OfflineCity> ocl = offlineCityService.selectOfflineRecommendedCityPage(OfflineCity);
-		 
+		 Page<OfflineCity> ocl = offlineCityService.
+				 selectOfflineRecommendedCityPage(OfflineCity);
 		 
 		 List<Map<String, Object>>   listCourse =  mobileBannerService.realCourseList(ocl.getRecords(),PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
 				 PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue());
-    	
+		 
 		 System.out.println(listCourse.size());
     }
     
@@ -125,19 +128,20 @@ public class SchoolDaoTest extends TestCase {
     @Test
     public void live() throws Exception {
 
-
-		 Page<OfflineCity> OfflineCity = new Page<>();
-		 OfflineCity.setCurrent(1);
-		 OfflineCity.setSize(4);
-		 Page<OfflineCity> ocl = offlineCityService.selectOfflineRecommendedCityPage(OfflineCity);
+		 List<Map<String, Object>>   listCourse =
+				 mobileBannerService.liveCourseList(PagingFixedType.PC_LIVE_PAGETYPE.getValue());
 		 
-		 
-		 List<Map<String, Object>>   listCourse =  mobileBannerService.realCourseList(ocl.getRecords(),PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
-				 PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue());
-    	
 		 System.out.println(listCourse.size());
     }
     
-    
+    /**
+     *  听课测试
+     * @throws Exception
+     */
+    @Test
+    public void listen() throws Exception {
 
+		 List<CourseLecturVo>   listCourse =  courseService.listenCourseList();
+		 System.out.println(listCourse.size());
+    }
 }

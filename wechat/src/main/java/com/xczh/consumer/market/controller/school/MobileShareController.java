@@ -184,14 +184,12 @@ public class MobileShareController {
 					 * 判断这个用户session是否有效了，如果有效就不用登录了
 					 */
 					ou = onlineUserMapper.findUserById(wxw.getClient_id());
-					OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-					if(user == null){ //直接跳转到分享页面
-						//这里不用判断用户有没有登录了。没哟登录帮他登录
+					if(ou == null) {
 					    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 						Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 						ou.setTicket(t.getTicket());
 						onlogin(req,res,t,ou,t.getTicket());
-					}	
+					}
 				}
 				/**
 				 * 写入这个cookie

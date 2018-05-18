@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.school;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.ListenCourseService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IMobileBannerService;
@@ -51,10 +52,9 @@ public class MobileListenCourseController {
 		Map<String, Object> mapAll = new HashMap<String, Object>();
 		//听课banner
 		Page<MobileBanner> MobileBannerPage = new Page<>();
-		MobileBannerPage.setCurrent(1);
-		MobileBannerPage.setSize(100);
-		int bannerType = 4;
-		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(bannerType));
+		MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode()));
+		mapAll.put("banner",MobileBannerPage);
+		
 		//听课课程列表
 		List<CourseLecturVo> listenCourseList = courseService.listenCourseList();
 		mapAll.put("listenCourseList",listenCourseList);

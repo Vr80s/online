@@ -84,10 +84,10 @@ public class XzUserSetController {
 			@RequestParam("username") String username) throws Exception {
 
 		if (!XzStringUtils.checkPassword(oldPassword)) {
-			return ResponseObject.newErrorResponseObject("密码为6-18为英文大小写字母或者阿拉伯数字");
+			return ResponseObject.newErrorResponseObject("密码为6-18位英文大小写字母或者阿拉伯数字");
 		}
 		if (!XzStringUtils.checkPassword(newPassword)) {
-			return ResponseObject.newErrorResponseObject("密码为6-18为英文大小写字母或者阿拉伯数字");
+			return ResponseObject.newErrorResponseObject("密码为6-18位英文大小写字母或者阿拉伯数字");
 		}
 		if (!XzStringUtils.checkPhone(username)) {
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
@@ -333,12 +333,19 @@ public class XzUserSetController {
 						&& !filename.endsWith("bmp")) {
 					return ResponseObject.newErrorResponseObject("文件类型有误");
 				}
-				String contentType = fileMul.getContentType();// 文件类型
 				byte[] bs = fileMul.getBytes();
+				
+				LOGGER.info("个人头像:bytes():"+bs.length+
+						",filename:"+filename);
+				
+				
+				String contentType = fileMul.getContentType();// 文件类型
+				
 				String projectName = "other";
 				String fileType = "1"; // 图片类型了
 				String headImgPath = service.upload(null, // 用户中心的用户ID
-						projectName, filename, contentType, bs, fileType, null);
+						projectName, filename, contentType,
+						bs, fileType, null);
 				LOGGER.info("文件路径——path:" + headImgPath);
 
 				user.setSmallHeadPhoto(headImgPath);
