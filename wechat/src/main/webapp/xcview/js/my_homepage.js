@@ -59,6 +59,7 @@ function balance() {
             	 $("#smallHeadPhoto").attr("src",item.smallHeadPhoto + '?imageView2/2/w/160');
             	 $("#p_name").html(item.name);
             	 $("#attentionid").html(item.name);
+            	 $("#fansid").html(item.name);
             }
         }else{        	           
             webToast(data.errorMessage,"middle",1500);
