@@ -147,6 +147,19 @@ requestService("/xczh/host/hostPageInfo",{
 		chZJ(data.resultObject.lecturerInfo.video,1);
 	}
 
+	// 判断无课程
+
+	//处理评价高度
+	var school_height=$(window).height()-$(".personal_bg").height()-$(".anchor_navigation").height();
+	$(".li_course_hide").height(school_height);
+	
+	if(data.resultObject.recentCourse=="" || data.resultObject.recentCourse== null || data.resultObject.lecturerInfo.video==''||data.resultObject.lecturerInfo.video==null){
+		// alert(123);quie_pics
+		$(".quie_pics").show();
+	}else{
+		$(".quie_pics").hide();
+	};
+
 //介绍
 		if(data.resultObject.lecturerInfo.detail==''||data.resultObject.lecturerInfo.detail==null){
 			$("#jieshao").hide()			
