@@ -361,8 +361,7 @@ public class XzUserController {
 	 * @throws SQLException 
 	 */
 	@SuppressWarnings("unchecked")
-	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-                        Token token, OnlineUser user, String ticket) throws SQLException{
+	public void onlogin(HttpServletRequest req, HttpServletResponse res, Token token, OnlineUser user, String ticket) throws SQLException{
 		
 		LOGGER.info("用户普通登录----》ticket"+ticket);
 		/**

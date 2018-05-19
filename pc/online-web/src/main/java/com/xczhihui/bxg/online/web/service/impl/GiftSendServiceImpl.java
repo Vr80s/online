@@ -4,6 +4,7 @@ import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.online.common.domain.Gift;
 import com.xczhihui.bxg.online.common.domain.GiftStatement;
+import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.online.api.service.GiftSendService;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -41,7 +42,6 @@ public class GiftSendServiceImpl implements GiftSendService {
 	@Autowired
 	private RedisCacheService cacheService;
 
-	private static String GIFT_CACHE = "gift_";
 
 	//礼物缓存时间
 	private static int GIFT_CACHE_TIMEOUT = 60*10;
@@ -65,7 +65,7 @@ public class GiftSendServiceImpl implements GiftSendService {
 		giftStatement.setLiveId(liveId);
 		giftStatement.setCount(count);
 
-		Gift gift = cacheService.get(GIFT_CACHE+giftStatement.getGiftId());
+		Gift gift = cacheService.get(RedisCacheKey.GIFT_CACHE__PREFIX+giftStatement.getGiftId());
 		if(gift == null){
 			DetachedCriteria dc = DetachedCriteria.forClass(Gift.class);
 			dc.add(Restrictions.eq("isDelete", false));
@@ -75,7 +75,7 @@ public class GiftSendServiceImpl implements GiftSendService {
 				throw new RuntimeException("无对应礼物");
 			}else{
 				//缓存礼物数据10分钟
-				cacheService.set(GIFT_CACHE+giftStatement.getGiftId(),gift,GIFT_CACHE_TIMEOUT);
+				cacheService.set(RedisCacheKey.GIFT_CACHE__PREFIX+giftStatement.getGiftId(),gift,GIFT_CACHE_TIMEOUT);
 			}
 		}else{
 			logger.info("取到礼物缓存数据");
@@ -137,7 +137,7 @@ public class GiftSendServiceImpl implements GiftSendService {
 	}
 
 	private void freeGiftCheck(Gift gift, String liveId, String giverId) {
-		String freeGiftSendKey = "f_g_" + liveId+giverId;
+		String freeGiftSendKey = RedisCacheKey.FREE_GIFT_SEND__PREFIX + liveId+giverId;
 		if(gift.getPrice() == 0){
 			Integer fgsCount = cacheService.get(freeGiftSendKey);
 			if(fgsCount == null){
@@ -155,7 +155,7 @@ public class GiftSendServiceImpl implements GiftSendService {
 
 	private int getContinuousCount(String id, Integer giftId, String liveId) {
 		//用户id+视频Id+礼物id
-		String giftShowTicket = "f_s_"+id+"_"+giftId+"_"+liveId;
+		String giftShowTicket = RedisCacheKey.GIFT_SHOW_PREFIX+id+"_"+giftId+"_"+liveId;
 		Integer continuousCount = cacheService.get(giftShowTicket);
 		if(continuousCount == null){
 			continuousCount = 1;
