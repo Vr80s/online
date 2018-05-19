@@ -210,6 +210,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		}
 		if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)&&
 				!menuType.equals("goodCourse")&&!menuType.equals("newCourse")){
+			
 			commonSql.append(" AND oc.menu_id = '"+menuType+"' ");
 		}
 		

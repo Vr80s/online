@@ -44,9 +44,6 @@ public class MobileRecommendController {
 	private OLCourseServiceI wxcpCourseService;
 	
 	@Autowired
-	private MenuService menuService;
-
-	@Autowired
 	private IMobileBannerService mobileBannerService;
 
 	@Autowired

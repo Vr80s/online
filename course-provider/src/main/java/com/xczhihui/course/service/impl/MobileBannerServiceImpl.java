@@ -15,6 +15,7 @@ import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.QueryConditionVo;
 
 /**
  * <p>
@@ -194,5 +195,13 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper,Mobi
 	@Override
 	public List<Map<String, Object>> liveCourseList(Integer pageSize) {
 		return liveCourseList(pageSize,pageSize);
+	}
+	@Override
+	public List<CourseLecturVo> searchQueryKeyCourseList(QueryConditionVo queryConditionVo) {
+		return iMobileBannerMapper.searchQueryKeyCourseList(queryConditionVo);
+	}
+	@Override
+	public List<CourseLecturVo> searchCourseList(QueryConditionVo queryConditionVo) {
+		return iMobileBannerMapper.searchCourseList(queryConditionVo);
 	}
 }

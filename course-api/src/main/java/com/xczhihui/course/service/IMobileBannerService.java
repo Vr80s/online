@@ -5,7 +5,9 @@ import java.util.Map;
 
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
+import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.QueryConditionVo;
 
 public interface IMobileBannerService {
 
@@ -65,5 +67,20 @@ public interface IMobileBannerService {
 	   * @return
 	   */
 	  public List<Map<String,Object>> liveCourseList(Integer pageSize);
+
+	  /**
+	   * 检索列表  带有关键字的查找
+	   * @param queryConditionVo
+	   * @return
+	   */
+	  public List<CourseLecturVo> searchQueryKeyCourseList(QueryConditionVo queryConditionVo);
+
+	  
+	  /**
+	   * 检索列表 没有带关键字的查找
+	   * @param queryConditionVo
+	   * @return
+	   */
+	  public List<CourseLecturVo> searchCourseList(QueryConditionVo queryConditionVo);
 
 }

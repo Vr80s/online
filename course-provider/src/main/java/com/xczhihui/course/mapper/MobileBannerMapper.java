@@ -6,6 +6,7 @@ import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.QueryConditionVo;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -34,5 +35,9 @@ public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 
 	List<CourseLecturVo> liveCourseList(@Param("pageSizeUp")Integer pageSizeUp,
 			@Param("pageSizeDown")Integer pageSizeDown);
+
+	List<CourseLecturVo> searchQueryKeyCourseList(@Param("queryConditionVo")QueryConditionVo queryConditionVo);
+
+	List<CourseLecturVo> searchCourseList(@Param("queryConditionVo")QueryConditionVo queryConditionVo);
 	 
 }

@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.controller.school;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.service.IOfflineCityService;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.QueryConditionVo;
 
 /**
  * Description：医馆页面
@@ -148,6 +150,31 @@ public class SchoolController extends AbstractFtlController {
 		 view.addObject("doctorList",myInfoService.hostInfoRec());
 		 return view;
 	}
+	
+	
+	/**
+	 * 检索列表页面
+	 * @return
+	 */
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+    public ModelAndView list(
+    		QueryConditionVo queryConditionVo) {
+		 ModelAndView view = new ModelAndView("school/school_video");
+		 
+		 //
+		 if(StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
+			 view.addObject("courseList",mobileBannerService.searchQueryKeyCourseList(queryConditionVo)); 
+		 }else {
+			 view.addObject("courseList",mobileBannerService.searchCourseList(queryConditionVo)); 
+		 }
+		 
+		 
+		 return view;
+	}
+	
+	
+	
+	
 	
 	
 }
