@@ -81,14 +81,14 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 			
 			VerificationCode code = codes.get(0);
 			
-			if (new Date().getTime() - code.getCreateTime().getTime() < 1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
+			if (System.currentTimeMillis() - code.getCreateTime().getTime() < 1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
 				//发送，判断邮箱还是手机
 				if (username.contains("@")){
 					throw new RuntimeException ("同一邮箱两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！");
 				}else{
 					throw new RuntimeException ("同一手机号两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！");
 				}
-			} else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60
+			} else if (System.currentTimeMillis() - code.getCreateTime().getTime() > 1000 * 60
 					* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 				code.setVcode(vcode);
 			} else {
@@ -185,7 +185,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		if (codes == null || codes.size() <= 0) {
 			throw new RuntimeException("动态码不正确！");
 		}
-		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 1000 * 60
+		if (System.currentTimeMillis() - codes.get(0).getCreateTime().getTime() > 1000 * 60
 				* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 			throw new RuntimeException ("动态码超时，请重新发送！");
 		}

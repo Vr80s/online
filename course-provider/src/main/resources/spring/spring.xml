@@ -13,7 +13,7 @@
     <!-- 引入属性文件 -->
     <context:property-placeholder location="classpath:config.properties"/>
     <!-- Service包(自动注入) -->
-    <context:component-scan base-package="com.xczhihui.course.service"/>
+    <context:component-scan base-package="com.xczhihui.course.service,com.xczhihui.course.config"/>
     <import resource="classpath:spring/spring-mybatis.xml"/>
 
     <!-- dubbo -->
@@ -44,4 +44,9 @@
     <dubbo:service interface="com.xczhihui.course.service.IPaymentRecordService" ref="paymentRecordServiceImpl" timeout="${dubbo.provider.timeout}"  />
     <!--热门搜索服务-->
     <dubbo:service interface="com.xczhihui.course.service.IMobileHotSearchService" ref="mobileHotSearchServiceImpl" timeout="${dubbo.provider.timeout}"  />
+    <!--消息服务-->
+    <dubbo:service interface="com.xczhihui.course.service.ICommonMessageService" ref="commonMessageServiceImpl" timeout="${dubbo.provider.timeout}"/>
+    <!--微信接口服务-->
+    <dubbo:service interface="me.chanjar.weixin.mp.api.WxMpService" ref="wxMpService" timeout="${dubbo.provider.timeout}"/>
+
 </beans>
