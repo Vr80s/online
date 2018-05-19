@@ -21,7 +21,7 @@ public interface MessageMapper extends BaseMapper<Message> {
      * @param page
      * @return
      */
-    @Select("select * from oe_message where user_id = #{userId}")
+    @Select("select * from oe_message where user_id = #{userId} and is_delete = 0 and type !=2 order by create_time desc")
     List<Message> findByUserId(Page<Message> page, @Param("userId") String userId);
 
 }
