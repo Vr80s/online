@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.enums.UserStatus;
+import com.xczhihui.user.center.utils.SaltUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -76,8 +77,8 @@ public class UserServiceImpl implements UserService {
             user.setPassword(pwd);
         }
         user.setCreateTime(new Date());
-        user.setSalt(CodeUtil.generateRandomSalt());
-        String pwd = CodeUtil.encodePassword(user.getPassword(), user.getSalt());
+        user.setSalt(SaltUtil.generateRandomSalt());
+        String pwd = SaltUtil.encodePassword(user.getPassword(), user.getSalt());
         user.setPassword(pwd);
         this.userDao.save(user);
     }
@@ -250,7 +251,7 @@ public class UserServiceImpl implements UserService {
         String pwd = user.getPassword();
         if (StringUtils.hasText(pwd)) {
             // 填写了新密码或修改了手机号
-            String enpwd = CodeUtil.encodePassword(user.getPassword(), old.getSalt());
+            String enpwd = SaltUtil.encodePassword(user.getPassword(), old.getSalt());
             old.setPassword(enpwd);
         }
         old.setMobile(user.getMobile());
@@ -261,7 +262,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserPassword(String loginName, String password) {
         User t = this.userDao.getUserByLoginName(loginName);
-        password = CodeUtil.encodePassword(password, t.getSalt());
+        password = SaltUtil.encodePassword(password, t.getSalt());
         t.setPassword(password);
         this.userDao.update(t);
     }

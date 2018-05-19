@@ -11,15 +11,15 @@ import java.util.Properties;
 @Component
 public class TokenThread implements Runnable {
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TokenThread.class); 
-	
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TokenThread.class);
+
 	private static final String access_token_url="https://api.weixin.qq.com/cgi-bin/token?"
-	        + "grant_type=client_credential&appid=APPID&secret=APPSECRET";
-	
+			+ "grant_type=client_credential&appid=APPID&secret=APPSECRET";
+
 	private static  String appid;//你自己的appid
-    private static  String appsecret;//你自己的appsecret
-    
-    private static String returnOpenidUri;//
+	private static  String appsecret;//你自己的appsecret
+
+	private static String returnOpenidUri;//
 
 	static{
 		InputStream in = null;
@@ -27,13 +27,13 @@ public class TokenThread implements Runnable {
 			Properties properties = new Properties();
 			in =TokenThread.class.getClassLoader().getResourceAsStream("config.properties");
 			properties.load(in);
-			
+
 			//微信公众号和h5
 			appid = properties.getProperty("wechatpay.h5.appid");
 			appsecret = properties.getProperty("wechatpay.gzhSecret");
 			returnOpenidUri  = properties.getProperty("returnOpenidUri");
-			
-			
+
+
 			LOGGER.info("读取配置信息成功！"+appid+"====="+appsecret);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class TokenThread implements Runnable {
 					// 调用工具类获取access_token(每日最多获取100000次，每次获取的有效期为7200秒)
 					String requestUrl=access_token_url.replace("APPID",appid).replace("APPSECRET", appsecret);
 					String token = HttpUtil.sendGetRequest(requestUrl);
-			        JSONObject jsonObject = JSONObject.fromObject(token);
+					JSONObject jsonObject = JSONObject.fromObject(token);
 					String  access_token = (String)jsonObject.get("access_token");
 					Integer expires_in = (Integer)jsonObject.get("expires_in");
 					if (null != access_token) {
@@ -79,17 +79,17 @@ public class TokenThread implements Runnable {
 			LOGGER.info("开发环境不请求token");
 		}
 	}
-	
-    /**
-     * 获取SingleAccessToken对象
-     * @return
-     */
-    public static String  getInstance(){
-    	String requestUrl=access_token_url.replace("APPID",appid).replace("APPSECRET", appsecret);
-        String token = HttpUtil.sendGetRequest(requestUrl);
-        JSONObject jsonObject = JSONObject.fromObject(token);
- 		String access_token = (String)jsonObject.get("access_token");
- 		return access_token;
-    }
+
+	/**
+	 * 获取SingleAccessToken对象
+	 * @return
+	 */
+	public static String  getInstance(){
+		String requestUrl=access_token_url.replace("APPID",appid).replace("APPSECRET", appsecret);
+		String token = HttpUtil.sendGetRequest(requestUrl);
+		JSONObject jsonObject = JSONObject.fromObject(token);
+		String access_token = (String)jsonObject.get("access_token");
+		return access_token;
+	}
 
 }

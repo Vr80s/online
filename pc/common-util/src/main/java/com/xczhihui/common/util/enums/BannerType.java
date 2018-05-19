@@ -16,7 +16,7 @@ public enum BannerType {
 		RECOMMENDATION(1, "推荐"),
 		REAL(2, "线下课"),
 		LIVE(3, "直播"),
-		LISTEN(3, "听课");
+		LISTEN(4, "听课");
 		/**
 	     * 描述
 	     **/

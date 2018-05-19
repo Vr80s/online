@@ -1,9 +1,8 @@
 package com.xczhihui.course.service;
 
-import com.aliyuncs.exceptions.ClientException;
-import com.xczhihui.bxg.online.common.domain.Course;
-
 import java.util.List;
+
+import com.xczhihui.bxg.online.common.domain.Course;
 
 /**
  * Description: <br>
@@ -12,11 +11,15 @@ import java.util.List;
  * Create Time:  2018/5/9 0009-下午 1:43<br>
  */
 public interface MessageRemindingService {
-    void saveCourseMessageReminding(Course course);
+    void saveCourseMessageReminding(Course course, String key);
 
-    void deleteCourseMessageReminding(Course course);
+    void deleteCourseMessageReminding(Course course, String key);
 
-    List<Course> getCourseMessageRemindingList();
+    List<Course> getCourseMessageRemindingList(String key);
 
-    void checkCourseMessageReminding() throws ClientException;
+    void liveCourseMessageReminding();
+
+    void offlineCourseMessageReminding();
+
+    void collectionUpdateRemind();
 }

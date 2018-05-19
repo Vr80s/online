@@ -127,6 +127,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 	    pageNumber = pageNumber == null ? 1 : pageNumber;
 		pageSize = pageSize == null ? 100000 : pageSize;
+		
+		
         StringBuffer  commonSql =new StringBuffer();
         //如果为模糊查询，排序规则为，课程名>分类>讲师名>课程,讲师简介
         if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
@@ -155,6 +157,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 		commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 				+ " oc.is_delete=0 and oc.status = 1   ");
+		
+		
 		if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 			if(city.equals("其他")){
 				Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -208,6 +212,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				!menuType.equals("goodCourse")&&!menuType.equals("newCourse")){
 			commonSql.append(" AND oc.menu_id = '"+menuType+"' ");
 		}
+		
 		//判断是否有模糊查询
 		if(org.apache.commons.lang.StringUtils.isBlank(queryKey)){
 			if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
@@ -229,6 +234,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			}
 		}else{
 			commonSql.append(") ");
+			
 			commonSql.append(" union ");
 
 			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
@@ -255,6 +261,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
+			
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();

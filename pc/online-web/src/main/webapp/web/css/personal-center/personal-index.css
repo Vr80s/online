@@ -11,6 +11,7 @@ a:hover{text-decoration: none;}
 .z{float: left;}
 .y{float: right;}
 .wp{width: 1200px; margin: 0 auto;}
+.cl{clear: both;}
 .main-left{
 	width: 220px;
 	margin-top: 20px;
@@ -395,14 +396,17 @@ cursor: pointer;
 .question-wrap{
 	min-height: 625px;
 	background: white;
-	padding: 20px 0 0 20px;
+	padding: 0 0 0 20px;
 }
 .question-list-wrap{
 	width: 820px;
 	overflow: hidden;
-	border-bottom: 1px solid#000000;
-	padding-bottom: 20px;
+	border-bottom: 1px solid #f0f0f0;
+	padding: 20px 0 0 0;
 	color: #666666;
+}
+.question-list-wrap:last-child{
+	border-bottom: 0;
 }
 .head-name-who{
 	width: 70px;
@@ -425,14 +429,26 @@ cursor: pointer;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
+.my-answer{
+	width: 40px;
+	height: 40px;
+	background: #F97B49;
+	border-radius: 4px;
+	margin: 10px auto 0;
+	font-size: 12px;
+	color: white;
+}
 .question-status-wrap{
 	margin: 10px 0;
 }
+.my-answer span{
+	display: block;
+	padding-top: 5px;
+}
 .question-list-wrap .source-text{
 	width: 730px;
-	background: skyblue;
-
+	/*background: skyblue;*/
+	overflow: hidden;
 }
 .question-status-wrap span{
 	display: inline-block;
@@ -456,6 +472,9 @@ cursor: pointer;
     word-break: break-all;
     word-wrap: break-word;
     margin: 0;
+    margin-bottom: 20px;
+    overflow: hidden;
+    line-height: 20px;
 }
 .toggle .closes{
      display: none;
@@ -467,4 +486,279 @@ cursor: pointer;
   color: #2CB82C !important;
     font-size: 13px;
     text-decoration: none;
+}
+.show-img{
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.show-img ul li{
+	float: left;
+	margin-right: 20px;
+	width: 142px;
+	height: 80px;
+}
+.show-img ul li img{
+	width: 100%;
+	height: 100%;
+}
+.time-status{
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.time-status ul li{
+	float: left;
+	margin-right: 20px;
+}
+.time-status ul li i{
+	font-size: 14px;
+	color: #999999;
+	margin-right: 3px;
+}
+.time-status ul li .icon-set{
+	    font-size: 12px;
+    float: left;
+    margin-top: 4px;
+    margin-right: 5px;
+}
+/*回复的内容/点赞*/
+.reply-wrap{
+	width: 730px;
+	background: #F0F0F0;
+	padding: 10px 10px 20px;
+	margin-bottom: 20px;
+}
+.reply-user-head{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.reply-user-head img{
+	width: 100%;
+	height: 100%;
+}
+.reply-user-text{
+	width: 640px;
+	margin-top: 20px;
+
+}
+.reply-user-text h5{
+	font-weight: bold;
+	margin-top: 0;
+}
+.reply-user-text p{
+	margin-bottom: 10px;
+}
+.reply-user-text ul li{
+	float: left;
+	margin-right: 20px;
+	 color:#999999;
+}
+.reply-user-text ul li i{
+	color: #bcbcbc;
+    vertical-align: middle;
+    margin-top: 3px;
+    float: left;
+    margin-right: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.reply-user-text ul .select-active i{
+	color: #00bc12;
+}
+/*我的论坛*/
+.forum-wrap{
+	 width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+    overflow: hidden;
+}
+.forum-wrap ul li{
+	 float: left;
+    border-bottom: 2px solid transparent;
+    padding: 20px 20px 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+ .forum-wrap ul .mune-active{
+    border-bottom: 2px solid #00bc12;
+ 	color: #00bc12;
+ }  
+ .reply-post-wrap{
+ 	width: 100%;
+ 	min-height: 625px;
+ 	padding: 20px 0 20px 20px;
+ 	overflow: hidden;
+ }   
+ .post-box{
+ 	width: 920px;
+
+ }
+.post-box table{
+	width:920px;
+	table-layout: fixed;
+}
+.post-box table .thead-title{
+	background: #f0f0f0;
+	height: 48px;
+}
+.post-box table tr th{
+		white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden; 
+	padding-left: 20px;
+	color: #666666;
+}
+
+.post-box table tr th:nth-child(1){
+	width: 570px;
+
+}
+.post-box table tr th:nth-child(2){
+	width: 150px;
+	text-align: center;
+}
+.post-box table tr th:nth-child(3){
+	width: 200px;
+	text-align: center;
+}
+.post-box table tr td{
+	padding: 20px 0 20px 20px;
+	border-bottom: 1px solid #f0f0f0;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden; 
+}
+.post-box table tr td:nth-child(2){
+
+	text-align: center;
+}
+.post-box table tr td:nth-child(3){
+
+	text-align: center;
+}
+/*我的回复*/
+ .reply-box{
+ 	width: 920px;
+ }
+ .reply-status{
+ 	width: 100%;
+ 	height: 48px;
+ 	background: #f0f0f0;
+ 	line-height: 48px;
+ }
+ .reply-status ul li{
+ 	float: left;
+	font-weight: bold;
+ 	padding-left: 20px;
+ 	color: #666666;
+ }
+ .reply-status ul li:nth-child(1){
+ 	width: 570px;
+ }
+ .reply-status ul li:nth-child(2){
+ 	width: 150px;
+ 	text-align: center;
+ }
+  .reply-status ul li:nth-child(3){
+ 	width: 200px;
+ 	text-align: center;
+ }
+ 
+.reply-tltle{
+ 	width: 100%;
+	overflow: hidden;
+ 	border-bottom: 1px solid #f0f0f0;
+ 	padding-bottom: 20px;
+ }
+ .reply-tltle ul li{
+ 	line-height: 48px;	
+ 	float: left;
+
+ 	padding-left: 20px;
+ 	color: #333333;
+
+ }
+ .reply-tltle ul li:nth-child(1){
+ 	width: 570px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+ }
+ .reply-tltle ul li:nth-child(2){
+ 	width: 150px;
+ 	text-align: center;
+ }
+ .reply-tltle ul li:nth-child(3){
+ 	width: 200px;
+ 	text-align: center;
+ }
+  .reply-tltle p{
+   	color: #999999;
+   	clear: both;
+    padding-left: 20px;
+ }
+ .order-wrap{
+ 	width: 960px;
+ 	min-height: 596px;
+ 	background: white;
+ }
+.order-box{
+	width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+
+}
+.order-box ul li{
+	 float: left;
+    border-bottom: 2px solid transparent;
+    padding: 20px 30px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.order-box ul li span{
+	display: inline-block;
+	overflow: hidden;
+}
+.order-box ul li .triangle-bottom{
+	    overflow: initial;
+    position: absolute;
+    top: 26px;
+    right: 7px;
+    font-size: 12px;
+}
+.order-box ul .mune-active{
+	border-bottom: 2px solid #00BC12;
+    color: #00BC12;
+} 
+.order-box .all-order{
+	position: relative;
+}
+.order-box .all-order .select-write{
+	width: 68px;
+	display: inline-block;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.order-box .all-change{
+	position: absolute;
+	width: 128px;
+	left: 0;
+	top: 59px;
+	color: #333333;
+	border: 1px solid #00bc12;
+	background: white;
+	/*border-top: 0;*/
+}
+.order-box .all-change span{
+	display: block;
+	text-align: center;
+	padding: 7px 0;
+	
+}
+.order-box .all-change span:hover{
+	background: #00BC12;
+	color: white;
 }

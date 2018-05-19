@@ -46,7 +46,7 @@ import com.xczhihui.common.util.enums.UserUnitedStateType;
 
 /**
  * 用户controller
- * 
+ *
  * @author zhangshixiong
  * @date 2017-02-22
  */
@@ -79,7 +79,7 @@ public class WeChatThirdPartyController {
 	 * 公众号和手机号在h5中的关系 Description： 1、h5
 	 * 微信第三方登录（如果没有绑定手机号，在进行非游客操作时需要进行晚上信息，如果绑定了手机号就直接登录）--》也就是微信号绑定手机账户
 	 * 2、h5绑定微信号 -->也就是通过手机号去绑定微信号
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param params
@@ -90,7 +90,7 @@ public class WeChatThirdPartyController {
 	 */
 	@RequestMapping("publicWechatAndMobile")
 	public void publicWechatAndMobile(HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
+									  HttpServletResponse res) throws Exception {
 
 		String redirect_uri = "/xczh/wxlogin/publicWechatAndMobileCallback";
 		String userId = req.getParameter("userId");
@@ -109,18 +109,18 @@ public class WeChatThirdPartyController {
 				+ returnOpenidUri
 				+ redirect_uri
 				+ "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
-						.replace("appid=APPID", "appid=" + WxPayConst.gzh_appid);
+				.replace("appid=APPID", "appid=" + WxPayConst.gzh_appid);
 		LOGGER.info("strLinkHome:" + strLinkHome);
 		res.sendRedirect(strLinkHome);
 	}
 
 	/**
 	 * 公众号和手机号在h5中的关系 --》微信回调
-	 * 
+	 *
 	 * Description： 1、h5
 	 * 微信第三方登录（如果没有绑定手机号，在进行非游客操作时需要进行晚上信息，如果绑定了手机号就直接登录）--》也就是微信号绑定手机账户
 	 * 2、h5绑定微信号 -->也就是通过手机号去绑定微信号
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param params
@@ -131,7 +131,7 @@ public class WeChatThirdPartyController {
 	 */
 	@RequestMapping("publicWechatAndMobileCallback")
 	public void publicWechatAndMobileCallback(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+											  HttpServletResponse res, Map<String, String> params)
 			throws Exception {
 
 		LOGGER.info("WX return code:" + req.getParameter("code"));
@@ -234,7 +234,7 @@ public class WeChatThirdPartyController {
 
 	/**
 	 * Description：app端第三方登录 ---绑定手机号使用
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param params
@@ -248,10 +248,10 @@ public class WeChatThirdPartyController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject addAppThirdparty(HttpServletRequest req,
-			HttpServletResponse res,
-			@RequestParam("accessToken") String accessToken,
-			@RequestParam("openId") String openId,
-			@RequestParam("model") String model) throws Exception {
+										   HttpServletResponse res,
+										   @RequestParam("accessToken") String accessToken,
+										   @RequestParam("openId") String openId,
+										   @RequestParam("model") String model) throws Exception {
 
 		LOGGER.info("WX get access_token	:" + accessToken);
 		LOGGER.info("WX get openid	:" + openId);
@@ -274,10 +274,10 @@ public class WeChatThirdPartyController {
 			String user_buffer = CommonUtil.getUserInfo(accessToken, openId);
 
 			JSONObject jsonObject = JSONObject.parseObject(user_buffer);// Map<String,
-																		// Object>
-																		// user_info
-																		// =GsonUtils.fromJson(user_buffer,
-																		// Map.class);
+			// Object>
+			// user_info
+			// =GsonUtils.fromJson(user_buffer,
+			// Map.class);
 			String openid_ = (String) jsonObject.get("openid");
 			String nickname_ = (String) jsonObject.get("nickname");
 			String sex_ = String.valueOf(jsonObject.get("sex"));
@@ -380,7 +380,7 @@ public class WeChatThirdPartyController {
 
 	/**
 	 * Description：普通用户微信登录----》得到当前微信号的的openId(为了让微信支付成功)
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param params  entryType 微信公众号入口，entryType 1 表示从登录页面进入首页   2 表示从注册页面进入完善头像页面
@@ -391,8 +391,8 @@ public class WeChatThirdPartyController {
 	 */
 	@RequestMapping("getCurrentWechatOpenId")
 	public void getCurrentWechatOpenId(HttpServletRequest req,
-			HttpServletResponse res,
-			@RequestParam("entryType")Integer entryType) throws Exception {
+									   HttpServletResponse res,
+									   @RequestParam("entryType")Integer entryType) throws Exception {
 
 		if(entryType == null || entryType == 0 ) {
 			entryType = 1;
@@ -410,9 +410,9 @@ public class WeChatThirdPartyController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Description：普通用户微信登录----》微信回调获取当前手机号的openId
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param params
@@ -424,10 +424,10 @@ public class WeChatThirdPartyController {
 	 */
 	@RequestMapping("getCurrentWechatOpenIdCallback")
 	public void getCurrentWechatOpenIdCallback(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+											   HttpServletResponse res, Map<String, String> params)
 			throws Exception {
-		
-		
+
+
 		ConfigUtil cfg = new ConfigUtil(req.getSession());
 		String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 		/**
@@ -442,20 +442,20 @@ public class WeChatThirdPartyController {
 		 */
 		WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,
 				wxcpClientUserWxMappingService);
-		
+
 		if(entryType!=null && entryType.equals("2")) {
 			res.sendRedirect(returnOpenidUri+ "/xcview/html/heads_nicknames.html?openId="+ wxw.getOpenid());
 		}else {
 			res.sendRedirect(returnOpenidUri+ "/xcview/html/home_page.html?openId="
 					+ wxw.getOpenid());
 		}
-		
-	
+
+
 	}
 
 	/**
 	 * 登录成功处理
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param token
@@ -464,7 +464,7 @@ public class WeChatThirdPartyController {
 	 */
 	@SuppressWarnings("unchecked")
 	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-			Token token, OnlineUser user, String ticket) throws SQLException {
+						Token token, OnlineUser user, String ticket) throws SQLException {
 
 		LOGGER.info("用户普通登录----》ticket" + ticket);
 		/**
@@ -519,15 +519,15 @@ public class WeChatThirdPartyController {
 			UCCookieUtil.writeTokenCookie(res, token);
 		}
 	}
-	
-	   /**
-     * 初始化获取微信token
-     */
-    @PostConstruct
-    public void initTokenFiter(){
-    	
-    	LOGGER.info("初始化token:");
-    	
-    	new Thread(new TokenThread()).start();
-    }
+
+	/**
+	 * 初始化获取微信token
+	 */
+	@PostConstruct
+	public void initTokenFiter(){
+
+		LOGGER.info("初始化token:");
+
+		new Thread(new TokenThread()).start();
+	}
 }

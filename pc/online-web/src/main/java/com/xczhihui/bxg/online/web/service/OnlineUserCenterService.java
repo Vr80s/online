@@ -21,84 +21,84 @@ import java.util.Map;
  *
  */
 public interface OnlineUserCenterService {
-	
-	/**
-	 * 获取用户资料
-	 * @return
-	 */
-	public UserDataVo getUserData(String userId);
-	
-	/**
-	 * 获取用户
-	 * @param userId
-	 * @return
-	 */
-	public OnlineUser getUser(String userId);
-	
-	/**
-	 * 获取用户
-	 * @param loginName
-	 * @return
-	 */
-	public OnlineUser getUserByLoginName(String loginName);
 
-	/**
-	 * 修改用户资料
-	 * @param user
-	 * @return
-	 */
-	public void updateUser(OeUserVO user, HttpServletRequest request);
+    /**
+     * 获取用户资料
+     * @return
+     */
+    public UserDataVo getUserData(String userId);
 
-	/**
-	 * 修改用户资料
-	 * @param user
-	 * @return
-	 */
-	public Map<String,String> updateApply(ApplyVo user,HttpServletRequest request);
-	
-	/**
-	 * 修改用户头像
-	 * @param user
-	 * @param img
-	 * @return
-	 */
-	public void updateUserHeadImg(BxgUser user, String img);
-	/**
-	 * 修改密码
-	 * @param userId 用户id
-	 * @param pwd 密码
-	 * @return
-	 */
-	public boolean updatePassword(String userId, String pwd);
-	
-	/**
-	 * 获取用户中心顶部显示信息
-	 * @param userId 用户id
-	 * @return
-	 */
-	public UserCenterVo getUserInfo(String userId);
-	
-	/**
-	 * 意见反馈
-	 * @param userId
-	 * @param title 标题
-	 * @param describe 描述
-	 */
-	public void addFeedBack(String userId, String title, String describe);
-	
-	/**
-	 * 根据区域id获取省份
-	 * @param
-	 * @return
-	 */
-	public List<ProvinceVo> getAllProvince();
-	
-	/**
-	 * 根据省份id获取城市
-	 * @param proId
-	 * @return
-	 */
-	public List<CityVo> getCityByProId(Integer proId);
+    /**
+     * 获取用户
+     * @param userId
+     * @return
+     */
+    public OnlineUser getUser(String userId);
+
+    /**
+     * 获取用户
+     * @param loginName
+     * @return
+     */
+    public OnlineUser getUserByLoginName(String loginName);
+
+    /**
+     * 修改用户资料
+     * @param user
+     * @return
+     */
+    public void updateUser(OeUserVO user, HttpServletRequest request);
+
+    /**
+     * 修改用户资料
+     * @param user
+     * @return
+     */
+    public Map<String,String> updateApply(ApplyVo user,HttpServletRequest request);
+
+    /**
+     * 修改用户头像
+     * @param user
+     * @param img
+     * @return
+     */
+    public void updateUserHeadImg(BxgUser user, String img);
+    /**
+     * 修改密码
+     * @param userId 用户id
+     * @param pwd 密码
+     * @return
+     */
+    public boolean updatePassword(String userId, String pwd);
+
+    /**
+     * 获取用户中心顶部显示信息
+     * @param userId 用户id
+     * @return
+     */
+    public UserCenterVo getUserInfo(String userId);
+
+    /**
+     * 意见反馈
+     * @param userId
+     * @param title 标题
+     * @param describe 描述
+     */
+    public void addFeedBack(String userId, String title, String describe);
+
+    /**
+     * 根据区域id获取省份
+     * @param
+     * @return
+     */
+    public List<ProvinceVo> getAllProvince();
+
+    /**
+     * 根据省份id获取城市
+     * @param proId
+     * @return
+     */
+    public List<CityVo> getCityByProId(Integer proId);
 
     List<Map<String, Object>> getAllProvinceCity() throws SQLException;
 }

@@ -381,7 +381,7 @@ public class CourseDao extends SimpleHibernateDao {
     public CourseApplyVo getCourseApplyByCourseId(Integer courseId) {
         if (courseId != null) {
             String sql = " SELECT c.id,  c.grade_name AS courseName,c.description, c.bigimg_path AS bigImgPath,c.cloud_classroom AS cloudClassroom, c.is_free,c.original_cost AS originalCost,c.course_pwd coursePwd,"
-                    + " c.current_price AS currentPrice ,c.user_lecturer_id AS userLecturerId, t.name AS courseType FROM oe_course c LEFT JOIN teach_method t  ON c.courseType = t.id  WHERE c.id= ? AND c.is_delete =0 AND c.status=1  ";
+                    + " c.current_price AS currentPrice ,c.user_lecturer_id AS userLecturerId, t.name AS courseType, c.start_time AS startTime FROM oe_course c LEFT JOIN teach_method t  ON c.courseType = t.id  WHERE c.id= ? AND c.is_delete =0 AND c.status=1  ";
             List<CourseApplyVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{courseId}, BeanPropertyRowMapper.newInstance(CourseApplyVo.class));
             return courseVoList.size() > 0 ? courseVoList.get(0) : null;
         }
@@ -651,7 +651,7 @@ public class CourseDao extends SimpleHibernateDao {
         String sql = "SELECT \n" +
                 "  o.user_id,\n" +
                 "  ood.course_id,\n" +
-                "  oc.grade_name course_name \n" +
+                "  oc.grade_name course_name, oc.start_time as startTime, oc.collection, oc.type \n" +
                 "FROM\n" +
                 "  oe_order o\n" +
                 "  JOIN oe_order_detail ood\n" +
@@ -768,6 +768,16 @@ public class CourseDao extends SimpleHibernateDao {
     public Course getCourse(Integer courseId) {
         DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
         dc.add(Restrictions.eq("id", courseId));
+        Course course = this.findEntity(dc);
+        if (course == null) {
+            return null;
+        }
+        return course;
+    }
+
+    public Course getCourseByApplyId(String applyId) {
+        DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
+        dc.add(Restrictions.eq("apply_id", applyId));
         Course course = this.findEntity(dc);
         if (course == null) {
             return null;

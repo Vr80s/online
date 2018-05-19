@@ -35,26 +35,26 @@ import java.util.Map;
 public class H5WeChatSetController {
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5WeChatSetController.class);
-	
+
 	@Autowired
 	private	WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-	
+
 	@Autowired
 	private UserCenterService userCenterService;
-	
+
 	@Autowired
 	private OnlineUserMapper onlineUserMapper;
-	
+
 	@Autowired
 	private AppBrowserService appBrowserService;
-	
+
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
-	
+
 	@Value("${wechatpay.h5.appid}")
 	private String gzh_appid;
-	
-	
+
+
 	/**
 	 * 国医学堂  -- 个人中心
 	 * Description：
@@ -67,13 +67,13 @@ public class H5WeChatSetController {
 	 */
 	@RequestMapping("publicToPersonalCenter")
 	public void publicToPersonalCenter(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+									   HttpServletResponse res, Map<String, String> params)
 			throws Exception {
-		
+
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		try {
 			String code = req.getParameter("code");
-			
+
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			String openid = wxw.getOpenid();
 			/**
@@ -84,21 +84,21 @@ public class H5WeChatSetController {
 				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 				return;
 			}*/
-			
+
 			LOGGER.info(" ==========================  " + req.getParameter("code"));
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
-			
+
 			if(StringUtils.isNotBlank(wxw.getClient_id())){    //如果绑定过了，就直接ok了。
-			    //这里回调的时候不能默认登录
+				//这里回调的时候不能默认登录
 				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
 				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
 				LOGGER.info("getLoginName===="+ou.getLoginName());
-				
-			    OeUserVO oeUserVO = userCenterService.getUserVO(ou.getLoginName());
+
+				OeUserVO oeUserVO = userCenterService.getUserVO(ou.getLoginName());
 				Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
@@ -110,7 +110,7 @@ public class H5WeChatSetController {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 				} else{
 					res.getWriter().write(openid);
-				}	
+				}
 			}else{       //--否则也去推荐页，需要标记下，
 				/**
 				 * jump_type=1	跳到首页
@@ -134,7 +134,7 @@ public class H5WeChatSetController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 国医学堂   -- 推荐页面
 	 * Description：
@@ -147,14 +147,14 @@ public class H5WeChatSetController {
 	 */
 	@RequestMapping("publicToRecommended")
 	public void publicToRecommended(HttpServletRequest req, HttpServletResponse res,
-			Map<String, String> params) throws Exception {
+									Map<String, String> params) throws Exception {
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		try {
 			String code = req.getParameter("code");
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			LOGGER.info("wxw===="+wxw);
 			String openid = wxw.getOpenid();
-			
+
 //			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
 //			if(currentOnlineUser !=null){
 //				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
@@ -176,12 +176,12 @@ public class H5WeChatSetController {
 				 * 清除这个cookie
 				 */
 				UCCookieUtil.clearThirdPartyCookie(res);
-				
+
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
 				} else{
 					res.getWriter().write(openid);
-				}	
+				}
 			}else{
 				ThridFalg tf = new ThridFalg();
 				tf.setOpenId(wxw.getOpenid());
@@ -189,7 +189,7 @@ public class H5WeChatSetController {
 				tf.setNickName(wxw.getNickname());
 				tf.setHeadImg(wxw.getHeadimgurl());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
-				
+
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
@@ -197,7 +197,7 @@ public class H5WeChatSetController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 国医学堂  -- 学习中心
 	 * Description：
@@ -210,7 +210,7 @@ public class H5WeChatSetController {
 	 */
 	@RequestMapping("publicToLearningCenter")
 	public void publicToLearningCenter(HttpServletRequest req, HttpServletResponse res,
-			Map<String, String> params) throws Exception {
+									   Map<String, String> params) throws Exception {
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		try {
 			String code = req.getParameter("code");
@@ -238,12 +238,12 @@ public class H5WeChatSetController {
 				 * 清除这个cookie
 				 */
 				UCCookieUtil.clearThirdPartyCookie(res);
-				
+
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/my_study.html?openId="+openid);
 				} else{
 					res.getWriter().write(openid);
-				}	
+				}
 			}else{
 				/**
 				 * jump_type=1	跳到首页
@@ -252,7 +252,7 @@ public class H5WeChatSetController {
 				/**
 				 * 写入这个cookie
 				 */
-				ThridFalg tf = new ThridFalg(); 
+				ThridFalg tf = new ThridFalg();
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
 				tf.setNickName(wxw.getNickname());
@@ -265,9 +265,9 @@ public class H5WeChatSetController {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 国医学堂  -- 学习中心
 	 * Description：
@@ -280,17 +280,17 @@ public class H5WeChatSetController {
 	 */
 	@RequestMapping("publicToMenuTypeList")
 	public void publicToMenuTypeList(HttpServletRequest req, HttpServletResponse res,
-			Map<String, String> params) throws Exception {
+									 Map<String, String> params) throws Exception {
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		try {
-			
+
 			String code = req.getParameter("code");
 			String menuType = req.getParameter("menuType");
-			
+
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			LOGGER.info("wxw===="+wxw);
 			String openid = wxw.getOpenid();
-			
+
 //			OnlineUser currentOnlineUser = appBrowserService.getOnlineUserByReq(req);
 //			if(currentOnlineUser !=null){
 //				res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&menuType="+menuType);
@@ -312,12 +312,12 @@ public class H5WeChatSetController {
 				 * 清除这个cookie
 				 */
 				UCCookieUtil.clearThirdPartyCookie(res);
-				
+
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&menuType="+menuType);
 				} else{
 					res.getWriter().write(openid);
-				}	
+				}
 			}else{
 				ThridFalg tf = new ThridFalg();
 				tf.setOpenId(wxw.getOpenid());
@@ -332,7 +332,7 @@ public class H5WeChatSetController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 登录成功处理
 	 * @param req
@@ -342,7 +342,7 @@ public class H5WeChatSetController {
 	 */
 	@SuppressWarnings("unchecked")
 	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-                        Token token, OnlineUser user, String ticket){
+						Token token, OnlineUser user, String ticket){
 		// 用户登录成功
 		// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
 		req.getSession().invalidate();
@@ -371,5 +371,5 @@ public class H5WeChatSetController {
 		 */
 		UCCookieUtil.writeTokenCookie(res, token);
 	}
-	
+
 }

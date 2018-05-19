@@ -25,19 +25,19 @@ public class OnlineUser extends  Model<OnlineUser> {
 	/**
 	 * 实体是否删除
 	 */
-	@TableField("isDelete")
+	@TableField("is_delete")
 	private boolean isDelete;
 
 	/**
 	 * 创建人ID
 	 */
-	@TableField("createPerson")
+	@TableField("create_person")
 	private String createPerson;
 
 	/**
 	 * 创建时间
 	 */
-	@TableField("createTime")
+	@TableField("create_time")
 	private Date createTime;
 	
 	/**

@@ -173,16 +173,6 @@ public class CodeUtil {
 	}
 
 	/**
-	 * 生成随机的8位的盐.
-	 *
-	 * @return
-	 */
-	public static String generateRandomSalt() {
-		return generateRandomSalt(8);
-	}
-
-
-	/**
 	 * 生成随机的String作为salt.
 	 *
 	 * @param numBytes byte数组的大小
@@ -224,6 +214,7 @@ public class CodeUtil {
 	 * @return
 	 */
 	public static String MD5Encode(String origin) {
+		System.out.println(origin);
 		String resultString = null;
 		try {
 			resultString = new String(origin);
@@ -236,18 +227,4 @@ public class CodeUtil {
 		return resultString;
 	}
 
-	/**
-	 * 对明文密码加密。
-	 *
-	 * @param plainPassword 明文密码
-	 * @param salt          盐
-	 * @return
-	 */
-	public static String encodePassword(String plainPassword,
-										String salt) {
-		if (salt == null) {
-			salt = "";
-		}
-		return CodeUtil.MD5Encode(CodeUtil.MD5Encode(plainPassword) + salt);
-	}
 }

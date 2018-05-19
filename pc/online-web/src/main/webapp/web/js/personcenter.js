@@ -655,8 +655,7 @@ $(function() {
 		'<ul class="cy-data">' +
 		'</ul>' +
 		'</div>' +
-		'</div>' +
-		'<script type="text/javascript" src="../js/mynews.js" ></script>';
+		'</div>';
 	
 	
 	var mymoney = 

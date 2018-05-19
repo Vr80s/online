@@ -271,6 +271,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		SendSmsResponse response = null;
 		try {
 			response = SmsUtil.sendSms(phone, vcode);
+			LOGGER.info("response.getMessage():"+response.getMessage());
+			LOGGER.info("response.getCode():"+response.getCode());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -297,7 +299,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		//判断发送结果
 		SendSmsResponse response = null;
 		try {
-			response = SmsUtil.sendSms("15054054532", "测试呢");
+			response = SmsUtil.sendSms("13379900832", "测试呢");
 			System.out.println(response.getMessage());
 			System.out.println(response.getCode());
 		} catch (ClientException e) {

@@ -4,7 +4,6 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.enums.RegisterForm;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.common.util.enums.TokenExpires;
@@ -34,7 +33,6 @@ import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 /**
  * 用户controller
@@ -203,68 +201,23 @@ public class XzUserController {
 		//存储在redis中了，有效期为10天。
 		Token t =  userCenterService.loginMobile(username, password, TokenExpires.TenDay);
 		
-		if (t != null) {
-			OnlineUser o = onlineUserService.findUserByLoginName(username);
-			if (o != null) {
-				if (o.isDelete() || o.getStatus() == -1){
-					return ResponseObject.newErrorResponseObject("用户已禁用");
-				}
-				/*
-				 * 判断是否存在微吼信息,不存在创建，因为app端需要根据创建的信息进行播放
-				 */
-				if(o.getVhallId()==null || "".equals(o.getVhallId()) ){
-					
-					String weihouId = WeihouInterfacesListUtil.createUser(
-							o.getId(),
-							WeihouInterfacesListUtil.MOREN, 
-							o.getName(),o.getSmallHeadPhoto());
-					
-					onlineUserService.updateVhallIdOnlineUser(weihouId,WeihouInterfacesListUtil.MOREN,o.getName(),o.getId());
-					o.setVhallId(weihouId);
-					o.setVhallPass(WeihouInterfacesListUtil.MOREN);
-					o.setVhallName(o.getName());
-				}
-				
-				//把用户中心的数据给他   这里im都要用到
-				OeUserVO user = userCenterService.getUserVO(username);
-				o.setUserCenterId(user.getId());
-				o.setPassword(user.getPassword());
-				//把这个票给前端
-				o.setTicket(t.getTicket());
-				
-				this.onlogin(req, res, t, o,t.getTicket());
-				
-				/**
-				 * 清除这个cookie
-				 */
-				UCCookieUtil.clearThirdPartyCookie(res);
-				
-				return ResponseObject.newSuccessResponseObject(o);
-			} else {  
-				/*
-				 * 如果用户中心存在信息的话,但是用户表里面没有添加的话，就默认在帮他创建一条
-				 */
-				boolean ise = Pattern.matches("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",username);
-				if (ise) {
-					OeUserVO user = userCenterService.getUserVO(username);
-					//这个地方会返回这个用户的微吼id和名字
-					OnlineUser newUser = onlineUserService.addUser(username,  user.getName(),getRegiserFormByReq(req),password);
-					newUser.setPassword(user.getPassword());
-					//把这个票给前端
-					newUser.setTicket(t.getTicket());
-					this.onlogin(req, res, t, newUser,t.getTicket());
-					/**
-					 * 清除这个cookie
-					 */
-					UCCookieUtil.clearThirdPartyCookie(res);
-					
-					return ResponseObject.newSuccessResponseObject(newUser);
-				}
-			}
-			return ResponseObject.newErrorResponseObject("在线系统不存在此用户");
-		} else {
-			return ResponseObject.newErrorResponseObject("用户名密码错误");
-		}
+		OnlineUser o = onlineUserService.findUserByLoginName(username);
+
+		//把用户中心的数据给他   这里im都要用到
+		OeUserVO user = userCenterService.getUserVO(username);
+		o.setUserCenterId(user.getId());
+		o.setPassword(user.getPassword());
+		//把这个票给前端
+		o.setTicket(t.getTicket());
+
+		this.onlogin(req, res, t, o,t.getTicket());
+
+		/**
+		 * 清除这个cookie
+		 */
+		UCCookieUtil.clearThirdPartyCookie(res);
+
+		return ResponseObject.newSuccessResponseObject(o);
 	}
 	
 	/**

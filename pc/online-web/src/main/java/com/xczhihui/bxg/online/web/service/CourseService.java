@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.aliyuncs.exceptions.ClientException;
+import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -155,4 +156,6 @@ public interface CourseService {
 
 
     List<CourseVo> getCoursesRecommendByType(Integer type);
+
+    Course findByApplyId(String applyId);
 }

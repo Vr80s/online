@@ -134,4 +134,10 @@
     <!-- 注入接口 开始直播通知服务 -->
     <dubbo:reference id="liveCallbackServiceImpl" interface="com.xczhihui.online.api.service.LiveCallbackService"
                      timeout="${dubbo.consumer.timeout}"/>
+    <!-- 消息 -->
+    <dubbo:reference id="messageService" interface="com.xczhihui.course.service.ICommonMessageService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!-- 微信公众号 -->
+    <dubbo:reference id="wxMpService" interface="me.chanjar.weixin.mp.api.WxMpService"
+                     timeout="${dubbo.consumer.timeout}"/>
 </beans>

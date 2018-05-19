@@ -107,15 +107,44 @@ $(".question-forum li").click(function(){
                 }
             );
         });
-           
+   
+//回复点赞功能
+	$(".reply-user-text .select-down").click(function(){
+		if($(this).hasClass("select-active")){
+			$(this).removeClass("select-active")
+		}else{
+			$(this).addClass("select-active")
+			
+		}
+	})
 
+//我的帖子/我的回复选项卡
+	$(".forum-wrap li").click(function(){
+		$(".forum-wrap li").removeClass("mune-active");
+		$(this).addClass("mune-active");
+		$(".reply-post-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
+	})
 
-
-
-
-
-
-
+//--------------------------------------问答论坛结束    我的订单开始--------------------------------------------
+//我的帖子/我的回复选项卡
+	$(".order-box li").click(function(){
+		$(".order-box li").removeClass("mune-active");
+		$(this).addClass("mune-active");
+		$(".all-order-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
+	})
+	
+$(".all-order").hover(function(){
+	$(".all-change").stop().slideDown();
+	$(".triangle-bottom").addClass("glyphicon-triangle-top")
+},function(){
+	$(".all-change").stop().slideUp();
+	$(".triangle-bottom").removeClass("glyphicon-triangle-top")
+	
+})
+$(".all-order span").click(function(){
+	var spanText=$(this).text();
+	$(".select-write").text(spanText);
+})
 
 
 });

@@ -23,7 +23,7 @@ public class XzRechargeController {
 
 	@Autowired
 	private RechargesService rechargesService;
-	
+
 	/**
 	 * Description：获取充值列表
 	 * @param req
@@ -37,5 +37,5 @@ public class XzRechargeController {
 	@ResponseBody
 	public ResponseObject rechargeList(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		return ResponseObject.newSuccessResponseObject(rechargesService.getRecharges());
-    }
+	}
 }
