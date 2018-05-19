@@ -5,7 +5,8 @@ import com.xczhihui.course.model.Course;
 
 public class CourseUtil {
 
-    public static RouteTypeEnum getRouteType(boolean collection, int type) {
+    public static RouteTypeEnum getRouteType(Boolean collection, int type) {
+        collection = collection == null ? false : collection;
         return collection ? RouteTypeEnum.COLLECTION_COURSE_DETAIL_PAGE :
                 (type == Course.COURSE_TYPE_LIVE ? RouteTypeEnum.LIVE_COURSE_DETAIL_PAGE :
                         (type == Course.COURSE_TYPE_VIDEO_AUDIO ? RouteTypeEnum.VIDEO_AUDIO_COURSE_DETAIL_PAGE

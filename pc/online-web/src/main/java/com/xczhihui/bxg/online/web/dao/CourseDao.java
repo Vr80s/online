@@ -380,8 +380,10 @@ public class CourseDao extends SimpleHibernateDao {
      */
     public CourseApplyVo getCourseApplyByCourseId(Integer courseId) {
         if (courseId != null) {
-            String sql = " SELECT c.id,  c.grade_name AS courseName,c.description, c.bigimg_path AS bigImgPath,c.cloud_classroom AS cloudClassroom, c.is_free,c.original_cost AS originalCost,c.course_pwd coursePwd,"
-                    + " c.current_price AS currentPrice ,c.user_lecturer_id AS userLecturerId, t.name AS courseType, c.start_time AS startTime FROM oe_course c LEFT JOIN teach_method t  ON c.courseType = t.id  WHERE c.id= ? AND c.is_delete =0 AND c.status=1  ";
+            String sql = " SELECT c.id,  c.grade_name AS courseName,c.description, c.bigimg_path AS bigImgPath,c.cloud_classroom AS cloudClassroom," +
+                    " c.is_free,c.original_cost AS originalCost,c.course_pwd coursePwd,"
+                    + " c.current_price AS currentPrice ,c.user_lecturer_id AS userLecturerId, t.name AS courseType, c.start_time AS startTime, c.type AS type" +
+                    " FROM oe_course c LEFT JOIN teach_method t  ON c.courseType = t.id  WHERE c.id= ? AND c.is_delete =0 AND c.status=1  ";
             List<CourseApplyVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{courseId}, BeanPropertyRowMapper.newInstance(CourseApplyVo.class));
             return courseVoList.size() > 0 ? courseVoList.get(0) : null;
         }

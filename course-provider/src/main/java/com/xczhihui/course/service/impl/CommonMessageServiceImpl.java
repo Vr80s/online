@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.enums.MessageStatusEnum;
@@ -25,6 +26,7 @@ import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.params.SubMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 
+import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateData;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
@@ -83,6 +85,11 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
                         wxMpTemplateMessage.setUrl(mobileDomain + MessageFormat.format(url, baseMessage.getDetailId()));
                     }
                     wxMpTemplateMessage.setToUser(wechatUser.getOpenid());
+                try {
+                    wxMpService.getTemplateMsgService().sendTemplateMsg(wxMpTemplateMessage);
+                } catch (WxErrorException e) {
+                    e.printStackTrace();
+                }
                 }
             }
         }
