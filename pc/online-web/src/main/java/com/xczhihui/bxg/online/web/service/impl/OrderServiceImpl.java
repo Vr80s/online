@@ -84,11 +84,16 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
                     String startTimeStr = TimeUtil.getYearMonthDayHHmm(new Date());
                     String content = MessageFormat.format(APPLY_SUCCESS_TIPS, courseName);
                     String userId = course.get("user_id").toString();
+
+                    Map<String, String> weixinParams = new HashMap<>(4);
+                    weixinParams.put("first", content);
+                    weixinParams.put("keyword1", courseName);
+                    weixinParams.put("keyword2", startTimeStr);
+                    weixinParams.put("remark", "点击查看");
                     commonMessageService.saveMessage(
                             new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                                     .buildWeb(content)
-                                    .buildWeixin(weixinPayMessageCode,
-                                            ImmutableMap.of("first", content, "keyword1", courseName, "keyword2", startTimeStr, "remark", "点击查看"))
+                                    .buildWeixin(weixinPayMessageCode, weixinParams)
                                     .detailId(courseId)
                                     .build(userId, CourseUtil.getRouteType(collection, type), userId));
                 }

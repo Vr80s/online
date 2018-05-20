@@ -88,7 +88,7 @@
 								<div class="course clearfix">
 									<#-- 推荐课程的标记  -->
 									<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
-									<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+									<a style="cursor:pointer" href="/course/courses/${courseItem.id}" target="_blank">
 										<div class="img"><img src="${courseItem.smallImgPath}"></div><span class="classCategory">音频</span>
 										<div class="detail">
 											<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>

@@ -55,6 +55,8 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
     private String sendLiveRemindCode;
     @Value("${sms.offline.course.remind.code}")
     private String sendOfflineRemindCode;
+    @Value("${sms.update.course.remind.code}")
+    private String sendCourseUpdateRemindCode;
     @Value("${weixin.course.remind.code}")
     private String weixinTemplateMessageRemindCode;
 
@@ -124,17 +126,23 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                     String courseName = course.getGradeName();
                     String address = course.getAddress();
                     String time = TimeUtil.getHourMonth(course.getStartTime());
-                    Map<String, String> params = new HashMap<>(3);
-                    params.put("courseName", courseName);
-                    params.put("time", time);
-                    params.put("address", address);
+                    Map<String, String> smsParams = new HashMap<>(3);
+                    smsParams.put("courseName", courseName);
+                    smsParams.put("time", time);
+                    smsParams.put("address", address);
+
+                    String commonContent = MessageFormat.format(WEB_OFFLINE_COURSE_REMIND, courseName, time, address);
+                    Map<String, String> weixinParams = new HashMap<>(4);
+                    weixinParams.put("first", commonContent);
+                    weixinParams.put("keyword1", courseName);
+                    weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
+                    weixinParams.put("remark", "点击查看");
                     for (OnlineUser user : users) {
-                        String commonContent = MessageFormat.format(WEB_OFFLINE_COURSE_REMIND, courseName, time, address);
                         BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                                 .buildWeb(commonContent)
                                 .buildAppPush(MessageFormat.format(APP_PUSH_OFFLINE_COURSE_REMIND, courseName, time, address))
-                                .buildWeixin(weixinTemplateMessageRemindCode, ImmutableMap.of("first", commonContent, "keyword1", courseName, "keyword2", time, "remark", "点击查看"))
-                                .buildSms(sendLiveRemindCode, params)
+                                .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
+                                .buildSms(sendOfflineRemindCode, smsParams)
                                 .detailId(String.valueOf(course.getId()))
                                 .build(user.getId(), CourseUtil.getRouteType(course.getCollection(), course.getType()), null);
                         commonMessageService.saveMessage(baseMessage);
@@ -162,15 +170,15 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 List<OnlineUser> users = getUsersByCourseId(course.getId());
                 String courseName = course.getGradeName();
                 String address = course.getAddress();
-//                Map<String, String> params = new HashMap<>(3);
-//                params.put("courseName", courseName);
+                Map<String, String> params = new HashMap<>(1);
+                params.put("courseName", courseName);
                 String dateStr = dates.stream().map(date -> dayMap.get(date)).collect(Collectors.joining(","));
                 for (OnlineUser user : users) {
                     String commonContent = MessageFormat.format(WEB_COLLECTION_COURSE_REMIND, courseName, dateStr);
                     BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                             .buildWeb(commonContent)
                             .buildAppPush(MessageFormat.format(APP_PUSH_COLLECTION_COURSE_REMIND, courseName, dateStr))
-//                            .buildSms(sendLiveRemindCode, params)
+                            .buildSms(sendCourseUpdateRemindCode, params)
                             .detailId(String.valueOf(course.getId()))
                             .build(user.getId(), RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE, null);
                     commonMessageService.saveMessage(baseMessage);
@@ -196,22 +204,30 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                     }else{
                         //发送提醒
                         List<OnlineUser> users = getUsersByCourseId(course.getId());
+                        String courseName = course.getGradeName();
+                        String lecturer = course.getLecturer();
+                        RouteTypeEnum routeType = CourseUtil.getRouteType(course.getCollection(), course.getType());
+                        String commonContent = MessageFormat.format(WEB_LIVE_COURSE_REMIND, lecturer, courseName, minute);
+                        Map<String, String> params = new HashMap<>(4);
+                        params.put("courseName", courseName);
+                        params.put("lecture", lecturer);
+                        params.put("minute", String.valueOf(minute));
+                        //短网址链接
+//                        params.put("address", ShortUrlUtil.getShortUrl(mobileDomain + MultiUrlHelper.getUrl(routeType.name(), MultiUrlHelper.URL_TYPE_MOBILE)));
+                        //TODO 阿里云拦截url
+                        params.put("address", "课程详情链接地址");
+                        Map<String, String> weixinParams = new HashMap<>(4);
+                        weixinParams.put("first", commonContent);
+                        weixinParams.put("keyword1", courseName);
+                        weixinParams.put("keyword2", time);
+                        weixinParams.put("remark", "点击查看");
+                        OnlineUser onlineUser = new OnlineUser();
                         for (OnlineUser user : users) {
                             if (!"dev".equals(envFlag)) {
-                            String courseName = course.getGradeName();
-                            String lecturer = course.getLecturer();
-                            RouteTypeEnum routeType = CourseUtil.getRouteType(course.getCollection(), course.getType());
-                            Map<String, String> params = new HashMap<>(4);
-                            params.put("courseName", courseName);
-                            params.put("lecturer", lecturer);
-                            params.put("minute", String.valueOf(minute));
-                            //短网址链接
-                            params.put("address", ShortUrlUtil.getShortUrl(mobileDomain + MultiUrlHelper.getUrl(routeType.name(), MultiUrlHelper.URL_TYPE_MOBILE)));
-                            String commonContent = MessageFormat.format(WEB_LIVE_COURSE_REMIND, lecturer, courseName, minute);
                             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                                     .buildWeb(commonContent)
                                     .buildAppPush(MessageFormat.format(APP_PUSH_LIVE_COURSE_REMIND, lecturer, courseName, minute))
-                                    .buildWeixin(weixinTemplateMessageRemindCode, ImmutableMap.of("first", commonContent, "keyword1", courseName, "keyword", time, "remark", "点击查看"))
+                                    .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
                                     .buildSms(sendLiveRemindCode, params)
                                     .detailId(String.valueOf(course.getId()))
                                     .build(user.getId(), routeType, null)

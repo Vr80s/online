@@ -57,6 +57,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private ICourseApplyService courseApplyService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    @Autowired
     private CollectionCourseApplyUpdateDateMapper collectionCourseApplyUpdateDateMapper;
     @Autowired
     private CCUtils CCUtils;
@@ -340,6 +341,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if (courseApplyInfo.getCollection()) {
             List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCourseApplyByCollectionId(courseApplyInfo.getId());
             courseApplyInfo.setCourseApplyInfos(courseApplyInfos);
+            courseApplyInfo.setUpdateDates(collectionCourseApplyUpdateDateMapper.listDatesByCollectionApplyId(courseApplyInfo.getId()));
         }
         return courseApplyInfo;
     }

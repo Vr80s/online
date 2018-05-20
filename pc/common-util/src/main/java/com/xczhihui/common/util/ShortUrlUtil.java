@@ -14,7 +14,7 @@ public class ShortUrlUtil {
     public static String getShortUrl(String longUrl) {
         try {
             return HttpUtil.sendGetRequest(MessageFormat.format(SHORT_URL_API, URLEncoder.encode(longUrl, "utf-8")));
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
