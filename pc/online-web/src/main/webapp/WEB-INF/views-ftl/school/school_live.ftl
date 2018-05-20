@@ -62,7 +62,8 @@
 								<#-- 课程的小标题--> 
 								<span>${courseTypeItem.title}</span>
 								<#-- 课程列表 页跳转  带上跳转条件 -->
-								<p><a href="/web/html/school/curriculum-list.html">更多</a><img src="../../images/rili_icon.png" alt="箭头" /> </p>
+								<p><a href="/courses/list?lineState=${courseTypeItem.lineState}">更多</a>
+								<img src="/web/images/rili_icon.png" alt="箭头" /> </p>
 							</div>
 							
 						<#list courseTypeItem.courseList as courseItem>	

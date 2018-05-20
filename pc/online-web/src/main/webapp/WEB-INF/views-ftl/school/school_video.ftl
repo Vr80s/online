@@ -59,7 +59,7 @@
 					<div class="content-class">	
 						<div class="wrap-title">
 							<span>听课推荐</span>
-							<p><a href="/web/html/school/curriculum-list.html">更多</a><img src="../../images/rili_icon.png" alt="箭头" /> </p>
+							<p><a href="/courses/list?courseType=2">更多</a><img src="/web/images/rili_icon.png" alt="箭头" /> </p>
 						</div>
 						
 					<#list courseList as courseItem>

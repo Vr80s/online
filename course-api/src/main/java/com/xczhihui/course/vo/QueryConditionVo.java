@@ -1,6 +1,8 @@
 package com.xczhihui.course.vo;
 
-public class QueryConditionVo {
+import java.io.Serializable;
+
+public class QueryConditionVo  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -12,13 +14,16 @@ public class QueryConditionVo {
 	
 	private Integer courseType;
    
-	private Integer menuType;
+	private String menuType;
 	
 	private String queryKey;
 	
-	private Integer pageNumber;
+	private Integer pageNumber =1;
 	   
-	private Integer pageSize;
+	private Integer pageSize = 20;
+	
+	private Integer sortOrder;
+	
 
 	public String getCity() {
 		return city;
@@ -52,13 +57,6 @@ public class QueryConditionVo {
 		this.courseType = courseType;
 	}
 
-	public Integer getMenuType() {
-		return menuType;
-	}
-
-	public void setMenuType(Integer menuType) {
-		this.menuType = menuType;
-	}
 
 	public String getQueryKey() {
 		return queryKey;
@@ -73,7 +71,12 @@ public class QueryConditionVo {
 	}
 
 	public void setPageNumber(Integer pageNumber) {
-		this.pageNumber = pageNumber;
+		if (pageNumber > 1) {
+            this.pageNumber = pageNumber;
+        }
+		if (pageNumber > 0) {
+			setPageSize((pageNumber - 1) * pageSize);
+        }
 	}
 
 	public Integer getPageSize() {
@@ -83,4 +86,23 @@ public class QueryConditionVo {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+
+	public String getMenuType() {
+		return menuType;
+	}
+
+	public void setMenuType(String menuType) {
+		this.menuType = menuType;
+	}
+
+	public Integer getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
+	}
+	
+	
+	
 }

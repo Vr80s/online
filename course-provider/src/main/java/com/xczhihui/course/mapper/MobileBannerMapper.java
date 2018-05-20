@@ -36,8 +36,8 @@ public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 	List<CourseLecturVo> liveCourseList(@Param("pageSizeUp")Integer pageSizeUp,
 			@Param("pageSizeDown")Integer pageSizeDown);
 
-	List<CourseLecturVo> searchQueryKeyCourseList(@Param("queryConditionVo")QueryConditionVo queryConditionVo);
+	List<CourseLecturVo> searchQueryKeyCourseList(@Param("queryVo")QueryConditionVo queryVo);
 
-	List<CourseLecturVo> searchCourseList(@Param("queryConditionVo")QueryConditionVo queryConditionVo);
+	List<CourseLecturVo> searchCourseList(@Param("queryVo")QueryConditionVo queryVo);
 	 
 }
