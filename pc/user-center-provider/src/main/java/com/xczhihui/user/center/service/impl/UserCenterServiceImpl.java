@@ -1,5 +1,15 @@
 package com.xczhihui.user.center.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.xczhihui.common.util.BeanUtil;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.RandomUtil;
@@ -15,18 +25,9 @@ import com.xczhihui.user.center.model.UserCoin;
 import com.xczhihui.user.center.service.CacheService;
 import com.xczhihui.user.center.service.IOeUserService;
 import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.SaltUtil;
 import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.Token;
-import com.xczhihui.utils.SaltUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * Description: <br>

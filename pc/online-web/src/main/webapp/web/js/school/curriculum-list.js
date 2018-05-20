@@ -218,7 +218,7 @@ $(".select-all li dd").click(function() {
 	console.log("paramsObj:" + JSON.stringify(paramsObj));
 
 	/**
-	 * 请求数据啦
+	 * 请求数据啦  --请求过来后，我的天怎样搞呢
 	 */
 	RequestService("/online/user/isAlive", "get", null, function(data) {
 		

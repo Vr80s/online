@@ -1,6 +1,4 @@
-package com.xczhihui.utils;
-
-import com.xczhihui.common.util.CodeUtil;
+package com.xczhihui.user.center.utils;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;

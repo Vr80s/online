@@ -1,4 +1,4 @@
-package com.xczhihui.utils;
+package com.xczhihui.user.center.utils;
 
 /**
  * Description: 基于luhn算法的银行卡校验<br>

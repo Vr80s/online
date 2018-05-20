@@ -1,4 +1,4 @@
-package com.xczhihui.utils;
+package com.xczhihui.user.center.utils;
 
 /**
  * Description: <br>
