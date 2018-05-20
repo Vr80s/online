@@ -1,13 +1,19 @@
 package com.xczh.consumer.market.controller.threeparties;
 
-import java.sql.SQLException;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.xczhihui.user.center.bean.Token;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.CacheService;
+import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.ThirdPartyType;
+import com.xczhihui.common.util.enums.TokenExpires;
+import com.xczhihui.course.model.QQClientUserMapping;
+import com.xczhihui.course.model.WeiboClientUserMapping;
+import com.xczhihui.course.service.IThreePartiesLoginService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +22,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import weibo4j.http.HttpClient;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.CacheService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.utils.ResponseObject;
-
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
-import com.xczhihui.online.api.service.UserCoinService;
-import com.xczhihui.common.util.enums.ThirdPartyType;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.course.model.QQClientUserMapping;
-import com.xczhihui.course.model.WeiboClientUserMapping;
-import com.xczhihui.course.service.IThreePartiesLoginService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * 
@@ -53,17 +47,10 @@ public class ThirdPartyBindingController {
 	public HttpClient client = new HttpClient();
 	
 	@Autowired
-	private OnlineUserService onlineUserService;
-	
-	@Autowired
 	private IThreePartiesLoginService threePartiesLoginService;
 	
 	@Autowired
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-	
-	@Autowired
-	private CacheService cacheService;
-	
 	
 	@Autowired
 	private AppBrowserService appBrowserService;
@@ -75,7 +62,6 @@ public class ThirdPartyBindingController {
 	/**
 	 * Description：获取当前用户的绑定信息
 	 * @param req
-	 * @param userId
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
@@ -103,7 +89,6 @@ public class ThirdPartyBindingController {
 	/**
 	 * Description：解除绑定
 	 * @param req
-	 * @param userId
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
@@ -146,7 +131,6 @@ public class ThirdPartyBindingController {
 	/**
 	 * Description：用现有的手机号绑定微信、微博或者qq
 	 * @param req
-	 * @param userId
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
@@ -184,68 +168,5 @@ public class ThirdPartyBindingController {
 			return ResponseObject.newSuccessResponseObject("解除绑定失败");
 		}
 	}
-	
-	/**
-	 * 登录成功处理
-	 * @param req
-	 * @param res
-	 * @param token
-	 * @param user
-	 * @throws SQLException 
-	 */
-	@SuppressWarnings("unchecked")
-	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-						Token token, OnlineUser user, String ticket) throws SQLException{
-		
-		LOGGER.info("用户普通登录----》ticket"+ticket);
-		/**
-		 * 存在两个票，两个票都可以得到用户信息。
-		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
-		 */
-		String appUniqueId = req.getParameter("appUniqueId");
-		
-		/*
-		 * 这个地方是可以了。目前都支持吧
-		 */
-		
-		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
-			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			String model = req.getParameter("model");
-			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
-				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());
-			}else if(user.getLoginName()!=null){
-				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
-			}
-		}else{
-			// 用户登录成功
-			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
-			req.getSession().invalidate();
-			// 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
-			// 获得到ServletCOntext中存的Map集合.
-			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext()
-					.getAttribute("userMap");
-			// 判断用户是否已经在map集合中'
-			HttpSession session = userMap.get(user);
-			if(session!=null && userMap.containsKey(user)){
-				/**
-				 *  * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。
-				 * 得到客户端信息
-				 */
-				Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
-				//session.invalidate();
-				session.setAttribute("topOff", mapClientInfo);
-				session.setAttribute("_user_",null);
-			}else if(session!=null){
-				session.setAttribute("topOff",null);
-			}
-			// 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
-			req.getSession().setMaxInactiveInterval(86400);//设置session失效时间
-			req.getSession().setAttribute("_user_", user);
-			/**
-			 * 这是cookie 
-			 */
-			UCCookieUtil.writeTokenCookie(res, token);
-		}
-	}
+
 }

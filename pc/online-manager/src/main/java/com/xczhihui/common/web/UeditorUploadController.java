@@ -18,8 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
 /**
  * 百度富文本编辑器（ueditor）
@@ -56,11 +54,6 @@ public class UeditorUploadController {
 		}
 
 		String userId = "onlineManager";
-		// 获得登录成功的token
-		Token token = UCCookieUtil.readTokenCookie(request);
-		if (token != null) {
-			userId = String.valueOf(token.getUserId());
-		}
 
 		String upload = service.upload(
 				userId, // 用户中心的用户ID

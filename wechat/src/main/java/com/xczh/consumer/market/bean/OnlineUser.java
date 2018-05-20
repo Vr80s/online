@@ -5,12 +5,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
-import javax.persistence.Column;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
-import com.xczhihui.user.center.bean.UserSex;
 
 /**
  * 在线用户表
@@ -18,29 +16,31 @@ import com.xczhihui.user.center.bean.UserSex;
  * @date 2017-02-22
  */
 public class OnlineUser extends BasicEntity implements Serializable,HttpSessionBindingListener{
+
 	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 女
 	 */
-	public static final int SEX_FEMALE = UserSex.FEMALE.getValue();
+	public static final int SEX_FEMALE = 0;
 
 	/**
 	 * 男
 	 */
-	public static final int SEX_MALE = UserSex.MALE.getValue();
+	public static final int SEX_MALE = 1;
 
 	/**
 	 * 未知
 	 */
-	public static final int SEX_UNKNOWN = UserSex.UNKNOWN.getValue();
-	
-	
-	private int userCenterId;
+	public static final int SEX_UNKNOWN = 2;
+
+	private String userCenterId;
 
 	/**
-	 * 昵称给其他用户看的名。
+	 * 昵称给其他用户看的名
 	 */
 	private String name;
+
 	/**
 	 * 登录名
 	 */
@@ -582,11 +582,11 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 		this.vhallPass = vhallPass;
 	}
 
-	public int getUserCenterId() {
+	public String getUserCenterId() {
 		return userCenterId;
 	}
 
-	public void setUserCenterId(int userCenterId) {
+	public void setUserCenterId(String userCenterId) {
 		this.userCenterId = userCenterId;
 	}
 

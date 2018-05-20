@@ -10,6 +10,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.common.util.enums.UserOrigin;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.vo.OeUserVO;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +31,10 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
-import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.enums.AliSMSServiceMessageType;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.online.api.service.UserCoinService;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.UserOrigin;
-import com.xczhihui.user.center.bean.UserSex;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
 
 @Service
 public class OnlineUserServiceImpl implements OnlineUserService {
@@ -48,7 +45,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	@Autowired
 	public OnlineUserMapper onlineUserDao;
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 	@Autowired
 	private UserCoinService userCoinService;
 	
@@ -92,7 +89,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		 */
 		if(vtype!=null && SMSCode.FORGOT_PASSWORD.getCode() == vtype){
 			//在用户重新获取登录对象
-			ItcastUser iu = userCenterAPI.getUser(mobile);
+			OeUserVO iu = userCenterService.getUserVO(mobile);
 			if(iu == null){
 				return ResponseObject.newErrorResponseObject("用户不存在！");
 			}
@@ -115,7 +112,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			return ResponseObject.newErrorResponseObject("动态码不正确！");
 		}
 		
-		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 
+		if (System.currentTimeMillis() - codes.get(0).getCreateTime().getTime() >
 			1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 			
 			return ResponseObject.newErrorResponseObject("动态码超时，请重新发送！");
@@ -185,9 +182,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				SMSCode.WITHDRAWAL.getCode() != vtype ) {
 			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码  5 为提现使用");
 		}
-		ItcastUser iu = null;
+		OeUserVO iu = null;
 		try {
-			iu = userCenterAPI.getUser(username);
+			iu = userCenterService.getUserVO(username);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -230,7 +227,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 		if (codes != null && codes.size() > 0) {// 如果存在历史动态码，按业务逻辑判断
 			VerificationCode code = codes.get(0);
-			if (new Date().getTime() - code.getCreateTime().getTime() < 
+			if (System.currentTimeMillis() - code.getCreateTime().getTime() <
 					1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
 				//发送，判断邮箱还是手机
 				if (username.contains("@")){
@@ -239,13 +236,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 					return "同一手机号两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！";
 				}
 			} 
-//			else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60 
-//					* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
-//				
-//				code.setVcode(vcode);
-//			} else {
-//				vcode = code.getVcode();
-//			}
 			code.setVcode(vcode);
 			code.setCreateTime(new Date());
 			try {
@@ -328,12 +318,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			String mobile,Integer vtype)
 			throws Exception {
 		//手机
-		ItcastUser iu = userCenterAPI.getUser(mobile);
+		OeUserVO iu = userCenterService.getUserVO(mobile);
 		OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
 		if(iu == null){
 		   //向用户中心注册
-			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
-					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
+			userCenterService.regist(mobile, password, mobile, UserOrigin.PC);
 		}
 		if(null == user ){
 			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
@@ -382,8 +371,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		if(vtype!=null && SMSCode.OLD_PHONE.getCode() ==vtype &&  SMSCode.WITHDRAWAL.getCode() == vtype){
 			
 			//在用户重新获取登录对象
-			ItcastUser iu = userCenterAPI.getUser(mobile);
-			if(iu == null){
+			OeUserVO userVO = userCenterService.getUserVO(mobile);
+			if(userVO == null){
 				return ResponseObject.newErrorResponseObject("用户不存在！");
 			}
 			OnlineUser o = onlineUserDao.findUserByLoginName(mobile);
@@ -401,7 +390,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		if(!codes.get(0).getVcode().equals(code)){
 			return ResponseObject.newErrorResponseObject("动态码不正确！");
 		}
-		if (new Date().getTime() - codes.get(0).getCreateTime().getTime() > 1000 * 60
+		if (System.currentTimeMillis() - codes.get(0).getCreateTime().getTime() > 1000 * 60
 				* Integer.valueOf(attrs.get("message_provider_valid_time"))) {
 			return ResponseObject.newErrorResponseObject("动态码超时，请重新发送！");
 		}
@@ -423,7 +412,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 		if(vtype!=null && SMSCode.OLD_PHONE.getCode()==vtype){
 			//在用户重新获取登录对象
-			ItcastUser iu = userCenterAPI.getUser(username);
+			OeUserVO iu = userCenterService.getUserVO(username);
 			if(iu == null){
 				return "用户不存在！";
 			}
@@ -435,7 +424,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			}	
 		}else if(vtype!=null && SMSCode.NEW_PHONE.getCode()==vtype){
 			//在用户重新获取登录对象
-			ItcastUser iu = userCenterAPI.getUser(username);
+			OeUserVO iu = userCenterService.getUserVO(username);
 			if(iu!=null){
 				return "此手机号已被绑定";
 			}
@@ -449,7 +438,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		// 产生随机4位动态码
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
 		
-		//vcode = "1234";
 		List<VerificationCode> codes = null;
 		try {
 			codes = onlineUserDao.getListVerificationCode(username,vtype);
@@ -461,11 +449,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			VerificationCode code = codes.get(0);
 			
 			//时间差
-			Long  t_difference = new Date().getTime() - code.getCreateTime().getTime() ;
+			Long  t_difference = System.currentTimeMillis() - code.getCreateTime().getTime() ;
 			
 			//时间间隔
 			
-			if (new Date().getTime() - code.getCreateTime().getTime() < 1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
+			if (System.currentTimeMillis() - code.getCreateTime().getTime() < 1000 * Integer.valueOf(attrs.get("message_provider_interval_time"))) {
 				//发送，判断邮箱还是手机
 				if (username.contains("@")){
 					return "同一邮箱两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！";
@@ -473,12 +461,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 					return "同一手机号两次发送间隔至少" + Integer.valueOf(attrs.get("message_provider_interval_time")) + "秒！";
 				}
 			} 
-//			如果十分钟内的话，发送的验证码都一样了。			
-//			else if (new Date().getTime() - code.getCreateTime().getTime() > 1000 * 60 * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
-//				code.setVcode(vcode);
-//			} else {
-//				vcode = code.getVcode();
-//			}
 			code.setVcode(vcode);
 			code.setCreateTime(new Date());
 			try {
@@ -562,7 +544,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	@Override
 	public void verifyPhone(String username) throws SQLException {
 		//在用户重新获取登录对象
-		ItcastUser iu = userCenterAPI.getUser(username);
+		OeUserVO iu = userCenterService.getUserVO(username);
 		if(iu == null){
 			throw new RuntimeException ("用户不存在！");
 		}

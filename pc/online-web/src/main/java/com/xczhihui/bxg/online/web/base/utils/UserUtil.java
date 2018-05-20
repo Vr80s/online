@@ -2,8 +2,8 @@ package com.xczhihui.bxg.online.web.base.utils;
 
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.Token;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

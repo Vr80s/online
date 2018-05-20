@@ -2,6 +2,8 @@ package com.xczhihui.support.shiro;
 
 import java.util.Set;
 
+import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.user.center.utils.SaltUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.user.service.UserService;
-import com.xczhihui.user.center.utils.CodeUtil;
 
 @Component
 public class CustomShiroRealm extends AuthorizingRealm {
@@ -54,9 +55,9 @@ public class CustomShiroRealm extends AuthorizingRealm {
 			throw new LockedAccountException("账号已被删除");
 		}
 
-		if (!user.getPassword().equals(
-				CodeUtil.encodePassword(new String(userToken.getPassword()),
-						user.getSalt()))) {
+		String anObject = SaltUtil.encodePassword(new String(userToken.getPassword()),
+				user.getSalt());
+		if (!user.getPassword().equals(anObject)) {
 			throw new IncorrectCredentialsException("密码错误");
 		}
 

@@ -7,7 +7,7 @@ import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.user.center.vo.Token;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -39,10 +39,9 @@ public interface AskQuestionListService {
      * 获取问题数据，根据问题ID号
      * @param questionId 问题ID号
      */
-    public  AskQuestionVo  findQuestionById( Token token, String   questionId,HttpServletRequest request);
+    public  AskQuestionVo  findQuestionById(Token token, String   questionId, HttpServletRequest request);
     /**
      * 修改问题信息的浏览数
-     * @param id 问题的id号
      */
     public  String  updateBrowseSum(AskQuestionVo  qu);
 

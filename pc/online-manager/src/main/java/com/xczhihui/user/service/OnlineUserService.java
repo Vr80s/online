@@ -36,14 +36,12 @@ public interface OnlineUserService {
 	 * 禁用/启用
 	 * 
 	 * @param loginName
-	 * @param delete
 	 */
 	public void updateUserStatus(String loginName, int status);
 
 	/**
 	 * 设置学科权限
 	 * 
-	 * @param OnlineUser
 	 * @return
 	 */
 	public void updateMenuForUser(OnlineUser entity);

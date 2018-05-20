@@ -7,6 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.common.util.enums.TokenExpires;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.ThridFalg;
+import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +31,11 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.user.center.bean.ThridFalg;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczhihui.user.center.bean.ItcastUser;
 import com.xczh.consumer.market.vo.LecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.util.XzStringUtils;
-import com.xczhihui.user.center.bean.TokenExpires;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
@@ -59,7 +59,7 @@ public class MobileShareController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 	@Autowired
 	private ICourseService courseServiceImpl;
 	
@@ -184,9 +184,10 @@ public class MobileShareController {
 					 * 判断这个用户session是否有效了，如果有效就不用登录了
 					 */
 					ou = onlineUserMapper.findUserById(wxw.getClient_id());
-					if(ou == null) {
-					    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-						Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+
+					OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+					if(user == null){ //直接跳转到分享页面
+						Token t = userCenterService.loginThirdPart(ou.getLoginName(),TokenExpires.TenDay);
 						ou.setTicket(t.getTicket());
 						onlogin(req,res,t,ou,t.getTicket());
 					}
@@ -194,14 +195,13 @@ public class MobileShareController {
 				/**
 				 * 写入这个cookie
 				 */
-				ThridFalg tf = new ThridFalg(); 
+				ThridFalg tf = new ThridFalg();
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
 				tf.setNickName(wxw.getNickname());
 				tf.setHeadImg(wxw.getHeadimgurl());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
-			}else
-			{
+			} else {
 				ou =  appBrowserService.getOnlineUserByReq(req);
 			}
 			
@@ -376,7 +376,6 @@ public class MobileShareController {
 			
 			LOGGER.info("code:" +code+"realUrl:" +realUrl+"wxOrbrower:" +wxOrbrower);
 			OnlineUser ou =null;
-			
 			if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器
 				WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 				/*
@@ -390,8 +389,7 @@ public class MobileShareController {
 					OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 					if(user == null){ //直接跳转到分享页面
 						//这里不用判断用户有没有登录了。没哟登录帮他登录
-					    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-						Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+						Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 						ou.setTicket(t.getTicket());
 						onlogin(req,res,t,ou,t.getTicket());
 					}	
@@ -405,24 +403,10 @@ public class MobileShareController {
 				tf.setNickName(wxw.getNickname());
 				tf.setHeadImg(wxw.getHeadimgurl());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
-			}else{
-				ou =  appBrowserService.getOnlineUserByReq(req);
 			}
 			res.sendRedirect(realUrl);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -1,25 +1,5 @@
 package com.xczh.consumer.market.controller.course;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.xczhihui.user.center.bean.ItcastUser;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
@@ -27,18 +7,31 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.SMSCode;
-import com.xczhihui.online.api.service.EnchashmentService;
-import com.xczhihui.online.api.service.UserCoinService;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.medical.anchor.service.IUserBankService;
-import com.xczhihui.medical.anchor.vo.UserBank;
-import com.xczhihui.medical.common.service.ICommonService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.anchor.service.IUserBankService;
+import com.xczhihui.medical.anchor.vo.UserBank;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
+import com.xczhihui.online.api.service.EnchashmentService;
+import com.xczhihui.online.api.service.UserCoinService;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 我的信息管理页面 ClassName: MyManagerController.java <br>
@@ -71,16 +64,10 @@ public class MyManagerController {
 
 	@Autowired
 	private IUserBankService userBankService;
-	
+
 	@Autowired
 	private IMedicalDoctorApplyService medicalDoctorApplyService;
 
-	@Autowired
-	private ICommonService commonServiceImpl;
-	
-	@Autowired
-	private UserCenterAPI userCenterAPI;
-	
 	@Value("${rate}")
 	private int rate;
 
@@ -88,7 +75,7 @@ public class MyManagerController {
 
 	/**
 	 * Description：进入我的页面显示几个初始化数据
-	 * 
+	 *
 	 * @param req
 	 * @return
 	 * @throws Exception
@@ -116,34 +103,25 @@ public class MyManagerController {
 			if(ou == null){
 				return ResponseObject.newErrorResponseObject("token过期",1002);
 			}
-			
-			
-			ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-			ou.setUserCenterId(iu.getId());
-			ou.setPassword(iu.getPassword());
+			ou.setUserCenterId(ou.getId());
+
 			map.put("user", ou);
 			// 查找购买的课程数
 			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
 			//是否拥有主播权限
-			Integer hostPermissions = commonServiceImpl.isDoctorOrHospital(user.getId());
+			Integer hostPermissions = myInfoService.getUserHostPermissions(user.getId());
 			LOGGER.info(hostPermissions+"");
-			//1：医师认证成功 2：医馆认证成功
-			if(hostPermissions !=null && !hostPermissions.equals(1) && !hostPermissions.equals(2)) {
-				hostPermissions = 0;
-			}
 			// 查看主播权限   -- 并且把主播信息给返回过去
-			map.put("hostPermissions",hostPermissions);
+			map.put("hostPermissions", hostPermissions != null ? hostPermissions :0);
 			if(hostPermissions!=null &&  hostPermissions == 1){
 				//申请的医师信息
 				map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(user.getId()));
 			}
 			map.put("tokenVaild",1);
-			
-			
 		} else {
 			map.put("xmbCount", 0);
 			map.put("user", "");
-			map.put("courseCount", 0); 
+			map.put("courseCount", 0);
 			map.put("hostPermissions",0);
 			map.put("tokenVaild",0);
 		}
@@ -162,8 +140,8 @@ public class MyManagerController {
 	@RequestMapping("freeCourseList")
 	@ResponseBody
 	public ResponseObject freeCourseList(HttpServletRequest req,
-			@RequestParam("pageNumber") Integer pageNumber,
-			@RequestParam("pageSize") Integer pageSize) throws Exception {
+										 @RequestParam("pageNumber") Integer pageNumber,
+										 @RequestParam("pageSize") Integer pageSize) throws Exception {
 		/*
 		 * 显示熊猫币、已购买的课程（不包含免费的）、是否是主播 获取用户信息
 		 */
@@ -179,10 +157,10 @@ public class MyManagerController {
 		page.setSize(pageSize);
 		return ResponseObject.newSuccessResponseObject(courseService.selectMyFreeCourseList(page, user.getUserId()));
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * Description：获取 我的钱包  熊猫币余额
 	 * @param request
 	 * @param res
@@ -195,7 +173,7 @@ public class MyManagerController {
 	@RequestMapping("getWalletEnchashmentBalance")
 	@ResponseBody
 	public ResponseObject getWalletEnchashmentBalance(HttpServletRequest request,
-			HttpServletResponse res) throws Exception {
+													  HttpServletResponse res) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
 			return ResponseObject.newSuccessResponseObject(0);
@@ -204,7 +182,7 @@ public class MyManagerController {
 		}
 	}
 	/**
-	 * 
+	 *
 	 * Description：获取 主播控制台  熊猫币余额
 	 * @param request
 	 * @param res
@@ -217,39 +195,39 @@ public class MyManagerController {
 	@RequestMapping("getEnchashmentBalance")
 	@ResponseBody
 	public ResponseObject getEnchashmentBalance(HttpServletRequest request,
-			HttpServletResponse res) throws Exception {
+												HttpServletResponse res) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
 			return ResponseObject.newSuccessResponseObject(0);
 		} else {
-			
+
 			String xmbye = userCoinService.getSettlementBalanceByUserId(user.getId());
 			double d_xmbye = Double.valueOf(xmbye);
 			if(d_xmbye>=1){
-				int i = (int)d_xmbye;    
+				int i = (int)d_xmbye;
 				return ResponseObject.newSuccessResponseObject(i);
 			}else{
 				return ResponseObject.newSuccessResponseObject(d_xmbye);
 			}
-			
+
 		}
 	}
 
-    /**
-     * 
-     * Description：获取 主播控制台  人民币
-     * @param request
-     * @param res
-     * @return
-     * @throws Exception
-     * @return ResponseObject
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     *
-     */
+	/**
+	 *
+	 * Description：获取 主播控制台  人民币
+	 * @param request
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@RequestMapping("getEnchashmentRmbBalance")
 	@ResponseBody
 	public ResponseObject getEnchashmentRmbBalance(HttpServletRequest request,
-			HttpServletResponse res) throws Exception {
+												   HttpServletResponse res) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
 			throw new RuntimeException("登录失效");
@@ -259,7 +237,7 @@ public class MyManagerController {
 
 	/**
 	 * Description：我的钱包接口
-	 * 
+	 *
 	 * @param req
 	 * @return
 	 * @throws Exception
@@ -270,23 +248,23 @@ public class MyManagerController {
 	@RequestMapping("wallet")
 	@ResponseBody
 	public ResponseObject wallet(HttpServletRequest req,
-			@RequestParam("pageNumber") Integer pageNumber,
-			@RequestParam("pageSize") Integer pageSize) throws Exception {
+								 @RequestParam("pageNumber") Integer pageNumber,
+								 @RequestParam("pageSize") Integer pageSize) throws Exception {
 
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		
+
 		int num = (pageNumber - 1) * pageSize;
 		num = num < 0 ? 0 : num;
-		
+
 		return ResponseObject.newSuccessResponseObject(myInfoService.findUserWallet(num,pageSize, user.getId()));
 	}
 
 	/**
 	 * Description：主播控制台 -- 显示上面的数量级
-	 * 
+	 *
 	 * @param req
 	 * @return
 	 * @throws Exception
@@ -323,7 +301,7 @@ public class MyManagerController {
 
 	/**
 	 * Description：主播控制台 -- 显示主播的课程
-	 * 
+	 *
 	 * @param req
 	 * @return
 	 * @throws Exception
@@ -366,8 +344,8 @@ public class MyManagerController {
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
 
-	
-	
+
+
 	/**
 	 * Description：主播控制台 -- 直播间的课程
 	 * @param req
@@ -380,8 +358,8 @@ public class MyManagerController {
 	@RequestMapping("anchorConsoleLiveCourse")
 	@ResponseBody
 	public ResponseObject anchorConsoleCourse(HttpServletRequest req,
-			@RequestParam("pageNumber") Integer pageNumber,
-			@RequestParam("pageSize") Integer pageSize)
+											  @RequestParam("pageNumber") Integer pageNumber,
+											  @RequestParam("pageSize") Integer pageSize)
 			throws Exception {
 
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
@@ -397,12 +375,12 @@ public class MyManagerController {
 		List<CourseLecturVo> list = courseService.selectUserConsoleCourseLiveByPage(page,user.getId());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Description：主播控制台 我的课程（app端我的课程 全部、直播、视频、线下课、音频） 包括审批的包括没有审批的
-	 * 
+	 *
 	 * @param req
 	 * @return
 	 * @throws Exception
@@ -413,9 +391,9 @@ public class MyManagerController {
 	@RequestMapping("anchorConsoleApplyCourse")
 	@ResponseBody
 	public ResponseObject anchorConsoleApplyCourse(HttpServletRequest req,
-			@RequestParam("pageNumber") Integer pageNumber,
-			@RequestParam("pageSize") Integer pageSize,
-			@RequestParam("type") Integer type) throws Exception {
+												   @RequestParam("pageNumber") Integer pageNumber,
+												   @RequestParam("pageSize") Integer pageSize,
+												   @RequestParam("type") Integer type) throws Exception {
 
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
@@ -436,7 +414,7 @@ public class MyManagerController {
 			courseFrom = 2;
 			multimediaType = 2;
 		}
-		
+
 		Page<CourseLecturVo> page = new Page<>();
 		if(pageNumber==0){
 			pageNumber= 1;
@@ -460,8 +438,8 @@ public class MyManagerController {
 	@RequestMapping("settlementList")
 	@ResponseBody
 	public ResponseObject settlementList(HttpServletRequest req,
-			@RequestParam("pageNumber") Integer pageNumber,
-			@RequestParam("pageSize") Integer pageSize) throws Exception {
+										 @RequestParam("pageNumber") Integer pageNumber,
+										 @RequestParam("pageSize") Integer pageSize) throws Exception {
 
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
@@ -469,7 +447,7 @@ public class MyManagerController {
 		}
 		int num = (pageNumber - 1) * pageSize;
 		num = num < 0 ? 0 : num;
-		
+
 		return ResponseObject.newSuccessResponseObject(myInfoService.selectSettlementList(num,pageSize,user.getId()));
 	}
 
@@ -485,8 +463,8 @@ public class MyManagerController {
 	@RequestMapping("withdrawalList")
 	@ResponseBody
 	public ResponseObject withdrawalList(HttpServletRequest req,
-			@RequestParam("pageNumber") Integer pageNumber,
-			@RequestParam("pageSize") Integer pageSize) throws Exception {
+										 @RequestParam("pageNumber") Integer pageNumber,
+										 @RequestParam("pageSize") Integer pageSize) throws Exception {
 
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
@@ -496,8 +474,8 @@ public class MyManagerController {
 		num = num < 0 ? 0 : num;
 		return ResponseObject.newSuccessResponseObject(myInfoService.selectWithdrawalList(num,pageSize,user.getId()));
 	}
-	
-	
+
+
 	/**
 	 * Description：结算 --- 扣减熊猫币增加人民币
 	 * @param req
@@ -510,8 +488,8 @@ public class MyManagerController {
 	@RequestMapping("settlement")
 	@ResponseBody
 	public ResponseObject settlement(HttpServletRequest req,
-			@RequestParam("xmbNumber") Integer xmbNumber,
-			@RequestParam("orderFrom") Integer orderFrom) throws Exception {
+									 @RequestParam("xmbNumber") Integer xmbNumber,
+									 @RequestParam("orderFrom") Integer orderFrom) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
@@ -535,7 +513,7 @@ public class MyManagerController {
 	@RequestMapping("withdrawalValidation")
 	@ResponseBody
 	public ResponseObject withdrawalValidation(HttpServletRequest req,
-			@RequestParam("bankCard") String bankCard) throws Exception {
+											   @RequestParam("bankCard") String bankCard) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
@@ -559,7 +537,7 @@ public class MyManagerController {
 	@RequestMapping("sendSMSCode")
 	@ResponseBody
 	public ResponseObject withdrawalSendSMSCode(HttpServletRequest req) throws Exception {
-		
+
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
@@ -601,7 +579,7 @@ public class MyManagerController {
 
 	/**
 	 * Description：提现 得到银行卡号，提现的额度
-	 * 
+	 *
 	 * @param req
 	 * @return
 	 * @throws Exception
@@ -612,10 +590,10 @@ public class MyManagerController {
 	@RequestMapping("withdrawal")
 	@ResponseBody
 	public ResponseObject withdrawal(HttpServletRequest req,
-			@RequestParam("rmbNumber") BigDecimal rmbNumber,
-			@RequestParam("smsCode") String smsCode,
-			@RequestParam("bankCardId") Integer bankCardId,
-			@RequestParam("orderFrom") Integer orderFrom) throws Exception {
+									 @RequestParam("rmbNumber") BigDecimal rmbNumber,
+									 @RequestParam("smsCode") String smsCode,
+									 @RequestParam("bankCardId") Integer bankCardId,
+									 @RequestParam("orderFrom") Integer orderFrom) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");

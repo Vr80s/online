@@ -120,29 +120,21 @@ $(function() {
 			orderId: orderId
 		}, function(data) {
 			if(data.success == true) {
-				RequestService("/share/checkShareRelation", "GET", null, function(result) {
-					if(result.resultObject.isShow == true) {
-						$(".lhsb i").html(result.resultObject.oldShareMember);
-						$(".lhdsb i").html(result.resultObject.newShareMember);
-						$(".userShip").css("display", "block");
-					} else {
-						$(".pay-ways span").each(function() {
-							if($(this).hasClass("select")) {
-								payType = $(this).attr("data-payType");
-							}
-							return;
-						});
-						if(payType == 0) {
-							$(".pay-result1").css("display", "block");
-                            window.open("/web/alipay/unifiedorder/"+orderNo);
-						} else if(payType == 1) {
-							$(".pay-result1").css("display", "block");
-							window.open("/web/wxPay/" + orderNo);
-						} else {
+                $(".pay-ways span").each(function() {
+                    if($(this).hasClass("select")) {
+                        payType = $(this).attr("data-payType");
+                    }
+                    return;
+                });
+                if(payType == 0) {
+                    $(".pay-result1").css("display", "block");
+                    window.open("/web/alipay/unifiedorder/"+orderNo);
+                } else if(payType == 1) {
+                    $(".pay-result1").css("display", "block");
+                    window.open("/web/wxPay/" + orderNo);
+                } else {
 
-						}
-					}
-				}, false);
+                }
 			} else {
 				rTips(data.errorMessage);
 			}

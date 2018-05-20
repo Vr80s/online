@@ -198,7 +198,7 @@
     <!--=============================================生产者end============================================-->
 
     <!--=============================================消费者start============================================-->
-    <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
+    <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService"
                      timeout="${dubbo.consumer.timeout}"/>
     <!-- 医馆 -->
     <dubbo:reference id="medicalHospitalBusinessServiceImpl"

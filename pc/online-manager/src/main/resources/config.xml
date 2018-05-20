@@ -127,7 +127,7 @@
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
-    <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
+    <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService"
                      timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="userCoinService" interface="com.xczhihui.online.api.service.UserCoinService"
                      timeout="${dubbo.consumer.timeout}"/>

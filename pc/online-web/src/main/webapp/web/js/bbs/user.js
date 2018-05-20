@@ -26,7 +26,8 @@ $(function () {
             $("#post_table").html(template.compile(postTpl)({
                 posts: data.resultObject.records
             }));
-            if (data.resultObject.total > 1) {
+            if (data.resultObject.total > 10) {
+            	 $(".pages").removeClass("hide");
                 if (data.resultObject.current === 1) {
                     $("#Pagination").pagination(data.resultObject.pages, {
                         callback: function (page) { //翻页功能
@@ -45,7 +46,8 @@ $(function () {
                 replies: data.resultObject.records
             });
             $("#reply_table").html(replyTemplate);
-            if (data.resultObject.total > 1) {
+            if (data.resultObject.total > 10) {
+            	 $(".reply-pages").removeClass("hide");
                 if (data.resultObject.current === 1) {
                     $("#Pagination").pagination(data.resultObject.pages, {
                         callback: function (page) { //翻页功能

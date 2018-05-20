@@ -569,7 +569,7 @@ $(function () {
             var tel = $(".Rusername").val().trim();
             var imgVertify=$(".imgVertify").val();
             var data = {phone: tel, vtype: 1,vcode:imgVertify};
-            var reg = /^1[34578]\d{9}$/;
+            var reg = /^1[345678]\d{9}$/;
             if (cymregInput.val() == "") {
                 cymregInfo.text("用户名不能为空！");
                 $(".btn-getcode").css("background", "#2cb82c");

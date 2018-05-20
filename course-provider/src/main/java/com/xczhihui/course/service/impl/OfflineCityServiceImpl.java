@@ -27,13 +27,13 @@ public class OfflineCityServiceImpl extends ServiceImpl<OfflineCityMapper,Offlin
 	@Override
     public Page<OfflineCity> selectOfflineCityPage(Page<OfflineCity> page) {
 		List<OfflineCity> records = iOfflineCityMapper.selectOfflineCityPage(page);
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 
 	@Override
 	public Page<OfflineCity> selectOfflineRecommendedCityPage(
 			Page<OfflineCity> page) {
 		List<OfflineCity> records = iOfflineCityMapper.selectOfflineRecommendedCityPage(page);
-		return   page.setRecords(records);
+		return page.setRecords(records);
 	}
 }

@@ -1,10 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,7 +40,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     private static final Logger logger = LoggerFactory.getLogger(VideoServiceImpl.class);
 
     private static final String APPLY_SUCCESS_TIPS = "恭喜您成功报名课程《{0}》~";
-    @Value("weixin.course.apply.code")
+    @Value("${weixin.course.apply.code}")
     private String weixinApplySuccessMessageCode;
 
     @Autowired
@@ -254,25 +251,30 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
 //    	   }
         if (courseApplyVo != null && Double.valueOf(courseApplyVo.getCurrentPrice()) == 0) {
             videoDao.saveEntryVideo(courseId, request);
-            sendApplySuccessMessage(courseApplyVo);
+            saveApplySuccessMessage(courseApplyVo);
             return "报名成功";
         }
         throw new RuntimeException(String.format("课程下架或非法操作"));
     }
 
-    private void sendApplySuccessMessage(CourseApplyVo courseApplyVo) {
+    protected void saveApplySuccessMessage(CourseApplyVo courseApplyVo) {
         try {
             String messageId = CodeUtil.getRandomUUID();
             String courseId = String.valueOf(courseApplyVo.getId());
             String courseName = courseApplyVo.getCourseName();
             Date startTime = courseApplyVo.getStartTime();
             String content = MessageFormat.format(APPLY_SUCCESS_TIPS, courseName);
-            String userId = courseApplyVo.getUserId();
+            String userId = courseApplyVo.getUserLecturerId();
+            Map<String, String> weixinParams = new HashMap<>(3);
+            weixinParams.put("first", content);
+            weixinParams.put("keyword1", courseName);
+            weixinParams.put("keyword2", startTime != null ? TimeUtil.getYearMonthDayHHmm(startTime) : "");
+            weixinParams.put("remark", "点击查看");
+
             commonMessageService.saveMessage(
                     new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                             .buildWeb(content)
-                            .buildWeixin(weixinApplySuccessMessageCode, ImmutableMap.of("first", content, "keyword1",
-                                    courseName, "keyword2", startTime != null ? TimeUtil.getYearMonthDayHHmm(startTime) : "", "remark", "点击查看"))
+                            .buildWeixin(weixinApplySuccessMessageCode, weixinParams)
                             .detailId(courseId)
                             .build(userId, CourseUtil.getRouteType(courseApplyVo.getCollection(), courseApplyVo.getType()), userId));
         } catch (Exception e) {

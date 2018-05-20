@@ -2,47 +2,32 @@ package com.xczhihui.bxg.online.web.controller;
 
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserUtil;
-import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.bxg.online.web.service.UserService;
-import com.xczhihui.bxg.online.web.service.impl.OnlineLoginoutCallback;
-import com.xczhihui.bxg.online.web.utils.HttpUtil;
-import com.xczhihui.bxg.online.web.utils.MD5Util;
-import com.xczhihui.bxg.online.web.utils.ThirdConnectionConfig;
-import com.xczhihui.bxg.online.web.vo.UserDataVo;
-import com.xczhihui.bxg.online.web.vo.UserVo;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.web.util.UserLoginUtil;
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.user.center.utils.CodeUtil;
-import com.xczhihui.user.center.web.utils.CookieUtil;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * 用户相关
@@ -56,56 +41,24 @@ public class UserController extends OnlineBaseController {
 	private UserService service;
 
 	@Autowired
-	private OnlineUserCenterService userCenterService;
-
-	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 
 	@Autowired
 	private RedisCacheService cacheService;
-	
-	@Autowired
-	private OnlineLoginoutCallback callback;
 
 	@Value("${domain}")
 	private String domain;
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
-		
 		OnlineUser o = service.findUserByLoginName(username);
-		Token t;
-		if(o!=null) {
-            t = userCenterAPI.login(username, password, TokenExpires.Year);
-        }else{
-			return ResponseObject.newErrorResponseObject("用户未注册");
-		}
-		if (t != null) {
-			if (o != null) {
-				t.setHeadPhoto(o.getSmallHeadPhoto());
-				t.setUuid(o.getId());
-				if (o.isDelete() || o.getStatus() == -1){
-					return ResponseObject.newErrorResponseObject("用户已禁用");
-				}
-				if(o.getVhallId()==null){
-					service.updateVhallInfo(o);
-				}
-			} else {
-				return ResponseObject.newErrorResponseObject("用户不存在");
-			}
-			
-			UserUtil.setSessionCookie(request, response, o, t);
-			callback.onLogin(request, response);
-			
-			return ResponseObject.newSuccessResponseObject(null);
-		} else {
-			return ResponseObject.newErrorResponseObject("密码错误");
-		}
+		Token t = userCenterService.login(username, password, TokenExpires.Year);
+		UserUtil.setSessionCookie(request, response, o, t);
+		return ResponseObject.newSuccessResponseObject("登录成功");
 	}
 
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public ResponseObject logout(HttpServletRequest request,HttpServletResponse response) {
-		callback.onLogout(request, response);
 		UserUtil.cleanSessionCookie(request, response);
 		return ResponseObject.newSuccessResponseObject(null);
 	}
@@ -120,25 +73,16 @@ public class UserController extends OnlineBaseController {
 	 */
 	@RequestMapping(value = "phoneRegist", method = RequestMethod.POST)
 	public ResponseObject phoneRegist(String username, String password, String code, String nikeName, HttpServletRequest req, HttpServletResponse resp) {
-		String regmsg = service.addPhoneRegist(req,username, password, code,nikeName);
-		//活动统计
-		String cok = CookieUtil.getCookieValue(req, "act_code_from");
-		if (cok != null && !"".equals(cok)) {
-			//jilu
-		}
-		try {
-			autoLogin(req,resp,username,password);
-		}catch (Exception e){
-			return ResponseObject.newErrorResponseObject("用户已禁用或不存在");
-		}
-		return ResponseObject.newSuccessResponseObject(regmsg);
+		service.addPhoneRegist(req,username, password, code,nikeName);
+		autoLogin(req,resp,username,password);
+		return ResponseObject.newSuccessResponseObject("注册成功");
 	}
 
 	private void autoLogin(HttpServletRequest req, HttpServletResponse resp, String loginname, String password) {
 		OnlineUser o = service.findUserByLoginName(loginname);
 		Token t = null;
 		if(o!=null) {
-			t = userCenterAPI.login4BBS(loginname, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
+			t = userCenterService.login(loginname, password, TokenExpires.Year);
 		}
 		if (t != null) {
 			if (o != null) {
@@ -152,64 +96,7 @@ public class UserController extends OnlineBaseController {
 			}
 		}
 		UserUtil.setSessionCookie(req, resp, o, t);
-		callback.onLogin(req, resp);
 	}
-
-	/**
-	 * 邮箱提交注册
-	 * @param username
-	 * @param password
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping(value = "emailRegist", method = RequestMethod.POST)
-	public ResponseObject emailRegist(String username, String password,String nikeName,String vcode,
-			HttpServletRequest req,HttpSession session) {
-		Object sessionCode = req.getSession().getAttribute("randomCode");
-		if (sessionCode == null || !sessionCode.toString().equals(vcode)) {
-			logger.info("图形验证码错误！");
-			return ResponseObject.newErrorResponseObject("验证码错误");
-		}
-		return ResponseObject.newSuccessResponseObject(service.addEmailRegist(req,username, password,nikeName));
-	}
-	/**
-	 * 新用户注册邮箱激活
-	 * @param vcode
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping(value = "registEmailValidate", method = RequestMethod.GET)
-	public ModelAndView registEmailValidate(String vcode,HttpServletRequest req,HttpServletResponse res) {
-		try {
-			String msg = service.addRegistEmailValidate(vcode);
-			/**
-			 * 激活成功直接登录
-			 */
-			if ("ok".equals(msg)) {
-				Token token = this.createToken(userCenterAPI.getUser(vcode.split("!@!")[0]), TokenExpires.Day.getExpires());
-				OnlineUser user = this.userCenterService.getUserByLoginName(vcode.split("!@!")[0]);
-				
-				if(user.getVhallId()==null){
-					service.updateVhallInfo(user);
-				}
-				req.getSession().setAttribute("_token_", token);
-				req.getSession().setAttribute("_user_", user);
-				UCCookieUtil.writeTokenCookie(res, token);
-				CookieUtil.setCookie(res, "first_login", "1", domain, "/", 10);
-				//活动统计
-				String cok = CookieUtil.getCookieValue(req, "act_code_from");
-				if (cok != null && !"".equals(cok)) {
-					//jilu
-				}
-			}
-			req.setAttribute("msg", msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-			req.setAttribute("msg", "服务器异常，请稍后再试……");
-		}
-		return new ModelAndView("message/email_validate_message");
-	}
-
 
 	/**
 	 * 手机重置用户密码
@@ -222,68 +109,9 @@ public class UserController extends OnlineBaseController {
 	@RequestMapping(value = "resetUserPassword", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject resetUserPassword(String username, String password,String code, HttpServletRequest req) {
-		return ResponseObject.newSuccessResponseObject(service.updateUserPassword(username, password,code));
+		service.updateUserPassword(username, password,code);
+		return ResponseObject.newSuccessResponseObject("修改成功");
 	}
-
-	/**
-	 * 去到邮箱重置密码页面
-	 * @param vcode 验证信息
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping(value = "toResetEmail", method = RequestMethod.GET)
-	public ModelAndView toResetEmail(String vcode, HttpServletRequest req) {
-		try {
-			String msg = service.addResetEmailValidate(vcode);
-			if (!"ok".equals(msg)) {
-				req.setAttribute("msg", msg);
-				return new ModelAndView("message/email_resetpassword_err");
-			} else {
-				return new ModelAndView("message/email_resetpassword");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			req.setAttribute("msg", "服务器错误，请稍后再试……");
-			return new ModelAndView("message/email_resetpassword_err");
-		}
-	}
-
-	/**
-	 * 邮箱重置用户密码提交
-	 * @param vcode 验证信息
-	 * @param password 新密码
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping(value = "resetPasswordByEmail", method = RequestMethod.POST)
-	public ModelAndView resetPasswordByEmail(String vcode, String password, HttpServletRequest req,HttpServletResponse res) {
-		try {
-			String msg = service.addResetPasswordByEmail(vcode, password);
-			if (!"ok".equals(msg)) {
-				req.setAttribute("msg", msg);
-				return new ModelAndView("message/email_resetpassword_err");
-			} else {
-
-				/**
-				 * 重置成功直接登录
-				 */
-				if ("ok".equals(msg)) {
-					Token token = this.createToken(userCenterAPI.getUser(vcode.split("!@!")[0]), TokenExpires.Day.getExpires());
-					OnlineUser user = this.userCenterService.getUserByLoginName(vcode.split("!@!")[0]);
-					req.getSession().setAttribute("_token_", token);
-					req.getSession().setAttribute("_user_", user);
-					UCCookieUtil.writeTokenCookie(res, token);
-				}
-
-				return new ModelAndView("message/email_resetpassword_success");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			req.setAttribute("msg", "服务器错误，请稍后再试……");
-			return new ModelAndView("message/email_resetpassword_err");
-		}
-	}
-
 
 	/**
 	 * 是否登录
@@ -294,52 +122,6 @@ public class UserController extends OnlineBaseController {
 	public OnlineResponse isAlive(HttpServletRequest request){
 		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
 		return OnlineResponse.newSuccessOnlineResponse(service.isAlive(loginUser.getLoginName()));
-	}
-
-	/**
-	 * 登录状态
-	 * @return
-	 */
-	@RequestMapping(value = "loginStatus")
-	@ResponseBody
-	public OnlineResponse loginStatus(HttpServletRequest request,HttpServletResponse response){
-		String code="0";
-		BxgUser sessionLoginUser = UserLoginUtil.getLoginUser(request);
-		Token cookieToken = UCCookieUtil.readTokenCookie(request);
-		Token redisToken =null;
-		if(cookieToken!=null){
-			redisToken=cacheService.get("tuk_"+cookieToken.getUserId());
-
-			if(redisToken!=null && !redisToken.getTicket().equals(cookieToken.getTicket())){
-				code = "2";
-				UCCookieUtil.clearTokenCookie(response);
-				request.getSession().invalidate();
-				return OnlineResponse.newSuccessOnlineResponse(code);
-			}
-
-		}
-
-		if(sessionLoginUser==null) {
-			if (cookieToken == null) {
-				code = "1";
-			} else {
-				if (redisToken != null) {
-					if (!redisToken.getTicket().equals(cookieToken.getTicket())) {
-						code = "2";
-					}else{
-						//放到session 自动登录
-						//ItcastUser user = api.getUser(redisToken.getLoginName());
-//						UserLoginUtil.setLoginUser(request,user);
-					}
-
-				} else { //自动登录？
-					code = "2";
-					UCCookieUtil.clearTokenCookie(response);
-				}
-
-			}
-		}
-		return OnlineResponse.newSuccessOnlineResponse(code);
 	}
 
 	/**
@@ -369,28 +151,6 @@ public class UserController extends OnlineBaseController {
 	}
 
 	/**
-	 * 获取省份
-	 * @param
-	 */
-	@RequestMapping(value="getAllProvince",method=RequestMethod.GET)
-	@ResponseBody
-	public OnlineResponse getAllProvince(){
-		return OnlineResponse.newSuccessOnlineResponse(userCenterService.getAllProvince());
-	}
-
-
-	/**
-	 * 根据省份id获取城市
-	 * @param
-	 *
-	 */
-	@RequestMapping(value="getCityByProId",method=RequestMethod.GET)
-	@ResponseBody
-	public OnlineResponse getCityByProId(Integer proId){
-		return OnlineResponse.newSuccessOnlineResponse(userCenterService.getCityByProId(proId));
-	}
-
-	/**
 	 * 修改用户资料
 	 * @param request
 	 * @param
@@ -399,76 +159,11 @@ public class UserController extends OnlineBaseController {
 	 */
 	@RequestMapping(value="updateUser",method=RequestMethod.POST)
 	@ResponseBody
-	public OnlineResponse updateUser(HttpServletRequest request,UserVo userVo) throws ServletRequestBindingException{
-		OnlineResponse response=new OnlineResponse();
-		if (request.getSession().getAttribute(Constant.LOGINUSER) == null) {
-			response.setSuccess(false);
-			response.setErrorMessage("请登录!");
-			return response;
-		}
-		BxgUser user=(BxgUser)request.getSession().getAttribute(Constant.LOGINUSER);
-		String userId = ServletRequestUtils.getStringParameter(request,
-				"userId");
-
-		String nickName = ServletRequestUtils.getStringParameter(request,
-				"nickName");
-		String autograph = ServletRequestUtils.getStringParameter(request,
-				"autograph");//个性签名
-		String loginName = ServletRequestUtils.getStringParameter(request,
-				"loginName");//用户名
-		Integer occupation = ServletRequestUtils.getIntParameter(request,
-				"occupation");
-		String occupationOther = ServletRequestUtils.getStringParameter(request,
-				"occupationOther");
-		String province = ServletRequestUtils.getStringParameter(request,
-				"province");
-		String city = ServletRequestUtils.getStringParameter(request,
-				"city");
-		
-		String district = ServletRequestUtils.getStringParameter(request,
-				"district");
-		
-		
-		String provinceName = ServletRequestUtils.getStringParameter(request,
-				"provinceName");
-		
-		String cityName = ServletRequestUtils.getStringParameter(request,
-				"cityName");
-		
-		String countyName = ServletRequestUtils.getStringParameter(request,
-				"countyName");
-		String target = ServletRequestUtils.getStringParameter(request,
-				"target");
-		String sex = ServletRequestUtils.getStringParameter(request,
-				"sex");
-		UserDataVo vo = new UserDataVo();
-		vo.setUid(userId);
-		if(nickName==null||StringUtils.isEmpty(nickName.trim())){
-			vo.setNickName(loginName); //如果什么都不填的话 昵称默认为账号
-		}else {
-			vo.setNickName(nickName);
-		}
-		vo.setAutograph(autograph);
-		vo.setOccupation(occupation);
-
-		vo.setProvince(province);
-		vo.setCity(city);
-		vo.setDistrict(district);
-		
-		vo.setProvinceName(provinceName);
-		vo.setCityName(cityName);
-		vo.setCountyName(countyName);
-		vo.setTarget(target);
-		vo.setLoginName(loginName);
-		vo.setOccupationOther(occupationOther);
-		vo.setSex(Integer.valueOf(sex));
-		boolean a = userCenterService.updateUser(vo);
-		if(a){
-			user.setName(nickName);
-			return OnlineResponse.newSuccessOnlineResponse("修改成功");
-		}else{
-			return OnlineResponse.newSuccessOnlineResponse("修改失败");
-		}
+	public OnlineResponse updateUser(HttpServletRequest request,OeUserVO oeUserVO) throws ServletRequestBindingException{
+		OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+		oeUserVO.setId(loginUser.getId());
+		userCenterService.update(oeUserVO);
+		return OnlineResponse.newSuccessOnlineResponse("修改成功");
 	}
 
 	/**
@@ -481,26 +176,12 @@ public class UserController extends OnlineBaseController {
 	@RequestMapping(value="updateUserHeadImg",method=RequestMethod.POST)
 	@ResponseBody
 	public OnlineResponse updateUserHeadImg(HttpServletRequest request) throws ServletRequestBindingException{
-		OnlineResponse response=new OnlineResponse();
-		if (request.getSession().getAttribute(Constant.LOGINUSER) == null) {
-			response.setSuccess(false);
-			response.setErrorMessage("请登录!");
-			return response;
-		}
-		BxgUser user=(BxgUser)request.getSession().getAttribute(Constant.LOGINUSER);
-		String userId = ServletRequestUtils.getStringParameter(request,
-				"userId");
-		if(!StringUtils.isEmpty(userId)&&!user.getId().equals(userId)){
-			response.setSuccess(false);
-			response.setErrorMessage("不是本人操作!");
-			return response;
-		}
-		String img = ServletRequestUtils.getStringParameter(request,
-				"img");
-		if(!StringUtils.isEmpty(img)) {
-			userCenterService.updateUserHeadImg(user, img);
-			((OnlineUser)user).setSmallHeadPhoto(img);
-		}
+		OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+		String img = ServletRequestUtils.getStringParameter(request, "img");
+		OeUserVO oeUserVO = new OeUserVO();
+		oeUserVO.setId(loginUser.getId());
+		oeUserVO.setSmallHeadPhoto(img);
+		userCenterService.update(oeUserVO);
 		return OnlineResponse.newSuccessOnlineResponse("修改成功");
 	}
 
@@ -551,7 +232,7 @@ public class UserController extends OnlineBaseController {
 		return ResponseObject.newSuccessResponseObject(service.listCities(provinceId));
 	}
 
-	Token createToken(ItcastUser user, int expires) {
+	Token createToken(OeUserVO user, int expires) {
 		if (user == null) {
 			return null;
 		}
@@ -565,146 +246,10 @@ public class UserController extends OnlineBaseController {
 		long time = System.currentTimeMillis() + expires * 1000;
 		token.setExpires(time);
 
-		String userRedisKey="tuk_"+user.getId();
+		String userRedisKey="t_u_k_"+user.getId();
 		this.cacheService.set(userRedisKey, token, expires);
 		return token;
 	}
 
 
-
-	/**
-	 * 三方QQ登录请求
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping(value = "qq_login")
-	public void qqlogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//生成签名
-		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-		request.getSession().setAttribute("qq_connect_state",uuid);
-		String state = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
-		Map<String,String> param = new HashMap<>();
-		param.put("response_type", "code");
-		param.put("client_id", ThirdConnectionConfig.QQ_APP_ID);
-		param.put("redirect_uri", ThirdConnectionConfig.QQ_REDIRECT_URI);
-		param.put("state", state);
-		response.sendRedirect("https://graph.qq.com/oauth2.0/authorize" + "?" + HttpUtil.createQueryString(param));
-	}
-	/**
-	 * qq登录授权成功后回调处理
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping(value = "qq_afterlogin")
-	public void qquserInfo(HttpServletRequest request, HttpServletResponse response,String code,String state) throws Exception {
-		//生成签名
-		String uuid = (String) request.getSession().getAttribute("qq_connect_state");
-		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
-		if(!StringUtils.isEmpty(state) && !StringUtils.isEmpty(stateSign) && state.equalsIgnoreCase(stateSign)) {
-			String accessToken = service.getQQAccessToken(code);
-			if (accessToken != null) {
-				String openId = service.getQQOpenId(accessToken);
-				if (openId != null) {
-					Map<String, String> returnMap = service.saveQQUserInfo(accessToken, openId);
-					if (returnMap != null) {
-						Token token = this.createToken(userCenterAPI.getUser(returnMap.get("username")), TokenExpires.Day.getExpires());
-						OnlineUser user = this.userCenterService.getUserByLoginName(returnMap.get("username"));
-						request.getSession().setAttribute("_token_", token);
-						request.getSession().setAttribute("_user_", user);
-						UCCookieUtil.writeTokenCookie(response, token);
-						response.sendRedirect("/web/html/bindAccount.html");
-					}
-				}
-			}
-		}else{
-			//我们的网站被CSRF攻击了或者用户取消了授权
-			System.out.print("没有获取到响应参数");
-		}
-	}
-
-	/**
-	 * 三方微信登录请求
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping(value = "wechat_login")
-	public void wechatLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//生成签名
-		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-		request.getSession().setAttribute("wx_connect_state",uuid);
-		String state = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
-		Map<String,String> param = new HashMap<>();
-		param.put("response_type", "code");
-		param.put("client_id", ThirdConnectionConfig.WX_APP_ID);
-		param.put("redirect_uri", ThirdConnectionConfig.WX_REDIRECT_URI);
-		param.put("state", state);
-		response.sendRedirect("https://open.weixin.qq.com/connect/qrconnect" + "?" + HttpUtil.createQueryString(param));
-	}
-
-	/**
-	 * 微信登录授权成功后回调
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping(value = "wechat_afterlogin")
-	public void wechatUserInfo(HttpServletRequest request, HttpServletResponse response,String code,String state) throws Exception {
-		//生成签名
-		String uuid = (String) request.getSession().getAttribute("wx_connect_state");
-		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
-		if(!StringUtils.isEmpty(state) && !StringUtils.isEmpty(stateSign) && state.equalsIgnoreCase(stateSign)) {
-			Map<String, String> returnMap = service.saveWechatUserInfo(code);
-			if (returnMap != null) {
-				Token token = this.createToken(userCenterAPI.getUser(returnMap.get("username")), TokenExpires.Day.getExpires());
-				OnlineUser user = this.userCenterService.getUserByLoginName(returnMap.get("username"));
-				request.getSession().setAttribute("_token_", token);
-				request.getSession().setAttribute("_user_", user);
-				UCCookieUtil.writeTokenCookie(response, token);
-				response.sendRedirect("/web/html/bindAccount.html");
-			}
-		}else{
-			//我们的网站被CSRF攻击了或者用户取消了授权
-			System.out.print("没有获取到响应参数");
-		}
-	}
-
-	/**
-	 * 三方登录帐号绑定手机或邮箱帐号
-	 * @param request
-	 * @param username    绑定帐号
-	 * @return
-	 */
-	@RequestMapping(value = "bindcount",method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseObject bindCount(HttpServletRequest request,HttpServletResponse response,String username){
-		//获取当前登录用户信息(三方登录用户)
-		OnlineUser onlineUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		if(onlineUser!=null) {
-			ResponseObject obj = service.saveBindCount(username, onlineUser.getUnionId());
-			if(obj.isSuccess()) {
-				refreshToken(request, response, username);
-			}
-			return obj;
-		}else{
-			return ResponseObject.newErrorResponseObject("当前未登录！");
-		}
-	}
-
-	/**
-	 * 刷新session和cookie信息
-	 * @param request
-	 * @param response
-	 * @param username
-	 */
-	private void refreshToken(HttpServletRequest request, HttpServletResponse response, String username) {
-		/** 更新session和cookie信息 */
-		Token token = this.createToken(userCenterAPI.getUser(username), TokenExpires.Day.getExpires());
-		OnlineUser user = this.userCenterService.getUserByLoginName(username);
-		request.getSession().setAttribute("_token_", token);
-		request.getSession().setAttribute("_user_", user);
-		UCCookieUtil.writeTokenCookie(response, token);
-	}
 }

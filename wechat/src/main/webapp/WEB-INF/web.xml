@@ -17,7 +17,7 @@
 		<listener-class>com.xczh.consumer.market.listener.LogbackConfigListener</listener-class>
 	</listener>
 
-	 <listener>
+	<listener>
   	      <listener-class>com.xczh.consumer.market.listener.MyServletContextListener</listener-class>
      </listener>
 

@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.common.util.enums.TokenExpires;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -25,13 +28,9 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
 import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.course.model.WeiboClientUserMapping;
 import com.xczhihui.course.service.IThreePartiesLoginService;
 
@@ -68,7 +67,7 @@ public class WeiBoThirdPartyController {
 	private CacheService cacheService;
 	
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 	
 	//手机端登录使用
 	@Value("${mobile.authorizeURL}")
@@ -148,11 +147,9 @@ public class WeiBoThirdPartyController {
 					LOGGER.info("绑定了用户信息了-wcum.getUserId()-------:"+wcum.getUserId());
 					
 					OnlineUser ou =  onlineUserService.findUserById(wcum.getUserId());
-					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+					Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 					//把用户中心的数据给他  --这些数据是IM的
-					ou.setUserCenterId(iu.getId());
-					ou.setPassword(iu.getPassword());
+					ou.setUserCenterId(ou.getId());
 					ou.setTicket(t.getTicket());
 					/**
 					 *	 直接让登录了  返回状态值：200
@@ -172,8 +169,7 @@ public class WeiBoThirdPartyController {
 			} catch (Exception  e) {
 				e.printStackTrace();
 				LOGGER.info("==============");
-				//return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.DATA_IS_WRONG.getCode());
-			}  
+			}
 		} catch (WeiboException | IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
@@ -282,12 +278,10 @@ public class WeiBoThirdPartyController {
 		 			}
 					
 					OnlineUser ou =  onlineUserService.findUserById(wcum.getUserId());
-					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+					Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 					
 					//把用户中心的数据给他  --这些数据是IM的
-					ou.setUserCenterId(iu.getId());
-					ou.setPassword(iu.getPassword());
+					ou.setUserCenterId(ou.getId());
 					ou.setTicket(t.getTicket());
 					/**
 					 *	 直接让登录了  返回状态值：200
@@ -321,7 +315,6 @@ public class WeiBoThirdPartyController {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}	
-		//response.sendRedirect(authorize("code",state,"mobile"));
 	}
 	
 	

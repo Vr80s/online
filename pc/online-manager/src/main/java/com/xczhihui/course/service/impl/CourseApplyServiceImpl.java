@@ -288,8 +288,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         String title = courseApplyInfo.getTitle();
         Integer courseForm = courseApplyInfo.getCourseForm();
         RouteTypeEnum routeTypeEnum = RouteTypeEnum.NONE;
-        String reason = CourseDismissal.getDismissal(courseApplyInfo.getDismissal())
-                + " " + courseApplyInfo.getDismissalRemark();
+        String reason = CourseDismissal.getDismissal(courseApplyInfo.getDismissal());
         if (courseForm.equals(1)) {
             n = "直播";
             routeTypeEnum = RouteTypeEnum.LIVE_COURSE_LIST;

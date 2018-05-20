@@ -2,8 +2,6 @@ package com.xczhihui.bxg.online.web.service.impl;/**
  * Created by admin on 2016/9/19.
  */
 
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;
@@ -14,11 +12,12 @@ import com.xczhihui.bxg.online.web.dao.AskAnswerDao;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.UserCenterDao;
 import com.xczhihui.bxg.online.web.service.AskQuestionListService;
-import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import com.xczhihui.bxg.online.web.vo.AskAnswerVo;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.user.center.bean.Token;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.user.center.vo.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -39,11 +38,6 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
     private ASKQuestionListDao questionListDao;
     @Autowired
     private AskAnswerDao answerDao;
-    @Autowired
-    private AskAnswerDao askAnswerDao;
-
-    @Autowired
-    private ManagerUserService managerUserService;
 
     @Autowired
     private CourseDao courseDao;

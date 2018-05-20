@@ -33,7 +33,7 @@
 <body>
 <div class="wp">
     <div class="route">
-        <a href="">个人中心</a>&gt;<span>我的论坛</span>
+        <a href="">个人中心</a>&gt;<span>我的帖子</span>
     </div>
 
     <div class="wrap-myPost">
@@ -60,11 +60,14 @@
                         <td>发帖时间</td>
                     </tr>
                 </table>
+                
             </div>
             <table id="post_table">
 
             </table>
-
+			 <div class="pages hide" style="margin-top: 30px;">
+            	<div id="Pagination"></div>
+       		 </div>
 
         </div>
         <!--我的回复-->
@@ -82,10 +85,11 @@
             <!--1-->
             <table id="reply_table">
             </table>
+             <div class="pages reply-pages hide" style="margin-top: 30px;">
+            	<div id="Pagination"></div>
+       		 </div>
         </div>
-        <div class="pages">
-            <div id="Pagination"></div>
-        </div>
+       
     </div>
 </div>
 <#include "../footer.ftl">

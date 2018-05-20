@@ -243,7 +243,7 @@
 	<select id="selectMyFreeCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
            <include refid="relLearningCourseListByUserId"/>
-		   DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr,
+		   DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr
 		FROM
 			oe_course as oc
 			inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`

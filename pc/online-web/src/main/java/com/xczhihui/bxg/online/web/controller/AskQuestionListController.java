@@ -8,8 +8,8 @@ import com.xczhihui.bxg.online.web.service.AskQuestionListService;
 import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +57,7 @@ public class AskQuestionListController extends AbstractController{
      */
     @RequestMapping(value = "/findQuestionById",method= RequestMethod.GET)
     public  ResponseObject  findQuestionById( String   questionId,HttpServletRequest request){
-        Token token=  UCCookieUtil.readTokenCookie(request);
+        Token token = UCCookieUtil.readTokenCookie(request);
         return ResponseObject.newSuccessResponseObject(questionListService.findQuestionById(token, questionId, request));
     }
 
@@ -105,7 +105,7 @@ public class AskQuestionListController extends AbstractController{
      */
     @RequestMapping(value = "/getCourseByMenuId",method= RequestMethod.GET)
     public ResponseObject getCourseByMenuId( Integer menuId) {
-        return    ResponseObject.newSuccessResponseObject(questionListService.getCourseByMenuId(menuId));
+        return ResponseObject.newSuccessResponseObject(questionListService.getCourseByMenuId(menuId));
     }
 
 
@@ -116,7 +116,7 @@ public class AskQuestionListController extends AbstractController{
      */
     @RequestMapping(value = "/getHotAnswer",method= RequestMethod.GET)
     public ResponseObject getHotAnswer(){
-        return    ResponseObject.newSuccessResponseObject(questionListService.getHotAnswer());
+        return ResponseObject.newSuccessResponseObject(questionListService.getHotAnswer());
     }
 
 
@@ -127,7 +127,7 @@ public class AskQuestionListController extends AbstractController{
      */
     @RequestMapping(value = "/getSameProblem",method= RequestMethod.GET)
     public ResponseObject getSameProblem(String [] tags,Integer  menuId,String qid){
-        return    ResponseObject.newSuccessResponseObject(questionListService.getSameProblem(tags,menuId,qid));
+        return ResponseObject.newSuccessResponseObject(questionListService.getSameProblem(tags,menuId,qid));
     }
 
     /**
@@ -140,7 +140,7 @@ public class AskQuestionListController extends AbstractController{
         //获取当前登录用户信息
         OnlineUser u = getCurrentUser();
         User user = managerUserService.findUserByLoginName(ln);
-        return    ResponseObject.newSuccessResponseObject(questionListService.deleteQuestionById(u,questionId,user));
+        return ResponseObject.newSuccessResponseObject(questionListService.deleteQuestionById(u,questionId,user));
     }
 
 

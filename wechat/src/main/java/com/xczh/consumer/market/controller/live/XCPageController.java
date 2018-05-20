@@ -2,9 +2,9 @@ package com.xczh.consumer.market.controller.live;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczhihui.user.center.bean.ItcastUser;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.vo.OeUserVO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class XCPageController {
 
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 
 	@Autowired
 
@@ -83,7 +83,7 @@ public class XCPageController {
 		req.setAttribute("course_id", courseId);
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user!=null){
-			ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
+			OeUserVO iu = userCenterService.getUserVO(user.getLoginName());
 			req.setAttribute("guId",iu.getId());
 			req.setAttribute("guPwd", iu.getPassword());
 		}

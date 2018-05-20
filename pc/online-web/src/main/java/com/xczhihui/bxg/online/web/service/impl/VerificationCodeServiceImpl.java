@@ -9,6 +9,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.Resource;
 
 import com.xczhihui.common.util.enums.VCodeType;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.vo.OeUserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.VerificationCode;
 import com.xczhihui.bxg.online.web.service.VerificationCodeService;
 import com.xczhihui.bxg.online.web.utils.MailUtil;
-import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.ItcastUser;
+
 /**
  * 动态码相关
  * @author Haicheng Jiang
@@ -34,7 +35,7 @@ import com.xczhihui.user.center.bean.ItcastUser;
 public class VerificationCodeServiceImpl implements VerificationCodeService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	private UserCenterAPI userCenterAPI;
+	private UserCenterService userCenterService;
 	@Autowired
 	private EmailService emailService;
 	private SimpleHibernateDao dao;
@@ -51,12 +52,13 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		if (VCodeType.getType(Integer.valueOf(vtype)) == null) {
 			throw new RuntimeException ("动态码类型错误！1注册2.重置密码3.提现");
 		}
-		
-		ItcastUser iu = userCenterAPI.getUser(username);
+
+		OeUserVO userVO = userCenterService.getUserVO(username);
+
 		/**
 		 * 新注册，根据用户中心判断用户是否存在
 		 */
-		if (VCodeType.REGISTER.getCode() == Integer.valueOf(vtype) && iu != null) {
+		if (VCodeType.REGISTER.getCode() == Integer.valueOf(vtype) && userVO != null) {
 			throw new RuntimeException (String.format("该%s已注册，请直接登录！",username.contains("@") ? "邮箱" : "手机号"));
 		}
 
@@ -64,13 +66,13 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		/**
 		 * 重置密码，根据本地库判断用户是否存在
 		 */
-		if (VCodeType.RESET.getCode() == Integer.valueOf(vtype) && (o == null || iu == null)) {
+		if (VCodeType.RESET.getCode() == Integer.valueOf(vtype) && (o == null || userVO == null)) {
 			throw new RuntimeException ("用户不存在！");
 		}
 		/**
 		 * 重置密码，根据用户中心判断用户是否被禁用
 		 */
-		if (VCodeType.RESET.getCode() == Integer.valueOf(vtype) && iu.getStatus() == -1) {
+		if (VCodeType.RESET.getCode() == Integer.valueOf(vtype) && userVO.getStatus() == -1) {
 			throw new RuntimeException ("用户已禁用！");
 		}
 
@@ -146,11 +148,9 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		if ("2".equals(vtype)) {
 			//找回密码邮件内容
 			content = MailUtil.getEmailContent(weburl+"/online/user/toResetEmail?vcode="+vcode);//yuruixin_20170825
-//			content = MailUtil.getEmailContent(attrs.get("message_provider_url_reset")+vcode);
 		} else if ("1".equals(vtype)) {
 			//构建注册邮件验证信息
 			content = MailUtil.getRegisterEmailContent(weburl+"/online/user/registEmailValidate?vcode="+vcode);
-//			content = MailUtil.getRegisterEmailContent(attrs.get("message_provider_url_regist")+vcode);
 		}
 		
 		//发送邮件
@@ -176,8 +176,8 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		initSystemVariate();
 
 		//在用户重新获取登录对象
-		ItcastUser iu = userCenterAPI.getUser(phone);
-		if(iu == null){
+		OeUserVO userVO = userCenterService.getUserVO(phone);
+		if(userVO == null){
 			throw new RuntimeException("用户不存在！");
 		}
 		//动态码验证

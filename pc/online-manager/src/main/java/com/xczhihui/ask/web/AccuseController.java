@@ -2,6 +2,7 @@ package com.xczhihui.ask.web;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
@@ -20,7 +21,6 @@ import com.xczhihui.ask.service.AccuseService;
 import com.xczhihui.ask.vo.AccuseVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.utils.Group;
-import com.xczhihui.user.center.utils.CodeUtil;
 
 /**
  * 投诉管理
