@@ -132,18 +132,49 @@ $(".question-forum li").click(function(){
 		$(this).addClass("mune-active");
 		$(".all-order-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
 	})
-//全部订单/近三月订单筛选	
-$(".all-order").hover(function(){
-	$(".all-change").stop().slideDown();
-	$(".triangle-bottom").addClass("glyphicon-triangle-top")
-},function(){
-	$(".all-change").stop().slideUp();
-	$(".triangle-bottom").removeClass("glyphicon-triangle-top")	
+	//全部订单/近三月订单筛选	
+	$(".all-order").hover(function(){
+		$(".all-change").stop().slideDown();
+		$(".triangle-bottom").addClass("glyphicon-triangle-top")
+	},function(){
+		$(".all-change").stop().slideUp();
+		$(".triangle-bottom").removeClass("glyphicon-triangle-top")	
+	})
+	$(".all-order span").click(function(){
+		var spanText=$(this).text();
+		$(".select-write").text(spanText);
+	})
+
+//-------------------------------------- 我的订单结束    我的钱包开始--------------------------------------------
+//点击充值切换页面
+$(".main-wallet-top button").click(function(){
+	$(".wallet-trade").addClass("hide");
+	$(".recharge-wrap").removeClass("hide");
+//	给选择金额一个点击
+	$(".select-pay-money li:first").click();
+//	给充值方式一个点击
+	$(".main-bottom ul li:first").click();
 })
-$(".all-order span").click(function(){
-	var spanText=$(this).text();
-	$(".select-write").text(spanText);
+//点击我的钱包回到第一个页面
+$("#wallet-btn").click(function(){
+	if($(".wallet-trade").hasClass("hide")){
+		$(".wallet-trade").removeClass("hide");
+		$(".recharge-wrap").addClass("hide");	
+	}
 })
+//选择充值金额
+$(".select-pay-money li").click(function(){
+	$(".select-pay-money li").removeClass("select-money");
+	$(this).addClass("select-money");
+})
+//选择支付方式
+	$(".main-bottom ul li").click(function(){
+		$(".main-bottom ul li").removeClass("select-confirm").find("span").addClass("hide");
+		$(this).addClass("select-confirm").find("span").removeClass("hide");
+	})
+
+
+
 
 
 });

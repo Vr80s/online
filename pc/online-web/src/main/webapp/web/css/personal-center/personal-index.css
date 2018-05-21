@@ -963,3 +963,109 @@ overflow: hidden;
 .table-wallet-list td:nth-child(5){
 	width: 110px;
 }
+.recharge-wrap{
+	
+}
+/*充值*/
+.recharge-wrap{
+	width: 100%;
+	background: #f8f8f8;
+}
+.recharge-explain {
+    padding: 20px;
+    overflow: hidden;
+    background: white;
+    border-bottom: 1px solid #f0f0f0;
+}
+.recharge-explain .explain {
+    color: #333333;
+    font-size: 16px;
+}
+.recharge-explain .explain  span{
+	font-size: 14px;
+	color: #999999;
+	margin-left: 10px;
+}
+.recharge-explain .balance {
+    color: #666666;
+}
+.select-pay-money{
+	width: 100%;
+    background: white;
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+.select-pay-money ul li {
+    float: left;
+    border: 1px solid #DEDEDE;
+    text-align: center;
+    margin: 20px 0 0 20px;
+    color: #666666;
+    padding: 10px 0;
+    width: 125px;
+    cursor: pointer;
+}
+.select-pay-money .select-money {
+    color: #F97B49;
+    border: 1px solid #F97B49;
+}
+.main-bottom {
+    width: 100%;
+    background: white;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.main-bottom h4 {
+    color: #333333;
+    margin: 0 0 20px;
+}
+.select-pay .select-confirm {
+    border: 1px solid #F97B49;
+}
+.select-pay li {
+    width: 120px;
+    height: 50px;
+    border: 1px solid #DEDEDE;
+    color: #666666;
+    line-height: 50px;
+    position: relative;
+    float: left;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.select-pay .pay-logo {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+}
+.select-pay .pay-logo img {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 10px 0 0 18px;
+}
+.select-pay p {
+    text-align: center;
+    float: right;
+    margin-right: 18px;
+}
+.icon-sure {
+    width: 22px;
+    height: 22px;
+    background: url(../../images/sanjiao.png) no-repeat;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.recharge-box button {
+    padding: 10px 60px;
+    color: white;
+    background: #F97B49;
+    border: 0;
+    outline: none;
+    font-size: 20px;
+    margin-top: 30px;
+    border-radius: 4px;
+}
