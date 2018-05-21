@@ -126,20 +126,19 @@ $(".question-forum li").click(function(){
 	})
 
 //--------------------------------------问答论坛结束    我的订单开始--------------------------------------------
-//我的帖子/我的回复选项卡
+//我的订单选项卡
 	$(".order-box li").click(function(){
 		$(".order-box li").removeClass("mune-active");
 		$(this).addClass("mune-active");
 		$(".all-order-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
 	})
-	
+//全部订单/近三月订单筛选	
 $(".all-order").hover(function(){
 	$(".all-change").stop().slideDown();
 	$(".triangle-bottom").addClass("glyphicon-triangle-top")
 },function(){
 	$(".all-change").stop().slideUp();
-	$(".triangle-bottom").removeClass("glyphicon-triangle-top")
-	
+	$(".triangle-bottom").removeClass("glyphicon-triangle-top")	
 })
 $(".all-order span").click(function(){
 	var spanText=$(this).text();

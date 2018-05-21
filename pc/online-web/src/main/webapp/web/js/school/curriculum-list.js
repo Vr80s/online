@@ -121,6 +121,30 @@ $(function() {
 	// $(".tab-bottom").removeClass("selected");
 	// }
 	// });
+	
+	//分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".doctors_pages").removeClass("hide");
+		            $(".doctors_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#Pagination_doctors").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    recruitList(page+1);
+		                }
+		            });
+				}
+				else {
+					$(".doctors_pages").addClass("hide");
+				}
+			
+//分页添加结束
+	
+	
+	
 });
 
 // 判断字段空值
