@@ -46,7 +46,7 @@ public class SendEmail {
 		  msg.setSentDate(new Date());
 		  Transport.send(msg);
 		  
-		  System.out.println("Message sent.");
+		  System.out.println("XgMessage sent.");
 		  return true;
 		 }
 

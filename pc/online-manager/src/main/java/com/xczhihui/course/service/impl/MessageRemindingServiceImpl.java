@@ -13,12 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.ImmutableMap;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.common.util.ShortUrlUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.constant.RedisKeyConstant;
 import com.xczhihui.course.consts.MultiUrlHelper;
@@ -64,7 +62,8 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
     private String mobileDomain;
 
     CacheService cacheService;
-    private static Map<Integer, String> dayMap ;
+    private static Map<Integer, String> dayMap;
+
     static {
         dayMap = new HashMap<>();
         dayMap.put(1, "一");
@@ -166,7 +165,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
             List<Integer> dates = collectionCourseApplyUpdateDateDao.getUpdateDatesByCollectionId(course.getId());
             if (dates.isEmpty()) {
                 deleteCourseMessageReminding(course, RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
-            } else if(dates.contains(day)) {
+            } else if (dates.contains(day)) {
                 List<OnlineUser> users = getUsersByCourseId(course.getId());
                 String courseName = course.getGradeName();
                 String address = course.getAddress();
@@ -198,10 +197,10 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 long seconds = Duration.between(now, startTime).getSeconds();
                 if (seconds <= (60 * 10 + 30)) {
                     long minute = seconds / 60;
-                    if(minute <=0){
-                        loggger.info("课程{}提醒未发送,开播时间{}",course.getId(),course.getStartTime());
+                    if (minute <= 0) {
+                        loggger.info("课程{}提醒未发送,开播时间{}", course.getId(), course.getStartTime());
                         deleteCourseMessageReminding(course, RedisKeyConstant.LIVE_COURSE_REMIND_KEY);
-                    }else{
+                    } else {
                         //发送提醒
                         List<OnlineUser> users = getUsersByCourseId(course.getId());
                         String courseName = course.getGradeName();
@@ -212,10 +211,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                         params.put("courseName", courseName);
                         params.put("lecture", lecturer);
                         params.put("minute", String.valueOf(minute));
-                        //短网址链接
-//                        params.put("address", ShortUrlUtil.getShortUrl(mobileDomain + MultiUrlHelper.getUrl(routeType.name(), MultiUrlHelper.URL_TYPE_MOBILE)));
-                        //TODO 阿里云拦截url
-                        params.put("address", "课程详情链接地址");
+                        params.put("code", String.valueOf(course.getId()));
                         Map<String, String> weixinParams = new HashMap<>(4);
                         weixinParams.put("first", commonContent);
                         weixinParams.put("keyword1", courseName);
@@ -223,7 +219,6 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                         weixinParams.put("remark", "点击查看");
                         OnlineUser onlineUser = new OnlineUser();
                         for (OnlineUser user : users) {
-                            if (!"dev".equals(envFlag)) {
                             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                                     .buildWeb(commonContent)
                                     .buildAppPush(MessageFormat.format(APP_PUSH_LIVE_COURSE_REMIND, lecturer, courseName, minute))
@@ -232,9 +227,6 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                                     .detailId(String.valueOf(course.getId()))
                                     .build(user.getId(), routeType, null)
                             );
-                            } else {
-                                loggger.info("开发环境，不发送提示短信");
-                            }
                         }
                     }
                     deleteCourseMessageReminding(course, RedisKeyConstant.LIVE_COURSE_REMIND_KEY);

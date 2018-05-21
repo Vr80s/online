@@ -20,9 +20,17 @@ public interface ICommonMessageService {
     /**
      * 查看用户消息列表
      *
-     * @param page
-     * @param userId
+     * @param page   分页参数
+     * @param userId 用户id
      * @return
      */
     List<Message> list(int page, String userId);
+
+    /**
+     * 获取用户的消息维未读数量
+     *
+     * @param userId 用户id
+     * @return 未读数量
+     */
+    int countUnReadCntByUserId(String userId);
 }

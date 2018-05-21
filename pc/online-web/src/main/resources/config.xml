@@ -18,7 +18,9 @@
 
     <context:property-placeholder location="classpath:config.properties"/>
     <context:component-scan
-            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,com.xczhihui.common.support.**, com.xczhihui.bxg.online.web.support.*"/>
+            base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,
+            com.xczhihui.common.support.**, com.xczhihui.bxg.online.web.support.*,
+com.xczhihui.bxg.online.web.config"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
@@ -284,17 +286,23 @@
                      timeout="${dubbo.consumer.timeout}"/>
     <!-- 消息 -->
     <dubbo:reference interface="com.xczhihui.course.service.ICommonMessageService" id="commonMessageService"
-                     timeout="${dubbo.consumer.timeout}"/>
+                     timeout="${dubbo.consumer.timeout}">
+        <dubbo:method name="saveMessage" async="true"/>
+    </dubbo:reference>
 
     <!-- banner 管理类 -->
-    <dubbo:reference interface="com.xczhihui.course.service.IMobileBannerService" id="mobileBannerServiceImpl" timeout="${dubbo.consumer.timeout}" />
-    <!-- 专题接口  -->                 
-    <dubbo:reference interface="com.xczhihui.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileBannerService" id="mobileBannerServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!-- 专题接口  -->
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileProjectService" id="mobileProjectServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 默认关键字、搜索热门接口 -->
-    <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl" timeout="${dubbo.consumer.timeout}"/>
-    
-     <!-- 城市接口 -->
-    <dubbo:reference interface="com.xczhihui.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+
+    <!-- 城市接口 -->
+    <dubbo:reference interface="com.xczhihui.course.service.IOfflineCityService" id="offlineCityServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
 
 
     <!--=============================================消费者end============================================-->
