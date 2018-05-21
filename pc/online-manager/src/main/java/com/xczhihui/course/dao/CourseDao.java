@@ -56,7 +56,7 @@ public class CourseDao extends HibernateDao<Course> {
 						+ "  oc.end_time as endTime,\n"
 						+ "  oc.course_type AS serviceType,\n"
 						+ "  oc.user_lecturer_id AS userLecturerId,\n"
-						+ "  ca.`name` lecturerName,\n"
+						+ "  ou.login_name lecturerName,\n"
 						+ "  oc.`lecturer`,\n"
 						+ "  oc.`collection`,\n"
 						+ "  oc.sort_update_time as sortUpdateTime "
