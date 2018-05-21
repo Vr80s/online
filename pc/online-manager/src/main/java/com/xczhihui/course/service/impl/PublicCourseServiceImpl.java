@@ -388,13 +388,11 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 
 			liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
 			
-			
 			if (startOrEnd != "") {
 				String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
 				Map<String, Object> find = new HashMap<String, Object>();
 				find.put("live_id", course.getDirectId());
-				List<Integer> list = dao.getNamedParameterJdbcTemplate()
-						.queryForList(findSql, find, Integer.class);
+				List<Integer> list = dao.getNamedParameterJdbcTemplate().queryForList(findSql, find, Integer.class);
 
 				Integer maxRecord = 0;
 				if (list != null && list.size() > 0) {

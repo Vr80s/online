@@ -1694,9 +1694,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         	 System.out.println("回放生产成功");
          
          }
-         
-         
-         
          dao.update(course);
 	}
 	

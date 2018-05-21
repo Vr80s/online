@@ -3,6 +3,7 @@ package com.xczhihui.course.service;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -82,5 +83,9 @@ public interface IMobileBannerService {
 	   * @return
 	   */
 	  public List<CourseLecturVo> searchCourseList(QueryConditionVo queryConditionVo);
+
+	  public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo);
+
+	  public Page<CourseLecturVo> searchCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo);
 
 }

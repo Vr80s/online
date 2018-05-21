@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.course.mapper.MobileBannerMapper;
 import com.xczhihui.course.model.MobileBanner;
@@ -203,5 +204,15 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper,Mobi
 	@Override
 	public List<CourseLecturVo> searchCourseList(QueryConditionVo queryConditionVo) {
 		return iMobileBannerMapper.searchCourseList(queryConditionVo);
+	}
+	@Override
+	public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
+		List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page,queryConditionVo);
+		return page.setRecords(list);
+	}
+	@Override
+	public Page<CourseLecturVo> searchCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
+		List<CourseLecturVo> list =iMobileBannerMapper.searchCourseList(page,queryConditionVo);
+		return page.setRecords(list);
 	}
 }

@@ -18,10 +18,6 @@ public class QueryConditionVo  implements Serializable {
 	
 	private String queryKey;
 	
-	private Integer pageNumber =1;
-	   
-	private Integer pageSize = 20;
-	
 	private Integer sortOrder;
 	
 
@@ -66,26 +62,6 @@ public class QueryConditionVo  implements Serializable {
 		this.queryKey = queryKey;
 	}
 
-	public Integer getPageNumber() {
-		return pageNumber;
-	}
-
-	public void setPageNumber(Integer pageNumber) {
-		if (pageNumber > 1) {
-            this.pageNumber = pageNumber;
-        }
-		if (pageNumber > 0) {
-			setPageSize((pageNumber - 1) * pageSize);
-        }
-	}
-
-	public Integer getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
-	}
 
 	public String getMenuType() {
 		return menuType;

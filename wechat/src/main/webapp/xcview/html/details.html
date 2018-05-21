@@ -210,48 +210,26 @@ $(function(){
 		<!--即将开始提示-->
 		<div class="video_end_top0" style="display: none;">
 			<p>即将直播：<span id="initiation_gradename"></span></p>
-			
 			<div class="initiation">开播时间：<span class="initiation_span"></span></div>
-			<!--<div align="center" style="width:100%; margin:0 auto">
-				<div class="time-item">
-					<strong id="minute_show">0分</strong>
-					<strong id="second_show">0秒</strong>
-				</div>
-			</div>-->
 		</div>
 		<!--即将开始提示-->
 
 		<!--直播结束查看回放提示-->
-		<div class="video_end_top1" style="display: block;">
+<!-- 		<div class="video_end_top1" style="display: none;">
 			<p>直播结束，点击查看回放</p>
-			
 			<div class="initiation">点击刷新</div>
-			<!--<div align="center" style="width:100%; margin:0 auto">
-				<div class="time-item">
-					<strong id="minute_show">0分</strong>
-					<strong id="second_show">0秒</strong>
-				</div>
-			</div>-->
-		</div>
+		</div> -->
 		<!--直播结束查看回放提示-->
 
 		<!--直播结束，正在生成回放提示-->
 		<div class="video_end_top2" style="display: none;">
 			<p>直播结束，正在生成回放…</p>
-			
 			<div class="initiation">学习中心</div>
-			<!--<div align="center" style="width:100%; margin:0 auto">
-				<div class="time-item">
-					<strong id="minute_show">0分</strong>
-					<strong id="second_show">0秒</strong>
-				</div>
-			</div>-->
 		</div>
 		<!--直播结束，正在生成回放提示-->
 
-
 		<!--直播已结束提示-->
-		<div class="video_end_top">
+		<div class="video_end_top" style="display: none;">
 			<div class="video_end"></div>
 			<p>直播结束，点击返回学习中心</p>
 			<div class="div" onclick="window.location='/xcview/html/my_study.html'">返回</div>
@@ -261,11 +239,10 @@ $(function(){
 		<!--直播结束查看回放-->
 		<div class="video_end_top1" style="display: none;">
 			<div class="video_end"></div>
-			<p>直播结束，点击查看回放</p>
-			<div class="div">查看回放</div>
+			<p>直播结束,回放生成成功</p>
+			<div class="div" onclick="location.reload();">查看回放</div>
 		</div>
 		<!--直播结束查看回放-->
-		
 		
 		
 		<!--<div class="video_img"><img src="/xcview/images/play_back.png" /></div>-->

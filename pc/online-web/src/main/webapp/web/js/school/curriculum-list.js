@@ -121,30 +121,6 @@ $(function() {
 	// $(".tab-bottom").removeClass("selected");
 	// }
 	// });
-	
-	//分页添加
-			if(data.resultObject.pages > 1) { //分页判断
-					$(".not-data").remove();
-		            $(".doctors_pages").removeClass("hide");
-		            $(".doctors_pages .searchPage .allPage").text(data.resultObject.pages);
-		            $("#Pagination_doctors").pagination(data.resultObject.pages, {
-		                num_edge_entries: 1, //边缘页数
-		                num_display_entries: 4, //主体页数
-		                current_page:pages-1,
-		                callback: function (page) {
-		                    //翻页功能
-		                    recruitList(page+1);
-		                }
-		            });
-				}
-				else {
-					$(".doctors_pages").addClass("hide");
-				}
-			
-//分页添加结束
-	
-	
-	
 });
 
 // 判断字段空值
@@ -196,7 +172,6 @@ function viewConditionOption(obj) {
 	} else if (subject == "city") {
 		selectCondition = "城市";
 	}
-
 	var selectKind = '<dd id="' + kindId + '" class="query_dev_condition">'
 			+ '<p class="wrap-border" subject=' + subject + ' value='
 			+ selectValue + '>' + '<span>' + selectCondition + ' : </span>'
@@ -204,11 +179,11 @@ function viewConditionOption(obj) {
 			+ '<span class="select-close" onclick="deleteStatus()">x</span>'
 			+ '</p>' + '</dd>';
 
-	if (obj.hasClass("selected")) {
-		obj.removeClass("selected");
-		obj.siblings().removeClass("selected");
-		$("#selectCondition" + subject).remove();
-	} else {
+//	if (obj.hasClass("selected")) {
+//		obj.removeClass("selected");
+//		obj.siblings().removeClass("selected");
+//		$("#selectCondition" + subject).remove();
+//	} else {
 		obj.addClass("selected").siblings().removeClass("selected");
 		if ($("#selectCondition" + subject).length > 0) {
 			$("#selectCondition" + subject + " .select-text").html(obj.text());
@@ -216,7 +191,7 @@ function viewConditionOption(obj) {
 		} else {
 			$("#select-condition").append(selectKind);
 		}
-	}
+//	}
 }
 /**
  * 点击上面的标记进行筛选
@@ -226,29 +201,17 @@ function viewConditionOption(obj) {
 $(".select-all li dd").click(function() {
 
 	var obj = $(this);
-
 	viewConditionOption(obj);
-
 	/*
 	 * 查询条件封装
 	 */
 	var paramsObj = {};
 	$("#select-condition dd").each(function() {
-
 		var key = $(this).find("p").attr("subject");
 		var value = $(this).find("p").attr("value");
 		paramsObj[key] = value;
 	})
 	console.log("paramsObj:" + JSON.stringify(paramsObj));
-
-	/**
-	 * 请求数据啦  --请求过来后，我的天怎样搞呢
-	 */
-	RequestService("/online/user/isAlive", "get", null, function(data) {
-		
-		
-		
-	})
 })
 
 /**
@@ -262,6 +225,8 @@ function viewCondition(paramsObj) {
 			if (paramsObj.menuType == selectValue) {
 				// $(this).click();
 				viewConditionOption($(this));
+				$("[name='menuType']").val(selectValue);
+				return;	
 			}
 		});
 	}
@@ -271,7 +236,9 @@ function viewCondition(paramsObj) {
 			var courseType = $(this).attr("data-id");
 			if (paramsObj.courseType == courseType) {
 				// $(this).click();
-				viewConditionOption(this);
+				viewConditionOption($(this));
+				$("[name='courseType']").val(courseType);
+				return;
 			}
 		});
 	}
@@ -281,7 +248,9 @@ function viewCondition(paramsObj) {
 			var lineState = $(this).attr("data-id");
 			if (paramsObj.lineState == lineState) {
 				// $(this).click();
-				viewConditionOption(this);
+				viewConditionOption($(this));
+				$("[name='lineState']").val(lineState);
+				return;
 			}
 		});
 	}
@@ -291,7 +260,9 @@ function viewCondition(paramsObj) {
 			var isFree = $(this).attr("data-id");
 			if (paramsObj.isFree == isFree) {
 				// $(this).click();
-				viewConditionOption(this);
+				viewConditionOption($(this));
+				$("[name='isFree']").val(isFree);
+				return;
 			}
 		});
 	}
@@ -301,7 +272,9 @@ function viewCondition(paramsObj) {
 			var city = $(this).attr("data-id");
 			if (paramsObj.city == city) {
 				// $(this).click();
-				viewConditionOption(this);
+				viewConditionOption($(this));
+				$("[name='city']").val(city);
+				return;
 			}
 		});
 	}

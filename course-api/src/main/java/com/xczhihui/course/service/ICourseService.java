@@ -172,4 +172,16 @@ public interface ICourseService {
      * @Date: 2018/5/10 14:42
      **/
     public List<Map<String, Object>> getPayStatusList();
+    
+    
+    /**
+     * Description：pc 课程详情页面中的 推荐课程。先取推荐值最高的10个课程，然后在10个里面在随机取两个
+     *
+     * @param page
+     * @param menuId
+     * @return Page<CourseLecturVo>
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    Page<CourseLecturVo> selectRecommendSortAndRandCourse(
+    		Page<CourseLecturVo> page);
 }
