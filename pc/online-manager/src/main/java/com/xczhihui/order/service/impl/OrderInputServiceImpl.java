@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.online.api.service.UserCoinService;
-//import UserCoinService;
 import com.xczhihui.online.api.vo.OrderVo;
 import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.user.service.OnlineUserService;
@@ -109,19 +108,19 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 			throw new RuntimeException("帐号请输入手机号或邮箱！");
 		}
 
-		String name = ""+(int) (Math.random() * 90000 + 10000);
+//		String name = ""+(int) (Math.random() * 90000 + 10000);
 		boolean delete = false;
 
 		ItcastUser user = userCenterAPI.getUser(loginName);
 		if (user == null) {
 			// 向用户中心注册
 			if (userCenterAPI.getUser(loginName) == null) {
-				userCenterAPI.regist(loginName, loginName, name,
+				userCenterAPI.regist(loginName, loginName, loginName,
 						UserSex.UNKNOWN, null, loginName, UserType.STUDENT,
 						UserOrigin.ONLINE, UserStatus.NORMAL);
 			}
 		} else {
-			name = user.getNikeName();
+//			name = user.getNikeName();
 			delete = user.getStatus() == -1 ? true : false;
 		}
 
@@ -142,7 +141,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 			u.setSex(UserSex.UNKNOWN.getValue());
 			u.setCreateTime(new Date());
 			u.setDelete(delete);
-			u.setName(name);
+			u.setName(loginName);
 			u.setSmallHeadPhoto("http://www.ixincheng.com/web/images/defaultHead/"
 					+ (int) (Math.random() * 20 + 1) + ".png");// 时间紧张，暂时写死
 			u.setVisitSum(0);
@@ -291,7 +290,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("course_id", courseId);
 		// 查询课程信息
-		String sql = "select current_price currentPrice from oe_course where id=:course_id";
+		String sql = "select grade_name courseName from oe_course where id=:course_id";
 		String courseName = dao.getNamedParameterJdbcTemplate().queryForObject(sql,
 				paramMap, String.class);
 		return courseName;
