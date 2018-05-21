@@ -504,7 +504,20 @@ word-break:break-all;
 	border: 0;
 	outline: none;
 }
-
+.more-evaluate{
+	text-align: center;
+	margin-top: 20px;
+}
+.more-evaluate button{
+	    width: 92px;
+    height: 36px;
+    background: #00bc12;
+    line-height: 36px;
+    border: 0;
+    outline: none;
+    color: #ffffff;
+    border-radius: 4px;
+}
 /*右侧推荐课程*/
 .wrap-recommend{
 	width: 320px;
