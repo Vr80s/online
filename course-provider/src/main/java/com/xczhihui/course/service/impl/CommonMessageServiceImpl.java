@@ -112,7 +112,7 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
                 if (wechatUser != null && StringUtils.isNotBlank(wechatUser.getOpenid())) {
                     wxMpTemplateMessage.setTemplateId(weixinMessage.getCode());
                     String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_MOBILE);
-                    if (url != null) {
+                    if (StringUtils.isNotBlank(url)) {
                         wxMpTemplateMessage.setUrl(mobileDomain + MessageFormat.format(url, baseMessage.getDetailId()));
                     }
                     wxMpTemplateMessage.setToUser(wechatUser.getOpenid());

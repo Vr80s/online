@@ -29,6 +29,7 @@ import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.util.CourseUtil;
+import com.xczhihui.course.util.TextStyleUtil;
 
 /**
  * 订单业务层接口实现类
@@ -86,7 +87,7 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
                     String userId = course.get("user_id").toString();
 
                     Map<String, String> weixinParams = new HashMap<>(4);
-                    weixinParams.put("first", content);
+                    weixinParams.put("first", TextStyleUtil.clearStyle(content));
                     weixinParams.put("keyword1", courseName);
                     weixinParams.put("keyword2", startTimeStr);
                     weixinParams.put("remark", "点击查看");

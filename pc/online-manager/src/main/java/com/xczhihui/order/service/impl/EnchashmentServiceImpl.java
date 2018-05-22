@@ -133,7 +133,6 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                         + reason;
                 smsCode = enchashmentNotPassSmsCode;
                 params.put("reason", EnchashmentDismissal.getDismissal(e.getDismissal()));
-                params.put("remark", e.getDismissalRemark().substring(0, 21));
             }
 
             Map<String, String> weixinParams = new HashMap<>();
@@ -143,6 +142,7 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                 weixinParams.put("keyword2", e.getEnchashmentSum().toString());
                 weixinParams.put("keyword3", "银行卡");
                 weixinParams.put("keyword4", "72小时内到账");
+                weixinParams.put("keyword5", "");
                 weixinParams.put("remark", "");
             } else {
                 weixinParams.put("first", content);
