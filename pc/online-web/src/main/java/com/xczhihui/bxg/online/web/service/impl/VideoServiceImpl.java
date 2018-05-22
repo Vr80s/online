@@ -29,6 +29,7 @@ import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.util.CourseUtil;
+import com.xczhihui.course.util.TextStyleUtil;
 
 /**
  * @Author Fudong.Sun【】
@@ -266,7 +267,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
             String content = MessageFormat.format(APPLY_SUCCESS_TIPS, courseName);
             String userId = courseApplyVo.getUserLecturerId();
             Map<String, String> weixinParams = new HashMap<>(3);
-            weixinParams.put("first", content);
+            weixinParams.put("first", TextStyleUtil.clearStyle(content));
             weixinParams.put("keyword1", courseName);
             weixinParams.put("keyword2", startTime != null ? TimeUtil.getYearMonthDayHHmm(startTime) : "");
             weixinParams.put("remark", "点击查看");
@@ -292,5 +293,4 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
         }
         return "购买";
     }
-
 }

@@ -40,11 +40,11 @@ public class MultiUrlHelper {
 
 
     private static Map<String, String> doctorApproveUrlMap = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/anchorDoctorApprove",
+            URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove",
             URL_TYPE_WEB, "/web/html/anchors_resources.html",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> hospitalApproveUrlMap = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/anchorHospitalApprove",
+            URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove",
             URL_TYPE_WEB, "/web/html/anchors_resources.html",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> workTableUrlMap = ImmutableMap.of(

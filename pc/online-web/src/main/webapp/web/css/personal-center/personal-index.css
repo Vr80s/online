@@ -1085,6 +1085,7 @@ overflow: hidden;
 	line-height: 60px;
 	border-bottom: 1px solid #f0f0f0;
 	padding-left: 20px;
+	font-size: 16px;
 }
 
 .main-news{
@@ -1123,3 +1124,57 @@ overflow: hidden;
 .main-news ul .read-news{
 	color: #999999;
 }
+/*意见反馈*/
+.feedback-wrap{
+	width: 100%;
+	height: 596px;
+	background: white;
+	
+}
+.feedback-wrap .mune-opinion{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #f0f0f0;
+	padding-left: 20px;
+	font-size: 16px;
+}
+.opinion-title{
+	padding: 30px 20px 20px;
+}
+.opinion-title label{
+    font-weight: 500;
+	
+}
+.opinion-title label span{
+	color: red;
+	margin-right: 3px;
+}
+.opinion-title label input{
+	width: 500px;
+	height: 30px;
+	outline: none;
+	padding-left: 10px;
+	margin-left: 10px;
+	border: 1px solid #eee;
+}
+.opinion-title label textarea{
+	width: 500px;
+	height: 200px;
+	resize: none;
+	vertical-align: text-top;
+	padding: 10px;
+	margin-left: 10px;
+	border: 1px solid #eee;
+	outline: none;
+}
+.feedback-wrap button{
+	 width: 126px;
+    color: #fff;
+    border: 0;
+    height: 34px;
+    background-color: #2cb82c;
+    font-size: 14px;
+    margin-left: 76px;
+    border-radius: 4px;
+}
+   

@@ -28,6 +28,7 @@ import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.MessageRemindingService;
 import com.xczhihui.course.util.CourseUtil;
+import com.xczhihui.course.util.TextStyleUtil;
 
 /**
  * Description: <br>
@@ -132,7 +133,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 
                     String commonContent = MessageFormat.format(WEB_OFFLINE_COURSE_REMIND, courseName, time, address);
                     Map<String, String> weixinParams = new HashMap<>(4);
-                    weixinParams.put("first", commonContent);
+                    weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
                     weixinParams.put("keyword1", courseName);
                     weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
                     weixinParams.put("remark", "点击查看");
@@ -169,9 +170,9 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 List<OnlineUser> users = getUsersByCourseId(course.getId());
                 String courseName = course.getGradeName();
                 String address = course.getAddress();
+                String dateStr = dates.stream().map(date -> dayMap.get(date)).collect(Collectors.joining(","));
                 Map<String, String> params = new HashMap<>(1);
                 params.put("courseName", courseName);
-                String dateStr = dates.stream().map(date -> dayMap.get(date)).collect(Collectors.joining(","));
                 for (OnlineUser user : users) {
                     String commonContent = MessageFormat.format(WEB_COLLECTION_COURSE_REMIND, courseName, dateStr);
                     BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
@@ -213,7 +214,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                         params.put("minute", String.valueOf(minute));
                         params.put("code", String.valueOf(course.getId()));
                         Map<String, String> weixinParams = new HashMap<>(4);
-                        weixinParams.put("first", commonContent);
+                        weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
                         weixinParams.put("keyword1", courseName);
                         weixinParams.put("keyword2", time);
                         weixinParams.put("remark", "点击查看");
