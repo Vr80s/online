@@ -49,7 +49,7 @@
 	<uri>/online/menutag/saveAccuse</uri>
 
 	<!--添加用户反馈-->
-	<uri>/online/message/.*</uri>
+	<uri>/online/xgMessage/.*</uri>
 
 	<!-- 获取我的订单 -->
 	<uri>/web/getMyAllOrder</uri>

@@ -18,6 +18,7 @@ import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.cc.util.CCUtils;
+import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.CourseDismissal;
@@ -84,6 +85,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private String notLiveCourseApplyPassCode;
     @Value("${sms.course.apply.not.pass.code}")
     private String courseApplyNotPassCode;
+
+    @Value("${weixin.course.apply.pass.code}")
+    private String weixinCourseApplyPassCode;
+    @Value("${weixin.course.apply.not.pass.code}")
+    private String weixinCourseApplyNotPassCode;
 
     @Autowired
     private CourseApplyDao courseApplyDao;
@@ -229,13 +235,20 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                     routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
                 }
             }
+            String content = MessageFormat.format(isLiveCourse ? WEB_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : WEB_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title);
             Map<String, String> params = new HashMap<>();
             params.put("type", typeText);
             params.put("courseName", title);
+
+            Map<String, String> weixinParams = new HashMap<>();
+            weixinParams.put("first", content);
+            weixinParams.put("keyword1", title);
+            weixinParams.put("keyword2", course.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
-                    .buildWeb(MessageFormat.format(isLiveCourse ? WEB_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : WEB_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title))
+                    .buildWeb(content)
                     .buildAppPush(MessageFormat.format(isLiveCourse ? APP_PUSH_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : APP_PUSH_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title))
                     .buildSms(isLiveCourse ? liveCourseApplyPassCode : notLiveCourseApplyPassCode, params)
+                    .buildWeixin(weixinCourseApplyPassCode, weixinParams)
                     .build(userId, routeTypeEnum, createPerson));
         } catch (Exception e) {
             e.printStackTrace();
@@ -305,14 +318,22 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
         }
 
+        String content = MessageFormat.format(WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, reason);
         Map<String, String> params = new HashMap<>();
         params.put("type", n);
         params.put("courseName", title);
         params.put("reason", reason);
+
+        Map<String, String> weixinParams = new HashMap<>(4);
+        weixinParams.put("first", content);
+        weixinParams.put("keyword1", title);
+        weixinParams.put("keyword2", courseApplyInfo.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(courseApplyInfo.getStartTime()));
+        weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
-                .buildWeb(MessageFormat.format(WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, reason))
+                .buildWeb(content)
                 .buildSms(courseApplyNotPassCode, params)
                 .buildAppPush(MessageFormat.format(APP_PUSH_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, reason))
+                .buildWeixin(weixinCourseApplyNotPassCode, weixinParams)
                 .build(courseApplyInfo.getUserId(), routeTypeEnum, createPerson)
         );
     }

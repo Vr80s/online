@@ -7,8 +7,6 @@ public class SubMessage implements Serializable {
 
     private String content;
 
-    private String linkContent;
-
     /**
      * 模板code
      */
@@ -47,13 +45,5 @@ public class SubMessage implements Serializable {
 
     public void setParams(Map<String, String> params) {
         this.params = params;
-    }
-
-    public String getLinkContent() {
-        return linkContent;
-    }
-
-    public void setLinkContent(String linkContent) {
-        this.linkContent = linkContent;
     }
 }

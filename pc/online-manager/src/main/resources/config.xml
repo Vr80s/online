@@ -25,7 +25,8 @@
                             com.xczhihui.**.service,
                             com.xczhihui.support.**,
                             com.xczhihui.common.support.config,
-                            com.xczhihui.task"/>
+                            com.xczhihui.task,
+                            com.xczhihui.config"/>
     <task:annotation-driven/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -117,12 +118,12 @@
 
     <!--RedissonUtil配置-->
     <bean id="redissonUtil" class="com.xczhihui.common.support.lock.RedissonUtil">
-        <property name="redisHost" value="${redis.host}"></property>
-        <property name="redisPort" value="${redis.port}"></property>
+        <property name="redisHost" value="${redis.host}"/>
+        <property name="redisPort" value="${redis.port}"/>
     </bean>
 
-    <bean id="onlineConfig" class="com.xczhihui.common.support.config.OnlineConfig"></bean>
-    <bean id="CCUtils" class="com.xczhihui.common.support.cc.util.CCUtils"></bean>
+    <bean id="onlineConfig" class="com.xczhihui.common.support.config.OnlineConfig"/>
+    <bean id="CCUtils" class="com.xczhihui.common.support.cc.util.CCUtils"/>
 
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
@@ -136,7 +137,9 @@
                      timeout="${dubbo.consumer.timeout}"/>
     <!-- 消息 -->
     <dubbo:reference id="messageService" interface="com.xczhihui.course.service.ICommonMessageService"
-                     timeout="${dubbo.consumer.timeout}"/>
+                     timeout="${dubbo.consumer.timeout}">
+        <dubbo:method name="saveMessage" async="true"/>
+    </dubbo:reference>
     <!-- 微信公众号 -->
     <dubbo:reference id="wxMpService" interface="me.chanjar.weixin.mp.api.WxMpService"
                      timeout="${dubbo.consumer.timeout}"/>
