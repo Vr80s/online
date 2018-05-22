@@ -269,16 +269,46 @@ public class SchoolController extends AbstractFtlController {
 	@RequestMapping(value = "{courseId}/{type}", method = RequestMethod.GET)
 	public ModelAndView info(HttpServletRequest req,
 			@PathVariable Integer courseId,
+			@PathVariable String type,
 			HttpServletResponse res,@RequestParam(required=false)String userId,
 			@RequestParam(required=false)Integer pageSize,
 			@RequestParam(required=false)Integer pageNumber) throws IOException {
 		
-		//获取用户信息
-		OnlineUser user = getCurrentUser();
 		
-		ModelAndView view = new ModelAndView("school/school_video");
-		//课程详情
-		view.addObject("courseDetails",courseService.selectCourseMiddleDetailsById(courseId));
+		pageNumber = pageNumber == null ? 1 : pageNumber;
+		pageSize = pageSize == null ? 10 : pageSize;
+		
+		ModelAndView view = new ModelAndView("school/course_details");
+		
+		//显示详情呢、大纲、评论、常见问题呢
+		view.addObject("type",type);
+		
+		
+		//获取用户信息
+	    OnlineUser user = getCurrentUser();
+	    CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(courseId);
+
+	    if(user!=null && clv!=null) {
+			/*
+			 * 收费课程判断有没有购买过
+			 * 免费课程判断有没有学习过
+			 */
+			Integer falg =  criticizeService.hasCourse(user.getId(), courseId);
+			if (clv.getWatchState() == 0) { // 付费课程
+				if (falg>0) {
+					clv.setWatchState(2);
+				}
+			//如果是免费的  判断是否学习过	
+			}else  if (clv.getWatchState() == 1) {
+				if (falg>0) {
+					clv.setLearning(1);
+				}
+			}
+		}
+
+	    //课程详情
+	    view.addObject("courseInfo",clv);
+		
 		/**
 		 * 常见问题。啦啦啦
 		 */
@@ -299,6 +329,7 @@ public class SchoolController extends AbstractFtlController {
 		page.setCurrent(0);
 		page.setSize(2);
 		view.addObject("recommendCourse",courseService.selectRecommendSortAndRandCourse(page));
+		
 		return view;
 	}
 }

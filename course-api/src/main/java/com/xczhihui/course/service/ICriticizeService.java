@@ -54,4 +54,6 @@ public interface ICriticizeService extends IService<Criticize> {
     void saveReply(String userId, String content, String criticizeId) throws UnsupportedEncodingException;
 
     Map<String, Object> updatePraise(Boolean isPraise, String criticizeId, String userId);
+
+	Integer hasCourse(String userId, Integer courseId);
 }

@@ -57,6 +57,8 @@ public class XzCriticizeController {
 			@RequestParam(required=false)Integer pageNumber
 			)throws Exception {
 	
+		
+		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		
 		Map<String,Object> map = null;

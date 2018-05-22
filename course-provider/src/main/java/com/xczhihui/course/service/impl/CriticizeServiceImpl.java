@@ -99,6 +99,14 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         return returnMap;
     }
 
+    
+    @Override
+    public Integer hasCourse(String userId,Integer courseId) {
+       
+    	return this.baseMapper.hasCourse(courseId, userId);
+    }
+    
+    
     public String saveCriticize(String userId, String anchorUserId,Integer courseId,String content,String criticizeId,String createPerson) throws UnsupportedEncodingException {
         Criticize criticize = getCriticize(userId,anchorUserId,courseId,content,criticizeId,createPerson);
         verifyCriticizes(criticize);

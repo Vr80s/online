@@ -26,20 +26,20 @@
 		<div class="wp">
 			<div class="wrap-buy">
 				<div class="left-cover z">
-					<img src="../../images/banner-wrap.jpg"/>
+					<img src="${courseInfo.smallImgPath}"/>
 				</div>
 				<div class="right-details y">
-					<h4>全息-藏在人体中的奥妙</h4>
-					<p class="subtitle">一句话简介，就是副标题吧，副标题控制在30字符内哦啊哈哈哈哈或</p>
+					<h4>${courseInfo.gradeName}</h4>
+					<p class="subtitle">${courseInfo.subtitle}</p>
 					<ul class="author-inf">
 						<li>
-							<span>主讲人：可乐</span>
+							<span>主讲人：${courseInfo.name}</span>
 						</li>
 						<li class="grade">
 							<img src="../../images/star.png"/>
 						</li>
 						<li>
-							<span>200条评论</span>
+							<span>${courseInfo.criticizeCount}200条评论</span>
 						</li>
 					</ul>
 					<div class="display-price">
@@ -47,14 +47,45 @@
 							<span>价</span>
 							<span>格</span>
 						</div>
-						<p><span>200</span>熊猫币</p>
-						<ul>
-							<li>更新时间</li>
-							<li>共16集，已更新13集（每周三、周五更新）</li>
-						</ul>
-
+						
+						<#if courseInfo.watchState == 0 || courseInfo.watchState == 2>  
+							<p><span>200</span>熊猫币</p>
+						<#elseif courseInfo.watchState == 1> 
+							<p><span>免费</span></p>
+						</#if>
+						
+						<#-- 根据不同的课程类型，显示不同的课程介绍 -->
+						
+						<#if courseInfo.type == 1 || courseInfo.type == 2>
+						    <#if courseInfo.collection >
+						      	<ul>
+									<li>更新时间</li>
+									<li>共${courseNumber}集</li>
+									<#-- <li>共16集，已更新13集（每周三、周五更新）</li> -->
+								</ul>
+						    </#if>
+						<#elseif courseInfo.type == 3>	
+						    <#-- 直播的 -->
+							<ul>
+								<li>直播时间</li>
+								<li>${courseInfo.startTime?string("yyyy.MM.dd HH:mm")}</li>
+							</ul>
+						<#elseif courseInfo.type == 4>	
+						    <#-- 线下课的 -->
+						    <ul>
+								<li>上课时间</li>
+								<li>${courseInfo.startTime?string("yyyy.MM.dd HH:mm")} - 
+								   ${courseInfo.endTime?string("yyyy.MM.dd HH:mm")}</li>
+							</ul>
+							<p class="under-address">上课地址<span>${courseInfo.address}</span></p>
+						</#if>
 					</div>
-					<button type="button" class="immediately-buy">立即购买</button>
+					
+					<#if courseInfo.watchState == 1 || courseInfo.watchState == 2>  
+						<button type="button" class="immediately-buy">进入学习</button>
+					<#elseif courseInfo.watchState == 0> 
+						<button type="button" class="immediately-buy">立即购买</button>
+					</#if>
 				</div>
 			</div>
 		
@@ -64,19 +95,25 @@
 		<!--nav-->
 					<div class="wrap-sidebar">
 						<ul>
-						<!--未购买-->
-							<li class="active-footer">详情</li>
-							<li>课程大纲</li>
-						<!--已购买-->
-							<!--<li class="active-footer">选集</li>
-							<li>详情</li>-->
-							<li>评价（200）</li>
-							<li>常见问题</li>
+						<#-- tab的显示，这个就当做专辑页面来写   -->
+						
+						    <#-- 免费或已购买  -->
+						    <#if courseInfo.watchState == 1 || courseInfo.watchState == 2>  
+							    <li>选集</li>
+								<li>详情</li>
+							<#-- 未购买    -->
+							<#elseif courseInfo.watchState == 0> 
+								<li>详情</li>
+								<li>课程大纲</li>
+							</#if>
+							<li >评价（${courseInfo.criticizeCount}）</li>
+							<li>常见问题</li>	
+						
 						</ul>
 					</div>
 		<!--content-->
 		<!--选集-->
-					<!--<div class="sidebar-content" style="padding: 0;">
+				  <div class="sidebar-content buy_tab hide"  style="padding: 0;">
 						<div class="wrap-anthology">
 							<ul>
 								<li>
@@ -100,7 +137,7 @@
 								</li>
 							</ul>
 						</div>
-					</div>-->
+					</div>
 		
 		<!--详情-->
 					<div class="sidebar-content">
@@ -109,12 +146,9 @@
 						</div>
 						<div class="author-content">
 							<div class="author-text">
-								我的我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的		
+							    <#if courseInfo.lecturerDescription??>
+									${courseInfo.lecturerDescription}							    
+							    </#if>									
 							</div>
 						</div>
 						<div class="author-introduce" style="margin-top: 30px;">
@@ -122,24 +156,25 @@
 						</div>
 						<div class="author-content">
 							<div class="class-text">
-								我的我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的我的
-								我的我的我的我的我的我的我的我的我的我的我的		
+							    <#if courseInfo.description??>
+									${courseInfo.description}							    
+							    </#if>	
 							</div>
 						</div>
 					</div>
 		
 		<!--课程大纲-->
 				
-					<div class="sidebar-content hide">
-						
+					<div class="sidebar-content no_buy_tab hide">
+						    <#if courseInfo.courseOutline??>
+									${courseInfo.courseOutline}							    
+							 </#if>	
 					</div>
 			
 		<!--评价-->			
 					<div class="sidebar-content hide">
+					
+					
 						<div class="impression-content">
 							<ul class="impression-list">
 								<li>
@@ -276,32 +311,49 @@
 		<!--右侧推荐课程-->
 				<div class="wrap-recommend y">
 					<h3>推荐课程</h3>
-					<div class="course clearfix">
-						<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
-						<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-							<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div>
-							<div class="detail">
-								<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-								<p class="timeAndTeac"><span class="teacher">雪灵</span>
-								</p>
-								<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-								</p>
-							</div>
-						</a>
-					</div>	
-					<div class="course clearfix">
-						<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
-						<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-							<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div>
-							<div class="detail">
-								<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-								<p class="timeAndTeac"><span class="teacher">雪灵</span>
-								</p>
-								<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-								</p>
-							</div>
-						</a>
-					</div>
+					
+					<#list recommendCourse as courseItem>
+						<div class="course clearfix">
+							
+							
+							
+							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+							
+								<div class="img"><img src="${courseItem.smallImgPath}"></div>
+								<div class="detail">
+									<p class="title" data-text="音频测试3" title="音频测试3">
+									
+								   <#if courseItem.type == 1  > 
+								      <span class="classCategory">视频</span>
+								   <#elseif courseItem.type == 2>
+								      <span class="classCategory">音频</span>
+								   <#elseif courseItem.type == 3>
+							          <#if courseItem.lineState  == 1  > 
+								        <span class="classCategory">直播中</span>
+									  <#elseif courseItem.lineState  == 2>
+									      <span class="classCategory">预告</span>
+									  <#elseif courseItem.lineState  == 3>
+									      <span class="classCategory">直播回放</span>
+									  <#elseif courseItem.lineState  == 4>
+							             <span class="classCategory">即将直播</span>
+							          </#if>
+								   <#elseif courseItem.type == 4>
+								      <span class="classCategory">线下培训班</span>
+								   </#if>
+									</p>
+									
+									<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
+									</p>
+									<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
+									<span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">${courseItem.learndCount}</span></span>
+									</p>
+								</div>
+							</a>
+						</div>	
+					</#list>	
+					
+					
+					
 				</div>
 			</div>	
 		</div>
@@ -354,7 +406,6 @@
 		</div>
 
 
-
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>	
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
@@ -366,7 +417,12 @@
 		<!--公共头部和底部结束-->
 
 		<!--登陆结束-->	
-			<script src="/web/js/school/details-album.js" type="text/javascript" charset="utf-8"></script>
+	   <script  type="text/javascript" charset="utf-8">
+       		var type ="${type}";  
+       		var watchState ="${courseInfo.watchState}";  
+       </script>
+		<script src="/web/js/school/course-details.js" type="text/javascript" charset="utf-8"></script>	
+	
 			
 	</body>
 		

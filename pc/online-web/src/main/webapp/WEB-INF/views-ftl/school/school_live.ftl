@@ -70,7 +70,19 @@
 							<div class="course clearfix">
 								<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
 								<a style="cursor:pointer" href="/course/courses/${courseItem.id}" target="_blank">
-									<div class="img"><img src="${courseItem.smallImgPath}"></div><span class="classCategory">音频</span>
+									<div class="img"><img src="${courseItem.smallImgPath}"></div>
+									
+								    <#if courseItem.type == 3>
+							          <#if courseItem.lineState  == 1  > 
+								        <span class="classCategory">直播中</span>
+									  <#elseif courseItem.lineState  == 2>
+									      <span class="classCategory">预告</span>
+									  <#elseif courseItem.lineState  == 3>
+									      <span class="classCategory">直播回放</span>
+									  <#elseif courseItem.lineState  == 4>
+							             <span class="classCategory">即将直播</span>
+							         </#if>
+									</#if>
 									<div class="detail">
 										<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 										<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
