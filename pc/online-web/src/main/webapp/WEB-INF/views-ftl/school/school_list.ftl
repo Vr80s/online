@@ -1,3 +1,5 @@
+<!-- 导入自定义ftl -->
+<#import "../page.ftl" as cast/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,29 +15,33 @@
 		<!--公共头部和底部样式-->
 			<link rel="stylesheet" href="/web/html/school/school-header/header.css" />
 			<link rel="stylesheet" href="/web/css/footer.css" />
+			<link rel="stylesheet" href="/web/css/ftl-page.css"/>
 			<link rel="stylesheet" href="/web/font/iconfont.css" />
 		<!--公共头部和底部样式结束-->
 		<!--登陆的bootstrap样式-->
 			<link rel="stylesheet" href="/web/css/mylogin.css" />
+			
 			<link href="/web/css/bootstrap.min.css" rel="stylesheet">
 
 		<!--登陆的bootstrap样式-->
 			<link rel="stylesheet" href="/web/css/school/curriculum-list.css"  />
 	</head>
+	
 	<body>
-		<div class="wp">
+		<div class="wp" >
 			<div class="wrap-screen">
 				<p class="class-title">课程列表</p>
 				<div class="wrap-list">
 					<ul class="select-all">
-					
 						<#if courseMenuList?? && courseMenuList?size gt 0>					
 							<li>
 								<dl id="select-kind">
 									<dt>分类 :</dt>
-									<dd class="select-all" subject ="menuType">全部</dd>
+									<a href="${replaceUrl(webUrlParam,'menuType',"")}">
+									  <dd class="select-all" subject ="menuType">全部</dd>
+									</a>
 									<#list courseMenuList as courseMenu>
-										<dd subject ="menuType" data-id="${courseMenu.id}">${courseMenu.name}</dd>
+										<a href="${replaceUrl(webUrlParam,'menuType',courseMenu.id)}"><dd subject ="menuType" data-id="${courseMenu.id}">${courseMenu.name}</dd></a>
 									</#list>	
 								</dl>
 							</li>
@@ -44,9 +50,13 @@
 							<li>
 								<dl id="select-style">
 									<dt>类型 :</dt>
+									<a href="${replaceUrl(webUrlParam,'courseType',"")}">
 									<dd class="select-all" subject ="courseType">全部</dd>
+									</a>
 									<#list courseTypeEnum as courseType>
+										<a href="${replaceUrl(webUrlParam,'courseType',courseType.id)}">
 										<dd subject ="courseType" data-id="${courseType.id}">${courseType.name}</dd>
+										</a>
 									</#list>	
 								</dl>
 							</li>
@@ -55,9 +65,13 @@
 							<li>
 								<dl id="select-status">
 									<dt>状态 :</dt>
+									<a href="${replaceUrl(webUrlParam,'lineState',"")}">
 									<dd class="select-all" subject ="lineState">全部</dd>
+									</a>
 									<#list liveStatusEnum as liveStatus>
+										<a href="${replaceUrl(webUrlParam,'lineState',liveStatus.id)}">
 											<dd subject ="lineState" data-id="${liveStatus.id}">${liveStatus.name}</dd>
+										</a>
 									</#list>	
 								</dl>
 							</li>
@@ -67,7 +81,9 @@
 								<dl id="select-price">
 									<dt>收费 :</dt>
 									<#list freeTypeEnum as freeType>
+									<a href="${replaceUrl(webUrlParam,'isFree',freeType.id)}">
 										<dd subject ="isFree" data-id="${freeType.id}">${freeType.name}</dd>
+										</a>		
 									</#list>
 								</dl>
 							</li>
@@ -75,9 +91,13 @@
 						<#if cityList?? && cityList?size gt 0>
 							<li>
 								<dl id="select-address">
+								    <a href="${replaceUrl(webUrlParam,'city',"")}"> 
 									<dt>城市 :</dt>
+									</a>
 									<#list cityList as city>
+									<a href="${replaceUrl(webUrlParam,'city',city.cityName)}">
 										<dd subject ="city" data-id="${city.cityName!''}">${city.cityName}</dd>
+									</a>	
 									</#list>
 								</dl>
 							</li>
@@ -86,11 +106,18 @@
 							<dl id="select-condition">
 								<dt>筛选条件 :</dt>
 							</dl>
-							<p class="author-search z">
-								<input type="text" id="search-text" value=""
-								 placeholder="如：朱小宝" />
-								<button type="button"></button>
-							</p>
+							<form action="/courses/list" id="queryKeyFrom" method="get">
+							    <input type="hidden"  name="isFree" value="">
+                                <input type="hidden" name="menuType" value="">
+                                <input type="hidden" name="courseType" value="">
+                                <input type="hidden" name="lineState" value="">
+                                <input type="hidden" name="city" value="">
+								<p class="author-search z">
+									<input type="text" name="queryKey" id="search-text" value="" placeholder="如：朱小宝" />
+									<button type="submit"></button>
+								</p>
+							</form>
+							<a href="${replaceUrl(webUrlParam,"","")}">重置</>
 						</li>
 					</ul>
 				</div>
@@ -99,23 +126,46 @@
 			<div class="main">
 				<div class="wrap-tab">
 					<ul>
-						<li>综合排序</li>
-						<li>最新</li>
-						<li>人气</li>	
+						<li><a href="${replaceUrl(webUrlParam,"sortOrder",1)}">综合排序</a></li>
+						<li><a href="${replaceUrl(webUrlParam,"sortOrder",2)}">最新</a></li>
+						<li><a href="${replaceUrl(webUrlParam,"sortOrder",3)}">人气</a></li>	
 					</ul>
 					<div class="tab-price z">
 						<p>价格</p>
-						<span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true"></span>
-						<span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true"></span>
-						
+						<a href="${replaceUrl(webUrlParam,"sortOrder",4)}">
+						 <span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true">
+						</span>
+						<a href="${replaceUrl(webUrlParam,"sortOrder",5)}">
+						   <span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true">
+						</span>
 					</div>
 				</div>
 				<div class="wrap-video">	
-				 <#list courseList as courseItem>			
+				 <#list courseList.records as courseItem>			
 					<div class="course clearfix">
 						<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
 						<a style="cursor:pointer" href="details-video.html">
-							<div class="img"><img src="${courseItem.smallImgPath}"></div><span class="classCategory">直播中</span>
+							<div class="img"><img src="${courseItem.smallImgPath}"></div>
+					
+						   <#if courseItem.type == 1  > 
+							      <span class="classCategory">视频</span>
+						   <#elseif courseItem.type == 2>
+						      <span class="classCategory">音频</span>
+						   <#elseif courseItem.type == 3>
+					          <#if courseItem.lineState  == 1  > 
+						        <span class="classCategory">直播中</span>
+							  <#elseif courseItem.lineState  == 2>
+							      <span class="classCategory">预告</span>
+							  <#elseif courseItem.lineState  == 3>
+							      <span class="classCategory">直播回放</span>
+							  <#elseif courseItem.lineState  == 4>
+					             <span class="classCategory">即将直播</span>
+					          </#if>
+						   <#elseif courseItem.type == 4>
+						      <span class="classCategory">线下培训班</span>
+						   </#if>
+					
+							
 							<div class="detail">
 								<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 								<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
@@ -129,7 +179,12 @@
 					</div>
 					<!--<div class="clearfix"></div>-->
 				</#list>	
-					
+				 <!-- 使用该标签 -->																	
+				 <#if (webUrlParam?contains('?'))>
+				 	<@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrlParam}&page="/>
+				 <#else>
+					 <@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrlParam}?page="/>
+				 </#if>
 				</div>
 			</div>
 		</div>

@@ -8,6 +8,9 @@ import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 
+/**
+ * @author hejiwei
+ */
 @Configuration
 public class WechatConfig {
 

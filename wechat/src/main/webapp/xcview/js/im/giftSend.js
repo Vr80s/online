@@ -88,11 +88,20 @@ function createGiftList(gift) {
 		
 	   	if(parseInt(sendTime) < parseInt(gift.sendTime)){
 	   		
+	   		$(".video_end_top0").hide();
+        	$(".video_end_top2").hide();
+        	$(".video_end_top1").hide();
+	   		
+        	$(".video_end_top").show();
 	   		console.info("回放生成失败");
     	}
 	}else if(gift.messageType == 4){ //回放生成 成功
 		
 	   	if(parseInt(sendTime) < parseInt(gift.sendTime)){
+	   		
+	   		$(".video_end_top0").hide();
+        	$(".video_end_top2").hide();
+        	$(".video_end_top1").show();
 	   		
 	   		console.info("回放生成成功");
     	}
@@ -102,8 +111,7 @@ function createGiftList(gift) {
         	console.log("开始直播了，建议再次刷新页面   >>>>");
         	
         	$(".video_end_top0").hide();
-        	$(".video_end_top").hide(); 
-        	
+        	$(".video_end_top2").hide(); 
         	//刷新页面 --》在观看
         	location.reload();
     	}
@@ -113,7 +121,8 @@ function createGiftList(gift) {
 	    	 console.log("直播结束了，去学习中心 >>>>");
 			 $("#video").html("");
 			 $(".video_end_top0").hide();
-			 $(".video_end_top").show(); 
+			 //生成回访中
+			 $(".video_end_top2").show(); 
     	} 
     	return;
     }

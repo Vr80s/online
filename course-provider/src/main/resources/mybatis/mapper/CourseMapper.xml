@@ -444,7 +444,7 @@
    <select id="selectCurrentCourseStatus" resultType="com.xczhihui.course.vo.CourseLecturVo">
        SELECT
           <include refid="relCurrentCourseStatus"/>
-		  if(oc.is_free =0,0,1) as watchState,
+		  if(oc.is_free =0,0,1) as watchState
 		FROM
 			oe_course as oc
 			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
@@ -630,4 +630,22 @@
 		order by  recommendSort DESC,c.start_time desc LIMIT 0,4)
 		]]>
 	</select>
+	
+	
+	
+	
+	<!-- 推荐 课程，通推荐值最高的10个里面随机取两个-->
+	<select id="selectRecommendSortAndRandCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+		 select * from (	
+			SELECT
+			    <include refid="relLearningCourseListByUserId"/>
+				DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+				if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
+			FROM
+			oe_course oc
+			where  oc.is_delete=0 and oc.status=1  ORDER BY recommend_sort desc limit 0,10)
+		 ) as recommendSort order by rand()
+	</select>
+	
+	
 </mapper>

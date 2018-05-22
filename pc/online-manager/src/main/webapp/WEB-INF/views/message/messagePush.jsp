@@ -545,4 +545,4 @@
 
 
 
-<script type="text/javascript" src="/js/message/messagePush.js?v=1.7"></script>
+<script type="text/javascript" src="/js/xgMessage/messagePush.js?v=1.7"></script>

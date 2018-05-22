@@ -250,15 +250,15 @@
 	<!-- 公共的搜索条件  -->
 	<sql id="commonSearchCondition">
 		<!-- 查询条件  -->
-	     <if test="queryVo.city != null" >   
+	     <if test="queryVo.city != null and queryVo.city != '' " >   
 	        and oc.type =3
 		     <choose>  
 	            <when test="queryVo.city == '全国课程'">  
 	              and 1 = 1 
 	            </when>  
-	            <when test="queryVo.city != '其他'">  
+	            <when test="queryVo.city == '其他'">  
 	              and oc.city not in  
-		               ( select city_name from oe_offline_city WHERE  ooc.status = 1 and ooc.is_delete = 0 
+		               ( select city_name from oe_offline_city ooc WHERE  ooc.status = 1 and ooc.is_delete = 0 
 		                   ORDER BY ooc.is_recommend desc ,ooc.sort desc  )  
 	            </when>  
 	            <otherwise>  
@@ -266,10 +266,10 @@
 	            </otherwise>  
 	        </choose>  
 	     </if> 
-	     <if test="queryVo.isFree != null">   
-	         oc.is_free = #{queryVo.isFree}
+	     <if test="queryVo.isFree != null ">   
+	        and  oc.is_free = #{queryVo.isFree}
 	     </if>
-	     <if test="queryVo.lineState != null" >   
+	     <if test="queryVo.lineState != null "  >   
 		     <choose>  
 	            <when test="queryVo.lineState == 1234">  
 	              and oc.type = 1
@@ -279,7 +279,7 @@
 	            </otherwise>  
 	        </choose>  
 	     </if> 
-	      <if test="queryVo.courseType != null" >   
+	      <if test="queryVo.courseType != null " >   
 		     <choose>  
 	            <when test="queryVo.courseType == 1 || queryVo.courseType == 2">  
 	              and oc.multimedia_type =  #{queryVo.courseType}
@@ -292,7 +292,7 @@
 	            </when>  
 	        </choose>  
 	     </if> 
-	     <if test="queryVo.menuType != null 
+	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        AND oc.menu_id = #{queryVo.menuType}
@@ -303,25 +303,28 @@
 	    order by
 		<!-- 综合 -->
 		<choose>
-	        <when test="queryVo.sortOrder = 1 " >
+	        <when test="queryVo.sortOrder == 1 " >
 	              recommendSort desc
 	        </when> 
 			<!-- 最新 -->
-	        <when test="queryVo.sortOrder = 2 ">
+	        <when test="queryVo.sortOrder == 2 ">
 	              oc.release_time desc
 	        </when> 
 	        <!-- 人气 -->
-	        <when test="queryVo.sortOrder = 3" >
-	              oc.learndCount desc 
+	        <when test="queryVo.sortOrder == 3" >
+	              learndCount desc 
 	        </when>
 	        <!-- 价格降序-->
-	        <when test="queryVo.sortOrder = 3" >
-	              oc.currentPrice asc,recommendSort desc 
+	        <when test="queryVo.sortOrder == 4" >
+	              currentPrice asc,recommendSort desc 
 	        </when>
 	        <!-- 价格升序-->
-	        <when test="queryVo.sortOrder = 4" >
-	              oc.currentPrice desc,recommendSort desc 
+	        <when test="queryVo.sortOrder == 5" >
+	              currentPrice desc,recommendSort desc 
 	         </when>
+	         <otherwise>
+             	recommendSort desc
+	         </otherwise>   
 	      </choose>   
 	</sql>
 	
@@ -333,7 +336,7 @@
 	     "1" as note
 	   from oe_course oc  
 	      inner join oe_user ou  on  oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null 
+	     <if test="queryVo.menuType != null  and queryVo.menuType != ''
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
@@ -346,32 +349,31 @@
 	     <choose>  
 	        <!-- 课程分类  -->
 	        <!-- 精品课程排序 -->
-	        <when test="queryVo.menuType = 'goodCourse'" >
+	        <when test="queryVo.menuType == 'goodCourse'" >
 	             order by recommendSort desc
             </when> 
              <!--  最新课程排序 -->
-            <when test="queryVo.menuType = 'newCourse' ">  
+            <when test="queryVo.menuType == 'newCourse' ">  
 	             order by oc.release_time desc
 	        </when> 
-	        <when test="queryVo.menuType != null "> 
+	        <when test="queryVo.menuType != null and queryVo.menuType != '' "> 
 	              <include refid="commonQuerySortOrder"/> 
 	        </when>     
              <!-- 课程类型  --> 
              <!-- 直播课程 -->
-             <when test="queryVo.courseType = 3">  
+             <when test="queryVo.courseType == 3">  
 	               <include refid="commonQuerySortOrder"/>
 	               ,recent 
              </when>
                <!--  线下课 -->
-             <when test="queryVo.courseType = 4 ">  
-	             ,oc.start_time desc
+             <when test="queryVo.courseType == 4 ">  
+	             order by oc.start_time desc
 	         </when> 
              <otherwise>
              	<include refid="commonQuerySortOrder"/>   
 	             ,oc.release_time desc
 	         </otherwise>   
          </choose>  
-         limit  #{queryVo.pageNumber},#{queryVo.pageSize}	
 	</select>
 	
 	
@@ -385,14 +387,14 @@
 	     1 as querySort
 	   from oe_course oc  
 	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null 
+	     <if test="queryVo.menuType != null and queryVo.menuType != ''
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
 	     </if>
 	    where oc.is_delete=0 and oc.status = 1  
 	     <include refid="commonSearchCondition"/>
-	     <if test="queryVo.queryKey != null">   
+	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">   
 	       and  oc.grade_name like  #{queryVo.queryKey}
 	     </if> 
 	   )
@@ -405,14 +407,14 @@
 	     2 as querySort
 	    from oe_course oc  
 	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null 
+	     <if test="queryVo.menuType != null and queryVo.menuType !=''
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
 	     </if>
 	    where oc.is_delete=0 and oc.status = 1  
 	     <include refid="commonSearchCondition"/>
-	     <if test="queryVo.queryKey != null">   
+	     <if test="queryVo.queryKey != null and queryVo.queryKey !=''">   
 	       and oc.menu_id in 
 	         (select id from oe_menu  
 	            where name like #{queryVo.queryKey} ) 
@@ -425,14 +427,14 @@
 	     3 as querySort
 	    from oe_course oc  
 	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null 
+	     <if test="queryVo.menuType != null and queryVo.menuType != ''
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
 	     </if>
 	    where oc.is_delete=0 and oc.status = 1  
 	     <include refid="commonSearchCondition"/>
-	     <if test="queryVo.queryKey != null">   
+	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">   
 	       and oc.lecturer like #{queryVo.queryKey}
 	     </if> 
 	  )
@@ -443,7 +445,7 @@
 	     4 as querySort
 	    from oe_course oc  
 	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null 
+	     <if test="queryVo.menuType != null and queryVo.menuType != ''
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
@@ -452,7 +454,7 @@
 	     
 	     <include refid="commonSearchCondition"/>
 	      
-	     <if test="queryVo.queryKey != null">   
+	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">   
 	       and (
 	         oc.course_detail  like #{queryVo.queryKey}
 	         or
@@ -462,6 +464,6 @@
 	  )  ) as  ooc
 	    group by ooc.id order by  
 	  	ooc.querySort asc,recommendSort desc,
-	  		ooc.release_time desc  limit  #{queryVo.pageNumber},#{queryVo.pageSize}
+	  		ooc.release_time desc
 	</select>
 </mapper>

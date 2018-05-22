@@ -779,7 +779,7 @@ public class CourseDao extends SimpleHibernateDao {
 
     public Course getCourseByApplyId(String applyId) {
         DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
-        dc.add(Restrictions.eq("apply_id", applyId));
+        dc.add(Restrictions.eq("applyId", Integer.parseInt(applyId)));
         Course course = this.findEntity(dc);
         if (course == null) {
             return null;

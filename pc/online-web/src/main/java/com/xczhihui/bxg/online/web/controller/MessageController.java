@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.controller;
 
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.consts.MultiUrlHelper;
+import com.xczhihui.course.enums.RouteTypeEnum;
 
 /**
  * 用户反馈
@@ -49,8 +51,12 @@ public class MessageController extends AbstractController {
         Page<MessageVo> page = messageService.findMessagePage(u, type, pageSize, pageNumber);
         page.getItems().forEach(messageVo -> {
             String routeType = messageVo.getRouteType();
-            if (routeType != null) {
-                messageVo.setUrl(MultiUrlHelper.getUrl(routeType, MultiUrlHelper.URL_TYPE_WEB));
+            if (routeType != null && !routeType.equals(RouteTypeEnum.NONE.name())) {
+                String url = MultiUrlHelper.getUrl(routeType, MultiUrlHelper.URL_TYPE_WEB);
+                if (url != null && messageVo.getDetailId() != null) {
+                    url = MessageFormat.format(url, messageVo.getDetailId());
+                }
+                messageVo.setUrl(url);
             }
         });
         return ResponseObject.newSuccessResponseObject(page);

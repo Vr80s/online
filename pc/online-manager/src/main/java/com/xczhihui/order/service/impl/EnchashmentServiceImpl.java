@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.ImmutableMap;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.EnchashmentApplyInfo;
 import com.xczhihui.bxg.online.common.domain.UserCoin;
 import com.xczhihui.bxg.online.common.domain.UserCoinConsumption;
 import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
 import com.xczhihui.common.util.BeanUtil;
+import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.BalanceType;
@@ -41,6 +41,11 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
     private String enchashmentGrantSmsCode;
     @Value("${sms.enhashment.notPass.code}")
     private String enchashmentNotPassSmsCode;
+    @Value("${weixin.enchashment.pass.code}")
+    private String enchashmentPassWeixinCode;
+    @Value("${weixin.enchashment.not.pass.code}")
+    private String enchashmentNotPassWeixinCode;
+
     @Autowired
     private EnchashmentDao enchashmentDao;
     @Autowired
@@ -101,36 +106,61 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
      * @param operator
      */
     private void sendEnchashmentMessage(EnchashmentApplyInfo e, String operator) {
-        String content = "";
-        String reason = "";
-        String orderNo = e.getOrderNo();
-        String smsCode = "";
-        // 若为打款
-        if (e.getStatus() == ApplyStatus.PASS.getCode()) {
-            content = "编号：" + orderNo + "提现申请已通过审核,1-3个工作日内发放成功！";
-            smsCode = enchashmentPassSmsCode;
-        } else if (e.getStatus() == ApplyStatus.GRANT.getCode()) {
-            content = "编号：" + orderNo + "提现申请已打款，72小时内到账，请注意查收！";
-            smsCode = enchashmentGrantSmsCode;
-        } else if (e.getStatus() == ApplyStatus.NOT_PASS.getCode()) {
-            // 驳回---将提现金额重回打入用户账户
-            updateUserCoinForEnchashment(e);
-            reason = EnchashmentDismissal.getDismissal(e.getDismissal()) + "--" + e.getDismissalRemark();
-            content = "编号："
-                    + orderNo
-                    + "提现申请已被驳回，驳回原因："
-                    + reason;
-            smsCode = enchashmentNotPassSmsCode;
+        try {
+            String content = "";
+            String reason = "";
+            String orderNo = e.getOrderNo();
+            String smsCode = "";
+            boolean success = true;
+            Map<String, String> params = new HashMap<>(2);
+            params.put("orderNo", orderNo);
+
+            // 若为打款
+            if (e.getStatus() == ApplyStatus.PASS.getCode()) {
+                content = "编号：" + orderNo + "提现申请已通过审核,1-3个工作日内发放成功！";
+                smsCode = enchashmentPassSmsCode;
+            } else if (e.getStatus() == ApplyStatus.GRANT.getCode()) {
+                content = "编号：" + orderNo + "提现申请已打款，72小时内到账，请注意查收！";
+                smsCode = enchashmentGrantSmsCode;
+            } else if (e.getStatus() == ApplyStatus.NOT_PASS.getCode()) {
+                // 驳回---将提现金额重回打入用户账户
+                success = false;
+                updateUserCoinForEnchashment(e);
+                reason = EnchashmentDismissal.getDismissal(e.getDismissal()) + "--" + e.getDismissalRemark();
+                content = "编号："
+                        + orderNo
+                        + "提现申请已被驳回，驳回原因："
+                        + reason;
+                smsCode = enchashmentNotPassSmsCode;
+                params.put("reason", EnchashmentDismissal.getDismissal(e.getDismissal()));
+                params.put("remark", e.getDismissalRemark().substring(0, 21));
+            }
+
+            Map<String, String> weixinParams = new HashMap<>();
+            if (success) {
+                weixinParams.put("first", content);
+                weixinParams.put("keyword1", TimeUtil.getYearMonthDayHHmm(e.getTime()));
+                weixinParams.put("keyword2", e.getEnchashmentSum().toString());
+                weixinParams.put("keyword3", "银行卡");
+                weixinParams.put("keyword4", "72小时内到账");
+                weixinParams.put("remark", "");
+            } else {
+                weixinParams.put("first", content);
+                weixinParams.put("keyword1", e.getEnchashmentSum().toString());
+                weixinParams.put("keyword2", e.getOrderNo());
+                weixinParams.put("keyword3", reason);
+                weixinParams.put("remark", "");
+            }
+            commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                    .buildAppPush(content)
+                    .buildSms(smsCode, params)
+                    .buildWeb(content)
+                    .buildWeixin(success ? enchashmentPassWeixinCode : enchashmentNotPassSmsCode, weixinParams)
+                    .build(e.getUserId(), RouteTypeEnum.ANCHOR_PROPERTY_MONEY_PAGE, operator));
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
 
-        Map<String, String> params = new HashMap<>(2);
-        params.put("orderNo", orderNo);
-        params.put("reason", reason);
-        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                .buildAppPush(content)
-                .buildSms(smsCode, params)
-                .buildWeb(content)
-                .build(e.getUserId(), RouteTypeEnum.ANCHOR_PROPERTY_MONEY_PAGE, operator));
     }
 
     /**
@@ -143,7 +173,7 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
     private void updateUserCoinForEnchashment(EnchashmentApplyInfo eai) {
         DetachedCriteria dc1 = DetachedCriteria
                 .forClass(UserCoinConsumption.class);
-        dc1.add(Restrictions.eq("orderNoEnchashment", eai.getId()));
+        dc1.add(Restrictions.eq("correlationId", eai.getId()));
         UserCoinConsumption ucc = dao.findEntity(dc1);
 
         if (ucc == null) {

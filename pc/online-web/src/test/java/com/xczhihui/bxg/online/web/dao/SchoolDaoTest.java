@@ -155,8 +155,8 @@ public class SchoolDaoTest extends TestCase {
 
     	
     	QueryConditionVo  qcv = new QueryConditionVo();
-    	qcv.setPageSize(1);   
-    	qcv.setPageNumber(1);
+//    	qcv.setPageSize(1);   
+//    	qcv.setPageNumber(1);
     	qcv.setQueryKey("我爱你");
     	 
     	List<CourseLecturVo> listCourse = mobileBannerService.searchQueryKeyCourseList(qcv);
