@@ -15,7 +15,7 @@ ul{
 }
 li{
 	list-style: none;
-	background: blue;
+	/*background: blue;*/
 }
 .both{
 	clear: both;
@@ -55,7 +55,7 @@ header{
 	width: 100%;
 }
 .center ul li{
-	background: blue;
+	/*background: blue;*/
 	margin-bottom: 0.2rem;
 }
 .apprentice_main{
@@ -67,7 +67,7 @@ header{
 	width: 100%;
 	height: 3.02rem;
 	margin-bottom: 0.2rem;
-	background: red;
+	/*background: red;*/
 }
 .flat_patternmaking img{
 	width: 100%;
