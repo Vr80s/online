@@ -438,6 +438,7 @@ word-break:break-all;
     float: left;
     margin: 0.05rem 0.12rem 0 0rem;
     border-radius: 100px;
+    margin-top: 0.08rem;
 }
 .wrap_comment_title span{
 	float: right;

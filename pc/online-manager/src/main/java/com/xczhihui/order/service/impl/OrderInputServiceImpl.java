@@ -97,11 +97,11 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 			throw new RuntimeException("帐号请输入手机号或邮箱！");
 		}
 
-		String name =  (Math.random() * 90000 + 10000)+"";
+//		String name =  (Math.random() * 90000 + 10000)+"";
 
 		OnlineUser ou = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", loginName);
 		if (ou == null) {
-			userCenterService.regist(loginName,loginName,name, UserOrigin.IMPORT);
+			userCenterService.regist(loginName,loginName,loginName, UserOrigin.IMPORT);
 			Thread.sleep(500);
 		}
 	}
@@ -222,7 +222,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("course_id", courseId);
 		// 查询课程信息
-		String sql = "select current_price currentPrice from oe_course where id=:course_id";
+		String sql = "select grade_name courseName from oe_course where id=:course_id";
 		String courseName = dao.getNamedParameterJdbcTemplate().queryForObject(sql,
 				paramMap, String.class);
 		return courseName;
