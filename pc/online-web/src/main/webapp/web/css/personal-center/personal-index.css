@@ -1100,6 +1100,7 @@ overflow: hidden;
 .main-news ul li{
 	padding: 20px;
 	position: relative;
+	border-bottom: 1px solid #dedede;
 }
 .main-news ul li .icon-tip{
 	background: #F97B49;
@@ -1108,5 +1109,17 @@ overflow: hidden;
 	border-radius: 50%;
 	position: absolute;
 	left: 0;
-	top: 5px;
+	top: 26px;
+}
+.main-news ul li a{
+	margin-left: 5px;
+	color: #00BC12;
+}
+.main-news ul li .news-time{
+	float: right;
+	margin-right: 20px;
+	color: #999999;
+}
+.main-news ul .read-news{
+	color: #999999;
 }
