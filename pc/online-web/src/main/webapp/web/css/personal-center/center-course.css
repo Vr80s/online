@@ -54,8 +54,21 @@ a:hover {
 .left-cover {
 	width: 462px;
 	height: 260px;
+	position: relative;
 }
-
+.left-cover .course-type{
+	display: inline-block;
+    width: 51px;
+    height: 22px;
+    line-height: 22px;
+    color: #fff;
+    background-color: #00BC12;
+    position: absolute;
+    font-size: 12px;
+    text-align: center;
+    top: -11px;
+    right: 10px;
+}
 .left-cover img {
 	width: 100%;
 	height: 100%;
@@ -159,7 +172,19 @@ a:hover {
 	color: white;
 	font-size: 20px;
 }
-
+.continue-study{
+	width: 180px;
+	height: 46px;
+	background: #F97B49;
+	border: 0;
+	outline: 0;
+	position: absolute;
+	left: 200px;
+	bottom: 0;
+	border-radius: 4px;
+	color: white;
+	font-size: 20px;
+}
 
 /*详情/评价/常见问题*/
 
@@ -755,48 +780,7 @@ a:hover {
 	outline: none;
 }
 
-
-/*选集列表样式*/
-
-.album_list {
-	padding: 0;
-	margin-top: -20px;
-}
-
-.album_list>li {
-	height: 78px;
-	border-bottom: 1px solid #f0f0f0;
-	padding: 20px 0px;
-}
-
-.album_list>li .playTip {
-	vertical-align: top;
-	display: inline-block;
-	width: 32px;
-	height: 32px;
-	background: url(../../images/class_list_play.png) 0 0 no-repeat;
-	margin-right: 20px;
-}
-
-.album_list>li .collection_course_inf {
-	display: inline-block;
-}
-
-.album_list>li .collection_course_inf>span {
-	display: block;
-}
-
-.album_list>li .collection_course_inf .class_search_time {
-	display: inline-block;
-	width: 12px;
-	height: 12px;
-	background: url(../../images/class_search_time.png) 0 0 no-repeat;
-	margin-right: 3px;
-}
-.continueTip{
-	position: absolute;
-    bottm: 0;
-    bottom: 10px;
-    left: 200px;
-    color: #999;
+/*按钮置灰的样式*/
+.gray{
+	background-color: #dedede;
 }
