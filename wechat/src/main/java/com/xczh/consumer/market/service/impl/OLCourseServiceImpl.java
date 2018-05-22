@@ -21,11 +21,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 	@Autowired
 	private OLCourseMapper wxcpCourseDao;
-	
 	@Autowired
 	private IOfflineCityService offlineCityService;
-	
-
 	
 	/***
 	 * 直播搜索页面的接口调整
