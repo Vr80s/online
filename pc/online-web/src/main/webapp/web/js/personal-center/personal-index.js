@@ -173,7 +173,7 @@ $(".select-pay-money li").click(function(){
 		$(this).addClass("select-confirm").find("span").removeClass("hide");
 	})
 
-
+//-------------------------------------- 我的钱包结束,消息开始--------------------------------------------
 
 
 
