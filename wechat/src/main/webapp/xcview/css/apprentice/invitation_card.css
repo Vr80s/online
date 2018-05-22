@@ -1,0 +1,89 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+	border: none;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+	background: blue;
+}
+.both{
+	clear: both;
+}
+body{
+	width: 100%;
+	height: 100%;
+	background: #000;
+}
+
+/*报名头部开始*/
+header{
+	width: 100%;
+	height: 0.88rem;
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	border-bottom: 1px solid #d8dde6;
+}
+.header{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	position: relative;
+    background: #fff;
+}
+.return{
+	width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0.26rem;
+    top: 0.23rem;
+}
+.return img{
+	width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+}
+.apply_title{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	font-size: 0.36rem;
+	color: #333333;
+	text-align: center;
+}
+.fiexd{
+	width: 100%;
+	height: 0.88rem;
+	opacity: 0;
+}
+/*报名头部结束*/
+
+/*中间内容开始*/
+.main_img{
+	width: 6rem;
+	margin: 0 auto;
+	margin-top: 0.4rem;
+	margin-bottom: 0.33rem;
+	display: block;
+	-webkit-touch-callout:default;
+}
+.main_size{
+	width: 100%;
+	text-align: center;
+	font-size: 0.24rem;
+	color: #FFFFFF;
+}
+/*中间内容结束*/
