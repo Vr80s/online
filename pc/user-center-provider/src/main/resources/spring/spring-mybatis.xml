@@ -127,6 +127,7 @@
             <tx:method name="join*" propagation="REQUIRED"/>
             <tx:method name="login*" propagation="REQUIRED"/>
             <tx:method name="regist*" propagation="REQUIRED"/>
+            <tx:method name="reset*" propagation="REQUIRED"/>
 
             <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRED" read-only="true"/>

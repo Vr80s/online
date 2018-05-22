@@ -160,6 +160,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
                 switch (status) {
                     // 当status = 0 即认证被拒
                     case 0:
+                        apply.setRemark(hospitalApply.getRemark());
                         this.authenticationRejectHandle(apply);
                         break;
                     // 当status = 1 即认证通过
@@ -338,8 +339,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
     private void sendApproveNotPassMessage(MedicalHospitalApply apply) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
         String type = "医馆";
-        //FIXME
-        String reason = "信息不准确";
+        String reason = apply.getRemark();
         String content = MessageFormat.format(APPROVE_NOT_PASS_MESSAGE, type, reason);
         Map<String, String> params = new HashMap<>(2);
         params.put("type", type);

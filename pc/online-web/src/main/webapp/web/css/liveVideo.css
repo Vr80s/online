@@ -679,3 +679,49 @@ overflow-y: auto;
 	background-color:red;
 }
 
+
+/*专辑视频播放列表部分的样式*/
+.album_list{
+	background: #333;
+    position: absolute;
+    right: 0;
+    top: 64px;
+    width: 310px;
+    height: 100%;
+}
+.album_list > ul > li{
+	height: 40px;
+	line-height: 40px;
+	color: #666;
+	font-size:14px;
+	padding: 0 10px;
+}
+.album_list > ul > li >div{
+	border-bottom: 1px solid #666;
+}
+.album_list > ul > li:hover{
+	cursor: pointer;
+}
+.album_list .playbtn{
+	  vertical-align: middle;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../images/class_list_play.png) 0 0 no-repeat;
+    margin-right: 10px;
+    background-size: 100%;
+}
+.album_list .album_time{
+	float: right;
+}
+.album_list .album_title{
+	  display: inline-block;
+    width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: top;
+}
+.choosedAlbum{
+	background: #fff !important;
+}

@@ -44,6 +44,7 @@ public class Broadcast {
 		XMPPTCPConnection connection = null;
 		SASLAuthentication.blacklistSASLMechanism("SCRAM-SHA-1");
 		SASLAuthentication.blacklistSASLMechanism("DIGEST-MD5");
+		
 		if(connection == null){
 			connection = getConnection(connection);
 			connection.login();

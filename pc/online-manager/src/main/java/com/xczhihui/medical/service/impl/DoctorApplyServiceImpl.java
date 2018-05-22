@@ -18,6 +18,8 @@ import com.xczhihui.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.lock.RedissonUtil;
+import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.course.enums.MessageTypeEnum;
@@ -94,6 +96,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     @Value("${sms.anchor.approve.notPass.code}")
     private String smsAnchorApproveNotPassCode;
 
+    @Value("${weixin.anchor.approve.pass.code}")
+    private String weixinAnchorApprovePassCode;
 
     /**
      * 获取医师入驻申请列表
@@ -169,6 +173,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
                         break;
                     // 当status = 0 即认证被拒
                     case 0:
+                        apply.setRemark(doctorApply.getRemark());
                         this.authenticationRejectHandle(apply);
                         break;
                     default:
@@ -241,17 +246,15 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
                         "select id from medical_doctor_apply where user_id = ?",
                         userId);
 
-        String authenticationInformationId = UUID.randomUUID().toString()
-                .replace("-", "");
-        String doctorId = UUID.randomUUID().toString().replace("-", "");
+        String authenticationInformationId = CodeUtil.getRandomUUID();
+        String doctorId = CodeUtil.getRandomUUID();
         Date now = new Date();
 
         // 若没有
         if (medicalDoctorApplyId == null) {
 
             // 新增一条医师认证申请通过的消息 ： medical_doctor_apply
-            String doctorApplyId = UUID.randomUUID().toString()
-                    .replace("-", "");
+            String doctorApplyId = CodeUtil.getRandomUUID();
             this.addMedicalDoctorApply(doctorApplyId, userId, now);
 
             // 新增一条医师申请时对应的科室信息:medical_doctor_apply_department
@@ -327,14 +330,13 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         }
 
         Date now = new Date();
-        String doctorId = UUID.randomUUID().toString().replace("-", "");
+        String doctorId = CodeUtil.getRandomUUID();
 
         // 新增医师与用户的对应关系：medical_doctor_account
         this.addMedicalDoctorAccount(apply.getUserId(), doctorId, now);
 
         // 新增医师信息：medical_doctor
-        String authenticationInformationId = UUID.randomUUID().toString()
-                .replace("-", "");
+        String authenticationInformationId = CodeUtil.getRandomUUID();
         this.addMedicalDoctor(doctorId, authenticationInformationId, apply, 2,
                 now);
 
@@ -382,7 +384,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         }
         anchorDao.save(courseAnchor);
 
-        sendApprovePassMessage(courseAnchor);
+        sendApprovePassMessage(courseAnchor, apply.getCreateTime());
     }
 
     /**
@@ -390,19 +392,31 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
      *
      * @param courseAnchor
      */
-    private void sendApprovePassMessage(CourseAnchor courseAnchor) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        String type = "医师";
-        String dateStr = simpleDateFormat.format(new Date());
-        String content = MessageFormat.format(APPROVE_PASS_MESSAGE, type, dateStr);
-        Map<String, String> params = new HashMap<>();
-        params.put("type", type);
-        params.put("date", dateStr);
-        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                .buildWeb(content)
-                .buildAppPush(content)
-                .buildSms(smsAnchorApprovePassCode, params)
-                .build(courseAnchor.getUserId(), RouteTypeEnum.DOCTOR_APPROVE_PAGE, ManagerUserUtil.getId()));
+    private void sendApprovePassMessage(CourseAnchor courseAnchor, Date applyTime) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+            String type = "医师";
+            String dateStr = simpleDateFormat.format(new Date());
+            String content = MessageFormat.format(APPROVE_PASS_MESSAGE, type, dateStr);
+            Map<String, String> params = new HashMap<>();
+            params.put("type", type);
+            params.put("date", dateStr);
+
+            Map<String, String> weixinParams = new HashMap<>();
+            weixinParams.put("first", content);
+            weixinParams.put("keyword1", courseAnchor.getName());
+            weixinParams.put("keyword2", "认证通过");
+            weixinParams.put("keyword3", TimeUtil.getYearMonthDayHHmm(applyTime));
+            weixinParams.put("remark", "");
+            commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                    .buildWeb(content)
+                    .buildAppPush(content)
+                    .buildSms(smsAnchorApprovePassCode, params)
+                    .buildWeixin(weixinAnchorApprovePassCode, weixinParams)
+                    .build(courseAnchor.getUserId(), RouteTypeEnum.DOCTOR_APPROVE_PAGE, ManagerUserUtil.getId()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -413,8 +427,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     private void sendApproveNotPassMessage(MedicalDoctorApply apply) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
         String type = "医师";
-        //FIXME
-        String reason = "信息不准确";
+        String reason = apply.getRemark();
         String content = MessageFormat.format(APPROVE_NOT_PASS_MESSAGE, type, reason);
         Map<String, String> params = new HashMap<>();
         params.put("type", type);
@@ -499,7 +512,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     private void addMedicalDepartment(MedicalDoctorApplyDepartment department,
                                       String doctorId, Date createTime) {
         MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
-        doctorDepartment.setId(UUID.randomUUID().toString().replace("-", ""));
+        doctorDepartment.setId(CodeUtil.getRandomUUID());
         doctorDepartment.setDoctorId(doctorId);
         doctorDepartment.setDepartmentId(department.getDepartmentId());
         doctorDepartment.setCreateTime(createTime);

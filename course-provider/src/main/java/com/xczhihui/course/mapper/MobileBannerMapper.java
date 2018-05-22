@@ -1,15 +1,17 @@
 package com.xczhihui.course.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
-
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
+import com.xczhihui.course.vo.QueryConditionVo;
 
 /**
  * <p>
@@ -34,5 +36,13 @@ public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 
 	List<CourseLecturVo> liveCourseList(@Param("pageSizeUp")Integer pageSizeUp,
 			@Param("pageSizeDown")Integer pageSizeDown);
+
+	List<CourseLecturVo> searchQueryKeyCourseList(@Param("queryVo")QueryConditionVo queryVo);
+
+	List<CourseLecturVo> searchCourseList(@Param("queryVo")QueryConditionVo queryVo);
+
+	List<CourseLecturVo> searchCourseList(@Param("page")Page<CourseLecturVo> page, @Param("queryVo")QueryConditionVo queryConditionVo);
+
+	List<CourseLecturVo> searchQueryKeyCourseList(@Param("page")Page<CourseLecturVo> page,@Param("queryVo")QueryConditionVo queryConditionVo);
 	 
 }

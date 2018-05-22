@@ -22,6 +22,7 @@ import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.service.IOfflineCityService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.QueryConditionVo;
 
 import junit.framework.TestCase;
 
@@ -144,4 +145,38 @@ public class SchoolDaoTest extends TestCase {
 		 List<CourseLecturVo>   listCourse =  courseService.listenCourseList();
 		 System.out.println(listCourse.size());
     }
+    
+    /**
+     *  听课测试
+     * @throws Exception
+     */
+    @Test
+    public void list() throws Exception {
+
+    	
+    	QueryConditionVo  qcv = new QueryConditionVo();
+//    	qcv.setPageSize(1);   
+//    	qcv.setPageNumber(1);
+    	qcv.setQueryKey("我爱你");
+    	 
+    	List<CourseLecturVo> listCourse = mobileBannerService.searchQueryKeyCourseList(qcv);
+		System.out.println(listCourse.size());
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

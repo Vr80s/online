@@ -18,8 +18,11 @@
 		<!--登陆的bootstrap样式-->
 			<link rel="stylesheet" href="/web/css/mylogin.css" />
 			<link href="/web/css/bootstrap.min.css" rel="stylesheet">
-
 		<!--登陆的bootstrap样式-->
+		<!--分页部分start-->
+		<link rel="stylesheet" href="/web/css/componet.css" />
+		<link rel="stylesheet" href="/web/css/componet-pages.css" />
+		<!--分页部分end-->
 			<link rel="stylesheet" href="/web/css/school/curriculum-list.css"  />
 	</head>
 	<body>
@@ -31,22 +34,22 @@
 						<li>
 							<dl id="select-kind">
 								<dt>分类 :</dt>
-								<dd class="select-all">全部</dd>
-								<dd>针灸疗法</dd>
-								<dd>格式推拿</dd>
-								<dd>古籍经典</dd>		
-								<dd>诊脉大全</dd>								
+								<dd class="select-all" subject='menuType'>全部</dd>
+								<dd subject='menuType'>针灸疗法</dd>
+								<dd subject='menuType'>格式推拿</dd>
+								<dd subject='menuType'>古籍经典</dd>		
+								<dd subject='menuType'>诊脉大全</dd>								
 								
 							</dl>
 						</li>
 						<li>
 							<dl id="select-style">
 								<dt>类型 :</dt>
-								<dd class="select-all">全部</dd>
-								<dd>视频课程</dd>
-								<dd>直播课程</dd>
-								<dd>线下课程</dd>	
-								<dd>音频课程</dd>																
+								<dd class="select-all" subject='courseType'>全部</dd>
+								<dd subject='courseType'>视频课程</dd>
+								<dd subject='courseType'>直播课程</dd>
+								<dd subject='courseType'>线下课程</dd>	
+								<dd subject='courseType'>音频课程</dd>																
 							</dl>
 						</li>
 						<li>
@@ -77,14 +80,6 @@
 						<li>
 							<dl id="select-condition">
 								<dt>筛选条件 :</dt>
-							
-								<!--<dd>
-									<p class="wrap-border">
-										<span>分类 : </span>
-										<span class="select-text">筛选条件</span>
-										<span class="selecy-close">x</span>
-									</p>
-								</dd>								-->
 							</dl>
 							<p class="author-search z">
 								<input type="text" id="search-text" value="" placeholder="如：朱小宝" />
@@ -181,7 +176,17 @@
 						</a>
 					</div>
 
-					<!--<div class="clearfix"></div>-->
+					<!--分页部分start-->
+						<div class="doctors_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+							<div id="Pagination_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+							<div class="searchPage">
+								<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+								<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+								<a href="javascript:;" class="page-btn">确定</a>
+							</div>
+						</div>
+					<!--分页部分end-->
+
 				</div>
 			</div>
 			

@@ -29,19 +29,19 @@
 			var userName=$(this).find("option:selected").text();
 			if(userId!="-1"&&userName!="全部"){
 				$(this).selectpicker('val', userId);
-				/*$('#message_questionTable').DataTable().ajax.url(basePath+"/message/load/user/"+userId+"/messages");
+				/*$('#message_questionTable').DataTable().ajax.url(basePath+"/xgMessage/load/user/"+userId+"/messages");
 				$('#message_questionTable').DataTable().ajax.reload();*/
 				message_user_select_id=userId;
 				message_user_select_text=userName;
 			}else{
-				/*$('#message_questionTable').DataTable().ajax.url(basePath+"/message/load/messages");
+				/*$('#message_questionTable').DataTable().ajax.url(basePath+"/xgMessage/load/messages");
 				$('#message_questionTable').DataTable().ajax.reload();*/
 				message_user_select_id=userId;
 				message_user_select_text=userName;
 			}
 		});
 
-		ajaxRequest(basePath+"/message/userlist",{},function(res) {
+		ajaxRequest(basePath+"/xgMessage/userlist",{},function(res) {
 			if(res.resultObject.length>0){
 				for(var i=0;i<res.resultObject.length;i++){
 					var user=res.resultObject[i];

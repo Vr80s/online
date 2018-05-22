@@ -1,6 +1,5 @@
 package com.xczhihui.common.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
 

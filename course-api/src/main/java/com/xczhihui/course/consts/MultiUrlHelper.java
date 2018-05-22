@@ -18,7 +18,7 @@ public class MultiUrlHelper {
     public static final String URL_TYPE_MOBILE = "mobile";
 
     private static Map<String, Map<String, String>> urlMap = new HashMap<>();
-    private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?courseId={0}";
+    private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?id={0}";
     private static final String WEB_COURSE_DETAIL = "/web/html/courseDetail.html?courseId={0}";
 
     private static Map<String, String> collectionCourseDetailUrlMap = ImmutableMap.of(
@@ -97,7 +97,7 @@ public class MultiUrlHelper {
         if (urlMap != null) {
             return urlMap.get(source);
         } else {
-            return null;
+            return "";
         }
     }
 }

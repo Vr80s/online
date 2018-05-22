@@ -1,4 +1,4 @@
-package com.xczhihui.utils;
+package com.xczhihui.user.center.utils;
 
 
 import org.apache.commons.lang.StringUtils;

@@ -83,15 +83,18 @@ public class MobileClassifyController {
 									  HttpServletResponse res)
 			throws Exception {
 
-		List<Object> list11 = new ArrayList<Object>();
+		List<Object> list = new ArrayList<Object>();
 		//课程分类
-		list11.add(menuService.list());
+		list.add(menuService.list());
 		//是否付费
 		List<Map<String, Object>> getPayStatusList = courseService.getPayStatusList();
-		list11.add(getPayStatusList);
+		list.add(getPayStatusList);
 		//课程类型
 		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
-		list11.add(getCourseTypeList);
+		list.add(getCourseTypeList);
+		//直播状态
+		List<Map<String, Object>> getLiveStatusList = courseService.getLiveStatusList();
+		list.add(getLiveStatusList);
 		//城市
 		Page<OfflineCity> OfflineCityPage = new Page<>();
 		OfflineCityPage.setCurrent(1);
@@ -106,11 +109,8 @@ public class MobileClassifyController {
 			String name = city.getCityName();
 			city.setName(name);
 		}
-		list11.add(oclist);
-		//直播状态
-		List<Map<String, Object>> getLiveStatusList = courseService.getLiveStatusList();
-		list11.add(getLiveStatusList);
-		return ResponseObject.newSuccessResponseObject(list11);
+		list.add(oclist);
+		return ResponseObject.newSuccessResponseObject(list);
 	}
 
 	

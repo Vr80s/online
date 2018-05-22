@@ -8,6 +8,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.SMSCode;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -19,6 +20,7 @@ import com.xczhihui.online.api.service.UserCoinService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +69,10 @@ public class MyManagerController {
 
 	@Autowired
 	private IMedicalDoctorApplyService medicalDoctorApplyService;
+	
+	@Autowired
+	@Qualifier("focusServiceRemote")
+	private IFocusService focusServiceRemote;
 
 	@Value("${rate}")
 	private int rate;
@@ -85,7 +91,7 @@ public class MyManagerController {
 	 */
 	@RequestMapping("home")
 	@ResponseBody
-	public ResponseObject freeCourseNumber(HttpServletRequest req)
+	public ResponseObject home(HttpServletRequest req)
 			throws Exception {
 		/*
 		 * 显示熊猫币、已购买的课程（不包含免费的）、是否是主播 获取用户信息
@@ -96,10 +102,12 @@ public class MyManagerController {
 		 */
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (user != null) {
+			String userId = user.getId();
+			
 			// 熊猫币-- 普通用户的平台
-			map.put("xmbCount",userCoinService.getBalanceByUserId(user.getId()));
+			map.put("xmbCount",userCoinService.getBalanceByUserId(userId));
 			// 更新下用户信息
-			OnlineUser ou = onlineUserService.findUserById(user.getId());
+			OnlineUser ou = onlineUserService.findUserById(userId);
 			if(ou == null){
 				return ResponseObject.newErrorResponseObject("token过期",1002);
 			}
@@ -107,23 +115,31 @@ public class MyManagerController {
 
 			map.put("user", ou);
 			// 查找购买的课程数
-			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
+			map.put("courseCount",courseService.selectMyFreeCourseListCount(userId));
 			//是否拥有主播权限
-			Integer hostPermissions = myInfoService.getUserHostPermissions(user.getId());
+			Integer hostPermissions = myInfoService.getUserHostPermissions(userId);
 			LOGGER.info(hostPermissions+"");
 			// 查看主播权限   -- 并且把主播信息给返回过去
 			map.put("hostPermissions", hostPermissions != null ? hostPermissions :0);
 			if(hostPermissions!=null &&  hostPermissions == 1){
 				//申请的医师信息
-				map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(user.getId()));
+				map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(userId));
 			}
+			
 			map.put("tokenVaild",1);
+			//新增关注数和粉丝数的显示
+			List<Integer> listff =   focusServiceRemote.selectFocusAndFansCountAndCriticizeCount(userId);
+			
+			map.put("fansCount", listff.get(0));       	   //粉丝总数
+			map.put("focusCount", listff.get(1));   	  	   //关注总数
 		} else {
 			map.put("xmbCount", 0);
 			map.put("user", "");
 			map.put("courseCount", 0);
 			map.put("hostPermissions",0);
 			map.put("tokenVaild",0);
+			map.put("fansCount", 0);       	   //粉丝总数
+			map.put("focusCount",0);   	  	   //关注总数
 		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}

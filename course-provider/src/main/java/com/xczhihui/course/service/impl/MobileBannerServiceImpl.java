@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.course.mapper.MobileBannerMapper;
 import com.xczhihui.course.model.MobileBanner;
@@ -15,6 +16,7 @@ import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.QueryConditionVo;
 
 /**
  * <p>
@@ -194,5 +196,23 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper,Mobi
 	@Override
 	public List<Map<String, Object>> liveCourseList(Integer pageSize) {
 		return liveCourseList(pageSize,pageSize);
+	}
+	@Override
+	public List<CourseLecturVo> searchQueryKeyCourseList(QueryConditionVo queryConditionVo) {
+		return iMobileBannerMapper.searchQueryKeyCourseList(queryConditionVo);
+	}
+	@Override
+	public List<CourseLecturVo> searchCourseList(QueryConditionVo queryConditionVo) {
+		return iMobileBannerMapper.searchCourseList(queryConditionVo);
+	}
+	@Override
+	public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
+		List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page,queryConditionVo);
+		return page.setRecords(list);
+	}
+	@Override
+	public Page<CourseLecturVo> searchCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
+		List<CourseLecturVo> list =iMobileBannerMapper.searchCourseList(page,queryConditionVo);
+		return page.setRecords(list);
 	}
 }

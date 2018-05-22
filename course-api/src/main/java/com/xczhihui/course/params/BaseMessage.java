@@ -46,7 +46,7 @@ public class BaseMessage implements Serializable {
         }
 
         public Builder buildAppPush(String content) {
-            this.baseMessage.appMessage = new SubMessage(content);
+            this.baseMessage.appPushMessage = new SubMessage(content);
             return this;
         }
 
