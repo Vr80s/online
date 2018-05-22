@@ -82,4 +82,17 @@ $(function(){
 		$(".bg-modal").addClass("hide");
 		$(".wrap-modal").addClass("hide");
 	})
+	
+	
+	
+	 var percent=60;  
+        if(percent>100){  
+            percent=0;  
+            $('.circle').removeClass('clip-auto');  
+            $('.right').addClass('wth0');  
+        }else if(percent>50){  
+            $('.circle').addClass('clip-auto');  
+            $('.right').removeClass('wth0');  
+        }  
+        $('.left').css("-webkit-transform","rotate("+(18/5)*percent+"deg)"); 
 })
