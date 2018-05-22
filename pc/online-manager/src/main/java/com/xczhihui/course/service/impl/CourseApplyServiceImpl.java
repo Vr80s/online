@@ -240,8 +240,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             params.put("type", typeText);
             params.put("courseName", title);
 
-            Map<String, String> weixinParams = new HashMap<>();
-            weixinParams.put("first", content);
+            Map<String, String> weixinParams = new HashMap<>(3);
+            weixinParams.put("first", TextStyleUtil.clearStyle(content));
             weixinParams.put("keyword1", title);
             weixinParams.put("keyword2", course.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
@@ -325,7 +325,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         params.put("reason", reason);
 
         Map<String, String> weixinParams = new HashMap<>(4);
-        weixinParams.put("first", content);
+        weixinParams.put("first", TextStyleUtil.clearStyle(content));
         weixinParams.put("keyword1", title);
         weixinParams.put("keyword2", courseApplyInfo.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(courseApplyInfo.getStartTime()));
         weixinParams.put("remark", "");

@@ -398,12 +398,12 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             String type = "医师";
             String dateStr = simpleDateFormat.format(new Date());
             String content = MessageFormat.format(APPROVE_PASS_MESSAGE, type, dateStr);
-            Map<String, String> params = new HashMap<>();
+            Map<String, String> params = new HashMap<>(2);
             params.put("type", type);
             params.put("date", dateStr);
 
-            Map<String, String> weixinParams = new HashMap<>();
-            weixinParams.put("first", content);
+            Map<String, String> weixinParams = new HashMap<>(5);
+            weixinParams.put("first", TextStyleUtil.clearStyle(content));
             weixinParams.put("keyword1", courseAnchor.getName());
             weixinParams.put("keyword2", "认证通过");
             weixinParams.put("keyword3", TimeUtil.getYearMonthDayHHmm(applyTime));

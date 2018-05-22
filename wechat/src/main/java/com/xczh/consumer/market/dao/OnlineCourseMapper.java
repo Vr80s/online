@@ -12,7 +12,8 @@ import com.xczh.consumer.market.vo.LecturVo;
 @Repository
 public class OnlineCourseMapper extends BasicSimpleDao{
 
-
+	
+	
 	public CourseLecturVo courseShare(Integer courseId) throws SQLException {
 		StringBuffer sql = new StringBuffer("");
 		sql.append("select c.id,c.direct_Id as directId,c.grade_name as gradeName,c.lecturer as name,");
@@ -23,10 +24,10 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		Object[] params = {courseId};
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 	}
-
+	
 	public LecturVo lectureShare(String lecturerId) throws SQLException {
 		StringBuffer sql = new StringBuffer("");
-		sql.append("select ca.name as name,ou.small_head_photo as headImg ,");
+		sql.append("select ca.name as name,ca.profile_photo as headImg ,");
 		sql.append(" ca.detail as description ");  //课程简介
 		sql.append(" from oe_user ou,course_anchor ca ");
 		sql.append(" where  ou.id = ca.user_id and ou.id = ?  and ou.is_delete=0 and ou.status = 0   ");

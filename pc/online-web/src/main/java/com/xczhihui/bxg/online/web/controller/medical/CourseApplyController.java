@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,6 +61,8 @@ public class CourseApplyController extends AbstractController {
     private CourseService courseService;
     @Autowired
     private ICommonMessageService commonMessageService;
+    @Value("${weixin.course.remind.code}")
+    private String weixinTemplateMessageRemindCode;
 
     /**
      * Description：分页获取课程申请列表
@@ -343,17 +347,24 @@ public class CourseApplyController extends AbstractController {
             List<FocusVo> focusVos = focusService.selectFansList(userId);
             if (!focusVos.isEmpty()) {
                 Course course = courseService.findByApplyId(courseApplyId);
+                Date startTime = course.getStartTime();
                 String content = MessageFormat.format(WEB_COURSE_ONLINE_MESSAGE_TIPS, user.getName(),
-                        course.getLecturer(), course.getGradeName(), TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
+                        course.getLecturer(), course.getGradeName(), startTime == null ? "无" : TimeUtil.getYearMonthDayHHmm(startTime));
+                Map<String, String> weixinParams = new HashMap<>(4);
+                weixinParams.put("first", TextStyleUtil.clearStyle(content));
+                weixinParams.put("keyword1", course.getGradeName());
+                weixinParams.put("keyword2", startTime == null ? "无" : TimeUtil.getYearMonthDayHHmm(startTime));
+                weixinParams.put("remark", "点击查看");
                 for (FocusVo focusVo : focusVos) {
                     String fansId = focusVo.getUserId();
                     //不给自己推送
 //                    if (!fansId.equals(userId)) {
-                        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                                .buildAppPush(APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS)
-                                .buildWeb(content)
-                                .detailId(String.valueOf(course.getId()))
-                                .build(focusVo.getUserId(), CourseUtil.getRouteType(course.getCollection(), course.getType()), userId));
+                    commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                            .buildAppPush(APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS)
+                            .buildWeb(content)
+                            .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
+                            .detailId(String.valueOf(course.getId()))
+                            .build(focusVo.getUserId(), CourseUtil.getRouteType(course.getCollection(), course.getType()), userId));
 //                    }
                 }
             }
