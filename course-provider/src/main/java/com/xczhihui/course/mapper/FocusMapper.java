@@ -26,4 +26,6 @@ public interface FocusMapper extends BaseMapper<Focus> {
 	Integer isFoursLecturer(@Param("userId") String userId,@Param("lecturerId")String lecturerId);
 	
 	Focus findFoursByUserIdAndlecturerId(@Param("userId") String userId,@Param("lecturerId")String lecturerId);
+
+	List<Integer> selectFocusAndFansCountAndCriticizeCount(@Param("userId")String userId);
 }
