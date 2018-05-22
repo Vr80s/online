@@ -1,5 +1,6 @@
 package com.xczhihui.course.consts;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,6 +76,12 @@ public class MultiUrlHelper {
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=4",
             URL_TYPE_WEB, "/web/html/anchor/curriculum.html?tab=4#menu=1-1",
             URL_TYPE_MOBILE, "");
+    private static Map<String, String> articleMap = ImmutableMap.of(
+            URL_TYPE_WEB, "/headline/details/{0}"
+    );
+    private static Map<String, String> questionMap = ImmutableMap.of(
+            URL_TYPE_WEB, "/web/qusDetail/{0}"
+    );
 
     static {
         urlMap.put(RouteTypeEnum.COLLECTION_COURSE_DETAIL_PAGE.name(), collectionCourseDetailUrlMap);
@@ -90,6 +97,8 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.VIDEO_COURSE_LIST.name(), videoCourseListMap);
         urlMap.put(RouteTypeEnum.OFFLINE_COURSE_LIST.name(), offlineCourseListMap);
         urlMap.put(RouteTypeEnum.AUDIO_COURSE_LIST.name(), audioCourseListMap);
+        urlMap.put(RouteTypeEnum.ARTICLE_DETAIL.name(), articleMap);
+        urlMap.put(RouteTypeEnum.QUESTION_DETAIL.name(), questionMap);
     }
 
     public static String getUrl(String routeType, String source) {
@@ -99,5 +108,16 @@ public class MultiUrlHelper {
         } else {
             return "";
         }
+    }
+
+    public static String getUrl(String routeType, String source, String detailId) {
+        String url = null;
+        if (routeType != null && !routeType.equals(RouteTypeEnum.NONE.name())) {
+            url = MultiUrlHelper.getUrl(routeType, source);
+            if (url != null && detailId != null) {
+                url = MessageFormat.format(url, detailId);
+            }
+        }
+        return url;
     }
 }

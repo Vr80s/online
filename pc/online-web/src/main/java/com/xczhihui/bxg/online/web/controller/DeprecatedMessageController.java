@@ -23,18 +23,20 @@ import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.course.service.ICommonMessageService;
 
 /**
- * 用户反馈
- *
- * @author Haicheng Jiang
+ * TODO 消息改版完成后删除该类
  */
+@Deprecated
 @Controller
 @RequestMapping(value = "/online/message/")
-public class MessageController extends AbstractController {
+public class DeprecatedMessageController extends AbstractController {
 
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private ICommonMessageService commonMessageService;
 
     /**
      * 获取当前用户的系统消息
@@ -49,16 +51,7 @@ public class MessageController extends AbstractController {
     public ResponseObject getMessageList(HttpSession s, Integer type, Integer pageSize, Integer pageNumber) {
         OnlineUser u = getCurrentUser();
         Page<MessageVo> page = messageService.findMessagePage(u, type, pageSize, pageNumber);
-        page.getItems().forEach(messageVo -> {
-            String routeType = messageVo.getRouteType();
-            if (routeType != null && !routeType.equals(RouteTypeEnum.NONE.name())) {
-                String url = MultiUrlHelper.getUrl(routeType, MultiUrlHelper.URL_TYPE_WEB);
-                if (url != null && messageVo.getDetailId() != null) {
-                    url = MessageFormat.format(url, messageVo.getDetailId());
-                }
-                messageVo.setUrl(url);
-            }
-        });
+        page.getItems().forEach(messageVo -> messageVo.setUrl(MultiUrlHelper.getUrl(messageVo.getRouteType(), MultiUrlHelper.URL_TYPE_WEB, messageVo.getDetailId())));
         return ResponseObject.newSuccessResponseObject(page);
     }
 

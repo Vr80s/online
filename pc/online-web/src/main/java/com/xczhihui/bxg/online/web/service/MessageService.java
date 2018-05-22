@@ -13,14 +13,16 @@ public interface MessageService {
     /**
      * 根据ID删除
      *
-     * @param id
+     * @param id     id
+     * @param userId 用户id
      */
     void deleteById(String id, String userId);
 
     /**
      * 修改读取状态
      *
-     * @param userId
+     * @param userId 用户id
+     * @param type   消息类型
      */
     void updateReadStatus(String userId, Integer type);
 
@@ -28,13 +30,14 @@ public interface MessageService {
      * 将某条消息标志已读状态
      *
      * @param id     消息id
-     * @param userId
+     * @param userId 用户id
      */
     void updateReadStatusById(String id, String userId);
 
     /**
      * 获取未读消息总数
      *
+     * @param userId 用户id
      * @return
      */
     Map<String, Object> findMessageCount(String userId);

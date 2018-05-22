@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
  */
 @TableName("oe_message")
 public class Message implements Serializable {
+    public static final String SYSTEM_MESSAGE_TITLE = "系统通知";
 
     private String id;
 

@@ -40,21 +40,21 @@ public class HospitalRecruitController extends AbstractFtlController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseObject list(@RequestParam(value = "keyword", required = false) String keyword,
-                               @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
-        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId(request));
+                               @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId());
         return ResponseObject.newSuccessResponseObject(medicalHospitalRecruitBusinessService.listByPage(hospitalId, keyword, page, size));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseObject create(@RequestBody @Valid HospitalRecruitBody hospitalRecruitBody, HttpServletRequest request) {
-        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId(request));
-        medicalHospitalRecruitBusinessService.save(hospitalRecruitBody.build(hospitalId), getUserId(request));
+    public ResponseObject create(@RequestBody @Valid HospitalRecruitBody hospitalRecruitBody) {
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId());
+        medicalHospitalRecruitBusinessService.save(hospitalRecruitBody.build(hospitalId), getUserId());
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseObject update(@PathVariable String id, @RequestBody @Valid HospitalRecruitBody hospitalRecruitBody, HttpServletRequest request) {
-        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId(request));
+    public ResponseObject update(@PathVariable String id, @RequestBody @Valid HospitalRecruitBody hospitalRecruitBody) {
+        String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(getUserId());
         medicalHospitalRecruitBusinessService.update(id, hospitalRecruitBody.build(hospitalId));
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
