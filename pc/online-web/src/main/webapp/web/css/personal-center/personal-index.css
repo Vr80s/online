@@ -1071,6 +1071,105 @@ overflow: hidden;
 }
 
 /*个人资料*/
+.personal-data-wrap{
+	width: 100%;
+	height: 596px;
+	background: white;
+}
+.data-title{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	padding-left: 20px;
+	overflow: hidden;
+	border-bottom: 1px solid #f0f0f0;
+	font-size: 16px;
+}
+.data-information{
+	margin-top: 50px;
+}
+.data-mune{
+	margin: 20px 10px 0 0;
+	position: relative;
+}
+.data-left-name{
+	width: 30%;
+	display: inline-block;
+	text-align: right;
+	margin-right: 10px;
+	color: #666666;
+	font-size: 16px;
+}
+
+.data-left-name span{
+	color: red;
+}
+.data-mune input{
+	 height: 38px;
+    width: 258px;
+    text-indent: 10px;
+    border: 1px solid #eee;
+    display: inline-block;
+    color: #333;
+    font-size: 14px;
+    outline: none;
+}
+.data-mune .warning-name{
+	color: red;
+	margin-left: 15px;
+}
+.data-mune .account-number{
+	background: #eee;
+}
+.data-mune .mypassword-g{
+	    margin-left: 15px;
+    color: #00bc12;
+    font-size: 14px;
+    text-decoration: none;
+}
+.data-mune .identity-select{
+	    height: 38px;
+    width: 150px;
+    padding-left: 15px;
+    border: 1px solid #eee;
+    outline: none;
+}
+.data-mune .sex-select{
+	width: 15px;
+	height: 10px;
+	display: none;
+}
+ .data-mune label{
+ 	cursor: pointer;
+ 	font-weight: 500;
+ }
+.radio-cover{
+ 	position: absolute;
+    width: 13px;
+    height: 13px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+    vertical-align: middle;
+    display: block;
+    top: 5px;
+}
+ .radio-cover em{
+  	width: 7px;
+  	height: 7px;
+  	border-radius: 50%;
+  	position: absolute;
+  	 top: 2px;
+    left: 2px;
+}
+.radio-cover .active{
+    background:#00bc12;
+
+   
+}
+ .data-mune label span{
+  	margin-left: 20px;
+}
+
 
 
 /*个人资料结束*/
@@ -1124,20 +1223,7 @@ overflow: hidden;
 .main-news ul .read-news{
 	color: #999999;
 }
-/*意见反馈*/
-.feedback-wrap{
-	width: 100%;
-	height: 596px;
-	background: white;
-	
-}
-.feedback-wrap .mune-opinion{
-	height: 60px;
-	line-height: 60px;
-	border-bottom: 1px solid #f0f0f0;
-	padding-left: 20px;
-	font-size: 16px;
-}
+
 .opinion-title{
 	padding: 30px 20px 20px;
 }
@@ -1177,4 +1263,11 @@ overflow: hidden;
     margin-left: 76px;
     border-radius: 4px;
 }
-   
+
+  
+  
+  
+  
+  
+  
+     
