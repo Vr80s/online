@@ -57,7 +57,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private static final String APP_PUSH_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             "您申请的{0}课程《{1}》已通过系统审核，可以上架啦！";
     private static final String APP_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
-            "【课程审核通知】您申请的{0}课程" + "《{1}》" + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
+            "【课程审核通知】您申请的{0}课程" + "《{1}》已通过系统审核," + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
     private static final String WEB_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             APP_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS;
 
