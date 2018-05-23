@@ -41,7 +41,7 @@ public class MessageController {
                 }
         );
         commonMessageService.updateReadStatus(null, userId);
-        return ResponseObject.newSuccessResponseObject(messages);
+        return ResponseObject.newSuccessResponseObject(messages.getRecords());
     }
 
     @ResponseBody
