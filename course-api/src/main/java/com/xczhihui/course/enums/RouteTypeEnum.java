@@ -22,5 +22,7 @@ public enum RouteTypeEnum {
     OFFLINE_COURSE_LIST,
     AUDIO_COURSE_LIST,
     //不跳转
-    NONE
+    NONE,
+    ARTICLE_DETAIL,
+    QUESTION_DETAIL
 }

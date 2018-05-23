@@ -34,8 +34,8 @@ public class DoctorWritingController extends AbstractFtlController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject listByDoctorId(@RequestParam(defaultValue = "1") int page,
-                                         @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
-        return newSuccessResponseObject(medicalDoctorWritingService.list(page, size, getUserId(request)));
+                                         @RequestParam(defaultValue = "10") int size) {
+        return newSuccessResponseObject(medicalDoctorWritingService.list(page, size, getUserId()));
     }
 
     @RequestMapping(value = "public", method = RequestMethod.GET)
@@ -55,8 +55,8 @@ public class DoctorWritingController extends AbstractFtlController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject save(@RequestBody @Valid DoctorWritingBody doctorWritingBody, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject save(@RequestBody @Valid DoctorWritingBody doctorWritingBody) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         medicalDoctorWritingService.save(doctorId, doctorWritingBody.build(userId), userId);
         return newSuccessResponseObject("保存成功");
@@ -64,8 +64,8 @@ public class DoctorWritingController extends AbstractFtlController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseObject update(@PathVariable String id, @RequestBody @Valid DoctorWritingBody doctorWritingBody, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject update(@PathVariable String id, @RequestBody @Valid DoctorWritingBody doctorWritingBody) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         medicalDoctorWritingService.update(id, doctorId, doctorWritingBody.build(userId));
         return newSuccessResponseObject("更新成功");
@@ -73,8 +73,8 @@ public class DoctorWritingController extends AbstractFtlController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseObject delete(@PathVariable String id, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject delete(@PathVariable String id) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         medicalDoctorWritingService.delete(id, doctorId);
         return newSuccessResponseObject("删除成功");
@@ -82,8 +82,8 @@ public class DoctorWritingController extends AbstractFtlController {
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseObject updateStatus(@PathVariable String id, @PathVariable boolean status, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject updateStatus(@PathVariable String id, @PathVariable boolean status) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         if (medicalDoctorWritingService.updateStatus(doctorId, id, status)) {
             return newSuccessResponseObject("操作成功");

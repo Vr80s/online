@@ -20,4 +20,7 @@ public class AbstractController {
         return CURRENT_USER.get();
     }
 
+    public String getUserId() {
+        return getCurrentUser().getId();
+    }
 }

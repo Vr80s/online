@@ -173,8 +173,17 @@ $(".select-pay-money li").click(function(){
 		$(this).addClass("select-confirm").find("span").removeClass("hide");
 	})
 
-//-------------------------------------- 我的钱包结束,消息开始--------------------------------------------
 
+//-------------------------------------- 我的钱包结束,我的资料开始--------------------------------------------
+
+//男女单选框
+	$(".data-mune label").click(function() {
+		$(this).find(".radio-cover em").addClass("active").parent().parent().siblings().find(".radio-cover em").removeClass("active");
+	})
+
+
+
+//-------------------------------------- 我的资料结束,消息开始--------------------------------------------
 
 
 });

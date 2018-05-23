@@ -1,0 +1,74 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+	border: none;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+	background: blue;
+}
+
+.both{
+	clear: both;
+}
+
+.sex_pet_name {
+    width: 100%;
+    display: none;
+}
+.sex_pet_name_top {
+    width: 100%;
+    background: #fff;
+    padding-bottom: 0rem;
+    border-bottom: 1px solid #d2d2d2;
+    height: 0.88rem;
+    line-height: 0.88rem;
+}
+.return {
+    background: url(../images/backicon.png) no-repeat;
+    background-size: 100% 100%;
+    width: 0.24rem;
+    height: 0.42rem;
+    margin-top: 0.22rem;
+    display: block;
+    margin-left: 0.26rem;
+    float: left;
+}
+.pet_name_right1{
+   color: #00bc12;
+    display: inline-block;
+    float: right;
+    margin-right: 0.02rem;
+    font-size: 0.3rem;
+    margin-top: 0rem;
+    margin-right: 0.26rem;
+}
+.return {
+    background: url(/xcview/images/backicon.png) no-repeat;
+    background-size: 100% 100%;
+    width: 0.24rem;
+    height: 0.42rem;
+    margin-top: 0.22rem;
+    display: block;
+    margin-left: 0.26rem;
+}
+.dl{
+    position: fixed;
+    width: 100% !important;
+    top: 0;
+    text-align: center;
+    z-index: 0;
+    pointer-events:none;
+}
+
+

@@ -126,7 +126,7 @@ padding-bottom: 10px;
 	width: 32px;
 	height: 32px;
 	border-radius: 50%;
-	border: 2px solid #00BC12;
+	border: 2px solid #ccc;
 	overflow: hidden;
 }
 .wrap-anthology ul li{
@@ -395,21 +395,6 @@ word-break:break-all;
 	border: 0;
 	outline: none;
 }
-.more-evaluate{
-	text-align: center;
-	margin-top: 20px;
-}
-.more-evaluate button{
-	    width: 92px;
-    height: 36px;
-    background: #00bc12;
-    line-height: 36px;
-    border: 0;
-    outline: none;
-    color: #ffffff;
-    border-radius: 4px;
-}
-
 /*常见问题*/
 .often-problem li{
 	margin-bottom: 50px;
@@ -642,7 +627,7 @@ word-break:break-all;
 .submission{
 	width: 120px;
 	height: 36px;
-	/* background: #00BC12; */
+	background: #00BC12;
 	color: white;
 	border: 0;
 	border-radius: 4px;
@@ -651,8 +636,59 @@ word-break:break-all;
 }
 
 
-.impression-list .gs_width img{
-	width: 20px;
-}
+/*环形进度条部分*/
 
-
+  *{  
+        margin: 0;  
+        padding: 0;  
+    }  
+    .wrap,.circle,.percent{  
+        position: absolute;  
+        width: 32px;  
+        height: 32px;  
+        border-radius: 50%;  
+    }  
+    .wrap{  
+        top:50px;  
+        left:50px;  
+        background-color: #ccc;  
+    }  
+    .circle{  
+        box-sizing: border-box;  
+        border:2px solid #ccc;  
+        clip:rect(0,32px,32px,16px);  
+    }  
+    .clip-auto{  
+        clip:rect(auto, auto, auto, auto);  
+    }  
+    .percent{  
+        box-sizing: border-box;  
+        top:-2px;  
+        left:-2px;  
+    }  
+    .left{  
+        transition:transform ease;  
+        border:2px solid #00BC12;  
+        clip: rect(0,16px,32px,0);  
+    }  
+    .right{  
+        border:2px solid #00BC12;  
+        clip: rect(0,32px,32px,16px);  
+    }  
+    .wth0{  
+        width:0;  
+    }  
+    .num{  
+        position: absolute;  
+        box-sizing: border-box;  
+        width: 28px;  
+        height: 28px;  
+        line-height: 28px;  
+        text-align: center;  
+        font-size: 12px;  
+        left: 2px;  
+        top: 2px;  
+        border-radius: 50%;  
+        background-color: #fff;  
+        z-index: 1;  
+    }  

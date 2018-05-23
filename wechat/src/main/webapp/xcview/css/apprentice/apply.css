@@ -1,0 +1,307 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+	border: none;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+	background: blue;
+}
+body{
+    width: 100%;
+    height: 100%;
+    background: #F5F5F5;
+}
+.both{
+	clear: both;
+}
+
+::-webkit-input-placeholder{
+	color: #ccc;
+}
+:-moz-placeholder{
+	color: #ccc;
+}
+:-ms-placeholder{
+	color: #ccc;
+}
+placeholder{
+	color: #ccc;
+}
+
+/*报名头部开始*/
+header{
+	width: 100%;
+	height: 0.88rem;
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	border-bottom: 1px solid #d8dde6;
+}
+.header{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	position: relative;
+    background: #fff;
+}
+.return{
+	width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0.26rem;
+    top: 0.23rem;
+}
+.return img{
+	width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+}
+.apply_title{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	font-size: 0.36rem;
+	color: #333333;
+	text-align: center;
+}
+/*报名头部结束*/
+
+/*中间内容开始*/
+.main{
+	width: 100%;
+    height: 100%;
+	background: #F5F5F5;
+}
+.fiexd{
+	width: 100%;
+	height: 0.88rem;
+	opacity: 0;
+}
+.main_bg{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	margin-bottom: 0.2rem;
+}
+.name{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
+	color: #333333;
+	border-bottom: 1px solid #f0f0f0;
+	float: right;
+}
+.name input{
+	width: 6rem;
+	height: 0.98rem;
+	/*background: red;*/
+	text-align: right;
+	font-size: 0.28rem;
+	color: #666;
+	border: none;
+	float: right;
+	margin-right: 0.26rem;
+	outline: none;
+}
+
+.age{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
+	color: #333333;
+	border-bottom: 1px solid #f0f0f0;
+	float: right;
+}
+.age input{
+	width: 6rem;
+	height: 0.98rem;
+	/*background: red;*/
+	text-align: right;
+	font-size: 0.28rem;
+	color: #666;
+	border: none;
+	float: right;
+	margin-right: 0.26rem;
+	outline: none;
+}
+
+.sex{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
+	color: #333333;
+	border-bottom: 1px solid #f0f0f0;
+	float: right;
+}
+.sex div{
+	float: right;
+    text-align: right;
+    margin-right: 0.26rem;
+    margin-top: 0.03rem;
+    width: 0.25rem;
+}
+.sex div img{
+	width: 0.15rem;
+}
+.sex  p{
+	font-size: 0.28rem;
+	color: #666666;
+	float: right;
+}
+
+.birthplace{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
+	color: #333333;
+	float: right;
+
+}
+.birthplace input{
+	width: 6rem;
+	height: 0.98rem;
+	/*background: red;*/
+	text-align: right;
+	font-size: 0.28rem;
+	color: #666;
+	border: none;
+	float: right;
+	margin-right: 0.26rem;
+	outline: none;
+}
+.learning_experience{
+	width: 7.24rem;
+	/*height: 0.98rem;*/
+	/*line-height: 0.98rem;*/
+	font-size: 0.28rem;
+	color: #333333;
+	float: right;
+	padding: 0.29rem 0;
+}
+.learning_experience .copyreader{
+	width:5.6rem;
+	/*line-height: 0.5rem;*/
+	/*background: red;*/
+	float: right;
+    margin-right: 0.26rem;
+    outline: none;
+}
+/* .learning_experience input{
+	width: 5.5rem;
+	height: 0.98rem;
+	background: red;
+	text-align: right;
+	font-size: 0.28rem;
+	color: #666;
+	border: none;
+	float: right;
+	margin-right: 0.26rem;
+	outline: none;
+} */
+
+.practice_medicine{
+	width: 7.24rem;
+	/* height: 0.98rem;
+	line-height: 0.98rem; */
+	font-size: 0.28rem;
+	color: #333333;
+	float: right;
+	padding: 0.29rem 0;
+}
+.practice_medicine .copyreader{
+	width:5.6rem;
+	/*line-height: 0.5rem;*/
+	/*background: red;*/
+	float: right;
+    margin-right: 0.26rem;
+    outline: none;
+}
+/* .practice_medicine input{
+	width: 5.5rem;
+	height: 0.98rem;
+	background: red;
+	text-align: right;
+	font-size: 0.28rem;
+	color: #666;
+	border: none;
+	float: right;
+	margin-right: 0.26rem;
+	outline: none;
+} */
+
+.study{
+	width: 7.24rem;
+	/* height: 0.98rem;
+	line-height: 0.98rem; */
+	font-size: 0.28rem;
+	color: #333333;
+	float: right;
+	padding: 0.29rem 0;
+}
+.study .copyreader{
+	width:5.3rem;
+	/*line-height: 0.5rem;*/
+	/*background: red;*/
+	float: right;
+    margin-right: 0.26rem;
+    outline: none;
+}
+.copyreader:empty:before{
+content: attr(placeholder);
+color:#bbb;
+}
+/* .study input{
+	width: 5.5rem;
+	height: 0.98rem;
+	background: red;
+	text-align: right;
+	font-size: 0.28rem;
+	color: #666;
+	border: none;
+	float: right;
+	margin-right: 0.26rem;
+	outline: none;
+} */
+.buttom{
+	width: 6.98rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	margin: 0 auto;
+	background: #00bc12;
+	border-radius: 100px;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	margin-bottom: 0.2rem;
+}
+.opacity{
+	opacity: 0.5;
+}
+/*中间内容结束*/
+
+
+
+
+
+
+
+
+
+

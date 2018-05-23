@@ -803,9 +803,95 @@
 							</div>
 						<!--个人资料-->
 							<div class="content hide" >
-								<div>内容5-1</div>
-								<!--<div class="hide">内容4-2</div>-->
+								<div class="personal-data-wrap">
+									<div class="data-title">
+										<ul>
+											<li>个人信息</li>
+										</ul>
+									</div>
+									<div class="data-information">
+										<div class="data-mune">
+											<div class="data-left-name">
+												<span>*</span>
+												用户名
+											</div>
+											<input type="" name="" id="" value="" />	
+											<span class="warning-name">用户名格式不能为空 !</span>
+										</div>
+										
+										<div class="data-mune">
+											<div class="data-left-name">
+												账号
+											</div>
+											<input class="account-number" type="" name="" id="" value="" disabled="disabled" />
+											<a href="/web/html/resetPassword.html" class="mypassword-g">修改密码&nbsp;&gt;</a>
+										</div>
+										<div class="data-mune">
+											<div class="data-left-name">
+												邮箱
+											</div>
+											<input type="" name="" id="" value="" />
+										</div>	
+										<div class="data-mune">
+											<div class="data-left-name">
+												身份信息
+											</div>
+											<select class="identity-select">
+												<option value="volvo">请输入身份信息</option> 
+												<option>这里渲染</option>
+											</select>
+										</div>
+										<div class="data-mune">
+											<div class="data-left-name">
+												职业信息
+											</div>
+											<input type="" name="" id="" value="" />
+										</div>
+										<div class="data-mune">
+											<div class="data-left-name">
+												性别
+											</div>
+											
+											<label>
+												<div class="radio-cover"><em class="active"></em></div>								
+												<input class="sex-select" type="radio" name="sex" id="" value="1" />
+												<span>男</span>
+											</label>
+											<label>
+												<input class="sex-select" type="radio" name="sex" id="" value="0" />
+												<div class="radio-cover"><em></em></div>								
+												<span>女</span>
+											</label>
+										</div>	
+										<div class="data-mune">
+											<div class="data-left-name">
+												所在地区
+											</div>
+
+											<div class="address-info2 cy-myprofile-myfom-dv-1">
+										        <p class="buer"><span></span>所在地区:</p>
+										 
+										        <select class="province">
+										        <option value="volvo">--选择省--</option>
+										        </select>
+										   
+										        <select class="city">
+										        <option value="volvo" >--选择市--</option>
+										        </select>
+										        
+										  
+										        <select class="district">
+										        <option value="volvo">--选择区/县--</option> 
+										        </select>	        
+										        <p class="address_warn  warning" style="display:none;color:red">请填写所在地区信息</p>
+									        </div>
+											
+											<input type="" name="" id="" value="" />
+										</div>
+									</div>
+								</div>
 							</div>
+
 						<!--消息-->
 							<div class="content hide" >
 								<div class="news-wrap">
@@ -896,8 +982,7 @@
 		<script src="/web/html/personal-center/center-header/header.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/footer.js"></script>
 		<!--公共头部和底部结束-->
-
-
+		
 		<!--头像预览JS-->
 		<script type="text/javascript" src="/web/js/cropbox.js"></script>
 		<script src="/web/html/preview-head/preview-head.js"></script>
