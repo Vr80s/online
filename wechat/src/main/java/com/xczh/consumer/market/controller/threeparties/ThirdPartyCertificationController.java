@@ -8,11 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.common.util.enums.*;
-import com.xczhihui.user.center.service.UserCenterService;
-import com.xczhihui.user.center.utils.UCCookieUtil;
-import com.xczhihui.user.center.vo.OeUserVO;
-import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +24,21 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.enums.*;
 import com.xczhihui.course.model.QQClientUserMapping;
 import com.xczhihui.course.model.WeiboClientUserMapping;
 import com.xczhihui.course.service.IThreePartiesLoginService;
 import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.service.VerificationCodeService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.Token;
 
 import weibo4j.http.HttpClient;
 
 /**
- * 
  * ClassName: ThirdPartyCertificationController.java <br>
  * Description: <br>
  * Create by: name：yangxuan <br>
@@ -49,428 +49,408 @@ import weibo4j.http.HttpClient;
 @RequestMapping(value = "/xczh/third")
 public class ThirdPartyCertificationController {
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory
-			.getLogger(ThirdPartyCertificationController.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory
+            .getLogger(ThirdPartyCertificationController.class);
 
-	public HttpClient client = new HttpClient();
+    public HttpClient client = new HttpClient();
 
-	@Autowired
-	private OnlineUserService onlineUserService;
+    @Autowired
+    private OnlineUserService onlineUserService;
 
-	@Autowired
-	private IThreePartiesLoginService threePartiesLoginService;
+    @Autowired
+    private IThreePartiesLoginService threePartiesLoginService;
 
-	@Autowired
-	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
+    @Autowired
+    private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 
-	@Autowired
-	private CacheService cacheService;
+    @Autowired
+    private CacheService cacheService;
 
-	@Autowired
-	private UserCenterService userCenterService;
+    @Autowired
+    private UserCenterService userCenterService;
+    @Autowired
+    private VerificationCodeService verificationCodeService;
 
-	// 手机端登录使用
-	@Value("${mobile.authorizeURL}")
-	public String weiboMobileAuthorizeURL;
+    // 手机端登录使用
+    @Value("${mobile.authorizeURL}")
+    public String weiboMobileAuthorizeURL;
 
-	/**
-	 * 
-	 * Description：微信、微博、qq绑定 已经注册的手机号
-	 * 
-	 * @param req
-	 * @param res
-	 *            手机号
-	 * @param unionId
-	 *            第三方唯一标识（微信的、微博的、qq的）
-	 * @param code
-	 *            短信验证码
-	 * @param type
-	 *            绑定类型 1 微信 2qq 3微博
-	 * @return
-	 * @throws Exception
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>
-	 *         email: 15936216273@163.com
-	 *
-	 */
-	@RequestMapping("thirdPartyBindIsNoMobile")
-	@ResponseBody
-	@Transactional
-	public ResponseObject thirdPartyBindThereAreMobile(HttpServletRequest req,
-			HttpServletResponse res, @RequestParam("userName") String userName,
-			@RequestParam("unionId") String unionId,
-			@RequestParam("code") String code,
-			@RequestParam("type") Integer type) throws Exception {
+    /**
+     * Description：微信、微博、qq绑定 已经注册的手机号
+     *
+     * @param req
+     * @param res     手机号
+     * @param unionId 第三方唯一标识（微信的、微博的、qq的）
+     * @param code    短信验证码
+     * @param type    绑定类型 1 微信 2qq 3微博
+     * @return ResponseObject
+     * @throws Exception
+     * @author name：yangxuan <br>
+     * email: 15936216273@163.com
+     */
+    @RequestMapping("thirdPartyBindIsNoMobile")
+    @ResponseBody
+    @Transactional
+    public ResponseObject thirdPartyBindThereAreMobile(HttpServletRequest req,
+                                                       HttpServletResponse res, @RequestParam("userName") String userName,
+                                                       @RequestParam("unionId") String unionId,
+                                                       @RequestParam("code") String code,
+                                                       @RequestParam("type") Integer type) throws Exception {
 
-		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();
-		LOGGER.info("三方绑定已注册手机认证参数信息：" + "username:" + userName + ",unionId:"
-				+ unionId + ",code:" + code + ",type:" + type);
-		/*
-		 * 验证短信验证码
-		 */
-		ResponseObject checkCode = onlineUserService.checkCode(userName, code,vtype);
-		if (!checkCode.isSuccess()) { // 如果动态验证码不正确
-			return checkCode;
-		}
+        LOGGER.info("三方绑定已注册手机认证参数信息：" + "username:" + userName + ",unionId:"
+                + unionId + ",code:" + code + ",type:" + type);
+        verificationCodeService.checkCode(userName, VCodeType.BIND, code);
 
-		LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
-
-		OnlineUser ou = onlineUserService.findUserByLoginName(userName);
-		if (ou == null) {
-			return ResponseObject.newErrorResponseObject("该手机号暂未注册,请输入密码");
-		}
+        OnlineUser ou = onlineUserService.findUserByLoginName(userName);
+        if (ou == null) {
+            return ResponseObject.newErrorResponseObject("该手机号暂未注册,请输入密码");
+        }
 
 		/*
 		 * 一个人可能有多个qq号，获取多个微博号。 所以要改下了 更应该拿着这个id去查了
 		 */
-		switch (type) {
+        switch (type) {
 
-		case 1: // 微信
+            case 1: // 微信
 
-			LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微信");
+                LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微信");
 
-			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
-		
-			if(m==null) {
-				return ResponseObject.newErrorResponseObject
-						(CommonEnumsType.WEIBO_USERINFO_NOFOUND.getText(),
-								CommonEnumsType.WEIBO_USERINFO_NOFOUND.getCode());
-			}
-			
-			m.setClient_id(ou.getId());
-			wxcpClientUserWxMappingService.update(m);
+                WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
 
-			// 清理cookie
-			UCCookieUtil.clearThirdPartyCookie(res);
+                if (m == null) {
+                    return ResponseObject.newErrorResponseObject
+                            (CommonEnumsType.WEIBO_USERINFO_NOFOUND.getText(),
+                                    CommonEnumsType.WEIBO_USERINFO_NOFOUND.getCode());
+                }
 
-			break;
-		case 2: // qq
+                m.setClient_id(ou.getId());
+                wxcpClientUserWxMappingService.update(m);
 
-			LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
+                // 清理cookie
+                UCCookieUtil.clearThirdPartyCookie(res);
 
-			QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByOpenId(unionId);
-			
-			if(qq==null) {
-				return ResponseObject.newErrorResponseObject
-						(CommonEnumsType.QQ_USERINFO_NOFOUND.getText(),
-								CommonEnumsType.QQ_USERINFO_NOFOUND.getCode());
-			}
-			
-			qq.setUserId(ou.getId());
-			threePartiesLoginService.updateQQInfoAddUserId(qq);
-			break;
-		case 3: // 微博
+                break;
+            case 2: // qq
 
-			LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微博");
+                LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
 
-			WeiboClientUserMapping weibo = threePartiesLoginService
-					.selectWeiboClientUserMappingByUid(unionId);
-			
-			if(weibo==null) {
-				return ResponseObject.newErrorResponseObject
-						(CommonEnumsType.WEIBO_USERINFO_NOFOUND.getText(),
-								CommonEnumsType.WEIBO_USERINFO_NOFOUND.getCode());
-			}
-			
-			weibo.setUserId(ou.getId());
-			threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
-			break;
-		default:
-			LOGGER.info(">>>>>>>>>>>>>>>>>>第三方登录类型有误");
-			break;
-		}
+                QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByOpenId(unionId);
 
-		LOGGER.info(">>>>>>>>>>>>>>>>>>第三方信息注入用户信息成功");
+                if (qq == null) {
+                    return ResponseObject.newErrorResponseObject
+                            (CommonEnumsType.QQ_USERINFO_NOFOUND.getText(),
+                                    CommonEnumsType.QQ_USERINFO_NOFOUND.getCode());
+                }
 
-		Token t = userCenterService.loginThirdPart(userName, TokenExpires.TenDay);
-		ou.setTicket(t.getTicket());
-		// 把用户中心的数据给他 --这些数据是IM的
-		ou.setUserCenterId(ou.getId());
-		this.onlogin(req, res, t, ou, t.getTicket());
+                qq.setUserId(ou.getId());
+                threePartiesLoginService.updateQQInfoAddUserId(qq);
+                break;
+            case 3: // 微博
 
-		LOGGER.info(">>>>>>>>>>>>>>>>>>绑定信息成功，默认登录");
+                LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微博");
 
-		return ResponseObject.newSuccessResponseObject(ou);
-	}
+                WeiboClientUserMapping weibo = threePartiesLoginService
+                        .selectWeiboClientUserMappingByUid(unionId);
 
-	/**
-	 * 微博、qq绑定 未被注册的 --》增加用户信息，并且用户信息存在用默认的第三方登录的名字和头像 Description：
-	 * 
-	 * @param req
-	 * @param res
-	 * @throws Exception
-	 * @return void
-	 * @author name：yangxuan <br>
-	 *         email: 15936216273@163.com
-	 */
-	@RequestMapping("thirdPartyBindMobile")
-	@ResponseBody
-	@Transactional
-	public ResponseObject thirdPartyBindMobile(HttpServletRequest req,
-			HttpServletResponse res, @RequestParam("userName") String userName,
-			@RequestParam("passWord") String passWord,
-			@RequestParam("unionId") String unionId,
-			@RequestParam("code") String code,
-			@RequestParam("type") Integer type) throws Exception {
+                if (weibo == null) {
+                    return ResponseObject.newErrorResponseObject
+                            (CommonEnumsType.WEIBO_USERINFO_NOFOUND.getText(),
+                                    CommonEnumsType.WEIBO_USERINFO_NOFOUND.getCode());
+                }
 
-		LOGGER.info("三方绑定未注册手机认证参数信息：" + "username:" + userName + ",unionId:"
-				+ unionId + ",code:" + code + ",type:" + type + "password:"
-				+ passWord);
+                weibo.setUserId(ou.getId());
+                threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
+                break;
+            default:
+                LOGGER.info(">>>>>>>>>>>>>>>>>>第三方登录类型有误");
+                break;
+        }
 
-		if (!XzStringUtils.checkPhone(userName)) {
-			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
-		}
-		if (!XzStringUtils.checkPassword(passWord)) {
-			return ResponseObject.newErrorResponseObject("密码为6-18位英文大小写字母或者阿拉伯数字");
-		}
+        LOGGER.info(">>>>>>>>>>>>>>>>>>第三方信息注入用户信息成功");
+
+        Token t = userCenterService.loginThirdPart(userName, TokenExpires.TenDay);
+        ou.setTicket(t.getTicket());
+        // 把用户中心的数据给他 --这些数据是IM的
+        ou.setUserCenterId(ou.getId());
+        this.onlogin(req, res, t, ou, t.getTicket());
+
+        LOGGER.info(">>>>>>>>>>>>>>>>>>绑定信息成功，默认登录");
+
+        return ResponseObject.newSuccessResponseObject(ou);
+    }
+
+    /**
+     * 微博、qq绑定 未被注册的 --》增加用户信息，并且用户信息存在用默认的第三方登录的名字和头像 Description：
+     *
+     * @param req
+     * @param res
+     * @return void
+     * @throws Exception
+     * @author name：yangxuan <br>
+     * email: 15936216273@163.com
+     */
+    @RequestMapping("thirdPartyBindMobile")
+    @ResponseBody
+    @Transactional
+    public ResponseObject thirdPartyBindMobile(HttpServletRequest req,
+                                               HttpServletResponse res, @RequestParam("userName") String userName,
+                                               @RequestParam("passWord") String passWord,
+                                               @RequestParam("unionId") String unionId,
+                                               @RequestParam("code") String code,
+                                               @RequestParam("type") Integer type) throws Exception {
+
+        LOGGER.info("三方绑定未注册手机认证参数信息：" + "username:" + userName + ",unionId:"
+                + unionId + ",code:" + code + ",type:" + type + "password:"
+                + passWord);
+
+        if (!XzStringUtils.checkPhone(userName)) {
+            return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+        }
+        if (!XzStringUtils.checkPassword(passWord)) {
+            return ResponseObject.newErrorResponseObject("密码为6-18位英文大小写字母或者阿拉伯数字");
+        }
 
 		/*
 		 * 验证短信验证码
 		 */
-		Integer vtype = SMSCode.RETISTERED.getCode();
-		ResponseObject checkCode = onlineUserService.checkCode(userName, code,
-				vtype);
-		if (!checkCode.isSuccess()) { // 如果动态验证码不正确
-			return checkCode;
-		}
+        verificationCodeService.checkCode(userName, VCodeType.BIND, code);
 
-		// 先假设验证码正确
-		LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
-		/**
-		 * 在线用户数据
-		 */
-		OnlineUser ou = onlineUserService.findUserByLoginName(userName);
-		if (ou == null) {
-			ou = new OnlineUser();
-			ou.setId(UUID.randomUUID().toString().replace("-", ""));
-		} else {
-			return ResponseObject.newErrorResponseObject("该手机号已经注册不用重新输入密码");
-		}
-		/**
-		 * 判断
-		 */
-		String nickName = "";
-		Integer sex = 0;
+        // 先假设验证码正确
+        LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
+        /**
+         * 在线用户数据
+         */
+        OnlineUser ou = onlineUserService.findUserByLoginName(userName);
+        if (ou == null) {
+            ou = new OnlineUser();
+            ou.setId(CodeUtil.getRandomUUID());
+        } else {
+            return ResponseObject.newErrorResponseObject("该手机号已经注册不用重新输入密码");
+        }
+        /**
+         * 判断
+         */
+        String nickName = "";
+        Integer sex = 0;
 
-		switch (type) {
-		case 1: // 微信
-			LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微信");
-			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService
-					.getWxcpClientUserByUnionId(unionId);
-			nickName = m.getNickname();
-			if ("1".equals(m.getSex())) { // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
-				sex = 1;
-			} else if ("2".equals(m.getSex())) {
-				sex = 0;
-			} else {
-				sex = 2;
-			}
-			ou.setSex(sex);
-			ou.setName(m.getNickname()); // 微信名字
-			ou.setSmallHeadPhoto(m.getHeadimgurl());// 微信头像
-			ou.setUserType(2); // 微信用户
+        switch (type) {
+            case 1: // 微信
+                LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微信");
+                WxcpClientUserWxMapping m = wxcpClientUserWxMappingService
+                        .getWxcpClientUserByUnionId(unionId);
+                nickName = m.getNickname();
+                if ("1".equals(m.getSex())) { // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+                    sex = 1;
+                } else if ("2".equals(m.getSex())) {
+                    sex = 0;
+                } else {
+                    sex = 2;
+                }
+                ou.setSex(sex);
+                ou.setName(m.getNickname()); // 微信名字
+                ou.setSmallHeadPhoto(m.getHeadimgurl());// 微信头像
+                ou.setUserType(2); // 微信用户
 			/*
 			 * 保存userId 到第三方信息中
 			 */
-			m.setClient_id(ou.getId());
-			wxcpClientUserWxMappingService.update(m);
-			break;
-		case 2: // qq
-			LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
+                m.setClient_id(ou.getId());
+                wxcpClientUserWxMappingService.update(m);
+                break;
+            case 2: // qq
+                LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
 
-			// 那么这里是不是就不能用这个id了啊，需要用unionid
+                // 那么这里是不是就不能用这个id了啊，需要用unionid
 
-			QQClientUserMapping qq = threePartiesLoginService
-					.selectQQClientUserMappingByOpenId(unionId);
-			nickName = qq.getNickname();
-			if ("男".equals(qq.getGender())) { // 性别。 如果获取不到则默认返回"男"
-				sex = 1;
-			} else {
-				sex = 0;
-			}
-			ou.setSex(sex);
-			ou.setName(qq.getNickname()); // qq名字
-			ou.setSmallHeadPhoto(qq.getFigureurl1()); // qq头像
-			ou.setUserType(1); // qq用户
+                QQClientUserMapping qq = threePartiesLoginService
+                        .selectQQClientUserMappingByOpenId(unionId);
+                nickName = qq.getNickname();
+                if ("男".equals(qq.getGender())) { // 性别。 如果获取不到则默认返回"男"
+                    sex = 1;
+                } else {
+                    sex = 0;
+                }
+                ou.setSex(sex);
+                ou.setName(qq.getNickname()); // qq名字
+                ou.setSmallHeadPhoto(qq.getFigureurl1()); // qq头像
+                ou.setUserType(1); // qq用户
 			/*
 			 * 保存userId 到第三方信息中
 			 */
-			qq.setUserId(ou.getId());
-			threePartiesLoginService.updateQQInfoAddUserId(qq);
-			break;
-		case 3: // 微博
+                qq.setUserId(ou.getId());
+                threePartiesLoginService.updateQQInfoAddUserId(qq);
+                break;
+            case 3: // 微博
 
-			LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微博");
+                LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微博");
 
-			WeiboClientUserMapping weibo = threePartiesLoginService
-					.selectWeiboClientUserMappingByUid(unionId);
-			nickName = weibo.getScreenName();
-			if ("m".equals(weibo.getGender())) { // 性别，m：男、f：女、n：未知
-				sex = 1;
-			} else if ("f".equals(weibo.getGender())) {
-				sex = 0;
-			} else {
-				sex = 2;
-			}
-			ou.setSex(sex);
-			ou.setName(weibo.getName()); // 微博名字
-			ou.setSmallHeadPhoto(weibo.getProfileImageUrl()); // 微博头像
-			ou.setUserType(3); // 微博用户
+                WeiboClientUserMapping weibo = threePartiesLoginService
+                        .selectWeiboClientUserMappingByUid(unionId);
+                nickName = weibo.getScreenName();
+                if ("m".equals(weibo.getGender())) { // 性别，m：男、f：女、n：未知
+                    sex = 1;
+                } else if ("f".equals(weibo.getGender())) {
+                    sex = 0;
+                } else {
+                    sex = 2;
+                }
+                ou.setSex(sex);
+                ou.setName(weibo.getName()); // 微博名字
+                ou.setSmallHeadPhoto(weibo.getProfileImageUrl()); // 微博头像
+                ou.setUserType(3); // 微博用户
 
-			weibo.setUserId(ou.getId());
-			threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
-			break;
-		default:
-			LOGGER.info("第三方登录类型有误");
-			break;
-		}
+                weibo.setUserId(ou.getId());
+                threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
+                break;
+            default:
+                LOGGER.info("第三方登录类型有误");
+                break;
+        }
 		/*
 		 * 用户中心的
 		 */
-		OeUserVO userVO = userCenterService.getUserVO(userName);
-		if (userVO == null) {
-			userCenterService.regist(userName, passWord, nickName, UserOrigin.PC);
-			userVO = userCenterService.getUserVO(userName);
-		}
+        OeUserVO userVO = userCenterService.getUserVO(userName);
+        if (userVO == null) {
+            userCenterService.regist(userName, passWord, nickName, UserOrigin.PC);
+            userVO = userCenterService.getUserVO(userName);
+        }
 
-		Token t = userCenterService.loginThirdPart(userName, TokenExpires.TenDay);
-		ou.setTicket(t.getTicket());
+        Token t = userCenterService.loginThirdPart(userName, TokenExpires.TenDay);
+        ou.setTicket(t.getTicket());
 
-		// 把用户中心的数据给他 --这些数据是IM的
-		ou.setUserCenterId(userVO.getId());
-		ou.setPassword(userVO.getPassword());
-		/**
-		 * 增加缓存信息
-		 */
-		onlogin(req, res, t, ou, t.getTicket());
+        // 把用户中心的数据给他 --这些数据是IM的
+        ou.setUserCenterId(userVO.getId());
+        ou.setPassword(userVO.getPassword());
+        /**
+         * 增加缓存信息
+         */
+        onlogin(req, res, t, ou, t.getTicket());
 
-		return ResponseObject.newSuccessResponseObject(ou);
-	}
+        return ResponseObject.newSuccessResponseObject(ou);
+    }
 
-	/**
-	 * Description：验证-->手机号 是否已经绑定了微信号、qq 或者 微博号
-	 * 
-	 * @param req
-	 * @return
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>
-	 *         email: 15936216273@163.com
-	 */
-	@RequestMapping(value = "thirdCertificationMobile")
-	@ResponseBody
-	public ResponseObject thirdCertificationMobile(HttpServletRequest req,
-			HttpServletResponse res, @RequestParam("userName") String userName,
-			@RequestParam("unionId") String unionId,
-			@RequestParam("type") Integer type) {
+    /**
+     * Description：验证-->手机号 是否已经绑定了微信号、qq 或者 微博号
+     *
+     * @param req
+     * @return ResponseObject
+     * @author name：yangxuan <br>
+     * email: 15936216273@163.com
+     */
+    @RequestMapping(value = "thirdCertificationMobile")
+    @ResponseBody
+    public ResponseObject thirdCertificationMobile(HttpServletRequest req,
+                                                   HttpServletResponse res, @RequestParam("userName") String userName,
+                                                   @RequestParam("unionId") String unionId,
+                                                   @RequestParam("type") Integer type) {
 
-		try {
+        try {
 
-			OeUserVO userVO = userCenterService.getUserVO(userName);
-			OnlineUser ou = onlineUserService.findUserByLoginName(userName);
-			int code;
-			if (null == userVO && null == ou) {
-				code = UserUnitedStateType.PNHONE_NOT_THERE_ARE.getCode();
-			} else {
-				
-				Object obj = null;
+            OeUserVO userVO = userCenterService.getUserVO(userName);
+            OnlineUser ou = onlineUserService.findUserByLoginName(userName);
+            int code;
+            if (null == userVO && null == ou) {
+                code = UserUnitedStateType.PNHONE_NOT_THERE_ARE.getCode();
+            } else {
+
+                Object obj = null;
 				/*
 				 * 已注册手机号,判断手机号是否已经绑定了。
 				 */
 
-				LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：userName  " + userName
-						+ "unionId" + unionId + ",type" + type);
+                LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：userName  " + userName
+                        + "unionId" + unionId + ",type" + type);
 
-				if (type == ThirdPartyType.WECHAT.getCode()) { // 微信
+                if (type == ThirdPartyType.WECHAT.getCode()) { // 微信
 
-					obj = wxcpClientUserWxMappingService
-							.getWxcpClientUserWxMappingByUserId(ou.getId());
+                    obj = wxcpClientUserWxMappingService
+                            .getWxcpClientUserWxMappingByUserId(ou.getId());
 
-				} else if (type == ThirdPartyType.QQ.getCode()) {// QQ
-					obj = threePartiesLoginService
-							.selectQQClientUserMappingByUserId(ou.getId());
-				} else if (type == ThirdPartyType.WEIBO.getCode()) {// 微博
+                } else if (type == ThirdPartyType.QQ.getCode()) {// QQ
+                    obj = threePartiesLoginService
+                            .selectQQClientUserMappingByUserId(ou.getId());
+                } else if (type == ThirdPartyType.WEIBO.getCode()) {// 微博
 
-					obj = threePartiesLoginService
-							.selectWeiboClientUserMappingByUserId(ou.getId());
-				}
-				LOGGER.info("obj    " + obj);
-				if (obj == null) { // 已注册手机号,但是未绑定,可进行判断操作
-					code = UserUnitedStateType.PNHONE_IS_WRONG.getCode();
-				} else {
-					code = UserUnitedStateType.PNHONE_BINDING.getCode();
-				}
-			}
-			return ResponseObject.newSuccessResponseObject(UserUnitedStateType.valueOf(code), code);
-		} catch (Exception e) {
-			return ResponseObject.newErrorResponseObject("数据有误");
-		}
-	}
+                    obj = threePartiesLoginService
+                            .selectWeiboClientUserMappingByUserId(ou.getId());
+                }
+                LOGGER.info("obj    " + obj);
+                if (obj == null) { // 已注册手机号,但是未绑定,可进行判断操作
+                    code = UserUnitedStateType.PNHONE_IS_WRONG.getCode();
+                } else {
+                    code = UserUnitedStateType.PNHONE_BINDING.getCode();
+                }
+            }
+            return ResponseObject.newSuccessResponseObject(UserUnitedStateType.valueOf(code), code);
+        } catch (Exception e) {
+            return ResponseObject.newErrorResponseObject("数据有误");
+        }
+    }
 
-	/**
-	 * 登录成功处理
-	 * 
-	 * @param req
-	 * @param res
-	 * @param token
-	 * @param user
-	 * @throws SQLException
-	 */
-	@SuppressWarnings("unchecked")
-	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-			Token token, OnlineUser user, String ticket) throws SQLException {
+    /**
+     * 登录成功处理
+     *
+     * @param req
+     * @param res
+     * @param token
+     * @param user
+     * @throws SQLException
+     */
+    @SuppressWarnings("unchecked")
+    public void onlogin(HttpServletRequest req, HttpServletResponse res,
+                        Token token, OnlineUser user, String ticket) throws SQLException {
 
-		LOGGER.info("用户普通登录----》ticket" + ticket);
-		/**
-		 * 存在两个票，两个票都可以得到用户信息。 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
-		 */
-		String appUniqueId = req.getParameter("appUniqueId");
+        LOGGER.info("用户普通登录----》ticket" + ticket);
+        /**
+         * 存在两个票，两个票都可以得到用户信息。 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
+         */
+        String appUniqueId = req.getParameter("appUniqueId");
 
 		/*
 		 * 这个地方是可以了。目前都支持吧
 		 */
 
-		if (StringUtils.isNotBlank(appUniqueId)) { // 表示是app登录
+        if (StringUtils.isNotBlank(appUniqueId)) { // 表示是app登录
 
-			cacheService.set(ticket, user, TokenExpires.TenDay.getExpires());
-			cacheService.set(user.getId(), ticket,
-					TokenExpires.TenDay.getExpires());
-			String model = req.getParameter("model");
-			if (StringUtils.isNotBlank(model) && user.getLoginName() != null) {
-				cacheService.set(user.getLoginName(), model,
-						TokenExpires.TenDay.getExpires());
-			} else if (user.getLoginName() != null) {
-				cacheService.set(user.getLoginName(), "其他设备",
-						TokenExpires.TenDay.getExpires());
-			}
-		} else {
-			// 用户登录成功
-			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
-			req.getSession().invalidate();
-			// 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
-			// 获得到ServletCOntext中存的Map集合.
-			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req
-					.getServletContext().getAttribute("userMap");
-			// 判断用户是否已经在map集合中'
-			HttpSession session = userMap.get(user);
-			if (session != null && userMap.containsKey(user)) {
-				/**
-				 * * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。 得到客户端信息
-				 */
-				Map<String, String> mapClientInfo = com.xczh.consumer.market.utils.HttpUtil
-						.getClientInformation(req);
-				// session.invalidate();
-				session.setAttribute("topOff", mapClientInfo);
-				session.setAttribute("_user_", null);
-			} else if (session != null) {
-				session.setAttribute("topOff", null);
-			}
-			// 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
-			req.getSession().setMaxInactiveInterval(86400);// 设置session失效时间
-			req.getSession().setAttribute("_user_", user);
-			/**
-			 * 这是cookie
-			 */
-			UCCookieUtil.writeTokenCookie(res, token);
-		}
-	}
+            cacheService.set(ticket, user, TokenExpires.TenDay.getExpires());
+            cacheService.set(user.getId(), ticket,
+                    TokenExpires.TenDay.getExpires());
+            String model = req.getParameter("model");
+            if (StringUtils.isNotBlank(model) && user.getLoginName() != null) {
+                cacheService.set(user.getLoginName(), model,
+                        TokenExpires.TenDay.getExpires());
+            } else if (user.getLoginName() != null) {
+                cacheService.set(user.getLoginName(), "其他设备",
+                        TokenExpires.TenDay.getExpires());
+            }
+        } else {
+            // 用户登录成功
+            // 第一个BUG的解决:第二个用户登录后将之前的session销毁!
+            req.getSession().invalidate();
+            // 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
+            // 获得到ServletCOntext中存的Map集合.
+            Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req
+                    .getServletContext().getAttribute("userMap");
+            // 判断用户是否已经在map集合中'
+            HttpSession session = userMap.get(user);
+            if (session != null && userMap.containsKey(user)) {
+                /**
+                 * * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。 得到客户端信息
+                 */
+                Map<String, String> mapClientInfo = com.xczh.consumer.market.utils.HttpUtil
+                        .getClientInformation(req);
+                // session.invalidate();
+                session.setAttribute("topOff", mapClientInfo);
+                session.setAttribute("_user_", null);
+            } else if (session != null) {
+                session.setAttribute("topOff", null);
+            }
+            // 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
+            req.getSession().setMaxInactiveInterval(86400);// 设置session失效时间
+            req.getSession().setAttribute("_user_", user);
+            /**
+             * 这是cookie
+             */
+            UCCookieUtil.writeTokenCookie(res, token);
+        }
+    }
 }
