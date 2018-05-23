@@ -446,6 +446,33 @@ overflow: hidden;
 .question-status-wrap{
 	margin: 10px 0;
 }
+
+  .list-Answer-right-text {
+    font-size: 13px;
+    color: #666;
+    word-break: break-all;
+    word-wrap: break-word;
+    margin: 0;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+  .opened {
+    height: auto !important;
+}
+.toggle .closes,
+.opened .toggle .opens {
+  display: none;
+  color: #2CB82C !important;
+  font-size: 13px;
+  text-decoration: none;
+}
+.toggle .opened,
+.opened .toggle .closes {
+  display: inline;
+  color: #2CB82C;
+  font-size: 13px;
+  text-decoration: none;
+}
 .my-answer span{
 	display: block;
 	padding-top: 5px;
@@ -471,27 +498,8 @@ overflow: hidden;
 	font-size: 16px;
 	font-weight: bold;
 }
-.list-Answer-right-text{
-	  font-size: 13px;
-    color: #666;
-    word-break: break-all;
-    word-wrap: break-word;
-    margin: 0;
-    margin-bottom: 20px;
-    overflow: hidden;
-    line-height: 20px;
-}
-.toggle .closes{
-     display: none;
-    color: #2CB82C !important;
-    font-size: 13px;
-    text-decoration: none;
-}
-.toggle .opens {
-  color: #2CB82C !important;
-    font-size: 13px;
-    text-decoration: none;
-}
+
+
 .show-img{
 	overflow: hidden;
 	margin-bottom: 20px;
@@ -1169,7 +1177,13 @@ overflow: hidden;
  .data-mune label span{
   	margin-left: 20px;
 }
-
+.address-info select{
+	height: 38px;
+    width: 150px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+}
+    
 
 
 /*个人资料结束*/
@@ -1264,10 +1278,11 @@ overflow: hidden;
     border-radius: 4px;
 }
 
-  
-  
-  
-  
-  
-  
-     
+
+
+
+
+
+
+
+

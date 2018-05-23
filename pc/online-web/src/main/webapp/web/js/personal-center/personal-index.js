@@ -1,3 +1,4 @@
+
 $(function() {
 //左右侧边栏mune功能
 	$('#accordion > li').click(function(){
@@ -72,42 +73,50 @@ $(".question-forum li").click(function(){
 })
 
 //点击收起,隐藏则字体
-  var $dot5 = $('.dot5');
-        $dot5.each(function () {
-            if ($(this).height() > 40) {
-                $(this).attr("data-txt", $(this).attr("data-text"));
-                $(this).height(40);
-                $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
-            }
-            var $dot4 = $(this);
-
-            function createDots() {
-                $dot4.dotdotdot({
-                    after: 'span.qq'
-                });
-            }
-
-            function destroyDots() {
-                $dot4.trigger('destroy');
-            }
-
-            createDots();
-            $dot4.on(
-                'click',
-                'a.toggle',
-                function () {
-                    $dot4.toggleClass('opened');
-
-                    if ($dot4.hasClass('opened')) {
-                        destroyDots();
-                    } else {
-                        createDots();
+//		我的提问
+		$("#show-set").removeClass("hide")
+//		我的回答
+		$("#answer").removeClass("hide")
+			var $dot5 = $('.dot5');
+                $dot5.each(function () {
+                    if ($(this).height() > 40) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(40);
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
                     }
-                    return false;
-                }
-            );
-        });
-   
+                    var $dot4 = $(this);
+
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                });
+		$("#show-set").addClass("hide")
+		$("#answer").addClass("hide")
+		
+
+
 //回复点赞功能
 	$(".reply-user-text .select-down").click(function(){
 		if($(this).hasClass("select-active")){
@@ -179,6 +188,9 @@ $(".select-pay-money li").click(function(){
 //男女单选框
 	$(".data-mune label").click(function() {
 		$(this).find(".radio-cover em").addClass("active").parent().parent().siblings().find(".radio-cover em").removeClass("active");
+	})
+	$("#data-btn").click(function(){
+		$(".address-info").iProvincesSelect("init",null)	
 	})
 
 

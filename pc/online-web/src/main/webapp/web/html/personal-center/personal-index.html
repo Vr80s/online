@@ -25,8 +25,9 @@
 		<!--登陆的样式-->
 		<link rel="stylesheet" href="/web/css/mylogin.css" />
 		<link href="/web/css/bootstrap.min.css" rel="stylesheet">
-		
+
 		<link rel="stylesheet" href="/web/css/personal-center/personal-index.css">		
+	
 	</head>
 
 	<body>
@@ -122,7 +123,7 @@
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
-							<li>
+							<li id="data-btn">
 								<div class="link"><i class="icomoon-icon-ziliao"></i>个人资料</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
@@ -243,7 +244,7 @@
 								</div>	
 							</div>
 						<!--问答与论坛-->
-							<div class="content hide" >
+							<div class="content hide aa" id="show-set" >
 								<!--我的问答-->
 								<div class="mune2-1">
 									<div class="question-forum">
@@ -268,11 +269,10 @@
 													<span>未解决</span>
 													<p>不懂就要问</p>
 												</div>
-												<p class="list-Answer-right-text dot5 is-truncated" style="height: 40px; word-wrap: break-word;">
-													红血丝主要表现为毛细血管明显呈现密集红色细条状或者网纹状，当遇到稍微变化的外界刺激后毛细血管扩张，密集的红血丝就会明显出现，它也是敏感肌肤的
-													一种表现。最根本的解决办法是改善面部毛细血管的弹性，恢复血管的正常收缩与
-													一种表现。最根本的解决办法是改善面部毛细血管的弹性，恢复血管的正常收缩与
-												</p>
+													<p class="list-Answer-right-text dot5" >
+														遇到稍稍遇到稍遇到稍遇到遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密
+														遇到稍稍遇到稍遇到稍遇到微变化血管扩张，密集的问问集的问问遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密集的问问微变化血管扩张，密集的问问
+													</p>
 												<div class="show-img">
 													<ul>
 														<li><img src="../../images/04.png"/></li>
@@ -297,7 +297,7 @@
 												</div>
 											</div>
 										</div>
-										
+
 										<div class="question-list-wrap">
 											<div class="head-name-who z">
 												<div class="head-img">
@@ -315,10 +315,9 @@
 													<span>已解决</span>
 													<p>不懂就要问</p>
 												</div>
-												<p class="list-Answer-right-text dot5 is-truncated" style="height: 40px; word-wrap: break-word;">
-													红血丝主要表现为毛细血管明显呈现密集红色细条状或者网纹状，当遇到稍微变化的外界刺激后毛细血管扩张，密集的红血丝就会明显出现，它也是敏感肌肤的
-													一种表现。最根本的解决办法是改善面部毛细血管的弹性，恢复血管的正常收缩与
-													一种表现。最根本的解决办法是改善面部毛细血管的弹性，恢复血管的正常收缩与
+												<p class="list-Answer-right-text dot5" >
+														遇到稍稍遇到稍遇到稍遇到遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密
+														遇到稍稍遇到稍遇到稍遇到微变化血管扩张，密集的问问集的问问遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密集的问问微变化血管扩张，密集的问问
 												</p>
 												<div class="show-img">
 													<ul>
@@ -363,7 +362,7 @@
 										</div>
 									</div>
 									
-									<div class="question-wrap hide">
+									<div class="question-wrap hide" id="answer">
 										<!--我的回答-->
 										<div class="question-list-wrap">
 											<div class="head-name-who z">
@@ -382,10 +381,9 @@
 													<span>已解决</span>
 													<p>不懂就要问</p>
 												</div>
-												<p class="list-Answer-right-text dot5 is-truncated" style="height: 40px; word-wrap: break-word;">
-													红血丝主要表现为毛细血管明显呈现密集红色细条状或者网纹状，当遇到稍微变化的外界刺激后毛细血管扩张，密集的红血丝就会明显出现，它也是敏感肌肤的
-													一种表现。最根本的解决办法是改善面部毛细血管的弹性，恢复血管的正常收缩与
-													一种表现。最根本的解决办法是改善面部毛细血管的弹性，恢复血管的正常收缩与
+												<p class="list-Answer-right-text dot5" >
+														遇到稍稍遇到稍遇到稍遇到遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密
+														遇到稍稍遇到稍遇到稍遇到微变化血管扩张，密集的问问集的问问遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密集的问问微变化血管扩张，密集的问问
 												</p>
 												<div class="show-img">
 													<ul>
@@ -868,9 +866,7 @@
 												所在地区
 											</div>
 
-											<div class="address-info2 cy-myprofile-myfom-dv-1">
-										        <p class="buer"><span></span>所在地区:</p>
-										 
+											<div class="address-info" style="display: inline-block;">				 
 										        <select class="province">
 										        <option value="volvo">--选择省--</option>
 										        </select>
@@ -883,10 +879,10 @@
 										        <select class="district">
 										        <option value="volvo">--选择区/县--</option> 
 										        </select>	        
-										        <p class="address_warn  warning" style="display:none;color:red">请填写所在地区信息</p>
+
 									        </div>
 											
-											<input type="" name="" id="" value="" />
+
 										</div>
 									</div>
 								</div>
@@ -914,6 +910,7 @@
 									</div>
 								</div>	
 							</div>
+						<!--意见反馈-->	
 							<div class="content hide" >
 								<div class="feedback-wrap">
 									<p class="mune-opinion">意见反馈</p>
@@ -969,10 +966,9 @@
 			
 			
 			
-			
-			
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>
+
 		
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>	
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
@@ -987,9 +983,18 @@
 		<script type="text/javascript" src="/web/js/cropbox.js"></script>
 		<script src="/web/html/preview-head/preview-head.js"></script>
 		<!--头像预览需要的JS-->
+		<!--省市区三联动-->
+		<script src="/web/js/common/data.provinces2.js?version=dbc884cefd"></script>
+		<script src="/web/js/common/provinces-selector.js?version=2456a78031"></script>
+		<!--省市区三联动-->
+		
+		
 		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>
 
-	
+		
+		
 		
 	</body>	
+			
+		
 </html>

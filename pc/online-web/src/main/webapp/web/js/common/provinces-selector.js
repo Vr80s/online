@@ -27,7 +27,7 @@ $.fn.iProvincesSelect = function(option, data,falg) {
         		}else{
         			data={
                             province: '北京市',
-                            city: '市辖区',
+                            city: '北京市',
                             district: '朝阳区'
         			}
         		}
