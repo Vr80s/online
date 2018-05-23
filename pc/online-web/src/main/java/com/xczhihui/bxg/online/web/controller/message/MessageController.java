@@ -36,15 +36,15 @@ public class MessageController extends AbstractController {
         return ResponseObject.newSuccessResponseObject("操作成功");
     }
 
+    @RequestMapping(value = "readStatus", method = RequestMethod.PUT)
+    public ResponseObject updateAllReadStatus() {
+        commonMessageService.updateReadStatus(null, getUserId());
+        return ResponseObject.newSuccessResponseObject("操作成功");
+    }
+
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseObject markDelete(@PathVariable String id) {
         commonMessageService.deleteById(id, getUserId());
-        return ResponseObject.newSuccessResponseObject("删除成功");
-    }
-
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseObject deleteAll() {
-        commonMessageService.deleteById(null, getUserId());
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
 
