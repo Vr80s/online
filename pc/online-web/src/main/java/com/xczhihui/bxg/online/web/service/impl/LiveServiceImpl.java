@@ -38,6 +38,8 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
 
     @Autowired
     private ApplyGradeCourseDao applyGradeCourseDao;
+    
+    
 
     @Value("${env.flag}")
     private String env;
@@ -155,12 +157,11 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         ModelAndView mv = null;
 
         mv = new ModelAndView("live_success_page");
-        if (liveStatus == 1) { // 直播中和直播回放去这个页面
+        if (liveStatus == 1) { 							// 直播中  
             mv = new ModelAndView("live_success_page");
-        } else if (liveStatus == 2 || liveStatus == 3) {              //直播还没
+        } else if (liveStatus == 2 || liveStatus == 3) { //直播预告
             mv = new ModelAndView("live_success_other_page");
         }
-        //oc.user_lecturer_id as userLecturerId
         mv.addObject("lecturerId", course.get("userLecturerId"));
         mv.addObject("vhallName", course.get("vhallName"));
 
@@ -192,7 +193,6 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         return dao.getOpenCourse(num, id);
     }
 
-    //查看学习记录是否存在
 
 
 }

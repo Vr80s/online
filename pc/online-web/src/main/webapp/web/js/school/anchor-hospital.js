@@ -42,7 +42,7 @@ $(function(){
 	})
 //星星五星好评
 	$('.impression-star img').each(function(index){
-        var star='../../images/star-dim.png';    //普通灰色星星图片的存储路径  
+        var star='../../web/images/star-dim.png';    //普通灰色星星图片的存储路径  
         var starRed='../../images/star-light.png';     //红色星星图片存储路径  
         var prompt=['1分','2分','3分','4分','5分'];   //评价提示语  
         this.id=index;      //遍历img元素，设置单独的id  

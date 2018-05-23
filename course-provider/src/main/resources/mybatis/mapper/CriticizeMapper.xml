@@ -106,4 +106,112 @@
 		      and argc.course_id in 
 		      ( select id from oe_course as oc where oc.user_lecturer_id  = #{userLecturerId} and oc.is_free = 0 )
 	</select>
+	
+	
+	<sql id="commentMeanCount">
+	      <choose>  
+           <when test="collection!=null and collection == true" >  
+        		and ( cc.course_id in ( select cc1.course_id from 
+        		    collection_course cc1 where cc1.collection_id = #{courseId} ) 
+        		     or cc.course_id = #{courseId} )
+           </when>  
+           <otherwise>  
+                and  cc.course_id =#{courseId}
+           </otherwise>  
+	    </choose>  
+	</sql>
+	
+	
+	<!-- 针对课程了。 节目内容、主播演绎的平均值。     -->
+    <select id="selectPcCourseCommentMeanCount" resultType="java.lang.Integer">
+       (   
+         SELECT IFNULL(ROUND(AVG(cc.content_level), 0),0) FROM oe_criticize
+            cc where cc.is_delete = 0  and cc.content_level !=0
+        		<include refid="commentMeanCount"/> 
+       )
+        union all
+        
+       (
+         SELECT IFNULL(ROUND(AVG(cc.deductive_level), 0),0) FROM oe_criticize
+            cc where cc.is_delete = 0  and cc.deductive_level !=0
+                <include refid="commentMeanCount"/>
+       )
+       
+        union all
+       (
+         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+            criticize_lable  like "%1%"
+       )
+       
+       union all
+       (
+         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+            criticize_lable  like "%2%"
+       )
+       
+       union all
+       (
+         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+            criticize_lable  like "%3%"
+       )
+       
+       union all
+       (
+         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+            criticize_lable  like "%4%"
+       )
+       
+       union all
+       (
+         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+            criticize_lable  like "%5%"
+       )
+	</select>
+	
+	<!-- 针对课程了。 节目内容、主播演绎的平均值。     -->
+    <select id="selectPcUserCommentMeanCount" resultType="java.lang.Integer">
+       (   
+         SELECT IFNULL(ROUND(AVG(cc.content_level), 0),0) FROM oe_criticize
+            cc where cc.is_delete = 0  and cc.content_level !=0
+        		and user_id =#{userId}
+       )
+        union all
+        
+       (
+         SELECT IFNULL(ROUND(AVG(cc.deductive_level), 0),0) FROM oe_criticize
+            cc where cc.is_delete = 0  and cc.deductive_level !=0
+               and user_id =#{userId}
+       )
+      
+        union all
+       (
+         select count(*) from oe_criticize  where user_id =#{userId}  and 
+            criticize_lable  like "%1%"
+       )
+       
+       union all
+       (
+         select count(*) from oe_criticize  where user_id =#{userId}  and 
+            criticize_lable  like "%2%"
+       )
+       
+       union all
+       (
+         select count(*) from oe_criticize  where user_id =#{userId}  and 
+            criticize_lable  like "%3%"
+       )
+       
+       union all
+       (
+         select count(*) from oe_criticize  where user_id =#{userId}  and 
+            criticize_lable  like "%4%"
+       )
+  		union all
+       (
+         select count(*) from oe_criticize  where user_id =#{userId}  and 
+            criticize_lable  like "%5%"
+       )       
+	</select>
+	
+	
 </mapper>

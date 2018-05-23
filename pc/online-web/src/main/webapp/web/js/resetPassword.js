@@ -293,7 +293,8 @@ $(function(){
                 $(".phoneNumberBox .resetUsernameHit").css("display","none");
                 var data = {
                     phone:resetPhoneInput.val().trim(),
-                    code: $(".resetcode").val().trim()
+                    code: $(".resetcode").val().trim(),
+                    vtype:2
                 };
             }
             if (code1 == "" || code1.length == 4) {

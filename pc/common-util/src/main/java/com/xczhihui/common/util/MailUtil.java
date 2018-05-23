@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.web.utils;
+package com.xczhihui.common.util;
 
 public class MailUtil {
 	

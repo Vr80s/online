@@ -104,13 +104,6 @@ com.xczhihui.bxg.online.web.config"/>
     <!-- <bean id="simpleHibernateDao" class="SimpleHibernateDao" /> -->
     <bean id="broadcast" class="com.xczhihui.bxg.online.web.base.common.Broadcast"/>
 
-    <bean id="emailService" class="com.xczhihui.bxg.online.web.service.impl.EmailService">
-        <property name="auth" value="${email.auth}"/>
-        <property name="host" value="${email.host}"/>
-        <property name="user" value="${email.user}"/>
-        <property name="password" value="${email.password}"/>
-    </bean>
-
     <bean id="cacheService" class="com.xczhihui.common.support.service.impl.RedisCacheService">
         <constructor-arg name="host" value="${redis.host}"/>
         <constructor-arg name="port" value="${redis.port}"/>
@@ -202,6 +195,9 @@ com.xczhihui.bxg.online.web.config"/>
     <!--=============================================消费者start============================================-->
     <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService"
                      timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="verificationCodeService" interface="com.xczhihui.user.center.service.VerificationCodeService"
+                     timeout="${dubbo.consumer.timeout}"/>
+
     <!-- 医馆 -->
     <dubbo:reference id="medicalHospitalBusinessServiceImpl"
                      interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"

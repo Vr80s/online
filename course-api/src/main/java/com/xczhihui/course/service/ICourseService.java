@@ -182,6 +182,6 @@ public interface ICourseService {
      * @return Page<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    Page<CourseLecturVo> selectRecommendSortAndRandCourse(
+    List<CourseLecturVo> selectRecommendSortAndRandCourse(
     		Page<CourseLecturVo> page);
 }

@@ -103,5 +103,5 @@ public interface CourseMapper extends BaseMapper<Course> {
 			@Param("pageSize")Integer pageSize, @Param("userId")String userId,
 			@Param("type")Integer type);
 
-	Page<CourseLecturVo> selectRecommendSortAndRandCourse(@Param("page")Page<CourseLecturVo> page);
+	List<CourseLecturVo> selectRecommendSortAndRandCourse(@Param("page")Page<CourseLecturVo> page);
 }

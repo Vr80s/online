@@ -105,6 +105,7 @@
 
 
     <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="verificationCodeService" interface="com.xczhihui.user.center.service.VerificationCodeService" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.online.api.service.UserCoinService" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="giftServiceImpl" interface="com.xczhihui.online.api.service.GiftService" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.online.api.service.EnchashmentService" timeout="${dubbo.consumer.timeout}"/>

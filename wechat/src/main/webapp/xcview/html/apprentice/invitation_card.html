@@ -18,6 +18,9 @@
 		<div class="header">
 			<div class="return" onclick="javascript:history.go(-1);"><img src="/xcview/images/back icon.png" alt="" /></div>
 			<div class="apply_title">邀请卡</div>
+			<div class="header_news share">
+				<img src="/xcview/images/share_img.png" alt="">
+			</div>
 		</div>
 		
 	</header>
@@ -29,7 +32,23 @@
 		<img src="/xcview/images/1526991186(1).png" alt="" class="main_img" />
 		<div class="main_size">长按上图保存图片</div>
 	</div>
-	
 	<!-- 中间内容结束 -->
+
+	<!-- 点击分享 -->
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png"></div>
+	</div>
 </body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script>
+	window.onload = function(){
+		$(".share").click(function(){
+			$(".weixin_ceng").show();
+		});
+		$(".weixin_ceng").click(function(){
+			$(".weixin_ceng").hide();
+		});
+	};
+</script>
 </html>
