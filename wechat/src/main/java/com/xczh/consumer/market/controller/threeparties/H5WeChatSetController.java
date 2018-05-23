@@ -45,15 +45,15 @@ public class H5WeChatSetController {
 	@Autowired
 	private OnlineUserMapper onlineUserMapper;
 
-	@Autowired
-	private AppBrowserService appBrowserService;
-
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 
 	@Value("${wechatpay.h5.appid}")
 	private String gzh_appid;
-
+	
+	
+	@Value("${webdomain}")
+	private String webdomain;
 
 	/**
 	 * 国医学堂  -- 个人中心
@@ -96,8 +96,10 @@ public class H5WeChatSetController {
 				//这里回调的时候不能默认登录
 				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
 				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
+				
+				
+				
 				LOGGER.info("getLoginName===="+ou.getLoginName());
-
 				OeUserVO oeUserVO = userCenterService.getUserVO(ou.getLoginName());
 				Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
@@ -124,8 +126,10 @@ public class H5WeChatSetController {
 				ThridFalg tf = new ThridFalg();
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				tf.setNickName(wxw.getNickname());
-				tf.setHeadImg(wxw.getHeadimgurl());
+				tf.setNickName( StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医" );
+				
+				String defaultHeadImg = webdomain+"/web/images/defaultHead/18.png";
+				tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg );
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
 				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);

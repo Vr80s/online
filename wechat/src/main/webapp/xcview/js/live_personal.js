@@ -152,9 +152,6 @@ requestService("/xczh/host/hostPageInfo",{
 	//处理评价高度
 	var school_height=$(window).height()-$(".personal_bg").height()-$(".anchor_navigation").height();
 	$(".li_course_hide").height(school_height);
-	
-	
-
 //介绍
 		if(data.resultObject.lecturerInfo.detail==''||data.resultObject.lecturerInfo.detail==null){
 			$("#jieshao").hide()			

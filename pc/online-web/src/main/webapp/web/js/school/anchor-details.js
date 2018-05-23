@@ -1,13 +1,60 @@
 $(function(){
+	
+//  渲染精彩视频看是否存在啦	
+	if(type == "info" && video!=null && video != undefined){
+		//获取视频信息接口
+		RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
+			if(data.success === true) {
+				RequestService("/online/vedio/getVideoPlayCodeByVideoId", "GET", {
+	                videoId: video,
+					width: awidth,
+					height: aheight,
+					autoPlay: false
+				}, function(data) {
+					if(data.success == true) {
+						var scr = data.resultObject;
+						$(".save-video").append(scr);
+					} else if(data.success == false) {
+						alert("播放发生错误，请清除缓存重试")
+					}
+				});
+			} else {
+				$('#login').modal('show');
+				$(".loginGroup .logout").css("display", "block");
+				$(".loginGroup .login").css("display", "none");
+			}
+		});
+		
+		
+		
+	}
+	
+	
+	
+	
 //	关注效果
 	$(".isAdd-follow").click(function(){
+		var type = 1;
 		if($(this).hasClass("isAdd-active")){
-			$(this).removeClass("isAdd-active").find("span").text("加关注")
-			$(this).find("img").attr("src","../../images/icon-up.png");
-		}else{
-			$(this).addClass("isAdd-active").find("span").text("已关注")
-			$(this).find("img").attr("src","../../images/icon-down.png");
+			type = 2;
 		}
+		var paramsObj = {
+			lecturerId:userId,
+			type:type
+		}
+		RequestService("/focus/updateFocus", "get", paramsObj, function(data) {
+			if(data.success) {
+				if($(this).hasClass("isAdd-active")){
+					$(this).removeClass("isAdd-active").find("span").text("加关注")
+					$(this).find("img").attr("src","../../images/icon-up.png");
+				}else{
+					$(this).addClass("isAdd-active").find("span").text("已关注")
+					$(this).find("img").attr("src","../../images/icon-down.png");
+				}
+			}else{
+				alert(data.errorMessage);
+			}
+		},false)	
 	})
 //	课程/介绍/评价
 	$(".wrap-sidebar ul li").click(function(){

@@ -59,6 +59,14 @@
 		oe_course oc where oc.id = #{courseId}
 	</select>
 
+    <!-- 查找主播基本信息  --> 
+    
+	<select id="selectCourseById" resultMap="courseBaseResult">
+		SELECT
+		oc.*
+		FROM
+		oe_course oc where oc.id = #{courseId}
+	</select>
 	
 
 

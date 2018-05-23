@@ -202,4 +202,10 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 	public void setDao(SimpleHibernateDao dao) {
 		this.dao = dao;
 	}
+	
+
+	
+	
+	
+	
 }

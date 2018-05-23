@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.controller;
 
+import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.util.UserLoginUtil;
@@ -27,6 +28,9 @@ public class VedioController extends AbstractController{
 	@Autowired
 	private VedioService service;
 
+	@Autowired
+	private CCUtils ccUtils;
+	
 	/**
 	 * 获得播放代码
 	 * 
@@ -56,5 +60,11 @@ public class VedioController extends AbstractController{
 		
 		return ResponseObject.newSuccessResponseObject(service.getCCVideoInfo(paramsMap));
 	}
-
+	
+	@RequestMapping(value = "getVideoPlayCodeByVideoId", method = RequestMethod.GET)
+	public ResponseObject getVideoPlayCodeByVideoId(HttpServletRequest req,String videoId,  String width, String height,
+			String autoPlay) {
+		String str =  ccUtils.getPlayCode(videoId,"",width,height);
+		return ResponseObject.newSuccessResponseObject(str);
+	}
 }

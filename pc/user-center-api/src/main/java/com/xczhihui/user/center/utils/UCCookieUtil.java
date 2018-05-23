@@ -202,16 +202,27 @@ public class UCCookieUtil {
 			//解码
 			str = URLDecoder.decode(str, "UTF-8");
 			String[] strs = str.split(";");
-			String openId =strs[0].trim();
-			String unionId = strs[1].trim();
-			String nickName = strs[2].trim();
-			String headImg = strs[3].trim();
-
+			
 			ThridFalg tf = new ThridFalg();
-			tf.setOpenId(openId);
-			tf.setUnionId(unionId);
-			tf.setNickName(nickName);
-			tf.setHeadImg(headImg);
+			if(strs.length == 4) {
+				
+				String openId =strs[0].trim();
+				String unionId = strs[1].trim();
+				String nickName = strs[2].trim();
+				String headImg = strs[3].trim();
+				
+				tf.setOpenId(openId);
+				tf.setUnionId(unionId);
+				tf.setNickName(nickName);
+				tf.setHeadImg(headImg);
+				
+			}else if(strs.length < 4){
+
+				String openId =strs[0].trim();
+				String unionId = strs[1].trim();
+				tf.setOpenId(openId);
+				tf.setUnionId(unionId);
+			}
 
 			return tf;
 		} catch (UnsupportedEncodingException e) {
