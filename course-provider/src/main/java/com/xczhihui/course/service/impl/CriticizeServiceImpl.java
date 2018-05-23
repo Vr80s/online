@@ -12,6 +12,8 @@ import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.model.Reply;
 import com.xczhihui.course.service.ICriticizeService;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,9 @@ import java.util.Map;
 @Service
 public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize> implements ICriticizeService {
 
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
     @Autowired
     private CourseMapper iCourseMapper;
 
@@ -285,7 +290,13 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
             map.put("commentCode", 0);
         }
         map.put("items", criticizeList);
-
+        
+        log.info("current:"+page.getCurrent()+",total:"+page.getTotal()+",pages"+page.getPages());
+        
+        map.put("current", page.getCurrent());
+        map.put("total", page.getTotal());
+        map.put("pages", page.getPages());
+        map.put("size", page.getSize());
         return map;
     }
 
@@ -334,6 +345,18 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
             return 0;
         }
     }
+
+	@Override
+	public List<Integer> selectPcCourseCommentMeanCount(Boolean collection, Integer courseId) {
+		
+		return this.baseMapper.selectPcCourseCommentMeanCount(collection,courseId);
+	}
+
+	@Override
+	public List<Integer> selectPcCUserCommentMeanCount(String userId) {
+		
+		return this.baseMapper.selectPcCUserCommentMeanCount(userId);
+	}
     
     
     

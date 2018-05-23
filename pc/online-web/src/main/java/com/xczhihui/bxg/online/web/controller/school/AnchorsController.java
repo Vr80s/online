@@ -50,15 +50,14 @@ import com.xczhihui.course.vo.QueryConditionVo;
 
 
 /**
- * Description：医馆页面 creed: Talk is cheap,show me the code
- *
+ * Description：主播信息页面 
  * @author name：yuxin <br>
  * 		email: yuruixin@ixincheng.com
  * @Date: 2018/3/28 0028 下午 4:50
  **/
 @Controller
 @RequestMapping(value = "/courses")
-public class SchoolController extends AbstractFtlController {
+public class AnchorsController extends AbstractFtlController {
 
 	@Autowired
 	private IMobileBannerService mobileBannerService;

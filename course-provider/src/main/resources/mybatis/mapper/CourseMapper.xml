@@ -644,6 +644,8 @@
 		 select * from (	
 			SELECT
 			    <include refid="relLearningCourseListByUserId"/>
+			    	(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)+ 
+				IFNULL(oc.default_student_count, 0)) as  learndCount,
 				DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
 				if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
 			FROM

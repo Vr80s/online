@@ -642,10 +642,17 @@ word-break:break-all;
 .submission{
 	width: 120px;
 	height: 36px;
-	background: #00BC12;
+	/* background: #00BC12; */
 	color: white;
 	border: 0;
 	border-radius: 4px;
 	margin-left: 110px;
 	outline: none;
 }
+
+
+.impression-list .gs_width img{
+	width: 20px;
+}
+
+

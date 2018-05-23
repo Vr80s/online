@@ -40,7 +40,6 @@ public class XzCriticizeController {
 		if(ou == null){
 			return ResponseObject.newSuccessResponseObject("登录失效");
 		}
-
 		criticizeService.saveCriticize(ou.getId(),criticize.getUserId(),criticize.getCourseId(),criticize.getContent()
 				,criticize.getOverallLevel(),criticize.getDeductiveLevel(),criticize.getContentLevel(),criticize.getCriticizeLable());
 		return ResponseObject.newSuccessResponseObject("评论成功");

@@ -22,6 +22,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
@@ -117,7 +118,7 @@ public class CourseController {
 			return ResponseObject.newErrorResponseObject("课程信息有误");
 		}
 		//设置星星级别
-		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
+		cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
 		
 		//if(StringUtils.isNotBlank(cv.getDescription())){
 			cv.setRichCourseDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=1&typeId="+courseId);
@@ -178,7 +179,7 @@ public class CourseController {
 			return ResponseObject.newErrorResponseObject("获取课程有误");
 		}
 		//判断星级
-		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
+		cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
 		
 		//if(StringUtils.isNotBlank(cv.getDescription())){
 			cv.setRichCourseDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=1&typeId="+courseId);
@@ -262,31 +263,4 @@ public class CourseController {
 		return ResponseObject.newSuccessResponseObject(courses);
 	}
 
-	/**
-	 * Description：计算评论星级
-	 * 
-	 * @return
-	 * @return Double
-	 * @author name：yangxuan <br>
-	 *         email: 15936216273@163.com
-	 *
-	 */
-	public Double criticizeStartLevel(Double startLevel) {
-		if (startLevel != null && startLevel != 0) { // 不等于0
-			String b = startLevel.toString();
-			if (b.length() > 1
-					&& !b.substring(b.length() - 1, b.length()).equals("0")) { // 不等于整数
-				String[] arr = b.split("\\.");
-				Integer tmp = Integer.parseInt(arr[1]);
-				if (tmp >= 5) {
-					return (double) (Integer.parseInt(arr[0]) + 1);
-				} else {
-					return Double.valueOf(arr[0] + "." + 5);
-				}
-			} else {
-				return startLevel;
-			}
-		}
-		return startLevel;
-	}
 }
