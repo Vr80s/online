@@ -249,6 +249,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                     .buildAppPush(MessageFormat.format(isLiveCourse ? APP_PUSH_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : APP_PUSH_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title))
                     .buildSms(isLiveCourse ? liveCourseApplyPassCode : notLiveCourseApplyPassCode, params)
                     .buildWeixin(weixinCourseApplyPassCode, weixinParams)
+                    .detailId(String.valueOf(course.getId()))
                     .build(userId, routeTypeEnum, createPerson));
         } catch (Exception e) {
             e.printStackTrace();
