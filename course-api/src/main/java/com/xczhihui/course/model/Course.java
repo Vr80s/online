@@ -311,6 +311,7 @@ public class Course extends Model<Course> {
     @TableField("play_back_type")
     private Integer playBackType;
 
+    private Boolean collection;
 
     @Override
     protected Serializable pkVal() {
@@ -882,5 +883,11 @@ public class Course extends Model<Course> {
         this.playBackType = playBackType;
     }
 
+    public Boolean getCollection() {
+        return collection;
+    }
 
+    public void setCollection(Boolean collection) {
+        this.collection = collection;
+    }
 }

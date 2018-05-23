@@ -33,8 +33,4 @@ public class AbstractFtlController extends AbstractController {
     public OnlineUser getOnlineUserNull(HttpServletRequest request){
         return (OnlineUser) UserLoginUtil.getLoginUser(request);
     }
-
-    public String getUserId(HttpServletRequest request) {
-        return getCurrentUser().getId();
-    }
 }

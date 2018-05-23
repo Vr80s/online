@@ -32,8 +32,8 @@ public class HospitalAnnouncementController extends AbstractFtlController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject save(@Length(max = 100) @RequestParam String content, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject save(@Length(max = 100) @RequestParam String content) {
+        String userId = getUserId();
         String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(userId);
         MedicalHospitalAnnouncement medicalHospitalAnnouncement = new MedicalHospitalAnnouncement(hospitalId, content);
         medicalHospitalAnnouncement.setCreatePerson(userId);
@@ -43,16 +43,16 @@ public class HospitalAnnouncementController extends AbstractFtlController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject list(@RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject list(@RequestParam(defaultValue = "1") int page) {
+        String userId = getUserId();
         String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(userId);
         return newSuccessResponseObject(medicalHospitalAnnouncementService.list(page, hospitalId));
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseObject delete(@PathVariable String id, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject delete(@PathVariable String id) {
+        String userId = getUserId();
         String hospitalId = medicalHospitalBusinessService.getHospitalIdByUserId(userId);
         if (!medicalHospitalAnnouncementService.deleteById(id, hospitalId)) {
             return newErrorResponseObject("删除失败!");

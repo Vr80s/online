@@ -30,8 +30,8 @@ public class DoctorArticleController extends AbstractFtlController {
     private IMedicalDoctorArticleService medicalDoctorArticleService;
 
     @RequestMapping(value = "specialColumn", method = RequestMethod.POST)
-    public ResponseObject saveSpecialColumn(@Valid @RequestBody DoctorArticleBody doctorArticleBody, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject saveSpecialColumn(@Valid @RequestBody DoctorArticleBody doctorArticleBody) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
         OeBxsArticle bxsArticle = doctorArticleBody.build(HeadlineType.DJZL, doctorName);
@@ -42,8 +42,8 @@ public class DoctorArticleController extends AbstractFtlController {
 
     @RequestMapping(value = "specialColumn/{id}", method = RequestMethod.PUT)
     public ResponseObject updateSpecialColumn(@Valid @RequestBody DoctorArticleBody doctorArticleBody,
-                                              @PathVariable String id, HttpServletRequest request) {
-        String userId = getUserId(request);
+                                              @PathVariable String id) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
 
         MedicalDoctor medicalDoctor = medicalDoctorBusinessService.get(doctorId);
@@ -67,8 +67,8 @@ public class DoctorArticleController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
-    public ResponseObject listSpecialColumn(@RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject listSpecialColumn(@RequestParam(defaultValue = "1") int page) {
+        String userId = getUserId();
         return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listSpecialColumn(page, userId));
     }
 
@@ -82,8 +82,8 @@ public class DoctorArticleController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "report", method = RequestMethod.POST)
-    public ResponseObject saveReport(@Valid @RequestBody DoctorArticleBody doctorArticleBody, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject saveReport(@Valid @RequestBody DoctorArticleBody doctorArticleBody) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
         OeBxsArticle bxsArticle = doctorArticleBody.build(HeadlineType.MYBD, doctorName);
@@ -94,8 +94,8 @@ public class DoctorArticleController extends AbstractFtlController {
 
     @RequestMapping(value = "report/{id}", method = RequestMethod.PUT)
     public ResponseObject updateReport(@Valid @RequestBody DoctorArticleBody doctorArticleBody,
-                                       @PathVariable String id, HttpServletRequest request) {
-        String userId = getUserId(request);
+                                       @PathVariable String id) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
         if (medicalDoctorArticleService.updateReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName), id)) {
@@ -120,15 +120,15 @@ public class DoctorArticleController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "report", method = RequestMethod.GET)
-    public ResponseObject listReport(@RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ResponseObject listReport(@RequestParam(defaultValue = "1") int page) {
+        String userId = getUserId();
         return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listReport(page, userId));
     }
 
     @RequestMapping(value = "report/{id}/{status}", method = RequestMethod.PUT)
     public ResponseObject changeStatus(@PathVariable int status,
-                                       @PathVariable String id, HttpServletRequest request) {
-        String userId = getUserId(request);
+                                       @PathVariable String id) {
+        String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         if (medicalDoctorArticleService.updateReportStatus(id, status)) {
             return ResponseObject.newSuccessResponseObject("操作成功");

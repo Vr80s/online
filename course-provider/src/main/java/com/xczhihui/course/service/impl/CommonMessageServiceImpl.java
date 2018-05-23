@@ -21,12 +21,9 @@ import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.course.config.Env;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.enums.MessageStatusEnum;
-import com.xczhihui.course.mapper.MessageMapper;
-import com.xczhihui.course.mapper.OnlineUserMapper;
-import com.xczhihui.course.mapper.WechatUserMapper;
-import com.xczhihui.course.model.Message;
-import com.xczhihui.course.model.OnlineUser;
-import com.xczhihui.course.model.WechatUser;
+import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.course.mapper.*;
+import com.xczhihui.course.model.*;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.params.SubMessage;
 import com.xczhihui.course.push.PushConst;
@@ -34,6 +31,8 @@ import com.xczhihui.course.push.XgMessage;
 import com.xczhihui.course.push.XgMessageIOS;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.IXgPushService;
+import com.xczhihui.course.util.CourseUtil;
+import com.xczhihui.course.util.TextStyleUtil;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -58,6 +57,10 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
     @Autowired
     private WechatUserMapper wechatUserMapper;
     @Autowired
+    private CourseMapper courseMapper;
+    @Autowired
+    private NoticeMapper noticeMapper;
+    @Autowired
     private WxMpService wxMpService;
     @Qualifier("iosXgPushService")
     @Autowired
@@ -77,14 +80,104 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
     }
 
     @Override
-    public List<Message> list(int page, String userId) {
-        Page<Message> messagePage = new Page<Message>(page, 10);
-        return messageMapper.findByUserId(messagePage, userId);
+    public Page<Message> list(int page, int size, String userId) {
+        Page<Message> messagePage = new Page<Message>(page, size);
+        return messagePage.setRecords(messageMapper.findByUserId(messagePage, userId));
     }
 
     @Override
     public int countUnReadCntByUserId(String userId) {
         return messageMapper.countUnReadByUserId(userId);
+    }
+
+    @Override
+    public void deleteById(String messageId, String userId) {
+        messageMapper.markDeleted(messageId, userId);
+    }
+
+    @Override
+    public void updateReadStatus(String messageId, String userId) {
+        messageMapper.updateReadStatus(messageId, userId);
+    }
+
+    @Override
+    public Notice getNewestNotice() {
+        return noticeMapper.findNewest();
+    }
+
+    @Override
+    public void updateMessage() {
+        int page = 1;
+        int size = 500;
+        int offset = 0;
+        Page<Message> messagePage;
+        List<Message> messages;
+        do {
+            messages = messageMapper.list(offset, size);
+            for (Message message : messages) {
+                try {
+                    String context = message.getContext();
+                    String detailId = null;
+                    String routeType = null;
+                    if (context != null) {
+                        if (context.contains("forumDetail.html")) {
+                            String[] split = context.split("<a");
+                            String prefixText = split[0];
+                            context = split[1];
+                            context = context.split(",")[1];
+                            context = context.split("articleId=")[1];
+                            detailId = context.split("'")[0];
+                            context = context.split("\">")[1];
+                            String title = context.split("</a>")[0];
+                            String tailText = context.split("</a>")[1];
+                            context = prefixText + TextStyleUtil.LEFT_TAG + title + TextStyleUtil.RIGHT_TAG + tailText;
+                            routeType = RouteTypeEnum.ARTICLE_DETAIL.name();
+                        } else if (context.contains("web/qusDetail")) {
+                            String[] split = context.split("<a");
+                            String prefixText = split[0];
+                            context = split[1];
+                            context = context.split(",")[1];
+                            context = context.split("web/qusDetail/")[1];
+                            detailId = context.split("'")[0];
+                            context = context.split("\">")[1];
+                            String title = context.split("</a>")[0];
+                            context = prefixText + TextStyleUtil.LEFT_TAG + title + TextStyleUtil.RIGHT_TAG;
+                            routeType = RouteTypeEnum.QUESTION_DETAIL.name();
+                        } else if (context.contains("course/courses/") || context.contains("course/courses?")) {
+                            String contextCopy = context;
+                            String[] split = context.split("<a");
+                            String prefixText = split[0];
+                            context = split[1];
+                            context = context.split(",")[1];
+                            context = context.split(contextCopy.contains("course/courses/") ? "course/courses/" : "\\?courseId=")[1];
+                            detailId = context.split("'")[0];
+                            context = context.split("<p>")[1];
+                            String title = context.split("</p>")[0];
+                            context = prefixText + TextStyleUtil.LEFT_TAG + title + TextStyleUtil.RIGHT_TAG;
+                            Course course = courseMapper.selectById(detailId);
+                            if (course == null) {
+                                continue;
+                            }
+                            routeType = CourseUtil.getRouteType(course.getCollection(), course.getType()).name();
+                        } else {
+                            continue;
+                        }
+                        message.setContext(context);
+                        message.setRouteType(routeType);
+                        message.setDetailId(detailId);
+                        messageMapper.updateById(message);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (messages.isEmpty() || messages.size() < size) {
+                break;
+            } else {
+                page = page + 1;
+                offset = (page - 1) * size;
+            }
+        } while (true);
     }
 
     private void sendSMS(BaseMessage baseMessage) {
