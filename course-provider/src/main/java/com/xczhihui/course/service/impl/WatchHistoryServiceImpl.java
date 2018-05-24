@@ -66,18 +66,18 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		   */
 		 WatchHistory watchHistory =null;	
 		 if(target.getCollectionId()!=null && target.getCollectionId() !=0 ){
-			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(target.getUserId(),target.getCollectionId());	
+			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(
+					 target.getUserId(),target.getCollectionId());	
 			 if(watchHistory!=null){
 				 watchHistory.setCourseId(target.getCourseId());
 			 }
 		 }else{
-			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(),target.getCourseId());	
+			 watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(
+					 target.getUserId(),target.getCourseId());	
 		 }
 		  if(watchHistory!=null){
 			  watchHistory.setCreateTime(new Date());
-			  
-			  LOGGER.info("{}{}{}{}{}"
-			  		+ "courseId:"+watchHistory.getCourseId()
+			  LOGGER.info("{}{}{}{}{}"+ "courseId:"+watchHistory.getCourseId()
 			  		+ "collectionId"+watchHistory.getCollectionId());
 			  watchHistoryMapper.updateById(watchHistory);
 		  }else{
