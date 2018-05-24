@@ -182,7 +182,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             }
             //如果专辑课程已经更新完，需要标识
             if (course.getCourseNumber() != null && Integer.compare(courseApplyInfos.size(), course.getCourseNumber()) >= 0) {
-                course.setCollectionUploadFinish(true);
                 courseDao.update(course);
                 messageRemindingService.deleteCourseMessageReminding(course, RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
             } else {

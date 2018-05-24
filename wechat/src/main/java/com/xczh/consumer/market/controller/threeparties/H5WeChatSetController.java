@@ -127,15 +127,18 @@ public class H5WeChatSetController {
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
 				tf.setNickName( StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医" );
-				
 				String defaultHeadImg = webdomain+"/web/images/defaultHead/18.png";
 				tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg );
+
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
+				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			//抛异常后，让去登录页面。或者去app看看
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 
@@ -190,8 +193,9 @@ public class H5WeChatSetController {
 				ThridFalg tf = new ThridFalg();
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				tf.setNickName(wxw.getNickname());
-				tf.setHeadImg(wxw.getHeadimgurl());
+				tf.setNickName( StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医" );
+				String defaultHeadImg = webdomain+"/web/images/defaultHead/18.png";
+				tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg );
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
@@ -199,6 +203,8 @@ public class H5WeChatSetController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			//抛异常后，让去登录页面。或者去app看看
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 
@@ -234,6 +240,8 @@ public class H5WeChatSetController {
 			if(StringUtils.isNotBlank(wxw.getClient_id())){
 				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
 				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
+				
+				
 				LOGGER.info("getLoginName===="+ou.getLoginName());
 				Token t = userCenterService.loginThirdPart(ou.getLoginName(),TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
@@ -259,14 +267,19 @@ public class H5WeChatSetController {
 				ThridFalg tf = new ThridFalg();
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				tf.setNickName(wxw.getNickname());
-				tf.setHeadImg(wxw.getHeadimgurl());
+				
+				tf.setNickName( StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医" );
+				String defaultHeadImg = webdomain+"/web/images/defaultHead/18.png";
+				tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg );
+				
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
 				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			//抛异常后，让去登录页面。或者去app看看
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 
@@ -285,6 +298,7 @@ public class H5WeChatSetController {
 	@RequestMapping("publicToMenuTypeList")
 	public void publicToMenuTypeList(HttpServletRequest req, HttpServletResponse res,
 									 Map<String, String> params) throws Exception {
+		
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		try {
 
@@ -326,14 +340,18 @@ public class H5WeChatSetController {
 				ThridFalg tf = new ThridFalg();
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				tf.setNickName(wxw.getNickname());
-				tf.setHeadImg(wxw.getHeadimgurl());
+				tf.setNickName( StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医" );
+				String defaultHeadImg = webdomain+"/web/images/defaultHead/18.png";
+				tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg );
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
 				res.sendRedirect(returnOpenidUri + "/xcview/html/curriculum_table.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&menuType="+menuType);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			//抛异常后，让去登录页面。或者去app看看
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 
