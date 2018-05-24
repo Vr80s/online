@@ -238,6 +238,7 @@ public class WeChatThirdPartyController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 

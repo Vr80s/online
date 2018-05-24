@@ -205,6 +205,8 @@ public class H5WeChatSetController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			//res.getWriter().write(e.getMessage());
+			
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 	
@@ -278,6 +280,7 @@ public class H5WeChatSetController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 	
@@ -348,6 +351,7 @@ public class H5WeChatSetController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			//res.getWriter().write(e.getMessage());
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 	
@@ -426,6 +430,7 @@ public class H5WeChatSetController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			//res.getWriter().write(e.getMessage());
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 	
