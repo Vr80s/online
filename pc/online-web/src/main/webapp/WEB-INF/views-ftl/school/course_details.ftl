@@ -230,54 +230,6 @@
 				</div>
 			</div>	
 		</div>
-<!--发表评论弹窗-->
-
-		<div class="bg-modal hide"></div>
-		<div class="wrap-modal hide">
-			<p class="close-impression">
-				<img src="../../web/images/qxCloser.png"/>
-			</p>
-			<h4>我要评价</h4>
-				<div class="impression-comment impression-star cl">
-					<p>总体印象</p>
-					<img src="../../web/images/star-dim.png">
-					<img src="../../web/images/star-dim.png">
-					<img src="../../web/images/star-dim.png">
-					<img src="../../web/images/star-dim.png">
-					<img src="../../web/images/star-dim.png">
-					<span></span>
-				</div>
-				<div class="impression-comment impression-face cl">
-					<p>节目内容</p>
-					<img src="../../web/images/gs.png">
-					<img src="../../web/images/gs.png">
-					<img src="../../web/images/gs.png">
-					<img src="../../web/images/gs.png">
-					<img src="../../web/images/gs.png">
-					<span></span>
-				</div>
-				<div class="impression-comment impression-show cl">
-					<p>主播演绎</p>
-					<img src="../../web/images/gs.png">
-					<img src="../../web/images/gs.png">
-					<img src="../../web/images/gs.png">
-					<img src="../../web/images/gs.png">
-					<img src="../../web/images/gs.png">
-					<span></span>
-				</div>	
-
-			<ul class="impression-setlist">
-				<li data-value = '1'>很赞</li>
-				<li data-value = '2'>干货很多</li>
-				<li data-value = '3'>超值推荐</li>
-				<li data-value = '4'>喜欢</li>
-				<li data-value = '5'>买对了</li>
-			</ul>
-			<textarea class="impression-text" name=""  id="commentContent"
-				rows="" cols="" placeholder="写评价给主播鼓励一下吧~"></textarea>
-			<button class="submission" disabled=true type="button">发表评价</button>
-		</div>
-
 
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>	

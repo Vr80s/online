@@ -140,20 +140,26 @@ requestService("/xczh/course/liveDetails",{
 					$(".history_span").text("直播回放");
 					
 					$(".coze_center .coze_cen_ri:last-child").css("margin-bottom","0");
-					$(".coze_bottom").addClass("coze_bottom_hide");
+					//$(".coze_bottom").addClass("coze_bottom_hide");
 
 					$(".mCustomScrollbar").css("padding-bottom","0");
+
+					$(".cover").show();  /*回放时添加遮盖层*/
+					$(".give_a1_img").attr("src","/xcview/images/gafts.png");
+					
+
+					//alert(123);
 				}else if(lineState == 4){
 					$(".history_span").text("即将直播");
 				}
 				if (lineState == 3 || lineState == 4) { // 隐藏送礼
 
 					$("title").text("熊猫中医");
-					$("#mywords").css("width", "12rem");
-					$("#face").css("top", "1.45rem");
-					$("#face").css('left', '0.06rem');
+					
+					/*$("#face").css("top", "1.45rem");
+					$("#face").css('left', '0.06rem');*/
 
-					$(".give_a1").hide();
+					// $(".give_a1").hide();
 					$(".give_a1_img").hide();
 					$(".give_a1_span02").hide();
 					$(".poson").css('right', '0rem');
@@ -166,7 +172,9 @@ requestService("/xczh/course/liveDetails",{
 					$("#sendChat").addClass('important');  //发送按钮 添加class
 					
 					$(".give_a01").show();
-					$("#sendChat").show();
+					$(".give_a1 .give_a1_img").css("margin-left","-2.6rem");
+
+					// $("#sendChat").show();
 //					点击输入框
 					$("#mywords").click(function() {
 						$(".give_a1").hide();
@@ -206,10 +214,13 @@ requestService("/xczh/course/liveDetails",{
 //					点击聊天
 					$(".details_footer_width .li1").click(function() {
 						
-						$(".div_input").css("width", "12rem");
-						$("#mywords").css("width", "12rem");
-						$(".coze_bottom input").css("width", "12rem");
+						// $(".div_input").css("width", "12rem");
+						// $("#mywords").css("width", "12rem");
+						// $(".coze_bottom input").css("width", "12rem");
 					});
+
+					 $("#mywords").css("width", "13.2rem");
+					 $("#face").hide();
 
 				} else {
 
