@@ -11,7 +11,7 @@
 		    ca.video,
 		    ca.detail,
 		    ca.type as type,
-		    if(ca.type == 1, (select md.work_time from medical_doctor md where id = 
+		    if(ca.type = 1, (select md.work_time from medical_doctor md where id = 
 		       (select doctor_id from medical_doctor_account as mda where mda.account_id = #{userId}) ),null) 
 		       as  workTime
 		 from  oe_user ou 

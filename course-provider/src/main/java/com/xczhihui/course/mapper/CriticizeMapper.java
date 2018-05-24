@@ -36,5 +36,5 @@ public interface CriticizeMapper extends BaseMapper<Criticize> {
 
 	List<Integer> selectPcCourseCommentMeanCount(@Param("collection")Boolean collection,@Param("courseId") Integer courseId);
 
-	List<Integer> selectPcCUserCommentMeanCount(@Param("userId")String userId);
+	List<Double> selectPcUserCommentMeanCount(@Param("userId")String userId);
 }

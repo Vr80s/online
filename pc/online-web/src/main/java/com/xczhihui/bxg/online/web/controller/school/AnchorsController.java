@@ -103,7 +103,7 @@ public class AnchorsController extends AbstractFtlController {
 		//显示详情呢、大纲、评论、常见问题呢
 		view.addObject("type","info");
 		view.addObject("userId",userId);
-		view.addObject("webUrlParam",webUrl+"/"+userId);
+		view.addObject("webUrlParam",webUrl+"/anchors/"+userId);
 		
 		
 		view = getHostBaseInfo(view,userId);
@@ -134,7 +134,7 @@ public class AnchorsController extends AbstractFtlController {
 		//显示详情呢、大纲、评论、常见问题呢
 		view.addObject("type","courses");
 		view.addObject("userId",userId);
-		view.addObject("webUrlParam",webUrl+"/"+userId);
+		view.addObject("webUrlParam",webUrl+"/anchors/"+userId);
 	    /**
 		 * 这个主播可能认证的是医馆，也可能认证的是医师
 		 */
@@ -175,7 +175,7 @@ public class AnchorsController extends AbstractFtlController {
 		//显示详情呢、大纲、评论、常见问题呢
 		view.addObject("type","comment");
 		view.addObject("userId",userId);
-		view.addObject("webUrlParam",webUrl+"/"+userId);
+		view.addObject("webUrlParam",webUrl+"/anchors/"+userId);
 		
 		/**
 		 * 这个主播可能认证的是医馆，也可能认证的是医师
@@ -188,8 +188,10 @@ public class AnchorsController extends AbstractFtlController {
 		Map<String,Object> map =  criticizeService.getAnchorCriticizes(new Page<>(pageNumber,pageSize),userId,user!= null ? user.getId() :null);
 		view.addObject("criticizesMap",map);
 		//查询各种平均值
-		List<Integer> listComment = criticizeService.selectPcCUserCommentMeanCount(userId);
+		List<Double> listComment = criticizeService.selectPcUserCommentMeanCount(userId);
 		view.addObject("listCommentCount",listComment);
+	    String strLevel  = CourseUtil.criticizeStartLevel(listComment.get(7))+"";
+	    view.addObject("startLevel",strLevel.replace(".", "_")); 
 		
 		//推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
 		view.addObject("recommendCourse",getRecommendCourse());

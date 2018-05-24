@@ -23,14 +23,13 @@
 		<div class="wrap-top">
 			<div class="main-top">
 				<div class="head-portrait z">
-					<img src="../../images/criticism_img.png"/>
+					<img src="${lecturerInfo.small_head_photo}"   />
 					<span></span>
 				</div>
 				<div class="anchor-status z">
 					<h2>${lecturerInfo.name}</h2>
-					
-					<#if lecturerInfo.type == 1>
-						<h4>${hospital.name??}</h4>
+					<#if lecturerInfo.type == 1 && hospital.name??>
+						<h4>${hospital.name}</h4>
 					</#if>
 					<ul class="follow-box cl">
 						<li>关注${fansCount}</li>
@@ -38,13 +37,13 @@
 						<li>粉丝${focusCount}</li>
 					</ul>
 					<#if isFours == 1>
-						<button type="button" class="isAdd-follow  isAdd-active">
-						  <img src="../../images/icon-up.png"/>
+						<button type="button" class="isAdd-follow">
+						  <img src="../../web/images/icon-up.png"/>
 						  <span>加关注</span>
 						</button>
 					<#elseif ifFours == 0>	
-						<button type="button" class="isAdd-follow">
-						  <img src="../../images/icon-down.png"/>
+						<button type="button" class="isAdd-follow  isAdd-active" >
+						  <img src="../../web/images/icon-down.png"/>
 						  <span>已关注</span>
 						</button>
 					</#if>
@@ -68,7 +67,7 @@
 					</div>
 		<!--content-->
 		<!--课程-->
-					<div class="sidebar-content" style="padding: 0 0 30px;">
+		<div class="sidebar-content" style="padding: 0 0 30px;">
 						<div class="wrap-class">
 						
 						    <#if courseList??>
@@ -130,7 +129,7 @@
 						<div class="anchor-hospital">
 							<h5>坐诊医馆</h5>
 							<div class="hospital-img z">
-								<img src="../../images/04.png"/>
+								<img src="${hospital.versionPictures}"/>
 							</div>
 							<div class="hospital-inf y">
 								<div class="hospital-status">
@@ -162,7 +161,9 @@
 					</div>
 		<!--评价-->	
 		<div class="sidebar-content hide">		
-			 <#include "course_comment.ftl">
+			 <#if type == 'comment' >
+			  	<#include "course_comment.ftl">
+			 </#if>
 		</div>		
 				</div>
 		
@@ -188,39 +189,37 @@
 								  <#elseif !courseItem.collection>
 						            	      视频
 						          </#if>
-							   <#elseif courseItem.type == 2>
+							     <#elseif courseItem.type == 2>
 							      <#if courseItem.collection> 
-							       音频专辑
+							     		  音频专辑
 								  <#elseif !courseItem.collection>
-						             音频
+						           		  音频
 						          </#if>
 							    <#elseif courseItem.type == 3>
 						          <#if courseItem.lineState  == 1  > 
-							        直播中
+							        	直播中
 								  <#elseif courseItem.lineState  == 2>
-								      预告
+								     	 预告
 								  <#elseif courseItem.lineState  == 3>
-								      直播回放
+								    	  直播回放
 								  <#elseif courseItem.lineState  == 4>
-						             即将直播
+						        		   即将直播
 						          </#if>
 							    <#elseif courseItem.type == 4>
-							      线下培训班
+							     		 线下培训班
 							    </#if>
-						
-								
 								
 								</p>
-								<p class="timeAndTeac"><span>讲师：<span class="teacher">雪灵</span></span>
+								<p class="timeAndTeac"><span>讲师：<span class="teacher">${courseItem.name}</span></span>
 								</p>
 								<p class="info clearfix">
 									<span>
-										<span class="price">1</span>
+										<span class="price">${courseItem.currentPrice}</span>
 										<span>熊猫币</span>
 									</span>
 									<span class="stuCount">
 										<img src="/web/images/studentCount.png" alt="">
-										<span class="studentCou">15</span>
+										<span class="studentCou">${courseItem.learndCount}</span>
 									</span>
 								</p>
 							</div>
@@ -242,9 +241,13 @@
 		<script type="text/javascript" src="/web/js/footer.js"></script>
 		<!--公共头部和底部结束-->
 		<script  type="text/javascript" >
-			var userId = ${type};
-			var type = ${userId};
-		    var video = ${lecturerInfo.video};
+			var userId = "${userId}";
+			var type ="${type}"; 
+			var video ="";
+			<#if lecturerInfo.video??>
+			    video = "${lecturerInfo.video}";
+			</#if>
+		   
 		    console.error("type:"+type+",userId:"+userId+",video:"+video);
 		</script>
 		<script src="/web/js/school/anchor-details.js" type="text/javascript" charset="utf-8"></script>

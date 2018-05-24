@@ -168,8 +168,8 @@
        )
 	</select>
 	
-	<!-- 针对课程了。 节目内容、主播演绎的平均值。     -->
-    <select id="selectPcUserCommentMeanCount" resultType="java.lang.Integer">
+	<!-- 针对用户了。 节目内容、主播演绎的平均值。   需要多加一个总体映像的平均值  -->
+    <select id="selectPcUserCommentMeanCount" resultType="java.lang.Double">
        (   
          SELECT IFNULL(ROUND(AVG(cc.content_level), 0),0) FROM oe_criticize
             cc where cc.is_delete = 0  and cc.content_level !=0
@@ -211,6 +211,15 @@
          select count(*) from oe_criticize  where user_id =#{userId}  and 
             criticize_lable  like "%5%"
        )       
+       union all
+       
+       (
+        SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where 
+          cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0
+          and user_id =#{userId}
+       )
+       
+       
 	</select>
 	
 	

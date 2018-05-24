@@ -1,5 +1,18 @@
 $(function(){
 	
+	//tab 的显示
+	var index =1;
+	if(type == "info"){
+		$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
+	}else if(type == "courses"){
+		$(".wrap-sidebar ul li").eq(1).addClass("active-footer");
+		index =1;
+	}else if(type == "comment"){
+		$(".wrap-sidebar ul li").eq(2).addClass("active-footer");
+		index =2;
+	}
+	$(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
+	
 //  渲染精彩视频看是否存在啦	
 	if(type == "info" && video!=null && video != undefined){
 		//获取视频信息接口
@@ -46,10 +59,10 @@ $(function(){
 			if(data.success) {
 				if($(this).hasClass("isAdd-active")){
 					$(this).removeClass("isAdd-active").find("span").text("加关注")
-					$(this).find("img").attr("src","../../images/icon-up.png");
+					$(this).find("img").attr("src","../../web/images/icon-up.png");
 				}else{
 					$(this).addClass("isAdd-active").find("span").text("已关注")
-					$(this).find("img").attr("src","../../images/icon-down.png");
+					$(this).find("img").attr("src","../../web/images/icon-down.png");
 				}
 			}else{
 				alert(data.errorMessage);

@@ -71,5 +71,5 @@ public interface ICriticizeService extends IService<Criticize> {
 	 * @param userId
 	 * @return
 	 */
-	List<Integer> selectPcCUserCommentMeanCount(String userId);
+	List<Double> selectPcUserCommentMeanCount(String userId);
 }

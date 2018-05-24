@@ -353,9 +353,9 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
 	}
 
 	@Override
-	public List<Integer> selectPcCUserCommentMeanCount(String userId) {
+	public List<Double> selectPcUserCommentMeanCount(String userId) {
 		
-		return this.baseMapper.selectPcCUserCommentMeanCount(userId);
+		return this.baseMapper.selectPcUserCommentMeanCount(userId);
 	}
     
     
