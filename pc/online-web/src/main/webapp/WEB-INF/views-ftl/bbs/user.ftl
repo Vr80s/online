@@ -14,17 +14,23 @@
     <link rel="stylesheet" href="/web/css/componet.css"/>
     <link rel="stylesheet" href="/web/css/header.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
-    <link rel="stylesheet" href="/web/css/ftl-page.css"/>
+    <!--<link rel="stylesheet" href="/web/css/ftl-page.css"/>-->
     <link rel="stylesheet" href="/web/css/bbs/my-reply.css">
     <link rel="stylesheet" href="/web/font/iconfont.css">
-
+  	<!--分页部分start-->
+	<link rel="stylesheet" href="/web/css/componet.css" />
+	<link rel="stylesheet" href="/web/css/componet-pages.css" />
+	<!--分页部分end-->
+	
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
     <script src="/web/js/header-top.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/web/js/jquery.pagination.js" type="text/javascript" charset="utf-8"></script>
+    <!--<script src="/web/js/jquery.pagination.js" type="text/javascript" charset="utf-8"></script>-->
     <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-
+	<!--分页部分start-->
+	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
+	<!--分页部分start-->
 </head>
 
 <header>
@@ -65,9 +71,16 @@
             <table id="post_table">
 
             </table>
-			 <div class="pages hide" style="margin-top: 30px;">
-            	<div id="Pagination"></div>
-       		 </div>
+			<!--分页部分start-->
+				<div class="post_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+					<div id="Pagination_post" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+					<div class="searchPage">
+						<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+						<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+						<a href="javascript:;" class="page-btn">确定</a>
+					</div>
+				</div>
+			<!--分页部分end-->
 
         </div>
         <!--我的回复-->
@@ -85,9 +98,16 @@
             <!--1-->
             <table id="reply_table">
             </table>
-             <div class="pages reply-pages hide" style="margin-top: 30px;">
-            	<div id="Pagination"></div>
-       		 </div>
+            <!--分页部分start-->
+				<div class="reply_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+					<div id="Pagination_reply" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+					<div class="searchPage">
+						<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+						<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+						<a href="javascript:;" class="page-btn">确定</a>
+					</div>
+				</div>
+			<!--分页部分end-->
         </div>
        
     </div>
