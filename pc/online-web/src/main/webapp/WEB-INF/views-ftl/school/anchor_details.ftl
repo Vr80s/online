@@ -68,56 +68,10 @@
 		<!--content-->
 		<!--课程-->
 		<div class="sidebar-content" style="padding: 0 0 30px;">
-						<div class="wrap-class">
-						
-						    <#if courseList??>
-						        <#list courseList as courseItem>
-						           <div class="course clearfix">
-										<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
-										<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-											<div class="img">
-											<img src="${courseItem.smallImgPath}"></div>
-										    <#if courseItem.type == 1  > 
-										      <#if courseItem.collection> 
-										         <span class="classCategory">视频专辑</span>
-											  <#elseif !courseItem.collection>
-									              <span class="classCategory">视频</span>
-									          </#if>
-											 
-										   <#elseif courseItem.type == 2>
-										      <#if courseItem.collection> 
-										       <span class="classCategory">音频专辑</span>
-											  <#elseif !courseItem.collection>
-									             <span class="classCategory">音频</span>
-									          </#if>
-										    <#elseif courseItem.type == 3>
-									          <#if courseItem.lineState  == 1  > 
-										        <span class="classCategory">直播中</span>
-											  <#elseif courseItem.lineState  == 2>
-											      <span class="classCategory">预告</span>
-											  <#elseif courseItem.lineState  == 3>
-											      <span class="classCategory">直播回放</span>
-											  <#elseif courseItem.lineState  == 4>
-									             <span class="classCategory">即将直播</span>
-									          </#if>
-										    <#elseif courseItem.type == 4>
-										      <span class="classCategory">线下培训班</span>
-										    </#if>
-											<div class="detail">
-												<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
-												<p class="timeAndTeac"><span>讲师：<span class="teacher">${courseItem.name}</span></span>
-												</p>
-												<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
-												 <span class="stuCount"><img src="/web/images/studentCount.png" alt="">
-												 <span class="studentCou">${courseItem.learndCount}</span></span>
-												</p>
-											</div>
-										</a>
-									</div>		
-						      	</#list>
-							</#if>							
-						</div>
-					</div>
+			 <#if type == 'courses' >
+			  	<#include "anchor_course.ftl">
+			 </#if>			
+		</div>
 		
 		<!--介绍-->					
 					<div class="sidebar-content hide" style="background: #F8F8F8;padding: 0;">
@@ -247,7 +201,6 @@
 			<#if lecturerInfo.video??>
 			    video = "${lecturerInfo.video}";
 			</#if>
-		   
 		    console.error("type:"+type+",userId:"+userId+",video:"+video);
 		</script>
 		<script src="/web/js/school/anchor-details.js" type="text/javascript" charset="utf-8"></script>

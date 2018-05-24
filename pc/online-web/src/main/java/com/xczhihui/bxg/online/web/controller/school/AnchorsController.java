@@ -146,7 +146,6 @@ public class AnchorsController extends AbstractFtlController {
 	    page.setSize(pageSize);
 		Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page,userId);
 		view.addObject("courseList",list);
-		
 		//推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
 		view.addObject("recommendCourse",getRecommendCourse());
 		
@@ -159,10 +158,9 @@ public class AnchorsController extends AbstractFtlController {
 	 * @return
 	 * @throws IOException 
 	 */
-	@RequestMapping(value = "{userId}/comment ", method = RequestMethod.GET)
+	@RequestMapping(value = "{userId}/comment", method = RequestMethod.GET)
 	public ModelAndView comment(HttpServletRequest req,HttpServletResponse res,
 			@PathVariable String userId,
-			@PathVariable String type,
 			@RequestParam(required=false)Integer pageSize,
 			@RequestParam(required=false)Integer pageNumber) throws IOException {
 		

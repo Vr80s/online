@@ -1,16 +1,18 @@
 $(function(){
 	
 	//tab 的显示
-	var index =1;
+	var index =0;
+	$(".wrap-sidebar ul li").removeClass("active-footer");
 	if(type == "info"){
-		$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
-	}else if(type == "courses"){
 		$(".wrap-sidebar ul li").eq(1).addClass("active-footer");
 		index =1;
+	}else if(type == "courses"){
+		$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
 	}else if(type == "comment"){
 		$(".wrap-sidebar ul li").eq(2).addClass("active-footer");
 		index =2;
 	}
+	
 	$(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
 	
 //  渲染精彩视频看是否存在啦	
@@ -20,13 +22,13 @@ $(function(){
 			if(data.success === true) {
 				RequestService("/online/vedio/getVideoPlayCodeByVideoId", "GET", {
 	                videoId: video,
-					width: awidth,
-					height: aheight,
+					width: "300",
+					height: "150",
 					autoPlay: false
 				}, function(data) {
 					if(data.success == true) {
 						var scr = data.resultObject;
-						$(".save-video").append(scr);
+						$(".save-video").html(scr);
 					} else if(data.success == false) {
 						alert("播放发生错误，请清除缓存重试")
 					}
@@ -37,13 +39,9 @@ $(function(){
 				$(".loginGroup .login").css("display", "none");
 			}
 		});
-		
-		
-		
+	}else{
+		$(".anchor-video").hide();
 	}
-	
-	
-	
 	
 //	关注效果
 	$(".isAdd-follow").click(function(){

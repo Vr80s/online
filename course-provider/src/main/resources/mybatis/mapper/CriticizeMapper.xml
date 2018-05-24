@@ -215,7 +215,7 @@
        
        (
         SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where 
-          cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0
+          cc.is_delete = 0  and cc.overall_level !=0
           and user_id =#{userId}
        )
        
