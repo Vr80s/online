@@ -48,21 +48,27 @@ $(function(){
 #chatmsg{
 	padding-top: 0.4rem;
 }
-.cover{
+/*  .cover{
 	display: none !important;
-}
+} 
 .coze_bottom{
 	display: none !important;
-}
+} 
 .coze_center{
 	background: indianred;
 }
 .mCustomScrollBox{
 	background: mediumvioletred;
-}
-.details_cen1{
-	display: none;
-}
+} */
+ /* .details_cen1{
+ 	display: none;
+ }  */
+ .chatmsg-box{
+ 	overflow: scroll;
+ }
+ .mCSB_scrollTools .mCSB_dragger{
+ 	opacity: 0;
+ }
 </style>
 
 <script>
@@ -173,9 +179,9 @@ $(function(){
 	position: absolute;
     top: 10.5rem;
 }
-.coze_cen_ri:last-child{
+/* .coze_cen_ri:last-child{
 	margin-bottom: 2.5rem;
-}
+} */
 .coze_cen_ris{
 	margin-bottom: 0rem !important;
 } 
@@ -312,7 +318,7 @@ $(function(){
 		</div>
 		<div class="both"></div>
 	</div>
-	<div class="footer_k" style="height: 10.6rem;"></div>
+	<div class="footer_k footer_ks" style="height: 10.6rem;"></div>
 	<!-- 详情聊天开始 -->
 	
 	<div class="coze" style="height1: 14rem">
@@ -641,8 +647,25 @@ $(function(){
 		$(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
 		$(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight);
 		$(".coze").scrollTop($(".coze")[0].scrollHeight);
+		$(".coze_center").scrollTop($(".coze_center")[0].scrollHeight);
+		$(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight);
+		/*$(".mCSB_container").css("top","0");
+		$(".mCSB_container").css("bottom","0");*/
+		$(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight);
 
 
+		$(".chatmsg-box").scroll(function(){  
+		         var $this =$(this),  
+		         viewH =$(this).height(),//可见高度  
+		         contentH =$(this).get(0).scrollHeight,//内容高度  
+		         scrollTop =$(this).scrollTop();//滚动高度  
+		        //if(contentH - viewH - scrollTop <= 100) { //到达底部100px时,加载新内容  
+		        if(scrollTop/(contentH -viewH)>=0.95){ //到达底部100px时,加载新内容  
+		        // 这里加载数据..  
+
+		        alert(132);
+		        }  
+		     });  
 
 //		点击输入框,表情显示,礼物隐藏   删除后，影响效果
 		$("#mywords").click(function(){
@@ -689,10 +712,12 @@ $(function(){
 
 
 <script>
-	//		聊天区高度
-		var school_height=$(window).height()-$(".header").height();
+	//		聊天区高度footer_k
+	//var school_heights=$(window).height();
+//alert(school_heights);
+		var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
 		$(".chatmsg-box").height(school_height);
-		// alert(school_height);
+		 //alert(school_height);
 </script>
 </html>
 
