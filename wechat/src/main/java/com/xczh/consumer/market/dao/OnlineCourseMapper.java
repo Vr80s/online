@@ -19,6 +19,8 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime,");
 		sql.append("c.course_detail as description");  //课程简介
 		sql.append(" from oe_course c");
+		
+		
 		sql.append(" where c.id = ?  and c.is_delete=0  ");
 		Object[] params = {courseId};
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
@@ -26,7 +28,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 
 	public LecturVo lectureShare(String lecturerId) throws SQLException {
 		StringBuffer sql = new StringBuffer("");
-		sql.append("select ca.name as name,ou.small_head_photo as headImg ,");
+		sql.append("select ca.name as name,ca.profile_photo as headImg ,");
 		sql.append(" ca.detail as description ");  //课程简介
 		sql.append(" from oe_user ou,course_anchor ca ");
 		sql.append(" where  ou.id = ca.user_id and ou.id = ?  and ou.is_delete=0 and ou.status = 0   ");
