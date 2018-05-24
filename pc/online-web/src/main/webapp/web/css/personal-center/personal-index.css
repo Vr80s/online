@@ -372,6 +372,7 @@ cursor: pointer;
 -webkit-line-clamp: 2;
 overflow: hidden;
 }
+
 /*.doctor-details .doctor-text::after {
 	content: "...";
 	position: absolute;
@@ -379,7 +380,18 @@ overflow: hidden;
 	right: 0;
 	padding-left: 40px;
 }*/
-
+/*暂无关注的主播*/
+.no-follow-anchor{
+	text-align: center;
+	color: #999999;
+	padding: 227px 0;
+}
+.no-follow-anchor .no-follow-img {
+	margin: 0 auto 10px;
+	width: 63px;
+	height: 70px;
+	
+}
 /*问答与论坛*/
 .question-forum{
 	width: 100%;
@@ -579,6 +591,26 @@ overflow: hidden;
 .reply-user-text ul .select-active i{
 	color: #00bc12;
 }
+.no-question-box{
+	text-align: center;
+	color: #999999;
+	padding-top: 215px;
+}
+.no-question-box .no-question-img{
+	   margin: 0 auto 10px;
+    width: 63px;
+    height: 70px;
+}
+ .no-answer-box{
+	text-align: center;
+	color: #999999;
+	padding-top: 215px;
+}
+.no-answer-box .no-answer-img{
+	   margin: 0 auto 10px;
+    width: 63px;
+    height: 70px;
+}
 /*我的论坛*/
 .forum-wrap{
 	 width: 100%;
@@ -650,6 +682,16 @@ overflow: hidden;
 
 	text-align: center;
 }
+ .no-post-box{
+	text-align: center;
+	color: #999999;
+	padding-top: 215px;
+}
+.no-post-box .no-post-img{
+	   margin: 0 auto 10px;
+    width: 63px;
+    height: 70px;
+}
 /*我的回复*/
  .reply-box{
  	width: 920px;
@@ -712,6 +754,16 @@ overflow: hidden;
    	clear: both;
     padding-left: 20px;
  }
+.no-reply-box{
+	text-align: center;
+	color: #999999;
+	padding-top: 215px;
+}
+.no-reply-box .no-reply-img{
+	   margin: 0 auto 10px;
+    width: 63px;
+    height: 70px;
+}
  /*我的订单*/
  .order-wrap{
  	width: 960px;
@@ -872,6 +924,17 @@ overflow: hidden;
 	line-height: 30px;
 	cursor: pointer;
 }
+  .no-order-box{
+	text-align: center;
+	color: #999999;
+	padding-top: 215px;
+}
+.no-order-box .no-order-img{
+	   margin: 0 auto 10px;
+    width: 63px;
+    height: 70px;
+}
+
 /*我的钱包*/
 .wallet-wrap{
 	min-height: 596px;
