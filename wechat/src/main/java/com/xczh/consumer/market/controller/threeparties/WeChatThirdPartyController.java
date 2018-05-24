@@ -74,6 +74,10 @@ public class WeChatThirdPartyController {
 
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
+	
+	
+	@Value("${webdomain}")
+	private String webdomain;
 
 	/**
 	 * 公众号和手机号在h5中的关系 Description： 1、h5
@@ -311,12 +315,18 @@ public class WeChatThirdPartyController {
 				wxcpClientUserWxMapping
 						.setWx_public_name(WxPayConst.appid4name);
 				wxcpClientUserWxMapping.setOpenid(openid_);
+				
 				wxcpClientUserWxMapping.setNickname(nickname_);
 				wxcpClientUserWxMapping.setSex(sex_);
 				wxcpClientUserWxMapping.setLanguage(language_);
 				wxcpClientUserWxMapping.setCity(city_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setCountry(country_);
+				
+				if(!StringUtils.isNotBlank(headimgurl_)) {
+					headimgurl_ = webdomain+"/web/images/defaultHead/18.png";
+				}
+				
 				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setUnionid(unionid_);

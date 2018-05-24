@@ -63,6 +63,9 @@ public class MobileShareController {
 	@Autowired
 	private ICourseService courseServiceImpl;
 	
+	@Value("${webdomain}")
+	private String webdomain;
+	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileShareController.class);
 
 	/**
@@ -199,8 +202,11 @@ public class MobileShareController {
 				ThridFalg tf = new ThridFalg(); 
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				tf.setNickName(wxw.getNickname());
-				tf.setHeadImg(wxw.getHeadimgurl());
+				
+				tf.setNickName( StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医" );
+				String defaultHeadImg = webdomain+"/web/images/defaultHead/18.png";
+				tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg );
+				
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 			}else
 			{
@@ -404,8 +410,9 @@ public class MobileShareController {
 				ThridFalg tf = new ThridFalg(); 
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				tf.setNickName(wxw.getNickname());
-				tf.setHeadImg(wxw.getHeadimgurl());
+				tf.setNickName( StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医" );
+				String defaultHeadImg = webdomain+"/web/images/defaultHead/18.png";
+				tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg );
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 			}else{
 				ou =  appBrowserService.getOnlineUserByReq(req);

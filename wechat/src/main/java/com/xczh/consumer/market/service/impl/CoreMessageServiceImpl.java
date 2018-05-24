@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +42,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	
 	@Value("${wechatpay.h5.appid}")
 	private String gzh_appid;
+	
+	
+	@Value("${webdomain}")
+	private String webdomain;
 	
 	@Autowired
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
@@ -145,7 +150,13 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 	    				wxcpClientUserWxMapping.setCity(city_);
 	    				wxcpClientUserWxMapping.setProvince(province_);
 	    				wxcpClientUserWxMapping.setCountry(country_);
+	    				
+	    				if(!StringUtils.isNotBlank(headimgurl_)) {
+	    					headimgurl_ = webdomain+"/web/images/defaultHead/18.png";
+	    				}
 	    				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
+	    				
+	    				
 	    				wxcpClientUserWxMapping.setProvince(province_);
 	    				wxcpClientUserWxMapping.setUnionid(unionid_);
 	    				wxcpClientUserWxMapping.setSubscribe(subscribe);
