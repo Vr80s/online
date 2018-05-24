@@ -4,6 +4,10 @@ import java.util.UUID;
 //import com.xczh.distributed.common.annotation.Autowired;
 //import com.xczh.distributed.common.bean.ResponseObject;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
@@ -12,8 +16,11 @@ import com.xczhihui.common.util.SLEmojiFilter;
 
 import net.sf.json.JSONObject;
 
+@Component
 public class ClientUserUtil {
 	
+	@Value("${webdomain}")
+	private static String webdomain;
 	/**
 	 * Description：保存微信信息，通过openid，判别用户是否一致了
 	 * @param auth_code
@@ -48,6 +55,8 @@ public class ClientUserUtil {
 			String city_ = (String)jsonObject.get("city");
 			String province_ = (String)jsonObject.get("province");
 			String country_ = (String)jsonObject.get("country");
+			
+			
 			String headimgurl_ = (String)jsonObject.get("headimgurl");
 			//String privilege_ = (String)jsonObject.get("privilege");
 			
@@ -67,6 +76,11 @@ public class ClientUserUtil {
 				wxcpClientUserWxMapping.setCity(city_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setCountry(country_);
+				
+				if(!StringUtils.isNotBlank(headimgurl_)) {
+					headimgurl_ = webdomain+"/web/images/defaultHead/18.png";
+				}
+				
 				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setUnionid(unionid_);
@@ -133,6 +147,12 @@ public class ClientUserUtil {
 				wxcpClientUserWxMapping.setCity(city_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setCountry(country_);
+				
+				
+				if(!StringUtils.isNotBlank(headimgurl_)) {
+					headimgurl_ = webdomain+"/web/images/defaultHead/18.png";
+				}
+				
 				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setUnionid(unionid_);
