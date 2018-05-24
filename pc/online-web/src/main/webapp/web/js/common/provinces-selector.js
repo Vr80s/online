@@ -10,7 +10,7 @@
 例如：{value : "110000",
 	text : "北京市",}
 falg : true 时，对应的值的为value。数字
-        false时，对应的值为text。汉字
+       false时，对应的值为text。汉字
 
 */
 $.fn.iProvincesSelect = function(option, data,falg) {
@@ -27,7 +27,7 @@ $.fn.iProvincesSelect = function(option, data,falg) {
         		}else{
         			data={
                             province: '北京市',
-                            city: '市辖区',
+                            city: '北京市',
                             district: '朝阳区'
         			}
         		}
