@@ -1126,22 +1126,22 @@
 						</div>
 	
 	
-						<!--<div class="times">
+						<div class="times">
 	                        <span><em>*</em>更新时间</span>
 	                        <div class="div" id="times_div">
-	                            <div class="div_one" style="">一</div>
-	                            <div class="div_one">二</div>
-	                            <div class="div_one">三</div>
-	                            <div class="div_one">四</div>
-	                            <div class="div_one">五</div>
-	                            <div class="div_one">六</div>
-	                            <div class="div_one">日</div>
-	                            &lt;!&ndash;<div class="div_two">重置</div>&ndash;&gt;
+	                            <div class="div_one" data-number="1" style="">一</div>
+	                            <div class="div_one" data-number="2">二</div>
+	                            <div class="div_one" data-number="3">三</div>
+	                            <div class="div_one" data-number="4">四</div>
+	                            <div class="div_one" data-number="5">五</div>
+	                            <div class="div_one" data-number="6">六</div>
+	                            <div class="div_one" data-number="7">日</div>
+	                            <!--<div class="div_two">重置</div>-->
 	
 	                        </div>
 	                        <div class="both"></div>
 	                        <p class="warning warning002 hide">更新时间不能为空</p>
-	                    </div>-->
+	                    </div>
 	
 	
 						<div class="table_div">
@@ -2617,15 +2617,10 @@
         //          点击专辑里--移除和更新时间
         //更新时间
         $("#times_div div").click(function(){
-
-            if(!$(this).hasClass("div_one0")){
-                $(this).addClass("div_one0");
-            }else{
-                $(this).removeClass("div_one0");
-            }
-
+            var getWeek=[];
+			$(this).toggleClass("div_one0");
         });
-
+		
         //删除当前行
         $(".tbody_tbody tr td:last-child").click(function() {
             $(this).parent().remove();

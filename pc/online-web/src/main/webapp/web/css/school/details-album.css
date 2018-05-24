@@ -637,22 +637,18 @@ word-break:break-all;
 
 
 /*环形进度条部分*/
-
-  *{  
-        margin: 0;  
-        padding: 0;  
-    }  
+ 
     .wrap,.circle,.percent{  
         position: absolute;  
         width: 32px;  
         height: 32px;  
         border-radius: 50%;  
     }  
-    .wrap{  
+    /*.wrap{  
         top:50px;  
         left:50px;  
         background-color: #ccc;  
-    }  
+    }  */
     .circle{  
         box-sizing: border-box;  
         border:2px solid #ccc;  
