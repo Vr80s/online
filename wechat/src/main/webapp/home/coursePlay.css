@@ -1,0 +1,320 @@
+/*header_top部分*/
+
+.header_top {
+	height: .88rem;
+	background-color: #000;
+	text-align: center;
+	line-height: .88rem;
+	color: #fff;
+	font-size: .36rem;
+}
+
+
+/*视频部分*/
+.ccH5playerBox{
+	width: 100% !important;
+    height: 4.24rem !important;
+}
+.video_part {
+	width: 100%;
+	height: 4.24rem;
+	/*background: #fff url(images/video.png) 0 0 no-repeat;*/
+	background-size: 100% 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #000;
+}
+
+.video_play {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+}
+
+.video_playBtn {
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 50%;
+	background-image: url(images/videoplay.png);
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	margin: 0 auto .1rem;
+}
+
+.video_playTip {
+	font-size: .24rem;
+	color: #FFFFFF;
+}
+
+
+/*视频播放下面的课程简介*/
+
+.course_mid_inf {
+	display: flex;
+	flex-direction: column;
+	padding: .26rem;
+}
+
+.course_title {
+	font-size: .32rem;
+	color: #333333;
+}
+
+.course_secondTitle {
+	font-size: .24rem;
+	color: #666;
+	margin: .16rem 0;
+}
+
+.course_star {
+	font-size: .22rem;
+	color: #999999;
+	margin-bottom: .4rem;
+}
+
+.course_star>span {
+	display: inline-block;
+	width: 1.54rem;
+	height: .24rem;
+	background-image: url(images/star.png);
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	vertical-align: bottom;
+}
+
+.course_teacher_pic,
+.teacher_pic_name {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.teacher_pic {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+	margin-right: .2rem;
+}
+
+.teacher_name {
+	font-size: .24rem;
+	color: #666666;
+}
+
+.goTo_teacherInf {
+	display: inline-block;
+	width: .13rem;
+	height: .13rem;
+	background: #fff url(images/more.png) 0 0 no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+
+
+/*灰色条状部分*/
+
+.gray_part {
+	height: .2rem;
+	background-color: #f8f8f8;
+}
+
+
+/*公共头部样式*/
+
+.more_courcse {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: .34rem .26rem .2rem;
+	font-size: .26rem;
+}
+
+.more_courcseTitle {
+	font-size: .28rem;
+	color: #333;
+}
+
+.more_courcseTitle>span {
+	display: inline-block;
+	width: 0.06rem;
+	height: .28rem;
+	background-color: #00BC12;
+	margin-right: .1rem;
+	vertical-align: bottom;
+}
+
+
+/*课程介 、 主持人等部分*/
+
+.courcse_inf {
+	padding: 0 .26rem .2rem;
+	text-align: center;
+}
+
+.courcse_inf>p {
+	font-size: .28rem;
+	color: #575757;
+	line-height: .34rem;
+	text-align: left;
+}
+
+.courcse_inf>img {
+	width: 100%;
+	height: 100%;
+	margin: .1rem 0;
+}
+
+
+/*评价部分*/
+
+.comment_Tpl {
+	padding: .26rem;
+}
+
+.user_inf {
+	display: flex;
+	align-items: center;
+}
+
+.user_pic {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+}
+
+.user_name {
+	font-size: .28rem;
+	color: #999;
+	margin-left: .2rem;
+}
+
+.buy_status {
+	display: inline-block;
+	width: .56rem;
+	height: .28rem;
+	background-color: #00BC12;
+	border-radius: 4px;
+	font-size: .18rem;
+	text-align: center;
+	line-height: .28rem;
+	color: #FFFFFF;
+	margin: 0 .2rem;
+}
+
+.replay_star {
+	display: inline-block;
+	width: 1.54rem;
+	height: .24rem;
+	background-image: url(images/star.png);
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	vertical-align: bottom;
+}
+
+.Labels>span {
+	display: inline-block;
+	background-color: #f0f0f0;
+	font-size: .24rem;
+	padding: 0 .2rem;
+	height: .52rem;
+	line-height: .52rem;
+	border-radius: .26rem;
+	color: #333333;
+}
+
+.comment_content>p {
+	font-size: .26rem;
+	color: #333333;
+	line-height: .32rem;
+	margin: .2rem;
+}
+
+.replay_content {
+	background-color: #f0f0f0;
+	padding: .2rem;
+	margin: .1rem 0 .3rem;
+}
+
+.replay_content>p {
+	font-size: .26rem;
+	color: #333333;
+	line-height: .32rem;
+}
+
+.replay_data {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.replay_time {
+	font-size: .24rem;
+	color: #999999;
+}
+
+.up_toReply,
+.toUp {
+	display: flex;
+	align-items: center;
+}
+
+.upPic {
+	width: .32rem;
+	height: .31rem;
+	background: #fff url(images/upPic.png) 0 0 no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+
+.upNumber {
+	font-size: .24rem;
+	color: #999;
+}
+
+.toReplay {
+	width: .32rem;
+	height: .3rem;
+	background: #fff url(images/replayPic.png) 0 0 no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	margin-left: .4rem;
+}
+
+
+/*输入评论部分*/
+
+.replay_ipt {
+	height: .98rem;
+	background-color: #f8f8f8;
+	padding: 0 .2rem;
+	padding-top: .2rem;
+	position: relative;
+}
+
+.replay_ipt>input {
+	display: block;
+	height: .58rem;
+	width: 100%;
+	widht: 100%;
+	border-radius: .29rem;
+	outline: none;
+	border: none;
+	padding: 0 .1rem;
+	text-indent: 2em;
+
+	font-size: .26rem;
+	background-color: #f0f0f0;
+}
+.pen{
+    display: inline-block;
+    width: .24rem;
+    height: .24rem;
+    position: absolute;
+    background: #f0f0f0 url(images/replayIpt.png) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    top: 0.4rem;
+    left: .4rem;
+	
+}

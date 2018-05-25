@@ -1,0 +1,407 @@
+.hide {
+	display: none;
+}
+
+
+/*header_top部分*/
+
+.header_top {
+	height: .88rem;
+	background-color: #000;
+	text-align: center;
+	line-height: .88rem;
+	color: #fff;
+	font-size: .36rem;
+}
+
+
+/*头部个人信息部分*/
+
+.header {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-image: url(images/bg.png);
+	background-size: 100% 100%;
+	width: 100%;
+	height: 2.6rem;
+}
+
+.user_inf {
+	display: flex;
+	align-items: center;
+}
+
+.user_pic {
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 50%;
+	margin-right: .3rem;
+}
+
+.user_int {
+	display: flex;
+	flex-direction: column;
+}
+
+.user_name {
+	font-size: .32rem;
+	margin-bottom: .2rem;
+	color: #fff;
+}
+
+.user_sign {
+	font-size: .26rem;
+	color: #fff;
+}
+
+.addAttention {
+	padding: .2rem;
+	display: flex;
+	height: .56re;
+	border-radius: .28rem;
+	background-color: #fff;
+}
+
+.addAttention>span {
+	display: block;
+	font-size: .24rem;
+}
+
+.addAttention_pic {
+	width: .25rem;
+	height: .25rem;
+
+}
+.no_addAttention{
+	background-image: url(images/addAttention_pic.png);
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+.has_addAttention{
+	background-image: url(images/addAttention_pic_hid.png);
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+.addAttention_font {
+	font-size: .24rem;
+	color: #00BC12;
+}
+
+
+/*中间导航部分*/
+
+.mid_nav {
+	display: flex;
+	justify-content: space-around;
+	padding: .2rem;
+}
+
+.video,
+.play,
+.fans {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: .24rem;
+}
+
+.video_number,
+.play_number,
+.fans_number {
+	font-size: .34rem;
+	color: #F97B49;
+	margin-bottom: .12rem;
+}
+
+.video_title,
+.play_title,
+.fans_title {
+	font-size: .24rem;
+	color: #888;
+}
+
+
+/*灰色条状部分*/
+
+.gray_part {
+	height: .2rem;
+	background-color: #f8f8f8;
+}
+
+.gray {
+	color: #999;
+}
+
+
+/*公共头部样式*/
+
+.more_courcse {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: .34rem .26rem .2rem;
+	font-size: .26rem;
+}
+
+.more_courcseTitle {
+	font-size: .28rem;
+	color: #333;
+}
+
+.more_courcseTitle>span {
+	display: inline-block;
+	width: 0.06rem;
+	height: .28rem;
+	background-color: #00BC12;
+	margin-right: .1rem;
+	vertical-align: bottom;
+}
+
+.more_courcseBtn {
+	display: inline-block;
+	width: .15rem;
+	height: .25rem;
+	background: #fff url(images/more.png) 0 0 no-repeat;
+	background-size: 100% 100%;
+}
+
+
+/*课程展示部分*/
+
+.courcse {
+	display: flex;
+	justify-content: space-around;
+	padding: 0 0 .3rem;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.courcse:last-child {
+	border-bottom: 1px solid #999;
+}
+
+.courcse_tpl {
+	display: flex;
+	flex-direction: column;
+}
+
+.courcse_pic {
+	width: 3.39rem;
+	height: 1.92rem;
+}
+
+.courcse_title {
+	font-size: .28rem;
+	color: #333333;
+	margin-bottom: .2rem;
+	margin-top: .16rem;
+}
+
+.watch,
+.time,
+.price {
+	font-size: .24rem;
+}
+
+.watch,
+.time {
+	color: #999;
+}
+
+.price {
+	color: #F97B49;
+}
+
+.watch_pic {
+	display: inline-block;
+	width: .3rem;
+	height: .3rem;
+	background: #fff url(images/watch.png) 0 0 no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	vertical-align: middle;
+}
+
+.time_pic {
+	display: inline-block;
+	width: .3rem;
+	height: .3rem;
+	background: #fff url(images/time.png) 0 0 no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	vertical-align: middle;
+}
+
+.price_watch_time {
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+}
+
+.watch_time {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.time {
+	margin-left: .2rem;
+}
+
+
+/*讲师简介部分*/
+
+.teacher_inf {
+	padding: .2rem;
+	border-bottom: 1px solid #f0f0f0;
+	
+}
+
+.teacher_inf>p {
+	font-size: .28rem;
+	color: #575757;
+	line-height: .4rem;
+}
+
+.teacher_inf_list>li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: column;
+	padding: 0 .2rem;
+	border-bottom: 1px solid #f0f0f0;
+	
+}
+
+.teacher_inf_list>li:last-child {
+	margin-bottom: .2rem;
+}
+
+.teacher_inf_list>li>div {
+	height: 1rem;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+}
+
+.teacher_inf_list>li span {
+	font-size: .28rem;
+	color: #333333;
+}
+
+.teacher_inf_list>li .right_arrow {
+	display: inline-block;
+	width: .13rem;
+	height: .26rem;
+	background: #fff url(images/right_arrow.png) 0 0 no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+
+.teacher_inf_list>li .down_arrow {
+	display: inline-block;
+	width: .26rem;
+	height: .13rem;
+	background: #fff url(images/down_arrow.png) 0 0 no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+
+.teacher_inf_list>li>p {
+	font-size: .28rem;
+	color: #575757;
+	line-height: .4rem;
+	margin-bottom: .2rem;
+}
+
+
+/*视频部分*/
+
+.ccH5playerBox {
+	width: 6.98rem !important;
+	height: 3.94rem !important;
+}
+
+.video_part {
+	width: 6.98rem;
+	height: 3.94rem;
+	background: #fff url(images/video.png) 0 0 no-repeat;
+	background-size: 100% 100%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.video_play {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+}
+
+.video_playBtn {
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 50%;
+	background-image: url(images/videoplay.png);
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	margin: 0 auto .1rem;
+}
+
+.video_playTip {
+	font-size: .24rem;
+	color: #FFFFFF;
+}
+
+
+/*线部分*/
+
+.line {
+	height: 1px;
+	border-top: 1px solid #dedede;
+	margin-top: .3rem;
+}
+
+
+/*出诊医馆部分*/
+
+.visit_hospital {
+	display: flex;
+	align-items: center;
+	padding-left: .25rem;
+	padding-bottom: .42rem;
+}
+
+.hospital_pic {
+	width: 2.31rem;
+	height: 1.3rem;
+	margin-right: .18rem;
+}
+
+.hospital_inf>p {
+	font-size: .28rem;
+	color: #575757;
+	line-height: .52rem;
+}
+
+
+/*footer部分*/
+
+.footer {
+	height: 1.1rem;
+	background-color: #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer_logo {
+	width: 3.13rem;
+	height: .74rem;
+	background-image: url(images/footer_logo.png);
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}

@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+		<title>Document</title>
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="index.css">
+	</head>
+
+	<body>
+		<!--最顶部的黑色部分-->
+		<div class="header_top">
+			石应轩个人主页
+		</div>
+		<!-- 头部个人信息部分 -->
+		<div class="header">
+			<div class="user_inf">
+				<img src="images/1.jpg" class="user_pic" alt="">
+				<div class="user_int">
+					<span class="user_name">石应轩</span>
+					<span class="user_sign">北京中医药大学特聘教授</span>
+				</div>
+			</div>
+
+			<div class="addAttention">
+				<span class="addAttention_pic no_addAttention"></span>
+				<span class="addAttention_font">加关注</span>
+			</div>
+		</div>
+		<!--中间导航部分-->
+		<div class="mid_nav">
+			<div class="video" onclick="goCourseList()">
+				<span class="video_number">8</span>
+				<span class="video_title">视频</span>
+			</div>
+			<div class="play">
+				<span style="margin-bottom: .12rem;"><span class="play_number">24</span>万</span>
+				<span class="play_title">播放量</span>
+			</div>
+			<div class="fans">
+				<span class="fans_number">56</span>
+				<span class="fans_title">粉丝数</span>
+			</div>
+		</div>
+		<!--灰色条状部分-->
+		<div class="gray_part"></div>
+		<!--课程展示部分-->
+		<div class="more_courcse">
+			<div class="more_courcseTitle"><span></span>课程</div>
+			<div class="more_courcseBtn" onclick="goCourseList()"></div>
+		</div>
+		<div class="courcse">
+
+			<div class="courcse_tpl">
+				<a href="coursePlay.html?videoId=1">
+					<img class="courcse_pic" src="images/111.jpg" alt="" />
+					<p class="courcse_title">2018.5.6 石应轩收徒仪式</p>
+
+					<div class="price_watch_time">
+						<span class="price">￥99</span>
+						<div class="watch_time">
+							<span class="watch"><em class="watch_pic"></em> 192</span>
+							<span class="time"><em class="time_pic"></em>01:11</span>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="courcse_tpl">
+				<a href="coursePlay.html?videoId=2">
+					<img class="courcse_pic" src="images/222.jpg" alt="" />
+					<p class="courcse_title">石应轩讲名著校对</p>
+					<div class="price_watch_time">
+						<span class="price">免费</span>
+						<div class="watch_time">
+							<span class="watch"><em class="watch_pic"></em> 192</span>
+							<span class="time"><em class="time_pic"></em>01:25</span>
+						</div>
+					</div>
+				</a>
+
+			</div>
+		</div>
+
+		<div class="courcse">
+
+			<div class="courcse_tpl">
+				<a href="coursePlay.html?videoId=3">
+					<img class="courcse_pic" src="images/333.jpg" alt="" />
+					<p class="courcse_title">石应轩谈辨证施治</p>
+					<div class="price_watch_time">
+						<span class="price">￥50</span>
+						<div class="watch_time">
+							<span class="watch"><em class="watch_pic"></em> 192</span>
+							<span class="time"><em class="time_pic"></em>00:55</span>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="courcse_tpl">
+				<a href="coursePlay.html?videoId=4">
+					<img class="courcse_pic" src="images/444.jpg" alt="" />
+					<p class="courcse_title">石应轩谈病位</p>
+					<div class="price_watch_time">
+						<span class="price">免费</span>
+						<div class="watch_time">
+							<span class="watch"><em class="watch_pic"></em> 192</span>
+							<span class="time"><em class="time_pic"></em>02:15</span>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<!--讲师简介部分-->
+		<div class="more_courcse">
+			<div class="more_courcseTitle"><span></span>讲师简介</div>
+			<div></div>
+		</div>
+		<div class="teacher_inf">
+			<p>石应轩，北京中医药大学特聘教授，北京华大研修学院光明中医养生学院教授，中华中医药学会会员，全国华佗神针灸研究会副会长，中原经方实战联盟首届理事会主席，北京市、河南省中医药学会张仲景学说委员会委员，北京市中医药管理局“薪火传承3+3项目”胡希恕名家研究室骨干成员，北京宫廷医学研究会特约研究员，中国河洛易经学院易医学教授，河南省温县赵堡太极拳第十三代传人世界，石氏宗亲会副会长。</p>
+		</div>
+		<ul class="teacher_inf_list">
+			<li>
+				<div>
+					<span>师承名医</span>
+					<span class="arrow right_arrow"></span>
+				</div>
+				<p class="hide">1989年6月毕业于有“中医黄埔”之称的北京光明中医药学院，是全国著名的经方大师胡希恕、陈慎吾、宗维新诸先生的亲传弟子冯世纶、张长恩、陈大启、段治钧、樊正伦诸教授的入室弟子，得其真传。</p>
+			</li>
+
+			<li>
+				<div>
+					<span>博采众家</span>
+					<span class="arrow right_arrow"></span>
+				</div>
+				<p class="hide">先后拜师于河南省中医研究院院长张海岑主任中医师，河南省中医学院儿科主任黄明志教授，郑州市工商银行医院太极老三张之一的张景捷先生，洛阳市第一、第二中医院的李富生先生、乔保钧先生，偃师市人民医院中医科原主任宋维钧先生，世医康振西先生等十几位名师。随中国河洛易经学院院长、著名数术易学家于长君先生精研易理，从河南省第五建筑公司职工医院的神针李鹏飞先生学研针灸和道家内丹术，拜白马寺原方丈上海下法法师精修净土法门。跟随赵堡太极拳第十二代传人著名武术家、太极名家谭耀荣先生耍练太极拳。逐渐形成了融中医、针灸、埋线、泻血拔罐、心理调理、周易数术为一体的身心同调的综合疗法。</p>
+			</li>
+
+			<li>
+				<div>
+					<span>治学主张</span>
+					<span class="arrow right_arrow"></span>
+				</div>
+				<p class="hide">以我为主，博采众长，融合提炼，自成一家。</p>
+			</li>
+
+			<li>
+				<div>
+					<span>优势特长</span>
+					<span class="arrow right_arrow"></span>
+				</div>
+				<p class="hide">全国知名的经方实战派临床医家。有三十年的临床经验，主攻经方在临床各科的应用，临床擅用经方，疗效显著。先后到卫生部中日友好医院、北京市中医医院进修学习。对城乡常见病、多发病的诊疗积累了丰富的经验。临床对中风后遗症、胸痹、脾胃、肝胆、肾病、咳喘、失眠、便秘、痹证、慢性咽炎、鼻炎、妇科杂症、男科前列腺炎、小儿厌食症、养生美容有独特的疗法和疗效，尤擅治疗疑难杂症，近年来致力于对癌症的探讨研究和治疗。发表医学学术论文二十多篇，主编专著一部，参编专著十一部。</p>
+			</li>
+		</ul>
+
+		<!--视频播放部分-->
+		<div class="video_part">
+			<!--<div class="video_play" onclick="goCoursePlay()">
+				<div class="video_playBtn"></div>
+				<p class="video_playTip">观看视频介绍</p>
+			</div>-->
+		<iframe id="cciframe_E6BE5815D646E8BE9C33DC5901307461" src="https://p.bokecc.com/playhtml.bo?vid=E6BE5815D646E8BE9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=false&playerid=E92940E0788E2DAE&playertype=1" frameborder="0" height="100%" width="100%"></iframe>
+		</div>
+		<div class="line"></div>
+
+		<!--出诊医院-->
+		<div class="more_courcse">
+			<div class="more_courcseTitle"><span></span>出诊医院</div>
+			<div></div>
+		</div>
+		<div class="visit_hospital">
+			<img class="hospital_pic" src="images/hospital.jpg" alt="" />
+			<div class="hospital_inf">
+				<p>坐诊医馆：国医堂</p>
+				<p>预约电话：010-92837657</p>
+				<p>医馆地址：北京市东城区长安街168号</p>
+			</div>
+		</div>
+
+		<!--footer部分-->
+		<div class="footer">
+			<div class="footer_logo"></div>
+		</div>
+	</body>
+	<script src="zepto1.14.min.js"></script>
+	<script src="rem.js"></script>
+	<script>
+		//点击跳转课程列表页面
+		function goCourseList() {
+			location.href = './courseList.html'
+		}
+
+		$('.more_teacher_content').click(function() {
+			$(this).addClass('hide')
+			$('.teacher_content').height('auto');
+
+		})
+
+		//		点击关注效果
+		if(localStorage.num) {
+			localStorage.num = localStorage.num
+			$('.fans_number').text(localStorage.num)
+		} else {
+			localStorage.num = 56;
+		}
+
+		$('.addAttention_font').click(function() {
+			if($(this).hasClass("gray")) {
+				return
+			} else {
+				++localStorage.num;
+				$('.fans_number').text(localStorage.num)
+				$('.addAttention_font').addClass('gray')
+				$('.addAttention_font').text('已关注')
+				$('.addAttention_pic').removeClass('no_addAttention').addClass('has_addAttention')
+			}
+
+		})
+
+		//		点击医师的个人信息部分的展开效果
+		$('.arrow').click(function() {
+			if($(this).hasClass('right_arrow')) {
+				$(this).removeClass('right_arrow').addClass('down_arrow');
+				$(this).parent().parent().find('p').removeClass('hide')
+				$(this).parent().parent().siblings().find('p').addClass('hide')
+				$(this).parent().parent().siblings().find('.arrow').removeClass('down_arrow').addClass('right_arrow');
+			} else {
+				$(this).removeClass('down_arrow').addClass('right_arrow')
+				$(this).parent().parent().find('p').addClass('hide')
+
+			}
+		})
+	</script>
+
+</html>
