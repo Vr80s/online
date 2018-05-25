@@ -24,7 +24,7 @@ $(function(){
     { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
 	{ "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
-	{ "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+	{ "title": "主播用户", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {

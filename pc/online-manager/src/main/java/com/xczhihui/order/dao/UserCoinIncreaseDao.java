@@ -17,7 +17,7 @@ public class UserCoinIncreaseDao extends SimpleHibernateDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder("SELECT \n"
 				+ "  ou.`login_name` userId,\n"
-				+ "  uci.`correlationId` orderNoRecharge,\n"
+				+ "  uci.`correlation_id` orderNoRecharge,\n"
 				+ "  uci.`value`,\n" + "  uci.`create_time`,\n"
 				+ "  uci.`order_from`,\n" + "  uci.`pay_type` \n" + "FROM\n"
 				+ "  `user_coin_increase` uci \n" + "  LEFT JOIN oe_user ou \n"
