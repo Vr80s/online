@@ -1,26 +1,28 @@
 package com.xczhihui.course.service.impl;
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.course.exception.OrderException;
-import com.xczhihui.common.util.IStringUtil;
-import com.xczhihui.common.util.OrderNoUtil;
-import com.xczhihui.common.util.enums.OrderStatus;
-import com.xczhihui.course.mapper.OrderMapper;
-import com.xczhihui.course.model.Order;
-import com.xczhihui.course.service.IOrderService;
-import com.xczhihui.course.mapper.CourseMapper;
-import com.xczhihui.course.model.Course;
-import com.xczhihui.course.model.OrderDetail;
-import com.xczhihui.course.service.IOrderDetailService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.OrderStatus;
+import com.xczhihui.course.exception.OrderException;
+import com.xczhihui.course.mapper.CourseMapper;
+import com.xczhihui.course.mapper.OrderMapper;
+import com.xczhihui.course.model.Course;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.model.OrderDetail;
+import com.xczhihui.course.service.IOrderDetailService;
+import com.xczhihui.course.service.IOrderService;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
@@ -37,18 +39,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public Order createOrder(String userId, int courseId, Integer orderFrom) {
         Course course = courseMapper.selectById(courseId);
-        if(course==null){
+        if (course == null) {
             throw new OrderException("课程已下架");
         }
         //获取该用户该课程的未支付订单
-        Order order = this.baseMapper.selectByUserIdAndCourseId(userId,courseId);
+        Order order = this.baseMapper.selectByUserIdAndCourseId(userId, courseId);
         //订单不为空且课程现在单价与原订单单价不符：关闭原订单，创建新的订单
-        if(order!=null && course.getCurrentPrice().compareTo(order.getPrice())!=0){
+        if (order != null && course.getCurrentPrice().compareTo(order.getPrice()) != 0) {
             order.setOrderStatus(OrderStatus.CLOSED.getCode());
             this.baseMapper.updateById(order);
-            order = saveOrder(userId,course,orderFrom);
-        }else if(order==null){
-            order = saveOrder(userId,course,orderFrom);
+            order = saveOrder(userId, course, orderFrom);
+        } else if (order == null) {
+            order = saveOrder(userId, course, orderFrom);
         }
         String courseNames = getCourseNames(order);
         order.setCourseNames(courseNames);
@@ -56,7 +58,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public Order getOrderByOrderId(String orderId){
+    public Order getOrderByOrderId(String orderId) {
         Order o = new Order();
         o.setDelete(false);
         o.setId(orderId);
@@ -65,14 +67,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public Order getOrderNo4PayByOrderNo(String orderNo){
+    public Order getOrderNo4PayByOrderNo(String orderNo) {
         Order order = new Order();
         order.setDelete(false);
         order.setOrderNo(orderNo);
         order.setOrderStatus(0);
         order = this.baseMapper.selectOne(order);
-        if(order==null){
-            throw new OrderException(orderNo+"该单号下不存在订单信息，下单失败");
+        if (order == null) {
+            throw new OrderException(orderNo + "该单号下不存在订单信息，下单失败");
         }
         String courseNames = getCourseNames(order);
         order.setCourseNames(courseNames);
@@ -80,14 +82,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public Order getOrderNo4PayByOrderId(String orderId){
+    public Order getOrderNo4PayByOrderId(String orderId) {
         Order order = new Order();
         order.setDelete(false);
         order.setId(orderId);
         order.setOrderStatus(0);
         order = this.baseMapper.selectOne(order);
-        if(order==null){
-            throw new OrderException(orderId+"该单id下不存在订单信息，下单失败");
+        if (order == null) {
+            throw new OrderException(orderId + "该单id下不存在订单信息，下单失败");
         }
         String courseNames = getCourseNames(order);
         order.setCourseNames(courseNames);
@@ -96,36 +98,47 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return order;
     }
 
+    @Override
+    public Order getOrderById(String orderId) {
+        Order order = this.baseMapper.selectById(orderId);
+        if (order == null) {
+            throw new OrderException("订单不存在 id: " + orderId);
+        }
+        List<OrderDetail> orderDetails = orderDetailService.selectOrderDetailsByOrderId(orderId);
+        order.setCourseIds(orderDetails.stream().map(OrderDetail::getCourseId).map(Integer::parseInt).collect(Collectors.toList()));
+        return order;
+    }
+
     private List<Integer> getCourseIds(Order order) {
         List<OrderDetail> orderDetailList = this.orderDetailService.selectOrderDetailsByOrderId(order.getId());
         List<Integer> courseIds = new ArrayList<>();
         orderDetailList.forEach(orderDetail -> {
-            Integer count = this.baseMapper.selectCountByUserIdAndCourseId(order.getUserId(),orderDetail.getCourseId());
-            if(count!=null && count >0){
+            Integer count = this.baseMapper.selectCountByUserIdAndCourseId(order.getUserId(), orderDetail.getCourseId());
+            if (count != null && count > 0) {
                 throw new OrderException("订单中含有已购课程");
             }
             Course course = courseMapper.selectById(orderDetail.getCourseId());
-            if(course.getDelete() || "0".equals(course.getStatus())){
-                throw new OrderException("《"+course.getGradeName()+"》已下架");
+            if (course.getDelete() || "0".equals(course.getStatus())) {
+                throw new OrderException("《" + course.getGradeName() + "》已下架");
             }
             courseIds.add(course.getId());
         });
         return courseIds;
     }
 
-    private String getCourseNames(Order order){
+    private String getCourseNames(Order order) {
         List<OrderDetail> orderDetailList = this.orderDetailService.selectOrderDetailsByOrderId(order.getId());
         StringBuilder courseNames = new StringBuilder();
         orderDetailList.forEach(orderDetail -> {
-            Integer count = this.baseMapper.selectCountByUserIdAndCourseId(order.getUserId(),orderDetail.getCourseId());
-            if(count!=null && count >0){
+            Integer count = this.baseMapper.selectCountByUserIdAndCourseId(order.getUserId(), orderDetail.getCourseId());
+            if (count != null && count > 0) {
                 throw new OrderException("订单中含有已购课程");
             }
             Course course = courseMapper.selectById(orderDetail.getCourseId());
-            if(course.getDelete() || "0".equals(course.getStatus())){
-                throw new OrderException("《"+course.getGradeName()+"》已下架");
+            if (course.getDelete() || "0".equals(course.getStatus())) {
+                throw new OrderException("《" + course.getGradeName() + "》已下架");
             }
-            courseNames.append("《"+course.getGradeName()+"》");
+            courseNames.append("《" + course.getGradeName() + "》");
         });
         return courseNames.toString();
     }

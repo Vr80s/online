@@ -224,7 +224,7 @@ function getCourseResiveList(current, gradeName, startTime, endTime) {
 		courseForm = 2;
 		multimediaType = 2;
 	}
-	var url = "/anchor/order/course/list?size=10&current=" + current + "&gradeName=" + gradeName + "&startTime=" + startTime + "&endTime=" + endTime;
+	var url = "/order/list?size=10&current=" + current + "&gradeName=" + gradeName + "&startTime=" + startTime + "&endTime=" + endTime;
 	if(courseForm != null) {
 		url += "&courseForm=" + courseForm;
 	}

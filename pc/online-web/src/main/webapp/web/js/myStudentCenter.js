@@ -218,10 +218,11 @@ window.onload = function () {
         '<div style="border-top: 1px solid #EBEBEB;height:48px;line-height: 48px;" id="totalMoney">' +
         //支付按钮的样式修改
         '{{if $value.order_status=="2"}}' +
-        '<span  style="float: right;margin-right: 30px;"><a href="/course/pay/{{#order($value.orderDetail)}}" target="_blank" style="width: 78px;height: 36px;text-align: center;line-height: 36px;border: 1px solid #2CB82C;color: #fff;background-color: #2CB82C;border-radius: 2px;">重新购买</a></span>' +
+        '<span  style="float: right;margin-right: 30px;"><a data-courseid="{{#order($value.orderDetail)}}" class="J-repeat-buy"' +
+        ' target="_blank" style="width: 78px;height: 36px;text-align: center;line-height: 36px;border: 1px solid #2CB82C;color: #fff;background-color: #2CB82C;border-radius: 2px;">重新购买</a></span>' +
         '{{/if}}' +
         '{{if $value.order_status=="0"}}' +
-        '<span  style="float: right;margin-right: 30px;"><a href="/web/{{$value.order_no}}/findOrderByOrderNo?orderId={{$value.id}}" target="_blank" style="width: 78px;height: 36px;text-align: center;line-height: 36px;border: 1px solid #2CB82C;color: #fff;background-color: #2CB82C;border-radius: 2px;">去支付</a></span>' +
+        '<span  style="float: right;margin-right: 30px;"><a href="/order/pay?orderId={{$value.id}}" target="_blank" style="width: 78px;height: 36px;text-align: center;line-height: 36px;border: 1px solid #2CB82C;color: #fff;background-color: #2CB82C;border-radius: 2px;">去支付</a></span>' +
         '{{/if}}' +
         '<span style="float: right;margin-right: 30px;">实付款：<i style="font-style:normal;color:#2CB82C">{{$value.actual_pay}}</i>元</span><span style="float: right;margin-right: 30px;"></span>' +
 
@@ -1212,11 +1213,28 @@ window.onload = function () {
     }, false);
     //选中变变色
     addSelectedMenu();
-}
+};
 
 function addSelectedMenu() {
     $(".studentCenterBox").css("color", "#2cb82c");
 }
+
+$(function(){
+    $('.ordertable').on('click', '.ord #totalMoney span .J-repeat-buy', function(e) {
+        e.preventDefault();
+        var courseId = $(this).data('courseid');
+        console.log(courseId);
+        if (courseId) {
+            RequestService("/order/" + courseId, "POST", null, function(data) {
+                if (data.success) {
+                    window.location.href = "/order/pay?orderId=" + data.resultObject;
+                } else {
+                    showTip(data.errorMessage);
+                }
+            });
+        }
+    })
+});
 
 
 //购物车列表点击事件
