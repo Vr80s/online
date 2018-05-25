@@ -41,7 +41,7 @@
 		  *
 		FROM
 		  oe_watch_history1 owh where owh.user_id = #{userId}
-		  and  owh.course_id = #{courseId}
+		  and  owh.course_id = #{courseId}  and owh.collectionId = 0
 	</select>
 	
 	
