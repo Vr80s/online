@@ -264,6 +264,9 @@ public class FeedbackController {
 	 */
 	public static String emojiRecovery2(String str)
 			throws UnsupportedEncodingException {
+		if(str==null){
+			return null;
+		}
 		String patternString = "\\[\\[(.*?)\\]\\]";
 
 		Pattern pattern = Pattern.compile(patternString);
