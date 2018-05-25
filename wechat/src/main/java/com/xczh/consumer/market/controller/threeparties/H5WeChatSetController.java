@@ -183,7 +183,6 @@ public class H5WeChatSetController {
 				 * 清除这个cookie
 				 */
 				UCCookieUtil.clearThirdPartyCookie(res);
-
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
 				} else{
@@ -203,7 +202,7 @@ public class H5WeChatSetController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//抛异常后，让去登录页面。或者去app看看
+			
 			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}

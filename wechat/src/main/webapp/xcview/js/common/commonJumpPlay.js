@@ -110,11 +110,6 @@ function common_jump_school(watchState,type,collection,courseId){
 	
 	var falg =authenticationCooKie(); 
 	if(watchState==1){
-		//增加学习记录
-		requestService("/xczh/history/add",{courseId:courseId, recordType:1},function(data) {
-			 console.log("增加学习记录");
-		}) 
-		
 		if(type == 1 || type == 2){
 			if(collection==1){
 				if (falg==1002){
@@ -125,6 +120,10 @@ function common_jump_school(watchState,type,collection,courseId){
                 	location.href = "/xcview/html/live_select_album.html?course_id="+courseId;
                 }
 			}else{
+				//增加学习记录
+				requestService("/xczh/history/add",{courseId:courseId, recordType:1},function(data) {
+					 console.log("增加学习记录");
+				}) 		
 				location.href = "/xcview/html/live_audio.html?my_study="+courseId;
 			}
 		}else if(type == 4){

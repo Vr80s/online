@@ -30,7 +30,7 @@
 				</div>
 				<div class="right-details y">
 					<h4>${courseInfo.gradeName}</h4>
-					<p class="subtitle">${courseInfo.subtitle}</p>
+					<p class="subtitle">${courseInfo.subtitle?default('')}</p>
 					<ul class="author-inf">
 						<li>
 							<span>主讲人：${courseInfo.name}</span>
@@ -81,8 +81,13 @@
 						</#if>
 					</div>
 					
-					<#if courseInfo.watchState == 1 || courseInfo.watchState == 2>  
-						<button type="button" class="immediately-buy">进入学习</button>
+					<#if courseInfo.watchState == 1 || courseInfo.watchState == 2 ||  courseInfo.type !=4>  
+						<button type="button" class="immediately-buy">
+							<#-- 直播的进入 到一个页面，专辑的进入一个，课程的进入一个   -->  	
+						     <a >进入学习 </a>
+						
+						
+						</button>
 					<#elseif courseInfo.watchState == 0> 
 						<button type="button" class="immediately-buy">立即购买</button>
 					</#if>
@@ -98,11 +103,11 @@
 						<#-- tab的显示，这个就当做专辑页面来写   -->
 						
 						    <#-- 免费或已购买  -->
-						    <#if courseInfo.watchState == 1 || courseInfo.watchState == 2>  
+						    <#if courseInfo.collection>  
 							    <li><a href="${webUrlParam}/selection">选集</a></li>
 								<li><a href="${webUrlParam}/info">详情</a></li>
 							<#-- 未购买    -->
-							<#elseif courseInfo.watchState == 0> 
+							<#else> 
 								<li><a href="${webUrlParam}/info" >详情</a></li>
 								<li><a href="${webUrlParam}/outline" >课程大纲</a></li>
 							</#if>
@@ -116,25 +121,20 @@
 				  <div class="sidebar-content buy_tab hide"  style="padding: 0;">
 						<div class="wrap-anthology">
 							<ul>
-								<li>
+														
+							 <#if collectionList??>   
+							   <#list collectionList as collectionItem>
+							   	<li>
 									<div class="play-img z">
 										<img src="../../web/images/icon-play.png"/>
 									</div>
 									<div class="play-album z">
-										<p>郝万山 《伤寒论》讲解</p>
-										<p>120分钟</p>
-									</div>
-									
-								</li>
-								<li>
-									<div class="play-img z">
-										<img src="../../web/images/icon-play.png"/>
-									</div>
-									<div class="play-album z">
-										<p>郝万山 《伤寒论》讲解</p>
-										<p>120分钟</p>
+										<p>${collectionItem.gradeName}</p>
+										<p>${collectionItem.courseLength}</p>
 									</div>
 								</li>
+							   </#list>
+							 </#if>
 							</ul>
 						</div>
 					</div>
@@ -164,16 +164,16 @@
 					</div>
 		
 		<!--课程大纲-->
-				
 					<div class="sidebar-content no_buy_tab hide">
-						    <#if courseInfo.courseOutline??>
-									${courseInfo.courseOutline}							    
-							 </#if>	
+					    <#if courseInfo.courseOutline??>
+								${courseInfo.courseOutline}							    
+						 </#if>	
 					</div>
-			
 		<!--评价-->			
 					<div class="sidebar-content hide">
-						<#include "../common/comment.ftl">
+						 <#if type == 'comment' >
+							<#include "common/comment.ftl">
+						 </#if>
 					</div>
 		<!--常见问题-->					
 					<div class="sidebar-content hide">

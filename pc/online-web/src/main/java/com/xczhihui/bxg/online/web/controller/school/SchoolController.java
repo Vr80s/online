@@ -126,7 +126,6 @@ public class SchoolController extends AbstractFtlController {
 		List<MenuVo> listMenu = mobileProjectService.selectMenuVo();
 		view.addObject("cateGoryList", listMenu);
 		
-		
 		view.addObject("webUrl", webUrl);
 		/**
 		 * 课程列表
@@ -335,6 +334,17 @@ public class SchoolController extends AbstractFtlController {
 				}
 			}
 		}
+	    /*
+	     * 如果是专辑获取专辑列表
+	     */
+	    if(clv.getCollection()) {
+	    	List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
+	    	view.addObject("collectionList",courses);
+	    }	
+	    
+	    
+	    
+	    
 	    //课程详情
 	    view.addObject("courseInfo",clv);
 		/**
@@ -365,6 +375,14 @@ public class SchoolController extends AbstractFtlController {
 		
 		return view;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		String str = "0";
 		System.out.println(str.replace(".", "-"));

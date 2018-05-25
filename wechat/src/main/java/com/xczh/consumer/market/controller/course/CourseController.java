@@ -141,7 +141,6 @@ public class CourseController {
 			/**
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
-			
 			Boolean falg = onlineWebService.getLiveUserCourse(courseId, user.getId());
 			//如果是付费课程，判断这个课程是否已经被购买了
 			if (cv.getWatchState() == 0) { // 付费课程
@@ -234,8 +233,7 @@ public class CourseController {
 	public ResponseObject getCoursesByCollectionId(
 			@RequestParam(value = "collectionId") Integer collectionId)
 			throws Exception {
-		List<CourseLecturVo> courses = courseServiceImpl
-				.selectCoursesByCollectionId(collectionId);
+		List<CourseLecturVo> courses = courseServiceImpl.selectCoursesByCollectionId(collectionId);
 		return ResponseObject.newSuccessResponseObject(courses);
 	}
 

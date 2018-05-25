@@ -1,16 +1,15 @@
 $(function(){
 	
 	var index = 0;
-	//选集显示
-	if(watchState == 1 || watchState == 2){ //
+	//表名是专辑
+	if(collection == 1){ //
 		$(".buy_tab").removeClass("hide");
 		$(".no_buy_tab").remove();
 		if(type == "info"){
 			$(".wrap-sidebar ul li").eq(1).addClass("active-footer");
 			index =1;
 		}
-	//大纲显示啦	
-	}else if(watchState == 0){
+	}else{
 		$(".no_buy_tab").removeClass("hide");
 		$(".buy_tab").remove();
 		if(type == "info"){
@@ -32,7 +31,6 @@ $(function(){
 		index =3;
 	}
 	$(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
-	
 	
 //	详情/评价/常见问题	选项卡
 	$(".wrap-sidebar ul li").click(function(){
