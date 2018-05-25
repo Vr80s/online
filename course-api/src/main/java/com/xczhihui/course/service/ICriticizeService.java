@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.service.IService;
 import com.xczhihui.course.model.Criticize;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,4 +55,21 @@ public interface ICriticizeService extends IService<Criticize> {
     void saveReply(String userId, String content, String criticizeId) throws UnsupportedEncodingException;
 
     Map<String, Object> updatePraise(Boolean isPraise, String criticizeId, String userId);
+
+	Integer hasCourse(String userId, Integer courseId);
+	/**
+	 * 查看课程评论中要显示的各种统计数据：list长度为 7 
+	 *    size:0  节目内容  1 主播演绎  2.很赞 3 干货很多 4超值推荐 5喜欢 6买对了
+	 * @param collection
+	 * @param courseId
+	 * @return
+	 */
+	List<Integer> selectPcCourseCommentMeanCount(Boolean collection, Integer courseId);
+	/**
+	 * 查看用户评论中要显示的各种统计数据：list长度为 7 
+	 *    size:0  节目内容  1 主播演绎  2.很赞 3 干货很多 4超值推荐 5喜欢 6买对了 
+	 * @param userId
+	 * @return
+	 */
+	List<Double> selectPcUserCommentMeanCount(String userId);
 }

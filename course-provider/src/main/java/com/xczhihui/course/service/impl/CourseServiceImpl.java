@@ -151,8 +151,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	}
 
 	@Override
-	public Page<CourseLecturVo> selectRecommendSortAndRandCourse(Page<CourseLecturVo> page) {
-		
+	public List<CourseLecturVo> selectRecommendSortAndRandCourse(Page<CourseLecturVo> page) {
 		return iCourseMapper.selectRecommendSortAndRandCourse(page);
 	}
 

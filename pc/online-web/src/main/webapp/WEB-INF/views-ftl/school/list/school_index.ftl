@@ -26,32 +26,7 @@
 		<div class="wp">
 			<div class="wrap-left z">
 				<div class="wrap-banner">
-					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-					  <ol class="carousel-indicators">
-					    
-					     <#list bannerList as banner>
-					     	<#if banner_index == 0 >
-					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}" class="active"></li>
-					     	<#else>
-					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}"></li>
-					     	</#if>
-						</#list>
-
-					  </ol>
-					  <div class="carousel-inner" role="listbox">
-					  	<#list bannerList as banner>
-					     	<#if banner_index == 0 >
-					     		<div class="item active">
-					     	<#else>
-					     		<div class="item">
-					     	</#if>
-								<a href="">
-						     		<img src="${banner.imgPath}" alt="广告图">
-						     	</a>
-						    </div>	
-						</#list>
-					  </div>	
-					</div>
+					<#include "../common/banner_common.ftl">
 				</div>
 				<div class="physic-type">
 					<ul>
@@ -89,8 +64,31 @@
 								<div class="course clearfix">
 									<#-- 推荐课程的标记  -->
 									<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
-									<a style="cursor:pointer" href="/course/courses/${courseItem.id}" target="_blank">
-										<div class="img"><img src="${courseItem.smallImgPath}"></div><span class="classCategory">音频</span>
+									
+									   <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
+										    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+									   <#elseif courseItem.type == 3>
+								            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+									   </#if>
+									
+										<div class="img"><img src="${courseItem.smallImgPath}"></div>
+										   <#if courseItem.type == 1  > 
+											      <span class="classCategory">视频</span>
+										   <#elseif courseItem.type == 2>
+										      <span class="classCategory">音频</span>
+										   <#elseif courseItem.type == 3>
+									          <#if courseItem.lineState  == 1  > 
+										        <span class="classCategory">直播中</span>
+											  <#elseif courseItem.lineState  == 2>
+											      <span class="classCategory">预告</span>
+											  <#elseif courseItem.lineState  == 3>
+											      <span class="classCategory">直播回放</span>
+											  <#elseif courseItem.lineState  == 4>
+									             <span class="classCategory">即将直播</span>
+									          </#if>
+										   <#elseif courseItem.type == 4>
+										      <span class="classCategory">线下培训班</span>
+										   </#if>
 										<div class="detail">
 											<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 											<p class="timeAndTeac">
@@ -110,10 +108,12 @@
 	
 <!--右侧成为主播、搜索、名师推荐-->
 			<div class="wrap-right y">
+			
 				<div class="wrap-anchor">
 					<p>期待有志于传承和发展中医药的医师加入</p>
-					<span>成为主播</span>
+					<span><a href="${webUrl}/web/html/want-anchor.html" target="_blank">成为主播</a></span>
 				</div>
+			
 				<div class="hot-search">
 					<p>热门搜索</p>
 					<ul>
@@ -129,25 +129,7 @@
 				</div>
 				<div class="wrap-docter">
 					<span>名师推荐</span>
-					<ul>
- 					<#list doctorList as doctorInfo>
-                        <li>
-							<img src="${doctorInfo.headPortrait}" alt="名医头像"/>
-							<p data-id ="${doctorInfo.userId}">${doctorInfo.name}</p>
-						</li> 
-                    </#list>
-					 <#-- 
-					     <li>热门搜索</li>
-					 	    ca.profile_photo as headPortrait,
-					    	ca.name,
-							ca.user_id as userId
-						 <li>
-								<img src="../../images/teacher_big_pic.png"/>
-								<p>朱小宝</p>
-							</li> 
-					 -->	
-					</ul>
-					</ul>
+					<#include "../common/famous_doctor_common.ftl"> 
 				</div>
 			</div>
 		</div>

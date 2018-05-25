@@ -17,9 +17,8 @@
 	<header>
 		<div class="header">
 			<div class="return" onclick="javascript:history.go(-1);"><img src="http://test-wx.xczhihui.com/xcview/images/back%20icon.png" alt="" /></div>
-			<div class="apply_title">发现</div>
+			<div class="apply_title">报名</div>
 		</div>
-		
 	</header>
 	<!-- 报名头部结束 -->
 
@@ -37,7 +36,7 @@
 				<input type="text" placeholder="请输入" />
 				<div class="both"></div>
 			</div>
-			<div class="sex">
+			<div class="sex" onclick="location.href ='gender.html'">
 				性别
 
 				<div class="sex_hide">
@@ -80,10 +79,81 @@
 			</div>
 			<div class="both"></div>
 		</div>
-		<div class="buttom opacity" onclick="location.href ='information_registration.html'">提交报名申请</div>
+		<div class="buttom opacity">提交报名申请</div>
+		<!-- <div class="buttom opacity" onclick="location.href ='information_registration.html'">提交报名申请</div> -->
+		<!-- <div class="buttom opacity" onclick="reportComment()">提交报名申请</div> -->
 		<div class="both"></div>
 	</div>
-	
 	<!-- 中间内容结束 -->
 </body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		// 姓名
+        $('.name input').keyup(function(){
+            if($('.name input').val()==""||$('.age input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""){
+                $(".buttom").css("opacity","0.5");
+            }else{
+                $(".buttom").css("opacity","1");
+            }
+        });
+        // 年龄
+        $('.age input').keyup(function(){
+            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
+                $(".buttom").css("opacity","0.5");
+            }else{
+                $(".buttom").css("opacity","1");
+            }
+        });
+        // 性别
+        $('.sex .sex_show').keyup(function(){
+            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
+                $(".buttom").css("opacity","0.5");
+            }else{
+                $(".buttom").css("opacity","1");
+            }
+        });
+        // 籍贯
+        $('.birthplace input').keyup(function(){
+            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
+                $(".buttom").css("opacity","0.5");
+            }else{
+                $(".buttom").css("opacity","1");
+            }
+        });
+        // 学习经历
+        $('.learning_experience .copyreader').keyup(function(){
+            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
+                $(".buttom").css("opacity","0.5");
+            }else{
+                $(".buttom").css("opacity","1");
+            }
+        });
+        // 行医经历
+        $('.practice_medicine .copyreader').keyup(function(){
+            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
+                $(".buttom").css("opacity","0.5");
+            }else{
+                $(".buttom").css("opacity","1");
+            }
+        });
+        // 学中医目的
+        $('.study .copyreader').keyup(function(){
+            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
+                $(".buttom").css("opacity","0.5");
+            }else{
+                $(".buttom").css("opacity","1");
+            }
+        });
+
+        // 透明度为1跳转
+        var opacity = $(".buttom").css("opacity");
+        if(opacity=1){
+            $(".buttom").click(function(){
+            	window.location.href ='information_registration.html'
+            });
+        }
+	};
+</script>
+
 </html>

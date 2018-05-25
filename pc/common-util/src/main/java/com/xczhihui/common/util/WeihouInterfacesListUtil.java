@@ -424,7 +424,15 @@ public class WeihouInterfacesListUtil {
 		}
 		return null;
 	}
-	
+	public static void main(String[] args) {
+		
+		
+		
+		recordList("113218845");
+		
+		
+		
+	}
 
 	
 	

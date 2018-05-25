@@ -27,30 +27,7 @@
 		<div class="wp">
 			<div class="wrap-left z">
 				<div class="wrap-banner">
-					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-					  <ol class="carousel-indicators">
-					   	<#list bannerList as banner>
-					     	<#if banner_index == 0 >
-					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}" class="active"></li>
-					     	<#else>
-					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}"></li>
-					     	</#if>
-						</#list>
-					  </ol>
-					  <div class="carousel-inner" role="listbox">
-					    <#list bannerList as banner>
-					     	<#if banner_index == 0 >
-					     		<div class="item active">
-					     	<#else>
-					     		<div class="item">
-					     	</#if>
-								<a href="">
-						     		<img src="${banner.imgPath}" alt="广告图">
-						     	</a>
-						    </div>	
-						</#list>
-					  </div>	
-					</div>
+					<#include "../common/banner_common.ftl">
 				</div>
 <!--全国课程-->			
 
@@ -70,7 +47,8 @@
 									<#-- 推荐课程的标记  -->
 									<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
 									<a style="cursor:pointer" href="/course/courses/${courseItem.id}" target="_blank">
-										<div class="img"><img src="${courseItem.smallImgPath}"></div><span class="classCategory">线下课程</span>
+										<div class="img"><img src="${courseItem.smallImgPath}"></div>
+										<span class="classCategory">线下课程</span>
 										<div class="detail">
 											<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 											<p class="timeAndTeac">
@@ -95,14 +73,7 @@
 			<div class="wrap-right y">				
 				<div class="wrap-docter">
 					<span>名师推荐</span>
-					<ul>
-						<#list doctorList as doctorInfo>
-	                        <li>
-								<img src="${doctorInfo.headPortrait}" alt="名医头像"/>
-								<p data-id ="${doctorInfo.userId}">${doctorInfo.name}</p>
-							</li> 
-	                    </#list>
-					</ul>
+					<#include "../common/famous_doctor_common.ftl"> 
 				</div>
 			</div>
 		</div>

@@ -74,6 +74,9 @@ public class WeChatThirdPartyController {
 
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
+	
+	@Value("${webdomain}")
+	private String webdomain;
 
 	/**
 	 * 公众号和手机号在h5中的关系 Description： 1、h5
@@ -214,8 +217,9 @@ public class WeChatThirdPartyController {
 					ThridFalg tf = new ThridFalg();
 					tf.setOpenId(wxw.getOpenid());
 					tf.setUnionId(wxw.getUnionid());
-					tf.setNickName(wxw.getNickname());
-					tf.setHeadImg(wxw.getHeadimgurl());
+					tf.setNickName( StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医" );
+					String defaultHeadImg = webdomain+"/web/images/defaultHead/18.png";
+					tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg );
 					UCCookieUtil.writeThirdPartyCookie(res, tf);
 
 					LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"
@@ -229,6 +233,8 @@ public class WeChatThirdPartyController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			//抛异常后，让去登录页面。或者去app看看
+			res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 		}
 	}
 
@@ -306,12 +312,18 @@ public class WeChatThirdPartyController {
 				wxcpClientUserWxMapping
 						.setWx_public_name(WxPayConst.appid4name);
 				wxcpClientUserWxMapping.setOpenid(openid_);
+				
 				wxcpClientUserWxMapping.setNickname(nickname_);
 				wxcpClientUserWxMapping.setSex(sex_);
 				wxcpClientUserWxMapping.setLanguage(language_);
 				wxcpClientUserWxMapping.setCity(city_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setCountry(country_);
+				
+				if(!StringUtils.isNotBlank(headimgurl_)) {
+					headimgurl_ = webdomain+"/web/images/defaultHead/18.png";
+				}
+				
 				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setUnionid(unionid_);

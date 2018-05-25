@@ -55,6 +55,7 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding("UTF-8");
 		response.setHeader("Cache-Control", "no-cache, must-revalidate");
+
 		try {
 			ResponseObject ro = ResponseObject.newErrorResponseObject(ex.getMessage());
 			Gson gson = new Gson();

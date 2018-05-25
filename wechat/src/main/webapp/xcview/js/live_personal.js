@@ -152,14 +152,6 @@ requestService("/xczh/host/hostPageInfo",{
 	//处理评价高度
 	var school_height=$(window).height()-$(".personal_bg").height()-$(".anchor_navigation").height();
 	$(".li_course_hide").height(school_height);
-	
-	if(data.resultObject.recentCourse=="" || data.resultObject.recentCourse== null || data.resultObject.lecturerInfo.video==''||data.resultObject.lecturerInfo.video==null){
-		// alert(123);quie_pics
-		$(".quie_pics").show();
-	}else{
-		$(".quie_pics").hide();
-	};
-
 //介绍
 		if(data.resultObject.lecturerInfo.detail==''||data.resultObject.lecturerInfo.detail==null){
 			$("#jieshao").hide()			
@@ -255,6 +247,14 @@ requestService("/xczh/host/hostPageCourse",{
 	}else{
 		$("#wrap_vedio_btn").html(template('wrap_class',{items:data.resultObject.records}));		
 	}
+
+	if(data.resultObject.records=="" ||data.resultObject.records == null){
+		//alert(123);
+		$(".quie_pics").show();
+	}else{
+		//alert(456);
+		$(".quie_pics").hide();
+	};
 
 });
     refresh();

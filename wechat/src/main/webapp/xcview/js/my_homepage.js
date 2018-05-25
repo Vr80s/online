@@ -89,9 +89,15 @@ function balance() {
 		//alert(decodeURI(third_party_uc_t_));
 		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
 		
-		var nickName = third_party_uc_t_.split(";")[2];
-		var headImg = third_party_uc_t_.split(";")[3];
-		
+		var nickName = "";
+		var headImg = "";
+		if(third_party_uc_t_.split(";").length==4){
+			 nickName = third_party_uc_t_.split(";")[2];
+			 headImg = third_party_uc_t_.split(";")[3];
+		}else{
+			 nickName = "熊猫中医";
+			 headImg = "/web/images/defaultHead/xiongmao.png";
+		}
 		//显示微信的头像和信息
 		$("#smallHeadPhoto").attr("src",headImg);
 		// 登录/注册

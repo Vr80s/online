@@ -43,6 +43,7 @@ import com.xczhihui.course.service.IMobileHotSearchService;
 import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.service.IOfflineCityService;
+import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
@@ -93,7 +94,14 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "recommendation", method = RequestMethod.GET)
 	public ModelAndView recommendation() {
-		ModelAndView view = new ModelAndView("school/school_index");
+		ModelAndView view = new ModelAndView("school/list/school_index");
+
+		
+		//控制banner图跳转方法
+		view.addObject("replaceUrl",new ReplaceUrl());
+		
+		
+		//截取等号后边的
 		/**
 		 * banner图
 		 */
@@ -117,6 +125,9 @@ public class SchoolController extends AbstractFtlController {
 		 */
 		List<MenuVo> listMenu = mobileProjectService.selectMenuVo();
 		view.addObject("cateGoryList", listMenu);
+		
+		
+		view.addObject("webUrl", webUrl);
 		/**
 		 * 课程列表
 		 */
@@ -132,7 +143,12 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "real", method = RequestMethod.GET)
 	public ModelAndView real() {
-		ModelAndView view = new ModelAndView("school/school_real");
+		ModelAndView view = new ModelAndView("school/list/school_real");
+		
+		//控制banner图跳转方法
+		view.addObject("replaceUrl",new ReplaceUrl());
+		
+		
 		// 线下课banner
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode()));
 		// 线下培训班课程
@@ -155,7 +171,10 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "live", method = RequestMethod.GET)
 	public ModelAndView live() {
-		ModelAndView view = new ModelAndView("school/school_live");
+		ModelAndView view = new ModelAndView("school/list/school_live");
+		
+		//控制banner图跳转方法
+		view.addObject("replaceUrl",new ReplaceUrl());
 
 		// 直播课banner
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode()));
@@ -176,7 +195,11 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "listen", method = RequestMethod.GET)
 	public ModelAndView listen() {
-		ModelAndView view = new ModelAndView("school/school_video");
+		ModelAndView view = new ModelAndView("school/list/school_video");
+		
+		//控制banner图跳转方法
+		view.addObject("replaceUrl",new ReplaceUrl());
+		
 		// 听课banner
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode()));
 		// 听课
@@ -196,7 +219,7 @@ public class SchoolController extends AbstractFtlController {
 		     Integer current, Integer size,
 			QueryConditionVo queryConditionVo) {
 
-		ModelAndView view = new ModelAndView("school/school_list");
+		ModelAndView view = new ModelAndView("school/list/school_list");
 
 		current = current == null ? 1 : current;
         size = size == null ? 10 : size;
@@ -227,6 +250,7 @@ public class SchoolController extends AbstractFtlController {
 		}else {
 			view.addObject("webUrlParam",sb.toString());
 		}
+		//new ReplaceUrl()   替换url的方法
 		view.addObject("replaceUrl",new ReplaceUrl());
 		/**
 		 * 判断如果是ajax请求的话，那么就不请求下面的分类列表了。
@@ -269,16 +293,50 @@ public class SchoolController extends AbstractFtlController {
 	@RequestMapping(value = "{courseId}/{type}", method = RequestMethod.GET)
 	public ModelAndView info(HttpServletRequest req,
 			@PathVariable Integer courseId,
+			@PathVariable String type,
 			HttpServletResponse res,@RequestParam(required=false)String userId,
 			@RequestParam(required=false)Integer pageSize,
 			@RequestParam(required=false)Integer pageNumber) throws IOException {
 		
-		//获取用户信息
-		OnlineUser user = getCurrentUser();
 		
-		ModelAndView view = new ModelAndView("school/school_video");
-		//课程详情
-		view.addObject("courseDetails",courseService.selectCourseMiddleDetailsById(courseId));
+		pageNumber = pageNumber == null ? 1 : pageNumber;
+		pageSize = pageSize == null ? 2 : pageSize;
+		
+		ModelAndView view = new ModelAndView("school/course_details");
+		
+		//显示详情呢、大纲、评论、常见问题呢
+		view.addObject("type",type);
+		
+		//StringBuffer sb = new StringBuffer(webUrl+"/courses/list");
+		
+		view.addObject("webUrlParam",webUrl+"/courses/"+courseId);
+		
+		//获取用户信息
+	    OnlineUser user = getCurrentUser();
+	    CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(courseId);
+	    //计算星级
+	    clv.setStartLevel(CourseUtil.criticizeStartLevel(clv.getStartLevel()));
+	    String strLevel  = CourseUtil.criticizeStartLevel(clv.getStartLevel())+"";
+	    view.addObject("startLevel",strLevel.replace(".", "_"));
+	    if(user!=null && clv!=null) {
+			/*
+			 * 收费课程判断有没有购买过
+			 * 免费课程判断有没有学习过
+			 */
+			Integer falg =  criticizeService.hasCourse(user.getId(), courseId);
+			if (clv.getWatchState() == 0) { // 付费课程
+				if (falg>0) {
+					clv.setWatchState(2);
+				}
+			//如果是免费的  判断是否学习过	
+			}else  if (clv.getWatchState() == 1) {
+				if (falg>0) {
+					clv.setLearning(1);
+				}
+			}
+		}
+	    //课程详情
+	    view.addObject("courseInfo",clv);
 		/**
 		 * 常见问题。啦啦啦
 		 */
@@ -294,11 +352,23 @@ public class SchoolController extends AbstractFtlController {
 			map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber,pageSize),userId,user!= null ? user.getId() :null);
 		}
 		view.addObject("criticizesMap",map);
+		
+		//查询各种平均值
+		List<Integer> listComment = criticizeService.selectPcCourseCommentMeanCount(clv.getCollection(),courseId);
+		view.addObject("listCommentCount",listComment);
+		
 		//推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
 		Page<CourseLecturVo> page = new Page<CourseLecturVo>();
 		page.setCurrent(0);
 		page.setSize(2);
 		view.addObject("recommendCourse",courseService.selectRecommendSortAndRandCourse(page));
+		
 		return view;
+	}
+	public static void main(String[] args) {
+		String str = "0";
+		System.out.println(str.replace(".", "-"));
+		str = "0.5";
+		System.out.println(str.replace(".", "-"));
 	}
 }

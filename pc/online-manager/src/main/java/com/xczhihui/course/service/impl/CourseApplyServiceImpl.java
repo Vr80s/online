@@ -182,7 +182,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             }
             //如果专辑课程已经更新完，需要标识
             if (course.getCourseNumber() != null && Integer.compare(courseApplyInfos.size(), course.getCourseNumber()) >= 0) {
-                course.setCollectionUploadFinish(true);
                 courseDao.update(course);
                 messageRemindingService.deleteCourseMessageReminding(course, RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
             } else {
@@ -249,6 +248,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                     .buildAppPush(MessageFormat.format(isLiveCourse ? APP_PUSH_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : APP_PUSH_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title))
                     .buildSms(isLiveCourse ? liveCourseApplyPassCode : notLiveCourseApplyPassCode, params)
                     .buildWeixin(weixinCourseApplyPassCode, weixinParams)
+                    .detailId(String.valueOf(course.getId()))
                     .build(userId, routeTypeEnum, createPerson));
         } catch (Exception e) {
             e.printStackTrace();

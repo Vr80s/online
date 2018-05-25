@@ -988,7 +988,9 @@ function downCourse2Collection(collectionCourseSort){
 }
 
 function saveCollection(){
+	
     var collection = getCollectionData();
+
     //
     if(verifyCollection(collection)){
         if($("#collectionId").val()==null||$("#collectionId").val()==''){
@@ -1101,9 +1103,19 @@ function getCollectionData(){
     collection.courseOutline = getCollectionOutline();
     collection.courseNumber = $.trim($('.course_number').val());
     collection.courseApplyInfos = courseArr;
+    collection.updateDates = getWeekArr();
     collection.multimediaType = $("input[name='collection_multimedia_type']:checked").val();
     return collection;
 }
+
+function getWeekArr(){
+	var weekArr = [];
+			$('#times_div .div_one0').each(function(){
+				weekArr.push($(this).attr("data-number"));
+			})
+			return weekArr;
+	}
+
 function verifyCollection(collection){
     $(".warning").addClass("hide");
     //课程标题
@@ -1203,6 +1215,14 @@ function verifyCollection(collection){
     }else{
         $('.warning_coursenumber').addClass('hide');
     }
+//  更新时间
+ 	if(collection.updateDates == '' || collection.updateDates.length==0){
+        $('.warning002').removeClass('hide');
+        return false;
+    }else{
+        $('.warning002').addClass('hide');
+    }
+	
     //课程
     if(collection.courseApplyInfos == null ||collection.courseApplyInfos.length<1){
         $('.warning_course').removeClass('hide');

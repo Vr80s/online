@@ -32,9 +32,8 @@ public class CriticizeController extends AbstractController{
 	@RequestMapping(value="saveCriticize")
 	@ResponseBody
 	public ResponseObject saveCriticize(HttpServletRequest req,
-										HttpServletResponse res, CriticizeVo criticize)
+			HttpServletResponse res, CriticizeVo criticize)
 			throws Exception {
-
 		//获取当前登录用户信息
 		OnlineUser ou = getCurrentUser();
 		if(ou == null){

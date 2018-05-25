@@ -390,9 +390,6 @@ public class Course extends BasicEntity2 implements Serializable {
     @Transient
     private Integer collectionCourseSort;
 
-    @Column(name = "collection_upload_finish")
-    private Boolean collectionUploadFinish;
-
     /**
      * 直播源类型  0:来自pc直播,1:来自app 直播
      */
@@ -929,13 +926,5 @@ public class Course extends BasicEntity2 implements Serializable {
 
     public void setPlayBackType(Integer playBackType) {
         this.playBackType = playBackType;
-    }
-
-    public Boolean getCollectionUploadFinish() {
-        return collectionUploadFinish;
-    }
-
-    public void setCollectionUploadFinish(Boolean collectionUploadFinish) {
-        this.collectionUploadFinish = collectionUploadFinish;
     }
 }

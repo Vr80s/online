@@ -128,6 +128,14 @@ public class CCUtils {
 	}
 
 	public String getPlayCode(String videoId,String audioStr,String width,String height){
+		
+		if(width == null || "".equals(width)) {
+			width = "100%";
+		}
+		if(height == null || "".equals(height)) {
+			height = "100%";
+		}
+		
 		String src = "https://p.bokecc.com/flash/single/"+onlineConfig.ccuserId+"_"+videoId+"_false_"+onlineConfig.ccPlayerId+"_1"+audioStr+"/player.swf";
 		String id = UUID.randomUUID().toString().replace("-", "");
 		String playCode = "";

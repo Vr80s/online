@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.MyInfoMapper">
 
-
 	<!-- 查找主播的详情    主播详细信息和精彩致辞在course_anchor表中  -->
 	<select id="findHostInfoById" resultType="java.util.Map">
 	    select 
@@ -11,7 +10,10 @@
 		    ca.profile_photo as small_head_photo,
 		    ca.video,
 		    ca.detail,
-		    ca.type as type
+		    ca.type as type,
+		    if(ca.type = 1, (select md.work_time from medical_doctor md where id = 
+		       (select doctor_id from medical_doctor_account as mda where mda.account_id = #{userId}) ),null) 
+		       as  workTime
 		 from  oe_user ou 
 		 inner join  course_anchor ca on  ou.id = ca.user_id
 		 where ou.id = #{userId}
