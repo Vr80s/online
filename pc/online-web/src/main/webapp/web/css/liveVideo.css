@@ -688,6 +688,10 @@ overflow-y: auto;
     top: 64px;
     width: 310px;
     height: 100%;
+    overflow: auto;
+}
+.album_list > ul{
+	height: auto;
 }
 .album_list > ul > li{
 	height: 40px;
