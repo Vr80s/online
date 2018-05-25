@@ -212,7 +212,6 @@ public class AnchorsController extends AbstractFtlController {
 	    view.addObject("fansCount", listff.get(0));       	   //粉丝总数
 	    view.addObject("focusCount", listff.get(1));   	  	   //关注总数
 	    view.addObject("criticizeCount", listff.get(2));   	   //总数评论总数
-	    
 	    OnlineUser user = getCurrentUser();
 	    if(user==null){
 	    	view.addObject("isFours", 0); 
@@ -222,6 +221,4 @@ public class AnchorsController extends AbstractFtlController {
 	    }
 	    return view;
 	}
-	
-	
 }

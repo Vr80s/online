@@ -1,5 +1,5 @@
 <!-- 导入自定义ftl -->
-<#import "../page.ftl" as cast/>
+<#import "../../page.ftl" as cast/>
 
 <#-- 发表评论弹窗 -->
 

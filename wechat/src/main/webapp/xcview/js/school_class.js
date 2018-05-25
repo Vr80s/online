@@ -309,12 +309,10 @@ function btn_zj_mianfei(){
 			requestService("/xczh/history/add",{
 				courseId:courseId,
 				recordType:1
-			},function(data) {
-
-			})
+			},function(data) {})
 				window.location.href="live_class.html?my_study="+course_id+"";
 			}else if(data_zj==2){
-			window.location.href="live_class.html?my_study="+course_id+"";				
+			   window.location.href="live_class.html?my_study="+course_id+"";				
 			}
 		}
 	
