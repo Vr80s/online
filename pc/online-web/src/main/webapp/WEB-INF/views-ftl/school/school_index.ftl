@@ -47,11 +47,11 @@
 					     	</#if>
 								<#-- banner图的点击     连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件） -->
 								<#if banner.linkType == 3>
-								    <a href="${webUrl}/courses/${replaceUrl(banner.url,'linkCondition')}/info" target="_blank">
+								    <a href="${webUrl}/courses/${replaceUrl(banner.url,'linkCondition',"")}/info" target="_blank">
 								<#elseif banner.linkType == 4>    
-								      <a href="${webUrl}/anchors/${replaceUrl(banner.url,'linkCondition')}/info" target="_blank">
+								      <a href="${webUrl}/anchors/${replaceUrl(banner.url,'linkCondition',"")}/info" target="_blank">
 								<#elseif banner.linkType == 5>   
-								    <a href="${webUrl}/courses0/list/${banner.url}" target="_blank">
+								    <a href="${webUrl}/courses/list/${banner.url}" target="_blank">
 								<#else>      
 								    <a href="" >
 								</#if>	

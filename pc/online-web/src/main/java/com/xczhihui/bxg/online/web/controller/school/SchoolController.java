@@ -96,6 +96,10 @@ public class SchoolController extends AbstractFtlController {
 	public ModelAndView recommendation() {
 		ModelAndView view = new ModelAndView("school/school_index");
 
+		
+		view.addObject("replaceUrl",new ReplaceUrl());
+		
+		
 		//截取等号后边的
 		/**
 		 * banner图
@@ -297,7 +301,6 @@ public class SchoolController extends AbstractFtlController {
 		//获取用户信息
 	    OnlineUser user = getCurrentUser();
 	    CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(courseId);
-
 	    //计算星级
 	    clv.setStartLevel(CourseUtil.criticizeStartLevel(clv.getStartLevel()));
 	    String strLevel  = CourseUtil.criticizeStartLevel(clv.getStartLevel())+"";

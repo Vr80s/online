@@ -211,7 +211,6 @@
 
 		<!--登陆结束-->	
 			<script src="/web/js/school/curriculum-list.js" type="text/javascript" charset="utf-8"></script>
-			
 	</body>
 		
 </html>

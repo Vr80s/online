@@ -51,6 +51,7 @@
 		  *
 		FROM
 		  oe_watch_history1 owh where owh.user_id = #{userId}
+		  
 		  and  owh.collectionId = #{collectionId}
 	</select>
 	

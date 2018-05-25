@@ -21,13 +21,13 @@ public class ReplaceUrl implements TemplateMethodModelEx {
 	@Override
 	public Object exec(List arg0) throws TemplateModelException {
 		
-		if(arg0!=null && arg0.size() == 3) {
-			
+		
+		if(arg0!=null && arg0.size() == 3 && !arg0.get(1).toString().equals("linkCondition")) {
 		   return 	replaceAccessTokenReg(arg0.get(0).toString(),arg0.get(1).toString(),
 				  arg0.get(2).toString());
 		}
-		if(arg0!=null && arg0.size() == 2 && arg0.get(1).equals("linkCondition")) {
-			String urlParams = (String) arg0.get(0);
+		if(arg0!=null && arg0.size() == 3 && arg0.get(1).toString().equals("linkCondition")) {
+			String urlParams = arg0.get(0).toString();
 			if(urlParams!=null && (urlParams.indexOf("course_id")!=-1
 				 || urlParams.indexOf("userLecturerId")!=-1)) {
 				return urlParams.substring(urlParams.indexOf("=")+1,urlParams.length());
