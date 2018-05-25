@@ -95,6 +95,8 @@ public class SchoolController extends AbstractFtlController {
 	@RequestMapping(value = "recommendation", method = RequestMethod.GET)
 	public ModelAndView recommendation() {
 		ModelAndView view = new ModelAndView("school/school_index");
+
+		//截取等号后边的
 		/**
 		 * banner图
 		 */
@@ -231,6 +233,7 @@ public class SchoolController extends AbstractFtlController {
 		}else {
 			view.addObject("webUrlParam",sb.toString());
 		}
+		//new ReplaceUrl()   替换url的方法
 		view.addObject("replaceUrl",new ReplaceUrl());
 		/**
 		 * 判断如果是ajax请求的话，那么就不请求下面的分类列表了。
@@ -343,9 +346,6 @@ public class SchoolController extends AbstractFtlController {
 		page.setCurrent(0);
 		page.setSize(2);
 		view.addObject("recommendCourse",courseService.selectRecommendSortAndRandCourse(page));
-		
-		
-		
 		
 		return view;
 	}
