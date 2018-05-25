@@ -58,6 +58,7 @@ public class AliPayController extends AliPayApiController {
     @Value("${rate}")
     private int rate;
 
+
     @Override
     @ModelAttribute
     public void initAliPayApiConfig() {
