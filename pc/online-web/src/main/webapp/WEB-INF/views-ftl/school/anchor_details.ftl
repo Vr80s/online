@@ -116,7 +116,7 @@
 		<!--评价-->	
 		<div class="sidebar-content hide">		
 			 <#if type == 'comment' >
-			  	<#include "course_comment.ftl">
+			  	<#include "../common/comment.ftl">
 			 </#if>
 		</div>		
 				</div>

@@ -18,31 +18,22 @@ $(function(){
 //  渲染精彩视频看是否存在啦	
 	if(type == "info" && video!=null && video != undefined){
 		//获取视频信息接口
-		RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
-			if(data.success === true) {
-				RequestService("/online/vedio/getVideoPlayCodeByVideoId", "GET", {
-	                videoId: video,
-					width: "300",
-					height: "150",
-					autoPlay: false
-				}, function(data) {
-					if(data.success == true) {
-						var scr = data.resultObject;
-						$(".save-video").html(scr);
-					} else if(data.success == false) {
-						alert("播放发生错误，请清除缓存重试")
-					}
-				});
-			} else {
-				$('#login').modal('show');
-				$(".loginGroup .logout").css("display", "block");
-				$(".loginGroup .login").css("display", "none");
+		RequestService("/online/vedio/getVideoPlayCodeByVideoId", "GET", {
+            videoId: video,
+			width: "300",
+			height: "150",
+			autoPlay: false
+		}, function(data) {
+			if(data.success == true) {
+				var scr = data.resultObject;
+				$(".save-video").html(scr);
+			} else if(data.success == false) {
+				alert("播放发生错误，请清除缓存重试")
 			}
 		});
 	}else{
 		$(".anchor-video").hide();
 	}
-	
 //	关注效果
 	$(".isAdd-follow").click(function(){
 		var type = 1;

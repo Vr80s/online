@@ -94,9 +94,10 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "recommendation", method = RequestMethod.GET)
 	public ModelAndView recommendation() {
-		ModelAndView view = new ModelAndView("school/school_index");
+		ModelAndView view = new ModelAndView("school/list/school_index");
 
 		
+		//控制banner图跳转方法
 		view.addObject("replaceUrl",new ReplaceUrl());
 		
 		
@@ -142,7 +143,12 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "real", method = RequestMethod.GET)
 	public ModelAndView real() {
-		ModelAndView view = new ModelAndView("school/school_real");
+		ModelAndView view = new ModelAndView("school/list/school_real");
+		
+		//控制banner图跳转方法
+		view.addObject("replaceUrl",new ReplaceUrl());
+		
+		
 		// 线下课banner
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode()));
 		// 线下培训班课程
@@ -165,7 +171,10 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "live", method = RequestMethod.GET)
 	public ModelAndView live() {
-		ModelAndView view = new ModelAndView("school/school_live");
+		ModelAndView view = new ModelAndView("school/list/school_live");
+		
+		//控制banner图跳转方法
+		view.addObject("replaceUrl",new ReplaceUrl());
 
 		// 直播课banner
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode()));
@@ -186,7 +195,11 @@ public class SchoolController extends AbstractFtlController {
 	 */
 	@RequestMapping(value = "listen", method = RequestMethod.GET)
 	public ModelAndView listen() {
-		ModelAndView view = new ModelAndView("school/school_video");
+		ModelAndView view = new ModelAndView("school/list/school_video");
+		
+		//控制banner图跳转方法
+		view.addObject("replaceUrl",new ReplaceUrl());
+		
 		// 听课banner
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode()));
 		// 听课
@@ -206,7 +219,7 @@ public class SchoolController extends AbstractFtlController {
 		     Integer current, Integer size,
 			QueryConditionVo queryConditionVo) {
 
-		ModelAndView view = new ModelAndView("school/school_list");
+		ModelAndView view = new ModelAndView("school/list/school_list");
 
 		current = current == null ? 1 : current;
         size = size == null ? 10 : size;

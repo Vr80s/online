@@ -173,7 +173,7 @@
 			
 		<!--评价-->			
 					<div class="sidebar-content hide">
-						<#include "course_comment.ftl">
+						<#include "../common/comment.ftl">
 					</div>
 		<!--常见问题-->					
 					<div class="sidebar-content hide">

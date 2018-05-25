@@ -26,41 +26,7 @@
 		<div class="wp">
 			<div class="wrap-left z">
 				<div class="wrap-banner">
-					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-					  <ol class="carousel-indicators">
-					    
-					     <#list bannerList as banner>
-					     	<#if banner_index == 0 >
-					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}" class="active"></li>
-					     	<#else>
-					     		<li data-target="#carousel-example-generic" data-slide-to="${banner_index}"></li>
-					     	</#if>
-						</#list>
-
-					  </ol>
-					  <div class="carousel-inner" role="listbox">
-					  	<#list bannerList as banner>
-					     	<#if banner_index == 0 >
-					     		<div class="item active">
-					     	<#else>
-					     		<div class="item">
-					     	</#if>
-								<#-- banner图的点击     连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件） -->
-								<#if banner.linkType == 3>
-								    <a href="${webUrl}/courses/${replaceUrl(banner.url,'linkCondition',"")}/info" target="_blank">
-								<#elseif banner.linkType == 4>    
-								      <a href="${webUrl}/anchors/${replaceUrl(banner.url,'linkCondition',"")}/info" target="_blank">
-								<#elseif banner.linkType == 5>   
-								    <a href="${webUrl}/courses/list/${banner.url}" target="_blank">
-								<#else>      
-								    <a href="" >
-								</#if>	
-						     		<img src="${banner.imgPath}" alt="广告图">
-						     	</a>
-						    </div>	
-						</#list>
-					  </div>	
-					</div>
+					<#include "../common/banner_common.ftl">
 				</div>
 				<div class="physic-type">
 					<ul>
@@ -163,27 +129,7 @@
 				</div>
 				<div class="wrap-docter">
 					<span>名师推荐</span>
-					<ul>
- 					<#list doctorList as doctorInfo>
-                        <li>  
-							<a href="${webUrl}/anchors/${doctorInfo.userId}/info">
-							 <img src="${doctorInfo.headPortrait}" alt="名医头像"/>
-							</a>
-							<p data-id ="${doctorInfo.userId}">${doctorInfo.name}</p>
-						</li> 
-                    </#list>
-					 <#-- 
-					     <li>热门搜索</li>
-					 	    ca.profile_photo as headPortrait,
-					    	ca.name,
-							ca.user_id as userId
-						 <li>
-								<img src="../../images/teacher_big_pic.png"/>
-								<p>朱小宝</p>
-							</li> 
-					 -->	
-					</ul>
-					</ul>
+					<#include "../common/famous_doctor_common.ftl"> 
 				</div>
 			</div>
 		</div>
