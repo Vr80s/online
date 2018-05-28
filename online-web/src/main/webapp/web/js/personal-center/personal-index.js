@@ -63,7 +63,10 @@ $(".my-class-nav li").click(function(){
 	$(".save-class").addClass("hide").eq($(this).index()).removeClass("hide");
 })
 //播放历史
- RequestService("/history/list", "POST", null, function (data) {
+ RequestService("/history/list", "POST",{
+ 	pageNumber:1,
+ 	pageSize:8
+ }, function (data) {
             if (data.resultObject.records.length == 0) {
             	$(".clear-history").addClass("hide")
             	$(".nodata-history").html(noDataImg).removeClass("hide");
