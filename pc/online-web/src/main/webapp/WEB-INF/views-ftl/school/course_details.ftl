@@ -111,7 +111,9 @@
 						<#if courseInfo.type ==4 && courseInfo.cutoff = 1>
 							<button type="button" class="immediately-buy">报名截止</button>
 						<#else>
-							<button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}">立即购买</button>
+							<button type="button" class="immediately-buy J-course-buy"  data-id="${courseInfo.id}">
+							   <a href="/order/create/${courseInfo.id}" target="_blank">立即购买</a>  
+							</button>
 						</#if>
 					</#if>
 				</div>
@@ -147,7 +149,9 @@
 														
 							 <#if collectionList??>   
 							   <#list collectionList as collectionItem>
+							  
 							   	<li>
+							   	 <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionItem.id}" target="_blank">
 									<div class="play-img z">
 										<img src="../../web/images/icon-play.png"/>
 									</div>
@@ -155,7 +159,9 @@
 										<p>${collectionItem.gradeName}</p>
 										<p>${collectionItem.courseLength}</p>
 									</div>
+								 </a>		
 								</li>
+							  
 							   </#list>
 							 </#if>
 							</ul>
@@ -181,7 +187,7 @@
                     <div class="class-text">
                     <#if courseInfo.description??>
 									${courseInfo.description}							    
-							    </#if>
+				    </#if>
 							</div>
 						</div>
 					</div>
