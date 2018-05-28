@@ -7,12 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.common.util.enums.TokenExpires;
-import com.xczhihui.user.center.service.UserCenterService;
-import com.xczhihui.user.center.utils.UCCookieUtil;
-import com.xczhihui.user.center.vo.OeUserVO;
-import com.xczhihui.user.center.vo.ThridFalg;
-import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +28,15 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.LecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
+import com.xczhihui.common.util.enums.MyCourseType;
+import com.xczhihui.common.util.enums.ShareType;
+import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.ThridFalg;
+import com.xczhihui.user.center.vo.Token;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
@@ -77,8 +78,12 @@ public class MobileShareController {
 			@RequestParam(value="shareId")String shareId,
 			@RequestParam(value="shareType")Integer shareType)
 					throws Exception{
+		
+		
 		try {
-			if(shareType==1 || shareType==3){ // 课程分享 
+			if(ShareType.COURSE_SHARE.getCode() == shareType ||
+					ShareType.ALBUM_SHARE.getCode()== shareType){ // 课程分享 
+				
 				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
 				if(courseLectur==null){
 					return ResponseObject.newErrorResponseObject("课程信息有误");
@@ -116,7 +121,8 @@ public class MobileShareController {
 
 	/**
 	 * Description：用户点击my_share.html页面后，进入到这个方法，
-	 *   根据用户点击的不同浏览器来进行重定向
+	 *   根据用户点击的不同浏览器来进行重定向。
+	 *   根据课程和主播是否有效判断是否跳转到其他页面啦
 	 * @param req
 	 * @param res
 	 * @param params
@@ -136,6 +142,15 @@ public class MobileShareController {
 		String wxOrbrower = req.getParameter("wxOrbrower");  //来自哪里的浏览器
 		LOGGER.info("shareId:"+shareId+",shareType:"+shareType);
 		String shareIdAndType = shareId+"_"+shareType;
+		
+		
+		if("1".equals(shareType) || "3".equals(shareType)){ //课程分享啦
+			
+			
+			
+			
+		}
+		
 		/*
 		 * 这里需要判断下是不是微信浏览器
 		 */
@@ -284,7 +299,6 @@ public class MobileShareController {
 						}
 					}
 				}
-
 			}else if("2".equals(shareType)){ //主播分享  -->设置下cookie
 				res.sendRedirect(returnOpenidUri + "/xcview/html/live_personal.html?shareBack=1&userLecturerId="+shareId);
 			}

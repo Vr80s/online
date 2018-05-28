@@ -53,17 +53,20 @@ var domain = window.location.protocol+"//"+document.domain;
  */
 var shareType = getQueryString("shareType");
 var shareId = getQueryString("shareId");
-/*alert("shareType"+shareType);
-alert("shareId"+shareId);*/
+
 
 /**
- * 
+ * 判断分享的类型
  */
 if(shareId!=null && shareId!="" &&shareType!=null &&shareType!=""){
 	location.href =domain+"/xczh/share/shareBrowserDifferentiation?shareId="+shareId+"&shareType="+shareType+"&wxOrbrower="+wxOrbrower;
 }else{
 	location.href =domain+"/xcview/html/home_page.html";
 }
+
+
+
+
 </script>
 </head>
 <body>
