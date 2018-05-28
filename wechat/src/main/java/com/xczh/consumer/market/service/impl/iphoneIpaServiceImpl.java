@@ -2,6 +2,7 @@ package com.xczh.consumer.market.service.impl;
 
 import java.math.BigDecimal;
 
+import com.xczhihui.common.util.RandomUtil;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.common.support.lock.Lock;
@@ -14,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.dao.IphoneIpaMapper;
 import com.xczh.consumer.market.service.iphoneIpaService;
-import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczhihui.online.api.service.UserCoinService;

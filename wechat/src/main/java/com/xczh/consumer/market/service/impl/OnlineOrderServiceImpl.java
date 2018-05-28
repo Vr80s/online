@@ -22,10 +22,10 @@ import com.xczh.consumer.market.dao.PayRecordMapper;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.vo.PayRecordVo;
+import com.xczhihui.common.util.RandomUtil;
 
 @Service
 public class OnlineOrderServiceImpl implements OnlineOrderService {
