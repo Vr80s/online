@@ -131,8 +131,15 @@ p{margin-bottom: 0;}
 	height: 59px;
 	font-size: 16px;
 }
+.wrap-sidebar ul li a{
+	color: #333333;
+}
 .wrap-sidebar ul .active-footer{
 	border-bottom: 3px solid #00BC12;
+	color: #00BC12;
+}
+.wrap-sidebar ul .active-footer a{
+
 	color: #00BC12;
 }
 .sidebar-content{
