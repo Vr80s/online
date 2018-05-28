@@ -50,6 +50,10 @@ a:hover{text-decoration: none;}
 	margin-right: 50px;
 	line-height: 50px;
 	cursor: pointer;
+	color: #333333;
+}
+.select-all dl a .selected{
+	color: #00BC12;
 }
 .selected{
 	color: #00BC12;
