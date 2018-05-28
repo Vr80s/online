@@ -19,6 +19,7 @@ import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.lock.RedissonUtil;
 import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.RandomUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.AnchorType;
@@ -32,7 +33,6 @@ import com.xczhihui.medical.service.DoctorApplyService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.dao.UserDao;
 import com.xczhihui.user.service.OnlineUserService;
-import com.xczhihui.utils.RandomUtil;
 import com.xczhihui.vhall.VhallUtil;
 
 /**

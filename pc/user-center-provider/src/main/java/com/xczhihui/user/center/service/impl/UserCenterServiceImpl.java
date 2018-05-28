@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.common.util.BeanUtil;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.RandomUtil;
 import com.xczhihui.common.util.VhallUtil;
@@ -104,7 +103,7 @@ public class UserCenterServiceImpl implements UserCenterService {
         userCoin.setDeleted(false);
         userCoin.setCreateTime(new Date());
         userCoin.setStatus(true);
-        userCoin.setVersion(BeanUtil.getUUID());
+        userCoin.setVersion(CodeUtil.getRandomUUID());
         userCoinMapper.insert(userCoin);
     }
 

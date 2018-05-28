@@ -32,11 +32,11 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.service.iphoneIpaService;
-import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.VersionInfoVo;
+import com.xczhihui.common.util.RandomUtil;
 import com.xczhihui.online.api.service.XmbBuyCouserService;
 
 @Controller

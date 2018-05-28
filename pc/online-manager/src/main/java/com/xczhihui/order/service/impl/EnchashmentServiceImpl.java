@@ -16,7 +16,7 @@ import com.xczhihui.bxg.online.common.domain.EnchashmentApplyInfo;
 import com.xczhihui.bxg.online.common.domain.UserCoin;
 import com.xczhihui.bxg.online.common.domain.UserCoinConsumption;
 import com.xczhihui.bxg.online.common.domain.UserCoinIncrease;
-import com.xczhihui.common.util.BeanUtil;
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.ApplyStatus;
@@ -195,7 +195,7 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
         uci.setBalanceType(BalanceType.ANCHOR_RMB.getCode());
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
         sql.append(" uc.`rmb`=uc.`rmb`+" + ucc.getRmb().negate().toString());
-        sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
+        sql.append(", uc.`version`=\"" + CodeUtil.getRandomUUID() + "\"");
         sql.append(", uc.`update_time` = now() ");
         sql.append("where user_id=\"" + uci.getUserId()
                 + "\"  and uc.version =\"" + uc.getVersion() + "\"");
