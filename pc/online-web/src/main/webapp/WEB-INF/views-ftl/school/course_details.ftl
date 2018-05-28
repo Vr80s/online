@@ -81,16 +81,38 @@
 							<p class="under-address">上课地址<span>${courseInfo.address}</span></p>
 						</#if>
 					</div>
-					
-					<#if courseInfo.watchState == 1 || courseInfo.watchState == 2 ||  courseInfo.type !=4>  
+					 <#-- 
+					 	免费的进入到一个：
+						 	直播、预告、回放的进入到一个。   /web/livepage/{courseId}
+						 	专辑的进入一个。	
+						 	  /web/html/ccvideo/liveVideoAlbum.html?collectionId={}&courseId={}
+						 	课程的进入一个 。 
+						 	  /web/html/ccvideo/video.html?courseId={}	
+						 	线下课不用显示
+						 	还需要判断如果报名截止的话，显示报名截止
+						付费的跳转到：支付页面了呗：
+					 -->  	
+					<#if (courseInfo.watchState == 1  && courseInfo.type != 4 ) || courseInfo.watchState == 2>  
 						<button type="button" class="immediately-buy">
-							<#-- 直播的进入 到一个页面，专辑的进入一个，课程的进入一个   -->  	
-						     <a >进入学习 </a>
-						
-						
+						    <#if courseInfo.watchState == 2  && courseInfo.type == 4>
+								已报名
+							<#elseif courseInfo.type == 3>
+								<a href="/web/livepage/${courseInfo.id}" target="_blank">进入学习 </a>
+							<#elseif courseInfo.type == 1 || courseInfo.type == 2 > 	
+								<#if  courseInfo.collection>
+								  <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}
+										&courseId=${collectionList[0].id}&ljxx=ljxx" target="_blank">进入学习 </a>
+								<#else>
+								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">进入学习 </a>  
+								</#if>								
+							</#if>
 						</button>
 					<#elseif courseInfo.watchState == 0> 
-						<button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}">立即购买</button>
+						<#if courseInfo.type ==4 && courseInfo.cutoff = 1>
+							<button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}">报名截止</button>
+						<#else>
+							<button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}">立即购买</button>
+						</#if>
 					</#if>
 				</div>
 			</div>
@@ -187,47 +209,9 @@
 		<!--右侧推荐课程-->
 				<div class="wrap-recommend y">
 					<h3>推荐课程</h3>
-					
-					<#list recommendCourse as courseItem>
-						<div class="course clearfix">
-							<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-							
-								<div class="img"><img src="${courseItem.smallImgPath}"></div>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">
-									
-								   <#if courseItem.type == 1  > 
-								      <span class="classCategory">视频</span>
-								   <#elseif courseItem.type == 2>
-								      <span class="classCategory">音频</span>
-								   <#elseif courseItem.type == 3>
-							          <#if courseItem.lineState  == 1  > 
-								        <span class="classCategory">直播中</span>
-									  <#elseif courseItem.lineState  == 2>
-									      <span class="classCategory">预告</span>
-									  <#elseif courseItem.lineState  == 3>
-									      <span class="classCategory">直播回放</span>
-									  <#elseif courseItem.lineState  == 4>
-							             <span class="classCategory">即将直播</span>
-							          </#if>
-								   <#elseif courseItem.type == 4>
-								      <span class="classCategory">线下培训班</span>
-								   </#if>
-									</p>
-									
-									<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
-									<span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">
-										${courseItem.learndCount}</span></span>
-									</p>
-								</div>
-							</a>
-						</div>	
-					</#list>	
-					
-					
-					
+					 <#if recommendCourse?? && recommendCourse?size gt 0 >
+			  	   		<#include "common/recommend_course.ftl">
+			     	 </#if>						
 				</div>
 			</div>	
 		</div>
@@ -251,11 +235,13 @@
     var watchState = "${courseInfo.watchState}";
     var courseId = "${courseInfo.id}";
     var userId = "${courseInfo.userLecturerId}";
-    var collection =${courseInfo.collection?string(1,0)};
-    console.error("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId + ";userId：" + userId + ";collection：" + collection);
+    var collection = ${courseInfo.collection?string(1,0)};
+    var commentCode = ${criticizesMap.commentCode};
+    console.error("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
+    console.error("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>
+
 <script src="/web/js/school/course-details.js" type="text/javascript" charset="utf-8"></script>
-
+<script src="/web/js/school/comment.js" type="text/javascript" charset="utf-8"></script>
 </body>
-
 </html>

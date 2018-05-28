@@ -36,12 +36,12 @@
 						<li>|</li>
 						<li>粉丝${focusCount}</li>
 					</ul>
-					<#if isFours == 1>
+					<#if isFours == 0>
 						<button type="button" class="isAdd-follow">
 						  <img src="../../web/images/icon-up.png"/>
 						  <span>加关注</span>
 						</button>
-					<#elseif ifFours == 0>	
+					<#elseif isFours == 1>
 						<button type="button" class="isAdd-follow  isAdd-active" >
 						  <img src="../../web/images/icon-down.png"/>
 						  <span>已关注</span>
@@ -62,7 +62,7 @@
 						<ul>
 							<li class="active-footer"><a href="${webUrlParam}/courses">课程</a></li>
 							<li><a href="${webUrlParam}/info">介绍</a></li>
-							<li><a href="${webUrlParam}/comment">评价（200）</a></li>
+							<li><a href="${webUrlParam}/comment">评价（${criticizeCount}）</a></li>
 						</ul>
 					</div>
 		<!--content-->
@@ -116,71 +116,19 @@
 		<!--评价-->	
 		<div class="sidebar-content hide">		
 			 <#if type == 'comment' >
-			  	<#include "../common/comment.ftl">
+			  	<#include "common/comment.ftl">
 			 </#if>
 		</div>		
 				</div>
 		
 			
-		<!--右侧推荐课程-->
-		<div class="wrap-recommend y">
-					<h3>推荐课程</h3>
-					
-					<#list recommendCourse as courseItem>
-					
-					<div class="course clearfix">
-						<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-							<div class="img">
-								<img src="${courseItem.smallImgPath}">
-							</div>
-							<!--<span class="classCategory">音频</span>-->
-							<div class="detail">
-								<p class="title" data-text="音频测试3" title="音频测试3">
-								
-								<#if courseItem.type == 1  > 
-							      <#if courseItem.collection> 
-							   			      视频专辑
-								  <#elseif !courseItem.collection>
-						            	      视频
-						          </#if>
-							     <#elseif courseItem.type == 2>
-							      <#if courseItem.collection> 
-							     		  音频专辑
-								  <#elseif !courseItem.collection>
-						           		  音频
-						          </#if>
-							    <#elseif courseItem.type == 3>
-						          <#if courseItem.lineState  == 1  > 
-							        	直播中
-								  <#elseif courseItem.lineState  == 2>
-								     	 预告
-								  <#elseif courseItem.lineState  == 3>
-								    	  直播回放
-								  <#elseif courseItem.lineState  == 4>
-						        		   即将直播
-						          </#if>
-							    <#elseif courseItem.type == 4>
-							     		 线下培训班
-							    </#if>
-								
-								</p>
-								<p class="timeAndTeac"><span>讲师：<span class="teacher">${courseItem.name}</span></span>
-								</p>
-								<p class="info clearfix">
-									<span>
-										<span class="price">${courseItem.currentPrice}</span>
-										<span>熊猫币</span>
-									</span>
-									<span class="stuCount">
-										<img src="/web/images/studentCount.png" alt="">
-										<span class="studentCou">${courseItem.learndCount}</span>
-									</span>
-								</p>
-							</div>
-						</a>
-					</div>	
-					</#list>
-				</div>
+			<!--右侧推荐课程-->
+			<div class="wrap-recommend y">
+			     <h3>推荐课程</h3>
+				 <#if recommendCourse?? && recommendCourse?size gt 0 >
+			  	    <#include "common/recommend_course.ftl">
+			     </#if>
+			</div>
 			</div>	
 		</div>
 		
@@ -196,6 +144,11 @@
 		<!--公共头部和底部结束-->
 		<script  type="text/javascript" >
 			var userId = "${userId}";
+		    var courseId = 0;
+		    var collection = 0;
+			<#-- 因为评论主播时不用显示星星的，所以这里就直接默认：不显示就行 -->
+			var commentCode = 2;
+			
 			var type ="${type}"; 
 			var video ="";
 			<#if lecturerInfo.video??>
@@ -204,6 +157,6 @@
 		    console.error("type:"+type+",userId:"+userId+",video:"+video);
 		</script>
 		<script src="/web/js/school/anchor-details.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/school/comment.js" type="text/javascript" charset="utf-8"></script>
 	</body>
-		
 </html>

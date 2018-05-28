@@ -278,6 +278,13 @@ function viewCondition(paramsObj) {
 			}
 		});
 	}
+	
+	// 关键字
+	if (stringnull(paramsObj.queryKey)) {
+		$("#search-text").val(paramsObj.queryKey);
+	}
+	
+	
 }
 /**
  * 显示查询条件

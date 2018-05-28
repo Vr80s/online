@@ -42,7 +42,7 @@
 					<#list courseList as courseItem>
 						<div class="course clearfix">
 							<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
-							<a style="cursor:pointer" href="/course/courses/${courseItem.id}" target="_blank">
+							    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
 								<div class="img"><img src="${courseItem.smallImgPath}"></div>
 								<span class="classCategory">音频</span>
 								<div class="detail">

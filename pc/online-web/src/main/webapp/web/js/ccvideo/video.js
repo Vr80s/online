@@ -2,10 +2,24 @@
  * Created by fanwenqiang on 2016/11/2.
  */
 $(function() {
-	
-	
+
 	var courseId = $.getUrlParam("courseId");
-	var vId = $.getUrlParam("vId");
+	
+	/**
+	 * 增加学习记录
+	 */
+	RequestService("/learnWatch/add", "POST", {
+		courseId:courseId,recordType:1
+	}, function(data) {
+		console.log("添加观看记录");
+	},false);
+	
+	
+	
+	
+	
+	
+	
 	var menuid = "";
 	var pageNumber = 1;
 	var pageSize = 15;
@@ -33,6 +47,17 @@ $(function() {
 				autoPlay: false
 			}, function(data) {
 				if(data.success == true) {
+					
+					/**
+					 * 增加观看记录
+					 */
+					RequestService("/learnWatch/add", "POST", {
+						courseId:courseId,
+						recordType:2
+					}, function(data) {
+						console.log("添加观看记录");
+					},false);
+					
 					var scr = data.resultObject.playCode;
 					$(".videoBody-video").append(scr);
 					$(".headerBody-title").html(data.resultObject.title);

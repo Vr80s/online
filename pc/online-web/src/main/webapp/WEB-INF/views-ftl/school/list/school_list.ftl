@@ -1,5 +1,5 @@
 <!-- 导入自定义ftl -->
-<#import "../page.ftl" as cast/>
+<#import "../../page.ftl" as cast/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,7 +144,13 @@
 				 <#list courseList.records as courseItem>			
 					<div class="course clearfix">
 						<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
-						<a style="cursor:pointer" href="details-video.html">
+						
+					     <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
+					 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+						 <#elseif courseItem.type == 3>
+					            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+						 </#if>
+							
 							<div class="img"><img src="${courseItem.smallImgPath}"></div>
 					
 						   <#if courseItem.type == 1  > 

@@ -46,9 +46,12 @@
 						<#list courseTypeItem.courseList as courseItem>	
 							<div class="course clearfix">
 								<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
-								<a style="cursor:pointer" href="/course/courses/${courseItem.id}" target="_blank">
+								    <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
+										    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+									   <#elseif courseItem.type == 3>
+								            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+									</#if>
 									<div class="img"><img src="${courseItem.smallImgPath}"></div>
-									
 								    <#if courseItem.type == 3>
 							          <#if courseItem.lineState  == 1  > 
 								        <span class="classCategory">直播中</span>

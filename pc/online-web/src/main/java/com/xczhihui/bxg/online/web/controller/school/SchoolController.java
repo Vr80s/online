@@ -79,7 +79,6 @@ public class SchoolController extends AbstractFtlController {
 		//控制banner图跳转方法
 		view.addObject("replaceUrl",new ReplaceUrl());
 		
-		
 		//截取等号后边的
 		/**
 		 * banner图
@@ -125,7 +124,6 @@ public class SchoolController extends AbstractFtlController {
 		
 		//控制banner图跳转方法
 		view.addObject("replaceUrl",new ReplaceUrl());
-		
 		
 		// 线下课banner
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode()));
@@ -178,6 +176,7 @@ public class SchoolController extends AbstractFtlController {
 		//控制banner图跳转方法
 		view.addObject("replaceUrl",new ReplaceUrl());
 		
+		
 		// 听课banner
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode()));
 		// 听课
@@ -203,11 +202,13 @@ public class SchoolController extends AbstractFtlController {
         size = size == null ? 10 : size;
 		// 课程列表
 		if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
+			queryConditionVo.setQueryKey("%"+queryConditionVo.getQueryKey()+"%");
 			view.addObject("courseList", mobileBannerService.searchQueryKeyCourseList(new Page<CourseLecturVo>(current, size),queryConditionVo));
 		} else {
 			view.addObject("courseList", mobileBannerService.searchCourseList(new Page<CourseLecturVo>(current, size),queryConditionVo));
 		}
 
+		
 		//Map<String,String> returnMap = new HashMap<String,String>();
 		StringBuffer sb = new StringBuffer(webUrl+"/courses/list");
 		Enumeration em = req.getParameterNames();
@@ -321,9 +322,6 @@ public class SchoolController extends AbstractFtlController {
 	    	view.addObject("collectionList",courses);
 	    }	
 	    
-	    
-	    
-	    
 	    //课程详情
 	    view.addObject("courseInfo",clv);
 		/**
@@ -340,6 +338,7 @@ public class SchoolController extends AbstractFtlController {
 		}else{
 			map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber,pageSize),userId,user!= null ? user.getId() :null);
 		}
+		
 		view.addObject("criticizesMap",map);
 		
 		//查询各种平均值

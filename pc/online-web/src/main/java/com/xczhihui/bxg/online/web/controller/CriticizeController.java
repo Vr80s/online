@@ -39,8 +39,7 @@ public class CriticizeController extends AbstractController{
 		if(ou == null){
 			return ResponseObject.newSuccessResponseObject("登录失效");
 		}
-		CourseApplyVo cv = courseService.getCourseApplyByCourseId(criticize.getCourseId());
-		criticizeService.saveCriticize(ou.getId(),cv.getUserLecturerId(),criticize.getCourseId(),criticize.getContent()
+		criticizeService.saveCriticize(ou.getId(),criticize.getUserId(),criticize.getCourseId(),criticize.getContent()
 				,criticize.getOverallLevel(),criticize.getDeductiveLevel(),criticize.getContentLevel(),criticize.getCriticizeLable());
 		return ResponseObject.newSuccessResponseObject("评论成功");
 	}

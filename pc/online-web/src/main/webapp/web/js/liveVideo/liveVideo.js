@@ -22,6 +22,27 @@ $(function() {
 	if(courseId == undefined) {
 		courseId = 1;
 	}
+	
+	/**
+	 * 增加学习记录
+	 */
+	RequestService("/learnWatch/add", "POST", {
+		courseId:collectionId,recordType:1
+	}, function(data) {
+		console.log("添加观看记录");
+	},false);
+	
+	/**
+	 * 增加观看记录
+	 */
+	RequestService("/learnWatch/add", "POST", {
+		courseId:courseId,
+		recordType:2
+	}, function(data) {
+		console.log("添加观看记录");
+	},false);
+	
+	
 	//获取直播间课程信息
 	RequestService("/online/live/getOpenCourseById", "GET", {
 		courseId: courseId,
@@ -607,10 +628,14 @@ function refreshBalance(){
 	});
 }
 refreshBalance();
-//返回按钮
-$("#return").click(function() {
-    location.href = "/course/courses/" + course_id;
-});
+//原来的 --》返回按钮
+//$("#return").click(function() {
+//    location.href = "/course/courses/" + course_id;
+//});
+
+$("#return").attr("href","/courses/"+course_id+"/info");
+
+
 
 function getGiftListPlayBack(){
 	RequestService("/gift/getGift", "GET", {

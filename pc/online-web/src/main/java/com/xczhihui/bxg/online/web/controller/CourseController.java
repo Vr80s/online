@@ -5,9 +5,11 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMobileHotSearchService;
 import com.xczhihui.course.service.IOrderService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +34,11 @@ public class CourseController extends AbstractController{
        private CourseService service;
 
         @Autowired
-        private IOrderService orderService;
-
-        @Autowired
         private ICourseService courseServiceImpl;
+        
+    	@Autowired
+    	private IMobileHotSearchService mobileHotSearchService;
+
 
         @RequestMapping(value = "/scoreList" )
        public Object listAllScoreType(){
@@ -288,5 +291,15 @@ public class CourseController extends AbstractController{
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("获取合辑列表有误");
         }
+    }
+    
+	/**
+	 * 
+	 * @return
+	 */
+    @RequestMapping(value = "/hotSearch" )
+    @ResponseBody
+    public ResponseObject hotSearch() {
+    	return ResponseObject.newSuccessResponseObject( mobileHotSearchService.HotSearchList(SearchType.DEFAULT_SEARCH.getCode()));
     }
 }

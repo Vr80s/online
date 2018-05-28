@@ -115,7 +115,7 @@ $(function() {
 	            });
 	    }
 	});*/
-
+	
 	/**
 	 * Created by admin on 2016/9/14.
 	 */
@@ -197,18 +197,28 @@ $(function() {
 					'<a href="/App.html" class="download-app" target="_blank">下载APP</a>' +
 				'</div>' +
 			' </div>' +
+			
+//			<form action='/doctors/list' method='get'>
+//          <button type='submit' value='Submit' class='search_hos_btn'>搜索</button>
+//          <input class='search_hos' type='text' name='name' placeholder='请输入名字搜索医师'>
+//      </form>
+			'<form action="/courses/list" method="get" autocomplete="off">' +
 			'<div class="search-wrap">'+
 				'<div class="search-icon">'+
 					'<img src="/web/images/search.png" alt="搜索">' +
 				'</div>'+
 				'<div class="search-input">' +
-					'<input type="text" name="" id="" value="" />' +
+					
+					   '<input type="text" name="queryKey"  id="defaultSearch" />' +
+			       
 				'</div>' +
 				'<div class="search-button">' +
-					'<button type="button">搜索</button>' +
+					'<button type="submit">搜索</button>' +
 				'</div>' +
 			'</div>'+
+			 '</form>' +
 			'</div>',
+			
 		login: '<div class="modal" id="login" data-backdrop="static">' +
 			'<div class="modal-dialog login-module" role="document">' +
 			'<div class="cymylogin">' +
@@ -768,6 +778,9 @@ $(function() {
 			});
 		}
 
+		
+		
+		
 		$(".dropdownmenu li a").click(function(evt) {
 
 			$(".top-item").removeClass("selected");
@@ -839,5 +852,27 @@ $(function() {
 			}
 
 		});
+		
+		 /*
+		  * 请求默认
+		  */
+		 $.ajax({
+	         type: "get",
+	         url:"/course/hotSearch",
+	         async: false,
+	         success: function(data) {
+	             console.log(data);
+	             if(data.success === true) {
+	            	 var list = data.resultObject;
+	            	 var defaultKey = "";
+	            	 for (var i = 0; i < list.length; i++) {
+	            		 defaultKey+=list[i].name+" ";
+					 }
+	            	 $("#defaultSearch").attr("placeholder",defaultKey);
+	             }
+	         }
+		 });
+		
+		
 	}
 });

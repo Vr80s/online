@@ -9,7 +9,7 @@
 				<img src="../../web/images/qxCloser.png"/>
 			</p>
 			<h4>我要评价</h4>
-				<div class="impression-comment impression-star cl">
+				<div class="impression-comment impression-star cl commentCode">
 					<p>总体印象</p>
 					<img src="../../web/images/star-dim.png">
 					<img src="../../web/images/star-dim.png">
@@ -18,7 +18,7 @@
 					<img src="../../web/images/star-dim.png">
 					<span></span>
 				</div>
-				<div class="impression-comment impression-face cl">
+				<div class="impression-comment impression-face cl commentCode">
 					<p>节目内容</p>
 					<img src="../../web/images/gs.png">
 					<img src="../../web/images/gs.png">
@@ -27,7 +27,7 @@
 					<img src="../../web/images/gs.png">
 					<span></span>
 				</div>
-				<div class="impression-comment impression-show cl">
+				<div class="impression-comment impression-show cl commentCode">
 					<p>主播演绎</p>
 					<img src="../../web/images/gs.png">
 					<img src="../../web/images/gs.png">
@@ -37,7 +37,7 @@
 					<span></span>
 				</div>	
 
-			<ul class="impression-setlist">
+			<ul class="impression-setlist commentCode">
 				<li data-value = '1'>很赞</li>
 				<li data-value = '2'>干货很多</li>
 				<li data-value = '3'>超值推荐</li>
@@ -96,7 +96,16 @@
 						<ul class="user-name">
 							<li>${criticizesItem.onlineUser.name}</li>
 							<li>${criticizesItem.createTime?string("yyyy.MM.dd")}</li>
-							<li><img src="../../web/images/icon-start${startLevel}.png"/></li>
+							<#if criticizesItem.starLevel?? && criticizesItem.starLevel gt 0 >
+								
+								<#if criticizesItem.starLevel?contains(".")>
+									<li><img src="../../web/images/icon-start${criticizesItem.starLevel?replace('.', '_')}.png"/></li>
+								<#else>	
+									<li><img src="../../web/images/icon-start${criticizesItem.starLevel}_0.png"/></li>
+								</#if>
+							
+								
+							</#if>
 						</ul>
 						<p class="write-text cl">
 							${criticizesItem.content}
@@ -124,9 +133,9 @@
 	<!--回复点赞按钮  开始-->
 						<ul class="operation-reply" data-criticizeId ="${criticizesItem.id}" >
 							<#if criticizesItem.isPraise>							
-							  <li class="selected">
+							  <li class="selected  operation-reply-li">
 							<#elseif !criticizesItem.isPraise>  
-							   <li>
+							   <li class="operation-reply-li">
 							</#if>	
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>			
 								<span class="praiseSum">${criticizesItem.praiseSum}</span>
@@ -180,5 +189,4 @@
 		      <@cast.page pageNo=criticizesMap.current totalPage=criticizesMap.pages showPages=5 callUrl="${webUrlParam}/comment?pageNumber=" />
 		 </#if>	 -->
 	<!-- 这里觉的需要分页呢  -->
-	
 	<@cast.page pageNo=criticizesMap.current totalPage=criticizesMap.pages showPages=5 callUrl="${webUrlParam}/comment?pageNumber=" />

@@ -119,7 +119,7 @@
 					<ul>
 				    <#list hotList as hot>
                         <li data-id="hot.id">
-							${hot.name}
+							<a href="/courses/list?queryKey=${hot.name}" target="_blank">${hot.name}</a>
 						</li> 
                     </#list>
 					<#-- 
