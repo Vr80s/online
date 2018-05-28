@@ -117,11 +117,7 @@
 									<button type="submit"></button>
 								</p>
 							</form>
-<<<<<<< HEAD
-							<a href="${replaceUrl(webUrlParam,"","")}" class="reset-bt11n">重置</a>
-=======
 							<a href="${replaceUrl(webUrlParam,"","")}" class="reset-btn">重置</>
->>>>>>> d4e0cdee01ca564d2ab6be5e19e60cf617b8c3e9
 						</li>
 					</ul>
 				</div>
