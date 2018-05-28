@@ -117,7 +117,7 @@
 									<button type="submit"></button>
 								</p>
 							</form>
-							<a href="${replaceUrl(webUrlParam,"","")}">重置</>
+							<a href="${replaceUrl(webUrlParam,"","")}" class="reset-bt11n">重置</a>
 						</li>
 					</ul>
 				</div>
