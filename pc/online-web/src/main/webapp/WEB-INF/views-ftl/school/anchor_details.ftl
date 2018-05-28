@@ -17,6 +17,9 @@
 		<!--公共头部和底部样式结束-->
 			<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 			<link rel="stylesheet" href="/web/css/mylogin.css"/>
+			<!--分页样式-->
+			<link rel="stylesheet" href="/web/css/ftl-page.css"/>
+			<!--分页样式-->
 			<link rel="stylesheet" href="/web/css/school/anchor-details.css"  />
 	</head>
 	<body>
@@ -24,8 +27,10 @@
 			<div class="main-top">
 				<div class="head-portrait z">
 					<img src="${lecturerInfo.small_head_photo}"   />
-					<span></span>
+
 				</div>
+					<span class="icon-adopt"></span>
+				
 				<div class="anchor-status z">
 					<h2>${lecturerInfo.name}</h2>
 					<#if lecturerInfo.type == 1 && hospital.name??>
@@ -109,7 +114,7 @@
 						<div class="anchor-video">
 							<h5>主播视频介绍</h5>
 							<div class="save-video">
-								<img src="../../images/04.png" style="width: 460px; height: 260px;"/>
+								
 							</div>
 						</div>
 					</div>

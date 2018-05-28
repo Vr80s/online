@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,6 +45,9 @@ public class CourseOrderController extends AbstractController {
     @Autowired
     private XmbBuyCouserService xmbBuyCouserService;
 
+    @Value("${rate}")
+    private Integer rate;
+
     /**
      * 获取课程订单列表
      *
@@ -73,7 +77,6 @@ public class CourseOrderController extends AbstractController {
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
     public ResponseObject createOrder(@PathVariable int id) {
         Order order = orderService.createOrder(getUserId(), id, OrderFrom.PC.getCode());
-        order.setActualPay(order.getActualPay() * 10);
         return ResponseObject.newSuccessResponseObject(order.getId());
     }
     
@@ -98,6 +101,8 @@ public class CourseOrderController extends AbstractController {
             throw new OrderException("订单不存在,id:" + orderId);
         }
         String balance = userCoinService.getBalanceByUserId(getUserId());
+        //换算成熊猫币
+        order.setActualPay(order.getActualPay() * rate);
         modelAndView.addObject("order", order);
         modelAndView.addObject("courses", courseService.findByIds(order.getCourseIds()));
         modelAndView.addObject("balance", balance);

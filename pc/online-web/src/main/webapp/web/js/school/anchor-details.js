@@ -20,8 +20,8 @@ $(function(){
 		//获取视频信息接口
 		RequestService("/online/vedio/getVideoPlayCodeByVideoId", "GET", {
             videoId: video,
-			width: "300",
-			height: "150",
+			width: "463",
+			height: "260",
 			autoPlay: false
 		}, function(data) {
 			if(data.success == true) {

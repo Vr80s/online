@@ -21,8 +21,11 @@
     <link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 
 		<!--登陆的bootstrap样式-->
+		<!--分页CSS-->
+		<link rel="stylesheet" href="/web/css/ftl-page.css"/>
 			<link rel="stylesheet" href="/web/css/school/details-album.css"  />
-	</head>
+	
+</head>
 	<body>
 		<div class="wp">
 			<div class="wrap-buy">
@@ -52,7 +55,7 @@
 						<#if courseInfo.watchState == 0 || courseInfo.watchState == 2>  
 							<p><span>${courseInfo.currentPrice}</span>熊猫币</p>
 						<#elseif courseInfo.watchState == 1> 
-							<p><span>免费</span></p>
+							<p><span style="font-size: 17px;">免费</span></p>
 						</#if>
 						
 						<#-- 根据不同的课程类型，显示不同的课程介绍 -->

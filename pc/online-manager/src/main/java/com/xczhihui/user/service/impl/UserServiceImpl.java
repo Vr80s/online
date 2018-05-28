@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.util.enums.UserStatus;
-import com.xczhihui.user.center.utils.SaltUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -21,10 +18,11 @@ import org.springframework.util.StringUtils;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.common.domain.UserCoin;
-import com.xczhihui.common.util.BeanUtil;
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.web.UserVo;
+import com.xczhihui.user.center.utils.SaltUtil;
 import com.xczhihui.user.dao.UserDao;
 import com.xczhihui.user.service.PermResourceService;
 import com.xczhihui.user.service.RoleService;
@@ -302,7 +300,7 @@ public class UserServiceImpl implements UserService {
         userCoin.setDeleted(false);
         userCoin.setCreateTime(new Date());
         userCoin.setStatus(true);
-        userCoin.setVersion(BeanUtil.getUUID());
+        userCoin.setVersion(CodeUtil.getRandomUUID());
         userDao.save(userCoin);
     }
 }

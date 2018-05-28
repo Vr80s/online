@@ -1,19 +1,10 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.common.util.BeanUtil;
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.online.api.service.UserCoinService;
-import com.xczhihui.online.api.vo.OrderVo;
-import com.xczhihui.online.api.vo.RechargeRecord;
-import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.common.util.OrderNoUtil;
-import com.xczhihui.common.support.lock.Lock;
-import com.xczhihui.bxg.online.web.dao.CourseDao;
-import com.xczhihui.bxg.online.web.dao.EnchashmentApplyDao;
-import com.xczhihui.bxg.online.web.dao.UserCoinDao;
-import com.xczhihui.common.util.enums.*;
-import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
@@ -25,10 +16,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.web.dao.CourseDao;
+import com.xczhihui.bxg.online.web.dao.EnchashmentApplyDao;
+import com.xczhihui.bxg.online.web.dao.UserCoinDao;
+import com.xczhihui.common.support.lock.Lock;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.*;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.online.api.vo.OrderVo;
+import com.xczhihui.online.api.vo.RechargeRecord;
 
 /**
  * ClassName: UserCoinServiceImpl.java <br>
@@ -134,7 +135,7 @@ public class UserCoinServiceImpl implements UserCoinService {
             sql.append(" uc.`balance`=uc.`balance`+" + uci.getValue());
             balance = uci.getValue();
         }
-        sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
+        sql.append(", uc.`version`=\"" + CodeUtil.getRandomUUID() + "\"");
         sql.append(", uc.`update_time` = now() ");
         sql.append("where user_id=\"" + uci.getUserId() + "\"");
         int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
@@ -191,7 +192,7 @@ public class UserCoinServiceImpl implements UserCoinService {
                 balanceGive = uc.getBalanceGive().negate();
                 balance = ucc.getValue().subtract(balanceGive);
             }
-            sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
+            sql.append(", uc.`version`=\"" + CodeUtil.getRandomUUID() + "\"");
             sql.append(", uc.`update_time`=now()");
             //乐观锁机制 ，version判断用于防止并发数据出错
             sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.version =\"" + uc.getVersion() + "\"");
@@ -247,7 +248,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         userCoin.setDeleted(false);
         userCoin.setCreateTime(new Date());
         userCoin.setStatus(true);
-        userCoin.setVersion(BeanUtil.getUUID());
+        userCoin.setVersion(CodeUtil.getRandomUUID());
         userCoinDao.save(userCoin);
     }
 
@@ -431,7 +432,7 @@ public class UserCoinServiceImpl implements UserCoinService {
             //余额不足异常
             throw new RuntimeException("用户账户可提现余额不足！");
         }
-        sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
+        sql.append(", uc.`version`=\"" + CodeUtil.getRandomUUID() + "\"");
         sql.append(", uc.`update_time`=now()");
         //乐观锁机制 ，version判断用于防止并发数据出错
         sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.rmb >=" + ucc.getValue().negate() + " and uc.version =\"" + uc.getVersion() + "\"");
@@ -494,7 +495,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setOrderFrom(orderFrom.getCode());
         ucc.setValue(value);
 
-        String version = BeanUtil.getUUID();
+        String version = CodeUtil.getRandomUUID();
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
         sql.append(" uc.`balance_reward_gift`=uc.`balance_reward_gift`+" + ucc.getValue());
         sql.append(", uc.`version`=\"" + version + "\"");
@@ -529,7 +530,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
         sql = new StringBuffer("UPDATE user_coin uc SET");
         sql.append(" uc.`rmb`=uc.`rmb`+" + uci.getValue());
-        sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
+        sql.append(", uc.`version`=\"" + CodeUtil.getRandomUUID() + "\"");
         sql.append(", uc.`update_time`=now()");
         //乐观锁机制 ，version判断用于防止并发数据出错
         sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.version =\"" + version + "\"");
@@ -564,7 +565,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Lock(lockName = "saveEnchashmentApplyInfo")
     public void saveEnchashmentApplyInfo4Lock(String lockKey, String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom){
         EnchashmentApplyInfo enchashmentApplyInfo = new EnchashmentApplyInfo();
-        String enchashmentApplyId = BeanUtil.getUUID();
+        String enchashmentApplyId = CodeUtil.getRandomUUID();
         enchashmentApplyInfo.setId(enchashmentApplyId);
         enchashmentApplyInfo.setUserId(userId);
         enchashmentApplyInfo.setEnchashmentSum(enchashmentSum);

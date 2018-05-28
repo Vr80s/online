@@ -84,7 +84,6 @@ public class TimeUtil {
             minute = (int) total_minute % 60;
 
         } catch (ParseException e) {
-            //LoggerServiceFactory.getLogger(TimeUtil.class.getClass(), Logger.class).warn(e.getMessage(),e);
         }
 
         sb.append("工作时间为：").append(hour).append("小时").append(minute).append("分钟");
