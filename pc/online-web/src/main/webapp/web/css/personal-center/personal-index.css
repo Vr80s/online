@@ -191,7 +191,7 @@ margin-left: 20px;
     margin: 20px 0 0 20px;
 }
 
-.save-class > div > a {
+.save-class .course > a {
     background: white;
     width: 215px;
     float: left;
@@ -237,7 +237,7 @@ margin-left: 20px;
     font-size: 12px;
     top: -2px;
 }
-.save-class > div > a .detail {
+.save-class .course > a .detail {
     width: 215px;
     height: 90px;
     padding: 10px 10px 15px;

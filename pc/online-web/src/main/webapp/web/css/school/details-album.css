@@ -79,6 +79,7 @@ padding-bottom: 10px;
 .display-price .under-price{
 	width: 56px;
 	display: inline-block;
+	line-height: 1;
 }
 .display-price .under-price span:nth-child(odd){
 	float: left;
@@ -89,6 +90,8 @@ padding-bottom: 10px;
 .display-price p{
 	margin-left: 16px;
 	display: inline-block;
+	position: relative;
+	top: -2px;
 }
 .display-price p span{
 	font-size: 22px;
