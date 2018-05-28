@@ -27,6 +27,7 @@ p{margin-bottom: 0;}
 	width: 1200px; 
 	margin: 0 auto;
 	overflow: hidden;
+	position: relative;
 }
 .head-portrait{
 	width: 150px;
@@ -34,16 +35,17 @@ p{margin-bottom: 0;}
 	border-radius: 50%;
 	position: relative;
 	margin-right: 25px;
+	overflow: hidden;
 }
 .head-portrait img{
 	width: 100%;
 	height: 100%;
 	display: block;
 }
-.head-portrait span{
+.main-top .icon-adopt{
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	top: 110px;
+    left: 100px;
 	width: 40px;
 	height: 40px;
 	background: url(../../images/icon-adopt.png) no-repeat;
@@ -517,6 +519,11 @@ word-break:break-all;
     outline: none;
     color: #ffffff;
     border-radius: 4px;
+}
+/*主播视频介绍*/
+.save-video embed {
+    width: 463px;
+    height: 260px;
 }
 /*右侧推荐课程*/
 .wrap-recommend{
