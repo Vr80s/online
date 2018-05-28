@@ -66,9 +66,6 @@
 <script>
     var recharge = '${recharge!''}';
     var preurl = '${preurl!''}' ? decodeURIComponent('${preurl!''}') : null;
-    if (recharge !== "recharge") {
-        $(".orderInfo").hide();
-    }
     $(".spread").off("click").on("click", function () {
         if ($(this).hasClass("active")) {
             $(this).removeClass("active");
