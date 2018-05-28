@@ -50,6 +50,10 @@ a:hover{text-decoration: none;}
 	margin-right: 50px;
 	line-height: 50px;
 	cursor: pointer;
+	color: #333333;
+}
+.select-all dl a .selected{
+	color: #00BC12;
 }
 .selected{
 	color: #00BC12;
@@ -146,6 +150,9 @@ a:hover{text-decoration: none;}
 	float: left;
 	margin-right: 60px;
 	cursor: pointer;
+}
+.wrap-tab ul li a{
+	color: #333;
 }
 .tab-price{
 	width: 45px;
