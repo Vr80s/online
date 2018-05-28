@@ -62,6 +62,34 @@ $(".my-class-nav li").click(function(){
 	$(this).addClass("class-active");
 	$(".save-class").addClass("hide").eq($(this).index()).removeClass("hide");
 })
+//播放历史
+ RequestService("/history/list", "POST", null, function (data) {
+            if (data.resultObject.records.length == 0) {
+            	$(".clear-history").addClass("hide")
+            	$(".nodata-history").html(noDataImg).removeClass("hide");
+            } else {
+            	$(".clear-history").removeClass("hide");
+            	$("#history-template").html(template("content-history",{items:data.resultObject.records}))
+            }
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //--------------------------------------学习中心结束--问答论坛开始--------------------------------------------
 

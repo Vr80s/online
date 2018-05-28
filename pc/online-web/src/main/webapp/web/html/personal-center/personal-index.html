@@ -165,20 +165,28 @@
 									<!--播放历史-->
 									<div class="save-class">
 										<button type="button" class="clear-history">清除记录</button>
-										<div class="course clearfix">
-											<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-												<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
-												<div class="detail">
-													<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-													<p class="timeAndTeac">
-														<span class="teacher">雪灵</span>
-														<span class="y"></span>
-													</p>
-													<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-													</p>
-												</div>
-											</a>
-										</div>	
+										<script type="text/template" id="history-template">
+										{{each items as item i}}
+										<div id="content-history">
+									
+											<div class="course clearfix">
+												<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+													<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
+													<div class="detail">
+														<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
+														<p class="timeAndTeac">
+															<span class="teacher">雪灵</span>
+															<span class="y"></span>
+														</p>
+														<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
+														</p>
+													</div>
+												</a>
+											</div>
+													
+										</div>
+										{{/each}}
+										</script>
 										<!--无视频时背景图-->
 										<div class="sava-nodata nodata-history hide"></div>	
 									</div>

@@ -117,7 +117,7 @@
 									<button type="submit"></button>
 								</p>
 							</form>
-							<a href="${replaceUrl(webUrlParam,"","")}">重置</>
+							<a href="${replaceUrl(webUrlParam,"","")}" class="reset-btn">重置</>
 						</li>
 					</ul>
 				</div>
@@ -193,9 +193,11 @@
 							</div>
 						</a>
 					</div>
-					<!--<div class="clearfix"></div>-->
+
 				</#list>	
-				 <!-- 使用该标签 -->																	
+				 <!-- 使用该标签 -->	
+					<div class="cl" style="overflow: hidden;"></div>
+				 
 				 <#if (webUrlParam?contains('?'))>
 				 	<@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrlParam}&page="/>
 				 <#else>
