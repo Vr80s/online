@@ -165,7 +165,7 @@ marquee {
   color: #fff;
 }
 .right {
-  position: absolute;
+  //position: absolute;
   top: 0;
   right: 0;
   height: 100%;
@@ -728,4 +728,12 @@ overflow-y: auto;
 }
 .choosedAlbum{
 	background: #fff !important;
+}
+.teacher_name{
+	display: inline-block;
+    max-width: 64px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
 }
