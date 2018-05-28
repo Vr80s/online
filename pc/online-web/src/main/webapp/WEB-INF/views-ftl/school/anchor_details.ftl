@@ -111,12 +111,13 @@
 								</div>
 							</div>
 						</div>
-						<div class="anchor-video">
-							<h5>主播视频介绍</h5>
-							<div class="save-video">
-								
+						<#if lecturerInfo.video??>
+							<div class="anchor-video">
+								<h5>主播视频介绍</h5>
+								<div class="save-video">
+								</div>
 							</div>
-						</div>
+						</#if>
 					</div>
 		<!--评价-->	
 		<div class="sidebar-content hide">		

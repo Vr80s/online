@@ -96,17 +96,30 @@
 						付费的跳转到：支付页面了呗：
 					 -->  	
 					<#if (courseInfo.watchState == 1  && courseInfo.type != 4 ) || courseInfo.watchState == 2>  
-						<button type="button" class="immediately-buy">
+						<button type="button" class="immediately-buy  learning_immediately"  
+						     data-watchState ="${courseInfo.watchState}"  
+						     data-type ="${courseInfo.type}"
+						     data-realCourseId ="${courseInfo.id}"
+						     <#if  courseInfo.type == 1 || courseInfo.type == 2 >  
+							     data-collection ="${courseInfo.collection?string(1,0)}"  
+							     <#if  courseInfo.collection>
+									 data-collectionCourseId ="${collectionList[0].id}"
+								 </#if>	
+							 </#if>	
+						     >
 						    <#if courseInfo.watchState == 2  && courseInfo.type == 4>
 								已报名
-							<#elseif courseInfo.type == 3>
+							<#else>
+							           进入学习
+							<#-- 
+							
 								<a href="/web/livepage/${courseInfo.id}"   target="_blank">进入学习 </a>
 							<#elseif courseInfo.type == 1 || courseInfo.type == 2 > 	
 								<#if  courseInfo.collection>
 								  <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionList[0].id}&ljxx=ljxx" target="_blank">进入学习 </a>
 								<#else>
 								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">进入学习 </a>  
-								</#if>								
+								</#if>			-->					
 							</#if>
 						</button>
 					<#elseif courseInfo.watchState == 0> 
@@ -114,7 +127,7 @@
 							<button type="button" class="immediately-buy">报名截止</button>
 						<#else>
 							<button type="button" class="immediately-buy J-course-buy"  data-id="${courseInfo.id}">
-							   <a href="/order/create/${courseInfo.id}" target="_blank">立即购买</a>  
+							   立即购买
 							</button>
 						</#if>
 					</#if>

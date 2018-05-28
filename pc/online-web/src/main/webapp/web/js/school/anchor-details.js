@@ -37,7 +37,9 @@ $(function(){
 //	关注效果
 	$(".isAdd-follow").click(function(){
 		var type = 1;
-		if($(this).hasClass("isAdd-active")){
+		
+		var $this =  $(this);
+		if($this.hasClass("isAdd-active")){
 			type = 2;
 		}
 		var paramsObj = {
@@ -46,13 +48,14 @@ $(function(){
 		}
 		RequestService("/focus/updateFocus", "get", paramsObj, function(data) {
 			if(data.success) {
-				if($(this).hasClass("isAdd-active")){
-					$(this).removeClass("isAdd-active").find("span").text("加关注")
-					$(this).find("img").attr("src","../../web/images/icon-up.png");
-				}else{
-					$(this).addClass("isAdd-active").find("span").text("已关注")
-					$(this).find("img").attr("src","../../web/images/icon-down.png");
-				}
+//				if($this.hasClass("isAdd-active")){
+//					$this.removeClass("isAdd-active").find("span").text("加关注")
+//					$this.find("img").attr("src","../../web/images/icon-up.png");
+//				}else{
+//					$this.addClass("isAdd-active").find("span").text("已关注")
+//					$this.find("img").attr("src","../../web/images/icon-down.png");
+//				}
+				location.reload();
 			}else{
 				alert(data.errorMessage);
 			}

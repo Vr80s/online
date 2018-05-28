@@ -157,9 +157,9 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         ModelAndView mv = null;
 
         mv = new ModelAndView("live_success_page");
-        if (liveStatus == 1) { 							// 直播中  
+        if (liveStatus == 1 || liveStatus==3) { 							// 直播中  
             mv = new ModelAndView("live_success_page");
-        } else if (liveStatus == 2 || liveStatus == 3) { //直播预告
+        } else if (liveStatus == 2) { //直播预告
             mv = new ModelAndView("live_success_other_page");
         }
         mv.addObject("lecturerId", course.get("userLecturerId"));

@@ -64,7 +64,37 @@ $(function(){
     });
 	
 //	点击立即学习时，需要判断是否登录了
-	
+	$(".learning_immediately").click(function(){
+		
+		 var $this = $(this);
+		 var watchState = $this.attr("data-watchState");
+		 var type = $this.attr("data-type");
+		 var collection = $this.attr("data-collection");
+		 var realCourseId = $this.attr("data-realCourseId");
+		 var collectionCourseId = $this.attr("data-collectionCourseId");
+		 
+		 if(watchState == 2 && type == 4){ //已报名
+			 return;
+		 }
+		 /**
+		  * 判断是否登录了
+		  */
+		 RequestService("/online/user/isAlive", "GET", null, function(data) {
+	           if(!data.success) {
+	               $('#login').modal('show');
+	           } else {
+	        	   if(type == 3){ //已报名
+	        		   window.location.href = "/web/livepage/"+realCourseId;
+	      		   }else if(type == 1 || type == 2){
+	      			   if(collection == 1){
+	      				  window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId="+realCourseId+"&courseId="+collectionCourseId+"&ljxx=ljxx"
+	      			   }else{
+	      				  window.location.href = "/web/html/ccvideo/video.html?courseId="+realCourseId;
+	      			   }
+	      		   }
+	           }
+	     });
+	})
 	
 	
 	

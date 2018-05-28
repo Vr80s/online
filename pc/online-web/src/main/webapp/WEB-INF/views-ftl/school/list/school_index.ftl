@@ -109,7 +109,7 @@
 <!--右侧成为主播、搜索、名师推荐-->
 			<div class="wrap-right y">
 			
-				<div class="wrap-anchor">
+				<div class="wrap-anchor hide" >
 					<p>期待有志于传承和发展中医药的医师加入</p>
 					<span><a href="${webUrl}/web/html/want-anchor.html" target="_blank">成为主播</a></span>
 				</div>

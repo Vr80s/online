@@ -57,7 +57,7 @@
 								</div>
 							</a>
 						</div>	
-					</#list>s	
+					</#list>
 							
 					</div>
 				</div>			
