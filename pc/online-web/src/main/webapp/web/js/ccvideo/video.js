@@ -3,8 +3,12 @@
  */
 $(function() {
 
-	var courseId = $.getUrlParam("courseId");
 	
+	var courseId = $.getUrlParam("courseId");
+	/**
+	 * 设置返回课程详情a标签
+	 */
+	$("#return").attr("href","/courses/"+courseId+"/info");
 	/**
 	 * 增加学习记录
 	 */
@@ -15,11 +19,6 @@ $(function() {
 	},false);
 	
 	
-	
-	
-	
-	
-	
 	var menuid = "";
 	var pageNumber = 1;
 	var pageSize = 15;
@@ -28,7 +27,7 @@ $(function() {
 	var allwidth = parseInt($(".videoBody-top").width());
 	//当前屏幕左半部分宽度
 	var awidth = parseInt($(".videoBody-top").width() - 290);
-	var aheight = parseInt($(window).height() - $(".header").height() - 110);
+	var aheight = parseInt($(window).height() - $(".header").height());
 	$(".videoBody-top").height(aheight);
 	$(".videoBody-menuList").height(aheight);
 	$(".videoBody-video").height(aheight);
@@ -47,7 +46,6 @@ $(function() {
 				autoPlay: false
 			}, function(data) {
 				if(data.success == true) {
-					
 					/**
 					 * 增加观看记录
 					 */

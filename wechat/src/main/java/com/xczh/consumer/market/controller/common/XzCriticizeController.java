@@ -1,22 +1,23 @@
 package com.xczh.consumer.market.controller.common;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.online.api.vo.CriticizeVo;
-import com.xczhihui.course.service.ICriticizeService;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.Map;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.course.service.ICriticizeService;
+import com.xczhihui.online.api.vo.CriticizeVo;
 
 @Controller
 @RequestMapping(value = "/xczh/criticize")
@@ -64,18 +65,13 @@ public class XzCriticizeController {
 		
 		if(courseId != null){
 			map = criticizeService.getCourseCriticizes(new Page<>(pageNumber,pageSize),courseId,user!= null ? user.getUserId() :null);
-			List<Integer> list  = criticizeService.selectMobileCourseCommentMeanCount(courseId);
-			map.put("", list);
+//			List<Integer> list  = criticizeService.selectMobileCourseCommentMeanCount(courseId);
+//			map.put("labelCountList", list);
 		}else{
 			map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber,pageSize),userId,user!= null ? user.getUserId() :null);
-			List<Integer> list  =  criticizeService.selectMobileUserCommentMeanCount(userId);
-			map.put("", list);
+//			List<Integer> list  =  criticizeService.selectMobileUserCommentMeanCount(userId);
+//			map.put("labelCountList", list);
 		}
-
-		
-	
-		
-		
 		return ResponseObject.newSuccessResponseObject(map);
 		
 	}

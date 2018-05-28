@@ -76,6 +76,19 @@ public class CourseOrderController extends AbstractController {
         order.setActualPay(order.getActualPay() * 10);
         return ResponseObject.newSuccessResponseObject(order.getId());
     }
+    
+    
+    /**
+     * 创建订单，并且重定向到支付页面
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/create/{id}", method = RequestMethod.GET)
+    public ModelAndView createOrderRedirectPay(@PathVariable int id) {
+        Order order = orderService.createOrder(getUserId(), id, OrderFrom.PC.getCode());
+        order.setActualPay(order.getActualPay() * 10);
+        return new ModelAndView("redirect:/order/pay?orderId=" + order.getId());
+    }
 
     @RequestMapping(value = "pay", method = RequestMethod.GET)
     public ModelAndView pay(@RequestParam String orderId) {
