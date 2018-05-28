@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
-import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.ThridFalg;
 import com.xczhihui.user.center.vo.Token;
 import org.apache.commons.lang.StringUtils;
@@ -37,7 +35,6 @@ import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.wxpay.TokenThread;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczhihui.common.util.SLEmojiFilter;
@@ -530,16 +527,5 @@ public class WeChatThirdPartyController {
 			 */
 			UCCookieUtil.writeTokenCookie(res, token);
 		}
-	}
-
-	/**
-	 * 初始化获取微信token
-	 */
-	@PostConstruct
-	public void initTokenFiter(){
-
-		LOGGER.info("初始化token:");
-
-		new Thread(new TokenThread()).start();
 	}
 }

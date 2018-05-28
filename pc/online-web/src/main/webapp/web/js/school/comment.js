@@ -307,19 +307,3 @@ $(".submission").click(function() {
 				}
 	})
 });
-
-$('.J-course-buy').on('click', function(e) {
-	var $this = $(this);
-	var id = $this.data('id');
-	$this.attr("disabled", "disabled");
-	if (!id) {
-		showTip("无法获取课程id");
-	}
-	RequestService("/order/" + id, "POST", null, function(data) {
-		if (data.success) {
-			window.location.href = "/order/pay?orderId=" + data.resultObject;
-		} else {
-			showTip(data.errorMessage);
-		}
-	});
-});
