@@ -1,4 +1,4 @@
-package com.xczh.consumer.market.filter;
+package com.xczhihui.bxg.online.web.interceptor;
  
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
  
 /**
- * gzip 压缩，针对css、js、html、jsp、.ftp 页面压缩。
+ * gzip 压缩，针对css、js、html、jsp、.ftl 页面压缩。
  * @author yangxuan
  *
  */
@@ -55,7 +55,7 @@ public class PageVisitFilter implements Filter {
 //			response.setHeader("viewport", "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no"); 
 	    	if(isGZipEncoding(request)){
 	    		//需要过滤的扩展名：.htm,.html,.jsp,.js,.ajax,.css
-	    		String gzippPattern=",.htm,.html,.js,.css,";
+	    		String gzippPattern=",.htm,.html,.js,.css,.ftl,.jsp";
 	    		if(StringUtils.indexOf(gzippPattern, ",."+ext+",")!=-1){
 	                BufferedResponse gzipResponse = new BufferedResponse(response);
 	                
