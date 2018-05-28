@@ -310,7 +310,13 @@ window.onload = function() {
                     //是否收费 --》 收费的去支付
                     if(!data.resultObject.free) { 
 						if(data.success == true) {
-							window.location.href = "/course/pay/" + courserId;
+                            RequestService("/order/" + courserId, "POST", null, function(data){
+                                if (data.success) {
+                                    window.location.href = "/order/pay?orderId=" + data.resultObject;
+                                } else {
+                                    showTip(data.errorMessage);
+                                }
+                            });
 						} else {
 							rTips(data.errorMessage);
 						}

@@ -93,8 +93,6 @@ public class CourseController extends AbstractController{
         	return ResponseObject.newSuccessResponseObject(service.getOpenCourseById(courserId, ispreview, request));
         }
 
-
-
         /**
          * 根据课程ID号，查找对应的课程对象
          * @param courseId 课程id
@@ -104,23 +102,6 @@ public class CourseController extends AbstractController{
         public ResponseObject getCourseApplyByCourseId(Integer courseId) {
             return ResponseObject.newSuccessResponseObject( service.getCourseApplyByCourseId(courseId));
         }
-
-        @RequestMapping(value = "/pay/{courseId}" )
-        public ModelAndView pay(@PathVariable Integer courseId,HttpServletRequest request) {
-            OnlineUser loginUser = getCurrentUser();
-
-            Order order = orderService.createOrder(loginUser.getId(), courseId, OrderFrom.PC.getCode());
-            ModelAndView mav=new ModelAndView();
-
-            mav.setViewName("PayOrder");
-            mav.addObject("orderNo", order.getOrderNo());
-            mav.addObject("actualPay", order.getActualPay());
-            mav.addObject("courseName", order.getCourseNames());
-            mav.addObject("orderId", order.getId());
-
-            return mav;
-        }
-
 
         /**
          * 查找推荐课程信息

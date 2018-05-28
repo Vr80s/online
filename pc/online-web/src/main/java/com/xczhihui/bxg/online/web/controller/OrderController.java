@@ -36,25 +36,6 @@ public class OrderController extends AbstractController{
     @Value("${web.url}")
     private String weburl;
 
-
-    /**
-     * 根据订单号查找订单
-     * @param orderNo
-     * @param request
-     */
-    @RequestMapping(value = "/{orderNo}/findOrderByOrderNo",method= RequestMethod.GET)
-    public  ModelAndView findOrderByOrderNo(@PathVariable String orderNo,HttpServletRequest request,String orderId){
-        OrderVo orderVo = orderService.findOrderByOrderId(orderId);
-        ModelAndView mav=new ModelAndView("PayOrder");
-        if(orderVo != null){
-            mav.addObject("orderNo",orderVo.getOrder_no());
-            mav.addObject("actualPay",orderVo.getActual_pay());
-            mav.addObject("courseName",orderVo.getCourse_name());
-        }
-        return  mav;
-    }
-
-
     /**
      * 获取用户全部订单信息
      * @param  orderStatus 订单支付状态

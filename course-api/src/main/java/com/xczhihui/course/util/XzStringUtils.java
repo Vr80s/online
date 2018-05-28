@@ -111,12 +111,13 @@ public class XzStringUtils {
 	 *         email: 15936216273@163.com
 	 *
 	 */
-	public static boolean checkNickName(String passWord) {
+	public static boolean checkNickName(String nickName) {
 		boolean flag = false;
 		try {
-			String check = "^([_A-Za-z0-9-\u4e00-\u9fa5]{4,20})$";
+			// /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
+			String check = "^([_A-Za-z0-9-\u4e00-\u9fa5]{1,20})$";
 			Pattern regex = Pattern.compile(check);
-			Matcher matcher = regex.matcher(passWord);
+			Matcher matcher = regex.matcher(nickName);
 			flag = matcher.matches();
 		} catch (Exception e) {
 			flag = false;
@@ -124,6 +125,16 @@ public class XzStringUtils {
 		return flag;
 	}
 
+	public static void main(String[] args) {
+		
+		System.out.println(checkNickName("54523"));
+		
+		
+		
+		
+	}
+	
+	
 	public static String formatDuring(long mss) {
 		long days = mss / (1000 * 60 * 60 * 24);
 		long hours = (mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);

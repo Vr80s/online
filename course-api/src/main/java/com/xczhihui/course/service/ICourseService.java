@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.course.model.Course;
 import com.xczhihui.course.vo.CourseLecturVo;
 
 public interface ICourseService {
@@ -158,22 +159,27 @@ public interface ICourseService {
      * @return
      */
     public List<CourseLecturVo> myCourseType(Integer num, Integer pageSize, String id, Integer type);
+
     /**
      * Description：获取直播状态列表
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/10 14:33
      **/
     public List<Map<String, Object>> getLiveStatusList();
-    /** 是否付费
+
+    /**
+     * 是否付费
      * Description：
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/10 14:42
      **/
     public List<Map<String, Object>> getPayStatusList();
-    
-    
+
+
     /**
      * Description：pc 课程详情页面中的 推荐课程。先取推荐值最高的10个课程，然后在10个里面在随机取两个
      *
@@ -183,5 +189,22 @@ public interface ICourseService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     List<CourseLecturVo> selectRecommendSortAndRandCourse(
-    		Page<CourseLecturVo> page);
+            Page<CourseLecturVo> page);
+
+    /**
+     * 查询课程列表通过ids
+     *
+     * @param ids ids
+     * @return
+     */
+    List<Course> findByIds(List<Integer> ids);
+
+    /**
+     * 某个课程的同类课程
+     *
+     * @param courseId 课程id
+     * @param menuId   分类id
+     * @return
+     */
+    List<Map<String, Object>> findByMenuIdExcludeId(Integer menuId, Integer courseId);
 }

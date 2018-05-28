@@ -5,7 +5,7 @@ import com.xczhihui.course.model.Order;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin
@@ -13,12 +13,19 @@ import com.xczhihui.course.model.Order;
  */
 public interface IOrderService extends IService<Order> {
 
-    public Order createOrder(String userId, int courseId, Integer orderFrom);
-
+    Order createOrder(String userId, int courseId, Integer orderFrom);
 
     Order getOrderByOrderId(String orderId);
 
-    Order getOrderNo4PayByOrderNo(String orderId);
+    Order getOrderNo4PayByOrderNo(String orderNo);
 
     Order getOrderNo4PayByOrderId(String orderId);
+
+    /**
+     * 通过订单id 获取订单数据
+     *
+     * @param orderId orderId
+     * @return
+     */
+    Order getOrderById(String orderId);
 }
