@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -56,18 +57,25 @@ public class XzCriticizeController {
 			@RequestParam(required=false)Integer pageSize,
 			@RequestParam(required=false)Integer pageNumber
 			)throws Exception {
-	
-		
 		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		
 		Map<String,Object> map = null;
+		
 		if(courseId != null){
 			map = criticizeService.getCourseCriticizes(new Page<>(pageNumber,pageSize),courseId,user!= null ? user.getUserId() :null);
+			List<Integer> list  = criticizeService.selectMobileCourseCommentMeanCount(courseId);
+			map.put("", list);
 		}else{
 			map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber,pageSize),userId,user!= null ? user.getUserId() :null);
+			List<Integer> list  =  criticizeService.selectMobileUserCommentMeanCount(userId);
+			map.put("", list);
 		}
 
+		
+	
+		
+		
 		return ResponseObject.newSuccessResponseObject(map);
 		
 	}

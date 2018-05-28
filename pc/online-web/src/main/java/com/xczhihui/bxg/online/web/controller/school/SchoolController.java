@@ -16,24 +16,35 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.enums.*;
-import com.xczhihui.course.exception.OrderException;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.common.util.enums.LiveStatus;
+import com.xczhihui.common.util.enums.PagingFixedType;
+import com.xczhihui.common.util.enums.PayStatus;
+import com.xczhihui.common.util.enums.ProjectType;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.model.OfflineCity;
-import com.xczhihui.course.model.Order;
-import com.xczhihui.course.service.*;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICriticizeService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IMobileHotSearchService;
+import com.xczhihui.course.service.IMobileProjectService;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.service.IOfflineCityService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
-import com.xczhihui.online.api.service.UserCoinService;
 
 @Controller
 @RequestMapping(value = "/courses")
@@ -353,12 +364,6 @@ public class SchoolController extends AbstractFtlController {
 		
 		return view;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	public static void main(String[] args) {

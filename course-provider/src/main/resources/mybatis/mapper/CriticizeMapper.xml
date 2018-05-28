@@ -122,7 +122,7 @@
 	</sql>
 	
 	
-	<sql id="selectLabelMean">
+	<sql id="selectCourseLabelMean">
 	   (
          select count(*) from oe_criticize  where course_id =#{courseId}  and 
             criticize_lable  like "%1%"
@@ -166,50 +166,29 @@
                 <include refid="commentMeanCount"/>
        )
         union all
-        <include refid="selectLabelMean"/> 
+        <include refid="selectCourseLabelMean"/> 
 	</select>
 	
 	<!-- 针对课程了。 各种label的平均值      -->
     <select id="selectMobileCourseCommentMeanCount" resultType="java.lang.Integer">
-        <include refid="selectLabelMean"/> 
+        <include refid="selectCourseLabelMean"/> 
 	</select>
 	
-		
-	
-	
-	<!-- 针对用户了。 节目内容、主播演绎的平均值。   需要多加一个总体映像的平均值  -->
-    <select id="selectPcUserCommentMeanCount" resultType="java.lang.Double">
-       (   
-         SELECT IFNULL(ROUND(AVG(cc.content_level), 0),0) FROM oe_criticize
-            cc where cc.is_delete = 0  and cc.content_level !=0
-        		and user_id =#{userId}
-       )
-        union all
-        
-       (
-         SELECT IFNULL(ROUND(AVG(cc.deductive_level), 0),0) FROM oe_criticize
-            cc where cc.is_delete = 0  and cc.deductive_level !=0
-               and user_id =#{userId}
-       )
-      
-        union all
-       (
+	<sql id="selectUserLabelMean">
+	   (
          select count(*) from oe_criticize  where user_id =#{userId}  and 
             criticize_lable  like "%1%"
        )
-       
        union all
        (
          select count(*) from oe_criticize  where user_id =#{userId}  and 
             criticize_lable  like "%2%"
        )
-       
        union all
        (
          select count(*) from oe_criticize  where user_id =#{userId}  and 
             criticize_lable  like "%3%"
        )
-       
        union all
        (
          select count(*) from oe_criticize  where user_id =#{userId}  and 
@@ -220,15 +199,38 @@
          select count(*) from oe_criticize  where user_id =#{userId}  and 
             criticize_lable  like "%5%"
        )       
-       union all
+	</sql>
+	
+	
+	<select id="selectMobileUserCommentMeanCount" resultType="java.lang.Integer">
+        <include refid="selectUserLabelMean"/> 
+	</select>
+	
+	
+	<!-- 针对用户了。 节目内容、主播演绎的平均值。   需要多加一个总体映像的平均值  -->
+    <select id="selectPcUserCommentMeanCount" resultType="java.lang.Double">
+       (   
+         SELECT IFNULL(ROUND(AVG(cc.content_level), 0),0) FROM oe_criticize
+            cc where cc.is_delete = 0  and cc.content_level !=0
+        		and user_id =#{userId}
+       )
+        union all
+       (
+         SELECT IFNULL(ROUND(AVG(cc.deductive_level), 0),0) FROM oe_criticize
+            cc where cc.is_delete = 0  and cc.deductive_level !=0
+               and user_id =#{userId}
+       )
+        union all
+      
+        <include refid="selectUserLabelMean"/> 
+       
+        union all
        
        (
         SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where 
           cc.is_delete = 0  and cc.overall_level !=0
           and user_id =#{userId}
        )
-       
-       
 	</select>
 	
 	

@@ -72,4 +72,18 @@ public interface ICriticizeService extends IService<Criticize> {
 	 * @return
 	 */
 	List<Double> selectPcUserCommentMeanCount(String userId);
+
+	/**
+	 * 查看课程的list标签 共有多少
+	 * @param courseId
+	 * @return
+	 */
+	List<Integer> selectMobileCourseCommentMeanCount(Integer courseId);
+	
+	/**
+	 * 查看用户的list标签共有多少
+	 * @param userId
+	 * @return
+	 */
+	List<Integer> selectMobileUserCommentMeanCount(String userId);
 }

@@ -8,6 +8,7 @@ body{
 ul{margin: 0;}
 p{margin: 0;}
 a:hover{text-decoration: none;}
+.cl{clear: both;}
 .z{float: left;}
 .y{float: right;}
 .wp{width: 1200px; margin: 0 auto;}
@@ -118,6 +119,14 @@ a:hover{text-decoration: none;}
 	background: url(../../images/search.png) no-repeat center;
 	background-color: #D8D8D8;
 }
+.reset-btn{
+	    padding: 3px 10px;
+    background: #00bc12;
+    border-radius: 4px;
+    color: white;
+    margin-top: 14px;
+    margin-left: 20px;
+}
 /*综合排序,最新,人气价格*/
 .wrap-tab{
 	width: 100%;
@@ -155,7 +164,7 @@ a:hover{text-decoration: none;}
 /*视频样式*/
 .wrap-video{
 	width: 100%;
-	padding: 0 0 60px 30px;
+	padding: 0 0 0px 30px;
 	background: white;
 	overflow: hidden;
 }
@@ -170,7 +179,7 @@ a:hover{text-decoration: none;}
 .main .wrap-video .course:nth-child(4n){
     margin-right: 0px;
 }
-.main .wrap-video > div > a {
+.main .wrap-video .course > a {
     background: white;
     width: 260px;
     float: left;

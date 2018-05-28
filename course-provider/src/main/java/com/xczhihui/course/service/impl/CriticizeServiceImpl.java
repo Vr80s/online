@@ -357,6 +357,16 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
 		
 		return this.baseMapper.selectPcUserCommentMeanCount(userId);
 	}
+
+	@Override
+	public List<Integer> selectMobileCourseCommentMeanCount(Integer courseId) {
+		return this.baseMapper.selectMobileCourseCommentMeanCount(courseId);
+	}
+
+	@Override
+	public List<Integer> selectMobileUserCommentMeanCount(String userId) {
+		return this.baseMapper.selectMobileUserCommentMeanCount(userId);
+	}
     
     
     
