@@ -133,10 +133,10 @@
 					<div class="tab-price z">
 						<p>价格</p>
 						<a href="${replaceUrl(webUrlParam,"sortOrder",4)}">
-						 <span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true"> </a>
+						 <span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true" style="color:#333"> </a>
 						</span>
 						<a href="${replaceUrl(webUrlParam,"sortOrder",5)}">
-						   <span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true"></a>
+						   <span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true" style="color:#333"></a>
 						</span>
 					</div>
 				</div>
