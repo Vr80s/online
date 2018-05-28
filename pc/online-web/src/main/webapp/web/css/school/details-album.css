@@ -7,7 +7,14 @@ body{
 }
 ul{margin: 0;}
 p{margin: 0;}
-a:hover{text-decoration: none;}
+a:link{text-decoration:none; }  /* 指正常的未被访问过的链接*/
+
+a:visited{text-decoration:none; }/*指已经访问过的链接*/
+
+a:hover{text-decoration:none;}/*指鼠标在链接*/}
+
+a:active{text-decoration:none;}/* 指正在点的链接*/ 
+
 .cl{clear: both;}
 .z{float: left;}
 .y{float: right;}
@@ -87,6 +94,14 @@ padding-bottom: 10px;
 	font-size: 22px;
 	color: #FF4012;
 	margin-right: 5px;
+}
+.display-price .under-address {
+    margin-left: 0;
+}
+.display-price .under-address span {
+    font-size: 14px;
+    color: #333333;
+    margin-left: 20px;
 }
 .display-price ul{
 	overflow: hidden;
@@ -217,6 +232,7 @@ padding-bottom: 10px;
 .impression-content .impression-list li img{
 	margin-top: -4px;
 	margin-left: 7px;
+	width: 120px;
 }
 .want-evaluate{
 	width: 92px;
