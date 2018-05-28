@@ -122,27 +122,11 @@
 	</sql>
 	
 	
-	<!-- 针对课程了。 节目内容、主播演绎的平均值。     -->
-    <select id="selectPcCourseCommentMeanCount" resultType="java.lang.Integer">
-       (   
-         SELECT IFNULL(ROUND(AVG(cc.content_level), 0),0) FROM oe_criticize
-            cc where cc.is_delete = 0  and cc.content_level !=0
-        		<include refid="commentMeanCount"/> 
-       )
-        union all
-        
-       (
-         SELECT IFNULL(ROUND(AVG(cc.deductive_level), 0),0) FROM oe_criticize
-            cc where cc.is_delete = 0  and cc.deductive_level !=0
-                <include refid="commentMeanCount"/>
-       )
-       
-        union all
-       (
+	<sql id="selectLabelMean">
+	   (
          select count(*) from oe_criticize  where course_id =#{courseId}  and 
             criticize_lable  like "%1%"
        )
-       
        union all
        (
          select count(*) from oe_criticize  where course_id =#{courseId}  and 
@@ -166,7 +150,32 @@
          select count(*) from oe_criticize  where course_id =#{courseId}  and 
             criticize_lable  like "%5%"
        )
+	</sql>
+	
+	<!-- 针对课程了。 节目内容、主播演绎的平均值。     -->
+    <select id="selectPcCourseCommentMeanCount" resultType="java.lang.Integer">
+       (   
+         SELECT IFNULL(ROUND(AVG(cc.content_level), 0),0) FROM oe_criticize
+            cc where cc.is_delete = 0  and cc.content_level !=0
+        		<include refid="commentMeanCount"/> 
+       )
+        union all
+       (
+         SELECT IFNULL(ROUND(AVG(cc.deductive_level), 0),0) FROM oe_criticize
+            cc where cc.is_delete = 0  and cc.deductive_level !=0
+                <include refid="commentMeanCount"/>
+       )
+        union all
+        <include refid="selectLabelMean"/> 
 	</select>
+	
+	<!-- 针对课程了。 各种label的平均值      -->
+    <select id="selectMobileCourseCommentMeanCount" resultType="java.lang.Integer">
+        <include refid="selectLabelMean"/> 
+	</select>
+	
+		
+	
 	
 	<!-- 针对用户了。 节目内容、主播演绎的平均值。   需要多加一个总体映像的平均值  -->
     <select id="selectPcUserCommentMeanCount" resultType="java.lang.Double">

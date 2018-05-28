@@ -9,9 +9,9 @@ var bath = "";
     }
 })();
 
-var RequestService = function(method, type, params, callBack, async) {
+var RequestService = function(url, type, params, callBack, async) {
 	$.ajax({
-		url: bath + method,
+		url: bath + url,
 		type: type,
 		data: params,
 		async: async === undefined ? true : async,

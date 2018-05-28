@@ -133,17 +133,17 @@
 					<div class="tab-price z">
 						<p>价格</p>
 						<a href="${replaceUrl(webUrlParam,"sortOrder",4)}">
-						 <span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true">
+						 <span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true"> </a>
 						</span>
 						<a href="${replaceUrl(webUrlParam,"sortOrder",5)}">
-						   <span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true">
+						   <span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true"></a>
 						</span>
 					</div>
 				</div>
 				<div class="wrap-video">	
 				 <#list courseList.records as courseItem>			
 					<div class="course clearfix">
-						<!--<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
+						<!-- <img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
 						
 					     <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
 					 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
