@@ -151,6 +151,9 @@ a:hover{text-decoration: none;}
 	margin-right: 60px;
 	cursor: pointer;
 }
+.wrap-tab ul li a{
+	color: #333;
+}
 .tab-price{
 	width: 45px;
 	height: 39px;
