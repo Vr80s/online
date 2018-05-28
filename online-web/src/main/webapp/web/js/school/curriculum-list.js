@@ -25,102 +25,33 @@ $(function() {
 	//            
 	// });
 	// 类型
-	var selectStyle = '<dd id="allAdd">' + '<p class="wrap-border">'
+	 var selectStyle = '<dd id="allAdd">' + '<p class="wrap-border">'
 			+ '<span>类型 : </span>' + '<span class="select-text">筛选条件</span>'
 			+ '<span class="select-close" onclick="deleteStyle()">x</span>'
 			+ '</p>' + '</dd>';
-	// $("#select-style dd").click(function () {
-	// var copyThisA = $(this).text();
-	// $(this).addClass("selected").siblings().removeClass("selected");
-	// if ($("#styleAdd").length > 0) {
-	// $("#styleAdd .select-text").html($(this).text());
-	// } else {
-	// $("#select-condition").append(selectStyle);
-	// $("#allAdd").attr("id","styleAdd");
-	// $("#styleAdd .select-text").html(copyThisA)
-	// }
-	// });
-	// 状态
-	// var selectStatus='<dd id="allAdd">'+
-	// '<p class="wrap-border">'+
-	// '<span>状态 : </span>'+
-	// '<span class="select-text">筛选条件</span>'+
-	// '<span class="select-close" onclick="deleteStatus()">x</span>'+
-	// '</p>'+
-	// '</dd>';
-	// $("#select-status dd").click(function () {
-	// var copyThisA = $(this).text();
-	// $(this).addClass("selected").siblings().removeClass("selected");
-	// if ($("#statusAdd").length > 0) {
-	// $("#statusAdd .select-text").html($(this).text());
-	// } else {
-	// $("#select-condition").append(selectStatus);
-	// $("#allAdd").attr("id","statusAdd");
-	// $("#statusAdd .select-text").html(copyThisA)
-	// }
-	// });
-	// // 收费
-	// var selectPrice='<dd id="allAdd">'+
-	// '<p class="wrap-border">'+
-	// '<span>收费 : </span>'+
-	// '<span class="select-text">筛选条件</span>'+
-	// '<span class="select-close" onclick="deletePrice()">x</span>'+
-	// '</p>'+
-	// '</dd>'
-	// $("#select-price dd").click(function () {
-	// var copyThisA = $(this).text();
-	// $(this).addClass("selected").siblings().removeClass("selected");
-	// if ($("#priceAdd").length > 0) {
-	// $("#priceAdd .select-text").html($(this).text());
-	// } else {
-	// $("#select-condition").append(selectPrice);
-	// $("#allAdd").attr("id","priceAdd");
-	// $("#priceAdd .select-text").html(copyThisA)
-	// }
-	// });
-	// // 城市
-	// var selectAddress='<dd id="allAdd">'+
-	// '<p class="wrap-border">'+
-	// '<span>城市 : </span>'+
-	// '<span class="select-text">筛选条件</span>'+
-	// '<span class="select-close" onclick="deleteAddress()">x</span>'+
-	// '</p>'+
-	// '</dd>'
-	// $("#select-address dd").click(function () {
-	// var copyThisA = $(this).text();
-	// $(this).addClass("selected").siblings().removeClass("selected");
-	// if ($("#addressAdd").length > 0) {
-	// $("#addressAdd .select-text").html($(this).text());
-	// } else {
-	// $("#select-condition").append(selectAddress);
-	// $("#allAdd").attr("id","addressAdd");
-	// $("#addressAdd .select-text").html(copyThisA)
-	// }
-	// });
-	//	
-	// // 综合排序,最新,人气价格
-	// $(".wrap-tab li").click(function(){
-	// if($(this).hasClass("selected")){
-	// return;
-	// }else{
-	// $(".wrap-tab
-	// li").removeClass("selected").eq($(this).index()).addClass("selected");
-	// $(".tab-price p").removeClass("selected");
-	// $(".tab-top").removeClass("selected");
-	// $(".tab-bottom").removeClass("selected");
-	// }
-	//
-	// });
-	// $(".tab-price").click(function(){
-	// $(".tab-price p").addClass("selected");
-	// if($(".tab-top").hasClass("selected")){
-	// $(".tab-top").removeClass("selected");
-	// $(".tab-bottom").addClass("selected");
-	// }else{
-	// $(".tab-top").addClass("selected")
-	// $(".tab-bottom").removeClass("selected");
-	// }
-	// });
+
+	 // 综合排序,最新,人气价格
+//	 $(".wrap-tab li").click(function(){
+//		 if($(this).hasClass("selected")){
+//			 	return;
+//		 }else{
+//			 $(".wrap-tab li").removeClass("selected").eq($(this).index()).addClass("selected");
+//			 $(".tab-price p").removeClass("selected");
+//			 $(".tab-top").removeClass("selected");
+//			 $(".tab-bottom").removeClass("selected");
+//		 }
+//	 });
+//	 
+//	 $(".tab-price").click(function(){
+//		 $(".tab-price p").addClass("selected");
+//		 if($(".tab-top").hasClass("selected")){
+//			 $(".tab-top").removeClass("selected");
+//			 $(".tab-bottom").addClass("selected");
+//		 }else{
+//			 $(".tab-top").addClass("selected")
+//			 $(".tab-bottom").removeClass("selected");
+//		 }
+//	 });
 });
 
 // 判断字段空值
@@ -179,19 +110,17 @@ function viewConditionOption(obj) {
 			+ '<span class="select-close" onclick="deleteStatus()">x</span>'
 			+ '</p>' + '</dd>';
 
-//	if (obj.hasClass("selected")) {
-//		obj.removeClass("selected");
-//		obj.siblings().removeClass("selected");
-//		$("#selectCondition" + subject).remove();
-//	} else {
-		obj.addClass("selected").siblings().removeClass("selected");
-		if ($("#selectCondition" + subject).length > 0) {
-			$("#selectCondition" + subject + " .select-text").html(obj.text());
-			$("#selectCondition" + subject + " p").attr("value", selectValue);
-		} else {
-			$("#select-condition").append(selectKind);
-		}
-//	}
+	/**
+	 * 上面的选中状态
+	 */
+	obj.addClass("selected").siblings().removeClass("selected");
+	
+	if ($("#selectCondition" + subject).length > 0) {
+		$("#selectCondition" + subject + " .select-text").html(obj.text());
+		$("#selectCondition" + subject + " p").attr("value", selectValue);
+	} else {
+		$("#select-condition").append(selectKind);
+	}
 }
 /**
  * 点击上面的标记进行筛选
@@ -284,6 +213,15 @@ function viewCondition(paramsObj) {
 		$("#search-text").val(paramsObj.queryKey);
 	}
 	
+	//综合排序、最新、人气、价格
+	if (stringnull(paramsObj.sortOrder)) {
+		var sortOrder = parseInt(paramsObj.sortOrder);
+		if(sortOrder == 1|| sortOrder == 2 || sortOrder == 3){
+			$(".wrap-tab ul li a").eq(sortOrder-1).css("color","#00BC12");
+		}else{
+			$(".wrap-tab .tab-price span").eq(sortOrder-4).css("color","#00BC12");
+		}
+	}
 	
 }
 /**
