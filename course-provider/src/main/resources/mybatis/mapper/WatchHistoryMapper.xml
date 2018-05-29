@@ -23,6 +23,10 @@
 		  oc.live_source_type as liveSourceType,
 		  oc.user_lecturer_id as userId,
 		  oc.direct_id as directId,
+		  oc.smallimg_path as smallimgPath,
+		  oc.current_price as currentPrice,
+		  oc.is_free as isFree,
+		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
 		  if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
 		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState
