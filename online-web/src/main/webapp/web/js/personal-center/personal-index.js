@@ -63,21 +63,134 @@ $(".my-class-nav li").click(function(){
 	$(".save-class").addClass("hide").eq($(this).index()).removeClass("hide");
 })
 //播放历史
+historyClass(1)
+function historyClass(pages){
  RequestService("/history/list", "POST",{
- 	pageNumber:1,
+ 	pageNumber:pages,
  	pageSize:8
  }, function (data) {
+ 		if(data.success==true){
             if (data.resultObject.records.length == 0) {
             	$(".clear-history").addClass("hide")
             	$(".nodata-history").html(noDataImg).removeClass("hide");
             } else {
             	$(".clear-history").removeClass("hide");
+            	$(".nodata-history").addClass("hide");  
             	$("#history-template").html(template("content-history",{items:data.resultObject.records}))
             }
-        })
-
-
-
+            //分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".history_pages").removeClass("hide");
+		            $(".history_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#history_doctors").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pageNumber-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    recruitList(page+1);
+		                }
+		            });
+				}
+				else {
+					$(".history_pages").addClass("hide");
+				}
+        }else{
+        	showTip("获取数据失败");
+        }
+    })
+	
+}
+//已购课程
+buyClass(1)
+function buyClass (pages){
+ RequestService("/userCourse/freeCourseList", "POST",{
+ 	pageNumber:pages,
+ 	pageSize:8
+ }, function (data) {
+ 		if(data.success==true){
+            if (data.resultObject.records.length == 0) {
+            	$(".nodata-buyclass").html(noDataImg).removeClass("hide");
+            } else {
+            	$(".nodata-buyclass").addClass("hide");          	
+            	$("#buy-template").html(template("purchased-class",{items:data.resultObject.records}))
+            }
+               //分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".buy_pages").removeClass("hide");
+		            $(".buy_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#buy_doctors").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    buyClass(page+1)
+		                }
+		            });
+				}
+				else {
+					$(".buy_pages").addClass("hide");
+				}
+        }else{
+        	showTip("获取数据失败");
+        }       
+     })
+	
+}
+//结束课程
+endClass(1)
+function endClass(pages){
+ RequestService("/userCourse/myCourseType", "POST",{
+ 	pageNumber:pages,
+ 	pageSize:8,
+ 	type:2
+ }, function (data) {
+ 		if(data.success==true){
+            if (data.resultObject.length == 0) {
+            	$(".nodata-endclass").html(noDataImg).removeClass("hide");
+            } else {
+            	$(".nodata-endclass").addClass("hide");          	
+            	$("#end-template").html(template("end-class",{items:data.resultObject}))
+            }
+                //分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".end_pages").removeClass("hide");
+		            $(".end_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#end_doctors").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    endClass(page+1)
+		                }
+		            });
+				}
+				else {
+					$(".end_pages").addClass("hide");
+				}
+        }else{
+    		showTip("获取数据失败");
+    	}       
+     })
+}
+//我关注的主播
+ RequestService("/focus/myFocus", "POST",null, function (data) {
+ 		if(data.success==true){
+            if (data.resultObject.length == 0) {
+            	$(".no-follow-anchor").removeClass("hide");
+            } else {
+            	$(".no-follow-anchor").addClass("hide");          	
+            	$("#anchor-template").html(template("anchor-box",{items:data.resultObject}))
+            }
+          }else{
+    		showTip("获取数据失败");
+    	}   
+     })
 
 
 
@@ -103,11 +216,10 @@ $(".question-forum li").click(function(){
 	$(".question-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
 })
 
-//点击收起,隐藏则字体
-//		我的提问
+//		我的提问    我的回答  由于hide后不能获取元素高度
 		$("#show-set").removeClass("hide")
-//		我的回答
 		$("#answer").removeClass("hide")
+//点击收起,隐藏则字体
 			var $dot5 = $('.dot5');
                 $dot5.each(function () {
                     if ($(this).height() > 40) {
@@ -143,9 +255,9 @@ $(".question-forum li").click(function(){
                         }
                     );
                 });
+//获取高度后立马将其隐藏
 		$("#show-set").addClass("hide")
 		$("#answer").addClass("hide")
-		
 
 
 //回复点赞功能
@@ -157,6 +269,33 @@ $(".question-forum li").click(function(){
 			
 		}
 	})
+quizList(1)		
+function quizList(pages){
+	 RequestService("/online/questionlist/getQuestionList", "POST",{
+	 	pageNumber:pages,
+	 	pageSize:5
+	 }, function (data) {
+   		if(data.success==true){
+            if (data.resultObject.records.length == 0) {
+            	$(".no-question-box").removeClass("hide");
+            } else {
+            	$(".no-question-box").addClass("hide");          	
+            	$("#quiz-template").html(template("quiz-box",{items:data.resultObject.records}))
+            }
+          }else{
+    		showTip("获取数据失败");
+    	}   
+     })
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 //我的帖子/我的回复选项卡
 	$(".forum-wrap li").click(function(){
@@ -164,6 +303,94 @@ $(".question-forum li").click(function(){
 		$(this).addClass("mune-active");
 		$(".reply-post-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
 	})
+//我的帖子	
+template.config("escape", false);    //去掉arttemplate渲染时带有的标签
+postList(1)
+function postList (pages) {
+ RequestService("/bbs/myPosts", "get",{
+ 	page:pages
+ }, function (data) {
+ 		if(data.success==true){
+            if (data.resultObject.records.length == 0) {
+            	$(".post-box").addClass("hide");
+            	$(".no-post-box").removeClass("hide");
+            } else {
+            	$(".no-post-box").addClass("hide");   
+            	$(".post-box").removeClass("hide");
+            	$("#post-template").html(template("post-model",{items:data.resultObject.records}))
+            }
+                //分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".post_pages").removeClass("hide");
+		            $(".post_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#post_doctors").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    postList(page+1)
+		                }
+		            });
+				}
+				else {
+					$(".post_pages").addClass("hide");
+				}
+          }else{
+    		showTip("获取数据失败");
+    	}   
+     })
+}	
+
+//我的回复
+replyList(1)
+function replyList (pages) {
+ RequestService("/bbs/myReplies", "get",{
+ 	page:pages
+ }, function (data) {
+ 		if(data.success==true){
+            if (data.resultObject.records.length == 0) {
+            	$(".reply-box").addClass("hide")
+            	$(".no-reply-box").removeClass("hide");
+            } else {
+            	$(".no-reply-box").addClass("hide"); 
+            	$(".reply-box").removeClass("hide")
+            	$("#reply-template").html(template("reply-model",{items:data.resultObject.records}))
+            }
+                //分页添加
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".reply_pages").removeClass("hide");
+		            $(".reply_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#reply_doctors").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    replyList(page+1)
+		                }
+		            });
+				}
+				else {
+					$(".reply_pages").addClass("hide");
+				}
+          }else{
+    		showTip("获取数据失败");
+    	}   
+     })
+}		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 //--------------------------------------问答论坛结束    我的订单开始--------------------------------------------
 //我的订单选项卡

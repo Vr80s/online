@@ -176,7 +176,7 @@ a:hover{text-decoration: none;}
 /*视频样式*/
 .wrap-video{
 	width: 100%;
-	padding: 0 0 0px 30px;
+	padding: 0 0 20px 30px;
 	background: white;
 	overflow: hidden;
 }
