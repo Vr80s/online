@@ -411,7 +411,7 @@ public class XzUserController {
 
 
     /**
-     * Description：发送短信验证码
+     * Description：校验手机号
      *
      * @param username
      * @return ResponseObject
