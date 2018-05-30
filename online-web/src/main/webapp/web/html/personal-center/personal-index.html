@@ -17,6 +17,10 @@
 		<link rel="stylesheet" href="/web/font/iconfont.css" />
 		<link rel="stylesheet" href="/web/fonts/style.css" />
 		<!--两种字体图标-->
+		<!--分页样式-->
+		<link rel="stylesheet" href="/web/css/componet.css" />
+		<link rel="stylesheet" href="/web/css/componet-pages.css" />
+		<!--分页样式-->
 		<!--头像预览CSS-->
 		<link rel="stylesheet" href="/web/html/preview-head/preview-head.css">		
 		<link rel="stylesheet" href="/web/css/style.css" />
@@ -165,21 +169,45 @@
 									<!--播放历史-->
 									<div class="save-class">
 										<button type="button" class="clear-history">清除记录</button>
-
-
 										<div id="history-template">
 											<script type="text/template" id="content-history">
 												{{each items as item i}}																							
 												<div class="course clearfix">
 													<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-														<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
+														<div class="img">
+															<img src="{{item.smallImgPath}}"/>
+														</div>
+														{{if item.type == 1}}
+														<span class="classCategory">音频</span>
+														{{else if item.type == 2}}
+														<span class="classCategory">视频</span>
+														{{else if item.type == 3}}
+														<span class="classCategory">直播</span>
+														{{else if item.type == 4}}
+														<span class="classCategory">线下课</span>
+														{{else if item.collection == true}}
+														<span class="classCategory">视频专辑</span>
+														{{/if}}
 														<div class="detail">
-															<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
+															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>
 															<p class="timeAndTeac">
-																<span class="teacher">雪灵</span>
+																<span class="teacher">{{item.lecturerName}}</span>
 																<span class="y"></span>
 															</p>
-															<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
+															<p class="info clearfix">
+																<span>
+																	{{if item.watchState==0}}
+																	<span class="price">{{item.currentPrice}}</span>
+																	<span>熊猫币</span>
+																	
+																	{{else if item.watchState==1}}
+																	<span class="price">免费</span>
+																	{{/if}}
+																</span>
+																<span class="stuCount">
+																	<img src="/web/images/studentCount.png" alt="">
+																	<span class="studentCou">{{item.learndCount}}</span>
+																</span>
 															</p>
 														</div>
 													</a>
@@ -187,76 +215,181 @@
 												{{/each}}
 											</script>	
 										</div>
-									
 										<!--无视频时背景图-->
 										<div class="sava-nodata nodata-history hide"></div>	
+											<div class="cl"></div>	
+											<!--分页部分start-->
+											<div class="history_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="history_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
 									</div>
 									<!--已购课程-->
 									<div class="save-class hide">
-										<div class="course clearfix">
-											<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-												<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
-												<div class="detail">
-													<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-													<p class="timeAndTeac">
-														<span class="teacher">雪灵</span>
-														<span class="y">上海</span>
-													</p>
-													<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-													</p>
+										<div id="buy-template">
+											<script type="text/template" id="purchased-class">
+												{{each items as item i}}
+												<div class="course clearfix">
+													<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+														<div class="img">
+															<img src="{{item.smallImgPath}}">
+														</div>
+														{{if item.type == 1}}
+														<span class="classCategory">音频</span>
+														{{else if item.type == 2}}
+														<span class="classCategory">视频</span>
+														{{else if item.type == 3}}
+														<span class="classCategory">直播</span>
+														{{else if item.type == 4}}
+														<span class="classCategory">线下课</span>
+														{{else if item.collection == true}}
+														<span class="classCategory">视频专辑</span>
+														{{/if}}
+														<div class="detail">
+															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>
+															<p class="timeAndTeac">
+																<span class="teacher">{{item.name}}</span>
+																{{if item.type==4}}
+																<span class="y">{{item.city}}</span>
+																{{/if}}
+															</p>
+															<p class="info clearfix">
+																<span>
+																	{{if item.watchState==0}}
+																	<span class="price">{{item.currentPrice}}</span>
+																	<span>熊猫币</span>
+																	
+																	{{else if item.watchState==1}}
+																	<span class="price">免费</span>
+																	{{/if}}
+																</span>
+																<span class="stuCount">
+																	<img src="/web/images/studentCount.png" alt="">
+																	<span class="studentCou">{{item.learndCount}}</span>
+																</span>
+															</p>
+														</div>
+													</a>
 												</div>
-											</a>
+												{{/each}}
+											</script>	
+											
 										</div>
 										<!--无视频时背景图-->
-										<div class="sava-nodata nodata-buyclass"></div>										
+										<div class="sava-nodata nodata-buyclass"></div>	
+										<div class="cl"></div>
+										<!--分页部分start-->
+											<div class="buy_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="buy_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
 									</div>
 									<!--结束课程-->
 									<div class="save-class hide">
-										<div class="course clearfix">
-											<a style="cursor:pointer" href="/course/courses/611" target="_blank">
-												<div class="img"><img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/14/f8b9b157ae4e4b9d9730607ecdcdac71.png"></div><span class="classCategory">音频</span>
-												<div class="detail">
-													<p class="title" data-text="音频测试3" title="音频测试3">音频测试3</p>
-													<p class="timeAndTeac">
-														<span class="teacher">雪灵</span>
-														<span class="y">上海</span>
-													</p>
-													<p class="info clearfix"><span><span class="price">1</span><span>熊猫币</span></span><span class="stuCount"><img src="/web/images/studentCount.png" alt=""><span class="studentCou">15</span></span>
-													</p>
+										<div id="end-template">
+											<script type="text/template" id="end-class">
+												{{each items as item i}}
+												<div class="course clearfix">
+													<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+														<div class="img">
+															<img src="{{item.smallImgPath}}">
+														</div>
+														{{if item.type == 1}}
+														<span class="classCategory">音频</span>
+														{{else if item.type == 2}}
+														<span class="classCategory">视频</span>
+														{{else if item.type == 3}}
+														<span class="classCategory">直播</span>
+														{{else if item.type == 4}}
+														<span class="classCategory">线下课</span>
+														{{else if item.collection == true}}
+														<span class="classCategory">视频专辑</span>
+														{{/if}}
+														<div class="detail">
+															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>
+															<p class="timeAndTeac">
+																<span class="teacher">{{item.name}}</span>
+																{{if item.type==4}}
+																<span class="y">{{item.city}}</span>
+																{{/if}}
+															</p>
+															<p class="info clearfix">
+																<span>
+																	{{if item.watchState==0}}
+																	<span class="price">{{item.currentPrice}}</span>
+																	<span>熊猫币</span>
+																	
+																	{{else if item.watchState==1}}
+																	<span class="price">免费</span>
+																	{{/if}}
+																</span>
+																<span class="stuCount">
+																	<img src="/web/images/studentCount.png" alt="">
+																	<span class="studentCou">{{item.learndCount}}</span>
+																</span>
+															</p>
+														</div>
+													</a>
 												</div>
-											</a>
+												{{/each}}
+											</script>
 										</div>
 										<!--无视频时背景图-->
 										<div class="sava-nodata nodata-endclass"></div>	
+										<div class="cl"></div>
+										<!--分页部分start-->
+											<div class="end_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="end_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
 									</div>
 								</div>
 								<!--关注的主播-->
 								<div class="mune1-2 hide">
 									<div class="my-class-nav">
 										<h5 class="anchor-follow">关注的主播</h5>
-									</div>
-									<div class="anchor-list">
+									</div>	
+									<div class="anchor-list" id="anchor-template">
+										<script type="text/template" id="anchor-box">
+										{{each items as item i}}
 										<div class="anchor-wrap">
 											<div class="head-doctor z">
-												<img src="../../images/teacher_big_pic.png"/>
+												<img src="{{item.smallHeadPhoto}}"/>
 											</div>
 											<div class="doctor-details y">
-												<h5>王老板</h5>
+												<h5>{{item.name}}</h5>
 												<p class="doctor-text">
 													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播
 													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播
 													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播												
 												</p>
 											</div>
-										</div>										
-									</div>
+										</div>	
+									{{/each}}
+										</script>
+									</div>												
 								<!--暂无关注的主播-->	
-								<div class="no-follow-anchor hide">
-									<div class="no-follow-img">
-										<img src="../../images/icon-nodata.png"/>
+									<div class="no-follow-anchor hide">
+										<div class="no-follow-img">
+											<img src="../../images/icon-nodata.png"/>
+										</div>
+										<p>暂无关注的主播</p>
 									</div>
-									<p>暂无关注的主播</p>
-								</div>
 								</div>	
 							</div>
 						<!--问答与论坛-->
@@ -272,7 +405,7 @@
 									<!--我的提问-->									
 									<div class="question-wrap">
 
-										<div class="question-list-wrap">
+										<!--<div class="question-list-wrap">
 											<div class="head-name-who z">
 												<div class="head-img">
 													<img src="../../images/head_03.png"/ alt="头像">
@@ -313,71 +446,73 @@
 													</ul>
 												</div>
 											</div>
-										</div>
-
-										<div class="question-list-wrap">
-											<div class="head-name-who z">
-												<div class="head-img">
-													<img src="../../images/head_03.png"/ alt="头像">
-												</div>
-												<p class="user-name">小宝宝</p>
-												<div class="my-answer">
-													<span>回答</span>
-													<p>20</p>
-												</div>
-											</div>
-											<div class="source-text y">
-												<p class="source-title">来自学科：各家综合</p>
-												<div class="question-status-wrap">
-													<span>已解决</span>
-													<p>不懂就要问</p>
-												</div>
-												<p class="list-Answer-right-text dot5" >
-														遇到稍稍遇到稍遇到稍遇到遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密
-														遇到稍稍遇到稍遇到稍遇到微变化血管扩张，密集的问问集的问问遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密集的问问微变化血管扩张，密集的问问
-												</p>
-												<div class="show-img">
-													<ul>
-														<li><img src="../../images/04.png"/></li>
-														<li><img src="../../images/04.png"/></li>
-														<li><img src="../../images/04.png"/></li>
-													</ul>
-												</div>
-												<div class="time-status cl">
-													<ul>
-														<li>
-
-															<span>2017.11.17  11:03</span>
-														</li>
-														<li>
-															<span><i class="iconfont icon-biaoqian"></i>美容养生</span>
-														</li>
-														<li>
-															
-															<span><i class="iconfont icon-yulan icon-set"></i>5968</span>
-														</li>
-													</ul>
-												</div>
-												<!--回复的内容/点赞-->
-												<div class="reply-wrap y">
-													<div class="reply-user-head z">
-														<img src="../../images/head_03.png"/>
+										</div>-->
+										<div id="quiz-template">
+											<script type="text/template" id="quiz-box">
+												<div class="question-list-wrap">
+													<div class="head-name-who z">
+														<div class="head-img">
+															<img src="../../images/head_03.png"/ alt="头像">
+														</div>
+														<p class="user-name">小宝宝</p>
+														<div class="my-answer">
+															<span>回答</span>
+															<p>20</p>
+														</div>
 													</div>
-													<div class="reply-user-text y">
-														<h5>熊猫小客服</h5>
-														<p>
-															熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服
-															熊猫小客服熊猫小客服v熊猫小客服熊猫小客服熊猫小客服熊猫小客服
+													<div class="source-text y">
+														<p class="source-title">来自学科：各家综合</p>
+														<div class="question-status-wrap">
+															<span>已解决</span>
+															<p>不懂就要问</p>
+														</div>
+														<p class="list-Answer-right-text dot5" >
+																遇到稍稍遇到稍遇到稍遇到遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密
+																遇到稍稍遇到稍遇到稍遇到微变化血管扩张，密集的问问集的问问遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密集的问问微变化血管扩张，密集的问问
 														</p>
-														<ul>
-															<li>5分钟</li>
-															<li class="select-down"><i class="iconfont icon-zan"></i> 0</li>
-														</ul>
+														<div class="show-img">
+															<ul>
+																<li><img src="../../images/04.png"/></li>
+																<li><img src="../../images/04.png"/></li>
+																<li><img src="../../images/04.png"/></li>
+															</ul>
+														</div>
+														<div class="time-status cl">
+															<ul>
+																<li>
+		
+																	<span>2017.11.17  11:03</span>
+																</li>
+																<li>
+																	<span><i class="iconfont icon-biaoqian"></i>美容养生</span>
+																</li>
+																<li>
+																	
+																	<span><i class="iconfont icon-yulan icon-set"></i>5968</span>
+																</li>
+															</ul>
+														</div>
+														<!--回复的内容/点赞-->
+														<div class="reply-wrap y">
+															<div class="reply-user-head z">
+																<img src="../../images/head_03.png"/>
+															</div>
+															<div class="reply-user-text y">
+																<h5>熊猫小客服</h5>
+																<p>
+																	熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服
+																	熊猫小客服熊猫小客服v熊猫小客服熊猫小客服熊猫小客服熊猫小客服
+																</p>
+																<ul>
+																	<li>5分钟</li>
+																	<li class="select-down"><i class="iconfont icon-zan"></i> 0</li>
+																</ul>
+															</div>
+														</div>
 													</div>
 												</div>
-											</div>
+											</script>
 										</div>
-									
 										<!--无我的提问时的背景图-->
 										<div class="no-question-box hide">
 											<div class="no-question-img">
@@ -470,25 +605,35 @@
 									</div>
 									<!--我的帖子-->
 									<div class="reply-post-wrap">
-										<div class="post-box">
+										<div class="post-box" id="post-template">
+											<script type="text/template" id="post-model">
 												<table border="0" cellspacing="0" cellpadding="0">
 													<tr class="thead-title">
 														<th>主题</th>
 														<th>所属板块</th>
 														<th>最后回复时间</th>
 													</tr>
+													{{each items as item i}}
 													<tr class="ttable-centent">
-														<td>谁有中医古籍啊，各种求~来者不拒多多益善！谁有中医古书籍啊，各种求~来！谁有中医古书！谁有中医古书！谁有中医古书</td>
-														<td>美容养生</td>
-														<td>2017.12.20  20:08</td>
+														<td>{{item.content}}</td>
+														<td>{{item.labelName}}</td>
+														<td>{{item.initTime}}</td>
 													</tr>
-													<tr class="ttable-centent">
-														<td>谁有中医古籍啊，各种求~来者不拒多多益善！谁有中！谁有中医古书！谁有中医古书！谁有中医古书医古书</td>
-														<td>美容养生</td>
-														<td>2017.12.20  20:08</td>
-													</tr>
+													{{/each}}
 												</table>
+											</script>
+										
 										</div>
+											<!--分页部分start-->
+											<div class="post_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="post_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
 										<!--暂无帖子-->
 										<div class="no-post-box hide">
 											<div class="no-post-img">
@@ -499,32 +644,37 @@
 									</div>
 									<!--我的回复-->
 									<div class="reply-post-wrap hide">
-										<div class="reply-box">
-											<div class="reply-status">
-												<ul>
-													<li>主题</li>
-													<li>所属板块</li>
-													<li>最后回复时间</li>
-												</ul>
-											</div>
-											<div class="reply-tltle">
-												<ul>
-													<li>谁有中医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益善！谁有中医古书籍啊，各种求</li>
-													<li>美容养生</li>
-													<li>2017.12.20 20:08</li>
-												</ul>
-												<p>医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益</p>
-												
-											</div>
-											<div class="reply-tltle">
-												<ul>
-													<li>谁有中医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益善！谁有中医古书籍啊，各种求</li>
-													<li>美容养生</li>
-													<li>2017.12.20 20:08</li>
-												</ul>
-												<p>医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益医古籍啊，各种求~来者不拒多多益善！谁有益善！谁有益善！谁有益</p>
-											</div>
+										<div class="reply-box" id="reply-template">
+											<script type="text/template" id="reply-model">
+												<div class="reply-status">
+													<ul>
+														<li>主题</li>
+														<li>所属板块</li>
+														<li>最后回复时间</li>
+													</ul>
+												</div>
+												{{each items as item i}}
+												<div class="reply-tltle">
+													<ul>
+														<li>{{item.postTitle}}</li>
+														<li>{{item.labelName}}</li>
+														<li>{{item.initTime}}</li>
+													</ul>
+													<p>{{item.content}}</p>
+												</div>
+												{{/each}}
+											</script>
 										</div>
+										<!--分页部分start-->
+											<div class="reply_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="reply_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
 										<!--暂无回复-->
 										<div class="no-reply-box hide">
 											<div class="no-reply-img">
@@ -1060,8 +1210,11 @@
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<!--点击显示更多内容-->
 		<script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>
-		
-		
+		<!--分页部分start-->
+		<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
+		<!--分页部分start-->
+		<!--公共弹窗-->
+		<script src="/web/js/common_msg.js"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>	
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		
