@@ -116,7 +116,7 @@ public class LookHistoryController {
 			 */
 			Page<WatchHistoryVO> page = new Page<>();
 		    page.setCurrent(1);
-		    page.setSize(5);
+		    page.setSize(Integer.MAX_VALUE);
 		    OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
 			   return ResponseObject.newErrorResponseObject("登录失效");
