@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.course.mapper.MyInfoMapper;
 
@@ -54,7 +55,11 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			throw new UserInfoException("性别不合法,0 女  1男   2 未知");
 		}
 		
-		
+		//过滤掉可能出现的表情字符
+		if(StringUtils.isNotBlank(user.getName())) {
+			String name = user.getName();
+			user.setName(SLEmojiFilter.filterEmoji(name));
+		}
 		
 		if(StringUtils.isNotBlank(user.getName()) && XzStringUtils.checkNickName(user.getName())
 				&&(user.getName().length()>20)){
