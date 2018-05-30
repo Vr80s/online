@@ -196,8 +196,9 @@ public class CourseLecturVo implements Serializable {
 	
 	private String richHostDetailsUrl;//富文本主讲人详情的html片段url
 	
-	
 	private Integer playBackType; //回放状态：0表示生成中，1表示生成成功，2表示生成失败
+	
+	private Boolean isDelete; // false 没有删除  true 删除
 	
 	
 	public String getUdescription() {
@@ -630,8 +631,13 @@ public class CourseLecturVo implements Serializable {
 	public void setPlayBackType(Integer playBackType) {
 		this.playBackType = playBackType;
 	}
-	
-	
-	
+
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
 	
 }

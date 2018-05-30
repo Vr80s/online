@@ -21,18 +21,20 @@ import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineCourseService;
+import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczh.consumer.market.vo.LecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczhihui.common.util.enums.MyCourseType;
 import com.xczhihui.common.util.enums.ShareType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.ThridFalg;
@@ -63,6 +65,11 @@ public class MobileShareController {
 	private UserCenterService userCenterService;
 	@Autowired
 	private ICourseService courseServiceImpl;
+	@Autowired
+	private OnlineWebService onlineWebService;
+	@Autowired
+	private OnlineUserService onlineUserService;
+	
 	
 	@Value("${webdomain}")
 	private String webdomain;
@@ -78,13 +85,11 @@ public class MobileShareController {
 			@RequestParam(value="shareId")String shareId,
 			@RequestParam(value="shareType")Integer shareType)
 					throws Exception{
-		
-		
 		try {
 			if(ShareType.COURSE_SHARE.getCode() == shareType ||
 					ShareType.ALBUM_SHARE.getCode()== shareType){ // 课程分享 
 				
-				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
+				CourseVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
 				if(courseLectur==null){
 					return ResponseObject.newErrorResponseObject("课程信息有误");
 				}
@@ -133,24 +138,69 @@ public class MobileShareController {
 	 */
 	@RequestMapping("shareBrowserDifferentiation")
 	public void shareBrowserDifferentiation(HttpServletRequest req,
-			HttpServletResponse res)throws Exception{
+			HttpServletResponse res,
+			@RequestParam(value="shareId")String shareId,
+			@RequestParam(value="shareType")Integer shareType,
+			@RequestParam(value="wxOrbrower")String wxOrbrower)throws Exception{
 		/**
 		 * 这里有个问题就是。如果去分享页面的话
 		 */
-		String shareId = req.getParameter("shareId");  //分享的id
-		String shareType = req.getParameter("shareType");  //分享类型
-		String wxOrbrower = req.getParameter("wxOrbrower");  //来自哪里的浏览器
+//		String shareId = req.getParameter("shareId");  //分享的id
+//		String shareType = req.getParameter("shareType");  //分享类型
+//		String wxOrbrower = req.getParameter("wxOrbrower");  //来自哪里的浏览器
 		LOGGER.info("shareId:"+shareId+",shareType:"+shareType);
 		String shareIdAndType = shareId+"_"+shareType;
 		
 		
-		if("1".equals(shareType) || "3".equals(shareType)){ //课程分享啦
+		
+		/**
+		 * 判断课程或者主播是否存在
+		 */
+		if(ShareType.COURSE_SHARE.equals(shareType) || 
+				ShareType.ALBUM_SHARE.equals(shareType)){ //课程分享
 			
+			Integer courseId = Integer.parseInt(shareId);
 			
+			CourseLecturVo  courseLecturVo = 
+			 	courseServiceImpl.selectCourseStatusDeleteUserLecturerId(courseId);
+			
+			System.out.println("courseLecturVo.getStatus()："+courseLecturVo.getStatus());
+	    	System.out.println("courseLecturVo.getisDelete()："+courseLecturVo.getIsDelete());
+	    	System.out.println("courseLecturVo.getUserLecturerId()："+courseLecturVo.getUserLecturerId());
+	    	
+	    	LOGGER.info("status():"+courseLecturVo.getStatus()+
+	    			",isDelete():"+courseLecturVo.getIsDelete()+
+	    			",userLecturerId():"+courseLecturVo.getUserLecturerId());
+	    	
+	    	OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+			if(courseLecturVo.getStatus() == 1 &&  user ==null) { //课程下架了
+				LOGGER.info("课程被下架,用户为登录");
+				
+			}else if(courseLecturVo.getStatus() == 1 &&  user !=null) { //课程虽然被下架。但判断此用户是否购买过啊
+				Boolean falg = onlineWebService.getLiveUserCourse(courseId, user.getId());
+				if(!falg) {
+					LOGGER.info("课程虽然被下架。用户也没有购买");
+				}
+				
+			}else if(courseLecturVo.getIsDelete()) { //课程被删除
+				LOGGER.info("课程被物理删除");
+			
+			}else if(StringUtils.isBlank(courseLecturVo.getUserLecturerId())) {
+				LOGGER.info("课程的教师没有找到");
+				
+			}
+		}else if(ShareType.HOST_SHARE.equals(shareType)){ //主播分享
+			OnlineUser o = onlineUserService.findUserById(shareId);
+	        if (o != null) {
+	            if (o.isDelete() || o.getStatus() == -1) {
+	              
+	            	
+	            }
+	        }
+		}else { //分享类型有误 --》首页
 			
 			
 		}
-		
 		/*
 		 * 这里需要判断下是不是微信浏览器
 		 */

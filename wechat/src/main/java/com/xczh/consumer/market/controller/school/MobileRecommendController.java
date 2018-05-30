@@ -18,7 +18,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.common.util.enums.ProjectType;
@@ -171,7 +171,7 @@ public class MobileRecommendController {
 			Integer pageNumber, Integer pageSize)
 			throws Exception {
 
-		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,lineState,courseType,isFree,city,queryKey,pageNumber,pageSize);
+		List<CourseVo> list = wxcpCourseService.queryAllCourse(menuType,lineState,courseType,isFree,city,queryKey,pageNumber,pageSize);
 		
 		return ResponseObject.newSuccessResponseObject(list);
 	}

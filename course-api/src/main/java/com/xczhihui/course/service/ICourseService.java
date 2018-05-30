@@ -158,7 +158,7 @@ public interface ICourseService {
      * @param type
      * @return
      */
-    public List<CourseLecturVo> myCourseType(Integer num, Integer pageSize, String id, Integer type);
+    public List<CourseLecturVo> myCourseType(Page<CourseLecturVo> page, String id, Integer type);
 
     /**
      * Description：获取直播状态列表
@@ -207,4 +207,11 @@ public interface ICourseService {
      * @return
      */
     List<Map<String, Object>> findByMenuIdExcludeId(Integer menuId, Integer courseId);
+
+    /**
+     * 查看这个课程的 StatusDeleteUserLecturerId
+     * @param i
+     * @return
+     */
+	public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
 }

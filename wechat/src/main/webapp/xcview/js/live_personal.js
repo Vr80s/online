@@ -112,19 +112,41 @@ requestService("/xczh/host/hostPageInfo",{
 
         var src = $(this).find('img').attr('src');
         if(src.indexOf("append1_icon")>-1){
+        	
+        	my_follow(lecturerId,1);
+        	
             $(".add_follow").find('img').attr('src','../images/append2_icon.png');
             $(".add_follow").find('p').html("已关注");
             $(".add_follow").find('p').css("color","#bbb");
 			// $(".add_follow").css("border","1px solid #bbb");
             $(".right_personal").find('span').html(parseInt(p)+1);
-            my_follow(lecturerId,1);
+            
+            //判断是不是自己关注自己了
+            var userId = localStorage.getItem("userId");
+            if(userLecturerId == userId){
+            	 var $span = $(".left_personal").find('span');
+            	 var left_p = $span.html();
+            	 $span.html(parseInt(left_p)+1);
+            }
+            
+            
+            
         }else{
+        	my_follow(lecturerId,2);
+        	
             $(".add_follow").find('img').attr('src','../images/append1_icon.png');
             $(".add_follow").find('p').html("加关注");
             $(".add_follow").find('p').css("color","#00bc12");
             // $(".add_follow").css("border","1px solid #00bc12");
             $(".right_personal").find('span').html(parseInt(p)-1);
-            my_follow(lecturerId,2);
+           
+            //判断是不是自己关注自己了
+            var userId = localStorage.getItem("userId");
+            if(userLecturerId == userId){
+            	 var $span = $(".left_personal").find('span');
+            	 var left_p = $span.html();
+            	 $span.html(parseInt(left_p)-1);
+            }
         }
     });		
 //直播时间截取	

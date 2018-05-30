@@ -316,17 +316,20 @@
 	        </when>
 	        <!-- 价格降序-->
 	        <when test="queryVo.sortOrder == 4" >
-	              currentPrice asc,recommendSort desc 
+	              currentPrice desc,recommendSort desc 
 	        </when>
 	        <!-- 价格升序-->
 	        <when test="queryVo.sortOrder == 5" >
-	              currentPrice desc,recommendSort desc 
+	              currentPrice asc,recommendSort desc 
 	         </when>
 	         <otherwise>
              	recommendSort desc
 	         </otherwise>   
 	      </choose>   
 	</sql>
+	
+	
+	
 	
 	
 	<!-- 没有关键字的查询 -->
@@ -463,7 +466,32 @@
 	     </if> 
 	  )  ) as  ooc
 	    group by ooc.id order by  
-	  	ooc.querySort asc,recommendSort desc,
-	  		ooc.release_time desc
+	  	<include refid="queryKeySortOrder"/> 
 	</select>
+	
+	<sql id="queryKeySortOrder">
+		<choose>
+			<!-- 最新 -->
+	        <when test="queryVo.sortOrder == 2 ">
+	              oc.release_time desc,ooc.querySort asc,recommendSort desc
+	        </when> 
+	        <!-- 人气 -->
+	        <when test="queryVo.sortOrder == 3" >
+	              learndCount desc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
+	        </when>
+	        <!-- 价格升序-->
+	        <when test="queryVo.sortOrder == 4" >
+	              currentPrice desc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
+	        </when>
+	     	<!-- 价格降序-->
+	        <when test="queryVo.sortOrder == 5" >
+	              currentPrice asc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
+	         </when>
+	         <otherwise>
+             	ooc.querySort asc,recommendSort desc,ooc.release_time desc
+	         </otherwise>   
+	      </choose>   
+	</sql>
+	
+	
 </mapper>

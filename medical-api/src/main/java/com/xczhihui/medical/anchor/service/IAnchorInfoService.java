@@ -24,4 +24,11 @@ public interface IAnchorInfoService {
     Object authInfo(String userId);
 
     void validateAnchorPermission(String userId);
+    
+    /**
+     * 查看主播认证状态    0 未认证   1 医师   2 医馆   3 禁用
+     * @param userId
+     * @return
+     */
+	Integer anchorPermissionStatus(String userId);
 }

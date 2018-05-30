@@ -3,7 +3,7 @@ package com.xczh.consumer.market.controller.school;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.course.model.MobileBanner;

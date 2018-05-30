@@ -2,7 +2,7 @@ package com.xczh.consumer.market.service.impl;
 
 import com.xczh.consumer.market.dao.ListenCourseMapper;
 import com.xczh.consumer.market.service.ListenCourseService;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +18,8 @@ public class ListenCourseImpl implements ListenCourseService {
 	 * 听课列表
 	 */
 	@Override
-	public List<CourseLecturVo> listenCourseList() throws Exception {
-		List<CourseLecturVo> list = listenCourseMapper.listenCourseList();
+	public List<CourseVo> listenCourseList() throws Exception {
+		List<CourseVo> list = listenCourseMapper.listenCourseList();
 		return list;
 	}
 

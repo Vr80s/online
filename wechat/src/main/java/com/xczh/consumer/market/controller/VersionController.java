@@ -24,7 +24,7 @@ import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczhihui.online.api.vo.LiveExamineInfo;
 
@@ -91,7 +91,7 @@ public class VersionController {
     	String token = req.getParameter("token");
 		try {
 			String content = req.getParameter("content");
-	    	CourseLecturVo cv =  null;
+	    	CourseVo cv =  null;
 			list = uploadFileList(files,req);
 			String imgStrs = "";
 	    	int i = 0;

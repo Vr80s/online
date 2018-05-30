@@ -98,8 +98,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<Integer> selectCourseIdByCollectionId(Integer courseId);
 
-    List<CourseLecturVo> myCourseType(@Param("pageNumber") Integer pageNumber,
-                                      @Param("pageSize") Integer pageSize, @Param("userId") String userId,
+    List<CourseLecturVo> myCourseType(@Param("page") Page<CourseLecturVo> page, @Param("userId") String userId,
                                       @Param("type") Integer type);
 
     List<CourseLecturVo> selectRecommendSortAndRandCourse(@Param("page") Page<CourseLecturVo> page);
@@ -118,4 +117,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             " order by oc.release_time desc " +
             " limit 4"})
     List<Map<String, Object>> selectByMenuIdExcludeSelf(@Param("menuId") Integer menuId, @Param("id") Integer id);
+    
+    
+	CourseLecturVo selectCourseStatusDeleteUserLecturerId(@Param("courseId")Integer courseId);
 }

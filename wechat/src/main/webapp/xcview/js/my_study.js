@@ -1,4 +1,16 @@
 
+
+
+/**
+ * 主要针对ios系统返回从浏览器缓存中去页面，没刷新页面
+ */
+window.onpageshow = function(event){
+	if (event.persisted) {
+	 window.location.reload();
+	}
+}
+
+
 /**
  * 保存openId
  */

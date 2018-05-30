@@ -27,7 +27,7 @@ $(function() {
 	 * 增加学习记录
 	 */
 	RequestService("/learnWatch/add", "POST", {
-		courseId:collectionId,recordType:1
+		courseId:courseId,recordType:1
 	}, function(data) {
 		console.log("添加观看记录");
 	},false);
