@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -180,6 +181,9 @@ public class MyInfoController {
 		}
 		int num = (pageNumber - 1) * pageSize;
 		num = num < 0 ? 0 : num;
-		return ResponseObject.newSuccessResponseObject(courseServiceImpl.myCourseType(num,pageSize, user.getId(),type));
+		Page<CourseLecturVo> page = new Page<CourseLecturVo>();
+		page.setCurrent(num);
+		page.setSize(pageSize);
+		return ResponseObject.newSuccessResponseObject(courseServiceImpl.myCourseType(page, user.getId(),type));
 	}
 }

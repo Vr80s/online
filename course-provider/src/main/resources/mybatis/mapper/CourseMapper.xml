@@ -517,7 +517,6 @@
       			( oc.type = 1 and oc.live_status = 3  and argc.user_id=#{userId}  and  oc.is_delete=0 )
        		group by oc.id order by oc.end_time desc 
 		</if>
-		limit #{pageNumber},#{pageSize}
 	</select>
 	
 	<!--  查看听课列表  -->

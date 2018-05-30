@@ -3,6 +3,7 @@ package com.xczhihui.course.mapper;
 import java.util.List;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.WatchHistory;
 import com.xczhihui.course.vo.WatchHistoryVO;
 
@@ -17,7 +18,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface WatchHistoryMapper extends BaseMapper<WatchHistory> {
 
-	List<WatchHistoryVO> selectWatchHistory(@Param("userId") String userId);
+	List<WatchHistoryVO> selectWatchHistory(@Param("page") Page<WatchHistoryVO> page, @Param("userId") String userId);
 
 	WatchHistory findWatchHistoryByUserIdAndCourseId(@Param("userId") String userId,
 			@Param("courseId")Integer courseId);
