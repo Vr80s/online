@@ -402,5 +402,23 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         return null;
     }
 
+    @Override
+    public Integer anchorPermissionStatus(String userId) {
+        if(userId==null){
+            throw new AnchorException("用户id不为空");
+        }
+        CourseAnchor courseAnchor = new CourseAnchor();
+        courseAnchor.setUserId(userId);
+        CourseAnchor ca = courseAnchorMapper.selectOne(courseAnchor);
+        if(ca == null){
+        	return 0;
+        }else if(!courseAnchor.getStatus()){ //被禁用
+        	return 3;
+        }
+        return courseAnchor.getType();
+    }
+    
+    
+    
 
 }

@@ -31,6 +31,7 @@ import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
@@ -79,6 +80,10 @@ public class MyManagerController {
     @Autowired
     @Qualifier("focusServiceRemote")
     private IFocusService focusServiceRemote;
+    
+    @Autowired
+    private IAnchorInfoService  anchorInfoService;
+    
 
     @Value("${rate}")
     private int rate;
@@ -121,11 +126,13 @@ public class MyManagerController {
             map.put("user", ou);
             // 查找购买的课程数
             map.put("courseCount", courseService.selectMyFreeCourseListCount(userId));
+
             //是否拥有主播权限
-            Integer hostPermissions = myInfoService.getUserHostPermissions(userId);
-            LOGGER.info(hostPermissions + "");
+            //Integer hostPermissions = myInfoService.getUserHostPermissions(userId);
+	        Integer hostPermissions = anchorInfoService.anchorPermissionStatus(ou.getUserId());
+	        LOGGER.info(hostPermissions + "");
             // 查看主播权限   -- 并且把主播信息给返回过去
-            map.put("hostPermissions", hostPermissions != null ? hostPermissions : 0);
+            map.put("hostPermissions", hostPermissions);
             if (hostPermissions != null && hostPermissions == 1) {
                 //申请的医师信息
                 map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(userId));

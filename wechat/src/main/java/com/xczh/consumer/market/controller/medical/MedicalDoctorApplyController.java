@@ -126,8 +126,7 @@ public class MedicalDoctorApplyController {
 		if (user == null) {
 			return ResponseObject.newSuccessResponseObject(7);
 		}
-		return ResponseObject.newSuccessResponseObject(commonServiceImpl
-				.isDoctorOrHospital(user.getId()));
+		return ResponseObject.newSuccessResponseObject(commonServiceImpl.isDoctorOrHospital(user.getId()));
 	}
 
 	/**
