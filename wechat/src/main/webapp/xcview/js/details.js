@@ -360,19 +360,14 @@ function timer(startTime,currentTime){
 		
 // 聊天--关注开始
 
-$(".add_follow").click(
-		function() {
+$(".add_follow").click(function() {
 			// 评论id
 			// lecturerId = $(this).attr("data-lecturerId");
-
 			// 这个主播的粉丝数
 			var n_fensi = $(".n_fensi").html();
-
 			var src = $(this).find('img').attr('src');
 			var type = 1;
-
 			var htmlstr = $(".add_follow").find('p').html();
-
 			if (htmlstr == "已关注") { // 增加关注
 				type = 2;
 			} else {
@@ -391,6 +386,16 @@ $(".add_follow").click(
 						$(".add_follow").addClass("add_follows0");
 						$(".add_follow").removeClass("add_follows1");
 						$(".n_fensi").html(parseInt(n_fensi) - 1);
+						
+						//n_guanzhu
+						
+						 //判断是不是自己关注自己了
+			            var userId = localStorage.getItem("userId");
+			            if(teacherId == userId){
+			            	 var $span = $(".n_guanzhu");
+			            	 var left_p = $span.html();
+			            	 $span.html(parseInt(left_p)-1);
+			            }
 					} else {
 						
 						$(".add_follow").find('img').attr('src','../images/yigz.png');
@@ -401,6 +406,13 @@ $(".add_follow").click(
 						
 						// 粉丝数
 						$(".n_fensi").html(parseInt(n_fensi) + 1);
+						
+						var userId = localStorage.getItem("userId");
+				        if(teacherId == userId){
+			            	 var $span = $(".n_guanzhu");
+			            	 var left_p = $span.html();
+			            	 $span.html(parseInt(left_p)+1);
+				        }
 					}
 				}
 			})

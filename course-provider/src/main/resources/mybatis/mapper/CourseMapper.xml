@@ -168,6 +168,7 @@
 	</select>
 
      
+     
 	<sql id="relLearningCourseListByUserId">
 	   	oc.id as id,
 		oc.grade_name as gradeName,
@@ -287,9 +288,7 @@
 	<select id="selectLecturerAllCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		  <include refid="relLearningCourseListByUserId"/>
-		    DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
-			(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)+ 
-				IFNULL(oc.default_student_count, 0)) as  learndCount
+		    DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr
 		FROM
 		oe_course oc
 		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0  
@@ -643,7 +642,6 @@
 			SELECT
 			    <include refid="relLearningCourseListByUserId"/>
 			    	(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)+ 
-				IFNULL(oc.default_student_count, 0)) as  learndCount,
 				DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
 				if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
 			FROM

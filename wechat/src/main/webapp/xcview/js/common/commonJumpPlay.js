@@ -85,7 +85,7 @@ function common_jump_play(id,watchState,lineState){
           }
 //购买后的直播和即将直播跳直播间
           else if(watchState==2 && lineState==1){
-         	 //增加观看记录就行
+         	 //增加学习记录
              requestService("/xczh/history/add",
                 {courseId:id,recordType:1}
                 ,function(data) {
