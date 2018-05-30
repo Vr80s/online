@@ -15,7 +15,7 @@ $(function() {
 	RequestService("/learnWatch/add", "POST", {
 		courseId:courseId,recordType:1
 	}, function(data) {
-		console.log("添加观看记录");
+		console.log("增加学习记录");
 	},false);
 	
 	

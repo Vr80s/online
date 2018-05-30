@@ -6,6 +6,7 @@ import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,8 +31,11 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
-	protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler,Exception ex) {
+	protected ModelAndView doResolveException(HttpServletRequest request, 
+			HttpServletResponse response, Object handler,Exception ex) {
 		HandlerMethod method = (HandlerMethod) handler;
+		
+		
 		//异常通知告警
 		if((ex instanceof IpandaTcmException)&&((IpandaTcmException) ex).isAlarm()){
 			try {
@@ -48,14 +52,15 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
 		}
 		ResponseBody body = method.getMethodAnnotation(ResponseBody.class);
 		RestController rest = AnnotationUtils.findAnnotation(method.getBeanType(), RestController.class);
+		
 		if (body == null && rest == null) {
+			
 			return super.doResolveException(request, response, handler, ex);
 		}
 		ModelAndView mv = new ModelAndView();
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding("UTF-8");
 		response.setHeader("Cache-Control", "no-cache, must-revalidate");
-
 		try {
 			ResponseObject ro = ResponseObject.newErrorResponseObject(ex.getMessage());
 			Gson gson = new Gson();

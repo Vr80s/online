@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.service.LiveService;
@@ -193,6 +194,10 @@ public class PageController {
         	//转发到展示页面
         	mv=  new ModelAndView("redirect:/courses/"+courseId+"/info");
         }
+        
+        System.out.println(mv.getViewName()+"____"+mv.getView());
+        System.out.println(mv.getView() instanceof RedirectView);
+        
         return mv;
     }
     

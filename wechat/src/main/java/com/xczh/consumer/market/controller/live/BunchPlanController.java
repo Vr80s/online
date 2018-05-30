@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.*;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczh.consumer.market.vo.MenuVo;
 
 /**

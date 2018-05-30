@@ -115,7 +115,6 @@ public class SchoolController extends AbstractFtlController {
 		List<MenuVo> listMenu = mobileProjectService.selectMenuVo();
 		view.addObject("cateGoryList", listMenu);
 		
-		view.addObject("webUrl", webUrl);
 		/**
 		 * 课程列表
 		 */

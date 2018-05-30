@@ -164,6 +164,14 @@ public class SchoolDaoTest extends TestCase {
     }
     
     
+    @Test
+    public void selectCourseStatusDeleteUserLecturerId() throws Exception {
+
+    	CourseLecturVo  courseLecturVo = courseService.selectCourseStatusDeleteUserLecturerId(565);
+    	System.out.println("courseLecturVo.getStatus()："+courseLecturVo.getStatus());
+    	System.out.println("courseLecturVo.getisDelete()："+courseLecturVo.getIsDelete());
+    	System.out.println("courseLecturVo.getUserLecturerId()："+courseLecturVo.getUserLecturerId());
+    }
     
     
     

@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.dao.OLCourseMapper;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczh.consumer.market.vo.MenuVo;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.IOfflineCityService;
@@ -32,7 +32,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	 * @throws SQLException
 	 */
 	@Override
-    public List<CourseLecturVo> recommendCourseList( List<MenuVo> listmv) throws SQLException{
+    public List<CourseVo> recommendCourseList( List<MenuVo> listmv) throws SQLException{
 		
 		
 		//学习人数、当前价格、课程类型、课程图片、讲师名、课程名字
@@ -114,11 +114,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		}
 		System.out.println(all.toString());
 		
-		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),all.toString(),new BeanListHandler<>(CourseLecturVo.class));
+		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),all.toString(),new BeanListHandler<>(CourseVo.class));
 	}
 
 	@Override
-	public List<CourseLecturVo> queryAllCourse(String menuType,Integer lineState,
+	public List<CourseVo> queryAllCourse(String menuType,Integer lineState,
 			Integer courseType, String isFree,String city, String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException {
 
@@ -569,11 +569,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
     	System.out.println("commonSql:"+commonSql.toString());
         return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),commonSql.toString(),
-        		pageNumber,pageSize,CourseLecturVo.class);
+        		pageNumber,pageSize,CourseVo.class);
 	}
 
 	@Override
-	public List<CourseLecturVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {
+	public List<CourseVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {
 		String strsql="(select  o.id,o.grade_name as gradeName,o.current_price*10 as currentPrice,4 as type,"
 				+" o.smallimg_path as smallImgPath,o.lecturer as name,o.address as address,"
 				+" o.city as city,DATE_FORMAT(o.start_time,'%m.%d') as startDateStr,"
@@ -612,6 +612,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					strsql+= " union all ";
 				}
 		}
-		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),strsql,new BeanListHandler<>(CourseLecturVo.class));
+		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),strsql,new BeanListHandler<>(CourseVo.class));
 	}
 }

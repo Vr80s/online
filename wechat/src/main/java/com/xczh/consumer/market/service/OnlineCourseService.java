@@ -3,7 +3,7 @@ package com.xczh.consumer.market.service;
 import java.sql.SQLException;
 import java.util.Map;
 
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczh.consumer.market.vo.LecturVo;
 
 /**
@@ -43,7 +43,7 @@ public interface OnlineCourseService {
 	 * @return CourseLecturVo
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	CourseLecturVo courseShare(Integer courseId)
+	CourseVo courseShare(Integer courseId)
 			throws SQLException;
 	/**
 	 *

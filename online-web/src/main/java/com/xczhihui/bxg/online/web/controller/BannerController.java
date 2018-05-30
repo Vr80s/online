@@ -22,7 +22,7 @@ public class BannerController extends AbstractController{
      * type:2.主页banner3.头条banner4.创业banner5.海外banner
      * @return ResponseObject
      */
-    @RequestMapping(value = "/getBannerList",method= RequestMethod.GET)
+    @RequestMapping(value = "/getBannerList",method= RequestMethod.GET) 
     public ResponseObject listBanner(Integer type){
         return ResponseObject.newSuccessResponseObject(service.list(null,null,type));
     }

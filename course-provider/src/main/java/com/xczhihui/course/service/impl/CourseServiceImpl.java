@@ -170,4 +170,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<Map<String, Object>> findByMenuIdExcludeId(Integer menuId, Integer courseId) {
         return iCourseMapper.selectByMenuIdExcludeSelf(menuId, courseId);
     }
+
+	@Override
+	public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId) {
+		return iCourseMapper.selectCourseStatusDeleteUserLecturerId(courseId);
+	}
 }

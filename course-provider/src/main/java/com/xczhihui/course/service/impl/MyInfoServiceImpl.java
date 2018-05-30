@@ -54,6 +54,8 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			throw new UserInfoException("性别不合法,0 女  1男   2 未知");
 		}
 		
+		
+		
 		if(StringUtils.isNotBlank(user.getName()) && XzStringUtils.checkNickName(user.getName())
 				&&(user.getName().length()>20)){
 			throw new UserInfoException("昵称最多允许输入20个字符");

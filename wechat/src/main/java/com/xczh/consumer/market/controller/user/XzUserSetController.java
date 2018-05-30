@@ -315,20 +315,14 @@ public class XzUserSetController {
                     return ResponseObject.newErrorResponseObject("文件类型有误");
                 }
                 byte[] bs = fileMul.getBytes();
-
-                LOGGER.info("个人头像:bytes():" + bs.length +
-                        ",filename:" + filename);
-
-
+                LOGGER.info("个人头像:bytes():" + bs.length +",filename:" + filename);
                 String contentType = fileMul.getContentType();// 文件类型
-
                 String projectName = "other";
                 String fileType = "1"; // 图片类型了
                 String headImgPath = service.upload(null, // 用户中心的用户ID
                         projectName, filename, contentType,
                         bs, fileType, null);
                 LOGGER.info("文件路径——path:" + headImgPath);
-
                 user.setSmallHeadPhoto(headImgPath);
             }
         }

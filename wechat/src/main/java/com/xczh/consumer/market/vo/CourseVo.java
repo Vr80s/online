@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * Created by admin on 2016/7/27.
  */
-public class CourseLecturVo implements Serializable {
+public class CourseVo implements Serializable {
 
     /**
      *课程ID

@@ -1,7 +1,6 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -185,7 +184,7 @@ public class CourseController {
 		//}
 		
 		//if(StringUtils.isNotBlank(cv.getLecturerDescription())){
-			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=3&typeId="+courseId);
+			cv.setRichHostDetailsUrl(returnOpenidUri+"/xcview/html/person_fragment.html?type=2&typeId="+courseId);
 		//}
 		
 		//判断点钱在线人数

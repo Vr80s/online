@@ -207,4 +207,11 @@ public interface ICourseService {
      * @return
      */
     List<Map<String, Object>> findByMenuIdExcludeId(Integer menuId, Integer courseId);
+
+    /**
+     * 查看这个课程的 StatusDeleteUserLecturerId
+     * @param i
+     * @return
+     */
+	public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
 }

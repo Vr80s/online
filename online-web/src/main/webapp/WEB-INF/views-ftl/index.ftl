@@ -50,10 +50,42 @@
         <div class="slider-container">
             <ul id="slider" class="slider">
 				
+			<#if bannerList??>	
+				<#list bannerList as bannerItem >	
+					<li data-indexid="${bannerItem.id}" 
+						class="cur"
+						data-img="${bannerItem.imgPath}"
+						<#if bannerList_index == 0>
+							style="display: none;"
+						</#if>
+						>
+						<a id="aImg${bannerList_index}" target="_blank"
+							href="${bannerItem.imgHref}"
+							style="background: url(&quot;${bannerItem.imgPath}&quot;) center top no-repeat;">
+					   </a>
+				   </li>
+				</#list>	
+            </#if>
             </ul>
-            <div id="left"><em></em></div>
-            <div id="right"><em></em></div>
+            
+            <#if bannerList?? && bannerList == 1>	
+	            <div id="left"><em></em></div>
+	            <div id="right"><em></em></div>
+	        <#elseif bannerList?? && bannerList gt 1>    
+	            <div id="left" style="display:none"><em></em></div>
+	            <div id="right" style="display:none"><em></em></div>
+			</#if>	
+	
             <div id="selector" class="selector">
+				<#if bannerList??>	
+					<#list bannerList as bannerItem >
+					   <#if bannerList_index == 0>
+					   	  <span class="cur"></span>
+					   <#else> 
+					   	  <span></span>
+						</#if>
+					</#list>	
+				</#if>
             </div>
 
         </div>
@@ -79,19 +111,26 @@
             <!-- 视频 + 直播预告-->
             <!-- <div class="yugao1 yugao2">
                 <div class="video_left">
-                    <div class="video_div">
-                        <img src="" alt="" width='500' height='391' class="video_img" id="liveImg" />
-                        <div class="video_div_bottom">
-                            <div class="video_div_bottom_bg1"></div>
-                            <div class="video_div_bottom_right">
-                                <div class="video_div_bottom_bg2"><span id="liveLearndCount"></span>&nbsp;&nbsp;<span>人报名</span></div>
-
-                                <a href="javascript: ;"><span id="liveStatus">进入直播</span></a>
-
-                            </div>
-                        </div>
-
-                    </div>
+                
+                	<a href = "/courses/${indexLive.id}/info" target="_blank">
+	                    <div class="video_div">
+	                        <img src="${indexLive.smallimg_path}" alt="" width='500' height='391' class="video_img" id="liveImg" />
+	                        <div class="video_div_bottom">
+	                            <div class="video_div_bottom_bg1"></div>
+	                            <div class="video_div_bottom_right">
+	                                <div class="video_div_bottom_bg2">
+	                                	<#if data.resultObject.learnd_count?? || data.resultObject.learnd_count lt 0>
+	                                		暂无报名
+	                                	<#else>
+	                                	    <span id="liveLearndCount">${data.resultObject.learnd_count}</span>
+		                                    &nbsp;&nbsp;<span>人报名</span>
+	                                	</#if>
+	                                </div>
+	                                <a href="javascript: ;"><span id="liveStatus">进入直播</span></a>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </a>     
                 </div>
                 <div class="w-video-module w_yugao2">
                     <div class="w_yugao_hd">
@@ -104,7 +143,15 @@
                         <div class="w_div">
                             <div class="w_ul" style="overflow: hidden1;">
                                 <ul  class="w_ul_ul">
-
+									<#if liveActivity??>	
+										<#list liveActivity as liveItem >
+										   <#if bannerList_index == 0>
+										   	  <span class="cur"></span>
+										   <#else> 
+										   	  <span></span>
+											</#if>
+										</#list>	
+									</#if>
                                 </ul>
                             </div>
                         </div>

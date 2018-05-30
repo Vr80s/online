@@ -636,9 +636,6 @@
 		]]>
 	</select>
 	
-	
-	
-	
 	<!-- 推荐 课程，通推荐值最高的10个里面随机取两个-->
 	<select id="selectRecommendSortAndRandCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		 select * from (	
@@ -653,6 +650,20 @@
 			where  oc.is_delete=0 and oc.status=1  ORDER BY recommend_sort desc limit 0,10
 		 ) as recommendSort order by rand()
 	</select>
+	
+	
+	<!-- 查询这个课程是否删除、或者被禁用  -->
+	<select id="selectCourseStatusDeleteUserLecturerId" resultType="com.xczhihui.course.vo.CourseLecturVo">
+       SELECT
+          oc.is_delete as isDelete,
+          oc.status as status,
+          ou.user_id as userLecturerId
+		FROM
+			oe_course as oc
+			left join course_anchor as ou on 
+			oc.user_lecturer_id = ou.user_id
+			where oc.id =#{courseId}
+	</select>	
 	
 	
 </mapper>

@@ -118,4 +118,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             " order by oc.release_time desc " +
             " limit 4"})
     List<Map<String, Object>> selectByMenuIdExcludeSelf(@Param("menuId") Integer menuId, @Param("id") Integer id);
+    
+    
+	CourseLecturVo selectCourseStatusDeleteUserLecturerId(@Param("courseId")Integer courseId);
 }

@@ -1,8 +1,6 @@
 package com.xczh.consumer.market.service.impl;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,7 @@ import com.xczh.consumer.market.dao.BasicSimpleDao;
 import com.xczh.consumer.market.dao.OnlineCourseMapper;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczh.consumer.market.vo.LecturVo;
 
 @Service
@@ -40,7 +38,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	}
 
 	@Override
-	public CourseLecturVo courseShare(Integer courseId) throws SQLException {
+	public CourseVo courseShare(Integer courseId) throws SQLException {
 		return courseMapper.courseShare(courseId);
 	}
 
