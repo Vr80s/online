@@ -30,6 +30,7 @@ $(function(){
 		$(".wrap-sidebar ul li").eq(3).addClass("active-footer");
 		index =3;
 	}
+	
 	$(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
 	
 //	详情/评价/常见问题	选项卡
