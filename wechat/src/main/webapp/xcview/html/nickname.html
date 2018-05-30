@@ -210,7 +210,7 @@ pre:after {
  			})
  
       $("#pet_nickname_right").click(function(){
-          var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
+         /*  var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
           var numberReg=/^\d{4,20}$/;//纯数字验证
           var yonghuNameLength;
           var nikeName = $("#nickname").val().trim();
@@ -228,7 +228,23 @@ pre:after {
              $(".web_toast").css("width","12rem");
              $(".web_toast").css("margin-left","-6.5rem");
 	           return false;
+	        }  */
+	        
+          var nikeName = $("#nickname").val().trim();
+         
+           if(nikeName == ""){
+             webToast("昵称不能为空","middle",1500);
+	           return false;          
+	      }else if (nikeName.length > 20){
+             webToast("昵称20字以内","middle",1500);
+             $(".web_toast").css("left","50%");
+             $(".web_toast").css("width","12rem");
+             $(".web_toast").css("margin-left","-6.5rem");
+	           return false;
 	        } 
+	        
+	        
+	        
         var falg =setuserInfoWechat("nickname");
         //验证名称的合法性
       	if(falg){
