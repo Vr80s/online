@@ -180,7 +180,9 @@
 		if(oc.is_free =0,0,1) as watchState,
 		oc.collection as collection,
 		oc.course_number as courseNumber,
+		
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
+		
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
 			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
     		   (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
@@ -640,8 +642,7 @@
 		 select * from (	
 			SELECT
 			    <include refid="relLearningCourseListByUserId"/>
-			    	(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)+ 
-				DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+			    DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
 				if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
 			FROM
 			oe_course oc

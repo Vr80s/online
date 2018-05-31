@@ -199,7 +199,6 @@ function isLoginJump(){
 			  		before_address.indexOf("my_study.html")!=-1 ||   //学习
 			  		before_address.indexOf("live_play.html")!=-1 ||   //直播展示页后面播放页
 			  		before_address.indexOf("live_personal.html")!=-1){  //主播页
-		  
 		   history.back(-1);
 	  }else{
 		   location.href = "home_page.html";

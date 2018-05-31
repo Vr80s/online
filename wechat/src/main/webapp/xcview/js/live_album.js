@@ -11,7 +11,6 @@ var name_title = "";
 
 
 
-//var type ="";
 
 
     function getQueryString(key){

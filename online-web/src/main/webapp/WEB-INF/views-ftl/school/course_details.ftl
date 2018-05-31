@@ -142,15 +142,19 @@
 						<ul>
 						<#-- tab的显示，这个就当做专辑页面来写   -->
 						
-						    <#-- 免费或已购买  -->
-						    <#if courseInfo.collection>  
-							    <li><a href="${webUrlParam}/selection">选集</a></li>
-								<li><a href="${webUrlParam}/info">详情</a></li>
-							<#-- 未购买    -->
-							<#else> 
-								<li><a href="${webUrlParam}/info" >详情</a></li>
+						
+						<#if  courseInfo.collection> <#-- 专辑tab显示    -->
+							<#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
+								<li><a href="${webUrlParam}/selection">选集</a></li>
+							    <li><a href="${webUrlParam}/info">详情</a></li>
+							<#elseif courseInfo.watchState = 0>    
+							    <li><a href="${webUrlParam}/info" >详情</a></li>
 								<li><a href="${webUrlParam}/outline" >课程大纲</a></li>
-							</#if>
+							</#if> 
+						<#else> <#-- 非专辑tab显示    -->
+						   <li><a href="${webUrlParam}/info" >详情</a></li>
+						   <li><a href="${webUrlParam}/outline" >课程大纲</a></li>
+						</#if>
 							<li ><a href="${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
 							<li><a href="${webUrlParam}/aq" >常见问题</a></li>	
 						
