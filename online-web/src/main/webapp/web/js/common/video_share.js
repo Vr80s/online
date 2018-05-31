@@ -5,14 +5,15 @@ var documnetHost = document.location.host;
 
 var full = protocoltype +"//" + document.location.host;
 
-if(collectionId!=null && collectionId!=undefined && collectionId!=""){
-	courseId = collectionId;
-}
+//如果是专辑分享的话：如下
+//if(collectionId!=null && collectionId!=undefined && collectionId!=""){
+//	courseId = collectionId;
+//}
 
 /**
  * pc端详情页面
  */
-var pc_url= full+"/courses/"+courseId+"/info";
+var pc_url= full+"/courses/"+collectionId!=""?collectionId:courseId+"/info";
 
 /**
  * 获取微信端 域名
@@ -27,7 +28,7 @@ if(documnetHost=='www.ipandatcm.com'){
  * 获取微信端分享连接地址
  */
 //-- shareType 分享类型 1 课程  2 主播    shareId 当类型是1时为课程id，当是2时为用户id
-var share_link = "/wx_share.html?shareType=1&shareId="+courseId;
+var share_link = "/wx_share.html?shareType=1&shareId="+collectionId!=""?collectionId:courseId;
 var qrcodeurl = wxurl+share_link;
 
 /**

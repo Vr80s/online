@@ -93,7 +93,7 @@ function common_jump_play(id,watchState,lineState){
              location.href="/xcview/html/details.html?courseId="+id      
              
           }else if(watchState==2 && lineState!=1){
-         	location.href="/xcview/html/school_play.html?course_id="+id 
+         	location.href="/xcview/html/live_play.html?my_study="+id;
           }
     	  
 }

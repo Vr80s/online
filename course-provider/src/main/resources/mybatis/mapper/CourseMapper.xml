@@ -557,8 +557,8 @@
                   if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
 		    
 		'正在直播' as note
-		from oe_course c ,oe_user ou
-		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
+		from oe_course c ,course_anchor as ou
+		where  c.user_lecturer_id = ou.user_id and c.is_delete=0 and c.status = 1 and c.type=1
 		and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY)
 		order by  recommendSort DESC,c.start_time DESC LIMIT 0,12)
 
@@ -582,8 +582,8 @@
                   if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
 		
 		'即将直播' as note
-		from oe_course c,oe_user ou
-		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
+		from oe_course c,course_anchor as ou
+		where  c.user_lecturer_id = ou.user_id and c.is_delete=0 and c.status = 1 and c.type=1
 		and c.live_status = 2 and ( ( c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now() ) or ( DATE_SUB(now(),INTERVAL 30 MINUTE) < c.start_time and now() > c.start_time ))   
 		order by  recommendSort DESC,c.start_time asc LIMIT 0,4)
 
@@ -605,8 +605,8 @@
                   if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
 		
 		'直播课程' as note
-		from oe_course c ,oe_user ou
-		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
+		from oe_course c ,course_anchor as ou
+		where  c.user_lecturer_id = ou.user_id and c.is_delete=0 and c.status = 1 and c.type=1
 		and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY)
 		order by  recommendSort DESC,c.start_time asc LIMIT 0,4)
 
@@ -628,8 +628,8 @@
                   if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status)),c.live_status) as lineState,
                   
 		'精彩直播回放' as note
-		from oe_course c,oe_user ou
-		where  c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1 and c.type=1
+		from oe_course c,course_anchor as ou
+		where  c.user_lecturer_id = ou.user_id and c.is_delete=0 and c.status = 1 and c.type=1
 		and c.live_status = 3
 		order by  recommendSort DESC,c.start_time desc LIMIT 0,4)
 		]]>

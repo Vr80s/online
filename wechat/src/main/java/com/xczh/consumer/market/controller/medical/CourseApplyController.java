@@ -84,6 +84,9 @@ public class CourseApplyController {
 			courseApplyInfo.setLecturer(ca.getName());
 
 			Map<String,Object> lecturerInfo = onlineUserService.findHostById(user.getId());
+			if(lecturerInfo==null){
+				return ResponseObject.newErrorResponseObject("主播信息有误");
+			}
 			if(lecturerInfo.get("detail")!=null&&!"".equals(lecturerInfo.get("detail"))){
 				String detail = lecturerInfo.get("detail").toString();
 				courseApplyInfo.setLecturerDescription(detail);
