@@ -184,6 +184,7 @@ public class MyInfoController {
 		Page<CourseLecturVo> page = new Page<CourseLecturVo>();
 		page.setCurrent(num);
 		page.setSize(pageSize);
-		return ResponseObject.newSuccessResponseObject(courseServiceImpl.myCourseType(page, user.getId(),type));
+		Page<CourseLecturVo> pageList = courseServiceImpl.myCourseType(page, user.getId(),type);
+		return ResponseObject.newSuccessResponseObject(pageList.getRecords());
 	}
 }

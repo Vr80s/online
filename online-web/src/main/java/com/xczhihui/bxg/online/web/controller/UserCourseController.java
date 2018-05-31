@@ -141,7 +141,7 @@ public class UserCourseController extends AbstractController{
             com.baomidou.mybatisplus.plugins.Page<CourseLecturVo> page = new com.baomidou.mybatisplus.plugins.Page<CourseLecturVo>();
             page.setCurrent(num);
             page.setSize(pageSize);
-            List<CourseLecturVo> list = courseServiceImpl.myCourseType(page, u.getId(),type);
+            com.baomidou.mybatisplus.plugins.Page<CourseLecturVo> list = courseServiceImpl.myCourseType(page, u.getId(),type);
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {
             e.printStackTrace();

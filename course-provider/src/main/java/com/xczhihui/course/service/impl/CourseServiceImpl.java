@@ -136,8 +136,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<CourseLecturVo> myCourseType(Page<CourseLecturVo> page, String userId, Integer type) {
-        return iCourseMapper.myCourseType(page, userId, type);
+    public Page<CourseLecturVo> myCourseType(Page<CourseLecturVo> page, String userId, Integer type) {
+
+        List<CourseLecturVo> list = iCourseMapper.myCourseType(page, userId, type);
+        return page.setRecords(list);
     }
 
     @Override
