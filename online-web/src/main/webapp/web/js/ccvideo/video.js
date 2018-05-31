@@ -1,12 +1,13 @@
 /**
  * Created by fanwenqiang on 2016/11/2.
  */
+var courseId = $.getUrlParam("courseId");
+var courseName = "中医传承平台";
+var	smallImgPath = "https://file.ipandatcm.com/data/picture/online/2017/12/18/15/12db98e4fc674f1d9b1e5995d2c533d3.jpg";
+var	description = "零基础也能学中医！许多学员推荐“古籍经典”系列以及【小宝中医带你快速入门学针灸】课程作为他们的入门必备。";
 
-var courseName = "中医好课程";
-var	smallImgPath = data.resultObject.smallImgPath;
-var	description = data.resultObject.description;
 $(function() {
-	var courseId = $.getUrlParam("courseId");
+	
 	/**
 	 * 设置返回课程详情a标签
 	 */
@@ -72,17 +73,19 @@ $(function() {
 			/**
 			 * 如果用户没有登录直接就搞走呗
 			 */
-			location.href="/course/courses/"+courseId;
+			location.href="/courses/"+courseId+"/info";
 		}
 	});
 	//获取课程名字和讲师姓名
 	RequestService("/online/live/getOpenCourseById", "get", {
 		courseId: courseId
 	}, function(data) {
+		
 		if(!data.success){
-			location.href="/course/courses/"+courseId;
+			location.href="/courses/"+courseId+"/info";
 		}
 		
+		//分享使用
 		courseName = data.resultObject.courseName;
 		smallImgPath = data.resultObject.smallImgPath;
 		description = data.resultObject.description;
@@ -96,42 +99,5 @@ $(function() {
 		//var weboshare_url="http://"+host+"/course/courses/"+courseId;
 		var weboshare_url="http://"+host+"/courses/"+courseId+"/info";
 		
-		
-		/**
-		 * 微博分享
-		 */
-//		$("#weibo_share").click(function(){
-//			var  p = {
-//		        url: weboshare_url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-//		        title : data.resultObject.courseName,/*分享标题(可选)*/
-//		        pic : data.resultObject.smallImgPath /*分享图片(可选)*/
-//		    };
-//		    var s = [];
-//		    for (var i in p) {
-//		        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-//		    }
-//		    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
-//		    window.open(_src);
-//		})
-//		/**
-//		 * qq分享
-//		 */
-//	    $("#qq_share").click(function(){
-//	    	 var  p = {
-//	 		        url: weboshare_url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-//	 		        desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
-//	 		        title : data.resultObject.courseName,/*分享标题(可选)*/
-//	 		        summary : data.resultObject.description,/*分享描述(可选)*/
-//	 		        pics : data.resultObject.smallImgPath  /*分享图片(可选)*/
-//	 		    };
-//	 		    var s = [];
-//	 		    for (var i in p) {
-//	 		        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-//	 		    }
-//	 		    var _src = "http://connect.qq.com/widget/shareqq/index.html?" + s.join('&') ;
-//	 		    window.open(_src);
-//		})
-		/*$("#weibo_share").attr("href","http://service.weibo.com/share/share.php?url="+weboshare_url+"&title="+data.resultObject.description)
-		$("#qq_share").attr("href","http://connect.qq.com/widget/shareqq/index.html?url="+weboshare_url+"&title="+data.resultObject.description)*/
 	}, false);
 });

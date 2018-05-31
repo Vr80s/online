@@ -164,10 +164,6 @@ public class MobileShareController {
 			CourseLecturVo  courseLecturVo = 
 			 	courseServiceImpl.selectCourseStatusDeleteUserLecturerId(courseId);
 			
-			System.out.println("courseLecturVo.getStatus()："+courseLecturVo.getStatus());
-	    	System.out.println("courseLecturVo.getisDelete()："+courseLecturVo.getIsDelete());
-	    	System.out.println("courseLecturVo.getUserLecturerId()："+courseLecturVo.getUserLecturerId());
-	    	
 	    	LOGGER.info("status():"+courseLecturVo.getStatus()+
 	    			",isDelete():"+courseLecturVo.getIsDelete()+
 	    			",userLecturerId():"+courseLecturVo.getUserLecturerId());

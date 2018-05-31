@@ -8,7 +8,6 @@ var full = protocoltype +"//" + document.location.host;
  * pc端详情页面
  */
 var pc_url= full+"/courses/"+courseId+"/info";
-
 /**
  * 获取微信端 域名
  */
@@ -22,7 +21,7 @@ if(documnetHost=='www.ipandatcm.com'){
  * 获取微信端分享连接地址
  */
 //-- shareType 分享类型 1 课程  2 主播    shareId 当类型是1时为课程id，当是2时为用户id
-var share_link = "/wx_share.html?shareType=1&shareId="+course_id;
+var share_link = "/wx_share.html?shareType=1&shareId=2064";
 var qrcodeurl = wxurl+share_link;
 
 /**
@@ -54,8 +53,8 @@ $("#qrcodeCanvas2").qrcode({
 $("#weibo_share").click(function(){
 	var  p = {
         url: pc_url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-        title : data.resultObject.courseName,/*分享标题(可选)*/
-        pic : data.resultObject.smallImgPath /*分享图片(可选)*/
+        title : courseName,/*分享标题(可选)*/
+        pic : smallImgPath /*分享图片(可选)*/
     };
     var s = [];
     for (var i in p) {
@@ -71,9 +70,9 @@ $("#qq_share").click(function(){
 	 var  p = {
         url: pc_url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
         desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
-        title : data.resultObject.courseName,/*分享标题(可选)*/
-        summary : data.resultObject.description,/*分享描述(可选)*/
-        pics : data.resultObject.smallImgPath  /*分享图片(可选)*/
+        title : courseName,/*分享标题(可选)*/
+        summary : description,/*分享描述(可选)*/
+        pics : smallImgPath  /*分享图片(可选)*/
     };
     var s = [];
     for (var i in p) {
