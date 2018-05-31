@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.online.api.service.GiftService;
@@ -28,6 +27,7 @@ import com.xczhihui.online.api.service.GiftService;
 /**
  * Description：礼物相关控制层
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 下午 5:19 2018/1/22 0022
  **/
@@ -35,76 +35,65 @@ import com.xczhihui.online.api.service.GiftService;
 @RequestMapping(value = "/xczh/gift")
 public class XzGiftController {
 
-	
-	@Autowired()
-	@Qualifier("giftServiceImpl")
-	private GiftService remoteGiftService;
-	
-	@Autowired
-	private AppBrowserService appBrowserService;
+    @Autowired()
+    @Qualifier("giftServiceImpl")
+    private GiftService remoteGiftService;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzGiftController.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzGiftController.class);
 
-	/**
-	 * 礼物榜单（直播间）
-	 * @return
-	 * @throws SQLException
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/rankingList")
-	public ResponseObject rankingList(@RequestParam(value="liveId")String liveId, 
-			@RequestParam(value="pageNumber")Integer current,
-			@RequestParam(value="pageSize")Integer size) throws SQLException {
-		
-		return ResponseObject.newSuccessResponseObject(remoteGiftService.getRankingListByLiveId(liveId,current,size));
-	}
-	
-	/**
-	 * 礼物列表
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws SQLException
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/list")
-	public ResponseObject list(HttpServletRequest req,HttpServletResponse res) throws SQLException {
-		
-		return ResponseObject.newSuccessResponseObject(remoteGiftService.getGift());
-	}
+    /**
+     * 礼物榜单（直播间）
+     *
+     * @return
+     * @throws SQLException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/rankingList")
+    public ResponseObject rankingList(@RequestParam(value = "liveId") String liveId,
+                                      @RequestParam(value = "pageNumber") Integer current,
+                                      @RequestParam(value = "pageSize") Integer size) throws SQLException {
+        return ResponseObject.newSuccessResponseObject(remoteGiftService.getRankingListByLiveId(liveId, current, size));
+    }
 
-	/**
-	 * Description：赠送礼物接口（做礼物赠送余额扣减和检验）
-	 * @return
-	 * @return ResponseObject
-	 * @author name：liutao <br>email: gvmtar@gmail.com
-	 * @throws IOException
-	 * @throws SmackException
-	 * @throws XMPPException
-	 * @throws InvocationTargetException
-	 * @throws IllegalAccessException
-	 **/
-	@ResponseBody
-	@RequestMapping(value = "/sendGift")
-	public ResponseObject sendGift(HttpServletRequest req,
-			HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
-		OnlineUser user =appBrowserService.getOnlineUserByReq(req);
-		if(user==null){
-			return ResponseObject.newErrorResponseObject("登录失效");
-		}
-		LOGGER.info("====================="+user.getId());
-		String giftId = req.getParameter("giftId");
-		String liveId = req.getParameter("liveId");
-		Integer clientType = Integer.valueOf(req.getParameter("clientType"));
-		Integer count = Integer.valueOf(req.getParameter("count"));
-		String receiverId = req.getParameter("receiverId");
-		Map<String,Object> map=null;
-		map= remoteGiftService.addGiftStatement(user.getId(),
-				receiverId,giftId, 
-				OrderFrom.getOrderFrom(clientType),count,liveId);
+    /**
+     * 礼物列表
+     *
+     * @param req
+     * @param res
+     * @return
+     * @throws SQLException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/list")
+    public ResponseObject list(HttpServletRequest req, HttpServletResponse res) throws SQLException {
+        return ResponseObject.newSuccessResponseObject(remoteGiftService.getGift());
+    }
 
-		return ResponseObject.newSuccessResponseObject(map);
-	}
+    /**
+     * Description：赠送礼物接口（做礼物赠送余额扣减和检验）
+     *
+     * @return ResponseObject
+     * @throws IOException
+     * @throws SmackException
+     * @throws XMPPException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @author name：liutao <br>email: gvmtar@gmail.com
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/sendGift")
+    public ResponseObject sendGift(HttpServletRequest req,
+                                   HttpServletResponse res, @Account String accountId) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
+        String giftId = req.getParameter("giftId");
+        String liveId = req.getParameter("liveId");
+        Integer clientType = Integer.valueOf(req.getParameter("clientType"));
+        Integer count = Integer.valueOf(req.getParameter("count"));
+        String receiverId = req.getParameter("receiverId");
+        Map<String, Object> map = null;
+        map = remoteGiftService.addGiftStatement(accountId,
+                receiverId, giftId,
+                OrderFrom.getOrderFrom(clientType), count, liveId);
 
+        return ResponseObject.newSuccessResponseObject(map);
+    }
 }

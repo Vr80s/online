@@ -55,7 +55,6 @@ public class LiveController {
     @Autowired
     private OLAttachmentCenterService service;
 
-
     @Value("${gift.im.room.postfix}")
     private String postfix;
     @Value("${gift.im.boshService}")

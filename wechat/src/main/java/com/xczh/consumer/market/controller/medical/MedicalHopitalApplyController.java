@@ -1,13 +1,12 @@
 package com.xczh.consumer.market.controller.medical;
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.medical.common.service.ICommonService;
-import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.service.OLAttachmentCenterService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.common.service.ICommonService;
+import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
 /**
  * 医馆控制器 ClassName: MedicalHopitalApplyController.java <br>
@@ -34,84 +33,67 @@ import java.util.Map;
 @RequestMapping("/xczh/medical")
 public class MedicalHopitalApplyController {
 
-	@Autowired
-	private IMedicalHospitalApplyService medicalHospitalApplyService;
+    @Autowired
+    private IMedicalHospitalApplyService medicalHospitalApplyService;
 
-	@Autowired
-	private OLAttachmentCenterService service;
+    @Autowired
+    private OLAttachmentCenterService service;
 
-	@Autowired
-	private AppBrowserService appBrowserService;
+    @Autowired
+    private ICommonService commonServiceImpl;
 
-	@Autowired
-	private ICommonService commonServiceImpl;
+    private static final org.slf4j.Logger LOGGER = LoggerFactory
+            .getLogger(MedicalHopitalApplyController.class);
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory
-			.getLogger(MedicalHopitalApplyController.class);
+    /**
+     * 医馆认证
+     *
+     * @throws IOException
+     */
+    @RequestMapping("addHospitalApply")
+    @ResponseBody
+    public ResponseObject addDoctorApply(@Account String accountId,
+                                         HttpServletRequest req,
+                                         HttpServletResponse res,
+                                         MedicalHospitalApply medicalHospitalApply,
+                                         @RequestParam("businessLicensePictureFile") MultipartFile businessLicensePictureFile,
+                                         @RequestParam("licenseForPharmaceuticalTradingPictureFile") MultipartFile licenseForPharmaceuticalTradingPictureFile)
+            throws IOException {
+        medicalHospitalApply.setUserId(accountId);
+        // 循环获取file数组中得文件
+        String projectName = "other";
+        String fileType = "1"; // 图片类型了
+        // 营业执照
+        String businessLicensePicture = service.upload(null, projectName,
+                businessLicensePictureFile.getOriginalFilename(),
+                businessLicensePictureFile.getContentType(),
+                businessLicensePictureFile.getBytes(), fileType, null);
+        medicalHospitalApply.setBusinessLicensePicture(businessLicensePicture);
+        // 药品经营许可证
+        String licenseForPharmaceuticalTradingPicture = service.upload(null,
+                projectName, licenseForPharmaceuticalTradingPictureFile
+                        .getOriginalFilename(),
+                licenseForPharmaceuticalTradingPictureFile.getContentType(),
+                licenseForPharmaceuticalTradingPictureFile.getBytes(),
+                fileType, null);
+        medicalHospitalApply
+                .setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPicture);
 
-	/**
-	 * 医馆认证
-	 * 
-	 * @throws IOException
-	 */
-	@RequestMapping("addHospitalApply")
-	@ResponseBody
-	public ResponseObject addDoctorApply(
-			HttpServletRequest req,
-			HttpServletResponse res,
-			MedicalHospitalApply medicalHospitalApply,
-			@RequestParam("businessLicensePictureFile") MultipartFile businessLicensePictureFile,
-			@RequestParam("licenseForPharmaceuticalTradingPictureFile") MultipartFile licenseForPharmaceuticalTradingPictureFile)
-			throws IOException {
+        medicalHospitalApplyService.add(medicalHospitalApply);
+        return ResponseObject.newSuccessResponseObject("创建成功");
+    }
 
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		if (user == null) {
-			return ResponseObject.newErrorResponseObject("登录失效");
-		}
-		medicalHospitalApply.setUserId(user.getId());
-		// 循环获取file数组中得文件
-		String projectName = "other";
-		String fileType = "1"; // 图片类型了
-		// 营业执照
-		String businessLicensePicture = service.upload(null, projectName,
-				businessLicensePictureFile.getOriginalFilename(),
-				businessLicensePictureFile.getContentType(),
-				businessLicensePictureFile.getBytes(), fileType, null);
-		medicalHospitalApply.setBusinessLicensePicture(businessLicensePicture);
-		// 药品经营许可证
-		String licenseForPharmaceuticalTradingPicture = service.upload(null,
-				projectName, licenseForPharmaceuticalTradingPictureFile
-						.getOriginalFilename(),
-				licenseForPharmaceuticalTradingPictureFile.getContentType(),
-				licenseForPharmaceuticalTradingPictureFile.getBytes(),
-				fileType, null);
-		medicalHospitalApply
-				.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPicture);
-
-		medicalHospitalApplyService.add(medicalHospitalApply);
-		return ResponseObject.newSuccessResponseObject("创建成功");
-
-	}
-
-	/**
-	 * 医师入驻申请信息
-	 */
-	@RequestMapping("hospitalInfo")
-	@ResponseBody
-	public ResponseObject getLastOne(HttpServletRequest req) throws Exception {
-
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		if (user == null) {
-			return ResponseObject.newErrorResponseObject("登录失效");
-		}
-
-		Map<String, Object> mapAll = new HashMap<String, Object>();
-		MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(user
-				.getId());
-		Integer status = commonServiceImpl.isDoctorOrHospital(user.getId());
-		mapAll.put("medicalHospital", mda);
-		mapAll.put("status", status);
-		return ResponseObject.newSuccessResponseObject(mapAll);
-	}
-
+    /**
+     * 医师入驻申请信息
+     */
+    @RequestMapping("hospitalInfo")
+    @ResponseBody
+    public ResponseObject getLastOne(@Account String accountId, HttpServletRequest req) throws Exception {
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(accountId);
+        Integer status = commonServiceImpl.isDoctorOrHospital(accountId);
+        mapAll.put("medicalHospital", mda);
+        mapAll.put("status", status);
+        return ResponseObject.newSuccessResponseObject(mapAll);
+    }
 }

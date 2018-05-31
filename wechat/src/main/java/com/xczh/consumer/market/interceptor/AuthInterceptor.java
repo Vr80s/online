@@ -1,0 +1,216 @@
+package com.xczh.consumer.market.interceptor;
+
+import static com.xczh.consumer.market.utils.ResponseObject.tokenBlankError;
+import static com.xczh.consumer.market.utils.ResponseObject.tokenExpired;
+import static com.xczhihui.common.util.enums.UserUnitedStateType.GO_TO_BIND;
+import static com.xczhihui.common.util.enums.UserUnitedStateType.OVERDUE;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
+import org.springframework.util.PathMatcher;
+import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.ImmutableList;
+import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.UserUnitedStateType;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.ThirdFlag;
+import com.xczhihui.user.center.vo.Token;
+
+/**
+ * @author hejiwei
+ */
+@Component
+public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumentResolver {
+    private static final String TOKEN_PARAM_NAME = "token";
+    private static final String APP_UNIQUE_ID_PARAM_NAME = "appUniqueId";
+    private static final String ENTER_HTML_URL = "/xcview/html/enter.html";
+    private static final String EVPI_HTML_URL = "/xcview/html/evpi.html?jump_type=1";
+
+    private static List<String> noNeedAuthPaths = ImmutableList.of("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
+            "/xczh/wxlogin/**", "/xczh/weibo/**", "/xczh/third/**", "/xczh/wxpublic/**", "/xczh/alipay/alipayNotifyUrl",
+            "/bxg/wxpay/wxNotify", "/xczh/alipay/pay", "/xczh/alipay/rechargePay", "/xczh/criticize/getCriticizeList",
+            "/xczh/ccvideo/palyCode", "/xczh/wechatJssdk/certificationSign", "/xczh/medical/applyStatus", "/xczh/manager/home",
+            "/xczh/common/getProblems", "/xczh/common/verifyLoginStatus", "/xczh/common/getProblemAnswer",
+            "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails",
+            "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
+            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/course/**");
+
+    @Autowired
+    private PathMatcher pathMatcher;
+    @Autowired
+    private UserCenterService userCenterService;
+    @Autowired
+    private OnlineUserService onlineUserService;
+    @Autowired
+    private CommonsMultipartResolver multipartResolver;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        ServletOutputStream outputStream = response.getOutputStream();
+        if (!isExcludePath(request)) {
+            boolean isAjax = isAjax(request);
+            if (isAppRequest(request)) {
+                String token = getParam(request, TOKEN_PARAM_NAME);
+                ResponseObject responseObject = null;
+                if (StringUtils.isBlank(token)) {
+                    responseObject = tokenBlankError();
+                } else if (userCenterService.getToken(token) == null) {
+                    responseObject = tokenExpired();
+                }
+                if (responseObject != null) {
+                    writeData(response, outputStream, responseObject);
+                    return false;
+                }
+                return true;
+            } else {
+                int statusFlag = UserUnitedStateType.BINDING.getCode();
+                Token token = UCCookieUtil.readTokenCookie(request);
+                ResponseObject responseObject = null;
+                if (token == null || userCenterService.getToken(token.getTicket()) == null) {
+                    ThirdFlag thirdFlag = UCCookieUtil.readThirdPartyCookie(request);
+                    //无token有
+                    String redirectUrl = null;
+                    if (thirdFlag != null && token == null) {
+                        redirectUrl = request.getContextPath() + EVPI_HTML_URL;
+                        responseObject = ResponseObject.newErrorResponseObject(null, GO_TO_BIND.getCode());
+                    } else {
+                        redirectUrl = request.getContextPath() + ENTER_HTML_URL;
+                        responseObject = ResponseObject.newErrorResponseObject(null, OVERDUE.getCode());
+                    }
+                    if (isAjax) {
+                        writeData(response, outputStream, responseObject);
+                    } else {
+                        response.sendRedirect(redirectUrl);
+                    }
+                    return false;
+                }
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView
+            modelAndView) throws Exception {
+
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception
+            ex) throws Exception {
+
+    }
+
+    private boolean isAjax(HttpServletRequest request) {
+        return request.getHeader("x-requested-with") != null
+                && "XMLHttpRequest".equalsIgnoreCase(request.getHeader("x-requested-with"));
+    }
+
+    private boolean isExcludePath(HttpServletRequest request) {
+        String path = request.getServletPath();
+        boolean isExclude = false;
+        for (String publicPath : noNeedAuthPaths) {
+            if (pathMatcher.match(publicPath, path)) {
+                isExclude = true;
+                break;
+            }
+        }
+        return isExclude;
+    }
+
+    private boolean isAppRequest(HttpServletRequest request) {
+        return StringUtils.isNotBlank(getParam(request, APP_UNIQUE_ID_PARAM_NAME));
+    }
+
+    private String getParam(HttpServletRequest request, String paramName) {
+        String param;
+        String contentType = request.getContentType();
+        if (StringUtils.isNotBlank(contentType) && contentType.contains("multipart/form-data")) {
+            MultipartHttpServletRequest multiReq = multipartResolver.resolveMultipart(request);
+            param = multiReq.getParameter(paramName);
+        } else {
+            param = request.getParameter(paramName);
+        }
+        return param;
+    }
+
+    /**
+     * 这里没有选用PrintWriter 而选用 ServletOutputStream ,是因为在同一个response中只能选其一，spring 底层使用的是ServletOutputStream，
+     * 故此处与spring统一
+     * 此处的responseObject 不能包含中文, ServletOutputStream输出不支持中文
+     *
+     * @param response
+     * @param outputStream
+     * @param responseObject
+     * @throws IOException
+     */
+    private void writeData(HttpServletResponse response, ServletOutputStream outputStream, ResponseObject responseObject) throws IOException {
+        response.setContentType("application/json; charset=utf-8");
+        outputStream.print(JSON.toJSONString(responseObject));
+        outputStream.flush();
+        outputStream.close();
+    }
+
+    @Override
+    public boolean supportsParameter(MethodParameter parameter) {
+        return parameter.hasParameterAnnotation(Account.class);
+    }
+
+    @Override
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+        String token;
+        if (isAppRequest(request)) {
+            token = getParam(request, TOKEN_PARAM_NAME);
+        } else {
+            Token tokenData = UCCookieUtil.readTokenCookie(request);
+            token = tokenData != null ? tokenData.getTicket() : null;
+        }
+        Account annotation = parameter.getParameterAnnotation(Account.class);
+        Class<?> clazz = parameter.getParameterType();
+
+        Token tokenData = userCenterService.getToken(token);
+        String userId = tokenData != null ? tokenData.getUserId() : null;
+        if (annotation.optional()) {
+            if (Optional.class.isAssignableFrom(clazz)) {
+                return Optional.ofNullable(userId);
+            } else {
+                return userId;
+            }
+        } else {
+            if (tokenData == null) {
+                throw new IllegalArgumentException("token 无效");
+            }
+            if (OnlineUser.class.isAssignableFrom(clazz)) {
+                return onlineUserService.findUserById(userId);
+            } else {
+                return userId;
+            }
+        }
+    }
+}

@@ -1,27 +1,18 @@
 package com.xczh.consumer.market.controller.live;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.*;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseVo;
-import com.xczh.consumer.market.vo.MenuVo;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
@@ -36,8 +27,6 @@ public class BunchPlanController {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BunchPlanController.class);
 
-
-
     @Value("${gift.im.room.postfix}")
     private String postfix;
     @Value("${gift.im.boshService}")
@@ -51,8 +40,8 @@ public class BunchPlanController {
     public ResponseObject categoryXCList(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)
             throws Exception {
 
-    	LOGGER.info("老版本方法----》》》》");
-	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+        LOGGER.info("老版本方法----》》》》");
+        return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     // 新增点播课程list
@@ -61,9 +50,9 @@ public class BunchPlanController {
     public ResponseObject courseXCList(HttpServletRequest req,
                                        HttpServletResponse res, Map<String, String> params)
             throws Exception {
-        
-    	LOGGER.info("老版本方法----》》》》");
-	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+
+        LOGGER.info("老版本方法----》》》》");
+        return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     /***
@@ -80,10 +69,10 @@ public class BunchPlanController {
     public ResponseObject courseDetail(HttpServletRequest req,
                                        HttpServletResponse res)
             throws Exception {
-    	
-    	
-    	LOGGER.info("老版本方法----》》》》");
-	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+
+
+        LOGGER.info("老版本方法----》》》》");
+        return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
 
@@ -96,8 +85,8 @@ public class BunchPlanController {
                                        HttpServletResponse res, Map<String, String> params)
             throws Exception {
 
-    	LOGGER.info("老版本方法----》》》》");
-	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+        LOGGER.info("老版本方法----》》》》");
+        return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     /**
@@ -108,9 +97,9 @@ public class BunchPlanController {
     public ResponseObject offLineClassList(HttpServletRequest req,
                                            HttpServletResponse res, Map<String, String> params)
             throws Exception {
-  
-    	LOGGER.info("老版本方法----》》》》");
-	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+
+        LOGGER.info("老版本方法----》》》》");
+        return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
     /**
@@ -122,10 +111,9 @@ public class BunchPlanController {
                                            HttpServletResponse res, Integer id)
             throws Exception {
 
-    	LOGGER.info("老版本方法----》》》》");
-	   	return ResponseObject.newErrorResponseObject("请使用最新版本");
+        LOGGER.info("老版本方法----》》》》");
+        return ResponseObject.newErrorResponseObject("请使用最新版本");
     }
 
 
-   
 }

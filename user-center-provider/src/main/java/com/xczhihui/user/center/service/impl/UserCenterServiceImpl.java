@@ -37,7 +37,7 @@ import com.xczhihui.user.center.vo.Token;
 @Service("userCenterService")
 public class UserCenterServiceImpl implements UserCenterService {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final Logger logger = LoggerFactory.getLogger(UserCenterServiceImpl.class);
 
     private static String DEFAULT_HEAD = "https://file.ipandatcm.com//image/jpg/defaultHead.png";
     @Autowired
@@ -58,7 +58,7 @@ public class UserCenterServiceImpl implements UserCenterService {
     }
 
     @Override
-    public Token regist(String loginName, String password, String nikeName, UserOrigin origin) {
+    public void regist(String loginName, String password, String nikeName, UserOrigin origin) {
         if (!StringUtils.hasText(loginName) || !StringUtils.hasText(password)) {
             throw new LoginRegException("用户名、密码不允许为空！");
         }
@@ -73,27 +73,24 @@ public class UserCenterServiceImpl implements UserCenterService {
         oeUser.setPassword(password);
         this.proccessPassword(oeUser, true);
         oeUser.setName(nikeName);
-        oeUser.setOrigin(origin.getCode()+"");
+        oeUser.setOrigin(origin.getCode() + "");
         oeUser.setStatus(0);
         oeUser.setDelete(false);
         oeUser.setCreateTime(new Date());
         iOeUserService.addOeUser(oeUser);
-        /*初始化用户账户--20180515--yuruixin*/
         saveUserCoin(oeUser.getId());
         updateVhallInfo(oeUser);
-        Token token = tokenManager.createToken(oeUser);
-        return token;
     }
 
-    void updateVhallInfo(OeUser oeUser) {
+    private void updateVhallInfo(OeUser oeUser) {
         String vhallPassword = RandomUtil.getCharAndNumr(6);
-        String vhallId = VhallUtil.createUser(oeUser.getId(),oeUser.getName(),oeUser.getSmallHeadPhoto(),vhallPassword);
+        String vhallId = VhallUtil.createUser(oeUser.getId(), oeUser.getName(), oeUser.getSmallHeadPhoto(), vhallPassword);
         oeUser.setVhallId(vhallId);
         oeUser.setVhallPass(vhallPassword);
         this.oeUserMapper.updateById(oeUser);
     }
 
-    void saveUserCoin(String userId) {
+    private void saveUserCoin(String userId) {
         UserCoin userCoin = new UserCoin();
         userCoin.setUserId(userId);
         userCoin.setBalance(BigDecimal.ZERO);
@@ -126,7 +123,7 @@ public class UserCenterServiceImpl implements UserCenterService {
     @Override
     public void update(OeUserVO oeUserVO) {
         OeUser oeUser = new OeUser();
-        BeanUtils.copyProperties(oeUserVO,oeUser);
+        BeanUtils.copyProperties(oeUserVO, oeUser);
         this.iOeUserService.updateOeUser(oeUser);
     }
 
@@ -144,7 +141,7 @@ public class UserCenterServiceImpl implements UserCenterService {
         if (user == null) {
             throw new LoginRegException("用户不存在");
         }
-        if(oldPassword!=null && newPassword!=null && oldPassword.equals(newPassword)){
+        if (oldPassword != null && newPassword != null && oldPassword.equals(newPassword)) {
             logger.info("newPassword:{},oldPassword:{}", newPassword, oldPassword);
             throw new LoginRegException("新密码不能与旧密码相同");
         }
@@ -189,51 +186,15 @@ public class UserCenterServiceImpl implements UserCenterService {
         this.iOeUserService.updateLoginName(oldLoginName, newLoginName);
     }
 
-    @Override
-    public Token login(String loginName, String password) {
-        return this.login(loginName, password, TokenExpires.Hour);
-    }
-
-
-    @Override
-    public Token login(String loginName, String password, TokenExpires tokenExpires) {
-        if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
-            OeUser user = this.oeUserMapper.selectByLoginName(loginName);
-            if (user == null) {
-                throw new LoginRegException("手机号暂未注册");
-            }
-            if (user.getStatus() == UserStatus.DISABLE.getValue()) {
-                throw new LoginRegException("帐号被禁用");
-            }
-            String salt = user.getSalt();
-            if (salt == null) {
-                salt = "";
-            }
-            String expect = SaltUtil.encodePassword(password, salt);
-            String actual = user.getPassword();
-            if (!expect.equals(actual)) {
-                logger.info("actual:{}", actual);
-                logger.info("expect:{}", expect);
-                throw new LoginRegException("密码错误");
-            }
-
-            updateLastLoginDate(user);
-            Token token = this.tokenManager.createToken(user, tokenExpires.getExpires());
-            return token;
-        }
-        return null;
-    }
-
     private void updateLastLoginDate(OeUser user) {
         user.setLastLoginDate(new Date());
         user.setVisitSum(user.getVisitSum() + 1);
-        this.oeUserMapper.updateById(user);
         this.oeUserMapper.updateById(user);
     }
 
     @Override
     public OeUserVO getUserVO(String loginName) {
-       return this.oeUserMapper.getUserVOByLoginName(loginName);
+        return this.oeUserMapper.getUserVOByLoginName(loginName);
     }
 
     @Override
@@ -242,8 +203,8 @@ public class UserCenterServiceImpl implements UserCenterService {
     }
 
     @Override
-    public Token loginThirdPart(String userId, TokenExpires tokenExpires) throws Exception {
-        OeUser user = this.oeUserMapper.selectByLoginName(userId);
+    public Token loginThirdPart(String username, TokenExpires tokenExpires) throws Exception {
+        OeUser user = this.oeUserMapper.selectByLoginName(username);
         if (user == null) {
             throw new LoginRegException("用户不存在");
         }
@@ -252,7 +213,7 @@ public class UserCenterServiceImpl implements UserCenterService {
         }
 
         this.updateLastLoginDate(user);
-        return this.tokenManager.createTokenMobile(user, tokenExpires.getExpires());
+        return this.tokenManager.createToken(user, tokenExpires.getExpires());
     }
 
     @Override
@@ -277,10 +238,38 @@ public class UserCenterServiceImpl implements UserCenterService {
                 throw new LoginRegException("用户名或密码错误");
             }
             this.updateLastLoginDate(user);
-            Token token = this.tokenManager.createTokenMobile(user, tokenExpires.getExpires());
-            return token;
+
+            return this.tokenManager.createToken(user, tokenExpires.getExpires());
         }
         return null;
     }
 
+    @Override
+    public Token getToken(String ticket) {
+        return this.tokenManager.getToken(ticket);
+    }
+
+    @Override
+    public void deleteToken(String ticket) {
+        this.tokenManager.deleteTicket(ticket);
+    }
+
+    @Override
+    public void updateTokenInfo(String userId, String ticket) {
+        OeUser oeUser = oeUserMapper.selectById(userId);
+        Token tokenModel = new Token();
+        tokenModel.setTicket(ticket);
+        tokenModel.setLoginName(oeUser.getLoginName());
+        tokenModel.setUserId(oeUser.getId());
+        tokenModel.setOrigin(oeUser.getOrigin());
+        long time = System.currentTimeMillis() + TokenExpires.TenDay.getExpires() * 1000;
+        tokenModel.setExpires(time);
+        tokenModel.setMobile(oeUser.getMobile());
+        tokenModel.setEmail(oeUser.getEmail());
+        tokenModel.setNickName(oeUser.getName());
+        tokenModel.setPassWord(oeUser.getPassword());
+        tokenModel.setUuid(oeUser.getId());
+        tokenModel.setHeadPhoto(oeUser.getSmallHeadPhoto());
+        this.tokenManager.refreshToken(ticket, tokenModel, TokenExpires.TenDay.getExpires());
+    }
 }

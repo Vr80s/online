@@ -31,29 +31,28 @@ public class MenuController {
     @ResponseBody
     public ResponseObject list(HttpServletRequest req, HttpServletResponse res) {
         try {
-        	String type = req.getParameter("type");
-        	List<MenuVo> list = new ArrayList<MenuVo>();
-        	if(type == null || !"1".equals(type)){
-        		MenuVo mv = new MenuVo();
-            	mv.setId(0);
-            	mv.setName("全部");
-            	list.add(mv);
-        	}
-        	list.addAll(menuService.list());
-			return ResponseObject.newSuccessResponseObject(list);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return ResponseObject.newErrorResponseObject("错误");
-		}
+            String type = req.getParameter("type");
+            List<MenuVo> list = new ArrayList<MenuVo>();
+            if (type == null || !"1".equals(type)) {
+                MenuVo mv = new MenuVo();
+                mv.setId(0);
+                mv.setName("全部");
+                list.add(mv);
+            }
+            list.addAll(menuService.list());
+            return ResponseObject.newSuccessResponseObject(list);
+        } catch (SQLException e) {
+            return ResponseObject.newErrorResponseObject("错误");
+        }
     }
+
     @RequestMapping("offlineCity")
     @ResponseBody
     public ResponseObject offlineCity(HttpServletRequest req, HttpServletResponse res) {
         try {
-			return ResponseObject.newSuccessResponseObject(menuService.offlineCity());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return ResponseObject.newErrorResponseObject("错误");
-		}
+            return ResponseObject.newSuccessResponseObject(menuService.offlineCity());
+        } catch (SQLException e) {
+            return ResponseObject.newErrorResponseObject("错误");
+        }
     }
 }

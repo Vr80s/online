@@ -21,14 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.util.XzStringUtils;
@@ -62,8 +61,6 @@ public class XzUserSetController {
     private CacheService cacheService;
     @Autowired
     private OLAttachmentCenterService service;
-    @Autowired
-    private AppBrowserService appBrowserService;
     @Autowired
     private CityService cityService;
     @Autowired
@@ -229,29 +226,26 @@ public class XzUserSetController {
      */
     @RequestMapping("isLogined")
     @ResponseBody
-    public ResponseObject isLogined(HttpServletRequest req,
-                                    HttpServletResponse res, Map<String, String> params)
+    public ResponseObject isLogined(
+            HttpServletResponse res, Map<String, String> params, HttpServletRequest req)
             throws Exception {
-        Object ou = req.getSession().getAttribute("_user_");
-        OnlineUser user = null;
         Token t = UCCookieUtil.readTokenCookie(req);
-
-        if (ou != null && t != null) { // 正常登录着
-            LOGGER.info(" 正常登录着");
-            String userId = ((OnlineUser) ou).getId();
-            user = onlineUserService.findUserById(userId);
-        } else if (ou == null) {    // session过期了，续期
-            LOGGER.info("session过期了，续期");
-            user = onlineUserService.findUserByLoginName(t.getLoginName());
-            req.getSession().setAttribute("_user_", user);
-        } else if (t == null) {    // cookie过期了，直接退出
-            LOGGER.info("cookie过期了，直接退出");
-            req.getSession().setAttribute("_user_", null);
-        }
-        if (user == null) {
+        if (t == null) {
             return ResponseObject.newErrorResponseObject("请登录");
+        } else {
+            String ticket = t.getTicket();
+            if (StringUtils.isBlank(ticket)) {
+                return ResponseObject.newErrorResponseObject("请登录");
+            }
+            Token token = userCenterService.getToken(ticket);
+
+            if (token != null) { // 正常登录着
+                OnlineUser onlineUser = onlineUserService.findUserByLoginName(token.getLoginName());
+                return ResponseObject.newSuccessResponseObject(onlineUser);
+            } else {
+                return ResponseObject.newErrorResponseObject("token过期，重新登录");
+            }
         }
-        return ResponseObject.newSuccessResponseObject(user);
     }
 
     /**
@@ -269,10 +263,9 @@ public class XzUserSetController {
                                  HttpServletResponse res, Map<String, String> params)
             throws Exception {
         UCCookieUtil.clearTokenCookie(res);
-        req.getSession().setAttribute("_user_", null);
         String token = req.getParameter("token");
         if (token != null) {
-            cacheService.delete(token);
+            userCenterService.deleteToken(token);
         }
         return ResponseObject.newSuccessResponseObject("退出成功");
     }
@@ -348,10 +341,7 @@ public class XzUserSetController {
         String token = request.getParameter("token");
         OnlineUser newUser = onlineUserService.findUserById(user.getId());
         if (token != null) {
-            cacheService.delete(token);
-            cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());
-        } else {
-            request.getSession().setAttribute("_user_", newUser);
+            userCenterService.updateTokenInfo(newUser.getId(), token);
         }
         /**
          * 更改微吼信息
@@ -419,10 +409,7 @@ public class XzUserSetController {
         String token = request.getParameter("token");
         OnlineUser newUser = onlineUserService.findUserById(user.getId());
         if (token != null) {
-            cacheService.delete(token);
-            cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());
-        } else {
-            request.getSession().setAttribute("_user_", newUser);
+            userCenterService.updateTokenInfo(newUser.getId(), token);
         }
         /**
          * 更改微吼信息
@@ -452,7 +439,7 @@ public class XzUserSetController {
     @ResponseBody
     @Transactional
     public ResponseObject wechatSaveHeadImg(HttpServletRequest request,
-                                            HttpServletResponse response) throws Exception {
+                                            HttpServletResponse response, @Account OnlineUser account) throws Exception {
         // TODO
         String base64Data = request.getParameter("base64Data");
         String imageName = request.getParameter("imageName");
@@ -498,17 +485,16 @@ public class XzUserSetController {
         LOGGER.info("文件路径——path:" + headImgPath);
         map.put("smallHeadPhoto", headImgPath);
 
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request);
-        onlineUserService.updateUserCenterData(user, map);
+        onlineUserService.updateUserCenterData(account, map);
         /**
          * 更新微吼信息
          */
-        String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),
+        String weiHouResp = WeihouInterfacesListUtil.updateUser(account.getId(),
                 null, null, map.get("smallHeadPhoto"));
         /**
          * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
          */
-        OnlineUser newUser = onlineUserService.findUserByLoginName(user
+        OnlineUser newUser = onlineUserService.findUserByLoginName(account
                 .getLoginName());
         request.getSession().setAttribute("_user_", newUser);
         if (weiHouResp == null) {
@@ -523,16 +509,8 @@ public class XzUserSetController {
     @RequestMapping("getAddressAll")
     @ResponseBody
     public ResponseObject getAddressAll(HttpServletRequest req,
-                                        HttpServletResponse res) throws Exception {
-
-        OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-        if (ou == null) {
-            return ResponseObject.newErrorResponseObject("登录失效");
-        }
-        /**
-         * 获取所有的省份
-         */
-        List<UserAddressManagerVo> list = cityService.getAddressAll(ou.getId());
+                                        HttpServletResponse res, @Account String accountId) throws Exception {
+        List<UserAddressManagerVo> list = cityService.getAddressAll(accountId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
@@ -542,10 +520,9 @@ public class XzUserSetController {
     @RequestMapping("saveAddress")
     @ResponseBody
     public ResponseObject saveAddress(HttpServletRequest req,
-                                      HttpServletResponse res, @ModelAttribute UserAddressManagerVo udm)
+                                      HttpServletResponse res, @ModelAttribute UserAddressManagerVo udm, @Account String accountId)
             throws Exception {
-        OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-        udm.setUserId(ou.getId());
+        udm.setUserId(accountId);
 
         if (!XzStringUtils.checkPhone(udm.getPhone())) {
             return ResponseObject.newErrorResponseObject("请输入正确的手机号");
@@ -584,11 +561,10 @@ public class XzUserSetController {
     @RequestMapping("updateIsAcquies")
     @ResponseBody
     public ResponseObject updateIsAcquies(HttpServletRequest req,
-                                          HttpServletResponse res) {
+                                          HttpServletResponse res, @Account String accountId) {
         String newId = req.getParameter("newId");
-        OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
         try {
-            cityService.updateIsAcquies(newId, ou.getUserId());
+            cityService.updateIsAcquies(newId, accountId);
             return ResponseObject.newSuccessResponseObject("修改成功");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -602,11 +578,10 @@ public class XzUserSetController {
     @RequestMapping("deleteAddressById")
     @ResponseBody
     public ResponseObject deleteAddressById(HttpServletRequest req,
-                                            HttpServletResponse res) {
+                                            HttpServletResponse res, @Account String accountId) {
         String id = req.getParameter("id");
-        OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
         try {
-            cityService.deleteAddressById(id, ou.getUserId());
+            cityService.deleteAddressById(id, accountId);
             return ResponseObject.newSuccessResponseObject("删除成功");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -637,11 +612,8 @@ public class XzUserSetController {
     @RequestMapping("findAddressByUserId")
     @ResponseBody
     public ResponseObject findAcquiescenceAddressById(HttpServletRequest req,
-                                                      HttpServletResponse res) throws SQLException {
-        OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-
-        UserAddressManagerVo umv = cityService.findAddressByUserIdAndAcq(ou
-                .getId());
+                                                      HttpServletResponse res, @Account String accountId) throws SQLException {
+        UserAddressManagerVo umv = cityService.findAddressByUserIdAndAcq(accountId);
         return ResponseObject.newSuccessResponseObject(umv);
     }
 
