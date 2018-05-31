@@ -164,7 +164,7 @@ $(function() {
 	
 	//获取课程名字和讲师姓名
 	RequestService("/online/live/getOpenCourseById", "get", {
-		courseId: courseId
+		courseId: collectionId
 	}, function(data) {
 		if(!data.success){
 			//location.href="/course/courses/"+courseId;
@@ -173,7 +173,6 @@ $(function() {
 		document.title = data.resultObject.courseName ;
 		$(".headerBody .rightT i").html(data.resultObject.lecturer);
 		menuid = data.resultObject.menu_id;
-		
 		
 		//分享使用
 		courseName = data.resultObject.courseName;
