@@ -375,7 +375,8 @@ $(function() {
 
 		var host = window.location.host;
 
-		var weboshare_url="http://"+host+"/course/courses/"+courseId;
+		//var weboshare_url="http://"+host+"/course/courses/"+courseId;
+		var weboshare_url="http://"+host+"/courses/"+courseId+"/info";
 		
 		/**
 		 * 微博分享

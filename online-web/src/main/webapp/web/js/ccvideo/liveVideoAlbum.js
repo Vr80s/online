@@ -154,6 +154,31 @@ $(function() {
 	
 	
 	
+	//-- shareType 分享类型 1 课程  2 主播
+	var qrcodeurl = "/wx_share.html?shareType=1&shareId=1";
+	$(document).ready(function() {
+		$("#qrcodeCanvas1").qrcode({
+			render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+			text : qrcodeurl,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
+			width : "90",               //二维码的宽度
+			height : "90",              //二维码的高度
+			background : "#ffffff",       //二维码的后景色
+			foreground : "#000000",        //二维码的前景色
+			src: '/web/images/yrx.png'             //二维码中间的图片
+		});
+		$("#qrcodeCanvas2").qrcode({
+			render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+			text : qrcodeurl,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
+			width : "90",               //二维码的宽度
+			height : "90",              //二维码的高度
+			background : "#ffffff",       //二维码的后景色
+			foreground : "#000000",        //二维码的前景色
+			src: '/web/images/yrx.png'             //二维码中间的图片
+		});
+	});
+	
+	
+	
 	//请求集合查看列表
 	
 	//获取课程名字和讲师姓名
@@ -168,7 +193,8 @@ $(function() {
 		$(".headerBody .rightT i").html(data.resultObject.lecturer);
 		menuid = data.resultObject.menu_id;
 		var host = window.location.host;
-		var weboshare_url="http://"+host+"/course/courses/"+courseId;
+		//var weboshare_url="http://"+host+"/course/courses/"+courseId; courses/704/info
+		var weboshare_url="http://"+host+"/courses/"+courseId+"/info";
 		/**
 		 * 微博分享
 		 */
