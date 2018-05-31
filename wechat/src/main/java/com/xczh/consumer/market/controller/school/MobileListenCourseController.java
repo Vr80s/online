@@ -1,25 +1,25 @@
 package com.xczh.consumer.market.controller.school;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.service.ListenCourseService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.BannerType;
-import com.xczhihui.course.model.MobileBanner;
-import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.service.IMobileBannerService;
-import com.xczhihui.course.vo.CourseLecturVo;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.course.model.MobileBanner;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
  * 听课控制器 ClassName: MobileRecommendController.java <br>
@@ -31,35 +31,32 @@ import java.util.Map;
 @Controller
 @RequestMapping("/xczh/bunch")
 public class MobileListenCourseController {
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileListenCourseController.class);
 
-	@Autowired
-	private IMobileBannerService mobileBannerService;
+    @Autowired
+    private IMobileBannerService mobileBannerService;
 
-	@Autowired
-	private ICourseService courseService;
+    @Autowired
+    private ICourseService courseService;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileListenCourseController.class);
+    /**
+     * 听课
+     */
+    @RequestMapping("listenCourse")
+    @ResponseBody
+    public ResponseObject onlineLive(HttpServletRequest req,
+                                     HttpServletResponse res)
+            throws Exception {
 
-	/**
-	 * 听课
-	 */
-	@RequestMapping("listenCourse")
-	@ResponseBody
-	public ResponseObject onlineLive(HttpServletRequest req,
-									 HttpServletResponse res)
-			throws Exception {
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        //听课banner
+        Page<MobileBanner> mobileBannerPage = new Page<>();
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode()));
+        mapAll.put("banner", mobileBannerPage);
 
-		Map<String, Object> mapAll = new HashMap<String, Object>();
-		//听课banner
-		Page<MobileBanner> MobileBannerPage = new Page<>();
-		MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode()));
-		mapAll.put("banner",MobileBannerPage);
-		
-		//听课课程列表
-		List<CourseLecturVo> listenCourseList = courseService.listenCourseList();
-		mapAll.put("listenCourseList",listenCourseList);
-		return ResponseObject.newSuccessResponseObject(mapAll);
-	}
-
-	
+        //听课课程列表
+        List<CourseLecturVo> listenCourseList = courseService.listenCourseList();
+        mapAll.put("listenCourseList", listenCourseList);
+        return ResponseObject.newSuccessResponseObject(mapAll);
+    }
 }

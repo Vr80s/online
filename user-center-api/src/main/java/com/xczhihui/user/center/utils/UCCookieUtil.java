@@ -1,7 +1,7 @@
 package com.xczhihui.user.center.utils;
 
 import com.xczhihui.common.util.enums.TokenExpires;
-import com.xczhihui.user.center.vo.ThridFalg;
+import com.xczhihui.user.center.vo.ThirdFlag;
 import com.xczhihui.user.center.vo.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -168,7 +168,7 @@ public class UCCookieUtil {
 	 *
 	 * @param response
 	 */
-	public static void writeThirdPartyCookie(HttpServletResponse response, ThridFalg tf) {
+	public static void writeThirdPartyCookie(HttpServletResponse response, ThirdFlag tf) {
 		String str;
 		try {
 			//加码
@@ -193,7 +193,7 @@ public class UCCookieUtil {
 	 * @param request
 	 * @return cookie没有信息时返回null
 	 */
-	public static ThridFalg readThirdPartyCookie(HttpServletRequest request) {
+	public static ThirdFlag readThirdPartyCookie(HttpServletRequest request) {
 		String str = CookieUtil.getCookieValue(request, THIRD_PARTY_COOKIE_TOKEN_NAME);
 		if (str == null || str.length() < 1) {// 没有token信息
 			return null;
@@ -203,7 +203,7 @@ public class UCCookieUtil {
 			str = URLDecoder.decode(str, "UTF-8");
 			String[] strs = str.split(";");
 			
-			ThridFalg tf = new ThridFalg();
+			ThirdFlag tf = new ThirdFlag();
 			if(strs.length == 4) {
 				
 				String openId =strs[0].trim();

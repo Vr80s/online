@@ -247,129 +247,17 @@ public class CommonUtil {
     }
 
     /**
-     * 通过调用统一下单接口，得到微信预支付相关信息(主要是付款URL)
-     *
-     * @param xmlobj
-     * @return
-     * @throws Exception
-     */
-    public static Map<String, String> getPrePayInfos(Object xmlobj) throws Exception {
-
-        HttpsRequest request = new HttpsRequest();
-        String buffer = request.sendPost(WxPayConst.UNITORDER_URL, xmlobj);
-        if (buffer == null) {
-            buffer = "";
-        }
-        buffer = buffer.trim();
-        System.out.println("getPrePayInfos=\r\n" + buffer.toString());
-
-		/*??
-		//for test begin
-		StringBuilder sb = new StringBuilder();
-		sb.append("<xml>																		") ;		
-		sb.append("   	<return_code><![CDATA[SUCCESS]]></return_code>                          ") ;
-		sb.append("   	<return_msg><![CDATA[OK]]></return_msg>                                 ") ;
-		sb.append("   	<appid><![CDATA[wx9915cc99ba18cacef]]></appid>                          ") ;
-		sb.append("   	<mch_id><![CDATA[10000100]]></mch_id>                                   ") ;
-		sb.append("   	<nonce_str><![CDATA[IITRi8Iabbblz1Jc]]></nonce_str>                     ") ;
-		sb.append("   	<openid><![CDATA[oUpF8uMuAJO_M2pxb1Q9zNjWeS6o]]></openid>               ") ;
-		sb.append("   	<sign><![CDATA[7921E432F65EB8ED0CE9755F0E86D72F]]></sign>               ") ;
-		sb.append("   	<result_code><![CDATA[SUCCESS]]></result_code>                          ") ;
-		sb.append("   	<prepay_id><![CDATA[wx201411101639507cbf6ffd8b0779950874]]></prepay_id> ") ;
-		sb.append("   	<trade_type><![CDATA[JSAPI]]></trade_type>                              ") ;
-		sb.append("</xml>                                                                       ") ;	
-		buffer = sb.toString();
-		//for test end
-		??*/
-
-        Map<String, String> res = parseXml(buffer.toString());
-        return res;
-    }
-
-    /**
-     * 通过调用微信取得Code(基本信息)
-     *
-     * @param params
-     * @return
-     * @throws Exception
-     */
-    public static String getWxCode(String uri) throws Exception {
-
-        String out = "";
-        String in = WxPayConst.CODE_URL.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
-                .replace("redirect_uri=url", "redirect_uri=" + uri);
-        System.out.println("openidtest" + in);
-
-        StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-        return buffer.toString() + out;
-    }
-
-    /**
-     * 通过调用微信取得Code2(详细信息)
-     *
-     * @param params
-     * @return
-     * @throws Exception
-     */
-    public static String getWxCode2(String uri) throws Exception {
-
-        String out = "";
-        String in = WxPayConst.CODE_URL_2.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
-                .replace("redirect_uri=url", "redirect_uri=" + uri);
-        System.out.println("openidtest" + in);
-
-        StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-        return buffer.toString() + out;
-    }
-
-    /**
-     * 通过调用微信取得openId
-     *
-     * @param params
-     * @return
-     * @throws Exception
-     */
-    public static String getOpenId(String code) throws Exception {
-
-
-        String out = ""; //?? openid获取URL : WxPayConst.OAUTH_URL；
-        String in = WxPayConst.OAUTH_URL.replace("appid=APPID", "appid=" + WxPayConst.gzh_appid)
-                .replace("secret=SECRET", "secret=" + WxPayConst.gzh_Secret).
-                        replace("code=CODE", "code=" + code);
-        StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-        return buffer.toString();
-    }
-
-    /**
-     * 获取微信用户信息；
-     *
-     * @param params
-     * @return
-     * @throws Exception
-     */
-    public static String getUserInfo(String access_token, String openid) throws Exception {
-        String out = "";
-        String in = WxPayConst.USER_URL.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token).replace("openid=OPENID", "openid=" + openid);
-        StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-        System.out.println("GET_USER_INFO:" + buffer.toString());
-        return buffer.toString();
-    }
-
-
-    /**
      * 获取微信用户信息：通过uniondid机制
-     *
-     * @param params
+     * TODO 此处因引入的微信公众号中间件，有些字段（subscribe_scene）未更新，所以保留以下方式调用
+     * @param accessToken
+     * @param openid
      * @return
      * @throws Exception
      */
-    public static String getUserManagerGetInfo(String access_token, String openid) throws Exception {
+    public static String getUserManagerGetInfo(String accessToken, String openid) throws Exception {
         String out = "";
-        String in = WxPayConst.USERMANAGER_GETINFO_URL.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token).replace("openid=OPENID", "openid=" + openid);
+        String in = WxPayConst.USERMANAGER_GETINFO_URL.replace("access_token=ACCESS_TOKEN", "access_token=" + accessToken).replace("openid=OPENID", "openid=" + openid);
         StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-        System.out.println("getUserManagerGetInfo:" + buffer.toString());
-
-
         return buffer.toString();
     }
 
@@ -403,25 +291,6 @@ public class CommonUtil {
     }
 
     public static Map<String, String> createSendRedPackOrderSign(SendRedPack redPack) {
-		
-		/*
-        StringBuffer sign = new StringBuffer();
-        sign.append("act_name=").append(redPack.getAct_name());
-        sign.append("&client_ip=").append(redPack.getClient_ip());
-        sign.append("&mch_billno=").append(redPack.getMch_billno());
-        sign.append("&mch_id=").append(redPack.getMch_id());
-        sign.append("&nonce_str=").append(redPack.getNonce_str());
-        sign.append("&re_openid=").append(redPack.getRe_openid());
-        sign.append("&remark=").append(redPack.getRemark());
-        sign.append("&send_name=").append(redPack.getSend_name());
-        sign.append("&total_amount=").append(redPack.getTotal_amount());
-        sign.append("&total_num=").append(redPack.getTotal_num());
-        sign.append("&wishing=").append(redPack.getWishing());
-        sign.append("&wxappid=").append(redPack.getWxappid());
-        sign.append("&key=").append(WxPayConst.key);//??sign.append("&key=").append(payKey);                
-        return MD5Util.MD5(sign.toString()).toUpperCase();//??return DigestUtils.md5Hex(sign.toString()).toUpperCase();
-        */
-
         Map<String, String> sParaTemp = new HashMap<String, String>();
         sParaTemp.put("nonce_str", redPack.getNonce_str());
         sParaTemp.put("mch_billno", redPack.getMch_billno());
@@ -593,22 +462,4 @@ public class CommonUtil {
         map.put("timestamp", timestamp);
         return map;
     }
-
-
-    /**
-     * 通过openId 和票据 获取到unionId
-     *
-     * @param params
-     * @return
-     * @throws Exception
-     */
-    public static String getQQUnionIdByOpenIdAndAccessToken(String accessToken) throws Exception {
-        String out = ""; //?? openid获取URL : WxPayConst.OAUTH_URL；
-        //https://graph.qq.com/oauth2.0/me?access_token=ACCESSTOKEN&unionid=1
-        String in = QQConnectConfig.getValue("getOpenIDURL") + "?access_token=" + accessToken + "&unionid=1";
-        System.out.println("url:" + in);
-        StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-        return buffer.toString();
-    }
-
 }

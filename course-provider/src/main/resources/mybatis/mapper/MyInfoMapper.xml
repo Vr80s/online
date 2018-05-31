@@ -105,7 +105,7 @@
 
 
 		  ( select  '4' as type,'购买课程' as subject,CONCAT('-',format(argc.cost,2)) as totalAmount,argc.create_time as gmtCreate,"人民币" as unit ,
-				'' as receiver,oc.grade_name as courseName,format(argc.cost,2) as money,uci.order_no as orderId,
+				'' as receiver,oc.grade_name as courseName,format(argc.cost,2) as money,oo.order_no as orderId,
 			if(oo.pay_type=0,'支付宝',if(oo.pay_type=1,'微信',if(oo.pay_type=2,'苹果内购',if(oo.pay_type=3,'熊猫币',if(oo.pay_type=4,'线下支付','其他支付'))))) as payType
 			  from  oe_order_detail ood
 				INNER  JOIN apply_r_grade_course as argc on  ood.id =argc.order_no

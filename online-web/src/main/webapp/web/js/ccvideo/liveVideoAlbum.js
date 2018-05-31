@@ -5,15 +5,21 @@
 
 //应该搞第一个课程了
 var collectionId = $.getUrlParam("collectionId");
-
-$("#return").attr("href","/courses/"+collectionId+"/info");
-
 var courseId = $.getUrlParam("courseId");
 
 var ljxx = $.getUrlParam("ljxx");
 var falgCollectionId = "_"+collectionId;
 var falgId = "_"+collectionId+"_"+courseId;
 
+
+$("#return").attr("href","/courses/"+collectionId+"/info");
+
+
+var courseName = "中医传承平台";
+var	smallImgPath = "https://file.ipandatcm.com/data/picture/online/2017/12/18/15/12db98e4fc674f1d9b1e5995d2c533d3.jpg";
+var	description = "零基础也能学中医！许多学员推荐“古籍经典”系列以及【小宝中医带你快速入门学针灸】课程作为他们的入门必备。";
+
+var userId= "";
 /**
  * 增加学习记录
  */
@@ -51,7 +57,7 @@ function getPlayCode(collectionId,courseId){
 	var allwidth = parseInt($(".videoBody-top").width());
 	//当前屏幕左半部分宽度
 	var awidth = parseInt($(".videoBody-top").width() - 290);
-	var aheight = parseInt($(window).height() - $(".header").height() - 110);
+	var aheight = parseInt($(window).height() - $(".header").height() - 65);
 	$(".videoBody-top").height(aheight);
 	$(".videoBody-menuList").height(aheight);
 	$(".videoBody-video").height(aheight);
@@ -76,52 +82,51 @@ function getPlayCode(collectionId,courseId){
 	});
 }
 
-$(function() {
-	
-	var falgId =  localStorage.getItem("playRecording"+falgCollectionId);
-	//如果点击立即学习的话，就从第一个开始播放
-	if(ljxx != null && ljxx != undefined && "" != ljxx && falgId!=null &&
-			falgId != undefined && "" != falgId){
-		//从记录里面去下
-		var falgArray = falgId.split("_");
-		if(falgArray.length == 3){
-			courseId = falgArray[2];
-		}
+var falgId =  localStorage.getItem("playRecording"+falgCollectionId);
+//如果点击立即学习的话，就从第一个开始播放
+if(ljxx != null && ljxx != undefined && "" != ljxx && falgId!=null &&
+		falgId != undefined && "" != falgId){
+	//从记录里面去下
+	var falgArray = falgId.split("_");
+	if(falgArray.length == 3){
+		courseId = falgArray[2];
 	}
-	
-	/**
-	 * 获取播放代码
-	 * @returns
-	 */
-	getPlayCode(collectionId,courseId);
-	
-	/**
-	 * 请求专辑列表
-	 */
-	RequestService("/course/newGetCoursesByCollectionId", 
-			"GET", {collectionId:collectionId}, function(data) { ///online/user/isAlive
-		if(data.success === true) {
-			var list =  data.resultObject;
-			var lalal ="";
-			for (var i = 0; i < list.length; i++) {
-				var obj = list[i];
-				var li = "<li>";
-				if(courseId == obj.id){
-					li = "<li class='choosedAlbum' data-id = "+obj.id+">";
-				}else{
-					li = "<li data-id = "+obj.id+">"
-				}
-				lalal += (li+"<div>" +
-					"<span class='playbtn'></span>" +
-					"<span class='teacher_name'>"+obj.name+"</span>" +
-					"<span class='album_title'>"+obj.gradeName+"</span> " +
-					"<span class='album_time'>"+obj.courseLength+"分钟</span>" +
-					"</div></li>");
+}
+/**
+ * 获取播放代码
+ * @returns
+ */
+getPlayCode(collectionId,courseId);
+
+/**
+ * 请求专辑列表
+ */
+RequestService("/course/newGetCoursesByCollectionId", 
+		"GET", {collectionId:collectionId}, function(data) { ///online/user/isAlive
+	if(data.success === true) {
+		var list =  data.resultObject;
+		var lalal ="";
+		for (var i = 0; i < list.length; i++) {
+			var obj = list[i];
+			var li = "<li>";
+			if(courseId == obj.id){
+				li = "<li class='choosedAlbum' data-id = "+obj.id+">";
+			}else{
+				li = "<li data-id = "+obj.id+">"
 			}
-			$(".album_list ul").html(lalal);
+			lalal += (li+"<div>" +
+				"<span class='playbtn'></span>" +
+				"<span class='teacher_name'>"+obj.name+"</span>" +
+				"<span class='album_title'>"+obj.gradeName+"</span> " +
+				"<span class='album_time'>"+obj.courseLength+"分钟</span>" +
+				"</div></li>");
 		}
-	},false);
-	
+		$(".album_list ul").html(lalal);
+	}
+},false);
+
+
+$(function() {
 	
 	/**
 	 * 点击选集
@@ -143,96 +148,126 @@ $(function() {
 	//获取视频信息接口
 	RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
 		if(data.success === true) {
-			//getPlayCode(collectionId,courseId);
+			userId = data.resultObject.id;
+			
+			//请求集合查看列表
+			
+			//获取课程名字和讲师姓名
+			RequestService("/online/live/getOpenCourseById", "get", {
+				courseId: collectionId
+			}, function(data) {
+				if(!data.success){
+					location.href="/courses/"+collectionId+"/info";
+				}
+				$(".headerBody .rightT p").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
+				document.title = data.resultObject.courseName ;
+				$(".headerBody .rightT i").html(data.resultObject.lecturer);
+				menuid = data.resultObject.menu_id;
+				
+				//分享使用
+				courseName = data.resultObject.courseName;
+				smallImgPath = data.resultObject.smallImgPath;
+				description = data.resultObject.description;
+				
+			}, false);
 		} else {
 			/**
 			 * 如果用户没有登录直接就搞走呗
 			 */
-			//location.href="/course/courses/"+courseId;
+			location.href="/courses/"+collectionId+"/info";
 		}
 	});
 	
 	
 	
-	//-- shareType 分享类型 1 课程  2 主播
-	var qrcodeurl = "/wx_share.html?shareType=1&shareId=1";
-	$(document).ready(function() {
-		$("#qrcodeCanvas1").qrcode({
-			render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
-			text : qrcodeurl,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
-			width : "90",               //二维码的宽度
-			height : "90",              //二维码的高度
-			background : "#ffffff",       //二维码的后景色
-			foreground : "#000000",        //二维码的前景色
-			src: '/web/images/yrx.png'             //二维码中间的图片
-		});
-		$("#qrcodeCanvas2").qrcode({
-			render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
-			text : qrcodeurl,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
-			width : "90",               //二维码的宽度
-			height : "90",              //二维码的高度
-			background : "#ffffff",       //二维码的后景色
-			foreground : "#000000",        //二维码的前景色
-			src: '/web/images/yrx.png'             //二维码中间的图片
-		});
-	});
-	
-	
-	
-	//请求集合查看列表
-	
-	//获取课程名字和讲师姓名
-	RequestService("/online/live/getOpenCourseById", "get", {
-		courseId: courseId
-	}, function(data) {
-		if(!data.success){
-			//location.href="/course/courses/"+courseId;
-		}
-		$(".headerBody .rightT p").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
-		document.title = data.resultObject.courseName ;
-		$(".headerBody .rightT i").html(data.resultObject.lecturer);
-		menuid = data.resultObject.menu_id;
-		var host = window.location.host;
-		//var weboshare_url="http://"+host+"/course/courses/"+courseId; courses/704/info
-		var weboshare_url="http://"+host+"/courses/"+courseId+"/info";
-		/**
-		 * 微博分享
-		 */
-		$("#weibo_share").click(function(){
-			var  p = {
-		        url: weboshare_url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-		        title : data.resultObject.courseName,/*分享标题(可选)*/
-		        pic : data.resultObject.smallImgPath /*分享图片(可选)*/
-		    };
-		    var s = [];
-		    for (var i in p) {
-		        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-		    }
-		    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
-		    window.open(_src);
-		})
-		/**
-		 * qq分享
-		 */
-	    $("#qq_share").click(function(){
-	    	 var  p = {
-	 		        url: weboshare_url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-	 		        desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
-	 		        title : data.resultObject.courseName,/*分享标题(可选)*/
-	 		        summary : data.resultObject.description,/*分享描述(可选)*/
-	 		        pics : data.resultObject.smallImgPath  /*分享图片(可选)*/
-	 		    };
-	 		    var s = [];
-	 		    for (var i in p) {
-	 		        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-	 		    }
-	 		    var _src = "http://connect.qq.com/widget/shareqq/index.html?" + s.join('&') ;
-	 		    window.open(_src);
-		})
-		/*$("#weibo_share").attr("href","http://service.weibo.com/share/share.php?url="+weboshare_url+"&title="+data.resultObject.description)
-		$("#qq_share").attr("href","http://connect.qq.com/widget/shareqq/index.html?url="+weboshare_url+"&title="+data.resultObject.description)*/
-	}, false);
 });
+
+
+
+/*********************** 帅气的cc视频自定义事件  **************************/
+
+function getSWF(objectId) {
+    if (window.document[ objectId ]) {
+        return window.document[ objectId ];
+    } else if (navigator.appName.indexOf("Microsoft") == -1) {
+        if (document.embeds && document.embeds[ objectId ]) {
+            return document.embeds[ objectId ];
+        }
+    } else {
+        return document.getElementById( objectId );
+    }
+}
+
+var player ="";
+/**
+ * 播放器配置示例
+ *
+ * */
+function on_cc_player_init(vid, objectId ){
+    var config = {};
+    
+    console.log("sdada")
+    //关闭右侧菜单
+    config.rightmenu_enable = 0;
+   
+    config.on_player_seek = "custom_seek";
+    config.on_player_ready = "custom_player_ready";
+    config.on_player_start = "custom_player_start";
+    config.on_player_pause = "custom_player_pause";
+    config.on_player_resume = "custom_player_resume";
+    config.on_player_stop = "custom_player_stop";
+   
+    config.player_plugins = {// 插件名称 : 插件参数
+        Subtitle : {
+            url : "http://dev.bokecc.com/static/font/example.utf8.srt"
+            , size : 24
+            , color : 0xFFFFFF
+            , surroundColor : 0x3c3c3c
+            , bottom : 0.15
+            , font : "Helvetica"
+            , code : "utf-8"
+        }
+    };
+    player= getSWF(objectId);
+    player.setConfig(config);
+    
+}
+
+
+
+/**
+ * 记录播放到哪里了。我的天
+ * 获取当前播放时间（单位：秒）
+ * @returns
+ */
+var int=self.setInterval("clock()",2000)
+function clock(){
+	if(player!=""){//存放到缓存里面，怎么存。
+		//console.log(""+player.getPosition());
+		videoAlbumPositionRecording(player.getPosition());
+	}
+}
+
+var key ="";
+function videoAlbumPositionRecording(time){
+	if(userId!="" && collectionId!=""){
+		key ==""? key=userId+collectionId : key;
+
+		var recordingList = localStorage.getItem(key);
+		var value = "%"+courseId+"="+time+"%";
+		var courseKey = "%"+courseId+"=";
+		
+		if(recordingList==null || recordingList ==undefined || recordingList ==""){
+			recordingList=value;
+		}else if(recordingList.indexOf(courseKey)==-1){
+			recordingList+=value;
+		}else{
+			var re = new RegExp("%"+courseId+"(\\S*)%","i"); 
+			recordingList = recordingList.replace(re,value);
+		}
+		localStorage.setItem(key,recordingList);
+	}
+}
 
 
 

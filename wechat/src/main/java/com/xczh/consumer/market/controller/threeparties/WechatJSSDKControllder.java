@@ -61,10 +61,7 @@ public class WechatJSSDKControllder {
             String strSha1 = Sha1SignUtil.SHA1(map);
 
             map.put("sign", strSha1);
-            map.put("appId", WxPayConst.gzh_appid);
-
-            LOGGER.info("strSha1" + strSha1);
-            LOGGER.info("map：" + map);
+            map.put("appId", wxMpService.getWxMpConfigStorage().getAppId());
         } catch (DigestException e) {
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("获取初始化信息数据有误");

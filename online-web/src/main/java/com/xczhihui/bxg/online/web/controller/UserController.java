@@ -23,7 +23,6 @@ import com.xczhihui.bxg.online.web.base.utils.UserUtil;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.web.util.UserLoginUtil;
@@ -55,7 +54,7 @@ public class UserController extends OnlineBaseController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseObject login(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         OnlineUser o = service.findUserByLoginName(username);
-        Token t = userCenterService.login(username, password, TokenExpires.Year);
+        Token t = userCenterService.loginMobile(username, password, TokenExpires.Year);
         UserUtil.setSessionCookie(request, response, o, t);
         return ResponseObject.newSuccessResponseObject("登录成功");
     }
@@ -86,7 +85,7 @@ public class UserController extends OnlineBaseController {
         OnlineUser o = service.findUserByLoginName(loginname);
         Token t = null;
         if (o != null) {
-            t = userCenterService.login(loginname, password, TokenExpires.Year);
+            t = userCenterService.loginMobile(loginname, password, TokenExpires.Year);
         }
         if (t != null) {
             if (o != null) {
@@ -243,25 +242,4 @@ public class UserController extends OnlineBaseController {
     public ResponseObject listCities(String provinceId) {
         return ResponseObject.newSuccessResponseObject(service.listCities(provinceId));
     }
-
-    Token createToken(OeUserVO user, int expires) {
-        if (user == null) {
-            return null;
-        }
-        Token token = new Token();
-        // 票的生成策略用UUID
-        String ticket = CodeUtil.getRandomUUID();
-        token.setTicket(ticket);
-        token.setLoginName(user.getLoginName());
-        token.setUserId(user.getId());
-        token.setOrigin(user.getOrigin());
-        long time = System.currentTimeMillis() + expires * 1000;
-        token.setExpires(time);
-
-        String userRedisKey = "t_u_k_" + user.getId();
-        this.cacheService.set(userRedisKey, token, expires);
-        return token;
-    }
-
-
 }

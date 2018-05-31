@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -42,70 +41,60 @@ import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 @RequestMapping("/xczh/medical")
 public class CourseApplyController {
 
-	@Autowired
-	private ICourseApplyService courseApplyService;
+    @Autowired
+    private ICourseApplyService courseApplyService;
 
-	@Autowired
-	private OLAttachmentCenterService service;
+    @Autowired
+    private OLAttachmentCenterService service;
 
-	@Autowired
-	private OnlineUserService onlineUserService;
+    @Autowired
+    private OnlineUserService onlineUserService;
 
-	@Autowired
-	private AppBrowserService appBrowserService;
+    @Autowired
+    private IAnchorInfoService anchorInfoService;
 
-	@Autowired
-	private IAnchorInfoService anchorInfoService;
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseApplyController.class);
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseApplyController.class);
+    /**
+     * 创建直播
+     */
+    @RequestMapping("addCourseApply")
+    @ResponseBody
+    public ResponseObject addCourseApply(@Account String accountId, HttpServletRequest req,
+                                         HttpServletResponse res,
+                                         CourseApplyInfo courseApplyInfo,
+                                         @RequestParam("file") MultipartFile file)
+            throws Exception {
 
-	/**
-	 * 创建直播
-	 */
+        courseApplyInfo.setCreateTime(new Date());
 
-	@RequestMapping("addCourseApply")
-	@ResponseBody
-	public ResponseObject addCourseApply(HttpServletRequest req,
-										 HttpServletResponse res,
-										 CourseApplyInfo courseApplyInfo, 
-										 @RequestParam("file")MultipartFile file)
-			throws Exception {
+        courseApplyInfo.setUserId(accountId);
+        //获取主播昵称
+        CourseAnchorVO ca = anchorInfoService.detail(accountId);
+        courseApplyInfo.setLecturer(ca.getName());
 
-			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-			if(user==null){
-				return ResponseObject.newErrorResponseObject("登录失效");
-			}
+        Map<String, Object> lecturerInfo = onlineUserService.findHostById(accountId);
+        if (lecturerInfo.get("detail") != null && !"".equals(lecturerInfo.get("detail"))) {
+            String detail = lecturerInfo.get("detail").toString();
+            courseApplyInfo.setLecturerDescription(detail);
+        }
+        courseApplyInfo.setCourseForm(CourseForm.LIVE.getCode());
 
-			courseApplyInfo.setCreateTime(new Date());
-
-			courseApplyInfo.setUserId(user.getId());
-			//获取主播昵称
-			CourseAnchorVO ca = anchorInfoService.detail(user.getId());
-			courseApplyInfo.setLecturer(ca.getName());
-
-			Map<String,Object> lecturerInfo = onlineUserService.findHostById(user.getId());
-			if(lecturerInfo.get("detail")!=null&&!"".equals(lecturerInfo.get("detail"))){
-				String detail = lecturerInfo.get("detail").toString();
-				courseApplyInfo.setLecturerDescription(detail);
-			}
-			courseApplyInfo.setCourseForm(CourseForm.LIVE.getCode());
-
-			//封面图片
-			String projectName="other";
-			String fileType="1"; //图片类型了
-			String imgPath = service.upload(null,
-					projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
+        //封面图片
+        String projectName = "other";
+        String fileType = "1"; //图片类型了
+        String imgPath = service.upload(null,
+                projectName, file.getOriginalFilename(), file.getContentType(), file.getBytes(), fileType, null);
 //			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
-			courseApplyInfo.setImgPath(imgPath);
-			courseApplyService.saveCourseApply(courseApplyInfo);
-			return  ResponseObject.newSuccessResponseObject("创建成功");
-	}
-	@InitBinder
-	public void initBinder(WebDataBinder binder, WebRequest request) {
+        courseApplyInfo.setImgPath(imgPath);
+        courseApplyService.saveCourseApply(courseApplyInfo);
+        return ResponseObject.newSuccessResponseObject("创建成功");
+    }
 
-		//转换日期
-		DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));// CustomDateEditor为自定义日期编辑器
-	}
-
+    @InitBinder
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+        //转换日期
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));// CustomDateEditor为自定义日期编辑器
+    }
 }

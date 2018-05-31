@@ -5,18 +5,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.user.dao.OnlineUserDao;
-import com.xczhihui.user.service.OnlineUserService;
-import com.xczhihui.vhall.VhallUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.EmailUtil;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorAccount;
+import com.xczhihui.bxg.online.common.domain.MedicalHospitalAccount;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.util.EmailUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.user.dao.OnlineUserDao;
+import com.xczhihui.user.service.OnlineUserService;
+import com.xczhihui.vhall.VhallUtil;
 
 @Service("onlineUserService")
 public class OnlineUserServiceImpl implements OnlineUserService {
@@ -122,7 +125,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 		o.setLoginName(newLoginName);
 		dao.update(o);
-
+		
+		/**
+		 * 删除第三方信息
+		 */
 		String sql_wx = "DELETE FROM wxcp_client_user_wx_mapping WHERE client_id = ?";
 		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wx, new Object[] { userId });
 
@@ -132,6 +138,34 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		String sql_qq = "DELETE FROM qq_client_user_mapping WHERE user_id = ?";
 		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_qq, new Object[] { userId });
 
+		/**
+		 * 删除医馆和医师信息
+		 */
+		String medical_doctor_account =  "select * from medical_doctor_account where account_id = '" +userId+"'";
+		List<MedicalDoctorAccount> mda = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.query(medical_doctor_account, new BeanPropertyRowMapper<MedicalDoctorAccount>(MedicalDoctorAccount.class));
+		
+		if(mda!=null && mda.size()>0) {
+			String sql_ys = "DELETE FROM medical_doctor WHERE id = ?";
+			MedicalDoctorAccount  mdad =  mda.get(0);
+			System.out.println(mdad.toString());
+			dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_ys, new Object[] {mdad.getDoctorId()});
+		}
+		String medical_hospital_account =  "select * from medical_hospital_account where account_id = '" +userId+"'";
+		List<MedicalHospitalAccount> mha = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.query(medical_hospital_account,new BeanPropertyRowMapper<MedicalHospitalAccount>(MedicalHospitalAccount.class));
+		if(mha!=null && mha.size()>0) {
+			String sql_yg = "DELETE FROM medical_hospital WHERE id = ?";
+			MedicalHospitalAccount  mha_d =  mha.get(0);
+			System.out.println(mha_d.toString());
+			dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_yg, new Object[] {mha_d.getDoctorId()});
+		}
+		/**
+		 * 删除主播信息
+		 */
+		String sql_zb = "DELETE FROM course_anchor WHERE user_id = ?";
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_zb, new Object[] {userId});
+		
 		try {
 			EmailUtil.modifyLoginNameMailBySSL("原账号" + loginName + "==>"
 					+ newLoginName);
