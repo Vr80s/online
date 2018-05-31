@@ -141,10 +141,7 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
              * @returns
              */
             commonLocalStorageSetItem(data);
-            /*
-             * 跳转到分类
-             */
-            location.href = "/xcview/html/heads_nicknames.html";
+            locationToOriginPage()
         } else {
             webToast(data.errorMessage, "middle", 1500);
         }

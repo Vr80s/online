@@ -33,7 +33,6 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.UserUnitedStateType;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.ThirdFlag;
@@ -71,14 +70,19 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         ServletOutputStream outputStream = response.getOutputStream();
         if (!isExcludePath(request)) {
-            boolean isAjax = isAjax(request);
             if (isAppRequest(request)) {
                 String token = getParam(request, TOKEN_PARAM_NAME);
                 ResponseObject responseObject = null;
                 if (StringUtils.isBlank(token)) {
                     responseObject = tokenBlankError();
-                } else if (userCenterService.getToken(token) == null) {
-                    responseObject = tokenExpired();
+                } else {
+                    Token redisToken = userCenterService.getToken(token);
+                    if (redisToken == null) {
+                        responseObject = tokenExpired();
+                    } else if (userCenterService.isDisabled(redisToken.getUserId())) {
+                        responseObject = tokenExpired();
+                        userCenterService.deleteToken(redisToken.getTicket());
+                    }
                 }
                 if (responseObject != null) {
                     writeData(response, outputStream, responseObject);
@@ -86,13 +90,16 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
                 }
                 return true;
             } else {
-                int statusFlag = UserUnitedStateType.BINDING.getCode();
                 Token token = UCCookieUtil.readTokenCookie(request);
-                ResponseObject responseObject = null;
-                if (token == null || userCenterService.getToken(token.getTicket()) == null) {
+                ResponseObject responseObject;
+                String redirectUrl;
+                Token redisToken = null;
+                if (token != null) {
+                    redisToken = userCenterService.getToken(token.getTicket());
+                }
+                boolean isAjax = isAjax(request);
+                if (token == null || redisToken == null) {
                     ThirdFlag thirdFlag = UCCookieUtil.readThirdPartyCookie(request);
-                    //无token有
-                    String redirectUrl = null;
                     if (thirdFlag != null && token == null) {
                         redirectUrl = request.getContextPath() + EVPI_HTML_URL;
                         responseObject = ResponseObject.newErrorResponseObject(null, GO_TO_BIND.getCode());
@@ -100,14 +107,21 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
                         redirectUrl = request.getContextPath() + ENTER_HTML_URL;
                         responseObject = ResponseObject.newErrorResponseObject(null, OVERDUE.getCode());
                     }
-                    if (isAjax) {
-                        writeData(response, outputStream, responseObject);
+                } else {
+                    if (!userCenterService.isDisabled(token.getUserId())) {
+                        return true;
                     } else {
-                        response.sendRedirect(redirectUrl);
+                        userCenterService.deleteToken(token.getTicket());
+                        redirectUrl = request.getContextPath() + ENTER_HTML_URL;
+                        responseObject = ResponseObject.newErrorResponseObject(null, OVERDUE.getCode());
                     }
-                    return false;
                 }
-                return true;
+                if (isAjax) {
+                    writeData(response, outputStream, responseObject);
+                } else {
+                    response.sendRedirect(redirectUrl);
+                }
+                return false;
             }
         } else {
             return true;

@@ -1,6 +1,7 @@
 package com.xczhihui.user.center.service.impl;
 
 
+import static com.xczhihui.common.util.RedisCacheKey.REDIS_SPLIT_CHAR;
 import static com.xczhihui.common.util.RedisCacheKey.TICKET_PREFIX;
 
 import com.xczhihui.common.util.CodeUtil;
@@ -63,7 +64,7 @@ class TokenManager {
         token.setUuid(user.getId());
         token.setHeadPhoto(user.getSmallHeadPhoto());
 
-        String userRedisKey = TICKET_PREFIX + ticket;
+        String userRedisKey = TICKET_PREFIX + REDIS_SPLIT_CHAR + ticket;
         this.cacheService.set(userRedisKey, token, expires);
         return token;
     }
@@ -75,9 +76,9 @@ class TokenManager {
      * @return
      */
     Token deleteTicket(String ticket) {
-        Token token = this.cacheService.get(TICKET_PREFIX + ticket);
+        Token token = this.cacheService.get(TICKET_PREFIX + REDIS_SPLIT_CHAR + ticket);
         if (token != null) {
-            this.cacheService.delete(TICKET_PREFIX + ticket);
+            this.cacheService.delete(TICKET_PREFIX + REDIS_SPLIT_CHAR + ticket);
         }
         return token;
     }
@@ -89,7 +90,7 @@ class TokenManager {
      * @return
      */
     Token reflushTicket(String ticket) {
-        return this.reflushTicket(TICKET_PREFIX + ticket, DEFAULT_EXPIRES);
+        return this.reflushTicket(TICKET_PREFIX + REDIS_SPLIT_CHAR + ticket, DEFAULT_EXPIRES);
     }
 
     /**
@@ -100,21 +101,21 @@ class TokenManager {
      * @return
      */
     Token reflushTicket(String ticket, int expires) {
-        Token token = this.cacheService.get(TICKET_PREFIX + ticket);
+        Token token = this.cacheService.get(TICKET_PREFIX + REDIS_SPLIT_CHAR + ticket);
         if (token != null) {
             long time = System.currentTimeMillis() + expires * 1000;
             token.setExpires(time);
-            this.cacheService.set(TICKET_PREFIX + token.getTicket(), token, expires);
+            this.cacheService.set(TICKET_PREFIX + REDIS_SPLIT_CHAR + token.getTicket(), token, expires);
         }
         return token;
     }
 
     Token getToken(String ticket) {
-        return this.cacheService.get(TICKET_PREFIX + ticket);
+        return this.cacheService.get(TICKET_PREFIX + REDIS_SPLIT_CHAR + ticket);
     }
 
     void refreshToken(String ticket, Token token, int expires) {
         token.setExpires(System.currentTimeMillis() + expires * 1000);
-        this.cacheService.set(TICKET_PREFIX + ticket, token, expires);
+        this.cacheService.set(TICKET_PREFIX + REDIS_SPLIT_CHAR + ticket, token, expires);
     }
 }

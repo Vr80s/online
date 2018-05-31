@@ -155,8 +155,7 @@ $(".enter_btn").click(function(){
 			 * 添加 所有关于用户的缓存
 			 */
 			commonLocalStorageSetItem(data);
-		
-			window.history.back(); //返回上一页
+            locationToOriginPage();
 		} else {
 			webToast(data.errorMessage,"middle",1500);
 		}

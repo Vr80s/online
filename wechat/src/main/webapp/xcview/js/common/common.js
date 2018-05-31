@@ -16,6 +16,14 @@ function is_weixin() {
     }
 }
 
+function getCurrentUrl() {
+    return encodeURIComponent(document.location.protocol + "//" + document.location.host + document.location.pathname + document.location.search + document.location.hash);
+}
+
+function getCurrentRelativeUrl() {
+    return document.location.pathname + document.location.search + document.location.hash;
+}
+
 //判断字段空值
 function stringnull(zifu) {
     if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
@@ -162,11 +170,14 @@ function requestService(url, param, callback, ac) {
         data: param,
         async: ac,
         success: function (msg) {
-            if (msg.code == 1002) {  //过期
-                location.href = "/xcview/html/cn_login.html";
+            var rd = getCurrentRelativeUrl();
+            if (msg.code == USER_UN_LOGIN) {
+                localStorage.setItem("rd", rd);
+                location.href = "/xcview/html/enter.html";
             } else if (msg.code == 1003) { //被同一用户顶掉了
                 location.href = "/xcview/html/common.html";
-            } else if (msg.code == 1005) { //去完善信息页面
+            } else if (msg.code == USER_UN_BIND) { //去完善信息页面
+                localStorage.setItem("rd", rd);
                 var openId = msg.resultObject.openId;
                 var unionId = msg.resultObject.unionId;
                 location.href = "/xcview/html/evpi.html?openId=" + openId + "&unionId=" + unionId;
@@ -518,8 +529,17 @@ function checkAuth(courseId, type) {
 
 var thirdPartyUCT = cookie.get("third_party_uc_t_");
 if (is_weixin() && !thirdPartyUCT) {//在微信里打开,没有授权时，先去微信授权
-    var rd = encodeURIComponent(document.location.pathname + document.location.search + document.location.hash);//授权完成后自动跳转回原页面
-    location.href = "/xczh/wxlogin/middle?url=" + rd;
+    location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
+}
+
+function locationToOriginPage() {
+    var rd = localStorage.getItem("rd");
+    localStorage.setItem("rd", null);
+    if (rd) {
+        window.location.href = rd;
+    } else {
+        window.location.href = "/xcview/html/home_page.html";
+    }
 }
 
 /**
