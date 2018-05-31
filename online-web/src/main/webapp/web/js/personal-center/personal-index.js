@@ -76,8 +76,9 @@ function historyClass(pages){
             } else {
             	$(".clear-history").removeClass("hide");
             	$(".nodata-history").addClass("hide");  
-            	$("#history-template").html(template("content-history",{items:data.resultObject.records}))
             }
+            	$("#history-template").html(template("content-history",{items:data.resultObject.records}))
+            
             //分页添加
 			if(data.resultObject.pages > 1) { //分页判断
 					$(".not-data").remove();
@@ -100,8 +101,18 @@ function historyClass(pages){
         	showTip("获取数据失败");
         }
     })
-	
 }
+//删除历史
+$(".clear-history").click(function(){
+	 RequestService("/history/empty", "POST",null, function (data) {
+   	if(data.success==true){
+   		showTip(data.resultObject);
+   		historyClass(1)
+   	}else{
+   		showTip("清空失败")		
+   	}
+   })
+})
 //已购课程
 buyClass(1)
 function buyClass (pages){
@@ -269,24 +280,24 @@ $(".question-forum li").click(function(){
 			
 		}
 	})
-quizList(1)		
-function quizList(pages){
-	 RequestService("/online/questionlist/getQuestionList", "POST",{
-	 	pageNumber:pages,
-	 	pageSize:5
-	 }, function (data) {
-   		if(data.success==true){
-            if (data.resultObject.records.length == 0) {
-            	$(".no-question-box").removeClass("hide");
-            } else {
-            	$(".no-question-box").addClass("hide");          	
-            	$("#quiz-template").html(template("quiz-box",{items:data.resultObject.records}))
-            }
-          }else{
-    		showTip("获取数据失败");
-    	}   
-     })
-}	
+//quizList(1)		
+//function quizList(pages){
+//	 RequestService("/online/questionlist/getQuestionList", "POST",{
+//	 	pageNumber:pages,
+//	 	pageSize:5
+//	 }, function (data) {
+// 		if(data.success==true){
+//          if (data.resultObject.records.length == 0) {
+//          	$(".no-question-box").removeClass("hide");
+//          } else {
+//          	$(".no-question-box").addClass("hide");          	
+//          	$("#quiz-template").html(template("quiz-box",{items:data.resultObject.records}))
+//          }
+//        }else{
+//  		showTip("获取数据失败");
+//  	}   
+//   })
+//}	
 	
 	
 	
@@ -394,10 +405,11 @@ function replyList (pages) {
 
 //--------------------------------------问答论坛结束    我的订单开始--------------------------------------------
 //我的订单选项卡
-	$(".order-box li").click(function(){
+	$(".order-box li").click(function(event){
+		event.stopPropagation();
 		$(".order-box li").removeClass("mune-active");
 		$(this).addClass("mune-active");
-		$(".all-order-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
+		orderList(1,$(".all-change .select-order").attr("data-order"),5,$(this).attr("data-orderStatus"))
 	})
 	//全部订单/近三月订单筛选	
 	$(".all-order").hover(function(){
@@ -411,7 +423,60 @@ function replyList (pages) {
 		var spanText=$(this).text();
 		$(".select-write").text(spanText);
 	})
-
+orderList(1,0,5)	
+	function orderList(pages,time,pageSize,status){
+		var data = {
+		 	pageNumber:pages,
+		 	timeQuantum:time,
+		 	pageSize:pageSize
+		};
+		if(status!=null){
+			data.orderStatus=status;
+		}
+		RequestService("/web/getMyAllOrder", "get",data, function (data) {
+		 	if(data.success==true){
+		 		if(data.resultObject.items.length==0){
+		 			$(".all-no-order").removeClass("hide");
+					$("#order-template").html(template("order-content",{items:data.resultObject.items}))	
+		 		}else{
+					$("#order-template").html(template("order-content",{items:data.resultObject.items}))	
+		 			$(".all-no-order").addClass("hide");
+		 		}	
+		 		 //分页添加
+			if(data.resultObject.totalPageCount > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".order_pages").removeClass("hide");
+		            $(".order_pages .searchPage .allPage").text(data.resultObject.totalPageCount);
+		            $("#order_doctors").pagination(data.resultObject.totalPageCount, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    orderList(page+1,time,pageSize,status)
+		                }
+		            });
+				}
+				else {
+					$(".order_pages").addClass("hide");
+				}
+		 	}else{
+		 		showTip("获取数据失败");
+		 	}
+		 })
+	}
+//	设置多少年前订单
+	var setYear = new Date().getFullYear();
+	$("#set-year").html(setYear+"年前订单");
+//	选择时间进行传参
+	$(".all-change span").click(function(event){
+		event.stopPropagation();
+		$(".all-change span").removeClass("select-order");
+		$(this).addClass("select-order")
+		orderList(1,$(this).attr("data-order"),5)
+		$(".order-box li").first().click();
+	})
+	
 //-------------------------------------- 我的订单结束    我的钱包开始--------------------------------------------
 //点击充值切换页面
 $(".main-wallet-top button").click(function(){
@@ -430,17 +495,61 @@ $("#wallet-btn").click(function(){
 	}
 })
 //选择充值金额
+var actualPay
 $(".select-pay-money li").click(function(){
 	$(".select-pay-money li").removeClass("select-money");
 	$(this).addClass("select-money");
+//	为了获取充值金额
+	actualPay=$(this).find("span").text();
+	return actualPay
 })
+
 //选择支付方式
 	$(".main-bottom ul li").click(function(){
 		$(".main-bottom ul li").removeClass("select-confirm").find("span").addClass("hide");
 		$(this).addClass("select-confirm").find("span").removeClass("hide");
-	})
-
-
+})
+//熊猫币余额
+balanceShow();
+function balanceShow () {
+	RequestService("/userCoin/balance", "get",null, function (data) {
+		$(".balance-gold").html(data.resultObject);
+		$(".balance span").html(data.resultObject);
+	}) 	
+}
+//交易记录
+tradeList(1)
+function tradeList (pages) {
+	RequestService("/userCoin/transactionRecords", "post",{
+		pageNumber:pages,
+		pageSize:6
+	}, function (data) {
+		if (data.success==true) {
+			if (data.resultObject.length==0){
+				$(".all-money-order").removeClass("hide")
+			} else{
+				$("#trade-template").html(template("trade-box",{items:data.resultObject}))
+			}
+		} else{
+			showTip("获取数据失败12")
+		}
+	}) 	
+}
+	//0 支付宝 1 微信  
+	var payType
+	$(".order-pay").click(function() {
+				$(".select-pay li").each(function() {
+					if($(this).hasClass("select-confirm")) {
+						payType = $(this).attr("data-payType");
+					}
+					return;
+				});
+				if(payType == 0) {
+                    window.open("/web/alipay/recharge/" + actualPay+"/");
+				} else if(payType == 1) {
+					window.open("/web/wxPay/recharge/"+actualPay+"/");
+				}
+			});
 //-------------------------------------- 我的钱包结束,我的资料开始--------------------------------------------
 
 //男女单选框
@@ -455,5 +564,63 @@ $(".select-pay-money li").click(function(){
 
 //-------------------------------------- 我的资料结束,消息开始--------------------------------------------
 
+newsList(1)
+function newsList(pages){
+	var setData={
+		pageSize:pages,
+		pageNumber:8,
+	}
+	RequestService("/online/message/getMessageList", "get",setData, function (data) {
+		$("#news-template").html(template("news-box",{items:data.resultObject.items}))
+	})
+		
+}
+
+$(".sign-read").click(function(){
+	$(".main-news li .icon-tip").remove();
+	$(".main-news li").css({"color":"#999999"});
+	$(this).hide()
+})
+
+
+//-------------------------------------- 我的消息结束,反馈开始--------------------------------------------
+	$(".feedback-wrap button").click(function(evt) {
+			RequestService("/online/user/isAlive", "get", null, function(data) {
+				if(!data.success) { //登录判断
+					$('#login').modal('show');$('#login').css("display", "block");
+					localStorage.username = null;
+					localStorage.password = null;
+					$(".login").css("display", "none");
+					$(".logout").css("display", "block");
+				} else { //验证
+					var title = $(".text-title").val().trim(),
+						miaoshu = $(".textarea-miaoshu").val().trim();
+					if(title == "") {
+						$(".text-title").css("border-color", "red");
+						$(".error-msg").text("请输入标题");
+						$(".error-msg").show();
+						return false;
+					} else if(title.length < 5) {
+						$(".text-title").css("border-color", "red");
+						$(".error-msg").text("标题5~50字之间");
+						$(".error-msg").show();
+						return false;
+					} else if(title.length > 4 && title.length < 51) {
+						$(".error-msg").hide();
+						$(".text-title").css("border-color", "#eee")
+						var data = {
+							userId: localStorage.id,
+							title: title,
+							describe: miaoshu
+						};
+						$.post(bath + "/online/message/addFeedBack", data, function(data) {
+						
+						alert("提交成功")
+						})
+					}
+				}
+			});
+
+		});
 
 });

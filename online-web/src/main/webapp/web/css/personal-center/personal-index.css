@@ -358,6 +358,7 @@ cursor: pointer;
 	margin: 0 0 10px;
 	font-size: 14px;
 	font-weight: bold;
+	color: #333333;
 }
 .doctor-details .doctor-text{
 	width: 295px;
@@ -843,7 +844,7 @@ overflow: hidden;
 	color: white;
 }
 .order-wrap .all-order-wrap{
-	padding: 0 20px;
+	padding: 0 20px 20px;
 }
 .order-wrap .order-model{
 	border: 1px solid #f0f0f0;
@@ -1008,10 +1009,10 @@ overflow: hidden;
 	border-bottom: 1px solid #dedede;
 }
 .table-wallet-list th:nth-child(1){
-	width: 180px;
+	width: 200px;
 }
 .table-wallet-list th:nth-child(2){
-	width: 170px;
+	width: 150px;
 }
 .table-wallet-list th:nth-child(3){
 	width: 310px;
@@ -1293,6 +1294,10 @@ overflow: hidden;
 	position: relative;
 	border-bottom: 1px solid #dedede;
 }
+.main-news ul li span{
+	margin-left: 10px;
+	color: #00BC12;
+}
 .main-news ul li .icon-tip{
 	background: #F97B49;
 	width: 8px;
@@ -1301,15 +1306,18 @@ overflow: hidden;
 	position: absolute;
 	left: 0;
 	top: 26px;
+	margin-left: 0;
 }
-.main-news ul li a{
+/*.main-news ul li a{
 	margin-left: 5px;
 	color: #00BC12;
-}
+}*/
 .main-news ul li .news-time{
 	float: right;
 	margin-right: 20px;
 	color: #999999;
+	margin-left: 0;
+	
 }
 .main-news ul .read-news{
 	color: #999999;
@@ -1317,7 +1325,7 @@ overflow: hidden;
 /*意见反馈*/
 .feedback-wrap{
 	width: 100%;
-	min-width: 596px;
+	min-height: 596px;
 }
 .feedback-wrap .mune-opinion{
 	    height: 60px;

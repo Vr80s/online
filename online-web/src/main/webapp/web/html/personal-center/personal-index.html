@@ -168,12 +168,20 @@
 									</div>
 									<!--播放历史-->
 									<div class="save-class">
-										<button type="button" class="clear-history">清除记录</button>
+										<button type="button" class="clear-history hide">清除记录</button>
 										<div id="history-template">
 											<script type="text/template" id="content-history">
 												{{each items as item i}}																							
 												<div class="course clearfix">
-													<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+													{{if item.type == 1 || item.type == 2 || item.type == 4 }}
+													<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">
+													{{else if item.type == 3}}
+														{{if item.lineState == 1 || item.lineState == 4}}
+														 <a style="cursor:pointer" href="/web/liveCoursePage/{{item.id}}" target="_blank">		
+														{{else}}
+														<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">														
+														{{/if}}
+													{{/if}}					
 														<div class="img">
 															<img src="{{item.smallImgPath}}"/>
 														</div>
@@ -235,7 +243,15 @@
 											<script type="text/template" id="purchased-class">
 												{{each items as item i}}
 												<div class="course clearfix">
-													<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+													{{if item.type == 1 || item.type == 2 || item.type == 4 }}
+													<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">
+													{{else if item.type == 3}}
+														{{if item.lineState == 1 || item.lineState == 4}}
+														 <a style="cursor:pointer" href="/web/liveCoursePage/{{item.id}}" target="_blank">		
+														{{else}}
+														<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">														
+														{{/if}}
+													{{/if}}	
 														<div class="img">
 															<img src="{{item.smallImgPath}}">
 														</div>
@@ -300,7 +316,15 @@
 											<script type="text/template" id="end-class">
 												{{each items as item i}}
 												<div class="course clearfix">
-													<a style="cursor:pointer" href="/course/courses/611" target="_blank">
+													{{if item.type == 1 || item.type == 2 || item.type == 4 }}
+													<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">
+													{{else if item.type == 3}}
+														{{if item.lineState == 1 || item.lineState == 4}}
+														 <a style="cursor:pointer" href="/web/liveCoursePage/{{item.id}}" target="_blank">		
+														{{else}}
+														<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">														
+														{{/if}}
+													{{/if}}	
 														<div class="img">
 															<img src="{{item.smallImgPath}}">
 														</div>
@@ -368,6 +392,7 @@
 										<script type="text/template" id="anchor-box">
 										{{each items as item i}}
 										<div class="anchor-wrap">
+											<a href="{{webUrl}}/anchors/{{item.userId}}/info" target="_blank" style="width: 100%; height: 100%;">
 											<div class="head-doctor z">
 												<img src="{{item.smallHeadPhoto}}"/>
 											</div>
@@ -379,6 +404,7 @@
 													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播												
 												</p>
 											</div>
+											</a>
 										</div>	
 									{{/each}}
 										</script>
@@ -690,113 +716,61 @@
 								<div class="order-wrap">
 									<div class="order-box">
 										<ul>
-											<li class="mune-active all-order">
+											<li class="mune-active all-order"  data-orderStatus=" ">
 												<span class="glyphicon glyphicon-triangle-bottom triangle-bottom" aria-hidden="true"></span>
 												<span class="select-write">全部订单</span>
 												<p class="all-change" style="display: none;">
-														<span>全部订单</span>
-														<span>近三个月内订单</span>
-														<span>2017年前订单</span>
+														<span data-order="0" class="select-order">全部订单</span>
+														<span data-order="1">近三个月内订单</span>
+														<span data-order="2">今年内订单</span>
+														<span data-order="3" id="set-year"></span>
 												</p>
 
 											</li>
-											<li><span>待支付</span></li>
-											<li><span>已完成</span></li>
-											<li><span>已失效</span></li>
+											<li data-orderStatus="0"><span>待支付</span></li>
+											<li data-orderStatus="1"><span>已完成</span></li>
+											<li data-orderStatus="2"><span>已失效</span></li>
 										</ul>
 									</div>
 									<!--全部订单-->
 									<div class="all-order-wrap">
-										<!--待支付-->
-										<div class="order-model">							
-											<div class="order-status">
-												<ul>
-													<li><span>2018-03-21 12:20</span></li>
-													<li>订单编号：<span>180320181450MHJCx394</span></li>
-													<li>订单金额（熊猫币）</li>
-													<li>实付金额</li>
-													<li>订单状态</li>
-													<li>操作</li>
-												</ul>
-											</div>
-											<div class="order-left z">
-												<div class="order-class-img z">
-													<img src="../../images/04.png"/>
+									
+										<div id="order-template">
+											<script type="text/template" id="order-content">
+											{{each items as item i}}
+												<div class="order-model">							
+													<div class="order-status">
+														<ul>
+															<li><span>{{item.create_time}}</span></li>
+															<li>订单编号：<span>{{item.order_no}}</span></li>
+															<li>订单金额（熊猫币）</li>
+															<li>实付金额</li>
+															<li>订单状态</li>
+															<li>操作</li>
+														</ul>
+													</div>
+													<div class="order-left z">
+														<div class="order-class-img z">
+															<img src="../../images/04.png"/>
+														</div>
+														<p>小宝中医带你快速入门学针【合辑】啊哈哈哈哈</p>
+													</div>
+													<div class="order-right y">
+														<ul>
+															<li>100</li>
+															<li><span>1000</span></li>
+															<li>已失效</li>
+															<li>
+																<p>重新购买</p>
+																<p>删除订单</p>
+															</li>
+														</ul>
+													</div>
 												</div>
-												<p>小宝中医带你快速入门学针【合辑】啊哈哈哈哈</p>
-											</div>
-											<div class="order-right y">
-												<ul>
-													<li>100</li>
-													<li><span>1000</span></li>
-													<li>待支付</li>
-													<li>
-														<p>立即支付</p>
-														<p>取消订单</p>
-													</li>
-												</ul>
-											</div>
+											{{/each}}
+											</script>
 										</div>
-										<!--已完成-->
-										<div class="order-model">							
-											<div class="order-status">
-												<ul>
-													<li><span>2018-03-21 12:20</span></li>
-													<li>订单编号：<span>180320181450MHJCx394</span></li>
-													<li>订单金额（熊猫币）</li>
-													<li>实付金额</li>
-													<li>订单状态</li>
-													<li>操作</li>
-												</ul>
-											</div>
-											<div class="order-left z">
-												<div class="order-class-img z">
-													<img src="../../images/04.png"/>
-												</div>
-												<p>小宝中医带你快速入门学针【合辑】啊哈哈哈哈</p>
-											</div>
-											<div class="order-right y">
-												<ul>
-													<li>100</li>
-													<li><span>1000</span></li>
-													<li>已完成</li>
-													<li>
-														
-													</li>
-												</ul>
-											</div>
-										</div>
-										<!--已失效-->
-										<div class="order-model">							
-											<div class="order-status">
-												<ul>
-													<li><span>2018-03-21 12:20</span></li>
-													<li>订单编号：<span>180320181450MHJCx394</span></li>
-													<li>订单金额（熊猫币）</li>
-													<li>实付金额</li>
-													<li>订单状态</li>
-													<li>操作</li>
-												</ul>
-											</div>
-											<div class="order-left z">
-												<div class="order-class-img z">
-													<img src="../../images/04.png"/>
-												</div>
-												<p>小宝中医带你快速入门学针【合辑】啊哈哈哈哈</p>
-											</div>
-											<div class="order-right y">
-												<ul>
-													<li>100</li>
-													<li><span>1000</span></li>
-													<li>已失效</li>
-													<li>
-														<p>重新购买</p>
-														<p>删除订单</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<!--已失效结束-->
+									
 										<!--暂无订单-->
 										<div class="no-order-box all-no-order hide">
 											<div class="no-order-img">
@@ -804,125 +778,16 @@
 											</div>
 											<p>暂无订单</p>
 										</div>
-										
-									
-
-									</div>
-									<!--待支付-->
-									<div class="all-order-wrap hide">
-										<div class="order-model">							
-											<div class="order-status">
-												<ul>
-													<li><span>2018-03-21 12:20</span></li>
-													<li>订单编号：<span>180320181450MHJCx394</span></li>
-													<li>订单金额（熊猫币）</li>
-													<li>实付金额</li>
-													<li>订单状态</li>
-													<li>操作</li>
-												</ul>
-											</div>
-											<div class="order-left z">
-												<div class="order-class-img z">
-													<img src="../../images/04.png"/>
-												</div>
-												<p>小宝中医带你快速入门学针【合辑】啊哈哈哈哈</p>
-											</div>
-											<div class="order-right y">
-												<ul>
-													<li>100</li>
-													<li><span>1000</span></li>
-													<li>待支付</li>
-													<li>
-														<p>立即支付</p>
-														<p>取消订单</p>
-													</li>
-												</ul>
+										<!--分页部分start-->
+										<div class="order_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+											<div id="order_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+											<div class="searchPage">
+												<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+												<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+												<a href="javascript:;" class="page-btn">确定</a>
 											</div>
 										</div>
-										<!--暂无订单-->
-										<div class="no-order-box no-wait-order hide">
-											<div class="no-order-img">
-												<img src="../../images/icon-nodata.png"/>
-											</div>
-											<p>暂无订单</p>
-										</div>
-									</div>
-									<!--已完成-->
-									<div class="all-order-wrap hide">
-										<div class="order-model">							
-											<div class="order-status">
-												<ul>
-													<li><span>2018-03-21 12:20</span></li>
-													<li>订单编号：<span>180320181450MHJCx394</span></li>
-													<li>订单金额（熊猫币）</li>
-													<li>实付金额</li>
-													<li>订单状态</li>
-													<li>操作</li>
-												</ul>
-											</div>
-											<div class="order-left z">
-												<div class="order-class-img z">
-													<img src="../../images/04.png"/>
-												</div>
-												<p>小宝中医带你快速入门学针【合辑】啊哈哈哈哈</p>
-											</div>
-											<div class="order-right y">
-												<ul>
-													<li>100</li>
-													<li><span>1000</span></li>
-													<li>已完成</li>
-													<li>
-														
-													</li>
-												</ul>
-											</div>
-										</div>
-										<!--暂无订单-->
-										<div class="no-order-box no-finish-order hide">
-											<div class="no-order-img">
-												<img src="../../images/icon-nodata.png"/>
-											</div>
-											<p>暂无订单</p>
-										</div>
-									</div>
-									<!--已失效-->
-									<div class="all-order-wrap hide">
-										<div class="order-model">							
-											<div class="order-status">
-												<ul>
-													<li><span>2018-03-21 12:20</span></li>
-													<li>订单编号：<span>180320181450MHJCx394</span></li>
-													<li>订单金额（熊猫币）</li>
-													<li>实付金额</li>
-													<li>订单状态</li>
-													<li>操作</li>
-												</ul>
-											</div>
-											<div class="order-left z">
-												<div class="order-class-img z">
-													<img src="../../images/04.png"/>
-												</div>
-												<p>小宝中医带你快速入门学针【合辑】啊哈哈哈哈</p>
-											</div>
-											<div class="order-right y">
-												<ul>
-													<li>100</li>
-													<li><span>1000</span></li>
-													<li>已失效</li>
-													<li>
-														<p>重新购买</p>
-														<p>删除订单</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<!--暂无订单-->
-										<div class="no-order-box no-overdue-order hide">
-											<div class="no-order-img">
-												<img src="../../images/icon-nodata.png"/>
-											</div>
-											<p>暂无订单</p>
-										</div>
+										<!--分页部分end-->
 									</div>
 								</div>
 							</div>
@@ -934,7 +799,7 @@
 										<div class="main-wallet-top">
 											<ul>
 												<li>熊猫币余额（熊猫币）：</li>
-												<li>300</li>
+												<li class="balance-gold"></li>
 												<li>
 													<button type="button">充值</button>
 												</li>
@@ -943,7 +808,8 @@
 										<div class="main-wallet-bottom">
 											<div class="wallel-content-list">
 												<p class="title-wallet">交易记录</p>
-												<table border="0" cellspacing="0" cellpadding="0" class="table-wallet-list">
+												<table border="0" cellspacing="0" cellpadding="0" class="table-wallet-list" id="trade-template">
+													<script type="text/template" id="trade-box">
 													<tr>
 														<th>订单号</th>
 														<th>金额（熊猫币）</th>
@@ -951,20 +817,17 @@
 														<th>交易时间</th>
 														<th>交易方式</th>
 													</tr>
+
+														{{each items as item i}}
 													<tr>
 														<td>180320181450MHJCx394</td>
-														<td>+200</td>
-														<td>购买课程【小宝中医带你快速入门学针灸合…</td>
-														<td>2018-12-28 15:00</td>
-														<td>苹果内购</td>
+														<td>{{item.money}}</td>
+														<td>{{item.courseName}}</td>
+														<td>{{item.gmtCreate}}</td>
+														<td>{{item.payType}}</td>
 													</tr>
-													<tr>
-														<td>180320181450MHJCx394</td>
-														<td>+200</td>
-														<td>购买课程【小宝中医带你快速入门学针灸合…</td>
-														<td>2018-12-28 15:00</td>
-														<td>苹果内购</td>
-													</tr>
+														{{/each}}
+													</script>
 												</table>
 												<!--暂无交易记录-->
 												<div class="no-order-box all-money-order hide">
@@ -980,43 +843,47 @@
 									<div class="recharge-wrap hide">
 										<div class="recharge-explain">
 												<p class="z explain">选择充值额度<span>兑换比例说明：1元=10熊猫币</span></p>
-												<p class="y balance">余额：20熊猫币</p>
+												<p class="y balance">余额：<span></span>熊猫币</p>
 										</div>
 										<div class="select-pay-money">
 											<ul>
 												<li class="select-money">
 													<p>100熊猫币</p>
-													<p>¥ 10</p>
+													<p>¥ <span>10</span></p>
 												</li>
 												<li>
 													<p>500熊猫币</p>
-													<p>¥ 50</p>
+													<p>¥ <span>50</span></p>
+												</li>
+												<li>
+													<p>1熊猫币</p>
+													<p>¥ <span>0.1</span></p>
 												</li>
 												<li>
 													<p>1000熊猫币</p>
-													<p>¥ 100</p>
+													<p>¥ <span>100</span></p>
 												</li>
 												<li>
 													<p>2000熊猫币</p>
-													<p>¥ 200</p>
+													<p>¥ <span>200</span></p>
 												</li>
 												<li>
 													<p>5000熊猫币</p>
-													<p>¥ 500</p>
+													<p>¥ <span>500</span></p>
 												</li>
 											</ul>
 										</div>
 										<div class="main-bottom">
 											<h4>选择支付方式</h4>
 											<ul class="select-pay">
-												<li class="select-confirm">
+												<li class="select-confirm" data-payType="0">
 													<div class="pay-logo">
 														<img src="../../images/live/alipay.png">
 													</div>
 													<p>支付宝</p>
 													<span class="icon-sure"></span>
 												</li>
-												<li>
+												<li data-payType="1">
 													<div class="pay-logo">
 														<img src="../../images/weixin.png">
 													</div>
@@ -1026,7 +893,7 @@
 											</ul>
 										</div>
 										<div class="recharge-box">
-											<button type="button">立即充值</button>
+											<button type="button" class="order-pay">立即充值</button>
 										</div>
 									</div>
 									
@@ -1126,21 +993,21 @@
 							<div class="content hide" >
 								<div class="news-wrap">
 									<p class="mune-news">我的消息</p>
-									<div class="main-news">
-										<button type="button">全部标记为已读</button>
-										<ul>
+									<div class="main-news">	
+										<button type="button" class="sign-read">全部标记为已读</button>
+										<ul id="news-template">
+										<script type="text/template" id="news-box">
+											
+											{{each items as item i}}
 											<li>
 												<span class="icon-tip"></span>
-												恭喜您成功报名课程
-												<a href="">小宝中医带你快速入门学针灸（一）</a>
-												<span class="news-time">2018-02-28 15:00</span>
+												{{item.context}}
+												<!--<a href="">小宝中医带你快速入门学针灸（一）</a>-->
+												<span class="news-time">{{item.createTime}}</span>
 											</li>
-											<li class="read-news">
-												张三丰老师叫你去上课了，《太极拳的精华》还有10分钟就要开始了~
-												<a href="">小宝中医带你快速入门学针灸（2）</a>
-												<span class="news-time">2018-02-28 15:00</span>
-											</li>	
+											{{/each}}
 										</ul>
+										</script>
 									</div>
 									<!--暂无消息-->
 									<div class="no-order-box all-news-order hide">
@@ -1159,14 +1026,15 @@
 										<label>
 											<span>*</span>
 											标题
-											<input type="text" placeholder="5~50字之间" />
+											<input type="text" placeholder="5~50字之间" class="text-title" />
 										</label>
+										<span class="error-msg" style="color: red;display: none;"></span>
 									</div>
 									<div class="opinion-title" style="padding-top: 0;">
 										<label>
 											<span style="color: white;">*</span>
 											描述
-											<textarea name="" rows="" cols="" placeholder="1000以内" maxlength="1000"></textarea>
+											<textarea class="textarea-miaoshu" name="" rows="" cols="" placeholder="1000以内" maxlength="1000"></textarea>
 										</label>
 									</div>
 									<button type="button">提交</button>
