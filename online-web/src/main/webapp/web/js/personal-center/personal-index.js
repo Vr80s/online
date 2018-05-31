@@ -76,8 +76,9 @@ function historyClass(pages){
             } else {
             	$(".clear-history").removeClass("hide");
             	$(".nodata-history").addClass("hide");  
-            	$("#history-template").html(template("content-history",{items:data.resultObject.records}))
             }
+            	$("#history-template").html(template("content-history",{items:data.resultObject.records}))
+            
             //分页添加
 			if(data.resultObject.pages > 1) { //分页判断
 					$(".not-data").remove();
@@ -104,13 +105,13 @@ function historyClass(pages){
 //删除历史
 $(".clear-history").click(function(){
 	 RequestService("/history/empty", "POST",null, function (data) {
- 	if(data.success==true){
- 		showTip(data.resultObject);
- 		historyClass(1)
- 	}else{
- 		showTip("清空失败")		
- 	}
- })
+   	if(data.success==true){
+   		showTip(data.resultObject);
+   		historyClass(1)
+   	}else{
+   		showTip("清空失败")		
+   	}
+   })
 })
 //已购课程
 buyClass(1)
@@ -519,7 +520,7 @@ function balanceShow () {
 //交易记录
 tradeList(1)
 function tradeList (pages) {
-	RequestService("/userCoin/transactionRecords", "get",{
+	RequestService("/userCoin/transactionRecords", "post",{
 		pageNumber:pages,
 		pageSize:6
 	}, function (data) {
@@ -530,7 +531,7 @@ function tradeList (pages) {
 				$("#trade-template").html(template("trade-box",{items:data.resultObject}))
 			}
 		} else{
-			showTip("获取数据失败")
+			showTip("获取数据失败12")
 		}
 	}) 	
 }
