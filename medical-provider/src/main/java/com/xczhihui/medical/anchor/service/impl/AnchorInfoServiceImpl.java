@@ -412,10 +412,10 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         CourseAnchor ca = courseAnchorMapper.selectOne(courseAnchor);
         if(ca == null){
         	return 0;
-        }else if(!courseAnchor.getStatus()){ //被禁用
+        }else if(ca!=null && !ca.getStatus()){ //被禁用
         	return 3;
         }
-        return courseAnchor.getType();
+        return ca.getType();
     }
     
     
