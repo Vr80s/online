@@ -14,7 +14,7 @@ public class RedisCacheKey {
 
     public static String GIFT_SHOW_PREFIX = "f_s_";
 
-    public static String MOBILE_TICKET_PREFIX = "mobile_ticket_";
+    public static String TICKET_PREFIX = "t_u_k_";
 
     public static String VCODE_PREFIX = "vcode";
 }

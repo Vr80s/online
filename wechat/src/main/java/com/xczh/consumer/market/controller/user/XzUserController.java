@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,6 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.RegisterForm;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.course.util.XzStringUtils;
@@ -35,15 +33,6 @@ import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.Token;
 
-import nl.bitwalker.useragentutils.OperatingSystem;
-import nl.bitwalker.useragentutils.UserAgent;
-
-/**
- * 用户controller
- *
- * @author zhangshixiong
- * @date 2017-02-22
- */
 @Controller
 @RequestMapping(value = "/xczh/user")
 public class XzUserController {
@@ -62,7 +51,6 @@ public class XzUserController {
      * Description：发送短信验证码
      *
      * @param req
-     * @param res
      * @param vtype
      * @param username
      * @return ResponseObject
@@ -82,14 +70,13 @@ public class XzUserController {
     }
 
     /**
-     * h5普通浏览器、APP提交注册。微信公众号是没有注册的，直接就登录了
+     * h5普通浏览器、APP提交注册。
      *
      * @param req
      * @return
      */
     @RequestMapping(value = "phoneRegist")
     @ResponseBody
-    @Transactional
     public ResponseObject phoneRegist(HttpServletRequest req,
                                       HttpServletResponse res,
                                       @RequestParam("password") String password,
@@ -103,58 +90,15 @@ public class XzUserController {
             return ResponseObject.newErrorResponseObject("密码为6-18位英文大小写字母或者阿拉伯数字");
         }
         verificationCodeService.checkCode(username, VCodeType.RETISTERED, code);
-
-        /**
-         * 注册后默认登录啦
-         */
         OnlineUser ou = onlineUserService.addPhoneRegistByAppH5(req, password, username);
         Token t = userCenterService.loginMobile(username, password, TokenExpires.TenDay);
         ou.setTicket(t.getTicket());
         ou.setUserCenterId(t.getUserId());
-        ou.setPassword(t.getPassWord());
-        this.onlogin(req, res, t, ou, t.getTicket());
-
-        /**
-         * 清除这个cookie
-         */
+        UCCookieUtil.writeTokenCookie(res, t);
         UCCookieUtil.clearThirdPartyCookie(res);
 
         return ResponseObject.newSuccessResponseObject(ou);
     }
-
-    /**
-     * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
-     *
-     * @param req
-     * @return
-     */
-    @RequestMapping(value = "publicNumberPhoneRegist")
-    @ResponseBody
-    @Transactional
-    public ResponseObject publicNumberPhoneRegist(HttpServletRequest req,
-                                                  HttpServletResponse res,
-                                                  @RequestParam("password") String password,
-                                                  @RequestParam("username") String username,
-                                                  @RequestParam("code") String code,
-                                                  @RequestParam("openId") String openId) throws Exception {
-
-        if (!XzStringUtils.checkPhone(username)) {
-            return ResponseObject.newErrorResponseObject("请输入正确的手机号");
-        }
-        verificationCodeService.checkCode(username, VCodeType.RETISTERED, code);
-
-        /**
-         * 注册后默认登录啦
-         */
-        OnlineUser ou = onlineUserService.addPhoneRegistByAppH5(req, password, username);
-        Token t = userCenterService.loginMobile(username, password, TokenExpires.TenDay);
-        ou.setTicket(t.getTicket());
-        this.onlogin(req, res, t, ou, t.getTicket());
-
-
-        return ResponseObject.newSuccessResponseObject(ou);
-    }
-
 
     /**
      * Description：浏览器端登录
@@ -187,12 +131,7 @@ public class XzUserController {
         o.setPassword(user.getPassword());
         //把这个票给前端
         o.setTicket(t.getTicket());
-
-        this.onlogin(req, res, t, o, t.getTicket());
-
-        /**
-         * 清除这个cookie
-         */
+        UCCookieUtil.writeTokenCookie(res, t);
         UCCookieUtil.clearThirdPartyCookie(res);
 
         return ResponseObject.newSuccessResponseObject(o);
@@ -210,10 +149,6 @@ public class XzUserController {
                                          @RequestParam("username") String username,
                                          @RequestParam("password") String password,
                                          @RequestParam("code") String code) throws Exception {
-
-        /**
-         * 验证手机号
-         */
         if (!XzStringUtils.checkPhone(username)) {
             return ResponseObject.newErrorResponseObject("请输入正确的手机号");
         }
@@ -326,94 +261,10 @@ public class XzUserController {
         outputStream.close();
     }
 
-
-    /**
-     * 登录成功处理
-     *
-     * @param req
-     * @param res
-     * @param token
-     * @param user
-     * @throws SQLException
-     */
-    @SuppressWarnings("unchecked")
-    public void onlogin(HttpServletRequest req, HttpServletResponse res, Token token, OnlineUser user, String ticket) throws SQLException {
-
-        LOGGER.info("用户普通登录----》ticket" + ticket);
-        /**
-         * 存在两个票，两个票都可以得到用户信息。
-         * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
-         */
-        String appUniqueId = req.getParameter("appUniqueId");
-        /*
-         * 这个地方是可以了。目前都支持吧
-		 */
-        if (StringUtils.isNotBlank(appUniqueId)) {   //表示是app登录
-
-            //设置登录标识
-            //onlineUserService.updateAppleTourisrecord(appUniqueId,1);
-
-            cacheService.set(ticket, user, TokenExpires.TenDay.getExpires());
-            cacheService.set(user.getId(), ticket, TokenExpires.TenDay.getExpires());
-            String model = req.getParameter("model");
-            if (StringUtils.isNotBlank(model) && user.getLoginName() != null) {
-                cacheService.set(user.getLoginName(), model, TokenExpires.TenDay.getExpires());
-            } else if (user.getLoginName() != null) {
-                cacheService.set(user.getLoginName(), "其他设备", TokenExpires.TenDay.getExpires());
-            }
-        } else {
-            // 用户登录成功
-            // 第一个BUG的解决:第二个用户登录后将之前的session销毁!
-            req.getSession().invalidate();
-            // 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
-            // 获得到ServletCOntext中存的Map集合.
-            Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext().getAttribute("userMap");
-            // 判断用户是否已经在map集合中'
-            HttpSession session = userMap.get(user);
-            if (session != null && userMap.containsKey(user)) {
-                /**
-                 *  * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。
-                 * 得到客户端信息
-                 */
-                Map<String, String> mapClientInfo = com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
-                //session.invalidate();
-                session.setAttribute("topOff", mapClientInfo);
-                session.setAttribute("_user_", null);
-            } else if (session != null) {
-                session.setAttribute("topOff", null);
-            }
-            // 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
-            req.getSession().setMaxInactiveInterval(86400);//设置session失效时间
-            req.getSession().setAttribute("_user_", user);
-            /**
-             * 这是cookie
-             */
-            UCCookieUtil.writeTokenCookie(res, token);
-        }
-    }
-
-    /**
-     * 判断注册来源
-     */
-    public String getRegiserFormByReq(HttpServletRequest req) {
-        String appUniqueId = req.getParameter("appUniqueId");
-        if (appUniqueId == null) {//h5注册
-            return RegisterForm.H5.getText();
-        }
-        UserAgent userAgent = UserAgent.parseUserAgentString(req.getHeader("User-Agent"));
-        OperatingSystem os = userAgent.getOperatingSystem();
-        if (!os.toString().toLowerCase().contains("android")) {
-            return RegisterForm.ANDROID.getText();
-        } else {
-            return RegisterForm.IOS.getText();
-        }
-    }
-
-
     /**
      * Description：校验手机号
      *
-     * @param username
+     * @param username 手机号
      * @return ResponseObject
      * @throws SQLException
      * @author name：yangxuan <br>email: 15936216273@163.com
@@ -421,14 +272,10 @@ public class XzUserController {
     @RequestMapping(value = "verifyPhone")
     @ResponseBody
     public ResponseObject sendCode(@RequestParam("username") String username) throws SQLException {
-
-        //类型，1注册，  2重置密码   3 完善信息
-
         if (!XzStringUtils.checkPhone(username)) {
             return ResponseObject.newErrorResponseObject("请输入正确的手机号");
         }
         onlineUserService.verifyPhone(username);
         return ResponseObject.newSuccessResponseObject("验证成功");
     }
-
 }

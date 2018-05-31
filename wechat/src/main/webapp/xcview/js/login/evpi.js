@@ -89,7 +89,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 			vtype =1;
 			$("#password_div").show();
 		}else if(data.code == 401){ //隐藏密码框
-			vtype =2;
+			vtype =6;//
 			$("#password_div").hide();
 		}else if(data.code == 402){
 			webToast("此手机号绑定其他微信号","middle",1500);

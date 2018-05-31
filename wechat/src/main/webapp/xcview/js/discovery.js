@@ -16,7 +16,6 @@
 //}
 
 
-	
 //点击我要当主播
 //function myAnchor() {
 //  localStorage.setItem("judgeSkip", "find");
@@ -35,21 +34,12 @@
 //}
 
 
-
 //点击下载
-function myAnchor(){
-	location.href="down_load.html";
+function myAnchor() {
+    location.href = "down_load.html";
 }
 
 //点击学习判断游客
-var falg =authenticationCooKie();
-
-function go_study(){
-		if (falg==1002){
-			location.href ="/xcview/html/cn_login.html";		
-		}else if (falg==1005) {
-			location.href ="/xcview/html/evpi.html";
-		}else{
-			location.href ="/xcview/html/my_study.html";			
-		}
+function go_study() {
+    location.href = "/xcview/html/my_study.html";
 }

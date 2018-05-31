@@ -1,7 +1,6 @@
 package com.xczh.consumer.market.service.impl;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +12,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.dao.WxcpClientUserWxMappingMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.CookieUtil;
+import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.UserOrigin;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.vo.OeUserVO;
+import com.xczhihui.user.center.vo.ThirdFlag;
+
+import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
 
 @Service
 public class OnlineUserServiceImpl implements OnlineUserService {
@@ -37,6 +43,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
     private UserCenterService userCenterService;
     @Autowired
     private UserCoinService userCoinService;
+    @Autowired
+    private WxMpService wxMpService;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -54,73 +62,23 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         return onlineUserDao.findUserByLoginName(loginName);
     }
 
-    @Override
-    public void addOnlineUser(OnlineUser user) throws SQLException {
-        onlineUserDao.addOnlineUser(user);
-    }
-
-    @Override
-    public OnlineUser addUser(String mobile, String userName,
-                              String origin, String password) throws Exception {
-
-        OnlineUser u = new OnlineUser();
-        //保存本地库
-        u.setId(CodeUtil.getRandomUUID());
-        u.setLoginName(mobile);
-        u.setMobile(mobile);
-        u.setStatus(0);
-        u.setCreateTime(new Date());
-        u.setDelete(false);
-        u.setName(mobile);   //初次登录设置默认名为：手机号
-        u.setSmallHeadPhoto(webdomain + "/web/images/defaultHead/18.png");
-        u.setVisitSum(0);
-        u.setStayTime(0);
-        u.setUserType(0);
-        u.setOrigin(origin);
-        u.setMenuId(-1);
-        u.setPassword(password);
-        u.setSex(OnlineUser.SEX_UNKNOWN);
-        u.setCreateTime(new Date());
-        u.setType(1);
-
-        /*
-         * 创建微吼信息
-         */
-        String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),
-                WeihouInterfacesListUtil.MOREN, mobile,
-                u.getSmallHeadPhoto(), mobile);
-        if (StringUtils.isNotBlank(weihouUserId)) {
-            u.setVhallId(weihouUserId);  //微吼id
-            u.setVhallName(mobile);
-            u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
-        }
-        onlineUserDao.addOnlineUser(u);
-        return u;
-    }
-
     /**
-     * 微信端注册
+     * 手机号注册
      */
     @Override
     public OnlineUser addPhoneRegistByAppH5(HttpServletRequest req, String password,
                                             String mobile)
             throws Exception {
-        //手机
-        OeUserVO iu = userCenterService.getUserVO(mobile);
         OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
-        if (iu == null) {
+        if (user == null) {
             //向用户中心注册
             userCenterService.regist(mobile, password, mobile, UserOrigin.PC);
-        }
-        if (null == user) {
             String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
-            user = this.addUser(mobile, "", shareCode, password);
+            user = onlineUserDao.findUserByLoginName(mobile);
+            if (StringUtils.isNotBlank(shareCode)) {
+                onlineUserDao.updateShareCode(user.getId(), shareCode);
+            }
         }
-        /**
-         * 注册成功后初始化
-         * 为用户初始化一条代币记录
-         */
-        userCoinService.saveUserCoin(user.getId());
         return user;
     }
 
@@ -170,5 +128,54 @@ public class OnlineUserServiceImpl implements OnlineUserService {
                 throw new RuntimeException("用户已禁用！");
             }
         }
+    }
+
+    @Override
+    public WxcpClientUserWxMapping saveWxInfo(String code) {
+        try {
+            WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(code);
+            WxMpUser wxMpUser = wxMpService.oauth2getUserInfo(wxMpOAuth2AccessToken, "zh_CN");
+            String nickname = SLEmojiFilter.filterEmoji(wxMpUser.getNickname());
+            String openId = wxMpUser.getOpenId();
+            WxcpClientUserWxMapping m = wxcpClientUserWxMappingMapper.getWxcpClientUserByUnionId(wxMpUser.getUnionId());
+
+            if (null == m) {
+                WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
+                wxcpClientUserWxMapping.setWx_id(CodeUtil.getRandomUUID());
+                wxcpClientUserWxMapping.setWx_public_id(wxMpService.getWxMpConfigStorage().getAppId());
+                wxcpClientUserWxMapping.setWx_public_name(WxPayConst.appid4name);
+                wxcpClientUserWxMapping.setOpenid(openId);
+                wxcpClientUserWxMapping.setNickname(nickname);
+                wxcpClientUserWxMapping.setSex(String.valueOf(wxMpUser.getSex()));
+                wxcpClientUserWxMapping.setLanguage(wxMpUser.getLanguage());
+                wxcpClientUserWxMapping.setCity(wxMpUser.getCity());
+                wxcpClientUserWxMapping.setProvince(wxMpUser.getProvince());
+                wxcpClientUserWxMapping.setCountry(wxMpUser.getCountry());
+                String headImgUrl = wxMpUser.getHeadImgUrl();
+                if (!StringUtils.isNotBlank(headImgUrl)) {
+                    headImgUrl = webdomain + "/web/images/defaultHead/18.png";
+                }
+                wxcpClientUserWxMapping.setHeadimgurl(headImgUrl);
+                wxcpClientUserWxMapping.setUnionid(wxMpUser.getUnionId());
+                wxcpClientUserWxMappingMapper.insert(wxcpClientUserWxMapping);
+                return wxcpClientUserWxMapping;
+            } else {
+                return m;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ThirdFlag buildThirdFlag(WxcpClientUserWxMapping wxw) {
+        ThirdFlag tf = new ThirdFlag();
+        tf.setOpenId(wxw.getOpenid());
+        tf.setUnionId(wxw.getUnionid());
+        tf.setNickName(StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医");
+        String defaultHeadImg = webdomain + "/web/images/defaultHead/18.png";
+        tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg);
+        return tf;
     }
 }

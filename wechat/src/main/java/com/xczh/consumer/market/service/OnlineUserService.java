@@ -6,7 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
+import com.xczhihui.user.center.vo.ThirdFlag;
 
 public interface OnlineUserService {
     /**
@@ -25,25 +26,6 @@ public interface OnlineUserService {
      * @throws SQLException
      */
     OnlineUser findUserById(String id) throws SQLException;
-
-    /**
-     * 添加用户
-     *
-     * @param user
-     * @throws SQLException
-     */
-    void addOnlineUser(OnlineUser user) throws SQLException;
-
-    /**
-     * 往本地库写用户
-     *
-     * @param mobile
-     * @param userName
-     * @param shareCode 上级的分享码
-     * @return
-     * @throws Exception
-     */
-    OnlineUser addUser(String mobile, String userName, String shareCode, String password) throws Exception;
 
     /**
      * Description：h5、app注册功能
@@ -112,4 +94,14 @@ public interface OnlineUserService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     void verifyPhone(String username) throws SQLException;
+
+    WxcpClientUserWxMapping saveWxInfo(String code);
+
+    /**
+     * 授权登陆后调用，用于将微信相关信息,设置在cookie中便于前端获取
+     *
+     * @param wxw
+     * @return
+     */
+    ThirdFlag buildThirdFlag(WxcpClientUserWxMapping wxw);
 }
