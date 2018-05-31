@@ -607,16 +607,27 @@ $(".sign-read").click(function(){
 						return false;
 					} else if(title.length > 4 && title.length < 51) {
 						$(".error-msg").hide();
-						$(".text-title").css("border-color", "#eee")
+						$(".text-title").css("border-color", "#eee");
+						$(".feedback-wrap button").attr("disabled","disabled")
+						
 						var data = {
-							userId: localStorage.id,
+							userId: localStorage.userid,
 							title: title,
 							describe: miaoshu
 						};
-						$.post(bath + "/online/message/addFeedBack", data, function(data) {
-						
-						alert("提交成功")
+						RequestService("/online/message/getMessageList", "get",data, function (data) {
+							if(data.success==true){
+								showTip("提交成功");
+								$(".text-title").val("");
+								$(".textarea-miaoshu").val("");
+
+								setTimeout(function(){
+									$(".feedback-wrap button").removeAttr("disabled")
+//									$(this).attr("disabled")
+								},3000)
+							}
 						})
+						
 					}
 				}
 			});

@@ -684,6 +684,12 @@ overflow: hidden;
 	text-overflow: ellipsis;
 	overflow: hidden; 
 }
+.post-box table tr td a{
+	color: #333333;
+}
+.post-box table tr td a:hover{
+	color: #00bc12;
+}
 .post-box table tr td p{
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -748,6 +754,12 @@ overflow: hidden;
  	padding-left: 20px;
  	color: #333333;
 
+ }
+ .reply-tltle ul li a{
+  	color: #333333;
+  }
+ .reply-tltle ul li a:hover{
+ 	color: #00bc12;
  }
  .reply-tltle ul li:nth-child(1){
  	width: 570px;

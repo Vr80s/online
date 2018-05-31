@@ -640,8 +640,8 @@
 														<th>最后回复时间</th>
 													</tr>
 													{{each items as item i}}
-													<tr class="ttable-centent">
-														<td>{{item.content}}</td>
+													<tr class="table-centent">
+														<td><a href="/bbs/{{item.id}}">{{item.content}}</a></td>
 														<td>{{item.labelName}}</td>
 														<td>{{item.initTime}}</td>
 													</tr>
@@ -682,7 +682,7 @@
 												{{each items as item i}}
 												<div class="reply-tltle">
 													<ul>
-														<li>{{item.postTitle}}</li>
+														<li><a href="/bbs/{{item.postId}}">{{item.postTitle}}</a></li>
 														<li>{{item.labelName}}</li>
 														<li>{{item.initTime}}</li>
 													</ul>
@@ -790,6 +790,7 @@
 										<!--分页部分end-->
 									</div>
 								</div>
+
 							</div>
 						<!--我的钱包-->
 							<div class="content hide" >
