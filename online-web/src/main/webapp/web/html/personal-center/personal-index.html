@@ -183,7 +183,7 @@
 														{{/if}}
 													{{/if}}					
 														<div class="img">
-															<img src="{{item.smallImgPath}}"/>
+															<img src="{{item.smallimgPath}}"/>
 														</div>
 														{{if item.type == 1}}
 														<span class="classCategory">音频</span>
@@ -431,71 +431,36 @@
 									<!--我的提问-->									
 									<div class="question-wrap">
 
-										<!--<div class="question-list-wrap">
-											<div class="head-name-who z">
-												<div class="head-img">
-													<img src="../../images/head_03.png"/ alt="头像">
-												</div>
-												<p class="user-name">小宝宝</p>
-											
-											</div>
-											<div class="source-text y">
-												<p class="source-title">来自学科：各家综合</p>
-												<div class="question-status-wrap">
-													<span>未解决</span>
-													<p>不懂就要问</p>
-												</div>
-													<p class="list-Answer-right-text dot5" >
-														遇到稍稍遇到稍遇到稍遇到遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密
-														遇到稍稍遇到稍遇到稍遇到微变化血管扩张，密集的问问集的问问遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密集的问问微变化血管扩张，密集的问问
-													</p>
-												<div class="show-img">
-													<ul>
-														<li><img src="../../images/04.png"/></li>
-														<li><img src="../../images/04.png"/></li>
-														<li><img src="../../images/04.png"/></li>
-													</ul>
-												</div>
-												<div class="time-status cl">
-													<ul>
-														<li>
-
-															<span>2017.11.17  11:03</span>
-														</li>
-														<li>
-															<span><i class="iconfont icon-biaoqian"></i>美容养生</span>
-														</li>
-														<li>
-															
-															<span><i class="iconfont icon-yulan icon-set"></i>5968</span>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>-->
+									
 										<div id="quiz-template">
 											<script type="text/template" id="quiz-box">
+												{{each items as item i}}
 												<div class="question-list-wrap">
 													<div class="head-name-who z">
 														<div class="head-img">
-															<img src="../../images/head_03.png"/ alt="头像">
+															<img src="{{item.create_head_img}}"/ alt="头像">
 														</div>
-														<p class="user-name">小宝宝</p>
+														<p class="user-name">{{item.create_nick_name}}</p>
 														<div class="my-answer">
 															<span>回答</span>
-															<p>20</p>
+															<p>{{item.answer_sum}}</p>
 														</div>
 													</div>
 													<div class="source-text y">
-														<p class="source-title">来自学科：各家综合</p>
+														<p class="source-title">来自学科：{{item.name}}</p>
 														<div class="question-status-wrap">
+															{{if item.status==0}}
+															<span>待回答</span>
+															{{else if item.status==1}}
+															<span>待回答</span>
+															{{else if item.status==2}}
 															<span>已解决</span>
-															<p>不懂就要问</p>
+															{{/if}}
+															<p>{{item.title}}</p>
 														</div>
-														<p class="list-Answer-right-text dot5" >
-																遇到稍稍遇到稍遇到稍遇到遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密
-																遇到稍稍遇到稍遇到稍遇到微变化血管扩张，密集的问问集的问问遇到稍微变化血管扩张，密集的问问遇到稍微变化血管扩张，密集的问问微变化血管扩张，密集的问问
-														</p>
+														<div class="list-Answer-right-text dot5" >
+															{{item.content}}
+														</div>
 														<div class="show-img">
 															<ul>
 																<li><img src="../../images/04.png"/></li>
@@ -506,37 +471,46 @@
 														<div class="time-status cl">
 															<ul>
 																<li>
-		
-																	<span>2017.11.17  11:03</span>
+	
+																	<span>{{item.create_time}}</span>
 																</li>
 																<li>
-																	<span><i class="iconfont icon-biaoqian"></i>美容养生</span>
+																	<span><i class="iconfont icon-biaoqian"></i>
+																		{{each item.tag as j}}
+																			{{j}}
+																		{{/each}}
+																	</span>
 																</li>
 																<li>
 																	
-																	<span><i class="iconfont icon-yulan icon-set"></i>5968</span>
+																	<span><i class="iconfont icon-yulan icon-set"></i>{{item.browse_sum}}</span>
 																</li>
 															</ul>
 														</div>
 														<!--回复的内容/点赞-->
+														{{if item.askAnswerVo != null}}
 														<div class="reply-wrap y">
 															<div class="reply-user-head z">
-																<img src="../../images/head_03.png"/>
+																<img src="{{item.askAnswerVo.create_head_img}}"/>
 															</div>
 															<div class="reply-user-text y">
-																<h5>熊猫小客服</h5>
+																<h5>{{item.askAnswerVo.create_nick_name}}</h5>
 																<p>
-																	熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服
-																	熊猫小客服熊猫小客服v熊猫小客服熊猫小客服熊猫小客服熊猫小客服
+																	{{item.askAnswerVo.content}}
 																</p>
 																<ul>
-																	<li>5分钟</li>
-																	<li class="select-down"><i class="iconfont icon-zan"></i> 0</li>
+																	<li>{{item.askAnswerVo.create_time}}</li>
+																	<li class="select-down" onclick="selectDown(this)">
+																		<i class="iconfont icon-zan"></i>
+																		{{item.askAnswerVo.praise_sum}}
+																	</li>
 																</ul>
 															</div>
 														</div>
+														{{/if}}
 													</div>
 												</div>
+												{{/each}}
 											</script>
 										</div>
 										<!--无我的提问时的背景图-->
@@ -550,28 +524,34 @@
 									<!--我的回答-->
 									<div class="question-wrap hide" id="answer">
 										<!--我的回答-->
+										<script type="text/template" id="answer-box">
+											{{each items as item i}}
 										<div class="question-list-wrap">
 											<div class="head-name-who z">
 												<div class="head-img">
-													<img src="../../images/head_03.png"/ alt="头像">
+													<img src="{{item.create_head_img}}"/ alt="头像">
 												</div>
-												<p class="user-name">小宝宝</p>
+												<p class="user-name">{{item.create_nick_name}}</p>
 												<div class="my-answer">
 													<span>回答</span>
-													<p>20</p>
+													<p>{{item.answer_sum}}</p>
 												</div>
 											</div>
 											<div class="source-text y">
-												<p class="source-title">来自学科：各家综合</p>
+												<p class="source-title">来自学科：{{item.name}}</p>
 												<div class="question-status-wrap">
+													{{if item.status==0}}
+													<span>待回答</span>
+													{{else if item.status==1}}
+													<span>回答中</span>
+													{{else if item.status==2}}
 													<span>已解决</span>
-													<p>不懂就要问</p>
+													{{/if}}
+													<p>{{item.title}}</p>
 												</div>
-												<p class="list-Answer-right-text dot5" >
-														遇到稍稍遇到稍遇到稍遇到遇到稍微变化血管扩张，密集的问问到稍微变化
-														血管扩张，密集的问问微
-														
-												</p>
+												<div class="list-Answer-right-text dot5" >
+														{{item.content}}
+												</div>
 												<div class="show-img">
 													<ul>
 														<li><img src="../../images/04.png"/></li>
@@ -582,37 +562,44 @@
 												<div class="time-status cl">
 													<ul>
 														<li>
-
-															<span>2017.11.17  11:03</span>
+															<span>{{item.create_time}}</span>
 														</li>
 														<li>
-															<span><i class="iconfont icon-biaoqian"></i>美容养生</span>
+															<span><i class="iconfont icon-biaoqian"></i>
+															{{each item.tags as t}}
+																{{t}}
+															{{/each}}
+															</span>
 														</li>
 														<li>
 															
-															<span><i class="iconfont icon-yulan icon-set"></i>5968</span>
+															<span><i class="iconfont icon-yulan icon-set"></i>{{item.browse_sum}}</span>
 														</li>
 													</ul>
 												</div>
 												<!--回复的内容/点赞-->
 												<div class="reply-wrap y">
 													<div class="reply-user-head z">
-														<img src="../../images/head_03.png"/>
+														<img src="{{item.askAnswerVo.create_head_img}}"/>
 													</div>
 													<div class="reply-user-text y">
-														<h5>熊猫小客服</h5>
+														<h5>{{item.askAnswerVo.create_nick_name}}</h5>
 														<p>
-															熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服熊猫小客服
-															熊猫小客服熊猫小客服v熊猫小客服熊猫小客服熊猫小客服熊猫小客服
+															{{item.askAnswerVo.content}}
 														</p>
 														<ul>
-															<li>5分钟</li>
-															<li class="select-down"><i class="iconfont icon-zan"></i> 0</li>
+															<li>{{item.askAnswerVo.create_time}}</li>
+															<li class="select-down" onclick="selectDown(this)">
+																<i class="iconfont icon-zan"></i>
+																{{item.askAnswerVo.praise_sum}}
+															</li>
 														</ul>
 													</div>
 												</div>
 											</div>
 										</div>
+										{{/each}}
+										</script>
 										<div class="no-answer-box hide">
 											<div class="no-answer-img">
 												<img src="../../images/icon-nodata.png"/>
@@ -1000,11 +987,14 @@
 										<script type="text/template" id="news-box">
 											
 											{{each items as item i}}
-											<li>
-												<span class="icon-tip"></span>
-												{{item.context}}
-												<!--<a href="">小宝中医带你快速入门学针灸（一）</a>-->
-												<span class="news-time">{{item.createTime}}</span>
+											<li class="weidu">
+												<div class="message-box" onclick="jump_msg()" data-id="{{item.id}}" data-url='{{item.url}}'>
+													<span class="icon-tip"></span>
+													{{item.context}}
+													<!--<a href="">小宝中医带你快速入门学针灸（一）</a>-->
+													<span class="news-time">{{item.createTime}}</span>
+													
+												</div>
 											</li>
 											{{/each}}
 										</ul>

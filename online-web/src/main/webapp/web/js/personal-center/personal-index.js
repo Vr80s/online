@@ -160,12 +160,13 @@ function endClass(pages){
  	type:2
  }, function (data) {
  		if(data.success==true){
-            if (data.resultObject.length == 0) {
+            if (data.resultObject.records.length == 0) {
             	$(".nodata-endclass").html(noDataImg).removeClass("hide");
             } else {
             	$(".nodata-endclass").addClass("hide");          	
-            	$("#end-template").html(template("end-class",{items:data.resultObject}))
             }
+            	$("#end-template").html(template("end-class",{items:data.resultObject.records}))
+            
                 //分页添加
 			if(data.resultObject.pages > 1) { //分页判断
 					$(".not-data").remove();
@@ -227,7 +228,8 @@ $(".question-forum li").click(function(){
 	$(".question-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
 })
 
-//		我的提问    我的回答  由于hide后不能获取元素高度
+//		我的提问    我的回答  由于hide后不能获取元素高度 展示更多文字
+function showMoneText(){
 		$("#show-set").removeClass("hide")
 		$("#answer").removeClass("hide")
 //点击收起,隐藏则字体
@@ -269,40 +271,59 @@ $(".question-forum li").click(function(){
 //获取高度后立马将其隐藏
 		$("#show-set").addClass("hide")
 		$("#answer").addClass("hide")
+}
+
+//我的提问
+quizList(1)		
+function quizList(pages){
+	 RequestService("/online/questionlist/getQuestionList", "get",{
+	 	pageNumber:pages,
+	 	pageSize:5
+	 }, function (data) {
+   		if(data.success==true){
+            if (data.resultObject.items.length == 0) {
+            	$(".no-question-box").removeClass("hide");
+            } else {   
+            	$(".no-question-box").addClass("hide");          	
+            	$("#quiz-template").html(template("quiz-box",{items:data.resultObject.items}))
+           		showMoneText();
+            }
+          }else{
+    		showTip("获取数据失败");
+    	}   
+     })
+}	
+	
+//我的回答
+
+myAnswer(1)
+function myAnswer(pages){
+	 RequestService("/ask/my/findMyAnswers", "POST",{
+	 	pageNumber:pages,
+	 	pageSize:5
+	 }, function (data) {
+   		if(data.success==true){
+            if (data.resultObject.items.length == 0) {
+            	$(".no-answer-box").removeClass("hide");
+            } else {
+            	$(".no-answer-box").addClass("hide");
+            	var tagsObject=data.resultObject.items
+            	for(var i=0; i<tagsObject.length;i++){
+            		tagsObject[i].tags=tagsObject[i].tags.split(",");   
+            	}
+            	$("#answer").html(template("answer-box",{items:data.resultObject.items}))
+            	showMoneText()//展示更多文字
+            }
+          }else{
+    		showTip("获取数据失败");
+    	}   
+     })
+}	
 
 
-//回复点赞功能
-	$(".reply-user-text .select-down").click(function(){
-		if($(this).hasClass("select-active")){
-			$(this).removeClass("select-active")
-		}else{
-			$(this).addClass("select-active")
-			
-		}
-	})
-//quizList(1)		
-//function quizList(pages){
-//	 RequestService("/online/questionlist/getQuestionList", "POST",{
-//	 	pageNumber:pages,
-//	 	pageSize:5
-//	 }, function (data) {
-// 		if(data.success==true){
-//          if (data.resultObject.records.length == 0) {
-//          	$(".no-question-box").removeClass("hide");
-//          } else {
-//          	$(".no-question-box").addClass("hide");          	
-//          	$("#quiz-template").html(template("quiz-box",{items:data.resultObject.records}))
-//          }
-//        }else{
-//  		showTip("获取数据失败");
-//  	}   
-//   })
-//}	
-	
-	
-	
-	
-	
+
+		
+
 	
 	
 	
@@ -531,7 +552,7 @@ function tradeList (pages) {
 				$("#trade-template").html(template("trade-box",{items:data.resultObject}))
 			}
 		} else{
-			showTip("获取数据失败12")
+			showTip("获取数据失败-我的钱包接口")
 		}
 	}) 	
 }
@@ -577,10 +598,11 @@ function newsList(pages){
 }
 
 $(".sign-read").click(function(){
-	$(".main-news li .icon-tip").remove();
-	$(".main-news li").css({"color":"#999999"});
-	$(this).hide()
+//	$(".main-news li .icon-tip").remove();
+//	$(".main-news li").css({"color":"#999999"});
+//	$(this).hide()
 })
+
 
 
 //-------------------------------------- 我的消息结束,反馈开始--------------------------------------------
@@ -635,3 +657,47 @@ $(".sign-read").click(function(){
 		});
 
 });
+
+
+
+//html内嵌点击事件
+//问答与论坛-----------------------------------------------------------------------------------
+//我的提问
+
+
+//我的问答点赞
+	function selectDown(index){
+		var $this=$(index);
+		console.log($this)
+		if($this.hasClass("select-active")){
+			$this.removeClass("select-active");
+		}else{
+			$this.addClass("select-active");
+			
+		}
+
+	}
+
+
+
+
+
+//我的消息--------------------------------------------------------------------------------
+function jump_msg() {
+    var e = window.event || arguments.callee.caller.arguments[0];
+    var id = $(e.target).data('id');
+    RequestService("/online/message/updateReadStatusById", "post", {
+        id: id
+    }, function (data) {
+        if (data.success == true) {
+            $(e.target).parents("li").removeClass("weidu");
+            $(e.target).parents("li").find(".icon-tip").remove();
+            var url = $(e.target).data('url');
+            unReadNews();
+            newsMark();
+            if (url) {
+                window.open(url, "_blank");
+            }
+        }
+    }, false);
+}
