@@ -8,6 +8,7 @@
 
 (function(){
 
+	
     var video = {},
         uploadVideoList = [],
         isModifyUploadVideo = false,

@@ -1,424 +1,431 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.xczhihui</groupId>
-		<artifactId>root-pom</artifactId>
-		<version>2.1.0-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>com.xczhihui</groupId>
+        <artifactId>root-pom</artifactId>
+        <version>2.1.0-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>wechat</artifactId>
-	<name>wechat</name>
-	<packaging>war</packaging>
-	<url>http://www.ipandatcm.com</url>
+    <artifactId>wechat</artifactId>
+    <name>wechat</name>
+    <packaging>war</packaging>
+    <url>http://www.ipandatcm.com</url>
 
-	<properties>
-		<encoding>UTF-8</encoding>
-		<java.version>1.8</java.version>
-		<skipTests>true</skipTests>
-		<testFailureIgnore>false</testFailureIgnore>
-		<spring-version>4.2.2.RELEASE</spring-version>
-		<commons-dbutils-version>1.6</commons-dbutils-version>
-	</properties>
+    <properties>
+        <encoding>UTF-8</encoding>
+        <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
+        <testFailureIgnore>false</testFailureIgnore>
+        <spring-version>4.2.2.RELEASE</spring-version>
+        <commons-dbutils-version>1.6</commons-dbutils-version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>user-center-api</artifactId>
-			<version>2.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>medical-api</artifactId>
-			<version>2.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>online-api</artifactId>
-			<version>2.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>course-api</artifactId>
-			<version>2.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>common-support</artifactId>
-			<version>2.1.0-SNAPSHOT</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>user-center-api</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>medical-api</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>online-api</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>course-api</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>common-support</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>online-common</artifactId>
-			<version>2.1.0-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>online-common</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.xczhihui</groupId>
-			<artifactId>common-pay</artifactId>
-			<version>2.1.0-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>common-pay</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>commons-dbutils</groupId>
-			<artifactId>commons-dbutils</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.aliyun</groupId>
-			<artifactId>aliyun-java-sdk-core</artifactId>
-			<version>3.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.aliyun</groupId>
-			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
-		<!-- https://mvnrepository.com/artifact/nl.bitwalker/UserAgentUtils -->
-		<dependency>
-		    <groupId>nl.bitwalker</groupId>
-		    <artifactId>UserAgentUtils</artifactId>
-		    <version>1.2.4</version>
-		</dependency>
+        <!-- https://mvnrepository.com/artifact/nl.bitwalker/UserAgentUtils -->
+        <dependency>
+            <groupId>nl.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.2.4</version>
+        </dependency>
 
-	    <dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<!--<dependency>-->
-		<!--<groupId>org.slf4j</groupId>-->
-		<!--<artifactId>jcl-over-slf4j</artifactId>-->
-		<!--</dependency>-->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.slf4j</groupId>-->
+        <!--<artifactId>jcl-over-slf4j</artifactId>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring</artifactId>
-				</exclusion>
-				<exclusion>
-					<artifactId>netty</artifactId>
-					<groupId>org.jboss.netty</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.github.sgroschupf</groupId>
-			<artifactId>zkclient</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.zookeeper</groupId>
-					<artifactId>zookeeper</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>netty</artifactId>
+                    <groupId>org.jboss.netty</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>c3p0</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.4.7</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.7</version>
+        </dependency>
 
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.3.2</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.2</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-			<!-- <version>4.3.2</version> -->
-			<version>4.4.5</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.5</version>
+        </dependency>
 
-		<!-- 临时解决方案 mvn install:install-file -Dfile=C:\Users\MoRain\IdeaProjects\pc\online-web\src\main\webapp\WEB-INF\lib\alipay-sdk-java20170324180803.jar -DgroupId=com.alibaba -DartifactId=alipay -Dversion=12.1 -Dpackaging=jar  -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>alipay</artifactId>
-			<version>12.2</version>
-		</dependency>
+        <!-- 临时解决方案 mvn install:install-file -Dfile=C:\Users\MoRain\IdeaProjects\pc\online-web\src\main\webapp\WEB-INF\lib\alipay-sdk-java20170324180803.jar -DgroupId=com.alibaba -DartifactId=alipay -Dversion=12.1 -Dpackaging=jar  -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>alipay</artifactId>
+            <version>12.2</version>
+        </dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
 
-		<!-- im相关 -->
-		<dependency>
-			<groupId>org.igniterealtime.smack</groupId>
-			<artifactId>smack-java7</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.igniterealtime.smack</groupId>
-			<artifactId>smack-tcp</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.igniterealtime.smack</groupId>
-			<artifactId>smack-im</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.igniterealtime.smack</groupId>
-			<artifactId>smack-extensions</artifactId>
-		</dependency>
-        	
-        <!-- qq分享使用 --> 
-		<!-- https://mvnrepository.com/artifact/net.gplatform/Sdk4J -->
-		<dependency>
-		    <groupId>net.gplatform</groupId>
-		    <artifactId>Sdk4J</artifactId>
-		    <version>2.0</version>
-		</dependency>
+        <!-- im相关 -->
+        <dependency>
+            <groupId>org.igniterealtime.smack</groupId>
+            <artifactId>smack-java7</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.igniterealtime.smack</groupId>
+            <artifactId>smack-tcp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.igniterealtime.smack</groupId>
+            <artifactId>smack-im</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.igniterealtime.smack</groupId>
+            <artifactId>smack-extensions</artifactId>
+        </dependency>
 
-		<!-- 微博分享使用  -->
-		<dependency>
-		    <groupId>com.belerweb</groupId>
-		    <artifactId>weibo4j-oauth2</artifactId>
-		    <version>2.1.1-beta2-2</version>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/com.vdurmont/emoji-java -->
-		<dependency>
-		    <groupId>com.vdurmont</groupId>
-		    <artifactId>emoji-java</artifactId>
-		    <version>4.0.0</version>
-		</dependency>
+        <!-- qq分享使用 -->
+        <!-- https://mvnrepository.com/artifact/net.gplatform/Sdk4J -->
+        <dependency>
+            <groupId>net.gplatform</groupId>
+            <artifactId>Sdk4J</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- 微博分享使用  -->
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>weibo4j-oauth2</artifactId>
+            <version>2.1.1-beta2-2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.vdurmont/emoji-java -->
+        <dependency>
+            <groupId>com.vdurmont</groupId>
+            <artifactId>emoji-java</artifactId>
+            <version>4.0.0</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.11</version>
         </dependency>
-		<dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<classifier>jdk15</classifier>
-		</dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <classifier>jdk15</classifier>
+        </dependency>
 
 
-	</dependencies>
-	<!-- <build> <finalName>ROOT</finalName> </build> -->
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<properties>
-				<env>env-dev</env>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>  
-                <filters>  
-                    <filter>src/main/resources/${env}/config.properties</filter>  
-                </filters>  
+    </dependencies>
+    <!-- <build> <finalName>ROOT</finalName> </build> -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>env-dev</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>src/main/resources/${env}/config.properties</filter>
+                </filters>
             </build>
-		</profile>
+        </profile>
 
-		<profile>
-			<id>test</id>
-			<properties>
-				<env>env-test</env>
-			</properties>
-			<build>  
-                <filters>  
-                    <filter>src/main/resources/${env}/config.properties</filter>  
-                </filters>  
+        <profile>
+            <id>dev-local</id>
+            <properties>
+                <env>env-dev-local</env>
+            </properties>
+            <build>
+                <filters>
+                    <filter>src/main/resources/${env}/config.properties</filter>
+                </filters>
             </build>
-		</profile>
+        </profile>
 
-		<profile>
-			<id>prod</id>
-			<properties>
-				<env>env-prod</env>
-			</properties>
-
-			<build>  
-                <filters>  
-                    <filter>src/main/resources/${env}/config.properties</filter>  
-                </filters>  
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>env-test</env>
+            </properties>
+            <build>
+                <filters>
+                    <filter>src/main/resources/${env}/config.properties</filter>
+                </filters>
             </build>
-		</profile>
-	</profiles>
+        </profile>
 
-	<build>
-		<plugins>
-			<!-- 设置源文件编码方 -->
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<!-- 解决资源文件的编码问 -->
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<!--jcv-maven-plugin -->
-			<plugin>
-				<groupId>com.iqarr.maven.plugin</groupId>
-				<artifactId>jcv-maven-plugin</artifactId>
-				<version>1.0.2</version>
-				<executions>
-					<execution>
-						<id>process</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>process</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<!--如果项目名称使用EL表达式 那么必须加\ 转义 -->
-					<!--<jsConstantName>/</jsConstantName>-->
-					<!--<cssConstantName>/</cssConstantName>-->
-					<suffixs>
-						<param>html</param>
-						<param>jsp</param>
-					</suffixs>
-					<!-- 清理html 页面注释-->
-					<clearPageComment>false</clearPageComment>
-					<globaJsMethod>MD5_METHOD</globaJsMethod>
-					<globaCssMethod>MD5_METHOD</globaCssMethod>
-					<versionValLenth>20</versionValLenth>
-					<!-- 压缩js-->
-					<compressionJs>false</compressionJs>
-					<!-- 压缩css-->
-					<compressionCss>false</compressionCss>
-				</configuration>
-			</plugin>
-			 <plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.1.0</version>
-				<configuration>
-					<warName>${project.artifactId}-${project.version}</warName>
-					<filters>
-						<filter>src/main/resources/${env}/config.properties</filter>
-					</filters>
-					<warSourceDirectory>src/main/webapp</warSourceDirectory>
-					<warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes>
-				</configuration>
-			</plugin>
-		</plugins>
-		
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<includes>
-					<include>*.*</include>
-				</includes>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/resources/${env}</directory>
-				<includes>
-					<include>*.*</include>
-				</includes>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-	</build>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>env-prod</env>
+            </properties>
+
+            <build>
+                <filters>
+                    <filter>src/main/resources/${env}/config.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <!-- 设置源文件编码方 -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- 解决资源文件的编码问 -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!--jcv-maven-plugin -->
+            <plugin>
+                <groupId>com.iqarr.maven.plugin</groupId>
+                <artifactId>jcv-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--如果项目名称使用EL表达式 那么必须加\ 转义 -->
+                    <!--<jsConstantName>/</jsConstantName>-->
+                    <!--<cssConstantName>/</cssConstantName>-->
+                    <suffixs>
+                        <param>html</param>
+                        <param>jsp</param>
+                    </suffixs>
+                    <!-- 清理html 页面注释-->
+                    <clearPageComment>false</clearPageComment>
+                    <globaJsMethod>MD5_METHOD</globaJsMethod>
+                    <globaCssMethod>MD5_METHOD</globaCssMethod>
+                    <versionValLenth>20</versionValLenth>
+                    <!-- 压缩js-->
+                    <compressionJs>false</compressionJs>
+                    <!-- 压缩css-->
+                    <compressionCss>false</compressionCss>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <warName>${project.artifactId}-${project.version}</warName>
+                    <filters>
+                        <filter>src/main/resources/${env}/config.properties</filter>
+                    </filters>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*.*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${env}</directory>
+                <includes>
+                    <include>*.*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>

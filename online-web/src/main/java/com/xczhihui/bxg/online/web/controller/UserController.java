@@ -48,9 +48,6 @@ public class UserController extends OnlineBaseController {
     @Autowired
     private RedisCacheService cacheService;
 
-    @Value("${domain}")
-    private String domain;
-
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseObject login(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         OnlineUser o = service.findUserByLoginName(username);

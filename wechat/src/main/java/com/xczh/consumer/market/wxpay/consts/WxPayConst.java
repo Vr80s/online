@@ -67,11 +67,4 @@ public class WxPayConst {
 
     //获取用户信息 -->这个是可以获取到unionid的
     public final static String USERMANAGER_GETINFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
-
-    public static String return_code = "return_code";
-    public static String result_code = "result_code";
-    public static String return_code_url = "CODE_URL";
-
-    public static String recode_success = "SUCCESS";
-    public static String recode_fail = "FAIL";
 }

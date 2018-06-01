@@ -703,6 +703,16 @@ overflow-y: auto;
 .album_list > ul > li >div{
 	border-bottom: 1px solid #666;
 }
+.album_list > ul > li >div .teacher_name{
+	display:inline-block;
+	max-width:55px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	vertical-align:middle;
+	
+}
+
 .album_list > ul > li:hover{
 	cursor: pointer;
 }
@@ -724,7 +734,9 @@ overflow-y: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    vertical-align: top;
+    vertical-align: middle;
+    float:right;
+    margin-right:10px;
 }
 .choosedAlbum{
 	background: #fff !important;
