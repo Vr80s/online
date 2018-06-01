@@ -1,3 +1,13 @@
+
+
+var loginUserId = "";
+ RequestService("/online/user/isAlive", "GET", null, function (data) {
+        if (data.success) {
+        	loginUserId = data.resultObject.id;
+        } 
+},false)
+
+
 $(function(){
 	
 	var index = 0;
@@ -96,6 +106,60 @@ $(function(){
 	           }
 	     });
 	})
+	
+	
+	
+	
+	
+//判断进入条	
+	/**
+	 * 得到这个记录
+	 */
+	var key = loginUserId + courseId;
+	var recordingList = localStorage.getItem(key);
+	
+	
+	if(recordingList!=null || recordingList!=undefined ){
+		var re = new RegExp("%","i"); 
+		var fristArr = recordingList.split(re);
+		var arr = [];
+		for(var i =0; i<fristArr.length; i++){
+			var arrI = fristArr[i];
+			if(arrI!=""){
+				var  obj ={}
+				var lalaArr = arrI.split("=");	
+			    obj[lalaArr[0]] = lalaArr[1];
+				arr.push(obj);
+			}
+		}
+	    console.log(arr);
+		
+	   //进行循环啦
+		$(".wrap-anthology .left").each(function(){
+			var $this = $(this);
+	        var courseId =$this.attr("data-courseId");
+	        
+	        //分钟
+	        var timeLength =$this.attr("data-timeLength");
+	        var percent =0;
+	        for (var key in json) {
+	        	if(courseId == key){
+	        		percent = json[key];
+	        		break;
+	        	}
+	        }
+	    	if (percent > 100) {
+	    		percent = 0;
+	    		$this.parent().removeClass('clip-auto');
+	    		$this.next().addClass('wth0');
+	    	} else if (percent > 50) {
+	    		$this.parent().addClass('clip-auto');
+	    		$this.next().removeClass('wth0');
+	    	}
+	    	$this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
+		})
+	}
+	
 	
 	
 	
