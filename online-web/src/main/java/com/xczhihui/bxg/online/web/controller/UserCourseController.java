@@ -136,10 +136,8 @@ public class UserCourseController extends AbstractController{
             if(myCourseType == null) {
                 return ResponseObject.newErrorResponseObject("我的课程类型有误："+MyCourseType.getAllToString());
             }
-            int num = (pageNumber - 1) * pageSize;
-            num = num < 0 ? 0 : num;
             com.baomidou.mybatisplus.plugins.Page<CourseLecturVo> page = new com.baomidou.mybatisplus.plugins.Page<CourseLecturVo>();
-            page.setCurrent(num);
+            page.setCurrent(pageNumber);
             page.setSize(pageSize);
             com.baomidou.mybatisplus.plugins.Page<CourseLecturVo> list = courseServiceImpl.myCourseType(page, u.getId(),type);
             return ResponseObject.newSuccessResponseObject(list);
