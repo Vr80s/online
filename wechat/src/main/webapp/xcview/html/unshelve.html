@@ -1,0 +1,182 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<link rel="stylesheet" href="/xcview/css/unshelve.css?version=e888934897">
+<!--下拉刷新引入的css-->
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+<!--rem引入的JS-->
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+</head>
+<body style="background:#efefef;" class="mui-ios mui-ios-11 mui-ios-11-0">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return" onclick="javascript:history.go(-1);">
+				<img src="/xcview/images/back icon.png">
+			</div>
+			<div class="header_title">主播课程</div>
+		</div>
+	</header>
+	<!-- 头部结束 -->
+	<!-- 中间内容开始 -->
+	  <div class="mui-scroll">
+	   	    <!--数据列表-->
+	   	    <!--列表内容开始-->
+	   	    <div class="course_list">
+	   	    	<div class="course_list_main" id="course_list_main">   
+	   	    		<div class="course_list_main_one div">
+	   	    			<!--跳转-->
+                			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
+                			
+	   	    			<!--视频/音频/直播/线下课判断-->
+	   	    			<div class="course_list_one_img">
+        					<img src="/xcview/images/Sinatv_auto.png" alt="" class="img0">
+	   	    				<img src="http://test-file.ipandatcm.com/18525190326/1603a80f1f384403.jpg?imageView2/2/w/339" class="img1">
+	   	    			</div>
+	   	    			<div class="course_list_one_title">副局级</div>
+	   	    			<div class="course_list_one_title_name">默默</div>
+	   	    			<div class="course_list_main_cen_one">
+							<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top: 0.05rem;">1</span><span class="span0_span">熊猫币</span></p>
+   	    					<p class="p1"><img src="/xcview/images/population.png" alt=""><span>5</span></p>
+	   	    			</div>
+	   	    		</div>
+
+	   	    		<div class="course_list_main_one div">
+	   	    			<!--跳转-->
+                			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
+                			
+	   	    			<!--视频/音频/直播/线下课判断-->
+	   	    			<div class="course_list_one_img">
+        					<img src="/xcview/images/Sinatv_auto.png" alt="" class="img0">
+	   	    				<img src="http://test-file.ipandatcm.com/18525190304/b4d9b76e23a0653b.jpg?imageView2/2/w/339" class="img1">
+	   	    			</div>
+	   	    			<div class="course_list_one_title">恶意哦哦哦哦哦哦哦</div>
+	   	    			<div class="course_list_one_title_name">默默</div>
+	   	    			
+	   	    			<div class="course_list_main_cen_one">
+							<p class="p0" style="color: #F97B49;margin-top: -0.05rem;">免费</p>
+   	    					<p class="p1"><img src="/xcview/images/population.png" alt=""><span>8</span></p>
+	   	    			</div>
+	   	    		</div>
+		   	    		   	    		
+	   	    		<div class="course_list_main_one div">
+	   	    			<!--跳转-->
+                			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
+            				
+	   	    			<!--视频/音频/直播/线下课判断-->
+	   	    			<div class="course_list_one_img">
+	   	    				<img src="/xcview/images/tv_auto.png" alt="" class="img0">
+	   	    				<img src="http://test-file.ipandatcm.com/18525182809/ab8d5f803ac9-2c9aec356231d035016231eb7b0b00001527244089135.png?imageView2/2/w/339" class="img1">
+	   	    			</div>
+	   	    			<div class="course_list_one_title">5.28视频免费1</div>
+	   	    			<div class="course_list_one_title_name">默默</div>
+	   	    			<div class="course_list_main_cen_one">
+							<p class="p0" style="color: #F97B49;margin-top: -0.05rem;">免费</p>
+   	    					<p class="p1"><img src="/xcview/images/population.png" alt=""><span>8</span></p>
+	   	    			</div>
+	   	    		</div>
+		   	    		   	    		
+	   	    		<div class="course_list_main_one div">
+	   	    			<!--跳转-->
+            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
+        				
+	   	    			<!--视频/音频/直播/线下课判断-->
+	   	    			<div class="course_list_one_img">
+	   	    				<img src="/xcview/images/tv_auto.png" alt="" class="img0">
+	   	    				<img src="http://test-file.ipandatcm.com/18525182727/89cf1060877d-2c9aec356231d035016231eb7b0b00001527244047407.png?imageView2/2/w/339" class="img1">
+	   	    			</div>
+	   	    			<div class="course_list_one_title">5.28视频收费1</div>
+	   	    			<div class="course_list_one_title_name">默默</div>
+	   	    			<div class="course_list_main_cen_one">
+							<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top:0.5rem;">1</span><span class="span0_span">熊猫币</span></p>
+	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>4</span></p>
+	   	    			</div>
+	   	    		</div>
+		   	    		   	    		
+	   	    		<div class="course_list_main_one div">
+	   	    			<!--跳转-->
+                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
+            				
+	   	    			<!--视频/音频/直播/线下课判断-->
+	   	    			<div class="course_list_one_img">
+	   	    				<img src="/xcview/images/frequency.png" alt="" class="img0">
+	   	    				<img src="http://test-file.ipandatcm.com/18525182918/628694c3db7a-2c9aec356231d035016231eb7b0b00001527244158288.png?imageView2/2/w/339" class="img1">
+	   	    			</div>
+	   	    			<div class="course_list_one_title">5.28音频免费1</div>
+	   	    			<div class="course_list_one_title_name">默默</div>
+	   	    			
+	   	    			<div class="course_list_main_cen_one">
+	   	    				<p class="p0" style="color: #F97B49;margin-top: -0.05rem;">免费</p>
+    						<p class="p1"><img src="/xcview/images/population.png" alt=""><span>13</span></p>
+	   	    			</div>
+	   	    		</div>
+		   	    		   	    		
+	   	    		<div class="course_list_main_one div">
+	   	    			<!--跳转-->
+                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
+            				
+	   	    			<!--视频/音频/直播/线下课判断-->
+	   	    			<div class="course_list_one_img">
+	   	    				<img src="/xcview/images/frequency.png" alt="" class="img0">
+	   	    				<img src="http://test-file.ipandatcm.com/18525183012/e35113483423-2c9aec356231d035016231eb7b0b00001527244212733.png?imageView2/2/w/339" class="img1">
+	   	    			</div>
+	   	    			<div class="course_list_one_title">5.28音频收费1</div>
+	   	    			<div class="course_list_one_title_name">默默</div>
+	   	    			
+	   	    			<div class="course_list_main_cen_one">
+							<p class="p0" style="margin-top: -0.02rem;"><span>2</span><span class="span0_span">熊猫币</span></p>
+	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>2</span></p>
+	   	    			</div>
+	   	    		</div>
+		   	    		   	   		
+	   	    		<div class="course_list_main_one div">
+	   	    			<!--跳转-->
+                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" ></a>
+						
+	   	    			<!--视频/音频/直播/线下课判断-->
+	   	    			<div class="course_list_one_img">
+	   	    				<img src="/xcview/images/offline.png" alt="" class="img0">
+	   	    				<img src="http://test-file.ipandatcm.com/18525161856/1011d4e203ef-2c9aec356231d035016231eb7b0b00001527236336548.png?imageView2/2/w/339" class="img1">
+	   	    			</div>
+	   	    			<div class="course_list_one_title">5.25线下课收费</div>
+	   	    			<div class="course_list_one_title_name">默默</div>
+	   	    			
+	   	    			<div class="course_list_main_cen_one">
+	   	    				<p class="p0" style="margin-top: -0.02rem;"><span>1</span><span class="span0_span">熊猫币</span></p>
+	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>4</span></p>
+	   	    				<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>天津市</span></p>
+	   	    			</div>
+	   	    		</div>
+		   	    		   	 
+		   	    </div>
+	   	    </div>
+	   	    <!--列表内容结束-->
+		    <div class=""></div>
+	  </div>
+	<!-- 中间内容结束 -->
+	<!-- 底部结束 -->
+	<div class="both"></div>
+</body>
+</html>
