@@ -16,13 +16,13 @@ import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.dao.WxcpClientUserWxMappingMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.UserOrigin;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.CookieUtil;
 import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.ThirdFlag;
 
