@@ -205,20 +205,6 @@ function endClass(pages){
      })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //--------------------------------------学习中心结束--问答论坛开始--------------------------------------------
 
 //我的提问  我的回答选项卡
@@ -230,8 +216,8 @@ $(".question-forum li").click(function(){
 
 //		我的提问    我的回答  由于hide后不能获取元素高度 展示更多文字
 function showMoneText(){
-		$("#show-set").removeClass("hide")
-		$("#answer").removeClass("hide")
+		$("#show-set").removeClass("hide");
+		$("#answer").removeClass("hide");
 //点击收起,隐藏则字体
 			var $dot5 = $('.dot5');
                 $dot5.each(function () {
@@ -284,7 +270,7 @@ function quizList(pages){
             if (data.resultObject.items.length == 0) {
             	$(".no-question-box").removeClass("hide");
             } else {   
-            	$(".no-question-box").addClass("hide");          	
+            	$(".no-question-box").addClass("hide");  
             	$("#quiz-template").html(template("quiz-box",{items:data.resultObject.items}))
            		showMoneText();
             }
@@ -312,15 +298,13 @@ function myAnswer(pages){
             		tagsObject[i].tags=tagsObject[i].tags.split(",");   
             	}
             	$("#answer").html(template("answer-box",{items:data.resultObject.items}))
-            	showMoneText()//展示更多文字
+//          	showMoneText()//展示更多文字
             }
           }else{
     		showTip("获取数据失败");
     	}   
      })
 }	
-
-
 
 		
 
@@ -444,48 +428,7 @@ function replyList (pages) {
 		var spanText=$(this).text();
 		$(".select-write").text(spanText);
 	})
-orderList(1,0,5)	
-	function orderList(pages,time,pageSize,status){
-		var data = {
-		 	pageNumber:pages,
-		 	timeQuantum:time,
-		 	pageSize:pageSize
-		};
-		if(status!=null){
-			data.orderStatus=status;
-		}
-		RequestService("/web/getMyAllOrder", "get",data, function (data) {
-		 	if(data.success==true){
-		 		if(data.resultObject.items.length==0){
-		 			$(".all-no-order").removeClass("hide");
-					$("#order-template").html(template("order-content",{items:data.resultObject.items}))	
-		 		}else{
-					$("#order-template").html(template("order-content",{items:data.resultObject.items}))	
-		 			$(".all-no-order").addClass("hide");
-		 		}	
-		 		 //分页添加
-			if(data.resultObject.totalPageCount > 1) { //分页判断
-					$(".not-data").remove();
-		            $(".order_pages").removeClass("hide");
-		            $(".order_pages .searchPage .allPage").text(data.resultObject.totalPageCount);
-		            $("#order_doctors").pagination(data.resultObject.totalPageCount, {
-		                num_edge_entries: 1, //边缘页数
-		                num_display_entries: 4, //主体页数
-		                current_page:pages-1,
-		                callback: function (page) {
-		                    //翻页功能
-		                    orderList(page+1,time,pageSize,status)
-		                }
-		            });
-				}
-				else {
-					$(".order_pages").addClass("hide");
-				}
-		 	}else{
-		 		showTip("获取数据失败");
-		 	}
-		 })
-	}
+
 //	设置多少年前订单
 	var setYear = new Date().getFullYear();
 	$("#set-year").html(setYear+"年前订单");
@@ -497,7 +440,9 @@ orderList(1,0,5)
 		orderList(1,$(this).attr("data-order"),5)
 		$(".order-box li").first().click();
 	})
-	
+
+
+
 //-------------------------------------- 我的订单结束    我的钱包开始--------------------------------------------
 //点击充值切换页面
 $(".main-wallet-top button").click(function(){
@@ -658,25 +603,119 @@ $(".sign-read").click(function(){
 
 });
 
-
-
 //html内嵌点击事件
+
+//我的订单-----------------------------------------------------------------------------------
+orderList(1,0,5)	
+	function orderList(pages,time,pageSize,status){
+		var data = {
+		 	pageNumber:pages,
+		 	timeQuantum:time,
+		 	pageSize:pageSize
+		};
+		if(status!=null){
+			data.orderStatus=status;
+		}
+		RequestService("/web/getMyAllOrder", "get",data, function (data) {
+		 	if(data.success==true){
+		 		if(data.resultObject.items.length==0){
+		 			$(".all-no-order").removeClass("hide");
+					$("#order-template").html(template("order-content",{items:data.resultObject.items}))	
+		 		}else{
+					$("#order-template").html(template("order-content",{items:data.resultObject.items}))	
+		 			$(".all-no-order").addClass("hide");
+		 		}	
+		 		 //分页添加
+			if(data.resultObject.totalPageCount > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".order_pages").removeClass("hide");
+		            $(".order_pages .searchPage .allPage").text(data.resultObject.totalPageCount);
+		            $("#order_doctors").pagination(data.resultObject.totalPageCount, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    orderList(page+1,time,pageSize,status)
+		                }
+		            });
+				}
+				else {
+					$(".order_pages").addClass("hide");
+				}
+		 	}else{
+		 		showTip("获取数据失败");
+		 	}
+		 })
+	}
+//已失效购买
+//重新购买课程
+    function againBuy(index) {
+       var $this = $(index);
+       RequestService("/online/user/isAlive", "GET", null, function(data) {
+           if(!data.success) {
+               $('#login').modal('show');
+           } else {
+               var id = $this.data('id');
+
+               if (!id) {
+                   showTip("无法获取课程id");
+               }
+               RequestService("/order/" + id, "POST", null, function(data){
+                   if (data.success) {
+                       window.open("/order/pay?orderId=" + data.resultObject);
+                   } else {
+                       showTip(data.errorMessage);
+                   }
+               });
+           }
+       });
+
+    };
+//取消订单和删除订单
+function deleteBtnOrder(index){
+	var dataDelete=$(index).attr("data-delete"),
+		dataNumber=$(index).attr("data-number");
+		RequestService("/web/updateOrderStatu", "POST",{
+			type:dataDelete,
+			orderNo:dataNumber
+		}, function(data) {
+		 	if(data.success == true){
+		 		showTip(data.resultObject);
+		 		orderList(1,0,5)
+		 	}else{
+		 		showTip("操作失败");
+		 	}
+		 	
+      })
+	
+}
 //问答与论坛-----------------------------------------------------------------------------------
 //我的提问
-
-
 //我的问答点赞
-	function selectDown(index){
-		var $this=$(index);
-		console.log($this)
-		if($this.hasClass("select-active")){
-			$this.removeClass("select-active");
+var bbb
+	function selectDown(index){	
+		var answerId=$(index).attr("data-answerid"),
+			$this=$(index);
+		RequestService("/ask/answer/praiseAnswer", "get",{
+			answer_id:answerId		
+		}, function(data) {
+		if($this.find("i").hasClass("select-active")){
+			var eee=$this.find("p").text();              //为了避免数据刷新引起的内容展示高度获取不到而加的假象
+			$this.find("i").removeClass("select-active");
+			$this.find("p").html(parseInt(eee)-1)
 		}else{
-			$this.addClass("select-active");
+			var eee=$this.find("p").text();
+			$this.find("i").addClass("select-active");
+			$this.find("p").html(parseInt(eee)+1)
 			
 		}
 
-	}
+		
+      })
+		
+}
+
 
 
 

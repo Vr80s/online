@@ -388,34 +388,38 @@
 									<div class="my-class-nav">
 										<h5 class="anchor-follow">关注的主播</h5>
 									</div>	
-									<div class="anchor-list" id="anchor-template">
-										<script type="text/template" id="anchor-box">
-										{{each items as item i}}
-										<div class="anchor-wrap">
-											<a href="{{webUrl}}/anchors/{{item.userId}}/info" target="_blank" style="width: 100%; height: 100%;">
-											<div class="head-doctor z">
-												<img src="{{item.smallHeadPhoto}}"/>
-											</div>
-											<div class="doctor-details y">
-												<h5>{{item.name}}</h5>
-												<p class="doctor-text">
-													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播
-													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播
-													关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播												
-												</p>
-											</div>
-											</a>
-										</div>	
-									{{/each}}
-										</script>
-									</div>												
-								<!--暂无关注的主播-->	
-									<div class="no-follow-anchor hide">
-										<div class="no-follow-img">
-											<img src="../../images/icon-nodata.png"/>
+									<div class="anchor-list">
+										<div id="anchor-template">
+										
+											<script type="text/template" id="anchor-box">
+											{{each items as item i}}
+											<div class="anchor-wrap">
+												<a href="{{webUrl}}/anchors/{{item.userId}}/info" target="_blank" style="width: 100%; height: 100%;">
+												<div class="head-doctor z">
+													<img src="{{item.smallHeadPhoto}}"/>
+												</div>
+												<div class="doctor-details y">
+													<h5>{{item.name}}</h5>
+													<p class="doctor-text">
+														关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播
+														关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播
+														关注的主播关注的主播关注的主播关注的主播关注的主播关注的主播												
+													</p>
+												</div>
+												</a>
+											</div>	
+											{{/each}}
+											</script>
 										</div>
-										<p>暂无关注的主播</p>
-									</div>
+										<!--暂无关注的主播-->	
+										<div class="no-follow-anchor hide">
+											<div class="no-follow-img">
+												<img src="../../images/icon-nodata.png"/>
+											</div>
+											<p>暂无关注的主播</p>
+										</div>
+									</div>												
+								
 								</div>	
 							</div>
 						<!--问答与论坛-->
@@ -500,9 +504,13 @@
 																</p>
 																<ul>
 																	<li>{{item.askAnswerVo.create_time}}</li>
-																	<li class="select-down" onclick="selectDown(this)">
+																	<li class="select-down" onclick="selectDown(this)" data-answerid="{{item.askAnswerVo.id}}">
+																		{{if item.askAnswerVo.praise==true}}
+																		<i class="iconfont icon-zan select-active"></i>
+																		{{else ifitem.askAnswerVo.praise==false}}
 																		<i class="iconfont icon-zan"></i>
-																		{{item.askAnswerVo.praise_sum}}
+																		{{/if}}
+																		<p style="display: inline-block;">{{item.askAnswerVo.praise_sum}}</p>
 																	</li>
 																</ul>
 															</div>
@@ -729,30 +737,44 @@
 													<div class="order-status">
 														<ul>
 															<li><span>{{item.create_time}}</span></li>
-															<li>订单编号：<span>{{item.order_no}}</span></li>
+															<li style="width: 230px;">订单编号：<span>{{item.order_no}}</span></li>
 															<li>订单金额（熊猫币）</li>
 															<li>实付金额</li>
 															<li>订单状态</li>
 															<li>操作</li>
 														</ul>
 													</div>
+													{{each item.orderDetail as t}}
 													<div class="order-left z">
 														<div class="order-class-img z">
-															<img src="../../images/04.png"/>
+															<img src="{{t.smallimg_path}}"/>
 														</div>
-														<p>小宝中医带你快速入门学针【合辑】啊哈哈哈哈</p>
+														<p>{{t.grade_name}}</p>
+														<p>{{t.lecturer}}</p>
 													</div>
 													<div class="order-right y">
 														<ul>
-															<li>100</li>
-															<li><span>1000</span></li>
+															<li>{{t.price}}</li>
+															<li><span>{{t.actualPay}}</span></li>
+															{{if item.order_status==0}}
+															<li>未支付</li>
+															<li>
+																<p><a href="/order/pay?orderId={{item.id}}" target="_blank" style="color: #333333;">立即支付</a></p>
+																<p onclick="deleteBtnOrder(this)" data-delete="1" data-number="{{item.order_no}}">取消订单</p>
+															</li>
+															{{else if item.order_status==1}}
+															<li>已完成</li>
+														
+															{{else if item.order_status==2}}
 															<li>已失效</li>
 															<li>
-																<p>重新购买</p>
-																<p>删除订单</p>
+																<p onclick="againBuy(this)" data-id="{{t.id}}">重新购买</p>
+																<p onclick="deleteBtnOrder(this)" data-delete="0" data-number="{{item.order_no}}">删除订单</p>
 															</li>
+															{{/if}}
 														</ul>
 													</div>
+													{{/each}}
 												</div>
 											{{/each}}
 											</script>

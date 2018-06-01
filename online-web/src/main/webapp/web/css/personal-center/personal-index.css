@@ -598,7 +598,7 @@ overflow: hidden;
     cursor: pointer;
     font-size: 14px;
 }
-.reply-user-text ul .select-active i{
+.reply-user-text ul .select-down .select-active{
 	color: #00bc12;
 }
 .no-question-box{
@@ -877,6 +877,12 @@ overflow: hidden;
 .all-order-wrap .order-status li span{
 	color: #333333;
 }
+.all-order-wrap .order-status li:nth-child(2){
+	max-width: 235px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .all-order-wrap .order-status li:nth-child(3){
 	margin-left: 68px;
 }
@@ -896,26 +902,32 @@ overflow: hidden;
 .order-left .order-class-img{
 	width: 106px;
 	height: 60px;
-
+	margin-right: 10px;
 }
 .order-left .order-class-img img{
 	width: 100%;
 	height: 100%;
 }
 .order-left p{
-	float: right;
+	float: left;
+	width: 225px;
 	max-width: 225px;
-	height: 40px;
-	line-height: 20px;
-	margin-top: 10px;
 
-	display: -webkit-box;
+	line-height: 20px;
+	margin-top: 7px;
+
+	/*display: -webkit-box;	
+	 height: 40px;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 2;
-overflow: hidden;
+overflow: hidden;*/
+ overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 .order-right{
-	width: 453px;
+	width: 465px;
     height: 60px;
     margin-top: 20px;
     line-height: 60px;
@@ -931,12 +943,12 @@ overflow: hidden;
 .order-right li:nth-child(1){
 	width: 126px;
 	max-width: 126px;
-	margin-right: 30px;
+	margin-right: 35px;
 }
 .order-right li:nth-child(2){
 	width: 56px;
 	max-width: 56px;
-	margin-right: 50px;
+	margin-right: 48px;
 }
 
 .order-right li:nth-child(3){
