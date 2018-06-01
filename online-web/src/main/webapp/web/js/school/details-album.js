@@ -85,10 +85,6 @@ $(function() {
 		$(".wrap-modal").addClass("hide");
 	})
 
-	
-	
-	
-	
 	// 专辑进度条
 	var percent = 45;
 	if (percent > 100) {

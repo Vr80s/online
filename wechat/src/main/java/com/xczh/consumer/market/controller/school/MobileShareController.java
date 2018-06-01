@@ -133,10 +133,10 @@ public class MobileShareController {
      */
     @RequestMapping("shareBrowserDifferentiation")
     public void shareBrowserDifferentiation(HttpServletRequest req,
-                                            HttpServletResponse res,
-                                            @RequestParam(value="shareId")String shareId,
-                                            @RequestParam(value="shareType")Integer shareType,
-                                            @RequestParam(value="wxOrbrower")String wxOrbrower, @Account(optional = true) Optional<String> accountIdOpt)throws Exception{
+            HttpServletResponse res,
+            @RequestParam(value="shareId")String shareId,
+            @RequestParam(value="shareType")Integer shareType,
+            @RequestParam(value="wxOrbrower")String wxOrbrower, @Account(optional = true) Optional<String> accountIdOpt)throws Exception{
         /**
          * 这里有个问题就是。如果去分享页面的话
          */
@@ -166,13 +166,11 @@ public class MobileShareController {
                 if(!falg) {
                     LOGGER.info("课程虽然被下架。用户也没有购买");
                 }
-
             }else if(courseLecturVo.getIsDelete()) { //课程被删除
                 LOGGER.info("课程被物理删除");
 
             }else if(StringUtils.isBlank(courseLecturVo.getUserLecturerId())) {
                 LOGGER.info("课程的教师没有找到");
-
             }
         }else if(ShareType.HOST_SHARE.equals(shareType)){ //主播分享
             OnlineUser o = onlineUserService.findUserById(shareId);

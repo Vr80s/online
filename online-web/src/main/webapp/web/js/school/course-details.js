@@ -2,9 +2,9 @@
 
 var loginUserId = "";
  RequestService("/online/user/isAlive", "GET", null, function (data) {
-        if (data.success) {
-        	loginUserId = data.resultObject.id;
-        } 
+    if (data.success) {
+    	loginUserId = data.resultObject.id;
+    } 
 },false)
 
 
@@ -142,21 +142,26 @@ $(function(){
 	        //分钟
 	        var timeLength =$this.attr("data-timeLength");
 	        var percent =0;
-	        for (var key in json) {
-	        	if(courseId == key){
-	        		percent = json[key];
-	        		break;
-	        	}
-	        }
-	    	if (percent > 100) {
-	    		percent = 0;
-	    		$this.parent().removeClass('clip-auto');
-	    		$this.next().addClass('wth0');
-	    	} else if (percent > 50) {
-	    		$this.parent().addClass('clip-auto');
-	    		$this.next().removeClass('wth0');
-	    	}
-	    	$this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
+	        
+	        for (var i = 0; i < arr.length; i++) {
+	        	var json = arr[i];
+	        	for (var key in json) {
+	 	        	if(courseId == key){
+	 	        		percent = json[key];
+	 	        	}
+	 	        }
+			}
+	        
+	        if (percent > 100) {
+ 	    		percent = 0;
+ 	    		$this.parent().removeClass('clip-auto');
+ 	    		$this.next().addClass('wth0');
+ 	    	} else if (percent > 50) {
+ 	    		$this.parent().addClass('clip-auto');
+ 	    		$this.next().removeClass('wth0');
+ 	    	}
+ 	    	$this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
+	        
 		})
 	}
 	
