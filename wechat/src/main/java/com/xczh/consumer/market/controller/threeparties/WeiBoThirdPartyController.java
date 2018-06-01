@@ -178,6 +178,10 @@ public class WeiBoThirdPartyController {
                 if (ou == null) {
                     return ResponseObject.newErrorResponseObject("获取用户信息有误");
                 }
+                WeiboClientUserMapping wbcm =  threePartiesLoginService.selectWeiboClientUserMappingByUserId(userId);
+                if (wbcm!=null) {
+                    return ResponseObject.newErrorResponseObject("用户已绑定过微博号");
+                }
             }
 
             Map<String, String> mapRequest = new HashMap<>();
