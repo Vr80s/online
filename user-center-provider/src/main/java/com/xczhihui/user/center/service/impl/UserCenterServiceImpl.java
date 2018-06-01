@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.RandomUtil;
+import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.UserOrigin;
@@ -271,5 +272,11 @@ public class UserCenterServiceImpl implements UserCenterService {
         tokenModel.setUuid(oeUser.getId());
         tokenModel.setHeadPhoto(oeUser.getSmallHeadPhoto());
         this.tokenManager.refreshToken(ticket, tokenModel, TokenExpires.TenDay.getExpires());
+    }
+
+    @Override
+    public boolean isDisabled(String userId) {
+        String val = cacheService.get(RedisCacheKey.USER_DISABLE_PREFIX + RedisCacheKey.REDIS_SPLIT_CHAR + userId);
+        return org.apache.commons.lang3.StringUtils.isNotBlank(val);
     }
 }

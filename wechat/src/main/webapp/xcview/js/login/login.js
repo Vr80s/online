@@ -101,32 +101,11 @@ function login() {
     };
     requestService("/xczh/user/login", urlparm, function (data) {
         if (data.success) {
-            var configresult = data.resultObject;
             /**
              * 添加 所有关于用户的缓存
              */
             commonLocalStorageSetItem(data);
-            /**
-             *      判断用户是否存在unindid，
-             *        如果存在说明绑定了微信号。
-             *           虽然绑定了微信号了，但是绑定的如果不是当前微信号的话，是不是也比较尴尬啊，支付不了。
-             *      所以需要获取获取当前微信号的呢。
-             *        如果不存在，说明没有绑定微信号。
-             */
-            var type = getQueryString('type');
-            getQueryString(type);
-
-            if (type == '1') {
-                location.href = "/xcview/html/school_play.html?course_id=" + courseId + "&type=" + 1;
-            } else if (type == '2') {
-                location.href = "/xcview/html/school_audio.html?course_id=" + courseId + "&type=" + 2;
-            } else if (type == '3') {
-                location.href = "/xcview/html/school_class.html?course_id=" + courseId + "&type=" + 3;
-            } else {
-                location.href = "/xcview/html/home_page.html";
-            }
-            // location.href = "/xcview/html/home_page.html";
-
+            locationToOriginPage();
         } else {
             webToast(data.errorMessage, "middle", 1500);
         }

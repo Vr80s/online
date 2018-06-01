@@ -91,4 +91,12 @@ public interface UserCenterService {
     void deleteToken(String ticket);
 
     void updateTokenInfo(String userId, String ticket);
+
+    /**
+     * 判断用户是否被禁用
+     *
+     * @param userId
+     * @return
+     */
+    boolean isDisabled(String userId);
 }

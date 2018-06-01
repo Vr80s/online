@@ -1,5 +1,6 @@
 package com.xczhihui.user.center.service.impl;
 
+import static com.xczhihui.common.util.RedisCacheKey.REDIS_SPLIT_CHAR;
 import static com.xczhihui.common.util.RedisCacheKey.VCODE_PREFIX;
 
 import java.util.HashMap;
@@ -30,7 +31,6 @@ import com.xczhihui.user.center.vo.OeUserVO;
 @Service
 public class VerificationCodeServiceImpl implements VerificationCodeService {
     private static final Logger logger = LoggerFactory.getLogger(VerificationCodeServiceImpl.class);
-    private static final String SPLIT_CHAR = ":";
     //一个小时
     private static final int ONE_HOUR_SECOND = 60 * 60;
 
@@ -63,11 +63,11 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 
     private String createVCode(String username, VCodeType vtype) {
         String vcode;
-        String key = VCODE_PREFIX + SPLIT_CHAR + vtype.getCode() + SPLIT_CHAR + username;
+        String key = VCODE_PREFIX + REDIS_SPLIT_CHAR + vtype.getCode() + REDIS_SPLIT_CHAR + username;
         int vcodeValidTime = 60 * Integer.valueOf(attrs.get("message_provider_valid_time"));
         String vcodeTimeStr = redisCacheService.get(key);
         if (StringUtils.isNotBlank(vcodeTimeStr)) {
-            String[] vcodeTimeArr = vcodeTimeStr.split(SPLIT_CHAR);
+            String[] vcodeTimeArr = vcodeTimeStr.split(REDIS_SPLIT_CHAR);
             String preventVCode = vcodeTimeArr[0];
             long createTime = Long.parseLong(vcodeTimeArr[1]);
             vcode = vcodeTimeArr[0];
@@ -83,11 +83,11 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
             }
             if (passTime > vcodeValidTime * 1000) {
                 vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000, 10000));
-                redisCacheService.set(key, vcode + SPLIT_CHAR + System.currentTimeMillis(), vcodeValidTime + ONE_HOUR_SECOND);
+                redisCacheService.set(key, vcode + REDIS_SPLIT_CHAR + System.currentTimeMillis(), vcodeValidTime + ONE_HOUR_SECOND);
             }
         } else {
             vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000, 10000));
-            redisCacheService.set(key, vcode + SPLIT_CHAR + System.currentTimeMillis(), vcodeValidTime + ONE_HOUR_SECOND);
+            redisCacheService.set(key, vcode + REDIS_SPLIT_CHAR + System.currentTimeMillis(), vcodeValidTime + ONE_HOUR_SECOND);
         }
         return vcode;
     }
@@ -159,10 +159,10 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 
     @Override
     public boolean checkCode(String phone, VCodeType vtype, String code) {
-        String key = VCODE_PREFIX + SPLIT_CHAR + vtype.getCode() + SPLIT_CHAR + phone;
+        String key = VCODE_PREFIX + REDIS_SPLIT_CHAR + vtype.getCode() + REDIS_SPLIT_CHAR + phone;
         String vcodeTimeStr = redisCacheService.get(key);
         if (StringUtils.isNotBlank(vcodeTimeStr)) {
-            String[] vcodeTimeArr = vcodeTimeStr.split(SPLIT_CHAR);
+            String[] vcodeTimeArr = vcodeTimeStr.split(REDIS_SPLIT_CHAR);
             long createTime = Long.parseLong(vcodeTimeArr[1]);
             String vcode = vcodeTimeArr[0];
             if (!vcode.equals(code)) {

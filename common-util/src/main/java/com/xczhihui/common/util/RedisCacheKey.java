@@ -8,13 +8,17 @@ package com.xczhihui.common.util;
  */
 public class RedisCacheKey {
 
+    public static final String REDIS_SPLIT_CHAR = ":";
+
     public static String GIFT_CACHE__PREFIX = "gift_";
 
     public static String FREE_GIFT_SEND__PREFIX = "f_g_";
 
     public static String GIFT_SHOW_PREFIX = "f_s_";
 
-    public static String TICKET_PREFIX = "t_u_k_";
+    public static String TICKET_PREFIX = "token";
 
     public static String VCODE_PREFIX = "vcode";
+
+    public static String USER_DISABLE_PREFIX = "user" + REDIS_SPLIT_CHAR + "disable";
 }
