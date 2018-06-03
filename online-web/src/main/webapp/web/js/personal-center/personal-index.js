@@ -1,4 +1,3 @@
-
 $(function() {
 //左右侧边栏mune功能
 	$('#accordion > li').click(function(){
@@ -306,13 +305,6 @@ function myAnswer(pages){
      })
 }	
 
-		
-
-	
-	
-	
-	
-
 //我的帖子/我的回复选项卡
 	$(".forum-wrap li").click(function(){
 		$(".forum-wrap li").removeClass("mune-active");
@@ -529,23 +521,24 @@ function tradeList (pages) {
 
 
 //-------------------------------------- 我的资料结束,消息开始--------------------------------------------
-
+//消息列表
 newsList(1)
-function newsList(pages){
-	var setData={
-		pageSize:pages,
-		pageNumber:8,
-	}
-	RequestService("/online/message/getMessageList", "get",setData, function (data) {
-		$("#news-template").html(template("news-box",{items:data.resultObject.items}))
-	})
-		
-}
+//消息总数
+Newsnumber()
 
+//将全部消息设为已读
 $(".sign-read").click(function(){
-//	$(".main-news li .icon-tip").remove();
-//	$(".main-news li").css({"color":"#999999"});
-//	$(this).hide()
+	RequestService("/online/message/readMessage", "POST",null, function (data) {
+		if(data.success==true){
+			showTip(data.resultObject);
+			newsList(1)
+			Newsnumber()
+		}else{
+			showTip("操作失败");
+		}
+
+	})
+
 })
 
 
@@ -600,7 +593,6 @@ $(".sign-read").click(function(){
 			});
 
 		});
-
 });
 
 //html内嵌点击事件
@@ -648,8 +640,7 @@ orderList(1,0,5)
 		 	}
 		 })
 	}
-//已失效购买
-//重新购买课程
+//已失效，重新购买课程
     function againBuy(index) {
        var $this = $(index);
        RequestService("/online/user/isAlive", "GET", null, function(data) {
@@ -682,6 +673,7 @@ function deleteBtnOrder(index){
 		}, function(data) {
 		 	if(data.success == true){
 		 		showTip(data.resultObject);
+		 		$(".order-box li:first").click(); //删除成功后tab选为第一个
 		 		orderList(1,0,5)
 		 	}else{
 		 		showTip("操作失败");
@@ -691,9 +683,7 @@ function deleteBtnOrder(index){
 	
 }
 //问答与论坛-----------------------------------------------------------------------------------
-//我的提问
-//我的问答点赞
-var bbb
+//我的提问、我的问答点赞
 	function selectDown(index){	
 		var answerId=$(index).attr("data-answerid"),
 			$this=$(index);
@@ -701,17 +691,15 @@ var bbb
 			answer_id:answerId		
 		}, function(data) {
 		if($this.find("i").hasClass("select-active")){
-			var eee=$this.find("p").text();              //为了避免数据刷新引起的内容展示高度获取不到而加的假象
+			var thumbsUp=$this.find("p").text();              //为了避免数据刷新引起的内容展示高度获取不到而加的假象
 			$this.find("i").removeClass("select-active");
-			$this.find("p").html(parseInt(eee)-1)
+			$this.find("p").html(parseInt(thumbsUp)-1)
 		}else{
-			var eee=$this.find("p").text();
+			var thumbsUp=$this.find("p").text();
 			$this.find("i").addClass("select-active");
-			$this.find("p").html(parseInt(eee)+1)
+			$this.find("p").html(parseInt(thumbsUp)+1)
 			
 		}
-
-		
       })
 		
 }
@@ -719,9 +707,68 @@ var bbb
 
 
 
-
-
 //我的消息--------------------------------------------------------------------------------
+//消息列表
+//若是字符串渲染,则是该语法
+//	$("#news-template").html(template.compile(nnee)({
+//      items: data.resultObject.items
+//  }));
+function newsList(pages){
+	var setData={
+		pageNumber:pages,
+		pageSize:10
+	}
+	RequestService("/online/message/getMessageList", "get",setData, function (data) {
+		
+		if(data.resultObject.items.length == 0){
+			$(".all-news-order").removeClass("hide");
+		}else{
+			$(".all-news-order").addClass("hide");
+		}
+		$("#news-template").html(template("news-box",{items:data.resultObject.items}))
+    //分页添加
+			if(data.resultObject.totalPageCount > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".news_pages").removeClass("hide");
+		            $(".news_pages .searchPage .allPage").text(data.resultObject.totalPageCount); //共几页
+		            $("#news_doctors").pagination(data.resultObject.totalPageCount, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,  //pages为传的页数
+		                callback: function (page) {
+		                    //翻页功能
+		                    newsList(page+1);
+		                }
+		            });
+				}
+				else {
+					$(".news_pages").addClass("hide");
+				}
+
+	})
+}
+//获取未读的消息条数
+function Newsnumber(){
+RequestService("/online/message/findMessageCount", "get",null, function (data) {
+		if(data.success==true){
+			var numberAll=data.resultObject.count;
+			if(numberAll>99){
+				numberAll=99;
+			}
+			if(data.resultObject.count==0){
+				$(".mune-news .news-tip").addClass("hide");
+				$(".sign-read").addClass("hide");
+			}else{
+				$(".mune-news .news-tip").removeClass("hide");
+				$(".mune-news .news-tip").htme(numberAll);
+				$(".sign-read").removeClass("hide");
+			}
+		}else{
+			showTip("消息获取失败")
+		}
+	});
+}
+//将某条消息设为已读
 function jump_msg() {
     var e = window.event || arguments.callee.caller.arguments[0];
     var id = $(e.target).data('id');
@@ -729,14 +776,30 @@ function jump_msg() {
         id: id
     }, function (data) {
         if (data.success == true) {
-            $(e.target).parents("li").removeClass("weidu");
-            $(e.target).parents("li").find(".icon-tip").remove();
+        	newsList(1);
+        	Newsnumber();
             var url = $(e.target).data('url');
-            unReadNews();
-            newsMark();
             if (url) {
                 window.open(url, "_blank");
             }
         }
     }, false);
 }
+//删除消息
+function deleteNews(index){
+	var deleteId=$(index).attr("data-delete");
+	RequestService("/online/message/deleteMessage", "post", {
+        id: deleteId
+    }, function (data) {
+    	if(data.success== true){
+    		showTip(data.resultObject);
+    		newsList(1);
+        	Newsnumber();
+    	}else{
+    		showTip(data.resultObject);
+    	}
+    })
+}
+ 
+    
+

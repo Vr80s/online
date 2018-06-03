@@ -163,7 +163,7 @@ a:hover{text-decoration: none;}
 	color: #00bc12;
 }
 .save-class{
-	min-height: 625px;
+	min-height: 596px;
 	background: white;
 	width: 100%;
 	padding: 20px 0 20px 0;
@@ -459,8 +459,13 @@ overflow: hidden;
 .question-status-wrap{
 	margin: 10px 0;
 }
-
-  .list-Answer-right-text {
+.question-status-wrap p a{
+	color: #333;
+}
+.question-status-wrap p a:hover{
+	color: #00bc12;
+}
+.list-Answer-right-text {
     font-size: 13px;
     color: #666;
     word-break: break-all;
@@ -1294,6 +1299,7 @@ overflow: hidden;*/
 	width: 100%;
 	min-height: 596px;
 	background: white;
+	padding-bottom: 20px;
 }
 .news-wrap .mune-news{
 	height: 60px;
@@ -1301,8 +1307,21 @@ overflow: hidden;*/
 	border-bottom: 1px solid #f0f0f0;
 	padding-left: 20px;
 	font-size: 16px;
+	position: relative;
 }
-
+.news-wrap .mune-news .news-tip{
+    width: 20px;
+    height: 20px;
+    background: #f74343;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    position: absolute;
+    left: 87px;
+    top: 19px;
+    border-radius: 50%;
+    font-size: 12px;
+}
 .main-news{
 	padding: 20px;
 }
@@ -1321,6 +1340,19 @@ overflow: hidden;*/
 	position: relative;
 	border-bottom: 1px solid #dedede;
 	color: #999999;
+}
+.main-news ul li .delete-news{
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	margin-top: -10px;
+	cursor: pointer;
+}
+.main-news ul li:hover{
+	background: #f5f8fb;
+}
+.main-news ul li:hover .delete-news{
+	display: block !important;
 }
 .main-news ul li span{
 	margin-left: 10px;

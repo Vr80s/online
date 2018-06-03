@@ -460,7 +460,7 @@
 															{{else if item.status==2}}
 															<span>已解决</span>
 															{{/if}}
-															<p>{{item.title}}</p>
+															<p><a href="/web/qusDetail/{{item.id}}">{{item.title}}</a></p>
 														</div>
 														<div class="list-Answer-right-text dot5" >
 															{{item.content}}
@@ -555,7 +555,7 @@
 													{{else if item.status==2}}
 													<span>已解决</span>
 													{{/if}}
-													<p>{{item.title}}</p>
+													<p><a href="/web/qusDetail/{{item.id}}">{{item.title}}</a></p>
 												</div>
 												<div class="list-Answer-right-text dot5" >
 														{{item.content}}
@@ -597,9 +597,14 @@
 														</p>
 														<ul>
 															<li>{{item.askAnswerVo.create_time}}</li>
-															<li class="select-down" onclick="selectDown(this)">
+														
+															<li class="select-down" onclick="selectDown(this)" data-answerid="{{item.askAnswerVo.id}}">
+																{{if item.askAnswerVo.praise==true}}
+																<i class="iconfont icon-zan select-active"></i>
+																{{else ifitem.askAnswerVo.praise==false}}
 																<i class="iconfont icon-zan"></i>
-																{{item.askAnswerVo.praise_sum}}
+																{{/if}}
+																<p style="display: inline-block;">{{item.askAnswerVo.praise_sum}}</p>
 															</li>
 														</ul>
 													</div>
@@ -747,7 +752,9 @@
 													{{each item.orderDetail as t}}
 													<div class="order-left z">
 														<div class="order-class-img z">
-															<img src="{{t.smallimg_path}}"/>
+															<a href="/courses/{{t.id}}/info">
+																<img src="{{t.smallimg_path}}"/>
+															</a>
 														</div>
 														<p>{{t.grade_name}}</p>
 														<p>{{t.lecturer}}</p>
@@ -991,8 +998,7 @@
 										        <option value="volvo">--选择区/县--</option> 
 										        </select>	        
 
-									        </div>
-											
+									       </div>
 
 										</div>
 									</div>
@@ -1002,25 +1008,39 @@
 						<!--消息-->
 							<div class="content hide" >
 								<div class="news-wrap">
-									<p class="mune-news">我的消息</p>
+									<div class="mune-news">
+										<p>我的消息</p>
+										<span class="news-tip hide"></span>
+									</div>
 									<div class="main-news">	
 										<button type="button" class="sign-read">全部标记为已读</button>
 										<ul id="news-template">
 										<script type="text/template" id="news-box">
 											
 											{{each items as item i}}
-											<li class="weidu">
-												<div class="message-box" onclick="jump_msg()" data-id="{{item.id}}" data-url='{{item.url}}'>
-													<span class="icon-tip"></span>
-													{{item.context}}
-													<!--<a href="">小宝中医带你快速入门学针灸（一）</a>-->
-													<span class="news-time">{{item.createTime}}</span>
-													
-												</div>
-											</li>
+												{{if item.readstatus==0}}
+												<li class="weidu">
+													<div class="message-box" onclick="jump_msg()" data-id="{{item.id}}" data-url='{{item.url}}'>
+														<span class="icon-tip"></span>
+														{{item.context}}
+
+														<span class="news-time">{{item.createTime}}</span>
+														
+													</div>
+													<p class="delete-news" style="display: none;"><img src="../../images/qxCloser.png"/></p>
+												</li>
+												{{else if item.readstatus==1}}
+												<li>
+													<div class="message-box" style="cursor: pointer;" onclick="jump_msg()" data-id="{{item.id}}" data-url='{{item.url}}'>
+														{{item.context}}
+														<span class="news-time">{{item.createTime}}</span>
+													</div>
+													<p class="delete-news" style="display: none;" data-delete="{{item.id}}" onclick="deleteNews(this)"><img src="../../images/alter-close.png"/></p>
+												</li>
+												{{/if}}
 											{{/each}}
-										</ul>
 										</script>
+										</ul>
 									</div>
 									<!--暂无消息-->
 									<div class="no-order-box all-news-order hide">
@@ -1029,6 +1049,16 @@
 										</div>
 										<p>暂无消息记录</p>
 									</div>
+									<!--分页部分start-->
+									<div class="news_pages pages hide">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+										<div id="news_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+										<div class="searchPage">
+											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+											<a href="javascript:;" class="page-btn">确定</a>
+										</div>
+									</div>
+									<!--分页部分end-->
 								</div>	
 							</div>
 						<!--意见反馈-->	
@@ -1115,12 +1145,8 @@
 		<!--省市区三联动-->
 		
 		
-		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>
-
-		
-		
-		
+		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>	
 	</body>	
-			
+
 		
 </html>
