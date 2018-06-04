@@ -218,10 +218,11 @@
 		<!--公共头部和底部结束-->
 
 		<!--登陆结束-->	
-			<script src="/web/js/school/curriculum-list.js" type="text/javascript" charset="utf-8"></script>
-		<script  type="text/javascript" >
+	    <script  type="text/javascript" >
 		      var webUrlParam = "${webUrlParam}";
-		<script>
+		</script>
+			<script src="/web/js/school/curriculum-list.js" type="text/javascript" charset="utf-8"></script>
+	
 		
 	
 	</body>

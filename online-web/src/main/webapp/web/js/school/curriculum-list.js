@@ -111,16 +111,21 @@ function viewConditionOption(obj) {
 
 	var kindId = "selectCondition" + subject;
 
+	var urlFinalParams = webUrlParam;
 	if (subject == "menuType") {
 		selectCondition = "分类";
 		
 		//js替换掉这个条件
-		replace("(" + name + "=[^&]*)", ""); 
+		urlFinalParams = changeURLArg(webUrlParam,"menuType","");
 		
 	} else if (subject == "courseType") {
 		selectCondition = "类型";
+		
+		urlFinalParams = changeURLArg(webUrlParam,"courseType","");
 	} else if (subject == "lineState") {
 		selectCondition = "状态";
+		
+		urlFinalParams = changeURLArg(webUrlParam,"lineState","");
 	} else if (subject == "isFree") {
 		selectCondition = "收费";
 	} else if (subject == "city") {
@@ -130,7 +135,7 @@ function viewConditionOption(obj) {
 			+ '<p class="wrap-border" subject=' + subject + ' value='
 			+ selectValue + '>' + '<span>' + selectCondition + ' : </span>'
 			+ '<span class="select-text" >' + selectText + '</span>'
-			+ '<span class="select-close"><a >x</a></span>'
+			+ '<span class="select-close"><a href='+urlFinalParams+'>x</a></span>'
 			+ '</p>' + '</dd>';
 
 	/**

@@ -88,4 +88,11 @@ public interface IMobileBannerService {
 
 	  public Page<CourseLecturVo> searchCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo);
 
+	  /**
+	   * pc端首页查询
+	   * @param value
+	   * @return
+	   */
+	  public List<CourseLecturVo> selectPcIndex(Integer value);
+
 }

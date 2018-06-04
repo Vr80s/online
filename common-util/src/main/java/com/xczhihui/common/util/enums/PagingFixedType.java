@@ -34,7 +34,10 @@ public enum PagingFixedType {
 	
 		PC_LIVE_PAGETYPE(11, "PC端-->直播课--》固定展示3个",3),
 	
-		PC_LISTEN(12, "PC端-->固定展示12个",12);
+		PC_LISTEN(12, "PC端-->固定展示12个",12),
+	
+	
+		PC_INDEX(13, "PC端-->首页 ---》固定展示3个",3);
 	
 		
 		/************  PC客户端分页展示类别   *****************/
