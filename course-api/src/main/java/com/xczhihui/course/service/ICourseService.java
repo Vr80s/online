@@ -210,8 +210,9 @@ public interface ICourseService {
 
     /**
      * 查看这个课程的 StatusDeleteUserLecturerId
+     *
      * @param i
      * @return
      */
-	public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
+    public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
 }

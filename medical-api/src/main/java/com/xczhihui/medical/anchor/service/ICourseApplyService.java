@@ -100,4 +100,12 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     void deleteCourseApplyById(String userId, Integer caiId);
 
     void updateCollectionApply(CourseApplyInfo courseApplyInfo);
+
+    /**
+     * 专辑更新文案
+     *
+     * @param collectionId 专辑id
+     * @return
+     */
+    String getCollectionUpdateDateText(Integer collectionId);
 }

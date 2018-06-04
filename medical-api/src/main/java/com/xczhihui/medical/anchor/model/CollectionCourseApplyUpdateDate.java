@@ -2,13 +2,14 @@ package com.xczhihui.medical.anchor.model;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
 @TableName("collection_course_apply_update_date")
-public class CollectionCourseApplyUpdateDate implements Serializable {
+public class CollectionCourseApplyUpdateDate extends Model<CollectionCourseApplyUpdateDate> {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -52,5 +53,10 @@ public class CollectionCourseApplyUpdateDate implements Serializable {
 
     public void setDate(Integer date) {
         this.date = date;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
     }
 }

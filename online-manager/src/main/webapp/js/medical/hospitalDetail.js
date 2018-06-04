@@ -28,31 +28,19 @@ $(function() {
 		data:{medicalHospitalId:$('#courseId').val()},
 		success:function(data){
 			if (data.success) {
-				;
 				for(var i in data.resultObject.picture){
                     $('#edit_smallImgPath'+i).val(data.resultObject.picture[i].picture);
                     reviewImage("edit_smallImgPath"+i, data.resultObject.picture[i].picture);
 				}
-                // if(data.resultObject.picture.length>0){
-					// $('#edit_smallImgPath0').val(data.resultObject.picture[0].picture);
-					// reviewImage("edit_smallImgPath0", data.resultObject.picture[0].picture);
-                // }
-                // if(data.resultObject.picture.length>1){
-                //     $('#edit_smallImgPath1').val(data.resultObject.picture[1].picture);
-                //     reviewImage("edit_smallImgPath1", data.resultObject.picture[1].picture);
-                // }
-                // if(data.resultObject.picture.length>2){
-                //     $('#edit_smallImgPath2').val(data.resultObject.picture[2].picture);
-                //     reviewImage("edit_smallImgPath2", data.resultObject.picture[2].picture);
-                // }
-                // if(data.resultObject.picture.length>3){
-                //     $('#edit_smallImgPath3').val(data.resultObject.picture[3].picture);
-                //     reviewImage("edit_smallImgPath3", data.resultObject.picture[3].picture);
-                // }
-                // if(data.resultObject.picture.length>4){
-                //     $('#edit_smallImgPath4').val(data.resultObject.picture[4].picture);
-                //     reviewImage("edit_smallImgPath4", data.resultObject.picture[4].picture);
-                // }
+                var sourceId = $('#sourceId').val();
+                if(sourceId!="null"&&sourceId!=null){
+                    $(".remove").css("cssText","display: none!important");
+                    $("#okbt").hide();
+                }else {
+                    $("#okbt").show();
+                    $(".remove").css("cssText","display: block!important");
+                }
+
 			}
 		}
 	});

@@ -74,6 +74,15 @@ header{
     text-indent: 0.26rem;
 
 }
+.recruit p{
+    font-size: 0.26rem;
+}
+.recruit div{
+    font-size: 0.26rem;
+}
+.recruit span{
+    font-size: 0.26rem;
+}
 /*简介开始*/
 .site{
 	width: 100%;

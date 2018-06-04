@@ -38,7 +38,6 @@ public class JdbcUtil {
 			connection.setAutoCommit(true);
 			connection.setReadOnly(false);
 			map.put("default", connection);
-			System.out.println("获取连接"+connection.hashCode());
 			currentConnections.set(map);
 		} catch (SQLException e1) {
 			e1.printStackTrace();

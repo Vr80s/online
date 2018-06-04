@@ -79,6 +79,13 @@ public class DoctorController extends AbstractController {
         }
         request.setAttribute("doctor", doctor);
 
+        //String doctorId = request.getParameter("doctorId");
+        String mdaiId = request.getParameter("mdaiId");
+
+
+        request.setAttribute("doctorId", doctorId);
+        request.setAttribute("mdaiId", mdaiId);
+
         return CLOUD_CLASS_PATH_PREFIX + "/doctorInfo";
     }
 
