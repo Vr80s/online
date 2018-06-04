@@ -4,8 +4,11 @@ import static com.xczh.consumer.market.utils.ResponseObject.tokenBlankError;
 import static com.xczh.consumer.market.utils.ResponseObject.tokenExpired;
 import static com.xczhihui.common.util.enums.UserUnitedStateType.GO_TO_BIND;
 import static com.xczhihui.common.util.enums.UserUnitedStateType.OVERDUE;
+import static com.xczhihui.common.util.enums.UserUnitedStateType.WEIXIN_AUTH;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +49,12 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private static final String TOKEN_PARAM_NAME = "token";
     private static final String APP_UNIQUE_ID_PARAM_NAME = "appUniqueId";
     private static final String ENTER_HTML_URL = "/xcview/html/enter.html";
-    private static final String EVPI_HTML_URL = "/xcview/html/evpi.html?jump_type=1";
+    private static final String EVPI_HTML_URL = "/xcview/html/evpi.html";
+    private static final String WEIXIN_AUTH_CALLBACK = "/xczh/wxlogin/middle?url=";
+    private static final String USER_AGENT_HEADER_NAME = "User-Agent";
+    private static final String X_REQUEST_WITH_HEADER_NAME = "x-requested-with";
+    private static final String XML_HTTP_REQUEST = "XMLHttpRequest";
+    private static final String MICRO_MESSENGER = "micromessenger";
 
     private static List<String> noNeedAuthPaths = Arrays.asList("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
             "/xczh/wxlogin/**", "/xczh/weibo/**", "/xczh/third/**", "/xczh/wxpublic/**", "/xczh/alipay/alipayNotifyUrl",
@@ -99,11 +107,11 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
                     redisToken = userCenterService.getToken(token.getTicket());
                 }
                 boolean isAjax = isAjax(request);
+                boolean isWeixin = isWeixin(request);
                 if (token == null || redisToken == null) {
-                    ThirdFlag thirdFlag = UCCookieUtil.readThirdPartyCookie(request);
-                    if (thirdFlag != null && token == null) {
-                        redirectUrl = request.getContextPath() + EVPI_HTML_URL;
-                        responseObject = ResponseObject.newErrorResponseObject(null, GO_TO_BIND.getCode());
+                    if (isWeixin) {
+                        redirectUrl = request.getContextPath() + WEIXIN_AUTH_CALLBACK + URLEncoder.encode(request.getServletPath(), "UTF-8");
+                        responseObject = ResponseObject.newErrorResponseObject(null, WEIXIN_AUTH.getCode());
                     } else {
                         redirectUrl = request.getContextPath() + ENTER_HTML_URL;
                         responseObject = ResponseObject.newErrorResponseObject(null, OVERDUE.getCode());
@@ -142,8 +150,13 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     }
 
     private boolean isAjax(HttpServletRequest request) {
-        return request.getHeader("x-requested-with") != null
-                && "XMLHttpRequest".equalsIgnoreCase(request.getHeader("x-requested-with"));
+        return request.getHeader(X_REQUEST_WITH_HEADER_NAME) != null
+                && XML_HTTP_REQUEST.equalsIgnoreCase(request.getHeader(X_REQUEST_WITH_HEADER_NAME));
+    }
+
+    private boolean isWeixin(HttpServletRequest request) {
+        String header = request.getHeader(USER_AGENT_HEADER_NAME).toLowerCase();
+        return header.contains(MICRO_MESSENGER);
     }
 
     private boolean isExcludePath(HttpServletRequest request) {
