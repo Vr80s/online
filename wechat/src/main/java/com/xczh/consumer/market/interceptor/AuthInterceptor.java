@@ -6,6 +6,7 @@ import static com.xczhihui.common.util.enums.UserUnitedStateType.GO_TO_BIND;
 import static com.xczhihui.common.util.enums.UserUnitedStateType.OVERDUE;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.ImmutableList;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
@@ -48,7 +48,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private static final String ENTER_HTML_URL = "/xcview/html/enter.html";
     private static final String EVPI_HTML_URL = "/xcview/html/evpi.html?jump_type=1";
 
-    private static List<String> noNeedAuthPaths = ImmutableList.of("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
+    private static List<String> noNeedAuthPaths = Arrays.asList("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
             "/xczh/wxlogin/**", "/xczh/weibo/**", "/xczh/third/**", "/xczh/wxpublic/**", "/xczh/alipay/alipayNotifyUrl",
             "/bxg/wxpay/wxNotify", "/xczh/alipay/pay", "/xczh/alipay/rechargePay", "/xczh/criticize/getCriticizeList",
             "/xczh/ccvideo/palyCode", "/xczh/wechatJssdk/certificationSign", "/xczh/medical/applyStatus", "/xczh/manager/home",
