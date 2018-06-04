@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
@@ -20,7 +21,7 @@ public class WechatConfig {
     private String secret;
 
     @Bean
-    public WxMpInMemoryConfigStorage wxMpInMemoryConfigStorage() {
+    public WxMpConfigStorage wxMpConfigStorage() {
         WxMpInMemoryConfigStorage wxMpInMemoryConfigStorage = new WxMpInMemoryConfigStorage();
         wxMpInMemoryConfigStorage.setAppId(appId);
         wxMpInMemoryConfigStorage.setSecret(secret);
@@ -28,9 +29,9 @@ public class WechatConfig {
     }
 
     @Bean
-    public WxMpService wxMpService(WxMpInMemoryConfigStorage wxMpInMemoryConfigStorage) {
+    public WxMpService wxMpService(WxMpConfigStorage wxMpConfigStorage) {
         WxMpService wxMpService = new WxMpServiceImpl();
-        wxMpService.setWxMpConfigStorage(wxMpInMemoryConfigStorage);
+        wxMpService.setWxMpConfigStorage(wxMpConfigStorage);
         return wxMpService;
     }
 }

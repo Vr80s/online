@@ -34,6 +34,7 @@ import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
 
+import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
@@ -59,6 +60,9 @@ public class WeChatThirdPartyController {
 
     @Autowired
     private WxMpService wxMpService;
+
+    @Autowired
+    private WxMpConfigStorage wxMpConfigStorage;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -217,7 +221,7 @@ public class WeChatThirdPartyController {
                 nickname = SLEmojiFilter.filterEmoji(nickname);
                 WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
                 wxcpClientUserWxMapping.setWx_id(CodeUtil.getRandomUUID());
-                wxcpClientUserWxMapping.setWx_public_id(wxMpService.getWxMpConfigStorage().getAppId());
+                wxcpClientUserWxMapping.setWx_public_id(wxMpConfigStorage.getAppId());
                 wxcpClientUserWxMapping
                         .setWx_public_name(WxPayConst.appid4name);
                 wxcpClientUserWxMapping.setOpenid(openid);

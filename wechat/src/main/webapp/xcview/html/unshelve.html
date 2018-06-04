@@ -27,8 +27,47 @@
 	    }
 	}	
 </script>
+<style>
+	.course_list_mark{
+		width: 0.9rem;
+	    background: #F97B49;
+	    border-radius: 4px;
+	    text-align: center;
+	    font-size: 0.22rem;
+	    color: #fff;
+	    padding: 0 0.05rem;
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	}
+	.recommend{
+		font-size: 0.32rem;
+	    color: #333;
+	    margin-left: 0.26rem;
+	    margin-top: 0.8rem;
+    	padding-top: 0.2rem;
+    	padding-bottom: 0.2rem;
+	}
+	.course_list_main{
+		margin-top: 0rem;
+	    padding-top: 0rem;
+	}
+	.baseimagenumber{
+		width: 2rem;
+		height: 2rem;
+		line-height: 4.8rem;
+		background: url(../images/soldout.png) no-repeat center;
+		background-size: 100% 100%;
+		color: #999;
+    	font-size: 0.22rem;
+    	margin: 0 auto;
+	    margin-top: 1.3rem;
+	    text-align: center;
+	    
+	}
+</style>
 </head>
-<body style="background:#efefef;" class="mui-ios mui-ios-11 mui-ios-11-0">
+<body style="background:#f8f8f8;" class="mui-ios mui-ios-11 mui-ios-11-0">
 	<!-- 头部开始 -->
 	<header>
 		<div class="header">
@@ -36,15 +75,17 @@
 			<div class="header_return" onclick="javascript:history.go(-1);">
 				<img src="/xcview/images/back icon.png">
 			</div>
-			<div class="header_title">主播课程</div>
+			<div class="header_title">课程已下架</div>
 		</div>
 	</header>
 	<!-- 头部结束 -->
 	<!-- 中间内容开始 -->
 	  <div class="mui-scroll">
+	  		<div class="baseimagenumber">课程已下架</div>
 	   	    <!--数据列表-->
 	   	    <!--列表内容开始-->
 	   	    <div class="course_list">
+	   	    	<div class="recommend">为您推荐</div>
 	   	    	<div class="course_list_main" id="course_list_main">   
 	   	    		<div class="course_list_main_one div">
 	   	    			<!--跳转-->
@@ -54,6 +95,7 @@
 	   	    			<div class="course_list_one_img">
         					<img src="/xcview/images/Sinatv_auto.png" alt="" class="img0">
 	   	    				<img src="http://test-file.ipandatcm.com/18525190326/1603a80f1f384403.jpg?imageView2/2/w/339" class="img1">
+	   	    				<div class="course_list_mark">直播中</div>
 	   	    			</div>
 	   	    			<div class="course_list_one_title">副局级</div>
 	   	    			<div class="course_list_one_title_name">默默</div>
@@ -110,7 +152,7 @@
 	   	    			<div class="course_list_one_title">5.28视频收费1</div>
 	   	    			<div class="course_list_one_title_name">默默</div>
 	   	    			<div class="course_list_main_cen_one">
-							<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top:0.5rem;">1</span><span class="span0_span">熊猫币</span></p>
+							<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top:0.04rem;">1</span><span class="span0_span">熊猫币</span></p>
 	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>4</span></p>
 	   	    			</div>
 	   	    		</div>
@@ -146,7 +188,7 @@
 	   	    			<div class="course_list_one_title_name">默默</div>
 	   	    			
 	   	    			<div class="course_list_main_cen_one">
-							<p class="p0" style="margin-top: -0.02rem;"><span>2</span><span class="span0_span">熊猫币</span></p>
+							<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top:0.04rem;">2</span><span class="span0_span">熊猫币</span></p>
 	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>2</span></p>
 	   	    			</div>
 	   	    		</div>
@@ -164,7 +206,7 @@
 	   	    			<div class="course_list_one_title_name">默默</div>
 	   	    			
 	   	    			<div class="course_list_main_cen_one">
-	   	    				<p class="p0" style="margin-top: -0.02rem;"><span>1</span><span class="span0_span">熊猫币</span></p>
+	   	    				<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top:0.04rem;">1</span><span class="span0_span">熊猫币</span></p>
 	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>4</span></p>
 	   	    				<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>天津市</span></p>
 	   	    			</div>
